@@ -125,7 +125,7 @@
   only, so the boundary for that particular theorem is finite isometry extension alone. The
   project's global boundary remains exactly four items and no more: compact Lie
   integration, finite isometry extension, PSD square-root/factorization, and finite
-  Uhlmann/Schmidt uniqueness.
+  Uhlmann/Schmidt uniqueness. [HISTORICAL, SUPERSEDED BY THE ROUND-35 BOUNDARY AUDIT: PSD square-root/factorization was discharged internally in round thirty-four (`psdFactorization_of_spectral`), so the current unresolved boundary is three items — see `BoundaryAudit.lean`.]
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
@@ -666,21 +666,21 @@ def HasCompositeUnitaryControl (T : FiniteOperationalTheory A) : Prop :=
   ∀ (n : ℕ) (U : Matrix (A × Fin n) (A × Fin n) ℂ), Uᴴ * U = 1 →
     T.availExt n Unit (fun _ => conjChannel U)
 
-/-- **THE PURE SEED IS DERIVED, NOT ASSUMED.** Round twenty-one's construction, lifted to
-the operational structure: attach a MAXIMALLY MIXED ancilla, read it in the fixed basis,
-apply the outcome-dependent reversible correction swapping the observed level to `k₀`, and
-forget which outcome occurred. Each branch `ρ ⊗ |k⟩⟨k|/n` is corrected to
-`ρ ⊗ |k₀⟩⟨k₀|/n`, and the `n` branches sum to `ρ ⊗ |k₀⟩⟨k₀|`.
-
-So `H-pure-seed` appears NOWHERE in `FiniteOperationalTheory`: the only preparation
-assumed is the uniform attachment, and the pure attachment is a theorem. -/
-theorem pureSeedPrep_available (T : FiniteOperationalTheory A)
-    (hctrl : HasCompositeUnitaryControl T) (n : ℕ) (k₀ : Fin (n + 1)) :
+/-- **ONLY THE ANCILLA SWAPS ARE CONSUMED.** The pure-seed derivation uses composite unitary
+control at exactly one point: to make the outcome-dependent correction `k ↦ k₀` available.
+Stated with that hypothesis and nothing else, so the premise is visible and minimal — read
+the uniform ancilla, apply the swap correction, forget the outcome, and the `n+1` branches
+`ρ ⊗ |k⟩⟨k| / (n+1)` sum to `ρ ⊗ |k₀⟩⟨k₀|`. The hypothesis is LOCALIZED to the ancilla size
+and target level actually used, so a theory needs no swap control at any other size. -/
+theorem pureSeedPrep_available_of_swap (T : FiniteOperationalTheory A) (n : ℕ)
+    (k₀ : Fin (n + 1))
+    (hswap : ∀ k : Fin (n + 1), T.availExt (n + 1) Unit
+      (fun _ => conjChannel (CoherentLift.permMatrix (ancSwap (A := A) (n + 1) k k₀)))) :
     T.prepAvail (n + 1) (pureAttach (n + 1) k₀) := by
   have hbind := T.availExt_bind (n + 1) (Fin (n + 1)) Unit (T.readout (n + 1))
     (fun k _ => conjChannel (CoherentLift.permMatrix (ancSwap (A := A) (n + 1) k k₀)))
     (T.readout_avail (n + 1))
-    (fun k => hctrl (n + 1) _ (ancSwap_unitary (n + 1) k k₀))
+    (fun k => hswap k)
   have hco := T.availExt_coarse (n + 1) (Fin (n + 1) × Unit) Unit _
     (fun _ => (() : Unit)) hbind
   rw [show (fun a : Unit => ∑ j ∈ Finset.univ.filter
@@ -721,6 +721,34 @@ theorem pureSeedPrep_available (T : FiniteOperationalTheory A)
       one_smul, pureAttach_apply]
   rw [← hfin]
   exact hpost
+
+
+/-- **ANCILLA SWAP CONTROL**, as a named principle: the outcome-dependent corrections
+`k ↦ k₀` are available on every finite ancilla, with the system factor untouched. This is
+what the pure-seed derivation actually needs. -/
+def HasAncillaSwapControl (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (n : ℕ) (k k₀ : Fin n), T.availExt n Unit
+    (fun _ => conjChannel (CoherentLift.permMatrix (ancSwap (A := A) n k k₀)))
+
+/-- Composite unitary control gives swap control, since the swaps are unitaries. The
+converse is not proved and not claimed. -/
+theorem compositeControl_hasSwapControl (T : FiniteOperationalTheory A)
+    (hctrl : HasCompositeUnitaryControl T) : HasAncillaSwapControl T :=
+  fun n k k₀ => hctrl n _ (ancSwap_unitary n k k₀)
+
+/-- **NO PURE SEED IS ASSUMED** (round 25c), now with the weakest premise the derivation
+uses: swap control alone, not full composite unitary control. -/
+theorem pureSeedPrep_available (T : FiniteOperationalTheory A)
+    (hctrl : HasCompositeUnitaryControl T) (n : ℕ) (k₀ : Fin (n + 1)) :
+    T.prepAvail (n + 1) (pureAttach (n + 1) k₀) :=
+  pureSeedPrep_available_of_swap T n k₀
+    (fun k => compositeControl_hasSwapControl T hctrl (n + 1) k k₀)
+
+/-- The same, from the named principle. -/
+theorem pureSeedPrep_available_of_swapControl (T : FiniteOperationalTheory A)
+    (hswap : HasAncillaSwapControl T) (n : ℕ) (k₀ : Fin (n + 1)) :
+    T.prepAvail (n + 1) (pureAttach (n + 1) k₀) :=
+  pureSeedPrep_available_of_swap T n k₀ (fun k => hswap (n + 1) k k₀)
 
 /-- **THE CIRCUIT IS AVAILABLE.** Prepare an ancilla by any AVAILABLE preparation, run any
 composite unitary, read the ancilla in its fixed basis, and discard it: the closure rules
@@ -793,7 +821,10 @@ theorem circuit_branch (n : ℕ) (k₀ k : Fin n)
 #print axioms readout_is_localLuders
 #print axioms conj_ancSwap_single
 #print axioms localLuders_uniform
+#print axioms pureSeedPrep_available_of_swap
+#print axioms compositeControl_hasSwapControl
 #print axioms pureSeedPrep_available
+#print axioms pureSeedPrep_available_of_swapControl
 #print axioms circuit_available
 #print axioms circuit_available_pureSeed
 #print axioms circuit_branch

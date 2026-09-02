@@ -86,6 +86,11 @@ widened by this milestone:
 3. PSD square-root / factorization,
 4. finite Uhlmann / Schmidt uniqueness.
 
+> **Historical, superseded by the Round 35 boundary audit.** Item 3 was discharged internally in
+> Round 34 (`psdFactorization_of_spectral`, `DimensionalCountermodel.lean`); the current unresolved
+> external boundary is three items (1, 2, 4 above). See `BoundaryAudit.lean`. The four-item
+> statement is preserved here as the record of the boundary at the time of this milestone.
+
 **This reconstruction uses only item 2.** Purification and Uhlmann uniqueness are not used:
 the assembly needs pure seed, Stinespring, unitary control and local readout only, and the
 first of those is itself derived. Items 1, 3 and 4 are untouched by

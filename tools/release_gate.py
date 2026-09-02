@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """release_gate.py - one entry point for every pre-release check.
 
-Eleven checks accumulated over the correction rounds, none of which subsumes
+Twelve checks accumulated over the correction rounds, none of which subsumes
 another. Each exists because a real defect shipped past the others:
 
   toolchain_check      build.sh went missing and the duplicate unicode-fix
@@ -22,6 +22,13 @@ another. Each exists because a real defect shipped past the others:
   duplicate_check      a scope note pasted at the head of every file put 16
                        identical copies inside the assembled book, and an
                        entire 8.6 section was duplicated in one paper.
+  lean_axiom_check     a round shipped six results carrying sorryAx while a grep
+                       over the build output reported the file clean: lake prints
+                       the severity before the filename, so a pattern anchored on
+                       FILE:LINE:COL matched nothing and silence read as success.
+                       This check reads `#print axioms` -- the kernel's own report
+                       -- and fails on the literal token sorryAx regardless of how
+                       the surrounding diagnostics are laid out.
   coverage_check       theorems accumulated in the papers with no executable or
                        kernel coverage and nothing noticed, because every other
                        check compares artifacts to sources and none of them asks
@@ -77,6 +84,18 @@ def main():
         # This is the check against a proof that ships without ever being wired to
         # anything -- which no other check here can see.
         ("coverage",  [sys.executable, "tools/coverage_check.py"]),
+        # lean-axioms: proof health read from `#print axioms`, the kernel's own
+        # report, plus a hard fail on the literal token `sorryAx` anywhere in the
+        # captured build output. This exists because a grep anchored on Lean's
+        # diagnostic layout reported a file clean while six of its results
+        # carried sorryAx -- lake prints the severity BEFORE the filename, so the
+        # pattern matched nothing and silence read as success. Diagnostic
+        # formatting is not a contract; the axiom report is.
+        # --require-lake: without it a missing toolchain prints SKIPPED and exits 0,
+        # which this runner would score as PASS. The gate must not report a
+        # kernel-health check it never ran.
+        ("lean-axioms",
+                      [sys.executable, "tools/lean_axiom_check.py", "--require-lake"]),
     ]
     # baselines are named in the TRANSFER's docs, not the manuscript tree, so
     # point the label check there when a transfer path is supplied

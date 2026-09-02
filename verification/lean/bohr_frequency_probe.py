@@ -4782,7 +4782,9 @@ check("F39", ok39,
       "quantum instruments unqualified. The one external fact, finite isometry extension, "
       "is an explicit HYPOTHESIS of the capstone rather than an axiom in the file; here it "
       "is sidestepped entirely by constructing U first. Purification and Uhlmann uniqueness "
-      "are NOT used, and the project's global boundary remains the four-item ledger.")
+      "are NOT used, and the project's global boundary remains the four-item ledger. "
+      "(HISTORICAL, SUPERSEDED BY THE ROUND-35 BOUNDARY AUDIT: three items since round 34 "
+      "discharged PSD factorization internally.)")
 
 
 # ----------------------- F40  round 26: Kraus soundness and exactness -- the trace identity
@@ -4919,6 +4921,2928 @@ check("F40", ok40,
       "completions of OI intervention words while FiniteOperationalTheory speaks about "
       "operational circuits, and those are not yet one object.")
 
+
+# ----------------------- F41  round 27: the composite-soundness audit -- discard is
+# trace-transparent, Kraus implies CP, and the transpose finally refuted (phase three,
+# round twenty-seven).
+ok41 = True
+
+
+def choi41(phi, d=2):
+    """choiMatrix phi (s,a) (t,b) = phi(single s t 1) a b, indexed p = d*s + a."""
+    out = [[CZ17] * (d * d) for _ in range(d * d)]
+    for s in range(d):
+        for t in range(d):
+            im = phi([[CO17 if (r, c) == (s, t) else CZ17 for c in range(d)]
+                      for r in range(d)])
+            for a in range(d):
+                for b in range(d):
+                    out[d * s + a][d * t + b] = im[a][b]
+    return out
+
+
+def qform41(C, v):
+    return sum((v[r].conj() * C[r][c] * v[c]
+                for r in range(len(C)) for c in range(len(C))), CZ17)
+
+
+# --- (a) DISCARD IS TRACE-TRANSPARENT, so whatever a composite map does to the trace is
+# visible on the system: this is what makes every trace-based witness exposed.
+for _M in (Mg38, run39, unif38, prep39):
+    ok41 &= trace40(ptraceAnc38(_M)) == trace40(_M)
+# a composite map that doubles the trace is therefore doubled after the discard too --
+# it cannot hide in the composite sector at any preparation
+for _rho in (rho39, rho38):
+    _P = tensor38(_rho, [[half38 if r == c else CZ17 for c in range(2)] for r in range(2)])
+    _dbl = [[_P[r][c] * C17(2) for c in range(4)] for r in range(4)]
+    ok41 &= trace40(ptraceAnc38(_dbl)) == trace40(_dbl) == trace40(_rho) + trace40(_rho)
+    ok41 &= trace40(ptraceAnc38(_dbl)) != trace40(_rho)
+
+# --- (b) KRAUS IMPLIES CP, as the EXACT matrix identity the kernel proof turns on: the
+# Choi matrix of conjugation by V is the outer product of w(s,a) = V[a][s] with itself.
+# This is the easy direction; the converse needs PSD factorization and is not used.
+for _V in (R1_39, KR39[0], KR39[1],
+           [[C17(Frac(1, 2)), C17(0, Frac(1, 3))], [C17(Frac(-2, 5)), C17(Frac(3, 7))]]):
+    _C = choi41(lambda X, V=_V: mmc17(mmc17(V, X), dag17(V)))
+    _w = [_V[p & 1][p >> 1] for p in range(4)]
+    ok41 &= _C == [[_w[r] * _w[c].conj() for c in range(4)] for r in range(4)]
+    # and the quadratic form is nonnegative in every rational direction tried, as it must be
+    for _v in ([CO17, CZ17, CZ17, CZ17], [CZ17, CO17, C17(-1), CZ17],
+               [C17(Frac(1, 3)), C17(0, 1), C17(-2), C17(Frac(5, 7), Frac(-1, 2))]):
+        _q = qform41(_C, _v)
+        ok41 &= _q.im == Frac(0) and _q.re >= 0
+# a Kraus BRANCH is a sum of such outer products, so its Choi is a sum of them exactly
+_Cbr = choi41(lambda X: [[sum((mmc17(mmc17(KR39[k], X), dag17(KR39[k]))[r][c]
+                               for k in range(2)), CZ17) for c in range(2)]
+                         for r in range(2)])
+_Csum = [[sum((KR39[k][r & 1][r >> 1] * KR39[k][c & 1][c >> 1].conj()
+               for k in range(2)), CZ17) for c in range(4)] for r in range(4)]
+ok41 &= _Cbr == _Csum
+
+# --- (c) THE TRANSPOSE, FINALLY REFUTED.  It is trace-preserving, so round 26's identity
+# misses it; its Choi matrix is the swap, whose value on e_(0,1) - e_(1,0) is -2, so the
+# CP test catches it.  Two independent refutation tools, neither consuming an external fact.
+for _X in XS40:
+    ok41 &= trace40(transpose40(_X)) == trace40(_X)
+CT41 = choi41(transpose40)
+ok41 &= CT41 == [[CO17 if ((r >> 1) == (c & 1) and (c >> 1) == (r & 1)) else CZ17
+                  for c in range(4)] for r in range(4)]
+VT41 = [CZ17, CO17, C17(-1), CZ17]
+ok41 &= qform41(CT41, VT41) == C17(-2)
+# the four-entry expansion the kernel lemma uses: C p p - C p q - C q p + C q q
+ok41 &= qform41(CT41, VT41) == CT41[1][1] - CT41[1][2] - CT41[2][1] + CT41[2][2]
+# and the same expansion is what the Kraus Choi passes: nonnegative on that direction
+ok41 &= all(qform41(choi41(lambda X, V=_V: mmc17(mmc17(V, X), dag17(V))), VT41).re >= 0
+            for _V in (R1_39, KR39[0], KR39[1]))
+check("F41", ok41,
+      "ROUND 27: THE COMPOSITE-SOUNDNESS AUDIT (phase three, round twenty-seven; kernel: "
+      "IsKrausFamily, isKrausFamily_iff, KrausSoundExt, krausSound_exposedComposite, "
+      "ptraceAnc_trace, discardWith_trace, not_kraus_of_trace_ne, "
+      "traceWitness_exposed_on_reachable, posSemidef_sum, choiMatrix_finsum, conjChannel_cp, "
+      "krausFamily_cp, exposedComposite_cp, form_of_two_singles, transposeMap_trace, "
+      "transposeMap_not_cp, transposeMap_not_kraus in OIBridge/CompositeSoundness.lean). "
+      "Round 26 proves exactness for the base system's avail and says nothing directly about "
+      "availExt n on A x Fin n, so its endpoint is exact finite endomorphic QM ON THE SYSTEM "
+      "A, not yet the claim that the whole system+ancilla theory is exactly finite QM. This "
+      "round settles what can be settled. WHAT SYSTEM SOUNDNESS FORCES FOR FREE: "
+      "prepAvail_discard already makes prepare-operate-discard an available SYSTEM "
+      "instrument, so krausSound_exposedComposite gives every composite process visible "
+      "through an admissible context a Kraus representation on A -- no new hypothesis. WHICH "
+      "SURPLUS THAT RULES OUT: verified here that the partial trace preserves the trace "
+      "exactly, so a composite map that scales the trace is scaled identically after the "
+      "discard. READ THE QUANTIFIERS: the kernel theorem assumes a violation ALREADY "
+      "OCCURRING ON THE REACHABLE STATE P rho, so what is proved is that no trace violation "
+      "can hide on the operationally reachable preparation image -- NOT that every composite "
+      "surplus must globally preserve the trace. A surplus confined to a sector no available "
+      "preparation reaches may violate the trace there and stay invisible; that route is left "
+      "open, and it is the one the next round should try. THE SECOND REFUTATION TOOL: Kraus implies CP, verified here "
+      "as the exact matrix identity the kernel proof turns on -- the Choi matrix of "
+      "conjugation by V is the outer product of w(s,a) = V[a][s] with itself, checked for "
+      "four different V, with the quadratic form nonnegative (zero imaginary part, "
+      "nonnegative real part) in every rational direction tried, and a Kraus branch's Choi "
+      "checked equal to the exact sum of such outer products. NOTE THE DIRECTION: this is "
+      "Kraus => CP, a computation; the converse needs PSD factorization and is NOT used, so "
+      "the external boundary is untouched. THE TRANSPOSE IS FINALLY REFUTED: trace-preserving "
+      "on every test matrix, so round 26's identity misses it, while its Choi matrix is the "
+      "swap and the direction e_(0,1) - e_(1,0) gives exactly -2, so the CP test catches it. "
+      "The four-entry expansion C p p - C p q - C q p + C q q that the kernel lemma "
+      "form_of_two_singles proves is checked to agree with the full quadratic form, and to "
+      "come out nonnegative on the Kraus side. NOT SETTLED, and nothing asserts it either "
+      "way: whether KrausSound T implies KrausSoundExt T. The shape a real countermodel must "
+      "have is now visible -- a map acting exactly quantumly on everything obtainable from the "
+      "allowed preparation and closure machinery, with its bad component confined to ancilla "
+      "coherences no available preparation produces and the discard annihilates. Note that "
+      "HasCompositeUnitaryControl is NOT a structure field, so such a theory may withhold "
+      "precisely the unitaries that would rotate the invisible sector into the preparation "
+      "image -- building it is a round of its own.")
+
+
+# ----------------------- F42  round 28: the fork settled -- system exactness does NOT force
+# composite exactness, by an explicit theory whose surplus lives on an unreachable sector
+# (phase three, round twenty-eight).
+ok42 = True
+
+
+def blockop42(al, ga, M):
+    """blockOp: multiply ancilla-diagonal block k by ga[k], everything else by al."""
+    return [[(ga[r & 1] if (r & 1) == (c & 1) else al) * M[r][c] for c in range(4)]
+            for r in range(4)]
+
+
+def uniform42(rho):
+    half = C17(Frac(1, 2))
+    return [[rho[r >> 1][c >> 1] * (half if (r & 1) == (c & 1) else CZ17)
+             for c in range(4)] for r in range(4)]
+
+
+BAD42 = (C17(2), [CO17, CO17])                # badOp = blockOp 2 1
+
+# --- (a) THE PREPARATION IMAGE IS ANCILLA-DIAGONAL, which is what makes the surplus
+# unreachable: the only preparation the theory grants produces no ancilla coherence at all.
+for _rho in (rho39, rho38):
+    U42 = uniform42(_rho)
+    ok42 &= all(U42[r][c] == CZ17 for r in range(4) for c in range(4)
+                if (r & 1) != (c & 1))
+    # --- (b) AND THE SURPLUS IS INVISIBLE THROUGH IT: discard after badOp is the identity
+    ok42 &= ptraceAnc38(blockop42(BAD42[0], BAD42[1], U42)) == _rho
+    ok42 &= ptraceAnc38(U42) == _rho
+# --- (c) BUT THE SURPLUS IS NOT THE IDENTITY: it doubles every ancilla coherence, which is
+# invisible only because nothing available produces one
+COH42 = [[C17(Frac(1, 3)) if (r, c) in ((0, 1), (1, 0)) else CZ17 for c in range(4)]
+         for r in range(4)]
+ok42 &= blockop42(BAD42[0], BAD42[1], COH42) != COH42
+ok42 &= blockop42(BAD42[0], BAD42[1], COH42)[0][1] == COH42[0][1] * C17(2)
+# and it is trace preserving, so the round-26 trace identity cannot see it either
+for _M in (COH42, uniform42(rho39), Mg38):
+    ok42 &= trace40(blockop42(BAD42[0], BAD42[1], _M)) == trace40(_M)
+
+# --- (d) THE COEFFICIENT LAWS the closure rules rest on: composition multiplies and sums
+# add, exactly, so the available set really is closed under bind and coarse-graining.
+A42, G42 = C17(Frac(2, 3), Frac(1, 5)), [C17(Frac(3, 7)), C17(0, Frac(-1, 2))]
+B42, D42 = C17(Frac(-1, 4), 1), [C17(2), C17(Frac(5, 9), Frac(1, 3))]
+for _M in (Mg38, COH42, uniform42(rho38)):
+    ok42 &= blockop42(A42, G42, blockop42(B42, D42, _M)) \
+        == blockop42(A42 * B42, [G42[k] * D42[k] for k in range(2)], _M)
+    lhs42 = blockop42(A42, G42, _M)
+    rhs42 = blockop42(B42, D42, _M)
+    ok42 &= [[lhs42[r][c] + rhs42[r][c] for c in range(4)] for r in range(4)] \
+        == blockop42(A42 + B42, [G42[k] + D42[k] for k in range(2)], _M)
+
+# --- (e) NOT COMPLETELY POSITIVE.  Choi of badOp, and the direction that sees it.
+CB42 = [[CZ17] * 16 for _ in range(16)]
+for P1 in range(4):
+    for Q1 in range(4):
+        im42 = blockop42(BAD42[0], BAD42[1],
+                         [[CO17 if (r, c) == (P1, Q1) else CZ17 for c in range(4)]
+                          for r in range(4)])
+        for P2 in range(4):
+            for Q2 in range(4):
+                CB42[4 * P1 + P2][4 * Q1 + Q2] = im42[P2][Q2]
+# the kernel lemma's entry formula: 1 on a matched ancilla-diagonal pair, 2 on a matched
+# coherence pair, 0 off the matched pairs
+ok42 &= all(CB42[4 * P1 + P2][4 * Q1 + Q2]
+            == (CO17 if (P2 & 1) == (Q2 & 1) else C17(2))
+            * (CO17 if (P1 == P2 and Q1 == Q2) else CZ17)
+            for P1 in range(4) for P2 in range(4) for Q1 in range(4) for Q2 in range(4))
+# and the direction e_((s,0),(s,0)) - e_((s,1),(s,1)) at s = 0: indices 0 and 5
+ok42 &= CB42[0][0] == CO17 and CB42[0][5] == C17(2)
+ok42 &= CB42[5][0] == C17(2) and CB42[5][5] == CO17
+ok42 &= CB42[0][0] - CB42[0][5] - CB42[5][0] + CB42[5][5] == C17(-2)
+V42 = [CZ17] * 16
+V42[0], V42[5] = CO17, C17(-1)
+ok42 &= qform41(CB42, V42) == C17(-2)
+
+# --- (f) THE SYSTEM SECTOR IS STILL SOUND: a nonnegative weight family summing to one,
+# times the identity, really is a normalized Kraus instrument K_a = sqrt(w_a) . 1.
+W42 = [Frac(9, 25), Frac(16, 25)]
+SQ42 = [C17(Frac(3, 5)), C17(Frac(4, 5))]
+ok42 &= sum(W42, Frac(0)) == Frac(1)
+gr42 = [[CZ17] * 2 for _ in range(2)]
+for a in range(2):
+    Ka = [[SQ42[a] if r == c else CZ17 for c in range(2)] for r in range(2)]
+    g = mmc17(dag17(Ka), Ka)
+    gr42 = [[gr42[r][c] + g[r][c] for c in range(2)] for r in range(2)]
+    # each branch acts as w_a times the identity
+    for _X in XS40:
+        ok42 &= mmc17(mmc17(Ka, _X), dag17(Ka)) \
+            == [[_X[r][c] * C17(W42[a]) for c in range(2)] for r in range(2)]
+ok42 &= gr42 == eye17(2)
+check("F42", ok42,
+      "ROUND 28: THE FORK SETTLED -- SYSTEM EXACTNESS DOES NOT FORCE COMPOSITE EXACTNESS "
+      "(phase three, round twenty-eight; kernel: blockOp, blockOp_one, blockOp_comp, "
+      "blockOp_sum, localLuders_eq_blockOp, uniformAttach_offDiag, blockOp_uniformAttach, "
+      "sum_fibers, ScalarAvail, BlockAvail, SeedAvail, scalarAvail_isKraus, "
+      "hiddenCoherence, hiddenCoherence_krausSound, badOp, badOp_availExt, badOp_invisible, "
+      "badOp_choi, badOp_not_cp, badOp_not_kraus, hiddenCoherence_not_krausSoundExt, "
+      "krausSound_not_implies_krausSoundExt in OIBridge/HiddenCoherence.lean). Round 27 left "
+      "open whether KrausSound T implies KrausSoundExt T. The answer is NO, by construction: "
+      "there is a genuine FiniteOperationalTheory -- every closure rule discharged, the "
+      "derived readout structure intact -- that is exactly quantum on the visible system and "
+      "carries a non-quantum operation on the composite. WHY ROUND 27's EXPOSURE PRINCIPLE "
+      "DOES NOT BLOCK IT: that principle is conditioned on a trace violation occurring on the "
+      "REACHABLE state P rho, and the witness here lives where no available preparation goes. "
+      "Verified here in exact Gaussian rationals: (a) the only granted preparation, the "
+      "uniform attachment, produces NO ancilla coherence at all -- every off-ancilla-diagonal "
+      "entry is exactly zero; (b) the surplus badOp = blockOp 2 1 is INVISIBLE through it -- "
+      "prepare, apply, discard returns rho on the nose, at two different inputs; (c) yet it "
+      "is NOT the identity -- it doubles every ancilla coherence -- and it IS trace "
+      "preserving, so neither round 26's trace identity nor round 27's exposure principle can "
+      "see it; (d) the coefficient laws the closure rules rest on, composition multiplying "
+      "and sums adding, checked exactly on three matrices, which is why availExt_bind and the "
+      "coarse-graining rules go through; (e) it is NOT completely positive -- its Choi matrix "
+      "matches the kernel's entry formula at all 256 index pairs, and the direction "
+      "e_((s,0),(s,0)) - e_((s,1),(s,1)) gives exactly -2, so round 27's Kraus => CP "
+      "direction refutes it; (f) the system sector is still sound -- the weight family "
+      "(9/25, 16/25) with K_a = sqrt(w_a) . 1 has sum_a K_a^dag K_a = I exactly and each "
+      "branch acting as w_a times the identity; (g) and the scalar sector is STRICTLY SMALLER "
+      "than the quantum one -- Ad(R1) is a one-element normalized Kraus family that is not any "
+      "scalar multiple of the identity map, since it gives a diagonal matrix unit a nonzero "
+      "off-diagonal entry -- which is exactly why the soundness-only separation had to be "
+      "strengthened, together with the shared discard computation that sends every block "
+      "family to a scalar one at two coefficient choices. WHAT MAKES THIS LEGITIMATE: "
+      "HasCompositeUnitaryControl is NOT a field of FiniteOperationalTheory, so a theory may "
+      "withhold precisely the unitaries that would rotate the invisible coherence sector into "
+      "the preparation image. The countermodel therefore says nothing against the Kraus "
+      "round; it says composite exactness is a SEPARATE AXIS from system exactness and must "
+      "be asked for rather than buried in a definition. STILL OPEN, and not claimed here: "
+      "what extra richness closes the gap. Composite unitary control plainly does for this "
+      "construction, but that is not proved, and whether something weaker suffices is not "
+      "even formulated.")
+
+# ----------------------- F43  round 29: interference, not merely coherence reachability --
+# the smallest condition that exposes the round-28 surplus (phase three, round twenty-nine).
+ok43 = True
+# The mixer carries a 1/sqrt(2), which is not a Gaussian rational -- but it enters only as
+# H X H^dag = (1/2) hRaw X hRaw^dag, so the whole experiment stays exact over the rationals.
+HRAW43 = [[CO17, CO17], [CO17, C17(-1)]]
+HALF43 = C17(Frac(1, 2))
+
+
+def conjRaw43(X):
+    """H X H^dag with the normalization folded in: (1/2) hRaw X hRaw^dag."""
+    Y = mmc17(mmc17(HRAW43, X), dag17(HRAW43))
+    return [[Y[r][c] * HALF43 for c in range(2)] for r in range(2)]
+
+
+def ancScale43(X):
+    """The round-28 surplus on the ancilla: coherences doubled, diagonal untouched."""
+    return [[X[r][c] * (CO17 if r == c else C17(2)) for c in range(2)] for r in range(2)]
+
+
+SEED43 = [[CO17, CZ17], [CZ17, CZ17]]
+# --- (a) the mixer is unitary up to the normalization: hRaw^dag hRaw = 2 . I
+ok43 &= mmc17(dag17(HRAW43), HRAW43) == [[C17(2), CZ17], [CZ17, C17(2)]]
+# --- (b) THE EXPERIMENT.  seed -> mix -> surplus -> mix.
+T1_43 = conjRaw43(SEED43)
+ok43 &= T1_43 == [[HALF43, HALF43], [HALF43, HALF43]]      # the balanced superposition
+T2_43 = ancScale43(T1_43)
+ok43 &= T2_43 == [[HALF43, CO17], [CO17, HALF43]]          # the surplus doubled the coherence
+T3_43 = conjRaw43(T2_43)
+ok43 &= T3_43[0][0] == C17(Frac(3, 2)) and T3_43[1][1] == C17(Frac(-1, 2))
+ok43 &= T3_43[0][1] == CZ17 and T3_43[1][0] == CZ17
+# --- (c) THE TRACE TEST IS BLIND: the two branches sum to one, so the round-26 identity is
+# satisfied exactly and cannot see the problem.  It is POSITIVITY that catches it.
+ok43 &= T3_43[0][0] + T3_43[1][1] == CO17
+ok43 &= T3_43[1][1].re < 0
+# --- (d) THE CONTROLS.  Neither half of the experiment does it alone.
+ok43 &= ancScale43(SEED43) == SEED43                        # surplus with no coherence: inert
+ok43 &= conjRaw43(conjRaw43(SEED43)) == SEED43              # mixing twice: back to the seed
+for _b in (ancScale43(SEED43), conjRaw43(conjRaw43(SEED43))):
+    ok43 &= _b[0][0].re >= 0 and _b[1][1].re >= 0           # both branches nonnegative
+# so it is RECOMBINATION of a coherence the surplus has touched, not reachability alone
+ok43 &= conjRaw43(ancScale43(conjRaw43(SEED43)))[1][1] != conjRaw43(conjRaw43(SEED43))[1][1]
+# --- (e) and the negative branch has no Kraus representation: rho -> (-1/2) rho has Choi
+# entry -1/2 at the matched diagonal index, so it is not completely positive.
+ok43 &= (T3_43[1][1] * CO17).re < 0
+check("F43",
+      ok43,
+      "ROUND 29: INTERFERENCE, NOT MERELY COHERENCE REACHABILITY (phase three, round "
+      "twenty-nine; kernel: hSign, hRaw, hMat, ancMix, sqrt2_inv_sq, hRaw_gram, "
+      "hMat_unitary, ancMix_unitary, conjChannel_ancMix_tensor, ancScale, badOp_tensor, "
+      "HasAncillaQubitInterference, tauChain, mix_seed, tauChain_diag, interference_branch, "
+      "form_of_one_single, smul_id_cp_nonneg, interference_exposes_badOp, "
+      "compositeControl_hasInterference in OIBridge/AncillaInterference.lean). Round 28 "
+      "showed the composite gap is real, so something must be added; the obvious candidate "
+      "is composite unitary control, and this round shows a much smaller condition already "
+      "kills that surplus. WHY REACHABILITY IS NOT THE RIGHT CONDITION: merely CREATING an "
+      "ancilla coherence does not help, because the surplus can modify a coherence while the "
+      "discard still annihilates it. What exposes it is creating a coherence and RECOMBINING "
+      "it, so that the surplus's effect is folded back onto the readout diagonal, which the "
+      "discard does see. HasAncillaQubitInterference asks for exactly two things -- a pure "
+      "two-level ancilla seed, and one balanced mixer available on the composite -- with no "
+      "arbitrary composite unitary and no control over the system factor at all. Verified "
+      "here in exact rationals (the 1/sqrt(2) enters only as H X H^dag = (1/2) hRaw X "
+      "hRaw^dag, so the experiment stays exact): the mixer is unitary up to normalization; "
+      "the chain |0><0| -> balanced superposition -> surplus doubles the coherence -> "
+      "recombination gives ancilla diagonal (3/2, -1/2) with both off-diagonal entries "
+      "exactly zero. THE TRACE TEST IS BLIND: the two branches sum to exactly 1, so round "
+      "26's identity is satisfied and cannot see the problem, and the surplus is still "
+      "invisible to a bare prepare-apply-discard so round 27's exposure principle still does "
+      "not fire. It is the NEGATIVE branch that a Kraus representation forbids, through round "
+      "27's Kraus => CP direction -- the third distinct job positivity has done, after the "
+      "transpose and the surplus itself. THE CONTROLS confirm that neither half suffices: the "
+      "surplus applied to the bare seed is inert (no coherence to touch), mixing twice "
+      "returns the seed exactly, and both of those give nonnegative branches; only the full "
+      "create-disturb-recombine sequence produces the negative one. STRICT WEAKNESS: "
+      "compositeControl_hasInterference shows composite unitary control gives the principle, "
+      "since the mixer is unitary and the pure seed is already derived. NOT PROVED AND NOT "
+      "CLAIMED, in the file or here: the converse, or that HasAncillaQubitInterference "
+      "implies KrausSoundExt in general. It kills THIS surplus, a specific non-CP block "
+      "multiplier; it says nothing about every possible one. The informative next test is a "
+      "theory satisfying the principle that still fails KrausSoundExt, or a proof that none "
+      "exists.")
+
+# ----------------------- F44  round 30: the interference certificate as PURE CONTROL --
+# uniform ancilla, basis readout, one swap control and one balanced mixer, end to end
+# (phase three, round thirty).
+ok44 = True
+HRAW4_44 = [[(CO17 if (r >> 1) == (c >> 1) else CZ17) * HRAW43[r & 1][c & 1]
+             for c in range(4)] for r in range(4)]
+
+
+def conj4_44(X):
+    """The mixer on the composite, normalization folded in: (1/2)(I (x) hRaw) X (...)^dag."""
+    Y = mmc17(mmc17(HRAW4_44, X), dag17(HRAW4_44))
+    return [[Y[r][c] * HALF43 for c in range(4)] for r in range(4)]
+
+
+def badOp4_44(X):
+    return [[X[r][c] * (CO17 if (r & 1) == (c & 1) else C17(2)) for c in range(4)]
+            for r in range(4)]
+
+
+for _rho in (rho38, rho39):
+    UNI44 = tensor38(_rho, [[half38 if r == c else CZ17 for c in range(2)]
+                            for r in range(2)])
+    # --- (a) THE SEED IS DERIVED, not assumed: read the uniform ancilla, apply the swap
+    # correction k -> 0, forget the outcome.  Only the SWAPS are used, not general unitaries.
+    SEED44 = [[CZ17] * 4 for _ in range(4)]
+    for _k in range(2):
+        Sw = ancswap38(_k, 0)
+        ok44 &= mmc17(Sw, dag17(Sw)) == eye17(4)
+        _cor = mmc17(mmc17(Sw, localLuders38(_k, UNI44)), dag17(Sw))
+        SEED44 = [[SEED44[r][c] + _cor[r][c] for c in range(4)] for r in range(4)]
+    ok44 &= SEED44 == tensor38(_rho, [[CO17 if (r, c) == (0, 0) else CZ17
+                                       for c in range(2)] for r in range(2)])
+    # --- (b) AND THEN THE INTERFERENCE EXPERIMENT RUNS ON IT, end to end from the uniform
+    # ancilla: mix, surplus, mix, read, discard.
+    X3_44 = conj4_44(badOp4_44(conj4_44(SEED44)))
+    B0 = ptraceAnc38(localLuders38(0, X3_44))
+    B1 = ptraceAnc38(localLuders38(1, X3_44))
+    ok44 &= B0 == [[_rho[r][c] * C17(Frac(3, 2)) for c in range(2)] for r in range(2)]
+    ok44 &= B1 == [[_rho[r][c] * C17(Frac(-1, 2)) for c in range(2)] for r in range(2)]
+    # the branches still sum to the input, so the trace layer remains blind
+    ok44 &= [[B0[r][c] + B1[r][c] for c in range(2)] for r in range(2)] == _rho
+    # --- (c) THE CONTROL: with the mixers removed the same chain is harmless
+    Y44 = badOp4_44(SEED44)
+    ok44 &= ptraceAnc38(localLuders38(0, Y44)) == _rho
+    ok44 &= ptraceAnc38(localLuders38(1, Y44)) == [[CZ17] * 2 for _ in range(2)]
+check("F44", ok44,
+      "ROUND 30: THE INTERFERENCE CERTIFICATE AS PURE CONTROL (phase three, round thirty; "
+      "kernel: HasAncillaSwapControl, pureSeedPrep_available_of_swap, "
+      "compositeControl_hasSwapControl, pureSeedPrep_available_of_swapControl in "
+      "OIBridge/OperationalAssembly.lean; HasAncillaQubitSwapControl, "
+      "HasAncillaQubitInterferenceControl, interferenceControl_hasInterference, "
+      "interferenceControl_exposes_badOp, compositeControl_hasInterferenceControl in "
+      "OIBridge/AncillaInterference.lean). Round 29's principle took the pure two-level seed "
+      "as an AVAILABILITY hypothesis -- honest but not minimal, since round 25's derivation "
+      "shows what is actually consumed is the outcome-dependent ancilla SWAP. "
+      "pureSeedPrep_available_of_swap now carries exactly that premise, LOCALIZED to the "
+      "ancilla size and target level used, so a theory needs no swap control at any other "
+      "size and full composite unitary control is not needed at all; "
+      "compositeControl_hasSwapControl records that composite control still supplies it. "
+      "HasAncillaQubitInterferenceControl is then qubit swap control AND the balanced mixer "
+      "-- a purely control-side certificate with no pure state assumed anywhere -- and "
+      "interferenceControl_exposes_badOp reaches round 29's conclusion from it. The physical "
+      "statement is now: UNIFORM ANCILLA, BASIS READOUT, ONE SWAP CONTROL AND ONE BALANCED "
+      "MIXER suffice to expose the hidden-coherence surplus. Verified here end to end in "
+      "exact rationals, at two different system states: each swap correction is unitary; the "
+      "derived seed from the uniform ancilla is EXACTLY rho (x) |0><0|; running the "
+      "interference chain on that derived seed gives branches exactly (3/2)rho and "
+      "(-1/2)rho; and those still sum to rho, so the trace layer stays blind and it is "
+      "positivity alone that refutes the surplus. THE CONTROL: with the mixers removed the "
+      "same chain is harmless -- branches rho and 0, both nonnegative -- so it is the "
+      "recombination, not the seed or the surplus alone, that does the work. WORDING, "
+      "corrected in the same round: compositeControl_hasInterference proves ONE direction, "
+      "so the interference principle is NO STRONGER than composite unitary control; calling "
+      "it strictly weaker would need a theory having the principle WITHOUT full composite "
+      "control, and no such witness exists yet. NOT PROVED AND NOT CLAIMED: that the "
+      "principle implies KrausSoundExt in general. One fixed qubit interferometer plausibly "
+      "does not detect every non-CP composite extension, and the informative next step is a "
+      "second surplus that passes THIS test -- which would say exactly which further mixer "
+      "bases or phases are needed, and start the climb from one interferometer to "
+      "tomographically complete interference.")
+
+# ----------------------- F45  round 31: the survivor ancilla interference cannot reach --
+# transpose is positive but not completely positive (phase three, round thirty-one).
+ok45 = True
+
+
+def alphaScale45(al, X):
+    """The symmetric block multiplier with off-diagonal coefficient al."""
+    return [[X[r][c] * (CO17 if r == c else al) for c in range(2)] for r in range(2)]
+
+
+# --- (a) THE GENERAL BRANCH FORMULA.  The round-29 experiment on the symmetric multiplier
+# with coefficient al returns (1 + al)/2 and (1 - al)/2.  Checked at four coefficients.
+for _al in (C17(2), C17(0, 1), C17(Frac(-1, 3)), C17(Frac(1, 2), Frac(1, 4))):
+    _T = conjRaw43(alphaScale45(_al, conjRaw43(SEED43)))
+    ok45 &= _T[0][0] == (CO17 + _al) * HALF43
+    ok45 &= _T[1][1] == (CO17 - _al) * HALF43
+# --- (b) SO A PURE PHASE IS NOT THE NEXT SURVIVOR.  A non-real coefficient makes the branch
+# coefficients non-real, and no Kraus family can have those: the existing interferometer
+# catches it immediately.
+_Ti = conjRaw43(alphaScale45(C17(0, 1), conjRaw43(SEED43)))
+ok45 &= _Ti[0][0].im != Frac(0) and _Ti[1][1].im != Frac(0)
+# while a unit-modulus phase applied Hermiticity-preservingly is conjugation by a diagonal
+# phase unitary, hence perfectly quantum -- checked as an exact identity at al = i
+PH45 = [[CO17, CZ17], [CZ17, C17(0, 1)]]
+ok45 &= mmc17(PH45, dag17(PH45)) == eye17(2)
+for _X in (SEED43, conjRaw43(SEED43), [[C17(Frac(2, 3)), C17(Frac(1, 5), Frac(1, 7))],
+                                       [C17(Frac(1, 5), Frac(-1, 7)), C17(Frac(1, 3))]]):
+    _herm = [[_X[r][c] * (CO17 if r == c else (C17(0, -1) if r < c else C17(0, 1)))
+              for c in range(2)] for r in range(2)]
+    ok45 &= _herm == mmc17(mmc17(PH45, _X), dag17(PH45))
+
+# --- (c) THE REAL SURVIVOR: transposition.  Trace preserving, and it maps states to states.
+def transpose45(X):
+    return [[X[c][r] for c in range(2)] for r in range(2)]
+
+
+for _X in (SEED43, conjRaw43(SEED43), alphaScale45(C17(2), conjRaw43(SEED43))):
+    ok45 &= trace40(transpose45(_X)) == trace40(_X)
+    # positivity on a sample of directions, for the state and its transpose alike
+    for _v in ([CO17, CZ17], [CZ17, CO17], [CO17, C17(-1)], [CO17, C17(0, 1)]):
+        for _M in (_X, transpose45(_X)):
+            _q = sum((_v[r].conj() * _M[r][c] * _v[c] for r in range(2) for c in range(2)),
+                     CZ17)
+            ok45 &= _q.im == Frac(0)
+# --- (d) BUT IT IS NOT COMPLETELY POSITIVE.  Partial transpose on the composite, with the
+# Choi witness at e_((s,k1),(s,k0)) - e_((s,k0),(s,k1)) giving exactly -2.
+def ancT45(X):
+    """Ancilla-only transpose on A x Fin 2 with A two-level: X[(s,k)][(t,l)] -> X[(s,l)][(t,k)]."""
+    return [[X[((r >> 1) << 1) | (c & 1)][((c >> 1) << 1) | (r & 1)] for c in range(4)]
+            for r in range(4)]
+
+
+CT45 = [[CZ17] * 16 for _ in range(16)]
+for P1 in range(4):
+    for Q1 in range(4):
+        im45 = ancT45([[CO17 if (r, c) == (P1, Q1) else CZ17 for c in range(4)]
+                       for r in range(4)])
+        for P2 in range(4):
+            for Q2 in range(4):
+                CT45[4 * P1 + P2][4 * Q1 + Q2] = im45[P2][Q2]
+# s = 0, k0 = 0, k1 = 1: composite indices (s,k1) = 1 and (s,k0) = 0
+IP45, IQ45 = 4 * 1 + 0, 4 * 0 + 1
+ok45 &= CT45[IP45][IP45] == CZ17 and CT45[IQ45][IQ45] == CZ17
+ok45 &= CT45[IP45][IQ45] == CO17 and CT45[IQ45][IP45] == CO17
+ok45 &= CT45[IP45][IP45] - CT45[IP45][IQ45] - CT45[IQ45][IP45] + CT45[IQ45][IQ45] == C17(-2)
+V45 = [CZ17] * 16
+V45[IP45], V45[IQ45] = CO17, C17(-1)
+ok45 &= qform41(CT45, V45) == C17(-2)
+# --- (e) AND THE ROUND-30 CERTIFICATE RETURNS THE NULL RESULT: seed, mix, transpose, mix
+# gives back the seed exactly, so the branches are 1 and 0 -- what a run with no surplus
+# gives.  The reason is that the mixed seed is real symmetric, so transpose fixes it.
+MID45 = conjRaw43(SEED43)
+ok45 &= transpose45(MID45) == MID45
+T45 = conjRaw43(transpose45(MID45))
+ok45 &= T45 == SEED43
+ok45 &= T45[0][0] == CO17 and T45[1][1] == CZ17
+ok45 &= T45[0][0].re >= 0 and T45[1][1].re >= 0
+check("F45", ok45,
+      "ROUND 31: THE SURVIVOR ANCILLA INTERFERENCE CANNOT REACH (phase three, round "
+      "thirty-one; kernel: ancTranspose, ancTranspose_tensor, ancTranspose_trace, "
+      "posSemidef_transpose, ancTranspose_choi, ancTranspose_not_cp, ancTranspose_not_kraus, "
+      "hMat_symm, hMat_involutive, mixSeed_symm, tauChainT, tauChainT_eq, tauChainT_diag, "
+      "interference_branch_transpose, ancTranspose_survives_interference in "
+      "OIBridge/PartialTranspose.lean). Rounds 29 and 30 killed the hidden-coherence surplus "
+      "with one two-level interferometer; the obvious next move would be more mixer bases, "
+      "and this round shows that is the WRONG LADDER. WHY A PHASE IS NOT THE NEXT SURVIVOR, "
+      "recorded because it was the natural guess: the round-29 experiment on the symmetric "
+      "block multiplier with off-diagonal coefficient al returns branches (1 + al)/2 and "
+      "(1 - al)/2 -- verified here at four coefficients -- so a NON-REAL al gives non-real "
+      "branch coefficients, which no Kraus family can have, and the existing interferometer "
+      "catches it at once; while the Hermiticity-preserving version scaling opposite "
+      "coherences by al and its conjugate with |al| = 1 is conjugation by a diagonal phase "
+      "unitary, checked here as an exact identity at al = i, hence perfectly quantum. Pure "
+      "phase gives nothing new in either direction. THE REAL SURVIVOR IS TRANSPOSITION: "
+      "trace preserving on every test matrix, and it maps ancilla STATES to ancilla STATES "
+      "(quadratic forms real and the transposed state passing the same direction tests), yet "
+      "its Choi matrix on the composite has the witness e_((s,k1),(s,k0)) - "
+      "e_((s,k0),(s,k1)) at exactly -2 -- matched diagonal entries zero, cross terms one -- "
+      "so it is POSITIVE BUT NOT COMPLETELY POSITIVE. AND THE ROUND-30 CERTIFICATE RETURNS "
+      "THE NULL RESULT: the mixed seed is real symmetric, transpose fixes it, the second "
+      "mixer inverts the first, and the chain returns the seed EXACTLY -- branches 1 and 0, "
+      "both nonnegative, the same numbers a run with no surplus gives. The reason is "
+      "structural rather than a bad choice of mixer: transposition carries every ancilla "
+      "density matrix to another ancilla density matrix, so no experiment whose only quantum "
+      "input is an ancilla state can produce the negative branch Kraus soundness needs. "
+      "Complete positivity is precisely the requirement that a map stay physical on HALF OF "
+      "AN ENTANGLED PAIR, and an ancilla-local test never forms one. THE LADDER, CORRECTED: "
+      "trace -> ordinary positivity via interference -> COMPLETE positivity via an entangled "
+      "reference; rounds 26-30 climbed the first two rungs and this round shows the third is "
+      "genuinely a rung. NOT DONE AND NOT CLAIMED: the minimal entangling capability that "
+      "DOES expose transposition, and any general impossibility for ancilla-local "
+      "principles. A STRUCTURAL NOTE, the true half: FiniteOperationalTheory has no rule "
+      "lifting an available SYSTEM operation to A x Fin n, and its preparation starts from "
+      "the supplied system input rather than granting a fixed system state. HISTORICAL -- "
+      "SUPERSEDED BY ROUND 32: this round's original text went on to guess that a Bell-type "
+      "test therefore needs one or the other; that guess was wrong. CURRENT STATEMENT (F46, "
+      "OIBridge/FactorExchange.lean): for a qubit system the single SWAP gate routes ancilla "
+      "transposition onto the system, so KrausSound plus HasQubitFactorExchange already "
+      "excludes it, with no lift rule, no fixed system state and no Bell pair.")
+
+# ----------------------- F46  round 32: the survivor falls to one factor exchange ---------
+# and no Bell pair was ever needed (phase three, round thirty-two).
+ok46 = True
+
+
+def swapIdx46(i):
+    """factorSwap on the composite index (s,k) = 2s + k: (s,k) -> (k,s)."""
+    return ((i & 1) << 1) | (i >> 1)
+
+
+# swapMat = permMatrix factorSwap, entry (i,j) = [factorSwap j = i]
+SWAP46 = [[CO17 if swapIdx46(j) == i else CZ17 for j in range(4)] for i in range(4)]
+
+
+def conjSwap46(X):
+    """conjChannel swapMat X = swapMat X swapMat^dag."""
+    return mmc17(mmc17(SWAP46, X), dag17(SWAP46))
+
+
+def tensor46(rho, tau):
+    """tensorOf rho tau at ((s,k),(t,l)) = rho s t * tau k l, index 2s + k."""
+    return [[rho[r >> 1][c >> 1] * tau[r & 1][c & 1] for c in range(4)] for r in range(4)]
+
+
+# --- (a) THE EXCHANGE IS UNITARY AND EXCHANGES FACTORS (swapMat_unitary,
+# conjChannel_swapMat_apply, conjChannel_swapMat_tensor).
+ok46 &= mmc17(dag17(SWAP46), SWAP46) == eye17(4)
+ok46 &= mmc17(SWAP46, dag17(SWAP46)) == eye17(4)
+ok46 &= SWAP46 == dag17(SWAP46)                       # the exchange is its own inverse
+SAMPLE46 = (SEED43, conjRaw43(SEED43),
+            [[C17(Frac(2, 3)), C17(Frac(1, 5), Frac(1, 7))],
+             [C17(Frac(1, 5), Frac(-1, 7)), C17(Frac(1, 3))]],
+            [[C17(1), C17(2, 3)], [C17(-1, 5), C17(0, 7)]])   # not Hermitian: a map test
+_X46 = [[C17(Frac(1 + 3 * r + 5 * c, 11), Frac(2 * r - c, 13)) for c in range(4)]
+        for r in range(4)]
+_Y46 = conjSwap46(_X46)
+ok46 &= all(_Y46[p][q] == _X46[swapIdx46(p)][swapIdx46(q)] for p in range(4) for q in range(4))
+for _r in SAMPLE46:
+    for _t in SAMPLE46:
+        ok46 &= conjSwap46(tensor46(_r, _t)) == tensor46(_t, _r)
+
+# --- (b) THE EXACT COMPUTATION (ptraceAnc_tensor_uniform, exchange_transpose_exchange,
+# exchanged_transpose_eq): rho (x) I/2 -> I/2 (x) rho -> I/2 (x) rho^T -> rho^T (x) I/2 -> rho^T.
+UNIF46 = [[HALF43, CZ17], [CZ17, HALF43]]
+for _r in SAMPLE46:
+    ok46 &= uniform42(_r) == tensor46(_r, UNIF46)               # uniformAttach 2
+    ok46 &= ptraceAnc38(tensor46(_r, UNIF46)) == _r             # discard of I/2 is exact
+    _s1 = conjSwap46(uniform42(_r))
+    ok46 &= _s1 == tensor46(UNIF46, _r)
+    _s2 = ancT45(_s1)
+    ok46 &= _s2 == tensor46(UNIF46, transpose45(_r))
+    _s3 = conjSwap46(_s2)
+    ok46 &= _s3 == tensor46(transpose45(_r), UNIF46)
+    ok46 &= ptraceAnc38(_s3) == transpose45(_r)
+# as an equation of LINEAR MAPS, on the full matrix-unit basis of the system
+
+
+def routed46(rho):
+    return ptraceAnc38(conjSwap46(ancT45(conjSwap46(uniform42(rho)))))
+
+
+for _s in range(2):
+    for _t in range(2):
+        _E = [[CO17 if (r, c) == (_s, _t) else CZ17 for c in range(2)] for r in range(2)]
+        ok46 &= routed46(_E) == transpose45(_E)
+# and the two maps agree entry-for-entry on the sample, with the surplus visible
+ok46 &= routed46(SAMPLE46[3]) == transpose45(SAMPLE46[3])
+ok46 &= routed46(SAMPLE46[3]) != SAMPLE46[3]
+
+# --- (c) THE RESULT IS THE SYSTEM TRANSPOSE, WHICH ROUND 27 REFUTES: its Choi matrix has
+# the witness e_(0,1) - e_(1,0) at exactly -2 (transposeMap_not_kraus, via isKrausFamily_iff).
+CH46 = choi41(routed46)
+ok46 &= CH46 == choi41(transpose45)
+_w46 = [CZ17] * 4
+_w46[2 * 0 + 1], _w46[2 * 1 + 0] = CO17, C17(-1)
+ok46 &= qform41(CH46, _w46) == C17(-2)
+# --- (d) NOTHING ENTANGLED WAS PREPARED: every intermediate composite state is a product,
+# and each factor is a state -- the entangled reference lives in (c), inside the proof.
+for _r in (SEED43, conjRaw43(SEED43)):
+    for _M in (uniform42(_r), conjSwap46(uniform42(_r)), ancT45(conjSwap46(uniform42(_r))),
+               conjSwap46(ancT45(conjSwap46(uniform42(_r))))):
+        # rank-one-factor test: M = (ptr_anc M) (x) (ptr_sys M) exactly, with unit traces
+        _a = ptraceAnc38(_M)
+        _b = [[sum((_M[2 * e + k][2 * e + l] for e in range(2)), CZ17) for l in range(2)]
+              for k in range(2)]
+        ok46 &= trace40(_a) == CO17 and trace40(_b) == CO17
+        ok46 &= _M == tensor46(_a, _b)
+# --- (e) THE CORRECTED STRUCTURAL NOTE, checked against the kernel file's own text.
+_fe46 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'FactorExchange.lean')
+_pt46 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'PartialTranspose.lean')
+if os.path.exists(_fe46) and os.path.exists(_pt46):
+    with open(_fe46, encoding='utf-8') as _f:
+        _fe_txt46 = ' '.join(_f.read().split())
+    with open(_pt46, encoding='utf-8') as _f:
+        _pt_txt46 = ' '.join(_f.read().split())
+    ok46 &= 'def HasQubitFactorExchange (T : FiniteOperationalTheory (Fin 2)) : Prop := ' \
+            'T.availExt 2 Unit (fun _ => conjChannel swapMat)' in _fe_txt46
+    ok46 &= 'the converse is not proved and not claimed' in _fe_txt46
+    ok46 &= '`KrausSoundExt` is not derived here' in _fe_txt46
+    ok46 &= 'A STRUCTURAL NOTE, CORRECTED BY ROUND THIRTY-TWO' in _pt_txt46
+    ok46 &= 'A Bell-type test needs one or the other' not in _pt_txt46
+check("F46", ok46,
+      "ROUND 32: THE SURVIVOR FALLS TO ONE FACTOR EXCHANGE, AND NO BELL PAIR WAS EVER NEEDED "
+      "(phase three, round thirty-two; kernel: swapMat_unitary, conjChannel_swapMat_apply, "
+      "conjChannel_swapMat_tensor, ptraceAnc_tensor_uniform, exchange_transpose_exchange, "
+      "exchanged_transpose_eq, compositeControl_hasFactorExchange, "
+      "factorExchange_exposes_ancTranspose, compositeControl_exposes_ancTranspose in "
+      "OIBridge/FactorExchange.lean). Round 31 identified ancilla transposition as the "
+      "surplus no ancilla-local experiment reaches, and its structural note guessed that "
+      "exposing it needs a Bell-type test, hence a rule lifting system operations to the "
+      "composite or a fixed system state. THAT GUESS WAS WRONG, and this round records why "
+      "with a theorem. For a qubit system the ancilla carries exactly what the system does, "
+      "and the SWAP gate -- the permutation lift of the factor exchange, checked here as "
+      "unitary, self-inverse, an index relabelling, and rho (x) tau -> tau (x) rho on sixteen "
+      "products -- routes the ancilla surplus onto the system: rho (x) I/2 -> I/2 (x) rho -> "
+      "I/2 (x) rho^T -> rho^T (x) I/2 -> rho^T, every arrow verified exactly on four sample "
+      "matrices, and as an equation of LINEAR MAPS on the full matrix-unit basis: uniform "
+      "ancilla, swap, ancilla transpose, swap, discard IS the system transpose. Its Choi "
+      "matrix carries the round-27 witness e_(0,1) - e_(1,0) at exactly -2, so "
+      "transposeMap_not_kraus refutes it. THE PRINCIPLE: HasQubitFactorExchange T is "
+      "availExt of conjugation by SWAP -- one composite unitary, no pure ancilla, no mixer, "
+      "no lift rule, no fixed system state -- and by closure alone (availExt_bind twice, "
+      "prepAvail_discard on the uniform preparation the structure already grants, one "
+      "classical coarse-graining): KrausSound T AND HasQubitFactorExchange T IMPLY "
+      "ancTranspose is NOT available. Composite unitary control gives the principle, one "
+      "direction only; the converse is not proved and not claimed. NOTHING ENTANGLED WAS "
+      "PREPARED: every intermediate composite state in the experiment is checked here to be "
+      "an exact product of two unit-trace factors; the entangled reference complete "
+      "positivity is about is the Choi matrix inside the proof of non-Kraus-ness, not a "
+      "state the experiment forms. The round-31 structural note is corrected in place in "
+      "PartialTranspose.lean and the correction is read back here from the file. NOT DONE "
+      "AND NOT CLAIMED: that every non-CP ancilla operation is reachable this way, and "
+      "KrausSoundExt is not derived. THE NEXT QUESTION, recorded and not answered: how much "
+      "subsystem-exchange or routing structure propagates system Kraus soundness to "
+      "composite Kraus soundness.")
+
+# ----------------------- F47  round 33: the dimensional obstruction ----------------------
+# a trace-preserving, unital, 2-positive, NOT completely positive map on the two-qubit
+# composite (phase three, round thirty-three).
+ok47 = True
+SEV47 = C17(Frac(1, 7))
+
+
+def red47(X):
+    """reduction2 on a 4x4: (2 tr(X) I - X)/7."""
+    t = trace40(X)
+    return [[(C17(2) * t * (CO17 if r == c else CZ17) - X[r][c]) * SEV47
+             for c in range(4)] for r in range(4)]
+
+
+def gvec47(seed, n):
+    """A deterministic Gaussian-rational vector with no structure (not real, not unit)."""
+    return [C17(Frac(1 + (3 * seed + 5 * k) % 11, 2 + k), Frac((7 * seed - 2 * k) % 9 - 4, 3 + k))
+            for k in range(n)]
+
+
+def gmat47(seed, n):
+    return [[C17(Frac(1 + (2 * seed + 3 * r + 5 * c) % 13, 4), Frac((r - 2 * c + seed) % 7 - 3, 5))
+             for c in range(n)] for r in range(n)]
+
+
+def inner47(a, b):
+    """<a,b> = star a . b, conjugate-linear in the first slot (Mathlib's convention)."""
+    return sum((a[k].conj() * b[k] for k in range(len(a))), CZ17)
+
+
+def herm47(H):
+    return all(H[r][c] == H[c][r].conj() for r in range(len(H)) for c in range(len(H)))
+
+
+def psd47(H):
+    """EXACT positive-semidefiniteness of a Hermitian matrix, by symmetric Gaussian
+    elimination: every pivot must be a nonnegative real, a zero pivot forces a zero row and
+    column, and the Schur complement is recursed on.  No floating eigenvalue."""
+    n = len(H)
+    A = [row[:] for row in H]
+    for k in range(n):
+        d = A[k][k]
+        if d.im != Frac(0) or d.re < 0:
+            return False
+        if d.re == 0:
+            # the remaining Schur block is A[k:, k:]; a zero pivot forces its row and column
+            # (to the right of and below the pivot) to vanish
+            if any(not A[k][j].z() for j in range(k + 1, n)) \
+                    or any(not A[i][k].z() for i in range(k + 1, n)):
+                return False
+            continue
+        dinv = d.inv()
+        for i in range(k + 1, n):
+            for j in range(k + 1, n):
+                A[i][j] = A[i][j] - A[i][k] * dinv * A[k][j]
+    return True
+
+
+# --- (a) TRACE PRESERVING AND UNITAL, on non-Hermitian samples too (reduction2_trace,
+# reduction2_unital): 2*4 - 1 = 7 is the whole reason for the normalization.
+for _s in range(4):
+    _X = gmat47(_s, 4)
+    ok47 &= trace40(red47(_X)) == trace40(_X)
+ok47 &= red47(eye17(4)) == eye17(4)
+# --- (b) UNITARY COVARIANCE (reduction2_covariant): Phi(U X U^dag) = U Phi(X) U^dag for
+# the SWAP of F46, a diagonal phase unitary, and a CNOT permutation; and the hypothesis is
+# load-bearing: a rank-one projector in place of U breaks it.
+PH47 = [[CO17, CZ17, CZ17, CZ17], [CZ17, C17(0, 1), CZ17, CZ17],
+        [CZ17, CZ17, C17(-1), CZ17], [CZ17, CZ17, CZ17, C17(0, -1)]]
+CN47 = [[CO17 if c == (r if r < 2 else 5 - r) else CZ17 for c in range(4)] for r in range(4)]
+for _U in (SWAP46, PH47, CN47):
+    ok47 &= mmc17(dag17(_U), _U) == eye17(4)
+    for _s in range(3):
+        _X = gmat47(_s, 4)
+        ok47 &= red47(mmc17(mmc17(_U, _X), dag17(_U))) == mmc17(mmc17(_U, red47(_X)), dag17(_U))
+_E00 = [[CO17 if (r, c) == (0, 0) else CZ17 for c in range(4)] for r in range(4)]
+_Xc = gmat47(5, 4)
+ok47 &= red47(mmc17(mmc17(_E00, _Xc), dag17(_E00))) != mmc17(mmc17(_E00, red47(_Xc)), dag17(_E00))
+# --- (c) THE CHOI MATRIX, EXACTLY (reduction2_choi, reduction2_choi_maxEnt, reduction2_not_cp):
+# J = (2 I_16 - |Om><Om|)/7 entry for entry, Om an eigenvector at -2/7, and the witness -8/7.
+J47 = choi41(red47, 4)
+OM47 = [CO17 if (p >> 2) == (p & 3) else CZ17 for p in range(16)]
+for _p in range(16):
+    for _q in range(16):
+        _want = (C17(2) * (CO17 if _p == _q else CZ17) - OM47[_p] * OM47[_q].conj()) * SEV47
+        ok47 &= J47[_p][_q] == _want
+ok47 &= herm47(J47)
+_JOm = [sum((J47[_p][_q] * OM47[_q] for _q in range(16)), CZ17) for _p in range(16)]
+ok47 &= _JOm == [C17(Frac(-2, 7)) * OM47[_p] for _p in range(16)]
+ok47 &= qform41(J47, OM47) == C17(Frac(-8, 7))
+ok47 &= not psd47(J47)
+# --- (d) 2-POSITIVE (ampl2_reduction2, ampl2_reduction2_rankOne, reduction2_twoPositive):
+# id_2 (x) Phi on C^2 (x) C^4, index 4 i + k.  First the block definition agrees with the
+# closed form (2 rho_2 (x) I_4 - M)/7 on a full 8x8 sample; then every pure input gives an
+# EXACTLY positive semidefinite output, including the tight Bell-type input, a product
+# input, and unstructured Gaussian-rational inputs; then a genuinely mixed input.  Every
+# pure output is SINGULAR (the elimination ends on a zero pivot), so the test is sharp:
+# a zero pivot is accepted only when its remaining row and column vanish.
+def refMarg47(M, d):
+    return [[sum((M[4 * i + m][4 * j + m] for m in range(4)), CZ17) for j in range(d)]
+            for i in range(d)]
+
+
+def ampl47(M, d):
+    """(id_d (x) Phi)(M) by blocks: Phi applied to each (i,j) block."""
+    out = [[CZ17] * (4 * d) for _ in range(4 * d)]
+    for i in range(d):
+        for j in range(d):
+            blk = red47([[M[4 * i + k][4 * j + l] for l in range(4)] for k in range(4)])
+            for k in range(4):
+                for l in range(4):
+                    out[4 * i + k][4 * j + l] = blk[k][l]
+    return out
+
+
+def closed47(M, d):
+    R = refMarg47(M, d)
+    T = kr17(R, eye17(4))
+    return [[(C17(2) * T[r][c] - M[r][c]) * SEV47 for c in range(4 * d)] for r in range(4 * d)]
+
+
+_M8 = gmat47(9, 8)
+ok47 &= ampl47(_M8, 2) == closed47(_M8, 2)
+
+
+def dyad47(psi):
+    return [[psi[r] * psi[c].conj() for c in range(len(psi))] for r in range(len(psi))]
+
+
+BELL47 = [CO17 if p in (0, 5) else CZ17 for p in range(8)]        # |0>|0> + |1>|1>
+PROD47 = [CZ17] * 4 + gvec47(2, 4)                                  # |1> (x) u
+pure47 = [BELL47, PROD47] + [gvec47(_s, 8) for _s in range(5)]
+for _psi in pure47:
+    _A = ampl47(dyad47(_psi), 2)
+    ok47 &= herm47(_A) and psd47(_A)
+# the Bell-type input is TIGHT: the output annihilates the input direction exactly
+_AB = ampl47(dyad47(BELL47), 2)
+ok47 &= qform41(_AB, BELL47) == CZ17
+# a mixed input: nonnegative combination of two dyads, PSD out (by linearity)
+_Amix = ampl47([[C17(3) * dyad47(pure47[2])[r][c] + C17(Frac(1, 2)) * dyad47(pure47[3])[r][c]
+                 for c in range(8)] for r in range(8)], 2)
+ok47 &= herm47(_Amix) and psd47(_Amix)
+# --- (e) THE RANK-TWO TRACE BOUND AND ITS GRAM-SCHMIDT PROOF (pairForm_of_orth,
+# rankTwo_bound_re, rankTwo_trace_bound, dot_rankTwo_bound): |c|^2 <= 2 Re P with the
+# form P real; the orthogonalized data satisfy <v0,w1> = 0, c' = G c and P' = G^2 P; the
+# constant 2 is TIGHT (equality on an identity-like pair) and 1 would be FALSE there.
+def pairForm47(u0, u1, v0, v1):
+    return (inner47(u0, u0) * inner47(v0, v0) + inner47(u0, u1) * inner47(v1, v0)
+            + inner47(u1, u0) * inner47(v0, v1) + inner47(u1, u1) * inner47(v1, v1))
+
+
+def scal47(a, v):
+    return [a * x for x in v]
+
+
+def vadd47(a, b):
+    return [x + y for x, y in zip(a, b)]
+
+
+def vsub47(a, b):
+    return [x - y for x, y in zip(a, b)]
+
+
+for _s in range(5):
+    u0, u1, v0, v1 = gvec47(_s, 4), gvec47(_s + 7, 4), gvec47(_s + 3, 4), gvec47(_s + 11, 4)
+    c = inner47(u0, v0) + inner47(u1, v1)
+    P = pairForm47(u0, u1, v0, v1)
+    ok47 &= P.im == Frac(0)
+    ok47 &= c.re * c.re + c.im * c.im <= 2 * P.re
+    G = inner47(v0, v0)
+    w1 = vsub47(scal47(G, v1), scal47(inner47(v0, v1), v0))
+    y0 = vadd47(scal47(G, u0), scal47(inner47(v1, v0), u1))
+    ok47 &= inner47(v0, w1) == CZ17
+    ok47 &= inner47(y0, v0) + inner47(u1, w1) == G * c
+    Pp = pairForm47(y0, u1, v0, w1)
+    ok47 &= Pp == G * G * P
+    ok47 &= Pp == inner47(y0, y0) * inner47(v0, v0) + inner47(u1, u1) * inner47(w1, w1)
+# tightness and the necessity of the constant 2
+e0, e1 = [CO17, CZ17, CZ17, CZ17], [CZ17, CO17, CZ17, CZ17]
+_ct = inner47(e0, e0) + inner47(e1, e1)
+_Pt = pairForm47(e0, e1, e0, e1)
+ok47 &= _ct.re * _ct.re == 2 * _Pt.re and _ct.re * _ct.re > _Pt.re
+# --- (f) PROBE-ONLY, NOT KERNELIZED: a QUTRIT reference already detects the map.  On the
+# rank-three maximally entangled input in C^3 (x) C^4 the amplified output has quadratic form
+# (2*3 - 9)/7 = -3/7 < 0, so Phi_2 is exactly 2-positive and not 3-positive.  The kernel
+# does not claim this; it is recorded here because it sizes the reference round 34 needs.
+PSI3 = [CO17 if (p >> 2) == (p & 3) else CZ17 for p in range(12)]
+_A3 = ampl47(dyad47(PSI3), 3)
+ok47 &= herm47(_A3)
+ok47 &= qform41(_A3, PSI3) == C17(Frac(-3, 7))
+ok47 &= not psd47(_A3)
+# --- (g) the file's own non-claims, read back
+_do47 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'DimensionalObstruction.lean')
+if os.path.exists(_do47):
+    with open(_do47, encoding='utf-8') as _f:
+        _do_txt47 = ' '.join(_f.read().split())
+    ok47 &= 'no operational countermodel is claimed' in _do_txt47
+    ok47 &= 'boundary item 3 (PSD square-root/factorization) is NOT consumed' in _do_txt47
+    ok47 &= 'It does NOT prove that `Φ₂` fails 3-positivity' in _do_txt47
+check("F47", ok47,
+      "ROUND 33: THE DIMENSIONAL OBSTRUCTION -- qubit-level positivity tests do not "
+      "characterize complete positivity on a four-dimensional composite (phase three, round "
+      "thirty-three; kernel: reduction2_trace, reduction2_unital, reduction2_covariant, "
+      "reduction2_commutes_conj, maxEntVec_norm, reduction2_choi, reduction2_choi_form, "
+      "reduction2_choi_maxEnt, reduction2_not_cp, pairForm_of_orth, rankTwo_bound_of_orth, "
+      "rankTwo_bound_re, rankTwo_trace_bound, dot_rankTwo_bound, ampl2_sum, ampl2_reduction2, "
+      "form_tensor_one, ampl2_reduction2_rankOne, reduction2_twoPositive, "
+      "qubit_tests_do_not_characterize_cp in OIBridge/DimensionalObstruction.lean). Round 32 "
+      "suggested a sharper question than the next ad-hoc surplus: can exact system QM plus "
+      "very rich routing and control still fail to force composite CP because the VISIBLE "
+      "system is too small to test it? This round establishes the mathematics that question "
+      "rests on. THE MAP is Phi_2(X) = (2 tr(X) I_4 - X)/7 on the two-qubit composite: trace "
+      "preserving and unital (2*4 - 1 = 7), verified here on non-Hermitian samples; unitarily "
+      "covariant, Phi_2(U X U^dag) = U Phi_2(X) U^dag, checked for the SWAP of F46, a diagonal "
+      "phase unitary and a CNOT permutation, with a rank-one projector in place of U breaking "
+      "it -- so composite unitaries thrown around the map do not move the obstruction. NOT "
+      "COMPLETELY POSITIVE by the same explicit Choi witness round 27 used for the transpose: "
+      "the 16x16 Choi matrix is EXACTLY (2 I - |Om><Om|)/7 entry for entry, |Om> is an "
+      "eigenvector at -2/7, and the quadratic form on |Om> is exactly -8/7; no CP <=> Kraus "
+      "classification is used. 2-POSITIVE, THE SUBSTANTIVE RESULT: id_2 (x) Phi_2 carries every "
+      "positive semidefinite 8x8 input to a positive semidefinite output, i.e. every test whose "
+      "untouched reference is ONE QUBIT passes. Verified here with an EXACT positivity test "
+      "(symmetric elimination over Gaussian rationals, no floating eigenvalue) on the tight "
+      "Bell-type input, a product input, five unstructured inputs and a mixed input, after "
+      "checking the block definition of the amplification against the closed form "
+      "(2 rho_2 (x) I - M)/7. THE KEY INEQUALITY |psi><psi| <= 2 rho_2 (x) I is the rank-two "
+      "trace bound |tr M|^2 <= 2 |M|_F^2 for rank <= 2, proved in the kernel by an explicit "
+      "Gram-Schmidt step on the two reference rows -- no eigenvalue, no square root -- and two "
+      "Cauchy-Schwarz steps; its identities (the orthogonalized row is orthogonal, the trace "
+      "scales by G = |v0|^2, the form scales by G^2 and collapses to two products of squared "
+      "norms) are checked exactly on five instances, and the constant 2 is TIGHT: equality on "
+      "an identity-like pair, where the constant 1 is false. The Schmidt rank being at most two "
+      "is exactly the reference qubit's dimension; that is where 'the visible system is too "
+      "small' enters. THE EXTENSION FROM PURE TO ARBITRARY PSD INPUTS uses the rank-one "
+      "spectral resolution (Mathlib's spectral theorem, kernel-internal since the Kadison "
+      "round) plus eigenvalue nonnegativity: NO PSD SQUARE ROOT IS TAKEN, and boundary item 3 "
+      "is not consumed, contrary to the expectation that PSD factorization might enter. THE "
+      "BOXED STATEMENT, qubit_tests_do_not_characterize_cp: a trace-preserving, unital, "
+      "2-positive, not completely positive map exists on the two-qubit composite. PROBE-ONLY, "
+      "NOT KERNELIZED AND NOT CLAIMED: a QUTRIT reference already detects it -- on the "
+      "rank-three maximally entangled input the amplified form is exactly -3/7 -- so Phi_2 is "
+      "exactly 2-positive and not 3-positive, which sizes the reference the next round would "
+      "need. NOT DONE AND NOT CLAIMED: no operational countermodel; no FiniteOperationalTheory "
+      "is shown to contain Phi_2 while satisfying exact system QM, factor exchange, ancilla "
+      "interference or composite unitary control; nothing about KrausSoundExt for any theory; "
+      "no structure field added. THE NEXT QUESTION, recorded and not answered: whether the "
+      "present architecture admits such a countermodel, and if so whether the missing "
+      "ingredient is not more control but a reference-extension or parallel-composition "
+      "principle that lets a composite operation be tested against a sufficiently large "
+      "untouched reference. (ANSWERED IN ROUND 34, F48: the countermodel exists; this "
+      "round's non-claims stand as a record of what round 33 alone established.)")
+
+# ----------------------- F48  round 34: the operational countermodel ----------------------
+# exact system QM plus full composite unitary control does not force composite quantum
+# soundness (phase three, round thirty-four).
+ok48 = True
+
+
+def amplGen48(phi, M, d, dout=None, dref=2):
+    """(id_dref (x) phi)(M) by blocks, index d*i + k (reference i, carrier k); phi may be
+    rectangular, d levels in and dout levels out (amplR)."""
+    dout = d if dout is None else dout
+    out = [[CZ17] * (dout * dref) for _ in range(dout * dref)]
+    for i in range(dref):
+        for j in range(dref):
+            blk = phi([[M[d * i + k][d * j + l] for l in range(d)] for k in range(d)])
+            for k in range(dout):
+                for l in range(dout):
+                    out[dout * i + k][dout * j + l] = blk[k][l]
+    return out
+
+
+OM2 = [CO17 if (p >> 1) == (p & 1) else CZ17 for p in range(4)]      # |Omega_2>, index 2i + k
+DOM2 = dyad47(OM2)
+
+
+def conj48(V):
+    return lambda X: mmc17(mmc17(V, X), dag17(V))
+
+
+def red2_48(X):
+    """The qubit reduction map (2 tr X I - X)/3."""
+    t = trace40(X)
+    return [[(C17(2) * t * (CO17 if r == c else CZ17) - X[r][c]) * C17(Frac(1, 3))
+             for c in range(2)] for r in range(2)]
+
+
+# --- (a) THE QUBIT CHOI IDENTITY (choiMatrix_eq_ampl2): J(phi) = (id_2 (x) phi)(|Om_2><Om_2|)
+# for the transpose, a conjugation, the qubit reduction map and a Lueders selector.
+def luders2_48(X):
+    return [[X[0][0] if (r, c) == (0, 0) else CZ17 for c in range(2)] for r in range(2)]
+
+
+for _phi in (transpose45, conj48(gmat47(3, 2)), red2_48, luders2_48):
+    ok48 &= choi41(_phi, 2) == amplGen48(_phi, DOM2, 2)
+# --- (b) THE KEY LEMMA IN ACTION (twoPositive_qubit_cp): the SAME recipe that fails on four
+# levels passes on two.  The qubit reduction map (2 tr X I - X)/3 has Choi (2 I - |Om><Om|)/3,
+# positive semidefinite with |Om_2> exactly annihilated (2*2 - 4 = 0); while the transpose,
+# not 2-positive on a qubit, has its amplified Choi input NOT positive -- the contrapositive.
+_J2 = choi41(red2_48, 2)
+ok48 &= _J2 == [[(C17(2) * (CO17 if p == q else CZ17) - OM2[p] * OM2[q].conj())
+                 * C17(Frac(1, 3)) for q in range(4)] for p in range(4)]
+ok48 &= herm47(_J2) and psd47(_J2) and qform41(_J2, OM2) == CZ17
+ok48 &= not psd47(amplGen48(transpose45, DOM2, 2))
+ok48 &= trace40(red2_48(gmat47(1, 2))) == trace40(gmat47(1, 2))
+# --- (c) CLOSURE IDENTITIES on random inputs (amplR_comp, ampl2_conjChannel,
+# ampl2_localLuders): functoriality by blocks; amplified conjugation is conjugation by
+# 1 (x) V; the amplified Lueders readout is a diagonal compression.
+_M8 = gmat47(11, 8)
+ok48 &= amplGen48(lambda X: red47(conj48(SWAP46)(X)), _M8, 4) \
+    == amplGen48(red47, amplGen48(conj48(SWAP46), _M8, 4), 4)
+_V4 = gmat47(4, 4)
+_IV = kr17(eye17(2), _V4)
+ok48 &= amplGen48(conj48(_V4), _M8, 4) == mmc17(mmc17(_IV, _M8), dag17(_IV))
+
+
+def luders4_48(k):
+    """localLuders k on A x Fin 2 with A = Fin 2, index (s,e) -> 2s + e."""
+    return lambda X: [[X[((r >> 1) << 1) | k][((c >> 1) << 1) | k]
+                       if (r & 1) == k and (c & 1) == k else CZ17 for c in range(4)]
+                      for r in range(4)]
+
+
+for _k in range(2):
+    _D = [[(CO17 if (r == c and (r & 1) == _k) else CZ17) for c in range(8)] for r in range(8)]
+    ok48 &= amplGen48(luders4_48(_k), _M8, 4) == mmc17(mmc17(_D, _M8), dag17(_D))
+# the readout preserves the trace in aggregate (localLuders_trace_sum)
+_X4 = gmat47(6, 4)
+ok48 &= sum((trace40(luders4_48(_k)(_X4)) for _k in range(2)), CZ17) == trace40(_X4)
+# --- (d) THE EXPLICIT REINDEXING (ancEmbed, amplR_ptraceAncL_eq, amplR_uniformAttach_eq):
+# amplified partial trace = sum of congruences E_e^dag N E_e; amplified uniform attachment
+# = (1/n) sum of congruences E_e M E_e^dag, with E_e the embedding at ancilla level e.
+def embed48(e):
+    """E_e : (Fin 2 x (Fin 2 x Fin 2)) x (Fin 2 x Fin 2), index 4i+2s+e' and 2i'+s'."""
+    return [[CO17 if ((p >> 2) == (q >> 1) and ((p >> 1) & 1) == (q & 1) and (p & 1) == e)
+             else CZ17 for q in range(4)] for p in range(8)]
+
+
+_N8 = gmat47(13, 8)
+_ptrA = amplGen48(ptraceAnc38, _N8, 4, 2)                      # amplR (ptraceAncL 2) N : 4x4
+ok48 &= _ptrA == [[sum((mmc17(mmc17(dag17(embed48(e)), _N8), embed48(e))[a][b]
+                        for e in range(2)), CZ17) for b in range(4)] for a in range(4)]
+_M4 = gmat47(8, 4)
+_unA = amplGen48(uniform42, _M4, 2, 4)                        # amplR (uniformAttach 2) M : 8x8
+ok48 &= _unA == [[sum((mmc17(mmc17(embed48(e), _M4), dag17(embed48(e)))[p][q]
+                       for e in range(2)), CZ17) * HALF43 for q in range(8)] for p in range(8)]
+# --- (e) THE DISCARD CHAIN ON Phi_2 (prepAvail_discard): uniform ancilla, Phi_2, discard is
+# the QUBIT map D(rho) = (4 tr(rho) I - rho)/7 -- a Pauli channel, (1/7) X + (2/7) sum sigma X
+# sigma with weights summing to one -- whose Choi matrix is (4 I - |Om><Om|)/7, exactly PSD.
+# The amplified chain on the actual Choi input is PSD at EVERY stage.
+def disc48(rho):
+    return ptraceAnc38(red47(uniform42(rho)))
+
+
+SX48 = [[CZ17, CO17], [CO17, CZ17]]
+SY48 = [[CZ17, C17(0, -1)], [C17(0, 1), CZ17]]
+SZ48 = [[CO17, CZ17], [CZ17, C17(-1)]]
+for _s in range(4):
+    _r = gmat47(_s, 2)
+    _t = trace40(_r)
+    ok48 &= disc48(_r) == [[(C17(4) * _t * (CO17 if a == b else CZ17) - _r[a][b]) * SEV47
+                            for b in range(2)] for a in range(2)]
+    _pauli = [[CZ17] * 2 for _ in range(2)]
+    for _sg in (SX48, SY48, SZ48):
+        _c = mmc17(mmc17(_sg, _r), dag17(_sg))
+        _pauli = [[_pauli[a][b] + _c[a][b] for b in range(2)] for a in range(2)]
+    ok48 &= disc48(_r) == [[_r[a][b] * SEV47 + _pauli[a][b] * C17(Frac(2, 7)) for b in range(2)]
+                           for a in range(2)]
+    ok48 &= trace40(disc48(_r)) == _t
+ok48 &= Frac(1, 7) + 3 * Frac(2, 7) == 1
+_JD = choi41(disc48, 2)
+ok48 &= _JD == [[(C17(4) * (CO17 if p == q else CZ17) - OM2[p] * OM2[q].conj()) * SEV47
+                 for q in range(4)] for p in range(4)]
+ok48 &= herm47(_JD) and psd47(_JD) and qform41(_JD, OM2) == C17(Frac(4, 7))
+_st1 = amplGen48(uniform42, DOM2, 2, 4)                   # amplR (uniformAttach 2) |Om><Om|
+_st2 = ampl47(_st1, 2)                                   # ampl2 Phi_2 of it
+_st3 = amplGen48(ptraceAnc38, _st2, 4, 2)                 # amplR (ptraceAncL 2) of it
+ok48 &= herm47(_st1) and psd47(_st1) and herm47(_st2) and psd47(_st2)
+ok48 &= _st3 == _JD
+# --- (f) KRAUS FROM A FACTORIZED CHOI (kraus_of_choi_factor,
+# sum_conjTranspose_mul_eq_one_of_trace): with J = B B^dag the columns of B, read as
+# K_i(a, s) = B((s, a), i), give a map whose Choi matrix is J exactly; and the aggregate trace
+# on matrix units reads off sum K^dag K entry by entry, which is the normalization mechanism.
+_B = gmat47(15, 4)
+_JB = mmc17(_B, dag17(_B))
+_Ks = [[[_B[2 * s + a][i] for s in range(2)] for a in range(2)] for i in range(4)]
+
+
+def phiK48(X):
+    out = [[CZ17] * 2 for _ in range(2)]
+    for _K in _Ks:
+        _c = mmc17(mmc17(_K, X), dag17(_K))
+        out = [[out[a][b] + _c[a][b] for b in range(2)] for a in range(2)]
+    return out
+
+
+ok48 &= choi41(phiK48, 2) == _JB
+_NK = [[CZ17] * 2 for _ in range(2)]
+for _K in _Ks:
+    _c = mmc17(dag17(_K), _K)
+    _NK = [[_NK[a][b] + _c[a][b] for b in range(2)] for a in range(2)]
+for _s in range(2):
+    for _t in range(2):
+        _E = [[CO17 if (r, c) == (_t, _s) else CZ17 for c in range(2)] for r in range(2)]
+        ok48 &= trace40(phiK48(_E)) == _NK[_s][_t]
+# --- (g) THE COMPOSITE SECTOR IS INHABITED BY BOTH SIDES: Phi_2 is a 2-positive instrument
+# (F47) and every unitary channel is (conjChannel_twoPositive, conjChannel_trace); the
+# discarded reading of Phi_2 is a quantum channel (e), yet Phi_2 itself is not CP (F47).
+for _U in (SWAP46, PH47, CN47):
+    ok48 &= trace40(conj48(_U)(_X4)) == trace40(_X4)
+    ok48 &= herm47(amplGen48(conj48(_U), dyad47(gvec47(5, 8)), 4)) \
+        and psd47(amplGen48(conj48(_U), dyad47(gvec47(5, 8)), 4))
+ok48 &= not psd47(J47)
+# --- (h) the file's own claim discipline, read back
+_dc48 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'DimensionalCountermodel.lean')
+if os.path.exists(_dc48):
+    with open(_dc48, encoding='utf-8') as _f:
+        _dc_txt48 = ' '.join(_f.read().split())
+    ok48 &= 'THIS DOES NOT RETIRE BOUNDARY ITEM 3' in _dc_txt48
+    ok48 &= 'The missing condition is therefore not control richness' in _dc_txt48
+    ok48 &= 'That principle is not added here' in _dc_txt48
+check("F48", ok48,
+      "ROUND 34: THE OPERATIONAL COUNTERMODEL -- exact system QM plus full composite unitary "
+      "control does not force composite quantum soundness (phase three, round thirty-four; "
+      "kernel: amplR_comp, choiMatrix_eq_ampl2, twoPositive_qubit_cp, isTwoPositive_comp, "
+      "isTwoPositive_sum, ampl2_conjChannel, conjChannel_twoPositive, ampl2_localLuders, "
+      "localLuders_twoPositive, localLuders_trace_sum, amplR_ptraceAncL_eq, "
+      "amplR_uniformAttach_eq, amplR_ptraceAncL_posSemidef, amplR_uniformAttach_posSemidef, "
+      "uniformAttach_trace, choiMatrix_conjChannel, choiMatrix_injective, "
+      "kraus_of_choi_factor, sum_conjTranspose_mul_eq_one_of_trace, "
+      "isKrausFamily_of_cp_of_factorization, psdFactorization_of_spectral, "
+      "countermodelOf_exact, countermodelOf_control, countermodelOf_reduction2_available, "
+      "countermodelOf_not_krausSoundExt, countermodel_of_factorization, countermodel_exact, "
+      "countermodel_control, countermodel_reduction2_available, "
+      "countermodel_not_krausSoundExt, countermodel_hasFactorExchange, "
+      "countermodel_hasInterferenceControl, exactControl_not_implies_krausSoundExt in "
+      "OIBridge/DimensionalCountermodel.lean). THE CAPSTONE: there is a "
+      "FiniteOperationalTheory (Fin 2) that is EXACTLY quantum on the visible qubit, grants "
+      "EVERY composite unitary (hence factor exchange and interference control), has the "
+      "round-33 map Phi_2 available on the two-qubit composite, and is NOT composite "
+      "Kraus-sound. Round 28's countermodel had to withhold composite control; this one grants "
+      "all of it. The missing condition is therefore not control richness. THE COMPOSITE "
+      "SECTOR is the 2-positive instruments: every branch 2-positive, trace preserved in "
+      "aggregate -- closed under coarse-graining, feed-forward, every unitary channel and the "
+      "native Lueders readout, all verified here as exact identities on unstructured inputs "
+      "(functoriality of the amplification by blocks, amplified conjugation = conjugation by "
+      "1 (x) V, amplified readout = diagonal compression, readout trace-preserving in "
+      "aggregate). THE KEY LEMMA, twoPositive_qubit_cp: a 2-positive map ON A QUBIT is CP, "
+      "because its Choi matrix is (id_2 (x) Phi)(|Om_2><Om_2|) -- the qubit Choi identity is "
+      "checked here for the transpose, a conjugation, the qubit reduction map and a Lueders "
+      "selector -- and the illustration is exact: the SAME recipe that fails on four levels "
+      "passes on two, the qubit map (2 tr X I - X)/3 having Choi (2 I - |Om><Om|)/3, positive "
+      "semidefinite with |Om_2> annihilated, while the transpose's amplified Choi input is not "
+      "positive. PREPARATIONS are reference-tested: trace preserving and PSD on the qubit Choi "
+      "input under amplification; the reindexing between Fin 2 x (Fin 2 x Fin n) and "
+      "(Fin 2 x Fin 2) x Fin n is an explicit embedding matrix, and the two congruence "
+      "identities (amplified partial trace = sum E^dag N E, amplified uniform attachment = "
+      "(1/n) sum E M E^dag) are checked entry for entry on random inputs. THE DISCARD CHAIN ON "
+      "Phi_2 shows the mechanism: uniform ancilla, Phi_2, discard is the qubit map "
+      "(4 tr rho I - rho)/7, a PAULI CHANNEL (1/7) X + (2/7) sum sigma X sigma with weights "
+      "summing to one, Choi (4 I - |Om><Om|)/7 exactly PSD, and the amplified chain on the "
+      "actual Choi input is PSD at every stage -- the composite surplus is squeezed through "
+      "the visible qubit into an ordinary quantum channel, which is exactly why the system "
+      "sector stays exact. THE ONE EXTERNAL STEP IS ISOLATED: CP instrument => Kraus family is "
+      "proved against the explicit hypothesis PSDFactorization (Fin 2 x Fin 2), a "
+      "specialization of boundary item 3, with the Kraus operators the columns of the "
+      "factor -- checked here: K_i(a,s) = B((s,a),i) reproduces J = B B^dag exactly, and the "
+      "aggregate trace on matrix units reads off sum K^dag K entry by entry. The conditional "
+      "capstone countermodel_of_factorization needs boundary item 3 only. THE HYPOTHESIS IS "
+      "ALSO DISCHARGED, LOUDLY, by psdFactorization_of_spectral from the spectral resolution "
+      "and the real square root of the eigenvalues (the two ingredients scalarAvail_isKraus "
+      "already used), giving the unconditional exactControl_not_implies_krausSoundExt. THIS "
+      "DOES NOT RETIRE BOUNDARY ITEM 3: the boundary ledger is unchanged, Purification.lean "
+      "still isolates the factorization as a hypothesis, and reclassifying the item is a "
+      "separate boundary audit. NOT DONE AND NOT CLAIMED: the principle that WOULD force "
+      "composite soundness; the qutrit clue of F47 (a three-level reference detects Phi_2) "
+      "stays probe-only and points at a reference-extension or parallel-composition principle "
+      "for the next round. That principle is not added here.")
+
+# ----------------------- F49  round 35: reference extension ------------------------------
+# the dimensional threshold as a theorem, and control does not give parallel reference
+# extension (phase three, round thirty-five, part two).
+ok49 = True
+
+
+def omegaR49(R, emb):
+    """The rank-R maximally entangled vector sum_i |i>|emb(i)> on Fin R x Fin 4, index 4i+k."""
+    return [CO17 if (p & 3) == emb(p >> 2) else CZ17 for p in range(4 * R)]
+
+
+# --- (a) THE THRESHOLD AS A THEOREM (reduction2_threshold, reduction2_not_threePositive,
+# amplRef_reduction2_maxEnt3, amplRef_reduction2_maxEnt3_form): the qutrit amplification
+# of Phi_2 on the rank-three input has reference marginal I_3, closed form (2 I - psi psi^dag)
+# /7, quadratic form exactly -3/7, and is not PSD; the qubit amplification is PSD (F47) and
+# the four-level one carries the Choi witness -8/7 (F47).
+PSI3_49 = omegaR49(3, lambda i: i)
+ok49 &= PSI3_49 == PSI3
+_D3 = dyad47(PSI3_49)
+_marg3 = [[sum((_D3[4 * i + m][4 * j + m] for m in range(4)), CZ17) for j in range(3)]
+          for i in range(3)]
+ok49 &= _marg3 == eye17(3)
+_A3_49 = amplGen48(red47, _D3, 4, dref=3)
+ok49 &= _A3_49 == [[(C17(2) * (CO17 if p == q else CZ17) - _D3[p][q]) * SEV47
+                    for q in range(12)] for p in range(12)]
+ok49 &= qform41(_A3_49, PSI3_49) == C17(Frac(-3, 7)) and not psd47(_A3_49)
+ok49 &= psd47(amplGen48(red47, dyad47(omegaR49(2, lambda i: i)), 4, dref=2))
+_A4_49 = amplGen48(red47, dyad47(OM47), 4, dref=4)
+ok49 &= qform41(_A4_49, OM47) == C17(Frac(-8, 7)) and not psd47(_A4_49)
+# --- (b) THE CHOI IDENTITY ON ANY CARRIER (choiMatrix_eq_amplRef): for the two-qubit
+# composite, J(Phi) = (id_4 (x) Phi)(|Om_4><Om_4|) for Phi_2 and for the transpose.
+for _phi in (red47, transpose40):
+    ok49 &= choi41(_phi, 4) == amplGen48(_phi, dyad47(OM47), 4, dref=4)
+# --- (c) CP IS STABLE AGAINST EVERY REFERENCE (cp_referencePositive): the Pauli channel of
+# F48 stays PSD under qubit, qutrit and four-level references on unstructured pure inputs.
+for _R in (2, 3, 4):
+    for _s in range(3):
+        _v = gvec47(_s + _R, 2 * _R)
+        _out = amplGen48(disc48, dyad47(_v), 2, dref=_R)
+        ok49 &= herm47(_out) and psd47(_out)
+# --- (d) 2-POSITIVE IMPLIES POSITIVE (apply_eq_pad_ampl2, positive_of_twoPositive): the
+# padding congruence Psi M = E^dag (id_2 (x) Psi)(E M E^dag) E, entry for entry.
+PAD49 = [[CO17 if ((p >> 2) == 0 and (p & 3) == k) else CZ17 for k in range(4)]
+         for p in range(8)]
+for _s in range(3):
+    _M = gmat47(_s + 20, 4)
+    _inner = amplGen48(red47, mmc17(mmc17(PAD49, _M), dag17(PAD49)), 4)
+    ok49 &= red47(_M) == mmc17(mmc17(dag17(PAD49), _inner), PAD49)
+ok49 &= psd47(red47(dyad47(gvec47(9, 4))))
+# --- (e) THE EXPLICIT REINDEXING AND THE SPECTATOR EXTENSION (qutritIdx_apply,
+# withSpectator_reindex, countermodel_not_qutritReferenceExtension).  qutritIdx (r,(a,e)) =
+# (a, e + 2 r): a bijection Fin 3 x (Fin 2 x Fin 2) -> Fin 2 x Fin 6 that keeps the system
+# qubit in the system slot.  The extension of Phi_2 by an untouched qutrit, defined
+# literally as reindex . amplify . reindex^-1, agrees with the reindexed amplification on
+# the reindexed rank-three input; it preserves the trace; and its quadratic form on the
+# reindexed input is -3/7 -- so the countermodel's composite sector rejects it on the
+# positivity conjunct alone.
+def qidx49(p):
+    """composite index 4r + 2a + e  ->  target index 6a + (e + 2r)."""
+    r, a, e = p >> 2, (p >> 1) & 1, p & 1
+    return 6 * a + (e + 2 * r)
+
+
+ok49 &= sorted(qidx49(p) for p in range(12)) == list(range(12))
+_qinv = {qidx49(p): p for p in range(12)}
+
+
+def reindex49(X):
+    return [[X[_qinv[p]][_qinv[q]] for q in range(12)] for p in range(12)]
+
+
+def withSpectator49(N):
+    """withSpectator (Fin 3) qutritIdx Phi_2, literally."""
+    X = [[N[qidx49(p)][qidx49(q)] for q in range(12)] for p in range(12)]   # reindex^-1
+    return reindex49(amplGen48(red47, X, 4, dref=3))
+
+
+_N = reindex49(_D3)
+ok49 &= withSpectator49(_N) == reindex49(_A3_49)
+ok49 &= herm47(_N) and psd47(_N)
+ok49 &= trace40(withSpectator49(_N)) == trace40(_N)
+_psiR = [PSI3_49[_qinv[p]] for p in range(12)]
+ok49 &= qform41(withSpectator49(_N), _psiR) == C17(Frac(-3, 7))
+ok49 &= not psd47(withSpectator49(_N))
+# and reindexing preserves PSD both ways (posSemidef_reindex, posSemidef_of_reindex)
+ok49 &= psd47(reindex49(dyad47(gvec47(7, 12)))) and not psd47(reindex49(_A3_49))
+# --- (f) the file's own claim discipline, read back
+_re49 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'ReferenceExtension.lean')
+if os.path.exists(_re49):
+    with open(_re49, encoding='utf-8') as _f:
+        _re_txt49 = ' '.join(_f.read().split())
+    ok49 &= 'No sufficiency' in _re_txt49
+    ok49 &= 'is not shown to be satisfiable by any theory here' in _re_txt49
+    ok49 &= 'it is not, in general, enough to characterize complete positivity' in _re_txt49
+check("F49", ok49,
+      "ROUND 35: REFERENCE EXTENSION -- the dimensional threshold is a theorem, and composite "
+      "unitary control does not give parallel reference extension (phase three, round "
+      "thirty-five, part two; kernel: isTwoPositive_iff_referencePositive, amplRef_sum_map, "
+      "amplRef_conjChannel, conjChannel_referencePositive, amplRef_reduction2, "
+      "choiMatrix_eq_amplRef, referencePositive_self_cp, cp_referencePositive, "
+      "isCompletelyPositive_iff_referencePositive_self, emb3_injective, maxEnt3_norm, "
+      "refMarginalR_maxEnt3, tensorOf_one_one, amplRef_reduction2_maxEnt3, "
+      "amplRef_reduction2_maxEnt3_form, amplRef_reduction2_maxEnt3_not_posSemidef, "
+      "reduction2_not_threePositive, reduction2_threshold, refBlock_pad, apply_eq_pad_ampl2, "
+      "positive_of_twoPositive, withSpectator_reindex, qutrit_of_parallel, qutritIdx_apply, "
+      "posSemidef_of_reindex, posSemidef_reindex, countermodel_not_qutritReferenceExtension, "
+      "countermodel_not_parallelReferenceExtension, "
+      "control_not_implies_parallelReferenceExtension, "
+      "exactControl_not_implies_qutritReferenceExtension in OIBridge/ReferenceExtension.lean; "
+      "part one of the round is the boundary audit in OIBridge/BoundaryAudit.lean). GENERIC "
+      "REFERENCE AMPLIFICATION: amplRef R Phi is id_R (x) Phi for an arbitrary finite "
+      "reference, IsReferencePositive R Phi is the R-reference test, and round 33's "
+      "IsTwoPositive is the R = Fin 2 case DEFINITIONALLY (Iff.rfl). THE THRESHOLD, "
+      "KERNELIZED: Phi_2 is 2-positive and NOT 3-positive -- the rank-three maximally "
+      "entangled input has reference marginal I_3 (three distinct levels), the qutrit "
+      "amplification is exactly (2 I - psi psi^dag)/7, and its quadratic form is exactly -3/7, "
+      "all verified here, with the qubit amplification PSD and the four-level one at -8/7 "
+      "beside it. Round 33's probe-only clue is now a theorem. THE QUALIFICATION, so it is not "
+      "misread: a qutrit reference detects THIS Phi_2; it is not, in general, enough to "
+      "characterize complete positivity of an arbitrary map on a four-level carrier. THE "
+      "CHOI-SIZED TARGET, both directions and on any carrier: (id_S (x) Phi)(|Om_S><Om_S|) IS "
+      "the Choi matrix (checked for Phi_2 and the transpose on four levels), so reference "
+      "positivity against S itself forces CP, and conversely a CP map is reference-positive "
+      "against EVERY finite reference by the Kraus form the now-internal factorization "
+      "supplies (the Pauli channel of F48 stays PSD under qubit, qutrit and four-level "
+      "references here). The algebra is free; the operational question -- which closure or "
+      "preparation rules make the size-|S| reference test physically available inside "
+      "FiniteOperationalTheory -- is round 36's and is not answered. THE MISSING "
+      "COMPOSITIONAL PROPERTY, as a property and not a structure field: "
+      "HasParallelReferenceExtension T says every available composite family stays available "
+      "with any untouched finite spectator appended, carried back to the theory's carriers by "
+      "an EXPLICIT reindexing e : R x (A x Fin n) ~ A x Fin m handed in as data; "
+      "HasQutritReferenceExtension is the one instance the countermodel test needs, with "
+      "qutritIdx (r,(a,e)) = (a, e + 2r) keeping the system qubit in the system slot, "
+      "checked here as a bijection. THE COUNTERMODEL VIOLATES IT: extended availability means "
+      "2-positivity on the larger carrier, 2-positivity implies plain positivity by the "
+      "padding congruence Psi M = E^dag (id_2 (x) Psi)(E M E^dag) E (checked entry for "
+      "entry), and the qutrit extension of Phi_2 -- computed literally as reindex . amplify "
+      ". reindex^-1 -- preserves the trace yet has form -3/7 on the reindexed rank-three "
+      "input, so the countermodel's sector rejects it on the positivity conjunct alone. "
+      "HENCE HasCompositeUnitaryControl does NOT imply HasParallelReferenceExtension: "
+      "arbitrary control WITHIN a carrier is a different thing from the ability to APPEND an "
+      "untouched spectator. NOT CLAIMED, lint-guarded: no sufficiency (nothing says exact QM "
+      "plus full control plus qutrit or any reference extension implies KrausSoundExt; the "
+      "qutrit principle kills the current Phi_2, which is not the same as characterizing "
+      "every non-CP map); no structure field; HasParallelReferenceExtension is not shown to "
+      "be satisfiable by any theory here, only that control does not deliver it.")
+
+# ----------------------- F50  round 36: the sufficiency theorem ---------------------------
+# exact system QM + full composite unitary control + parallel reference extension force
+# composite Kraus soundness (phase three, round thirty-six), after correcting the predicate.
+ok50 = True
+
+
+def refIdx50(p):
+    """refIdx 1 on S x (Fin 2 x Fin 2), S = Fin 2 x Fin 2: composite index 4r + 2a + e
+    (r in Fin 4 the reference, a the system qubit, e the ancilla qubit) -> target index
+    8a + (e + 2 r), i.e. (a, finProdFinEquiv (finProdFinEquiv r, e))."""
+    r, a, e = p >> 2, (p >> 1) & 1, p & 1
+    return 8 * a + (e + 2 * r)
+
+
+ok50 &= sorted(refIdx50(p) for p in range(16)) == list(range(16))
+_rinv = {refIdx50(p): p for p in range(16)}
+
+
+def reindex50(X):
+    return [[X[_rinv[p]][_rinv[q]] for q in range(16)] for p in range(16)]
+
+
+def spectatorPhi2_50(N):
+    """withSpectator S refIdx Phi_2 on the 16-level carrier, literally reindex.amplify.reindex^-1."""
+    X = [[N[refIdx50(p)][refIdx50(q)] for q in range(16)] for p in range(16)]
+    return reindex50(amplGen48(red47, X, 4, dref=4))
+
+
+# --- (a) THE CORRECTION.  The round-27 predicate quantified over level zero, where the
+# structure's own readout_avail 0 is an available family with EMPTY outcome type; no Kraus
+# family has an empty outcome type, so the predicate was unsatisfiable.  Read back from the
+# kernel: the corrected definition, the all-levels form, and its unsatisfiability theorem.
+_cs50 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'CompositeSoundness.lean')
+if os.path.exists(_cs50):
+    with open(_cs50, encoding='utf-8') as _f:
+        _cs_txt50 = ' '.join(_f.read().split())
+    ok50 &= 'T.availExt (n + 1) O F → IsKrausFamily F' in _cs_txt50
+    ok50 &= 'def KrausSoundExtAllLevels' in _cs_txt50
+    ok50 &= 'theorem krausSoundExtAllLevels_unsatisfiable' in _cs_txt50
+    ok50 &= 'CORRECTED IN ROUND THIRTY-SIX' in _cs_txt50
+# --- (b) REACHABILITY (pureState_reachable, conj_vecMulVec): U (e e^dag) U^dag is the dyad of
+# the column U e -- for ANY U, checked exactly; and the pure seed |0><0| (x) |0><0| is the dyad
+# of the basis vector (0,0) (tensorOf_single_single).
+for _s in range(3):
+    _U = gmat47(_s + 30, 4)
+    _e = [CO17, CZ17, CZ17, CZ17]
+    ok50 &= mmc17(mmc17(_U, dyad47(_e)), dag17(_U)) == dyad47([_U[p][0] for p in range(4)])
+_E00 = [[CO17 if (r, c) == (0, 0) else CZ17 for c in range(2)] for r in range(2)]
+ok50 &= kr17(_E00, _E00) == dyad47([CO17, CZ17, CZ17, CZ17])
+# --- (c) POLARIZATION (two_single_eq_dyads, isHermitian_of_forms_real, star_form,
+# trace_mul_vecMulVec): the matrix-unit identity 2 E_ij = (D(e_i+e_j) - D e_i - D e_j)
+# + i (D(e_i + i e_j) - D e_i - D e_j) on every pair of a four-level carrier; the trace form
+# tr(J D v) = <v, J v>; the conjugate form is the form of J^dag; and a non-Hermitian J has a
+# NON-REAL quadratic form on some e_i + e_j or e_i + i e_j, while a Hermitian one never does.
+def e50(i):
+    return [CO17 if p == i else CZ17 for p in range(4)]
+
+
+def vadd50(u, v):
+    return [x + y for x, y in zip(u, v)]
+
+
+def vscale50(c, u):
+    return [c * x for x in u]
+
+
+for _i in range(4):
+    for _j in range(4):
+        _lhs = [[C17(2) if (r, c) == (_i, _j) else CZ17 for c in range(4)] for r in range(4)]
+        _A = dyad47(vadd50(e50(_i), e50(_j)))
+        _B = dyad47(vadd50(e50(_i), vscale50(C17(0, 1), e50(_j))))
+        _Ei, _Ej = dyad47(e50(_i)), dyad47(e50(_j))
+        _rhs = [[(_A[r][c] - _Ei[r][c] - _Ej[r][c]) + C17(0, 1) * (_B[r][c] - _Ei[r][c] - _Ej[r][c])
+                 for c in range(4)] for r in range(4)]
+        ok50 &= _lhs == _rhs
+
+
+def form50(J, v):
+    return sum((v[p].conj() * J[p][q] * v[q] for p in range(len(v)) for q in range(len(v))), CZ17)
+
+
+_Jr = gmat47(41, 4)                                         # not Hermitian
+for _v in (gvec47(1, 4), gvec47(2, 4)):
+    ok50 &= trace40(mmc17(_Jr, dyad47(_v))) == form50(_Jr, _v)
+    ok50 &= form50(_Jr, _v).conj() == form50(dag17(_Jr), _v)
+_found = any(form50(_Jr, vadd50(e50(i), e50(j))).im != Frac(0)
+             or form50(_Jr, vadd50(e50(i), vscale50(C17(0, 1), e50(j)))).im != Frac(0)
+             or form50(_Jr, e50(i)).im != Frac(0) for i in range(4) for j in range(4))
+ok50 &= _found
+_Jh = mmc17(_Jr, dag17(_Jr))                                # Hermitian
+ok50 &= herm47(_Jh) and all(form50(_Jh, vadd50(e50(i), e50(j))).im == Frac(0)
+                            and form50(_Jh, vadd50(e50(i), vscale50(C17(0, 1), e50(j)))).im == Frac(0)
+                            for i in range(4) for j in range(4))
+# --- (d) THE EXPOSURE, on the round-34 countermodel's own Phi_2 (branch_cp): reindex
+# S x (Fin 2 x Fin 2) -> Fin 2 x Fin 8 by the explicit refIdx; the normalized |Omega_S> is
+# Omega/2 (|S| = 4, so no irrational appears); the extended Phi_2 sends its dyad to
+# reindex(J)/4; the rotated readout of the direction w = Omega/2 gives the (0,0) entry
+# <w, J w>/4 = (-8/7)/4 /4 ... exactly -1/14 as the (0,0) entry of the VISIBLE-QUBIT branch
+# output on |0><0| -- negative, so no CP map on the qubit could have produced it.
+_J16 = J47                                                  # Choi(Phi_2), 16x16, from F47
+_psi = vscale50(HALF43, [OM47[_rinv[p]] for p in range(16)])   # (Omega o e^-1)/2
+ok50 &= inner47(_psi, _psi) == CO17
+_Y = spectatorPhi2_50(dyad47(_psi))
+ok50 &= _Y == [[_J16[_rinv[p]][_rinv[q]] * C17(Frac(1, 4)) for q in range(16)] for p in range(16)]
+_w = vscale50(HALF43, OM47)                                 # a unit direction on S x S
+ok50 &= inner47(_w, _w) == CO17 and form50(_J16, _w) == C17(Frac(-2, 7))
+_what = [_w[_rinv[p]] for p in range(16)]
+# any W with column (0,0) = w-hat: (W^dag Y W)_{(0,0),(0,0)} = <w-hat, Y w-hat> (conj_diag_entry)
+_W = [[(_what[p] if c == 0 else (CO17 if p == c else CZ17)) for c in range(16)] for p in range(16)]
+_rot = mmc17(mmc17(dag17(_W), _Y), _W)
+ok50 &= _rot[0][0] == form50(_Y, _what) == form50(_J16, _w) * C17(Frac(1, 4))
+ok50 &= _rot[0][0] == C17(Frac(-1, 14))
+# the readout at level 0 and the discard: system entry (0,0) is composite entry (0,0)
+_sys = [[_rot[8 * s][8 * t] for t in range(2)] for s in range(2)]  # ptraceAnc . localLuders 0
+ok50 &= _sys[0][0] == C17(Frac(-1, 14)) and not psd47([[_sys[0][0]]])
+# --- (e) THE AGGREGATE TRACE (aggregate_trace): the discarded family of Phi_2 through any
+# reachable pure preparation conserves the trace exactly, and the functional
+# X -> tr(Phi_2 X) - tr X vanishes on every dyad and hence on every matrix.
+for _s in range(3):
+    _u = gvec47(_s + 50, 4)
+    ok50 &= trace40(red47(dyad47(_u))) == trace40(dyad47(_u))
+    ok50 &= trace40(red47(gmat47(_s + 60, 4))) == trace40(gmat47(_s + 60, 4))
+# --- (f) THE FULL QUANTUM THEORY HAS PARALLEL REFERENCE EXTENSION (withSpectator_conjChannel,
+# withSpectator_cp): the spectator extension of a conjugation by V is conjugation by the
+# reindexed 1 (x) V, checked with a qutrit spectator on a random 4x4 V; and it preserves
+# the trace (the reference diagonal carries it).
+def withSpectatorConj50(V, N):
+    X = [[N[qidx49(p)][qidx49(q)] for q in range(12)] for p in range(12)]
+    return reindex49(amplGen48(conj48(V), X, 4, dref=3))
+
+
+_V = gmat47(71, 4)
+_TV = reindex49(kr17(eye17(3), _V))
+for _s in range(2):
+    _N = gmat47(_s + 80, 12)
+    ok50 &= withSpectatorConj50(_V, _N) == mmc17(mmc17(_TV, _N), dag17(_TV))
+_Uu = SWAP46
+ok50 &= trace40(withSpectatorConj50(_Uu, gmat47(90, 12))) == trace40(gmat47(90, 12))
+# --- (g) the file's own claim discipline, read back
+_rs50 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'ReferenceSufficiency.lean')
+if os.path.exists(_rs50):
+    with open(_rs50, encoding='utf-8') as _f:
+        _rs_txt50 = ' '.join(_f.read().split())
+    ok50 &= 'NOT claimed: composite COMPLETENESS' in _rs_txt50
+    ok50 &= "that is round thirty-seven's question" in _rs_txt50
+    ok50 &= '(hext : FiniteIsometryExtensionSF Unit)' in _rs_txt50
+check("F50", ok50,
+      "ROUND 36: THE SUFFICIENCY THEOREM -- exact system QM plus full composite unitary "
+      "control plus parallel reference extension force composite Kraus soundness (phase "
+      "three, round thirty-six; kernel: unitVectorRotation_of_isometryExtension, "
+      "pureState_reachable, exact_avail_cp_tp, cp_apply_posSemidef, two_single_eq_dyads, "
+      "linear_functional_zero_of_dyads, isHermitian_of_forms_real, posSemidef_of_forms_nonneg, "
+      "forms_nonneg_of_unit, branch_cp, aggregate_trace, krausSoundExt_of_exact_control_refext, "
+      "countermodel_witness_level_two, cp_comp, localLuders_cp, fullQuantum_exact, "
+      "fullQuantum_control, fullQuantum_krausSoundExt, withSpectator_conjChannel, "
+      "withSpectator_cp, fullQuantum_parallelReferenceExtension, "
+      "parallelReferenceExtension_satisfiable in OIBridge/ReferenceSufficiency.lean, and "
+      "krausSoundExtAllLevels_unsatisfiable, krausSoundExt_of_allLevels in "
+      "OIBridge/CompositeSoundness.lean). A CORRECTION FIRST: the round-27 predicate "
+      "KrausSoundExt quantified over ancilla level ZERO, where the structure's own "
+      "readout_avail 0 is an available family with the EMPTY outcome type Fin 0, for which no "
+      "Kraus family exists; the predicate was UNSATISFIABLE for every theory "
+      "(krausSoundExtAllLevels_unsatisfiable, three lines), so every earlier NOT-KrausSoundExt "
+      "statement was true for a degenerate reason even though each proof went through its "
+      "intended level-two witness. The predicate now quantifies over levels n + 1, the "
+      "all-levels form is kept under its own name, the earlier results are re-proved against "
+      "the corrected predicate with the same witnesses, and countermodel_witness_level_two "
+      "records the round-34 witness with no predicate at all. THE CAPSTONE, "
+      "krausSoundExt_of_exact_control_refext: against boundary item 2 as the explicit "
+      "hypothesis FiniteIsometryExtensionSF Unit -- finite isometry extension with a "
+      "ONE-DIMENSIONAL source, reindexed onto the composite carrier by "
+      "unitVectorRotation_of_isometryExtension, no fifth item -- exact visible QM, every "
+      "composite unitary and parallel reference extension imply KrausSoundExt. THE PROOF: "
+      "each branch is CP (branch_cp) because reference extension makes id_S (x) F_a "
+      "available on Fin 2 x Fin (M+1) via the explicit reindexing refIdx, the pure seed and "
+      "control make the normalized |Omega_S> a reachable preparation at |0><0|, the extended "
+      "branch turns it into the reindexed Choi matrix, a rotation puts any test direction w "
+      "at basis vector (0,0), and readout plus discard read off <w, J w>/|S| as the (0,0) "
+      "entry of a VISIBLE-QUBIT branch output on a positive input, which exact system QM "
+      "forces nonnegative; nonnegative forms give Hermitian by polarization and then PSD, so "
+      "both failure modes (non-Hermitian, negative direction) go through one argument with no "
+      "hidden case split. The aggregate trace (aggregate_trace) needs no reference extension: "
+      "every unit vector is a reachable pure preparation, exactness conserves the discarded "
+      "trace on it, and a linear functional vanishing on dyads vanishes "
+      "(two_single_eq_dyads: 2 E_ij = (D(e_i+e_j) - D e_i - D e_j) + i (D(e_i + i e_j) - "
+      "D e_i - D e_j), checked here on every pair of a four-level carrier). Verified exactly: "
+      "the reindexing refIdx as a bijection; the reachability identity U (e e^dag) U^dag = "
+      "(U e)(U e)^dag; the trace form and conjugate-form identities; a non-Hermitian matrix "
+      "with a non-real form on a polarization vector; THE EXPOSURE on the round-34 "
+      "countermodel's own Phi_2 -- |S| = 4 so |Omega_S>/2 is exactly unit, the extended Phi_2 "
+      "sends its dyad to reindex(J)/4, and the rotated readout of the direction Omega/2 puts "
+      "exactly -1/14 into the (0,0) entry of the visible-qubit branch output on |0><0|, "
+      "which no CP map could produce. THE POSITIVE INSTANCE: fullQuantum (Kraus families on "
+      "the system, CP aggregate-trace-preserving families on every composite, "
+      "reference-tested preparations) is exactly quantum, has every composite unitary, is "
+      "composite-sound, and HAS parallel reference extension, since the spectator extension "
+      "of a conjugation is conjugation by the reindexed 1 (x) V (checked here with a qutrit "
+      "spectator) and the trace is carried through the reference diagonal; "
+      "parallelReferenceExtension_satisfiable. NOT CLAIMED, lint-guarded: composite "
+      "COMPLETENESS (that every Kraus family on every composite is available), so the equation "
+      "full finite QM = exact visible QM + unitary control + parallel spectator consistency is "
+      "established in its SOUNDNESS direction only; that OI itself implies parallel reference "
+      "extension -- round 37's question; no structure field.")
+
+# ----------------------- F51  round 37: the H_comp bridge ----------------------------------
+# spectator compositionality DETERMINES the form of a spectator extension and does NOT supply
+# its existence; inert-spectator compositionality is the missing condition (phase three,
+# round thirty-seven).
+ok51 = True
+
+
+def kron_unit51(r, r2, s, s2):
+    """kr17 of two matrix units: (3x3 unit at (r, r2)) (x) (4x4 unit at (s, s2))."""
+    _Er = [[CO17 if (a, b) == (r, r2) else CZ17 for b in range(3)] for a in range(3)]
+    _Es = [[CO17 if (a, b) == (s, s2) else CZ17 for b in range(4)] for a in range(4)]
+    return kr17(_Er, _Es)
+
+
+# --- (a) THE FORM (amplRef_tensorOf): id_R (x) Phi_2 on a product input is X_R (x) Phi_2 X,
+# with a qutrit spectator on random Gaussian-rational factors.
+for _s in range(3):
+    _XR, _X = gmat47(_s + 100, 3), gmat47(_s + 110, 4)
+    ok51 &= amplGen48(red47, kr17(_XR, _X), 4, dref=3) == kr17(_XR, red47(_X))
+# --- (b) PRODUCTS SPAN (tensorOf_single, mapSpectatorIndependent_iff_amplRef,
+# ext_of_agree_on_reindexed_single): every composite matrix unit is a product of matrix
+# units (all 144), so a map agreeing with id (x) Phi_2 on products agrees everywhere -- the
+# product-unit expansion of a random 12x12 input reproduces the amplified map exactly.
+for _r in range(3):
+    for _r2 in range(3):
+        for _s in range(4):
+            for _s2 in range(4):
+                _E = kron_unit51(_r, _r2, _s, _s2)
+                ok51 &= _E == [[CO17 if (p, q) == (4 * _r + _s, 4 * _r2 + _s2) else CZ17
+                                for q in range(12)] for p in range(12)]
+_M = gmat47(120, 12)
+_acc = [[CZ17] * 12 for _ in range(12)]
+for _p in range(12):
+    for _q in range(12):
+        _r, _s, _r2, _s2 = _p >> 2, _p & 3, _q >> 2, _q & 3
+        _Er = [[CO17 if (a, b) == (_r, _r2) else CZ17 for b in range(3)] for a in range(3)]
+        _Es = [[CO17 if (a, b) == (_s, _s2) else CZ17 for b in range(4)] for a in range(4)]
+        _blk = kr17(_Er, red47(_Es))
+        for a in range(12):
+            for b in range(12):
+                _acc[a][b] = _acc[a][b] + _M[_p][_q] * _blk[a][b]
+ok51 &= _acc == amplGen48(red47, _M, 4, dref=3)
+# --- (c) RELABELLING (correlationExtension_ones, correlationExtension_ones_eq_conjChannel,
+# correlationExtension_ones_comp, wordMap_ones): the trivial-correlation coherent map of a
+# permutation g is X -> X(g^-1 a, g^-1 b), equal to conjugation by the permutation unitary
+# P_g[i][j] = [g j = i], and composes as the permutations do.
+def perm51(seed, n):
+    _g = list(range(n))
+    _x = seed
+    for _i in range(n - 1, 0, -1):
+        _x = (_x * 1103515245 + 12345) % (2 ** 31)
+        _j = _x % (_i + 1)
+        _g[_i], _g[_j] = _g[_j], _g[_i]
+    return _g
+
+
+def pmat51(g):
+    n = len(g)
+    return [[CO17 if g[j] == i else CZ17 for j in range(n)] for i in range(n)]
+
+
+def relabel51(g, X):
+    n = len(g)
+    _inv = {g[j]: j for j in range(n)}
+    return [[X[_inv[a]][_inv[b]] for b in range(n)] for a in range(n)]
+
+
+for _s in range(3):
+    _g, _h = perm51(_s + 1, 4), perm51(_s + 7, 4)
+    _X = gmat47(_s + 130, 4)
+    _P = pmat51(_g)
+    ok51 &= relabel51(_g, _X) == mmc17(mmc17(_P, _X), dag17(_P))
+    ok51 &= mmc17(dag17(_P), _P) == eye17(4) and mmc17(_P, dag17(_P)) == eye17(4)
+    _gh = [_g[_h[x]] for x in range(4)]
+    ok51 &= relabel51(_g, relabel51(_h, _X)) == relabel51(_gh, _X)
+# --- (d) TRANSPORT (transport_conjChannel, reindex_isometry): along the qutrit reindexing
+# qidx49, transporting a conjugation by V is conjugation by the reindexed V, and the reindexed
+# V is again an isometry.
+_g12 = perm51(3, 12)
+_P12 = pmat51(_g12)
+_TP = reindex49(_P12)
+for _s in range(2):
+    _N = gmat47(_s + 140, 12)
+    _Xin = [[_N[qidx49(p)][qidx49(q)] for q in range(12)] for p in range(12)]   # reindex^-1
+    ok51 &= reindex49(mmc17(mmc17(_P12, _Xin), dag17(_P12))) == mmc17(mmc17(_TP, _N), dag17(_TP))
+ok51 &= mmc17(dag17(_TP), _TP) == eye17(12)
+# --- (e) REALIZED BUT NOT EXTENDED (hCompRealized_ones_of_control on the countermodel vs
+# countermodel_not_parallelReferenceExtension): the transported relabellings are 2-positive
+# and trace preserving -- available in the round-34 countermodel -- while the spectator
+# extension of the available Phi_2 sends the reindexed |Omega_3> dyad to a non-PSD matrix
+# with quadratic form exactly -3/7 (round 35's witness, re-read through the same reindexing).
+_v24 = gvec47(150, 24)
+_D24 = dyad47(_v24)
+_out = amplGen48(conj48(_TP), _D24, 12, dref=2)
+ok51 &= psd47(_out) and trace40(_out) == trace40(_D24)
+_om3 = [CO17 if p in (0, 5, 10) else CZ17 for p in range(12)]     # |Omega_3> on Fin 3 x (Fin 2 x Fin 2)
+_om3hat = [_om3[_qinv[p]] for p in range(12)]                       # reindexed to Fin 2 x Fin 6
+_Y = withSpectator49(dyad47(_om3hat))
+ok51 &= form50(_Y, _om3hat) == C17(Frac(-3, 7)) and not psd47(_Y)
+# --- (f) the kernel's own claim discipline, read back
+_sb51 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'SpectatorBridge.lean')
+if os.path.exists(_sb51):
+    with open(_sb51, encoding='utf-8') as _f:
+        _sb_txt51 = ' '.join(_f.read().split())
+    ok51 &= 'theorem inertSpectator_iff_parallelReferenceExtension' in _sb_txt51
+    ok51 &= 'theorem hcompRealized_not_implies_parallelReferenceExtension' in _sb_txt51
+    ok51 &= 'acts identically on that spectator' in _sb_txt51
+    ok51 &= 'NOT claimed: composite COMPLETENESS' in _sb_txt51
+    ok51 &= "round thirty-eight's" in _sb_txt51
+_rs51 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'ReferenceSufficiency.lean')
+if os.path.exists(_rs51):
+    with open(_rs51, encoding='utf-8') as _f:
+        _rs_txt51 = ' '.join(_f.read().split())
+    ok51 &= 'theorem krausSoundExt_of_sound_control_refext' in _rs_txt51
+    ok51 &= '(hsound : KrausSound T)' in _rs_txt51
+    ok51 &= 'STRENGTHENED IN ROUND THIRTY-SEVEN' in _rs_txt51
+check("F51", ok51,
+      "ROUND 37: THE H_COMP BRIDGE -- spectator compositionality DETERMINES the form of a "
+      "spectator extension and does NOT supply its existence; inert-spectator "
+      "compositionality is the missing condition (phase three, round thirty-seven; kernel: "
+      "refBlockR_tensorOf, amplRef_tensorOf, mapSpectatorIndependent_iff_amplRef, "
+      "spectatorIndependent_form, hComp_spectator_form, ext_of_agree_on_reindexed_single, "
+      "isSpectatorExtension_iff, spectatorExtension_unique, "
+      "inertSpectator_iff_parallelReferenceExtension, krausSoundExt_of_sound_control_inert, "
+      "countermodel_not_inert, fullQuantum_inert, correlationExtension_ones, "
+      "correlationExtension_ones_eq_conjChannel, correlationExtension_ones_comp, wordMap_ones, "
+      "implementationExtensionality_ones, spectatorIndependent_ones, hComp_ones, "
+      "transport_apply, transport_conjChannel, reindex_isometry, permMatrix_isometry, "
+      "withSpectator_eq_transport, hCompRealized_spectator_available, "
+      "hCompRealized_ones_of_control, countermodel_hCompRealized_ones, "
+      "fullQuantum_hCompRealized_ones, hcompRealized_not_implies_parallelReferenceExtension, "
+      "hcompRealized_consistent_with_parallelReferenceExtension in "
+      "OIBridge/SpectatorBridge.lean; and the OPENING CLEANUP in ReferenceSufficiency.lean: "
+      "krausSoundExt_of_sound_control_refext with antecedent KrausSound T -- system "
+      "SOUNDNESS, not exactness -- plus control plus parallel reference extension against "
+      "FiniteIsometryExtensionSF Unit, the round-36 exact form now a corollary through "
+      "exact_iff_sound_and_full, and sound_avail_cp_tp beneath branch_cp and "
+      "aggregate_trace). FORM: under H_comp the coherent map of every spectator-extended "
+      "relabelling id_R x g IS amplRefL R of the coherent map of g -- the reversible "
+      "specialization of parallel reference extension, with round 25's map-level "
+      "identity-on-spectator form read off explicitly -- because composite matrix units are "
+      "products, so agreement on products is agreement everywhere; in the availability world "
+      "a map acting as X_R (x) Phi X on every reindexed product input IS withSpectator R e "
+      "Phi, uniquely. EXISTENCE: HCompRealized says H_comp holds AND every coherent map the "
+      "completion names is an available one-outcome intervention; a realized H_comp has "
+      "parallel reference extension ON THE REVERSIBLE SECTOR it names; the "
+      "trivial-correlation completion satisfies H_comp for every alphabet and is realized by "
+      "any theory with composite unitary control, so the round-34 countermodel realizes it at "
+      "the qutrit spectator with the full alphabet of composite relabellings and still "
+      "refutes parallel reference extension, while fullQuantum realizes the same completion "
+      "and has it: the realization decides neither way. THE MISSING CONDITION, in physical "
+      "words: an intervention performable on a system remains performable when an "
+      "independent finite spectator is adjoined, and acts identically on that spectator -- "
+      "an EXISTENCE clause, InertSpectatorCompositionality -- proved equivalent to parallel "
+      "reference extension, hence sufficient (with system soundness, control and boundary "
+      "item 2) for composite Kraus soundness; the countermodel lacks it, the full theory has "
+      "it. Verified exactly here: the product identity with a qutrit spectator; all 144 "
+      "product matrix units as composite units and the product-unit expansion reproducing the "
+      "amplified map on a random 12x12 input; relabelling as permutation conjugation and its "
+      "composition law; transport of a conjugation along the qutrit reindexing with the "
+      "transported matrix again an isometry; the transported relabellings 2-positive and "
+      "trace preserving (available in the countermodel) while the spectator extension of "
+      "Phi_2 sends the reindexed |Omega_3> dyad to a non-PSD matrix with form -3/7. NOT "
+      "CLAIMED, lint-guarded: that OI or H_comp implies inert-spectator compositionality (the "
+      "non-implication says the opposite for the realized form); composite COMPLETENESS "
+      "(prepAvail starts from the visible system only; a product-preparation principle is "
+      "round 38's question); OI + conditions iff full operational QM; no structure field.")
+
+# ----------------------- F52  round 38: iterated ancilla closure ---------------------------
+# the shifted theory, the missing attach/discard rule, its independence, and composite
+# completeness under it (phase three, round thirty-eight).
+ok52 = True
+
+
+def rank52(M):
+    """Exact rank over the Gaussian rationals, by elimination."""
+    A = [row[:] for row in M]
+    nr, nc = len(A), len(A[0])
+    r = 0
+    for c in range(nc):
+        piv = next((i for i in range(r, nr) if A[i][c] != CZ17), None)
+        if piv is None:
+            continue
+        A[r], A[piv] = A[piv], A[r]
+        inv = A[r][c].inv()
+        A[r] = [x * inv for x in A[r]]
+        for i in range(nr):
+            if i != r and A[i][c] != CZ17:
+                f = A[i][c]
+                A[i] = [x - f * y for x, y in zip(A[i], A[r])]
+        r += 1
+        if r == nr:
+            break
+    return r
+
+
+def add52(A, B):
+    return [[x + y for x, y in zip(ra, rb)] for ra, rb in zip(A, B)]
+
+
+def scale52(c, A):
+    return [[c * x for x in row] for row in A]
+
+
+def conjby52(K, X):
+    return mmc17(mmc17(K, X), dag17(K))
+
+
+R52, S52 = C17(Frac(4, 5)), C17(Frac(3, 5))                        # sqrt(1-g), sqrt(g), g = 9/25
+D0 = [[CO17, CZ17], [CZ17, R52]]
+E0 = [[CZ17, S52], [CZ17, CZ17]]
+K0, K1 = kr17(eye17(2), D0), kr17(eye17(2), E0)                    # index 2a + j on Fin 2 x Fin 2
+
+
+def AD52(X):
+    return add52(conjby52(K0, X), conjby52(K1, X))
+
+
+# --- (a) THE CHANNEL (damping_gram, ancillaDamping_trace, ancillaDamping_isKraus): a
+# normalized two-operator Kraus instrument on the level-two carrier.
+ok52 &= add52(mmc17(dag17(K0), K0), mmc17(dag17(K1), K1)) == eye17(4)
+for _s in range(2):
+    _X = gmat47(_s + 160, 4)
+    ok52 &= trace40(AD52(_X)) == trace40(_X)
+# --- (b) THE CHOI DYADS (vecOf_orth, kraus_of_damping): the two Kraus vectorizations are
+# orthogonal and nonzero, so any Kraus decomposition lives in their span (dyad_sum_span).
+def vec52(V):
+    return [V[p & 3][p >> 2] for p in range(16)]                    # p = 4 p1 + p2 -> V p2 p1
+
+
+ok52 &= inner47(vec52(K0), vec52(K1)) == CZ17
+ok52 &= any(x != CZ17 for x in vec52(K0)) and any(x != CZ17 for x in vec52(K1))
+# --- (c) EVERY DECOMPOSITION IS INADMISSIBLE (ad_not_adm): mix the two operators by a
+# rational rotation; each operator with a nonzero K0-coefficient is invertible with the
+# explicit inverse dampInv (rank 4 > 2, so it factors through nothing of dimension 2) and its
+# Gram matrix is not scalar (gram_entries: off-diagonal conj(a) b s, unequal diagonal).
+_u = [[C17(Frac(3, 5)), C17(Frac(4, 5))], [C17(Frac(-4, 5)), C17(Frac(3, 5))]]
+_Kp = [add52(scale52(_u[j][0], K0), scale52(_u[j][1], K1)) for j in range(2)]
+ok52 &= add52(mmc17(dag17(_Kp[0]), _Kp[0]), mmc17(dag17(_Kp[1]), _Kp[1])) == eye17(4)
+
+
+def dampInv52(a, b):
+    g = [[a.inv(), (C17(0) - b * S52) * (a * a * R52).inv()], [CZ17, (a * R52).inv()]]
+    return kr17(eye17(2), g)
+
+
+for j in range(2):
+    a, b = _u[j][0], _u[j][1]
+    ok52 &= a != CZ17
+    ok52 &= mmc17(dampInv52(a, b), _Kp[j]) == eye17(4) and rank52(_Kp[j]) == 4
+    _G = mmc17(dag17(_Kp[j]), _Kp[j])
+    ok52 &= _G[0][1] == a.conj() * b * S52 and _G[0][1] != CZ17
+    ok52 &= _G[0][0] == a.conj() * a and _G[1][1] == a.conj() * a * R52 * R52 + b.conj() * b * S52 * S52
+    ok52 &= _G[0][0] != _G[1][1]                                     # not a scalar multiple of 1
+# --- (d) THE ADMISSIBLE CLASS CONTAINS THE READOUT (esf_mul_conjTranspose, adm_localLuders):
+# the Lüders selector is Esf_k Esf_k^dag with Esf_k 4x2, rank 2 = the level bound; and the
+# identity, rank 4, is admissible only as a unitary.
+for k in range(2):
+    _Esf = [[CO17 if (p & 1) == k and (p >> 1) == s else CZ17 for s in range(2)] for p in range(4)]
+    _sel = [[CO17 if p == q and (p & 1) == k else CZ17 for q in range(4)] for p in range(4)]
+    ok52 &= mmc17(_Esf, dag17(_Esf)) == _sel and rank52(_sel) == 2
+ok52 &= rank52(eye17(4)) == 4
+# --- (e) THE DILATION (wD_isometry, WD_esf, stinespringCircuit_branch): the explicit rational
+# 4x4 unitary on (old ancilla, fresh ancilla), lifted by the identity on the system, satisfies
+# W E_0 = V_K, and the round-25 circuit branch k is exactly rho -> K_k rho K_k^dag.
+def w52(x, y):
+    if y == (0, 0):
+        return CO17 if x == (0, 0) else CZ17
+    if y == (1, 0):
+        return R52 if x == (1, 0) else (S52 if x == (0, 1) else CZ17)
+    if y == (0, 1):
+        return CO17 if x == (1, 1) else CZ17
+    return (C17(0) - S52) if x == (1, 0) else (R52 if x == (0, 1) else CZ17)
+
+
+_w = [[w52((p >> 1, p & 1), (q >> 1, q & 1)) for q in range(4)] for p in range(4)]
+ok52 &= mmc17(dag17(_w), _w) == eye17(4)
+_W = kr17(eye17(2), _w)                                              # index ((a, j), k) = 4a + 2j + k
+_Esf0 = [[CO17 if (p & 1) == 0 and (p >> 1) == q else CZ17 for q in range(4)] for p in range(8)]
+_Vsf = [[(K0 if (p & 1) == 0 else K1)[p >> 1][q] for q in range(4)] for p in range(8)]
+ok52 &= mmc17(_W, _Esf0) == _Vsf
+for _s in range(2):
+    _rho = gmat47(_s + 170, 4)
+    _seed = [[_rho[p >> 1][q >> 1] if (p & 1) == 0 and (q & 1) == 0 else CZ17 for q in range(8)]
+             for p in range(8)]
+    _out = conjby52(_W, _seed)
+    for k in range(2):
+        _branch = [[_out[2 * p + k][2 * q + k] for q in range(4)] for p in range(4)]
+        ok52 &= _branch == conjby52(K0 if k == 0 else K1, _rho)
+# --- (f) THE RELATIVE READOUT IS A SPECTATOR EXTENSION, NOT A COARSE-GRAINING
+# (transport_localLuders, availExt_relativeReadout): on the level-four carrier with old
+# ancilla j and fresh ancilla k, the fresh-ancilla selector keeps the j-coherences, while the
+# coarse-grained full-ancilla readout kills them.
+_N8 = gmat47(180, 8)                                                 # index ((a, j), k) = 4a + 2j + k
+_rel = [[_N8[p][q] if (p & 1) == 0 and (q & 1) == 0 else CZ17 for q in range(8)] for p in range(8)]
+_dep = [[_N8[p][q] if (p & 1) == 0 and (q & 1) == 0 and (p & 3) == (q & 3) else CZ17
+         for q in range(8)] for p in range(8)]
+ok52 &= _rel != _dep and _rel[0][2] == _N8[0][2] and _dep[0][2] == CZ17
+# --- (g) ATTACH-RUN-DISCARD IS A SCALED KRAUS SUM (discardWith_uniform_conjChannel,
+# fullQuantum_iteratedAncillaClosure): Tr_F[K (rho (x) 1/m) K^dag] = (1/m) sum_{f,e} B_fe rho B_fe^dag
+# over the fresh-ancilla blocks, checked exactly on a random 8x8 K with m = 2.
+_K8 = gmat47(190, 8)                                                 # index (s, f) = 2s + f
+_rho4 = gmat47(191, 4)
+_att = [[_rho4[p >> 1][q >> 1] * C17(Frac(1, 2)) if (p & 1) == (q & 1) else CZ17 for q in range(8)]
+        for p in range(8)]
+_big = conjby52(_K8, _att)
+_lhs = [[sum((_big[2 * s + f][2 * t + f] for f in range(2)), CZ17) for t in range(4)] for s in range(4)]
+_rhs = [[CZ17] * 4 for _ in range(4)]
+for f in range(2):
+    for e in range(2):
+        _B = [[_K8[2 * s + f][2 * t + e] for t in range(4)] for s in range(4)]
+        _rhs = add52(_rhs, scale52(C17(Frac(1, 2)), conjby52(_B, _rho4)))
+ok52 &= _lhs == _rhs
+ok52 &= trace40(_att) == trace40(_rho4)
+# --- (h) the kernel's own claim discipline, read back
+_ac52 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'AncillaClosure.lean')
+if os.path.exists(_ac52):
+    with open(_ac52, encoding='utf-8') as _f:
+        _ac_txt52 = ' '.join(_f.read().split())
+    ok52 &= 'def IteratedAncillaClosure' in _ac_txt52
+    ok52 &= 'theorem compositeCompleteness' in _ac_txt52
+    ok52 &= 'theorem exactComposite_of_conditions' in _ac_txt52
+    ok52 &= 'NOT claimed: that OI implies iterated ancilla closure' in _ac_txt52
+_co52 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'ClosureObstruction.lean')
+if os.path.exists(_co52):
+    with open(_co52, encoding='utf-8') as _f:
+        _co_txt52 = ' '.join(_f.read().split())
+    ok52 &= 'theorem admissible_no_shift' in _co_txt52
+    ok52 &= 'theorem closure_independent' in _co_txt52
+    ok52 &= 'Kraus uniqueness is not invoked' in _co_txt52
+check("F52", ok52,
+      "ROUND 38: ITERATED ANCILLA CLOSURE -- the shifted theory, the missing attach/discard "
+      "rule, its independence, and composite completeness under it (phase three, round "
+      "thirty-eight; kernel: OIBridge/AncillaClosure.lean, 33 results -- transport_id, "
+      "transport_comp, transport_sum, transport_smul, transport_symm_transport, "
+      "transport_reindex, shiftIdx_apply, specIdx_apply, conjChannel_one, "
+      "availExt_id_of_control, availExt_comp_unit, filter_snd_unit, availExt_comp_family, "
+      "transport_localLuders, availExt_relativeReadout, shift_avail_iff, shift_control, "
+      "shift_full, compositeCompleteness, exactComposite_of_soundExt_full, exactComposite_iff, "
+      "exactComposite_of_conditions, choiMatrix_smul, cp_smul, conjChannel_apply, "
+      "transport_cp, cp_of_transport_cp, discardWith_uniform_conjChannel, discardWith_sum, "
+      "discardWith_uniform_cp, fullQuantum_iteratedAncillaClosure, conditions_satisfiable, "
+      "fullQuantum_exactComposite; and OIBridge/ClosureObstruction.lean, 49 results, among "
+      "them admOp_mul, adm_sum, adm_comp, adm_localLuders, admissible_exact, "
+      "admissible_control, admissible_krausSoundExt, adm_withSpectator, admissible_inert, "
+      "dyad_sum_span, kraus_of_damping, gram_entries, dampInv_mul, ad_not_adm, wD_isometry, "
+      "WD_esf, admissible_no_shift, admissible_not_iteratedAncillaClosure, "
+      "admissible_not_fullComposite, closure_independent). THE FAILURE AUDIT, as the "
+      "directive asked: build T^(n) : FiniteOperationalTheory (A x Fin n) with avail = "
+      "T.availExt n and availExt m = T.availExt (n m) along the explicit reindexing shiftIdx; "
+      "coarse-graining, feed-forward and post-composition are FREE from the structure; the "
+      "composite identity needs composite unitary control (U = 1; the readout sums to the "
+      "dephasing, not the identity); the relative readout of the fresh ancilla -- the Lüders "
+      "selector on (A x Fin n) x Fin m, transported -- is EXACTLY the level-m readout with the "
+      "old ancilla adjoined as an inert spectator (transport_localLuders, by rfl), so it needs "
+      "inert-spectator compositionality; fresh-ancilla attachment to the composite base and "
+      "discard back to it are MISSING, and they are packaged as the single rule "
+      "IteratedAncillaClosure: attach a uniformly mixed fresh ancilla to A x Fin n, run any "
+      "intervention available on the enlarged carrier, discard the fresh ancilla, and the "
+      "result is available on A x Fin n -- in physical words, any subsystem may itself be "
+      "used as the working system in a larger experiment. Under that rule plus control and "
+      "inert spectators the shifted theory exists (shift), has composite unitary control, and "
+      "the round-25 Stinespring assembly applies to it at every positive level "
+      "(compositeCompleteness, against boundary item 2 at the composite carriers); with round "
+      "37's soundness this gives the ENDPOINT exactComposite_of_conditions: KrausSound + "
+      "control + inert-spectator compositionality + iterated ancilla closure imply that at "
+      "every positive level the available finite outcome families are EXACTLY the normalized "
+      "finite Kraus instruments on the composite; fullQuantum satisfies all four conditions "
+      "(conditions_satisfiable). THE OBSTRUCTION, kernelized: admissibleTheory has Kraus "
+      "families on the system and, on every composite, Kraus sums whose operators are scalar "
+      "multiples of unitaries or factor through at most half the composite dimension -- it "
+      "is exactly quantum on the system, has every composite unitary, inert-spectator "
+      "compositionality and composite Kraus soundness, and yet NO shifted theory with control "
+      "exists at level two (admissible_no_shift), because the round-25 circuit with the "
+      "explicit rational dilation WD would make amplitude damping on the ancilla qubit "
+      "available, and every Kraus decomposition of that channel contains an invertible "
+      "operator that is not a unitary multiple (dyad_sum_span, an elementary span lemma -- "
+      "Kraus uniqueness is not invoked -- then gram_entries, dampInv_mul and Matrix.rank_one "
+      "against rank_mul_le_left and rank_le_card_width). Hence the closure rule fails there "
+      "and so does composite completeness (closure_independent). Verified exactly here: the "
+      "damping Kraus normalization and trace preservation; the orthogonal Choi dyads; a "
+      "rational rotation of the decomposition whose every operator with nonzero "
+      "K0-coefficient has the explicit inverse, rank 4 > 2, and a non-scalar Gram matrix; "
+      "the readout selector as Esf Esf^dag of rank 2; the dilation unitary, W E_0 = V_K, and "
+      "the circuit branches K_k rho K_k^dag; the relative readout keeping old-ancilla "
+      "coherences that the coarse-grained full readout kills; attach-run-discard as a scaled "
+      "Kraus sum over fresh-ancilla blocks. NOT CLAIMED, lint-guarded: that OI implies "
+      "iterated ancilla closure or inert-spectator compositionality -- that is now the "
+      "research question; full QM beyond the finite endomorphic instrument scope; any new "
+      "boundary item (item 2 consumed at Unit for soundness and at the composite carriers "
+      "for completeness); no structure field.")
+
+# ----------------------- F53  round 39: the independence matrix ---------------------------
+# the two compositional principles are mutually independent, realized H_comp supplies
+# neither, and the conditional classification is frozen (phase three, round thirty-nine).
+ok53 = True
+
+
+def embR53(S, m, e):
+    """The fresh-ancilla embedding with the reference slot untouched: rows (r, (s, f)) with
+    index m*(S*r + s) + f, columns (r, s) with index S*r + s."""
+    return [[CO17 if (p // m) == q and (p % m) == e else CZ17 for q in range(2 * S)]
+            for p in range(2 * S * m)]
+
+
+# --- (a) THE AMPLIFIED ATTACHMENT AND DISCARD AS CONGRUENCE SUMS (amplR_uniformAttach_eq_sum,
+# amplR_ptraceAncL_eq_sum): id_2 (x) (uniform attach) is (1/m) sum_e E_e M E_e^dag, and
+# id_2 (x) (partial trace) is the sum of the principal submatrices, on a random base S = 3
+# with a fresh ancilla m = 2 -- so both preserve positive semidefiniteness.
+S53, m53 = 3, 2
+_M = gmat47(200, 2 * S53)
+_lhs = [[_M[p // m53][q // m53] * C17(Frac(1, m53)) if (p % m53) == (q % m53) else CZ17
+         for q in range(2 * S53 * m53)] for p in range(2 * S53 * m53)]
+_rhs = [[CZ17] * (2 * S53 * m53) for _ in range(2 * S53 * m53)]
+for e in range(m53):
+    _E = embR53(S53, m53, e)
+    _rhs = add52(_rhs, scale52(C17(Frac(1, m53)), mmc17(mmc17(_E, _M), dag17(_E))))
+ok53 &= _lhs == _rhs
+_N = gmat47(201, 2 * S53 * m53)
+_pt = [[sum((_N[m53 * p + e][m53 * q + e] for e in range(m53)), CZ17) for q in range(2 * S53)]
+       for p in range(2 * S53)]
+_sub = [[CZ17] * (2 * S53) for _ in range(2 * S53)]
+for e in range(m53):
+    _sub = add52(_sub, [[_N[m53 * p + e][m53 * q + e] for q in range(2 * S53)] for p in range(2 * S53)])
+ok53 &= _pt == _sub
+_P = mmc17(_N, dag17(_N))                                            # a PSD 12x12
+ok53 &= psd47(_P) and psd47([[sum((_P[m53 * p + e][m53 * q + e] for e in range(m53)), CZ17)
+                              for q in range(2 * S53)] for p in range(2 * S53)])
+# --- (b) THE ROUND-34 COUNTERMODEL HAS ITERATED ANCILLA CLOSURE
+# (discardWith_uniform_twoPositive, countermodel_iteratedAncillaClosure): at base Fin 2 x Fin 1
+# with a fresh qubit, attach-run-discard of the available Phi_2 is the qubit map
+# rho -> (4 tr rho I - rho)/7, which is 2-positive (its Choi matrix (4 I - |Omega><Omega|)/7 is
+# PSD), while Phi_2 itself is NOT completely positive (F47's J47).
+def psi53(rho):
+    att = [[rho[p >> 1][q >> 1] * HALF43 if (p & 1) == (q & 1) else CZ17 for q in range(4)]
+           for p in range(4)]
+    out = red47(att)
+    return [[out[2 * s][2 * t] + out[2 * s + 1][2 * t + 1] for t in range(2)] for s in range(2)]
+
+
+for _s in range(2):
+    _rho = gmat47(_s + 210, 2)
+    _t = trace40(_rho)
+    ok53 &= psi53(_rho) == [[(C17(4) * _t * (CO17 if r == c else CZ17) - _rho[r][c]) * C17(Frac(1, 7))
+                             for c in range(2)] for r in range(2)]
+_J = choi41(psi53, 2)
+ok53 &= psd47(_J) and not psd47(J47)
+for _s in range(2):
+    _v = gvec47(_s + 220, 4)
+    ok53 &= psd47(amplGen48(psi53, dyad47(_v), 2, dref=2))
+# --- (c) THE MATRIX, read back from the kernel: the three rows, the H_comp symmetric
+# non-implications, the non-deletability of each clause, and the OI caveat.
+_ci53 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'CompositionalIndependence.lean')
+if os.path.exists(_ci53):
+    with open(_ci53, encoding='utf-8') as _f:
+        _ci_txt53 = ' '.join(_f.read().split())
+    ok53 &= 'theorem countermodel_iteratedAncillaClosure' in _ci_txt53
+    ok53 &= 'theorem independence_matrix' in _ci_txt53
+    ok53 &= 'theorem hcompRealized_inert_not_implies_closure' in _ci_txt53
+    ok53 &= 'theorem hcompRealized_closure_not_implies_inert' in _ci_txt53
+    ok53 &= 'theorem inert_not_deletable' in _ci_txt53 and 'theorem closure_not_deletable' in _ci_txt53
+    ok53 &= 'theorem conditional_classification' in _ci_txt53
+    ok53 &= 'They do NOT show that observer independence itself fails to imply them' in _ci_txt53
+check("F53", ok53,
+      "ROUND 39: THE INDEPENDENCE MATRIX -- the two compositional principles are mutually "
+      "independent, realized H_comp supplies neither, and the conditional classification is "
+      "frozen (phase three, round thirty-nine; kernel: OIBridge/CompositionalIndependence.lean, "
+      "21 results -- amplR_transport, twoPositive_transport, twoPositive_of_transport, "
+      "amplR_ptraceAncL_eq_sum, embR_conjTranspose_apply, amplR_uniformAttach_eq_sum, "
+      "discardWith_uniform_twoPositive, countermodel_iteratedAncillaClosure, "
+      "countermodel_krausSound, admissible_krausSound, countermodel_reduction2_available_fin1, "
+      "countermodel_not_exactComposite, closure_not_implies_inert, inert_not_implies_closure, "
+      "both_satisfiable, independence_matrix, hcompRealized_inert_not_implies_closure, "
+      "hcompRealized_closure_not_implies_inert, inert_not_deletable, closure_not_deletable, "
+      "conditional_classification). THE MISSING DIRECTION: the round-34 dimensional "
+      "countermodel HAS iterated ancilla closure, because 2-positivity survives transport along "
+      "a reindexing (the reference slot untouched), uniform attachment (id_2 (x) attach is a "
+      "scaled sum of congruences) and discard (id_2 (x) partial trace is a sum of principal "
+      "submatrices); it is exactly quantum on the system, has every composite unitary, and "
+      "refutes inert-spectator compositionality (round 37). With round 38's admissible theory "
+      "(inert spectators, no closure) and fullQuantum (both) this is the 2 x 2 matrix "
+      "independence_matrix, each row with system Kraus soundness and full composite unitary "
+      "control. Symmetrically to round 37, realized H_comp with control supplies NEITHER "
+      "existence principle: the admissible theory realizes the trivial-correlation completion "
+      "and has inert spectators but no closure; the countermodel realizes it and has closure "
+      "but no inert spectators. Neither clause of the endpoint can be deleted "
+      "(inert_not_deletable via the countermodel's available non-CP Phi_2 at a Fin 1 outcome "
+      "type; closure_not_deletable via the admissible theory's missing amplitude damping). THE "
+      "FROZEN CLASSIFICATION, conditional_classification: for a qubit system, KrausSound + "
+      "HasCompositeUnitaryControl + InertSpectatorCompositionality + IteratedAncillaClosure "
+      "imply ExactCompositeQuantumOps against finite isometry extension (boundary item 2) at "
+      "Unit and at the composite carriers, together with the three witnesses. Verified exactly "
+      "here: the two congruence-sum identities with a three-level base and a fresh qubit and "
+      "their PSD preservation; the countermodel's attach-run-discard of Phi_2 as the qubit map "
+      "(4 tr rho I - rho)/7 with a PSD Choi matrix and 2-positivity on random dyads, against "
+      "the non-PSD Choi matrix of Phi_2 itself; the kernel text of the matrix and the OI "
+      "caveat. NOT CLAIMED, lint-guarded: that observer independence itself fails to imply "
+      "either principle -- the countermodels are FiniteOperationalTheory models of the "
+      "formalized operational rules, exact system QM, control and realized H_comp, not "
+      "exhibited models of the bare OI axioms; the research question is stated in exactly "
+      "that form; no structure field.")
+
+# ----------------------- F54  round 40: the OI-realization bridge -------------------------
+# the sealed C1-C4 core embedded in the operational theories with its ACTUAL visible readout,
+# the axiom-match audit, and the capstone: one OI process on both sides of the matrix (phase
+# three, round forty).
+ok54 = True
+CORE54 = [((v, h), b) for v in (False, True) for h in (False, True) for b in (False, True)]
+
+
+def vis54(p):
+    return (p[0][0], p[1])
+
+
+def swap54(p):
+    return ((p[0][1], p[0][0]), p[1])
+
+
+def flip54(p):
+    return (p[0], not p[1])
+
+
+def visIdx54(r):
+    return 2 * int(r[0]) + int(r[1])
+
+
+def coreIdx54(p):
+    """((v,h),b) -> (h, pack(v,b)) as the linear index 4*h + pack: the hidden bit on the system
+    qubit, the visible pair on the four-level ancilla."""
+    return 4 * int(p[0][1]) + visIdx54(vis54(p))
+
+
+# --- (a) THE EMBEDDING (coreIdx, vis_coreIdx_symm_iff, partIdx): a bijection of the eight
+# states onto Fin 2 x Fin 4 whose ancilla level is exactly the visible pair.
+ok54 &= sorted(coreIdx54(p) for p in CORE54) == list(range(8))
+ok54 &= all((coreIdx54(p) % 4 == visIdx54(r)) == (vis54(p) == r)
+            for p in CORE54 for r in [(a, b) for a in (False, True) for b in (False, True)])
+_inv54 = {coreIdx54(p): p for p in CORE54}
+# --- (b) THE ACTUAL READOUT IS THE NATIVE READOUT (readVisible_eq_localLuders): on a random
+# 8x8 matrix, keeping the states with visible pair r (both hidden values) and transporting
+# along coreIdx is the Lüders selector at ancilla level visIdx r -- the round-23 full-basis
+# probe (one state) is strictly finer and is NOT the embedded observer's readout.
+_N8 = gmat47(230, 8)                                                # index = coreIdx
+for r in [(a, b) for a in (False, True) for b in (False, True)]:
+    _rv = [[_N8[p][q] if vis54(_inv54[p]) == r and vis54(_inv54[q]) == r else CZ17
+            for q in range(8)] for p in range(8)]
+    _ll = [[_N8[p][q] if (p % 4) == visIdx54(r) and (q % 4) == visIdx54(r) else CZ17
+            for q in range(8)] for p in range(8)]
+    ok54 &= _rv == _ll
+    _kept = [p for p in range(8) if vis54(_inv54[p]) == r]
+    ok54 &= len(_kept) == 2 and _inv54[_kept[0]][0][1] != _inv54[_kept[1]][0][1]
+# --- (c) THE INTERVENTIONS ARE TRANSPORTED PERMUTATION UNITARIES (relabel_available):
+# sigma and tau as 8x8 permutation matrices in the coreIdx coordinates, unitary, involutive,
+# commuting.
+def pmat54(f):
+    return [[CO17 if coreIdx54(f(_inv54[q])) == p else CZ17 for q in range(8)] for p in range(8)]
+
+
+_Ps, _Pt = pmat54(swap54), pmat54(flip54)
+ok54 &= mmc17(dag17(_Ps), _Ps) == eye17(8) and mmc17(dag17(_Pt), _Pt) == eye17(8)
+ok54 &= mmc17(_Ps, _Ps) == eye17(8) and mmc17(_Pt, _Pt) == eye17(8)
+ok54 &= mmc17(_Ps, _Pt) == mmc17(_Pt, _Ps)
+# --- (d) THE REALIZED COMB IS THE CLASSICAL OI COMB (realizedFold_diagonal): a classical
+# preparation, embedded, pushed through words of passive steps, controls and VISIBLE
+# readouts, equals the embedded classical fold, on three words.
+def relabel54(f, X):
+    return mmc17(mmc17(pmat54(f), X), dag17(pmat54(f)))
+
+
+def readV54(r, X):
+    return [[X[p][q] if vis54(_inv54[p]) == r and vis54(_inv54[q]) == r else CZ17
+             for q in range(8)] for p in range(8)]
+
+
+def wstep54(s, w):
+    if s[0] == 'act':
+        f = swap54 if s[1] == 'pass' else flip54
+        return {p: w[f(p)] for p in CORE54}                         # involutions: f^-1 = f
+    return {p: (w[p] if vis54(p) == s[1] else CZ17) for p in CORE54}
+
+
+_w0 = {p: gvec47(240, 8)[coreIdx54(p)] for p in CORE54}
+for _word in ([('act', 'pass'), ('read', (True, False)), ('act', 'ctrl')],
+              [('read', (False, False)), ('act', 'pass'), ('act', 'pass'), ('read', (False, True))],
+              [('act', 'ctrl'), ('act', 'pass'), ('read', (True, True)), ('act', 'ctrl')]):
+    _X = [[_w0[_inv54[p]] if p == q else CZ17 for q in range(8)] for p in range(8)]
+    _w = dict(_w0)
+    for s in _word:
+        if s[0] == 'act':
+            _X = relabel54(swap54 if s[1] == 'pass' else flip54, _X)
+        else:
+            _X = readV54(s[1], _X)
+        _w = wstep54(s, _w)
+    ok54 &= _X == [[_w[_inv54[p]] if p == q else CZ17 for q in range(8)] for p in range(8)]
+# --- (e) THE AXIOM-MATCH AUDIT (sealedCore_is_finiteOI): eight states, four visible, a
+# two-state hidden sector, an explicit product partition, injective dynamics with a
+# predecessor, the counting measure invariant, period-two recurrence, registered visible
+# differentiation, cross-partition coupling, and C1-C4 (already kernel-named in round 23).
+ok54 &= len(CORE54) == 8 and len({vis54(p) for p in CORE54}) == 4
+ok54 &= len({swap54(p) for p in CORE54}) == 8 and all(swap54(swap54(p)) == p for p in CORE54)
+ok54 &= all(len([p for p in CORE54 if vis54(p) == r]) == 2 for r in {vis54(p) for p in CORE54})
+ok54 &= any(vis54(p) == vis54(q) and p != q and vis54(swap54(p)) != vis54(swap54(q))
+            for p in CORE54 for q in CORE54)
+# --- (f) the kernel's own capstone and claim boundary, read back
+_oi54 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'OIRealization.lean')
+if os.path.exists(_oi54):
+    with open(_oi54, encoding='utf-8') as _f:
+        _oi_txt54 = ' '.join(_f.read().split())
+    ok54 &= 'theorem realizesSealedOICore_of_control' in _oi_txt54
+    ok54 &= 'theorem sealedCore_is_finiteOI' in _oi_txt54
+    ok54 &= 'theorem sameCore_both_sides' in _oi_txt54
+    ok54 &= 'theorem finiteOI_not_implies_inert' in _oi_txt54
+    ok54 &= 'theorem finiteOI_not_implies_closure' in _oi_txt54
+    ok54 &= 'What remains outside the kernel is interpretive only' in _oi_txt54
+check("F54", ok54,
+      "ROUND 40: THE OI-REALIZATION BRIDGE -- the sealed C1-C4 core embedded in the "
+      "operational theories with its ACTUAL visible readout, the axiom-match audit, and the "
+      "capstone that one OI process sits on both sides of the compositional matrix (phase "
+      "three, round forty; kernel: OIBridge/OIRealization.lean, 22 results -- coreIdx_apply, "
+      "vis_coreIdx_symm_iff, readVisible_apply, readVisible_eq_localLuders, "
+      "readVisible_family_eq, readout_relabel_available, readVisible_diagonal, "
+      "vstepMap_diagonal, realizedFold_diagonal, relabel_available, "
+      "realizesSealedOICore_of_control, countermodel_realizesSealedOICore, "
+      "admissible_realizesSealedOICore, fullQuantum_realizesSealedOICore, partIdx_fst, "
+      "sealedCore_is_finiteOI, sameCore_closure_not_inert, sameCore_inert_not_closure, "
+      "sameCore_both, sameCore_both_sides, finiteOI_not_implies_inert, "
+      "finiteOI_not_implies_closure). THE EMBEDDING coreIdx : Core ~ Fin 2 x Fin 4, "
+      "((v,h),b) -> (h, pack(v,b)): the system qubit carries the hidden bit and the "
+      "four-level ancilla carries exactly the observer-visible pair -- the physical "
+      "partition. THE ACTUAL READOUT readVisible r keeps both hidden states with visible pair "
+      "r (not round 23's full-basis probe Step.read k, which was deliberately finer), and "
+      "under coreIdx it IS the theory's native level-4 Lüders readout T.readout 4 (visIdx r) "
+      "(readVisible_eq_localLuders, then readout_is_localLuders), available as a family by "
+      "coarse-graining the native readout along visIdx. THE REALIZATION PREDICATE "
+      "RealizesSealedOICore T: C1-C4; sigma and tau available as the transported permutation "
+      "channels at level four; the visible readout equal to the native readout and available; "
+      "the realized visible comb equal to the classical OI comb on every classical "
+      "preparation and every finite word of passive steps, controls and visible readouts "
+      "(realizedFold_diagonal). realizesSealedOICore_of_control: every theory with composite "
+      "unitary control realizes the core, hence the round-34 countermodel, the round-38 "
+      "admissible theory and fullQuantum all do. THE AUDIT sealedCore_is_finiteOI: the core "
+      "satisfies every ingredient the manuscript's definition of an observation and Lemmas "
+      "1-3 invoke (finite total system of eight states; a proper finite visible subsystem of "
+      "four states with a two-state hidden complement; the explicit product partition "
+      "partIdx; deterministic injective dynamics with a predecessor map; the counting measure "
+      "invariant under both interventions; cross-partition coupling) together with Axiom 1 "
+      "(registered differentiation), Axiom 2 (recurrence, here period two) and C1-C4. THE "
+      "CAPSTONE sameCore_both_sides: the SAME audited core is realized in a theory with "
+      "closure but no inert spectators (the countermodel), in one with inert spectators but "
+      "no closure (the admissible theory), and in one with both (fullQuantum), each exactly "
+      "quantum on the system with full composite unitary control; hence "
+      "finiteOI_not_implies_inert and finiteOI_not_implies_closure. Verified exactly here: "
+      "the embedding as a bijection whose ancilla level is the visible pair; the visible "
+      "readout equal to the ancilla selector on a random 8x8 matrix, keeping exactly the two "
+      "hidden-bit partners; sigma and tau as unitary, involutive, commuting 8x8 permutation "
+      "matrices; the realized comb equal to the classical comb on three words; the audit "
+      "counts. THE CLAIM BOUNDARY, decided by the audit: the round-39 caveat is retired in "
+      "place and replaced by the statement actually proved -- bare finite OI, as formalized "
+      "by the sealed core, does not imply either compositional existence principle; what "
+      "remains outside the kernel is interpretive only (whether a reading of the prose "
+      "carries a cross-partition composition principle beyond the coupling clause, which is "
+      "C1 and is satisfied). NOT CLAIMED: that every possible interpretation of the "
+      "manuscript's foundational prose permits these completions; OI iff QM; no structure "
+      "field.")
+
+# ----------------------- F55  round 41: operational validity ------------------------------
+# valid probabilities plus inert spectators give complete positivity; the exact-composite
+# endpoint without the quantum-shaped premise (phase three, round forty-one).
+ok55 = True
+# --- (a) POSITIVITY IS NOT COMPLETE POSITIVITY, AND AN UNTOUCHED COPY OF THE COMPOSITE
+# DETECTS THE DIFFERENCE (cp_of_valid_inert, choiMatrix_eq_amplRef): Phi_2 on the 4-level
+# composite carries every PSD input to a PSD output (random dyads and random Gram matrices),
+# yet id_4 (x) Phi_2 on the maximally entangled dyad |Omega_4><Omega_4| is the Choi matrix
+# J47, which is NOT PSD -- exposure -8/7 on Omega (F47).
+for _s in range(3):
+    _v = gvec47(_s + 250, 4)
+    ok55 &= psd47(red47(dyad47(_v)))
+    _G = gmat47(_s + 260, 4)
+    ok55 &= psd47(red47(mmc17(_G, dag17(_G))))
+_amp = amplGen48(red47, dyad47(OM47), 4, dref=4)                   # (id_4 (x) Phi_2)(|Omega><Omega|)
+ok55 &= _amp == J47 and not psd47(_amp)
+# --- (b) THE PROMOTION ON A GENUINELY CP MAP: the qubit map psi53 (= attach-run-discard of
+# Phi_2) is positive AND its self-referenced amplification on |Omega_2><Omega_2| is PSD, so
+# validity + the untouched copy certifies complete positivity where it holds.
+_amp2 = amplGen48(psi53, dyad47(OM2), 2, dref=2)
+ok55 &= psd47(_amp2) and _amp2 == choi41(psi53, 2)
+# --- (c) VALIDITY IS STRICTLY WEAKER THAN SOUNDNESS (validity_not_implies_krausSoundExt):
+# the countermodel's Phi_2 is trace preserving and positive at every level, not CP.
+for _s in range(2):
+    _X = gmat47(_s + 270, 4)
+    ok55 &= trace40(red47(_X)) == trace40(_X)
+# --- (d) the kernel's own claim discipline, read back
+_ov55 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'OperationalValidity.lean')
+if os.path.exists(_ov55):
+    with open(_ov55, encoding='utf-8') as _f:
+        _ov_txt55 = ' '.join(_f.read().split())
+    ok55 &= 'def CompositeOperationalValidity' in _ov_txt55
+    ok55 &= 'theorem krausSoundExt_of_validity_inert' in _ov_txt55
+    ok55 &= 'theorem exactComposite_of_validity' in _ov_txt55
+    ok55 &= 'theorem physical_classification' in _ov_txt55
+    ok55 &= 'CLASSIFICATION OF OPERATIONAL COMPLETIONS COMPATIBLE WITH OI' in _ov_txt55
+check("F55", ok55,
+      "ROUND 41: OPERATIONAL VALIDITY -- valid probabilities plus inert spectators give "
+      "complete positivity, and the exact-composite endpoint drops the quantum-shaped premise "
+      "(phase three, round forty-one; kernel: OIBridge/OperationalValidity.lean, 12 results -- "
+      "cp_of_valid_inert, krausSoundExt_of_validity_inert, validity_of_krausSoundExt, "
+      "krausSoundExt_iff_validity_of_inert, countermodel_validity, admissible_validity, "
+      "fullQuantum_validity, validity_not_implies_krausSoundExt, exactComposite_of_validity, "
+      "physical_classification, physical_inert_not_deletable, physical_closure_not_deletable; "
+      "and the round-41 wording repair in OIRealization.lean: sameCore_both_sides and "
+      "finiteOI_not_implies_inert / _closure now carry ExactFiniteEndomorphicQuantumOps, "
+      "which the witnesses satisfy, not merely KrausSound). CompositeOperationalValidity T: "
+      "every available family at every composite level produces valid probabilities -- each "
+      "branch carries PSD to PSD and the outcomes sum to a trace-preserving map; no CP, no "
+      "Choi matrix, no Kraus form in the definition. THE PROMOTION: inert-spectator "
+      "compositionality makes the extension of an available branch by an untouched copy of "
+      "the composite available (selfRefIdx, an explicit reindexing), validity makes it "
+      "positive, its value on the reindexed maximally entangled dyad IS the Choi matrix "
+      "(choiMatrix_eq_amplRef), so the Choi matrix is PSD; the aggregate trace normalizes; "
+      "the factorization is kernel-internal: KrausSoundExt from validity + inert spectators, "
+      "with NO system soundness, NO unitary control and NO isometry extension. Validity is "
+      "strictly weaker than soundness (the round-34 countermodel is valid, exactly quantum on "
+      "the system, fully controlled, and not composite-sound), so the spectator clause does "
+      "real work; under inert spectators the two coincide. THE ENDPOINT "
+      "exactComposite_of_validity: validity + inert spectators + composite unitary control + "
+      "iterated ancilla closure give ExactCompositeQuantumOps against finite isometry "
+      "extension at the COMPOSITE carriers only -- the Unit isometry hypothesis of rounds "
+      "36-39 is gone, and so is KrausSound; physical_classification restates the frozen "
+      "classification with validity in place of system soundness, with the three witnesses, "
+      "and neither compositional clause can be deleted. THE READING, recorded as directed: "
+      "since realizesSealedOICore_of_control shows control alone realizes the sealed OI "
+      "core, the endpoint is a classification of operational completions compatible with OI, "
+      "not a derivation of quantum structure from OI alone; what round 41 changes is that the "
+      "remaining conditions are observer-level -- valid probabilities, sufficient reversible "
+      "control, inert spectators, and the ability to reuse a composite as a system -- rather "
+      "than quantum formalism. Verified exactly here: Phi_2 positive on random dyads and Gram "
+      "matrices yet its self-referenced amplification on |Omega_4> is the non-PSD Choi matrix "
+      "J47; the qubit map psi53 positive with PSD self-referenced amplification equal to its "
+      "Choi matrix; trace preservation of Phi_2. NOT CLAIMED, lint-guarded: that validity or "
+      "inert spectators follow from OI; OI iff QM; anything about the visible-system sector "
+      "avail and its consistency with level-one availExt (round 42's seam); no structure "
+      "field.")
+
+# ----------------------- F56  round 42: the level-one seam --------------------------------
+# the visible system and level one: the structural direction, the one missing principle,
+# and the endpoint covering the system itself (phase three, round forty-two).
+ok56 = True
+# --- (a) ATTACH-RUN-DISCARD AT LEVEL ONE IS TRANSPORT (uniformAttach_one_eq, ptraceAnc_one_eq,
+# discardWith_uniform_one_eq_transport): with a one-state ancilla, rho (x) I_1/1 is rho itself
+# under A x Fin 1 ~ A, the partial trace is the identity, so the structure's own rule reduces
+# to the map itself -- checked with Phi_2 on the 4-level composite read as a system.
+for _s in range(3):
+    _rho = gmat47(_s + 280, 4)
+    _att = [[_rho[p][q] * C17(Frac(1, 1)) for q in range(4)] for p in range(4)]   # (x) I_1 / 1
+    ok56 &= _att == _rho and red47(_att) == red47(_rho)
+# --- (b) THE KRAUS FORM TRANSPORTS (isKraus_transport): a normalized Kraus family reindexed
+# by a permutation of the carrier is again normalized, and the instrument branches are the
+# conjugations of the reindexed operators.
+_g = perm51(9, 4)
+_P = pmat51(_g)
+_Ks = [mmc17(K0, eye17(1)) if False else K0, K1]                     # the 3-4-5 damping operators
+ok56 &= add52(mmc17(dag17(_Ks[0]), _Ks[0]), mmc17(dag17(_Ks[1]), _Ks[1])) == eye17(4)
+_Kr = [mmc17(mmc17(_P, K), dag17(_P)) for K in _Ks]                  # reindexed operators
+ok56 &= add52(mmc17(dag17(_Kr[0]), _Kr[0]), mmc17(dag17(_Kr[1]), _Kr[1])) == eye17(4)
+for _s in range(2):
+    _X = gmat47(_s + 290, 4)
+    _lhs = mmc17(mmc17(_P, AD52(mmc17(mmc17(dag17(_P), _X), _P))), dag17(_P))   # transport
+    _rhs = add52(conjby52(_Kr[0], _X), conjby52(_Kr[1], _X))
+    ok56 &= _lhs == _rhs
+# --- (c) THE LOOSE THEORY (systemLoose_not_exact, systemLoose_not_systemToLevelOne): the
+# trace amplifier X -> 2X doubles the trace, so no normalized Kraus family produces it, and
+# transported to level one it violates the aggregate trace that every level-one family of
+# the full quantum composite sector preserves.
+_one = eye17(2)
+ok56 &= trace40(scale52(C17(2), _one)) == C17(4) and trace40(_one) == C17(2)
+ok56 &= trace40(scale52(C17(2), _one)) != trace40(_one)
+# --- (d) the kernel's own claim discipline, read back
+_ls56 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'LevelOneSeam.lean')
+if os.path.exists(_ls56):
+    with open(_ls56, encoding='utf-8') as _f:
+        _ls_txt56 = ' '.join(_f.read().split())
+    ok56 &= 'theorem avail_of_availExt_one' in _ls_txt56
+    ok56 &= 'def SystemToLevelOne' in _ls_txt56
+    ok56 &= 'theorem exactAll_of_conditions' in _ls_txt56
+    ok56 &= 'theorem levelOne_independent' in _ls_txt56
+    ok56 &= 'theorem final_classification' in _ls_txt56
+check("F56", ok56,
+      "ROUND 42: THE LEVEL-ONE SEAM -- the visible system and level one: which direction is "
+      "structural, which is a principle, and the endpoint covering the system itself (phase "
+      "three, round forty-two; kernel: OIBridge/LevelOneSeam.lean, 31 results -- "
+      "uniformAttach_one_eq, ptraceAnc_one_eq, discardWith_uniform_one_eq_transport, "
+      "avail_of_availExt_one, transport_transport_symm, avail_iff_availExt_one, reindex_sum, "
+      "transport_instrumentBranch, isKraus_transport_of, isKraus_transport, "
+      "exactSystem_of_levelOne, exactAll_of_levelOne, exactAll_of_conditions, "
+      "trace_transport, fullQuantum_systemToLevelOne, all_conditions_satisfiable, "
+      "systemLoose_control, systemLoose_krausSoundExt, systemLoose_validity, "
+      "systemLoose_parallelReferenceExtension, systemLoose_inert, "
+      "systemLoose_iteratedAncillaClosure, systemLoose_exactComposite, "
+      "systemLoose_realizesSealedOICore, systemLoose_amplifier_available, "
+      "systemLoose_not_exact, transport_amplifier, systemLoose_not_systemToLevelOne, "
+      "levelOne_independent, levelOne_not_deletable, final_classification). THE STRUCTURAL "
+      "DIRECTION, with no assumption: uniform attachment of the one-state ancilla is the "
+      "canonical embedding along A x Fin 1 ~ A and its discard is the canonical inverse, so "
+      "the structure's own prepAvail_uniform + prepAvail_discard reduce to transport and "
+      "every level-one family is available on the system (avail_of_availExt_one). THE ONE "
+      "MISSING DIRECTION, SystemToLevelOne T: an operation available on the system remains "
+      "available after adjoining the one-state ancilla; avail_iff_availExt_one shows the "
+      "equivalence costs exactly it. THE KRAUS FORM TRANSPORTS along any finite reindexing "
+      "(each operator reindexed, the normalization invariant), so with the principle exact "
+      "composite operations -- which begin at level one -- give exact SYSTEM operations "
+      "(exactSystem_of_levelOne), and the endpoint exactAll_of_conditions reads: validity + "
+      "inert spectators + composite unitary control + iterated ancilla closure + "
+      "system-to-level-one give exact finite endomorphic QM on the visible system AND every "
+      "positive composite, against finite isometry extension at the composite carriers only; "
+      "no quantum-formal soundness premise anywhere; all five conditions are jointly "
+      "satisfiable (fullQuantum_systemToLevelOne). THE COUNTERMODEL systemLoose: the full "
+      "quantum composite sector, preparations and readouts with an UNRESTRICTED system "
+      "predicate -- it has validity, inert spectators, every composite unitary, iterated "
+      "ancilla closure, exact composite operations against item 2, and realizes the sealed "
+      "OI core, yet its system sector contains the trace amplifier X -> 2X, so it is not "
+      "exactly quantum on the system and fails the principle directly (the transported "
+      "amplifier would violate the level-one aggregate trace; no isometry hypothesis is "
+      "needed): levelOne_independent, levelOne_not_deletable, final_classification. THE "
+      "THREE COMPOSITION PRINCIPLES side by side: inert spectators -- adding a genuine "
+      "independent system does not alter an intervention; iterated ancilla closure -- a "
+      "composite may itself become the working system of a larger experiment; "
+      "system-to-level-one -- adjoining nothing but a one-state factor cannot change which "
+      "operations exist, a bookkeeping law isolated rather than hidden in the structure. "
+      "Verified exactly here: attach-run-discard at level one as the map itself; the "
+      "damping Kraus family reindexed by a permutation is again normalized with the "
+      "transported channel equal to the conjugation sum; the amplifier doubles the trace. "
+      "NOT CLAIMED, lint-guarded: that any of the five conditions follows from OI (round 43's "
+      "minimality audit); OI iff QM; anything beyond the finite endomorphic scope; no "
+      "structure field.")
+
+# ----------------------- F57  round 43: the characterization ------------------------------
+# exact finite operational QM IS the five physical completion conditions, and the minimality
+# audit (phase three, round forty-three).
+ok57 = True
+# --- (a) NECESSITY, numerically: a normalized Kraus family (the 3-4-5 damping on the 4-level
+# composite) is positive on random PSD inputs and trace preserving (validity); its untouched-
+# spectator extension is again a Kraus family with the same normalization (inert spectators);
+# a unitary is a one-operator normalized family (control); its attach-run-discard is a
+# scaled Kraus sum (closure, F52 (g)); and its reindexing is normalized (level one, F56 (b)).
+for _s in range(2):
+    _v = gvec47(_s + 300, 4)
+    ok57 &= psd47(AD52(dyad47(_v))) and trace40(AD52(dyad47(_v))) == trace40(dyad47(_v))
+_S0, _S1 = kr17(eye17(3), K0), kr17(eye17(3), K1)                    # qutrit spectator adjoined
+ok57 &= add52(mmc17(dag17(_S0), _S0), mmc17(dag17(_S1), _S1)) == eye17(12)
+_U = gmat47(310, 4)
+_Uq = mmc17(_U, dag17(_U))                                           # a PSD; a genuine unitary below
+_w57 = [[w52((p >> 1, p & 1), (q >> 1, q & 1)) for q in range(4)] for p in range(4)]  # F52's dilation
+_W = kr17(eye17(2), _w57)                                            # lifted by the identity, 8x8
+ok57 &= mmc17(dag17(_W), _W) == eye17(8)                            # one-operator normalized family
+# --- (b) THE CONTROL CELL (diagTheory, rot_not_preservesDiag): the rational rotation
+# [[3/5, 4/5], [-4/5, 3/5]] is unitary and creates coherence from |0><0| -- off-diagonal
+# -12/25 -- while permutation channels and Lüders readouts preserve diagonals, so the
+# diagonal-preserving theory realizes the sealed core and lacks full control.
+_rot = [[C17(Frac(3, 5)), C17(Frac(4, 5))], [C17(Frac(-4, 5)), C17(Frac(3, 5))]]
+ok57 &= mmc17(dag17(_rot), _rot) == eye17(2)
+_e0 = [[CO17, CZ17], [CZ17, CZ17]]
+_out = conjby52(_rot, _e0)
+ok57 &= _out[0][1] == C17(Frac(-12, 25)) and _out[0][1] != CZ17
+for _s in range(2):
+    _d = [[gvec47(_s + 320, 8)[p] if p == q else CZ17 for q in range(8)] for p in range(8)]
+    _rel = relabel54(swap54, _d)
+    ok57 &= all(_rel[p][q] == CZ17 for p in range(8) for q in range(8) if p != q)
+    _rd = readV54((True, False), _d)
+    ok57 &= all(_rd[p][q] == CZ17 for p in range(8) for q in range(8) if p != q)
+# --- (c) THE OPEN CELL (admissible_not_systemToLevelOne): qubit amplitude damping is a
+# normalized system family whose lift to level one has rank-2 non-unitary operators in every
+# decomposition -- the level-one admissible bound is rank 1 -- so the round-38 witness fails
+# system-to-level-one; checked on the rational rotation of the decomposition.
+_D0q, _E0q = [[CO17, CZ17], [CZ17, R52]], [[CZ17, S52], [CZ17, CZ17]]
+ok57 &= add52(mmc17(dag17(_D0q), _D0q), mmc17(dag17(_E0q), _E0q)) == eye17(2)
+for j in range(2):
+    a, b = _u[j][0], _u[j][1]
+    _Kq = add52(scale52(a, _D0q), scale52(b, _E0q))
+    ok57 &= rank52(_Kq) == 2
+    _G = mmc17(dag17(_Kq), _Kq)
+    ok57 &= _G[0][1] != CZ17 or _G[0][0] != _G[1][1]
+# --- (d) VALIDITY CELL (everywhereAvailable): the level-one trace amplifier doubles the trace.
+ok57 &= trace40(scale52(C17(2), eye17(2))) == C17(4)
+# --- (e) the kernel's own claim discipline, read back
+_pc57 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'PhysicalCharacterization.lean')
+if os.path.exists(_pc57):
+    with open(_pc57, encoding='utf-8') as _f:
+        _pc_txt57 = ' '.join(_f.read().split())
+    ok57 &= 'theorem physical_of_exactAll' in _pc_txt57
+    ok57 &= 'theorem exactAll_iff_physical' in _pc_txt57
+    ok57 &= 'theorem admissible_not_systemToLevelOne' in _pc_txt57
+    ok57 &= 'is recorded OPEN' in _pc_txt57
+_dt57 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'DiagonalTheory.lean')
+if os.path.exists(_dt57):
+    with open(_dt57, encoding='utf-8') as _f:
+        _dt_txt57 = ' '.join(_f.read().split())
+    ok57 &= 'theorem control_independent' in _dt_txt57
+    ok57 &= 'theorem minimality_audit' in _dt_txt57
+    ok57 &= 'bare finite OI does not select QM' in _dt_txt57
+check("F57", ok57,
+      "ROUND 43: THE CHARACTERIZATION -- exact finite operational QM IS the five physical "
+      "completion conditions, with the minimality audit (phase three, round forty-three; "
+      "kernel: OIBridge/PhysicalCharacterization.lean, 39 results -- among them "
+      "krausFamily_of_exact_fin, avail_of_krausFamily_fin, availExt_zero, availExt_pos_iff, "
+      "validity_of_exactComposite, control_of_exactComposite, inert_of_exactComposite, "
+      "closure_of_exactComposite, levelOne_of_exactAll, physical_of_exactAll, "
+      "exactAll_of_physical, exactAll_iff_physical, validity_independent, "
+      "countermodel_systemToLevelOne, inert_independent, levelOne_independent', "
+      "levelOneDamping_not_adm, admissible_not_systemToLevelOne; and "
+      "OIBridge/DiagonalTheory.lean, 32 results -- among them preservesDiag_amplRef, "
+      "preservesDiag_withSpectator, preservesDiag_localLuders, preservesDiag_discardWith, "
+      "diag_validity, diag_inert, diag_iteratedAncillaClosure, diag_systemToLevelOne, "
+      "diag_realizesSealedOICore, rot_isometry, rot_not_preservesDiag, diag_not_control, "
+      "diag_not_exactAll, control_independent, minimality_audit). NECESSITY, kernel-internal "
+      "for any nonempty system: exactness at Fin m reaches every finite outcome type by "
+      "coarse-graining along Fintype.equivFin in both directions (singleton fibres), level "
+      "zero is every family (the carrier is empty), and each clause follows for its own "
+      "reason -- exact families are Kraus hence positive and trace preserving (validity), the "
+      "untouched-spectator extension of a Kraus family is Kraus (inert spectators), a "
+      "unitary is a one-operator normalized instrument (control), attach-run-discard of a "
+      "Kraus family is Kraus (closure), Kraus form transports to level one "
+      "(system-to-level-one). THE CHARACTERIZATION exactAll_iff_physical, for a qubit system "
+      "against finite isometry extension at the composite carriers used only "
+      "constructively: exact finite endomorphic QM on the system and every positive "
+      "composite iff valid probabilities + inert spectators + full reversible control + "
+      "iterated ancilla closure + trivial-ancilla consistency. THE MINIMALITY AUDIT, four "
+      "cells closed: validity (everywhereAvailable has the other four and OI realization "
+      "trivially and admits the level-one trace amplifier); inert spectators (the round-34 "
+      "countermodel, now with system-to-level-one: a system Kraus family transported to "
+      "level one is CP hence 2-positive); full control (diagTheory -- normalized quantum "
+      "instruments whose every branch preserves computational-basis diagonal states, the "
+      "same predicate at every level: it has validity, inert spectators since amplification "
+      "by an untouched reference preserves diagonals, closure, system-to-level-one, "
+      "realizes the sealed OI core since permutation channels and Lüders readouts preserve "
+      "diagonals, and lacks control since the rational rotation [[3/5,4/5],[-4/5,3/5]] "
+      "sends |0><0| to a matrix with off-diagonal -12/25); trivial-ancilla consistency "
+      "(systemLoose, round 42). THE FIFTH CELL IS RECORDED OPEN, as directed: the round-38 "
+      "admissible theory fails system-to-level-one (admissible_not_systemToLevelOne: qubit "
+      "amplitude damping is a normalized system family whose level-one lift has, in every "
+      "Kraus decomposition, an invertible non-unitary operator against the level-one bound "
+      "of rank one -- the F52 span argument again), so it does not close closure against all "
+      "four others; bare finite OI does not imply closure (round 40) stands. THE ANSWER TO "
+      "THE ORIGINAL QUESTION, as a classification: bare finite OI does not select QM; the "
+      "non-quantum completion space has identifiable failure types -- non-probabilistic "
+      "operations, positive-but-not-CP composites, sound-but-incomplete composites, "
+      "restricted control, system/level-one disagreement -- and satisfying all five "
+      "conditions is exact finite endomorphic QM. Verified exactly here: the damping family "
+      "positive and trace preserving, its qutrit-spectator extension normalized, the "
+      "dilation unitary as a one-operator family; the rotation unitary with off-diagonal "
+      "-12/25 on |0><0| while relabellings and visible readouts keep diagonals diagonal; the "
+      "qubit damping decomposition rotated rationally with rank-2 non-scalar-Gram operators; "
+      "the amplifier doubling the trace. NOT CLAIMED, lint-guarded: the open closure cell; "
+      "that any condition follows from OI; OI iff QM; no structure field.")
+
+# F58 -- ROUND 44: THE RANK-GAP THEORY closes the closure cell, and the minimality audit is
+# five-way (phase three, round forty-four).
+ok58 = True
+# --- (a) the level-three Kraus pair G0 = 1 (x) diag(1,1,0), G1 = 1 (x) |0><2| is normalized
+# on the qutrit and on the six-level carrier; ranks four and two; orthogonal Choi dyads.
+_D3 = [[CO17 if (i == j and i != 2) else CZ17 for j in range(3)] for i in range(3)]
+_E3 = [[CO17 if (i == 0 and j == 2) else CZ17 for j in range(3)] for i in range(3)]
+ok58 &= add52(mmc17(dag17(_D3), _D3), mmc17(dag17(_E3), _E3)) == eye17(3)
+_G0, _G1 = kr17(eye17(2), _D3), kr17(eye17(2), _E3)                 # index (a, j) -> 3a + j
+ok58 &= add52(mmc17(dag17(_G0), _G0), mmc17(dag17(_G1), _G1)) == eye17(6)
+ok58 &= rank52(_G0) == 4 and rank52(_G1) == 2
+ok58 &= trace40(mmc17(dag17(_G0), _G1)) == CZ17
+# --- (b) every a G0 + b G1 with a != 0 has rank EXACTLY four -- in the gap 3 < 4 < 6 -- kills
+# the explicit vector b e_(0,0) - a e_(0,2), and compresses on the first four basis vectors
+# to a times the identity (so it cannot factor through three dimensions).
+_inc = [[CO17 if (p // 3 == q // 2 and p % 3 == q % 2) else CZ17 for q in range(4)]
+        for p in range(6)]
+for _s in range(3):
+    _a, _b = gmat47(400 + _s, 2)[0][0], gmat47(410 + _s, 2)[1][1]
+    ok58 &= _a != CZ17
+    _Kg = add52(scale52(_a, _G0), scale52(_b, _G1))
+    ok58 &= rank52(_Kg) == 4
+    _v = [[_b], [CZ17], [C17(0) - _a], [CZ17], [CZ17], [CZ17]]
+    ok58 &= all(row[0] == CZ17 for row in mmc17(_Kg, _v)) and any(x[0] != CZ17 for x in _v)
+    ok58 &= mmc17(mmc17(dag17(_inc), _Kg), _inc) == scale52(_a, eye17(4))
+# --- (c) THE LEVEL-ONE DICHOTOMY (twoByTwo_dichotomy): nonsingular 2x2 -> the explicit
+# inverse (1/det)[[d,-b],[-c,a]] works; singular -> rank <= 1 with the explicit column-row
+# factorization col(a,c).row(1, b/a); and the qubit damping that killed the round-38 witness
+# at level one is invertible-or-rank-one branch by branch.
+for _s in range(4):
+    _M = gmat47(420 + _s, 2)
+    _det = _M[0][0] * _M[1][1] - _M[0][1] * _M[1][0]
+    if _det != CZ17:
+        _di = _det.inv()
+        _inv = [[_di * _M[1][1], _di * (C17(0) - _M[0][1])],
+                [_di * (C17(0) - _M[1][0]), _di * _M[0][0]]]
+        ok58 &= mmc17(_inv, _M) == eye17(2)
+    else:
+        ok58 &= rank52(_M) <= 1
+_Ms = [[C17(Frac(2)), C17(Frac(3))], [C17(Frac(4)), C17(Frac(6))]]
+ok58 &= rank52(_Ms) == 1
+ok58 &= mmc17([[_Ms[0][0]], [_Ms[1][0]]], [[CO17, _Ms[0][1] * _Ms[0][0].inv()]]) == _Ms
+ok58 &= rank52(_D0q) == 2 and rank52(_E0q) == 1
+# --- (d) THE PERMUTATION DILATION: wG is the single transposition |2,0> <-> |0,1> on
+# Fin 3 x Fin 2 (index (j,k) -> 2j + k), unitary; WG = 1 (x) wG on the twelve-level carrier
+# (index ((a,j),k) -> 6a + 2j + k) satisfies WG E_0 = V_G exactly.
+def _wg58(x, y):
+    if y == (2, 0):
+        return CO17 if x == (0, 1) else CZ17
+    if y == (0, 1):
+        return CO17 if x == (2, 0) else CZ17
+    return CO17 if x == y else CZ17
+_wG = [[_wg58((p >> 1, p & 1), (q >> 1, q & 1)) for q in range(6)] for p in range(6)]
+ok58 &= mmc17(dag17(_wG), _wG) == eye17(6)
+ok58 &= sum(1 for p in range(6) for q in range(6) if _wG[p][q] != CZ17 and p != q) == 2
+_WG = kr17(eye17(2), _wG)
+ok58 &= mmc17(dag17(_WG), _WG) == eye17(12)
+_Esf58 = [[CO17 if (p & 1) == 0 and (p >> 1) == q else CZ17 for q in range(6)] for p in range(12)]
+_Vsf58 = [[(_G0 if (p & 1) == 0 else _G1)[p >> 1][q] for q in range(6)] for p in range(12)]
+ok58 &= mmc17(_WG, _Esf58) == _Vsf58
+# --- (e) the circuit reproduces the gap channel: the fresh-ancilla block k of V rho V^dag is
+# G_k rho G_k^dag on random states, and the aggregate is PSD and trace preserving.
+for _s in range(2):
+    _rho = dyad47(gvec47(430 + _s, 6))
+    _Vr = mmc17(mmc17(_Vsf58, _rho), dag17(_Vsf58))
+    for k in range(2):
+        _blk = [[_Vr[2 * p + k][2 * q + k] for q in range(6)] for p in range(6)]
+        ok58 &= _blk == conjby52(_G0 if k == 0 else _G1, _rho)
+    _out = add52(conjby52(_G0, _rho), conjby52(_G1, _rho))
+    ok58 &= psd47(_out) and trace40(_out) == trace40(_rho)
+# --- (f) ranks scale with an untouched spectator: 4 -> 8 stays in the gap 6 < 8 < 12 at
+# N = 6, and 2 -> 4 <= 6 stays low -- the class and its complement are both preserved.
+_Kgap = add52(scale52(C17(Frac(3, 5)), _G0), scale52(C17(Frac(4, 5)), _G1))
+ok58 &= rank52(_Kgap) == 4
+ok58 &= rank52(kr17(eye17(2), _Kgap)) == 8 and rank52(kr17(eye17(2), _G1)) == 4
+# --- (g) the kernel's own claim discipline, read back
+_rg58 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'RankGapTheory.lean')
+if os.path.exists(_rg58):
+    with open(_rg58, encoding='utf-8') as _f:
+        _rg_txt58 = ' '.join(_f.read().split())
+    ok58 &= 'theorem twoByTwo_dichotomy' in _rg_txt58
+    ok58 &= 'theorem gap_systemToLevelOne' in _rg_txt58
+    ok58 &= 'theorem gap_not_iteratedAncillaClosure' in _rg_txt58
+    ok58 &= 'theorem closure_cell_closed' in _rg_txt58
+    ok58 &= 'theorem five_way_minimality' in _rg_txt58
+    ok58 &= 'FiniteIsometryExtensionSF' not in _rg_txt58
+if os.path.exists(_pc57):
+    ok58 &= 'CLOSED IN ROUND FORTY-FOUR' in _pc_txt57
+check("F58", ok58,
+      "ROUND 44: THE RANK-GAP THEORY CLOSES THE CLOSURE CELL -- five-way minimality (phase "
+      "three, round forty-four; kernel: OIBridge/RankGapTheory.lean, 52 results -- among them "
+      "isUnit_of_left_inverse, gapOp_mul, gap_comp, twoByTwo_dichotomy, gapOp_one, "
+      "gap_localLuders, gap_validity, gap_inert, gap_control, gap_systemToLevelOne, "
+      "gap_realizesSealedOICore, gapOp_withSpectator, gap_gram, kraus_of_gapChannel, "
+      "gap_not_isUnit, inc_compress, gapChannel_not_gap, wG_isometry, WG_esf, gap_no_shift, "
+      "gap_not_iteratedAncillaClosure, gap_not_fullComposite, gap_not_exactAll, "
+      "closure_cell_closed, five_way_minimality). THE THEORY: the round-38 admissible class "
+      "with scalar-multiple-of-unitary widened to INVERTIBLE -- at level N (carrier dimension "
+      "2N) a Kraus operator is admitted iff it is invertible or factors through at most N "
+      "dimensions, so exactly the intermediate ranks N < rank < 2N are excluded. Products, "
+      "sums, compositions and untouched-spectator extensions stay in the class, so validity, "
+      "inert spectators, control and OI realization hold as in round 38. THE LEVEL-ONE "
+      "DICHOTOMY, kernelized explicitly: every 2x2 complex matrix is invertible (explicit "
+      "inverse) or factors through one dimension (three explicit column-row factorizations), "
+      "so every level-one operator is admitted and system-to-level-one HOLDS -- precisely the "
+      "defect that killed the round-38 witness. THE OBSTRUCTION at level three: G0 = 1 (x) "
+      "diag(1,1,0) (rank four) and G1 = 1 (x) |0><2| (rank two) are a normalized Kraus pair; "
+      "by the round-38 two-dyad span lemma, reused unchanged, every decomposition consists of "
+      "a G0 + b G1, normalization forces some a != 0, and such an operator kills "
+      "b e_(0,0) - a e_(0,2) (not invertible) while compressing to a.1_4 on the first four "
+      "basis vectors (rank four, no factorization through three dimensions): the channel is "
+      "quantum but not gap-admissible. Yet its environment is two-dimensional with a "
+      "PERMUTATION dilation -- the single transposition |2,0> <-> |0,1> -- so under iterated "
+      "ancilla closure the shifted theory at base level three exists with control and the "
+      "round-25 circuit constructs the forbidden channel; no finite-isometry boundary enters. "
+      "THE RESULT: closure_cell_closed, and five_way_minimality -- for each of the five "
+      "physical completion conditions the same finite OI framework admits a theory satisfying "
+      "the other four, realizing the sealed OI core, and failing exactly that one "
+      "(everywhereAvailable, countermodel, diagTheory, gapTheory, systemLoose). The round-43 "
+      "open-cell statements are corrected in place with a CLOSED IN ROUND FORTY-FOUR label; "
+      "exactAll_iff_physical is unchanged and now minimal in every cell. Verified exactly "
+      "here: the qutrit and six-level normalizations, ranks four and two, orthogonal Choi "
+      "dyads; rank four for every a G0 + b G1 with a != 0 together with the explicit kernel "
+      "vector and the compression to a.1_4; the 2x2 dichotomy on explicit matrices with the "
+      "explicit inverse and factorization, and the level-one damping branches as "
+      "invertible-or-rank-one; the transposition dilation unitary with WG E_0 = V_G; the "
+      "circuit branches equal to G_k rho G_k^dag on random states, PSD and trace preserving; "
+      "the spectator scaling of ranks 4 -> 8 and 2 -> 4. NOT CLAIMED, lint-guarded: that any "
+      "condition follows from OI; OI iff QM; anything about boundary item 2, whose "
+      "internalization is the next priority.")
+
+# F59 -- ROUND 45: BOUNDARY ITEM 2 DISCHARGED -- finite isometry extension is kernel-internal
+# and the characterization is unconditional (phase three, round forty-five).
+ok59 = True
+def _inner59(u, v):
+    return sum((x.conj() * y for x, y in zip(u, v)), CZ17)
+# --- (a) GRAM => ORTHONORMAL COLUMNS (inner_colVec, seed_orthonormal): for the system-first
+# isometry V = V_K of the damping family (8x4, V^dag V = 1), the column inner products are
+# exactly the Gram entries, so the four columns are orthonormal.
+_V59 = [[(K0 if (p & 1) == 0 else K1)[p >> 1][q] for q in range(4)] for p in range(8)]
+ok59 &= mmc17(dag17(_V59), _V59) == eye17(4)
+_cols59 = [[_V59[p][a] for p in range(8)] for a in range(4)]
+_gram59 = mmc17(dag17(_V59), _V59)
+ok59 &= all(_inner59(_cols59[a], _cols59[b]) == _gram59[a][b] for a in range(4) for b in range(4))
+ok59 &= all(_inner59(_cols59[a], _cols59[b]) == (CO17 if a == b else CZ17)
+            for a in range(4) for b in range(4))
+# --- (b) THE EXTENSION, exactly: an orthogonal complement of the column span, computed by
+# exact projection of the standard basis (the Gram-Schmidt skeleton, unnormalized so it
+# stays in the Gaussian rationals), has dimension 8 - 4 = card(A x Fin 2) - card A, is
+# orthogonal to every column and pairwise orthogonal, and together with the columns spans
+# the whole space -- normalization is the only step outside the rationals.
+_basis59 = [list(c) for c in _cols59]
+_comp59 = []
+for q in range(8):
+    _e = [CO17 if p == q else CZ17 for p in range(8)]
+    _r = list(_e)
+    for u in _basis59 + _comp59:
+        _c = _inner59(u, _r) * _inner59(u, u).inv()
+        _r = [x - _c * y for x, y in zip(_r, u)]
+    if any(x != CZ17 for x in _r):
+        _comp59.append(_r)
+ok59 &= len(_comp59) == 4
+ok59 &= all(_inner59(c, w) == CZ17 for c in _cols59 for w in _comp59)
+ok59 &= all(_inner59(_comp59[i], _comp59[j]) == CZ17 for i in range(4) for j in range(4) if i != j)
+_full59 = [[(_cols59 + _comp59)[c][p] for c in range(8)] for p in range(8)]
+ok59 &= rank52(_full59) == 8
+# --- (c) two exact rational instances of the discharged statement: the round-38 dilation
+# (WD E_0 = V_K, unitary) and the round-44 transposition dilation (WG E_0 = V_G, unitary),
+# each a square unitary whose seed columns are the given isometry.
+_W59 = kr17(eye17(2), _w57)
+_E59 = [[CO17 if (p & 1) == 0 and (p >> 1) == q else CZ17 for q in range(4)] for p in range(8)]
+ok59 &= mmc17(dag17(_W59), _W59) == eye17(8) and mmc17(_W59, _E59) == _V59
+ok59 &= mmc17(dag17(_WG), _WG) == eye17(12) and mmc17(_WG, _Esf58) == _Vsf58
+# --- (d) the dimension count behind the cardinality equation of the extension theorem
+ok59 &= len(_cols59) + len(_comp59) == 8 and 8 == 4 * 2
+# --- (e) the kernel's own claim discipline, read back
+_ie59 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'IsometryExtension.lean')
+if os.path.exists(_ie59):
+    with open(_ie59, encoding='utf-8') as _f:
+        _ie_txt59 = ' '.join(_f.read().split())
+    ok59 &= 'theorem finiteIsometryExtensionSF_discharged' in _ie_txt59
+    ok59 &= 'Orthonormal.exists_orthonormalBasis_extension_of_card_eq' in _ie_txt59
+    ok59 &= 'theorem exactAll_iff_physical_unconditional' in _ie_txt59
+    ok59 &= 'theorem operational_classification' in _ie_txt59
+    ok59 &= 'TWO ITEMS' in _ie_txt59 and 'sorry' not in _ie_txt59
+_ba59 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'BoundaryAudit.lean')
+if os.path.exists(_ba59):
+    with open(_ba59, encoding='utf-8') as _f:
+        _ba_txt59 = ' '.join(_f.read().split())
+    ok59 &= 'SUPERSEDED IN ROUND FORTY-FIVE' in _ba_txt59
+    ok59 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: TWO ITEMS' in _ba_txt59
+    ok59 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: THREE ITEMS' in _ba_txt59   # provenance kept
+check("F59", ok59,
+      "ROUND 45: BOUNDARY ITEM 2 DISCHARGED -- finite isometry extension is kernel-internal "
+      "and the characterization is UNCONDITIONAL (phase three, round forty-five; kernel: "
+      "OIBridge/IsometryExtension.lean, 21 results -- inner_colVec, seed_orthonormal, "
+      "finiteIsometryExtensionSF_discharged, isometryExtension_unit, "
+      "isometryExtension_composite, discharged_items, "
+      "fullInstruments_of_control_unconditional, exact_of_sound_control_unconditional, "
+      "compositeCompleteness_unconditional, unitVectorRotation_unconditional, "
+      "krausSoundExt_of_sound_control_inert_unconditional, "
+      "exactComposite_of_conditions_unconditional, exactComposite_of_validity_unconditional, "
+      "exactAll_of_conditions_unconditional, exactAll_of_physical_unconditional, "
+      "exactAll_iff_physical_unconditional, fullQuantum_exactComposite_unconditional, "
+      "fullQuantum_exactAll, systemLoose_exactComposite_unconditional, "
+      "final_classification_unconditional, operational_classification). THE DISCHARGE, in "
+      "four steps from Mathlib's kernel-checked finite orthonormal-basis extension theorem "
+      "Orthonormal.exists_orthonormalBasis_extension_of_card_eq: the columns of an isometry "
+      "have inner products equal to the Gram entries, hence are orthonormal; indexed by the "
+      "seed positions (a, k0) they are an orthonormal family on a subset of A x Fin (n+1); "
+      "the extension theorem (cardinality equation from finrank_euclideanSpace) extends them "
+      "to an orthonormal basis indexed by the full carrier; U's q-th column is the q-th basis "
+      "vector, and U^dag U = 1 (orthonormality, entrywise) and U E_k0 = V (agreement on the "
+      "seed, entrywise) are proved as explicit matrix identities. Usual axiom footprint. "
+      "THE CONSEQUENCE: every conditional theorem of rounds 25-44 keeps its statement and "
+      "acquires an _unconditional corollary, and the round-43 characterization becomes "
+      "exactAll_iff_physical_unconditional: for a qubit system, exact finite endomorphic QM on "
+      "the system and every positive composite IFF the five physical completion conditions, "
+      "with NO isometry hypothesis and no boundary item in either direction; "
+      "operational_classification freezes the iff, joint satisfiability (fullQuantum), and "
+      "the five-way minimality audit in one statement. THE BOUNDARY AUDIT, 3 -> 2: the "
+      "round-35 three-item statement is preserved and labelled superseded; the unresolved "
+      "external boundary is now compact Lie integration / reachability and finite Uhlmann / "
+      "Schmidt / right-unitary uniqueness, neither a dependency of the OI -> finite-QM "
+      "characterization. Verified exactly here: the damping isometry's column inner products "
+      "equal its Gram entries (orthonormal); an exact orthogonal complement of dimension "
+      "8 - 4 by rational projection, orthogonal to the columns and pairwise, spanning the "
+      "whole space with them (rank 8) -- normalization is the only non-rational step; the "
+      "round-38 and round-44 dilations as exact rational instances of the discharged "
+      "statement (unitary, U E_0 = V); the cardinality count. NOT CLAIMED, lint-guarded: "
+      "anything about the two remaining boundary items; that any condition follows from OI; "
+      "OI iff QM.")
+
+# F60 -- ROUND 46: THE QUBIT RESTRICTION REMOVED -- the characterization for every nonempty
+# finite system, checked on a QUTRIT system (phase three, round forty-six).
+ok60 = True
+# --- (a) a qutrit Kraus family (double damping): K0 = diag(1, 4/5, 3/5), K1 = (3/5)|0><1|,
+# K2 = (4/5)|0><2|, normalized; its system-first isometry V (9x3) has V^dag V = 1 and
+# orthonormal columns -- the general-carrier form of the round-45 discharge, at A = Fin 3.
+_r45, _s45 = C17(Frac(4, 5)), C17(Frac(3, 5))
+_Q0 = [[CO17, CZ17, CZ17], [CZ17, _r45, CZ17], [CZ17, CZ17, _s45]]
+_Q1 = [[CZ17, _s45, CZ17], [CZ17, CZ17, CZ17], [CZ17, CZ17, CZ17]]
+_Q2 = [[CZ17, CZ17, _r45], [CZ17, CZ17, CZ17], [CZ17, CZ17, CZ17]]
+_Qs = [_Q0, _Q1, _Q2]
+ok60 &= add52(add52(mmc17(dag17(_Q0), _Q0), mmc17(dag17(_Q1), _Q1)), mmc17(dag17(_Q2), _Q2)) == eye17(3)
+_V60 = [[_Qs[p % 3][p // 3][q] for q in range(3)] for p in range(9)]   # index (a, k) -> 3a + k
+ok60 &= mmc17(dag17(_V60), _V60) == eye17(3)
+_cols60 = [[_V60[p][a] for p in range(9)] for a in range(3)]
+ok60 &= all(_inner59(_cols60[a], _cols60[b]) == (CO17 if a == b else CZ17)
+            for a in range(3) for b in range(3))
+# --- (b) the exact orthogonal complement at the qutrit carrier: dimension 9 - 3 = 6,
+# orthogonal to the columns and pairwise, spanning with them (rank 9).
+_comp60 = []
+for q in range(9):
+    _r = [CO17 if p == q else CZ17 for p in range(9)]
+    for u in _cols60 + _comp60:
+        _c = _inner59(u, _r) * _inner59(u, u).inv()
+        _r = [x - _c * y for x, y in zip(_r, u)]
+    if any(x != CZ17 for x in _r):
+        _comp60.append(_r)
+ok60 &= len(_comp60) == 6
+ok60 &= all(_inner59(c, w) == CZ17 for c in _cols60 for w in _comp60)
+ok60 &= all(_inner59(_comp60[i], _comp60[j]) == CZ17 for i in range(6) for j in range(6) if i != j)
+ok60 &= rank52([[(_cols60 + _comp60)[c][p] for c in range(9)] for p in range(9)]) == 9
+# --- (c) validity at the qutrit carrier: the channel is CP (PSD Choi matrix, d = 3) and
+# trace preserving on random states; inert spectators: the untouched-qubit extension
+# 1 (x) K_k is again normalized; closure/completeness: the Stinespring blocks of V rho V^dag
+# are exactly K_k rho K_k^dag.
+def _phi60(X):
+    return add52(add52(conjby52(_Q0, X), conjby52(_Q1, X)), conjby52(_Q2, X))
+ok60 &= psd47(choi41(_phi60, 3))
+for _s in range(2):
+    _rho = dyad47(gvec47(440 + _s, 3))
+    ok60 &= trace40(_phi60(_rho)) == trace40(_rho) and psd47(_phi60(_rho))
+    _Vr = mmc17(mmc17(_V60, _rho), dag17(_V60))
+    for k in range(3):
+        _blk = [[_Vr[3 * p + k][3 * q + k] for q in range(3)] for p in range(3)]
+        ok60 &= _blk == conjby52(_Qs[k], _rho)
+_ext60 = [kr17(eye17(2), Q) for Q in _Qs]
+ok60 &= add52(add52(mmc17(dag17(_ext60[0]), _ext60[0]), mmc17(dag17(_ext60[1]), _ext60[1])),
+              mmc17(dag17(_ext60[2]), _ext60[2])) == eye17(6)
+# --- (d) the well-formedness / substantive regrouping is a plain propositional identity:
+# five conditions = (validity, level-one) + (inert, control, closure); checked as a truth
+# table over all 32 assignments.
+for _bits in range(32):
+    _v, _i, _c, _l, _o = [(_bits >> j) & 1 == 1 for j in range(5)]
+    ok60 &= ((_v and _i and _c and _l and _o) == ((_v and _o) and (_i and _c and _l)))
+# --- (e) the kernel's own claim discipline, read back
+_gc60 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'GeneralCarrier.lean')
+if os.path.exists(_gc60):
+    with open(_gc60, encoding='utf-8') as _f:
+        _gc_txt60 = ' '.join(_f.read().split())
+    ok60 &= 'theorem exactAll_iff_physical_general' in _gc_txt60
+    ok60 &= 'theorem general_characterization' in _gc_txt60 and 'theorem main_result' in _gc_txt60
+    ok60 &= 'def WellFormed' in _gc_txt60 and 'def SubstantiveCompletion' in _gc_txt60
+    ok60 &= 'theorem oi_alone_not_qm' in _gc_txt60 and '[Nonempty A]' in _gc_txt60
+    ok60 &= 'FiniteIsometryExtensionSF' not in _gc_txt60 and 'sorry' not in _gc_txt60
+check("F60", ok60,
+      "ROUND 46: THE QUBIT RESTRICTION REMOVED -- for EVERY nonempty finite observable "
+      "system, exact finite endomorphic QM is characterized exactly by the five physical "
+      "completion conditions; the main research result frozen (phase three, round "
+      "forty-six; kernel: OIBridge/GeneralCarrier.lean, 13 results -- "
+      "exactComposite_of_validity_general, exactAll_of_conditions_general, "
+      "exactAll_of_physical_general, exactAll_iff_physical_general, "
+      "general_characterization, exactAll_iff_physical_unconditional_of_general, "
+      "physical_iff_wellFormed_substantive, exactAll_iff_substantive, "
+      "exactAll_iff_wellFormed_substantive, oi_alone_not_qm, oi_compatible_classification, "
+      "oi_compatible_iff, main_result). THE CHAIN, carrier-general and already in the "
+      "kernel: validity + inert spectators => composite soundness "
+      "(krausSoundExt_of_validity_inert, any nonempty A); control + inert spectators + "
+      "closure => composite completeness (compositeCompleteness, unconditional since round "
+      "45); together exact composite operations; system-to-level-one => exact system "
+      "operations; necessity (physical_of_exactAll) was general already. No new "
+      "mathematics, no new boundary; Nonempty A is used in both directions and the empty "
+      "carrier is excluded explicitly. THE REGROUPING: two conditions are well-formedness "
+      "(valid probabilities, trivial-ancilla consistency) and three are substantive "
+      "selection principles (inert spectators, sufficient reversible control, iterated "
+      "composition); exactAll_iff_substantive gives, for well-formed theories, exact finite "
+      "operational QM iff the three principles. THE FRAMING: OI alone != QM "
+      "(oi_alone_not_qm: the diagonal-preserving theory realizes the sealed core and is not "
+      "quantum), while an OI-compatible operational theory satisfying the five conditions IS "
+      "finite operational QM (oi_compatible_classification), and OI realization is redundant "
+      "once full control is assumed -- so the theorem is a classification of OI-compatible "
+      "completions, not OI derives QM. main_result bundles the general iff, satisfiability, "
+      "the qubit five-way audit and OI alone != QM. Verified exactly here, on a QUTRIT "
+      "system: the double-damping family diag(1,4/5,3/5), (3/5)|0><1|, (4/5)|0><2| is "
+      "normalized; its 9x3 system-first isometry has orthonormal columns and an exact "
+      "rational orthogonal complement of dimension 6 spanning with them (rank 9); the "
+      "channel has a PSD Choi matrix and preserves trace on random states; the Stinespring "
+      "blocks of V rho V^dag are the Kraus branches; the untouched-qubit extension is again "
+      "normalized; and the five = two + three regrouping over all 32 truth assignments. NOT "
+      "CLAIMED, lint-guarded: minimality witnesses on carriers other than the qubit; that "
+      "any condition follows from OI; OI iff QM; anything about the two remaining boundary "
+      "items.")
+
+# F61 -- ROUND 48: FINITE RIGHT-UNITARY (UHLMANN) UNIQUENESS discharged; the external
+# boundary drops to one item (phase three, round forty-eight).
+ok61 = True
+# --- (a) the theorem's content on an instance: A (3x4, rank two -- rows 0 and 2 equal, so
+# the row span is a proper subspace and the extension step is genuinely needed) and
+# B = A U for the rational unitary U = rot(3-4-5) (+) rot(5-12-13); the Gram matrices agree.
+_r1, _s1 = C17(Frac(3, 5)), C17(Frac(4, 5))
+_r2, _s2 = C17(Frac(5, 13)), C17(Frac(12, 13))
+_U61 = [[_r1, _s1, CZ17, CZ17], [C17(0) - _s1, _r1, CZ17, CZ17],
+        [CZ17, CZ17, _r2, _s2], [CZ17, CZ17, C17(0) - _s2, _r2]]
+ok61 &= mmc17(dag17(_U61), _U61) == eye17(4) and mmc17(_U61, dag17(_U61)) == eye17(4)
+_A61 = [[C17(1), C17(2), CZ17, C17(1)], [CZ17, C17(1), C17(3), C17(Frac(1, 2))], [C17(1), C17(2), CZ17, C17(1)]]
+_B61 = mmc17(_A61, _U61)
+ok61 &= rank52(_A61) == 2
+ok61 &= mmc17(_A61, dag17(_A61)) == mmc17(_B61, dag17(_B61))
+# --- (b) the six-step construction, exactly: rows as vectors; Gram transfer on arbitrary
+# combinations; an (unnormalized, exact) orthogonal basis u of the row span of A with its
+# coefficients c; the transported family v with the SAME coefficients on B has the same
+# Gram matrix; and the partial isometry L a_s = sum_i <u_i, a_s>/<u_i,u_i> v_i sends a_s to
+# b_s (the defect vanishes) -- the Round-45 extension then completes L to a unitary.
+def _inner61(u, v):
+    return sum((x.conj() * y for x, y in zip(u, v)), CZ17)
+_rowsA = [list(r) for r in _A61]
+_rowsB = [list(r) for r in _B61]
+for _s in range(3):
+    _cA = [gmat47(450 + _s, 3)[0][k] for k in range(3)]
+    _dA = [gmat47(460 + _s, 3)[1][k] for k in range(3)]
+    _xA = [sum((_cA[k] * _rowsA[k][e] for k in range(3)), CZ17) for e in range(4)]
+    _yA = [sum((_dA[k] * _rowsA[k][e] for k in range(3)), CZ17) for e in range(4)]
+    _xB = [sum((_cA[k] * _rowsB[k][e] for k in range(3)), CZ17) for e in range(4)]
+    _yB = [sum((_dA[k] * _rowsB[k][e] for k in range(3)), CZ17) for e in range(4)]
+    ok61 &= _inner61(_xA, _yA) == _inner61(_xB, _yB)
+_u61, _c61 = [], []
+for _s in range(3):
+    _r = list(_rowsA[_s]); _coef = [CO17 if k == _s else CZ17 for k in range(3)]
+    for u, cu in zip(_u61, _c61):
+        _q = _inner61(u, _r) * _inner61(u, u).inv()
+        _r = [x - _q * y for x, y in zip(_r, u)]
+        _coef = [x - _q * y for x, y in zip(_coef, cu)]
+    if any(x != CZ17 for x in _r):
+        _u61.append(_r); _c61.append(_coef)
+ok61 &= len(_u61) == 2
+ok61 &= all(_u61[i] == [sum((_c61[i][k] * _rowsA[k][e] for k in range(3)), CZ17) for e in range(4)]
+            for i in range(2))
+_v61 = [[sum((_c61[i][k] * _rowsB[k][e] for k in range(3)), CZ17) for e in range(4)] for i in range(2)]
+ok61 &= all(_inner61(_v61[i], _v61[j]) == _inner61(_u61[i], _u61[j]) for i in range(2) for j in range(2))
+ok61 &= _inner61(_u61[0], _u61[1]) == CZ17
+for _s in range(3):
+    _L = [CZ17] * 4
+    for i in range(2):
+        _al = _inner61(_u61[i], _rowsA[_s]) * _inner61(_u61[i], _u61[i]).inv()
+        _L = [x + _al * y for x, y in zip(_L, _v61[i])]
+    ok61 &= _L == _rowsB[_s]
+# --- (c) the matrix read-off and both identities: with U the unitary above, B = A U
+# entrywise, and the environment action on the purification (1 (x) U^T) vec(A) = vec(A U).
+ok61 &= mmc17(_A61, _U61) == _B61
+_vecA = [_A61[p // 4][p % 4] for p in range(12)]
+_kron = kr17(eye17(3), [[_U61[j][i] for j in range(4)] for i in range(4)])
+_lhs = [sum((_kron[p][q] * _vecA[q] for q in range(12)), CZ17) for p in range(12)]
+ok61 &= _lhs == [_B61[p // 4][p % 4] for p in range(12)]
+# --- (d) a purification instance: two purifiers of the same state are related by 1 (x) U^T
+_rhoA = mmc17(_A61, dag17(_A61))
+_ptr = lambda A: mmc17(A, dag17(A))
+ok61 &= _ptr(_B61) == _rhoA and psd47(_rhoA)
+# --- (e) the kernel's own claim discipline, read back
+_uu61 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'UhlmannUniqueness.lean')
+if os.path.exists(_uu61):
+    with open(_uu61, encoding='utf-8') as _f:
+        _uu_txt61 = ' '.join(_f.read().split())
+    ok61 &= 'theorem rightUnitary_of_gram' in _uu_txt61 and 'theorem purifier_uniqueness' in _uu_txt61
+    ok61 &= 'LinearIsometry.extend' in _uu_txt61 and 'theorem boundary_one_item' in _uu_txt61
+    ok61 &= 'ONE ITEM' in _uu_txt61 and 'sorry' not in _uu_txt61
+if os.path.exists(_ba59):
+    with open(_ba59, encoding='utf-8') as _f:
+        _ba_txt61 = ' '.join(_f.read().split())
+    ok61 &= 'SUPERSEDED IN ROUND FORTY-EIGHT' in _ba_txt61
+    ok61 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: ONE ITEM' in _ba_txt61
+    ok61 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: TWO ITEMS' in _ba_txt61   # provenance kept
+check("F61", ok61,
+      "ROUND 48: FINITE RIGHT-UNITARY (UHLMANN) UNIQUENESS DISCHARGED -- the external boundary "
+      "drops from two items to one (phase three, round forty-eight; kernel: "
+      "OIBridge/UhlmannUniqueness.lean, 22 results -- inner_rowVec, inner_comb, "
+      "comb_eq_zero_of_transfer, rowBasis_mem, coeff_spec, inner_transported, "
+      "transported_orthonormal, rowBasis_orthonormal_ambient, coord_expansion, partialIso_apply, "
+      "inner_comb_orthonormal, partialIso_inner, partialIso_norm, partialIso_rowVec, "
+      "eq_sum_single, matrixOf_apply, matrixOf_isometry, "
+      "mul_conjTranspose_of_conjTranspose_mul, rightUnitary_of_gram, kronecker_mulVec_purifVec, "
+      "purifier_uniqueness, boundary_one_item). THE THEOREM, exactly as Purification.lean "
+      "recorded it as a cited external fact: for amplitude matrices A, B on a common finite "
+      "environment, A A^dag = B B^dag implies B = A U with U unitary. THE PROOF, in the six "
+      "steps directed: rows as Euclidean vectors, the Gram identity as equality of row inner "
+      "products, hence Gram transfer on every pair of combinations; an orthonormal basis u of "
+      "the row span of A (stdOrthonormalBasis) with each u_i a combination of the rows; the "
+      "same combinations of the rows of B give an orthonormal family v; the partial isometry "
+      "L x = sum_i <u_i, x> v_i on the row span preserves inner products and sends a_s to b_s "
+      "(the defect b_s - L a_s has, by Gram transfer, the norm of a_s - sum <u_i,a_s> u_i = 0); "
+      "Mathlib's LinearIsometry.extend completes L to a full isometry of the environment; its "
+      "matrix has W^dag W = 1 entrywise from inner-product preservation, W W^dag = 1 by the "
+      "square inverse, and U = W^T gives B = A U entrywise. Usual axiom footprint. "
+      "purifier_uniqueness: two purifications on S x E of the same state are related by "
+      "1 (x) U^T. THE BOUNDARY AUDIT, 2 -> 1, in the round-35 / round-45 pattern: the "
+      "two-item statements are preserved and labelled superseded; the unresolved external "
+      "boundary is now compact Lie integration / reachability alone, not a dependency of the "
+      "OI -> finite-QM characterization and not claimed dischargeable. Verified exactly here: "
+      "a rank-two 3x4 amplitude matrix (equal rows, so the row span is proper and the "
+      "extension step is needed) and B = A U for the 3-4-5 (+) 5-12-13 rational unitary have "
+      "equal Gram matrices; Gram transfer on random combinations; an exact orthogonal basis "
+      "of the row span with its coefficients, the transported family with the same Gram "
+      "matrix, and the partial isometry reproducing every row of B with zero defect; B = A U "
+      "entrywise and (1 (x) U^T) vec(A) = vec(B); the two purifiers reduce to the same PSD "
+      "state. NOT CLAIMED, lint-guarded: the unequal-environment isometry form, which nothing "
+      "in the development consumes; anything about compact Lie reachability.")
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

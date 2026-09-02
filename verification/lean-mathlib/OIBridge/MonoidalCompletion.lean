@@ -795,7 +795,7 @@ converts its first two requirements into `H_comp`.
 
 The external boundary any such assembly rests on stays exactly four items and no more:
 compact Lie integration, finite isometry extension, PSD square-root/factorization, and
-finite Uhlmann/Schmidt uniqueness. -/
+finite Uhlmann/Schmidt uniqueness. [HISTORICAL, SUPERSEDED BY THE ROUND-35 BOUNDARY AUDIT: PSD square-root/factorization was discharged internally in round thirty-four (`psdFactorization_of_spectral`), so the current unresolved boundary is three items — see `BoundaryAudit.lean`.] -/
 
 #print axioms wordPerm_append
 #print axioms wordMap_append

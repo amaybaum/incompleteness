@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Lean 4 (any recent release; the five core proof files are self-contained — no Mathlib, no
+- Lean 4 (any recent release; the six core proof files are self-contained — no Mathlib, no
   lake project, zero imports).
 - For the bridge only: `elan`/`lake` and network access, to fetch mathlib4 `v4.33.0` and its
   build cache. Nothing in the core check needs this, and the two are kept separable on purpose.
@@ -13,7 +13,7 @@
     cd verification/lean
     lean OI_Gauge_Certificates.lean && lean OI_Structural_Core.lean \
       && lean OI_Staggered_Relations.lean && lean OI_Regulator_Symmetry.lean \
-      && lean OI_Structural_Chain.lean
+      && lean OI_Structural_Chain.lean && lean OI_Time_Reversal.lean
 
 A clean exit is the certificate. The files use only core tactics (`calc`, `rw`, `decide`,
 structural induction); `decide` targets are integer identities over explicitly generated
@@ -26,10 +26,12 @@ invariant.
     cd verification/lean-mathlib
     lake exe cache get && lake build
 
-Separate project, separate pinned toolchain, separate verdict. It carries the two statements
-that contain the word *dimension* — the averaging identity and the equivariant-map dimension
-formula, both derived from Mathlib rather than reproved — and the transport of the cubic data
-onto a `Representation` that turns the core layer's `72` into `dim Hom_G(V₆, V₆) = 3`.
+Separate project, separate pinned toolchain, separate verdict. `OIBridge.lean` imports every
+module of the programme — the representation bridge, the equivalence chain, the Hamiltonian
+reconstruction, the coherent completions, the instrument assembly, and the OI → finite-QM
+completion classification ending in `GeneralCarrier.main_result` — so one build checks all of
+it; every named result prints its axiom dependencies in the build log. `../README.md` gives the
+module map, the flagship statement, and the current external boundary.
 
 ## Numerical probes
 
@@ -39,9 +41,12 @@ onto a `Representation` that turns the core layer's `72` into `dim Hom_G(V₆, V
     python3 structural_chain_probe.py         # C1–C5
     python3 representation_bridge_probe.py    # B1–B7, and B5b
 
-Every line prints `PASS` with the verified content — 31 in total. The probes are
-self-contained and deterministic (fixed seeds); integer-identity claims are checked in exact
-int64 or rational arithmetic, not floating point.
+Every line prints `PASS` with the verified content — 31 in total for these five. The remaining
+probes gated by CI (`time_reversal`, `equivalence_chain`, `hidden_memory`, …, `bohr_frequency`
+with its F-series, `edge_rigidity` with the R7 lint of the Mathlib programme) run the same way:
+`python3 <name>_probe.py`, each printing its PASS set. The probes are self-contained and
+deterministic (fixed seeds); integer-identity claims are checked in exact int64 or rational
+arithmetic, not floating point.
 
 ## Continuous checking
 
@@ -59,8 +64,9 @@ certifies those toolchains and nothing about any other.
 
 ## Release checklist
 
-- [ ] All five `lean` commands exit cleanly.
-- [ ] All five probes print their full PASS sets.
+- [ ] All six `lean` commands exit cleanly.
+- [ ] All gated probes print their full PASS sets.
 - [ ] The bridge builds: `cd verification/lean-mathlib && lake exe cache get && lake build`.
+- [ ] The release gate passes: `python3 tools/release_gate.py` from the repository root.
 
 Status: all three jobs pass in CI.

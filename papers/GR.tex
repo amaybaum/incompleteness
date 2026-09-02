@@ -1362,6 +1362,78 @@ theories is otherwise closed: existing completions are ordinary complex
 quantum mechanics modulo one global antiunitary \(\mathbb{Z}_2\), while
 some nominal carriers admit no coherent completion at all.
 
+\textbf{The operational-completion characterization.} The classification
+above is a uniqueness statement conditional on existence. The existence
+side --- which operational theories generated on a finite carrier are
+exactly quantum mechanics at the level of instruments and composites ---
+is settled by a characterization with no external premise. Fix a
+nonempty finite visible system and an operational theory on it: a
+specification, for the system and for every finite ancilla level, of
+which finite outcome families of linear maps are available, closed under
+coarse-graining and outcome-conditioned composition, with a
+spectator-independent local readout of the ancilla. Five conditions are
+in play. (i) \emph{Valid probabilities}: every available family sends
+positive states to positive states and its outcomes' traces sum to the
+input trace. (ii) \emph{Trivial-ancilla consistency}: an operation
+available on the system is available on the system with a one-state
+ancilla adjoined. (iii) \emph{Inert spectators}: an untouched
+independent system can be adjoined without changing an intervention.
+(iv) \emph{Full reversible control}: every finite unitary on every
+composite is available. (v) \emph{Iterated composition}: a composite may
+itself serve as the working system of a larger experiment --- an
+operation obtained by attaching a fresh uniformly prepared ancilla to a
+composite, acting on the enlarged carrier, and discarding the ancilla is
+available on the composite.
+
+\textbf{Theorem (operational-completion characterization).} \emph{For
+every nonempty finite visible system, the available outcome families on
+the system and on every positive ancilla level are exactly the
+normalized finite Kraus instruments if and only if conditions (i)--(v)
+hold.} (Kernel: \texttt{exactAll\_iff\_physical\_general} and
+\texttt{general\_characterization} in
+\texttt{OIBridge/GeneralCarrier.lean}; necessity
+\texttt{physical\_of\_exactAll}; sufficiency through
+\texttt{krausSoundExt\_of\_validity\_inert},
+\texttt{compositeCompleteness}, and \texttt{exactAll\_of\_levelOne}. The
+one extension fact the sufficiency direction uses --- every isometry
+into a composite extends to a unitary agreeing with it on the seed ---
+is proved for every finite carrier from Mathlib's orthonormal-basis
+extension theorem, \texttt{finiteIsometryExtensionSF\_discharged} in
+\texttt{OIBridge/IsometryExtension.lean}, so no external premise enters
+either direction.)
+
+Conditions (i) and (ii) are well-formedness requirements of any
+operational theory; (iii)--(v) are the substantive selection principles,
+and for well-formed theories the characterization is by those three
+alone (kernel: \texttt{exactAll\_iff\_substantive}). Each of the five is
+independent of the other four and of the observation process itself: for
+each condition there is a qubit theory that realizes the sealed OI core
+--- a finite C1--C4 embedded-observation process together with its
+actual visible readout --- satisfies the other four, and fails that one
+(kernel: \texttt{five\_way\_minimality} in
+\texttt{OIBridge/RankGapTheory.lean}, with the witnesses
+\texttt{everywhereAvailable}, \texttt{countermodel},
+\texttt{diagTheory}, \texttt{gapTheory}, \texttt{systemLoose}). In
+particular a theory that never creates coherence realizes the OI core
+and is not quantum (kernel: \texttt{oi\_alone\_not\_qm}). Hence
+
+\[\boxed{\;\text{bare finite OI} \;\not\Rightarrow\; \mathrm{QM}\;}\]
+
+while
+
+\[\boxed{\;\text{OI-compatible operational theory} \;+\; \text{(i)–(v)} \;\iff\; \text{finite operational QM}\;}\]
+
+for every nonempty finite system (kernel: \texttt{main\_result},
+\texttt{oi\_compatible\_classification} in
+\texttt{OIBridge/GeneralCarrier.lean}). The OI clause is not what does
+the work --- every theory with full reversible control realizes the
+sealed core (kernel: \texttt{realizesSealedOICore\_of\_control}) --- so
+the theorem is a classification of the completions compatible with
+embedded observation, not a derivation of quantum mechanics from it. The
+substantive physical question it isolates is whether the OI substratum
+supplies (iii)--(v); the determination of \(\hbar\) in this section uses
+only the fixed-basis representation and does not wait on that question.
+
 Every member of the residual family is invisible to the transition data
 for a stated reason --- diagonal rephasing moves no modulus, the energy
 origin is a global phase, the antiunitary reflection conjugates \(U(t)\)
@@ -4299,4 +4371,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: df4ed724166c33c56a6837cb01ce1b26bec632ef65b03d48eac00710d1fea2e3
+% source-sha256: 02eb2111fc1e4c7c14aef21566764ca70cb55adb929af688d139c3df8f609035
