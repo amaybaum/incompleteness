@@ -44,7 +44,9 @@
   discharged form `purification_unconditional` — the conditional theorem is kept as the
   local architecture). Purifier uniqueness `A Aᴴ = B Bᴴ ⟹ B = A U` for a
   unitary `U` is the standard finite Schmidt/Uhlmann theorem, recorded as the cited
-  external result rather than reproved.
+  external result rather than reproved. [DISCHARGED IN ROUND FORTY-EIGHT for every finite
+  `S`, `E`: `UhlmannUniqueness.rightUnitary_of_gram`, with `purifier_uniqueness` the
+  purification form; the statement above is kept as provenance.]
 
   THE ENDPOINT REDUCTION. If the Lüders branch update is OI-licensed, H-pure-seed
   collapses and the four named endpoint conditions become three: H-functor, H-tensor,

@@ -860,6 +860,15 @@ for fname, names in (
                         'physical_iff_wellFormed_substantive', 'exactAll_iff_substantive',
                         'exactAll_iff_wellFormed_substantive', 'oi_alone_not_qm',
                         'oi_compatible_classification', 'oi_compatible_iff', 'main_result')),
+    ('UhlmannUniqueness', ('inner_rowVec', 'inner_comb', 'comb_eq_zero_of_transfer',
+                           'rowBasis_mem', 'coeff_spec', 'inner_transported',
+                           'transported_orthonormal', 'rowBasis_orthonormal_ambient',
+                           'coord_expansion', 'partialIso_apply', 'inner_comb_orthonormal',
+                           'partialIso_inner', 'partialIso_norm', 'partialIso_rowVec',
+                           'eq_sum_single', 'matrixOf_apply', 'matrixOf_isometry',
+                           'mul_conjTranspose_of_conjTranspose_mul', 'rightUnitary_of_gram',
+                           'kronecker_mulVec_purifVec', 'purifier_uniqueness',
+                           'boundary_one_item')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -964,7 +973,7 @@ ok6 &= 'It proves nothing new' in _baflat and 'PROVENANCE IS PRESERVED, NOT REWR
 # the remaining items must not be claimed discharged anywhere in the audit (item 2, finite
 # isometry extension, IS discharged from round forty-five -- see the Round-45 guards)
 ok6 &= 'Lie integration is discharged' not in _baflat and 'reachability is discharged' not in _baflat
-ok6 &= 'uniqueness is discharged' not in _baflat
+ok6 &= 'reachability is discharged' not in _baflat   # (right-unitary uniqueness IS discharged from round forty-eight)
 # Purification keeps its conditional theorem and cross-references the discharge
 _pu = open(os.path.join(BRIDGE, 'OIBridge', 'Purification.lean'), encoding='utf-8').read()
 ok6 &= 'theorem purification_of_factorization' in _pu and 'psdFactorization_of_spectral' in _pu
@@ -1367,7 +1376,7 @@ ok6 &= 'SUPERSEDED IN ROUND FORTY-FIVE' in _baflat
 ok6 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: TWO ITEMS' in _baflat
 ok6 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: THREE ITEMS' in _baflat   # provenance kept
 ok6 &= 'compact Lie integration / reachability' in _ieflat and 'finite Uhlmann / Schmidt / right-unitary uniqueness' in _ieflat
-ok6 &= 'Lie integration is discharged' not in _ieflat and 'uniqueness is discharged' not in _ieflat
+ok6 &= 'Lie integration is discharged' not in _ieflat and 'reachability is discharged' not in _ieflat
 # the historical conditional theorems are KEPT as written
 for _fn, _th in (('StinespringAssembly', 'theorem fullInstruments_of_control (T : FiniteOperationalTheory A)'),
                  ('PhysicalCharacterization', 'theorem exactAll_iff_physical (T : FiniteOperationalTheory (Fin 2))'),
@@ -1401,6 +1410,30 @@ ok6 &= re.search(r'(?m)^axiom ', gc) is None and re.search(r'(?m)^structure ', g
 ok6 &= 'theorem oi_derives_qm' not in gc and 'theorem oi_iff_quantum' not in gc
 ok6 &= 'theorem five_way_minimality_general' not in gc
 ok6 &= 'GENERALIZED TO EVERY NONEMPTY FINITE SYSTEM IN ROUND FORTY-SIX' in _pcflat
+# Round-48 guards: finite right-unitary uniqueness discharged; the boundary is one item; the
+# two-item statements preserved and labelled; the remaining item not claimed.
+uu = open(os.path.join(BRIDGE, 'OIBridge', 'UhlmannUniqueness.lean'), encoding='utf-8').read()
+_uuflat = ' '.join(uu.split())
+_ru = ' '.join(_slice(uu, 'theorem rightUnitary_of_gram', ':=').split())
+ok6 &= bool(_ru) and '(A B : Matrix S E ℂ) (hG : A * Aᴴ = B * Bᴴ)' in _ru
+ok6 &= _ru.endswith('∃ U : Matrix E E ℂ, Uᴴ * U = 1 ∧ B = A * U')
+ok6 &= 'LinearIsometry.extend' in uu and 'stdOrthonormalBasis' in uu
+ok6 &= 'sorry' not in uu and re.search(r'(?m)^axiom ', uu) is None and 'native_decide' not in uu
+_pu = ' '.join(_slice(uu, 'theorem purifier_uniqueness', ':=').split())
+ok6 &= bool(_pu) and 'purifVec B = ((1 : Matrix S S ℂ) ⊗ₖ Uᵀ) *ᵥ purifVec A' in _pu
+_bo = ' '.join(_slice(uu, 'theorem boundary_one_item', ':=').split())
+ok6 &= bool(_bo) and 'FiniteIsometryExtensionSF A' in _bo and 'B = A * U' in _bo and 'PosSemidef' in _bo
+ok6 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: ONE ITEM' in _uuflat
+ok6 &= 'compact Lie integration / reachability' in _uuflat
+ok6 &= 'Lie integration is discharged' not in _uuflat and 'reachability is discharged' not in _uuflat
+ok6 &= 'SUPERSEDED IN ROUND FORTY-EIGHT' in _baflat
+ok6 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: ONE ITEM' in _baflat
+ok6 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: TWO ITEMS' in _baflat   # provenance kept
+ok6 &= 'SUPERSEDED IN ROUND FORTY-EIGHT' in _ieflat
+_puf = ' '.join(open(os.path.join(BRIDGE, 'OIBridge', 'Purification.lean'), encoding='utf-8').read().split())
+ok6 &= 'DISCHARGED IN ROUND FORTY-EIGHT' in _puf and 'recorded as the cited external result rather than reproved' in _puf
+ok6 &= re.search(r'(?m)^structure ', uu) is None
+ok6 &= 'theorem lie_reachability_discharged' not in uu and 'theorem rightIsometry_of_gram' not in uu
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1805,8 +1838,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All fifty-six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 5 + 16 named results print their "
+      "LINT. All fifty-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

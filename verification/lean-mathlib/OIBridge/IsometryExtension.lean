@@ -40,6 +40,9 @@
   factorization (round thirty-four, `psdFactorization_discharged`); finite isometry
   extension (this round, `finiteIsometryExtensionSF_discharged`). Neither remaining item is
   a dependency of the OI → finite-QM characterization; neither is claimed dischargeable here.
+  [SUPERSEDED IN ROUND FORTY-EIGHT BY `UhlmannUniqueness.lean`: finite right-unitary
+  uniqueness has been discharged (`rightUnitary_of_gram`), and THE CURRENT UNRESOLVED
+  EXTERNAL BOUNDARY: ONE ITEM — compact Lie integration / reachability.]
 
   WHAT IS AND IS NOT CLAIMED. Proved: everything above, with the usual axiom footprint
   (`propext`, `Classical.choice`, `Quot.sound`; the spectral/orthonormal-basis machinery of

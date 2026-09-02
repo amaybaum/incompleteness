@@ -54,6 +54,18 @@
   OI → finite-QM characterization, which is unconditional from round forty-five
   (`exactAll_iff_physical_unconditional`); neither is claimed dischargeable.]
 
+  [SUPERSEDED IN ROUND FORTY-EIGHT BY `UhlmannUniqueness.lean`. Finite right-unitary
+  uniqueness (`A Aᴴ = B Bᴴ ⟹ B = A U`, `U` unitary, equal finite environment) has been
+  discharged by `rightUnitary_of_gram`, from the round-45 isometry machinery and Mathlib's
+  `LinearIsometry.extend`. THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: ONE ITEM.
+
+      1. compact Lie integration / reachability.
+
+  DISCHARGED INTERNALLY: PSD square-root / factorization (round thirty-four); finite isometry
+  extension (round forty-five); finite right-unitary uniqueness (round forty-eight). The one
+  remaining item is not a dependency of the OI → finite-QM characterization and is not
+  claimed dischargeable.]
+
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
 import OIBridge.DimensionalCountermodel

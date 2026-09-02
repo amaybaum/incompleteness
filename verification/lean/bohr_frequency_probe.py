@@ -7730,6 +7730,120 @@ check("F60", ok60,
       "any condition follows from OI; OI iff QM; anything about the two remaining boundary "
       "items.")
 
+# F61 -- ROUND 48: FINITE RIGHT-UNITARY (UHLMANN) UNIQUENESS discharged; the external
+# boundary drops to one item (phase three, round forty-eight).
+ok61 = True
+# --- (a) the theorem's content on an instance: A (3x4, rank two -- rows 0 and 2 equal, so
+# the row span is a proper subspace and the extension step is genuinely needed) and
+# B = A U for the rational unitary U = rot(3-4-5) (+) rot(5-12-13); the Gram matrices agree.
+_r1, _s1 = C17(Frac(3, 5)), C17(Frac(4, 5))
+_r2, _s2 = C17(Frac(5, 13)), C17(Frac(12, 13))
+_U61 = [[_r1, _s1, CZ17, CZ17], [C17(0) - _s1, _r1, CZ17, CZ17],
+        [CZ17, CZ17, _r2, _s2], [CZ17, CZ17, C17(0) - _s2, _r2]]
+ok61 &= mmc17(dag17(_U61), _U61) == eye17(4) and mmc17(_U61, dag17(_U61)) == eye17(4)
+_A61 = [[C17(1), C17(2), CZ17, C17(1)], [CZ17, C17(1), C17(3), C17(Frac(1, 2))], [C17(1), C17(2), CZ17, C17(1)]]
+_B61 = mmc17(_A61, _U61)
+ok61 &= rank52(_A61) == 2
+ok61 &= mmc17(_A61, dag17(_A61)) == mmc17(_B61, dag17(_B61))
+# --- (b) the six-step construction, exactly: rows as vectors; Gram transfer on arbitrary
+# combinations; an (unnormalized, exact) orthogonal basis u of the row span of A with its
+# coefficients c; the transported family v with the SAME coefficients on B has the same
+# Gram matrix; and the partial isometry L a_s = sum_i <u_i, a_s>/<u_i,u_i> v_i sends a_s to
+# b_s (the defect vanishes) -- the Round-45 extension then completes L to a unitary.
+def _inner61(u, v):
+    return sum((x.conj() * y for x, y in zip(u, v)), CZ17)
+_rowsA = [list(r) for r in _A61]
+_rowsB = [list(r) for r in _B61]
+for _s in range(3):
+    _cA = [gmat47(450 + _s, 3)[0][k] for k in range(3)]
+    _dA = [gmat47(460 + _s, 3)[1][k] for k in range(3)]
+    _xA = [sum((_cA[k] * _rowsA[k][e] for k in range(3)), CZ17) for e in range(4)]
+    _yA = [sum((_dA[k] * _rowsA[k][e] for k in range(3)), CZ17) for e in range(4)]
+    _xB = [sum((_cA[k] * _rowsB[k][e] for k in range(3)), CZ17) for e in range(4)]
+    _yB = [sum((_dA[k] * _rowsB[k][e] for k in range(3)), CZ17) for e in range(4)]
+    ok61 &= _inner61(_xA, _yA) == _inner61(_xB, _yB)
+_u61, _c61 = [], []
+for _s in range(3):
+    _r = list(_rowsA[_s]); _coef = [CO17 if k == _s else CZ17 for k in range(3)]
+    for u, cu in zip(_u61, _c61):
+        _q = _inner61(u, _r) * _inner61(u, u).inv()
+        _r = [x - _q * y for x, y in zip(_r, u)]
+        _coef = [x - _q * y for x, y in zip(_coef, cu)]
+    if any(x != CZ17 for x in _r):
+        _u61.append(_r); _c61.append(_coef)
+ok61 &= len(_u61) == 2
+ok61 &= all(_u61[i] == [sum((_c61[i][k] * _rowsA[k][e] for k in range(3)), CZ17) for e in range(4)]
+            for i in range(2))
+_v61 = [[sum((_c61[i][k] * _rowsB[k][e] for k in range(3)), CZ17) for e in range(4)] for i in range(2)]
+ok61 &= all(_inner61(_v61[i], _v61[j]) == _inner61(_u61[i], _u61[j]) for i in range(2) for j in range(2))
+ok61 &= _inner61(_u61[0], _u61[1]) == CZ17
+for _s in range(3):
+    _L = [CZ17] * 4
+    for i in range(2):
+        _al = _inner61(_u61[i], _rowsA[_s]) * _inner61(_u61[i], _u61[i]).inv()
+        _L = [x + _al * y for x, y in zip(_L, _v61[i])]
+    ok61 &= _L == _rowsB[_s]
+# --- (c) the matrix read-off and both identities: with U the unitary above, B = A U
+# entrywise, and the environment action on the purification (1 (x) U^T) vec(A) = vec(A U).
+ok61 &= mmc17(_A61, _U61) == _B61
+_vecA = [_A61[p // 4][p % 4] for p in range(12)]
+_kron = kr17(eye17(3), [[_U61[j][i] for j in range(4)] for i in range(4)])
+_lhs = [sum((_kron[p][q] * _vecA[q] for q in range(12)), CZ17) for p in range(12)]
+ok61 &= _lhs == [_B61[p // 4][p % 4] for p in range(12)]
+# --- (d) a purification instance: two purifiers of the same state are related by 1 (x) U^T
+_rhoA = mmc17(_A61, dag17(_A61))
+_ptr = lambda A: mmc17(A, dag17(A))
+ok61 &= _ptr(_B61) == _rhoA and psd47(_rhoA)
+# --- (e) the kernel's own claim discipline, read back
+_uu61 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'UhlmannUniqueness.lean')
+if os.path.exists(_uu61):
+    with open(_uu61, encoding='utf-8') as _f:
+        _uu_txt61 = ' '.join(_f.read().split())
+    ok61 &= 'theorem rightUnitary_of_gram' in _uu_txt61 and 'theorem purifier_uniqueness' in _uu_txt61
+    ok61 &= 'LinearIsometry.extend' in _uu_txt61 and 'theorem boundary_one_item' in _uu_txt61
+    ok61 &= 'ONE ITEM' in _uu_txt61 and 'sorry' not in _uu_txt61
+if os.path.exists(_ba59):
+    with open(_ba59, encoding='utf-8') as _f:
+        _ba_txt61 = ' '.join(_f.read().split())
+    ok61 &= 'SUPERSEDED IN ROUND FORTY-EIGHT' in _ba_txt61
+    ok61 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: ONE ITEM' in _ba_txt61
+    ok61 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: TWO ITEMS' in _ba_txt61   # provenance kept
+check("F61", ok61,
+      "ROUND 48: FINITE RIGHT-UNITARY (UHLMANN) UNIQUENESS DISCHARGED -- the external boundary "
+      "drops from two items to one (phase three, round forty-eight; kernel: "
+      "OIBridge/UhlmannUniqueness.lean, 22 results -- inner_rowVec, inner_comb, "
+      "comb_eq_zero_of_transfer, rowBasis_mem, coeff_spec, inner_transported, "
+      "transported_orthonormal, rowBasis_orthonormal_ambient, coord_expansion, partialIso_apply, "
+      "inner_comb_orthonormal, partialIso_inner, partialIso_norm, partialIso_rowVec, "
+      "eq_sum_single, matrixOf_apply, matrixOf_isometry, "
+      "mul_conjTranspose_of_conjTranspose_mul, rightUnitary_of_gram, kronecker_mulVec_purifVec, "
+      "purifier_uniqueness, boundary_one_item). THE THEOREM, exactly as Purification.lean "
+      "recorded it as a cited external fact: for amplitude matrices A, B on a common finite "
+      "environment, A A^dag = B B^dag implies B = A U with U unitary. THE PROOF, in the six "
+      "steps directed: rows as Euclidean vectors, the Gram identity as equality of row inner "
+      "products, hence Gram transfer on every pair of combinations; an orthonormal basis u of "
+      "the row span of A (stdOrthonormalBasis) with each u_i a combination of the rows; the "
+      "same combinations of the rows of B give an orthonormal family v; the partial isometry "
+      "L x = sum_i <u_i, x> v_i on the row span preserves inner products and sends a_s to b_s "
+      "(the defect b_s - L a_s has, by Gram transfer, the norm of a_s - sum <u_i,a_s> u_i = 0); "
+      "Mathlib's LinearIsometry.extend completes L to a full isometry of the environment; its "
+      "matrix has W^dag W = 1 entrywise from inner-product preservation, W W^dag = 1 by the "
+      "square inverse, and U = W^T gives B = A U entrywise. Usual axiom footprint. "
+      "purifier_uniqueness: two purifications on S x E of the same state are related by "
+      "1 (x) U^T. THE BOUNDARY AUDIT, 2 -> 1, in the round-35 / round-45 pattern: the "
+      "two-item statements are preserved and labelled superseded; the unresolved external "
+      "boundary is now compact Lie integration / reachability alone, not a dependency of the "
+      "OI -> finite-QM characterization and not claimed dischargeable. Verified exactly here: "
+      "a rank-two 3x4 amplitude matrix (equal rows, so the row span is proper and the "
+      "extension step is needed) and B = A U for the 3-4-5 (+) 5-12-13 rational unitary have "
+      "equal Gram matrices; Gram transfer on random combinations; an exact orthogonal basis "
+      "of the row span with its coefficients, the transported family with the same Gram "
+      "matrix, and the partial isometry reproducing every row of B with zero defect; B = A U "
+      "entrywise and (1 (x) U^T) vec(A) = vec(B); the two purifiers reduce to the same PSD "
+      "state. NOT CLAIMED, lint-guarded: the unequal-environment isometry form, which nothing "
+      "in the development consumes; anything about compact Lie reachability.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

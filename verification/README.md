@@ -1,18 +1,51 @@
 # Verification suite
 
-Machine-checked certificates for the finite and algebraic core of the OI papers, in two
-layers: **Lean 4 proof files** (self-contained, zero dependencies — no Mathlib, no lake
-project) and **numerical probes** (Python 3) that instantiate every hypothesis and
-conclusion on the concrete lattice operators, exactly in integer arithmetic where the
-statements are integer identities.
+Machine-checked certificates for the finite and algebraic core of the OI papers, in three
+layers:
 
-One statement in the roadmap contains the word *dimension* and so cannot be finite arithmetic
-at all. It lives apart, in `lean-mathlib/`, which is the **only** part of this suite that
-depends on Mathlib — its own lake project, its own pinned toolchain, and its own CI job, so
-that a breakage there can never be mistaken for a verdict on the zero-import files. The two
-kernel verdicts are always reported separately.
+- **`lean/`** — six self-contained **Lean 4 proof files** (zero dependencies: no Mathlib, no
+  lake project) for the lattice, gauge-counting and staggered-fermion statements of `papers/SM.md`
+  and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
+  conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
+  statements are integer identities.
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 82 modules and,
+  at this commit, 1,341 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+  `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
+  reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
+  and it is the project's main theorem-verification layer.
+- **`coverage/LEDGER.json`** — the proof-coverage ledger: every canonical manuscript statement,
+  the kernel theorem or probe that certifies it, its level (K3 exact / K2 / K1 / P probe / GAP),
+  and the recorded delta between manuscript and formal statement. `tools/coverage_check.py`
+  enforces it; `tools/release_gate.py` runs that check with the others.
 
-Contents (`lean/`):
+The two kernel verdicts are always reported separately: the zero-import files and the Mathlib
+project have their own toolchains and their own CI jobs, so a breakage in either can never be
+mistaken for a verdict on the other.
+
+## The flagship result
+
+`OIBridge/GeneralCarrier.lean`, `main_result` — for every nonempty finite observable system:
+
+    exact finite operational quantum mechanics
+      ⟺  valid probabilities
+        ∧ trivial-ancilla consistency
+        ∧ inert spectators
+        ∧ full reversible control
+        ∧ iterated composition
+
+Exactness means the available outcome families on the system and on every ancilla level are
+exactly the normalized finite Kraus instruments (`exactAll_iff_physical_general`). Both directions
+are kernel-internal with no external premise. Two of the five conditions are well-formedness
+requirements and three are substantive selection principles (`exactAll_iff_substantive`); each
+condition is independent of the other four and of the observation process, exhibited by a qubit
+theory realizing the sealed OI core that satisfies the other four and fails that one
+(`RankGapTheory.five_way_minimality`, witnesses `everywhereAvailable`, `countermodel`,
+`diagTheory`, `gapTheory`, `systemLoose`). Bare finite OI therefore does not select quantum
+mechanics (`oi_alone_not_qm`); the theorem classifies the OI-compatible completions and does not
+derive quantum mechanics from observation (`oi_compatible_classification`). The manuscript
+statement is `papers/GR.md` §3.3, *Theorem (operational-completion characterization)*.
+
+## Contents (`lean/`)
 
 - `OI_Gauge_Certificates.lean` — telescoping/plaquette triviality for arbitrary abelian
   alphabets; central-sign collapse for every odd q; the kernel-checked cubic counting
@@ -39,27 +72,108 @@ Contents (`lean/`):
   no division and no spectral argument), and the cubic quadratic invariant: the character of
   the induced action on Sym²(ℝ³) sums to 48 over the signed permutation group and 24 over its
   rotations, with δ exhibited invariant and a direction-singling form shown not to be.
-- `gauge_certificates_probe.py`, `structural_core_probe.py`, `staggered_relations_probe.py`
-  — companion checks for the proof files, including exact certification that the concrete
-  lattice operators satisfy every hypothesis the Lean proofs use. Every integer the Lean
-  files submit to `decide` is recomputed here by an independent construction.
-- `structural_chain_probe.py`, `representation_bridge_probe.py` — numerical verification
-  of the planned formalizations (see `lean/ROADMAP.md`): Theorems 1a/2/3 and the GR
-  detailed-balance lemma; the representation-theoretic bridge (character table, isotypic
-  decompositions, invariant dimensions).
-- `VERIFYING.md` — how to run everything; `ROADMAP.md` — planned extensions.
+- `OI_Time_Reversal.lean` — Theorem 17 of `papers/SM.md`: time-reversal invariance of the
+  discrete wave equation, stated over an arbitrary additive commutative group of field values
+  with the spatial stencil abstract, so both the displayed nearest-neighbour form and the
+  d-dimensional reading are instances.
+- `*_probe.py` — twenty-nine probe files, all run by CI. `gauge_certificates`, `structural_core`,
+  `staggered_relations`, `structural_chain`, `representation_bridge` and `time_reversal` are the
+  companions of the proof files above: every integer the Lean files submit to `decide` is
+  recomputed by an independent construction. The rest instantiate the `OIBridge` theorems on
+  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F61, one per
+  round of the reconstruction and completion programme, each reading the kernel file it
+  certifies back for its claim discipline) and `edge_rigidity_probe.py` carries the R7 lint,
+  which requires every listed kernel result to be a `theorem` with a `#print axioms` line and
+  guards the claim boundaries round by round.
+- `VERIFYING.md` — how to run everything; `ROADMAP.md` — the original plan for the zero-import
+  layer.
 
-Contents (`lean-mathlib/`):
+## Contents (`lean-mathlib/`)
 
-- `OIBridge.lean` — the two classical identities the counting layer consumes, both *derived*
-  from Mathlib rather than reproved there: the averaging identity `|G| · dim V^G = Σ χ(g)` and
-  the equivariant-map dimension formula, each restated with the group order cleared to the
-  left, which is the shape the kernel-checked integer sums are in. Above them, the transport
-  itself (ROADMAP §A10): V₆ built as the permutation representation of S₄ on the two-element
-  subsets of a four-set, its character identified with the fixed-face count via
-  `Matrix.trace_permutation`, and the counting layer's 72 divided by 24 to give a genuine
-  `Module.finrank` — `dim Hom_G(V₆, V₆) = 3`, with `dim V₆^G = 1` alongside. The
-  identification of this model with the signed-permutation V₆ is *not* asserted in Lean; it is
-  mirror-checked in `representation_bridge_probe.py` (B4) on the full character multiset.
-- `lakefile.toml`, `lean-toolchain` — pinned to mathlib4 `v4.33.0`. Kernel check:
-  `cd verification/lean-mathlib && lake exe cache get && lake build`.
+One lake project, pinned to `leanprover/lean4:v4.33.0` and mathlib4 `v4.33.0`.
+`OIBridge.lean` imports every module, so `lake build` checks all of them; `OIBridge/` holds the
+modules, in the order the development grew:
+
+- **Representation bridge and counting** (`Averaging`, `CombRealization`, `LinkDecomposition`,
+  `QuarterTurn`, `TasteBranching`, `GaugeDimension`, `CubicIsotropy`): the averaging identity
+  and the equivariant-map dimension formula derived from Mathlib, the transport of the cubic
+  counting layer onto a `Representation` (`dim Hom_G(V₆, V₆) = 3`), and the SM-side lattice
+  statements that need Mathlib's linear algebra.
+- **The equivalence chain and memory** (`EquivalenceChain`, `FiniteEntropy`, `HiddenMemory`,
+  `Equivalence`, `C3Necessity`, `CanonicalMeasure`, `Finiteness`, `FactorUniqueness`,
+  `IdempotentTrace`, `Irreducibility`, `KrausUniqueness`, `StinespringUniqueness`,
+  `Separability`, `WeylTwirl`, `WeylLift`, `BoundaryRank`, `Reciprocity`): the finite-horizon
+  equivalence of `papers/Main.md` §3.4, the memory and necessity theorems, and the
+  Weyl-twirl separability results.
+- **Hamiltonian reconstruction** (`BohrFrequency`, `FrequencyMatching`, `PiccardBridge`,
+  `EdgeRigidity`, `HomometricSix`, `HomometricKill`, `CongruentReconstruction`,
+  `TurnpikeScopeTransfer`, `AntiunitaryInvariance`, `ThermalOrientation`, `ShellAssignment`):
+  Bohr-frequency completeness and the two-branch D-gauge theorem of `papers/GR.md` §3.3, the
+  homometric exception killed, the operational antiunitary invariance, and the thermodynamic
+  orientation selector.
+- **Coherent completions** (`CoherentLift`, `TwoByTwoNoGo`, `AccessibleAlgebra`,
+  `OperationalRigidity`, `JordanClassification`, `OrientationSelection`, `OrientationClosure`,
+  `CycleFibreHull`, `DynamicsGlue`, `DomainGlue`, `ObservabilityQuotient`, `PassiveQuotient`,
+  `ControlledQuotient`, `CoherentExtension`, `ProjectiveAction`, `ControlLie`): existence
+  obstructions for visible-local coherent lifts, the coherent-completion classification
+  (unitary gauge or one global antiunitary reversal), the orientation no-go, the observability
+  quotients, and the control Lie algebra.
+- **Instruments, dilation and assembly** (`InstrumentDilation`, `Purification`,
+  `BranchSelector`, `IndependenceCensus`, `MonoidalCompletion`, `OperationalAssembly`,
+  `StinespringAssembly`, `KrausSoundness`, `CompositeSoundness`, `HiddenCoherence`,
+  `AncillaInterference`, `PartialTranspose`, `FactorExchange`, `DimensionalObstruction`,
+  `DimensionalCountermodel`, `BoundaryAudit`): the finite operational theory structure, the
+  Stinespring circuit assembly giving every finite Kraus instrument from composite unitary
+  control, Kraus soundness, the positive-but-not-completely-positive countermodel, and the
+  first boundary audit (PSD factorization discharged internally).
+- **The completion classification** (`ReferenceExtension`, `ReferenceSufficiency`,
+  `SpectatorBridge`, `AncillaClosure`, `ClosureObstruction`, `CompositionalIndependence`,
+  `OIRealization`, `OperationalValidity`, `LevelOneSeam`, `PhysicalCharacterization`,
+  `DiagonalTheory`, `RankGapTheory`, `IsometryExtension`, `GeneralCarrier`,
+  `UhlmannUniqueness`): the five completion conditions defined one by one with the
+  countermodel that separates each, the sealed OI core realized with its actual visible
+  readout, the characterization theorem with its necessity direction, the five-way minimality
+  audit, the discharge of finite isometry extension, the removal of the qubit restriction, and
+  the discharge of finite right-unitary uniqueness.
+
+`verification/MILESTONE-finite-quantum-instruments.md` records an earlier checkpoint of this
+programme as a status artifact.
+
+## The external boundary
+
+Each `OIBridge` theorem states its own hypotheses; the standard finite-dimensional facts the
+development once cited rather than proved are tracked as an explicit ledger, updated in place
+with provenance preserved (`BoundaryAudit.lean`, `IsometryExtension.lean`,
+`UhlmannUniqueness.lean`):
+
+- **Discharged internally:** PSD square-root / factorization (`psdFactorization_discharged`);
+  finite isometry extension for every finite carrier (`finiteIsometryExtensionSF_discharged`,
+  from Mathlib's orthonormal-basis extension theorem); finite right-unitary uniqueness,
+  `A Aᴴ = B Bᴴ ⟹ B = A U` with `U` unitary on a common environment (`rightUnitary_of_gram`).
+- **Remaining, one item:** compact Lie integration / reachability — the analytic
+  closed-subgroup step from Lie-algebra rank to the reachable unitary group, which
+  `ControlLie.lean` records and does not claim. It is not a dependency of the completion
+  classification.
+
+Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
+condition follows from OI; the unequal-environment form of purifier uniqueness; anything
+about the remaining item.
+
+## Running the checks
+
+    # zero-import layer
+    cd verification/lean
+    for f in OI_*.lean; do lean "$f"; done
+    python3 edge_rigidity_probe.py      # R-series, including the R7 lint of OIBridge
+    python3 bohr_frequency_probe.py     # F-series
+
+    # Mathlib programme
+    cd verification/lean-mathlib
+    lake exe cache get && lake build    # every module; #print axioms lines in the log
+
+    # release gate, from the repository root
+    python3 tools/release_gate.py       # toolchain, staleness, voice, claims, mirror,
+                                        # citation, architecture, coverage, lean-axioms, ...
+
+`.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
+probes as three independent jobs on every change under `verification/`.
