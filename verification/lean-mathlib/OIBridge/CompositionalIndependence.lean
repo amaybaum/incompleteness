@@ -34,7 +34,12 @@
   therefore show that THOSE axioms do not imply the two compositional principles. They do
   NOT show that observer independence itself fails to imply them: that would require the
   countermodels to be exhibited as models of the bare OI axioms, which is not done here and
-  is not claimed. The research question is stated in exactly that form.
+  is not claimed. The research question is stated in exactly that form. [CAVEAT RETIRED IN
+  ROUND FORTY, `OIRealization.lean`: the sealed C1–C4 core is audited against the
+  manuscript's finite-observation definition, Lemmas 1–3, Axioms 1–2 and C1–C4
+  (`sealedCore_is_finiteOI`), and the same core is realized with its actual visible readout
+  in both countermodels (`sameCore_both_sides`); the statement that survives is that bare
+  finite OI, as formalized by the sealed core, does not imply either principle.]
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/

@@ -6934,6 +6934,170 @@ check("F53", ok53,
       "exhibited models of the bare OI axioms; the research question is stated in exactly "
       "that form; no structure field.")
 
+# ----------------------- F54  round 40: the OI-realization bridge -------------------------
+# the sealed C1-C4 core embedded in the operational theories with its ACTUAL visible readout,
+# the axiom-match audit, and the capstone: one OI process on both sides of the matrix (phase
+# three, round forty).
+ok54 = True
+CORE54 = [((v, h), b) for v in (False, True) for h in (False, True) for b in (False, True)]
+
+
+def vis54(p):
+    return (p[0][0], p[1])
+
+
+def swap54(p):
+    return ((p[0][1], p[0][0]), p[1])
+
+
+def flip54(p):
+    return (p[0], not p[1])
+
+
+def visIdx54(r):
+    return 2 * int(r[0]) + int(r[1])
+
+
+def coreIdx54(p):
+    """((v,h),b) -> (h, pack(v,b)) as the linear index 4*h + pack: the hidden bit on the system
+    qubit, the visible pair on the four-level ancilla."""
+    return 4 * int(p[0][1]) + visIdx54(vis54(p))
+
+
+# --- (a) THE EMBEDDING (coreIdx, vis_coreIdx_symm_iff, partIdx): a bijection of the eight
+# states onto Fin 2 x Fin 4 whose ancilla level is exactly the visible pair.
+ok54 &= sorted(coreIdx54(p) for p in CORE54) == list(range(8))
+ok54 &= all((coreIdx54(p) % 4 == visIdx54(r)) == (vis54(p) == r)
+            for p in CORE54 for r in [(a, b) for a in (False, True) for b in (False, True)])
+_inv54 = {coreIdx54(p): p for p in CORE54}
+# --- (b) THE ACTUAL READOUT IS THE NATIVE READOUT (readVisible_eq_localLuders): on a random
+# 8x8 matrix, keeping the states with visible pair r (both hidden values) and transporting
+# along coreIdx is the Lüders selector at ancilla level visIdx r -- the round-23 full-basis
+# probe (one state) is strictly finer and is NOT the embedded observer's readout.
+_N8 = gmat47(230, 8)                                                # index = coreIdx
+for r in [(a, b) for a in (False, True) for b in (False, True)]:
+    _rv = [[_N8[p][q] if vis54(_inv54[p]) == r and vis54(_inv54[q]) == r else CZ17
+            for q in range(8)] for p in range(8)]
+    _ll = [[_N8[p][q] if (p % 4) == visIdx54(r) and (q % 4) == visIdx54(r) else CZ17
+            for q in range(8)] for p in range(8)]
+    ok54 &= _rv == _ll
+    _kept = [p for p in range(8) if vis54(_inv54[p]) == r]
+    ok54 &= len(_kept) == 2 and _inv54[_kept[0]][0][1] != _inv54[_kept[1]][0][1]
+# --- (c) THE INTERVENTIONS ARE TRANSPORTED PERMUTATION UNITARIES (relabel_available):
+# sigma and tau as 8x8 permutation matrices in the coreIdx coordinates, unitary, involutive,
+# commuting.
+def pmat54(f):
+    return [[CO17 if coreIdx54(f(_inv54[q])) == p else CZ17 for q in range(8)] for p in range(8)]
+
+
+_Ps, _Pt = pmat54(swap54), pmat54(flip54)
+ok54 &= mmc17(dag17(_Ps), _Ps) == eye17(8) and mmc17(dag17(_Pt), _Pt) == eye17(8)
+ok54 &= mmc17(_Ps, _Ps) == eye17(8) and mmc17(_Pt, _Pt) == eye17(8)
+ok54 &= mmc17(_Ps, _Pt) == mmc17(_Pt, _Ps)
+# --- (d) THE REALIZED COMB IS THE CLASSICAL OI COMB (realizedFold_diagonal): a classical
+# preparation, embedded, pushed through words of passive steps, controls and VISIBLE
+# readouts, equals the embedded classical fold, on three words.
+def relabel54(f, X):
+    return mmc17(mmc17(pmat54(f), X), dag17(pmat54(f)))
+
+
+def readV54(r, X):
+    return [[X[p][q] if vis54(_inv54[p]) == r and vis54(_inv54[q]) == r else CZ17
+             for q in range(8)] for p in range(8)]
+
+
+def wstep54(s, w):
+    if s[0] == 'act':
+        f = swap54 if s[1] == 'pass' else flip54
+        return {p: w[f(p)] for p in CORE54}                         # involutions: f^-1 = f
+    return {p: (w[p] if vis54(p) == s[1] else CZ17) for p in CORE54}
+
+
+_w0 = {p: gvec47(240, 8)[coreIdx54(p)] for p in CORE54}
+for _word in ([('act', 'pass'), ('read', (True, False)), ('act', 'ctrl')],
+              [('read', (False, False)), ('act', 'pass'), ('act', 'pass'), ('read', (False, True))],
+              [('act', 'ctrl'), ('act', 'pass'), ('read', (True, True)), ('act', 'ctrl')]):
+    _X = [[_w0[_inv54[p]] if p == q else CZ17 for q in range(8)] for p in range(8)]
+    _w = dict(_w0)
+    for s in _word:
+        if s[0] == 'act':
+            _X = relabel54(swap54 if s[1] == 'pass' else flip54, _X)
+        else:
+            _X = readV54(s[1], _X)
+        _w = wstep54(s, _w)
+    ok54 &= _X == [[_w[_inv54[p]] if p == q else CZ17 for q in range(8)] for p in range(8)]
+# --- (e) THE AXIOM-MATCH AUDIT (sealedCore_is_finiteOI): eight states, four visible, a
+# two-state hidden sector, an explicit product partition, injective dynamics with a
+# predecessor, the counting measure invariant, period-two recurrence, registered visible
+# differentiation, cross-partition coupling, and C1-C4 (already kernel-named in round 23).
+ok54 &= len(CORE54) == 8 and len({vis54(p) for p in CORE54}) == 4
+ok54 &= len({swap54(p) for p in CORE54}) == 8 and all(swap54(swap54(p)) == p for p in CORE54)
+ok54 &= all(len([p for p in CORE54 if vis54(p) == r]) == 2 for r in {vis54(p) for p in CORE54})
+ok54 &= any(vis54(p) == vis54(q) and p != q and vis54(swap54(p)) != vis54(swap54(q))
+            for p in CORE54 for q in CORE54)
+# --- (f) the kernel's own capstone and claim boundary, read back
+_oi54 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'OIRealization.lean')
+if os.path.exists(_oi54):
+    with open(_oi54, encoding='utf-8') as _f:
+        _oi_txt54 = ' '.join(_f.read().split())
+    ok54 &= 'theorem realizesSealedOICore_of_control' in _oi_txt54
+    ok54 &= 'theorem sealedCore_is_finiteOI' in _oi_txt54
+    ok54 &= 'theorem sameCore_both_sides' in _oi_txt54
+    ok54 &= 'theorem finiteOI_not_implies_inert' in _oi_txt54
+    ok54 &= 'theorem finiteOI_not_implies_closure' in _oi_txt54
+    ok54 &= 'What remains outside the kernel is interpretive only' in _oi_txt54
+check("F54", ok54,
+      "ROUND 40: THE OI-REALIZATION BRIDGE -- the sealed C1-C4 core embedded in the "
+      "operational theories with its ACTUAL visible readout, the axiom-match audit, and the "
+      "capstone that one OI process sits on both sides of the compositional matrix (phase "
+      "three, round forty; kernel: OIBridge/OIRealization.lean, 22 results -- coreIdx_apply, "
+      "vis_coreIdx_symm_iff, readVisible_apply, readVisible_eq_localLuders, "
+      "readVisible_family_eq, readout_relabel_available, readVisible_diagonal, "
+      "vstepMap_diagonal, realizedFold_diagonal, relabel_available, "
+      "realizesSealedOICore_of_control, countermodel_realizesSealedOICore, "
+      "admissible_realizesSealedOICore, fullQuantum_realizesSealedOICore, partIdx_fst, "
+      "sealedCore_is_finiteOI, sameCore_closure_not_inert, sameCore_inert_not_closure, "
+      "sameCore_both, sameCore_both_sides, finiteOI_not_implies_inert, "
+      "finiteOI_not_implies_closure). THE EMBEDDING coreIdx : Core ~ Fin 2 x Fin 4, "
+      "((v,h),b) -> (h, pack(v,b)): the system qubit carries the hidden bit and the "
+      "four-level ancilla carries exactly the observer-visible pair -- the physical "
+      "partition. THE ACTUAL READOUT readVisible r keeps both hidden states with visible pair "
+      "r (not round 23's full-basis probe Step.read k, which was deliberately finer), and "
+      "under coreIdx it IS the theory's native level-4 Lüders readout T.readout 4 (visIdx r) "
+      "(readVisible_eq_localLuders, then readout_is_localLuders), available as a family by "
+      "coarse-graining the native readout along visIdx. THE REALIZATION PREDICATE "
+      "RealizesSealedOICore T: C1-C4; sigma and tau available as the transported permutation "
+      "channels at level four; the visible readout equal to the native readout and available; "
+      "the realized visible comb equal to the classical OI comb on every classical "
+      "preparation and every finite word of passive steps, controls and visible readouts "
+      "(realizedFold_diagonal). realizesSealedOICore_of_control: every theory with composite "
+      "unitary control realizes the core, hence the round-34 countermodel, the round-38 "
+      "admissible theory and fullQuantum all do. THE AUDIT sealedCore_is_finiteOI: the core "
+      "satisfies every ingredient the manuscript's definition of an observation and Lemmas "
+      "1-3 invoke (finite total system of eight states; a proper finite visible subsystem of "
+      "four states with a two-state hidden complement; the explicit product partition "
+      "partIdx; deterministic injective dynamics with a predecessor map; the counting measure "
+      "invariant under both interventions; cross-partition coupling) together with Axiom 1 "
+      "(registered differentiation), Axiom 2 (recurrence, here period two) and C1-C4. THE "
+      "CAPSTONE sameCore_both_sides: the SAME audited core is realized in a theory with "
+      "closure but no inert spectators (the countermodel), in one with inert spectators but "
+      "no closure (the admissible theory), and in one with both (fullQuantum), each exactly "
+      "quantum on the system with full composite unitary control; hence "
+      "finiteOI_not_implies_inert and finiteOI_not_implies_closure. Verified exactly here: "
+      "the embedding as a bijection whose ancilla level is the visible pair; the visible "
+      "readout equal to the ancilla selector on a random 8x8 matrix, keeping exactly the two "
+      "hidden-bit partners; sigma and tau as unitary, involutive, commuting 8x8 permutation "
+      "matrices; the realized comb equal to the classical comb on three words; the audit "
+      "counts. THE CLAIM BOUNDARY, decided by the audit: the round-39 caveat is retired in "
+      "place and replaced by the statement actually proved -- bare finite OI, as formalized "
+      "by the sealed core, does not imply either compositional existence principle; what "
+      "remains outside the kernel is interpretive only (whether a reading of the prose "
+      "carries a cross-partition composition principle beyond the coupling clause, which is "
+      "C1 and is satisfied). NOT CLAIMED: that every possible interpretation of the "
+      "manuscript's foundational prose permits these completions; OI iff QM; no structure "
+      "field.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

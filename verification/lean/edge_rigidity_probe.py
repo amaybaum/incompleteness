@@ -759,6 +759,15 @@ for fname, names in (
                                    'hcompRealized_closure_not_implies_inert',
                                    'inert_not_deletable', 'closure_not_deletable',
                                    'conditional_classification')),
+    ('OIRealization', ('coreIdx_apply', 'vis_coreIdx_symm_iff', 'readVisible_apply',
+                       'readVisible_eq_localLuders', 'readVisible_family_eq',
+                       'readout_relabel_available', 'readVisible_diagonal', 'vstepMap_diagonal',
+                       'realizedFold_diagonal', 'relabel_available',
+                       'realizesSealedOICore_of_control', 'countermodel_realizesSealedOICore',
+                       'admissible_realizesSealedOICore', 'fullQuantum_realizesSealedOICore',
+                       'partIdx_fst', 'sealedCore_is_finiteOI', 'sameCore_closure_not_inert',
+                       'sameCore_inert_not_closure', 'sameCore_both', 'sameCore_both_sides',
+                       'finiteOI_not_implies_inert', 'finiteOI_not_implies_closure')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -1071,6 +1080,46 @@ ok6 &= 'is not done here and is not claimed' in _ciflat
 ok6 &= re.search(r'(?m)^structure ', ci) is None
 ok6 &= 'theorem oi_not_implies_inert' not in ci and 'theorem oi_not_implies_closure' not in ci
 ok6 &= 'theorem oi_iff_quantum' not in ci
+ok6 &= 'CAVEAT RETIRED IN ROUND FORTY' in _ciflat
+# ROUND-40 GUARDS.  The OI bridge must embed the sealed core with the hidden bit on the
+# system qubit and the visible pair on the ancilla; the readout must be the ACTUAL visible
+# readout (both hidden partners kept), proved equal to the native readout, not the round-23
+# full-basis probe; the realization predicate must carry C1-C4, both transported permutation
+# channels, the readout identity and availability, and the comb agreement; the audit must be
+# a bundled theorem; the capstone must realize the SAME core in both countermodels; the
+# claim boundary must name what remains interpretive.
+oi = open(os.path.join(BRIDGE, 'OIBridge', 'OIRealization.lean'), encoding='utf-8').read()
+_oiflat = ' '.join(oi.split())
+_ci2 = _slice(oi, 'def coreIdx', 'theorem coreIdx_apply')
+ok6 &= bool(_ci2) and 'toFun p := (bitIdx p.1.2, visIdx (p.1.1, p.2))' in _ci2
+_rv = _slice(oi, 'def readVisible', 'theorem readVisible_apply')
+ok6 &= bool(_rv) and 'if vis p = r ∧ vis q = r then X p q else 0' in _rv
+ok6 &= 'ludersLift' not in _rv and 'Step.read' not in oi.split('namespace OIBridge')[1]
+_rl = ' '.join(_slice(oi, 'theorem readVisible_eq_localLuders', ':= by').split())
+ok6 &= bool(_rl) and 'transport coreIdx (readVisible r) = localLuders (A := Fin 2) (visIdx r)' in _rl
+_pred = ' '.join(_slice(oi, 'def RealizesSealedOICore', 'theorem relabel_available').split())
+ok6 &= bool(_pred) and 'CoreC1C4' in _pred
+ok6 &= 'correlationExtension sigmaPerm (onesCorr Core)' in _pred
+ok6 &= 'correlationExtension tauPerm (onesCorr Core)' in _pred
+ok6 &= 'transport coreIdx (readVisible r) = T.readout 4 (visIdx r)' in _pred
+ok6 &= 'T.availExt 4 (Bool × Bool) (fun r => transport coreIdx (readVisible r))' in _pred
+ok6 &= 'realizedFold steps' in _pred and 'visWeightFold steps w' in _pred
+_th = ' '.join(_slice(oi, 'theorem realizesSealedOICore_of_control', ':= by').split())
+ok6 &= bool(_th) and '(hctrl : HasCompositeUnitaryControl T) : RealizesSealedOICore T' in _th
+_aud = ' '.join(_slice(oi, 'def SealedCoreIsFiniteOI', 'theorem sealedCore_is_finiteOI').split())
+ok6 &= bool(_aud) and 'Fintype.card Core = 8' in _aud and '1 < Fintype.card Bool' in _aud
+ok6 &= 'swapFn p = swapFn q → p = q' in _aud and 'swapFn (swapFn p) = p' in _aud
+ok6 &= 'visWeightStep (.act g) (fun _ => c) = fun _ => c' in _aud and 'CoreC1C4' in _aud
+_cap = ' '.join(_slice(oi, 'theorem sameCore_both_sides', ':=').split())
+ok6 &= bool(_cap) and _cap.startswith('theorem sameCore_both_sides : SealedCoreIsFiniteOI')
+ok6 &= _cap.count('RealizesSealedOICore T ∧ KrausSound T') == 3
+ok6 &= 'IteratedAncillaClosure T ∧ ¬ InertSpectatorCompositionality T' in _cap
+ok6 &= 'InertSpectatorCompositionality T ∧ ¬ IteratedAncillaClosure T' in _cap
+ok6 &= 'theorem finiteOI_not_implies_inert' in oi and 'theorem finiteOI_not_implies_closure' in oi
+ok6 &= 'What remains outside the kernel is interpretive only' in _oiflat
+ok6 &= re.search(r'(?m)^structure ', oi) is None
+ok6 &= 'theorem oi_iff_quantum' not in oi and 'theorem oi_implies_quantum' not in oi
+ok6 &= 'theorem manuscript_oi_not_implies' not in oi
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1475,8 +1524,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All forty-eight files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 5 + 16 named results print their "
+      "LINT. All forty-nine files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
