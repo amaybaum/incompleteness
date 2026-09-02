@@ -6072,6 +6072,155 @@ check("F48", ok48,
       "stays probe-only and points at a reference-extension or parallel-composition principle "
       "for the next round. That principle is not added here.")
 
+# ----------------------- F49  round 35: reference extension ------------------------------
+# the dimensional threshold as a theorem, and control does not give parallel reference
+# extension (phase three, round thirty-five, part two).
+ok49 = True
+
+
+def omegaR49(R, emb):
+    """The rank-R maximally entangled vector sum_i |i>|emb(i)> on Fin R x Fin 4, index 4i+k."""
+    return [CO17 if (p & 3) == emb(p >> 2) else CZ17 for p in range(4 * R)]
+
+
+# --- (a) THE THRESHOLD AS A THEOREM (reduction2_threshold, reduction2_not_threePositive,
+# amplRef_reduction2_maxEnt3, amplRef_reduction2_maxEnt3_form): the qutrit amplification
+# of Phi_2 on the rank-three input has reference marginal I_3, closed form (2 I - psi psi^dag)
+# /7, quadratic form exactly -3/7, and is not PSD; the qubit amplification is PSD (F47) and
+# the four-level one carries the Choi witness -8/7 (F47).
+PSI3_49 = omegaR49(3, lambda i: i)
+ok49 &= PSI3_49 == PSI3
+_D3 = dyad47(PSI3_49)
+_marg3 = [[sum((_D3[4 * i + m][4 * j + m] for m in range(4)), CZ17) for j in range(3)]
+          for i in range(3)]
+ok49 &= _marg3 == eye17(3)
+_A3_49 = amplGen48(red47, _D3, 4, dref=3)
+ok49 &= _A3_49 == [[(C17(2) * (CO17 if p == q else CZ17) - _D3[p][q]) * SEV47
+                    for q in range(12)] for p in range(12)]
+ok49 &= qform41(_A3_49, PSI3_49) == C17(Frac(-3, 7)) and not psd47(_A3_49)
+ok49 &= psd47(amplGen48(red47, dyad47(omegaR49(2, lambda i: i)), 4, dref=2))
+_A4_49 = amplGen48(red47, dyad47(OM47), 4, dref=4)
+ok49 &= qform41(_A4_49, OM47) == C17(Frac(-8, 7)) and not psd47(_A4_49)
+# --- (b) THE CHOI IDENTITY ON ANY CARRIER (choiMatrix_eq_amplRef): for the two-qubit
+# composite, J(Phi) = (id_4 (x) Phi)(|Om_4><Om_4|) for Phi_2 and for the transpose.
+for _phi in (red47, transpose40):
+    ok49 &= choi41(_phi, 4) == amplGen48(_phi, dyad47(OM47), 4, dref=4)
+# --- (c) CP IS STABLE AGAINST EVERY REFERENCE (cp_referencePositive): the Pauli channel of
+# F48 stays PSD under qubit, qutrit and four-level references on unstructured pure inputs.
+for _R in (2, 3, 4):
+    for _s in range(3):
+        _v = gvec47(_s + _R, 2 * _R)
+        _out = amplGen48(disc48, dyad47(_v), 2, dref=_R)
+        ok49 &= herm47(_out) and psd47(_out)
+# --- (d) 2-POSITIVE IMPLIES POSITIVE (apply_eq_pad_ampl2, positive_of_twoPositive): the
+# padding congruence Psi M = E^dag (id_2 (x) Psi)(E M E^dag) E, entry for entry.
+PAD49 = [[CO17 if ((p >> 2) == 0 and (p & 3) == k) else CZ17 for k in range(4)]
+         for p in range(8)]
+for _s in range(3):
+    _M = gmat47(_s + 20, 4)
+    _inner = amplGen48(red47, mmc17(mmc17(PAD49, _M), dag17(PAD49)), 4)
+    ok49 &= red47(_M) == mmc17(mmc17(dag17(PAD49), _inner), PAD49)
+ok49 &= psd47(red47(dyad47(gvec47(9, 4))))
+# --- (e) THE EXPLICIT REINDEXING AND THE SPECTATOR EXTENSION (qutritIdx_apply,
+# withSpectator_reindex, countermodel_not_qutritReferenceExtension).  qutritIdx (r,(a,e)) =
+# (a, e + 2 r): a bijection Fin 3 x (Fin 2 x Fin 2) -> Fin 2 x Fin 6 that keeps the system
+# qubit in the system slot.  The extension of Phi_2 by an untouched qutrit, defined
+# literally as reindex . amplify . reindex^-1, agrees with the reindexed amplification on
+# the reindexed rank-three input; it preserves the trace; and its quadratic form on the
+# reindexed input is -3/7 -- so the countermodel's composite sector rejects it on the
+# positivity conjunct alone.
+def qidx49(p):
+    """composite index 4r + 2a + e  ->  target index 6a + (e + 2r)."""
+    r, a, e = p >> 2, (p >> 1) & 1, p & 1
+    return 6 * a + (e + 2 * r)
+
+
+ok49 &= sorted(qidx49(p) for p in range(12)) == list(range(12))
+_qinv = {qidx49(p): p for p in range(12)}
+
+
+def reindex49(X):
+    return [[X[_qinv[p]][_qinv[q]] for q in range(12)] for p in range(12)]
+
+
+def withSpectator49(N):
+    """withSpectator (Fin 3) qutritIdx Phi_2, literally."""
+    X = [[N[qidx49(p)][qidx49(q)] for q in range(12)] for p in range(12)]   # reindex^-1
+    return reindex49(amplGen48(red47, X, 4, dref=3))
+
+
+_N = reindex49(_D3)
+ok49 &= withSpectator49(_N) == reindex49(_A3_49)
+ok49 &= herm47(_N) and psd47(_N)
+ok49 &= trace40(withSpectator49(_N)) == trace40(_N)
+_psiR = [PSI3_49[_qinv[p]] for p in range(12)]
+ok49 &= qform41(withSpectator49(_N), _psiR) == C17(Frac(-3, 7))
+ok49 &= not psd47(withSpectator49(_N))
+# and reindexing preserves PSD both ways (posSemidef_reindex, posSemidef_of_reindex)
+ok49 &= psd47(reindex49(dyad47(gvec47(7, 12)))) and not psd47(reindex49(_A3_49))
+# --- (f) the file's own claim discipline, read back
+_re49 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'ReferenceExtension.lean')
+if os.path.exists(_re49):
+    with open(_re49, encoding='utf-8') as _f:
+        _re_txt49 = ' '.join(_f.read().split())
+    ok49 &= 'No sufficiency' in _re_txt49
+    ok49 &= 'is not shown to be satisfiable by any theory here' in _re_txt49
+    ok49 &= 'it is not, in general, enough to characterize complete positivity' in _re_txt49
+check("F49", ok49,
+      "ROUND 35: REFERENCE EXTENSION -- the dimensional threshold is a theorem, and composite "
+      "unitary control does not give parallel reference extension (phase three, round "
+      "thirty-five, part two; kernel: isTwoPositive_iff_referencePositive, amplRef_sum_map, "
+      "amplRef_conjChannel, conjChannel_referencePositive, amplRef_reduction2, "
+      "choiMatrix_eq_amplRef, referencePositive_self_cp, cp_referencePositive, "
+      "isCompletelyPositive_iff_referencePositive_self, emb3_injective, maxEnt3_norm, "
+      "refMarginalR_maxEnt3, tensorOf_one_one, amplRef_reduction2_maxEnt3, "
+      "amplRef_reduction2_maxEnt3_form, amplRef_reduction2_maxEnt3_not_posSemidef, "
+      "reduction2_not_threePositive, reduction2_threshold, refBlock_pad, apply_eq_pad_ampl2, "
+      "positive_of_twoPositive, withSpectator_reindex, qutrit_of_parallel, qutritIdx_apply, "
+      "posSemidef_of_reindex, posSemidef_reindex, countermodel_not_qutritReferenceExtension, "
+      "countermodel_not_parallelReferenceExtension, "
+      "control_not_implies_parallelReferenceExtension, "
+      "exactControl_not_implies_qutritReferenceExtension in OIBridge/ReferenceExtension.lean; "
+      "part one of the round is the boundary audit in OIBridge/BoundaryAudit.lean). GENERIC "
+      "REFERENCE AMPLIFICATION: amplRef R Phi is id_R (x) Phi for an arbitrary finite "
+      "reference, IsReferencePositive R Phi is the R-reference test, and round 33's "
+      "IsTwoPositive is the R = Fin 2 case DEFINITIONALLY (Iff.rfl). THE THRESHOLD, "
+      "KERNELIZED: Phi_2 is 2-positive and NOT 3-positive -- the rank-three maximally "
+      "entangled input has reference marginal I_3 (three distinct levels), the qutrit "
+      "amplification is exactly (2 I - psi psi^dag)/7, and its quadratic form is exactly -3/7, "
+      "all verified here, with the qubit amplification PSD and the four-level one at -8/7 "
+      "beside it. Round 33's probe-only clue is now a theorem. THE QUALIFICATION, so it is not "
+      "misread: a qutrit reference detects THIS Phi_2; it is not, in general, enough to "
+      "characterize complete positivity of an arbitrary map on a four-level carrier. THE "
+      "CHOI-SIZED TARGET, both directions and on any carrier: (id_S (x) Phi)(|Om_S><Om_S|) IS "
+      "the Choi matrix (checked for Phi_2 and the transpose on four levels), so reference "
+      "positivity against S itself forces CP, and conversely a CP map is reference-positive "
+      "against EVERY finite reference by the Kraus form the now-internal factorization "
+      "supplies (the Pauli channel of F48 stays PSD under qubit, qutrit and four-level "
+      "references here). The algebra is free; the operational question -- which closure or "
+      "preparation rules make the size-|S| reference test physically available inside "
+      "FiniteOperationalTheory -- is round 36's and is not answered. THE MISSING "
+      "COMPOSITIONAL PROPERTY, as a property and not a structure field: "
+      "HasParallelReferenceExtension T says every available composite family stays available "
+      "with any untouched finite spectator appended, carried back to the theory's carriers by "
+      "an EXPLICIT reindexing e : R x (A x Fin n) ~ A x Fin m handed in as data; "
+      "HasQutritReferenceExtension is the one instance the countermodel test needs, with "
+      "qutritIdx (r,(a,e)) = (a, e + 2r) keeping the system qubit in the system slot, "
+      "checked here as a bijection. THE COUNTERMODEL VIOLATES IT: extended availability means "
+      "2-positivity on the larger carrier, 2-positivity implies plain positivity by the "
+      "padding congruence Psi M = E^dag (id_2 (x) Psi)(E M E^dag) E (checked entry for "
+      "entry), and the qutrit extension of Phi_2 -- computed literally as reindex . amplify "
+      ". reindex^-1 -- preserves the trace yet has form -3/7 on the reindexed rank-three "
+      "input, so the countermodel's sector rejects it on the positivity conjunct alone. "
+      "HENCE HasCompositeUnitaryControl does NOT imply HasParallelReferenceExtension: "
+      "arbitrary control WITHIN a carrier is a different thing from the ability to APPEND an "
+      "untouched spectator. NOT CLAIMED, lint-guarded: no sufficiency (nothing says exact QM "
+      "plus full control plus qutrit or any reference extension implies KrausSoundExt; the "
+      "qutrit principle kills the current Phi_2, which is not the same as characterizing "
+      "every non-CP map); no structure field; HasParallelReferenceExtension is not shown to "
+      "be satisfiable by any theory here, only that control does not deliver it.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

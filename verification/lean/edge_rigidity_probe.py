@@ -670,6 +670,23 @@ for fname, names in (
                                  'countermodel_hasInterferenceControl',
                                  'exactControl_not_implies_krausSoundExt')),
     ('BoundaryAudit', ('psdFactorization_discharged', 'purification_unconditional')),
+    ('ReferenceExtension', ('isTwoPositive_iff_referencePositive', 'amplRef_sum_map',
+                            'amplRef_conjChannel', 'conjChannel_referencePositive',
+                            'amplRef_reduction2', 'choiMatrix_eq_amplRef',
+                            'referencePositive_self_cp', 'cp_referencePositive',
+                            'isCompletelyPositive_iff_referencePositive_self',
+                            'emb3_injective', 'maxEnt3_norm', 'refMarginalR_maxEnt3',
+                            'tensorOf_one_one', 'amplRef_reduction2_maxEnt3',
+                            'amplRef_reduction2_maxEnt3_form',
+                            'amplRef_reduction2_maxEnt3_not_posSemidef',
+                            'reduction2_not_threePositive', 'reduction2_threshold',
+                            'refBlock_pad', 'apply_eq_pad_ampl2', 'positive_of_twoPositive',
+                            'withSpectator_reindex', 'qutrit_of_parallel', 'qutritIdx_apply',
+                            'posSemidef_of_reindex', 'posSemidef_reindex',
+                            'countermodel_not_qutritReferenceExtension',
+                            'countermodel_not_parallelReferenceExtension',
+                            'control_not_implies_parallelReferenceExtension',
+                            'exactControl_not_implies_qutritReferenceExtension')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -777,6 +794,44 @@ ok6 &= 'uniqueness is discharged' not in _baflat
 # Purification keeps its conditional theorem and cross-references the discharge
 _pu = open(os.path.join(BRIDGE, 'OIBridge', 'Purification.lean'), encoding='utf-8').read()
 ok6 &= 'theorem purification_of_factorization' in _pu and 'psdFactorization_of_spectral' in _pu
+# ROUND-35 GUARDS (part two).  The reference amplification must be GENERIC, 2-positivity its
+# Fin 2 case definitionally, the threshold a theorem, the reindexing explicit data keeping the
+# system slot, and NO sufficiency claim anywhere.
+re_ = open(os.path.join(BRIDGE, 'OIBridge', 'ReferenceExtension.lean'), encoding='utf-8').read()
+_rebody = re_.split('namespace OIBridge')[1]
+_reflat = ' '.join(re_.split())
+_irp = _slice(re_, 'def IsReferencePositive', '/--')
+ok6 &= bool(_irp) and '∀ M : Matrix (R × S) (R × S) ℂ, M.PosSemidef → (amplRef R Φ M).PosSemidef' in _irp
+_iff = _slice(re_, 'theorem isTwoPositive_iff_referencePositive', 'def IsThreePositive')
+ok6 &= bool(_iff) and 'Iff.rfl' in _iff
+_thr = _slice(re_, 'theorem reduction2_threshold', ':=')
+ok6 &= bool(_thr) and 'IsTwoPositive (reduction2 (Fin 2 × Fin 2)) ∧ ¬ IsThreePositive (reduction2 (Fin 2 × Fin 2))' in _thr
+_frm = _slice(re_, 'theorem amplRef_reduction2_maxEnt3_form', ':= by')
+ok6 &= bool(_frm) and '= -3 / 7' in _frm
+# the reindexing is an equivalence handed in as data, not a cardinality simp
+_ws = _slice(re_, 'def withSpectator', 'def HasParallelReferenceExtension')
+ok6 &= bool(_ws) and 'Matrix.reindexLinearEquiv' in _ws and 'Fintype.card' not in _ws
+_pre = _slice(re_, 'def HasParallelReferenceExtension', 'end Spectator')
+ok6 &= bool(_pre) and '(e : R × (A × Fin n) ≃ A × Fin m)' in _pre
+ok6 &= 'T.availExt n O F → T.availExt m O (fun a => withSpectator R e (F a))' in _pre
+_qi = _slice(re_, 'def qutritIdx', 'theorem qutritIdx_apply')
+ok6 &= bool(_qi) and 'finProdFinEquiv' in _qi and 'Equiv.prodAssoc' in _qi and 'Equiv.prodComm' in _qi
+ok6 &= 'qutritIdx (r, (a, e)) = (a, finProdFinEquiv (r, e))' in re_
+# the countermodel theorems name the round-34 theory and nothing else
+_cq = _slice(re_, 'theorem countermodel_not_qutritReferenceExtension', ':= by')
+ok6 &= bool(_cq) and '¬ HasQutritReferenceExtension countermodel' in _cq
+_ind = _slice(re_, 'theorem control_not_implies_parallelReferenceExtension', ':=')
+ok6 &= bool(_ind) and 'HasCompositeUnitaryControl T ∧ ¬ HasParallelReferenceExtension T' in _ind
+# NO sufficiency, no structure field, no satisfiability claim
+ok6 &= 'KrausSoundExt' not in _rebody
+ok6 &= re.search(r'(?m)^structure ', re_) is None
+ok6 &= 'theorem parallelReferenceExtension_implies' not in re_
+ok6 &= 'theorem qutritReferenceExtension_implies' not in re_
+ok6 &= 'No sufficiency' in _reflat
+ok6 &= 'is not shown to be satisfiable by any theory here' in _reflat
+ok6 &= 'it is not, in general, enough to characterize complete positivity' in _reflat
+ok6 &= "That is round thirty-six's question" in _reflat
+ok6 &= 'is strictly weaker' not in _reflat
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1174,8 +1229,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All forty-two files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 5 + 16 named results print their "
+      "LINT. All forty-three files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
