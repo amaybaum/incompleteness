@@ -7844,6 +7844,93 @@ check("F61", ok61,
       "state. NOT CLAIMED, lint-guarded: the unequal-environment isometry form, which nothing "
       "in the development consumes; anything about compact Lie reachability.")
 
+# F62 -- ROUND 49: THE COMPACT-LIE INTERFACE AUDIT -- the last external item pinned to one
+# analytic lemma, everything around it kernel-internal (phase three, round forty-nine).
+ok62 = True
+# --- (a) the global phase is invisible to conjugation channels (conjChannel_smul): for unit
+# phases lam = i, -1, (3+4i)/5 and random states, (lam V) X (lam V)^dag = V X V^dag exactly.
+_phases62 = [C17(Frac(0), Frac(1)), C17(Frac(-1)), C17(Frac(3, 5), Frac(4, 5))]
+ok62 &= all(x * x.conj() == CO17 for x in _phases62)
+_V62 = _rot                                                          # the 3-4-5 rotation (F57)
+for _lam in _phases62:
+    _lV = scale52(_lam, _V62)
+    for _s in range(2):
+        _X = dyad47(gvec47(470 + _s, 2))
+        ok62 &= conjby52(_lV, _X) == conjby52(_V62, _X)
+# --- (b) every unitary is a unit phase times a special unitary (exists_special_phase): the
+# swap has det -1 and equals i times the special unitary -i.swap; the rotation is already
+# special; the 5-12-13 (+) reflection block has det -1 with the same phase i.
+_swap62 = [[CZ17, CO17], [CO17, CZ17]]
+def _det2(M): return M[0][0] * M[1][1] - M[0][1] * M[1][0]
+ok62 &= mmc17(dag17(_swap62), _swap62) == eye17(2) and _det2(_swap62) == C17(Frac(-1))
+_i62 = C17(Frac(0), Frac(1))
+_sw0 = scale52(_i62.inv(), _swap62)
+ok62 &= _det2(_sw0) == CO17 and mmc17(dag17(_sw0), _sw0) == eye17(2) and scale52(_i62, _sw0) == _swap62
+ok62 &= _det2(_V62) == CO17
+_refl62 = [[_r2, _s2], [_s2, C17(0) - _r2]]
+ok62 &= mmc17(dag17(_refl62), _refl62) == eye17(2) and _det2(_refl62) == C17(Frac(-1))
+ok62 &= _det2(scale52(_i62.inv(), _refl62)) == CO17
+# --- (c) the seam is not vacuous (noControls_central_not_exact): scalars are closed under
+# products and stars, and the swap is not a scalar.
+_scal = [scale52(_lam, eye17(2)) for _lam in _phases62]
+ok62 &= all(mmc17(a, b)[0][1] == CZ17 and mmc17(a, b)[0][0] == mmc17(a, b)[1][1] for a in _scal for b in _scal)
+ok62 &= all(dag17(a)[0][1] == CZ17 and dag17(a)[0][0] == dag17(a)[1][1] for a in _scal)
+ok62 &= _swap62[0][1] != CZ17
+# --- (d) connectedness by a phase shift (exists_phase_joined): the swap has spectrum {1, -1}
+# (det(swap - 1) = det(swap + 1) = 0); the unit phase mu = -i is outside it, and w = mu^-1
+# swap = i.swap has det(w + 1) != 0, i.e. -1 is not in its spectrum -- the F-level instance
+# of the step that puts every unitary in the identity component up to a phase.
+ok62 &= _det2(add52(_swap62, scale52(C17(Frac(-1)), eye17(2)))) == CZ17
+ok62 &= _det2(add52(_swap62, eye17(2))) == CZ17
+_w62 = scale52(_i62, _swap62)
+ok62 &= mmc17(dag17(_w62), _w62) == eye17(2) and _det2(add52(_w62, eye17(2))) != CZ17
+# --- (e) the kernel's own claim discipline, read back: the lemma is named, explicit, and the
+# only hypothesis of the criterion beyond the Lie rank and availability closure.
+_rs62 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'ReachabilitySeam.lean')
+if os.path.exists(_rs62):
+    with open(_rs62, encoding='utf-8') as _f:
+        _rs_txt62 = ' '.join(_f.read().split())
+    ok62 &= 'def LocalReachabilityOfLieRank' in _rs_txt62
+    ok62 &= 'theorem universalReachability_of_lieRank (hstep : LocalReachabilityOfLieRank S)' in _rs_txt62
+    ok62 &= 'theorem exact_of_local' in _rs_txt62 and 'theorem exists_phase_joined' in _rs_txt62
+    ok62 &= 'theorem noControls_central_not_exact' in _rs_txt62
+    ok62 &= 'sorry' not in _rs_txt62 and 'ONE ITEM' in _rs_txt62
+check("F62", ok62,
+      "ROUND 49: THE COMPACT-LIE INTERFACE AUDIT -- the last external boundary item pinned to "
+      "one sharply formulated analytic lemma, everything around it kernel-internal (phase "
+      "three, round forty-nine; kernel: OIBridge/ReachabilitySeam.lean, 25 results -- "
+      "flow_mem_unitary, reachable, conjugatedFlow_mem_reachable, dense_of_exact, "
+      "avail_of_mem_closure, noControls_central_scalar_of_mem_closure, "
+      "exists_unit_notMem_finite, exists_phase_joined, exact_of_local, conjChannel_smul, "
+      "norm_det_unitary, exists_special_phase, universalReachability_of_exact, "
+      "universalReachability_of_lieRank, noControls_central_not_exact). THE AUDIT: the "
+      "consumers (UniversalUnitaryReachability, HasCompositeUnitaryControl) need EXACT "
+      "availability of every unitary conjugation channel, so density cannot discharge them; "
+      "the global phase is invisible to channels and every unitary is a unit phase times a "
+      "special unitary, so the traceless target su(D) of HControl is the right one; the "
+      "connected component is supplied internally by the finite spectrum of a matrix and "
+      "Mathlib's Unitary.joined; the Lie algebra of the closure of the generated subgroup "
+      "versus the computed controlLie is the closed-subgroup step, needed by no consumer. "
+      "THE REDUCTION: reachable H U is the subgroup generated by the passive flows, the "
+      "controls and the phases; LocalReachability (a neighbourhood of 1) implies "
+      "ExactReachability by the open-subgroup theorem and connectedness, and exact "
+      "reachability implies universal unitary reachability by closure induction over words. "
+      "THE LEMMA, ISOLATED: LocalReachabilityOfLieRank -- with controlLie containing su(D), "
+      "reachable H U is a neighbourhood of 1 -- the orbit theorem of geometric control at the "
+      "identity of a compact matrix group; the pinned Mathlib has the exponential, its "
+      "derivative, the inverse-function theorem and the local exp/arg homeomorphism near 1 in "
+      "the unitary group, but no Lie-Trotter formula, closed-subgroup theorem, Yamabe or orbit "
+      "theorem, so it is recorded as the single external item, named and consumed only in "
+      "universalReachability_of_lieRank. Not vacuous: with no controls and a central drift "
+      "the reachable group is the phases alone and the qubit swap is unreachable. Verified "
+      "exactly here: phase invisibility of conjugation channels for three unit phases on "
+      "random states; the swap and a reflection block as i times special unitaries and the "
+      "rotation as special; scalars closed under products and stars with the swap not a "
+      "scalar; the swap's spectrum {1,-1} and the phase i moving -1 out of it. NOT CLAIMED, "
+      "lint-guarded: the lemma itself; the closed-subgroup Lie-closure equality; necessity "
+      "of HControl for exact reachability.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

@@ -130,6 +130,7 @@ import OIBridge.RankGapTheory
 import OIBridge.IsometryExtension
 import OIBridge.GeneralCarrier
 import OIBridge.UhlmannUniqueness
+import OIBridge.ReachabilitySeam
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
