@@ -124,6 +124,8 @@ import OIBridge.CompositionalIndependence
 import OIBridge.OIRealization
 import OIBridge.OperationalValidity
 import OIBridge.LevelOneSeam
+import OIBridge.PhysicalCharacterization
+import OIBridge.DiagonalTheory
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

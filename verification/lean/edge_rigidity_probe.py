@@ -788,6 +788,40 @@ for fname, names in (
                       'systemLoose_not_exact', 'transport_amplifier',
                       'systemLoose_not_systemToLevelOne', 'levelOne_independent',
                       'levelOne_not_deletable', 'final_classification')),
+    ('PhysicalCharacterization', ('krausFamily_of_exact_fin', 'avail_of_krausFamily_fin',
+                                  'krausFamily_cp_tr', 'availExt_zero',
+                                  'krausFamily_of_exactComposite', 'availExt_of_krausFamily',
+                                  'krausFamily_of_exactSystem', 'availExt_pos_iff',
+                                  'krausSoundExt_of_exactComposite',
+                                  'validity_of_exactComposite', 'control_of_exactComposite',
+                                  'inert_of_exactComposite', 'closure_of_exactComposite',
+                                  'levelOne_of_exactAll', 'physical_of_exactAll',
+                                  'exactAll_of_physical', 'exactAll_iff_physical',
+                                  'everywhereAvailable_not_validity',
+                                  'everywhereAvailable_control', 'validity_independent',
+                                  'countermodel_systemToLevelOne', 'inert_independent',
+                                  "levelOne_independent'", 'qubitDamping_isKraus',
+                                  'transport_add', 'levelOne_eq', 'L₀_apply', 'L₁_apply',
+                                  'transport_qubitDamping', 'levelOne_gram',
+                                  'levelOneDamping_trace', 'vecOf_L₀_ne', 'vecOf_L₁_ne',
+                                  'vecOf_L_orth', 'kraus_of_levelOneDamping',
+                                  'levelOne_gram_entries', 'levelOneInv_mul',
+                                  'levelOneDamping_not_adm',
+                                  'admissible_not_systemToLevelOne')),
+    ('DiagonalTheory', ('preservesDiag_id', 'preservesDiag_zero', 'preservesDiag_add',
+                        'preservesDiag_sum', 'preservesDiag_comp', 'reindex_diagonal',
+                        'preservesDiag_transport', 'refBlockR_diagonal',
+                        'preservesDiag_amplRef', 'preservesDiag_withSpectator',
+                        'preservesDiag_localLuders', 'preservesDiag_relabel',
+                        'preservesDiag_conjChannel_perm', 'uniformAttach_diagonal',
+                        'ptraceAnc_diagonal', 'preservesDiagP_uniform',
+                        'preservesDiag_discardWith', 'diag_krausSoundExt', 'diag_validity',
+                        'diag_parallelReferenceExtension', 'diag_inert',
+                        'preservesDiag_of_transport', 'diag_iteratedAncillaClosure',
+                        'diag_systemToLevelOne', 'diag_relabel_available',
+                        'diag_realizesSealedOICore', 'rot_isometry', 'rot_not_preservesDiag',
+                        'diag_not_control', 'diag_not_exactAll', 'control_independent',
+                        'minimality_audit')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -1206,6 +1240,46 @@ ok6 &= 'theorem levelOne_independent' in ls and 'theorem levelOne_not_deletable'
 ok6 &= 'bookkeeping law' in _lsflat
 ok6 &= re.search(r'(?m)^structure ', ls) is None
 ok6 &= 'theorem oi_iff_quantum' not in ls and 'theorem systemToLevelOne_of_oi' not in ls
+# ROUND-43 GUARDS.  The necessity direction must be kernel-internal (no isometry hypothesis
+# in physical_of_exactAll); the characterization must carry item 2 at the composite
+# carriers only and no Unit isometry, no KrausSound and no exactness premise; the bundle
+# must be exactly the five conditions; the open closure cell must be named as open and
+# admissible_not_systemToLevelOne must be a theorem; the diagonal theory must carry the
+# diagonal-preservation conjunct at every level and refute control by the rational rotation.
+pc = open(os.path.join(BRIDGE, 'OIBridge', 'PhysicalCharacterization.lean'), encoding='utf-8').read()
+_pcflat = ' '.join(pc.split())
+_nec = ' '.join(_slice(pc, 'theorem physical_of_exactAll', ':=').split())
+ok6 &= bool(_nec) and 'FiniteIsometryExtensionSF' not in _nec
+ok6 &= '(h : ExactAllFiniteEndomorphicQuantumOps T) : PhysicalCompletionConditions T' in _nec
+_bundle = ' '.join(_slice(pc, 'def PhysicalCompletionConditions', 'theorem physical_of_exactAll').split())
+ok6 &= bool(_bundle) and 'CompositeOperationalValidity T ∧ InertSpectatorCompositionality T ∧ HasCompositeUnitaryControl T ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T' in _bundle
+ok6 &= 'KrausSound' not in _bundle and 'Exact' not in _bundle
+_iff = ' '.join(_slice(pc, 'theorem exactAll_iff_physical', ':=').split())
+ok6 &= bool(_iff) and 'FiniteIsometryExtensionSF (Fin 2 × Fin (k + 1))' in _iff
+ok6 &= 'FiniteIsometryExtensionSF Unit' not in _iff and 'KrausSound' not in _iff
+ok6 &= _iff.rstrip().endswith('ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T')
+ok6 &= 'theorem admissible_not_systemToLevelOne' in pc and 'is recorded OPEN' in _pcflat
+ok6 &= 'theorem validity_independent' in pc and 'theorem inert_independent' in pc
+ok6 &= 'theorem countermodel_systemToLevelOne' in pc
+ok6 &= re.search(r'(?m)^structure ', pc) is None
+ok6 &= 'theorem closure_independent_all' not in pc and 'theorem oi_iff_quantum' not in pc
+dt = open(os.path.join(BRIDGE, 'OIBridge', 'DiagonalTheory.lean'), encoding='utf-8').read()
+_dtflat = ' '.join(dt.split())
+_dth = _slice(dt, 'noncomputable def diagTheory', 'theorem diag_krausSoundExt')
+ok6 &= bool(_dth) and 'avail := fun _ _ _ F => IsKrausFamily F ∧ ∀ a, PreservesDiag (F a)' in _dth
+ok6 &= 'availExt := fun _ _ _ _ F => IsCPInstrument F ∧ ∀ a, PreservesDiag (F a)' in _dth
+ok6 &= 'prepAvail := fun n P => RefTestedPrep n P ∧ PreservesDiagP P' in _dth
+_nc = _slice(dt, 'theorem rot_not_preservesDiag', 'theorem diag_not_control')
+ok6 &= bool(_nc) and 'conjChannel rot' in _nc
+_ci3 = ' '.join(_slice(dt, 'theorem control_independent', ':=').split())
+ok6 &= bool(_ci3) and 'RealizesSealedOICore T ∧ ¬ HasCompositeUnitaryControl T' in _ci3
+ok6 &= 'SystemToLevelOne T' in _ci3 and 'IteratedAncillaClosure T' in _ci3
+_ma = ' '.join(_slice(dt, 'theorem minimality_audit', ':=').split())
+ok6 &= bool(_ma) and _ma.count('RealizesSealedOICore T') == 4 and '¬ SystemToLevelOne admissibleTheory' in _ma
+ok6 &= 'theorem diag_realizesSealedOICore' in dt and 'theorem diag_not_exactAll' in dt
+ok6 &= 'bare finite OI does not select QM' in _dtflat
+ok6 &= re.search(r'(?m)^structure ', dt) is None
+ok6 &= 'theorem diag_control' not in dt and 'theorem oi_iff_quantum' not in dt
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1610,8 +1684,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All fifty-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 5 + 16 named results print their "
+      "LINT. All fifty-three files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

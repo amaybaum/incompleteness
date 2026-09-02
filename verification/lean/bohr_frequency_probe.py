@@ -7270,6 +7270,127 @@ check("F56", ok56,
       "minimality audit); OI iff QM; anything beyond the finite endomorphic scope; no "
       "structure field.")
 
+# ----------------------- F57  round 43: the characterization ------------------------------
+# exact finite operational QM IS the five physical completion conditions, and the minimality
+# audit (phase three, round forty-three).
+ok57 = True
+# --- (a) NECESSITY, numerically: a normalized Kraus family (the 3-4-5 damping on the 4-level
+# composite) is positive on random PSD inputs and trace preserving (validity); its untouched-
+# spectator extension is again a Kraus family with the same normalization (inert spectators);
+# a unitary is a one-operator normalized family (control); its attach-run-discard is a
+# scaled Kraus sum (closure, F52 (g)); and its reindexing is normalized (level one, F56 (b)).
+for _s in range(2):
+    _v = gvec47(_s + 300, 4)
+    ok57 &= psd47(AD52(dyad47(_v))) and trace40(AD52(dyad47(_v))) == trace40(dyad47(_v))
+_S0, _S1 = kr17(eye17(3), K0), kr17(eye17(3), K1)                    # qutrit spectator adjoined
+ok57 &= add52(mmc17(dag17(_S0), _S0), mmc17(dag17(_S1), _S1)) == eye17(12)
+_U = gmat47(310, 4)
+_Uq = mmc17(_U, dag17(_U))                                           # a PSD; a genuine unitary below
+_w57 = [[w52((p >> 1, p & 1), (q >> 1, q & 1)) for q in range(4)] for p in range(4)]  # F52's dilation
+_W = kr17(eye17(2), _w57)                                            # lifted by the identity, 8x8
+ok57 &= mmc17(dag17(_W), _W) == eye17(8)                            # one-operator normalized family
+# --- (b) THE CONTROL CELL (diagTheory, rot_not_preservesDiag): the rational rotation
+# [[3/5, 4/5], [-4/5, 3/5]] is unitary and creates coherence from |0><0| -- off-diagonal
+# -12/25 -- while permutation channels and Lüders readouts preserve diagonals, so the
+# diagonal-preserving theory realizes the sealed core and lacks full control.
+_rot = [[C17(Frac(3, 5)), C17(Frac(4, 5))], [C17(Frac(-4, 5)), C17(Frac(3, 5))]]
+ok57 &= mmc17(dag17(_rot), _rot) == eye17(2)
+_e0 = [[CO17, CZ17], [CZ17, CZ17]]
+_out = conjby52(_rot, _e0)
+ok57 &= _out[0][1] == C17(Frac(-12, 25)) and _out[0][1] != CZ17
+for _s in range(2):
+    _d = [[gvec47(_s + 320, 8)[p] if p == q else CZ17 for q in range(8)] for p in range(8)]
+    _rel = relabel54(swap54, _d)
+    ok57 &= all(_rel[p][q] == CZ17 for p in range(8) for q in range(8) if p != q)
+    _rd = readV54((True, False), _d)
+    ok57 &= all(_rd[p][q] == CZ17 for p in range(8) for q in range(8) if p != q)
+# --- (c) THE OPEN CELL (admissible_not_systemToLevelOne): qubit amplitude damping is a
+# normalized system family whose lift to level one has rank-2 non-unitary operators in every
+# decomposition -- the level-one admissible bound is rank 1 -- so the round-38 witness fails
+# system-to-level-one; checked on the rational rotation of the decomposition.
+_D0q, _E0q = [[CO17, CZ17], [CZ17, R52]], [[CZ17, S52], [CZ17, CZ17]]
+ok57 &= add52(mmc17(dag17(_D0q), _D0q), mmc17(dag17(_E0q), _E0q)) == eye17(2)
+for j in range(2):
+    a, b = _u[j][0], _u[j][1]
+    _Kq = add52(scale52(a, _D0q), scale52(b, _E0q))
+    ok57 &= rank52(_Kq) == 2
+    _G = mmc17(dag17(_Kq), _Kq)
+    ok57 &= _G[0][1] != CZ17 or _G[0][0] != _G[1][1]
+# --- (d) VALIDITY CELL (everywhereAvailable): the level-one trace amplifier doubles the trace.
+ok57 &= trace40(scale52(C17(2), eye17(2))) == C17(4)
+# --- (e) the kernel's own claim discipline, read back
+_pc57 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'PhysicalCharacterization.lean')
+if os.path.exists(_pc57):
+    with open(_pc57, encoding='utf-8') as _f:
+        _pc_txt57 = ' '.join(_f.read().split())
+    ok57 &= 'theorem physical_of_exactAll' in _pc_txt57
+    ok57 &= 'theorem exactAll_iff_physical' in _pc_txt57
+    ok57 &= 'theorem admissible_not_systemToLevelOne' in _pc_txt57
+    ok57 &= 'is recorded OPEN' in _pc_txt57
+_dt57 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'DiagonalTheory.lean')
+if os.path.exists(_dt57):
+    with open(_dt57, encoding='utf-8') as _f:
+        _dt_txt57 = ' '.join(_f.read().split())
+    ok57 &= 'theorem control_independent' in _dt_txt57
+    ok57 &= 'theorem minimality_audit' in _dt_txt57
+    ok57 &= 'bare finite OI does not select QM' in _dt_txt57
+check("F57", ok57,
+      "ROUND 43: THE CHARACTERIZATION -- exact finite operational QM IS the five physical "
+      "completion conditions, with the minimality audit (phase three, round forty-three; "
+      "kernel: OIBridge/PhysicalCharacterization.lean, 39 results -- among them "
+      "krausFamily_of_exact_fin, avail_of_krausFamily_fin, availExt_zero, availExt_pos_iff, "
+      "validity_of_exactComposite, control_of_exactComposite, inert_of_exactComposite, "
+      "closure_of_exactComposite, levelOne_of_exactAll, physical_of_exactAll, "
+      "exactAll_of_physical, exactAll_iff_physical, validity_independent, "
+      "countermodel_systemToLevelOne, inert_independent, levelOne_independent', "
+      "levelOneDamping_not_adm, admissible_not_systemToLevelOne; and "
+      "OIBridge/DiagonalTheory.lean, 32 results -- among them preservesDiag_amplRef, "
+      "preservesDiag_withSpectator, preservesDiag_localLuders, preservesDiag_discardWith, "
+      "diag_validity, diag_inert, diag_iteratedAncillaClosure, diag_systemToLevelOne, "
+      "diag_realizesSealedOICore, rot_isometry, rot_not_preservesDiag, diag_not_control, "
+      "diag_not_exactAll, control_independent, minimality_audit). NECESSITY, kernel-internal "
+      "for any nonempty system: exactness at Fin m reaches every finite outcome type by "
+      "coarse-graining along Fintype.equivFin in both directions (singleton fibres), level "
+      "zero is every family (the carrier is empty), and each clause follows for its own "
+      "reason -- exact families are Kraus hence positive and trace preserving (validity), the "
+      "untouched-spectator extension of a Kraus family is Kraus (inert spectators), a "
+      "unitary is a one-operator normalized instrument (control), attach-run-discard of a "
+      "Kraus family is Kraus (closure), Kraus form transports to level one "
+      "(system-to-level-one). THE CHARACTERIZATION exactAll_iff_physical, for a qubit system "
+      "against finite isometry extension at the composite carriers used only "
+      "constructively: exact finite endomorphic QM on the system and every positive "
+      "composite iff valid probabilities + inert spectators + full reversible control + "
+      "iterated ancilla closure + trivial-ancilla consistency. THE MINIMALITY AUDIT, four "
+      "cells closed: validity (everywhereAvailable has the other four and OI realization "
+      "trivially and admits the level-one trace amplifier); inert spectators (the round-34 "
+      "countermodel, now with system-to-level-one: a system Kraus family transported to "
+      "level one is CP hence 2-positive); full control (diagTheory -- normalized quantum "
+      "instruments whose every branch preserves computational-basis diagonal states, the "
+      "same predicate at every level: it has validity, inert spectators since amplification "
+      "by an untouched reference preserves diagonals, closure, system-to-level-one, "
+      "realizes the sealed OI core since permutation channels and Lüders readouts preserve "
+      "diagonals, and lacks control since the rational rotation [[3/5,4/5],[-4/5,3/5]] "
+      "sends |0><0| to a matrix with off-diagonal -12/25); trivial-ancilla consistency "
+      "(systemLoose, round 42). THE FIFTH CELL IS RECORDED OPEN, as directed: the round-38 "
+      "admissible theory fails system-to-level-one (admissible_not_systemToLevelOne: qubit "
+      "amplitude damping is a normalized system family whose level-one lift has, in every "
+      "Kraus decomposition, an invertible non-unitary operator against the level-one bound "
+      "of rank one -- the F52 span argument again), so it does not close closure against all "
+      "four others; bare finite OI does not imply closure (round 40) stands. THE ANSWER TO "
+      "THE ORIGINAL QUESTION, as a classification: bare finite OI does not select QM; the "
+      "non-quantum completion space has identifiable failure types -- non-probabilistic "
+      "operations, positive-but-not-CP composites, sound-but-incomplete composites, "
+      "restricted control, system/level-one disagreement -- and satisfying all five "
+      "conditions is exact finite endomorphic QM. Verified exactly here: the damping family "
+      "positive and trace preserving, its qutrit-spectator extension normalized, the "
+      "dilation unitary as a one-operator family; the rotation unitary with off-diagonal "
+      "-12/25 on |0><0| while relabellings and visible readouts keep diagonals diagonal; the "
+      "qubit damping decomposition rotated rationally with rank-2 non-scalar-Gram operators; "
+      "the amplifier doubling the trace. NOT CLAIMED, lint-guarded: the open closure cell; "
+      "that any condition follows from OI; OI iff QM; no structure field.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
