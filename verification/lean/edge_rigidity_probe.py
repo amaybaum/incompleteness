@@ -648,6 +648,27 @@ for fname, names in (
                                 'ampl2_reduction2', 'form_tensor_one',
                                 'ampl2_reduction2_rankOne', 'reduction2_twoPositive',
                                 'qubit_tests_do_not_characterize_cp')),
+    ('DimensionalCountermodel', ('amplR_comp', 'choiMatrix_eq_ampl2', 'twoPositive_qubit_cp',
+                                 'isTwoPositive_comp', 'isTwoPositive_sum', 'ampl2_conjChannel',
+                                 'conjChannel_twoPositive', 'ampl2_localLuders',
+                                 'localLuders_twoPositive', 'localLuders_trace_sum',
+                                 'amplR_ptraceAncL_eq', 'amplR_uniformAttach_eq',
+                                 'amplR_ptraceAncL_posSemidef',
+                                 'amplR_uniformAttach_posSemidef', 'uniformAttach_trace',
+                                 'choiMatrix_conjChannel', 'choiMatrix_injective',
+                                 'kraus_of_choi_factor',
+                                 'sum_conjTranspose_mul_eq_one_of_trace',
+                                 'isKrausFamily_of_cp_of_factorization',
+                                 'psdFactorization_of_spectral', 'countermodelOf_exact',
+                                 'countermodelOf_control',
+                                 'countermodelOf_reduction2_available',
+                                 'countermodelOf_not_krausSoundExt',
+                                 'countermodel_of_factorization', 'countermodel_exact',
+                                 'countermodel_control', 'countermodel_reduction2_available',
+                                 'countermodel_not_krausSoundExt',
+                                 'countermodel_hasFactorExchange',
+                                 'countermodel_hasInterferenceControl',
+                                 'exactControl_not_implies_krausSoundExt')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -1066,6 +1087,53 @@ ok6 &= 'boundary item 3 (PSD square-root/factorization) is NOT consumed' in _dof
 ok6 &= 'It does NOT prove that `Φ₂` fails 3-positivity' in _doflat
 ok6 &= 'The next question, recorded and not answered' in _doflat
 ok6 &= 'is strictly weaker' not in _doflat and 'countermodel exists' not in _doflat
+# and round 34's answer must be cross-referenced, since the open question is now closed
+ok6 &= 'ANSWERED BY ROUND THIRTY-FOUR' in _doflat
+# ROUND-34 GUARDS.  The countermodel must be exactly quantum on the system, 2-positive-instrument
+# on every composite, with the one external step ISOLATED against boundary item 3 and its
+# discharge stated loudly rather than the item silently retired.
+dc = open(os.path.join(BRIDGE, 'OIBridge', 'DimensionalCountermodel.lean'), encoding='utf-8').read()
+_dcbody = dc.split('namespace OIBridge')[1]
+_dcflat = ' '.join(dc.split())
+# the composite sector: every branch 2-positive AND aggregate trace preservation, nothing else
+_sec = _slice(dc, 'def IsTwoPositiveInstrument', 'end Sector')
+ok6 &= bool(_sec) and '(∀ a, IsTwoPositive (F a)) ∧ ∀ X, ∑ a, ((F a) X).trace = X.trace' in _sec
+# the key lemma uses no factorization and no hypothesis beyond 2-positivity
+_key = _slice(dc, 'theorem twoPositive_qubit_cp', 'end Amplification')
+ok6 &= bool(_key) and 'PSDFactorization' not in _key and 'hfac' not in _key
+ok6 &= 'choiMatrix_eq_ampl2' in _key
+# the reference-tested preparation predicate, and the explicit reindexing matrix
+_pp = _slice(dc, 'def RefTestedPrep', '/--')
+ok6 &= bool(_pp) and '(∀ ρ, (P ρ).trace = ρ.trace)' in _pp and 'amplR P' in _pp
+ok6 &= 'def ancEmbed' in dc and 'theorem amplR_ptraceAncL_eq' in dc and 'theorem amplR_uniformAttach_eq' in dc
+# the external step: stated as a hypothesis, consumed exactly there
+ok6 &= 'def PSDFactorization' in dc
+_ks = _slice(dc, 'theorem isKrausFamily_of_cp_of_factorization', ':= by')
+ok6 &= bool(_ks) and '(hfac : PSDFactorization (S × S))' in _ks
+_thy = _slice(dc, 'noncomputable def countermodelOf', 'variable (hfac')
+ok6 &= bool(_thy) and 'avail := fun _ _ _ F => IsKrausFamily F' in _thy
+ok6 &= 'availExt := fun _ _ _ _ F => IsTwoPositiveInstrument F' in _thy
+ok6 &= 'isKrausFamily_of_cp_of_factorization hfac' in _thy
+# the discharge uses the spectral resolution and the real square root, no Mathlib PSD sqrt/CFC
+_dis = _slice(dc, 'theorem psdFactorization_of_spectral', 'end KrausStep')
+ok6 &= bool(_dis) and 'hermitian_spectral_edyad' in _dis and 'Real.sqrt' in _dis
+ok6 &= 'PosSemidef.sqrt' not in _dcbody and 'posSemidef_iff_eq' not in _dcbody and 'CFC' not in _dcbody
+# the two capstones: conditional on the boundary, and unconditional
+_cap1 = _slice(dc, 'theorem countermodel_of_factorization', ':=')
+ok6 &= bool(_cap1) and '(hfac : PSDFactorization (Fin 2 × Fin 2))' in _cap1
+ok6 &= 'ExactFiniteEndomorphicQuantumOps T ∧ HasCompositeUnitaryControl T ∧ ¬ KrausSoundExt T' in _cap1
+_cap2 = _slice(dc, 'theorem exactControl_not_implies_krausSoundExt', ':=')
+ok6 &= bool(_cap2) and 'hfac' not in _cap2 and 'PSDFactorization' not in _cap2
+ok6 &= 'ExactFiniteEndomorphicQuantumOps T ∧ HasCompositeUnitaryControl T ∧ ¬ KrausSoundExt T' in _cap2
+# no structure field is added; the theory is built from the existing structure
+ok6 &= re.search(r'(?m)^structure ', dc) is None
+# WORDING: the boundary item is NOT retired, the audit is separate, and control is not the answer
+ok6 &= 'THIS DOES NOT RETIRE BOUNDARY ITEM 3' in _dcflat
+ok6 &= 'separate boundary audit' in _dcflat
+ok6 &= 'The missing condition is therefore not control richness' in _dcflat
+ok6 &= 'That principle is not added here' in _dcflat
+ok6 &= 'boundary item 3 is retired' not in _dcflat and 'retires boundary item 3' not in _dcflat
+ok6 &= 'is strictly weaker' not in _dcflat
 # the general theorem must carry its sharp hypothesis and the exception must be at n = 4
 er = open(os.path.join(BRIDGE, 'OIBridge', 'EdgeRigidity.lean'), encoding='utf-8').read()
 ok6 &= 'theorem k4_rigidity (hn : 5 ≤ n)' in er
@@ -1083,8 +1151,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All forty files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 9 + 20 + 5 + 16 named results print their "
+      "LINT. All forty-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 9 + 20 + 33 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

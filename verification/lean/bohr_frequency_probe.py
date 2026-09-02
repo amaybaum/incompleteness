@@ -5839,7 +5839,236 @@ check("F47", ok47,
       "present architecture admits such a countermodel, and if so whether the missing "
       "ingredient is not more control but a reference-extension or parallel-composition "
       "principle that lets a composite operation be tested against a sufficiently large "
-      "untouched reference.")
+      "untouched reference. (ANSWERED IN ROUND 34, F48: the countermodel exists; this "
+      "round's non-claims stand as a record of what round 33 alone established.)")
+
+# ----------------------- F48  round 34: the operational countermodel ----------------------
+# exact system QM plus full composite unitary control does not force composite quantum
+# soundness (phase three, round thirty-four).
+ok48 = True
+
+
+def amplGen48(phi, M, d, dout=None, dref=2):
+    """(id_dref (x) phi)(M) by blocks, index d*i + k (reference i, carrier k); phi may be
+    rectangular, d levels in and dout levels out (amplR)."""
+    dout = d if dout is None else dout
+    out = [[CZ17] * (dout * dref) for _ in range(dout * dref)]
+    for i in range(dref):
+        for j in range(dref):
+            blk = phi([[M[d * i + k][d * j + l] for l in range(d)] for k in range(d)])
+            for k in range(dout):
+                for l in range(dout):
+                    out[dout * i + k][dout * j + l] = blk[k][l]
+    return out
+
+
+OM2 = [CO17 if (p >> 1) == (p & 1) else CZ17 for p in range(4)]      # |Omega_2>, index 2i + k
+DOM2 = dyad47(OM2)
+
+
+def conj48(V):
+    return lambda X: mmc17(mmc17(V, X), dag17(V))
+
+
+def red2_48(X):
+    """The qubit reduction map (2 tr X I - X)/3."""
+    t = trace40(X)
+    return [[(C17(2) * t * (CO17 if r == c else CZ17) - X[r][c]) * C17(Frac(1, 3))
+             for c in range(2)] for r in range(2)]
+
+
+# --- (a) THE QUBIT CHOI IDENTITY (choiMatrix_eq_ampl2): J(phi) = (id_2 (x) phi)(|Om_2><Om_2|)
+# for the transpose, a conjugation, the qubit reduction map and a Lueders selector.
+def luders2_48(X):
+    return [[X[0][0] if (r, c) == (0, 0) else CZ17 for c in range(2)] for r in range(2)]
+
+
+for _phi in (transpose45, conj48(gmat47(3, 2)), red2_48, luders2_48):
+    ok48 &= choi41(_phi, 2) == amplGen48(_phi, DOM2, 2)
+# --- (b) THE KEY LEMMA IN ACTION (twoPositive_qubit_cp): the SAME recipe that fails on four
+# levels passes on two.  The qubit reduction map (2 tr X I - X)/3 has Choi (2 I - |Om><Om|)/3,
+# positive semidefinite with |Om_2> exactly annihilated (2*2 - 4 = 0); while the transpose,
+# not 2-positive on a qubit, has its amplified Choi input NOT positive -- the contrapositive.
+_J2 = choi41(red2_48, 2)
+ok48 &= _J2 == [[(C17(2) * (CO17 if p == q else CZ17) - OM2[p] * OM2[q].conj())
+                 * C17(Frac(1, 3)) for q in range(4)] for p in range(4)]
+ok48 &= herm47(_J2) and psd47(_J2) and qform41(_J2, OM2) == CZ17
+ok48 &= not psd47(amplGen48(transpose45, DOM2, 2))
+ok48 &= trace40(red2_48(gmat47(1, 2))) == trace40(gmat47(1, 2))
+# --- (c) CLOSURE IDENTITIES on random inputs (amplR_comp, ampl2_conjChannel,
+# ampl2_localLuders): functoriality by blocks; amplified conjugation is conjugation by
+# 1 (x) V; the amplified Lueders readout is a diagonal compression.
+_M8 = gmat47(11, 8)
+ok48 &= amplGen48(lambda X: red47(conj48(SWAP46)(X)), _M8, 4) \
+    == amplGen48(red47, amplGen48(conj48(SWAP46), _M8, 4), 4)
+_V4 = gmat47(4, 4)
+_IV = kr17(eye17(2), _V4)
+ok48 &= amplGen48(conj48(_V4), _M8, 4) == mmc17(mmc17(_IV, _M8), dag17(_IV))
+
+
+def luders4_48(k):
+    """localLuders k on A x Fin 2 with A = Fin 2, index (s,e) -> 2s + e."""
+    return lambda X: [[X[((r >> 1) << 1) | k][((c >> 1) << 1) | k]
+                       if (r & 1) == k and (c & 1) == k else CZ17 for c in range(4)]
+                      for r in range(4)]
+
+
+for _k in range(2):
+    _D = [[(CO17 if (r == c and (r & 1) == _k) else CZ17) for c in range(8)] for r in range(8)]
+    ok48 &= amplGen48(luders4_48(_k), _M8, 4) == mmc17(mmc17(_D, _M8), dag17(_D))
+# the readout preserves the trace in aggregate (localLuders_trace_sum)
+_X4 = gmat47(6, 4)
+ok48 &= sum((trace40(luders4_48(_k)(_X4)) for _k in range(2)), CZ17) == trace40(_X4)
+# --- (d) THE EXPLICIT REINDEXING (ancEmbed, amplR_ptraceAncL_eq, amplR_uniformAttach_eq):
+# amplified partial trace = sum of congruences E_e^dag N E_e; amplified uniform attachment
+# = (1/n) sum of congruences E_e M E_e^dag, with E_e the embedding at ancilla level e.
+def embed48(e):
+    """E_e : (Fin 2 x (Fin 2 x Fin 2)) x (Fin 2 x Fin 2), index 4i+2s+e' and 2i'+s'."""
+    return [[CO17 if ((p >> 2) == (q >> 1) and ((p >> 1) & 1) == (q & 1) and (p & 1) == e)
+             else CZ17 for q in range(4)] for p in range(8)]
+
+
+_N8 = gmat47(13, 8)
+_ptrA = amplGen48(ptraceAnc38, _N8, 4, 2)                      # amplR (ptraceAncL 2) N : 4x4
+ok48 &= _ptrA == [[sum((mmc17(mmc17(dag17(embed48(e)), _N8), embed48(e))[a][b]
+                        for e in range(2)), CZ17) for b in range(4)] for a in range(4)]
+_M4 = gmat47(8, 4)
+_unA = amplGen48(uniform42, _M4, 2, 4)                        # amplR (uniformAttach 2) M : 8x8
+ok48 &= _unA == [[sum((mmc17(mmc17(embed48(e), _M4), dag17(embed48(e)))[p][q]
+                       for e in range(2)), CZ17) * HALF43 for q in range(8)] for p in range(8)]
+# --- (e) THE DISCARD CHAIN ON Phi_2 (prepAvail_discard): uniform ancilla, Phi_2, discard is
+# the QUBIT map D(rho) = (4 tr(rho) I - rho)/7 -- a Pauli channel, (1/7) X + (2/7) sum sigma X
+# sigma with weights summing to one -- whose Choi matrix is (4 I - |Om><Om|)/7, exactly PSD.
+# The amplified chain on the actual Choi input is PSD at EVERY stage.
+def disc48(rho):
+    return ptraceAnc38(red47(uniform42(rho)))
+
+
+SX48 = [[CZ17, CO17], [CO17, CZ17]]
+SY48 = [[CZ17, C17(0, -1)], [C17(0, 1), CZ17]]
+SZ48 = [[CO17, CZ17], [CZ17, C17(-1)]]
+for _s in range(4):
+    _r = gmat47(_s, 2)
+    _t = trace40(_r)
+    ok48 &= disc48(_r) == [[(C17(4) * _t * (CO17 if a == b else CZ17) - _r[a][b]) * SEV47
+                            for b in range(2)] for a in range(2)]
+    _pauli = [[CZ17] * 2 for _ in range(2)]
+    for _sg in (SX48, SY48, SZ48):
+        _c = mmc17(mmc17(_sg, _r), dag17(_sg))
+        _pauli = [[_pauli[a][b] + _c[a][b] for b in range(2)] for a in range(2)]
+    ok48 &= disc48(_r) == [[_r[a][b] * SEV47 + _pauli[a][b] * C17(Frac(2, 7)) for b in range(2)]
+                           for a in range(2)]
+    ok48 &= trace40(disc48(_r)) == _t
+ok48 &= Frac(1, 7) + 3 * Frac(2, 7) == 1
+_JD = choi41(disc48, 2)
+ok48 &= _JD == [[(C17(4) * (CO17 if p == q else CZ17) - OM2[p] * OM2[q].conj()) * SEV47
+                 for q in range(4)] for p in range(4)]
+ok48 &= herm47(_JD) and psd47(_JD) and qform41(_JD, OM2) == C17(Frac(4, 7))
+_st1 = amplGen48(uniform42, DOM2, 2, 4)                   # amplR (uniformAttach 2) |Om><Om|
+_st2 = ampl47(_st1, 2)                                   # ampl2 Phi_2 of it
+_st3 = amplGen48(ptraceAnc38, _st2, 4, 2)                 # amplR (ptraceAncL 2) of it
+ok48 &= herm47(_st1) and psd47(_st1) and herm47(_st2) and psd47(_st2)
+ok48 &= _st3 == _JD
+# --- (f) KRAUS FROM A FACTORIZED CHOI (kraus_of_choi_factor,
+# sum_conjTranspose_mul_eq_one_of_trace): with J = B B^dag the columns of B, read as
+# K_i(a, s) = B((s, a), i), give a map whose Choi matrix is J exactly; and the aggregate trace
+# on matrix units reads off sum K^dag K entry by entry, which is the normalization mechanism.
+_B = gmat47(15, 4)
+_JB = mmc17(_B, dag17(_B))
+_Ks = [[[_B[2 * s + a][i] for s in range(2)] for a in range(2)] for i in range(4)]
+
+
+def phiK48(X):
+    out = [[CZ17] * 2 for _ in range(2)]
+    for _K in _Ks:
+        _c = mmc17(mmc17(_K, X), dag17(_K))
+        out = [[out[a][b] + _c[a][b] for b in range(2)] for a in range(2)]
+    return out
+
+
+ok48 &= choi41(phiK48, 2) == _JB
+_NK = [[CZ17] * 2 for _ in range(2)]
+for _K in _Ks:
+    _c = mmc17(dag17(_K), _K)
+    _NK = [[_NK[a][b] + _c[a][b] for b in range(2)] for a in range(2)]
+for _s in range(2):
+    for _t in range(2):
+        _E = [[CO17 if (r, c) == (_t, _s) else CZ17 for c in range(2)] for r in range(2)]
+        ok48 &= trace40(phiK48(_E)) == _NK[_s][_t]
+# --- (g) THE COMPOSITE SECTOR IS INHABITED BY BOTH SIDES: Phi_2 is a 2-positive instrument
+# (F47) and every unitary channel is (conjChannel_twoPositive, conjChannel_trace); the
+# discarded reading of Phi_2 is a quantum channel (e), yet Phi_2 itself is not CP (F47).
+for _U in (SWAP46, PH47, CN47):
+    ok48 &= trace40(conj48(_U)(_X4)) == trace40(_X4)
+    ok48 &= herm47(amplGen48(conj48(_U), dyad47(gvec47(5, 8)), 4)) \
+        and psd47(amplGen48(conj48(_U), dyad47(gvec47(5, 8)), 4))
+ok48 &= not psd47(J47)
+# --- (h) the file's own claim discipline, read back
+_dc48 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'DimensionalCountermodel.lean')
+if os.path.exists(_dc48):
+    with open(_dc48, encoding='utf-8') as _f:
+        _dc_txt48 = ' '.join(_f.read().split())
+    ok48 &= 'THIS DOES NOT RETIRE BOUNDARY ITEM 3' in _dc_txt48
+    ok48 &= 'The missing condition is therefore not control richness' in _dc_txt48
+    ok48 &= 'That principle is not added here' in _dc_txt48
+check("F48", ok48,
+      "ROUND 34: THE OPERATIONAL COUNTERMODEL -- exact system QM plus full composite unitary "
+      "control does not force composite quantum soundness (phase three, round thirty-four; "
+      "kernel: amplR_comp, choiMatrix_eq_ampl2, twoPositive_qubit_cp, isTwoPositive_comp, "
+      "isTwoPositive_sum, ampl2_conjChannel, conjChannel_twoPositive, ampl2_localLuders, "
+      "localLuders_twoPositive, localLuders_trace_sum, amplR_ptraceAncL_eq, "
+      "amplR_uniformAttach_eq, amplR_ptraceAncL_posSemidef, amplR_uniformAttach_posSemidef, "
+      "uniformAttach_trace, choiMatrix_conjChannel, choiMatrix_injective, "
+      "kraus_of_choi_factor, sum_conjTranspose_mul_eq_one_of_trace, "
+      "isKrausFamily_of_cp_of_factorization, psdFactorization_of_spectral, "
+      "countermodelOf_exact, countermodelOf_control, countermodelOf_reduction2_available, "
+      "countermodelOf_not_krausSoundExt, countermodel_of_factorization, countermodel_exact, "
+      "countermodel_control, countermodel_reduction2_available, "
+      "countermodel_not_krausSoundExt, countermodel_hasFactorExchange, "
+      "countermodel_hasInterferenceControl, exactControl_not_implies_krausSoundExt in "
+      "OIBridge/DimensionalCountermodel.lean). THE CAPSTONE: there is a "
+      "FiniteOperationalTheory (Fin 2) that is EXACTLY quantum on the visible qubit, grants "
+      "EVERY composite unitary (hence factor exchange and interference control), has the "
+      "round-33 map Phi_2 available on the two-qubit composite, and is NOT composite "
+      "Kraus-sound. Round 28's countermodel had to withhold composite control; this one grants "
+      "all of it. The missing condition is therefore not control richness. THE COMPOSITE "
+      "SECTOR is the 2-positive instruments: every branch 2-positive, trace preserved in "
+      "aggregate -- closed under coarse-graining, feed-forward, every unitary channel and the "
+      "native Lueders readout, all verified here as exact identities on unstructured inputs "
+      "(functoriality of the amplification by blocks, amplified conjugation = conjugation by "
+      "1 (x) V, amplified readout = diagonal compression, readout trace-preserving in "
+      "aggregate). THE KEY LEMMA, twoPositive_qubit_cp: a 2-positive map ON A QUBIT is CP, "
+      "because its Choi matrix is (id_2 (x) Phi)(|Om_2><Om_2|) -- the qubit Choi identity is "
+      "checked here for the transpose, a conjugation, the qubit reduction map and a Lueders "
+      "selector -- and the illustration is exact: the SAME recipe that fails on four levels "
+      "passes on two, the qubit map (2 tr X I - X)/3 having Choi (2 I - |Om><Om|)/3, positive "
+      "semidefinite with |Om_2> annihilated, while the transpose's amplified Choi input is not "
+      "positive. PREPARATIONS are reference-tested: trace preserving and PSD on the qubit Choi "
+      "input under amplification; the reindexing between Fin 2 x (Fin 2 x Fin n) and "
+      "(Fin 2 x Fin 2) x Fin n is an explicit embedding matrix, and the two congruence "
+      "identities (amplified partial trace = sum E^dag N E, amplified uniform attachment = "
+      "(1/n) sum E M E^dag) are checked entry for entry on random inputs. THE DISCARD CHAIN ON "
+      "Phi_2 shows the mechanism: uniform ancilla, Phi_2, discard is the qubit map "
+      "(4 tr rho I - rho)/7, a PAULI CHANNEL (1/7) X + (2/7) sum sigma X sigma with weights "
+      "summing to one, Choi (4 I - |Om><Om|)/7 exactly PSD, and the amplified chain on the "
+      "actual Choi input is PSD at every stage -- the composite surplus is squeezed through "
+      "the visible qubit into an ordinary quantum channel, which is exactly why the system "
+      "sector stays exact. THE ONE EXTERNAL STEP IS ISOLATED: CP instrument => Kraus family is "
+      "proved against the explicit hypothesis PSDFactorization (Fin 2 x Fin 2), a "
+      "specialization of boundary item 3, with the Kraus operators the columns of the "
+      "factor -- checked here: K_i(a,s) = B((s,a),i) reproduces J = B B^dag exactly, and the "
+      "aggregate trace on matrix units reads off sum K^dag K entry by entry. The conditional "
+      "capstone countermodel_of_factorization needs boundary item 3 only. THE HYPOTHESIS IS "
+      "ALSO DISCHARGED, LOUDLY, by psdFactorization_of_spectral from the spectral resolution "
+      "and the real square root of the eigenvalues (the two ingredients scalarAvail_isKraus "
+      "already used), giving the unconditional exactControl_not_implies_krausSoundExt. THIS "
+      "DOES NOT RETIRE BOUNDARY ITEM 3: the boundary ledger is unchanged, Purification.lean "
+      "still isolates the factorization as a hypothesis, and reclassifying the item is a "
+      "separate boundary audit. NOT DONE AND NOT CLAIMED: the principle that WOULD force "
+      "composite soundness; the qutrit clue of F47 (a three-level reference detects Phi_2) "
+      "stays probe-only and points at a reference-extension or parallel-composition principle "
+      "for the next round. That principle is not added here.")
 
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')

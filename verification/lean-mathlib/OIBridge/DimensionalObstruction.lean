@@ -72,6 +72,10 @@
   ingredient is not more control but a reference-extension or parallel-composition principle
   that lets a composite operation be tested against a sufficiently large untouched reference.
 
+  ANSWERED BY ROUND THIRTY-FOUR. `DimensionalCountermodel.lean` builds the theory: exact
+  system QM plus every composite unitary, with `Φ₂` available, and not composite-sound. The
+  non-claims above remain true of THIS file; the question they left open is closed there.
+
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
 import OIBridge.FactorExchange
