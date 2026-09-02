@@ -24,6 +24,7 @@
       │    [∀ k, FiniteIsometryExtensionSF (Fin 2 × Fin (k+1))] ⟹                       │
       │      (ExactAllFiniteEndomorphicQuantumOps T ⟺ PhysicalCompletionConditions T). │
       │    Boundary item 2 enters ONLY the constructive direction.                      │
+      │    [ITEM 2 DISCHARGED IN ROUND FORTY-FIVE: `exactAll_iff_physical_unconditional`.]│
       │  MINIMALITY (part one): validity is independent of the other four and of OI   │
       │    realization (`everywhereAvailable`); inert spectators likewise               │
       │    (`countermodel`, now with `countermodel_systemToLevelOne`); trivial-ancilla  │

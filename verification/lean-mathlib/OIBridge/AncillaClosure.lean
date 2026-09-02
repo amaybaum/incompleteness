@@ -69,6 +69,7 @@
   scope of the existing endpoint (the Kraus operators are square, the carriers finite); any
   new boundary item (item 2 is consumed at the composite carriers, where the assembly needs
   it, and named as such). No structure field is added.
+  [BOUNDARY ITEM 2 DISCHARGED IN ROUND FORTY-FIVE: `IsometryExtension.lean`, `finiteIsometryExtensionSF_discharged`; the conditional statement is kept as written.]
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/

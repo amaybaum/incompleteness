@@ -58,7 +58,8 @@
   countermodel and by the full quantum theory; the countermodel refutes parallel reference
   extension, so `H_comp` realized does not give it; inert-spectator compositionality is
   equivalent to parallel reference extension, so with system soundness, control and
-  boundary item 2 it gives composite soundness (`krausSoundExt_of_sound_control_inert`),
+  boundary item 2 [discharged in round forty-five, `IsometryExtension.lean`] it gives
+  composite soundness (`krausSoundExt_of_sound_control_inert`),
   the countermodel lacks it, the full theory has it. NOT claimed: that OI or `H_comp`
   implies inert-spectator compositionality — the non-implication says the opposite for the
   realized form. NOT claimed: composite COMPLETENESS (that every Kraus family on every

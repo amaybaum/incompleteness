@@ -44,8 +44,8 @@
   WHAT IS AND IS NOT CLAIMED. Proved: everything above; the round-43 characterization
   `exactAll_iff_physical` is untouched and is now minimal in every cell. NOT claimed: that
   any condition follows from OI; OI ⟺ QM; anything about boundary item 2 (finite isometry
-  extension), which still enters the constructive direction of the characterization. No
-  structure field is added.
+  extension), which still enters the constructive direction of the characterization
+  [DISCHARGED IN ROUND FORTY-FIVE: `IsometryExtension.lean`]. No structure field is added.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/

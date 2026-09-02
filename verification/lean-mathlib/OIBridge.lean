@@ -127,6 +127,7 @@ import OIBridge.LevelOneSeam
 import OIBridge.PhysicalCharacterization
 import OIBridge.DiagonalTheory
 import OIBridge.RankGapTheory
+import OIBridge.IsometryExtension
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

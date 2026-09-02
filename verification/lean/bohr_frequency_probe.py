@@ -7523,6 +7523,110 @@ check("F58", ok58,
       "condition follows from OI; OI iff QM; anything about boundary item 2, whose "
       "internalization is the next priority.")
 
+# F59 -- ROUND 45: BOUNDARY ITEM 2 DISCHARGED -- finite isometry extension is kernel-internal
+# and the characterization is unconditional (phase three, round forty-five).
+ok59 = True
+def _inner59(u, v):
+    return sum((x.conj() * y for x, y in zip(u, v)), CZ17)
+# --- (a) GRAM => ORTHONORMAL COLUMNS (inner_colVec, seed_orthonormal): for the system-first
+# isometry V = V_K of the damping family (8x4, V^dag V = 1), the column inner products are
+# exactly the Gram entries, so the four columns are orthonormal.
+_V59 = [[(K0 if (p & 1) == 0 else K1)[p >> 1][q] for q in range(4)] for p in range(8)]
+ok59 &= mmc17(dag17(_V59), _V59) == eye17(4)
+_cols59 = [[_V59[p][a] for p in range(8)] for a in range(4)]
+_gram59 = mmc17(dag17(_V59), _V59)
+ok59 &= all(_inner59(_cols59[a], _cols59[b]) == _gram59[a][b] for a in range(4) for b in range(4))
+ok59 &= all(_inner59(_cols59[a], _cols59[b]) == (CO17 if a == b else CZ17)
+            for a in range(4) for b in range(4))
+# --- (b) THE EXTENSION, exactly: an orthogonal complement of the column span, computed by
+# exact projection of the standard basis (the Gram-Schmidt skeleton, unnormalized so it
+# stays in the Gaussian rationals), has dimension 8 - 4 = card(A x Fin 2) - card A, is
+# orthogonal to every column and pairwise orthogonal, and together with the columns spans
+# the whole space -- normalization is the only step outside the rationals.
+_basis59 = [list(c) for c in _cols59]
+_comp59 = []
+for q in range(8):
+    _e = [CO17 if p == q else CZ17 for p in range(8)]
+    _r = list(_e)
+    for u in _basis59 + _comp59:
+        _c = _inner59(u, _r) * _inner59(u, u).inv()
+        _r = [x - _c * y for x, y in zip(_r, u)]
+    if any(x != CZ17 for x in _r):
+        _comp59.append(_r)
+ok59 &= len(_comp59) == 4
+ok59 &= all(_inner59(c, w) == CZ17 for c in _cols59 for w in _comp59)
+ok59 &= all(_inner59(_comp59[i], _comp59[j]) == CZ17 for i in range(4) for j in range(4) if i != j)
+_full59 = [[(_cols59 + _comp59)[c][p] for c in range(8)] for p in range(8)]
+ok59 &= rank52(_full59) == 8
+# --- (c) two exact rational instances of the discharged statement: the round-38 dilation
+# (WD E_0 = V_K, unitary) and the round-44 transposition dilation (WG E_0 = V_G, unitary),
+# each a square unitary whose seed columns are the given isometry.
+_W59 = kr17(eye17(2), _w57)
+_E59 = [[CO17 if (p & 1) == 0 and (p >> 1) == q else CZ17 for q in range(4)] for p in range(8)]
+ok59 &= mmc17(dag17(_W59), _W59) == eye17(8) and mmc17(_W59, _E59) == _V59
+ok59 &= mmc17(dag17(_WG), _WG) == eye17(12) and mmc17(_WG, _Esf58) == _Vsf58
+# --- (d) the dimension count behind the cardinality equation of the extension theorem
+ok59 &= len(_cols59) + len(_comp59) == 8 and 8 == 4 * 2
+# --- (e) the kernel's own claim discipline, read back
+_ie59 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'IsometryExtension.lean')
+if os.path.exists(_ie59):
+    with open(_ie59, encoding='utf-8') as _f:
+        _ie_txt59 = ' '.join(_f.read().split())
+    ok59 &= 'theorem finiteIsometryExtensionSF_discharged' in _ie_txt59
+    ok59 &= 'Orthonormal.exists_orthonormalBasis_extension_of_card_eq' in _ie_txt59
+    ok59 &= 'theorem exactAll_iff_physical_unconditional' in _ie_txt59
+    ok59 &= 'theorem operational_classification' in _ie_txt59
+    ok59 &= 'TWO ITEMS' in _ie_txt59 and 'sorry' not in _ie_txt59
+_ba59 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'BoundaryAudit.lean')
+if os.path.exists(_ba59):
+    with open(_ba59, encoding='utf-8') as _f:
+        _ba_txt59 = ' '.join(_f.read().split())
+    ok59 &= 'SUPERSEDED IN ROUND FORTY-FIVE' in _ba_txt59
+    ok59 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: TWO ITEMS' in _ba_txt59
+    ok59 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: THREE ITEMS' in _ba_txt59   # provenance kept
+check("F59", ok59,
+      "ROUND 45: BOUNDARY ITEM 2 DISCHARGED -- finite isometry extension is kernel-internal "
+      "and the characterization is UNCONDITIONAL (phase three, round forty-five; kernel: "
+      "OIBridge/IsometryExtension.lean, 21 results -- inner_colVec, seed_orthonormal, "
+      "finiteIsometryExtensionSF_discharged, isometryExtension_unit, "
+      "isometryExtension_composite, discharged_items, "
+      "fullInstruments_of_control_unconditional, exact_of_sound_control_unconditional, "
+      "compositeCompleteness_unconditional, unitVectorRotation_unconditional, "
+      "krausSoundExt_of_sound_control_inert_unconditional, "
+      "exactComposite_of_conditions_unconditional, exactComposite_of_validity_unconditional, "
+      "exactAll_of_conditions_unconditional, exactAll_of_physical_unconditional, "
+      "exactAll_iff_physical_unconditional, fullQuantum_exactComposite_unconditional, "
+      "fullQuantum_exactAll, systemLoose_exactComposite_unconditional, "
+      "final_classification_unconditional, operational_classification). THE DISCHARGE, in "
+      "four steps from Mathlib's kernel-checked finite orthonormal-basis extension theorem "
+      "Orthonormal.exists_orthonormalBasis_extension_of_card_eq: the columns of an isometry "
+      "have inner products equal to the Gram entries, hence are orthonormal; indexed by the "
+      "seed positions (a, k0) they are an orthonormal family on a subset of A x Fin (n+1); "
+      "the extension theorem (cardinality equation from finrank_euclideanSpace) extends them "
+      "to an orthonormal basis indexed by the full carrier; U's q-th column is the q-th basis "
+      "vector, and U^dag U = 1 (orthonormality, entrywise) and U E_k0 = V (agreement on the "
+      "seed, entrywise) are proved as explicit matrix identities. Usual axiom footprint. "
+      "THE CONSEQUENCE: every conditional theorem of rounds 25-44 keeps its statement and "
+      "acquires an _unconditional corollary, and the round-43 characterization becomes "
+      "exactAll_iff_physical_unconditional: for a qubit system, exact finite endomorphic QM on "
+      "the system and every positive composite IFF the five physical completion conditions, "
+      "with NO isometry hypothesis and no boundary item in either direction; "
+      "operational_classification freezes the iff, joint satisfiability (fullQuantum), and "
+      "the five-way minimality audit in one statement. THE BOUNDARY AUDIT, 3 -> 2: the "
+      "round-35 three-item statement is preserved and labelled superseded; the unresolved "
+      "external boundary is now compact Lie integration / reachability and finite Uhlmann / "
+      "Schmidt / right-unitary uniqueness, neither a dependency of the OI -> finite-QM "
+      "characterization. Verified exactly here: the damping isometry's column inner products "
+      "equal its Gram entries (orthonormal); an exact orthogonal complement of dimension "
+      "8 - 4 by rational projection, orthogonal to the columns and pairwise, spanning the "
+      "whole space with them (rank 8) -- normalization is the only non-rational step; the "
+      "round-38 and round-44 dilations as exact rational instances of the discharged "
+      "statement (unitary, U E_0 = V); the cardinality count. NOT CLAIMED, lint-guarded: "
+      "anything about the two remaining boundary items; that any condition follows from OI; "
+      "OI iff QM.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

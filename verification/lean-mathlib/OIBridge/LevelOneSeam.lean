@@ -27,6 +27,7 @@
       │    ∧ iterated ancilla closure ∧ system-to-level-one ⟹ exact finite endomorphic  │
       │    QM on the system and every composite, against boundary item 2 at the         │
       │    composite carriers only. No quantum-formal soundness premise anywhere.       │
+      │    [ITEM 2 DISCHARGED IN ROUND FORTY-FIVE: `IsometryExtension.lean`.]        │
       │  THE COUNTERMODEL. `systemLoose`: `fullQuantum`'s composite sector, preparations │
       │    and readouts with an UNRESTRICTED system predicate. It has every round-41    │
       │    condition, exact composite operations, and realizes the sealed OI core; its  │

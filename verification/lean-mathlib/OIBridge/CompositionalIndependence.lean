@@ -270,7 +270,8 @@ theorem closure_not_deletable :
 /-- **THE CONDITIONAL CLASSIFICATION.** For a qubit system: system Kraus soundness, full
 composite unitary control, inert-spectator compositionality and iterated ancilla closure
 give exact finite Kraus operations on every positive composite, against finite isometry
-extension (boundary item 2) at `Unit` and at the composite carriers; and the three
+extension (boundary item 2, discharged in round forty-five: `IsometryExtension.lean`) at
+`Unit` and at the composite carriers; and the three
 witnesses show the two compositional clauses are independent of each other and of the
 rest, and jointly satisfiable. -/
 theorem conditional_classification :

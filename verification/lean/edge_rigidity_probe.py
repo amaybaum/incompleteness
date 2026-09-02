@@ -837,6 +837,22 @@ for fname, names in (
                        'WG_apply', 'WG_esf', 'gap_no_shift', 'gap_not_iteratedAncillaClosure',
                        'gap_not_fullComposite', 'gap_not_exactComposite', 'gap_not_exactAll',
                        'gap_not_physical', 'closure_cell_closed', 'five_way_minimality')),
+    ('IsometryExtension', ('inner_colVec', 'seed_orthonormal',
+                           'finiteIsometryExtensionSF_discharged', 'isometryExtension_unit',
+                           'isometryExtension_composite', 'discharged_items',
+                           'fullInstruments_of_control_unconditional',
+                           'exact_of_sound_control_unconditional',
+                           'compositeCompleteness_unconditional',
+                           'unitVectorRotation_unconditional',
+                           'krausSoundExt_of_sound_control_inert_unconditional',
+                           'exactComposite_of_conditions_unconditional',
+                           'exactComposite_of_validity_unconditional',
+                           'exactAll_of_conditions_unconditional',
+                           'exactAll_of_physical_unconditional',
+                           'exactAll_iff_physical_unconditional',
+                           'fullQuantum_exactComposite_unconditional', 'fullQuantum_exactAll',
+                           'systemLoose_exactComposite_unconditional',
+                           'final_classification_unconditional', 'operational_classification')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -938,8 +954,9 @@ ok6 &= all(item in _baflat for item in
 _pd = _slice(ba, 'theorem psdFactorization_discharged', 'theorem purification_unconditional')
 ok6 &= bool(_pd) and 'psdFactorization_of_spectral' in _pd
 ok6 &= 'It proves nothing new' in _baflat and 'PROVENANCE IS PRESERVED, NOT REWRITTEN' in _baflat
-# the remaining three items must not be claimed discharged anywhere in the audit
-ok6 &= 'isometry extension is discharged' not in _baflat and 'Lie integration is discharged' not in _baflat
+# the remaining items must not be claimed discharged anywhere in the audit (item 2, finite
+# isometry extension, IS discharged from round forty-five -- see the Round-45 guards)
+ok6 &= 'Lie integration is discharged' not in _baflat and 'reachability is discharged' not in _baflat
 ok6 &= 'uniqueness is discharged' not in _baflat
 # Purification keeps its conditional theorem and cross-references the discharge
 _pu = open(os.path.join(BRIDGE, 'OIBridge', 'Purification.lean'), encoding='utf-8').read()
@@ -1324,6 +1341,36 @@ ok6 &= 'CLOSED IN ROUND FORTY-FOUR' in _pcflat and 'CLOSED IN ROUND FORTY-FOUR' 
 ok6 &= re.search(r'(?m)^structure ', rg) is None
 ok6 &= 'theorem oi_iff_quantum' not in rg and 'theorem gap_iteratedAncillaClosure' not in rg
 ok6 &= 'theorem gap_exactAll' not in rg and 'theorem gap_physical' not in rg
+# Round-45 guards: boundary item 2 discharged internally; the characterization unconditional;
+# the round-35 three-item statement preserved and labelled; two items remain, not claimed.
+ie = open(os.path.join(BRIDGE, 'OIBridge', 'IsometryExtension.lean'), encoding='utf-8').read()
+_ieflat = ' '.join(ie.split())
+_dis = ' '.join(_slice(ie, 'theorem finiteIsometryExtensionSF_discharged', 'theorem isometryExtension_unit').split())
+ok6 &= bool(_dis) and 'FiniteIsometryExtensionSF A' in _dis
+ok6 &= 'Orthonormal.exists_orthonormalBasis_extension_of_card_eq' in _dis and 'finrank_euclideanSpace' in _dis
+ok6 &= 'sorry' not in ie and re.search(r'(?m)^axiom ', ie) is None and 'native_decide' not in ie
+_unc = ' '.join(_slice(ie, 'theorem exactAll_iff_physical_unconditional', ':=').split())
+ok6 &= bool(_unc) and _unc.endswith('ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T')
+ok6 &= 'FiniteIsometryExtensionSF' not in _unc and 'hext' not in _unc
+_oc = ' '.join(_slice(ie, 'theorem operational_classification', ':=').split())
+ok6 &= bool(_oc) and 'FiniteIsometryExtensionSF' not in _oc and _oc.count('RealizesSealedOICore T') == 5
+ok6 &= 'ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T' in _oc
+ok6 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: TWO ITEMS' in _ieflat
+ok6 &= 'SUPERSEDED IN ROUND FORTY-FIVE' in _baflat
+ok6 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: TWO ITEMS' in _baflat
+ok6 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: THREE ITEMS' in _baflat   # provenance kept
+ok6 &= 'compact Lie integration / reachability' in _ieflat and 'finite Uhlmann / Schmidt / right-unitary uniqueness' in _ieflat
+ok6 &= 'Lie integration is discharged' not in _ieflat and 'uniqueness is discharged' not in _ieflat
+# the historical conditional theorems are KEPT as written
+for _fn, _th in (('StinespringAssembly', 'theorem fullInstruments_of_control (T : FiniteOperationalTheory A)'),
+                 ('PhysicalCharacterization', 'theorem exactAll_iff_physical (T : FiniteOperationalTheory (Fin 2))'),
+                 ('AncillaClosure', 'theorem compositeCompleteness (T : FiniteOperationalTheory A)')):
+    ok6 &= _th in open(os.path.join(BRIDGE, 'OIBridge', f'{_fn}.lean'), encoding='utf-8').read()
+ok6 &= 'DISCHARGED IN ROUND FORTY-FIVE' in ' '.join(open(os.path.join(BRIDGE, 'OIBridge', 'StinespringAssembly.lean'), encoding='utf-8').read().split())
+ok6 &= 'ITEM 2 DISCHARGED IN ROUND FORTY-FIVE' in _pcflat
+ok6 &= re.search(r'(?m)^structure ', ie) is None
+ok6 &= 'theorem oi_iff_quantum' not in ie and 'theorem lie_integration_discharged' not in ie
+ok6 &= 'theorem uhlmann_discharged' not in ie
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1728,8 +1775,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All fifty-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 5 + 16 named results print their "
+      "LINT. All fifty-five files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

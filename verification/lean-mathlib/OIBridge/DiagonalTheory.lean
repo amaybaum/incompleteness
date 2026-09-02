@@ -4,7 +4,8 @@
   condition and realizes the sealed OI core, yet lacks full composite unitary control.
 
   ROUND FORTY-THREE, PART TWO. Part one proved the five physical completion conditions
-  necessary and, with boundary item 2 at the composite carriers, sufficient; and showed
+  necessary and, with boundary item 2 at the composite carriers [discharged in round
+  forty-five, `IsometryExtension.lean`], sufficient; and showed
   validity, inert spectators and trivial-ancilla consistency each independent of the other
   four. This file closes the control cell with a clean new witness.
 

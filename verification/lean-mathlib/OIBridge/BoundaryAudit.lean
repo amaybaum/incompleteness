@@ -38,6 +38,22 @@
   WHAT THIS FILE DOES NOT DO. It proves nothing new. It does not touch the three remaining
   items, and it does not claim any of them is dischargeable.
 
+  [SUPERSEDED IN ROUND FORTY-FIVE BY `IsometryExtension.lean`. The three-item statement
+  above was true when written and is preserved as provenance. Finite isometry extension
+  (item 2) has been discharged internally by `finiteIsometryExtensionSF_discharged`, for
+  every finite carrier, from Mathlib's kernel-checked finite orthonormal-basis extension
+  theorem `Orthonormal.exists_orthonormalBasis_extension_of_card_eq`, with the usual axiom
+  footprint. THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: TWO ITEMS.
+
+      1. compact Lie integration / reachability;
+      2. finite Uhlmann / Schmidt / right-unitary uniqueness.
+
+  DISCHARGED INTERNALLY: PSD square-root / factorization (round thirty-four,
+  `psdFactorization_discharged`); finite isometry extension (round forty-five,
+  `finiteIsometryExtensionSF_discharged`). Neither remaining item is a dependency of the
+  OI → finite-QM characterization, which is unconditional from round forty-five
+  (`exactAll_iff_physical_unconditional`); neither is claimed dischargeable.]
+
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
 import OIBridge.DimensionalCountermodel

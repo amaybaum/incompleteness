@@ -37,6 +37,7 @@
   and it is derived from the already-declared interface `FiniteIsometryExtensionSF` at the
   carrier `Unit` by explicit reindexing (`unitVectorRotation_of_isometryExtension`), so the
   accounting is honest: no fifth item, and item 2 consumed exactly where it is used.
+  [BOUNDARY ITEM 2 DISCHARGED IN ROUND FORTY-FIVE: `IsometryExtension.lean`, `finiteIsometryExtensionSF_discharged`; the conditional statement is kept as written.]
 
   THE PROOF. Take an available composite family `F` at level `n + 1`. Two obligations give
   `IsKrausFamily F` through the now-internal factorization:

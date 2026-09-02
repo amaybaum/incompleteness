@@ -22,7 +22,7 @@
   §C — THE BOUNDARY, ISOLATED. `FiniteIsometryExtensionSF` states EXACTLY what the
   assembly consumes: every system-first isometry extends to a unitary agreeing with it on
   the seed. It is a hypothesis of the capstone, not an axiom hidden in the file, so the
-  dependency is visible in the theorem statement itself.
+  dependency is visible in the theorem statement itself. [BOUNDARY ITEM 2 DISCHARGED IN ROUND FORTY-FIVE: `IsometryExtension.lean`, `finiteIsometryExtensionSF_discharged`; the conditional statement is kept as written.]
 
   §D — THE FINE BRANCH. `stinespringCircuit_branch`: with `U E_{k₀} = V_K`, the circuit
   branch of round 25b is exactly `ρ ↦ Kₖ ρ Kₖ†`. Kept standalone so the algebra is
@@ -149,7 +149,9 @@ theorem vsf_block {n : ℕ} (K : Fin n → Matrix A A ℂ) (k : Fin n) (ρ : Mat
 /-- **THE ONLY EXTERNAL FACT THIS ASSEMBLY CONSUMES**, stated in exactly the form it is
 used: every system-first isometry extends to a unitary agreeing with it on the seed. It is
 a HYPOTHESIS of the capstone, not an axiom hidden in the file, so the dependency is visible
-in the theorem statement. -/
+in the theorem statement. [DISCHARGED IN ROUND FORTY-FIVE for every finite carrier:
+`IsometryExtension.finiteIsometryExtensionSF_discharged`; the interface is kept so the
+dependency stays visible in every conditional statement.] -/
 def FiniteIsometryExtensionSF (A : Type*) [Fintype A] [DecidableEq A] : Prop :=
   ∀ (n : ℕ) (k₀ : Fin (n + 1)) (V : Matrix (A × Fin (n + 1)) A ℂ), Vᴴ * V = 1 →
     ∃ U : Matrix (A × Fin (n + 1)) (A × Fin (n + 1)) ℂ, Uᴴ * U = 1 ∧ U * Esf k₀ = V

@@ -27,6 +27,7 @@
       │      ∧ HasCompositeUnitaryControl ∧ IteratedAncillaClosure                       │
       │      ⟹ ExactCompositeQuantumOps, against boundary item 2 at the COMPOSITE       │
       │    carriers only — the `Unit` isometry hypothesis of rounds 36–39 is gone.        │
+      │    [ITEM 2 DISCHARGED IN ROUND FORTY-FIVE: `IsometryExtension.lean`.]        │
       │  `validity_not_implies_krausSoundExt`: validity is strictly weaker than          │
       │    composite soundness (the round-34 countermodel is valid), so the spectator     │
       │    clause does real work; `krausSoundExt_iff_validity_of_inert`: under inert      │
