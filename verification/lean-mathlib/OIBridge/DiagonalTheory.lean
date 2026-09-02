@@ -38,7 +38,8 @@
   system/level-one disagreement); and satisfying all five conditions is exact finite
   endomorphic QM.
 
-  NOT claimed: the closure cell against all four other conditions (open, named); that any
+  NOT claimed: the closure cell against all four other conditions (open, named) [CLOSED IN
+  ROUND FORTY-FOUR: `RankGapTheory.closure_cell_closed`, `five_way_minimality`]; that any
   condition follows from OI; OI ⟺ QM. No structure field is added.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
@@ -408,7 +409,8 @@ four and of OI realization: validity (`everywhereAvailable`), inert spectators (
 countermodel), full control (`diagTheory`), trivial-ancilla consistency (`systemLoose`). The
 fifth cell — closure against all four others — is open: the round-38 witness fails
 system-to-level-one (`admissible_not_systemToLevelOne`), while bare finite OI ⇏ closure
-(round forty) stands. -/
+(round forty) stands. [CLOSED IN ROUND FORTY-FOUR: `RankGapTheory.gapTheory` closes the fifth
+cell; the five-way audit is `RankGapTheory.five_way_minimality`.] -/
 theorem minimality_audit :
     (∃ T : FiniteOperationalTheory (Fin 2),
       InertSpectatorCompositionality T ∧ HasCompositeUnitaryControl T

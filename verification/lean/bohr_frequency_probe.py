@@ -7391,6 +7391,138 @@ check("F57", ok57,
       "the amplifier doubling the trace. NOT CLAIMED, lint-guarded: the open closure cell; "
       "that any condition follows from OI; OI iff QM; no structure field.")
 
+# F58 -- ROUND 44: THE RANK-GAP THEORY closes the closure cell, and the minimality audit is
+# five-way (phase three, round forty-four).
+ok58 = True
+# --- (a) the level-three Kraus pair G0 = 1 (x) diag(1,1,0), G1 = 1 (x) |0><2| is normalized
+# on the qutrit and on the six-level carrier; ranks four and two; orthogonal Choi dyads.
+_D3 = [[CO17 if (i == j and i != 2) else CZ17 for j in range(3)] for i in range(3)]
+_E3 = [[CO17 if (i == 0 and j == 2) else CZ17 for j in range(3)] for i in range(3)]
+ok58 &= add52(mmc17(dag17(_D3), _D3), mmc17(dag17(_E3), _E3)) == eye17(3)
+_G0, _G1 = kr17(eye17(2), _D3), kr17(eye17(2), _E3)                 # index (a, j) -> 3a + j
+ok58 &= add52(mmc17(dag17(_G0), _G0), mmc17(dag17(_G1), _G1)) == eye17(6)
+ok58 &= rank52(_G0) == 4 and rank52(_G1) == 2
+ok58 &= trace40(mmc17(dag17(_G0), _G1)) == CZ17
+# --- (b) every a G0 + b G1 with a != 0 has rank EXACTLY four -- in the gap 3 < 4 < 6 -- kills
+# the explicit vector b e_(0,0) - a e_(0,2), and compresses on the first four basis vectors
+# to a times the identity (so it cannot factor through three dimensions).
+_inc = [[CO17 if (p // 3 == q // 2 and p % 3 == q % 2) else CZ17 for q in range(4)]
+        for p in range(6)]
+for _s in range(3):
+    _a, _b = gmat47(400 + _s, 2)[0][0], gmat47(410 + _s, 2)[1][1]
+    ok58 &= _a != CZ17
+    _Kg = add52(scale52(_a, _G0), scale52(_b, _G1))
+    ok58 &= rank52(_Kg) == 4
+    _v = [[_b], [CZ17], [C17(0) - _a], [CZ17], [CZ17], [CZ17]]
+    ok58 &= all(row[0] == CZ17 for row in mmc17(_Kg, _v)) and any(x[0] != CZ17 for x in _v)
+    ok58 &= mmc17(mmc17(dag17(_inc), _Kg), _inc) == scale52(_a, eye17(4))
+# --- (c) THE LEVEL-ONE DICHOTOMY (twoByTwo_dichotomy): nonsingular 2x2 -> the explicit
+# inverse (1/det)[[d,-b],[-c,a]] works; singular -> rank <= 1 with the explicit column-row
+# factorization col(a,c).row(1, b/a); and the qubit damping that killed the round-38 witness
+# at level one is invertible-or-rank-one branch by branch.
+for _s in range(4):
+    _M = gmat47(420 + _s, 2)
+    _det = _M[0][0] * _M[1][1] - _M[0][1] * _M[1][0]
+    if _det != CZ17:
+        _di = _det.inv()
+        _inv = [[_di * _M[1][1], _di * (C17(0) - _M[0][1])],
+                [_di * (C17(0) - _M[1][0]), _di * _M[0][0]]]
+        ok58 &= mmc17(_inv, _M) == eye17(2)
+    else:
+        ok58 &= rank52(_M) <= 1
+_Ms = [[C17(Frac(2)), C17(Frac(3))], [C17(Frac(4)), C17(Frac(6))]]
+ok58 &= rank52(_Ms) == 1
+ok58 &= mmc17([[_Ms[0][0]], [_Ms[1][0]]], [[CO17, _Ms[0][1] * _Ms[0][0].inv()]]) == _Ms
+ok58 &= rank52(_D0q) == 2 and rank52(_E0q) == 1
+# --- (d) THE PERMUTATION DILATION: wG is the single transposition |2,0> <-> |0,1> on
+# Fin 3 x Fin 2 (index (j,k) -> 2j + k), unitary; WG = 1 (x) wG on the twelve-level carrier
+# (index ((a,j),k) -> 6a + 2j + k) satisfies WG E_0 = V_G exactly.
+def _wg58(x, y):
+    if y == (2, 0):
+        return CO17 if x == (0, 1) else CZ17
+    if y == (0, 1):
+        return CO17 if x == (2, 0) else CZ17
+    return CO17 if x == y else CZ17
+_wG = [[_wg58((p >> 1, p & 1), (q >> 1, q & 1)) for q in range(6)] for p in range(6)]
+ok58 &= mmc17(dag17(_wG), _wG) == eye17(6)
+ok58 &= sum(1 for p in range(6) for q in range(6) if _wG[p][q] != CZ17 and p != q) == 2
+_WG = kr17(eye17(2), _wG)
+ok58 &= mmc17(dag17(_WG), _WG) == eye17(12)
+_Esf58 = [[CO17 if (p & 1) == 0 and (p >> 1) == q else CZ17 for q in range(6)] for p in range(12)]
+_Vsf58 = [[(_G0 if (p & 1) == 0 else _G1)[p >> 1][q] for q in range(6)] for p in range(12)]
+ok58 &= mmc17(_WG, _Esf58) == _Vsf58
+# --- (e) the circuit reproduces the gap channel: the fresh-ancilla block k of V rho V^dag is
+# G_k rho G_k^dag on random states, and the aggregate is PSD and trace preserving.
+for _s in range(2):
+    _rho = dyad47(gvec47(430 + _s, 6))
+    _Vr = mmc17(mmc17(_Vsf58, _rho), dag17(_Vsf58))
+    for k in range(2):
+        _blk = [[_Vr[2 * p + k][2 * q + k] for q in range(6)] for p in range(6)]
+        ok58 &= _blk == conjby52(_G0 if k == 0 else _G1, _rho)
+    _out = add52(conjby52(_G0, _rho), conjby52(_G1, _rho))
+    ok58 &= psd47(_out) and trace40(_out) == trace40(_rho)
+# --- (f) ranks scale with an untouched spectator: 4 -> 8 stays in the gap 6 < 8 < 12 at
+# N = 6, and 2 -> 4 <= 6 stays low -- the class and its complement are both preserved.
+_Kgap = add52(scale52(C17(Frac(3, 5)), _G0), scale52(C17(Frac(4, 5)), _G1))
+ok58 &= rank52(_Kgap) == 4
+ok58 &= rank52(kr17(eye17(2), _Kgap)) == 8 and rank52(kr17(eye17(2), _G1)) == 4
+# --- (g) the kernel's own claim discipline, read back
+_rg58 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'RankGapTheory.lean')
+if os.path.exists(_rg58):
+    with open(_rg58, encoding='utf-8') as _f:
+        _rg_txt58 = ' '.join(_f.read().split())
+    ok58 &= 'theorem twoByTwo_dichotomy' in _rg_txt58
+    ok58 &= 'theorem gap_systemToLevelOne' in _rg_txt58
+    ok58 &= 'theorem gap_not_iteratedAncillaClosure' in _rg_txt58
+    ok58 &= 'theorem closure_cell_closed' in _rg_txt58
+    ok58 &= 'theorem five_way_minimality' in _rg_txt58
+    ok58 &= 'FiniteIsometryExtensionSF' not in _rg_txt58
+if os.path.exists(_pc57):
+    ok58 &= 'CLOSED IN ROUND FORTY-FOUR' in _pc_txt57
+check("F58", ok58,
+      "ROUND 44: THE RANK-GAP THEORY CLOSES THE CLOSURE CELL -- five-way minimality (phase "
+      "three, round forty-four; kernel: OIBridge/RankGapTheory.lean, 52 results -- among them "
+      "isUnit_of_left_inverse, gapOp_mul, gap_comp, twoByTwo_dichotomy, gapOp_one, "
+      "gap_localLuders, gap_validity, gap_inert, gap_control, gap_systemToLevelOne, "
+      "gap_realizesSealedOICore, gapOp_withSpectator, gap_gram, kraus_of_gapChannel, "
+      "gap_not_isUnit, inc_compress, gapChannel_not_gap, wG_isometry, WG_esf, gap_no_shift, "
+      "gap_not_iteratedAncillaClosure, gap_not_fullComposite, gap_not_exactAll, "
+      "closure_cell_closed, five_way_minimality). THE THEORY: the round-38 admissible class "
+      "with scalar-multiple-of-unitary widened to INVERTIBLE -- at level N (carrier dimension "
+      "2N) a Kraus operator is admitted iff it is invertible or factors through at most N "
+      "dimensions, so exactly the intermediate ranks N < rank < 2N are excluded. Products, "
+      "sums, compositions and untouched-spectator extensions stay in the class, so validity, "
+      "inert spectators, control and OI realization hold as in round 38. THE LEVEL-ONE "
+      "DICHOTOMY, kernelized explicitly: every 2x2 complex matrix is invertible (explicit "
+      "inverse) or factors through one dimension (three explicit column-row factorizations), "
+      "so every level-one operator is admitted and system-to-level-one HOLDS -- precisely the "
+      "defect that killed the round-38 witness. THE OBSTRUCTION at level three: G0 = 1 (x) "
+      "diag(1,1,0) (rank four) and G1 = 1 (x) |0><2| (rank two) are a normalized Kraus pair; "
+      "by the round-38 two-dyad span lemma, reused unchanged, every decomposition consists of "
+      "a G0 + b G1, normalization forces some a != 0, and such an operator kills "
+      "b e_(0,0) - a e_(0,2) (not invertible) while compressing to a.1_4 on the first four "
+      "basis vectors (rank four, no factorization through three dimensions): the channel is "
+      "quantum but not gap-admissible. Yet its environment is two-dimensional with a "
+      "PERMUTATION dilation -- the single transposition |2,0> <-> |0,1> -- so under iterated "
+      "ancilla closure the shifted theory at base level three exists with control and the "
+      "round-25 circuit constructs the forbidden channel; no finite-isometry boundary enters. "
+      "THE RESULT: closure_cell_closed, and five_way_minimality -- for each of the five "
+      "physical completion conditions the same finite OI framework admits a theory satisfying "
+      "the other four, realizing the sealed OI core, and failing exactly that one "
+      "(everywhereAvailable, countermodel, diagTheory, gapTheory, systemLoose). The round-43 "
+      "open-cell statements are corrected in place with a CLOSED IN ROUND FORTY-FOUR label; "
+      "exactAll_iff_physical is unchanged and now minimal in every cell. Verified exactly "
+      "here: the qutrit and six-level normalizations, ranks four and two, orthogonal Choi "
+      "dyads; rank four for every a G0 + b G1 with a != 0 together with the explicit kernel "
+      "vector and the compression to a.1_4; the 2x2 dichotomy on explicit matrices with the "
+      "explicit inverse and factorization, and the level-one damping branches as "
+      "invertible-or-rank-one; the transposition dilation unitary with WG E_0 = V_G; the "
+      "circuit branches equal to G_k rho G_k^dag on random states, PSD and trace preserving; "
+      "the spectator scaling of ranks 4 -> 8 and 2 -> 4. NOT CLAIMED, lint-guarded: that any "
+      "condition follows from OI; OI iff QM; anything about boundary item 2, whose "
+      "internalization is the next priority.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

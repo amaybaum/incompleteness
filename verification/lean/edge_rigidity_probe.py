@@ -822,6 +822,21 @@ for fname, names in (
                         'diag_realizesSealedOICore', 'rot_isometry', 'rot_not_preservesDiag',
                         'diag_not_control', 'diag_not_exactAll', 'control_independent',
                         'minimality_audit')),
+    ('RankGapTheory', ('isUnit_of_left_inverse', 'inv_mul_of_isUnit', 'gapOp_mul',
+                       'gapOp_unitary', 'gap_conjChannel', 'gap_zero', 'gap_add', 'gap_sum',
+                       'gap_comp', 'gap_cp', 'inv2_mul', 'ext_two_one', 'factor_of_singular',
+                       'twoByTwo_dichotomy', 'gapOp_one', 'gap_localLuders', 'gap_exact',
+                       'gap_control', 'gap_krausSoundExt', 'gap_validity',
+                       'gap_realizesSealedOICore', 'gap_systemToLevelOne',
+                       'gapOp_withSpectator', 'gap_withSpectator',
+                       'gap_parallelReferenceExtension', 'gap_inert', 'qutrit_gram',
+                       'gap_gram', 'gapChannel_trace', 'gapChannel_isKraus', 'G₀_apply',
+                       'G₁_apply', 'vecOf_G₀_ne', 'vecOf_G₁_ne', 'vecOf_G_orth',
+                       'kraus_of_gapChannel', 'gap_mulVec_kerVec', 'gap_not_isUnit',
+                       'inc_compress', 'gapChannel_not_gap', 'wG_isometry', 'WG_isometry',
+                       'WG_apply', 'WG_esf', 'gap_no_shift', 'gap_not_iteratedAncillaClosure',
+                       'gap_not_fullComposite', 'gap_not_exactComposite', 'gap_not_exactAll',
+                       'gap_not_physical', 'closure_cell_closed', 'five_way_minimality')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -1280,6 +1295,35 @@ ok6 &= 'theorem diag_realizesSealedOICore' in dt and 'theorem diag_not_exactAll'
 ok6 &= 'bare finite OI does not select QM' in _dtflat
 ok6 &= re.search(r'(?m)^structure ', dt) is None
 ok6 &= 'theorem diag_control' not in dt and 'theorem oi_iff_quantum' not in dt
+# Round-44 guards: the rank-gap theory closes the closure cell; the audit is five-way.
+rg = open(os.path.join(BRIDGE, 'OIBridge', 'RankGapTheory.lean'), encoding='utf-8').read()
+_rgflat = ' '.join(rg.split())
+_gop = ' '.join(_slice(rg, 'def GapOp', 'def Gap ').split())
+ok6 &= bool(_gop) and 'IsUnit K' in _gop and 'Fintype.card ι ≤ N' in _gop
+_gth = _slice(rg, 'noncomputable def gapTheory', 'theorem gap_exact')
+ok6 &= bool(_gth) and 'avail := fun _ _ _ F => IsKrausFamily F' in _gth
+ok6 &= 'availExt := fun N _ _ _ F => IsGapInstrument N F' in _gth
+_dich = ' '.join(_slice(rg, 'theorem twoByTwo_dichotomy', ':=').split())
+ok6 &= bool(_dich) and 'IsUnit K ∨' in _dich and 'Matrix (Fin 2 × Fin 1) Unit ℂ' in _dich
+_ns = ' '.join(_slice(rg, 'theorem gap_no_shift', ':=').split())
+ok6 &= bool(_ns) and 'FiniteOperationalTheory (Fin 2 × Fin 3)' in _ns
+ok6 &= 'gapTheory.availExt 3 O F' in _ns and "HasCompositeUnitaryControl T'" in _ns
+_ccc = ' '.join(_slice(rg, 'theorem closure_cell_closed', ':=').split())
+ok6 &= bool(_ccc) and 'RealizesSealedOICore T ∧ ¬ IteratedAncillaClosure T' in _ccc
+ok6 &= 'SystemToLevelOne T' in _ccc and 'CompositeOperationalValidity T' in _ccc
+ok6 &= 'InertSpectatorCompositionality T' in _ccc and 'HasCompositeUnitaryControl T' in _ccc
+_fwm = ' '.join(_slice(rg, 'theorem five_way_minimality', ':=').split())
+ok6 &= bool(_fwm) and _fwm.count('RealizesSealedOICore T') == 5
+ok6 &= _fwm.count('¬ CompositeOperationalValidity T') == 1
+ok6 &= _fwm.count('¬ InertSpectatorCompositionality T') == 1
+ok6 &= _fwm.count('¬ HasCompositeUnitaryControl T') == 1
+ok6 &= _fwm.count('¬ IteratedAncillaClosure T') == 1 and _fwm.count('¬ SystemToLevelOne T') == 1
+ok6 &= 'FiniteIsometryExtensionSF' not in rg
+ok6 &= 'theorem gap_systemToLevelOne' in rg and 'theorem gap_not_iteratedAncillaClosure' in rg
+ok6 &= 'CLOSED IN ROUND FORTY-FOUR' in _pcflat and 'CLOSED IN ROUND FORTY-FOUR' in _dtflat
+ok6 &= re.search(r'(?m)^structure ', rg) is None
+ok6 &= 'theorem oi_iff_quantum' not in rg and 'theorem gap_iteratedAncillaClosure' not in rg
+ok6 &= 'theorem gap_exactAll' not in rg and 'theorem gap_physical' not in rg
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1684,8 +1728,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All fifty-three files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 5 + 16 named results print their "
+      "LINT. All fifty-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

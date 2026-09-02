@@ -32,6 +32,7 @@
       │    is recorded OPEN: the round-38 admissible theory fails system-to-level-one  │
       │    (`admissible_not_systemToLevelOne`, proved), so it does not close that cell; │
       │    bare finite OI ⇏ closure (round forty) is unaffected.                         │
+      │    [CLOSED IN ROUND FORTY-FOUR: `RankGapTheory.lean`, `closure_cell_closed`.]│
       └──────────────────────────────────────────────────────────────────────────────┘
 
   HOW EXACTNESS AT `Fin m` REACHES GENERAL OUTCOME TYPES. Both exactness predicates are
@@ -50,7 +51,8 @@
   (this file and part two).
 
   WHAT IS AND IS NOT CLAIMED. Proved: everything above. NOT claimed: that the five
-  conditions are mutually independent in every cell (one cell is open and named); that any
+  conditions are mutually independent in every cell (one cell is open and named) [CLOSED IN
+ROUND FORTY-FOUR: `RankGapTheory.five_way_minimality`]; that any
   condition follows from OI; OI ⟺ QM. No structure field is added.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
@@ -565,7 +567,8 @@ theorem levelOneDamping_not_adm : ¬ Adm 1 (conjChannel L₀ + conjChannel L₁)
 /-- **THE ADMISSIBLE THEORY FAILS SYSTEM-TO-LEVEL-ONE**: its system sector is fully quantum,
 its level-one sector admits only rank-one or unitary-multiple operators, and qubit amplitude
 damping separates them. So the round-38 witness does not close the closure cell against all
-four other conditions; that cell is recorded open. -/
+four other conditions; that cell is recorded open. [CLOSED IN ROUND FORTY-FOUR: the rank-gap
+theory `RankGapTheory.gapTheory` closes it — `closure_cell_closed`, `five_way_minimality`.] -/
 theorem admissible_not_systemToLevelOne : ¬ SystemToLevelOne admissibleTheory := by
   intro h
   have h1 : Adm 1 (transport (levelOneIdx (Fin 2)).symm (qubitDamping 0)) :=
