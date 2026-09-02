@@ -28,6 +28,7 @@
       │  `exactAll_iff_physical_unconditional (T : FiniteOperationalTheory (Fin 2)) :   │
       │      ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T.   │
       │    No isometry hypothesis. No boundary item enters the characterization.       │
+      │    [GENERALIZED TO EVERY NONEMPTY FINITE SYSTEM IN ROUND FORTY-SIX: `GeneralCarrier`.]│
       │  The conditional theorems of rounds 25–44 are KEPT as written (they expose the │
       │    historical dependency); each acquires an `_unconditional` corollary here.   │
       └──────────────────────────────────────────────────────────────────────────────┘

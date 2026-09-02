@@ -853,6 +853,13 @@ for fname, names in (
                            'fullQuantum_exactComposite_unconditional', 'fullQuantum_exactAll',
                            'systemLoose_exactComposite_unconditional',
                            'final_classification_unconditional', 'operational_classification')),
+    ('GeneralCarrier', ('exactComposite_of_validity_general', 'exactAll_of_conditions_general',
+                        'exactAll_of_physical_general', 'exactAll_iff_physical_general',
+                        'general_characterization',
+                        'exactAll_iff_physical_unconditional_of_general',
+                        'physical_iff_wellFormed_substantive', 'exactAll_iff_substantive',
+                        'exactAll_iff_wellFormed_substantive', 'oi_alone_not_qm',
+                        'oi_compatible_classification', 'oi_compatible_iff', 'main_result')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -1371,6 +1378,29 @@ ok6 &= 'ITEM 2 DISCHARGED IN ROUND FORTY-FIVE' in _pcflat
 ok6 &= re.search(r'(?m)^structure ', ie) is None
 ok6 &= 'theorem oi_iff_quantum' not in ie and 'theorem lie_integration_discharged' not in ie
 ok6 &= 'theorem uhlmann_discharged' not in ie
+# Round-46 guards: the characterization for every nonempty finite system; well-formedness
+# vs the three substantive principles; OI alone != QM; no boundary item; no overclaim.
+gc = open(os.path.join(BRIDGE, 'OIBridge', 'GeneralCarrier.lean'), encoding='utf-8').read()
+_gcflat = ' '.join(gc.split())
+ok6 &= 'variable {A : Type} [Fintype A] [DecidableEq A] [Nonempty A]' in gc
+_gen = ' '.join(_slice(gc, 'theorem exactAll_iff_physical_general', ':=').split())
+ok6 &= bool(_gen) and '(T : FiniteOperationalTheory A)' in _gen and 'Fin 2' not in _gen
+ok6 &= _gen.endswith('ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T')
+_gch = ' '.join(_slice(gc, 'theorem general_characterization', ':=').split())
+ok6 &= bool(_gch) and '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A)' in _gch
+ok6 &= 'def WellFormed (T : FiniteOperationalTheory A) : Prop := CompositeOperationalValidity T ∧ SystemToLevelOne T' in _gcflat
+ok6 &= 'def SubstantiveCompletion (T : FiniteOperationalTheory A) : Prop := InertSpectatorCompositionality T ∧ HasCompositeUnitaryControl T ∧ IteratedAncillaClosure T' in _gcflat
+_sub = ' '.join(_slice(gc, 'theorem exactAll_iff_substantive', ':=').split())
+ok6 &= bool(_sub) and '(hwf : WellFormed T)' in _sub and _sub.endswith('ExactAllFiniteEndomorphicQuantumOps T ↔ SubstantiveCompletion T')
+_mr = ' '.join(_slice(gc, 'theorem main_result', ':=').split())
+ok6 &= bool(_mr) and _mr.count('RealizesSealedOICore T') == 6 and '[Nonempty A]' in _mr
+_oa = ' '.join(_slice(gc, 'theorem oi_alone_not_qm', ':=').split())
+ok6 &= bool(_oa) and 'RealizesSealedOICore T ∧ ¬ ExactAllFiniteEndomorphicQuantumOps T' in _oa
+ok6 &= 'FiniteIsometryExtensionSF' not in gc and 'sorry' not in gc and 'native_decide' not in gc
+ok6 &= re.search(r'(?m)^axiom ', gc) is None and re.search(r'(?m)^structure ', gc) is None
+ok6 &= 'theorem oi_derives_qm' not in gc and 'theorem oi_iff_quantum' not in gc
+ok6 &= 'theorem five_way_minimality_general' not in gc
+ok6 &= 'GENERALIZED TO EVERY NONEMPTY FINITE SYSTEM IN ROUND FORTY-SIX' in _pcflat
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1775,8 +1805,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All fifty-five files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 5 + 16 named results print their "
+      "LINT. All fifty-six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

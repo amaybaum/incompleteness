@@ -7627,6 +7627,109 @@ check("F59", ok59,
       "anything about the two remaining boundary items; that any condition follows from OI; "
       "OI iff QM.")
 
+# F60 -- ROUND 46: THE QUBIT RESTRICTION REMOVED -- the characterization for every nonempty
+# finite system, checked on a QUTRIT system (phase three, round forty-six).
+ok60 = True
+# --- (a) a qutrit Kraus family (double damping): K0 = diag(1, 4/5, 3/5), K1 = (3/5)|0><1|,
+# K2 = (4/5)|0><2|, normalized; its system-first isometry V (9x3) has V^dag V = 1 and
+# orthonormal columns -- the general-carrier form of the round-45 discharge, at A = Fin 3.
+_r45, _s45 = C17(Frac(4, 5)), C17(Frac(3, 5))
+_Q0 = [[CO17, CZ17, CZ17], [CZ17, _r45, CZ17], [CZ17, CZ17, _s45]]
+_Q1 = [[CZ17, _s45, CZ17], [CZ17, CZ17, CZ17], [CZ17, CZ17, CZ17]]
+_Q2 = [[CZ17, CZ17, _r45], [CZ17, CZ17, CZ17], [CZ17, CZ17, CZ17]]
+_Qs = [_Q0, _Q1, _Q2]
+ok60 &= add52(add52(mmc17(dag17(_Q0), _Q0), mmc17(dag17(_Q1), _Q1)), mmc17(dag17(_Q2), _Q2)) == eye17(3)
+_V60 = [[_Qs[p % 3][p // 3][q] for q in range(3)] for p in range(9)]   # index (a, k) -> 3a + k
+ok60 &= mmc17(dag17(_V60), _V60) == eye17(3)
+_cols60 = [[_V60[p][a] for p in range(9)] for a in range(3)]
+ok60 &= all(_inner59(_cols60[a], _cols60[b]) == (CO17 if a == b else CZ17)
+            for a in range(3) for b in range(3))
+# --- (b) the exact orthogonal complement at the qutrit carrier: dimension 9 - 3 = 6,
+# orthogonal to the columns and pairwise, spanning with them (rank 9).
+_comp60 = []
+for q in range(9):
+    _r = [CO17 if p == q else CZ17 for p in range(9)]
+    for u in _cols60 + _comp60:
+        _c = _inner59(u, _r) * _inner59(u, u).inv()
+        _r = [x - _c * y for x, y in zip(_r, u)]
+    if any(x != CZ17 for x in _r):
+        _comp60.append(_r)
+ok60 &= len(_comp60) == 6
+ok60 &= all(_inner59(c, w) == CZ17 for c in _cols60 for w in _comp60)
+ok60 &= all(_inner59(_comp60[i], _comp60[j]) == CZ17 for i in range(6) for j in range(6) if i != j)
+ok60 &= rank52([[(_cols60 + _comp60)[c][p] for c in range(9)] for p in range(9)]) == 9
+# --- (c) validity at the qutrit carrier: the channel is CP (PSD Choi matrix, d = 3) and
+# trace preserving on random states; inert spectators: the untouched-qubit extension
+# 1 (x) K_k is again normalized; closure/completeness: the Stinespring blocks of V rho V^dag
+# are exactly K_k rho K_k^dag.
+def _phi60(X):
+    return add52(add52(conjby52(_Q0, X), conjby52(_Q1, X)), conjby52(_Q2, X))
+ok60 &= psd47(choi41(_phi60, 3))
+for _s in range(2):
+    _rho = dyad47(gvec47(440 + _s, 3))
+    ok60 &= trace40(_phi60(_rho)) == trace40(_rho) and psd47(_phi60(_rho))
+    _Vr = mmc17(mmc17(_V60, _rho), dag17(_V60))
+    for k in range(3):
+        _blk = [[_Vr[3 * p + k][3 * q + k] for q in range(3)] for p in range(3)]
+        ok60 &= _blk == conjby52(_Qs[k], _rho)
+_ext60 = [kr17(eye17(2), Q) for Q in _Qs]
+ok60 &= add52(add52(mmc17(dag17(_ext60[0]), _ext60[0]), mmc17(dag17(_ext60[1]), _ext60[1])),
+              mmc17(dag17(_ext60[2]), _ext60[2])) == eye17(6)
+# --- (d) the well-formedness / substantive regrouping is a plain propositional identity:
+# five conditions = (validity, level-one) + (inert, control, closure); checked as a truth
+# table over all 32 assignments.
+for _bits in range(32):
+    _v, _i, _c, _l, _o = [(_bits >> j) & 1 == 1 for j in range(5)]
+    ok60 &= ((_v and _i and _c and _l and _o) == ((_v and _o) and (_i and _c and _l)))
+# --- (e) the kernel's own claim discipline, read back
+_gc60 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'GeneralCarrier.lean')
+if os.path.exists(_gc60):
+    with open(_gc60, encoding='utf-8') as _f:
+        _gc_txt60 = ' '.join(_f.read().split())
+    ok60 &= 'theorem exactAll_iff_physical_general' in _gc_txt60
+    ok60 &= 'theorem general_characterization' in _gc_txt60 and 'theorem main_result' in _gc_txt60
+    ok60 &= 'def WellFormed' in _gc_txt60 and 'def SubstantiveCompletion' in _gc_txt60
+    ok60 &= 'theorem oi_alone_not_qm' in _gc_txt60 and '[Nonempty A]' in _gc_txt60
+    ok60 &= 'FiniteIsometryExtensionSF' not in _gc_txt60 and 'sorry' not in _gc_txt60
+check("F60", ok60,
+      "ROUND 46: THE QUBIT RESTRICTION REMOVED -- for EVERY nonempty finite observable "
+      "system, exact finite endomorphic QM is characterized exactly by the five physical "
+      "completion conditions; the main research result frozen (phase three, round "
+      "forty-six; kernel: OIBridge/GeneralCarrier.lean, 13 results -- "
+      "exactComposite_of_validity_general, exactAll_of_conditions_general, "
+      "exactAll_of_physical_general, exactAll_iff_physical_general, "
+      "general_characterization, exactAll_iff_physical_unconditional_of_general, "
+      "physical_iff_wellFormed_substantive, exactAll_iff_substantive, "
+      "exactAll_iff_wellFormed_substantive, oi_alone_not_qm, oi_compatible_classification, "
+      "oi_compatible_iff, main_result). THE CHAIN, carrier-general and already in the "
+      "kernel: validity + inert spectators => composite soundness "
+      "(krausSoundExt_of_validity_inert, any nonempty A); control + inert spectators + "
+      "closure => composite completeness (compositeCompleteness, unconditional since round "
+      "45); together exact composite operations; system-to-level-one => exact system "
+      "operations; necessity (physical_of_exactAll) was general already. No new "
+      "mathematics, no new boundary; Nonempty A is used in both directions and the empty "
+      "carrier is excluded explicitly. THE REGROUPING: two conditions are well-formedness "
+      "(valid probabilities, trivial-ancilla consistency) and three are substantive "
+      "selection principles (inert spectators, sufficient reversible control, iterated "
+      "composition); exactAll_iff_substantive gives, for well-formed theories, exact finite "
+      "operational QM iff the three principles. THE FRAMING: OI alone != QM "
+      "(oi_alone_not_qm: the diagonal-preserving theory realizes the sealed core and is not "
+      "quantum), while an OI-compatible operational theory satisfying the five conditions IS "
+      "finite operational QM (oi_compatible_classification), and OI realization is redundant "
+      "once full control is assumed -- so the theorem is a classification of OI-compatible "
+      "completions, not OI derives QM. main_result bundles the general iff, satisfiability, "
+      "the qubit five-way audit and OI alone != QM. Verified exactly here, on a QUTRIT "
+      "system: the double-damping family diag(1,4/5,3/5), (3/5)|0><1|, (4/5)|0><2| is "
+      "normalized; its 9x3 system-first isometry has orthonormal columns and an exact "
+      "rational orthogonal complement of dimension 6 spanning with them (rank 9); the "
+      "channel has a PSD Choi matrix and preserves trace on random states; the Stinespring "
+      "blocks of V rho V^dag are the Kraus branches; the untouched-qubit extension is again "
+      "normalized; and the five = two + three regrouping over all 32 truth assignments. NOT "
+      "CLAIMED, lint-guarded: minimality witnesses on carriers other than the qubit; that "
+      "any condition follows from OI; OI iff QM; anything about the two remaining boundary "
+      "items.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

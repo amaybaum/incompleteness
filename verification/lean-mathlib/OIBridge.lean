@@ -128,6 +128,7 @@ import OIBridge.PhysicalCharacterization
 import OIBridge.DiagonalTheory
 import OIBridge.RankGapTheory
 import OIBridge.IsometryExtension
+import OIBridge.GeneralCarrier
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
