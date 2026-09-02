@@ -63,7 +63,10 @@
   implies inert-spectator compositionality — the non-implication says the opposite for the
   realized form. NOT claimed: composite COMPLETENESS (that every Kraus family on every
   composite is available): `prepAvail` starts from the visible system only, and a
-  product-preparation principle is a separate question, round thirty-eight's. NOT claimed:
+  product-preparation principle is a separate question, round thirty-eight's (ANSWERED IN
+  ROUND THIRTY-EIGHT, `AncillaClosure.lean` / `ClosureObstruction.lean`: the missing rule is
+  iterated ancilla closure — fresh-ancilla attach and discard relative to a composite base —
+  it is independent of everything above, and with it composite completeness follows). NOT claimed:
   OI + conditions ⟺ full operational QM. No structure field is added.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build

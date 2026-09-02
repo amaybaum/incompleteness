@@ -118,6 +118,8 @@ import OIBridge.BoundaryAudit
 import OIBridge.ReferenceExtension
 import OIBridge.ReferenceSufficiency
 import OIBridge.SpectatorBridge
+import OIBridge.AncillaClosure
+import OIBridge.ClosureObstruction
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

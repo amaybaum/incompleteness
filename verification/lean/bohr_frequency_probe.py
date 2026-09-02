@@ -6597,6 +6597,232 @@ check("F51", ok51,
       "(prepAvail starts from the visible system only; a product-preparation principle is "
       "round 38's question); OI + conditions iff full operational QM; no structure field.")
 
+# ----------------------- F52  round 38: iterated ancilla closure ---------------------------
+# the shifted theory, the missing attach/discard rule, its independence, and composite
+# completeness under it (phase three, round thirty-eight).
+ok52 = True
+
+
+def rank52(M):
+    """Exact rank over the Gaussian rationals, by elimination."""
+    A = [row[:] for row in M]
+    nr, nc = len(A), len(A[0])
+    r = 0
+    for c in range(nc):
+        piv = next((i for i in range(r, nr) if A[i][c] != CZ17), None)
+        if piv is None:
+            continue
+        A[r], A[piv] = A[piv], A[r]
+        inv = A[r][c].inv()
+        A[r] = [x * inv for x in A[r]]
+        for i in range(nr):
+            if i != r and A[i][c] != CZ17:
+                f = A[i][c]
+                A[i] = [x - f * y for x, y in zip(A[i], A[r])]
+        r += 1
+        if r == nr:
+            break
+    return r
+
+
+def add52(A, B):
+    return [[x + y for x, y in zip(ra, rb)] for ra, rb in zip(A, B)]
+
+
+def scale52(c, A):
+    return [[c * x for x in row] for row in A]
+
+
+def conjby52(K, X):
+    return mmc17(mmc17(K, X), dag17(K))
+
+
+R52, S52 = C17(Frac(4, 5)), C17(Frac(3, 5))                        # sqrt(1-g), sqrt(g), g = 9/25
+D0 = [[CO17, CZ17], [CZ17, R52]]
+E0 = [[CZ17, S52], [CZ17, CZ17]]
+K0, K1 = kr17(eye17(2), D0), kr17(eye17(2), E0)                    # index 2a + j on Fin 2 x Fin 2
+
+
+def AD52(X):
+    return add52(conjby52(K0, X), conjby52(K1, X))
+
+
+# --- (a) THE CHANNEL (damping_gram, ancillaDamping_trace, ancillaDamping_isKraus): a
+# normalized two-operator Kraus instrument on the level-two carrier.
+ok52 &= add52(mmc17(dag17(K0), K0), mmc17(dag17(K1), K1)) == eye17(4)
+for _s in range(2):
+    _X = gmat47(_s + 160, 4)
+    ok52 &= trace40(AD52(_X)) == trace40(_X)
+# --- (b) THE CHOI DYADS (vecOf_orth, kraus_of_damping): the two Kraus vectorizations are
+# orthogonal and nonzero, so any Kraus decomposition lives in their span (dyad_sum_span).
+def vec52(V):
+    return [V[p & 3][p >> 2] for p in range(16)]                    # p = 4 p1 + p2 -> V p2 p1
+
+
+ok52 &= inner47(vec52(K0), vec52(K1)) == CZ17
+ok52 &= any(x != CZ17 for x in vec52(K0)) and any(x != CZ17 for x in vec52(K1))
+# --- (c) EVERY DECOMPOSITION IS INADMISSIBLE (ad_not_adm): mix the two operators by a
+# rational rotation; each operator with a nonzero K0-coefficient is invertible with the
+# explicit inverse dampInv (rank 4 > 2, so it factors through nothing of dimension 2) and its
+# Gram matrix is not scalar (gram_entries: off-diagonal conj(a) b s, unequal diagonal).
+_u = [[C17(Frac(3, 5)), C17(Frac(4, 5))], [C17(Frac(-4, 5)), C17(Frac(3, 5))]]
+_Kp = [add52(scale52(_u[j][0], K0), scale52(_u[j][1], K1)) for j in range(2)]
+ok52 &= add52(mmc17(dag17(_Kp[0]), _Kp[0]), mmc17(dag17(_Kp[1]), _Kp[1])) == eye17(4)
+
+
+def dampInv52(a, b):
+    g = [[a.inv(), (C17(0) - b * S52) * (a * a * R52).inv()], [CZ17, (a * R52).inv()]]
+    return kr17(eye17(2), g)
+
+
+for j in range(2):
+    a, b = _u[j][0], _u[j][1]
+    ok52 &= a != CZ17
+    ok52 &= mmc17(dampInv52(a, b), _Kp[j]) == eye17(4) and rank52(_Kp[j]) == 4
+    _G = mmc17(dag17(_Kp[j]), _Kp[j])
+    ok52 &= _G[0][1] == a.conj() * b * S52 and _G[0][1] != CZ17
+    ok52 &= _G[0][0] == a.conj() * a and _G[1][1] == a.conj() * a * R52 * R52 + b.conj() * b * S52 * S52
+    ok52 &= _G[0][0] != _G[1][1]                                     # not a scalar multiple of 1
+# --- (d) THE ADMISSIBLE CLASS CONTAINS THE READOUT (esf_mul_conjTranspose, adm_localLuders):
+# the Lüders selector is Esf_k Esf_k^dag with Esf_k 4x2, rank 2 = the level bound; and the
+# identity, rank 4, is admissible only as a unitary.
+for k in range(2):
+    _Esf = [[CO17 if (p & 1) == k and (p >> 1) == s else CZ17 for s in range(2)] for p in range(4)]
+    _sel = [[CO17 if p == q and (p & 1) == k else CZ17 for q in range(4)] for p in range(4)]
+    ok52 &= mmc17(_Esf, dag17(_Esf)) == _sel and rank52(_sel) == 2
+ok52 &= rank52(eye17(4)) == 4
+# --- (e) THE DILATION (wD_isometry, WD_esf, stinespringCircuit_branch): the explicit rational
+# 4x4 unitary on (old ancilla, fresh ancilla), lifted by the identity on the system, satisfies
+# W E_0 = V_K, and the round-25 circuit branch k is exactly rho -> K_k rho K_k^dag.
+def w52(x, y):
+    if y == (0, 0):
+        return CO17 if x == (0, 0) else CZ17
+    if y == (1, 0):
+        return R52 if x == (1, 0) else (S52 if x == (0, 1) else CZ17)
+    if y == (0, 1):
+        return CO17 if x == (1, 1) else CZ17
+    return (C17(0) - S52) if x == (1, 0) else (R52 if x == (0, 1) else CZ17)
+
+
+_w = [[w52((p >> 1, p & 1), (q >> 1, q & 1)) for q in range(4)] for p in range(4)]
+ok52 &= mmc17(dag17(_w), _w) == eye17(4)
+_W = kr17(eye17(2), _w)                                              # index ((a, j), k) = 4a + 2j + k
+_Esf0 = [[CO17 if (p & 1) == 0 and (p >> 1) == q else CZ17 for q in range(4)] for p in range(8)]
+_Vsf = [[(K0 if (p & 1) == 0 else K1)[p >> 1][q] for q in range(4)] for p in range(8)]
+ok52 &= mmc17(_W, _Esf0) == _Vsf
+for _s in range(2):
+    _rho = gmat47(_s + 170, 4)
+    _seed = [[_rho[p >> 1][q >> 1] if (p & 1) == 0 and (q & 1) == 0 else CZ17 for q in range(8)]
+             for p in range(8)]
+    _out = conjby52(_W, _seed)
+    for k in range(2):
+        _branch = [[_out[2 * p + k][2 * q + k] for q in range(4)] for p in range(4)]
+        ok52 &= _branch == conjby52(K0 if k == 0 else K1, _rho)
+# --- (f) THE RELATIVE READOUT IS A SPECTATOR EXTENSION, NOT A COARSE-GRAINING
+# (transport_localLuders, availExt_relativeReadout): on the level-four carrier with old
+# ancilla j and fresh ancilla k, the fresh-ancilla selector keeps the j-coherences, while the
+# coarse-grained full-ancilla readout kills them.
+_N8 = gmat47(180, 8)                                                 # index ((a, j), k) = 4a + 2j + k
+_rel = [[_N8[p][q] if (p & 1) == 0 and (q & 1) == 0 else CZ17 for q in range(8)] for p in range(8)]
+_dep = [[_N8[p][q] if (p & 1) == 0 and (q & 1) == 0 and (p & 3) == (q & 3) else CZ17
+         for q in range(8)] for p in range(8)]
+ok52 &= _rel != _dep and _rel[0][2] == _N8[0][2] and _dep[0][2] == CZ17
+# --- (g) ATTACH-RUN-DISCARD IS A SCALED KRAUS SUM (discardWith_uniform_conjChannel,
+# fullQuantum_iteratedAncillaClosure): Tr_F[K (rho (x) 1/m) K^dag] = (1/m) sum_{f,e} B_fe rho B_fe^dag
+# over the fresh-ancilla blocks, checked exactly on a random 8x8 K with m = 2.
+_K8 = gmat47(190, 8)                                                 # index (s, f) = 2s + f
+_rho4 = gmat47(191, 4)
+_att = [[_rho4[p >> 1][q >> 1] * C17(Frac(1, 2)) if (p & 1) == (q & 1) else CZ17 for q in range(8)]
+        for p in range(8)]
+_big = conjby52(_K8, _att)
+_lhs = [[sum((_big[2 * s + f][2 * t + f] for f in range(2)), CZ17) for t in range(4)] for s in range(4)]
+_rhs = [[CZ17] * 4 for _ in range(4)]
+for f in range(2):
+    for e in range(2):
+        _B = [[_K8[2 * s + f][2 * t + e] for t in range(4)] for s in range(4)]
+        _rhs = add52(_rhs, scale52(C17(Frac(1, 2)), conjby52(_B, _rho4)))
+ok52 &= _lhs == _rhs
+ok52 &= trace40(_att) == trace40(_rho4)
+# --- (h) the kernel's own claim discipline, read back
+_ac52 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'AncillaClosure.lean')
+if os.path.exists(_ac52):
+    with open(_ac52, encoding='utf-8') as _f:
+        _ac_txt52 = ' '.join(_f.read().split())
+    ok52 &= 'def IteratedAncillaClosure' in _ac_txt52
+    ok52 &= 'theorem compositeCompleteness' in _ac_txt52
+    ok52 &= 'theorem exactComposite_of_conditions' in _ac_txt52
+    ok52 &= 'NOT claimed: that OI implies iterated ancilla closure' in _ac_txt52
+_co52 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'ClosureObstruction.lean')
+if os.path.exists(_co52):
+    with open(_co52, encoding='utf-8') as _f:
+        _co_txt52 = ' '.join(_f.read().split())
+    ok52 &= 'theorem admissible_no_shift' in _co_txt52
+    ok52 &= 'theorem closure_independent' in _co_txt52
+    ok52 &= 'Kraus uniqueness is not invoked' in _co_txt52
+check("F52", ok52,
+      "ROUND 38: ITERATED ANCILLA CLOSURE -- the shifted theory, the missing attach/discard "
+      "rule, its independence, and composite completeness under it (phase three, round "
+      "thirty-eight; kernel: OIBridge/AncillaClosure.lean, 33 results -- transport_id, "
+      "transport_comp, transport_sum, transport_smul, transport_symm_transport, "
+      "transport_reindex, shiftIdx_apply, specIdx_apply, conjChannel_one, "
+      "availExt_id_of_control, availExt_comp_unit, filter_snd_unit, availExt_comp_family, "
+      "transport_localLuders, availExt_relativeReadout, shift_avail_iff, shift_control, "
+      "shift_full, compositeCompleteness, exactComposite_of_soundExt_full, exactComposite_iff, "
+      "exactComposite_of_conditions, choiMatrix_smul, cp_smul, conjChannel_apply, "
+      "transport_cp, cp_of_transport_cp, discardWith_uniform_conjChannel, discardWith_sum, "
+      "discardWith_uniform_cp, fullQuantum_iteratedAncillaClosure, conditions_satisfiable, "
+      "fullQuantum_exactComposite; and OIBridge/ClosureObstruction.lean, 49 results, among "
+      "them admOp_mul, adm_sum, adm_comp, adm_localLuders, admissible_exact, "
+      "admissible_control, admissible_krausSoundExt, adm_withSpectator, admissible_inert, "
+      "dyad_sum_span, kraus_of_damping, gram_entries, dampInv_mul, ad_not_adm, wD_isometry, "
+      "WD_esf, admissible_no_shift, admissible_not_iteratedAncillaClosure, "
+      "admissible_not_fullComposite, closure_independent). THE FAILURE AUDIT, as the "
+      "directive asked: build T^(n) : FiniteOperationalTheory (A x Fin n) with avail = "
+      "T.availExt n and availExt m = T.availExt (n m) along the explicit reindexing shiftIdx; "
+      "coarse-graining, feed-forward and post-composition are FREE from the structure; the "
+      "composite identity needs composite unitary control (U = 1; the readout sums to the "
+      "dephasing, not the identity); the relative readout of the fresh ancilla -- the Lüders "
+      "selector on (A x Fin n) x Fin m, transported -- is EXACTLY the level-m readout with the "
+      "old ancilla adjoined as an inert spectator (transport_localLuders, by rfl), so it needs "
+      "inert-spectator compositionality; fresh-ancilla attachment to the composite base and "
+      "discard back to it are MISSING, and they are packaged as the single rule "
+      "IteratedAncillaClosure: attach a uniformly mixed fresh ancilla to A x Fin n, run any "
+      "intervention available on the enlarged carrier, discard the fresh ancilla, and the "
+      "result is available on A x Fin n -- in physical words, any subsystem may itself be "
+      "used as the working system in a larger experiment. Under that rule plus control and "
+      "inert spectators the shifted theory exists (shift), has composite unitary control, and "
+      "the round-25 Stinespring assembly applies to it at every positive level "
+      "(compositeCompleteness, against boundary item 2 at the composite carriers); with round "
+      "37's soundness this gives the ENDPOINT exactComposite_of_conditions: KrausSound + "
+      "control + inert-spectator compositionality + iterated ancilla closure imply that at "
+      "every positive level the available finite outcome families are EXACTLY the normalized "
+      "finite Kraus instruments on the composite; fullQuantum satisfies all four conditions "
+      "(conditions_satisfiable). THE OBSTRUCTION, kernelized: admissibleTheory has Kraus "
+      "families on the system and, on every composite, Kraus sums whose operators are scalar "
+      "multiples of unitaries or factor through at most half the composite dimension -- it "
+      "is exactly quantum on the system, has every composite unitary, inert-spectator "
+      "compositionality and composite Kraus soundness, and yet NO shifted theory with control "
+      "exists at level two (admissible_no_shift), because the round-25 circuit with the "
+      "explicit rational dilation WD would make amplitude damping on the ancilla qubit "
+      "available, and every Kraus decomposition of that channel contains an invertible "
+      "operator that is not a unitary multiple (dyad_sum_span, an elementary span lemma -- "
+      "Kraus uniqueness is not invoked -- then gram_entries, dampInv_mul and Matrix.rank_one "
+      "against rank_mul_le_left and rank_le_card_width). Hence the closure rule fails there "
+      "and so does composite completeness (closure_independent). Verified exactly here: the "
+      "damping Kraus normalization and trace preservation; the orthogonal Choi dyads; a "
+      "rational rotation of the decomposition whose every operator with nonzero "
+      "K0-coefficient has the explicit inverse, rank 4 > 2, and a non-scalar Gram matrix; "
+      "the readout selector as Esf Esf^dag of rank 2; the dilation unitary, W E_0 = V_K, and "
+      "the circuit branches K_k rho K_k^dag; the relative readout keeping old-ancilla "
+      "coherences that the coarse-grained full readout kills; attach-run-discard as a scaled "
+      "Kraus sum over fresh-ancilla blocks. NOT CLAIMED, lint-guarded: that OI implies "
+      "iterated ancilla closure or inert-spectator compositionality -- that is now the "
+      "research question; full QM beyond the finite endomorphic instrument scope; any new "
+      "boundary item (item 2 consumed at Unit for soundness and at the composite carriers "
+      "for completeness); no structure field.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

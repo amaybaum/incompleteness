@@ -716,6 +716,35 @@ for fname, names in (
                          'countermodel_hCompRealized_ones', 'fullQuantum_hCompRealized_ones',
                          'hcompRealized_not_implies_parallelReferenceExtension',
                          'hcompRealized_consistent_with_parallelReferenceExtension')),
+    ('AncillaClosure', ('transport_id', 'transport_comp', 'transport_sum', 'transport_smul',
+                        'transport_symm_transport', 'transport_reindex', 'shiftIdx_apply',
+                        'specIdx_apply', 'conjChannel_one', 'availExt_id_of_control',
+                        'availExt_comp_unit', 'filter_snd_unit', 'availExt_comp_family',
+                        'transport_localLuders', 'availExt_relativeReadout', 'shift_avail_iff',
+                        'shift_control', 'shift_full', 'compositeCompleteness',
+                        'exactComposite_of_soundExt_full', 'exactComposite_iff',
+                        'exactComposite_of_conditions', 'choiMatrix_smul', 'cp_smul',
+                        'conjChannel_apply', 'transport_cp', 'cp_of_transport_cp',
+                        'discardWith_uniform_conjChannel', 'discardWith_sum',
+                        'discardWith_uniform_cp', 'fullQuantum_iteratedAncillaClosure',
+                        'conditions_satisfiable', 'fullQuantum_exactComposite')),
+    ('ClosureObstruction', ('admOp_mul', 'admOp_unitary', 'adm_conjChannel_unitary', 'adm_zero',
+                            'adm_add', 'adm_sum', 'conjChannel_mul', 'adm_comp', 'adm_cp',
+                            'esf_mul_conjTranspose', 'adm_localLuders', 'admissible_exact',
+                            'admissible_control', 'admissible_krausSoundExt',
+                            'one_kronecker_isometry', 'tensorOf_one_eq_kronecker',
+                            'reindex_smul_matrix', 'admOp_withSpectator', 'adm_withSpectator',
+                            'admissible_parallelReferenceExtension', 'admissible_inert',
+                            'star_dot_swap', 'form_vecMulVec', 'dyad_sum_span',
+                            'rD_sq_add_sD_sq', 'qubit_gram', 'damping_gram',
+                            'ancillaDamping_trace', 'ancillaDamping_isKraus', 'choiMatrix_add',
+                            'vecOf_K₀_ne', 'vecOf_K₁_ne', 'vecOf_orth', 'kraus_of_damping',
+                            'K₀_apply', 'K₁_apply', 'gram_entries', 'dampInv_mul',
+                            'card_carrier', 'ad_not_adm', 'wD_isometry', 'WD_isometry',
+                            'WD_apply', 'WD_esf', 'admissible_no_shift',
+                            'admissible_not_iteratedAncillaClosure',
+                            'admissible_not_fullComposite', 'admissible_not_exactComposite',
+                            'closure_independent')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -946,6 +975,60 @@ ok6 &= 'theorem hComp_implies_parallelReferenceExtension' not in sb
 ok6 &= 'theorem oi_implies_parallelReferenceExtension' not in sb
 ok6 &= 'theorem oi_iff_quantum' not in sb and 'theorem composite_complete' not in sb
 ok6 &= 'theorem inertSpectator_of_hComp' not in sb
+# ROUND-38 GUARDS.  The shifted theory must be built with each field discharged by a NAMED
+# audit lemma carrying its exact hypothesis (control for the composite identity, inert
+# spectators for the relative readout, the closure rule for the discard); the closure rule
+# must be the relative uniform-attach-then-discard rule and nothing more; the endpoint must
+# consume KrausSound (not exactness), the two compositional conditions and boundary item 2
+# at the named carriers; the obstruction must be a countermodel with exact system QM, control,
+# inert spectators and composite soundness; no claim that OI implies either condition, no
+# claim of full QM beyond the finite endomorphic scope.
+ac = open(os.path.join(BRIDGE, 'OIBridge', 'AncillaClosure.lean'), encoding='utf-8').read()
+_acflat = ' '.join(ac.split())
+_clos = _slice(ac, 'def IteratedAncillaClosure', 'end Audit')
+ok6 &= bool(_clos) and 'uniformAttach (m + 1)' in _clos and 'discardWith' in _clos
+ok6 &= 'T.availExt (n * (m + 1)) O' in _clos and 'T.availExt n O' in _clos
+ok6 &= 'pureAttach' not in _clos and 'conjChannel' not in _clos and 'IsKrausFamily' not in _clos
+_shift = _slice(ac, 'noncomputable def shift', 'theorem shift_avail_iff')
+ok6 &= bool(_shift) and 'availExt_id_of_control T hctrl n' in _shift
+ok6 &= 'availExt_relativeReadout T hin n m' in _shift and 'hclos n m' in _shift
+ok6 &= 'avail := fun O _ _ F => T.availExt n O F' in _shift
+ok6 &= 'transport (shiftIdx A n m)' in _shift
+_aud = _slice(ac, 'theorem availExt_id_of_control', 'def IteratedAncillaClosure')
+ok6 &= bool(_aud) and '(hctrl : HasCompositeUnitaryControl T)' in _aud
+ok6 &= '(hin : InertSpectatorCompositionality T)' in _aud
+ok6 &= 'theorem transport_localLuders' in ac and 'withSpectator (Fin n) (specIdx A n m)' in ac
+_end = _slice(ac, 'theorem exactComposite_of_conditions', ':=')
+ok6 &= bool(_end) and '(hsound : KrausSound T)' in _end
+ok6 &= '(hin : InertSpectatorCompositionality T)' in _end
+ok6 &= '(hclos : IteratedAncillaClosure T)' in _end
+ok6 &= 'FiniteIsometryExtensionSF Unit' in _end
+ok6 &= 'FiniteIsometryExtensionSF (Fin 2 × Fin (k + 1))' in _end
+ok6 &= _end.rstrip().endswith('ExactCompositeQuantumOps T')
+ok6 &= 'ExactFiniteEndomorphicQuantumOps' not in _end
+ok6 &= 'theorem compositeCompleteness' in ac and 'theorem conditions_satisfiable' in ac
+ok6 &= re.search(r'(?m)^structure ', ac) is None
+ok6 &= 'NOT claimed: that OI implies iterated ancilla closure' in _acflat
+ok6 &= 'finite endomorphic instrument scope' in _acflat
+ok6 &= 'theorem oi_implies_iteratedAncillaClosure' not in ac
+ok6 &= 'theorem oi_iff_quantum' not in ac and 'theorem full_quantum_mechanics' not in ac
+co = open(os.path.join(BRIDGE, 'OIBridge', 'ClosureObstruction.lean'), encoding='utf-8').read()
+_coflat = ' '.join(co.split())
+_ind = _slice(co, 'theorem closure_independent', ':=')
+ok6 &= bool(_ind) and 'ExactFiniteEndomorphicQuantumOps T' in _ind
+ok6 &= 'HasCompositeUnitaryControl T' in _ind and 'InertSpectatorCompositionality T' in _ind
+ok6 &= 'KrausSoundExt T' in _ind and '¬ IteratedAncillaClosure T' in _ind
+ok6 &= '¬ HasFullCompositeInstruments T' in _ind
+_ns = _slice(co, 'theorem admissible_no_shift', ':= by')
+ok6 &= bool(_ns) and "HasCompositeUnitaryControl T'" in _ns
+ok6 &= 'admissibleTheory.availExt 2 O F' in _ns
+_adn = _slice(co, 'theorem ad_not_adm', 'end Damping')
+ok6 &= bool(_adn) and 'Matrix.rank_one' in _adn and 'rank_mul_le_left' in _adn
+ok6 &= 'rank_le_card_width' in _adn and 'dampInv_mul' in _adn
+ok6 &= 'theorem dyad_sum_span' in co and 'Kraus uniqueness is not invoked' in _coflat
+ok6 &= 'KrausUniqueness' not in co.split('namespace OIBridge')[1]
+ok6 &= re.search(r'(?m)^structure ', co) is None
+ok6 &= 'theorem admissible_iteratedAncillaClosure' not in co
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1350,8 +1433,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All forty-five files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 5 + 16 named results print their "
+      "LINT. All forty-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
