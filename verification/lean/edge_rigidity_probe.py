@@ -669,6 +669,7 @@ for fname, names in (
                                  'countermodel_hasFactorExchange',
                                  'countermodel_hasInterferenceControl',
                                  'exactControl_not_implies_krausSoundExt')),
+    ('BoundaryAudit', ('psdFactorization_discharged', 'purification_unconditional')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -748,12 +749,34 @@ ok6 &= 'theorem centralDrift_not_HControl' in mc
 # HControl_iff_controlLie0_full must be kernel-internal: no exponential, no Lie integration
 _hc = _slice(mc, 'theorem HControl_iff_controlLie0_full', '/--')
 ok6 &= bool(_hc) and 'exp' not in _hc
-# the external analytic boundary stays exactly four items and no more
+# the external analytic boundary: the historical four-item statement is PRESERVED and
+# LABELLED, and the round-35 audit file carries the current three-item statement
 _flat = ' '.join(mc.split())
 ok6 &= 'stays exactly four items and no more' in _flat
 ok6 &= all(item in _flat for item in
            ('compact Lie integration', 'finite isometry extension',
             'PSD square-root/factorization', 'Uhlmann/Schmidt uniqueness'))
+_LABEL = 'HISTORICAL, SUPERSEDED BY THE ROUND-35 BOUNDARY AUDIT'
+ok6 &= _LABEL in _flat
+for _fn in ('OperationalAssembly', 'StinespringAssembly'):
+    ok6 &= _LABEL in ' '.join(open(os.path.join(BRIDGE, 'OIBridge', f'{_fn}.lean'),
+                                   encoding='utf-8').read().split())
+ba = open(os.path.join(BRIDGE, 'OIBridge', 'BoundaryAudit.lean'), encoding='utf-8').read()
+_baflat = ' '.join(ba.split())
+ok6 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: THREE ITEMS' in _baflat
+ok6 &= 'DISCHARGED INTERNALLY (round thirty-four): PSD square-root / factorization' in _baflat
+ok6 &= all(item in _baflat for item in
+           ('compact Lie integration / reachability', 'finite isometry extension',
+            'finite Uhlmann / Schmidt / right-unitary uniqueness'))
+_pd = _slice(ba, 'theorem psdFactorization_discharged', 'theorem purification_unconditional')
+ok6 &= bool(_pd) and 'psdFactorization_of_spectral' in _pd
+ok6 &= 'It proves nothing new' in _baflat and 'PROVENANCE IS PRESERVED, NOT REWRITTEN' in _baflat
+# the remaining three items must not be claimed discharged anywhere in the audit
+ok6 &= 'isometry extension is discharged' not in _baflat and 'Lie integration is discharged' not in _baflat
+ok6 &= 'uniqueness is discharged' not in _baflat
+# Purification keeps its conditional theorem and cross-references the discharge
+_pu = open(os.path.join(BRIDGE, 'OIBridge', 'Purification.lean'), encoding='utf-8').read()
+ok6 &= 'theorem purification_of_factorization' in _pu and 'psdFactorization_of_spectral' in _pu
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1151,8 +1174,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All forty-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 9 + 20 + 33 + 5 + 16 named results print their "
+      "LINT. All forty-two files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

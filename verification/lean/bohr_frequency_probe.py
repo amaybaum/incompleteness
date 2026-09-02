@@ -4782,7 +4782,9 @@ check("F39", ok39,
       "quantum instruments unqualified. The one external fact, finite isometry extension, "
       "is an explicit HYPOTHESIS of the capstone rather than an axiom in the file; here it "
       "is sidestepped entirely by constructing U first. Purification and Uhlmann uniqueness "
-      "are NOT used, and the project's global boundary remains the four-item ledger.")
+      "are NOT used, and the project's global boundary remains the four-item ledger. "
+      "(HISTORICAL, SUPERSEDED BY THE ROUND-35 BOUNDARY AUDIT: three items since round 34 "
+      "discharged PSD factorization internally.)")
 
 
 # ----------------------- F40  round 26: Kraus soundness and exactness -- the trace identity

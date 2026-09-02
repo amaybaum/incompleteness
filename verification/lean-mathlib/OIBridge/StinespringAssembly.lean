@@ -49,6 +49,7 @@
 
   BOUNDARY FOR THIS THEOREM: finite isometry extension ALONE. Purification and Uhlmann
   uniqueness are not used. The project's global boundary remains the four-item ledger.
+  [HISTORICAL, SUPERSEDED BY THE ROUND-35 BOUNDARY AUDIT: PSD square-root/factorization was discharged internally in round thirty-four (`psdFactorization_of_spectral`), so the current unresolved boundary is three items — see `BoundaryAudit.lean`.]
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/

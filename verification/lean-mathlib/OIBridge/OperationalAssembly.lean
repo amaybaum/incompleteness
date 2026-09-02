@@ -125,7 +125,7 @@
   only, so the boundary for that particular theorem is finite isometry extension alone. The
   project's global boundary remains exactly four items and no more: compact Lie
   integration, finite isometry extension, PSD square-root/factorization, and finite
-  Uhlmann/Schmidt uniqueness.
+  Uhlmann/Schmidt uniqueness. [HISTORICAL, SUPERSEDED BY THE ROUND-35 BOUNDARY AUDIT: PSD square-root/factorization was discharged internally in round thirty-four (`psdFactorization_of_spectral`), so the current unresolved boundary is three items — see `BoundaryAudit.lean`.]
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/

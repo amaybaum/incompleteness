@@ -39,7 +39,10 @@
 
   `purification_of_factorization`: hence any `ρ = A Aᴴ` has a pure purification (and
   every PSD `ρ` factorizes as `A Aᴴ` by the standard finite square-root, isolated as
-  the factorization hypothesis). Purifier uniqueness `A Aᴴ = B Bᴴ ⟹ B = A U` for a
+  the factorization hypothesis; SINCE ROUND THIRTY-FOUR that hypothesis is dischargeable
+  inside the kernel by `psdFactorization_of_spectral`, and `BoundaryAudit.lean` records the
+  discharged form `purification_unconditional` — the conditional theorem is kept as the
+  local architecture). Purifier uniqueness `A Aᴴ = B Bᴴ ⟹ B = A U` for a
   unitary `U` is the standard finite Schmidt/Uhlmann theorem, recorded as the cited
   external result rather than reproved.
 
