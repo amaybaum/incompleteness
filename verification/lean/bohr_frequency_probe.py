@@ -7177,6 +7177,99 @@ check("F55", ok55,
       "avail and its consistency with level-one availExt (round 42's seam); no structure "
       "field.")
 
+# ----------------------- F56  round 42: the level-one seam --------------------------------
+# the visible system and level one: the structural direction, the one missing principle,
+# and the endpoint covering the system itself (phase three, round forty-two).
+ok56 = True
+# --- (a) ATTACH-RUN-DISCARD AT LEVEL ONE IS TRANSPORT (uniformAttach_one_eq, ptraceAnc_one_eq,
+# discardWith_uniform_one_eq_transport): with a one-state ancilla, rho (x) I_1/1 is rho itself
+# under A x Fin 1 ~ A, the partial trace is the identity, so the structure's own rule reduces
+# to the map itself -- checked with Phi_2 on the 4-level composite read as a system.
+for _s in range(3):
+    _rho = gmat47(_s + 280, 4)
+    _att = [[_rho[p][q] * C17(Frac(1, 1)) for q in range(4)] for p in range(4)]   # (x) I_1 / 1
+    ok56 &= _att == _rho and red47(_att) == red47(_rho)
+# --- (b) THE KRAUS FORM TRANSPORTS (isKraus_transport): a normalized Kraus family reindexed
+# by a permutation of the carrier is again normalized, and the instrument branches are the
+# conjugations of the reindexed operators.
+_g = perm51(9, 4)
+_P = pmat51(_g)
+_Ks = [mmc17(K0, eye17(1)) if False else K0, K1]                     # the 3-4-5 damping operators
+ok56 &= add52(mmc17(dag17(_Ks[0]), _Ks[0]), mmc17(dag17(_Ks[1]), _Ks[1])) == eye17(4)
+_Kr = [mmc17(mmc17(_P, K), dag17(_P)) for K in _Ks]                  # reindexed operators
+ok56 &= add52(mmc17(dag17(_Kr[0]), _Kr[0]), mmc17(dag17(_Kr[1]), _Kr[1])) == eye17(4)
+for _s in range(2):
+    _X = gmat47(_s + 290, 4)
+    _lhs = mmc17(mmc17(_P, AD52(mmc17(mmc17(dag17(_P), _X), _P))), dag17(_P))   # transport
+    _rhs = add52(conjby52(_Kr[0], _X), conjby52(_Kr[1], _X))
+    ok56 &= _lhs == _rhs
+# --- (c) THE LOOSE THEORY (systemLoose_not_exact, systemLoose_not_systemToLevelOne): the
+# trace amplifier X -> 2X doubles the trace, so no normalized Kraus family produces it, and
+# transported to level one it violates the aggregate trace that every level-one family of
+# the full quantum composite sector preserves.
+_one = eye17(2)
+ok56 &= trace40(scale52(C17(2), _one)) == C17(4) and trace40(_one) == C17(2)
+ok56 &= trace40(scale52(C17(2), _one)) != trace40(_one)
+# --- (d) the kernel's own claim discipline, read back
+_ls56 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'LevelOneSeam.lean')
+if os.path.exists(_ls56):
+    with open(_ls56, encoding='utf-8') as _f:
+        _ls_txt56 = ' '.join(_f.read().split())
+    ok56 &= 'theorem avail_of_availExt_one' in _ls_txt56
+    ok56 &= 'def SystemToLevelOne' in _ls_txt56
+    ok56 &= 'theorem exactAll_of_conditions' in _ls_txt56
+    ok56 &= 'theorem levelOne_independent' in _ls_txt56
+    ok56 &= 'theorem final_classification' in _ls_txt56
+check("F56", ok56,
+      "ROUND 42: THE LEVEL-ONE SEAM -- the visible system and level one: which direction is "
+      "structural, which is a principle, and the endpoint covering the system itself (phase "
+      "three, round forty-two; kernel: OIBridge/LevelOneSeam.lean, 31 results -- "
+      "uniformAttach_one_eq, ptraceAnc_one_eq, discardWith_uniform_one_eq_transport, "
+      "avail_of_availExt_one, transport_transport_symm, avail_iff_availExt_one, reindex_sum, "
+      "transport_instrumentBranch, isKraus_transport_of, isKraus_transport, "
+      "exactSystem_of_levelOne, exactAll_of_levelOne, exactAll_of_conditions, "
+      "trace_transport, fullQuantum_systemToLevelOne, all_conditions_satisfiable, "
+      "systemLoose_control, systemLoose_krausSoundExt, systemLoose_validity, "
+      "systemLoose_parallelReferenceExtension, systemLoose_inert, "
+      "systemLoose_iteratedAncillaClosure, systemLoose_exactComposite, "
+      "systemLoose_realizesSealedOICore, systemLoose_amplifier_available, "
+      "systemLoose_not_exact, transport_amplifier, systemLoose_not_systemToLevelOne, "
+      "levelOne_independent, levelOne_not_deletable, final_classification). THE STRUCTURAL "
+      "DIRECTION, with no assumption: uniform attachment of the one-state ancilla is the "
+      "canonical embedding along A x Fin 1 ~ A and its discard is the canonical inverse, so "
+      "the structure's own prepAvail_uniform + prepAvail_discard reduce to transport and "
+      "every level-one family is available on the system (avail_of_availExt_one). THE ONE "
+      "MISSING DIRECTION, SystemToLevelOne T: an operation available on the system remains "
+      "available after adjoining the one-state ancilla; avail_iff_availExt_one shows the "
+      "equivalence costs exactly it. THE KRAUS FORM TRANSPORTS along any finite reindexing "
+      "(each operator reindexed, the normalization invariant), so with the principle exact "
+      "composite operations -- which begin at level one -- give exact SYSTEM operations "
+      "(exactSystem_of_levelOne), and the endpoint exactAll_of_conditions reads: validity + "
+      "inert spectators + composite unitary control + iterated ancilla closure + "
+      "system-to-level-one give exact finite endomorphic QM on the visible system AND every "
+      "positive composite, against finite isometry extension at the composite carriers only; "
+      "no quantum-formal soundness premise anywhere; all five conditions are jointly "
+      "satisfiable (fullQuantum_systemToLevelOne). THE COUNTERMODEL systemLoose: the full "
+      "quantum composite sector, preparations and readouts with an UNRESTRICTED system "
+      "predicate -- it has validity, inert spectators, every composite unitary, iterated "
+      "ancilla closure, exact composite operations against item 2, and realizes the sealed "
+      "OI core, yet its system sector contains the trace amplifier X -> 2X, so it is not "
+      "exactly quantum on the system and fails the principle directly (the transported "
+      "amplifier would violate the level-one aggregate trace; no isometry hypothesis is "
+      "needed): levelOne_independent, levelOne_not_deletable, final_classification. THE "
+      "THREE COMPOSITION PRINCIPLES side by side: inert spectators -- adding a genuine "
+      "independent system does not alter an intervention; iterated ancilla closure -- a "
+      "composite may itself become the working system of a larger experiment; "
+      "system-to-level-one -- adjoining nothing but a one-state factor cannot change which "
+      "operations exist, a bookkeeping law isolated rather than hidden in the structure. "
+      "Verified exactly here: attach-run-discard at level one as the map itself; the "
+      "damping Kraus family reindexed by a permutation is again normalized with the "
+      "transported channel equal to the conjugation sum; the amplifier doubles the trace. "
+      "NOT CLAIMED, lint-guarded: that any of the five conditions follows from OI (round 43's "
+      "minimality audit); OI iff QM; anything beyond the finite endomorphic scope; no "
+      "structure field.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

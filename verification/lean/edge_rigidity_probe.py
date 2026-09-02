@@ -774,6 +774,20 @@ for fname, names in (
                              'fullQuantum_validity', 'validity_not_implies_krausSoundExt',
                              'exactComposite_of_validity', 'physical_classification',
                              'physical_inert_not_deletable', 'physical_closure_not_deletable')),
+    ('LevelOneSeam', ('uniformAttach_one_eq', 'ptraceAnc_one_eq',
+                      'discardWith_uniform_one_eq_transport', 'avail_of_availExt_one',
+                      'transport_transport_symm', 'avail_iff_availExt_one', 'reindex_sum',
+                      'transport_instrumentBranch', 'isKraus_transport_of', 'isKraus_transport',
+                      'exactSystem_of_levelOne', 'exactAll_of_levelOne', 'exactAll_of_conditions',
+                      'trace_transport', 'fullQuantum_systemToLevelOne',
+                      'all_conditions_satisfiable', 'systemLoose_control',
+                      'systemLoose_krausSoundExt', 'systemLoose_validity',
+                      'systemLoose_parallelReferenceExtension', 'systemLoose_inert',
+                      'systemLoose_iteratedAncillaClosure', 'systemLoose_exactComposite',
+                      'systemLoose_realizesSealedOICore', 'systemLoose_amplifier_available',
+                      'systemLoose_not_exact', 'transport_amplifier',
+                      'systemLoose_not_systemToLevelOne', 'levelOne_independent',
+                      'levelOne_not_deletable', 'final_classification')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -1161,6 +1175,37 @@ ok6 &= 'CLASSIFICATION OF OPERATIONAL COMPLETIONS COMPATIBLE WITH OI' in _ovflat
 ok6 &= 'not yet a derivation of the quantum structure from OI alone' in _ovflat
 ok6 &= re.search(r'(?m)^structure ', ov) is None
 ok6 &= 'theorem oi_iff_quantum' not in ov and 'theorem validity_of_oi' not in ov
+# ROUND-42 GUARDS.  The structural direction must be proved with no hypothesis beyond the
+# structure (from prepAvail_uniform and prepAvail_discard); the principle must be ONLY the
+# system-to-level-one direction; the endpoint must cover the system and every composite,
+# consume the five conditions and item 2 at the composite carriers only, with no KrausSound,
+# no exactness premise and no Unit isometry; the loose countermodel must be stated with an
+# unrestricted system predicate and refuted directly by the trace amplifier.
+ls = open(os.path.join(BRIDGE, 'OIBridge', 'LevelOneSeam.lean'), encoding='utf-8').read()
+_lsflat = ' '.join(ls.split())
+_sd = _slice(ls, 'theorem avail_of_availExt_one', 'def SystemToLevelOne')
+ok6 &= bool(_sd) and 'prepAvail_discard' in _sd and 'prepAvail_uniform' in _sd
+ok6 &= 'SystemToLevelOne' not in _sd and 'HasCompositeUnitaryControl' not in _sd
+_pr = ' '.join(_slice(ls, 'def SystemToLevelOne', 'theorem transport_transport_symm').split())
+ok6 &= bool(_pr) and 'T.avail O F → T.availExt 1 O (fun a => transport (levelOneIdx A).symm (F a))' in _pr
+ok6 &= '↔' not in _pr
+ok6 &= 'theorem avail_iff_availExt_one' in ls and 'theorem isKraus_transport' in ls
+_ea = ' '.join(_slice(ls, 'theorem exactAll_of_conditions', ':=').split())
+ok6 &= bool(_ea) and '(h1 : SystemToLevelOne T)' in _ea and '(hval : CompositeOperationalValidity T)' in _ea
+ok6 &= 'FiniteIsometryExtensionSF (Fin 2 × Fin (k + 1))' in _ea and 'FiniteIsometryExtensionSF Unit' not in _ea
+ok6 &= 'KrausSound' not in _ea and 'ExactFiniteEndomorphicQuantumOps T' not in _ea.split('ExactAllFiniteEndomorphicQuantumOps')[0]
+ok6 &= _ea.rstrip().endswith('ExactAllFiniteEndomorphicQuantumOps T')
+_lo = _slice(ls, 'noncomputable def systemLoose', 'theorem systemLoose_control')
+ok6 &= bool(_lo) and 'avail := fun _ _ _ _ => True' in _lo and 'availExt := fun _ _ _ _ F => IsCPInstrument F' in _lo
+_ne = _slice(ls, 'theorem systemLoose_not_systemToLevelOne', 'theorem levelOne_independent')
+ok6 &= bool(_ne) and 'FiniteIsometryExtensionSF' not in _ne and '(2 : ℂ) • LinearMap.id' in _ne
+_fc = ' '.join(_slice(ls, 'theorem final_classification', ':=').split())
+ok6 &= bool(_fc) and '→ SystemToLevelOne T → ExactAllFiniteEndomorphicQuantumOps T' in _fc
+ok6 &= '¬ SystemToLevelOne T ∧ ¬ ExactFiniteEndomorphicQuantumOps T' in _fc
+ok6 &= 'theorem levelOne_independent' in ls and 'theorem levelOne_not_deletable' in ls
+ok6 &= 'bookkeeping law' in _lsflat
+ok6 &= re.search(r'(?m)^structure ', ls) is None
+ok6 &= 'theorem oi_iff_quantum' not in ls and 'theorem systemToLevelOne_of_oi' not in ls
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1565,8 +1610,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All fifty files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 5 + 16 named results print their "
+      "LINT. All fifty-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
