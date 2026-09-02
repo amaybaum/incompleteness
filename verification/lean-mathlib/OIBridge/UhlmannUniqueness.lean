@@ -41,6 +41,9 @@
   square-root / factorization (round thirty-four); finite isometry extension (round
   forty-five); finite right-unitary uniqueness (this round). The one remaining item is not a
   dependency of the OI → finite-QM characterization.
+  [SUPERSEDED IN ROUND FIFTY BY `OrbitReachability.lean`: compact Lie integration /
+  reachability has been discharged (`localReachabilityOfLieRank`), and THE CURRENT
+  UNRESOLVED EXTERNAL BOUNDARY: ZERO ITEMS.]
 
   WHAT IS AND IS NOT CLAIMED. Proved: the equal-environment theorem exactly as the corpus
   records it, with the usual axiom footprint. NOT claimed: the unequal-environment form

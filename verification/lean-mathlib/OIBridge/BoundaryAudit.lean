@@ -73,6 +73,17 @@
   the phase direction and the passage to universal unitary reachability are all internal
   there. Count unchanged: ONE ITEM.]
 
+  [DISCHARGED IN ROUND FIFTY BY `OrbitReachability.lean`: `LocalReachabilityOfLieRank` is
+  proved for every finite carrier (`localReachabilityOfLieRank`) — orbit directions
+  `Ad(r)(-iH)` with the phase direction, one derivative closing their real span under the
+  bracket, a finite spanning family of actual orbit directions, the product map paired with
+  the Hermitian complement, and the inverse-function theorem, with local injectivity of
+  `exp` at `0` forcing the Hermitian factor of a nearby unitary to be trivial. THE CURRENT
+  UNRESOLVED EXTERNAL BOUNDARY: ZERO ITEMS. DISCHARGED INTERNALLY: PSD square-root /
+  factorization (round thirty-four); finite isometry extension (round forty-five); finite
+  right-unitary uniqueness (round forty-eight); compact Lie integration / reachability
+  (round fifty).]
+
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
 import OIBridge.DimensionalCountermodel

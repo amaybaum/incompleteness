@@ -131,6 +131,7 @@ import OIBridge.IsometryExtension
 import OIBridge.GeneralCarrier
 import OIBridge.UhlmannUniqueness
 import OIBridge.ReachabilitySeam
+import OIBridge.OrbitReachability
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

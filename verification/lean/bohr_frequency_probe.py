@@ -7931,6 +7931,124 @@ check("F62", ok62,
       "lint-guarded: the lemma itself; the closed-subgroup Lie-closure equality; necessity "
       "of HControl for exact reachability.")
 
+# F63 -- ROUND 50: THE LAST EXTERNAL ITEM DISCHARGED -- LocalReachabilityOfLieRank proved by
+# orbit directions, one derivative, a finite spanning family, the product map and the
+# inverse-function theorem (phase three, round fifty).
+ok63 = True
+def _sub63(A, B): return add52(A, scale52(C17(Frac(-1)), B))
+def _comm63(X, Y): return _sub63(mmc17(X, Y), mmc17(Y, X))
+def _skew63(X): return dag17(X) == scale52(C17(Frac(-1)), X)
+_i63, _mi63 = C17(Frac(0), Frac(1)), C17(Frac(0), Frac(-1))
+_zero63 = [[CZ17] * 2 for _ in range(2)]
+# --- (a) orbit directions Ad(r)(-iH) = r(-iH)r^dag are skew for unitary r (orbitDir_skew), and
+# the phase direction i.1 is skew (phaseDir_skew), for a random rational Hermitian drift.
+_G63 = gmat47(630, 2)
+_H63 = add52(_G63, dag17(_G63))
+ok63 &= dag17(_H63) == _H63
+_swap63 = [[CZ17, CO17], [CO17, CZ17]]
+_refl63 = [[_r2, _s2], [_s2, C17(0) - _r2]]
+_rs63 = [eye17(2), _rot, _swap63, _refl63, scale52(_i63, _rot), mmc17(_swap63, _rot)]
+ok63 &= all(mmc17(dag17(r), r) == eye17(2) for r in _rs63)
+def _orb63(r): return conjby52(r, scale52(_mi63, _H63))
+ok63 &= all(_skew63(_orb63(r)) for r in _rs63)
+ok63 &= _skew63(scale52(_i63, eye17(2)))
+# --- (b) Ad-covariance (ad_orbitDirs): r (orbitDir r') r^dag = orbitDir (r r') exactly, and
+# conjugation fixes the phase direction.
+for _r in _rs63:
+    for _rp in _rs63:
+        ok63 &= conjby52(_r, _orb63(_rp)) == _orb63(mmc17(_r, _rp))
+    ok63 &= conjby52(_r, scale52(_i63, eye17(2))) == scale52(_i63, eye17(2))
+# --- (c) the derivative step (bracket_mem_orbitSpan): in truncated matrix polynomials, the
+# t^0 coefficient of e^{tX} Y e^{-tX} is Y and the t^1 coefficient is XY - YX, exactly; the
+# bracket of two skew matrices is skew.
+def _pmul63(P, Q):
+    R = []
+    for d in range(3):
+        acc = _zero63
+        for a in range(d + 1):
+            acc = add52(acc, mmc17(P[a], Q[d - a]))
+        R.append(acc)
+    return R
+def _exp2_63(X): return [eye17(2), X, scale52(C17(Frac(1, 2)), mmc17(X, X))]
+for _k, _r in enumerate(_rs63[1:4]):
+    _X = _orb63(_r)
+    _Gy = gmat47(631 + _k, 2)
+    _Y = _sub63(_Gy, dag17(_Gy))
+    _P = _pmul63(_pmul63(_exp2_63(_X), [_Y, _zero63, _zero63]),
+                 _exp2_63(scale52(C17(Frac(-1)), _X)))
+    ok63 &= _P[0] == _Y and _P[1] == _comm63(_X, _Y) and _skew63(_comm63(_X, _Y))
+# --- (d) the trace split (skew_mem_orbitSpan): for a skew A on D = 2, c = tr A / D is purely
+# imaginary, A - c.1 is skew and traceless, and A = (A - c.1) + (c/i).(i.1) with c/i real.
+_A63 = _sub63(_G63, dag17(_G63))
+_c63 = trace40(_A63) * C17(Frac(1, 2))
+ok63 &= _c63.conj() == C17(0) - _c63
+_A0 = _sub63(_A63, scale52(_c63, eye17(2)))
+ok63 &= _skew63(_A0) and trace40(_A0) == CZ17
+_ci63 = _c63 * _mi63
+ok63 &= _ci63.conj() == _ci63 and add52(_A0, scale52(_ci63, scale52(_i63, eye17(2)))) == _A63
+# --- (e) surjectivity of dPsi (psiDeriv_surjective): M = A + iB with A = (M - M^dag)/2 and
+# B = -i (M + M^dag)/2 both skew, for random rational M.
+for _s in range(3):
+    _M = gmat47(640 + _s, 2)
+    _Am = scale52(C17(Frac(1, 2)), _sub63(_M, dag17(_M)))
+    _Bm = scale52(_mi63, scale52(C17(Frac(1, 2)), add52(_M, dag17(_M))))
+    ok63 &= _skew63(_Am) and _skew63(_Bm) and add52(_Am, scale52(_i63, _Bm)) == _M
+# --- (f) the product map (prodMap_hasStrictFDerivAt): the t^0 coefficient of the product of
+# e^{t h_j X_j} over three orbit directions is 1 and the t^1 coefficient is sum_j h_j X_j.
+_Xs63 = [_orb63(_rs63[1]), _orb63(_rs63[2]), scale52(_i63, eye17(2))]
+_hs63 = [C17(Frac(2, 3)), C17(Frac(-5, 7)), C17(Frac(1, 4))]
+_prod63 = [eye17(2), _zero63, _zero63]
+_lin63 = _zero63
+for _h, _X in zip(_hs63, _Xs63):
+    _prod63 = _pmul63(_prod63, _exp2_63(scale52(_h, _X)))
+    _lin63 = add52(_lin63, scale52(_h, _X))
+ok63 &= _prod63[0] == eye17(2) and _prod63[1] == _lin63
+# --- (g) the Hermitian-unitary step: a Hermitian unitary squares to 1 (the reflection block),
+# the F-level instance of e^{K} unitary and Hermitian forcing e^{2K} = 1.
+ok63 &= dag17(_refl63) == _refl63 and mmc17(_refl63, _refl63) == eye17(2)
+# --- (h) the kernel's claim discipline, read back: the lemma is proved as a theorem, the
+# definition stays in ReachabilitySeam, the unconditional criterion has no hstep premise.
+_or63 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'OrbitReachability.lean')
+if os.path.exists(_or63):
+    with open(_or63, encoding='utf-8') as _f:
+        _or_txt63 = ' '.join(_f.read().split())
+    ok63 &= 'theorem localReachabilityOfLieRank : LocalReachabilityOfLieRank S' in _or_txt63
+    ok63 &= 'theorem universalReachability_of_lieRank_unconditional' in _or_txt63
+    ok63 &= 'theorem exactReachability_of_hcontrol' in _or_txt63
+    ok63 &= 'theorem bracket_mem_orbitSpan' in _or_txt63 and 'theorem psiDeriv_surjective' in _or_txt63
+    ok63 &= 'sorry' not in _or_txt63 and 'ZERO ITEMS' in _or_txt63
+    ok63 &= 'def LocalReachabilityOfLieRank' not in _or_txt63
+check("F63", ok63,
+      "ROUND 50: THE LAST EXTERNAL ITEM DISCHARGED -- LocalReachabilityOfLieRank proved for "
+      "every finite carrier (phase three, round fifty; kernel: OIBridge/OrbitReachability.lean, "
+      "38 results -- orbitDir_skew, exp_orbitDirs_mem_reachable, ad_orbitDirs, "
+      "ad_mem_orbitSpan, bracket_mem_orbitSpan, orbitLie, controlLie_le_orbitLie, "
+      "skew_mem_orbitSpan, exists_spanning_family, prodMap_mem_reachable, "
+      "prodMap_hasStrictFDerivAt, psi_hasStrictFDerivAt, psiDeriv_surjective, "
+      "exists_exp_injOn_nhds, localReachability_of_hcontrol, localReachabilityOfLieRank, "
+      "exactReachability_of_hcontrol, universalReachability_of_lieRank_unconditional). THE "
+      "ROUTE: orbit directions Ad(r)(-iH) for reachable r plus the phase direction, each "
+      "one-parameter group exactly reachable; their real span is closed under the bracket by "
+      "one derivative (the curve e^{tX} Y e^{-tX} stays in the closed span and its derivative "
+      "at 0 is [X, Y]), so it contains controlLie and, with HControl and the phase direction, "
+      "every skew-Hermitian matrix; a finite spanning family of actual orbit directions; the "
+      "product map F(t) = prod e^{t_j X_j}, reachable for every t, with strict derivative "
+      "sum h_j X_j at 0, paired with the Hermitian complement K(s) = sum s_j (i X_j) into "
+      "Psi(t, s) = F(t) e^{K(s)} with surjective strict derivative; the inverse-function "
+      "theorem maps a neighbourhood of 0 onto a neighbourhood of 1, and a unitary "
+      "u = F(t) e^{K} there forces e^{K} unitary and Hermitian, so e^{2K} = 1 = e^{0} with 2K "
+      "inside the injectivity neighbourhood of exp at 0, so K = 0 and u = F(t). No Lie-Trotter "
+      "formula, closed-subgroup theorem, Yamabe or general orbit theorem is used. Verified "
+      "exactly here: skewness and Ad-covariance of orbit directions for six unitaries and a "
+      "random Hermitian drift; the t-linear coefficient of e^{tX} Y e^{-tX} as the bracket in "
+      "truncated matrix polynomials; the traceless-plus-phase split of a skew matrix; the "
+      "skew decomposition M = A + iB for random M; the first-order coefficient of the product "
+      "map as sum h_j X_j; a Hermitian unitary squaring to 1; and the kernel text read back. "
+      "THE BOUNDARY: ZERO ITEMS. NOT CLAIMED, lint-guarded: the general orbit theorem, the "
+      "closed-subgroup theorem, anything about non-compact groups; necessity of HControl for "
+      "exact reachability. The completion classification is unaffected in either direction.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

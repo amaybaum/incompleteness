@@ -61,6 +61,12 @@
   THE BOUNDARY AUDIT: unchanged in count (ONE ITEM), sharpened in statement — the item is
   `LocalReachabilityOfLieRank`, and the completion classification does not depend on it.
 
+  [DISCHARGED IN ROUND FIFTY BY `OrbitReachability.lean`: `localReachabilityOfLieRank`
+  proves `LocalReachabilityOfLieRank S` for every finite carrier, and
+  `universalReachability_of_lieRank_unconditional` consumes it. The definition and the
+  conditional theorem below are unchanged; the NOT-claimed entry for the lemma in the next
+  paragraph is superseded. THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: ZERO ITEMS.]
+
   WHAT IS AND IS NOT CLAIMED. Proved: everything above except the named lemma, with the usual
   axiom footprint. NOT claimed: `LocalReachabilityOfLieRank`; the closed-subgroup Lie-closure
   equality; that `HControl` is necessary for exact reachability (controls are group elements
