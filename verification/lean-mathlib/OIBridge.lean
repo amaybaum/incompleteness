@@ -116,6 +116,7 @@ import OIBridge.DimensionalObstruction
 import OIBridge.DimensionalCountermodel
 import OIBridge.BoundaryAudit
 import OIBridge.ReferenceExtension
+import OIBridge.ReferenceSufficiency
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

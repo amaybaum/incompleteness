@@ -541,7 +541,7 @@ theorem hiddenCoherence_not_krausSoundExt [Nonempty A] :
   intro h
   obtain ⟨s⟩ := ‹Nonempty A›
   exact badOp_not_kraus 2 s (show (0 : Fin 2) ≠ 1 by decide)
-    (h 2 Unit (fun _ => badOp 2) (badOp_availExt 2))
+    (h 1 Unit (fun _ => badOp 2) (badOp_availExt 2))
 
 /-- **THE FORK, SETTLED — THE WEAK FORM.** SYSTEM SOUNDNESS does not force composite
 soundness. Read the antecedent and stop there: the `T` exhibited here is sound but
@@ -560,7 +560,7 @@ theorem hiddenCoherenceFull_not_krausSoundExt [Nonempty A] :
   intro h
   obtain ⟨s⟩ := ‹Nonempty A›
   exact badOp_not_kraus 2 s (show (0 : Fin 2) ≠ 1 by decide)
-    (h 2 Unit (fun _ => badOp 2) (badOp_availExt 2))
+    (h 1 Unit (fun _ => badOp 2) (badOp_availExt 2))
 
 /-- **THE SEPARATION THAT ACTUALLY MATTERS.** A theory with EXACTLY the finite endomorphic
 quantum instruments on the system — available ⟺ Kraus-representable — still carrying a

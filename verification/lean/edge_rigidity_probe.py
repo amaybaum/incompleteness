@@ -606,7 +606,8 @@ for fname, names in (
                             'posSemidef_sum', 'choiMatrix_finsum', 'conjChannel_cp',
                             'krausFamily_cp', 'exposedComposite_cp', 'transposeMap_trace',
                             'form_of_two_singles', 'transposeMap_not_cp',
-                            'transposeMap_not_kraus')),
+                            'transposeMap_not_kraus', 'krausSoundExtAllLevels_unsatisfiable',
+                            'krausSoundExt_of_allLevels')),
     ('HiddenCoherence', ('blockOp_one', 'blockOp_comp', 'blockOp_sum',
                          'localLuders_eq_blockOp', 'uniformAttach_offDiag',
                          'blockOp_uniformAttach', 'sum_fibers', 'scalarAvail_isKraus',
@@ -687,6 +688,16 @@ for fname, names in (
                             'countermodel_not_parallelReferenceExtension',
                             'control_not_implies_parallelReferenceExtension',
                             'exactControl_not_implies_qutritReferenceExtension')),
+    ('ReferenceSufficiency', ('unitVectorRotation_of_isometryExtension', 'pureState_reachable',
+                              'exact_avail_cp_tp', 'cp_apply_posSemidef', 'two_single_eq_dyads',
+                              'linear_functional_zero_of_dyads', 'isHermitian_of_forms_real',
+                              'posSemidef_of_forms_nonneg', 'forms_nonneg_of_unit', 'branch_cp',
+                              'aggregate_trace', 'krausSoundExt_of_exact_control_refext',
+                              'countermodel_witness_level_two', 'cp_comp', 'localLuders_cp',
+                              'fullQuantum_exact', 'fullQuantum_control',
+                              'fullQuantum_krausSoundExt', 'withSpectator_conjChannel',
+                              'withSpectator_cp', 'fullQuantum_parallelReferenceExtension',
+                              'parallelReferenceExtension_satisfiable')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -832,6 +843,42 @@ ok6 &= 'is not shown to be satisfiable by any theory here' in _reflat
 ok6 &= 'it is not, in general, enough to characterize complete positivity' in _reflat
 ok6 &= "That is round thirty-six's question" in _reflat
 ok6 &= 'is strictly weaker' not in _reflat
+# ROUND-36 GUARDS.  The sufficiency theorem must consume boundary item 2 as an explicit
+# hypothesis at the ONE-DIMENSIONAL source, derive rotation from it (no Mathlib discharge of
+# item 2), and claim soundness only -- not composite completeness.
+rs = open(os.path.join(BRIDGE, 'OIBridge', 'ReferenceSufficiency.lean'), encoding='utf-8').read()
+_rsbody = rs.split('namespace OIBridge')[1]
+_rsflat = ' '.join(rs.split())
+_cap = _slice(rs, 'theorem krausSoundExt_of_exact_control_refext', ':= by')
+ok6 &= bool(_cap) and '(hext : FiniteIsometryExtensionSF Unit)' in _cap
+ok6 &= 'ExactFiniteEndomorphicQuantumOps T' in _cap and 'HasCompositeUnitaryControl T' in _cap
+ok6 &= 'HasParallelReferenceExtension T' in _cap and _cap.rstrip().endswith('KrausSoundExt T')
+_rot = _slice(rs, 'theorem unitVectorRotation_of_isometryExtension', 'end Rotation')
+ok6 &= bool(_rot) and 'hext (2 * n + 1)' in _rot and 'Esf' in _rot
+ok6 &= 'exists_orthonormalBasis' not in _rsbody and 'OrthonormalBasis' not in _rsbody
+ok6 &= 'gramSchmidt' not in _rsbody
+ok6 &= 'def UnitVectorRotation' in rs
+# both failure modes through ONE polarization argument, no hidden case split
+ok6 &= 'theorem two_single_eq_dyads' in rs and 'theorem isHermitian_of_forms_real' in rs
+ok6 &= 'theorem posSemidef_of_forms_nonneg' in rs and 'No case split is hidden' in _rsflat
+# the branch-CP lemma must reach exactness through the discard of an AVAILABLE family
+_bcp = _slice(rs, 'theorem branch_cp', 'end BranchCP')
+ok6 &= bool(_bcp) and 'prepAvail_discard' in _bcp and 'exact_avail_cp_tp' in _bcp
+ok6 &= 'withSpectator' in _bcp and 'diag_nonneg' in _bcp
+# the positive instance
+_fq = _slice(rs, 'noncomputable def fullQuantum', 'theorem fullQuantum_exact')
+ok6 &= bool(_fq) and 'avail := fun _ _ _ F => IsKrausFamily F' in _fq
+ok6 &= 'availExt := fun _ _ _ _ F => IsCPInstrument F' in _fq
+ok6 &= 'theorem fullQuantum_parallelReferenceExtension' in rs
+_sat = _slice(rs, 'theorem parallelReferenceExtension_satisfiable', ':=')
+ok6 &= bool(_sat) and 'HasParallelReferenceExtension T ∧ KrausSoundExt T' in _sat
+# no structure field; soundness direction only; OI question deferred
+ok6 &= re.search(r'(?m)^structure ', rs) is None
+ok6 &= 'NOT claimed: composite COMPLETENESS' in _rsflat
+ok6 &= 'soundness direction only' in _rsflat
+ok6 &= "that is round thirty-seven's question" in _rsflat
+ok6 &= 'theorem krausSoundExt_iff' not in rs and 'theorem composite_complete' not in rs
+ok6 &= 'is strictly weaker' not in _rsflat
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -972,6 +1019,13 @@ ok6 &= bool(_ikf) and 'PosSemidef' not in _ikf and 'choiMatrix' not in _ikf
 ok6 &= 'theorem isKrausFamily_iff' in cs        # the two predicates must be pinned together
 _kse = _slice(cs, 'def KrausSoundExt', '/-!')
 ok6 &= bool(_kse) and 'T.availExt n O F → IsKrausFamily F' in _kse
+# ROUND-36 CORRECTION.  The predicate quantifies over POSITIVE levels; the all-levels form is
+# kept under its own name and proved unsatisfiable, so the degenerate level is on the record.
+_kse1 = _slice(cs, 'def KrausSoundExt (T', 'def KrausSoundExtAllLevels')
+ok6 &= bool(_kse1) and 'T.availExt (n + 1) O F → IsKrausFamily F' in _kse1
+ok6 &= 'CORRECTED IN ROUND THIRTY-SIX' in ' '.join(cs.split())
+_unsat = _slice(cs, 'theorem krausSoundExtAllLevels_unsatisfiable', 'theorem krausSoundExt_of_allLevels')
+ok6 &= bool(_unsat) and 'readout_avail 0' in _unsat and 'Fin.elim0' in _unsat
 # the exposed-composite theorem must come from prepAvail_discard and add no hypothesis
 _exc = _slice(cs, 'theorem krausSound_exposedComposite', '\n\n')
 ok6 &= bool(_exc) and 'prepAvail_discard' in _exc
@@ -1229,8 +1283,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All forty-three files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 15 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 5 + 16 named results print their "
+      "LINT. All forty-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 22 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

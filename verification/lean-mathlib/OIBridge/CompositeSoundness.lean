@@ -107,13 +107,44 @@ theorem isKrausFamily_iff {m : ℕ} (F : Fin m → Matrix A A ℂ →ₗ[ℂ] Ma
   · rintro ⟨n, K, out, hnorm, rfl⟩
     exact ⟨n, K, out, hnorm, fun _ => rfl⟩
 
-/-- **COMPOSITE SOUNDNESS.** Every available family on every ancilla extension has a
-normalized Kraus representation ON THE COMPOSITE CARRIER. This is strictly stronger than
-`KrausSound`, which constrains only the system sector. -/
+/-- **COMPOSITE SOUNDNESS.** Every available family on every ancilla extension OF POSITIVE
+LEVEL has a normalized Kraus representation ON THE COMPOSITE CARRIER. This is strictly
+stronger than `KrausSound`, which constrains only the system sector.
+
+CORRECTED IN ROUND THIRTY-SIX. As first stated (round twenty-seven) the predicate quantified
+over every level INCLUDING ZERO. At level zero the carrier `A × Fin 0` is empty and the
+structure's own `readout_avail 0` makes an available family with the EMPTY outcome type
+`Fin 0`, for which `IsKrausFamily` can never hold (it needs `out : Fin (n + 1) → Fin 0`). So
+the original predicate was unsatisfiable: `krausSoundExtAllLevels_unsatisfiable` below proves
+`¬ KrausSoundExtAllLevels T` for EVERY theory. Every earlier `¬ KrausSoundExt` statement was
+therefore true for a degenerate reason, although each of their proofs went through the
+intended level-two witness. The predicate now quantifies over levels `n + 1`; the earlier
+results are re-proved against it with the same witnesses, unchanged. -/
 def KrausSoundExt (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (n : ℕ) (O : Type) [Fintype O] [DecidableEq O]
+    (F : O → Matrix (A × Fin (n + 1)) (A × Fin (n + 1)) ℂ →ₗ[ℂ]
+      Matrix (A × Fin (n + 1)) (A × Fin (n + 1)) ℂ),
+    T.availExt (n + 1) O F → IsKrausFamily F
+
+/-- The round-twenty-seven statement, kept under its own name for the record: every level,
+including the degenerate level zero. -/
+def KrausSoundExtAllLevels (T : FiniteOperationalTheory A) : Prop :=
   ∀ (n : ℕ) (O : Type) [Fintype O] [DecidableEq O]
     (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ),
     T.availExt n O F → IsKrausFamily F
+
+/-- **THE DEGENERATE LEVEL.** The all-levels predicate is unsatisfiable: the level-zero
+readout is an available family with the empty outcome type. -/
+theorem krausSoundExtAllLevels_unsatisfiable (T : FiniteOperationalTheory A) :
+    ¬ KrausSoundExtAllLevels T := by
+  intro h
+  obtain ⟨n, K, out, -, -⟩ := h 0 (Fin 0) (T.readout 0) (T.readout_avail 0)
+  exact Fin.elim0 (out 0)
+
+/-- The corrected predicate is what the all-levels one said above level zero. -/
+theorem krausSoundExt_of_allLevels (T : FiniteOperationalTheory A)
+    (h : KrausSoundExtAllLevels T) : KrausSoundExt T :=
+  fun n O _ _ F hF => h (n + 1) O F hF
 
 /-! ### Section B — what system soundness forces, for free -/
 
@@ -353,6 +384,8 @@ theorem transposeMap_not_kraus {S : Type*} [Fintype S] [DecidableEq S] {a b : S}
   transposeMap_not_cp hab (krausFamily_cp h 0)
 
 #print axioms isKrausFamily_iff
+#print axioms krausSoundExtAllLevels_unsatisfiable
+#print axioms krausSoundExt_of_allLevels
 #print axioms krausSound_exposedComposite
 #print axioms ptraceAnc_trace
 #print axioms discardWith_trace

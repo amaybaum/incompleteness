@@ -6221,6 +6221,212 @@ check("F49", ok49,
       "every non-CP map); no structure field; HasParallelReferenceExtension is not shown to "
       "be satisfiable by any theory here, only that control does not deliver it.")
 
+# ----------------------- F50  round 36: the sufficiency theorem ---------------------------
+# exact system QM + full composite unitary control + parallel reference extension force
+# composite Kraus soundness (phase three, round thirty-six), after correcting the predicate.
+ok50 = True
+
+
+def refIdx50(p):
+    """refIdx 1 on S x (Fin 2 x Fin 2), S = Fin 2 x Fin 2: composite index 4r + 2a + e
+    (r in Fin 4 the reference, a the system qubit, e the ancilla qubit) -> target index
+    8a + (e + 2 r), i.e. (a, finProdFinEquiv (finProdFinEquiv r, e))."""
+    r, a, e = p >> 2, (p >> 1) & 1, p & 1
+    return 8 * a + (e + 2 * r)
+
+
+ok50 &= sorted(refIdx50(p) for p in range(16)) == list(range(16))
+_rinv = {refIdx50(p): p for p in range(16)}
+
+
+def reindex50(X):
+    return [[X[_rinv[p]][_rinv[q]] for q in range(16)] for p in range(16)]
+
+
+def spectatorPhi2_50(N):
+    """withSpectator S refIdx Phi_2 on the 16-level carrier, literally reindex.amplify.reindex^-1."""
+    X = [[N[refIdx50(p)][refIdx50(q)] for q in range(16)] for p in range(16)]
+    return reindex50(amplGen48(red47, X, 4, dref=4))
+
+
+# --- (a) THE CORRECTION.  The round-27 predicate quantified over level zero, where the
+# structure's own readout_avail 0 is an available family with EMPTY outcome type; no Kraus
+# family has an empty outcome type, so the predicate was unsatisfiable.  Read back from the
+# kernel: the corrected definition, the all-levels form, and its unsatisfiability theorem.
+_cs50 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'CompositeSoundness.lean')
+if os.path.exists(_cs50):
+    with open(_cs50, encoding='utf-8') as _f:
+        _cs_txt50 = ' '.join(_f.read().split())
+    ok50 &= 'T.availExt (n + 1) O F → IsKrausFamily F' in _cs_txt50
+    ok50 &= 'def KrausSoundExtAllLevels' in _cs_txt50
+    ok50 &= 'theorem krausSoundExtAllLevels_unsatisfiable' in _cs_txt50
+    ok50 &= 'CORRECTED IN ROUND THIRTY-SIX' in _cs_txt50
+# --- (b) REACHABILITY (pureState_reachable, conj_vecMulVec): U (e e^dag) U^dag is the dyad of
+# the column U e -- for ANY U, checked exactly; and the pure seed |0><0| (x) |0><0| is the dyad
+# of the basis vector (0,0) (tensorOf_single_single).
+for _s in range(3):
+    _U = gmat47(_s + 30, 4)
+    _e = [CO17, CZ17, CZ17, CZ17]
+    ok50 &= mmc17(mmc17(_U, dyad47(_e)), dag17(_U)) == dyad47([_U[p][0] for p in range(4)])
+_E00 = [[CO17 if (r, c) == (0, 0) else CZ17 for c in range(2)] for r in range(2)]
+ok50 &= kr17(_E00, _E00) == dyad47([CO17, CZ17, CZ17, CZ17])
+# --- (c) POLARIZATION (two_single_eq_dyads, isHermitian_of_forms_real, star_form,
+# trace_mul_vecMulVec): the matrix-unit identity 2 E_ij = (D(e_i+e_j) - D e_i - D e_j)
+# + i (D(e_i + i e_j) - D e_i - D e_j) on every pair of a four-level carrier; the trace form
+# tr(J D v) = <v, J v>; the conjugate form is the form of J^dag; and a non-Hermitian J has a
+# NON-REAL quadratic form on some e_i + e_j or e_i + i e_j, while a Hermitian one never does.
+def e50(i):
+    return [CO17 if p == i else CZ17 for p in range(4)]
+
+
+def vadd50(u, v):
+    return [x + y for x, y in zip(u, v)]
+
+
+def vscale50(c, u):
+    return [c * x for x in u]
+
+
+for _i in range(4):
+    for _j in range(4):
+        _lhs = [[C17(2) if (r, c) == (_i, _j) else CZ17 for c in range(4)] for r in range(4)]
+        _A = dyad47(vadd50(e50(_i), e50(_j)))
+        _B = dyad47(vadd50(e50(_i), vscale50(C17(0, 1), e50(_j))))
+        _Ei, _Ej = dyad47(e50(_i)), dyad47(e50(_j))
+        _rhs = [[(_A[r][c] - _Ei[r][c] - _Ej[r][c]) + C17(0, 1) * (_B[r][c] - _Ei[r][c] - _Ej[r][c])
+                 for c in range(4)] for r in range(4)]
+        ok50 &= _lhs == _rhs
+
+
+def form50(J, v):
+    return sum((v[p].conj() * J[p][q] * v[q] for p in range(len(v)) for q in range(len(v))), CZ17)
+
+
+_Jr = gmat47(41, 4)                                         # not Hermitian
+for _v in (gvec47(1, 4), gvec47(2, 4)):
+    ok50 &= trace40(mmc17(_Jr, dyad47(_v))) == form50(_Jr, _v)
+    ok50 &= form50(_Jr, _v).conj() == form50(dag17(_Jr), _v)
+_found = any(form50(_Jr, vadd50(e50(i), e50(j))).im != Frac(0)
+             or form50(_Jr, vadd50(e50(i), vscale50(C17(0, 1), e50(j)))).im != Frac(0)
+             or form50(_Jr, e50(i)).im != Frac(0) for i in range(4) for j in range(4))
+ok50 &= _found
+_Jh = mmc17(_Jr, dag17(_Jr))                                # Hermitian
+ok50 &= herm47(_Jh) and all(form50(_Jh, vadd50(e50(i), e50(j))).im == Frac(0)
+                            and form50(_Jh, vadd50(e50(i), vscale50(C17(0, 1), e50(j)))).im == Frac(0)
+                            for i in range(4) for j in range(4))
+# --- (d) THE EXPOSURE, on the round-34 countermodel's own Phi_2 (branch_cp): reindex
+# S x (Fin 2 x Fin 2) -> Fin 2 x Fin 8 by the explicit refIdx; the normalized |Omega_S> is
+# Omega/2 (|S| = 4, so no irrational appears); the extended Phi_2 sends its dyad to
+# reindex(J)/4; the rotated readout of the direction w = Omega/2 gives the (0,0) entry
+# <w, J w>/4 = (-8/7)/4 /4 ... exactly -1/14 as the (0,0) entry of the VISIBLE-QUBIT branch
+# output on |0><0| -- negative, so no CP map on the qubit could have produced it.
+_J16 = J47                                                  # Choi(Phi_2), 16x16, from F47
+_psi = vscale50(HALF43, [OM47[_rinv[p]] for p in range(16)])   # (Omega o e^-1)/2
+ok50 &= inner47(_psi, _psi) == CO17
+_Y = spectatorPhi2_50(dyad47(_psi))
+ok50 &= _Y == [[_J16[_rinv[p]][_rinv[q]] * C17(Frac(1, 4)) for q in range(16)] for p in range(16)]
+_w = vscale50(HALF43, OM47)                                 # a unit direction on S x S
+ok50 &= inner47(_w, _w) == CO17 and form50(_J16, _w) == C17(Frac(-2, 7))
+_what = [_w[_rinv[p]] for p in range(16)]
+# any W with column (0,0) = w-hat: (W^dag Y W)_{(0,0),(0,0)} = <w-hat, Y w-hat> (conj_diag_entry)
+_W = [[(_what[p] if c == 0 else (CO17 if p == c else CZ17)) for c in range(16)] for p in range(16)]
+_rot = mmc17(mmc17(dag17(_W), _Y), _W)
+ok50 &= _rot[0][0] == form50(_Y, _what) == form50(_J16, _w) * C17(Frac(1, 4))
+ok50 &= _rot[0][0] == C17(Frac(-1, 14))
+# the readout at level 0 and the discard: system entry (0,0) is composite entry (0,0)
+_sys = [[_rot[8 * s][8 * t] for t in range(2)] for s in range(2)]  # ptraceAnc . localLuders 0
+ok50 &= _sys[0][0] == C17(Frac(-1, 14)) and not psd47([[_sys[0][0]]])
+# --- (e) THE AGGREGATE TRACE (aggregate_trace): the discarded family of Phi_2 through any
+# reachable pure preparation conserves the trace exactly, and the functional
+# X -> tr(Phi_2 X) - tr X vanishes on every dyad and hence on every matrix.
+for _s in range(3):
+    _u = gvec47(_s + 50, 4)
+    ok50 &= trace40(red47(dyad47(_u))) == trace40(dyad47(_u))
+    ok50 &= trace40(red47(gmat47(_s + 60, 4))) == trace40(gmat47(_s + 60, 4))
+# --- (f) THE FULL QUANTUM THEORY HAS PARALLEL REFERENCE EXTENSION (withSpectator_conjChannel,
+# withSpectator_cp): the spectator extension of a conjugation by V is conjugation by the
+# reindexed 1 (x) V, checked with a qutrit spectator on a random 4x4 V; and it preserves
+# the trace (the reference diagonal carries it).
+def withSpectatorConj50(V, N):
+    X = [[N[qidx49(p)][qidx49(q)] for q in range(12)] for p in range(12)]
+    return reindex49(amplGen48(conj48(V), X, 4, dref=3))
+
+
+_V = gmat47(71, 4)
+_TV = reindex49(kr17(eye17(3), _V))
+for _s in range(2):
+    _N = gmat47(_s + 80, 12)
+    ok50 &= withSpectatorConj50(_V, _N) == mmc17(mmc17(_TV, _N), dag17(_TV))
+_Uu = SWAP46
+ok50 &= trace40(withSpectatorConj50(_Uu, gmat47(90, 12))) == trace40(gmat47(90, 12))
+# --- (g) the file's own claim discipline, read back
+_rs50 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'ReferenceSufficiency.lean')
+if os.path.exists(_rs50):
+    with open(_rs50, encoding='utf-8') as _f:
+        _rs_txt50 = ' '.join(_f.read().split())
+    ok50 &= 'NOT claimed: composite COMPLETENESS' in _rs_txt50
+    ok50 &= "that is round thirty-seven's question" in _rs_txt50
+    ok50 &= '(hext : FiniteIsometryExtensionSF Unit)' in _rs_txt50
+check("F50", ok50,
+      "ROUND 36: THE SUFFICIENCY THEOREM -- exact system QM plus full composite unitary "
+      "control plus parallel reference extension force composite Kraus soundness (phase "
+      "three, round thirty-six; kernel: unitVectorRotation_of_isometryExtension, "
+      "pureState_reachable, exact_avail_cp_tp, cp_apply_posSemidef, two_single_eq_dyads, "
+      "linear_functional_zero_of_dyads, isHermitian_of_forms_real, posSemidef_of_forms_nonneg, "
+      "forms_nonneg_of_unit, branch_cp, aggregate_trace, krausSoundExt_of_exact_control_refext, "
+      "countermodel_witness_level_two, cp_comp, localLuders_cp, fullQuantum_exact, "
+      "fullQuantum_control, fullQuantum_krausSoundExt, withSpectator_conjChannel, "
+      "withSpectator_cp, fullQuantum_parallelReferenceExtension, "
+      "parallelReferenceExtension_satisfiable in OIBridge/ReferenceSufficiency.lean, and "
+      "krausSoundExtAllLevels_unsatisfiable, krausSoundExt_of_allLevels in "
+      "OIBridge/CompositeSoundness.lean). A CORRECTION FIRST: the round-27 predicate "
+      "KrausSoundExt quantified over ancilla level ZERO, where the structure's own "
+      "readout_avail 0 is an available family with the EMPTY outcome type Fin 0, for which no "
+      "Kraus family exists; the predicate was UNSATISFIABLE for every theory "
+      "(krausSoundExtAllLevels_unsatisfiable, three lines), so every earlier NOT-KrausSoundExt "
+      "statement was true for a degenerate reason even though each proof went through its "
+      "intended level-two witness. The predicate now quantifies over levels n + 1, the "
+      "all-levels form is kept under its own name, the earlier results are re-proved against "
+      "the corrected predicate with the same witnesses, and countermodel_witness_level_two "
+      "records the round-34 witness with no predicate at all. THE CAPSTONE, "
+      "krausSoundExt_of_exact_control_refext: against boundary item 2 as the explicit "
+      "hypothesis FiniteIsometryExtensionSF Unit -- finite isometry extension with a "
+      "ONE-DIMENSIONAL source, reindexed onto the composite carrier by "
+      "unitVectorRotation_of_isometryExtension, no fifth item -- exact visible QM, every "
+      "composite unitary and parallel reference extension imply KrausSoundExt. THE PROOF: "
+      "each branch is CP (branch_cp) because reference extension makes id_S (x) F_a "
+      "available on Fin 2 x Fin (M+1) via the explicit reindexing refIdx, the pure seed and "
+      "control make the normalized |Omega_S> a reachable preparation at |0><0|, the extended "
+      "branch turns it into the reindexed Choi matrix, a rotation puts any test direction w "
+      "at basis vector (0,0), and readout plus discard read off <w, J w>/|S| as the (0,0) "
+      "entry of a VISIBLE-QUBIT branch output on a positive input, which exact system QM "
+      "forces nonnegative; nonnegative forms give Hermitian by polarization and then PSD, so "
+      "both failure modes (non-Hermitian, negative direction) go through one argument with no "
+      "hidden case split. The aggregate trace (aggregate_trace) needs no reference extension: "
+      "every unit vector is a reachable pure preparation, exactness conserves the discarded "
+      "trace on it, and a linear functional vanishing on dyads vanishes "
+      "(two_single_eq_dyads: 2 E_ij = (D(e_i+e_j) - D e_i - D e_j) + i (D(e_i + i e_j) - "
+      "D e_i - D e_j), checked here on every pair of a four-level carrier). Verified exactly: "
+      "the reindexing refIdx as a bijection; the reachability identity U (e e^dag) U^dag = "
+      "(U e)(U e)^dag; the trace form and conjugate-form identities; a non-Hermitian matrix "
+      "with a non-real form on a polarization vector; THE EXPOSURE on the round-34 "
+      "countermodel's own Phi_2 -- |S| = 4 so |Omega_S>/2 is exactly unit, the extended Phi_2 "
+      "sends its dyad to reindex(J)/4, and the rotated readout of the direction Omega/2 puts "
+      "exactly -1/14 into the (0,0) entry of the visible-qubit branch output on |0><0|, "
+      "which no CP map could produce. THE POSITIVE INSTANCE: fullQuantum (Kraus families on "
+      "the system, CP aggregate-trace-preserving families on every composite, "
+      "reference-tested preparations) is exactly quantum, has every composite unitary, is "
+      "composite-sound, and HAS parallel reference extension, since the spectator extension "
+      "of a conjugation is conjugation by the reindexed 1 (x) V (checked here with a qutrit "
+      "spectator) and the trace is carried through the reference diagonal; "
+      "parallelReferenceExtension_satisfiable. NOT CLAIMED, lint-guarded: composite "
+      "COMPLETENESS (that every Kraus family on every composite is available), so the equation "
+      "full finite QM = exact visible QM + unitary control + parallel spectator consistency is "
+      "established in its SOUNDNESS direction only; that OI itself implies parallel reference "
+      "extension -- round 37's question; no structure field.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

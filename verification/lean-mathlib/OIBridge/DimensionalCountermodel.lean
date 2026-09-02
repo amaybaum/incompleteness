@@ -607,7 +607,7 @@ theorem countermodelOf_reduction2_available :
 
 /-- **NOT COMPOSITE-SOUND**: the available reduction map has no Kraus form. -/
 theorem countermodelOf_not_krausSoundExt : ¬ KrausSoundExt (countermodelOf hfac) := fun h =>
-  reduction2_not_cp (krausFamily_cp (h 2 Unit _ (countermodelOf_reduction2_available hfac)) ())
+  reduction2_not_cp (krausFamily_cp (h 1 Unit _ (countermodelOf_reduction2_available hfac)) ())
 
 /-- **THE CONDITIONAL CAPSTONE**, against boundary item 3 only. -/
 theorem countermodel_of_factorization (hfac : PSDFactorization (Fin 2 × Fin 2)) :
