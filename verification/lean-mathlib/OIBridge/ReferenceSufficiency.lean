@@ -7,12 +7,20 @@
   condition, and builds the theory that has it.
 
       ┌──────────────────────────────────────────────────────────────────────────────┐
-      │  `krausSoundExt_of_exact_control_refext` (hext : FiniteIsometryExtensionSF Unit) │
-      │      ExactFiniteEndomorphicQuantumOps T ∧ HasCompositeUnitaryControl T        │
+      │  `krausSoundExt_of_sound_control_refext` (hext : FiniteIsometryExtensionSF Unit) │
+      │      KrausSound T ∧ HasCompositeUnitaryControl T                              │
       │        ∧ HasParallelReferenceExtension T  ⟹  KrausSoundExt T ;                │
+      │  `krausSoundExt_of_exact_control_refext`: the round-36 form with               │
+      │      ExactFiniteEndomorphicQuantumOps T in place of KrausSound T, a corollary; │
       │  `fullQuantum_parallelReferenceExtension`, `parallelReferenceExtension_satisfiable`: │
       │      the full quantum theory has all three, and is composite-sound.           │
       └──────────────────────────────────────────────────────────────────────────────┘
+
+  ROUND THIRTY-SEVEN, OPENING CLEANUP (STRENGTHENED IN ROUND THIRTY-SEVEN). The round-36
+  proof used exactness only through its soundness half, so the antecedent is now
+  `KrausSound T`; the exact form is an immediate corollary via `exact_iff_sound_and_full`.
+  System COMPLETENESS (`HasFullFiniteEndomorphicInstruments`) is not an ingredient of
+  composite soundness.
 
   PART ONE, A CORRECTION FIRST. `KrausSoundExt` as stated in round twenty-seven quantified
   over ancilla level ZERO, where the structure's own `readout_avail 0` makes an available
@@ -184,12 +192,18 @@ theorem pureState_reachable (T : FiniteOperationalTheory (Fin 2))
 
 end Reach
 
-/-! ### Section C — exactness on a general outcome type -/
+/-! ### Section C — system soundness on a general outcome type
 
-section Exact
+ROUND THIRTY-SEVEN, OPENING CLEANUP. The round-36 proof used exactness only through its
+soundness half (`(hex _ _).mp`). The primitive statement is therefore taken from `KrausSound`,
+and the exact form is an immediate corollary via `exact_iff_sound_and_full`. -/
 
-theorem exact_avail_cp_tp (T : FiniteOperationalTheory (Fin 2))
-    (hex : ExactFiniteEndomorphicQuantumOps T) {O : Type} [Fintype O] [DecidableEq O]
+section Sound
+
+/-- Every available visible-system family on any finite outcome type is branchwise CP and
+aggregate trace preserving, from `KrausSound` alone (coarse-graining to `Fin (card O)`). -/
+theorem sound_avail_cp_tp (T : FiniteOperationalTheory (Fin 2))
+    (hsound : KrausSound T) {O : Type} [Fintype O] [DecidableEq O]
     (D : O → Matrix (Fin 2) (Fin 2) ℂ →ₗ[ℂ] Matrix (Fin 2) (Fin 2) ℂ) (hD : T.avail O D) :
     (∀ a, IsCompletelyPositive (D a)) ∧ ∀ X, ∑ a, ((D a) X).trace = X.trace := by
   let f : O ≃ Fin (Fintype.card O) := Fintype.equivFin O
@@ -200,16 +214,23 @@ theorem exact_avail_cp_tp (T : FiniteOperationalTheory (Fin 2))
       ext j
       simp [f.injective.eq_iff]
     rw [hfil, Finset.sum_singleton]
-  have hK := (isKrausFamily_iff _).mpr ((hex _ _).mp hco)
+  have hK := (isKrausFamily_iff _).mpr (hsound _ _ hco)
   refine ⟨fun a => ?_, fun X => ?_⟩
   · have := krausFamily_cp hK (f a)
     rwa [hD' a] at this
-  · obtain ⟨m, K, out, hnorm, hKF⟩ := (hex _ _).mp hco
+  · obtain ⟨m, K, out, hnorm, hKF⟩ := hsound _ _ hco
     have htr := instrumentBranch_trace K out hnorm X
     rw [← hKF] at htr
     rw [← htr]
     refine (Fintype.sum_equiv f _ _ fun a => ?_).symm.symm
     simp only [hD' a]
+
+/-- The round-36 form, now a corollary: exactness supplies soundness. -/
+theorem exact_avail_cp_tp (T : FiniteOperationalTheory (Fin 2))
+    (hex : ExactFiniteEndomorphicQuantumOps T) {O : Type} [Fintype O] [DecidableEq O]
+    (D : O → Matrix (Fin 2) (Fin 2) ℂ →ₗ[ℂ] Matrix (Fin 2) (Fin 2) ℂ) (hD : T.avail O D) :
+    (∀ a, IsCompletelyPositive (D a)) ∧ ∀ X, ∑ a, ((D a) X).trace = X.trace :=
+  sound_avail_cp_tp T ((exact_iff_sound_and_full T).mp hex).1 D hD
 
 /-- A completely positive map carries positive semidefinite matrices to positive
 semidefinite matrices. -/
@@ -218,7 +239,7 @@ theorem cp_apply_posSemidef {S : Type*} [Fintype S] [DecidableEq S]
     (hM : M.PosSemidef) : (Φ M).PosSemidef :=
   positive_of_twoPositive (cp_referencePositive (Fin 2) Φ h) hM
 
-end Exact
+end Sound
 
 /-! ### Section D — polarization -/
 
@@ -417,10 +438,10 @@ def refIdx (n : ℕ) :
 theorem card_S (n : ℕ) : (Fintype.card (Fin 2 × Fin (n + 1)) : ℂ) = ((2 * (n + 1) : ℕ) : ℂ) := by
   simp
 
-/-- **EACH AVAILABLE BRANCH IS COMPLETELY POSITIVE**, from exactness, control, rotation and
-parallel reference extension. -/
+/-- **EACH AVAILABLE BRANCH IS COMPLETELY POSITIVE**, from system soundness, control,
+rotation and parallel reference extension. -/
 theorem branch_cp (T : FiniteOperationalTheory (Fin 2))
-    (hex : ExactFiniteEndomorphicQuantumOps T) (hctrl : HasCompositeUnitaryControl T)
+    (hsound : KrausSound T) (hctrl : HasCompositeUnitaryControl T)
     (hpar : HasParallelReferenceExtension T)
     (hrot : ∀ m, UnitVectorRotation (Fin 2 × Fin (m + 1))) {n : ℕ} {O : Type} [Fintype O]
     [DecidableEq O]
@@ -462,7 +483,7 @@ theorem branch_cp (T : FiniteOperationalTheory (Fin 2))
   have h2 := T.availExt_bind (M + 1) (O × Unit) (Fin (M + 1)) _
     (fun _ k => T.readout (M + 1) k) h1 (fun _ => T.readout_avail (M + 1))
   have h3 := T.prepAvail_discard (M + 1) P _ _ hP h2
-  obtain ⟨hcp, -⟩ := exact_avail_cp_tp T hex _ h3
+  obtain ⟨hcp, -⟩ := sound_avail_cp_tp T hsound _ h3
   -- the branch at outcome ((a, ()), 0) on the input |0⟩⟨0|
   have hρ0 : (Matrix.single (0 : Fin 2) 0 (1 : ℂ)).PosSemidef := by
     have : Matrix.single (0 : Fin 2) 0 (1 : ℂ)
@@ -506,9 +527,9 @@ theorem trace_vecMulVec_star {C : Type*} [Fintype C] (w : C → ℂ) :
   simp only [Matrix.trace, Matrix.diag_apply, Matrix.vecMulVec_apply, Pi.star_apply, dotProduct]
   exact Finset.sum_congr rfl fun i _ => mul_comm _ _
 
-/-- **AGGREGATE TRACE PRESERVATION**, from exactness, control and rotation alone. -/
+/-- **AGGREGATE TRACE PRESERVATION**, from system soundness, control and rotation alone. -/
 theorem aggregate_trace (T : FiniteOperationalTheory (Fin 2))
-    (hex : ExactFiniteEndomorphicQuantumOps T) (hctrl : HasCompositeUnitaryControl T) {n : ℕ}
+    (hsound : KrausSound T) (hctrl : HasCompositeUnitaryControl T) {n : ℕ}
     (hrot : UnitVectorRotation (Fin 2 × Fin (n + 1))) {O : Type} [Fintype O] [DecidableEq O]
     (F : O → Matrix (Fin 2 × Fin (n + 1)) (Fin 2 × Fin (n + 1)) ℂ →ₗ[ℂ]
       Matrix (Fin 2 × Fin (n + 1)) (Fin 2 × Fin (n + 1)) ℂ)
@@ -519,12 +540,12 @@ theorem aggregate_trace (T : FiniteOperationalTheory (Fin 2))
   have hLapply : ∀ Y, L Y = ∑ a, ((F a) Y).trace - Y.trace := by
     intro Y
     simp [L, LinearMap.sum_apply]
-  -- on unit dyads, by reachability and exactness
+  -- on unit dyads, by reachability and system soundness
   have hunit : ∀ w, star w ⬝ᵥ w = 1 → L (Matrix.vecMulVec w (star w)) = 0 := by
     intro w hw
     obtain ⟨P, hP, hP0⟩ := pureState_reachable T hctrl hrot w hw
     have hD := T.prepAvail_discard (n + 1) P O F hP hF
-    obtain ⟨-, htr⟩ := exact_avail_cp_tp T hex _ hD
+    obtain ⟨-, htr⟩ := sound_avail_cp_tp T hsound _ hD
     have h0 := htr (Matrix.single 0 0 1)
     rw [Finset.sum_congr rfl fun a _ => discardWith_trace (n + 1) P (F a) _, hP0,
       Matrix.trace_single_eq_same] at h0
@@ -562,19 +583,29 @@ end Trace
 
 /-! ### Section H — the sufficiency theorem -/
 
-/-- **THE SUFFICIENCY THEOREM.** Exact system QM, full composite unitary control and parallel
-reference extension force composite Kraus soundness, against boundary item 2 (finite isometry
-extension at a one-dimensional source). -/
-theorem krausSoundExt_of_exact_control_refext (T : FiniteOperationalTheory (Fin 2))
-    (hext : FiniteIsometryExtensionSF Unit) (hex : ExactFiniteEndomorphicQuantumOps T)
+/-- **THE SUFFICIENCY THEOREM (ROUND-37 FORM).** System Kraus SOUNDNESS, full composite
+unitary control and parallel reference extension force composite Kraus soundness, against
+boundary item 2 (finite isometry extension at a one-dimensional source). System completeness
+is not used anywhere in the proof. -/
+theorem krausSoundExt_of_sound_control_refext (T : FiniteOperationalTheory (Fin 2))
+    (hext : FiniteIsometryExtensionSF Unit) (hsound : KrausSound T)
     (hctrl : HasCompositeUnitaryControl T) (hpar : HasParallelReferenceExtension T) :
     KrausSoundExt T := by
   intro n O _ _ F hF
   have hrot : ∀ m, UnitVectorRotation (Fin 2 × Fin (m + 1)) :=
     unitVectorRotation_of_isometryExtension hext
   exact isKrausFamily_of_cp_of_factorization (psdFactorization_discharged _) F
-    (fun a => branch_cp T hex hctrl hpar hrot F hF a)
-    (aggregate_trace T hex hctrl (hrot n) F hF)
+    (fun a => branch_cp T hsound hctrl hpar hrot F hF a)
+    (aggregate_trace T hsound hctrl (hrot n) F hF)
+
+/-- **THE ROUND-36 STATEMENT, NOW A COROLLARY.** Exact system QM supplies system soundness,
+and nothing more of it is used. -/
+theorem krausSoundExt_of_exact_control_refext (T : FiniteOperationalTheory (Fin 2))
+    (hext : FiniteIsometryExtensionSF Unit) (hex : ExactFiniteEndomorphicQuantumOps T)
+    (hctrl : HasCompositeUnitaryControl T) (hpar : HasParallelReferenceExtension T) :
+    KrausSoundExt T :=
+  krausSoundExt_of_sound_control_refext T hext ((exact_iff_sound_and_full T).mp hex).1
+    hctrl hpar
 
 /-- The round-34 witness at level two, stated without any predicate. -/
 theorem countermodel_witness_level_two :
@@ -784,6 +815,7 @@ end FullTheory
 
 #print axioms unitVectorRotation_of_isometryExtension
 #print axioms pureState_reachable
+#print axioms sound_avail_cp_tp
 #print axioms exact_avail_cp_tp
 #print axioms cp_apply_posSemidef
 #print axioms two_single_eq_dyads
@@ -793,6 +825,7 @@ end FullTheory
 #print axioms forms_nonneg_of_unit
 #print axioms branch_cp
 #print axioms aggregate_trace
+#print axioms krausSoundExt_of_sound_control_refext
 #print axioms krausSoundExt_of_exact_control_refext
 #print axioms countermodel_witness_level_two
 #print axioms cp_comp

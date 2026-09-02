@@ -6427,6 +6427,176 @@ check("F50", ok50,
       "established in its SOUNDNESS direction only; that OI itself implies parallel reference "
       "extension -- round 37's question; no structure field.")
 
+# ----------------------- F51  round 37: the H_comp bridge ----------------------------------
+# spectator compositionality DETERMINES the form of a spectator extension and does NOT supply
+# its existence; inert-spectator compositionality is the missing condition (phase three,
+# round thirty-seven).
+ok51 = True
+
+
+def kron_unit51(r, r2, s, s2):
+    """kr17 of two matrix units: (3x3 unit at (r, r2)) (x) (4x4 unit at (s, s2))."""
+    _Er = [[CO17 if (a, b) == (r, r2) else CZ17 for b in range(3)] for a in range(3)]
+    _Es = [[CO17 if (a, b) == (s, s2) else CZ17 for b in range(4)] for a in range(4)]
+    return kr17(_Er, _Es)
+
+
+# --- (a) THE FORM (amplRef_tensorOf): id_R (x) Phi_2 on a product input is X_R (x) Phi_2 X,
+# with a qutrit spectator on random Gaussian-rational factors.
+for _s in range(3):
+    _XR, _X = gmat47(_s + 100, 3), gmat47(_s + 110, 4)
+    ok51 &= amplGen48(red47, kr17(_XR, _X), 4, dref=3) == kr17(_XR, red47(_X))
+# --- (b) PRODUCTS SPAN (tensorOf_single, mapSpectatorIndependent_iff_amplRef,
+# ext_of_agree_on_reindexed_single): every composite matrix unit is a product of matrix
+# units (all 144), so a map agreeing with id (x) Phi_2 on products agrees everywhere -- the
+# product-unit expansion of a random 12x12 input reproduces the amplified map exactly.
+for _r in range(3):
+    for _r2 in range(3):
+        for _s in range(4):
+            for _s2 in range(4):
+                _E = kron_unit51(_r, _r2, _s, _s2)
+                ok51 &= _E == [[CO17 if (p, q) == (4 * _r + _s, 4 * _r2 + _s2) else CZ17
+                                for q in range(12)] for p in range(12)]
+_M = gmat47(120, 12)
+_acc = [[CZ17] * 12 for _ in range(12)]
+for _p in range(12):
+    for _q in range(12):
+        _r, _s, _r2, _s2 = _p >> 2, _p & 3, _q >> 2, _q & 3
+        _Er = [[CO17 if (a, b) == (_r, _r2) else CZ17 for b in range(3)] for a in range(3)]
+        _Es = [[CO17 if (a, b) == (_s, _s2) else CZ17 for b in range(4)] for a in range(4)]
+        _blk = kr17(_Er, red47(_Es))
+        for a in range(12):
+            for b in range(12):
+                _acc[a][b] = _acc[a][b] + _M[_p][_q] * _blk[a][b]
+ok51 &= _acc == amplGen48(red47, _M, 4, dref=3)
+# --- (c) RELABELLING (correlationExtension_ones, correlationExtension_ones_eq_conjChannel,
+# correlationExtension_ones_comp, wordMap_ones): the trivial-correlation coherent map of a
+# permutation g is X -> X(g^-1 a, g^-1 b), equal to conjugation by the permutation unitary
+# P_g[i][j] = [g j = i], and composes as the permutations do.
+def perm51(seed, n):
+    _g = list(range(n))
+    _x = seed
+    for _i in range(n - 1, 0, -1):
+        _x = (_x * 1103515245 + 12345) % (2 ** 31)
+        _j = _x % (_i + 1)
+        _g[_i], _g[_j] = _g[_j], _g[_i]
+    return _g
+
+
+def pmat51(g):
+    n = len(g)
+    return [[CO17 if g[j] == i else CZ17 for j in range(n)] for i in range(n)]
+
+
+def relabel51(g, X):
+    n = len(g)
+    _inv = {g[j]: j for j in range(n)}
+    return [[X[_inv[a]][_inv[b]] for b in range(n)] for a in range(n)]
+
+
+for _s in range(3):
+    _g, _h = perm51(_s + 1, 4), perm51(_s + 7, 4)
+    _X = gmat47(_s + 130, 4)
+    _P = pmat51(_g)
+    ok51 &= relabel51(_g, _X) == mmc17(mmc17(_P, _X), dag17(_P))
+    ok51 &= mmc17(dag17(_P), _P) == eye17(4) and mmc17(_P, dag17(_P)) == eye17(4)
+    _gh = [_g[_h[x]] for x in range(4)]
+    ok51 &= relabel51(_g, relabel51(_h, _X)) == relabel51(_gh, _X)
+# --- (d) TRANSPORT (transport_conjChannel, reindex_isometry): along the qutrit reindexing
+# qidx49, transporting a conjugation by V is conjugation by the reindexed V, and the reindexed
+# V is again an isometry.
+_g12 = perm51(3, 12)
+_P12 = pmat51(_g12)
+_TP = reindex49(_P12)
+for _s in range(2):
+    _N = gmat47(_s + 140, 12)
+    _Xin = [[_N[qidx49(p)][qidx49(q)] for q in range(12)] for p in range(12)]   # reindex^-1
+    ok51 &= reindex49(mmc17(mmc17(_P12, _Xin), dag17(_P12))) == mmc17(mmc17(_TP, _N), dag17(_TP))
+ok51 &= mmc17(dag17(_TP), _TP) == eye17(12)
+# --- (e) REALIZED BUT NOT EXTENDED (hCompRealized_ones_of_control on the countermodel vs
+# countermodel_not_parallelReferenceExtension): the transported relabellings are 2-positive
+# and trace preserving -- available in the round-34 countermodel -- while the spectator
+# extension of the available Phi_2 sends the reindexed |Omega_3> dyad to a non-PSD matrix
+# with quadratic form exactly -3/7 (round 35's witness, re-read through the same reindexing).
+_v24 = gvec47(150, 24)
+_D24 = dyad47(_v24)
+_out = amplGen48(conj48(_TP), _D24, 12, dref=2)
+ok51 &= psd47(_out) and trace40(_out) == trace40(_D24)
+_om3 = [CO17 if p in (0, 5, 10) else CZ17 for p in range(12)]     # |Omega_3> on Fin 3 x (Fin 2 x Fin 2)
+_om3hat = [_om3[_qinv[p]] for p in range(12)]                       # reindexed to Fin 2 x Fin 6
+_Y = withSpectator49(dyad47(_om3hat))
+ok51 &= form50(_Y, _om3hat) == C17(Frac(-3, 7)) and not psd47(_Y)
+# --- (f) the kernel's own claim discipline, read back
+_sb51 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'SpectatorBridge.lean')
+if os.path.exists(_sb51):
+    with open(_sb51, encoding='utf-8') as _f:
+        _sb_txt51 = ' '.join(_f.read().split())
+    ok51 &= 'theorem inertSpectator_iff_parallelReferenceExtension' in _sb_txt51
+    ok51 &= 'theorem hcompRealized_not_implies_parallelReferenceExtension' in _sb_txt51
+    ok51 &= 'acts identically on that spectator' in _sb_txt51
+    ok51 &= 'NOT claimed: composite COMPLETENESS' in _sb_txt51
+    ok51 &= "round thirty-eight's" in _sb_txt51
+_rs51 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'ReferenceSufficiency.lean')
+if os.path.exists(_rs51):
+    with open(_rs51, encoding='utf-8') as _f:
+        _rs_txt51 = ' '.join(_f.read().split())
+    ok51 &= 'theorem krausSoundExt_of_sound_control_refext' in _rs_txt51
+    ok51 &= '(hsound : KrausSound T)' in _rs_txt51
+    ok51 &= 'STRENGTHENED IN ROUND THIRTY-SEVEN' in _rs_txt51
+check("F51", ok51,
+      "ROUND 37: THE H_COMP BRIDGE -- spectator compositionality DETERMINES the form of a "
+      "spectator extension and does NOT supply its existence; inert-spectator "
+      "compositionality is the missing condition (phase three, round thirty-seven; kernel: "
+      "refBlockR_tensorOf, amplRef_tensorOf, mapSpectatorIndependent_iff_amplRef, "
+      "spectatorIndependent_form, hComp_spectator_form, ext_of_agree_on_reindexed_single, "
+      "isSpectatorExtension_iff, spectatorExtension_unique, "
+      "inertSpectator_iff_parallelReferenceExtension, krausSoundExt_of_sound_control_inert, "
+      "countermodel_not_inert, fullQuantum_inert, correlationExtension_ones, "
+      "correlationExtension_ones_eq_conjChannel, correlationExtension_ones_comp, wordMap_ones, "
+      "implementationExtensionality_ones, spectatorIndependent_ones, hComp_ones, "
+      "transport_apply, transport_conjChannel, reindex_isometry, permMatrix_isometry, "
+      "withSpectator_eq_transport, hCompRealized_spectator_available, "
+      "hCompRealized_ones_of_control, countermodel_hCompRealized_ones, "
+      "fullQuantum_hCompRealized_ones, hcompRealized_not_implies_parallelReferenceExtension, "
+      "hcompRealized_consistent_with_parallelReferenceExtension in "
+      "OIBridge/SpectatorBridge.lean; and the OPENING CLEANUP in ReferenceSufficiency.lean: "
+      "krausSoundExt_of_sound_control_refext with antecedent KrausSound T -- system "
+      "SOUNDNESS, not exactness -- plus control plus parallel reference extension against "
+      "FiniteIsometryExtensionSF Unit, the round-36 exact form now a corollary through "
+      "exact_iff_sound_and_full, and sound_avail_cp_tp beneath branch_cp and "
+      "aggregate_trace). FORM: under H_comp the coherent map of every spectator-extended "
+      "relabelling id_R x g IS amplRefL R of the coherent map of g -- the reversible "
+      "specialization of parallel reference extension, with round 25's map-level "
+      "identity-on-spectator form read off explicitly -- because composite matrix units are "
+      "products, so agreement on products is agreement everywhere; in the availability world "
+      "a map acting as X_R (x) Phi X on every reindexed product input IS withSpectator R e "
+      "Phi, uniquely. EXISTENCE: HCompRealized says H_comp holds AND every coherent map the "
+      "completion names is an available one-outcome intervention; a realized H_comp has "
+      "parallel reference extension ON THE REVERSIBLE SECTOR it names; the "
+      "trivial-correlation completion satisfies H_comp for every alphabet and is realized by "
+      "any theory with composite unitary control, so the round-34 countermodel realizes it at "
+      "the qutrit spectator with the full alphabet of composite relabellings and still "
+      "refutes parallel reference extension, while fullQuantum realizes the same completion "
+      "and has it: the realization decides neither way. THE MISSING CONDITION, in physical "
+      "words: an intervention performable on a system remains performable when an "
+      "independent finite spectator is adjoined, and acts identically on that spectator -- "
+      "an EXISTENCE clause, InertSpectatorCompositionality -- proved equivalent to parallel "
+      "reference extension, hence sufficient (with system soundness, control and boundary "
+      "item 2) for composite Kraus soundness; the countermodel lacks it, the full theory has "
+      "it. Verified exactly here: the product identity with a qutrit spectator; all 144 "
+      "product matrix units as composite units and the product-unit expansion reproducing the "
+      "amplified map on a random 12x12 input; relabelling as permutation conjugation and its "
+      "composition law; transport of a conjugation along the qutrit reindexing with the "
+      "transported matrix again an isometry; the transported relabellings 2-positive and "
+      "trace preserving (available in the countermodel) while the spectator extension of "
+      "Phi_2 sends the reindexed |Omega_3> dyad to a non-PSD matrix with form -3/7. NOT "
+      "CLAIMED, lint-guarded: that OI or H_comp implies inert-spectator compositionality (the "
+      "non-implication says the opposite for the realized form); composite COMPLETENESS "
+      "(prepAvail starts from the visible system only; a product-preparation principle is "
+      "round 38's question); OI + conditions iff full operational QM; no structure field.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

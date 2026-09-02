@@ -689,15 +689,33 @@ for fname, names in (
                             'control_not_implies_parallelReferenceExtension',
                             'exactControl_not_implies_qutritReferenceExtension')),
     ('ReferenceSufficiency', ('unitVectorRotation_of_isometryExtension', 'pureState_reachable',
-                              'exact_avail_cp_tp', 'cp_apply_posSemidef', 'two_single_eq_dyads',
+                              'sound_avail_cp_tp', 'exact_avail_cp_tp', 'cp_apply_posSemidef',
+                              'two_single_eq_dyads',
                               'linear_functional_zero_of_dyads', 'isHermitian_of_forms_real',
                               'posSemidef_of_forms_nonneg', 'forms_nonneg_of_unit', 'branch_cp',
-                              'aggregate_trace', 'krausSoundExt_of_exact_control_refext',
+                              'aggregate_trace', 'krausSoundExt_of_sound_control_refext',
+                              'krausSoundExt_of_exact_control_refext',
                               'countermodel_witness_level_two', 'cp_comp', 'localLuders_cp',
                               'fullQuantum_exact', 'fullQuantum_control',
                               'fullQuantum_krausSoundExt', 'withSpectator_conjChannel',
                               'withSpectator_cp', 'fullQuantum_parallelReferenceExtension',
                               'parallelReferenceExtension_satisfiable')),
+    ('SpectatorBridge', ('refBlockR_tensorOf', 'amplRef_tensorOf',
+                         'mapSpectatorIndependent_iff_amplRef', 'spectatorIndependent_form',
+                         'hComp_spectator_form', 'ext_of_agree_on_reindexed_single',
+                         'isSpectatorExtension_iff', 'spectatorExtension_unique',
+                         'inertSpectator_iff_parallelReferenceExtension',
+                         'krausSoundExt_of_sound_control_inert', 'countermodel_not_inert',
+                         'fullQuantum_inert', 'correlationExtension_ones',
+                         'correlationExtension_ones_eq_conjChannel',
+                         'correlationExtension_ones_comp', 'wordMap_ones',
+                         'implementationExtensionality_ones', 'spectatorIndependent_ones',
+                         'hComp_ones', 'transport_apply', 'transport_conjChannel',
+                         'reindex_isometry', 'permMatrix_isometry', 'withSpectator_eq_transport',
+                         'hCompRealized_spectator_available', 'hCompRealized_ones_of_control',
+                         'countermodel_hCompRealized_ones', 'fullQuantum_hCompRealized_ones',
+                         'hcompRealized_not_implies_parallelReferenceExtension',
+                         'hcompRealized_consistent_with_parallelReferenceExtension')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -849,10 +867,19 @@ ok6 &= 'is strictly weaker' not in _reflat
 rs = open(os.path.join(BRIDGE, 'OIBridge', 'ReferenceSufficiency.lean'), encoding='utf-8').read()
 _rsbody = rs.split('namespace OIBridge')[1]
 _rsflat = ' '.join(rs.split())
-_cap = _slice(rs, 'theorem krausSoundExt_of_exact_control_refext', ':= by')
+_cap = _slice(rs, 'theorem krausSoundExt_of_sound_control_refext', ':= by')
 ok6 &= bool(_cap) and '(hext : FiniteIsometryExtensionSF Unit)' in _cap
-ok6 &= 'ExactFiniteEndomorphicQuantumOps T' in _cap and 'HasCompositeUnitaryControl T' in _cap
+# ROUND-37 OPENING CLEANUP: the primary antecedent is system SOUNDNESS, not exactness;
+# system completeness must not appear in the capstone slice
+ok6 &= '(hsound : KrausSound T)' in _cap and 'HasCompositeUnitaryControl T' in _cap
+ok6 &= 'ExactFiniteEndomorphicQuantumOps' not in _cap
+ok6 &= 'HasFullFiniteEndomorphicInstruments' not in _cap
 ok6 &= 'HasParallelReferenceExtension T' in _cap and _cap.rstrip().endswith('KrausSoundExt T')
+# the round-36 exact form survives as a corollary, proved through exact_iff_sound_and_full
+_capx = _slice(rs, 'theorem krausSoundExt_of_exact_control_refext', 'theorem countermodel_witness_level_two')
+ok6 &= bool(_capx) and '(hex : ExactFiniteEndomorphicQuantumOps T)' in _capx
+ok6 &= 'krausSoundExt_of_sound_control_refext T hext ((exact_iff_sound_and_full T).mp hex).1' in _capx
+ok6 &= 'STRENGTHENED IN ROUND THIRTY-SEVEN' in _rsflat
 _rot = _slice(rs, 'theorem unitVectorRotation_of_isometryExtension', 'end Rotation')
 ok6 &= bool(_rot) and 'hext (2 * n + 1)' in _rot and 'Esf' in _rot
 ok6 &= 'exists_orthonormalBasis' not in _rsbody and 'OrthonormalBasis' not in _rsbody
@@ -863,7 +890,8 @@ ok6 &= 'theorem two_single_eq_dyads' in rs and 'theorem isHermitian_of_forms_rea
 ok6 &= 'theorem posSemidef_of_forms_nonneg' in rs and 'No case split is hidden' in _rsflat
 # the branch-CP lemma must reach exactness through the discard of an AVAILABLE family
 _bcp = _slice(rs, 'theorem branch_cp', 'end BranchCP')
-ok6 &= bool(_bcp) and 'prepAvail_discard' in _bcp and 'exact_avail_cp_tp' in _bcp
+ok6 &= bool(_bcp) and 'prepAvail_discard' in _bcp and 'sound_avail_cp_tp' in _bcp
+ok6 &= '(hsound : KrausSound T)' in _bcp and 'exact_avail_cp_tp' not in _bcp
 ok6 &= 'withSpectator' in _bcp and 'diag_nonneg' in _bcp
 # the positive instance
 _fq = _slice(rs, 'noncomputable def fullQuantum', 'theorem fullQuantum_exact')
@@ -879,6 +907,45 @@ ok6 &= 'soundness direction only' in _rsflat
 ok6 &= "that is round thirty-seven's question" in _rsflat
 ok6 &= 'theorem krausSoundExt_iff' not in rs and 'theorem composite_complete' not in rs
 ok6 &= 'is strictly weaker' not in _rsflat
+# ROUND-37 GUARDS.  The H_comp bridge must separate FORM (what spectator independence
+# determines) from EXISTENCE (what it does not supply): the form theorems must land on
+# amplRefL / withSpectator; inert-spectator compositionality must be an EXISTENCE clause
+# (∃ G) over IsSpectatorExtension; the non-implication must be kernelized on the round-34
+# countermodel with H_comp REALIZED (every named coherent map available); no claim that
+# H_comp or OI implies the extension, no composite completeness, no OI ⟺ QM.
+sb = open(os.path.join(BRIDGE, 'OIBridge', 'SpectatorBridge.lean'), encoding='utf-8').read()
+_sbflat = ' '.join(sb.split())
+_form = _slice(sb, 'theorem hComp_spectator_form', ':=')
+ok6 &= bool(_form) and '(h : HComp act corr CB C)' in _form
+ok6 &= '= amplRefL R (correlationExtension g (CB g))' in ' '.join(_form.split())
+_mi = _slice(sb, 'theorem mapSpectatorIndependent_iff_amplRef', ':= by')
+ok6 &= bool(_mi) and 'MapSpectatorIndependent ΦB ΦRS ↔ ΦRS = amplRefL R ΦB' in _mi
+_ise = _slice(sb, 'theorem isSpectatorExtension_iff', ':= by')
+ok6 &= bool(_ise) and 'IsSpectatorExtension e Φ G ↔ G = withSpectator R e Φ' in _ise
+_inert = _slice(sb, 'def InertSpectatorCompositionality', 'theorem inertSpectator_iff_parallelReferenceExtension')
+ok6 &= bool(_inert) and '∃ G' in _inert and 'IsSpectatorExtension e (F a) (G a)' in _inert
+ok6 &= 'T.availExt m O G' in _inert
+ok6 &= 'theorem inertSpectator_iff_parallelReferenceExtension' in sb
+_hr = _slice(sb, 'def HCompRealized', 'theorem hCompRealized_spectator_available')
+ok6 &= bool(_hr) and 'HComp act corr CB C' in _hr and 'transport e' in _hr
+ok6 &= 'T.availExt m Unit' in _hr and 'T.availExt n Unit' in _hr
+_ni = _slice(sb, 'theorem hcompRealized_not_implies_parallelReferenceExtension', ':=')
+ok6 &= bool(_ni) and 'HCompRealized T qutritIdx' in _ni
+ok6 &= '¬ HasParallelReferenceExtension T' in _ni and '¬ InertSpectatorCompositionality T' in _ni
+ok6 &= 'HasCompositeUnitaryControl T' in _ni
+ok6 &= 'countermodel' in _slice(sb, 'theorem hcompRealized_not_implies_parallelReferenceExtension', 'theorem hcompRealized_consistent')
+ok6 &= 'theorem hcompRealized_consistent_with_parallelReferenceExtension' in sb
+ok6 &= 'theorem krausSoundExt_of_sound_control_inert' in sb
+ok6 &= 'inert-spectator compositionality' in _sbflat.lower()
+ok6 &= 'acts identically on that spectator' in _sbflat
+ok6 &= re.search(r'(?m)^structure ', sb) is None
+ok6 &= 'NOT claimed: composite COMPLETENESS' in _sbflat
+ok6 &= "round thirty-eight's" in _sbflat
+ok6 &= 'NOT claimed: OI + conditions' in _sbflat
+ok6 &= 'theorem hComp_implies_parallelReferenceExtension' not in sb
+ok6 &= 'theorem oi_implies_parallelReferenceExtension' not in sb
+ok6 &= 'theorem oi_iff_quantum' not in sb and 'theorem composite_complete' not in sb
+ok6 &= 'theorem inertSpectator_of_hComp' not in sb
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1283,8 +1350,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All forty-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 22 + 5 + 16 named results print their "
+      "LINT. All forty-five files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
