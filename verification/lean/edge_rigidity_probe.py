@@ -745,6 +745,20 @@ for fname, names in (
                             'admissible_not_iteratedAncillaClosure',
                             'admissible_not_fullComposite', 'admissible_not_exactComposite',
                             'closure_independent')),
+    ('CompositionalIndependence', ('amplR_transport', 'twoPositive_transport',
+                                   'twoPositive_of_transport', 'amplR_ptraceAncL_eq_sum',
+                                   'embR_conjTranspose_apply', 'amplR_uniformAttach_eq_sum',
+                                   'discardWith_uniform_twoPositive',
+                                   'countermodel_iteratedAncillaClosure',
+                                   'countermodel_krausSound', 'admissible_krausSound',
+                                   'countermodel_reduction2_available_fin1',
+                                   'countermodel_not_exactComposite',
+                                   'closure_not_implies_inert', 'inert_not_implies_closure',
+                                   'both_satisfiable', 'independence_matrix',
+                                   'hcompRealized_inert_not_implies_closure',
+                                   'hcompRealized_closure_not_implies_inert',
+                                   'inert_not_deletable', 'closure_not_deletable',
+                                   'conditional_classification')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -1029,6 +1043,34 @@ ok6 &= 'theorem dyad_sum_span' in co and 'Kraus uniqueness is not invoked' in _c
 ok6 &= 'KrausUniqueness' not in co.split('namespace OIBridge')[1]
 ok6 &= re.search(r'(?m)^structure ', co) is None
 ok6 &= 'theorem admissible_iteratedAncillaClosure' not in co
+# ROUND-39 GUARDS.  The independence matrix must carry all three rows with system Kraus
+# soundness and control in each; the two H_comp non-implications must be stated on the
+# realized predicate; the frozen classification must be the endpoint implication against
+# boundary item 2 at the named carriers plus the three witnesses; and the OI caveat must be
+# explicit -- no claim that observer independence itself fails to imply either principle.
+ci = open(os.path.join(BRIDGE, 'OIBridge', 'CompositionalIndependence.lean'), encoding='utf-8').read()
+_ciflat = ' '.join(ci.split())
+_mat = ' '.join(_slice(ci, 'theorem independence_matrix', ':=').split())
+ok6 &= bool(_mat) and _mat.count('KrausSound T ∧ HasCompositeUnitaryControl T') == 3
+ok6 &= 'IteratedAncillaClosure T ∧ ¬ InertSpectatorCompositionality T' in _mat
+ok6 &= 'InertSpectatorCompositionality T ∧ ¬ IteratedAncillaClosure T' in _mat
+ok6 &= 'InertSpectatorCompositionality T ∧ IteratedAncillaClosure T)' in _mat
+_cc = ' '.join(_slice(ci, 'theorem conditional_classification', ':=').split())
+ok6 &= bool(_cc) and 'FiniteIsometryExtensionSF Unit' in _cc
+ok6 &= 'FiniteIsometryExtensionSF (Fin 2 × Fin (k + 1))' in _cc
+ok6 &= '→ IteratedAncillaClosure T → ExactCompositeQuantumOps T' in _cc
+ok6 &= 'ExactFiniteEndomorphicQuantumOps' not in _cc
+ok6 &= 'theorem countermodel_iteratedAncillaClosure' in ci
+ok6 &= 'theorem discardWith_uniform_twoPositive' in ci
+for _nm in ('hcompRealized_inert_not_implies_closure', 'hcompRealized_closure_not_implies_inert'):
+    _hs = ' '.join(_slice(ci, 'theorem ' + _nm, ':=').split())
+    ok6 &= bool(_hs) and 'HCompRealized T qutritIdx' in _hs and 'HasCompositeUnitaryControl T' in _hs
+ok6 &= 'theorem inert_not_deletable' in ci and 'theorem closure_not_deletable' in ci
+ok6 &= 'They do NOT show that observer independence itself fails to imply them' in _ciflat
+ok6 &= 'is not done here and is not claimed' in _ciflat
+ok6 &= re.search(r'(?m)^structure ', ci) is None
+ok6 &= 'theorem oi_not_implies_inert' not in ci and 'theorem oi_not_implies_closure' not in ci
+ok6 &= 'theorem oi_iff_quantum' not in ci
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1433,8 +1475,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All forty-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 5 + 16 named results print their "
+      "LINT. All forty-eight files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

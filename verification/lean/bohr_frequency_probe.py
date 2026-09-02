@@ -6823,6 +6823,117 @@ check("F52", ok52,
       "boundary item (item 2 consumed at Unit for soundness and at the composite carriers "
       "for completeness); no structure field.")
 
+# ----------------------- F53  round 39: the independence matrix ---------------------------
+# the two compositional principles are mutually independent, realized H_comp supplies
+# neither, and the conditional classification is frozen (phase three, round thirty-nine).
+ok53 = True
+
+
+def embR53(S, m, e):
+    """The fresh-ancilla embedding with the reference slot untouched: rows (r, (s, f)) with
+    index m*(S*r + s) + f, columns (r, s) with index S*r + s."""
+    return [[CO17 if (p // m) == q and (p % m) == e else CZ17 for q in range(2 * S)]
+            for p in range(2 * S * m)]
+
+
+# --- (a) THE AMPLIFIED ATTACHMENT AND DISCARD AS CONGRUENCE SUMS (amplR_uniformAttach_eq_sum,
+# amplR_ptraceAncL_eq_sum): id_2 (x) (uniform attach) is (1/m) sum_e E_e M E_e^dag, and
+# id_2 (x) (partial trace) is the sum of the principal submatrices, on a random base S = 3
+# with a fresh ancilla m = 2 -- so both preserve positive semidefiniteness.
+S53, m53 = 3, 2
+_M = gmat47(200, 2 * S53)
+_lhs = [[_M[p // m53][q // m53] * C17(Frac(1, m53)) if (p % m53) == (q % m53) else CZ17
+         for q in range(2 * S53 * m53)] for p in range(2 * S53 * m53)]
+_rhs = [[CZ17] * (2 * S53 * m53) for _ in range(2 * S53 * m53)]
+for e in range(m53):
+    _E = embR53(S53, m53, e)
+    _rhs = add52(_rhs, scale52(C17(Frac(1, m53)), mmc17(mmc17(_E, _M), dag17(_E))))
+ok53 &= _lhs == _rhs
+_N = gmat47(201, 2 * S53 * m53)
+_pt = [[sum((_N[m53 * p + e][m53 * q + e] for e in range(m53)), CZ17) for q in range(2 * S53)]
+       for p in range(2 * S53)]
+_sub = [[CZ17] * (2 * S53) for _ in range(2 * S53)]
+for e in range(m53):
+    _sub = add52(_sub, [[_N[m53 * p + e][m53 * q + e] for q in range(2 * S53)] for p in range(2 * S53)])
+ok53 &= _pt == _sub
+_P = mmc17(_N, dag17(_N))                                            # a PSD 12x12
+ok53 &= psd47(_P) and psd47([[sum((_P[m53 * p + e][m53 * q + e] for e in range(m53)), CZ17)
+                              for q in range(2 * S53)] for p in range(2 * S53)])
+# --- (b) THE ROUND-34 COUNTERMODEL HAS ITERATED ANCILLA CLOSURE
+# (discardWith_uniform_twoPositive, countermodel_iteratedAncillaClosure): at base Fin 2 x Fin 1
+# with a fresh qubit, attach-run-discard of the available Phi_2 is the qubit map
+# rho -> (4 tr rho I - rho)/7, which is 2-positive (its Choi matrix (4 I - |Omega><Omega|)/7 is
+# PSD), while Phi_2 itself is NOT completely positive (F47's J47).
+def psi53(rho):
+    att = [[rho[p >> 1][q >> 1] * HALF43 if (p & 1) == (q & 1) else CZ17 for q in range(4)]
+           for p in range(4)]
+    out = red47(att)
+    return [[out[2 * s][2 * t] + out[2 * s + 1][2 * t + 1] for t in range(2)] for s in range(2)]
+
+
+for _s in range(2):
+    _rho = gmat47(_s + 210, 2)
+    _t = trace40(_rho)
+    ok53 &= psi53(_rho) == [[(C17(4) * _t * (CO17 if r == c else CZ17) - _rho[r][c]) * C17(Frac(1, 7))
+                             for c in range(2)] for r in range(2)]
+_J = choi41(psi53, 2)
+ok53 &= psd47(_J) and not psd47(J47)
+for _s in range(2):
+    _v = gvec47(_s + 220, 4)
+    ok53 &= psd47(amplGen48(psi53, dyad47(_v), 2, dref=2))
+# --- (c) THE MATRIX, read back from the kernel: the three rows, the H_comp symmetric
+# non-implications, the non-deletability of each clause, and the OI caveat.
+_ci53 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'CompositionalIndependence.lean')
+if os.path.exists(_ci53):
+    with open(_ci53, encoding='utf-8') as _f:
+        _ci_txt53 = ' '.join(_f.read().split())
+    ok53 &= 'theorem countermodel_iteratedAncillaClosure' in _ci_txt53
+    ok53 &= 'theorem independence_matrix' in _ci_txt53
+    ok53 &= 'theorem hcompRealized_inert_not_implies_closure' in _ci_txt53
+    ok53 &= 'theorem hcompRealized_closure_not_implies_inert' in _ci_txt53
+    ok53 &= 'theorem inert_not_deletable' in _ci_txt53 and 'theorem closure_not_deletable' in _ci_txt53
+    ok53 &= 'theorem conditional_classification' in _ci_txt53
+    ok53 &= 'They do NOT show that observer independence itself fails to imply them' in _ci_txt53
+check("F53", ok53,
+      "ROUND 39: THE INDEPENDENCE MATRIX -- the two compositional principles are mutually "
+      "independent, realized H_comp supplies neither, and the conditional classification is "
+      "frozen (phase three, round thirty-nine; kernel: OIBridge/CompositionalIndependence.lean, "
+      "21 results -- amplR_transport, twoPositive_transport, twoPositive_of_transport, "
+      "amplR_ptraceAncL_eq_sum, embR_conjTranspose_apply, amplR_uniformAttach_eq_sum, "
+      "discardWith_uniform_twoPositive, countermodel_iteratedAncillaClosure, "
+      "countermodel_krausSound, admissible_krausSound, countermodel_reduction2_available_fin1, "
+      "countermodel_not_exactComposite, closure_not_implies_inert, inert_not_implies_closure, "
+      "both_satisfiable, independence_matrix, hcompRealized_inert_not_implies_closure, "
+      "hcompRealized_closure_not_implies_inert, inert_not_deletable, closure_not_deletable, "
+      "conditional_classification). THE MISSING DIRECTION: the round-34 dimensional "
+      "countermodel HAS iterated ancilla closure, because 2-positivity survives transport along "
+      "a reindexing (the reference slot untouched), uniform attachment (id_2 (x) attach is a "
+      "scaled sum of congruences) and discard (id_2 (x) partial trace is a sum of principal "
+      "submatrices); it is exactly quantum on the system, has every composite unitary, and "
+      "refutes inert-spectator compositionality (round 37). With round 38's admissible theory "
+      "(inert spectators, no closure) and fullQuantum (both) this is the 2 x 2 matrix "
+      "independence_matrix, each row with system Kraus soundness and full composite unitary "
+      "control. Symmetrically to round 37, realized H_comp with control supplies NEITHER "
+      "existence principle: the admissible theory realizes the trivial-correlation completion "
+      "and has inert spectators but no closure; the countermodel realizes it and has closure "
+      "but no inert spectators. Neither clause of the endpoint can be deleted "
+      "(inert_not_deletable via the countermodel's available non-CP Phi_2 at a Fin 1 outcome "
+      "type; closure_not_deletable via the admissible theory's missing amplitude damping). THE "
+      "FROZEN CLASSIFICATION, conditional_classification: for a qubit system, KrausSound + "
+      "HasCompositeUnitaryControl + InertSpectatorCompositionality + IteratedAncillaClosure "
+      "imply ExactCompositeQuantumOps against finite isometry extension (boundary item 2) at "
+      "Unit and at the composite carriers, together with the three witnesses. Verified exactly "
+      "here: the two congruence-sum identities with a three-level base and a fresh qubit and "
+      "their PSD preservation; the countermodel's attach-run-discard of Phi_2 as the qubit map "
+      "(4 tr rho I - rho)/7 with a PSD Choi matrix and 2-positivity on random dyads, against "
+      "the non-PSD Choi matrix of Phi_2 itself; the kernel text of the matrix and the OI "
+      "caveat. NOT CLAIMED, lint-guarded: that observer independence itself fails to imply "
+      "either principle -- the countermodels are FiniteOperationalTheory models of the "
+      "formalized operational rules, exact system QM, control and realized H_comp, not "
+      "exhibited models of the bare OI axioms; the research question is stated in exactly "
+      "that form; no structure field.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
