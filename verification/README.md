@@ -9,7 +9,7 @@ layers:
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
 - **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 95 modules and,
-  at this commit, 1,751 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+  at this commit, 1,755 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -290,12 +290,18 @@ embedded-observation family (`shadow_embeddedObservation`). Under the shadow hyp
 endomorphic QM on every nonempty carrier, what Level I supplies — a family between nonempty carriers is
 typed-available exactly when it is a typed Kraus instrument (`typed_determined`,
 `typed_determined_of_oiPlusElem`), by register wrapping and compression for soundness and by a
-uniform ancilla, a relabelling and register operators for completeness. The interface carries no
+uniform ancilla, a relabelling and register operators for completeness; the converse holds by
+restriction to one carrier, so the shadow is quantum exactly when the typed theory is the finite
+typed quantum theory (`typed_determined_iff`). The interface carries no
 quantum content: the typed diagonal theory satisfies every rule and its shadow is not QM
 (`typed_interface_not_quantum`). For this interface the fork closes with full redundancy: no fresh
 chosen-state preparation and no coherence condition beyond the typed closure rules is needed, so
-"endomorphic" is a typing artifact. Level III (infinite dimensions) is a different programme and is
-not begun.
+"endomorphic" is a typing artifact. The typed form is propagated to the manuscripts (GR §3.3, with
+cross-references in Main §3.4, the Explainer, and book chapters 1 and 19) with the interface
+qualification stated beside it, and Level II is frozen at this commit: within the natural
+carrier-general extension of the operational rules already used at Level I, the remaining qualifier
+is finite-dimensional rather than endomorphic. Level III (infinite dimensions) is a different
+programme and is not begun.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general

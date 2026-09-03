@@ -3344,7 +3344,16 @@ state mixing ({[}GR §3.3{]}; kernel:
 \texttt{substratum\_plus\_control\_qm} in
 \texttt{OIBridge/StructuralClosure.lean},
 \texttt{readWriteSourced\_not\_qm} in
-\texttt{OIBridge/ReadWriteControl.lean}).
+\texttt{OIBridge/ReadWriteControl.lean}). Its typed form removes the
+endomorphic qualifier: under the carrier-general typed operational
+interface --- identity, composition, coarse-graining, relabelling,
+uniform finite attachment, discard, and factor readout, an interface
+that itself carries no quantum content --- the same equivalence holds
+with exact finite-dimensional typed operational quantum mechanics,
+operations between any two nonempty finite carriers included, so the
+remaining qualifier is finite-dimensional rather than endomorphic ({[}GR
+§3.3{]}; kernel: \texttt{typed\_determined\_iff} in
+\texttt{OIBridge/TypedCompletion.lean}).
 
 \emph{Lemma (adaptive diamond telescoping).} \emph{Let \(\pi\) be an
 adaptive protocol of horizon \(K\) and \(\pi'\) the protocol with each
@@ -4880,4 +4889,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: 7641e32a7db748fb670f225ce4e79241dff8bf9711d62ba277f69f1a9def4ddc
+% source-sha256: a1bcc2ccc4562bf3ce4c725a9b3dff5a6858de5b7694b505eff382d45bb4a86c
