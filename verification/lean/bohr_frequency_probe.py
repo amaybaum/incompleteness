@@ -8658,6 +8658,122 @@ check("F69", ok69,
       "either direction; the converse from inverse accessibility to dagger stability; any source "
       "for the Lie-rank clause.")
 
+# F70 -- ROUND 59: THE SOURCE OF LIE-RANK RICHNESS -- the redundancy test fails on the diagonal
+# architecture; Lie-rank richness is derived from elementary transitions (one driven pair, one
+# quarter phase, all exchanges) generating su(D) (phase three, round fifty-nine).
+ok70 = True
+def _E70(d, a, b):
+    return [[CO17 if (r == a and c == b) else CZ17 for c in range(d)] for r in range(d)]
+def _addm(A, B): return [[A[r][c] + B[r][c] for c in range(len(A))] for r in range(len(A))]
+def _subm(A, B): return [[A[r][c] - B[r][c] for c in range(len(A))] for r in range(len(A))]
+_i70 = C17(Frac(0), Frac(1))
+def _trans70(d, a, b): return _addm(_E70(d, a, b), _E70(d, b, a))
+def _transY70(d, a, b): return scale52(_i70, _subm(_E70(d, a, b), _E70(d, b, a)))
+def _pop70(d, a, b): return _subm(_E70(d, a, a), _E70(d, b, b))
+def _phase70(d, a): return [[(_i70 if (r == a and c == a) else (CO17 if r == c else CZ17)) for c in range(d)] for r in range(d)]
+# --- (a) the two conjugation identities the derivation rests on, on a qutrit (d = 3):
+# a permutation relabels the transition, the quarter phase turns X into Y.
+_d70 = 3
+_swap70 = _perm67([1, 0, 2], _d70)                                   # exchange 0 and 1
+ok70 &= conjby52(_swap70, _trans70(_d70, 0, 2)) == _trans70(_d70, 1, 2)
+_ph70 = _phase70(_d70, 0)
+ok70 &= conjby52(_ph70, _trans70(_d70, 0, 1)) == _transY70(_d70, 0, 1)
+ok70 &= mmc17(dag17(_ph70), _ph70) == eye17(_d70)
+# --- (b) the bracket [ -iX, -iY ] = 2 (i (E_aa - E_bb)) supplies the diagonal direction.
+_mIX = scale52(C17(0) - _i70, _trans70(_d70, 0, 1))
+_mIY = scale52(C17(0) - _i70, _transY70(_d70, 0, 1))
+_brack = _subm(mmc17(_mIX, _mIY), mmc17(_mIY, _mIX))
+ok70 &= _brack == scale52(C17(Frac(2)), scale52(_i70, _pop70(_d70, 0, 1)))
+# --- (c) the generated su(3): the real span of { -iX_pq, -iY_pq (p<q), i(E_pp - E_qq) } is all
+# of the traceless skew-Hermitian matrices (dimension 8). Rank over the reals of the 8 generators
+# flattened into re/im coordinates equals 8, and a generic traceless skew-Hermitian lies in it.
+def _flat70(M):
+    out = []
+    for row in M:
+        for x in row:
+            out.append(x.re); out.append(x.im)
+    return out
+_gens = []
+for (p, q) in ((0,1),(0,2),(1,2)):
+    _gens.append(_flat70(scale52(C17(0) - _i70, _trans70(_d70, p, q))))
+    _gens.append(_flat70(scale52(C17(0) - _i70, _transY70(_d70, p, q))))
+    _gens.append(_flat70(scale52(_i70, _pop70(_d70, p, q))))
+def _rank_rows_q(rows):
+    rows = [[Frac(x) for x in r] for r in rows]
+    piv = 0
+    for col in range(len(rows[0])):
+        sel = None
+        for r in range(piv, len(rows)):
+            if rows[r][col] != 0:
+                sel = r; break
+        if sel is None: continue
+        rows[piv], rows[sel] = rows[sel], rows[piv]
+        pv = rows[piv][col]
+        rows[piv] = [x / pv for x in rows[piv]]
+        for r in range(len(rows)):
+            if r != piv and rows[r][col] != 0:
+                f = rows[r][col]
+                rows[r] = [a - f * b for a, b in zip(rows[r], rows[piv])]
+        piv += 1
+    return piv
+ok70 &= _rank_rows_q(_gens) == 8
+# a generic traceless skew-Hermitian A: A^dag = -A, tr A = 0; it must lie in the real span.
+_A70 = [[CZ17, C17(Frac(1,2), Frac(3,2)), C17(Frac(-1), Frac(1,3))],
+        [C17(Frac(-1,2), Frac(3,2)), scale52(_i70, [[C17(Frac(2))]])[0][0], C17(Frac(2), Frac(-1,2))],
+        [C17(Frac(1), Frac(1,3)), C17(Frac(-2), Frac(-1,2)), scale52(_i70, [[C17(Frac(-2))]])[0][0]]]
+ok70 &= dag17(_A70) == scale52(C17(-1), _A70) and trace40(_A70) == CZ17
+ok70 &= _rank_rows_q(_gens + [_flat70(_A70)]) == 8
+# --- (d) the diagonal architecture countermodel: a diagonal-preserving conjugation cannot be
+# the rational 3-4-5 rotation, so the generated diagonal theory has no full control.
+_R70 = [[C17(Frac(3,5)), C17(Frac(4,5))], [C17(Frac(-4,5)), C17(Frac(3,5))]]
+ok70 &= mmc17(dag17(_R70), _R70) == eye17(2)
+_diag_in = [[CO17, CZ17], [CZ17, CZ17]]
+_out = conjby52(_R70, _diag_in)
+ok70 &= _out[0][1] != CZ17
+# --- (e) the kernel's claim discipline, read back.
+_ls70 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'LieRankSource.lean')
+if os.path.exists(_ls70):
+    with open(_ls70, encoding='utf-8') as _f:
+        _ls_txt70 = ' '.join(_f.read().split())
+    ok70 &= 'theorem lieRank_not_redundant' in _ls_txt70 and 'theorem hControl_star' in _ls_txt70
+    ok70 &= 'theorem lieRank_of_elementary' in _ls_txt70 and 'theorem elementary_of_control' in _ls_txt70
+    ok70 &= '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A), OIPlusElem T ↔ ExactAllFiniteEndomorphicQuantumOps T' in _ls_txt70
+    ok70 &= 'sorry' not in _ls_txt70
+    ok70 &= 'The minimal elementary repertoire' in _ls_txt70
+check("F70", ok70,
+      "ROUND 59: THE SOURCE OF LIE-RANK RICHNESS (phase three, round fifty-nine; kernel: "
+      "OIBridge/LieRankSource.lean, 57 results -- among them Architecture, genTheory, "
+      "genTheory_embeddedObservation, genTheory_reversibleImplementationLocality, diagClass, "
+      "diagClass_arch, diagGen_not_control, lieRank_not_redundant, transition, transitionY, "
+      "phaseGate, perm_conj_transition, phase_conj_transition, bracket_XY, exists_perm_pair, "
+      "pair_decomp, hControl_star, ctrl, avail_ctrl, lieRank_of_elementary, elementary_of_control, "
+      "oiPlusElem_iff_qm, carrier_general_oiPlusElem). A. THE REDUNDANCY TEST FAILS: implementation "
+      "classes closed under the operations a theory performs generate a finite operational theory "
+      "on every carrier, and the diagonal class (no off-diagonal entry) is such an architecture -- "
+      "context-, label- and dagger-stable -- whose generated theory carries reversible "
+      "implementation locality and embedded observation and has NO composite unitary control, "
+      "since every available conjugation preserves diagonal matrices and the 3-4-5 rotation does "
+      "not; so Lie-rank richness fails there and is not supplied by the other two principles. "
+      "B. THE PRIMITIVE, in elementary implementations: at every level, every real transition "
+      "X_ab = E_ab + E_ba is continuously drivable, every exchange is available, and a quarter "
+      "phase on every state is available -- nothing about a Lie algebra or reachability. "
+      "C. THE DERIVATION, finite Lie algebra: with drift X_{i0 j1} and controls the words (a "
+      "permutation, optionally the quarter phase on i0), conjugation relabels X and the phase "
+      "turns X into Y, a permutation reaches every ordered pair, the bracket [-iX, -iY] = "
+      "2 i (E_pp - E_qq) gives the diagonal directions, and every traceless skew-Hermitian is a "
+      "real combination, so su(D) lies in the control Lie algebra and Lie-rank richness follows. "
+      "NECESSITY: full control supplies every elementary transition. THE COMPRESSED SET: reversible "
+      "implementation locality + elementary transition richness + embedded observation iff exact "
+      "finite endomorphic operational QM on every nonempty finite carrier -- every principle now "
+      "at the level of implementations or the observer architecture, none Lie-algebraic. Verified "
+      "exactly here: the permutation and quarter-phase conjugation identities on a qutrit, the "
+      "bracket identity, the real rank 8 of the su(3) generators with a generic traceless "
+      "skew-Hermitian in their span, the diagonal-preservation obstruction to the rotation, and "
+      "the kernel text read back. NOT CLAIMED, lint-guarded: the minimal elementary repertoire; "
+      "the converse from Lie-rank richness to elementary transitions; the open redundancy of the "
+      "inverse clause.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

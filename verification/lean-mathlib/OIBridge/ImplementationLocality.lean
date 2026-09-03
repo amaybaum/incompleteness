@@ -233,8 +233,8 @@ abbrev ImplementationClass :=
 operators. -/
 def Realized (𝓘 : ImplementationClass) (S : Type) [Fintype S] [DecidableEq S]
     (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop :=
-  ∃ (r : ℕ) (K : Fin r → Matrix S S ℂ) (s : Finset (Fin r)),
-    Φ = ∑ i ∈ s, conjChannel (K i) ∧ ∀ i, 𝓘 S (K i)
+  ∃ (ι : Type) (_ : Fintype ι) (K : ι → Matrix S S ℂ),
+    Φ = ∑ i, conjChannel (K i) ∧ ∀ i, 𝓘 S (K i)
 
 variable {A : Type} [Fintype A] [DecidableEq A]
 
@@ -272,7 +272,7 @@ variable {A : Type} [Fintype A] [DecidableEq A]
 /-- A realized operation is completely positive. -/
 theorem cp_of_realized {𝓘 : ImplementationClass} {S : Type} [Fintype S] [DecidableEq S]
     {Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ} (h : Realized 𝓘 S Φ) : IsCompletelyPositive Φ := by
-  obtain ⟨r, K, s, rfl, -⟩ := h
+  obtain ⟨ι, _, K, rfl, -⟩ := h
   exact cp_sum _ _ fun i _ => conjChannel_cp _
 
 /-- **THE LOCAL FORM KEEPS REALIZATION**: the spectator extension of a realized operation is
@@ -283,8 +283,8 @@ theorem realized_withSpectator {𝓘 : ImplementationClass} (hc : ContextStable 
     (e : R × (A × Fin n) ≃ A × Fin m)
     {Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ}
     (h : Realized 𝓘 (A × Fin n) Φ) : Realized 𝓘 (A × Fin m) (withSpectator R e Φ) := by
-  obtain ⟨r, K, s, rfl, hK⟩ := h
-  refine ⟨r, fun i => Matrix.reindex e e (tensorOf (1 : Matrix R R ℂ) (K i)), s, ?_,
+  obtain ⟨ι, _, K, rfl, hK⟩ := h
+  refine ⟨ι, inferInstance, fun i => Matrix.reindex e e (tensorOf (1 : Matrix R R ℂ) (K i)), ?_,
     fun i => hl _ _ e _ (hc R _ _ (hK i))⟩
   rw [withSpectator_sum]
   exact Finset.sum_congr rfl fun i _ => withSpectator_conjChannel e (K i)
@@ -351,8 +351,10 @@ theorem generated_of_qm [Nonempty A] (T : FiniteOperationalTheory A)
   constructor
   · intro hF
     obtain ⟨r, K, out, hnorm, hKF⟩ := krausFamily_of_exactComposite T h.2 N hN F hF
-    refine ⟨fun a => ⟨r + 1, K, Finset.univ.filter (fun k => out k = a), hKF a, fun _ => trivial⟩,
-      ?_⟩
+    refine ⟨fun a => ⟨{k : Fin (r + 1) // out k = a}, inferInstance, fun k => K k.1, ?_,
+      fun _ => trivial⟩, ?_⟩
+    · rw [hKF a]
+      exact Finset.sum_subtype _ (fun k => by simp) (fun k => conjChannel (K k))
     exact (krausFamily_cp_tr ⟨r, K, out, hnorm, hKF⟩).2
   · rintro ⟨hreal, htr⟩
     have : Nonempty (A × Fin N) := ⟨(Classical.arbitrary A, ⟨0, hN⟩)⟩

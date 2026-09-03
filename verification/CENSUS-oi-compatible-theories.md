@@ -320,6 +320,29 @@ exactly at the adjoint-closure hypothesis of the round-50 reachability theorem, 
 a proof through the semigroup structure of the available unitaries nor a countermodel is
 built.
 
+## Elementary transitions (round fifty-nine)
+
+The fourth entry of the audit derives the Lie-rank clause. First the redundancy test:
+implementation classes closed under the operations a theory performs on implementations
+generate a finite operational theory on every carrier, and the diagonal class — operators
+with no off-diagonal entry — is such an architecture. Its generated theory carries
+reversible implementation locality and embedded observation and has no composite unitary
+control, since every available conjugation preserves diagonal matrices and the round-42
+rotation does not (`LieRankSource.diagGen_not_control`), so the clause is not forced
+(`lieRank_not_redundant`). Then the primitive, stated in elementary implementations: at
+every level every real transition `E_ab + E_ba` is continuously drivable, every exchange is
+available, and a quarter phase on every state is available
+(`ElementaryTransitionRichness`). From one driven transition, the exchanges and one quarter
+phase the control Lie algebra is shown to contain `su(D)` — a permutation relabels the
+transition, the phase turns it into its imaginary partner, and the bracket of the two gives
+the population differences (`hControl_star`) — so Lie-rank richness follows
+(`lieRank_of_elementary`). Full control supplies every elementary transition
+(`elementary_of_control`). The compressed set — reversible implementation locality,
+elementary transition richness, embedded observation — is equivalent to exact finite
+endomorphic operational QM on every nonempty finite carrier (`carrier_general_oiPlusElem`),
+and every principle in it is now stated at the level of implementations or the observer
+architecture. The minimal elementary repertoire is not settled.
+
 ## What the census says and does not say
 
 - The three principles are three independent axes on the class of well-formed OI-compatible
