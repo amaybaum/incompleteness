@@ -8572,6 +8572,92 @@ check("F68", ok68,
       "independence to implementation locality outside the OI-plus context; anything about the "
       "sources of reversible richness.")
 
+# F69 -- ROUND 58: MICROSCOPIC REVERSIBILITY -- reversible richness split into inverse
+# accessibility and Lie-rank richness; the inverse clause derived from dagger-stable
+# implementations through the rank-one ray lemma; the redundancy test left open with the seam
+# named (phase three, round fifty-eight).
+ok69 = True
+def _vec69(M):
+    """The kernel's vectorization of a matrix: p = (row index second, column index first)."""
+    d = len(M)
+    return [M[p % d][p // d] for p in range(d * d)]
+# --- (a) the ray lemma: a redundant decomposition of a unitary channel by c_i V with
+# sum |c_i|^2 = 1 reproduces conj V exactly, the Choi matrix of conj V is the dyad of vec V, and
+# the adjoint family c_i^* V^dag reproduces conj V^dag, normalized and trace preserving.
+_V69 = kr17(_rot, [[_r2, _s2], [_s2, C17(0) - _r2]])                   # a rational unitary on 4 levels
+ok69 &= mmc17(dag17(_V69), _V69) == eye17(4)
+_c69 = [C17(Frac(3, 5)), C17(Frac(0), Frac(4, 5))]                    # 3/5 and 4i/5: |c|^2 sum to one
+_K69 = [scale52(c, _V69) for c in _c69]
+_X69 = gmat47(690, 4)
+_sumK69 = add52(conjby52(_K69[0], _X69), conjby52(_K69[1], _X69))
+ok69 &= _sumK69 == conjby52(_V69, _X69)
+_choi69 = choi41(lambda X: conjby52(_V69, X), 4)
+ok69 &= _choi69 == dyad47(_vec69(_V69))
+_KD69 = [dag17(K) for K in _K69]
+_sumKD69 = add52(conjby52(_KD69[0], _X69), conjby52(_KD69[1], _X69))
+ok69 &= _sumKD69 == conjby52(dag17(_V69), _X69)
+_norm69 = add52(mmc17(dag17(_KD69[0]), _KD69[0]), mmc17(dag17(_KD69[1]), _KD69[1]))
+ok69 &= _norm69 == eye17(4)
+ok69 &= trace40(_sumKD69) == trace40(_X69)
+# the ray lemma's contrapositive on explicit data: a dyad sum with a vector off the ray is not
+# a rank-one dyad (its rank is two).
+_off69 = dyad47(_vec69(_V69))
+_w69 = gvec47(691, 16)
+ok69 &= rank17(add52(_off69, dyad47(_w69))) == 2 and rank17(_off69) == 1
+# --- (b) the seam, illustrated: at su(2) the inverse of a control is reached by conjugating
+# with the drift's quarter-period flow, with no adjoint closure assumed -- exp(-i pi/2 sigma_z)
+# = diag(-i, i) is exact, and it carries the rational x-rotation to its inverse. An
+# illustration of why the redundancy test is not expected to fail, not a theorem.
+_i69 = C17(Frac(0), Frac(1))
+_Z69 = [[C17(0) - _i69, CZ17], [CZ17, _i69]]
+_Ux69 = [[C17(Frac(3, 5)), C17(0) - scale52(C17(Frac(4, 5)), [[_i69]])[0][0]],
+         [C17(0) - scale52(C17(Frac(4, 5)), [[_i69]])[0][0], C17(Frac(3, 5))]]
+ok69 &= mmc17(dag17(_Ux69), _Ux69) == eye17(2) and mmc17(dag17(_Z69), _Z69) == eye17(2)
+ok69 &= conjby52(_Z69, _Ux69) == dag17(_Ux69)
+# --- (c) the kernel's claim discipline, read back.
+_mr69 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'MicroscopicReversibility.lean')
+if os.path.exists(_mr69):
+    with open(_mr69, encoding='utf-8') as _f:
+        _mr_txt69 = ' '.join(_f.read().split())
+    ok69 &= 'theorem reversibleRichness_iff' in _mr_txt69 and 'theorem kraus_of_conj_unitary' in _mr_txt69
+    ok69 &= 'theorem inverseAccessibility_of_generated_daggerStable' in _mr_txt69
+    ok69 &= 'theorem reversibleImplementationLocality_of_qm' in _mr_txt69
+    ok69 &= '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A), OIPlusMicro T ↔ ExactAllFiniteEndomorphicQuantumOps T' in _mr_txt69
+    ok69 &= 'sorry' not in _mr_txt69
+    ok69 &= 'is NOT settled here, in either direction' in _mr_txt69
+check("F69", ok69,
+      "ROUND 58: MICROSCOPIC REVERSIBILITY (phase three, round fifty-eight; kernel: "
+      "OIBridge/MicroscopicReversibility.lean, 16 results -- reversibleRichness_iff, "
+      "control_of_lieRank_inverse, dyad_sum_span_single, conjChannel_smul, kraus_of_conj_unitary, "
+      "implementationLocality_of_reversible, inverseAccessibility_of_generated_daggerStable, "
+      "inverseAccessibility_of_reversibleImplementationLocality, fullClass_daggerStable, "
+      "reversibleImplementationLocality_of_qm, oiPlusLocal_of_oiPlusMicro, qm_of_oiPlusMicro, "
+      "oiPlusMicro_of_qm, oiPlusMicro_iff_qm, oiPlusMicro_iff_oiPlusLocal, "
+      "carrier_general_oiPlusMicro). THE SPLIT: reversible richness is exactly inverse "
+      "accessibility (every available conjugation channel has its adjoint channel available) "
+      "and Lie-rank richness (the drift/control certificate at every level). THE PRIMITIVE, "
+      "below availability: a dagger-stable implementation class, the adjoint of an admissible "
+      "operator admissible. THE DERIVATION: an available conjugation channel is realized by "
+      "admissible operators and trace preserving, so V is an isometry; the Choi matrix of conj V "
+      "is the dyad of vec V, so every realizing operator lies on the ray of V (the rank-one span "
+      "lemma, no Kraus-uniqueness theorem invoked); the squared moduli sum to one; the adjoint "
+      "family realizes conj V^dag, which is available. NECESSITY: exact QM is generated by the "
+      "full class, which is dagger-stable. THE COMPRESSED SET: reversible implementation "
+      "locality + Lie-rank richness + embedded observation iff exact finite endomorphic "
+      "operational QM on every nonempty finite carrier. THE REDUNDANCY TEST is left open in both "
+      "directions with the seam named: the kernel consumes the inverse clause exactly at the "
+      "hstar hypothesis of the round-50 reachability theorem; a compact-semigroup argument "
+      "suggests the clause may be redundant, and neither that proof nor a countermodel is built. "
+      "Verified exactly here: a redundant two-operator decomposition of a rational unitary "
+      "channel reproducing it, the Choi matrix as the dyad of the vectorized unitary, the adjoint "
+      "family reproducing the adjoint channel with normalization and trace preserved, the rank of "
+      "an off-ray dyad sum, the su(2) illustration in which the drift's quarter-period flow "
+      "carries a control to its inverse, and the kernel text read back. NOT CLAIMED, "
+      "lint-guarded: the redundancy of inverse accessibility given the other principles, in "
+      "either direction; the converse from inverse accessibility to dagger stability; any source "
+      "for the Lie-rank clause.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
