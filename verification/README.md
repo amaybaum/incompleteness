@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 99 modules and,
-  at this commit, 2,029 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 100 modules and,
+  at this commit, 2,082 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -133,7 +133,7 @@ of implementations or the observer architecture, none Lie-algebraic.
   `staggered_relations`, `structural_chain`, `representation_bridge` and `time_reversal` are the
   companions of the proof files above: every integer the Lean files submit to `decide` is
   recomputed by an independent construction. The rest instantiate the `OIBridge` theorems on
-  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F79, one per
+  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F80, one per
   round of the reconstruction and completion programme, each reading the kernel file it
   certifies back for its claim discipline) and `edge_rigidity_probe.py` carries the R7 lint,
   which requires every listed kernel result to be a `theorem` with a `#print axioms` line and
@@ -184,7 +184,7 @@ modules, in the order the development grew:
   `OIRealization`, `OperationalValidity`, `LevelOneSeam`, `PhysicalCharacterization`,
   `DiagonalTheory`, `RankGapTheory`, `IsometryExtension`, `GeneralCarrier`,
   `UhlmannUniqueness`, `ReachabilitySeam`, `OrbitReachability`, `SubstantiveCensus`,
-  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`, `TypedCompletion`, `RegionLimit`, `RegionTower`, `QuasilocalAlgebra`, `QuasilocalCharacterization`): the five completion conditions defined one by one with the countermodel
+  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`, `TypedCompletion`, `RegionLimit`, `RegionTower`, `QuasilocalAlgebra`, `QuasilocalCharacterization`, `InstrumentCompletion`): the five completion conditions defined one by one with the countermodel
   that separates each, the sealed OI core realized with its actual visible readout, the
   characterization theorem with its necessity direction, the five-way minimality audit, the
   discharge of finite isometry extension, the removal of the qubit restriction, the discharge
@@ -366,6 +366,25 @@ restriction proved rather than adopted, no representation or sector selected, co
 optional and separately shown undetermined, the Level I and Level II statements kept as their own,
 and the completion covering the algebra, states and OI-induced dynamics rather than all
 infinite-dimensional instruments or all locality-preserving dynamics.
+
+**Post-Level III: the instrument audit.** Level III completed the algebra, the state space and one
+discrete dynamics; it did not complete the operational availability relation of Level II, and that
+seam is the subject of an audit rather than a new level (`InstrumentCompletion.lean`,
+`INSTRUMENT-COMPLETION-AUDIT.md`). The first entry fixes the Heisenberg convention, defines three
+nested candidate classes without adopting one — finite-support, stage-compatible, and all
+completely positive instruments on the completion — and decides the first pre-registered question
+in both directions: a finite-support quasilocal instrument is exactly a finite-region Kraus
+instrument with the Level II normalization (`qInstrument_of_kraus`, `kraus_of_finiteSupport`,
+`finiteSupport_iff_kraus`), acting on larger regions by the inert spectator extension
+(`qBranch_stage_inclObs`) and fixing the observables of disjoint regions
+(`qTotal_stage_of_disjoint`). Finite-support instrument totals do not exhaust the stage-compatible
+quasilocal maps: the all-sites phase family is compatible with the inclusions, gives an isometric
+unital star-endomorphism of the completion — invertibility is not proved and is not needed — and is
+the total map of no finite-support instrument (`phaseAllWt_compat`, `phaseAll_not_finiteSupport`).
+It is not itself packaged as an instrument: class 2 is not formalized in this entry. Not decided, and not claimed either way: whether a general
+compatible family extends, whether such families are operationally available under OI_Q, whether
+the Kraus class exhausts the completely positive instruments, and whether an operational-completion
+principle is required. The abstract completely positive class is not formalized in this entry.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general

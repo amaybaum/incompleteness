@@ -507,3 +507,41 @@ Enforcement: the closing battery's added-lines scan (§A.32) gains a
 caps-emphasis regex (mid-sentence [A-Z]{4,} outside the whitelist) and
 the history-phrase family; hits block the ship. Adopted 2026-08-10
 after the b70 catch; the same-day audit swept the existing corpus.
+
+## §A.34 Directional witnesses for every displayed equivalence
+
+Every displayed equivalence in exposition — a boxed `iff`, a biconditional,
+"is equivalent to", "exactly when" — requires **separately identified kernel
+witnesses for each direction**, named in the citation beside it. The check is
+directional, not a count: a citation list under a box satisfies §A.25 while
+still leaving one direction unproved.
+
+Explicitly, none of the following is a converse:
+
+- an **extension** theorem (every finite-stage object extends to the limit);
+- a **uniqueness** or **canonical isomorphism** theorem (any two objects
+  satisfying the hypotheses are isomorphic);
+- a **density** or **closure** theorem (the constructed object is the closure
+  of the stages);
+- a **characterization relative to fixed data** (the object is unique *given*
+  those stages and that dynamics).
+
+Each of these derives a conclusion *from* the hypotheses. A converse derives
+the hypotheses from the conclusion, and needs its own theorem. Where only one
+direction is proved, the display states that direction — an isomorphism, a
+uniqueness, an inclusion — rather than an equivalence.
+
+Adopted 2026-09-03 after the Level III freeze: the propagation round drafted
+`OI_Q iff quasilocal fixed-lattice QM`, propagated it to six sites, and passed
+the gate, while the kernel proved only that the region completion is the unique
+quasilocal system carrying the substratum's stages and dynamics. Nothing in the
+kernel derived the OI_Q conditions from the existence of such a system. The
+error was in prose strengthening the directionality of a proved theorem, and it
+was caught in owner review rather than by any check; the same-session
+correction restated the box as the uniqueness theorem and added the missing
+scope guard at all six sites.
+
+Enforcement: reviewers check each displayed equivalence against its cited
+theorem statements, one direction at a time. In a research thread whose target
+is an equivalence, the audit file carries the two directions as separate
+pre-registered questions with their own status.

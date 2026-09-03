@@ -992,6 +992,16 @@ for fname, names in (
                            'transported_injective', 'norm_transported', 'heisLoc_star', 'norm_heisLoc',
                            'heisLoc_inv_heisLoc', 'heisQ_mul', 'heisQ_star', 'norm_heisQ', 'heisQ_inv_heisQ',
                            'heis_iterate_emb', 'quasilocal_completion')),
+    ('InstrumentCompletion', ('qBranch_add', 'qBranch_smul', 'qBranch_star_mul_self', 'sum_qBranch',
+                              'qBranch_sum_one', 'qTotal_one', 'qInstrument_of_kraus',
+                              'kraus_of_finiteSupport', 'finiteSupport_iff_kraus',
+                              'qBranch_stage_inclObs', 'qTotal_stage_of_disjoint', 'wtConj_apply',
+                              'wtConj_mul', 'wtConj_injective', 'inclObs_wtConj', 'norm_wtConj',
+                              'wtLoc_ofM', 'wtLoc_mul', 'wtLoc_star', 'norm_wtLoc', 'wtQ_stage',
+                              'wtQ_mul', 'wtQ_smul', 'wtQ_star', 'norm_wtQ', 'wtQ_one', 'siteWt_unimodular',
+                              'phaseAllWt_unimodular', 'phaseAllWt_compat', 'phaseAllQ_mul',
+                              'norm_phaseAllQ', 'phaseAllWt_singleton', 'phaseAll_not_finiteSupport',
+                              'instrument_audit_entry_one')),
     ('QuasilocalCharacterization', ('emb_comm_of_disjoint', 'stage_comm_of_disjoint', 'localMap_ofM',
                                     'localHom_unique', 'norm_localHom', 'canon_stage', 'norm_canon',
                                     'canonHom_injective', 'canonHom_surjective', 'canonEquiv_stage',
@@ -1960,6 +1970,34 @@ for _w in ('axiom continuity', 'InnerProductSpace', 'HilbertSpace', 'lp (fun', '
            'theorem all_systems_classified', 'theorem representation_selected'):
     ok6 &= _w not in qch
 ok6 &= 'structure FiniteOperationalTheory' not in qch and 'native_decide' not in qch
+# POST-LEVEL III INSTRUMENT AUDIT guards: the round is an AUDIT, not a level -- Q1 is decided in
+# BOTH directions with separate witnesses (§A.34), the abstract CP class is not formalized, the
+# finite-support and stage-compatible classes are separated by an explicit witness, and no
+# infinite-dimensional characterization, availability claim, or manuscript change is asserted.
+inc = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentCompletion.lean'), encoding='utf-8').read()
+_incflat = ' '.join(inc.split())
+ok6 &= 'def IsQInstrument' in inc and 'noncomputable def qBranch' in inc and 'def IsFiniteSupport' in inc
+# Q1 needs BOTH directions as separate theorems, and the biconditional must cite them, not replace them
+ok6 &= 'theorem qInstrument_of_kraus' in inc and 'theorem kraus_of_finiteSupport' in inc
+_q1 = _slice(inc, 'theorem finiteSupport_iff_kraus', 'theorem qBranch_stage_inclObs')
+ok6 &= 'kraus_of_finiteSupport' in _q1 and 'qInstrument_of_kraus' in _q1
+ok6 &= 'theorem qBranch_stage_inclObs' in inc and 'theorem qTotal_stage_of_disjoint' in inc
+ok6 &= 'structure UnimodularFamily' in inc and 'theorem inclObs_wtConj' in inc
+ok6 &= 'theorem phaseAllWt_compat' in inc and 'theorem phaseAll_not_finiteSupport' in inc
+ok6 &= 'theorem instrument_audit_entry_one' in inc
+ok6 &= 'not claimed either way' in _incflat and 'is NOT formalized here' in _incflat
+for _w in ('axiom continuity', 'InnerProductSpace', 'HilbertSpace', 'GelfandNaimark',
+           'theorem all_instruments_stage_compatible', 'theorem infiniteDimensional_characterization',
+           'theorem stageCompatible_available', 'theorem compatible_family_extends',
+           'CompletelyPositive', 'NormedSpace.exp'):
+    ok6 &= _w not in inc
+ok6 &= 'structure FiniteOperationalTheory' not in inc and 'native_decide' not in inc
+# the audit file must carry the pre-registered questions and keep the undecided ones undecided
+_aud = open(os.path.join(os.path.dirname(BRIDGE), 'INSTRUMENT-COMPLETION-AUDIT.md'),
+            encoding='utf-8').read()
+for _q in ('| Q1 |', '| Q2 |', '| Q3 |', '| Q4 |', '| Q5 |'):
+    ok6 &= _q in _aud
+ok6 &= _aud.count('**open') >= 4 and '**decided**' in _aud
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2364,8 +2402,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All seventy-five files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 + 87 named results print their "
+      "LINT. All seventy-six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 + 87 + 53 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
