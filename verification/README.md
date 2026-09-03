@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 84 modules and,
-  at this commit, 1,488 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 85 modules and,
+  at this commit, 1,518 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -52,6 +52,18 @@ holds on that class (`no_boolean_relation`), and QM is the single no-failure cel
 (`qm_is_the_top_cell`). The census, with the exact operations of each cell and the observable
 deviation each permits, is `CENSUS-oi-compatible-theories.md`.
 
+The hierarchy is layered rather than redefined (`CompletedOI.lean`): `OICore` is the original
+principle, unchanged; `CompletedOI` is the core plus the five conditions, equivalent to finite
+operational QM and, since full control realizes the core, to the five conditions alone. The
+three substantive principles are compressed to principles with independent observational
+meaning: observational independence (an operation acts as itself when an untouched system is
+adjoined), reversible richness (available reversible transformations can be undone, and a
+drift with finitely many controls generates `su(D)` at every level), and observer recursion (a
+composite observable system is itself an admissible observable system). `OIPlus`, the core with
+well-formedness and these three, is equivalent to finite operational QM (`oiPlus_iff_qm`), and
+each of the three is independent of the core, well-formedness and the other two
+(`oiPlus_independence`). None of the three follows from bare OI.
+
 ## Contents (`lean/`)
 
 - `OI_Gauge_Certificates.lean` — telescoping/plaquette triviality for arbitrary abelian
@@ -87,7 +99,7 @@ deviation each permits, is `CENSUS-oi-compatible-theories.md`.
   `staggered_relations`, `structural_chain`, `representation_bridge` and `time_reversal` are the
   companions of the proof files above: every integer the Lean files submit to `decide` is
   recomputed by an independent construction. The rest instantiate the `OIBridge` theorems on
-  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F64, one per
+  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F65, one per
   round of the reconstruction and completion programme, each reading the kernel file it
   certifies back for its claim discipline) and `edge_rigidity_probe.py` carries the R7 lint,
   which requires every listed kernel result to be a `theorem` with a `#print axioms` line and
@@ -137,13 +149,15 @@ modules, in the order the development grew:
   `SpectatorBridge`, `AncillaClosure`, `ClosureObstruction`, `CompositionalIndependence`,
   `OIRealization`, `OperationalValidity`, `LevelOneSeam`, `PhysicalCharacterization`,
   `DiagonalTheory`, `RankGapTheory`, `IsometryExtension`, `GeneralCarrier`,
-  `UhlmannUniqueness`, `ReachabilitySeam`, `OrbitReachability`, `SubstantiveCensus`): the
-  five completion conditions defined one by one with the countermodel that separates each,
-  the sealed OI core realized with its actual visible readout, the characterization theorem
-  with its necessity direction, the five-way minimality audit, the discharge of finite
-  isometry extension, the removal of the qubit restriction, the discharge of finite
-  right-unitary uniqueness, the compact-Lie reachability seam reduced to one local lemma and
-  that lemma proved, and the eight-cell census of the three substantive principles.
+  `UhlmannUniqueness`, `ReachabilitySeam`, `OrbitReachability`, `SubstantiveCensus`,
+  `CompletedOI`): the five completion conditions defined one by one with the countermodel
+  that separates each, the sealed OI core realized with its actual visible readout, the
+  characterization theorem with its necessity direction, the five-way minimality audit, the
+  discharge of finite isometry extension, the removal of the qubit restriction, the discharge
+  of finite right-unitary uniqueness, the compact-Lie reachability seam reduced to one local
+  lemma and that lemma proved, the eight-cell census of the three substantive principles, and
+  the layered hierarchy with the three principles compressed to observational independence,
+  reversible richness and observer recursion.
 
 `verification/MILESTONE-finite-quantum-instruments.md` records an earlier checkpoint of this
 programme as a status artifact.

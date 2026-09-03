@@ -211,6 +211,41 @@ level three (`gapChannel_not_gap`).
 - **Deviation from QM:** all three signatures.
 - **Ruled out by:** any one of the three candidate principles.
 
+## Completed OI and OI⁺ (round fifty-three)
+
+The hierarchy is layered, not redefined (`OIBridge/CompletedOI.lean`):
+
+- **`OICore`** is `RealizesSealedOICore`, the original principle, unchanged (proved: every
+  earlier result and countermodel keeps its meaning by definition).
+- **`CompletedOI`** is the core plus the five completion conditions. It is exactly finite
+  operational QM (proved: `completedOI_iff_qm`), and since full composite control realizes the
+  core, it is exactly the five conditions (proved: `completedOI_iff_physical`). Bare OI is not
+  completed OI (proved: `oiCore_not_completedOI`).
+- **`OIPlus`** is the core, well-formedness, and three principles with independent
+  observational meaning, one per substantive condition:
+  - *observational independence* — an available operation on a composite acts as itself when
+    an untouched system is adjoined. Equivalent to inert spectators (proved); it is what makes
+    independent observations jointly performable (proved: `parallel_of_observationalIndependence`).
+    The compression is nil beyond the equivalence: this principle is the condition.
+  - *reversible richness* — every available reversible transformation can be undone, and at
+    every level a passive drift with finitely many controls generates `su(D)`. It gives full
+    composite control by the round-fifty reachability theorem (proved:
+    `control_of_reversibleRichness`); every well-formed fully controllable theory is reversibly
+    rich, with the rank-one matrix unit as drift and all unitaries as controls (proved:
+    `reversibleRichness_of_control`). This is a finite certificate about a generating set, not
+    the postulate that every unitary is available.
+  - *observer recursion* — a composite observable system is itself an admissible observable
+    system at every level. It gives iterated composition through the shifted theory's own
+    discard rule (proved: `closure_of_observerRecursion`); iterated composition with the
+    identity and the relative readout at every level gives the shifted theory (proved:
+    `observerRecursion_of_closure`).
+
+Then `OIPlus ⟺ finite operational QM` on the qubit carrier (proved: `oiPlus_iff_qm`), and each
+of the three principles fails on a theory with the core, well-formedness and the other two
+(proved: `oiPlus_independence`, from the cells {I}, {C}, {K} above). Not claimed: that any of
+the three follows from bare OI (the census proves the opposite); that these are the only
+natural principles; that well-formedness is derivable.
+
 ## What the census says and does not say
 
 - The three principles are three independent axes on the class of well-formed OI-compatible

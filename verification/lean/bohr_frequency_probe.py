@@ -8169,6 +8169,114 @@ check("F64", ok64,
       "that any cell is physically realized; that the witnesses are canonical; that OI "
       "selects any cell.")
 
+# F65 -- ROUND 53: AXIOMATIC COMPRESSION OF COMPLETED OI -- bare OI kept as the core, completed
+# OI made explicit, and the three substantive principles compressed to observational
+# independence, reversible richness and observer recursion, with OI-plus equivalent to QM
+# (phase three, round fifty-three).
+ok65 = True
+def _sub65(A, B): return add52(A, scale52(C17(Frac(-1)), B))
+def _single65(d, i): return [[CO17 if (r == i and c == i) else CZ17 for c in range(d)] for r in range(d)]
+def _perm65(g, d): return [[CO17 if g[c] == r else CZ17 for c in range(d)] for r in range(d)]   # permMatrix g r c = [g c = r]
+def _edyad65(W, i): return [[W[x][i] * W[y][i].conj() for y in range(len(W))] for x in range(len(W))]
+# --- (a) permutation conjugation moves a matrix unit (perm_conj_single): on d = 4, for every i,
+# the swap (0 i) conjugates E_00 to E_ii.
+for _i in range(4):
+    _g = list(range(4)); _g[0], _g[_i] = _g[_i], _g[0]
+    _P = _perm65(_g, 4)
+    ok65 &= mmc17(dag17(_P), _P) == eye17(4)
+    ok65 &= conjby52(_P, _single65(4, 0)) == _single65(4, _i)
+# --- (b) a rank-one spectral projector is the conjugate of the base unit by a unitary
+# (edyad_eq_conj_single): for the 3-4-5 rotation W and the 5-12-13 reflection, and the
+# two-qubit product W (x) R, edyad(W, i) = W E_ii W^dag = (W P_i) E_00 (W P_i)^dag.
+_refl65 = [[_r2, _s2], [_s2, C17(0) - _r2]]
+for _W in (_rot, _refl65, kr17(_rot, _refl65)):
+    _d = len(_W)
+    ok65 &= mmc17(dag17(_W), _W) == eye17(_d)
+    for _i in range(_d):
+        _g = list(range(_d)); _g[0], _g[_i] = _g[_i], _g[0]
+        _WP = mmc17(_W, _perm65(_g, _d))
+        ok65 &= _edyad65(_W, _i) == conjby52(_W, _single65(_d, _i))
+        ok65 &= _edyad65(_W, _i) == conjby52(_WP, _single65(_d, 0))
+        ok65 &= mmc17(dag17(_WP), _WP) == eye17(_d)
+# --- (c) the generator form (hControl_single_all): a Hermitian B = sum_k lam_k edyad(W, k)
+# with real lam, so -iB = sum_k lam_k (-i)(W_k E_00 W_k^dag) is a real combination of control
+# generators; checked exactly on the rotation with lam = (3, -5) and on the product with
+# lam = (2, -7, 1/3, 5).
+_i65 = C17(Frac(0), Frac(1))
+for _W, _lam in ((_rot, [Frac(3), Frac(-5)]), (kr17(_rot, _refl65), [Frac(2), Frac(-7), Frac(1, 3), Frac(5)])):
+    _d = len(_W)
+    _B = [[CZ17] * _d for _ in range(_d)]
+    for _k, _l in enumerate(_lam):
+        _B = add52(_B, scale52(C17(_l), _edyad65(_W, _k)))
+    ok65 &= dag17(_B) == _B
+    _A = scale52(C17(0) - _i65, _B)
+    ok65 &= dag17(_A) == scale52(C17(Frac(-1)), _A)
+    _gen = [[CZ17] * _d for _ in range(_d)]
+    for _k, _l in enumerate(_lam):
+        _g = list(range(_d)); _g[0], _g[_k] = _g[_k], _g[0]
+        _WP = mmc17(_W, _perm65(_g, _d))
+        _gen = add52(_gen, scale52(C17(_l), scale52(C17(0) - _i65, conjby52(_WP, _single65(_d, 0)))))
+    ok65 &= _gen == _A
+# --- (d) the reversibility clause (reversibleRichness_of_control): a trace-preserving
+# conjugation is by an isometry -- the rotation preserves traces and satisfies V^dag V = 1; the
+# projector diag(1, 0) fails trace preservation on |1><1|.
+_X65 = gmat47(651, 2)
+ok65 &= trace40(conjby52(_rot, _X65)) == trace40(_X65) and mmc17(dag17(_rot), _rot) == eye17(2)
+_K65 = [[CO17, CZ17], [CZ17, CZ17]]
+_rho1 = [[CZ17, CZ17], [CZ17, CO17]]
+ok65 &= trace40(conjby52(_K65, _rho1)) != trace40(_rho1)
+# --- (e) the word closure behind control_of_reversibleRichness: conj V o conj W = conj (V W)
+# and conj 1 = id, exactly on random states.
+for _s in range(2):
+    _X = gmat47(652 + _s, 2)
+    ok65 &= conjby52(_rot, conjby52(_refl65, _X)) == conjby52(mmc17(_rot, _refl65), _X)
+    ok65 &= conjby52(eye17(2), _X) == _X
+# --- (f) the kernel's claim discipline, read back.
+_coi65 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                      'OIBridge', 'CompletedOI.lean')
+if os.path.exists(_coi65):
+    with open(_coi65, encoding='utf-8') as _f:
+        _coi_txt65 = ' '.join(_f.read().split())
+    ok65 &= 'def OICore (T : FiniteOperationalTheory (Fin 2)) : Prop := RealizesSealedOICore T' in _coi_txt65
+    ok65 &= 'theorem oiPlus_iff_qm : OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T' in _coi_txt65
+    ok65 &= 'theorem completedOI_iff_physical' in _coi_txt65 and 'theorem oiPlus_independence' in _coi_txt65
+    ok65 &= 'theorem control_of_reversibleRichness' in _coi_txt65
+    ok65 &= 'theorem closure_of_observerRecursion' in _coi_txt65
+    ok65 &= 'sorry' not in _coi_txt65
+    ok65 &= 'NOT claimed: that any of the three principles follows from bare OI' in _coi_txt65
+check("F65", ok65,
+      "ROUND 53: AXIOMATIC COMPRESSION OF COMPLETED OI -- bare OI kept unchanged as the core, "
+      "completed OI made explicit, and the three substantive completion principles compressed "
+      "to principles with independent observational meaning (phase three, round fifty-three; "
+      "kernel: OIBridge/CompletedOI.lean, 30 results -- OICore, CompletedOI, completedOI_iff_qm, "
+      "completedOI_iff_physical, oiCore_not_completedOI, ObservationalIndependence, "
+      "observationalIndependence_iff_inert, parallel_of_observationalIndependence, "
+      "ReversibleRichness, control_of_reversibleRichness, hControl_single_all, "
+      "reversibleRichness_of_control, ObserverRecursion, closure_of_observerRecursion, "
+      "shiftOfClosure, observerRecursion_of_closure, OIPlus, qm_of_oiPlus, oiPlus_of_qm, "
+      "oiPlus_iff_qm, oiPlus_independence). THE HIERARCHY: OICore is RealizesSealedOICore, "
+      "unchanged; CompletedOI is the core plus the five conditions, equivalent to finite "
+      "operational QM and, because full control realizes the core, equivalent to the five "
+      "conditions alone. THE COMPRESSION: observational independence (an available operation "
+      "acts as itself when an untouched system is adjoined) is inert spectators restated and "
+      "makes independent observations jointly performable; reversible richness (available "
+      "reversible transformations can be undone, and a passive drift with finitely many "
+      "controls generates su(D) at every level) gives full composite control by the round-50 "
+      "reachability theorem, and conversely holds on every well-formed theory with full control "
+      "via the rank-one drift and all unitaries as controls; observer recursion (a composite "
+      "observable system is itself an admissible observable system) gives iterated composition "
+      "through the shifted theory's own discard rule, and conversely follows from iterated "
+      "composition with the identity and the relative readout at every level. OI-PLUS, the core "
+      "with well-formedness and the three principles, is equivalent to exact finite operational "
+      "QM on the qubit carrier, and each principle is independent of the core, well-formedness "
+      "and the other two (the countermodel, the diagonal theory, the rank-gap theory). Verified "
+      "exactly here: permutation conjugation of matrix units, the rank-one projector as a "
+      "unitary conjugate of the base unit on three unitaries, the real-combination generator "
+      "form of skew matrices, trace preservation forcing an isometry, and the word closure of "
+      "conjugations. NOT CLAIMED, lint-guarded: that any principle follows from bare OI; that "
+      "observational independence is compressed beyond its equivalent forms; that the "
+      "principles are the only natural ones; anything about well-formedness being derivable.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
