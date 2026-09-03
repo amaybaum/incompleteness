@@ -3329,7 +3329,22 @@ implementation locality, elementary transition richness, and embedded
 observation --- equivalent to the same operational quantum mechanics on
 every nonempty finite carrier (kernel:
 \texttt{carrier\_general\_oiPlusElem} in
-\texttt{OIBridge/LieRankSource.lean}).
+\texttt{OIBridge/LieRankSource.lean}). A substratum-source form
+completes that refinement: the concrete OI substratum supplies the
+structural architecture --- closure under composition and
+coarse-graining, stability under an uncoupled spectator, relabelling
+invariance, reversibility, the exchanges of distinguishable states, and
+the phases --- but, under finite bijective read-write dynamics, not the
+continuously tunable state-mixing operation; with that one operation
+added as an empirical controllability resource it is equivalent to the
+same operational quantum mechanics on every nonempty finite carrier,
+while finite reversible read-write dynamics, even with genuine
+hidden-memory and readback behavior, does not itself generate quantum
+state mixing ({[}GR §3.3{]}; kernel:
+\texttt{substratum\_plus\_control\_qm} in
+\texttt{OIBridge/StructuralClosure.lean},
+\texttt{readWriteSourced\_not\_qm} in
+\texttt{OIBridge/ReadWriteControl.lean}).
 
 \emph{Lemma (adaptive diamond telescoping).} \emph{Let \(\pi\) be an
 adaptive protocol of horizon \(K\) and \(\pi'\) the protocol with each
@@ -4865,4 +4880,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: 40e208fc6f233e7ba1831df64e4ec0b3c79ad368c7b133606cb3b1c4f465e1a6
+% source-sha256: 7641e32a7db748fb670f225ce4e79241dff8bf9711d62ba277f69f1a9def4ddc
