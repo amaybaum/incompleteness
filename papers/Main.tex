@@ -3309,7 +3309,7 @@ The operational-completion theorem also admits a physically layered
 formulation. Keeping the original OI core unchanged, define
 quantum-complete OI (OI⁺) by adding well-formedness together with
 observational independence, reversible richness, and observer recursion.
-On the finite qubit carrier these three principles are respectively
+On every nonempty finite carrier these three principles are respectively
 equivalent, on the relevant class, to inert spectators, sufficient
 reversible control, and iterated composition; hence
 
@@ -3320,7 +3320,8 @@ well-formedness, and the other two. This is a characterization of a
 quantum-complete extension of OI, not a claim that bare OI entails the
 added principles; the OI-core clause becomes logically redundant once
 the reversible-control condition is present. See {[}GR §3.3{]} for the
-full statement and scope (kernel: \texttt{oiPlus\_iff\_qm},
+full statement and scope (kernel: \texttt{carrier\_general\_oiPlus} in
+\texttt{OIBridge/CarrierGeneralOIPlus.lean};
 \texttt{oiPlus\_independence} in \texttt{OIBridge/CompletedOI.lean}).
 
 \emph{Lemma (adaptive diamond telescoping).} \emph{Let \(\pi\) be an
@@ -4857,4 +4858,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: 25b9434dd7da7021f9769710014db479039a5ffb71f9d934867588734e4e7546
+% source-sha256: dc22189dcd5854225689dc2ce749206b6d5151f506155ec9ec5d028db6f77a50

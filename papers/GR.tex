@@ -1439,11 +1439,14 @@ layered extension rather than a redefinition of observation
 incompleteness. Let the OI core denote the original sealed finite
 observation-incompleteness condition, unchanged (kernel:
 \texttt{OICore}, which is \texttt{RealizesSealedOICore}, in
-\texttt{OIBridge/CompletedOI.lean}). Define OI⁺ on the finite qubit
+\texttt{OIBridge/CompletedOI.lean}). Define OI⁺ on a nonempty finite
 carrier by adjoining well-formedness --- valid probabilities and
 consistency under a trivial ancilla, conditions (i) and (ii) ---
 together with three substantive physical principles (kernel:
-\texttt{OIPlus}):
+\texttt{OIPlus} in \texttt{OIBridge/CarrierGeneralOIPlus.lean}; on the
+qubit carrier the OI-core conjunct is retained for its genealogical
+role, \texttt{OIHierarchy.OIPlus}, and the two definitions agree there,
+\texttt{oiPlus\_qubit\_iff}):
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1480,13 +1483,13 @@ With these definitions, the kernel proves
 
 \[\boxed{\;\mathrm{OI}^{+} \;\iff\; \text{exact finite endomorphic operational QM}\;}\]
 
-on the qubit carrier (kernel: \texttt{oiPlus\_iff\_qm}). Equivalently,
-OI⁺ is the physically rephrased form of completed OI, the core together
-with (i)--(v) (kernel: \texttt{CompletedOI},
-\texttt{oiPlus\_iff\_completedOI}): observational independence
-corresponds to inert-spectator compositionality, reversible richness to
-sufficient composite unitary control, and observer recursion to iterated
-composition.
+on every nonempty finite carrier (kernel:
+\texttt{carrier\_general\_oiPlus}). Equivalently, OI⁺ is the physically
+rephrased form of completed OI, the core together with (i)--(v) (kernel:
+\texttt{CompletedOI}, \texttt{oiPlus\_iff\_completedOI}): observational
+independence corresponds to inert-spectator compositionality, reversible
+richness to sufficient composite unitary control, and observer recursion
+to iterated composition.
 
 This equivalence is an axiomatic completion theorem, not a derivation of
 the additional principles from bare OI. None of observational
@@ -1502,8 +1505,11 @@ conceptual and genealogical: OI⁺ identifies a quantum-complete extension
 of the original OI framework while preserving the distinction between
 what observation incompleteness itself entails and what additional
 physical structure selects the quantum sector. The five-condition
-characterization above holds for every nonempty finite system; OI⁺ is
-stated on the finite qubit carrier, the scope of its kernel equivalence.
+characterization above and the OI⁺ equivalence hold at the same scope,
+every nonempty finite system. The sealed OI core itself is a qubit
+process, so on a general carrier OI⁺ consists of well-formedness and the
+three principles, and by the redundancy just noted nothing is lost by
+omitting the core conjunct there.
 
 Every member of the residual family is invisible to the transition data
 for a stated reason --- diagonal rephasing moves no modulus, the energy
@@ -4442,4 +4448,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: f946d7c86d0079060979f4e0b1707fe6ceab38c99231cbb7d5883de666aecc78
+% source-sha256: 20068d35499311f81e805ccce39f3c15c2150ca81befda37143d998d0c686849
