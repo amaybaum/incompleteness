@@ -9241,6 +9241,92 @@ check("F75", ok75,
       "lint-guarded: that this interface is the only reasonable one; infinite-dimensional QM "
       "(Level III); anything about bare OI, which is untouched; no manuscript change in this round.")
 
+# F76 -- LEVEL III, ROUND 1: THE CONTINUUM-COMPLETION AUDIT AT THE FINITE STAGES -- the region
+# restriction is the Level II discard with the observable inclusion as its dual; the reference and
+# pure-product families are consistent; their overlap decays as q^-n; continuous time is not
+# determined by the discrete dynamics (OI_Q Level III, round one).
+ok76 = True
+import cmath as _cm76
+def _tr76(M): return _sum75([[[M[i][i]]] for i in range(len(M))], 1)[0][0]
+def _ptr76(M, nS, nR):                                                     # partial trace over the second factor
+    return [[_sum75([[[M[s * nR + r][t * nR + r]]] for r in range(nR)], 1)[0][0] for t in range(nS)] for s in range(nS)]
+_A76 = [[C17(1), C17(2, 1)], [C17(0, -1), C17(Frac(3, 7))]]
+_C76 = [[C17(Frac(1, 2)), C17(-1)], [C17(0, 2), C17(1, 1)]]
+_B76 = [[C17(1), C17(0), C17(1, 1)], [C17(0, 1), C17(2), C17(0)], [C17(1, -1), C17(0), C17(Frac(1, 3))]]
+_D76 = [[C17(0), C17(1), C17(0)], [C17(1), C17(0), C17(0)], [C17(0), C17(0), C17(1)]]
+# --- (1) traces multiply, tensors multiply factorwise, and the duality <X (x) 1, rho> = <X, ptrace rho>.
+ok76 &= _tr76(_kron74(_A76, _B76)) == _tr76(_A76) * _tr76(_B76)             # trace_tensorOf
+ok76 &= mmc17(_kron74(_A76, _B76), _kron74(_C76, _D76)) == _kron74(mmc17(_A76, _C76), mmc17(_B76, _D76))  # tensorOf_mul
+_rho76 = [[C17(Frac(1, 7)) * C17(((i * 3 + j) % 5) - 2, ((i + 2 * j) % 3) - 1) for j in range(6)] for i in range(6)]
+ok76 &= _tr76(mmc17(_kron74(_A76, eye17(3)), _rho76)) == _tr76(mmc17(_A76, _ptr76(_rho76, 2, 3)))   # trace_inclObs_mul
+# --- (2) the reference family and a pure product family are consistent under restriction.
+ok76 &= _ptr76(_kron74(_A76, scale52(C17(Frac(1, 3)), eye17(3))), 2, 3) == _A76               # uniform_consistent
+_e1 = [[C17(1) if (i == 1 and j == 1) else C17(0) for j in range(3)] for i in range(3)]
+ok76 &= _ptr76(_kron74(_A76, _e1), 2, 3) == _A76                                             # pureProduct_consistent
+# --- (3) the overlap decays as q^-n: two states per site, n = 1..4 adjoined sites.
+_pi76 = [[C17(Frac(2, 3)), C17(0, Frac(1, 4))], [C17(0, Frac(-1, 4)), C17(Frac(1, 3))]]
+_base = _tr76(mmc17(_A76, _pi76))
+for _n in range(1, 5):
+    _dim = 2 ** _n
+    _unif = _kron74(_A76, scale52(C17(Frac(1, _dim)), eye17(_dim)))
+    _f = (_n * 7) % _dim                                                    # a configuration of the n sites
+    _pure = _kron74(_pi76, [[C17(1) if (i == _f and j == _f) else C17(0) for j in range(_dim)] for i in range(_dim)])
+    ok76 &= _tr76(mmc17(_unif, _pure)) == _base * C17(Frac(1, _dim))         # overlap_uniform_pure
+# --- (4) continuous time is additional structure: exp(-i t 2pi P) with P = diag(1,0) equals the
+# identity at every integer t and differs from it at t = 1/2; both flows are unitary.
+for _k in range(0, 6):
+    _z = _cm76.exp(-1j * _k * 2 * _cm76.pi)
+    ok76 &= abs(_z - 1) < 1e-12                                            # flows_agree_integer
+_zh = _cm76.exp(-1j * 0.5 * 2 * _cm76.pi)
+ok76 &= abs(_zh + 1) < 1e-12 and abs(_zh - 1) > 1                          # flows_differ_half
+for _t in (0.3, 0.5, 1.0, 2.7):
+    _z = _cm76.exp(-1j * _t * 2 * _cm76.pi)
+    ok76 &= abs(abs(_z) - 1) < 1e-12                                        # unitary at every time
+# --- (5) the kernel's claim discipline, read back.
+_rl76 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'RegionLimit.lean')
+if os.path.exists(_rl76):
+    with open(_rl76, encoding='utf-8') as _f:
+        _rl_txt76 = ' '.join(_f.read().split())
+    ok76 &= 'theorem restrict_eq_discardR' in _rl_txt76 and 'theorem trace_inclObs_mul' in _rl_txt76
+    ok76 &= 'theorem overlap_uniform_pure' in _rl_txt76 and 'theorem continuous_extension_not_unique' in _rl_txt76
+    ok76 &= 'theorem continuum_audit_round1' in _rl_txt76
+    ok76 &= 'sorry' not in _rl_txt76
+    ok76 &= 'no continuity axiom is introduced' in _rl_txt76
+check("F76", ok76,
+      "LEVEL III, ROUND 1: THE CONTINUUM-COMPLETION AUDIT AT THE FINITE STAGES (OI_Q Level III, "
+      "round one; kernel: OIBridge/RegionLimit.lean, 16 results -- restrict_eq_discardR, "
+      "trace_tensorOf, tensorOf_mul, trace_inclObs_mul, uniform_consistent, pureProduct_consistent, "
+      "overlap_uniform_pure, overlap_eventually_small, genZero_hermitian, genTwoPi_hermitian, "
+      "flow_genZero, flow_genTwoPi, flows_agree_integer, flows_differ_half, "
+      "continuous_extension_not_unique, continuum_audit_round1). THE DIRECTED SYSTEM IS SPATIAL, "
+      "NOT A REFINEMENT: the corpus holds the lattice fundamental at fixed spacing with the "
+      "continuum a calculational approximation of quantified error, so the system the substratum "
+      "supplies is the family of finite regions of the fixed-spacing lattice, a larger region "
+      "adjoining a factor S x R. (1) THE RESTRICTION MAPS ARE ALREADY IN THE FROZEN INTERFACE: "
+      "restricting a state to a smaller region is the Level II discard (rfl), and extending an "
+      "observable by the identity on the adjoined sites is its dual, with <X (x) 1, rho> = <X, "
+      "discard rho>. (2) CONSISTENT FAMILIES WITHOUT A NEW POSTULATE: the reference family (the "
+      "uniformly mixed adjoined factor, the only preparation assumed) and every pure product family "
+      "are consistent under restriction. (3) THE FINITE SHADOW OF THE REPRESENTATION QUESTION: the "
+      "overlap of the reference family with a pure product family on n adjoined q-state sites is "
+      "the base overlap times q^-n, so for every tolerance there is a region on which the two are "
+      "that close to orthogonal -- the finite stages determine the algebra and the consistent "
+      "families but select the physical representation only through a choice of reference family; "
+      "outcome B is supported at the finite level, not decided. (4) CONTINUOUS TIME IS ADDITIONAL "
+      "STRUCTURE, THE COUNTERMODEL: two Hermitian generators on the qubit whose passive flows are "
+      "isometries, agree at every integer time and differ at t = 1/2; the discrete dynamics does "
+      "not determine the continuous law; outcome C is decided as a genuine input, as the corpus "
+      "already states for a continuous interpolation of a finite permutation. (5) No continuum-"
+      "structure gap arises because no continuum structure is claimed. Verified exactly here: "
+      "trace and product identities for tensors, the duality on a 6-dimensional register, both "
+      "consistencies, the q^-n decay for n = 1..4 with q = 2 on complex rational states, the "
+      "integer-time agreement and half-time disagreement of the two flows with their unitarity, "
+      "and the kernel text read back. NOT CLAIMED, lint-guarded: no infinite-volume algebra is "
+      "constructed, no representation selected, no continuity or completeness axiom introduced, "
+      "nothing about L^2(R^3); bare OI and the frozen Level I/II statements untouched; no "
+      "manuscript change in this round.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
