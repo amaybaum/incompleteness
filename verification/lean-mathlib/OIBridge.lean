@@ -142,6 +142,7 @@ import OIBridge.LieRankSource
 import OIBridge.SubstratumSource
 import OIBridge.SubstratumInterface
 import OIBridge.ReadWriteControl
+import OIBridge.StructuralClosure
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

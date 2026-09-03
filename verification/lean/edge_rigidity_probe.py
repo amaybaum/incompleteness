@@ -946,6 +946,17 @@ for fname, names in (
     ('ReadWriteControl', ('readWriteOperator_eq_perm', 'readWriteOperator_monomial', 'offDiagonal_interp_not_monomial', 'readWriteSourced_monomialSource',
                         'readWriteSourced_not_control', 'readWriteSourced_not_qm', 'memorySwap_nontrivial', 'memorySwap_operator_monomial',
                         'readWriteControl_independent')),
+    ('StructuralClosure', ('of_ite_ne_zero', 'mul_entry_ne_zero', 'monomial_submonomial', 'submonomial_monomial',
+                          'monomial_iff_submonomial', 'submonomial_one', 'submonomial_mul', 'submonomial_smul',
+                          'submonomial_diagonal', 'submonomial_block', 'substratumClass_arch', 'tensor_one_entry_ne_zero',
+                          'submonomial_tensor_one', 'substratumClass_contextStable', 'submonomial_reindex',
+                          'substratumClass_labelInvariant', 'submonomial_conjTranspose', 'substratumClass_daggerStable',
+                          'bijectiveOperator_conjTranspose', 'phaseOperator_conjTranspose', 'substratumClass_structurallyClosed',
+                          'bijectiveOperator_supplied', 'phaseOperator_supplied', 'readWriteOperator_supplied',
+                          'substratumGen_not_control', 'substratumGen_not_qm', 'quantumArchitecture_iff_drives_of_closed',
+                          'substratumClass_not_drivesElementary', 'substratumClass_not_quantumArchitecture', 'substratum_residual',
+                          'substratum_extension_quantum_iff_drives', 'substratum_plus_control_qm', 'fullClass_extendsSubstratum',
+                          'qm_generated_by_substratum_extension')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
                            'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
                            'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
@@ -1772,6 +1783,28 @@ ok6 &= 'no control law is postulated' in _rwcflat
 ok6 &= 'theorem drivesElementary_of_readWrite' not in rwc and 'theorem readWrite_flow' not in rwc
 ok6 &= 'theorem offDiagonal_of_readWrite' not in rwc
 ok6 &= 'structure FiniteOperationalTheory' not in rwc and 'native_decide' not in rwc
+# Round-64 guards: the substratum class is the round-62 predicate (nothing added to obtain
+# closure); the elementwise form and its equivalence in both directions; the four closures as
+# theorems; the residual (not driving, not quantum) and the endpoint on extensions; no control
+# law postulated; frozen statements untouched.
+scl = open(os.path.join(BRIDGE, 'OIBridge', 'StructuralClosure.lean'), encoding='utf-8').read()
+_sclflat = ' '.join(scl.split())
+ok6 &= 'def substratumClass : ImplementationClass := fun _ _ _ K => IsMonomial K' in scl
+ok6 &= 'def IsSubmonomial' in scl and 'theorem monomial_submonomial' in scl
+ok6 &= 'theorem submonomial_monomial' in scl and 'theorem monomial_iff_submonomial' in scl
+for _t in ('substratumClass_arch', 'substratumClass_contextStable', 'substratumClass_labelInvariant',
+           'substratumClass_daggerStable', 'substratumClass_structurallyClosed'):
+    ok6 &= ('theorem ' + _t) in scl
+ok6 &= 'theorem substratumClass_not_drivesElementary' in scl and 'theorem substratum_residual' in scl
+_res = _slice(scl, 'theorem substratum_residual', 'end Residual')
+ok6 &= '¬ DrivesElementary substratumClass' in _res and '¬ QuantumArchitecture substratumClass' in _res
+ok6 &= 'theorem substratum_plus_control_qm' in scl and 'theorem qm_generated_by_substratum_extension' in scl
+_pc = _slice(scl, 'theorem substratum_plus_control_qm', 'theorem fullClass_extendsSubstratum')
+ok6 &= 'hd : DrivesElementary' in _pc                                   # controllability is a hypothesis
+ok6 &= 'no control law is postulated' in _sclflat
+ok6 &= 'theorem substratumClass_drivesElementary' not in scl
+ok6 &= 'theorem substratumClass_quantumArchitecture' not in scl
+ok6 &= 'structure FiniteOperationalTheory' not in scl and 'native_decide' not in scl
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2176,8 +2209,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All sixty-nine files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 named results print their "
+      "LINT. All seventy files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
