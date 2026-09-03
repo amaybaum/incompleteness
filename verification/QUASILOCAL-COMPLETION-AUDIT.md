@@ -327,5 +327,52 @@ entry and untouched here.
 - Nothing bears on `L²(ℝ³)` or on a continuum limit, which the corpus does not claim as physical
   objects; a continuum programme would be additional physics, not a completion of the existing
   structure.
-- Bare OI and the frozen Level I and Level II statements are untouched. No manuscript change is
-  made in this round.
+- Bare OI and the frozen Level I and Level II statements are untouched; the manuscript keeps them
+  as Level I and Level II statements rather than restating them as Level III results.
+
+## Freeze
+
+Level III is frozen at the fourth entry. Its statement, propagated to GR §3.3 with
+cross-references in Main §3.4, the Explainer, and book chapters 1 and 19:
+
+> the canonical infinite-region completion of OI_Q is, up to a canonical \*-isomorphism, the
+> unique quasilocal fixed-lattice C\*-system carrying the substratum's local stages and
+> OI-induced discrete dynamics,
+
+where OI_Q is the quantum-completed substratum of Levels I and II — the current OI substratum
+together with continuous off-diagonal controllability — and not bare observation incompleteness.
+The statement is the uniqueness theorem the kernel proves, not a biconditional: nothing here
+derives the OI_Q conditions from the existence of such a system.
+The finite regions of the fixed-spacing lattice carry full matrix algebras joined by compatible
+injective unital embeddings with disjoint-region commutation; the norm completion of their union is
+a quasilocal C\*-algebra; every consistent family of finite-region density matrices is a state of
+it; the reversible finite-range substratum update is an isometric \*-automorphism of it; and any
+system carrying the same local stages is canonically and uniquely \*-isomorphic to it, intertwining
+the dynamics.
+
+Eight scope guards are stated beside the result in every mirror:
+
+1. Not bare OI implies QM. OI_Q retains the quantum completion condition of Levels I and II,
+   continuous off-diagonal controllability in particular.
+2. Fixed lattice, not spatial continuum. Level III removes the finite-region limitation, not the
+   lattice; the continuum description used elsewhere in the framework stays an effective
+   calculational approximation.
+3. Fixed local stages. The uniqueness is among quasilocal systems built from the substratum's
+   finite-region matrix algebras, not among all C\*-algebras.
+4. OI-induced dynamics only. The restriction is not shortened to "all quasilocal quantum
+   dynamics"; the phase countermodel disproves that reading.
+5. No representation postulate. States extend to the algebra without selecting a Hilbert-space
+   representation, and no superselection sector is selected at the level of the laws.
+6. No continuous-time claim. Continuous Hamiltonian evolution is optional extra structure, proved
+   not determined by the discrete data in the first entry.
+7. Levels I and II keep their own statements; the manuscript does not restate them as Level III
+   results.
+8. The completion covers the algebra, the state space, and the OI-induced discrete dynamics. It is
+   not an infinite-dimensional analogue of the Level II theorem: no characterization of all
+   infinite-dimensional quantum instruments, and none of all locality-preserving quantum dynamics,
+   the latter refuted for this substratum by the phase countermodel.
+
+The core programme therefore stands at: finite endomorphic (Level I), finite typed (Level II),
+infinite-region quasilocal with discrete time (Level III). Whether continuous-time Hamiltonian
+dynamics deserves a level of its own is a separate decision, and the first entry's no-go is what
+makes it separate.

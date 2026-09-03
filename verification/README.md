@@ -355,7 +355,17 @@ locality-preserving phase automorphism of the quasilocal algebra is induced by n
 finite-range substratum dynamics (`phase_localityPreserving`, `phaseQ_ne_heisQ`), so the Level III
 equivalence is stated for the OI-induced discrete automorphism and not for general
 locality-preserving dynamics. Uniqueness is among systems with these local stages; no
-Hilbert-space representation is constructed.
+Hilbert-space representation is constructed. Level III is frozen at that entry and propagated to
+GR §3.3 with cross-references in Main §3.4, the Explainer, and book chapters 1 and 19: the
+canonical infinite-region completion of OI_Q is, up to a canonical star-isomorphism, the unique
+quasilocal fixed-lattice C\*-system carrying the substratum's local stages and OI-induced discrete
+dynamics — the uniqueness theorem the kernel proves rather than a biconditional. It carries the
+eight scope guards listed in `QUASILOCAL-COMPLETION-AUDIT.md`: the quantum completion condition
+retained, the lattice fundamental, the uniqueness relative to these local stages, the dynamics
+restriction proved rather than adopted, no representation or sector selected, continuous time
+optional and separately shown undetermined, the Level I and Level II statements kept as their own,
+and the completion covering the algebra, states and OI-induced dynamics rather than all
+infinite-dimensional instruments or all locality-preserving dynamics.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general

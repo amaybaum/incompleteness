@@ -3353,7 +3353,30 @@ with exact finite-dimensional typed operational quantum mechanics,
 operations between any two nonempty finite carriers included, so the
 remaining qualifier is finite-dimensional rather than endomorphic ({[}GR
 §3.3{]}; kernel: \texttt{typed\_determined\_iff} in
-\texttt{OIBridge/TypedCompletion.lean}).
+\texttt{OIBridge/TypedCompletion.lean}). The finite theory admits a
+canonical infinite-region completion without a continuum limit: the
+finite regions of the fixed-spacing lattice carry full matrix algebras
+joined by compatible injective unital embeddings with observables of
+disjoint regions commuting, the norm completion of their union is a
+quasilocal \(C^{*}\)-algebra on which every consistent family of
+finite-region density matrices is a state and the reversible
+finite-range substratum update is an isometric \(*\)-automorphism, and
+any system carrying the same local stages is canonically and uniquely
+\(*\)-isomorphic to it, intertwining the dynamics; this removes the
+finite-region cutoff for the algebra, the state space, and the
+OI-induced discrete dynamics rather than characterizing all
+infinite-dimensional quantum instruments or all locality-preserving
+quantum dynamics; the lattice spacing stays fundamental, no
+Hilbert-space representation and no superselection sector is selected at
+the level of the laws, the restriction to the substratum-induced
+dynamics is a theorem rather than a convention --- a phase automorphism
+at one site preserves locality without arising from any reversible
+finite-range bijection --- and a continuous-time Hamiltonian law remains
+additional structure ({[}GR §3.3{]}; kernel:
+\texttt{closure\_iUnion\_stage}, \texttt{quasiState\_unique} in
+\texttt{OIBridge/QuasilocalAlgebra.lean}, \texttt{canonEquiv},
+\texttt{phaseQ\_ne\_heisQ} in
+\texttt{OIBridge/QuasilocalCharacterization.lean}).
 
 \emph{Lemma (adaptive diamond telescoping).} \emph{Let \(\pi\) be an
 adaptive protocol of horizon \(K\) and \(\pi'\) the protocol with each
@@ -4889,4 +4912,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: a1bcc2ccc4562bf3ce4c725a9b3dff5a6858de5b7694b505eff382d45bb4a86c
+% source-sha256: cc4949163e4e36d5af3ce64cfe89b462b2736340a5358a87b78b06969cc12f1c
