@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 86 modules and,
-  at this commit, 1,529 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 87 modules and,
+  at this commit, 1,551 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -65,7 +65,17 @@ each of the three is independent of the core, well-formedness and the other two
 (`oiPlus_independence`). None of the three follows from bare OI. The equivalence holds on every
 nonempty finite carrier (`CarrierGeneralOIPlus.carrier_general_oiPlus`): there the sealed qubit
 core has no counterpart, OI⁺ is well-formedness plus the three principles, and on the qubit
-that definition is provably the one with the core conjunct (`oiPlus_qubit_iff`).
+that definition is provably the one with the core conjunct (`oiPlus_qubit_iff`). Observer recursion
+is itself derived (`EmbeddedObservation.observerRecursion_of_embeddedObservation`) from embedded
+observation: one family of finite operational theories on all finite carriers, regrouping-invariant
+(the level-`m` families of the observer at `S` are the system families of the observer at
+`S × Fin m`), relabelling-invariant, with the given theory as its ambient member. The same principle
+yields the level-one seam of well-formedness, so composite operational validity, observational
+independence, reversible richness and embedded observation are equivalent to finite operational QM
+on every nonempty finite carrier (`carrier_general_oiPlusEmbedded`); the rank-gap theory shows that
+the core, well-formedness and the other two principles do not supply embedded observation
+(`embeddedObservation_independent`). The converse from observer recursion to embedded observation is
+not claimed outside that equivalence.
 
 ## Contents (`lean/`)
 
@@ -102,7 +112,7 @@ that definition is provably the one with the core conjunct (`oiPlus_qubit_iff`).
   `staggered_relations`, `structural_chain`, `representation_bridge` and `time_reversal` are the
   companions of the proof files above: every integer the Lean files submit to `decide` is
   recomputed by an independent construction. The rest instantiate the `OIBridge` theorems on
-  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F66, one per
+  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F67, one per
   round of the reconstruction and completion programme, each reading the kernel file it
   certifies back for its claim discipline) and `edge_rigidity_probe.py` carries the R7 lint,
   which requires every listed kernel result to be a `theorem` with a `#print axioms` line and
@@ -153,7 +163,7 @@ modules, in the order the development grew:
   `OIRealization`, `OperationalValidity`, `LevelOneSeam`, `PhysicalCharacterization`,
   `DiagonalTheory`, `RankGapTheory`, `IsometryExtension`, `GeneralCarrier`,
   `UhlmannUniqueness`, `ReachabilitySeam`, `OrbitReachability`, `SubstantiveCensus`,
-  `CompletedOI`, `CarrierGeneralOIPlus`): the five completion conditions defined one by one with the countermodel
+  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`): the five completion conditions defined one by one with the countermodel
   that separates each, the sealed OI core realized with its actual visible readout, the
   characterization theorem with its necessity direction, the five-way minimality audit, the
   discharge of finite isometry extension, the removal of the qubit restriction, the discharge

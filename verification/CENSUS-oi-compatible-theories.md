@@ -248,6 +248,31 @@ and is redundant there (proved: `CarrierGeneralOIPlus.carrier_general_oiPlus`, `
 the three follows from bare OI (the census proves the opposite); that these are the only
 natural principles; that well-formedness is derivable.
 
+## Embedded observation (round fifty-six)
+
+The first entry of the primitive-source audit (`PRIMITIVE-SOURCE-AUDIT.md`) concerns the
+recursion principle. `EmbeddedObservation.lean` replaces the per-level existence claim of
+observer recursion by one uniform structure: a family of finite operational theories on
+every finite carrier that is regrouping-invariant (the positive-level families of the
+observer at `S` are the system families of the observer at `S × Fin m`),
+relabelling-invariant (availability is transported along every carrier bijection), and has
+the given theory as its ambient member. Nothing in the principle mentions a discard, a
+closure rule or a shifted theory. From it the kernel derives iterated ancilla closure
+(`closure_of_embedded`, the embedded observer's own discard rule), the identity and the
+relative readout at every level, hence observer recursion
+(`observerRecursion_of_embeddedObservation`), and the level-one seam of well-formedness
+(`systemToLevelOne_of_embeddedObservation`). Exact finite operational QM satisfies the
+principle with the CP-instrument theory on every carrier as the family
+(`embeddedObservation_of_qm`). The cell {K} above is the countercontrol: the rank-gap theory
+carries the core, well-formedness, observational independence and reversible richness and
+has no such family (`embeddedObservation_independent`). The compressed set — composite
+operational validity, observational independence, reversible richness, embedded observation
+— is equivalent to exact finite endomorphic operational QM on every nonempty finite carrier
+(`carrier_general_oiPlusEmbedded`). The converse from observer recursion to embedded
+observation is not claimed outside that equivalence, and the independence of the other two
+principles from embedded observation is not re-established; the round-53 witnesses establish
+it relative to observer recursion.
+
 ## What the census says and does not say
 
 - The three principles are three independent axes on the class of well-formed OI-compatible
