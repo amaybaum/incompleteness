@@ -146,6 +146,7 @@ import OIBridge.StructuralClosure
 import OIBridge.TypedCompletion
 import OIBridge.RegionLimit
 import OIBridge.RegionTower
+import OIBridge.QuasilocalAlgebra
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

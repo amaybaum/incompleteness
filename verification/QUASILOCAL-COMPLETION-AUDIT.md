@@ -172,11 +172,91 @@ claimed either way. With the first entry, the level's two targets read:
 | C. Continuity/dynamics gap | Decided as a no-go; an input only for the continuous-time Hamiltonian target |
 | D. Continuum-structure gap | Empty |
 
+## Third entry: the quasilocal completion
+
+**The local algebra as equivalence classes** (`QuasilocalAlgebra.lean`). A finite-region
+observable `X` on `Λ` has a kernel on global configurations — its entry on the restricted
+configurations when the two agree off `Λ`, and zero otherwise — and inclusion into a larger
+region does not change the kernel (`kern_inclObs`). The kernel is realized as an operator on the
+free vector space over global configurations (`emb`). That space is the algebraic device by which
+the direct limit is realized as a ring: it carries no inner product, no norm, and no state, and it
+selects nothing. Two observables have the same operator exactly when they agree after inclusion
+into a common region (`emb_eq_iff`), so the local algebra `localAlg` — the operators of some finite
+region — is the algebra of equivalence classes of finite-region observables, and the finite-stage
+facts that inclusion is multiplicative, unital and injective are recovered from it
+(`inclObs_mul`, `inclObs_one`, `inclObs_injective`).
+
+**Compatible isometric inclusions and the C*-norm.** Inclusion is a star algebra homomorphism
+between finite stages (`inclHom`), injective, hence isometric for the operator norm
+(`norm_inclObs`, from the uniqueness of the C*-norm on a C*-algebra). The norm and the involution
+of a local element are those of any representative (`norm_ofM`, `star_ofM`), and with them the
+local algebra is a normed star algebra satisfying the C*-identity (`instCStarRingLocal`).
+
+**The norm completion.** The quasilocal algebra `Quasilocal ι Q` is the abstract norm completion
+of the local algebra. Its involution is the continuous extension of the local one (`star_coe`);
+the C*-identity and the star laws pass to the completion by density, and it is a C*-algebra
+(`instCStarAlgebraQuasilocal`). Each finite stage embeds by a star homomorphism `stage Λ`,
+compatible along inclusions (`stage_inclObs`), isometric (`norm_stage`), injective, and the
+algebra is the closure of the union of the stages (`closure_iUnion_stage`):
+
+> 𝒜 = closure (⋃_Λ 𝒜_Λ), with 𝒜_Λ ⊆ 𝒜_Λ' the canonical isometric inclusions.
+
+**States.** A consistent family of density matrices (`IsStateFamily`) defines a functional on the
+local algebra whose value on a representative is the trace pairing, well defined by the duality of
+the second entry (`evalLocal_ofM`), linear, unital and positive (`evalLocal_one`,
+`evalLocal_nonneg`), and bounded with an explicit constant obtained from the positivity of the
+finite-stage functionals (`norm_evalLocal_le`). It extends uniquely to a continuous functional on
+the completion (`quasiState`, `quasiState_unique`), unital and positive there (`quasiState_one`,
+`quasiState_nonneg`): every consistent family is a state of the quasilocal algebra. The reference
+family of the second entry is a state family (`uniformFamily_isStateFamily`), and its extension is
+the tracial reference state (`referenceState_stage`).
+
+**Dynamics.** A reversible finite-range dynamics (`ReversibleDynamics`: a bijection of global
+configurations whose update and inverse both have finite dependence and finite influence) acts on
+operators by conjugation with its permutation operator (`heis`). The transport of a local
+observable of `Λ` is a local observable of an explicit finite region `hat Φ Λ` (`heis_emb`), so the
+local algebra is stable; the transport between finite stages is an injective star homomorphism,
+hence isometric (`transportedHom`, `norm_transported`); the action on the local algebra is a
+star automorphism, isometric and invertible (`heisLoc_mul`, `heisLoc_star`, `norm_heisLoc`,
+`heisLoc_inv_heisLoc`); and it extends by continuity to an isometric star automorphism of the
+quasilocal algebra (`heisQ`, `heisQ_mul`, `heisQ_star`, `norm_heisQ`, `heisQ_inv_heisQ`). After
+`k` steps an observable of `Λ` lives on the `k`-fold hat region (`heis_iterate_emb`): the algebraic
+causal cone. The summary `quasilocal_completion` bundles the stages, the closure, the states and
+the dynamics.
+
+**What is added: nothing.** No representation is chosen, no continuity axiom, no completeness
+axiom beyond the completion of a normed space, and no continuous-time law. The construction uses
+only the region tower of the second entry, the operator norm of the finite stages, and the
+completion of a normed ring.
+
+**Outcome after the third entry.** The infinite-region object now exists in the kernel with the
+finite-stage structure extended to it. The level's first target,
+
+> OI_Q + region completion ⟺? quasilocal lattice QM with discrete time,
+
+is now a statement about an object that has been constructed: the quasilocal algebra, its state
+space, and its discrete-time automorphisms are all supplied by the existing structure with no new
+postulate. What this entry does not do is characterize the target independently: "quasilocal
+lattice QM with discrete time" is identified with this construction by definition, and whether
+that identification is the right reading of the target is the reassessment that follows this
+round, before any manuscript change.
+
+| Outcome | Status after the third entry |
+|---|---|
+| A. Full redundancy | Holds for the region system, its state space, discrete-time locality, and now the infinite-region algebra with its states and dynamics |
+| B. Representation gap | Not a theory-level input: the quasilocal algebra is constructed without a representation; a sector choice is a state-level input; whether any OI prediction requires one is not decided |
+| C. Continuity/dynamics gap | Decided as a no-go; an input only for the continuous-time Hamiltonian target; the discrete dynamics extends to the completion without it |
+| D. Continuum-structure gap | Empty |
+
 ## What is not claimed
 
-- No infinite-volume algebra is constructed in the kernel, no representation is selected, and no
-  inequivalence theorem is proved; the finite decay is recorded as what the finite stages
+- No Hilbert-space representation of the quasilocal algebra is constructed and none is selected;
+  no inequivalence theorem is proved; the finite decay is recorded as what the finite stages
   establish, and the Schur uniqueness of the reference state is a finite-stage theorem.
+- The boundedness constant of a state on the local algebra is not shown to be sharp; it suffices
+  for the unique continuous extension, which is all that is used.
+- The target "quasilocal lattice QM with discrete time" is identified with the constructed
+  algebra by definition; no independent characterization of the target is proved.
 - The causal cone is proved for an abstract update with a coupling graph, not for a specific
   lattice Hamiltonian.
 - No continuity, completeness, or Hilbert-space axiom is introduced. Whether a continuous-time
