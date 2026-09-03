@@ -9645,6 +9645,80 @@ check("F78", ok78,
       "continuous-time law added, the target identified with the construction by definition; "
       "frozen Level I/II statements untouched; no manuscript change.")
 
+# F79 -- LEVEL III, ROUND 4: THE CHARACTERIZATION -- observables of disjoint regions commute at the
+# kernel level while observables of one region need not; the phase conjugations at three regions
+# are compatible with inclusion, unitary, multiplicative, star-preserving and of order four; and the
+# Target-B countermodel exactly: the phase conjugation of a single-site matrix unit carries the
+# factor I into every inclusion, whereas the matrix transported by the twelve-site ring update of
+# F78 has entries in {0, 1}, so no substratum dynamics induces the phase automorphism
+# (OI_Q Level III, round four).
+ok79 = True
+# --- (1) locality: kernels of X on {0} and W on {2} commute as operators on three sites; two
+# observables of the SAME region do not in general.
+_L279 = [2]
+_W79 = _rand77(2, 8)
+def _kercomp79(LX, X, LY, Y, t, s):
+    return sum((_kern78(LX, X, t, u) * _kern78(LY, Y, u, s) for u in _G78), CZ17)
+ok79 &= all(_kercomp79(_LA78, _X78, _L279, _W79, t, s) == _kercomp79(_L279, _W79, _LA78, _X78, t, s)
+            for t in _G78 for s in _G78)                                               # emb_comm_of_disjoint
+ok79 &= any(_kercomp79(_LA78, _X78, _LA78, _Y78, t, s) != _kercomp79(_LA78, _Y78, _LA78, _X78, t, s)
+            for t in _G78 for s in _G78)                                               # disjointness is load-bearing
+# --- (2) the phase conjugations (site 0, reference value 0): compatible with inclusion for a region
+# containing the site and for one not containing it, unitary, multiplicative, star-preserving, order four.
+def _wt79(L, f): return C17(0, 1) if (0 in L and f[L.index(0)] == 0) else CO17          # phaseWt
+def _U79(L): return _diag74([_wt79(L, f) for f in _confs78(L)])                          # phaseU
+def _pc79(L, X): return mmc17(mmc17(_U79(L), X), dag17(_U79(L)))                         # phaseConj
+ok79 &= _incl77(_LA78, _LB78, _pc79(_LA78, _X78)) == _pc79(_LB78, _incl77(_LA78, _LB78, _X78))   # inclObs_phaseConj, site in region
+ok79 &= _incl77(_LA78, _LC78, _pc79(_LA78, _X78)) == _pc79(_LC78, _incl77(_LA78, _LC78, _X78))
+ok79 &= _incl77(_L178, _LB78, _pc79(_L178, _W79)) == _pc79(_LB78, _incl77(_L178, _LB78, _W79))   # site adjoined by the inclusion
+ok79 &= mmc17(_U79(_LB78), dag17(_U79(_LB78))) == eye17(4) and mmc17(dag17(_U79(_LB78)), _U79(_LB78)) == eye17(4)
+ok79 &= _pc79(_LA78, mmc17(_X78, _Y78)) == mmc17(_pc79(_LA78, _X78), _pc79(_LA78, _Y78))     # phaseConj_mul
+ok79 &= _pc79(_LA78, dag17(_X78)) == dag17(_pc79(_LA78, _X78))                                # phaseConj_conjTranspose
+ok79 &= _pc79(_LA78, _pc79(_LA78, _pc79(_LA78, _pc79(_LA78, _X78)))) == _X78                  # phaseConj_four
+ok79 &= _pc79(_LA78, _pc79(_LA78, _X78)) != _X78                                              # and not of order two
+# --- (3) the countermodel: the single-site matrix unit E = |0><1| on {0}.
+_E79 = [[CZ17, CO17], [CZ17, CZ17]]
+_pcE79 = _pc79(_LA78, _E79)
+ok79 &= _pcE79[0][1] == C17(0, 1) and _pcE79 == scale52(C17(0, 1), _E79)                     # phase conjugation gives I * E
+_inclE79 = _incl77(_LA78, _LC78, _pcE79)
+ok79 &= _inclE79[_G78.index((0, 0, 0))][_G78.index((1, 0, 0))] == C17(0, 1)                # the entry I survives inclusion
+def _Ytr79(g, h):                                                                          # transported E (F78 dynamics)
+    e = _ext78(h)
+    return sum((_E79[f][_phi78(e)[0]] for f in (0, 1) if _target78(e, f) == g), CZ17)
+_hatC79 = _confs78(_hatL78)
+for _h79 in _hatC79[::64]:
+    for _g79 in _hatC79:
+        _v79 = _Ytr79(_g79, _h79)
+        ok79 &= _v79.im == 0 and _v79.re in (0, 1)                                         # transported_im_zero
+# --- (4) kernel readback
+_qc79 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'QuasilocalCharacterization.lean')
+_qcs79 = open(_qc79, encoding='utf-8').read()
+for _nm79 in ('structure QuasilocalSystem', 'noncomputable def oiSystem', 'theorem localHom_unique',
+              'theorem canonHom_surjective', 'noncomputable def canonEquiv', 'theorem canon_unique',
+              'theorem systemEquiv_unique', 'theorem systemState_isState', 'theorem canon_dyn',
+              'theorem systemEquiv_dyn', 'theorem phase_localityPreserving', 'theorem phaseQ_ne_heisQ',
+              'theorem quasilocal_characterization'):
+    ok79 &= _nm79 in _qcs79
+ok79 &= 'sorry' not in _qcs79 and 'not claimed either way' in ' '.join(_qcs79.split())
+check("F79", ok79,
+      "LEVEL III, ROUND 4 (OI_Q): THE CHARACTERIZATION (QuasilocalCharacterization.lean, 87 named "
+      "results). The target class is defined independently of the construction -- a C*-algebra "
+      "with compatible injective unital star embeddings of the finite matrix stages, observables "
+      "of disjoint regions commuting, and the stages dense -- and the OI region completion is "
+      "proved to be its unique member up to a canonical star isomorphism compatible with the "
+      "stages, from the universal property of the local algebra and of the completion; states "
+      "and the OI-induced dynamics transport along it. The dynamics target is decided by a "
+      "countermodel: a locality-preserving phase automorphism induced by no substratum dynamics. "
+      "Verified exactly here: disjoint-region commutation at the kernel level with the same-region "
+      "control, the phase conjugations compatible with inclusion (site in the region and site "
+      "adjoined), unitary, multiplicative, star-preserving and of order four but not two, the "
+      "phase-conjugated matrix unit carrying I into its inclusion, and the transported matrix of "
+      "the twelve-site update with entries in {0, 1} on every sampled configuration pair, plus "
+      "the kernel text read back. NOT CLAIMED, lint-guarded: no Hilbert-space representation, "
+      "uniqueness only among systems with these local stages, Target B strictly larger and not "
+      "characterized; frozen Level I/II statements untouched; no manuscript change.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

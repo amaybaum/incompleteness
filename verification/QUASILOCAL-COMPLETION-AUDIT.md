@@ -248,6 +248,66 @@ round, before any manuscript change.
 | C. Continuity/dynamics gap | Decided as a no-go; an input only for the continuous-time Hamiltonian target; the discrete dynamics extends to the completion without it |
 | D. Continuum-structure gap | Empty |
 
+## Fourth entry: the characterization
+
+**Locality** (`QuasilocalCharacterization.lean`). Observables of disjoint regions commute
+(`emb_comm_of_disjoint`, `stage_comm_of_disjoint`), proved on kernels at the finite stages, so
+that locality can be an axiom of the target class and verified for the construction.
+
+**The target class, defined independently.** `QuasilocalSystem` is a C*-algebra with, for every
+finite region, a unital star homomorphism from the matrix algebra of the region's configurations,
+compatible along inclusions, injective, with observables of disjoint regions commuting, and with
+the union of the stages dense. Nothing in the definition refers to the scaffold, the local algebra
+or the completion of the third entry, and the rigidity lint checks that it does not. The OI region
+completion is a member (`oiSystem`).
+
+**The universal property and the canonical isomorphism.** A compatible family of stage maps into
+any system factors uniquely through the local algebra (`localMap_ofM`, `localHom_unique`),
+isometrically because the stages are injective (`norm_localHom`), and extends by continuity to the
+completion (`canon`). The extension is a star homomorphism, isometric (`norm_canon`), injective, and
+surjective because its range is closed and contains the dense union of the stages
+(`canonHom_surjective`); it is therefore a star isomorphism (`canonEquiv`), the unique continuous
+map compatible with the stages (`canon_unique`). Any two systems of the class are canonically
+isomorphic compatibly with the stages (`systemEquiv_stage`, `systemEquiv_unique`), and every
+consistent family of density matrices is a state of every system (`systemState_isState`,
+`systemState_stage`). This is the converse the third entry lacked: it is a canonical
+isomorphism coming from the universal property of the inductive limit and of the completion, not
+another construction by definition.
+
+**The dynamics: Target A.** An OI system (`OISystem`) is a system of the class with a star
+automorphism acting on every stage as the transport of the substratum update. The OI completion
+with its Heisenberg action is one (`oiDynamical`); the automorphism preserves locality
+(`oi_localityPreserving`); the canonical map intertwines the dynamics (`canon_dyn`); and two OI
+systems with the same substratum dynamics are canonically isomorphic compatibly with their
+automorphisms (`systemEquiv_dyn`).
+
+**The redundancy test for Target B fails.** Conjugation by a phase unitary at one site is a
+compatible family of stage automorphisms (`inclObs_phaseConj`), defines an isometric star
+automorphism of the quasilocal algebra of order four (`phaseEquiv`, `phaseQ_four`), preserves
+locality (`phase_localityPreserving`), and is induced by no reversible finite-range substratum
+dynamics (`phaseQ_ne_heisQ`): on a single-site matrix unit it produces the factor `I`, whereas
+every transported matrix has entries that are finite sums of entries of the observable, hence
+real. General locality-preserving discrete dynamics (Target B) is therefore strictly larger than
+the OI-induced dynamics (Target A), and the Level III statement is made for Target A; the choice
+is a theorem, not a preference.
+
+**Outcome after the fourth entry.** The level's first target is a theorem about independently
+defined objects:
+
+> OI_Q + region completion ≅ the unique quasilocal lattice C*-system with the substratum's local
+> stages and the OI-induced discrete automorphism,
+
+canonically and uniquely, with states and dynamics transported. The continuous-time law remains
+the one optional extra structure, proved not determined by the discrete dynamics in the first
+entry and untouched here.
+
+| Outcome | Status after the fourth entry |
+|---|---|
+| A. Full redundancy | Holds: the region system, its state space, discrete-time locality, the infinite-region algebra with its states and dynamics, and now the characterization of that algebra among independently defined systems |
+| B. Representation gap | Not a theory-level input: the quasilocal algebra is characterized without a representation; a sector choice is a state-level input; whether any OI prediction requires one is not decided |
+| C. Continuity/dynamics gap | Decided as a no-go for continuous time; for discrete time, general locality-preserving dynamics is strictly larger than the OI-induced dynamics (phase countermodel), so the equivalence is stated for the OI-induced automorphism |
+| D. Continuum-structure gap | Empty |
+
 ## What is not claimed
 
 - No Hilbert-space representation of the quasilocal algebra is constructed and none is selected;
@@ -255,8 +315,10 @@ round, before any manuscript change.
   establish, and the Schur uniqueness of the reference state is a finite-stage theorem.
 - The boundedness constant of a state on the local algebra is not shown to be sharp; it suffices
   for the unique continuous extension, which is all that is used.
-- The target "quasilocal lattice QM with discrete time" is identified with the constructed
-  algebra by definition; no independent characterization of the target is proved.
+- The uniqueness of the fourth entry is uniqueness among systems with these local stages, the
+  matrix algebras of the substratum's configurations; it is not a classification of all quasilocal
+  C*-systems. Target B, general locality-preserving discrete dynamics, is shown strictly larger
+  than the OI-induced dynamics and is not characterized.
 - The causal cone is proved for an abstract update with a coupling graph, not for a specific
   lattice Hamiltonian.
 - No continuity, completeness, or Hilbert-space axiom is introduced. Whether a continuous-time
