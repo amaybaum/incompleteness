@@ -971,6 +971,14 @@ for fname, names in (
                      'pureProduct_consistent', 'overlap_uniform_pure', 'overlap_eventually_small', 'genZero_hermitian',
                      'genTwoPi_hermitian', 'flow_genZero', 'flow_genTwoPi', 'flows_agree_integer', 'flows_differ_half',
                      'continuous_extension_not_unique', 'continuum_audit_round1')),
+    ('RegionTower', ('confRestrict_trans', 'agreeOff_trans_iff', 'inclObs_refl', 'inclObs_trans', 'restrict_refl',
+                     'sum4_comm', 'trace_inclObs_mul_restrict', 'eq_of_trace_pairing', 'restrict_trans',
+                     'dependsOnlyOn_comp_step', 'iterate_dependsOnlyOn_ball', 'site_iterate_dependsOnlyOn',
+                     'readout_unaffected_outside_ball', 'restrict_add', 'restrict_smul', 'consistent_mix',
+                     'card_extensions_agree', 'card_fibre', 'card_conf', 'restrict_uniform_apply',
+                     'uniform_family_consistent', 'phaseGate_conj_apply', 'offDiag_zero_of_phase_invariant',
+                     'diag_eq_of_perm_invariant', 'invariant_state_scalar', 'invariant_normalized_eq_uniform',
+                     'uniform_invariant', 'state_selection_audit')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
                            'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
                            'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
@@ -1859,6 +1867,25 @@ for _w in ('axiom continuity', 'axiom completeness', 'StronglyContinuous', 'L2Sp
            'theorem infiniteVolume', 'theorem continuum_limit_exists', 'CStarAlgebra'):
     ok6 &= _w not in rgl
 ok6 &= 'structure FiniteOperationalTheory' not in rgl and 'native_decide' not in rgl
+# Level-III round-2 guards: the region tower is functorial with restriction derived from inclusion
+# through the duality; the causal cone is a theorem; the state-selection audit proves convexity,
+# the reference family, and the finite Schur lemma; no representation, GNS or continuity axiom is
+# introduced; frozen Level I/II statements untouched.
+rgt = open(os.path.join(BRIDGE, 'OIBridge', 'RegionTower.lean'), encoding='utf-8').read()
+_rgtflat = ' '.join(rgt.split())
+ok6 &= 'theorem inclObs_trans' in rgt and 'theorem restrict_trans' in rgt
+ok6 &= 'theorem trace_inclObs_mul_restrict' in rgt and 'theorem eq_of_trace_pairing' in rgt
+_rt = _slice(rgt, 'theorem restrict_trans', 'end Tower')
+ok6 &= 'eq_of_trace_pairing' in _rt and 'inclObs_trans' in _rt            # derived through the duality
+ok6 &= 'theorem iterate_dependsOnlyOn_ball' in rgt and 'theorem readout_unaffected_outside_ball' in rgt
+ok6 &= 'theorem consistent_mix' in rgt and 'theorem uniform_family_consistent' in rgt
+ok6 &= 'theorem invariant_state_scalar' in rgt and 'theorem invariant_normalized_eq_uniform' in rgt
+ok6 &= 'theorem state_selection_audit' in rgt
+ok6 &= 'not claimed either way' in _rgtflat
+for _w in ('axiom continuity', 'GNS', 'CStarAlgebra', 'theorem representation_selected',
+           'theorem sector_required', 'theorem infiniteVolume'):
+    ok6 &= _w not in rgt
+ok6 &= 'structure FiniteOperationalTheory' not in rgt and 'native_decide' not in rgt
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2263,8 +2290,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All seventy-two files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 named results print their "
+      "LINT. All seventy-three files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

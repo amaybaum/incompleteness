@@ -145,6 +145,7 @@ import OIBridge.ReadWriteControl
 import OIBridge.StructuralClosure
 import OIBridge.TypedCompletion
 import OIBridge.RegionLimit
+import OIBridge.RegionTower
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

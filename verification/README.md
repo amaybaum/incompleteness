@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 96 modules and,
-  at this commit, 1,771 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 97 modules and,
+  at this commit, 1,799 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -133,7 +133,7 @@ of implementations or the observer architecture, none Lie-algebraic.
   `staggered_relations`, `structural_chain`, `representation_bridge` and `time_reversal` are the
   companions of the proof files above: every integer the Lean files submit to `decide` is
   recomputed by an independent construction. The rest instantiate the `OIBridge` theorems on
-  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F76, one per
+  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F77, one per
   round of the reconstruction and completion programme, each reading the kernel file it
   certifies back for its claim discipline) and `edge_rigidity_probe.py` carries the R7 lint,
   which requires every listed kernel result to be a `theorem` with a `#print axioms` line and
@@ -184,7 +184,7 @@ modules, in the order the development grew:
   `OIRealization`, `OperationalValidity`, `LevelOneSeam`, `PhysicalCharacterization`,
   `DiagonalTheory`, `RankGapTheory`, `IsometryExtension`, `GeneralCarrier`,
   `UhlmannUniqueness`, `ReachabilitySeam`, `OrbitReachability`, `SubstantiveCensus`,
-  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`, `TypedCompletion`, `RegionLimit`): the five completion conditions defined one by one with the countermodel
+  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`, `TypedCompletion`, `RegionLimit`, `RegionTower`): the five completion conditions defined one by one with the countermodel
   that separates each, the sealed OI core realized with its actual visible readout, the
   characterization theorem with its necessity direction, the five-way minimality audit, the
   discharge of finite isometry extension, the removal of the qubit restriction, the discharge
@@ -318,7 +318,18 @@ pre-registered outcomes, the region system is redundant with the frozen interfac
 distinguished representation is a theory-level input or merely a state selection within one
 quasilocal theory is open; a continuous-time law is an input only if the target is continuous-time
 Hamiltonian QM rather than discrete-time quasilocal QM; and no continuum-structure gap arises
-because no continuum structure is claimed.
+because no continuum structure is claimed. The second entry (`RegionTower.lean`) formalizes the actual
+region tower — regions as finite sets of sites — and proves that inclusion of observables and
+restriction of states are functorial along chains of regions and dual under the trace pairing, the
+transitivity of restriction being derived from that of inclusion (`inclObs_trans`, `restrict_trans`,
+`trace_inclObs_mul_restrict`); proves the causal cone for an update with a coupling graph
+(`iterate_dependsOnlyOn_ball`, `readout_unaffected_outside_ball`), so discrete-time dynamics is
+compatible across regions by locality alone; and settles the state-selection question at the level
+of laws: consistent families are closed under mixing, the reference family is consistent, and the
+uniform state is the unique normalized state invariant under the substratum's own bijective and phase
+interventions (`consistent_mix`, `uniform_family_consistent`, `invariant_normalized_eq_uniform`), so a
+sector selector would be a state-level input of the initial-condition kind rather than an axiom of
+the theory.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general

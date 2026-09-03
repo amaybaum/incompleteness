@@ -118,11 +118,67 @@ There is no third, continuum step unless OI's physics is deliberately modified: 
 continuum or lattice-spacing refinement limit would be a new theory, because the corpus treats
 the lattice as fundamental.
 
+## Second entry: the region tower, the causal cone, and the state-selection audit
+
+**The tower** (`RegionTower.lean`). Regions are finite sets of sites `Λ ⊆ Λ' ⊆ Λ''` of the
+fixed-spacing lattice, with configuration carriers `Λ → Q`. Inclusion of observables extends by
+the identity on the adjoined sites; restriction of states sums over them. Inclusion is the
+identity on a region and composes along a chain (`inclObs_refl`, `inclObs_trans`); restriction is
+the identity and composes (`restrict_refl`, `restrict_trans`); the two are dual under the trace
+pairing (`trace_inclObs_mul_restrict`). The transitivity of restriction is *derived* from that of
+inclusion through the duality and the nondegeneracy of the pairing (`eq_of_trace_pairing`), so
+the projective system of states is determined by the inductive system of observables — the
+standard quasilocal structure — with no new postulate. The embeddings are canonical from the
+existing substratum physics.
+
+**The causal cone.** For an update on global configurations whose coupling graph records the
+neighbourhood each site's next value depends on, `k` steps of a region-supported function depend
+only on the `k`-ball (`iterate_dependsOnlyOn_ball`), so an intervention outside the ball cannot
+alter the readout (`readout_unaffected_outside_ball`). The corpus stated this by induction
+(`papers/Main.md`, *Coupling-graph causal cone*); the kernel proves it. Discrete-time dynamics is
+therefore compatible across regions by locality alone; nothing beyond the finite update and its
+coupling graph enters.
+
+**The state-selection audit.** Consistent families — one state on every region, each the
+restriction of the next — are the admissible state space of the quasilocal theory. They are closed
+under mixing (`consistent_mix`); the reference family, the uniformly mixed configurations that the
+interface's own preparation rule supplies, is consistent (`uniform_family_consistent`); and on every
+region the uniform state is the unique normalized state invariant under the substratum's own
+bijective and phase interventions (`invariant_state_scalar`, `invariant_normalized_eq_uniform` —
+the finite Schur lemma, proved from the permutation and diagonal unitaries the substratum itself
+supplies; `state_selection_audit` bundles the three). The laws of the theory — which instruments
+are available — mention no state: the typed availability predicate has no state argument. Every
+consistent family is therefore a state of the *same* theory with the *same* laws. Uniform, pure
+product, and mixed families are different states, each with its own representation in the limit;
+a distinguished representation would be a choice among them, and the interface already singles out
+one canonical family without any selector.
+
+**Outcome of the fork.** At the level of laws, outcome **A** holds: no representation postulate is
+needed. A sector selector, if one is ever wanted, is a state-level input of the initial-condition
+kind, not an axiom of the theory. Whether some OI prediction requires one distinguished sector
+rather than the full state space is not a question the finite theory can pose, and it is not
+claimed either way. With the first entry, the level's two targets read:
+
+> OI_Q + region completion ⟺? quasilocal lattice QM with discrete time — the region system,
+> its consistent state space, and discrete-time locality are supplied by the existing structure
+> with no new postulate at the finite stages;
+> plus a continuous-time dynamical law ⟺? continuous-time quasilocal QM — the one optional
+> extra structure, proved not determined by the discrete dynamics.
+
+| Outcome | Status after the second entry |
+|---|---|
+| A. Full redundancy | Holds at the finite stages for the region system, its state space, and discrete-time locality |
+| B. Representation gap | Not a theory-level input: the laws are state-free and the reference family is canonical; a sector choice is a state-level input; whether any OI prediction requires one is not posed by the finite theory |
+| C. Continuity/dynamics gap | Decided as a no-go; an input only for the continuous-time Hamiltonian target |
+| D. Continuum-structure gap | Empty |
+
 ## What is not claimed
 
 - No infinite-volume algebra is constructed in the kernel, no representation is selected, and no
   inequivalence theorem is proved; the finite decay is recorded as what the finite stages
-  establish.
+  establish, and the Schur uniqueness of the reference state is a finite-stage theorem.
+- The causal cone is proved for an abstract update with a coupling graph, not for a specific
+  lattice Hamiltonian.
 - No continuity, completeness, or Hilbert-space axiom is introduced. Whether a continuous-time
   law is adopted depends on the target formulation, and whether a distinguished representation is
   a theory-level input is the open question of the second entry.
