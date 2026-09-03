@@ -917,6 +917,11 @@ for fname, names in (
                                 'countermodel_not_implementationLocality', 'implementationLocality_independent', 'oiPlusEmbedded_of_oiPlusLocal',
                                 'qm_of_oiPlusLocal', 'oiPlusLocal_of_qm', 'oiPlusLocal_iff_qm', 'oiPlusLocal_iff_oiPlusEmbedded',
                                 'carrier_general_oiPlusLocal')),
+    ('MicroscopicReversibility', ('reversibleRichness_iff', 'control_of_lieRank_inverse', 'dyad_sum_span_single', 'conjChannel_smul',
+                                  'kraus_of_conj_unitary', 'implementationLocality_of_reversible', 'inverseAccessibility_of_generated_daggerStable',
+                                  'inverseAccessibility_of_reversibleImplementationLocality', 'fullClass_daggerStable', 'reversibleImplementationLocality_of_qm',
+                                  'oiPlusLocal_of_oiPlusMicro', 'qm_of_oiPlusMicro', 'oiPlusMicro_of_qm', 'oiPlusMicro_iff_qm',
+                                  'oiPlusMicro_iff_oiPlusLocal', 'carrier_general_oiPlusMicro')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
                            'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
                            'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
@@ -1656,6 +1661,26 @@ ok6 &= 'theorem observationalIndependence_of_embeddedObservation' not in ilo
 ok6 &= 'theorem implementationLocality_of_observationalIndependence' not in ilo
 ok6 &= 'theorem contextStable_redundant' not in ilo and 'theorem richness_of_' not in ilo
 ok6 &= 'structure FiniteOperationalTheory' not in ilo and 'native_decide' not in ilo
+# Round-58 guards: the split of reversible richness; dagger stability stated without the
+# availability vocabulary; the inverse clause derived; the redundancy test recorded as open in
+# both directions; no redundancy theorem or countermodel claimed.
+mrv = open(os.path.join(BRIDGE, 'OIBridge', 'MicroscopicReversibility.lean'), encoding='utf-8').read()
+_mrvflat = ' '.join(mrv.split())
+ok6 &= 'theorem reversibleRichness_iff' in mrv and 'InverseAccessibility T ∧ LieRankRichness T := Iff.rfl' in _mrvflat
+_ds = _slice(mrv, 'def DaggerStable', 'variable {A : Type}')
+for _w in ('avail', 'withSpectator', 'HasCompositeUnitaryControl', 'InverseAccessibility'):
+    ok6 &= _w not in _ds
+ok6 &= 'theorem kraus_of_conj_unitary' in mrv and 'theorem inverseAccessibility_of_generated_daggerStable' in mrv
+ok6 &= 'theorem reversibleImplementationLocality_of_qm' in mrv
+_cm = ' '.join(_slice(mrv, 'theorem carrier_general_oiPlusMicro', ':=').split())
+ok6 &= bool(_cm) and '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A)' in _cm
+ok6 &= _cm.endswith('OIPlusMicro T ↔ ExactAllFiniteEndomorphicQuantumOps T')
+ok6 &= 'def OIPlusMicro : Prop := ReversibleImplementationLocality T ∧ LieRankRichness T ∧ EmbeddedObservation T' in _mrvflat
+ok6 &= 'is NOT settled here, in either direction' in _mrvflat
+ok6 &= 'theorem inverseAccessibility_of_lieRank' not in mrv and 'theorem inverse_redundant' not in mrv
+ok6 &= 'theorem inverseAccessibility_independent' not in mrv and 'theorem daggerStable_of_inverse' not in mrv
+ok6 &= 'theorem lieRank_of_' not in mrv
+ok6 &= 'structure FiniteOperationalTheory' not in mrv and 'native_decide' not in mrv
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2060,8 +2085,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All sixty-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 named results print their "
+      "LINT. All sixty-five files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

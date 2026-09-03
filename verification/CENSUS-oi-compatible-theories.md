@@ -299,6 +299,27 @@ observation — is equivalent to exact finite endomorphic operational QM on ever
 finite carrier (`carrier_general_oiPlusLocal`). Whether context stability is redundant given
 implementation generation is not settled.
 
+## Microscopic reversibility (round fifty-eight)
+
+The third entry of the audit splits reversible richness into inverse accessibility (every
+available conjugation channel has its adjoint channel available) and Lie-rank richness (the
+drift/control certificate at every level), the conjunction being reversible richness by
+definition (`MicroscopicReversibility.reversibleRichness_iff`). The inverse clause is
+derived from a dagger-stable implementation class, one in which the adjoint of an
+admissible operator is admissible: an available conjugation channel is realized by
+admissible operators and trace preserving, its Choi matrix is the dyad of the vectorized
+operator, so every realizing operator lies on the ray of the channel's operator
+(`kraus_of_conj_unitary`), and the adjoint family realizes the adjoint channel
+(`inverseAccessibility_of_generated_daggerStable`). Exact finite operational QM is generated
+by the full class, which is dagger-stable. The compressed set — reversible implementation
+locality, Lie-rank richness, embedded observation — is equivalent to exact finite
+endomorphic operational QM on every nonempty finite carrier (`carrier_general_oiPlusMicro`).
+Whether the inverse clause is already forced by implementation locality, embedded
+observation and Lie-rank richness is not settled in either direction: the kernel consumes it
+exactly at the adjoint-closure hypothesis of the round-50 reachability theorem, and neither
+a proof through the semigroup structure of the available unitaries nor a countermodel is
+built.
+
 ## What the census says and does not say
 
 - The three principles are three independent axes on the class of well-formed OI-compatible
