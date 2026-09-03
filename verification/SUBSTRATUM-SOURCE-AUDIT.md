@@ -63,7 +63,7 @@ decomposed as the collapse suggests:
 | Context stability | Does bounded or local coupling make an implementation insensitive to an uncoupled spectator? | Open |
 | Label invariance | Is admissibility a gauge/relabelling property of substratum labels? | Open |
 | Dagger stability | Does the A2 bijective microscopic dynamics supply reversal of implementations? | Open |
-| Elementary drivability | Does the OI/substratum dynamics supply one continuously controllable off-diagonal transition, the exchanges, and a phase (or a smaller repertoire that round 59 shows generates the rest)? | Open; the decisive property |
+| Elementary drivability | Does the OI/substratum dynamics supply one continuously controllable off-diagonal transition, the exchanges, and a phase (or a smaller repertoire that round 59 shows generates the rest)? | The decisive property. Bijective (A2) read-write dynamics does not supply it (round 63, no-go); a continuously tunable off-diagonal coupling is the irreducible empirical addition |
 
 ## Second entry: the interface and the permutation-only no-go
 
@@ -97,16 +97,40 @@ mistaken for a derivation.
 | Candidate route | Representation fact | What it does not yet establish |
 |---|---|---|
 | Continuous-time extension | The transition law `T_ij(t)` varies continuously under Hamiltonian flow | That an embedded observer has a selectable intervention implementing the chosen `e^{-itX_{ab}}` — continuity of transition probabilities is not a control knob |
-| Read-write coupling | The visible/hidden interaction is locally modifiable | That local modification supplies a *tunable off-diagonal two-state generator* — this is the most promising route and is not shown |
+| Read-write coupling | The visible/hidden interaction is locally modifiable | **Settled (round 63): no-go under the current axioms.** A read-write family is bijective at every parameter value (A2), so it induces only permutation operators, and a strict interpolation toward the swap is not a bijection; the tunable coupling supplies no off-diagonal generator (`ReadWriteControl.readWriteSourced_not_qm`, `offDiagonal_interp_not_monomial`). A continuously tunable off-diagonal coupling is an irreducible empirical addition |
 | Relabelling/gauge symmetry | Substratum labels are gauge | That gauge equivalence is an executable intervention; it may plausibly supply the exchanges, but plausibility is not availability |
 | Phase-recovery machinery | Phases are reconstructed from transition data | That a quarter-phase gate is *available*; reconstruction of a phase is not controllability of a phase rotation |
 
-The decisive open question is the read-write route: whether local modification of the
-visible/hidden coupling supplies a continuously tunable off-diagonal two-state generator. If
-it does, the following entries prove its first component (preferably the continuously driven
-off-diagonal transition). If it does not, elementary drivability is the irreducible empirical
-selector separating the concrete OI substratum from operational quantum mechanics, and that
-is recorded rather than forced by a new substratum control law.
+The decisive open question was the read-write route: whether local modification of the
+visible/hidden coupling supplies a continuously tunable off-diagonal two-state generator.
+
+## Third entry: read-write controllability — the no-go (outcome C)
+
+Round 63 answers it for the current axioms, and the answer is no-go. A read-write family
+(`ReadWriteControl.ReadWriteFamily`) is a selectable local coupling that is a bijection of
+the finite state set at every parameter value (A2 reversibility), with a reference at
+parameter zero and local support. Its definition uses none of the quantum-control vocabulary,
+and the lint checks the structure region for `transition`, `flow`, `conjChannel`, `HControl`,
+and `DrivesElementary`. Through the round-62 interface its induced operator is a permutation
+matrix, hence monomial (`readWriteOperator_monomial`). A continuously tunable off-diagonal
+direction would require the family to pass through operators strictly between the reference
+and the swap, but a strict interpolation `(1−λ)·I + λ·P_{ab}` has two nonzero entries in a
+row and is not a bijection (`offDiagonal_interp_not_monomial`), so the tangent test fails and
+the off-diagonal derivative of a permutation-valued family is zero. Consequently a
+read-write-sourced theory is a monomial source, has no composite unitary control, and is not
+quantum mechanics (`readWriteSourced_not_qm`). The countercontrol distinguishes read-write
+interaction from controllability: the memory-swap family is a genuine nontrivial reversible
+read-write dynamics (bidirectional information movement) whose induced operators are all
+monomial (`readWriteControl_independent`), so C4/readback memory is not off-diagonal
+controllability.
+
+**Conclusion.** Under the current axioms — finite bijective read-write dynamics —
+elementary drivability, and with it a quantum architecture, is not supplied by the
+substratum. A continuously tunable off-diagonal coupling (a genuinely continuous,
+non-bijective-valued coupling parameter) is the irreducible empirical addition separating the
+concrete OI substratum from operational quantum mechanics. No control law is introduced to
+force it; whether an extended substratum with such a coupling is warranted is a physical
+question outside these axioms, recorded rather than assumed.
 
 ## What is not claimed
 

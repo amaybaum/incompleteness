@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 92 modules and,
-  at this commit, 1,672 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 93 modules and,
+  at this commit, 1,681 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -133,7 +133,7 @@ of implementations or the observer architecture, none Lie-algebraic.
   `staggered_relations`, `structural_chain`, `representation_bridge` and `time_reversal` are the
   companions of the proof files above: every integer the Lean files submit to `decide` is
   recomputed by an independent construction. The rest instantiate the `OIBridge` theorems on
-  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F72, one per
+  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F73, one per
   round of the reconstruction and completion programme, each reading the kernel file it
   certifies back for its claim discipline) and `edge_rigidity_probe.py` carries the R7 lint,
   which requires every listed kernel result to be a `theorem` with a `#print axioms` line and
@@ -184,7 +184,7 @@ modules, in the order the development grew:
   `OIRealization`, `OperationalValidity`, `LevelOneSeam`, `PhysicalCharacterization`,
   `DiagonalTheory`, `RankGapTheory`, `IsometryExtension`, `GeneralCarrier`,
   `UhlmannUniqueness`, `ReachabilitySeam`, `OrbitReachability`, `SubstantiveCensus`,
-  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`): the five completion conditions defined one by one with the countermodel
+  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`): the five completion conditions defined one by one with the countermodel
   that separates each, the sealed OI core realized with its actual visible readout, the
   characterization theorem with its necessity direction, the five-way minimality audit, the
   discharge of finite isometry extension, the removal of the qubit restriction, the discharge
@@ -247,7 +247,16 @@ second entry fixes the interface between substratum interventions and implementa
 proves a baseline no-go: the observable operators of bijective and phase interventions are monomial,
 and a theory whose available conjugations are all monomial has no control and is not QM, because a
 genuine two-state rotation is not monomial (`SubstratumInterface.monomialSource_not_qm`,
-`rot_not_monomial`) — finite bijective dynamics alone does not supply the decisive operator. The
+`rot_not_monomial`) — finite bijective dynamics alone does not supply the decisive operator. Its third entry audits the
+decisive escape route, read-write coupling, and returns the no-go for the current axioms: a
+read-write family (a selectable local coupling, bijective at every parameter value) induces only
+permutation operators, so a read-write-sourced theory is a monomial source and is not QM
+(`ReadWriteControl.readWriteSourced_not_qm`); a strict interpolation toward the swap is not a
+bijection (`offDiagonal_interp_not_monomial`), so the tunable coupling produces no off-diagonal
+generator, and the memory-swap countercontrol shows bidirectional read-write is not off-diagonal
+controllability (`readWriteControl_independent`). Under the current axioms a continuously tunable
+off-diagonal coupling is an irreducible empirical addition; no control law is introduced to force
+it. The
 canonical OI⁺ statements are frozen and this audit does not modify them. The programme is
 publication-frozen at the primitive-source state.
 
