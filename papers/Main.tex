@@ -3322,7 +3322,14 @@ added principles; the OI-core clause becomes logically redundant once
 the reversible-control condition is present. See {[}GR §3.3{]} for the
 full statement and scope (kernel: \texttt{carrier\_general\_oiPlus} in
 \texttt{OIBridge/CarrierGeneralOIPlus.lean};
-\texttt{oiPlus\_independence} in \texttt{OIBridge/CompletedOI.lean}).
+\texttt{oiPlus\_independence} in \texttt{OIBridge/CompletedOI.lean}). A
+primitive-source refinement restates the three added principles at the
+level of physical implementations and embedded observers --- reversible
+implementation locality, elementary transition richness, and embedded
+observation --- equivalent to the same operational quantum mechanics on
+every nonempty finite carrier (kernel:
+\texttt{carrier\_general\_oiPlusElem} in
+\texttt{OIBridge/LieRankSource.lean}).
 
 \emph{Lemma (adaptive diamond telescoping).} \emph{Let \(\pi\) be an
 adaptive protocol of horizon \(K\) and \(\pi'\) the protocol with each
@@ -4858,4 +4865,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: dc22189dcd5854225689dc2ce749206b6d5151f506155ec9ec5d028db6f77a50
+% source-sha256: 40e208fc6f233e7ba1831df64e4ec0b3c79ad368c7b133606cb3b1c4f465e1a6

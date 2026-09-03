@@ -224,7 +224,19 @@ with provenance preserved (`BoundaryAudit.lean`, `IsometryExtension.lean`,
 - **Remaining:** none.
 
 Formal external-boundary ledger: empty. OI/QM classification and finite compact-matrix
-reachability routes kernel-internal within their stated hypotheses. The programme is
+reachability routes kernel-internal within their stated hypotheses. The primitive-source
+audit (`PRIMITIVE-SOURCE-AUDIT.md`) carries the classification one level below the five
+operational conditions: observer recursion and the level-one seam derive from embedded
+observation, observational independence and the positivity half of validity from
+implementation locality, the inverse clause of reversible richness from dagger-stable
+implementations, and the Lie-rank clause from elementary transition richness. The strongest
+carrier-general statement is therefore that reversible implementation locality, elementary
+transition richness, and embedded observation are together equivalent to exact finite
+endomorphic operational quantum mechanics on every nonempty finite carrier
+(`LieRankSource.carrier_general_oiPlusElem`), with every principle stated at the level of
+implementations or the observer architecture. Two optimization questions are backlogged and
+do not affect the equivalence: whether inverse accessibility is redundant by a compact-group
+argument, and whether the elementary repertoire is minimal. The programme is
 publication-frozen at this state.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
