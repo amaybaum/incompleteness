@@ -180,8 +180,8 @@ claimed either way. With the first entry, the level's two targets read:
 - The causal cone is proved for an abstract update with a coupling graph, not for a specific
   lattice Hamiltonian.
 - No continuity, completeness, or Hilbert-space axiom is introduced. Whether a continuous-time
-  law is adopted depends on the target formulation, and whether a distinguished representation is
-  a theory-level input is the open question of the second entry.
+  law is adopted depends on the target formulation. Whether any particular OI prediction requires
+  selecting a distinguished sector rather than using the full state space is not decided here.
 - Nothing bears on `L²(ℝ³)` or on a continuum limit, which the corpus does not claim as physical
   objects; a continuum programme would be additional physics, not a completion of the existing
   structure.
