@@ -8844,6 +8844,84 @@ check("F71", ok71,
       "manuscript change; the open redundancy of the inverse clause and the minimal repertoire "
       "are untouched.")
 
+# F72 -- ROUND 62: SUBSTRATUM/IMPLEMENTATION INTERFACE AND THE PERMUTATION-ONLY NO-GO -- the
+# observable operators of bijective and phase interventions are monomial; a monomial source has
+# no control and is not QM, because a genuine two-state rotation is not monomial (phase three,
+# round sixty-two).
+ok72 = True
+def _ismono72(K):
+    """One nonzero entry per row and per column."""
+    n = len(K)
+    for r in range(n):
+        if sum(0 if K[r][c].z() else 1 for c in range(n)) != 1: return False
+    for c in range(n):
+        if sum(0 if K[r][c].z() else 1 for r in range(n)) != 1: return False
+    return True
+# --- (a) the interface: the exchange (a bijective operator) and the quarter phase (a phase
+# operator) are monomial; their conjugations preserve diagonal matrices.
+_swap72 = _perm67([1, 0], 2)
+_phase72 = [[C17(0, 1), CZ17], [CZ17, CO17]]
+ok72 &= _ismono72(_swap72) and _ismono72(_phase72)
+_diagX = [[C17(Frac(2)), CZ17], [CZ17, C17(Frac(-3))]]
+ok72 &= _ismono72(conjby52(_swap72, _diagX))                          # swap of a diagonal is diagonal
+ok72 &= _ismono72(conjby52(_phase72, _diagX))                        # and diagonal, hence monomial
+# a monomial conjugation of a diagonal stays diagonal (off-diagonals vanish)
+for _M in (_swap72, _phase72):
+    _out = conjby52(_M, _diagX)
+    ok72 &= _out[0][1] == CZ17 and _out[1][0] == CZ17
+# --- (b) the no-go witness: the rational 3-4-5 rotation is a two-state rotation (a flow value of
+# a real off-diagonal generator), unitary, with every entry nonzero, hence NOT monomial.
+_R72 = [[C17(Frac(3,5)), C17(Frac(4,5))], [C17(Frac(-4,5)), C17(Frac(3,5))]]
+ok72 &= mmc17(dag17(_R72), _R72) == eye17(2)
+ok72 &= not _ismono72(_R72)                                          # first row has two nonzeros
+# it is a genuine rotation: conjugating |0><0| produces an off-diagonal (coherence), so no
+# diagonal-preserving (monomial-generated) source can realize it.
+_c72 = conjby52(_R72, [[CO17, CZ17], [CZ17, CZ17]])
+ok72 &= _c72[0][1] != CZ17
+# --- (c) a monomial matrix, contrasted: permutation times diagonal has one nonzero per row.
+_PD72 = mmc17(_swap72, _phase72)
+ok72 &= _ismono72(_PD72)
+# --- (d) the kernel's claim discipline, read back.
+_si72 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'SubstratumInterface.lean')
+if os.path.exists(_si72):
+    with open(_si72, encoding='utf-8') as _f:
+        _si_txt72 = ' '.join(_f.read().split())
+    ok72 &= 'theorem rot_not_monomial' in _si_txt72 and 'theorem monomialSource_not_control' in _si_txt72
+    ok72 &= 'theorem monomialSource_not_qm' in _si_txt72 and 'theorem preservesDiag_conj_of_monomial' in _si_txt72
+    ok72 &= 'theorem exchange_monomial' in _si_txt72 and 'theorem phase_monomial' in _si_txt72
+    ok72 &= 'sorry' not in _si_txt72
+    ok72 &= 'does not compute a matrix exponential' in _si_txt72
+check("F72", ok72,
+      "ROUND 62: SUBSTRATUM/IMPLEMENTATION INTERFACE AND THE PERMUTATION-ONLY NO-GO (phase three, "
+      "round sixty-two; kernel: OIBridge/SubstratumInterface.lean, 12 results -- monomial_permMatrix, "
+      "monomial_diagonal, bijectiveOperator_monomial, phaseOperator_monomial, exchange_monomial, "
+      "phase_monomial, monomial_entry, preservesDiag_conj_of_monomial, rot_not_monomial, "
+      "monomialSource_not_control, monomialSource_not_qm, elementary_split). THE INTERFACE: the "
+      "concrete substratum starts from finite states, bijective dynamics (A2) and a phase "
+      "structure; its two direct intervention kinds have observable operators that are a "
+      "permutation matrix (bijectiveOperator) and a diagonal phase (phaseOperator), both MONOMIAL "
+      "-- one nonzero per row and column, in the factored form permMatrix sigma times diagonal d. "
+      "The interface keeps this separate from admissibility: it records which operators the "
+      "interventions supply, not that every desired matrix has one. THE MONOMIAL INVARIANT: a "
+      "monomial conjugation preserves diagonal matrices (a permutation relabels the diagonal, a "
+      "phase fixes it), so a monomial-only source generates only diagonal-preserving conjugations. "
+      "THE NO-GO: the rational two-state rotation rot -- a value of the flow of a real off-diagonal "
+      "generator, every entry nonzero -- is not monomial, its first row already carrying two "
+      "nonzeros; hence a theory whose available composite conjugations are all monomial has no "
+      "composite unitary control and is not finite operational QM. So finite bijective dynamics "
+      "alone does not supply elementary drivability or operational QM: the exchanges (bijective) "
+      "and the phases (phase structure) are monomial and supplied, but the continuously driven "
+      "off-diagonal transition, whose flow values are not monomial, is not. Verified exactly here: "
+      "the exchange and phase as monomial unitaries, monomial conjugations keeping a diagonal "
+      "diagonal, the rotation as a unitary with every entry nonzero that is not monomial and "
+      "creates coherence from a basis projector, a permutation-times-diagonal as monomial, and the "
+      "kernel text read back. NOT CLAIMED, lint-guarded: no matrix exponential is computed (rot is "
+      "the concrete witness that a nontrivial flow of a real off-diagonal generator is not a "
+      "permutation); whether the continuous-time extension, read-write coupling or gauge/phase "
+      "structure supplies a non-monomial generator is left open in SUBSTRATUM-SOURCE-AUDIT.md; the "
+      "frozen OI-plus statements are untouched.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

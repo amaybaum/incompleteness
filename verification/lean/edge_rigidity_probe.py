@@ -940,6 +940,9 @@ for fname, names in (
     ('SubstratumSource', ('genTheory_avail_conj', 'genTheory_elementary', 'quantumArchitecture_supplies_all',
                        'genTheory_qm_of_quantumArchitecture', 'fullClass_arch', 'fullClass_drivesElementary', 'fullClass_quantumArchitecture',
                        'qm_generated_by_quantumArchitecture', 'diagClass_not_drivesElementary', 'diagGen_not_quantumArchitectureGenerated')),
+    ('SubstratumInterface', ('monomial_permMatrix', 'monomial_diagonal', 'bijectiveOperator_monomial', 'phaseOperator_monomial',
+                          'exchange_monomial', 'phase_monomial', 'monomial_entry', 'preservesDiag_conj_of_monomial',
+                          'rot_not_monomial', 'monomialSource_not_control', 'monomialSource_not_qm', 'elementary_split')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
                            'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
                            'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
@@ -1732,6 +1735,22 @@ ok6 &= 'does not derive a quantum architecture from A1-A6' in _subflat
 ok6 &= 'theorem quantumArchitecture_of_oiCore' not in sub and 'theorem substratum_supplies' not in sub
 ok6 &= 'theorem drivesElementary_of_' not in sub and 'axiom ' not in sub
 ok6 &= 'structure FiniteOperationalTheory' not in sub and 'native_decide' not in sub
+# Round-62 guards: the substratum/implementation interface (monomial operators of bijective and
+# phase interventions); the monomial invariant; the permutation-only no-go; no exponential
+# computed; the frozen statements untouched.
+sif = open(os.path.join(BRIDGE, 'OIBridge', 'SubstratumInterface.lean'), encoding='utf-8').read()
+_sifflat = ' '.join(sif.split())
+ok6 &= 'def IsMonomial' in sif and 'def bijectiveOperator' in sif and 'def phaseOperator' in sif
+ok6 &= 'theorem rot_not_monomial' in sif and 'theorem preservesDiag_conj_of_monomial' in sif
+ok6 &= 'theorem monomialSource_not_control' in sif and 'theorem monomialSource_not_qm' in sif
+ok6 &= 'theorem exchange_monomial' in sif and 'theorem phase_monomial' in sif
+ok6 &= 'def MonomialSource (T : FiniteOperationalTheory A) : Prop :=' in sif
+_ns = _slice(sif, 'theorem monomialSource_not_qm', '#print axioms')
+ok6 &= '¬ ExactAllFiniteEndomorphicQuantumOps T' in _ns
+ok6 &= 'does not compute a matrix exponential' in _sifflat
+ok6 &= 'theorem monomialSource_of_bijective' not in sif and 'theorem flow_monomial' not in sif
+ok6 &= 'theorem drivesElementary_of_substratum' not in sif
+ok6 &= 'structure FiniteOperationalTheory' not in sif and 'native_decide' not in sif
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2136,8 +2155,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All sixty-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 named results print their "
+      "LINT. All sixty-eight files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

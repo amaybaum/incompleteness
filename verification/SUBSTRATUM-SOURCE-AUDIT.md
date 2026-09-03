@@ -65,6 +65,49 @@ decomposed as the collapse suggests:
 | Dagger stability | Does the A2 bijective microscopic dynamics supply reversal of implementations? | Open |
 | Elementary drivability | Does the OI/substratum dynamics supply one continuously controllable off-diagonal transition, the exchanges, and a phase (or a smaller repertoire that round 59 shows generates the rest)? | Open; the decisive property |
 
+## Second entry: the interface and the permutation-only no-go
+
+Before asking whether the substratum drives the elementary transitions, the second entry
+fixes what an implementation operator supplied by the substratum is
+(`SubstratumInterface.lean`). The concrete substratum starts from finite states, bijective
+dynamics (A2), and a phase structure. Its two direct intervention kinds have observable
+operators that are a permutation matrix (`bijectiveOperator`) and a diagonal phase
+(`phaseOperator`), both **monomial** — one nonzero entry per row and per column
+(`IsMonomial`). The interface keeps this separate from admissibility: it records which
+operators the interventions supply, not that every desired matrix has one.
+
+A monomial conjugation preserves diagonal matrices
+(`preservesDiag_conj_of_monomial`), so a monomial-only source generates only
+diagonal-preserving conjugations. The rational two-state rotation `rot` — a value of the flow
+of a real off-diagonal generator, every entry nonzero — is not monomial
+(`rot_not_monomial`); hence a theory whose available composite conjugations are all monomial
+has no composite unitary control (`monomialSource_not_control`) and is not quantum mechanics
+(`monomialSource_not_qm`). So **finite bijective dynamics alone does not supply elementary
+drivability or operational QM**: the exchanges (bijective) and the phases (phase structure)
+are monomial and supplied, but the continuously driven off-diagonal transition, whose flow
+values are not monomial, is not. This separates A2 reversibility from the missing physical
+controllability, and confirms elementary drivability as the decisive requirement.
+
+### The candidate escape routes
+
+Each candidate route from the corpus is a distinction between a representation fact and a
+controllable operation, and each remains open. They are recorded here so they are not
+mistaken for a derivation.
+
+| Candidate route | Representation fact | What it does not yet establish |
+|---|---|---|
+| Continuous-time extension | The transition law `T_ij(t)` varies continuously under Hamiltonian flow | That an embedded observer has a selectable intervention implementing the chosen `e^{-itX_{ab}}` — continuity of transition probabilities is not a control knob |
+| Read-write coupling | The visible/hidden interaction is locally modifiable | That local modification supplies a *tunable off-diagonal two-state generator* — this is the most promising route and is not shown |
+| Relabelling/gauge symmetry | Substratum labels are gauge | That gauge equivalence is an executable intervention; it may plausibly supply the exchanges, but plausibility is not availability |
+| Phase-recovery machinery | Phases are reconstructed from transition data | That a quarter-phase gate is *available*; reconstruction of a phase is not controllability of a phase rotation |
+
+The decisive open question is the read-write route: whether local modification of the
+visible/hidden coupling supplies a continuously tunable off-diagonal two-state generator. If
+it does, the following entries prove its first component (preferably the continuously driven
+off-diagonal transition). If it does not, elementary drivability is the irreducible empirical
+selector separating the concrete OI substratum from operational quantum mechanics, and that
+is recorded rather than forced by a new substratum control law.
+
 ## What is not claimed
 
 - No entry derives a quantum architecture from A1–A6 or from the read-write substratum
