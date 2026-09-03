@@ -1,11 +1,12 @@
-# The continuum-completion audit (OI_Q, Level III)
+# The quasilocal-completion audit (OI_Q, Level III)
 
 Level II closed with one statement, frozen in the manuscripts: under the carrier-general typed
 operational interface, the current OI substratum together with continuous off-diagonal
 controllability is equivalent to exact finite-dimensional typed operational quantum mechanics. The
 remaining qualifier is **finite-dimensional**. This audit asks what the substratum's own directed
-system of finite stages yields in the limit, and it asks the question as an audit, not by
-postulate: the existing structure is tested, no continuity, completeness, or Hilbert-space axiom
+system of finite stages yields in the limit — the infinite-region (quasilocal) completion, since
+the corpus contains no spatial continuum limit to recover — and it asks the question as an audit,
+not by postulate: the existing structure is tested, no continuity, completeness, or Hilbert-space axiom
 is added, and every claimed necessity must come with a formal obstruction or countermodel.
 
 ## The discipline
@@ -74,8 +75,13 @@ of a finite permutation is additional structure rather than something the permut
 Hermitian generators on the qubit — the zero generator and a `2π` phase on one basis state —
 whose passive flows are isometries, agree at every integer time, and differ at time `1/2`
 (`flows_agree_integer`, `flows_differ_half`, `continuous_extension_not_unique`). Every
-discrete-time datum coincides; the continuous-time law does not. Outcome C is **decided**: a
-continuous-time law is a genuine input, not a consequence of the finite dynamics. Discrete-time
+discrete-time datum coincides; the continuous-time law does not. Outcome C is **decided** in the
+following sense: discrete evolution does not determine a continuous interpolation. Whether this
+is a missing ingredient depends on the target. If the target is infinite-region algebraic
+quantum mechanics with fundamental discrete time — a quantum automorphism or channel at each
+step — no continuous-time law is needed and nothing is missing. If the target is the usual
+continuous-time Hamiltonian formulation, a continuous-time dynamical law is an additional
+physical input not determined by OI's fundamental discrete dynamics. Discrete-time
 compatibility across regions, by contrast, is the locality (causal-cone) property the corpus
 proves for the coupling graph (`papers/Main.md`, *Coupling-graph causal cone*), and it needs no
 new input.
@@ -91,16 +97,26 @@ The audit summary `continuum_audit_round1` bundles (1)–(4).
 | Outcome | Status |
 |---|---|
 | A. Full redundancy | Holds for the region system: restriction and inclusion are the Level II discard and its dual, and the consistent families need no postulate |
-| B. Representation gap | Supported at the finite level (`overlap_eventually_small`): the representation is selected by a choice of reference family, which the finite theory does not supply; not decided in the kernel |
-| C. Continuity/dynamics gap | Decided: continuous time is a genuine input (`continuous_extension_not_unique`) |
+| B. Representation gap | Open: compatible state families that look inequivalent already occur at the finite stages (`overlap_eventually_small`), but whether a distinguished representation is a theory-level input, or merely a state selection within one quasilocal theory, is not decided |
+| C. Continuity/dynamics gap | Decided as a no-go: discrete evolution does not determine a continuous interpolation (`continuous_extension_not_unique`); an input only if the target is continuous-time Hamiltonian QM |
 | D. Continuum-structure gap | Empty: no refinement system exists in the substratum |
 
-The conclusion of the first entry is therefore: the substratum's own directed system is the
-finite-region system at fixed spacing; its limit object is the quasilocal lattice algebra; the
-finite stages supply the algebra, the consistent state families, and discrete-time locality
-without any new postulate; and the two inputs that infinite-volume quantum mechanics on that
-algebra genuinely requires beyond the finite theory are a reference state (representation) and
-a continuous-time law. Neither is a "quantum" postulate, and neither is the continuum.
+The conclusion of the first entry is therefore: the finite-region theory supplies the canonical
+region system, whose limit object is the quasilocal lattice algebra at fixed spacing;
+continuous-time interpolation is proved not to be determined by the discrete dynamics; multiple
+compatible state families that look inequivalent already occur at finite stages, but whether a
+distinguished representation is an additional theory-level input remains open. In algebraic
+quantum mechanics one quasilocal algebra carries many states, each with its own GNS
+representation, and choosing the physical state may be analogous to choosing an initial or
+boundary condition rather than adding an axiom; that is the question of the second entry. The
+level therefore splits by target:
+
+> OI_Q + region completion  ⟺?  quasilocal lattice QM with discrete time;
+> plus a continuous-time dynamical law  ⟺?  continuous-time quasilocal QM.
+
+There is no third, continuum step unless OI's physics is deliberately modified: a spatial
+continuum or lattice-spacing refinement limit would be a new theory, because the corpus treats
+the lattice as fundamental.
 
 ## What is not claimed
 
@@ -108,8 +124,8 @@ a continuous-time law. Neither is a "quantum" postulate, and neither is the cont
   inequivalence theorem is proved; the finite decay is recorded as what the finite stages
   establish.
 - No continuity, completeness, or Hilbert-space axiom is introduced. Whether a continuous-time
-  law and a reference state should be adopted as physical inputs is a physics decision outside
-  this audit.
+  law is adopted depends on the target formulation, and whether a distinguished representation is
+  a theory-level input is the open question of the second entry.
 - Nothing bears on `L²(ℝ³)` or on a continuum limit, which the corpus does not claim as physical
   objects; a continuum programme would be additional physics, not a completion of the existing
   structure.

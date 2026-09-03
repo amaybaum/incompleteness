@@ -9241,7 +9241,7 @@ check("F75", ok75,
       "lint-guarded: that this interface is the only reasonable one; infinite-dimensional QM "
       "(Level III); anything about bare OI, which is untouched; no manuscript change in this round.")
 
-# F76 -- LEVEL III, ROUND 1: THE CONTINUUM-COMPLETION AUDIT AT THE FINITE STAGES -- the region
+# F76 -- LEVEL III, ROUND 1: THE QUASILOCAL-COMPLETION AUDIT AT THE FINITE STAGES -- the region
 # restriction is the Level II discard with the observable inclusion as its dual; the reference and
 # pure-product families are consistent; their overlap decays as q^-n; continuous time is not
 # determined by the discrete dynamics (OI_Q Level III, round one).
@@ -9294,7 +9294,7 @@ if os.path.exists(_rl76):
     ok76 &= 'sorry' not in _rl_txt76
     ok76 &= 'no continuity axiom is introduced' in _rl_txt76
 check("F76", ok76,
-      "LEVEL III, ROUND 1: THE CONTINUUM-COMPLETION AUDIT AT THE FINITE STAGES (OI_Q Level III, "
+      "LEVEL III, ROUND 1: THE QUASILOCAL-COMPLETION AUDIT AT THE FINITE STAGES (OI_Q Level III, "
       "round one; kernel: OIBridge/RegionLimit.lean, 16 results -- restrict_eq_discardR, "
       "trace_tensorOf, tensorOf_mul, trace_inclObs_mul, uniform_consistent, pureProduct_consistent, "
       "overlap_uniform_pure, overlap_eventually_small, genZero_hermitian, genTwoPi_hermitian, "
@@ -9311,12 +9311,13 @@ check("F76", ok76,
       "are consistent under restriction. (3) THE FINITE SHADOW OF THE REPRESENTATION QUESTION: the "
       "overlap of the reference family with a pure product family on n adjoined q-state sites is "
       "the base overlap times q^-n, so for every tolerance there is a region on which the two are "
-      "that close to orthogonal -- the finite stages determine the algebra and the consistent "
-      "families but select the physical representation only through a choice of reference family; "
-      "outcome B is supported at the finite level, not decided. (4) CONTINUOUS TIME IS ADDITIONAL "
+      "that close to orthogonal -- compatible families that look inequivalent already occur at "
+      "finite stages, and whether a distinguished representation is a theory-level input or merely "
+      "a state selection within one quasilocal theory is open. (4) CONTINUOUS TIME IS ADDITIONAL "
       "STRUCTURE, THE COUNTERMODEL: two Hermitian generators on the qubit whose passive flows are "
       "isometries, agree at every integer time and differ at t = 1/2; the discrete dynamics does "
-      "not determine the continuous law; outcome C is decided as a genuine input, as the corpus "
+      "not determine the continuous law; outcome C is decided as a no-go, an input only if the target "
+      "is continuous-time Hamiltonian QM rather than discrete-time quasilocal QM, as the corpus "
       "already states for a continuous interpolation of a finite permutation. (5) No continuum-"
       "structure gap arises because no continuum structure is claimed. Verified exactly here: "
       "trace and product identities for tensors, the duality on a 6-dimensional register, both "

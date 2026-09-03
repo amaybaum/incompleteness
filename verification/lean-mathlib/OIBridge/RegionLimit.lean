@@ -1,5 +1,5 @@
 /-
-  OIBridge/RegionLimit.lean — OI_Q Level III, first entry: the continuum-completion audit at the
+  OIBridge/RegionLimit.lean — OI_Q Level III, first entry: the quasilocal-completion audit at the
   finite stages.
 
   LEVEL III, ROUND ONE. Level II closed with: under the carrier-general typed operational
@@ -39,10 +39,11 @@
       there is a region on which the two families are that close to orthogonal
       (`overlap_eventually_small`). This is the finite-stage content of the statement that the
       two families generate inequivalent representations in the infinite-volume limit: the
-      finite stages determine the algebra and the consistent families, but they distinguish
-      the physical representation only through a CHOICE of reference family. That choice is
-      not supplied by the finite theory — outcome B of the pre-registered fork is supported at
-      the finite level, not decided.
+      finite stages determine the algebra and the consistent families, and compatible
+      families that look inequivalent already occur at finite stages. Whether a distinguished
+      representation is a theory-level input, or merely a state selection within one quasilocal
+      theory (one algebra, many states, each with its own representation), is OPEN — outcome B
+      of the pre-registered fork is not decided here.
 
   (4) CONTINUOUS TIME IS ADDITIONAL STRUCTURE — THE COUNTERMODEL. The substratum dynamics is a
       finite bijection; the corpus already states that a continuous one-parameter
@@ -50,8 +51,11 @@
       The kernel makes that a theorem: two Hermitian generators on the qubit whose passive
       flows agree at every integer time and differ at half-integer time
       (`continuous_extension_not_unique`). Every discrete-time datum is the same; the
-      continuous-time law is not determined by it. Outcome C of the fork is DECIDED: a
-      continuous-time law is a genuine input, not a consequence of the finite dynamics.
+      continuous-time law is not determined by it. Outcome C of the fork is DECIDED as a no-go:
+      discrete evolution does not determine a continuous interpolation. Whether that is a
+      missing ingredient depends on the target — none is needed for discrete-time quasilocal
+      quantum mechanics, and a continuous-time dynamical law is an additional input only for
+      the continuous-time Hamiltonian formulation.
 
   (5) NO CONTINUUM-STRUCTURE GAP ARISES because no continuum structure is claimed: the
       substratum has no refinement system to complete, so outcome D is empty by the corpus's
@@ -303,7 +307,7 @@ end Continuity
 
 section Summary
 
-/-- **THE CONTINUUM-COMPLETION AUDIT, FIRST ENTRY.** (1) the region restriction is the Level II
+/-- **THE QUASILOCAL-COMPLETION AUDIT, FIRST ENTRY.** (1) the region restriction is the Level II
 discard with the observable inclusion as its dual; (2) the reference family and every pure
 product family are consistent under restriction; (3) their overlap on `n` adjoined sites decays
 as `|Q|^{-n}`; (4) continuous time is not determined by the discrete dynamics. -/

@@ -1841,7 +1841,7 @@ ok6 &= 'theorem typedDiag_shadow_not_qm' in tcl and 'theorem typed_interface_not
 ok6 &= 'typing artifact for this interface' in _tclflat
 ok6 &= 'theorem typed_qm_of_oi' not in tcl and 'theorem infinite' not in tcl
 ok6 &= 'structure FiniteOperationalTheory' not in tcl and 'native_decide' not in tcl
-# Level-III round-1 guards: the continuum-completion audit adds no continuity, completeness or
+# Level-III round-1 guards: the quasilocal-completion audit adds no continuity, completeness or
 # Hilbert-space axiom; the restriction is the Level II discard (rfl); the continuity countermodel
 # and the overlap decay are theorems; nothing about L^2(R^3) or an infinite-volume algebra is
 # claimed; frozen Level I/II statements untouched.

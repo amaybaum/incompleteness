@@ -302,20 +302,23 @@ qualification stated beside it, and Level II is frozen at this commit: within th
 carrier-general extension of the operational rules already used at Level I, the remaining qualifier
 is finite-dimensional rather than endomorphic.
 
-**Level III (OI_Q): the continuum-completion audit.** Opened as an audit, not a postulate
-(`RegionLimit.lean`, `CONTINUUM-COMPLETION-AUDIT.md`): no continuity, completeness or Hilbert-space
+**Level III (OI_Q): the quasilocal-completion audit.** Opened as an audit, not a postulate
+(`RegionLimit.lean`, `QUASILOCAL-COMPLETION-AUDIT.md`): no continuity, completeness or Hilbert-space
 axiom is added, and every claimed necessity comes with a countermodel. The corpus holds the lattice
-fundamental at fixed spacing, so the directed system the substratum supplies is the family of finite
-regions, a larger region adjoining a factor `S × R`. Its restriction maps are the Level II discard
+fundamental at fixed spacing, so there is no spatial continuum limit to recover: the directed system
+the substratum supplies is the family of finite regions, a larger region adjoining a factor `S × R`,
+and its limit is the infinite-region (quasilocal) lattice theory. Its restriction maps are the Level II discard
 (`restrict_eq_discardR`) with the observable inclusion as dual (`trace_inclObs_mul`); the reference
 family and every pure product family are consistent under restriction; their overlap on `n` adjoined
 `q`-state sites decays as `q^{-n}` (`overlap_uniform_pure`, `overlap_eventually_small`), the finite
 shadow of the fact that the physical representation is selected only by a choice of reference family;
 and continuous time is not determined by the discrete dynamics — two Hermitian generators whose flows
 agree at every integer time and differ at `t = 1/2` (`continuous_extension_not_unique`). Of the
-pre-registered outcomes, the region system is redundant with the frozen interface, the
-representation choice is supported as an input at the finite level, the continuous-time law is a
-decided input, and no continuum-structure gap arises because no continuum structure is claimed.
+pre-registered outcomes, the region system is redundant with the frozen interface; whether a
+distinguished representation is a theory-level input or merely a state selection within one
+quasilocal theory is open; a continuous-time law is an input only if the target is continuous-time
+Hamiltonian QM rather than discrete-time quasilocal QM; and no continuum-structure gap arises
+because no continuum structure is claimed.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general
