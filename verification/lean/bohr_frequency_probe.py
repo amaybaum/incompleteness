@@ -9101,6 +9101,146 @@ check("F74", ok74,
       "side of the endpoint is a hypothesis on an extension and not a property of the current "
       "substratum; no control law is postulated; the frozen OI-plus statements are untouched.")
 
+# F75 -- LEVEL II, ROUND 1: THE TYPED FINITE OPERATIONAL INTERFACE AND THE DETERMINATION TEST --
+# the typed theory (maps between different carriers) is determined by its endomorphic shadow:
+# slice embeddings, the soundness compressions, the completeness register operators, and the
+# non-quantum typed diagonal theory, all exact (OI_Q Level II, round one).
+ok75 = True
+def _embL75(nX, nY, y):
+    """Embed X into slice y of X x Y (row index px*nY + py)."""
+    return [[CO17 if (p // nY == x and p % nY == y) else CZ17 for x in range(nX)] for p in range(nX * nY)]
+def _embR75(nX, nY, x):
+    """Embed Y into slice x of X x Y."""
+    return [[CO17 if (p // nY == x and p % nY == yy) else CZ17 for yy in range(nY)] for p in range(nX * nY)]
+def _sum75(mats, n):
+    acc = [[CZ17 for _ in range(n)] for _ in range(n)]
+    for M in mats: acc = add52(acc, M)
+    return acc
+def _sub75(A, B): return add52(A, scale52(C17(-1), B))
+def _isdiag75(M): return all(M[i][j].z() for i in range(len(M)) for j in range(len(M)) if i != j)
+# --- (a) slice embeddings: isometries, projector sums, placement and compression.
+for (nX, nY) in ((2, 3), (3, 2)):
+    for y in range(nY):
+        _E = _embL75(nX, nY, y)
+        ok75 &= mmc17(dag17(_E), _E) == eye17(nX)                          # embL_isometry
+    for x in range(nX):
+        _E = _embR75(nX, nY, x)
+        ok75 &= mmc17(dag17(_E), _E) == eye17(nY)                          # embR_isometry
+    ok75 &= _sum75([mmc17(_embL75(nX, nY, y), dag17(_embL75(nX, nY, y))) for y in range(nY)], nX * nY) == eye17(nX * nY)
+    ok75 &= _sum75([mmc17(_embR75(nX, nY, x), dag17(_embR75(nX, nY, x))) for x in range(nX)], nX * nY) == eye17(nX * nY)
+_M75 = [[C17(1), C17(2, 1)], [C17(0, -1), C17(Frac(3, 7))]]
+_E1 = _embL75(2, 3, 1)
+_P1 = mmc17(mmc17(_E1, _M75), dag17(_E1))                                  # M placed in slice 1
+for p in range(6):
+    for q in range(6):
+        _want = _M75[p // 3][q // 3] if (p % 3 == 1 and q % 3 == 1) else CZ17
+        ok75 &= _P1[p][q] == _want                                          # embL_conj_apply
+# discarding the slice factor returns M; attaching uniformly is the mixture of slice placements.
+_disc = [[_sum75([[[_P1[s * 3 + r][t * 3 + r]]] for r in range(3)], 1)[0][0] for t in range(2)] for s in range(2)]
+ok75 &= _disc == _M75                                                      # discardR_embL_conj
+_att = _kron74(_M75, scale52(C17(Frac(1, 3)), eye17(3)))
+_mix = scale52(C17(Frac(1, 3)), _sum75([mmc17(mmc17(_embL75(2, 3, y), _M75), dag17(_embL75(2, 3, y))) for y in range(3)], 6))
+ok75 &= _att == _mix                                                       # attachUniform_eq_sum
+# --- (b) soundness: a square Kraus family on the register S x S' (|S| = 2, |S'| = 4, so the
+# weight 1/sqrt|S'| = 1/2 is exact) compresses to a typed Kraus family K_{kst} = (1/2) P_s L_k V_t
+# with sum K^dag K = 1_S, and the typed map read off the register equals sum K X K^dag.
+_U75 = _perm67([3, 0, 5, 1, 7, 2, 4, 6], 8)                                # a permutation unitary on the register
+_Pj = _diag74([C17(1) if j in (0, 3, 5) else C17(0) for j in range(8)])
+_L75 = [mmc17(_U75, _Pj), mmc17(_U75, _sub75(eye17(8), _Pj))]
+ok75 &= _sum75([mmc17(dag17(L), L) for L in _L75], 8) == eye17(8)          # a Kraus family
+_K75 = {}
+for k in range(2):
+    for s in range(2):
+        for tt in range(4):
+            _K75[(k, s, tt)] = scale52(C17(Frac(1, 2)), mmc17(mmc17(dag17(_embR75(2, 4, s)), _L75[k]), _embL75(2, 4, tt)))
+ok75 &= _sum75([mmc17(dag17(K), K) for K in _K75.values()], 2) == eye17(2)  # typed normalization
+_X75 = [[C17(Frac(1, 2)), C17(Frac(1, 3), Frac(1, 5))], [C17(Frac(1, 3), Frac(-1, 5)), C17(Frac(1, 2))]]
+_attX = _kron74(_X75, scale52(C17(Frac(1, 4)), eye17(4)))
+for a in range(2):                                                         # out k = k
+    _reg = mmc17(mmc17(_L75[a], _attX), dag17(_L75[a]))
+    _read = _sum75([mmc17(mmc17(dag17(_embR75(2, 4, s)), _reg), _embR75(2, 4, s)) for s in range(2)], 4)
+    _typ = _sum75([mmc17(mmc17(_K75[(a, s, tt)], _X75), dag17(_K75[(a, s, tt)])) for s in range(2) for tt in range(4)], 4)
+    ok75 &= _read == _typ                                                  # recover_of_wrap + compressions
+# --- (c) completeness: a rectangular typed Kraus instrument (|S| = 2 -> |S'| = 3, two operators)
+# is realized on the register S' x (S x Fin 2) by the register operators, which are a normalized
+# Kraus family; attach the uniform ancilla, run, discard the second factor, recover F_a X exactly.
+_Kr = [[[C17(Frac(3, 5)), C17(Frac(4, 5))], [CZ17, CZ17], [CZ17, CZ17]],
+       [[CZ17, CZ17], [C17(Frac(4, 5)), C17(Frac(-3, 5))], [CZ17, CZ17]]]
+ok75 &= _sum75([mmc17(dag17(K), K) for K in _Kr], 2) == eye17(2)           # typed normalization on S
+def _emb2_75(v, w):                                                        # S -> slice (v, w) of S' x (S x Fin 2)
+    return [[CO17 if (q // 4 == v and (q % 4) // 2 == u and q % 2 == w) else CZ17 for u in range(2)] for q in range(12)]
+_s0 = 0
+_N75 = {}
+for k in range(2):
+    for v in range(3):
+        for w in range(2):
+            _N75[(k, v, w)] = mmc17(mmc17(_embL75(3, 4, _s0 * 2 + k), _Kr[k]), dag17(_emb2_75(v, w)))
+ok75 &= _sum75([mmc17(dag17(N), N) for N in _N75.values()], 12) == eye17(12)   # regOp_normalized
+_Y75 = [[_X75[(q % 4) // 2][(q2 % 4) // 2] * C17(Frac(1, 6)) if (q // 4 == q2 // 4 and q % 2 == q2 % 2) else CZ17
+         for q2 in range(12)] for q in range(12)]                          # shuffle(X (x) 1_R/6)
+for a in range(2):
+    _out = _sum75([mmc17(mmc17(_N75[(a, v, w)], _Y75), dag17(_N75[(a, v, w)])) for v in range(3) for w in range(2)], 12)
+    _fin = [[_sum75([[[_out[t * 4 + z][t2 * 4 + z]]] for z in range(4)], 1)[0][0] for t2 in range(3)] for t in range(3)]
+    _FX = mmc17(mmc17(_Kr[a], _X75), dag17(_Kr[a]))
+    ok75 &= _fin == _FX                                                    # availT_of_typedKraus, the branch
+# --- (d) the interface carries no quantum content: attach, discard and the local Lüders readout
+# preserve diagonal matrices, while the rotation's conjugation does not.
+_D75 = _diag74([C17(Frac(2, 3)), C17(Frac(1, 3))])
+ok75 &= _isdiag75(_kron74(_D75, scale52(C17(Frac(1, 3)), eye17(3))))       # attachUniform
+_DD = _kron74(_D75, _diag74([C17(1), C17(2), C17(3)]))
+ok75 &= _isdiag75([[_sum75([[[_DD[s * 3 + r][t * 3 + r]]] for r in range(3)], 1)[0][0] for t in range(2)] for s in range(2)])  # discardR
+ok75 &= _isdiag75([[_DD[p][q] if (p % 3 == 1 and q % 3 == 1) else CZ17 for q in range(6)] for p in range(6)])  # localLuders
+_rot75 = [[C17(Frac(3, 5)), C17(Frac(4, 5))], [C17(Frac(-4, 5)), C17(Frac(3, 5))]]
+ok75 &= not _isdiag75(mmc17(mmc17(_rot75, _diag74([C17(1), C17(0)])), dag17(_rot75)))
+# --- (e) the kernel's claim discipline, read back.
+_tc75 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'TypedCompletion.lean')
+if os.path.exists(_tc75):
+    with open(_tc75, encoding='utf-8') as _f:
+        _tc_raw75 = _f.read()
+    _tc_txt75 = ' '.join(_tc_raw75.split())
+    ok75 &= 'structure TypedOperationalTheory' in _tc_txt75
+    _st = _tc_raw75[_tc_raw75.index('structure TypedOperationalTheory'):_tc_raw75.index('namespace TypedOperationalTheory')]
+    ok75 &= all(_w not in _st for _w in ('Kraus', 'conjT', 'shadow', 'Exact', 'dilat'))
+    ok75 &= 'theorem typed_determined' in _tc_txt75 and 'theorem typed_interface_not_quantum' in _tc_txt75
+    ok75 &= 'sorry' not in _tc_txt75
+    ok75 &= 'typing artifact for this interface' in _tc_txt75
+check("F75", ok75,
+      "LEVEL II, ROUND 1: THE TYPED FINITE OPERATIONAL INTERFACE AND THE DETERMINATION TEST "
+      "(OI_Q Level II, round one; kernel: OIBridge/TypedCompletion.lean, 36 results -- among them "
+      "shadow_embeddedObservation, typedKraus_of_availT, availT_of_typedKraus, typed_determined, "
+      "typed_determined_of_oiPlusElem, typedDiag_shadow_not_qm, typed_interface_not_quantum). THE "
+      "TYPED INTERFACE HAS INDEPENDENT MEANING: a typed finite operational theory has an "
+      "availability predicate on finite outcome families of maps between any two finite carriers, "
+      "with the closure rules of the endomorphic structure at their carrier-general type -- "
+      "identity, coarse-graining, feed-forward composition across carriers, relabelling along "
+      "carrier bijections, attaching a uniformly mixed fresh factor (the only preparation assumed), "
+      "discarding a factor, a native spectator-independent factor readout -- and no clause "
+      "mentions a dilation, a Kraus form, a shadow or exactness (lint-guarded on the structure "
+      "region). THE ENDOMORPHIC SHADOW: restricting to maps from a carrier to itself with A x Fin n "
+      "as levels yields a FiniteOperationalTheory on every carrier; the shadow family is "
+      "regrouping-invariant by definition and relabelling-invariant by the typed rule, so every "
+      "shadow is an embedded-observation theory -- the product-type cross-carrier coherence is "
+      "automatic. THE DETERMINATION THEOREM: if the shadow is exact finite endomorphic QM on every "
+      "nonempty carrier (what Level I supplies from OI-plus), then between nonempty carriers a "
+      "family is typed-available if and only if it is a typed Kraus instrument (rectangular "
+      "operators normalized on the input): soundness by wrapping the typed map into the register "
+      "S x S' and compressing the square Kraus operators supplied by exactness, completeness by "
+      "attaching a uniform ancilla, relabelling to the register S' x (S x Fin (n+1)), running the "
+      "square Kraus instrument that places K_k on the output factor and records k on the ancilla, "
+      "and discarding. NO QUANTUM CONTENT IN THE INTERFACE: the typed diagonal theory satisfies "
+      "every rule and its qubit shadow is not QM. THE FORK, DECIDED FOR THIS INTERFACE: full "
+      "redundancy -- no fresh chosen-state preparation and no coherence condition beyond the typed "
+      "closure rules is needed, so endomorphic is a typing artifact. Verified exactly here: slice "
+      "isometries, projector sums, placement, discard and the uniform mixture; a permutation-twisted "
+      "projector Kraus family on an 8-dimensional register compressed to a normalized typed family "
+      "reproducing the read-off map on a complex sample state; a rectangular two-operator typed "
+      "instrument 2 -> 3 realized on a 12-dimensional register through normalized register "
+      "operators, the uniform ancilla and the discard, branch by branch; the diagonal theory's "
+      "closure rules and the rotation's failure; and the kernel text read back. NOT CLAIMED, "
+      "lint-guarded: that this interface is the only reasonable one; infinite-dimensional QM "
+      "(Level III); anything about bare OI, which is untouched; no manuscript change in this round.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

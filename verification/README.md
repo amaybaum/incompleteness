@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 94 modules and,
-  at this commit, 1,715 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 95 modules and,
+  at this commit, 1,751 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -133,7 +133,7 @@ of implementations or the observer architecture, none Lie-algebraic.
   `staggered_relations`, `structural_chain`, `representation_bridge` and `time_reversal` are the
   companions of the proof files above: every integer the Lean files submit to `decide` is
   recomputed by an independent construction. The rest instantiate the `OIBridge` theorems on
-  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F74, one per
+  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F75, one per
   round of the reconstruction and completion programme, each reading the kernel file it
   certifies back for its claim discipline) and `edge_rigidity_probe.py` carries the R7 lint,
   which requires every listed kernel result to be a `theorem` with a `#print axioms` line and
@@ -184,7 +184,7 @@ modules, in the order the development grew:
   `OIRealization`, `OperationalValidity`, `LevelOneSeam`, `PhysicalCharacterization`,
   `DiagonalTheory`, `RankGapTheory`, `IsometryExtension`, `GeneralCarrier`,
   `UhlmannUniqueness`, `ReachabilitySeam`, `OrbitReachability`, `SubstantiveCensus`,
-  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`): the five completion conditions defined one by one with the countermodel
+  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`, `TypedCompletion`): the five completion conditions defined one by one with the countermodel
   that separates each, the sealed OI core realized with its actual visible readout, the
   characterization theorem with its necessity direction, the five-way minimality audit, the
   discharge of finite isometry extension, the removal of the qubit restriction, the discharge
@@ -278,6 +278,24 @@ substratum supplies all of the structural requirements for quantum mechanics but
 state-mixing controllability; quantum mechanics is obtained exactly when that one remaining physical
 resource is added. The compact-semigroup redundancy of the inverse clause and the minimal control
 repertoire remain backlog optimizations that can simplify the theorem but not change this conclusion.
+
+**Level II (OI_Q): the typed completion.** A new thread, with bare OI and the frozen Level I
+statements untouched, asks whether "endomorphic" in the Level I conclusion is a physical limitation or
+an artifact of the typing, as a redundancy test rather than by postulate (`TypedCompletion.lean`,
+`TYPED-COMPLETION-AUDIT.md`). A typed finite operational theory (`TypedOperationalTheory`) has an
+availability predicate on outcome families of maps between any two finite carriers, with the closure
+rules of the endomorphic structure at their carrier-general type and no dilation clause; its
+endomorphic shadow is a `FiniteOperationalTheory` on every carrier and is automatically an
+embedded-observation family (`shadow_embeddedObservation`). Under the shadow hypothesis — exact finite
+endomorphic QM on every nonempty carrier, what Level I supplies — a family between nonempty carriers is
+typed-available exactly when it is a typed Kraus instrument (`typed_determined`,
+`typed_determined_of_oiPlusElem`), by register wrapping and compression for soundness and by a
+uniform ancilla, a relabelling and register operators for completeness. The interface carries no
+quantum content: the typed diagonal theory satisfies every rule and its shadow is not QM
+(`typed_interface_not_quantum`). For this interface the fork closes with full redundancy: no fresh
+chosen-state preparation and no coherence condition beyond the typed closure rules is needed, so
+"endomorphic" is a typing artifact. Level III (infinite dimensions) is a different programme and is
+not begun.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general
