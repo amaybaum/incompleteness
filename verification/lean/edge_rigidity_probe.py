@@ -998,7 +998,7 @@ for fname, names in (
                               'qBranch_stage_inclObs', 'qTotal_stage_of_disjoint', 'wtConj_apply',
                               'wtConj_mul', 'wtConj_injective', 'inclObs_wtConj', 'norm_wtConj',
                               'wtLoc_ofM', 'wtLoc_mul', 'wtLoc_star', 'norm_wtLoc', 'wtQ_stage',
-                              'wtQ_mul', 'wtQ_star', 'norm_wtQ', 'wtQ_one', 'siteWt_unimodular',
+                              'wtQ_mul', 'wtQ_smul', 'wtQ_star', 'norm_wtQ', 'wtQ_one', 'siteWt_unimodular',
                               'phaseAllWt_unimodular', 'phaseAllWt_compat', 'phaseAllQ_mul',
                               'norm_phaseAllQ', 'phaseAllWt_singleton', 'phaseAll_not_finiteSupport',
                               'instrument_audit_entry_one')),
@@ -2403,7 +2403,7 @@ spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(âˆƒ Eâ
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
       "LINT. All seventy-six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 + 87 + 52 named results print their "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 + 87 + 53 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

@@ -9,7 +9,7 @@ layers:
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
 - **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 100 modules and,
-  at this commit, 2,081 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+  at this commit, 2,082 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -377,10 +377,11 @@ in both directions: a finite-support quasilocal instrument is exactly a finite-r
 instrument with the Level II normalization (`qInstrument_of_kraus`, `kraus_of_finiteSupport`,
 `finiteSupport_iff_kraus`), acting on larger regions by the inert spectator extension
 (`qBranch_stage_inclObs`) and fixing the observables of disjoint regions
-(`qTotal_stage_of_disjoint`). The finite-support and stage-compatible classes are separated by the
-all-sites phase family: compatible with the inclusions, an isometric star automorphism of the
-completion, and the total map of no finite-support instrument (`phaseAllWt_compat`,
-`phaseAll_not_finiteSupport`). Not decided, and not claimed either way: whether a general
+(`qTotal_stage_of_disjoint`). Finite-support instrument totals do not exhaust the stage-compatible
+quasilocal maps: the all-sites phase family is compatible with the inclusions, gives an isometric
+unital star-endomorphism of the completion — invertibility is not proved and is not needed — and is
+the total map of no finite-support instrument (`phaseAllWt_compat`, `phaseAll_not_finiteSupport`).
+It is not itself packaged as an instrument: class 2 is not formalized in this entry. Not decided, and not claimed either way: whether a general
 compatible family extends, whether such families are operationally available under OI_Q, whether
 the Kraus class exhausts the completely positive instruments, and whether an operational-completion
 principle is required. The abstract completely positive class is not formalized in this entry.

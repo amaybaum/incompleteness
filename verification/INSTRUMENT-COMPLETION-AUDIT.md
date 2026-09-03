@@ -71,10 +71,10 @@ and the round stops rather than adjusting the target to fit.
 1. **A theory containing every finite-support instrument and not closed under infinite-region
    compatible operations.** Tests whether operational completion is an extra principle rather than
    a consequence. Bears on Q3 and Q5.
-2. **A genuinely infinite-support quasilocal automorphism.** An infinite product of nontrivial
-   onsite phase automorphisms: every local observable samples finitely many of the phases, so the
-   family is compatible with the inclusions, while no finite region carries the whole
-   automorphism. Bears on Q1's separation of classes 1 and 2.
+2. **A genuinely infinite-support quasilocal map.** An infinite product of nontrivial onsite
+   phase conjugations: every local observable samples finitely many of the phases, so the family is
+   compatible with the inclusions, while no finite region carries the whole map. Bears on
+   separating class 1 from the stage-compatible maps.
 3. **A witness against any future claim that stage-compatible instruments exhaust the CP
    instruments** on the completion. Required before such a claim is accepted. Bears on Q4.
 
@@ -107,30 +107,36 @@ because both are proved.
 unitary whose entry at a configuration is the product, over the sites of the region, of a phase
 depending on the configuration there. The family is compatible with the inclusions, because two
 configurations agreeing off a region contribute equal factors at every site outside it and those
-factors cancel between the operator and its adjoint (`inclObs_phaseAllConj`). It therefore defines
-an isometric star automorphism of the local algebra and of its completion (`phaseAllQ`,
-`norm_phaseAllQ`, `phaseAllQ_mul`), and a corresponding instrument with one outcome. It is not
-finite-support: for any candidate region there is a site outside it whose single-site matrix unit
-the automorphism multiplies by `i`, while an instrument supported in that region fixes it
-(`phaseAll_not_finiteSupport`). Classes 1 and 2 are therefore distinct, as expected in the
-pre-registration.
+factors cancel between the operator and its adjoint (`phaseAllWt_compat`, `inclObs_wtConj`).
+It therefore defines
+an isometric unital star-endomorphism of the local algebra and of its completion (`phaseAllQ`,
+`norm_phaseAllQ`, `phaseAllQ_mul`, `phaseAllQ_star`). Invertibility is not proved and is not
+needed. It is the total map of no finite-support instrument: for any candidate region there is a
+site outside it whose single-site matrix unit the map multiplies by `i`, while an instrument
+supported in that region fixes it (`phaseAll_not_finiteSupport`). **Finite-support instrument
+totals do not exhaust the stage-compatible quasilocal maps** — the strict separation the
+pre-registration expected. The map is not itself packaged as an `IsQInstrument`, whose data is
+conjugation by elements of the algebra; whether it belongs to a formally defined class-2 instrument
+waits on class 2 being formalized.
 
 **What the countermodel does not settle.** It exhibits one compatible family that does extend. It
 does not show that every compatible family extends: for a general compatible family of unital
-completely positive stage maps the passage to the completion needs contractivity of unital
-positive maps on C\*-algebras, which is not in the kernel. Q2 therefore stands decided for star
-automorphisms and open in general.
+completely positive stage maps the passage to the completion needs a uniform norm bound. Branches
+are subunital — only the branch sum is unital — so the relevant input is the standard
+`‖Φ‖ = ‖Φ(1)‖` control for positive maps on a C\*-algebra, or a direct Kraus-form bound sufficient
+for continuous extension. Neither is in the kernel. Q2 therefore stands decided for star
+endomorphisms arising from compatible weight families, and open in general.
 
 ## Status after the first entry
 
 | Question | Status |
 |---|---|
 | Q1. Finite-support instrument extension from Level II | **decided**, both directions (`qInstrument_of_kraus`, `kraus_of_finiteSupport`, `finiteSupport_iff_kraus`) |
-| Q2. Compatible finite-stage family extends to the quasilocal algebra | **open in general**; decided affirmatively for star automorphisms by the phase witness (`phaseAllQ_mul`, `norm_phaseAllQ`). The general unital-CP case needs contractivity, absent from the kernel |
+| Q2. Compatible finite-stage family extends to the quasilocal algebra | **open in general**; decided affirmatively for the star-endomorphisms of compatible weight families (`wtQ_mul`, `norm_wtQ`). The general case needs a uniform norm bound for positive subunital branch maps, or a direct Kraus-form bound, neither in the kernel |
 | Q3. Such families available from existing OI_Q assumptions | **open**. Nothing in Levels I–III quantifies over infinite coherent choices; countermodel 1 is not yet built |
 | Q4. Every quasilocal CP instrument is stage-compatible | **open**. Class 3 is not formalized, and no claim about it is made; countermodel 3 is required before any is accepted |
 | Q5. Extra operational-completion principle required | **open**. The fork the second entry addresses |
-| Classes 1 and 2 coincide | **decided negatively** (`phaseAll_not_finiteSupport`) |
+| Finite-support instrument totals exhaust the stage-compatible quasilocal maps | **decided negatively** (`phaseAll_not_finiteSupport`) |
 
 ## What is not claimed
 
@@ -140,6 +146,9 @@ automorphisms and open in general.
   algebra, in either direction; the abstract CP class is not formalized in this entry.
 - No claim that stage-compatible instruments are operationally available under OI_Q. That is Q3,
   and it is open.
+- The phase map is not packaged as an instrument of any formally defined class: class 2 is not
+  formalized in this entry, and the separation proved is between finite-support instrument totals
+  and stage-compatible maps.
 - The phase witness is a witness of non-finite-support, not a claim about what OI permits: whether
   the substratum makes such an operation available is not decided here, and the Level III
   countermodel already shows it is induced by no reversible finite-range substratum dynamics.

@@ -1,7 +1,7 @@
 /-
   OIBridge/InstrumentCompletion.lean — post-Level III instrument audit, first entry: the
   instrument interface on the quasilocal algebra, the finite-support redundancy theorem, and a
-  stage-compatible automorphism that is not finite-support.
+  stage-compatible star-endomorphism that is no finite-support instrument total.
 
   THE SEAM. Level III completed the algebra, the state space, and one discrete dynamics. It did
   not complete the operational availability relation of Level II. This entry opens the audit of
@@ -42,24 +42,31 @@
       a region is the weight ratio of their restrictions. That is exactly what a conjugation
       family compatible with the inclusions needs: the conjugations commute with extension by the
       identity (`inclObs_wtConj`), are injective star homomorphisms of the stages hence isometric
-      (`norm_wtConj`), and lift to an isometric star automorphism of the local algebra and of its
-      completion (`wtLoc_mul`, `wtQ_mul`, `wtQ_star`, `norm_wtQ`).
+      (`norm_wtConj`), and lift to an isometric unital `ℂ`-linear star-endomorphism of the local
+      algebra and of its completion (`wtLoc_mul`, `wtQ_mul`, `wtQ_smul`, `wtQ_star`, `wtQ_one`,
+      `norm_wtQ`). Invertibility is neither proved nor needed: the witness below uses only that
+      the map is a stage-compatible star-endomorphism.
 
   (4) THE WITNESS. The all-sites phase family gives each region the product, over its sites, of an
       onsite phase (`phaseAllWt`). It is compatible because sites outside a region contribute
       equal factors to two configurations agreeing there, and those cancel between the weight and
       its conjugate (`phaseAllWt_compat`) — the formal content of "every local observable samples
-      only finitely many of the phases". The resulting automorphism is not the total map of any
-      finite-support instrument: for any candidate support region there is a site outside it whose
-      single-site matrix unit the automorphism multiplies by `i`, while a finite-support
-      instrument fixes it (`phaseAll_not_finiteSupport`). The finite-support and stage-compatible
-      classes are therefore distinct.
+      only finitely many of the phases". The resulting map is the total map of no finite-support
+      instrument: for any candidate support region there is a site outside it whose single-site
+      matrix unit the map multiplies by `i`, while a finite-support instrument fixes it
+      (`phaseAll_not_finiteSupport`). Finite-support instrument totals therefore do not exhaust
+      the stage-compatible quasilocal maps. Whether this map belongs to a formally defined class-2
+      instrument waits on class 2 itself being formalized; it is not packaged as an
+      `IsQInstrument`, whose data is conjugation by elements of the algebra.
 
   WHAT IS NOT CLAIMED: no infinite-dimensional analogue of the Level II instrument
   characterization — the kernel characterizes the finite-support class and nothing wider; no claim
   that the Kraus class exhausts the completely positive instruments on the quasilocal algebra, in
   either direction; no claim that a general compatible family of stage instruments extends to the
-  completion, which would need contractivity of unital positive maps, absent from the kernel; and
+  completion — branches are subunital and only their sum is unital, so that passage needs a uniform
+  norm bound for positive subunital maps (the standard `‖Φ‖ = ‖Φ 1‖` control for positive maps on a
+  C*-algebra), or a direct Kraus-form bound sufficient for continuous extension, neither in the
+  kernel; and
   no claim that stage-compatible operations are operationally available under OI_Q, which is a
   separate question and is not claimed either way. The phase witness shows non-finite-support, not
   availability: the Level III countermodel already shows it is induced by no reversible
@@ -226,7 +233,7 @@ theorem qTotal_stage_of_disjoint {n : ℕ} {Λ₀ Λ : Finset ι} (hd : Disjoint
 
 end Redundancy
 
-/-! ### Section C — compatible weight families and their automorphisms -/
+/-! ### Section C — compatible weight families and their star-endomorphisms -/
 
 section Weights
 
@@ -376,7 +383,9 @@ theorem norm_wtLoc (a : localAlg ι Q) : ‖wtLoc W a‖ = ‖a‖ := by
 theorem isometry_wtLoc : Isometry (wtLoc W) :=
   Isometry.of_dist_eq fun a b => by rw [dist_eq_norm, dist_eq_norm, ← wtLoc_sub, norm_wtLoc]
 
-/-- **THE AUTOMORPHISM OF THE QUASILOCAL ALGEBRA** determined by a compatible weight family. -/
+/-- **THE STAR-ENDOMORPHISM OF THE QUASILOCAL ALGEBRA** determined by a compatible weight family.
+It is unital, `ℂ`-linear, multiplicative, star-preserving and isometric; invertibility is not
+proved here and nothing below uses it. -/
 noncomputable def wtQ : Quasilocal ι Q → Quasilocal ι Q :=
   UniformSpace.Completion.map (wtLoc W)
 
@@ -403,6 +412,13 @@ theorem wtQ_add (z w : Quasilocal ι Q) : wtQ W (z + w) = wtQ W z + wtQ W w := b
       (((continuous_wtQ W).comp continuous_fst).add ((continuous_wtQ W).comp continuous_snd))
   · rw [← UniformSpace.Completion.coe_add, wtQ_coe, wtQ_coe, wtQ_coe, wtLoc_add,
       UniformSpace.Completion.coe_add]
+
+theorem wtQ_smul (c : ℂ) (z : Quasilocal ι Q) : wtQ W (c • z) = c • wtQ W z := by
+  refine UniformSpace.Completion.induction_on z ?_ fun a => ?_
+  · exact isClosed_eq ((continuous_wtQ W).comp (continuous_const_smul c))
+      ((continuous_const_smul c).comp (continuous_wtQ W))
+  · rw [← UniformSpace.Completion.coe_smul, wtQ_coe, wtQ_coe, wtLoc_smul,
+      UniformSpace.Completion.coe_smul]
 
 theorem wtQ_star (z : Quasilocal ι Q) : wtQ W (star z) = star (wtQ W z) := by
   refine UniformSpace.Completion.induction_on z ?_ fun a => ?_
@@ -487,7 +503,7 @@ noncomputable def phaseAll (ι Q : Type) [DecidableEq ι] [Fintype Q] [Decidable
   unimodular := phaseAllWt_unimodular
   compat := fun h F G hFG => phaseAllWt_compat h F G hFG
 
-/-- The automorphism it determines. -/
+/-- The star-endomorphism it determines. -/
 noncomputable abbrev phaseAllQ : Quasilocal ι Q → Quasilocal ι Q := wtQ (phaseAll ι Q)
 
 theorem phaseAllQ_mul (z w : Quasilocal ι Q) :
@@ -508,8 +524,8 @@ theorem phaseAllWt_singleton (j : ι) (f : Conf ({j} : Finset ι) Q) :
   unfold phaseAllWt
   rw [Finset.prod_singleton, ext_eq_of_mem _ (Finset.mem_singleton_self j)]
 
-/-- **THE WITNESS**: the all-sites automorphism moves a single-site matrix unit at every site, so
-no finite-support instrument's total map agrees with it. -/
+/-- **THE WITNESS**: the all-sites map moves a single-site matrix unit at every site, so no
+finite-support instrument's total map agrees with it. -/
 theorem phaseAll_not_finiteSupport [Infinite ι] [Nontrivial Q] {n : ℕ}
     (β : Fin n → Quasilocal ι Q) (hβ : IsQInstrument β) (hfs : IsFiniteSupport β) :
     phaseAllQ (ι := ι) (Q := Q) ≠ qTotal β := by
@@ -561,7 +577,8 @@ variable {ι Q : Type} [DecidableEq ι] [Fintype Q] [DecidableEq Q] [Nonempty Q]
 /-- **THE FIRST ENTRY.** Q1 is decided in both directions: a finite-support quasilocal instrument
 is exactly a finite-region Kraus instrument with the Level II normalization, acting on larger
 regions by the inert spectator extension. The classes of finite-support and stage-compatible
-operations are distinct, witnessed by the all-sites phase automorphism. Nothing here decides
+operations are separated: finite-support instrument totals do not exhaust the stage-compatible
+quasilocal maps, witnessed by the all-sites phase map. Nothing here decides
 whether a general compatible family extends, whether such families are operationally available,
 or whether the Kraus class exhausts the completely positive instruments. -/
 theorem instrument_audit_entry_one [Infinite ι] [Nontrivial Q] :
@@ -621,6 +638,7 @@ end Summary
 #print axioms wtQ_stage
 #print axioms wtQ_mul
 #print axioms wtQ_add
+#print axioms wtQ_smul
 #print axioms wtQ_star
 #print axioms norm_wtQ
 #print axioms wtQ_one
