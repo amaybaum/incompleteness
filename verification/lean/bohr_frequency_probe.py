@@ -9328,6 +9328,128 @@ check("F76", ok76,
       "nothing about L^2(R^3); bare OI and the frozen Level I/II statements untouched; no "
       "manuscript change in this round.")
 
+# F77 -- LEVEL III, ROUND 2: THE QUASILOCAL REGION TOWER, THE CAUSAL CONE, AND THE STATE-SELECTION
+# AUDIT -- functoriality of inclusion and restriction on a three-site lattice, the duality,
+# the k-ball locality of an explicit local update, convexity of consistent families, the
+# reference family, and the finite Schur lemma, all exact (OI_Q Level III, round two).
+ok77 = True
+import itertools as _it77
+_Q77 = [0, 1]
+def _confs77(L): return list(_it77.product(_Q77, repeat=len(L)))
+def _cres77(Lsub, L, F):                                                   # restrict a configuration
+    return tuple(F[L.index(x)] for x in Lsub)
+def _agree77(Lsub, L, F, G): return all(F[k] == G[k] for k, x in enumerate(L) if x not in Lsub)
+def _incl77(Lsub, L, X):                                                   # inclObs
+    cs, cb = _confs77(Lsub), _confs77(L)
+    return [[X[cs.index(_cres77(Lsub, L, F))][cs.index(_cres77(Lsub, L, G))] if _agree77(Lsub, L, F, G) else CZ17
+             for G in cb] for F in cb]
+def _restr77(Lsub, L, rho):                                                # restrict
+    cs, cb = _confs77(Lsub), _confs77(L)
+    out = [[CZ17 for _ in cs] for _ in cs]
+    for i, F in enumerate(cb):
+        for j, G in enumerate(cb):
+            if _agree77(Lsub, L, F, G):
+                out[cs.index(_cres77(Lsub, L, F))][cs.index(_cres77(Lsub, L, G))] = \
+                    out[cs.index(_cres77(Lsub, L, F))][cs.index(_cres77(Lsub, L, G))] + rho[i][j]
+    return out
+def _rand77(n, seed):
+    return [[C17(Frac(((i * 7 + j * 3 + seed) % 11) - 5, 4), Frac(((i + 2 * j + seed) % 7) - 3, 5)) for j in range(n)] for i in range(n)]
+_L0, _L1, _L2 = [0], [0, 1], [0, 1, 2]
+_X77 = _rand77(2, 1)
+_rho77 = _rand77(8, 2)
+# --- (1) functoriality and duality.
+ok77 &= _incl77(_L0, _L0, _X77) == _X77                                    # inclObs_refl
+ok77 &= _incl77(_L1, _L2, _incl77(_L0, _L1, _X77)) == _incl77(_L0, _L2, _X77)   # inclObs_trans
+ok77 &= _restr77(_L2, _L2, _rho77) == _rho77                               # restrict_refl
+ok77 &= _restr77(_L0, _L1, _restr77(_L1, _L2, _rho77)) == _restr77(_L0, _L2, _rho77)   # restrict_trans
+ok77 &= _tr76(mmc17(_incl77(_L0, _L2, _X77), _rho77)) == _tr76(mmc17(_X77, _restr77(_L0, _L2, _rho77)))  # duality
+_Y77 = _rand77(4, 3)
+ok77 &= _tr76(mmc17(_incl77(_L1, _L2, _Y77), _rho77)) == _tr76(mmc17(_Y77, _restr77(_L1, _L2, _rho77)))
+# --- (2) the causal cone: a nearest-neighbour update on a six-site ring; after k steps a site
+# depends only on its k-ball, and does depend on the boundary of the ball (the cone is sharp).
+_N77 = 6
+def _phi77(s): return tuple((s[i] + s[(i + 1) % _N77]) % 2 for i in range(_N77))
+def _iter77(s, k):
+    for _ in range(k): s = _phi77(s)
+    return s
+def _ball77(i, k): return {(i + d) % _N77 for d in range(0, k + 1)}       # nbhd(i) = {i, i+1}
+for _k in range(0, 3):
+    for _s in _it77.product(_Q77, repeat=_N77):
+        for _x in range(_N77):
+            _s2 = list(_s); _s2[_x] = 1 - _s2[_x]; _s2 = tuple(_s2)
+            if _x not in _ball77(0, _k):
+                ok77 &= _iter77(_s, _k)[0] == _iter77(_s2, _k)[0]           # readout_unaffected_outside_ball
+    _dep = any(_iter77(_s, _k)[0] != _iter77(tuple((1 - v if j == (_k % _N77) else v) for j, v in enumerate(_s)), _k)[0]
+               for _s in _it77.product(_Q77, repeat=_N77))
+    ok77 &= _dep                                                           # the far edge of the ball matters
+# --- (3) the state-selection audit: mixing preserves consistency; the uniform family is
+# consistent; the finite Schur lemma on Fin 2 and Fin 3.
+def _unif77(L): return scale52(C17(Frac(1, 2 ** len(L))), eye17(2 ** len(L)))
+def _pure77(L, cfg):
+    cs = _confs77(L); k = cs.index(cfg)
+    return [[C17(1) if (i == k and j == k) else C17(0) for j in range(len(cs))] for i in range(len(cs))]
+_fam_u = {tuple(_L0): _unif77(_L0), tuple(_L1): _unif77(_L1), tuple(_L2): _unif77(_L2)}
+_fam_p = {tuple(_L0): _pure77(_L0, (1,)), tuple(_L1): _pure77(_L1, (1, 0)), tuple(_L2): _pure77(_L2, (1, 0, 1))}
+for (Ls, Lb) in ((_L0, _L1), (_L1, _L2), (_L0, _L2)):
+    ok77 &= _restr77(Ls, Lb, _fam_u[tuple(Lb)]) == _fam_u[tuple(Ls)]      # uniform_family_consistent
+    ok77 &= _restr77(Ls, Lb, _fam_p[tuple(Lb)]) == _fam_p[tuple(Ls)]      # a pure family is consistent
+    _p = C17(Frac(1, 3))
+    _mix_b = add52(scale52(_p, _fam_u[tuple(Lb)]), scale52(C17(Frac(2, 3)), _fam_p[tuple(Lb)]))
+    _mix_s = add52(scale52(_p, _fam_u[tuple(Ls)]), scale52(C17(Frac(2, 3)), _fam_p[tuple(Ls)]))
+    ok77 &= _restr77(Ls, Lb, _mix_b) == _mix_s                             # consistent_mix
+def _phase77(n, a): return _diag74([C17(0, 1) if i == a else C17(1) for i in range(n)])
+def _conj77(U, M): return mmc17(mmc17(U, M), dag17(U))
+for _n in (2, 3):
+    _u = scale52(C17(Frac(1, _n)), eye17(_n))
+    _perms = [_perm67(list(g), _n) for g in _it77.permutations(range(_n))]
+    ok77 &= all(_conj77(P, _u) == _u for P in _perms) and all(_conj77(_phase77(_n, a), _u) == _u for a in range(_n))   # uniform_invariant
+    _d = _diag74([C17(Frac(k + 1, 6)) for k in range(_n)])                 # unequal diagonal: not permutation-invariant
+    ok77 &= any(_conj77(P, _d) != _d for P in _perms)
+    _o = [[C17(Frac(1, _n)) if i == j else C17(Frac(1, 7)) for j in range(_n)] for i in range(_n)]   # off-diagonal: not phase-invariant
+    ok77 &= any(_conj77(_phase77(_n, a), _o) != _o for a in range(_n))
+    _inv = [M for M in (_u, _d, _o) if all(_conj77(P, M) == M for P in _perms) and all(_conj77(_phase77(_n, a), M) == M for a in range(_n))]
+    ok77 &= _inv == [_u]                                                   # invariant_normalized_eq_uniform
+# --- (4) the kernel's claim discipline, read back.
+_rt77 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'RegionTower.lean')
+if os.path.exists(_rt77):
+    with open(_rt77, encoding='utf-8') as _f:
+        _rt_txt77 = ' '.join(_f.read().split())
+    ok77 &= 'theorem restrict_trans' in _rt_txt77 and 'theorem iterate_dependsOnlyOn_ball' in _rt_txt77
+    ok77 &= 'theorem invariant_normalized_eq_uniform' in _rt_txt77 and 'theorem state_selection_audit' in _rt_txt77
+    ok77 &= 'sorry' not in _rt_txt77
+    ok77 &= 'not claimed either way' in _rt_txt77
+check("F77", ok77,
+      "LEVEL III, ROUND 2: THE QUASILOCAL REGION TOWER, THE CAUSAL CONE, AND THE STATE-SELECTION "
+      "AUDIT (OI_Q Level III, round two; kernel: OIBridge/RegionTower.lean, 28 results -- among them "
+      "inclObs_trans, restrict_trans, trace_inclObs_mul_restrict, iterate_dependsOnlyOn_ball, "
+      "readout_unaffected_outside_ball, consistent_mix, uniform_family_consistent, "
+      "invariant_state_scalar, invariant_normalized_eq_uniform, state_selection_audit). THE TOWER: "
+      "regions as finite sets of sites with configuration carriers; inclusion of observables extends "
+      "by the identity on the adjoined sites and restriction of states sums over them; inclusion is "
+      "the identity on a region and composes along a chain, and restriction is the identity and "
+      "composes, the latter DERIVED from the former through the trace duality and the nondegeneracy "
+      "of the pairing -- the projective system of states is determined by the inductive system of "
+      "observables with no new postulate. THE CAUSAL CONE: for an update with a coupling graph, k "
+      "steps of a region-supported function depend only on the k-ball, so an intervention outside "
+      "the ball cannot alter the readout; discrete-time dynamics is compatible across regions by "
+      "locality alone. THE STATE-SELECTION AUDIT: consistent families are closed under mixing, the "
+      "reference family is consistent, and on every region the uniform state is the unique "
+      "normalized state invariant under the substratum's own bijective and phase interventions (the "
+      "finite Schur lemma); the laws mention no state, so every consistent family is a state of the "
+      "same theory, a sector selector would be a state-level input of the initial-condition kind, "
+      "and outcome A of the fork holds at the level of laws; whether some OI prediction requires a "
+      "distinguished sector is not a question the finite theory can pose and is not claimed either "
+      "way. Verified exactly here: functoriality and duality on a three-site tower with complex "
+      "rational observables and states, the k-ball locality and its sharpness for a nearest-"
+      "neighbour update on a six-site ring over all configurations, consistency of the uniform, a "
+      "pure and a mixed family, the invariance of the uniform state and the failure of unequal "
+      "diagonals and off-diagonal states under permutations and phases on two and three states, and "
+      "the kernel text read back. NOT CLAIMED, lint-guarded: no infinite-volume algebra, GNS "
+      "representation or inequivalence constructed; the Schur uniqueness is a finite-stage theorem; "
+      "the causal cone is for an abstract update, not a specific Hamiltonian; frozen Level I/II "
+      "statements untouched; no manuscript change.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
