@@ -127,6 +127,63 @@ are subunital — only the branch sum is unital — so the relevant input is the
 for continuous extension. Neither is in the kernel. Q2 therefore stands decided for star
 endomorphisms arising from compatible weight families, and open in general.
 
+## Second entry: countermodel 1, and Q3 decided negatively
+
+**The test.** The first entry showed that operations no finite region carries exist as maps.
+Existence is not availability. Q3 asks whether availability *follows* from the assumptions OI_Q
+already carries. The way to decide it negatively is to build a theory that keeps everything the
+frozen levels supply and withholds exactly one thing.
+
+**The countermodel** (`OIBridge/InstrumentAvailability.lean`). `AvailFS` declares an operation
+available exactly when it is a finite-support instrument. It is a predicate *on* the Level III
+objects, not a replacement for them: the quasilocal algebra, its states and its dynamics are
+unchanged, and `states_untouched` and `dynamics_untouched` restate the frozen state and dynamics
+theorems on the same algebra so that this is checkable rather than asserted. Instrument data is
+generalized from `Fin n` to an arbitrary finite index (`IsQInstrJ`, `IsFSJ`, `qTotalJ`, `qBranchJ`,
+agreeing with the first entry on `Fin n`) so that composition can use a product index and the
+exclusion holds at every finite outcome index.
+
+**Nothing frozen is weakened.** Every finite-support Level II instrument is available
+(`availFS_of_kraus`) and conversely every available operation is one (`kraus_of_availFS`), so the
+theory contains exactly the operations the first entry characterized. It is closed under the
+operations the framework performs: the identity (`availFS_id`); composition, on the union of the
+two regions (`availFS_comp`); outcome relabelling (`availFS_relabel`); outcome coarse-graining, the
+branches of a coarser outcome map being sums of branches (`qBranchJ_coarse`, `sum_qBranchJ`); and
+the frozen OI-induced dynamics, which carries an available operation to an available operation on
+the hat region (`availFS_dyn`). Carrier attachment and discard are Level II operations on finite
+carriers rather than operations of this quasilocal interface; they are neither used nor withheld.
+
+**What it withholds.** The all-sites phase map is the total map of no available operation, at any
+finite outcome index (`phaseAll_not_availFS`). The mechanism is locality plus the normalization: an
+available operation fixes the observables of a region disjoint from its support
+(`qTotalJ_stage_of_disjoint`), while the phase map moves a single-site matrix unit at every site.
+
+**Q3, decided negatively** (`q3_countermodel`):
+
+> the structure the frozen levels supply does not entail the availability of genuinely
+> infinite-support coherent operations.
+
+**Q5 sharpens accordingly.** A target theory containing such operations requires an explicit
+operational-completion principle. That principle is an addition, not a consequence — which is the
+checkpoint for deciding whether the stronger target is worth adopting at all.
+
+**What the countermodel does not show.** It does not show that OI forbids such operations. It is an
+independence result about the frozen structure, not an impossibility result, and a further
+principle or a different substratum may well supply them. The finite-support theory is a witness,
+not a proposal about the intended physics. And the closure list above is the set of operations
+checked, not a claim that a completed framework performs no others.
+
+## Status after the second entry
+
+| Question | Status |
+|---|---|
+| Q1. Finite-support instrument extension from Level II | **decided**, both directions (`qInstrument_of_kraus`, `kraus_of_finiteSupport`, `finiteSupport_iff_kraus`) |
+| Q2. Compatible finite-stage family extends to the quasilocal algebra | **open in general**; decided affirmatively for the star-endomorphisms of compatible weight families. Not pursued in this round |
+| Q3. Such families available from existing OI_Q assumptions | **decided negatively** (`q3_countermodel`): the frozen structure does not entail their availability |
+| Q4. Every quasilocal CP instrument is stage-compatible | **open**. Class 3 is still unformalized; countermodel 3 remains required before any claim |
+| Q5. Extra operational-completion principle required | **sharpened**: necessary for any target containing genuinely infinite-support operations, by the second entry. What such a principle should say, and whether the stronger target is worth adopting, is the next decision |
+| Finite-support instrument totals exhaust the stage-compatible quasilocal maps | **decided negatively** (`phaseAll_not_finiteSupport`) |
+
 ## Status after the first entry
 
 | Question | Status |
@@ -152,5 +209,8 @@ endomorphisms arising from compatible weight families, and open in general.
 - The phase witness is a witness of non-finite-support, not a claim about what OI permits: whether
   the substratum makes such an operation available is not decided here, and the Level III
   countermodel already shows it is induced by no reversible finite-range substratum dynamics.
+- The second entry's countermodel is an independence result, not an impossibility result: nothing
+  here says OI forbids infinite-support operations, only that the frozen structure does not entail
+  their availability.
 - Bare OI and the frozen Level I, Level II and Level III statements are untouched. No manuscript
-  change is made in this round.
+  change is made in these rounds.

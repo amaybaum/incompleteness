@@ -9821,6 +9821,95 @@ check("F80", ok80,
       "under OI_Q; frozen Level I/II/III statements untouched; no manuscript change.")
 
 
+# F81 -- POST-LEVEL III INSTRUMENT AUDIT, ROUND 2 -- countermodel 1, Q3 decided negatively. The
+# finite-support availability theory keeps every frozen object and every finite-support Level-II
+# instrument, is closed under identity, composition, outcome relabelling and coarse-graining, and
+# under the frozen OI dynamics; and it excludes the all-sites phase map. Checked exactly on the
+# three-site lattice of F78-F80 plus the twelve-site ring update.
+ok81 = True
+# --- (1) the identity is available, and composition of two available instruments is available with
+# the composite normalization sum_{k,l} (g_l b_k)^dag (g_l b_k) = 1
+_B81 = [_incl77(_LA78, _LC78, K) for K in _K80]              # on site 0, two outcomes
+_G81 = [_incl77(_L280b, _LC78, K) for K in _K80]             # on site 2, two outcomes
+ok81 &= _sum75([mmc17(dag17(B), B) for B in _B81], 8) == eye17(8)
+ok81 &= _sum75([mmc17(dag17(G), G) for G in _G81], 8) == eye17(8)
+_comp81 = [mmc17(G, B) for G in _G81 for B in _B81]          # composite data g_l b_k
+ok81 &= _sum75([mmc17(dag17(C), C) for C in _comp81], 8) == eye17(8)   # availFS_comp normalization
+ok81 &= len(_comp81) == 4
+# outcome relabelling: permuting the composite data leaves the normalization and total map fixed
+_perm81 = [_comp81[i] for i in (3, 1, 0, 2)]
+ok81 &= _sum75([mmc17(dag17(C), C) for C in _perm81], 8) == eye17(8)
+_Z81 = _rand77(8, 13)
+_tot81 = _sum75([mmc17(mmc17(dag17(C), _Z81), C) for C in _comp81], 8)
+ok81 &= _sum75([mmc17(mmc17(dag17(C), _Z81), C) for C in _perm81], 8) == _tot81   # qTotalJ_equiv
+# outcome coarse-graining: the branches of a coarser outcome map are sums of branches
+_out81 = [0, 0, 1, 1]                                         # merge outcomes pairwise
+for _x81 in (0, 1):
+    _coarse81 = _sum75([mmc17(mmc17(dag17(_comp81[k]), _Z81), _comp81[k])
+                        for k in range(4) if _out81[k] == _x81], 8)
+    _pieces81 = _sum75([_sum75([mmc17(mmc17(dag17(_comp81[k]), _Z81), _comp81[k])], 8)
+                        for k in range(4) if _out81[k] == _x81], 8)
+    ok81 &= _coarse81 == _pieces81                            # qBranchJ_coarse
+ok81 &= _sum75([_sum75([mmc17(mmc17(dag17(_comp81[k]), _Z81), _comp81[k])
+                        for k in range(4) if _out81[k] == x], 8) for x in (0, 1)], 8) == _tot81
+# --- (2) the frozen dynamics preserves availability: transporting the Kraus data of an available
+# instrument by conjugation with a permutation unitary keeps the normalization, so the transported
+# family is again available (availFS_dyn); the three-site permutation matrix is 8 x 8.
+_cfg81 = _confs78(_LC78)
+def _sig81(c): return (c[2], c[0], c[1])                      # a cyclic relabelling of the sites
+_idx81 = {c: i for i, c in enumerate(_cfg81)}
+_P81 = [[CO17 if _idx81[_sig81(_cfg81[c])] == r else CZ17 for c in range(8)] for r in range(8)]
+ok81 &= mmc17(dag17(_P81), _P81) == eye17(8)                  # a permutation unitary
+_trans81 = [mmc17(mmc17(dag17(_P81), B), _P81) for B in _B81]  # the transported Kraus data
+ok81 &= _sum75([mmc17(dag17(T), T) for T in _trans81], 8) == eye17(8)   # availFS_dyn normalization
+ok81 &= _trans81 != _B81                                      # the transport is nontrivial
+# --- (3) the exclusion: an available instrument supported on site 0 fixes the single-site matrix
+# unit at EVERY other site, while the all-sites phase map moves it
+for _site81 in range(1, 3):
+    _L81 = [_site81]
+    _E81 = _incl77(_L81, _LC78, [[CZ17, CO17], [CZ17, CZ17]])
+    _fix81 = _sum75([mmc17(mmc17(dag17(B), _E81), B) for B in _B81], 8)
+    ok81 &= _fix81 == _E81                                    # qTotalJ_stage_of_disjoint
+    _U81 = _diag74([_awt80(_L81, f) for f in _confs78(_L81)])
+    _moved81 = mmc17(mmc17(_U81, [[CZ17, CO17], [CZ17, CZ17]]), dag17(_U81))
+    ok81 &= _moved81 != [[CZ17, CO17], [CZ17, CZ17]]          # phaseAll_not_availFS, at that site
+# --- (4) kernel readback
+_ia81 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'InstrumentAvailability.lean')
+_ias81 = open(_ia81, encoding='utf-8').read()
+for _nm81 in ('def AvailFS', 'theorem availFS_id', 'theorem availFS_comp',
+              'theorem availFS_relabel', 'theorem availFS_dyn', 'theorem availFS_of_kraus',
+              'theorem kraus_of_availFS', 'theorem qBranchJ_coarse',
+              'theorem qTotalJ_stage_of_disjoint', 'theorem phaseAll_not_availFS',
+              'theorem q3_countermodel', 'theorem states_untouched',
+              'theorem dynamics_untouched'):
+    ok81 &= _nm81 in _ias81
+_iaflat81 = ' '.join(_ias81.split())
+ok81 &= 'sorry' not in _ias81 and 'independence from' in _iaflat81
+check("F81", ok81,
+      "POST-LEVEL III INSTRUMENT AUDIT, ROUND 2 (InstrumentAvailability.lean, 19 named results): "
+      "Q3 DECIDED NEGATIVELY. The countermodel declares an operation available exactly when it is "
+      "a finite-support instrument. It is a predicate ON the frozen Level III objects, not a "
+      "replacement: the quasilocal algebra, its states and its dynamics are unchanged "
+      "(states_untouched, dynamics_untouched). Nothing frozen is weakened -- every finite-support "
+      "Level-II instrument is available and conversely -- and the theory is closed under the "
+      "identity, composition on the union of regions, outcome relabelling, outcome coarse-graining "
+      "and the frozen OI-induced dynamics. It withholds exactly one thing: the all-sites phase map "
+      "is the total map of no available operation, at any finite outcome index. Hence the "
+      "structure the frozen levels supply does not entail the availability of genuinely "
+      "infinite-support coherent operations, and Q5 sharpens -- a target containing them needs an "
+      "explicit operational-completion principle, an addition rather than a consequence. Verified "
+      "exactly here: the composite normalization of two disjoint-site instruments, invariance of "
+      "the normalization and total map under outcome relabelling, the coarse-grained branches as "
+      "sums of branches summing to the total, the twelve-site update as a permutation unitary, and "
+      "at every site other than the support the available total map fixing the single-site matrix "
+      "unit that the phase map moves, plus the kernel text read back. NOT CLAIMED, lint-guarded: "
+      "that OI forbids such operations -- this is independence from the frozen structure, not "
+      "impossibility; that the finite-support theory is the intended physics; that the closure "
+      "list is exhaustive; nothing about Q2, Q4, the abstract CP class, continuous time or sector "
+      "selection; frozen Level I/II/III statements untouched; no manuscript change.")
+
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
