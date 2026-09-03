@@ -1691,7 +1691,84 @@ determination theorem shows that adding them introduces no specifically
 quantum content. No pure-state preparation, no carrier-coherence
 condition, and no availability of all completely positive maps is
 assumed; the quantum content lies entirely in the endomorphic conclusion
-above. The scope remains finite-dimensional.
+above. The scope of this statement is finite-dimensional.
+
+\textbf{Infinite-region completion.} The finite-dimensional
+qualification is removed without a continuum limit and without a
+Hilbert-space representation. The substratum holds its fixed-spacing
+lattice fundamental, so the infinite-system construction it supplies is
+the directed system of finite spatial regions. For a finite region
+\(\Lambda\) the observable algebra is the full matrix algebra on the
+region's finite configuration space; inclusion of regions gives
+compatible injective unital \(*\)-homomorphisms, and observables
+supported on disjoint regions commute (kernel: \texttt{inclObs\_mul},
+\texttt{inclObs\_injective} in \texttt{OIBridge/QuasilocalAlgebra.lean},
+\texttt{emb\_comm\_of\_disjoint} in
+\texttt{OIBridge/QuasilocalCharacterization.lean}). The local algebra is
+the algebra of equivalence classes of finite-region observables, two of
+them agreeing exactly when they agree after inclusion into a common
+region (kernel: \texttt{emb\_eq\_iff}); the inclusions are isometric for
+the operator norm, and the norm completion of the local algebra is a
+quasilocal \(C^{*}\)-algebra that is the closure of the union of the
+finite stages (kernel: \texttt{norm\_inclObs},
+\texttt{instCStarAlgebraQuasilocal}, \texttt{closure\_iUnion\_stage}).
+Every consistent family of finite-region density matrices extends
+uniquely to a state of that algebra, and the reversible finite-range
+substratum update extends uniquely to an isometric \(*\)-automorphism
+under which an observable of a region is an observable of an explicit
+finite region after each step (kernel: \texttt{quasiState\_unique},
+\texttt{quasiState\_nonneg}, \texttt{heisQ\_mul}, \texttt{norm\_heisQ},
+\texttt{heis\_iterate\_emb}).
+
+The completion is characterized independently of the construction. A
+quasilocal system is a \(C^{*}\)-algebra carrying the same finite-region
+matrix algebras through compatible injective unital \(*\)-embeddings,
+with disjoint-region commutation and dense local stages; the definition
+names no completion, no state, and no representation (kernel:
+\texttt{QuasilocalSystem} in
+\texttt{OIBridge/QuasilocalCharacterization.lean}). Any such system is
+canonically and uniquely \(*\)-isomorphic to the region completion, by
+the universal property of the local algebra and of its completion, and a
+system carrying the same substratum-induced discrete dynamics receives a
+canonical isomorphism intertwining the automorphisms (kernel:
+\texttt{canonEquiv}, \texttt{canon\_unique},
+\texttt{systemEquiv\_unique}, \texttt{canon\_dyn},
+\texttt{systemEquiv\_dyn}). Hence
+
+\[\boxed{\mathrm{OI}_Q \;\iff\; \text{quasilocal fixed-lattice QM with the OI-induced discrete dynamics}}\]
+
+where \(\mathrm{OI}_Q\) denotes the quantum-completed substratum of the
+statements above --- the current OI substratum together with continuous
+off-diagonal controllability --- and not bare observation
+incompleteness.
+
+The restriction to the substratum-induced dynamics is a theorem rather
+than a convention. General locality-preserving automorphisms form a
+strictly larger class: conjugation by a phase unitary at one site
+preserves locality and is induced by no reversible finite-range
+substratum bijection, multiplying a single-site matrix unit by \(i\)
+where every transported observable carries entries that are sums of
+entries of the original (kernel: \texttt{phase\_localityPreserving},
+\texttt{phaseQ\_ne\_heisQ}).
+
+Continuous time is separate. The discrete substratum dynamics does not
+determine a continuous one-parameter interpolation: two Hermitian
+generators give flows agreeing at every integer time and differing at
+\(t = 1/2\) (kernel: \texttt{continuous\_extension\_not\_unique} in
+\texttt{OIBridge/RegionLimit.lean}). A continuous-time Hamiltonian law
+is additional structure where that formulation is wanted, and the
+equivalence above does not use it.
+
+The lattice spacing stays fundamental. Nothing above asserts a spatial
+continuum limit or a refinement of the spacing; the continuum
+description used elsewhere in the framework is an effective
+calculational approximation rather than the object completed here. The
+uniqueness is among systems built from the substratum's finite-region
+matrix algebras rather than among all \(C^{*}\)-algebras, and no
+Hilbert-space representation and no superselection sector is selected at
+the level of the laws, a sector choice being an input of the
+initial-condition kind (kernel: \texttt{state\_selection\_audit} in
+\texttt{OIBridge/RegionTower.lean}).
 
 Every member of the residual family is invisible to the transition data
 for a stated reason --- diagonal rephasing moves no modulus, the energy
@@ -4630,4 +4707,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: 7e2ee45c87f7f347b68af6b0e94d5673ba650774962cbfeb93b7148807f98ed1
+% source-sha256: 461de29a5d13c9224a3a3c9476f2e37a6b1c110077d426a1ced9ed9ac9f342f0
