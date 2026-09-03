@@ -242,7 +242,9 @@ The hierarchy is layered, not redefined (`OIBridge/CompletedOI.lean`):
 
 Then `OIPlus ⟺ finite operational QM` on the qubit carrier (proved: `oiPlus_iff_qm`), and each
 of the three principles fails on a theory with the core, well-formedness and the other two
-(proved: `oiPlus_independence`, from the cells {I}, {C}, {K} above). Not claimed: that any of
+(proved: `oiPlus_independence`, from the cells {I}, {C}, {K} above). On every nonempty finite
+carrier the same equivalence holds for OI⁺ without the core conjunct, which is a qubit statement
+and is redundant there (proved: `CarrierGeneralOIPlus.carrier_general_oiPlus`, `oiPlus_qubit_iff`). Not claimed: that any of
 the three follows from bare OI (the census proves the opposite); that these are the only
 natural principles; that well-formedness is derivable.
 

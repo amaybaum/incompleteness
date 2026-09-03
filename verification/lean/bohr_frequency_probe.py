@@ -8277,6 +8277,84 @@ check("F65", ok65,
       "observational independence is compressed beyond its equivalent forms; that the "
       "principles are the only natural ones; anything about well-formedness being derivable.")
 
+# F66 -- ROUND 55: CARRIER-GENERAL OI-PLUS -- the three principles and their equivalence with
+# finite operational QM on every nonempty finite carrier; the qubit specialization identified
+# with the round-53 definition (phase three, round fifty-five).
+ok66 = True
+def _single66(d, i): return [[CO17 if (r == i and c == i) else CZ17 for c in range(d)] for r in range(d)]
+def _perm66(g, d): return [[CO17 if g[c] == r else CZ17 for c in range(d)] for r in range(d)]
+def _edyad66(W, i): return [[W[x][i] * W[y][i].conj() for y in range(len(W))] for x in range(len(W))]
+_i66 = C17(Frac(0), Frac(1))
+# --- (a) the base-point construction on a qutrit carrier (d = 3) and on a six-level carrier
+# (d = 6, a qutrit with one ancilla qubit): swaps from the base point 0 reach every E_ii, and a
+# rational unitary's rank-one projectors are unitary conjugates of E_00 (edyad_eq_conj_single
+# with a general base point).
+_rot3 = [[_rot[0][0], _rot[0][1], CZ17], [_rot[1][0], _rot[1][1], CZ17], [CZ17, CZ17, CO17]]
+_refl66 = [[_r2, _s2], [_s2, C17(0) - _r2]]
+for _W in (_rot3, kr17(_rot3, _refl66)):
+    _d = len(_W)
+    ok66 &= mmc17(dag17(_W), _W) == eye17(_d)
+    for _i in range(_d):
+        _g = list(range(_d)); _g[0], _g[_i] = _g[_i], _g[0]
+        _P = _perm66(_g, _d)
+        ok66 &= conjby52(_P, _single66(_d, 0)) == _single66(_d, _i)
+        _WP = mmc17(_W, _P)
+        ok66 &= _edyad66(_W, _i) == conjby52(_WP, _single66(_d, 0))
+        ok66 &= mmc17(dag17(_WP), _WP) == eye17(_d)
+# --- (b) the generator form on the qutrit: -i B for B = sum_k lam_k edyad(W, k) is a real
+# combination of the generators -i (W_k E_00 W_k^dag), lam = (1, -2, 3).
+_lam = [Frac(1), Frac(-2), Frac(3)]
+_B = [[CZ17] * 3 for _ in range(3)]
+for _k, _l in enumerate(_lam):
+    _B = add52(_B, scale52(C17(_l), _edyad66(_rot3, _k)))
+ok66 &= dag17(_B) == _B
+_A = scale52(C17(0) - _i66, _B)
+_gen = [[CZ17] * 3 for _ in range(3)]
+for _k, _l in enumerate(_lam):
+    _g = list(range(3)); _g[0], _g[_k] = _g[_k], _g[0]
+    _WP = mmc17(_rot3, _perm66(_g, 3))
+    _gen = add52(_gen, scale52(C17(_l), scale52(C17(0) - _i66, conjby52(_WP, _single66(3, 0)))))
+ok66 &= _gen == _A
+# --- (c) the word closure and trace preservation of conjugations on the qutrit
+# (conjChannel_mul_general, the reversibility clause): conj V o conj W = conj (V W), and a
+# trace-preserving conjugation is by an isometry.
+_X3 = gmat47(660, 3)
+_swap3 = _perm66([1, 0, 2], 3)
+ok66 &= conjby52(_rot3, conjby52(_swap3, _X3)) == conjby52(mmc17(_rot3, _swap3), _X3)
+ok66 &= trace40(conjby52(_rot3, _X3)) == trace40(_X3)
+_K3 = _single66(3, 0)
+ok66 &= trace40(conjby52(_K3, _single66(3, 1))) != trace40(_single66(3, 1))
+# --- (d) the kernel's claim discipline, read back.
+_cg66 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'CarrierGeneralOIPlus.lean')
+if os.path.exists(_cg66):
+    with open(_cg66, encoding='utf-8') as _f:
+        _cg_txt66 = ' '.join(_f.read().split())
+    ok66 &= 'theorem carrier_general_oiPlus' in _cg_txt66
+    ok66 &= '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A), OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T' in _cg_txt66
+    ok66 &= 'theorem oiPlus_qubit_iff' in _cg_txt66 and 'theorem oiPlus_independence' in _cg_txt66
+    ok66 &= 'sorry' not in _cg_txt66 and 'NOT claimed: a carrier-general sealed OI core' in _cg_txt66
+check("F66", ok66,
+      "ROUND 55: CARRIER-GENERAL OI-PLUS -- the three principles of round 53 and their equivalence "
+      "with exact finite endomorphic operational QM on every nonempty finite carrier (phase three, "
+      "round fifty-five; kernel: OIBridge/CarrierGeneralOIPlus.lean, 11 results -- "
+      "observationalIndependence_iff_inert, parallel_of_observationalIndependence, "
+      "conjChannel_mul_general, control_of_reversibleRichness, reversibleRichness_of_control, "
+      "qm_of_oiPlus, oiPlus_of_qm, oiPlus_iff_qm, carrier_general_oiPlus, oiPlus_qubit_iff, "
+      "oiPlus_independence). THE AUDIT: observational independence, observer recursion and the "
+      "forward direction of reversible richness were already carrier-general; the converse of "
+      "reversible richness needs one base point on a nonempty carrier for the rank-one drift, and "
+      "the word closure of conjugations is proved on a general carrier; the OI core is a qubit "
+      "process with no carrier-general form in the kernel, so carrier-general OI-plus is "
+      "well-formedness plus the three principles, and on the qubit it is provably the round-53 "
+      "OI-plus with the redundant core conjunct. Verified exactly here: swaps from a base point "
+      "reaching every matrix unit on three and six levels, rank-one projectors of rational "
+      "unitaries as conjugates of the base unit, the real-combination generator form on the "
+      "qutrit, the word closure and trace preservation of conjugations, and the kernel text read "
+      "back. NOT CLAIMED, lint-guarded: a carrier-general sealed OI core; independence witnesses "
+      "beyond the qubit (the qubit witnesses settle logical independence); that any principle "
+      "follows from bare OI.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

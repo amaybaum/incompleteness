@@ -899,6 +899,9 @@ for fname, names in (
                      'oiPlus_iff_qm', 'oiPlus_iff_completedOI', 'countermodel_hid', 'countermodel_hread',
                      'diag_hid', 'diag_hread', 'independence_independent', 'richness_independent',
                      'recursion_independent', 'oiPlus_independence')),
+    ('CarrierGeneralOIPlus', ('observationalIndependence_iff_inert', 'parallel_of_observationalIndependence', 'conjChannel_mul_general', 'control_of_reversibleRichness',
+                             'reversibleRichness_of_control', 'qm_of_oiPlus', 'oiPlus_of_qm', 'oiPlus_iff_qm',
+                             'carrier_general_oiPlus', 'oiPlus_qubit_iff', 'oiPlus_independence')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
                            'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
                            'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
@@ -1582,6 +1585,22 @@ ok6 &= 'is `RealizesSealedOICore` and is not modified' in _coiflat
 ok6 &= 'theorem principle_of_oiCore' not in coi and 'theorem inert_of_oiCore' not in coi
 ok6 &= 'theorem control_of_oiCore' not in coi and 'theorem closure_of_oiCore' not in coi
 ok6 &= 'structure FiniteOperationalTheory' not in coi and 'native_decide' not in coi
+# Round-55 guards: carrier-general OI-plus; the qubit specialization identified with the
+# round-53 definition; the audit's one honest exception (no carrier-general sealed core) stated;
+# the round-53 file unchanged.
+cgo = open(os.path.join(BRIDGE, 'OIBridge', 'CarrierGeneralOIPlus.lean'), encoding='utf-8').read()
+_cgoflat = ' '.join(cgo.split())
+ok6 &= 'def OIPlus : Prop := WellFormed T ∧ ObservationalIndependence T ∧ ReversibleRichness T ∧ ObserverRecursion T' in _cgoflat
+_cg = ' '.join(_slice(cgo, 'theorem carrier_general_oiPlus', ':=').split())
+ok6 &= bool(_cg) and '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A)' in _cg
+ok6 &= _cg.endswith('OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T')
+ok6 &= 'theorem oiPlus_qubit_iff (T : FiniteOperationalTheory (Fin 2)) : OIHierarchy.OIPlus T ↔ OIPlus T' in _cgoflat
+ok6 &= 'theorem reversibleRichness_of_control [Nonempty A]' in _cgoflat and 'Classical.arbitrary A' in cgo
+ok6 &= 'theorem conjChannel_mul_general' in cgo and 'theorem control_of_reversibleRichness' in cgo
+ok6 &= 'NOT claimed: a carrier-general sealed OI core' in _cgoflat
+ok6 &= 'RealizesSealedOICore' not in _slice(cgo, 'def OIPlus : Prop :=', 'theorem qm_of_oiPlus')
+ok6 &= 'theorem oiCoreGeneral' not in cgo and 'def OICoreGeneral' not in cgo
+ok6 &= 'structure FiniteOperationalTheory' not in cgo and 'native_decide' not in cgo
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1986,8 +2005,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All sixty-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 5 + 16 named results print their "
+      "LINT. All sixty-two files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

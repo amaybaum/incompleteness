@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 85 modules and,
-  at this commit, 1,518 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 86 modules and,
+  at this commit, 1,529 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -62,7 +62,10 @@ drift with finitely many controls generates `su(D)` at every level), and observe
 composite observable system is itself an admissible observable system). `OIPlus`, the core with
 well-formedness and these three, is equivalent to finite operational QM (`oiPlus_iff_qm`), and
 each of the three is independent of the core, well-formedness and the other two
-(`oiPlus_independence`). None of the three follows from bare OI.
+(`oiPlus_independence`). None of the three follows from bare OI. The equivalence holds on every
+nonempty finite carrier (`CarrierGeneralOIPlus.carrier_general_oiPlus`): there the sealed qubit
+core has no counterpart, OI⁺ is well-formedness plus the three principles, and on the qubit
+that definition is provably the one with the core conjunct (`oiPlus_qubit_iff`).
 
 ## Contents (`lean/`)
 
@@ -99,7 +102,7 @@ each of the three is independent of the core, well-formedness and the other two
   `staggered_relations`, `structural_chain`, `representation_bridge` and `time_reversal` are the
   companions of the proof files above: every integer the Lean files submit to `decide` is
   recomputed by an independent construction. The rest instantiate the `OIBridge` theorems on
-  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F65, one per
+  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F66, one per
   round of the reconstruction and completion programme, each reading the kernel file it
   certifies back for its claim discipline) and `edge_rigidity_probe.py` carries the R7 lint,
   which requires every listed kernel result to be a `theorem` with a `#print axioms` line and
@@ -150,14 +153,15 @@ modules, in the order the development grew:
   `OIRealization`, `OperationalValidity`, `LevelOneSeam`, `PhysicalCharacterization`,
   `DiagonalTheory`, `RankGapTheory`, `IsometryExtension`, `GeneralCarrier`,
   `UhlmannUniqueness`, `ReachabilitySeam`, `OrbitReachability`, `SubstantiveCensus`,
-  `CompletedOI`): the five completion conditions defined one by one with the countermodel
+  `CompletedOI`, `CarrierGeneralOIPlus`): the five completion conditions defined one by one with the countermodel
   that separates each, the sealed OI core realized with its actual visible readout, the
   characterization theorem with its necessity direction, the five-way minimality audit, the
   discharge of finite isometry extension, the removal of the qubit restriction, the discharge
   of finite right-unitary uniqueness, the compact-Lie reachability seam reduced to one local
   lemma and that lemma proved, the eight-cell census of the three substantive principles, and
   the layered hierarchy with the three principles compressed to observational independence,
-  reversible richness and observer recursion.
+  reversible richness and observer recursion, and that hierarchy carried to every nonempty
+  finite carrier.
 
 `verification/MILESTONE-finite-quantum-instruments.md` records an earlier checkpoint of this
 programme as a status artifact.
