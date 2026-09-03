@@ -992,6 +992,15 @@ for fname, names in (
                            'transported_injective', 'norm_transported', 'heisLoc_star', 'norm_heisLoc',
                            'heisLoc_inv_heisLoc', 'heisQ_mul', 'heisQ_star', 'norm_heisQ', 'heisQ_inv_heisQ',
                            'heis_iterate_emb', 'quasilocal_completion')),
+    ('QuasilocalCharacterization', ('emb_comm_of_disjoint', 'stage_comm_of_disjoint', 'localMap_ofM',
+                                    'localHom_unique', 'norm_localHom', 'canon_stage', 'norm_canon',
+                                    'canonHom_injective', 'canonHom_surjective', 'canonEquiv_stage',
+                                    'canon_unique', 'systemEquiv_stage', 'systemEquiv_unique',
+                                    'systemState_stage', 'systemState_isState', 'oi_localityPreserving',
+                                    'canon_dyn', 'systemEquiv_dyn', 'inclObs_phaseConj', 'phaseConj_four',
+                                    'norm_phaseConj', 'phaseQ_stage', 'norm_phaseQ', 'phaseQ_four',
+                                    'phase_localityPreserving', 'phaseQ_ne_heisQ',
+                                    'quasilocal_characterization')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
                            'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
                            'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
@@ -1925,6 +1934,32 @@ for _w in ('axiom continuity', 'InnerProductSpace', 'HilbertSpace', 'lp (fun', '
            'NormedSpace.exp', 'flow '):
     ok6 &= _w not in qal
 ok6 &= 'structure FiniteOperationalTheory' not in qal and 'native_decide' not in qal
+# Level-III round-4 guards: the target class is DEFINED INDEPENDENTLY of the construction and the
+# construction is proved to be its unique member up to a canonical isomorphism (a bijective star
+# homomorphism obtained as the continuous extension of the factored stage maps); the dynamics
+# target is decided by the phase countermodel (Target B strictly larger); no Hilbert space,
+# no continuity axiom, no claim that every locality-preserving automorphism is induced.
+qch = open(os.path.join(BRIDGE, 'OIBridge', 'QuasilocalCharacterization.lean'), encoding='utf-8').read()
+_qchflat = ' '.join(qch.split())
+ok6 &= 'structure QuasilocalSystem' in qch and 'noncomputable def oiSystem' in qch
+_qsys = _slice(qch, 'structure QuasilocalSystem', 'attribute [instance] QuasilocalSystem.inst')
+for _w in ('Scaffold', 'localAlg', 'Quasilocal ', 'emb ', 'ofM'):
+    ok6 &= _w not in _qsys                                     # the target class does not mention the construction
+_qcanon = _slice(qch, 'noncomputable def canon ', 'theorem canon_coe')
+ok6 &= 'UniformSpace.Completion.extension' in _qcanon         # the canonical map is the continuous extension
+_qequiv = _slice(qch, 'noncomputable def canonEquiv', 'theorem canonEquiv_apply')
+ok6 &= 'StarAlgEquiv.ofBijective' in _qequiv
+ok6 &= 'theorem canonHom_surjective' in qch and 'theorem canon_unique' in qch
+ok6 &= 'theorem systemEquiv_unique' in qch and 'theorem systemState_isState' in qch
+ok6 &= 'theorem canon_dyn' in qch and 'theorem systemEquiv_dyn' in qch
+ok6 &= 'theorem phase_localityPreserving' in qch and 'theorem phaseQ_ne_heisQ' in qch
+ok6 &= 'Nontrivial Q' in qch and 'theorem quasilocal_characterization' in qch
+ok6 &= 'not claimed either way' in _qchflat and 'a theorem, not a preference' in _qchflat
+for _w in ('axiom continuity', 'InnerProductSpace', 'HilbertSpace', 'lp (fun', 'GelfandNaimark',
+           'NormedSpace.exp', 'theorem targetB_redundant', 'theorem every_automorphism_induced',
+           'theorem all_systems_classified', 'theorem representation_selected'):
+    ok6 &= _w not in qch
+ok6 &= 'structure FiniteOperationalTheory' not in qch and 'native_decide' not in qch
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2329,8 +2364,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All seventy-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 named results print their "
+      "LINT. All seventy-five files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 + 87 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
