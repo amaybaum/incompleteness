@@ -8049,6 +8049,234 @@ check("F63", ok63,
       "closed-subgroup theorem, anything about non-compact groups; necessity of HControl for "
       "exact reachability. The completion classification is unaffected in either direction.")
 
+# F64 -- ROUND 52: THE ALTERNATIVE-THEORY CENSUS -- every failure pattern of the three
+# substantive completion principles is realized by a well-formed OI-compatible theory (phase
+# three, round fifty-two).
+ok64 = True
+def _sub64(A, B): return add52(A, scale52(C17(Frac(-1)), B))
+def _isdiag64(M): return all(M[i][j] == CZ17 for i in range(len(M)) for j in range(len(M)) if i != j)
+def _red64(X, d):
+    # the normalized reduction map (2 tr X 1 - X)/(2d - 1)
+    return scale52(C17(Frac(1, 2 * d - 1)), _sub64(scale52(C17(2) * trace40(X), eye17(d)), X))
+def _ptr64(M, d, k):
+    # partial trace over the LAST factor of size k, index convention s*k + e
+    return [[sum((M[s * k + e][t * k + e] for e in range(k)), CZ17) for t in range(d)] for s in range(d)]
+def _blocks64(M, r, d):
+    # r x r blocks of size d x d, index convention i*d + s
+    return [[[[M[i * d + s][j * d + t] for t in range(d)] for s in range(d)] for j in range(r)] for i in range(r)]
+def _amp64(M, r, d, phi):
+    # (id_r (x) phi) M, blockwise
+    B = _blocks64(M, r, d)
+    P = [[phi(B[i][j]) for j in range(r)] for i in range(r)]
+    return [[P[i][j][s][t] for j in range(r) for t in range(d)] for i in range(r) for s in range(d)]
+def _form64(v, M): return sum((v[a].conj() * M[a][b] * v[b] for a in range(len(v)) for b in range(len(v))), CZ17)
+# --- (a) redMap is trace preserving on d = 4, 6, 12 and diagonal-preserving.
+for _d, _seed in ((4, 640), (6, 641), (12, 642)):
+    _X = gmat47(_seed, _d)
+    ok64 &= trace40(_red64(_X, _d)) == trace40(_X)
+    _D = [[_X[i][i] if i == j else CZ17 for j in range(_d)] for i in range(_d)]
+    ok64 &= _isdiag64(_red64(_D, _d))
+# --- (b) redMap is not 3-positive on d = 4 and d = 6 (amplRef_redMap_ent3_not_posSemidef):
+# the rank-three entangled vector along an injection Fin 3 -> S gives the form -3/(2d-1).
+for _d in (4, 6):
+    _psi = [CO17 if (s == i) else CZ17 for i in range(3) for s in range(_d)]    # iota i = i
+    _M = [[_psi[a] * _psi[b].conj() for b in range(3 * _d)] for a in range(3 * _d)]
+    _out = _amp64(_M, 3, _d, lambda B: _red64(B, _d))
+    ok64 &= _form64(_psi, _out) == C17(Frac(-3, 2 * _d - 1))
+# --- (c) the rank-two entangled vector gives the boundary value 0 (2-positivity survives),
+# and the reference-marginal identity (id_3 (x) R)(psi psi^dag) = (2 rho_ref (x) 1 - psi
+# psi^dag)/(2d-1) holds exactly.
+for _d in (4, 6):
+    _psi2 = [CO17 if (s == i) else CZ17 for i in range(2) for s in range(_d)]
+    _M2 = [[_psi2[a] * _psi2[b].conj() for b in range(2 * _d)] for a in range(2 * _d)]
+    ok64 &= _form64(_psi2, _amp64(_M2, 2, _d, lambda B: _red64(B, _d))) == CZ17
+    _psi = [CO17 if (s == i) else CZ17 for i in range(3) for s in range(_d)]
+    _M = [[_psi[a] * _psi[b].conj() for b in range(3 * _d)] for a in range(3 * _d)]
+    _rhs = scale52(C17(Frac(1, 2 * _d - 1)), _sub64(scale52(C17(2), kr17(eye17(3), eye17(_d))), _M))
+    ok64 &= _amp64(_M, 3, _d, lambda B: _red64(B, _d)) == _rhs
+# --- (d) the trace-shift map X -> a tr(X) 1 - X on d = 3: the Choi form at the maximally
+# entangled direction is a d - d^2 (traceShift_choi_form): negative for a = 2, zero at a = 3,
+# positive at a = 4.
+for _a, _val in ((2, -3), (3, 0), (4, 3)):
+    _shift = lambda B, _a=_a: _sub64(scale52(C17(_a) * trace40(B), eye17(3)), B)
+    _Om = [CO17 if (s == i) else CZ17 for i in range(3) for s in range(3)]
+    _MO = [[_Om[a] * _Om[b].conj() for b in range(9)] for a in range(9)]
+    ok64 &= _form64(_Om, _amp64(_MO, 3, 3, _shift)) == C17(_val)
+# --- (e) the ancilla discard of the level-six reduction map (discard_redMap): for random X on
+# six levels, ptr_anc( redMap_12 (X (x) 1/2) ) = (4 tr X 1 - X)/23 exactly.
+for _s in range(2):
+    _X6 = gmat47(650 + _s, 6)
+    _in = kr17(_X6, scale52(C17(Frac(1, 2)), eye17(2)))
+    _disc = _ptr64(_red64(_in, 12), 6, 2)
+    ok64 &= _disc == scale52(C17(Frac(1, 23)), _sub64(scale52(C17(4) * trace40(_X6), eye17(6)), _X6))
+# --- (f) the gap channel on Fin 2 x Fin 3: G0 = 1 (x) diag(1,1,0), G1 = 1 (x) |0><2| are
+# column-monomial, the channel preserves diagonal states, and its untouched-ancilla extension
+# discards back to itself (discardWith_uniform_spectatorLast).
+_D3 = [[CO17 if (i == j and i != 2) else CZ17 for j in range(3)] for i in range(3)]
+_E3 = [[CO17 if (i == 0 and j == 2) else CZ17 for j in range(3)] for i in range(3)]
+_G0, _G1 = kr17(eye17(2), _D3), kr17(eye17(2), _E3)
+def _colmono64(K): return all((K[p][r] == CZ17 or K[q][r] == CZ17) for p in range(6) for q in range(6) for r in range(6) if p != q)
+ok64 &= _colmono64(_G0) and _colmono64(_G1)
+ok64 &= add52(mmc17(dag17(_G0), _G0), mmc17(dag17(_G1), _G1)) == eye17(6)
+def _gap64(X): return add52(conjby52(_G0, X), conjby52(_G1, X))
+_Xd = [[C17(Frac(3 + i, 7)) if i == j else CZ17 for j in range(6)] for i in range(6)]
+ok64 &= _isdiag64(_gap64(_Xd)) and trace40(_gap64(_Xd)) == trace40(_Xd)
+_X6 = gmat47(660, 6)
+_ext = kr17(_gap64(_X6), scale52(C17(Frac(1, 2)), eye17(2)))
+ok64 &= _ptr64(_ext, 6, 2) == _gap64(_X6)
+# --- (g) the diagonal witnesses fail control: the 3-4-5 rotation sends |0><0| to a matrix
+# with off-diagonal entry -12/25.
+_rho0 = [[CO17, CZ17], [CZ17, CZ17]]
+ok64 &= conjby52(_rot, _rho0)[0][1] == C17(Frac(-12, 25))
+# --- (h) the kernel's claim discipline, read back.
+_sc64 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'SubstantiveCensus.lean')
+if os.path.exists(_sc64):
+    with open(_sc64, encoding='utf-8') as _f:
+        _sc_txt64 = ' '.join(_f.read().split())
+    ok64 &= 'theorem substantive_census (gI gC gK : Bool)' in _sc_txt64
+    ok64 &= 'theorem no_boolean_relation' in _sc_txt64 and 'theorem qm_is_the_top_cell' in _sc_txt64
+    for _nm in ('cell_none', 'cell_I', 'cell_C', 'cell_K', 'cell_IC', 'cell_IK', 'cell_CK', 'cell_ICK'):
+        ok64 &= f'theorem {_nm}' in _sc_txt64
+    ok64 &= 'sorry' not in _sc_txt64 and 'NOT claimed: that any cell is physically realized' in _sc_txt64
+check("F64", ok64,
+      "ROUND 52: THE ALTERNATIVE-THEORY CENSUS -- every failure pattern of the three substantive "
+      "completion principles (inert spectators, reversible control, iterated composition) is "
+      "realized by a well-formed theory carrying the sealed OI core (phase three, round "
+      "fifty-two; kernel: OIBridge/SubstantiveCensus.lean, 77 results -- classTheory, "
+      "classTheory_inert, classTheory_control, classTheory_closure, classTheory_not_inert, "
+      "classTheory_not_closure, redMap_twoPositive, amplRef_redMap_ent3_not_posSemidef, "
+      "traceShift_not_cp, discard_redMap, discardWith_uniform_spectatorLast, "
+      "gapChannel_preservesDiag, diagGapTheory, diagTwoPosTheory, cappedTheory, "
+      "cappedDiagTheory, cell_none .. cell_ICK, substantive_census, no_boolean_relation, "
+      "qm_is_the_top_cell). THE CONSTRUCTION: a theory is cut out by a per-level class of "
+      "2-positive composite maps closed under composition, coarse-graining and the Lueders "
+      "readout; four new theories fill the four multi-failure cells -- CP diagonal-preserving "
+      "gap-admissible-up-to-level-three (control and closure fail), 2-positive "
+      "diagonal-preserving (inert and control fail), 2-positive with complete positivity "
+      "capped at level three (inert and closure fail), and the last two together (all three "
+      "fail). THE DEVICE: a level cap breaks the closure rule without touching control, and "
+      "2-positive non-CP maps above the cap break inert spectators; the normalized reduction "
+      "map (2 tr X 1 - X)/(2d-1) is 2-positive on every carrier, not 3-positive on three or "
+      "more levels, and discards to (4 tr X 1 - X)/23, not CP on six levels. Verified exactly "
+      "here: trace and diagonal preservation of the reduction map on d = 4, 6, 12; the "
+      "-3/(2d-1) qutrit witness and the zero qubit witness; the reference-marginal identity; "
+      "the Choi form a d - d^2 of the trace-shift map at a = 2, 3, 4; the level-six discard "
+      "identity; column-monomiality, diagonal preservation and the untouched-ancilla discard "
+      "identity of the gap channel; the rotation's -12/25 coherence; and the kernel text read "
+      "back. CONSEQUENCE: no Boolean relation holds among the three principles on well-formed "
+      "OI-compatible theories; QM is the single no-failure cell. NOT CLAIMED, lint-guarded: "
+      "that any cell is physically realized; that the witnesses are canonical; that OI "
+      "selects any cell.")
+
+# F65 -- ROUND 53: AXIOMATIC COMPRESSION OF COMPLETED OI -- bare OI kept as the core, completed
+# OI made explicit, and the three substantive principles compressed to observational
+# independence, reversible richness and observer recursion, with OI-plus equivalent to QM
+# (phase three, round fifty-three).
+ok65 = True
+def _sub65(A, B): return add52(A, scale52(C17(Frac(-1)), B))
+def _single65(d, i): return [[CO17 if (r == i and c == i) else CZ17 for c in range(d)] for r in range(d)]
+def _perm65(g, d): return [[CO17 if g[c] == r else CZ17 for c in range(d)] for r in range(d)]   # permMatrix g r c = [g c = r]
+def _edyad65(W, i): return [[W[x][i] * W[y][i].conj() for y in range(len(W))] for x in range(len(W))]
+# --- (a) permutation conjugation moves a matrix unit (perm_conj_single): on d = 4, for every i,
+# the swap (0 i) conjugates E_00 to E_ii.
+for _i in range(4):
+    _g = list(range(4)); _g[0], _g[_i] = _g[_i], _g[0]
+    _P = _perm65(_g, 4)
+    ok65 &= mmc17(dag17(_P), _P) == eye17(4)
+    ok65 &= conjby52(_P, _single65(4, 0)) == _single65(4, _i)
+# --- (b) a rank-one spectral projector is the conjugate of the base unit by a unitary
+# (edyad_eq_conj_single): for the 3-4-5 rotation W and the 5-12-13 reflection, and the
+# two-qubit product W (x) R, edyad(W, i) = W E_ii W^dag = (W P_i) E_00 (W P_i)^dag.
+_refl65 = [[_r2, _s2], [_s2, C17(0) - _r2]]
+for _W in (_rot, _refl65, kr17(_rot, _refl65)):
+    _d = len(_W)
+    ok65 &= mmc17(dag17(_W), _W) == eye17(_d)
+    for _i in range(_d):
+        _g = list(range(_d)); _g[0], _g[_i] = _g[_i], _g[0]
+        _WP = mmc17(_W, _perm65(_g, _d))
+        ok65 &= _edyad65(_W, _i) == conjby52(_W, _single65(_d, _i))
+        ok65 &= _edyad65(_W, _i) == conjby52(_WP, _single65(_d, 0))
+        ok65 &= mmc17(dag17(_WP), _WP) == eye17(_d)
+# --- (c) the generator form (hControl_single_all): a Hermitian B = sum_k lam_k edyad(W, k)
+# with real lam, so -iB = sum_k lam_k (-i)(W_k E_00 W_k^dag) is a real combination of control
+# generators; checked exactly on the rotation with lam = (3, -5) and on the product with
+# lam = (2, -7, 1/3, 5).
+_i65 = C17(Frac(0), Frac(1))
+for _W, _lam in ((_rot, [Frac(3), Frac(-5)]), (kr17(_rot, _refl65), [Frac(2), Frac(-7), Frac(1, 3), Frac(5)])):
+    _d = len(_W)
+    _B = [[CZ17] * _d for _ in range(_d)]
+    for _k, _l in enumerate(_lam):
+        _B = add52(_B, scale52(C17(_l), _edyad65(_W, _k)))
+    ok65 &= dag17(_B) == _B
+    _A = scale52(C17(0) - _i65, _B)
+    ok65 &= dag17(_A) == scale52(C17(Frac(-1)), _A)
+    _gen = [[CZ17] * _d for _ in range(_d)]
+    for _k, _l in enumerate(_lam):
+        _g = list(range(_d)); _g[0], _g[_k] = _g[_k], _g[0]
+        _WP = mmc17(_W, _perm65(_g, _d))
+        _gen = add52(_gen, scale52(C17(_l), scale52(C17(0) - _i65, conjby52(_WP, _single65(_d, 0)))))
+    ok65 &= _gen == _A
+# --- (d) the reversibility clause (reversibleRichness_of_control): a trace-preserving
+# conjugation is by an isometry -- the rotation preserves traces and satisfies V^dag V = 1; the
+# projector diag(1, 0) fails trace preservation on |1><1|.
+_X65 = gmat47(651, 2)
+ok65 &= trace40(conjby52(_rot, _X65)) == trace40(_X65) and mmc17(dag17(_rot), _rot) == eye17(2)
+_K65 = [[CO17, CZ17], [CZ17, CZ17]]
+_rho1 = [[CZ17, CZ17], [CZ17, CO17]]
+ok65 &= trace40(conjby52(_K65, _rho1)) != trace40(_rho1)
+# --- (e) the word closure behind control_of_reversibleRichness: conj V o conj W = conj (V W)
+# and conj 1 = id, exactly on random states.
+for _s in range(2):
+    _X = gmat47(652 + _s, 2)
+    ok65 &= conjby52(_rot, conjby52(_refl65, _X)) == conjby52(mmc17(_rot, _refl65), _X)
+    ok65 &= conjby52(eye17(2), _X) == _X
+# --- (f) the kernel's claim discipline, read back.
+_coi65 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                      'OIBridge', 'CompletedOI.lean')
+if os.path.exists(_coi65):
+    with open(_coi65, encoding='utf-8') as _f:
+        _coi_txt65 = ' '.join(_f.read().split())
+    ok65 &= 'def OICore (T : FiniteOperationalTheory (Fin 2)) : Prop := RealizesSealedOICore T' in _coi_txt65
+    ok65 &= 'theorem oiPlus_iff_qm : OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T' in _coi_txt65
+    ok65 &= 'theorem completedOI_iff_physical' in _coi_txt65 and 'theorem oiPlus_independence' in _coi_txt65
+    ok65 &= 'theorem control_of_reversibleRichness' in _coi_txt65
+    ok65 &= 'theorem closure_of_observerRecursion' in _coi_txt65
+    ok65 &= 'sorry' not in _coi_txt65
+    ok65 &= 'NOT claimed: that any of the three principles follows from bare OI' in _coi_txt65
+check("F65", ok65,
+      "ROUND 53: AXIOMATIC COMPRESSION OF COMPLETED OI -- bare OI kept unchanged as the core, "
+      "completed OI made explicit, and the three substantive completion principles compressed "
+      "to principles with independent observational meaning (phase three, round fifty-three; "
+      "kernel: OIBridge/CompletedOI.lean, 30 results -- OICore, CompletedOI, completedOI_iff_qm, "
+      "completedOI_iff_physical, oiCore_not_completedOI, ObservationalIndependence, "
+      "observationalIndependence_iff_inert, parallel_of_observationalIndependence, "
+      "ReversibleRichness, control_of_reversibleRichness, hControl_single_all, "
+      "reversibleRichness_of_control, ObserverRecursion, closure_of_observerRecursion, "
+      "shiftOfClosure, observerRecursion_of_closure, OIPlus, qm_of_oiPlus, oiPlus_of_qm, "
+      "oiPlus_iff_qm, oiPlus_independence). THE HIERARCHY: OICore is RealizesSealedOICore, "
+      "unchanged; CompletedOI is the core plus the five conditions, equivalent to finite "
+      "operational QM and, because full control realizes the core, equivalent to the five "
+      "conditions alone. THE COMPRESSION: observational independence (an available operation "
+      "acts as itself when an untouched system is adjoined) is inert spectators restated and "
+      "makes independent observations jointly performable; reversible richness (available "
+      "reversible transformations can be undone, and a passive drift with finitely many "
+      "controls generates su(D) at every level) gives full composite control by the round-50 "
+      "reachability theorem, and conversely holds on every well-formed theory with full control "
+      "via the rank-one drift and all unitaries as controls; observer recursion (a composite "
+      "observable system is itself an admissible observable system) gives iterated composition "
+      "through the shifted theory's own discard rule, and conversely follows from iterated "
+      "composition with the identity and the relative readout at every level. OI-PLUS, the core "
+      "with well-formedness and the three principles, is equivalent to exact finite operational "
+      "QM on the qubit carrier, and each principle is independent of the core, well-formedness "
+      "and the other two (the countermodel, the diagonal theory, the rank-gap theory). Verified "
+      "exactly here: permutation conjugation of matrix units, the rank-one projector as a "
+      "unitary conjugate of the base unit on three unitaries, the real-combination generator "
+      "form of skew matrices, trace preservation forcing an isometry, and the word closure of "
+      "conjugations. NOT CLAIMED, lint-guarded: that any principle follows from bare OI; that "
+      "observational independence is compressed beyond its equivalent forms; that the "
+      "principles are the only natural ones; anything about well-formedness being derivable.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

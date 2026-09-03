@@ -891,6 +891,34 @@ for fname, names in (
                            'hermMap_apply', 'hermMap_conjTranspose', 'psi_zero', 'psi_hasStrictFDerivAt',
                            'psiDeriv_surjective', 'exists_exp_injOn_nhds', 'localReachability_of_hcontrol', 'localReachabilityOfLieRank',
                            'exactReachability_of_hcontrol', 'universalReachability_of_lieRank_unconditional')),
+    ('CompletedOI', ('completedOI_iff_qm', 'completedOI_iff_physical', 'oiCore_not_completedOI', 'observationalIndependence_iff_inert',
+                     'parallel_of_observationalIndependence', 'flow_zero', 'flow_isometry', "single_diag_hermitian'",
+                     'control_of_reversibleRichness', 'perm_conj_single', "edyad_eq_conj_single'", 'edyad_eq_conj_single',
+                     'mul_permMatrix_unitary', 'hControl_single_all', 'reversibleRichness_of_control', 'closure_of_observerRecursion',
+                     'observerRecursion_of_closure', 'observerRecursion_iff_closure', 'qm_of_oiPlus', 'oiPlus_of_qm',
+                     'oiPlus_iff_qm', 'oiPlus_iff_completedOI', 'countermodel_hid', 'countermodel_hread',
+                     'diag_hid', 'diag_hread', 'independence_independent', 'richness_independent',
+                     'recursion_independent', 'oiPlus_independence')),
+    ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
+                           'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
+                           'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
+                           'refMarginalR_ent3', 'amplRef_reduction2_ent3', 'amplRef_reduction2_ent3_form', 'amplRef_redMap_ent3_not_posSemidef',
+                           'traceShift_apply', 'choiMatrix_traceShift', 'traceShift_choi_form', 'traceShift_not_cp',
+                           'classTheory_availExt_iff', 'classTheory_validity', 'classTheory_systemToLevelOne', 'classTheory_wellFormed',
+                           'classTheory_relabel', 'classTheory_realizes', 'classTheory_inert', 'classTheory_control',
+                           'classTheory_closure', 'classTheory_not_control', 'classTheory_not_closure', 'classTheory_not_inert',
+                           'reindex_reindex', 'transport_trans', 'transport_spectatorLast', 'discardWith_uniform_spectatorLast',
+                           'preservesDiag_conjChannel_of_colMonomial', 'colMonomial_one_kronecker', 'D3_colMonomial', 'E3_colMonomial',
+                           'gapChannel_eq_sum', 'gapChannel_cp', 'gapChannel_preservesDiag', 'iota6_injective',
+                           'discard_redMap', 'discard_redMap_not_cp', 'diagGap_wellFormed', 'diagGap_realizes',
+                           'diagGap_inert', 'diagGap_not_control', 'diagGap_not_closure', 'diagTwoPos_wellFormed',
+                           'diagTwoPos_realizes', 'diagTwoPos_closure', 'diagTwoPos_not_control', 'diagTwoPos_not_inert',
+                           'capped_wellFormed', 'capped_control', 'capped_realizes', 'capped_not_inert',
+                           'capped_not_closure', 'cappedDiag_wellFormed', 'cappedDiag_realizes', 'cappedDiag_not_control',
+                           'cappedDiag_not_inert', 'cappedDiag_not_closure', 'cell_none', 'cell_I',
+                           'cell_C', 'cell_K', 'cell_IC', 'cell_IK',
+                           'cell_CK', 'cell_ICK', 'substantive_census', 'no_boolean_relation',
+                           'qm_is_the_top_cell')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -1505,6 +1533,55 @@ ok6 &= 'DISCHARGED IN ROUND FIFTY' in _rsmflat and 'UNRESOLVED EXTERNAL BOUNDARY
 ok6 &= 'SUPERSEDED IN ROUND FIFTY' in _ieflat and 'SUPERSEDED IN ROUND FIFTY' in _uuflat
 ok6 &= 'theorem orbit_theorem' not in orb and 'theorem closedSubgroup' not in orb
 ok6 &= 'theorem hControl_of_exact' not in orb and 'theorem lieClosure_eq' not in orb
+# Round-52 guards: the eight-cell census of the three substantive principles; the four
+# multi-failure theories built by one class construction; the census, the no-relation theorem
+# and the top-cell theorem present with exact statements; no physical realization claimed.
+scn = open(os.path.join(BRIDGE, 'OIBridge', 'SubstantiveCensus.lean'), encoding='utf-8').read()
+_scflat = ' '.join(scn.split())
+ok6 &= 'theorem substantive_census (gI gC gK : Bool)' in _scflat
+_cen = ' '.join(_slice(scn, 'theorem substantive_census', ':= by').split())
+ok6 &= bool(_cen) and 'WellFormed T ∧ RealizesSealedOICore T' in _cen
+ok6 &= '(InertSpectatorCompositionality T ↔ gI = true)' in _cen
+ok6 &= '(HasCompositeUnitaryControl T ↔ gC = true)' in _cen
+ok6 &= '(IteratedAncillaClosure T ↔ gK = true)' in _cen
+ok6 &= 'theorem no_boolean_relation (Rel : Prop → Prop → Prop → Prop)' in _scflat
+ok6 &= 'theorem qm_is_the_top_cell' in _scflat and 'exactAll_iff_substantive T hwf' in _scflat
+for _nm in ('diagGapTheory', 'diagTwoPosTheory', 'cappedTheory', 'cappedDiagTheory'):
+    ok6 &= f'noncomputable def {_nm} : FiniteOperationalTheory (Fin 2) := classTheory' in _scflat
+for _nm in ('cell_none', 'cell_I', 'cell_C', 'cell_K', 'cell_IC', 'cell_IK', 'cell_CK', 'cell_ICK'):
+    ok6 &= f'theorem {_nm}' in scn
+ok6 &= 'structure ClassData' in scn and 'structure FiniteOperationalTheory' not in scn
+ok6 &= 'theorem classTheory_not_inert' in scn and 'theorem classTheory_not_closure' in scn
+ok6 &= 'theorem amplRef_redMap_ent3_not_posSemidef' in scn and 'theorem traceShift_not_cp' in scn
+ok6 &= 'theorem discardWith_uniform_spectatorLast' in scn and 'gapChannel_not_gap' in scn
+ok6 &= 'NOT claimed: that any cell is physically realized' in _scflat
+ok6 &= 'theorem cell_physical' not in scn and 'theorem oi_selects' not in scn
+ok6 &= 'theorem census_canonical' not in scn and 'native_decide' not in scn
+# Round-53 guards: the layered hierarchy (bare core unchanged, completed OI explicit); the three
+# OI-motivated principles with their implications and converses; OI-plus equivalent to QM; the
+# independence of the three principles; nothing about bare OI implying any principle claimed.
+coi = open(os.path.join(BRIDGE, 'OIBridge', 'CompletedOI.lean'), encoding='utf-8').read()
+_coiflat = ' '.join(coi.split())
+ok6 &= 'def OICore (T : FiniteOperationalTheory (Fin 2)) : Prop := RealizesSealedOICore T' in _coiflat
+ok6 &= 'def CompletedOI (T : FiniteOperationalTheory (Fin 2)) : Prop := OICore T ∧ PhysicalCompletionConditions T' in _coiflat
+ok6 &= 'theorem completedOI_iff_qm' in coi and 'theorem completedOI_iff_physical' in coi
+ok6 &= 'theorem oiCore_not_completedOI' in coi
+ok6 &= 'def ObservationalIndependence : Prop := HasParallelReferenceExtension T' in _coiflat
+ok6 &= 'theorem observationalIndependence_iff_inert' in coi
+ok6 &= 'theorem control_of_reversibleRichness' in coi and 'theorem reversibleRichness_of_control' in coi
+ok6 &= 'universalReachability_of_lieRank_unconditional' in coi and 'hControl_single_all' in coi
+ok6 &= 'theorem closure_of_observerRecursion' in coi and 'theorem observerRecursion_of_closure' in coi
+ok6 &= 'noncomputable def shiftOfClosure' in coi and 'T\'.prepAvail_discard' in coi
+_oip = ' '.join(_slice(coi, 'def OIPlus : Prop :=', 'theorem qm_of_oiPlus').split())
+ok6 &= 'OICore T ∧ WellFormed T ∧ ObservationalIndependence T ∧ ReversibleRichness T ∧ ObserverRecursion T' in _oip
+ok6 &= 'theorem qm_of_oiPlus' in coi and 'theorem oiPlus_of_qm' in coi
+ok6 &= 'theorem oiPlus_iff_qm : OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T' in _coiflat
+ok6 &= 'theorem oiPlus_iff_completedOI' in coi and 'theorem oiPlus_independence' in coi
+ok6 &= 'NOT claimed: that any of the three principles follows from bare OI' in _coiflat
+ok6 &= 'is `RealizesSealedOICore` and is not modified' in _coiflat
+ok6 &= 'theorem principle_of_oiCore' not in coi and 'theorem inert_of_oiCore' not in coi
+ok6 &= 'theorem control_of_oiCore' not in coi and 'theorem closure_of_oiCore' not in coi
+ok6 &= 'structure FiniteOperationalTheory' not in coi and 'native_decide' not in coi
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1909,8 +1986,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All fifty-nine files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 5 + 16 named results print their "
+      "LINT. All sixty-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

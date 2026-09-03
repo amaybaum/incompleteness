@@ -1434,6 +1434,77 @@ substantive physical question it isolates is whether the OI substratum
 supplies (iii)--(v); the determination of \(\hbar\) in this section uses
 only the fixed-basis representation and does not wait on that question.
 
+\textbf{Quantum-complete OI (OI⁺).} The characterization suggests a
+layered extension rather than a redefinition of observation
+incompleteness. Let the OI core denote the original sealed finite
+observation-incompleteness condition, unchanged (kernel:
+\texttt{OICore}, which is \texttt{RealizesSealedOICore}, in
+\texttt{OIBridge/CompletedOI.lean}). Define OI⁺ on the finite qubit
+carrier by adjoining well-formedness --- valid probabilities and
+consistency under a trivial ancilla, conditions (i) and (ii) ---
+together with three substantive physical principles (kernel:
+\texttt{OIPlus}):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \emph{Observational independence}: an available operation remains the
+  same operation when an untouched system is adjoined. Equivalently,
+  inert spectators do not change the operational possibilities; in
+  particular, independently available operations on disjoint factors can
+  be performed jointly (kernel:
+  \texttt{observationalIndependence\_iff\_inert},
+  \texttt{parallel\_of\_observationalIndependence}).
+\item
+  \emph{Reversible richness}: available reversible transformations admit
+  operational inverses, and at every finite composite level there exists
+  a passive drift and a finitely generated control family whose
+  dynamical Lie algebra contains the special-unitary algebra. The finite
+  reachability theorem then supplies exact unitary control (kernel:
+  \texttt{control\_of\_reversibleRichness}, from
+  \texttt{universalReachability\_of\_lieRank\_unconditional}; converse
+  \texttt{reversibleRichness\_of\_control}). Thus this is a certificate
+  of sufficient reversible richness, rather than a direct postulate that
+  every unitary transformation is available.
+\item
+  \emph{Observer recursion}: a composite observable system is itself an
+  admissible observable system, with its operational families inherited
+  from the corresponding composite level. Equivalently, under the
+  identity and relative-readout operations used by the construction,
+  composites may themselves be used as systems in still larger
+  experiments (kernel: \texttt{closure\_of\_observerRecursion},
+  \texttt{observerRecursion\_of\_closure}).
+\end{enumerate}
+
+With these definitions, the kernel proves
+
+\[\boxed{\;\mathrm{OI}^{+} \;\iff\; \text{exact finite endomorphic operational QM}\;}\]
+
+on the qubit carrier (kernel: \texttt{oiPlus\_iff\_qm}). Equivalently,
+OI⁺ is the physically rephrased form of completed OI, the core together
+with (i)--(v) (kernel: \texttt{CompletedOI},
+\texttt{oiPlus\_iff\_completedOI}): observational independence
+corresponds to inert-spectator compositionality, reversible richness to
+sufficient composite unitary control, and observer recursion to iterated
+composition.
+
+This equivalence is an axiomatic completion theorem, not a derivation of
+the additional principles from bare OI. None of observational
+independence, reversible richness, or observer recursion follows from
+the OI core: each can fail while the core, well-formedness, and the
+other two remain satisfied (kernel: \texttt{oiPlus\_independence}). Nor
+is it claimed that these are the unique natural principles from which
+quantum mechanics may be selected. Indeed, because sufficient reversible
+control already realizes the sealed OI core, the OI-core conjunct is
+logically redundant once the full OI⁺ conditions hold (kernel:
+\texttt{completedOI\_iff\_physical}). Its role in the definition is
+conceptual and genealogical: OI⁺ identifies a quantum-complete extension
+of the original OI framework while preserving the distinction between
+what observation incompleteness itself entails and what additional
+physical structure selects the quantum sector. The five-condition
+characterization above holds for every nonempty finite system; OI⁺ is
+stated on the finite qubit carrier, the scope of its kernel equivalence.
+
 Every member of the residual family is invisible to the transition data
 for a stated reason --- diagonal rephasing moves no modulus, the energy
 origin is a global phase, the antiunitary reflection conjugates \(U(t)\)
@@ -4371,4 +4442,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: 02eb2111fc1e4c7c14aef21566764ca70cb55adb929af688d139c3df8f609035
+% source-sha256: f946d7c86d0079060979f4e0b1707fe6ceab38c99231cbb7d5883de666aecc78
