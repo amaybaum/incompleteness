@@ -48,7 +48,9 @@
                 availability supplied by exactness on the register.
 
   The typed theory is therefore DETERMINED by its endomorphic shadow (`typed_determined`), and
-  in the Level I vocabulary, by OI⁺ on every carrier (`typed_determined_of_oiPlusElem`).
+  in the Level I vocabulary, by OI⁺ on every carrier (`typed_determined_of_oiPlusElem`); the
+  converse holds by restriction to one carrier, so the shadow is quantum exactly when the typed
+  theory is the finite typed quantum theory (`typed_determined_iff`).
 
   THE INTERFACE CARRIES NO QUANTUM CONTENT. The typed diagonal theory (`typedDiag`), in which a
   family is available exactly when every branch preserves diagonal matrices, satisfies every
@@ -817,6 +819,41 @@ theorem typed_determined (hq : 𝒯.ShadowQuantum) :
   fun _ _ _ _ _ _ _ _ _ F =>
     ⟨typedKraus_of_availT 𝒯 hq F, availT_of_typedKraus 𝒯 hq F⟩
 
+/-- On one carrier, rectangular conjugation is the endomorphic conjugation. -/
+theorem conjT_eq_conjChannel {A : Type} [Fintype A] [DecidableEq A] (K : Matrix A A ℂ) :
+    conjT K = conjChannel K := rfl
+
+/-- On one carrier, a typed Kraus instrument is exactly an endomorphic Kraus instrument. -/
+theorem typedKraus_iff_endomorphic {A : Type} [Fintype A] [DecidableEq A] {m : ℕ}
+    (F : Fin m → Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ) :
+    IsTypedKrausInstrument F ↔ IsFiniteEndomorphicKrausInstrument F := by
+  constructor
+  · rintro ⟨n, K, out, hn, hF⟩
+    exact ⟨n, K, out, hn, funext fun a => hF a⟩
+  · rintro ⟨n, K, out, hn, hF⟩
+    exact ⟨n, K, out, hn, fun a => congrFun hF a⟩
+
+/-- **THE CONVERSE**: a typed theory whose available families between nonempty carriers are
+exactly the typed Kraus instruments has a quantum shadow. -/
+theorem shadowQuantum_of_typed
+    (h : ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S'] [Nonempty S]
+      [Nonempty S'] (m : ℕ) (F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ),
+      𝒯.availT S S' (Fin m) F ↔ IsTypedKrausInstrument F) : 𝒯.ShadowQuantum := by
+  intro A _ _ _
+  refine ⟨fun m F => ?_, fun k m F => ?_⟩
+  · rw [TypedOperationalTheory.shadow_avail, h A A m F, typedKraus_iff_endomorphic]
+  · rw [TypedOperationalTheory.shadow_availExt, h (A × Fin (k + 1)) (A × Fin (k + 1)) m F,
+      typedKraus_iff_endomorphic]
+
+/-- **THE DETERMINATION, BOTH WAYS**: the shadow is quantum on every nonempty carrier exactly
+when the typed theory is the finite typed quantum theory. -/
+theorem typed_determined_iff :
+    𝒯.ShadowQuantum ↔
+      ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S'] [Nonempty S]
+        [Nonempty S'] (m : ℕ) (F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ),
+        𝒯.availT S S' (Fin m) F ↔ IsTypedKrausInstrument F :=
+  ⟨typed_determined 𝒯, shadowQuantum_of_typed 𝒯⟩
+
 /-- **IN THE LEVEL I VOCABULARY**: if every shadow satisfies OI⁺ in its primitive-source form,
 the typed theory is the finite typed quantum theory. -/
 theorem typed_determined_of_oiPlusElem
@@ -932,6 +969,10 @@ end NoSmuggling
 #print axioms discardR_regOp_conj
 #print axioms availT_of_typedKraus
 #print axioms typed_determined
+#print axioms conjT_eq_conjChannel
+#print axioms typedKraus_iff_endomorphic
+#print axioms shadowQuantum_of_typed
+#print axioms typed_determined_iff
 #print axioms typed_determined_of_oiPlusElem
 #print axioms preservesDiag_transportT
 #print axioms preservesDiag_attachUniform

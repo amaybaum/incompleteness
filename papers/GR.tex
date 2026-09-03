@@ -1640,6 +1640,59 @@ substratum supplies every structural requirement of quantum mechanics
 but not continuous state-mixing controllability, and quantum mechanics
 is obtained exactly when that one physical resource is added.
 
+\textbf{Typed form.} The statements above are endomorphic: every
+operation acts from a finite carrier back to the same carrier, the
+levels being \(A \times \mathrm{Fin}\,n\). Finite-dimensional quantum
+mechanics also has operations between different carriers ---
+preparations, isometric embeddings, partial traces, and instruments
+whose input and output dimensions differ. A typed finite operational
+theory has an availability predicate on finite outcome families of maps
+\(M_S \to M_{S'}\) between any two finite carriers, with the closure
+rules already used above stated at their carrier-general type: identity,
+classical coarse-graining, feed-forward composition across carriers,
+relabelling along carrier bijections, attachment of a uniformly mixed
+fresh factor, discard of a factor, and a spectator-independent factor
+readout whose form is derived; no clause asserts a dilation (kernel:
+\texttt{TypedOperationalTheory} in
+\texttt{OIBridge/TypedCompletion.lean}). Restricting a typed theory to
+maps from a carrier to itself yields a finite operational theory on
+every carrier, its endomorphic shadow, which is an embedded-observation
+family without further assumption (kernel:
+\texttt{shadow\_embeddedObservation}). The shadow is exact finite
+endomorphic operational quantum mechanics on every nonempty finite
+carrier --- the conclusion above, carrier by carrier --- exactly when,
+between any two nonempty finite carriers, an outcome family is
+typed-available precisely if it is a finite typed Kraus instrument,
+rectangular Kraus operators normalized on the input carrier (kernel:
+\texttt{typed\_determined\_iff},
+\texttt{typed\_determined\_of\_oiPlusElem}). Soundness wraps a typed
+operation into the register formed by the input and output carriers and
+compresses the square Kraus operators supplied by exactness;
+completeness realizes a typed Kraus instrument by attaching a uniform
+ancilla, relabelling, running a register instrument that places each
+Kraus operator on the output factor and records its index on the
+ancilla, and discarding; the converse restricts to one carrier. The
+interface itself carries no quantum content: the typed theory whose
+branches preserve diagonal matrices satisfies every rule and is not
+quantum mechanics (kernel: \texttt{typed\_interface\_not\_quantum}).
+Hence
+
+\[\boxed{\begin{aligned}&\text{under the carrier-general typed operational interface,}\\ &\text{current OI substratum} + \text{continuous off-diagonal controllability}\\ &\qquad \iff\; \text{exact finite-dimensional typed operational QM}\end{aligned}}\]
+
+for nonempty finite input and output carriers. Within the natural
+carrier-general extension of the operational rules already used above,
+``endomorphic'' is a typing artifact rather than an additional physical
+restriction. The qualification stands beside the statement: uniform
+attachment and discard are not derived from the endomorphic formulation,
+which cannot express a map between different carriers; they are the
+carrier-general counterparts of the ancilla attachment and discard rules
+already present in the finite operational framework, and the
+determination theorem shows that adding them introduces no specifically
+quantum content. No pure-state preparation, no carrier-coherence
+condition, and no availability of all completely positive maps is
+assumed; the quantum content lies entirely in the endomorphic conclusion
+above. The scope remains finite-dimensional.
+
 Every member of the residual family is invisible to the transition data
 for a stated reason --- diagonal rephasing moves no modulus, the energy
 origin is a global phase, the antiunitary reflection conjugates \(U(t)\)
@@ -4577,4 +4630,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: d28afdeef681d8e1c3eb4f32f59a85aa4bb142bbd95f5ab2acf892e02841df3f
+% source-sha256: 7e2ee45c87f7f347b68af6b0e94d5673ba650774962cbfeb93b7148807f98ed1

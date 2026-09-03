@@ -82,6 +82,13 @@ grouped by outcome).
   (`discardR_regOp_conj`). Every step is a typed closure rule or an endomorphic availability
   supplied by exactness on the register (`availT_of_krausFamily`).
 
+**The converse.** A typed theory whose available families between nonempty carriers are
+exactly the typed Kraus instruments has a quantum shadow, by restriction to one carrier, where a
+typed Kraus instrument is exactly an endomorphic one (`typedKraus_iff_endomorphic`,
+`shadowQuantum_of_typed`). The determination therefore holds both ways: the shadow is quantum on
+every nonempty carrier exactly when the typed theory is the finite typed quantum theory
+(`typed_determined_iff`).
+
 **No quantum content in the interface.** The typed diagonal theory (`typedDiag`), in which a
 family is available exactly when every branch preserves diagonal matrices, satisfies every rule
 of the interface; its qubit shadow has no composite unitary control and is not quantum mechanics
@@ -114,5 +121,27 @@ of `FiniteOperationalTheory`, not a physical limitation of the Level I conclusio
   refinement of the substratum. It is not begun here.
 - Anything about bare OI, which is untouched, or about the frozen Level I statements, which this
   audit does not modify.
-- No manuscript change is made in this round; whether and how "endomorphic" is removed from the
-  explanatory manuscripts is a separate propagation decision.
+
+## Freeze
+
+Level II is frozen at this entry. Its statement, propagated to GR §3.3 with cross-references in
+Main §3.4, the Explainer, and book chapters 1 and 19:
+
+> Under the carrier-general typed operational interface — identity, composition, coarse-graining,
+> relabelling, uniform finite attachment, discard, and factor readout — the current OI substratum
+> together with continuous off-diagonal controllability is equivalent to exact finite-dimensional
+> typed operational quantum mechanics, for nonempty finite input and output carriers.
+
+Within the natural carrier-general extension of the operational rules already used at Level I,
+"endomorphic" is a typing artifact rather than an additional physical restriction. The
+qualification is stated beside it in every mirror: uniform attachment and discard are not derived
+from the endomorphic formulation, which cannot express a map between different carriers; they are
+the carrier-general counterparts of the ancilla attachment and discard rules already present in the
+finite operational framework, and the determination theorem shows that adding them introduces no
+specifically quantum content. The Level I theorem references keep the word "endomorphic", since that
+is what those theorems prove; the typed theorem follows them and removes the qualifier at the typed
+operational level. No pure-preparation axiom, no carrier-coherence axiom, and no
+all-completely-positive-maps axiom entered; the quantum content lies entirely in the frozen Level I
+shadow. The remaining qualifier is finite-dimensional. Whether to open Level III, where the new
+physics is the continuum completion rather than another finite operational axiom, is a separate
+decision.

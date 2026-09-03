@@ -963,7 +963,8 @@ for fname, names in (
                          'embR_compress_apply', 'discardR_embL_conj', 'attachUniform_eq_sum', 'isTypedKraus_of_family',
                          'availT_of_krausFamily', 'wrap_availT', 'wrap_apply', 'recover_of_wrap', 'typedKraus_of_availT',
                          'sum_emb2_proj', 'emb2_compress', 'regOp_normalized', 'discardR_regOp_conj', 'availT_of_typedKraus',
-                         'typed_determined', 'typed_determined_of_oiPlusElem', 'preservesDiag_transportT',
+                         'typed_determined', 'conjT_eq_conjChannel', 'typedKraus_iff_endomorphic', 'shadowQuantum_of_typed',
+                         'typed_determined_iff', 'typed_determined_of_oiPlusElem', 'preservesDiag_transportT',
                          'preservesDiag_attachUniform', 'preservesDiag_discardR', 'preservesDiag_localLuders',
                          'typedDiag_shadow_not_control', 'typedDiag_shadow_not_qm', 'typed_interface_not_quantum')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
@@ -1828,6 +1829,7 @@ ok6 &= 'noncomputable def shadow' in tcl and ': FiniteOperationalTheory A where'
 ok6 &= 'theorem shadow_embeddedObservation' in tcl
 ok6 &= 'theorem typedKraus_of_availT' in tcl and 'theorem availT_of_typedKraus' in tcl
 ok6 &= 'theorem typed_determined' in tcl and 'theorem typed_determined_of_oiPlusElem' in tcl
+ok6 &= 'theorem typed_determined_iff' in tcl and 'theorem shadowQuantum_of_typed' in tcl
 _td = _slice(tcl, 'theorem typed_determined ', 'theorem typed_determined_of_oiPlusElem')
 ok6 &= '↔ IsTypedKrausInstrument F' in _td and 'hq : 𝒯.ShadowQuantum' in _td
 ok6 &= 'noncomputable def typedDiag : TypedOperationalTheory' in tcl
@@ -2240,7 +2242,7 @@ spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E�
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
       "LINT. All seventy-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 36 named results print their "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

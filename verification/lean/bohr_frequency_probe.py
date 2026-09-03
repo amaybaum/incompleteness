@@ -9207,8 +9207,8 @@ if os.path.exists(_tc75):
     ok75 &= 'typing artifact for this interface' in _tc_txt75
 check("F75", ok75,
       "LEVEL II, ROUND 1: THE TYPED FINITE OPERATIONAL INTERFACE AND THE DETERMINATION TEST "
-      "(OI_Q Level II, round one; kernel: OIBridge/TypedCompletion.lean, 36 results -- among them "
-      "shadow_embeddedObservation, typedKraus_of_availT, availT_of_typedKraus, typed_determined, "
+      "(OI_Q Level II, round one; kernel: OIBridge/TypedCompletion.lean, 40 results -- among them "
+      "shadow_embeddedObservation, typedKraus_of_availT, availT_of_typedKraus, typed_determined, typed_determined_iff, "
       "typed_determined_of_oiPlusElem, typedDiag_shadow_not_qm, typed_interface_not_quantum). THE "
       "TYPED INTERFACE HAS INDEPENDENT MEANING: a typed finite operational theory has an "
       "availability predicate on finite outcome families of maps between any two finite carriers, "
