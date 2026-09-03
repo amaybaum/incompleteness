@@ -132,6 +132,7 @@ import OIBridge.GeneralCarrier
 import OIBridge.UhlmannUniqueness
 import OIBridge.ReachabilitySeam
 import OIBridge.OrbitReachability
+import OIBridge.SubstantiveCensus
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
