@@ -43,6 +43,9 @@
   [SUPERSEDED IN ROUND FORTY-EIGHT BY `UhlmannUniqueness.lean`: finite right-unitary
   uniqueness has been discharged (`rightUnitary_of_gram`), and THE CURRENT UNRESOLVED
   EXTERNAL BOUNDARY: ONE ITEM — compact Lie integration / reachability.]
+  [SUPERSEDED IN ROUND FIFTY BY `OrbitReachability.lean`: compact Lie integration /
+  reachability has been discharged (`localReachabilityOfLieRank`), and THE CURRENT
+  UNRESOLVED EXTERNAL BOUNDARY: ZERO ITEMS.]
 
   WHAT IS AND IS NOT CLAIMED. Proved: everything above, with the usual axiom footprint
   (`propext`, `Classical.choice`, `Quot.sound`; the spectral/orthonormal-basis machinery of

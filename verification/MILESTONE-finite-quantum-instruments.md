@@ -90,6 +90,8 @@ widened by this milestone:
 > Round 34 (`psdFactorization_of_spectral`, `DimensionalCountermodel.lean`); the current unresolved
 > external boundary is three items (1, 2, 4 above). See `BoundaryAudit.lean`. The four-item
 > statement is preserved here as the record of the boundary at the time of this milestone.
+> Rounds 45, 48 and 50 then discharged items 2, 4 and 1 in turn (`IsometryExtension.lean`,
+> `UhlmannUniqueness.lean`, `OrbitReachability.lean`); the unresolved external boundary is empty.
 
 **This reconstruction uses only item 2.** Purification and Uhlmann uniqueness are not used:
 the assembly needs pure seed, Stinespring, unitary control and local readout only, and the

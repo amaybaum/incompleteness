@@ -869,6 +869,28 @@ for fname, names in (
                            'mul_conjTranspose_of_conjTranspose_mul', 'rightUnitary_of_gram',
                            'kronecker_mulVec_purifVec', 'purifier_uniqueness',
                            'boundary_one_item')),
+    ('ReachabilitySeam', ('flow_skewAdjoint_gen', 'flow_mem_unitary',
+                          'mem_unitary_of_conjTranspose_mul', 'flow_mem_reachable',
+                          'control_mem_reachable', 'smul_one_mem_unitary',
+                          'phase_mem_reachable', 'conj_mem_unitary',
+                          'conjugatedFlow_mem_reachable', 'dense_of_exact',
+                          'exists_unit_notMem_finite', 'inv_smul_mem_unitary',
+                          'exists_phase_joined', 'exact_of_local', 'conjChannel_smul',
+                          'norm_det_unitary', 'exists_special_phase', 'avail_of_mem_closure',
+                          'universalReachability_of_exact', 'universalReachability_of_lieRank',
+                          'noControls_central_scalar_of_mem_closure',
+                          'noControls_central_reachable_scalar', 'swap2_unitary',
+                          'swap2_not_scalar', 'noControls_central_not_exact')),
+    ('OrbitReachability', ('coe_conjTranspose_mul_self', 'coe_mul_self_conjTranspose', 'orbitDir_skew', 'phaseDir_skew',
+                           'orbitDirs_skew', 'real_smul_skew', 'exp_smul_mem_unitary', 'real_smul_neg_I_smul',
+                           'exp_orbitDir_mem_reachable', 'norm_eq_one_of_smul_one_mem_unitary', 'exp_phaseDir_eq', 'exp_phaseDir_mem_reachable',
+                           'exp_orbitDirs_mem_reachable', 'ad_orbitDirs', 'ad_mem_orbitSpan', 'orbitSpan_closed',
+                           'exp_neg_smul_eq_conjTranspose', 'bracket_mem_orbitSpan', 'mem_orbitLie_iff', 'controlGenerators_subset_orbitDirs',
+                           'controlLie_le_orbitLie', 'skew_mem_orbitSpan', 'exists_spanning_family', 'prodMap_zero',
+                           'prodMap_zero_fun', 'prodMap_mem_reachable', 'dirMap_apply', 'prodMap_hasStrictFDerivAt',
+                           'hermMap_apply', 'hermMap_conjTranspose', 'psi_zero', 'psi_hasStrictFDerivAt',
+                           'psiDeriv_surjective', 'exists_exp_injOn_nhds', 'localReachability_of_hcontrol', 'localReachabilityOfLieRank',
+                           'exactReachability_of_hcontrol', 'universalReachability_of_lieRank_unconditional')),
     ('FrequencyMatching', ('ampC_eq_zero', 'normSq_eq_sum_gaps',
                            'coefficients_by_frequency_determined', 'fiber_singleton',
                            'coefficient_line_extraction')),
@@ -1434,6 +1456,55 @@ _puf = ' '.join(open(os.path.join(BRIDGE, 'OIBridge', 'Purification.lean'), enco
 ok6 &= 'DISCHARGED IN ROUND FORTY-EIGHT' in _puf and 'recorded as the cited external result rather than reproved' in _puf
 ok6 &= re.search(r'(?m)^structure ', uu) is None
 ok6 &= 'theorem lie_reachability_discharged' not in uu and 'theorem rightIsometry_of_gram' not in uu
+# Round-49 guards: the compact-Lie seam audited; the one remaining item named and consumed
+# exactly once; the reduction internal; nothing beyond it claimed.
+rsm = open(os.path.join(BRIDGE, 'OIBridge', 'ReachabilitySeam.lean'), encoding='utf-8').read()
+_rsmflat = ' '.join(rsm.split())
+_lr = ' '.join(_slice(rsm, 'def LocalReachabilityOfLieRank', 'theorem universalReachability_of_lieRank').split())
+ok6 &= bool(_lr) and 'HControl H U → LocalReachability H U' in _lr
+_ul = ' '.join(_slice(rsm, 'theorem universalReachability_of_lieRank', ':=').split())
+ok6 &= bool(_ul) and '(hstep : LocalReachabilityOfLieRank S)' in _ul and _ul.endswith('UniversalUnitaryReachability avail')
+ok6 &= rsm.count('LocalReachabilityOfLieRank') >= 3   # def, its doc, the one consumer
+ok6 &= 'theorem localReachabilityOfLieRank' not in rsm and 'theorem lieRank_localReachability' not in rsm
+_el = ' '.join(_slice(rsm, 'theorem exact_of_local', ':=').split())
+ok6 &= bool(_el) and '(hloc : LocalReachability H U)' in _el and _el.endswith('ExactReachability H U')
+ok6 &= 'FiniteIsometryExtensionSF' not in rsm and 'sorry' not in rsm and 'native_decide' not in rsm
+ok6 &= re.search(r'(?m)^axiom ', rsm) is None and re.search(r'(?m)^structure ', rsm) is None
+ok6 &= 'theorem noControls_central_not_exact' in rsm and 'theorem exists_special_phase' in rsm
+ok6 &= 'theorem conjChannel_smul' in rsm and 'theorem dense_of_exact' in rsm
+ok6 &= 'THE BOUNDARY AUDIT: unchanged in count (ONE ITEM)' in _rsmflat
+ok6 &= 'SHARPENED IN ROUND FORTY-NINE' in _baflat and 'Count unchanged: ONE ITEM' in _baflat
+ok6 &= 'theorem exact_of_dense' not in rsm and 'theorem hControl_of_exact' not in rsm
+# Round-50 guards: the last external item discharged; the endpoint theorems present with
+# the exact statements; the round-49 definition and consumer unchanged and consumed; the
+# discharge labels in place; nothing beyond the compact matrix-group setting claimed.
+orb = open(os.path.join(BRIDGE, 'OIBridge', 'OrbitReachability.lean'), encoding='utf-8').read()
+_orbflat = ' '.join(orb.split())
+ok6 &= 'theorem localReachabilityOfLieRank : LocalReachabilityOfLieRank S' in _orbflat
+ok6 &= 'def LocalReachabilityOfLieRank' not in orb        # defined once, in ReachabilitySeam
+_ex50 = ' '.join(_slice(orb, 'theorem exactReachability_of_hcontrol', ':=').split())
+ok6 &= bool(_ex50) and '(hLie : HControl H U)' in _ex50 and _ex50.endswith('ExactReachability H U')
+ok6 &= 'exact_of_local (localReachabilityOfLieRank G H U hH hU hLie)' in _orbflat
+_uu50 = ' '.join(_slice(orb, 'theorem universalReachability_of_lieRank_unconditional', ':=').split())
+ok6 &= bool(_uu50) and 'hstep' not in _uu50 and _uu50.endswith('UniversalUnitaryReachability avail')
+ok6 &= 'universalReachability_of_lieRank localReachabilityOfLieRank H U hH hU hLie' in _orbflat
+_lh50 = ' '.join(_slice(orb, 'theorem localReachability_of_hcontrol', ':=').split())
+ok6 &= bool(_lh50) and '[Nonempty S]' in _lh50 and _lh50.endswith('LocalReachability H U')
+for _nm in ('bracket_mem_orbitSpan', 'controlLie_le_orbitLie', 'skew_mem_orbitSpan',
+            'exists_spanning_family', 'prodMap_mem_reachable', 'prodMap_hasStrictFDerivAt',
+            'psi_hasStrictFDerivAt', 'psiDeriv_surjective', 'exists_exp_injOn_nhds'):
+    ok6 &= f'theorem {_nm}' in orb
+ok6 &= 'map_nhds_eq_of_surj' in orb and 'eventually_left_inverse' in orb
+ok6 &= 'hasDerivAt_iff_tendsto_slope' in orb and 'exists_linearIndependent' in orb
+ok6 &= re.search(r'(?m)^axiom ', orb) is None and re.search(r'(?m)^structure ', orb) is None
+ok6 &= 'native_decide' not in orb and 'Trotter' not in _slice(orb, 'namespace OIBridge', 'end OIBridge')
+ok6 &= 'THE EXTERNAL BOUNDARY: ZERO ITEMS' in _orbflat
+ok6 &= 'THE CURRENT UNRESOLVED EXTERNAL BOUNDARY: ZERO ITEMS' in _orbflat
+ok6 &= 'DISCHARGED IN ROUND FIFTY' in _baflat and 'UNRESOLVED EXTERNAL BOUNDARY: ZERO ITEMS' in _baflat
+ok6 &= 'DISCHARGED IN ROUND FIFTY' in _rsmflat and 'UNRESOLVED EXTERNAL BOUNDARY: ZERO ITEMS' in _rsmflat
+ok6 &= 'SUPERSEDED IN ROUND FIFTY' in _ieflat and 'SUPERSEDED IN ROUND FIFTY' in _uuflat
+ok6 &= 'theorem orbit_theorem' not in orb and 'theorem closedSubgroup' not in orb
+ok6 &= 'theorem hControl_of_exact' not in orb and 'theorem lieClosure_eq' not in orb
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -1838,8 +1909,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All fifty-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 5 + 16 named results print their "
+      "LINT. All fifty-nine files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 5 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
