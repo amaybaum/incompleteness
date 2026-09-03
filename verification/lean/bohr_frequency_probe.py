@@ -8460,6 +8460,118 @@ check("F67", ok67,
       "composite operational validity; anything about the sources of observational independence "
       "or reversible richness.")
 
+# F68 -- ROUND 57: THE SOURCE OF OBSERVATIONAL INDEPENDENCE -- the redundancy test fails on the
+# round-34 countermodel (now shown to carry embedded observation), the form of a spectator
+# extension is fixed while its existence is not, and observational independence is derived from
+# implementation locality: a context-stable, label-invariant class of admissible operators
+# generating availability (phase three, round fifty-seven).
+ok68 = True
+def _red68(X):
+    """reduction2 on a 4-level carrier: (1/7) (2 tr X . I - X)."""
+    d = len(X)
+    t = trace40(X)
+    return [[(C17(Frac(2, 7)) * t if r == c else CZ17) - C17(Frac(1, 7)) * X[r][c] for c in range(d)] for r in range(d)]
+def _ampl68(phi, M, dr, ds):
+    """id_R (x) phi on a (dr*ds)-level matrix, blocks indexed by the reference first."""
+    out = [[CZ17] * (dr * ds) for _ in range(dr * ds)]
+    for i in range(dr):
+        for j in range(dr):
+            blk = [[M[i * ds + a][j * ds + b] for b in range(ds)] for a in range(ds)]
+            im = phi(blk)
+            for a in range(ds):
+                for b in range(ds):
+                    out[i * ds + a][j * ds + b] = im[a][b]
+    return out
+def _qf68(M, v):
+    return sum((v[r].conj() * M[r][c] * v[c] for r in range(len(v)) for c in range(len(v))), CZ17)
+# --- (a) the countermodel's reduction map is trace preserving and passes qubit-reference tests
+# on explicit PSD inputs (consistency with 2-positivity), and its qutrit-reference amplification
+# is not positive on the round-35 witness (the form fixed, the existence absent).
+_X68 = gmat47(680, 4)
+ok68 &= trace40(_red68(_X68)) == trace40(_X68)
+for _seed in (681, 682):
+    _B = gmat47(_seed, 8)
+    _Mpsd = mmc17(_B, dag17(_B))
+    ok68 &= psd47(_ampl68(_red68, _Mpsd, 2, 4))
+_v68 = [CZ17] * 12
+for _r in range(3):
+    _v68[_r * 4 + _r] = CO17                                            # |r> (x) |emb3 r>, emb3 r = r
+_M68 = dyad47(_v68)
+_amp68 = _ampl68(_red68, _M68, 3, 4)
+_q68 = _qf68(_amp68, _v68)
+ok68 &= _q68.im == Frac(0) and _q68.re < 0
+ok68 &= not psd47(_amp68)
+# --- (b) the local form and context stability: the spectator extension of a conjugation is the
+# conjugation by the reindexed 1 (x) K, the extended Kraus pair is normalized, and the extension
+# preserves the trace -- on a nontrivial carrier relabelling.
+_V68 = kr17(_rot, [[_r2, _s2], [_s2, C17(0) - _r2]])                   # a rational unitary on 4 levels
+_F68 = [[[CO17 if (r == c and r % 2 == b) else CZ17 for c in range(4)] for r in range(4)] for b in range(2)]
+_K68 = [mmc17(_F68[b], _V68) for b in range(2)]
+_g68 = [0] * 12
+for _r in range(3):
+    for _a in range(2):
+        for _k in range(2):
+            _g68[_r * 4 + 2 * _a + _k] = 6 * _a + 2 * _r + _k          # (r,(a,k)) -> (a, k + 2 r)
+ok68 &= sorted(_g68) == list(range(12))
+_P68 = _perm67(_g68, 12)
+_KE68 = [conjby52(_P68, kr17(eye17(3), K)) for K in _K68]
+_acc68 = mmc17(dag17(_KE68[0]), _KE68[0])
+_acc68 = add52(_acc68, mmc17(dag17(_KE68[1]), _KE68[1]))
+ok68 &= _acc68 == eye17(12)
+_Y68 = gmat47(683, 12)
+_lhs68 = add52(conjby52(_KE68[0], _Y68), conjby52(_KE68[1], _Y68))
+_phi68 = lambda X: add52(conjby52(_K68[0], X), conjby52(_K68[1], X))
+_rhs68 = conjby52(_P68, _ampl68(_phi68, conjby52(dag17(_P68), _Y68), 3, 4))
+ok68 &= _lhs68 == _rhs68
+ok68 &= trace40(_lhs68) == trace40(_Y68)
+# --- (c) the kernel's claim discipline, read back.
+_il68 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'ImplementationLocality.lean')
+if os.path.exists(_il68):
+    with open(_il68, encoding='utf-8') as _f:
+        _il_txt68 = ' '.join(_f.read().split())
+    ok68 &= 'theorem redundancy_fails' in _il_txt68 and 'theorem form_fixed_existence_fails' in _il_txt68
+    ok68 &= 'theorem observationalIndependence_of_implementationLocality' in _il_txt68
+    ok68 &= 'theorem countermodel_not_implementationGenerated' in _il_txt68
+    ok68 &= 'theorem implementationLocality_of_qm' in _il_txt68
+    ok68 &= '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A), OIPlusLocal T ↔ ExactAllFiniteEndomorphicQuantumOps T' in _il_txt68
+    ok68 &= 'sorry' not in _il_txt68
+    ok68 &= 'Whether context stability is redundant given implementation generation' in _il_txt68
+check("F68", ok68,
+      "ROUND 57: THE SOURCE OF OBSERVATIONAL INDEPENDENCE (phase three, round fifty-seven; kernel: "
+      "OIBridge/ImplementationLocality.lean, 26 results -- twoPosFamily_regrouping, "
+      "twoPosFamily_relabelling, countermodel_ambient, countermodel_embeddedObservation, "
+      "redundancy_fails, form_fixed_existence_fails, realized_withSpectator, "
+      "parallel_of_implementationLocal, observationalIndependence_of_implementationLocality, "
+      "validity_of_implementationLocality, implementationLocality_of_qm, "
+      "countermodel_not_implementationGenerated, implementationLocality_independent, "
+      "oiPlusLocal_iff_qm, carrier_general_oiPlusLocal, and the rest). A. THE REDUNDANCY TEST "
+      "FAILS: the round-34 countermodel carries the OI core, validity, reversible richness and "
+      "embedded observation -- the 2-positive-instrument theory on every finite carrier is a "
+      "regrouping- and relabelling-invariant family whose qubit member is the countermodel -- and "
+      "has no observational independence, so the four-part package does not compress to three. "
+      "B/C. FORM WITHOUT EXISTENCE: the two-qubit reduction map is available, every spectator "
+      "extension of it along the qutrit index is withSpectator (round 37), and that extension is "
+      "not available. D. THE PRIMITIVE, below availability: an implementation class of admissible "
+      "operators at every carrier, generating availability (each branch a finite sum of "
+      "conjugations by admissible operators, trace preserved in aggregate), context-stable "
+      "(1 (x) K stays admissible) and label-invariant; neither stability nor invariance mentions "
+      "availability or the spectator extension. E. THE DERIVATION: the extension of a conjugation "
+      "is the conjugation by the reindexed 1 (x) K, so realization is kept and observational "
+      "independence follows; validity is derived too. F. NECESSITY: exact QM is generated by the "
+      "full class. THE DIAGNOSIS: the countermodel is generated by no class at all -- its "
+      "reduction map is not completely positive -- so its failure is implementability, not "
+      "context stability. THE COMPRESSED SET: implementation locality + reversible richness + "
+      "embedded observation iff exact finite endomorphic operational QM on every nonempty finite "
+      "carrier. Verified exactly here: trace preservation of the reduction map and qubit-reference "
+      "positivity on explicit PSD inputs, the negative qutrit-reference quadratic form on the "
+      "round-35 witness with the amplified matrix certified not PSD, the local form of the "
+      "extension of a normalized Kraus pair on a nontrivial relabelling with normalization and "
+      "trace preserved, and the kernel text read back. NOT CLAIMED, lint-guarded: whether context "
+      "stability is redundant given implementation generation; the converse from observational "
+      "independence to implementation locality outside the OI-plus context; anything about the "
+      "sources of reversible richness.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

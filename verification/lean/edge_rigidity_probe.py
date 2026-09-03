@@ -909,6 +909,14 @@ for fname, names in (
                              'gap_not_embeddedObservation', 'embeddedObservation_independent', 'core_not_embeddedObservation',
                              'oiPlus_of_oiPlusEmbedded', 'qm_of_oiPlusEmbedded', 'oiPlusEmbedded_of_qm', 'oiPlusEmbedded_iff_qm',
                              'oiPlusEmbedded_iff_oiPlus', 'carrier_general_oiPlusEmbedded')),
+    ('ImplementationLocality', ('twoPosFamily_regrouping', 'twoPosFamily_relabelling', 'countermodel_ambient', 'countermodel_embeddedObservation',
+                                'countermodel_reversibleRichness', 'redundancy_fails', 'form_fixed_existence_fails', 'cp_of_realized',
+                                'realized_withSpectator', 'parallel_of_implementationLocal', 'observationalIndependence_of_implementationLocality',
+                                'krausSoundExt_of_implementationGenerated', 'validity_of_implementationLocality', 'fullClass_contextStable',
+                                'fullClass_labelInvariant', 'generated_of_qm', 'implementationLocality_of_qm', 'countermodel_not_implementationGenerated',
+                                'countermodel_not_implementationLocality', 'implementationLocality_independent', 'oiPlusEmbedded_of_oiPlusLocal',
+                                'qm_of_oiPlusLocal', 'oiPlusLocal_of_qm', 'oiPlusLocal_iff_qm', 'oiPlusLocal_iff_oiPlusEmbedded',
+                                'carrier_general_oiPlusLocal')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
                            'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
                            'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
@@ -1626,6 +1634,28 @@ ok6 &= 'The converse `ObserverRecursion → EmbeddedObservation` is not proved' 
 ok6 &= 'theorem embeddedObservation_of_observerRecursion' not in eob and 'theorem embeddedObservation_iff_observerRecursion' not in eob
 ok6 &= 'theorem validity_of_embeddedObservation' not in eob and 'theorem embeddedObservation_of_oiCore' not in eob
 ok6 &= 'structure FiniteOperationalTheory' not in eob and 'native_decide' not in eob
+# Round-57 guards: the redundancy test recorded as failing; the implementation-level primitive
+# stated without the spectator-extension vocabulary; the countermodel diagnosed as not
+# implementation-generated; the compressed set; the open question unclaimed.
+ilo = open(os.path.join(BRIDGE, 'OIBridge', 'ImplementationLocality.lean'), encoding='utf-8').read()
+_iloflat = ' '.join(ilo.split())
+ok6 &= 'theorem redundancy_fails' in ilo and '¬ ObservationalIndependence T' in _slice(ilo, 'theorem redundancy_fails', ':=')
+ok6 &= 'theorem form_fixed_existence_fails' in ilo and 'theorem countermodel_not_implementationGenerated' in ilo
+_cs = _slice(ilo, 'def ContextStable', '/-- **(L) LABEL INVARIANCE**')
+_lv = _slice(ilo, 'def LabelInvariant', '/-- **IMPLEMENTATION LOCALITY**')
+for _w in ('withSpectator', 'HasParallelReferenceExtension', 'InertSpectatorCompositionality', 'avail'):
+    ok6 &= _w not in _cs and _w not in _lv
+ok6 &= 'theorem observationalIndependence_of_implementationLocality' in ilo
+ok6 &= 'theorem validity_of_implementationLocality' in ilo and 'theorem implementationLocality_of_qm' in ilo
+_cl = ' '.join(_slice(ilo, 'theorem carrier_general_oiPlusLocal', ':=').split())
+ok6 &= bool(_cl) and '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A)' in _cl
+ok6 &= _cl.endswith('OIPlusLocal T ↔ ExactAllFiniteEndomorphicQuantumOps T')
+ok6 &= 'def OIPlusLocal : Prop := ImplementationLocality T ∧ OIHierarchyGeneral.ReversibleRichness T ∧ EmbeddedObservation T' in _iloflat
+ok6 &= 'Whether context stability is redundant given implementation generation' in _iloflat
+ok6 &= 'theorem observationalIndependence_of_embeddedObservation' not in ilo
+ok6 &= 'theorem implementationLocality_of_observationalIndependence' not in ilo
+ok6 &= 'theorem contextStable_redundant' not in ilo and 'theorem richness_of_' not in ilo
+ok6 &= 'structure FiniteOperationalTheory' not in ilo and 'native_decide' not in ilo
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2030,8 +2060,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All sixty-three files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 named results print their "
+      "LINT. All sixty-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
