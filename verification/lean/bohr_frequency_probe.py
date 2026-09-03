@@ -8922,6 +8922,185 @@ check("F72", ok72,
       "structure supplies a non-monomial generator is left open in SUBSTRATUM-SOURCE-AUDIT.md; the "
       "frozen OI-plus statements are untouched.")
 
+# F73 -- ROUND 63: READ-WRITE CONTROLLABILITY -- the decisive escape route audited: bijective
+# read-write dynamics supplies only permutation (monomial) operators, so it does not supply the
+# off-diagonal generator; the memory-swap countercontrol shows read-write interaction is not
+# controllability (phase three, round sixty-three).
+ok73 = True
+# --- (a) the read-write operator is a permutation, hence monomial: a bijective coupling of a
+# pair induces permMatrix(swap) or the identity, both monomial.
+_swap73 = _perm67([1, 0], 2)
+_id73 = eye17(2)
+ok73 &= _ismono72(_swap73) and _ismono72(_id73)
+# a local coupling on a pair inside a larger world: fix the rest, swap the pair -> still a
+# permutation, still monomial.
+_g73 = [2, 1, 0, 3]                                                   # swap states 0 and 2, fix 1,3
+_P73 = _perm67(_g73, 4)
+ok73 &= _ismono72(_P73) and mmc17(dag17(_P73), _P73) == eye17(4)
+# --- (b) the tangent test fails: a strict interpolation between the identity and the swap is not
+# a permutation (two nonzero entries in a row), so no bijection realizes it -- the off-diagonal
+# derivative of a permutation-valued family is zero.
+for _l in (Frac(1,4), Frac(1,2), Frac(3,4)):
+    _M = add52(scale52(C17(Frac(1) - _l), _id73), scale52(C17(_l), _swap73))
+    ok73 &= not _ismono72(_M)                                        # off-diagonal, not monomial
+    ok73 &= _M[0][0] != CZ17 and _M[0][1] != CZ17                    # row 0 has two nonzeros
+# and it is not even unitary (not a bijection realized): M^dag M != I for a strict interpolation
+_Mh = add52(scale52(C17(Frac(1,2)), _id73), scale52(C17(Frac(1,2)), _swap73))
+ok73 &= mmc17(dag17(_Mh), _Mh) != eye17(2)
+# --- (c) the countercontrol: the memory-swap read-write family is nontrivial (moves the pair
+# bidirectionally) yet its operator is monomial -- bidirectional memory is not off-diagonal
+# controllability.
+ok73 &= _swap73 != _id73 and _ismono72(_swap73)                      # nontrivial and monomial
+# --- (d) the kernel's claim discipline, read back.
+_rw73 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'ReadWriteControl.lean')
+if os.path.exists(_rw73):
+    with open(_rw73, encoding='utf-8') as _f:
+        _rw_txt73 = ' '.join(_f.read().split())
+    ok73 &= 'structure ReadWriteFamily' in _rw_txt73 and 'theorem readWriteOperator_monomial' in _rw_txt73
+    ok73 &= 'theorem offDiagonal_interp_not_monomial' in _rw_txt73
+    ok73 &= 'theorem readWriteSourced_not_qm' in _rw_txt73 and 'theorem readWriteControl_independent' in _rw_txt73
+    ok73 &= 'sorry' not in _rw_txt73
+    ok73 &= 'no control law is postulated' in _rw_txt73
+check("F73", ok73,
+      "ROUND 63: READ-WRITE CONTROLLABILITY -- THEOREM OR NO-GO (phase three, round sixty-three; "
+      "kernel: OIBridge/ReadWriteControl.lean, 9 results -- readWriteOperator_eq_perm, "
+      "readWriteOperator_monomial, offDiagonal_interp_not_monomial, readWriteSourced_monomialSource, "
+      "readWriteSourced_not_control, readWriteSourced_not_qm, memorySwap_nontrivial, "
+      "memorySwap_operator_monomial, readWriteControl_independent). THE PRIMITIVE, below the "
+      "quantum operator: a read-write family (ReadWriteFamily) is a selectable local coupling -- "
+      "for each external parameter value a bijection of the finite state set (A2 reversibility), "
+      "the reference at parameter zero, the modification local (states outside the coupled pair "
+      "fixed) -- naming states, bijections, a parameter, a reference and locality and none of the "
+      "quantum-control vocabulary. THE INDUCED OPERATOR: through the round-62 interface it is a "
+      "permutation matrix, hence monomial. THE TANGENT TEST FAILS: a strict interpolation between "
+      "the identity and the pair swap has two nonzero entries in a row and is not monomial, so no "
+      "bijection realizes it; a permutation-valued family is locally constant and its off-diagonal "
+      "derivative is zero. THE OUTCOME (C): a theory whose available composite conjugations are all "
+      "read-write (permutation) operators is a monomial source, hence has no composite unitary "
+      "control and is not finite operational QM; under the current axioms -- finite bijective "
+      "read-write dynamics -- read-write controllability does not supply elementary "
+      "controllability, and a continuously tunable off-diagonal coupling is an irreducible "
+      "empirical addition, with no control law introduced to force it. THE COUNTERCONTROL: the "
+      "memory-swap family is a genuine nontrivial reversible read-write dynamics (it exchanges two "
+      "states, moving information bidirectionally) yet its induced operators are all monomial, so "
+      "bidirectional hidden memory (C4/readback) is not off-diagonal controllability. Verified "
+      "exactly here: the pair swap and a local swap in a larger world as monomial unitaries, strict "
+      "interpolations between identity and swap as non-monomial and non-unitary with two nonzeros "
+      "in a row, the nontrivial monomial memory swap, and the kernel text read back. NOT CLAIMED, "
+      "lint-guarded: no off-diagonal generator derived, no matrix exponential computed, no control "
+      "law postulated; whether an extended substratum with a genuinely continuous coupling supplies "
+      "the generator is the irreducible empirical question left open in SUBSTRATUM-SOURCE-AUDIT.md; "
+      "the frozen OI-plus statements are untouched.")
+
+# F74 -- ROUND 64: STRUCTURAL CLOSURE -- the four structural ingredients of a quantum architecture
+# close for the class the substratum supplies (the monomials of round 62, nothing added), and the
+# residual is exactly elementary drivability (phase three, round sixty-four).
+ok74 = True
+def _issub74(K):
+    """At most one nonzero entry per row and per column (the elementwise form)."""
+    n = len(K)
+    for r in range(n):
+        if sum(0 if K[r][c].z() else 1 for c in range(n)) > 1: return False
+    for c in range(n):
+        if sum(0 if K[r][c].z() else 1 for r in range(n)) > 1: return False
+    return True
+def _diag74(d): return [[d[i] if i == j else CZ17 for j in range(len(d))] for i in range(len(d))]
+def _kron74(A, B):
+    n, m = len(A), len(B)
+    return [[A[i // m][j // m] * B[i % m][j % m] for j in range(n * m)] for i in range(n * m)]
+def _monoform74(K):
+    """Exact search: K = permMatrix(g) * diag(d) for some permutation g (submonomial => monomial)."""
+    n = len(K)
+    for g in itertools.permutations(range(n)):
+        d = [K[g[c]][c] for c in range(n)]
+        if mmc17(_perm67(list(g), n), _diag74(d)) == K: return True
+    return False
+_P74 = _perm67([1, 2, 0], 3)                                           # a 3-cycle
+_D74 = _diag74([C17(2), C17(0, 1), C17(Frac(-3, 5))])                  # weights, one imaginary
+_Z74 = _diag74([C17(1), C17(0), C17(1)])                               # a readout projector, a zero weight
+_K74 = mmc17(_P74, _D74)                                               # a monomial
+_L74 = mmc17(_perm67([0, 2, 1], 3), _Z74)                              # a monomial with a zero weight
+ok74 &= _issub74(_K74) and _issub74(_L74) and _issub74(eye17(3))
+# --- (1) architecture closure: products, scalar multiples, readout projectors, ancilla blocks.
+ok74 &= _issub74(mmc17(_K74, _L74)) and _issub74(mmc17(_L74, _K74))
+ok74 &= _issub74(scale52(C17(Frac(7, 3)), _K74)) and _issub74(_Z74)
+_KK74 = _kron74(_K74, _perm67([1, 0], 2))                              # an operator on S x Fin 2
+for _f in range(2):
+    for _e in range(2):
+        _blk = [[_KK74[2 * s + _f][2 * t + _e] for t in range(3)] for s in range(3)]   # ancBlock
+        ok74 &= _issub74(_blk)
+# --- (2) context stability: 1_R (x) K is submonomial.
+ok74 &= _issub74(_kron74(eye17(2), _K74)) and _issub74(_kron74(eye17(3), _L74))
+# --- (3) label invariance: reindexing by a carrier bijection (rows and columns together).
+_g74 = [2, 0, 1]
+_R74 = _perm67(_g74, 3)
+ok74 &= _issub74(mmc17(mmc17(_R74, _K74), dag17(_R74)))
+# --- (4) dagger stability: the adjoint is submonomial; A2 reversal: P^dag = P^{-1}; phase
+# reversal: D^dag = conj(D).
+ok74 &= _issub74(dag17(_K74)) and _issub74(dag17(_L74))
+ok74 &= dag17(_P74) == _perm67([2, 0, 1], 3) and mmc17(dag17(_P74), _P74) == eye17(3)
+ok74 &= dag17(_D74) == _diag74([C17(2), C17(0, -1), C17(Frac(-3, 5))])
+# --- the elementwise form agrees with the permutation form, both directions, including a
+# submonomial with a zero row and a zero column (the converse must extend a partial injection).
+_S74 = [[CZ17, C17(3), CZ17], [CZ17, CZ17, CZ17], [C17(0, 2), CZ17, CZ17]]
+ok74 &= _issub74(_S74) and _monoform74(_S74)
+ok74 &= _monoform74(mmc17(_K74, _L74)) and _monoform74(dag17(_K74))
+ok74 &= _monoform74(_kron74(eye17(2), _L74))
+# --- the residual: the rotation has two nonzero entries in a row, so it is neither submonomial
+# nor monomial, and no monomial conjugation reaches it.
+_rot74 = [[C17(Frac(3, 5)), C17(Frac(4, 5))], [C17(Frac(-4, 5)), C17(Frac(3, 5))]]
+ok74 &= not _issub74(_rot74) and not _monoform74(_rot74)
+# a monomial conjugation preserves diagonal matrices (the residual argument).
+_w74 = _diag74([C17(1), C17(0), C17(Frac(1, 2))])
+_cj74 = mmc17(mmc17(_K74, _w74), dag17(_K74))
+ok74 &= all(_cj74[i][j].z() for i in range(3) for j in range(3) if i != j)
+# --- the kernel's claim discipline, read back.
+_sc74 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'StructuralClosure.lean')
+if os.path.exists(_sc74):
+    with open(_sc74, encoding='utf-8') as _f:
+        _sc_txt74 = ' '.join(_f.read().split())
+    ok74 &= 'def substratumClass : ImplementationClass := fun _ _ _ K => IsMonomial K' in _sc_txt74
+    ok74 &= 'theorem monomial_iff_submonomial' in _sc_txt74
+    ok74 &= 'theorem substratumClass_structurallyClosed' in _sc_txt74
+    ok74 &= 'theorem substratumClass_not_drivesElementary' in _sc_txt74
+    ok74 &= 'theorem substratum_residual' in _sc_txt74 and 'theorem substratum_plus_control_qm' in _sc_txt74
+    ok74 &= 'sorry' not in _sc_txt74
+    ok74 &= 'no control law is postulated' in _sc_txt74
+check("F74", ok74,
+      "ROUND 64: STRUCTURAL CLOSURE OF THE SUBSTRATUM ARCHITECTURE (phase three, round sixty-four; "
+      "kernel: OIBridge/StructuralClosure.lean, 34 results -- among them monomial_iff_submonomial, "
+      "substratumClass_arch, substratumClass_contextStable, substratumClass_labelInvariant, "
+      "substratumClass_daggerStable, substratumClass_structurallyClosed, bijectiveOperator_conjTranspose, "
+      "phaseOperator_conjTranspose, substratumGen_not_qm, quantumArchitecture_iff_drives_of_closed, "
+      "substratumClass_not_drivesElementary, substratum_residual, substratum_plus_control_qm, "
+      "qm_generated_by_substratum_extension). THE CLASS IS THE SUPPLIED CLASS: the substratum class "
+      "is exactly the round-62 predicate IsMonomial (a permutation of a diagonal, weights permitted "
+      "to vanish), so nothing is added to obtain closure. THE ELEMENTWISE FORM: monomial if and "
+      "only if at most one nonzero entry per row and per column, the converse extending the partial "
+      "injection column -> row to a permutation by matching complements of equal cardinality. THE "
+      "FOUR CLOSURES, each a theorem: (1) architecture closure -- identity, products, scalar "
+      "multiples, readout projectors, ancilla blocks; (2) context stability -- 1_R (x) K; (3) label "
+      "invariance -- reindexing; (4) dagger stability -- the adjoint exchanges the row and column "
+      "conditions, with A2 supplying the reversal of a bijective intervention (P^dag = P^{-1}) and "
+      "the phase structure the reversal of a phase (D^dag = conj D). THE RESIDUAL: for a "
+      "structurally closed class, quantum architecture is exactly elementary drivability; the "
+      "substratum class is closed but every monomial conjugation preserves the diagonal and the "
+      "rotation does not, so its generated theory is not QM, it does not drive the elementary "
+      "transitions, and it is not a quantum architecture. THE ENDPOINT: a structurally closed "
+      "extension of the substratum class is quantum exactly when it drives the elementary "
+      "transitions, generates finite operational QM on every nonempty carrier when it does, and QM "
+      "is generated by such an extension -- current OI substratum plus continuous off-diagonal "
+      "controllability is finite operational QM. Verified exactly here: closure of explicit "
+      "monomials (a 3-cycle with complex weights, a projector-weighted monomial) under products, "
+      "scalars, ancilla blocks, spectator tensoring, reindexing and the adjoint; the A2 and phase "
+      "reversals; the elementwise/permutation equivalence in both directions on a matrix with a "
+      "zero row and column; the rotation as neither; diagonal preservation by a monomial "
+      "conjugation; and the kernel text read back. NOT CLAIMED, lint-guarded: the controllability "
+      "side of the endpoint is a hypothesis on an extension and not a property of the current "
+      "substratum; no control law is postulated; the frozen OI-plus statements are untouched.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
