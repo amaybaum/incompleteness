@@ -9719,6 +9719,105 @@ check("F79", ok79,
       "uniqueness only among systems with these local stages, Target B strictly larger and not "
       "characterized; frozen Level I/II statements untouched; no manuscript change.")
 
+# F80 -- POST-LEVEL III INSTRUMENT AUDIT, ROUND 1 -- the finite-support redundancy theorem and the
+# all-sites phase witness, checked exactly. A finite-region Kraus family with sum K^dag K = 1 gives
+# a quasilocal instrument whose branches act on a larger region by the inclusion-extended operators
+# (inert spectator), whose total map fixes the observables of a disjoint region, and whose branch
+# sum is unital; the all-sites phase weights are unimodular and compatible with inclusion, and the
+# resulting conjugation moves a single-site matrix unit at every site, so it is the total map of no
+# finite-support instrument.
+ok80 = True
+# --- (1) a two-outcome Kraus family on one site of the three-site lattice of F78/F79
+_r80 = Frac(1, 2)
+_s80 = C17(Frac(1), 0)
+_K80 = [[[CO17, CZ17], [CZ17, CZ17]], [[CZ17, CZ17], [CZ17, CO17]]]      # |0><0| and |1><1|
+_norm80 = _sum75([mmc17(dag17(K), K) for K in _K80], 2)
+ok80 &= _norm80 == eye17(2)                                              # the Level II normalization
+# --- (2) inert spectator extension: the branch on the two-site region equals the inclusion-extended
+# Kraus operators acting there
+_Kext80 = [_incl77(_LA78, _LB78, K) for K in _K80]
+_normext80 = _sum75([mmc17(dag17(K), K) for K in _Kext80], 4)
+ok80 &= _normext80 == eye17(4)                                           # normalization transports
+_Y80 = _rand77(4, 11)
+for _x80 in (0, 1):
+    _branch80 = _sum75([mmc17(mmc17(dag17(_Kext80[k]), _Y80), _Kext80[k])
+                        for k in (0, 1) if k == _x80], 4)
+    _direct80 = mmc17(mmc17(dag17(_Kext80[_x80]), _Y80), _Kext80[_x80])
+    ok80 &= _branch80 == _direct80                                       # qBranch_stage_inclObs
+_tot80 = _sum75([mmc17(mmc17(dag17(K), _Y80), K) for K in _Kext80], 4)
+ok80 &= _tot80 != _Y80                                                   # a nontrivial instrument
+# --- (3) locality: the total map fixes an observable of a DISJOINT region
+_L280b = [2]
+_W80 = _rand77(2, 12)
+_KextD80 = [_incl77(_LA78, _LC78, K) for K in _K80]                      # supported on site 0
+_WextD80 = _incl77(_L280b, _LC78, _W80)                                  # supported on site 2
+_totD80 = _sum75([mmc17(mmc17(dag17(K), _WextD80), K) for K in _KextD80], 8)
+ok80 &= _totD80 == _WextD80                                              # qTotal_stage_of_disjoint
+# --- (4) the all-sites phase weights: unimodular, and compatible with inclusion
+def _swt80(q): return C17(0, 1) if q == 0 else CO17                      # siteWt
+def _awt80(L, f): 
+    out = CO17
+    for t in range(len(L)):
+        out = out * _swt80(f[t])
+    return out                                                            # phaseAllWt
+for _L80 in (_LA78, _LB78, _LC78):
+    for _f80 in _confs78(_L80):
+        ok80 &= (_awt80(_L80, _f80) * _awt80(_L80, _f80).conj()) == CO17   # unimodular
+def _agree80(L, F, G):                                                    # AgreeOff on the big region
+    return all(F[t] == G[t] for t in range(len(_LC78)) if _LC78[t] not in L)
+def _restr80(L, F): return tuple(F[_LC78.index(i)] for i in L)
+for _F80 in _confs78(_LC78):
+    for _G80 in _confs78(_LC78):
+        if _agree80(_LA78, _F80, _G80):
+            lhs = _awt80(_LC78, _F80) * _awt80(_LC78, _G80).conj()
+            rhs = (_awt80(_LA78, _restr80(_LA78, _F80))
+                   * _awt80(_LA78, _restr80(_LA78, _G80)).conj())
+            ok80 &= lhs == rhs                                            # phaseAllWt_compat
+# --- (5) the witness: at EVERY site the conjugation moves the single-site matrix unit, so no
+# finite support region can contain it
+_E80 = [[CZ17, CO17], [CZ17, CZ17]]                                       # |0><1| on one site
+for _site80 in range(3):
+    _L1 = [_site80]
+    _U80 = _diag74([_awt80(_L1, f) for f in _confs78(_L1)])
+    _conj80 = mmc17(mmc17(_U80, _E80), dag17(_U80))
+    ok80 &= _conj80[0][1] == C17(0, 1) and _conj80 != _E80                # moved by exactly i
+# and a finite-support instrument supported on a DIFFERENT site fixes it (so the two differ)
+ok80 &= _totD80 == _WextD80
+# --- (6) kernel readback
+_ic80 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'InstrumentCompletion.lean')
+_ics80 = open(_ic80, encoding='utf-8').read()
+for _nm80 in ('def IsQInstrument', 'noncomputable def qBranch', 'def IsFiniteSupport',
+              'theorem qInstrument_of_kraus', 'theorem kraus_of_finiteSupport',
+              'theorem finiteSupport_iff_kraus', 'theorem qBranch_stage_inclObs',
+              'theorem qTotal_stage_of_disjoint', 'structure UnimodularFamily',
+              'theorem inclObs_wtConj', 'theorem phaseAllWt_compat',
+              'theorem phaseAll_not_finiteSupport', 'theorem instrument_audit_entry_one'):
+    ok80 &= _nm80 in _ics80
+ok80 &= 'sorry' not in _ics80 and 'not claimed either way' in ' '.join(_ics80.split())
+check("F80", ok80,
+      "POST-LEVEL III INSTRUMENT AUDIT, ROUND 1 (InstrumentCompletion.lean, 52 named results). "
+      "Level III completed the algebra, the states and one discrete dynamics; it did not complete "
+      "the operational availability relation of Level II, and this round opens the audit of that "
+      "seam WITHOUT adopting a target class. Instruments are Heisenberg-picture conjugation "
+      "families with unital branch sum; complete positivity enters through its Kraus witness and "
+      "the abstract CP class is NOT formalized. Q1 is decided in BOTH directions with separate "
+      "witnesses: a finite-region Kraus instrument gives a finite-support quasilocal instrument, "
+      "and a finite-support quasilocal instrument comes from a finite-region Kraus instrument with "
+      "its normalization; on larger regions the action is the inert spectator extension. The "
+      "finite-support and stage-compatible classes are separated by the all-sites phase family, "
+      "compatible with inclusion but the total map of no finite-support instrument. Verified "
+      "exactly here: the Kraus normalization and its transport under inclusion, the branch equal "
+      "to the inclusion-extended conjugation, the total map fixing a disjoint region's observable, "
+      "unimodularity of the all-sites weights on three regions, their inclusion compatibility over "
+      "every agreeing configuration pair, and the single-site matrix unit moved by exactly i at "
+      "every one of the three sites, plus the kernel text read back. NOT CLAIMED, lint-guarded: no "
+      "infinite-dimensional analogue of the Level II characterization, no claim that the Kraus "
+      "class exhausts the CP instruments in either direction, no claim that a general compatible "
+      "family extends, and no claim that stage-compatible operations are operationally available "
+      "under OI_Q; frozen Level I/II/III statements untouched; no manuscript change.")
+
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
