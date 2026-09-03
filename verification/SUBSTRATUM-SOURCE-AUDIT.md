@@ -185,3 +185,24 @@ The controllability is a hypothesis on the extension, not a property of the curr
   audit does not modify them unless it proves a stronger dependency.
 - The minimal drivability repertoire is that of round 59 and is not reduced further here.
 - Nothing here bears on the open redundancy of the inverse clause.
+
+## Freeze
+
+The audit is complete and frozen at this entry. Its conclusion, in one line:
+
+> Observation incompleteness alone admits many theories. The concrete OI substratum supplies all of
+> the structural requirements for quantum mechanics — closure, spectator stability, relabelling
+> invariance, reversibility, the exchanges, and the phases — but not continuous state-mixing
+> controllability. Quantum mechanics is obtained exactly when that one remaining physical resource is
+> added.
+
+The negative half stands beside it: finite reversible read-write dynamics, even with genuine
+hidden-memory and readback behavior, does not itself generate quantum state mixing.
+
+The conclusion is propagated to the manuscripts (GR §3.3, with cross-references in Main §3.4, the
+Explainer, and book chapters 1 and 19) under the scope guards recorded there: it is not bare OI ⇒ QM;
+the controllability resource is not derived from A1–A6; the result is finite and endomorphic; carriers
+are finite and nonempty; the control resource is an empirical extension of the current substratum; and
+no claim is made that the elementary control repertoire is mathematically minimal. The
+compact-semigroup redundancy of the inverse clause and the minimum control repertoire remain backlog
+optimizations: they can simplify the theorem but cannot change the physical conclusion.
