@@ -164,10 +164,10 @@ theorem conjChannel_smul (a : ℂ) (V : Matrix S S ℂ) :
 
 /-- **THE RAY LEMMA**: if a finite sum of conjugations is the conjugation by a nonzero `V`,
 every operator in the sum is a scalar multiple of `V`. -/
-theorem kraus_of_conj_unitary {r : ℕ} (K : Fin r → Matrix S S ℂ) (s : Finset (Fin r))
+theorem kraus_of_conj_unitary {ι : Type} [Fintype ι] (K : ι → Matrix S S ℂ)
     (V : Matrix S S ℂ) (hV : V ≠ 0)
-    (h : ∑ i ∈ s, conjChannel (K i) = conjChannel V) : ∀ i ∈ s, ∃ a : ℂ, K i = a • V := by
-  intro i hi
+    (h : ∑ i, conjChannel (K i) = conjChannel V) : ∀ i, ∃ a : ℂ, K i = a • V := by
+  intro i
   have hchoi := congrArg choiMatrix h
   rw [choiMatrix_finsum] at hchoi
   simp only [choiMatrix_conjChannel] at hchoi
@@ -177,7 +177,8 @@ theorem kraus_of_conj_unitary {r : ℕ} (K : Fin r → Matrix S S ℂ) (s : Fins
     ext p q
     have := congrFun h0 (q, p)
     simpa using this
-  obtain ⟨a, ha⟩ := dyad_sum_span_single s (fun i => fun p : S × S => K i p.2 p.1) _ hw hchoi i hi
+  obtain ⟨a, ha⟩ := dyad_sum_span_single Finset.univ (fun i => fun p : S × S => K i p.2 p.1) _ hw
+    hchoi i (Finset.mem_univ i)
   refine ⟨a, ?_⟩
   ext p q
   have := congrFun ha (q, p)
@@ -214,7 +215,7 @@ theorem inverseAccessibility_of_generated_daggerStable [Nonempty A]
   rcases n with _ | k
   · exact availExt_zero T _
   obtain ⟨hreal, htr⟩ := (hg (k + 1) k.succ_pos Unit _).mp hV
-  obtain ⟨r, K, s, hK, hadm⟩ := hreal ()
+  obtain ⟨ι, _, K, hK, hadm⟩ := hreal ()
   have hiso : Vᴴ * V = 1 := by
     have h := sum_conjTranspose_mul_eq_one_of_trace (fun _ : Unit => V) htr
     rwa [Fintype.sum_unique] at h
@@ -223,13 +224,13 @@ theorem inverseAccessibility_of_generated_daggerStable [Nonempty A]
     rw [h0, Matrix.mul_zero] at hiso
     exact zero_ne_one hiso
   have hVV : V * Vᴴ = 1 := mul_eq_one_comm.mp hiso
-  have hK' : ∀ i ∈ s, ∃ a : ℂ, K i = a • V := kraus_of_conj_unitary K s V hV0 hK.symm
-  choose! c hc using hK'
-  have hsum : ∑ i ∈ s, conjChannel (K i) = (∑ i ∈ s, c i * star (c i)) • conjChannel V := by
+  have hK' : ∀ i, ∃ a : ℂ, K i = a • V := kraus_of_conj_unitary K V hV0 hK.symm
+  choose c hc using hK'
+  have hsum : ∑ i, conjChannel (K i) = (∑ i, c i * star (c i)) • conjChannel V := by
     rw [Finset.sum_smul]
-    exact Finset.sum_congr rfl fun i hi => by rw [hc i hi, conjChannel_smul]
-  have hone : (∑ i ∈ s, c i * star (c i)) = 1 := by
-    have h1 : conjChannel V 1 = ((∑ i ∈ s, c i * star (c i)) • conjChannel V) 1 := by
+    exact Finset.sum_congr rfl fun i _ => by rw [hc i, conjChannel_smul]
+  have hone : (∑ i, c i * star (c i)) = 1 := by
+    have h1 : conjChannel V 1 = ((∑ i, c i * star (c i)) • conjChannel V) 1 := by
       rw [← hsum, ← hK]
     rw [LinearMap.smul_apply, conjChannel_apply, Matrix.mul_one, hVV] at h1
     let i : A × Fin (k + 1) := (Classical.arbitrary A, ⟨0, k.succ_pos⟩)
@@ -238,10 +239,11 @@ theorem inverseAccessibility_of_generated_daggerStable [Nonempty A]
     exact h2.symm
   have hVd : (Vᴴ)ᴴ * Vᴴ = 1 := by rw [Matrix.conjTranspose_conjTranspose]; exact hVV
   refine (hg (k + 1) k.succ_pos Unit _).mpr
-    ⟨fun _ => ⟨r, fun i => (K i)ᴴ, s, ?_, fun i => hd _ _ (hadm i)⟩, fun X => ?_⟩
-  · have hterm : ∀ i ∈ s, conjChannel ((K i)ᴴ) = (c i * star (c i)) • conjChannel Vᴴ := by
-      intro i hi
-      rw [hc i hi, Matrix.conjTranspose_smul, conjChannel_smul, star_star, mul_comm (star (c i))]
+    ⟨fun _ => ⟨ι, inferInstance, fun i => (K i)ᴴ, ?_, fun i => hd _ _ (hadm i)⟩, fun X => ?_⟩
+  · have hterm : ∀ i ∈ (Finset.univ : Finset ι),
+        conjChannel ((K i)ᴴ) = (c i * star (c i)) • conjChannel Vᴴ := by
+      intro i _
+      rw [hc i, Matrix.conjTranspose_smul, conjChannel_smul, star_star, mul_comm (star (c i))]
     rw [Finset.sum_congr rfl hterm, ← Finset.sum_smul, hone, one_smul]
   · rw [Fintype.sum_unique]
     exact conjChannel_trace _ hVd X

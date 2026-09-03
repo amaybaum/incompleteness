@@ -17,7 +17,7 @@ entry names the kernel result; every "open" entry names the candidate source and
 | System-to-level-one seam | `SystemToLevelOne` | Relabelling of the carrier along `A ≃ A × Fin 1` | Derived from embedded observation (`systemToLevelOne_of_embeddedObservation`) |
 | Observational independence | `ObservationalIndependence` = inert-spectator compositionality | Implementation locality: a context-stable, label-invariant class of admissible operators generating availability | Derived (`observationalIndependence_of_implementationLocality`); not derivable from the core, validity, reversible richness and embedded observation (`redundancy_fails`) |
 | Reversible richness, inverse clause | `InverseAccessibility` (first conjunct of `ReversibleRichness`, `reversibleRichness_iff`) | Dagger-stable implementations: the adjoint of an admissible operator is admissible | Derived (`inverseAccessibility_of_generated_daggerStable`); whether it is already forced by implementation locality, embedded observation and Lie-rank richness is open in both directions |
-| Reversible richness, Lie-rank clause | `LieRankRichness` (second conjunct of `ReversibleRichness`) | Symmetry and control architecture | Open; the one substantive selector whose source is not audited |
+| Reversible richness, Lie-rank clause | `LieRankRichness` (second conjunct of `ReversibleRichness`) | Elementary transition richness: driven state transitions, exchanges, one quarter phase | Derived (`lieRank_of_elementary`); not forced by reversible implementation locality and embedded observation (`lieRank_not_redundant`) |
 | Observer recursion | `ObserverRecursion` | Embedded observation: one regrouping- and relabelling-invariant family of theories on all finite carriers | Derived (`observerRecursion_of_embeddedObservation`); not derivable from the core, well-formedness and the other two principles (`recursion_independent`, `embeddedObservation_independent`) |
 
 ## The derived entries in detail
@@ -134,6 +134,39 @@ embedded observation, and `carrier_general_oiPlusMicro` proves it equivalent to 
 finite endomorphic operational QM on every nonempty finite carrier. The Lie-rank clause is
 the one substantive selector whose source is not audited.
 
+## The fourth entry: the Lie-rank clause of reversible richness
+
+**The redundancy test.** An implementation class closed under the operations a theory
+performs on implementations — identity, product, scalar, ancilla projector, ancilla block
+(`Architecture`) — generates a finite operational theory on every carrier (`genTheory`), and
+a context-stable, label-invariant, dagger-stable such class gives a theory carrying
+reversible implementation locality and embedded observation
+(`genTheory_reversibleImplementationLocality`, `genTheory_embeddedObservation`). The diagonal
+class is such an architecture; its generated theory on the qubit has no composite unitary
+control (`diagGen_not_control`), so the Lie-rank clause is not forced by the other two
+principles (`lieRank_not_redundant`).
+
+**The primitive, in elementary implementations.** `ElementaryTransitionRichness`: at every
+level, every real transition `E_ab + E_ba` is continuously drivable, every exchange is
+available, and a quarter phase on every state is available. Nothing in it mentions a Lie
+algebra or reachability.
+
+**The derivation.** With drift `X_{i₀j₁}` and controls the words (a permutation, optionally
+the quarter phase on `i₀`), conjugation relabels the transition (`perm_conj_transition`) and
+the phase turns it into its imaginary partner (`phase_conj_transition`); a permutation
+reaches every ordered pair (`exists_perm_pair`); the bracket
+`[−iX_pq, −iY_pq] = 2i(E_pp − E_qq)` supplies the diagonal directions (`bracket_XY`); every
+traceless skew-Hermitian is a real combination (`pair_decomp`), so `su(D)` lies in the
+control Lie algebra (`hControl_star`) and Lie-rank richness follows
+(`lieRank_of_elementary`), the control words all available (`avail_ctrl`).
+
+**Necessity and the compressed set.** Full control supplies every elementary transition
+(`elementary_of_control`). `OIPlusElem` is reversible implementation locality, elementary
+transition richness and embedded observation, and `carrier_general_oiPlusElem` proves it
+equivalent to exact finite endomorphic operational QM on every nonempty finite carrier.
+Every principle in it is now stated at the level of implementations or the observer
+architecture.
+
 ## What is not claimed
 
 - The converse from observer recursion to embedded observation is not proved outside the
@@ -151,5 +184,6 @@ the one substantive selector whose source is not audited.
 - The redundancy of inverse accessibility given implementation locality, embedded observation
   and Lie-rank richness is open in both directions.
 - The converse from inverse accessibility to dagger stability is not claimed.
-- No source is proposed for the Lie-rank clause. It is the remaining entry of the table, and
-  for a failed implication an explicit countermodel is the required deliverable.
+- The minimal elementary repertoire is not settled: whether the quarter phase is dispensable
+  on three or more states, or one driven pair and one exchange orbit suffice.
+- The converse from Lie-rank richness to elementary transition richness is not claimed.

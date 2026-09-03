@@ -922,6 +922,21 @@ for fname, names in (
                                   'inverseAccessibility_of_reversibleImplementationLocality', 'fullClass_daggerStable', 'reversibleImplementationLocality_of_qm',
                                   'oiPlusLocal_of_oiPlusMicro', 'qm_of_oiPlusMicro', 'oiPlusMicro_of_qm', 'oiPlusMicro_iff_qm',
                                   'oiPlusMicro_iff_oiPlusLocal', 'carrier_general_oiPlusMicro')),
+    ('LieRankSource', ('realized_conj', 'realized_zero', 'realized_add', 'realized_sum',
+                     'sum_comp', 'comp_sum', 'realized_comp', 'realized_smul_nonneg',
+                     'realized_transport', 'realized_id', 'realized_localLuders', 'realized_discard',
+                     'genFamily_regrouping', 'genFamily_relabelling', 'genTheory_ambient', 'genTheory_embeddedObservation',
+                     'genTheory_generated', 'genTheory_reversibleImplementationLocality', 'diagClass_arch', 'diagClass_contextStable',
+                     'diagClass_labelInvariant', 'diagClass_daggerStable', 'preservesDiag_conj_of_diag', 'diagGen_not_control',
+                     'lieRank_not_redundant', 'single_apply', 'single_conjTranspose', 'single_smul_one',
+                     'transition_hermitian', 'phaseGate_conjTranspose', 'phaseGate_unitary', 'permMatrix_one',
+                     'permMatrix_mul', 'perm_conj_transition', 'perm_conj_transitionY', 'phase_conj_transition',
+                     'bracket_XY', 'ctrl_unitary', 'gen_X', 'gen_Y',
+                     'exists_perm_pair', 're_diag_zero', 'skew_offdiag', 'pair_decomp',
+                     'hControl_star', 'avail_mul', 'avail_perm', 'avail_ctrl',
+                     'lieRank_of_elementary', 'elementary_of_control', 'oiPlusMicro_of_oiPlusElem', 'qm_of_oiPlusElem',
+                     'oiPlusElem_of_qm', 'oiPlusElem_iff_qm', 'oiPlusElem_iff_oiPlusMicro', 'carrier_general_oiPlusElem',
+                     'elementary_not_redundant')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
                            'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
                            'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
@@ -1681,6 +1696,25 @@ ok6 &= 'theorem inverseAccessibility_of_lieRank' not in mrv and 'theorem inverse
 ok6 &= 'theorem inverseAccessibility_independent' not in mrv and 'theorem daggerStable_of_inverse' not in mrv
 ok6 &= 'theorem lieRank_of_' not in mrv
 ok6 &= 'structure FiniteOperationalTheory' not in mrv and 'native_decide' not in mrv
+# Round-59 guards: the generated-theory construction; the diagonal-architecture redundancy
+# countermodel; the elementary-transition primitive stated without a Lie algebra or reachability;
+# the su(D) derivation; the compressed set; the minimal repertoire and converse unclaimed.
+lrs = open(os.path.join(BRIDGE, 'OIBridge', 'LieRankSource.lean'), encoding='utf-8').read()
+_lrsflat = ' '.join(lrs.split())
+ok6 &= 'theorem lieRank_not_redundant' in lrs and '¬ LieRankRichness T' in _slice(lrs, 'theorem lieRank_not_redundant', ':=')
+ok6 &= 'theorem hControl_star' in lrs and 'theorem lieRank_of_elementary' in lrs
+_et = _slice(lrs, 'def ElementaryTransitionRichness', 'theorem avail_mul')
+for _w in ('controlLie', 'HControl', 'IsSpecialSkew', 'UniversalUnitaryReachability'):
+    ok6 &= _w not in _et
+ok6 &= 'theorem elementary_of_control' in lrs and 'theorem diagGen_not_control' in lrs
+_ce = ' '.join(_slice(lrs, 'theorem carrier_general_oiPlusElem', ':=').split())
+ok6 &= bool(_ce) and '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A)' in _ce
+ok6 &= _ce.endswith('OIPlusElem T ↔ ExactAllFiniteEndomorphicQuantumOps T')
+ok6 &= 'def OIPlusElem : Prop := ReversibleImplementationLocality T ∧ ElementaryTransitionRichness T ∧ EmbeddedObservation T' in _lrsflat
+ok6 &= 'The minimal elementary repertoire' in _lrsflat
+ok6 &= 'theorem elementary_of_lieRank' not in lrs and 'theorem minimal_repertoire' not in lrs
+ok6 &= 'theorem lieRank_redundant' not in lrs and 'theorem elementary_redundant_of' not in lrs
+ok6 &= 'structure FiniteOperationalTheory' not in lrs and 'native_decide' not in lrs
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2085,8 +2119,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All sixty-five files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 named results print their "
+      "LINT. All sixty-six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
