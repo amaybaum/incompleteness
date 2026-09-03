@@ -335,10 +335,14 @@ entry and untouched here.
 Level III is frozen at the fourth entry. Its statement, propagated to GR §3.3 with
 cross-references in Main §3.4, the Explainer, and book chapters 1 and 19:
 
-> OI_Q ⟺ quasilocal fixed-lattice quantum mechanics with the OI-induced discrete dynamics,
+> the canonical infinite-region completion of OI_Q is, up to a canonical \*-isomorphism, the
+> unique quasilocal fixed-lattice C\*-system carrying the substratum's local stages and
+> OI-induced discrete dynamics,
 
 where OI_Q is the quantum-completed substratum of Levels I and II — the current OI substratum
 together with continuous off-diagonal controllability — and not bare observation incompleteness.
+The statement is the uniqueness theorem the kernel proves, not a biconditional: nothing here
+derives the OI_Q conditions from the existence of such a system.
 The finite regions of the fixed-spacing lattice carry full matrix algebras joined by compatible
 injective unital embeddings with disjoint-region commutation; the norm completion of their union is
 a quasilocal C\*-algebra; every consistent family of finite-region density matrices is a state of
@@ -346,7 +350,7 @@ it; the reversible finite-range substratum update is an isometric \*-automorphis
 system carrying the same local stages is canonically and uniquely \*-isomorphic to it, intertwining
 the dynamics.
 
-Seven scope guards are stated beside the result in every mirror:
+Eight scope guards are stated beside the result in every mirror:
 
 1. Not bare OI implies QM. OI_Q retains the quantum completion condition of Levels I and II,
    continuous off-diagonal controllability in particular.
@@ -363,6 +367,10 @@ Seven scope guards are stated beside the result in every mirror:
    not determined by the discrete data in the first entry.
 7. Levels I and II keep their own statements; the manuscript does not restate them as Level III
    results.
+8. The completion covers the algebra, the state space, and the OI-induced discrete dynamics. It is
+   not an infinite-dimensional analogue of the Level II theorem: no characterization of all
+   infinite-dimensional quantum instruments, and none of all locality-preserving quantum dynamics,
+   the latter refuted for this substratum by the phase countermodel.
 
 The core programme therefore stands at: finite endomorphic (Level I), finite typed (Level II),
 infinite-region quasilocal with discrete time (Level III). Whether continuous-time Hamiltonian
