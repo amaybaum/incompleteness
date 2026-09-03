@@ -937,6 +937,9 @@ for fname, names in (
                      'lieRank_of_elementary', 'elementary_of_control', 'oiPlusMicro_of_oiPlusElem', 'qm_of_oiPlusElem',
                      'oiPlusElem_of_qm', 'oiPlusElem_iff_qm', 'oiPlusElem_iff_oiPlusMicro', 'carrier_general_oiPlusElem',
                      'elementary_not_redundant')),
+    ('SubstratumSource', ('genTheory_avail_conj', 'genTheory_elementary', 'quantumArchitecture_supplies_all',
+                       'genTheory_qm_of_quantumArchitecture', 'fullClass_arch', 'fullClass_drivesElementary', 'fullClass_quantumArchitecture',
+                       'qm_generated_by_quantumArchitecture', 'diagClass_not_drivesElementary', 'diagGen_not_quantumArchitectureGenerated')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
                            'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
                            'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
@@ -1715,6 +1718,20 @@ ok6 &= 'The minimal elementary repertoire' in _lrsflat
 ok6 &= 'theorem elementary_of_lieRank' not in lrs and 'theorem minimal_repertoire' not in lrs
 ok6 &= 'theorem lieRank_redundant' not in lrs and 'theorem elementary_redundant_of' not in lrs
 ok6 &= 'structure FiniteOperationalTheory' not in lrs and 'native_decide' not in lrs
+# Round-61 guards: the substratum object (quantum architecture) collapsing the three
+# primitive-source principles; the QM equivalence; the decisive elementary-drivability property
+# with the diagonal countermodel; no derivation from A1-A6 claimed.
+sub = open(os.path.join(BRIDGE, 'OIBridge', 'SubstratumSource.lean'), encoding='utf-8').read()
+_subflat = ' '.join(sub.split())
+ok6 &= 'structure QuantumArchitecture' in sub and 'def DrivesElementary' in sub
+ok6 &= 'theorem quantumArchitecture_supplies_all' in sub and 'theorem genTheory_qm_of_quantumArchitecture' in sub
+ok6 &= 'theorem qm_generated_by_quantumArchitecture' in sub
+ok6 &= 'theorem diagClass_not_drivesElementary' in sub and 'theorem diagGen_not_quantumArchitectureGenerated' in sub
+ok6 &= 'ReversibleImplementationLocality (genTheory 𝓘 hq.arch A) ∧ ElementaryTransitionRichness (genTheory 𝓘 hq.arch A) ∧ EmbeddedObservation (genTheory 𝓘 hq.arch A)' in _subflat
+ok6 &= 'does not derive a quantum architecture from A1-A6' in _subflat
+ok6 &= 'theorem quantumArchitecture_of_oiCore' not in sub and 'theorem substratum_supplies' not in sub
+ok6 &= 'theorem drivesElementary_of_' not in sub and 'axiom ' not in sub
+ok6 &= 'structure FiniteOperationalTheory' not in sub and 'native_decide' not in sub
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2119,8 +2136,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All sixty-six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 named results print their "
+      "LINT. All sixty-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
