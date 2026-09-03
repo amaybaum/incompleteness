@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 95 modules and,
-  at this commit, 1,755 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 96 modules and,
+  at this commit, 1,771 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -133,7 +133,7 @@ of implementations or the observer architecture, none Lie-algebraic.
   `staggered_relations`, `structural_chain`, `representation_bridge` and `time_reversal` are the
   companions of the proof files above: every integer the Lean files submit to `decide` is
   recomputed by an independent construction. The rest instantiate the `OIBridge` theorems on
-  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F75, one per
+  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F76, one per
   round of the reconstruction and completion programme, each reading the kernel file it
   certifies back for its claim discipline) and `edge_rigidity_probe.py` carries the R7 lint,
   which requires every listed kernel result to be a `theorem` with a `#print axioms` line and
@@ -184,7 +184,7 @@ modules, in the order the development grew:
   `OIRealization`, `OperationalValidity`, `LevelOneSeam`, `PhysicalCharacterization`,
   `DiagonalTheory`, `RankGapTheory`, `IsometryExtension`, `GeneralCarrier`,
   `UhlmannUniqueness`, `ReachabilitySeam`, `OrbitReachability`, `SubstantiveCensus`,
-  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`, `TypedCompletion`): the five completion conditions defined one by one with the countermodel
+  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`, `TypedCompletion`, `RegionLimit`): the five completion conditions defined one by one with the countermodel
   that separates each, the sealed OI core realized with its actual visible readout, the
   characterization theorem with its necessity direction, the five-way minimality audit, the
   discharge of finite isometry extension, the removal of the qubit restriction, the discharge
@@ -300,8 +300,25 @@ chosen-state preparation and no coherence condition beyond the typed closure rul
 cross-references in Main §3.4, the Explainer, and book chapters 1 and 19) with the interface
 qualification stated beside it, and Level II is frozen at this commit: within the natural
 carrier-general extension of the operational rules already used at Level I, the remaining qualifier
-is finite-dimensional rather than endomorphic. Level III (infinite dimensions) is a different
-programme and is not begun.
+is finite-dimensional rather than endomorphic.
+
+**Level III (OI_Q): the quasilocal-completion audit.** Opened as an audit, not a postulate
+(`RegionLimit.lean`, `QUASILOCAL-COMPLETION-AUDIT.md`): no continuity, completeness or Hilbert-space
+axiom is added, and every claimed necessity comes with a countermodel. The corpus holds the lattice
+fundamental at fixed spacing, so there is no spatial continuum limit to recover: the directed system
+the substratum supplies is the family of finite regions, a larger region adjoining a factor `S × R`,
+and its limit is the infinite-region (quasilocal) lattice theory. Its restriction maps are the Level II discard
+(`restrict_eq_discardR`) with the observable inclusion as dual (`trace_inclObs_mul`); the reference
+family and every pure product family are consistent under restriction; their overlap on `n` adjoined
+`q`-state sites decays as `q^{-n}` (`overlap_uniform_pure`, `overlap_eventually_small`), the finite
+shadow of the fact that the physical representation is selected only by a choice of reference family;
+and continuous time is not determined by the discrete dynamics — two Hermitian generators whose flows
+agree at every integer time and differ at `t = 1/2` (`continuous_extension_not_unique`). Of the
+pre-registered outcomes, the region system is redundant with the frozen interface; whether a
+distinguished representation is a theory-level input or merely a state selection within one
+quasilocal theory is open; a continuous-time law is an input only if the target is continuous-time
+Hamiltonian QM rather than discrete-time quasilocal QM; and no continuum-structure gap arises
+because no continuum structure is claimed.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general

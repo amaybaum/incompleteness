@@ -967,6 +967,10 @@ for fname, names in (
                          'typed_determined_iff', 'typed_determined_of_oiPlusElem', 'preservesDiag_transportT',
                          'preservesDiag_attachUniform', 'preservesDiag_discardR', 'preservesDiag_localLuders',
                          'typedDiag_shadow_not_control', 'typedDiag_shadow_not_qm', 'typed_interface_not_quantum')),
+    ('RegionLimit', ('restrict_eq_discardR', 'trace_tensorOf', 'tensorOf_mul', 'trace_inclObs_mul', 'uniform_consistent',
+                     'pureProduct_consistent', 'overlap_uniform_pure', 'overlap_eventually_small', 'genZero_hermitian',
+                     'genTwoPi_hermitian', 'flow_genZero', 'flow_genTwoPi', 'flows_agree_integer', 'flows_differ_half',
+                     'continuous_extension_not_unique', 'continuum_audit_round1')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
                            'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
                            'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
@@ -1837,6 +1841,24 @@ ok6 &= 'theorem typedDiag_shadow_not_qm' in tcl and 'theorem typed_interface_not
 ok6 &= 'typing artifact for this interface' in _tclflat
 ok6 &= 'theorem typed_qm_of_oi' not in tcl and 'theorem infinite' not in tcl
 ok6 &= 'structure FiniteOperationalTheory' not in tcl and 'native_decide' not in tcl
+# Level-III round-1 guards: the quasilocal-completion audit adds no continuity, completeness or
+# Hilbert-space axiom; the restriction is the Level II discard (rfl); the continuity countermodel
+# and the overlap decay are theorems; nothing about L^2(R^3) or an infinite-volume algebra is
+# claimed; frozen Level I/II statements untouched.
+rgl = open(os.path.join(BRIDGE, 'OIBridge', 'RegionLimit.lean'), encoding='utf-8').read()
+_rglflat = ' '.join(rgl.split())
+ok6 &= 'theorem restrict_eq_discardR' in rgl and ':= rfl' in _slice(rgl, 'theorem restrict_eq_discardR', 'def inclObs')
+ok6 &= 'theorem trace_inclObs_mul' in rgl and 'theorem uniform_consistent' in rgl
+ok6 &= 'theorem pureProduct_consistent' in rgl and 'theorem overlap_uniform_pure' in rgl
+ok6 &= 'theorem overlap_eventually_small' in rgl
+ok6 &= 'theorem continuous_extension_not_unique' in rgl and 'theorem continuum_audit_round1' in rgl
+_ce = _slice(rgl, 'theorem continuous_extension_not_unique', 'end Continuity')
+ok6 &= 'flow H₀ (1 / 2) ≠ flow H₁ (1 / 2)' in _ce and '∀ n : ℕ, flow H₀ n = flow H₁ n' in _ce
+ok6 &= 'no continuity axiom is introduced' in _rglflat
+for _w in ('axiom continuity', 'axiom completeness', 'StronglyContinuous', 'L2Space', 'MeasureTheory.L2',
+           'theorem infiniteVolume', 'theorem continuum_limit_exists', 'CStarAlgebra'):
+    ok6 &= _w not in rgl
+ok6 &= 'structure FiniteOperationalTheory' not in rgl and 'native_decide' not in rgl
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2241,8 +2263,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All seventy-one files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 named results print their "
+      "LINT. All seventy-two files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
