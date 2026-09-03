@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 97 modules and,
-  at this commit, 1,799 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 98 modules and,
+  at this commit, 1,942 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -133,7 +133,7 @@ of implementations or the observer architecture, none Lie-algebraic.
   `staggered_relations`, `structural_chain`, `representation_bridge` and `time_reversal` are the
   companions of the proof files above: every integer the Lean files submit to `decide` is
   recomputed by an independent construction. The rest instantiate the `OIBridge` theorems on
-  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F77, one per
+  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F78, one per
   round of the reconstruction and completion programme, each reading the kernel file it
   certifies back for its claim discipline) and `edge_rigidity_probe.py` carries the R7 lint,
   which requires every listed kernel result to be a `theorem` with a `#print axioms` line and
@@ -184,7 +184,7 @@ modules, in the order the development grew:
   `OIRealization`, `OperationalValidity`, `LevelOneSeam`, `PhysicalCharacterization`,
   `DiagonalTheory`, `RankGapTheory`, `IsometryExtension`, `GeneralCarrier`,
   `UhlmannUniqueness`, `ReachabilitySeam`, `OrbitReachability`, `SubstantiveCensus`,
-  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`, `TypedCompletion`, `RegionLimit`, `RegionTower`): the five completion conditions defined one by one with the countermodel
+  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`, `TypedCompletion`, `RegionLimit`, `RegionTower`, `QuasilocalAlgebra`): the five completion conditions defined one by one with the countermodel
   that separates each, the sealed OI core realized with its actual visible readout, the
   characterization theorem with its necessity direction, the five-way minimality audit, the
   discharge of finite isometry extension, the removal of the qubit restriction, the discharge
@@ -329,7 +329,19 @@ of laws: consistent families are closed under mixing, the reference family is co
 uniform state is the unique normalized state invariant under the substratum's own bijective and phase
 interventions (`consistent_mix`, `uniform_family_consistent`, `invariant_normalized_eq_uniform`), so a
 sector selector would be a state-level input of the initial-condition kind rather than an axiom of
-the theory.
+the theory. The third entry (`QuasilocalAlgebra.lean`) constructs the infinite-region object itself:
+the local algebra as the algebra of equivalence classes of finite-region observables (`emb_eq_iff`),
+realized as a ring on the free vector space over global configurations, which carries no inner
+product, norm or state; the inclusions as star homomorphisms that are injective and hence isometric
+for the operator norm (`norm_inclObs`); the C*-norm on the local algebra and its abstract norm
+completion, a C*-algebra (`instCStarAlgebraQuasilocal`) that is literally the closure of the union of
+the finite stages (`closure_iUnion_stage`); every consistent family of density matrices as a unital
+positive state of the completion, by unique continuous extension (`quasiState_unique`,
+`quasiState_nonneg`); and every reversible finite-range dynamics as an isometric star automorphism
+of the completion, with the transport of a local observable localized on an explicit finite region
+(`heis_emb`, `heisQ_mul`, `norm_heisQ`, `heis_iterate_emb`). No representation is chosen, no
+continuity or continuous-time law is added, and no Hilbert-space representation is constructed; the
+quasilocal algebra is identified with the discrete-time quasilocal target by definition.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general

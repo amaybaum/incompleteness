@@ -9450,6 +9450,201 @@ check("F77", ok77,
       "the causal cone is for an abstract update, not a specific Hamiltonian; frozen Level I/II "
       "statements untouched; no manuscript change.")
 
+# F78 -- LEVEL III, ROUND 3: THE QUASILOCAL COMPLETION -- the kernel calculus of local observables
+# on a three-site lattice (inclusion preserves kernels, kernels compose, kernels determine the
+# observable, the equivalence-class criterion), the isometry of inclusion certified by the
+# characteristic polynomial, consistent families as unital positive functionals, and the
+# Heisenberg transport of a local observable under a reversible finite-range update on a
+# twelve-site ring localized on the explicit hat region, all exact (OI_Q Level III, round three).
+ok78 = True
+import itertools as _it78
+_Q78 = [0, 1]
+def _confs78(L): return list(_it78.product(_Q78, repeat=len(L)))
+def _glob78(L, s): return tuple(s[x] for x in L)                          # glob
+def _agreeoff78(L, t, s): return all(t[i] == s[i] for i in range(len(t)) if i not in L)   # AgreeOffG
+def _kern78(L, X, t, s):                                                   # kern
+    cs = _confs78(L)
+    return X[cs.index(_glob78(L, t))][cs.index(_glob78(L, s))] if _agreeoff78(L, t, s) else CZ17
+_G78 = list(_it78.product(_Q78, repeat=3))                                 # the global configurations of three sites
+_LA78, _LB78, _LC78, _L178 = [0], [0, 1], [0, 1, 2], [1]
+_X78, _Y78 = _rand77(2, 4), _rand77(2, 5)
+# --- (1) the kernel calculus: inclusion preserves kernels; kernels compose; kernels determine.
+ok78 &= all(_kern78(_LB78, _incl77(_LA78, _LB78, _X78), t, s) == _kern78(_LA78, _X78, t, s) for t in _G78 for s in _G78)   # kern_inclObs
+ok78 &= all(_kern78(_LC78, _incl77(_LA78, _LC78, _X78), t, s) == _kern78(_LA78, _X78, t, s) for t in _G78 for s in _G78)
+_XY78 = mmc17(_X78, _Y78)
+ok78 &= all(_kern78(_LA78, _XY78, t, s) == sum((_kern78(_LA78, _X78, t, u) * _kern78(_LA78, _Y78, u, s) for u in _G78), CZ17)
+            for t in _G78 for s in _G78)                                   # emb_mul at the kernel level
+def _patch78(L, s, f): return tuple(f[L.index(i)] if i in L else s[i] for i in range(len(s)))
+_s078 = (0, 0, 0)
+ok78 &= all(_kern78(_LA78, _X78, _patch78(_LA78, _s078, f), _patch78(_LA78, _s078, g))
+            == _X78[_confs78(_LA78).index(f)][_confs78(_LA78).index(g)]
+            for f in _confs78(_LA78) for g in _confs78(_LA78))            # kern_patch: the kernel determines the observable
+ok78 &= all(_kern78(_LA78, dag17(_X78), t, s) == _kern78(_LA78, _X78, s, t).conj() for t in _G78 for s in _G78)   # kern_conjTranspose
+# the equivalence-class criterion: an observable of {0} and one of {1} have the same kernel exactly
+# when their inclusions into {0,1} agree -- so for the identities, not for the diagonal sign.
+_I78 = eye17(2)
+ok78 &= all(_kern78(_LA78, _I78, t, s) == _kern78(_L178, _I78, t, s) for t in _G78 for s in _G78)   # emb_eq_iff, forward
+ok78 &= _incl77(_LA78, _LB78, _I78) == _incl77(_L178, _LB78, _I78)
+_Z78 = _diag74([C17(1), C17(-1)])
+ok78 &= any(_kern78(_LA78, _Z78, t, s) != _kern78(_L178, _Z78, t, s) for t in _G78 for s in _G78)
+ok78 &= _incl77(_LA78, _LB78, _Z78) != _incl77(_L178, _LB78, _Z78)
+# --- (2) inclusion is isometric: the characteristic polynomial of (inclObs X)^H (inclObs X) is the
+# |Q|^{|L' \ L|}-th power of that of X^H X, so the two have the same spectrum and the same operator
+# norm (Faddeev-LeVerrier, exact).
+def _charpoly78(A):
+    n = len(A); c = [None] * (n + 1); c[n] = CO17
+    Mk = [[CZ17] * n for _ in range(n)]
+    for k in range(1, n + 1):
+        Mk = add52(mmc17(A, Mk), scale52(c[n - k + 1], eye17(n)))
+        c[n - k] = C17(Frac(-1, k)) * _tr76(mmc17(A, Mk))
+    return c
+def _polmul78(p, q):
+    r = [CZ17] * (len(p) + len(q) - 1)
+    for i, a in enumerate(p):
+        for j, b in enumerate(q): r[i + j] = r[i + j] + a * b
+    return r
+def _polpow78(p, e):
+    r = [CO17]
+    for _ in range(e): r = _polmul78(r, p)
+    return r
+_pX78 = _charpoly78(mmc17(dag17(_X78), _X78))
+_iB78, _iC78 = _incl77(_LA78, _LB78, _X78), _incl77(_LA78, _LC78, _X78)
+ok78 &= _charpoly78(mmc17(dag17(_iB78), _iB78)) == _polpow78(_pX78, 2)   # norm_inclObs into {0,1}
+ok78 &= _charpoly78(mmc17(dag17(_iC78), _iC78)) == _polpow78(_pX78, 4)   # norm_inclObs into {0,1,2}
+ok78 &= _pX78 != _polpow78(_charpoly78(mmc17(dag17(_Y78), _Y78)), 1)     # the certificate distinguishes observables
+# --- (3) consistent families are unital positive functionals: the value on a representative is
+# independent of the region, the identity has value one, X^H X has a nonnegative real value, and
+# the reference value is region-independent.
+_Bm78 = _rand77(8, 6)
+_rhoC78 = mmc17(dag17(_Bm78), _Bm78)
+_rhoC78 = scale52(_tr76(_rhoC78).inv(), _rhoC78)
+_fam78 = {tuple(_LC78): _rhoC78, tuple(_LB78): _restr77(_LB78, _LC78, _rhoC78), tuple(_LA78): _restr77(_LA78, _LC78, _rhoC78)}
+ok78 &= _tr76(_fam78[tuple(_LA78)]) == CO17 and _tr76(_fam78[tuple(_LB78)]) == CO17     # trace_one on every region
+ok78 &= _tr76(mmc17(_X78, _fam78[tuple(_LA78)])) == _tr76(mmc17(_iB78, _fam78[tuple(_LB78)]))   # evalLocal_ofM
+ok78 &= _tr76(mmc17(_X78, _fam78[tuple(_LA78)])) == _tr76(mmc17(_iC78, _fam78[tuple(_LC78)]))
+ok78 &= _tr76(mmc17(_I78, _fam78[tuple(_LA78)])) == CO17                                # evalLocal_one
+for _W78 in (_X78, _Y78, _rand77(4, 7)):
+    _L78 = _LA78 if len(_W78) == 2 else _LB78
+    _v78 = _tr76(mmc17(mmc17(dag17(_W78), _W78), _fam78[tuple(_L78)]))
+    ok78 &= _v78.im == 0 and _v78.re >= 0                                                 # evalLocal_nonneg
+ok78 &= _tr76(_iC78) * C17(Frac(1, 8)) == _tr76(_X78) * C17(Frac(1, 2))                 # referenceState_stage
+# --- (4) the Heisenberg transport under a reversible finite-range update on a twelve-site ring:
+# even sites flip conditioned on their odd neighbours, then odd sites conditioned on the updated
+# even neighbours (two involutions, hence a bijection whose inverse is the reverse order); the
+# exact dependence and influence sets satisfy the FiniteRange conditions; the hat region of {0}
+# omits one site; and the transported kernel vanishes unless the configurations agree off the
+# hat region and equals there the transported matrix of the kernel formula.
+_N78 = 12
+def _stageE78(s):
+    s = list(s)
+    for i in range(0, _N78, 2): s[i] ^= s[(i - 1) % _N78] & s[(i + 1) % _N78]
+    return tuple(s)
+def _stageO78(s):
+    s = list(s)
+    for i in range(1, _N78, 2): s[i] ^= s[(i - 1) % _N78] & s[(i + 1) % _N78]
+    return tuple(s)
+def _phi78(s): return _stageO78(_stageE78(s))
+def _phiinv78(s): return _stageE78(_stageO78(s))
+_all78 = list(_it78.product(_Q78, repeat=_N78))
+ok78 &= all(_phiinv78(_phi78(s)) == s for s in _all78)                                    # a bijection with the stated inverse
+def _win78(i, r): return {(i + d) % _N78 for d in range(-r, r + 1)}
+_nb78 = {i: _win78(i, 1 if i % 2 == 0 else 2) for i in range(_N78)}       # nbhd of phi: even sites see +-1, odd +-2
+_nbi78 = {i: _win78(i, 2 if i % 2 == 0 else 1) for i in range(_N78)}      # nbhd of the inverse
+def _infl78(nb): return {i: {j for j in range(_N78) if i in nb[j]} for i in range(_N78)}
+_in78, _ini78 = _infl78(_nb78), _infl78(_nbi78)
+def _deponly78(f, nb):                                                     # DependsOnlyOn, exhaustively
+    for s in _all78:
+        fs = f(s)
+        for x in range(_N78):
+            if x in nb: continue
+            s2 = list(s); s2[x] = 1 - s2[x]
+            if fs != f(tuple(s2)): return False
+    return True
+ok78 &= all(_deponly78(lambda s, i=i: _phi78(s)[i], _nb78[i]) for i in (0, 1))            # local_dep for phi (one even, one odd site)
+ok78 &= all(_deponly78(lambda s, i=i: _phiinv78(s)[i], _nbi78[i]) for i in (0, 1))        # local_dep for the inverse
+ok78 &= all((i in _nb78[j]) <= (j in _in78[i]) for i in range(_N78) for j in range(_N78))  # mem_infl
+def _bwd78(nb, A): return set().union(*(nb[i] for i in A)) if A else set()
+def _fwd78(inf, A): return set().union(*(inf[i] for i in A)) if A else set()
+_Lam78 = {0}
+_hat78 = _fwd78(_ini78, _Lam78) | _bwd78(_nb78, _Lam78) | _bwd78(_nb78, _bwd78(_nbi78, _fwd78(_ini78, _Lam78)))   # hat
+ok78 &= len(_hat78) == 11 and 6 not in _hat78                             # the hat region omits the antipodal site
+_hatL78 = sorted(_hat78, key=lambda i: (i - 7) % _N78)
+def _globH78(s): return tuple(s[i] for i in _hatL78)
+def _ext78(h):                                                             # ext: patch of the zero configuration
+    s = [0] * _N78
+    for k, i in enumerate(_hatL78): s[i] = h[k]
+    return tuple(s)
+def _target78(s, f):                                                       # target: glob_hat (phi^-1 (patch_{0} (phi s) f))
+    u = list(_phi78(s)); u[0] = f
+    return _globH78(_phiinv78(tuple(u)))
+def _Ytr78(g, h):                                                          # transported
+    e = _ext78(h)
+    return sum((_X78[f][_phi78(e)[0]] for f in (0, 1) if _target78(e, f) == g), CZ17)
+def _Ktr78(t, s):                                                          # kerOf (heis (emb X)) = kern X (phi t) (phi s)
+    ft, fs = _phi78(t), _phi78(s)
+    return _X78[ft[0]][fs[0]] if _agreeoff78([0], ft, fs) else CZ17
+def _flip78(s, x): s = list(s); s[x] = 1 - s[x]; return tuple(s)
+for _t78 in _all78:
+    _s278 = _phiinv78(_flip78(_phi78(_t78), 0))                            # the other configuration with a nonzero kernel
+    ok78 &= _agreeoff78(_hatL78, _t78, _s278)                              # symm_patch_eq_patch: it agrees with t off the hat
+    ok78 &= _Ktr78(_t78, _flip78(_t78, 6)) == CZ17                         # nothing reaches across the omitted site
+    for _s78 in (_t78, _s278, _flip78(_t78, 3), _flip78(_t78, 11)):
+        ok78 &= _Ktr78(_t78, _s78) == _Ytr78(_globH78(_t78), _globH78(_s78))   # heis_emb: the transported kernel
+# --- (5) the kernel's claim discipline, read back.
+_qa78 = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                     'OIBridge', 'QuasilocalAlgebra.lean')
+if os.path.exists(_qa78):
+    with open(_qa78, encoding='utf-8') as _f:
+        _qa_txt78 = ' '.join(_f.read().split())
+    ok78 &= 'theorem emb_eq_iff' in _qa_txt78 and 'theorem norm_inclObs' in _qa_txt78
+    ok78 &= 'instCStarAlgebraQuasilocal' in _qa_txt78 and 'theorem closure_iUnion_stage' in _qa_txt78
+    ok78 &= 'theorem quasiState_unique' in _qa_txt78 and 'theorem quasiState_nonneg' in _qa_txt78
+    ok78 &= 'theorem heis_emb' in _qa_txt78 and 'theorem norm_heisQ' in _qa_txt78 and 'theorem heis_iterate_emb' in _qa_txt78
+    ok78 &= 'theorem quasilocal_completion' in _qa_txt78
+    ok78 &= 'sorry' not in _qa_txt78
+    ok78 &= 'not claimed either way' in _qa_txt78
+check("F78", ok78,
+      "LEVEL III, ROUND 3: THE QUASILOCAL COMPLETION (OI_Q Level III, round three; kernel: "
+      "OIBridge/QuasilocalAlgebra.lean, 143 results -- among them emb_eq_iff, inclObs_mul, "
+      "inclObs_injective, norm_inclObs, instCStarRingLocal, instCStarAlgebraQuasilocal, "
+      "stage_inclObs, norm_stage, closure_iUnion_stage, evalLocal_ofM, evalLocal_nonneg, "
+      "quasiState_unique, quasiState_one, quasiState_nonneg, referenceState_stage, heis_emb, "
+      "transported_conjTranspose, norm_transported, heisQ_mul, heisQ_star, norm_heisQ, "
+      "heisQ_inv_heisQ, heis_iterate_emb, quasilocal_completion). THE LOCAL ALGEBRA: a finite-"
+      "region observable has a kernel on global configurations, inclusion does not change it, the "
+      "kernel is realized as an operator on the free vector space over configurations (an "
+      "algebraic device with no inner product, norm or state), and two observables have the same "
+      "operator exactly when they agree after inclusion into a common region -- the local algebra "
+      "IS the algebra of equivalence classes of finite-region observables, and multiplicativity, "
+      "unitality and injectivity of inclusion are recovered from it. THE NORM: inclusion is an "
+      "injective star homomorphism between finite stages, hence isometric by the uniqueness of "
+      "the C*-norm; norm and involution of a local element are those of any representative; the "
+      "local algebra satisfies the C*-identity. THE COMPLETION: the quasilocal algebra is the "
+      "abstract norm completion, its involution the continuous extension, the C*-identity and "
+      "the star laws pass by density, it is a C*-algebra, each finite stage embeds by a compatible "
+      "isometric star homomorphism, and the algebra is the closure of the union of the stages. "
+      "STATES: a consistent family of density matrices is a well-defined, linear, unital, "
+      "positive, bounded functional on the local algebra and extends uniquely to a unital positive "
+      "continuous functional on the completion; the reference family gives the tracial reference "
+      "state. DYNAMICS: a reversible finite-range update acts by conjugation with its permutation "
+      "operator; the transport of a local observable of a region is a local observable of an "
+      "explicit finite hat region, the transport is an injective star homomorphism between finite "
+      "stages hence isometric, the action on the local algebra is a star automorphism that is "
+      "isometric, and it extends to an isometric star automorphism of the quasilocal algebra; "
+      "after k steps an observable lives on the k-fold hat region (the algebraic causal cone). "
+      "Verified exactly here: the kernel calculus on three sites (inclusion preserves kernels, "
+      "kernels compose, kernels determine, the equivalence-class criterion in both directions), "
+      "the isometry certificate by characteristic polynomials into two and three sites, a mixed "
+      "consistent family as a unital positive region-independent functional, the region-"
+      "independence of the reference value, and on a twelve-site ring with a two-stage reversible "
+      "update the bijection, the exact dependence and influence sets, the hat region omitting the "
+      "antipodal site, the vanishing of the transported kernel across it, and the transported "
+      "kernel equal to the transported matrix on every configuration, plus the kernel text read "
+      "back. NOT CLAIMED, lint-guarded: no Hilbert-space representation constructed or selected, "
+      "no inequivalence proved, no sharp bound on the state's constant, no continuity or "
+      "continuous-time law added, the target identified with the construction by definition; "
+      "frozen Level I/II statements untouched; no manuscript change.")
+
 print()
 print('     [scope] Settled in Lean: the return-probability expansion, positivity of every gap')
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')

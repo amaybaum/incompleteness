@@ -979,6 +979,19 @@ for fname, names in (
                      'uniform_family_consistent', 'phaseGate_conj_apply', 'offDiag_zero_of_phase_invariant',
                      'diag_eq_of_perm_invariant', 'invariant_state_scalar', 'invariant_normalized_eq_uniform',
                      'uniform_invariant', 'state_selection_audit')),
+    ('QuasilocalAlgebra', ('glob_patch', 'patch_eq_iff', 'agreeOffG_iff', 'kern_inclObs', 'kern_conjTranspose',
+                           'emb_single_apply', 'ext_of_kerOf', 'emb_inclObs', 'emb_mul', 'emb_injective', 'emb_eq_iff',
+                           'inclObs_mul', 'inclObs_one', 'inclObs_injective', 'inclObs_conjTranspose', 'ofM_eq_iff',
+                           'exists_ofM₂', 'norm_inclObs', 'star_ofM', 'norm_ofM',
+                           'isometry_star_local', 'star_coe', 'stage_inclObs',
+                           'norm_stage', 'stage_injective', 'closure_iUnion_stage', 'evalLocal_ofM', 'evalLocal_one',
+                           'evalLocal_nonneg', 'norm_trace_mul_le', 'norm_evalLocal_le', 'quasiState_coe',
+                           'quasiState_stage', 'quasiState_one', 'quasiState_nonneg', 'quasiState_unique',
+                           'uniformFamily_isStateFamily', 'referenceState_stage', 'agreeOffG_map', 'kerOf_heis',
+                           'symm_patch_eq_patch', 'target_of_glob_eq', 'heis_emb', 'transported_conjTranspose',
+                           'transported_injective', 'norm_transported', 'heisLoc_star', 'norm_heisLoc',
+                           'heisLoc_inv_heisLoc', 'heisQ_mul', 'heisQ_star', 'norm_heisQ', 'heisQ_inv_heisQ',
+                           'heis_iterate_emb', 'quasilocal_completion')),
     ('SubstantiveCensus', ('reduction2_trace_card', 'two_card_sub_one_ne_zero', 'kappa_pos', 'redMap_apply',
                            'redMap_trace', 'ampl2_smul_map', 'amplRef_smul_map', 'redMap_twoPositive',
                            'reduction2_preservesDiag', 'redMap_preservesDiag', 'ent3_star', 'ent3_norm',
@@ -1886,6 +1899,32 @@ for _w in ('axiom continuity', 'GNS', 'CStarAlgebra', 'theorem representation_se
            'theorem sector_required', 'theorem infiniteVolume'):
     ok6 &= _w not in rgt
 ok6 &= 'structure FiniteOperationalTheory' not in rgt and 'native_decide' not in rgt
+# Level-III round-3 guards: the quasilocal completion is CONSTRUCTED -- the local algebra as
+# equivalence classes (the criterion is a theorem), the inclusions isometric by the uniqueness of
+# the C*-norm, the completion an abstract norm completion that is a C*-algebra and the closure of
+# the union of the stages, states by unique continuous extension, the dynamics by continuous
+# extension of an isometric star automorphism; no Hilbert-space representation, no continuity
+# axiom, no continuous-time law, no L^2; frozen Level I/II statements untouched.
+qal = open(os.path.join(BRIDGE, 'OIBridge', 'QuasilocalAlgebra.lean'), encoding='utf-8').read()
+_qalflat = ' '.join(qal.split())
+ok6 &= 'theorem emb_eq_iff' in qal and 'theorem inclObs_injective' in qal
+ok6 &= 'theorem norm_inclObs' in qal and 'NonUnitalStarAlgHom.norm_map' in qal   # isometry from C*-norm uniqueness
+ok6 &= 'noncomputable instance instCStarRingLocal' in qal
+ok6 &= 'abbrev Quasilocal' in qal and 'UniformSpace.Completion (localAlg' in qal   # the abstract completion
+ok6 &= 'noncomputable instance instCStarAlgebraQuasilocal' in qal
+ok6 &= 'theorem stage_inclObs' in qal and 'theorem norm_stage' in qal and 'theorem closure_iUnion_stage' in qal
+ok6 &= 'theorem evalLocal_ofM' in qal and 'theorem quasiState_unique' in qal and 'theorem quasiState_nonneg' in qal
+_qs = _slice(qal, 'noncomputable def quasiState', 'theorem quasiState_coe')
+ok6 &= 'extend' in _qs                                                     # the state is the unique continuous extension
+ok6 &= 'theorem heis_emb' in qal and 'theorem norm_transported' in qal and 'theorem norm_heisQ' in qal
+ok6 &= 'theorem heisQ_inv_heisQ' in qal and 'theorem heis_iterate_emb' in qal
+ok6 &= 'theorem quasilocal_completion' in qal
+ok6 &= 'not claimed either way' in _qalflat and 'no inner product, no norm and no state' in _qalflat
+for _w in ('axiom continuity', 'InnerProductSpace', 'HilbertSpace', 'lp (fun', 'L²', 'GelfandNaimark',
+           'theorem representation_selected', 'theorem sector_required', 'theorem quasilocal_equiv',
+           'NormedSpace.exp', 'flow '):
+    ok6 &= _w not in qal
+ok6 &= 'structure FiniteOperationalTheory' not in qal and 'native_decide' not in qal
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2290,8 +2329,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All seventy-three files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 named results print their "
+      "LINT. All seventy-four files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

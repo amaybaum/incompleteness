@@ -80,7 +80,7 @@ open scoped ComplexOrder Kronecker Matrix.Norms.L2Operator
 
 section Tower
 
-variable {ι Q : Type} [Fintype ι] [DecidableEq ι] [Fintype Q] [DecidableEq Q]
+variable {ι Q : Type} [DecidableEq ι] [Fintype Q] [DecidableEq Q]
 
 /-- The configurations of a region: one state per site. -/
 abbrev Conf (Λ : Finset ι) (Q : Type) := (↥Λ → Q)
@@ -312,7 +312,7 @@ end CausalCone
 
 section Selection
 
-variable {ι Q : Type} [Fintype ι] [DecidableEq ι] [Fintype Q] [DecidableEq Q]
+variable {ι Q : Type} [DecidableEq ι] [Fintype Q] [DecidableEq Q]
 
 /-- **A CONSISTENT FAMILY**: one state on every region, each the restriction of every larger
 one. -/
@@ -345,7 +345,7 @@ theorem consistent_mix {ρ σ : ∀ Λ : Finset ι, Matrix (Conf Λ Q) (Conf Λ 
   rw [restrict_add, restrict_smul, restrict_smul, hρ Λ Λ' h, hσ Λ Λ' h]
 
 /-- The reference family: the uniformly mixed configurations on every region. -/
-noncomputable def uniformFamily (ι Q : Type) [Fintype ι] [DecidableEq ι] [Fintype Q]
+noncomputable def uniformFamily (ι Q : Type) [DecidableEq ι] [Fintype Q]
     [DecidableEq Q] : ∀ Λ : Finset ι, Matrix (Conf Λ Q) (Conf Λ Q) ℂ :=
   fun Λ => ((Fintype.card (Conf Λ Q) : ℂ))⁻¹ • (1 : Matrix (Conf Λ Q) (Conf Λ Q) ℂ)
 
@@ -531,7 +531,7 @@ end Schur
 
 section Summary
 
-variable {ι Q : Type} [Fintype ι] [DecidableEq ι] [Fintype Q] [DecidableEq Q]
+variable {ι Q : Type} [DecidableEq ι] [Fintype Q] [DecidableEq Q]
 
 /-- **THE STATE-SELECTION AUDIT.** The admissible state space (consistent families) is convex,
 contains the reference family, and on every region the reference state is the unique normalized
