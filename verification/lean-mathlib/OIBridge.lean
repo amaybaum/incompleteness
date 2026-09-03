@@ -135,6 +135,8 @@ import OIBridge.OrbitReachability
 import OIBridge.SubstantiveCensus
 import OIBridge.CompletedOI
 import OIBridge.CarrierGeneralOIPlus
+import OIBridge.EmbeddedObservation
+import OIBridge.ImplementationLocality
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 

@@ -1,0 +1,120 @@
+# The primitive-source audit of quantum-complete OI
+
+Quantum-complete OI (OI⁺) is equivalent to exact finite endomorphic operational quantum
+mechanics on every nonempty finite carrier (`CarrierGeneralOIPlus.carrier_general_oiPlus`).
+Its ingredients are the OI core, well-formedness, and three principles: observational
+independence, reversible richness, observer recursion. This document records, ingredient by
+ingredient, whether the kernel shows it to be constitutive (part of what it means to observe
+and to assign probabilities), derived from something more primitive, or open, and where a
+proposed derivation fails, which countermodel fails it. Every "derived" or "not derivable"
+entry names the kernel result; every "open" entry names the candidate source and no more.
+
+## The table
+
+| Ingredient | Kernel form | Candidate deeper source | Status at this commit |
+|---|---|---|---|
+| Composite operational validity | `CompositeOperationalValidity` | Operational semantics: available families map states to states and preserve probability in aggregate | Positivity derived from implementation locality (`validity_of_implementationLocality`); the normalization half is the trace clause of implementation generation, stated there rather than derived |
+| System-to-level-one seam | `SystemToLevelOne` | Relabelling of the carrier along `A ≃ A × Fin 1` | Derived from embedded observation (`systemToLevelOne_of_embeddedObservation`) |
+| Observational independence | `ObservationalIndependence` = inert-spectator compositionality | Implementation locality: a context-stable, label-invariant class of admissible operators generating availability | Derived (`observationalIndependence_of_implementationLocality`); not derivable from the core, validity, reversible richness and embedded observation (`redundancy_fails`) |
+| Reversible richness, inverse clause | first conjunct of `ReversibleRichness` | Reversible dynamics with accessible controls | Open; not derivable from the core, well-formedness, observational independence and observer recursion (`richness_independent`, which refutes the whole conjunction) |
+| Reversible richness, Lie-rank clause | second conjunct of `ReversibleRichness` | Symmetry and control architecture | Open; likely independent of the dynamical axioms, and not claimed to follow from them |
+| Observer recursion | `ObserverRecursion` | Embedded observation: one regrouping- and relabelling-invariant family of theories on all finite carriers | Derived (`observerRecursion_of_embeddedObservation`); not derivable from the core, well-formedness and the other two principles (`recursion_independent`, `embeddedObservation_independent`) |
+
+## The derived entries in detail
+
+**Embedded observation.** `EmbeddedObservation.lean` defines a family of finite operational
+theories on every finite carrier (`TheoryFamily`) with three properties. Regrouping
+invariance (`RegroupingInvariant`): the positive-level families of the observer at `S` are
+the system families of the observer at `S × Fin m`. Relabelling invariance
+(`RelabellingInvariant`): availability is transported along every bijection of carriers.
+Ambience (`IsAmbientMember`): the given theory is the family's member at its own carrier, on
+the system and at every positive level. `EmbeddedObservation T` is the existence of such a
+family. Nothing in it mentions a discard, a closure rule or a shifted theory.
+
+**What the derivation consumes.** From the embedded theories the proof uses only what every
+finite operational theory carries by its structure: the identity, the uniform preparation
+with its discard rule, and the native readout, whose form is forced
+(`readout_is_localLuders`). Iterated ancilla closure is the embedded observer's discard rule
+read through the three invariances along `shiftIdx` and its inverse
+(`closure_of_embedded`). The identity and the relative readout at every level follow the same
+route (`id_of_embedded`, `read_of_embedded`). Observer recursion then follows through the
+round-53 construction (`observerRecursion_of_closure`). The level-one seam is relabelling
+along `A ≃ A × Fin 1` (`systemToLevelOne_of_embedded`).
+
+**Necessity.** Exact finite operational QM satisfies the principle
+(`embeddedObservation_of_qm`): the family is the CP-instrument theory on every carrier
+(`cpTheory`, `cpFamily`), for which regrouping invariance is definitional and relabelling
+invariance is transport of complete positivity.
+
+**The countercontrol.** The rank-gap theory (`RankGapTheory.gapTheory`) carries the sealed
+core, well-formedness, observational independence and reversible richness and has no
+iterated ancilla closure, hence no embedded-observation family
+(`embeddedObservation_independent`, `core_not_embeddedObservation`). So bare OI does not
+supply the principle, and neither do the other principles.
+
+**The compressed set.** With the seam derived, `OIPlusEmbedded` is composite operational
+validity, observational independence, reversible richness and embedded observation, and
+`carrier_general_oiPlusEmbedded` proves it equivalent to exact finite endomorphic operational
+QM on every nonempty finite carrier; `oiPlusEmbedded_iff_oiPlus` identifies it with
+carrier-general OI⁺.
+
+## The second entry: observational independence
+
+**The redundancy test.** Round fifty-six strengthened observer recursion to embedded
+observation, so the first question is whether validity, reversible richness and embedded
+observation already force observational independence. They do not (`redundancy_fails`).
+The round-34 countermodel (`countermodel`: Kraus families on the qubit, 2-positive
+trace-preserving instruments on every composite) carries the OI core, validity and
+reversible richness, and it carries embedded observation: the 2-positive-instrument theory
+on every finite carrier (`twoPosTheory`, `twoPosFamily`) is a regrouping- and
+relabelling-invariant family whose qubit member is the countermodel, definitionally on the
+composites and by `twoPositive_qubit_cp` on the system. It has no observational
+independence. The four-part package does not compress to three.
+
+**Form without existence.** Round thirty-seven's `isSpectatorExtension_iff` fixes the form
+of any spectator extension as `withSpectator`. `form_fixed_existence_fails` records that for
+the countermodel's available two-qubit reduction map the qutrit extension is so fixed and
+not available. The missing physics is existence.
+
+**The primitive, below availability.** An implementation class (`ImplementationClass`)
+assigns to every finite carrier the admissible single operators; an operation is realized
+by the class when it is a finite sum of conjugations by admissible operators (`Realized`).
+Implementation generation (`ImplementationGenerated`): at every positive level a family is
+available exactly when each branch is realized and the aggregate trace is preserved.
+Context stability (`ContextStable`): `𝓘 S K → 𝓘 (R × S) (1_R ⊗ K)`. Label invariance
+(`LabelInvariant`): admissibility is transported along carrier bijections. Neither
+stability nor invariance mentions availability or the spectator extension; the lint checks
+the statements for that vocabulary.
+
+**The derivation.** The extension of a conjugation is the conjugation by the reindexed
+`1 ⊗ K` (`withSpectator_conjChannel`, the local form), so realization is preserved
+(`realized_withSpectator`) and the aggregate trace is preserved; hence
+`observationalIndependence_of_implementationLocality`. Realized operations are completely
+positive, so validity is derived too (`validity_of_implementationLocality`).
+
+**Necessity and diagnosis.** Exact finite operational QM is generated by the full class
+(`implementationLocality_of_qm`). The countermodel is generated by no class at all, because
+its reduction map is not completely positive (`countermodel_not_implementationGenerated`):
+its failure is implementability, not context stability.
+
+**The compressed set.** `OIPlusLocal` is implementation locality, reversible richness and
+embedded observation, and `carrier_general_oiPlusLocal` proves it equivalent to exact
+finite endomorphic operational QM on every nonempty finite carrier.
+
+## What is not claimed
+
+- The converse from observer recursion to embedded observation is not proved outside the
+  OI⁺ context, where both are equivalent to QM.
+- The independence of observational independence and of reversible richness from embedded
+  observation is not re-established; the round-53 witnesses establish it relative to observer
+  recursion.
+- Whether context stability is redundant given implementation generation is not settled:
+  no theory generated by a class that is not closed under `1 ⊗ ·` and failing observational
+  independence is built.
+- The converse from observational independence to implementation locality is not claimed
+  outside the OI⁺ context.
+- The normalization half of validity is not derived; it is the trace clause of
+  implementation generation.
+- Nothing here bears on the sources of either clause of reversible richness. Those are the
+  remaining entries of the table, and for each failed implication an explicit countermodel is
+  the required deliverable.
