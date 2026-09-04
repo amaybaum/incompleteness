@@ -2014,7 +2014,9 @@ ok6 &= 'def AvailFS' in ina and 'theorem q3_countermodel' in ina
 # nothing frozen is weakened: the frozen state and dynamics theorems are restated on the same algebra
 ok6 &= 'theorem states_untouched' in ina and 'theorem dynamics_untouched' in ina
 _stu = _slice(ina, 'theorem states_untouched', 'theorem dynamics_untouched')
-ok6 &= 'quasiState_one' in _stu and 'quasiState_nonneg' in _stu
+# the frozen state layer must be restated for EVERY consistent family, not only the reference one
+ok6 &= 'IsStateFamily' in _stu and 'quasiState_isState' in _stu and 'quasiState_stage' in _stu
+ok6 &= 'uniformFamily_isStateFamily' not in _stu
 _dyu = _slice(ina, 'theorem dynamics_untouched', 'end Summary')
 ok6 &= 'heisQ_mul' in _dyu and 'norm_heisQ' in _dyu and 'heisQ_inv_heisQ' in _dyu
 # the closure rules and the containment of Level II
@@ -2028,6 +2030,11 @@ _exc = _slice(ina, 'theorem phaseAll_not_availFS', 'end Exclusion')
 ok6 &= '[Fintype J]' in _exc
 # independence, not impossibility
 ok6 &= 'independence from' in _inaflat and 'not impossibility' in _inaflat
+# the Level II containment must be stated for the ENDOMORPHIC fixed-carrier case, with the typed
+# attachment/discard structure named as separately frozen, and Q5's principle must not be unique
+ok6 &= 'endomorphic Kraus instrument' in _inaflat
+ok6 &= 'separately frozen and unchanged' in _inaflat
+ok6 &= 'not a uniquely forced one' in _inaflat
 for _w in ('theorem oi_forbids', 'theorem infiniteSupport_impossible',
            'theorem availability_derived', 'axiom continuity', 'CompletelyPositive',
            'InnerProductSpace', 'HilbertSpace'):

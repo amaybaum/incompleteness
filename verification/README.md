@@ -387,16 +387,19 @@ the Kraus class exhausts the completely positive instruments, and whether an ope
 principle is required. The abstract completely positive class is not formalized in this entry. The second entry decides
 Q3 negatively (`InstrumentAvailability.lean`). A countermodel declares an operation available
 exactly when it is a finite-support instrument; it is a predicate on the frozen Level III objects,
-which are unchanged (`states_untouched`, `dynamics_untouched`), contains every finite-support Level
-II instrument and no more (`availFS_of_kraus`, `kraus_of_availFS`), and is closed under the
-identity, composition, outcome relabelling, outcome coarse-graining and the frozen OI-induced
-dynamics (`availFS_id`, `availFS_comp`, `availFS_relabel`, `qBranchJ_coarse`, `availFS_dyn`) — yet
-the all-sites phase map is the total map of no available operation at any finite outcome index
-(`phaseAll_not_availFS`). The structure the frozen levels supply therefore does not entail the
-availability of genuinely infinite-support coherent operations (`q3_countermodel`), and Q5 sharpens:
-a target containing them requires an explicit operational-completion principle, an addition rather
-than a consequence. This is independence from the frozen structure, not impossibility: nothing says
-OI forbids such operations.
+which are unchanged (`states_untouched`, `dynamics_untouched`), contains every finite-region endomorphic
+Kraus instrument the Level II theory supplies inside this fixed-carrier interface and no more
+(`availFS_of_kraus`, `kraus_of_availFS`), and is closed under the identity, composition, outcome
+relabelling, outcome coarse-graining and the frozen OI-induced dynamics (`availFS_id`,
+`availFS_comp`, `availFS_relabel`, `qBranchJ_coarse`, `availFS_dyn`) — yet the all-sites phase map
+is the total map of no available operation at any finite outcome index (`phaseAll_not_availFS`).
+The current frozen structure together with finite-support quasilocal availability therefore does
+not entail the availability of genuinely infinite-support coherent operations, within this
+fixed-algebra interface (`q3_countermodel`), and Q5 sharpens: an extension requiring them needs
+some additional principle, an addition rather than a consequence, with "operational completion" a
+proposed name rather than a uniquely forced one. This is independence from the frozen structure,
+not impossibility: nothing says OI forbids such operations. Level II's typed attachment and discard
+change the carrier, are not expressible by this predicate, and stay separately frozen.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general

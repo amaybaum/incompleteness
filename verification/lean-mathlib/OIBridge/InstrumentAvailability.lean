@@ -16,32 +16,39 @@
   WHAT THE COUNTERMODEL IS. `AvailFS` declares an operation available exactly when it is a
   finite-support instrument. It is a predicate ON the Level III objects, not a replacement for
   them: the quasilocal algebra, its states and its dynamics are unchanged, witnessed by
-  `states_untouched` and `dynamics_untouched`, which restate the frozen state and dynamics
-  theorems on the same algebra. Instrument data is generalized from `Fin n` to an arbitrary finite
+  `states_untouched` — every consistent family of density matrices, not merely the reference one,
+  still extends to a state with the same values on the finite stages — and `dynamics_untouched`. Instrument data is generalized from `Fin n` to an arbitrary finite
   index (`IsQInstrJ`, `IsFSJ`, `qTotalJ`, `qBranchJ`, agreeing with the first entry's predicates on
   `Fin n` by `isQInstrJ_fin`, `isFSJ_fin`, `qTotalJ_fin`) so that composition can use a product
   index.
 
-  NOTHING FROZEN IS WEAKENED. Every finite-support Level II instrument is available
-  (`availFS_of_kraus`), and conversely every available operation is one (`kraus_of_availFS`), so
-  the theory contains exactly the operations the first entry characterized. It is closed under the
-  operations the framework performs: the identity (`availFS_id`), composition on the union of the
+  NOTHING FROZEN IS WEAKENED. Every finite-region endomorphic Kraus instrument supplied by the
+  Level II theory is available in this fixed-carrier interface (`availFS_of_kraus`), and conversely
+  every available operation is one (`kraus_of_availFS`), so the theory contains exactly the
+  operations the first entry characterized. Level II is typed and also has dimension-changing
+  operations — carrier attachment and discard — which no predicate on this fixed carrier can
+  express; that structure stays separately frozen and unchanged, neither modelled nor withheld.
+
+  The theory is closed under the operations this interface performs: the identity (`availFS_id`),
+  composition on the union of the
   regions (`availFS_comp`), outcome relabelling (`availFS_relabel`), outcome coarse-graining
   (`qBranchJ_coarse`, `sum_qBranchJ` — the branches of a coarser outcome map are sums of branches,
   which holds for any instrument data and so for every available one), and the frozen OI-induced
   dynamics, which carries an available operation to an available operation on the hat region
-  (`availFS_dyn`). Carrier attachment and discard are Level II operations on finite carriers rather
-  than operations of this quasilocal interface, and are neither used nor withheld here.
+  (`availFS_dyn`).
 
   WHAT IT WITHHOLDS. The all-sites phase map of the first entry is the total map of no available
   operation, at any finite outcome index (`phaseAll_not_availFS`, through
   `qTotalJ_stage_of_disjoint`: an available operation fixes the observables of a region disjoint
   from its support, while the phase map moves a single-site matrix unit at every site).
 
-  Q3, DECIDED NEGATIVELY (`q3_countermodel`). The structure the frozen levels supply does not
-  entail the availability of genuinely infinite-support coherent operations. Q5 sharpens
-  accordingly: a target theory containing such operations requires an explicit
-  operational-completion principle, and that principle is an addition rather than a consequence.
+  Q3, DECIDED NEGATIVELY (`q3_countermodel`). The current frozen structure together with
+  finite-support quasilocal availability does not entail the availability of genuinely
+  infinite-support coherent operations, within this fixed-algebra operational interface. Q5
+  sharpens accordingly: an extension of the target requiring such operations needs some additional
+  principle supplying them. "Operational completion" is a proposed name for such a principle, not a
+  uniquely forced one — a different additional physical principle, or a different substratum, could
+  supply the same availability.
 
   WHAT IS NOT CLAIMED: that OI forbids such operations — the countermodel shows independence from
   the frozen structure, not impossibility, and a different substratum or a further principle may
@@ -223,8 +230,10 @@ theorem availFS_dyn {J : Type} [Fintype J] (Φ : ReversibleDynamics ι Q)
     obtain ⟨X, hX⟩ := hΛ k
     exact ⟨transported Φ Λ X, by rw [← heisQ_stage, hX]⟩
 
-/-- **EVERY FINITE-SUPPORT LEVEL II INSTRUMENT IS AVAILABLE.** Nothing the frozen levels supply is
-withheld. -/
+/-- **EVERY FINITE-REGION ENDOMORPHIC KRAUS INSTRUMENT IS AVAILABLE.** These are the operations the
+Level II theory supplies inside the fixed-carrier quasilocal interface. The typed
+attachment/discard structure of Level II changes the carrier and is not expressible by this
+predicate; it stays separately frozen and unchanged, neither modelled nor withheld here. -/
 theorem availFS_of_kraus {n : ℕ} (Λ : Finset ι) (K : Fin n → Matrix (Conf Λ Q) (Conf Λ Q) ℂ)
     (hK : ∑ k, (K k)ᴴ * K k = 1) : AvailFS (fun k => stage Λ (K k)) :=
   qInstrument_of_kraus Λ K hK
@@ -317,10 +326,12 @@ variable {ι Q : Type} [DecidableEq ι] [Fintype Q] [DecidableEq Q] [Nonempty Q]
 
 /-- **Q3, DECIDED NEGATIVELY.** The finite-support availability theory sits on the frozen Level III
 objects — the same quasilocal algebra, the same states, the same dynamics — contains every
-finite-support Level II instrument, and is closed under the identity, composition, outcome
-relabelling, outcome coarse-graining and the frozen OI-induced dynamics; yet the all-sites phase
-map is the total map of no available operation. The structure the frozen levels supply therefore
-does not entail the availability of genuinely infinite-support coherent operations. -/
+finite-region endomorphic Kraus instrument the Level II theory supplies inside this fixed-carrier
+interface, and is closed under the identity, composition, outcome relabelling, outcome
+coarse-graining and the frozen OI-induced dynamics; yet the all-sites phase map is the total map of
+no available operation. The current frozen structure together with finite-support quasilocal
+availability therefore does not entail the availability of genuinely infinite-support coherent
+operations, within this fixed-algebra operational interface. -/
 theorem q3_countermodel [Infinite ι] [Nontrivial Q] (Φ : ReversibleDynamics ι Q) :
     AvailFS (fun _ : Unit => (1 : Quasilocal ι Q))
     ∧ (∀ (n : ℕ) (Λ : Finset ι) (K : Fin n → Matrix (Conf Λ Q) (Conf Λ Q) ℂ),
@@ -344,13 +355,15 @@ theorem q3_countermodel [Infinite ι] [Nontrivial Q] (Φ : ReversibleDynamics ι
   · intro J _ β hβ
     exact phaseAll_not_availFS β hβ
 
-/-- The frozen Level III state layer is untouched by the countermodel: the reference family is
-still a state of the same algebra. -/
-theorem states_untouched :
-    quasiState (uniformFamily_isStateFamily (ι := ι) (Q := Q)) 1 = 1
-    ∧ ∀ z : Quasilocal ι Q,
-        0 ≤ quasiState (uniformFamily_isStateFamily (ι := ι) (Q := Q)) (star z * z) :=
-  ⟨quasiState_one _, quasiState_nonneg _⟩
+/-- The frozen Level III state layer is untouched by the countermodel: **every** consistent family
+of density matrices still extends to a state of the same algebra, with the same values on the
+finite stages. Not merely the reference family — the whole state layer. -/
+theorem states_untouched (ρ : ∀ Λ : Finset ι, Matrix (Conf Λ Q) (Conf Λ Q) ℂ)
+    (hρ : IsStateFamily ρ) :
+    IsState (quasiState hρ)
+    ∧ ∀ (Λ : Finset ι) (X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ),
+        quasiState hρ (stage Λ X) = (X * ρ Λ).trace :=
+  ⟨quasiState_isState hρ, quasiState_stage hρ⟩
 
 /-- The frozen Level III dynamics is untouched: it is still an isometric star map of the same
 algebra. -/
