@@ -2316,6 +2316,45 @@ for _bad in ('C1 is sufficient', 'C1 suffices', 'recurrence alone gives backflow
     ok_auda &= not _asserted(_pc, _bad) and not _asserted(_aa, _bad)
 # the audit must publish the clean axes and its own limits, not only its hit
 ok_auda &= 'The axes that came back clean' in _aa and 'What this audit does not claim' in _aa
+# ---- Audit B guard: C4 at the concrete cut is named, not discharged, and not a hypothesis of hbar ----
+_cc = open(os.path.join(os.path.dirname(BRIDGE), 'CONCRETE-CUT-AUDIT.md'), encoding='utf-8').read()
+_gr = open(os.path.join(_root, 'papers/GR.md'), encoding='utf-8').read()
+ok_audb = True
+# the fourth entry exists at the cut and carries the status verdict, in GR and in both book sources
+ok_audb &= '**(C4)**' in _gr and 'Not presently discharged' in _gr
+for _p in ('book/ch07-gravity.md', 'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_root, _p), encoding='utf-8').read()
+    ok_audb &= 'Status of C4 (history readback)' in _t and 'not presently discharged' in _t
+    ok_audb &= 'reads the same degrees it writes' not in _t
+    ok_audb &= 'satisfies the framework\'s four conditions' not in _t
+# what remains must be stated, not gestured at
+ok_audb &= 'routed back into future visible conditionals' in _gr
+# C4 must not be made a hypothesis of the hbar derivation, and the derivation's own conditions must stay named
+ok_audb &= 'not a hypothesis of the calibration' in _gr
+# the two intro residues review caught: neither sentence may recur, in GR or in either book source,
+# and the intro must carry the conditional form instead
+for _t in (_gr,) + tuple(open(os.path.join(_root, _p), encoding='utf-8').read() for _p in
+                        ('book/ch07-gravity.md', 'book/The-Incompleteness-of-Observation-FULL.md')):
+    ok_audb &= 'The cosmological horizon satisfies all four conditions' not in _t
+    ok_audb &= 'the full equivalence applies in our universe' not in _t
+ok_audb &= 'remains conditional on C4' in _gr
+ok_audb &= 'carried by H-slope together with the horizon and frame conditions' in _gr
+# the audit must record why bidirectionality and H-scramble do not close it, and what it does not claim
+ok_audb &= 'strengthened form of C1' in _cc and 'H-scramble' in _cc
+ok_audb &= 'What this audit does not claim' in _cc
+for _bad in ('C4 is satisfied at the cosmological', 'C4 holds at the cosmological horizon',
+             'C4 fails at the cosmological'):
+    ok_audb &= not _asserted(_gr, _bad) and not _asserted(_cc, _bad)
+check('R7-AUDB', ok_audb,
+      'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
+      'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
+      'sources carry the same status and no longer infer C4 from bidirectionality or say the horizon '
+      'satisfies all four conditions; the hbar derivation names its own conditions and does not consume '
+      'C4; the intro neither says the horizon satisfies all four conditions nor that the full equivalence '
+      'applies in our universe, but that the equivalence remains conditional on C4; and the audit records '
+      'why bidirectionality and H-scramble do not close it, and claims neither '
+      'that C4 holds nor that it fails at the cut.')
+
 check('R7-AUDA', ok_auda,
       'Audit A guard: the recurrence chain names C1 in both parallel sources and the unqualified '
       '"any partition" form is gone from both, while the [Main] and Chapter 1 statements the '

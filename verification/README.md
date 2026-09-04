@@ -614,6 +614,28 @@ there. The other five axes came back clean and are recorded as such, with one st
 entry attaches to `PassiveQuotient.lean` or `ObservabilityQuotient.lean`, so the minimal-carrier
 machinery is kernel-proved infrastructure that currently underwrites no manuscript statement.
 
+`CONCRETE-CUT-AUDIT.md` is Audit B, the concrete-cut audit of the physical papers, with its census
+under `audit-census.json`. Finding B1: `[GR]` §2.2, headed *Verification of the conditions*, verified
+C1, C2 and C3 at the cosmological horizon and had no C4 entry, while §8.4 listed "the C1–C4
+conditions" among the `ħ` derivation's dependencies, the book's Chapter 7 said §7.2 "verifies that
+the cosmological horizon satisfies the framework's four conditions" and inferred C4 from the
+bidirectionality of the boundary coupling, and `[Main]` §1.3 deferred the read-write cycle to the
+companion work as "a property to be independently demonstrated there". Each paper treated the other
+as the place readback across the horizon is established, and neither established it; bidirectional
+coupling is a strengthened C1 and persistence is C2, and `[Main]` §3.4 derives C1 and C3 *from* C4,
+so verifying those two cannot supply it. The repair manufactures no proof: `[GR]` §2.2 carries a
+fourth entry recording C4 as a named realization condition at the cosmological cut, **not presently
+discharged**, with what remains stated; both book sources carry the same status; and C4 is not added
+as a hypothesis of the `ħ` derivation, which is carried by H-slope with the horizon and frame
+conditions. The `R7-AUDB` guard holds all of it.
+
+`audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
+audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its
+disposition and the reason, re-run on every CI pass and failing on drift. The manifest carries its
+own operating rule — re-read and re-decide on drift, update `expect` in the same commit as the text
+change, never widen a pattern to make a mismatch disappear — and the probe checks the rule is still
+there.
+
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general
 orbit theorem, the closed-subgroup theorem, or anything about non-compact groups; that the
