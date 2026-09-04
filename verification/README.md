@@ -639,6 +639,14 @@ structurally, C2 and C3 verified with enormous margins, C4 open; at the lattice 
 C3 a capacity floor for the realized process, C2 and C4 hypotheses.
 The `R7-AUDB` guard holds all of it.
 
+`CONCRETE-CUT-FREEZE.md` is the corrected interpretation the two audits earned, stated once in the
+form the guards enforce. It copies the canonical two-row table verbatim from `CONCRETE-CUT-AUDIT.md`
+and freezes five readings with the locations that carry each: the recurrence chain names C1; C4 is
+the primitive and is discharged at neither physical cut; C1–C4 are diagnostics of a realization,
+not hypotheses of the `ħ` calibration or of Layer 0; the OI core is forward-redundant; and the
+minimal-carrier machinery underwrites no manuscript statement. OI-N opens from it; CT3 stays paused
+behind OI-N.
+
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
 audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its
 disposition and the reason, re-run on every CI pass and failing on drift. The manifest carries its
