@@ -210,6 +210,154 @@ theorem continuous_swapU (S : Finset ι) : Continuous fun t : ℝ => swapU V S t
       simp only [hins, fun t => swapU_union V hdis t, fun t => swapU_singleton V i t]
       exact (continuous_unit_swapGate V i).mul ih
 
+/-! ### The layer's action, and its stabilization -/
+
+/-- **THE SWAP LAYER'S ACTION ON A REGION'S OBSERVABLES.** -/
+noncomputable def swapAct (S : Finset ι) (t : ℝ) (a : Quasilocal ι (V × V)) :
+    Quasilocal ι (V × V) :=
+  swapU V S t * a * star (swapU V S t)
+
+/-- **STABILIZATION.** Enlarging the set of gates beyond the observable's own region changes
+nothing: the extra gates sit on sites outside it, so they commute with it and cancel. For the swap
+layer the affected set of a region is the region itself, which is why the hypothesis here is plain
+inclusion rather than an inclusion of affected sets. -/
+theorem swapAct_stabilizes {Λ S : Finset ι} (hS : Λ ⊆ S)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) (t : ℝ) :
+    swapAct V S t (stage Λ X) = swapAct V Λ t (stage Λ X) := by
+  classical
+  set W := S \ Λ with hW
+  have hdis : Disjoint Λ W := Finset.disjoint_sdiff
+  have hSU : S = Λ ∪ W := by rw [hW, Finset.union_sdiff_of_subset hS]
+  have hcw : swapU V W t * stage Λ X = stage Λ X * swapU V W t := by
+    rw [swapU]
+    refine (Finset.noncommProd_commute W _ _ _ fun j hj => ?_).symm
+    have hjn : j ∉ Λ := (Finset.mem_sdiff.mp (hW ▸ hj)).2
+    exact (unit_swapGate_comm_stage V hjn X t).symm
+  rw [swapAct, swapAct, hSU, swapU_union V hdis, star_mul]
+  calc swapU V Λ t * swapU V W t * stage Λ X * (star (swapU V W t) * star (swapU V Λ t))
+      = swapU V Λ t * (swapU V W t * stage Λ X * star (swapU V W t)) * star (swapU V Λ t) := by
+        simp only [mul_assoc]
+    _ = swapU V Λ t * stage Λ X * star (swapU V Λ t) := by
+        rw [conj_eq_self_of_commute (swapU_star V W t) hcw]
+
+/-- **THE LAYER KEEPS A LOCAL OBSERVABLE LOCAL.** -/
+theorem swapAct_mem_range (S Λ : Finset ι) (t : ℝ)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    swapAct V S t (stage Λ X) ∈ Set.range (stage (Λ ∪ S)) := by
+  have hU : swapU V S t ∈ Set.range (stage (Λ ∪ S)) :=
+    mem_range_stage_le Finset.subset_union_right (swapU_mem_range V S t)
+  have hX : stage Λ X ∈ Set.range (stage (Λ ∪ S)) :=
+    mem_range_stage_le Finset.subset_union_left ⟨X, rfl⟩
+  exact mem_range_stage_mul (mem_range_stage_mul hU hX) (mem_range_stage_star hU)
+
+/-! ### The layer as a map on the local algebra -/
+
+/-- **THE SWAP LAYER ON A LOCAL OBSERVABLE.** -/
+noncomputable def swapLoc (t : ℝ) (a : localAlg ι (V × V)) : Quasilocal ι (V × V) :=
+  swapAct V (rep a).1 t (a : Quasilocal ι (V × V))
+
+/-- Two regions carrying the same observable give the same action. As in the shear layer, the
+*element* is rewritten rather than the region, which sits in a dependent type. -/
+theorem swapAct_eq_of_stage_eq {Λ Λ' : Finset ι}
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ)
+    (X' : Matrix (Conf Λ' (V × V)) (Conf Λ' (V × V)) ℂ)
+    (h : stage Λ X = stage Λ' X') (t : ℝ) :
+    swapAct V Λ t (stage Λ X) = swapAct V Λ' t (stage Λ' X') := by
+  have e1 := swapAct_stabilizes V (Finset.subset_union_left (s₂ := Λ')) X t
+  have e2 := swapAct_stabilizes V (Finset.subset_union_right (s₁ := Λ)) X' t
+  rw [← e1, ← e2, h]
+
+/-- **INDEPENDENCE OF THE REPRESENTATIVE.** -/
+theorem swapLoc_ofM (t : ℝ) (Λ : Finset ι)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    swapLoc V t (ofM Λ X) = swapAct V Λ t (stage Λ X) := by
+  classical
+  have h : stage (rep (ofM Λ X)).1 (rep (ofM Λ X)).2 = stage Λ X := by
+    rw [stage_apply, stage_apply, ofM_rep]
+  have hL : swapLoc V t (ofM Λ X)
+      = swapAct V (rep (ofM Λ X)).1 t (stage (rep (ofM Λ X)).1 (rep (ofM Λ X)).2) := by
+    rw [swapLoc, h]
+    rfl
+  rw [hL]
+  exact swapAct_eq_of_stage_eq V _ X h t
+
+theorem swapLoc_mul (t : ℝ) (a b : localAlg ι (V × V)) :
+    swapLoc V t (a * b) = swapLoc V t a * swapLoc V t b := by
+  classical
+  obtain ⟨Λ, X, Y, rfl, rfl⟩ := exists_ofM₂ a b
+  rw [← ofM_mul, swapLoc_ofM, swapLoc_ofM, swapLoc_ofM, swapAct, swapAct, swapAct, map_mul]
+  calc swapU V Λ t * (stage Λ X * stage Λ Y) * star (swapU V Λ t)
+      = swapU V Λ t * stage Λ X * (star (swapU V Λ t) * swapU V Λ t)
+          * stage Λ Y * star (swapU V Λ t) := by
+        rw [star_swapU_mul]
+        simp only [mul_one, mul_assoc]
+    _ = swapU V Λ t * stage Λ X * star (swapU V Λ t)
+          * (swapU V Λ t * stage Λ Y * star (swapU V Λ t)) := by simp only [mul_assoc]
+
+theorem swapLoc_add (t : ℝ) (a b : localAlg ι (V × V)) :
+    swapLoc V t (a + b) = swapLoc V t a + swapLoc V t b := by
+  classical
+  obtain ⟨Λ, X, Y, rfl, rfl⟩ := exists_ofM₂ a b
+  rw [← ofM_add, swapLoc_ofM, swapLoc_ofM, swapLoc_ofM, swapAct, swapAct, swapAct, map_add]
+  simp only [mul_add, add_mul]
+
+theorem swapLoc_smul (t : ℝ) (c : ℂ) (a : localAlg ι (V × V)) :
+    swapLoc V t (c • a) = c • swapLoc V t a := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [← ofM_smul, swapLoc_ofM, swapLoc_ofM, swapAct, swapAct, map_smul]
+  simp only [mul_smul_comm, smul_mul_assoc]
+
+theorem swapLoc_sub (t : ℝ) (a b : localAlg ι (V × V)) :
+    swapLoc V t (a - b) = swapLoc V t a - swapLoc V t b := by
+  rw [sub_eq_add_neg, swapLoc_add, ← neg_one_smul ℂ b, swapLoc_smul, neg_one_smul,
+    ← sub_eq_add_neg]
+
+theorem swapLoc_one (t : ℝ) : swapLoc V t (1 : localAlg ι (V × V)) = 1 := by
+  classical
+  have h1 : (1 : localAlg ι (V × V)) = ofM (∅ : Finset ι) 1 := (ofM_one _).symm
+  rw [h1, swapLoc_ofM, swapAct, map_one, mul_one, swapU_star]
+
+theorem swapLoc_star (t : ℝ) (a : localAlg ι (V × V)) :
+    swapLoc V t (star a) = star (swapLoc V t a) := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [star_ofM, swapLoc_ofM, swapLoc_ofM, swapAct, swapAct,
+    ← Matrix.star_eq_conjTranspose, map_star]
+  simp only [star_mul, star_star, mul_assoc]
+
+theorem swapLoc_zero (a : localAlg ι (V × V)) :
+    swapLoc V 0 a = (a : Quasilocal ι (V × V)) := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [swapLoc_ofM, swapAct, swapU_zero, star_one, one_mul, mul_one]
+  rfl
+
+/-- **THE LAYER IS ISOMETRIC.** -/
+theorem norm_swapLoc (t : ℝ) (a : localAlg ι (V × V)) :
+    ‖swapLoc V t a‖ = ‖(a : Quasilocal ι (V × V))‖ := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [swapLoc_ofM, swapAct]
+  have hU := swapU_mem_unitary V Λ t
+  rw [CStarRing.norm_mul_mem_unitary _ (Unitary.star_mem hU),
+    CStarRing.norm_mem_unitary_mul _ hU]
+  rfl
+
+theorem isometry_swapLoc (t : ℝ) :
+    Isometry (fun a : localAlg ι (V × V) => swapLoc V t a) := by
+  refine Isometry.of_dist_eq fun a b => ?_
+  rw [dist_eq_norm, dist_eq_norm, ← swapLoc_sub, norm_swapLoc,
+    UniformSpace.Completion.norm_coe]
+
+theorem continuous_swapLoc (a : localAlg ι (V × V)) :
+    Continuous fun t : ℝ => swapLoc V t a := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  simp only [fun t => swapLoc_ofM V t Λ X, swapAct]
+  exact ((continuous_swapU V Λ).mul continuous_const).mul
+    (continuous_star.comp (continuous_swapU V Λ))
+
 end OIBridge.SwapLayer
 
 namespace OIBridge.SwapLayer
@@ -229,5 +377,17 @@ namespace OIBridge.SwapLayer
 #print axioms swapU_add
 #print axioms swapU_mem_range
 #print axioms continuous_swapU
+#print axioms swapAct_stabilizes
+#print axioms swapAct_mem_range
+#print axioms swapLoc_ofM
+#print axioms swapLoc_mul
+#print axioms swapLoc_add
+#print axioms swapLoc_smul
+#print axioms swapLoc_one
+#print axioms swapLoc_star
+#print axioms swapLoc_zero
+#print axioms norm_swapLoc
+#print axioms isometry_swapLoc
+#print axioms continuous_swapLoc
 
 end OIBridge.SwapLayer
