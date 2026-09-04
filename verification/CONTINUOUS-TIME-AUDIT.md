@@ -223,11 +223,35 @@ the depth-two factorization, which exhibits the inverse as the two layers in the
 `ruleDynamics_comp` holds on the nose, and `heisQ_ruleDynamics` applies the order theorem to it, so
 the update's own Heisenberg action is known to run the swap first — the same shape `driveQ` has.
 
-What is still missing is the equality itself: that `driveQ R 1` equals `heisQ (ruleDynamics R)`.
-That needs each layer's time-one map identified with the corresponding layer's Heisenberg action on
-staged local observables through `heisLoc`, and then extended by density. Until that is done, the
-modules exhibit a continuous path of quasilocal automorphisms whose construction follows the
-update's factorization, not a continuous path proved to end at the update.
+One of the two layer endpoints is identified. The tool is a **region-supported dynamics**: for a
+finite region `Λ` and a permutation `σ` of its configurations, `localDyn Λ σ` permutes global
+configurations inside `Λ` and reads nothing outside it, and `permOp_localDyn` shows its permutation
+operator *is a local operator* — the embedded permutation matrix `emb Λ (permMat σ)`. So its
+Heisenberg action is conjugation by one stage's element (`heis_localDyn`, `heisQ_localDyn`). The
+second tool is `heis_eq_of_agree`: two dynamics that give a region the same restricted
+configuration and the same off-region agreement relation have the same Heisenberg action on that
+region's observables. Together these replace an all-sites layer, on any one local observable, by a
+dynamics supported in a finite region.
+
+For the swap layer that is enough. `swapU_one_eq_qGate` collapses the finite product of on-site
+gates over `Λ` into the single permutation matrix of the swap of all of `Λ` — the induction runs on
+`qGate_extPerm` and `permMat_mul`, with `qGate_regionSwap_union` the step — and the two agreement
+conditions hold because a swap gate is on-site and injective. The result is `swapQ_one_eq_heisQ`:
+
+  `swapQ V 1 = heisQ (swapDyn V)` on the whole quasilocal algebra.
+
+**The shear layer's endpoint is not identified**, and no theorem asserts it. The obstruction is the
+input to the method, not the method: the region-supported replacement for the shear must shear at
+every site of `affected R Λ` rather than only of `Λ`, since a gate whose neighbourhood meets `Λ`
+fails to commute with `Λ`'s observables, and it must be read on a region large enough to carry
+that. Both agreement conditions are then expected to hold — the off-region direction using that
+`i ∉ affected R Λ` forces `N i ∩ Λ = ∅` — but that is a statement about the shape of the argument,
+not a proof, and it is not claimed as one here.
+
+So `driveQ R 1 = heisQ (ruleDynamics R)` remains open, since it needs both layer endpoints. Until
+the shear half is done, the modules exhibit a continuous path of quasilocal automorphisms whose
+construction follows the update's factorization, with one of its two pieces proved to end where the
+frozen dynamics says it should.
 
 **The range hypothesis is now load-bearing** for the shear layer, as the first entry anticipated:
 an arbitrary `F` gives the factorization but no gate region, no stage, and hence no layer. The
@@ -242,6 +266,6 @@ relating them, and the finite-range hypothesis is a field rather than an ambient
 | CT2. Existence and per-gate locality | **answered affirmatively** (first entry) |
 | CT2'. The all-sites layer as an automorphism of the quasilocal algebra | **answered affirmatively** (this entry), for each of the two layers separately: a strongly continuous one-parameter group of `*`-automorphisms |
 | CT2''. The composite as a path from the identity | **answered affirmatively** (this entry): a norm-continuous path of `*`-automorphisms through the identity, in the order `heis_of_comp` forces. **Not** a one-parameter group |
-| CT2'''. The endpoint identified with the frozen `heisQ` | **open**, and the next task. The target exists (`ruleDynamics`, `heisQ_ruleDynamics`); the equality does not |
+| CT2'''. The endpoint identified with the frozen `heisQ` | **half done**. The swap layer: `swapQ_one_eq_heisQ`. The shear layer: **open**, and the next task |
 | CT3. A single time-independent local `H` | **open**. Not implied by depth two, and deliberately not asserted |
 | CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |

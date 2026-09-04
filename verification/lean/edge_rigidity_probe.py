@@ -1019,7 +1019,11 @@ for fname, names in (
                           'driveQ_star', 'norm_driveQ', 'driveQ_bijective',
                           'continuous_driveQ_time', 'driveQ_isContinuousPath',
                           'mem_stepInfl_of_mem_gateRegion', 'ruleDynamics_comp',
-                          'heisQ_ruleDynamics')),
+                          'heisQ_ruleDynamics', 'glob_localConf', 'localConf_localConf',
+                          'permOp_localDyn', 'permOpInv_localDyn', 'heis_localDyn',
+                          'heisLoc_localDyn', 'heisQ_localDyn', 'heis_eq_of_agree',
+                          'qGate_regionSwap_union', 'swapU_one_eq_qGate',
+                          'agreeOffG_swapLayer', 'heis_swapDyn_emb', 'swapQ_one_eq_heisQ')),
     ('InstrumentAvailability', ('isQInstrJ_fin', 'isFSJ_fin', 'qTotalJ_fin', 'qTotalJ_equiv',
                                 'isQInstrJ_equiv', 'qBranchJ_coarse', 'sum_qBranchJ', 'availFS_id',
                                 'mem_range_stage_mono', 'availFS_comp', 'availFS_relabel',
@@ -2076,6 +2080,12 @@ for _t in ('permOp_of_comp', 'permOpInv_of_comp', 'heis_of_comp', 'heisQ_of_comp
     ok_ct2 &= 'theorem ' + _t in _sod
 # and the drive is defined in that order: the SWAP flow innermost, the SHEAR flow outermost
 ok_ct2 &= 'layerQ R t (swapQ V t x)' in _sod
+# the swap layer's endpoint IS identified; the shear layer's is NOT, and must not be asserted
+ok_ct2 &= 'theorem swapQ_one_eq_heisQ' in _sod
+for _bad in ('theorem layerQ_one_eq_heisQ', 'theorem driveQ_one_eq_heisQ',
+             'theorem driveQ_endpoint'):
+    ok_ct2 &= _bad not in _sod
+ok_ct2 &= 'the shear layer' in _sod and 'not identified' in _sod
 # the composite is a CONTINUOUS PATH of automorphisms, and no more than that
 for _t in ('driveQ_zero_time', 'driveQ_bijective', 'continuous_driveQ_time',
            'driveQ_isContinuousPath'):
@@ -2099,7 +2109,9 @@ check('R7-CT2', ok_ct2,
       'is not an algebra element; each layer separately is a strongly continuous one-parameter '
       'group; the order of the composite is fixed by heis_of_comp rather than by convention, with '
       'the SWAP flow innermost; and the composite is claimed to be a continuous path of '
-      '*-automorphisms through the identity and NOT a one-parameter group.')
+      '*-automorphisms through the identity and NOT a one-parameter group. The SWAP layer\'s '
+      'endpoint is identified with the frozen heisQ; the SHEAR layer\'s is not, and no endpoint '
+      'theorem for the shear layer or for the composite appears.')
 
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())

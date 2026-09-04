@@ -9,7 +9,7 @@ layers:
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
 - **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 106 modules and,
-  at this commit, 2,267 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+  at this commit, 2,283 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -485,10 +485,18 @@ an isometric automorphism, continuous in the parameter — and **not** a one-par
 layers do not commute, so no group law for the composite follows, and none is asserted. The
 update itself is packaged as a `ReversibleDynamics` (`ruleDynamics`), with the coupling data
 supplied in all four directions and reversibility taken from the factorization rather than assumed,
-and `heisQ_ruleDynamics` applies the order theorem to it. The endpoint is nonetheless **not**
-identified: that the path at time one equals `heisQ (ruleDynamics R)` needs each layer's time-one
-map matched with the corresponding Heisenberg action on staged local observables and then extended
-by density, and that is the open next step. The finite-range hypothesis
+and `heisQ_ruleDynamics` applies the order theorem to it. One of the two layer endpoints is then identified. A dynamics
+supported in one finite region has a permutation operator that *is* a local operator — the embedded
+permutation matrix of that region's permutation — so its Heisenberg action is conjugation by one
+stage's element; and two dynamics that give a region the same restricted configuration and the same
+off-region agreement relation act the same on that region's observables. For the swap layer those
+two facts suffice, once the finite product of on-site gates over a region is collapsed into the
+single permutation matrix of the swap of the whole region, and `swapQ_one_eq_heisQ` identifies
+`swapQ V 1` with `heisQ (swapDyn V)` on the whole quasilocal algebra. The **shear** layer's
+endpoint is **not** identified and no theorem asserts it: its region-supported replacement must
+shear at every site of `affected R Λ` rather than only of `Λ`, and be read on a region large enough
+to carry that. `driveQ R 1 = heisQ (ruleDynamics R)` therefore remains the open next step, since it
+needs both halves. The finite-range hypothesis
 the first entry anticipated is load-bearing here and is carried as a field of the `Rule` structure
 rather than as an ambient assumption.
 
