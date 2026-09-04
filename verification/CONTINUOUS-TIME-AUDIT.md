@@ -328,25 +328,46 @@ the off-diagonal part are separately centralizing. A diagonal `H` exponentiates 
 unitary and can never be a nontrivial permutation, so an autonomous local generator needs the
 off-diagonal part to be nonzero. Both are reported.
 
+### The bracket, which is what the verdict rests on
+
+`rank_p ≤ rank_ℚ` makes the modular census an **upper bound and nothing more**, and an upper bound
+cannot establish the thing the verdict needs — that the centralizer is more than scalars. If 7 were
+only an upper bound the true dimension over `ℚ` could be 1 and non-obstruction would collapse. So
+the dimension is bracketed from both sides: kernel vectors are recovered mod `p`, rationally
+reconstructed, cleared to integers, and verified against **every** equation exactly over `ℤ`, and
+their images are independent over `ℚ` because their reductions are independent mod `p`. The
+closed-form redundancy is a characteristic-zero count, so the subtraction is valid over `ℚ`.
+
 ### The result, and it is a negative for the cheap test
 
 For the corpus rule `x_i(t+1) = x_{i-1} + x_{i+1} − x_i(t−1) mod q`:
 
-| window `w` | census dimension | diagonal | off-diagonal |
-|---|---|---|---|
-| 1 | 1 | 1 | 0 |
-| 2 | 7 | 3 | 4 |
-| 3 | 25 | 5 | 20 |
+| window `w` | modular upper | certified lower | status | diagonal + off-diagonal |
+|---|---|---|---|---|
+| 1 | 1 | 1 | **exact over `ℚ`** | 1 + 0 |
+| 2 | 7 | 7 | **exact over `ℚ`** | 3 + 4 |
+| 3 | 25 | 14 | **bracketed**, `14 ≤ dim ≤ 25` | 5 + 20 |
 
-stable in `L` across `L = 5, 6, 7` at `w = 2` and `L = 5, 6` at `w = 3`. At `w ≤ 2` the dimensions
-are additionally confirmed by building the explicit matrices on `q^{2L}` configurations, checking
-`[H, P] = 0` entry by entry, and taking the rank of their span — which matches the dimension
-obtained by subtraction.
+stable in `L` across `L = 5, 6, 7` at `w = 2` and `L = 5, 6` at `w = 3`. The bracket is tight at
+`w ≤ 2` and is **not** tight at `w = 3`, where 25 is an upper bound only. The diagonal and
+off-diagonal split figures are modular throughout. What is certified over `ℤ` — and is what the
+verdict rests on — is an explicit integer `H` at `w = 2` and at `w = 3` that commutes with `P` and
+has **nonzero off-diagonal weight**. At `w ≤ 2` the dimensions are additionally confirmed by
+building the explicit matrices on `q^{2L}` configurations and checking `[H, P] = 0` entry by entry.
 
-So the centralizer is nontrivial from `w = 2` on and its off-diagonal part is nonzero.
+So the centralizer is nontrivial from `w = 2` on, with certified off-diagonal weight.
 **The centralizer test does not obstruct.** Candidates survive, and the stronger exponential
 condition has to be tested. Passing a necessary condition is not evidence of sufficiency, and none
 is claimed.
+
+### The finite-to-infinite bridge, recorded as an obligation
+
+This is a finite periodic computation. For a finite-range interaction the commutation identity
+`[δ, α] = 0` is local, so it should periodize, and a failure at all sufficiently large `L` ought to
+give an infinite-volume statement. Nothing in this entry needs that bridge, because the outcome is
+a **non**-obstruction and a non-obstruction transports in the harmless direction. Any future round
+that wants to read a finite-`L` failure as an infinite-volume theorem must make the periodization
+explicit first rather than leave it implicit.
 
 ### The controls, which are what make the negative readable
 

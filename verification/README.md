@@ -515,9 +515,14 @@ nullity of that system minus the closed-form redundancy of the parametrization, 
 over `GF(p)` in the direction an obstruction needs. Because `P` is a permutation matrix the
 centralizer splits into a diagonal part (conserved classical densities) and an off-diagonal part,
 and a diagonal `H` exponentiates to a diagonal unitary — so an autonomous local generator needs
-off-diagonal weight. For the corpus rule the census gives 1, 7 and 25 at `w = 1, 2, 3`, splitting
-as 1+0, 3+4 and 5+20, stable in `L`, and confirmed at `w ≤ 2` by explicit matrices checked entry by
-entry. **The centralizer test therefore does not obstruct**: candidates survive and the exponential
+off-diagonal weight. Because `rank_p ≤ rank_ℚ` the modular census is an upper bound only, which cannot
+establish that the centralizer exceeds the scalars, so the dimension is bracketed from both sides:
+kernel vectors are rationally reconstructed and verified against every equation exactly over `ℤ`.
+For the corpus rule that gives 1, 7 and 25 at `w = 1, 2, 3` as upper bounds with certified lower
+bounds 1, 7 and 14 — exact over `ℚ` at `w ≤ 2`, bracketed `14 ≤ dim ≤ 25` at `w = 3` — splitting
+(modularly) as 1+0, 3+4 and 5+20 and stable in `L`, with an explicit integer `H` of nonzero
+off-diagonal weight verified over `ℤ` at `w = 2` and `w = 3`. **The centralizer test therefore does
+not obstruct**: candidates survive and the exponential
 condition has to be tested. Controls make that readable — two rules whose leap is on-site, which
 provably do admit a static generator, give dimensions 37 and 505, so the method detects generators
 where they must exist, while a one-sided coupled control gives 1. The census is run at `w ≤ 3` and

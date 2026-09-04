@@ -35,24 +35,34 @@ part are separately centralizing. A DIAGONAL H exponentiates to a diagonal unita
 equal a nontrivial permutation, so an autonomous local generator needs the OFF-DIAGONAL part to be
 nonzero. Both parts are reported.
 
-ARITHMETIC. Ranks are taken over GF(p), p = 1000003, by exact sparse elimination. rank_p <= rank_Q,
-so nullity_p >= nullity_Q: a SMALL census dimension mod p certifies a small one over Q, which is the
-direction an obstruction claim needs. The closed-form redundancy is exact over Z. Every reported
-census dimension at w <= 2 is additionally confirmed by building the explicit N x N matrices and
-checking [H, P] = 0 entry by entry, then taking the rank of their span.
+ARITHMETIC, and the bracket the verdict needs. Ranks are taken over GF(p) by exact sparse
+elimination. rank_p <= rank_Q, so nullity_p >= nullity_Q: the modular census is an UPPER bound on
+the characteristic-zero dimension, and nothing more. That direction alone is useless here. The
+verdict is that the centralizer is NOT just scalars, and an upper bound cannot establish that -- if
+7 were only an upper bound the true dimension over Q could be 1 and non-obstruction would collapse.
+So the dimension is bracketed from both sides. Kernel vectors are recovered mod p, rationally
+reconstructed, cleared to integers, and verified against EVERY equation exactly over Z; their
+images are independent over Q because their reductions are independent mod p. The closed-form
+redundancy is a characteristic-zero count, so the subtraction is valid over Q.
 
 RESULT, and it is a NEGATIVE for the cheap test. For the corpus rule
-x_i(t+1) = x_{i-1} + x_{i+1} - x_i(t-1) mod q the census dimension is
+x_i(t+1) = x_{i-1} + x_{i+1} - x_i(t-1) mod q:
 
-    w = 1:   1   =  1 diagonal  +  0 off-diagonal      (scalars only)
-    w = 2:   7   =  3 diagonal  +  4 off-diagonal
-    w = 3:  25   =  5 diagonal  + 20 off-diagonal
+    w      modular upper    certified lower    status
+    1          1                  1            EXACT,  1 = 1 diagonal + 0 off-diagonal
+    2          7                  7            EXACT,  7 = 3 diagonal + 4 off-diagonal
+    3         25                 14            BRACKETED, 14 <= dim <= 25
 
-stable in L across L = 5, 6, 7 at w = 2 and L = 5, 6 at w = 3. The centralizer is nontrivial from
-w = 2 on and its off-diagonal part is nonzero, so THE CENTRALIZER TEST DOES NOT OBSTRUCT an
-autonomous local generator. Candidates survive and the stronger exponential condition has to be
-tested. Nothing here claims such a generator exists; the census is a necessary condition only, and
-passing a necessary condition is not evidence of sufficiency.
+stable in L across L = 5, 6, 7 at w = 2 and L = 5, 6 at w = 3. The bracket is tight at w <= 2 and
+is NOT tight at w = 3, where 25 is an upper bound only; the diagonal/off-diagonal split figures are
+modular throughout. What is certified over Z, and is what the verdict rests on, is an explicit
+integer H at w = 2 and at w = 3 that commutes with P and has NONZERO off-diagonal weight.
+
+So the centralizer is nontrivial from w = 2 on with certified off-diagonal weight, and THE
+CENTRALIZER TEST DOES NOT OBSTRUCT an autonomous local generator. Candidates survive and the
+stronger exponential condition has to be tested. Nothing here claims such a generator exists; the
+census is a necessary condition only, and passing a necessary condition is not evidence of
+sufficiency.
 
 CONTROLS, which is what makes the negative readable. Two rules whose leap is ON-SITE (F = 0 and
 F(c)_i = 2 c_i) provably do admit a static on-site generator, and the census finds large
@@ -60,6 +70,13 @@ centralizers for them (37 and 505 at w = 1, 2 on L = 4), so the method detects g
 they must exist. A third control, the one-sided coupling F(c)_i = c_{i-1}, is genuinely coupled and
 gives dimension 1 at w = 1 and w = 2 -- so the corpus rule's 7-dimensional w = 2 centralizer is a
 property of that specific bidirectional rule, not of coupling in general.
+
+THE FINITE-TO-INFINITE BRIDGE, recorded as an obligation rather than used. This is a finite
+periodic computation. For a finite-range interaction the commutation identity [delta, alpha] = 0 is
+local, so it should periodize: a failure at all sufficiently large L ought to give an
+infinite-volume statement. Nothing here needs that bridge, because the outcome is a NON-obstruction
+and a non-obstruction transports in the harmless direction. Any future round that wants to read a
+finite-L failure as an infinite-volume theorem must make the periodization explicit first.
 
 SCOPE. The census is run at w <= 3. The OI gate region is three sites wide, so w = 3 is the first
 window that can carry a gate; a census at w <= 3 is not a statement about all finite ranges, and
@@ -74,6 +91,8 @@ none is made. The unknown count grows as L * q^{4w}, which is the wall.
   M7  explicit matrices: every census basis element satisfies [H, P] = 0, and the rank of
       their span equals the census dimension
   M8  the verdict is NON-OBSTRUCTION: the off-diagonal part is nonzero from w = 2 on
+  M9  the bracket: exact over Q at w = 1 and w = 2, and an off-diagonal witness verified
+      exactly over Z at w = 2 and w = 3 -- so the verdict is not a modular artifact
 
 Run with --extended to add the slower confirmations (L = 7 at w = 2, L = 6 at w = 3).
 """
@@ -391,6 +410,137 @@ def explicit_confirm(L, q, rule, w):
     return bad, rank_mod_p(rows)
 
 
+# ------------------------------------------------- characteristic-zero certification
+#
+# rank_p <= rank_Q gives an UPPER bound on the census dimension and nothing else. The verdict
+# needs the other side: if 7 were only an upper bound the true dimension over Q could be 1 and
+# non-obstruction would collapse. So the census dimension is bracketed. Kernel vectors are
+# recovered mod p, rationally reconstructed, cleared to integers, and then verified against
+# EVERY equation exactly over Z; their images are independent over Q because the reductions are
+# independent mod p. A matching lower bound makes the dimension exact.
+
+PRIME2 = 2147483647          # 2^31 - 1, prime; reconstruction bound isqrt(p/2) = 32768
+
+
+def rational_reconstruct(a, p):
+    """(n, d) with n = a*d mod p and |n|, d <= isqrt(p/2), or None if no such pair."""
+    from math import isqrt, gcd
+    bound = isqrt(p // 2)
+    r0, r1 = p, a % p
+    s0, s1 = 0, 1
+    while r1 > bound:
+        q = r0 // r1
+        r0, r1 = r1, r0 - q * r1
+        s0, s1 = s1, s0 - q * s1
+    if s1 == 0 or abs(s1) > bound:
+        return None
+    n, d = r1, s1
+    if d < 0:
+        n, d = -n, -d
+    if gcd(abs(n), d) != 1:
+        return None
+    return (n, d)
+
+
+def lift_to_integers(vec, p):
+    """Reconstruct a mod-p vector as rationals and clear denominators. None if it fails."""
+    from math import gcd
+    fr = []
+    den = 1
+    for a in vec:
+        if a % p == 0:
+            fr.append((0, 1))
+            continue
+        rc = rational_reconstruct(a, p)
+        if rc is None:
+            return None
+        fr.append(rc)
+        den = den * rc[1] // gcd(den, rc[1])
+    return [n * (den // d) for (n, d) in fr]
+
+
+def verify_integer_kernel(rows, v):
+    """Exact check over Z that the integer vector v satisfies every equation."""
+    for r in rows:
+        s = 0
+        for c, coef in r.items():
+            if v[c]:
+                s += coef * v[c]
+        if s != 0:
+            return False
+    return True
+
+
+def certify(L, q, rule, w, p=PRIME2):
+    """Bracket the census dimension: (upper, lower, offdiag_witness).
+
+    upper is the modular value; lower counts kernel vectors verified exactly over Z whose
+    images are independent; offdiag_witness is True when one of them has a nonzero
+    off-diagonal matrix entry, which is what an autonomous generator needs.
+    """
+    lat = Lat(L, q, rule)
+    ans = Ansatz(lat, w)
+    rows = centralizer_rows(lat, ans)
+    basis = nullspace_mod_p(rows, ans.U, p)
+    nA = redundancy_dim(lat, ans, 'all')
+    upper = len(basis) - nA
+    if upper <= 0:
+        return 0, 0, False
+    # coordinates on which to test independence of the images: a sample of local pairs
+    pairs = local_pairs(lat, ans)
+    rng = random.Random(20260904)
+    # both sectors must be covered: a scalar's matrix entries live only on diagonal pairs, and
+    # sampling uniformly from the local pairs hits those too rarely to certify the scalar direction
+    probe_pairs = []
+    for _ in range(200):
+        a = lat.dec(rng.randrange(lat.N))
+        probe_pairs.append((a, a))
+    tries = 0
+    while len(probe_pairs) < 400 and tries < 8000:
+        tries += 1
+        ab = pairs[rng.randrange(len(pairs))]
+        if ab[0] != ab[1]:
+            probe_pairs.append(ab)
+    forms = [ans.form(a, b) for (a, b) in probe_pairs]
+
+    def image(vec):
+        return [sum(coef * vec[c] for c, coef in f.items()) % p for f in forms]
+
+    # greedily pick vectors whose images stay independent mod p
+    piv, chosen = {}, []
+    for hv in basis:
+        img = image(hv)
+        r = {i: x for i, x in enumerate(img) if x}
+        while r:
+            c = min(r)
+            pr = piv.get(c)
+            if pr is None:
+                piv[c] = r
+                chosen.append(hv)
+                break
+            f = r[c] * pow(pr[c], p - 2, p) % p
+            for cc, vv in pr.items():
+                nv = (r.get(cc, 0) - f * vv) % p
+                if nv:
+                    r[cc] = nv
+                elif cc in r:
+                    del r[cc]
+        if len(chosen) == upper:
+            break
+    lower, offdiag = 0, False
+    offpairs = [(a, b) for (a, b) in probe_pairs if a != b]
+    for hv in chosen:
+        iv = lift_to_integers(hv, p)
+        if iv is None or not verify_integer_kernel(rows, iv):
+            continue
+        lower += 1
+        for (a, b) in offpairs:
+            if sum(coef * iv[c] for c, coef in ans.form(a, b).items()) != 0:
+                offdiag = True
+                break
+    return upper, lower, offdiag
+
+
 # ------------------------------------------------------------------------ main
 def main():
     extended = '--extended' in sys.argv
@@ -466,16 +616,37 @@ def main():
           f"failures at L = 4, 5), and the rank of the span of those matrices is {r1} and {r2} -- "
           f"matching the census dimension computed by subtraction")
 
+    # M9 -- the bracket, which is what the verdict actually rests on
+    c1 = certify(5, 2, 'wave', 1)
+    c2 = certify(5, 2, 'wave', 2)
+    c3 = certify(5, 2, 'wave', 3)
+    if extended:
+        c2b = certify(6, 2, 'wave', 2)
+    else:
+        c2b = None
+    check('M9', c1[0] == c1[1] == 1 and c2[0] == c2[1] == 7 and c2[2]
+          and c3[0] == 25 and c3[1] >= 14 and c3[2]
+          and (c2b is None or (c2b[0] == c2b[1] == 7 and c2b[2])),
+          f"THE BRACKET. rank_p <= rank_Q makes the census an upper bound only, which cannot "
+          f"establish that the centralizer is more than scalars. Kernel vectors are therefore "
+          f"rationally reconstructed and verified against every equation exactly over Z: "
+          f"w = 1 gives {c1[1]}/{c1[0]} and w = 2 gives {c2[1]}/{c2[0]}, so both are EXACT over Q; "
+          f"w = 3 gives {c3[1]}/{c3[0]}, a bracket 14 <= dim <= 25 that is NOT tight. At w = 2 and "
+          f"w = 3 one of the verified integer solutions has nonzero off-diagonal weight "
+          f"({c2[2]}, {c3[2]}), so the verdict below is a characteristic-zero fact and not a "
+          f"modular artifact. The diagonal/off-diagonal split figures remain modular")
+
     # M8 -- the verdict
     offdiag = w2[0] - w2d[0]
-    check('M8', offdiag > 0 and w2[0] > 1 and w3[0] > 1,
+    check('M8', offdiag > 0 and w2[0] > 1 and w3[0] > 1 and c2[1] == 7 and c2[2],
           f"VERDICT: NON-OBSTRUCTION. A diagonal H exponentiates to a diagonal unitary and can "
           f"never be a nontrivial permutation, so an autonomous local generator needs off-diagonal "
           f"weight; the corpus rule has {offdiag} off-diagonal dimensions at w = 2 and "
-          f"{w3[0] - w3d[0]} at w = 3. The centralizer test therefore does NOT rule out a static "
-          f"finite-range generator, and the stronger exponential condition has to be tested. "
-          f"Passing a necessary condition is not evidence that a generator exists, and none is "
-          f"claimed. The census is run at w <= 3 only; it is not a statement about all ranges")
+          f"{w3[0] - w3d[0]} at w = 3, and M9 certifies an off-diagonal solution exactly over Z. "
+          f"The centralizer test therefore does NOT rule out a static finite-range generator, and "
+          f"the stronger exponential condition has to be tested. Passing a necessary condition is "
+          f"not evidence that a generator exists, and none is claimed. The census is run at "
+          f"w <= 3 only; it is not a statement about all ranges")
 
     print()
     if FAILURES:
