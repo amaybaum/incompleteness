@@ -30,8 +30,9 @@ convention.
 ## What is claimed here, and what is not
 
 Claimed: for each `t`, `driveQ R t` is an isometric `*`-automorphism of the quasilocal algebra;
-`driveQ R 0` is the identity; and `t ↦ driveQ R t A` is norm-continuous for every quasilocal `A`.
-So the map at `t = 1` is joined to the identity by a norm-continuous path of automorphisms.
+`driveQ R 0` is the identity; `driveQ R 1` is the update's own Heisenberg action; and
+`t ↦ driveQ R t A` is norm-continuous for every quasilocal `A`. So the update is joined to the
+identity by a norm-continuous path of automorphisms.
 
 **Not claimed: a group law.** `driveQ R (t + s) = driveQ R t ∘ driveQ R s` does not follow from the
 two layers' group laws, because the two layers do not commute; nothing here establishes it and
@@ -51,12 +52,22 @@ same restricted configuration and the same off-region agreement relation act the
 region's observables — this replaces an all-sites layer, on any one local observable, by a
 region-supported dynamics.
 
-That programme is carried out for the swap layer: `swapQ_one_eq_heisQ` identifies `swapQ V 1` with
-`heisQ (swapDyn V)`. For **the shear layer** the endpoint is **not identified** here, and no
-theorem asserts it. The obstruction is not the method but its input: the region-supported
-replacement for the shear must shear at every site of `affected R Λ`, not only of `Λ`, and be read
-on a region closed enough to carry it. Nothing below claims `layerQ R 1 = heisQ (shearDyn R)` or
-the corresponding statement for `driveQ R 1`.
+That programme is carried out for both layers. For the swap, `swapQ_one_eq_heisQ` identifies
+`swapQ V 1` with `heisQ (swapDyn V)`: the finite product of on-site gates over a region collapses
+into the permutation matrix of the swap of that whole region.
+
+For the shear the region-supported replacement has to shear at every site of `affected R Λ`, not
+only of `Λ`, since a gate whose neighbourhood meets `Λ` does not commute with `Λ`'s observables;
+`shearPerm` is that map, read on a region carrying all those gates' regions, and
+`layerU_one_eq_qGate` collapses the finite gate product into its permutation matrix. The two
+agreement conditions then match in both directions, the off-region one because a site outside the
+affected set has a gate region disjoint from `Λ`. That gives `layerQ_one_eq_heisQ`, and with the
+order theorem, `driveQ_one_eq_heisQ`:
+
+  `driveQ R 1 = heisQ (ruleDynamics R)`.
+
+The path therefore starts at the identity and ends at the update. It is still not a one-parameter
+group, and still exhibits no generator.
 -/
 
 namespace OIBridge.SecondOrderDrive
@@ -597,6 +608,230 @@ theorem swapQ_one_eq_heisQ (x : Quasilocal ι (V × V)) :
 
 end SwapEndpoint
 
+/-! ### Section F — the shear layer's endpoint -/
+
+section ShearEndpoint
+
+variable {V : Type} [Fintype V] [DecidableEq V] [Nonempty V] [AddCommGroup V]
+variable (R : Rule ι V) (S : Finset ι)
+
+/-- **THE SHEAR AT EVERY SITE OF A SET, COMPUTED INSIDE A REGION.** `gateOn` is the case of a
+single site; this is what a finite product of gates amounts to, written as one map. -/
+noncomputable def shearOnRegion (A : Finset ι) (x : Conf S (V × V)) : Conf S (V × V) :=
+  fun u => if (u : ι) ∈ A then (rhs R S (u : ι) x - (x u).1, (x u).2) else x u
+
+variable {R S}
+
+theorem shearOnRegion_apply (A : Finset ι) (x : Conf S (V × V)) (u : ↥S) :
+    shearOnRegion R S A x u
+      = if (u : ι) ∈ A then (rhs R S (u : ι) x - (x u).1, (x u).2) else x u := rfl
+
+/-- **THE SET SHEAR DOES NOT TOUCH THE CURRENT SLICE** either. -/
+theorem curOn_shearOnRegion (A : Finset ι) (x : Conf S (V × V)) :
+    curOn S (shearOnRegion R S A x) = curOn S x := by
+  funext j
+  rw [curOn, curOn]
+  by_cases hj : j ∈ S
+  · rw [dif_pos hj, dif_pos hj, shearOnRegion_apply]
+    by_cases hjA : ((⟨j, hj⟩ : ↥S) : ι) ∈ A
+    · rw [if_pos hjA]
+    · rw [if_neg hjA]
+  · rw [dif_neg hj, dif_neg hj]
+
+theorem rhs_shearOnRegion (A : Finset ι) (i : ι) (x : Conf S (V × V)) :
+    rhs R S i (shearOnRegion R S A x) = rhs R S i x := by
+  rw [rhs, rhs, curOn_shearOnRegion]
+
+theorem shearOnRegion_involutive (A : Finset ι) (x : Conf S (V × V)) :
+    shearOnRegion R S A (shearOnRegion R S A x) = x := by
+  funext u
+  rw [shearOnRegion_apply]
+  by_cases hu : (u : ι) ∈ A
+  · rw [if_pos hu, rhs_shearOnRegion, shearOnRegion_apply, if_pos hu]
+    exact Prod.ext (by ring_nf; abel) rfl
+  · rw [if_neg hu, shearOnRegion_apply, if_neg hu]
+
+variable (R S)
+
+/-- The set shear as a permutation of the region's configurations. -/
+noncomputable def shearPerm (A : Finset ι) : Conf S (V × V) ≃ Conf S (V × V) where
+  toFun := shearOnRegion R S A
+  invFun := shearOnRegion R S A
+  left_inv := shearOnRegion_involutive A
+  right_inv := shearOnRegion_involutive A
+
+variable {R S}
+
+theorem shearPerm_symm (A : Finset ι) : (shearPerm R S A).symm = shearPerm R S A := rfl
+
+theorem shearPerm_empty : shearPerm R S (∅ : Finset ι) = Equiv.refl _ := by
+  refine Equiv.ext fun x => funext fun u => ?_
+  show shearOnRegion R S (∅ : Finset ι) x u = x u
+  rw [shearOnRegion_apply, if_neg (Finset.notMem_empty _)]
+
+/-- **ADDING ONE SITE TO THE SET IS APPLYING THAT SITE'S GATE.** The gate reads only current
+components, which the set shear leaves alone, so the two compose without interference. -/
+theorem gateOn_shearOnRegion {A : Finset ι} {a : ι} (ha : a ∉ A) (x : Conf S (V × V)) :
+    gateOn R S a (shearOnRegion R S A x) = shearOnRegion R S (insert a A) x := by
+  funext u
+  by_cases hua : (u : ι) = a
+  · have hnA : (u : ι) ∉ A := by rw [hua]; exact ha
+    have hins : (u : ι) ∈ insert a A := by rw [hua]; exact Finset.mem_insert_self a A
+    have hy : shearOnRegion R S A x u = x u := by
+      rw [shearOnRegion_apply, if_neg hnA]
+    rw [gateOn_apply, if_pos hua, rhs_shearOnRegion, hy, shearOnRegion_apply, if_pos hins, hua]
+  · have hins : (u : ι) ∉ insert a A ↔ (u : ι) ∉ A := by
+      simp only [Finset.mem_insert, hua, false_or]
+    rw [gateOn_apply, if_neg hua, shearOnRegion_apply, shearOnRegion_apply]
+    by_cases huA : (u : ι) ∈ A
+    · rw [if_pos huA, if_pos (Finset.mem_insert_of_mem huA)]
+    · rw [if_neg huA, if_neg (hins.mpr huA)]
+
+theorem gateEquiv_trans_shearPerm {A : Finset ι} {a : ι} (ha : a ∉ A) :
+    (shearPerm R S A).trans (gateEquiv R S a) = shearPerm R S (insert a A) :=
+  Equiv.ext fun x => gateOn_shearOnRegion ha x
+
+/-- **THE LAYER'S TIME-ONE UNITARY IS ONE REGION'S PERMUTATION MATRIX.** The finite product of the
+gates over `A` collapses into the permutation matrix of the shear at every site of `A`, read on any
+region containing all those gates' regions. -/
+theorem layerU_one_eq_qGate (A : Finset ι) :
+    (∀ i ∈ A, gateRegion R i ⊆ S) → layerU R A 1 = qGate S (shearPerm R S A) := by
+  classical
+  refine Finset.induction_on A ?_ ?_
+  · intro _
+    rw [layerU_empty, qGate, shearPerm_empty, permMat_refl, map_one]
+  · intro a B hab ih hA
+    have hdis : Disjoint ({a} : Finset ι) B := Finset.disjoint_singleton_left.mpr hab
+    have hga : gateRegion R a ⊆ S := hA a (Finset.mem_insert_self a B)
+    have hsing : layerU R ({a} : Finset ι) 1 = qGate S (gateEquiv R S a) := by
+      rw [layerU, Finset.noncommProd_singleton, unit_one (shearGate_isGate R a).1, shearGate,
+        qGate_extPerm hga, extPerm_gateEquiv hga]
+    rw [Finset.insert_eq, layerU_union R hdis, hsing,
+      ih fun i hi => hA i (Finset.mem_insert_of_mem hi), qGate, qGate, qGate, ← map_mul,
+      permMat_mul, gateEquiv_trans_shearPerm hab, ← Finset.insert_eq]
+
+/-- **THE VALUE THE RULE WRITES IS THE SAME COMPUTED IN THE REGION OR GLOBALLY**, provided the
+region carries the gate's own region. -/
+theorem rhs_glob {i : ι} (hi : gateRegion R i ⊆ S) (t : ι → V × V) :
+    rhs R S i (glob S t) = R.F (curOf t) i := by
+  refine R.dep i _ _ fun j hj => ?_
+  have hjS : j ∈ S := hi (nbhd_subset_gateRegion R i hj)
+  rw [curOn, dif_pos hjS]
+  rfl
+
+theorem localConf_shearPerm_of_mem {A : Finset ι} {i : ι} (hi : i ∈ A) (hiS : i ∈ S)
+    (t : ι → V × V) :
+    localConf S (shearPerm R S A) t i = (rhs R S i (glob S t) - (t i).1, (t i).2) := by
+  rw [localConf_apply_of_mem hiS]
+  show shearOnRegion R S A (glob S t) ⟨i, hiS⟩ = _
+  rw [shearOnRegion_apply, if_pos hi]
+  rfl
+
+theorem localConf_shearPerm_of_not_mem {A : Finset ι} {i : ι} (hi : i ∉ A) (t : ι → V × V) :
+    localConf S (shearPerm R S A) t i = t i := by
+  by_cases hiS : i ∈ S
+  · rw [localConf_apply_of_mem hiS]
+    show shearOnRegion R S A (glob S t) ⟨i, hiS⟩ = _
+    rw [shearOnRegion_apply, if_neg hi]
+    rfl
+  · rw [localConf_apply_of_not_mem hiS]
+
+variable (R)
+
+/-- **THE SHEAR LAYER'S HEISENBERG ACTION IS LOCAL CONJUGATION ON EVERY REGION.** The
+region-supported replacement shears at every site of `affected R Λ`, not only of `Λ`: a gate whose
+neighbourhood meets `Λ` does not commute with `Λ`'s observables. The off-region agreement matches
+in both directions because a site outside the affected set has a gate region disjoint from `Λ`. -/
+theorem heis_shearDyn_emb (Λ : Finset ι) (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    heis (shearDyn R) (emb Λ X)
+      = heis (localDyn (gateSpan R (affected R Λ))
+          (shearPerm R (gateSpan R (affected R Λ)) (affected R Λ))) (emb Λ X) := by
+  set A := affected R Λ with hAdef
+  set S := gateSpan R A with hSdef
+  have hA : ∀ i ∈ A, gateRegion R i ⊆ S := fun i hi => gateRegion_subset_gateSpan R hi
+  have hAS : ∀ i ∈ A, i ∈ S := fun i hi => hA i hi (self_mem_gateRegion R i)
+  have hΛA : Λ ⊆ A := subset_affected R Λ
+  refine heis_eq_of_agree (fun t => ?_) (fun t s => ?_) X
+  · show glob Λ (shear R.F t) = glob Λ (localConf S (shearPerm R S A) t)
+    funext u
+    have huA : (u : ι) ∈ A := hΛA u.2
+    show shear R.F t (u : ι) = localConf S (shearPerm R S A) t (u : ι)
+    rw [localConf_shearPerm_of_mem huA (hAS _ huA), rhs_glob (hA _ huA), shear_apply]
+  · show AgreeOffG Λ (shear R.F t) (shear R.F s) ↔
+      AgreeOffG Λ (localConf S (shearPerm R S A) t) (localConf S (shearPerm R S A) s)
+    constructor
+    · intro h i hi
+      by_cases hiA : i ∈ A
+      · rw [localConf_shearPerm_of_mem hiA (hAS _ hiA), localConf_shearPerm_of_mem hiA (hAS _ hiA),
+          rhs_glob (hA _ hiA), rhs_glob (hA _ hiA)]
+        exact h i hi
+      · have hdj := disjoint_gateRegion_of_notMem_affected R (hAdef ▸ hiA)
+        have hcur : R.F (curOf t) i = R.F (curOf s) i :=
+          R.dep i _ _ fun j hj => by
+            have hjΛ : j ∉ Λ :=
+              Finset.disjoint_left.mp hdj (nbhd_subset_gateRegion R i hj)
+            have hjs := h j hjΛ
+            rw [shear_apply, shear_apply, Prod.mk.injEq] at hjs
+            exact hjs.2
+        have hi' := h i hi
+        rw [shear_apply, shear_apply, hcur, Prod.mk.injEq] at hi'
+        rw [localConf_shearPerm_of_not_mem hiA, localConf_shearPerm_of_not_mem hiA]
+        exact Prod.ext (sub_right_injective hi'.1) hi'.2
+    · intro h i hi
+      have hcur : ∀ j ∉ Λ, (t j).2 = (s j).2 := by
+        intro j hj
+        have hj' := h j hj
+        by_cases hjA : j ∈ A
+        · rw [localConf_shearPerm_of_mem hjA (hAS _ hjA),
+            localConf_shearPerm_of_mem hjA (hAS _ hjA), Prod.mk.injEq] at hj'
+          exact hj'.2
+        · rw [localConf_shearPerm_of_not_mem hjA, localConf_shearPerm_of_not_mem hjA] at hj'
+          exact congrArg Prod.snd hj'
+      by_cases hiA : i ∈ A
+      · have hi' := h i hi
+        rw [localConf_shearPerm_of_mem hiA (hAS _ hiA), localConf_shearPerm_of_mem hiA (hAS _ hiA),
+          rhs_glob (hA _ hiA), rhs_glob (hA _ hiA)] at hi'
+        exact hi'
+      · have hdj := disjoint_gateRegion_of_notMem_affected R (hAdef ▸ hiA)
+        have hF : R.F (curOf t) i = R.F (curOf s) i :=
+          R.dep i _ _ fun j hj =>
+            hcur j (Finset.disjoint_left.mp hdj (nbhd_subset_gateRegion R i hj))
+        have hi' := h i hi
+        rw [localConf_shearPerm_of_not_mem hiA, localConf_shearPerm_of_not_mem hiA] at hi'
+        rw [shear_apply, shear_apply, hF, hi']
+
+/-- **THE SHEAR LAYER'S ENDPOINT.** -/
+theorem layerQ_one_eq_heisQ (x : Quasilocal ι (V × V)) :
+    layerQ R 1 x = heisQ (shearDyn R) x := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq (continuous_layerQ R 1) (continuous_heisQ _)
+  · obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+    have hA : ∀ i ∈ affected R Λ, gateRegion R i ⊆ gateSpan R (affected R Λ) :=
+      fun i hi => gateRegion_subset_gateSpan R hi
+    have hstar : star (qGate (gateSpan R (affected R Λ))
+        (shearPerm R (gateSpan R (affected R Λ)) (affected R Λ)))
+        = qGate (gateSpan R (affected R Λ))
+          (shearPerm R (gateSpan R (affected R Λ)) (affected R Λ)) :=
+      (localGate_isGate (shearOnRegion_involutive (R := R) (S := gateSpan R (affected R Λ))
+        (affected R Λ))).2
+    have h1 : heisQ (shearDyn R) (stage Λ X)
+        = heisQ (localDyn (gateSpan R (affected R Λ))
+            (shearPerm R (gateSpan R (affected R Λ)) (affected R Λ))) (stage Λ X) := by
+      rw [stage_apply, heisQ_coe, heisQ_coe]
+      exact congrArg _ (Subtype.ext (heis_shearDyn_emb R Λ X))
+    rw [← stage_apply, layerQ_stage, layerAct, layerU_one_eq_qGate _ hA, hstar, h1,
+      heisQ_localDyn, shearPerm_symm, qGate]
+
+/-- **THE DRIVE ENDS AT THE UPDATE.** The two-piece path at time one is exactly the Heisenberg
+action of the update's own reversible dynamics on the quasilocal algebra. With `driveQ_zero_time`
+this says the update is joined to the identity by a norm-continuous path of `*`-automorphisms —
+still not a one-parameter group, and still with no generator exhibited. -/
+theorem driveQ_one_eq_heisQ (x : Quasilocal ι (V × V)) :
+    driveQ R 1 x = heisQ (ruleDynamics R) x := by
+  rw [driveQ, swapQ_one_eq_heisQ, layerQ_one_eq_heisQ, heisQ_ruleDynamics]
+
+end ShearEndpoint
+
 end OIBridge.SecondOrderDrive
 
 namespace OIBridge.SecondOrderDrive
@@ -641,5 +876,20 @@ namespace OIBridge.SecondOrderDrive
 #print axioms agreeOffG_swapLayer
 #print axioms heis_swapDyn_emb
 #print axioms swapQ_one_eq_heisQ
+#print axioms shearOnRegion_apply
+#print axioms curOn_shearOnRegion
+#print axioms rhs_shearOnRegion
+#print axioms shearOnRegion_involutive
+#print axioms shearPerm_symm
+#print axioms shearPerm_empty
+#print axioms gateOn_shearOnRegion
+#print axioms gateEquiv_trans_shearPerm
+#print axioms layerU_one_eq_qGate
+#print axioms rhs_glob
+#print axioms localConf_shearPerm_of_mem
+#print axioms localConf_shearPerm_of_not_mem
+#print axioms heis_shearDyn_emb
+#print axioms layerQ_one_eq_heisQ
+#print axioms driveQ_one_eq_heisQ
 
 end OIBridge.SecondOrderDrive

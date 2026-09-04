@@ -223,7 +223,8 @@ the depth-two factorization, which exhibits the inverse as the two layers in the
 `ruleDynamics_comp` holds on the nose, and `heisQ_ruleDynamics` applies the order theorem to it, so
 the update's own Heisenberg action is known to run the swap first — the same shape `driveQ` has.
 
-One of the two layer endpoints is identified. The tool is a **region-supported dynamics**: for a
+Both layer endpoints are identified, and so is the composite's. The tool is a **region-supported
+dynamics**: for a
 finite region `Λ` and a permutation `σ` of its configurations, `localDyn Λ σ` permutes global
 configurations inside `Λ` and reads nothing outside it, and `permOp_localDyn` shows its permutation
 operator *is a local operator* — the embedded permutation matrix `emb Λ (permMat σ)`. So its
@@ -240,18 +241,28 @@ conditions hold because a swap gate is on-site and injective. The result is `swa
 
   `swapQ V 1 = heisQ (swapDyn V)` on the whole quasilocal algebra.
 
-**The shear layer's endpoint is not identified**, and no theorem asserts it. The obstruction is the
-input to the method, not the method: the region-supported replacement for the shear must shear at
-every site of `affected R Λ` rather than only of `Λ`, since a gate whose neighbourhood meets `Λ`
-fails to commute with `Λ`'s observables, and it must be read on a region large enough to carry
-that. Both agreement conditions are then expected to hold — the off-region direction using that
-`i ∉ affected R Λ` forces `N i ∩ Λ = ∅` — but that is a statement about the shape of the argument,
-not a proof, and it is not claimed as one here.
+The shear layer needs one more idea, and it is the same one that made stabilization work in the
+first place. Its region-supported replacement must shear at **every site of `affected R Λ`**, not
+only of `Λ`, since a gate whose neighbourhood meets `Λ` does not commute with `Λ`'s observables.
+`shearOnRegion` is that map — the shear at every site of a set, computed inside a region — and it
+is an involution for the same reason a single gate is: it does not touch the current slice, so the
+value the rule writes is unchanged by it (`curOn_shearOnRegion`, `rhs_shearOnRegion`). Adding one
+site to the set is applying that site's gate (`gateOn_shearOnRegion`), which is what collapses the
+finite gate product into a single permutation matrix (`layerU_one_eq_qGate`).
 
-So `driveQ R 1 = heisQ (ruleDynamics R)` remains open, since it needs both layer endpoints. Until
-the shear half is done, the modules exhibit a continuous path of quasilocal automorphisms whose
-construction follows the update's factorization, with one of its two pieces proved to end where the
-frozen dynamics says it should.
+The two agreement conditions then match in both directions. On the region the two maps write the
+same value, because `Rule.dep` makes the written value independent of the region it is computed in
+(`rhs_glob`). Off the region, a site outside `affected R Λ` has a gate region **disjoint from `Λ`**
+(`disjoint_gateRegion_of_notMem_affected`), so the rule's value there reads only sites where the
+two configurations already agree — which is what makes the sheared agreement and the plain
+agreement equivalent at those sites. The result is `layerQ_one_eq_heisQ`, and with the order
+theorem,
+
+  `driveQ_one_eq_heisQ : driveQ R 1 = heisQ (ruleDynamics R)`.
+
+So the path starts at the identity and **ends at the update**. That closes CT2': the two-piece
+drive is a norm-continuous path of `*`-automorphisms of the quasilocal algebra from the identity to
+the frozen discrete dynamics. It remains not a one-parameter group and exhibits no generator.
 
 **The range hypothesis is now load-bearing** for the shear layer, as the first entry anticipated:
 an arbitrary `F` gives the factorization but no gate region, no stage, and hence no layer. The
@@ -266,6 +277,7 @@ relating them, and the finite-range hypothesis is a field rather than an ambient
 | CT2. Existence and per-gate locality | **answered affirmatively** (first entry) |
 | CT2'. The all-sites layer as an automorphism of the quasilocal algebra | **answered affirmatively** (this entry), for each of the two layers separately: a strongly continuous one-parameter group of `*`-automorphisms |
 | CT2''. The composite as a path from the identity | **answered affirmatively** (this entry): a norm-continuous path of `*`-automorphisms through the identity, in the order `heis_of_comp` forces. **Not** a one-parameter group |
-| CT2'''. The endpoint identified with the frozen `heisQ` | **half done**. The swap layer: `swapQ_one_eq_heisQ`. The shear layer: **open**, and the next task |
+| CT3'. A group law for the composite | **open**, and deliberately not asserted: the two layers do not commute |
+| CT2'''. The endpoint identified with the frozen `heisQ` | **answered affirmatively**: `swapQ_one_eq_heisQ`, `layerQ_one_eq_heisQ`, `driveQ_one_eq_heisQ`. The path from the identity ends at the update |
 | CT3. A single time-independent local `H` | **open**. Not implied by depth two, and deliberately not asserted |
 | CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |
