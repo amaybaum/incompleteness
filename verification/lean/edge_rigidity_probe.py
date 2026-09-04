@@ -2175,6 +2175,32 @@ check('R7-FWD', ok_fr,
       'with its own marker list, because the general markers include "cannot" and "does not" and '
       'would let the guarded sentences escape through the very words that make them dangerous.')
 
+# ---- CT3-R2A guard: a dead branch must not be read as a closed question ----
+_sl = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'spectral_logarithm_probe.py'),
+           encoding='utf-8').read()
+ok_ct3b = True
+# the split into the function-of-P branch and the degenerate-eigenspace branch must be stated
+ok_ct3b &= 'R2-A' in _sl and 'R2-B' in _sl
+ok_ct3b &= 'FUNCTION OF P' in _sl and 'degenerate' in _sl
+# the certificate, and the reason it reaches every width rather than stopping at w = 3
+ok_ct3b &= 'full-period' in _sl and 'no width-w window' in _sl
+# the scope control is the load-bearing part: it is what stops the negative being over-read
+ok_ct3b &= 'SCOPE CONTROL' in _sl
+ok_ct3b &= 'never the existence of one' in _sl
+ok_ct3b &= 'CT3 itself remains OPEN' in _sl
+# and no claim that CT3 is settled
+for _bad in ('CT3 is closed', 'CT3 is settled', 'no static generator exists',
+             'rules out a static generator'):
+    ok_ct3b &= _bad not in _sl and _bad not in _cta
+ok_ct3b &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sl) is None
+check('R7-CT3B', ok_ct3b,
+      'CT3-R2A scope guard: the spectral-logarithm probe splits CT3 into the function-of-P branch '
+      'and the degenerate-eigenspace branch, certifies the first dead by an explicit full-period '
+      'displacement witness at every width below the system size, and carries the SCOPE CONTROL '
+      'that stops the negative being over-read -- on-site rules, which provably do have static '
+      'local generators, return the same dimension one. The probe and the audit state that CT3 '
+      'itself remains open and neither claims a static generator is ruled out.')
+
 check('R7-CT3', ok_ct3,
       'CT3 scope guard: the static-generator probe states CT3 in its infinite-volume form (one '
       'time-independent finite-range interaction, not a bounded element of the quasilocal '
