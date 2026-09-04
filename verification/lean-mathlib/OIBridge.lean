@@ -152,6 +152,7 @@ import OIBridge.InstrumentCompletion
 import OIBridge.InstrumentAvailability
 import OIBridge.SecondOrderCircuit
 import OIBridge.SecondOrderLayer
+import OIBridge.SwapLayer
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
