@@ -20,17 +20,24 @@ because independence and necessity are separate tests that no round has run.
 
 ## The distinction the audit turns on
 
-A **state** condition constrains which state on a fixed algebra obtains. A **sector** condition
-constrains which representation of that algebra the theory is set in, and is not expressible as a
-property of a state on the algebra alone. The two are routinely stated in the same vocabulary —
-"vacuum", "KMS", "Fock" — and the standard QFT treatment of several of them is representation-level,
-so the vocabulary does not settle the classification and each occurrence is read for what its
-argument actually consumes.
+The criterion is not that a sector condition is inexpressible as a property of a state. It is not:
+a state on a C\*-algebra already determines a GNS representation, and sector information is
+routinely carried by classes of states. Stating the test that way would misclassify ordinary state
+conditions as sector conditions wherever their GNS representations happen to be inequivalent. The
+test used here is instead:
+
+> A **representation or sector burden** exists only where a claim requires an additional
+> representation or sector choice **beyond the algebra and the state data already specified**.
+
+So inequivalence by itself decides nothing. Two states may generate unitarily inequivalent GNS
+representations and still impose no burden, provided choosing the state already fixes everything
+the argument consumes. What the audit looks for is an argument that needs a choice the algebra and
+its state do not already make.
 
 Two occurrences are singled out for scrutiny in advance rather than assumed harmless: GR's
 Bunch-Davies/α-vacuum and KMS material, because state sensitivity is not automatically sector
-sensitivity and the question is whether those conditions can be stated as properties of states;
-and Structure §10.4, because it explicitly builds a Fock space and a von Neumann algebra.
+sensitivity; and Structure §10.4, because it explicitly builds a Fock space and a von Neumann
+algebra.
 
 ## Method
 
@@ -51,11 +58,11 @@ a different sense of the word (below).
 
 | Class | Finding |
 |---|---|
-| **1. Ordinary state condition inside the existing state space** | GR §3's thermal conditions. H-balance is the ratio of detector transition rates `Γ↑(ω)/Γ↓(ω) = e^{−τ_K ω}` over "the finite frequency window the observer can probe", with an explicit finite-observer error budget; GR §3 states its own status in its heading — "**H-balance is a selection condition, not a representation theorem**". GR §3 Step 4's KMS condition is recorded by the corpus as state-dependent in the same place it is used: "whether the emergent state belongs to that KMS class is state-dependent, and which class it occupies is H-spectrum, which §2 records as underivable from S1–S4". The Explainer's Bell reference graph "in the uniform/vacuum class" is a class of preparations. Kernel-side, `state_selection_audit` records the admissible state space as convex, containing the reference family, with the reference state the unique normalized state invariant under the substratum's own bijective and phase interventions |
+| **1. State condition, no additional representation choice** | GR §3's thermal conditions. H-balance is the ratio of detector transition rates `Γ↑(ω)/Γ↓(ω) = e^{−τ_K ω}` over "the finite frequency window the observer can probe", with an explicit finite-observer error budget bounding the observation cost; GR §3 states its own status in its heading — "**H-balance is a selection condition, not a representation theorem**". GR §3 Step 4's KMS condition is recorded by the corpus as state-dependent in the same place it is used: "whether the emergent state belongs to that KMS class is state-dependent, and which class it occupies is H-spectrum, which §2 records as underivable from S1–S4". The Explainer's Bell reference graph "in the uniform/vacuum class" is a class of preparations. Kernel-side, `state_selection_audit` records the admissible state space as convex, containing the reference family, with the reference state the unique normalized state invariant under the substratum's own bijective and phase interventions |
 | **2. Finite-stage Hilbert language, no infinite representation choice** | Main §3.4's `S ⟺ D ⟺ Q_fb` is fixed-basis on finite carriers over a finite horizon. Substratum Lemma 24.1's GNS/Stinespring step runs on the cyclic subspace `C_B` reachable from the visible factor — a finite configuration space under the framework's effective finiteness, with any larger `C_H` decomposing as `C_B ⊕ C_D` and `C_D` decoupled at every order (the boundary-only dependence lemma). Structure §10.4's substratum-scale Hilbert space is `ℓ²(C_V)` on a finite region's configuration space. SM's spontaneous chiral symmetry breaking is diagnosed by **finite-volume scaling** — `Z_S` at small `m` growing eightfold between `L = 16` and `L = 32`, with the peak shifting — not by an infinite-volume limit with a vacuum choice |
-| **3. Representation terminology used explanatorily or to state the negative** | The Level III scope sentences in GR §3.3, Main §3.4 and the Explainer, which *deny* selection: "no Hilbert-space representation and no superselection sector is selected at the level of the laws". Methodology's contrast with the QFT situation makes the same point in the other direction: with infinitely many degrees of freedom "the choice of representation is a substantive interpretive problem", whereas "the framework's setting is finite" and the analogue of "which representation" becomes "which representative within the equivalence class", answered by the gauge classification conditional on Lemma 24.1. GR §7's "vacuum sector" is the Ricci-flat solution set of classical general relativity, an unrelated sense |
+| **3. Representation terminology used explanatorily or to state the negative** | The Level III scope sentences in GR §3.3, Main §3.4 and the Explainer, which *deny* selection: "no Hilbert-space representation and no superselection sector is selected at the level of the laws". Methodology's contrast with the QFT situation makes the same point in the other direction: with infinitely many degrees of freedom "the choice of representation is a substantive interpretive problem", whereas "the framework's setting is finite" and the analogue of "which representation" becomes "which representative within the equivalence class", answered by the gauge classification conditional on Lemma 24.1. GR §7's "vacuum sector" is the Ricci-flat solution set of classical general relativity, an unrelated sense. Structure §10.4's Fock space and von Neumann bicommutant sit here too, with a qualification: the construction is genuine and representation-dependent, but its role is to make an open comparison concrete and no live prediction depends on it (adjudicated below) |
 | **4. Genuinely load-bearing distinguished representation or sector** | **None found.** No live claim consumes a representation or sector as such. The nearest thing is a **state**-class principle, which the audit question excludes and which the corpus has already named and priced — see below |
-| **5. Genuinely ambiguous** | Two items, recorded rather than resolved: the algebraic status of H-state's "vacuum class", and Structure §10.4's algebra-channel pair. Both below |
+| **5. Genuinely ambiguous** | Two items, recorded rather than resolved: the algebraic status of H-state's "vacuum class", and whether GR's conditions transport from the emergent theory's states to states on Level III's quasilocal algebra. Both below. Structure §10.4 is **not** among them — it is adjudicated in class 3 as a representation-dependent construction that no live prediction depends on |
 
 A search artifact, not a class: most of the 285 `representation` hits in `papers/` are
 finite-group representation theory — the cubic point group `O ≅ S₄`, its irreducible
@@ -65,18 +72,24 @@ operator algebra, and bear on the question only by sharing a word.
 
 ## The four candidates, adjudicated
 
-**GR's α-vacua and KMS — state, and finitely checkable.** In the standard treatment de Sitter
-α-vacua are unitarily inequivalent, so this is where a sector requirement would show up if one
-existed. GR's argument does not use the inequivalence. What it uses is the reverse/forward
-detector ratio
+**GR's α-vacua and KMS — detector-response data, no separate representation choice.** In the
+standard treatment de Sitter α-vacua are unitarily inequivalent, so this is where a sector
+requirement would show up if one existed. By the criterion above, the inequivalence alone does not
+create one. What settles it is what the argument consumes: the reverse/forward detector ratio
 
 > `R_α(ω) = e^{−2πω/H} ((1 + r e^{πω/H}) / (1 + r e^{−πω/H}))²`,  `r = e^α`,
 
-and its zero-frequency slope, to establish that the infrared limit does not remove state
-dependence. Every quantity consumed is an expectation value over the finite frequency window the
-observer can probe. Two states in different α-classes are separated by their values on finitely
-many observables, which is state data. The same holds for the KMS condition of Step 4, whose
-class-membership the corpus itself marks state-dependent and refers to H-spectrum.
+and its zero-frequency slope, used to establish that the infrared limit does not remove state
+dependence. These are detector-response quantities, fixed once the state is. Nothing in the
+argument asks which representation the theory is set in, over and above that. The same holds for
+the KMS condition of Step 4, whose class-membership the corpus itself marks state-dependent and
+refers to H-spectrum.
+
+The audit does **not** claim this data is finitely checkable. The slope is a derivative, and a
+bounded frequency window is not a finite set of observables; the corpus's finite-observer error
+budget bounds an observation cost, which is a different statement. The weaker claim — that GR
+consumes detector-response and state data rather than a separate representation choice — is what
+the evidence supports and is sufficient for the audit question.
 
 **Structure §10.4's Fock space and von Neumann algebra — a real construction, no live claim on
 it.** The construction is genuine and representation-dependent: `ℓ²(C_V)` resolves at long
@@ -129,16 +142,20 @@ the reformulation it did not carry out.
 **The scope of "the quasilocal algebra" in this question.** GR's thermal conditions constrain
 states of the *emergent* QFT. Level III's quasilocal algebra is the lattice object built from the
 substratum's finite-region matrix algebras. The corpus does not construct a map between the two,
-and this audit does not assume one. So the finding that GR's conditions are state-type and
-finitely checkable is a statement about the emergent theory's states; whether those conditions
-transport to states on `OI_Q`'s quasilocal algebra is a separate question that no round has asked.
+and this audit does not assume one. So the finding that GR's conditions consume state data rather
+than a separate representation choice is a statement about the emergent theory's states; whether
+those conditions transport to states on `OI_Q`'s quasilocal algebra is a separate question that no
+round has asked. It is a seam between the GR/H-state layer and the Level III lattice state space,
+not a reopening of the OI→QM programme: the finite, typed and quasilocal `OI_Q` characterization is
+frozen and does not depend on the transport. It is recorded in the backlog rather than made the
+next round.
 
 ## The finding
 
-> No live OI prediction requires a distinguished representation or superselection sector. The
-> conditions that carry real weight are conditions on states, and where a state-selection burden
-> exists it is already named as H-state and already carried as a stated condition on the claims
-> that depend on it.
+> No current OI prediction requires an independent representation or sector choice beyond its
+> state data. The conditions that carry real weight are conditions on states, and where a
+> state-selection burden exists it is already named as H-state and already carried as a stated
+> condition on the claims that depend on it.
 
 **Status of this finding.** It is a survey of the corpus at this commit, not a theorem, and shares
 the standing of the instrument census: it can be invalidated by a future claim and should be
@@ -154,18 +171,35 @@ ambiguous items are the places to look first if that judgement is revisited.
 ## What is not claimed
 
 That OI *forbids* a distinguished sector; this is an audit of what the corpus requires, not an
-impossibility result. That H-state is discharged, weakened, or shown unnecessary — it stands
-exactly as GR states it. That H-state is uniquely determined, or that no other state principle
+impossibility result. That GR's α-vacuum or KMS conditions are checkable on finitely many
+observables — the slope is a derivative and a bounded frequency window is not a finite observable
+set; only the weaker consumption claim is made. That H-state is discharged, weakened, or shown
+unnecessary — it stands exactly as GR states it. That H-state is uniquely determined, or that no other state principle
 would serve. That the emergent QFT's states and `OI_Q`'s quasilocal states have been connected.
 That Structure's algebra-channel comparison would remain prediction-free if its open steps were
 completed. That the census is exhaustive of any corpus but this one.
+
+## Backlog
+
+One target is recorded here rather than scheduled. It is not entered in the ledger's kernel
+backlog, which is reserved for proof obligations on canonical statements that are not yet K3; this
+is a seam between layers, not an obligation on a printed statement.
+
+> **Transport of the thermal state conditions.** GR's H-state, H-balance and KMS conditions are
+> conditions on states of the emergent QFT. Level III supplies a quasilocal algebra and state space
+> for the lattice substratum. No map between the two is constructed anywhere in the corpus, and
+> whether these conditions correspond to conditions on quasilocal states is unasked.
+
+Its standing: it connects the GR/H-state layer to the Level III lattice state space. It does not
+bear on the finite, typed and quasilocal `OI_Q` characterization, which is frozen and does not
+depend on the transport, so it does not reopen the OI→QM programme and is not a required round.
 
 ## Status after the first entry
 
 | Question | Status |
 |---|---|
 | R1. Does a live prediction require a distinguished representation or sector | **answered negatively for the current corpus** (this entry) |
-| R2. Are GR's thermal conditions statable as properties of states | **yes for the emergent theory**: they consume expectation values over a finite frequency window. Transport to `OI_Q`'s quasilocal states is a separate open question |
+| R2. Do GR's thermal conditions need a representation choice beyond their state data | **no for the emergent theory**: they consume detector-response quantities fixed once the state is. Not claimed finitely checkable. Transport to `OI_Q`'s quasilocal states is a separate open question, backlogged |
 | R3. Is H-state's "vacuum class" a state condition algebraically | **open**, recorded as ambiguous. Expected state-side; the corpus does not carry out the reformulation |
 | R4. Does Structure §10.4's algebra-channel pair carry a prediction | **no live claim depends on it**; Steps 2–4 of its recipe are open in the corpus |
 | R5. Is representation construction required work | **no**, on the current corpus: optional mathematics outside the core programme |
