@@ -2330,7 +2330,14 @@ for _p in ('book/ch07-gravity.md', 'book/The-Incompleteness-of-Observation-FULL.
 # what remains must be stated, not gestured at
 ok_audb &= 'routed back into future visible conditionals' in _gr
 # C4 must not be made a hypothesis of the hbar derivation, and the derivation's own conditions must stay named
-ok_audb &= 'not consumed by the calibration' in _gr
+ok_audb &= 'not a hypothesis of the calibration' in _gr
+# the two intro residues review caught: neither sentence may recur, in GR or in either book source,
+# and the intro must carry the conditional form instead
+for _t in (_gr,) + tuple(open(os.path.join(_root, _p), encoding='utf-8').read() for _p in
+                        ('book/ch07-gravity.md', 'book/The-Incompleteness-of-Observation-FULL.md')):
+    ok_audb &= 'The cosmological horizon satisfies all four conditions' not in _t
+    ok_audb &= 'the full equivalence applies in our universe' not in _t
+ok_audb &= 'remains conditional on C4' in _gr
 ok_audb &= 'carried by H-slope together with the horizon and frame conditions' in _gr
 # the audit must record why bidirectionality and H-scramble do not close it, and what it does not claim
 ok_audb &= 'strengthened form of C1' in _cc and 'H-scramble' in _cc
@@ -2343,7 +2350,9 @@ check('R7-AUDB', ok_audb,
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
       'sources carry the same status and no longer infer C4 from bidirectionality or say the horizon '
       'satisfies all four conditions; the hbar derivation names its own conditions and does not consume '
-      'C4; and the audit records why bidirectionality and H-scramble do not close it, and claims neither '
+      'C4; the intro neither says the horizon satisfies all four conditions nor that the full equivalence '
+      'applies in our universe, but that the equivalence remains conditional on C4; and the audit records '
+      'why bidirectionality and H-scramble do not close it, and claims neither '
       'that C4 holds nor that it fails at the cut.')
 
 check('R7-AUDA', ok_auda,

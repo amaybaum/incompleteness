@@ -63,9 +63,12 @@ inferring C4 from bidirectionality is gone.
 **C4 is not added as a hypothesis of the `ħ` derivation.** `[Main]` §1.3 treats C1–C4 as diagnostics
 of a realization rather than hypotheses of the characterization, and `[GR]`'s calibration is carried
 by H-slope together with the horizon and frame conditions — its own §8.4 inventory lists exactly
-those, and none is a readback claim. The §8.4 dependency line says so: C1–C3 verified at the
-cut, C4 named there and not consumed by the calibration. The core `ħ` result is untouched; the OI
-physical-realization claim is now exactly as strong as its evidence.
+those, and none is a readback claim. §8.4 separates the two: the calibration depends on the partition,
+the Stinespring machinery, H-slope and the stated horizon, frame and KMS conditions, while C1–C4 are
+realization diagnostics tracked at the cut — C1–C3 verified, C4 not presently discharged and not a
+hypothesis of the calibration. The prerequisites paragraph carries the same status and says that
+application of the C1–C4 memory-bearing equivalence to our universe remains conditional on C4. The
+core `ħ` result is untouched; the OI physical-realization claim is exactly as strong as its evidence.
 
 **A downstream consequence, recorded rather than repaired.** `[GR]` §7.2's corollary on the
 invisible gravitational budget is stated *under* conditions (C1)–(C4). With C4 not discharged at the

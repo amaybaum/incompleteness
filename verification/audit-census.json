@@ -153,20 +153,20 @@
           "pattern": "not presently discharged",
           "disposition": "repaired",
           "expect": {
-            "papers/GR.md": 1,
+            "papers/GR.md": 2,
             "book/ch07-gravity.md": 2,
             "book/The-Incompleteness-of-Observation-FULL.md": 2
           },
-          "why": "the status sentence in running text: GR 8.4, and the book's 7.1 and 7.2 in both parallel sources. GR 2.2's own entry closes with the capitalized verdict form, counted separately below. A count below these means a mirror lost it."
+          "why": "the status sentence in running text: GR's prerequisites and 8.4, and the book's 7.1 and 7.2 in both parallel sources. GR 2.2's own entry closes with the capitalized verdict form, counted separately. A count below these means a mirror lost it."
         },
         {
           "id": "B1-hbar-not-consuming",
-          "pattern": "not consumed by the calibration",
+          "pattern": "not a hypothesis of the calibration",
           "disposition": "repaired",
           "expect": {
             "papers/GR.md": 1
           },
-          "why": "C4 is not added as a hypothesis of the hbar derivation: [Main] 1.3 treats C1-C4 as diagnostics, and the calibration is carried by H-slope with the horizon and frame conditions."
+          "why": "C4 is not added as a hypothesis of the hbar derivation: 8.4 separates the calibration's dependencies (partition, Stinespring machinery, H-slope, the horizon/frame/KMS conditions) from the C1-C4 diagnostics tracked at the cut, per [Main] 1.3."
         },
         {
           "id": "B1-verdict",
@@ -176,6 +176,29 @@
             "papers/GR.md": 1
           },
           "why": "the verdict form of the GR 2.2 entry, parallel to the three **Satisfied.** verdicts above it, so that a reader scanning the verification section sees the asymmetry at once."
+        },
+        {
+          "id": "B1-forbidden-intro",
+          "pattern": "The cosmological horizon satisfies all four conditions",
+          "disposition": "repaired",
+          "expect": {},
+          "why": "review residue: GR's prerequisites said this while 2.2 records C4 not discharged. The pattern is the full sentence head, because the biology chapters say RNA and molecular systems satisfy all four conditions, which is a different claim about a different cut."
+        },
+        {
+          "id": "B1-forbidden-equivalence",
+          "pattern": "the full equivalence applies in our universe",
+          "disposition": "repaired",
+          "expect": {},
+          "why": "review residue: the unconditional application of the C1-C4 memory-bearing equivalence to our universe, in GR's prerequisites and the book's 7.2. Replaced by 'remains conditional on C4'."
+        },
+        {
+          "id": "B1-required-conditional",
+          "pattern": "remains conditional on C4",
+          "disposition": "repaired",
+          "expect": {
+            "papers/GR.md": 1
+          },
+          "why": "the conditional form the prerequisites now carry."
         }
       ]
     }
