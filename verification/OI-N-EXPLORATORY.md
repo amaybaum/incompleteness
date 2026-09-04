@@ -36,15 +36,18 @@ by `PosSemidef.dotProduct_mulVec_zero_iff`; hermiticity then puts `A v` in the d
 complement of `v`, which is `span v`, by an elementary computation (`exists_smul_of_orth`); and
 comparing on `x = α v + w` finishes. Choi injectivity returns the branch.
 
-All eight named results print `[propext, Classical.choice, Quot.sound]` and nothing else.
+All ten named results print `[propext, Classical.choice, Quot.sound]` and nothing else.
 
 ## OI-N2 — the commutative control: proved
 
 On the diagonal subalgebra the pinching instrument `X ↦ E_aa X E_aa` is completely positive
 (`pinching_cp`), acts as the identity on every diagonal matrix (`pinching_passive_on_diagonal`), and
-separates diagonal states (`pinching_separates_diagonal`). So complete passive observation exists
-exactly where N1 says it cannot fail to — the classical case — and the obstruction of N1 is
-noncommutativity, not a generic information–disturbance slogan.
+separates diagonal states (`pinching_separates_diagonal`). The scope point that keeps N2 honest is
+also proved: on the full matrix algebra the same instrument's nonselective channel is the dephasing
+map (`pinching_sum_apply`), and with two atoms it is not a passive instrument there
+(`pinching_not_passive`, witness `E_{st}`). So complete passive observation exists exactly where N1
+says it cannot fail to — the commutative algebra — and the obstruction of N1 is noncommutativity,
+not a generic information–disturbance slogan.
 
 ## OI-N3 — the exact boundary: open
 

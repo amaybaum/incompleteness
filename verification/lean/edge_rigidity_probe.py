@@ -2394,7 +2394,8 @@ ok_oin = True
 ok_oin &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _po) is None and 'native_decide' not in _po
 for _nm in ('psd_summand_of_rankOne', 'choiMatrix_id', 'passive_branch_scalar',
             'passive_outcome_state_independent', 'no_complete_passive_observation',
-            'pinching_cp', 'pinching_passive_on_diagonal', 'pinching_separates_diagonal'):
+            'pinching_cp', 'pinching_passive_on_diagonal', 'pinching_separates_diagonal',
+            'pinching_sum_apply', 'pinching_not_passive'):
     ok_oin &= ('#print axioms ' + _nm) in _po
 # the definitions the thread depends on are fixed here, and the control is present
 ok_oin &= 'def IsPassiveInstrument' in _po and 'def SeparatesStates' in _po and 'def pinching' in _po
@@ -2407,7 +2408,8 @@ for _bad in ('QM requires OI', 'quantum mechanics requires observational incompl
     ok_oin &= not _asserted(_po, _bad) and not _asserted(_on, _bad)
 check('R7-OIN', ok_oin,
       'OI-N guard: the passive-observation module carries no sorry and no native_decide, prints the '
-      'axioms of all eight named results, fixes the three definitions the thread depends on, and '
+      'axioms of all ten named results, fixes the three definitions the thread depends on, keeps the '
+      'control scoped to the commutative algebra with the dephasing lemma, and '
       'carries the commutative control; module and note both mark the thread exploratory, keep the '
       'exact boundary (N3) and the relation to OICore (N4) open, and assert neither that QM '
       'requires OI nor that a hidden ontology is forced.')

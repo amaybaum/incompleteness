@@ -27,8 +27,11 @@ positive semidefinite matrix is a scalar multiple of it (`psd_summand_of_rankOne
 
 **OI-N2** (`pinching_passive_on_diagonal`, `pinching_separates_diagonal`). On the commutative
 subalgebra of diagonal matrices, the pinching instrument `X ↦ E_aa X E_aa` is completely positive,
-acts as the identity on every diagonal matrix, and separates diagonal states. That is the control:
-the obstruction is not a generic information–disturbance slogan, it is noncommutativity.
+acts as the identity on every diagonal matrix, and separates diagonal states. On the full matrix
+algebra its nonselective channel is the dephasing map, not the identity (`pinching_sum_apply`,
+`pinching_not_passive`), so it is not a passive instrument there — exactly as N1 requires. That is
+the control: the obstruction is not a generic information–disturbance slogan, it is
+noncommutativity.
 
 **Not claimed.** The exact boundary for a general finite-dimensional C*-algebra `⊕ M_{d_i}`
 (OI-N3) is not proved here; the commutative direction is the control above, and the converse needs
@@ -319,6 +322,30 @@ theorem pinching_separates_diagonal (ρ σ : Matrix S S ℂ) (hρ : IsDiagonal �
     rwa [pinching_trace, pinching_trace] at this
   · rw [hρ i j hij, hσ i j hij]
 
+/-- **Where passivity stops.** On the full matrix algebra the nonselective pinching channel is the
+dephasing map: it keeps the diagonal and kills every off-diagonal entry. -/
+theorem pinching_sum_apply (X : Matrix S S ℂ) (i j : S) :
+    (∑ a, pinching a X) i j = if i = j then X i j else 0 := by
+  rw [Matrix.sum_apply]
+  simp only [pinching_apply]
+  by_cases hij : i = j
+  · subst hij
+    simp
+  · have : ∀ a, ¬ (i = a ∧ j = a) := fun a ⟨h1, h2⟩ => hij (h1.trans h2.symm)
+    simp [this, hij]
+
+/-- **The pinching instrument is not passive on the full algebra** once there are two atoms: the
+matrix unit `E_{st}`, `s ≠ t`, is sent to zero. So N2's passivity is the commutative algebra's, and
+the full algebra is exactly where N1 applies. -/
+theorem pinching_not_passive (hS : 1 < Fintype.card S) :
+    ¬ IsPassiveInstrument (pinching (S := S)) := by
+  intro h
+  obtain ⟨s, t, hst⟩ := Fintype.exists_pair_of_one_lt_card hS
+  have hX := congrFun (congrFun (congrArg (fun Φ => Φ (Matrix.single s t (1 : ℂ))) h.2) s) t
+  simp only [LinearMap.id_apply] at hX
+  rw [LinearMap.sum_apply, pinching_sum_apply, if_neg hst] at hX
+  simp [Matrix.single] at hX
+
 end N2
 
 #print axioms psd_summand_of_rankOne
@@ -329,6 +356,8 @@ end N2
 #print axioms pinching_cp
 #print axioms pinching_passive_on_diagonal
 #print axioms pinching_separates_diagonal
+#print axioms pinching_sum_apply
+#print axioms pinching_not_passive
 
 end PassiveObservation
 end OIBridge
