@@ -5,7 +5,7 @@ import OIBridge.ClosureObstruction
 import OIBridge.ReferenceSufficiency
 
 /-!
-# Passive observation, and why a noncommutative algebra forbids it (OI-N1, OI-N2)
+# Passive observation on a matrix algebra, and its commutative control (OI-N1, OI-N2)
 
 The exploratory OI-N thread asks whether quantum noncommutativity is exactly the obstruction to
 **complete passive observation**: learning the state while leaving every state unchanged on
@@ -29,9 +29,10 @@ positive semidefinite matrix is a scalar multiple of it (`psd_summand_of_rankOne
 subalgebra of diagonal matrices, the pinching instrument `X ↦ E_aa X E_aa` is completely positive,
 acts as the identity on every diagonal matrix, and separates diagonal states. On the full matrix
 algebra its nonselective channel is the dephasing map, not the identity (`pinching_sum_apply`,
-`pinching_not_passive`), so it is not a passive instrument there — exactly as N1 requires. That is
-the control: the obstruction is not a generic information–disturbance slogan, it is
-noncommutativity.
+`pinching_not_passive`), so it is not a passive instrument there — exactly as N1 requires. That is the
+control. N1 excludes complete passive observation on a full matrix algebra and N2 supplies the
+diagonal commutative control; their contrast identifies noncommutativity as the *candidate*
+obstruction, whose exact finite-dimensional boundary is N3 and is not proved here.
 
 **Not claimed.** The exact boundary for a general finite-dimensional C*-algebra `⊕ M_{d_i}`
 (OI-N3) is not proved here; the commutative direction is the control above, and the converse needs

@@ -45,9 +45,10 @@ On the diagonal subalgebra the pinching instrument `X ↦ E_aa X E_aa` is comple
 separates diagonal states (`pinching_separates_diagonal`). The scope point that keeps N2 honest is
 also proved: on the full matrix algebra the same instrument's nonselective channel is the dephasing
 map (`pinching_sum_apply`), and with two atoms it is not a passive instrument there
-(`pinching_not_passive`, witness `E_{st}`). So complete passive observation exists exactly where N1
-says it cannot fail to — the commutative algebra — and the obstruction of N1 is noncommutativity,
-not a generic information–disturbance slogan.
+(`pinching_not_passive`, witness `E_{st}`). N1 excludes complete passive observation on a full matrix algebra; N2 supplies the diagonal
+commutative control. Their contrast identifies noncommutativity as the candidate obstruction whose
+exact finite-dimensional boundary is N3 — not as a proved obstruction, and not as a generic
+information–disturbance slogan either.
 
 ## OI-N3 — the exact boundary: open
 

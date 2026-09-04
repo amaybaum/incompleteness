@@ -659,7 +659,8 @@ the outcome law is the same for every state and no passive instrument separates 
 algebra has two of them. **OI-N2** is the commutative control: the pinching instrument is completely
 positive, is the identity on diagonal matrices, and separates diagonal states — while on the full
 algebra its nonselective channel is dephasing and it is not passive (`pinching_not_passive`) — so
-the obstruction is noncommutativity and not a generic information–disturbance slogan. Ten named
+the contrast identifies noncommutativity as the candidate obstruction, whose exact finite-dimensional
+boundary is N3 and is not proved here. Ten named
 results, each
 printing only `propext`, `Classical.choice`, `Quot.sound`. Open, and guarded as open by `R7-OIN`:
 the exact boundary for `⊕ M_{d_i}` (N3, where an instrument may move probability between blocks),

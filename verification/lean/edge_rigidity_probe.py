@@ -2406,12 +2406,20 @@ ok_oin &= 'What this thread does not claim' in _on
 for _bad in ('QM requires OI', 'quantum mechanics requires observational incompleteness',
              'noncommutativity iff', 'N3 is proved', 'hidden OI ontology is forced'):
     ok_oin &= not _asserted(_po, _bad) and not _asserted(_on, _bad)
+# the softer overclaim: naming noncommutativity as THE obstruction spends N3 before it is proved.
+# Until N3 closes, only the candidate form is allowed, in module, note and README alike.
+_rd = open(os.path.join(os.path.dirname(BRIDGE), 'README.md'), encoding='utf-8').read()
+for _bad in ('the obstruction is noncommutativity', 'obstruction of N1 is noncommutativity',
+             'it is noncommutativity', 'why a noncommutative algebra forbids'):
+    ok_oin &= _bad not in _po and _bad not in _on and _bad not in _rd
+ok_oin &= 'candidate' in _po and 'candidate obstruction' in _on and 'candidate obstruction' in _rd
 check('R7-OIN', ok_oin,
       'OI-N guard: the passive-observation module carries no sorry and no native_decide, prints the '
       'axioms of all ten named results, fixes the three definitions the thread depends on, keeps the '
       'control scoped to the commutative algebra with the dephasing lemma, and '
       'carries the commutative control; module and note both mark the thread exploratory, keep the '
-      'exact boundary (N3) and the relation to OICore (N4) open, and assert neither that QM '
+      'exact boundary (N3) and the relation to OICore (N4) open, name noncommutativity only as the '
+      'candidate obstruction until N3 closes, and assert neither that QM '
       'requires OI nor that a hidden ontology is forced.')
 
 check('R7-AUDB', ok_audb,
