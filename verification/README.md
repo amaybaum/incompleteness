@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 100 modules and,
-  at this commit, 2,101 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 106 modules and,
+  at this commit, 2,298 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -444,6 +444,63 @@ the corpus does not construct. That transport is a seam between the GR/H-state l
 Level III lattice state space rather than a reopening of the OI→QM programme, and is backlogged
 rather than made a required round. Representation construction therefore stands as optional
 mathematics outside the core programme, on the same survey-not-theorem footing.
+
+`CONTINUOUS-TIME-AUDIT.md` opens the dynamics thread. Level III froze a discrete dynamics and
+recorded continuous time as additional structure on the strength of a non-uniqueness countermodel;
+that countermodel says nothing about existence, which is what this thread asks. The first entry
+answers it. Reversibility forces the previous-slice coefficient to `-1` in SM's general
+second-order form, so the phase-space map on the per-site pair is `(p, c)` to `(c, F(c) - p)`, and
+`OIBridge/SecondOrderCircuit.lean` proves for an arbitrary site type and arbitrary neighbourhood
+function that this factors as a **depth-two circuit**: a shear layer and an on-site swap layer,
+each an involution, each a product of commuting single-site gates. The gates commute because a
+shear gate writes only its own site's previous component and reads only current components, which
+no gate writes — so the factorization is insensitive to linearity, alphabet, dimension, and
+state-dependence of the coupling. An involution gives a projection and hence an exact
+one-parameter unitary, polynomial rather than a functional calculus, reaching the gate at time one;
+the gates are supplied as elements of the quasilocal algebra of the infinite lattice, with each
+generator bounded and lying in a single finite region's stage. Two layers of such gates, driven
+over `[0,1]` and `[1,2]`, reach their composite exactly. Existence and per-gate locality are
+settled affirmatively. Two things the first entry leaves outside its scope: the drive theorem
+quantifies over a finite list of gates rather than constructing the all-sites layer as an
+automorphism of the quasilocal algebra, and the local-Hamiltonian statement needs a finite-range
+hypothesis on the neighbourhood function that the factorization itself does not. A **single
+time-independent** generator is not obtained and is not claimed,
+the drive being piecewise constant across the two layers, and uniqueness stays decided negatively
+by the frozen countermodel. Continuous time remains additional structure rather than part of the
+core: the entry shows the structure is available, not that OI supplies it.
+
+The second entry supplies the all-sites layers. `OIBridge/SecondOrderLayer.lean` builds the shear
+layer by stabilization — only the finitely many gates whose regions meet a finite region `Λ` can
+move an observable of `Λ`, so conjugating by that finite product agrees with conjugating by any
+larger one — and `OIBridge/SwapLayer.lean` does the same for the swap layer, where a gate occupies
+a single site and the stabilization hypothesis is plain inclusion. Each layer is a strongly
+continuous one-parameter group of `*`-automorphisms of the quasilocal algebra: group law, inverse,
+isometry, and strong continuity in the time parameter. `OIBridge/SecondOrderDrive.lean` composes
+them. The order is settled by theorem rather than convention: `permOp` is covariant while
+`heis` sandwiches its argument between a covariant and a contravariant factor, so a configuration
+map that shears first and swaps second has a Heisenberg action that applies the **swap** flow first
+and the shear second (`heis_of_comp`, `heisQ_of_comp`). The composite is claimed to be exactly a
+norm-continuous path of `*`-automorphisms through the identity — start at the identity, every point
+an isometric automorphism, continuous in the parameter — and **not** a one-parameter group: the two
+layers do not commute, so no group law for the composite follows, and none is asserted. The
+update itself is packaged as a `ReversibleDynamics` (`ruleDynamics`), with the coupling data
+supplied in all four directions and reversibility taken from the factorization rather than assumed,
+and `heisQ_ruleDynamics` applies the order theorem to it. Both layer endpoints are then identified. A dynamics
+supported in one finite region has a permutation operator that *is* a local operator — the embedded
+permutation matrix of that region's permutation — so its Heisenberg action is conjugation by one
+stage's element; and two dynamics that give a region the same restricted configuration and the same
+off-region agreement relation act the same on that region's observables. For the swap layer those
+two facts suffice, once the finite product of on-site gates over a region is collapsed into the
+single permutation matrix of the swap of the whole region. For the shear layer the region-supported
+replacement shears at every site of `affected R Λ` rather than only of `Λ`, since a gate whose
+neighbourhood meets `Λ` does not commute with `Λ`'s observables; the collapse of the gate product
+is the same argument, and the off-region agreement matches because a site outside the affected set
+has a gate region disjoint from `Λ`. So `swapQ_one_eq_heisQ`, `layerQ_one_eq_heisQ` and
+`driveQ_one_eq_heisQ` identify the two flows and their composite at time one with the frozen
+Heisenberg actions: the path starts at the identity and **ends at the update**. What stays
+unclaimed is the group law for the composite, and any generator. The finite-range hypothesis
+the first entry anticipated is load-bearing here and is carried as a field of the `Rule` structure
+rather than as an ambient assumption.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general

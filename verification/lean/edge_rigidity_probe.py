@@ -992,6 +992,43 @@ for fname, names in (
                            'transported_injective', 'norm_transported', 'heisLoc_star', 'norm_heisLoc',
                            'heisLoc_inv_heisLoc', 'heisQ_mul', 'heisQ_star', 'norm_heisQ', 'heisQ_inv_heisQ',
                            'heis_iterate_emb', 'quasilocal_completion')),
+    ('SecondOrderCircuit', ('leap_eq_swap_shear', 'shear_shear', 'swapLayer_swapLayer',
+                            'curOf_gate', 'gate_gate', 'gate_comm', 'swapGate_comm',
+                            'shearOn_insert', 'gateList_eq_shearOn', 'gateList_eq_shear_of_mem',
+                            'gateList_eq_self_of_notMem', 'depth_two_circuit',
+                            'proj_mul_proj', 'unit_one', 'unit_mul_unit', 'star_unit',
+                            'flow_one', 'flow_add', 'flow_mul', 'gate_drive',
+                            'unit_comm', 'isGateList_prod', 'flowList_one', 'flowList_add',
+                            'layer_drive', 'drive_two', 'two_layer_drive',
+                            'permMat_involutive', 'localGate_isGate',
+                            'proj_localGate_mem_stage', 'quasilocal_drive')),
+    ('SecondOrderLayer', ('extPerm_involutive', 'qGate_isGate', 'inclObs_permMat',
+                          'disjoint_gateRegion_of_notMem_affected', 'layerAct_stabilizes',
+                          'layerAct_eq_of_stage_eq', 'layerLoc_ofM', 'layerLoc_mul',
+                          'layerLoc_star', 'norm_layerLoc', 'layerQ_stage', 'norm_layerQ',
+                          'layerQ_mul', 'layerQ_star', 'layerQ_zero_time',
+                          'continuous_layerQ_time', 'layerU_add', 'layerQ_add_time',
+                          'layerQ_bijective')),
+    ('SwapLayer', ('swapConf_involutive', 'swapGate_isGate', 'swapGate_comm', 'swapU_add',
+                   'swapAct_stabilizes', 'swapLoc_ofM', 'swapLoc_mul', 'swapLoc_star',
+                   'norm_swapLoc', 'swapQ_stage', 'norm_swapQ', 'swapQ_mul', 'swapQ_star',
+                   'swapQ_zero_time', 'continuous_swapQ_time', 'swapQ_add_time',
+                   'swapQ_bijective')),
+    ('SecondOrderDrive', ('permOp_of_comp', 'permOpInv_of_comp', 'heis_of_comp',
+                          'heisLoc_of_comp', 'heisQ_of_comp', 'driveQ_zero_time', 'driveQ_mul',
+                          'driveQ_star', 'norm_driveQ', 'driveQ_bijective',
+                          'continuous_driveQ_time', 'driveQ_isContinuousPath',
+                          'mem_stepInfl_of_mem_gateRegion', 'ruleDynamics_comp',
+                          'heisQ_ruleDynamics', 'glob_localConf', 'localConf_localConf',
+                          'permOp_localDyn', 'permOpInv_localDyn', 'heis_localDyn',
+                          'heisLoc_localDyn', 'heisQ_localDyn', 'heis_eq_of_agree',
+                          'qGate_regionSwap_union', 'swapU_one_eq_qGate',
+                          'agreeOffG_swapLayer', 'heis_swapDyn_emb', 'swapQ_one_eq_heisQ',
+                          'curOn_shearOnRegion', 'shearOnRegion_involutive', 'shearPerm_empty',
+                          'gateOn_shearOnRegion', 'gateEquiv_trans_shearPerm',
+                          'layerU_one_eq_qGate', 'rhs_glob', 'localConf_shearPerm_of_mem',
+                          'localConf_shearPerm_of_not_mem', 'heis_shearDyn_emb',
+                          'layerQ_one_eq_heisQ', 'driveQ_one_eq_heisQ')),
     ('InstrumentAvailability', ('isQInstrJ_fin', 'isFSJ_fin', 'qTotalJ_fin', 'qTotalJ_equiv',
                                 'isQInstrJ_equiv', 'qBranchJ_coarse', 'sum_qBranchJ', 'availFS_id',
                                 'mem_range_stage_mono', 'availFS_comp', 'availFS_relabel',
@@ -2008,6 +2045,79 @@ ok6 &= _aud.count('**open') >= 4 and '**decided**' in _aud
 # availability claim -- it keeps the frozen algebra, states and dynamics, contains every
 # finite-support Level-II instrument, is closed under the framework's operations, and excludes the
 # phase map. It must claim independence, never impossibility.
+# ---- CT2 guard: the continuous-time round must not claim a single time-independent generator ----
+_soc = open(os.path.join(BRIDGE, 'OIBridge', 'SecondOrderCircuit.lean'), encoding='utf-8').read()
+ok_ct2 = True
+# the depth-two factorization is stated for an arbitrary F, not only a linear one
+ok_ct2 &= 'for an arbitrary `F`' in _soc
+# the endpoint theorems must both carry the explicit non-claim
+ok_ct2 &= _soc.count('time-independent') >= 2
+for _thm in ('two_layer_drive', 'quasilocal_drive'):
+    _blk = _slice(_soc, 'theorem ' + _thm, '\n\n')
+    ok_ct2 &= _thm in _soc
+# the drive must be piecewise, i.e. the file must say so where it states the endpoint
+ok_ct2 &= 'piecewise constant' in _soc
+# no autonomous-group claim may be asserted
+for _bad in ('autonomous', 'time-translation invariant generator',
+             'single time-independent generator exists'):
+    ok_ct2 &= _bad not in _soc
+# the generator locality claim must be backed by the stage-membership theorems
+ok_ct2 &= 'proj_localGate_mem_stage' in _soc and 'unit_localGate_mem_stage' in _soc
+# no sorry / native_decide anywhere in the module
+ok_ct2 &= 'sorry' not in _soc and 'native_decide' not in _soc
+# ---- CT2 REPAIR guards: the all-sites layers and the two-piece drive ----
+# `quasilocal_drive` quantifies over a FINITE LIST of gates, which is not the all-sites layer.
+# The repair supplies the layer itself, and these guards keep its scope honest.
+_sol = open(os.path.join(BRIDGE, 'OIBridge', 'SecondOrderLayer.lean'), encoding='utf-8').read()
+_swl = open(os.path.join(BRIDGE, 'OIBridge', 'SwapLayer.lean'), encoding='utf-8').read()
+_sod = open(os.path.join(BRIDGE, 'OIBridge', 'SecondOrderDrive.lean'), encoding='utf-8').read()
+# the all-sites layer needs FINITE RANGE, which the depth-two factorization did not; and the
+# module must say that the formal sum of on-site terms is not an element of the algebra
+ok_ct2 &= 'finite range' in _sol and 'not an element' in _sol
+ok_ct2 &= 'Nothing here exhibits a bounded global Hamiltonian' in _sol
+# each layer separately IS a one-parameter group: group law, inverse, strong continuity
+for _t in ('layerQ_add_time', 'layerQ_bijective', 'continuous_layerQ_time'):
+    ok_ct2 &= 'theorem ' + _t in _sol
+for _t in ('swapQ_add_time', 'swapQ_bijective', 'continuous_swapQ_time'):
+    ok_ct2 &= 'theorem ' + _t in _swl
+# the ORDER of the composite is fixed by a theorem, not by a convention
+for _t in ('permOp_of_comp', 'permOpInv_of_comp', 'heis_of_comp', 'heisQ_of_comp'):
+    ok_ct2 &= 'theorem ' + _t in _sod
+# and the drive is defined in that order: the SWAP flow innermost, the SHEAR flow outermost
+ok_ct2 &= 'layerQ R t (swapQ V t x)' in _sod
+# both layer endpoints are identified, and so is the composite's
+for _t in ('swapQ_one_eq_heisQ', 'layerQ_one_eq_heisQ', 'driveQ_one_eq_heisQ',
+           'layerU_one_eq_qGate', 'swapU_one_eq_qGate'):
+    ok_ct2 &= 'theorem ' + _t in _sod
+# the endpoint is the frozen dynamics, not a fresh definition of one
+ok_ct2 &= 'heisQ (ruleDynamics R)' in _sod
+# the composite is a CONTINUOUS PATH of automorphisms, and no more than that
+for _t in ('driveQ_zero_time', 'driveQ_bijective', 'continuous_driveQ_time',
+           'driveQ_isContinuousPath'):
+    ok_ct2 &= 'theorem ' + _t in _sod
+ok_ct2 &= '**Not claimed: a group law.**' in _sod
+ok_ct2 &= 'no generator is exhibited' in _sod
+# a group law for the composite must not appear under any of the layers' names
+for _bad in ('driveQ_add_time', 'driveQ_left_inverse (t s', 'one-parameter group of the drive'):
+    ok_ct2 &= _bad not in _sod
+for _f in (_sol, _swl, _sod):
+    ok_ct2 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _f) is None
+    ok_ct2 &= re.search(r'(?m)^axiom ', _f) is None and 'native_decide' not in _f
+check('R7-CT2', ok_ct2,
+      'CT2 scope guard: the second-order circuit module states the depth-two factorization for an '
+      'arbitrary neighbourhood function, backs its locality claim with the stage-membership '
+      'theorems, and records at both endpoint theorems that a single TIME-INDEPENDENT generator is '
+      'NOT claimed -- the drive is piecewise constant across the two layers. No autonomous '
+      'one-parameter-group claim appears, and the module carries no sorry and no native_decide. '
+      'The repair modules keep the same scope: the all-sites layers carry the finite-range '
+      'hypothesis the factorization did not need and the note that the formal sum of on-site terms '
+      'is not an algebra element; each layer separately is a strongly continuous one-parameter '
+      'group; the order of the composite is fixed by heis_of_comp rather than by convention, with '
+      'the SWAP flow innermost; and the composite is claimed to be a continuous path of '
+      '*-automorphisms through the identity and NOT a one-parameter group. Both layer endpoints '
+      'are identified with the frozen heisQ, and so is the composite\'s: driveQ R 1 is '
+      'heisQ (ruleDynamics R), so the path starts at the identity and ends at the update.')
+
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())
 ok6 &= 'def AvailFS' in ina and 'theorem q3_countermodel' in ina
@@ -2448,8 +2558,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All seventy-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 + 87 + 53 + 19 named results print their "
+      "LINT. All seventy-eight files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 + 87 + 53 + 19 + 31 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

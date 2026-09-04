@@ -48,6 +48,7 @@ Usage:  python3 bohr_frequency_probe.py
 """
 import itertools
 import os
+import random
 import re
 import sys
 
@@ -9914,6 +9915,116 @@ check("F81", ok81,
       "the finite-support theory is the intended physics; that the closure list is exhaustive; "
       "that the additional principle Q5 names is unique; nothing about Q2, Q4, the abstract CP class, continuous time or sector "
       "selection; frozen Level I/II/III statements untouched; no manuscript change.")
+
+
+# F82 -- CONTINUOUS-TIME ROUND 1 (CT2) -- the reversible second-order update is a depth-two local
+# circuit, and each layer is driven by a bounded strictly-local generator.
+#
+# The substratum update is second order: reversibility forces the coefficient -1 on the previous
+# slice (SM's general form has D = -I_K), so the phase-space map on per-site state (prev, cur) is
+#
+#     leap : (p, c) |-> (c, F(c) - p)
+#
+# for an arbitrary neighbourhood function F.  This probe checks, by exhaustive/sampled enumeration
+# on concrete lattices, the three combinatorial facts the kernel proves in general:
+#
+#   (i)   leap = swap o shear, with shear(p,c) = (F(c) - p, c) and swap(p,c) = (c,p);
+#   (ii)  each layer is an involution;
+#   (iii) the shear layer is a product of single-site gates that COMMUTE -- a gate writes only its
+#         own site's prev component and reads only cur components, which no gate writes.
+#
+# Why this matters for continuous time: an involution g gives a projection p = (1-g)/2, hence an
+# EXACT one-parameter unitary 1 + (exp(i*pi*t) - 1)p with no functional calculus, reaching g at
+# t = 1.  Two layers driven over [0,1] and [1,2] therefore reach the one-step map exactly.
+#
+# NOT probed here, and NOT claimed: a single time-independent generator.  The drive is piecewise
+# constant across the two layers, and nothing below bears on whether the pieces can be merged.
+
+def _ct2_nbrs(idx, dims):
+    out = []
+    for d in range(len(dims)):
+        for sgn in (-1, 1):
+            n = list(idx); n[d] = (n[d] + sgn) % dims[d]; out.append(tuple(n))
+    return out
+
+def _ct2_sites(dims):
+    return list(itertools.product(*[range(n) for n in dims]))
+
+def _ct2_check(dims, q, C, M, states):
+    S_ = _ct2_sites(dims)
+    def Fmap(c):
+        return {i: (C * c[i] + M * sum(c[j] for j in _ct2_nbrs(i, dims))) % q for i in S_}
+    def leap(x):
+        p, c = x; f = Fmap(c)
+        return (dict(c), {i: (f[i] - p[i]) % q for i in S_})
+    def shear(x):
+        p, c = x; f = Fmap(c)
+        return ({i: (f[i] - p[i]) % q for i in S_}, dict(c))
+    def swap(x):
+        p, c = x; return (dict(c), dict(p))
+    def gate(x, i):
+        p, c = dict(x[0]), dict(x[1])
+        p[i] = (C * c[i] + M * sum(c[j] for j in _ct2_nbrs(i, dims)) - p[i]) % q
+        return (p, c)
+    def key(x):
+        return (tuple(sorted(x[0].items())), tuple(sorted(x[1].items())))
+    imgs = set()
+    for x in states:
+        if key(leap(x)) != key(swap(shear(x))):            # (i)
+            return False, "leap != swap o shear"
+        if key(shear(shear(x))) != key(x):                 # (ii)
+            return False, "shear not involutive"
+        if key(swap(swap(x))) != key(x):                   # (ii)
+            return False, "swap not involutive"
+        order = S_[:]; random.Random(hash(key(x)) & 0xffff).shuffle(order)
+        y = x
+        for i in order:
+            y = gate(y, i)
+        if key(y) != key(shear(x)):                        # (iii)
+            return False, "gate product order-dependent or != shear layer"
+        imgs.add(key(leap(x)))
+    return True, len(imgs)
+
+ok82 = True
+_ct2_detail = []
+_rng82 = random.Random(20260904)
+for dims, q, mode in [((3,), 2, 'exh'), ((4,), 3, 'exh'), ((2, 2, 2), 2, 'exh'),
+                      ((3, 3, 3), 5, 'rand'), ((4, 3, 3), 7, 'rand')]:
+    S_ = _ct2_sites(dims); n = len(S_)
+    if mode == 'exh':
+        states = [({S_[k]: pv[k] for k in range(n)}, {S_[k]: cv[k] for k in range(n)})
+                  for pv in itertools.product(range(q), repeat=n)
+                  for cv in itertools.product(range(q), repeat=n)]
+    else:
+        states = [({i: _rng82.randrange(q) for i in S_}, {i: _rng82.randrange(q) for i in S_})
+                  for _ in range(200)]
+    for (C, M) in [(0, 1), (1, 1), (2, 3)]:
+        good, info = _ct2_check(dims, q, C, M, states)
+        if not good:
+            ok82 = False
+            _ct2_detail.append(f"{dims} q={q} C={C} M={M}: {info}")
+        elif mode == 'exh' and info != len(states):
+            ok82 = False
+            _ct2_detail.append(f"{dims} q={q} C={C} M={M}: leap not injective")
+
+check("F82", ok82,
+      "CT2 -- the reversible second-order update is a DEPTH-TWO LOCAL CIRCUIT. On lattices in one "
+      "and three dimensions, over alphabets Z/qZ for q in {2,3,5,7} and three rules including the "
+      "C=0 isotropic form the corpus selects: the phase-space map (p,c) -> (c, F(c)-p) equals "
+      "swap o shear; both layers are involutions; and the shear layer is the product of its "
+      "single-site gates in EVERY order, so the gates commute. A gate writes only its own site's "
+      "prev component and reads only cur components, which no gate writes -- that is the whole "
+      "reason they commute, and it is insensitive to linearity, alphabet, dimension and to whether "
+      "the coupling is state-dependent. Kernel: leap_eq_swap_shear, shear_shear, "
+      "swapLayer_swapLayer, gate_comm, gateList_eq_shearOn, depth_two_circuit in "
+      "OIBridge/SecondOrderCircuit.lean, proved for an arbitrary site type and arbitrary F. The "
+      "operator consequence is proved there too: an involution g gives a projection (1-g)/2 and an "
+      "EXACT one-parameter unitary 1 + (exp(i pi t) - 1)(1-g)/2 -- polynomial, no functional "
+      "calculus -- reaching g at t=1, so two layers driven over [0,1] and [1,2] reach the one-step "
+      "map exactly, with every generator a bounded element of a single finite region's stage "
+      "(quasilocal_drive, proj_localGate_mem_stage). NOT claimed: a single TIME-INDEPENDENT "
+      "generator; the drive is piecewise constant across the two layers, and nothing here bears on "
+      "whether the two pieces can be merged into one.")
 
 
 print()
