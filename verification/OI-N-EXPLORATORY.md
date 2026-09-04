@@ -1,6 +1,7 @@
 # OI-N — the exploratory necessity thread
 
-`OIBridge/PassiveObservation.lean`; guard `R7-OIN` in `verification/lean/edge_rigidity_probe.py`.
+`OIBridge/PassiveObservation.lean` (N1, N2), `OIBridge/CentralObservation.lean` (N3); guard `R7-OIN`
+in `verification/lean/edge_rigidity_probe.py`.
 
 **Status: exploratory.** This thread is deliberately separate from the frozen OI ↔ QM equivalence and
 from the concrete-cut freeze. Nothing here may be cited as a consequence of the existing
@@ -47,17 +48,58 @@ also proved: on the full matrix algebra the same instrument's nonselective chann
 map (`pinching_sum_apply`), and with two atoms it is not a passive instrument there
 (`pinching_not_passive`, witness `E_{st}`). N1 excludes complete passive observation on a full matrix algebra; N2 supplies the diagonal
 commutative control. Their contrast identifies noncommutativity as the candidate obstruction whose
-exact finite-dimensional boundary is N3 — not as a proved obstruction, and not as a generic
-information–disturbance slogan either.
+exact finite-dimensional boundary is N3 — on the strength of N1 and N2 alone a candidate, not a
+generic information–disturbance slogan; N3 below is what makes it the obstruction.
 
-## OI-N3 — the exact boundary: open
+## OI-N3 — the exact boundary: proved, as a classification
 
-Target: *complete passive observability iff the finite-dimensional observable algebra is
-commutative.* The commutative direction is N2. The converse for a general `⊕_i M_{d_i}` is the real
-content and is **not** proved here. The one step where inferring it from the simple case would be a
-gap: an instrument on a direct sum may move probability *between* blocks while still summing to the
-identity, so the block-diagonal restriction has to be argued, not assumed. N1 applies within a block
-of dimension `d_i > 1` only once that restriction is in hand.
+`OIBridge/CentralObservation.lean`. The finite-dimensional C*-algebra `⊕_i M_{d_i}` is taken in its
+block-diagonal matrix form, for a labelling `blk : S → I` of basis states by blocks; a passive
+instrument on it (`IsBlockPassiveInstrument`) is a finite family of maps on the ambient matrix
+algebra, completely positive there, whose nonselective channel fixes every block-diagonal matrix.
+
+**The central theorem** (`central_classification`): a passive instrument on `⊕_i M_{d_i}` is a
+classical stochastic observation of the center. There is a matrix `c : O → I → ℂ` with
+
+> `tr (F_a ρ) = ∑_i c_{a,i} · tr (P_i ρ P_i)` for every block-diagonal `ρ`,
+
+`c_{a,i} ≥ 0` on every nonempty block from complete positivity (evaluate on a pure state of the
+block and read the diagonal), and `∑_a c_{a,i} = 1` on every nonempty block from passivity. Nothing
+inside a block is read.
+
+The two steps beyond the simple case, both proved rather than assumed. **Block preservation**
+(`branch_preserves_block`): passivity on the block projector `P_i` says the branches' images of
+`P_i` sum to `P_i`, whose diagonal vanishes off block `i`; each image is positive semidefinite, so
+each has zero diagonal there; writing the branch in Kraus form (`exists_kraus`, from the kernel's
+positive semidefinite factorization `psdFactorization_discharged` and `kraus_of_choi_factor`), the
+diagonal of `K P_i K†` at `t` is the squared norm of the block-`i` part of row `t` of `K`, so every
+Kraus operator vanishes between distinct blocks (`kraus_block_vanish`) and every branch maps block
+`i` into block `i`. This is the step an instrument that moved probability between blocks would
+violate; passivity forbids it. **Blockwise scalars** (`branch_scalar_on_block`): restricting a branch
+to the fibre of block `i` (`restrictMap`, extension by zero followed by the principal submatrix) has
+Choi matrix a principal submatrix of the original (`choiMatrix_restrictMap`), hence completely
+positive, and the restricted family is a passive instrument on the fibre in N1's sense
+(`restricted_passive`); N1 makes it a scalar `c_{a,i}` there, and block preservation carries the
+scalar back to the ambient algebra.
+
+**The control** (`blockPinch`): the branch that keeps block `i` and discards every other block,
+`X ↦ P_i X P_i`, is completely positive, passive on the algebra (`blockPinch_passive`), and reads the
+block weights exactly (`blockPinch_trace`).
+
+**The boundary.** A block with two basis states carries two pure states every passive instrument
+confuses (`no_complete_passive_of_block`); with singleton blocks the control separates states
+(`blockPinch_separates`). So some passive instrument observes `⊕_i M_{d_i}` completely if and only if
+every `d_i = 1` (`complete_passive_iff_injective`), if and only if the block-diagonal algebra is
+commutative (`injective_iff_commutative`, `complete_passive_iff_commutative`). Noncommutativity is the
+obstruction, exactly: this is the finite-dimensional boundary the N1/N2 contrast pointed at.
+
+All thirteen named results print `[propext, Classical.choice, Quot.sound]` and nothing else.
+
+**Scope.** The Wedderburn–Artin identification of an abstract finite-dimensional C*-algebra with a
+block-diagonal matrix algebra is standard and is not formalized; the theorem is stated for the
+block-diagonal form. "Passive" is the nonselective channel fixing the algebra, and "complete" is
+separation of block-diagonal density matrices by outcome laws; both are the definitions N1 fixed,
+transported to the direct sum.
 
 ## OI-N4 — relation to `OICore`: open
 
@@ -69,12 +111,14 @@ must not be traded on until it is.
 
 ## OI-N5 — the internal observer: not started
 
-Deferred until N1–N4 are settled. Imports no hidden-variable or subquantum assumption.
+Deferred until N4 is settled. Imports no hidden-variable or subquantum assumption.
 
 ## What this thread does not claim
 
 That `QM ⟹ a hidden OI ontology`; standard quantum mechanics admits informationally complete
-measurements, and OI-N concerns the conjunction of completeness with nondisturbance. That N1 or N2
-bears on the OI ↔ QM equivalence, on the concrete-cut freeze, or on CT3. That a passive instrument's
-silence is an observer, or that "passive" here coincides with the passive quotient of
-`PassiveQuotient.lean`, which is a different object. That N3's converse holds.
+measurements, and OI-N concerns the conjunction of completeness with nondisturbance. That N1, N2 or
+N3 bears on the OI ↔ QM equivalence, on the concrete-cut freeze, or on CT3. That a passive
+instrument's silence is an observer, or that "passive" here coincides with the passive quotient of
+`PassiveQuotient.lean`, which is a different object. That N3 says anything about infinite-dimensional
+algebras, about instruments with infinitely many outcomes, or about an abstract C*-algebra before it
+is put in block-diagonal form.

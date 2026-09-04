@@ -157,6 +157,7 @@ import OIBridge.SecondOrderDrive
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 import OIBridge.PassiveObservation
+import OIBridge.CentralObservation
 
 namespace OIBridge
 
