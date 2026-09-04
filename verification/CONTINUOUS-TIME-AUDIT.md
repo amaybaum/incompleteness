@@ -606,3 +606,74 @@ produce a finite-volume obstruction at all. That two volumes agreeing is a proof
 | CT3-R2B, width 2 | **obstructed** at `L = 5` and `L = 6`, by exact certificate |
 | CT3-R2B, width ≥ 3 | **open**. The antisymmetric-sector fact is width-2 only |
 | The periodization / cross-volume bridge | **now load-bearing**, and unbuilt |
+
+## Sixth entry — CT3-R2B-Q2: the exact cycle spectrum, and a corrected corpus theorem
+
+`verification/lean/wave_period_probe.py`, with the proofs in
+`verification/CT3-R2B-Q2-PERIOD-AND-CYCLES.md`.
+
+### Why the cycle spectrum is the whole test
+
+The first-moment obstruction of the fifth entry depends on the block dimension `d_r` only through
+`s = ord(ω^r) = m/gcd(m,r)`, and `d_r = D_s` is the number of `P`-cycles whose length is divisible
+by `s`. So the test — some `s | m`, `s > 2`, with `(s/gcd(s,2)) ∤ D_s` — is a statement about the
+cycle spectrum alone, and deciding it at every `L` needs that spectrum in closed form rather than by
+enumerating `4^L` states.
+
+### The correction that had to come first
+
+The corpus stated `ord(F mod q) = qL` for odd `q` and `L` for `q = 2`, under `gcd(L,q) = 1`. The
+value at `q = 2` is `2L`. The unipotent factor at the parabolic mode is `[[0,1],[1,0]]` over `𝔽₂`,
+of order exactly 2, and `gcd(L,2) = 1` forces `L` odd, so it is not absorbed into `L`. The uniform
+`ord(F mod q) = qL` holds at every prime, `q = 2` included — which is what the same appendix's
+Jordan-Chevalley theorem already implies, `F = F_ss·F_u` with commuting factors of orders `L` and
+`q`. `papers/SM.md` and both book sources carry the corrected statement, and the same audit found
+that `rank(N) = 2` holds only for even `L`, there being one parabolic mode rather than two when `L`
+is odd.
+
+### What the traveling-wave factorization gives
+
+`x² + (S+S⁻¹)x + 1 = (x+S)(x+S⁻¹)`, in the equivalent form that every `𝔽₂` solution on `ℤ²` is
+`f(n−t) + g(n+t)` with a two-dimensional representation kernel spanned by the constant and the
+parity function. Imposing the two periodicities makes `f` and `g` quasi-periodic with a common
+increment, and counting gives
+
+> `dim_{𝔽₂} ker(F_L^k − I) = 2·gcd(k,L) − 1_{L odd and k odd}`,
+
+verified against the matrix at every `L ≤ 14` and every `k ≤ 3L`. The period `m_L = L` for even `L`
+and `2L` for odd `L` is its corollary, and Möbius inversion turns it into the spectrum: `C_ℓ = M(ℓ)`
+for even `L`, and `C_e = M(e)/2`, `C_{2e} = M(e)/4` for odd `L`, with `M` the aperiodic-necklace
+count on four letters. Both forms agree with brute-force enumeration to `L = 8` and account for
+every state to `L = 40`.
+
+### The decision, which is not the expected one
+
+The round's sharp question was whether the test is silent exactly at the powers of two. Half of that
+is a theorem: at `L = 2^a` every `v₂(C_{2^i}) = 2^i − i`, and `2^j − j ≥ j − 1`, so every `D_{2^j}`
+carries the divisibility the test asks for. The converse fails. For an odd prime `L = p > 3` the only
+`s > 2` are `p` and `2p`, both tests reduce to `p² | 4^{p−1} − 1`, and that is exactly the Wieferich
+condition base 2. `L = 1093` and `L = 3511` are therefore silent, and neither is a power of two. The
+coincidence over `L ≤ 64` is a small-`L` coincidence, not the law, and no finite search can delimit
+where else it breaks, since a further counterexample of this shape is a further Wieferich prime.
+
+### What the sixth entry does not claim
+
+That a firing test is a width-`w` obstruction for any `w ≥ 3`: the symmetric-sector palindromicity is
+structural, but the antisymmetric-sector vanishing remains the computed width-2 ingredient of the
+fifth entry. That any of this transports to the infinite lattice — the periodization obligation of
+the third entry stands unused here too. That silence at `L = 4, 8, 1093, 3511` exhibits a static
+local generator: the test is an obstruction, and its silence is the absence of one obstruction. That
+anything here covers `q = 3`, whose period and spectrum obey different formulas. That CT3 is settled
+in either direction.
+
+## Status after the sixth entry
+
+| Question | Status |
+|---|---|
+| CT3. One time-independent finite-range interaction with `τ_1 = heisQ(Φ_OI)` | **open** |
+| CT3-R2B, width 2, `q = 2` | **obstructed at every `L` outside an explicit arithmetic set** |
+| That set | powers of two, **and** the Wieferich primes; not the powers of two alone |
+| CT3-R2B, width ≥ 3 | **open**. The antisymmetric-sector fact is width-2 only |
+| The `q = 2` cycle spectrum | **closed in exact form**, no state enumeration |
+| Appendix B.3.1 period formula | **corrected**: `qL` at every prime, `q = 2` included |
+| The periodization / cross-volume bridge | **load-bearing**, and unbuilt |
