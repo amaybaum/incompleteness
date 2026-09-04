@@ -2103,6 +2103,51 @@ for _bad in ('driveQ_add_time', 'driveQ_left_inverse (t s', 'one-parameter group
 for _f in (_sol, _swl, _sod):
     ok_ct2 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _f) is None
     ok_ct2 &= re.search(r'(?m)^axiom ', _f) is None and 'native_decide' not in _f
+# ---- CT3 guard: the centralizer census must be reported as a NECESSARY condition only ----
+_sg = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'static_generator_probe.py'),
+           encoding='utf-8').read()
+_cta = open(os.path.join(os.path.dirname(BRIDGE), 'CONTINUOUS-TIME-AUDIT.md'),
+            encoding='utf-8').read()
+ok_ct3 = True
+# CT3 must be stated in the infinite-volume form, not as a bounded element of the algebra
+ok_ct3 &= 'not an element of that algebra' in _sg
+ok_ct3 &= 'finite-range interaction' in _sg and 'tau_1 = heisQ(Phi_OI)' in _sg
+# the census is necessary, never sufficient, and the verdict is non-obstruction
+ok_ct3 &= 'NON-OBSTRUCTION' in _sg
+ok_ct3 &= 'necessary condition is not evidence' in _sg
+ok_ct3 &= 'not a statement about all finite ranges' in _sg
+# the controls must be present: a census that reports trivial everywhere is a broken probe
+ok_ct3 &= _sg.count('CONTROL.') >= 2 and 'on-site' in _sg
+# the diagonal/off-diagonal split must be there, with the reason it decides the reading
+ok_ct3 &= 'diagonal H exponentiates to a diagonal unitary' in _sg
+# the modular census is an upper bound; the verdict needs a certified characteristic-zero
+# lower bound, so the bracket and the exact-over-Z witness must both be present
+ok_ct3 &= 'rank_p <= rank_Q' in _sg and 'upper bound' in _sg
+ok_ct3 &= 'exactly over Z' in _sg and 'BRACKETED' in _sg
+ok_ct3 &= 'certified lower' in _cta and 'bracketed' in _cta
+# the finite-to-infinite periodization must be recorded as an obligation, not used silently
+ok_ct3 &= 'periodize' in _sg and 'periodization' in _cta
+# no claim that a static generator exists, in the probe or in the audit
+for _bad in ('a static local generator exists', 'CT3 is answered', 'CT3 closed',
+             'autonomous generator found'):
+    ok_ct3 &= _bad not in _sg and _bad not in _cta
+# the audit must keep CT3 open and must not read the passed necessary condition as evidence
+ok_ct3 &= 'passed, not failed' in _cta
+ok_ct3 &= 'Floquet' in _cta
+ok_ct3 &= 'sorry' not in _sg
+check('R7-CT3', ok_ct3,
+      'CT3 scope guard: the static-generator probe states CT3 in its infinite-volume form (one '
+      'time-independent finite-range interaction, not a bounded element of the quasilocal '
+      'algebra), reports the local-centralizer census as a NECESSARY condition only, carries the '
+      'on-site controls that show the method detects generators where they must exist, splits the '
+      'census into diagonal and off-diagonal with the reason that split decides the reading, and '
+      'records the verdict as NON-OBSTRUCTION. Neither the probe nor the audit claims that a '
+      'static finite-range generator exists, and neither treats a passed necessary condition as '
+      'evidence of sufficiency. The modular census is recorded as an upper bound and paired with a '
+      'characteristic-zero lower bound verified exactly over Z, so the non-obstruction verdict is '
+      'not a modular artifact; and the finite-to-infinite periodization is recorded as an '
+      'obligation for any future obstruction claim rather than used silently.')
+
 check('R7-CT2', ok_ct2,
       'CT2 scope guard: the second-order circuit module states the depth-two factorization for an '
       'arbitrary neighbourhood function, backs its locality claim with the stage-membership '

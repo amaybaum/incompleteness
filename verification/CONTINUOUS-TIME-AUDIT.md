@@ -281,3 +281,129 @@ relating them, and the finite-range hypothesis is a field rather than an ambient
 | CT2'''. The endpoint identified with the frozen `heisQ` | **answered affirmatively**: `swapQ_one_eq_heisQ`, `layerQ_one_eq_heisQ`, `driveQ_one_eq_heisQ`. The path from the identity ends at the update |
 | CT3. A single time-independent local `H` | **open**. Not implied by depth two, and deliberately not asserted |
 | CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |
+
+## Third entry — CT3, restated, and the local-centralizer census
+
+`verification/lean/static_generator_probe.py`.
+
+### The question, in the form the infinite lattice permits
+
+CT2 closed with a path, not a group. What CT3 asks is whether that path can be replaced by an
+**autonomous** one. The naive target is wrong on an infinite lattice: an extensive Hamiltonian is
+not an element of the quasilocal algebra, so `H ∈ 𝒜_quasi` with `e^{iH} = U` is not the statement to
+aim at. The infinite-volume form of "one time-independent local Hamiltonian" is
+
+> is there **one** time-independent finite-range interaction `ℋ` whose automorphism group `τ_t`
+> satisfies `τ_1 = heisQ(Φ_OI)`?
+
+with `ℋ` a locally finite bounded interaction defining a densely-defined derivation, exactly as the
+first entry's terminology point requires.
+
+**What CT2 already settles about this.** Each layer *separately* is autonomously generated: the
+shear and swap flows are one-parameter groups whose generators are formal sums of commuting
+bounded terms, each supported in one gate region. So CT3 is not asking whether the OI dynamics
+admits any static local generator at all — it is asking whether the **composite of two
+autonomously generated local flows is itself autonomously generated locally**. That is the
+Floquet-versus-static question, and the corpus rule is one instance of it.
+
+### The cheap necessary test, before any logarithm
+
+If `τ_1 = α` for an autonomous flow then every `τ_t` commutes with `α`, so the generator satisfies
+`[δ, α] = 0`: the static interaction must be a **conserved local quantity of one discrete OI step**.
+On a finite periodic lattice that is the linear condition `P† H P = H` for `H = Σ_x h_x` with `h_x`
+supported on a width-`w` window, and it is far cheaper than solving `e^{-iH} = P`. A trivial
+centralizer would kill autonomous local embedding outright.
+
+The census dimension is computed as `nullity(B) − dim ker(h ↦ H)`, the second term being the
+redundancy of the parametrization. That redundancy is available in **closed form** — the image of
+`h ↦ H` is spanned by its exact-support components, so its dimension is `Σ_S (q⁴−1)^{|S|}` over
+subsets `S` fitting inside some window — and the closed form is checked against brute-force linear
+algebra rather than assumed. Ranks are exact over `GF(p)`, `p = 1000003`; since `rank_p ≤ rank_ℚ`,
+a small census dimension mod `p` certifies a small one over `ℚ`, which is the direction an
+obstruction claim needs.
+
+**The split that decides the reading.** `P` is a permutation matrix, so conjugation by it permutes
+matrix units and the centralizer splits: the diagonal part (conserved *classical* densities) and
+the off-diagonal part are separately centralizing. A diagonal `H` exponentiates to a diagonal
+unitary and can never be a nontrivial permutation, so an autonomous local generator needs the
+off-diagonal part to be nonzero. Both are reported.
+
+### The bracket, which is what the verdict rests on
+
+`rank_p ≤ rank_ℚ` makes the modular census an **upper bound and nothing more**, and an upper bound
+cannot establish the thing the verdict needs — that the centralizer is more than scalars. If 7 were
+only an upper bound the true dimension over `ℚ` could be 1 and non-obstruction would collapse. So
+the dimension is bracketed from both sides: kernel vectors are recovered mod `p`, rationally
+reconstructed, cleared to integers, and verified against **every** equation exactly over `ℤ`, and
+their images are independent over `ℚ` because their reductions are independent mod `p`. The
+closed-form redundancy is a characteristic-zero count, so the subtraction is valid over `ℚ`.
+
+### The result, and it is a negative for the cheap test
+
+For the corpus rule `x_i(t+1) = x_{i-1} + x_{i+1} − x_i(t−1) mod q`:
+
+| window `w` | modular upper | certified lower | status | diagonal + off-diagonal |
+|---|---|---|---|---|
+| 1 | 1 | 1 | **exact over `ℚ`** | 1 + 0 |
+| 2 | 7 | 7 | **exact over `ℚ`** | 3 + 4 |
+| 3 | 25 | 14 | **bracketed**, `14 ≤ dim ≤ 25` | 5 + 20 |
+
+stable in `L` across `L = 5, 6, 7` at `w = 2` and `L = 5, 6` at `w = 3`. The bracket is tight at
+`w ≤ 2` and is **not** tight at `w = 3`, where 25 is an upper bound only. The diagonal and
+off-diagonal split figures are modular throughout. What is certified over `ℤ` — and is what the
+verdict rests on — is an explicit integer `H` at `w = 2` and at `w = 3` that commutes with `P` and
+has **nonzero off-diagonal weight**. At `w ≤ 2` the dimensions are additionally confirmed by
+building the explicit matrices on `q^{2L}` configurations and checking `[H, P] = 0` entry by entry.
+
+So the centralizer is nontrivial from `w = 2` on, with certified off-diagonal weight.
+**The centralizer test does not obstruct.** Candidates survive, and the stronger exponential
+condition has to be tested. Passing a necessary condition is not evidence of sufficiency, and none
+is claimed.
+
+### The finite-to-infinite bridge, recorded as an obligation
+
+This is a finite periodic computation. For a finite-range interaction the commutation identity
+`[δ, α] = 0` is local, so it should periodize, and a failure at all sufficiently large `L` ought to
+give an infinite-volume statement. Nothing in this entry needs that bridge, because the outcome is
+a **non**-obstruction and a non-obstruction transports in the harmless direction. Any future round
+that wants to read a finite-`L` failure as an infinite-volume theorem must make the periodization
+explicit first rather than leave it implicit.
+
+### The controls, which are what make the negative readable
+
+A census that reported "trivial" everywhere would be a broken probe, not a discovery. Three
+controls are run. Two rules whose leap is **on-site** — `F = 0` and `F(c)_i = 2c_i` — provably do
+admit a static on-site generator, and the census finds dimensions 37 and 505 at `w = 1, 2` on
+`L = 4`: the method detects generators where they must exist. A third, the one-sided coupling
+`F(c)_i = c_{i-1}`, is genuinely coupled and gives dimension 1 at `w = 1` and `w = 2` — so the
+corpus rule's 7-dimensional `w = 2` centralizer is a property of that specific bidirectional rule,
+not a generic consequence of having a coupling.
+
+### Scope
+
+The census is run at `w ≤ 3`. The OI gate region is three sites wide, so `w = 3` is the first
+window that can carry a gate; a census at `w ≤ 3` is **not** a statement about all finite ranges,
+and none is made. The unknown count grows as `L · q^{4w}`, which is the wall: `w = 4` at `q = 2` is
+65536 unknowns per site.
+
+### What the third entry does not claim
+
+That a static finite-range generator exists. That the surviving centralizer elements can generate
+the update — the census is a necessary condition only, and its survivors have not been tested
+against `e^{-iH} = P`. That the result transports to the infinite lattice: it is a finite periodic
+computation, and what it bears on is the finite-volume necessary condition. That the census at
+`w ≤ 3` settles larger ranges. That a negative CT3 would obstruct continuous-time quantum evolution
+in the ordinary time-dependent sense — it would not; it would mean only that the OI step is
+intrinsically Floquet rather than the unit-time exponential of one static local interaction.
+
+## Status after the third entry
+
+| Question | Status |
+|---|---|
+| CT1. What is the update, as a quasilocal automorphism | **answered** (first entry) |
+| CT2. Existence and per-gate locality | **answered affirmatively** (first entry) |
+| CT2'. Each all-sites layer as a quasilocal one-parameter group | **answered affirmatively** (second entry) |
+| CT2''. The composite as a path from the identity to the update | **answered affirmatively** (second entry), `driveQ_one_eq_heisQ` |
+| CT3. One time-independent finite-range interaction with `τ_1 = heisQ(Φ_OI)` | **open**. The centralizer necessary condition is **passed, not failed**: nontrivial off-diagonal survivors at `w = 2, 3` |
+| CT3'. A group law for the composite drive | **open**, and deliberately not asserted: the two layers do not commute |
+| CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |
