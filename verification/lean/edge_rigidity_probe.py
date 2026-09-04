@@ -2290,6 +2290,41 @@ for _bad in ('silent exactly at the powers of two', 'silence set is the powers o
     ok_ct3d &= not _asserted(_wp, _bad) and not _asserted(_q2, _bad)
 # exact arithmetic only, as in the round it continues
 ok_ct3d &= 'cmath' not in _wp and '1e-6' not in _wp
+# ---- Audit A guard: the recurrence chain must keep C1, and the audit must keep its scope ----
+_pc = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'partition_coupling_probe.py'),
+           encoding='utf-8').read()
+_aa = open(os.path.join(os.path.dirname(BRIDGE), 'C1C4-MINIMALITY-AUDIT.md'),
+           encoding='utf-8').read()
+_root = os.path.dirname(os.path.dirname(BRIDGE))
+ok_auda = True
+for _tok in ('C1-LOAD-BEARING', 'ONE-LOCATION', 'C1-NOT-SUFFICIENT'):
+    ok_auda &= ('SCOPE-TOKEN: ' + _tok) in _pc
+# the repaired chain, in both parallel sources, and the defective form in neither
+for _p in ('book/ch18-beyond.md', 'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_root, _p), encoding='utf-8').read()
+    ok_auda &= 'Recurrence guarantees that any partition' not in _t
+    ok_auda &= 'Recurrence together with C1' in _t and 'uncoupled partition' in _t
+# the statements the repair restores agreement with must themselves still be there
+_m = open(os.path.join(_root, 'papers/Main.md'), encoding='utf-8').read()
+_c1 = open(os.path.join(_root, 'book/ch01-observation.md'), encoding='utf-8').read()
+ok_auda &= 'non-permutation one-step witness' in _m and 'and condition C1' in _c1
+# the countermodel and its control must both be present, and the control is what makes it readable
+ok_auda &= 'THE COUNTERMODEL' in _pc and 'THE CONTROL' in _pc
+ok_auda &= 'coin-and-die' in _pc
+# C1 sufficiency must never be claimed, in probe or audit
+for _bad in ('C1 is sufficient', 'C1 suffices', 'recurrence alone gives backflow'):
+    ok_auda &= not _asserted(_pc, _bad) and not _asserted(_aa, _bad)
+# the audit must publish the clean axes and its own limits, not only its hit
+ok_auda &= 'The axes that came back clean' in _aa and 'What this audit does not claim' in _aa
+check('R7-AUDA', ok_auda,
+      'Audit A guard: the recurrence chain names C1 in both parallel sources and the unqualified '
+      '"any partition" form is gone from both, while the [Main] and Chapter 1 statements the '
+      'repair restores agreement with are still present. The countermodel probe carries its '
+      'control -- the corpus own coin-and-die system, where the same measurement reports the '
+      'backflow that the uncoupled product system lacks -- so the negative cannot be read as a '
+      'blind measurement. Neither probe nor audit claims C1 sufficient for anything, and the '
+      'audit publishes the axes that came back clean and its own limits, not only its one hit.')
+
 check('R7-CT3D', ok_ct3d,
       'CT3-R2B-Q2 guard: the period formula is stated in its corrected uniform form, '
       'ord(F mod q) = qL at every prime including 2, in the probe, in the round note and at all '

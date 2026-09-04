@@ -598,6 +598,22 @@ collects the three. The core keeps its positive role: it defines what counts as 
 which is what gives `oi_alone_not_qm` content. `tools/claims_check.py` guards the paraphrase with
 an `OI_CLAIMS` class carrying its own marker list.
 
+`C1C4-MINIMALITY-AUDIT.md` is the corpus audit of C1 coupling, C4 readback, hidden predictive
+memory, raw versus minimal carrier, the observability quotient and passive minimality, read against
+the frozen results. One defect: Chapter 18's summary of the framework's logical chain read
+"recurrence guarantees that **any partition** of `S` will exhibit returns of information from hidden
+to visible", dropping C1, where `[Main]` §2.3 and Chapter 1 §1.7 both carry finiteness **and** C1.
+`verification/lean/partition_coupling_probe.py` certifies the countermodel exactly: the uncoupled
+product system `φ(v,h) = (v+1, h+1)` on `ℤ/3 × ℤ/4` recurs at `φ¹² = id`, yet every two-time visible
+matrix is a permutation independent of the hidden prior, the family is divisible at every
+intermediate step, and total variation is constant — recurrence without any restoration. The control
+is the corpus's own coin-and-die system, where C1 holds, the one-step matrix is `[[2/3,1/3],[1/3,2/3]]`,
+and total variation contracts `1 → 1/3` and returns in full at `t = 2`; so the measurement is not
+blind. Both parallel book sources now name C1 in the chain, and the `R7-AUDA` guard holds them
+there. The other five axes came back clean and are recorded as such, with one status fact: no ledger
+entry attaches to `PassiveQuotient.lean` or `ObservabilityQuotient.lean`, so the minimal-carrier
+machinery is kernel-proved infrastructure that currently underwrites no manuscript statement.
+
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general
 orbit theorem, the closed-subgroup theorem, or anything about non-compact groups; that the
