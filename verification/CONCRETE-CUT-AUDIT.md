@@ -114,6 +114,31 @@ Chapter 7, one chapter earlier, and contrary to `[Main]` §1.3's own qualifier t
 property to be independently demonstrated there". Repaired in both sources; `[SM]`'s prerequisites
 parenthetical, which paraphrased the same clause, carries the same qualifier.
 
+**Finding B5 — the paragraph after Chapter 1's C4 definition listed three conditions and
+declared all four satisfied.** One sentence after saying that an environment which stores without
+reading back "yields exact Markov noise despite all three (failing C4)", it said "only an environment
+that is coupled, persistent, and vast sustains" the memory-bearing correlations — C1–C3 — and closed
+with the conditions being "satisfied by enormous margins". The first omits the one condition the
+preceding sentence had just made load-bearing; the second is the blanket form that neither cut supports. Repaired in both sources: all four named, and the status carried per cut — at the lattice
+cut C1 and the C3 floor structural with C2 and C4 the hypotheses of Theorem 22, at the cosmological
+cut C1–C3 verified with enormous margins and C4 named but not presently discharged.
+
+**Finding B6 — the Introduction carried the same blanket form.** "They are the actual physical
+conditions of any laboratory observer in our universe, satisfied by enormous margins." Repaired in
+both sources to the two-cut status. `[GR]` §2.2 and Chapter 7 keep "satisfied with enormous margin"
+for C2 and C3 individually, which is a different and correct claim and is untouched.
+
+## The consolidated status, which the freeze will carry
+
+| cut | C1 | C2 | C3 | C4 |
+|---|---|---|---|---|
+| cosmological horizon (`[GR]` §2.2) | verified | verified | verified | named, not presently discharged |
+| lattice observer cut (`[SM]` Theorem 22) | structural | hypothesis | capacity floor | hypothesis |
+
+The two rows are not the same statement and must not be merged into "C1–C3 verified at both cuts":
+at the lattice cut C2 is a hypothesis, and C3 is a floor for the realized process rather than a
+margin.
+
 ## What the audit checked and found clean at the cut
 
 **The `ħ` chain's named conditions.** H-slope, H-frame, H-spectrum, H-balance, H-shell, H-energy,

@@ -2357,7 +2357,19 @@ for _p in ('book/ch01-observation.md', 'book/The-Incompleteness-of-Observation-F
     _t = open(os.path.join(_root, _p), encoding='utf-8').read()
     ok_audb &= 'at the horizon this is automatic' not in _t
     ok_audb &= 'a property to be demonstrated there rather than assumed' in _t
+    # the paragraph after the C4 definition: four conditions named, and no blanket margins
+    ok_audb &= 'coupled, persistent, and vast sustains' not in _t
+    ok_audb &= 'satisfied by enormous margins' not in _t
+    ok_audb &= 'sufficiently capacious, and read back sustains' in _t
+    ok_audb &= 'C2 and C4 require the additional hypotheses' in _t
 ok_audb &= 'The SM lattice cut' in _cc and 'Finding B4' in _cc
+# the Introduction's twin of the blanket-margins sentence, and no blanket form anywhere in the book
+for _p in ('book/ch00-introduction.md', 'book/ch01-observation.md',
+           'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_root, _p), encoding='utf-8').read()
+    ok_audb &= 'satisfied by enormous margins' not in _t
+ok_audb &= 'readback is named there and still to be demonstrated' in \
+    open(os.path.join(_root, 'book/ch00-introduction.md'), encoding='utf-8').read()
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
@@ -2368,7 +2380,8 @@ check('R7-AUDB', ok_audb,
       'why bidirectionality and H-scramble do not close it, and claims neither '
       'that C4 holds nor that it fails at the cut. On the SM side: Layer 0 no longer lists C1-C4 as '
       'inputs to the gauge chain, the 2.1 inventory names all four with Theorem 22 status, and '
-      'Chapter 1 no longer calls the horizon read-write cycle automatic. Claims neither '
+      'Chapter 1 neither calls the horizon read-write cycle automatic nor lists three conditions as '
+      'sufficient nor declares all four satisfied by enormous margins. Claims neither '
       'that C4 holds nor that it fails at the cut.')
 
 check('R7-AUDA', ok_auda,
