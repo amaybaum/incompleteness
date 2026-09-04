@@ -215,12 +215,19 @@ is what is proved.
 **No generator for the composite**, and no bounded global Hamiltonian for either layer; the
 terminology point of the first entry stands unchanged.
 
-**The endpoint is not yet identified.** That `driveQ R 1` equals `heisQ` of the update's own
-reversible dynamics is not proved here. It needs the update packaged as a `ReversibleDynamics` with
-both finite-range proofs, the equality checked on staged local observables through `heisLoc`, and
-then extended by density. Until that is done, the modules exhibit a continuous path of quasilocal
-automorphisms whose construction follows the update's factorization, not a continuous path proved
-to end at the update.
+**The endpoint is not yet identified.** The update is packaged as a `ReversibleDynamics`
+(`ruleDynamics`), so the target of the identification exists: the coupling data is the gate region
+for the neighbourhood and `insert i (R.infl i)` for the influence set, in all four directions —
+shear, swap, the one-step map, and its inverse. Reversibility is not assumed there but comes from
+the depth-two factorization, which exhibits the inverse as the two layers in the other order.
+`ruleDynamics_comp` holds on the nose, and `heisQ_ruleDynamics` applies the order theorem to it, so
+the update's own Heisenberg action is known to run the swap first — the same shape `driveQ` has.
+
+What is still missing is the equality itself: that `driveQ R 1` equals `heisQ (ruleDynamics R)`.
+That needs each layer's time-one map identified with the corresponding layer's Heisenberg action on
+staged local observables through `heisLoc`, and then extended by density. Until that is done, the
+modules exhibit a continuous path of quasilocal automorphisms whose construction follows the
+update's factorization, not a continuous path proved to end at the update.
 
 **The range hypothesis is now load-bearing** for the shear layer, as the first entry anticipated:
 an arbitrary `F` gives the factorization but no gate region, no stage, and hence no layer. The
@@ -235,6 +242,6 @@ relating them, and the finite-range hypothesis is a field rather than an ambient
 | CT2. Existence and per-gate locality | **answered affirmatively** (first entry) |
 | CT2'. The all-sites layer as an automorphism of the quasilocal algebra | **answered affirmatively** (this entry), for each of the two layers separately: a strongly continuous one-parameter group of `*`-automorphisms |
 | CT2''. The composite as a path from the identity | **answered affirmatively** (this entry): a norm-continuous path of `*`-automorphisms through the identity, in the order `heis_of_comp` forces. **Not** a one-parameter group |
-| CT2'''. The endpoint identified with the frozen `heisQ` | **open**, and the next task |
+| CT2'''. The endpoint identified with the frozen `heisQ` | **open**, and the next task. The target exists (`ruleDynamics`, `heisQ_ruleDynamics`); the equality does not |
 | CT3. A single time-independent local `H` | **open**. Not implied by depth two, and deliberately not asserted |
 | CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |

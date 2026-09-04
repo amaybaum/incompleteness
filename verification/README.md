@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 103 modules and,
-  at this commit, 2,142 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 106 modules and,
+  at this commit, 2,267 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -483,9 +483,12 @@ and the shear second (`heis_of_comp`, `heisQ_of_comp`). The composite is claimed
 norm-continuous path of `*`-automorphisms through the identity — start at the identity, every point
 an isometric automorphism, continuous in the parameter — and **not** a one-parameter group: the two
 layers do not commute, so no group law for the composite follows, and none is asserted. The
-endpoint is also **not** identified: that the path at time one equals `heisQ` of the update's own
-reversible dynamics needs the update packaged as a `ReversibleDynamics`, checked on staged local
-observables, then extended by density, and that is the open next step. The finite-range hypothesis
+update itself is packaged as a `ReversibleDynamics` (`ruleDynamics`), with the coupling data
+supplied in all four directions and reversibility taken from the factorization rather than assumed,
+and `heisQ_ruleDynamics` applies the order theorem to it. The endpoint is nonetheless **not**
+identified: that the path at time one equals `heisQ (ruleDynamics R)` needs each layer's time-one
+map matched with the corresponding Heisenberg action on staged local observables and then extended
+by density, and that is the open next step. The finite-range hypothesis
 the first entry anticipated is load-bearing here and is carried as a field of the `Rule` structure
 rather than as an ambient assumption.
 

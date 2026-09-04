@@ -209,6 +209,123 @@ theorem driveQ_isContinuousPath :
 
 end Drive
 
+/-! ### Section C — the update as a finite-range reversible dynamics -/
+
+section Dynamics
+
+variable {V : Type} [Fintype V] [DecidableEq V] [Nonempty V] [AddCommGroup V]
+
+/-- **THE SWAP LAYER'S COUPLING DATA.** A swap gate occupies one site, so both cones are
+singletons. -/
+def swapFiniteRange (V : Type) [Fintype V] [DecidableEq V] [Nonempty V] [AddCommGroup V] :
+    FiniteRange (swapLayer : (ι → V × V) → (ι → V × V)) where
+  nbhd i := {i}
+  local_dep i := by
+    intro s s' h
+    have hi : s i = s' i := h i (Finset.mem_singleton_self i)
+    show swapLayer s i = swapLayer s' i
+    rw [swapLayer_apply, swapLayer_apply, hi]
+  infl i := {i}
+  mem_infl i j hij := by
+    rw [Finset.mem_singleton] at hij
+    subst hij
+    exact Finset.mem_singleton_self _
+
+/-- **THE SWAP LAYER AS A REVERSIBLE DYNAMICS.** It is its own inverse, so both range proofs are
+the same one. -/
+def swapDyn (V : Type) [Fintype V] [DecidableEq V] [Nonempty V] [AddCommGroup V] :
+    ReversibleDynamics ι (V × V) where
+  φ := swapEquiv
+  G := swapFiniteRange V
+  G' := swapFiniteRange V
+
+variable (R : Rule ι V)
+
+/-- The influence set of the shear and of the whole update: a site influences itself and whatever
+the rule says it influences. -/
+def stepInfl (i : ι) : Finset ι := insert i (R.infl i)
+
+omit [Fintype V] [DecidableEq V] [Nonempty V] [AddCommGroup V] in
+theorem mem_stepInfl_of_mem_gateRegion {i j : ι} (h : i ∈ gateRegion R j) : j ∈ stepInfl R i := by
+  rcases Finset.mem_insert.mp h with h | h
+  · subst h
+    exact Finset.mem_insert_self _ _
+  · exact Finset.mem_insert_of_mem (R.mem_infl j i h)
+
+/-- **THE SHEAR LAYER'S COUPLING DATA.** A shear at site `i` reads the current slice on `N i` and
+the previous slice at `i`, so its neighbourhood is the gate region. -/
+def shearFiniteRange : FiniteRange (shear R.F : (ι → V × V) → (ι → V × V)) where
+  nbhd := gateRegion R
+  local_dep i := by
+    intro s s' h
+    have hi : s i = s' i := h i (Finset.mem_insert_self i (R.N i))
+    have hF : R.F (curOf s) i = R.F (curOf s') i :=
+      R.dep i _ _ fun j hj => by
+        rw [curOf_apply, curOf_apply, h j (Finset.mem_insert_of_mem hj)]
+    show shear R.F s i = shear R.F s' i
+    rw [shear_apply, shear_apply, hF, hi]
+  infl := stepInfl R
+  mem_infl _ _ h := mem_stepInfl_of_mem_gateRegion R h
+
+/-- **THE SHEAR LAYER AS A REVERSIBLE DYNAMICS.** -/
+def shearDyn : ReversibleDynamics ι (V × V) where
+  φ := shearEquiv R.F
+  G := shearFiniteRange R
+  G' := shearFiniteRange R
+
+/-- **THE UPDATE'S COUPLING DATA.** The one-step map reads the same sites as the shear: the swap
+that follows it is on-site. -/
+def leapFiniteRange : FiniteRange (leap R.F : (ι → V × V) → (ι → V × V)) where
+  nbhd := gateRegion R
+  local_dep i := by
+    intro s s' h
+    have hi : s i = s' i := h i (Finset.mem_insert_self i (R.N i))
+    have hF : R.F (curOf s) i = R.F (curOf s') i :=
+      R.dep i _ _ fun j hj => by
+        rw [curOf_apply, curOf_apply, h j (Finset.mem_insert_of_mem hj)]
+    show leap R.F s i = leap R.F s' i
+    rw [leap_apply, leap_apply, hF, hi]
+  infl := stepInfl R
+  mem_infl _ _ h := mem_stepInfl_of_mem_gateRegion R h
+
+/-- **THE INVERSE STEP'S COUPLING DATA.** The inverse runs the two layers in the other order, so it
+reads the *previous* slice on `N i` — the same sites, a different component. -/
+def leapSymmFiniteRange :
+    FiniteRange (fun x : ι → V × V => shear R.F (swapLayer x)) where
+  nbhd := gateRegion R
+  local_dep i := by
+    intro s s' h
+    have hi : s i = s' i := h i (Finset.mem_insert_self i (R.N i))
+    have hF : R.F (curOf (swapLayer s)) i = R.F (curOf (swapLayer s')) i :=
+      R.dep i _ _ fun j hj => by
+        rw [curOf_apply, curOf_apply, swapLayer_apply, swapLayer_apply,
+          h j (Finset.mem_insert_of_mem hj)]
+    show shear R.F (swapLayer s) i = shear R.F (swapLayer s') i
+    rw [shear_apply, shear_apply, hF, swapLayer_apply, swapLayer_apply, hi]
+  infl := stepInfl R
+  mem_infl _ _ h := mem_stepInfl_of_mem_gateRegion R h
+
+/-- **THE UPDATE AS A FINITE-RANGE REVERSIBLE DYNAMICS.** Reversibility is not assumed: it comes
+from the depth-two factorization, which exhibits the inverse as the two layers in the other
+order. -/
+def ruleDynamics : ReversibleDynamics ι (V × V) where
+  φ := leapEquiv R.F
+  G := leapFiniteRange R
+  G' := leapSymmFiniteRange R
+
+/-- **THE DYNAMICS FACTORS**, on the nose, as the shear followed by the swap. -/
+theorem ruleDynamics_comp :
+    (ruleDynamics R).φ = (shearDyn R).φ.trans (swapDyn V).φ := rfl
+
+/-- **THE UPDATE'S HEISENBERG ACTION RUNS THE SWAP FIRST.** The order theorem of Section A applied
+to the update's own factorization: this is the shape any two-piece drive for `heisQ` has to have,
+and it is the shape `driveQ` has. -/
+theorem heisQ_ruleDynamics (x : Quasilocal ι (V × V)) :
+    heisQ (ruleDynamics R) x = heisQ (shearDyn R) (heisQ (swapDyn V) x) :=
+  heisQ_of_comp (ruleDynamics_comp R) x
+
+end Dynamics
+
 end OIBridge.SecondOrderDrive
 
 namespace OIBridge.SecondOrderDrive
@@ -234,5 +351,8 @@ namespace OIBridge.SecondOrderDrive
 #print axioms driveQ_bijective
 #print axioms continuous_driveQ_time
 #print axioms driveQ_isContinuousPath
+#print axioms mem_stepInfl_of_mem_gateRegion
+#print axioms ruleDynamics_comp
+#print axioms heisQ_ruleDynamics
 
 end OIBridge.SecondOrderDrive
