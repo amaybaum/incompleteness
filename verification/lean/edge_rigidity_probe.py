@@ -2245,6 +2245,11 @@ ok_ct3c &= 'confines this round to width 2' in _cb
 # the obstruction itself, as an exact certificate rather than a search
 ok_ct3c &= '(m - 2r) d_r / m' in _cb and 'e_(m-r) - e_r' in _cb
 ok_ct3c &= 'integer certificate rather than a search' in _cb
+# the certificate must be exact: no floating arithmetic anywhere on the load-bearing path, and
+# the annihilator licensed by integer facts rather than by forming spectral traces numerically
+ok_ct3c &= 'cmath' not in _cb and '1e-6' not in _cb
+ok_ct3c &= 'PALINDROMIC over Z' in _cb and 'VANISH over Z' in _cb
+ok_ct3c &= 'no floating arithmetic on the load-bearing path' in _cb
 # the control that stops it being over-read
 ok_ct3c &= 'CONTROL' in _cb and 'sitting in plain sight' in _cb
 # rank alone must be recorded as the WRONG diagnostic, since that was the first reading

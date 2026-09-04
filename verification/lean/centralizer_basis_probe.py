@@ -40,8 +40,12 @@ column. Applying it to the condition above leaves
 
     (m - 2r) d_r / m  in  Z,
 
-with no free parameters left. When that fails for some r, no Hermitian H in the space -- of any
-coefficients, with the offset free -- can satisfy even the first moment of the spectrum condition.
+with no free parameters left. Nothing on this path is computed numerically: the annihilation is
+licensed by three INTEGER facts -- the symmetric sector's orbit traces are palindromic, t_k =
+t_(m-k), which holds because P^(-k) = (P^k)^T and S^T = S; the antisymmetric sector's orbit traces
+vanish; and d_(m-r) = d_r. No spectral block trace is ever formed. When the pairing fails for some
+r, no Hermitian H in the space -- of any coefficients, with the offset free -- can satisfy even the
+first moment of the spectrum condition.
 It fails for the corpus rule at both volumes tested:
 
     L = 5:  m = 10,  r = 1,  d_1 = 51   ->  8 * 51 / 10 = 204/5   not an integer
@@ -244,18 +248,14 @@ def block_dims(lat, perm, m):
             for r in range(m)]
 
 
-def dft_real(t, m):
-    """T_r = (1/m) sum_k omega^(-rk) t_k, as exact integers where it is one."""
-    import cmath
-    import math as _m
-    out = []
-    for r in range(m):
-        z = sum(cmath.exp(-2j * _m.pi * r * k / m) * t[k] for k in range(m)) / m
-        v = round(z.real)
-        if abs(z.real - v) > 1e-6 or abs(z.imag) > 1e-6:
-            return None
-        out.append(v)
-    return out
+def palindromic(t, m):
+    """t_k = t_(m-k) for every k, over the integers.
+
+    For real-symmetric S this is a theorem, not a coincidence: P^(-k) = (P^k)^T and S^T = S give
+    tr(P^(-k) S) = tr(P^k S). Checking it over Z is what licenses the annihilator below without
+    ever forming a spectral block trace numerically.
+    """
+    return all(t[k] == t[(m - k) % m] for k in range(m))
 
 
 def sector_parts(lat, ans, hv):
@@ -271,23 +271,23 @@ def sector_parts(lat, ans, hv):
     return sym, asym
 
 
-def obstruction_witness(d, cols, m):
-    """k = e_(m-r) - e_r annihilating every column, with k . u not an integer.
+def obstruction_pairing(d, m):
+    """The exact rational (m - 2r) d_r / m for the first admissible r where it is not an integer.
 
-    Returns (r, k, k_dot_u) or None. The pairing is (m - 2r) d_r / m, so the test is exact.
+    The covector k = e_(m-r) - e_r annihilates every Hermitian block-trace column whenever the
+    symmetric sector's orbit traces are palindromic and the antisymmetric sector's vanish -- both
+    checked over Z. Pairing it with the residue vector u_r = r d_r / m and using d_(m-r) = d_r
+    leaves exactly this rational, with every free parameter gone, the offset included. No spectral
+    transform is computed anywhere on this path.
     """
-    u = [Fraction(r * d[r], m) for r in range(m)]
     for r in range(1, m):
         if 2 * r == m:
             continue
-        k = [0] * m
-        k[m - r] += 1
-        k[r] -= 1
-        if any(sum(k[j] * c[j] for j in range(m)) for c in cols):
+        if d[(m - r) % m] != d[r]:
             continue
-        val = sum(Fraction(k[j]) * u[j] for j in range(m))
+        val = Fraction((m - 2 * r) * d[r], m)
         if val.denominator != 1:
-            return r, k, val
+            return r, val
     return None
 
 
@@ -365,21 +365,26 @@ def main():
     obstr = {}
     for (L, q, w), (lat, ans, B, target, perm, m, T) in data.items():
         d = block_dims(lat, perm, m)
-        herm = [c for c in (dft_real(t, m) for t in sectors[(L, q, w)][2]) if c is not None]
-        herm += [[0] * m for _ in sectors[(L, q, w)][3]]
-        obstr[(L, q, w)] = (m, d, obstruction_witness(d, herm, m))
-    ok = all(o[2] is not None for o in obstr.values())
+        rS, rA, tS, tA = sectors[(L, q, w)]
+        pal = all(palindromic(t, m) for t in tS)          # exact, over Z
+        zero = all(all(x == 0 for x in t) for t in tA)    # exact, over Z
+        conj = all(d[(m - r) % m] == d[r] for r in range(m))
+        obstr[(L, q, w)] = (m, d, pal, zero, conj, obstruction_pairing(d, m))
+    ok = all(o[2] and o[3] and o[4] and o[5] is not None for o in obstr.values())
     detail = "; ".join(
-        f"L={L}: m={o[0]}, r={o[2][0]}, d_r={o[1][o[2][0]]}, k=e_(m-r)-e_r, k.u={o[2][2]}"
+        f"L={L}: m={o[0]}, r={o[5][0]}, d_r={o[1][o[5][0]]}, (m-2r)d_r/m={o[5][1]}"
         for (L, q, w), o in sorted(obstr.items()))
     check('C6', ok,
-          f"THE OBSTRUCTION. Conjugate eigenvalues of a real matrix have equal multiplicities, so "
-          f"d_(m-r) = d_r and the integer covector k = e_(m-r) - e_r annihilates every Hermitian "
-          f"block-trace column. Applying it to the block condition leaves (m - 2r) d_r / m in Z "
-          f"with NO free parameters, and that fails: {detail}. So no Hermitian H in the width-2 "
-          f"local centralizer -- any coefficients, offset free -- satisfies even the first moment "
-          f"of the spectrum condition. WIDTH-2 R2-B IS OBSTRUCTED at both volumes, by an exact "
-          f"integer certificate rather than a search")
+          f"THE OBSTRUCTION, with no floating arithmetic on the load-bearing path. Three integer "
+          f"facts license the covector k = e_(m-r) - e_r: the symmetric sector's orbit traces are "
+          f"PALINDROMIC over Z, t_k = t_(m-k), which is a theorem since P^(-k) = (P^k)^T and "
+          f"S^T = S, and which forces T_(m-r) = T_r without computing a spectral transform; the "
+          f"antisymmetric sector's orbit traces VANISH over Z, so its columns are zero; and "
+          f"d_(m-r) = d_r since conjugate eigenvalues of a real matrix share multiplicities. So k "
+          f"annihilates every Hermitian block-trace column. Pairing it with the residue vector "
+          f"then leaves the exact rational (m - 2r) d_r / m with every free parameter gone, the "
+          f"offset included, and it is not an integer: {detail}. WIDTH-2 R2-B IS OBSTRUCTED at "
+          f"both volumes, by an integer certificate rather than a search")
 
     # The control needs no basis. A witness has to annihilate EVERY column, so testing against
     # FEWER columns can only make witnesses easier to find -- the conservative direction. The
@@ -390,16 +395,16 @@ def main():
         for (L, q, w) in cases:
             lat = Lat(L, q, rule)
             perm, m = orbit(lat)
-            d = block_dims(lat, perm, m)
-            ctl[(rule, L)] = (m, obstruction_witness(d, [d], m))
+            ctl[(rule, L)] = (m, obstruction_pairing(block_dims(lat, perm, m), m))
     ok = all(v[1] is None for v in ctl.values())
     check('C7', ok,
           f"CONTROL, and what makes the negative readable. The two rules whose leap is on-site "
           f"provably DO admit a static local generator, and the test does NOT obstruct them: their "
           f"update has m = 2, so the only indices are r = 0 and r = m/2 and there is no conjugate "
-          f"pair to build a witness from ({', '.join(f'{r} L={L}: m={v[0]}, no witness' for (r, L), v in sorted(ctl.items()))}). "
-          f"A test that obstructed a rule with a generator sitting in plain sight would be wrong; "
-          f"this one does not")
+          f"pair to build a covector from ("
+          + ', '.join(f'{r} L={L}: m={v[0]}, no witness' for (r, L), v in sorted(ctl.items()))
+          + "). A test that obstructed a rule with a generator sitting in plain sight would be "
+            "wrong; this one does not")
 
     ok = True
     for key, pin in PINNED.items():

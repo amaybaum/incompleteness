@@ -546,9 +546,14 @@ what confines this entry to width 2.
 
 ### The obstruction
 
-Complex-conjugate eigenvalues of a real matrix have equal multiplicities, so `d_{m−r} = d_r` and the
-integer covector `k = e_{m−r} − e_r` annihilates every Hermitian block-trace column. Applying it to
-the block condition eliminates every free parameter, including the offset, and leaves
+The covector is `k = e_{m−r} − e_r`, and three **integer** facts license it — nothing on this path
+is computed numerically, and no spectral block trace is ever formed. First, the symmetric sector's
+orbit traces are **palindromic**, `t_k = t_{m−k}`, which is a theorem rather than a coincidence
+since `P^{−k} = (P^k)^T` and `S^T = S`; that alone forces `T_{m−r} = T_r`. Second, the antisymmetric
+sector's orbit traces **vanish**, so its columns are zero. Third, `d_{m−r} = d_r`, since
+complex-conjugate eigenvalues of a real matrix share multiplicities. So `k` annihilates every
+Hermitian block-trace column. Pairing it with the residue vector then eliminates every free
+parameter, including the offset, and leaves
 
 > `(m − 2r)·d_r / m ∈ ℤ`
 
@@ -561,7 +566,8 @@ which fails for the corpus rule at both volumes tested:
 
 So **no Hermitian `H` in the width-2 local centralizer — any coefficients, offset free — satisfies
 even the first moment of the spectrum condition. Width-2 R2-B is obstructed at `L = 5` and
-`L = 6`**, by an exact integer certificate rather than by a search.
+`L = 6`**, by an exact integer certificate rather than by a search. The word *exact* is literal:
+there is no floating arithmetic anywhere on the load-bearing path, and the lint enforces that.
 
 ### The control
 
