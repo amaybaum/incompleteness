@@ -419,6 +419,25 @@ optional mathematical extensions outside the core programme, in the position con
 occupies relative to Level III. That finding is a survey of the corpus at this commit, not a
 theorem, and is to be re-run if a claim performing an unbounded operation is added.
 
+`REPRESENTATION-SECTOR-AUDIT.md` runs the same evidence-first method on the neighbouring seam.
+Level III's theorem is that the laws select no Hilbert-space representation and no superselection
+sector; the audit asks the narrower question of whether any live prediction requires one beyond
+choosing a state. It does not. GR's thermal conditions are state conditions and the corpus says so
+in its own headings, with the discriminating data a ratio of detector transition rates over a
+finite frequency window — so the α-vacua, whose standard treatment is representation-level, are
+separated here by values on finitely many observables. Substratum Lemma 24.1's GNS/Stinespring step
+runs on a finite cyclic subspace; SM's chiral symmetry breaking is diagnosed by finite-volume
+scaling; its θ-vacuum passage narrows a parameter and is recorded open on H-top and H-det;
+Structure's Fock space and von Neumann algebra are Step 1 of a comparison recipe whose remaining
+steps the corpus lists as open, with no prediction resting on the pair. Where a selection burden
+does exist it is state-side and already named: GR records ℏ and the `1/4` as conditional on
+H-state, with an additional state principle logically necessary because the realization theorem
+admits vacuum-like and excited laws over the same partition. Two items are recorded as ambiguous
+rather than resolved — the algebraic status of H-state's "vacuum class", and whether GR's
+conditions transport from the emergent theory's states to states on the quasilocal algebra, a map
+the corpus does not construct. Representation construction therefore stands as optional
+mathematics outside the core programme, on the same survey-not-theorem footing.
+
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general
 orbit theorem, the closed-subgroup theorem, or anything about non-compact groups; that the
