@@ -2366,6 +2366,11 @@ for _p in ('book/ch01-observation.md', 'book/The-Incompleteness-of-Observation-F
     ok_audb &= 'C1 is verified structurally' in _t
     ok_audb &= 'holds for the realized process by data processing' in _t
 ok_audb &= 'The SM lattice cut' in _cc and 'Finding B4' in _cc
+# the canonical table's distinctive refined cells, so the table cannot regress while the prose stays right
+for _cell in ('verified structurally', 'verified, timescale margin', 'verified, capacity margin',
+              'capacity floor, data processing', 'named, not presently discharged'):
+    ok_audb &= _cell in _cc
+ok_audb &= 'copies this table verbatim' in _cc
 # the Introduction's twin of the blanket-margins sentence, and no blanket form anywhere in the book
 for _p in ('book/ch00-introduction.md', 'book/ch01-observation.md',
            'book/The-Incompleteness-of-Observation-FULL.md'):

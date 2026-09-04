@@ -132,8 +132,8 @@ for C2 and C3 individually, which is a different and correct claim and is untouc
 
 | cut | C1 | C2 | C3 | C4 |
 |---|---|---|---|---|
-| cosmological horizon (`[GR]` §2.2) | verified | verified | verified | named, not presently discharged |
-| lattice observer cut (`[SM]` Theorem 22) | structural | hypothesis | capacity floor | hypothesis |
+| cosmological horizon (`[GR]` §2.2) | verified structurally | verified, timescale margin | verified, capacity margin | named, not presently discharged |
+| lattice observer cut (`[SM]` Theorem 22) | structural | hypothesis | capacity floor, data processing | hypothesis |
 
 The two rows are not the same statement and must not be merged into "C1–C3 verified at both cuts":
 at the lattice cut C2 is a hypothesis, and C3 is a floor for the realized process rather than a
