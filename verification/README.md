@@ -529,6 +529,25 @@ where they must exist, while a one-sided coupled control gives 1. The census is 
 is not a statement about all finite ranges; nothing claims a static generator exists, and a
 negative CT3 would not obstruct continuous-time evolution in the ordinary time-dependent sense.
 
+The fourth entry settles one branch of CT3 and is careful about what that does not mean. If
+`e^{iH} = U` with `H` Hermitian then `H` is quantized on each eigenspace of `P`, which splits the
+problem: `H` a function of `P` (linear), or `H` acting inside degenerate eigenspaces (nonlinear).
+`verification/lean/spectral_logarithm_probe.py` settles the first. Since `P^r` sends a
+configuration's basis vector to `σ^r` of it, a function of `P` has matrix entries only on pairs
+`(σ^r b, b)`; for a full-period `b` the entry at `σ^r b` is exactly `c_r`, so exhibiting one such
+`b` whose displacement escapes every width-`w` window forces `c_r = 0`. That certificate costs
+`O(m·N·L)` rather than `O(L·q^{4w})`, so it reaches **every** width below the system size rather
+than stopping at `w = 3`: `S_w = ℝ·I` at every `w ≤ L−1`, by witness and by an independent exact
+rational solve. The spectral logarithm branch is dead. **It closes nothing**, and the control is
+what shows it: the on-site rules, which provably do have static local generators, return the same
+answer, because for them the generator is a sum while `P` is a product and so is not a function of
+`P` at all. Six of R1's seven width-2 dimensions act inside degenerate eigenspaces and remain the
+open case: a six-parameter family of local Hermitian `H` modulo scalars, each required to have on
+every `P`-eigenspace a spectrum inside the corresponding `2π`-lattice coset. Those are dimensions
+of `H` and not of `K` — writing `H = H₀ + 2πK` is spectral bookkeeping, and `H₀` is a spectral
+function of `P` and so nonlocal by this very round — and six is a fixed-volume count, since a
+stable dimension does not show the solution directions are compatible across volumes.
+
 `OI-CORE-FORWARD-REDUNDANCY.md` freezes one reading of the finite equivalence, because the theorem
 admits a stronger paraphrase than the formalization supports. Three statements, and only these
 three. **Containment**: `qm_implies_oiCore` — every theory in the characterized quantum class

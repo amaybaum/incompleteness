@@ -407,3 +407,110 @@ intrinsically Floquet rather than the unit-time exponential of one static local 
 | CT3. One time-independent finite-range interaction with `τ_1 = heisQ(Φ_OI)` | **open**. The centralizer necessary condition is **passed, not failed**: nontrivial off-diagonal survivors at `w = 2, 3` |
 | CT3'. A group law for the composite drive | **open**, and deliberately not asserted: the two layers do not commute |
 | CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |
+
+## Fourth entry — CT3-R2A, the spectral logarithm branch
+
+`verification/lean/spectral_logarithm_probe.py`.
+
+### The split
+
+R1 left CT3 open with candidates surviving. R2 asks the stronger question. If
+`e^{-iH} = e^{iθ}P` with `H` Hermitian, then on the `λ_j`-eigenspace of `P` every eigenvalue of `H`
+lies in `−θ − φ_j + 2πℤ`: the generator is **quantized**. That splits the problem in two, and the
+split is what makes progress possible.
+
+- **R2-A** — `H` is a **function of `P`**: `H = Σ_j μ_j Π_j = Σ_r c_r P^r`. Linear, and settled here.
+- **R2-B** — `H` acts nontrivially **inside degenerate `P`-eigenspaces**: `H = H₀ + 2πK` with
+  `[K,P] = 0`, `K` Hermitian, `e^{-2πiK} = I`, that is `K` of integer spectrum. Nonlinear, open.
+
+Because `P` has finite order `m`, `span{Π_j} = span{P^0, …, P^{m−1}}`, so R2-A has only `m`
+unknowns — and `ord(σ)` is between 4 and 15 in every case run. The whole calculation is tiny.
+
+### The structural reason, which is the content
+
+`P^r` sends the basis vector of a configuration `b` to that of `σ^r b`, so `f(P) = Σ_r c_r P^r` has
+matrix entries **only** on pairs `(σ^r b, b)`. Fix a configuration `b` of **full period `m`**; then
+the `m` orbit points are distinct and the entry at `σ^r b` is exactly `c_r`, with no mixing. A
+width-`w` local sum has zero entry between configurations whose difference is confined to no
+width-`w` window. Hence
+
+> if some full-period `b` has `σ^r b` differing from `b` outside every width-`w` window, then
+> `c_r = 0`.
+
+One such `b` for each `r = 1 … m−1` proves `S_w = ℝ·I`. That is a finite certificate costing
+`O(m·N·L)` rather than the `O(L·q^{4w})` of the R1 census, which is why this round reaches **every
+width `w ≤ L−1`** instead of stopping at `w = 3`. The existence of a full-period configuration is
+checked, not assumed.
+
+### The result
+
+`S_w = ℝ·I` at every width `w = 1 … L−1`, for every `(L,q)` run, by explicit witness **and** by an
+independent solve of the linear system exactly over `ℚ` in `Fraction` arithmetic — no modular step,
+so no modular caveat. The only function of `P` that is a finite-range local sum is a multiple of the
+identity, and `e^{-icI}` is a global phase rather than a nontrivial permutation.
+
+**The entire spectral logarithm branch is dead**, at every finite range below the system size.
+
+### Why that settles nothing about CT3
+
+This is the part that must not be misread, and the control makes it unambiguous. The two rules
+whose leap is **on-site** provably *do* admit a static local generator — and their function-of-`P`
+local space is **also** just the scalars. The reason is structural: for an on-site rule the
+generator is a **sum** `Σ_x h_x` while `P` is a **product** of on-site gates, so the generator is
+not a function of `P` at all.
+
+So a negative here rules out one route to a static generator, never the existence of one. Anyone
+reading `S_w = ℝ·I` as closing CT3 is contradicted by a rule whose generator is sitting in plain
+sight.
+
+### Where CT3 now stands, stated carefully
+
+R1 gives 7 dimensions of width-2 local operators commuting with `P`; R2-A gives exactly 1 of them
+as a function of `P`. So **6 dimensions act nontrivially inside degenerate `P`-eigenspaces**, and
+those are the R2-B candidates:
+
+> a **six-parameter family of local Hermitian `H`, modulo scalars, commuting with `P`**, each of
+> which must have, on every `P`-eigenspace `E_j`, all its eigenvalues in the corresponding
+> `2π`-lattice coset `−θ − φ_j + 2πℤ`.
+
+Two things about that sentence are load-bearing.
+
+**They are dimensions of `H`, not of `K`.** Writing `H = H₀ + 2πK` is spectral bookkeeping only.
+`H₀` is a nontrivial spectral function of `P` — which is exactly what this entry has just shown is
+**not local** — so `K = (H − H₀)/2π` need not be local either, and the six dimensions must not be
+described as six dimensions of `K`. The locality lives on `H` and nowhere else.
+
+**Six is a fixed-volume count.** R1 found the dimension stable across several `L`, but stability of
+a *dimension* does not show that the solution *directions* are compatible across volumes, and the
+R1 ansatz permits site-dependent local terms — so the `L = 5` and `L = 6` spaces must not be
+silently identified as copies of one translation-invariant density. CT3 asks for one finite-range
+interaction on the **infinite** lattice. The periodization and cross-volume compatibility bridge
+recorded in the third entry becomes load-bearing the moment a finite-`L` R2-B failure is offered as
+an infinite-volume no-go; it is not load-bearing here, because this entry makes no obstruction
+claim.
+
+The remaining condition is not linear, which is why the decomposition was worth making before
+attacking it.
+
+### What the fourth entry does not claim
+
+That no static finite-range generator exists. That CT3 is settled in either direction. That the
+finite periodic computation transports to the infinite lattice — the periodization obligation
+recorded in the third entry stands unused here as well, and for the same reason: nothing in this
+entry is an obstruction claim about the infinite volume. That R2-B is tractable by the same
+methods; it is not linear, and the round does not pretend otherwise.
+
+## Status after the fourth entry
+
+| Question | Status |
+|---|---|
+| CT1. What is the update, as a quasilocal automorphism | **answered** (first entry) |
+| CT2. Existence and per-gate locality | **answered affirmatively** (first entry) |
+| CT2'. Each all-sites layer as a quasilocal one-parameter group | **answered affirmatively** (second entry) |
+| CT2''. The composite as a path from the identity to the update | **answered affirmatively** (second entry), `driveQ_one_eq_heisQ` |
+| CT3. One time-independent finite-range interaction with `τ_1 = heisQ(Φ_OI)` | **open** |
+| CT3-R1. The centralizer necessary condition | **passed, not failed**: certified off-diagonal survivors at `w = 2, 3` |
+| CT3-R2A. The function-of-`P` branch | **decided negatively**: `S_w = ℝ·I` at every `w ≤ L−1`. Does **not** close CT3 — the on-site control has a static generator and returns the same answer |
+| CT3-R2B. Generators acting inside degenerate eigenspaces | **open**, and the next task. A six-parameter family of local Hermitian `H` modulo scalars at fixed `L`; the condition is that each `P`-eigenspace's spectrum lies in its `2π`-lattice coset. Not linear, and a fixed-volume count |
+| CT3'. A group law for the composite drive | **open**, and deliberately not asserted |
+| CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |
