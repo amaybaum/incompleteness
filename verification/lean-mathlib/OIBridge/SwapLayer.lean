@@ -250,6 +250,14 @@ theorem swapAct_mem_range (S Λ : Finset ι) (t : ℝ)
     mem_range_stage_le Finset.subset_union_left ⟨X, rfl⟩
   exact mem_range_stage_mul (mem_range_stage_mul hU hX) (mem_range_stage_star hU)
 
+/-- **THE SWAP LAYER KEEPS AN OBSERVABLE IN ITS OWN REGION.** Unlike the shear layer, whose gates
+reach outside the region they act on, a swap gate occupies one site, so no enlargement occurs. -/
+theorem swapAct_mem_range_self (Λ : Finset ι) (t : ℝ)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    swapAct V Λ t (stage Λ X) ∈ Set.range (stage Λ) := by
+  have hU : swapU V Λ t ∈ Set.range (stage Λ) := swapU_mem_range V Λ t
+  exact mem_range_stage_mul (mem_range_stage_mul hU ⟨X, rfl⟩) (mem_range_stage_star hU)
+
 /-! ### The layer as a map on the local algebra -/
 
 /-- **THE SWAP LAYER ON A LOCAL OBSERVABLE.** -/
@@ -358,6 +366,153 @@ theorem continuous_swapLoc (a : localAlg ι (V × V)) :
   exact ((continuous_swapU V Λ).mul continuous_const).mul
     (continuous_star.comp (continuous_swapU V Λ))
 
+/-! ### The layer on the quasilocal algebra -/
+
+/-- **THE SWAP LAYER ON THE QUASILOCAL ALGEBRA.** -/
+noncomputable def swapQ (t : ℝ) : Quasilocal ι (V × V) → Quasilocal ι (V × V) :=
+  UniformSpace.Completion.extension (swapLoc V t)
+
+theorem swapQ_coe (t : ℝ) (a : localAlg ι (V × V)) :
+    swapQ V t (a : Quasilocal ι (V × V)) = swapLoc V t a :=
+  UniformSpace.Completion.extension_coe (isometry_swapLoc V t).uniformContinuous a
+
+theorem continuous_swapQ (t : ℝ) :
+    Continuous (fun x : Quasilocal ι (V × V) => swapQ V t x) := by
+  unfold swapQ
+  exact UniformSpace.Completion.continuous_extension
+
+theorem swapQ_stage (t : ℝ) (Λ : Finset ι)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    swapQ V t (stage Λ X) = swapAct V Λ t (stage Λ X) := by
+  rw [stage_apply, swapQ_coe, swapLoc_ofM]
+  rfl
+
+theorem norm_swapQ (t : ℝ) (x : Quasilocal ι (V × V)) : ‖swapQ V t x‖ = ‖x‖ := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq (continuous_norm.comp (continuous_swapQ V t)) continuous_norm
+  · rw [swapQ_coe, norm_swapLoc]
+
+theorem swapQ_mul (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    swapQ V t (x * y) = swapQ V t x * swapQ V t y := by
+  refine UniformSpace.Completion.induction_on₂ x y ?_ fun a b => ?_
+  · exact isClosed_eq ((continuous_swapQ V t).comp continuous_mul)
+      (((continuous_swapQ V t).comp continuous_fst).mul
+        ((continuous_swapQ V t).comp continuous_snd))
+  · rw [← UniformSpace.Completion.coe_mul, swapQ_coe, swapQ_coe, swapQ_coe, swapLoc_mul]
+
+theorem swapQ_add (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    swapQ V t (x + y) = swapQ V t x + swapQ V t y := by
+  refine UniformSpace.Completion.induction_on₂ x y ?_ fun a b => ?_
+  · exact isClosed_eq ((continuous_swapQ V t).comp continuous_add)
+      (((continuous_swapQ V t).comp continuous_fst).add
+        ((continuous_swapQ V t).comp continuous_snd))
+  · rw [← UniformSpace.Completion.coe_add, swapQ_coe, swapQ_coe, swapQ_coe, swapLoc_add]
+
+theorem swapQ_smul (t : ℝ) (c : ℂ) (x : Quasilocal ι (V × V)) :
+    swapQ V t (c • x) = c • swapQ V t x := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq ((continuous_swapQ V t).comp (continuous_id.const_smul c))
+      ((continuous_swapQ V t).const_smul c)
+  · rw [← UniformSpace.Completion.coe_smul, swapQ_coe, swapQ_coe, swapLoc_smul]
+
+theorem swapQ_star (t : ℝ) (x : Quasilocal ι (V × V)) :
+    swapQ V t (star x) = star (swapQ V t x) := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq ((continuous_swapQ V t).comp continuous_star)
+      (continuous_star.comp (continuous_swapQ V t))
+  · rw [star_coe, swapQ_coe, swapQ_coe, swapLoc_star]
+
+theorem swapQ_sub (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    swapQ V t (x - y) = swapQ V t x - swapQ V t y := by
+  rw [sub_eq_add_neg, swapQ_add, ← neg_one_smul ℂ y, swapQ_smul, neg_one_smul, ← sub_eq_add_neg]
+
+theorem swapQ_one (t : ℝ) : swapQ V t (1 : Quasilocal ι (V × V)) = 1 := by
+  calc swapQ V t (1 : Quasilocal ι (V × V))
+      = swapQ V t ((1 : localAlg ι (V × V)) : Quasilocal ι (V × V)) := by
+        rw [UniformSpace.Completion.coe_one]
+    _ = swapLoc V t 1 := swapQ_coe V t 1
+    _ = 1 := swapLoc_one V t
+
+theorem swapQ_zero_time (x : Quasilocal ι (V × V)) : swapQ V 0 x = x := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq (continuous_swapQ V 0) continuous_id
+  · rw [swapQ_coe, swapLoc_zero]
+
+theorem dist_swapQ (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    dist (swapQ V t x) (swapQ V t y) = dist x y := by
+  rw [dist_eq_norm, dist_eq_norm, ← swapQ_sub, norm_swapQ]
+
+/-- **STRONG CONTINUITY.** -/
+theorem continuous_swapQ_time (x : Quasilocal ι (V × V)) :
+    Continuous fun t : ℝ => swapQ V t x := by
+  refine continuous_iff_continuousAt.mpr fun t₀ => Metric.continuousAt_iff.mpr fun ε hε => ?_
+  have hx : x ∈ closure (Set.range ((↑) : localAlg ι (V × V) → Quasilocal ι (V × V))) := by
+    rw [UniformSpace.Completion.denseRange_coe.closure_eq]
+    trivial
+  obtain ⟨a, ha⟩ := Metric.mem_closure_range_iff.mp hx (ε / 3) (by positivity)
+  obtain ⟨δ, hδ, hball⟩ :=
+    Metric.continuousAt_iff.mp ((continuous_swapLoc V a).continuousAt (x := t₀))
+      (ε / 3) (by positivity)
+  refine ⟨δ, hδ, fun {t} ht => ?_⟩
+  have h1 : dist (swapQ V t x) (swapQ V t (a : Quasilocal ι (V × V))) < ε / 3 := by
+    rw [dist_swapQ]; exact ha
+  have h2 : dist (swapQ V t₀ (a : Quasilocal ι (V × V))) (swapQ V t₀ x) < ε / 3 := by
+    rw [dist_swapQ, dist_comm]; exact ha
+  have h3 : dist (swapQ V t (a : Quasilocal ι (V × V)))
+      (swapQ V t₀ (a : Quasilocal ι (V × V))) < ε / 3 := by
+    rw [swapQ_coe, swapQ_coe]; exact hball ht
+  calc dist (swapQ V t x) (swapQ V t₀ x)
+      ≤ dist (swapQ V t x) (swapQ V t (a : Quasilocal ι (V × V)))
+        + dist (swapQ V t (a : Quasilocal ι (V × V))) (swapQ V t₀ x) := dist_triangle _ _ _
+    _ ≤ dist (swapQ V t x) (swapQ V t (a : Quasilocal ι (V × V)))
+        + (dist (swapQ V t (a : Quasilocal ι (V × V))) (swapQ V t₀ (a : Quasilocal ι (V × V)))
+          + dist (swapQ V t₀ (a : Quasilocal ι (V × V))) (swapQ V t₀ x)) := by
+        gcongr
+        exact dist_triangle _ _ _
+    _ < ε / 3 + (ε / 3 + ε / 3) := by gcongr
+    _ = ε := by ring
+
+/-- **THE GROUP LAW ON LOCAL OBSERVABLES.** Because the layer keeps a region's observables in that
+region, both applications run on the same finite gate set and no stabilization step is needed. -/
+theorem swapQ_add_time_stage (t s : ℝ) (Λ : Finset ι)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    swapQ V t (swapQ V s (stage Λ X)) = swapQ V (t + s) (stage Λ X) := by
+  classical
+  obtain ⟨Y, hY⟩ := swapAct_mem_range_self V Λ s X
+  have e1 : swapQ V s (stage Λ X) = stage Λ Y := by
+    rw [swapQ_stage]
+    exact hY.symm
+  rw [e1, swapQ_stage, swapQ_stage, hY]
+  simp only [swapAct]
+  calc swapU V Λ t * (swapU V Λ s * stage Λ X * star (swapU V Λ s)) * star (swapU V Λ t)
+      = swapU V Λ t * swapU V Λ s * stage Λ X
+          * (star (swapU V Λ s) * star (swapU V Λ t)) := by simp only [mul_assoc]
+    _ = swapU V Λ (t + s) * stage Λ X * star (swapU V Λ (t + s)) := by
+        rw [swapU_add, ← star_mul, swapU_add]
+
+/-- **THE GROUP LAW.** -/
+theorem swapQ_add_time (t s : ℝ) (x : Quasilocal ι (V × V)) :
+    swapQ V t (swapQ V s x) = swapQ V (t + s) x := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq ((continuous_swapQ V t).comp (continuous_swapQ V s))
+      (continuous_swapQ V (t + s))
+  · obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+    exact swapQ_add_time_stage V t s Λ X
+
+theorem swapQ_left_inverse (t : ℝ) (x : Quasilocal ι (V × V)) :
+    swapQ V (-t) (swapQ V t x) = x := by
+  rw [swapQ_add_time, neg_add_cancel, swapQ_zero_time]
+
+theorem swapQ_right_inverse (t : ℝ) (x : Quasilocal ι (V × V)) :
+    swapQ V t (swapQ V (-t) x) = x := by
+  rw [swapQ_add_time, add_neg_cancel, swapQ_zero_time]
+
+/-- **THE SWAP LAYER IS A ONE-PARAMETER AUTOMORPHISM GROUP.** -/
+theorem swapQ_bijective (t : ℝ) :
+    Function.Bijective (swapQ V t : Quasilocal ι (V × V) → Quasilocal ι (V × V)) :=
+  Function.bijective_iff_has_inverse.mpr
+    ⟨swapQ V (-t), swapQ_left_inverse V t, swapQ_right_inverse V t⟩
+
 end OIBridge.SwapLayer
 
 namespace OIBridge.SwapLayer
@@ -379,6 +534,7 @@ namespace OIBridge.SwapLayer
 #print axioms continuous_swapU
 #print axioms swapAct_stabilizes
 #print axioms swapAct_mem_range
+#print axioms swapAct_mem_range_self
 #print axioms swapLoc_ofM
 #print axioms swapLoc_mul
 #print axioms swapLoc_add
@@ -389,5 +545,17 @@ namespace OIBridge.SwapLayer
 #print axioms norm_swapLoc
 #print axioms isometry_swapLoc
 #print axioms continuous_swapLoc
+#print axioms swapQ_coe
+#print axioms swapQ_stage
+#print axioms norm_swapQ
+#print axioms swapQ_mul
+#print axioms swapQ_add
+#print axioms swapQ_smul
+#print axioms swapQ_star
+#print axioms swapQ_one
+#print axioms swapQ_zero_time
+#print axioms continuous_swapQ_time
+#print axioms swapQ_add_time
+#print axioms swapQ_bijective
 
 end OIBridge.SwapLayer
