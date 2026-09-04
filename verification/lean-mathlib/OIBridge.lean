@@ -156,6 +156,7 @@ import OIBridge.SwapLayer
 import OIBridge.SecondOrderDrive
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
+import OIBridge.PassiveObservation
 
 namespace OIBridge
 

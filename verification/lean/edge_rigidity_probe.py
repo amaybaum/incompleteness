@@ -2387,6 +2387,31 @@ for _p in ('book/ch00-introduction.md', 'book/ch01-observation.md',
     ok_audb &= 'satisfied by enormous margins' not in _t
 ok_audb &= 'readback is named there and still to be demonstrated' in \
     open(os.path.join(_root, 'book/ch00-introduction.md'), encoding='utf-8').read()
+# ---- OI-N guard: the exploratory thread stays exploratory, and its two proved ends stay scoped ----
+_po = open(os.path.join(BRIDGE, 'OIBridge', 'PassiveObservation.lean'), encoding='utf-8').read()
+_on = open(os.path.join(os.path.dirname(BRIDGE), 'OI-N-EXPLORATORY.md'), encoding='utf-8').read()
+ok_oin = True
+ok_oin &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _po) is None and 'native_decide' not in _po
+for _nm in ('psd_summand_of_rankOne', 'choiMatrix_id', 'passive_branch_scalar',
+            'passive_outcome_state_independent', 'no_complete_passive_observation',
+            'pinching_cp', 'pinching_passive_on_diagonal', 'pinching_separates_diagonal'):
+    ok_oin &= ('#print axioms ' + _nm) in _po
+# the definitions the thread depends on are fixed here, and the control is present
+ok_oin &= 'def IsPassiveInstrument' in _po and 'def SeparatesStates' in _po and 'def pinching' in _po
+# the module and the note both keep N3 and N4 open and refuse the hidden-ontology reading
+ok_oin &= 'Not claimed' in _po and 'OI-N3' in _po and 'OI-N4' in _po
+ok_oin &= 'Status: exploratory' in _on and 'OI-N3 — the exact boundary: open' in _on
+ok_oin &= 'What this thread does not claim' in _on
+for _bad in ('QM requires OI', 'quantum mechanics requires observational incompleteness',
+             'noncommutativity iff', 'N3 is proved', 'hidden OI ontology is forced'):
+    ok_oin &= not _asserted(_po, _bad) and not _asserted(_on, _bad)
+check('R7-OIN', ok_oin,
+      'OI-N guard: the passive-observation module carries no sorry and no native_decide, prints the '
+      'axioms of all eight named results, fixes the three definitions the thread depends on, and '
+      'carries the commutative control; module and note both mark the thread exploratory, keep the '
+      'exact boundary (N3) and the relation to OICore (N4) open, and assert neither that QM '
+      'requires OI nor that a hidden ontology is forced.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
