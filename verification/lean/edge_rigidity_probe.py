@@ -2371,6 +2371,15 @@ for _cell in ('verified structurally', 'verified, timescale margin', 'verified, 
               'capacity floor, data processing', 'named, not presently discharged'):
     ok_audb &= _cell in _cc
 ok_audb &= 'copies this table verbatim' in _cc
+# the freeze copies the table verbatim: same five cells, same two rows, and it names its enforcement
+_fz = open(os.path.join(os.path.dirname(BRIDGE), 'CONCRETE-CUT-FREEZE.md'), encoding='utf-8').read()
+for _cell in ('verified structurally', 'verified, timescale margin', 'verified, capacity margin',
+              'capacity floor, data processing', 'named, not presently discharged'):
+    ok_audb &= _cell in _fz
+ok_audb &= 'Two rows, not one' in _fz and 'What the freeze does not claim' in _fz
+ok_audb &= 'CT3, which stays paused behind OI-N' in _fz
+for _bad in ('C1–C3 verified at both cuts', 'C4 holds at', 'C4 fails at'):
+    ok_audb &= not _asserted(_fz, _bad)
 # the Introduction's twin of the blanket-margins sentence, and no blanket form anywhere in the book
 for _p in ('book/ch00-introduction.md', 'book/ch01-observation.md',
            'book/The-Incompleteness-of-Observation-FULL.md'):
