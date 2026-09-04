@@ -491,6 +491,136 @@ theorem layerAct_stabilizes {Λ : Finset ι} {S : Finset ι} (hS : affected R Λ
 
 end Layer
 
+/-! ### Section F — the layer as a map on the local algebra, independent of any cutoff
+
+Stabilization says every sufficiently large finite product agrees on a given local observable. That
+makes the following definition sound: take *a* representative region of the observable, and use the
+gates that region can feel. Any other representative gives the same answer, because both agree
+with the product over the union of the two affected sets.
+-/
+
+section LocalMap
+
+set_option maxHeartbeats 1200000
+
+variable {V : Type} [Fintype V] [DecidableEq V] [Nonempty V] [AddCommGroup V]
+variable (R : Rule ι V)
+
+theorem star_layerU_mul (S : Finset ι) (t : ℝ) :
+    star (layerU R S t) * layerU R S t = 1 := by
+  classical
+  induction S using Finset.induction_on with
+  | empty => simp
+  | insert i s hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) s := by simpa using hi
+      have hins : (insert i s : Finset ι) = {i} ∪ s := by rw [Finset.insert_eq]
+      have hsing : layerU R ({i} : Finset ι) t = unit (shearGate R i) t := by
+        rw [layerU, Finset.noncommProd_singleton]
+      rw [hins, layerU_union R hdis, star_mul]
+      calc star (layerU R s t) * star (layerU R ({i}) t) * (layerU R ({i}) t * layerU R s t)
+          = star (layerU R s t)
+              * (star (layerU R ({i}) t) * layerU R ({i}) t) * layerU R s t := by
+            simp only [mul_assoc]
+        _ = star (layerU R s t) * layerU R s t := by
+            rw [hsing,
+              star_unit_mul_unit (shearGate_isGate R i).1 (shearGate_isGate R i).2 t, mul_one]
+        _ = 1 := ih
+
+theorem layerU_zero (S : Finset ι) : layerU R S 0 = 1 := by
+  classical
+  induction S using Finset.induction_on with
+  | empty => simp
+  | insert i s hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) s := by simpa using hi
+      have hins : (insert i s : Finset ι) = {i} ∪ s := by rw [Finset.insert_eq]
+      have hsing : layerU R ({i} : Finset ι) 0 = unit (shearGate R i) 0 := by
+        rw [layerU, Finset.noncommProd_singleton]
+      rw [hins, layerU_union R hdis, hsing, unit_zero, one_mul, ih]
+
+/-- **THE LAYER ON A LOCAL OBSERVABLE.** -/
+noncomputable def layerLoc (t : ℝ) (a : localAlg ι (V × V)) : Quasilocal ι (V × V) :=
+  layerAct R (affected R (rep a).1) t (a : Quasilocal ι (V × V))
+
+/-- Two regions carrying the same observable give the same layer action. Rewriting the *element*
+rather than the region is what keeps this type-correct, the regions sitting in dependent types. -/
+theorem layerAct_eq_of_stage_eq {Λ Λ' : Finset ι}
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ)
+    (X' : Matrix (Conf Λ' (V × V)) (Conf Λ' (V × V)) ℂ)
+    (h : stage Λ X = stage Λ' X') (t : ℝ) :
+    layerAct R (affected R Λ) t (stage Λ X) = layerAct R (affected R Λ') t (stage Λ' X') := by
+  have hsub : affected R Λ ⊆ affected R Λ ∪ affected R Λ' := Finset.subset_union_left
+  have hsub' : affected R Λ' ⊆ affected R Λ ∪ affected R Λ' := Finset.subset_union_right
+  have e1 := layerAct_stabilizes R hsub X t
+  have e2 := layerAct_stabilizes R hsub' X' t
+  rw [← e1, ← e2, h]
+
+/-- **INDEPENDENCE OF THE REPRESENTATIVE.** Any region carrying the observable gives the same
+answer, so the definition above is a definition of the layer and not of a cutoff. -/
+theorem layerLoc_ofM (t : ℝ) (Λ : Finset ι) (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    layerLoc R t (ofM Λ X) = layerAct R (affected R Λ) t (stage Λ X) := by
+  classical
+  have h : stage (rep (ofM Λ X)).1 (rep (ofM Λ X)).2 = stage Λ X := by
+    rw [stage_apply, stage_apply, ofM_rep]
+  have hL : layerLoc R t (ofM Λ X)
+      = layerAct R (affected R (rep (ofM Λ X)).1) t
+          (stage (rep (ofM Λ X)).1 (rep (ofM Λ X)).2) := by
+    rw [layerLoc, h]
+    rfl
+  rw [hL]
+  exact layerAct_eq_of_stage_eq R _ X h t
+
+/-- **THE LAYER IS MULTIPLICATIVE.** -/
+theorem layerLoc_mul (t : ℝ) (a b : localAlg ι (V × V)) :
+    layerLoc R t (a * b) = layerLoc R t a * layerLoc R t b := by
+  classical
+  obtain ⟨Λ, X, Y, rfl, rfl⟩ := exists_ofM₂ a b
+  set S := affected R Λ with hS
+  have hu : layerU R S t * star (layerU R S t) = 1 := layerU_star R S t
+  rw [← ofM_mul, layerLoc_ofM, layerLoc_ofM, layerLoc_ofM, layerAct, layerAct, layerAct,
+    map_mul]
+  calc layerU R S t * (stage Λ X * stage Λ Y) * star (layerU R S t)
+      = layerU R S t * stage Λ X * (star (layerU R S t) * layerU R S t)
+          * stage Λ Y * star (layerU R S t) := by
+        rw [star_layerU_mul]
+        simp only [mul_one, mul_assoc]
+    _ = layerU R S t * stage Λ X * star (layerU R S t)
+          * (layerU R S t * stage Λ Y * star (layerU R S t)) := by
+        simp only [mul_assoc]
+
+/-- **THE LAYER IS ADDITIVE.** -/
+theorem layerLoc_add (t : ℝ) (a b : localAlg ι (V × V)) :
+    layerLoc R t (a + b) = layerLoc R t a + layerLoc R t b := by
+  classical
+  obtain ⟨Λ, X, Y, rfl, rfl⟩ := exists_ofM₂ a b
+  rw [← ofM_add, layerLoc_ofM, layerLoc_ofM, layerLoc_ofM, layerAct, layerAct, layerAct,
+    map_add]
+  simp only [mul_add, add_mul]
+
+/-- **THE LAYER IS UNITAL.** -/
+theorem layerLoc_one (t : ℝ) : layerLoc R t (1 : localAlg ι (V × V)) = 1 := by
+  classical
+  have h1 : (1 : localAlg ι (V × V)) = ofM (∅ : Finset ι) 1 := (ofM_one _).symm
+  rw [h1, layerLoc_ofM, layerAct, map_one, mul_one, layerU_star]
+
+/-- **THE LAYER PRESERVES THE INVOLUTION.** -/
+theorem layerLoc_star (t : ℝ) (a : localAlg ι (V × V)) :
+    layerLoc R t (star a) = star (layerLoc R t a) := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [star_ofM, layerLoc_ofM, layerLoc_ofM, layerAct, layerAct]
+  rw [← Matrix.star_eq_conjTranspose, map_star]
+  simp only [star_mul, star_star, mul_assoc]
+
+/-- **AT TIME ZERO THE LAYER IS THE IDENTITY.** -/
+theorem layerLoc_zero (a : localAlg ι (V × V)) :
+    layerLoc R 0 a = (a : Quasilocal ι (V × V)) := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [layerLoc_ofM, layerAct, layerU_zero, star_one, one_mul, mul_one]
+  rfl
+
+end LocalMap
+
 end OIBridge.SecondOrderLayer
 
 namespace OIBridge.SecondOrderLayer
@@ -519,5 +649,14 @@ namespace OIBridge.SecondOrderLayer
 #print axioms conj_eq_self_of_commute
 #print axioms layerU_star
 #print axioms layerAct_stabilizes
+#print axioms star_layerU_mul
+#print axioms layerU_zero
+#print axioms layerAct_eq_of_stage_eq
+#print axioms layerLoc_ofM
+#print axioms layerLoc_mul
+#print axioms layerLoc_add
+#print axioms layerLoc_one
+#print axioms layerLoc_star
+#print axioms layerLoc_zero
 
 end OIBridge.SecondOrderLayer
