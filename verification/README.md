@@ -9,7 +9,7 @@ layers:
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
 - **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 100 modules and,
-  at this commit, 2,082 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+  at this commit, 2,101 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -133,7 +133,7 @@ of implementations or the observer architecture, none Lie-algebraic.
   `staggered_relations`, `structural_chain`, `representation_bridge` and `time_reversal` are the
   companions of the proof files above: every integer the Lean files submit to `decide` is
   recomputed by an independent construction. The rest instantiate the `OIBridge` theorems on
-  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F80, one per
+  explicit finite data — `bohr_frequency_probe.py` carries the F-series (F1–F81, one per
   round of the reconstruction and completion programme, each reading the kernel file it
   certifies back for its claim discipline) and `edge_rigidity_probe.py` carries the R7 lint,
   which requires every listed kernel result to be a `theorem` with a `#print axioms` line and
@@ -184,7 +184,7 @@ modules, in the order the development grew:
   `OIRealization`, `OperationalValidity`, `LevelOneSeam`, `PhysicalCharacterization`,
   `DiagonalTheory`, `RankGapTheory`, `IsometryExtension`, `GeneralCarrier`,
   `UhlmannUniqueness`, `ReachabilitySeam`, `OrbitReachability`, `SubstantiveCensus`,
-  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`, `TypedCompletion`, `RegionLimit`, `RegionTower`, `QuasilocalAlgebra`, `QuasilocalCharacterization`, `InstrumentCompletion`): the five completion conditions defined one by one with the countermodel
+  `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `ImplementationLocality`, `MicroscopicReversibility`, `LieRankSource`, `SubstratumSource`, `SubstratumInterface`, `ReadWriteControl`, `StructuralClosure`, `TypedCompletion`, `RegionLimit`, `RegionTower`, `QuasilocalAlgebra`, `QuasilocalCharacterization`, `InstrumentCompletion`, `InstrumentAvailability`): the five completion conditions defined one by one with the countermodel
   that separates each, the sealed OI core realized with its actual visible readout, the
   characterization theorem with its necessity direction, the five-way minimality audit, the
   discharge of finite isometry extension, the removal of the qubit restriction, the discharge
@@ -384,7 +384,22 @@ the total map of no finite-support instrument (`phaseAllWt_compat`, `phaseAll_no
 It is not itself packaged as an instrument: class 2 is not formalized in this entry. Not decided, and not claimed either way: whether a general
 compatible family extends, whether such families are operationally available under OI_Q, whether
 the Kraus class exhausts the completely positive instruments, and whether an operational-completion
-principle is required. The abstract completely positive class is not formalized in this entry.
+principle is required. The abstract completely positive class is not formalized in this entry. The second entry decides
+Q3 negatively (`InstrumentAvailability.lean`). A countermodel declares an operation available
+exactly when it is a finite-support instrument; it is a predicate on the frozen Level III objects,
+which are unchanged (`states_untouched`, `dynamics_untouched`), contains every finite-region endomorphic
+Kraus instrument the Level II theory supplies inside this fixed-carrier interface and no more
+(`availFS_of_kraus`, `kraus_of_availFS`), and is closed under the identity, composition, outcome
+relabelling, outcome coarse-graining and the frozen OI-induced dynamics (`availFS_id`,
+`availFS_comp`, `availFS_relabel`, `qBranchJ_coarse`, `availFS_dyn`) — yet the all-sites phase map
+is the total map of no available operation at any finite outcome index (`phaseAll_not_availFS`).
+The current frozen structure together with finite-support quasilocal availability therefore does
+not entail the availability of genuinely infinite-support coherent operations, within this
+fixed-algebra interface (`q3_countermodel`), and Q5 sharpens: an extension requiring them needs
+some additional principle, an addition rather than a consequence, with "operational completion" a
+proposed name rather than a uniquely forced one. This is independence from the frozen structure,
+not impossibility: nothing says OI forbids such operations. Level II's typed attachment and discard
+change the carrier, are not expressible by this predicate, and stay separately frozen.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general

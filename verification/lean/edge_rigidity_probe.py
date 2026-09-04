@@ -992,6 +992,12 @@ for fname, names in (
                            'transported_injective', 'norm_transported', 'heisLoc_star', 'norm_heisLoc',
                            'heisLoc_inv_heisLoc', 'heisQ_mul', 'heisQ_star', 'norm_heisQ', 'heisQ_inv_heisQ',
                            'heis_iterate_emb', 'quasilocal_completion')),
+    ('InstrumentAvailability', ('isQInstrJ_fin', 'isFSJ_fin', 'qTotalJ_fin', 'qTotalJ_equiv',
+                                'isQInstrJ_equiv', 'qBranchJ_coarse', 'sum_qBranchJ', 'availFS_id',
+                                'mem_range_stage_mono', 'availFS_comp', 'availFS_relabel',
+                                'availFS_dyn', 'availFS_of_kraus', 'kraus_of_availFS',
+                                'qTotalJ_stage_of_disjoint', 'phaseAll_not_availFS',
+                                'q3_countermodel', 'states_untouched', 'dynamics_untouched')),
     ('InstrumentCompletion', ('qBranch_add', 'qBranch_smul', 'qBranch_star_mul_self', 'sum_qBranch',
                               'qBranch_sum_one', 'qTotal_one', 'qInstrument_of_kraus',
                               'kraus_of_finiteSupport', 'finiteSupport_iff_kraus',
@@ -1998,6 +2004,46 @@ _aud = open(os.path.join(os.path.dirname(BRIDGE), 'INSTRUMENT-COMPLETION-AUDIT.m
 for _q in ('| Q1 |', '| Q2 |', '| Q3 |', '| Q4 |', '| Q5 |'):
     ok6 &= _q in _aud
 ok6 &= _aud.count('**open') >= 4 and '**decided**' in _aud
+# INSTRUMENT AUDIT ROUND 2 guards: the countermodel must WITHHOLD ONLY the infinite-support
+# availability claim -- it keeps the frozen algebra, states and dynamics, contains every
+# finite-support Level-II instrument, is closed under the framework's operations, and excludes the
+# phase map. It must claim independence, never impossibility.
+ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
+_inaflat = ' '.join(ina.split())
+ok6 &= 'def AvailFS' in ina and 'theorem q3_countermodel' in ina
+# nothing frozen is weakened: the frozen state and dynamics theorems are restated on the same algebra
+ok6 &= 'theorem states_untouched' in ina and 'theorem dynamics_untouched' in ina
+_stu = _slice(ina, 'theorem states_untouched', 'theorem dynamics_untouched')
+# the frozen state layer must be restated for EVERY consistent family, not only the reference one
+ok6 &= 'IsStateFamily' in _stu and 'quasiState_isState' in _stu and 'quasiState_stage' in _stu
+ok6 &= 'uniformFamily_isStateFamily' not in _stu
+_dyu = _slice(ina, 'theorem dynamics_untouched', 'end Summary')
+ok6 &= 'heisQ_mul' in _dyu and 'norm_heisQ' in _dyu and 'heisQ_inv_heisQ' in _dyu
+# the closure rules and the containment of Level II
+for _t in ('theorem availFS_id', 'theorem availFS_comp', 'theorem availFS_relabel',
+           'theorem availFS_dyn', 'theorem availFS_of_kraus', 'theorem kraus_of_availFS',
+           'theorem qBranchJ_coarse', 'theorem sum_qBranchJ'):
+    ok6 &= _t in ina
+# the exclusion, at an ARBITRARY finite outcome index rather than only Fin n
+ok6 &= 'theorem phaseAll_not_availFS' in ina and 'theorem qTotalJ_stage_of_disjoint' in ina
+_exc = _slice(ina, 'theorem phaseAll_not_availFS', 'end Exclusion')
+ok6 &= '[Fintype J]' in _exc
+# independence, not impossibility
+ok6 &= 'independence from' in _inaflat and 'not impossibility' in _inaflat
+# the Level II containment must be stated for the ENDOMORPHIC fixed-carrier case, with the typed
+# attachment/discard structure named as separately frozen, and Q5's principle must not be unique
+ok6 &= 'endomorphic Kraus instrument' in _inaflat
+ok6 &= 'separately frozen and unchanged' in _inaflat
+ok6 &= 'not a uniquely forced one' in _inaflat
+for _w in ('theorem oi_forbids', 'theorem infiniteSupport_impossible',
+           'theorem availability_derived', 'axiom continuity', 'CompletelyPositive',
+           'InnerProductSpace', 'HilbertSpace'):
+    ok6 &= _w not in ina
+ok6 &= 'structure FiniteOperationalTheory' not in ina and 'native_decide' not in ina
+# the audit file must record Q3 as decided and keep Q2, Q4, Q5 open
+_aud2 = open(os.path.join(os.path.dirname(BRIDGE), 'INSTRUMENT-COMPLETION-AUDIT.md'),
+             encoding='utf-8').read()
+ok6 &= 'Second entry' in _aud2 and _aud2.count('**open') >= 3
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on
 # matrix-unit functionals; the matrix-unit statement keeps its own separate name.
 idil = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentDilation.lean'),
@@ -2402,8 +2448,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All seventy-six files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 + 87 + 53 named results print their "
+      "LINT. All seventy-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 + 87 + 53 + 19 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "
