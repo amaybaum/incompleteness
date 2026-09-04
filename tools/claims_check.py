@@ -8,6 +8,10 @@ Both classes below shipped past a green gate.
   K=2d       coupling-degree minimization does not fix the internal component
              count. What holds is the exact six-link representation theorem
              plus the CONDITIONAL link count under H-link.
+  OI/QM      the kernel proves CONTAINMENT (`qm_implies_oiCore`) and forward REDUNDANCY
+             (`completedOI_iff_physical`). It does not prove that quantum mechanics
+             requires observational incompleteness, or a hidden sub-quantum level.
+
   b_m = 0    cubic equivariance FORBIDS quadratic anisotropy; it does not
              produce a metric, because b_m may vanish. "Forces a Euclidean
              quadratic symbol" overstates it.
@@ -56,6 +60,41 @@ CLAIMS = [
      "GR: epsilon*kappa/c should be epsilon*kappa/c^2"),
 ]
 
+# ---------------------------------------------------------------- OI necessity
+# A separate class with its OWN marker list, because the general MARKERS above include
+# "cannot" and "does not" -- which would let "QM cannot exist without OI" escape through the
+# very word that makes it dangerous.
+#
+# What the kernel proves is `qm_implies_oiCore`: every theory in the characterized quantum class
+# realizes the sealed OI core, by way of full composite unitary control. That is a CONTAINMENT
+# statement. `completedOI_iff_physical` proves the OI conjunct is redundant in the forward
+# derivation, so the core does no work in producing quantum mechanics; coherent controllability
+# does. Nothing proves that quantum mechanics requires a hidden sub-quantum level, and the
+# standard reading does not need one. Sentences of the forms below therefore need the
+# core-containment qualification in the same paragraph.
+OI_MARKERS = ('core-containment', 'core containment', 'containment', 'qm_implies_oiCore',
+              'completedOI_iff_physical', 'forward redundancy', 'forward-redundancy',
+              'redundant', 'does no work', 'not explanatory', 'not an explanatory',
+              'in the narrow', 'unsupported', 'is not proved', 'not a theorem')
+OI_CLAIMS = [
+    (re.compile(r'(?i)\b(QM|quantum mechanics) (requires|needs|presupposes) '
+                r'(bare )?(OI\b|observation(al)? incompleteness)'),
+     "OI necessity: QM asserted to require OI (only core-containment is proved)"),
+    (re.compile(r'(?i)\b(QM|quantum mechanics) cannot exist without'),
+     "OI necessity: 'quantum mechanics cannot exist without ...' (not proved)"),
+    (re.compile(r'(?i)\b(QM|quantum mechanics) (requires|needs) hidden '
+                r'(information|variables?|states?|ontology)'),
+     "OI necessity: QM asserted to require a hidden sub-quantum level (not a QM consequence)"),
+    (re.compile(r'(?i)\b(OI|observation(al)? incompleteness|ignorance) '
+                r'(causes|produces|explains|generates|gives rise to) '
+                r'(QM|quantum|quantum mechanics)'),
+     "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)"),
+    (re.compile(r'(?i)\bwithout (OI|observation(al)? incompleteness) there (is|would be) no '
+                r'(QM|quantum)'),
+     "OI necessity: contrapositive form of the same unproved claim"),
+]
+
+
 def main():
     root = '.'
     if '--root' in sys.argv:
@@ -69,9 +108,10 @@ def main():
             text = open(p, encoding='utf-8', errors='replace').read()
             pos = 0
             for para in text.split('\n\n'):
-                for rx, why in CLAIMS:
+                for rx, why, marks in ([(a, b, MARKERS) for a, b in CLAIMS]
+                                      + [(a, b, OI_MARKERS) for a, b in OI_CLAIMS]):
                     m = rx.search(para)
-                    if m and not any(k in para for k in MARKERS):
+                    if m and not any(k in para for k in marks):
                         ln = text.count('\n', 0, pos + m.start()) + 1
                         print(f"  CLAIM {p}:{ln}  {why}")
                         print(f"        ...{para[max(0,m.start()-70):m.start()+70]}...")

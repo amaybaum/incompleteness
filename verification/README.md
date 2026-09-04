@@ -529,6 +529,21 @@ where they must exist, while a one-sided coupled control gives 1. The census is 
 is not a statement about all finite ranges; nothing claims a static generator exists, and a
 negative CT3 would not obstruct continuous-time evolution in the ordinary time-dependent sense.
 
+`OI-CORE-FORWARD-REDUNDANCY.md` freezes one reading of the finite equivalence, because the theorem
+admits a stronger paraphrase than the formalization supports. Three statements, and only these
+three. **Containment**: `qm_implies_oiCore` — every theory in the characterized quantum class
+realizes the sealed OI core, by the route `QM → full composite unitary control →
+RealizesSealedOICore`. **Redundancy**: `completedOI_iff_physical` — the OI conjunct is implied by
+the five physical conditions, so it does no work in the forward derivation; what selects quantum
+mechanics is coherent controllability. **No ontological necessity**: `OICore` is an existential
+realizability condition about a particular four-state gadget, so a containment theorem about it is
+not an explanatory one, and nothing shows a hidden sub-quantum level is required — with density
+matrices as states, informationally complete measurements exist, so the universally quantified form
+of observational incompleteness is false at the quantum-state level. `oiCore_forward_redundancy`
+collects the three. The core keeps its positive role: it defines what counts as an OI realization,
+which is what gives `oi_alone_not_qm` content. `tools/claims_check.py` guards the paraphrase with
+an `OI_CLAIMS` class carrying its own marker list.
+
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general
 orbit theorem, the closed-subgroup theorem, or anything about non-compact groups; that the

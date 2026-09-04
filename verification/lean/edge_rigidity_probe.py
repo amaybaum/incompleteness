@@ -891,7 +891,8 @@ for fname, names in (
                            'hermMap_apply', 'hermMap_conjTranspose', 'psi_zero', 'psi_hasStrictFDerivAt',
                            'psiDeriv_surjective', 'exists_exp_injOn_nhds', 'localReachability_of_hcontrol', 'localReachabilityOfLieRank',
                            'exactReachability_of_hcontrol', 'universalReachability_of_lieRank_unconditional')),
-    ('CompletedOI', ('completedOI_iff_qm', 'completedOI_iff_physical', 'oiCore_not_completedOI', 'observationalIndependence_iff_inert',
+    ('CompletedOI', ('qm_implies_oiCore', 'oiCore_forward_redundancy',
+                     'completedOI_iff_qm', 'completedOI_iff_physical', 'oiCore_not_completedOI', 'observationalIndependence_iff_inert',
                      'parallel_of_observationalIndependence', 'flow_zero', 'flow_isometry', "single_diag_hermitian'",
                      'control_of_reversibleRichness', 'perm_conj_single', "edyad_eq_conj_single'", 'edyad_eq_conj_single',
                      'mul_permMatrix_unitary', 'hControl_single_all', 'reversibleRichness_of_control', 'closure_of_observerRecursion',
@@ -2135,6 +2136,45 @@ for _bad in ('a static local generator exists', 'CT3 is answered', 'CT3 closed',
 ok_ct3 &= 'passed, not failed' in _cta
 ok_ct3 &= 'Floquet' in _cta
 ok_ct3 &= 'sorry' not in _sg
+# ---- forward-redundancy guard: the OI/QM reading must stay frozen ----
+_co = open(os.path.join(BRIDGE, 'OIBridge', 'CompletedOI.lean'), encoding='utf-8').read()
+_fr = open(os.path.join(os.path.dirname(BRIDGE), 'OI-CORE-FORWARD-REDUNDANCY.md'),
+           encoding='utf-8').read()
+_frflat = ' '.join(_fr.split())
+_coflat = ' '.join(_co.split())
+ok_fr = True
+# the forward implication has its own name, and the audit entry collects the three readings
+ok_fr &= 'theorem qm_implies_oiCore' in _co and 'theorem oiCore_forward_redundancy' in _co
+ok_fr &= 'theorem completedOI_iff_physical' in _co
+# containment must be labelled containment, in the module and in the record
+ok_fr &= 'Containment only' in _coflat or 'containment statement' in _coflat.lower()
+for _k in ('Containment', 'Redundancy', 'No ontological necessity'):
+    ok_fr &= _k in _frflat
+# the record must keep the core's positive role and must not read the containment as explanatory
+ok_fr &= 'defines what counts as an OI realization' in _frflat \
+    and 'defines what counts as an OI realization' in _coflat
+ok_fr &= 'informationally complete' in _frflat
+ok_fr &= 'is not an explanatory one' in _frflat
+# the lint class must exist, with its OWN markers -- the general ones would let the
+# dangerous sentences escape through "cannot" and "does not"
+_cc = open(os.path.join(os.path.dirname(os.path.dirname(BRIDGE)), 'tools', 'claims_check.py'),
+           encoding='utf-8').read()
+ok_fr &= 'OI_CLAIMS' in _cc and 'OI_MARKERS' in _cc
+ok_fr &= 'cannot exist without' in _cc and '(requires|needs) hidden' in _cc
+ok_fr &= 'core-containment' in _cc
+# and the equivalence theorem itself must be untouched
+ok_fr &= 'theorem oiPlus_iff_qm' in _co
+check('R7-FWD', ok_fr,
+      'Forward-redundancy guard: the OI/QM reading is frozen. The forward implication has its own '
+      'name (qm_implies_oiCore), the audit entry oiCore_forward_redundancy collects containment, '
+      'redundancy and the failure of the converse, and the record states all three readings -- '
+      'containment yes, forward redundancy yes, ontological necessity NO, with the reason the '
+      'strong reading breaks (informationally complete measurements determine a density matrix). '
+      'The core keeps its positive role of defining what counts as an OI realization, and the '
+      'equivalence theorem oiPlus_iff_qm is untouched. claims_check carries an OI_CLAIMS class '
+      'with its own marker list, because the general markers include "cannot" and "does not" and '
+      'would let the guarded sentences escape through the very words that make them dangerous.')
+
 check('R7-CT3', ok_ct3,
       'CT3 scope guard: the static-generator probe states CT3 in its infinite-volume form (one '
       'time-independent finite-range interaction, not a bounded element of the quasilocal '

@@ -514,6 +514,60 @@ theorem oiPlus_independence :
 
 end IndependenceOfPrinciples
 
+/-! ### Section F — the forward redundancy of the OI core
+
+`oiPlus_of_qm` already contains the implication `QM → OICore`, but it is buried inside a
+five-conjunct construction and is easy to miss, and easier still to misread. This section states it
+on its own and pairs it with the two facts that fix how it may be read.
+
+**Containment.** Every theory in the characterized quantum class realizes the sealed OI core. The
+route is `QM → full composite unitary control → RealizesSealedOICore`, so the core is reached
+because the theory is *operationally rich enough to build the four-state hidden-memory gadget*, not
+because it is quantum.
+
+**Redundancy.** `completedOI_iff_physical` is the sharper statement: the OI conjunct of completed OI
+is implied by the five physical conditions, so removing it changes nothing. The OI core does **no
+work** in the forward derivation of quantum mechanics. What selects QM is coherent controllability.
+
+**No ontological necessity.** Neither statement shows that quantum mechanics requires a hidden
+sub-quantum level, or that observational incompleteness explains quantum structure. `OICore` is an
+existential realizability condition — the theory *can implement* a particular gadget — and a
+containment theorem about it is not an explanatory one. Any reading of the form "QM requires hidden
+information", "observation incompleteness produces quantum mechanics" or "QM cannot exist without
+OI" is unsupported by anything here except in the narrow core-containment sense stated above.
+
+**What the core is still for.** It defines what counts as an OI realization, and it is what makes
+`oiCore_not_completedOI` and `oi_alone_not_qm` say something: non-quantum theories satisfy it, so
+"bare OI is not enough" has content. Its role is to seal the class, not to generate the theorem.
+-/
+
+section ForwardRedundancy
+
+/-- **QUANTUM MECHANICS REALIZES THE SEALED OI CORE.** The forward implication, on its own and
+findable. Containment only: the route is through full composite unitary control, so this says the
+quantum class is rich enough to build the core's gadget, not that observation explains it. -/
+theorem qm_implies_oiCore (T : FiniteOperationalTheory (Fin 2))
+    (h : ExactAllFiniteEndomorphicQuantumOps T) : OICore T :=
+  realizesSealedOICore_of_control T (physical_of_exactAll T h).2.2.1
+
+/-- **THE FORWARD-REDUNDANCY AUDIT ENTRY**, in one place: containment holds, the core is redundant
+in the forward direction, and the converse fails. The three together are the whole of what the
+formalization supports about "QM and OI", and they are exactly what rules out reading the
+containment as an explanatory necessity. -/
+theorem oiCore_forward_redundancy :
+    (∀ T : FiniteOperationalTheory (Fin 2), ExactAllFiniteEndomorphicQuantumOps T → OICore T)
+    ∧ (∀ T : FiniteOperationalTheory (Fin 2),
+        CompletedOI T ↔ PhysicalCompletionConditions T)
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+        OICore T ∧ ¬ ExactAllFiniteEndomorphicQuantumOps T) :=
+  ⟨qm_implies_oiCore, completedOI_iff_physical, by
+    obtain ⟨T, hcore, hnc⟩ := oiCore_not_completedOI
+    exact ⟨T, hcore, fun hq => hnc ((completedOI_iff_qm T).mpr hq)⟩⟩
+
+end ForwardRedundancy
+
+#print axioms qm_implies_oiCore
+#print axioms oiCore_forward_redundancy
 #print axioms completedOI_iff_qm
 #print axioms completedOI_iff_physical
 #print axioms oiCore_not_completedOI
