@@ -634,8 +634,9 @@ none of them, §2.1's inventory omitting C4 and saying C2 holds for any system w
 geometry, Chapter 1's C4 definition calling the horizon read-write cycle automatic, and — in the
 paragraph after it and again in the Introduction — three conditions listed as what sustains the
 memory-bearing sector and all four declared satisfied by enormous margins. All repaired in every
-parallel source, to a two-row status that must not be collapsed: at the cosmological cut C1–C3
-verified and C4 open; at the lattice cut C1 structural, C3 a capacity floor, C2 and C4 hypotheses.
+parallel source, to a two-row status that must not be collapsed: at the cosmological cut C1 verified
+structurally, C2 and C3 verified with enormous margins, C4 open; at the lattice cut C1 structural,
+C3 a capacity floor for the realized process, C2 and C4 hypotheses.
 The `R7-AUDB` guard holds all of it.
 
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an

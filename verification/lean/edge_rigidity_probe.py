@@ -2361,7 +2361,10 @@ for _p in ('book/ch01-observation.md', 'book/The-Incompleteness-of-Observation-F
     ok_audb &= 'coupled, persistent, and vast sustains' not in _t
     ok_audb &= 'satisfied by enormous margins' not in _t
     ok_audb &= 'sufficiently capacious, and read back sustains' in _t
-    ok_audb &= 'C2 and C4 require the additional hypotheses' in _t
+    ok_audb &= 'C2 and C4 remain hypotheses of Theorem 22' in _t
+    # no quantitative margin attributed to C1, and the C3 floor named as a data-processing bound
+    ok_audb &= 'C1 is verified structurally' in _t
+    ok_audb &= 'holds for the realized process by data processing' in _t
 ok_audb &= 'The SM lattice cut' in _cc and 'Finding B4' in _cc
 # the Introduction's twin of the blanket-margins sentence, and no blanket form anywhere in the book
 for _p in ('book/ch00-introduction.md', 'book/ch01-observation.md',

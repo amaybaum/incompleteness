@@ -119,9 +119,9 @@ declared all four satisfied.** One sentence after saying that an environment whi
 reading back "yields exact Markov noise despite all three (failing C4)", it said "only an environment
 that is coupled, persistent, and vast sustains" the memory-bearing correlations — C1–C3 — and closed
 with the conditions being "satisfied by enormous margins". The first omits the one condition the
-preceding sentence had just made load-bearing; the second is the blanket form that neither cut supports. Repaired in both sources: all four named, and the status carried per cut — at the lattice
-cut C1 and the C3 floor structural with C2 and C4 the hypotheses of Theorem 22, at the cosmological
-cut C1–C3 verified with enormous margins and C4 named but not presently discharged.
+preceding sentence had just made load-bearing; the second is the blanket form that neither cut supports. Repaired in both sources: all four named, and the status carried per cut — at the lattice cut C1 structural and the C3 capacity floor a data-processing bound for the realized
+process, with C2 and C4 the hypotheses of Theorem 22; at the cosmological cut C1 verified structurally,
+C2 and C3 verified with enormous margins, and C4 named but not presently discharged.
 
 **Finding B6 — the Introduction carried the same blanket form.** "They are the actual physical
 conditions of any laboratory observer in our universe, satisfied by enormous margins." Repaired in
@@ -137,7 +137,10 @@ for C2 and C3 individually, which is a different and correct claim and is untouc
 
 The two rows are not the same statement and must not be merged into "C1–C3 verified at both cuts":
 at the lattice cut C2 is a hypothesis, and C3 is a floor for the realized process rather than a
-margin.
+margin. Within the first row the entries differ in kind as well: C1 is verified structurally, from
+the constraint equations, and carries no margin; C2 and C3 are verified with enormous margins, of
+timescale and of capacity respectively. The freeze copies this table verbatim rather than
+paraphrasing it.
 
 ## What the audit checked and found clean at the cut
 
