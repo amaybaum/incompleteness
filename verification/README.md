@@ -399,7 +399,18 @@ fixed-algebra interface (`q3_countermodel`), and Q5 sharpens: an extension requi
 some additional principle, an addition rather than a consequence, with "operational completion" a
 proposed name rather than a uniquely forced one. This is independence from the frozen structure,
 not impossibility: nothing says OI forbids such operations. Level II's typed attachment and discard
-change the carrier, are not expressible by this predicate, and stay separately frozen.
+change the carrier, are not expressible by this predicate, and stay separately frozen. The third entry
+is a corpus census rather than a Lean development: the live corpus was searched for the vocabulary
+in which an operation of unbounded support would appear, with the countercheck being whether the
+existing argument already justifies finite support rather than whether a finite rewriting is
+available. The load-bearing operational theorems carry finiteness in their own hypotheses (finite
+accessible horizon, finite carriers, finite circuits); the causal cone bounds the rest; and the
+claims that invoke an infinite background — stationary distributions, equilibrium readings, KMS
+states, horizon mode counts — invoke *states*, which the countermodel keeps in full, rather than
+operations. No live claim requires an infinite-support intervention. Q2 and Q4 therefore stand as
+optional mathematical extensions outside the core programme, in the position continuous time
+occupies relative to Level III. That finding is a survey of the corpus at this commit, not a
+theorem, and is to be re-run if a claim performing an unbounded operation is added.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general
