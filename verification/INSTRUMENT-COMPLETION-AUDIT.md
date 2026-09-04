@@ -199,21 +199,30 @@ asymptotic, `N → ∞`. Each candidate was classified. The countercheck applied
 support?" — a claim counts as finite only where the corpus's own statement makes it so, never
 because a finite reading is available on request.
 
-**The distinction that does most of the work.** Round 2's countermodel withholds *operations*, not
+**The distinction that carries class 3.** Round 2's countermodel withholds *operations*, not
 *states*: `states_untouched` keeps the entire Level III state layer, for every consistent family of
-density matrices. A corpus claim that invokes a global state — a stationary distribution, an
-equilibrium reading, a KMS thermal state, a vacuum energy — therefore needs nothing beyond what is
-already supplied. Only a claim invoking an *operation* of unbounded support would bear on Q5.
+density matrices. A corpus claim that invokes a global state — a stationary distribution, a KMS
+thermal state, a vacuum energy — therefore needs nothing beyond what is already supplied. Only a
+claim invoking an *operation* of unbounded support would bear on Q5.
+
+**Where the census does not rest on that distinction.** The two thermal claims most sensitive to it
+are settled independently of it, by arguments the corpus states in its own voice. GR derives the
+classical horizon temperature from a finite total system and an explicitly finite bath, and gives
+the classical passivity layer as exact finite-bath counting with no thermodynamic limit; and what
+the horizon thermal claim contributes to the calibration is reduced to finite-system detailed
+balance under an explicit finite-observer error budget. Both are class 2 below, and neither needs
+the state/operation reading to reach a finite conclusion. The distinction remains the ground for
+class 3.
 
 ### The census
 
 | Class | Finding |
 |---|---|
 | **1. Finite region or horizon, explicitly** | The load-bearing operational theorems carry finiteness in their own hypotheses. Main §3.4: representation equivalence "on every finite accessible horizon"; the finite-horizon process dilation theorem (finite alphabet, horizon `K`); the finite-horizon stochastic–reversible–unitary equivalence ("Fix a finite visible alphabet and a finite accessible horizon `K`"); the finite operational realization and gluing theorem (fixed dimension `d`, outcome bound `m`, horizon `K`). GR §3.3 Levels I and II: nonempty finite carriers, typed operations between finite carriers. Computation §4: BQP through uniform polynomial-size circuit families over a finite gate set — each computation a finite circuit. Main's history-readback theorem is stated "for a fixed finite reversible OI representative", and its "global indivisibility" is global over the recurrence cycle of a *finite* system, that is global in time rather than in spatial support |
-| **2. Finite by causal-cone or finite-time reasoning** | The coupling-graph causal cone: influence propagates at most one graph edge per update, so `k` steps reach only the `k`-ball (Main §3.2; kernel-proved as `iterate_dependsOnlyOn_ball`, and reused as the hat region of the Level III dynamics). The Bell analyses inherit it: spacelike protocols are bounded by exact causal cones |
-| **3. Infinite background, no infinite intervention** | The Level III quasilocal algebra, its state layer and its dynamics: the algebra is infinite-region, the operations appearing in it are finite-support. SM's stationary distribution Gaussian on the energy shell; the Substratum's equilibrium reading of the read-write cycle; the KMS thermal state of the emergent QFT — all *states*, supplied in full by the frozen state layer. GR's horizon entropy `S = A/ε²` is a mode count. The Explainer's "gravity is the thermodynamic limit of the coupling structure" is an emergent macroscopic description. None is an operation |
+| **2. Finite by an argument the corpus itself gives** | *Causal cone.* Influence propagates at most one graph edge per update, so `k` steps reach only the `k`-ball (Main §3.2; kernel-proved as `iterate_dependsOnlyOn_ball`, and reused as the hat region of the Level III dynamics). The Bell analyses inherit it: spacelike protocols are bounded by exact causal cones. *The classical horizon temperature.* GR §3 ("The classical horizon temperature is a counting derivative, not an assumption") derives it by restricting the **finite** total system to a conserved energy shell, and states the scope in its own words: "no quantum mechanics, no KMS condition, no vacuum choice and **no infinite bath**", carrying the finite-reservoir correction `δ_bath ~ 1/(4 s_H)`. GR §3 (the thermodynamic-orientation discussion) adds the classical passivity layer as "exact finite-bath counting … with no Gibbs approximation and **no thermodynamic limit**" (kernel: `counting_passive`). *The operational use of the horizon thermal claim.* What the calibration needs is reduced to finite-system detailed balance across a transition graph connecting the relevant levels, with an explicit finite-observer error budget — edgewise error `η` integrating to `Lη` along a path of `L` accessible transitions — so that, in GR §3's own words ("H-balance: the minimal load-bearing state condition"), "**no limitless observation is required**" |
+| **3. Infinite background, no infinite intervention** | The Level III quasilocal algebra, its state layer and its dynamics: the algebra is infinite-region, the operations appearing in it are finite-support. SM's stationary distribution Gaussian on the energy shell, and the KMS thermal state of the emergent QFT itself — *states*, supplied in full by the frozen state layer. (What the calibration draws from that state is separately finite; see class 2.) GR's horizon entropy `S = A/ε²` is a mode count. "Gravity is the thermodynamic limit of the coupling structure" (Explainer; Substratum §6) is an emergent macroscopic description of the coupling structure, not an observer intervention. None is an operation |
 | **4. Genuinely requires an infinite-support intervention** | **None found.** |
-| **5. Ambiguous, needing clarification** | One item, recorded rather than resolved: SM's cycle-ergodicity assumption and the large-`L` stationary distribution take a limit in system size and in time. They constrain the substratum's own dynamics and measure; no observer operation is performed, so they do not call for infinite-support availability. They are listed here because they are the only places where an unbounded limit is load-bearing at all |
+| **5. Ambiguous, needing clarification** | **Empty.** SM's cycle-ergodicity assumption and the large-`L` stationary distribution belong in class 3 for this question: they take limits in system size and in time, but the object of those limits is the substratum's own rounded bijection — shell sampling and the Lyapunov exponent `λ_max` of the dynamics itself — and no observer operation appears in them. What SM records as open there is a different question: the analytical derivation of the `λ_max` coefficient and the structural source of its `N_levels`-independence, a mathematical-status question about the substratum's dynamics that bears on the bridge-gap classification of SM §7.5 rather than on operational availability |
 
 Outside the quantum operational layer, the applied papers' "interventions" and "perturbations" are
 biological and clinical (Medicine, Bioinformatics); they are not operations on the substratum
@@ -229,6 +238,13 @@ algebra and do not bear on the question.
 invalidated by a future claim, and it should be re-run if one is added that performs an operation
 of unbounded support. Its first two clauses are theorems — the first entry's characterization and
 the second entry's countermodel; only the third is the census result.
+
+**How much weight the state/operation reading bears.** Less than the shape of the argument
+suggests. Classes 1 and 2 reach finiteness from the corpus's own hypotheses and arguments, with no
+appeal to it; class 3 rests on it. A reader who declined the reading entirely would still find the
+load-bearing operational theorems finite by hypothesis, the causal cone finite by proof, and the
+two thermal claims finite by the finite-bath and finite-observer arguments GR states for itself.
+Class 5 is empty, so no item is left resting on a classification the audit could not make.
 
 **Consequence for the thread.** Q2 (does a general compatible family extend) and Q4 (is every CP
 instrument stage-compatible) become optional mathematical extensions outside the core programme, in
