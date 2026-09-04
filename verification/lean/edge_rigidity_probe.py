@@ -2387,6 +2387,41 @@ for _p in ('book/ch00-introduction.md', 'book/ch01-observation.md',
     ok_audb &= 'satisfied by enormous margins' not in _t
 ok_audb &= 'readback is named there and still to be demonstrated' in \
     open(os.path.join(_root, 'book/ch00-introduction.md'), encoding='utf-8').read()
+# ---- OI-N guard: the exploratory thread stays exploratory, and its two proved ends stay scoped ----
+_po = open(os.path.join(BRIDGE, 'OIBridge', 'PassiveObservation.lean'), encoding='utf-8').read()
+_on = open(os.path.join(os.path.dirname(BRIDGE), 'OI-N-EXPLORATORY.md'), encoding='utf-8').read()
+ok_oin = True
+ok_oin &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _po) is None and 'native_decide' not in _po
+for _nm in ('psd_summand_of_rankOne', 'choiMatrix_id', 'passive_branch_scalar',
+            'passive_outcome_state_independent', 'no_complete_passive_observation',
+            'pinching_cp', 'pinching_passive_on_diagonal', 'pinching_separates_diagonal',
+            'pinching_sum_apply', 'pinching_not_passive'):
+    ok_oin &= ('#print axioms ' + _nm) in _po
+# the definitions the thread depends on are fixed here, and the control is present
+ok_oin &= 'def IsPassiveInstrument' in _po and 'def SeparatesStates' in _po and 'def pinching' in _po
+# the module and the note both keep N3 and N4 open and refuse the hidden-ontology reading
+ok_oin &= 'Not claimed' in _po and 'OI-N3' in _po and 'OI-N4' in _po
+ok_oin &= 'Status: exploratory' in _on and 'OI-N3 — the exact boundary: open' in _on
+ok_oin &= 'What this thread does not claim' in _on
+for _bad in ('QM requires OI', 'quantum mechanics requires observational incompleteness',
+             'noncommutativity iff', 'N3 is proved', 'hidden OI ontology is forced'):
+    ok_oin &= not _asserted(_po, _bad) and not _asserted(_on, _bad)
+# the softer overclaim: naming noncommutativity as THE obstruction spends N3 before it is proved.
+# Until N3 closes, only the candidate form is allowed, in module, note and README alike.
+_rd = open(os.path.join(os.path.dirname(BRIDGE), 'README.md'), encoding='utf-8').read()
+for _bad in ('the obstruction is noncommutativity', 'obstruction of N1 is noncommutativity',
+             'it is noncommutativity', 'why a noncommutative algebra forbids'):
+    ok_oin &= _bad not in _po and _bad not in _on and _bad not in _rd
+ok_oin &= 'candidate' in _po and 'candidate obstruction' in _on and 'candidate obstruction' in _rd
+check('R7-OIN', ok_oin,
+      'OI-N guard: the passive-observation module carries no sorry and no native_decide, prints the '
+      'axioms of all ten named results, fixes the three definitions the thread depends on, keeps the '
+      'control scoped to the commutative algebra with the dephasing lemma, and '
+      'carries the commutative control; module and note both mark the thread exploratory, keep the '
+      'exact boundary (N3) and the relation to OICore (N4) open, name noncommutativity only as the '
+      'candidate obstruction until N3 closes, and assert neither that QM '
+      'requires OI nor that a hidden ontology is forced.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '

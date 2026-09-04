@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 106 modules and,
-  at this commit, 2,298 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 107 modules and,
+  at this commit, 2,310 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -646,6 +646,26 @@ the primitive and is discharged at neither physical cut; C1–C4 are diagnostics
 not hypotheses of the `ħ` calibration or of Layer 0; the OI core is forward-redundant; and the
 minimal-carrier machinery underwrites no manuscript statement. OI-N opens from it; CT3 stays paused
 behind OI-N.
+
+`OI-N-EXPLORATORY.md` opens the exploratory necessity thread from the frozen status, and
+`OIBridge/PassiveObservation.lean` closes its two easy ends. A **passive instrument** is a finite
+family of completely positive maps whose nonselective channel is the identity; **OI-N1**
+(`passive_branch_scalar`, `no_complete_passive_observation`) proves every branch is a scalar
+multiple of the identity — the identity's Choi matrix is rank one (`choiMatrix_id`), the branches'
+Choi matrices are positive semidefinite and sum to it, and a positive semidefinite summand of a
+rank-one matrix is a multiple of it (`psd_summand_of_rankOne`, from
+`PosSemidef.dotProduct_mulVec_zero_iff` and an elementary double-orthogonal-complement step) — so
+the outcome law is the same for every state and no passive instrument separates states when the
+algebra has two of them. **OI-N2** is the commutative control: the pinching instrument is completely
+positive, is the identity on diagonal matrices, and separates diagonal states — while on the full
+algebra its nonselective channel is dephasing and it is not passive (`pinching_not_passive`) — so
+the contrast identifies noncommutativity as the candidate obstruction, whose exact finite-dimensional
+boundary is N3 and is not proved here. Ten named
+results, each
+printing only `propext`, `Classical.choice`, `Quot.sound`. Open, and guarded as open by `R7-OIN`:
+the exact boundary for `⊕ M_{d_i}` (N3, where an instrument may move probability between blocks),
+the relation to `OICore` (N4), and the internal observer (N5). Not claimed: that quantum mechanics
+requires OI or a hidden ontology; "passive" here is not the passive quotient of `PassiveQuotient.lean`.
 
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
 audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its
