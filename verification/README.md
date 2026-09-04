@@ -458,9 +458,13 @@ no gate writes — so the factorization is insensitive to linearity, alphabet, d
 state-dependence of the coupling. An involution gives a projection and hence an exact
 one-parameter unitary, polynomial rather than a functional calculus, reaching the gate at time one;
 the gates are supplied as elements of the quasilocal algebra of the infinite lattice, with each
-generator bounded and lying in a single finite region's stage. Two layers driven over `[0,1]` and
-`[1,2]` therefore reach the one-step map exactly. Existence, locality and infinite volume are
-settled affirmatively; a **single time-independent** generator is not obtained and is not claimed,
+generator bounded and lying in a single finite region's stage. Two layers of such gates, driven
+over `[0,1]` and `[1,2]`, reach their composite exactly. Existence and per-gate locality are
+settled affirmatively. Two things are explicitly **not** settled: the drive theorem quantifies over
+a finite list of gates and does not yet construct the all-sites layer as an automorphism of the
+quasilocal algebra, and the local-Hamiltonian statement needs a finite-range hypothesis on the
+neighbourhood function that the factorization itself does not. A **single time-independent**
+generator is not obtained and is not claimed,
 the drive being piecewise constant across the two layers, and uniqueness stays decided negatively
 by the frozen countermodel. Continuous time remains additional structure rather than part of the
 core: the entry shows the structure is available, not that OI supplies it.

@@ -85,7 +85,7 @@ single-gate statement. For a commuting family the composite is again a one-param
 reaches conjugation by the product at time one: `unit_comm`, `flow_flow_comm`, `flowList_add`,
 `flowList_one`, `layer_drive`.
 
-### Why this is an infinite-volume statement
+### What is supplied on the quasilocal algebra, and what is not
 
 The gates are supplied as elements of the **quasilocal algebra of the infinite lattice**, not of a
 finite lattice's matrix algebra. An involutive permutation of a finite region's configurations has
@@ -93,28 +93,48 @@ a permutation matrix that is a self-adjoint unitary (`permMat_involutive`), and 
 into the completion: `localGate Λ σ = stage Λ (permMat σ)` satisfies `g * g = 1` and `star g = g`
 in `Quasilocal` (`localGate_isGate`). The generator and the unitary lie in the image of the **same
 finite region's stage** — `proj_localGate_mem_stage`, `unit_localGate_mem_stage` — so each is a
-bounded, strictly local element of the infinite algebra rather than a formal infinite sum. Only
-finitely many gates of a layer move a given local observable, which is the content of the
-`gateList` lemmas above.
+bounded element of the infinite algebra supported in one finite region.
 
-`quasilocal_drive` assembles it: on the quasilocal algebra, two layers of commuting local gate
-involutions, driven over `[0,1]` and `[1,2]`, give a drive that starts at the identity, agrees with
-itself at the junction, and at time two is conjugation by `W · S` — the one-step map — with each
-layer flow a one-parameter group and `W · S` a self-adjoint unitary.
+**`quasilocal_drive` is not yet the all-sites layer.** It quantifies over a *finite list* of
+quasilocal gates, and says that such a list is driven exactly. It does not construct the layer
+over **all** sites as an automorphism of the quasilocal algebra, and the combinatorial
+`gateList` lemmas do not supply that either: they establish that a finite list of configuration
+gates agrees with the full shear on the sites it covers, which is the input to such a construction
+rather than the construction. Closing that step is the second entry's task, listed below.
+
+**A terminology point, kept permanent.** On an infinite lattice the object `Σ_i h_i` is **not an
+element** of the quasilocal algebra. It is a formal sum defining a densely-defined derivation: on
+each local observable only finitely many terms act, and that is what makes it meaningful. Nothing
+here should be read as exhibiting a bounded global Hamiltonian; what is bounded and local is each
+individual `h_i`, and the layer's generator is the derivation they define.
+
+### The range hypothesis, and where it is and is not needed
+
+The depth-two factorization holds for an **arbitrary** `F` — it uses only the `- p` that
+reversibility leaves. The **local Hamiltonian** statement cannot be that general: if `F(c)_i` may
+depend on arbitrarily distant sites then the shear gate at `i` has no finite region, and there is
+nothing to put in a stage. The actual substratum rule is finite range, so this is a hypothesis to
+be carried explicitly rather than a restriction to regret; but the two scopes must not be
+conflated, and the combinatorial section and the operator section are kept apart here for exactly
+that reason.
 
 ### The answers, and the one that is not given
 
 | Question | Status |
 |---|---|
 | 1. Existence | **yes**, and not by the cheap finite-stage logarithm |
-| 2. Locality | **yes**: each generator is bounded and supported in one finite region |
+| 2. Locality | **yes for each gate**: every generator is bounded and supported in one finite region. The all-sites layer as a quasilocal automorphism is not yet constructed |
 | 3. Time dependence | **piecewise constant across the two layers**. A single time-independent generator is **not** obtained |
 | 4. Uniqueness | **no**, by the frozen `RegionLimit` countermodel |
 | A shift-type obstruction | **none arises**: depth two is the trivial component, and the swap is on-site |
 
 ### What is not claimed
 
-That a single **time-independent** local Hamiltonian reaches the one-step map — the drive here is
+That the all-sites layer has been constructed as an automorphism of the quasilocal algebra — it
+has not; `quasilocal_drive` is a statement about finite lists of gates. That `Σ_i h_i` is an
+element of the quasilocal algebra; it is a formal sum defining a derivation. That the local
+Hamiltonian statement holds for an arbitrary `F`; it needs finite range, which the factorization
+does not. That a single **time-independent** local Hamiltonian reaches the one-step map — the drive here is
 piecewise constant in time, and nothing in the module bears on whether the two pieces can be
 merged. That the drive is unique, in any sense; the frozen countermodel says it is not. That
 continuous time is thereby part of the OI core: it remains additional structure, and this entry
@@ -127,6 +147,7 @@ the flow has been connected to a physical time parameter.
 | Question | Status |
 |---|---|
 | CT1. What is the update, as a quasilocal automorphism | **answered**: conjugation by a permutation of classical configurations, factoring as a depth-two circuit of commuting local involutions |
-| CT2. Existence, locality, infinite volume | **answered affirmatively** (this entry), on the quasilocal algebra, with bounded strictly local generators |
+| CT2. Existence and per-gate locality | **answered affirmatively** (this entry): exact one-parameter groups, bounded generators each supported in one finite region |
+| CT2'. The all-sites layer as an automorphism of the quasilocal algebra | **open**, and the next task. Needs the finite dependency region, the affected-gate set, stabilization under enlarging the volume, compatibility with the stage inclusions, and the endpoint identified with the frozen `heisQ` |
 | CT3. A single time-independent local `H` | **open**. Not implied by depth two, and deliberately not asserted |
 | CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |
