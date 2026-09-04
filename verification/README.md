@@ -565,6 +565,24 @@ their `m = 2` admits no conjugate pair. Rank was the wrong diagnostic: a low-ran
 the condition harder to satisfy, not easier. Width `≥ 3`, and the transport to infinite volume,
 remain open — the periodization bridge is now load-bearing.
 
+The sixth entry closes the arithmetic that test rests on, for `q = 2`.
+`verification/lean/wave_period_probe.py`, with the proofs in
+`CT3-R2B-Q2-PERIOD-AND-CYCLES.md`, works from the traveling-wave factorization
+`x² + (S+S⁻¹)x + 1 = (x+S)(x+S⁻¹)` in its d'Alembert form: every `𝔽₂` solution on `ℤ²` is
+`f(n−t) + g(n+t)`, with a two-dimensional representation kernel spanned by the constant and the
+parity function. Imposing both periodicities gives `dim_{𝔽₂} ker(F_L^k − I) = 2gcd(k,L) −
+1_{L,k odd}`, hence `m_L = L` for even `L` and `2L` for odd `L`, and by Möbius inversion the exact
+cycle spectrum — `C_ℓ = M(ℓ)` for even `L`, `C_e = M(e)/2` and `C_{2e} = M(e)/4` for odd `L`, with
+`M` the aperiodic-necklace count on four letters — so `D_s` and the first-moment test are decided at
+every `L` without enumerating `4^L` states. Silence at `L = 2^a` is a theorem, from
+`v₂(C_{2^i}) = 2^i − i ≥ j − 1`. The converse fails: at an odd prime `L = p > 3` both admissible
+tests reduce to `p² | 4^{p−1} − 1`, the Wieferich condition base 2, so **`L = 1093` and `L = 3511`
+are silent and are not powers of two**. This round also corrects the corpus: the period formula of
+`SM` Appendix A / book Appendix B.3.1 read `L` at `q = 2`, where the value is `2L`, and the uniform
+`ord(F mod q) = qL` holds at every prime (the appendix's Jordan-Chevalley theorem is consistent
+with this but gives only that the factor orders divide `L` and `q`);
+`rank(N) = 2` likewise holds only for even `L`. Width `≥ 3`, infinite volume and `q = 3` stay open.
+
 `OI-CORE-FORWARD-REDUNDANCY.md` freezes one reading of the finite equivalence, because the theorem
 admits a stronger paraphrase than the formalization supports. Three statements, and only these
 three. **Containment**: `qm_implies_oiCore` — every theory in the characterized quantum class

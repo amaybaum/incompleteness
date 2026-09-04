@@ -1583,21 +1583,23 @@ The wave equation $x(n, t+1) = x(n-1, t) + x(n+1, t) - x(n, t-1) \pmod{q}$ has p
 
 ### Theorem A.1 (Period formula)
 
-*For q prime with $\gcd(L, q) = 1$: $\mathrm{ord}(F \bmod q) = qL$ if q is odd, and L if q = 2.*
+*For q prime with $\gcd(L, q) = 1$ — q = 2 included: $\mathrm{ord}(F \bmod q) = qL$.*
 
-*Proof.* For each Fourier mode k, the 2×2 block $B_k$ has characteristic polynomial $t^2 - \lambda_k t + 1$. At parabolic modes ($\lambda_k = \pm 2$), the Jordan form gives $B_k^n = \alpha^n \left(\begin{smallmatrix} 1 & n\alpha^{-1} \\ 0 & 1 \end{smallmatrix}\right)$, contributing order q (or 2q). The diagonalizable eigenvalues contribute orders dividing L. Therefore $\mathrm{ord}(F) = qL$. For q = 2: the nilpotent part is automatically killed. $\square$
+*Proof.* For each Fourier mode k, the 2×2 block $B_k$ has characteristic polynomial $t^2 - \lambda_k t + 1$ with $\lambda_k = \zeta^k + \zeta^{-k}$, so its roots are $\zeta^{\pm k}$ and the diagonalizable blocks contribute orders dividing L, the mode at a primitive L-th root of unity contributing order exactly L. At parabolic modes ($\lambda_k = \pm 2$), the Jordan form gives $B_k^n = \alpha^n \left(\begin{smallmatrix} 1 & n\alpha^{-1} \\ 0 & 1 \end{smallmatrix}\right)$, of order q at $\alpha = 1$ and 2q at $\alpha = -1$. The second parabolic mode occurs only for even L, since $\alpha = -1$ requires $(-1)^L = 1$; so the parabolic orders are q alone for odd L, and q together with 2q for even L, where the extra factor 2 already divides L. In both cases $\mathrm{ord}(F) = \mathrm{lcm}(L, q) = qL$, using $\gcd(L, q) = 1$. Theorem A.2 is consistent with this and does not replace it: its decomposition $F = F_{\mathrm{ss}} F_u$ gives commuting factors whose orders divide L and q, and the exact values need the primitive-root mode and $N \neq 0$. At q = 2 the parabolic mode at $\zeta = 1$ is present, so $N \neq 0$ and the unipotent factor has order exactly 2, while $\gcd(L, 2) = 1$ forces L odd; hence $\mathrm{ord}(F \bmod 2) = 2L$. $\square$
+
+*Verified computationally for q = 2, 3, 5, 7, 11, 13 and L ≤ 12.*
 
 ### Theorem A.2 (Jordan-Chevalley decomposition)
 
-*Define $N = (F^L - I)/L \bmod q$. Then: (i) N is nilpotent with N² = 0 and rank(N) = 2. (ii) $F_u = I + N$ is unipotent with $F_u^q = I$. (iii) $F_{\mathrm{ss}} = F \cdot (I - N)$ is semisimple with $F_{\mathrm{ss}}^L = I$. (iv) $F = F_{\mathrm{ss}} \cdot F_u$ and $[F_{\mathrm{ss}}, N] = 0$.*
+*Define $N = (F^L - I)/L \bmod q$. Then: (i) N is nilpotent with N² = 0, and rank(N) is the number of parabolic modes: 2 for even L, where these are $\zeta = \pm 1$, and 1 for odd L, where $\zeta = -1$ is not an L-th root of unity. (ii) $F_u = I + N$ is unipotent with $F_u^q = I$. (iii) $F_{\mathrm{ss}} = F \cdot (I - N)$ is semisimple with $F_{\mathrm{ss}}^L = I$. (iv) $F = F_{\mathrm{ss}} \cdot F_u$ and $[F_{\mathrm{ss}}, N] = 0$.*
 
-*Proof.* $F^L$ has the form $I + LN'$ where $N'$ arises from the Jordan blocks: $\left(\begin{smallmatrix} 1 & 1 \\ 0 & 1 \end{smallmatrix}\right)^L = \left(\begin{smallmatrix} 1 & L \\ 0 & 1 \end{smallmatrix}\right)$ contributes a rank-1 nilpotent, and similarly for $\alpha = -1$ (since $(-1)^L = 1$ for even $L$). So $N = N'$ has $N^2 = 0$ (each block is rank-1 nilpotent on a 2D subspace) and rank$(N) = 2$ (two parabolic modes). Since $N^2 = 0$: $(I + N)^{-1} = I - N$, giving $F_{\mathrm{ss}} = F(I - N)$. Then $F_{\mathrm{ss}}^L = F^L(I - N)^L = (I + LN)(I - LN + \ldots) = I \bmod q$ since terms involving $LN$ cancel modulo $q$ (using $N^2 = 0$). Commutativity follows from $N$ being supported on the parabolic eigenspaces, which are $F$-invariant. $\square$
+*Proof.* $F^L$ has the form $I + LN'$ where $N'$ arises from the Jordan blocks: $\left(\begin{smallmatrix} 1 & 1 \\ 0 & 1 \end{smallmatrix}\right)^L = \left(\begin{smallmatrix} 1 & L \\ 0 & 1 \end{smallmatrix}\right)$ contributes a rank-1 nilpotent, and similarly for $\alpha = -1$ when $L$ is even, that mode being present exactly when $(-1)^L = 1$. So $N = N'$ has $N^2 = 0$ (each block is rank-1 nilpotent on a 2D subspace) and rank$(N)$ equal to the number of parabolic modes, 2 for even $L$ and 1 for odd $L$. Since $N^2 = 0$: $(I + N)^{-1} = I - N$, giving $F_{\mathrm{ss}} = F(I - N)$. Then $F_{\mathrm{ss}}^L = F^L(I - N)^L = (I + LN)(I - LN + \ldots) = I \bmod q$ since terms involving $LN$ cancel modulo $q$ (using $N^2 = 0$). Commutativity follows from $N$ being supported on the parabolic eigenspaces, which are $F$-invariant. $\square$
 
 *Verified computationally for L = 4, 6, 8, 10, 12 and q = 3, 5, 7, 11, 13.*
 
 ### Theorem A.3 (q-independence of the Weil-Deligne conductor)
 
-*The Weil-Deligne conductor $\mathfrak{f}_{\mathrm{WD}} = \mathfrak{f}_{\mathrm{ss}}(L) + \mathrm{rank}(N) = \mathfrak{f}_{\mathrm{ss}}(L) + 2$ is q-independent when $\gcd(L, q) = 1$, where $\mathfrak{f}_{\mathrm{ss}}(L) = \sum_\alpha (\mathrm{ord}(\alpha) - 1)$ is computed from the eigenvalue orders of $F_{\mathrm{ss}}$, all dividing $L$.*
+*The Weil-Deligne conductor $\mathfrak{f}_{\mathrm{WD}} = \mathfrak{f}_{\mathrm{ss}}(L) + \mathrm{rank}(N)$ is q-independent when $\gcd(L, q) = 1$, where $\mathfrak{f}_{\mathrm{ss}}(L) = \sum_\alpha (\mathrm{ord}(\alpha) - 1)$ is computed from the eigenvalue orders of $F_{\mathrm{ss}}$, all dividing $L$. The rank is 2 at the even L of the table below and 1 at odd L.*
 
 *Proof.* $F_{\mathrm{ss}}$ has order L; its eigenvalues are L-th roots of unity. For $\gcd(L, q) = 1$, the L-th roots in $\bar{\mathbb{F}}_q$ are isomorphic to those in $\mathbb{C}$, so their orders match. $\square$
 

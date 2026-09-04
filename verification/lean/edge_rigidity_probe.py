@@ -2259,6 +2259,47 @@ ok_ct3c &= 'PINNED' in _cb and 'invariant of the centralizer space' in _cb
 for _bad in ('CT3 is settled', 'R2-B is settled', 'no static generator exists',
              'CT3 is closed'):
     ok_ct3c &= not _asserted(_cb, _bad) and not _asserted(_cta, _bad)
+# ---- CT3-R2B-Q2 guard: the period correction must stay corrected, and the round stay scoped ----
+_wp = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'wave_period_probe.py'),
+           encoding='utf-8').read()
+_q2 = open(os.path.join(os.path.dirname(BRIDGE), 'CT3-R2B-Q2-PERIOD-AND-CYCLES.md'),
+           encoding='utf-8').read()
+ok_ct3d = True
+for _tok in ('PERIOD-CORRECTED', 'WIDER-RANGE-OPEN', 'Q2-ONLY', 'CONJECTURE-FALSE',
+             'CT3-OPEN', 'FINITE-VOLUME-ONLY'):
+    ok_ct3d &= ('SCOPE-TOKEN: ' + _tok) in _wp
+# the corrected period must be stated, with its reason, in probe and note alike
+ok_ct3d &= 'ord(F mod q) = qL' in _wp and 'ord(F mod q) = qL' in _q2
+ok_ct3d &= 'L for L even, 2L for L odd' in _wp
+# the three manuscript locations must carry the corrected statement and not the superseded one
+for _p, _bad, _good in (
+        ('papers/SM.md', 'and L if q = 2', 'q = 2 included'),
+        ('book/appendix-b-derivations.md', 'L & q = 2', 'q = 2$ included'),
+        ('book/The-Incompleteness-of-Observation-FULL.md', 'L & q = 2', 'q = 2$ included')):
+    _t = open(os.path.join(os.path.dirname(os.path.dirname(BRIDGE)), _p), encoding='utf-8').read()
+    ok_ct3d &= _bad not in _t and _good in _t
+    ok_ct3d &= 'the nilpotent part is automatically killed' not in _t
+# the width-2 confinement and the finite-volume limit must be restated, not inherited silently
+ok_ct3d &= 'WIDTH-2 ingredient' in _wp and 'width-2' in _q2
+ok_ct3d &= 'periodization obligation' in _wp and 'periodization obligation' in _q2
+# the conjecture must be recorded as FALSE with its arithmetic, and never asserted
+ok_ct3d &= 'WIEFERICH' in _wp and 'Wieferich' in _q2
+ok_ct3d &= 'IS FALSE' in _wp and 'is false' in _q2
+for _bad in ('silent exactly at the powers of two', 'silence set is the powers of two',
+             'CT3 is settled', 'CT3 is closed', 'no static generator exists'):
+    ok_ct3d &= not _asserted(_wp, _bad) and not _asserted(_q2, _bad)
+# exact arithmetic only, as in the round it continues
+ok_ct3d &= 'cmath' not in _wp and '1e-6' not in _wp
+check('R7-CT3D', ok_ct3d,
+      'CT3-R2B-Q2 guard: the period formula is stated in its corrected uniform form, '
+      'ord(F mod q) = qL at every prime including 2, in the probe, in the round note and at all '
+      'three manuscript locations, none of which retains the superseded q = 2 value or its '
+      'reasoning. The round restates rather than inherits its two limits -- the antisymmetric '
+      'vanishing is the WIDTH-2 ingredient, and the periodization obligation is unused -- and '
+      'records the power-of-two conjecture as FALSE with the Wieferich arithmetic that makes it '
+      'so, rather than reporting the small-L coincidence as the law. No floating arithmetic, and '
+      'nothing claims CT3 settled.')
+
 check('R7-CT3C', ok_ct3c,
       'CT3-R2B step-1 guard: the centralizer basis is exact over Z, complete against the CT3-R1 '
       'census and quotientable by scalars; the quantization lemma is stated in its sharper '
