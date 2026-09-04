@@ -814,6 +814,177 @@ theorem continuous_layerQ_time (x : Quasilocal ι (V × V)) :
     _ < ε / 3 + (ε / 3 + ε / 3) := by gcongr
     _ = ε := by ring
 
+
+/-! #### The group law
+
+Two applications of the layer can be made to use *one* finite gate set, by stabilization. On that
+common set the gates' unitaries compose by adding times, so the composite is the layer at the sum.
+The one thing that needs care is that the intermediate observable is still local: it is, in the
+region `Λ` enlarged by the gate regions used, which is what the range lemmas below record.
+-/
+
+theorem mem_range_stage_le {Λ Λ' : Finset ι} (h : Λ ⊆ Λ') {z : Quasilocal ι (V × V)}
+    (hz : z ∈ Set.range (stage Λ)) : z ∈ Set.range (stage Λ') := by
+  obtain ⟨X, rfl⟩ := hz
+  exact ⟨inclObs h X, stage_inclObs h X⟩
+
+theorem mem_range_stage_one (Λ : Finset ι) :
+    (1 : Quasilocal ι (V × V)) ∈ Set.range (stage Λ) := ⟨1, map_one _⟩
+
+theorem mem_range_stage_mul {Λ : Finset ι} {x y : Quasilocal ι (V × V)}
+    (hx : x ∈ Set.range (stage Λ)) (hy : y ∈ Set.range (stage Λ)) :
+    x * y ∈ Set.range (stage Λ) := by
+  obtain ⟨X, rfl⟩ := hx; obtain ⟨Y, rfl⟩ := hy
+  exact ⟨X * Y, map_mul _ _ _⟩
+
+theorem mem_range_stage_sub {Λ : Finset ι} {x y : Quasilocal ι (V × V)}
+    (hx : x ∈ Set.range (stage Λ)) (hy : y ∈ Set.range (stage Λ)) :
+    x - y ∈ Set.range (stage Λ) := by
+  obtain ⟨X, rfl⟩ := hx; obtain ⟨Y, rfl⟩ := hy
+  exact ⟨X - Y, map_sub _ _ _⟩
+
+theorem mem_range_stage_add {Λ : Finset ι} {x y : Quasilocal ι (V × V)}
+    (hx : x ∈ Set.range (stage Λ)) (hy : y ∈ Set.range (stage Λ)) :
+    x + y ∈ Set.range (stage Λ) := by
+  obtain ⟨X, rfl⟩ := hx; obtain ⟨Y, rfl⟩ := hy
+  exact ⟨X + Y, map_add _ _ _⟩
+
+theorem mem_range_stage_smul {Λ : Finset ι} {x : Quasilocal ι (V × V)} (c : ℂ)
+    (hx : x ∈ Set.range (stage Λ)) : c • x ∈ Set.range (stage Λ) := by
+  obtain ⟨X, rfl⟩ := hx
+  exact ⟨c • X, map_smul _ _ _⟩
+
+theorem mem_range_stage_star {Λ : Finset ι} {x : Quasilocal ι (V × V)}
+    (hx : x ∈ Set.range (stage Λ)) : star x ∈ Set.range (stage Λ) := by
+  obtain ⟨X, rfl⟩ := hx
+  exact ⟨star X, map_star _ _⟩
+
+/-- A gate's unitary is supported in the gate's region, at every time. -/
+theorem unit_shearGate_mem_range (i : ι) (t : ℝ) :
+    unit (shearGate R i) t ∈ Set.range (stage (gateRegion R i)) := by
+  rw [unit, proj]
+  refine mem_range_stage_add (mem_range_stage_one _) (mem_range_stage_smul _ ?_)
+  exact mem_range_stage_smul _ (mem_range_stage_sub (mem_range_stage_one _) ⟨_, rfl⟩)
+
+/-- The region a set of gates occupies. -/
+def gateSpan (S : Finset ι) : Finset ι := S.biUnion (gateRegion R)
+
+theorem gateRegion_subset_gateSpan {S : Finset ι} {i : ι} (hi : i ∈ S) :
+    gateRegion R i ⊆ gateSpan R S := Finset.subset_biUnion_of_mem _ hi
+
+/-- **THE LAYER UNITARY IS SUPPORTED IN THE GATES' SPAN.** -/
+theorem layerU_mem_range (S : Finset ι) (t : ℝ) :
+    layerU R S t ∈ Set.range (stage (gateSpan R S)) := by
+  classical
+  induction S using Finset.induction_on with
+  | empty =>
+      rw [layerU_empty]
+      exact mem_range_stage_one _
+  | insert i s hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) s := by simpa using hi
+      have hins : (insert i s : Finset ι) = {i} ∪ s := by rw [Finset.insert_eq]
+      have hsing : layerU R ({i} : Finset ι) t = unit (shearGate R i) t := by
+        rw [layerU, Finset.noncommProd_singleton]
+      have hsub1 : gateRegion R i ⊆ gateSpan R (insert i s) :=
+        gateRegion_subset_gateSpan R (Finset.mem_insert_self i s)
+      have hsub2 : gateSpan R s ⊆ gateSpan R (insert i s) := by
+        refine Finset.biUnion_subset_biUnion_of_subset_left _ ?_
+        exact Finset.subset_insert i s
+      rw [hins, layerU_union R hdis, hsing]
+      exact mem_range_stage_mul
+        (mem_range_stage_le hsub1 (unit_shearGate_mem_range R i t))
+        (mem_range_stage_le hsub2 ih)
+
+/-- **THE LAYER KEEPS A LOCAL OBSERVABLE LOCAL**, in its region enlarged by the gates' span. -/
+theorem layerAct_mem_range (S Λ : Finset ι) (t : ℝ)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    layerAct R S t (stage Λ X) ∈ Set.range (stage (Λ ∪ gateSpan R S)) := by
+  have hU : layerU R S t ∈ Set.range (stage (Λ ∪ gateSpan R S)) :=
+    mem_range_stage_le Finset.subset_union_right (layerU_mem_range R S t)
+  have hX : stage Λ X ∈ Set.range (stage (Λ ∪ gateSpan R S)) :=
+    mem_range_stage_le Finset.subset_union_left ⟨X, rfl⟩
+  exact mem_range_stage_mul (mem_range_stage_mul hU hX) (mem_range_stage_star hU)
+
+/-- **THE LAYER UNITARIES COMPOSE BY ADDING TIMES.** -/
+theorem layerU_add (S : Finset ι) (t s : ℝ) :
+    layerU R S t * layerU R S s = layerU R S (t + s) := by
+  classical
+  induction S using Finset.induction_on with
+  | empty => simp
+  | insert i r hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) r := by simpa using hi
+      have hins : (insert i r : Finset ι) = {i} ∪ r := by rw [Finset.insert_eq]
+      have hsing : ∀ u : ℝ, layerU R ({i} : Finset ι) u = unit (shearGate R i) u := fun u => by
+        rw [layerU, Finset.noncommProd_singleton]
+      have hcross : layerU R r t * unit (shearGate R i) s
+          = unit (shearGate R i) s * layerU R r t := by
+        rw [layerU]
+        exact (Finset.noncommProd_commute r _ _ _
+          fun j _ => unit_shearGate_comm R i j s t).symm
+      rw [hins, layerU_union R hdis, layerU_union R hdis, layerU_union R hdis,
+        hsing, hsing, hsing]
+      calc unit (shearGate R i) t * layerU R r t * (unit (shearGate R i) s * layerU R r s)
+          = unit (shearGate R i) t * (layerU R r t * unit (shearGate R i) s) * layerU R r s := by
+            simp only [mul_assoc]
+        _ = unit (shearGate R i) t * (unit (shearGate R i) s * layerU R r t) * layerU R r s := by
+            rw [hcross]
+        _ = (unit (shearGate R i) t * unit (shearGate R i) s) * (layerU R r t * layerU R r s) := by
+            simp only [mul_assoc]
+        _ = unit (shearGate R i) (t + s) * layerU R r (t + s) := by
+            rw [unit_mul_unit (shearGate_isGate R i).1, ih]
+
+/-- **THE GROUP LAW ON LOCAL OBSERVABLES.** -/
+theorem layerQ_add_time_stage (t s : ℝ) (Λ : Finset ι)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    layerQ R t (layerQ R s (stage Λ X)) = layerQ R (t + s) (stage Λ X) := by
+  classical
+  set Λ₁ := Λ ∪ gateSpan R (affected R Λ) with hΛ₁
+  obtain ⟨Y, hY⟩ := layerAct_mem_range R (affected R Λ) Λ s X
+  set S := affected R Λ ∪ affected R Λ₁ with hS
+  have hsub₀ : affected R Λ ⊆ S := Finset.subset_union_left
+  have hsub₁ : affected R Λ₁ ⊆ S := Finset.subset_union_right
+  have hmid : layerAct R S s (stage Λ X) = stage Λ₁ Y := by
+    rw [layerAct_stabilizes R hsub₀ X s]
+    exact hY.symm
+  have e1 : layerQ R s (stage Λ X) = stage Λ₁ Y := by
+    rw [layerQ_stage]
+    exact hY.symm
+  have e2 : layerQ R t (stage Λ₁ Y) = layerAct R S t (stage Λ₁ Y) := by
+    rw [layerQ_stage, ← layerAct_stabilizes R hsub₁ Y t]
+  have e3 : layerQ R (t + s) (stage Λ X) = layerAct R S (t + s) (stage Λ X) := by
+    rw [layerQ_stage, ← layerAct_stabilizes R hsub₀ X (t + s)]
+  rw [e1, e2, e3, ← hmid]
+  simp only [layerAct]
+  calc layerU R S t * (layerU R S s * stage Λ X * star (layerU R S s)) * star (layerU R S t)
+      = layerU R S t * layerU R S s * stage Λ X
+          * (star (layerU R S s) * star (layerU R S t)) := by simp only [mul_assoc]
+    _ = layerU R S (t + s) * stage Λ X * star (layerU R S (t + s)) := by
+        rw [layerU_add, ← star_mul, layerU_add]
+
+/-- **THE GROUP LAW.** With it the family is a one-parameter group of `*`-automorphisms, not
+merely a strongly continuous family of endomorphisms. -/
+theorem layerQ_add_time (t s : ℝ) (x : Quasilocal ι (V × V)) :
+    layerQ R t (layerQ R s x) = layerQ R (t + s) x := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq ((continuous_layerQ R t).comp (continuous_layerQ R s))
+      (continuous_layerQ R (t + s))
+  · obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+    exact layerQ_add_time_stage R t s Λ X
+
+/-- **EVERY LAYER MAP IS INVERTIBLE**, with the reverse-time map as its inverse. So each is a
+`*`-automorphism of the quasilocal algebra and the family is a genuine one-parameter group. -/
+theorem layerQ_left_inverse (t : ℝ) (x : Quasilocal ι (V × V)) :
+    layerQ R (-t) (layerQ R t x) = x := by
+  rw [layerQ_add_time, neg_add_cancel, layerQ_zero_time]
+
+theorem layerQ_right_inverse (t : ℝ) (x : Quasilocal ι (V × V)) :
+    layerQ R t (layerQ R (-t) x) = x := by
+  rw [layerQ_add_time, add_neg_cancel, layerQ_zero_time]
+
+theorem layerQ_bijective (t : ℝ) : Function.Bijective (layerQ R t) :=
+  Function.bijective_iff_has_inverse.mpr
+    ⟨layerQ R (-t), layerQ_left_inverse R t, layerQ_right_inverse R t⟩
+
 end Extend
 
 end OIBridge.SecondOrderLayer
@@ -873,5 +1044,14 @@ namespace OIBridge.SecondOrderLayer
 #print axioms layerQ_sub
 #print axioms dist_layerQ
 #print axioms continuous_layerQ_time
+#print axioms mem_range_stage_le
+#print axioms unit_shearGate_mem_range
+#print axioms layerU_mem_range
+#print axioms layerAct_mem_range
+#print axioms layerU_add
+#print axioms layerQ_add_time_stage
+#print axioms layerQ_add_time
+#print axioms layerQ_left_inverse
+#print axioms layerQ_bijective
 
 end OIBridge.SecondOrderLayer
