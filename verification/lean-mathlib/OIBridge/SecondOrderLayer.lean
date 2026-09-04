@@ -396,6 +396,101 @@ theorem isGateList_shearGateList (Λ : Finset ι) : IsGateList (shearGateList R 
 
 end Affected
 
+/-! ### Section E — the layer flow, and its stabilization
+
+The gates a region can feel form a finite set, and their unitaries commute, so their product is
+well defined without choosing an order (`Finset.noncommProd`). Conjugating an observable of `Λ` by
+that product is the layer's action on it. **Stabilization** is the statement that enlarging the
+region beyond what `Λ` can feel changes nothing: the extra factors commute with the observable and
+cancel against their own adjoints. That is what turns a family of finite products into one map.
+-/
+
+section Layer
+
+variable {V : Type} [Fintype V] [DecidableEq V] [Nonempty V] [AddCommGroup V]
+variable (R : Rule ι V)
+
+/-- The unitary of a gate is a self-adjoint-unitary's one-parameter unitary. -/
+theorem unit_shearGate_comm (i j : ι) (t s : ℝ) :
+    unit (shearGate R i) t * unit (shearGate R j) s
+      = unit (shearGate R j) s * unit (shearGate R i) t :=
+  unit_comm (shearGate_comm R i j) t s
+
+/-- **THE LAYER'S UNITARY FOR A REGION**: the product over the gates that region can feel, taken
+without choosing an order because they commute. -/
+noncomputable def layerU (S : Finset ι) (t : ℝ) : Quasilocal ι (V × V) :=
+  S.noncommProd (fun i => unit (shearGate R i) t)
+    (fun i _ j _ _ => unit_shearGate_comm R i j t t)
+
+@[simp] theorem layerU_empty (t : ℝ) : layerU R (∅ : Finset ι) t = 1 :=
+  Finset.noncommProd_empty _ _
+
+/-- Splitting the product over a disjoint union. -/
+theorem layerU_union {S T : Finset ι} (h : Disjoint S T) (t : ℝ) :
+    layerU R (S ∪ T) t = layerU R S t * layerU R T t :=
+  Finset.noncommProd_union_of_disjoint h _ _
+
+/-- A unitary commuting with an observable leaves it fixed under conjugation. -/
+theorem conj_eq_self_of_commute {A : Type*} [Ring A] [StarRing A] {u a : A}
+    (hu : u * star u = 1) (hc : u * a = a * u) : u * a * star u = a := by
+  rw [hc, mul_assoc, hu, mul_one]
+
+set_option maxHeartbeats 1200000 in
+/-- The layer unitary is unitary. -/
+theorem layerU_star (S : Finset ι) (t : ℝ) :
+    layerU R S t * star (layerU R S t) = 1 := by
+  classical
+  induction S using Finset.induction_on with
+  | empty => simp
+  | insert i s hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) s := by
+        simpa using hi
+      have hins : (insert i s : Finset ι) = {i} ∪ s := by
+        rw [Finset.insert_eq]
+      have hsing : layerU R ({i} : Finset ι) t = unit (shearGate R i) t := by
+        rw [layerU, Finset.noncommProd_singleton]
+      rw [hins, layerU_union R hdis, star_mul]
+      calc layerU R ({i}) t * layerU R s t * (star (layerU R s t) * star (layerU R ({i}) t))
+          = layerU R ({i}) t * (layerU R s t * star (layerU R s t)) * star (layerU R ({i}) t) := by
+            simp only [mul_assoc]
+        _ = layerU R ({i}) t * star (layerU R ({i}) t) := by rw [ih, mul_one]
+        _ = 1 := by
+            rw [hsing]
+            exact unit_mul_star_unit (shearGate_isGate R i).1 (shearGate_isGate R i).2 t
+
+/-- **THE LAYER'S ACTION ON A REGION'S OBSERVABLES.** -/
+noncomputable def layerAct (S : Finset ι) (t : ℝ) (a : Quasilocal ι (V × V)) :
+    Quasilocal ι (V × V) :=
+  layerU R S t * a * star (layerU R S t)
+
+set_option maxHeartbeats 1200000 in
+/-- **STABILIZATION.** Enlarging the set of gates beyond what the observable's region can feel does
+not change the answer: the extra gates commute with the observable and cancel. So the finite
+products over growing regions all agree, and the layer is one map rather than a family. -/
+theorem layerAct_stabilizes {Λ : Finset ι} {S : Finset ι} (hS : affected R Λ ⊆ S)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) (t : ℝ) :
+    layerAct R S t (stage Λ X) = layerAct R (affected R Λ) t (stage Λ X) := by
+  classical
+  set A := affected R Λ with hA
+  set W := S \ A with hW
+  have hdis : Disjoint A W := Finset.disjoint_sdiff
+  have hSU : S = A ∪ W := by
+    rw [hW, Finset.union_sdiff_of_subset hS]
+  have hcw : layerU R W t * stage Λ X = stage Λ X * layerU R W t := by
+    rw [layerU]
+    refine (Finset.noncommProd_commute W _ _ _ fun j hj => ?_).symm
+    have hjn : j ∉ A := (Finset.mem_sdiff.mp (hW ▸ hj)).2
+    exact (unit_shearGate_comm_stage R (hA ▸ hjn) X t).symm
+  have hwu : layerU R W t * star (layerU R W t) = 1 := layerU_star R W t
+  rw [layerAct, layerAct, hSU, layerU_union R hdis, star_mul]
+  calc layerU R A t * layerU R W t * stage Λ X * (star (layerU R W t) * star (layerU R A t))
+      = layerU R A t * (layerU R W t * stage Λ X * star (layerU R W t)) * star (layerU R A t) := by
+        simp only [mul_assoc]
+    _ = layerU R A t * stage Λ X * star (layerU R A t) := by
+        rw [conj_eq_self_of_commute hwu hcw]
+
+end Layer
+
 end OIBridge.SecondOrderLayer
 
 namespace OIBridge.SecondOrderLayer
@@ -420,5 +515,9 @@ namespace OIBridge.SecondOrderLayer
 #print axioms shearGate_comm
 #print axioms unit_shearGate_comm_stage
 #print axioms isGateList_shearGateList
+#print axioms layerU_union
+#print axioms conj_eq_self_of_commute
+#print axioms layerU_star
+#print axioms layerAct_stabilizes
 
 end OIBridge.SecondOrderLayer
