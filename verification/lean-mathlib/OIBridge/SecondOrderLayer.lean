@@ -621,6 +621,201 @@ theorem layerLoc_zero (a : localAlg ι (V × V)) :
 
 end LocalMap
 
+/-! ### Section G — scalars, norm, and the extension to the quasilocal algebra
+
+Conjugation by a unitary is isometric in a C\*-algebra, so the layer extends from the dense local
+algebra to the completion by the same route Level III used for the discrete dynamics.
+-/
+
+section Extend
+
+set_option maxHeartbeats 1200000
+
+variable {V : Type} [Fintype V] [DecidableEq V] [Nonempty V] [AddCommGroup V]
+variable (R : Rule ι V)
+
+/-- **THE LAYER IS ℂ-LINEAR.** Without this the layer would be a star-ring homomorphism only; with
+it the extension below is a `ℂ`-linear `*`-automorphism of a C\*-algebra. -/
+theorem layerLoc_smul (t : ℝ) (c : ℂ) (a : localAlg ι (V × V)) :
+    layerLoc R t (c • a) = c • layerLoc R t a := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [← ofM_smul, layerLoc_ofM, layerLoc_ofM, layerAct, layerAct, map_smul]
+  simp only [mul_smul_comm, smul_mul_assoc]
+
+theorem layerLoc_sub (t : ℝ) (a b : localAlg ι (V × V)) :
+    layerLoc R t (a - b) = layerLoc R t a - layerLoc R t b := by
+  rw [sub_eq_add_neg, layerLoc_add, ← neg_one_smul ℂ b, layerLoc_smul, neg_one_smul,
+    ← sub_eq_add_neg]
+
+/-- The layer unitary is a unitary in the C\*-algebra's sense. -/
+theorem layerU_mem_unitary (S : Finset ι) (t : ℝ) :
+    layerU R S t ∈ unitary (Quasilocal ι (V × V)) :=
+  Unitary.mem_iff.mpr ⟨star_layerU_mul R S t, layerU_star R S t⟩
+
+/-- **THE LAYER IS ISOMETRIC.** Conjugation by a unitary cannot change a norm. -/
+theorem norm_layerLoc (t : ℝ) (a : localAlg ι (V × V)) :
+    ‖layerLoc R t a‖ = ‖(a : Quasilocal ι (V × V))‖ := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [layerLoc_ofM, layerAct]
+  have hU := layerU_mem_unitary R (affected R Λ) t
+  rw [CStarRing.norm_mul_mem_unitary _ (Unitary.star_mem hU),
+    CStarRing.norm_mem_unitary_mul _ hU]
+  rfl
+
+theorem isometry_layerLoc (t : ℝ) :
+    Isometry (fun a : localAlg ι (V × V) => layerLoc R t a) := by
+  refine Isometry.of_dist_eq fun a b => ?_
+  rw [dist_eq_norm, dist_eq_norm, ← layerLoc_sub, norm_layerLoc,
+    UniformSpace.Completion.norm_coe]
+
+/-- **THE LAYER ON THE QUASILOCAL ALGEBRA.** The continuous extension of the layer from the dense
+local algebra. -/
+noncomputable def layerQ (t : ℝ) : Quasilocal ι (V × V) → Quasilocal ι (V × V) :=
+  UniformSpace.Completion.extension (layerLoc R t)
+
+theorem layerQ_coe (t : ℝ) (a : localAlg ι (V × V)) :
+    layerQ R t (a : Quasilocal ι (V × V)) = layerLoc R t a :=
+  UniformSpace.Completion.extension_coe (isometry_layerLoc R t).uniformContinuous a
+
+theorem continuous_layerQ (t : ℝ) : Continuous (layerQ R t) :=
+  UniformSpace.Completion.continuous_extension
+
+theorem layerQ_stage (t : ℝ) (Λ : Finset ι)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    layerQ R t (stage Λ X) = layerAct R (affected R Λ) t (stage Λ X) := by
+  rw [stage_apply, layerQ_coe, layerLoc_ofM]
+  rfl
+
+theorem norm_layerQ (t : ℝ) (x : Quasilocal ι (V × V)) : ‖layerQ R t x‖ = ‖x‖ := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq (continuous_norm.comp (continuous_layerQ R t)) continuous_norm
+  · rw [layerQ_coe, norm_layerLoc]
+
+theorem layerQ_mul (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    layerQ R t (x * y) = layerQ R t x * layerQ R t y := by
+  refine UniformSpace.Completion.induction_on₂ x y ?_ fun a b => ?_
+  · exact isClosed_eq ((continuous_layerQ R t).comp continuous_mul)
+      (((continuous_layerQ R t).comp continuous_fst).mul
+        ((continuous_layerQ R t).comp continuous_snd))
+  · rw [← UniformSpace.Completion.coe_mul, layerQ_coe, layerQ_coe, layerQ_coe, layerLoc_mul]
+
+theorem layerQ_add (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    layerQ R t (x + y) = layerQ R t x + layerQ R t y := by
+  refine UniformSpace.Completion.induction_on₂ x y ?_ fun a b => ?_
+  · exact isClosed_eq ((continuous_layerQ R t).comp continuous_add)
+      (((continuous_layerQ R t).comp continuous_fst).add
+        ((continuous_layerQ R t).comp continuous_snd))
+  · rw [← UniformSpace.Completion.coe_add, layerQ_coe, layerQ_coe, layerQ_coe, layerLoc_add]
+
+theorem layerQ_one (t : ℝ) : layerQ R t (1 : Quasilocal ι (V × V)) = 1 := by
+  calc layerQ R t (1 : Quasilocal ι (V × V))
+      = layerQ R t ((1 : localAlg ι (V × V)) : Quasilocal ι (V × V)) := by
+        rw [UniformSpace.Completion.coe_one]
+    _ = layerLoc R t 1 := layerQ_coe R t 1
+    _ = 1 := layerLoc_one R t
+
+theorem layerQ_zero_time (x : Quasilocal ι (V × V)) : layerQ R 0 x = x := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq (continuous_layerQ R 0) continuous_id
+  · rw [layerQ_coe, layerLoc_zero]
+
+
+/-! #### Strong continuity
+
+A C\*-dynamics needs more than continuity in the observable at each fixed time: it needs
+`t ↦ α_t(A)` continuous for every `A`. For a local observable only finitely many gate exponentials
+occur, and each is an explicit polynomial in `t` through `Complex.exp`, so continuity is immediate.
+The uniform isometry bound then lifts it to the whole quasilocal algebra.
+-/
+
+theorem continuous_unit_shearGate (i : ι) :
+    Continuous fun t : ℝ => unit (shearGate R i) t := by
+  unfold unit
+  fun_prop
+
+theorem continuous_layerU (S : Finset ι) :
+    Continuous fun t : ℝ => layerU R S t := by
+  classical
+  induction S using Finset.induction_on with
+  | empty =>
+      simpa using continuous_const
+  | insert i s hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) s := by simpa using hi
+      have hins : (insert i s : Finset ι) = {i} ∪ s := by rw [Finset.insert_eq]
+      have hsing : ∀ t : ℝ, layerU R ({i} : Finset ι) t = unit (shearGate R i) t := fun t => by
+        rw [layerU, Finset.noncommProd_singleton]
+      simp only [hins, fun t => layerU_union R hdis t, hsing]
+      exact (continuous_unit_shearGate R i).mul ih
+
+/-- **STRONG CONTINUITY ON LOCAL OBSERVABLES.** -/
+theorem continuous_layerLoc (a : localAlg ι (V × V)) :
+    Continuous fun t : ℝ => layerLoc R t a := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  simp only [fun t => layerLoc_ofM R t Λ X, layerAct]
+  exact ((continuous_layerU R (affected R Λ)).mul continuous_const).mul
+    (continuous_star.comp (continuous_layerU R (affected R Λ)))
+
+theorem layerQ_smul (t : ℝ) (c : ℂ) (x : Quasilocal ι (V × V)) :
+    layerQ R t (c • x) = c • layerQ R t x := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq ((continuous_layerQ R t).comp (continuous_id.const_smul c))
+      ((continuous_layerQ R t).const_smul c)
+  · rw [← UniformSpace.Completion.coe_smul, layerQ_coe, layerQ_coe, layerLoc_smul]
+
+theorem layerQ_star (t : ℝ) (x : Quasilocal ι (V × V)) :
+    layerQ R t (star x) = star (layerQ R t x) := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq ((continuous_layerQ R t).comp continuous_star)
+      (continuous_star.comp (continuous_layerQ R t))
+  · rw [star_coe, layerQ_coe, layerQ_coe, layerLoc_star]
+
+theorem layerQ_sub (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    layerQ R t (x - y) = layerQ R t x - layerQ R t y := by
+  rw [sub_eq_add_neg, layerQ_add, ← neg_one_smul ℂ y, layerQ_smul, neg_one_smul,
+    ← sub_eq_add_neg]
+
+/-- The layer maps are uniformly isometric in the time parameter, which is what lets strong
+continuity pass from the dense local algebra to the whole completion. -/
+theorem dist_layerQ (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    dist (layerQ R t x) (layerQ R t y) = dist x y := by
+  rw [dist_eq_norm, dist_eq_norm, ← layerQ_sub, norm_layerQ]
+
+/-- **STRONG CONTINUITY.** `t ↦ α_t(A)` is continuous for every quasilocal `A`, not only for local
+ones: the maps are uniformly isometric, so continuity passes to the completion. -/
+theorem continuous_layerQ_time (x : Quasilocal ι (V × V)) :
+    Continuous fun t : ℝ => layerQ R t x := by
+  refine continuous_iff_continuousAt.mpr fun t₀ => Metric.continuousAt_iff.mpr fun ε hε => ?_
+  have hx : x ∈ closure (Set.range ((↑) : localAlg ι (V × V) → Quasilocal ι (V × V))) := by
+    rw [UniformSpace.Completion.denseRange_coe.closure_eq]
+    trivial
+  obtain ⟨a, ha⟩ := Metric.mem_closure_range_iff.mp hx (ε / 3) (by positivity)
+  obtain ⟨δ, hδ, hball⟩ :=
+    Metric.continuousAt_iff.mp ((continuous_layerLoc R a).continuousAt (x := t₀))
+      (ε / 3) (by positivity)
+  refine ⟨δ, hδ, fun {t} ht => ?_⟩
+  have h1 : dist (layerQ R t x) (layerQ R t (a : Quasilocal ι (V × V))) < ε / 3 := by
+    rw [dist_layerQ]; exact ha
+  have h2 : dist (layerQ R t₀ (a : Quasilocal ι (V × V))) (layerQ R t₀ x) < ε / 3 := by
+    rw [dist_layerQ, dist_comm]; exact ha
+  have h3 : dist (layerQ R t (a : Quasilocal ι (V × V))) (layerQ R t₀ (a : Quasilocal ι (V × V)))
+      < ε / 3 := by
+    rw [layerQ_coe, layerQ_coe]; exact hball ht
+  calc dist (layerQ R t x) (layerQ R t₀ x)
+      ≤ dist (layerQ R t x) (layerQ R t (a : Quasilocal ι (V × V)))
+        + dist (layerQ R t (a : Quasilocal ι (V × V))) (layerQ R t₀ x) := dist_triangle _ _ _
+    _ ≤ dist (layerQ R t x) (layerQ R t (a : Quasilocal ι (V × V)))
+        + (dist (layerQ R t (a : Quasilocal ι (V × V))) (layerQ R t₀ (a : Quasilocal ι (V × V)))
+          + dist (layerQ R t₀ (a : Quasilocal ι (V × V))) (layerQ R t₀ x)) := by
+        gcongr
+        exact dist_triangle _ _ _
+    _ < ε / 3 + (ε / 3 + ε / 3) := by gcongr
+    _ = ε := by ring
+
+end Extend
+
 end OIBridge.SecondOrderLayer
 
 namespace OIBridge.SecondOrderLayer
@@ -658,5 +853,25 @@ namespace OIBridge.SecondOrderLayer
 #print axioms layerLoc_one
 #print axioms layerLoc_star
 #print axioms layerLoc_zero
+#print axioms layerLoc_smul
+#print axioms layerLoc_sub
+#print axioms layerU_mem_unitary
+#print axioms norm_layerLoc
+#print axioms isometry_layerLoc
+#print axioms layerQ_coe
+#print axioms layerQ_stage
+#print axioms norm_layerQ
+#print axioms layerQ_mul
+#print axioms layerQ_add
+#print axioms layerQ_one
+#print axioms layerQ_zero_time
+#print axioms continuous_unit_shearGate
+#print axioms continuous_layerU
+#print axioms continuous_layerLoc
+#print axioms layerQ_smul
+#print axioms layerQ_star
+#print axioms layerQ_sub
+#print axioms dist_layerQ
+#print axioms continuous_layerQ_time
 
 end OIBridge.SecondOrderLayer
