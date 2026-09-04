@@ -1,63 +1,84 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""CT3-R2B step 1: the exact local-centralizer basis, and the first-moment test that fails.
+"""CT3-R2B step 1: the exact centralizer basis, and a first-moment obstruction at width 2.
 
 CT3-R1 certified that the width-2 local centralizer of the update permutation P is 7-dimensional
-over Q. CT3-R2A killed the function-of-P branch, leaving exactly 1 of those 7 dimensions (the
-identity) spectral and 6 acting nontrivially inside degenerate P-eigenspaces. R2-B is the question
-of whether any of those 6 directions can carry a static local generator, and everything in it
-consumes one artifact: an EXACT basis of that space. This probe builds and freezes it.
+over Q. CT3-R2A killed the function-of-P branch, leaving 1 spectral direction (the identity) and 6
+acting inside degenerate P-eigenspaces. R2-B asks whether any of those can carry a static local
+generator. Everything in it consumes one artifact -- an exact basis of that space -- so the basis is
+built and frozen here, and then the cheapest necessary condition is applied to it exactly.
 
-WHAT IS BUILT. Integer coefficient vectors h spanning the centralizer, each verified against EVERY
-defining equation exactly over Z -- no modular step in the certificate. Their images are
-Q-independent because their reductions are independent mod p, and the count matches the R1 census
-dimension, so the basis is complete and not merely contained.
+THE ARITHMETIC CONDITION. exp(-iH) = exp(i theta) P with P^m = I gives exp(-i m H) = exp(i m theta)I,
+so every eigenvalue of H lies in the SINGLE lattice -theta + (2 pi/m) Z rather than in m separate
+2 pi-cosets. The eigenspaces only fix which residue class each block occupies: on the omega^r block
+the integer n in nu = -theta + (2 pi/m) n satisfies n = -r (mod m). So within a block eigenvalue
+differences are multiples of 2 pi, and only between blocks does the finer 2 pi/m spacing appear.
 
-THE ARITHMETIC CONDITION R2-B HAS TO SATISFY. If exp(-iH) = exp(i theta) P and P^m = I then
-exp(-i m H) = exp(i m theta) I, so EVERY eigenvalue of H lies in
+Summing over a block gives, with t the single offset absorbing both the scalar part of H and theta,
 
-    -theta + (2 pi / m) Z,
+    tr(Pi_r H) + t d_r + 2 pi r d_r / m  in  2 pi Z,
 
-one global arithmetic lattice rather than m separate 2 pi-cosets. The P-eigenspaces then only fix
-which residue class each block occupies: on the omega^r eigenspace the integer n in
-nu = -theta + (2 pi/m) n satisfies n = -r (mod m), so WITHIN one block the eigenvalue differences
-are multiples of 2 pi, and only BETWEEN blocks does the finer 2 pi/m spacing appear.
+which is LINEAR in the coefficients and needs no diagonalization: P^m = I makes
+Pi_r = (1/m) sum_k omega^(-rk) P^k, so every block trace is a finite Fourier transform of
+tr(P^k B) = sum_b B[sigma^k b, b] -- single matrix entries summed along orbits, nonzero only where
+(sigma^k b, b) is a local pair. Those are exact integers here, and the tie to R2-A is direct: its
+displacement witnesses are the statement that many of them vanish.
 
-THE CHEAPEST TEST, AND WHY IT DOES NOT WORK HERE. Summing that condition over a block gives, with
-t the single offset that absorbs both the scalar part of H and theta,
+THE SEARCH SPACE IS HERMITIAN, AND SPLITS. The centralizer is a complex space closed under
+transpose, so it splits into a real-symmetric part and a real-antisymmetric part, and its HERMITIAN
+elements are (real-symmetric) + i(real-antisymmetric). The two sectors behave differently under the
+block traces: for real-symmetric S the projector identity gives T_{m-r}(S) = T_r(S), while for
+i times a real-antisymmetric A one gets T_{m-r}(iA) = -T_r(iA). Getting this wrong is the easy
+mistake here -- a witness built for the symmetric sector does not annihilate the antisymmetric one.
+At width 2 the question is settled by computation rather than assumed: the antisymmetric sector's
+block traces are IDENTICALLY ZERO at both volumes, so the symmetric analysis covers the whole
+Hermitian space. That computed fact is what confines this round to width 2.
 
-    tr(Pi_r B(a)) + t d_r + 2 pi r d_r / m  in  2 pi Z,
+THE OBSTRUCTION. Because complex-conjugate eigenvalues of a real matrix have equal multiplicities,
+d_{m-r} = d_r, and the integer covector k = e_{m-r} - e_r annihilates every Hermitian block-trace
+column. Applying it to the condition above leaves
 
-which is LINEAR in the coefficient vector a and needs no diagonalization: since P^m = I the
-spectral projector is Pi_r = (1/m) sum_k omega^(-rk) P^k, so every block trace is a finite Fourier
-transform of the numbers tr(P^k B) = sum_b B[sigma^k b, b] -- single matrix entries summed along
-orbits, nonzero only where (sigma^k b, b) is a local pair. Those are computed here as exact
-integers.
+    (m - 2r) d_r / m  in  Z,
 
-The test then fails to bite, and that is this probe's actual finding. The map sending a direction in
-the 7-dimensional centralizer to its vector of block traces has rank
+with no free parameters left. When that fails for some r, no Hermitian H in the space -- of any
+coefficients, with the offset free -- can satisfy even the first moment of the spectrum condition.
+It fails for the corpus rule at both volumes tested:
 
-    2  at L = 5   (5 of the 7 directions have every block trace zero or dependent)
-    1  at L = 6   (6 of the 7 directions are invisible)
+    L = 5:  m = 10,  r = 1,  d_1 = 51   ->  8 * 51 / 10 = 204/5   not an integer
+    L = 6:  m = 6,   r = 1,  d_1 = 670  ->  4 * 670 / 6 = 1340/3  not an integer
 
-So first moments see almost nothing of the space they are supposed to constrain, and the k = 1
-block-trace test cannot decide R2-B at either volume. Escalation to the second block moments
-tr(Pi_r H^2) is mandatory rather than optional. Recording that here saves the next round from
-starting at k = 1 and concluding nothing.
+so WIDTH-2 R2-B IS OBSTRUCTED AT L = 5 AND L = 6. The certificate is the integer covector, checked
+against every column, so the negative is exact and needs no search.
 
-WHAT IS PINNED. The first-moment subspace -- the row space of the block-trace vectors, in canonical
-reduced form over Q -- is an invariant of the centralizer space, not of the basis chosen for it. It
-is checked against stored values so that a later change to the basis construction cannot silently
-move the object every subsequent round is about.
+THE CONTROL, WHICH IS WHAT MAKES THE NEGATIVE READABLE. The two rules whose leap is on-site provably
+DO admit a static local generator, and the test does NOT obstruct them: their update has m = 2, so
+the only indices are r = 0 and r = m/2 = 1 and there is no conjugate pair with r != 0, m/2 to build
+a witness from. A test that obstructed those would be wrong, and this one does not.
+
+RANK WAS THE WRONG DIAGNOSTIC. The map from a centralizer direction to its block-trace vector has
+rank 2 at L = 5 and 1 at L = 6, against a space of dimension 7. Read alone that looks like a weak
+test -- most directions invisible. It is the opposite: a low-rank trace map means the coefficients
+have almost no influence on the block traces, so the residue condition falls back on the block
+dimensions alone and becomes HARDER to satisfy, not easier. Rank plus affine lattice arithmetic is
+decisive here; rank by itself is not a diagnostic at all.
+
+SCOPE TOKENS, so the lint does not depend on prose:
+
+    SCOPE-TOKEN: W2-OBSTRUCTED        width 2 fails the first-moment condition at L = 5 and L = 6
+    SCOPE-TOKEN: WIDER-RANGE-OPEN     w >= 3 is untouched; the antisymmetric fact is width-2 only
+    SCOPE-TOKEN: CT3-OPEN             CT3 itself is not settled by this round
+    SCOPE-TOKEN: FINITE-VOLUME-ONLY   finite periodic lattices; no infinite-volume claim
 
   C1  an exact integer basis, every element verified to commute with P over Z
-  C2  the basis is complete: its rank matches the R1 census dimension, so 7 = 1 + 6 with the
-      identity spectral and 6 directions left for R2-B
+  C2  the basis is complete: its rank matches the R1 census dimension, so 7 = 1 + 6
   C3  the identity lies in the span, so "modulo scalars" is well defined
   C4  the block traces tr(P^k B) are exact integers, computed without diagonalizing
-  C5  THE FINDING: the first-moment map has rank 2 at L = 5 and rank 1 at L = 6, so the k = 1
-      test cannot decide R2-B and second moments are required
-  C6  the first-moment subspace, canonical over Q, pinned against stored values
+  C5  the Hermitian sector split, and the computed fact the obstruction rests on: the
+      antisymmetric sector has identically zero block traces at width 2
+  C6  THE OBSTRUCTION: an integer covector annihilating every Hermitian block-trace column
+      whose pairing with the residue vector is not an integer, at L = 5 and L = 6
+  C7  CONTROL: the on-site rules, which do have static local generators, are NOT obstructed
+  C8  the first-moment subspace, canonical over Q, pinned against stored values
 """
 
 import sys
@@ -202,6 +223,74 @@ def identity_vector(lat, ans):
     return hv
 
 
+
+def block_dims(lat, perm, m):
+    """Multiplicity of the eigenvalue omega^r, from the cycle structure alone."""
+    from collections import Counter
+    import math as _m
+    seen = [False] * lat.N
+    lens = []
+    for i in range(lat.N):
+        if seen[i]:
+            continue
+        c, j = 0, i
+        while not seen[j]:
+            seen[j] = True
+            j = perm[j]
+            c += 1
+        lens.append(c)
+    cnt = Counter(lens)
+    return [sum(k for d, k in cnt.items() if d % (m // _m.gcd(r, m) if r else 1) == 0)
+            for r in range(m)]
+
+
+def dft_real(t, m):
+    """T_r = (1/m) sum_k omega^(-rk) t_k, as exact integers where it is one."""
+    import cmath
+    import math as _m
+    out = []
+    for r in range(m):
+        z = sum(cmath.exp(-2j * _m.pi * r * k / m) * t[k] for k in range(m)) / m
+        v = round(z.real)
+        if abs(z.real - v) > 1e-6 or abs(z.imag) > 1e-6:
+            return None
+        out.append(v)
+    return out
+
+
+def sector_parts(lat, ans, hv):
+    """Real-symmetric and real-antisymmetric parts of a coefficient vector, kept integral."""
+    sym = [0] * ans.U
+    asym = [0] * ans.U
+    for x in range(lat.L):
+        for u in range(ans.Dw):
+            for v in range(ans.Dw):
+                a, b = ans.key(x, u, v), ans.key(x, v, u)
+                sym[a] = hv[a] + hv[b]
+                asym[a] = hv[a] - hv[b]
+    return sym, asym
+
+
+def obstruction_witness(d, cols, m):
+    """k = e_(m-r) - e_r annihilating every column, with k . u not an integer.
+
+    Returns (r, k, k_dot_u) or None. The pairing is (m - 2r) d_r / m, so the test is exact.
+    """
+    u = [Fraction(r * d[r], m) for r in range(m)]
+    for r in range(1, m):
+        if 2 * r == m:
+            continue
+        k = [0] * m
+        k[m - r] += 1
+        k[r] -= 1
+        if any(sum(k[j] * c[j] for j in range(m)) for c in cols):
+            continue
+        val = sum(Fraction(k[j]) * u[j] for j in range(m))
+        if val.denominator != 1:
+            return r, k, val
+    return None
+
+
 PINNED = {
     (5, 2, 2): ((Fraction(1), Fraction(0), Fraction(1, 256), Fraction(0), Fraction(1, 256),
                  Fraction(1, 2), Fraction(1, 256), Fraction(0), Fraction(1, 256), Fraction(0)),
@@ -255,22 +344,69 @@ def main():
           + "; ".join(f"L={L}: ord={data[(L,q,w)][5]}" for (L, q, w) in cases))
 
     ranks = {(L, q, w): rank_Q(d[6])[0] for (L, q, w), d in data.items()}
-    ok = ranks[(5, 2, 2)] == 2 and ranks[(6, 2, 2)] == 1
+    sectors = {}
+    for (L, q, w), (lat, ans, B, target, perm, m, T) in data.items():
+        S, A = zip(*(sector_parts(lat, ans, hv) for hv in B))
+        tS = [block_traces(lat, ans, h, m, perm) for h in S]
+        tA = [block_traces(lat, ans, h, m, perm) for h in A]
+        sectors[(L, q, w)] = (rank_Q(tS)[0], rank_Q(tA)[0], tS, tA)
+    ok = all(rA == 0 for (_, rA, _, _) in sectors.values())
     check('C5', ok,
-          f"THE FINDING. The map from a centralizer direction to its vector of block traces has "
-          f"rank {ranks[(5,2,2)]} at L = 5 and {ranks[(6,2,2)]} at L = 6, against a space of "
-          f"dimension 7. So {7-ranks[(5,2,2)]} and {7-ranks[(6,2,2)]} of the seven directions are "
-          f"INVISIBLE to first moments, and the linear k = 1 block-trace test -- the cheapest form "
-          f"of the arithmetic spectrum condition -- cannot decide R2-B at either volume. "
-          f"Escalation to the second block moments tr(Pi_r H^2) is mandatory, not optional. This "
-          f"is a fact about the test, not about whether a static generator exists")
+          f"the Hermitian search space splits: the centralizer is closed under transpose, so its "
+          f"Hermitian elements are (real-symmetric) + i(real-antisymmetric), and the two sectors "
+          f"behave oppositely under the block traces -- T_(m-r) = +T_r on the first, -T_r on the "
+          f"second. At width 2 the antisymmetric sector has IDENTICALLY ZERO block traces "
+          f"(rank {[sectors[k][1] for k in sectors]}), so the symmetric analysis covers the whole "
+          f"Hermitian space. That is a computed fact, not an assumption, and it is what confines "
+          f"this round to width 2. The symmetric sector has rank "
+          f"{[sectors[k][0] for k in sectors]}, matching the full trace-map ranks "
+          f"{[ranks[k] for k in sorted(ranks)]}")
+
+    obstr = {}
+    for (L, q, w), (lat, ans, B, target, perm, m, T) in data.items():
+        d = block_dims(lat, perm, m)
+        herm = [c for c in (dft_real(t, m) for t in sectors[(L, q, w)][2]) if c is not None]
+        herm += [[0] * m for _ in sectors[(L, q, w)][3]]
+        obstr[(L, q, w)] = (m, d, obstruction_witness(d, herm, m))
+    ok = all(o[2] is not None for o in obstr.values())
+    detail = "; ".join(
+        f"L={L}: m={o[0]}, r={o[2][0]}, d_r={o[1][o[2][0]]}, k=e_(m-r)-e_r, k.u={o[2][2]}"
+        for (L, q, w), o in sorted(obstr.items()))
+    check('C6', ok,
+          f"THE OBSTRUCTION. Conjugate eigenvalues of a real matrix have equal multiplicities, so "
+          f"d_(m-r) = d_r and the integer covector k = e_(m-r) - e_r annihilates every Hermitian "
+          f"block-trace column. Applying it to the block condition leaves (m - 2r) d_r / m in Z "
+          f"with NO free parameters, and that fails: {detail}. So no Hermitian H in the width-2 "
+          f"local centralizer -- any coefficients, offset free -- satisfies even the first moment "
+          f"of the spectrum condition. WIDTH-2 R2-B IS OBSTRUCTED at both volumes, by an exact "
+          f"integer certificate rather than a search")
+
+    # The control needs no basis. A witness has to annihilate EVERY column, so testing against
+    # FEWER columns can only make witnesses easier to find -- the conservative direction. The
+    # identity is always in the centralizer and its block-trace column is exactly (d_r), so if no
+    # witness survives even that single constraint, none survives the full space.
+    ctl = {}
+    for rule in ('zero', 'diag'):
+        for (L, q, w) in cases:
+            lat = Lat(L, q, rule)
+            perm, m = orbit(lat)
+            d = block_dims(lat, perm, m)
+            ctl[(rule, L)] = (m, obstruction_witness(d, [d], m))
+    ok = all(v[1] is None for v in ctl.values())
+    check('C7', ok,
+          f"CONTROL, and what makes the negative readable. The two rules whose leap is on-site "
+          f"provably DO admit a static local generator, and the test does NOT obstruct them: their "
+          f"update has m = 2, so the only indices are r = 0 and r = m/2 and there is no conjugate "
+          f"pair to build a witness from ({', '.join(f'{r} L={L}: m={v[0]}, no witness' for (r, L), v in sorted(ctl.items()))}). "
+          f"A test that obstructed a rule with a generator sitting in plain sight would be wrong; "
+          f"this one does not")
 
     ok = True
     for key, pin in PINNED.items():
         if key in data:
             got = canonical_rowspace(data[key][6], data[key][5])
             ok &= (got == pin)
-    check('C6', ok,
+    check('C8', ok,
           "the first-moment subspace -- the row space of the block-trace vectors in canonical "
           "reduced form over Q -- is an invariant of the centralizer space rather than of the "
           "basis chosen for it, and it matches the pinned value, so a later change to the basis "
