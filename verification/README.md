@@ -502,6 +502,28 @@ unclaimed is the group law for the composite, and any generator. The finite-rang
 the first entry anticipated is load-bearing here and is carried as a field of the `Rule` structure
 rather than as an ambient assumption.
 
+The third entry opens CT3, restated in the form the infinite lattice permits. An extensive
+Hamiltonian is not an element of the quasilocal algebra, so the target is not `H` with
+`e^{iH} = U` but **one time-independent finite-range interaction whose automorphism group `τ_t`
+satisfies `τ_1 = heisQ(Φ_OI)`**. CT2 already settles part of it: each layer *separately* is
+autonomously generated, so CT3 asks whether the composite of two autonomously generated local
+flows is itself autonomously generated locally — the Floquet-versus-static question.
+`verification/lean/static_generator_probe.py` runs the cheapest necessary test before any
+logarithm. An autonomous flow makes its generator a conserved quantity of one discrete step, so on
+a finite periodic lattice `P† H P = H` for `H = Σ_x h_x` of width `w`; the census dimension is the
+nullity of that system minus the closed-form redundancy of the parametrization, with ranks exact
+over `GF(p)` in the direction an obstruction needs. Because `P` is a permutation matrix the
+centralizer splits into a diagonal part (conserved classical densities) and an off-diagonal part,
+and a diagonal `H` exponentiates to a diagonal unitary — so an autonomous local generator needs
+off-diagonal weight. For the corpus rule the census gives 1, 7 and 25 at `w = 1, 2, 3`, splitting
+as 1+0, 3+4 and 5+20, stable in `L`, and confirmed at `w ≤ 2` by explicit matrices checked entry by
+entry. **The centralizer test therefore does not obstruct**: candidates survive and the exponential
+condition has to be tested. Controls make that readable — two rules whose leap is on-site, which
+provably do admit a static generator, give dimensions 37 and 505, so the method detects generators
+where they must exist, while a one-sided coupled control gives 1. The census is run at `w ≤ 3` and
+is not a statement about all finite ranges; nothing claims a static generator exists, and a
+negative CT3 would not obstruct continuous-time evolution in the ordinary time-dependent sense.
+
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general
 orbit theorem, the closed-subgroup theorem, or anything about non-compact groups; that the
