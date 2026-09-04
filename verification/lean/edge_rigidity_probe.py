@@ -2104,6 +2104,28 @@ for _bad in ('driveQ_add_time', 'driveQ_left_inverse (t s', 'one-parameter group
 for _f in (_sol, _swl, _sod):
     ok_ct2 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _f) is None
     ok_ct2 &= re.search(r'(?m)^axiom ', _f) is None and 'native_decide' not in _f
+_NOCLAIM = ('not claimed', 'Not claimed', 'does not claim', 'neither claims', 'remains open',
+            'remains OPEN', 'is not settled', 'never claims', 'must not be read',
+            'does not say', 'not claim')
+
+
+def _asserted(text, phrase, markers=_NOCLAIM):
+    """True when the phrase appears in some paragraph that does NOT disclaim it.
+
+    The enclosing markdown heading counts as context, because a non-claim list is written under a
+    "what this does not claim" heading and the heading is its own paragraph. Without that, an
+    honest disclaimer trips the guard built to protect it.
+    """
+    head = ''
+    for para in text.split('\n\n'):
+        stripped = para.strip()
+        if stripped.startswith('#'):
+            head = stripped
+        if phrase in para and not any(k in (head + ' ' + para) for k in markers):
+            return True
+    return False
+
+
 # ---- CT3 guard: the centralizer census must be reported as a NECESSARY condition only ----
 _sg = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'static_generator_probe.py'),
            encoding='utf-8').read()
@@ -2131,7 +2153,7 @@ ok_ct3 &= 'periodize' in _sg and 'periodization' in _cta
 # no claim that a static generator exists, in the probe or in the audit
 for _bad in ('a static local generator exists', 'CT3 is answered', 'CT3 closed',
              'autonomous generator found'):
-    ok_ct3 &= _bad not in _sg and _bad not in _cta
+    ok_ct3 &= not _asserted(_sg, _bad) and not _asserted(_cta, _bad)
 # the audit must keep CT3 open and must not read the passed necessary condition as evidence
 ok_ct3 &= 'passed, not failed' in _cta
 ok_ct3 &= 'Floquet' in _cta
@@ -2176,22 +2198,31 @@ check('R7-FWD', ok_fr,
       'would let the guarded sentences escape through the very words that make them dangerous.')
 
 # ---- CT3-R2A guard: a dead branch must not be read as a closed question ----
+# The positive requirements are checked against SCOPE TOKENS rather than prose, so that rewording
+# a sentence cannot silently disarm the guard. The forbidden phrases are checked PER PARAGRAPH and
+# only count as asserted when the paragraph carries no non-claim marker -- otherwise an honest
+# "not claimed: that CT3 is settled" trips the guard that exists to protect it, which is exactly
+# what happened the first time this was written.
 _sl = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'spectral_logarithm_probe.py'),
            encoding='utf-8').read()
 ok_ct3b = True
-# the split into the function-of-P branch and the degenerate-eigenspace branch must be stated
-ok_ct3b &= 'R2-A' in _sl and 'R2-B' in _sl
-ok_ct3b &= 'FUNCTION OF P' in _sl and 'degenerate' in _sl
-# the certificate, and the reason it reaches every width rather than stopping at w = 3
+# machine-readable scope, not prose
+for _tok in ('R2A-NEGATIVE', 'R2B-OPEN', 'CT3-OPEN', 'NO-OBSTRUCTION-CLAIM',
+             'FINITE-VOLUME-ONLY'):
+    ok_ct3b &= ('SCOPE-TOKEN: ' + _tok) in _sl
+# the split, the certificate, and the control that stops the negative being over-read
+ok_ct3b &= 'R2-A' in _sl and 'R2-B' in _sl and 'degenerate' in _sl
 ok_ct3b &= 'full-period' in _sl and 'no width-w window' in _sl
-# the scope control is the load-bearing part: it is what stops the negative being over-read
 ok_ct3b &= 'SCOPE CONTROL' in _sl
-ok_ct3b &= 'never the existence of one' in _sl
-ok_ct3b &= 'CT3 itself remains OPEN' in _sl
-# and no claim that CT3 is settled
+# the six dimensions are dimensions of H, not of K: H_0 is a spectral function of P and so is
+# nonlocal by this very round, which makes K = (H - H_0)/2pi not necessarily local
+ok_ct3b &= 'dimensions of H' in _sl and 'need not be local' in _sl
+# and the fixed-volume qualification: stable dimension is not compatible solution directions
+ok_ct3b &= 'FIXED-VOLUME' in _sl and 'site-dependent' in _sl
+# no claim that CT3 is settled, unless the paragraph disclaims it
 for _bad in ('CT3 is closed', 'CT3 is settled', 'no static generator exists',
              'rules out a static generator'):
-    ok_ct3b &= _bad not in _sl and _bad not in _cta
+    ok_ct3b &= not _asserted(_sl, _bad) and not _asserted(_cta, _bad)
 ok_ct3b &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sl) is None
 check('R7-CT3B', ok_ct3b,
       'CT3-R2A scope guard: the spectral-logarithm probe splits CT3 into the function-of-P branch '

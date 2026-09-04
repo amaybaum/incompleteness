@@ -542,7 +542,11 @@ rational solve. The spectral logarithm branch is dead. **It closes nothing**, an
 what shows it: the on-site rules, which provably do have static local generators, return the same
 answer, because for them the generator is a sum while `P` is a product and so is not a function of
 `P` at all. Six of R1's seven width-2 dimensions act inside degenerate eigenspaces and remain the
-open case.
+open case: a six-parameter family of local Hermitian `H` modulo scalars, each required to have on
+every `P`-eigenspace a spectrum inside the corresponding `2π`-lattice coset. Those are dimensions
+of `H` and not of `K` — writing `H = H₀ + 2πK` is spectral bookkeeping, and `H₀` is a spectral
+function of `P` and so nonlocal by this very round — and six is a fixed-volume count, since a
+stable dimension does not show the solution directions are compatible across volumes.
 
 `OI-CORE-FORWARD-REDUNDANCY.md` freezes one reading of the finite equivalence, because the theorem
 admits a stronger paraphrase than the formalization supports. Three statements, and only these

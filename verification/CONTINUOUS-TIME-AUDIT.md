@@ -463,12 +463,34 @@ So a negative here rules out one route to a static generator, never the existenc
 reading `S_w = ℝ·I` as closing CT3 is contradicted by a rule whose generator is sitting in plain
 sight.
 
-### Where CT3 now stands
+### Where CT3 now stands, stated carefully
 
 R1 gives 7 dimensions of width-2 local operators commuting with `P`; R2-A gives exactly 1 of them
 as a function of `P`. So **6 dimensions act nontrivially inside degenerate `P`-eigenspaces**, and
-those are precisely the R2-B candidates. The condition left on them is integer spectrum, which is
-not linear — which is why the decomposition was worth making before attacking it.
+those are the R2-B candidates:
+
+> a **six-parameter family of local Hermitian `H`, modulo scalars, commuting with `P`**, each of
+> which must have, on every `P`-eigenspace `E_j`, all its eigenvalues in the corresponding
+> `2π`-lattice coset `−θ − φ_j + 2πℤ`.
+
+Two things about that sentence are load-bearing.
+
+**They are dimensions of `H`, not of `K`.** Writing `H = H₀ + 2πK` is spectral bookkeeping only.
+`H₀` is a nontrivial spectral function of `P` — which is exactly what this entry has just shown is
+**not local** — so `K = (H − H₀)/2π` need not be local either, and the six dimensions must not be
+described as six dimensions of `K`. The locality lives on `H` and nowhere else.
+
+**Six is a fixed-volume count.** R1 found the dimension stable across several `L`, but stability of
+a *dimension* does not show that the solution *directions* are compatible across volumes, and the
+R1 ansatz permits site-dependent local terms — so the `L = 5` and `L = 6` spaces must not be
+silently identified as copies of one translation-invariant density. CT3 asks for one finite-range
+interaction on the **infinite** lattice. The periodization and cross-volume compatibility bridge
+recorded in the third entry becomes load-bearing the moment a finite-`L` R2-B failure is offered as
+an infinite-volume no-go; it is not load-bearing here, because this entry makes no obstruction
+claim.
+
+The remaining condition is not linear, which is why the decomposition was worth making before
+attacking it.
 
 ### What the fourth entry does not claim
 
@@ -489,6 +511,6 @@ methods; it is not linear, and the round does not pretend otherwise.
 | CT3. One time-independent finite-range interaction with `τ_1 = heisQ(Φ_OI)` | **open** |
 | CT3-R1. The centralizer necessary condition | **passed, not failed**: certified off-diagonal survivors at `w = 2, 3` |
 | CT3-R2A. The function-of-`P` branch | **decided negatively**: `S_w = ℝ·I` at every `w ≤ L−1`. Does **not** close CT3 — the on-site control has a static generator and returns the same answer |
-| CT3-R2B. Generators acting inside degenerate eigenspaces | **open**, and the next task. 6 of R1's 7 dimensions live here; the condition is integer spectrum, not linear |
+| CT3-R2B. Generators acting inside degenerate eigenspaces | **open**, and the next task. A six-parameter family of local Hermitian `H` modulo scalars at fixed `L`; the condition is that each `P`-eigenspace's spectrum lies in its `2π`-lattice coset. Not linear, and a fixed-volume count |
 | CT3'. A group law for the composite drive | **open**, and deliberately not asserted |
 | CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |

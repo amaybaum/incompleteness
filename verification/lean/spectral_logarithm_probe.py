@@ -8,8 +8,13 @@ stronger question. If exp(-iH) = exp(i theta) P with H Hermitian then on the lam
 P every eigenvalue of H lies in -theta - phi_j + 2 pi Z, so H is quantized. The problem splits:
 
   R2-A   H is a FUNCTION OF P,  H = sum_j mu_j Pi_j = sum_r c_r P^r.  Linear, and settled here.
-  R2-B   H acts nontrivially INSIDE degenerate P-eigenspaces.  H = H_0 + 2 pi K with [K, P] = 0,
-         K Hermitian, exp(-2 pi i K) = I, i.e. K has integer spectrum. Nonlinear, still open.
+  R2-B   H acts nontrivially INSIDE degenerate P-eigenspaces. Stated without the decomposition,
+         because the decomposition misleads: R2-B is the family of LOCAL Hermitian H commuting
+         with P, modulo scalars, such that the restriction of H to every P-eigenspace has all its
+         eigenvalues in the corresponding 2 pi-lattice coset -theta - phi_j + 2 pi Z. Writing
+         H = H_0 + 2 pi K is spectral bookkeeping only: H_0 is a nontrivial spectral function of P,
+         which is exactly what R2-A shows is NOT local, so K = (H - H_0)/2 pi need not be local
+         either and the six dimensions below are dimensions of H, never of K. Nonlinear, open.
 
 WHAT R2-A COMPUTES. The space
 
@@ -47,8 +52,27 @@ the control.
 
 WHERE THAT LEAVES CT3. R1 gives 7 dimensions of local operators commuting with P at w = 2; R2-A
 gives exactly 1 of them as a function of P. So 6 dimensions act nontrivially inside degenerate
-P-eigenspaces, and those are precisely the R2-B candidates. The remaining condition on them is
-integer spectrum, which is not linear.
+P-eigenspaces, and those are precisely the R2-B candidates: a six-parameter family of LOCAL
+Hermitian H modulo scalars, each of which must have, on every P-eigenspace, all eigenvalues in the
+corresponding 2 pi-lattice coset. Not linear.
+
+That six is a FIXED-VOLUME count and must not be read as a six-dimensional solution space for CT3
+itself. R1 found the dimension stable across several L, but stability of a dimension does not show
+that the solution DIRECTIONS are compatible across volumes, and the R1 ansatz permits
+site-dependent local terms -- so the L = 5 and L = 6 spaces must not be silently identified as
+copies of one translation-invariant density. CT3 asks for one finite-range interaction on the
+infinite lattice, and the periodization/compatibility bridge recorded in CT3-R1 becomes load-bearing
+the moment a finite-L R2-B failure is offered as an infinite-volume no-go. It is not load-bearing
+here, because this round makes no obstruction claim.
+
+SCOPE TOKENS, for the lint. These are the machine-readable form of the scope, so the guard does
+not depend on a turn of phrase that a later edit may reword:
+
+    SCOPE-TOKEN: R2A-NEGATIVE          the function-of-P branch is dead
+    SCOPE-TOKEN: R2B-OPEN              the degenerate-eigenspace branch is untouched
+    SCOPE-TOKEN: CT3-OPEN              CT3 itself is not settled by this round
+    SCOPE-TOKEN: NO-OBSTRUCTION-CLAIM  nothing here rules out a static local generator
+    SCOPE-TOKEN: FINITE-VOLUME-ONLY    finite periodic lattices; no infinite-volume claim
 
   N1  the update permutation's order, its cycle structure, and the existence of a
       full-period configuration -- which the witness argument needs and does not assume
@@ -265,8 +289,15 @@ def main():
     check('N5', cent == 7 and spec == 1,
           f"consistency with CT3-R1: at w = 2 the centralizer is {cent}-dimensional and its "
           f"function-of-P part is {spec}-dimensional, so {cent - spec} dimensions act nontrivially "
-          f"inside degenerate P-eigenspaces. Those are exactly the R2-B candidates, and the "
-          f"condition left on them -- integer spectrum for K in H = H_0 + 2 pi K -- is not linear")
+          f"inside degenerate P-eigenspaces. Those are exactly the R2-B candidates: a "
+          f"{cent - spec}-parameter family of LOCAL Hermitian H modulo scalars commuting with P, "
+          f"each of which must have, on every P-eigenspace, all eigenvalues in the corresponding "
+          f"2 pi-lattice coset. They are dimensions of H and not of K -- H_0 is a spectral "
+          f"function of P and so is nonlocal by N2/N3, which makes K = (H - H_0)/2 pi not "
+          f"necessarily local. That condition is not linear. And this is a FIXED-VOLUME count: "
+          f"dimension stability across L does not show the solution DIRECTIONS are compatible "
+          f"across volumes, and the R1 ansatz permits site-dependent terms, so the L = 5 and "
+          f"L = 6 spaces must not be silently identified as one translation-invariant density")
 
     # N6 -- the verdict
     check('N6', True,
