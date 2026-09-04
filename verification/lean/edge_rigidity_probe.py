@@ -2224,6 +2224,33 @@ for _bad in ('CT3 is closed', 'CT3 is settled', 'no static generator exists',
              'rules out a static generator'):
     ok_ct3b &= not _asserted(_sl, _bad) and not _asserted(_cta, _bad)
 ok_ct3b &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sl) is None
+# ---- CT3-R2B step-1 guard: the basis artifact, and the honest report of a weak test ----
+_cb = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'centralizer_basis_probe.py'),
+           encoding='utf-8').read()
+ok_ct3c = True
+# the basis must be exact over Z, complete against the R1 census, and quotientable by scalars
+ok_ct3c &= 'exactly over Z' in _cb and 'COMPLETE' in _cb
+ok_ct3c &= 'identity lies in the span' in _cb
+# the global quantization lemma, in the sharper single-lattice form with the block residue
+ok_ct3c &= '(2 pi / m) Z' in _cb and 'n = -r (mod m)' in _cb
+# block traces without diagonalizing, from the projector identity
+ok_ct3c &= 'sum_k omega^(-rk) P^k' in _cb and 'rather than by diagonalizing' in _cb
+# THE FINDING must be reported as a fact about the test, not about the answer
+ok_ct3c &= 'INVISIBLE to first moments' in _cb
+ok_ct3c &= 'mandatory' in _cb
+ok_ct3c &= 'fact about the test, not about whether a static generator exists' in _cb
+# the invariant is pinned, so a later basis change cannot move the object silently
+ok_ct3c &= 'PINNED' in _cb and 'invariant of the centralizer space' in _cb
+for _bad in ('R2-B is settled', 'R2-B is dead', 'no static generator exists'):
+    ok_ct3c &= not _asserted(_cb, _bad) and not _asserted(_cta, _bad)
+check('R7-CT3C', ok_ct3c,
+      'CT3-R2B step-1 guard: the centralizer basis is exact over Z, complete against the CT3-R1 '
+      'census and quotientable by scalars; the global quantization lemma is stated in its sharper '
+      'single-lattice form with the per-block residue; block traces are computed from the '
+      'projector identity rather than by diagonalizing; the rank deficiency of the first-moment '
+      'map is reported as a fact about the TEST rather than about the answer; and the '
+      'first-moment subspace is pinned as an invariant. Nothing claims R2-B is settled.')
+
 check('R7-CT3B', ok_ct3b,
       'CT3-R2A scope guard: the spectral-logarithm probe splits CT3 into the function-of-P branch '
       'and the degenerate-eigenspace branch, certifies the first dead by an explicit full-period '

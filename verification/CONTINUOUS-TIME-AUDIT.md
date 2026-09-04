@@ -514,3 +514,65 @@ methods; it is not linear, and the round does not pretend otherwise.
 | CT3-R2B. Generators acting inside degenerate eigenspaces | **open**, and the next task. A six-parameter family of local Hermitian `H` modulo scalars at fixed `L`; the condition is that each `P`-eigenspace's spectrum lies in its `2π`-lattice coset. Not linear, and a fixed-volume count |
 | CT3'. A group law for the composite drive | **open**, and deliberately not asserted |
 | CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |
+
+## Fifth entry — CT3-R2B step 1: the exact basis, and a first-moment test that does not bite
+
+`verification/lean/centralizer_basis_probe.py`.
+
+### The artifact
+
+Everything in R2-B consumes one object: an exact basis of the width-2 local centralizer. It is
+built here as integer coefficient vectors, each verified against **every** defining equation
+exactly over `ℤ` — no modular step inside the certificate — with images independent over `ℚ` and a
+count matching the CT3-R1 census, so the basis is complete rather than merely contained. The
+identity lies in its span, so `7 = 1 + 6` with the single spectral direction removed by CT3-R2A and
+six directions left as the R2-B search space, at `L = 5` and `L = 6` alike.
+
+### The arithmetic condition, in its sharper form
+
+`e^{-iH} = e^{iθ}P` with `P^m = I` gives `e^{-imH} = e^{imθ}I`, so **every eigenvalue of `H` lies in
+`−θ + (2π/m)ℤ`** — one global arithmetic lattice, not `m` separate `2π`-cosets. The eigenspaces then
+only fix which residue class each block occupies: on the `ω^r` eigenspace the integer `n` in
+`ν = −θ + (2π/m)n` satisfies `n ≡ −r (mod m)`, so **within** a block the eigenvalue differences are
+multiples of `2π`, and only **between** blocks does the finer `2π/m` spacing appear.
+
+### The cheapest test, and why it fails to bite
+
+Summing that condition over a block gives, with `t` the single offset absorbing both the scalar part
+of `H` and `θ`,
+
+> `tr(Π_r B(a)) + t·d_r + 2π r d_r/m ∈ 2πℤ`,
+
+which is **linear** in the coefficient vector and needs no diagonalization: `P^m = I` makes
+`Π_r = (1/m) Σ_k ω^{−rk} P^k`, so every block trace is a finite Fourier transform of the numbers
+`tr(P^k B) = Σ_b B[σ^k b, b]` — single matrix entries summed along orbits, nonzero only where
+`(σ^k b, b)` is a local pair. Those are computed here as exact integers, and the connection to the
+fourth entry is direct: R2-A's displacement witnesses are the statement that many of them vanish.
+
+**The finding is that the test is nearly blind.** The map from a centralizer direction to its vector
+of block traces has rank
+
+| `L` | centralizer dimension | rank of the first-moment map | directions invisible |
+|---|---|---|---|
+| 5 | 7 | 2 | 5 |
+| 6 | 7 | 1 | 6 |
+
+So the `k = 1` block-trace test — the cheapest form of the arithmetic spectrum condition — cannot
+decide R2-B at either volume, and escalation to the second block moments `tr(Π_r H²)` is mandatory
+rather than optional. This is a fact about the **test**, not about whether a static generator
+exists, and recording it saves the next round from starting at `k = 1` and concluding nothing.
+
+### What is pinned
+
+The first-moment subspace — the row space of the block-trace vectors in canonical reduced form over
+`ℚ` — is an invariant of the centralizer space rather than of the basis chosen for it, and it is
+checked against stored values, so a later change to the basis construction cannot silently move the
+object every subsequent round is about.
+
+### What the fifth entry does not claim
+
+That R2-B is settled in either direction. That the six remaining directions contain a static
+generator, or that they do not. That the first-moment rank deficiency is evidence either way — a
+weak test is weak, not informative. That any of this transports to the infinite lattice; the
+periodization and cross-volume compatibility bridge remains unbuilt and unused, and the six
+directions remain a fixed-volume count at each `L` separately.
