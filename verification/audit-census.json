@@ -1,0 +1,145 @@
+{
+  "schema": "audit-census/1",
+  "purpose": "Machine-readable provenance for corpus audits: the search vocabulary, the files and counts it hits, and the disposition recorded for each. Positive findings are reproducible from the repaired text; NEGATIVE findings -- the axes an audit reports as clean -- become reproducible too, which prose alone cannot deliver. verification/lean/audit_census_probe.py re-runs every entry and fails on any drift.",
+  "on_drift": "A mismatch is not automatically a defect: the corpus moves. Re-read the location, decide whether the audit's disposition still holds, and update `expect` in the same commit as the text change, with the reason in the commit message. Never widen a pattern to make a mismatch go away.",
+  "scope": [
+    "papers/*.md",
+    "book/*.md"
+  ],
+  "audits": [
+    {
+      "id": "A",
+      "title": "C1/C4, hidden memory, and the minimality machinery",
+      "note": "verification/C1C4-MINIMALITY-AUDIT.md",
+      "charter": "every live manuscript use of C1 coupling, C4 readback, hidden predictive memory, raw versus minimal carrier, the observability quotient, passive minimality, and claims that hidden memory or the observer distinction follows automatically",
+      "vocabularies": [
+        {
+          "id": "A1-forbidden",
+          "pattern": "Recurrence guarantees that any partition",
+          "disposition": "repaired",
+          "expect": {},
+          "why": "finding A1: the unqualified chain dropped C1. The countermodel is partition_coupling_probe.py; the repaired form is A1-required. Any reappearance is the defect returning."
+        },
+        {
+          "id": "A1-required",
+          "pattern": "Recurrence together with C1",
+          "disposition": "repaired",
+          "expect": {
+            "book/ch18-beyond.md": 1,
+            "book/The-Incompleteness-of-Observation-FULL.md": 1
+          },
+          "why": "the repair, in both parallel sources (AGENTS.md A.14). A count below 2 means a mirror lost it."
+        },
+        {
+          "id": "A1-upstream-Main",
+          "pattern": "non-permutation one-step witness",
+          "disposition": "clean",
+          "expect": {
+            "papers/Main.md": 2,
+            "book/ch01-observation.md": 1,
+            "book/The-Incompleteness-of-Observation-FULL.md": 1
+          },
+          "why": "the statement the repair restores agreement with: [Main] derives recurrence-scale P-indivisibility from finiteness together with the C1 witness, and both book sources carry the same phrase at Chapter 1 1.9."
+        },
+        {
+          "id": "A1-upstream-ch01",
+          "pattern": "and condition C1",
+          "disposition": "clean",
+          "expect": {
+            "book/ch01-observation.md": 1,
+            "book/The-Incompleteness-of-Observation-FULL.md": 1
+          },
+          "why": "Chapter 1's proof paragraph, the book-side form of the same statement."
+        },
+        {
+          "id": "A-raw-carrier",
+          "pattern": "raw carrier",
+          "disposition": "clean",
+          "expect": {},
+          "why": "no manuscript works with a raw-versus-minimal carrier distinction; the kernel's PassiveQuotient machinery underwrites no manuscript statement."
+        },
+        {
+          "id": "A-minimal-carrier",
+          "pattern": "minimal carrier",
+          "disposition": "clean",
+          "expect": {},
+          "why": "same axis: the minimal carrier is a kernel object only. A hit here means a manuscript has started leaning on it and needs a ledger entry first."
+        },
+        {
+          "id": "A-itinerary",
+          "pattern": "itinerary",
+          "disposition": "clean",
+          "expect": {},
+          "why": "itinerary separation is nowhere assumed of the substratum cut."
+        },
+        {
+          "id": "A-passive-preservation",
+          "pattern": "passive preservation",
+          "disposition": "clean",
+          "expect": {},
+          "why": "the passive-minimality vocabulary does not reach the manuscripts."
+        },
+        {
+          "id": "A-minimal-realization",
+          "pattern": "minimal realization",
+          "disposition": "clean",
+          "expect": {
+            "papers/Structure.md": 1
+          },
+          "why": "Corollary 9.8, which states the NEGATIVE -- the embedded-observer triple does not determine a unique substratum realization, non-minimal ones adding further freedom. The one licensed use."
+        },
+        {
+          "id": "A-follows-automatically",
+          "pattern": "follows automatically",
+          "disposition": "clean",
+          "expect": {
+            "papers/GR.md": 1
+          },
+          "why": "[GR] H-energy from H-spectrum, a derived redundancy correctly labelled. Not about hidden memory or the observer distinction."
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "title": "the SM/GR concrete cut",
+      "note": "verification/CONCRETE-CUT-AUDIT.md",
+      "charter": "which abstract observer, quotient, minimality and coherence hypotheses are instantiated at the concrete physical cut, as against merely available in the formal framework",
+      "vocabularies": [
+        {
+          "id": "B-cut-C1",
+          "pattern": "**(C1)**",
+          "disposition": "clean",
+          "expect": {
+            "papers/GR.md": 1
+          },
+          "why": "[GR] 2.2 verifies C1 at the cosmological cut from the ADM constraint structure, and calls it stronger than the H_int != 0 that Lemma 2 requires."
+        },
+        {
+          "id": "B-cut-C2",
+          "pattern": "**(C2)**",
+          "disposition": "clean",
+          "expect": {
+            "papers/GR.md": 1
+          },
+          "why": "[GR] 2.2 verifies C2 at the cut: tau_S/tau_B ~ 1e-32."
+        },
+        {
+          "id": "B-cut-C3",
+          "pattern": "**(C3)**",
+          "disposition": "clean",
+          "expect": {
+            "papers/GR.md": 1
+          },
+          "why": "[GR] 2.2 verifies C3 at the cut: A/epsilon^2 horizon modes against ~1e80 baryons."
+        },
+        {
+          "id": "B-cut-C4",
+          "pattern": "**(C4)**",
+          "disposition": "finding-open",
+          "expect": {},
+          "why": "finding B1: the section headed Verification of the conditions verifies three of the four. C4 has no entry at the concrete cut, while 2.1, 8.4 and 8.5 all name C1-C4, and [Main] 1.3 defers the cosmological realization -- capacity, timescales and bidirectional read-write coupling -- to the companion work. Since [Main] 3.4 derives C1 and C3 FROM C4, verifying those two cannot supply it. Disposition open pending the owner's choice of repair."
+        }
+      ]
+    }
+  ]
+}
