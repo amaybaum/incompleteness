@@ -514,3 +514,95 @@ methods; it is not linear, and the round does not pretend otherwise.
 | CT3-R2B. Generators acting inside degenerate eigenspaces | **open**, and the next task. A six-parameter family of local Hermitian `H` modulo scalars at fixed `L`; the condition is that each `P`-eigenspace's spectrum lies in its `2π`-lattice coset. Not linear, and a fixed-volume count |
 | CT3'. A group law for the composite drive | **open**, and deliberately not asserted |
 | CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |
+
+## Fifth entry — CT3-R2B step 1: the exact basis, and a width-2 first-moment obstruction
+
+`verification/lean/centralizer_basis_probe.py`.
+
+### The artifact
+
+Everything in R2-B consumes one object: an exact basis of the width-2 local centralizer. It is
+built as integer coefficient vectors, each verified against **every** defining equation exactly over
+`ℤ` — no modular step inside the certificate — with images independent over `ℚ` and a count matching
+the CT3-R1 census, so the basis is complete rather than merely contained. The identity lies in its
+span, so `7 = 1 + 6` with the single spectral direction removed by CT3-R2A.
+
+### The condition, and the sector split that decides how to test it
+
+`P^m = I` turns `e^{-iH} = e^{iθ}P` into `e^{-imH} = e^{imθ}I`, so every eigenvalue of `H` lies in
+the **single** lattice `−θ + (2π/m)ℤ`, with the `ω^r` block occupying residue `n ≡ −r (mod m)`.
+Summed over a block that is linear in the coefficients and needs no diagonalization, since
+`Π_r = (1/m)Σ_k ω^{−rk}P^k` makes every block trace a finite Fourier transform of
+`tr(P^k B) = Σ_b B[σ^k b, b]`.
+
+The search space is the **Hermitian** part of the centralizer, and it splits. The centralizer is
+closed under transpose, so its Hermitian elements are (real-symmetric) + `i`(real-antisymmetric),
+and the two sectors behave **oppositely** under the block traces: `T_{m−r} = +T_r` on the first,
+`T_{m−r} = −T_r` on the second. Getting that wrong is the easy mistake here — a covector built for
+the symmetric sector does not annihilate the antisymmetric one. At width 2 the matter is settled by
+computation rather than assumed: **the antisymmetric sector's block traces are identically zero at
+both volumes**, so the symmetric analysis covers the whole Hermitian space. That computed fact is
+what confines this entry to width 2.
+
+### The obstruction
+
+The covector is `k = e_{m−r} − e_r`, and three **integer** facts license it — nothing on this path
+is computed numerically, and no spectral block trace is ever formed. First, the symmetric sector's
+orbit traces are **palindromic**, `t_k = t_{m−k}`, which is a theorem rather than a coincidence
+since `P^{−k} = (P^k)^T` and `S^T = S`; that alone forces `T_{m−r} = T_r`. Second, the antisymmetric
+sector's orbit traces **vanish**, so its columns are zero. Third, `d_{m−r} = d_r`, since
+complex-conjugate eigenvalues of a real matrix share multiplicities. So `k` annihilates every
+Hermitian block-trace column. Pairing it with the residue vector then eliminates every free
+parameter, including the offset, and leaves
+
+> `(m − 2r)·d_r / m ∈ ℤ`
+
+which fails for the corpus rule at both volumes tested:
+
+| `L` | `m` | `r` | `d_r` | `(m−2r)d_r/m` |
+|---|---|---|---|---|
+| 5 | 10 | 1 | 51 | `204/5` — not an integer |
+| 6 | 6 | 1 | 670 | `1340/3` — not an integer |
+
+So **no Hermitian `H` in the width-2 local centralizer — any coefficients, offset free — satisfies
+even the first moment of the spectrum condition. Width-2 R2-B is obstructed at `L = 5` and
+`L = 6`**, by an exact integer certificate rather than by a search. The word *exact* is literal:
+there is no floating arithmetic anywhere on the load-bearing path, and the lint enforces that.
+
+### The control
+
+The two rules whose leap is **on-site** provably *do* admit a static local generator, and the test
+does **not** obstruct them: their update has `m = 2`, so the only indices are `r = 0` and `r = m/2`
+and there is no conjugate pair to build a covector from. A test that obstructed a rule whose
+generator is sitting in plain sight would be wrong; this one does not. The control is run in the
+conservative direction — against fewer columns, where witnesses are easier to find — so its
+negative result is rigorous.
+
+### Rank was the wrong diagnostic
+
+The map from a centralizer direction to its block-trace vector has rank 2 at `L = 5` and 1 at
+`L = 6`, against a space of dimension 7. Read alone that looks like a weak test with most
+directions invisible, and it was first recorded that way. It is the opposite: a low-rank trace map
+means the coefficients have almost no influence on the block traces, so the residue condition falls
+back on the block dimensions alone and becomes **harder** to satisfy. Rank plus affine lattice
+arithmetic is decisive here; rank by itself is not a diagnostic at all.
+
+### What the fifth entry does not claim
+
+That CT3 is settled. That R2-B is settled beyond width 2 — the vanishing of the antisymmetric
+block traces is a computed fact at `w = 2`, and `w ≥ 3` is untouched, so wider-range candidates
+remain entirely open. That the obstruction transports to the infinite lattice: it is a
+finite-periodic result at two volumes, and the periodization and cross-volume compatibility bridge
+recorded in the third entry now becomes the load-bearing next step, since this is the first round to
+produce a finite-volume obstruction at all. That two volumes agreeing is a proof for all `L`.
+
+## Status after the fifth entry
+
+| Question | Status |
+|---|---|
+| CT3. One time-independent finite-range interaction with `τ_1 = heisQ(Φ_OI)` | **open** |
+| CT3-R1. The centralizer necessary condition | **passed, not failed** |
+| CT3-R2A. The function-of-`P` branch | **decided negatively** at every `w ≤ L−1` |
+| CT3-R2B, width 2 | **obstructed** at `L = 5` and `L = 6`, by exact certificate |
+| CT3-R2B, width ≥ 3 | **open**. The antisymmetric-sector fact is width-2 only |
+| The periodization / cross-volume bridge | **now load-bearing**, and unbuilt |

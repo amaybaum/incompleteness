@@ -2224,6 +2224,53 @@ for _bad in ('CT3 is closed', 'CT3 is settled', 'no static generator exists',
              'rules out a static generator'):
     ok_ct3b &= not _asserted(_sl, _bad) and not _asserted(_cta, _bad)
 ok_ct3b &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sl) is None
+# ---- CT3-R2B step-1 guard: an obstruction that must stay scoped to width 2 ----
+_cb = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'centralizer_basis_probe.py'),
+           encoding='utf-8').read()
+ok_ct3c = True
+for _tok in ('W2-OBSTRUCTED', 'WIDER-RANGE-OPEN', 'CT3-OPEN', 'FINITE-VOLUME-ONLY'):
+    ok_ct3c &= ('SCOPE-TOKEN: ' + _tok) in _cb
+# the basis must be exact over Z, complete against the R1 census, and quotientable by scalars
+ok_ct3c &= 'exactly over Z' in _cb and 'COMPLETE' in _cb
+ok_ct3c &= 'identity lies in the span' in _cb
+# the sharper quantization statement, with the per-block residue
+ok_ct3c &= '(2 pi/m) Z' in _cb and 'n = -r (mod m)' in _cb
+# block traces from the projector identity, not by diagonalizing
+ok_ct3c &= 'sum_k omega^(-rk) P^k' in _cb and 'without diagonalizing' in _cb
+# the Hermitian sector split must be present, and the antisymmetric fact flagged as COMPUTED --
+# it is what confines the obstruction to width 2, and assuming it would silently widen the claim
+ok_ct3c &= 'real-antisymmetric' in _cb and 'IDENTICALLY ZERO' in _cb
+ok_ct3c &= 'computed fact, not an assumption' in _cb
+ok_ct3c &= 'confines this round to width 2' in _cb
+# the obstruction itself, as an exact certificate rather than a search
+ok_ct3c &= '(m - 2r) d_r / m' in _cb and 'e_(m-r) - e_r' in _cb
+ok_ct3c &= 'integer certificate rather than a search' in _cb
+# the certificate must be exact: no floating arithmetic anywhere on the load-bearing path, and
+# the annihilator licensed by integer facts rather than by forming spectral traces numerically
+ok_ct3c &= 'cmath' not in _cb and '1e-6' not in _cb
+ok_ct3c &= 'PALINDROMIC over Z' in _cb and 'VANISH over Z' in _cb
+ok_ct3c &= 'no floating arithmetic on the load-bearing path' in _cb
+# the control that stops it being over-read
+ok_ct3c &= 'CONTROL' in _cb and 'sitting in plain sight' in _cb
+# rank alone must be recorded as the WRONG diagnostic, since that was the first reading
+ok_ct3c &= 'RANK WAS THE WRONG DIAGNOSTIC' in _cb
+# the invariant is pinned
+ok_ct3c &= 'PINNED' in _cb and 'invariant of the centralizer space' in _cb
+for _bad in ('CT3 is settled', 'R2-B is settled', 'no static generator exists',
+             'CT3 is closed'):
+    ok_ct3c &= not _asserted(_cb, _bad) and not _asserted(_cta, _bad)
+check('R7-CT3C', ok_ct3c,
+      'CT3-R2B step-1 guard: the centralizer basis is exact over Z, complete against the CT3-R1 '
+      'census and quotientable by scalars; the quantization lemma is stated in its sharper '
+      'single-lattice form with the per-block residue; block traces come from the projector '
+      'identity rather than from diagonalizing. The Hermitian sector split is present and the '
+      'vanishing of the antisymmetric block traces is flagged as a COMPUTED fact -- it is what '
+      'confines the obstruction to width 2, and assuming it would silently widen the claim. The '
+      'obstruction is an exact integer certificate, (m - 2r) d_r / m not in Z, not a search; the '
+      'on-site control that would refute a wrong test is present; rank alone is recorded as the '
+      'wrong diagnostic; and the first-moment subspace is pinned. Nothing claims CT3 or R2-B '
+      'settled beyond width 2 at the volumes tested.')
+
 check('R7-CT3B', ok_ct3b,
       'CT3-R2A scope guard: the spectral-logarithm probe splits CT3 into the function-of-P branch '
       'and the degenerate-eigenspace branch, certifies the first dead by an explicit full-period '

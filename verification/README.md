@@ -548,6 +548,23 @@ of `H` and not of `K` — writing `H = H₀ + 2πK` is spectral bookkeeping, and
 function of `P` and so nonlocal by this very round — and six is a fixed-volume count, since a
 stable dimension does not show the solution directions are compatible across volumes.
 
+The fifth entry builds the artifact R2-B consumes and then obstructs width 2 with it.
+`verification/lean/centralizer_basis_probe.py` constructs an exact integer basis of the width-2
+local centralizer, each element verified against every defining equation over `ℤ`, complete against
+the R1 census with the identity in its span. `P^m = I` forces every eigenvalue of `H` into the
+single lattice `−θ + (2π/m)ℤ` with the `ω^r` block at residue `n ≡ −r (mod m)`; summed over a block
+that is linear in the coefficients and computable from `Π_r = (1/m)Σ_k ω^{−rk}P^k` without
+diagonalizing. The Hermitian search space splits into a real-symmetric sector, where
+`T_{m−r} = +T_r`, and `i`×(real-antisymmetric), where `T_{m−r} = −T_r`; at width 2 the second has
+identically zero block traces, which is computed rather than assumed and is what confines the
+result to that width. Then `d_{m−r} = d_r` makes `k = e_{m−r} − e_r` annihilate every column, and
+the block condition collapses to `(m−2r)d_r/m ∈ ℤ` with no free parameters — failing as `204/5` at
+`L = 5` and `1340/3` at `L = 6`. **Width-2 R2-B is obstructed at both volumes**, by exact integer
+certificate. The on-site controls, which do have static local generators, are not obstructed, since
+their `m = 2` admits no conjugate pair. Rank was the wrong diagnostic: a low-rank trace map makes
+the condition harder to satisfy, not easier. Width `≥ 3`, and the transport to infinite volume,
+remain open — the periodization bridge is now load-bearing.
+
 `OI-CORE-FORWARD-REDUNDANCY.md` freezes one reading of the finite equivalence, because the theorem
 admits a stronger paraphrase than the formalization supports. Three statements, and only these
 three. **Containment**: `qm_implies_oiCore` — every theory in the characterized quantum class
