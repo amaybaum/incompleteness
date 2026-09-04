@@ -151,3 +151,90 @@ the flow has been connected to a physical time parameter.
 | CT2'. The all-sites layer as an automorphism of the quasilocal algebra | **open**, and the next task. Needs the finite dependency region, the affected-gate set, stabilization under enlarging the volume, compatibility with the stage inclusions, and the endpoint identified with the frozen `heisQ` |
 | CT3. A single time-independent local `H` | **open**. Not implied by depth two, and deliberately not asserted |
 | CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |
+
+## Second entry — the all-sites layers, and the order the composite runs in
+
+`OIBridge/SecondOrderLayer.lean`, `OIBridge/SwapLayer.lean`, `OIBridge/SecondOrderDrive.lean`.
+
+### The two layers, each a one-parameter group
+
+The gap the first entry named is closed for each layer separately. A layer runs over **all** sites
+of an infinite lattice; the construction that reaches it is stabilization. Fix a finite region `Λ`.
+A shear gate at site `i` is supported in `Δ i = insert i (N i)`, and if `Δ i` is disjoint from `Λ`
+its unitary commutes with every observable of `Λ` at every time. Conjugating by the product over
+the finitely many gates that can reach `Λ` therefore gives the same answer as conjugating by any
+larger finite product — `layerAct_stabilizes` — and the stable value defines the layer on the local
+algebra, independently of which region represents the observable (`layerLoc_ofM`). The map is
+isometric (`norm_layerLoc`), so it extends to the completion.
+
+On the quasilocal algebra the result is a strongly continuous one-parameter group of
+`*`-automorphisms: `layerQ_mul`, `layerQ_star`, `norm_layerQ` give the algebra structure,
+`continuous_layerQ_time` the strong continuity, `layerU_add` and `layerQ_add_time` the group law,
+and `layerQ_bijective` invertibility. The swap layer is the same statement with a shorter proof —
+`swapQ_add_time`, `swapQ_bijective`, `continuous_swapQ_time` — because a swap gate occupies a
+single site, so a region feels only the gates inside it and `swapAct_stabilizes` holds for plain
+inclusion `Λ ⊆ S` rather than an inclusion of affected sets. That difference is the reason the two
+layers are separate modules rather than instances of a common abstraction.
+
+### The order of the composite is a theorem, not a convention
+
+On configurations the update shears first and swaps second: `leap F = swapLayer ∘ shear F`. The
+Heisenberg action reverses that. `permOp` is covariant — `Finsupp.mapDomain` of a composite is the
+composite of the `mapDomain`s in the same order — while `heis Φ T = permOpInv Φ * T * permOp Φ`
+sandwiches `T` between a covariant and a contravariant factor. Multiplying out gives, for
+`Φ.φ = S.φ.trans W.φ`,
+
+  `heis Φ T = heis S (heis W T)`   (`heis_of_comp`, and `heisLoc_of_comp`, `heisQ_of_comp`),
+
+so the **swap** Heisenberg map is applied **first** and the shear's second — the opposite of the
+configuration-space order. `driveQ R t x = layerQ R t (swapQ V t x)` is defined in that order.
+
+Each layer separately is insensitive to the question, because each layer's gate is an involution
+and `permMat` of an involution is its own inverse. Only the composite, which is not an involution,
+distinguishes the two orders, which is why the point earns a theorem.
+
+### What the composite is
+
+For each `t`, `driveQ R t` is an isometric `*`-automorphism of the quasilocal algebra
+(`driveQ_mul`, `driveQ_star`, `norm_driveQ`, `driveQ_bijective`); `driveQ R 0` is the identity; and
+`t ↦ driveQ R t A` is norm-continuous for every quasilocal `A` (`continuous_driveQ_time`). The
+three clauses are collected in `driveQ_isContinuousPath`. Strong continuity of the composite does
+not follow from strong continuity of the two factors: the parameter moves in both slots at once.
+What closes it is that the outer flow is isometric *uniformly in its own time parameter*, so the
+inner motion can be estimated at a frozen outer time and the outer motion at a frozen inner
+argument.
+
+### What the second entry does not claim
+
+**No group law for the composite.** `driveQ R (t + s) = driveQ R t ∘ driveQ R s` does not follow
+from the two layers' group laws, because the two layers do not commute. Nothing in the modules
+establishes it and nothing should be read as doing so. A norm-continuous path of automorphisms
+through the identity is a strictly weaker object than a one-parameter group, and the weaker object
+is what is proved.
+
+**No generator for the composite**, and no bounded global Hamiltonian for either layer; the
+terminology point of the first entry stands unchanged.
+
+**The endpoint is not yet identified.** That `driveQ R 1` equals `heisQ` of the update's own
+reversible dynamics is not proved here. It needs the update packaged as a `ReversibleDynamics` with
+both finite-range proofs, the equality checked on staged local observables through `heisLoc`, and
+then extended by density. Until that is done, the modules exhibit a continuous path of quasilocal
+automorphisms whose construction follows the update's factorization, not a continuous path proved
+to end at the update.
+
+**The range hypothesis is now load-bearing** for the shear layer, as the first entry anticipated:
+an arbitrary `F` gives the factorization but no gate region, no stage, and hence no layer. The
+`Rule` structure carries the neighbourhood function, the influence sets, and the two conditions
+relating them, and the finite-range hypothesis is a field rather than an ambient assumption.
+
+## Status after the second entry
+
+| Question | Status |
+|---|---|
+| CT1. What is the update, as a quasilocal automorphism | **answered** (first entry) |
+| CT2. Existence and per-gate locality | **answered affirmatively** (first entry) |
+| CT2'. The all-sites layer as an automorphism of the quasilocal algebra | **answered affirmatively** (this entry), for each of the two layers separately: a strongly continuous one-parameter group of `*`-automorphisms |
+| CT2''. The composite as a path from the identity | **answered affirmatively** (this entry): a norm-continuous path of `*`-automorphisms through the identity, in the order `heis_of_comp` forces. **Not** a one-parameter group |
+| CT2'''. The endpoint identified with the frozen `heisQ` | **open**, and the next task |
+| CT3. A single time-independent local `H` | **open**. Not implied by depth two, and deliberately not asserted |
+| CT4. Uniqueness of the generator | **decided negatively**, frozen in `RegionLimit` |

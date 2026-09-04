@@ -460,14 +460,34 @@ one-parameter unitary, polynomial rather than a functional calculus, reaching th
 the gates are supplied as elements of the quasilocal algebra of the infinite lattice, with each
 generator bounded and lying in a single finite region's stage. Two layers of such gates, driven
 over `[0,1]` and `[1,2]`, reach their composite exactly. Existence and per-gate locality are
-settled affirmatively. Two things are explicitly **not** settled: the drive theorem quantifies over
-a finite list of gates and does not yet construct the all-sites layer as an automorphism of the
-quasilocal algebra, and the local-Hamiltonian statement needs a finite-range hypothesis on the
-neighbourhood function that the factorization itself does not. A **single time-independent**
-generator is not obtained and is not claimed,
+settled affirmatively. Two things the first entry leaves outside its scope: the drive theorem
+quantifies over a finite list of gates rather than constructing the all-sites layer as an
+automorphism of the quasilocal algebra, and the local-Hamiltonian statement needs a finite-range
+hypothesis on the neighbourhood function that the factorization itself does not. A **single
+time-independent** generator is not obtained and is not claimed,
 the drive being piecewise constant across the two layers, and uniqueness stays decided negatively
 by the frozen countermodel. Continuous time remains additional structure rather than part of the
 core: the entry shows the structure is available, not that OI supplies it.
+
+The second entry supplies the all-sites layers. `OIBridge/SecondOrderLayer.lean` builds the shear
+layer by stabilization — only the finitely many gates whose regions meet a finite region `Λ` can
+move an observable of `Λ`, so conjugating by that finite product agrees with conjugating by any
+larger one — and `OIBridge/SwapLayer.lean` does the same for the swap layer, where a gate occupies
+a single site and the stabilization hypothesis is plain inclusion. Each layer is a strongly
+continuous one-parameter group of `*`-automorphisms of the quasilocal algebra: group law, inverse,
+isometry, and strong continuity in the time parameter. `OIBridge/SecondOrderDrive.lean` composes
+them. The order is settled by theorem rather than convention: `permOp` is covariant while
+`heis` sandwiches its argument between a covariant and a contravariant factor, so a configuration
+map that shears first and swaps second has a Heisenberg action that applies the **swap** flow first
+and the shear second (`heis_of_comp`, `heisQ_of_comp`). The composite is claimed to be exactly a
+norm-continuous path of `*`-automorphisms through the identity — start at the identity, every point
+an isometric automorphism, continuous in the parameter — and **not** a one-parameter group: the two
+layers do not commute, so no group law for the composite follows, and none is asserted. The
+endpoint is also **not** identified: that the path at time one equals `heisQ` of the update's own
+reversible dynamics needs the update packaged as a `ReversibleDynamics`, checked on staged local
+observables, then extended by density, and that is the open next step. The finite-range hypothesis
+the first entry anticipated is load-bearing here and is carried as a field of the `Rule` structure
+rather than as an ambient assumption.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general

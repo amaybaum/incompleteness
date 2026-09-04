@@ -1002,6 +1002,22 @@ for fname, names in (
                             'layer_drive', 'drive_two', 'two_layer_drive',
                             'permMat_involutive', 'localGate_isGate',
                             'proj_localGate_mem_stage', 'quasilocal_drive')),
+    ('SecondOrderLayer', ('extPerm_involutive', 'qGate_isGate', 'inclObs_permMat',
+                          'disjoint_gateRegion_of_notMem_affected', 'layerAct_stabilizes',
+                          'layerAct_eq_of_stage_eq', 'layerLoc_ofM', 'layerLoc_mul',
+                          'layerLoc_star', 'norm_layerLoc', 'layerQ_stage', 'norm_layerQ',
+                          'layerQ_mul', 'layerQ_star', 'layerQ_zero_time',
+                          'continuous_layerQ_time', 'layerU_add', 'layerQ_add_time',
+                          'layerQ_bijective')),
+    ('SwapLayer', ('swapConf_involutive', 'swapGate_isGate', 'swapGate_comm', 'swapU_add',
+                   'swapAct_stabilizes', 'swapLoc_ofM', 'swapLoc_mul', 'swapLoc_star',
+                   'norm_swapLoc', 'swapQ_stage', 'norm_swapQ', 'swapQ_mul', 'swapQ_star',
+                   'swapQ_zero_time', 'continuous_swapQ_time', 'swapQ_add_time',
+                   'swapQ_bijective')),
+    ('SecondOrderDrive', ('permOp_of_comp', 'permOpInv_of_comp', 'heis_of_comp',
+                          'heisLoc_of_comp', 'heisQ_of_comp', 'driveQ_zero_time', 'driveQ_mul',
+                          'driveQ_star', 'norm_driveQ', 'driveQ_bijective',
+                          'continuous_driveQ_time', 'driveQ_isContinuousPath')),
     ('InstrumentAvailability', ('isQInstrJ_fin', 'isFSJ_fin', 'qTotalJ_fin', 'qTotalJ_equiv',
                                 'isQInstrJ_equiv', 'qBranchJ_coarse', 'sum_qBranchJ', 'availFS_id',
                                 'mem_range_stage_mono', 'availFS_comp', 'availFS_relabel',
@@ -2038,12 +2054,50 @@ for _bad in ('autonomous', 'time-translation invariant generator',
 ok_ct2 &= 'proj_localGate_mem_stage' in _soc and 'unit_localGate_mem_stage' in _soc
 # no sorry / native_decide anywhere in the module
 ok_ct2 &= 'sorry' not in _soc and 'native_decide' not in _soc
+# ---- CT2 REPAIR guards: the all-sites layers and the two-piece drive ----
+# `quasilocal_drive` quantifies over a FINITE LIST of gates, which is not the all-sites layer.
+# The repair supplies the layer itself, and these guards keep its scope honest.
+_sol = open(os.path.join(BRIDGE, 'OIBridge', 'SecondOrderLayer.lean'), encoding='utf-8').read()
+_swl = open(os.path.join(BRIDGE, 'OIBridge', 'SwapLayer.lean'), encoding='utf-8').read()
+_sod = open(os.path.join(BRIDGE, 'OIBridge', 'SecondOrderDrive.lean'), encoding='utf-8').read()
+# the all-sites layer needs FINITE RANGE, which the depth-two factorization did not; and the
+# module must say that the formal sum of on-site terms is not an element of the algebra
+ok_ct2 &= 'finite range' in _sol and 'not an element' in _sol
+ok_ct2 &= 'Nothing here exhibits a bounded global Hamiltonian' in _sol
+# each layer separately IS a one-parameter group: group law, inverse, strong continuity
+for _t in ('layerQ_add_time', 'layerQ_bijective', 'continuous_layerQ_time'):
+    ok_ct2 &= 'theorem ' + _t in _sol
+for _t in ('swapQ_add_time', 'swapQ_bijective', 'continuous_swapQ_time'):
+    ok_ct2 &= 'theorem ' + _t in _swl
+# the ORDER of the composite is fixed by a theorem, not by a convention
+for _t in ('permOp_of_comp', 'permOpInv_of_comp', 'heis_of_comp', 'heisQ_of_comp'):
+    ok_ct2 &= 'theorem ' + _t in _sod
+# and the drive is defined in that order: the SWAP flow innermost, the SHEAR flow outermost
+ok_ct2 &= 'layerQ R t (swapQ V t x)' in _sod
+# the composite is a CONTINUOUS PATH of automorphisms, and no more than that
+for _t in ('driveQ_zero_time', 'driveQ_bijective', 'continuous_driveQ_time',
+           'driveQ_isContinuousPath'):
+    ok_ct2 &= 'theorem ' + _t in _sod
+ok_ct2 &= '**Not claimed: a group law.**' in _sod
+ok_ct2 &= 'no generator is exhibited' in _sod
+# a group law for the composite must not appear under any of the layers' names
+for _bad in ('driveQ_add_time', 'driveQ_left_inverse (t s', 'one-parameter group of the drive'):
+    ok_ct2 &= _bad not in _sod
+for _f in (_sol, _swl, _sod):
+    ok_ct2 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _f) is None
+    ok_ct2 &= re.search(r'(?m)^axiom ', _f) is None and 'native_decide' not in _f
 check('R7-CT2', ok_ct2,
       'CT2 scope guard: the second-order circuit module states the depth-two factorization for an '
       'arbitrary neighbourhood function, backs its locality claim with the stage-membership '
       'theorems, and records at both endpoint theorems that a single TIME-INDEPENDENT generator is '
       'NOT claimed -- the drive is piecewise constant across the two layers. No autonomous '
-      'one-parameter-group claim appears, and the module carries no sorry and no native_decide.')
+      'one-parameter-group claim appears, and the module carries no sorry and no native_decide. '
+      'The repair modules keep the same scope: the all-sites layers carry the finite-range '
+      'hypothesis the factorization did not need and the note that the formal sum of on-site terms '
+      'is not an algebra element; each layer separately is a strongly continuous one-parameter '
+      'group; the order of the composite is fixed by heis_of_comp rather than by convention, with '
+      'the SWAP flow innermost; and the composite is claimed to be a continuous path of '
+      '*-automorphisms through the identity and NOT a one-parameter group.')
 
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())
