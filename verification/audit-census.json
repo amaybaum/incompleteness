@@ -135,9 +135,47 @@
         {
           "id": "B-cut-C4",
           "pattern": "**(C4)**",
-          "disposition": "finding-open",
+          "disposition": "repaired",
+          "expect": {
+            "papers/GR.md": 1
+          },
+          "why": "finding B1: the section headed Verification of the conditions verified three of the four, while 2.1, 8.4 and 8.5 named C1-C4 and [Main] 1.3 deferred the read-write cycle to the companion work. The entry now exists and records C4 as a named realization condition at the cosmological cut, not presently discharged. Since [Main] 3.4 derives C1 and C3 FROM C4, verifying those two cannot supply it; the repair manufactures no proof."
+        },
+        {
+          "id": "B1-forbidden",
+          "pattern": "reads the same degrees it writes",
+          "disposition": "repaired",
           "expect": {},
-          "why": "finding B1: the section headed Verification of the conditions verifies three of the four. C4 has no entry at the concrete cut, while 2.1, 8.4 and 8.5 all name C1-C4, and [Main] 1.3 defers the cosmological realization -- capacity, timescales and bidirectional read-write coupling -- to the companion work. Since [Main] 3.4 derives C1 and C3 FROM C4, verifying those two cannot supply it. Disposition open pending the owner's choice of repair."
+          "why": "finding B1: the book inferred C4 from bidirectionality of the boundary coupling. Bidirectional coupling is a strengthened C1 and persistence is C2; neither supplies the routing C4 asserts. Any reappearance is the inference returning. ([Main] 1.3's own phrase is 'reads the same BOUNDARY degrees it writes' and is flagged there as a property to be demonstrated, so it does not match.)"
+        },
+        {
+          "id": "B1-required",
+          "pattern": "not presently discharged",
+          "disposition": "repaired",
+          "expect": {
+            "papers/GR.md": 1,
+            "book/ch07-gravity.md": 2,
+            "book/The-Incompleteness-of-Observation-FULL.md": 2
+          },
+          "why": "the status sentence in running text: GR 8.4, and the book's 7.1 and 7.2 in both parallel sources. GR 2.2's own entry closes with the capitalized verdict form, counted separately below. A count below these means a mirror lost it."
+        },
+        {
+          "id": "B1-hbar-not-consuming",
+          "pattern": "not consumed by the calibration",
+          "disposition": "repaired",
+          "expect": {
+            "papers/GR.md": 1
+          },
+          "why": "C4 is not added as a hypothesis of the hbar derivation: [Main] 1.3 treats C1-C4 as diagnostics, and the calibration is carried by H-slope with the horizon and frame conditions."
+        },
+        {
+          "id": "B1-verdict",
+          "pattern": "**Not presently discharged.**",
+          "disposition": "repaired",
+          "expect": {
+            "papers/GR.md": 1
+          },
+          "why": "the verdict form of the GR 2.2 entry, parallel to the three **Satisfied.** verdicts above it, so that a reader scanning the verification section sees the asymmetry at once."
         }
       ]
     }
