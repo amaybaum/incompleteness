@@ -149,8 +149,12 @@ parabolic mode `λ = 0` is `[[0,1],[1,0]]` over `𝔽₂`, of order exactly 2, a
 
 > `ord(F mod q) = qL` at every prime `q` with `gcd(L,q) = 1`, `q = 2` included,
 
-is what holds, and it is what the same appendix's own Theorem B.3.2 gives: `F = F_ss·F_u` with
-commuting factors of orders `L` and `q` forces `ord(F) = lcm(L,q) = qL`. Check W1 verifies the
+is what holds. Theorem B.3.2 of the same appendix is consistent with it without giving it on its
+own: `F = F_ss·F_u` has commuting factors whose orders *divide* `L` and `q`, and the exact values
+need in addition that the semisimple sector carries a primitive `L`-th-root mode and that `N ≠ 0`.
+The parabolic bookkeeping is likewise a case split: the block at `α = −1`, of order `2q`, exists
+only for even `L`, where the extra factor 2 already divides `L`; at odd `L` only the `α = +1`
+block occurs, of order `q`. Either way `lcm(L,q) = qL`. Check W1 verifies the
 corrected value over `q ∈ {2,3,5,7,11,13}` and `L ≤ 12`, and records that the superseded value holds
 at no admissible `L`. The three corpus locations — `papers/SM.md`, `book/appendix-b-derivations.md`,
 `book/The-Incompleteness-of-Observation-FULL.md` — carry the corrected statement.

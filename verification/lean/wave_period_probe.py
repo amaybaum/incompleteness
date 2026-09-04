@@ -46,9 +46,10 @@ this file is the exact verification, and every check is exact integer arithmetic
 CORPUS CORRECTION (deliverable 1). Appendix B.3.1 / SM Appendix A.1 stated ord(F mod q) = qL for q
 odd and L for q = 2, under gcd(L, q) = 1. The value at q = 2 is 2L, not L: gcd(L, 2) = 1 forces L
 odd, the unipotent factor at the parabolic mode has order exactly 2, and 2 does not divide an odd L.
-The uniform statement ord(F mod q) = qL holds at every prime including 2, which is also what the
-same appendix's own Jordan-Chevalley theorem gives -- F = F_ss F_u with commuting factors of orders
-L and q forces ord = lcm(L, q) = qL. Check W1 verifies the corrected value and exhibits the failure
+The uniform statement ord(F mod q) = qL holds at every prime including 2. The same appendix's
+Jordan-Chevalley theorem is consistent with that but does not by itself give it: F = F_ss F_u has
+commuting factors whose orders DIVIDE L and q, and the exact values need a primitive L-th-root mode
+in the semisimple sector and N != 0. Check W1 verifies the corrected value and exhibits the failure
 of the old one. Check W9 records a second defect of the same appendix found in the same audit: the
 rank of N is 2 only for EVEN L (two parabolic modes, zeta = +-1); for odd L there is one parabolic
 mode and rank(N) = 1.
@@ -541,7 +542,9 @@ def main():
           "VERDICT. The q = 2 cycle arithmetic is closed in exact form: period, fixed-point "
           "dimensions, cycle spectrum and the divisor-indexed D_s all follow from the "
           "traveling-wave factorization (x + S)(x + S^{-1}) with no state enumeration, and the "
-          "first-moment test is decided at every L by an explicit 2-adic and Wieferich criterion. "
+          "first-moment test is decidable at every L from the exact divisor-sum formulas -- powers "
+          "of two by the 2-adic criterion, odd prime volumes by the Wieferich criterion, and every "
+          "other L by the divisor sums themselves, which the two named criteria do not cover. "
           "Not claimed: that a firing test is a width-w obstruction for any w >= 3 -- the "
           "symmetric-sector palindromicity is structural but the antisymmetric-sector vanishing "
           "is the computed WIDTH-2 ingredient, and nothing here extends it; that any of this "

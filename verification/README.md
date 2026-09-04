@@ -579,7 +579,8 @@ every `L` without enumerating `4^L` states. Silence at `L = 2^a` is a theorem, f
 tests reduce to `p² | 4^{p−1} − 1`, the Wieferich condition base 2, so **`L = 1093` and `L = 3511`
 are silent and are not powers of two**. This round also corrects the corpus: the period formula of
 `SM` Appendix A / book Appendix B.3.1 read `L` at `q = 2`, where the value is `2L`, and the uniform
-`ord(F mod q) = qL` holds at every prime — as that appendix's own Jordan-Chevalley theorem implies;
+`ord(F mod q) = qL` holds at every prime (the appendix's Jordan-Chevalley theorem is consistent
+with this but gives only that the factor orders divide `L` and `q`);
 `rank(N) = 2` likewise holds only for even `L`. Width `≥ 3`, infinite volume and `q = 3` stay open.
 
 `OI-CORE-FORWARD-REDUNDANCY.md` freezes one reading of the finite equivalence, because the theorem

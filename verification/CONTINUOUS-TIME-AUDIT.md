@@ -625,9 +625,11 @@ enumerating `4^L` states.
 The corpus stated `ord(F mod q) = qL` for odd `q` and `L` for `q = 2`, under `gcd(L,q) = 1`. The
 value at `q = 2` is `2L`. The unipotent factor at the parabolic mode is `[[0,1],[1,0]]` over `𝔽₂`,
 of order exactly 2, and `gcd(L,2) = 1` forces `L` odd, so it is not absorbed into `L`. The uniform
-`ord(F mod q) = qL` holds at every prime, `q = 2` included — which is what the same appendix's
-Jordan-Chevalley theorem already implies, `F = F_ss·F_u` with commuting factors of orders `L` and
-`q`. `papers/SM.md` and both book sources carry the corrected statement, and the same audit found
+`ord(F mod q) = qL` holds at every prime, `q = 2` included. The same appendix's Jordan-Chevalley
+theorem is consistent with that rather than a substitute for it: `F = F_ss·F_u` has commuting
+factors whose orders *divide* `L` and `q`, and the exact values need a primitive `L`-th-root mode
+and `N ≠ 0`. The `2q` parabolic block, in turn, exists only for even `L`, where 2 already divides
+`L`. `papers/SM.md` and both book sources carry the corrected statement, and the same audit found
 that `rank(N) = 2` holds only for even `L`, there being one parabolic mode rather than two when `L`
 is odd.
 

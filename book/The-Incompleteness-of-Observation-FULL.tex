@@ -25703,15 +25703,23 @@ circulant adjacency matrix of the ring graph.
 \emph{Proof.} For each Fourier mode \(k\) the 2×2 block \(B_k\) has
 characteristic polynomial \(t^2 - \lambda_k t + 1\) with
 \(\lambda_k = \zeta^k + \zeta^{-k}\), so its roots are \(\zeta^{\pm k}\)
-and the diagonalizable blocks contribute orders dividing \(L\). At
-parabolic modes (\(\lambda_k = \pm 2\)), the Jordan form gives
+and the diagonalizable blocks contribute orders dividing \(L\), the mode
+at a primitive \(L\)-th root of unity contributing order exactly \(L\).
+At parabolic modes (\(\lambda_k = \pm 2\)), the Jordan form gives
 \[B_k^n = \alpha^n \begin{pmatrix} 1 & n\alpha^{-1} \\ 0 & 1 \end{pmatrix}\]
-contributing order \(q\) (or \(2q\)). Therefore
-\(\text{ord}(F) = \text{lcm}(L, q) = qL\), which is Theorem B.3.2's
-decomposition \(F = F_{\text{ss}} F_u\) read multiplicatively. At
-\(q = 2\) the unipotent factor has order exactly \(2\), and
-\(\gcd(L, 2) = 1\) forces \(L\) odd, so the parabolic contribution is
-not absorbed into \(L\): \(\text{ord}(F \bmod 2) = 2L\). \(\square\)
+of order \(q\) at \(\alpha = 1\) and \(2q\) at \(\alpha = -1\). The
+second parabolic mode occurs only for even \(L\), since \(\alpha = -1\)
+requires \((-1)^L = 1\); so the parabolic orders are \(q\) alone for odd
+\(L\), and \(q\) together with \(2q\) for even \(L\), where the extra
+factor \(2\) already divides \(L\). In both cases
+\(\text{ord}(F) = \text{lcm}(L, q) = qL\), using \(\gcd(L, q) = 1\).
+Theorem B.3.2 is consistent with this and does not replace it: its
+decomposition \(F = F_{\text{ss}} F_u\) gives commuting factors whose
+orders divide \(L\) and \(q\), and the exact values need the
+primitive-root mode and \(N \neq 0\). At \(q = 2\) the parabolic mode at
+\(\zeta = 1\) is present, so \(N \neq 0\) and the unipotent factor has
+order exactly \(2\), while \(\gcd(L, 2) = 1\) forces \(L\) odd; hence
+\(\text{ord}(F \bmod 2) = 2L\). \(\square\)
 
 The period formula has been verified computationally for
 \(q \in \{2, 3, 5, 7, 11, 13\}\) and \(L \leq 12\).
@@ -29461,4 +29469,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: bf9c920d39043df49b045fb1df98b2b6a8aa8fd6003b20e353651435007430ae
+% source-sha256: c755268c08c935a35b312684a1832e3d3bd158aa2ecf3bc998f92a868d8dede4
