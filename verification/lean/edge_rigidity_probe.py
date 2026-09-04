@@ -2345,6 +2345,39 @@ ok_audb &= 'What this audit does not claim' in _cc
 for _bad in ('C4 is satisfied at the cosmological', 'C4 holds at the cosmological horizon',
              'C4 fails at the cosmological'):
     ok_audb &= not _asserted(_gr, _bad) and not _asserted(_cc, _bad)
+# ---- the SM side of the same guard: Layer 0 attribution, the 2.1 inventory, Chapter 1's inference ----
+_sm = open(os.path.join(_root, 'papers/SM.md'), encoding='utf-8').read()
+ok_audb &= 'follow from C1–C4' not in _sm and 'right partition geometry' not in _sm
+ok_audb &= 'not inputs to this derivation' in _sm and 'C2 and C4 are explicit hypotheses' in _sm
+ok_audb &= 'neither is proved here' in _sm
+for _p in ('book/ch04-methodology.md', 'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_root, _p), encoding='utf-8').read()
+    ok_audb &= 'structural constraints from C1–C4' not in _t and 'not inputs to this layer' in _t
+for _p in ('book/ch01-observation.md', 'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_root, _p), encoding='utf-8').read()
+    ok_audb &= 'at the horizon this is automatic' not in _t
+    ok_audb &= 'a property to be demonstrated there rather than assumed' in _t
+    # the paragraph after the C4 definition: four conditions named, and no blanket margins
+    ok_audb &= 'coupled, persistent, and vast sustains' not in _t
+    ok_audb &= 'satisfied by enormous margins' not in _t
+    ok_audb &= 'sufficiently capacious, and read back sustains' in _t
+    ok_audb &= 'C2 and C4 remain hypotheses of Theorem 22' in _t
+    # no quantitative margin attributed to C1, and the C3 floor named as a data-processing bound
+    ok_audb &= 'C1 is verified structurally' in _t
+    ok_audb &= 'holds for the realized process by data processing' in _t
+ok_audb &= 'The SM lattice cut' in _cc and 'Finding B4' in _cc
+# the canonical table's distinctive refined cells, so the table cannot regress while the prose stays right
+for _cell in ('verified structurally', 'verified, timescale margin', 'verified, capacity margin',
+              'capacity floor, data processing', 'named, not presently discharged'):
+    ok_audb &= _cell in _cc
+ok_audb &= 'copies this table verbatim' in _cc
+# the Introduction's twin of the blanket-margins sentence, and no blanket form anywhere in the book
+for _p in ('book/ch00-introduction.md', 'book/ch01-observation.md',
+           'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_root, _p), encoding='utf-8').read()
+    ok_audb &= 'satisfied by enormous margins' not in _t
+ok_audb &= 'readback is named there and still to be demonstrated' in \
+    open(os.path.join(_root, 'book/ch00-introduction.md'), encoding='utf-8').read()
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
@@ -2353,6 +2386,10 @@ check('R7-AUDB', ok_audb,
       'C4; the intro neither says the horizon satisfies all four conditions nor that the full equivalence '
       'applies in our universe, but that the equivalence remains conditional on C4; and the audit records '
       'why bidirectionality and H-scramble do not close it, and claims neither '
+      'that C4 holds nor that it fails at the cut. On the SM side: Layer 0 no longer lists C1-C4 as '
+      'inputs to the gauge chain, the 2.1 inventory names all four with Theorem 22 status, and '
+      'Chapter 1 neither calls the horizon read-write cycle automatic nor lists three conditions as '
+      'sufficient nor declares all four satisfied by enormous margins. Claims neither '
       'that C4 holds nor that it fails at the cut.')
 
 check('R7-AUDA', ok_auda,

@@ -154,10 +154,11 @@
           "disposition": "repaired",
           "expect": {
             "papers/GR.md": 2,
+            "book/ch01-observation.md": 1,
             "book/ch07-gravity.md": 2,
-            "book/The-Incompleteness-of-Observation-FULL.md": 2
+            "book/The-Incompleteness-of-Observation-FULL.md": 3
           },
-          "why": "the status sentence in running text: GR's prerequisites and 8.4, and the book's 7.1 and 7.2 in both parallel sources. GR 2.2's own entry closes with the capitalized verdict form, counted separately. A count below these means a mirror lost it."
+          "why": "the status sentence in running text: GR's prerequisites and 8.4, the book's 7.1 and 7.2, and since B5 the paragraph after Chapter 1's C4 definition, in both parallel sources. GR 2.2's own entry closes with the capitalized verdict form, counted separately. A count below these means a mirror lost it."
         },
         {
           "id": "B1-hbar-not-consuming",
@@ -199,6 +200,115 @@
             "papers/GR.md": 1
           },
           "why": "the conditional form the prerequisites now carry."
+        },
+        {
+          "id": "B2-forbidden-layer0",
+          "pattern": "follow from C1–C4",
+          "disposition": "repaired",
+          "expect": {},
+          "why": "finding B2: SM's Layer 0 listed C1-C4 as an input to the gauge/discrete-structure chain, which consumes none of them (4.5-4.7 mention no C-condition; the Revised chain of 4.3 separates chirality from the C4 theorem). Same shape as the GR 8.4 residue."
+        },
+        {
+          "id": "B2-forbidden-layer0-book",
+          "pattern": "structural constraints from C1–C4",
+          "disposition": "repaired",
+          "expect": {},
+          "why": "the book's Chapter 4 form of the same attribution, in both parallel sources."
+        },
+        {
+          "id": "B2-required",
+          "pattern": "not inputs to this",
+          "disposition": "repaired",
+          "expect": {
+            "papers/SM.md": 1,
+            "book/ch04-methodology.md": 1,
+            "book/The-Incompleteness-of-Observation-FULL.md": 1
+          },
+          "why": "the repaired attribution: C1-C4 are diagnostics of the observer at the cut, not inputs to Layer 0."
+        },
+        {
+          "id": "B3-forbidden-inventory",
+          "pattern": "right partition geometry",
+          "disposition": "repaired",
+          "expect": {},
+          "why": "finding B3: SM 2.1's condition inventory omitted C4 and said C2 holds for any system with the right partition geometry, against Theorem 22's own proof that energy conservation does not establish C2."
+        },
+        {
+          "id": "B3-required",
+          "pattern": "C2 and C4 are explicit hypotheses",
+          "disposition": "repaired",
+          "expect": {
+            "papers/SM.md": 1
+          },
+          "why": "the inventory now carries Theorem 22's status: C1 structural, C3 floor, C2 and C4 hypotheses."
+        },
+        {
+          "id": "B4-forbidden-automatic",
+          "pattern": "at the horizon this is automatic",
+          "disposition": "repaired",
+          "expect": {},
+          "why": "finding B4: Chapter 1's C4 definition inferred the cosmological read-write cycle from bidirectionality -- the inference B1 removed from Chapter 7, one chapter earlier."
+        },
+        {
+          "id": "B4-required",
+          "pattern": "a property to be demonstrated there rather than assumed",
+          "disposition": "repaired",
+          "expect": {
+            "papers/SM.md": 1,
+            "book/ch01-observation.md": 1,
+            "book/The-Incompleteness-of-Observation-FULL.md": 1
+          },
+          "why": "the qualifier [Main] 1.3 already carries, now in SM's prerequisites and both book sources of Chapter 1."
+        },
+        {
+          "id": "B-SM-theorem22-clean",
+          "pattern": "neither is proved here",
+          "disposition": "clean",
+          "expect": {
+            "papers/SM.md": 1
+          },
+          "why": "Theorem 22's C2/C4 status remark: the two genericity lemmas that would discharge C2 and C4 at the lattice cut are named and stated unproved. The honest form, already present."
+        },
+        {
+          "id": "B5-forbidden-three",
+          "pattern": "coupled, persistent, and vast sustains",
+          "disposition": "repaired",
+          "expect": {},
+          "why": "finding B5: the paragraph after Chapter 1's C4 definition listed three conditions as what sustains the memory-bearing sector, omitting C4, one sentence after saying storage without readback is exactly Markovian."
+        },
+        {
+          "id": "B5-forbidden-margins",
+          "pattern": "physical conditions of laboratory observers in our universe, satisfied by enormous margins",
+          "disposition": "repaired",
+          "expect": {},
+          "why": "the blanket form, too strong once C2 and C4 are hypotheses at the lattice cut and C4 is undischarged at the cosmological one. GR 2.2 and Chapter 7 keep 'satisfied with enormous margin' for C2 and C3 individually, which is a different and correct claim."
+        },
+        {
+          "id": "B5-required",
+          "pattern": "sufficiently capacious, and read back sustains",
+          "disposition": "repaired",
+          "expect": {
+            "book/ch01-observation.md": 1,
+            "book/The-Incompleteness-of-Observation-FULL.md": 1
+          },
+          "why": "all four conditions named, with the two-cut status carried in the same paragraph."
+        },
+        {
+          "id": "B6-forbidden-intro-margins",
+          "pattern": "actual physical conditions of any laboratory observer in our universe, satisfied by enormous margins",
+          "disposition": "repaired",
+          "expect": {},
+          "why": "finding B6: the Introduction's twin of B5, declaring all four conditions satisfied by enormous margins for any laboratory observer. Same repair, both sources."
+        },
+        {
+          "id": "B6-required",
+          "pattern": "readback is named there and still to be demonstrated",
+          "disposition": "repaired",
+          "expect": {
+            "book/ch00-introduction.md": 1,
+            "book/The-Incompleteness-of-Observation-FULL.md": 1
+          },
+          "why": "the Introduction's form of the two-cut status, phrased without the status sentence so that the B1-required count stays a count of that sentence."
         }
       ]
     }

@@ -76,6 +76,72 @@ cut, its application to our universe is conditional on C4 in the same way its st
 says; nothing in its wording changes, but its status at the concrete cut is now visible rather than
 implicit.
 
+## The SM lattice cut
+
+`[SM]` uses two partitions and keeps them apart. The **observer cut** is `(V, H)` with `V` a connected
+subgraph of the coupling graph (Theorem 22). The **checkerboard** (Theorem 12) is the even/odd
+sublattice split that carries the staggered `ε`-grading; `[SM]` §4.7 says explicitly that it is the
+bipartite structure of the dynamics, not a choice of which sites to trace out, and that the physical
+horizon partition contains both sublattices. So the checkerboard is not the cut the observer
+conditions are stated at, and nothing in the audit's charter attaches to it.
+
+**Clean, and the model for the rest.** Theorem 22 is already in the form B1 restored in `[GR]`. C1
+holds structurally (`∂V ≠ ∅` on a connected graph); the C3 capacity floor holds for the realized
+process by data processing, with no saturation claim; and C2 and C4 enter as **explicit hypotheses**,
+with a status remark that says why — energy conservation does not imply a written record survives
+*accessible* to readback — names the two genericity lemmas that would discharge them, and states
+"neither is proved here". The prerequisites paragraph adds the right disclaimer: `[SM]` consumes only
+the emergent quantum description and its Born-rule statistics.
+
+**Finding B2 — Layer 0 attributed the gauge chain to C1–C4.** The four-layer framing said Layer 0
+properties "follow from C1–C4 + cubic-group representation theory" and, in the same breath, "hold for
+every bijection" — which cannot both be so, since C1–C4 are conditions on the partition. The chain
+itself, §4.5–4.7, mentions no C-condition, and §4.3's *Revised chain* separates chirality from the
+C4/readback theorem in so many words. This is the `[GR]` §8.4 shape again: a derivation carried by
+other structure listing C1–C4 among its inputs. Repaired in `[SM]` and in the book's Chapter 4 (both
+sources): Layer 0 follows from the bijection's coupling structure and cubic-group representation
+theory; C1–C4 are diagnostics of the observer at the cut, not inputs to the derivation.
+
+**Finding B3 — §2.1's inventory omitted C4 and overstated C2.** The assumptions section listed
+"non-trivial coupling (C1), record persistence, and sufficient capacity (C2, C3)" as conditions on the
+partition that "hold for any system with the right partition geometry". Theorem 22's own proof denies
+this for C2, and C4 was absent. The inventory now names all four and carries the theorem's status.
+
+**Finding B4 — Chapter 1's C4 definition inferred the horizon read-write cycle from
+bidirectionality.** "*In the cosmological realization the mediation is a causal read-write cycle … and
+at the horizon this is automatic — the coupling is bidirectional*" — the inference B1 removed from
+Chapter 7, one chapter earlier, and contrary to `[Main]` §1.3's own qualifier that the cycle is "a
+property to be independently demonstrated there". Repaired in both sources; `[SM]`'s prerequisites
+parenthetical, which paraphrased the same clause, carries the same qualifier.
+
+**Finding B5 — the paragraph after Chapter 1's C4 definition listed three conditions and
+declared all four satisfied.** One sentence after saying that an environment which stores without
+reading back "yields exact Markov noise despite all three (failing C4)", it said "only an environment
+that is coupled, persistent, and vast sustains" the memory-bearing correlations — C1–C3 — and closed
+with the conditions being "satisfied by enormous margins". The first omits the one condition the
+preceding sentence had just made load-bearing; the second is the blanket form that neither cut supports. Repaired in both sources: all four named, and the status carried per cut — at the lattice cut C1 structural and the C3 capacity floor a data-processing bound for the realized
+process, with C2 and C4 the hypotheses of Theorem 22; at the cosmological cut C1 verified structurally,
+C2 and C3 verified with enormous margins, and C4 named but not presently discharged.
+
+**Finding B6 — the Introduction carried the same blanket form.** "They are the actual physical
+conditions of any laboratory observer in our universe, satisfied by enormous margins." Repaired in
+both sources to the two-cut status. `[GR]` §2.2 and Chapter 7 keep "satisfied with enormous margin"
+for C2 and C3 individually, which is a different and correct claim and is untouched.
+
+## The consolidated status, which the freeze will carry
+
+| cut | C1 | C2 | C3 | C4 |
+|---|---|---|---|---|
+| cosmological horizon (`[GR]` §2.2) | verified structurally | verified, timescale margin | verified, capacity margin | named, not presently discharged |
+| lattice observer cut (`[SM]` Theorem 22) | structural | hypothesis | capacity floor, data processing | hypothesis |
+
+The two rows are not the same statement and must not be merged into "C1–C3 verified at both cuts":
+at the lattice cut C2 is a hypothesis, and C3 is a floor for the realized process rather than a
+margin. Within the first row the entries differ in kind as well: C1 is verified structurally, from
+the constraint equations, and carries no margin; C2 and C3 are verified with enormous margins, of
+timescale and of capacity respectively. The freeze copies this table verbatim rather than
+paraphrasing it.
+
 ## What the audit checked and found clean at the cut
 
 **The `ħ` chain's named conditions.** H-slope, H-frame, H-spectrum, H-balance, H-shell, H-energy,
@@ -97,6 +163,6 @@ is left unchanged.
 That C4 fails at the cosmological cut, or that it cannot be demonstrated there — only that the
 corpus does not presently demonstrate it. That the `ħ` derivation, the Bekenstein–Hawking coefficient
 or the running-vacuum form are affected: their conditions are the named horizon and KMS conditions.
-That the SM-side lattice cut has been audited to the same depth: this round's concrete-cut census is
-the gravitational one, and the SM cut is the next item under the same charter. That the census
-exhausts the corpus — its vocabularies are those recorded in the manifest.
+That C2 or C4 hold at the lattice cut: Theorem 22 names them as hypotheses and the genericity lemmas
+that would discharge them are unproved. That the census exhausts the corpus — its vocabularies are
+those recorded in the manifest.

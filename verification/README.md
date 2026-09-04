@@ -627,7 +627,17 @@ so verifying those two cannot supply it. The repair manufactures no proof: `[GR]
 fourth entry recording C4 as a named realization condition at the cosmological cut, **not presently
 discharged**, with what remains stated; both book sources carry the same status; and C4 is not added
 as a hypothesis of the `ħ` derivation, which is carried by H-slope with the horizon and frame
-conditions. The `R7-AUDB` guard holds all of it.
+conditions. The SM lattice cut is the honest model — Theorem 22 has C1 structural, the C3 floor by data
+processing, and C2 and C4 as explicit hypotheses with the discharging lemmas named unproved — and the
+audit found three residues around it: Layer 0 listing C1–C4 as inputs to a gauge chain that consumes
+none of them, §2.1's inventory omitting C4 and saying C2 holds for any system with the right partition
+geometry, Chapter 1's C4 definition calling the horizon read-write cycle automatic, and — in the
+paragraph after it and again in the Introduction — three conditions listed as what sustains the
+memory-bearing sector and all four declared satisfied by enormous margins. All repaired in every
+parallel source, to a two-row status that must not be collapsed: at the cosmological cut C1 verified
+structurally, C2 and C3 verified with enormous margins, C4 open; at the lattice cut C1 structural,
+C3 a capacity floor for the realized process, C2 and C4 hypotheses.
+The `R7-AUDB` guard holds all of it.
 
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
 audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its
