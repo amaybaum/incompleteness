@@ -985,6 +985,476 @@ theorem layerQ_bijective (t : ℝ) : Function.Bijective (layerQ R t) :=
   Function.bijective_iff_has_inverse.mpr
     ⟨layerQ R (-t), layerQ_left_inverse R t, layerQ_right_inverse R t⟩
 
+
+/-! ### Section H — the swap layer
+
+The second layer of the circuit. Its gates are the on-site exchanges of the two components, so a
+gate's region is a single site: a region feels only the gates inside it, commutation is by
+disjointness alone, and no neighbourhood or influence data appears. The development mirrors the
+shear layer's, and is shorter for exactly that reason.
+-/
+
+section Swap
+
+set_option maxHeartbeats 1200000
+
+variable {V : Type} [Fintype V] [DecidableEq V] [Nonempty V] [AddCommGroup V]
+
+/-- The on-site exchange of the two components at one site. -/
+def swapConf (i : ι) (x : Conf ({i} : Finset ι) (V × V)) : Conf ({i} : Finset ι) (V × V) :=
+  fun u => ((x u).2, (x u).1)
+
+theorem swapConf_involutive (i : ι) (x : Conf ({i} : Finset ι) (V × V)) :
+    swapConf i (swapConf i x) = x := by
+  funext u
+  rfl
+
+/-- The swap gate at a site, as a permutation of that site's configurations. -/
+def swapEquivAt (i : ι) :
+    Conf ({i} : Finset ι) (V × V) ≃ Conf ({i} : Finset ι) (V × V) where
+  toFun := swapConf i
+  invFun := swapConf i
+  left_inv := swapConf_involutive i
+  right_inv := swapConf_involutive i
+
+/-- **THE SWAP GATE IN THE QUASILOCAL ALGEBRA.** -/
+noncomputable def swapGateQ (i : ι) : Quasilocal ι (V × V) := qGate {i} (swapEquivAt i)
+
+theorem swapGateQ_isGate (i : ι) :
+    swapGateQ (V := V) i * swapGateQ i = 1 ∧ star (swapGateQ (V := V) i) = swapGateQ i :=
+  qGate_isGate (swapConf_involutive i)
+
+/-- **THE SWAP GATES COMMUTE**, by disjointness of single sites. -/
+theorem swapGateQ_comm (i j : ι) :
+    swapGateQ (V := V) i * swapGateQ j = swapGateQ j * swapGateQ i := by
+  by_cases h : i = j
+  · subst h; rfl
+  · exact stage_comm_of_disjoint (by simpa using h) _ _
+
+theorem unit_swapGateQ_comm (i j : ι) (t s : ℝ) :
+    unit (swapGateQ (V := V) i) t * unit (swapGateQ j) s
+      = unit (swapGateQ j) s * unit (swapGateQ (V := V) i) t :=
+  unit_comm (swapGateQ_comm i j) t s
+
+/-- **A GATE OUTSIDE THE REGION IS BLIND TO IT.** For the swap layer this is immediate: the gate
+occupies one site, so it is blind exactly when that site lies outside. -/
+theorem unit_swapGateQ_comm_stage {Λ : Finset ι} {i : ι} (hi : i ∉ Λ)
+    (Y : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) (t : ℝ) :
+    unit (swapGateQ (V := V) i) t * stage Λ Y = stage Λ Y * unit (swapGateQ (V := V) i) t :=
+  unit_qGate_comm_stage_of_disjoint (by simpa using hi) _ Y t
+
+theorem unit_swapGateQ_mem_range (i : ι) (t : ℝ) :
+    unit (swapGateQ (V := V) i) t ∈ Set.range (stage ({i} : Finset ι)) := by
+  rw [unit, proj]
+  refine mem_range_stage_add (mem_range_stage_one _) (mem_range_stage_smul _ ?_)
+  exact mem_range_stage_smul _ (mem_range_stage_sub (mem_range_stage_one _) ⟨_, rfl⟩)
+
+/-- **THE SWAP LAYER'S UNITARY FOR A REGION.** -/
+noncomputable def swapU (S : Finset ι) (t : ℝ) : Quasilocal ι (V × V) :=
+  S.noncommProd (fun i => unit (swapGateQ i) t)
+    (fun i _ j _ _ => unit_swapGateQ_comm i j t t)
+
+@[simp] theorem swapU_empty (t : ℝ) : swapU (V := V) (∅ : Finset ι) t = 1 :=
+  Finset.noncommProd_empty _ _
+
+theorem swapU_union {S T : Finset ι} (h : Disjoint S T) (t : ℝ) :
+    swapU (V := V) (S ∪ T) t = swapU S t * swapU T t :=
+  Finset.noncommProd_union_of_disjoint h _ _
+
+theorem swapU_singleton (i : ι) (t : ℝ) :
+    swapU (V := V) ({i} : Finset ι) t = unit (swapGateQ i) t := by
+  rw [swapU, Finset.noncommProd_singleton]
+
+theorem swapU_star (S : Finset ι) (t : ℝ) :
+    swapU (V := V) S t * star (swapU S t) = 1 := by
+  classical
+  induction S using Finset.induction_on with
+  | empty => simp
+  | insert i s hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) s := by simpa using hi
+      have hins : (insert i s : Finset ι) = {i} ∪ s := by rw [Finset.insert_eq]
+      rw [hins, swapU_union hdis, star_mul]
+      calc swapU ({i}) t * swapU s t * (star (swapU s t) * star (swapU ({i}) t))
+          = swapU ({i}) t * (swapU s t * star (swapU s t)) * star (swapU ({i}) t) := by
+            simp only [mul_assoc]
+        _ = swapU ({i}) t * star (swapU ({i}) t) := by rw [ih, mul_one]
+        _ = 1 := by
+            rw [swapU_singleton]
+            exact unit_mul_star_unit (swapGateQ_isGate i).1 (swapGateQ_isGate i).2 t
+
+theorem star_swapU_mul (S : Finset ι) (t : ℝ) :
+    star (swapU (V := V) S t) * swapU S t = 1 := by
+  classical
+  induction S using Finset.induction_on with
+  | empty => simp
+  | insert i s hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) s := by simpa using hi
+      have hins : (insert i s : Finset ι) = {i} ∪ s := by rw [Finset.insert_eq]
+      rw [hins, swapU_union hdis, star_mul]
+      calc star (swapU s t) * star (swapU ({i}) t) * (swapU ({i}) t * swapU s t)
+          = star (swapU s t) * (star (swapU ({i}) t) * swapU ({i}) t) * swapU s t := by
+            simp only [mul_assoc]
+        _ = star (swapU s t) * swapU s t := by
+            rw [swapU_singleton,
+              star_unit_mul_unit (swapGateQ_isGate i).1 (swapGateQ_isGate i).2 t, mul_one]
+        _ = 1 := ih
+
+theorem swapU_mem_unitary (S : Finset ι) (t : ℝ) :
+    swapU (V := V) S t ∈ unitary (Quasilocal ι (V × V)) :=
+  Unitary.mem_iff.mpr ⟨star_swapU_mul S t, swapU_star S t⟩
+
+theorem swapU_zero (S : Finset ι) : swapU (V := V) S 0 = 1 := by
+  classical
+  induction S using Finset.induction_on with
+  | empty => simp
+  | insert i s hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) s := by simpa using hi
+      have hins : (insert i s : Finset ι) = {i} ∪ s := by rw [Finset.insert_eq]
+      rw [hins, swapU_union hdis, swapU_singleton, unit_zero, one_mul, ih]
+
+theorem swapU_add (S : Finset ι) (t s : ℝ) :
+    swapU (V := V) S t * swapU S s = swapU S (t + s) := by
+  classical
+  induction S using Finset.induction_on with
+  | empty => simp
+  | insert i r hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) r := by simpa using hi
+      have hins : (insert i r : Finset ι) = {i} ∪ r := by rw [Finset.insert_eq]
+      have hcross : swapU (V := V) r t * unit (swapGateQ i) s
+          = unit (swapGateQ i) s * swapU r t := by
+        rw [swapU]
+        exact (Finset.noncommProd_commute r _ _ _
+          fun j _ => unit_swapGateQ_comm i j s t).symm
+      rw [hins, swapU_union hdis, swapU_union hdis, swapU_union hdis,
+        swapU_singleton, swapU_singleton, swapU_singleton]
+      calc unit (swapGateQ i) t * swapU r t * (unit (swapGateQ i) s * swapU r s)
+          = unit (swapGateQ i) t * (swapU r t * unit (swapGateQ i) s) * swapU r s := by
+            simp only [mul_assoc]
+        _ = unit (swapGateQ i) t * (unit (swapGateQ i) s * swapU r t) * swapU r s := by
+            rw [hcross]
+        _ = (unit (swapGateQ i) t * unit (swapGateQ i) s) * (swapU r t * swapU r s) := by
+            simp only [mul_assoc]
+        _ = unit (swapGateQ i) (t + s) * swapU r (t + s) := by
+            rw [unit_mul_unit (swapGateQ_isGate i).1, ih]
+
+theorem swapU_mem_range (S : Finset ι) (t : ℝ) :
+    swapU (V := V) S t ∈ Set.range (stage S) := by
+  classical
+  induction S using Finset.induction_on with
+  | empty =>
+      rw [swapU_empty]
+      exact mem_range_stage_one _
+  | insert i s hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) s := by simpa using hi
+      have hins : (insert i s : Finset ι) = {i} ∪ s := by rw [Finset.insert_eq]
+      have h1 : ({i} : Finset ι) ⊆ insert i s := by
+        simpa using Finset.mem_insert_self i s
+      have h2 : s ⊆ insert i s := Finset.subset_insert i s
+      rw [hins, swapU_union hdis, swapU_singleton]
+      exact mem_range_stage_mul
+        (mem_range_stage_le h1 (unit_swapGateQ_mem_range i t))
+        (mem_range_stage_le h2 ih)
+
+/-- **THE SWAP LAYER'S ACTION ON A REGION'S OBSERVABLES.** -/
+noncomputable def swapAct (S : Finset ι) (t : ℝ) (a : Quasilocal ι (V × V)) :
+    Quasilocal ι (V × V) :=
+  swapU S t * a * star (swapU S t)
+
+/-- **STABILIZATION.** For the swap layer the affected set of a region is the region itself. -/
+theorem swapAct_stabilizes {Λ S : Finset ι} (hS : Λ ⊆ S)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) (t : ℝ) :
+    swapAct S t (stage Λ X) = swapAct Λ t (stage Λ X) := by
+  classical
+  set W := S \ Λ with hW
+  have hdis : Disjoint Λ W := Finset.disjoint_sdiff
+  have hSU : S = Λ ∪ W := by rw [hW, Finset.union_sdiff_of_subset hS]
+  have hcw : swapU (V := V) W t * stage Λ X = stage Λ X * swapU W t := by
+    rw [swapU]
+    refine (Finset.noncommProd_commute W _ _ _ fun j hj => ?_).symm
+    have hjn : j ∉ Λ := (Finset.mem_sdiff.mp (hW ▸ hj)).2
+    exact (unit_swapGateQ_comm_stage hjn X t).symm
+  rw [swapAct, swapAct, hSU, swapU_union hdis, star_mul]
+  calc swapU Λ t * swapU W t * stage Λ X * (star (swapU W t) * star (swapU Λ t))
+      = swapU Λ t * (swapU W t * stage Λ X * star (swapU W t)) * star (swapU Λ t) := by
+        simp only [mul_assoc]
+    _ = swapU Λ t * stage Λ X * star (swapU Λ t) := by
+        rw [conj_eq_self_of_commute (swapU_star W t) hcw]
+
+theorem swapAct_mem_range (S Λ : Finset ι) (t : ℝ)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    swapAct S t (stage Λ X) ∈ Set.range (stage (Λ ∪ S)) := by
+  have hU : swapU (V := V) S t ∈ Set.range (stage (Λ ∪ S)) :=
+    mem_range_stage_le Finset.subset_union_right (swapU_mem_range S t)
+  have hX : stage Λ X ∈ Set.range (stage (Λ ∪ S)) :=
+    mem_range_stage_le Finset.subset_union_left ⟨X, rfl⟩
+  exact mem_range_stage_mul (mem_range_stage_mul hU hX) (mem_range_stage_star hU)
+
+/-- **THE SWAP LAYER ON A LOCAL OBSERVABLE.** -/
+noncomputable def swapLoc (t : ℝ) (a : localAlg ι (V × V)) : Quasilocal ι (V × V) :=
+  swapAct (rep a).1 t (a : Quasilocal ι (V × V))
+
+theorem swapAct_eq_of_stage_eq {Λ Λ' : Finset ι}
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ)
+    (X' : Matrix (Conf Λ' (V × V)) (Conf Λ' (V × V)) ℂ)
+    (h : stage Λ X = stage Λ' X') (t : ℝ) :
+    swapAct Λ t (stage Λ X) = swapAct Λ' t (stage Λ' X') := by
+  have e1 := swapAct_stabilizes (Finset.subset_union_left (s₂ := Λ')) X t
+  have e2 := swapAct_stabilizes (Finset.subset_union_right (s₁ := Λ)) X' t
+  rw [← e1, ← e2, h]
+
+theorem swapLoc_ofM (t : ℝ) (Λ : Finset ι)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    swapLoc t (ofM Λ X) = swapAct Λ t (stage Λ X) := by
+  classical
+  have h : stage (rep (ofM Λ X)).1 (rep (ofM Λ X)).2 = stage Λ X := by
+    rw [stage_apply, stage_apply, ofM_rep]
+  have hL : swapLoc t (ofM Λ X)
+      = swapAct (rep (ofM Λ X)).1 t (stage (rep (ofM Λ X)).1 (rep (ofM Λ X)).2) := by
+    rw [swapLoc, h]
+    rfl
+  rw [hL]
+  exact swapAct_eq_of_stage_eq _ X h t
+
+theorem swapLoc_mul (t : ℝ) (a b : localAlg ι (V × V)) :
+    swapLoc t (a * b) = swapLoc t a * swapLoc t b := by
+  classical
+  obtain ⟨Λ, X, Y, rfl, rfl⟩ := exists_ofM₂ a b
+  rw [← ofM_mul, swapLoc_ofM, swapLoc_ofM, swapLoc_ofM, swapAct, swapAct, swapAct, map_mul]
+  calc swapU Λ t * (stage Λ X * stage Λ Y) * star (swapU Λ t)
+      = swapU Λ t * stage Λ X * (star (swapU Λ t) * swapU Λ t)
+          * stage Λ Y * star (swapU Λ t) := by
+        rw [star_swapU_mul]
+        simp only [mul_one, mul_assoc]
+    _ = swapU Λ t * stage Λ X * star (swapU Λ t)
+          * (swapU Λ t * stage Λ Y * star (swapU Λ t)) := by simp only [mul_assoc]
+
+theorem swapLoc_add (t : ℝ) (a b : localAlg ι (V × V)) :
+    swapLoc t (a + b) = swapLoc t a + swapLoc t b := by
+  classical
+  obtain ⟨Λ, X, Y, rfl, rfl⟩ := exists_ofM₂ a b
+  rw [← ofM_add, swapLoc_ofM, swapLoc_ofM, swapLoc_ofM, swapAct, swapAct, swapAct, map_add]
+  simp only [mul_add, add_mul]
+
+theorem swapLoc_smul (t : ℝ) (c : ℂ) (a : localAlg ι (V × V)) :
+    swapLoc t (c • a) = c • swapLoc t a := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [← ofM_smul, swapLoc_ofM, swapLoc_ofM, swapAct, swapAct, map_smul]
+  simp only [mul_smul_comm, smul_mul_assoc]
+
+theorem swapLoc_sub (t : ℝ) (a b : localAlg ι (V × V)) :
+    swapLoc t (a - b) = swapLoc t a - swapLoc t b := by
+  rw [sub_eq_add_neg, swapLoc_add, ← neg_one_smul ℂ b, swapLoc_smul, neg_one_smul,
+    ← sub_eq_add_neg]
+
+theorem swapLoc_one (t : ℝ) : swapLoc t (1 : localAlg ι (V × V)) = 1 := by
+  classical
+  have h1 : (1 : localAlg ι (V × V)) = ofM (∅ : Finset ι) 1 := (ofM_one _).symm
+  rw [h1, swapLoc_ofM, swapAct, map_one, mul_one, swapU_star]
+
+theorem swapLoc_star (t : ℝ) (a : localAlg ι (V × V)) :
+    swapLoc t (star a) = star (swapLoc t a) := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [star_ofM, swapLoc_ofM, swapLoc_ofM, swapAct, swapAct,
+    ← Matrix.star_eq_conjTranspose, map_star]
+  simp only [star_mul, star_star, mul_assoc]
+
+theorem swapLoc_zero (a : localAlg ι (V × V)) :
+    swapLoc 0 a = (a : Quasilocal ι (V × V)) := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [swapLoc_ofM, swapAct, swapU_zero, star_one, one_mul, mul_one]
+  rfl
+
+theorem norm_swapLoc (t : ℝ) (a : localAlg ι (V × V)) :
+    ‖swapLoc t a‖ = ‖(a : Quasilocal ι (V × V))‖ := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  rw [swapLoc_ofM, swapAct]
+  have hU := swapU_mem_unitary (V := V) Λ t
+  rw [CStarRing.norm_mul_mem_unitary _ (Unitary.star_mem hU),
+    CStarRing.norm_mem_unitary_mul _ hU]
+  rfl
+
+theorem isometry_swapLoc (t : ℝ) :
+    Isometry (fun a : localAlg ι (V × V) => swapLoc t a) := by
+  refine Isometry.of_dist_eq fun a b => ?_
+  rw [dist_eq_norm, dist_eq_norm, ← swapLoc_sub, norm_swapLoc,
+    UniformSpace.Completion.norm_coe]
+
+/-- **THE SWAP LAYER ON THE QUASILOCAL ALGEBRA.** -/
+noncomputable def swapQ (t : ℝ) : Quasilocal ι (V × V) → Quasilocal ι (V × V) :=
+  UniformSpace.Completion.extension (swapLoc t)
+
+theorem swapQ_coe (t : ℝ) (a : localAlg ι (V × V)) :
+    swapQ t (a : Quasilocal ι (V × V)) = swapLoc t a :=
+  UniformSpace.Completion.extension_coe (isometry_swapLoc t).uniformContinuous a
+
+theorem continuous_swapQ (t : ℝ) : Continuous (swapQ (V := V) t) :=
+  UniformSpace.Completion.continuous_extension
+
+theorem swapQ_stage (t : ℝ) (Λ : Finset ι)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    swapQ t (stage Λ X) = swapAct Λ t (stage Λ X) := by
+  rw [stage_apply, swapQ_coe, swapLoc_ofM]
+  rfl
+
+theorem norm_swapQ (t : ℝ) (x : Quasilocal ι (V × V)) : ‖swapQ t x‖ = ‖x‖ := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq (continuous_norm.comp (continuous_swapQ t)) continuous_norm
+  · rw [swapQ_coe, norm_swapLoc]
+
+theorem swapQ_mul (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    swapQ t (x * y) = swapQ t x * swapQ t y := by
+  refine UniformSpace.Completion.induction_on₂ x y ?_ fun a b => ?_
+  · exact isClosed_eq ((continuous_swapQ t).comp continuous_mul)
+      (((continuous_swapQ t).comp continuous_fst).mul ((continuous_swapQ t).comp continuous_snd))
+  · rw [← UniformSpace.Completion.coe_mul, swapQ_coe, swapQ_coe, swapQ_coe, swapLoc_mul]
+
+theorem swapQ_add (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    swapQ t (x + y) = swapQ t x + swapQ t y := by
+  refine UniformSpace.Completion.induction_on₂ x y ?_ fun a b => ?_
+  · exact isClosed_eq ((continuous_swapQ t).comp continuous_add)
+      (((continuous_swapQ t).comp continuous_fst).add ((continuous_swapQ t).comp continuous_snd))
+  · rw [← UniformSpace.Completion.coe_add, swapQ_coe, swapQ_coe, swapQ_coe, swapLoc_add]
+
+theorem swapQ_smul (t : ℝ) (c : ℂ) (x : Quasilocal ι (V × V)) :
+    swapQ t (c • x) = c • swapQ t x := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq ((continuous_swapQ t).comp (continuous_id.const_smul c))
+      ((continuous_swapQ t).const_smul c)
+  · rw [← UniformSpace.Completion.coe_smul, swapQ_coe, swapQ_coe, swapLoc_smul]
+
+theorem swapQ_star (t : ℝ) (x : Quasilocal ι (V × V)) :
+    swapQ t (star x) = star (swapQ t x) := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq ((continuous_swapQ t).comp continuous_star)
+      (continuous_star.comp (continuous_swapQ t))
+  · rw [star_coe, swapQ_coe, swapQ_coe, swapLoc_star]
+
+theorem swapQ_sub (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    swapQ t (x - y) = swapQ t x - swapQ t y := by
+  rw [sub_eq_add_neg, swapQ_add, ← neg_one_smul ℂ y, swapQ_smul, neg_one_smul, ← sub_eq_add_neg]
+
+theorem swapQ_one (t : ℝ) : swapQ t (1 : Quasilocal ι (V × V)) = 1 := by
+  calc swapQ t (1 : Quasilocal ι (V × V))
+      = swapQ t ((1 : localAlg ι (V × V)) : Quasilocal ι (V × V)) := by
+        rw [UniformSpace.Completion.coe_one]
+    _ = swapLoc t 1 := swapQ_coe t 1
+    _ = 1 := swapLoc_one t
+
+theorem swapQ_zero_time (x : Quasilocal ι (V × V)) : swapQ 0 x = x := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq (continuous_swapQ 0) continuous_id
+  · rw [swapQ_coe, swapLoc_zero]
+
+theorem dist_swapQ (t : ℝ) (x y : Quasilocal ι (V × V)) :
+    dist (swapQ t x) (swapQ t y) = dist x y := by
+  rw [dist_eq_norm, dist_eq_norm, ← swapQ_sub, norm_swapQ]
+
+theorem continuous_unit_swapGateQ (i : ι) :
+    Continuous fun t : ℝ => unit (swapGateQ (V := V) i) t := by
+  unfold unit
+  fun_prop
+
+theorem continuous_swapU (S : Finset ι) :
+    Continuous fun t : ℝ => swapU (V := V) S t := by
+  classical
+  induction S using Finset.induction_on with
+  | empty => simpa using continuous_const
+  | insert i s hi ih =>
+      have hdis : Disjoint ({i} : Finset ι) s := by simpa using hi
+      have hins : (insert i s : Finset ι) = {i} ∪ s := by rw [Finset.insert_eq]
+      simp only [hins, fun t => swapU_union (V := V) hdis t, fun t => swapU_singleton (V := V) i t]
+      exact (continuous_unit_swapGateQ i).mul ih
+
+theorem continuous_swapLoc (a : localAlg ι (V × V)) :
+    Continuous fun t : ℝ => swapLoc t a := by
+  classical
+  obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+  simp only [fun t => swapLoc_ofM t Λ X, swapAct]
+  exact ((continuous_swapU Λ).mul continuous_const).mul
+    (continuous_star.comp (continuous_swapU Λ))
+
+theorem continuous_swapQ_time (x : Quasilocal ι (V × V)) :
+    Continuous fun t : ℝ => swapQ t x := by
+  refine continuous_iff_continuousAt.mpr fun t₀ => Metric.continuousAt_iff.mpr fun ε hε => ?_
+  have hx : x ∈ closure (Set.range ((↑) : localAlg ι (V × V) → Quasilocal ι (V × V))) := by
+    rw [UniformSpace.Completion.denseRange_coe.closure_eq]
+    trivial
+  obtain ⟨a, ha⟩ := Metric.mem_closure_range_iff.mp hx (ε / 3) (by positivity)
+  obtain ⟨δ, hδ, hball⟩ :=
+    Metric.continuousAt_iff.mp ((continuous_swapLoc a).continuousAt (x := t₀))
+      (ε / 3) (by positivity)
+  refine ⟨δ, hδ, fun {t} ht => ?_⟩
+  have h1 : dist (swapQ t x) (swapQ t (a : Quasilocal ι (V × V))) < ε / 3 := by
+    rw [dist_swapQ]; exact ha
+  have h2 : dist (swapQ t₀ (a : Quasilocal ι (V × V))) (swapQ t₀ x) < ε / 3 := by
+    rw [dist_swapQ, dist_comm]; exact ha
+  have h3 : dist (swapQ t (a : Quasilocal ι (V × V))) (swapQ t₀ (a : Quasilocal ι (V × V)))
+      < ε / 3 := by
+    rw [swapQ_coe, swapQ_coe]; exact hball ht
+  calc dist (swapQ t x) (swapQ t₀ x)
+      ≤ dist (swapQ t x) (swapQ t (a : Quasilocal ι (V × V)))
+        + dist (swapQ t (a : Quasilocal ι (V × V))) (swapQ t₀ x) := dist_triangle _ _ _
+    _ ≤ dist (swapQ t x) (swapQ t (a : Quasilocal ι (V × V)))
+        + (dist (swapQ t (a : Quasilocal ι (V × V))) (swapQ t₀ (a : Quasilocal ι (V × V)))
+          + dist (swapQ t₀ (a : Quasilocal ι (V × V))) (swapQ t₀ x)) := by
+        gcongr
+        exact dist_triangle _ _ _
+    _ < ε / 3 + (ε / 3 + ε / 3) := by gcongr
+    _ = ε := by ring
+
+/-- **THE GROUP LAW FOR THE SWAP LAYER.** -/
+theorem swapQ_add_time_stage (t s : ℝ) (Λ : Finset ι)
+    (X : Matrix (Conf Λ (V × V)) (Conf Λ (V × V)) ℂ) :
+    swapQ t (swapQ s (stage Λ X)) = swapQ (t + s) (stage Λ X) := by
+  classical
+  obtain ⟨Y, hY⟩ := swapAct_mem_range Λ Λ s X
+  set Λ₁ := Λ ∪ Λ with hΛ₁
+  set S := Λ ∪ Λ₁ with hS
+  have hsub₀ : Λ ⊆ S := Finset.subset_union_left
+  have hsub₁ : Λ₁ ⊆ S := Finset.subset_union_right
+  have hmid : swapAct S s (stage Λ X) = stage Λ₁ Y := by
+    rw [swapAct_stabilizes hsub₀ X s]
+    exact hY.symm
+  have e1 : swapQ s (stage Λ X) = stage Λ₁ Y := by
+    rw [swapQ_stage]
+    exact hY.symm
+  have e2 : swapQ t (stage Λ₁ Y) = swapAct S t (stage Λ₁ Y) := by
+    rw [swapQ_stage, ← swapAct_stabilizes hsub₁ Y t]
+  have e3 : swapQ (t + s) (stage Λ X) = swapAct S (t + s) (stage Λ X) := by
+    rw [swapQ_stage, ← swapAct_stabilizes hsub₀ X (t + s)]
+  rw [e1, e2, e3, ← hmid]
+  simp only [swapAct]
+  calc swapU S t * (swapU S s * stage Λ X * star (swapU S s)) * star (swapU S t)
+      = swapU S t * swapU S s * stage Λ X * (star (swapU S s) * star (swapU S t)) := by
+        simp only [mul_assoc]
+    _ = swapU S (t + s) * stage Λ X * star (swapU S (t + s)) := by
+        rw [swapU_add, ← star_mul, swapU_add]
+
+theorem swapQ_add_time (t s : ℝ) (x : Quasilocal ι (V × V)) :
+    swapQ t (swapQ s x) = swapQ (t + s) x := by
+  refine UniformSpace.Completion.induction_on x ?_ fun a => ?_
+  · exact isClosed_eq ((continuous_swapQ t).comp (continuous_swapQ s)) (continuous_swapQ (t + s))
+  · obtain ⟨Λ, X, rfl⟩ := exists_ofM a
+    exact swapQ_add_time_stage t s Λ X
+
+theorem swapQ_left_inverse (t : ℝ) (x : Quasilocal ι (V × V)) :
+    swapQ (-t) (swapQ t x) = x := by
+  rw [swapQ_add_time, neg_add_cancel, swapQ_zero_time]
+
+theorem swapQ_right_inverse (t : ℝ) (x : Quasilocal ι (V × V)) :
+    swapQ t (swapQ (-t) x) = x := by
+  rw [swapQ_add_time, add_neg_cancel, swapQ_zero_time]
+
+theorem swapQ_bijective (t : ℝ) : Function.Bijective (swapQ (V := V) t) :=
+  Function.bijective_iff_has_inverse.mpr
+    ⟨swapQ (-t), swapQ_left_inverse t, swapQ_right_inverse t⟩
+
+end Swap
+
 end Extend
 
 end OIBridge.SecondOrderLayer
@@ -1053,5 +1523,18 @@ namespace OIBridge.SecondOrderLayer
 #print axioms layerQ_add_time
 #print axioms layerQ_left_inverse
 #print axioms layerQ_bijective
+#print axioms swapGateQ_isGate
+#print axioms swapGateQ_comm
+#print axioms swapU_add
+#print axioms swapAct_stabilizes
+#print axioms swapLoc_ofM
+#print axioms norm_swapLoc
+#print axioms swapQ_coe
+#print axioms swapQ_mul
+#print axioms swapQ_star
+#print axioms swapQ_zero_time
+#print axioms continuous_swapQ_time
+#print axioms swapQ_add_time
+#print axioms swapQ_bijective
 
 end OIBridge.SecondOrderLayer
