@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 100 modules and,
-  at this commit, 2,101 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 103 modules and,
+  at this commit, 2,142 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -444,6 +444,26 @@ the corpus does not construct. That transport is a seam between the GR/H-state l
 Level III lattice state space rather than a reopening of the OI→QM programme, and is backlogged
 rather than made a required round. Representation construction therefore stands as optional
 mathematics outside the core programme, on the same survey-not-theorem footing.
+
+`CONTINUOUS-TIME-AUDIT.md` opens the dynamics thread. Level III froze a discrete dynamics and
+recorded continuous time as additional structure on the strength of a non-uniqueness countermodel;
+that countermodel says nothing about existence, which is what this thread asks. The first entry
+answers it. Reversibility forces the previous-slice coefficient to `-1` in SM's general
+second-order form, so the phase-space map on the per-site pair is `(p, c)` to `(c, F(c) - p)`, and
+`OIBridge/SecondOrderCircuit.lean` proves for an arbitrary site type and arbitrary neighbourhood
+function that this factors as a **depth-two circuit**: a shear layer and an on-site swap layer,
+each an involution, each a product of commuting single-site gates. The gates commute because a
+shear gate writes only its own site's previous component and reads only current components, which
+no gate writes — so the factorization is insensitive to linearity, alphabet, dimension, and
+state-dependence of the coupling. An involution gives a projection and hence an exact
+one-parameter unitary, polynomial rather than a functional calculus, reaching the gate at time one;
+the gates are supplied as elements of the quasilocal algebra of the infinite lattice, with each
+generator bounded and lying in a single finite region's stage. Two layers driven over `[0,1]` and
+`[1,2]` therefore reach the one-step map exactly. Existence, locality and infinite volume are
+settled affirmatively; a **single time-independent** generator is not obtained and is not claimed,
+the drive being piecewise constant across the two layers, and uniqueness stays decided negatively
+by the frozen countermodel. Continuous time remains additional structure rather than part of the
+core: the entry shows the structure is available, not that OI supplies it.
 
 Not claimed anywhere in the tree: that OI derives quantum mechanics; that any completion
 condition follows from OI; the unequal-environment form of purifier uniqueness; the general

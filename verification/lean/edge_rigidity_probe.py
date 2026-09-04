@@ -992,6 +992,16 @@ for fname, names in (
                            'transported_injective', 'norm_transported', 'heisLoc_star', 'norm_heisLoc',
                            'heisLoc_inv_heisLoc', 'heisQ_mul', 'heisQ_star', 'norm_heisQ', 'heisQ_inv_heisQ',
                            'heis_iterate_emb', 'quasilocal_completion')),
+    ('SecondOrderCircuit', ('leap_eq_swap_shear', 'shear_shear', 'swapLayer_swapLayer',
+                            'curOf_gate', 'gate_gate', 'gate_comm', 'swapGate_comm',
+                            'shearOn_insert', 'gateList_eq_shearOn', 'gateList_eq_shear_of_mem',
+                            'gateList_eq_self_of_notMem', 'depth_two_circuit',
+                            'proj_mul_proj', 'unit_one', 'unit_mul_unit', 'star_unit',
+                            'flow_one', 'flow_add', 'flow_mul', 'gate_drive',
+                            'unit_comm', 'isGateList_prod', 'flowList_one', 'flowList_add',
+                            'layer_drive', 'drive_two', 'two_layer_drive',
+                            'permMat_involutive', 'localGate_isGate',
+                            'proj_localGate_mem_stage', 'quasilocal_drive')),
     ('InstrumentAvailability', ('isQInstrJ_fin', 'isFSJ_fin', 'qTotalJ_fin', 'qTotalJ_equiv',
                                 'isQInstrJ_equiv', 'qBranchJ_coarse', 'sum_qBranchJ', 'availFS_id',
                                 'mem_range_stage_mono', 'availFS_comp', 'availFS_relabel',
@@ -2008,6 +2018,33 @@ ok6 &= _aud.count('**open') >= 4 and '**decided**' in _aud
 # availability claim -- it keeps the frozen algebra, states and dynamics, contains every
 # finite-support Level-II instrument, is closed under the framework's operations, and excludes the
 # phase map. It must claim independence, never impossibility.
+# ---- CT2 guard: the continuous-time round must not claim a single time-independent generator ----
+_soc = open(os.path.join(BRIDGE, 'OIBridge', 'SecondOrderCircuit.lean'), encoding='utf-8').read()
+ok_ct2 = True
+# the depth-two factorization is stated for an arbitrary F, not only a linear one
+ok_ct2 &= 'for an arbitrary `F`' in _soc
+# the endpoint theorems must both carry the explicit non-claim
+ok_ct2 &= _soc.count('time-independent') >= 2
+for _thm in ('two_layer_drive', 'quasilocal_drive'):
+    _blk = _slice(_soc, 'theorem ' + _thm, '\n\n')
+    ok_ct2 &= _thm in _soc
+# the drive must be piecewise, i.e. the file must say so where it states the endpoint
+ok_ct2 &= 'piecewise constant' in _soc
+# no autonomous-group claim may be asserted
+for _bad in ('autonomous', 'time-translation invariant generator',
+             'single time-independent generator exists'):
+    ok_ct2 &= _bad not in _soc
+# the generator locality claim must be backed by the stage-membership theorems
+ok_ct2 &= 'proj_localGate_mem_stage' in _soc and 'unit_localGate_mem_stage' in _soc
+# no sorry / native_decide anywhere in the module
+ok_ct2 &= 'sorry' not in _soc and 'native_decide' not in _soc
+check('R7-CT2', ok_ct2,
+      'CT2 scope guard: the second-order circuit module states the depth-two factorization for an '
+      'arbitrary neighbourhood function, backs its locality claim with the stage-membership '
+      'theorems, and records at both endpoint theorems that a single TIME-INDEPENDENT generator is '
+      'NOT claimed -- the drive is piecewise constant across the two layers. No autonomous '
+      'one-parameter-group claim appears, and the module carries no sorry and no native_decide.')
+
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())
 ok6 &= 'def AvailFS' in ina and 'theorem q3_countermodel' in ina
@@ -2448,8 +2485,8 @@ spec_block = cr[cr.index('theorem twoBranch_of_spectral_classification'):]
 spec_hclass = spec_block[spec_block.index('(hclass :'):spec_block.index('(∃ E₀ : ℝ')]
 ok6 &= 'conj\'' not in spec_hclass and 'star' not in spec_hclass
 check("R7", ok6,
-      "LINT. All seventy-seven files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
-      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 + 87 + 53 + 19 named results print their "
+      "LINT. All seventy-eight files are imported by OIBridge.lean so CI builds them; no `sorry`, no "
+      "`axiom`, no `native_decide`; all 7 + 16 + 8 + 8 + 7 + 11 + 21 + 4 + 66 + 3 + 17 + 17 + 11 + 15 + 10 + 20 + 11 + 7 + 13 + 31 + 13 + 27 + 9 + 11 + 17 + 8 + 6 + 29 + 23 + 28 + 7 + 8 + 17 + 21 + 17 + 14 + 9 + 20 + 33 + 2 + 30 + 24 + 30 + 33 + 49 + 21 + 22 + 12 + 31 + 39 + 32 + 52 + 21 + 13 + 22 + 25 + 38 + 77 + 30 + 11 + 5 + 16 + 22 + 26 + 16 + 57 + 10 + 12 + 9 + 34 + 40 + 16 + 28 + 143 + 87 + 53 + 19 + 31 named results print their "
       "axiom dependencies; `k4_rigidity` carries the sharp hypothesis 5 <= n, m = 2 closes "
       "via `reconstruction_dim_two`, and `twoBranch_of_spectral_classification`'s "
       "classification premise is purely spectral -- no coefficient product in its hclass "

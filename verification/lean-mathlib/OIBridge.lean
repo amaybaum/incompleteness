@@ -150,6 +150,7 @@ import OIBridge.QuasilocalAlgebra
 import OIBridge.QuasilocalCharacterization
 import OIBridge.InstrumentCompletion
 import OIBridge.InstrumentAvailability
+import OIBridge.SecondOrderCircuit
 import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 
