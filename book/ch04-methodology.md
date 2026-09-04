@@ -55,7 +55,7 @@ A framework that derives rather than posits must be honest about how rigorous ea
 
 **The four-layer framing.** Orthogonal to the S/C/L/R/P/M/E classification is a four-layer framing that locates predictions within the substratum-to-emergent stack. The two axes are independent: an S-class prediction can be at any of the four layers, and a Layer-1 prediction can be S, C, L, R, P, M, or E class.
 
-*Layer 0* covers gauge structure: which gauge groups exist, which representations appear, structural constraints from C1–C4. The Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ is Layer 0. The three-generation count is Layer 0.
+*Layer 0* covers gauge structure: which gauge groups exist, which representations appear, structural constraints from the substratum's coupling structure and cubic-group representation theory — C1–C4 are diagnostics of the observer, not inputs to this layer. The Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ is Layer 0. The three-generation count is Layer 0.
 
 *Layer 1* covers structural form: predictions from pure substratum geometry or representation theory, with no operator-relation inputs. The Cabibbo angle $1/(\pi\sqrt{2})$ is Layer 1: it follows from a Brillouin-zone distance. The Wolfenstein parameter $A = \sqrt{2/3}$ is Layer 1. The Koide angle $\theta_0 = 2/9$ is Layer 1.
 
