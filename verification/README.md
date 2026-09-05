@@ -904,7 +904,9 @@ theory is contained in the witness (`configurationLevel_availExt_le`), lacks the
 and is not quantum mechanics (`configurationLevel_not_phaseFree`, `configurationLevel_not_qm`).
 So phase-free richness requires some non-configuration-level sourcing; the observer-level lift
 the SM paper records as open is the manuscripts' specifically named open candidate, not shown
-to be the only one. Eleven named results, each printing only `propext`, `Classical.choice`,
+to be the only one, and what such a sourcing must make executable is a continuous one-parameter
+mixing family at the relevant levels, as phase-free richness asks, not a single non-monomial
+gate. Eleven named results, each printing only `propext`, `Classical.choice`,
 `Quot.sound`. Not claimed: the pass asserts nothing about whether the witness satisfies any of
 A1–A6 in the manuscript sense, nothing about the strongest OI ⇒ QM claim in either direction,
 nothing about whether the lift is derivable or unique; no manuscript changes. Guard `R7-MAX`.

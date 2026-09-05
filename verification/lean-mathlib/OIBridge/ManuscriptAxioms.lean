@@ -51,7 +51,10 @@ a configuration-level class, and say nothing about sourcings that do not. The re
 the audit note before the proof and narrowed at review: phase-free richness requires some
 sourcing that is not configuration-level; the observer-level lift `φ → L_obs`, whose derivation
 the manuscripts record as open, is their specifically named candidate for one, and nothing here
-says whether it is derivable or whether it is the only such route.
+says whether it is derivable or whether it is the only such route. What such a sourcing must
+make executable is a continuous one-parameter mixing family at the relevant levels, as
+`PhaseFreeRichness` asks, not a single non-monomial gate: a discrete non-monomial gate gives
+neither phase-free richness nor quantum mechanics.
 -/
 
 namespace OIBridge

@@ -3376,8 +3376,19 @@ for _t in ('**(A1) Finiteness.** The configuration space $S$ is finite.',
            'is **not established**', 'The strongest form is therefore not refuted here',
            'The missing interface, recorded', 'Eleven named results', 'What this note does not claim',
            'A3–A6 may well be what such a derivation consumes; the pass does not say they are not',
-           'not shown here to be the only one'):
+           'not shown here to be the only one',
+           'makes the required continuous mixing executable', 'one-parameter family of transitions at the relevant levels',
+           'A single executable non-monomial gate is not enough',
+           'That an executable non-monomial gate would close Route A'):
     ok_max &= _t in _man1
+# a discrete non-monomial gate is never promoted to closure of Route A: the target is the
+# executable continuous mixing family, in the module, the README and the outcome
+for _t in (_maflat, _rd1, _man[_man.find('## The outcome'):]):
+    ok_max &= 'a non-monomial operation executable' not in _t and 'non-monomial operation executable' not in _t
+for _t in (_maflat, _rd1):
+    ok_max &= 'not a single non-monomial gate' in _t
+for _bad in ('a non-monomial gate closes Route A', 'non-monomial gate suffices', 'Route A is closed by a gate'):
+    ok_max &= not _asserted(_man, _bad)
 # the superseded readings are absent from the module, the README, the registry note and the
 # outcome half of the note; the scope-repair section quotes two of them and is excluded
 _man_out = _man[_man.find('## The outcome'):]
