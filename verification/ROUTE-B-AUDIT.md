@@ -126,6 +126,61 @@ Route A would have to derive from the substratum.
 
 **What would falsify Outcome 2.** A proof of `RouteBTarget`.
 
+## B1 — the sealed core for the substratum theory, preregistered before the proof
+
+`RealizesSealedOICore (substratumTheory (Fin 2))` unfolds to six conjuncts. The first, C1–C4, is a
+statement about the core alone and is `core_isC1C4` in every theory. The other five are four
+obligations on the theory, frozen here with the exact kernel form each must take.
+
+1. **Passive step availability.** `(substratumTheory (Fin 2)).availExt 4 Unit
+   (fun _ => transport coreIdx (correlationExtension sigmaPerm (onesCorr Core)))`: the transported
+   permutation channel of the passive step, at level four, from monomial implementation generation
+   alone.
+2. **Control-step availability.** The same with `tauPerm`: the second transported permutation
+   channel, without `HasCompositeUnitaryControl`.
+3. **Native visible readout, as a family certified inside the generated theory.** Both readout
+   conjuncts: `∀ r, transport coreIdx (readVisible r) = (substratumTheory (Fin 2)).readout 4
+   (visIdx r)`, and `(substratumTheory (Fin 2)).availExt 4 (Bool × Bool)
+   (fun r => transport coreIdx (readVisible r))`, the family available through the generated
+   theory's own readout and coarse-graining, not through control.
+4. **Comb agreement.** `∀ steps w, realizedFold steps (reindex coreIdx coreIdx (diagonal w))
+   = reindex coreIdx coreIdx (diagonal (visWeightFold steps w))`, for the realized comb in the
+   substratum theory's carrier.
+
+**Two admissible outcomes per clause, and no third.** For each clause exactly one of the
+following is recorded: a kernel theorem establishing the clause for `substratumTheory (Fin 2)`,
+or a kernel theorem establishing its negation for `substratumTheory (Fin 2)`. Nothing else
+counts. In particular B1 does not repair or enlarge the candidate: no hypothesis is added to the
+theory, no operation is adjoined to the monomial class, no clause is weakened, and a clause that
+cannot be closed either way is reported as open, which ends B1 without an outcome.
+
+**The control discipline.** The substratum theory lacks full composite unitary control
+(`substratumGen_not_control`), and the kernel's `relabel_available` derives the two permutation
+channels from that control. Neither fact bears on clauses 1 and 2. The absence of a sufficient
+condition is not evidence against a conclusion, and each permutation clause is tested directly:
+through `genTheory_avail_conj`, the question is whether the transported permutation matrix
+`reindex coreIdx coreIdx (permMatrix g)` is a monomial isometry, and a negative outcome would have
+to show that no monomial branch family realizes the channel, as `substratumTheory_falsifierUnavailable`
+does for `rot`.
+
+**Order of attack.** Clauses 1 and 2 first, then 3, then 4. If a clause fails, B1 stops at it
+and records which sealed-core requirement the substratum theory fails and why; the remaining
+clauses are not attempted, since the target is already out of reach through
+`target_of_substratum_core` and any other proof would have to change the candidate.
+
+**What each total outcome means.** If all four clauses close, `target_of_substratum_core` yields
+`RouteBTarget`: a two-state theory satisfying `DerivedOICore` in which `rot` is unavailable, hence
+`DerivedOICore` without phase-free richness (`target_separates`), Outcome 1 on the two-state
+carrier. If a clause fails, the failing requirement is the candidate lemma for Route A, Outcome 2
+at this candidate, and no other candidate is examined in B1.
+
+**Preregistered names.** Positive: `substratumTheory_passiveStep`, `substratumTheory_controlStep`,
+`substratumTheory_readout`, `substratumTheory_readoutFamily`, `substratumTheory_comb`,
+`substratumTheory_realizesSealedOICore`, `routeB_target`. Negative, for whichever clause fails:
+`substratumTheory_not_passiveStep`, `substratumTheory_not_controlStep`,
+`substratumTheory_not_readout`, `substratumTheory_not_readoutFamily`, `substratumTheory_not_comb`.
+Whatever is proved is added to the module and to this note under the name preregistered for it.
+
 ## Nineteen named results
 
 `DerivedOI.implementationLocality`, `DerivedOI.closure`, `falsifier_available_of_control`,
