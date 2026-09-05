@@ -2,7 +2,8 @@
 
 `OIBridge/PassiveObservation.lean` (N1, N2), `OIBridge/CentralObservation.lean` (N3),
 `OIBridge/PassiveIndependence.lean` (N4), `OIBridge/InternalObserver.lean` (N5); guard `R7-OIN` in
-`verification/lean/edge_rigidity_probe.py`.
+`verification/lean/edge_rigidity_probe.py`. All five items are proved; `OI-N-FREEZE.md` states the
+endpoint once and is where the guard pins it.
 
 **Status: exploratory.** This thread is deliberately separate from the frozen OI ↔ QM equivalence and
 from the concrete-cut freeze. Nothing here may be cited as a consequence of the existing

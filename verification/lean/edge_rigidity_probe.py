@@ -2506,6 +2506,30 @@ for _t in (re.sub(r'\s+', ' ', _io), re.sub(r'\s+', ' ', _on), re.sub(r'\s+', ' 
         ok_oin &= _bad not in _t
 ok_oin &= 'every block has dimension one' not in re.sub(r'\s+', ' ', _co)
 ok_oin &= 'at most one basis state' in re.sub(r'\s+', ' ', _co)
+# ---- the OI-N freeze: the endpoint stated once, in the form the guard enforces ----
+_fzn = open(os.path.join(os.path.dirname(BRIDGE), 'OI-N-FREEZE.md'), encoding='utf-8').read()
+_fzn1 = re.sub(r'\s+', ' ', _fzn)
+ok_oin &= 'Status: frozen' in _fzn and 'What the freeze does not claim' in _fzn
+for _line in ('Noncommutativity forbids complete passive observation',
+              'Passive incompleteness does not diagnose `OICore`',
+              'A passive internal observer can only read an existing record',
+              'Creating a genuinely new internal record requires changing the joint system'):
+    ok_oin &= _line in _fzn1
+for _nm in ('complete_passive_iff_commutative', 'central_classification',
+            'passivelyIncomplete_of_card', 'oiCore_to_passive_vacuous',
+            'passivelyIncomplete_without_oiCore', 'internal_branch_eq_blockPart',
+            'internal_outcome_law', 'recordInstr_writes', 'recordInstr_not_passive',
+            'no_full_passive_self_record'):
+    ok_oin &= _nm in _fzn
+for _p in ('PassiveObservation.lean', 'CentralObservation.lean', 'PassiveIndependence.lean',
+           'InternalObserver.lean'):
+    ok_oin &= _p in _fzn
+ok_oin &= 'Extending the thread needs a new charter' in _fzn1
+for _bad in ('QM requires OI', 'quantum mechanics requires observational incompleteness',
+             'hidden OI ontology is forced', 'evidence for a hidden ontology',
+             'logically independent', 'neither implies the other'):
+    ok_oin &= not _asserted(_fzn, _bad)
+ok_oin &= 'OI-N-FREEZE.md' in _on and 'OI-N-FREEZE.md' in _rd
 # two scope points the kernel does not carry: the intrinsic-to-ambient transport through the block
 # conditional expectation is not formalized, so the statements are for the ambient definition;
 # and the classification is one direction (every passive instrument induces a stochastic
