@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 107 modules and,
-  at this commit, 2,310 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 108 modules and,
+  at this commit, 2,323 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -660,12 +660,39 @@ algebra has two of them. **OI-N2** is the commutative control: the pinching inst
 positive, is the identity on diagonal matrices, and separates diagonal states — while on the full
 algebra its nonselective channel is dephasing and it is not passive (`pinching_not_passive`) — so
 the contrast identifies noncommutativity as the candidate obstruction, whose exact finite-dimensional
-boundary is N3 and is not proved here. Ten named
-results, each
-printing only `propext`, `Classical.choice`, `Quot.sound`. Open, and guarded as open by `R7-OIN`:
-the exact boundary for `⊕ M_{d_i}` (N3, where an instrument may move probability between blocks),
-the relation to `OICore` (N4), and the internal observer (N5). Not claimed: that quantum mechanics
-requires OI or a hidden ontology; "passive" here is not the passive quotient of `PassiveQuotient.lean`.
+boundary is N3. Ten named results, each printing only `propext`, `Classical.choice`, `Quot.sound`.
+
+`OIBridge/CentralObservation.lean` is **OI-N3**, and it closes that boundary as a classification.
+The finite-dimensional C*-algebra `⊕_i M_{d_i}` is taken in block-diagonal matrix form, for a
+labelling `blk : S → I` of basis states by blocks; a passive instrument on it is a finite family of
+completely positive maps on the ambient algebra whose nonselective channel fixes every
+block-diagonal matrix; intrinsic instruments on the algebra admit the corresponding ambient
+extension by the block conditional expectation; that transport is not formalized here, and the
+kernel statements are for `IsBlockPassiveInstrument` as defined. The central theorem,
+`central_classification`: every such instrument induces a
+classical stochastic observation of the center — `tr (F_a ρ) = ∑_i c_{a,i} · tr (P_i ρ P_i)` on
+every block-diagonal `ρ`, with `c_{a,i} ≥ 0` from complete positivity and `∑_a c_{a,i} = 1` from
+passivity on every nonempty block; nothing inside a block is read. The two steps beyond the single
+block are proved, not assumed: **block preservation** (`branch_preserves_block`) — passivity on the
+block projector `P_i` forces every Kraus operator of every branch to vanish between distinct blocks
+(`exists_kraus` from the kernel's `psdFactorization_discharged` and `kraus_of_choi_factor`;
+`kraus_block_vanish` reads the diagonal of `K P_i K†`), so no branch moves probability between
+blocks — and **blockwise scalars** (`branch_scalar_on_block`) — the restriction of a branch to the
+fibre of block `i` has Choi matrix a principal submatrix of the original
+(`choiMatrix_restrictMap`), the restricted family is a passive instrument on the fibre
+(`restricted_passive`), and N1 makes each branch a scalar there. The control `blockPinch`,
+`X ↦ P_i X P_i`, is passive on the algebra and reads the block weights. The boundary: a block with
+two basis states carries two pure states every passive instrument confuses
+(`no_complete_passive_of_block`); with singleton blocks the control separates states
+(`blockPinch_separates`); so complete passive observation of `⊕_i M_{d_i}` is possible iff every
+`d_i = 1` (`complete_passive_iff_injective`) iff the algebra is commutative
+(`injective_iff_commutative`, `complete_passive_iff_commutative`). Thirteen named results, each
+printing only `propext`, `Classical.choice`, `Quot.sound`. Scope: the block-diagonal form is the
+object; the Wedderburn–Artin identification of an abstract finite-dimensional C*-algebra with it is
+not formalized. Open, and guarded as open by `R7-OIN`: the relation to `OICore` (N4) and the
+internal observer (N5). Not claimed: that quantum mechanics requires OI or a hidden ontology —
+`qm_implies_oiCore` is containment, and the necessity reading is not a theorem of this thread;
+"passive" here is not the passive quotient of `PassiveQuotient.lean`.
 
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
 audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its

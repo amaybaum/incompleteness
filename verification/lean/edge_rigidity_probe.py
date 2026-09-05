@@ -2401,26 +2401,64 @@ for _nm in ('psd_summand_of_rankOne', 'choiMatrix_id', 'passive_branch_scalar',
 ok_oin &= 'def IsPassiveInstrument' in _po and 'def SeparatesStates' in _po and 'def pinching' in _po
 # the module and the note both keep N3 and N4 open and refuse the hidden-ontology reading
 ok_oin &= 'Not claimed' in _po and 'OI-N3' in _po and 'OI-N4' in _po
-ok_oin &= 'Status: exploratory' in _on and 'OI-N3 — the exact boundary: open' in _on
+ok_oin &= 'Status: exploratory' in _on and 'OI-N3 — the exact boundary: proved, as a classification' in _on
+ok_oin &= 'OI-N4 — relation to `OICore`: open' in _on
 ok_oin &= 'What this thread does not claim' in _on
 for _bad in ('QM requires OI', 'quantum mechanics requires observational incompleteness',
-             'noncommutativity iff', 'N3 is proved', 'hidden OI ontology is forced'):
+             'hidden OI ontology is forced'):
     ok_oin &= not _asserted(_po, _bad) and not _asserted(_on, _bad)
-# the softer overclaim: naming noncommutativity as THE obstruction spends N3 before it is proved.
-# Until N3 closes, only the candidate form is allowed, in module, note and README alike.
+# N1/N2 alone name noncommutativity only as the candidate obstruction; the module that says so
+# keeps saying so, and the README keeps the candidate form attached to N1/N2.
 _rd = open(os.path.join(os.path.dirname(BRIDGE), 'README.md'), encoding='utf-8').read()
-for _bad in ('the obstruction is noncommutativity', 'obstruction of N1 is noncommutativity',
-             'it is noncommutativity', 'why a noncommutative algebra forbids'):
+for _bad in ('obstruction of N1 is noncommutativity', 'why a noncommutative algebra forbids'):
     ok_oin &= _bad not in _po and _bad not in _on and _bad not in _rd
 ok_oin &= 'candidate' in _po and 'candidate obstruction' in _on and 'candidate obstruction' in _rd
+# ---- OI-N3: the central-observation module closes the boundary as a classification ----
+_co = open(os.path.join(BRIDGE, 'OIBridge', 'CentralObservation.lean'), encoding='utf-8').read()
+ok_oin &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _co) is None and 'native_decide' not in _co
+for _nm in ('exists_kraus', 'kraus_block_vanish', 'branch_preserves_block', 'choiMatrix_restrictMap',
+            'restricted_passive', 'branch_scalar_on_block', 'central_classification',
+            'blockPinch_passive', 'no_complete_passive_of_block', 'blockPinch_separates',
+            'complete_passive_iff_injective', 'injective_iff_commutative',
+            'complete_passive_iff_commutative'):
+    ok_oin &= ('#print axioms ' + _nm) in _co
+# the definitions N3 rests on, and the shape of the central theorem: nonnegativity from CP and
+# normalization from passivity, stated per nonempty block
+ok_oin &= 'def IsBlockPassiveInstrument' in _co and 'def SeparatesBlockStates' in _co
+ok_oin &= 'def blockPinch' in _co and 'def restrictMap' in _co
+ok_oin &= '(∀ a i, (∃ s, blk s = i) → 0 ≤ c a i)' in _co
+ok_oin &= '(∀ i, (∃ s, blk s = i) → ∑ a, c a i = 1)' in _co
+# block preservation is derived, not assumed: the passive-instrument definition carries no
+# block-preservation clause, and the theorem that supplies it is present
+ok_oin &= 'InBlock' not in _co.split('def IsBlockPassiveInstrument')[1].split('end Blocks')[0]
+ok_oin &= 'theorem branch_preserves_block' in _co
+# the scope N3 keeps: block-diagonal form, no Wedderburn–Artin, and the N4/N5 items stay open
+ok_oin &= 'Not claimed' in _co and 'Wedderburn' in _co and 'OI-N4' in _co
+ok_oin &= 'All thirteen named results print' in _on and 'Wedderburn' in _on
+for _bad in ('infinite-dimensional algebras', 'N4 is proved', 'OICore implies passive',
+             'passive incompleteness implies OICore'):
+    ok_oin &= not _asserted(_on, _bad) and not _asserted(_co, _bad)
+# two scope points the kernel does not carry: the intrinsic-to-ambient transport through the block
+# conditional expectation is not formalized, so the statements are for the ambient definition;
+# and the classification is one direction (every passive instrument induces a stochastic
+# observation of the center), with no converse constructor from an arbitrary stochastic matrix.
+for _t in (re.sub(r'\s+', ' ', _co), re.sub(r'\s+', ' ', _on), re.sub(r'\s+', ' ', _rd)):
+    ok_oin &= 'transport is not formalized here' in _t and 'induces a classical stochastic observation' in _t
+    for _bad in ('nothing is lost', 'is exactly a classical stochastic observation',
+                 'are exactly classical stochastic observations',
+                 'are precisely classical stochastic observations',
+                 'is a classical stochastic observation of the center'):
+        ok_oin &= _bad not in _t
 check('R7-OIN', ok_oin,
       'OI-N guard: the passive-observation module carries no sorry and no native_decide, prints the '
       'axioms of all ten named results, fixes the three definitions the thread depends on, keeps the '
-      'control scoped to the commutative algebra with the dephasing lemma, and '
-      'carries the commutative control; module and note both mark the thread exploratory, keep the '
-      'exact boundary (N3) and the relation to OICore (N4) open, name noncommutativity only as the '
-      'candidate obstruction until N3 closes, and assert neither that QM '
-      'requires OI nor that a hidden ontology is forced.')
+      'control scoped to the commutative algebra with the dephasing lemma; the central-observation '
+      'module carries no sorry and no native_decide, prints the axioms of all thirteen named results, '
+      'states the classification with nonnegativity and normalization per nonempty block, derives '
+      'block preservation rather than assuming it, and keeps to the block-diagonal form; module and '
+      'note both mark the thread exploratory, record N3 as proved as a classification, keep the '
+      'relation to OICore (N4) open, and assert neither that QM requires OI nor that a hidden '
+      'ontology is forced.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

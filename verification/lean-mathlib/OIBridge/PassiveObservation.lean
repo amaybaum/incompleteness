@@ -36,8 +36,9 @@ obstruction, whose exact finite-dimensional boundary is N3 and is not proved her
 
 **Not claimed.** The exact boundary for a general finite-dimensional C*-algebra `⊕ M_{d_i}`
 (OI-N3) is not proved here; the commutative direction is the control above, and the converse needs
-the direct-sum case handled explicitly. Nothing here says a passive instrument's silence is an
-observer, and nothing here relates passive incompleteness to `OICore` (OI-N4).
+the direct-sum case handled explicitly — which `OIBridge/CentralObservation.lean` does. Nothing here
+says a passive instrument's silence is an observer, and nothing here relates passive incompleteness
+to `OICore` (OI-N4).
 -/
 
 namespace OIBridge
