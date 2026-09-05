@@ -739,7 +739,12 @@ algebra (`recordInstr_not_passive`, `recordInstr_not_internal`). Acquiring a new
 joint system. Fourteen named results, each printing only `propext`, `Classical.choice`,
 `Quot.sound`. Scope: the record semantics is the one `Records` fixes; nothing about consciousness,
 self-modelling or an observer's ontology, and nothing about `OICore`. With N5 the thread's five
-items are closed; the thread stays exploratory in status, and `R7-OIN` guards all four modules. Not
+items are closed; the thread stays exploratory in status, and `R7-OIN` guards all four modules.
+`OI-N-FREEZE.md` states the endpoint once — noncommutativity forbids complete passive
+observation; passive incompleteness does not diagnose `OICore`; a passive internal observer can
+only read an existing record; creating a genuinely new internal record requires changing the
+joint system — each line the name of a kernel theorem, with what is frozen, how it is enforced and
+what it does not claim. Extending the thread needs a new charter. Not
 claimed: that quantum mechanics requires OI or a hidden ontology — `qm_implies_oiCore` is
 containment, the necessity reading is not a theorem of this thread, and N4 shows passive
 incompleteness in a theory with no OI core at all; "passive" here is not the passive quotient of
