@@ -815,11 +815,13 @@ non-compact groups. Guard `R7-INV`.
 `verification/lean/repertoire_lie_probe.py` cut the elementary repertoire to one continuously
 driven pair and the exchanges. The question — how much of "every pair driven, every exchange, a
 quarter phase on every state" is needed — was preregistered as a fork after one exact
-computation fixed the hypothesis: the drives on the edges of a graph generate `su(D)` when the
-graph is connected and not bipartite, and a conjugate of `so(D)` with no diagonal direction when
-it is bipartite, so one drive with one cyclic permutation gives full control exactly on odd
-carriers (the probe, exact over `ℚ`: odd cycles `8, 24, 48`, even cycles `6, 15, 28`, paths
-`3, 6, 10, 15`, complete graphs `8, 15, 24`). The primitive is therefore **phase-free richness**:
+computation fixed the hypothesis: the drives on the edges of a bipartite graph generate inside a
+conjugate of `so(D)` with no diagonal direction, a theorem for every colouring and so for every
+even cycle, while the tested odd cycles `3, 5, 7` generate `su(D)` (the probe, exact over `ℚ`:
+odd cycles `8, 24, 48`, even cycles `6, 15, 28`, paths `3, 6, 10, 15`, complete graphs
+`8, 15, 24`), so one drive with one cyclic permutation is not a uniform finite-carrier repertoire;
+generation for the complete graph is the theorem, and no general non-bipartite theorem is proved.
+The primitive is therefore **phase-free richness**:
 at every level with two or more states, some pair is continuously driven and every exchange of
 two distinct states is available. Outcome A holds. On three or more states one driven transition
 and the permutations generate `su(D)` with no phase — two drives sharing a state bracket to the
@@ -831,7 +833,8 @@ antisymmetric matrices (`colourAlg`, `controlLie_le_colourAlg`), so no populatio
 reached (`diag_zero_of_mem_controlLie`, `popDiff_notMem_controlLie`,
 `not_hControl_of_colourCompatible`); the qubit with its drive and every permutation of its two
 states (`not_hControl_two`) and the even cycle with one drive (`not_hControl_evenCycle`) are its
-instances, so the exchange clause cannot be replaced by a single cycle. At the levels with two or
+instances, so the single-cycle candidate has an even-carrier countercontrol, and one adjacent
+exchange added to the cycle gives every permutation. At the levels with two or
 fewer states, control **descends** from level `3n`: `U ⊗ 1` is available there
 (`control_at_level`, through `universalReachability_of_lieRank_positive`, no inverse and no
 phase), iterated ancilla closure — derived from embedded observation — returns its
