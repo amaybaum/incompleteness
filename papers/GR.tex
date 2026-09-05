@@ -1831,9 +1831,33 @@ Continuous time is separate. The discrete substratum dynamics does not
 determine a continuous one-parameter interpolation: two Hermitian
 generators give flows agreeing at every integer time and differing at
 \(t = 1/2\) (kernel: \texttt{continuous\_extension\_not\_unique} in
-\texttt{OIBridge/RegionLimit.lean}). A continuous-time Hamiltonian law
-is additional structure where that formulation is wanted, and the
-equivalence above does not use it.
+\texttt{OIBridge/RegionLimit.lean}). What the substratum does determine
+is a path. The second-order update, in its phase-space form on the pair
+of the previous and current slices, factors exactly as a depth-two local
+circuit, a shear layer followed by a swap layer, each a product of
+commuting involutive gates, one per site, its reversibility a
+consequence of the factorization (kernel:
+\texttt{leap\_eq\_swap\_shear}, \texttt{gate\_comm},
+\texttt{depth\_two\_circuit}, \texttt{leap\_leap\_symm} in
+\texttt{OIBridge/SecondOrderCircuit.lean}). Each layer is the time-one
+map of a strongly continuous one-parameter group of isometric
+\(*\)-automorphisms of the quasilocal algebra, driven gate by gate
+(kernel: \texttt{layerQ\_add\_time} in
+\texttt{OIBridge/SecondOrderLayer.lean}, \texttt{swapQ\_add\_time} in
+\texttt{OIBridge/SwapLayer.lean}, \texttt{layerQ\_one\_eq\_heisQ},
+\texttt{swapQ\_one\_eq\_heisQ} in
+\texttt{OIBridge/SecondOrderDrive.lean}), and the two flows, run in the
+order the Heisenberg picture forces, the swap first, give a
+norm-continuous path of isometric \(*\)-automorphisms from the identity
+to the update's own Heisenberg action (kernel: \texttt{heisQ\_of\_comp},
+\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_one\_eq\_heisQ} in
+\texttt{OIBridge/SecondOrderDrive.lean}). For the composite path no
+one-parameter-group law is established and no generator is exhibited:
+whether the path satisfies a one-parameter-group law, and whether one
+time-independent finite-range interaction has the update as its
+unit-time map, are open, and nothing here decides either. A
+continuous-time Hamiltonian law is additional structure where that
+formulation is wanted, and the equivalence above does not use it.
 
 The lattice spacing stays fundamental. Nothing above asserts a spatial
 continuum limit or a refinement of the spacing; the continuum
@@ -4786,4 +4810,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: a9b01f951a2cd270e600b419093111197d8ff1444517a0cfad582535317c8dd0
+% source-sha256: 535cead16087af0071256c68e0b8caf3c8573cc36778f0ccd7a0a8816868ac49

@@ -1546,15 +1546,22 @@ basis, hence is unitary. \(\square\)
 A finite permutation does not by itself generate a continuous flow: on a
 finite discrete configuration space the dynamics is the discrete group
 \(\{U_\varphi^k\}\), and any continuous one-parameter interpolation is
-\emph{additional structure}, chosen rather than derived. When such an
-interpolation is introduced --- a strongly continuous one-parameter
-unitary group \(U_t\) with \(U_1 = U_\varphi\), which always exists but
-is not unique (any branch of \(\log U_\varphi\), differing by \(2\pi\)
-shifts of eigenphases, defines one) --- the exponential
-\(U_t = e^{-i\hat{H}t}\) then supplies the continuous unitary
-interpolation for Hermitian \(\hat{H}\); the framework's continuous-time
-statements are conditional on that choice, with the branch ambiguity
-part of the phase-retrieval gauge catalogued below.
+\emph{additional structure}, chosen rather than derived. The depth-two
+structure of the substratum update supplies something weaker and
+derived: an exact norm-continuous path of local \(*\)-automorphisms of
+the quasilocal algebra from the identity to the update's Heisenberg
+action, for which no one-parameter-group law is established and no
+generator is exhibited ({[}GR §3.3{]}; kernel:
+\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_one\_eq\_heisQ} in
+\texttt{OIBridge/SecondOrderDrive.lean}). When such an interpolation is
+introduced --- a strongly continuous one-parameter unitary group \(U_t\)
+with \(U_1 = U_\varphi\), which always exists but is not unique (any
+branch of \(\log U_\varphi\), differing by \(2\pi\) shifts of
+eigenphases, defines one) --- the exponential \(U_t = e^{-i\hat{H}t}\)
+then supplies the continuous unitary interpolation for Hermitian
+\(\hat{H}\); the framework's continuous-time statements are conditional
+on that choice, with the branch ambiguity part of the phase-retrieval
+gauge catalogued below.
 
 \textbf{Lemma (Reverse direction, scoped).} \emph{Any single one-step
 doubly stochastic matrix on a finite configuration space
@@ -3377,7 +3384,10 @@ Hilbert-space representation and no superselection sector is selected at
 the level of the laws, the restriction to the substratum-induced
 dynamics is a theorem rather than a convention --- a phase automorphism
 at one site preserves locality without arising from any reversible
-finite-range bijection --- and a continuous-time Hamiltonian law remains
+finite-range bijection --- and, while the update is joined to the
+identity by an exact norm-continuous path of local \(*\)-automorphisms
+of that algebra, with no one-parameter-group law established and no
+generator exhibited, a continuous-time Hamiltonian law remains
 additional structure ({[}GR §3.3{]}; kernel:
 \texttt{closure\_iUnion\_stage}, \texttt{quasiState\_unique} in
 \texttt{OIBridge/QuasilocalAlgebra.lean}, \texttt{canonEquiv},
@@ -4918,4 +4928,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: 15d464c379448e8faeb357d97973b684194fa4b40ad0c37acb5bb737b2df624a
+% source-sha256: fa63a4bdd580bbd03cbb63cb31a6fb047e87812e51dbc66590219cdfd001b356

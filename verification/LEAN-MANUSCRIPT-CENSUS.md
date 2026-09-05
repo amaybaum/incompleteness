@@ -56,7 +56,7 @@ dagger-stable package) is stated as what it is next to the current statement.
 | typed completion | 2 | current | GR §3.3 typed form, cited from the current package |
 | quasilocal completion | 4 | current | GR §3.3 infinite-region completion with its scope |
 | instrument audit | 2 | scope-consistent | the infinite-instrument scope qualification |
-| continuous time (CT2) | 4 | kernel-only | the norm-continuous local automorphism path; the manuscripts' statement that a continuous-time Hamiltonian law is additional structure is consistent with it |
+| continuous time (CT2) | 4 | current | GR §3.3 continuous-time paragraph, Main §2.3 and the quasilocal summaries: the depth-two factorization and the norm-continuous path of local automorphisms from the identity to the update, stated as a path, with no one-parameter-group law for the composite established, no generator exhibited and CT3 open |
 | minimal repertoire | 1 | current | GR §3.3 states phase-free richness as the second primitive-source principle, `OIPlusMin` boxed, the elementary repertoire as its stronger form; Main §3.4, the Explainer, book chapters 1 and 19 carry the summary; `carrier_general_oiPlusPos`, `oiPlusPos_iff_qm`, `hControl_star` and `typed_determined_of_oiPlusPos` are superseded and cited beside their successors |
 | OI-N passive observation | 4 | kernel-only | the frozen exploratory thread; not narrated |
 
@@ -83,12 +83,28 @@ Nothing else was stale: the five-condition characterization and the OI⁺ layere
 as such next to the strongest statement; the elementary repertoire, the substratum endpoint, the
 typed and quasilocal scopes, the reconstruction and coherent-completion results are current.
 
-## Two families with no manuscript occurrence
+## One family with no manuscript occurrence
 
-`CT2` and `OI-N` are proved, publication-facing, and absent from the papers. No manuscript sentence
-contradicts either. The owner has decided to narrate both, CT2 in the continuous-time discussion
-and OI-N visibly outside the equivalence theorem; the registry keeps them `kernel-only` until those
-rounds land, each entering its anchors with its manuscript edits.
+`OI-N` is proved, publication-facing, and absent from the papers. No manuscript sentence
+contradicts it. Its narration, kept visibly outside the assumptions and arrows of the OI→QM
+characterization with the N4 anti-conflation in the same paragraph, is the next round; the
+registry keeps it `kernel-only` until then.
+
+## CT2, narrated as a path
+
+GR §3.3's continuous-time paragraph states what the substratum determines: the second-order update
+factors exactly as a depth-two local circuit, each layer is the time-one map of a strongly
+continuous one-parameter group of isometric `*`-automorphisms of the quasilocal algebra, and the
+two flows in the order the Heisenberg picture forces give a norm-continuous path of isometric
+`*`-automorphisms from the identity to the update's own Heisenberg action
+(`driveQ_isContinuousPath`, `driveQ_one_eq_heisQ`). The paragraph says that for the composite path
+no one-parameter-group law is established and no generator is exhibited, that whether the path is a
+one-parameter group and whether one time-independent finite-range interaction has the update as its
+unit-time map are both open, and that a continuous-time Hamiltonian law stays additional
+structure. Main §2.3 and the quasilocal summaries in Main §3.4, the Explainer
+and the book chapters carry the same clause. Guard `R7-CTN` pins the statements and rejects both
+closures, the promotion of the path to a group or a generator and the unsupported negative that it
+is not a group.
 
 ## The minimal repertoire, propagated under the contract
 
