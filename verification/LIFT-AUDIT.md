@@ -156,9 +156,11 @@ Narrate anything in a manuscript. Refresh the transfer bundle.
 
 ## The outcome
 
-Preregistration commit `0d299c7`. Every question closed in the preregistered order under its
-preregistered name; the object is a single layer involution on a region, never the composite
-drive; no availability was read off the CT2 path; no non-monomial gate was counted as a result.
+Preregistration commit `0d299c7`. The questions were evaluated in the preregistered order; Q1 and
+Q2 close, Q3 remains open at its preregistered hypothesis, and the strengthened Q3′ and Q4′ are
+proved under their own names; the object is a single layer involution on a region, never the
+composite drive; no availability was read off the CT2 path; no non-monomial gate was counted as
+a result.
 
 | question | outcome | kernel |
 |---|---|---|

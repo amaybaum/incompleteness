@@ -3440,10 +3440,12 @@ check('R7-MAX', ok_max,
       'registry and the outcome; no manuscript carries the pass; the registry and the census carry the '
       'family as kernel-only with no anchor and the README carries the paragraph.')
 
-# ---- The lift audit: three questions preregistered before the proof with their exclusions, Q1
-# positive, Q2 negative for the substratum theory and consistent under control, Q3 positive under
-# the substratum's availability with the deviation recorded, Q4 the endpoint, the object a layer
-# and never the composite drive, nothing asserted about the lift or Route A ----
+# ---- The lift audit: three questions preregistered before the proof with their exclusions; Q1
+# positive; Q2 negative for the substratum theory and consistent under control; the preregistered
+# Q3 open at its hypothesis and the strengthened Q3' positive under SubstratumAvail; the
+# preregistered Q4 not established and the strengthened Q4' the endpoint relative to the baseline;
+# the object a layer and never the composite drive; nothing asserted about the lift, Route A, or
+# the minimality of the baseline ----
 ok_lift = True
 _la = open(os.path.join(BRIDGE, 'OIBridge', 'LiftAudit.lean'), encoding='utf-8').read()
 _laflat = ' '.join(_la.split())
@@ -3485,7 +3487,8 @@ _i_q = _lan.find('## The three questions, in order, each with its own outcomes')
 _i_out = _lan.find('## The outcome')
 ok_lift &= 0 < _i_q < _i_out
 ok_lift &= _lan.lstrip().startswith('# The lift audit')
-for _t in ('Executability is not inferred from the path', 'The CT2 flows are candidates, not operations',
+for _t in ('The questions were evaluated in the preregistered order; Q1 and Q2 close, Q3 remains open at its preregistered hypothesis',
+           'Executability is not inferred from the path', 'The CT2 flows are candidates, not operations',
            'The target is the literal interface', 'continuous mathematical path ⇒ executable continuous path ⇒ `PhaseFreeRichness`',
            '**Q1. Finite-region realization.**', '**Q2. Derived executability.**', '**Q3. Richness bridge.**',
            '**Q4, conditional, only if Q3 closes positively.**', 'Preregistration commit `0d299c7`',
@@ -3508,6 +3511,8 @@ for _t in ('Executability is not inferred from the path', 'The CT2 flows are can
 _lan_out = _lan[_lan.find('## The outcome'):]
 for _t in (_lan_out, _rd1, _laflat):
     for _bad in ('| Q3, richness bridge | **positive**', 'second preregistered case', 'Q3 positive', 'Q3 is positive',
+                 'Every question closed in the preregistered order under its preregistered name',
+                 'Every question closed in the preregistered order',
                  'Q4, the endpoint | under `DerivedOI T` and', 'One deviation from the preregistration',
                  'The one deviation from the preregistration', 'the extra sourcing principle is named exactly',
                  'The exact extra sourcing principle is isolated', 'Q3 — EXECUTABLE', 'Q4 — THE ENDPOINT'):
