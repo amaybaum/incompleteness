@@ -3490,13 +3490,31 @@ for _t in ('Executability is not inferred from the path', 'The CT2 flows are can
            '**Q1. Finite-region realization.**', '**Q2. Derived executability.**', '**Q3. Richness bridge.**',
            '**Q4, conditional, only if Q3 closes positively.**', 'Preregistration commit `0d299c7`',
            '| Q1, finite-region realization | **positive** |', '| Q2, derived executability | **negative** for `substratumTheory S`',
-           '| Q3, richness bridge | **positive**', '| Q4, the endpoint | under `DerivedOI T` and the substratum\'s availability',
-           'The one deviation from the preregistration, recorded', 'The hypothesis proved is therefore `SubstratumAvail T`',
-           'This is the second preregistered case: Q1 positive, Q2 negative, Q3 positive',
-           'substratum and observer architecture ⟶ `LayerFlowExecutable` (derived, not stipulated)',
+           '| Q3, richness bridge, as preregistered (`DerivedOI T` and `LayerFlowExecutable T σ` give `PhaseFreeRichness T`) | **open**',
+           '| Q3′, the strengthened bridge (`SubstratumAvail T` and `LayerFlowExecutable T σ`',
+           '| Q4, the endpoint, as preregistered (under `DerivedOI T` alone) | **not established as stated** |',
+           '| Q4′, the strengthened endpoint | under `DerivedOI T ∧ SubstratumAvail T`',
+           'Where the proved hypothesis is stronger than the preregistered one', 'The hypothesis proved is therefore `SubstratumAvail T`',
+           'the theorems are Q3′ and Q4′, not Q3 and Q4', 'The preregistered Q3 is left **open** at its hypothesis',
+           'The pass does not show that `SubstratumAvail` follows from `DerivedOI`, nor that it is the minimal extra baseline',
+           'None of the three preregistered total outcomes is reached as stated',
+           '**relative to the baseline `DerivedOI ∧ SubstratumAvail`**',
+           'relative to the baseline `DerivedOI ∧ SubstratumAvail`',
            'What the outcome does not establish', 'Fifty-six named results', 'What this note does not claim',
-           'Status: pass complete. Q1 positive; Q2 negative for the substratum theory'):
+           'Status: pass complete. Q1 positive; Q2 negative for the substratum theory and for every configuration-level class, executability consistent under control; the preregistered Q3, from `DerivedOI` and executability, is open'):
     ok_lift &= _t in _lan1
+# the superseded readings are rejected: Q3 positive at the preregistered hypothesis, the second
+# preregistered case, Q4 under DerivedOI alone, an unrelativized extra principle
+_lan_out = _lan[_lan.find('## The outcome'):]
+for _t in (_lan_out, _rd1, _laflat):
+    for _bad in ('| Q3, richness bridge | **positive**', 'second preregistered case', 'Q3 positive', 'Q3 is positive',
+                 'Q4, the endpoint | under `DerivedOI T` and', 'One deviation from the preregistration',
+                 'The one deviation from the preregistration', 'the extra sourcing principle is named exactly',
+                 'The exact extra sourcing principle is isolated', 'Q3 — EXECUTABLE', 'Q4 — THE ENDPOINT'):
+        ok_lift &= _bad not in _t
+for _bad in ('the preregistered Q3 holds', 'Q3 as preregistered holds', 'SubstratumAvail follows from DerivedOI',
+             'the baseline is minimal'):
+    ok_lift &= not _asserted(_lan, _bad)
 for _bad in ('the lift is derivable', 'the lift is not derivable', 'Route A is closed', 'executability is derived',
              'executability of the layer flow is derived', 'OI implies QM', 'the drive is derived from the substratum',
              'quantum mechanics requires OI', 'bare OI implies', 'the drive is independent of OI',
@@ -3509,23 +3527,30 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
     ok_lift &= 'LiftAudit' not in _t and 'LayerFlowExecutable' not in _t and 'gateFlow' not in _t
 _la_fam = [f for f in _ptr_reg['families'] if f['name'] == 'lift audit: executable layer flows']
 ok_lift &= len(_la_fam) == 1 and _la_fam[0]['status'] == 'kernel-only' and _la_fam[0]['modules'] == ['LiftAudit']
-ok_lift &= _la_fam[0]['manuscript'] == [] and 'nothing is asserted about whether the observer-level lift is derivable' in _la_fam[0]['note']
+ok_lift &= _la_fam[0]['manuscript'] == [] and 'about whether the observer-level lift is derivable' in _la_fam[0]['note']
+ok_lift &= 'relative to the baseline DerivedOI with SubstratumAvail' in _la_fam[0]['note'] and 'is open' in _la_fam[0]['note']
 _cen_la = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_lift &= '| lift audit: executable layer flows | 1 | kernel-only |' in _cen_la
 for _t in ('`R7-LIFT`', 'LIFT-AUDIT.md', 'LayerFlowExecutable', 'gateFlow_isolation', 'phaseFree_of_layerFlowExecutable',
            'derivedOI_qm_iff_layerFlowExecutable', 'Fifty-six named results', 'never the composite drive',
-           'one non-monomial gate is not a result', 'the extra sourcing principle is named exactly',
-           'that the observer-level lift is derivable or is not', 'One deviation from the preregistration is recorded'):
+           'one non-monomial gate is not a result', 'is open, not established by this pass', 'strengthened Q3′',
+           'is not established as stated; the strengthened Q4′ is proved',
+           'relative to the baseline `DerivedOI` with the substratum\'s availability',
+           'nor that this baseline is minimal', 'that the observer-level lift is derivable or is not',
+           'that the preregistered Q3 or Q4 holds as stated'):
     ok_lift &= _t in _rd1
 check('R7-LIFT', ok_lift,
       'Lift-audit guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifty-six results; executability enters availability only through LayerFlowExecutable, the object '
       'is a layer involution\'s gate flow and the composite drive is never used; Q2 is the stated negative for '
-      'the substratum theory, Q3 the stated bridge under the substratum\'s availability, Q4 the stated '
-      'equivalence, and the isolation identity lands on the transition flow at angle πt; the note preregisters '
-      'the three exclusions and the three questions before the outcome, names the preregistration commit, '
-      'records the outcome table, the one deviation, the frontier arrow and the non-claims, and asserts neither '
-      'that the lift is derivable nor that it is not, nor that Route A is closed; no manuscript carries the audit; '
+      'the substratum theory, Q3′ the stated bridge under the substratum\'s availability with the preregistered '
+      'Q3 recorded as open, Q4′ the stated equivalence relative to the baseline with the preregistered Q4 '
+      'recorded as not established, and the isolation identity lands on the transition flow at angle πt; the '
+      'note preregisters the three exclusions and the three questions before the outcome, names the '
+      'preregistration commit, records the outcome table, the stronger hypothesis, the frontier arrow relative '
+      'to the baseline and the non-claims, rejects the superseded readings, and asserts neither that the lift is '
+      'derivable nor that it is not, nor that Route A is closed, nor that the baseline is minimal; no manuscript '
+      'carries the audit; '
       'the registry and the census carry the family as kernel-only with no anchor and the README carries the '
       'paragraph.')
 

@@ -8,12 +8,14 @@
 guard `R7-LIFT` in `verification/lean/edge_rigidity_probe.py`.
 
 **Status: pass complete. Q1 positive; Q2 negative for the substratum theory and for every
-configuration-level class, executability consistent under control; Q3 positive under the
-substratum's availability; Q4 the conditional endpoint: under the closure and the substratum's
-availability, exact quantum mechanics is exactly the executability of one layer flow.** The
-preregistration sections were written before any proof was attempted (commit `0d299c7`); this
-status line and the outcome section are the only later edits, and the outcome section records
-the one deviation from the preregistered hypothesis. Nothing here is a manuscript claim.
+configuration-level class, executability consistent under control; the preregistered Q3, from
+`DerivedOI` and executability, is open, not established by this pass; a strengthened Q3′ is
+positive under the substratum's availability and executability; the preregistered Q4 is not
+established as stated, and a strengthened Q4′ is proved: relative to the baseline `DerivedOI`
+with the substratum's availability, exact quantum mechanics is exactly the executability of one
+layer flow.** The preregistration sections were written before any proof was attempted (commit
+`0d299c7`); this status line and the outcome section are the only later edits, and the outcome
+section records where the proved hypothesis is stronger than the preregistered one. Nothing here is a manuscript claim.
 
 ## Why this audit, and what it may not assume
 
@@ -162,55 +164,72 @@ drive; no availability was read off the CT2 path; no non-monomial gate was count
 |---|---|---|
 | Q1, finite-region realization | **positive** | `gateFlow_unitary`, `gateFlow_group`, `gateFlow_zero`, `gateFlow_one`, `gateFlow_trace`, `gateFlow_stage` |
 | Q2, derived executability | **negative** for `substratumTheory S`, and for the theory of every configuration-level class: at `t = 1/2` the gate flow of an involution with a moved configuration does not preserve the diagonal (`gateFlow_half_not_preservesDiag`), so it is realized by no monomial family (`configurationLevel_not_layerFlowExecutable`, `substratumTheory_not_layerFlowExecutable`); consistent: it holds in every theory with composite unitary control (`layerFlowExecutable_of_control`) | as named |
-| Q3, richness bridge | **positive**: `LayerFlowExecutable T σ`, for an involution with a moved configuration, in a theory carrying the substratum's availability, gives `PhaseFreeRichness T` as literally stated (`phaseFree_of_layerFlowExecutable`) | with `exp_smul_idempotent`, `flow_transition_closedForm`, the orbit calculus (`orb_mul`, `gateFlow_eq_orb`, `flow_transition_eq_orb`, `diagonal_mul_orb_mul_diagonal`), `signFun_mul`, `gateFlow_isolation` |
-| Q4, the endpoint | under `DerivedOI T` and the substratum's availability, `ExactAllFiniteEndomorphicQuantumOps T ↔ LayerFlowExecutable T σ` (`derivedOI_qm_iff_layerFlowExecutable`) | |
+| Q3, richness bridge, as preregistered (`DerivedOI T` and `LayerFlowExecutable T σ` give `PhaseFreeRichness T`) | **open**: not established by this pass, neither the theorem nor a countermodel at that hypothesis | none |
+| Q3′, the strengthened bridge (`SubstratumAvail T` and `LayerFlowExecutable T σ`, for an involution with a moved configuration) | **positive**: `PhaseFreeRichness T` as literally stated (`phaseFree_of_layerFlowExecutable`) | with `exp_smul_idempotent`, `flow_transition_closedForm`, the orbit calculus (`orb_mul`, `gateFlow_eq_orb`, `flow_transition_eq_orb`, `diagonal_mul_orb_mul_diagonal`), `signFun_mul`, `gateFlow_isolation` |
+| Q4, the endpoint, as preregistered (under `DerivedOI T` alone) | **not established as stated** | none |
+| Q4′, the strengthened endpoint | under `DerivedOI T ∧ SubstratumAvail T`, `ExactAllFiniteEndomorphicQuantumOps T ↔ LayerFlowExecutable T σ` (`derivedOI_qm_iff_layerFlowExecutable`) | |
 | the swap layer | `regionSwap_moves`; `substratumTheory_not_layerFlowExecutable_swap`, `phaseFree_of_layerFlowExecutable_swap`, `derivedOI_qm_iff_layerFlowExecutable_swap` on `Conf Λ (V × V)`, `Λ` nonempty, `V` nontrivial | |
 
-**The one deviation from the preregistration, recorded.** Q3 was preregistered with the
-hypothesis "what the substratum already supplies through `DerivedOI T`". The mechanism needs two
-diagonal unitaries at every level, the sign of the non-chosen orbits (entries `±1`) and the phase
-`e^{−iπt}` on the moved configurations; the substratum's phase structure supplies every diagonal
-unitary (`monomial_diagonal`, `substratumTheory_avail_conj`), but `DerivedOI`'s quarter phases
-generate only fourth roots of unity. The hypothesis proved is therefore `SubstratumAvail T`, that
-`T` carries the substratum theory's availability (`substratumTheory_substratumAvail`), the
-faithful reading of "what the substratum supplies"; Q3 uses no embedded observation and no
-dagger stability, and Q4 adds `DerivedOI T` for `derivedOI_qm_iff_phaseFree`. The mechanism
-itself is the preregistered one: on a moved pair the gate flow is `e^{iπt/2}` times the transition
-flow at `πt/2`; conjugation by the sign reverses the rotation on every non-chosen orbit; the
-product of the gate flow with its sign-conjugate is the transition flow at `πt` on the chosen pair,
-the scalar `e^{iπt}` on the other moved configurations and the identity on the fixed ones; the
-phase diagonal removes the scalar (`gateFlow_isolation`). The preregistered technical risk, the
-closed form of the matrix exponential, closed through the two orthogonal idempotents `(Π ± X)/2`
-and `NormedSpace.exp` of a scaled idempotent.
+**Where the proved hypothesis is stronger than the preregistered one.** Q3 was preregistered
+with the hypothesis `DerivedOI T`. The mechanism needs two diagonal unitaries at every level, the
+sign of the non-chosen orbits (entries `±1`) and the phase `e^{−iπt}` on the moved
+configurations; the substratum's phase structure supplies every diagonal unitary
+(`monomial_diagonal`, `substratumTheory_avail_conj`), but `DerivedOI`'s quarter phases generate
+only fourth roots of unity. The hypothesis proved is therefore `SubstratumAvail T`, that `T`
+carries the substratum theory's availability (`substratumTheory_substratumAvail`), and the
+theorems are Q3′ and Q4′, not Q3 and Q4. The preregistered Q3 is left **open** at its
+hypothesis: this pass proves neither `PhaseFreeRichness` from `DerivedOI` and executability nor a
+countermodel to it, and closing it either way would be a new result. The pass does not show that
+`SubstratumAvail` follows from `DerivedOI`, nor that it is the minimal extra baseline: the proof
+visibly uses arbitrary diagonal-unitary availability, which is stronger than the quarter phases
+`DerivedOI` abstracts. Q3′ uses no embedded observation and no dagger stability; Q4′ adds
+`DerivedOI T` for `derivedOI_qm_iff_phaseFree`. The mechanism itself is the preregistered one:
+on a moved pair the gate flow is `e^{iπt/2}` times the transition flow at `πt/2`; conjugation by
+the sign reverses the rotation on every non-chosen orbit; the product of the gate flow with its
+sign-conjugate is the transition flow at `πt` on the chosen pair, the scalar `e^{iπt}` on the other
+moved configurations and the identity on the fixed ones; the phase diagonal removes the scalar
+(`gateFlow_isolation`). The preregistered technical risk, the closed form of the matrix
+exponential, closed through the two orthogonal idempotents `(Π ± X)/2` and `NormedSpace.exp` of
+a scaled idempotent.
 
-**What the outcome establishes.** This is the second preregistered case: Q1 positive, Q2
-negative, Q3 positive. The exact extra sourcing principle is isolated and named:
-`LayerFlowExecutable`, the executability at intermediate times of one layer of the substratum's
-own update, on the region carrier with the ancilla a spectator. It is not derived from
-configuration-level generation, it is consistent with quantum mechanics, and under the closure
-together with the substratum's availability it is equivalent to exact finite operational quantum
-mechanics on the region carrier. The manuscripts' statement that a continuous interpolation of
-the finite permutation is additional structure is confirmed at the operational level, with the
+**What the outcome establishes.** Q1 positive; Q2 negative for configuration-level generation,
+with consistency under control; Q3 open at the preregistered hypothesis and Q3′ positive; Q4′
+proved. None of the three preregistered total outcomes is reached as stated, because the
+preregistered Q3 is neither closed positively nor refuted; what is reached is the strengthened
+form of the second: `LayerFlowExecutable`, the executability at intermediate times of one layer
+of the substratum's own update on the region carrier with the ancilla a spectator, is not derived
+from configuration-level generation, is consistent with quantum mechanics, and is necessary and
+sufficient for exact finite operational quantum mechanics **relative to the baseline
+`DerivedOI ∧ SubstratumAvail`**. Relative to that baseline it is the extra sourcing principle;
+whether a smaller baseline would do, in particular whether `DerivedOI` alone suffices for Q3, is
+open. The manuscripts' statement that a continuous interpolation of the finite permutation is
+additional structure is confirmed at the operational level relative to that baseline, with the
 structure named as an availability principle rather than as a choice of generator, and the
 frontier of Route A is one arrow:
 
-> substratum and observer architecture ⟶ `LayerFlowExecutable` (derived, not stipulated)
+> substratum and observer architecture ⟶ `LayerFlowExecutable` (derived, not stipulated),
+> relative to the baseline `DerivedOI ∧ SubstratumAvail`
 
-**What the outcome does not establish.** That the lift `φ → L_obs` is derivable, or that it is
-not: Q2 says the present architecture, configuration-level generation, does not make the layer
-flow executable, and says nothing about a different reading of the observer architecture. That
-`LayerFlowExecutable` is the only principle that would do: under the closure it is necessary and
-sufficient for quantum mechanics, and a different principle could be sufficient as well. That
-the identification of the theory's carrier with a region's configuration space is anything but
-the stated modelling choice. That anything here reaches a manuscript.
+**What the outcome does not establish.** The preregistered Q3: `PhaseFreeRichness` from
+`DerivedOI` and executability, open. That `SubstratumAvail` follows from `DerivedOI`, or that
+the baseline `DerivedOI ∧ SubstratumAvail` is minimal. That the lift `φ → L_obs` is derivable,
+or that it is not: Q2 says the present architecture, configuration-level generation, does not
+make the layer flow executable, and says nothing about a different reading of the observer
+architecture. That `LayerFlowExecutable` is the only principle that would do: relative to the
+baseline it is necessary and sufficient for quantum mechanics, and a different principle could be
+sufficient as well. That the identification of the theory's carrier with a region's
+configuration space is anything but the stated modelling choice. That anything here reaches a
+manuscript.
 
 **Fifty-six named results**, each printing only `propext`, `Classical.choice`, `Quot.sound`.
 
 ## What this note does not claim
 
-That executability of the layer flow is derived from the substratum: it is the named extra
-principle, and Q2 shows the substratum's configuration-level generation does not supply it. That
-the observer-level lift is derivable, or that it is not. That Route A is closed in either
+That executability of the layer flow is derived from the substratum: it is the extra principle
+relative to the baseline, and Q2 shows the substratum's configuration-level generation does not
+supply it. That the preregistered Q3 or Q4 holds as stated; the theorems are Q3′ and Q4′ under
+the stronger baseline. That `SubstratumAvail` follows from `DerivedOI`, or that the baseline is
+minimal. That the observer-level lift is derivable, or that it is not. That Route A is closed in either
 direction. That the drive is derived from bare OI, or that quantum mechanics rests on
 observation incompleteness. That the carrier identification is derived. That anything here is a
 manuscript claim.
