@@ -1759,7 +1759,12 @@ the joint Choi state survives the partial trace onto any single factor
 pair, so one entangled factor Choi rules out separability of the whole;
 the identity on a non-trivial factor is not entanglement-breaking. Since
 conjugation by a unitary preserves the property, \(\Phi_G\) is
-entanglement-breaking precisely when \(s - t = 0\). \(\square\)
+entanglement-breaking precisely when \(s - t = 0\). \(\square\) (kernel:
+\texttt{entanglementBreaking\_twirl},
+\texttt{not\_entanglementBreaking\_twirl},
+\texttt{exists\_lagrangian\_tuple} in \texttt{OIBridge/WeylLift.lean};
+\texttt{isotropic\_iff\_commute} in \texttt{OIBridge/WeylTwirl.lean};
+\texttt{separable\_imp\_ppt} in \texttt{OIBridge/Separability.lean})
 
 \textbf{Corollary 1.} \emph{For one step of the displayed update on
 \(\mathbb{F}_2\) --- \(u'_x = \sum_{z \sim x} u_z + v_x\),
@@ -2656,7 +2661,10 @@ of §3.2 are certified by the deterministic probes in
 below, the one-way-coupling counterexample, and the
 diagonal-preservation lemma are certified in
 \texttt{process\_dilation\_probes.py} and
-\texttt{c1\_cp\_scope\_probes.py} in the same directory.}
+\texttt{c1\_cp\_scope\_probes.py} in the same directory.} (kernel:
+\texttt{c3\_necessity}, \texttt{card\_hidden\_ge\_two\_pow\_Istar},
+\texttt{c3\_necessity\_and\_capacity} in
+\texttt{OIBridge/C3Necessity.lean})
 
 \textbf{Theorem (finite-horizon process dilation).} \emph{Let
 \(\mathcal{S}\) be a stochastic process on \(\mathcal{C}_V\)
@@ -2721,7 +2729,8 @@ per-process bound above. Certified exactly on P-indivisible targets ---
 including the §3.2 revival family and a non-Markovian kernel set with
 \(T^{(2)} \neq (T^{(1)})^2\) --- by
 \texttt{process\_dilation\_probes.py} (full-joint equality in exact
-rational arithmetic; permutation control silent). \(\square\)
+rational arithmetic; permutation control silent). \(\square\) (kernel:
+\texttt{S\_imp\_D} in \texttt{OIBridge/Equivalence.lean})
 
 \emph{Remark (prior structure).} The realization uses a structured prior
 --- uniform on the initialized ledger/clock sector times the tape. The
@@ -2892,7 +2901,10 @@ observable law \(P(x_0, \ldots, x_K)\) coincide:}
 of finite reversible deterministic systems under incomplete
 observation;} \emph{(\(Q_{\mathrm{fb}}\)) the laws realizable by
 finite-dimensional unitary systems with Born-rule readout in a fixed
-basis --- the fixed-basis unitary Born representations.}
+basis --- the fixed-basis unitary Born representations.} (kernel:
+\texttt{finite\_horizon\_equivalence}, \texttt{S\_imp\_D} in
+\texttt{OIBridge/Equivalence.lean}; the permutation-unitarity and
+diagonal-preservation lemmas in \texttt{OIBridge/EquivalenceChain.lean})
 
 \emph{Proof.} (S \(\Rightarrow\) D) is the response-table construction
 of §3.4, which reproduces the whole multi-time law, not merely the
@@ -3338,8 +3350,8 @@ operation --- and embedded observation, with no closure of the
 implementations under the adjoint and no inverse accessibility assumed
 --- equivalent to the same operational quantum mechanics on every
 nonempty finite carrier, inverse accessibility following on any
-well-formed theory (kernel: \texttt{carrier\_general\_oiPlusMin} in
-\texttt{OIBridge/MinimalRepertoire.lean};
+well-formed theory (kernel: \texttt{carrier\_general\_oiPlusMin},
+\texttt{oiPlusMin\_iff\_qm} in \texttt{OIBridge/MinimalRepertoire.lean};
 \texttt{carrier\_general\_oiPlusPos},
 \texttt{inverseAccessibility\_of\_lieRank} in
 \texttt{OIBridge/PositiveReachability.lean}). A substratum-source form
@@ -3366,7 +3378,9 @@ with exact finite-dimensional typed operational quantum mechanics,
 operations between any two nonempty finite carriers included, so the
 remaining qualifier is finite-dimensional rather than endomorphic ({[}GR
 §3.3{]}; kernel: \texttt{typed\_determined\_iff} in
-\texttt{OIBridge/TypedCompletion.lean}). The finite theory admits a
+\texttt{OIBridge/TypedCompletion.lean},
+\texttt{typed\_determined\_of\_oiPlusMin} in
+\texttt{OIBridge/TypedPositive.lean}). The finite theory admits a
 canonical infinite-region completion without a continuum limit: the
 finite regions of the fixed-spacing lattice carry full matrix algebras
 joined by compatible injective unital embeddings with observables of
@@ -3392,7 +3406,9 @@ additional structure ({[}GR §3.3{]}; kernel:
 \texttt{closure\_iUnion\_stage}, \texttt{quasiState\_unique} in
 \texttt{OIBridge/QuasilocalAlgebra.lean}, \texttt{canonEquiv},
 \texttt{phaseQ\_ne\_heisQ} in
-\texttt{OIBridge/QuasilocalCharacterization.lean}).
+\texttt{OIBridge/QuasilocalCharacterization.lean};
+\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_one\_eq\_heisQ} in
+\texttt{OIBridge/SecondOrderDrive.lean}).
 
 \textbf{Passive observation, kept apart from the characterization.} Four
 statements about passive observation stand beside the equivalence above
@@ -3545,6 +3561,9 @@ sharing the endpoint \(x\), the observed gap obeys
 
 \emph{(c) \textbf{Capacity floor.}
 \(M_t := I(X_{<t}; X_{t+1} \mid X_t) \leq I(X_{<t}; H_t \mid X_t) \leq \log_2 |\mathcal{C}_H|\).}
+(kernel: \texttt{unavoidable\_hidden\_predictive\_memory},
+\texttt{distinguishability\_floor}, \texttt{capacity\_floor} in
+\texttt{OIBridge/HiddenMemory.lean})
 
 \emph{Proof.} (a) Determinism makes \(X_{t+1}\) a function of
 \((X_t, H_t)\), so conditioning on \(p\) and pushing \(\mu_p\) through
@@ -4973,4 +4992,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: 6a129c62b0840f0d496a86d2efa4df76ae7aed0073a2008ffcd062b9ba4d7763
+% source-sha256: 113ecb8f556bc8eae0729c29ce1435ecd5ab3b31de3ba21e893702c818e81450

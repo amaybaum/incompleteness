@@ -1778,7 +1778,8 @@ remainder. For (ii), the finite fourth moment dominates the quartic
 Taylor remainder directly. At quartic order the independent cubic
 invariants \(\sum_i k_i^4\) and \(\sum_{i<j}k_i^2k_j^2\) remain, so
 exact microscopic rotational symmetry is neither assumed nor obtained.
-\(\square\)
+\(\square\) (kernel: \texttt{ohInvariant\_iff}, \texttt{rem\_littleO},
+\texttt{rem\_bigO} in \texttt{OIBridge/CubicIsotropy.lean})
 
 This is the observer-level isotropy result needed by the framework:
 discrete cubic symmetry is inherited through \emph{exact projected
@@ -2180,7 +2181,15 @@ products give n(A₁) = 1, n(E) = 1, n(T₁) = 1, with n(A₂) = n(T₂) = 0. By
 Schur's lemma and isotropy, any equivariant operator is block-scalar; in
 particular the condensate is
 \(\Sigma = \mathrm{diag}(a I_3, b I_2, c)\), while the coupling matrix
-itself is scalar (Remark below). \(\square\)
+itself is scalar (Remark below). \(\square\) (kernel:
+\texttt{theorem\_7}, \texttt{sum\_proj}, \texttt{finrank\_PT},
+\texttt{char\_c4\_odd} in \texttt{OIBridge/LinkDecomposition.lean}; the
+character of \(V_6\) and the orders \(|O| = 24\), \(|O_h| = 48\),
+\texttt{chiLink}, \texttt{card\_rot}, \texttt{card\_sym} in
+\texttt{OIBridge/QuarterTurn.lean}; the averaging identity and the
+dimension of the equivariant maps,
+\texttt{card\_mul\_finrank\_invariants}, \texttt{finrank\_intertwiners}
+in \texttt{OIBridge/Averaging.lean})
 
 The 6D representation in question is the natural action of \(O\) on the
 six nearest-neighbor link vectors
@@ -2426,7 +2435,8 @@ triplet tastes.}
 \emph{Proof.} The 2\^{}d = 8 BZ corners pair into 4 taste pairs under
 \(\boldsymbol{\eta} \leftrightarrow \mathbf{1} - \boldsymbol{\eta}\).
 The pair \{(0,0,0), (1,1,1)\} is O-invariant (singlet A₁). The three
-axis-aligned pairs form irreducible T₁. \(\square\)
+axis-aligned pairs form irreducible T₁. \(\square\) (kernel:
+\texttt{theorem\_8} in \texttt{OIBridge/TasteBranching.lean})
 
 \textbf{Remark (carrier of the \(T_1\) action).} The irreducible \(T_1\)
 is carried by the signed vector action of the spin-taste matrices: the
@@ -3280,7 +3290,8 @@ a theorem, not a coincidence.
 \emph{Proof.} The Yang-Mills action
 \(S = \frac{1}{4g^2}\int d^{d+1}x\,F_{\mu\nu}^2\) requires
 \([g^{-2}][F^2] = [x]^{-(d+1)}\). With \([F] = [x]^{-2}\):
-\([g]^{-2} = [x]^{d-3}\), so \([g] = (3-d)/2\). \(\square\)
+\([g]^{-2} = [x]^{d-3}\), so \([g] = (3-d)/2\). \(\square\) (kernel:
+\texttt{theorem\_16} in \texttt{OIBridge/GaugeDimension.lean})
 
 Since d = 3 is derived (§3.2), the emergent QFT supports renormalizable
 gauge interactions with asymptotic freedom.
@@ -3383,7 +3394,8 @@ maps are mutually inverse, and the sets have equal cardinality. Dividing
 by \(|\mathcal{C}_H|\) gives \(T_{ij} = T_{\theta j,\theta i}\). Since
 \(\varphi^n\) is a bijection with
 \(\varphi^{-n}=\mathcal T\varphi^n\mathcal T\), the argument applies at
-every \(n\). \(\square\)
+every \(n\). \(\square\) (kernel: \texttt{theorem\_19} in
+\texttt{OIBridge/Reciprocity.lean})
 
 Verified numerically on the wave-equation substratum: the T-violation of
 the visible transition counts is exactly zero for \(L = 4, 6\),
@@ -8737,4 +8749,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: e4963441c9c8da3160de6e214da1dd4e089d3dc57a3e13c1a06e696bab45b903
+% source-sha256: d87613ccded6b5220085558aecccb886ee162a00412c6cf398c88abd9ead01c2
