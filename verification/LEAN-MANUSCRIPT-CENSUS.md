@@ -58,7 +58,7 @@ dagger-stable package) is stated as what it is next to the current statement.
 | instrument audit | 2 | scope-consistent | the infinite-instrument scope qualification |
 | continuous time (CT2) | 4 | current | GR §3.3 continuous-time paragraph, Main §2.3 and the quasilocal summaries: the depth-two factorization and the norm-continuous path of local automorphisms from the identity to the update, stated as a path, with no one-parameter-group law for the composite established, no generator exhibited and CT3 open |
 | minimal repertoire | 1 | current | GR §3.3 states phase-free richness as the second primitive-source principle, `OIPlusMin` boxed, the elementary repertoire as its stronger form; Main §3.4, the Explainer, book chapters 1 and 19 carry the summary; `carrier_general_oiPlusPos`, `oiPlusPos_iff_qm`, `hControl_star` and `typed_determined_of_oiPlusPos` are superseded and cited beside their successors |
-| OI-N passive observation | 4 | kernel-only | the frozen exploratory thread; not narrated |
+| OI-N passive observation | 4 | current | Main §3.4 and the Explainer, one paragraph each, outside the assumptions and arrows of the characterization: noncommutativity forbids complete passive observation, passive incompleteness is theory-insensitive and does not diagnose the core, a passive internal observer only reads an existing record, a new record changes the joint system |
 
 ## What the census found and repaired
 
@@ -83,12 +83,15 @@ Nothing else was stale: the five-condition characterization and the OI⁺ layere
 as such next to the strongest statement; the elementary repertoire, the substratum endpoint, the
 typed and quasilocal scopes, the reconstruction and coherent-completion results are current.
 
-## One family with no manuscript occurrence
+## No family without a manuscript occurrence
 
-`OI-N` is proved, publication-facing, and absent from the papers. No manuscript sentence
-contradicts it. Its narration, kept visibly outside the assumptions and arrows of the OI→QM
-characterization with the N4 anti-conflation in the same paragraph, is the next round; the
-registry keeps it `kernel-only` until then.
+Every publication-facing family is carried by the manuscripts under `current`,
+`consistent-uncited` or `scope-consistent`; the one `verification-only` family is machinery by
+design. OI-N is narrated in one paragraph of Main §3.4 and one of the Explainer, kept outside the
+assumptions and arrows of the OI→QM characterization, with the N4 anti-conflation in the same
+paragraph: passive incompleteness is theory-insensitive, not evidence for a hidden ontology, and no
+statement that quantum mechanics rests on observation incompleteness. The freeze note is unchanged
+and the paragraphs cite only what its modules prove.
 
 ## CT2, narrated as a path
 
