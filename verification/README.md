@@ -88,9 +88,10 @@ accessibility and Lie-rank richness (`MicroscopicReversibility.reversibleRichnes
 clause is derived from a dagger-stable implementation class through the rank-one ray lemma
 (`inverseAccessibility_of_generated_daggerStable`), so reversible implementation locality, Lie-rank
 richness and embedded observation are equivalent to finite operational QM on every nonempty finite
-carrier (`carrier_general_oiPlusMicro`). The inverse clause is forced by Lie-rank richness alone
-(`PositiveReachability.inverseAccessibility_of_lieRank`), so dagger stability is not needed as a
-hypothesis of the characterization. The Lie-rank clause is derived from elementary
+carrier (`carrier_general_oiPlusMicro`). Lie-rank richness gives full control unconditionally
+(`PositiveReachability.control_of_lieRank`), and on a well-formed theory full control yields inverse
+accessibility (`PositiveReachability.inverseAccessibility_of_lieRank`), so dagger stability is not
+needed as a hypothesis of the characterization. The Lie-rank clause is derived from elementary
 transition richness (`LieRankSource.lieRank_of_elementary`): one continuously driven transition, one
 quarter phase and the state exchanges generate `su(D)` at every level, and full control supplies
 them (`elementary_of_control`), so reversible implementation locality, elementary transition
@@ -759,8 +760,9 @@ incompleteness in a theory with no OI core at all; "passive" here is not the pas
 the five completion assumptions end as DERIVED or INDEPENDENT with a kernel witness; the note
 records that every row is settled by the primitive-source and substratum-source audits — the seam
 from embedded observation, closure from observer recursion, inert spectators and validity from
-implementation locality, control from elementary transition richness with dagger-stable
-implementations — each with its independence countercontrol, and that the charter's "current
+implementation locality, control from elementary transition richness through Lie-rank richness
+with no dagger clause (`lieRank_of_elementary`, `control_of_lieRank`) — each with its independence
+countercontrol, and that the charter's "current
 exact package" is the round-41 five-condition statement while the most compressed package
 currently recorded is
 `OIPlusElem` (`carrier_general_oiPlusElem`). The one witness the charter asks for that the kernel

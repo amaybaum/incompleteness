@@ -7,7 +7,8 @@ round-fifty machinery this round reuses); guard `R7-INV` in `verification/lean/e
 
 **Status: Outcome A of the preregistered fork, proved.** Lie-rank richness alone gives full
 composite unitary control (`control_of_lieRank`), with no inverse of a control consumed anywhere;
-inverse accessibility is derived (`inverseAccessibility_of_lieRank`); and the package
+on a well-formed theory, full control yields inverse accessibility
+(`inverseAccessibility_of_lieRank`); and the package
 `OIPlusPos := ImplementationLocality ∧ ElementaryTransitionRichness ∧ EmbeddedObservation`, with
 no dagger stability, is equivalent to exact finite endomorphic operational quantum mechanics on
 every nonempty finite carrier (`carrier_general_oiPlusPos`). Twenty-four named results, each

@@ -2599,13 +2599,21 @@ ok_caa &= 'most compressed package currently recorded' in _chr1
 for _t in (re.sub(r'\s+', ' ', _caa), re.sub(r'\s+', ' ', _rd), _chr1):
     ok_caa &= 'most compressed package currently recorded' in _t
     ok_caa &= "kernel's smallest" not in _t and 'kernel smallest' not in _t
+# the control row of the ledger runs through Lie-rank richness with no dagger clause
+_ctrl_row = [l for l in _caa.split('\n') if l.startswith('| `HasCompositeUnitaryControl` |')]
+ok_caa &= len(_ctrl_row) == 1
+if _ctrl_row:
+    ok_caa &= 'dagger-stable' not in _ctrl_row[0] and 'inverseAccessibility_of_generated_daggerStable' not in _ctrl_row[0]
+    ok_caa &= 'lieRank_of_elementary' in _ctrl_row[0] and 'control_of_lieRank' in _ctrl_row[0]
+    ok_caa &= 'control_of_lieRank_inverse' not in _ctrl_row[0]
 check('R7-CAA', ok_caa,
       'Completion-assumption audit guard: the level-one-recursion module carries no sorry and no '
       'native_decide and prints the axioms of its three results, the seam row is stated with '
       'both halves and the observer-recursion half as a negation; the note names a kernel witness '
       'for every ledger row, names the charter package as the round-41 one against the most '
       'compressed package currently recorded (never "the kernel smallest"), the charter carries '
-      'its historical banner pointing to the note, the note lists the residual items as open and '
+      'its historical banner pointing to the note, the control row of the ledger runs through '
+      'Lie-rank richness with no dagger clause, the note lists the residual items as open and '
       'settles none, and asserts neither that '
       'observer recursion supplies the seam, that OIPlusElem is minimal, that the substratum '
       'drives the elementary transitions, nor that the inverse clause is redundant.')
@@ -2664,6 +2672,20 @@ ok_inv &= '`OIPlusPos` | implementation locality, elementary transition richness
 _rd1 = re.sub(r'\s+', ' ', _rd)
 ok_inv &= 'carrier_general_oiPlusPos' in _rd1 and 'Twenty-four named results' in _rd1
 ok_inv &= 'Guard `R7-INV`' in _rd1
+# inverseAccessibility_of_lieRank is a theorem about well-formed theories: every paragraph that
+# names it says so, and no text derives inverse accessibility from Lie-rank richness alone
+_psa_txt = open(os.path.join(os.path.dirname(BRIDGE), 'PRIMITIVE-SOURCE-AUDIT.md'),
+                encoding='utf-8').read()
+for _t in (_caa, _rd, _inv, _psa_txt):
+    for _para in _t.split('\n\n'):
+        if 'inverseAccessibility_of_lieRank' in _para:
+            ok_inv &= 'well-formed' in _para
+    _t1 = re.sub(r'\s+', ' ', _t)
+    for _bad in ('inverse accessibility is derived from Lie-rank richness alone',
+                 'inverse clause is forced by Lie-rank richness alone',
+                 'forced by Lie-rank richness alone', 'InverseAccessibility T := by'):
+        ok_inv &= _bad not in _t1
+ok_inv &= 'theorem inverseAccessibility_of_lieRank [Nonempty A] (hwf : WellFormed T) (h : LieRankRichness T) : InverseAccessibility T' in _prflat
 check('R7-INV', ok_inv,
       'Inverse-clause guard: the positive-reachability module carries no sorry, axiom or '
       'native_decide and prints the axioms of exactly its twenty-four results; the positive '
@@ -2673,7 +2695,8 @@ check('R7-INV', ok_inv,
       'dagger clause; the note records the preregistered fork, the outcome A, the twenty-four '
       'results and its non-claims, and asserts neither that HControl is necessary, that the '
       'repertoire is minimal, nor anything about non-compact groups; the completion-assumption '
-      'audit and the README carry the package and the count.')
+      'audit and the README carry the package and the count; and inverseAccessibility_of_lieRank '
+      'is stated with its well-formedness hypothesis wherever it is named.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

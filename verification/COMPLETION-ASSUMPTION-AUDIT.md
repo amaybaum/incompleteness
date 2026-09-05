@@ -27,7 +27,7 @@ assumptions and not this one.
 | `IteratedAncillaClosure` | DERIVED from observer recursion, and from embedded observation | the shifted theory's own discard rule | `closure_of_observerRecursion`, `closure_of_embeddedObservation`; conversely `observerRecursion_iff_closure` given identity and readout at every level | `closure_independent` (admissible theory: exact system QM, control, inert spectators, no closure) |
 | `InertSpectatorCompositionality` | DERIVED from implementation locality | context-stable, label-invariant implementation class generating availability | `observationalIndependence_of_implementationLocality` | `redundancy_fails` (2-positive countermodel: core, validity, reversible richness, embedded observation, no inert spectators); `form_fixed_existence_fails` |
 | `CompositeOperationalValidity` | DERIVED from implementation locality (positivity); normalization is the trace clause of implementation generation, stated rather than derived | realized operations are completely positive | `validity_of_implementationLocality` | `validity_independent` (everywhere-available theory) |
-| `HasCompositeUnitaryControl` | DERIVED from elementary transition richness with dagger-stable implementation locality | driven transition, exchanges, quarter phase generate `su(D)` | `lieRank_of_elementary`, `inverseAccessibility_of_generated_daggerStable`, `control_of_lieRank_inverse`; necessity `elementary_of_control` | `lieRank_not_redundant` (diagonal architecture: reversible implementation locality and embedded observation, no Lie-rank richness); `control_independent` (diagonal theory) |
+| `HasCompositeUnitaryControl` | DERIVED from elementary transition richness, with no dagger clause | driven transition, exchanges, quarter phase generate `su(D)`; Lie-rank richness gives full control unconditionally | `lieRank_of_elementary`, `control_of_lieRank`; necessity `elementary_of_control` | `lieRank_not_redundant` (diagonal architecture: reversible implementation locality and embedded observation, no Lie-rank richness); `control_independent` (diagonal theory) |
 
 **The missing witness.** The charter's first row names observer recursion as a candidate source
 of the seam alongside embedded observation. The kernel derived the seam from embedded observation
@@ -54,7 +54,9 @@ on every nonempty finite carrier:
 
 `OIPlusPos` drops the dagger clause of `OIPlusElem`; the inverse-clause audit
 (`INVERSE-CLAUSE-AUDIT.md`) derives inverse accessibility from Lie-rank richness
-(`inverseAccessibility_of_lieRank`), so the two packages are equivalent (`oiPlusPos_iff_oiPlusElem`).
+on a well-formed theory (`inverseAccessibility_of_lieRank`: Lie-rank richness gives full control
+unconditionally, and on a well-formed theory full control yields inverse accessibility), so the two
+packages are equivalent (`oiPlusPos_iff_oiPlusElem`).
 `OIPlusElem` is the charter's desired endpoint: every conjunct is stated at the level of
 implementations or of the observer architecture, none is a Lie-algebraic, reachability or
 availability condition, and both directions are kernel-witnessed. The substratum-source audit
@@ -70,9 +72,11 @@ controllability ⟺ finite operational quantum mechanics` (`substratum_plus_cont
 
 The earlier audits named four residual items. The first, the inverse clause — whether inverse
 accessibility is forced by implementation locality, embedded observation and Lie-rank richness —
-is settled by `INVERSE-CLAUSE-AUDIT.md` and `OIBridge/PositiveReachability.lean`: the
-compact-semigroup argument is made exact there, and inverse accessibility is derived from Lie-rank
-richness alone (`control_of_lieRank`, `inverseAccessibility_of_lieRank`). The other three are
+is settled by `INVERSE-CLAUSE-AUDIT.md` and `OIBridge/PositiveReachability.lean`, where the
+compact-semigroup argument is made exact. Lie-rank richness gives full control unconditionally
+(`control_of_lieRank`), and on a well-formed theory full control yields inverse accessibility
+(`inverseAccessibility_of_lieRank`); implementation locality and embedded observation supply the
+well-formedness. The other three are
 open; nothing in this note
 settles them.
 
