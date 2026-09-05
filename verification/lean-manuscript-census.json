@@ -17,7 +17,11 @@
     "control_of_lieRank_inverse": "control_of_lieRank",
     "universalReachability_of_lieRank_unconditional": "universalReachability_of_lieRank_positive",
     "universalReachability_of_lieRank": "universalReachability_of_lieRank_positive",
-    "typed_determined_of_oiPlusElem": "typed_determined_of_oiPlusPos"
+    "typed_determined_of_oiPlusElem": "typed_determined_of_oiPlusPos",
+    "carrier_general_oiPlusPos": "carrier_general_oiPlusMin",
+    "oiPlusPos_iff_qm": "oiPlusMin_iff_qm",
+    "hControl_star": "hControl_perm",
+    "typed_determined_of_oiPlusPos": "typed_determined_of_oiPlusMin"
   },
   "families": [
     {
@@ -70,14 +74,14 @@
       "modules": ["ReferenceExtension", "ReferenceSufficiency", "SpectatorBridge", "AncillaClosure", "ClosureObstruction", "CompositionalIndependence", "OIRealization", "OperationalValidity", "LevelOneSeam", "PhysicalCharacterization", "DiagonalTheory", "RankGapTheory", "IsometryExtension", "GeneralCarrier", "UhlmannUniqueness", "ReachabilitySeam", "OrbitReachability", "SubstantiveCensus", "CompletedOI", "CarrierGeneralOIPlus", "EmbeddedObservation", "ImplementationLocality", "MicroscopicReversibility", "LieRankSource", "PositiveReachability", "LevelOneRecursion"],
       "status": "current",
       "manuscript": [
-        {"file": "papers/GR.md", "anchor": "\\text{implementation locality} + \\text{elementary transition richness}"},
+        {"file": "papers/GR.md", "anchor": "\\text{implementation locality} + \\text{phase-free richness}"},
         {"file": "papers/GR.md", "anchor": "carrier_general_oiPlusPos"},
         {"file": "papers/GR.md", "anchor": "five_way_minimality"},
         {"file": "papers/Main.md", "anchor": "carrier_general_oiPlusPos"},
         {"file": "papers/Explainer.md", "anchor": "no closure of the implementations under the adjoint"},
         {"file": "book/The-Incompleteness-of-Observation-FULL.md", "anchor": "no closure of the implementations under the adjoint"}
       ],
-      "note": "GR 3.3 (the operational-completion characterization, OI+, the primitive-source form), Main 3.4, the Explainer note, book chapters 1 and 19. The strongest package is OIPlusPos; the OI+ layered form and the five-condition form are stated as the layered and five-condition forms, not as the strongest package. SubstantiveCensus, CompositionalIndependence and LevelOneRecursion are independence scaffolding cited in the verification notes only."
+      "note": "GR 3.3 (the operational-completion characterization, OI+, the primitive-source form), Main 3.4, the Explainer note, book chapters 1 and 19. The strongest package is OIPlusMin (the minimal-repertoire family); OIPlusPos is stated as the elementary-repertoire form beside it, and the OI+ layered form and the five-condition form as the layered and five-condition forms, not as the strongest package. SubstantiveCensus, CompositionalIndependence and LevelOneRecursion are independence scaffolding cited in the verification notes only."
     },
     {
       "name": "substratum source",
@@ -130,9 +134,18 @@
     {
       "name": "minimal repertoire",
       "modules": ["MinimalRepertoire"],
-      "status": "kernel-only",
-      "manuscript": [],
-      "note": "The elementary repertoire cut to one continuously driven pair and the exchanges, with no quarter phase (OIPlusMin, carrier_general_oiPlusMin, the bipartite obstruction). Proved and not yet narrated: the manuscripts state the elementary repertoire with the quarter phase, a sufficient condition that no sentence asserts minimal. The propagation round enters the supersession carrier_general_oiPlusPos -> carrier_general_oiPlusMin and its anchors into this registry with the manuscript edits, per AGENTS.md A.35."
+      "status": "current",
+      "manuscript": [
+        {"file": "papers/GR.md", "anchor": "2. *Phase-free richness.*"},
+        {"file": "papers/GR.md", "anchor": "carrier_general_oiPlusMin"},
+        {"file": "papers/GR.md", "anchor": "not_hControl_evenCycle"},
+        {"file": "papers/Main.md", "anchor": "carrier_general_oiPlusMin"},
+        {"file": "papers/Explainer.md", "anchor": "phase-free richness"},
+        {"file": "book/ch01-observation.md", "anchor": "phase-free richness"},
+        {"file": "book/ch19-open-problems.md", "anchor": "phase-free richness"},
+        {"file": "book/The-Incompleteness-of-Observation-FULL.md", "anchor": "phase-free richness"}
+      ],
+      "note": "The elementary repertoire cut to one continuously driven pair and the exchanges, with no quarter phase (OIPlusMin, carrier_general_oiPlusMin, the bipartite obstruction). GR 3.3 states phase-free richness as the second primitive-source principle with the elementary repertoire as its stronger form; Main 3.4, the Explainer and the book chapters carry the summary. The cycle claim is stated at its evidence: the even-carrier countercontrol is cited, no iff over D and no minimality of the driven transition is asserted."
     },
     {
       "name": "OI-N passive observation",

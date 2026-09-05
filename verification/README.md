@@ -9,7 +9,7 @@ layers:
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
 - **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 114 modules and,
-  at this commit, 2,401 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+  at this commit, 2,402 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -869,12 +869,17 @@ package-level corollary from the dagger-stable package, for which
 `OIBridge/TypedPositive.lean` supplies `typed_determined_of_oiPlusPos`, one result printing only
 `propext`, `Classical.choice`, `Quot.sound`. All three are repaired; the five-condition
 characterization and the OI⁺ layered form are stated as such beside the strongest statement; the
-elementary repertoire and the substratum endpoint are unchanged; CT2 and OI-N are recorded as
-proved and not narrated, with no manuscript sentence contradicting either. Guard `R7-MSP` pins the
-propagated statement in sources and generated forms and the presence of the census in the gate.
-The minimal repertoire is classified kernel-only until its propagation round, which enters the
-supersession of `carrier_general_oiPlusPos` by `carrier_general_oiPlusMin` into the registry with
-the manuscript edits, per §A.35.
+substratum endpoint is unchanged; CT2 and OI-N are recorded as proved and not narrated, with no
+manuscript sentence contradicting either. The minimal repertoire is propagated under §A.35: GR §3.3
+states phase-free richness as the second primitive-source principle with the elementary repertoire
+as its stronger form and `OIPlusMin` boxed, Main §3.4, the Explainer and the book chapters carry the
+summary, the registry records the supersessions of `carrier_general_oiPlusPos`, `oiPlusPos_iff_qm`,
+`hControl_star` and `typed_determined_of_oiPlusPos` by their phase-free successors, and
+`OIBridge/TypedPositive.lean` supplies `typed_determined_of_oiPlusMin`, one result printing only
+`propext`, `Classical.choice`, `Quot.sound`. The cycle claim in the manuscripts is stated at its
+evidence, the even-carrier countercontrol cited and no minimality of the driven transition asserted.
+Guard `R7-MSP` pins the propagated statements in sources and generated forms and the presence of
+the census in the gate.
 
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
 audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its

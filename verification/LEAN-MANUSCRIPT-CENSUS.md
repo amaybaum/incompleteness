@@ -57,7 +57,7 @@ dagger-stable package) is stated as what it is next to the current statement.
 | quasilocal completion | 4 | current | GR §3.3 infinite-region completion with its scope |
 | instrument audit | 2 | scope-consistent | the infinite-instrument scope qualification |
 | continuous time (CT2) | 4 | kernel-only | the norm-continuous local automorphism path; the manuscripts' statement that a continuous-time Hamiltonian law is additional structure is consistent with it |
-| minimal repertoire | 1 | kernel-only | the repertoire cut to one driven pair and the exchanges; the manuscripts state the repertoire with the quarter phase as a sufficient condition, and its propagation round enters the supersession of `carrier_general_oiPlusPos` by `carrier_general_oiPlusMin` |
+| minimal repertoire | 1 | current | GR §3.3 states phase-free richness as the second primitive-source principle, `OIPlusMin` boxed, the elementary repertoire as its stronger form; Main §3.4, the Explainer, book chapters 1 and 19 carry the summary; `carrier_general_oiPlusPos`, `oiPlusPos_iff_qm`, `hControl_star` and `typed_determined_of_oiPlusPos` are superseded and cited beside their successors |
 | OI-N passive observation | 4 | kernel-only | the frozen exploratory thread; not narrated |
 
 ## What the census found and repaired
@@ -83,13 +83,22 @@ Nothing else was stale: the five-condition characterization and the OI⁺ layere
 as such next to the strongest statement; the elementary repertoire, the substratum endpoint, the
 typed and quasilocal scopes, the reconstruction and coherent-completion results are current.
 
-## Three families with no manuscript occurrence
+## Two families with no manuscript occurrence
 
 `CT2` and `OI-N` are proved, publication-facing, and absent from the papers. No manuscript sentence
-contradicts either. Whether to narrate them is an owner decision recorded here as such; the
-registry keeps them `kernel-only` until it is taken. The minimal repertoire is proved and awaits
-its propagation round; until then the manuscripts state the repertoire with the quarter phase,
-which remains a sufficient condition and is nowhere asserted minimal.
+contradicts either. The owner has decided to narrate both, CT2 in the continuous-time discussion
+and OI-N visibly outside the equivalence theorem; the registry keeps them `kernel-only` until those
+rounds land, each entering its anchors with its manuscript edits.
+
+## The minimal repertoire, propagated under the contract
+
+The minimal-repertoire round strengthened `carrier_general_oiPlusPos` to `carrier_general_oiPlusMin`
+inside the corpus, and its propagation entered the four supersessions (`carrier_general_oiPlusPos`,
+`oiPlusPos_iff_qm`, `hControl_star`, `typed_determined_of_oiPlusPos`) into the registry in the same
+commit as the manuscript edits, with `TypedPositive.typed_determined_of_oiPlusMin` supplying the
+typed corollary. That is §A.35 in use: every paragraph that cites a superseded name cites its
+successor beside it, and the family's anchors pin the phase-free statement in every manuscript
+that carries the summary.
 
 ## What this note does not claim
 
@@ -98,5 +107,5 @@ records, and the registry contract of §A.35 is what makes the record complete. 
 `consistent-uncited` families have been re-derived against the kernel statement by statement; the
 disposition records that the paper's own derivation carries them and that no kernel pointer is
 placed. That the census reads the generated `.tex` forms beyond what `R7-MSP` pins; the
-staleness check ties those to their sources. That anything here bears on the minimal-repertoire
-round, whose propagation is a separate round after its kernel merges.
+staleness check ties those to their sources. That the one driven transition of phase-free richness
+is minimal in any stronger sense, or that the substratum supplies it.

@@ -2815,7 +2815,8 @@ for _rel, _t in _ms.items():
 _grm = _ms['papers/GR.md']
 _grm1 = re.sub(r'\s+', ' ', _grm)
 ok_msp &= '1. *Implementation locality.*' in _grm
-ok_msp &= '\\text{implementation locality} + \\text{elementary transition richness}' in _grm1
+ok_msp &= '\\text{implementation locality} + \\text{phase-free richness}' in _grm1
+ok_msp &= '\\text{implementation locality} + \\text{elementary transition richness}' not in _grm1
 ok_msp &= 'carrier_general_oiPlusPos' in _grm and 'oiPlusPos_iff_qm' in _grm
 ok_msp &= 'control_of_lieRank' in _grm and 'universalReachability_of_lieRank_positive' in _grm
 ok_msp &= 'elementary implementations are closed under the adjoint' not in _grm
@@ -2845,7 +2846,8 @@ _agents = re.sub(r'\s+', ' ', open(os.path.join(_msroot, 'AGENTS.md'), encoding=
 ok_msp &= '## §A.35 Registry contract for the Lean-to-manuscript census' in _agents
 ok_msp &= 'updates the registry in the same commit' in _agents
 # the summaries in Main, the Explainer and both book mirrors carry the same statement
-_msum = ('implementation locality, elementary transition richness, and embedded observation, with '
+_msum = ('implementation locality, phase-free richness — one continuously driven transition and the '
+         'exchanges of distinguishable states, with no phase operation — and embedded observation, with '
          'no closure of the implementations under the adjoint and no inverse accessibility assumed')
 for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md',
              'book/ch19-open-problems.md', 'book/The-Incompleteness-of-Observation-FULL.md'):
@@ -2856,12 +2858,29 @@ for _rel in ('papers/GR.md', 'papers/Main.md'):
     for _para in _ms[_rel].split('\n\n'):
         if 'inverseAccessibility_of_lieRank' in _para:
             ok_msp &= 'well-formed' in _para
-# the elementary repertoire and the substratum endpoint are the proved ones, unchanged
-ok_msp &= ('real transitions between distinguishable states are continuously drivable, exchanges of '
-           'distinguishable states are available, and quarter-phase operations are available') in _grm1
+# the second principle is phase-free richness, stated at the kernel's evidence, with the elementary
+# repertoire as its stronger form; the substratum endpoint is unchanged
+ok_msp &= '2. *Phase-free richness.*' in _grm
+ok_msp &= ('some pair of distinguishable states is continuously drivable, and every exchange of two '
+           'distinguishable states is available. No phase operation enters.') in _grm1
+ok_msp &= 'carrier_general_oiPlusMin' in _grm and 'oiPlusMin_iff_qm' in _grm and 'hControl_perm' in _grm
+ok_msp &= 'not_hControl_evenCycle' in _grm and 'oiPlusMin_iff_oiPlusPos' in _grm
+ok_msp &= 'typed_determined_of_oiPlusMin' in _grm
+ok_msp &= 'the quarter phase is dispensable at every level' in _grm1
+ok_msp &= 'no stronger minimality of the one driven transition is claimed' in _grm1
+ok_msp &= '2. *Elementary transition richness.*' not in _grm
+ok_msp &= 'whether the phase or other parts of the repertoire can be eliminated remains open' not in _grm1
+for _bad in ('exactly when D is odd', 'exactly when `D` is odd', 'exactly on odd carriers',
+             'exactly at odd D', 'the repertoire is minimal', 'minimal repertoire is settled'):
+    ok_msp &= _bad not in _grm1
+ok_msp &= 'carrier_general_oiPlusMin' in _ms['papers/Main.md']
+ok_msp &= '#print axioms typed_determined_of_oiPlusMin' in _tp
+for _nm in ('"carrier_general_oiPlusPos": "carrier_general_oiPlusMin"', '"oiPlusPos_iff_qm": "oiPlusMin_iff_qm"',
+            '"hControl_star": "hControl_perm"', '"typed_determined_of_oiPlusPos": "typed_determined_of_oiPlusMin"'):
+    ok_msp &= _nm in _cens_reg
 ok_msp &= 'text{current OI substratum} + \\text{continuous off-diagonal controllability}' in _grm1
 # the generated forms carry the propagated statement
-ok_msp &= 'implementation locality} + \\text{elementary transition richness}' in re.sub(r'\s+', ' ', _ms['papers/GR.tex'])
+ok_msp &= 'implementation locality} + \\text{phase-free richness}' in re.sub(r'\s+', ' ', _ms['papers/GR.tex'])
 for _rel in ('papers/Main.tex', 'papers/Explainer.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
     ok_msp &= 'no closure of the implementations under the adjoint' in re.sub(r'\s+', ' ', _ms[_rel])
 check('R7-MSP', ok_msp,
@@ -2875,7 +2894,10 @@ check('R7-MSP', ok_msp,
       'carried family, and the registry, the census note and AGENTS.md A.35 state the same-commit '
       'registry contract with the census complete relative to the maintained registry; Main, the '
       'Explainer and both book mirrors carry '
-      'the same summary; the elementary repertoire and the substratum endpoint are unchanged; and '
+      'the same summary; the second principle is phase-free richness with the elementary repertoire '
+      'as its stronger form, cited from MinimalRepertoire with the even-carrier countercontrol and no '
+      'minimality claim, the four supersessions recorded in the registry and the typed corollary '
+      'typed_determined_of_oiPlusMin present; the substratum endpoint is unchanged; and '
       'the generated .tex forms carry the propagated statement; the typed form cites the '
       'current package through TypedPositive; and the Lean-to-manuscript census tool and its '
       'registry exist and run in the release gate.')
