@@ -3361,21 +3361,38 @@ for _t in ('**(A1) Finiteness.** The configuration space $S$ is finite.',
            '| A6 background independence | **no** |',
            'no conjunction named `ManuscriptOI` is defined in the kernel',
            'Configuration-level sourcing bound', 'If the theorem holds, its reading is fixed here in advance',
-           'Status: pass complete. A1 and A2 hold for the witness; A3–A6 are formalization gaps',
+           'Status: pass complete, with a scope repair recorded at review. No manuscript-level A1–A6 conjunct is presently a faithful predicate of the bare theory',
+           'realized-core image', '## Scope repair, recorded at review', 'commit `6183bc6`',
+           'A1 and A2 are realized-core images, not faithful predicates of the manuscript substratum',
+           'The sourcing bound proves necessity, not uniqueness',
+           'requires some non-configuration-level sourcing',
+           "the manuscripts' specifically named open candidate",
+           '| A1 finiteness | realized-core image holds for the witness, and for every theory; manuscript-level A1 is a gap (no identification map) |',
+           '| A2 determinism | realized-core image holds for the witness, and for every theory with composite unitary control; manuscript-level A2 is a gap (no identification map) |',
            '| A3 bounded coupling degree | **gap** | no kernel predicate |',
            '| A4 center independence | **gap** | no kernel predicate |',
            '| A5 linearity | **gap** | no kernel predicate |',
            '| A6 background independence | **gap** | no kernel predicate |',
            'is **not established**', 'The strongest form is therefore not refuted here',
            'The missing interface, recorded', 'Eleven named results', 'What this note does not claim',
-           'A3–A6 may well be what such a derivation consumes; the pass does not say they are not'):
+           'A3–A6 may well be what such a derivation consumes; the pass does not say they are not',
+           'not shown here to be the only one'):
     ok_max &= _t in _man1
+# the superseded readings are absent from the module, the README, the registry note and the
+# outcome half of the note; the scope-repair section quotes two of them and is excluded
+_man_out = _man[_man.find('## The outcome'):]
+for _t in (_maflat, _rd1, _man_out):
+    for _bad in ('only through the observer-level lift', 'the only place left', 'every sourcing of any substratum',
+                 'the only sourcing the bound leaves', 'faithful theory-level forms relative to',
+                 'A1 and A2 hold for the witness', 'A1 AND A2 HOLD FOR THE WITNESS'):
+        ok_max &= _bad not in _t
 for _bad in ('The witness satisfies ManuscriptOI', 'witness satisfies `ManuscriptOI`', 'ManuscriptOI does not imply',
              'A1–A6 hold for the witness',
              'satisfies A1–A6', 'satisfies the full manuscript OI', 'strongest form is false',
              'OI ⇒ QM is false', 'the lift is derivable', 'the lift is not derivable',
              'quantum mechanics requires OI', 'bare OI implies', 'Route A is closed',
-             'the drive is independent of OI', 'A3–A6 fail', 'A3–A6 hold'):
+             'the drive is independent of OI', 'A3–A6 fail', 'A3–A6 hold',
+             'A1 and A2 hold for the witness', 'the lift is the only', 'only non-configuration-level sourcing is'):
     ok_max &= not _asserted(_man, _bad)
 # no manuscript carries the pass; the registry classifies the module as kernel-only, no anchor
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
@@ -3384,23 +3401,33 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
     ok_max &= 'ManuscriptAxioms' not in _t and 'A1Realized' not in _t and 'ConfigurationLevel' not in _t
 _ma_fam = [f for f in _ptr_reg['families'] if f['name'] == 'manuscript axioms A1-A6']
 ok_max &= len(_ma_fam) == 1 and _ma_fam[0]['status'] == 'kernel-only' and _ma_fam[0]['modules'] == ['ManuscriptAxioms']
-ok_max &= _ma_fam[0]['manuscript'] == [] and 'asserts nothing about whether the witness satisfies A3-A6' in _ma_fam[0]['note']
+ok_max &= _ma_fam[0]['manuscript'] == [] and 'asserts nothing about whether the witness satisfies any of A1-A6 in the manuscript sense' in _ma_fam[0]['note']
+ok_max &= 'realized-core images' in _ma_fam[0]['note'] and 'requires some non-configuration-level sourcing' in _ma_fam[0]['note']
+for _bad in ('faithful theory-level forms', 'every configuration-level sourcing of any substratum', 'only through the observer-level lift'):
+    ok_max &= _bad not in _ma_fam[0]['note']
 _cen_ma = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
-ok_max &= '| manuscript axioms A1–A6 | 1 | kernel-only |' in _cen_ma
+ok_max &= '| manuscript axioms A1–A6 | 1 | kernel-only |' in _cen_ma and 'realized-core images of A1 and A2' in _cen_ma
 for _t in ('`R7-MAX`', 'MANUSCRIPT-AXIOM-AUDIT.md', 'A1Realized', 'A2Realized', 'ConfigurationLevel',
            'configurationLevel_not_phaseFree', 'formalization gap', 'Eleven named results',
-           'asserts nothing about whether the witness satisfies A3–A6'):
+           'no manuscript-level A1–A6 conjunct is presently a faithful predicate of the bare theory',
+           'realized-core images', 'requires some non-configuration-level sourcing',
+           'specifically named open candidate', 'not shown to be the only one',
+           'asserts nothing about whether the witness satisfies any of A1–A6 in the manuscript sense'):
     ok_max &= _t in _rd1
 check('R7-MAX', ok_max,
       'Manuscript-axiom guard: the module carries no sorry, axiom or native_decide and prints the axioms '
       'of exactly its eleven results; it defines exactly A1Realized, A2Realized, A1A2Realized and '
       'ConfigurationLevel, verbatim as pinned, with no predicate for A3–A6 and no ManuscriptOI; the '
       'note quotes the six axioms, gives each a representability verdict before the proof, preregisters '
-      'the sourcing bound with its reading fixed in advance, records A1 and A2 as holding, A3–A6 as gaps '
-      'with the missing interface, the negative case as not established and the strongest form as not '
-      'refuted, and asserts nothing about the witness against A3–A6 or about the strongest claim; no '
-      'manuscript carries the pass; the registry and the census carry the family as kernel-only with no '
-      'anchor and the README carries the paragraph.')
+      'the sourcing bound with its reading fixed in advance, records the scope repair made at review '
+      'with the preregistration commit named, records the A1 and A2 realized-core images as holding '
+      'and all six axioms as gaps at the manuscript-substratum level with the missing interface, the '
+      'bound as necessity of a non-configuration-level sourcing with the lift as the named candidate '
+      'and not the only route, the negative case as not established and the strongest form as not '
+      'refuted, and asserts nothing about the witness against A1–A6 in the manuscript sense or about '
+      'the strongest claim; the superseded readings are absent from the module, the README, the '
+      'registry and the outcome; no manuscript carries the pass; the registry and the census carry the '
+      'family as kernel-only with no anchor and the README carries the paragraph.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
