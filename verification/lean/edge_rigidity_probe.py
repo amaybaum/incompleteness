@@ -2496,6 +2496,16 @@ for _bad in ('the observer is conscious', 'self-aware', 'N5 shows OICore', 'N5 i
              'the observer requires a hidden ontology'):
     ok_oin &= not _asserted(_io, _bad) and not _asserted(_on, _bad) and not _asserted(_rd, _bad)
 ok_oin &= 'cannot write a new record' in _io and 'only be read, never written' in _io
+# the boundary is injectivity of the record map: "at most one carrier state per record block",
+# so every NONEMPTY record block is one-dimensional. The literal "every record block is
+# one-dimensional" silently adds surjectivity and is forbidden in module, note and README.
+for _t in (re.sub(r'\s+', ' ', _io), re.sub(r'\s+', ' ', _on), re.sub(r'\s+', ' ', _rd)):
+    ok_oin &= 'at most one carrier state' in _t and 'every nonempty record block is one-dimensional' in _t
+    for _bad in ('every record block is one-dimensional', 'every block has dimension one',
+                 'iff every record block is', 'iff every `d_i = 1`'):
+        ok_oin &= _bad not in _t
+ok_oin &= 'every block has dimension one' not in re.sub(r'\s+', ' ', _co)
+ok_oin &= 'at most one basis state' in re.sub(r'\s+', ' ', _co)
 # two scope points the kernel does not carry: the intrinsic-to-ambient transport through the block
 # conditional expectation is not formalized, so the statements are for the ambient definition;
 # and the classification is one direction (every passive instrument induces a stochastic

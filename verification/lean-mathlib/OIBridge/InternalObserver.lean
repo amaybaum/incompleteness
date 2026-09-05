@@ -22,8 +22,10 @@ instrument that is passive on the record-block algebra (`IsInternalObserver`).
   `F o ρ = P_o ρ P_o` and `p(o | ρ) = tr (P_o ρ P_o)`. A passive internal observer cannot write a
   new record; it can only reveal which record was already present.
 * **OI-N5.2, the boundary** (`internal_complete_iff`, `no_complete_internal_observer`). Complete
-  passive internal observation is possible if and only if every record block is one-dimensional,
-  i.e. the record map is injective. For a separate register `B` recording a system `A` with more
+  passive internal observation is possible if and only if each record block contains at most one
+  carrier state, equivalently if and only if the record map is injective; so every nonempty
+  record block is one-dimensional, while empty record values are allowed. For a separate
+  register `B` recording a system `A` with more
   than one state, every record block contains all of `A`, so no internal observer using `B` as
   its record observes `A × B` completely and passively.
 * **Controls.** The singleton record partition (`classical_control`): when the record resolves
@@ -161,7 +163,9 @@ theorem blockPinch_internal : IsInternalObserver blk (blockPinch blk) :=
   ⟨blockPinch_passive blk, blockPinch_records blk⟩
 
 /-- **OI-N5.2, the boundary.** Some internal observer observes the algebra completely if and only
-if every record block is one-dimensional, i.e. the record map is injective. -/
+if each record block contains at most one carrier state, equivalently if and only if the record
+map is injective. Every nonempty record block is then one-dimensional; empty record values are
+allowed. -/
 theorem internal_complete_iff :
     (∃ F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ,
       IsInternalObserver blk F ∧ SeparatesBlockStates blk F) ↔ Function.Injective blk := by
@@ -189,7 +193,7 @@ omit [Fintype A] [DecidableEq A] [Fintype B] [DecidableEq B] [Fintype O] [Decida
 theorem recBlk_apply (rec : B → O) (p : A × B) : recBlk rec p = rec p.2 := rfl
 
 omit [DecidableEq A] [Fintype B] [DecidableEq B] [Fintype O] [DecidableEq O] in
-/-- With more than one system state, a record block is never one-dimensional. -/
+/-- With more than one system state, some record block contains two carrier states. -/
 theorem recBlk_not_injective (rec : B → O) (hA : 1 < Fintype.card A) [Nonempty B] :
     ¬ Function.Injective (recBlk (A := A) rec) := by
   obtain ⟨x, x', hxx'⟩ := Fintype.exists_pair_of_one_lt_card hA

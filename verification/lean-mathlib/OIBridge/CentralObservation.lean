@@ -29,8 +29,9 @@ classification rather than a bare impossibility:
   completely positive, passive on the algebra, and reads the block weights exactly.
 * **The boundary** (`no_complete_passive_of_block`, `blockPinch_separates`,
   `complete_passive_iff_injective`, `injective_iff_commutative`). Complete passive observation of
-  the algebra is possible if and only if every block has dimension one, if and only if the
-  algebra is commutative.
+  the algebra is possible if and only if each block contains at most one basis state, equivalently
+  if and only if the labelling is injective — every nonempty block has dimension one — if and
+  only if the algebra is commutative.
 
 **Definitions.** A passive instrument on the algebra (`IsBlockPassiveInstrument`) is a finite
 family of maps on the ambient matrix algebra, completely positive there, whose nonselective channel
@@ -561,7 +562,8 @@ variable {I : Type} [Fintype I] [DecidableEq I]
 variable (blk : S → I)
 
 /-- **OI-N3, the boundary.** Some passive instrument observes the algebra `⊕ᵢ M_{dᵢ}` completely
-if and only if every block has dimension one. -/
+if and only if each block contains at most one basis state, i.e. the labelling is injective:
+every nonempty block has dimension one, and empty labels are allowed. -/
 theorem complete_passive_iff_injective :
     (∃ (O : Type) (_ : Fintype O) (_ : DecidableEq O) (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ),
       IsBlockPassiveInstrument blk F ∧ SeparatesBlockStates blk F) ↔ Function.Injective blk := by

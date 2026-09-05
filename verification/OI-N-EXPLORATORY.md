@@ -90,7 +90,8 @@ block weights exactly (`blockPinch_trace`).
 **The boundary.** A block with two basis states carries two pure states every passive instrument
 confuses (`no_complete_passive_of_block`); with singleton blocks the control separates states
 (`blockPinch_separates`). So some passive instrument observes `⊕_i M_{d_i}` completely if and only if
-every `d_i = 1` (`complete_passive_iff_injective`), if and only if the block-diagonal algebra is
+each block contains at most one basis state — the labelling is injective, so every nonempty block
+has `d_i = 1` (`complete_passive_iff_injective`) — if and only if the block-diagonal algebra is
 commutative (`injective_iff_commutative`, `complete_passive_iff_commutative`). Noncommutativity is the
 obstruction, exactly: this is the finite-dimensional boundary the N1/N2 contrast pointed at.
 
@@ -190,7 +191,9 @@ present.
 
 **N5.2 — the boundary** (`internal_complete_iff`, `recBlk_not_injective`,
 `no_complete_internal_observer`). Some internal observer observes the algebra completely if and
-only if every record block is one-dimensional, i.e. the record map is injective — the block-label
+only if each record block contains at most one carrier state, equivalently if and only if the
+record map is injective, so that every nonempty record block is one-dimensional while empty record
+values are allowed — the block-label
 instrument records (`blockPinch_records`, `blockPinch_internal`) and is the witness. For a separate
 register recording a system with more than one state every record block contains all of `A`, so no
 internal observer using the register as its record observes `A × B` completely and passively,

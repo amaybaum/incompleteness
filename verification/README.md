@@ -684,8 +684,9 @@ fibre of block `i` has Choi matrix a principal submatrix of the original
 `X ↦ P_i X P_i`, is passive on the algebra and reads the block weights. The boundary: a block with
 two basis states carries two pure states every passive instrument confuses
 (`no_complete_passive_of_block`); with singleton blocks the control separates states
-(`blockPinch_separates`); so complete passive observation of `⊕_i M_{d_i}` is possible iff every
-`d_i = 1` (`complete_passive_iff_injective`) iff the algebra is commutative
+(`blockPinch_separates`); so complete passive observation of `⊕_i M_{d_i}` is possible iff each block
+contains at most one basis state, the labelling injective and every nonempty `d_i = 1`
+(`complete_passive_iff_injective`), iff the algebra is commutative
 (`injective_iff_commutative`, `complete_passive_iff_commutative`). Thirteen named results, each
 printing only `propext`, `Classical.choice`, `Quot.sound`. Scope: the block-diagonal form is the
 object; the Wedderburn–Artin identification of an abstract finite-dimensional C*-algebra with it is
@@ -725,8 +726,10 @@ block's projector is zero. **N5.1**, rigidity (`branch_kills_other_block`,
 preservation from N3 and the record condition together force branch `o` to annihilate every other
 record block and fix its own, so on every block-diagonal state `F_o ρ = P_o ρ P_o` and
 `p(o | ρ) = tr (P_o ρ P_o)`. **N5.2**, the boundary (`internal_complete_iff`,
-`no_complete_internal_observer`): complete passive internal observation iff every record block is
-one-dimensional, so a separate register never observes a system with two or more states completely
+`no_complete_internal_observer`): complete passive internal observation iff each record block
+contains at most one carrier state, equivalently iff the record map is injective, so every nonempty
+record block is one-dimensional; hence a separate register never observes a system with two or
+more states completely
 and passively, whatever function of the register the record is. Controls: the singleton record
 partition, where the block-label instrument is a complete passive internal observer
 (`classical_control`); and the recorder "measure `A`, write the register" (`recordInstr`), completely
