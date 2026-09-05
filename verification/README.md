@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 110 modules and,
-  at this commit, 2,351 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 111 modules and,
+  at this commit, 2,354 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -749,6 +749,24 @@ claimed: that quantum mechanics requires OI or a hidden ontology — `qm_implies
 containment, the necessity reading is not a theorem of this thread, and N4 shows passive
 incompleteness in a theory with no OI core at all; "passive" here is not the passive quotient of
 `PassiveQuotient.lean`.
+
+`COMPLETION-ASSUMPTION-AUDIT.md` reconciles the completion-assumption reduction charter
+(`EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md`) with the kernel. The charter asks that each of
+the five completion assumptions end as DERIVED or INDEPENDENT with a kernel witness; the note
+records that every row is settled by the primitive-source and substratum-source audits — the seam
+from embedded observation, closure from observer recursion, inert spectators and validity from
+implementation locality, control from elementary transition richness with dagger-stable
+implementations — each with its independence countercontrol, and that the charter's "current
+exact package" is the round-41 five-condition statement while the most compressed package
+currently recorded is
+`OIPlusElem` (`carrier_general_oiPlusElem`). The one witness the charter asks for that the kernel
+did not carry is supplied by `OIBridge/LevelOneRecursion.lean`: the loose theory has observer
+recursion (`systemLoose_observerRecursion`) and no level-one seam, so the seam is independent of
+observer recursion (`levelOne_independent_of_recursion`, `levelOne_row`) — three named results,
+each printing only `propext`, `Classical.choice`, `Quot.sound`. The residual items are listed as
+open and none is settled: the inverse clause's redundancy in either direction, the minimal
+elementary repertoire, context stability given generation, and the empirical addition of
+continuous off-diagonal controllability. Guard `R7-CAA`.
 
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
 audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its

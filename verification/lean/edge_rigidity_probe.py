@@ -2560,6 +2560,56 @@ check('R7-OIN', ok_oin,
       'proved as a classification, N4 as proved as theory-insensitivity and N5 as proved as '
       'rigidity, and assert neither that QM requires OI nor that a hidden ontology is forced.')
 
+# ---- the completion-assumption audit: the charter's ledger reconciled with the kernel ----
+_caa = open(os.path.join(os.path.dirname(BRIDGE), 'COMPLETION-ASSUMPTION-AUDIT.md'),
+            encoding='utf-8').read()
+_lor = open(os.path.join(BRIDGE, 'OIBridge', 'LevelOneRecursion.lean'), encoding='utf-8').read()
+ok_caa = True
+ok_caa &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _lor) is None and 'native_decide' not in _lor
+for _nm in ('systemLoose_observerRecursion', 'levelOne_independent_of_recursion', 'levelOne_row'):
+    ok_caa &= ('#print axioms ' + _nm) in _lor
+# the row is stated with both halves, and the second half is a negation, not a derivation
+ok_caa &= '¬ ∀ T : FiniteOperationalTheory (Fin 2), ObserverRecursion T → SystemToLevelOne T' in _lor
+# every ledger row names its kernel witness; the charter's stale package is named as such;
+# the residual items are listed as open and the note settles none of them
+for _nm in ('systemToLevelOne_of_embeddedObservation', 'closure_of_observerRecursion',
+            'observationalIndependence_of_implementationLocality',
+            'validity_of_implementationLocality', 'lieRank_of_elementary',
+            'lieRank_not_redundant', 'redundancy_fails', 'closure_independent',
+            'validity_independent', "levelOne_independent'", 'levelOne_independent_of_recursion',
+            'carrier_general_oiPlusElem', 'substratum_residual'):
+    ok_caa &= _nm in _caa
+ok_caa &= 'What remains open' in _caa and 'nothing in this note\nsettles them' in _caa
+ok_caa &= 'What this note does not claim' in _caa
+for _bad in ('SystemToLevelOne is derived from observer recursion',
+             'observer recursion supplies the seam', 'OIPlusElem is minimal',
+             'the substratum supplies elementary drivability', 'inverse accessibility is redundant'):
+    ok_caa &= not _asserted(_caa, _bad)
+# the charter carries its banner: historical, reconciled with and superseded by the audit note,
+# and it does not send a future agent back to the five rows; and OIPlusElem is "the most
+# compressed package currently recorded", never "the kernel's smallest", since global minimality
+# is exactly the open item
+_chr = open(os.path.join(os.path.dirname(BRIDGE),
+                         'EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md'), encoding='utf-8').read()
+_chr1 = re.sub(r'\s+', ' ', _chr)
+ok_caa &= _chr.lstrip().startswith('# Equivalence strengthening roadmap')
+ok_caa &= 'Historical charter' in _chr and 'superseded by' in _chr1
+ok_caa &= 'COMPLETION-ASSUMPTION-AUDIT.md' in _chr and 'do not restart the five rows from here' in _chr1
+ok_caa &= 'most compressed package currently recorded' in _chr1
+for _t in (re.sub(r'\s+', ' ', _caa), re.sub(r'\s+', ' ', _rd), _chr1):
+    ok_caa &= 'most compressed package currently recorded' in _t
+    ok_caa &= "kernel's smallest" not in _t and 'kernel smallest' not in _t
+check('R7-CAA', ok_caa,
+      'Completion-assumption audit guard: the level-one-recursion module carries no sorry and no '
+      'native_decide and prints the axioms of its three results, the seam row is stated with '
+      'both halves and the observer-recursion half as a negation; the note names a kernel witness '
+      'for every ledger row, names the charter package as the round-41 one against the most '
+      'compressed package currently recorded (never "the kernel smallest"), the charter carries '
+      'its historical banner pointing to the note, the note lists the residual items as open and '
+      'settles none, and asserts neither that '
+      'observer recursion supplies the seam, that OIPlusElem is minimal, that the substratum '
+      'drives the elementary transitions, nor that the inverse clause is redundant.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
