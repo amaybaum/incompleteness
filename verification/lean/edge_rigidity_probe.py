@@ -3138,7 +3138,8 @@ check('R7-PTR', ok_ptr,
       'left consistent-uncited.')
 
 # ---- Route B, milestone B0: the consequence closure is defined from kernel names, the falsifier is
-# one named operation, the target has no unconditional proof, and nothing reaches a manuscript ----
+# one named operation, the target is a definition whose proofs go through the sealed core for the
+# substratum theory, and nothing reaches a manuscript ----
 ok_rb0 = True
 _rb = open(os.path.join(BRIDGE, 'OIBridge', 'RouteB.lean'), encoding='utf-8').read()
 _rbflat = ' '.join(_rb.split())
@@ -3153,7 +3154,11 @@ _rb_names = ('DerivedOI.implementationLocality', 'DerivedOI.closure', 'falsifier
              'derivedOICore_of_qm', 'qm_not_falsifierUnavailable', 'target_separates', 'target_not_qm',
              'substratumTheory_avail_conj', 'substratumTheory_derivedOI',
              'substratumTheory_falsifierUnavailable', 'substratumTheory_candidate',
-             'target_of_substratum_core')
+             'target_of_substratum_core', 'derivedOI_qm_iff_phaseFree', 'substratumTheory_relabel',
+             'substratumTheory_passiveStep', 'substratumTheory_controlStep', 'substratumTheory_readout',
+             'substratumTheory_readoutFamily', 'substratumTheory_comb',
+             'substratumTheory_realizesSealedOICore', 'substratumTheory_derivedOICore', 'routeB_target',
+             'substratumTheory_not_phaseFree', 'derivedOICore_not_phaseFree')
 for _nm in _rb_names:
     ok_rb0 &= ('#print axioms ' + _nm) in _rb and _nm in _rbn
 ok_rb0 &= _rb.count('#print axioms') == len(_rb_names)
@@ -3164,61 +3169,147 @@ ok_rb0 &= ('def DerivedOI (T : FiniteOperationalTheory A) : Prop := ReversibleIm
 ok_rb0 &= 'def DerivedOICore (T : FiniteOperationalTheory (Fin 2)) : Prop := DerivedOI T ∧ RealizesSealedOICore T' in _rbflat
 ok_rb0 &= 'def FalsifierUnavailable (T : FiniteOperationalTheory (Fin 2)) : Prop := ¬ T.availExt 1 Unit (fun _ => conjChannel rot)' in _rbflat
 ok_rb0 &= 'def RouteBTarget : Prop := ∃ T : FiniteOperationalTheory (Fin 2), DerivedOICore T ∧ FalsifierUnavailable T' in _rbflat
-# the target is proved nowhere unconditionally: its only proof consumes the sealed core as a hypothesis
-ok_rb0 &= 'theorem routeBTarget' not in _rb
-ok_rb0 &= _rbflat.count(': RouteBTarget :=') == 1
+# the target has exactly two proofs: the reduction to the sealed core, and its discharge
+ok_rb0 &= _rbflat.count(': RouteBTarget :=') == 2
 ok_rb0 &= 'theorem target_of_substratum_core (h : RealizesSealedOICore (substratumTheory (Fin 2))) : RouteBTarget :=' in _rbflat
+ok_rb0 &= 'theorem routeB_target : RouteBTarget := target_of_substratum_core substratumTheory_realizesSealedOICore' in _rbflat
 ok_rb0 &= 'theorem substratumTheory_candidate : DerivedOI (substratumTheory (Fin 2)) ∧ FalsifierUnavailable (substratumTheory (Fin 2))' in _rbflat
 ok_rb0 &= 'theorem substratumTheory_falsifierUnavailable : FalsifierUnavailable (substratumTheory (Fin 2))' in _rbflat
 ok_rb0 &= 'must fail this named operation' in _rbflat and 'exactly it' not in _rbflat
 ok_rb0 &= 'theorem not_phaseFree_of_falsifier_unavailable (T : FiniteOperationalTheory (Fin 2)) (heo : EmbeddedObservation T) (hf : FalsifierUnavailable T) : ¬ PhaseFreeRichness T' in _rbflat
 # the note: status, the two preregistered outcomes, the table, the falsifier, the target, non-claims
 ok_rb0 &= _rbn.lstrip().startswith('# Route B')
-ok_rb0 &= 'Status: B0 complete, the question fixed and the candidate certified up to one conjunct.' in _rbn1
+ok_rb0 &= 'Status: B0 and B1 complete; the target is proved with the substratum theory as the witness.' in _rbn1
 ok_rb0 &= 'B1 is one question' in _rbn1 and 'must fail this named operation' in _rbn1
 ok_rb0 &= 'exactly one named operation' not in _rbn1 and 'exactly it' not in _rbn1
 for _t in ('Outcome 1 — a countertheory exists', 'Outcome 2 — every candidate collapses',
            'from kernel names', 'The falsifier', 'The B1 target, stated', 'What would falsify Outcome 1 at B1',
-           'What would falsify Outcome 2', 'Nineteen named results', 'What this note does not claim',
+           'What would falsify Outcome 2', 'Thirty-one named results', 'What this note does not claim',
            'The candidate, certified up to the core', 'target_of_substratum_core',
-           'RouteBTarget', 'No unconditional proof is given and none is asserted',
-           'consumes the sealed core for the substratum theory as its hypothesis',
+           'RouteBTarget', 'The proof is `routeB_target`',
            'additionally requires `RealizesSealedOICore T`'):
     ok_rb0 &= _t in _rbn1
-# the stale absolute forms are rejected in the module, the note and the README
+# the stale forms, absolute and conditional, are rejected in the module, the note and the README
 for _t in (_rbflat, _rbn1, _rd1):
     for _bad in ('with no proof.', 'No proof is given and none is asserted', 'is stated and not proved',
-                 'stated and not proved', 'no proof anywhere', 'is a further consequence'):
+                 'stated and not proved', 'no proof anywhere', 'is a further consequence',
+                 'no unconditional proof', 'consumes the sealed core for the substratum theory as its hypothesis',
+                 'Nothing here answers it', 'nothing here discharges it', 'Whether it does is open',
+                 'certified up to one conjunct.**'):
         ok_rb0 &= _bad not in _t
-ok_rb0 &= 'no unconditional proof' in _rbflat and 'no unconditional proof' in _rbn1.lower() and 'no unconditional proof' in _rd1
 ok_rb0 &= 'additionally requires the sealed OI core' in _rbflat
-for _bad in ('a countertheory has been constructed', 'the countertheory exists', 'Outcome 1 holds',
-             'Outcome 1 is proved', 'Outcome 2 holds', 'Outcome 2 is proved',
-             'independence is proved', 'the drive is independent of OI',
-             'DerivedOI does not imply', 'substratum theory is a countertheory',
-             'RouteBTarget holds', 'RouteBTarget is proved', 'quantum mechanics requires OI',
-             'bare OI implies'):
+for _bad in ('Outcome 2 holds', 'Outcome 2 is proved', 'the drive is independent of OI',
+             'independent of bare OI', 'quantum mechanics requires OI', 'bare OI implies',
+             'Route A is closed', 'physical theory', 'derived from bare OI'):
     ok_rb0 &= not _asserted(_rbn, _bad)
-# no manuscript carries Route B; the registry classifies the module as verification-only
+# no manuscript carries Route B; the registry classifies the module as kernel-only, carried by none
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
-    ok_rb0 &= 'RouteB' not in _t and 'Route B' not in _t and 'DerivedOI' not in _t
+    ok_rb0 &= 'RouteB' not in _t and 'Route B' not in _t and 'DerivedOI' not in _t and 'routeB_target' not in _t
 _rb_fam = [f for f in _ptr_reg['families'] if f['name'] == 'route B: consequence closure']
-ok_rb0 &= len(_rb_fam) == 1 and _rb_fam[0]['status'] == 'verification-only' and _rb_fam[0]['modules'] == ['RouteB']
-ok_rb0 &= 'Guard `R7-RB0`' in _rd1 and 'RouteBTarget' in _rd1 and 'Nineteen named results' in _rd1
-ok_rb0 &= 'target_of_substratum_core' in _rd1 and 'B1 is one question' in _rd1
+ok_rb0 &= len(_rb_fam) == 1 and _rb_fam[0]['status'] == 'kernel-only' and _rb_fam[0]['modules'] == ['RouteB']
+ok_rb0 &= _rb_fam[0]['manuscript'] == [] and 'routeB_target' in _rb_fam[0]['note'] and 'not about bare OI' in _rb_fam[0]['note']
+ok_rb0 &= '`R7-RB0`' in _rd1 and '`R7-RB1`' in _rd1 and 'RouteBTarget' in _rd1 and 'Thirty-one named results' in _rd1
+ok_rb0 &= 'target_of_substratum_core' in _rd1 and 'routeB_target' in _rd1
 check('R7-RB0', ok_rb0,
       'Route B0 guard: the module carries no sorry, axiom or native_decide and prints the axioms of '
-      'exactly its nineteen results; the substratum theory satisfies the closure and lacks the '
-      'falsifier, and the only proof of the target consumes the sealed core as a hypothesis; DerivedOI is exactly the five conjuncts, DerivedOICore adds the '
+      'exactly its thirty-one results; DerivedOI is exactly the five conjuncts, DerivedOICore adds the '
       'sealed core, the falsifier is the unavailability of conjChannel rot at level one, the target '
-      'is a definition with no unconditional proof and its only proof consumes the sealed-core '
-      'hypothesis, the stale absolute forms are absent, and the reduction is stated as in the note; the note records '
-      'the status, the two preregistered outcomes, the closure table, the falsifier, the target and '
-      'its non-claims, and asserts neither that a countertheory exists nor that the drive is '
-      'independent; no manuscript carries Route B; the registry classifies the module as '
-      'verification-only and the README carries the paragraph.')
+      'is a definition with exactly two proofs, the reduction to the sealed core and its discharge, '
+      'the stale absolute and conditional forms are absent, and the reduction is stated as in the '
+      'note; the note records the status, the two preregistered outcomes, the closure table, the '
+      'falsifier, the target and its non-claims, and asserts neither that the drive is independent '
+      'of bare OI nor that Route A is closed; no manuscript carries Route B; the registry classifies '
+      'the module as kernel-only with no manuscript anchor and the README carries the paragraph.')
+
+# ---- Route B, milestone B1: the four sealed-core clauses were preregistered before the proof with
+# exactly two admissible outcomes each, every clause closed by its positive outcome under its
+# preregistered name, the permutation clauses from monomial generation and not from control, and
+# the outcome is recorded with its scope ----
+ok_rb1 = True
+_rbF = _rb[_rb.index('### Section F'):]
+_rbFflat = ' '.join(_rbF.split())
+# the preregistration precedes the outcome in the note, and freezes the four clauses and the rule
+_i_pre = _rbn.find('## B1 — the sealed core for the substratum theory, preregistered before the proof')
+_i_out = _rbn.find('## B1 — the outcome, clause by clause')
+ok_rb1 &= 0 < _i_pre < _i_out
+for _t in ('1. **Passive step availability.**', '2. **Control-step availability.**',
+           '3. **Native visible readout, as a family certified inside the generated theory.**',
+           '4. **Comb agreement.**', 'Two admissible outcomes per clause, and no third',
+           'a kernel theorem establishing the clause for `substratumTheory (Fin 2)`, or a kernel theorem establishing its negation',
+           'B1 does not repair or enlarge the candidate', 'The control discipline',
+           'The absence of a sufficient condition is not evidence against a conclusion',
+           'Order of attack', 'Preregistered names'):
+    ok_rb1 &= _t in _rbn1
+# every clause closed under its preregistered name; no negative name exists anywhere
+for _nm in ('substratumTheory_passiveStep', 'substratumTheory_controlStep', 'substratumTheory_readout',
+            'substratumTheory_readoutFamily', 'substratumTheory_comb',
+            'substratumTheory_realizesSealedOICore', 'routeB_target'):
+    ok_rb1 &= ('theorem ' + _nm) in _rbF
+for _nm in ('substratumTheory_not_passiveStep', 'substratumTheory_not_controlStep',
+            'substratumTheory_not_readout', 'substratumTheory_not_readoutFamily', 'substratumTheory_not_comb'):
+    ok_rb1 &= ('theorem ' + _nm) not in _rb
+# the clause statements are the sealed core's conjuncts, verbatim
+ok_rb1 &= ('theorem substratumTheory_passiveStep : (substratumTheory (Fin 2)).availExt 4 Unit '
+           '(fun _ => transport coreIdx (correlationExtension sigmaPerm (onesCorr Core))) := substratumTheory_relabel sigmaPerm') in _rbFflat
+ok_rb1 &= ('theorem substratumTheory_controlStep : (substratumTheory (Fin 2)).availExt 4 Unit '
+           '(fun _ => transport coreIdx (correlationExtension tauPerm (onesCorr Core))) := substratumTheory_relabel tauPerm') in _rbFflat
+ok_rb1 &= ('theorem substratumTheory_readout (r : Bool × Bool) : transport coreIdx (readVisible r) '
+           '= (substratumTheory (Fin 2)).readout 4 (visIdx r)') in _rbFflat
+ok_rb1 &= ('theorem substratumTheory_readoutFamily : (substratumTheory (Fin 2)).availExt 4 (Bool × Bool) '
+           '(fun r => transport coreIdx (readVisible r))') in _rbFflat
+ok_rb1 &= ('theorem substratumTheory_comb (steps : List VStep) (w : Core → ℂ) : realizedFold steps '
+           '(Matrix.reindex coreIdx coreIdx (Matrix.diagonal w)) = Matrix.reindex coreIdx coreIdx '
+           '(Matrix.diagonal (visWeightFold steps w)) := realizedFold_diagonal steps w') in _rbFflat
+ok_rb1 &= 'theorem substratumTheory_realizesSealedOICore : RealizesSealedOICore (substratumTheory (Fin 2)) :=' in _rbFflat
+ok_rb1 &= ('theorem substratumTheory_derivedOICore : DerivedOICore (substratumTheory (Fin 2)) := '
+           '⟨substratumTheory_derivedOI, substratumTheory_realizesSealedOICore⟩') in _rbFflat
+ok_rb1 &= 'theorem substratumTheory_not_phaseFree : ¬ PhaseFreeRichness (substratumTheory (Fin 2))' in _rbFflat
+ok_rb1 &= ('theorem derivedOICore_not_phaseFree : ∃ T : FiniteOperationalTheory (Fin 2), DerivedOICore T ∧ '
+           '¬ PhaseFreeRichness T := target_separates routeB_target') in _rbFflat
+ok_rb1 &= ('theorem derivedOI_qm_iff_phaseFree [Nonempty A] {T : FiniteOperationalTheory A} (h : DerivedOI T) : '
+           'ExactAllFiniteEndomorphicQuantumOps T ↔ PhaseFreeRichness T') in _rbflat
+# the permutation clauses come from monomial generation: the relabel lemma goes through
+# substratumTheory_avail_conj with the label-invariant class and the permutation isometry, and
+# Section F names no control hypothesis and applies no control-derived availability
+ok_rb1 &= ('rw [correlationExtension_ones_eq_conjChannel, transport_conjChannel] exact substratumTheory_avail_conj '
+           '(substratumClass_labelInvariant _ _ coreIdx _ (monomial_permMatrix g)) '
+           '(reindex_isometry _ _ (permMatrix_isometry g))') in _rbFflat
+ok_rb1 &= 'hctrl' not in _rbF and 'HasCompositeUnitaryControl' not in _rbF.replace('composite unitary control', '')
+ok_rb1 &= re.search(r'(?<![A-Za-z_])relabel_available [T_(]', _rbF) is None
+ok_rb1 &= 'realizesSealedOICore_of_control' not in _rbF and 'substratumGen_not_control' not in _rbF
+# the outcome record: the table, the direct test, the scope, the robustness, and the non-claims
+for _t in ('| 1, passive step | `substratumTheory_passiveStep` | `substratumTheory_relabel sigmaPerm` |',
+           '| 2, control step | `substratumTheory_controlStep` | `substratumTheory_relabel tauPerm` |',
+           '| 4, comb agreement | `substratumTheory_comb` |',
+           'No clause failed, no candidate repair was made, and no hypothesis was added',
+           'Composite unitary control was not used, and `substratumGen_not_control` was not consulted',
+           '`routeB_target : RouteBTarget`, with `substratumTheory (Fin 2)` as the witness',
+           'What the outcome establishes', 'Why the witness is robust to later derivations',
+           'What the outcome does not establish', 'the preregistered Outcome 1 at this carrier',
+           'A1–A6 are not `DerivedOI`', 'derivedOI_qm_iff_phaseFree', 'derivedOICore_not_phaseFree',
+           'Route A is not closed by this note'):
+    ok_rb1 &= _t in _rbn1
+# the census note carries the kernel-only row for the family, and the README the B1 sentences
+_cen = open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read()
+_cen1 = re.sub(r'\s+', ' ', _cen)
+ok_rb1 &= '| route B: consequence closure | 1 | kernel-only |' in _cen1 and 'routeB_target' in _cen1
+ok_rb1 &= 'The exception is the Route B family, `kernel-only`' in _cen1
+for _t in ('is proved (`routeB_target`, through `target_of_substratum_core`)',
+           'substratumTheory_realizesSealedOICore', 'substratumTheory_relabel',
+           'derivedOICore_not_phaseFree', 'derivedOI_qm_iff_phaseFree',
+           'whose A1–A6 are not `DerivedOI`', 'which is a propagation round of its own'):
+    ok_rb1 &= _t in _rd1
+check('R7-RB1', ok_rb1,
+      'Route B1 guard: the note preregisters the four sealed-core clauses before the outcome, each '
+      'with exactly two admissible outcomes and no repair of the candidate, and records the control '
+      'discipline; every clause is closed under its preregistered positive name with the sealed '
+      'core\'s conjunct as its statement, no negative name exists, the permutation clauses go through '
+      'monomial generation with no control hypothesis in Section F, routeB_target discharges '
+      'target_of_substratum_core, and the note, the census and the README record the outcome with '
+      'its scope: the two-state closure with the core does not entail phase-free richness, under the '
+      'closure quantum mechanics is exactly phase-free richness, and nothing is said of bare OI.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

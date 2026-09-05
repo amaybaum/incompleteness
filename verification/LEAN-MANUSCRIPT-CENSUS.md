@@ -59,6 +59,7 @@ dagger-stable package) is stated as what it is next to the current statement.
 | continuous time (CT2) | 4 | current | GR §3.3 continuous-time paragraph, Main §2.3 and the quasilocal summaries: the depth-two factorization and the norm-continuous path of local automorphisms from the identity to the update, stated as a path, with no one-parameter-group law for the composite established, no generator exhibited and CT3 open |
 | minimal repertoire | 1 | current | GR §3.3 states phase-free richness as the second primitive-source principle, `OIPlusMin` boxed, the elementary repertoire as its stronger form; Main §3.4, the Explainer, book chapters 1 and 19 carry the summary; `carrier_general_oiPlusPos`, `oiPlusPos_iff_qm`, `hControl_star` and `typed_determined_of_oiPlusPos` are superseded and cited beside their successors |
 | OI-N passive observation | 4 | current | Main §3.4 and the Explainer, one paragraph each, outside the assumptions and arrows of the characterization: noncommutativity forbids complete passive observation, passive incompleteness is theory-insensitive and does not diagnose the core, a passive internal observer only reads an existing record, a new record changes the joint system |
+| route B: consequence closure | 1 | kernel-only | no manuscript occurrence: `routeB_target` proves the Route B target with the substratum theory as the witness, so on the two-state carrier the closure with the core does not entail phase-free richness; the manuscripts' statement that the controllability resource is not entailed by A1–A6 is consistent with it without citing it, and narration is an owner decision |
 
 ## What the census found and repaired
 
@@ -85,11 +86,14 @@ typed and quasilocal scopes, the reconstruction and coherent-completion results 
 
 ## No family without a manuscript occurrence
 
-Every publication-facing family is carried by the manuscripts under `current` or
+Every publication-facing family except one is carried by the manuscripts under `current` or
 `scope-consistent`, with kernel pointers at the proof or list paragraphs that follow the principal statements,
 the statement lines and the coverage ledger untouched; `consistent-uncited` is
 defined and, after the pointer pass over the SM counting layer and Main §3.4, held by no family;
-the one `verification-only` family is machinery by design. OI-N is narrated in one paragraph of Main §3.4 and one of the Explainer, kept outside the
+the one `verification-only` family is machinery by design. The exception is the Route B family,
+`kernel-only`: its outcome is proved and carried by no manuscript, no manuscript sentence
+contradicts it, and whether to narrate it is an owner decision taken in a propagation round of
+its own. OI-N is narrated in one paragraph of Main §3.4 and one of the Explainer, kept outside the
 assumptions and arrows of the OI→QM characterization, with the N4 anti-conflation in the same
 paragraph: passive incompleteness is theory-insensitive, not evidence for a hidden ontology, and no
 statement that quantum mechanics rests on observation incompleteness. The freeze note is unchanged
