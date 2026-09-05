@@ -21,9 +21,10 @@ classification rather than a bare impossibility:
   matrix is a principal submatrix of the original.
 * **The classification** (`central_classification`). For every block-diagonal state `ρ`,
   `tr (F a ρ) = ∑ᵢ c a i · tr (Pᵢ ρ Pᵢ)`, with `c a i ≥ 0` from complete positivity and
-  `∑ₐ c a i = 1` from passivity. A passive instrument on `⊕ᵢ M_{dᵢ}` is exactly a classical
+  `∑ₐ c a i = 1` from passivity. Every passive instrument on `⊕ᵢ M_{dᵢ}` induces a classical
   stochastic observation of the center: it reads the block weights through a stochastic matrix,
-  and nothing inside any block.
+  and nothing inside any block. The converse — that every stochastic matrix arises from some
+  passive instrument — is not stated or proved here.
 * **The control** (`blockPinch`). The instrument that keeps block `i` and discards the others is
   completely positive, passive on the algebra, and reads the block weights exactly.
 * **The boundary** (`no_complete_passive_of_block`, `blockPinch_separates`,
@@ -33,10 +34,11 @@ classification rather than a bare impossibility:
 
 **Definitions.** A passive instrument on the algebra (`IsBlockPassiveInstrument`) is a finite
 family of maps on the ambient matrix algebra, completely positive there, whose nonselective channel
-fixes every block-diagonal matrix. Any instrument on the algebra itself extends to such a family by
-precomposing with the block conditional expectation `X ↦ ∑ᵢ Pᵢ X Pᵢ`, which is completely positive,
-so nothing is lost by working on the ambient algebra; and block preservation is a theorem here,
-not a hypothesis.
+fixes every block-diagonal matrix. Intrinsic completely positive instruments on the block-diagonal
+algebra admit the corresponding ambient extension by the standard block conditional expectation
+`X ↦ ∑ᵢ Pᵢ X Pᵢ`; that transport is not formalized here, and the kernel statements below are
+stated for `IsBlockPassiveInstrument` as defined. Block preservation is a theorem here, not a
+hypothesis.
 
 **Not claimed.** Nothing here relates passive incompleteness to `OICore` (OI-N4), and nothing here
 says that a passive instrument's silence is an observer. The C*-algebra is taken in its
@@ -421,11 +423,12 @@ theorem pureState_inBlock (s : S) : InBlock blk (blk s) (pureState s) := by
   · simp [ht]
   · simp [hu]
 
-/-- **OI-N3, the classification.** A passive instrument on `⊕ᵢ M_{dᵢ}` is a classical
+/-- **OI-N3, the classification.** Every passive instrument on `⊕ᵢ M_{dᵢ}` induces a classical
 stochastic observation of the center: there is a matrix `c` with `c a i ≥ 0` (from complete
 positivity) and `∑ₐ c a i = 1` (from passivity) on every nonempty block, such that the outcome law
 on any block-diagonal state is `tr (F a ρ) = ∑ᵢ c a i · tr (Pᵢ ρ Pᵢ)`. Nothing inside a block is
-read. -/
+read. One direction only: no converse constructing an instrument from a stochastic matrix is
+stated. -/
 theorem central_classification [Fintype I] {F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ}
     (hF : IsBlockPassiveInstrument blk F) :
     ∃ c : O → I → ℂ,

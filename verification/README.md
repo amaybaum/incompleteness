@@ -666,7 +666,10 @@ boundary is N3. Ten named results, each printing only `propext`, `Classical.choi
 The finite-dimensional C*-algebra `⊕_i M_{d_i}` is taken in block-diagonal matrix form, for a
 labelling `blk : S → I` of basis states by blocks; a passive instrument on it is a finite family of
 completely positive maps on the ambient algebra whose nonselective channel fixes every
-block-diagonal matrix. The central theorem, `central_classification`: such an instrument is a
+block-diagonal matrix; intrinsic instruments on the algebra admit the corresponding ambient
+extension by the block conditional expectation; that transport is not formalized here, and the
+kernel statements are for `IsBlockPassiveInstrument` as defined. The central theorem,
+`central_classification`: every such instrument induces a
 classical stochastic observation of the center — `tr (F_a ρ) = ∑_i c_{a,i} · tr (P_i ρ P_i)` on
 every block-diagonal `ρ`, with `c_{a,i} ≥ 0` from complete positivity and `∑_a c_{a,i} = 1` from
 passivity on every nonempty block; nothing inside a block is read. The two steps beyond the single

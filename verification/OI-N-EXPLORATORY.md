@@ -58,8 +58,8 @@ block-diagonal matrix form, for a labelling `blk : S → I` of basis states by b
 instrument on it (`IsBlockPassiveInstrument`) is a finite family of maps on the ambient matrix
 algebra, completely positive there, whose nonselective channel fixes every block-diagonal matrix.
 
-**The central theorem** (`central_classification`): a passive instrument on `⊕_i M_{d_i}` is a
-classical stochastic observation of the center. There is a matrix `c : O → I → ℂ` with
+**The central theorem** (`central_classification`): every passive instrument on `⊕_i M_{d_i}`
+induces a classical stochastic observation of the center. There is a matrix `c : O → I → ℂ` with
 
 > `tr (F_a ρ) = ∑_i c_{a,i} · tr (P_i ρ P_i)` for every block-diagonal `ρ`,
 
@@ -97,7 +97,12 @@ All thirteen named results print `[propext, Classical.choice, Quot.sound]` and n
 
 **Scope.** The Wedderburn–Artin identification of an abstract finite-dimensional C*-algebra with a
 block-diagonal matrix algebra is standard and is not formalized; the theorem is stated for the
-block-diagonal form. "Passive" is the nonselective channel fixing the algebra, and "complete" is
+block-diagonal form. Intrinsic completely positive instruments on the block-diagonal algebra admit
+the corresponding ambient extension by the standard block conditional expectation; that transport
+is not formalized here, and the kernel statements are stated for `IsBlockPassiveInstrument` as
+defined. The classification is one direction: every passive instrument induces a stochastic
+observation of the center; no converse constructing an instrument from an arbitrary stochastic
+matrix is stated. "Passive" is the nonselective channel fixing the algebra, and "complete" is
 separation of block-diagonal density matrices by outcome laws; both are the definitions N1 fixed,
 transported to the direct sum.
 

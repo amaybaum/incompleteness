@@ -2438,6 +2438,17 @@ ok_oin &= 'All thirteen named results print' in _on and 'Wedderburn' in _on
 for _bad in ('infinite-dimensional algebras', 'N4 is proved', 'OICore implies passive',
              'passive incompleteness implies OICore'):
     ok_oin &= not _asserted(_on, _bad) and not _asserted(_co, _bad)
+# two scope points the kernel does not carry: the intrinsic-to-ambient transport through the block
+# conditional expectation is not formalized, so the statements are for the ambient definition;
+# and the classification is one direction (every passive instrument induces a stochastic
+# observation of the center), with no converse constructor from an arbitrary stochastic matrix.
+for _t in (re.sub(r'\s+', ' ', _co), re.sub(r'\s+', ' ', _on), re.sub(r'\s+', ' ', _rd)):
+    ok_oin &= 'transport is not formalized here' in _t and 'induces a classical stochastic observation' in _t
+    for _bad in ('nothing is lost', 'is exactly a classical stochastic observation',
+                 'are exactly classical stochastic observations',
+                 'are precisely classical stochastic observations',
+                 'is a classical stochastic observation of the center'):
+        ok_oin &= _bad not in _t
 check('R7-OIN', ok_oin,
       'OI-N guard: the passive-observation module carries no sorry and no native_decide, prints the '
       'axioms of all ten named results, fixes the three definitions the thread depends on, keeps the '
