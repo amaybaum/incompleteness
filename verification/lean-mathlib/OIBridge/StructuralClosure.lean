@@ -232,7 +232,7 @@ theorem substratumClass_arch : Architecture substratumClass where
   one := fun _ _ _ => submonomial_monomial submonomial_one
   mul := fun _ _ _ _ _ hK hL =>
     submonomial_monomial (submonomial_mul (monomial_submonomial hK) (monomial_submonomial hL))
-  smul := fun _ _ _ a _ hK => submonomial_monomial (submonomial_smul a (monomial_submonomial hK))
+  smul := fun _ _ _ a _ _ hK => submonomial_monomial (submonomial_smul a (monomial_submonomial hK))
   proj := fun _ _ _ _ _ => monomial_diagonal _
   block := fun _ _ _ _ _ f e hK =>
     submonomial_monomial (submonomial_block (monomial_submonomial hK) f e)

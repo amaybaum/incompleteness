@@ -148,7 +148,7 @@ section Full
 theorem fullClass_arch : Architecture fullClass where
   one := fun _ _ _ => trivial
   mul := fun _ _ _ _ _ _ _ => trivial
-  smul := fun _ _ _ _ _ _ => trivial
+  smul := fun _ _ _ _ _ _ _ => trivial
   proj := fun _ _ _ _ _ => trivial
   block := fun _ _ _ _ _ _ _ _ => trivial
 

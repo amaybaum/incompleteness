@@ -3594,7 +3594,7 @@ for _d in ('def A1 : Prop := Finite 𝒮.Conf',
     ok_sub &= _d in _saflat
 ok_sub &= re.search(r'\bA6\b\s*:', _sa) is None and 'def A6' not in _sa and 'ManuscriptOI' not in _sa
 # Q2: the sourced class and its canonicity; the sourced theory; the invariant
-for _d in ('def IsScaledPartialPerm (K : Matrix S S ℂ) : Prop := IsSubmonomial K ∧ ∃ c : ℂ, ∀ i j, K i j ≠ 0 → K i j = c',
+for _d in ('def IsScaledPartialPerm (K : Matrix S S ℂ) : Prop := IsSubmonomial K ∧ ∃ c : ℂ, ‖c‖ ≤ 1 ∧ ∀ i j, K i j ≠ 0 → K i j = c',
            'def permClass : ImplementationClass := fun _ _ _ K => IsScaledPartialPerm K',
            'noncomputable abbrev permTheory (A : Type) [Fintype A] [DecidableEq A] : FiniteOperationalTheory A := genTheory permClass permClass_arch A',
            'noncomputable abbrev obsTheory : FiniteOperationalTheory 𝒮.Conf := permTheory 𝒮.Conf',
@@ -3691,7 +3691,8 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '118 modules' in _rd1 and '2,581 named results' in _rd1
+ok_sub &= '119 modules' in _rd1 and '2,591 named results' in _rd1
+ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 check('R7-SUB', ok_sub,
       'Substratum-interface guard: the module carries no sorry, axiom or native_decide and prints the axioms '
       'of exactly its eighty-one results; it asks no executability question (no LayerFlowExecutable, gateFlow, '
@@ -3708,6 +3709,74 @@ check('R7-SUB', ok_sub,
       'manuscripts\' sentences an owner decision, and the non-claims; no manuscript carries the audit; the '
       'registry and the census carry the family as kernel-only with no anchor and the README carries the '
       'paragraph and the counts.')
+
+# ---- The scalar-closure audit: Architecture.smul restricted to contractive scalars after the
+# census; realized_smul_nonneg and realized_discard with the bound; the generated theory unchanged
+# by definition; the sourced class migrated; the scalar-hull regression theorem; nothing weakens;
+# the restriction recorded as not sufficient for the flow endpoint; no manuscript narrates it ----
+ok_scal = True
+_lrs = open(os.path.join(BRIDGE, 'OIBridge', 'LieRankSource.lean'), encoding='utf-8').read()
+_lrsflat = ' '.join(_lrs.split())
+_sc = open(os.path.join(BRIDGE, 'OIBridge', 'ScalarClosure.lean'), encoding='utf-8').read()
+_scflat = ' '.join(_sc.split())
+_scn = open(os.path.join(os.path.dirname(BRIDGE), 'SCALAR-CLOSURE-AUDIT.md'), encoding='utf-8').read()
+_scn1 = re.sub(r'\s+', ' ', _scn)
+ok_scal &= ('smul : ∀ (S : Type) [Fintype S] [DecidableEq S] (a : ℂ) (K : Matrix S S ℂ), ‖a‖ ≤ 1 → 𝓘 S K → 𝓘 S (a • K)') in _lrsflat
+ok_scal &= ('theorem realized_smul_nonneg (hsmul : ∀ (a : ℂ) (K : Matrix S S ℂ), ‖a‖ ≤ 1 → 𝓘 S K → 𝓘 S (a • K)) '
+            '{Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ} (c : ℝ) (hc : 0 ≤ c) (hc1 : c ≤ 1)') in _lrsflat
+# the unrestricted form is gone from the architecture and from every hypothesis that fed it
+ok_scal &= '(K : Matrix S S ℂ), 𝓘 S K → 𝓘 S (a • K)' not in _lrsflat
+ok_scal &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sc) is None and 'native_decide' not in _sc
+ok_scal &= 'axiom ' not in re.sub(r'/-.*?-/', '', _sc, flags=re.S)
+_sc_names = re.findall(r"^theorem ([\w']+)", _sc, re.M)
+ok_scal &= len(_sc_names) == 10 and _sc.count('#print axioms') == 10
+for _nm in _sc_names:
+    ok_scal &= ('#print axioms ' + _nm) in _sc
+for _nm in ('genTheory_availExt_eq', 'realized_real_smul', 'realized_scalarHull_iff', 'scalarHull_arch',
+            'scalarHull_permClass_iff', 'permTheory_hull_availExt_iff'):
+    ok_scal &= _nm in _sc_names and _nm in _scn1
+ok_scal &= ("def scalarHull (𝓘 : ImplementationClass) : ImplementationClass := fun S _ _ K => "
+            "∃ (a : ℂ) (K' : Matrix S S ℂ), 𝓘 S K' ∧ K = a • K'") in _scflat
+ok_scal &= 'Realized (scalarHull 𝓘) S Φ ↔ Realized 𝓘 S Φ' in _scflat
+ok_scal &= '↔ (permTheory A).availExt n O F' in _scflat
+# the note: the decision, the change, the census and the tests precede the outcome
+_i_cen = _scn.find('## The census of consumers, taken before the change')
+_i_tests = _scn.find('## The tests, each with its admissible outcomes')
+_i_out = _scn.find('## The outcome')
+ok_scal &= 0 < _i_cen < _i_tests < _i_out
+ok_scal &= _scn.lstrip().startswith('# The scalar-closure audit')
+for _t in ('Unrestricted scalar closure is rejected as an operational reading', 'restricted to contractive scalars',
+           'is not sufficient for the flow endpoint', '**T1. Operational preservation.**', '**T2. Class migration.**',
+           '**T3. Regression.**', '**T4. What weakens.**', '**T5. Guards.**', 'Preregistration commit `8a4bfaa`',
+           '| T1 | ', '| T2 | ', '| T3 | ', '| T4 | ', '| T5 | ', 'Nothing weakens', 'Ten named results',
+           'What this note does not claim', 'does not touch `Realized`'):
+    ok_scal &= _t in _scn1
+ok_scal &= 'Status: pass complete' in _scn1
+for _bad in ('the flow endpoint is settled', 'flowTheory fails', 'flowTheory has phase-free richness',
+             'the countermodel is established', 'the replication loophole is closed', 'OI implies QM',
+             'quantum mechanics requires OI', 'bare OI implies'):
+    ok_scal &= not _asserted(_scn, _bad)
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    ok_scal &= 'ScalarClosure' not in _t and 'scalarHull' not in _t and 'contractive scalar' not in _t
+_sc_fam = [f for f in _ptr_reg['families'] if f['name'] == 'scalar closure: contractive architecture']
+ok_scal &= len(_sc_fam) == 1 and _sc_fam[0]['status'] == 'verification-only' and _sc_fam[0]['modules'] == ['ScalarClosure']
+ok_scal &= _sc_fam[0]['manuscript'] == [] and 'not sufficient for the flow endpoint' in _sc_fam[0]['note']
+_cen_sc = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+ok_scal &= '| scalar closure: contractive architecture | 1 | verification-only |' in _cen_sc
+for _t in ('`R7-SCAL`', 'SCALAR-CLOSURE-AUDIT.md', 'realized_scalarHull_iff', 'permTheory_hull_availExt_iff',
+           'Ten named results', 'modulus at most one', 'Nothing weakens', 'is not sufficient for the flow endpoint'):
+    ok_scal &= _t in _rd1
+check('R7-SCAL', ok_scal,
+      'Scalar-closure guard: Architecture.smul and the hypotheses that feed it are stated for scalars of modulus '
+      'at most one and the unrestricted form is absent; realized_smul_nonneg carries the bound; the module carries '
+      'no sorry, axiom or native_decide and prints the axioms of exactly its ten results, with the scalar hull, the '
+      'regression theorem and its instance for the migrated sourced class stated as pinned; the note records the '
+      'owner decision, the change fixed in advance, the census before the change, the five tests before the '
+      'outcome, the outcome per test, nothing weakening, the restriction as not sufficient for the flow endpoint, '
+      'and the non-claims; no manuscript narrates the scalar closure; the registry and the census carry the family '
+      'as verification-only and the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

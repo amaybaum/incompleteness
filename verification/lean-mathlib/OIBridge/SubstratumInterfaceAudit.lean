@@ -224,25 +224,28 @@ section PermClass
 
 variable {S : Type}
 
-/-- **A SCALED PARTIAL PERMUTATION**, elementwise: at most one nonzero entry per row and per
-column, all nonzero entries equal. This is the operator shape of a configuration bijection
-restricted to a subset with one overall amplitude. -/
+/-- **A CONTRACTIVELY SCALED PARTIAL PERMUTATION**, elementwise: at most one nonzero entry per
+row and per column, all nonzero entries equal to one scalar of modulus at most one. This is the
+operator shape of a configuration bijection restricted to a subset with one overall amplitude
+that attenuates and never amplifies. -/
 def IsScaledPartialPerm (K : Matrix S S ℂ) : Prop :=
-  IsSubmonomial K ∧ ∃ c : ℂ, ∀ i j, K i j ≠ 0 → K i j = c
+  IsSubmonomial K ∧ ∃ c : ℂ, ‖c‖ ≤ 1 ∧ ∀ i j, K i j ≠ 0 → K i j = c
 
-/-- **THE SOURCED CLASS**: the scaled partial permutation matrices, at every carrier. -/
+/-- **THE SOURCED CLASS**: the contractively scaled partial permutation matrices, at every
+carrier. -/
 def permClass : ImplementationClass := fun _ _ _ K => IsScaledPartialPerm K
 
 variable [Fintype S] [DecidableEq S]
 
-/-- **THE FACTORED FORM**: a scalar times a permutation matrix times a `0/1` diagonal. -/
+/-- **THE FACTORED FORM**: a scalar of modulus at most one times a permutation matrix times a
+`0/1` diagonal. -/
 theorem scaledPartialPerm_iff (K : Matrix S S ℂ) :
-    IsScaledPartialPerm K ↔ ∃ (c : ℂ) (σ : Equiv.Perm S) (A : Finset S),
+    IsScaledPartialPerm K ↔ ∃ (c : ℂ) (σ : Equiv.Perm S) (A : Finset S), ‖c‖ ≤ 1 ∧
       K = c • (permMatrix σ * Matrix.diagonal (fun s => if s ∈ A then 1 else 0)) := by
   constructor
-  · rintro ⟨hsub, c, hc⟩
+  · rintro ⟨hsub, c, hc1, hc⟩
     obtain ⟨σ, d, hK⟩ := submonomial_monomial hsub
-    refine ⟨c, σ, Finset.univ.filter (fun s => d s ≠ 0), ?_⟩
+    refine ⟨c, σ, Finset.univ.filter (fun s => d s ≠ 0), hc1, ?_⟩
     have hKj : ∀ j, K (σ j) j = d j := fun j => by rw [hK, monomial_entry, if_pos rfl]
     rw [hK]
     ext i j
@@ -255,8 +258,8 @@ theorem scaledPartialPerm_iff (K : Matrix S S ℂ) :
         rw [hKj] at hc'
         simp [hc']
     · rw [if_neg hij, if_neg hij, mul_zero]
-  · rintro ⟨c, σ, A, rfl⟩
-    refine ⟨submonomial_smul c (monomial_submonomial ⟨σ, _, rfl⟩), c, fun i j h => ?_⟩
+  · rintro ⟨c, σ, A, hc1, rfl⟩
+    refine ⟨submonomial_smul c (monomial_submonomial ⟨σ, _, rfl⟩), c, hc1, fun i j h => ?_⟩
     rw [Matrix.smul_apply, monomial_entry, smul_eq_mul] at h ⊢
     by_cases hij : σ j = i
     · rw [if_pos hij] at h ⊢
@@ -270,7 +273,7 @@ theorem scaledPartialPerm_iff (K : Matrix S S ℂ) :
 omit [Fintype S] in
 theorem scaled_one_aux : IsScaledPartialPerm (1 : Matrix S S ℂ) := by
   classical
-  refine ⟨?_, 1, fun i j h => ?_⟩
+  refine ⟨?_, 1, norm_one.le, fun i j h => ?_⟩
   · exact ⟨fun i j j' h1 h2 => by
         rw [Matrix.one_apply] at h1 h2
         exact (of_ite_ne_zero h1).symm.trans (of_ite_ne_zero h2),
@@ -284,9 +287,10 @@ omit [DecidableEq S] in
 /-- **PRODUCTS**: a nonzero entry of `K * L` is the product of the two selected entries. -/
 theorem scaled_mul {K L : Matrix S S ℂ} (hK : IsScaledPartialPerm K)
     (hL : IsScaledPartialPerm L) : IsScaledPartialPerm (K * L) := by
-  obtain ⟨hK1, c, hc⟩ := hK
-  obtain ⟨hL1, c', hc'⟩ := hL
-  refine ⟨submonomial_mul hK1 hL1, c * c', fun i j h => ?_⟩
+  obtain ⟨hK1, c, hc1, hc⟩ := hK
+  obtain ⟨hL1, c', hc1', hc'⟩ := hL
+  refine ⟨submonomial_mul hK1 hL1, c * c', by rw [norm_mul]; exact mul_le_one₀ hc1 (norm_nonneg _) hc1',
+    fun i j h => ?_⟩
   obtain ⟨k, hk1, hk2⟩ := mul_entry_ne_zero h
   rw [Matrix.mul_apply, Finset.sum_eq_single k, hc _ _ hk1, hc' _ _ hk2]
   · intro k' _ hk'
@@ -297,16 +301,17 @@ theorem scaled_mul {K L : Matrix S S ℂ} (hK : IsScaledPartialPerm K)
     exact absurd (Finset.mem_univ k) h
 
 omit [Fintype S] [DecidableEq S] in
-theorem scaled_smul (a : ℂ) {K : Matrix S S ℂ} (hK : IsScaledPartialPerm K) :
+theorem scaled_smul (a : ℂ) (ha : ‖a‖ ≤ 1) {K : Matrix S S ℂ} (hK : IsScaledPartialPerm K) :
     IsScaledPartialPerm (a • K) := by
-  obtain ⟨hK1, c, hc⟩ := hK
-  refine ⟨submonomial_smul a hK1, a * c, fun i j h => ?_⟩
+  obtain ⟨hK1, c, hc1, hc⟩ := hK
+  refine ⟨submonomial_smul a hK1, a * c, by rw [norm_mul]; exact mul_le_one₀ ha (norm_nonneg _) hc1,
+    fun i j h => ?_⟩
   rw [Matrix.smul_apply, smul_eq_mul] at h ⊢
   rw [hc _ _ (mul_ne_zero_iff.mp h).2]
 
 theorem scaled_diagonal_indicator (p : S → Prop) [DecidablePred p] :
     IsScaledPartialPerm (Matrix.diagonal fun s => if p s then (1 : ℂ) else 0) := by
-  refine ⟨submonomial_diagonal _, 1, fun i j h => ?_⟩
+  refine ⟨submonomial_diagonal _, 1, norm_one.le, fun i j h => ?_⟩
   rw [Matrix.diagonal_apply] at h ⊢
   have hij := of_ite_ne_zero h
   rw [if_pos hij] at h ⊢
@@ -315,29 +320,29 @@ theorem scaled_diagonal_indicator (p : S → Prop) [DecidablePred p] :
 omit [Fintype S] [DecidableEq S] in
 theorem scaled_block {m : ℕ} {K : Matrix (S × Fin m) (S × Fin m) ℂ}
     (hK : IsScaledPartialPerm K) (f e : Fin m) : IsScaledPartialPerm (ancBlock K f e) := by
-  obtain ⟨hK1, c, hc⟩ := hK
-  exact ⟨submonomial_block hK1 f e, c, fun i j h => hc _ _ h⟩
+  obtain ⟨hK1, c, hc1, hc⟩ := hK
+  exact ⟨submonomial_block hK1 f e, c, hc1, fun i j h => hc _ _ h⟩
 
 theorem scaled_tensor_one {R : Type} [Fintype R] [DecidableEq R] {K : Matrix S S ℂ}
     (hK : IsScaledPartialPerm K) : IsScaledPartialPerm (tensorOf (1 : Matrix R R ℂ) K) := by
-  obtain ⟨hK1, c, hc⟩ := hK
-  refine ⟨submonomial_tensor_one hK1, c, fun p q h => ?_⟩
+  obtain ⟨hK1, c, hc1, hc⟩ := hK
+  refine ⟨submonomial_tensor_one hK1, c, hc1, fun p q h => ?_⟩
   obtain ⟨h1, h2⟩ := tensor_one_entry_ne_zero h
   rw [tensorOf_apply, hc _ _ h2, h1, Matrix.one_apply_eq, one_mul]
 
 omit [Fintype S] [DecidableEq S] in
 theorem scaled_reindex {S' : Type} [Fintype S'] [DecidableEq S'] (e : S ≃ S')
     {K : Matrix S S ℂ} (hK : IsScaledPartialPerm K) : IsScaledPartialPerm (Matrix.reindex e e K) := by
-  obtain ⟨hK1, c, hc⟩ := hK
-  refine ⟨submonomial_reindex e hK1, c, fun p q h => ?_⟩
+  obtain ⟨hK1, c, hc1, hc⟩ := hK
+  refine ⟨submonomial_reindex e hK1, c, hc1, fun p q h => ?_⟩
   rw [Matrix.reindex_apply, Matrix.submatrix_apply] at h ⊢
   exact hc _ _ h
 
 omit [Fintype S] [DecidableEq S] in
 theorem scaled_conjTranspose {K : Matrix S S ℂ} (hK : IsScaledPartialPerm K) :
     IsScaledPartialPerm Kᴴ := by
-  obtain ⟨hK1, c, hc⟩ := hK
-  refine ⟨submonomial_conjTranspose hK1, star c, fun i j h => ?_⟩
+  obtain ⟨hK1, c, hc1, hc⟩ := hK
+  refine ⟨submonomial_conjTranspose hK1, star c, by rw [norm_star]; exact hc1, fun i j h => ?_⟩
   rw [Matrix.conjTranspose_apply] at h ⊢
   rw [hc _ _ (star_ne_zero.mp h)]
 
@@ -345,7 +350,7 @@ theorem scaled_conjTranspose {K : Matrix S S ℂ} (hK : IsScaledPartialPerm K) :
 theorem permClass_arch : Architecture permClass where
   one := fun _ _ _ => scaled_one_aux
   mul := fun _ _ _ _ _ hK hL => scaled_mul hK hL
-  smul := fun _ _ _ a _ hK => scaled_smul a hK
+  smul := fun _ _ _ a _ ha hK => scaled_smul a ha hK
   proj := fun _ _ _ _ _ => scaled_diagonal_indicator _
   block := fun _ _ _ _ _ f e hK => scaled_block hK f e
 
@@ -363,7 +368,7 @@ theorem permClass_daggerStable : DaggerStable permClass :=
 
 /-- **EVERY PERMUTATION MATRIX IS IN THE SOURCED CLASS.** -/
 theorem permClass_permMatrix (σ : Equiv.Perm S) : permClass S (permMatrix σ) := by
-  refine ⟨monomial_submonomial (monomial_permMatrix σ), 1, fun i j h => ?_⟩
+  refine ⟨monomial_submonomial (monomial_permMatrix σ), 1, norm_one.le, fun i j h => ?_⟩
   rw [permMatrix] at h ⊢
   rw [if_pos (of_ite_ne_zero h)]
 
@@ -417,8 +422,9 @@ theorem ancBlock_flipOn (B : Finset S) :
 
 /-- **THE SOURCED CLASS IS THE LEAST ARCHITECTURE CONTAINING THE EXCHANGES**: every architecture
 in which the exchange of any two configurations is admissible at every carrier contains every
-scaled partial permutation — the permutations by swap induction, the `0/1` diagonals as ancilla
-blocks of permutations, the scalars and products by closure. The class is canonical, not chosen. -/
+contractively scaled partial permutation — the permutations by swap induction, the `0/1`
+diagonals as ancilla blocks of permutations, the contractive scalars and products by closure.
+The class is canonical, not chosen. -/
 theorem permClass_le_of_exchanges {𝓘 : ImplementationClass} (arch : Architecture 𝓘)
     (hex : ∀ (S : Type) [Fintype S] [DecidableEq S] (a b : S), 𝓘 S (permMatrix (Equiv.swap a b))) :
     ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ), permClass S K → 𝓘 S K := by
@@ -428,8 +434,8 @@ theorem permClass_le_of_exchanges {𝓘 : ImplementationClass} (arch : Architect
     | one => rw [permMatrix_one']; exact arch.one S
     | swap_mul f x y hxy ih => rw [permMatrix_mul']; exact arch.mul S _ _ (hex S x y) ih
   intro S _ _ K hK
-  obtain ⟨c, σ, A, rfl⟩ := (scaledPartialPerm_iff K).mp hK
-  refine arch.smul S c _ (arch.mul S _ _ (hperm S σ) ?_)
+  obtain ⟨c, σ, A, hc1, rfl⟩ := (scaledPartialPerm_iff K).mp hK
+  refine arch.smul S c _ hc1 (arch.mul S _ _ (hperm S σ) ?_)
   have hb := arch.block S 2 _ 0 0 (hperm (S × Fin 2) (flipOn Aᶜ))
   rw [ancBlock_flipOn] at hb
   have hfun : (fun s => if s ∈ Aᶜ then (0 : ℂ) else 1) = fun s => if s ∈ A then 1 else 0 := by
@@ -467,7 +473,7 @@ def PreservesNonneg (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop :=
 of `K X Kᴴ` is `K p k · star (K q l) · X k l`, and the first two factors are `0` or `|c|²`. -/
 theorem preservesNonneg_conj_of_scaled {K : Matrix S S ℂ} (h : IsScaledPartialPerm K) :
     PreservesNonneg (conjChannel K) := by
-  obtain ⟨-, c, hc⟩ := h
+  obtain ⟨-, c, -, hc⟩ := h
   intro X hX p q
   rw [conjChannel_apply, Matrix.mul_apply]
   refine Finset.sum_nonneg fun l _ => ?_

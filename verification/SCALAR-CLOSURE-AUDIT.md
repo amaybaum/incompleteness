@@ -8,9 +8,12 @@
 `FLOW-EXTENSION-AUDIT.md` (the deferral that records the owner decision); guards `R7-SUB` and
 `R7-SCAL` in `verification/lean/edge_rigidity_probe.py`.
 
-**Status: preregistered, no kernel change made.** The sections below fix the change, the census
-of its consumers, the tests it must pass and their admissible outcomes before any edit; the
-outcome section is added afterwards. Nothing here is a manuscript claim.
+**Status: pass complete. `Architecture.smul` is stated for scalars of modulus at most one; the
+generated theory of every class is unchanged by definition; the sourced class migrates with every
+theorem reproved under its name; the scalar-hull regression theorem holds and the unrestricted
+and the migrated sourced classes generate the same availability; nothing weakens.** The
+preregistration sections were written before any edit (commit `8a4bfaa`); this status line and
+the outcome section are the only later edits. Nothing here is a manuscript claim.
 
 ## The question, and the decision it implements
 
@@ -114,3 +117,40 @@ a new guard `R7-SCAL` pins the contractive `smul` field verbatim, the bound in
 Touch `Realized`, `IsGenInstrument`, `ImplementationGenerated`, or any availability predicate.
 Decide the flow endpoint or prove anything from `FLOW-EXTENSION-AUDIT.md`. Change `490e03c`.
 Narrate anything in a manuscript. Propagate Route B. Refresh the transfer bundle.
+
+## The outcome
+
+Preregistration commit `8a4bfaa`. The change was made exactly as fixed in advance, the census
+was complete, and every test reached its expected outcome.
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | operational preservation: the kernel compiles with the contractive axiom; `realized_smul_nonneg` carries `hc1 : c ≤ 1` and scales by `√c ≤ 1`; `realized_discard` supplies `(m : ℝ)⁻¹ ≤ 1`; every field of `genTheory` is unchanged, its availability being the generated-instrument predicate by definition | `Architecture.smul`, `realized_smul_nonneg`, `realized_discard`, `genTheory_availExt_eq` |
+| T2 | class migration: `permClass` is the contractively scaled partial permutations, `‖c‖ ≤ 1` in the factored form; every theorem of `SubstratumInterfaceAudit` reproved under its name, `permClass_le_of_exchanges` supplying the bound to the architecture's scalar closure; `fullClass`, `diagClass`, `substratumClass` unchanged | `IsScaledPartialPerm`, `scaledPartialPerm_iff`, `permClass_arch`, `permClass_le_of_exchanges` |
+| T3 | regression: a class closed under contractive scalars realizes exactly what its scalar hull realizes, by `⌊|a|²⌋` copies and one contractive remainder; the hull of an architecture is an architecture; the hull of the migrated sourced class is the unrestricted class of the substratum-interface audit's outcome, and the two generate the same availability at every level | `scalarHull`, `realized_nsmul`, `realized_real_smul`, `realized_scalarHull_iff`, `scalarHull_arch`, `IsUniformSubmonomial`, `scalarHull_permClass_iff`, `permTheory_hull_availExt_iff` |
+| T4 | what weakens: nothing; no result needed a stronger hypothesis, and the four architecture instances were reproved with the same proofs | the full build |
+| T5 | guards: `R7-SUB` pins the migrated definition; `R7-SCAL` pins the contractive field, the bound, the regression theorem and this note, and rejects the unrestricted form | `verification/lean/edge_rigidity_probe.py` |
+
+**Ten named results**, each printing only `propext`, `Classical.choice`, `Quot.sound`.
+
+**What the outcome establishes.** The kernel's implementation architecture is closed under
+attenuation and global phases and not under amplification, which is exactly what its one
+operational use, the discard normalization, requires, and what a trace-preserving instrument
+requires of each of its branches. No generated theory changed: the generated theories never
+consumed the scalar field, and the one class whose definition carried an unrestricted scalar
+generates, after migration, the same availability as before. Nothing weakens: no result needed a
+stronger hypothesis.
+
+**What the outcome does not establish.** Anything about the flow endpoint. The restriction is
+correct on its own terms and is not sufficient there: `Realized` admits `N` replicated
+contractive branches `(1/√N) • U` of a post-selected contraction `c • U`, whose sum is the
+conjugation by `U`, with no common-instrument provenance; that is the object of the separate
+round on realization provenance, and until it is settled the minimal flow extension is neither
+a countermodel nor a positive instance.
+
+## What this note does not claim
+
+That the replication loophole is closed: it is not, and the round does not touch `Realized`.
+That any manuscript narrates the scalar closure: none does, the manuscripts stating closure
+under composition, coarse-graining and ancilla blocks. That the flow endpoint is settled in either
+direction. That anything here reaches a manuscript.
