@@ -166,6 +166,13 @@
       "note": "The elementary repertoire cut to one continuously driven pair and the exchanges, with no quarter phase (OIPlusMin, carrier_general_oiPlusMin, the bipartite obstruction). GR 3.3 states phase-free richness as the second primitive-source principle with the elementary repertoire as its stronger form; Main 3.4, the Explainer and the book chapters carry the summary. The cycle claim is stated at its evidence: the even-carrier countercontrol is cited, no iff over D and no minimality of the driven transition is asserted."
     },
     {
+      "name": "route B: consequence closure",
+      "modules": ["RouteB"],
+      "status": "verification-only",
+      "manuscript": [],
+      "note": "Milestone B0 of Route B (ROUTE-B-AUDIT.md): the consequence closure DerivedOI and DerivedOICore defined from kernel names, the falsifier rot with the reduction not_phaseFree_of_falsifier_unavailable, the consistency theorems for quantum mechanics, and the target RouteBTarget stated with no proof. Research scaffolding for the independence question; no manuscript claim until an outcome is proved, and then only through its own propagation round."
+    },
+    {
       "name": "OI-N passive observation",
       "modules": ["PassiveObservation", "CentralObservation", "PassiveIndependence", "InternalObserver"],
       "status": "current",
