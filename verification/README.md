@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 109 modules and,
-  at this commit, 2,337 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 110 modules and,
+  at this commit, 2,351 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -711,11 +711,36 @@ passively incomplete on the full algebra (`sector_diagram`) — passive (in)comp
 observable algebra, the N3 boundary, and is the same on both sides of the OI-core line. Fourteen
 named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Scope: `labelTheory`
 is a witness against `OICore` and no completion condition is claimed for it; the cell
-`OICore ∧ ¬ PassivelyCompleteOnDiagonal` is neither inhabited nor shown empty. Open, and guarded as
-open by `R7-OIN`: the internal observer (N5). Not claimed: that quantum mechanics requires OI or a
-hidden ontology — `qm_implies_oiCore` is containment, the necessity reading is not a theorem of
-this thread, and N4 shows passive incompleteness in a theory with no OI core at all; "passive"
-here is not the passive quotient of `PassiveQuotient.lean`.
+`OICore ∧ ¬ PassivelyCompleteOnDiagonal` is neither inhabited nor shown empty.
+
+`OIBridge/InternalObserver.lean` is **OI-N5**, the internal observer: a passive self-record can only
+be read, never written. On a carrier with a record map `blk : S → O` — for a system-plus-register
+carrier the visible value `rec b` of the register, `recBlk` — an instrument **records** when branch
+`o` sends every block-diagonal input into record block `o`, and an **internal observer** is a
+recording instrument that is passive on the record-block algebra. **N5.0**
+(`no_full_passive_self_record`): passivity on the full joint algebra with a two-valued record is
+impossible — N1 makes every branch a scalar, and a scalar confined to one record block on another
+block's projector is zero. **N5.1**, rigidity (`branch_kills_other_block`,
+`branch_fixes_own_block`, `internal_branch_eq_blockPart`, `internal_outcome_law`): block
+preservation from N3 and the record condition together force branch `o` to annihilate every other
+record block and fix its own, so on every block-diagonal state `F_o ρ = P_o ρ P_o` and
+`p(o | ρ) = tr (P_o ρ P_o)`. **N5.2**, the boundary (`internal_complete_iff`,
+`no_complete_internal_observer`): complete passive internal observation iff every record block is
+one-dimensional, so a separate register never observes a system with two or more states completely
+and passively, whatever function of the register the record is. Controls: the singleton record
+partition, where the block-label instrument is a complete passive internal observer
+(`classical_control`); and the recorder "measure `A`, write the register" (`recordInstr`), completely
+positive, recording, and genuinely record-creating (`recordInstr_writes`), whose nonselective
+channel dephases the system and resets the register, so it is not passive on the record-block
+algebra (`recordInstr_not_passive`, `recordInstr_not_internal`). Acquiring a new record changes the
+joint system. Fourteen named results, each printing only `propext`, `Classical.choice`,
+`Quot.sound`. Scope: the record semantics is the one `Records` fixes; nothing about consciousness,
+self-modelling or an observer's ontology, and nothing about `OICore`. With N5 the thread's five
+items are closed; the thread stays exploratory in status, and `R7-OIN` guards all four modules. Not
+claimed: that quantum mechanics requires OI or a hidden ontology — `qm_implies_oiCore` is
+containment, the necessity reading is not a theorem of this thread, and N4 shows passive
+incompleteness in a theory with no OI core at all; "passive" here is not the passive quotient of
+`PassiveQuotient.lean`.
 
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
 audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its
