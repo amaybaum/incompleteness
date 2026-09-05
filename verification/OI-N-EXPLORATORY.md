@@ -1,7 +1,8 @@
 # OI-N — the exploratory necessity thread
 
 `OIBridge/PassiveObservation.lean` (N1, N2), `OIBridge/CentralObservation.lean` (N3),
-`OIBridge/PassiveIndependence.lean` (N4); guard `R7-OIN` in `verification/lean/edge_rigidity_probe.py`.
+`OIBridge/PassiveIndependence.lean` (N4), `OIBridge/InternalObserver.lean` (N5); guard `R7-OIN` in
+`verification/lean/edge_rigidity_probe.py`.
 
 **Status: exploratory.** This thread is deliberately separate from the frozen OI ↔ QM equivalence and
 from the concrete-cut freeze. Nothing here may be cited as a consequence of the existing
@@ -89,7 +90,8 @@ block weights exactly (`blockPinch_trace`).
 **The boundary.** A block with two basis states carries two pure states every passive instrument
 confuses (`no_complete_passive_of_block`); with singleton blocks the control separates states
 (`blockPinch_separates`). So some passive instrument observes `⊕_i M_{d_i}` completely if and only if
-every `d_i = 1` (`complete_passive_iff_injective`), if and only if the block-diagonal algebra is
+each block contains at most one basis state — the labelling is injective, so every nonempty block
+has `d_i = 1` (`complete_passive_iff_injective`) — if and only if the block-diagonal algebra is
 commutative (`injective_iff_commutative`, `complete_passive_iff_commutative`). Noncommutativity is the
 obstruction, exactly: this is the finite-dimensional boundary the N1/N2 contrast pointed at.
 
@@ -160,16 +162,69 @@ completion conditions is claimed for it. The cell `OICore ∧ ¬ PassivelyComple
 inhabited nor shown empty; the sector diagram does not need it. `PassivelyIncomplete` quantifies over
 system-level availability; a notion relativized to composite carriers is not defined.
 
-## OI-N5 — the internal observer: not started
+## OI-N5 — the internal observer: proved, as rigidity
 
-Deferred. Imports no hidden-variable or subquantum assumption.
+`OIBridge/InternalObserver.lean`. An internal observer stores its outcome inside the system it
+observes. On a carrier `S` with a **record map** `blk : S → O` — for a system-plus-register carrier
+`A × B` the record is a visible function `rec : B → O` of the register, `blk (x, b) = rec b`
+(`recBlk`) — an instrument **records** (`Records`) when the output of branch `o` on every
+block-diagonal input lies in record block `o`, and an **internal observer** (`IsInternalObserver`)
+is a recording instrument that is passive on the record-block algebra, in N3's sense. Imports no
+hidden-variable or subquantum assumption.
+
+**N5.0 — full-joint passivity and nontrivial self-recording are incompatible**
+(`no_full_passive_self_record`). If the instrument is passive on the full joint algebra and the
+record can take two values, N1 makes every branch a scalar multiple of the identity; a scalar
+multiple of the identity whose output on the projector of a different nonempty block must lie in
+record block `o` is zero; so every branch vanishes and the branches cannot sum to the identity.
+
+**N5.1 — rigidity** (`branch_kills_other_block`, `branch_fixes_own_block`,
+`internal_branch_eq_blockPart`, `internal_outcome_law`). Record-block passivity gives block
+preservation (N3, `branch_preserves_block`), the record condition gives the opposite confinement,
+and a matrix supported in two distinct blocks is zero; so branch `o` annihilates every other record
+block, and, since the branches sum to the identity, fixes its own. On every block-diagonal state
+
+> `F_o ρ = P_o ρ P_o` and `p(o | ρ) = tr (P_o ρ P_o)`.
+
+A passive internal observer cannot write a new record; it can only reveal which record was already
+present.
+
+**N5.2 — the boundary** (`internal_complete_iff`, `recBlk_not_injective`,
+`no_complete_internal_observer`). Some internal observer observes the algebra completely if and
+only if each record block contains at most one carrier state, equivalently if and only if the
+record map is injective, so that every nonempty record block is one-dimensional while empty record
+values are allowed — the block-label
+instrument records (`blockPinch_records`, `blockPinch_internal`) and is the witness. For a separate
+register recording a system with more than one state every record block contains all of `A`, so no
+internal observer using the register as its record observes `A × B` completely and passively,
+whatever function of the register the record is.
+
+**Controls.** The singleton record partition (`classical_control`): when the record resolves the
+whole joint classical state, the block-label instrument is a complete passive internal observer,
+by N3 at `blk = id`. The non-passive recorder (`recordInstr`, "measure `A` in its basis and write
+the result into the register", `F_a = ∑_b (E_aa ⊗ |a⟩⟨b|)(·)(E_aa ⊗ |a⟩⟨b|)†`): completely positive
+(`recordInstr_cp`), records (`recordInstr_records`), and genuinely creates a record — a state whose
+register reads `b ≠ a` is carried by branch `a` to a nonzero state whose register reads `a`
+(`recordInstr_writes`) — but its nonselective channel dephases the system and resets the register,
+so it is not passive even on the record-block algebra (`recordInstr_not_passive`) and is not an
+internal observer (`recordInstr_not_internal`). Acquiring a genuinely new record changes the joint
+system; passive self-observation can only read an existing classical record.
+
+All fourteen named results print `[propext, Classical.choice, Quot.sound]` and nothing else.
+
+**Scope.** The record semantics is the one `Records` fixes — the outcome is a function of a
+register, read on block-diagonal inputs; an observer whose record is not of that form is not
+modelled. Nothing here concerns consciousness, self-modelling, or an observer's own ontology, and
+nothing here bears on `OICore`: N4 shows passive facts do not discriminate it, and N5 does not
+reopen that.
 
 ## What this thread does not claim
 
 That `QM ⟹ a hidden OI ontology`; standard quantum mechanics admits informationally complete
 measurements, and OI-N concerns the conjunction of completeness with nondisturbance; N4 makes the
 point a theorem, since passive incompleteness holds in `labelTheory`, which realizes no OI core. That
-N1–N4 bear on the OI ↔ QM equivalence, on the concrete-cut freeze, or on CT3. That a passive
+N1–N5 bear on the OI ↔ QM equivalence, on the concrete-cut freeze, or on CT3. That N5 says anything
+about consciousness, self-modelling, or an observer's own ontology. That a passive
 instrument's silence is an observer, or that "passive" here coincides with the passive quotient of
 `PassiveQuotient.lean`, which is a different object. That N3 says anything about infinite-dimensional
 algebras, about instruments with infinitely many outcomes, or about an abstract C*-algebra before it

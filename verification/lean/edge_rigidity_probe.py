@@ -2403,7 +2403,7 @@ ok_oin &= 'def IsPassiveInstrument' in _po and 'def SeparatesStates' in _po and 
 ok_oin &= 'Not claimed' in _po and 'OI-N3' in _po and 'OI-N4' in _po
 ok_oin &= 'Status: exploratory' in _on and 'OI-N3 — the exact boundary: proved, as a classification' in _on
 ok_oin &= 'OI-N4 — relation to `OICore`: proved, as theory-insensitivity' in _on
-ok_oin &= 'OI-N5 — the internal observer: not started' in _on
+ok_oin &= 'OI-N5 — the internal observer: proved, as rigidity' in _on
 ok_oin &= 'What this thread does not claim' in _on
 for _bad in ('QM requires OI', 'quantum mechanics requires observational incompleteness',
              'hidden OI ontology is forced'):
@@ -2471,6 +2471,41 @@ for _t in (_pi, _on, _rd):
         ok_oin &= _bad not in _t
     ok_oin &= 'theory-insensitive' in _t
 ok_oin &= 'vacuous' in _pi and 'vacuous' in _on and 'orthogonal' in _pi and 'orthogonal' in _on
+# ---- OI-N5: the internal observer — a passive self-record can only be read, never written ----
+_io = open(os.path.join(BRIDGE, 'OIBridge', 'InternalObserver.lean'), encoding='utf-8').read()
+ok_oin &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _io) is None and 'native_decide' not in _io
+for _nm in ('no_full_passive_self_record', 'branch_kills_other_block', 'branch_fixes_own_block',
+            'internal_branch_eq_blockPart', 'internal_outcome_law', 'blockPinch_internal',
+            'internal_complete_iff', 'no_complete_internal_observer', 'classical_control',
+            'recordInstr_cp', 'recordInstr_records', 'recordInstr_writes',
+            'recordInstr_not_passive', 'recordInstr_not_internal'):
+    ok_oin &= ('#print axioms ' + _nm) in _io
+# the record semantics and the internal observer are definitions; rigidity is stated as the
+# record projection on block-diagonal states; the boundary is the injectivity of the record map
+ok_oin &= 'def Records' in _io and 'def IsInternalObserver' in _io and 'def recBlk' in _io
+ok_oin &= '(F o) ρ = blockPart blk o ρ' in _io
+ok_oin &= 'IsInternalObserver blk F ∧ SeparatesBlockStates blk F) ↔ Function.Injective blk' in _io
+# the non-passive control must both record and write, and be proved not passive — the control
+# is what shows passivity is the operative hypothesis
+ok_oin &= 'theorem recordInstr_writes' in _io and 'theorem recordInstr_not_passive' in _io
+ok_oin &= 'All fourteen named results print' in _on.split('## OI-N5')[1]
+# scope: no consciousness, self-modelling or ontology reading; nothing about OICore reopened
+for _t in (_io, _on, _rd):
+    ok_oin &= 'consciousness' in _t
+for _bad in ('the observer is conscious', 'self-aware', 'N5 shows OICore', 'N5 implies OICore',
+             'the observer requires a hidden ontology'):
+    ok_oin &= not _asserted(_io, _bad) and not _asserted(_on, _bad) and not _asserted(_rd, _bad)
+ok_oin &= 'cannot write a new record' in _io and 'only be read, never written' in _io
+# the boundary is injectivity of the record map: "at most one carrier state per record block",
+# so every NONEMPTY record block is one-dimensional. The literal "every record block is
+# one-dimensional" silently adds surjectivity and is forbidden in module, note and README.
+for _t in (re.sub(r'\s+', ' ', _io), re.sub(r'\s+', ' ', _on), re.sub(r'\s+', ' ', _rd)):
+    ok_oin &= 'at most one carrier state' in _t and 'every nonempty record block is one-dimensional' in _t
+    for _bad in ('every record block is one-dimensional', 'every block has dimension one',
+                 'iff every record block is', 'iff every `d_i = 1`'):
+        ok_oin &= _bad not in _t
+ok_oin &= 'every block has dimension one' not in re.sub(r'\s+', ' ', _co)
+ok_oin &= 'at most one basis state' in re.sub(r'\s+', ' ', _co)
 # two scope points the kernel does not carry: the intrinsic-to-ambient transport through the block
 # conditional expectation is not formalized, so the statements are for the ambient definition;
 # and the classification is one direction (every passive instrument induces a stochastic
@@ -2493,9 +2528,13 @@ check('R7-OIN', ok_oin,
       'fourteen named results, records the forward implication as vacuous and the converse as '
       'failing through a theory that realizes no OI core, claims no completion condition for '
       'that witness, and states the result as theory-insensitivity rather than as a symmetric '
-      'independence; module and note both mark the thread exploratory, record N3 as proved as a '
-      'classification and N4 as proved as theory-insensitivity, keep the internal observer (N5) '
-      'open, and assert neither that QM requires OI nor that a hidden ontology is forced.')
+      'independence; the internal-observer module carries no sorry and no native_decide, prints '
+      'the axioms of all fourteen named results, states rigidity as the record projection on '
+      'block-diagonal states and the boundary as injectivity of the record map, carries the '
+      'record-creating non-passive control, and reads nothing about consciousness, self-modelling '
+      'or ontology into the result; module and note both mark the thread exploratory, record N3 as '
+      'proved as a classification, N4 as proved as theory-insensitivity and N5 as proved as '
+      'rigidity, and assert neither that QM requires OI nor that a hidden ontology is forced.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

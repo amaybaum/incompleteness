@@ -159,6 +159,7 @@ import OIBridge.QuarterTurn
 import OIBridge.PassiveObservation
 import OIBridge.CentralObservation
 import OIBridge.PassiveIndependence
+import OIBridge.InternalObserver
 
 namespace OIBridge
 
