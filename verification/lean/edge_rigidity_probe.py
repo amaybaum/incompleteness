@@ -2992,6 +2992,9 @@ _oinn_par = [p for p in _oinn_main.split('\n\n') if p.startswith('**Passive obse
 ok_oinn &= len(_oinn_par) == 1
 _op = re.sub(r'\s+', ' ', _oinn_par[0]) if _oinn_par else ''
 for _t in ('enter none of its hypotheses or conclusions',
+           'Complete passive observation of a finite-dimensional observable algebra in block-diagonal form',
+           'is possible exactly when the algebra is commutative',
+           'some passive instrument separates its states exactly when the algebra is commutative',
            'exactly when the algebra is commutative',
            'induces a classical stochastic observation of the algebra\'s center',
            'Quantum noncommutativity cannot coexist with complete passive observation',
@@ -3008,13 +3011,22 @@ for _t in ('enter none of its hypotheses or conclusions',
            '`no_complete_passive_observation`', '`passivelyIncomplete_of_card`',
            '`passive_nondiscriminating`', '`passivelyIncomplete_without_oiCore`',
            '`internal_branch_eq_blockPart`', '`internal_outcome_law`', '`recordInstr_writes`',
-           '`recordInstr_not_passive`', '`no_full_passive_self_record`'):
+           '`recordInstr_not_passive`', '`no_full_passive_self_record`',
+           '`oiCore_to_passive_vacuous`', '`qm_implies_oiCore`', '`realizesSealedOICore_of_control`'):
     ok_oinn &= _t in _op
+# the N1/N3 statement is existential, as the freeze states it: some passive instrument is complete
+# iff the algebra is commutative, never every passive instrument
 # the paragraph sits outside the equivalence: no package name, no arrow, no box
 for _bad in ('carrier_general', 'OIPlus', '\\iff', '\\boxed', 'equivalent to'):
     ok_oinn &= _bad not in _op
 _oe = re.sub(r'\s+', ' ', _oinn_expl)
+for _bad in ('observes the algebra completely, separating its states, exactly when',
+             'observes it completely exactly when', 'every passive instrument observes',
+             'every passive instrument separates', 'each passive instrument observes'):
+    ok_oinn &= _bad not in _op and _bad not in _oe
 for _t in ('*Passive observation, kept apart.*', 'enter none of its conditions',
+           'is possible exactly when the algebra is commutative',
+           'some passive instrument separates its states exactly then',
            'cannot coexist with complete passive observation', 'theory-insensitive',
            'not evidence for a hidden ontology',
            'nor a statement that quantum mechanics rests on observation incompleteness',
@@ -3048,6 +3060,9 @@ ok_oinn &= '| OI-N passive observation | 4 | current |' in open(os.path.join(_ms
 check('R7-OINN', ok_oinn,
       'OI-N narration guard: Main 3.4 carries one paragraph, outside the characterization (no '
       'package name, arrow or box in it), stating the four endpoint items with their kernel names, '
+      'the N1/N3 statement existential (some passive instrument complete iff commutative, never '
+      'every), the vacuous implication cited as oiCore_to_passive_vacuous and the containment as '
+      'qm_implies_oiCore through realizesSealedOICore_of_control, '
       'the theory-insensitive reading of N4 with the vacuous implication and the failing converse, '
       'and the anti-conflation in the same paragraph (not evidence for a hidden ontology, no '
       'statement that QM rests on OI, containment as a consequence of control); the Explainer '

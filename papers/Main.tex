@@ -3396,12 +3396,13 @@ additional structure ({[}GR §3.3{]}; kernel:
 
 \textbf{Passive observation, kept apart from the characterization.} Four
 statements about passive observation stand beside the equivalence above
-and enter none of its hypotheses or conclusions. A passive instrument on
-a finite-dimensional observable algebra in block-diagonal form --- one
-whose branches leave the block projectors fixed --- observes the algebra
-completely, separating its states, exactly when the algebra is
-commutative, and every passive instrument induces a classical stochastic
-observation of the algebra's center (kernel:
+and enter none of its hypotheses or conclusions. Complete passive
+observation of a finite-dimensional observable algebra in block-diagonal
+form --- observation by a passive instrument, one whose branches leave
+the block projectors fixed --- is possible exactly when the algebra is
+commutative: some passive instrument separates its states exactly when
+the algebra is commutative, and every passive instrument induces a
+classical stochastic observation of the algebra's center (kernel:
 \texttt{complete\_passive\_iff\_commutative},
 \texttt{central\_classification} in
 \texttt{OIBridge/CentralObservation.lean};
@@ -3414,17 +3415,21 @@ no information about whether the OI core is realized; the implication
 from the core to passive incompleteness holds vacuously, and its
 converse fails, witnessed by a theory that is passively incomplete and
 lacks the core (kernel: \texttt{passivelyIncomplete\_of\_card},
-\texttt{passive\_nondiscriminating},
-\texttt{passivelyIncomplete\_without\_oiCore} in
+\texttt{oiCore\_to\_passive\_vacuous},
+\texttt{passivelyIncomplete\_without\_oiCore},
+\texttt{passive\_nondiscriminating} in
 \texttt{OIBridge/PassiveIndependence.lean}). Passive incompleteness is
 therefore not evidence for a hidden ontology, and nothing here says that
 quantum mechanics rests on observation incompleteness: the containment
 in the other direction, that exact finite quantum mechanics realizes the
-sealed core, is a consequence of full control and nothing more. A
-passive internal observer, whose outcome is a function of a register
-read on block-diagonal states, can only read an existing record: each of
-its branches is the record projection \(\rho \mapsto P_o \rho P_o\),
-with outcome law \(\mathrm{tr}(P_o \rho P_o)\) (kernel:
+sealed core, is a consequence of full control and nothing more (kernel:
+\texttt{qm\_implies\_oiCore} in \texttt{OIBridge/CompletedOI.lean},
+through \texttt{realizesSealedOICore\_of\_control} in
+\texttt{OIBridge/OIRealization.lean}). A passive internal observer,
+whose outcome is a function of a register read on block-diagonal states,
+can only read an existing record: each of its branches is the record
+projection \(\rho \mapsto P_o \rho P_o\), with outcome law
+\(\mathrm{tr}(P_o \rho P_o)\) (kernel:
 \texttt{internal\_branch\_eq\_blockPart},
 \texttt{internal\_outcome\_law} in
 \texttt{OIBridge/InternalObserver.lean}), and creating a genuinely new
@@ -4968,4 +4973,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: 218c849735039bf2529226d6e38c754fb7e267be61a05ed3147273201aa652d8
+% source-sha256: 6a129c62b0840f0d496a86d2efa4df76ae7aed0073a2008ffcd062b9ba4d7763
