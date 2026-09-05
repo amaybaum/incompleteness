@@ -2698,6 +2698,100 @@ check('R7-INV', ok_inv,
       'audit and the README carry the package and the count; and inverseAccessibility_of_lieRank '
       'is stated with its well-formedness hypothesis wherever it is named.')
 
+# ---- the minimal-repertoire audit: one driven transition and the exchanges, no phase ----
+_min = open(os.path.join(os.path.dirname(BRIDGE), 'MINIMAL-REPERTOIRE-AUDIT.md'),
+            encoding='utf-8').read()
+_min1 = re.sub(r'\s+', ' ', _min)
+_mr = open(os.path.join(BRIDGE, 'OIBridge', 'MinimalRepertoire.lean'), encoding='utf-8').read()
+_mrflat = ' '.join(_mr.split())
+_rlp = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'repertoire_lie_probe.py'),
+            encoding='utf-8').read()
+ok_min = True
+ok_min &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _mr) is None and 'native_decide' not in _mr
+ok_min &= 'structure FiniteOperationalTheory' not in _mr and 'axiom ' not in _mr
+_min_names = ('bracket_XX', 'hControl_of_XYZ', 'hControl_perm', 'colourAlg',
+              'transition_mem_colourAlg', 'controlLie_le_colourAlg', 'diag_zero_of_mem_controlLie',
+              'popDiff_notMem_controlLie', 'not_hControl_of_colourCompatible', 'not_hControl_two',
+              'not_hControl_evenCycle', 'phaseFree_of_elementary', 'avail_perm_of_ne',
+              'control_at_level', 'tensorOf_one_isometry', 'discard_tensorOf_one', 'descend',
+              'control_of_phaseFree', 'oiPlusMin_iff_qm', 'oiPlusMin_iff_oiPlusPos',
+              'carrier_general_oiPlusMin', 'perm_avail_of_cycle_swap', 'phaseFree_of_cyclic')
+for _nm in _min_names:
+    ok_min &= ('#print axioms ' + _nm) in _mr
+ok_min &= _mr.count('#print axioms') == len(_min_names)
+# the repertoire: one driven pair and the exchanges of distinct states, no quarter phase anywhere
+ok_min &= 'phaseGate' not in _mr
+ok_min &= ('def PhaseFreeRichness : Prop := ∀ n : ℕ, 2 ≤ Fintype.card (A × Fin n) → '
+           '(∃ a b : A × Fin n, a ≠ b ∧ ∀ t : ℝ, T.availExt n Unit (fun _ => conjChannel (flow (transition a b) t))) '
+           '∧ (∀ a b : A × Fin n, a ≠ b → T.availExt n Unit (fun _ => conjChannel (permMatrix (Equiv.swap a b))))') in _mrflat
+ok_min &= 'def OIPlusMin : Prop := ImplementationLocality T ∧ PhaseFreeRichness T ∧ EmbeddedObservation T' in _mrflat
+_cgm = ' '.join(_slice(_mr, 'theorem carrier_general_oiPlusMin', ':=').split())
+ok_min &= bool(_cgm) and '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A]' in _cgm
+ok_min &= _cgm.endswith('OIPlusMin T ↔ LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps T')
+# the local theorem needs three states; the obstruction is stated as a negation at the qubit and
+# at the even cycle; descent consumes the closure rule and not classical coarse-graining
+ok_min &= 'theorem hControl_perm (i₀ j₁ : S) (h : i₀ ≠ j₁) (hD : 3 ≤ Fintype.card S) : HControl (transition i₀ j₁) (fun σ : Equiv.Perm S => permMatrix σ)' in _mrflat
+ok_min &= '¬ HControl (transition (0 : Fin 2) 1) (fun σ : Equiv.Perm (Fin 2) => permMatrix σ)' in _mrflat
+ok_min &= 'theorem not_hControl_evenCycle (m : ℕ) : ¬ HControl' in _mrflat
+ok_min &= 'IteratedAncillaClosure T' in _slice(_mr, 'theorem descend', ':= by')
+ok_min &= 'availExt_coarse' not in _mr
+ok_min &= 'theorem control_of_phaseFree [Nonempty A] (hclos : IteratedAncillaClosure T) (h : PhaseFreeRichness T) : HasCompositeUnitaryControl T' in _mrflat
+# the note: preregistered fork, the finding that fixed the hypothesis, the outcome, non-claims
+ok_min &= _min.lstrip().startswith('# The minimal-repertoire audit')
+ok_min &= 'Status: Outcome A of the preregistered fork, proved.' in _min1
+for _t in ('Outcome A — phase-free richness suffices', 'Outcome B — the qubit phase is genuine',
+           'Excluded before the kernel', 'not bipartite', 'Twenty-three named results',
+           'What this note does not claim', 'not a uniform finite-carrier repertoire',
+           'even-carrier countercontrol', 'most compressed package currently formalized',
+           'kernel proves generation for the complete graph only'):
+    ok_min &= _t in _min1
+for _nm in _min_names:
+    ok_min &= _nm in _min
+for _bad in ('one driven transition is minimal in every sense', 'one cycle suffices',
+             'the substratum supplies the driven transition', 'quantum mechanics requires OI',
+             'bare OI implies'):
+    ok_min &= not _asserted(_min, _bad)
+# the cycle claim is stated at its evidence: odd cycles computed at 3, 5, 7, every even cycle a
+# theorem, no iff over D and no general non-bipartite theorem, in the note, README and probe
+for _t in (_min1, _rd1, ' '.join(_rlp.split()), re.sub(r'\s+', ' ', _caa)):
+    for _bad in ('exactly when `D` is odd', 'exactly when D is odd', 'exactly at odd D',
+                 'exactly on odd carriers', 'gives full control exactly', 'generates full control exactly',
+                 'iff D is odd', 'when the graph is connected and not bipartite',
+                 'For a connected non-bipartite G', 'adjacent exchange cannot be dropped',
+                 'exchange clause cannot be replaced by a single cycle',
+                 'minimal elementary repertoire is settled', 'minimal elementary repertoire, is settled'):
+        ok_min &= _bad not in _t
+# the exact probe is carried, wired into CI, and its scope tokens are on record
+for _t in ('SCOPE-TOKEN: ODD-CYCLES-TESTED', 'SCOPE-TOKEN: BIPARTITE-NO-DIAGONAL',
+           'SCOPE-TOKEN: EXCHANGES-NOT-DROPPED', 'from fractions import Fraction',
+           'no theorem for every odd cycle or for every connected non-bipartite graph'):
+    ok_min &= _t in ' '.join(_rlp.split())
+ok_min &= re.search(r'^\s*import numpy', _rlp, re.M) is None
+_wf = open(os.path.join(os.path.dirname(os.path.dirname(BRIDGE)), '.github', 'workflows',
+                        'verify.yml'), encoding='utf-8').read()
+ok_min &= 'repertoire_lie' in _wf
+# the completion-assumption audit and the README carry the package and the settled item
+ok_min &= '`OIPlusMin` | implementation locality, phase-free richness, embedded observation | `carrier_general_oiPlusMin`' in _caa
+ok_min &= 'the planned reduction of the elementary repertoire, is settled by `MINIMAL-REPERTOIRE-AUDIT.md`' in re.sub(r'\s+', ' ', _caa)
+ok_min &= 'most compressed package currently formalized' in re.sub(r'\s+', ' ', _caa)
+ok_min &= 'carrier_general_oiPlusMin' in _rd1 and 'Twenty-three named results' in _rd1
+ok_min &= 'Guard `R7-MIN`' in _rd1
+check('R7-MIN', ok_min,
+      'Minimal-repertoire guard: the module carries no sorry, axiom or native_decide, prints the '
+      'axioms of exactly its twenty-three results, never mentions the quarter phase, states '
+      'phase-free richness as one driven pair and the exchanges of distinct states at every '
+      'level with two or more states, OIPlusMin as the package and its carrier-general '
+      'equivalence over every nonempty finite carrier; the local theorem needs three states, '
+      'the qubit and even-cycle obstructions are negations, and descent consumes the closure '
+      'rule and not classical coarse-graining; the note records the preregistered fork, the '
+      'parity finding that fixed the hypothesis, the outcome and its non-claims; the cycle claim '
+      'is stated at its evidence in the note, the README, the probe and the completion-assumption '
+      'audit (odd cycles computed at 3, 5, 7, every even cycle a theorem, no iff over D, no '
+      'general non-bipartite theorem, the single cycle an even-carrier countercontrol, OIPlusMin '
+      'the most compressed package currently formalized and not a minimality theorem); the exact '
+      'probe is carried without numpy, wired into CI, with its scope tokens; and the audit and '
+      'README carry the package and the count.')
+
 # ---- manuscript propagation of the inverse-clause result: the manuscript-facing strongest
 # characterization names implementation locality, assumes no dagger stability and no inverse
 # accessibility, and states the well-formedness qualification wherever the derived inverse

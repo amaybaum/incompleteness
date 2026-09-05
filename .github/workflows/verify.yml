@@ -108,7 +108,7 @@ jobs:
                    weyl_twirl weyl_lift separability boundary_rank reciprocity \
                    gauge_dimension bohr_frequency taste_branching gap_correspondence \
                    static_generator spectral_logarithm centralizer_basis \
-                   wave_period partition_coupling audit_census edge_rigidity; do
+                   wave_period partition_coupling audit_census repertoire_lie edge_rigidity; do
             echo "=== ${p}_probe.py ==="
             python3 "${p}_probe.py"
           done

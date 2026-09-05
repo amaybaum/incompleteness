@@ -102,8 +102,8 @@ Lie–Trotter, no general orbit theorem.
 | `oiPlusPos_iff_oiPlusElem` | `OIPlusPos T ↔ OIPlusElem T`: the dagger clause is idle in the package |
 | `carrier_general_oiPlusPos` | the equivalence quantified over every nonempty finite carrier |
 
-The most compressed package currently recorded is therefore `OIPlusPos`: implementation locality,
-elementary transition richness, embedded observation. Each conjunct is stated at the level of
+`OIPlusPos` — implementation locality, elementary transition richness, embedded observation — is
+the package this round records; `MINIMAL-REPERTOIRE-AUDIT.md` cuts its repertoire further. Each conjunct is stated at the level of
 implementations or of the observer architecture, and none mentions reversal, an adjoint, or a
 Lie-algebraic, reachability or availability condition. Dagger stability remains true of exact
 quantum mechanics (`reversibleImplementationLocality_of_qm`) and remains the primitive from which

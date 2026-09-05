@@ -57,6 +57,7 @@ dagger-stable package) is stated as what it is next to the current statement.
 | quasilocal completion | 4 | current | GR §3.3 infinite-region completion with its scope |
 | instrument audit | 2 | scope-consistent | the infinite-instrument scope qualification |
 | continuous time (CT2) | 4 | kernel-only | the norm-continuous local automorphism path; the manuscripts' statement that a continuous-time Hamiltonian law is additional structure is consistent with it |
+| minimal repertoire | 1 | kernel-only | the repertoire cut to one driven pair and the exchanges; the manuscripts state the repertoire with the quarter phase as a sufficient condition, and its propagation round enters the supersession of `carrier_general_oiPlusPos` by `carrier_general_oiPlusMin` |
 | OI-N passive observation | 4 | kernel-only | the frozen exploratory thread; not narrated |
 
 ## What the census found and repaired
@@ -82,11 +83,13 @@ Nothing else was stale: the five-condition characterization and the OI⁺ layere
 as such next to the strongest statement; the elementary repertoire, the substratum endpoint, the
 typed and quasilocal scopes, the reconstruction and coherent-completion results are current.
 
-## Two families with no manuscript occurrence
+## Three families with no manuscript occurrence
 
 `CT2` and `OI-N` are proved, publication-facing, and absent from the papers. No manuscript sentence
 contradicts either. Whether to narrate them is an owner decision recorded here as such; the
-registry keeps them `kernel-only` until it is taken.
+registry keeps them `kernel-only` until it is taken. The minimal repertoire is proved and awaits
+its propagation round; until then the manuscripts state the repertoire with the quarter phase,
+which remains a sufficient condition and is nowhere asserted minimal.
 
 ## What this note does not claim
 

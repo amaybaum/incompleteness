@@ -128,6 +128,13 @@
       "note": "The exact norm-continuous local automorphism path from the identity to the discrete OI update is proved and not narrated in the manuscripts; the manuscripts' statement that a continuous-time Hamiltonian law remains additional structure is consistent with it (CT2 gives a path, not a static generator). Adding CT2 to GR 3.3 is an owner decision."
     },
     {
+      "name": "minimal repertoire",
+      "modules": ["MinimalRepertoire"],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "The elementary repertoire cut to one continuously driven pair and the exchanges, with no quarter phase (OIPlusMin, carrier_general_oiPlusMin, the bipartite obstruction). Proved and not yet narrated: the manuscripts state the elementary repertoire with the quarter phase, a sufficient condition that no sentence asserts minimal. The propagation round enters the supersession carrier_general_oiPlusPos -> carrier_general_oiPlusMin and its anchors into this registry with the manuscript edits, per AGENTS.md A.35."
+    },
+    {
       "name": "OI-N passive observation",
       "modules": ["PassiveObservation", "CentralObservation", "PassiveIndependence", "InternalObserver"],
       "status": "kernel-only",

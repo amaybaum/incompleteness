@@ -163,6 +163,7 @@ import OIBridge.InternalObserver
 import OIBridge.LevelOneRecursion
 import OIBridge.PositiveReachability
 import OIBridge.TypedPositive
+import OIBridge.MinimalRepertoire
 
 namespace OIBridge
 
