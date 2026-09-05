@@ -1,17 +1,22 @@
 # Route B — is the continuous drive independent of everything derived from the substratum?
 
-`OIBridge/RouteB.lean` (milestone B0, the specification), `StructuralClosure.lean` and
-`ReadWriteControl.lean` (the substratum residual this route starts from), `MinimalRepertoire.lean`
-(the package whose third conjunct is in question); guard `R7-RB0` in
+`OIBridge/RouteB.lean` (milestone B0, the specification, Sections A–E; milestone B1, the sealed
+core for the substratum theory, Section F), `StructuralClosure.lean` and `ReadWriteControl.lean`
+(the substratum residual this route starts from), `MinimalRepertoire.lean` (the package whose
+third conjunct is in question); guards `R7-RB0` and `R7-RB1` in
 `verification/lean/edge_rigidity_probe.py`.
 
-**Status: B0 complete, the question fixed and the candidate certified up to one conjunct.** The
-consequence closure `DerivedOI` is defined from kernel names, the falsifier is one named operation,
-the target is stated as a proposition with no unconditional proof, and exact quantum mechanics is shown to satisfy
-the closure so that the closure is consistent. The substratum-generated theory satisfies the
-closure on every carrier and lacks the falsifier on the two-state carrier, both kernel-checked, so
-B1 is one question: whether that theory realizes the sealed OI core. Whether it does is open.
-Nothing here is a manuscript claim.
+**Status: B0 and B1 complete; the target is proved with the substratum theory as the witness.**
+The consequence closure `DerivedOI` is defined from kernel names, the falsifier is one named
+operation, and exact quantum mechanics satisfies the closure so that the closure is consistent.
+The substratum-generated theory satisfies the closure on every carrier and lacks the falsifier on
+the two-state carrier, so B1 is one question: whether that theory realizes the sealed OI core. All
+four preregistered clauses of that question close positively (`substratumTheory_realizesSealedOICore`),
+and `routeB_target` proves `RouteBTarget`: on the two-state carrier, `DerivedOICore` does not entail
+phase-free richness (`derivedOICore_not_phaseFree`), the preregistered Outcome 1 at this carrier.
+Nothing here is a manuscript claim; the manuscripts' statement that the controllability resource
+is not entailed by A1–A6 is consistent with it, and any narration is a propagation round of its
+own.
 
 ## The question
 
@@ -96,9 +101,8 @@ So a countertheory must fail this named operation.
 > `RouteBTarget := ∃ T : FiniteOperationalTheory (Fin 2), DerivedOICore T ∧ FalsifierUnavailable T`.
 
 A witness separates the closure from phase-free richness (`target_separates`) and is not exact
-finite operational quantum mechanics (`target_not_qm`). No unconditional proof is given and none is
-asserted; the one proof in the corpus, `target_of_substratum_core` below, consumes the sealed core
-for the substratum theory as its hypothesis.
+finite operational quantum mechanics (`target_not_qm`). The proof is `routeB_target`: it applies
+`target_of_substratum_core` below to the sealed core for the substratum theory, established in B1.
 
 **The candidate, certified up to the core.** The substratum theory
 `substratumTheory A := genTheory substratumClass substratumClass_arch A` satisfies `DerivedOI` on
@@ -122,26 +126,142 @@ lacks; B1 has to derive them from monomial availability instead, or find the cla
 **What would falsify Outcome 1 at B1.** A proof that the substratum theory fails a clause of the
 sealed core and that every repair of that clause drives the transition; or a derivation, from the
 conjuncts of `DerivedOICore`, of the availability of `conjChannel rot`. Either names the property
-Route A would have to derive from the substratum.
+Route A would have to derive from the substratum. Neither exists: the second would contradict
+`routeB_target`.
 
-**What would falsify Outcome 2.** A proof of `RouteBTarget`.
+**What would falsify Outcome 2.** A proof of `RouteBTarget`, which is `routeB_target`.
 
-## Nineteen named results
+## B1 — the sealed core for the substratum theory, preregistered before the proof
 
-`DerivedOI.implementationLocality`, `DerivedOI.closure`, `falsifier_available_of_control`,
-`falsifier_available_of_phaseFree`, `not_phaseFree_of_falsifier_unavailable`,
-`falsifier_not_monomial_not_diag`, `exchangesAvailable_of_control`, `phasesAvailable_of_control`,
-`readWriteAvailable_of_control`, `derivedOI_of_qm`, `derivedOICore_of_qm`,
-`qm_not_falsifierUnavailable`, `target_separates`, `target_not_qm`, `substratumTheory_avail_conj`,
-`substratumTheory_derivedOI`, `substratumTheory_falsifierUnavailable`, `substratumTheory_candidate`,
-`target_of_substratum_core`; each printing only `propext`, `Classical.choice`, `Quot.sound`.
+`RealizesSealedOICore (substratumTheory (Fin 2))` unfolds to six conjuncts. The first, C1–C4, is a
+statement about the core alone and is `core_isC1C4` in every theory. The other five are four
+obligations on the theory, frozen here with the exact kernel form each must take.
+
+1. **Passive step availability.** `(substratumTheory (Fin 2)).availExt 4 Unit
+   (fun _ => transport coreIdx (correlationExtension sigmaPerm (onesCorr Core)))`: the transported
+   permutation channel of the passive step, at level four, from monomial implementation generation
+   alone.
+2. **Control-step availability.** The same with `tauPerm`: the second transported permutation
+   channel, without `HasCompositeUnitaryControl`.
+3. **Native visible readout, as a family certified inside the generated theory.** Both readout
+   conjuncts: `∀ r, transport coreIdx (readVisible r) = (substratumTheory (Fin 2)).readout 4
+   (visIdx r)`, and `(substratumTheory (Fin 2)).availExt 4 (Bool × Bool)
+   (fun r => transport coreIdx (readVisible r))`, the family available through the generated
+   theory's own readout and coarse-graining, not through control.
+4. **Comb agreement.** `∀ steps w, realizedFold steps (reindex coreIdx coreIdx (diagonal w))
+   = reindex coreIdx coreIdx (diagonal (visWeightFold steps w))`, for the realized comb in the
+   substratum theory's carrier.
+
+**Two admissible outcomes per clause, and no third.** For each clause exactly one of the
+following is recorded: a kernel theorem establishing the clause for `substratumTheory (Fin 2)`,
+or a kernel theorem establishing its negation for `substratumTheory (Fin 2)`. Nothing else
+counts. In particular B1 does not repair or enlarge the candidate: no hypothesis is added to the
+theory, no operation is adjoined to the monomial class, no clause is weakened, and a clause that
+cannot be closed either way is reported as open, which ends B1 without an outcome.
+
+**The control discipline.** The substratum theory lacks full composite unitary control
+(`substratumGen_not_control`), and the kernel's `relabel_available` derives the two permutation
+channels from that control. Neither fact bears on clauses 1 and 2. The absence of a sufficient
+condition is not evidence against a conclusion, and each permutation clause is tested directly:
+through `genTheory_avail_conj`, the question is whether the transported permutation matrix
+`reindex coreIdx coreIdx (permMatrix g)` is a monomial isometry, and a negative outcome would have
+to show that no monomial branch family realizes the channel, as `substratumTheory_falsifierUnavailable`
+does for `rot`.
+
+**Order of attack.** Clauses 1 and 2 first, then 3, then 4. If a clause fails, B1 stops at it
+and records which sealed-core requirement the substratum theory fails and why; the remaining
+clauses are not attempted, since the target is already out of reach through
+`target_of_substratum_core` and any other proof would have to change the candidate.
+
+**What each total outcome means.** If all four clauses close, `target_of_substratum_core` yields
+`RouteBTarget`: a two-state theory satisfying `DerivedOICore` in which `rot` is unavailable, hence
+`DerivedOICore` without phase-free richness (`target_separates`), Outcome 1 on the two-state
+carrier. If a clause fails, the failing requirement is the candidate lemma for Route A, Outcome 2
+at this candidate, and no other candidate is examined in B1.
+
+**Preregistered names.** Positive: `substratumTheory_passiveStep`, `substratumTheory_controlStep`,
+`substratumTheory_readout`, `substratumTheory_readoutFamily`, `substratumTheory_comb`,
+`substratumTheory_realizesSealedOICore`, `routeB_target`. Negative, for whichever clause fails:
+`substratumTheory_not_passiveStep`, `substratumTheory_not_controlStep`,
+`substratumTheory_not_readout`, `substratumTheory_not_readoutFamily`, `substratumTheory_not_comb`.
+Whatever is proved is added to the module and to this note under the name preregistered for it.
+
+## B1 — the outcome, clause by clause
+
+Every clause closed by its positive outcome, under the preregistered names, in the preregistered
+order. No clause failed, no candidate repair was made, and no hypothesis was added.
+
+| clause | outcome | how |
+|---|---|---|
+| 1, passive step | `substratumTheory_passiveStep` | `substratumTheory_relabel sigmaPerm` |
+| 2, control step | `substratumTheory_controlStep` | `substratumTheory_relabel tauPerm` |
+| 3, native visible readout | `substratumTheory_readout`, `substratumTheory_readoutFamily` | the generated readout is `localLuders` (`readout_is_localLuders`), which is the transported visible readout (`readVisible_eq_localLuders`); the family is the coarse-graining of the generated theory's readout along `visIdx` (`readout_relabel_available`) |
+| 4, comb agreement | `substratumTheory_comb` | `realizedFold_diagonal`, an identity of the transported maps |
+
+The direct test decided clauses 1 and 2, as the control discipline required. The transported
+channel of a core permutation `g` is `conjChannel (reindex coreIdx coreIdx (permMatrix g))`
+(`correlationExtension_ones_eq_conjChannel`, `transport_conjChannel`); the permutation matrix is
+monomial (`monomial_permMatrix`), monomiality survives relabelling
+(`substratumClass_labelInvariant`), and the relabelled matrix is an isometry (`reindex_isometry`,
+`permMatrix_isometry`), so `substratumTheory_avail_conj` makes the channel available at level
+four. Composite unitary control was not used, and `substratumGen_not_control` was not consulted.
+Clauses 3 and 4 hold in every finite operational theory: the readout field of a theory is forced
+to be the local Lüders map by its spectator independence, and the comb identity is a statement
+about the transported maps alone.
+
+Hence `substratumTheory_realizesSealedOICore`, `substratumTheory_derivedOICore`, and the target:
+
+> `routeB_target : RouteBTarget`, with `substratumTheory (Fin 2)` as the witness.
+
+**What the outcome establishes.** On the two-state carrier there is a finite operational theory
+satisfying every conjunct of `DerivedOICore`, the sealed OI core included, in which `rot` is
+unavailable; it fails phase-free richness (`substratumTheory_not_phaseFree`) and is not exact
+finite operational quantum mechanics (`target_not_qm`). So `DerivedOICore` does not entail
+phase-free richness (`derivedOICore_not_phaseFree`): the one conjunct of `OIPlusMin` the
+substratum does not supply is not a consequence of the ones it does, together with the core. And
+under the closure the two are the same cut: a theory satisfying `DerivedOI` on a nonempty carrier
+is quantum mechanics exactly when it has phase-free richness (`derivedOI_qm_iff_phaseFree`),
+since the closure supplies the other two conjuncts of `OIPlusMin`.
+
+**Why the witness is robust to later derivations.** The witness is the theory the substratum class
+generates. Every theory-level predicate the kernel proves for that theory, at this commit or
+later, holds in the witness by construction, so no enlargement of `DerivedOI` by further
+derivation from the substratum can remove it. What separates the witness from quantum mechanics
+is exactly the operation the monomial class does not generate, and a Route A derivation of the
+drive would have to start from a property the substratum class does not have.
+
+**What the outcome does not establish.** That the drive is independent of observation
+incompleteness in the manuscripts' sense: the manuscripts' A1–A6 are not `DerivedOI`, and the
+kernel's substratum class is one formalization of the substratum, not of bare OI. That the
+substratum theory is physical, beyond being a finite operational theory in the kernel's sense:
+nothing more is asserted of it. That
+`DerivedOI` exhausts what bare OI entails. That any manuscript statement changes.
+
+## Thirty-one named results
+
+`DerivedOI.implementationLocality`, `DerivedOI.closure`, `derivedOI_qm_iff_phaseFree`,
+`falsifier_available_of_control`, `falsifier_available_of_phaseFree`,
+`not_phaseFree_of_falsifier_unavailable`, `falsifier_not_monomial_not_diag`,
+`exchangesAvailable_of_control`, `phasesAvailable_of_control`, `readWriteAvailable_of_control`,
+`derivedOI_of_qm`, `derivedOICore_of_qm`, `qm_not_falsifierUnavailable`, `target_separates`,
+`target_not_qm`, `substratumTheory_avail_conj`, `substratumTheory_derivedOI`,
+`substratumTheory_falsifierUnavailable`, `substratumTheory_candidate`,
+`target_of_substratum_core`, `substratumTheory_relabel`, `substratumTheory_passiveStep`,
+`substratumTheory_controlStep`, `substratumTheory_readout`, `substratumTheory_readoutFamily`,
+`substratumTheory_comb`, `substratumTheory_realizesSealedOICore`, `substratumTheory_derivedOICore`,
+`routeB_target`, `substratumTheory_not_phaseFree`, `derivedOICore_not_phaseFree`; each printing
+only `propext`, `Classical.choice`, `Quot.sound`.
 
 ## What this note does not claim
 
-That a countertheory exists, or that the substratum theory is one: its sealed-core conjunct is
-open, and `target_of_substratum_core` consumes it as a hypothesis. That `DerivedOI`
-exhausts what bare OI entails: it collects what the kernel derives from the substratum at this
-commit, and a later derivation enlarges it. That the drive is independent of OI, or that it is
-derivable from OI; both are the open outcomes. That anything here reaches a manuscript: the
-manuscripts state the substratum-source form and its endpoint, unchanged. That the falsifier is
-the only operation a countertheory fails; it is the one it must fail.
+That the drive is independent of OI in the manuscripts' sense, or that quantum mechanics rests on
+observation incompleteness; the kernel result is about `DerivedOICore`, the closure of what the
+kernel derives from the monomial substratum class and the sealed core, on the two-state carrier.
+That `DerivedOI` exhausts what bare OI entails: it collects what the kernel derives from the
+substratum at this commit, and a later derivation enlarges it without removing the witness. That
+the drive is derivable from OI by some other route; Route A is not closed by this note, it is
+told what it cannot start from. That anything here reaches a manuscript: the manuscripts state
+the substratum-source form and its endpoint, unchanged, and their statement that the
+controllability resource is not entailed by A1–A6 is consistent with the kernel result without
+citing it. That the falsifier is the only operation the witness fails; it is the one it must
+fail.
