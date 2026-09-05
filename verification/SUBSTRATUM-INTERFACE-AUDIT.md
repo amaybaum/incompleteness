@@ -12,9 +12,17 @@ present sourcing: the monomial class and the read-write families), `OIBridge/Rou
 §4.1 (the rule, the observer-level lift); `MANUSCRIPT-AXIOM-AUDIT.md`, `LIFT-AUDIT.md`; guard
 `R7-SUB` in `verification/lean/edge_rigidity_probe.py`.
 
-**Status: preregistered, no proof attempted.** The sections below fix the objects, the four
-distinctions, the three questions and their admissible outcomes before any kernel work; the
-outcome section is added afterwards and records where a proved statement differs from the
+**Status: pass complete. Q1: A1, A2 and A5 are stated on the structure, A3 and A4 with the
+degree and the gauge as parameters, A6 is a gap with no predicate, and the manuscripts' wave rule
+is an instance satisfying A1–A5. Q2: the write access generates exactly the scaled partial
+permutations, which source the update and its inverse, the two layers at time one, the read-write
+operators, the exchanges, embedded observation and reversible implementation locality, and
+source no quarter phase, no sign diagonal and no non-scalar diagonal unitary. Q3: the sourced
+theory satisfies `SourcedOI` and fails both `DerivedOI` and `SubstratumAvail`, the gap being
+exactly the phases — the third preregistered outcome; on the two-state carrier it realizes the
+sealed OI core and lacks the falsifier.** The preregistration sections were written before any
+proof was attempted (commit `f52f280`); this status line and the outcome section are the only
+later edits, and the outcome section records where a proved statement differs from the
 preregistered one. Nothing here is a manuscript claim.
 
 ## The question
@@ -224,3 +232,84 @@ Ask any executability question; mention `LayerFlowExecutable` or `gateFlow` in t
 Adopt any reading of the observer's write access beyond the read-write families at every level,
 or any reading of A6. Formalize `𝒢_sub`. Form `ManuscriptOI`. Narrate anything in a manuscript.
 Propagate Route B. Refresh the transfer bundle. Repair or extend the witness of Route B.
+
+## The outcome
+
+Preregistration commit `f52f280`. The questions were evaluated in the preregistered order under
+the four distinctions: no availability was placed in the observer theory by definition, the
+substratum theory was compared with and not assumed, the phases were audited primitive by
+primitive, and no executability question was asked. Every kernel statement is in
+`OIBridge/SubstratumInterfaceAudit.lean`.
+
+| question | outcome | kernel |
+|---|---|---|
+| Q1, faithful substrate representation | **as preregistered**: `Substratum` (sites with translations, additive alphabet, a `Rule`), `Conf`, `φ = leapEquiv R.F`; `A1`, `A2`, `A5` stated; `A3` with the degree and `A3Family`; `A4Exact` and `A4 G` with the gauge; no predicate for A6 | `Substratum`, `Substratum.A1`–`A5`, `A3Family`; `a2_every_substratum` (A2 holds for every substratum of the structure), `a1_of_finite`, `a3_of_fintype` (A3 is vacuous at one finite lattice, the content is the family form), `a4_of_exact` |
+| Q1, the manuscripts' rule | the wave rule on a finite cubic torus is an instance and satisfies A1–A5 as stated, A3 with degree `2d`, A4 in the exact form | `waveSubstratum`; `waveSubstratum_A1`, `_A2`, `_A3`, `_A4Exact`, `_A5` |
+| Q2, the sourced class | the least architecture containing the exchanges is the class of scaled partial permutations, canonical in both directions | `permClass`, `scaledPartialPerm_iff`; `permClass_arch`, `permClass_contextStable`, `permClass_labelInvariant`, `permClass_daggerStable`, `permClass_permMatrix`, `permClass_readWrite`; `permClass_le_of_exchanges`; `permClass_le_substratum`, `BijectionLevel` |
+| Q2, sourced primitives | **positive** for relabellings and embedded observation, reversal and reversible implementation locality, the exchanges, the read-write operators, the update and its inverse, the two layers at time one | `obs_embeddedObservation`, `obs_reversibleImplementationLocality`, `obs_exchangesAvailable`, `obs_readWriteAvailable`, `obs_dynamics_avail`, `obs_dynamics_inv_avail`, `obs_shear_avail`, `obs_swap_avail`; `exchanges_of_readWrite` |
+| Q2, the phases | **negative**: no quarter phase at any level of any nonempty carrier, no sign diagonal, and every available diagonal conjugation has pairwise nonnegative weight products, so a diagonal unitary available in the sourced theory is a global phase; the same for the theory of every bijection-level class | `PreservesNonneg`, `preservesNonneg_conj_of_scaled`, `preservesNonneg_sum`, `preservesNonneg_of_realized`, `diagonal_nonneg_of_preservesNonneg`, `phaseGate_not_preservesNonneg`, `sign_not_preservesNonneg`; `bijectionLevel_not_phasesAvailable`, `bijectionLevel_diagonal_only_scalar`; `permTheory_not_phasesAvailable`, `permTheory_no_sign`, `obs_not_phasesAvailable`, `obs_diagonal_avail_only_scalar` |
+| Q3, baseline comparison | **the third preregistered outcome**: the sourced theory satisfies `SourcedOI` and fails `DerivedOI` and `SubstratumAvail`; `DerivedOI` is `SourcedOI` with the phases, and `SubstratumAvail` includes the phases, so the gap to both is exactly `PhasesAvailable` | `SourcedOI`, `derivedOI_iff_sourcedOI_phases`, `sourcedOI_of_derivedOI`, `sourcedOI_of_qm`, `sourcedOI_qm_iff_phaseFree`; `permTheory_sourcedOI`, `obs_sourcedOI`, `obs_not_derivedOI`, `substratumAvail_phasesAvailable`, `obs_not_substratumAvail`; `obs_availExt_le_substratum` |
+| Q3, consequences | the sourced theory lies inside the substratum theory, has no composite unitary control, fails phase-free richness, is not quantum mechanics, and under it quantum mechanics is exactly phase-free richness | `permTheory_availExt_le_substratum`, `obs_not_control`, `obs_not_phaseFree`, `obs_not_qm`, `obs_qm_iff_phaseFree` |
+| Q3, the two-state carrier | the sourced theory realizes the sealed OI core with no phase and lacks the falsifier | `permTheory_relabel`, `permTheory_realizesSealedOICore`, `permTheory_falsifierUnavailable`, `permTheory_twoState` |
+| the rule and the theory | the observer theory is the sourced theory on the configuration space, and two substrata on the same sites and alphabet have the same observer theory whatever their rules | `obsTheory_eq_permTheory`, `obsTheory_rule_independent` |
+
+**Where a proved statement differs from the preregistered one.** Nowhere in substance. Two
+names differ from the preregistration: the preregistered `permClass_le_substratum` is stated
+with the operator explicit, and the sign result is `permTheory_no_sign` at the level of the
+sourced theory and `sign_not_preservesNonneg` at the level of the invariant, where the
+preregistration listed one name. Three preregistered positive names are the outcome and their
+negatives are not reached; the preregistered negative names for the phases are reached and their
+positives are not. The first and second Q3 outcomes are not reached.
+
+**The phases, located.** `DerivedOI`'s conjunct `PhasesAvailable`, the quarter phase at every
+level, and `SubstratumAvail`'s every diagonal unitary, both enter the kernel through
+`substratumClass`, the monomial class of the round-62 interface, which records "bijective and
+phase interventions" as the substratum's direct intervention kinds. Under the observer access the
+manuscripts state — reading the visible sector and writing it through bijective couplings — no
+phase is sourced: the least architecture the write access generates is the scaled partial
+permutations, every operation it realizes preserves nonnegative real entries, and the quarter
+phase does not. This is a theorem about every bijection-level sourcing (`BijectionLevel`), not
+about one chosen class, and it holds whatever conditions are placed on the rule, A1–A6 included,
+since the observer theory does not depend on the rule. The manuscripts themselves place the
+diagonal unitary at the substratum level as gauge, the residual freedom after all
+transition-probability data has been extracted, and state that the configuration space carries
+no complex structure (`[Substratum §4]`); the kernel's phase interventions are the round-62
+stipulation, and the manuscripts' substratum-source sentences, which list "the phase structure"
+among what the substratum supplies, narrate that stipulation. Whether those sentences are to be
+requalified is an owner decision for a propagation round; nothing is changed here.
+
+**What the outcome establishes.** Relative to the faithful sourced baseline, the lift audit's
+Q4′ is stated from a baseline stronger than what configuration-level sourcing supplies, in
+exactly one conjunct, the phases; its proof visibly consumed sign and phase diagonals at every
+level, which the sourced theory does not carry. The comparison the next round starts from is
+therefore `SourcedOI`, under which quantum mechanics is still exactly phase-free richness
+(`sourcedOI_qm_iff_phaseFree`), and with the sign and phase diagonals of the isolation identity not
+available as sourced operations. The sealed OI core needs no phase
+(`permTheory_realizesSealedOICore`), so the Route B separation on the two-state carrier holds
+already for the sourced theory: the sourced closure with the core, the falsifier unavailable, and
+no quarter phase (`permTheory_twoState`). And configuration-level sourcing consumes nothing of
+A3–A6: the observer theory is determined by the configuration space alone
+(`obsTheory_rule_independent`), so any operational content the rule's form carries — bounded
+degree, translation equivariance, linearity — enters, if at all, through a sourcing that is not
+configuration-level.
+
+**What the outcome does not establish.** That the manuscripts' substratum supplies no phase
+under some other reading of the observer's access; the round adopts the read-write families at
+every level as the write access and says nothing about a wider access. That the wave
+substratum, or any substratum, satisfies or violates A6: no predicate is defined. That the observer
+architecture derives `LayerFlowExecutable`, or does not; no executability question was asked.
+That the observer-level lift is derivable, or is not. That any manuscript sentence changes.
+
+**Eighty-one named results**, each printing only `propext`, `Classical.choice`, `Quot.sound`.
+
+## What this note does not claim
+
+That `SourcedOI` is the manuscripts' OI: it is the conjunction of the theory-level predicates the
+stated observer access sources from a substratum of the structure, under the one modelling
+choice recorded above. That the phase structure is absent from the manuscripts' framework: it is
+absent from what the stated access sources, and the manuscripts' own sentences that list it are
+the object of an owner decision, not of this round. That A1–A5 as stated here are the axioms in
+every reading: A3 carries its degree and A4 its gauge as parameters, and A6 has no predicate.
+That the wave substratum satisfies A6. That the strongest OI ⇒ QM claim is true or false. That
+`LayerFlowExecutable` is derived, or is not, from the sourced baseline. That anything here reaches
+a manuscript.

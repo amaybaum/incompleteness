@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 117 modules and,
-  at this commit, 2,500 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 118 modules and,
+  at this commit, 2,581 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -951,6 +951,48 @@ preregistered Q3 or Q4 holds as stated, that the executability is derived, that 
 observer-level lift is derivable or is not, that Route A is closed in either direction, that the
 carrier identification is anything but a modelling choice; no manuscript changes. Guard
 `R7-LIFT`.
+
+`SUBSTRATUM-INTERFACE-AUDIT.md` and `OIBridge/SubstratumInterfaceAudit.lean` supply the interface
+the manuscript-axiom pass recorded as missing and the lift audit's baseline needed audited: one
+arrow from a substratum carrying the manuscript substrate data to the finite operational theory
+an embedded observer obtains from it, under four distinctions frozen before any proof. Substrate
+facts are not operational availability; `substratumTheory` is the current kernel model and not
+automatically the faithful image; `SubstratumAvail` is audited primitive by primitive, the
+diagonal phases in particular; and no executability question is asked, the module naming neither
+`LayerFlowExecutable` nor any intermediate-time unitary. Q1: `Substratum` is built from the
+second-order rule, its phase-space map and lattice translations; A1, A2 and A5 are stated
+outright, A3 with the degree as a parameter and in family form, A4 with the gauge as a parameter;
+A6 is a gap and has no predicate, the alphabet carrying no internal index and the manuscript
+statement admitting two readings the round does not adjudicate; the manuscripts' discrete wave
+rule on a finite cubic torus is an instance and satisfies A1–A5 as stated (`waveSubstratum_A1`
+to `waveSubstratum_A5`). Q2: the observer's write access, the read-write families at every level,
+generates the least architecture containing the exchanges, identified as `permClass`, the scaled
+partial permutation matrices, canonical in both directions (`permClass_arch`,
+`permClass_le_of_exchanges`); the observer theory `obsTheory 𝒮 = permTheory (Conf 𝒮)` carries
+the substratum's update and its inverse, the two layers at time one, the read-write operators,
+the exchanges, embedded observation and reversible implementation locality, each an explicit
+sourcing theorem; and it carries no quarter phase, no sign diagonal and no non-scalar diagonal
+unitary, because every operation realized by a bijection-level class preserves matrices with
+nonnegative real entries (`PreservesNonneg`, `bijectionLevel_not_phasesAvailable`,
+`obs_diagonal_avail_only_scalar`). Q3, the baseline comparison, reaches the third preregistered
+outcome: the sourced theory satisfies `SourcedOI`, the conjuncts of `DerivedOI` other than the
+phases, and fails both `DerivedOI` and `SubstratumAvail`, the gap to each being exactly the
+phases (`derivedOI_iff_sourcedOI_phases`, `substratumAvail_phasesAvailable`,
+`obs_not_derivedOI`, `obs_not_substratumAvail`); under `SourcedOI` quantum mechanics is still
+exactly phase-free richness (`sourcedOI_qm_iff_phaseFree`); on the two-state carrier the sourced
+theory realizes the sealed OI core with no phase and lacks the falsifier
+(`permTheory_realizesSealedOICore`, `permTheory_twoState`); and the observer theory is determined
+by the configuration space alone (`obsTheory_rule_independent`), so configuration-level sourcing
+consumes nothing of A3–A6. The phases are thereby located: `DerivedOI`'s quarter phases and
+`SubstratumAvail`'s diagonal unitaries enter the kernel through the round-62 stipulation of
+"phase interventions", not through the observer access the manuscripts state, and the
+manuscripts' substratum-source sentences that list the phase structure narrate that stipulation;
+whether they are to be requalified is an owner decision for a propagation round. Eighty-one
+named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that
+`SourcedOI` is the manuscripts' OI, that the phase structure is absent under a wider reading of
+the access, that A6 holds or fails for any substratum, that `LayerFlowExecutable` is derived from
+the sourced baseline or is not, that the observer-level lift is derivable or is not; no
+manuscript changes. Guard `R7-SUB`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

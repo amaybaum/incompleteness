@@ -3559,6 +3559,138 @@ check('R7-LIFT', ok_lift,
       'the registry and the census carry the family as kernel-only with no anchor and the README carries the '
       'paragraph.')
 
+# ---- The substratum-interface audit: four distinctions frozen before the proof (substrate facts
+# are not availability; substratumTheory is the current model, not the faithful image;
+# SubstratumAvail audited, not assumed; no executability question); Q1 the axioms as predicates
+# with A6 a gap and the wave rule an instance; Q2 the write access generates exactly the scaled
+# partial permutations, which source no phase; Q3 the third preregistered outcome, SourcedOI with
+# the gap to DerivedOI and SubstratumAvail exactly the phases; nothing asserted about the lift,
+# executability, A6, or the manuscripts' sentences ----
+ok_sub = True
+_sa = open(os.path.join(BRIDGE, 'OIBridge', 'SubstratumInterfaceAudit.lean'), encoding='utf-8').read()
+_saflat = ' '.join(_sa.split())
+_san = open(os.path.join(os.path.dirname(BRIDGE), 'SUBSTRATUM-INTERFACE-AUDIT.md'), encoding='utf-8').read()
+_san1 = re.sub(r'\s+', ' ', _san)
+ok_sub &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sa) is None and 'native_decide' not in _sa
+ok_sub &= 'axiom ' not in re.sub(r'/-.*?-/', '', _sa, flags=re.S)
+_sa_names = re.findall(r"^theorem ([\w']+)", _sa, re.M)
+ok_sub &= len(_sa_names) == 81
+for _nm in _sa_names:
+    ok_sub &= re.search(r'^#print axioms (?:[\w.]+\.)?' + re.escape(_nm) + r'$', _sa, re.M) is not None
+ok_sub &= _sa.count('#print axioms') == 81
+# distinction 4: no executability question, no intermediate-time unitary
+ok_sub &= 'LayerFlowExecutable' not in _sa and 'gateFlow' not in _sa and 'unit (' not in _sa
+ok_sub &= 'driveQ' not in _sa and 'layerQ' not in _sa and 'swapQ' not in _sa
+# Q1: the predicates verbatim, no predicate for A6, no ManuscriptOI
+for _d in ('def A1 : Prop := Finite 𝒮.Conf',
+           'def A2 : Prop := Function.Bijective 𝒮.φ',
+           'def A3 (D : ℕ) : Prop := ∀ i, (𝒮.R.N i).card ≤ D',
+           'def A4Exact : Prop := ∀ (v : 𝒮.ι) (c : 𝒮.ι → 𝒮.V), 𝒮.R.F (shiftBy v c) = shiftBy v (𝒮.R.F c)',
+           'def A4 (G : Subgroup (Equiv.Perm 𝒮.Conf)) : Prop := ∀ v : 𝒮.ι, ∃ g ∈ G, ∀ x : 𝒮.Conf, 𝒮.φ (shiftBy v x) = g (shiftBy v (𝒮.φ x))',
+           "def A5 : Prop := ∀ c c' : 𝒮.ι → 𝒮.V, 𝒮.R.F (c + c') = 𝒮.R.F c + 𝒮.R.F c'",
+           'def A3Family (𝒮 : ℕ → Substratum) : Prop := ∃ D, ∀ L, (𝒮 L).A3 D',
+           'def φ : 𝒮.Conf ≃ 𝒮.Conf := leapEquiv 𝒮.R.F'):
+    ok_sub &= _d in _saflat
+ok_sub &= re.search(r'\bA6\b\s*:', _sa) is None and 'def A6' not in _sa and 'ManuscriptOI' not in _sa
+# Q2: the sourced class and its canonicity; the sourced theory; the invariant
+for _d in ('def IsScaledPartialPerm (K : Matrix S S ℂ) : Prop := IsSubmonomial K ∧ ∃ c : ℂ, ∀ i j, K i j ≠ 0 → K i j = c',
+           'def permClass : ImplementationClass := fun _ _ _ K => IsScaledPartialPerm K',
+           'noncomputable abbrev permTheory (A : Type) [Fintype A] [DecidableEq A] : FiniteOperationalTheory A := genTheory permClass permClass_arch A',
+           'noncomputable abbrev obsTheory : FiniteOperationalTheory 𝒮.Conf := permTheory 𝒮.Conf',
+           'def PreservesNonneg (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop := ∀ X : Matrix S S ℂ, (∀ p q, 0 ≤ X p q) → ∀ p q, 0 ≤ Φ X p q',
+           'def BijectionLevel (𝓘 : ImplementationClass) : Prop := ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ), 𝓘 S K → permClass S K',
+           'def SourcedOI (T : FiniteOperationalTheory A) : Prop := ReversibleImplementationLocality T ∧ EmbeddedObservation T ∧ ExchangesAvailable T ∧ ReadWriteAvailable T',
+           'theorem permClass_le_of_exchanges {𝓘 : ImplementationClass} (arch : Architecture 𝓘) (hex : ∀ (S : Type) [Fintype S] [DecidableEq S] (a b : S), 𝓘 S (permMatrix (Equiv.swap a b))) : ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ), permClass S K → 𝓘 S K',
+           'theorem bijectionLevel_not_phasesAvailable [Nonempty A] {𝓘 : ImplementationClass} (arch : Architecture 𝓘) (hb : BijectionLevel 𝓘) : ¬ PhasesAvailable (genTheory 𝓘 arch A)',
+           'theorem permTheory_not_substratumAvail [Nonempty A] : ¬ SubstratumAvail (permTheory A)',
+           'theorem permTheory_not_derivedOI [Nonempty A] : ¬ DerivedOI (permTheory A)',
+           'theorem derivedOI_iff_sourcedOI_phases (T : FiniteOperationalTheory A) : DerivedOI T ↔ SourcedOI T ∧ PhasesAvailable T',
+           'theorem permTheory_realizesSealedOICore : RealizesSealedOICore (permTheory (Fin 2))',
+           "obsTheory { ι := ι, V := V, R := R } = obsTheory { ι := ι, V := V, R := R' } := rfl"):
+    ok_sub &= _d in _saflat
+for _nm in ('a2_every_substratum', 'a1_of_finite', 'a3_of_fintype', 'a4_of_exact', 'waveSubstratum_A1',
+            'waveSubstratum_A2', 'waveSubstratum_A3', 'waveSubstratum_A4Exact', 'waveSubstratum_A5',
+            'scaledPartialPerm_iff', 'permClass_arch', 'permClass_le_of_exchanges', 'permClass_le_substratum',
+            'preservesNonneg_conj_of_scaled', 'phaseGate_not_preservesNonneg', 'sign_not_preservesNonneg',
+            'bijectionLevel_not_phasesAvailable', 'bijectionLevel_diagonal_only_scalar', 'sourcedOI_of_qm',
+            'sourcedOI_qm_iff_phaseFree', 'exchanges_of_readWrite', 'permTheory_sourcedOI',
+            'permTheory_not_phasesAvailable', 'permTheory_no_sign', 'substratumAvail_phasesAvailable',
+            'permTheory_realizesSealedOICore', 'permTheory_falsifierUnavailable', 'permTheory_twoState',
+            'obsTheory_rule_independent', 'obs_dynamics_avail', 'obs_shear_avail', 'obs_swap_avail',
+            'obs_sourcedOI', 'obs_not_phasesAvailable', 'obs_diagonal_avail_only_scalar', 'obs_not_derivedOI',
+            'obs_not_substratumAvail', 'obs_qm_iff_phaseFree'):
+    ok_sub &= _nm in _sa_names and _nm in _san1
+# the note: the four distinctions and the three questions precede the outcome; the commit; the
+# outcome rows; the location of the phases; the non-claims
+_i_dist = _san.find('## Four distinctions, frozen at the outset')
+_i_q = _san.find('## The three questions, in order, each with its own outcomes')
+_i_out = _san.find('## The outcome')
+ok_sub &= 0 < _i_dist < _i_q < _i_out
+ok_sub &= _san.lstrip().startswith('# The substratum-interface audit')
+for _t in ('Substrate facts are not operational availability', 'is the current kernel model, not automatically the faithful image',
+           'is audited, not assumed', 'No executability question', '`𝒮 ⟶ T_obs(𝒮)`, sourcing',
+           '**Q1. Faithful substrate representation.**', '**Q2. Observer sourcing.**', '**Q3. Baseline comparison.**',
+           'the one modelling input', 'the least architecture', 'Preregistration commit `f52f280`',
+           '| A6 background independence |', '**gap**: the alphabet carries no internal index and no coupling matrix',
+           '| Q1, faithful substrate representation | **as preregistered**', '| Q2, the phases | **negative**',
+           '| Q3, baseline comparison | **the third preregistered outcome**',
+           'the gap to both is exactly `PhasesAvailable`', 'Where a proved statement differs from the preregistered one',
+           'The first and second Q3 outcomes are not reached', 'The phases, located', 'no phase is sourced',
+           'is a theorem about every bijection-level sourcing', 'the round-62 stipulation',
+           'is an owner decision for a propagation round; nothing is changed here',
+           'What the outcome establishes', 'in exactly one conjunct, the phases', 'consumes nothing of A3–A6',
+           'What the outcome does not establish', 'no executability question was asked',
+           'Eighty-one named results', 'What this note does not claim'):
+    ok_sub &= _t in _san1
+ok_sub &= 'Status: pass complete. Q1: A1, A2 and A5 are stated on the structure' in _san1
+# the overclaims are absent from every paragraph that does not disclaim them
+for _bad in ('the phase structure is not part of OI', 'the manuscripts are wrong', 'A6 holds', 'A6 fails',
+             'satisfies A1–A6', 'satisfies the manuscripts\' A1–A6', 'LayerFlowExecutable is derived',
+             'executability is derived', 'the lift is derivable', 'the lift is not derivable', 'OI implies QM',
+             'Route A is closed', 'the observer has no write access', 'SourcedOI is the manuscripts\' OI',
+             'the phase structure is absent from the manuscripts', 'the manuscripts supply no phase',
+             'quantum mechanics requires OI', 'bare OI implies', 'the drive is independent of OI'):
+    ok_sub &= not _asserted(_san, _bad)
+# the two Q3 outcomes not reached are named only as preregistered alternatives, never in the outcome
+_san_out = _san[_san.find('## The outcome'):]
+for _bad in ('the first preregistered outcome is reached', 'the sourced theory satisfies DerivedOI',
+             'the sourced theory satisfies `DerivedOI`', 'SubstratumAvail is the faithful image',
+             'the baseline stands as the faithful image', 'obs_derivedOI`', 'obs_substratumAvail`',
+             'the second preregistered outcome is reached'):
+    ok_sub &= _bad not in _san_out and _bad not in _rd1
+# no manuscript carries the audit; registry and census kernel-only; README paragraph and counts
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    ok_sub &= 'SubstratumInterfaceAudit' not in _t and 'permClass' not in _t and 'SourcedOI' not in _t and 'obsTheory' not in _t
+_sa_fam = [f for f in _ptr_reg['families'] if f['name'] == 'substratum interface: sourced observer theory']
+ok_sub &= len(_sa_fam) == 1 and _sa_fam[0]['status'] == 'kernel-only' and _sa_fam[0]['modules'] == ['SubstratumInterfaceAudit']
+ok_sub &= _sa_fam[0]['manuscript'] == [] and 'exactly the phases' in _sa_fam[0]['note']
+ok_sub &= 'no executability question' in _sa_fam[0]['note'] and 'owner decision' in _sa_fam[0]['note']
+ok_sub &= 'asserts nothing about whether the observer-level lift is derivable' in _sa_fam[0]['note']
+_cen_sa = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+ok_sub &= '| substratum interface: sourced observer theory | 1 | kernel-only |' in _cen_sa
+for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI', 'obsTheory', 'PreservesNonneg',
+           'permClass_le_of_exchanges', 'bijectionLevel_not_phasesAvailable', 'permTheory_realizesSealedOICore',
+           'obsTheory_rule_independent', 'Eighty-one named results', 'exactly the phases',
+           'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
+    ok_sub &= _t in _rd1
+ok_sub &= '118 modules' in _rd1 and '2,581 named results' in _rd1
+check('R7-SUB', ok_sub,
+      'Substratum-interface guard: the module carries no sorry, axiom or native_decide and prints the axioms '
+      'of exactly its eighty-one results; it asks no executability question (no LayerFlowExecutable, gateFlow, '
+      'unit or drive); it defines A1, A2, A3, A3Family, A4Exact, A4 and A5 verbatim as pinned with no predicate '
+      'for A6 and no ManuscriptOI; it defines the sourced class, the sourced and observer theories, the '
+      'nonnegativity invariant, the bijection-level classes and SourcedOI verbatim, with the canonicity of the '
+      'class, the no-phase theorem for every bijection-level class, the failure of DerivedOI and SubstratumAvail '
+      'for the sourced theory, the sealed core without phases and the rule-independence of the observer theory '
+      'stated as pinned; the note freezes the four distinctions and the three questions before the outcome, '
+      'names the preregistration commit, records A6 as a gap, the phases as the one negative, the third Q3 '
+      'outcome with the gap exactly the phases, the location of the phases as the round-62 stipulation with the '
+      'manuscripts\' sentences an owner decision, and the non-claims; no manuscript carries the audit; the '
+      'registry and the census carry the family as kernel-only with no anchor and the README carries the '
+      'paragraph and the counts.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
