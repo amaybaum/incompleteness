@@ -3324,12 +3324,15 @@ full statement and scope (kernel: \texttt{carrier\_general\_oiPlus} in
 \texttt{OIBridge/CarrierGeneralOIPlus.lean};
 \texttt{oiPlus\_independence} in \texttt{OIBridge/CompletedOI.lean}). A
 primitive-source refinement restates the three added principles at the
-level of physical implementations and embedded observers --- reversible
+level of physical implementations and embedded observers ---
 implementation locality, elementary transition richness, and embedded
-observation --- equivalent to the same operational quantum mechanics on
-every nonempty finite carrier (kernel:
-\texttt{carrier\_general\_oiPlusElem} in
-\texttt{OIBridge/LieRankSource.lean}). A substratum-source form
+observation, with no closure of the implementations under the adjoint
+and no inverse accessibility assumed --- equivalent to the same
+operational quantum mechanics on every nonempty finite carrier, inverse
+accessibility following on any well-formed theory (kernel:
+\texttt{carrier\_general\_oiPlusPos},
+\texttt{inverseAccessibility\_of\_lieRank} in
+\texttt{OIBridge/PositiveReachability.lean}). A substratum-source form
 completes that refinement: the concrete OI substratum supplies the
 structural architecture --- closure under composition and
 coarse-graining, stability under an uncoupled spectator, relabelling
@@ -4912,4 +4915,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: cc4949163e4e36d5af3ce64cfe89b462b2736340a5358a87b78b06969cc12f1c
+% source-sha256: e8af7c5c0cbb60884926429093da9637de3d061ad11ed8225a7b6974a6df451c

@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 113 modules and,
-  at this commit, 2,400 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 114 modules and,
+  at this commit, 2,401 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -232,15 +232,15 @@ operational conditions: observer recursion and the level-one seam derive from em
 observation, observational independence and the positivity half of validity from
 implementation locality, the inverse clause of reversible richness from dagger-stable
 implementations, and the Lie-rank clause from elementary transition richness. The strongest
-carrier-general statement is therefore that reversible implementation locality, elementary
-transition richness, and embedded observation are together equivalent to exact finite
-endomorphic operational quantum mechanics on every nonempty finite carrier
-(`LieRankSource.carrier_general_oiPlusElem`), with every principle stated at the level of
-implementations or the observer architecture. The compact-group argument for the inverse clause
-is carried out in `INVERSE-CLAUSE-AUDIT.md`, and implementation locality, elementary transition
-richness and embedded observation are together equivalent to the same class
-(`PositiveReachability.carrier_general_oiPlusPos`); and the repertoire is cut to one continuously
-driven pair and the exchanges, with no quarter phase (`MINIMAL-REPERTOIRE-AUDIT.md`,
+carrier-general statement is therefore that implementation locality, elementary transition
+richness, and embedded observation are together equivalent to exact finite endomorphic
+operational quantum mechanics on every nonempty finite carrier
+(`PositiveReachability.carrier_general_oiPlusPos`), with every principle stated at the level of
+implementations or the observer architecture and no dagger clause: the compact-group argument for
+the inverse clause is carried out in `INVERSE-CLAUSE-AUDIT.md`, the dagger-stable package
+(`LieRankSource.carrier_general_oiPlusElem`) characterizes the same class
+(`oiPlusPos_iff_oiPlusElem`), and the repertoire is cut to one continuously driven pair and the
+exchanges, with no quarter phase (`MINIMAL-REPERTOIRE-AUDIT.md`,
 `MinimalRepertoire.carrier_general_oiPlusMin`). A separate substratum-source audit
 (`SUBSTRATUM-SOURCE-AUDIT.md`) opens the next question — whether the concrete OI physics supplies
 that structure — and its first entry collapses the three primitive-source principles onto one
@@ -846,6 +846,32 @@ cycle and one adjacent exchange generate every permutation, inverses being posit
 only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that one driven transition is
 minimal in any stronger sense; that the driven pair can be replaced by a discrete resource; that
 the OI substratum supplies it. Guard `R7-MIN`.
+
+`LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
+`verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
+than with the latest round. The check, run by the release gate as `lean-manuscript`, resolves every
+kernel identifier and path cited in a manuscript against `OIBridge`, refuses a paragraph that cites
+a superseded theorem without its successor, requires every module to carry one of five registry
+dispositions — current, consistent-uncited, scope-consistent, kernel-only, verification-only —
+requires every family under the first three to name at least one manuscript anchor, and requires
+every anchor to be present in the manuscript it names. The check is complete relative to the
+maintained registry and cannot infer that a theorem inside an existing module has become stronger;
+the registry contract of `AGENTS.md` §A.35, pinned by `R7-MSP`, requires every publication-facing
+strengthening to update the registry in the same commit. The census
+found three stale citations, all at the seam the inverse-clause result moved: the strongest
+characterization named reversible implementation locality and the dagger-stable package in GR §3.3,
+Main §3.4, the Explainer and both book chapters with their mirrors; the OI⁺ reversible-richness
+certificate cited the reachability theorem with the inverse clause; and the typed form cited the
+package-level corollary from the dagger-stable package, for which
+`OIBridge/TypedPositive.lean` supplies `typed_determined_of_oiPlusPos`, one result printing only
+`propext`, `Classical.choice`, `Quot.sound`. All three are repaired; the five-condition
+characterization and the OI⁺ layered form are stated as such beside the strongest statement; the
+elementary repertoire and the substratum endpoint are unchanged; CT2 and OI-N are recorded as
+proved and not narrated, with no manuscript sentence contradicting either. Guard `R7-MSP` pins the
+propagated statement in sources and generated forms and the presence of the census in the gate.
+The minimal repertoire is classified kernel-only until its propagation round, which enters the
+supersession of `carrier_general_oiPlusPos` by `carrier_general_oiPlusMin` into the registry with
+the manuscript edits, per §A.35.
 
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
 audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its
