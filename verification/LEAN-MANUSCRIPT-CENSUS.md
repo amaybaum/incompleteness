@@ -56,7 +56,7 @@ dagger-stable package) is stated as what it is next to the current statement.
 | typed completion | 2 | current | GR §3.3 typed form, cited from the current package |
 | quasilocal completion | 4 | current | GR §3.3 infinite-region completion with its scope |
 | instrument audit | 2 | scope-consistent | the infinite-instrument scope qualification |
-| continuous time (CT2) | 4 | current | GR §3.3 continuous-time paragraph, Main §2.3 and the quasilocal summaries: the depth-two factorization and the norm-continuous path of local automorphisms from the identity to the update, stated as a path, not a one-parameter group, with no generator and CT3 open |
+| continuous time (CT2) | 4 | current | GR §3.3 continuous-time paragraph, Main §2.3 and the quasilocal summaries: the depth-two factorization and the norm-continuous path of local automorphisms from the identity to the update, stated as a path, with no one-parameter-group law for the composite established, no generator exhibited and CT3 open |
 | minimal repertoire | 1 | current | GR §3.3 states phase-free richness as the second primitive-source principle, `OIPlusMin` boxed, the elementary repertoire as its stronger form; Main §3.4, the Explainer, book chapters 1 and 19 carry the summary; `carrier_general_oiPlusPos`, `oiPlusPos_iff_qm`, `hControl_star` and `typed_determined_of_oiPlusPos` are superseded and cited beside their successors |
 | OI-N passive observation | 4 | kernel-only | the frozen exploratory thread; not narrated |
 
@@ -97,12 +97,14 @@ factors exactly as a depth-two local circuit, each layer is the time-one map of 
 continuous one-parameter group of isometric `*`-automorphisms of the quasilocal algebra, and the
 two flows in the order the Heisenberg picture forces give a norm-continuous path of isometric
 `*`-automorphisms from the identity to the update's own Heisenberg action
-(`driveQ_isContinuousPath`, `driveQ_one_eq_heisQ`). The paragraph says the path is not a
-one-parameter group and exhibits no generator, that whether one time-independent finite-range
-interaction has the update as its unit-time map is open, and that a continuous-time Hamiltonian
-law stays additional structure. Main §2.3 and the quasilocal summaries in Main §3.4, the Explainer
-and the book chapters carry the same clause. Guard `R7-CTN` pins the statements and rejects any
-promotion of the path to a group or a generator.
+(`driveQ_isContinuousPath`, `driveQ_one_eq_heisQ`). The paragraph says that for the composite path
+no one-parameter-group law is established and no generator is exhibited, that whether the path is a
+one-parameter group and whether one time-independent finite-range interaction has the update as its
+unit-time map are both open, and that a continuous-time Hamiltonian law stays additional
+structure. Main §2.3 and the quasilocal summaries in Main §3.4, the Explainer
+and the book chapters carry the same clause. Guard `R7-CTN` pins the statements and rejects both
+closures, the promotion of the path to a group or a generator and the unsupported negative that it
+is not a group.
 
 ## The minimal repertoire, propagated under the contract
 

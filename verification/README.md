@@ -873,8 +873,8 @@ substratum endpoint is unchanged; OI-N is recorded as proved and not narrated, w
 sentence contradicting it. CT2 is narrated in GR §3.3's continuous-time paragraph, Main §2.3 and the
 quasilocal summaries: the depth-two factorization, the two layer groups, and the norm-continuous
 path of local `*`-automorphisms from the identity to the update's Heisenberg action
-(`driveQ_isContinuousPath`, `driveQ_one_eq_heisQ`), stated as a path and not a one-parameter group,
-with no generator exhibited and CT3 open; guard `R7-CTN`. The minimal repertoire is propagated
+(`driveQ_isContinuousPath`, `driveQ_one_eq_heisQ`), stated as a path, with no one-parameter-group
+law for the composite established, no generator exhibited and CT3 open; guard `R7-CTN`. The minimal repertoire is propagated
 under §A.35: GR §3.3
 states phase-free richness as the second primitive-source principle with the elementary repertoire
 as its stronger form and `OIPlusMin` boxed, Main §3.4, the Explainer and the book chapters carry the

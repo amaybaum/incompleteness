@@ -131,10 +131,10 @@
         {"file": "papers/GR.md", "anchor": "driveQ_isContinuousPath"},
         {"file": "papers/GR.md", "anchor": "A continuous-time Hamiltonian law is additional structure"},
         {"file": "papers/Main.md", "anchor": "driveQ_one_eq_heisQ"},
-        {"file": "papers/Explainer.md", "anchor": "not a one-parameter group and exhibiting no generator"},
-        {"file": "book/The-Incompleteness-of-Observation-FULL.md", "anchor": "not a one-parameter group and exhibiting no generator"}
+        {"file": "papers/Explainer.md", "anchor": "with no one-parameter-group law established and no generator exhibited"},
+        {"file": "book/The-Incompleteness-of-Observation-FULL.md", "anchor": "with no one-parameter-group law established and no generator exhibited"}
       ],
-      "note": "GR 3.3, continuous-time paragraph: the depth-two factorization, the two layer groups, and the norm-continuous path of local *-automorphisms from the identity to the update's Heisenberg action, stated as a path and not a one-parameter group, with no generator exhibited and CT3 open; Main 2.3 and the quasilocal summaries in Main 3.4, the Explainer and the book chapters carry the same. A continuous-time Hamiltonian law stays additional structure."
+      "note": "GR 3.3, continuous-time paragraph: the depth-two factorization, the two layer groups, and the norm-continuous path of local *-automorphisms from the identity to the update's Heisenberg action, stated as a path, with no one-parameter-group law for the composite established, no generator exhibited and CT3 open; Main 2.3 and the quasilocal summaries in Main 3.4, the Explainer and the book chapters carry the same. A continuous-time Hamiltonian law stays additional structure."
     },
     {
       "name": "minimal repertoire",

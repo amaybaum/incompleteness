@@ -1550,9 +1550,9 @@ finite discrete configuration space the dynamics is the discrete group
 structure of the substratum update supplies something weaker and
 derived: an exact norm-continuous path of local \(*\)-automorphisms of
 the quasilocal algebra from the identity to the update's Heisenberg
-action, which is not a one-parameter group and exhibits no generator
-({[}GR §3.3{]}; kernel: \texttt{driveQ\_isContinuousPath},
-\texttt{driveQ\_one\_eq\_heisQ} in
+action, for which no one-parameter-group law is established and no
+generator is exhibited ({[}GR §3.3{]}; kernel:
+\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_one\_eq\_heisQ} in
 \texttt{OIBridge/SecondOrderDrive.lean}). When such an interpolation is
 introduced --- a strongly continuous one-parameter unitary group \(U_t\)
 with \(U_1 = U_\varphi\), which always exists but is not unique (any
@@ -3386,11 +3386,12 @@ dynamics is a theorem rather than a convention --- a phase automorphism
 at one site preserves locality without arising from any reversible
 finite-range bijection --- and, while the update is joined to the
 identity by an exact norm-continuous path of local \(*\)-automorphisms
-of that algebra, not a one-parameter group and exhibiting no generator,
-a continuous-time Hamiltonian law remains additional structure ({[}GR
-§3.3{]}; kernel: \texttt{closure\_iUnion\_stage},
-\texttt{quasiState\_unique} in \texttt{OIBridge/QuasilocalAlgebra.lean},
-\texttt{canonEquiv}, \texttt{phaseQ\_ne\_heisQ} in
+of that algebra, with no one-parameter-group law established and no
+generator exhibited, a continuous-time Hamiltonian law remains
+additional structure ({[}GR §3.3{]}; kernel:
+\texttt{closure\_iUnion\_stage}, \texttt{quasiState\_unique} in
+\texttt{OIBridge/QuasilocalAlgebra.lean}, \texttt{canonEquiv},
+\texttt{phaseQ\_ne\_heisQ} in
 \texttt{OIBridge/QuasilocalCharacterization.lean}).
 
 \emph{Lemma (adaptive diamond telescoping).} \emph{Let \(\pi\) be an
@@ -4927,4 +4928,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: 9fec10ab794bb2cab94ca4725d48761ba055822056552a8ece9b3f5274bc62d5
+% source-sha256: fa63a4bdd580bbd03cbb63cb31a6fb047e87812e51dbc66590219cdfd001b356
