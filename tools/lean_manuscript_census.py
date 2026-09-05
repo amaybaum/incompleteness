@@ -18,8 +18,17 @@ WHAT IT CHECKS
   3. COVERAGE     every OIBridge module is assigned to exactly one registry family, so a new
                   module cannot appear without a disposition (current / consistent-uncited /
                   scope-consistent / kernel-only / verification-only).
-  4. ANCHORS      every anchor the registry names for a family is present in the manuscript it
-                  names, so a family recorded as current cannot silently lose its statement.
+  4. ANCHORS      every family recorded as current, consistent-uncited or scope-consistent names
+                  at least one manuscript anchor, and every anchor the registry names is present
+                  in the manuscript it names, so a family whose conclusion the manuscripts carry
+                  cannot silently lose its statement.
+
+WHAT IT CANNOT CHECK
+  The check is complete relative to the maintained registry. It cannot infer that a theorem inside
+  an existing module has become stronger: a strengthening whose supersession entry or anchor is not
+  recorded passes all four checks. The registry contract (AGENTS.md, section A.35) therefore
+  requires every publication-facing strengthening to update the registry in the same commit, and
+  guard R7-MSP pins that contract.
 
 It prints the classification table and exits nonzero on any failure.
 
@@ -33,6 +42,9 @@ import sys
 
 STATUSES = ('current', 'consistent-uncited', 'scope-consistent', 'kernel-only',
             'verification-only')
+# the dispositions under which the manuscripts carry the family's conclusion or scope, and which
+# must therefore name at least one anchor
+ANCHORED = ('current', 'consistent-uncited', 'scope-consistent')
 IDENT = re.compile(r'`([A-Za-z_][A-Za-z0-9_\'₀₁₂]*)`')
 PATH = re.compile(r'`(OIBridge/[A-Za-z0-9_]+\.lean)`')
 DECL = re.compile(r'^\s*(?:@\[[^\]]*\]\s*)?(?:noncomputable\s+)?(?:protected\s+)?'
@@ -109,8 +121,11 @@ def main():
         if mod not in modules:
             fails.append(f"  GHOST  registry names module {mod}, which does not exist")
 
-    # 4. anchors
+    # 4. anchors: a family the manuscripts carry must name at least one, and each must be present
     for fam in reg['families']:
+        if fam['status'] in ANCHORED and not fam.get('manuscript'):
+            fails.append(f"  NOANCHOR family '{fam['name']}' is {fam['status']} but names no "
+                         f"manuscript anchor; a {fam['status']} family must name at least one")
         for a in fam.get('manuscript', []):
             path = os.path.join(root, a['file'])
             if not os.path.exists(path):
@@ -134,8 +149,9 @@ def main():
         print(f"\nlean_manuscript_census: FAILED ({len(fails)} problem(s))")
         return 1
     print(f"lean_manuscript_census: OK (every cited identifier and path resolves, no superseded "
-          f"citation without its successor, every module classified, every anchor present; "
-          f"{ncur} current families)")
+          f"citation without its successor, every module classified, every carried family "
+          f"anchored and every anchor present; {ncur} current families; complete relative to "
+          f"the maintained registry)")
     return 0
 
 

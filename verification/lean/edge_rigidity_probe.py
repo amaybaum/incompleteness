@@ -2734,6 +2734,22 @@ ok_msp &= '#print axioms typed_determined_of_oiPlusPos' in _tp and 'sorry' not i
 ok_msp &= os.path.exists(os.path.join(_msroot, 'tools', 'lean_manuscript_census.py'))
 ok_msp &= os.path.exists(os.path.join(_msroot, 'verification', 'lean-manuscript-census.json'))
 ok_msp &= '"lean-manuscript"' in open(os.path.join(_msroot, 'tools', 'release_gate.py'), encoding='utf-8').read()
+# the census is complete relative to the maintained registry: the tool requires an anchor for
+# every carried family, the registry and the note state the same-commit contract, and the
+# contract is a durable contributor rule
+_cens_tool = open(os.path.join(_msroot, 'tools', 'lean_manuscript_census.py'), encoding='utf-8').read()
+ok_msp &= "ANCHORED = ('current', 'consistent-uncited', 'scope-consistent')" in _cens_tool
+ok_msp &= 'NOANCHOR' in _cens_tool and 'complete relative to the maintained registry' in _cens_tool
+_cens_reg = open(os.path.join(_msroot, 'verification', 'lean-manuscript-census.json'), encoding='utf-8').read()
+ok_msp &= 'Registry contract (AGENTS.md A.35)' in _cens_reg and '"papers/SM.md"' in _cens_reg
+_cens_note = re.sub(r'\s+', ' ', open(os.path.join(_msroot, 'verification', 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+ok_msp &= 'Status: complete relative to the maintained registry' in _cens_note
+ok_msp &= 'updates the registry in the same commit' in _cens_note
+ok_msp &= 'so a kernel strengthening that reaches the verification notes and the guards and not the papers is caught at the next run' not in _cens_note
+ok_msp &= 'Status: complete for the kernel at this commit' not in _cens_note
+_agents = re.sub(r'\s+', ' ', open(os.path.join(_msroot, 'AGENTS.md'), encoding='utf-8').read())
+ok_msp &= '## §A.35 Registry contract for the Lean-to-manuscript census' in _agents
+ok_msp &= 'updates the registry in the same commit' in _agents
 # the summaries in Main, the Explainer and both book mirrors carry the same statement
 _msum = ('implementation locality, elementary transition richness, and embedded observation, with '
          'no closure of the implementations under the adjoint and no inverse accessibility assumed')
@@ -2761,7 +2777,10 @@ check('R7-MSP', ok_msp,
       'implementation locality with elementary transition richness and embedded observation, '
       'cites carrier_general_oiPlusPos and the positive-reachability theorems, assumes no adjoint '
       'closure and no inverse accessibility, and states the well-formedness qualification wherever '
-      'the derived inverse accessibility is named; Main, the Explainer and both book mirrors carry '
+      'the derived inverse accessibility is named; the census tool requires an anchor for every '
+      'carried family, and the registry, the census note and AGENTS.md A.35 state the same-commit '
+      'registry contract with the census complete relative to the maintained registry; Main, the '
+      'Explainer and both book mirrors carry '
       'the same summary; the elementary repertoire and the substratum endpoint are unchanged; and '
       'the generated .tex forms carry the propagated statement; the typed form cites the '
       'current package through TypedPositive; and the Lean-to-manuscript census tool and its '

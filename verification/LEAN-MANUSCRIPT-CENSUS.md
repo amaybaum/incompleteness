@@ -5,11 +5,19 @@
 (the one kernel result the census required), guard `R7-MSP` in
 `verification/lean/edge_rigidity_probe.py`.
 
-**Status: complete for the kernel at this commit, and enforced.** Every kernel identifier cited in
-a manuscript resolves to a declaration; no manuscript paragraph cites a superseded theorem without
-its successor; every `OIBridge` module carries a disposition; every anchor a current family names
-is present in the manuscript it names. The gate fails on any of these, so a kernel strengthening
-that reaches the verification notes and the guards and not the papers is caught at the next run.
+**Status: complete relative to the maintained registry, and enforced.** Every kernel identifier
+cited in a manuscript resolves to a declaration; no manuscript paragraph cites a superseded theorem
+without its successor; every `OIBridge` module carries a disposition; every family the manuscripts
+carry names at least one anchor, and every anchor is present in the manuscript it names. The gate
+fails on any of these. What the gate cannot do is infer that a theorem inside an existing module
+has become stronger: a strengthening whose supersession entry or anchor is not recorded passes all
+four checks. The guarantee therefore rests on one contract, stated in `AGENTS.md` §A.35 and pinned
+by `R7-MSP`: every publication-facing strengthening of a theorem inside an existing module updates
+the registry in the same commit, with a supersession entry for the identifier it replaces and an
+anchor for the statement the manuscripts must now carry. Under that contract, a strengthening that
+reaches the verification notes and the guards and not the papers is caught at the next run; a
+strengthening that reaches neither the papers nor the registry is a contract violation, caught in
+review and not by the gate.
 
 ## The rule
 
@@ -22,20 +30,23 @@ has one of five dispositions:
 | disposition | meaning |
 |---|---|
 | `current` | the manuscripts state the family's conclusion in the form of its strongest theorem, and the registry names anchors that must be present |
-| `consistent-uncited` | the manuscripts state the conclusion in their own derivation and place no kernel pointer; the wording is consistent, and a pointer pass is an owner decision |
-| `scope-consistent` | the manuscripts carry the family's scope qualification; the positive result itself is not narrated |
+| `consistent-uncited` | the manuscripts state the conclusion in their own derivation and place no kernel pointer; the wording is consistent, anchored, and a pointer pass is an owner decision |
+| `scope-consistent` | the manuscripts carry the family's scope qualification, anchored; the positive result itself is not narrated |
 | `kernel-only` | a publication-facing result with no manuscript occurrence; no manuscript sentence contradicts it; adding it is an owner decision |
 | `verification-only` | helper lemmas, assembly, boundary ledgers, countercontrols and independence scaffolding; no manuscript propagation |
 
-A citation of a superseded identifier is legitimate only in a paragraph that also cites the
-successor, which is how a historical form (the five-condition characterization, the OI⁺ layered
-form, the dagger-stable package) is stated as what it is next to the current statement.
+The three dispositions under which the manuscripts carry the family, `current`,
+`consistent-uncited` and `scope-consistent`, each require at least one anchor, so a result the
+manuscripts are recorded as carrying cannot disappear from them unnoticed. A citation of a
+superseded identifier is legitimate only in a paragraph that also cites the successor, which is
+how a historical form (the five-condition characterization, the OI⁺ layered form, the
+dagger-stable package) is stated as what it is next to the current statement.
 
 ## The census at this commit
 
 | family | modules | disposition | manuscript |
 |---|---|---|---|
-| representation bridge and counting | 7 | consistent-uncited | SM: the cubic counting layer, stated in the paper's own derivation |
+| representation bridge and counting | 7 | consistent-uncited | SM §4.6: the cubic counting layer, stated in the paper's own derivation, anchored at the link-representation decomposition and its multiplicities |
 | equivalence chain and memory | 17 | consistent-uncited | Main §3.4: the finite-horizon equivalence, memory and necessity, separability threshold |
 | Hamiltonian reconstruction | 11 | current | GR §3.3: the two-branch D-gauge theorem, thermodynamic orientation |
 | coherent completions | 16 | current | GR §3.3: lift obstructions, the coherent-completion classification, the orientation no-go; the quotients underwrite no manuscript statement |
@@ -79,8 +90,10 @@ registry keeps them `kernel-only` until it is taken.
 
 ## What this note does not claim
 
-That the `consistent-uncited` families have been re-derived against the kernel statement by
-statement; the disposition records that the paper's own derivation carries them and that no kernel
-pointer is placed. That the census reads the generated `.tex` forms beyond what `R7-MSP` pins; the
+That the gate infers semantic supersession: it checks the supersessions and anchors the registry
+records, and the registry contract of §A.35 is what makes the record complete. That the
+`consistent-uncited` families have been re-derived against the kernel statement by statement; the
+disposition records that the paper's own derivation carries them and that no kernel pointer is
+placed. That the census reads the generated `.tex` forms beyond what `R7-MSP` pins; the
 staleness check ties those to their sources. That anything here bears on the minimal-repertoire
 round, whose propagation is a separate round after its kernel merges.

@@ -1,5 +1,5 @@
 {
-  "_comment": "The Lean-to-manuscript census registry read by tools/lean_manuscript_census.py. Every OIBridge module belongs to exactly one family; every family carries a disposition; a superseded identifier may appear in a manuscript paragraph only alongside its successor. Update this file in the same commit as the kernel or manuscript change it records.",
+  "_comment": "The Lean-to-manuscript census registry read by tools/lean_manuscript_census.py. Every OIBridge module belongs to exactly one family; every family carries a disposition; a family the manuscripts carry (current, consistent-uncited, scope-consistent) names at least one anchor; a superseded identifier may appear in a manuscript paragraph only alongside its successor. Registry contract (AGENTS.md A.35): the check is complete relative to this file, so every publication-facing strengthening of a theorem inside an existing module updates this file in the same commit, with a supersession entry for the identifier it replaces and an anchor for the statement the manuscripts must now carry.",
   "manuscripts": [
     "papers/GR.md", "papers/Main.md", "papers/Explainer.md", "papers/SM.md",
     "papers/Structure.md", "papers/Substratum.md", "papers/Methodology.md",
@@ -24,8 +24,11 @@
       "name": "representation bridge and counting",
       "modules": ["Averaging", "CombRealization", "LinkDecomposition", "QuarterTurn", "TasteBranching", "GaugeDimension", "CubicIsotropy"],
       "status": "consistent-uncited",
-      "manuscript": [],
-      "note": "The cubic counting layer of the SM paper (the averaging identity, the equivariant-map dimension formula, dim Hom_G(V6,V6) = 3). The paper states the results in its own derivation; no kernel pointer is placed in SM.md. A pointer pass is an owner decision."
+      "manuscript": [
+        {"file": "papers/SM.md", "anchor": "$6=T_1(3)\\oplus E(2)\\oplus A_1(1)$"},
+        {"file": "papers/SM.md", "anchor": "n(A₁) = 1, n(E) = 1, n(T₁) = 1"}
+      ],
+      "note": "The cubic counting layer of the SM paper (the averaging identity, the equivariant-map dimension formula, dim Hom_G(V6,V6) = 3). The paper states the results in its own derivation, anchored at the link-representation decomposition and its multiplicities; no kernel pointer is placed in SM.md. A pointer pass is an owner decision."
     },
     {
       "name": "equivalence chain and memory",

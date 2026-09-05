@@ -814,8 +814,12 @@ non-compact groups. Guard `R7-INV`.
 than with the latest round. The check, run by the release gate as `lean-manuscript`, resolves every
 kernel identifier and path cited in a manuscript against `OIBridge`, refuses a paragraph that cites
 a superseded theorem without its successor, requires every module to carry one of five registry
-dispositions — current, consistent-uncited, scope-consistent, kernel-only, verification-only — and
-requires every anchor a current family names to be present in the manuscript it names. The census
+dispositions — current, consistent-uncited, scope-consistent, kernel-only, verification-only —
+requires every family under the first three to name at least one manuscript anchor, and requires
+every anchor to be present in the manuscript it names. The check is complete relative to the
+maintained registry and cannot infer that a theorem inside an existing module has become stronger;
+the registry contract of `AGENTS.md` §A.35, pinned by `R7-MSP`, requires every publication-facing
+strengthening to update the registry in the same commit. The census
 found three stale citations, all at the seam the inverse-clause result moved: the strongest
 characterization named reversible implementation locality and the dagger-stable package in GR §3.3,
 Main §3.4, the Explainer and both book chapters with their mirrors; the OI⁺ reversible-richness
