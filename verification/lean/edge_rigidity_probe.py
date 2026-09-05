@@ -2716,6 +2716,8 @@ for _rel, _t in _ms.items():
     ok_msp &= 'reversible implementation locality' not in _t1
     ok_msp &= 'carrier_general_oiplus' + 'elem' not in _t1
     ok_msp &= 'inverseaccessibility_of_generated_daggerstable' not in _t1
+    ok_msp &= 'universalreachability_of_lierank_unconditional' not in _t1
+    ok_msp &= 'typed_determined_of_oipluselem' not in _t1
 _grm = _ms['papers/GR.md']
 _grm1 = re.sub(r'\s+', ' ', _grm)
 ok_msp &= '1. *Implementation locality.*' in _grm
@@ -2725,6 +2727,13 @@ ok_msp &= 'control_of_lieRank' in _grm and 'universalReachability_of_lieRank_pos
 ok_msp &= 'elementary implementations are closed under the adjoint' not in _grm
 ok_msp &= 'No closure of the implementations under the adjoint is assumed' in _grm1
 ok_msp &= 'Inverse accessibility is not a hypothesis of the equivalence' in _grm1
+ok_msp &= 'typed_determined_of_oiPlusPos' in _grm
+ok_msp &= 'the Lie-rank clause alone already does so, with no inverse of a control consumed' in _grm1
+_tp = open(os.path.join(BRIDGE, 'OIBridge', 'TypedPositive.lean'), encoding='utf-8').read()
+ok_msp &= '#print axioms typed_determined_of_oiPlusPos' in _tp and 'sorry' not in _tp
+ok_msp &= os.path.exists(os.path.join(_msroot, 'tools', 'lean_manuscript_census.py'))
+ok_msp &= os.path.exists(os.path.join(_msroot, 'verification', 'lean-manuscript-census.json'))
+ok_msp &= '"lean-manuscript"' in open(os.path.join(_msroot, 'tools', 'release_gate.py'), encoding='utf-8').read()
 # the summaries in Main, the Explainer and both book mirrors carry the same statement
 _msum = ('implementation locality, elementary transition richness, and embedded observation, with '
          'no closure of the implementations under the adjoint and no inverse accessibility assumed')
@@ -2754,7 +2763,9 @@ check('R7-MSP', ok_msp,
       'closure and no inverse accessibility, and states the well-formedness qualification wherever '
       'the derived inverse accessibility is named; Main, the Explainer and both book mirrors carry '
       'the same summary; the elementary repertoire and the substratum endpoint are unchanged; and '
-      'the generated .tex forms carry the propagated statement.')
+      'the generated .tex forms carry the propagated statement; the typed form cites the '
+      'current package through TypedPositive; and the Lean-to-manuscript census tool and its '
+      'registry exist and run in the release gate.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

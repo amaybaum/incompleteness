@@ -96,6 +96,14 @@ def main():
         # kernel-health check it never ran.
         ("lean-axioms",
                       [sys.executable, "tools/lean_axiom_check.py", "--require-lake"]),
+        # lean-manuscript: the manuscripts against the whole kernel. Every cited
+        # identifier resolves, no paragraph cites a superseded theorem without its
+        # successor, every OIBridge module has a registry disposition, and every
+        # anchor a current family names is present. This is the check against a
+        # kernel strengthening that reaches the verification notes and guards and
+        # never reaches the papers -- which no other check here can see.
+        ("lean-manuscript",
+                      [sys.executable, "tools/lean_manuscript_census.py"]),
     ]
     # baselines are named in the TRANSFER's docs, not the manuscript tree, so
     # point the label check there when a transfer path is supplied

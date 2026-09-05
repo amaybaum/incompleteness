@@ -1482,11 +1482,14 @@ role, \texttt{OIHierarchy.OIPlus}, and the two definitions agree there,
   a passive drift and a finitely generated control family whose
   dynamical Lie algebra contains the special-unitary algebra. The finite
   reachability theorem then supplies exact unitary control (kernel:
-  \texttt{control\_of\_reversibleRichness}, from
-  \texttt{universalReachability\_of\_lieRank\_unconditional}; converse
-  \texttt{reversibleRichness\_of\_control}). Thus this is a certificate
-  of sufficient reversible richness, rather than a direct postulate that
-  every unitary transformation is available.
+  \texttt{control\_of\_reversibleRichness}; converse
+  \texttt{reversibleRichness\_of\_control}), and the Lie-rank clause
+  alone already does so, with no inverse of a control consumed (kernel:
+  \texttt{control\_of\_lieRank}, from
+  \texttt{universalReachability\_of\_lieRank\_positive} in
+  \texttt{OIBridge/PositiveReachability.lean}). Thus this is a
+  certificate of sufficient reversible richness, rather than a direct
+  postulate that every unitary transformation is available.
 \item
   \emph{Observer recursion}: a composite observable system is itself an
   admissible observable system, with its operational families inherited
@@ -1700,17 +1703,17 @@ between any two nonempty finite carriers, an outcome family is
 typed-available precisely if it is a finite typed Kraus instrument,
 rectangular Kraus operators normalized on the input carrier (kernel:
 \texttt{typed\_determined\_iff},
-\texttt{typed\_determined\_of\_oiPlusElem}). Soundness wraps a typed
-operation into the register formed by the input and output carriers and
-compresses the square Kraus operators supplied by exactness;
-completeness realizes a typed Kraus instrument by attaching a uniform
-ancilla, relabelling, running a register instrument that places each
-Kraus operator on the output factor and records its index on the
-ancilla, and discarding; the converse restricts to one carrier. The
-interface itself carries no quantum content: the typed theory whose
-branches preserve diagonal matrices satisfies every rule and is not
-quantum mechanics (kernel: \texttt{typed\_interface\_not\_quantum}).
-Hence
+\texttt{typed\_determined\_of\_oiPlusPos} in
+\texttt{OIBridge/TypedPositive.lean}). Soundness wraps a typed operation
+into the register formed by the input and output carriers and compresses
+the square Kraus operators supplied by exactness; completeness realizes
+a typed Kraus instrument by attaching a uniform ancilla, relabelling,
+running a register instrument that places each Kraus operator on the
+output factor and records its index on the ancilla, and discarding; the
+converse restricts to one carrier. The interface itself carries no
+quantum content: the typed theory whose branches preserve diagonal
+matrices satisfies every rule and is not quantum mechanics (kernel:
+\texttt{typed\_interface\_not\_quantum}). Hence
 
 \[\boxed{\begin{aligned}&\text{under the carrier-general typed operational interface,}\\ &\text{current OI substratum} + \text{continuous off-diagonal controllability}\\ &\qquad \iff\; \text{exact finite-dimensional typed operational QM}\end{aligned}}\]
 
@@ -4748,4 +4751,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: cc335880800609f47c6fc423301a450cbf9fa471af086241cc7dbc97f07992db
+% source-sha256: 8d947a4cd9a4ca6b773850663d6370007ad40bf4aeb1ef39d707dce1a0e9a481
