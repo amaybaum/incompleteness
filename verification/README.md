@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 116 modules and,
-  at this commit, 2,444 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 117 modules and,
+  at this commit, 2,500 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -910,6 +910,47 @@ gate. Eleven named results, each printing only `propext`, `Classical.choice`,
 `Quot.sound`. Not claimed: the pass asserts nothing about whether the witness satisfies any of
 A1–A6 in the manuscript sense, nothing about the strongest OI ⇒ QM claim in either direction,
 nothing about whether the lift is derivable or unique; no manuscript changes. Guard `R7-MAX`.
+
+`LIFT-AUDIT.md` and `OIBridge/LiftAudit.lean` test the first candidate for a derived
+non-configuration-level sourcing, the substratum's own CT2 layer flows, through three questions
+preregistered before any proof, each with its own outcome and none inferred from its neighbour:
+executability is not read off the continuous path, the CT2 flows are candidates and not
+operations, and one non-monomial gate is not a result. The object is a single layer involution
+`σ` of a region's configuration space, never the composite drive, and its gate flow
+`gateFlow σ t = unit (permMat σ) t` read at level `n` with the ancilla a spectator. Q1, realization,
+is positive: the gate flow is a unitary one-parameter group from the identity to the gate, its
+conjugation preserves the trace, and on a region it is the stage image of the quasilocal gate
+unitary (`gateFlow_unitary`, `gateFlow_group`, `gateFlow_one`, `gateFlow_trace`, `gateFlow_stage`).
+Q2, derived executability, is negative: `LayerFlowExecutable T σ`, availability of the conjugation
+by the gate flow at every level and time, fails in the substratum theory and in the theory of
+every configuration-level class as soon as `σ` moves a configuration, because at time one half
+the gate flow does not preserve the diagonal (`gateFlow_half_not_preservesDiag`,
+`substratumTheory_not_layerFlowExecutable`); it holds in every theory with composite unitary
+control (`layerFlowExecutable_of_control`), so it is consistent. The preregistered Q3, phase-free
+richness from `DerivedOI` and executability, is open, not established by this pass; a
+strengthened Q3′ is positive: in a theory carrying the substratum's availability
+(`SubstratumAvail`), executability of one layer flow with a moved configuration gives
+`PhaseFreeRichness` as literally stated, every transition flow between the moved configuration
+and its image at every level, by isolating that flow from the gate flow with two conjugations by
+a sign diagonal and one phase diagonal, the closed form of the transition flow's matrix
+exponential proved on the way (`exp_smul_idempotent`, `flow_transition_closedForm`,
+`gateFlow_isolation`, `phaseFree_of_layerFlowExecutable`). The preregistered Q4, under `DerivedOI`
+alone, is not established as stated; the strengthened Q4′ is proved: under `DerivedOI` and the
+substratum's availability, exact finite operational quantum mechanics is equivalent to that
+executability (`derivedOI_qm_iff_layerFlowExecutable`), instantiated on the swap layer of the
+second-order form (`derivedOI_qm_iff_layerFlowExecutable_swap`). The note records where the
+proved hypothesis is stronger than the preregistered one: the sign and phase diagonals are what
+the substratum's phase structure supplies, and `DerivedOI`'s quarter phases do not generate
+them. So `LayerFlowExecutable`, the executability of the substratum's own layer at intermediate
+times, is necessary and sufficient for quantum mechanics relative to the baseline `DerivedOI`
+with the substratum's availability; the pass does not show that the substratum's availability
+follows from `DerivedOI`, nor that this baseline is minimal, and Route A's frontier is whether
+the substratum and observer architecture derive that executability. Fifty-six named results,
+each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that the
+preregistered Q3 or Q4 holds as stated, that the executability is derived, that the
+observer-level lift is derivable or is not, that Route A is closed in either direction, that the
+carrier identification is anything but a modelling choice; no manuscript changes. Guard
+`R7-LIFT`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
