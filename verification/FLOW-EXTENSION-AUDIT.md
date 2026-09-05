@@ -171,3 +171,41 @@ Insert a sign diagonal or a non-global phase into any (L1) word. Change `Archite
 `Realized`, or any existing module. Derive `LayerFlowExecutable` from anything; it is a
 hypothesis throughout. Read availability off the CT2 path. Narrate anything in a manuscript.
 Propagate Route B. Refresh the transfer bundle.
+
+## Deferral, recorded after the preregistration
+
+The preregistration above (commit `490e03c`) is frozen and unchanged. Its Q3 endpoint is
+deferred, and no kernel statement of this round is proved, for a reason the preregistration's
+diagnostic exposed and its reading of a split anticipated only in part.
+
+**The two loopholes, in order.** At level (L2) the gadget supplies `c · flow (transition a b) t`
+for a nonzero scalar `c` of modulus less than one. The first loophole is the one the
+preregistration named: `Architecture.smul`, stated for every complex scalar, admits
+multiplication by `1/c` and turns the post-selected contraction into the unitary. The second
+was found while auditing the first, and survives the contractive restriction: `Realized`
+declares an operation realized whenever it is a finite sum of conjugations by individually
+admissible operators, with no requirement that the branches arise together from one instrument.
+With `c · flow` admissible and scalars of modulus at most one admissible, `N` identical branches
+`(1/√N) · flow` are admissible once `N ≥ 1/|c|²`, and their sum is exactly the conjugation by
+the flow, trace preserving. So the transition flow is available in the architecture closure
+under the contractive reading too, by replication of a post-selected branch whose original
+instrument has been discarded. The loss of instrument provenance in `Realized`, promoted into
+availability by `ImplementationGenerated`, is structural and not a peculiarity of the flow gadget.
+
+**The owner decision, recorded after the frozen point.** Unrestricted scalar closure is rejected
+as an operational reading, because it turns a probabilistic post-selected branch into a freely
+normalized deterministic operation; `Architecture.smul` is to be restricted to scalars of
+modulus at most one, subject to a compatibility audit, in a round of its own
+(`SCALAR-CLOSURE-AUDIT.md`). Branch-wise realization is then to be replaced by a notion that
+preserves one-instrument provenance, in a separate preregistered round that defines the
+replacement only after its tests are fixed, including the replicated post-selection as the
+countercontrol and a proof, not an assumption, of whether provenance alone removes the
+replication. The endpoint of this round is not resumed under the present objects: a fresh
+preregistration, superseding this one and citing it as provenance, is to be written from the
+main branch on which both repairs have landed.
+
+**What is retained from this round as decision-independent.** The (L1) invariant and its
+consequence for Q1 and Q2, the extremality lemma, and the gadget identity are unaffected by
+either repair and are to be carried into the superseding preregistration; the (L2) positive
+outcome by post-selection is not a result of this round and is not to be cited as one. Guard
+`R7-FLOW` is not written; it belongs to the superseding round.
