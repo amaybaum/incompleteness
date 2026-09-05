@@ -3138,7 +3138,7 @@ check('R7-PTR', ok_ptr,
       'left consistent-uncited.')
 
 # ---- Route B, milestone B0: the consequence closure is defined from kernel names, the falsifier is
-# one named operation, the target is stated and not proved, and nothing reaches a manuscript ----
+# one named operation, the target has no unconditional proof, and nothing reaches a manuscript ----
 ok_rb0 = True
 _rb = open(os.path.join(BRIDGE, 'OIBridge', 'RouteB.lean'), encoding='utf-8').read()
 _rbflat = ' '.join(_rb.split())
@@ -3158,7 +3158,7 @@ for _nm in _rb_names:
     ok_rb0 &= ('#print axioms ' + _nm) in _rb and _nm in _rbn
 ok_rb0 &= _rb.count('#print axioms') == len(_rb_names)
 # the closure is exactly the five conjuncts, the core form adds the sealed core, the target is a
-# definition with no proof anywhere
+# definition whose only proof consumes the sealed-core hypothesis
 ok_rb0 &= ('def DerivedOI (T : FiniteOperationalTheory A) : Prop := ReversibleImplementationLocality T ∧ '
            'EmbeddedObservation T ∧ ExchangesAvailable T ∧ PhasesAvailable T ∧ ReadWriteAvailable T') in _rbflat
 ok_rb0 &= 'def DerivedOICore (T : FiniteOperationalTheory (Fin 2)) : Prop := DerivedOI T ∧ RealizesSealedOICore T' in _rbflat
@@ -3181,8 +3181,17 @@ for _t in ('Outcome 1 — a countertheory exists', 'Outcome 2 — every candidat
            'from kernel names', 'The falsifier', 'The B1 target, stated', 'What would falsify Outcome 1 at B1',
            'What would falsify Outcome 2', 'Nineteen named results', 'What this note does not claim',
            'The candidate, certified up to the core', 'target_of_substratum_core',
-           'RouteBTarget', 'No proof is given and none is asserted'):
+           'RouteBTarget', 'No unconditional proof is given and none is asserted',
+           'consumes the sealed core for the substratum theory as its hypothesis',
+           'additionally requires `RealizesSealedOICore T`'):
     ok_rb0 &= _t in _rbn1
+# the stale absolute forms are rejected in the module, the note and the README
+for _t in (_rbflat, _rbn1, _rd1):
+    for _bad in ('with no proof.', 'No proof is given and none is asserted', 'is stated and not proved',
+                 'stated and not proved', 'no proof anywhere', 'is a further consequence'):
+        ok_rb0 &= _bad not in _t
+ok_rb0 &= 'no unconditional proof' in _rbflat and 'no unconditional proof' in _rbn1.lower() and 'no unconditional proof' in _rd1
+ok_rb0 &= 'additionally requires the sealed OI core' in _rbflat
 for _bad in ('a countertheory has been constructed', 'the countertheory exists', 'Outcome 1 holds',
              'Outcome 1 is proved', 'Outcome 2 holds', 'Outcome 2 is proved',
              'independence is proved', 'the drive is independent of OI',
@@ -3204,7 +3213,8 @@ check('R7-RB0', ok_rb0,
       'exactly its nineteen results; the substratum theory satisfies the closure and lacks the '
       'falsifier, and the only proof of the target consumes the sealed core as a hypothesis; DerivedOI is exactly the five conjuncts, DerivedOICore adds the '
       'sealed core, the falsifier is the unavailability of conjChannel rot at level one, the target '
-      'is a definition with no proof, and the reduction is stated as in the note; the note records '
+      'is a definition with no unconditional proof and its only proof consumes the sealed-core '
+      'hypothesis, the stale absolute forms are absent, and the reduction is stated as in the note; the note records '
       'the status, the two preregistered outcomes, the closure table, the falsifier, the target and '
       'its non-claims, and asserts neither that a countertheory exists nor that the drive is '
       'independent; no manuscript carries Route B; the registry classifies the module as '

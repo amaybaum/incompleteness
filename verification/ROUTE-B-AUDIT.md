@@ -7,7 +7,7 @@
 
 **Status: B0 complete, the question fixed and the candidate certified up to one conjunct.** The
 consequence closure `DerivedOI` is defined from kernel names, the falsifier is one named operation,
-the target is stated as a proposition with no proof, and exact quantum mechanics is shown to satisfy
+the target is stated as a proposition with no unconditional proof, and exact quantum mechanics is shown to satisfy
 the closure so that the closure is consistent. The substratum-generated theory satisfies the
 closure on every carrier and lacks the falsifier on the two-state carrier, both kernel-checked, so
 B1 is one question: whether that theory realizes the sealed OI core. Whether it does is open.
@@ -50,7 +50,7 @@ two derivations.
 | `PhasesAvailable T` — the quarter phase on every state at every level | `phaseOperator_supplied`, `phase_monomial` | `phasesAvailable_of_control` |
 | `ReadWriteAvailable T` — every read-write operator of every read-write family | `readWriteOperator_supplied`, `readWriteOperator_monomial` | `readWriteAvailable_of_control` |
 
-On the two-state carrier `DerivedOICore T` adds `RealizesSealedOICore T`: the core's C1–C4, the
+For the two-state target, `DerivedOICore T` additionally requires `RealizesSealedOICore T`: the core's C1–C4, the
 passive step and the control as transported permutation channels at level four, the native visible
 readout, and the realized comb agreeing with the classical OI comb (`core_isC1C4`; for quantum
 mechanics `realizesSealedOICore_of_control`, `qm_implies_oiCore`).
@@ -96,7 +96,9 @@ So a countertheory must fail this named operation.
 > `RouteBTarget := ∃ T : FiniteOperationalTheory (Fin 2), DerivedOICore T ∧ FalsifierUnavailable T`.
 
 A witness separates the closure from phase-free richness (`target_separates`) and is not exact
-finite operational quantum mechanics (`target_not_qm`). No proof is given and none is asserted.
+finite operational quantum mechanics (`target_not_qm`). No unconditional proof is given and none is
+asserted; the one proof in the corpus, `target_of_substratum_core` below, consumes the sealed core
+for the substratum theory as its hypothesis.
 
 **The candidate, certified up to the core.** The substratum theory
 `substratumTheory A := genTheory substratumClass substratumClass_arch A` satisfies `DerivedOI` on
