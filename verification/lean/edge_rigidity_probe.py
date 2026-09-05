@@ -2871,8 +2871,20 @@ ok_msp &= 'no stronger minimality of the one driven transition is claimed' in _g
 ok_msp &= '2. *Elementary transition richness.*' not in _grm
 ok_msp &= 'whether the phase or other parts of the repertoire can be eliminated remains open' not in _grm1
 for _bad in ('exactly when D is odd', 'exactly when `D` is odd', 'exactly on odd carriers',
-             'exactly at odd D', 'the repertoire is minimal', 'minimal repertoire is settled'):
+             'exactly at odd D', 'the repertoire is minimal', 'minimal repertoire is settled',
+             'least discrete', 'smallest discrete', 'minimal discrete', 'minimal repertoire',
+             'positive word in the flows, the controls, and the phases',
+             'On a carrier with two or fewer states the generated algebra'):
     ok_msp &= _bad not in _grm1
+# the owner's three wording repairs: scalar phases of the positive monoid distinguished from the
+# repertoire, the obstruction stated at two states with descent for the levels with two or fewer,
+# and the two-element discrete form stated as sufficient rather than least
+ok_msp &= 'up to a global scalar phase that acts trivially on its conjugation channel' in _grm1
+ok_msp &= 'not an operation of the repertoire' in _grm1
+ok_msp &= 'On a two-state carrier the drive and the exchange commute' in _grm1
+ok_msp &= 'the levels with two or fewer states inherit control instead from the level with three times as many states' in _grm1
+ok_msp &= 'the two-element discrete form the kernel formalizes, sufficient for every exchange' in _grm1
+ok_msp &= 'no claim that a smaller discrete resource is excluded' in _grm1
 ok_msp &= 'carrier_general_oiPlusMin' in _ms['papers/Main.md']
 ok_msp &= '#print axioms typed_determined_of_oiPlusMin' in _tp
 for _nm in ('"carrier_general_oiPlusPos": "carrier_general_oiPlusMin"', '"oiPlusPos_iff_qm": "oiPlusMin_iff_qm"',
