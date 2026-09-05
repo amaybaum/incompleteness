@@ -3087,7 +3087,7 @@ _ptr_pins = {
         ('*Proof.* Modulo phases the Weyl operators', '`entanglementBreaking_twirl`', '`not_entanglementBreaking_twirl`', '`exists_lagrangian_tuple`', '`isotropic_iff_commute`', '`separable_imp_ppt`'),
         ('*The revival counterexample and the doubly-stochastic obstruction', '`c3_necessity`', '`card_hidden_ge_two_pow_Istar`', '`c3_necessity_and_capacity`'),
         ('*Proof (constructive).* Let $D$ be a common denominator', '`S_imp_D`'),
-        ('*($Q_{\\mathrm{fb}}$) the laws realizable', '`finite_horizon_equivalence`', '`S_imp_D`'),
+        ('*($Q_{\\mathrm{fb}}$) the laws realizable', '`finite_horizon_equivalence`', '`S_imp_D`', '`permMatrix_mem_unitaryGroup`', '`isDiag_Phi`'),
         ('*(c) **Capacity floor.**', '`unavoidable_hidden_predictive_memory`', '`distinguishability_floor`', '`capacity_floor`'),
         ('Each added principle is independently necessary', '`carrier_general_oiPlusMin`', '`oiPlusMin_iff_qm`', '`typed_determined_iff`', '`typed_determined_of_oiPlusMin`', '`closure_iUnion_stage`', '`quasiState_unique`', '`driveQ_isContinuousPath`', '`driveQ_one_eq_heisQ`', '`substratum_plus_control_qm`'),
         ('**Passive observation, kept apart', '`complete_passive_iff_commutative`', '`passive_nondiscriminating`', '`internal_branch_eq_blockPart`', '`qm_implies_oiCore`')),
@@ -3119,6 +3119,7 @@ for _rel, _t in _ptr_texts.items():
 # the generated forms carry the pointers, and the registry records both families as current
 for _rel, _nm in (('papers/SM.tex', 'theorem_7'), ('papers/SM.tex', 'finrank_intertwiners'),
                   ('papers/Main.tex', 'finite_horizon_equivalence'),
+                  ('papers/Main.tex', 'permMatrix_mem_unitaryGroup'), ('papers/Main.tex', 'isDiag_Phi'),
                   ('papers/Main.tex', 'unavoidable_hidden_predictive_memory'),
                   ('papers/Main.tex', 'entanglementBreaking_twirl')):
     ok_ptr &= _nm in open(os.path.join(_msroot, _rel), encoding='utf-8').read().replace('\\_', '_')

@@ -46,8 +46,8 @@ dagger-stable package) is stated as what it is next to the current statement.
 
 | family | modules | disposition | manuscript |
 |---|---|---|---|
-| representation bridge and counting | 7 | current | SM Theorem 7, its proof, Corollary 1a, Theorems 8 and 16: kernel pointers at the statements (`theorem_7`, `finrank_intertwiners`, `ohInvariant_iff`, `theorem_8`, `theorem_16`) |
-| equivalence chain and memory | 17 | current | Main §3.4 and §3.2, SM Theorem 19: kernel pointers at the statements (`finite_horizon_equivalence`, `S_imp_D`, `c3_necessity`, `unavoidable_hidden_predictive_memory`, `entanglementBreaking_twirl`, `theorem_19`); the §1.2 lemmas and the supporting uniqueness results stay in the papers' own derivations |
+| representation bridge and counting | 7 | current | SM Theorem 7, Corollary 1a, Theorems 8 and 16: kernel pointers at the proof paragraphs that follow the statements (`theorem_7`, `finrank_intertwiners`, `ohInvariant_iff`, `theorem_8`, `theorem_16`) |
+| equivalence chain and memory | 17 | current | Main §3.4 and §3.2, SM Theorem 19: kernel pointers at the proof or list paragraphs that follow the statements (`finite_horizon_equivalence`, `S_imp_D`, `permMatrix_mem_unitaryGroup`, `isDiag_Phi`, `c3_necessity`, `unavoidable_hidden_predictive_memory`, `entanglementBreaking_twirl`, `theorem_19`); the §1.2 lemmas and the supporting uniqueness results stay in the papers' own derivations |
 | Hamiltonian reconstruction | 11 | current | GR §3.3: the two-branch D-gauge theorem, thermodynamic orientation |
 | coherent completions | 16 | current | GR §3.3: lift obstructions, the coherent-completion classification, the orientation no-go; the quotients underwrite no manuscript statement |
 | instruments, dilation and assembly | 16 | verification-only | machinery of the completion classification; `countermodel` is cited as a witness |
@@ -86,7 +86,8 @@ typed and quasilocal scopes, the reconstruction and coherent-completion results 
 ## No family without a manuscript occurrence
 
 Every publication-facing family is carried by the manuscripts under `current` or
-`scope-consistent`, with kernel pointers at the principal statements; `consistent-uncited` is
+`scope-consistent`, with kernel pointers at the proof or list paragraphs that follow the principal statements,
+the statement lines and the coverage ledger untouched; `consistent-uncited` is
 defined and, after the pointer pass over the SM counting layer and Main §3.4, held by no family;
 the one `verification-only` family is machinery by design. OI-N is narrated in one paragraph of Main §3.4 and one of the Explainer, kept outside the
 assumptions and arrows of the OI→QM characterization, with the N4 anti-conflation in the same

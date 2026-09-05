@@ -873,10 +873,11 @@ substratum endpoint is unchanged; OI-N is narrated in one paragraph of Main §3.
 Explainer, outside the assumptions and arrows of the characterization, with the N4 anti-conflation
 in the same paragraph (theory-insensitive, no evidence of a hidden ontology, no statement that QM
 rests on OI); guard `R7-OINN`. The SM counting layer and the Main §3.4 equivalence chain carry
-kernel pointers at their principal statements (`theorem_7`, `finrank_intertwiners`,
+kernel pointers at the proof or list paragraphs that follow their principal statements, the
+statement lines and the coverage ledger untouched (`theorem_7`, `finrank_intertwiners`,
 `ohInvariant_iff`, `theorem_8`, `theorem_16`, `theorem_19`; `finite_horizon_equivalence`,
-`S_imp_D`, `c3_necessity`, `unavoidable_hidden_predictive_memory`,
-`entanglementBreaking_twirl`), both families current, pointers only and no restatement; guard
+`S_imp_D`, `permMatrix_mem_unitaryGroup`, `isDiag_Phi`, `c3_necessity`,
+`unavoidable_hidden_predictive_memory`, `entanglementBreaking_twirl`), both families current, pointers only and no restatement; guard
 `R7-PTR`. CT2 is narrated in GR §3.3's continuous-time paragraph, Main §2.3 and the
 quasilocal summaries: the depth-two factorization, the two layer groups, and the norm-continuous
 path of local `*`-automorphisms from the identity to the update's Heisenberg action
