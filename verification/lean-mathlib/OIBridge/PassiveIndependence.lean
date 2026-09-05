@@ -2,15 +2,16 @@ import OIBridge.CompletedOI
 import OIBridge.PassiveObservation
 
 /-!
-# Passive incompleteness and the OI core are logically independent (OI-N4)
+# Passive incompleteness is theory-insensitive, and carries no information about the OI core (OI-N4)
 
 `OICore T` says that a finite operational theory `T` on the qubit realizes the sealed OI core:
 the passive step and the control of the hidden-memory gadget are available as permutation
 channels at ancilla level four, and the native readout reproduces the classical OI comb. It is a
 statement about which operations `T` makes available. **Passive incompleteness** is the property
 OI-N1 proved of the matrix algebra: no passive instrument separates states. This file relates the
-two at the level of theories, and the relation is independence — in a sharper form than a pair
-of countermodels.
+two at the level of theories. The exact logic is asymmetric: one implication holds, vacuously,
+and the other fails; what the two results show together is that passive incompleteness is
+theory-insensitive and therefore non-discriminating with respect to the OI core.
 
 * **Passive incompleteness is carrier-intrinsic** (`passivelyIncomplete_of_card`,
   `passivelyIncomplete_qubit`). Define `PassivelyIncomplete T`: no instrument *available in `T`*
@@ -20,11 +21,13 @@ of countermodels.
   theory built here, `labelTheory` — every composite operation keeps the ancilla label, so
   nothing can move information between ancilla values — does not (`label_not_oiCore`): the OI
   control `τ` flips the ancilla's second bit and is therefore unavailable (`tau_moves_label`).
-* **The diagram** (`passive_independence`). `OICore T → PassivelyIncomplete T` holds for every
-  `T`, but only because the conclusion holds for every `T`; the hypothesis is idle
-  (`oiCore_to_passive_vacuous` is proved from N1 alone). `PassivelyIncomplete T → OICore T` fails
-  (`passivelyIncomplete_without_oiCore`, witness `labelTheory`). So neither notion carries
-  information about the other: one is constant across theories, the other is not.
+* **The diagram** (`passive_nondiscriminating`). `OICore T → PassivelyIncomplete T` holds for
+  every `T`, but only vacuously: the consequent holds for every `T`, and the proof does not
+  consult the hypothesis (`oiCore_to_passive_vacuous` is N1 alone). `PassivelyIncomplete T →
+  OICore T` fails (`passivelyIncomplete_without_oiCore`, witness `labelTheory`). So passive
+  incompleteness, being constant across theories, carries no discriminatory information about
+  whether the OI core is realized. The two notions are orthogonal: one is fixed by the observable
+  algebra, the other by the theory's hidden-memory and control structure.
 * **What does vary is the sector, not the OI status** (`sector_diagram`). Relative to the
   commutative sector — diagonal states, diagonal passivity — both `diagTheory` and `labelTheory`
   are passively *complete* (the pinching instrument is available in both); relative to the full
@@ -227,13 +230,16 @@ theorem tau_moves_label :
     coreIdx_tau_symm] at hY
   simp [unit00, Matrix.single] at hY
 
-/-- **The label theory does not realize the OI core**: the control is unavailable in it. -/
+/-- **The label theory does not realize the OI core.** `RealizesSealedOICore` is a conjunction
+whose third conjunct is the availability, at level four with the trivial outcome set, of the
+transported control `τ`; there is no existential over alternative routes, so the unavailability
+of that one channel refutes it. -/
 theorem label_not_oiCore : ¬ OICore labelTheory :=
   fun h => tau_moves_label (h.2.2.1.2 ())
 
 end NotCore
 
-/-! ### Section D — the independence diagram -/
+/-! ### Section D — the diagram: one vacuous implication, one failing converse -/
 
 section Diagram
 
@@ -257,10 +263,10 @@ theorem passive_not_implies_oiCore :
   exact label_not_oiCore (h _ (passivelyIncomplete_qubit _))
 
 /-- **OI-N4, the diagram.** Passive incompleteness holds in every theory on the qubit; the OI
-core holds in some (`diagTheory`) and fails in others (`labelTheory`). The two notions are
-logically independent in the strong sense that one is constant across theories and the other is
-not: no implication between them carries information. -/
-theorem passive_independence :
+core holds in some (`diagTheory`) and fails in others (`labelTheory`). Passive incompleteness is
+theory-insensitive, so it carries no discriminatory information about whether the OI core is
+realized: the forward implication is vacuous and the converse fails. -/
+theorem passive_nondiscriminating :
     (∀ T : FiniteOperationalTheory (Fin 2), PassivelyIncomplete T)
     ∧ (∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ PassivelyIncomplete T)
     ∧ (∃ T : FiniteOperationalTheory (Fin 2), ¬ OICore T ∧ PassivelyIncomplete T) :=
@@ -344,7 +350,7 @@ theorem sector_diagram :
 #print axioms oiCore_to_passive_vacuous
 #print axioms passivelyIncomplete_without_oiCore
 #print axioms passive_not_implies_oiCore
-#print axioms passive_independence
+#print axioms passive_nondiscriminating
 #print axioms pinching_isKrausFamily
 #print axioms pinching_preservesDiag
 #print axioms diag_passivelyCompleteOnDiagonal

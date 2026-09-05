@@ -106,7 +106,7 @@ matrix is stated. "Passive" is the nonselective channel fixing the algebra, and 
 separation of block-diagonal density matrices by outcome laws; both are the definitions N1 fixed,
 transported to the direct sum.
 
-## OI-N4 — relation to `OICore`: proved, as independence
+## OI-N4 — relation to `OICore`: proved, as theory-insensitivity
 
 `OIBridge/PassiveIndependence.lean`. `OICore T` says a finite operational theory `T` on the qubit
 realizes the sealed OI core: the passive step `σ` and the control `τ` of the hidden-memory gadget
@@ -128,17 +128,20 @@ closes under the structure's rules; the OI control `τ` flips the ancilla's seco
 unit at composite index `(0, 0)` to `(0, 1)` (`coreIdx_tau_symm`, `tau_moves_label`), so it is
 unavailable, and `labelTheory` does not realize the core (`label_not_oiCore`).
 
-**The diagram** (`passive_independence`):
+**The diagram** (`passive_nondiscriminating`):
 
 > every `T` is passively incomplete; some `T` realizes the OI core (`diagTheory`); some `T` does not
 > (`labelTheory`).
 
 So `OICore T → PassivelyIncomplete T` holds for every `T`, but the proof does not consult the
 hypothesis (`oiCore_to_passive_vacuous` is N1 on the carrier); and `PassivelyIncomplete T → OICore T`
-fails (`passive_not_implies_oiCore`, `passivelyIncomplete_without_oiCore`). Neither notion carries
-information about the other: one is constant across theories and the other is not. This is the
-result that keeps OI-N from being misread as a hidden-ontology necessity theorem — passive
-incompleteness holds in a theory that realizes no OI core whatever.
+fails (`passive_not_implies_oiCore`, `passivelyIncomplete_without_oiCore`). The exact logic is
+asymmetric — one implication holds, vacuously, and the other does not — and the content is that
+passive incompleteness is theory-insensitive on a nontrivial full matrix algebra, so it carries no
+discriminatory information about whether the OI core is realized. The two notions are orthogonal:
+one is fixed by the observable algebra, the other by the theory's hidden-memory and control
+structure. This is the result that keeps OI-N from being misread as a hidden-ontology necessity
+theorem — passive incompleteness holds in a theory that realizes no OI core whatever.
 
 **What varies is the sector, not the OI status** (`sector_diagram`). `PassivelyCompleteOnDiagonal T`
 asks for an available family, completely positive, whose nonselective channel fixes every diagonal

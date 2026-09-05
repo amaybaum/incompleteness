@@ -691,8 +691,8 @@ printing only `propext`, `Classical.choice`, `Quot.sound`. Scope: the block-diag
 object; the Wedderburn–Artin identification of an abstract finite-dimensional C*-algebra with it is
 not formalized.
 
-`OIBridge/PassiveIndependence.lean` is **OI-N4**: passive incompleteness and the OI core are
-logically independent, in a sharper form than a pair of countermodels. `PassivelyIncomplete T`
+`OIBridge/PassiveIndependence.lean` is **OI-N4**: passive incompleteness is theory-insensitive,
+and carries no discriminatory information about the OI core. `PassivelyIncomplete T`
 says no family a theory `T` makes available on the system is both passive and state-separating;
 by N1 it holds for every theory on a carrier with two or more states
 (`passivelyIncomplete_of_card`, `passivelyIncomplete_qubit`) — it is carrier-intrinsic and does
@@ -702,7 +702,9 @@ on composite operations — does not, because the OI control `τ` flips the anci
 (`tau_moves_label`, `label_not_oiCore`). So `OICore T → PassivelyIncomplete T` holds for every
 `T` with the hypothesis idle (`oiCore_to_passive_vacuous` is N1 alone), and
 `PassivelyIncomplete T → OICore T` fails (`passivelyIncomplete_without_oiCore`,
-`passive_not_implies_oiCore`); `passive_independence` is the diagram. What varies is the sector:
+`passive_not_implies_oiCore`); `passive_nondiscriminating` is the diagram, one vacuous
+implication and one failing converse, the two notions orthogonal — one fixed by the observable
+algebra, the other by the theory's hidden-memory and control structure. What varies is the sector:
 the pinching instrument is a Kraus family preserving diagonals (`pinching_isKrausFamily`,
 `pinching_preservesDiag`), so both theories are passively complete on their commutative sector and
 passively incomplete on the full algebra (`sector_diagram`) — passive (in)completeness tracks the

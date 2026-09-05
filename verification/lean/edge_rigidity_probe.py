@@ -2402,7 +2402,7 @@ ok_oin &= 'def IsPassiveInstrument' in _po and 'def SeparatesStates' in _po and 
 # the module and the note both keep N3 and N4 open and refuse the hidden-ontology reading
 ok_oin &= 'Not claimed' in _po and 'OI-N3' in _po and 'OI-N4' in _po
 ok_oin &= 'Status: exploratory' in _on and 'OI-N3 — the exact boundary: proved, as a classification' in _on
-ok_oin &= 'OI-N4 — relation to `OICore`: proved, as independence' in _on
+ok_oin &= 'OI-N4 — relation to `OICore`: proved, as theory-insensitivity' in _on
 ok_oin &= 'OI-N5 — the internal observer: not started' in _on
 ok_oin &= 'What this thread does not claim' in _on
 for _bad in ('QM requires OI', 'quantum mechanics requires observational incompleteness',
@@ -2439,13 +2439,13 @@ ok_oin &= 'All thirteen named results print' in _on and 'Wedderburn' in _on
 for _bad in ('infinite-dimensional algebras', 'OICore implies passive',
              'passive incompleteness implies OICore'):
     ok_oin &= not _asserted(_on, _bad) and not _asserted(_co, _bad)
-# ---- OI-N4: passive incompleteness and the OI core are independent ----
+# ---- OI-N4: passive incompleteness is theory-insensitive, non-discriminating for the OI core ----
 _pi = open(os.path.join(BRIDGE, 'OIBridge', 'PassiveIndependence.lean'), encoding='utf-8').read()
 ok_oin &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _pi) is None and 'native_decide' not in _pi
 for _nm in ('passivelyIncomplete_of_card', 'passivelyIncomplete_qubit', 'keepsLabels_localLuders',
             'tau_moves_label', 'label_not_oiCore', 'oiCore_to_passive_vacuous',
             'passivelyIncomplete_without_oiCore', 'passive_not_implies_oiCore',
-            'passive_independence', 'pinching_isKrausFamily', 'pinching_preservesDiag',
+            'passive_nondiscriminating', 'pinching_isKrausFamily', 'pinching_preservesDiag',
             'diag_passivelyCompleteOnDiagonal', 'label_passivelyCompleteOnDiagonal',
             'sector_diagram'):
     ok_oin &= ('#print axioms ' + _nm) in _pi
@@ -2460,8 +2460,17 @@ ok_oin &= '∃ T : FiniteOperationalTheory (Fin 2), PassivelyIncomplete T ∧ ¬
 # any OI core, and neither claims a completion condition for the witness theory
 ok_oin &= 'realizes no OI core' in _pi and 'realizes no OI core' in _on
 ok_oin &= 'All fourteen named results print' in _on
-for _bad in ('labelTheory satisfies', 'labelTheory is physical', 'evidence for a hidden ontology'):
+for _bad in ('labelTheory satisfies', 'labelTheory is physical', 'evidence for a hidden ontology',
+             'evidence for a hidden OI ontology'):
     ok_oin &= not _asserted(_pi, _bad) and not _asserted(_on, _bad) and not _asserted(_rd, _bad)
+# the exact logic is asymmetric: one implication holds (vacuously) and the converse fails. The
+# symmetric vocabulary is forbidden outright, and the theory-insensitive reading is required.
+for _t in (_pi, _on, _rd):
+    for _bad in ('neither implies the other', 'logically independent', 'neither notion carries',
+                 'neither implies', 'no implication between them'):
+        ok_oin &= _bad not in _t
+    ok_oin &= 'theory-insensitive' in _t
+ok_oin &= 'vacuous' in _pi and 'vacuous' in _on and 'orthogonal' in _pi and 'orthogonal' in _on
 # two scope points the kernel does not carry: the intrinsic-to-ambient transport through the block
 # conditional expectation is not formalized, so the statements are for the ambient definition;
 # and the classification is one direction (every passive instrument induces a stochastic
@@ -2482,10 +2491,11 @@ check('R7-OIN', ok_oin,
       'block preservation rather than assuming it, and keeps to the block-diagonal form; the '
       'passive-independence module carries no sorry and no native_decide, prints the axioms of all '
       'fourteen named results, records the forward implication as vacuous and the converse as '
-      'failing through a theory that realizes no OI core, and claims no completion condition for '
-      'that witness; module and note both mark the thread exploratory, record N3 as proved as a '
-      'classification and N4 as proved as independence, keep the internal observer (N5) open, and '
-      'assert neither that QM requires OI nor that a hidden ontology is forced.')
+      'failing through a theory that realizes no OI core, claims no completion condition for '
+      'that witness, and states the result as theory-insensitivity rather than as a symmetric '
+      'independence; module and note both mark the thread exploratory, record N3 as proved as a '
+      'classification and N4 as proved as theory-insensitivity, keep the internal observer (N5) '
+      'open, and assert neither that QM requires OI nor that a hidden ontology is forced.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
