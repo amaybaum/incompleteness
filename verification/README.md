@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 115 modules and,
-  at this commit, 2,433 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 116 modules and,
+  at this commit, 2,444 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -878,6 +878,32 @@ whose A1–A6 are not `DerivedOI`; that `DerivedOI` exhausts what bare OI entail
 substratum theory is a physical theory beyond the finite operational formalism; that any
 manuscript statement changes, which is a propagation round of its own. Guards `R7-RB0` and
 `R7-RB1`.
+
+`MANUSCRIPT-AXIOM-AUDIT.md` and `OIBridge/ManuscriptAxioms.lean` test the Route B witness against
+the manuscripts' own structural assumptions A1–A6 of the Substratum paper, each quoted verbatim
+and given a representability verdict before any proof. Every one of the six is a condition on a
+substratum `(S, φ)`; what a finite operational theory carries of a substratum is the realized
+sealed core, so A1 and A2 have faithful theory-level forms relative to it (`A1Realized`: the core
+has eight states and every level is finite; `A2Realized`: the dynamics and its inverse are
+one-outcome transported permutation channels) and both hold for the witness
+(`substratumTheory_A1`, `substratumTheory_A2`) and for quantum mechanics (`a1_every_theory`,
+`a2_of_control`), so neither separates the two. A3–A6, bounded coupling degree, center
+independence, linearity of the wave equation and background independence, are conditions on the
+spatial and algebraic form of the substratum with no faithful form in the interface; each is
+recorded as a formalization gap with the missing interface named, a substratum structure with
+sites, a uniformly bounded coupling graph, translations, an additive alphabet and internal
+indices, a derived sourcing map, and the observer-level lift, and no weakened predicate is
+defined. The configuration-level sourcing bound explains the gap: for any architecture all of
+whose operators are monomial (`ConfigurationLevel`, of which the substratum class is the
+largest), the generated theory is contained in the witness (`configurationLevel_availExt_le`),
+lacks the falsifier (`configurationLevel_falsifierUnavailable`), and when label-invariant fails
+phase-free richness and is not quantum mechanics (`configurationLevel_not_phaseFree`,
+`configurationLevel_not_qm`), so no condition on `(S, φ)` consumed through configuration-level
+sourcing yields the drive, which can enter only through the observer-level lift the SM paper
+records as open. Eleven named results, each printing only `propext`, `Classical.choice`,
+`Quot.sound`. Not claimed: the pass asserts nothing about whether the witness satisfies A3–A6,
+nothing about the strongest OI ⇒ QM claim in either direction, and nothing about whether the
+lift is derivable; no manuscript changes. Guard `R7-MAX`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

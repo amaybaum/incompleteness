@@ -165,6 +165,7 @@ import OIBridge.PositiveReachability
 import OIBridge.TypedPositive
 import OIBridge.MinimalRepertoire
 import OIBridge.RouteB
+import OIBridge.ManuscriptAxioms
 
 namespace OIBridge
 
