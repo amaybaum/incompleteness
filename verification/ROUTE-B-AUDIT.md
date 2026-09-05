@@ -5,11 +5,13 @@
 (the package whose third conjunct is in question); guard `R7-RB0` in
 `verification/lean/edge_rigidity_probe.py`.
 
-**Status: B0 complete, the question fixed and no model built.** The consequence closure
-`DerivedOI` is defined from kernel names, the falsifier is one named operation, the target is
-stated as a proposition with no proof, and exact quantum mechanics is shown to satisfy the closure
-so that the closure is consistent. Whether a countertheory exists is open; B1 attempts the smallest
-model. Nothing here is a manuscript claim.
+**Status: B0 complete, the question fixed and the candidate certified up to one conjunct.** The
+consequence closure `DerivedOI` is defined from kernel names, the falsifier is one named operation,
+the target is stated as a proposition with no proof, and exact quantum mechanics is shown to satisfy
+the closure so that the closure is consistent. The substratum-generated theory satisfies the
+closure on every carrier and lacks the falsifier on the two-state carrier, both kernel-checked, so
+B1 is one question: whether that theory realizes the sealed OI core. Whether it does is open.
+Nothing here is a manuscript claim.
 
 ## The question
 
@@ -87,7 +89,7 @@ makes every isometric conjugation available (`falsifier_available_of_control`,
 unavailable fails phase-free richness. Quantum mechanics has the falsifier available
 (`qm_not_falsifierUnavailable`).
 
-So the countertheory has to fail exactly one named operation.
+So a countertheory must fail this named operation.
 
 ## The B1 target, stated
 
@@ -96,32 +98,46 @@ So the countertheory has to fail exactly one named operation.
 A witness separates the closure from phase-free richness (`target_separates`) and is not exact
 finite operational quantum mechanics (`target_not_qm`). No proof is given and none is asserted.
 
-**What B1 attempts.** The smallest model, starting from the class already known to stay monomial
-under finite bijective read-write dynamics — the substratum class
-(`genTheory substratumClass substratumClass_arch (Fin 2)`), for which reversible implementation
-locality, embedded observation and the three availability conjuncts have the derivations in the
-table, and for which no composite unitary control exists (`substratumGen_not_control`) — extended
-only as far as the remaining conjunct, the sealed core, requires.
+**The candidate, certified up to the core.** The substratum theory
+`substratumTheory A := genTheory substratumClass substratumClass_arch A` satisfies `DerivedOI` on
+every carrier (`substratumTheory_derivedOI`: the class is structurally closed and label-invariant,
+and its exchanges, phases and read-write operators are monomial isometries, available through
+`genTheory_avail_conj`), and on the two-state carrier the falsifier is unavailable in it
+(`substratumTheory_falsifierUnavailable`: an available conjugation is a sum of monomial
+conjugations, each preserving the diagonal, which `rot` does not; the stronger statement than
+`substratumGen_not_control`, which only denies full control). `substratumTheory_candidate`
+certifies both together, and `target_of_substratum_core` reduces the target to one hypothesis:
 
-**What would falsify Outcome 1 at B1.** A derivation, from the conjuncts of `DerivedOICore`, of
-the availability of `conjChannel rot`; or a proof that the substratum-generated theory fails one
-conjunct and that every repair of that conjunct drives the transition. Either names the property
+> B1 is one question: does `substratumTheory (Fin 2)` realize the sealed OI core
+> (`RealizesSealedOICore`)?
+
+**What B1 attempts.** That one conjunct: the core's passive step and control as transported
+permutation channels at level four, the native visible readout as a family, and the realized comb
+agreeing with the classical comb. Each is a permutation conjugation or a diagonal readout, and the
+kernel's `relabel_available` derives the first two from full control, which the substratum theory
+lacks; B1 has to derive them from monomial availability instead, or find the clause that fails.
+
+**What would falsify Outcome 1 at B1.** A proof that the substratum theory fails a clause of the
+sealed core and that every repair of that clause drives the transition; or a derivation, from the
+conjuncts of `DerivedOICore`, of the availability of `conjChannel rot`. Either names the property
 Route A would have to derive from the substratum.
 
 **What would falsify Outcome 2.** A proof of `RouteBTarget`.
 
-## Fourteen named results
+## Nineteen named results
 
 `DerivedOI.implementationLocality`, `DerivedOI.closure`, `falsifier_available_of_control`,
 `falsifier_available_of_phaseFree`, `not_phaseFree_of_falsifier_unavailable`,
 `falsifier_not_monomial_not_diag`, `exchangesAvailable_of_control`, `phasesAvailable_of_control`,
 `readWriteAvailable_of_control`, `derivedOI_of_qm`, `derivedOICore_of_qm`,
-`qm_not_falsifierUnavailable`, `target_separates`, `target_not_qm`; each printing only `propext`,
-`Classical.choice`, `Quot.sound`.
+`qm_not_falsifierUnavailable`, `target_separates`, `target_not_qm`, `substratumTheory_avail_conj`,
+`substratumTheory_derivedOI`, `substratumTheory_falsifierUnavailable`, `substratumTheory_candidate`,
+`target_of_substratum_core`; each printing only `propext`, `Classical.choice`, `Quot.sound`.
 
 ## What this note does not claim
 
-That a countertheory exists, or that the substratum-generated theory is one. That `DerivedOI`
+That a countertheory exists, or that the substratum theory is one: its sealed-core conjunct is
+open, and `target_of_substratum_core` consumes it as a hypothesis. That `DerivedOI`
 exhausts what bare OI entails: it collects what the kernel derives from the substratum at this
 commit, and a later derivation enlarges it. That the drive is independent of OI, or that it is
 derivable from OI; both are the open outcomes. That anything here reaches a manuscript: the

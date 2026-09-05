@@ -3150,7 +3150,10 @@ _rb_names = ('DerivedOI.implementationLocality', 'DerivedOI.closure', 'falsifier
              'falsifier_available_of_phaseFree', 'not_phaseFree_of_falsifier_unavailable',
              'falsifier_not_monomial_not_diag', 'exchangesAvailable_of_control',
              'phasesAvailable_of_control', 'readWriteAvailable_of_control', 'derivedOI_of_qm',
-             'derivedOICore_of_qm', 'qm_not_falsifierUnavailable', 'target_separates', 'target_not_qm')
+             'derivedOICore_of_qm', 'qm_not_falsifierUnavailable', 'target_separates', 'target_not_qm',
+             'substratumTheory_avail_conj', 'substratumTheory_derivedOI',
+             'substratumTheory_falsifierUnavailable', 'substratumTheory_candidate',
+             'target_of_substratum_core')
 for _nm in _rb_names:
     ok_rb0 &= ('#print axioms ' + _nm) in _rb and _nm in _rbn
 ok_rb0 &= _rb.count('#print axioms') == len(_rb_names)
@@ -3161,14 +3164,23 @@ ok_rb0 &= ('def DerivedOI (T : FiniteOperationalTheory A) : Prop := ReversibleIm
 ok_rb0 &= 'def DerivedOICore (T : FiniteOperationalTheory (Fin 2)) : Prop := DerivedOI T ∧ RealizesSealedOICore T' in _rbflat
 ok_rb0 &= 'def FalsifierUnavailable (T : FiniteOperationalTheory (Fin 2)) : Prop := ¬ T.availExt 1 Unit (fun _ => conjChannel rot)' in _rbflat
 ok_rb0 &= 'def RouteBTarget : Prop := ∃ T : FiniteOperationalTheory (Fin 2), DerivedOICore T ∧ FalsifierUnavailable T' in _rbflat
-ok_rb0 &= 'theorem routeBTarget' not in _rb and ': RouteBTarget :=' not in _rb
+# the target is proved nowhere unconditionally: its only proof consumes the sealed core as a hypothesis
+ok_rb0 &= 'theorem routeBTarget' not in _rb
+ok_rb0 &= _rbflat.count(': RouteBTarget :=') == 1
+ok_rb0 &= 'theorem target_of_substratum_core (h : RealizesSealedOICore (substratumTheory (Fin 2))) : RouteBTarget :=' in _rbflat
+ok_rb0 &= 'theorem substratumTheory_candidate : DerivedOI (substratumTheory (Fin 2)) ∧ FalsifierUnavailable (substratumTheory (Fin 2))' in _rbflat
+ok_rb0 &= 'theorem substratumTheory_falsifierUnavailable : FalsifierUnavailable (substratumTheory (Fin 2))' in _rbflat
+ok_rb0 &= 'must fail this named operation' in _rbflat and 'exactly it' not in _rbflat
 ok_rb0 &= 'theorem not_phaseFree_of_falsifier_unavailable (T : FiniteOperationalTheory (Fin 2)) (heo : EmbeddedObservation T) (hf : FalsifierUnavailable T) : ¬ PhaseFreeRichness T' in _rbflat
 # the note: status, the two preregistered outcomes, the table, the falsifier, the target, non-claims
 ok_rb0 &= _rbn.lstrip().startswith('# Route B')
-ok_rb0 &= 'Status: B0 complete, the question fixed and no model built.' in _rbn1
+ok_rb0 &= 'Status: B0 complete, the question fixed and the candidate certified up to one conjunct.' in _rbn1
+ok_rb0 &= 'B1 is one question' in _rbn1 and 'must fail this named operation' in _rbn1
+ok_rb0 &= 'exactly one named operation' not in _rbn1 and 'exactly it' not in _rbn1
 for _t in ('Outcome 1 — a countertheory exists', 'Outcome 2 — every candidate collapses',
            'from kernel names', 'The falsifier', 'The B1 target, stated', 'What would falsify Outcome 1 at B1',
-           'What would falsify Outcome 2', 'Fourteen named results', 'What this note does not claim',
+           'What would falsify Outcome 2', 'Nineteen named results', 'What this note does not claim',
+           'The candidate, certified up to the core', 'target_of_substratum_core',
            'RouteBTarget', 'No proof is given and none is asserted'):
     ok_rb0 &= _t in _rbn1
 for _bad in ('a countertheory has been constructed', 'the countertheory exists', 'Outcome 1 holds',
@@ -3185,10 +3197,12 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
     ok_rb0 &= 'RouteB' not in _t and 'Route B' not in _t and 'DerivedOI' not in _t
 _rb_fam = [f for f in _ptr_reg['families'] if f['name'] == 'route B: consequence closure']
 ok_rb0 &= len(_rb_fam) == 1 and _rb_fam[0]['status'] == 'verification-only' and _rb_fam[0]['modules'] == ['RouteB']
-ok_rb0 &= 'Guard `R7-RB0`' in _rd1 and 'RouteBTarget' in _rd1 and 'Fourteen named results' in _rd1
+ok_rb0 &= 'Guard `R7-RB0`' in _rd1 and 'RouteBTarget' in _rd1 and 'Nineteen named results' in _rd1
+ok_rb0 &= 'target_of_substratum_core' in _rd1 and 'B1 is one question' in _rd1
 check('R7-RB0', ok_rb0,
       'Route B0 guard: the module carries no sorry, axiom or native_decide and prints the axioms of '
-      'exactly its fourteen results; DerivedOI is exactly the five conjuncts, DerivedOICore adds the '
+      'exactly its nineteen results; the substratum theory satisfies the closure and lacks the '
+      'falsifier, and the only proof of the target consumes the sealed core as a hypothesis; DerivedOI is exactly the five conjuncts, DerivedOICore adds the '
       'sealed core, the falsifier is the unavailability of conjChannel rot at level one, the target '
       'is a definition with no proof, and the reduction is stated as in the note; the note records '
       'the status, the two preregistered outcomes, the closure table, the falsifier, the target and '
