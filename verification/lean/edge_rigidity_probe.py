@@ -58,6 +58,7 @@ These checks exercise the same statements independently (no Lean in the loop):
 
 Usage:  python3 edge_rigidity_probe.py
 """
+import glob
 import itertools
 import json
 import os
@@ -3069,6 +3070,72 @@ check('R7-OINN', ok_oinn,
       'carries the compact form; GR carries none; the symmetric N4 vocabulary and the freeze\'s '
       'forbidden readings are absent from both papers and their generated forms; the registry '
       'carries OI-N as current with its anchors and the census note agrees.')
+
+# ---- kernel-pointer guard: the SM counting layer and the Main 3.4 equivalence chain cite their
+# current theorem names at the principal statements, and no pointer falls back to a superseded name ----
+ok_ptr = True
+_sm_md = open(os.path.join(_msroot, 'papers', 'SM.md'), encoding='utf-8').read()
+_mn_md = open(os.path.join(_msroot, 'papers', 'Main.md'), encoding='utf-8').read()
+_ptr_pins = {
+    'papers/SM.md': (
+        ('*Proof.* Characters at each conjugacy class', '`theorem_7`', '`sum_proj`', '`finrank_PT`', '`char_c4_odd`', '`chiLink`', '`card_rot`', '`card_sym`', '`card_mul_finrank_invariants`', '`finrank_intertwiners`'),
+        ('*Proof.* Inversion in $O_h$', '`ohInvariant_iff`', '`rem_littleO`', '`rem_bigO`'),
+        ('*Proof.* The 2^d = 8 BZ corners', '`theorem_8`'),
+        ('*Proof.* The Yang-Mills action', '`theorem_16`'),
+        ('*Proof.* T-invariance (Theorem 17)', '`theorem_19`')),
+    'papers/Main.md': (
+        ('*Proof.* Modulo phases the Weyl operators', '`entanglementBreaking_twirl`', '`not_entanglementBreaking_twirl`', '`exists_lagrangian_tuple`', '`isotropic_iff_commute`', '`separable_imp_ppt`'),
+        ('*The revival counterexample and the doubly-stochastic obstruction', '`c3_necessity`', '`card_hidden_ge_two_pow_Istar`', '`c3_necessity_and_capacity`'),
+        ('*Proof (constructive).* Let $D$ be a common denominator', '`S_imp_D`'),
+        ('*($Q_{\\mathrm{fb}}$) the laws realizable', '`finite_horizon_equivalence`', '`S_imp_D`', '`permMatrix_mem_unitaryGroup`', '`isDiag_Phi`'),
+        ('*(c) **Capacity floor.**', '`unavoidable_hidden_predictive_memory`', '`distinguishability_floor`', '`capacity_floor`'),
+        ('Each added principle is independently necessary', '`carrier_general_oiPlusMin`', '`oiPlusMin_iff_qm`', '`typed_determined_iff`', '`typed_determined_of_oiPlusMin`', '`closure_iUnion_stage`', '`quasiState_unique`', '`driveQ_isContinuousPath`', '`driveQ_one_eq_heisQ`', '`substratum_plus_control_qm`'),
+        ('**Passive observation, kept apart', '`complete_passive_iff_commutative`', '`passive_nondiscriminating`', '`internal_branch_eq_blockPart`', '`qm_implies_oiCore`')),
+}
+_ptr_texts = {'papers/SM.md': _sm_md, 'papers/Main.md': _mn_md}
+for _rel, _pins in _ptr_pins.items():
+    _lines = _ptr_texts[_rel].split('\n')
+    for _pin in _pins:
+        _hits = [l for l in _lines if l.startswith(_pin[0])]
+        ok_ptr &= len(_hits) == 1
+        for _nm in _pin[1:]:
+            ok_ptr &= bool(_hits) and _nm in _hits[0]
+# every pointed-to name is declared in OIBridge, and no paragraph of either paper cites a superseded
+# name without its successor beside it (the registry's supersession table, read here directly)
+_ptr_reg = json.loads(open(os.path.join(_msroot, 'verification', 'lean-manuscript-census.json'), encoding='utf-8').read())
+_ptr_decl = set()
+for _lf in glob.glob(os.path.join(BRIDGE, 'OIBridge', '*.lean')):
+    for _m in re.finditer(r'^\s*(?:@\[[^\]]*\]\s*)?(?:noncomputable\s+)?(?:protected\s+)?(?:theorem|lemma|def|abbrev|structure|instance|class)\s+([A-Za-z_][A-Za-z0-9_\'₀₁₂.]*)', open(_lf, encoding='utf-8').read(), re.M):
+        _ptr_decl.add(_m.group(1).split('.')[-1])
+for _rel, _pins in _ptr_pins.items():
+    for _pin in _pins:
+        for _nm in _pin[1:]:
+            ok_ptr &= _nm.strip('`') in _ptr_decl
+for _rel, _t in _ptr_texts.items():
+    for _old, _new in _ptr_reg['supersessions'].items():
+        for _para in _t.split('\n\n'):
+            if f'`{_old}`' in _para and f'`{_new}`' not in _para:
+                ok_ptr = False
+# the generated forms carry the pointers, and the registry records both families as current
+for _rel, _nm in (('papers/SM.tex', 'theorem_7'), ('papers/SM.tex', 'finrank_intertwiners'),
+                  ('papers/Main.tex', 'finite_horizon_equivalence'),
+                  ('papers/Main.tex', 'permMatrix_mem_unitaryGroup'), ('papers/Main.tex', 'isDiag_Phi'),
+                  ('papers/Main.tex', 'unavoidable_hidden_predictive_memory'),
+                  ('papers/Main.tex', 'entanglementBreaking_twirl')):
+    ok_ptr &= _nm in open(os.path.join(_msroot, _rel), encoding='utf-8').read().replace('\\_', '_')
+for _fam_name in ('representation bridge and counting', 'equivalence chain and memory'):
+    _fam = [f for f in _ptr_reg['families'] if f['name'] == _fam_name]
+    ok_ptr &= len(_fam) == 1 and _fam[0]['status'] == 'current' and len(_fam[0]['manuscript']) >= 5
+ok_ptr &= all(f['status'] != 'consistent-uncited' for f in _ptr_reg['families'])
+check('R7-PTR', ok_ptr,
+      'Kernel-pointer guard: SM Theorem 7, Corollary 1a, Theorems 8, 16 and 19, and Main\'s '
+      'separability threshold, C3 necessity, process dilation, finite-horizon equivalence, hidden '
+      'predictive memory, the 3.4 summary and the passive-observation paragraph each carry their '
+      'current kernel names at the end of the proof or list that follows the statement, the '
+      'statement lines themselves untouched so the coverage ledger fingerprints hold; every pointed-to name is declared in OIBridge; '
+      'no paragraph of either paper cites a superseded name without its successor; the generated '
+      'forms carry the pointers; and the registry records both families as current with no family '
+      'left consistent-uncited.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

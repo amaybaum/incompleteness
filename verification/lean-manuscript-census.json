@@ -27,21 +27,34 @@
     {
       "name": "representation bridge and counting",
       "modules": ["Averaging", "CombRealization", "LinkDecomposition", "QuarterTurn", "TasteBranching", "GaugeDimension", "CubicIsotropy"],
-      "status": "consistent-uncited",
+      "status": "current",
       "manuscript": [
         {"file": "papers/SM.md", "anchor": "$6=T_1(3)\\oplus E(2)\\oplus A_1(1)$"},
-        {"file": "papers/SM.md", "anchor": "n(A₁) = 1, n(E) = 1, n(T₁) = 1"}
+        {"file": "papers/SM.md", "anchor": "n(A₁) = 1, n(E) = 1, n(T₁) = 1"},
+        {"file": "papers/SM.md", "anchor": "`theorem_7`"},
+        {"file": "papers/SM.md", "anchor": "`finrank_intertwiners`"},
+        {"file": "papers/SM.md", "anchor": "`ohInvariant_iff`"},
+        {"file": "papers/SM.md", "anchor": "`theorem_8`"},
+        {"file": "papers/SM.md", "anchor": "`theorem_16`"}
       ],
-      "note": "The cubic counting layer of the SM paper (the averaging identity, the equivariant-map dimension formula, dim Hom_G(V6,V6) = 3). The paper states the results in its own derivation, anchored at the link-representation decomposition and its multiplicities; no kernel pointer is placed in SM.md. A pointer pass is an owner decision."
+      "note": "The cubic counting layer of the SM paper: Theorem 7 (the six-link decomposition, theorem_7 with the projector dimensions and the T1 character), the averaging identity and the equivariant-map dimension formula at its proof (card_mul_finrank_invariants, finrank_intertwiners), Corollary 1a (ohInvariant_iff, rem_littleO, rem_bigO), Theorem 8 (theorem_8), Theorem 16 (theorem_16). Kernel pointers are placed at the proof paragraphs that follow the statements, the statement lines untouched; the paper's own derivations are unchanged."
     },
     {
       "name": "equivalence chain and memory",
       "modules": ["EquivalenceChain", "FiniteEntropy", "HiddenMemory", "Equivalence", "C3Necessity", "CanonicalMeasure", "Finiteness", "FactorUniqueness", "IdempotentTrace", "Irreducibility", "KrausUniqueness", "StinespringUniqueness", "Separability", "WeylTwirl", "WeylLift", "BoundaryRank", "Reciprocity"],
-      "status": "consistent-uncited",
+      "status": "current",
       "manuscript": [
-        {"file": "papers/Main.md", "anchor": "separability threshold"}
+        {"file": "papers/Main.md", "anchor": "separability threshold"},
+        {"file": "papers/Main.md", "anchor": "`finite_horizon_equivalence`"},
+        {"file": "papers/Main.md", "anchor": "`S_imp_D`"},
+        {"file": "papers/Main.md", "anchor": "`unavoidable_hidden_predictive_memory`"},
+        {"file": "papers/Main.md", "anchor": "`c3_necessity`"},
+        {"file": "papers/Main.md", "anchor": "`entanglementBreaking_twirl`"},
+        {"file": "papers/Main.md", "anchor": "`permMatrix_mem_unitaryGroup`"},
+        {"file": "papers/Main.md", "anchor": "`isDiag_Phi`"},
+        {"file": "papers/SM.md", "anchor": "`theorem_19`"}
       ],
-      "note": "Main 3.4: the finite-horizon equivalence, the memory and necessity theorems, the Weyl-twirl separability results. Main states them with proofs; kernel pointers are not placed. A pointer pass is an owner decision."
+      "note": "Main 3.4 with kernel pointers at the proof or list paragraphs that follow the statements, the statement lines untouched: the finite-horizon stochastic-reversible-unitary equivalence (finite_horizon_equivalence, S_imp_D; permMatrix_mem_unitaryGroup, isDiag_Phi of EquivalenceChain), the process dilation (S_imp_D), C3 necessity and the per-process capacity bound (c3_necessity, card_hidden_ge_two_pow_Istar, c3_necessity_and_capacity), unavoidable hidden predictive memory (unavoidable_hidden_predictive_memory, distinguishability_floor, capacity_floor), the separability threshold in Main 3.2 (entanglementBreaking_twirl, not_entanglementBreaking_twirl, exists_lagrangian_tuple, isotropic_iff_commute, separable_imp_ppt); SM Theorem 19 (theorem_19). Lemma 1 and Lemma 3 of Main 1.2 (Finiteness, CanonicalMeasure), FactorUniqueness, IdempotentTrace, Irreducibility, KrausUniqueness, StinespringUniqueness and BoundaryRank are supporting results of the same family, stated in the papers' own derivations without pointers."
     },
     {
       "name": "Hamiltonian reconstruction",
