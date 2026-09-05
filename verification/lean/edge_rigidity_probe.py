@@ -3564,7 +3564,8 @@ check('R7-LIFT', ok_lift,
 # SubstratumAvail audited, not assumed; no executability question); Q1 the axioms as predicates
 # with A6 a gap and the wave rule an instance; Q2 the write access generates exactly the scaled
 # partial permutations, which source no phase; Q3 the third preregistered outcome, SourcedOI with
-# the gap to DerivedOI and SubstratumAvail exactly the phases; nothing asserted about the lift,
+# the exact missing conjunct to DerivedOI the phases, the failure of SubstratumAvail witnessed by
+# them and its full gap not characterized; nothing asserted about the lift,
 # executability, A6, or the manuscripts' sentences ----
 ok_sub = True
 _sa = open(os.path.join(BRIDGE, 'OIBridge', 'SubstratumInterfaceAudit.lean'), encoding='utf-8').read()
@@ -3634,15 +3635,22 @@ for _t in ('Substrate facts are not operational availability', 'is the current k
            '| A6 background independence |', '**gap**: the alphabet carries no internal index and no coupling matrix',
            '| Q1, faithful substrate representation | **as preregistered**', '| Q2, the phases | **negative**',
            '| Q3, baseline comparison | **the third preregistered outcome**',
-           'the gap to both is exactly `PhasesAvailable`', 'Where a proved statement differs from the preregistered one',
+           'so the gap to `DerivedOI` is exactly `PhasesAvailable`', 'the phases witness the failure of `SubstratumAvail`',
+           'the full gap to `SubstratumAvail` is not characterized', '## Scope repair, recorded at review',
+           'The gap to `SubstratumAvail` is witnessed, not characterized', 'Where a proved statement differs from the preregistered one',
            'The first and second Q3 outcomes are not reached', 'The phases, located', 'no phase is sourced',
            'is a theorem about every bijection-level sourcing', 'the round-62 stipulation',
            'is an owner decision for a propagation round; nothing is changed here',
-           'What the outcome establishes', 'in exactly one conjunct, the phases', 'consumes nothing of A3–A6',
+           'What the outcome establishes', 'the full gap between the sourced theory and `SubstratumAvail` is not characterized here', 'consumes nothing of A3–A6',
            'What the outcome does not establish', 'no executability question was asked',
            'Eighty-one named results', 'What this note does not claim'):
     ok_sub &= _t in _san1
 ok_sub &= 'Status: pass complete. Q1: A1, A2 and A5 are stated on the structure' in _san1
+ok_sub &= 'the exact missing conjunct being `PhasesAvailable`; it also fails `SubstratumAvail`, the phases already witnessing that failure, while the full gap to `SubstratumAvail` is not characterized by this pass' in _san1
+_i_rep = _san.find('## Scope repair, recorded at review')
+ok_sub &= _i_q < _i_rep < _i_out
+# the superseded reading, the gap to SubstratumAvail as exactly the phases, is absent from every
+# outcome-facing surface; the docstring residue on A6 is absent from the module
 # the overclaims are absent from every paragraph that does not disclaim them
 for _bad in ('the phase structure is not part of OI', 'the manuscripts are wrong', 'A6 holds', 'A6 fails',
              'satisfies A1–A6', 'satisfies the manuscripts\' A1–A6', 'LayerFlowExecutable is derived',
@@ -3665,16 +3673,24 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Su
     ok_sub &= 'SubstratumInterfaceAudit' not in _t and 'permClass' not in _t and 'SourcedOI' not in _t and 'obsTheory' not in _t
 _sa_fam = [f for f in _ptr_reg['families'] if f['name'] == 'substratum interface: sourced observer theory']
 ok_sub &= len(_sa_fam) == 1 and _sa_fam[0]['status'] == 'kernel-only' and _sa_fam[0]['modules'] == ['SubstratumInterfaceAudit']
-ok_sub &= _sa_fam[0]['manuscript'] == [] and 'exactly the phases' in _sa_fam[0]['note']
+ok_sub &= _sa_fam[0]['manuscript'] == [] and 'exact missing conjunct PhasesAvailable' in _sa_fam[0]['note']
+ok_sub &= 'the full gap to SubstratumAvail is not characterized' in _sa_fam[0]['note']
+for _t in (_san[_san.find('## The outcome'):], _rd1, _saflat, _sa_fam[0]['note']):
+    for _bad in ('gap to both is exactly', 'gap to each being exactly', 'gap being exactly the phases',
+                 'the gap being exactly `PhasesAvailable`', 'gap to both `DerivedOI` and `SubstratumAvail`',
+                 'in exactly one conjunct, the phases', 'A1–A6 as predicates of it'):
+        ok_sub &= _bad not in _t
 ok_sub &= 'no executability question' in _sa_fam[0]['note'] and 'owner decision' in _sa_fam[0]['note']
 ok_sub &= 'asserts nothing about whether the observer-level lift is derivable' in _sa_fam[0]['note']
 _cen_sa = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_sub &= '| substratum interface: sourced observer theory | 1 | kernel-only |' in _cen_sa
 for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI', 'obsTheory', 'PreservesNonneg',
            'permClass_le_of_exchanges', 'bijectionLevel_not_phasesAvailable', 'permTheory_realizesSealedOICore',
-           'obsTheory_rule_independent', 'Eighty-one named results', 'exactly the phases',
+           'obsTheory_rule_independent', 'Eighty-one named results', 'exact missing conjunct',
+           'the full gap to `SubstratumAvail` is not characterized by the pass',
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
+ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
 ok_sub &= '118 modules' in _rd1 and '2,581 named results' in _rd1
 check('R7-SUB', ok_sub,
       'Substratum-interface guard: the module carries no sorry, axiom or native_decide and prints the axioms '
@@ -3686,7 +3702,9 @@ check('R7-SUB', ok_sub,
       'for the sourced theory, the sealed core without phases and the rule-independence of the observer theory '
       'stated as pinned; the note freezes the four distinctions and the three questions before the outcome, '
       'names the preregistration commit, records A6 as a gap, the phases as the one negative, the third Q3 '
-      'outcome with the gap exactly the phases, the location of the phases as the round-62 stipulation with the '
+      'outcome with the exact missing conjunct to DerivedOI the phases and the failure of SubstratumAvail '
+      'witnessed by them with its full gap not characterized, the scope repair made at review with the '
+      'superseded reading absent from every outcome-facing surface, the location of the phases as the round-62 stipulation with the '
       'manuscripts\' sentences an owner decision, and the non-claims; no manuscript carries the audit; the '
       'registry and the census carry the family as kernel-only with no anchor and the README carries the '
       'paragraph and the counts.')

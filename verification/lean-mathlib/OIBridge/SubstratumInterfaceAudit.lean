@@ -4,7 +4,8 @@ import OIBridge.LiftAudit
 # The substratum-interface audit — the smallest faithful substrate-to-observer interface
 
 The preregistered pass of `SUBSTRATUM-INTERFACE-AUDIT.md`. One arrow, `𝒮 ⟶ T_obs(𝒮)`: a
-substratum carrying the manuscript substrate data, the axioms A1–A6 as predicates of it, and the
+substratum carrying the manuscript substrate data, A1–A5 represented as stated or with their
+parameters and A6 recorded as a gap, and the
 finite operational theory an embedded observer with read and write access to its visible
 configurations obtains from it, by sourcing theorems and by nothing else.
 
@@ -23,9 +24,11 @@ configurations obtains from it, by sourcing theorems and by nothing else.
   nonnegative real entries (`PreservesNonneg`), and no non-scalar diagonal unitary does.
 * **Q3, baseline comparison** (Section D): `SourcedOI`, the conjuncts of `DerivedOI` other than
   the phases, holds for the sourced theory and for quantum mechanics, and under it quantum
-  mechanics is exactly phase-free richness; `DerivedOI` and `SubstratumAvail` both fail for the
-  sourced theory, the gap being exactly `PhasesAvailable`. On the two-state carrier the sourced
-  theory realizes the sealed OI core and lacks the falsifier.
+  mechanics is exactly phase-free richness; the sourced theory is strictly weaker than
+  `DerivedOI`, the exact missing conjunct being `PhasesAvailable`, and it also fails
+  `SubstratumAvail`, the phases witnessing that failure while the full gap to `SubstratumAvail`
+  is not characterized here. On the two-state carrier the sourced theory realizes the sealed OI
+  core and lacks the falsifier.
 
 Nothing here asks an executability question; no intermediate-time unitary enters any
 availability. The observer theory depends on the substratum only through its configuration

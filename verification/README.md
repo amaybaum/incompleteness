@@ -976,9 +976,11 @@ unitary, because every operation realized by a bijection-level class preserves m
 nonnegative real entries (`PreservesNonneg`, `bijectionLevel_not_phasesAvailable`,
 `obs_diagonal_avail_only_scalar`). Q3, the baseline comparison, reaches the third preregistered
 outcome: the sourced theory satisfies `SourcedOI`, the conjuncts of `DerivedOI` other than the
-phases, and fails both `DerivedOI` and `SubstratumAvail`, the gap to each being exactly the
-phases (`derivedOI_iff_sourcedOI_phases`, `substratumAvail_phasesAvailable`,
-`obs_not_derivedOI`, `obs_not_substratumAvail`); under `SourcedOI` quantum mechanics is still
+phases, and is strictly weaker than `DerivedOI` with the exact missing conjunct
+`PhasesAvailable` (`derivedOI_iff_sourcedOI_phases`, `obs_not_derivedOI`); it also fails
+`SubstratumAvail`, the phases already witnessing that failure
+(`substratumAvail_phasesAvailable`, `obs_not_substratumAvail`), while the full gap to
+`SubstratumAvail` is not characterized by the pass; under `SourcedOI` quantum mechanics is still
 exactly phase-free richness (`sourcedOI_qm_iff_phaseFree`); on the two-state carrier the sourced
 theory realizes the sealed OI core with no phase and lacks the falsifier
 (`permTheory_realizesSealedOICore`, `permTheory_twoState`); and the observer theory is determined

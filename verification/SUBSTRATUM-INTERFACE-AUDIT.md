@@ -18,10 +18,12 @@ is an instance satisfying A1–A5. Q2: the write access generates exactly the sc
 permutations, which source the update and its inverse, the two layers at time one, the read-write
 operators, the exchanges, embedded observation and reversible implementation locality, and
 source no quarter phase, no sign diagonal and no non-scalar diagonal unitary. Q3: the sourced
-theory satisfies `SourcedOI` and fails both `DerivedOI` and `SubstratumAvail`, the gap being
-exactly the phases — the third preregistered outcome; on the two-state carrier it realizes the
-sealed OI core and lacks the falsifier.** The preregistration sections were written before any
-proof was attempted (commit `f52f280`); this status line and the outcome section are the only
+theory satisfies `SourcedOI` and is strictly weaker than `DerivedOI`, the exact missing conjunct
+being `PhasesAvailable`; it also fails `SubstratumAvail`, the phases already witnessing that
+failure, while the full gap to `SubstratumAvail` is not characterized by this pass — the third
+preregistered outcome; on the two-state carrier it realizes the sealed OI core and lacks the
+falsifier.** The preregistration sections were written before any proof was attempted (commit
+`f52f280`); this status line, the scope-repair section and the outcome section are the only
 later edits, and the outcome section records where a proved statement differs from the
 preregistered one. Nothing here is a manuscript claim.
 
@@ -233,6 +235,31 @@ Adopt any reading of the observer's write access beyond the read-write families 
 or any reading of A6. Formalize `𝒢_sub`. Form `ManuscriptOI`. Narrate anything in a manuscript.
 Propagate Route B. Refresh the transfer bundle. Repair or extend the witness of Route B.
 
+## Scope repair, recorded at review
+
+The first outcome head (`ba2103b`) overstated one thing, found at review; it is corrected in
+place in the status line, the outcome table, the establishing paragraph, the README, the registry
+and the census, the theorems unchanged, and the correction is recorded here so that the outcome
+is not made to look as if it had been written this way.
+
+**The gap to `SubstratumAvail` is witnessed, not characterized.** `derivedOI_iff_sourcedOI_phases`
+gives `DerivedOI T ↔ SourcedOI T ∧ PhasesAvailable T` exactly, so for the sourced theory the gap
+to `DerivedOI` is exactly the quarter-phase conjunct. `substratumAvail_phasesAvailable` gives
+`SubstratumAvail T → PhasesAvailable T`, so the absence of phases witnesses the failure of
+`SubstratumAvail` for the sourced theory, and `permTheory_availExt_le_substratum` places its
+availability inside `substratumTheory`. Those facts do not establish that the gap to
+`SubstratumAvail` is exactly `PhasesAvailable`: `SubstratumAvail` carries the whole availability
+of `substratumTheory`, every diagonal unitary included, which the lift audit already
+distinguished from `DerivedOI`'s quarter phases, and no theorem here has the form
+`SourcedOI ∧ PhasesAvailable → SubstratumAvail` or characterizes the inclusion gap. The first
+head's sentences saying the gap to both `DerivedOI` and `SubstratumAvail` is exactly
+`PhasesAvailable` are replaced by: the sourced theory is strictly weaker than `DerivedOI`, with
+the exact missing conjunct `PhasesAvailable`; it also fails `SubstratumAvail`, with the phases
+already witnessing that failure, while the full gap to `SubstratumAvail` is not characterized by
+this pass. The module's introduction, which said the arrow carries the axioms A1–A6 as
+predicates of the substratum where Q1 records A6 as a gap with no predicate, is corrected to say
+A1–A5 are represented as stated or with their parameters and A6 is recorded as a gap.
+
 ## The outcome
 
 Preregistration commit `f52f280`. The questions were evaluated in the preregistered order under
@@ -248,7 +275,7 @@ primitive, and no executability question was asked. Every kernel statement is in
 | Q2, the sourced class | the least architecture containing the exchanges is the class of scaled partial permutations, canonical in both directions | `permClass`, `scaledPartialPerm_iff`; `permClass_arch`, `permClass_contextStable`, `permClass_labelInvariant`, `permClass_daggerStable`, `permClass_permMatrix`, `permClass_readWrite`; `permClass_le_of_exchanges`; `permClass_le_substratum`, `BijectionLevel` |
 | Q2, sourced primitives | **positive** for relabellings and embedded observation, reversal and reversible implementation locality, the exchanges, the read-write operators, the update and its inverse, the two layers at time one | `obs_embeddedObservation`, `obs_reversibleImplementationLocality`, `obs_exchangesAvailable`, `obs_readWriteAvailable`, `obs_dynamics_avail`, `obs_dynamics_inv_avail`, `obs_shear_avail`, `obs_swap_avail`; `exchanges_of_readWrite` |
 | Q2, the phases | **negative**: no quarter phase at any level of any nonempty carrier, no sign diagonal, and every available diagonal conjugation has pairwise nonnegative weight products, so a diagonal unitary available in the sourced theory is a global phase; the same for the theory of every bijection-level class | `PreservesNonneg`, `preservesNonneg_conj_of_scaled`, `preservesNonneg_sum`, `preservesNonneg_of_realized`, `diagonal_nonneg_of_preservesNonneg`, `phaseGate_not_preservesNonneg`, `sign_not_preservesNonneg`; `bijectionLevel_not_phasesAvailable`, `bijectionLevel_diagonal_only_scalar`; `permTheory_not_phasesAvailable`, `permTheory_no_sign`, `obs_not_phasesAvailable`, `obs_diagonal_avail_only_scalar` |
-| Q3, baseline comparison | **the third preregistered outcome**: the sourced theory satisfies `SourcedOI` and fails `DerivedOI` and `SubstratumAvail`; `DerivedOI` is `SourcedOI` with the phases, and `SubstratumAvail` includes the phases, so the gap to both is exactly `PhasesAvailable` | `SourcedOI`, `derivedOI_iff_sourcedOI_phases`, `sourcedOI_of_derivedOI`, `sourcedOI_of_qm`, `sourcedOI_qm_iff_phaseFree`; `permTheory_sourcedOI`, `obs_sourcedOI`, `obs_not_derivedOI`, `substratumAvail_phasesAvailable`, `obs_not_substratumAvail`; `obs_availExt_le_substratum` |
+| Q3, baseline comparison | **the third preregistered outcome**: the sourced theory satisfies `SourcedOI` and fails `DerivedOI` and `SubstratumAvail`; `DerivedOI` is `SourcedOI` with the phases, so the gap to `DerivedOI` is exactly `PhasesAvailable`; `SubstratumAvail` includes the phases, so the phases witness the failure of `SubstratumAvail`, and the full gap to `SubstratumAvail` is not characterized | `SourcedOI`, `derivedOI_iff_sourcedOI_phases`, `sourcedOI_of_derivedOI`, `sourcedOI_of_qm`, `sourcedOI_qm_iff_phaseFree`; `permTheory_sourcedOI`, `obs_sourcedOI`, `obs_not_derivedOI`, `substratumAvail_phasesAvailable`, `obs_not_substratumAvail`; `obs_availExt_le_substratum` |
 | Q3, consequences | the sourced theory lies inside the substratum theory, has no composite unitary control, fails phase-free richness, is not quantum mechanics, and under it quantum mechanics is exactly phase-free richness | `permTheory_availExt_le_substratum`, `obs_not_control`, `obs_not_phaseFree`, `obs_not_qm`, `obs_qm_iff_phaseFree` |
 | Q3, the two-state carrier | the sourced theory realizes the sealed OI core with no phase and lacks the falsifier | `permTheory_relabel`, `permTheory_realizesSealedOICore`, `permTheory_falsifierUnavailable`, `permTheory_twoState` |
 | the rule and the theory | the observer theory is the sourced theory on the configuration space, and two substrata on the same sites and alphabet have the same observer theory whatever their rules | `obsTheory_eq_permTheory`, `obsTheory_rule_independent` |
@@ -279,9 +306,10 @@ among what the substratum supplies, narrate that stipulation. Whether those sent
 requalified is an owner decision for a propagation round; nothing is changed here.
 
 **What the outcome establishes.** Relative to the faithful sourced baseline, the lift audit's
-Q4′ is stated from a baseline stronger than what configuration-level sourcing supplies, in
-exactly one conjunct, the phases; its proof visibly consumed sign and phase diagonals at every
-level, which the sourced theory does not carry. The comparison the next round starts from is
+Q4′ is stated from a baseline stronger than what configuration-level sourcing supplies: the
+phases witness the difference, its proof visibly consumed sign and phase diagonals at every
+level, which the sourced theory does not carry, and the full gap between the sourced theory and
+`SubstratumAvail` is not characterized here. The comparison the next round starts from is
 therefore `SourcedOI`, under which quantum mechanics is still exactly phase-free richness
 (`sourcedOI_qm_iff_phaseFree`), and with the sign and phase diagonals of the isolation identity not
 available as sourced operations. The sealed OI core needs no phase
