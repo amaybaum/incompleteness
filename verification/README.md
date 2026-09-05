@@ -757,7 +757,8 @@ records that every row is settled by the primitive-source and substratum-source 
 from embedded observation, closure from observer recursion, inert spectators and validity from
 implementation locality, control from elementary transition richness with dagger-stable
 implementations — each with its independence countercontrol, and that the charter's "current
-exact package" is the round-41 five-condition statement while the kernel's smallest is
+exact package" is the round-41 five-condition statement while the most compressed package
+currently recorded is
 `OIPlusElem` (`carrier_general_oiPlusElem`). The one witness the charter asks for that the kernel
 did not carry is supplied by `OIBridge/LevelOneRecursion.lean`: the loose theory has observer
 recursion (`systemLoose_observerRecursion`) and no level-one seam, so the seam is independent of

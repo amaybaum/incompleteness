@@ -11,7 +11,7 @@ derivation. This note reconciles the charter's ledger with what the kernel prove
 that the programme the charter describes is the primitive-source audit of rounds fifty-six to
 fifty-nine and the substratum-source audit of rounds sixty-one to sixty-four: every row is
 settled, with one witness missing, and the charter's "current exact package" is the round-41
-five-condition package rather than the kernel's smallest.
+five-condition package rather than the most compressed package currently recorded.
 
 ## The ledger, with kernel witnesses
 
@@ -38,7 +38,7 @@ no seam. `levelOne_row` states both halves in one place: derived from embedded o
 from observer recursion. The gap is relabelling invariance, which observer recursion does not
 carry.
 
-## The kernel's smallest package
+## The most compressed package currently recorded
 
 The charter's "current exact package" — well-formedness and the three substantive principles,
 `exactAll_iff_substantive` — is the round-41 statement. The kernel carries three successive

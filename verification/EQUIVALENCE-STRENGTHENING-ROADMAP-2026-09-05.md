@@ -1,5 +1,12 @@
 # Equivalence strengthening roadmap — 2026-09-05
 
+> **Historical charter.** This is the charter as it entered the repository from the session
+> transfer, kept verbatim below. It is reconciled with, and superseded by,
+> `COMPLETION-ASSUMPTION-AUDIT.md`: the package this charter calls current is the round-41
+> five-condition statement, every row of its ledger is settled in the kernel with a witness, and
+> the most compressed package currently recorded is `OIPlusElem` (`carrier_general_oiPlusElem`).
+> Read the audit note first; do not restart the five rows from here.
+
 ## Objective
 
 Make the left-hand side of the exact finite OI↔QM characterization smaller and more primitive while preserving a true necessary-and-sufficient theorem.

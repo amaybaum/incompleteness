@@ -2585,12 +2585,28 @@ for _bad in ('SystemToLevelOne is derived from observer recursion',
              'observer recursion supplies the seam', 'OIPlusElem is minimal',
              'the substratum supplies elementary drivability', 'inverse accessibility is redundant'):
     ok_caa &= not _asserted(_caa, _bad)
+# the charter carries its banner: historical, reconciled with and superseded by the audit note,
+# and it does not send a future agent back to the five rows; and OIPlusElem is "the most
+# compressed package currently recorded", never "the kernel's smallest", since global minimality
+# is exactly the open item
+_chr = open(os.path.join(os.path.dirname(BRIDGE),
+                         'EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md'), encoding='utf-8').read()
+_chr1 = re.sub(r'\s+', ' ', _chr)
+ok_caa &= _chr.lstrip().startswith('# Equivalence strengthening roadmap')
+ok_caa &= 'Historical charter' in _chr and 'superseded by' in _chr1
+ok_caa &= 'COMPLETION-ASSUMPTION-AUDIT.md' in _chr and 'do not restart the five rows from here' in _chr1
+ok_caa &= 'most compressed package currently recorded' in _chr1
+for _t in (re.sub(r'\s+', ' ', _caa), re.sub(r'\s+', ' ', _rd), _chr1):
+    ok_caa &= 'most compressed package currently recorded' in _t
+    ok_caa &= "kernel's smallest" not in _t and 'kernel smallest' not in _t
 check('R7-CAA', ok_caa,
       'Completion-assumption audit guard: the level-one-recursion module carries no sorry and no '
       'native_decide and prints the axioms of its three results, the seam row is stated with '
       'both halves and the observer-recursion half as a negation; the note names a kernel witness '
-      'for every ledger row, names the charter package as the round-41 one against the kernel '
-      'smallest, lists the residual items as open and settles none, and asserts neither that '
+      'for every ledger row, names the charter package as the round-41 one against the most '
+      'compressed package currently recorded (never "the kernel smallest"), the charter carries '
+      'its historical banner pointing to the note, the note lists the residual items as open and '
+      'settles none, and asserts neither that '
       'observer recursion supplies the seam, that OIPlusElem is minimal, that the substratum '
       'drives the elementary transitions, nor that the inverse clause is redundant.')
 
