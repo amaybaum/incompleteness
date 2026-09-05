@@ -166,6 +166,7 @@ import OIBridge.TypedPositive
 import OIBridge.MinimalRepertoire
 import OIBridge.RouteB
 import OIBridge.ManuscriptAxioms
+import OIBridge.LiftAudit
 
 namespace OIBridge
 

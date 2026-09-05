@@ -60,6 +60,7 @@ dagger-stable package) is stated as what it is next to the current statement.
 | minimal repertoire | 1 | current | GR §3.3 states phase-free richness as the second primitive-source principle, `OIPlusMin` boxed, the elementary repertoire as its stronger form; Main §3.4, the Explainer, book chapters 1 and 19 carry the summary; `carrier_general_oiPlusPos`, `oiPlusPos_iff_qm`, `hControl_star` and `typed_determined_of_oiPlusPos` are superseded and cited beside their successors |
 | OI-N passive observation | 4 | current | Main §3.4 and the Explainer, one paragraph each, outside the assumptions and arrows of the characterization: noncommutativity forbids complete passive observation, passive incompleteness is theory-insensitive and does not diagnose the core, a passive internal observer only reads an existing record, a new record changes the joint system |
 | route B: consequence closure | 1 | kernel-only | no manuscript occurrence: `routeB_target` proves the Route B target with the substratum theory as the witness, so on the two-state carrier the closure with the core does not entail phase-free richness; the manuscripts' statement that the controllability resource is not entailed by A1–A6 is consistent with it without citing it, and narration is an owner decision |
+| lift audit: executable layer flows | 1 | kernel-only | no manuscript occurrence: the executability of one CT2 layer flow at intermediate times is not derived by the substratum theory, is consistent under control, gives phase-free richness in a theory carrying the substratum's availability, and under the closure is equivalent to exact quantum mechanics; the extra sourcing principle is named, and nothing is asserted about whether the lift is derivable |
 | manuscript axioms A1–A6 | 1 | kernel-only | no manuscript occurrence: no manuscript-level conjunct is presently a faithful predicate of the bare theory; the realized-core images of A1 and A2 hold for the witness and for quantum mechanics, A3–A6 additionally require spatial and algebraic structure, all six are formalization gaps at the substratum level with the missing interface recorded, and the configuration-level sourcing bound shows every class all of whose operators are monomial generates inside the witness, so phase-free richness requires some non-configuration-level sourcing; nothing is asserted about the witness against A1–A6 in the manuscript sense or about the strongest OI ⇒ QM claim |
 
 ## What the census found and repaired
@@ -91,10 +92,10 @@ Every publication-facing family except one is carried by the manuscripts under `
 `scope-consistent`, with kernel pointers at the proof or list paragraphs that follow the principal statements,
 the statement lines and the coverage ledger untouched; `consistent-uncited` is
 defined and, after the pointer pass over the SM counting layer and Main §3.4, held by no family;
-the one `verification-only` family is machinery by design. The exceptions are the Route B family
-and the manuscript-axiom family, both `kernel-only`: their outcomes are proved and carried by no
-manuscript, no manuscript sentence contradicts them, and whether to narrate them is an owner
-decision taken in a propagation round of its own. OI-N is narrated in one paragraph of Main §3.4 and one of the Explainer, kept outside the
+the one `verification-only` family is machinery by design. The exceptions are the Route B family,
+the manuscript-axiom family and the lift-audit family, all `kernel-only`: their outcomes are
+proved and carried by no manuscript, no manuscript sentence contradicts them, and whether to
+narrate them is an owner decision taken in a propagation round of its own. OI-N is narrated in one paragraph of Main §3.4 and one of the Explainer, kept outside the
 assumptions and arrows of the OI→QM characterization, with the N4 anti-conflation in the same
 paragraph: passive incompleteness is theory-insensitive, not evidence for a hidden ontology, and no
 statement that quantum mechanics rests on observation incompleteness. The freeze note is unchanged

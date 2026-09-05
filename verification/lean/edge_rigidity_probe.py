@@ -3440,6 +3440,95 @@ check('R7-MAX', ok_max,
       'registry and the outcome; no manuscript carries the pass; the registry and the census carry the '
       'family as kernel-only with no anchor and the README carries the paragraph.')
 
+# ---- The lift audit: three questions preregistered before the proof with their exclusions, Q1
+# positive, Q2 negative for the substratum theory and consistent under control, Q3 positive under
+# the substratum's availability with the deviation recorded, Q4 the endpoint, the object a layer
+# and never the composite drive, nothing asserted about the lift or Route A ----
+ok_lift = True
+_la = open(os.path.join(BRIDGE, 'OIBridge', 'LiftAudit.lean'), encoding='utf-8').read()
+_laflat = ' '.join(_la.split())
+_lan = open(os.path.join(os.path.dirname(BRIDGE), 'LIFT-AUDIT.md'), encoding='utf-8').read()
+_lan1 = re.sub(r'\s+', ' ', _lan)
+ok_lift &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _la) is None and 'native_decide' not in _la
+ok_lift &= 'axiom ' not in re.sub(r'/-.*?-/', '', _la, flags=re.S)
+_la_names = re.findall(r"^theorem ([\w']+)", _la, re.M)
+ok_lift &= len(_la_names) == 56
+for _nm in _la_names:
+    ok_lift &= ('#print axioms ' + _nm) in _la
+ok_lift &= _la.count('#print axioms') == 56
+for _nm in ('gateFlow_unitary', 'gateFlow_group', 'gateFlow_zero', 'gateFlow_one', 'gateFlow_trace',
+            'gateFlow_stage', 'layerFlowExecutable_of_control', 'gateFlow_half_not_preservesDiag',
+            'configurationLevel_not_layerFlowExecutable', 'substratumTheory_not_layerFlowExecutable',
+            'exp_smul_idempotent', 'flow_transition_closedForm', 'orb_mul', 'gateFlow_eq_orb',
+            'flow_transition_eq_orb', 'signFun_mul', 'gateFlow_isolation', 'substratumTheory_substratumAvail',
+            'phaseFree_of_layerFlowExecutable', 'derivedOI_qm_iff_layerFlowExecutable', 'regionSwap_moves',
+            'substratumTheory_not_layerFlowExecutable_swap', 'phaseFree_of_layerFlowExecutable_swap',
+            'derivedOI_qm_iff_layerFlowExecutable_swap'):
+    ok_lift &= _nm in _la_names and _nm in _lan1
+# the predicate is the only entry of unit into availability; the object is a layer involution
+ok_lift &= ('def LayerFlowExecutable (T : FiniteOperationalTheory S) (σ : Equiv.Perm S) : Prop := '
+            '∀ (n : ℕ) (t : ℝ), T.availExt n Unit (fun _ => conjChannel (gateFlow (levelPerm σ n) t))') in _laflat
+ok_lift &= 'noncomputable def gateFlow (σ : Equiv.Perm S) (t : ℝ) : Matrix S S ℂ := unit (permMat σ) t' in _laflat
+ok_lift &= 'driveQ' not in _la and 'layerQ' not in _la and 'swapQ' not in _la
+ok_lift &= ('theorem substratumTheory_not_layerFlowExecutable {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) : '
+            '¬ LayerFlowExecutable (substratumTheory S) σ') in _laflat
+ok_lift &= ('theorem phaseFree_of_layerFlowExecutable (T : FiniteOperationalTheory S) (hsub : SubstratumAvail T) '
+            '{σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) {x : S} (hx : σ x ≠ x) (hex : LayerFlowExecutable T σ) : '
+            'PhaseFreeRichness T') in _laflat
+ok_lift &= ('theorem derivedOI_qm_iff_layerFlowExecutable [Nonempty S] (T : FiniteOperationalTheory S) '
+            '(hd : DerivedOI T) (hsub : SubstratumAvail T) {σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) '
+            '{x : S} (hx : σ x ≠ x) : ExactAllFiniteEndomorphicQuantumOps T ↔ LayerFlowExecutable T σ') in _laflat
+ok_lift &= ('= ReachabilitySeam.flow (transition a (τ a)) (Real.pi * t)') in _laflat
+# the note: exclusions and questions precede the outcome; the outcome table; the deviation; the
+# frontier; the non-claims
+_i_q = _lan.find('## The three questions, in order, each with its own outcomes')
+_i_out = _lan.find('## The outcome')
+ok_lift &= 0 < _i_q < _i_out
+ok_lift &= _lan.lstrip().startswith('# The lift audit')
+for _t in ('Executability is not inferred from the path', 'The CT2 flows are candidates, not operations',
+           'The target is the literal interface', 'continuous mathematical path ⇒ executable continuous path ⇒ `PhaseFreeRichness`',
+           '**Q1. Finite-region realization.**', '**Q2. Derived executability.**', '**Q3. Richness bridge.**',
+           '**Q4, conditional, only if Q3 closes positively.**', 'Preregistration commit `0d299c7`',
+           '| Q1, finite-region realization | **positive** |', '| Q2, derived executability | **negative** for `substratumTheory S`',
+           '| Q3, richness bridge | **positive**', '| Q4, the endpoint | under `DerivedOI T` and the substratum\'s availability',
+           'The one deviation from the preregistration, recorded', 'The hypothesis proved is therefore `SubstratumAvail T`',
+           'This is the second preregistered case: Q1 positive, Q2 negative, Q3 positive',
+           'substratum and observer architecture ⟶ `LayerFlowExecutable` (derived, not stipulated)',
+           'What the outcome does not establish', 'Fifty-six named results', 'What this note does not claim',
+           'Status: pass complete. Q1 positive; Q2 negative for the substratum theory'):
+    ok_lift &= _t in _lan1
+for _bad in ('the lift is derivable', 'the lift is not derivable', 'Route A is closed', 'executability is derived',
+             'executability of the layer flow is derived', 'OI implies QM', 'the drive is derived from the substratum',
+             'quantum mechanics requires OI', 'bare OI implies', 'the drive is independent of OI',
+             'reads availability off the path', 'derived executable flow'):
+    ok_lift &= not _asserted(_lan, _bad)
+# no manuscript carries the audit; registry and census kernel-only; README paragraph
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    ok_lift &= 'LiftAudit' not in _t and 'LayerFlowExecutable' not in _t and 'gateFlow' not in _t
+_la_fam = [f for f in _ptr_reg['families'] if f['name'] == 'lift audit: executable layer flows']
+ok_lift &= len(_la_fam) == 1 and _la_fam[0]['status'] == 'kernel-only' and _la_fam[0]['modules'] == ['LiftAudit']
+ok_lift &= _la_fam[0]['manuscript'] == [] and 'nothing is asserted about whether the observer-level lift is derivable' in _la_fam[0]['note']
+_cen_la = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+ok_lift &= '| lift audit: executable layer flows | 1 | kernel-only |' in _cen_la
+for _t in ('`R7-LIFT`', 'LIFT-AUDIT.md', 'LayerFlowExecutable', 'gateFlow_isolation', 'phaseFree_of_layerFlowExecutable',
+           'derivedOI_qm_iff_layerFlowExecutable', 'Fifty-six named results', 'never the composite drive',
+           'one non-monomial gate is not a result', 'the extra sourcing principle is named exactly',
+           'that the observer-level lift is derivable or is not', 'One deviation from the preregistration is recorded'):
+    ok_lift &= _t in _rd1
+check('R7-LIFT', ok_lift,
+      'Lift-audit guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
+      'its fifty-six results; executability enters availability only through LayerFlowExecutable, the object '
+      'is a layer involution\'s gate flow and the composite drive is never used; Q2 is the stated negative for '
+      'the substratum theory, Q3 the stated bridge under the substratum\'s availability, Q4 the stated '
+      'equivalence, and the isolation identity lands on the transition flow at angle πt; the note preregisters '
+      'the three exclusions and the three questions before the outcome, names the preregistration commit, '
+      'records the outcome table, the one deviation, the frontier arrow and the non-claims, and asserts neither '
+      'that the lift is derivable nor that it is not, nor that Route A is closed; no manuscript carries the audit; '
+      'the registry and the census carry the family as kernel-only with no anchor and the README carries the '
+      'paragraph.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
