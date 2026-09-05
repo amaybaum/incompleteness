@@ -2698,6 +2698,64 @@ check('R7-INV', ok_inv,
       'audit and the README carry the package and the count; and inverseAccessibility_of_lieRank '
       'is stated with its well-formedness hypothesis wherever it is named.')
 
+# ---- manuscript propagation of the inverse-clause result: the manuscript-facing strongest
+# characterization names implementation locality, assumes no dagger stability and no inverse
+# accessibility, and states the well-formedness qualification wherever the derived inverse
+# accessibility is named ----
+_msroot = os.path.dirname(os.path.dirname(BRIDGE))
+_ms = {}
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
+             'book/ch01-observation.md', 'book/ch19-open-problems.md',
+             'book/The-Incompleteness-of-Observation-FULL.md',
+             'papers/GR.tex', 'papers/Main.tex', 'papers/Explainer.tex',
+             'book/The-Incompleteness-of-Observation-FULL.tex'):
+    _ms[_rel] = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+ok_msp = True
+for _rel, _t in _ms.items():
+    _t1 = re.sub(r'\s+', ' ', _t).lower().replace('\\_', '_')
+    ok_msp &= 'reversible implementation locality' not in _t1
+    ok_msp &= 'carrier_general_oiplus' + 'elem' not in _t1
+    ok_msp &= 'inverseaccessibility_of_generated_daggerstable' not in _t1
+_grm = _ms['papers/GR.md']
+_grm1 = re.sub(r'\s+', ' ', _grm)
+ok_msp &= '1. *Implementation locality.*' in _grm
+ok_msp &= '\\text{implementation locality} + \\text{elementary transition richness}' in _grm1
+ok_msp &= 'carrier_general_oiPlusPos' in _grm and 'oiPlusPos_iff_qm' in _grm
+ok_msp &= 'control_of_lieRank' in _grm and 'universalReachability_of_lieRank_positive' in _grm
+ok_msp &= 'elementary implementations are closed under the adjoint' not in _grm
+ok_msp &= 'No closure of the implementations under the adjoint is assumed' in _grm1
+ok_msp &= 'Inverse accessibility is not a hypothesis of the equivalence' in _grm1
+# the summaries in Main, the Explainer and both book mirrors carry the same statement
+_msum = ('implementation locality, elementary transition richness, and embedded observation, with '
+         'no closure of the implementations under the adjoint and no inverse accessibility assumed')
+for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md',
+             'book/ch19-open-problems.md', 'book/The-Incompleteness-of-Observation-FULL.md'):
+    ok_msp &= _msum in re.sub(r'\s+', ' ', _ms[_rel])
+ok_msp &= 'carrier_general_oiPlusPos' in _ms['papers/Main.md']
+# every manuscript paragraph naming the derived inverse accessibility carries "well-formed"
+for _rel in ('papers/GR.md', 'papers/Main.md'):
+    for _para in _ms[_rel].split('\n\n'):
+        if 'inverseAccessibility_of_lieRank' in _para:
+            ok_msp &= 'well-formed' in _para
+# the elementary repertoire and the substratum endpoint are the proved ones, unchanged
+ok_msp &= ('real transitions between distinguishable states are continuously drivable, exchanges of '
+           'distinguishable states are available, and quarter-phase operations are available') in _grm1
+ok_msp &= 'text{current OI substratum} + \\text{continuous off-diagonal controllability}' in _grm1
+# the generated forms carry the propagated statement
+ok_msp &= 'implementation locality} + \\text{elementary transition richness}' in re.sub(r'\s+', ' ', _ms['papers/GR.tex'])
+for _rel in ('papers/Main.tex', 'papers/Explainer.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
+    ok_msp &= 'no closure of the implementations under the adjoint' in re.sub(r'\s+', ' ', _ms[_rel])
+check('R7-MSP', ok_msp,
+      'Manuscript-propagation guard for the inverse-clause result: no manuscript source or '
+      'generated form names reversible implementation locality, the superseded package or the '
+      'dagger-stable derivation; GR 3.3 states the primitive as implementation locality, boxes '
+      'implementation locality with elementary transition richness and embedded observation, '
+      'cites carrier_general_oiPlusPos and the positive-reachability theorems, assumes no adjoint '
+      'closure and no inverse accessibility, and states the well-formedness qualification wherever '
+      'the derived inverse accessibility is named; Main, the Explainer and both book mirrors carry '
+      'the same summary; the elementary repertoire and the substratum endpoint are unchanged; and '
+      'the generated .tex forms carry the propagated statement.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
