@@ -184,7 +184,7 @@ The controllability is a hypothesis on the extension, not a property of the curr
 - The canonical OI⁺ statements are frozen (`PRIMITIVE-SOURCE-AUDIT.md`, the manuscripts). This
   audit does not modify them unless it proves a stronger dependency.
 - The minimal drivability repertoire is that of round 59 and is not reduced further here.
-- Nothing here bears on the open redundancy of the inverse clause.
+- Nothing here bears on the redundancy of the inverse clause, settled in `INVERSE-CLAUSE-AUDIT.md`.
 
 ## Freeze
 
@@ -204,5 +204,6 @@ Explainer, and book chapters 1 and 19) under the scope guards recorded there: it
 the controllability resource is not derived from A1–A6; the result is finite and endomorphic; carriers
 are finite and nonempty; the control resource is an empirical extension of the current substratum; and
 no claim is made that the elementary control repertoire is mathematically minimal. The
-compact-semigroup redundancy of the inverse clause and the minimum control repertoire remain backlog
-optimizations: they can simplify the theorem but cannot change the physical conclusion.
+compact-semigroup redundancy of the inverse clause is proved in `INVERSE-CLAUSE-AUDIT.md`, and the
+minimum control repertoire remains a backlog optimization: it can simplify the theorem but cannot
+change the physical conclusion.

@@ -27,7 +27,7 @@ assumptions and not this one.
 | `IteratedAncillaClosure` | DERIVED from observer recursion, and from embedded observation | the shifted theory's own discard rule | `closure_of_observerRecursion`, `closure_of_embeddedObservation`; conversely `observerRecursion_iff_closure` given identity and readout at every level | `closure_independent` (admissible theory: exact system QM, control, inert spectators, no closure) |
 | `InertSpectatorCompositionality` | DERIVED from implementation locality | context-stable, label-invariant implementation class generating availability | `observationalIndependence_of_implementationLocality` | `redundancy_fails` (2-positive countermodel: core, validity, reversible richness, embedded observation, no inert spectators); `form_fixed_existence_fails` |
 | `CompositeOperationalValidity` | DERIVED from implementation locality (positivity); normalization is the trace clause of implementation generation, stated rather than derived | realized operations are completely positive | `validity_of_implementationLocality` | `validity_independent` (everywhere-available theory) |
-| `HasCompositeUnitaryControl` | DERIVED from elementary transition richness with dagger-stable implementation locality | driven transition, exchanges, quarter phase generate `su(D)` | `lieRank_of_elementary`, `inverseAccessibility_of_generated_daggerStable`, `control_of_lieRank_inverse`; necessity `elementary_of_control` | `lieRank_not_redundant` (diagonal architecture: reversible implementation locality and embedded observation, no Lie-rank richness); `control_independent` (diagonal theory) |
+| `HasCompositeUnitaryControl` | DERIVED from elementary transition richness, with no dagger clause | driven transition, exchanges, quarter phase generate `su(D)`; Lie-rank richness gives full control unconditionally | `lieRank_of_elementary`, `control_of_lieRank`; necessity `elementary_of_control` | `lieRank_not_redundant` (diagonal architecture: reversible implementation locality and embedded observation, no Lie-rank richness); `control_independent` (diagonal theory) |
 
 **The missing witness.** The charter's first row names observer recursion as a candidate source
 of the seam alongside embedded observation. The kernel derived the seam from embedded observation
@@ -50,7 +50,13 @@ on every nonempty finite carrier:
 | `OIPlusEmbedded` | validity, observational independence, reversible richness, embedded observation | `carrier_general_oiPlusEmbedded` |
 | `OIPlusLocal` | implementation locality, reversible richness, embedded observation | `carrier_general_oiPlusLocal` |
 | `OIPlusElem` | reversible implementation locality, elementary transition richness, embedded observation | `carrier_general_oiPlusElem` |
+| `OIPlusPos` | implementation locality, elementary transition richness, embedded observation | `carrier_general_oiPlusPos` |
 
+`OIPlusPos` drops the dagger clause of `OIPlusElem`; the inverse-clause audit
+(`INVERSE-CLAUSE-AUDIT.md`) derives inverse accessibility from Lie-rank richness
+on a well-formed theory (`inverseAccessibility_of_lieRank`: Lie-rank richness gives full control
+unconditionally, and on a well-formed theory full control yields inverse accessibility), so the two
+packages are equivalent (`oiPlusPos_iff_oiPlusElem`).
 `OIPlusElem` is the charter's desired endpoint: every conjunct is stated at the level of
 implementations or of the observer architecture, none is a Lie-algebraic, reachability or
 availability condition, and both directions are kernel-witnessed. The substratum-source audit
@@ -64,26 +70,28 @@ controllability ⟺ finite operational quantum mechanics` (`substratum_plus_cont
 
 ## What remains open
 
-These are the residual items the earlier audits named and did not settle; nothing in this note
+The earlier audits named four residual items. The first, the inverse clause — whether inverse
+accessibility is forced by implementation locality, embedded observation and Lie-rank richness —
+is settled by `INVERSE-CLAUSE-AUDIT.md` and `OIBridge/PositiveReachability.lean`, where the
+compact-semigroup argument is made exact. Lie-rank richness gives full control unconditionally
+(`control_of_lieRank`), and on a well-formed theory full control yields inverse accessibility
+(`inverseAccessibility_of_lieRank`); implementation locality and embedded observation supply the
+well-formedness. The other three are
+open; nothing in this note
 settles them.
 
-1. **The inverse clause.** Whether inverse accessibility is forced by implementation locality,
-   embedded observation and Lie-rank richness is open in both directions. The compact-semigroup
-   argument — the available unitaries at a level form a subsemigroup of a compact group
-   containing the flows in both time directions, and a subsemigroup with nonempty interior is a
-   group — is the candidate derivation; no countermodel is built either.
-2. **The minimal elementary repertoire.** Whether the quarter phase is dispensable on three or
+1. **The minimal elementary repertoire.** Whether the quarter phase is dispensable on three or
    more states, and whether one driven pair and one exchange orbit suffice, is not settled.
-3. **Context stability given generation.** Whether a theory generated by a class not closed under
+2. **Context stability given generation.** Whether a theory generated by a class not closed under
    `1 ⊗ ·` can fail observational independence is not settled.
-4. **The empirical addition.** Continuous off-diagonal controllability is not supplied by the
+3. **The empirical addition.** Continuous off-diagonal controllability is not supplied by the
    current substratum (`readWriteSourced_not_qm`, `substratumClass_not_drivesElementary`); no
    control law is postulated to obtain it.
 
 ## What this note does not claim
 
 That any row of the charter was settled by this note beyond the one witness; the rest are the
-earlier rounds' theorems, cited. That `OIPlusElem` is minimal in any sense stronger than the
-independence rows record: item 2 above is exactly the open minimality question. That the
+earlier rounds' theorems, cited. That `OIPlusElem` or `OIPlusPos` is minimal in any sense
+stronger than the independence rows record: item 1 above is exactly the open minimality question. That the
 substratum supplies elementary drivability. That any statement here bears on the OI-N thread,
 the concrete-cut freeze, or CT3.
