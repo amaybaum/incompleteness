@@ -158,6 +158,7 @@ import OIBridge.LinkDecomposition
 import OIBridge.QuarterTurn
 import OIBridge.PassiveObservation
 import OIBridge.CentralObservation
+import OIBridge.PassiveIndependence
 
 namespace OIBridge
 

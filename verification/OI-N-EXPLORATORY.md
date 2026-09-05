@@ -1,7 +1,7 @@
 # OI-N — the exploratory necessity thread
 
-`OIBridge/PassiveObservation.lean` (N1, N2), `OIBridge/CentralObservation.lean` (N3); guard `R7-OIN`
-in `verification/lean/edge_rigidity_probe.py`.
+`OIBridge/PassiveObservation.lean` (N1, N2), `OIBridge/CentralObservation.lean` (N3),
+`OIBridge/PassiveIndependence.lean` (N4); guard `R7-OIN` in `verification/lean/edge_rigidity_probe.py`.
 
 **Status: exploratory.** This thread is deliberately separate from the frozen OI ↔ QM equivalence and
 from the concrete-cut freeze. Nothing here may be cited as a consequence of the existing
@@ -106,23 +106,67 @@ matrix is stated. "Passive" is the nonselective channel fixing the algebra, and 
 separation of block-diagonal density matrices by outcome laws; both are the definitions N1 fixed,
 transported to the direct sum.
 
-## OI-N4 — relation to `OICore`: open
+## OI-N4 — relation to `OICore`: proved, as independence
 
-Whether passive incompleteness implies any existing OI condition, whether `OICore` implies passive
-incompleteness, or whether they are independent notions with different roles. The likely
-distinction — `OICore` is the existence of a hidden-memory/readback realization; OI-N is the
-impossibility of complete nondisturbing readout in a noncommutative theory — is not a theorem and
-must not be traded on until it is.
+`OIBridge/PassiveIndependence.lean`. `OICore T` says a finite operational theory `T` on the qubit
+realizes the sealed OI core: the passive step `σ` and the control `τ` of the hidden-memory gadget
+are available as permutation channels at ancilla level four, and the native readout reproduces the
+classical OI comb (`RealizesSealedOICore`). It is a statement about which operations `T` makes
+available. The theory-level passive notion is `PassivelyIncomplete T`: no family `T.avail` makes
+available on the system is both passive and state-separating.
+
+**Passive incompleteness is carrier-intrinsic** (`passivelyIncomplete_of_card`,
+`passivelyIncomplete_qubit`). By N1 it holds for every theory on a carrier with two or more states,
+whatever `T` makes available. The property does not vary with `T` at all.
+
+**The OI core varies with `T`.** `diagTheory` realizes it (`diag_realizesSealedOICore`, from the
+minimality audit). `labelTheory`, built here, does not: it is `diagTheory` with diagonal preservation
+on composite operations replaced by ancilla-label preservation (`KeepsLabels` — every ancilla block
+is mapped into itself, so nothing moves information between ancilla values) and with reference-tested
+preparations alone. The local Lüders readout keeps labels (`keepsLabels_localLuders`), so the theory
+closes under the structure's rules; the OI control `τ` flips the ancilla's second bit and carries the
+unit at composite index `(0, 0)` to `(0, 1)` (`coreIdx_tau_symm`, `tau_moves_label`), so it is
+unavailable, and `labelTheory` does not realize the core (`label_not_oiCore`).
+
+**The diagram** (`passive_independence`):
+
+> every `T` is passively incomplete; some `T` realizes the OI core (`diagTheory`); some `T` does not
+> (`labelTheory`).
+
+So `OICore T → PassivelyIncomplete T` holds for every `T`, but the proof does not consult the
+hypothesis (`oiCore_to_passive_vacuous` is N1 on the carrier); and `PassivelyIncomplete T → OICore T`
+fails (`passive_not_implies_oiCore`, `passivelyIncomplete_without_oiCore`). Neither notion carries
+information about the other: one is constant across theories and the other is not. This is the
+result that keeps OI-N from being misread as a hidden-ontology necessity theorem — passive
+incompleteness holds in a theory that realizes no OI core whatever.
+
+**What varies is the sector, not the OI status** (`sector_diagram`). `PassivelyCompleteOnDiagonal T`
+asks for an available family, completely positive, whose nonselective channel fixes every diagonal
+matrix and which separates diagonal matrices by outcome law. The pinching instrument is a Kraus family
+(`pinching_isKrausFamily`, through the kernel's factorization) and preserves diagonal states
+(`pinching_preservesDiag`), so it is available in both `diagTheory` and `labelTheory`, and N2 makes
+both theories passively complete on their commutative sector
+(`diag_passivelyCompleteOnDiagonal`, `label_passivelyCompleteOnDiagonal`) while both are passively
+incomplete on the full algebra. Passive (in)completeness tracks the observable algebra the states live
+in — the N3 boundary — and is the same on both sides of the OI-core line.
+
+All fourteen named results print `[propext, Classical.choice, Quot.sound]` and nothing else.
+
+**Scope.** `labelTheory` is a witness against `OICore` and nothing more: none of the five physical
+completion conditions is claimed for it. The cell `OICore ∧ ¬ PassivelyCompleteOnDiagonal` is neither
+inhabited nor shown empty; the sector diagram does not need it. `PassivelyIncomplete` quantifies over
+system-level availability; a notion relativized to composite carriers is not defined.
 
 ## OI-N5 — the internal observer: not started
 
-Deferred until N4 is settled. Imports no hidden-variable or subquantum assumption.
+Deferred. Imports no hidden-variable or subquantum assumption.
 
 ## What this thread does not claim
 
 That `QM ⟹ a hidden OI ontology`; standard quantum mechanics admits informationally complete
-measurements, and OI-N concerns the conjunction of completeness with nondisturbance. That N1, N2 or
-N3 bears on the OI ↔ QM equivalence, on the concrete-cut freeze, or on CT3. That a passive
+measurements, and OI-N concerns the conjunction of completeness with nondisturbance; N4 makes the
+point a theorem, since passive incompleteness holds in `labelTheory`, which realizes no OI core. That
+N1–N4 bear on the OI ↔ QM equivalence, on the concrete-cut freeze, or on CT3. That a passive
 instrument's silence is an observer, or that "passive" here coincides with the passive quotient of
 `PassiveQuotient.lean`, which is a different object. That N3 says anything about infinite-dimensional
 algebras, about instruments with infinitely many outcomes, or about an abstract C*-algebra before it

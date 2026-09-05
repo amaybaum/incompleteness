@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 108 modules and,
-  at this commit, 2,323 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 109 modules and,
+  at this commit, 2,337 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -689,10 +689,31 @@ two basis states carries two pure states every passive instrument confuses
 (`injective_iff_commutative`, `complete_passive_iff_commutative`). Thirteen named results, each
 printing only `propext`, `Classical.choice`, `Quot.sound`. Scope: the block-diagonal form is the
 object; the Wedderburn–Artin identification of an abstract finite-dimensional C*-algebra with it is
-not formalized. Open, and guarded as open by `R7-OIN`: the relation to `OICore` (N4) and the
-internal observer (N5). Not claimed: that quantum mechanics requires OI or a hidden ontology —
-`qm_implies_oiCore` is containment, and the necessity reading is not a theorem of this thread;
-"passive" here is not the passive quotient of `PassiveQuotient.lean`.
+not formalized.
+
+`OIBridge/PassiveIndependence.lean` is **OI-N4**: passive incompleteness and the OI core are
+logically independent, in a sharper form than a pair of countermodels. `PassivelyIncomplete T`
+says no family a theory `T` makes available on the system is both passive and state-separating;
+by N1 it holds for every theory on a carrier with two or more states
+(`passivelyIncomplete_of_card`, `passivelyIncomplete_qubit`) — it is carrier-intrinsic and does
+not vary with `T`. The OI core does vary: `diagTheory` realizes it, and `labelTheory` — the
+diagonal theory with ancilla-label preservation (`KeepsLabels`) in place of diagonal preservation
+on composite operations — does not, because the OI control `τ` flips the ancilla's second bit
+(`tau_moves_label`, `label_not_oiCore`). So `OICore T → PassivelyIncomplete T` holds for every
+`T` with the hypothesis idle (`oiCore_to_passive_vacuous` is N1 alone), and
+`PassivelyIncomplete T → OICore T` fails (`passivelyIncomplete_without_oiCore`,
+`passive_not_implies_oiCore`); `passive_independence` is the diagram. What varies is the sector:
+the pinching instrument is a Kraus family preserving diagonals (`pinching_isKrausFamily`,
+`pinching_preservesDiag`), so both theories are passively complete on their commutative sector and
+passively incomplete on the full algebra (`sector_diagram`) — passive (in)completeness tracks the
+observable algebra, the N3 boundary, and is the same on both sides of the OI-core line. Fourteen
+named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Scope: `labelTheory`
+is a witness against `OICore` and no completion condition is claimed for it; the cell
+`OICore ∧ ¬ PassivelyCompleteOnDiagonal` is neither inhabited nor shown empty. Open, and guarded as
+open by `R7-OIN`: the internal observer (N5). Not claimed: that quantum mechanics requires OI or a
+hidden ontology — `qm_implies_oiCore` is containment, the necessity reading is not a theorem of
+this thread, and N4 shows passive incompleteness in a theory with no OI core at all; "passive"
+here is not the passive quotient of `PassiveQuotient.lean`.
 
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
 audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its
