@@ -545,3 +545,33 @@ Enforcement: reviewers check each displayed equivalence against its cited
 theorem statements, one direction at a time. In a research thread whose target
 is an equivalence, the audit file carries the two directions as separate
 pre-registered questions with their own status.
+
+## §A.35 Registry contract for the Lean-to-manuscript census
+
+`tools/lean_manuscript_census.py` (release-gate step `lean-manuscript`) is
+complete **relative to the maintained registry**
+`verification/lean-manuscript-census.json`: it resolves every cited kernel
+identifier, refuses a paragraph that cites a superseded identifier without its
+successor, requires every `OIBridge` module to carry a disposition, and
+requires every family the manuscripts carry to name at least one anchor that is
+present. It cannot infer that a theorem inside an existing module has become
+stronger. A strengthening whose supersession entry or anchor is not recorded
+passes all four checks.
+
+The contract that closes the gap: **every publication-facing strengthening of a
+theorem inside an existing module updates the registry in the same commit**,
+with a supersession entry for the identifier it replaces and an anchor for the
+statement the manuscripts must now carry. A new module is caught mechanically
+(it has no family); a stronger theorem in an old module is caught only by this
+contract. The registry is part of the change, as the `.tex` is part of a
+manuscript edit (§A.25 step 5).
+
+Adopted 2026-09-05 at the census round: the census note first promised that any
+kernel strengthening reaching the guards and not the papers would be caught at
+the next run, which the mechanism does not deliver on its own; one family
+recorded as carried by the SM paper named no anchor, so its result could have
+left the paper unnoticed. Both were corrected in owner review.
+
+Enforcement: guard `R7-MSP` pins this section, the anchor requirement in the
+census tool and the contract sentence in the registry; reviewers check that a
+commit strengthening a theorem in an existing module touches the registry.

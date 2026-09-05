@@ -162,6 +162,7 @@ import OIBridge.PassiveIndependence
 import OIBridge.InternalObserver
 import OIBridge.LevelOneRecursion
 import OIBridge.PositiveReachability
+import OIBridge.TypedPositive
 
 namespace OIBridge
 

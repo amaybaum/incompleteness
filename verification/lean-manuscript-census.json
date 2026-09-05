@@ -1,0 +1,138 @@
+{
+  "_comment": "The Lean-to-manuscript census registry read by tools/lean_manuscript_census.py. Every OIBridge module belongs to exactly one family; every family carries a disposition; a family the manuscripts carry (current, consistent-uncited, scope-consistent) names at least one anchor; a superseded identifier may appear in a manuscript paragraph only alongside its successor. Registry contract (AGENTS.md A.35): the check is complete relative to this file, so every publication-facing strengthening of a theorem inside an existing module updates this file in the same commit, with a supersession entry for the identifier it replaces and an anchor for the statement the manuscripts must now carry.",
+  "manuscripts": [
+    "papers/GR.md", "papers/Main.md", "papers/Explainer.md", "papers/SM.md",
+    "papers/Structure.md", "papers/Substratum.md", "papers/Methodology.md",
+    "papers/Computation.md", "papers/Complexity.md", "papers/Juno.md",
+    "papers/Medicine.md", "papers/Bioinformatics.md",
+    "book/The-Incompleteness-of-Observation-FULL.md"
+  ],
+  "supersessions": {
+    "carrier_general_oiPlusElem": "carrier_general_oiPlusPos",
+    "oiPlusElem_iff_qm": "oiPlusPos_iff_qm",
+    "carrier_general_oiPlusMicro": "carrier_general_oiPlusPos",
+    "carrier_general_oiPlusLocal": "carrier_general_oiPlusPos",
+    "carrier_general_oiPlusEmbedded": "carrier_general_oiPlusPos",
+    "inverseAccessibility_of_generated_daggerStable": "inverseAccessibility_of_lieRank",
+    "control_of_lieRank_inverse": "control_of_lieRank",
+    "universalReachability_of_lieRank_unconditional": "universalReachability_of_lieRank_positive",
+    "universalReachability_of_lieRank": "universalReachability_of_lieRank_positive",
+    "typed_determined_of_oiPlusElem": "typed_determined_of_oiPlusPos"
+  },
+  "families": [
+    {
+      "name": "representation bridge and counting",
+      "modules": ["Averaging", "CombRealization", "LinkDecomposition", "QuarterTurn", "TasteBranching", "GaugeDimension", "CubicIsotropy"],
+      "status": "consistent-uncited",
+      "manuscript": [
+        {"file": "papers/SM.md", "anchor": "$6=T_1(3)\\oplus E(2)\\oplus A_1(1)$"},
+        {"file": "papers/SM.md", "anchor": "n(A₁) = 1, n(E) = 1, n(T₁) = 1"}
+      ],
+      "note": "The cubic counting layer of the SM paper (the averaging identity, the equivariant-map dimension formula, dim Hom_G(V6,V6) = 3). The paper states the results in its own derivation, anchored at the link-representation decomposition and its multiplicities; no kernel pointer is placed in SM.md. A pointer pass is an owner decision."
+    },
+    {
+      "name": "equivalence chain and memory",
+      "modules": ["EquivalenceChain", "FiniteEntropy", "HiddenMemory", "Equivalence", "C3Necessity", "CanonicalMeasure", "Finiteness", "FactorUniqueness", "IdempotentTrace", "Irreducibility", "KrausUniqueness", "StinespringUniqueness", "Separability", "WeylTwirl", "WeylLift", "BoundaryRank", "Reciprocity"],
+      "status": "consistent-uncited",
+      "manuscript": [
+        {"file": "papers/Main.md", "anchor": "separability threshold"}
+      ],
+      "note": "Main 3.4: the finite-horizon equivalence, the memory and necessity theorems, the Weyl-twirl separability results. Main states them with proofs; kernel pointers are not placed. A pointer pass is an owner decision."
+    },
+    {
+      "name": "Hamiltonian reconstruction",
+      "modules": ["BohrFrequency", "FrequencyMatching", "PiccardBridge", "EdgeRigidity", "HomometricSix", "HomometricKill", "CongruentReconstruction", "TurnpikeScopeTransfer", "AntiunitaryInvariance", "ThermalOrientation", "ShellAssignment"],
+      "status": "current",
+      "manuscript": [
+        {"file": "papers/GR.md", "anchor": "D-gauge completeness, two-branch form"},
+        {"file": "papers/GR.md", "anchor": "thermodynamic orientation"}
+      ],
+      "note": "GR 3.3: Bohr-frequency completeness, the two-branch D-gauge theorem graded on the cited integer classification, the homometric exception killed, antiunitary invariance, the thermodynamic orientation selector."
+    },
+    {
+      "name": "coherent completions",
+      "modules": ["CoherentLift", "TwoByTwoNoGo", "AccessibleAlgebra", "OperationalRigidity", "JordanClassification", "OrientationSelection", "OrientationClosure", "CycleFibreHull", "DynamicsGlue", "DomainGlue", "ObservabilityQuotient", "PassiveQuotient", "ControlledQuotient", "CoherentExtension", "ProjectiveAction", "ControlLie"],
+      "status": "current",
+      "manuscript": [
+        {"file": "papers/GR.md", "anchor": "coherent-completion classification"}
+      ],
+      "note": "GR 3.3: lift obstructions, the coherent-completion classification, the orientation no-go. The observability, passive and controlled quotients underwrite no manuscript statement (Audit A, CONCRETE-CUT-FREEZE.md); ControlLie is machinery for the completion classification."
+    },
+    {
+      "name": "instruments, dilation and assembly",
+      "modules": ["InstrumentDilation", "Purification", "BranchSelector", "IndependenceCensus", "MonoidalCompletion", "OperationalAssembly", "StinespringAssembly", "KrausSoundness", "CompositeSoundness", "HiddenCoherence", "AncillaInterference", "PartialTranspose", "FactorExchange", "DimensionalObstruction", "DimensionalCountermodel", "BoundaryAudit"],
+      "status": "verification-only",
+      "manuscript": [],
+      "note": "The finite operational theory structure, the Stinespring assembly, Kraus soundness, the positive-but-not-completely-positive countermodel and the boundary ledger: machinery consumed by the completion classification. DimensionalCountermodel supplies the witness `countermodel` cited in GR 3.3."
+    },
+    {
+      "name": "completion classification and the primitive-source chain",
+      "modules": ["ReferenceExtension", "ReferenceSufficiency", "SpectatorBridge", "AncillaClosure", "ClosureObstruction", "CompositionalIndependence", "OIRealization", "OperationalValidity", "LevelOneSeam", "PhysicalCharacterization", "DiagonalTheory", "RankGapTheory", "IsometryExtension", "GeneralCarrier", "UhlmannUniqueness", "ReachabilitySeam", "OrbitReachability", "SubstantiveCensus", "CompletedOI", "CarrierGeneralOIPlus", "EmbeddedObservation", "ImplementationLocality", "MicroscopicReversibility", "LieRankSource", "PositiveReachability", "LevelOneRecursion"],
+      "status": "current",
+      "manuscript": [
+        {"file": "papers/GR.md", "anchor": "\\text{implementation locality} + \\text{elementary transition richness}"},
+        {"file": "papers/GR.md", "anchor": "carrier_general_oiPlusPos"},
+        {"file": "papers/GR.md", "anchor": "five_way_minimality"},
+        {"file": "papers/Main.md", "anchor": "carrier_general_oiPlusPos"},
+        {"file": "papers/Explainer.md", "anchor": "no closure of the implementations under the adjoint"},
+        {"file": "book/The-Incompleteness-of-Observation-FULL.md", "anchor": "no closure of the implementations under the adjoint"}
+      ],
+      "note": "GR 3.3 (the operational-completion characterization, OI+, the primitive-source form), Main 3.4, the Explainer note, book chapters 1 and 19. The strongest package is OIPlusPos; the OI+ layered form and the five-condition form are stated as the layered and five-condition forms, not as the strongest package. SubstantiveCensus, CompositionalIndependence and LevelOneRecursion are independence scaffolding cited in the verification notes only."
+    },
+    {
+      "name": "substratum source",
+      "modules": ["SubstratumSource", "SubstratumInterface", "ReadWriteControl", "StructuralClosure"],
+      "status": "current",
+      "manuscript": [
+        {"file": "papers/GR.md", "anchor": "\\text{current OI substratum} + \\text{continuous off-diagonal controllability}"},
+        {"file": "papers/Main.md", "anchor": "substratum_plus_control_qm"}
+      ],
+      "note": "GR 3.3 substratum-source form and its boxed endpoint; the endpoint is unchanged by the primitive-source compressions."
+    },
+    {
+      "name": "typed completion",
+      "modules": ["TypedCompletion", "TypedPositive"],
+      "status": "current",
+      "manuscript": [
+        {"file": "papers/GR.md", "anchor": "typed_determined_iff"},
+        {"file": "papers/GR.md", "anchor": "typed_determined_of_oiPlusPos"}
+      ],
+      "note": "GR 3.3 typed form; the package-level corollary is cited from the current package."
+    },
+    {
+      "name": "quasilocal completion",
+      "modules": ["RegionLimit", "RegionTower", "QuasilocalAlgebra", "QuasilocalCharacterization"],
+      "status": "current",
+      "manuscript": [
+        {"file": "papers/GR.md", "anchor": "canonical infinite-region completion"},
+        {"file": "papers/Main.md", "anchor": "quasiState_unique"}
+      ],
+      "note": "GR 3.3 infinite-region completion, with its scope (fixed lattice, no continuum limit, no representation selected)."
+    },
+    {
+      "name": "instrument audit",
+      "modules": ["InstrumentCompletion", "InstrumentAvailability"],
+      "status": "scope-consistent",
+      "manuscript": [
+        {"file": "papers/GR.md", "anchor": "it is not a characterization of all infinite-dimensional quantum instruments"}
+      ],
+      "note": "The manuscripts carry the scope qualification; the finite-support redundancy result itself is not narrated, and no live corpus claim requires infinite-support interventions (INSTRUMENT-COMPLETION-AUDIT.md)."
+    },
+    {
+      "name": "continuous time (CT2)",
+      "modules": ["SecondOrderCircuit", "SecondOrderLayer", "SecondOrderDrive", "SwapLayer"],
+      "status": "kernel-only",
+      "manuscript": [
+        {"file": "papers/GR.md", "anchor": "A continuous-time Hamiltonian law is additional structure"}
+      ],
+      "note": "The exact norm-continuous local automorphism path from the identity to the discrete OI update is proved and not narrated in the manuscripts; the manuscripts' statement that a continuous-time Hamiltonian law remains additional structure is consistent with it (CT2 gives a path, not a static generator). Adding CT2 to GR 3.3 is an owner decision."
+    },
+    {
+      "name": "OI-N passive observation",
+      "modules": ["PassiveObservation", "CentralObservation", "PassiveIndependence", "InternalObserver"],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "The frozen exploratory thread (OI-N-FREEZE.md): noncommutativity forbids complete passive observation; passive incompleteness does not diagnose OICore; a passive internal observer only reads an existing record; a new internal record changes the joint system. Not narrated in the manuscripts; the freeze note says it is citable only for what its modules prove. Adding it is an owner decision, and no manuscript sentence contradicts it."
+    }
+  ]
+}
