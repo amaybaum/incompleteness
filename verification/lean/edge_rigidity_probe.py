@@ -3295,7 +3295,7 @@ for _t in ('| 1, passive step | `substratumTheory_passiveStep` | `substratumTheo
 _cen = open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read()
 _cen1 = re.sub(r'\s+', ' ', _cen)
 ok_rb1 &= '| route B: consequence closure | 1 | kernel-only |' in _cen1 and 'routeB_target' in _cen1
-ok_rb1 &= 'The exception is the Route B family, `kernel-only`' in _cen1
+ok_rb1 &= re.search(r'The exceptions? (is|are) the Route B family', _cen1) is not None and '`kernel-only`' in _cen1
 for _t in ('is proved (`routeB_target`, through `target_of_substratum_core`)',
            'substratumTheory_realizesSealedOICore', 'substratumTheory_relabel',
            'derivedOICore_not_phaseFree', 'derivedOI_qm_iff_phaseFree',
@@ -3310,6 +3310,135 @@ check('R7-RB1', ok_rb1,
       'target_of_substratum_core, and the note, the census and the README record the outcome with '
       'its scope: the two-state closure with the core does not entail phase-free richness, under the '
       'closure quantum mechanics is exactly phase-free richness, and nothing is said of bare OI.')
+
+# ---- The manuscript-axiom pass: A1–A6 preregistered before the proof with a representability
+# verdict each, A1 and A2 closed under faithful forms, A3–A6 recorded as gaps with no weakened
+# predicate, no ManuscriptOI conjunction formed, the sourcing bound proved, nothing asserted
+# about the witness against A3–A6 or about the strongest claim ----
+ok_max = True
+_ma = open(os.path.join(BRIDGE, 'OIBridge', 'ManuscriptAxioms.lean'), encoding='utf-8').read()
+_maflat = ' '.join(_ma.split())
+_man = open(os.path.join(os.path.dirname(BRIDGE), 'MANUSCRIPT-AXIOM-AUDIT.md'), encoding='utf-8').read()
+_man1 = re.sub(r'\s+', ' ', _man)
+ok_max &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _ma) is None and 'native_decide' not in _ma
+ok_max &= 'axiom ' not in re.sub(r'/-.*?-/', '', _ma, flags=re.S)
+_ma_names = ('a1_every_theory', 'substratumTheory_A1', 'substratumTheory_A2', 'substratumTheory_A1A2',
+             'a2_of_control', 'substratumClass_configurationLevel', 'configurationLevel_iff_le_substratum',
+             'configurationLevel_availExt_le', 'configurationLevel_falsifierUnavailable',
+             'configurationLevel_not_phaseFree', 'configurationLevel_not_qm')
+for _nm in _ma_names:
+    ok_max &= ('#print axioms ' + _nm) in _ma and _nm in _man1
+ok_max &= _ma.count('#print axioms') == len(_ma_names)
+# exactly four definitions: the two faithful axioms, their conjunction, and the sourcing predicate;
+# no predicate for a gapped axiom and no ManuscriptOI
+ok_max &= sorted(re.findall(r'^def (\w+)', _ma, re.M)) == sorted(['A1Realized', 'A2Realized', 'A1A2Realized', 'ConfigurationLevel'])
+ok_max &= re.search(r'\b(def|theorem|abbrev|structure) \w*(A3|A4|A5|A6|ManuscriptOI)\w*', _ma) is None
+ok_max &= 'ManuscriptOI' not in _ma
+ok_max &= ('def A1Realized (_T : FiniteOperationalTheory (Fin 2)) : Prop := Fintype.card Core = 8 ∧ '
+           '∀ n : ℕ, Fintype.card (Fin 2 × Fin n) = 2 * n') in _maflat
+ok_max &= ('def A2Realized (T : FiniteOperationalTheory (Fin 2)) : Prop := T.availExt 4 Unit '
+           '(fun _ => transport coreIdx (correlationExtension sigmaPerm (onesCorr Core))) ∧ T.availExt 4 Unit '
+           '(fun _ => transport coreIdx (correlationExtension sigmaPerm.symm (onesCorr Core)))') in _maflat
+ok_max &= ('def ConfigurationLevel (𝓘 : ImplementationClass) : Prop := ∀ (S : Type) [Fintype S] [DecidableEq S] '
+           '(K : Matrix S S ℂ), 𝓘 S K → IsMonomial K') in _maflat
+ok_max &= 'theorem configurationLevel_not_phaseFree (h : ConfigurationLevel 𝓘) (hl : LabelInvariant 𝓘) : ¬ PhaseFreeRichness (genTheory 𝓘 arch (Fin 2))' in _maflat
+ok_max &= 'theorem configurationLevel_falsifierUnavailable (h : ConfigurationLevel 𝓘) : FalsifierUnavailable (genTheory 𝓘 arch (Fin 2))' in _maflat
+ok_max &= 'theorem substratumTheory_A2 : A2Realized (substratumTheory (Fin 2)) := ⟨substratumTheory_relabel sigmaPerm, substratumTheory_relabel sigmaPerm.symm⟩' in _maflat
+# the note: preregistration precedes the outcome; the six axioms verbatim; a verdict per axiom
+# before the proof; two outcomes per representable axiom, the gap for the others; the reading of
+# the bound fixed in advance; the outcome table; the missing interface; the non-claims
+_i_pre = _man.find('## Per-axiom preregistration')
+_i_bound = _man.find('## The interface theorem, preregistered')
+_i_out = _man.find('## The outcome')
+ok_max &= 0 < _i_pre < _i_bound < _i_out
+ok_max &= _man.lstrip().startswith('# The manuscript-axiom audit')
+for _t in ('**(A1) Finiteness.** The configuration space $S$ is finite.',
+           '**(A2) Determinism.** $\\varphi : S \\to S$ is a bijection (deterministic, reversible dynamics).',
+           '**(A3) Bounded coupling degree.**', '**(A4) Center independence.**', '**(A5) Linearity.**',
+           '**(A6) Background independence.**',
+           '| A1 finiteness | **yes**', '| A2 determinism | **yes** |', '| A3 bounded coupling degree | **no** |',
+           '| A4 center independence | **no** |', '| A5 linearity | **no** |',
+           '| A6 background independence | **no** |',
+           'no conjunction named `ManuscriptOI` is defined in the kernel',
+           'Configuration-level sourcing bound', 'If the theorem holds, its reading is fixed here in advance',
+           'Status: pass complete, with a scope repair recorded at review. No manuscript-level A1–A6 conjunct is presently a faithful predicate of the bare theory',
+           'realized-core image', '## Scope repair, recorded at review', 'commit `6183bc6`',
+           'A1 and A2 are realized-core images, not faithful predicates of the manuscript substratum',
+           'The sourcing bound proves necessity, not uniqueness',
+           'requires some non-configuration-level sourcing',
+           "the manuscripts' specifically named open candidate",
+           '| A1 finiteness | realized-core image holds for the witness, and for every theory; manuscript-level A1 is a gap (no identification map) |',
+           '| A2 determinism | realized-core image holds for the witness, and for every theory with composite unitary control; manuscript-level A2 is a gap (no identification map) |',
+           '| A3 bounded coupling degree | **gap** | no kernel predicate |',
+           '| A4 center independence | **gap** | no kernel predicate |',
+           '| A5 linearity | **gap** | no kernel predicate |',
+           '| A6 background independence | **gap** | no kernel predicate |',
+           'is **not established**', 'The strongest form is therefore not refuted here',
+           'The missing interface, recorded', 'Eleven named results', 'What this note does not claim',
+           'A3–A6 may well be what such a derivation consumes; the pass does not say they are not',
+           'not shown here to be the only one',
+           'makes the required continuous mixing executable', 'one-parameter family of transitions at the relevant levels',
+           'A single executable non-monomial gate is not enough',
+           'That an executable non-monomial gate would close Route A'):
+    ok_max &= _t in _man1
+# a discrete non-monomial gate is never promoted to closure of Route A: the target is the
+# executable continuous mixing family, in the module, the README and the outcome
+for _t in (_maflat, _rd1, _man[_man.find('## The outcome'):]):
+    ok_max &= 'a non-monomial operation executable' not in _t and 'non-monomial operation executable' not in _t
+for _t in (_maflat, _rd1):
+    ok_max &= 'not a single non-monomial gate' in _t
+for _bad in ('a non-monomial gate closes Route A', 'non-monomial gate suffices', 'Route A is closed by a gate'):
+    ok_max &= not _asserted(_man, _bad)
+# the superseded readings are absent from the module, the README, the registry note and the
+# outcome half of the note; the scope-repair section quotes two of them and is excluded
+_man_out = _man[_man.find('## The outcome'):]
+for _t in (_maflat, _rd1, _man_out):
+    for _bad in ('only through the observer-level lift', 'the only place left', 'every sourcing of any substratum',
+                 'the only sourcing the bound leaves', 'faithful theory-level forms relative to',
+                 'A1 and A2 hold for the witness', 'A1 AND A2 HOLD FOR THE WITNESS'):
+        ok_max &= _bad not in _t
+for _bad in ('The witness satisfies ManuscriptOI', 'witness satisfies `ManuscriptOI`', 'ManuscriptOI does not imply',
+             'A1–A6 hold for the witness',
+             'satisfies A1–A6', 'satisfies the full manuscript OI', 'strongest form is false',
+             'OI ⇒ QM is false', 'the lift is derivable', 'the lift is not derivable',
+             'quantum mechanics requires OI', 'bare OI implies', 'Route A is closed',
+             'the drive is independent of OI', 'A3–A6 fail', 'A3–A6 hold',
+             'A1 and A2 hold for the witness', 'the lift is the only', 'only non-configuration-level sourcing is'):
+    ok_max &= not _asserted(_man, _bad)
+# no manuscript carries the pass; the registry classifies the module as kernel-only, no anchor
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    ok_max &= 'ManuscriptAxioms' not in _t and 'A1Realized' not in _t and 'ConfigurationLevel' not in _t
+_ma_fam = [f for f in _ptr_reg['families'] if f['name'] == 'manuscript axioms A1-A6']
+ok_max &= len(_ma_fam) == 1 and _ma_fam[0]['status'] == 'kernel-only' and _ma_fam[0]['modules'] == ['ManuscriptAxioms']
+ok_max &= _ma_fam[0]['manuscript'] == [] and 'asserts nothing about whether the witness satisfies any of A1-A6 in the manuscript sense' in _ma_fam[0]['note']
+ok_max &= 'realized-core images' in _ma_fam[0]['note'] and 'requires some non-configuration-level sourcing' in _ma_fam[0]['note']
+for _bad in ('faithful theory-level forms', 'every configuration-level sourcing of any substratum', 'only through the observer-level lift'):
+    ok_max &= _bad not in _ma_fam[0]['note']
+_cen_ma = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+ok_max &= '| manuscript axioms A1–A6 | 1 | kernel-only |' in _cen_ma and 'realized-core images of A1 and A2' in _cen_ma
+for _t in ('`R7-MAX`', 'MANUSCRIPT-AXIOM-AUDIT.md', 'A1Realized', 'A2Realized', 'ConfigurationLevel',
+           'configurationLevel_not_phaseFree', 'formalization gap', 'Eleven named results',
+           'no manuscript-level A1–A6 conjunct is presently a faithful predicate of the bare theory',
+           'realized-core images', 'requires some non-configuration-level sourcing',
+           'specifically named open candidate', 'not shown to be the only one',
+           'asserts nothing about whether the witness satisfies any of A1–A6 in the manuscript sense'):
+    ok_max &= _t in _rd1
+check('R7-MAX', ok_max,
+      'Manuscript-axiom guard: the module carries no sorry, axiom or native_decide and prints the axioms '
+      'of exactly its eleven results; it defines exactly A1Realized, A2Realized, A1A2Realized and '
+      'ConfigurationLevel, verbatim as pinned, with no predicate for A3–A6 and no ManuscriptOI; the '
+      'note quotes the six axioms, gives each a representability verdict before the proof, preregisters '
+      'the sourcing bound with its reading fixed in advance, records the scope repair made at review '
+      'with the preregistration commit named, records the A1 and A2 realized-core images as holding '
+      'and all six axioms as gaps at the manuscript-substratum level with the missing interface, the '
+      'bound as necessity of a non-configuration-level sourcing with the lift as the named candidate '
+      'and not the only route, the negative case as not established and the strongest form as not '
+      'refuted, and asserts nothing about the witness against A1–A6 in the manuscript sense or about '
+      'the strongest claim; the superseded readings are absent from the module, the README, the '
+      'registry and the outcome; no manuscript carries the pass; the registry and the census carry the '
+      'family as kernel-only with no anchor and the README carries the paragraph.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
