@@ -2610,6 +2610,71 @@ check('R7-CAA', ok_caa,
       'observer recursion supplies the seam, that OIPlusElem is minimal, that the substratum '
       'drives the elementary transitions, nor that the inverse clause is redundant.')
 
+# ---- the inverse-clause audit: dagger stability leaves the exact characterization ----
+_inv = open(os.path.join(os.path.dirname(BRIDGE), 'INVERSE-CLAUSE-AUDIT.md'),
+            encoding='utf-8').read()
+_inv1 = re.sub(r'\s+', ' ', _inv)
+_pr = open(os.path.join(BRIDGE, 'OIBridge', 'PositiveReachability.lean'), encoding='utf-8').read()
+_prflat = ' '.join(_pr.split())
+ok_inv = True
+ok_inv &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _pr) is None and 'native_decide' not in _pr
+ok_inv &= 'structure FiniteOperationalTheory' not in _pr and 'axiom ' not in _pr
+_inv_names = ('avail_of_mem_posReach', 'exists_pow_tendsto_one', 'exists_pow_pred_tendsto_star',
+              'adStar_mem_posSpan', 'exp_posDir_conj_mem_posSpan', 'bracket_mem_posSpan',
+              'controlLie_le_posLie', 'skew_mem_posSpan', 'map_adEquiv_posSpan₀',
+              'exists_nested_spanning', 'wordMap_mem_posReach', 'wordMap_hasStrictFDerivAt',
+              'psiW_hasStrictFDerivAt', 'psiDerivW_surjective', 'posReach_mem_nhds_totalProd',
+              'nhds_one_of_nhds_mem', 'eq_top_of_nhds_one', 'posReach_eq_top',
+              'universalReachability_of_lieRank_positive', 'control_of_lieRank',
+              'inverseAccessibility_of_lieRank', 'oiPlusPos_iff_qm', 'oiPlusPos_iff_oiPlusElem',
+              'carrier_general_oiPlusPos')
+for _nm in _inv_names:
+    ok_inv &= ('#print axioms ' + _nm) in _pr
+ok_inv &= _pr.count('#print axioms') == len(_inv_names)
+# the positive monoid is a Submonoid closure of the round-fifty generators, with no inverse
+ok_inv &= 'Submonoid.closure (generators H U)' in _prflat
+# the reachability theorem carries no adjoint-closure hypothesis
+_urp = _slice(_pr, 'theorem universalReachability_of_lieRank_positive', ':= by')
+ok_inv &= bool(_urp) and 'hstar' not in _urp and 'conjChannel Vᴴ' not in _urp
+ok_inv &= 'UniversalUnitaryReachability avail' in ' '.join(_urp.split())
+# the theory-level statements are the ones the note names
+ok_inv &= 'theorem control_of_lieRank (h : LieRankRichness T) : HasCompositeUnitaryControl T' in _prflat
+ok_inv &= 'def OIPlusPos : Prop := ImplementationLocality T ∧ ElementaryTransitionRichness T ∧ EmbeddedObservation T' in _prflat
+_cgp = ' '.join(_slice(_pr, 'theorem carrier_general_oiPlusPos', ':=').split())
+ok_inv &= bool(_cgp) and '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A]' in _cgp
+ok_inv &= _cgp.endswith('OIPlusPos T ↔ LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps T')
+ok_inv &= 'DaggerStable' not in _pr and 'ReversibleImplementationLocality T ∧' not in _slice(_pr, 'def OIPlusPos', 'variable')
+# the note records the fork, the outcome, the twenty-four results and its non-claims
+ok_inv &= _inv.lstrip().startswith('# The inverse-clause audit')
+ok_inv &= 'Status: Outcome A of the preregistered fork, proved.' in _inv1
+for _t in ('Outcome A — direct redundancy', 'Outcome B — only inverse derivation',
+           'Outcome C — independence', 'The order of attack is A, B, C',
+           'Twenty-four named results', 'What this note does not claim'):
+    ok_inv &= _t in _inv1
+for _nm in _inv_names:
+    ok_inv &= _nm in _inv
+for _bad in ('HControl is necessary', 'minimal elementary repertoire is settled',
+             'dagger stability is false', 'inverse accessibility implies dagger stability',
+             'quantum mechanics requires OI', 'non-compact'):
+    ok_inv &= not _asserted(_inv, _bad)
+# the residual list of the completion-assumption audit names the item as settled elsewhere and
+# keeps its own three open items; the README carries the same package and the twenty-four
+ok_inv &= 'settled by `INVERSE-CLAUSE-AUDIT.md`' in re.sub(r'\s+', ' ', _caa)
+ok_inv &= '`OIPlusPos` | implementation locality, elementary transition richness, embedded observation | `carrier_general_oiPlusPos`' in _caa
+_rd1 = re.sub(r'\s+', ' ', _rd)
+ok_inv &= 'carrier_general_oiPlusPos' in _rd1 and 'Twenty-four named results' in _rd1
+ok_inv &= 'Guard `R7-INV`' in _rd1
+check('R7-INV', ok_inv,
+      'Inverse-clause guard: the positive-reachability module carries no sorry, axiom or '
+      'native_decide and prints the axioms of exactly its twenty-four results; the positive '
+      'monoid is a Submonoid closure of the round-fifty generators; the reachability theorem '
+      'carries no hstar hypothesis; control_of_lieRank and OIPlusPos are stated as in the note, '
+      'with the carrier-general equivalence quantified over every nonempty finite carrier and no '
+      'dagger clause; the note records the preregistered fork, the outcome A, the twenty-four '
+      'results and its non-claims, and asserts neither that HControl is necessary, that the '
+      'repertoire is minimal, nor anything about non-compact groups; the completion-assumption '
+      'audit and the README carry the package and the count.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '

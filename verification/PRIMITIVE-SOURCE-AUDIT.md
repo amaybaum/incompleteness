@@ -111,7 +111,8 @@ the round-50 reachability theorem (`control_of_lieRank_inverse`).
 
 **The redundancy test, honestly.** Whether implementation locality, embedded observation
 and Lie-rank richness already force inverse accessibility is not settled in either
-direction. Without the clause the available unitaries at a level form a semigroup
+direction by this audit; it is settled affirmatively by `INVERSE-CLAUSE-AUDIT.md`
+(`PositiveReachability.inverseAccessibility_of_lieRank`). Without the clause the available unitaries at a level form a semigroup
 containing the flows in both time directions and the controls; a subsemigroup of a compact
 group with nonempty interior is a group, and the flows plausibly give that interior, so the
 clause may be redundant. Neither that proof, which needs closure groups and interior of
@@ -182,7 +183,8 @@ architecture.
 - The normalization half of validity is not derived; it is the trace clause of
   implementation generation.
 - The redundancy of inverse accessibility given implementation locality, embedded observation
-  and Lie-rank richness is open in both directions.
+  and Lie-rank richness is open in both directions within this audit; `INVERSE-CLAUSE-AUDIT.md`
+  settles it.
 - The converse from inverse accessibility to dagger stability is not claimed.
 - The minimal elementary repertoire is not settled: whether the quarter phase is dispensable
   on three or more states, or one driven pair and one exchange orbit suffice.
