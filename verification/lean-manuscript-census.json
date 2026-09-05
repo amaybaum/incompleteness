@@ -155,9 +155,16 @@
     {
       "name": "OI-N passive observation",
       "modules": ["PassiveObservation", "CentralObservation", "PassiveIndependence", "InternalObserver"],
-      "status": "kernel-only",
-      "manuscript": [],
-      "note": "The frozen exploratory thread (OI-N-FREEZE.md): noncommutativity forbids complete passive observation; passive incompleteness does not diagnose OICore; a passive internal observer only reads an existing record; a new internal record changes the joint system. Not narrated in the manuscripts; the freeze note says it is citable only for what its modules prove. Adding it is an owner decision, and no manuscript sentence contradicts it."
+      "status": "current",
+      "manuscript": [
+        {"file": "papers/Main.md", "anchor": "Passive observation, kept apart from the characterization"},
+        {"file": "papers/Main.md", "anchor": "complete_passive_iff_commutative"},
+        {"file": "papers/Main.md", "anchor": "passive_nondiscriminating"},
+        {"file": "papers/Main.md", "anchor": "internal_branch_eq_blockPart"},
+        {"file": "papers/Main.md", "anchor": "cannot coexist with complete passive observation"},
+        {"file": "papers/Explainer.md", "anchor": "cannot coexist with complete passive observation"}
+      ],
+      "note": "The frozen exploratory thread (OI-N-FREEZE.md), narrated in one paragraph of Main 3.4 and one of the Explainer, outside the assumptions and arrows of the OI->QM characterization: noncommutativity forbids complete passive observation; passive incompleteness is theory-insensitive and does not diagnose OICore (the N4 anti-conflation stated in the same paragraph: not evidence for a hidden ontology, no statement that QM rests on OI); a passive internal observer only reads an existing record; a new internal record changes the joint system. Citable only for what its modules prove; the freeze note is unchanged."
     }
   ]
 }

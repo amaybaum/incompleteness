@@ -2983,6 +2983,93 @@ check('R7-CTN', ok_ctn,
       'no generator; the registry carries CT2 as current with its anchors and the census note '
       'agrees.')
 
+# ---- OI-N narration guard: the passive-observation endpoint is narrated outside the assumptions
+# and arrows of the OI->QM characterization, with the N4 anti-conflation in the same paragraph ----
+ok_oinn = True
+_oinn_main = open(os.path.join(_msroot, 'papers', 'Main.md'), encoding='utf-8').read()
+_oinn_expl = open(os.path.join(_msroot, 'papers', 'Explainer.md'), encoding='utf-8').read()
+_oinn_par = [p for p in _oinn_main.split('\n\n') if p.startswith('**Passive observation, kept apart')]
+ok_oinn &= len(_oinn_par) == 1
+_op = re.sub(r'\s+', ' ', _oinn_par[0]) if _oinn_par else ''
+for _t in ('enter none of its hypotheses or conclusions',
+           'Complete passive observation of a finite-dimensional observable algebra in block-diagonal form',
+           'is possible exactly when the algebra is commutative',
+           'some passive instrument separates its states exactly when the algebra is commutative',
+           'exactly when the algebra is commutative',
+           'induces a classical stochastic observation of the algebra\'s center',
+           'Quantum noncommutativity cannot coexist with complete passive observation',
+           'This is theory-insensitive',
+           'carries no information about whether the OI core is realized',
+           'holds vacuously, and its converse fails',
+           'not evidence for a hidden ontology',
+           'nothing here says that quantum mechanics rests on observation incompleteness',
+           'is a consequence of full control and nothing more',
+           'can only read an existing record',
+           'creating a genuinely new record changes the joint system',
+           'All four statements are finite-dimensional, and none bears on the equivalence',
+           '`complete_passive_iff_commutative`', '`central_classification`',
+           '`no_complete_passive_observation`', '`passivelyIncomplete_of_card`',
+           '`passive_nondiscriminating`', '`passivelyIncomplete_without_oiCore`',
+           '`internal_branch_eq_blockPart`', '`internal_outcome_law`', '`recordInstr_writes`',
+           '`recordInstr_not_passive`', '`no_full_passive_self_record`',
+           '`oiCore_to_passive_vacuous`', '`qm_implies_oiCore`', '`realizesSealedOICore_of_control`'):
+    ok_oinn &= _t in _op
+# the N1/N3 statement is existential, as the freeze states it: some passive instrument is complete
+# iff the algebra is commutative, never every passive instrument
+# the paragraph sits outside the equivalence: no package name, no arrow, no box
+for _bad in ('carrier_general', 'OIPlus', '\\iff', '\\boxed', 'equivalent to'):
+    ok_oinn &= _bad not in _op
+_oe = re.sub(r'\s+', ' ', _oinn_expl)
+for _bad in ('observes the algebra completely, separating its states, exactly when',
+             'observes it completely exactly when', 'every passive instrument observes',
+             'every passive instrument separates', 'each passive instrument observes'):
+    ok_oinn &= _bad not in _op and _bad not in _oe
+for _t in ('*Passive observation, kept apart.*', 'enter none of its conditions',
+           'is possible exactly when the algebra is commutative',
+           'some passive instrument separates its states exactly then',
+           'cannot coexist with complete passive observation', 'theory-insensitive',
+           'not evidence for a hidden ontology',
+           'nor a statement that quantum mechanics rests on observation incompleteness',
+           'can only read an existing record'):
+    ok_oinn &= _t in _oe
+# GR carries no passive-observation paragraph: the endpoint stays out of the characterization's home
+ok_oinn &= 'Passive observation, kept apart' not in _grm
+# the symmetric vocabulary of N4 and the freeze's other forbidden readings stay out of the papers
+_oinn_epar = [p for p in _oinn_expl.split('\n\n') if p.startswith('*Passive observation, kept apart.*')]
+ok_oinn &= len(_oinn_epar) == 1
+for _t in (_op.lower(), re.sub(r'\s+', ' ', _oinn_epar[0]).lower() if _oinn_epar else ''):
+    # the symmetric vocabulary of N4, forbidden in the two narrating paragraphs
+    for _bad in ('neither implies the other', 'logically independent', 'neither notion carries',
+                 'independent of the oi core', 'orthogonal'):
+        ok_oinn &= _bad not in _t
+for _rel in ('papers/Main.md', 'papers/Explainer.md', 'papers/Main.tex', 'papers/Explainer.tex'):
+    _l = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read()).lower()
+    for _bad in ('qm requires oi', 'quantum mechanics requires observation',
+                 'every block is one-dimensional', 'every block has dimension one',
+                 'is exactly a classical stochastic observation',
+                 'passive incompleteness is evidence', 'passive incompleteness diagnoses',
+                 'passive incompleteness implies the oi core', 'passive observation forbids'):
+        ok_oinn &= _bad not in _l
+    ok_oinn &= _l.count('evidence for a hidden ontology') == _l.count('not evidence for a hidden ontology')
+for _rel in ('papers/Main.tex', 'papers/Explainer.tex'):
+    ok_oinn &= 'cannot coexist with complete passive observation' in re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read())
+# the registry carries OI-N as current with its anchors; the census note agrees; the freeze note is untouched
+_oinn_fam = [f for f in _ctn_reg['families'] if f['name'] == 'OI-N passive observation']
+ok_oinn &= len(_oinn_fam) == 1 and _oinn_fam[0]['status'] == 'current' and len(_oinn_fam[0]['manuscript']) >= 5
+ok_oinn &= '| OI-N passive observation | 4 | current |' in open(os.path.join(_msroot, 'verification', 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read()
+check('R7-OINN', ok_oinn,
+      'OI-N narration guard: Main 3.4 carries one paragraph, outside the characterization (no '
+      'package name, arrow or box in it), stating the four endpoint items with their kernel names, '
+      'the N1/N3 statement existential (some passive instrument complete iff commutative, never '
+      'every), the vacuous implication cited as oiCore_to_passive_vacuous and the containment as '
+      'qm_implies_oiCore through realizesSealedOICore_of_control, '
+      'the theory-insensitive reading of N4 with the vacuous implication and the failing converse, '
+      'and the anti-conflation in the same paragraph (not evidence for a hidden ontology, no '
+      'statement that QM rests on OI, containment as a consequence of control); the Explainer '
+      'carries the compact form; GR carries none; the symmetric N4 vocabulary and the freeze\'s '
+      'forbidden readings are absent from both papers and their generated forms; the registry '
+      'carries OI-N as current with its anchors and the census note agrees.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '

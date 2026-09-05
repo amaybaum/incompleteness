@@ -869,8 +869,10 @@ package-level corollary from the dagger-stable package, for which
 `OIBridge/TypedPositive.lean` supplies `typed_determined_of_oiPlusPos`, one result printing only
 `propext`, `Classical.choice`, `Quot.sound`. All three are repaired; the five-condition
 characterization and the OI⁺ layered form are stated as such beside the strongest statement; the
-substratum endpoint is unchanged; OI-N is recorded as proved and not narrated, with no manuscript
-sentence contradicting it. CT2 is narrated in GR §3.3's continuous-time paragraph, Main §2.3 and the
+substratum endpoint is unchanged; OI-N is narrated in one paragraph of Main §3.4 and one of the
+Explainer, outside the assumptions and arrows of the characterization, with the N4 anti-conflation
+in the same paragraph (theory-insensitive, no evidence of a hidden ontology, no statement that QM
+rests on OI); guard `R7-OINN`. CT2 is narrated in GR §3.3's continuous-time paragraph, Main §2.3 and the
 quasilocal summaries: the depth-two factorization, the two layer groups, and the norm-continuous
 path of local `*`-automorphisms from the identity to the update's Heisenberg action
 (`driveQ_isContinuousPath`, `driveQ_one_eq_heisQ`), stated as a path, with no one-parameter-group
