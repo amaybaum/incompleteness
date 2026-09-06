@@ -177,14 +177,32 @@ definition. Source a relative-phase intervention from the substratum, or claim t
 class carrying the layer flows. Reopen the phase-source census. Narrate Route B. Refresh the
 transfer bundle.
 
+## Scope amendment, recorded after the preregistration
+
+At review of the round at `320b291`, the owner found one sentence of the frozen framing too
+broad. Under "The hypotheses on the involution, fixed", the preregistration says that
+`LayerFlowExecutable T 1` "holds in every theory". That is not so: the availability of the
+composite identity at a positive level is not automatic from the bare `FiniteOperationalTheory`
+structure, and the kernel supplies it from composite unitary control (`availExt_id_of_control` in
+`OIBridge/AncillaClosure.lean`) rather than from the structure alone. What the countercontrol C2
+needs, and what the round proves, is narrower and sufficient: the identity's layer flow is
+executable in a theory in which the identity operation is available at every level
+(`layerFlowExecutable_one`, with that availability as its hypothesis), and the substratum theory,
+the witness of C2, has that availability (`substratumTheory_layerFlowExecutable_one`). The
+sentence is read, from here on, as "holds in every theory in which the identity operation is
+available at every level, in particular in the substratum theory". The preregistration above is
+unchanged; C2 as preregistered by name and by statement is unchanged; no kernel theorem changes.
+
 ## The outcome
 
-Preregistration commit `f206058`, executed from `main` at `f80688e`. The kernel module is
+Preregistration commit `f206058`, scope amendment above, executed from `main` at `f80688e`. The kernel module is
 `OIBridge/DerivedQ3.lean`, seventeen named results, each printing only `propext`,
 `Classical.choice`, `Quot.sound`; the kernel is at 124 modules and 2,740 named results. Q3 is
 decided in the constructive branch. The negative branch is not reached: the sign-flip identity
 holds for every involution, and no countertheory is built. Every test reached the outcome expected
-in advance; no proved statement differs from the preregistered one.
+in advance; no proved statement differs from the preregistered one, and the one sentence of the
+framing that was too broad, the identity case "in every theory", is amended above and is not a
+statement any theorem makes.
 
 | test | outcome | kernel |
 |---|---|---|

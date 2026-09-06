@@ -4417,9 +4417,16 @@ ok_q3 &= 'hex n (-(t / Real.pi))' in _q3flat
 # the note: question, distinctions, attack, countercontrols, tests, meanings and non-doings precede the outcome
 _kq = [_q3n.find(h) for h in ('## The frozen question', '## Three distinctions, frozen', '## The attack, fixed in advance',
        '## The countercontrols, fixed in advance', '## The tests, fixed in advance',
-       '## What the outcomes mean, fixed in advance', '## What the round does not do', '## The outcome')]
+       '## What the outcomes mean, fixed in advance', '## What the round does not do',
+       '## Scope amendment, recorded after the preregistration', '## The outcome')]
 ok_q3 &= all(x > 0 for x in _kq) and _kq == sorted(_kq)
 ok_q3 &= _q3n.lstrip().startswith('# The Q3 round')
+# the amendment: the identity case "in every theory" was too broad; C2 needs and proves the substratum witness
+_q3n_out = _q3n[_q3n.find('## The outcome'):]
+ok_q3 &= 'availExt_id_of_control' in _q3n and 'scope amendment above' in _q3n_out
+ok_q3 &= 'is not automatic from the bare `FiniteOperationalTheory` structure' in _q3n1
+ok_q3 &= 'is amended above and is not a statement any theorem makes' in _q3n1
+ok_q3 &= 'holds in every theory, in particular' not in _q3n_out
 for _t in ('Preregistration commit `f206058`', 'Status: pass complete', '`main` at `f80688e`',
            '**(D1) The phase hypothesis is used materially.**',
            '**(D2) Sufficiency of the quarter phase as a sourced access is not sufficiency for the repertoire.**',
