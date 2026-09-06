@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '127 modules' in _rd1 and '2,787 named results' in _rd1
+ok_sub &= '128 modules' in _rd1 and '2,813 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '127 modules' in _rd1 and '2,787 named results' in _rd1
+ok_flow &= '128 modules' in _rd1 and '2,813 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '127 modules' in _rd1 and '2,787 named results' in _rd1
+ok_q3 &= '128 modules' in _rd1 and '2,813 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '127 modules' in _rd1 and '2,787 named results' in _rd1
+ok_exec &= '128 modules' in _rd1 and '2,813 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '127 modules' in _rd1 and '2,787 named results' in _rd1
+ok_lsrc &= '128 modules' in _rd1 and '2,813 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '127 modules' in _rd1 and '2,787 named results' in _rd1
+ok_srcp &= '128 modules' in _rd1 and '2,813 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '127 modules' in _rd1 and '2,787 named results' in _rd1
+ok_c5d &= '128 modules' in _rd1 and '2,813 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5110,6 +5110,184 @@ check('R7-C5D', ok_c5d,
       'for the full generated theory with the bare Weil subgroup identifying the obstruction and the missing step named, '
       'and adopts no C5 and reads no availability off the representation; no manuscript is edited; the registry and '
       'the census carry the family as kernel-only and the README carries the paragraph and the counts.')
+
+# ---- the polarization closure audit: O2 negative by counting through the full class and the bridge, O1 positive by
+# construction in the relabelling closure; the split verdict; nothing from bare-subgroup finiteness; no C5 ----
+ok_pcl = True
+_pc = open(os.path.join(BRIDGE, 'OIBridge', 'PolarizationClosure.lean'), encoding='utf-8').read()
+_pcflat = ' '.join(_pc.split())
+_pcn = open(os.path.join(os.path.dirname(BRIDGE), 'POLARIZATION-CLOSURE-AUDIT.md'), encoding='utf-8').read()
+_pcn1 = re.sub(r'\s+', ' ', _pcn)
+ok_pcl &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _pc) is None and 'native_decide' not in _pc
+ok_pcl &= 'axiom ' not in re.sub(r'/-.*?-/', '', _pc, flags=re.S)
+_pc_names = re.findall(r"^theorem ([\w']+)", _pc, re.M)
+ok_pcl &= len(_pc_names) == 51 and _pc.count('#print axioms') == 26
+for _nm in ('gateFlow_entries', 'gateFlow_not_proportional', 'countable_not_layerFlowExecutable',
+            'uncountable_of_layerFlowExecutable', 'polC_arch', 'polC_labelInvariant', 'polGen_le_polC', 'gen_countable',
+            'gen_reindex', 'polC_mem_gen', 'polC_countable_upToScalar', 'polGen_countable_upToScalar',
+            'polarizedTheoryC_not_layerFlowExecutable', 'polarizedTheory_not_layerFlowExecutable', 'phaseRelabel_block',
+            'polC_phaseGate', 'polarizedTheoryC_phasesAvailable', 'polC_daggerStable', 'polC_contextStable',
+            'polarizedTheoryC_derivedOI', 'polarizedTheoryC_not_qm', "killBattery'_not_qm", 'levelThreeWord_mem',
+            'levelThree_word_block', 'levelThree_block_not_clifford', 'polC_levelThree_block'):
+    ok_pcl &= ('#print axioms ' + _nm) in _pc and _nm in _pc_names
+# the definitions: the relabelling-closed class and its theory, the countability apparatus, the two relabellings, the
+# extended battery and the level-three word with its block; nothing named C5; no definition of the discovery audit changed
+_pc_defs = re.findall(r"^(?:noncomputable )?(?:def|abbrev|structure|inductive) ([\w']+)", _pc, re.M)
+ok_pcl &= _pc_defs == ['PolC', 'polarizedTheoryC', 'ZeroOne', 'ImagesAt', 'Gen', 'phaseRelabel', 'ctxRelabel', "KillBattery'",
+                       'cycleP', 'levelThreeWord', 'fiberRelabel', 'refl25', 'levelThreeBlock']
+ok_pcl &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive|theorem) [Cc]5', _pc, re.M) is None
+ok_pcl &= 'import OIBridge.C5Discovery' in _pc and 'import OIBridge.PolarizationClosure' in root
+ok_pcl &= 'import OIBridge.PolarizationClosure' not in _c5
+for _t in ('LayerFlowExecutable', 'PhasesAvailable', 'PolGen', 'polarizedTheory'):
+    ok_pcl &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) ' + _t + r'\b', _pc, re.M) is None
+# the statements, as preregistered: the relabelling constructor, the inclusion, the counting theorem and its
+# contrapositive, countability up to scalar, the two negatives, the phase block and the phases, the closure, the
+# non-quantumness, the extended battery, the level-three block and its membership
+for _t in ("| relabel {T T' : Type} [Fintype T] [DecidableEq T] [Fintype T'] [DecidableEq T'] (e : T ≃ T') (K : Matrix T T ℂ) : PolC T K → PolC T' (Matrix.reindex e e K)",
+           'theorem polGen_le_polC : ∀ (T : Type) [Fintype T] [DecidableEq T] (K : Matrix T T ℂ), PolGen T K → PolC T K',
+           'theorem gateFlow_not_proportional {σ : Equiv.Perm S} {a : S} (ha : σ a ≠ a) {t t\' : ℝ} (ht : t ∈ Ico (0 : ℝ) 2) (ht\' : t\' ∈ Ico (0 : ℝ) 2) (htt\' : t ≠ t\') (c : ℂ) : gateFlow σ t ≠ c • gateFlow σ t\'',
+           'theorem countable_not_layerFlowExecutable {𝓘 : ImplementationClass} (arch : Architecture 𝓘) {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) (D : Set (Matrix (S × Fin 1) (S × Fin 1) ℂ)) (hD : D.Countable) (hmem : ∀ K : Matrix (S × Fin 1) (S × Fin 1) ℂ, 𝓘 (S × Fin 1) K → ∃ (c : ℂ) (M : Matrix (S × Fin 1) (S × Fin 1) ℂ), M ∈ D ∧ K = c • M) : ¬ LayerFlowExecutable (genTheory 𝓘 arch S) σ',
+           'theorem uncountable_of_layerFlowExecutable {𝓘 : ImplementationClass} (arch : Architecture 𝓘) {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) (hex : LayerFlowExecutable (genTheory 𝓘 arch S) σ) : ¬ ∃ D : Set (Matrix (S × Fin 1) (S × Fin 1) ℂ), D.Countable ∧ ∀ K : Matrix (S × Fin 1) (S × Fin 1) ℂ, 𝓘 (S × Fin 1) K → ∃ (c : ℂ) (M : Matrix (S × Fin 1) (S × Fin 1) ℂ), M ∈ D ∧ K = c • M',
+           'theorem polC_countable_upToScalar (T : Type) [Fintype T] [DecidableEq T] : ∃ D : Set (Matrix T T ℂ), D.Countable ∧ ∀ K : Matrix T T ℂ, PolC T K → ∃ (c : ℂ) (M : Matrix T T ℂ), M ∈ D ∧ K = c • M',
+           'theorem polGen_countable_upToScalar (T : Type) [Fintype T] [DecidableEq T] : ∃ D : Set (Matrix T T ℂ), D.Countable ∧ ∀ K : Matrix T T ℂ, PolGen T K → ∃ (c : ℂ) (M : Matrix T T ℂ), M ∈ D ∧ K = c • M',
+           'theorem polarizedTheoryC_not_layerFlowExecutable {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) : ¬ LayerFlowExecutable (polarizedTheoryC S) σ',
+           'theorem polarizedTheory_not_layerFlowExecutable {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) : ¬ LayerFlowExecutable (polarizedTheory S) σ',
+           'theorem phaseRelabel_block (n : ℕ) (p : Fin 2 × Fin n) : ancBlock (Matrix.reindex (phaseRelabel n p) (phaseRelabel n p) (siteShearImage (2 * n))) 0 0 = phaseGate p',
+           'theorem polC_phaseGate (n : ℕ) (p : Fin 2 × Fin n) : PolC (Fin 2 × Fin n) (phaseGate p)',
+           'theorem polarizedTheoryC_phasesAvailable : PhasesAvailable (polarizedTheoryC (Fin 2))',
+           'theorem polC_daggerStable : DaggerStable PolC', 'theorem polC_contextStable : ContextStable PolC',
+           'theorem polarizedTheoryC_derivedOI : DerivedOI (polarizedTheoryC (Fin 2))',
+           'theorem polarizedTheoryC_not_qm : ¬ ExactAllFiniteEndomorphicQuantumOps (polarizedTheoryC (Fin 2))',
+           "def KillBattery' (T : FiniteOperationalTheory (Fin 2)) : Prop := KillBattery T ∨ T = polarizedTheoryC (Fin 2)",
+           "theorem killBattery'_not_qm {T : FiniteOperationalTheory (Fin 2)} (h : KillBattery' T) : ¬ ExactAllFiniteEndomorphicQuantumOps T",
+           'theorem levelThreeWord_mem : PolGen (Fin 2 × Fin 3) levelThreeWord',
+           'noncomputable def refl25 : Matrix (Fin 2) (Fin 2) ℂ := !![(1 : ℂ), 1 / 2; 1 / 2, -1]',
+           'noncomputable def levelThreeBlock : Matrix (Fin 2 × Fin 1) (Fin 2 × Fin 1) ℂ := hc • Matrix.of fun x y => refl25 x.1 y.1',
+           'theorem levelThree_word_block : ancBlock (Matrix.reindex fiberRelabel fiberRelabel levelThreeWord) 0 1 = levelThreeBlock',
+           'theorem polC_levelThree_block : PolC (Fin 2 × Fin 1) levelThreeBlock'):
+    ok_pcl &= _t in _pcflat
+# the negatives pass through the counting theorem and the bridge, never through a subgroup
+for _t in ('exists_scaled_mem_of_instAvail_unitary', 'Cardinal.mk_Ico_real', 'Cardinal.aleph0_lt_continuum',
+           'Complex.exp_eq_exp_iff_exists_int', 'derivedOI_layerFlowExecutable_of_qm'):
+    ok_pcl &= _t in _pcflat
+for _bad in ('Clifford', 'Weil', 'WeylTwirl', 'pauliNormalizer', 'Finite.of', 'Fintype.card_le', 'Nat.card', 'Group.orderOf',
+             'orderOf', 'IsOfFinOrder', 'Subgroup'):
+    ok_pcl &= _bad not in re.sub(r'/-.*?-/|--[^\n]*', '', _pc, flags=re.S)
+# the note: the question, the scope rule, the two classes with the hazard, the two arguments, the four outcomes with
+# split expected, the eight tests, the meanings, the non-doings, then the outcome and the non-claims, in that order
+_kp = [_pcn.find(h) for h in ('## The question', '## The two classes, and a hazard of the formalization, frozen',
+       '## The two obligations, tested by two different arguments, frozen', '## Four admissible outcomes, frozen',
+       '## The tests, each with its admissible outcomes', '## What the outcomes mean, fixed in advance',
+       '## What the round does not do', '## Scope amendment, recorded after the preregistration', '## The outcome',
+       '## What this note does not claim')]
+ok_pcl &= all(x > 0 for x in _kp) and _kp == sorted(_kp)
+# the scope amendment: the bridge read one-way, the forward direction what the negative consumes, the converse only for
+# a unitary itself in the class or under a stated ray-saturation hypothesis, neither stated nor proved; nothing else changed
+_pcn_am = re.sub(r'\s+', ' ', _pcn[_pcn.find('## Scope amendment, recorded after the preregistration'):_pcn.find('## The outcome')])
+for _t in ('the preregistration above is untouched', 'no theorem, verdict or outcome changes', 'proves the forward direction only',
+           'The converse as written does not follow from `op` alone', 'a stated ray-saturation hypothesis',
+           'Neither is stated or proved in this round', 'T1 is therefore read as one-way',
+           'The converse is immediate only where the unitary itself is in the class', 'gives no availability of the unitary direction'):
+    ok_pcl &= _t in _pcn_am
+ok_pcl &= 'read one-way under the scope amendment' in _pcn1 and 'That the bridge is an equivalence' in _pcn1
+for _bad in ('the converse being the constructor `op`', 'the converse is the constructor `op`', 'equivalent to `c • U` lying in the class',
+             'the converse by `op`'):
+    ok_pcl &= _bad not in re.sub(r'\s+', ' ', _pcn[_pcn.find('## The outcome'):])
+for _bad in ('is equivalent to `c • U`', 'the converse by `op`', 'the converse being the constructor `op`'):
+    ok_pcl &= _bad not in _rd1
+ok_pcl &= _pcn.lstrip().startswith('# The polarization closure audit')
+for _t in ('Preregistration commit `a7c1db0`', '`main` at `2554000`', '**The scope rule, frozen.**', '**The bridge, cited.**',
+           '**O2 by counting.**', '**O1 by construction.**', '- **Negative closure.**', '- **Positive escape.**', '- **Split.**',
+           '- **Undecided.**', 'No outcome names or adopts a C5.', '**T1. The bridge.**', '**T2. The counting theorem.**',
+           '**T8. The surfaces and the checks.**', '| T1 | ', '| T8 | ', 'Status: pass complete', 'twenty-six named results',
+           'undecidable for `PolGen` in the type-indexed formulation'):
+    ok_pcl &= _t in _pcn1
+_pcn_out = re.sub(r'\s+', ' ', _pcn[_pcn.find('## The outcome'):])
+for _t in ('The verdict is **split**', 'O1 holds for `PolC` at every level by explicit construction',
+           'O2 fails for `PolC`, and by transfer for `PolGen`, through the full class and the bridge, by counting',
+           'O2 requires an uncountable projective image',
+           'no finitely or countably projectively generated implementation structure sources an executable nontrivial layer flow',
+           'is physical interpretation', 'continuity is not formalized in the kernel',
+           'a negative for `PolGen` derived from `PolC` and from nothing about bare subgroups', 'The positive does not transfer',
+           'undecidable in that formulation', 'a candidate theory constructed by this round, not a theory the corpus sources',
+           'test 8 of that audit, that the corpus does not supply the map, is unchanged',
+           'the availability of the unitary direction of that ray is not claimed',
+           'recorded from the numerical check and not proved', 'it is the countability of the primitive family up to scalar',
+           'Whether one realization-level condition supplies both obligations remains the C5 question',
+           '| T3 | countability of the polarized classes', '| T4 | O1 for `PolC`', '| T6 | the level-three structure'):
+    ok_pcl &= _t in _pcn_out
+# no verdict other than split; no inference from bare-subgroup finiteness; no continuity theorem; no C5; no availability
+for _bad in ('The verdict is **negative closure**', 'The verdict is **positive escape**', 'The verdict is **undecided**',
+             'because the bare Weil subgroup is finite', 'because the Weil subgroup is finite', 'by finiteness of the Weil',
+             'by the finiteness of the Weil', 'since the Weil group is finite', 'the finiteness of the bare Weil subgroup proves',
+             'the finiteness of the bare Clifford subgroup proves', 'finite, so no flow', 'finite and therefore executes no'):
+    ok_pcl &= _bad not in _pcn1 and _bad not in _rd1
+for _bad in ('continuous parameter is necessary', 'continuous parameter necessary', 'requires a continuous parameter',
+             'needs a continuous parameter', 'a continuous parameter is required', 'continuity is necessary', 'continuity is required',
+             'C5 is the', 'C5 := ', 'define C5 as', 'we adopt C5', 'C5 holds', 'C5 is satisfied', 'a C5 has been found',
+             'the polarization map is available', 'is sourced by the corpus', 'the observer has the quarter phase',
+             'the observer executes', 'PolGen has the phases', '`PolGen` has the phases', 'the executability is derived',
+             'the phases are derived', 'Route A is closed', 'OI implies QM', 'bare OI implies'):
+    ok_pcl &= not _asserted(_pcn, _bad)
+for _bad in ('continuous parameter is necessary', 'continuous parameter necessary', 'requires a continuous parameter',
+             'needs a continuous parameter', 'a continuous parameter is required', 'continuity is necessary', 'continuity is required',
+             'C5 is the', 'C5 := ', 'define C5 as', 'we adopt C5', 'C5 holds', 'C5 is satisfied', 'a C5 has been found',
+             'is available to the observer', 'is sourced by the corpus'):
+    ok_pcl &= _bad not in _pc and _bad not in _rd1
+for _bad in ('the executability is derived', 'the phases are derived'):
+    ok_pcl &= _bad not in _pc and not _asserted(_rd, _bad)
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    for _bad in ('PolarizationClosure', 'POLARIZATION-CLOSURE', 'PolC', 'polarizedTheoryC', "KillBattery'",
+                 'uncountable_of_layerFlowExecutable', 'countable_not_layerFlowExecutable', 'phaseRelabel', 'levelThree'):
+        ok_pcl &= _bad not in _t
+_pc_fam = [f for f in _ptr_reg['families'] if f['name'] == 'polarization closure: O2 by counting and O1 by construction']
+ok_pcl &= len(_pc_fam) == 1 and _pc_fam[0]['status'] == 'kernel-only' and _pc_fam[0]['modules'] == ['PolarizationClosure']
+ok_pcl &= _pc_fam[0]['manuscript'] == [] and 'Verdict split' in _pc_fam[0]['note']
+for _t in ('Nothing is named C5 or adopted', 'owner decision', 'not sourced by the corpus', 'test 8 of the discovery audit is unchanged',
+           'the reading of it as a continuous parameter being interpretation', "the unitary direction's availability not claimed",
+           'the positive does not transfer to PolGen in the type-indexed formulation'):
+    ok_pcl &= _t in _pc_fam[0]['note']
+for _bad in ('continuous parameter is necessary', 'is available to the observer', 'is sourced by the corpus', 'C5 holds',
+             'is equivalent to `c • U`', 'the converse by `op`', 'the converse being the constructor `op`'):
+    ok_pcl &= _bad not in _pc_fam[0]['note']
+ok_pcl &= '| polarization closure: O2 by counting and O1 by construction | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-PCL`', 'POLARIZATION-CLOSURE-AUDIT.md', 'polGen_le_polC', 'gateFlow_not_proportional',
+           'countable_not_layerFlowExecutable', 'polC_countable_upToScalar', 'uncountable_of_layerFlowExecutable',
+           'phaseRelabel_block', 'polarizedTheoryC_phasesAvailable', 'polC_contextStable', 'polarizedTheoryC_derivedOI',
+           'polarizedTheoryC_not_qm', "KillBattery'", 'levelThree_word_block', 'levelThree_block_not_clifford',
+           'Twenty-six named results', 'Verdict: split', 'O2 requires an uncountable projective image',
+           'no finitely or countably projectively generated implementation structure', 'continuity not being formalized',
+           'not sourced by the corpus', 'test 8 of the discovery audit is unchanged', 'Nothing is named C5 or adopted',
+           'the positive does not transfer to `PolGen` in the type-indexed formulation',
+           "the unitary direction's availability not claimed", 'nothing is inferred from the finiteness of the bare Clifford or Weil subgroup'):
+    ok_pcl &= _t in _rd1
+# the discovery note: its frozen text and its outcome untouched, one section recorded after them
+_c5n_rec = _c5n.find('## Recorded after the round: the polarization closure audit')
+ok_pcl &= _c5n_rec > _c5n.find('## What this note does not claim') and _c5n_rec > _c5n.find('Status: pass complete')
+_c5n_rec1 = re.sub(r'\s+', ' ', _c5n[_c5n_rec:])
+for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged', 'the closure-safe reading of this note stands as written',
+           'not the finiteness of the bare Weil subgroup', 'undecidable for `PolGen` in the type-indexed formulation',
+           'a candidate theory of that round', 'Nothing is named C5 or adopted'):
+    ok_pcl &= _t in _c5n_rec1
+ok_pcl &= _c5n_rec1.count('## ') == 1
+ok_pcl &= '128 modules' in _rd1 and '2,813 named results' in _rd1
+check('R7-PCL', ok_pcl,
+      'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
+      'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
+      'two relabellings, the extended battery and the level-three word with its block, nothing named C5 and no definition '
+      'of the discovery audit; the counting theorem and its contrapositive, countability up to scalar of both classes, the '
+      'two negatives, the phase block and the phases, dagger and context stability, the closure, the non-quantumness, the '
+      'extended battery and the level-three block are stated as pinned, every negative passing through the counting '
+      'theorem and the bridge and nothing through a subgroup; the note keeps the question, the scope rule, the two classes '
+      'with the hazard, the two arguments, the four outcomes, the eight tests, the meanings and the non-doings before the '
+      'outcome, names both commits, records the split verdict with the mechanism and the reason, the theorem-level form '
+      'of the O2 conclusion with continuity marked as interpretation, the transfer to PolGen on each side, the constructed '
+      'theory as a candidate of the round with test 8 unchanged, and the contractive block with the unitary direction '
+      'unclaimed; no manuscript is edited; the registry and the census carry the family as kernel-only; the discovery note '
+      'carries one section after its frozen text; the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
