@@ -201,3 +201,25 @@ step and the comparisons stated as comparisons.
   verdict.
 
 Status: preregistered; no proof attempted.
+
+## Scope amendment, recorded after the preregistration
+
+Recorded at review of the preregistration, before any proof; the preregistration above is
+untouched. The class-level endpoint is read with the stated-access containment made explicit.
+Besides being an architecture and label-invariant, dagger-stable and context-stable, the class must
+contain the stated permutation and read-write implementation class, `permClass` at every carrier,
+or equivalently hypotheses sufficient for `ExchangesAvailable` and `ReadWriteAvailable`, together
+with every stated quarter phase and every sourced mixing image. No theorem is sought that derives
+the stated permutation or read-write access from the mixing datum alone, with or without the phases
+and the structural closure. The concrete `MixC` satisfies the containment by its `perm`
+constructor. The class-level theorem is therefore
+
+> architecture, context, label and dagger stability, `permClass ⊆ 𝓘`, the phase gates in `𝓘`, the
+> mixing images in `𝓘` at every level, together give exact finite operational quantum mechanics on
+> the two-valued alphabet,
+
+each arrow honest: the stabilities give reversible implementation locality and embedded
+observation; the permutation containment gives the exchanges and the read-write operators; the
+phase containment gives `PhasesAvailable`; hence `DerivedOI`; the mixing images with the phases
+give the layer flow; the cited closure theorem gives the completion. The preregistered concrete
+endpoint, bridge, comparisons and outcomes are unchanged.
