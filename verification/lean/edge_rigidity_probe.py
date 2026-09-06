@@ -4684,13 +4684,14 @@ ok_exec &= _san.find('## The phases, decided, recorded after the round') < _san.
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
-    ok_exec &= 'ExecSource' not in _t and 'EXEC-SOURCE' not in _t and 'obs_not_layerFlowExecutable' not in _t
-    ok_exec &= 'waveSubstratum' not in _t and 'exists_nonMonomial' not in _t
+    ok_exec &= 'EXEC-SOURCE' not in _t
+    ok_exec &= _rel in ('papers/GR.md', 'papers/Main.md') or ('ExecSource' not in _t and 'obs_not_layerFlowExecutable' not in _t
+                                                          and 'waveSubstratum' not in _t and 'exists_nonMonomial' not in _t)
 _ex_fam = [f for f in _ptr_reg['families'] if f['name'] == 'executability source: the stated access and the layer flows']
-ok_exec &= len(_ex_fam) == 1 and _ex_fam[0]['status'] == 'kernel-only' and _ex_fam[0]['modules'] == ['ExecSource']
-ok_exec &= _ex_fam[0]['manuscript'] == [] and 'Negative for the stated access' in _ex_fam[0]['note']
-ok_exec &= 'the sufficient access tested' in _ex_fam[0]['note'] and 'owner decision' in _ex_fam[0]['note']
-ok_exec &= '| executability source: the stated access and the layer flows | 1 | kernel-only |' in _cen_ps
+ok_exec &= len(_ex_fam) == 1 and _ex_fam[0]['status'] == 'current' and _ex_fam[0]['modules'] == ['ExecSource']
+ok_exec &= {m['file'] for m in _ex_fam[0]['manuscript']} == {'papers/GR.md', 'papers/Main.md'} and 'Negative for the stated access' in _ex_fam[0]['note']
+ok_exec &= 'the sufficient access tested' in _ex_fam[0]['note'] and 'owner decision' not in _ex_fam[0]['note'] and 'SOURCING-PROPAGATION-AUDIT.md' in _ex_fam[0]['note']
+ok_exec &= '| executability source: the stated access and the layer flows | 1 | current |' in _cen_ps
 for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlowExecutable',
            'waveSubstratum_not_layerFlowExecutable_swap', 'onesClass_not_configurationLevel', 'Twelve named results',
            'negative for the stated access', 'the sufficient access tested',
@@ -4825,14 +4826,14 @@ ok_lsrc &= 'coherentLiftClass_eq_substratumClass' in _maa_ls and 'the lift is de
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
-    ok_lsrc &= 'LiftSource' not in _t and 'LIFT-SOURCE' not in _t and 'coherentLiftClass' not in _t
-    ok_lsrc &= 'stochasticChannel' not in _t and 'coherentLift_isMonomial' not in _t
+    ok_lsrc &= 'LIFT-SOURCE' not in _t and 'coherentLift_isMonomial' not in _t
+    ok_lsrc &= _rel in ('papers/GR.md', 'papers/Main.md') or ('LiftSource' not in _t and 'coherentLiftClass' not in _t and 'stochasticChannel' not in _t)
 _ls_fam = [f for f in _ptr_reg['families'] if f['name'] == 'lift source: the observer-level lift in the operational interface']
-ok_lsrc &= len(_ls_fam) == 1 and _ls_fam[0]['status'] == 'kernel-only' and _ls_fam[0]['modules'] == ['LiftSource']
-ok_lsrc &= _ls_fam[0]['manuscript'] == [] and 'No formulation the corpus states that lands in the operational interface derives either target' in _ls_fam[0]['note']
+ok_lsrc &= len(_ls_fam) == 1 and _ls_fam[0]['status'] == 'current' and _ls_fam[0]['modules'] == ['LiftSource']
+ok_lsrc &= {m['file'] for m in _ls_fam[0]['manuscript']} == {'papers/GR.md', 'papers/Main.md'} and 'No formulation the corpus states that lands in the operational interface derives either target' in _ls_fam[0]['note']
 ok_lsrc &= 'not read as the exclusion of every other realization' in _ls_fam[0]['note']
-ok_lsrc &= 'Underdetermined for the wave-operator lift' in _ls_fam[0]['note'] and 'owner decision' in _ls_fam[0]['note']
-ok_lsrc &= '| lift source: the observer-level lift in the operational interface | 1 | kernel-only |' in _cen_ps
+ok_lsrc &= 'Underdetermined for the wave-operator lift' in _ls_fam[0]['note'] and 'owner decision' not in _ls_fam[0]['note'] and 'SOURCING-PROPAGATION-AUDIT.md' in _ls_fam[0]['note']
+ok_lsrc &= '| lift source: the observer-level lift in the operational interface | 1 | current |' in _cen_ps
 for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_preservesDiag', 'coherentLiftClass_eq_substratumClass',
            'waveSubstratum_coherentLift_not_layerFlowExecutable_swap', 'stochastic_not_layerFlowExecutable',
            'avail_one_not_layerFlowExecutable', 'coherentLiftClass_contains_lift', 'Eighteen named results',
@@ -4875,6 +4876,107 @@ check('R7-LSRC', ok_lsrc,
       'the executability-source note and the axiom audit carry the decision after their frozen text; no '
       'manuscript is edited; the registry and the census carry the family as kernel-only and the README carries '
       'the paragraph and the counts.')
+
+# ---- the sourcing propagation round: the combined executability-source and lift-source verdict in GR 3.3 and the
+# mirrored summaries; the equivalence exact, the sourcing of its layer-flow hypothesis not ----
+ok_srcp = True
+_spn = open(os.path.join(os.path.dirname(BRIDGE), 'SOURCING-PROPAGATION-AUDIT.md'), encoding='utf-8').read()
+_spn1 = re.sub(r'\s+', ' ', _spn)
+ok_srcp &= _spn.lstrip().startswith('# The sourcing propagation round')
+_ksp = [_spn.find(h) for h in ('## The statement to be carried, fixed in advance', '## The items, fixed in advance',
+        '## The constraints, fixed in advance', '## The tests, fixed in advance', '## What the round does not do',
+        '## The outcome')]
+ok_srcp &= all(x > 0 for x in _ksp) and _ksp == sorted(_ksp)
+for _t in ('Preregistration commit `1dff487`', 'Status: pass complete', '`main` at `0a7044a`',
+           '**Item 1, the layer-flow form in `[GR §3.3]`.**', '**Item 3, the registry and the census, per §A.35, in the same commit.**',
+           '**E1. The paragraph.**', '**E6. The checks.**', '| E1 | ', '| E6 | ', 'The wave-operator lift is unresolved, not ruled out',
+           'Layer-flow access is called neither unique nor minimal', 'six occurrences'):
+    ok_srcp &= _t in _spn1
+for _bad in ('the phases are derived', 'the lift is derived', 'every realization of those channels is configuration-level',
+             'the assumptions are minimal', 'the pair is minimal', 'Route A is closed', 'OI implies QM', 'bare OI implies',
+             'the manuscripts are wrong'):
+    ok_srcp &= not _asserted(_spn, _bad)
+# GR 3.3: the sourcing statement after the second qualification, before the no-uniqueness sentence; the second display
+_sgr = open(os.path.join(_msroot, 'papers/GR.md'), encoding='utf-8').read()
+_sgr1 = re.sub(r'\s+', ' ', _sgr)
+for _t in ("Nor is that executability sourced by the substratum's own dynamics with the observer's stated access",
+           'its own shear and swap layers included, the layers being available at time one and not at intermediate times',
+           'any access that does execute one supplies a non-monomial admissible operator at level one',
+           '`obs_not_layerFlowExecutable`, `waveSubstratum_not_layerFlowExecutable_swap`, `exists_nonMonomial_of_layerFlowExecutable` in `OIBridge/ExecSource.lean`',
+           'The observer-level lift of [SM §4.1], in every formulation stated that lands in the operational interface, derives neither such an operator nor the layer flow',
+           'the reversible coherent lift of a permutation is monomial', 'every coherent completion, reversible or not, preserves diagonal states',
+           'the explicit Kraus realization of the projected observer operator is configuration-level',
+           'a generator whose time-one exponential is available does not make the exponential available at intermediate times',
+           '`reversibleExtension_conj_monomial`, `correlationExtension_preservesDiag`, `coherentLiftClass_eq_substratumClass`, `stochasticChannel_kraus_monomial`, `avail_one_not_layerFlowExecutable` in `OIBridge/LiftSource.lean`',
+           'whether every realization of those channels is configuration-level is not decided',
+           'the site-space wave-operator formulation is unresolved rather than excluded, no operational map from it to the configuration carrier being stated',
+           'Fractional-time access to one layer flow is therefore an additional physical intervention assumption, as the phase intervention is',
+           'text{stated substratum dynamics with observer access} \;\\not\\Rightarrow\; \\text{one nontrivial layer flow executable}',
+           'The equivalence displayed above is exact; the physical sourcing of this one of its hypotheses is not',
+           'No uniqueness or minimality is claimed for the pair of assumptions; a different pair could be sufficient as well'):
+    ok_srcp &= _t in _sgr1
+ok_srcp &= _sgr.find('`substratumTheory_not_layerFlowExecutable` in `OIBridge/LiftAudit.lean`') < _sgr.find('Nor is that executability sourced') \
+    < _sgr.find('stated substratum dynamics with observer access} \;\\not\\Rightarrow') < _sgr.find('No uniqueness or minimality is claimed for the pair of assumptions') < _sgr.find('**Typed form.**')
+ok_srcp &= _sgr1.count('one nontrivial layer flow executable}') == 2
+# the summary at the six sites, directly after the Q3 summary sentence, whose count is unchanged
+_ssum = ("The stated substratum dynamics with the observer's read and write access do not source that executability, the layers "
+         'being available at time one and not at intermediate times, and the observer-level lift, in every formulation stated that '
+         'lands in the operational interface, derives neither a non-monomial admissible operator nor the layer flow, the site-space '
+         'wave-operator formulation being unresolved rather than excluded')
+_scount = 0
+_qcount2 = 0
+for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md', 'book/ch19-open-problems.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read())
+    ok_srcp &= _ssum in _t1
+    _scount += _t1.count(_ssum)
+    _qcount2 += _t1.count(_qsum)
+    for _m in re.finditer(re.escape(_qsum), _t1):
+        _tail = _t1[_m.end():_m.end() + 800]
+        ok_srcp &= _ssum in _tail
+ok_srcp &= _scount == 6 and _qcount2 == 6
+ok_srcp &= ('`obs_not_layerFlowExecutable` in `OIBridge/ExecSource.lean`, `coherentLiftClass_eq_substratumClass` in `OIBridge/LiftSource.lean`'
+            in re.sub(r'\s+', ' ', open(os.path.join(_msroot, 'papers/Main.md'), encoding='utf-8').read()))
+# the kernel predicates of the boundary, the overbroad realization claim, exclusion or derivation of the lift, derivation of
+# either assumption and any minimality claim are absent from every manuscript source and generated form
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/ch01-observation.md', 'book/ch19-open-problems.md', 'book/The-Incompleteness-of-Observation-FULL.md',
+             'papers/GR.tex', 'papers/Main.tex', 'papers/Explainer.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
+    _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read()).replace('\\_', '_')
+    for _bad in ('DerivedOI', 'SourcedOI', 'PhasesAvailable', 'SubstratumAvail', 'RouteB', 'LayerFlowExecutable', 'obsTheory', 'permTheory',
+                 'every realization of those channels is configuration-level, and', 'every realization of the coherent',
+                 'every Kraus realization is configuration-level', 'the wave-operator lift is excluded', 'the wave-operator lift is ruled out',
+                 'the lift is derived', 'derives the layer flow', 'the executability is derived', 'executability is derived from',
+                 'derives the executability', 'the layer flow is derived', 'the phases are derived', 'derives the phases',
+                 'the pair of assumptions is minimal', 'the assumptions are minimal', 'is the unique resource', 'the minimal resource',
+                 'the unique layer-flow', 'the minimal layer-flow', 'delivers configuration-level operations',
+                 'both targets negative for every formulation'):
+        ok_srcp &= _bad not in _t1
+# the registry: both families current with anchors in GR and Main, the census rows, the README
+_sp_ex = [f for f in _ptr_reg['families'] if f['name'] == 'executability source: the stated access and the layer flows']
+_sp_ls = [f for f in _ptr_reg['families'] if f['name'] == 'lift source: the observer-level lift in the operational interface']
+for _fam in (_sp_ex, _sp_ls):
+    ok_srcp &= len(_fam) == 1 and _fam[0]['status'] == 'current'
+    ok_srcp &= {m['file'] for m in _fam[0]['manuscript']} == {'papers/GR.md', 'papers/Main.md'}
+    ok_srcp &= 'carried by no manuscript' not in _fam[0]['note'] and 'SOURCING-PROPAGATION-AUDIT.md' in _fam[0]['note']
+ok_srcp &= '| executability source: the stated access and the layer flows | 1 | current |' in _cen_ps
+ok_srcp &= '| lift source: the observer-level lift in the operational interface | 1 | current |' in _cen_ps
+for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement', 'unresolved rather than\nexcluded'.replace('\n', ' '),
+           'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
+           'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
+    ok_srcp &= _t in _rd1
+ok_srcp &= '126 modules' in _rd1 and '2,770 named results' in _rd1
+check('R7-SRCP', ok_srcp,
+      'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
+      'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
+      'facts, the two reservations (realizations not classified; the wave-operator lift unresolved rather than excluded), '
+      'the second display in the words of the first and the exactness sentence; the summary sentence follows the Q3 '
+      'summary sentence at all six sites, whose count is unchanged, Main carrying the kernel pointers; no manuscript source '
+      'or generated form names a kernel predicate of the boundary, claims every realization of the channels '
+      'configuration-level, excludes or derives the wave-operator lift, derives either assumption or claims uniqueness or '
+      'minimality; both families are current with anchors in GR and Main; the note keeps the statement, the items, the '
+      'constraints, the tests and the non-doings before the outcome and names both commits; the README carries the round '
+      'and the counts are unchanged.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

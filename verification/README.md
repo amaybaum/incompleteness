@@ -1286,6 +1286,27 @@ of a nonreversible coherent completion or of the stochastic channel is configura
 non-monomial operator suffices for the gate flow of a layer; anything about the phase; no manuscript
 changes, the narration being an owner decision for a propagation round. Guard `R7-LSRC`.
 
+The sourcing propagation round (`SOURCING-PROPAGATION-AUDIT.md`), publication-only, carries the
+combined verdict of the executability-source and lift-source audits into the manuscripts. GR §3.3's
+layer-flow form gains the sourcing statement after its second qualification: the executability is
+not sourced by the substratum's own dynamics with the observer's stated access, the layers being
+available at time one and not at intermediate times and any access that executes a layer flow
+supplying a non-monomial admissible operator (`obs_not_layerFlowExecutable`,
+`waveSubstratum_not_layerFlowExecutable_swap`, `exists_nonMonomial_of_layerFlowExecutable`); the
+observer-level lift, in every formulation stated that lands in the operational interface, derives
+neither such an operator nor the layer flow, the four proved facts named with their witnesses
+(`reversibleExtension_conj_monomial`, `correlationExtension_preservesDiag`,
+`coherentLiftClass_eq_substratumClass`, `stochasticChannel_kraus_monomial`,
+`avail_one_not_layerFlowExecutable`), whether every realization of those channels is
+configuration-level not decided, the site-space wave-operator formulation unresolved rather than
+excluded; a second display, in the words of the first, states that the stated substratum dynamics
+with observer access does not make one nontrivial layer flow executable, the equivalence exact and
+the sourcing of this one hypothesis not. The summary sentence at Main §3.4, the Explainer and the
+book chapters is followed by one sentence saying the same, six occurrences. The executability-source
+and lift-source families are current with anchors in GR and Main. No theorem is added or changed;
+the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed.
+Guard `R7-SRCP`.
+
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
 than with the latest round. The check, run by the release gate as `lean-manuscript`, resolves every
