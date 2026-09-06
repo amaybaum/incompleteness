@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 125 modules and,
-  at this commit, 2,752 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 126 modules and,
+  at this commit, 2,770 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1245,6 +1245,43 @@ printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that the
 not derivable; that a richer observer architecture, in particular a non-bijective-valued
 coupling, does not source the flow; anything about the phase; no manuscript changes, the
 narration being an owner decision for a propagation round. Guard `R7-EXEC`.
+
+The lift-source audit (`LIFT-SOURCE-AUDIT.md`, `OIBridge/LiftSource.lean`) takes the one entry the
+executability-source audit left underdetermined on its own terms: whether the observer-level lift
+can be formulated so that it supplies an actual admissible intervention rather than a representation
+of the observed dynamics, with two targets tested in order, a non-monomial admissible operator at
+level one and then the executable flow of one actual layer, and the discipline that no inference
+runs from the existence of an observer-level Hamiltonian or wave operator to the observer executing
+its exponential. The diagonal criterion: a theory every one of whose available families preserves
+diagonal states executes no layer flow of an involution with a moved configuration
+(`not_layerFlowExecutable_of_preservesDiag`). The coherent completion, the one formulation that names
+a channel on the configuration carrier: the reversible coherent lift of a permutation is monomial
+(`coherentLift_isMonomial`), the reversible coherent extension is conjugation by a monomial isometry
+(`reversibleExtension_conj_monomial`), every member of the correlation family preserves diagonal
+states (`correlationExtension_preservesDiag`), and the class of the substratum's operators with every
+reversible coherent lift of every permutation is configuration-level and is the substratum class
+itself, generating the substratum theory and executing no layer flow, the wave substratum's own
+swap-layer flow included (`coherentLiftClass_configurationLevel`, `coherentLiftClass_eq_substratumClass`,
+`coherentLiftTheory_eq_substratumTheory`, `coherentLiftClass_not_layerFlowExecutable`,
+`obs_availExt_le_coherentLift`, `waveSubstratum_coherentLift_not_layerFlowExecutable_swap`). The
+projected observer operator on visible distributions: a scaled matrix unit is monomial, the Kraus form
+of a classical stochastic map has monomial Kraus operators and preserves diagonal states, and a theory
+of such maps over the stated access executes no layer flow (`single_isMonomial`,
+`stochasticChannel_kraus_monomial`, `stochasticChannel_preservesDiag`, `stochastic_not_layerFlowExecutable`).
+The generator reading: the substratum theory, and the observer theory of every substratum at its own
+swap layer, has the gate at time one available at every level and executes the flow at no level
+(`avail_one_not_layerFlowExecutable`, `obs_swap_avail_one_not_layerFlowExecutable`). The countercontrol:
+the lift-extended class contains the lifts it is named for (`coherentLiftClass_contains_lift`). Verdict:
+representational for the coherent completion, the projected observer operator and the generator
+reading, both targets negative for every formulation that lands in the operational interface, the lift
+adding nothing to the stated access; underdetermined for the wave-operator lift on the amplitude space,
+which acts on `ℂ^{sites}` with no map to the configuration carrier stated in the corpus, what such a
+map would have to supply being recorded, an image in a class that fails to preserve diagonal states at
+some time. The verdict of the executability-source audit stands unchanged. Eighteen named results,
+each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that the lift is or is
+not derivable; that a map from the wave operator to the carrier cannot exist; that a non-monomial
+operator suffices for the gate flow of a layer; anything about the phase; no manuscript changes, the
+narration being an owner decision for a propagation round. Guard `R7-LSRC`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

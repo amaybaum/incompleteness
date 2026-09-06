@@ -215,6 +215,23 @@ executability, the substratum theory that carries it executing no layer flow eit
 source. The preregistration above is unchanged; no theorem changes; the guard pins the sharper
 form and rejects the overbroad one in the outcome.
 
+## The lift, decided for the formulations that land, recorded after the round
+
+The lift-source audit (`LIFT-SOURCE-AUDIT.md`, `OIBridge/LiftSource.lean`) takes X7 on its own
+terms: whether the observer-level lift can be formulated so that it supplies an admissible
+intervention rather than a representation. Every formulation the corpus states that lands in the
+operational interface delivers configuration-level operations: the coherent completion of a
+permutation is a monomial conjugation when reversible and a diagonal-preserving channel in every
+case, the class of the substratum's operators with every reversible coherent lift being the
+substratum class itself (`coherentLiftClass_eq_substratumClass`,
+`coherentLiftClass_not_layerFlowExecutable`); the projected observer operator is a classical
+stochastic map with monomial Kraus operators (`stochasticChannel_kraus_monomial`); a generator with
+its time-one exponential available does not make the exponential available at any other time
+(`avail_one_not_layerFlowExecutable`). Neither the necessary condition of T1 nor the sufficient
+access is reached by any of them, so the verdict above stands unchanged. The wave-operator lift on
+the amplitude space, which acts on the site space with no map to the configuration carrier stated
+in the corpus, stays underdetermined, with what such a map would have to supply recorded there.
+
 ## The outcome
 
 Preregistration commit `3b36661`, scope amendment above, executed from `main` at `087d023`. The kernel module is
