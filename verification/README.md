@@ -1141,6 +1141,28 @@ anything about a richer substratum ontology than the one the manuscripts state; 
 changes, the requalification of the substratum-source sentence being recorded for the propagation
 round. Guard `R7-PHASE`.
 
+The phase-source propagation round (`PHASE-PROPAGATION-AUDIT.md`, preregistration commit
+`76e1a3a`, written from `main` at `05e290b`) is publication-only and owner-called: it makes the
+manuscripts state the sourced boundary in three items and nothing else. Implementation locality in
+GR §3.3 is stated as realization by one protocol built from admissible implementation operators,
+with probability normalization in aggregate a consequence of that realization (`instAvail_trace`)
+and the sentence after the boxed equivalence following; the file attributions moved by the
+migration are corrected at four sentences of GR §3.3 and Main §3.4, `control_of_lieRank` and
+`inverseAccessibility_of_lieRank`, the latter on the well-formed theory, to
+`MicroscopicReversibility`, `carrier_general_oiPlusPos` and
+`oiPlusPos_iff_qm` to `PositivePackage`; and the substratum-source sentence states the phase
+intervention as an assumption on the substratum class, in the two parts of the phase-source scope
+amendment: an operator carrying the all-ones vector off its ray is necessary to any access that
+supplies the phases and is not shown sufficient, and the sufficient access assumed is the
+quarter-phase intervention itself, a stated member of the class (`permClass_onesFixing`,
+`onesFixing_not_phasesAvailable`, `substratumClass_not_onesFixing`, `phase_monomial`). The five
+mirrors of the substratum-source summary in Main §3.4, the Explainer and the book qualify the
+phases the same way, and the sentence after the substratum endpoint reads the left side of the box
+as the class with the phase intervention stated. No theorem is added or changed; nothing about the
+lift audit's Q3 enters a manuscript; the registry carries the phase-source family as current with
+anchors in GR and Main; the `.tex` and `.pdf` of GR, Main, the Explainer and the book are rebuilt.
+Guard `R7-PROP`.
+
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
 than with the latest round. The check, run by the release gate as `lean-manuscript`, resolves every

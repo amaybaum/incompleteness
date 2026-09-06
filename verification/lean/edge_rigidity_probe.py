@@ -3708,7 +3708,7 @@ for _bad in ('the first preregistered outcome is reached', 'the sourced theory s
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
-    ok_sub &= 'SubstratumInterfaceAudit' not in _t and 'permClass' not in _t and 'SourcedOI' not in _t and 'obsTheory' not in _t
+    ok_sub &= 'SubstratumInterfaceAudit' not in _t and 'permTheory' not in _t and 'SourcedOI' not in _t and 'obsTheory' not in _t
 _sa_fam = [f for f in _ptr_reg['families'] if f['name'] == 'substratum interface: sourced observer theory']
 ok_sub &= len(_sa_fam) == 1 and _sa_fam[0]['status'] == 'kernel-only' and _sa_fam[0]['modules'] == ['SubstratumInterfaceAudit']
 ok_sub &= _sa_fam[0]['manuscript'] == [] and 'exact missing conjunct PhasesAvailable' in _sa_fam[0]['note']
@@ -4027,7 +4027,8 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Su
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_mig &= 'InstAvail' not in _t and 'UnitaryRaySaturated' not in _t and 'INSTRUMENT-MIGRATION' not in _t
 _gr_txt = open(os.path.join(_msroot, 'papers/GR.md'), encoding='utf-8').read()
-ok_mig &= 'with aggregate probability normalization' in _gr_txt
+ok_mig &= 'with aggregate probability normalization' not in _gr_txt
+ok_mig &= 'Probability normalization in aggregate is a consequence of that realization' in _gr_txt
 for _t in ('`R7-MIG`', 'INSTRUMENT-MIGRATION-AUDIT.md', 'UnitaryRaySaturated', 'genTheory_le_branchTheory',
            'inverseAccessibility_of_lieRank', 'PositivePackage', 'canonical implementation semantics'):
     ok_mig &= _t in _rd1
@@ -4045,7 +4046,7 @@ check('R7-MIG', ok_mig,
       'the note keeps the decision, the census, the plan, the tests and the non-doings before the outcome, names '
       'the preregistration commit, the seven outcomes, the name map, the two dropped results, where saturation is '
       'consumed and the GR sentences as an owner decision, and asserts nothing about the flow endpoint; the four '
-      'frozen notes carry a migration section each; no manuscript is edited; the README carries the paragraph.')
+      'frozen notes carry a migration section each; GR 3.3 carries the propagated normalization reading; the README carries the paragraph.')
 
 # ---- The flow-endpoint audit: the arrow from the sourced baseline with the executable layer
 # flow, decided negatively on the migrated semantics by the theory of the ones-fixing class, the
@@ -4229,16 +4230,19 @@ ok_phase &= '## The phases, decided, recorded after the round' in _san and 'perm
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
-    ok_phase &= 'PhaseSource' not in _t and 'onesFixing' not in _t and 'OnesFixing' not in _t and 'PHASE-SOURCE' not in _t
+    ok_phase &= 'OnesFixing' not in _t and 'PHASE-SOURCE' not in _t and 'phaseGate_moves_ones' not in _t
+# the substratum-source sentence, requalified in the propagation round, cites the three deciding theorems
 _gr_txt2 = open(os.path.join(_msroot, 'papers/GR.md'), encoding='utf-8').read()
-ok_phase &= 'and the phase structure — supplies the structural part in full' in _gr_txt2
+ok_phase &= 'and the phase structure — supplies the structural part in full' not in _gr_txt2
+ok_phase &= 'The phase intervention enters as an assumption on the substratum class' in _gr_txt2
+ok_phase &= '`permClass_onesFixing`, `onesFixing_not_phasesAvailable`, `substratumClass_not_onesFixing` in `OIBridge/PhaseSource.lean`' in _gr_txt2
 _ps_fam = [f for f in _ptr_reg['families'] if f['name'] == 'phase source: the stated access and the stipulated phases']
-ok_phase &= len(_ps_fam) == 1 and _ps_fam[0]['status'] == 'kernel-only' and _ps_fam[0]['modules'] == ['PhaseSource']
-ok_phase &= _ps_fam[0]['manuscript'] == [] and 'a stipulation' in _ps_fam[0]['note'] and 'underdetermined' in _ps_fam[0]['note']
-ok_phase &= 'owner decision' in _ps_fam[0]['note'] and 'no complex structure' in _ps_fam[0]['note']
+ok_phase &= len(_ps_fam) == 1 and _ps_fam[0]['status'] == 'current' and _ps_fam[0]['modules'] == ['PhaseSource']
+ok_phase &= _ps_fam[0]['manuscript'] != [] and 'a stipulation' in _ps_fam[0]['note'] and 'underdetermined' in _ps_fam[0]['note']
+ok_phase &= 'PHASE-PROPAGATION-AUDIT.md' in _ps_fam[0]['note'] and 'no complex structure' in _ps_fam[0]['note']
 ok_phase &= 'sufficient access tested' in _ps_fam[0]['note'] and 'missing access named as an admissible operator' not in _ps_fam[0]['note']
 _cen_ps = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
-ok_phase &= '| phase source: the stated access and the stipulated phases | 1 | kernel-only |' in _cen_ps
+ok_phase &= '| phase source: the stated access and the stipulated phases | 1 | current |' in _cen_ps
 for _t in ('`R7-PHASE`', 'PHASE-SOURCE-AUDIT.md', 'onesFixing_not_phasesAvailable', 'permClass_onesFixing',
            'substratumClass_not_onesFixing', 'Ten named results', 'a stipulation, and on nothing else',
            'current OI sourcing stops', 'is underdetermined, and what it would have to supply is stated in two parts',
@@ -4257,8 +4261,105 @@ check('R7-PHASE', ok_phase,
       'ray-moving condition as necessary and the quarter-phase intervention as the sufficient access tested, and '
       'asserts nothing about the lift audit\'s Q3, the lift, Route A, uniqueness or minimality, or the '
       'manuscripts being wrong; the frozen substratum-source and substratum-interface notes carry their sections; '
-      'no manuscript is edited and the substratum-source sentence stands; the registry and the census carry the '
-      'family as kernel-only and the README carries the paragraph and the counts.')
+      'the substratum-source sentence is requalified in the propagation round, citing the three deciding theorems; '
+      'the registry and the census carry the family as current and the README carries the paragraph and the counts.')
+
+# ---- phase-source propagation guard: the manuscripts state the sourced boundary, publication-only ----
+ok_prop = True
+_ppn = open(os.path.join(os.path.dirname(BRIDGE), 'PHASE-PROPAGATION-AUDIT.md'), encoding='utf-8').read()
+_ppn1 = re.sub(r'\s+', ' ', _ppn)
+ok_prop &= _ppn.lstrip().startswith('# The phase-source propagation round')
+_i_pitems = _ppn.find('## The three items, fixed in advance')
+_i_pcons = _ppn.find('## The constraints, fixed in advance')
+_i_ptests = _ppn.find('## The tests, fixed in advance')
+_i_pnot = _ppn.find('## What the round does not do')
+_i_pout = _ppn.find('## The outcome')
+ok_prop &= 0 < _i_pitems < _i_pcons < _i_ptests < _i_pnot < _i_pout
+for _t in ('Preregistration commit `76e1a3a`', 'Status: pass complete', '`main` at `05e290b`',
+           '**Item 1, the two normalization sentences.**', '**Item 2, the file attributions moved by the migration.**',
+           '**Item 3, the substratum-source sentence.**', '**The mirrors, per §A.25.**',
+           '**E1. The normalization sentences.**', '**E6. The checks.**', '| E1 | ', '| E6 | ',
+           'moving the all-ones ray is not shown sufficient', 'No theorem is added, changed or removed',
+           'zero occurrences', 'six occurrences'):
+    ok_prop &= _t in _ppn1
+for _bad in ('moving the all-ones ray is sufficient', 'the ray-moving condition is sufficient',
+             'the substratum derives the phases', 'the phase structure is derived', 'PhasesAvailable is derived',
+             'Q3 is refuted', 'the preregistered Q3 holds',
+             'the manuscripts are wrong', 'OI implies QM', 'bare OI implies'):
+    ok_prop &= not _asserted(_ppn, _bad)
+# GR 3.3: realization by one protocol with normalization as a consequence; the phase intervention as an
+# assumption, in two parts; the moved names attributed to their modules
+_pgr1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, 'papers/GR.md'), encoding='utf-8').read())
+for _t in ('Operational interventions are those realized by one protocol built from admissible implementation operators',
+           'the branches of an intervention arise together as the outcomes of one protocol',
+           'Probability normalization in aggregate is a consequence of that realization rather than a clause of it',
+           'the normalization half of operational validity is a consequence of implementation generation',
+           '`instAvail_trace`',
+           'together with one further intervention principle, that a relative phase on a single state is a selectable intervention at every level',
+           'The phase intervention enters as an assumption on the substratum class, not as a consequence of the finite states with the bijective read-write dynamics',
+           'no class whose isometries do so realizes a quarter phase at any level with two or more states',
+           'An operator carrying the all-ones vector off its ray is therefore necessary to any access that supplies the phases, and is not shown sufficient',
+           'the access assumed is the quarter-phase intervention itself, a member of the class as stated',
+           '`permClass_onesFixing`, `onesFixing_not_phasesAvailable`, `substratumClass_not_onesFixing` in `OIBridge/PhaseSource.lean`',
+           '`phase_monomial` in `OIBridge/SubstratumInterface.lean`',
+           'the phase intervention enters as an assumption on the substratum class itself',
+           '`control_of_lieRank` in `OIBridge/MicroscopicReversibility.lean`',
+           '`carrier_general_oiPlusPos`, `oiPlusPos_iff_qm` in `OIBridge/PositivePackage.lean`',
+           '`universalReachability_of_lieRank_positive` in `OIBridge/PositiveReachability.lean`'):
+    ok_prop &= _t in _pgr1
+ok_prop &= ('`carrier_general_oiPlusPos` in `OIBridge/PositivePackage.lean`, `inverseAccessibility_of_lieRank` in '
+            '`OIBridge/MicroscopicReversibility.lean`') in re.sub(r'\s+', ' ', open(os.path.join(_msroot, 'papers/Main.md'), encoding='utf-8').read())
+# the five mirrors of the substratum-source summary qualify the phases the same way
+_pqual = ('the exchanges of distinguishable states, and, as a stated intervention principle rather than a consequence of its '
+          'finite states and bijective dynamics, the phases — but, under finite bijective read-write dynamics')
+for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md', 'book/ch19-open-problems.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read())
+    ok_prop &= _pqual in _t1 and 'the exchanges of distinguishable states, and the phases — but' not in _t1
+ok_prop &= _t1.count(_pqual) == 2
+# the superseded clauses, the moved attributions and the sufficiency misreading are absent from every manuscript
+# source and generated form; no manuscript names the kernel predicates of the boundary
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/ch01-observation.md', 'book/ch19-open-problems.md', 'book/The-Incompleteness-of-Observation-FULL.md',
+             'papers/GR.tex', 'papers/Main.tex', 'papers/Explainer.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
+    _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read()).replace('\\_', '_')
+    ok_prop &= 'with aggregate probability normalization' not in _t1
+    ok_prop &= 'explicit in implementation generation' not in _t1
+    ok_prop &= 'and the phase structure — supplies the structural part in full' not in _t1
+    for _nm in ('control_of_lieRank', 'inverseAccessibility_of_lieRank', 'carrier_general_oiPlusPos', 'oiPlusPos_iff_qm'):
+        ok_prop &= not re.search(re.escape(_nm) + r'[^.]{0,60}OIBridge/PositiveReachability', _t1)
+    for _bad in ('moving the all-ones ray is sufficient', 'any operator that moves the all-ones ray supplies',
+                 'the phases are derived', 'derives the phases', 'the phase structure is derived',
+                 'derives the phase structure', 'supplies the phase structure', 'the phases are a consequence of',
+                 'SourcedOI', 'DerivedOI', 'PhasesAvailable', 'RouteB', 'InstAvail'):
+        ok_prop &= _bad not in _t1
+# the registry, the census note and the README carry the round; the kernel is untouched
+_pp_fam = [f for f in _ptr_reg['families'] if f['name'] == 'phase source: the stated access and the stipulated phases']
+ok_prop &= len(_pp_fam) == 1 and _pp_fam[0]['status'] == 'current'
+ok_prop &= {m['file'] for m in _pp_fam[0]['manuscript']} == {'papers/GR.md', 'papers/Main.md'}
+ok_prop &= 'as an assumption' in _pp_fam[0]['note'] and 'carried by no manuscript' not in _pp_fam[0]['note']
+_pir_fam = [f for f in _ptr_reg['families'] if f['name'] == 'instrument realization: one-instrument provenance']
+ok_prop &= len(_pir_fam) == 1 and 'owner decision for a propagation round' not in _pir_fam[0]['note']
+ok_prop &= 'instAvail_trace' in _pir_fam[0]['note'] and _pir_fam[0]['status'] == 'verification-only'
+ok_prop &= '| phase source: the stated access and the stipulated phases | 1 | current |' in _cen_ps
+for _t in ('`R7-PROP`', 'PHASE-PROPAGATION-AUDIT.md', 'realization by one protocol', 'as an assumption on the substratum class',
+           'is necessary to any access that supplies the phases and is not shown sufficient', 'the sufficient access assumed',
+           'No theorem is added or changed'):
+    ok_prop &= _t in _rd1
+check('R7-PROP', ok_prop,
+      'Phase-source propagation guard: the note keeps the three items, the mirrors, the constraints, the tests and '
+      'the non-doings before the outcome, names both commits, and asserts neither that moving the all-ones ray '
+      'suffices nor that the phases are derived; GR 3.3 states implementation locality as realization by one '
+      'protocol with normalization in aggregate its consequence, citing instAvail_trace, and the sentence after '
+      'the boxed equivalence the same; the moved names are attributed to MicroscopicReversibility and '
+      'PositivePackage in GR and Main with the positive reachability theorem keeping its path; the '
+      'substratum-source sentence states the phase intervention as an assumption on the substratum class with '
+      'the necessary condition and the sufficient access assumed as two parts, citing the three deciding '
+      'theorems and the stated member; the five mirrors qualify the phases the same way; the superseded clauses, '
+      'the moved attributions, the sufficiency misreading and the kernel predicates of the boundary are absent '
+      'from every manuscript source and generated form; the registry carries the phase-source family as current '
+      'with anchors in GR and Main and the instrument-realization note corrected; the census note and the README '
+      'carry the round.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
