@@ -1189,6 +1189,26 @@ needed for the endpoint nor derived from the closure. Not claimed: that the phas
 uniqueness or minimality of either resource; anything about the lift, Route A or a manuscript, the
 narration being an owner decision for a propagation round. Guard `R7-Q3`.
 
+The Q3 propagation round (`Q3-PROPAGATION-AUDIT.md`, preregistration commit `6eb213b`, written
+from `main` at `be31589`) is publication-only and owner-called. GR §3.3 gains the layer-flow form,
+one paragraph after the substratum-source form, stating in physical language that within the
+structural architecture the substratum supplies with the phase intervention stated, exact finite
+endomorphic operational quantum mechanics holds exactly when one continuous layer flow of an
+involution moving some configuration is available at every level and intermediate time, with the
+witness of each direction named beside the display (`layerFlowExecutable_of_control` for
+necessity; `qm_of_derivedOI_layerFlowExecutable` through `gateFlow_isolation_flip` and
+`phaseGate_mul_self` for sufficiency; packaged as `derivedOI_qm_iff_layerFlowExecutable'`), the
+swap layer named as an instance, and the two sourcing qualifications part of the statement: the
+phase intervention an assumption on the substratum class, and the executability not derived by
+configuration-level generation (`substratumTheory_not_layerFlowExecutable`), with no uniqueness or
+minimality claimed for the pair; the substratum-source box stands beside it. The summaries of
+Main §3.4, the Explainer and the book chapters carry one sentence each with both qualifications.
+The registry carries the Q3 family and the lift-audit family as current with anchors, and two
+supersession entries record that Q3′ and Q4′, relative to the baseline with the substratum's
+availability, are superseded by the endpoint under the closure alone, every prior entry preserved.
+No theorem is added or changed; the `.tex` and `.pdf` of GR, Main, the Explainer and the book are
+rebuilt. Guard `R7-Q3P`.
+
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
 than with the latest round. The check, run by the release gate as `lean-manuscript`, resolves every

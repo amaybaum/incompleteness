@@ -117,4 +117,50 @@ Remove or weaken the substratum-source box. Claim that either assumption is deri
 minimal. Narrate Route B, the sourced observer theory or the flow endpoint. Refresh the transfer
 bundle.
 
-Status: preregistered; the outcome follows in its own section.
+## The outcome
+
+Preregistration commit `6eb213b`, executed from `main` at `be31589`. The items were made as fixed
+in advance; the kernel is untouched, at 124 modules and 2,740 named results. Every test reached
+the outcome expected in advance.
+
+| test | outcome | where |
+|---|---|---|
+| E1 | the paragraph: `[GR §3.3]` carries the layer-flow form after the substratum-source paragraph and before the typed form, with its display, the necessity witness `layerFlowExecutable_of_control` and the sufficiency witnesses `phaseGate_mul_self`, `gateFlow_isolation_flip`, `phaseFree_of_derivedOI_layerFlowExecutable`, `qm_of_derivedOI_layerFlowExecutable` named beside it, the equivalence `derivedOI_qm_iff_layerFlowExecutable'`, the swap-layer instance, the relation to the substratum-source box, both sourcing qualifications with the Q2 witnesses, and no uniqueness or minimality claim; it names no kernel predicate of the boundary | GR §3.3 |
+| E2 | the summary: one sentence with both qualifications after the continuous-time summary sentence at Main §3.4, the Explainer, book chapter 1, book chapter 19 and both occurrences in the book's full source, six occurrences, identical up to each site's pointer style; the pinned continuous-time clause is unchanged | the six sites |
+| E3 | the registry: the Q3 family current with anchors in GR and Main; the lift-audit family current with anchors in GR and Main; the two supersession entries present; every prior entry preserved; the census passes with fourteen current families | `lean-manuscript-census.json`, `LEAN-MANUSCRIPT-CENSUS.md` |
+| E4 | the surfaces: `R7-Q3P`; the pins of `R7-LIFT` and `R7-Q3` moved to the propagated state; the README paragraph; GR, Main, the Explainer and the book rebuilt by `sh ./build.sh`, the xelatex log clean of dropped glyphs | `verification/lean/edge_rigidity_probe.py`, `README.md` |
+| E5 | the re-grep: zero occurrences corpus-wide of `DerivedOI`, `SourcedOI`, `PhasesAvailable`, `SubstratumAvail`, `RouteB`, `LayerFlowExecutable`, and of the two superseded identifiers; six occurrences of the summary sentence; one of the layer-flow heading and one of its display | the manuscripts |
+| E6 | the checks: release gate, every step; the probe, every guard; the census; the counts unchanged | the release gate |
+
+**The artifacts.** Rebuilt by `sh ./build.sh GR Main Explainer` and `sh ./build.sh --book`, the
+xelatex log clean of dropped glyphs.
+
+| artifact | pages |
+|---|---|
+| `papers/GR.pdf` | 81 |
+| `papers/Main.pdf` | 85 |
+| `papers/Explainer.pdf` | 66 |
+| `book/The-Incompleteness-of-Observation-FULL.pdf` | 535 |
+
+GR and Main each gain one page, the book one, the Explainer none; each count is plausible for
+one paragraph and one sentence added.
+
+**What the outcome establishes.** The manuscripts state the endpoint the kernel proves, in
+physical language: within the structural architecture the substratum supplies with the phase
+intervention stated, exact finite endomorphic operational quantum mechanics holds exactly when one
+continuous layer flow of an involution moving some configuration is available at every level and
+intermediate time, the resource being smaller than the driven elementary transitions of the
+substratum-source form and reaching them through the closure. Both sourcing qualifications are
+part of the statement wherever it occurs: the phase intervention is an assumption on the
+substratum class, and the executability is not derived by configuration-level generation. The
+strengthened Q3′ and Q4′ of the lift audit are recorded as superseded by the results at the
+preregistered hypothesis, in the registry and in the census.
+
+**What the outcome does not establish.** Anything not already proved: the round adds no theorem.
+That either assumption is derivable: the phase from the stated substratum, or the executability
+from the actual substratum dynamics with the observer architecture, the latter the question of
+the next round. That the pair of assumptions is unique or minimal.
+
+Status: pass complete, publication-only. The layer-flow form is in GR §3.3 with the witness of
+each direction and both qualifications, the summary at its six sites, the two families current
+with their supersessions, guard `R7-Q3P` pinning the propagated text, and the kernel unchanged.
