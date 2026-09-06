@@ -955,6 +955,10 @@ for fname, names in (
                       'flow_endpoint_refuted', 'flow_endpoint_refuted_general', 'phaseGate_mulVec_ones',
                       'onesTheory_not_phasesAvailable', 'onesTheory_not_derivedOI', 'onesTheory_not_substratumAvail',
                       'onesTheory_not_qm')),
+    ('PhaseSource', ('onesFixing_not_phasesAvailable', 'permClass_onesFixing', 'permTheory_not_phasesAvailable_onesFixing',
+                     'bijectiveOperator_mulVec_ones', 'readWriteOperator_mulVec_ones', 'phaseGate_not_scalar',
+                     'conjChannel_phaseGate_ne_id', 'diagonal_conj_phaseGate', 'phaseGate_moves_ones',
+                     'substratumClass_not_onesFixing')),
     ('SubstratumSource', ('genTheory_avail_conj', 'genTheory_elementary', 'quantumArchitecture_supplies_all',
                        'genTheory_qm_of_quantumArchitecture', 'fullClass_drivesElementary', 'fullClass_quantumArchitecture',
                        'qm_generated_by_quantumArchitecture', 'diagClass_not_drivesElementary', 'diagGen_not_quantumArchitectureGenerated')),
@@ -3725,7 +3729,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '122 modules' in _rd1 and '2,713 named results' in _rd1
+ok_sub &= '123 modules' in _rd1 and '2,723 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4135,7 +4139,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '122 modules' in _rd1 and '2,713 named results' in _rd1
+ok_flow &= '123 modules' in _rd1 and '2,723 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4151,6 +4155,95 @@ check('R7-FLOW', ok_flow,
       'preregistration after its deferral; the lift audit records its Q3 untouched; no manuscript carries the '
       'round; the registry and the census carry the family as kernel-only and the README carries the paragraph '
       'and the counts.')
+
+# ---- The phase-source audit: whether the stated substratum and observer access derive the
+# phases; the ones-fixing invariant general; the sourced class ones-fixing; the distinctions in
+# the kernel; the round-62 phase intervention isolated as the one source; the census verdicts;
+# no new intervention kind, class or theory; no manuscript narrates it ----
+ok_phase = True
+_ps = open(os.path.join(BRIDGE, 'OIBridge', 'PhaseSource.lean'), encoding='utf-8').read()
+_psflat = ' '.join(_ps.split())
+_psn = open(os.path.join(os.path.dirname(BRIDGE), 'PHASE-SOURCE-AUDIT.md'), encoding='utf-8').read()
+_psn1 = re.sub(r'\s+', ' ', _psn)
+ok_phase &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _ps) is None and 'native_decide' not in _ps
+ok_phase &= 'axiom ' not in re.sub(r'/-.*?-/', '', _ps, flags=re.S)
+_ps_names = re.findall(r"^theorem ([\w']+)", _ps, re.M)
+ok_phase &= len(_ps_names) == 10 and _ps.count('#print axioms') == 10
+for _nm in _ps_names:
+    ok_phase &= ('#print axioms ' + _nm) in _ps
+# nothing is defined: no intervention kind, no class, no theory
+ok_phase &= re.search(r'(?m)^(noncomputable )?(def|abbrev|structure|inductive) ', _ps) is None
+for _t in ('theorem onesFixing_not_phasesAvailable {𝓘 : ImplementationClass} (arch : Architecture 𝓘) (hf : OnesFixing 𝓘) (h2 : 2 ≤ Fintype.card A) : ¬ PhasesAvailable (genTheory 𝓘 arch A)',
+           'theorem permClass_onesFixing : OnesFixing permClass',
+           'theorem permTheory_not_phasesAvailable_onesFixing {A : Type} [Fintype A] [DecidableEq A] (h2 : 2 ≤ Fintype.card A) : ¬ PhasesAvailable (permTheory A)',
+           'theorem bijectiveOperator_mulVec_ones (σ : Equiv.Perm S) : bijectiveOperator σ *ᵥ ones S = ones S',
+           'theorem readWriteOperator_mulVec_ones {a b : S} (F : ReadWriteFamily a b) (l : ℝ) : readWriteOperator F l *ᵥ ones S = ones S',
+           'theorem phaseGate_not_scalar (h2 : 2 ≤ Fintype.card S) (a : S) (c : ℂ) : phaseGate a ≠ c • (1 : Matrix S S ℂ)',
+           'theorem conjChannel_phaseGate_ne_id (h2 : 2 ≤ Fintype.card S) (a : S) : conjChannel (phaseGate a) ≠ LinearMap.id',
+           'theorem diagonal_conj_phaseGate (d : S → ℂ) (hd : ∀ i, star (d i) * d i = 1) (a : S) : Matrix.diagonal d * phaseGate a * (Matrix.diagonal d)ᴴ = phaseGate a',
+           'theorem phaseGate_moves_ones (h2 : 2 ≤ Fintype.card S) (a : S) (z : ℂ) : phaseGate a *ᵥ ones S ≠ z • ones S',
+           'theorem substratumClass_not_onesFixing : ¬ OnesFixing substratumClass'):
+    ok_phase &= _t in _psflat
+ok_phase &= 'instAvail_unitary_fixes_ones' in _slice(_ps, 'theorem onesFixing_not_phasesAvailable', 'end Invariant')
+ok_phase &= 'onesFixing_not_phasesAvailable permClass_arch permClass_onesFixing' in _psflat
+# the note: question, distinctions, census, criteria, tests, meanings and non-doings precede the outcome
+_k = [_psn.find(h) for h in ('## The question', '## Four distinctions, frozen at the outset',
+      '## The census of purported sources, taken before the pass', '## The criteria, fixed in advance',
+      '## The tests, each with its admissible outcomes', '## What the outcomes mean, fixed in advance',
+      '## What the round does not do', '## The outcome', '## What this note does not claim')]
+ok_phase &= all(x > 0 for x in _k) and _k == sorted(_k)
+ok_phase &= _psn.lstrip().startswith('# The phase-source audit')
+for _t in ('Preregistration commit `2cc1cbc`', 'Status: pass complete', 'commit `b1c0677`',
+           '**(D1) Gauge is not an intervention.**', '**(D2) A representation fact is not availability.**',
+           '**(D3) A global phase is not the resource.**', '**(D4) Availability is instrument realization.**',
+           '| P1, the phase intervention |', '| P2, the substratum-source sentence |', '| P9, the observer architecture\'s own operations |',
+           '**Positive.**', '**Negative.**', '**Underdetermined.**',
+           '**T1. The invariant, general.**', '**T2. The stated access is ones-fixing.**', '**T3. The distinctions, in the kernel.**',
+           '**T4. The stipulation, isolated.**', '**T5. The manuscript census, per entry.**', '**T6. The countercontrol.**',
+           '**T7. The surfaces and the checks.**', '| T1 | ', '| T7 | ', 'The verdicts, per entry', 'The headline', 'The missing access, named',
+           'no proved statement differs from the preregistered one', 'negative for the stated access', 'rests on P1, a stipulation',
+           'an admissible operator, selectable by the observer at every level, that moves the all-ones vector off its ray',
+           'What the outcome does not establish', 'What this note does not claim', 'ten named results'):
+    ok_phase &= _t in _psn1
+for _bad in ('the manuscripts are wrong', 'DerivedOI is false', 'the phases cannot be sourced', 'the lift is derivable',
+             'the lift is not derivable', 'Route A is closed', 'OI implies QM', 'quantum mechanics requires OI',
+             'bare OI implies', 'relative phase is the unique missing resource', 'relative phase is the minimal missing resource',
+             'the preregistered Q3 holds', 'Q3 is refuted', 'the phase structure is derived', 'PhasesAvailable is derived'):
+    ok_phase &= not _asserted(_psn, _bad)
+# the frozen notes carry their sections; no manuscript is edited
+_ssn = open(os.path.join(os.path.dirname(BRIDGE), 'SUBSTRATUM-SOURCE-AUDIT.md'), encoding='utf-8').read()
+ok_phase &= '## Fifth entry, recorded after the freeze: the phase source' in _ssn and _ssn.find('## Freeze') < _ssn.find('## Fifth entry, recorded after the freeze')
+ok_phase &= 'substratumClass_not_onesFixing' in _ssn
+ok_phase &= '## The phases, decided, recorded after the round' in _san and 'permClass_onesFixing' in _san
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    ok_phase &= 'PhaseSource' not in _t and 'onesFixing' not in _t and 'OnesFixing' not in _t and 'PHASE-SOURCE' not in _t
+_gr_txt2 = open(os.path.join(_msroot, 'papers/GR.md'), encoding='utf-8').read()
+ok_phase &= 'and the phase structure — supplies the structural part in full' in _gr_txt2
+_ps_fam = [f for f in _ptr_reg['families'] if f['name'] == 'phase source: the stated access and the stipulated phases']
+ok_phase &= len(_ps_fam) == 1 and _ps_fam[0]['status'] == 'kernel-only' and _ps_fam[0]['modules'] == ['PhaseSource']
+ok_phase &= _ps_fam[0]['manuscript'] == [] and 'a stipulation' in _ps_fam[0]['note'] and 'underdetermined' in _ps_fam[0]['note']
+ok_phase &= 'owner decision' in _ps_fam[0]['note'] and 'no complex structure' in _ps_fam[0]['note']
+_cen_ps = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+ok_phase &= '| phase source: the stated access and the stipulated phases | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-PHASE`', 'PHASE-SOURCE-AUDIT.md', 'onesFixing_not_phasesAvailable', 'permClass_onesFixing',
+           'substratumClass_not_onesFixing', 'Ten named results', 'a stipulation, and on nothing else',
+           'current OI sourcing stops', 'is underdetermined, and the missing access is named',
+           'an additional physical assumption on the route', 'recorded for the propagation'):
+    ok_phase &= _t in _rd1
+check('R7-PHASE', ok_phase,
+      'Phase-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
+      'ten results and defines no intervention kind, class or theory; the general ones-fixing invariant, the '
+      'ones-fixing sourced class with its no-phase corollary, the ones-fixing bijective, read-write and layer '
+      'operators, the three distinctions and the isolation of the round-62 phase intervention are stated as '
+      'pinned; the note keeps the question, the four distinctions, the nine-entry census, the criteria, the '
+      'tests, the meanings and the non-doings before the outcome, names both commits, records the verdict per '
+      'entry with the stated access negative and the phrase underdetermined with the missing access named, and '
+      'asserts nothing about the lift audit\'s Q3, the lift, Route A, uniqueness or minimality, or the '
+      'manuscripts being wrong; the frozen substratum-source and substratum-interface notes carry their sections; '
+      'no manuscript is edited and the substratum-source sentence stands; the registry and the census carry the '
+      'family as kernel-only and the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

@@ -12,7 +12,7 @@ interface: `bijectiveOperator`, `phaseOperator`, `IsMonomial`), `OIBridge/Struct
 `SUBSTRATUM-SOURCE-AUDIT.md`, `SUBSTRATUM-INTERFACE-AUDIT.md`, `FLOW-ENDPOINT-AUDIT.md`; guard
 `R7-PHASE` in `verification/lean/edge_rigidity_probe.py`.
 
-**Status: preregistered, no proof attempted.** Written from `main` at commit `b1c0677`, the merge
+**Status: pass complete. Negative for the stated access: every operation the manuscripts state is ones-fixing and the kernel's `PhasesAvailable` on the substratum side rests on the round-62 phase intervention alone; underdetermined for the phrase "the phase structure", with the missing access named.** Written from `main` at commit `b1c0677`, the merge
 of the flow-endpoint round. The sections below fix the question, the distinctions, the census of
 every purported source of the phase structure in the corpus and the kernel, the criteria that
 decide the outcome, the tests with their admissible outcomes and the countercontrol, before any
@@ -203,3 +203,75 @@ Define a new intervention kind, a new class, or a new theory. Change `PhasesAvai
 `DerivedOI`, `SourcedOI`, `substratumClass` or any package. Edit a manuscript. Decide the lift
 audit's Q3. Attack the sourcing of a relative-phase principle. Propagate Route B. Refresh the
 transfer bundle.
+
+## The outcome
+
+Preregistration commit `2cc1cbc`. The kernel module is `OIBridge/PhaseSource.lean`, ten named
+results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Every test reached the
+outcome expected in advance; no proved statement differs from the preregistered one.
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | the invariant, general: for every architecture whose admissible isometries fix the all-ones ray, the generated theory has no quarter phase at any level with two or more states, on every carrier with at least two states, by the instrument-realization audit's invariant and `phaseGate_mulVec_ones` | `onesFixing_not_phasesAvailable` |
+| T2 | the stated access is ones-fixing: an isometry among the scaled partial permutations has one nonzero entry, the common scalar, in every row, so the sourced class is ones-fixing; its theory has no quarter phase by T1, the same mechanism that decides the flow endpoint; the bijective interventions, the read-write operators and the layer gate flows fix the all-ones vector | `permClass_onesFixing`, `permTheory_not_phasesAvailable_onesFixing`, `bijectiveOperator_mulVec_ones`, `readWriteOperator_mulVec_ones`, `gateFlow_mulVec_ones` |
+| T3 | the distinctions: the quarter phase is not a scalar and its conjugation is not the identity, multiplying the coherence from its state to any other by `i`; every diagonal unitary fixes it under conjugation; a unit scalar acts trivially on every conjugation channel | `phaseGate_not_scalar`, `conjChannel_phaseGate_ne_id`, `diagonal_conj_phaseGate`, `ReachabilitySeam.conjChannel_smul` |
+| T4 | the stipulation, isolated: the quarter phase moves the all-ones ray, and the monomial class of the round-62 interface, which admits it as a phase intervention, is not ones-fixing; it is the one intervention kind of the interface that is not, and the one the kernel's `PhasesAvailable` on the substratum side rests on | `phaseGate_moves_ones`, `substratumClass_not_onesFixing` |
+| T5 | the census, per entry: the verdicts below, as expected; no entry positive; P2 underdetermined, with the missing access named | the table below |
+| T6 | the countercontrol: no sum constructor in `InstAvail`, the invariant a theorem of that predicate; the representation and the global-gauge checks of T3; and the positive control, that adjoining the quarter phase as an admissible operator does source it | `INSTRUMENT-MIGRATION-AUDIT.md`, T3, `substratumTheory_derivedOI` |
+| T7 | the surfaces and the checks: `R7-PHASE`; the sections in `SUBSTRATUM-SOURCE-AUDIT.md` and `SUBSTRATUM-INTERFACE-AUDIT.md`; the README and the census; full build, axiom check, release gate, probe, census, all green; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+
+**The verdicts, per entry.**
+
+| entry | verdict | reason |
+|---|---|---|
+| P1, the phase intervention | negative, a stipulation | `phaseOperator` is an intervention kind declared at the round-62 interface; nothing in `(S, φ)` or in the stated access produces it, and it is the one kind of the interface that moves the all-ones ray (T4) |
+| P2, the substratum-source sentence | **underdetermined** | "the phase structure" narrates P1 and names no operation the observer performs; no manuscript sentence gives it executable content, and `[Substratum §4]` states that the substratum carries no complex structure |
+| P3, the substratum gauge group | negative | gauge (D1); the emergent global phase is the identity on `(S, φ)` and global (D3) |
+| P4, the internal-index and amplitude-scale gauge | negative | gauge of the description (D1); no operation named |
+| P5, the reconstruction gauge | negative | representation (D2), and the energy origin a global phase (D3); the reconstructed diagonal rephasing fixes the quarter phase under conjugation (T3), so it neither creates nor removes the resource |
+| P6, the fixed-basis representation | negative | representation (D2) |
+| P7, the observer's stated access | negative | every operator supplied is a permutation matrix, ones-fixing (T2); the class they generate has no quarter phase (T1, T2) |
+| P8, the continuous-time extension and the layer flows | negative | under the hypothesis `LayerFlowExecutable`, the gate flows are ones-fixing, and the ones-fixing theory with every gate flow has no quarter phase (`onesTheory_not_phasesAvailable`, T1) |
+| P9, the observer architecture's own operations | negative | the constructors of `InstAvail` preserve the ones-fixing invariant (`instAvail_unitary_fixes_ones`) |
+
+**The headline.** For the stated access the verdict is negative: every operation the manuscripts
+state the observer performs, formalized, lies in a class whose admissible isometries fix the
+all-ones ray, and the operations of the observer architecture preserve that invariant; so the
+stated substratum and observer access do not derive `PhasesAvailable`. The kernel's
+`PhasesAvailable` on the substratum side rests on P1, a stipulation, and on nothing else. Current
+OI sourcing stops at `SourcedOI`; `DerivedOI` is `SourcedOI` with a stipulated conjunct; and an
+executable relative-phase intervention is an additional physical assumption on the route to
+quantum mechanics, not a consequence of `(S, φ)` with the stated access.
+
+**The missing access, named.** For P2 the verdict is underdetermined, and the round names what
+the phrase "the phase structure" would have to mean to source the conjunct: an admissible
+operator, selectable by the observer at every level, that moves the all-ones vector off its ray,
+of which the quarter phase `phaseGate a` is the canonical instance. That condition is exactly
+what T1 says a ones-fixing class cannot supply and what T4 says the round-62 phase intervention
+does supply. Whether the manuscripts' `[GR §3.3]` sentence is to be requalified to that condition,
+stated as an assumption, is recorded for the propagation round that follows; nothing is changed
+here.
+
+**What the outcome establishes.** Under the migrated semantics, no route the manuscripts state,
+gauge, representation, global phase, readout, bijective write access, the layer flows under
+executability, or the observer architecture's own attach, readout, feed-forward and discard,
+yields a relative phase; the one route that does is a declared intervention kind. The two
+negatives of the programme, the flow endpoint and the phase source, are one mechanism: the
+all-ones ray. The decision that follows, whether to attack the lift audit's Q3 from `DerivedOI`
+as a conditional result with its extra hypothesis named as an assumption, or to attack the
+sourcing of a relative-phase intervention as a physical principle, is the owner's.
+
+**What the outcome does not establish.** Whether relative phase is the unique or the minimal
+resource on the route; the flow-endpoint audit records it as an obstruction identified and not
+more. Whether `DerivedOI ∧ LayerFlowExecutable` gives `PhaseFreeRichness`. Whether a richer
+substratum ontology than `(S, φ)` with the stated access would source a phase; the manuscripts
+claim no completeness against one, and none is examined. Whether the observer-level lift is
+derivable. Route A in either direction. Bare OI. Any manuscript sentence.
+
+## What this note does not claim
+
+That the manuscripts are wrong: they state that the substratum carries no complex structure, and
+the round agrees with them. That `DerivedOI` is false of the physics, or that the phases cannot be
+sourced by some access the manuscripts do not state. That the lift audit's Q3 from `DerivedOI` is
+refuted or holds. That relative phase is the unique or minimal missing resource. That anything
+here reaches a manuscript.
