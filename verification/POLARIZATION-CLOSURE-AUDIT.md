@@ -192,6 +192,27 @@ Prove a negative for `PolGen` other than by transfer from `PolC`. Change `PolGen
 `polarizedTheory`, `LayerFlowExecutable`, `PhasesAvailable` or any definition. Attempt the
 continuous coupling. Edit a manuscript. Refresh the transfer bundle.
 
+## Scope amendment, recorded after the preregistration
+
+Recorded at review of the executed round, before approval; the preregistration above is untouched
+and no theorem, verdict or outcome changes. The bridge paragraph of the preregistration and test T1
+state the bridge as an equivalence, availability of `conjChannel U` at a level being equivalent to
+`c • U` lying in the class for some `c ≠ 0`, "the converse being the constructor `op`". The cited
+theorem `exists_scaled_mem_of_instAvail_unitary` proves the forward direction only: availability
+of the unitary conjugation gives some nonzero scalar multiple of the unitary in the class. The
+converse as written does not follow from `op` alone: from `c • U` in the class, `op` realizes the
+conjugation by `c • U`, which is `conjChannel U` when `‖c‖ = 1` and a different, contractive
+channel otherwise; recovering `conjChannel U` from an arbitrary admissible multiple needs either
+`U` itself in the class or a stated ray-saturation hypothesis, that a class containing one nonzero
+multiple of a unitary contains the unitary. Neither is stated or proved in this round. T1 is
+therefore read as one-way: the forward direction is what the negative argument consumes, at
+`countable_not_layerFlowExecutable` and everything downstream of it, and the counting proofs use
+nothing else. The converse is immediate only where the unitary itself is in the class, which is
+how every positive of the round is stated: `phaseGate p` is in `PolC` (`polC_phaseGate`) and is
+unitary, so its conjugation is available by `op`, and the positives of the discovery audit are
+likewise memberships of unitaries. Membership of a non-unitary multiple, as for the level-three
+block of T6, gives no availability of the unitary direction, which T6 already does not claim.
+
 ## The outcome
 
 Preregistration commit `a7c1db0`, executed from `main` at `2554000`. The kernel module is
@@ -204,7 +225,7 @@ proof; the mechanism of the positive side and the reason of the negative side ar
 
 | test | outcome | kernel |
 |---|---|---|
-| T1 | the bridge, cited: an available unitary conjugation has its unitary in the class up to a nonzero scalar; the converse is the constructor `op` | `exists_scaled_mem_of_instAvail_unitary`, `kraus_of_conj_unitary` (cited) |
+| T1 | the bridge, cited, read one-way under the scope amendment: an available unitary conjugation has its unitary in the class up to a nonzero scalar, the forward direction, which is all the negative argument consumes; the converse is immediate only for a unitary itself in the class, by `op`, and is not otherwise claimed | `exists_scaled_mem_of_instAvail_unitary`, `kraus_of_conj_unitary` (cited) |
 | T2 | the counting theorem: the gate flow of an involution with a moved configuration takes pairwise non-proportional values at distinct times in `[0, 2)`, from its diagonal and off-diagonal entries; for any architecture and carrier with a moved involution, a countable set of matrices at the level-one carrier of which every operator of the class is a scalar multiple excludes the executability of that flow in the generated theory, the ray map on the uncountable interval being injective into a countable set otherwise; contrapositively, a class whose theory executes a layer flow has no such countable set | `gateFlow_entries`, `gateFlow_not_proportional`, `countable_not_layerFlowExecutable`, `uncountable_of_layerFlowExecutable` |
 | T3 | countability of the polarized classes: `PolC` is countable up to scalar at every carrier, by the depth-indexed family `Gen` of countable sets, level zero the zero–one matrices and the relabelled images from every `Fin 2 × Fin n` equivalent to the carrier, each step closed under products and ancilla blocks over all `m`, the family stable under relabelling, every element of `PolC` a scalar multiple of an element at some depth; `PolGen ⊆ PolC` gives the same for `PolGen`; so neither polarized theory executes any layer flow of a moved involution, at any carrier | `gen_countable`, `gen_reindex`, `polC_mem_gen`, `polC_countable_upToScalar`, `polGen_countable_upToScalar`, `polGen_le_polC`, `polarizedTheoryC_not_layerFlowExecutable`, `polarizedTheory_not_layerFlowExecutable` |
 | T4 | O1 for `PolC`: the relabelling `Fin 2 × Fin (2n) ≃ (Fin 2 × Fin n) × Fin 2` is stated explicitly, the commutation and the halving of the position followed by one exchange; the first-fiber block of the relabelled site phase at level `2n` is exactly the quarter phase on the chosen configuration of the level-`n` carrier; that block is in `PolC` by relabelling, site phase and ancilla block; so the label-invariant polarized theory on the two-valued alphabet has the quarter phase on every configuration at every level. For `PolGen` the statement is recorded as undecidable in the type-indexed formulation, for the reason frozen above | `phaseRelabel`, `phaseRelabel_symm_fst`, `phaseRelabel_block`, `polC_phaseGate`, `polarizedTheoryC_phasesAvailable` |
@@ -280,7 +301,9 @@ corpus rather than constructed by this round. That anything follows from the fin
 bare Weil or Clifford subgroup: every negative here passes through the countability of the full
 class and the bridge. That continuity is necessary for O2, or that the countability obstruction
 names the physical mechanism that supplies O2: only that the projective image must be uncountable.
-That any manuscript statement changes.
+That the bridge is an equivalence: the negative argument uses its forward direction, and the
+converse is claimed only for unitaries themselves in the class. That any manuscript statement
+changes.
 
 Status: pass complete. Verdict split: O1 positive for `PolC` at every level by relabelling, site
 phase and ancilla block; O2 negative for `PolC` and `PolGen` by countability of the class up to

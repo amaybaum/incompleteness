@@ -5178,8 +5178,23 @@ for _bad in ('Clifford', 'Weil', 'WeylTwirl', 'pauliNormalizer', 'Finite.of', 'F
 _kp = [_pcn.find(h) for h in ('## The question', '## The two classes, and a hazard of the formalization, frozen',
        '## The two obligations, tested by two different arguments, frozen', '## Four admissible outcomes, frozen',
        '## The tests, each with its admissible outcomes', '## What the outcomes mean, fixed in advance',
-       '## What the round does not do', '## The outcome', '## What this note does not claim')]
+       '## What the round does not do', '## Scope amendment, recorded after the preregistration', '## The outcome',
+       '## What this note does not claim')]
 ok_pcl &= all(x > 0 for x in _kp) and _kp == sorted(_kp)
+# the scope amendment: the bridge read one-way, the forward direction what the negative consumes, the converse only for
+# a unitary itself in the class or under a stated ray-saturation hypothesis, neither stated nor proved; nothing else changed
+_pcn_am = re.sub(r'\s+', ' ', _pcn[_pcn.find('## Scope amendment, recorded after the preregistration'):_pcn.find('## The outcome')])
+for _t in ('the preregistration above is untouched', 'no theorem, verdict or outcome changes', 'proves the forward direction only',
+           'The converse as written does not follow from `op` alone', 'a stated ray-saturation hypothesis',
+           'Neither is stated or proved in this round', 'T1 is therefore read as one-way',
+           'The converse is immediate only where the unitary itself is in the class', 'gives no availability of the unitary direction'):
+    ok_pcl &= _t in _pcn_am
+ok_pcl &= 'read one-way under the scope amendment' in _pcn1 and 'That the bridge is an equivalence' in _pcn1
+for _bad in ('the converse being the constructor `op`', 'the converse is the constructor `op`', 'equivalent to `c • U` lying in the class',
+             'the converse by `op`'):
+    ok_pcl &= _bad not in re.sub(r'\s+', ' ', _pcn[_pcn.find('## The outcome'):])
+for _bad in ('is equivalent to `c • U`', 'the converse by `op`', 'the converse being the constructor `op`'):
+    ok_pcl &= _bad not in _rd1
 ok_pcl &= _pcn.lstrip().startswith('# The polarization closure audit')
 for _t in ('Preregistration commit `a7c1db0`', '`main` at `2554000`', '**The scope rule, frozen.**', '**The bridge, cited.**',
            '**O2 by counting.**', '**O1 by construction.**', '- **Negative closure.**', '- **Positive escape.**', '- **Split.**',
@@ -5235,7 +5250,8 @@ for _t in ('Nothing is named C5 or adopted', 'owner decision', 'not sourced by t
            'the reading of it as a continuous parameter being interpretation', "the unitary direction's availability not claimed",
            'the positive does not transfer to PolGen in the type-indexed formulation'):
     ok_pcl &= _t in _pc_fam[0]['note']
-for _bad in ('continuous parameter is necessary', 'is available to the observer', 'is sourced by the corpus', 'C5 holds'):
+for _bad in ('continuous parameter is necessary', 'is available to the observer', 'is sourced by the corpus', 'C5 holds',
+             'is equivalent to `c • U`', 'the converse by `op`', 'the converse being the constructor `op`'):
     ok_pcl &= _bad not in _pc_fam[0]['note']
 ok_pcl &= '| polarization closure: O2 by counting and O1 by construction | 1 | kernel-only |' in _cen_ps
 for _t in ('`R7-PCL`', 'POLARIZATION-CLOSURE-AUDIT.md', 'polGen_le_polC', 'gateFlow_not_proportional',
