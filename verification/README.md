@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 126 modules and,
-  at this commit, 2,770 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 127 modules and,
+  at this commit, 2,787 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1306,6 +1306,35 @@ book chapters is followed by one sentence saying the same, six occurrences. The 
 and lift-source families are current with anchors in GR and Main. No theorem is added or changed;
 the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed.
 Guard `R7-SRCP`.
+
+The C5 discovery audit (`C5-DISCOVERY-AUDIT.md`, `OIBridge/C5Discovery.lean`) asks whether a
+realization-level condition of the same logical type as C1–C4, on the visible–hidden partition,
+sources the coherent resource that distinguishes the quantum completion, the resource being two
+obligations tested separately, the quarter phase at every level and one executable layer flow. The
+obligations are independent, the substratum theory having the phase without the flow and the
+ones-fixing theory the flow without the phase (`obligations_independent`); the kill battery of the
+three named non-quantum theories is one predicate, none of them quantum and any theory with both
+obligations outside it (`KillBattery`, `killBattery_not_qm`, `obligations_outside_battery`).
+Candidate 1, tunable coupling, is the negative control: every bijection-level class fails both
+obligations (`bijectionLevel_fails_obligations`), and the corpus states no condition forcing a
+coupling that is not bijection-valued on configurations. Candidate 2, the symplectic structure of the
+leapfrog update, is inert at update level (`updateLevel_symplectic_inert`) and is tested in its
+partition-induced form, the polarization map on the two-valued alphabet, stated explicitly: the shear
+to the quarter phase, the swap to the Hadamard matrix, which is not monomial and does not preserve
+diagonal states (`hadamard_not_monomial`, `hadamard_not_preservesDiag`, `siteSwapImage_not_monomial`);
+the polarized class is not configuration-level (`polGen_not_configurationLevel`), the quarter phase is
+available at level one (`polarizedTheory_phase_level_one`), and the swap-layer flow at time one half is
+exactly the Hadamard-conjugated quarter phase and is available at level one (`gateFlow_half_eq_hsh`,
+`polarizedTheory_swap_half_level_one`). Both obligations then fail for one reason, the finiteness of
+the Weil image of a finite symplectic group, which contains neither the controlled quarter phase a
+composite level needs nor the flow at a non-Clifford time; these two failures are stated with their
+reason and not kernel-proved, the missing step, a conjugation invariant over the instrument closure,
+named. Verdict: C, underdetermined, sharpened: the one stated map sources a non-configuration-level
+coherent closure and is cut off from both obligations by the discreteness of the alphabet, so what
+a surviving candidate would need is a continuous canonical structure on the partition, which the
+corpus does not state. Seventeen named results, each printing only `propext`, `Classical.choice`,
+`Quot.sound`. Nothing is named C5 or adopted; the polarization map is a candidate, not derived from
+the stated access; no manuscript changes. Guard `R7-C5D`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

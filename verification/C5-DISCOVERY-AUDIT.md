@@ -204,3 +204,68 @@ except as the explicitly stated image of the polarization map under test. Read a
 a representation. Change `LayerFlowExecutable`, `PhasesAvailable`, `obsTheory`, `substratumTheory`
 or any definition. Attempt the phase by a route other than the two candidates. Edit a manuscript.
 Refresh the transfer bundle.
+
+## The outcome
+
+Preregistration commit `f57c1f8`, executed from `main` at `0df6a8a`. The kernel module is
+`OIBridge/C5Discovery.lean`, seventeen named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`; the kernel is at 127 modules and 2,787 named results. Nothing is
+named "C5" in the module or adopted in this note. The verdict is **C, underdetermined**, with a
+sharpened reason recorded under T7: for the one map the round states, the polarization map on the
+two-valued alphabet, both obligations fail for a single reason, finiteness, so the two resources
+do not separate under it, and what the corpus lacks is a continuous canonical structure, not a
+second unrelated property.
+
+| test | outcome | kernel |
+|---|---|---|
+| T0 | the obligations are independent: the substratum theory has the quarter phase at every level and executes no layer flow of the swap; the ones-fixing theory executes the swap flow and has no quarter phase; with the closure the two obligations give quantum mechanics and quantum mechanics gives both (cited) | `obligations_independent` |
+| T1 | the kill battery, packaged: the three named non-quantum theories, none quantum, and any theory with both obligations outside it | `KillBattery`, `killBattery_substratum`, `killBattery_ones`, `killBattery_perm`, `killBattery_not_qm`, `obligations_outside_battery` |
+| T2 | candidate 1, the negative control: every bijection-level class, the read-write family's included, fails both obligations; the corpus's continuous-time visible law `T(t)` is a classical map (cited from the lift-source audit); the live version: no physical condition in the corpus forces a coupling whose intermediate values are not bijection-valued on configurations, the selectable local coupling of `[Main]` and `[GR]` being a bijection of the configurations at every parameter value and `[Main §2.2]`'s `T(t)` a stochastic matrix on visible states; recorded, no condition named | `bijectionLevel_fails_obligations` |
+| T3 | candidate 2 at update level: a configuration-level label-invariant class fails phase-free richness and executes no layer flow, so the canonical structure of the leapfrog update, reached through the stipulated sourcing, is inert; the symplecticity of the update itself stated and not proved | `updateLevel_symplectic_inert` |
+| T4 | candidate 2, the polarization map on the two-valued alphabet: the map is stated explicitly, the shear to the quarter phase on the site's position one and the swap to the Hadamard matrix, transported to every level with the ancilla a spectator; the Hadamard matrix is not monomial and does not preserve diagonal states; the swap image is not monomial at any level; the polarized class, the stated access closed with the two images under the architecture operations, is not configuration-level, so test 2 passes; at level one the shear image is the quarter phase and is available, and the swap-layer flow at time one half is exactly `H·S·H` and is available. O1 fails at level two: the quarter phase on one configuration of the composite is a controlled quarter phase, outside the Weil image of the symplectic group on two sites; the failure is stated with its reason and is not kernel-proved, the missing step being a conjugation invariant over the instrument closure | `hadamard_not_monomial`, `hadamard_not_preservesDiag`, `siteSwapImage_not_monomial`, `polGen_arch`, `polGen_not_configurationLevel`, `siteShearImage_one_eq_phaseGate`, `polarizedTheory_phase_level_one`, `gateFlow_half_eq_hsh`, `polarizedTheory_swap_half_level_one` |
+| T5 | candidate 2, the flow: outcome (b). The Weil image of the symplectic group of a finite alphabet is a finite group, and a finite group of operators contains no one-parameter family of distinct operators, so the polarized theory executes no layer flow at every time; the same finite group contains the half-time point of the swap flow at level one, which the kernel proves available, and not its quarter-time point. The missing kernel step is the same as T4's: an invariant of the polarized class over the instrument closure, entry invariants being defeated by the scalar closure and the eighth roots of unity the class contains | none; `gateFlow_half_eq_hsh` and `polarizedTheory_swap_half_level_one` for the positive half |
+| T6 | test 8 for candidate 2: the corpus does not supply the polarization map. Its carrier is the full configuration space, the pair of current and previous values at every site, and its sourcing the stipulated bijective and phase interventions (`SubstratumInterface`); `[Main §2]`'s partition `Γ = Γ_V × Γ_H` splits the sites into visible and hidden and not the per-site phase space into positions and momenta; no manuscript states that the observer's state space is the amplitudes over one half of the per-site phase space or that the layers act on it by the Weil representation. The map is the round's, stated as a candidate | none |
+| T7 | the verdict: C, with the reason below | the table above |
+| T8 | the surfaces and the checks: `R7-C5D`; the README and the census; full build, axiom check, release gate, probe, census, all green; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+
+**The verdict, with its reason.** Outcome A is not reached: no candidate sources both obligations.
+Outcome B is not reached either, and the reason is the finding of the round. Under the polarization
+map, a single realization-level datum, the polarization of the coupling's phase space with the
+observer reading the position half, sources a non-configuration-level coherent closure: the quarter
+phase on the site, the Hadamard matrix, and the half-time point of the swap-layer flow, all at level
+one and all kernel-proved. Both obligations then fail for one and the same reason, the finiteness of
+the Weil image of a finite symplectic group, which contains neither the controlled quarter phases the
+composite levels need nor the flow at any time that is not a Clifford time. The two resources do not
+separate under this candidate; they are cut off together by the discreteness of the alphabet. The
+verdict is therefore C: the corpus states neither a non-bijection-valued coupling nor the polarization
+map, and the structure a surviving candidate would need is a continuous canonical structure on the
+partition, a realization the corpus does not state. Whether such a structure can be stated without
+new physics is the question this round leaves, sharpened from "a second property" to "continuity of
+the canonical structure the discrete coupling already has".
+
+**What a surviving candidate would have to supply.** A partition-level datum with a stated map to
+admissible implementation structure whose image is non-monomial (test 2, passed by the polarization
+map), whose sourced theory has the quarter phase on every single configuration at every level (O1,
+failed by the polarization map at level two), and whose sourced theory executes one layer flow at
+every real time (O2, failed by the polarization map at the non-Clifford times), the last two being
+what a continuous canonical structure would have to add to the discrete one.
+
+**What the outcome does not establish.** That a C5 exists or does not exist beyond the two
+candidate families tested. That the polarization map is physically available to the observer: the
+round states the map as a candidate and tests its consequences. The level-two failure of O1 and the
+failure of O2 for the polarized theory in the kernel: both are stated with their reason, and the
+missing kernel step is named. Minimality or uniqueness of anything. Anything about a manuscript.
+
+## What this note does not claim
+
+That any candidate is a C5, or that "C5" names a condition of the framework. That the polarization
+map is derived from the observer's stated access. That the polarized theory's failures of O1 at
+level two and of O2 are kernel theorems: they are stated mathematical facts with the missing kernel
+step named. That a continuous canonical structure exists on the partition, or that stating one would
+not be new physics. That the read-write family or the visible transition matrix could not be
+replaced by a non-bijection-valued coupling: only that the corpus states none. That any manuscript
+statement changes.
+
+Status: pass complete. Verdict C, underdetermined, with the sharpened reason that the one stated
+map sources a non-configuration-level coherent closure and fails both obligations for the single
+reason of finiteness; seventeen named results; no C5 named or adopted; no manuscript edited.

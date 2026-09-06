@@ -981,6 +981,12 @@ for fname, names in (
                     'single_isMonomial', 'stochasticChannel_kraus_monomial', 'stochasticChannel_preservesDiag',
                     'stochastic_not_layerFlowExecutable', 'avail_one_not_layerFlowExecutable',
                     'obs_swap_avail_one_not_layerFlowExecutable')),
+    ('C5Discovery', ('obligations_independent', 'killBattery_substratum', 'killBattery_ones', 'killBattery_perm',
+                     'killBattery_not_qm', 'obligations_outside_battery', 'bijectionLevel_fails_obligations',
+                     'updateLevel_symplectic_inert', 'hadamard_not_monomial', 'hadamard_not_preservesDiag',
+                     'siteSwapImage_not_monomial', 'polGen_arch', 'polGen_not_configurationLevel',
+                     'siteShearImage_one_eq_phaseGate', 'polarizedTheory_phase_level_one', 'gateFlow_half_eq_hsh',
+                     'polarizedTheory_swap_half_level_one')),
     ('SubstratumSource', ('genTheory_avail_conj', 'genTheory_elementary', 'quantumArchitecture_supplies_all',
                        'genTheory_qm_of_quantumArchitecture', 'fullClass_drivesElementary', 'fullClass_quantumArchitecture',
                        'qm_generated_by_quantumArchitecture', 'diagClass_not_drivesElementary', 'diagGen_not_quantumArchitectureGenerated')),
@@ -3751,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '126 modules' in _rd1 and '2,770 named results' in _rd1
+ok_sub &= '127 modules' in _rd1 and '2,787 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4162,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '126 modules' in _rd1 and '2,770 named results' in _rd1
+ok_flow &= '127 modules' in _rd1 and '2,787 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4478,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '126 modules' in _rd1 and '2,770 named results' in _rd1
+ok_q3 &= '127 modules' in _rd1 and '2,787 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4698,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '126 modules' in _rd1 and '2,770 named results' in _rd1
+ok_exec &= '127 modules' in _rd1 and '2,787 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4842,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '126 modules' in _rd1 and '2,770 named results' in _rd1
+ok_lsrc &= '127 modules' in _rd1 and '2,787 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4965,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '126 modules' in _rd1 and '2,770 named results' in _rd1
+ok_srcp &= '127 modules' in _rd1 and '2,787 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -4977,6 +4983,118 @@ check('R7-SRCP', ok_srcp,
       'minimality; both families are current with anchors in GR and Main; the note keeps the statement, the items, the '
       'constraints, the tests and the non-doings before the outcome and names both commits; the README carries the round '
       'and the counts are unchanged.')
+
+# ---- the C5 discovery audit: no C5 named or adopted; the kill battery; the two candidate families; the polarization
+# map stated explicitly and tested; the verdict C with its sharpened reason ----
+ok_c5d = True
+_c5 = open(os.path.join(BRIDGE, 'OIBridge', 'C5Discovery.lean'), encoding='utf-8').read()
+_c5flat = ' '.join(_c5.split())
+_c5n = open(os.path.join(os.path.dirname(BRIDGE), 'C5-DISCOVERY-AUDIT.md'), encoding='utf-8').read()
+_c5n1 = re.sub(r'\s+', ' ', _c5n)
+ok_c5d &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _c5) is None and 'native_decide' not in _c5
+ok_c5d &= 'axiom ' not in re.sub(r'/-.*?-/', '', _c5, flags=re.S)
+_c5_names = re.findall(r"^theorem ([\w']+)", _c5, re.M)
+ok_c5d &= len(_c5_names) == 24 and _c5.count('#print axioms') == 17
+for _nm in ('obligations_independent', 'killBattery_substratum', 'killBattery_ones', 'killBattery_perm', 'killBattery_not_qm',
+            'obligations_outside_battery', 'bijectionLevel_fails_obligations', 'updateLevel_symplectic_inert',
+            'hadamard_not_monomial', 'hadamard_not_preservesDiag', 'siteSwapImage_not_monomial', 'polGen_arch',
+            'polGen_not_configurationLevel', 'siteShearImage_one_eq_phaseGate', 'polarizedTheory_phase_level_one',
+            'gateFlow_half_eq_hsh', 'polarizedTheory_swap_half_level_one'):
+    ok_c5d &= ('#print axioms ' + _nm) in _c5 and _nm in _c5_names
+# nothing named C5 is defined in the kernel; the definitions are the battery, the images, the class and the theory
+_c5_defs = re.findall(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) (\w+)', _c5, re.M)
+ok_c5d &= _c5_defs == ['KillBattery', 'hc', 'hadamard', 'siteShearImage', 'siteSwapImage', 'PolGen', 'polarizedTheory']
+ok_c5d &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive|theorem) [Cc]5', _c5, re.M) is None
+ok_c5d &= 'onesClass_gateFlow' not in _c5 and 'SubstratumAvail' not in _c5 and 'Θ' not in _c5
+ok_c5d &= 'import OIBridge.LiftSource' in _c5 and 'import OIBridge.FlowEndpoint' in _c5 and 'import OIBridge.C5Discovery' in root
+# the statements, as preregistered
+for _t in ('theorem obligations_independent : (PhasesAvailable (substratumTheory (Fin 2)) ∧ ¬ LayerFlowExecutable (substratumTheory (Fin 2)) (Equiv.swap 0 1)) ∧ (LayerFlowExecutable (onesTheory (Fin 2)) (Equiv.swap 0 1) ∧ ¬ PhasesAvailable (onesTheory (Fin 2)))',
+           'def KillBattery (T : FiniteOperationalTheory (Fin 2)) : Prop := T = substratumTheory (Fin 2) ∨ T = onesTheory (Fin 2) ∨ T = permTheory (Fin 2)',
+           'theorem killBattery_not_qm {T : FiniteOperationalTheory (Fin 2)} (h : KillBattery T) : ¬ ExactAllFiniteEndomorphicQuantumOps T',
+           'theorem obligations_outside_battery {T : FiniteOperationalTheory (Fin 2)} (hph : PhasesAvailable T) {σ : Equiv.Perm (Fin 2)} {x : Fin 2} (hx : σ x ≠ x) (hex : LayerFlowExecutable T σ) : ¬ KillBattery T',
+           'theorem bijectionLevel_fails_obligations [Nonempty S] {𝓘 : ImplementationClass} (arch : Architecture 𝓘) (hb : BijectionLevel 𝓘) : ¬ PhasesAvailable (genTheory 𝓘 arch S)',
+           'theorem updateLevel_symplectic_inert {𝓘 : ImplementationClass} (arch : Architecture 𝓘) (h : ConfigurationLevel 𝓘) (hl : LabelInvariant 𝓘) : ¬ PhaseFreeRichness (genTheory 𝓘 arch (Fin 2))',
+           'noncomputable def hadamard : Matrix (Fin 2) (Fin 2) ℂ := Matrix.of fun i j => if i = 1 ∧ j = 1 then -hc else hc',
+           'theorem hadamard_not_monomial : ¬ IsMonomial hadamard',
+           'theorem hadamard_not_preservesDiag : ¬ PreservesDiag (conjChannel hadamard)',
+           'noncomputable def siteShearImage (n : ℕ) : Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ := Matrix.diagonal fun p => if p.1 = 1 then Complex.I else 1',
+           'noncomputable def siteSwapImage (n : ℕ) : Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ := Matrix.of fun p q => if p.2 = q.2 then hadamard p.1 q.1 else 0',
+           'theorem siteSwapImage_not_monomial (n : ℕ) (k : Fin n) : ¬ IsMonomial (siteSwapImage n)',
+           '| perm {T : Type} [Fintype T] [DecidableEq T] (K : Matrix T T ℂ) (h : permClass T K) : PolGen T K',
+           '| shear (n : ℕ) : PolGen (Fin 2 × Fin n) (siteShearImage n)', '| swap (n : ℕ) : PolGen (Fin 2 × Fin n) (siteSwapImage n)',
+           'theorem polGen_not_configurationLevel : ¬ ConfigurationLevel PolGen',
+           'theorem siteShearImage_one_eq_phaseGate : siteShearImage 1 = phaseGate ((1 : Fin 2), (0 : Fin 1))',
+           'theorem polarizedTheory_phase_level_one : (polarizedTheory (Fin 2)).availExt 1 Unit (fun _ => conjChannel (phaseGate ((1 : Fin 2), (0 : Fin 1))))',
+           'theorem gateFlow_half_eq_hsh : gateFlow (levelPerm (Equiv.swap (0 : Fin 2) 1) 1) (1 / 2 : ℝ) = siteSwapImage 1 * siteShearImage 1 * siteSwapImage 1',
+           'theorem polarizedTheory_swap_half_level_one : (polarizedTheory (Fin 2)).availExt 1 Unit (fun _ => conjChannel (gateFlow (levelPerm (Equiv.swap (0 : Fin 2) 1) 1) (1 / 2 : ℝ)))'):
+    ok_c5d &= _t in _c5flat
+for _t in ('substratumTheory_not_layerFlowExecutable', 'onesTheory_layerFlowExecutable', 'onesTheory_not_phasesAvailable',
+           'onesTheory_not_qm', 'permTheory_not_qm', 'permTheory_not_phasesAvailable', 'bijectionLevel_not_phasesAvailable',
+           'bijectionLevel_not_layerFlowExecutable', 'configurationLevel_not_phaseFree', 'configurationLevel_not_layerFlowExecutable',
+           'gateFlow_half_entries', 'gateFlow_unitary', 'genTheory_avail_conj'):
+    ok_c5d &= _t in _c5flat
+# the note: question with the two obligations, outcomes, eight tests, two candidates, tests, meanings, non-doings, outcome
+_kc = [_c5n.find(h) for h in ('## The question', '## Three admissible outcomes, frozen', '## The necessary tests every candidate must pass, frozen',
+       '## The two candidate families, frozen', '## The tests, each with its admissible outcomes', '## What the outcomes mean, fixed in advance',
+       '## What the round does not do', '## The outcome', '## What this note does not claim')]
+ok_c5d &= all(x > 0 for x in _kc) and _kc == sorted(_kc)
+ok_c5d &= _c5n.lstrip().startswith('# The C5 discovery audit')
+for _t in ('Preregistration commit `f57c1f8`', '`main` at `0df6a8a`', 'Status: pass complete',
+           '**O1, the relative-phase resource.**', '**O2, the continuous coherent transition resource.**',
+           '**A, single condition.**', '**B, two-condition obstruction.**', '**C, underdetermined.**',
+           '1. **Level.**', '2. **Non-monomiality through the map.**', '8. **The map, stated.**',
+           '**Candidate 1, tunable coupling.**', '**Candidate 2, symplectic partition structure.**',
+           '**T0. The obligations and their independence.**', '**T8. The surfaces and the checks.**',
+           '| T0 | ', '| T8 | ', 'The verdict, with its reason', 'What a surviving candidate would have to supply',
+           'seventeen named results', 'no C5 named or adopted', 'a candidate is never defined by its output'.replace('a candidate', 'A candidate')):
+    ok_c5d &= _t in _c5n1
+_c5n_out = re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
+for _t in ('The verdict is **C, underdetermined**', 'both obligations fail for a single reason, finiteness',
+           'the two resources do not separate under it', 'Outcome A is not reached', 'Outcome B is not reached either',
+           'not kernel-proved', 'the missing kernel step is named', 'continuous canonical structure',
+           'the corpus states neither a non-bijection-valued coupling nor the polarization map',
+           '| T5 | candidate 2, the flow: outcome (b).', '| T6 | test 8 for candidate 2: the corpus does not supply the polarization map.'):
+    ok_c5d &= _t in _c5n_out
+# no adoption of a C5 anywhere in the note, the module or the README; no availability read off the representation
+for _bad in ('C5 is the', 'C5 := ', 'define C5 as', 'we adopt C5', 'C5 holds', 'C5 is satisfied', 'the polarization map is available',
+             'the observer can execute the Weil', 'outcome A is reached', 'Outcome A is reached', 'a C5 has been found',
+             'the executability is derived', 'the phases are derived', 'Route A is closed', 'OI implies QM', 'bare OI implies'):
+    ok_c5d &= not _asserted(_c5n, _bad)
+for _bad in ('C5 is the', 'C5 := ', 'define C5 as', 'we adopt C5', 'C5 holds', 'C5 is satisfied', 'a C5 has been found',
+             'outcome A is reached', 'Outcome A is reached', 'the observer can execute the Weil'):
+    ok_c5d &= _bad not in _c5 and _bad not in _rd1
+for _bad in ('polarizedTheory_not_layerFlowExecutable', 'polarizedTheory_phasesAvailable', 'polarizedTheory_not_phasesAvailable'):
+    ok_c5d &= _bad not in _c5flat
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    ok_c5d &= 'C5Discovery' not in _t and 'C5-DISCOVERY' not in _t and 'KillBattery' not in _t and 'polarizedTheory' not in _t
+    ok_c5d &= 'PolGen' not in _t and 'siteSwapImage' not in _t and 'gateFlow_half_eq_hsh' not in _t
+    ok_c5d &= re.search(r'\(C5\)|\bC5\b', _t) is None
+_c5_fam = [f for f in _ptr_reg['families'] if f['name'] == 'C5 discovery: the kill battery and the polarization map']
+ok_c5d &= len(_c5_fam) == 1 and _c5_fam[0]['status'] == 'kernel-only' and _c5_fam[0]['modules'] == ['C5Discovery']
+ok_c5d &= _c5_fam[0]['manuscript'] == [] and 'Verdict C, underdetermined' in _c5_fam[0]['note']
+ok_c5d &= 'Nothing is named C5 or adopted' in _c5_fam[0]['note'] and 'owner decision' in _c5_fam[0]['note']
+ok_c5d &= '| C5 discovery: the kill battery and the polarization map | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-C5D`', 'C5-DISCOVERY-AUDIT.md', 'obligations_independent', 'KillBattery', 'bijectionLevel_fails_obligations',
+           'updateLevel_symplectic_inert', 'polGen_not_configurationLevel', 'gateFlow_half_eq_hsh', 'Seventeen named results',
+           'Verdict: C, underdetermined', 'Nothing is named C5 or adopted', 'not kernel-proved',
+           'a continuous canonical structure on the partition'):
+    ok_c5d &= _t in _rd1
+ok_c5d &= '127 modules' in _rd1 and '2,787 named results' in _rd1
+check('R7-C5D', ok_c5d,
+      'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
+      'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
+      'polarized class and its theory, and nothing named C5; the independence of the obligations, the battery and '
+      'its non-quantumness, the bijection-level negative control, the update-level inertness, the non-monomial and '
+      'non-diagonal-preserving Hadamard, the non-monomial swap image, the non-configuration-level polarized class, '
+      'the level-one quarter phase and the half-time swap flow as the Hadamard-conjugated quarter phase are stated '
+      'as pinned; the note keeps the question with the two obligations, the three outcomes, the eight tests, the two '
+      'candidates, the tests, the meanings and the non-doings before the outcome, names both commits, records the '
+      'verdict C with its sharpened reason and the two failures as stated with their reason and not kernel-proved, '
+      'and adopts no C5 and reads no availability off the representation; no manuscript is edited; the registry and '
+      'the census carry the family as kernel-only and the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

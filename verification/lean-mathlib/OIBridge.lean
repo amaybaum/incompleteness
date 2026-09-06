@@ -176,6 +176,7 @@ import OIBridge.PhaseSource
 import OIBridge.DerivedQ3
 import OIBridge.ExecSource
 import OIBridge.LiftSource
+import OIBridge.C5Discovery
 
 namespace OIBridge
 
