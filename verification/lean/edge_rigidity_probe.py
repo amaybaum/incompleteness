@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '129 modules' in _rd1 and '2,830 named results' in _rd1
+ok_sub &= '130 modules' in _rd1 and '2,855 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '129 modules' in _rd1 and '2,830 named results' in _rd1
+ok_flow &= '130 modules' in _rd1 and '2,855 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '129 modules' in _rd1 and '2,830 named results' in _rd1
+ok_q3 &= '130 modules' in _rd1 and '2,855 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '129 modules' in _rd1 and '2,830 named results' in _rd1
+ok_exec &= '130 modules' in _rd1 and '2,855 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '129 modules' in _rd1 and '2,830 named results' in _rd1
+ok_lsrc &= '130 modules' in _rd1 and '2,855 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '129 modules' in _rd1 and '2,830 named results' in _rd1
+ok_srcp &= '130 modules' in _rd1 and '2,855 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '129 modules' in _rd1 and '2,830 named results' in _rd1
+ok_c5d &= '130 modules' in _rd1 and '2,855 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '129 modules' in _rd1 and '2,830 named results' in _rd1
+ok_pcl &= '130 modules' in _rd1 and '2,855 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5413,7 +5413,7 @@ for _t in ('strengthens the necessary condition above', 'is not by itself diagno
 ok_ccs &= _pcn_rec1.count('## ') == 1
 # the discovery note is untouched by this round: still exactly one recorded section
 ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
-ok_ccs &= '129 modules' in _rd1 and '2,830 named results' in _rd1
+ok_ccs &= '130 modules' in _rd1 and '2,855 named results' in _rd1
 check('R7-CCS', ok_ccs,
       'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
@@ -5427,6 +5427,162 @@ check('R7-CCS', ok_ccs,
       'the three obligations with the second not sufficient; no manuscript is edited; the registry and the census carry '
       'the family as kernel-only; the closure note carries one section after its frozen text and the discovery note is '
       'untouched; the README carries the paragraph and the counts.')
+
+# ---- the state-mixing coupling construction audit: one sourced real mixing datum on a single pair, a postulate, closed
+# with the stated access; the resource from the datum; the bridge as identity and composition; the closure and the
+# completion, with the class-level form under the stated-access containment; the two replacement classes failing;
+# outcome 1; no C5; no minimality claim ----
+ok_smc = True
+_sm = open(os.path.join(BRIDGE, 'OIBridge', 'StateMixingCoupling.lean'), encoding='utf-8').read()
+_smflat = ' '.join(_sm.split())
+_smn = open(os.path.join(os.path.dirname(BRIDGE), 'STATE-MIXING-COUPLING-AUDIT.md'), encoding='utf-8').read()
+_smn1 = re.sub(r'\s+', ' ', _smn)
+ok_smc &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sm) is None and 'native_decide' not in _sm
+ok_smc &= 'axiom ' not in re.sub(r'/-.*?-/', '', _sm, flags=re.S)
+_sm_names = re.findall(r"^theorem ([\w']+)", _sm, re.M)
+ok_smc &= len(_sm_names) == 50 and _sm.count('#print axioms') == 25
+for _nm in ('mixR_arch', 'mixR_le_mixC', 'mixImage_mul', 'mixImage_unitary', 'mixImage_not_monomial', 'mixImage_not_proportional',
+            'mixC_uncountableNonMonomialRays', 'phaseIndicator_mem', 'siteShear_mem', 'gateFlow_eq_shear_mix',
+            'layerFlowExecutable_of_mixSourced', 'mixTheory_layerFlowExecutable', 'mixC_daggerStable', 'mixC_contextStable',
+            'derivedOI_of_stated', 'mixTheory_derivedOI', 'qm_of_mixSourced', 'mixTheory_phaseFree', 'mixTheory_endpoint',
+            'mixTheory_qm', 'mixR_countable_upToScalar', 'mixTheoryR_not_layerFlowExecutable', 'mixTheoryR_not_qm',
+            'mixTheory_empty_not_qm', 'comparison'):
+    ok_smc &= ('#print axioms OIBridge.StateMixingCoupling.' + _nm) in _sm and _nm in _sm_names
+# the definitions: the datum, its sourcing map, the class family, its full instance, the two theories and the countability
+# apparatus; nothing named C5 or minimal; no existing definition restated
+_sm_defs = re.findall(r"^(?:noncomputable )?(?:def|abbrev|structure|inductive) ([\w']+)", _sm, re.M)
+ok_smc &= _sm_defs == ['rot', 'mixImage', 'MixR', 'MixC', 'mixTheoryR', 'mixTheory', 'MixImagesAt', 'GenM']
+ok_smc &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive|theorem) [Cc]5', _sm, re.M) is None
+ok_smc &= re.search(r'(?i)\bminimal\b', re.sub(r'/-.*?-/|--[^\n]*', '', _sm, flags=re.S)) is None
+for _t in ('LayerFlowExecutable', 'PhasesAvailable', 'PhaseFreeRichness', 'DerivedOI', 'PolC', 'PolGen', 'substratumClass',
+           'ReadWriteFamily', 'gateFlow', 'IsMonomial', 'phaseGate', 'siteShearImage'):
+    ok_smc &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) ' + _t + r'\b', _sm, re.M) is None
+# the vocabulary boundary on the definition region: the datum, the sourcing map and the class name no flow, no transition,
+# no polarization image, no quantum-control predicate, no exponential; the datum is cosine and sine
+_sm_defregion = _sm[_sm.find('noncomputable def rot'):_sm.find('/-- **THE CLASS OF THE STATED ACCESS AND THE DATUM AT EVERY ANGLE.** -/')]
+ok_smc &= 'Real.cos' in _sm_defregion and 'Real.sin' in _sm_defregion
+for _bad in ('gateFlow', 'unit ', 'SecondOrderCircuit.proj', 'proj (', 'flow', 'transition', 'hadamard', 'siteSwapImage', 'siteShearImage',
+             'PhaseFreeRichness', 'LayerFlowExecutable', 'HasCompositeUnitaryControl', 'Complex.exp', 'cexp', 'levelPerm', 'permMat ',
+             'ExactAllFiniteEndomorphicQuantumOps', 'Quantum', 'quantum'):
+    ok_smc &= _bad not in _sm_defregion
+ok_smc &= 'import OIBridge.CoherentContinuumSource' in _sm and 'import OIBridge.StateMixingCoupling' in root
+# the statements, as preregistered and amended
+for _t in ('noncomputable def rot (θ : ℝ) : Matrix (Fin 2) (Fin 2) ℂ := !![(Real.cos θ : ℂ), -(Real.sin θ : ℂ); (Real.sin θ : ℂ), (Real.cos θ : ℂ)]',
+           'noncomputable def mixImage (n : ℕ) (θ : ℝ) : Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ := Matrix.of fun p q => if p.2 = q.2 then rot θ p.1 q.1 else 0',
+           '| phase (n : ℕ) (p : Fin 2 × Fin n) : MixR D (Fin 2 × Fin n) (phaseGate p)',
+           '| mix (n : ℕ) (θ : ℝ) (hθ : θ ∈ D) : MixR D (Fin 2 × Fin n) (mixImage n θ)',
+           '| relabel {T T\' : Type} [Fintype T] [DecidableEq T] [Fintype T\'] [DecidableEq T\'] (e : T ≃ T\') (K : Matrix T T ℂ) : MixR D T K → MixR D T\' (Matrix.reindex e e K)',
+           'abbrev MixC : ImplementationClass := MixR Set.univ',
+           'noncomputable def mixTheory (S : Type) [Fintype S] [DecidableEq S] : FiniteOperationalTheory S := genTheory MixC mixC_arch S',
+           'theorem mixImage_not_monomial {n : ℕ} (k : Fin n) {θ : ℝ} (hθ : θ ∈ Ioo (0 : ℝ) (Real.pi / 2)) : ¬ IsMonomial (mixImage n θ)',
+           'theorem mixC_uncountableNonMonomialRays : UncountableNonMonomialRays MixC (Fin 2 × Fin 1)',
+           'theorem gateFlow_eq_shear_mix (n : ℕ) (t : ℝ) : gateFlow (levelPerm (Equiv.swap (0 : Fin 2) 1) n) t = Complex.exp (((Real.pi * t / 2 : ℝ) : ℂ) * Complex.I) • (siteShearImage n * mixImage n (-(Real.pi * t / 2)) * (siteShearImage n)ᴴ)',
+           'theorem mixTheory_layerFlowExecutable : LayerFlowExecutable (mixTheory (Fin 2)) (Equiv.swap 0 1)',
+           'theorem mixC_daggerStable : DaggerStable MixC', 'theorem mixC_contextStable : ContextStable MixC',
+           'theorem mixTheory_derivedOI : DerivedOI (mixTheory (Fin 2))',
+           'theorem qm_of_mixSourced {𝓘 : ImplementationClass} (arch : Architecture 𝓘) (hl : LabelInvariant 𝓘) (hd : DaggerStable 𝓘) (hc : ContextStable 𝓘) (hperm : ∀ (T : Type) [Fintype T] [DecidableEq T] (K : Matrix T T ℂ), permClass T K → 𝓘 T K) (hph : ∀ (n : ℕ) (p : Fin 2 × Fin n), 𝓘 (Fin 2 × Fin n) (phaseGate p)) (hmix : ∀ (n : ℕ) (θ : ℝ), 𝓘 (Fin 2 × Fin n) (mixImage n θ)) : DerivedOI (genTheory 𝓘 arch (Fin 2)) ∧ ExactAllFiniteEndomorphicQuantumOps (genTheory 𝓘 arch (Fin 2))',
+           'theorem mixTheory_phaseFree : PhaseFreeRichness (mixTheory (Fin 2))',
+           'theorem mixTheory_endpoint : DerivedOI (mixTheory (Fin 2)) ∧ ExactAllFiniteEndomorphicQuantumOps (mixTheory (Fin 2))',
+           'theorem mixTheory_qm : ExactAllFiniteEndomorphicQuantumOps (mixTheory (Fin 2))',
+           'theorem mixR_countable_upToScalar {D : Set ℝ} (hD : D.Countable) (T : Type) [Fintype T] [DecidableEq T] : ∃ D\' : Set (Matrix T T ℂ), D\'.Countable ∧ ∀ K : Matrix T T ℂ, MixR D T K → ∃ (c : ℂ) (M : Matrix T T ℂ), M ∈ D\' ∧ K = c • M',
+           'theorem mixTheoryR_not_qm {D : Set ℝ} (hD : D.Countable) : ¬ ExactAllFiniteEndomorphicQuantumOps (mixTheoryR D (Fin 2))',
+           'theorem mixTheory_empty_not_qm : ¬ ExactAllFiniteEndomorphicQuantumOps (mixTheoryR ∅ (Fin 2))',
+           '∧ (∀ D : Set ℝ, D.Countable → ¬ ExactAllFiniteEndomorphicQuantumOps (mixTheoryR D (Fin 2))) ∧ ¬ ExactAllFiniteEndomorphicQuantumOps (mixTheoryR ∅ (Fin 2)) ∧ ¬ ExactAllFiniteEndomorphicQuantumOps (polarizedTheoryC (Fin 2))'):
+    ok_smc &= _t in _smflat
+# the bridge passes through the constructor op, the cited closure theorem and the counting theorem; the closure reuses the
+# stated theorems; no availability is stipulated
+for _t in ('SubstratumSource.genTheory_avail_conj', 'gateFlow_unitary', 'qm_of_derivedOI_layerFlowExecutable',
+           'phaseFree_of_derivedOI_layerFlowExecutable', 'genTheory_reversibleImplementationLocality', 'genTheory_embeddedObservation',
+           'countable_not_layerFlowExecutable', 'derivedOI_layerFlowExecutable_of_qm', 'Finset.induction_on', 'Real.cos_sq_add_sin_sq',
+           'polarizedTheoryC_not_qm'):
+    ok_smc &= _t in _smflat
+for _bad in ('sorry', 'axiom ', 'Weil', 'Clifford'):
+    ok_smc &= _bad not in re.sub(r'/-.*?-/|--[^\n]*', '', _sm, flags=re.S)
+# the note: the question, the status, the datum, the bridge, the outcomes, the tests, the non-doings, the amendment, then the
+# outcome and the non-claims, in that order
+_ksm = [_smn.find(h) for h in ('## The question', '## The status of the construction, frozen', '## The datum, frozen in form',
+        '## The bridge, frozen as a route', '## Admissible outcomes, frozen', '## Tests, frozen', '## What this round does not do',
+        '## Scope amendment, recorded after the preregistration', '## The outcome', '## What this note does not claim')]
+ok_smc &= all(x > 0 for x in _ksm) and _ksm == sorted(_ksm)
+ok_smc &= _smn.lstrip().startswith('# The state-mixing coupling construction audit')
+for _t in ('Preregistration commit `fc4498d`', 'scope amendment `314076c`', '`main` at `f9e9648`', 'Status: preregistered; no proof attempted',
+           'Status: pass complete', 'The coupling datum is a **postulate**', '**The word "minimal" is not used.**',
+           '1. **Sufficient.**', '2. **Bridge fails.**', '3. **Comparison fails.**', 'No outcome names or adopts C5',
+           '**T1. The datum and the class.**', '**T8. The verdict.**', 'the stated-access containment made explicit',
+           'No theorem is sought that derives the stated permutation or read-write access from the mixing datum alone',
+           'The preregistered concrete endpoint, bridge, comparisons and outcomes are unchanged', 'twenty-five named results'):
+    ok_smc &= _t in _smn1
+_smn_out = re.sub(r'\s+', ' ', _smn[_smn.find('## The outcome'):])
+for _t in ('The verdict is **outcome 1, sufficient**', 'the class-level form read under the scope amendment',
+           '**The bridge, step by step.**', 'a case the preregistration did not foresee and the product lemma settles',
+           'Outcome 1 is reached', 'It is not a global minimality or uniqueness theorem, and none is claimed',
+           'The datum is a postulate', 'nothing here derives it from the substratum, from C1–C4, or from the stated access',
+           'nothing here says that nature, the OI substratum, or the observer supplies it', 'The manuscript status of the resource is unchanged',
+           'what realization-level physical principle forces the mixing datum', 'That question is not attempted here',
+           'That the class-level theorem holds without the permutation containment: no such theorem was sought',
+           'the kill battery is not extended', '| T1 | ', '| T4 | ', '| T8 | '):
+    ok_smc &= _t in _smn_out
+for _bad in ('The verdict is **outcome 2', 'The verdict is **outcome 3', 'the minimal', 'a minimal', 'minimal coupling',
+             'minimal extension', 'is unique', 'uniquely', 'the datum is available', 'derives the datum',
+             'nature supplies', 'the observer has the datum', 'the observer can execute', 'the observer can source',
+             'C5 is the', 'C5 := ', 'define C5 as', 'we adopt C5', 'C5 holds', 'C5 is satisfied', 'a C5 has been found', 'the datum is C5',
+             'is sourced by the corpus', 'derived from the stated access, and', 'forces the mixing datum, which'):
+    ok_smc &= _bad not in _smn_out
+ok_smc &= re.search(r'\bminimal\b', _smn_out) is None
+for _bad in ('the datum is derived', 'the datum is available', 'derives the datum', 'is sourced by the corpus', 'C5 holds', 'C5 is the',
+             'a C5 has been found', 'we adopt C5', 'the observer can execute', 'is derived from the substratum', 'derived from C1',
+             'is minimal', 'the datum is a C5'):
+    ok_smc &= not _asserted(_smn[_smn.find('## The outcome'):], _bad)
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    for _bad in ('StateMixingCoupling', 'STATE-MIXING-COUPLING', 'mixImage', 'MixC', 'MixR', 'mixTheory', 'qm_of_mixSourced',
+                 'gateFlow_eq_shear_mix', 'phaseIndicator_mem'):
+        ok_smc &= _bad not in _t
+_sm_fam = [f for f in _ptr_reg['families'] if f['name'] == 'state-mixing coupling construction: one sourced pair coupling and the completion']
+ok_smc &= len(_sm_fam) == 1 and _sm_fam[0]['status'] == 'kernel-only' and _sm_fam[0]['modules'] == ['StateMixingCoupling']
+ok_smc &= _sm_fam[0]['manuscript'] == []
+for _t in ('Verdict outcome 1, sufficient', 'The datum is a postulate', 'a comparison and not a global minimality or uniqueness theorem',
+           'Nothing is named C5 or adopted', 'the manuscript status of the resource, which is unchanged', 'owner decision'):
+    ok_smc &= _t in _sm_fam[0]['note']
+for _bad in ('is minimal', 'the minimal', 'the datum is derived', 'the datum is available', 'C5 holds', 'is sourced by the corpus'):
+    ok_smc &= _bad not in _sm_fam[0]['note']
+ok_smc &= '| state-mixing coupling construction: one sourced pair coupling and the completion | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-SMC`', 'STATE-MIXING-COUPLING-AUDIT.md', 'rot', 'mixImage', 'MixR', 'MixC', 'mixTheory', 'mixC_uncountableNonMonomialRays',
+           'gateFlow_eq_shear_mix', 'phaseIndicator_mem', 'siteShear_mem', 'layerFlowExecutable_of_mixSourced', 'mixTheory_layerFlowExecutable',
+           'mixC_daggerStable', 'mixC_contextStable', 'derivedOI_of_stated', 'mixTheory_derivedOI', 'mixTheory_phaseFree', 'mixTheory_qm',
+           'mixTheory_endpoint', 'qm_of_mixSourced', 'mixR_countable_upToScalar', 'mixTheoryR_not_qm', 'mixTheory_empty_not_qm', 'comparison',
+           'The datum is a postulate', 'the manuscript status of the resource is unchanged', 'Verdict: outcome 1, sufficient',
+           'a comparison and not a global minimality or uniqueness theorem', 'Twenty-five named results', 'Nothing is named C5 or adopted'):
+    ok_smc &= _t in _rd1
+for _bad in ('the minimal coupling', 'minimal extension', 'the datum is derived', 'the datum is available', 'the observer can execute the flow',
+             'C5 holds', 'C5 is the', 'a C5 has been found'):
+    ok_smc &= _bad not in _rd1
+# the coherent-continuum note: one section recorded after its frozen text; the discovery and closure notes untouched by this round
+_ccn_rec = _ccn.find('## Recorded after the round: the state-mixing coupling construction audit')
+ok_smc &= _ccn_rec > _ccn.find('## What this note does not claim') and _ccn_rec > _ccn.find('Status: pass complete')
+_ccn_rec1 = re.sub(r'\s+', ' ', _ccn[_ccn_rec:])
+for _t in ('stated as a postulate', 'meets the three obligations recorded above', 'The verdict of this note is unchanged',
+           'derived from nothing in the corpus', 'the corpus still states no operational source of the coherent continuum',
+           'Nothing is named C5 or adopted'):
+    ok_smc &= _t in _ccn_rec1
+ok_smc &= _ccn_rec1.count('## ') == 1
+ok_smc &= 'state-mixing coupling construction audit' not in _c5n and 'state-mixing coupling construction audit' not in _pcn
+ok_smc &= '130 modules' in _rd1 and '2,855 named results' in _rd1
+check('R7-SMC', ok_smc,
+      'State-mixing coupling guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
+      'twenty-five results, defines exactly the datum, its sourcing map, the class family and its full instance, the two '
+      'theories and the countability apparatus, nothing named C5 or minimal, with the definition region naming no flow, '
+      'transition, polarization image, exponential or quantum-control predicate; the datum, the class, the resource from '
+      'the datum, the identity, executability, the stabilities, the closure, the completion, the class-level form under '
+      'the stated-access containment and the two replacement-class negatives are stated as pinned, the bridge passing '
+      'through the constructor op and the cited closure theorem; the note keeps the question, the status, the datum, the '
+      'bridge, the outcomes, the tests and the non-doings before the amendment and the outcome, names the three commits, '
+      'records outcome 1 with the bridge step by step and the comparisons as comparisons, the postulate status and the '
+      'unchanged manuscript status, and uses no minimality word in its claims; no manuscript is edited; the registry and '
+      'the census carry the family as kernel-only; the coherent-continuum note carries one section after its frozen text '
+      'and the discovery and closure notes are untouched; the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

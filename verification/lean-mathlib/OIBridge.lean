@@ -179,6 +179,7 @@ import OIBridge.LiftSource
 import OIBridge.C5Discovery
 import OIBridge.PolarizationClosure
 import OIBridge.CoherentContinuumSource
+import OIBridge.StateMixingCoupling
 
 namespace OIBridge
 

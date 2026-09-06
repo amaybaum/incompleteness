@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 129 modules and,
-  at this commit, 2,830 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 130 modules and,
+  at this commit, 2,855 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1416,6 +1416,38 @@ remaining; the three obligations any later extension would have to meet are reco
 alone is not sufficient. Seventeen named results, each printing only `propext`, `Classical.choice`,
 `Quot.sound`. Nothing is named C5 or adopted; no coupling is defined; no definition changes; no
 manuscript changes. Guard `R7-CCS`.
+
+The state-mixing coupling construction audit (`STATE-MIXING-COUPLING-AUDIT.md`,
+`OIBridge/StateMixingCoupling.lean`) constructs what the manuscripts' added empirical
+controllability resource, the continuously tunable state-mixing operation, can mean as a sourced
+structure, and asks whether one such coupling with the stated access gives the exact finite
+completion. The datum is a real mixing angle on one site pair, sourced to the real rotation of the
+two values and transported to every level with the ancilla a spectator (`rot`, `mixImage`), its
+definition naming no flow, transition, polarization image or quantum-control predicate; the class
+is the stated access, the scaled partial permutations and the quarter phase on any configuration,
+with the datum at the angles of a set, closed under the architecture operations and relabelling
+(`MixR`, `MixC` at every angle, `mixTheory`). The datum is a postulate: nothing derives it from the
+substratum, from C1–C4 or from the stated access, and the manuscript status of the resource is
+unchanged. From the datum alone the class has uncountably many non-monomial rays at level one
+(`mixImage_not_monomial`, `mixImage_not_proportional`, `mixC_uncountableNonMonomialRays`). The
+bridge is an identity and a composition: the lifted site exchange's gate flow is a unit scalar
+times the site shear, the datum at `−πt/2` and the adjoint site shear (`gateFlow_eq_shear_mix`);
+the product of the stated phase gates over any set of configurations is in the class
+(`phaseIndicator_mem`, `siteShear_mem`); so the theory executes the layer flow
+(`layerFlowExecutable_of_mixSourced`, `mixTheory_layerFlowExecutable`), is dagger- and
+context-stable (`mixC_daggerStable`, `mixC_contextStable`), satisfies the closure
+(`derivedOI_of_stated`, `mixTheory_derivedOI`), and by the cited closure theorem is exact finite
+operational quantum mechanics (`mixTheory_phaseFree`, `mixTheory_qm`, `mixTheory_endpoint`), with
+the class-level form read under the round's scope amendment, `permClass`, the phase gates and the
+datum all in the class (`qm_of_mixSourced`). The countercontrols: with the datum at countably many
+angles the class is countable up to scalar and its theory executes no layer flow and is not quantum
+mechanics (`mixR_countable_upToScalar`, `mixTheoryR_not_layerFlowExecutable`, `mixTheoryR_not_qm`);
+with the datum removed, the bijection-valued replacement, the same (`mixTheory_empty_not_qm`); the
+polarization closure is the cited second witness (`comparison`). Verdict: outcome 1, sufficient;
+one pair coupling with a continuum of angles suffices and the two named weaker replacements fail,
+a comparison and not a global minimality or uniqueness theorem. Twenty-five named results, each
+printing only `propext`, `Classical.choice`, `Quot.sound`. Nothing is named C5 or adopted; no
+definition changes; no manuscript changes. Guard `R7-SMC`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

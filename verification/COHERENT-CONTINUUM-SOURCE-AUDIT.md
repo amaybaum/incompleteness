@@ -305,3 +305,16 @@ Status: pass complete. Outcome 2, no current source, the empirical extension rem
 strengthened necessary condition proved, the two known failures proved orthogonal, the read-write
 image proved finite, the canonical path proved to have the continuum and proved unsourced, the
 coupling traced; seventeen named results; no C5 named or adopted; no manuscript edited.
+
+## Recorded after the round: the state-mixing coupling construction audit
+
+`STATE-MIXING-COUPLING-AUDIT.md`, preregistered at `fc4498d` with a scope amendment at `314076c`
+and executed from `main` at `f9e9648`, constructs what the empirical extension named in S8 can
+mean as a sourced structure. A real mixing datum on one site pair, stated as a postulate and closed
+with the stated access under the architecture operations and relabelling, meets the three
+obligations recorded above: the sourcing map is stated (`mixImage`), the image has uncountably many
+pairwise non-proportional non-monomial rays at level one (`mixC_uncountableNonMonomialRays`), and
+the closure executes the layer flow and is exact finite operational quantum mechanics
+(`mixTheory_layerFlowExecutable`, `mixTheory_qm`). The verdict of this note is unchanged: the
+datum is a postulate of that round, derived from nothing in the corpus, and the corpus still states
+no operational source of the coherent continuum. Nothing is named C5 or adopted.
