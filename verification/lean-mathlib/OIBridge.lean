@@ -178,6 +178,7 @@ import OIBridge.ExecSource
 import OIBridge.LiftSource
 import OIBridge.C5Discovery
 import OIBridge.PolarizationClosure
+import OIBridge.CoherentContinuumSource
 
 namespace OIBridge
 

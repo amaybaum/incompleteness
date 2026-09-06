@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '128 modules' in _rd1 and '2,813 named results' in _rd1
+ok_sub &= '129 modules' in _rd1 and '2,830 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '128 modules' in _rd1 and '2,813 named results' in _rd1
+ok_flow &= '129 modules' in _rd1 and '2,830 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '128 modules' in _rd1 and '2,813 named results' in _rd1
+ok_q3 &= '129 modules' in _rd1 and '2,830 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '128 modules' in _rd1 and '2,813 named results' in _rd1
+ok_exec &= '129 modules' in _rd1 and '2,830 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '128 modules' in _rd1 and '2,813 named results' in _rd1
+ok_lsrc &= '129 modules' in _rd1 and '2,830 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '128 modules' in _rd1 and '2,813 named results' in _rd1
+ok_srcp &= '129 modules' in _rd1 and '2,830 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '128 modules' in _rd1 and '2,813 named results' in _rd1
+ok_c5d &= '129 modules' in _rd1 and '2,830 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '128 modules' in _rd1 and '2,813 named results' in _rd1
+ok_pcl &= '129 modules' in _rd1 and '2,830 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5288,6 +5288,145 @@ check('R7-PCL', ok_pcl,
       'theory as a candidate of the round with test 8 unchanged, and the contractive block with the unitary direction '
       'unclaimed; no manuscript is edited; the registry and the census carry the family as kernel-only; the discovery note '
       'carries one section after its frozen text; the README carries the paragraph and the counts.')
+
+# ---- the coherent-continuum source audit: the strengthened necessary condition (uncountably many non-monomial rays at
+# level one) proved and necessary only; the two known failures orthogonal; the read-write image finite; the canonical
+# path with the continuum and unsourced; the coupling traced and outside the current axioms; outcome 2; no C5 ----
+ok_ccs = True
+_cc = open(os.path.join(BRIDGE, 'OIBridge', 'CoherentContinuumSource.lean'), encoding='utf-8').read()
+_ccflat = ' '.join(_cc.split())
+_ccn = open(os.path.join(os.path.dirname(BRIDGE), 'COHERENT-CONTINUUM-SOURCE-AUDIT.md'), encoding='utf-8').read()
+_ccn1 = re.sub(r'\s+', ' ', _ccn)
+ok_ccs &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _cc) is None and 'native_decide' not in _cc
+ok_ccs &= 'axiom ' not in re.sub(r'/-.*?-/', '', _cc, flags=re.S)
+_cc_names = re.findall(r"^theorem ([\w']+)", _cc, re.M)
+ok_ccs &= len(_cc_names) == 19 and _cc.count('#print axioms') == 17
+for _nm in ('gateFlow_entries_im', 'gateFlow_not_monomial', 'isMonomial_of_smul', 'gateFlow_not_countablyCovered',
+            'nonMonomialCountablyCovered_of_countable', 'uncountableNonMonomialRays_of_layerFlowExecutable',
+            'not_layerFlowExecutable_of_nonMonomialCountablyCovered', 'uncountableNonMonomialRays_of_qm',
+            'substratumClass_monomial', 'weightGate_not_proportional', 'substratumClass_not_countablyCovered',
+            'polC_nonMonomialCountablyCovered', 'known_failures_orthogonal', 'readWriteOperator_range_finite',
+            'readWrite_parameter_uncountable_image_finite', 'gateFlow_path_coherent_continuum',
+            'coherent_continuum_not_sourced'):
+    ok_ccs &= ('#print axioms OIBridge.CoherentContinuumSource.' + _nm) in _cc and _nm in _cc_names
+# the definitions: the two predicates and the diagonal weight; nothing named C5; no coupling, no class containing the
+# flow, no existing definition restated
+_cc_defs = re.findall(r"^(?:noncomputable )?(?:def|abbrev|structure|inductive) ([\w']+)", _cc, re.M)
+ok_ccs &= _cc_defs == ['NonMonomialCountablyCovered', 'UncountableNonMonomialRays', 'weightGate']
+ok_ccs &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive|theorem) [Cc]5', _cc, re.M) is None
+ok_ccs &= ': ImplementationClass :=' not in _cc and 'Coupling' not in _cc and 'coupling' not in re.sub(r'/-.*?-/|--[^\n]*', '', _cc, flags=re.S)
+ok_ccs &= 'import OIBridge.PolarizationClosure' in _cc and 'import OIBridge.CoherentContinuumSource' in root
+for _t in ('LayerFlowExecutable', 'PhasesAvailable', 'PolC', 'PolGen', 'substratumClass', 'ReadWriteFamily', 'gateFlow', 'IsMonomial'):
+    ok_ccs &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) ' + _t + r'\b', _cc, re.M) is None
+# the statements, as preregistered
+for _t in ('theorem gateFlow_not_monomial {σ : Equiv.Perm S} {a : S} (ha : σ a ≠ a) {t : ℝ} (ht : t ∈ Ioo (0 : ℝ) 1) : ¬ IsMonomial (gateFlow σ t)',
+           'def NonMonomialCountablyCovered (𝓘 : ImplementationClass) (T : Type) [Fintype T] [DecidableEq T] : Prop := ∃ D : Set (Matrix T T ℂ), D.Countable ∧ ∀ K : Matrix T T ℂ, 𝓘 T K → ¬ IsMonomial K → ∃ (c : ℂ) (M : Matrix T T ℂ), M ∈ D ∧ K = c • M',
+           'def UncountableNonMonomialRays (𝓘 : ImplementationClass) (T : Type) [Fintype T] [DecidableEq T] : Prop := ¬ NonMonomialCountablyCovered 𝓘 T',
+           'theorem uncountableNonMonomialRays_of_layerFlowExecutable {𝓘 : ImplementationClass} (arch : Architecture 𝓘) {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) (hex : LayerFlowExecutable (genTheory 𝓘 arch S) σ) : UncountableNonMonomialRays 𝓘 (S × Fin 1)',
+           'theorem not_layerFlowExecutable_of_nonMonomialCountablyCovered {𝓘 : ImplementationClass} (arch : Architecture 𝓘) {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) (h : NonMonomialCountablyCovered 𝓘 (S × Fin 1)) : ¬ LayerFlowExecutable (genTheory 𝓘 arch S) σ',
+           'theorem uncountableNonMonomialRays_of_qm {𝓘 : ImplementationClass} (arch : Architecture 𝓘) (h : ExactAllFiniteEndomorphicQuantumOps (genTheory 𝓘 arch (Fin 2))) : UncountableNonMonomialRays 𝓘 (Fin 2 × Fin 1)',
+           'theorem substratumClass_monomial (K : Matrix T T ℂ) (h : substratumClass T K) : IsMonomial K := h',
+           'theorem substratumClass_not_countablyCovered {a b : T} (hab : a ≠ b) : ¬ ∃ D : Set (Matrix T T ℂ), D.Countable ∧ ∀ K : Matrix T T ℂ, substratumClass T K → ∃ (c : ℂ) (M : Matrix T T ℂ), M ∈ D ∧ K = c • M',
+           'theorem polC_nonMonomialCountablyCovered : NonMonomialCountablyCovered PolC T',
+           'theorem readWriteOperator_range_finite {a b : S} (F : ReadWriteControl.ReadWriteFamily a b) : (Set.range (ReadWriteControl.readWriteOperator F)).Finite',
+           '¬ (Set.univ : Set ℝ).Countable ∧ (Set.range (ReadWriteControl.readWriteOperator F)).Finite ∧ ∀ l : ℝ, IsMonomial (ReadWriteControl.readWriteOperator F l)',
+           'theorem gateFlow_path_coherent_continuum {σ : Equiv.Perm S} {a : S} (ha : σ a ≠ a) : (∀ t ∈ Ioo (0 : ℝ) 1, ¬ IsMonomial (gateFlow σ t)) ∧ ¬ ∃ D : Set (Matrix S S ℂ), D.Countable ∧ ∀ t ∈ Ioo (0 : ℝ) 1, ∃ (c : ℂ) (M : Matrix S S ℂ), M ∈ D ∧ gateFlow σ t = c • M',
+           '∧ ¬ LayerFlowExecutable (substratumTheory S) σ ∧ ∀ (𝓘 : ImplementationClass) (arch : Architecture 𝓘), ConfigurationLevel 𝓘 → ¬ (genTheory 𝓘 arch S).availExt 1 Unit (fun _ => conjChannel (gateFlow (levelPerm σ 1) (1 / 2 : ℝ)))'):
+    ok_ccs &= _t in _ccflat
+# the negatives pass through the bridge, non-proportionality and non-monomiality; the read-write image needs no continuity
+for _t in ('exists_scaled_mem_of_instAvail_unitary', 'gateFlow_not_proportional', 'Cardinal.mk_Ioo_real', 'Real.sin_pos_of_pos_of_lt_pi',
+           'polC_countable_upToScalar', 'readWriteOperator_eq_perm', 'readWriteOperator_monomial', 'derivedOI_layerFlowExecutable_of_qm',
+           'substratumTheory_not_layerFlowExecutable', 'configurationLevel_not_avail_gateFlow_half'):
+    ok_ccs &= _t in _ccflat
+for _bad in ('Continuous ', 'ContinuousOn', 'Weil', 'Clifford', 'orderOf', 'Subgroup'):
+    ok_ccs &= _bad not in re.sub(r'/-.*?-/|--[^\n]*', '', _cc, flags=re.S)
+# the note: the question, the strengthened condition, the census, the outcomes, the tests, the non-doings, then the outcome
+_kcc = [_ccn.find(h) for h in ('## The question', '## The strengthened necessary condition, frozen', '## The corpus census, frozen before the pass',
+        '## Admissible outcomes, frozen', '## Tests, frozen', '## What this round does not do', '## The outcome',
+        '## What this note does not claim')]
+ok_ccs &= all(x > 0 for x in _kcc) and _kcc == sorted(_kcc)
+ok_ccs &= _ccn.lstrip().startswith('# The coherent-continuum source audit')
+for _t in ('Preregistration commit `24dd290`', '`main` at `fa0938b`', 'Status: preregistered; no proof attempted', 'Status: pass complete',
+           '**Scope boundary.** This is a necessary condition only', '1. **Existing source.**', '2. **No current source; empirical extension remains.**',
+           '3. **Underdetermined operational route.**', 'No outcome establishes that C5 exists or does not exist', '### T1 —', '### T8 —',
+           '| S1, stated observer access', '| S9, consistency controls', 'seventeen named results'):
+    ok_ccs &= _t in _ccn1
+_ccn_out = re.sub(r'\s+', ' ', _ccn[_ccn.find('## The outcome'):])
+for _t in ('The verdict is **outcome 2, no current source; the empirical extension remains**', 'The condition is necessary only',
+           'the reading as a continuous coherent control parameter is interpretation',
+           'both kinds of partial resource separately', 'no stated operational source of an uncountable coherent projective family',
+           'The canonical gate path has that family mathematically and is not available',
+           'remains an explicitly extra physical extension, not a consequence of C1–C4 or of the stated access',
+           'Outcome 1 is not reached', 'Outcome 3 is not reached', 'The second item alone is necessary and not sufficient, and is not C5',
+           'the inference from the mathematical continuum to executability is rejected', 'no map is invented',
+           'nowhere is it defined as an operation of the current theory', 'defined nowhere' if False else 'outside the current axioms',
+           'the closure audit is a consequence', 'is not superseded', 'Nothing is named "C5" in the module or adopted in this note',
+           '| S1 | ', '| S8 | ', '| S9 | ', '| T1 | ', '| T8 | '):
+    ok_ccs &= _t in _ccn_out
+for _bad in ('The verdict is **outcome 1', 'The verdict is **outcome 3', 'Outcome 1 is reached', 'outcome 1 is reached',
+             'the observer can execute the canonical path', 'sufficient for a layer flow, so',
+             'the coupling is derived', 'the coupling is defined', 'defines the coupling',
+             'C5 is the', 'C5 := ', 'define C5 as', 'we adopt C5', 'C5 holds', 'C5 is satisfied', 'a C5 has been found',
+             'continuity is necessary for O2', 'continuous parameter is necessary', 'requires a continuous parameter',
+             'is available to the observer', 'is sourced by the corpus', 'the executability is derived', 'the phases are derived',
+             'Route A is closed', 'OI implies QM', 'bare OI implies'):
+    ok_ccs &= not _asserted(_ccn, _bad)
+for _bad in ('is sufficient for a layer flow', 'therefore the observer can execute', 'the coupling is derived', 'the coupling is defined',
+             'C5 is the', 'C5 := ', 'define C5 as', 'we adopt C5', 'C5 holds', 'C5 is satisfied', 'a C5 has been found',
+             'continuous parameter is necessary', 'is available to the observer', 'is sourced by the corpus', 'Outcome 1 is reached',
+             'outcome 1 is reached'):
+    ok_ccs &= _bad not in _cc and _bad not in _rd1
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    for _bad in ('CoherentContinuumSource', 'COHERENT-CONTINUUM', 'NonMonomialCountablyCovered', 'UncountableNonMonomialRays',
+                 'weightGate', 'known_failures_orthogonal', 'coherent_continuum_not_sourced', 'readWriteOperator_range_finite'):
+        ok_ccs &= _bad not in _t
+_cc_fam = [f for f in _ptr_reg['families'] if f['name'] == 'coherent-continuum source: the strengthened necessary condition and the unsourced path']
+ok_ccs &= len(_cc_fam) == 1 and _cc_fam[0]['status'] == 'kernel-only' and _cc_fam[0]['modules'] == ['CoherentContinuumSource']
+ok_ccs &= _cc_fam[0]['manuscript'] == []
+for _t in ('Verdict outcome 2, no current source', 'necessary only', 'the two known failures are orthogonal'.replace('the two', 'The two'),
+           'no continuity assumed', 'is not sourced', 'defined nowhere as an operation of the current theory', 'Nothing is named C5 or adopted',
+           'the second alone not sufficient', 'owner decision'):
+    ok_ccs &= _t in _cc_fam[0]['note']
+for _bad in ('is sufficient for a layer flow', 'C5 holds', 'is available to the observer', 'is sourced by the corpus', 'continuous parameter is necessary'):
+    ok_ccs &= _bad not in _cc_fam[0]['note']
+ok_ccs &= '| coherent-continuum source: the strengthened necessary condition and the unsourced path | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-CCS`', 'COHERENT-CONTINUUM-SOURCE-AUDIT.md', 'gateFlow_not_monomial', 'NonMonomialCountablyCovered', 'UncountableNonMonomialRays',
+           'uncountableNonMonomialRays_of_layerFlowExecutable', 'not_layerFlowExecutable_of_nonMonomialCountablyCovered',
+           'nonMonomialCountablyCovered_of_countable', 'uncountableNonMonomialRays_of_qm', 'substratumClass_not_countablyCovered',
+           'polC_nonMonomialCountablyCovered', 'known_failures_orthogonal', 'readWriteOperator_range_finite',
+           'gateFlow_path_coherent_continuum', 'coherent_continuum_not_sourced', 'The condition is necessary only',
+           'continuum without coherent mixing, coherent mixing without a continuum', 'an uncountable parameter domain is not an uncountable operational image',
+           'the inference from the mathematical continuum to executability is rejected', 'defined nowhere as an operation of the current theory',
+           'Verdict: outcome 2, no current source, the empirical extension remaining', 'the second alone is not sufficient',
+           'Seventeen named results', 'Nothing is named C5 or adopted; no coupling is defined; no definition changes'):
+    ok_ccs &= _t in _rd1
+# the closure note: one section recorded after its frozen text and its outcome, the verdict unchanged
+_pcn_rec = _pcn.find('## Recorded after the round: the coherent-continuum source audit')
+ok_ccs &= _pcn_rec > _pcn.find('## What this note does not claim') and _pcn_rec > _pcn.find('Status: pass complete')
+_pcn_rec1 = re.sub(r'\s+', ' ', _pcn[_pcn_rec:])
+for _t in ('strengthens the necessary condition above', 'is not by itself diagnostic', 'The verdict of this note is unchanged',
+           'records no stated source of the coherent continuum in the corpus', 'Nothing is named C5 or adopted'):
+    ok_ccs &= _t in _pcn_rec1
+ok_ccs &= _pcn_rec1.count('## ') == 1
+# the discovery note is untouched by this round: still exactly one recorded section
+ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
+ok_ccs &= '129 modules' in _rd1 and '2,830 named results' in _rd1
+check('R7-CCS', ok_ccs,
+      'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
+      'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
+      'coupling, no class containing the flow and no existing definition restated; the non-monomiality of every '
+      'intermediate-time flow point, the strengthened necessary condition and its contrapositive, the consistency '
+      'control, the orthogonal failures, the finite read-write image and the unsourced path are stated as pinned, every '
+      'negative passing through the bridge, non-proportionality and non-monomiality with no continuity assumed; the note '
+      'keeps the question, the strengthened condition, the census, the outcomes, the tests and the non-doings before the '
+      'outcome, names both commits, records outcome 2 with the per-route and per-test tables, the necessary-only reading, '
+      'the rejected inference from the mathematical continuum, the coupling traced and outside the current axioms, and '
+      'the three obligations with the second not sufficient; no manuscript is edited; the registry and the census carry '
+      'the family as kernel-only; the closure note carries one section after its frozen text and the discovery note is '
+      'untouched; the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

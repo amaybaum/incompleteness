@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 128 modules and,
-  at this commit, 2,813 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 129 modules and,
+  at this commit, 2,830 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1380,6 +1380,42 @@ The label-invariant polarized theory is a candidate theory constructed by the ro
 the corpus, and test 8 of the discovery audit is unchanged. Twenty-six named results, each printing
 only `propext`, `Classical.choice`, `Quot.sound`. Nothing is named C5 or adopted; no manuscript
 changes. Guard `R7-PCL`.
+
+The coherent-continuum source audit (`COHERENT-CONTINUUM-SOURCE-AUDIT.md`,
+`OIBridge/CoherentContinuumSource.lean`) asks whether any realization-level mechanism stated in the
+corpus sources, at the operational carrier, an uncountable family of pairwise non-proportional
+non-monomial admissible operators, the resource an executable layer flow requires and the one the
+closure audit's cardinality condition does not yet isolate, since the monomial substratum class can
+have uncountable projective content without coherent mixing. The strengthened necessary condition
+is proved: every intermediate-time point of the layer flow of a moved involution on `(0, 1)` is
+non-monomial (`gateFlow_not_monomial`), so a class whose generated theory executes the flow has
+uncountably many pairwise non-proportional non-monomial rays at level one
+(`NonMonomialCountablyCovered`, `UncountableNonMonomialRays`, `gateFlow_not_countablyCovered`,
+`uncountableNonMonomialRays_of_layerFlowExecutable`,
+`not_layerFlowExecutable_of_nonMonomialCountablyCovered`), the closure audit's condition a
+consequence (`nonMonomialCountablyCovered_of_countable`) and not superseded, and quantum mechanics
+the consistency control (`uncountableNonMonomialRays_of_qm`). The condition is necessary only. The
+two known failures are orthogonal: every operator of the substratum class is monomial while the
+class is not countably covered up to scalar, its real diagonal weights already a continuum
+(`substratumClass_monomial`, `weightGate_not_proportional`, `substratumClass_not_countablyCovered`);
+the polarized class has non-monomial operators and is countably covered
+(`polC_nonMonomialCountablyCovered`, `known_failures_orthogonal`): continuum without coherent mixing,
+coherent mixing without a continuum. The real-valued read-write knob has finite operational image,
+no continuity assumed (`readWriteOperator_range_finite`,
+`readWrite_parameter_uncountable_image_finite`): an uncountable parameter domain is not an
+uncountable operational image. The canonical gate path has the coherent continuum mathematically
+and is not sourced, the substratum theory executing no layer flow of it and no configuration-level
+class making its half-time point available (`gateFlow_path_coherent_continuum`,
+`coherent_continuum_not_sourced`); the inference from the mathematical continuum to executability
+is rejected. The effective-Hamiltonian and wave-lift routes state no carrier map and are not tested.
+The continuously tunable non-bijection-valued coupling is traced to its sites, Main §3.4 with five
+mirrors and GR §3.3, where the manuscripts name it an empirical controllability resource added to
+the theory, and the verification notes an irreducible empirical addition; it is defined nowhere as
+an operation of the current theory. Verdict: outcome 2, no current source, the empirical extension
+remaining; the three obligations any later extension would have to meet are recorded and the second
+alone is not sufficient. Seventeen named results, each printing only `propext`, `Classical.choice`,
+`Quot.sound`. Nothing is named C5 or adopted; no coupling is defined; no definition changes; no
+manuscript changes. Guard `R7-CCS`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
