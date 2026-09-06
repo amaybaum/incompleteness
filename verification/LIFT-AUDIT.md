@@ -273,3 +273,20 @@ moved-configuration hypothesis is necessary (`derivedOI_layerFlowExecutable_one_
 and the phase hypothesis is necessary by the flow-endpoint theorem `flow_endpoint_refuted`. The
 outcome table above stands as the record of this pass; the row for Q3 is decided by the later
 round and not edited here.
+
+## The executability source, recorded after the round
+
+The executability-source audit (`EXEC-SOURCE-AUDIT.md`, preregistration commit `3b36661`)
+decides, for the stated access, the arrow this note left to the observer architecture. The
+observer theory of every substratum executes no layer flow of an involution with a moved
+configuration, its own shear and swap layers included (`obs_not_layerFlowExecutable`,
+`obs_not_layerFlowExecutable_shear`, `obs_not_layerFlowExecutable_swap`); the wave substratum's
+swap layer moves a configuration for every nontrivial alphabet, so its observer theory does not
+execute its own swap-layer flow (`waveSubstratum_swap_moves`,
+`waveSubstratum_not_layerFlowExecutable_swap`); and any architecture whose theory executes such a
+flow has a non-monomial admissible operator at level one
+(`exists_nonMonomial_of_layerFlowExecutable`), the flow at time one half of Q2 being the witness.
+The executability is thereby an additional physical assumption on the route to quantum mechanics,
+as the phase intervention is; the observer-level lift stays the manuscripts' named open
+candidate, and nothing in that round decides whether it is derivable. Q2 above stands as the
+record of this pass.

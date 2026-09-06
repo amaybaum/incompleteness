@@ -388,3 +388,14 @@ ray, and, as the sufficient access tested, the quarter-phase intervention itself
 alone being no guarantee of a quarter phase.
 Whether the substratum-source sentences are to be requalified to that condition stays the owner
 decision this note records.
+
+## The next arrow, decided for the stated access, recorded after the round
+
+The first Q3 outcome above named the next unresolved arrow, the observer architecture to
+`LayerFlowExecutable`. The executability-source audit (`EXEC-SOURCE-AUDIT.md`, preregistration
+commit `3b36661`) decides it for the stated access: `obsTheory 𝒮` executes no layer flow of an
+involution with a moved configuration, its own layers included (`obs_not_layerFlowExecutable`,
+`obs_not_layerFlowExecutable_shear`, `obs_not_layerFlowExecutable_swap`), from
+`obs_availExt_le_substratum` and the lift audit's Q2, and the wave substratum's swap layer moves a
+configuration (`waveSubstratum_swap_moves`). The executability is an additional physical
+assumption on the route, as the phases are; nothing in this note changes.
