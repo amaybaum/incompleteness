@@ -382,7 +382,9 @@ instrument-realization audit (`permTheory_not_phasesAvailable_onesFixing`), the 
 that decides the flow endpoint; every operation the manuscripts state the observer performs is
 ones-fixing; and the kernel's `PhasesAvailable` on the substratum side rests on the round-62 phase
 intervention alone (`substratumClass_not_onesFixing`). The verdict for the stated access is
-negative and the manuscripts' phrase "the phase structure" is underdetermined, with the missing
-access named as an admissible operator that moves the all-ones ray, selectable at every level.
+negative and the manuscripts' phrase "the phase structure" is underdetermined: what it would have
+to supply is, necessarily, an admissible operator selectable at every level that moves the all-ones
+ray, and, as the sufficient access tested, the quarter-phase intervention itself, moving the ray
+alone being no guarantee of a quarter phase.
 Whether the substratum-source sentences are to be requalified to that condition stays the owner
 decision this note records.

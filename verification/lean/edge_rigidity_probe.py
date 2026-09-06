@@ -4190,7 +4190,8 @@ ok_phase &= 'onesFixing_not_phasesAvailable permClass_arch permClass_onesFixing'
 _k = [_psn.find(h) for h in ('## The question', '## Four distinctions, frozen at the outset',
       '## The census of purported sources, taken before the pass', '## The criteria, fixed in advance',
       '## The tests, each with its admissible outcomes', '## What the outcomes mean, fixed in advance',
-      '## What the round does not do', '## The outcome', '## What this note does not claim')]
+      '## What the round does not do', '## Scope amendment, recorded after the preregistration',
+      '## The outcome', '## What this note does not claim')]
 ok_phase &= all(x > 0 for x in _k) and _k == sorted(_k)
 ok_phase &= _psn.lstrip().startswith('# The phase-source audit')
 for _t in ('Preregistration commit `2cc1cbc`', 'Status: pass complete', 'commit `b1c0677`',
@@ -4200,16 +4201,26 @@ for _t in ('Preregistration commit `2cc1cbc`', 'Status: pass complete', 'commit 
            '**Positive.**', '**Negative.**', '**Underdetermined.**',
            '**T1. The invariant, general.**', '**T2. The stated access is ones-fixing.**', '**T3. The distinctions, in the kernel.**',
            '**T4. The stipulation, isolated.**', '**T5. The manuscript census, per entry.**', '**T6. The countercontrol.**',
-           '**T7. The surfaces and the checks.**', '| T1 | ', '| T7 | ', 'The verdicts, per entry', 'The headline', 'The missing access, named',
+           '**T7. The surfaces and the checks.**', '| T1 | ', '| T7 | ', 'The verdicts, per entry', 'The headline',
            'no proved statement differs from the preregistered one', 'negative for the stated access', 'rests on P1, a stipulation',
-           'an admissible operator, selectable by the observer at every level, that moves the all-ones vector off its ray',
+           'The missing access, under the scope amendment', 'scope amendment above', 'necessary condition',
+           'the sufficient access tested is the quarter-phase intervention itself',
+           'Moving the ray is not by itself sufficient', 'moving the all-ones ray is sufficient to source `PhasesAvailable`',
            'What the outcome does not establish', 'What this note does not claim', 'ten named results'):
     ok_phase &= _t in _psn1
 for _bad in ('the manuscripts are wrong', 'DerivedOI is false', 'the phases cannot be sourced', 'the lift is derivable',
              'the lift is not derivable', 'Route A is closed', 'OI implies QM', 'quantum mechanics requires OI',
              'bare OI implies', 'relative phase is the unique missing resource', 'relative phase is the minimal missing resource',
-             'the preregistered Q3 holds', 'Q3 is refuted', 'the phase structure is derived', 'PhasesAvailable is derived'):
+             'the preregistered Q3 holds', 'Q3 is refuted', 'the phase structure is derived', 'PhasesAvailable is derived',
+             'moving the all-ones ray is sufficient', 'the ray-moving condition is sufficient'):
     ok_phase &= not _asserted(_psn, _bad)
+# the amended scope on every outcome-facing surface: the ray-moving condition is necessary, the
+# sufficient access tested is the quarter-phase intervention, and neither is stated as the other
+_psn_out = _psn[_psn.find('## The outcome'):]
+for _t in (_psn_out, _rd1, re.sub(r'\s+', ' ', _san)):
+    for _bad in ('the missing access is named: an admissible operator', 'missing access named as an admissible operator that moves the all-ones ray',
+                 'of which the quarter phase is the canonical instance', 'of which the quarter phase `phaseGate a` is the canonical instance'):
+        ok_phase &= _bad not in _t
 # the frozen notes carry their sections; no manuscript is edited
 _ssn = open(os.path.join(os.path.dirname(BRIDGE), 'SUBSTRATUM-SOURCE-AUDIT.md'), encoding='utf-8').read()
 ok_phase &= '## Fifth entry, recorded after the freeze: the phase source' in _ssn and _ssn.find('## Freeze') < _ssn.find('## Fifth entry, recorded after the freeze')
@@ -4225,11 +4236,14 @@ _ps_fam = [f for f in _ptr_reg['families'] if f['name'] == 'phase source: the st
 ok_phase &= len(_ps_fam) == 1 and _ps_fam[0]['status'] == 'kernel-only' and _ps_fam[0]['modules'] == ['PhaseSource']
 ok_phase &= _ps_fam[0]['manuscript'] == [] and 'a stipulation' in _ps_fam[0]['note'] and 'underdetermined' in _ps_fam[0]['note']
 ok_phase &= 'owner decision' in _ps_fam[0]['note'] and 'no complex structure' in _ps_fam[0]['note']
+ok_phase &= 'sufficient access tested' in _ps_fam[0]['note'] and 'missing access named as an admissible operator' not in _ps_fam[0]['note']
 _cen_ps = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_phase &= '| phase source: the stated access and the stipulated phases | 1 | kernel-only |' in _cen_ps
 for _t in ('`R7-PHASE`', 'PHASE-SOURCE-AUDIT.md', 'onesFixing_not_phasesAvailable', 'permClass_onesFixing',
            'substratumClass_not_onesFixing', 'Ten named results', 'a stipulation, and on nothing else',
-           'current OI sourcing stops', 'is underdetermined, and the missing access is named',
+           'current OI sourcing stops', 'is underdetermined, and what it would have to supply is stated in two parts',
+           'the necessary condition, an admissible operator selectable at every level', 'the sufficient access tested',
+           'moving the ray alone being no guarantee of a quarter phase',
            'an additional physical assumption on the route', 'recorded for the propagation'):
     ok_phase &= _t in _rd1
 check('R7-PHASE', ok_phase,
@@ -4239,7 +4253,8 @@ check('R7-PHASE', ok_phase,
       'operators, the three distinctions and the isolation of the round-62 phase intervention are stated as '
       'pinned; the note keeps the question, the four distinctions, the nine-entry census, the criteria, the '
       'tests, the meanings and the non-doings before the outcome, names both commits, records the verdict per '
-      'entry with the stated access negative and the phrase underdetermined with the missing access named, and '
+      'entry with the stated access negative and the phrase underdetermined, carries the scope amendment reading the '
+      'ray-moving condition as necessary and the quarter-phase intervention as the sufficient access tested, and '
       'asserts nothing about the lift audit\'s Q3, the lift, Route A, uniqueness or minimality, or the '
       'manuscripts being wrong; the frozen substratum-source and substratum-interface notes carry their sections; '
       'no manuscript is edited and the substratum-source sentence stands; the registry and the census carry the '

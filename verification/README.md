@@ -1129,10 +1129,14 @@ operations preserve the invariant, and the kernel's `PhasesAvailable` on the sub
 on the round-62 phase intervention, a stipulation, and on nothing else; current OI sourcing stops
 at `SourcedOI`, and an executable relative-phase intervention is an additional physical assumption
 on the route to quantum mechanics. The phrase "the phase structure" of the substratum-source form
-is underdetermined, and the missing access is named: an admissible operator, selectable at every
-level, that moves the all-ones ray, of which the quarter phase is the canonical instance. Ten named
+is underdetermined, and what it would have to supply is stated in two parts under a scope
+amendment at review: the necessary condition, an admissible operator selectable at every level
+that moves the all-ones ray, which no ones-fixing class supplies, and the sufficient access tested,
+the quarter-phase intervention itself, moving the ray alone being no guarantee of a quarter phase
+(`substratumTheory_derivedOI`, the positive control). Ten named
 results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that
-relative phase is the unique or minimal resource; anything about the arrow from `DerivedOI`;
+relative phase is the unique or minimal resource; that moving the all-ones ray suffices to source
+the phases; anything about the arrow from `DerivedOI`;
 anything about a richer substratum ontology than the one the manuscripts state; no manuscript
 changes, the requalification of the substratum-source sentence being recorded for the propagation
 round. Guard `R7-PHASE`.

@@ -25,8 +25,10 @@ the census of the manuscripts is in the note.
   intervention kind of the interface that is not.
 
 Not claimed: anything about the lift audit's Q3 from `DerivedOI`; that relative phase is the
-unique or minimal resource on the route; anything about a richer substratum ontology than the one
-the manuscripts state.
+unique or minimal resource on the route; that an operator moving the all-ones ray suffices to
+source `PhasesAvailable`, the condition being necessary and the sufficient access tested the
+quarter-phase intervention itself; anything about a richer substratum ontology than the one the
+manuscripts state.
 -/
 
 namespace OIBridge
