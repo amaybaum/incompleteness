@@ -4631,9 +4631,19 @@ ok_exec &= 'gateFlow_half_not_preservesDiag' in _exflat and 'obs_availExt_le_sub
 _ke = [_exn.find(h) for h in ('## The question', '## Five distinctions, frozen at the outset',
        '## The census of purported sources, taken before the pass', '## The criteria, fixed in advance',
        '## The tests, each with its admissible outcomes', '## What the outcomes mean, fixed in advance',
-       '## What the round does not do', '## The outcome')]
+       '## What the round does not do', '## Scope amendment, recorded after the preregistration', '## The outcome')]
 ok_exec &= all(x > 0 for x in _ke) and _ke == sorted(_ke)
 ok_exec &= _exn.lstrip().startswith('# The executability-source audit')
+# the amendment: the stated access is permutation-valued, the stipulated phase intervention is a separate
+# configuration-level assumption, X8 is not a source; the overbroad census sentence is not the outcome's
+_exn_out0 = re.sub(r'\s+', ' ', _exn[_exn.find('## The outcome'):])
+ok_exec &= 'scope amendment above' in _exn_out0
+for _t in ('Every operation supplied by the stated observer access is configuration-level',
+           'in `obsTheory 𝒮` permutation-valued', 'The separately stipulated phase intervention is also monomial',
+           'does not rescue executability', 'X8 is not a source'):
+    ok_exec &= _t in _exn_out0
+ok_exec &= 'is a permutation of the configurations or a phase' not in _exn_out0
+ok_exec &= 'with X8 excluded as a stipulation and the consistency control' in _exn1
 for _t in ('Preregistration commit `3b36661`', 'Status: pass complete', '`main` at `087d023`',
            '**(D1) A mathematical path is not an operation.**',
            '**(D2) An emergent continuous-time description of the visible process is a representation, not an availability.**',

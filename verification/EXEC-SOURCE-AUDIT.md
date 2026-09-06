@@ -199,9 +199,25 @@ fractional-time operators or the least architecture containing the gate flows. C
 `LayerFlowExecutable`, `obsTheory`, `Substratum` or any definition. Attempt the phase. Edit a
 manuscript. Refresh the transfer bundle.
 
+## Scope amendment, recorded after the preregistration
+
+At review of the round at `5c3be0c`, the owner found the frozen census sentence "every entry that
+names an operation names a permutation of the configurations or a phase" literally too broad, on
+two counts. The stated observer access is permutation-valued: `obsTheory 𝒮` is `permTheory
+𝒮.Conf`, and the phase intervention is a separately stipulated assumption, monomial and
+configuration-level, not part of that access; and X8 deliberately names stipulated gate-flow
+access, which is not monomial. The sentence is read, from here on, as applying to the source
+entries X1–X7 that name available operations, with X8 excluded as a stipulation and the
+consistency control. The outcome states the sharper form: every operation supplied by the stated
+observer access is configuration-level, in `obsTheory 𝒮` permutation-valued; the separately
+stipulated phase intervention is also monomial, hence configuration-level, and does not rescue
+executability, the substratum theory that carries it executing no layer flow either; X8 is not a
+source. The preregistration above is unchanged; no theorem changes; the guard pins the sharper
+form and rejects the overbroad one in the outcome.
+
 ## The outcome
 
-Preregistration commit `3b36661`, executed from `main` at `087d023`. The kernel module is
+Preregistration commit `3b36661`, scope amendment above, executed from `main` at `087d023`. The kernel module is
 `OIBridge/ExecSource.lean`, twelve named results, each printing only `propext`,
 `Classical.choice`, `Quot.sound`; the kernel is at 125 modules and 2,752 named results. The verdict
 is negative for the stated access and underdetermined for the observer-level lift. Every test
@@ -231,10 +247,12 @@ and the positive criterion is not reached.
 | X7, the observer-level lift `φ → L_obs` | **underdetermined** | no operation named; recorded as not proved by `[SM §4.1]`; what it would have to supply is stated below |
 | X8, the stipulated classes of the kernel | not a source | a stipulation and the consistency control (T6) |
 
-**The headline.** For the stated access the verdict is negative: every operation the substratum's
-dynamics and the observer's stated access supply is a permutation of the configurations or a
-phase, every class of such operators is configuration-level, and the theory a configuration-level
-class generates executes no layer flow of an involution with a moved configuration, the actual
+**The headline.** For the stated access the verdict is negative. Every operation supplied by the
+stated observer access is configuration-level, in `obsTheory 𝒮` permutation-valued, the theory
+being `permTheory 𝒮.Conf`. The separately stipulated phase intervention is also monomial, hence
+configuration-level, and does not rescue executability: the substratum theory, which carries it,
+executes no layer flow either. X8 is not a source. The theory a configuration-level class
+generates executes no layer flow of an involution with a moved configuration, the actual
 substratum's own layers included. The CT2 path is a theorem about matrices whose value at time
 one half is precisely the operation the stated access does not supply. The executability of one
 layer flow is therefore an additional physical assumption on the route to quantum mechanics, as
