@@ -129,12 +129,16 @@ theorem realized_comp (hmul : ∀ K L : Matrix S S ℂ, 𝓘 S K → 𝓘 S L �
   rw [comp_sum']
   exact Finset.sum_congr rfl fun j _ => OIHierarchyGeneral.conjChannel_mul_general (K i) (L j)
 
-theorem realized_smul_nonneg (hsmul : ∀ (a : ℂ) (K : Matrix S S ℂ), 𝓘 S K → 𝓘 S (a • K))
-    {Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ} (c : ℝ) (hc : 0 ≤ c) (h : Realized 𝓘 S Φ) :
-    Realized 𝓘 S ((c : ℂ) • Φ) := by
+theorem realized_smul_nonneg
+    (hsmul : ∀ (a : ℂ) (K : Matrix S S ℂ), ‖a‖ ≤ 1 → 𝓘 S K → 𝓘 S (a • K))
+    {Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ} (c : ℝ) (hc : 0 ≤ c) (hc1 : c ≤ 1)
+    (h : Realized 𝓘 S Φ) : Realized 𝓘 S ((c : ℂ) • Φ) := by
   obtain ⟨ι, _, K, rfl, hK⟩ := h
+  have hs : ‖((Real.sqrt c : ℝ) : ℂ)‖ ≤ 1 := by
+    rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (Real.sqrt_nonneg c)]
+    exact (Real.sqrt_le_sqrt hc1).trans_eq Real.sqrt_one
   refine ⟨ι, inferInstance, fun i => ((Real.sqrt c : ℝ) : ℂ) • K i, ?_,
-    fun i => hsmul _ _ (hK i)⟩
+    fun i => hsmul _ _ hs (hK i)⟩
   rw [Finset.smul_sum]
   refine Finset.sum_congr rfl fun i _ => ?_
   show (c : ℂ) • conjChannel (K i) = conjChannel (((Real.sqrt c : ℝ) : ℂ) • K i)
@@ -162,7 +166,7 @@ theorem realized_localLuders {m : ℕ}
 theorem realized_discard {m : ℕ}
     (hblock : ∀ (K : Matrix (S × Fin m) (S × Fin m) ℂ) (f e : Fin m),
       𝓘 (S × Fin m) K → 𝓘 S (ancBlock K f e))
-    (hsmul : ∀ (a : ℂ) (K : Matrix S S ℂ), 𝓘 S K → 𝓘 S (a • K))
+    (hsmul : ∀ (a : ℂ) (K : Matrix S S ℂ), ‖a‖ ≤ 1 → 𝓘 S K → 𝓘 S (a • K))
     {Φ : Matrix (S × Fin m) (S × Fin m) ℂ →ₗ[ℂ] Matrix (S × Fin m) (S × Fin m) ℂ}
     (h : Realized 𝓘 (S × Fin m) Φ) :
     Realized 𝓘 S (discardWith (A := S) m (uniformAttach m) Φ) := by
@@ -172,7 +176,7 @@ theorem realized_discard {m : ℕ}
   rw [discardWith_uniform_conjChannel]
   have hcast : ((m : ℂ))⁻¹ = (((m : ℝ)⁻¹ : ℝ) : ℂ) := by push_cast; rfl
   rw [hcast]
-  refine realized_smul_nonneg hsmul _ (inv_nonneg.mpr (Nat.cast_nonneg m)) ?_
+  refine realized_smul_nonneg hsmul _ (inv_nonneg.mpr (Nat.cast_nonneg m)) (Nat.cast_inv_le_one m) ?_
   exact realized_sum _ _ fun c _ => realized_conj (hblock _ _ _ (hK i))
 
 end Closure
@@ -188,7 +192,7 @@ structure Architecture (𝓘 : ImplementationClass) : Prop where
   mul : ∀ (S : Type) [Fintype S] [DecidableEq S] (K L : Matrix S S ℂ),
     𝓘 S K → 𝓘 S L → 𝓘 S (K * L)
   smul : ∀ (S : Type) [Fintype S] [DecidableEq S] (a : ℂ) (K : Matrix S S ℂ),
-    𝓘 S K → 𝓘 S (a • K)
+    ‖a‖ ≤ 1 → 𝓘 S K → 𝓘 S (a • K)
   proj : ∀ (S : Type) [Fintype S] [DecidableEq S] (m : ℕ) (k : Fin m),
     𝓘 (S × Fin m) (Matrix.diagonal fun r => if r.2 = k then 1 else 0)
   block : ∀ (S : Type) [Fintype S] [DecidableEq S] (m : ℕ)
@@ -316,7 +320,7 @@ theorem diagClass_arch : Architecture diagClass where
     by_cases hk : p = k
     · rw [hL k q (hk ▸ h), mul_zero]
     · rw [hK p k hk, zero_mul]
-  smul := fun S _ _ a K hK p q h => by rw [Matrix.smul_apply, hK p q h, smul_zero]
+  smul := fun S _ _ a K _ hK p q h => by rw [Matrix.smul_apply, hK p q h, smul_zero]
   proj := fun S _ _ m k p q h => Matrix.diagonal_apply_ne _ h
   block := fun S _ _ m K f e hK s t h =>
     hK (s, f) (t, e) fun h' => h (congrArg Prod.fst h')

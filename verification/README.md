@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 118 modules and,
-  at this commit, 2,581 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 119 modules and,
+  at this commit, 2,591 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -995,6 +995,30 @@ named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. N
 the access, that A6 holds or fails for any substratum, that `LayerFlowExecutable` is derived from
 the sourced baseline or is not, that the observer-level lift is derivable or is not; no
 manuscript changes. Guard `R7-SUB`.
+
+`SCALAR-CLOSURE-AUDIT.md` and `OIBridge/ScalarClosure.lean` implement an owner decision the
+flow-extension diagnostic forced (`FLOW-EXTENSION-AUDIT.md`, the deferral): `Architecture.smul`,
+stated in round fifty-nine for every complex scalar, is restricted to scalars of modulus at most
+one. Its only operational use is attenuation, the `√(1/m)` on each Kraus operator of a discard,
+and an unrestricted scalar lets an ancilla block of a word containing a readout projector, a
+post-selected contraction `c · U`, be promoted to the unitary `U` by `1/c`, which turns a
+probabilistic branch into a deterministic operation. The census before the change found every
+consumer: `realized_smul_nonneg` and `realized_discard` (now with the bound `c ≤ 1`, satisfied by
+`1/m`), the four architecture instances (`fullClass`, `diagClass`, `substratumClass`, `permClass`),
+and the canonicity proof `permClass_le_of_exchanges`, the one consumer of an arbitrary scalar. The
+generated theory of every class is unchanged by definition, its availability being
+`IsGenInstrument` (`genTheory_availExt_eq`); `permClass` migrates to contractively scaled partial
+permutations with every theorem of the substratum-interface audit reproved under its name; and
+the regression theorem `realized_scalarHull_iff` shows that a class closed under contractive
+scalars realizes exactly what its scalar hull realizes, a conjugation by `a • K` with `|a| > 1`
+being `⌊|a|²⌋` conjugations by `K` and one contractive remainder, so the unrestricted and the
+migrated sourced classes generate the same availability (`scalarHull_permClass_iff`,
+`permTheory_hull_availExt_iff`). Nothing weakens. The restriction is correct on its own terms and
+is not sufficient for the flow endpoint: `Realized` admits replication of a contractive branch
+with no common-instrument provenance, which is the object of a separate preregistered round.
+Ten named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed:
+anything about the flow endpoint; no manuscript changes, none narrating the scalar closure.
+Guard `R7-SCAL`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

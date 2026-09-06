@@ -341,3 +341,16 @@ every reading: A3 carries its degree and A4 its gauge as parameters, and A6 has 
 That the wave substratum satisfies A6. That the strongest OI ⇒ QM claim is true or false. That
 `LayerFlowExecutable` is derived, or is not, from the sourced baseline. That anything here reaches
 a manuscript.
+
+## Migration, recorded after the round
+
+The scalar-closure round (`SCALAR-CLOSURE-AUDIT.md`) restricted `Architecture.smul` to scalars
+of modulus at most one and migrated `permClass` accordingly: `IsScaledPartialPerm` now requires
+the one scalar of a scaled partial permutation to have modulus at most one, and the factored
+form `c • (permMatrix σ * diagonal 𝟙_A)` carries `‖c‖ ≤ 1`. Every theorem of the module keeps its
+name and statement; `permClass_le_of_exchanges` supplies the bound to the architecture's scalar
+closure. The unrestricted class of the outcome above is the scalar hull of the migrated one
+(`ScalarClosure.scalarHull_permClass_iff`), and the two generate the same availability at every
+level (`ScalarClosure.permTheory_hull_availExt_iff`), so no outcome of this round changes. The
+preregistration's "for a scalar `c`" is read, after the migration, as "for a scalar `c` of
+modulus at most one".
