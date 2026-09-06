@@ -154,3 +154,19 @@ That the replication loophole is closed: it is not, and the round does not touch
 That any manuscript narrates the scalar closure: none does, the manuscripts stating closure
 under composition, coarse-graining and ancilla blocks. That the flow endpoint is settled in either
 direction. That anything here reaches a manuscript.
+
+## Migration to instrument realization, recorded after the round
+
+The instrument-migration round (`INSTRUMENT-MIGRATION-AUDIT.md`) makes provenance-aware
+realization the implementation semantics of the kernel. T1's `genTheory_availExt_eq` keeps its
+name with `InstAvail 𝓘 (A × Fin n) O F` on its right: the availability of a generated theory is
+instrument realization by the class, by definition, and no scalar closure enters it. T3's
+`permTheory_hull_availExt_iff` keeps its statement and is re-proved: an isometry in the scalar hull
+of the sourced class lies in the sourced class, its common entry having modulus at most one by the
+row norm (`permClass_of_scalarHull_isometry`), the readout projectors lie in it, so instrument
+realization by the hull is instrument realization by the class (`instAvail_scalarHull_permClass`),
+and the converse is class monotonicity. The branch-wise regression `realized_scalarHull_iff` is
+unchanged, as the comparison object. The module has 12 named results after the migration. The
+sentence of the outcome that the restriction is not sufficient for the flow endpoint stands: the
+replication it names is removed by the instrument-realization audit, and the flow endpoint is
+neither asserted nor refuted by either round.

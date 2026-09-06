@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 120 modules and,
-  at this commit, 2,749 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 121 modules and,
+  at this commit, 2,699 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -85,13 +85,14 @@ all (`countermodel_not_implementationGenerated`), so its failure is implementabi
 locality, reversible richness and embedded observation are equivalent to finite operational QM on
 every nonempty finite carrier (`carrier_general_oiPlusLocal`). Reversible richness splits into inverse
 accessibility and Lie-rank richness (`MicroscopicReversibility.reversibleRichness_iff`); the inverse
-clause is derived from a dagger-stable implementation class through the rank-one ray lemma
-(`inverseAccessibility_of_generated_daggerStable`), so reversible implementation locality, Lie-rank
-richness and embedded observation are equivalent to finite operational QM on every nonempty finite
-carrier (`carrier_general_oiPlusMicro`). Lie-rank richness gives full control unconditionally
-(`PositiveReachability.control_of_lieRank`), and on a well-formed theory full control yields inverse
-accessibility (`PositiveReachability.inverseAccessibility_of_lieRank`), so dagger stability is not
-needed as a hypothesis of the characterization. The Lie-rank clause is derived from elementary
+clause is derived from a dagger-stable, unitary-ray saturated implementation architecture through
+the rank-one ray lemma (`inverseAccessibility_of_generated_daggerStable`), and, with no condition on
+the class, from Lie-rank richness on the well-formed theory, so reversible implementation locality,
+Lie-rank richness and embedded observation are equivalent to finite operational QM on every nonempty
+finite carrier (`carrier_general_oiPlusMicro`). Lie-rank richness gives full control unconditionally
+(`MicroReversibility.control_of_lieRank`, on the positive-reachability core), and on a well-formed
+theory full control yields inverse accessibility (`MicroReversibility.inverseAccessibility_of_lieRank`),
+so dagger stability is not needed as a hypothesis of the characterization. The Lie-rank clause is derived from elementary
 transition richness (`LieRankSource.lieRank_of_elementary`): one continuously driven transition, one
 quarter phase and the state exchanges generate `su(D)` at every level, and full control supplies
 them (`elementary_of_control`), so reversible implementation locality, elementary transition
@@ -801,12 +802,15 @@ phases that is a neighbourhood of `1` is everything, since a symmetric neighbour
 clopen subgroup of the connected unitary group and the subgroup it generates is the submonoid it
 generates (`eq_top_of_nhds_one`, `posReach_eq_top`). `universalReachability_of_lieRank_positive`
 is the round-fifty conclusion with the `hstar` hypothesis deleted. At the theory level,
-`control_of_lieRank` gives `LieRankRichness T → HasCompositeUnitaryControl T`,
-`inverseAccessibility_of_lieRank` derives the inverse clause on a well-formed theory, and
-`OIPlusPos` — implementation locality, elementary transition richness, embedded observation, with
-no dagger stability — is equivalent to exact finite endomorphic operational QM on every nonempty
-finite carrier (`oiPlusPos_iff_qm`, `oiPlusPos_iff_oiPlusElem`, `carrier_general_oiPlusPos`).
-Twenty-four named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not
+`control_of_lieRank` gives `LieRankRichness T → HasCompositeUnitaryControl T` and
+`inverseAccessibility_of_lieRank` derives the inverse clause on a well-formed theory, both stated
+in `MicroscopicReversibility` on the positive-reachability core, which imports nothing of the
+implementation-locality stack; and `OIPlusPos` — implementation locality, elementary transition
+richness, embedded observation, with no dagger stability — is equivalent to exact finite
+endomorphic operational QM on every nonempty finite carrier (`oiPlusPos_iff_qm`,
+`oiPlusPos_iff_oiPlusElem`, `carrier_general_oiPlusPos`, in `PositivePackage`, namespace
+`PositiveReachability`). Twenty-four named results across the three modules, each printing only
+`propext`, `Classical.choice`, `Quot.sound`. Not
 claimed: that `HControl` is necessary for positive reachability; the minimal elementary
 repertoire; the converse from inverse accessibility to dagger stability; anything about
 non-compact groups. Guard `R7-INV`.
@@ -989,7 +993,7 @@ consumes nothing of A3–A6. The phases are thereby located: `DerivedOI`'s quart
 `SubstratumAvail`'s diagonal unitaries enter the kernel through the round-62 stipulation of
 "phase interventions", not through the observer access the manuscripts state, and the
 manuscripts' substratum-source sentences that list the phase structure narrate that stipulation;
-whether they are to be requalified is an owner decision for a propagation round. Eighty-one
+whether they are to be requalified is an owner decision for a propagation round. Eighty-two
 named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that
 `SourcedOI` is the manuscripts' OI, that the phase structure is absent under a wider reading of
 the access, that A6 holds or fails for any substratum, that `LayerFlowExecutable` is derived from
@@ -1006,17 +1010,19 @@ probabilistic branch into a deterministic operation. The census before the chang
 consumer: `realized_smul_nonneg` and `realized_discard` (now with the bound `c ≤ 1`, satisfied by
 `1/m`), the four architecture instances (`fullClass`, `diagClass`, `substratumClass`, `permClass`),
 and the canonicity proof `permClass_le_of_exchanges`, the one consumer of an arbitrary scalar. The
-generated theory of every class is unchanged by definition, its availability being
-`IsGenInstrument` (`genTheory_availExt_eq`); `permClass` migrates to contractively scaled partial
-permutations with every theorem of the substratum-interface audit reproved under its name; and
+generated theory of every class is unchanged by definition, its availability being instrument
+realization by the class (`genTheory_availExt_eq`); `permClass` migrates to contractively scaled
+partial permutations with every theorem of the substratum-interface audit reproved under its name;
 the regression theorem `realized_scalarHull_iff` shows that a class closed under contractive
-scalars realizes exactly what its scalar hull realizes, a conjugation by `a • K` with `|a| > 1`
-being `⌊|a|²⌋` conjugations by `K` and one contractive remainder, so the unrestricted and the
-migrated sourced classes generate the same availability (`scalarHull_permClass_iff`,
-`permTheory_hull_availExt_iff`). Nothing weakens. The restriction is correct on its own terms and
-is not sufficient for the flow endpoint: `Realized` admits replication of a contractive branch
-with no common-instrument provenance, which is the object of a separate preregistered round.
-Ten named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed:
+scalars branch-realizes exactly what its scalar hull branch-realizes, a conjugation by `a • K` with
+`|a| > 1` being `⌊|a|²⌋` conjugations by `K` and one contractive remainder; and the unrestricted
+and the migrated sourced classes generate the same availability (`scalarHull_permClass_iff`,
+`permTheory_hull_availExt_iff`: an isometry in the hull of the sourced class is in the class and
+the readout projectors are, so instrument realization by the hull is instrument realization by the
+class, `instAvail_scalarHull_permClass`). Nothing weakens. The restriction is correct on its own
+terms and is not sufficient for the flow endpoint: `Realized` admits replication of a contractive
+branch with no common-instrument provenance, which the instrument-realization audit removes.
+Twelve named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed:
 anything about the flow endpoint; no manuscript changes, none narrating the scalar closure.
 Guard `R7-SCAL`.
 
@@ -1024,34 +1030,52 @@ Guard `R7-SCAL`.
 (`INSTRUMENT-REALIZATION-AUDIT.md`), the round on realization provenance that the flow-extension
 deferral and the scalar-closure audit both named. `Realized` takes the branches of an operation
 from the class one at a time and so admits the replication of a post-selected contraction `c · U`
-into the unitary conjugation by `U`. The replacement `InstAvail` is an inductive predicate with
-exactly five constructors and no sum: an admissible isometric step, the native Lüders readout of a
+into the unitary conjugation by `U`. The replacement `InstAvail`, an inductive predicate with
+exactly five constructors and no sum — an admissible isometric step, the native Lüders readout of a
 register with admissible projectors, coarse-graining, sequential composition with outcome-dependent
 continuation, and the discard of a uniformly attached ancilla of positive size, the uniformly
-weighted preparation label summed inside the discard and never an outcome. Soundness holds
-(`instAvail_trace`, `realized_of_instAvail`): every instrument-realized family is a generated
-instrument of the branch-wise notion. The instrument theory of every architecture is a finite
-operational theory with embedded observation when the class is label-invariant (`instTheory`,
-`instTheory_embeddedObservation`), the predicate being closed under relabelling and under
-uncoupled spectators. The implementation-locality stack is re-established for the new primitive
-under instrument names (`InstrumentGenerated`, `InstrumentLocality`, `OIPlusMinInst`,
-`oiPlusMinInst_iff_qm`, `DerivedOIInst`, `SourcedOIInst`, the substratum and the sourced instrument
-theories, `routeB_target_inst`) with unchanged statements, except inverse accessibility from dagger
-stability, which carries the added hypothesis `PhaseSaturated` that the four classes of the kernel
-satisfy. The converse of soundness fails: the invariant `OnesNormal` of complete instruments, a
-Kraus decomposition of the whole family whose operators sum against the all-ones vector to the
-all-ones vector, is preserved by every constructor including the feed-forward, so in a class whose
-admissible unitaries fix the all-ones vector every instrument-realized unitary conjugation fixes it
+weighted preparation label summed inside the discard and never an outcome — is the implementation
+semantics of the kernel, in `ImplementationLocality`. Soundness holds (`instAvail_trace`,
+`realized_of_instAvail`): every instrument-realized family is a branch-wise instrument, so the
+generated theory of an architecture lies inside its branch-wise theory (`IsGenInstrument`,
+`branchTheory`, `genTheory_le_branchTheory`, the comparison object this module keeps). The converse
+of soundness fails: the invariant `OnesNormal` of complete instruments, a Kraus decomposition of the
+whole family whose operators sum against the all-ones vector to the all-ones vector, is preserved
+by every constructor including the feed-forward, so in a class whose admissible unitaries fix the
+all-ones vector every instrument-realized unitary conjugation fixes it
 (`instAvail_unitary_fixes_ones`); the closed-form class of contractive compressions of
 ones-fixing unitaries is an architecture, context-stable, label-invariant, dagger-stable and
 ones-fixing (`isometry_fixes_ones`) and contains a contractive multiple of the transition flow
 (`gadget_block`), so on a carrier with a third point the transition flow's conjugation is
 branch-realized with the trace preserved and is not instrument-realized
-(`flow_realized_not_instrumentRealized`): provenance removes the replication. 163 named results,
-each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: the flow endpoint,
-neither asserted nor refuted; the least class of one layer involution, which is not defined; that
-`Realized` or `ImplementationGenerated` has changed, the in-place replacement being a migration
-step after review. Guard `R7-INST`.
+(`flow_realized_not_instrumentRealized`): provenance removes the replication. Sixty-nine named
+results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: the flow
+endpoint, neither asserted nor refuted; the least class of one layer involution, which is not
+defined. Guard `R7-INST`.
+
+`INSTRUMENT-MIGRATION-AUDIT.md` executes the survival record of that audit as the owner decided at
+its review: provenance-aware realization is the canonical implementation semantics, in place.
+`ImplementationGenerated T 𝓘` is `T.availExt N O F ↔ InstAvail 𝓘 (A × Fin N) O F`, the
+normalization half of validity a theorem of the primitive (`instAvail_trace`) rather than a clause;
+`genTheory` is the instrument theory of an architecture, and `Architecture`, the branch-wise
+closure, soundness and the relabelling and spectator closures sit in `ImplementationLocality`
+upstream of the generation clause. Every theorem consuming the migrated definitions keeps its name
+and its statement, except the three fixed in advance: inverse accessibility from dagger stability
+(`inverseAccessibility_of_generated_daggerStable`) carries `Architecture 𝓘` and
+`UnitaryRaySaturated 𝓘` — a class containing a nonzero scalar multiple of a unitary contains the
+unitary, a statement about admissible operators and not about the phase resource of a theory, which
+the four classes of the kernel satisfy and which occurs in no package and in no equivalence with
+quantum mechanics — its per-class corollary carries the same, and `genTheory_availExt_eq` has the
+new predicate on its right. The compressed sets keep their statements, the inverse clause taken
+from Lie-rank control on the well-formed theory (`inverseAccessibility_of_lieRank`), which with
+`control_of_lieRank` is stated in `MicroscopicReversibility` on the positive-reachability core, the
+package `OIPlusPos` in `PositivePackage`. The parallel instrument names of the previous round are
+removed, each to the canonical name it duplicated; the scalar-hull regression for the sourced
+theory is re-proved (`instAvail_scalarHull_permClass`); the four frozen notes carry a migration
+section each. Not claimed: the flow endpoint, neither asserted nor refuted, the round to be
+re-preregistered on the migrated semantics; that inverse accessibility holds for every
+dagger-stable architecture without saturation; any manuscript change, the GR §3.3 sentences on the
+normalization clause being recorded as an owner decision for a propagation round. Guard `R7-MIG`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

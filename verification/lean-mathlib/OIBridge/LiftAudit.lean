@@ -185,7 +185,7 @@ theorem configurationLevel_not_layerFlowExecutable {𝓘 : ImplementationClass}
     (hx : σ x ≠ x) : ¬ LayerFlowExecutable (genTheory 𝓘 arch S) σ := by
   intro hex
   have hav := hex 1 (1 / 2 : ℝ)
-  obtain ⟨ι, _, K, hK, hadm⟩ := hav.1 ()
+  obtain ⟨ι, _, K, hK, hadm⟩ := realized_of_instAvail arch hav ()
   have hK' : conjChannel (gateFlow (levelPerm σ 1) (1 / 2 : ℝ)) = ∑ i, conjChannel (K i) := hK
   have hx' : levelPerm σ 1 (x, 0) ≠ (x, 0) := by
     rw [levelPerm_apply]

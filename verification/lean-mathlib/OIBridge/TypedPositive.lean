@@ -1,5 +1,5 @@
 import OIBridge.TypedCompletion
-import OIBridge.PositiveReachability
+import OIBridge.PositivePackage
 import OIBridge.MinimalRepertoire
 
 /-!

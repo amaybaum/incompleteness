@@ -913,24 +913,33 @@ for fname, names in (
                              'oiPlus_of_oiPlusEmbedded', 'qm_of_oiPlusEmbedded', 'oiPlusEmbedded_of_qm', 'oiPlusEmbedded_iff_qm',
                              'oiPlusEmbedded_iff_oiPlus', 'carrier_general_oiPlusEmbedded')),
     ('ImplementationLocality', ('twoPosFamily_regrouping', 'twoPosFamily_relabelling', 'countermodel_ambient', 'countermodel_embeddedObservation',
-                                'countermodel_reversibleRichness', 'redundancy_fails', 'form_fixed_existence_fails', 'cp_of_realized',
-                                'realized_withSpectator', 'parallel_of_implementationLocal', 'observationalIndependence_of_implementationLocality',
-                                'krausSoundExt_of_implementationGenerated', 'validity_of_implementationLocality', 'fullClass_contextStable',
-                                'fullClass_labelInvariant', 'generated_of_qm', 'implementationLocality_of_qm', 'countermodel_not_implementationGenerated',
-                                'countermodel_not_implementationLocality', 'implementationLocality_independent', 'oiPlusEmbedded_of_oiPlusLocal',
-                                'qm_of_oiPlusLocal', 'oiPlusLocal_of_qm', 'oiPlusLocal_iff_qm', 'oiPlusLocal_iff_oiPlusEmbedded',
-                                'carrier_general_oiPlusLocal')),
-    ('MicroscopicReversibility', ('reversibleRichness_iff', 'control_of_lieRank_inverse', 'dyad_sum_span_single', 'conjChannel_smul',
-                                  'kraus_of_conj_unitary', 'implementationLocality_of_reversible', 'inverseAccessibility_of_generated_daggerStable',
-                                  'inverseAccessibility_of_reversibleImplementationLocality', 'fullClass_daggerStable', 'reversibleImplementationLocality_of_qm',
+                                'countermodel_reversibleRichness', 'redundancy_fails', 'form_fixed_existence_fails', 'conjChannel_trace_iff',
+                                'instAvail_mono', 'instAvail_trace', 'fullClass_contextStable', 'fullClass_labelInvariant', 'cp_of_realized',
+                                'conjChannel_smul', 'realized_conj', 'realized_zero', 'realized_add', 'realized_sum', 'sum_comp', 'comp_sum',
+                                'realized_comp', 'realized_smul_nonneg', 'realized_transport', 'realized_id', 'realized_localLuders',
+                                'realized_discard', 'fullClass_arch', 'realized_of_instAvail', 'cp_of_instAvail', 'instAvail_comp_one',
+                                'instAvail_one_comp', 'instAvail_id', 'transport_refl', 'transport_trans', 'transport_comp', 'reindex_reindex',
+                                'uniformAttach_reindex', 'transport_discard', 'instAvail_transport', 'tensorOf_conjTranspose',
+                                'amplRefL_conjChannel', 'amplRefL_sum', 'refBlockR_amplRef', 'amplRefL_comp', 'tensorOf_one_reindex',
+                                'tensorOf_one_readProj', 'amplRefL_transport', 'refBlockR_reindex_uniformAttach', 'amplRefL_discard',
+                                'instAvail_spectator', 'instAvail_withSpectator', 'realized_withSpectator', 'genFamily_regrouping',
+                                'genFamily_relabelling', 'genTheory_ambient', 'genTheory_embeddedObservation', 'genTheory_availExt_iff',
+                                'genTheory_fullClass_control', 'genTheory_mono', 'genTheory_generated', 'genTheory_implementationLocality',
+                                'parallel_of_implementationLocal', 'observationalIndependence_of_implementationLocality',
+                                'krausSoundExt_of_implementationGenerated', 'validity_of_implementationLocality',
+                                'instAvail_fullClass_of_krausFamily', 'generated_of_qm', 'implementationLocality_of_qm',
+                                'countermodel_not_implementationGenerated', 'countermodel_not_implementationLocality',
+                                'implementationLocality_independent', 'oiPlusEmbedded_of_oiPlusLocal', 'qm_of_oiPlusLocal', 'oiPlusLocal_of_qm',
+                                'oiPlusLocal_iff_qm', 'oiPlusLocal_iff_oiPlusEmbedded', 'carrier_general_oiPlusLocal')),
+    ('MicroscopicReversibility', ('reversibleRichness_iff', 'control_of_lieRank_inverse', 'control_of_lieRank', 'inverseAccessibility_of_lieRank',
+                                  'dyad_sum_span_single', 'kraus_of_conj_unitary', 'implementationLocality_of_reversible', 'conjChannel_zero',
+                                  'exists_scaled_mem_of_instAvail_unitary', 'inverseAccessibility_of_generated_daggerStable',
+                                  'inverseAccessibility_of_reversibleImplementationLocality', 'genTheory_reversibleImplementationLocality',
+                                  'fullClass_daggerStable', 'fullClass_unitaryRaySaturated', 'reversibleImplementationLocality_of_qm',
                                   'oiPlusLocal_of_oiPlusMicro', 'qm_of_oiPlusMicro', 'oiPlusMicro_of_qm', 'oiPlusMicro_iff_qm',
                                   'oiPlusMicro_iff_oiPlusLocal', 'carrier_general_oiPlusMicro')),
-    ('LieRankSource', ('realized_conj', 'realized_zero', 'realized_add', 'realized_sum',
-                     'sum_comp', 'comp_sum', 'realized_comp', 'realized_smul_nonneg',
-                     'realized_transport', 'realized_id', 'realized_localLuders', 'realized_discard',
-                     'genFamily_regrouping', 'genFamily_relabelling', 'genTheory_ambient', 'genTheory_embeddedObservation',
-                     'genTheory_generated', 'genTheory_reversibleImplementationLocality', 'diagClass_arch', 'diagClass_contextStable',
-                     'diagClass_labelInvariant', 'diagClass_daggerStable', 'preservesDiag_conj_of_diag', 'diagGen_not_control',
+    ('LieRankSource', ('diagClass_arch', 'diagClass_contextStable',
+                     'diagClass_labelInvariant', 'diagClass_daggerStable', 'diagClass_unitaryRaySaturated', 'preservesDiag_conj_of_diag', 'diagGen_not_control',
                      'lieRank_not_redundant', 'single_apply', 'single_conjTranspose', 'single_smul_one',
                      'transition_hermitian', 'phaseGate_conjTranspose', 'phaseGate_unitary', 'permMatrix_one',
                      'permMatrix_mul', 'perm_conj_transition', 'perm_conj_transitionY', 'phase_conj_transition',
@@ -940,8 +949,9 @@ for fname, names in (
                      'lieRank_of_elementary', 'elementary_of_control', 'oiPlusMicro_of_oiPlusElem', 'qm_of_oiPlusElem',
                      'oiPlusElem_of_qm', 'oiPlusElem_iff_qm', 'oiPlusElem_iff_oiPlusMicro', 'carrier_general_oiPlusElem',
                      'elementary_not_redundant')),
+    ('PositivePackage', ('oiPlusPos_iff_qm', 'oiPlusPos_iff_oiPlusElem', 'carrier_general_oiPlusPos')),
     ('SubstratumSource', ('genTheory_avail_conj', 'genTheory_elementary', 'quantumArchitecture_supplies_all',
-                       'genTheory_qm_of_quantumArchitecture', 'fullClass_arch', 'fullClass_drivesElementary', 'fullClass_quantumArchitecture',
+                       'genTheory_qm_of_quantumArchitecture', 'fullClass_drivesElementary', 'fullClass_quantumArchitecture',
                        'qm_generated_by_quantumArchitecture', 'diagClass_not_drivesElementary', 'diagGen_not_quantumArchitectureGenerated')),
     ('SubstratumInterface', ('monomial_permMatrix', 'monomial_diagonal', 'bijectiveOperator_monomial', 'phaseOperator_monomial',
                           'exchange_monomial', 'phase_monomial', 'monomial_entry', 'preservesDiag_conj_of_monomial',
@@ -953,7 +963,7 @@ for fname, names in (
                           'monomial_iff_submonomial', 'submonomial_one', 'submonomial_mul', 'submonomial_smul',
                           'submonomial_diagonal', 'submonomial_block', 'substratumClass_arch', 'tensor_one_entry_ne_zero',
                           'submonomial_tensor_one', 'substratumClass_contextStable', 'submonomial_reindex',
-                          'substratumClass_labelInvariant', 'submonomial_conjTranspose', 'substratumClass_daggerStable',
+                          'substratumClass_labelInvariant', 'submonomial_conjTranspose', 'substratumClass_daggerStable', 'substratumClass_unitaryRaySaturated',
                           'bijectiveOperator_conjTranspose', 'phaseOperator_conjTranspose', 'substratumClass_structurallyClosed',
                           'bijectiveOperator_supplied', 'phaseOperator_supplied', 'readWriteOperator_supplied',
                           'substratumGen_not_control', 'substratumGen_not_qm', 'quantumArchitecture_iff_drives_of_closed',
@@ -1797,8 +1807,9 @@ ok6 &= 'theorem implementationLocality_of_observationalIndependence' not in ilo
 ok6 &= 'theorem contextStable_redundant' not in ilo and 'theorem richness_of_' not in ilo
 ok6 &= 'structure FiniteOperationalTheory' not in ilo and 'native_decide' not in ilo
 # Round-58 guards: the split of reversible richness; dagger stability stated without the
-# availability vocabulary; the inverse clause derived; the redundancy test recorded as open in
-# both directions; no redundancy theorem or countermodel claimed.
+# availability vocabulary; the inverse clause derived from dagger stability under unitary-ray
+# saturation and, after the inverse-clause audit, from Lie-rank control on the well-formed theory;
+# no countermodel claimed.
 mrv = open(os.path.join(BRIDGE, 'OIBridge', 'MicroscopicReversibility.lean'), encoding='utf-8').read()
 _mrvflat = ' '.join(mrv.split())
 ok6 &= 'theorem reversibleRichness_iff' in mrv and 'InverseAccessibility T ∧ LieRankRichness T := Iff.rfl' in _mrvflat
@@ -1811,8 +1822,9 @@ _cm = ' '.join(_slice(mrv, 'theorem carrier_general_oiPlusMicro', ':=').split())
 ok6 &= bool(_cm) and '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A)' in _cm
 ok6 &= _cm.endswith('OIPlusMicro T ↔ ExactAllFiniteEndomorphicQuantumOps T')
 ok6 &= 'def OIPlusMicro : Prop := ReversibleImplementationLocality T ∧ LieRankRichness T ∧ EmbeddedObservation T' in _mrvflat
-ok6 &= 'is NOT settled here, in either direction' in _mrvflat
-ok6 &= 'theorem inverseAccessibility_of_lieRank' not in mrv and 'theorem inverse_redundant' not in mrv
+ok6 &= 'force inverse accessibility' in _mrvflat and 'consumes no inverse of a control' in _mrvflat
+ok6 &= 'theorem inverseAccessibility_of_lieRank [Nonempty A] (hwf : WellFormed T)' in _mrvflat
+ok6 &= 'theorem inverse_redundant' not in mrv
 ok6 &= 'theorem inverseAccessibility_independent' not in mrv and 'theorem daggerStable_of_inverse' not in mrv
 ok6 &= 'theorem lieRank_of_' not in mrv
 ok6 &= 'structure FiniteOperationalTheory' not in mrv and 'native_decide' not in mrv
@@ -2626,7 +2638,14 @@ _inv = open(os.path.join(os.path.dirname(BRIDGE), 'INVERSE-CLAUSE-AUDIT.md'),
 _inv1 = re.sub(r'\s+', ' ', _inv)
 _pr = open(os.path.join(BRIDGE, 'OIBridge', 'PositiveReachability.lean'), encoding='utf-8').read()
 _prflat = ' '.join(_pr.split())
+_mrv = open(os.path.join(BRIDGE, 'OIBridge', 'MicroscopicReversibility.lean'), encoding='utf-8').read()
+_mrvflat = ' '.join(_mrv.split())
+_ppk = open(os.path.join(BRIDGE, 'OIBridge', 'PositivePackage.lean'), encoding='utf-8').read()
+_ppkflat = ' '.join(_ppk.split())
 ok_inv = True
+# the positive-reachability core sits upstream of the implementation-locality stack
+ok_inv &= 'import OIBridge.LieRankSource' not in _pr and 'import OIBridge.PositiveReachability' in _mrv
+ok_inv &= 'import OIBridge.PositiveReachability' in _ppk and 'namespace PositiveReachability' in _ppk
 ok_inv &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _pr) is None and 'native_decide' not in _pr
 ok_inv &= 'structure FiniteOperationalTheory' not in _pr and 'axiom ' not in _pr
 _inv_names = ('avail_of_mem_posReach', 'exists_pow_tendsto_one', 'exists_pow_pred_tendsto_star',
@@ -2635,12 +2654,18 @@ _inv_names = ('avail_of_mem_posReach', 'exists_pow_tendsto_one', 'exists_pow_pre
               'exists_nested_spanning', 'wordMap_mem_posReach', 'wordMap_hasStrictFDerivAt',
               'psiW_hasStrictFDerivAt', 'psiDerivW_surjective', 'posReach_mem_nhds_totalProd',
               'nhds_one_of_nhds_mem', 'eq_top_of_nhds_one', 'posReach_eq_top',
-              'universalReachability_of_lieRank_positive', 'control_of_lieRank',
-              'inverseAccessibility_of_lieRank', 'oiPlusPos_iff_qm', 'oiPlusPos_iff_oiPlusElem',
-              'carrier_general_oiPlusPos')
+              'universalReachability_of_lieRank_positive')
+_inv_names_mrv = ('control_of_lieRank', 'inverseAccessibility_of_lieRank')
+_inv_names_ppk = ('oiPlusPos_iff_qm', 'oiPlusPos_iff_oiPlusElem', 'carrier_general_oiPlusPos')
 for _nm in _inv_names:
     ok_inv &= ('#print axioms ' + _nm) in _pr
+for _nm in _inv_names_mrv:
+    ok_inv &= ('#print axioms ' + _nm) in _mrv
+for _nm in _inv_names_ppk:
+    ok_inv &= ('#print axioms ' + _nm) in _ppk
 ok_inv &= _pr.count('#print axioms') == len(_inv_names)
+ok_inv &= _ppk.count('#print axioms') == len(_inv_names_ppk)
+ok_inv &= len(_inv_names) + len(_inv_names_mrv) + len(_inv_names_ppk) == 24
 # the positive monoid is a Submonoid closure of the round-fifty generators, with no inverse
 ok_inv &= 'Submonoid.closure (generators H U)' in _prflat
 # the reachability theorem carries no adjoint-closure hypothesis
@@ -2648,12 +2673,13 @@ _urp = _slice(_pr, 'theorem universalReachability_of_lieRank_positive', ':= by')
 ok_inv &= bool(_urp) and 'hstar' not in _urp and 'conjChannel Vᴴ' not in _urp
 ok_inv &= 'UniversalUnitaryReachability avail' in ' '.join(_urp.split())
 # the theory-level statements are the ones the note names
-ok_inv &= 'theorem control_of_lieRank (h : LieRankRichness T) : HasCompositeUnitaryControl T' in _prflat
-ok_inv &= 'def OIPlusPos : Prop := ImplementationLocality T ∧ ElementaryTransitionRichness T ∧ EmbeddedObservation T' in _prflat
-_cgp = ' '.join(_slice(_pr, 'theorem carrier_general_oiPlusPos', ':=').split())
+ok_inv &= 'theorem control_of_lieRank (h : LieRankRichness T) : HasCompositeUnitaryControl T' in _mrvflat
+ok_inv &= 'def OIPlusPos : Prop := ImplementationLocality T ∧ ElementaryTransitionRichness T ∧ EmbeddedObservation T' in _ppkflat
+_cgp = ' '.join(_slice(_ppk, 'theorem carrier_general_oiPlusPos', ':=').split())
 ok_inv &= bool(_cgp) and '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A]' in _cgp
 ok_inv &= _cgp.endswith('OIPlusPos T ↔ LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps T')
-ok_inv &= 'DaggerStable' not in _pr and 'ReversibleImplementationLocality T ∧' not in _slice(_pr, 'def OIPlusPos', 'variable')
+ok_inv &= 'DaggerStable' not in _pr and 'DaggerStable' not in _ppk
+ok_inv &= 'ReversibleImplementationLocality T ∧' not in _slice(_ppk, 'def OIPlusPos', 'variable')
 # the note records the fork, the outcome, the twenty-four results and its non-claims
 ok_inv &= _inv.lstrip().startswith('# The inverse-clause audit')
 ok_inv &= 'Status: Outcome A of the preregistered fork, proved.' in _inv1
@@ -2661,8 +2687,9 @@ for _t in ('Outcome A — direct redundancy', 'Outcome B — only inverse deriva
            'Outcome C — independence', 'The order of attack is A, B, C',
            'Twenty-four named results', 'What this note does not claim'):
     ok_inv &= _t in _inv1
-for _nm in _inv_names:
+for _nm in _inv_names + _inv_names_mrv + _inv_names_ppk:
     ok_inv &= _nm in _inv
+ok_inv &= '## Migration, recorded after the round' in _inv and 'PositivePackage' in _inv
 for _bad in ('HControl is necessary', 'minimal elementary repertoire is settled',
              'dagger stability is false', 'inverse accessibility implies dagger stability',
              'quantum mechanics requires OI', 'non-compact'):
@@ -2687,10 +2714,12 @@ for _t in (_caa, _rd, _inv, _psa_txt):
                  'inverse clause is forced by Lie-rank richness alone',
                  'forced by Lie-rank richness alone', 'InverseAccessibility T := by'):
         ok_inv &= _bad not in _t1
-ok_inv &= 'theorem inverseAccessibility_of_lieRank [Nonempty A] (hwf : WellFormed T) (h : LieRankRichness T) : InverseAccessibility T' in _prflat
+ok_inv &= 'theorem inverseAccessibility_of_lieRank [Nonempty A] (hwf : WellFormed T) (h : LieRankRichness T) : InverseAccessibility T' in _mrvflat
 check('R7-INV', ok_inv,
       'Inverse-clause guard: the positive-reachability module carries no sorry, axiom or '
-      'native_decide and prints the axioms of exactly its twenty-four results; the positive '
+      'native_decide, imports nothing of the implementation-locality stack and prints the axioms of '
+      'exactly its nineteen results, the two theory-level theorems printing in MicroscopicReversibility '
+      'and the three package results in PositivePackage, twenty-four in all; the positive '
       'monoid is a Submonoid closure of the round-fifty generators; the reachability theorem '
       'carries no hstar hypothesis; control_of_lieRank and OIPlusPos are stated as in the note, '
       'with the carrier-general equivalence quantified over every nonempty finite carrier and no '
@@ -3575,10 +3604,10 @@ _san1 = re.sub(r'\s+', ' ', _san)
 ok_sub &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sa) is None and 'native_decide' not in _sa
 ok_sub &= 'axiom ' not in re.sub(r'/-.*?-/', '', _sa, flags=re.S)
 _sa_names = re.findall(r"^theorem ([\w']+)", _sa, re.M)
-ok_sub &= len(_sa_names) == 81
+ok_sub &= len(_sa_names) == 82
 for _nm in _sa_names:
     ok_sub &= re.search(r'^#print axioms (?:[\w.]+\.)?' + re.escape(_nm) + r'$', _sa, re.M) is not None
-ok_sub &= _sa.count('#print axioms') == 81
+ok_sub &= _sa.count('#print axioms') == 82
 # distinction 4: no executability question, no intermediate-time unitary
 ok_sub &= 'LayerFlowExecutable' not in _sa and 'gateFlow' not in _sa and 'unit (' not in _sa
 ok_sub &= 'driveQ' not in _sa and 'layerQ' not in _sa and 'swapQ' not in _sa
@@ -3686,16 +3715,18 @@ _cen_sa = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-M
 ok_sub &= '| substratum interface: sourced observer theory | 1 | kernel-only |' in _cen_sa
 for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI', 'obsTheory', 'PreservesNonneg',
            'permClass_le_of_exchanges', 'bijectionLevel_not_phasesAvailable', 'permTheory_realizesSealedOICore',
-           'obsTheory_rule_independent', 'Eighty-one named results', 'exact missing conjunct',
+           'obsTheory_rule_independent', 'Eighty-two named results', 'exact missing conjunct',
            'the full gap to `SubstratumAvail` is not characterized by the pass',
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '120 modules' in _rd1 and '2,749 named results' in _rd1
+ok_sub &= '121 modules' in _rd1 and '2,699 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
+ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
+ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
 check('R7-SUB', ok_sub,
       'Substratum-interface guard: the module carries no sorry, axiom or native_decide and prints the axioms '
-      'of exactly its eighty-one results; it asks no executability question (no LayerFlowExecutable, gateFlow, '
+      'of exactly its eighty-two results, the sourced class unitary-ray saturated after the migration; it asks no executability question (no LayerFlowExecutable, gateFlow, '
       'unit or drive); it defines A1, A2, A3, A3Family, A4Exact, A4 and A5 verbatim as pinned with no predicate '
       'for A6 and no ManuscriptOI; it defines the sourced class, the sourced and observer theories, the '
       'nonnegativity invariant, the bijection-level classes and SourcedOI verbatim, with the canonicity of the '
@@ -3715,7 +3746,7 @@ check('R7-SUB', ok_sub,
 # by definition; the sourced class migrated; the scalar-hull regression theorem; nothing weakens;
 # the restriction recorded as not sufficient for the flow endpoint; no manuscript narrates it ----
 ok_scal = True
-_lrs = open(os.path.join(BRIDGE, 'OIBridge', 'LieRankSource.lean'), encoding='utf-8').read()
+_lrs = open(os.path.join(BRIDGE, 'OIBridge', 'ImplementationLocality.lean'), encoding='utf-8').read()
 _lrsflat = ' '.join(_lrs.split())
 _sc = open(os.path.join(BRIDGE, 'OIBridge', 'ScalarClosure.lean'), encoding='utf-8').read()
 _scflat = ' '.join(_sc.split())
@@ -3729,12 +3760,15 @@ ok_scal &= '(K : Matrix S S ℂ), 𝓘 S K → 𝓘 S (a • K)' not in _lrsflat
 ok_scal &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sc) is None and 'native_decide' not in _sc
 ok_scal &= 'axiom ' not in re.sub(r'/-.*?-/', '', _sc, flags=re.S)
 _sc_names = re.findall(r"^theorem ([\w']+)", _sc, re.M)
-ok_scal &= len(_sc_names) == 10 and _sc.count('#print axioms') == 10
+ok_scal &= len(_sc_names) == 12 and _sc.count('#print axioms') == 12
 for _nm in _sc_names:
     ok_scal &= ('#print axioms ' + _nm) in _sc
 for _nm in ('genTheory_availExt_eq', 'realized_real_smul', 'realized_scalarHull_iff', 'scalarHull_arch',
-            'scalarHull_permClass_iff', 'permTheory_hull_availExt_iff'):
+            'scalarHull_permClass_iff', 'permTheory_hull_availExt_iff', 'permClass_of_scalarHull_isometry',
+            'instAvail_scalarHull_permClass'):
     ok_scal &= _nm in _sc_names and _nm in _scn1
+ok_scal &= '(genTheory 𝓘 arch A).availExt n O F ↔ InstAvail 𝓘 (A × Fin n) O F' in _scflat
+ok_scal &= '## Migration to instrument realization, recorded after the round' in _scn
 ok_scal &= ("def scalarHull (𝓘 : ImplementationClass) : ImplementationClass := fun S _ _ K => "
             "∃ (a : ℂ) (K' : Matrix S S ℂ), 𝓘 S K' ∧ K = a • K'") in _scflat
 ok_scal &= 'Realized (scalarHull 𝓘) S Φ ↔ Realized 𝓘 S Φ' in _scflat
@@ -3766,23 +3800,24 @@ ok_scal &= _sc_fam[0]['manuscript'] == [] and 'not sufficient for the flow endpo
 _cen_sc = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_scal &= '| scalar closure: contractive architecture | 1 | verification-only |' in _cen_sc
 for _t in ('`R7-SCAL`', 'SCALAR-CLOSURE-AUDIT.md', 'realized_scalarHull_iff', 'permTheory_hull_availExt_iff',
-           'Ten named results', 'modulus at most one', 'Nothing weakens', 'is not sufficient for the flow endpoint'):
+           'instAvail_scalarHull_permClass', 'Twelve named results', 'modulus at most one', 'Nothing weakens',
+           'is not sufficient for the flow endpoint'):
     ok_scal &= _t in _rd1
 check('R7-SCAL', ok_scal,
       'Scalar-closure guard: Architecture.smul and the hypotheses that feed it are stated for scalars of modulus '
       'at most one and the unrestricted form is absent; realized_smul_nonneg carries the bound; the module carries '
-      'no sorry, axiom or native_decide and prints the axioms of exactly its ten results, with the scalar hull, the '
-      'regression theorem and its instance for the migrated sourced class stated as pinned; the note records the '
+      'no sorry, axiom or native_decide and prints the axioms of exactly its twelve results, with the scalar hull, the '
+      'regression theorem and its instance for the migrated sourced class, re-proved for instrument realization, '
+      'stated as pinned; the note records the '
       'owner decision, the change fixed in advance, the census before the change, the five tests before the '
       'outcome, the outcome per test, nothing weakening, the restriction as not sufficient for the flow endpoint, '
       'and the non-claims; no manuscript narrates the scalar closure; the registry and the census carry the family '
       'as verification-only and the README carries the paragraph and the counts.')
 
-# ---- The instrument-realization audit: the replacement of branch-wise realization by an
-# inductive predicate with five constructors and no sum; soundness; the instrument theory of an
-# architecture; the stack re-established under instrument names with phase saturation the one
-# added hypothesis; the protocol invariant and the countercontrol in the closed-form ones-fixing
-# class; the branch-wise definitions unchanged; the flow endpoint neither asserted nor refuted ----
+# ---- The instrument-realization audit, after its migration: the inductive predicate with five
+# constructors and no sum is the implementation semantics of the kernel; the module keeps the
+# branch-wise comparison object, the protocol invariant and the countercontrol in the closed-form
+# ones-fixing class; the flow endpoint neither asserted nor refuted ----
 ok_inst = True
 _ir = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentRealization.lean'), encoding='utf-8').read()
 _irflat = ' '.join(_ir.split())
@@ -3793,13 +3828,13 @@ _ilflat = ' '.join(_il.split())
 ok_inst &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _ir) is None and 'native_decide' not in _ir
 ok_inst &= 'axiom ' not in re.sub(r'/-.*?-/', '', _ir, flags=re.S)
 _ir_names = re.findall(r"^theorem ([\w']+)", _ir, re.M)
-ok_inst &= len(_ir_names) == 163 and _ir.count('#print axioms') == 163
+ok_inst &= len(_ir_names) == 69 and _ir.count('#print axioms') == 69
 for _nm in _ir_names:
     ok_inst &= ('#print axioms ' + _nm) in _ir
-# the inductive definition: exactly five constructors, named, and no sum
-_i_ind = _ir.find('inductive InstAvail (𝓘 : ImplementationClass) :')
-ok_inst &= _i_ind > 0
-_ind_block = _ir[_i_ind:_ir.find('\n\n', _i_ind)]
+# the inductive definition lives in ImplementationLocality: exactly five constructors, named, no sum
+_i_ind = _il.find('inductive InstAvail (𝓘 : ImplementationClass) :')
+ok_inst &= _i_ind > 0 and 'inductive InstAvail' not in _ir
+_ind_block = _il[_i_ind:_il.find('\n\n', _i_ind)]
 _ctors = re.findall(r'^  \| (\w+)', _ind_block, re.M)
 ok_inst &= _ctors == ['op', 'readout', 'coarse', 'bind', 'discard']
 ok_inst &= '∑' not in ' '.join(l for l in _ind_block.splitlines() if l.strip().startswith('| op') or l.strip().startswith('| bind') or l.strip().startswith('| discard'))
@@ -3808,29 +3843,33 @@ for _t in ('| op {T : Type} [Fintype T] [DecidableEq T] (K : Matrix T T ℂ) (hK
            'InstAvail 𝓘 T (O × O\') (fun c => (G c.1 c.2).comp (F c.1))',
            '| discard {T : Type} [Fintype T] [DecidableEq T] {m : ℕ} (hm : 0 < m) {O : Type} [Fintype O] [DecidableEq O]',
            'InstAvail 𝓘 T O (fun a => discardWith (A := T) m (uniformAttach m) (F a))',
-           'theorem instAvail_trace',
-           'theorem realized_of_instAvail (arch : Architecture 𝓘)',
+           'theorem instAvail_trace', 'theorem realized_of_instAvail (arch : Architecture 𝓘)',
+           'theorem instAvail_withSpectator', 'theorem genTheory_embeddedObservation',
+           'theorem instAvail_fullClass_of_krausFamily'):
+    ok_inst &= _t in _ilflat
+# the comparison object and T2 in the module
+for _t in ('def IsGenInstrument (𝓘 : ImplementationClass) (S : Type) [Fintype S] [DecidableEq S] {O : Type} [Fintype O] [DecidableEq O] (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop := (∀ a, Realized 𝓘 S (F a)) ∧ ∀ X, ∑ a, ((F a) X).trace = X.trace',
+           'noncomputable def branchTheory', 'avail := fun _ _ _ F => IsGenInstrument 𝓘 S F',
            'theorem isGenInstrument_of_instAvail (arch : Architecture 𝓘)',
+           '(h : (genTheory 𝓘 arch A).availExt n O F) : (branchTheory 𝓘 arch A).availExt n O F',
            'def OnesNormal (T : Type) [Fintype T] [DecidableEq T] {O : Type} [Fintype O] [DecidableEq O] (F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ) : Prop := ∃ (ι : Type) (_ : Fintype ι) (K : ι → Matrix T T ℂ) (out : ι → O), (∀ a, F a = ∑ i ∈ Finset.univ.filter (fun i => out i = a), conjChannel (K i)) ∧ ∑ i, (K i)ᴴ *ᵥ ones T = ones T',
            'def OnesFixing (𝓘 : ImplementationClass) : Prop := ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ), 𝓘 S K → Kᴴ * K = 1 → ∃ z : ℂ, K *ᵥ ones S = z • ones S',
            'theorem instAvail_onesNormal (hf : OnesFixing 𝓘)',
            'theorem instAvail_unitary_fixes_ones (hf : OnesFixing 𝓘)',
            'theorem isometry_fixes_ones : OnesFixing onesClass',
-           'theorem flow_realized_not_instrumentRealized {a b c : T} (hab : a ≠ b) (hca : c ≠ a) (hcb : c ≠ b) : IsGenInstrument onesClass T (fun _ : Unit => conjChannel (ReachabilitySeam.flow (transition a b) (Real.pi / 2))) ∧ ¬ InstAvail onesClass T Unit (fun _ => conjChannel (ReachabilitySeam.flow (transition a b) (Real.pi / 2)))',
-           'def PhaseSaturated (𝓘 : ImplementationClass) : Prop :=',
-           '(hs : PhaseSaturated 𝓘) : InverseAccessibility T',
-           'theorem instrumentGenerated_of_qm', 'theorem countermodel_not_instrumentGenerated',
-           'theorem oiPlusMinInst_iff_qm', 'theorem routeB_target_inst : RouteBTargetInst',
-           'theorem instTheory_embeddedObservation', 'theorem instAvail_withSpectator'):
+           'theorem flow_realized_not_instrumentRealized {a b c : T} (hab : a ≠ b) (hca : c ≠ a) (hcb : c ≠ b) : IsGenInstrument onesClass T (fun _ : Unit => conjChannel (ReachabilitySeam.flow (transition a b) (Real.pi / 2))) ∧ ¬ InstAvail onesClass T Unit (fun _ => conjChannel (ReachabilitySeam.flow (transition a b) (Real.pi / 2)))'):
     ok_inst &= _t in _irflat
 ok_inst &= 'LayerFlowExecutable' not in _ir
-# the branch-wise definitions are unchanged
-ok_inst &= 'Φ = ∑ i, conjChannel (K i) ∧ ∀ i, 𝓘 S (K i)' in _ilflat
-ok_inst &= 'T.availExt N O F ↔ (∀ a, Realized 𝓘 (A × Fin N) (F a)) ∧ ∀ X, ∑ a, ((F a) X).trace = X.trace' in _ilflat
-# the note: the defect, the census, the shape, the tests, the non-doings, the amendments precede the outcome
+for _bad in ('PhaseSaturated', 'InstrumentGenerated', 'InstrumentLocality', 'OIPlusInst', 'OIPlusMinInst',
+             'DerivedOIInst', 'SourcedOIInst', 'RouteBTargetInst', 'SubstratumAvailInst', 'instTheory',
+             'substratumInstTheory', 'permInstTheory'):
+    ok_inst &= _bad not in _ir
+# the note: the defect, the census, the shape, the tests, the non-doings, the amendments precede the
+# outcome, and the migration section follows it
 _j = [_irn.find(h) for h in ('## The defect', '## The census of consumers, taken before the change',
       '## The replacement, as an object to be defined', '## The tests, each with its admissible outcomes',
-      '## What the round does not do', '## Amendments, recorded after the preregistration', '## The outcome')]
+      '## What the round does not do', '## Amendments, recorded after the preregistration', '## The outcome',
+      '## What this note does not claim', '## Migration, recorded after the round')]
 ok_inst &= all(x > 0 for x in _j) and _j == sorted(_j)
 ok_inst &= _irn.lstrip().startswith('# The instrument-realization audit')
 for _t in ('Preregistration commit `9741199`', 'amendments commit `1f730b2`', 'Uniform ancilla: yes',
@@ -3839,42 +3878,165 @@ for _t in ('Preregistration commit `9741199`', 'amendments commit `1f730b2`', 'U
            '| T1 | ', '| T2 | ', '| T3 | ', '| T4 | ', '| T5 | ', '| T6 | ', '163 named results',
            'provenance removes the replication', '### T4, the survival record',
            'added hypotheses `Architecture 𝓘` and `PhaseSaturated 𝓘`', 'a recorded deviation',
-           'What this note does not claim', 'That `Realized` or `ImplementationGenerated` has changed'):
+           'What this note does not claim', 'That `Realized` or `ImplementationGenerated` has changed',
+           'INSTRUMENT-MIGRATION-AUDIT.md', 'UnitaryRaySaturated', 'genTheory_le_branchTheory', '69 named results'):
     ok_inst &= _t in _irn1
 ok_inst &= 'Status: pass complete' in _irn1
 for _bad in ('settles the flow endpoint', 'the flow endpoint holds', 'the flow endpoint is refuted',
              'flowTheory fails', 'flowTheory has phase-free richness',
              'OI implies QM', 'quantum mechanics requires OI', 'bare OI implies',
-             'the countermodel is established', 'ImplementationGenerated is replaced'):
+             'the countermodel is established'):
     ok_inst &= not _asserted(_irn, _bad)
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_inst &= 'InstrumentRealization' not in _t and 'InstAvail' not in _t and 'instrument-realized' not in _t
+    ok_inst &= 'UnitaryRaySaturated' not in _t and 'branchTheory' not in _t
 _ir_fam = [f for f in _ptr_reg['families'] if f['name'] == 'instrument realization: one-instrument provenance']
 ok_inst &= len(_ir_fam) == 1 and _ir_fam[0]['status'] == 'verification-only' and _ir_fam[0]['modules'] == ['InstrumentRealization']
 ok_inst &= _ir_fam[0]['manuscript'] == [] and 'provenance removes the replication' in _ir_fam[0]['note'] and 'flow endpoint' in _ir_fam[0]['note']
+ok_inst &= 'implementation semantics of the kernel' in _ir_fam[0]['note'] and 'UnitaryRaySaturated' in _ir_fam[0]['note']
 _cen_ir = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_inst &= '| instrument realization: one-instrument provenance | 1 | verification-only |' in _cen_ir
+ok_inst &= 'implementation semantics of the kernel after its migration' in _cen_ir
 for _t in ('`R7-INST`', 'INSTRUMENT-REALIZATION-AUDIT.md', 'flow_realized_not_instrumentRealized',
-           'instAvail_unitary_fixes_ones', '163 named results', 'provenance removes the replication',
-           'PhaseSaturated', 'neither asserted nor refuted'):
+           'instAvail_unitary_fixes_ones', 'Sixty-nine named results', 'provenance removes the replication',
+           'genTheory_le_branchTheory', 'neither asserted nor refuted'):
     ok_inst &= _t in _rd1
 check('R7-INST', ok_inst,
-      'Instrument-realization guard: InstAvail is an inductive predicate with exactly the five constructors '
-      'op, readout, coarse, bind and discard, no constructor taking a sum, its step an admissible isometry, its '
-      'readout a register readout with admissible projectors and its discard of positive size, stated as '
-      'pinned; the module carries no sorry, axiom or native_decide and prints the axioms of exactly its 163 '
-      'results; the trace and soundness theorems, the protocol invariant OnesNormal, the ones-fixing property, '
-      'the general negative theorem and the countercontrol in the closed-form class, phase saturation with '
-      'inverse accessibility, the quantum, countermodel, package and Route B forms and the embedded-observation '
-      'and spectator closures are stated as pinned; the module mentions no executability; the branch-wise '
-      'Realized and ImplementationGenerated are unchanged; the note keeps the defect, the census, the shape, '
-      'the tests, the non-doings and the amendments before the outcome, names both commits, the owner decision, '
-      'the six outcomes, the survival record with the one added hypothesis, the deviation in the class of the '
-      'countercontrol and the non-claims, and asserts nothing about the flow endpoint; no manuscript carries '
-      'the primitive; the registry and the census carry the family as verification-only and the README carries '
-      'the paragraph and the counts.')
+      'Instrument-realization guard: InstAvail is an inductive predicate in ImplementationLocality with exactly '
+      'the five constructors op, readout, coarse, bind and discard, no constructor taking a sum, its step an '
+      'admissible isometry, its readout a register readout with admissible projectors and its discard of '
+      'positive size, stated as pinned; the module carries no sorry, axiom or native_decide and prints the '
+      'axioms of exactly its sixty-nine results; the branch-wise comparison object, the inclusion of the '
+      'generated theory in the branch-wise theory, the protocol invariant OnesNormal, the ones-fixing property, '
+      'the general negative theorem and the countercontrol in the closed-form class are stated as pinned; the '
+      'module mentions no executability and none of the parallel names of the previous round; the note keeps '
+      'the defect, the census, the shape, the tests, the non-doings and the amendments before the outcome, names '
+      'both commits, the owner decision, the six outcomes, the survival record, the deviation in the class of the '
+      'countercontrol and the non-claims, carries its migration section after them, and asserts nothing about the '
+      'flow endpoint; no manuscript carries the primitive; the registry and the census carry the family as '
+      'verification-only with the migrated description and the README carries the paragraph and the count.')
+
+# ---- The instrument-migration audit: provenance-aware realization as the implementation semantics
+# in place; the parallel names gone; the saturation condition renamed, local to inverse
+# accessibility and in no package; the positive-reachability core upstream of the stack; the four
+# frozen notes with a migration section each; no manuscript edited ----
+ok_mig = True
+_mgn = open(os.path.join(os.path.dirname(BRIDGE), 'INSTRUMENT-MIGRATION-AUDIT.md'), encoding='utf-8').read()
+_mgn1 = re.sub(r'\s+', ' ', _mgn)
+_mrv2 = open(os.path.join(BRIDGE, 'OIBridge', 'MicroscopicReversibility.lean'), encoding='utf-8').read()
+_mrv2flat = ' '.join(_mrv2.split())
+_lrs2 = open(os.path.join(BRIDGE, 'OIBridge', 'LieRankSource.lean'), encoding='utf-8').read()
+_lrs2flat = ' '.join(_lrs2.split())
+# M1: the semantics, in place
+ok_mig &= ('def ImplementationGenerated (T : FiniteOperationalTheory A) (𝓘 : ImplementationClass) : Prop := '
+           '∀ (N : ℕ), 0 < N → ∀ (O : Type) [Fintype O] [DecidableEq O] '
+           '(F : O → Matrix (A × Fin N) (A × Fin N) ℂ →ₗ[ℂ] Matrix (A × Fin N) (A × Fin N) ℂ), '
+           'T.availExt N O F ↔ InstAvail 𝓘 (A × Fin N) O F') in _ilflat
+ok_mig &= '(∀ a, Realized 𝓘 (A × Fin N) (F a)) ∧ ∀ X, ∑ a, ((F a) X).trace = X.trace' not in _ilflat
+ok_mig &= 'noncomputable def genTheory (S : Type) [Fintype S] [DecidableEq S] : FiniteOperationalTheory S where avail := fun _ _ _ F => InstAvail 𝓘 S _ F availExt := fun _ _ _ _ F => InstAvail 𝓘 _ _ F' in _ilflat
+ok_mig &= 'def Realized (𝓘 : ImplementationClass)' in _il and 'Φ = ∑ i, conjChannel (K i) ∧ ∀ i, 𝓘 S (K i)' in _ilflat
+ok_mig &= 'structure Architecture (𝓘 : ImplementationClass) : Prop where' in _il
+ok_mig &= _il.index('inductive InstAvail') < _il.index('def ImplementationGenerated') < _il.index('structure Architecture') < _il.index('noncomputable def genTheory')
+ok_mig &= 'def ImplementationLocality (T : FiniteOperationalTheory A) : Prop := ∃ 𝓘 : ImplementationClass, ImplementationGenerated T 𝓘 ∧ ContextStable 𝓘 ∧ LabelInvariant 𝓘' in _ilflat
+# M2: the three statements fixed in advance, and no other
+ok_mig &= ('theorem inverseAccessibility_of_generated_daggerStable [Nonempty A] {T : FiniteOperationalTheory A} '
+           '{𝓘 : ImplementationClass} (arch : Architecture 𝓘) (hg : ImplementationGenerated T 𝓘) (hd : DaggerStable 𝓘) '
+           '(hs : UnitaryRaySaturated 𝓘) : InverseAccessibility T') in _mrv2flat
+ok_mig &= ('(harch : ∀ 𝓘, ImplementationGenerated T 𝓘 → Architecture 𝓘 ∧ UnitaryRaySaturated 𝓘) : InverseAccessibility T') in _mrv2flat
+ok_mig &= 'def ReversibleImplementationLocality (T : FiniteOperationalTheory A) : Prop := ∃ 𝓘 : ImplementationClass, ImplementationGenerated T 𝓘 ∧ ContextStable 𝓘 ∧ LabelInvariant 𝓘 ∧ DaggerStable 𝓘' in _mrv2flat
+ok_mig &= 'theorem control_of_lieRank (h : LieRankRichness T) : HasCompositeUnitaryControl T' in _mrv2flat
+ok_mig &= 'theorem genTheory_reversibleImplementationLocality' in _mrv2 and 'theorem genTheory_reversibleImplementationLocality' not in _lrs2
+# M3: the compressed sets keep their statements; the inverse clause from Lie-rank control
+ok_mig &= 'theorem oiPlusMicro_iff_qm : OIPlusMicro T ↔ ExactAllFiniteEndomorphicQuantumOps T' in _mrv2flat
+ok_mig &= 'inverseAccessibility_of_lieRank T' in _slice(_mrv2, 'theorem oiPlusLocal_of_oiPlusMicro', 'theorem qm_of_oiPlusMicro')
+ok_mig &= 'theorem oiPlusElem_iff_qm : OIPlusElem T ↔ ExactAllFiniteEndomorphicQuantumOps T' in _lrs2flat
+ok_mig &= 'theorem oiPlusLocal_iff_qm : OIPlusLocal T ↔ ExactAllFiniteEndomorphicQuantumOps T' in _ilflat
+# M4: saturation defined once, beside inverse accessibility, in no package and in no equivalence
+ok_mig &= ('def UnitaryRaySaturated (𝓘 : ImplementationClass) : Prop := ∀ (S : Type) [Fintype S] [DecidableEq S] '
+           '(c : ℂ) (V : Matrix S S ℂ), c ≠ 0 → Vᴴ * V = 1 → 𝓘 S (c • V) → 𝓘 S V') in _mrv2flat
+ok_mig &= _mrv2.count('def UnitaryRaySaturated') == 1
+_all_src = {}
+for _f in sorted(os.listdir(os.path.join(BRIDGE, 'OIBridge'))):
+    if _f.endswith('.lean'):
+        _all_src[_f] = open(os.path.join(BRIDGE, 'OIBridge', _f), encoding='utf-8').read()
+for _f, _t in _all_src.items():
+    for _blk in re.findall(r'^def OIPlus\w+.*?(?=\n\n)', _t, re.S | re.M):
+        ok_mig &= 'UnitaryRaySaturated' not in _blk
+    for _blk in re.findall(r'^theorem \w+_iff_qm.*?(?=:=)', _t, re.S | re.M):
+        ok_mig &= 'UnitaryRaySaturated' not in _blk
+    for _blk in re.findall(r'^theorem carrier_general_\w+.*?(?=:=)', _t, re.S | re.M):
+        ok_mig &= 'UnitaryRaySaturated' not in _blk
+for _nm in ('fullClass_unitaryRaySaturated', 'diagClass_unitaryRaySaturated',
+            'substratumClass_unitaryRaySaturated', 'permClass_unitaryRaySaturated'):
+    ok_mig &= any(('#print axioms ' + _nm) in _t for _t in _all_src.values())
+# M5: one name per result: the parallel names are absent from the whole kernel
+for _bad in ('PhaseSaturated', 'InstrumentGenerated', 'InstrumentLocality', 'OIPlusInst', 'OIPlusMinInst',
+             'DerivedOIInst', 'SourcedOIInst', 'RouteBTargetInst', 'SubstratumAvailInst', 'instTheory',
+             'instFamily', 'substratumInstTheory', 'permInstTheory', 'inverseAccessibility_of_instrumentGenerated'):
+    ok_mig &= all(_bad not in _t for _t in _all_src.values())
+# the positive-reachability core upstream of the stack, the package downstream, every name unchanged
+ok_mig &= 'import OIBridge.LieRankSource' not in _all_src['PositiveReachability.lean']
+ok_mig &= 'import OIBridge.PositiveReachability' in _all_src['MicroscopicReversibility.lean']
+ok_mig &= 'namespace PositiveReachability' in _all_src['PositivePackage.lean'] and 'import OIBridge.PositivePackage' in root
+ok_mig &= 'import OIBridge.PositivePackage' in _all_src['MinimalRepertoire.lean'] and 'import OIBridge.PositivePackage' in _all_src['TypedPositive.lean']
+# the consumers: proofs through soundness and monotonicity, statements unchanged
+ok_mig &= 'InstAvail.op V hV hiso' in _all_src['SubstratumSource.lean']
+ok_mig &= 'instAvail_mono (fun S _ _ K hK => h S K hK) hF' in _all_src['ManuscriptAxioms.lean']
+for _f in ('RouteB.lean', 'LiftAudit.lean', 'ManuscriptAxioms.lean', 'SubstratumInterfaceAudit.lean', 'StructuralClosure.lean', 'LieRankSource.lean'):
+    ok_mig &= 'realized_of_instAvail' in _all_src[_f]
+ok_mig &= all('hav.1 ()' not in _t for _t in _all_src.values())
+# the note: decision, census, plan, tests and non-doings precede the outcome and the non-claims
+_k = [_mgn.find(h) for h in ('## The decision it implements', '## The census of what changes, taken before the edit',
+      '## The module plan, fixed in advance', '## The tests, each with its admissible outcomes',
+      '## What the round does not do', '## The outcome', '## What this note does not claim')]
+ok_mig &= all(x > 0 for x in _k) and _k == sorted(_k)
+ok_mig &= _mgn.lstrip().startswith('# The instrument-migration audit')
+ok_mig &= 'Status: pass complete' in _mgn1 and 'Preregistration commit `45e6063`' in _mgn1
+for _t in ('rename `PhaseSaturated` to `UnitaryRaySaturated`', '**M1. The semantics.**', '**M2. Statements.**',
+           '**M3. The compressed sets.**', '**M4. Saturation, local.**', '**M5. One name per result.**',
+           '**M6. The surfaces.**', '**M7. The checks.**', '| M1 | ', '| M2 | ', '| M3 | ', '| M4 | ', '| M5 | ',
+           '| M6 | ', '| M7 | ', 'The names, each to its canonical counterpart', 'Two parallel results dropped',
+           'Where the saturation condition is consumed', 'owner decision for a propagation round',
+           'No further theorem needed a hypothesis', 'What this note does not claim', '121 modules and 2,699'):
+    ok_mig &= _t in _mgn1
+for _bad in ('settles the flow endpoint', 'the flow endpoint holds', 'the flow endpoint is refuted',
+             'flowTheory fails', 'flowTheory has phase-free richness', 'OI implies QM',
+             'quantum mechanics requires OI', 'bare OI implies', 'the countermodel is established',
+             'the GR sentences are wrong', 'the manuscripts are wrong'):
+    ok_mig &= not _asserted(_mgn, _bad)
+# the four frozen notes carry a migration section each; no manuscript is edited
+for _rel, _hdr in (('SUBSTRATUM-INTERFACE-AUDIT.md', '## Migration to instrument realization, recorded after the round'),
+                   ('SCALAR-CLOSURE-AUDIT.md', '## Migration to instrument realization, recorded after the round'),
+                   ('INSTRUMENT-REALIZATION-AUDIT.md', '## Migration, recorded after the round'),
+                   ('INVERSE-CLAUSE-AUDIT.md', '## Migration, recorded after the round')):
+    _t = open(os.path.join(os.path.dirname(BRIDGE), _rel), encoding='utf-8').read()
+    ok_mig &= _hdr in _t and 'INSTRUMENT-MIGRATION-AUDIT.md' in _t
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    ok_mig &= 'InstAvail' not in _t and 'UnitaryRaySaturated' not in _t and 'INSTRUMENT-MIGRATION' not in _t
+_gr_txt = open(os.path.join(_msroot, 'papers/GR.md'), encoding='utf-8').read()
+ok_mig &= 'with aggregate probability normalization' in _gr_txt
+for _t in ('`R7-MIG`', 'INSTRUMENT-MIGRATION-AUDIT.md', 'UnitaryRaySaturated', 'genTheory_le_branchTheory',
+           'inverseAccessibility_of_lieRank', 'PositivePackage', 'canonical implementation semantics'):
+    ok_mig &= _t in _rd1
+check('R7-MIG', ok_mig,
+      'Instrument-migration guard: ImplementationGenerated is instrument realization by the class and genTheory '
+      'carries the instrument fields, in ImplementationLocality with the inductive predicate, the architecture and '
+      'the closures upstream of them, the branch-wise generation clause absent and Realized kept as the comparison '
+      'notion; exactly the three statements fixed in advance changed, inverse accessibility from dagger stability '
+      'carrying Architecture and UnitaryRaySaturated, its per-class corollary the same, and genTheory_availExt_eq '
+      'the new predicate; the compressed sets keep their statements with the inverse clause from Lie-rank control '
+      'on the well-formed theory; UnitaryRaySaturated is defined once beside inverse accessibility, holds for the '
+      'four classes and occurs in no package and in no equivalence; the parallel names of the previous round are '
+      'absent from the kernel; the positive-reachability core imports nothing of the stack and the package sits in '
+      'PositivePackage under the same namespace; the consumers are repaired through soundness and monotonicity; '
+      'the note keeps the decision, the census, the plan, the tests and the non-doings before the outcome, names '
+      'the preregistration commit, the seven outcomes, the name map, the two dropped results, where saturation is '
+      'consumed and the GR sentences as an owner decision, and asserts nothing about the flow endpoint; the four '
+      'frozen notes carry a migration section each; no manuscript is edited; the README carries the paragraph.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

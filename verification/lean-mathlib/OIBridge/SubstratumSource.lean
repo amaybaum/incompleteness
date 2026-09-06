@@ -103,7 +103,7 @@ variable {A : Type} [Fintype A] [DecidableEq A]
 theorem genTheory_avail_conj {n : ℕ} {V : Matrix (A × Fin n) (A × Fin n) ℂ}
     (hV : 𝓘 (A × Fin n) V) (hiso : Vᴴ * V = 1) :
     (genTheory 𝓘 arch A).availExt n Unit (fun _ => conjChannel V) :=
-  ⟨fun _ => realized_conj hV, fun X => by rw [Fintype.sum_unique]; exact conjChannel_trace V hiso X⟩
+  InstAvail.op V hV hiso
 
 /-- **THE GENERATED THEORY DRIVES THE ELEMENTARY TRANSITIONS** when the class does. -/
 theorem genTheory_elementary (hd : DrivesElementary 𝓘) :
@@ -143,14 +143,6 @@ end Collapse
 /-! ### Section D — the full class is a quantum architecture; QM is generated -/
 
 section Full
-
-/-- The full class is an architecture. -/
-theorem fullClass_arch : Architecture fullClass where
-  one := fun _ _ _ => trivial
-  mul := fun _ _ _ _ _ _ _ => trivial
-  smul := fun _ _ _ _ _ _ _ => trivial
-  proj := fun _ _ _ _ _ => trivial
-  block := fun _ _ _ _ _ _ _ _ => trivial
 
 theorem fullClass_drivesElementary : DrivesElementary fullClass :=
   ⟨fun _ _ _ _ _ _ => trivial, fun _ _ _ _ _ => trivial, fun _ _ _ _ => trivial⟩
@@ -205,7 +197,6 @@ end Decisive
 #print axioms genTheory_elementary
 #print axioms quantumArchitecture_supplies_all
 #print axioms genTheory_qm_of_quantumArchitecture
-#print axioms fullClass_arch
 #print axioms fullClass_drivesElementary
 #print axioms fullClass_quantumArchitecture
 #print axioms qm_generated_by_quantumArchitecture

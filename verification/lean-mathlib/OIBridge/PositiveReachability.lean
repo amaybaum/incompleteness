@@ -1,5 +1,4 @@
 import OIBridge.OrbitReachability
-import OIBridge.LieRankSource
 
 /-!
 # Positive reachability: Lie-rank richness gives full control with no inverse clause
@@ -38,12 +37,13 @@ of a control anywhere: every unitary is a positive word in the flows, the contro
   (`eq_top_of_nhds_one`: a symmetric neighbourhood generates an open, hence clopen, subgroup of the
   connected unitary group, and the subgroup it generates is the submonoid it generates). Hence
   `posReach_eq_top` and `universalReachability_of_lieRank_positive`.
-* **The theory-level consequence** (Section H). `control_of_lieRank`: Lie-rank richness alone gives
-  full composite unitary control. Inverse accessibility is then derived
-  (`inverseAccessibility_of_lieRank`), and the package `OIPlusPos` — implementation locality,
-  elementary transition richness, embedded observation, with **no dagger stability** — is
-  equivalent to exact finite endomorphic operational QM on every nonempty finite carrier
-  (`carrier_general_oiPlusPos`).
+* **The theory-level consequence** lives downstream. `control_of_lieRank` and
+  `inverseAccessibility_of_lieRank` are stated in `MicroscopicReversibility`, which imports this
+  module; the package `OIPlusPos` — implementation locality, elementary transition richness,
+  embedded observation, with **no dagger stability** — and its equivalence with exact finite
+  endomorphic operational QM on every nonempty finite carrier (`carrier_general_oiPlusPos`) are in
+  `PositivePackage`. Sections A–G below are stated on the reachable monoid alone and use nothing
+  from the implementation-locality stack.
 
 **Not claimed.** Anything about non-compact or infinite-dimensional groups; that `HControl` is
 necessary for positive reachability; the minimal elementary repertoire; anything about context
@@ -1013,80 +1013,6 @@ theorem universalReachability_of_lieRank_positive (H : Matrix S S ℂ)
     exact avail_of_mem_posReach H U avail hmul hone hflow hctrl
       ⟨V, mem_unitary_of_conjTranspose_mul hV⟩ hmem
 
-/-! ### Section H — the theory-level consequence: dagger stability leaves the package -/
-
-section Theory
-
-open OperationalAssembly AncillaClosure OIHierarchyGeneral MicroReversibility InterventionLocality
-open PrimitiveSource LieRankSource GeneralCarrier PhysicalCharacterization LevelOneSeam
-
-variable {A : Type} [Fintype A] [DecidableEq A] (T : FiniteOperationalTheory A)
-
-/-- **LIE-RANK RICHNESS ALONE GIVES FULL COMPOSITE UNITARY CONTROL**: the inverse clause of
-reversible richness is not consumed. -/
-theorem control_of_lieRank (h : LieRankRichness T) : HasCompositeUnitaryControl T := by
-  intro n V hV
-  obtain ⟨G, H, U, hH, hU, hLie, hflow, hctrl⟩ := h n
-  let avail : ∀ m : ℕ, (Fin m → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ]
-      Matrix (A × Fin n) (A × Fin n) ℂ) → Prop :=
-    fun m F => ∀ i : Fin m, T.availExt n Unit (fun _ => F i)
-  have hreach : UniversalUnitaryReachability avail :=
-    universalReachability_of_lieRank_positive H U hH hU hLie avail
-      (fun V W hV hW i => by
-        have := availExt_comp_unit T n _ _ (hW i) (hV i)
-        rwa [conjChannel_mul_general] at this)
-      (fun _ => by
-        have := hflow 0
-        rwa [OIHierarchy.flow_zero] at this)
-      (fun t _ => hflow t) (fun g _ => hctrl g)
-  exact hreach V hV 0
-
-/-- **INVERSE ACCESSIBILITY IS DERIVED** from Lie-rank richness on a well-formed theory. -/
-theorem inverseAccessibility_of_lieRank [Nonempty A] (hwf : WellFormed T) (h : LieRankRichness T) :
-    InverseAccessibility T :=
-  (reversibleRichness_of_control T hwf (control_of_lieRank T h)).1
-
-/-- **THE PACKAGE WITHOUT DAGGER STABILITY**: implementation locality, elementary transition
-richness, embedded observation. -/
-def OIPlusPos : Prop :=
-  ImplementationLocality T ∧ ElementaryTransitionRichness T ∧ EmbeddedObservation T
-
-variable [Nonempty A]
-
-theorem qm_of_oiPlusPos (h : OIPlusPos T) : ExactAllFiniteEndomorphicQuantumOps T := by
-  obtain ⟨hloc, helem, hemb⟩ := h
-  have hwf : WellFormed T :=
-    ⟨validity_of_implementationLocality hloc, systemToLevelOne_of_embeddedObservation hemb⟩
-  rw [exactAll_iff_substantive T hwf]
-  exact ⟨(observationalIndependence_iff_inert T).mp
-      (observationalIndependence_of_implementationLocality hloc),
-    control_of_lieRank T (lieRank_of_elementary T helem), closure_of_embeddedObservation hemb⟩
-
-theorem oiPlusPos_of_qm (h : ExactAllFiniteEndomorphicQuantumOps T) : OIPlusPos T :=
-  ⟨implementationLocality_of_qm T h, elementary_of_control T (physical_of_exactAll T h).2.2.1,
-    embeddedObservation_of_qm T h⟩
-
-/-- **THE PACKAGE WITHOUT DAGGER STABILITY ⟺ FINITE OPERATIONAL QM**, on any nonempty finite
-carrier. -/
-theorem oiPlusPos_iff_qm : OIPlusPos T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
-  ⟨qm_of_oiPlusPos T, oiPlusPos_of_qm T⟩
-
-omit [Nonempty A] in
-theorem oiPlusPos_of_oiPlusElem (h : OIPlusElem T) : OIPlusPos T :=
-  ⟨implementationLocality_of_reversible h.1, h.2.1, h.2.2⟩
-
-theorem oiPlusPos_iff_oiPlusElem : OIPlusPos T ↔ OIPlusElem T := by
-  rw [oiPlusPos_iff_qm, oiPlusElem_iff_qm]
-
-end Theory
-
-/-- **THE CARRIER-GENERAL STATEMENT**, quantified over the carrier. -/
-theorem carrier_general_oiPlusPos :
-    ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A]
-      (T : OperationalAssembly.FiniteOperationalTheory A),
-      OIPlusPos T ↔ LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps T :=
-  fun _ _ _ _ T => oiPlusPos_iff_qm T
-
 #print axioms avail_of_mem_posReach
 #print axioms exists_pow_tendsto_one
 #print axioms exists_pow_pred_tendsto_star
@@ -1106,11 +1032,6 @@ theorem carrier_general_oiPlusPos :
 #print axioms eq_top_of_nhds_one
 #print axioms posReach_eq_top
 #print axioms universalReachability_of_lieRank_positive
-#print axioms control_of_lieRank
-#print axioms inverseAccessibility_of_lieRank
-#print axioms oiPlusPos_iff_qm
-#print axioms oiPlusPos_iff_oiPlusElem
-#print axioms carrier_general_oiPlusPos
 
 end PositiveReachability
 end OIBridge

@@ -146,11 +146,8 @@ generated theories of implementation classes; it bounds a sourcing of a substrat
 that sourcing factors through such a class. -/
 theorem configurationLevel_availExt_le (h : ConfigurationLevel 𝓘) {n : ℕ} {O : Type} [Fintype O]
     [DecidableEq O] (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
-    (hF : (genTheory 𝓘 arch A).availExt n O F) : (substratumTheory A).availExt n O F := by
-  obtain ⟨hreal, htr⟩ := hF
-  refine ⟨fun a => ?_, htr⟩
-  obtain ⟨ι, _, K, hK, hadm⟩ := hreal a
-  exact ⟨ι, inferInstance, K, hK, fun i => h _ _ (hadm i)⟩
+    (hF : (genTheory 𝓘 arch A).availExt n O F) : (substratumTheory A).availExt n O F :=
+  instAvail_mono (fun S _ _ K hK => h S K hK) hF
 
 /-- **THE FALSIFIER IS UNAVAILABLE IN THE THEORY OF EVERY CONFIGURATION-LEVEL CLASS**: an
 available conjugation is a sum of monomial conjugations, each preserving the diagonal, which
@@ -158,7 +155,7 @@ available conjugation is a sum of monomial conjugations, each preserving the dia
 theorem configurationLevel_falsifierUnavailable (h : ConfigurationLevel 𝓘) :
     FalsifierUnavailable (genTheory 𝓘 arch (Fin 2)) := by
   intro hav
-  obtain ⟨ι, _, K, hK, hadm⟩ := hav.1 ()
+  obtain ⟨ι, _, K, hK, hadm⟩ := realized_of_instAvail arch hav ()
   have hK' : conjChannel rot = ∑ i, conjChannel (K i) := hK
   apply rot_not_preservesDiag
   rw [hK']

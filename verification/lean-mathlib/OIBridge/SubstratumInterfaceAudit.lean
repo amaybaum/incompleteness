@@ -366,6 +366,42 @@ theorem permClass_labelInvariant : LabelInvariant permClass :=
 theorem permClass_daggerStable : DaggerStable permClass :=
   fun _ _ _ _ hK => scaled_conjTranspose hK
 
+/-- **THE SOURCED CLASS IS UNITARY-RAY SATURATED**: a unitary with a nonzero multiple in the
+class is in the class, its common entry having modulus at most one by the row norm. -/
+theorem permClass_unitaryRaySaturated : UnitaryRaySaturated permClass := by
+  intro S _ _ c V hc hV hK
+  obtain ⟨hsub, c₀, hc₀, hall⟩ := hK
+  have hne : ∀ i j, V i j ≠ 0 → (c • V) i j ≠ 0 := fun i j h => by
+    rw [Matrix.smul_apply, smul_eq_mul]
+    exact mul_ne_zero hc h
+  have hentry : ∀ i j, V i j ≠ 0 → V i j = c₀ / c := fun i j h => by
+    have := hall i j (hne i j h)
+    rw [Matrix.smul_apply, smul_eq_mul] at this
+    rw [← this, mul_div_cancel_left₀ _ hc]
+  refine ⟨⟨fun i j j' h h' => hsub.1 i j j' (hne i j h) (hne i j' h'),
+    fun i i' j h h' => hsub.2 i i' j (hne i j h) (hne i' j h')⟩, ?_⟩
+  by_cases hex : ∃ i j, V i j ≠ 0
+  · obtain ⟨i, j, hij⟩ := hex
+    refine ⟨c₀ / c, ?_, hentry⟩
+    have hVV : V * Vᴴ = 1 := mul_eq_one_comm.mp hV
+    have hrow := congrFun (congrFun hVV i) i
+    rw [Matrix.mul_apply, Matrix.one_apply_eq] at hrow
+    have h1 : (∑ k, Complex.normSq (V i k) : ℝ) = 1 := by
+      have h2 : ∑ k, V i k * Vᴴ k i = ((∑ k, Complex.normSq (V i k) : ℝ) : ℂ) := by
+        push_cast
+        refine Finset.sum_congr rfl fun k _ => ?_
+        rw [Matrix.conjTranspose_apply, Complex.star_def, Complex.mul_conj]
+      rw [h2] at hrow
+      exact_mod_cast hrow
+    have hle : Complex.normSq (V i j) ≤ 1 := by
+      rw [← h1]
+      exact Finset.single_le_sum (fun k _ => Complex.normSq_nonneg _) (Finset.mem_univ j)
+    rw [hentry i j hij, Complex.normSq_eq_norm_sq] at hle
+    exact (pow_le_one_iff_of_nonneg (norm_nonneg _) two_ne_zero).mp hle
+  · have hex' : ∀ i j, V i j = 0 := fun i j => by_contra fun h => hex ⟨i, j, h⟩
+    exact ⟨0, by simp, fun i j h => absurd (hex' i j) h⟩
+
+
 /-- **EVERY PERMUTATION MATRIX IS IN THE SOURCED CLASS.** -/
 theorem permClass_permMatrix (σ : Equiv.Perm S) : permClass S (permMatrix σ) := by
   refine ⟨monomial_submonomial (monomial_permMatrix σ), 1, norm_one.le, fun i j h => ?_⟩
@@ -546,7 +582,8 @@ theorem bijectionLevel_not_phasesAvailable [Nonempty A] {𝓘 : ImplementationCl
     (arch : Architecture 𝓘) (hb : BijectionLevel 𝓘) : ¬ PhasesAvailable (genTheory 𝓘 arch A) := by
   intro hp
   have hav := hp 2 (Classical.arbitrary A, 0)
-  exact phaseGate_not_preservesNonneg _ (preservesNonneg_of_realized hb (hav.1 ()))
+  exact phaseGate_not_preservesNonneg _
+    (preservesNonneg_of_realized hb (realized_of_instAvail arch hav ()))
 
 /-- **A DIAGONAL CONJUGATION AVAILABLE IN THE THEORY OF A BIJECTION-LEVEL CLASS HAS PAIRWISE
 NONNEGATIVE WEIGHTS**: a diagonal unitary available in it is a global phase. -/
@@ -554,7 +591,8 @@ theorem bijectionLevel_diagonal_only_scalar {𝓘 : ImplementationClass} (arch :
     (hb : BijectionLevel 𝓘) {n : ℕ} {d : A × Fin n → ℂ}
     (hav : (genTheory 𝓘 arch A).availExt n Unit (fun _ => conjChannel (Matrix.diagonal d))) :
     ∀ p q, 0 ≤ d p * star (d q) :=
-  diagonal_nonneg_of_preservesNonneg (preservesNonneg_of_realized hb (hav.1 ()))
+  diagonal_nonneg_of_preservesNonneg
+    (preservesNonneg_of_realized hb (realized_of_instAvail arch hav ()))
 
 end Nonneg
 
@@ -641,7 +679,8 @@ theorem permTheory_diagonal_only_scalar {n : ℕ} {d : A × Fin n → ℂ}
 /-- **NO SIGN DIAGONAL IS AVAILABLE IN THE SOURCED THEORY.** -/
 theorem permTheory_no_sign {n : ℕ} {d : A × Fin n → ℂ} {p q : A × Fin n} (hp : d p = 1)
     (hq : d q = -1) : ¬ (permTheory A).availExt n Unit (fun _ => conjChannel (Matrix.diagonal d)) :=
-  fun hav => sign_not_preservesNonneg hp hq (preservesNonneg_of_realized permClass_bijectionLevel (hav.1 ()))
+  fun hav => sign_not_preservesNonneg hp hq
+    (preservesNonneg_of_realized permClass_bijectionLevel (realized_of_instAvail permClass_arch hav ()))
 
 /-- **THE SOURCED THEORY FAILS `DerivedOI`**: the phases are the failing conjunct. -/
 theorem permTheory_not_derivedOI [Nonempty A] : ¬ DerivedOI (permTheory A) :=
@@ -852,6 +891,7 @@ end Observer
 #print axioms permClass_contextStable
 #print axioms permClass_labelInvariant
 #print axioms permClass_daggerStable
+#print axioms permClass_unitaryRaySaturated
 #print axioms permClass_permMatrix
 #print axioms permClass_readWrite
 #print axioms permClass_le_substratum
