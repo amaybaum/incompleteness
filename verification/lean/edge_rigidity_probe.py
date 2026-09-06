@@ -3574,13 +3574,13 @@ for _bad in ('the lift is derivable', 'the lift is not derivable', 'Route A is c
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
-    ok_lift &= 'LiftAudit' not in _t and 'LayerFlowExecutable' not in _t and 'gateFlow' not in _t
+    ok_lift &= 'LayerFlowExecutable' not in _t and 'gateFlow_isolation`' not in _t and 'SubstratumAvail' not in _t
 _la_fam = [f for f in _ptr_reg['families'] if f['name'] == 'lift audit: executable layer flows']
-ok_lift &= len(_la_fam) == 1 and _la_fam[0]['status'] == 'kernel-only' and _la_fam[0]['modules'] == ['LiftAudit']
-ok_lift &= _la_fam[0]['manuscript'] == [] and 'about whether the observer-level lift is derivable' in _la_fam[0]['note']
+ok_lift &= len(_la_fam) == 1 and _la_fam[0]['status'] == 'current' and _la_fam[0]['modules'] == ['LiftAudit']
+ok_lift &= _la_fam[0]['manuscript'] != [] and 'about whether the observer-level lift is derivable' in _la_fam[0]['note']
 ok_lift &= 'relative to the baseline DerivedOI with SubstratumAvail' in _la_fam[0]['note'] and 'is open' in _la_fam[0]['note']
 _cen_la = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
-ok_lift &= '| lift audit: executable layer flows | 1 | kernel-only |' in _cen_la
+ok_lift &= '| lift audit: executable layer flows | 1 | current |' in _cen_la
 for _t in ('`R7-LIFT`', 'LIFT-AUDIT.md', 'LayerFlowExecutable', 'gateFlow_isolation', 'phaseFree_of_layerFlowExecutable',
            'derivedOI_qm_iff_layerFlowExecutable', 'Fifty-six named results', 'never the composite drive',
            'one non-monomial gate is not a result', 'is open, not established by this pass', 'strengthened Q3′',
@@ -4453,12 +4453,11 @@ ok_q3 &= _psn.find('## What this note does not claim') < _psn.find('## The decis
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
-    ok_q3 &= 'DerivedQ3' not in _t and 'gateFlow_isolation_flip' not in _t and 'flipAt' not in _t
-    ok_q3 &= 'DERIVED-Q3' not in _t and 'LayerFlowExecutable' not in _t
+    ok_q3 &= 'flipAt' not in _t and 'DERIVED-Q3' not in _t and 'LayerFlowExecutable' not in _t
 _q3_fam = [f for f in _ptr_reg['families'] if f['name'] == 'Q3 from the closure: one executable layer flow']
-ok_q3 &= len(_q3_fam) == 1 and _q3_fam[0]['status'] == 'kernel-only' and _q3_fam[0]['modules'] == ['DerivedQ3']
-ok_q3 &= _q3_fam[0]['manuscript'] == [] and 'sign-flip identity' in _q3_fam[0]['note'] and 'explicit hypothesis' in _q3_fam[0]['note']
-ok_q3 &= '| Q3 from the closure: one executable layer flow | 1 | kernel-only |' in _cen_ps
+ok_q3 &= len(_q3_fam) == 1 and _q3_fam[0]['status'] == 'current' and _q3_fam[0]['modules'] == ['DerivedQ3']
+ok_q3 &= _q3_fam[0]['manuscript'] != [] and 'sign-flip identity' in _q3_fam[0]['note'] and 'explicit hypothesis' in _q3_fam[0]['note']
+ok_q3 &= '| Q3 from the closure: one executable layer flow | 1 | current |' in _cen_ps
 for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFree_of_derivedOI_layerFlowExecutable',
            "derivedOI_qm_iff_layerFlowExecutable'", 'derivedOI_layerFlowExecutable_one_not_phaseFree',
            'Seventeen named results', 'time reversal replacing the continuous phase',
@@ -4476,8 +4475,114 @@ check('R7-Q3', ok_q3,
       'tests, the meanings and the non-doings before the outcome, names both commits, records the constructive branch '
       'with the negative branch not reached, and asserts nothing about sourcing the phases, minimality, the lift, '
       'Route A or the manuscripts; the lift audit and the phase-source note carry the decision after their frozen '
-      'text; no manuscript is edited; the registry and the census carry the family as kernel-only and the README '
+      'text; the registry and the census carry the family as current after the propagation round and the README '
       'carries the paragraph and the counts.')
+
+# ---- the Q3 propagation: the layer-flow endpoint in GR 3.3 and the summaries, publication-only, the
+# witness of each direction named, both sourcing qualifications kept, the families current ----
+ok_q3p = True
+_qpn = open(os.path.join(os.path.dirname(BRIDGE), 'Q3-PROPAGATION-AUDIT.md'), encoding='utf-8').read()
+_qpn1 = re.sub(r'\s+', ' ', _qpn)
+ok_q3p &= _qpn.lstrip().startswith('# The Q3 propagation round')
+_kqp = [_qpn.find(h) for h in ('## The items, fixed in advance', '## The constraints, fixed in advance',
+        '## The tests, fixed in advance', '## What the round does not do',
+        '## Scope amendment, recorded after the preregistration', '## The outcome')]
+ok_q3p &= all(x > 0 for x in _kqp) and _kqp == sorted(_kqp)
+# the amendment: the generic theorem and the concrete swap-layer instance kept distinct
+ok_q3p &= 'keeps the generic theorem and the concrete instance distinct' in _qpn1
+ok_q3p &= 'scope amendment above' in _qpn[_qpn.find('## The outcome'):]
+for _t in ('Preregistration commit `6eb213b`', 'Status: pass complete', '`main` at `be31589`',
+           '**Item 1, the layer-flow form in `[GR §3.3]`.**',
+           '**Item 3, the registry and the census, per §A.35, in the same commit.**',
+           '**E1. The paragraph.**', '**E6. The checks.**', '| E1 | ', '| E6 | ',
+           'No uniqueness or minimality is claimed', 'six occurrences'):
+    ok_q3p &= _t in _qpn1
+for _bad in ('the executability is derived', 'the phases are derived', 'the phase structure is derived',
+             'the assumptions are minimal', 'the pair is minimal', 'Route A is closed', 'OI implies QM',
+             'bare OI implies', 'the manuscripts are wrong'):
+    ok_q3p &= not _asserted(_qpn, _bad)
+# GR 3.3: the layer-flow form, its display, the witness of each direction, the instance, the two qualifications
+_qgr = open(os.path.join(_msroot, 'papers/GR.md'), encoding='utf-8').read()
+_qgr1 = re.sub(r'\s+', ' ', _qgr)
+for _t in ('**Layer-flow form.**',
+           'text{exact finite endomorphic operational QM} \\;\\iff\\; \\text{one nontrivial layer flow executable}',
+           "`derivedOI_qm_iff_layerFlowExecutable'` in `OIBridge/DerivedQ3.lean`",
+           'The executability is necessary because full unitary control makes every unitary available',
+           '`layerFlowExecutable_of_control` in `OIBridge/LiftAudit.lean`',
+           'the square of the quarter phase on the image of a moved configuration is a sign flip',
+           '`gateFlow_isolation_flip`', '`phaseFree_of_derivedOI_layerFlowExecutable`',
+           '`qm_of_derivedOI_layerFlowExecutable`', "`derivedOI_qm_iff_layerFlowExecutable_swap'`",
+           'For the concrete substratum factorization, the swap-layer flow on a nonempty region with a nontrivial '
+           'alphabet is the one-parameter unitary group of one of its gates and is an instance of this equivalence',
+           'the equivalence itself is stated for each involution with a moved configuration, whether or not it is a '
+           'gate of that factorization',
+           'Two qualifications are part of the statement.',
+           'The phase intervention is an assumption on the substratum class, as stated above, and not a consequence of '
+           'the finite states with the bijective read-write dynamics',
+           'The executability of the layer flow at intermediate times is likewise not derived',
+           '`substratumTheory_not_layerFlowExecutable` in `OIBridge/LiftAudit.lean`',
+           'No uniqueness or minimality is claimed for the pair of assumptions'):
+    ok_q3p &= _t in _qgr1
+ok_q3p &= _qgr.find('**Substratum-source form.**') < _qgr.find('**Layer-flow form.**') < _qgr.find('**Typed form.**')
+ok_q3p &= 'text{current OI substratum} + \\text{continuous off-diagonal controllability}' in _qgr1
+# the summary at the six sites, after the pinned continuous-time clause
+_qsum = ('exact finite endomorphic operational quantum mechanics holds exactly when one continuous layer flow of an '
+         'involution of the configuration space moving some configuration is an available operation at every level '
+         'and every intermediate time, the executability of that flow being an assumption not derived by '
+         'configuration-level generation, as the phase intervention is an assumption on the substratum class and not '
+         'a consequence of the finite states with the bijective dynamics')
+_qcount = 0
+for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md', 'book/ch19-open-problems.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read())
+    ok_q3p &= _qsum in _t1 and _ctn_sum in _t1
+    _qcount += _t1.count(_qsum)
+ok_q3p &= _qcount == 6
+ok_q3p &= ("`derivedOI_qm_iff_layerFlowExecutable'` in `OIBridge/DerivedQ3.lean`, "
+           '`substratumTheory_not_layerFlowExecutable` in `OIBridge/LiftAudit.lean`') in re.sub(r'\s+', ' ',
+           open(os.path.join(_msroot, 'papers/Main.md'), encoding='utf-8').read())
+# the kernel predicates of the boundary, the superseded identifiers, any derivation of either assumption and
+# any minimality claim are absent from every manuscript source and generated form
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/ch01-observation.md', 'book/ch19-open-problems.md', 'book/The-Incompleteness-of-Observation-FULL.md',
+             'papers/GR.tex', 'papers/Main.tex', 'papers/Explainer.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
+    _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read()).replace('\\_', '_')
+    for _bad in ('DerivedOI', 'SourcedOI', 'PhasesAvailable', 'SubstratumAvail', 'RouteB', 'LayerFlowExecutable',
+                 'phaseFree_of_layerFlowExecutable`', 'phaseFree_of_layerFlowExecutable}', 'phaseFree_of_layerFlowExecutable ',
+                 'derivedOI_qm_iff_layerFlowExecutable`', 'derivedOI_qm_iff_layerFlowExecutable}', 'derivedOI_qm_iff_layerFlowExecutable ',
+                 'the executability is derived', 'executability is derived from', 'derives the executability',
+                 'the layer flow is derived', 'the phases are derived', 'derives the phases',
+                 'the pair of assumptions is minimal', 'the assumptions are minimal', 'is the unique resource',
+                 'the minimal resource',
+                 'The layer flow is the one-parameter unitary group of one gate of the depth-two factorization'):
+        ok_q3p &= _bad not in _t1
+# the registry: both families current with anchors, the two supersessions, the census rows, the README
+_qp_fam = [f for f in _ptr_reg['families'] if f['name'] == 'Q3 from the closure: one executable layer flow']
+ok_q3p &= len(_qp_fam) == 1 and _qp_fam[0]['status'] == 'current'
+ok_q3p &= {m['file'] for m in _qp_fam[0]['manuscript']} == {'papers/GR.md', 'papers/Main.md'}
+ok_q3p &= 'carried by no manuscript' not in _qp_fam[0]['note'] and 'Q3-PROPAGATION-AUDIT.md' in _qp_fam[0]['note']
+_qla_fam = [f for f in _ptr_reg['families'] if f['name'] == 'lift audit: executable layer flows']
+ok_q3p &= len(_qla_fam) == 1 and _qla_fam[0]['status'] == 'current'
+ok_q3p &= 'papers/GR.md' in {m['file'] for m in _qla_fam[0]['manuscript']}
+ok_q3p &= 'superseded' in _qla_fam[0]['note'] and 'carried by no manuscript' not in _qla_fam[0]['note']
+for _k, _v in (('phaseFree_of_layerFlowExecutable', 'phaseFree_of_derivedOI_layerFlowExecutable'),
+               ('derivedOI_qm_iff_layerFlowExecutable', "derivedOI_qm_iff_layerFlowExecutable'")):
+    ok_q3p &= _ptr_reg['supersessions'].get(_k) == _v
+ok_q3p &= '| Q3 from the closure: one executable layer flow | 1 | current |' in _cen_ps
+ok_q3p &= '| lift audit: executable layer flows | 1 | current |' in _cen_ps
+for _t in ('`R7-Q3P`', 'Q3-PROPAGATION-AUDIT.md', 'layer-flow form', 'the witness of each direction',
+           'superseded by the endpoint under the closure alone', 'No theorem is added or changed'):
+    ok_q3p &= _t in _rd1
+check('R7-Q3P', ok_q3p,
+      'Q3 propagation guard: the note keeps the items, the constraints, the tests and the non-doings before the '
+      'outcome, names both commits and asserts no derivation of either assumption and no minimality; GR 3.3 carries '
+      'the layer-flow form after the substratum-source form and before the typed form, with its display, the witness '
+      'of each direction named beside it, the swap-layer instance and both sourcing qualifications, the '
+      'substratum-source box standing; the summary sentence occurs at the six sites after the pinned continuous-time '
+      'clause; no manuscript source or generated form names a kernel predicate of the boundary, a superseded '
+      'identifier, a derivation of either assumption or a minimality; the registry carries the Q3 and lift-audit '
+      'families as current with anchors and the two supersessions, the census rows follow, and the README carries '
+      'the round.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
