@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 121 modules and,
-  at this commit, 2,699 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 122 modules and,
+  at this commit, 2,713 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1076,6 +1076,32 @@ section each. Not claimed: the flow endpoint, neither asserted nor refuted, the 
 re-preregistered on the migrated semantics; that inverse accessibility holds for every
 dagger-stable architecture without saturation; any manuscript change, the GR §3.3 sentences on the
 normalization clause being recorded as an owner decision for a propagation round. Guard `R7-MIG`.
+
+`FLOW-ENDPOINT-AUDIT.md` and `OIBridge/FlowEndpoint.lean` decide, on the migrated semantics, the
+arrow the flow-extension audit deferred: `SourcedOI ∧ LayerFlowExecutable ⇏ PhaseFreeRichness`.
+The test theory is `onesTheory A := genTheory onesClass onesClass_arch A`, the theory generated
+by the closed-form ones-fixing class of the instrument-realization audit, a countermodel candidate
+and not a minimal one. It satisfies the sourced closure on every finite carrier, every conjunct a
+single admissible step (`onesTheory_sourcedOI`), and executes the gate flow of every layer
+involution at every level and time (`onesTheory_layerFlowExecutable`); and it drives no pair
+through a quarter turn on any carrier with a third point, since every available unitary
+conjugation fixes the all-ones vector up to a scalar and the transition flow moves it
+(`onesTheory_no_quarter_flow`). The negative was preregistered at level two, where a carrier with
+two states has four, and it is proved there and not elsewhere (`onesTheory_not_phaseFree_general`,
+`onesTheory_not_phaseFree`); on the two-state carrier at level one the transition flow of the one
+pair fixes the ray and no negative is claimed. So on `Fin 2`, with the exchange as the layer, a
+theory with the sourced closure and the executable layer flow and without phase-free richness
+exists (`flow_endpoint_refuted`), and on every carrier with at least two states for every
+involution (`flow_endpoint_refuted_general`). The witness carries no quarter phase, fails
+`PhasesAvailable`, `DerivedOI` and `SubstratumAvail`, and is not quantum mechanics
+(`onesTheory_not_phasesAvailable`, `onesTheory_not_derivedOI`, `onesTheory_not_substratumAvail`,
+`onesTheory_not_qm`): the lift audit's Q3′ is sharp in its hypothesis, the resource the
+executable layer flow lacks being a relative phase, and the lift audit's preregistered Q3, from
+`DerivedOI`, is untouched and stays open. Fifteen named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Not claimed: anything about the arrow from `DerivedOI`; the
+least class of one layer involution, which is not defined; the minimality of the witness; whether
+the observer-level lift is derivable; Route A in either direction; no manuscript changes, none
+narrating the endpoint. Guard `R7-FLOW`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

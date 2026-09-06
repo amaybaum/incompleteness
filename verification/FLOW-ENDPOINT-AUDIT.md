@@ -12,7 +12,7 @@ countercontrol `flow_realized_not_instrumentRealized`), `OIBridge/Implementation
 `INSTRUMENT-MIGRATION-AUDIT.md`, `LIFT-AUDIT.md`; guard `R7-FLOW` in
 `verification/lean/edge_rigidity_probe.py`.
 
-**Status: preregistered, no proof attempted.** Written from `main` at commit `c19c12a`, the merge
+**Status: pass complete. F1–F5 proved as preregistered, the negative at level two; the arrow `SourcedOI ∧ LayerFlowExecutable ⟹ PhaseFreeRichness` is refuted on the migrated semantics; the lift audit's preregistered Q3, from `DerivedOI`, is untouched.** Written from `main` at commit `c19c12a`, the merge
 of the instrument migration, on which both repairs the deferral named have landed: contractive
 scalar closure (`SCALAR-CLOSURE-AUDIT.md`) and provenance-aware realization as the implementation
 semantics (`INSTRUMENT-MIGRATION-AUDIT.md`). The sections below fix the objects, the test theory,
@@ -179,3 +179,49 @@ Define `flowClass`. Change `Architecture`, `InstAvail`, `Realized`, any class or
 Derive `LayerFlowExecutable` from anything; it is a hypothesis of the arrow and a theorem of the
 witness. Read availability off the CT2 path. Edit a manuscript. Propagate Route B. Refresh the
 transfer bundle.
+
+## The outcome
+
+Preregistration commit `4ec3623`. The kernel module is `OIBridge/FlowEndpoint.lean`, fifteen named
+results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Every test reached the
+outcome fixed in advance, at the level fixed in advance; no proved statement differs from the
+preregistered one.
+
+| test | outcome | kernel |
+|---|---|---|
+| F1 | the sourced closure: `onesTheory A` satisfies `SourcedOI` on every finite carrier, every conjunct a single admissible step: reversible implementation locality from the four stability properties of the class, embedded observation from label invariance, the exchanges and the read-write operators as permutation matrices | `onesTheory`, `onesTheory_avail_conj`, `onesTheory_sourcedOI` |
+| F2 | executability: the layer involution read at any level is an involution, its gate flow fixes the all-ones vector and is unitary, so it is one admissible step at every level and time, for every finite carrier and every involution | `levelPerm_involutive`, `onesTheory_layerFlowExecutable` |
+| F3 | the endpoint, negative at level two: on every carrier with a third point no pair's quarter-turn transition flow is available, by the countercontrol of the instrument-realization audit; a carrier with at least two states has at least four at level two, so every pair there has a third point, and `PhaseFreeRichness` fails at `n = 2`; on `Fin 2` in particular. The obstruction was not moved: level two is where it was fixed and where it is proved | `exists_third`, `onesTheory_no_quarter_flow`, `onesTheory_not_phaseFree_general`, `onesTheory_not_phaseFree` |
+| F4 | the endpoint theorem: on the two-state carrier a theory with the sourced closure and the executable layer flow of the exchange and without phase-free richness, `onesTheory (Fin 2)` the witness; and on every carrier with at least two states, for every involution | `flow_endpoint_refuted`, `flow_endpoint_refuted_general` |
+| F5 | the location of the failure: the quarter phase carries the all-ones vector to a vector with `i` at one state and `1` elsewhere, off the ray on a carrier with two states, so the ones-fixing theory carries no quarter phase, fails `PhasesAvailable`, `DerivedOI` and `SubstratumAvail`, and on `Fin 2` is not quantum mechanics | `phaseGate_mulVec_ones`, `onesTheory_not_phasesAvailable`, `onesTheory_not_derivedOI`, `onesTheory_not_substratumAvail`, `onesTheory_not_qm` |
+| F6 | the surfaces: `R7-FLOW` pins the test theory as the generated theory of `onesClass`, the statements of F1–F5 with the level-two locus, the absence of the least class, this note and its non-claims; `FLOW-EXTENSION-AUDIT.md` names this round as its superseding preregistration; `LIFT-AUDIT.md` records that its preregistered Q3 is untouched; the README carries the paragraph and the counts; the census carries the family as kernel-only with no anchor | `verification/lean/edge_rigidity_probe.py` |
+| F7 | the checks: full build, axiom check, release gate, probe, census, all green | the release gate |
+
+**What the outcome establishes.** `SourcedOI ∧ LayerFlowExecutable ⇏ PhaseFreeRichness` on the
+migrated semantics: on the faithful sourced baseline, with the executable layer flow adjoined at
+every level and time, the continuous mixing of one pair is not supplied. The theorem that says why
+names the resource: every available unitary conjugation of the witness fixes the all-ones vector
+up to a scalar, and a relative phase, a diagonal unitary that moves that vector off its ray, is
+what the isolation identity of the lift audit consumes and what the witness lacks. The lift
+audit's Q3′ is thereby sharp in its hypothesis: the substratum's availability, not the
+executability alone, supplies the mixing. The witness is not minimal and is not claimed to be;
+it is the closed-form class the instrument-realization audit built for its countercontrol, and its
+strength is the point: it contains every layer gate flow, every permutation matrix and every
+contractive compression of a ones-fixing unitary, and still cannot drive one pair.
+
+**What the outcome does not establish.** The lift audit's preregistered Q3, from `DerivedOI` and
+executability: the witness has no phases, so it meets neither that hypothesis nor
+`SubstratumAvail`, and the question from `DerivedOI` stays open as the lift audit records it. The
+least class `flowClass σ`: not defined, not asked, and whether the gadget block lies in it is not
+asked. The minimality of `onesTheory` among countermodels. Whether the observer-level lift is
+derivable. Route A in either direction. Bare OI. Any manuscript sentence: the manuscripts state
+the controllability resource as not entailed by the substratum's structural part, which this
+result is consistent with, and narration is an owner decision.
+
+## What this note does not claim
+
+That the preregistered Q3 of the lift audit, from `DerivedOI`, is refuted or holds. That
+`DerivedOI ∧ LayerFlowExecutable` fails to give phase-free richness: the witness does not satisfy
+`DerivedOI`. That the least class is defined or that the witness is minimal. That the
+observer-level lift is derivable or is not. That Route A is closed in either direction. That
+anything here reaches a manuscript.
