@@ -966,6 +966,12 @@ for fname, names in (
                    "derivedOI_qm_iff_layerFlowExecutable_swap'", 'gateFlow_one_eq_one', 'levelPerm_one',
                    'layerFlowExecutable_one', 'substratumTheory_layerFlowExecutable_one',
                    'derivedOI_layerFlowExecutable_one_not_phaseFree')),
+    ('ExecSource', ('exists_nonMonomial_of_layerFlowExecutable', 'not_configurationLevel_of_layerFlowExecutable',
+                    'bijectionLevel_not_layerFlowExecutable', 'configurationLevel_not_avail_gateFlow_half',
+                    'substratumTheory_not_avail_gateFlow_half', 'obs_not_layerFlowExecutable',
+                    'obs_not_layerFlowExecutable_shear', 'obs_not_layerFlowExecutable_swap',
+                    'waveSubstratum_swap_moves', 'waveSubstratum_not_layerFlowExecutable_swap',
+                    'gateFlow_half_not_monomial', 'onesClass_not_configurationLevel')),
     ('SubstratumSource', ('genTheory_avail_conj', 'genTheory_elementary', 'quantumArchitecture_supplies_all',
                        'genTheory_qm_of_quantumArchitecture', 'fullClass_drivesElementary', 'fullClass_quantumArchitecture',
                        'qm_generated_by_quantumArchitecture', 'diagClass_not_drivesElementary', 'diagGen_not_quantumArchitectureGenerated')),
@@ -3736,7 +3742,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '124 modules' in _rd1 and '2,740 named results' in _rd1
+ok_sub &= '125 modules' in _rd1 and '2,752 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4147,7 +4153,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '124 modules' in _rd1 and '2,740 named results' in _rd1
+ok_flow &= '125 modules' in _rd1 and '2,752 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4463,7 +4469,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '124 modules' in _rd1 and '2,740 named results' in _rd1
+ok_q3 &= '125 modules' in _rd1 and '2,752 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4583,6 +4589,119 @@ check('R7-Q3P', ok_q3p,
       'identifier, a derivation of either assumption or a minimality; the registry carries the Q3 and lift-audit '
       'families as current with anchors and the two supersessions, the census rows follow, and the README carries '
       'the round.')
+
+# ---- the executability-source audit: the stated access does not make one layer flow executable; the
+# necessary condition and the sufficient access tested named; the lift the one open entry ----
+ok_exec = True
+_ex = open(os.path.join(BRIDGE, 'OIBridge', 'ExecSource.lean'), encoding='utf-8').read()
+_exflat = ' '.join(_ex.split())
+_exn = open(os.path.join(os.path.dirname(BRIDGE), 'EXEC-SOURCE-AUDIT.md'), encoding='utf-8').read()
+_exn1 = re.sub(r'\s+', ' ', _exn)
+ok_exec &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _ex) is None and 'native_decide' not in _ex
+ok_exec &= 'axiom ' not in re.sub(r'/-.*?-/', '', _ex, flags=re.S)
+_ex_names = re.findall(r"^theorem ([\w']+)", _ex, re.M)
+ok_exec &= len(_ex_names) == 12 and _ex.count('#print axioms') == 12
+for _nm in _ex_names:
+    ok_exec &= ('#print axioms ' + _nm) in _ex
+# the module defines no intervention kind, class, theory or function; no gate flow is placed in a class
+ok_exec &= re.findall(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) (\w+)', _ex, re.M) == []
+ok_exec &= 'import OIBridge.DerivedQ3' in _ex and 'import OIBridge.ExecSource' in root
+for _t in ('onesClass_gateFlow', 'SubstratumAvail', 'sorry'):
+    ok_exec &= (_t not in _ex) or _t == 'onesClass_gateFlow'
+ok_exec &= 'SubstratumAvail' not in _ex and 'phaseFun' not in _ex
+# the statements, as preregistered
+for _t in ('theorem exists_nonMonomial_of_layerFlowExecutable {𝓘 : ImplementationClass} (arch : Architecture 𝓘) '
+           '{σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) (hex : LayerFlowExecutable (genTheory 𝓘 arch S) σ) : '
+           '∃ K : Matrix (S × Fin 1) (S × Fin 1) ℂ, 𝓘 (S × Fin 1) K ∧ ¬ IsMonomial K',
+           'theorem not_configurationLevel_of_layerFlowExecutable',
+           'theorem bijectionLevel_not_layerFlowExecutable {𝓘 : ImplementationClass} (arch : Architecture 𝓘) '
+           '(hb : BijectionLevel 𝓘) {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) : ¬ LayerFlowExecutable (genTheory 𝓘 arch S) σ',
+           'theorem configurationLevel_not_avail_gateFlow_half',
+           'theorem obs_not_layerFlowExecutable {g : Equiv.Perm 𝒮.Conf} {x : 𝒮.Conf} (hx : g x ≠ x) : '
+           '¬ LayerFlowExecutable (obsTheory 𝒮) g',
+           'theorem obs_not_layerFlowExecutable_shear', 'theorem obs_not_layerFlowExecutable_swap',
+           'theorem waveSubstratum_swap_moves [Fact (1 < q)] (α : ZMod q)',
+           'theorem waveSubstratum_not_layerFlowExecutable_swap [NeZero L] [NeZero q] [Fact (1 < q)] (α : ZMod q) : '
+           '¬ LayerFlowExecutable (obsTheory (waveSubstratum d L q α))',
+           'theorem gateFlow_half_not_monomial {σ : Equiv.Perm S} {a : S} (ha : σ a ≠ a) : ¬ IsMonomial (gateFlow σ (1 / 2 : ℝ))',
+           'theorem onesClass_not_configurationLevel : ¬ ConfigurationLevel onesClass'):
+    ok_exec &= _t in _exflat
+ok_exec &= 'gateFlow_half_not_preservesDiag' in _exflat and 'obs_availExt_le_substratum' in _exflat
+# the note: question, distinctions, census, criteria, tests, meanings and non-doings precede the outcome
+_ke = [_exn.find(h) for h in ('## The question', '## Five distinctions, frozen at the outset',
+       '## The census of purported sources, taken before the pass', '## The criteria, fixed in advance',
+       '## The tests, each with its admissible outcomes', '## What the outcomes mean, fixed in advance',
+       '## What the round does not do', '## Scope amendment, recorded after the preregistration', '## The outcome')]
+ok_exec &= all(x > 0 for x in _ke) and _ke == sorted(_ke)
+ok_exec &= _exn.lstrip().startswith('# The executability-source audit')
+# the amendment: the stated access is permutation-valued, the stipulated phase intervention is a separate
+# configuration-level assumption, X8 is not a source; the overbroad census sentence is not the outcome's
+_exn_out0 = re.sub(r'\s+', ' ', _exn[_exn.find('## The outcome'):])
+ok_exec &= 'scope amendment above' in _exn_out0
+for _t in ('Every operation supplied by the stated observer access is configuration-level',
+           'in `obsTheory 𝒮` permutation-valued', 'The separately stipulated phase intervention is also monomial',
+           'does not rescue executability', 'X8 is not a source'):
+    ok_exec &= _t in _exn_out0
+ok_exec &= 'is a permutation of the configurations or a phase' not in _exn_out0
+ok_exec &= 'with X8 excluded as a stipulation and the consistency control' in _exn1
+for _t in ('Preregistration commit `3b36661`', 'Status: pass complete', '`main` at `087d023`',
+           '**(D1) A mathematical path is not an operation.**',
+           '**(D2) An emergent continuous-time description of the visible process is a representation, not an availability.**',
+           '**(D3) Time-one availability with a continuous interpolation is not intermediate-time availability.**',
+           '**(D4) Coarse-graining, hidden memory and hidden clocks give classical maps.**',
+           '**(D5) The target is the literal predicate.**', '| X1, ', '| X7, ', '| X8, ',
+           '**T1. The necessary condition.**', '**T7. The surfaces and the checks.**', '| T1 | ', '| T7 | ',
+           'The verdicts, per entry', 'negative for the stated access', 'underdetermined',
+           'the sufficient access tested', 'A non-monomial operator is not by itself sufficient', 'twelve named results'):
+    ok_exec &= _t in _exn1
+for _bad in ('the lift is derivable', 'the lift is not derivable', 'executability is derived',
+             'LayerFlowExecutable is derived', 'the phases are derived', 'PhasesAvailable is derived',
+             'Route A is closed', 'OI implies QM', 'quantum mechanics requires OI', 'bare OI implies',
+             'the manuscripts are wrong', 'a non-monomial operator suffices', 'a non-monomial operator is sufficient',
+             'reads availability off the path'):
+    ok_exec &= not _asserted(_exn, _bad)
+_exn_out = _exn[_exn.find('## The outcome'):]
+for _bad in ('the missing access is named: a non-monomial', 'any non-monomial operator supplies', 'the executability is derived'):
+    ok_exec &= _bad not in _exn_out
+for _bad in ('the missing access is named: a non-monomial', 'any non-monomial operator supplies'):
+    ok_exec &= _bad not in _rd1
+# the lift audit and the interface note record the decision after their frozen text
+ok_exec &= '## The executability source, recorded after the round' in _lan
+ok_exec &= _lan.find('## Q3 at its preregistered hypothesis, decided') < _lan.find('## The executability source, recorded after the round')
+ok_exec &= 'obs_not_layerFlowExecutable' in _lan and 'exists_nonMonomial_of_layerFlowExecutable' in _lan
+ok_exec &= '## The next arrow, decided for the stated access, recorded after the round' in _san
+ok_exec &= _san.find('## The phases, decided, recorded after the round') < _san.find('## The next arrow, decided for the stated access')
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    ok_exec &= 'ExecSource' not in _t and 'EXEC-SOURCE' not in _t and 'obs_not_layerFlowExecutable' not in _t
+    ok_exec &= 'waveSubstratum' not in _t and 'exists_nonMonomial' not in _t
+_ex_fam = [f for f in _ptr_reg['families'] if f['name'] == 'executability source: the stated access and the layer flows']
+ok_exec &= len(_ex_fam) == 1 and _ex_fam[0]['status'] == 'kernel-only' and _ex_fam[0]['modules'] == ['ExecSource']
+ok_exec &= _ex_fam[0]['manuscript'] == [] and 'Negative for the stated access' in _ex_fam[0]['note']
+ok_exec &= 'the sufficient access tested' in _ex_fam[0]['note'] and 'owner decision' in _ex_fam[0]['note']
+ok_exec &= '| executability source: the stated access and the layer flows | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlowExecutable',
+           'waveSubstratum_not_layerFlowExecutable_swap', 'onesClass_not_configurationLevel', 'Twelve named results',
+           'negative for the stated access', 'the sufficient access tested',
+           'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
+           'an additional physical assumption on the route'):
+    ok_exec &= _t in _rd1
+ok_exec &= '125 modules' in _rd1 and '2,752 named results' in _rd1
+check('R7-EXEC', ok_exec,
+      'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
+      'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
+      'non-configuration-level corollary, the bijection-level and configuration-level negatives, the unavailability '
+      'of the gate flow at time one half, the observer theory of every substratum executing no layer flow with its '
+      'own layers, the wave substratum\'s swap layer moving a configuration, and the countercontrols are stated as '
+      'pinned; the note keeps the question, the five distinctions, the eight-entry census, the criteria, the tests, '
+      'the meanings and the non-doings before the outcome, names both commits, records the verdict negative for the '
+      'stated access and the lift underdetermined with the necessary condition and the sufficient access tested '
+      'distinguished, and asserts nothing about the lift being derivable or not, a non-monomial operator sufficing, '
+      'the phase, Route A or the manuscripts; the lift audit and the interface note carry the decision after their '
+      'frozen text; no manuscript is edited; the registry and the census carry the family as kernel-only and the '
+      'README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
