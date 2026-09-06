@@ -177,4 +177,64 @@ definition. Source a relative-phase intervention from the substratum, or claim t
 class carrying the layer flows. Reopen the phase-source census. Narrate Route B. Refresh the
 transfer bundle.
 
-Status: preregistered; the outcome follows in its own section.
+## The outcome
+
+Preregistration commit `f206058`, executed from `main` at `f80688e`. The kernel module is
+`OIBridge/DerivedQ3.lean`, seventeen named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`; the kernel is at 124 modules and 2,740 named results. Q3 is
+decided in the constructive branch. The negative branch is not reached: the sign-flip identity
+holds for every involution, and no countertheory is built. Every test reached the outcome expected
+in advance; no proved statement differs from the preregistered one.
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | the sign-flip identity, as displayed, for every involution `τ`, moved configuration `a` and real time `t`: the gate flow times the time-reversed gate flow conjugated by the sign flip at `τ a` is `flow (transition a (τ a)) (π t)`; proved in the orbit calculus with the coefficients as fixed in advance, `1` and `0` off the chosen pair by `e₁ e₂ = 1`, `cos πt` and `−i sin πt` on it | `gateFlow_isolation_flip`, with `flipAt`, `flipAt_self`, `flipAt_of_ne` |
+| T2 | the diagonal from the quarter phases: the square of the quarter phase on `b` is the sign flip at `b`, and its conjugation is available at every level under `PhasesAvailable` as the composition of the quarter phase with itself | `phaseGate_mul_self`, `flip_avail` |
+| T3 | Q3: from `PhasesAvailable`, `ExchangesAvailable`, an involution with a moved configuration and `LayerFlowExecutable`, phase-free richness at every level, the driven pair being `(x, 0)` and its image and its flow at angle `t` the product of the gate flow at `t/π`, the sign flip, the gate flow at `−t/π` and the sign flip; from `DerivedOI` the same, the closure entering only through its phases and its exchanges | `phaseFree_of_phases_layerFlowExecutable`, `phaseFree_of_derivedOI_layerFlowExecutable` |
+| T4 | the endpoint under `DerivedOI` alone: exact finite endomorphic operational quantum mechanics is exactly the executability of one layer flow of an involution with a moved configuration; the swap-layer instances on `Conf Λ (V × V)` | `qm_of_derivedOI_layerFlowExecutable`, `derivedOI_qm_iff_layerFlowExecutable'`, `phaseFree_of_derivedOI_layerFlowExecutable_swap`, `derivedOI_qm_iff_layerFlowExecutable_swap'` |
+| T5 | the countercontrols: C1 cited (`flow_endpoint_refuted`); C2 proved, the gate flow of the identity being the identity at every time and the identity's layer flow executable wherever the identity operation is available, in particular in the substratum theory, which on two states satisfies `DerivedOI` and fails phase-free richness; C3 proved, the diagonal used being the square of one quarter phase, the module citing neither `phaseFun` nor `SubstratumAvail`; C4 proved | `gateFlow_one_eq_one`, `levelPerm_one`, `layerFlowExecutable_one`, `substratumTheory_layerFlowExecutable_one`, `derivedOI_layerFlowExecutable_one_not_phaseFree`; `phaseGate_mul_self`; `derivedOI_layerFlowExecutable_of_qm` |
+| T6 | the lift audit's record: the theorems are stated at the preregistered hypothesis `DerivedOI`, not at `SubstratumAvail`; `LIFT-AUDIT.md` and `PHASE-SOURCE-AUDIT.md` carry a section each, after their frozen text | the two notes |
+| T7 | the surfaces and the checks: `R7-Q3`; the README paragraph and the counts; the census family kernel-only with no anchor; full build, axiom check, release gate, probe, census, all green; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+
+**Where the phase hypothesis is consumed.** At one step: `flip_avail`, the availability of the
+sign flip at `τ a` as the composition of the quarter phase on `τ a` with itself. Nothing else of
+`PhasesAvailable` is used, and nothing else of `DerivedOI` beyond `ExchangesAvailable`, which
+supplies the exchange clause of phase-free richness. This is the step the flow-endpoint theorem
+says cannot be removed: a ones-fixing theory has every layer flow and no sign flip, and drives no
+pair.
+
+**The mechanism, as executed.** The preregistered algebra held without change. In the orbit
+calculus the product of the gate flow at `t` with the sign-conjugated gate flow at `−t` has
+diagonal coefficient `(1 + e₁)(1 + e₂)/4 + (e₁ − 1)(e₂ − 1)/4 = 1` on a non-chosen moved
+configuration, `(1 + e₁)(1 + e₂)/4 − (e₁ − 1)(e₂ − 1)/4 = (e₁ + e₂)/2 = cos πt` on the chosen
+pair, and `1` on a fixed configuration; antidiagonal coefficient `−(e₁ − 1)(1 + e₂)/4 − (1 + e₁)(e₂ − 1)/4 = 0`
+off the chosen pair and `−(e₁ − 1)(1 + e₂)/4 + (1 + e₁)(e₂ − 1)/4 = −(e₁ − e₂)/2 = −i sin πt` on it,
+with `e₁ e₂ = 1` used exactly where the preregistration said, off the chosen pair. The continuous
+phase `e^{−iπt}` of the lift audit's isolation identity does not appear.
+
+**What the outcome establishes.** Under the closure `DerivedOI`, with its phases an explicit
+hypothesis, the executability at intermediate times of one layer flow of an involution with a
+moved configuration is necessary and sufficient for exact finite endomorphic operational quantum
+mechanics, on every carrier, with no substratum availability beyond the closure. The frontier of
+Route A relative to the baseline `DerivedOI` is two named assumptions: the phase intervention,
+which the phase-source audit showed the stated substratum does not derive, and the executability,
+which the lift audit showed configuration-level generation does not derive. The lift audit's Q4′
+baseline `DerivedOI ∧ SubstratumAvail` is superseded by `DerivedOI`.
+
+**What the outcome does not establish.** That `PhasesAvailable` is derivable from the stated
+substratum: the phase-source audit decided it is not, and nothing here reopens it. That
+`SubstratumAvail` is derivable from `DerivedOI`: it is not needed and not derived. That relative
+phase or the layer flow is the unique or the minimal resource: a different pair of assumptions
+could be sufficient as well. Whether the observer-level lift is derivable. Route A in either
+direction. Bare OI. Anything about a manuscript: whether the result earns a manuscript sentence is
+an owner decision for a propagation round.
+
+## What this note does not claim
+
+That the phases are sourced from the substratum, or that quantum mechanics rests on observation
+incompleteness. That either assumption is minimal or unique. That the lift is derivable, or that
+it is not. That Route A is closed in either direction. That any manuscript statement changes.
+
+Status: pass complete. Q3 decided in the constructive branch with the phase hypothesis explicit
+and consumed at the sign flip; the endpoint under `DerivedOI` alone; the negative branch not
+reached; seventeen named results; no manuscript edited.

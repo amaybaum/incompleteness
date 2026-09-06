@@ -310,3 +310,15 @@ the round agrees with them. That `DerivedOI` is false of the physics, or that th
 sourced by some access the manuscripts do not state. That the lift audit's Q3 from `DerivedOI` is
 refuted or holds. That relative phase is the unique or minimal missing resource. That anything
 here reaches a manuscript.
+
+## The decision that followed, recorded after the round
+
+The owner took the first option named under "If the verdict is negative for the stated access":
+the lift audit's Q3 from `DerivedOI`, attacked as a conditional result with `PhasesAvailable`
+named as an assumption. The Q3 round (`DERIVED-Q3-AUDIT.md`, preregistration commit `f206058`)
+decides it in the constructive branch: under `DerivedOI`, the executability of one layer flow of an
+involution with a moved configuration gives phase-free richness
+(`phaseFree_of_derivedOI_layerFlowExecutable`), the phase hypothesis consumed at one step, the
+sign flip on one configuration of the chosen pair, which is the square of the quarter phase
+(`phaseGate_mul_self`). The second option, the sourcing of a relative-phase intervention as a
+physical principle, is not taken up and stays open; nothing in this note changes.

@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 123 modules and,
-  at this commit, 2,723 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 124 modules and,
+  at this commit, 2,740 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1162,6 +1162,32 @@ as the class with the phase intervention stated. No theorem is added or changed;
 lift audit's Q3 enters a manuscript; the registry carries the phase-source family as current with
 anchors in GR and Main; the `.tex` and `.pdf` of GR, Main, the Explainer and the book are rebuilt.
 Guard `R7-PROP`.
+
+The Q3 round (`DERIVED-Q3-AUDIT.md`, preregistration commit `f206058`, written from `main` at
+`f80688e`) decides the lift audit's preregistered Q3 at its own hypothesis, with `PhasesAvailable`
+an explicit hypothesis of the closure and not a consequence of the stated substratum: under
+`DerivedOI`, the executability of one layer flow of an involution with a moved configuration gives
+phase-free richness (`phaseFree_of_derivedOI_layerFlowExecutable`, from
+`phaseFree_of_phases_layerFlowExecutable`, which uses of the closure only the phases and the
+exchanges), so under `DerivedOI` alone exact finite endomorphic operational quantum mechanics is
+exactly that executability (`derivedOI_qm_iff_layerFlowExecutable'`,
+`qm_of_derivedOI_layerFlowExecutable`, the swap-layer instances). The mechanism is the sign-flip
+identity `gateFlow_isolation_flip`: the gate flow times the time-reversed gate flow conjugated by
+the sign flip at the image of the chosen configuration is the transition flow on the chosen pair
+at angle `πt`, time reversal replacing the continuous phase diagonal of the lift audit's isolation
+identity, which the quarter phases do not supply; the sign flip is the square of one quarter phase
+(`phaseGate_mul_self`, `flip_avail`), the step at which the phase hypothesis is consumed, as the
+flow-endpoint refutation from `SourcedOI` requires. The moved-configuration hypothesis is
+necessary: the gate flow of the identity is the identity at every time, and the substratum theory
+on two states satisfies `DerivedOI`, executes it and fails phase-free richness
+(`gateFlow_one_eq_one`, `substratumTheory_layerFlowExecutable_one`,
+`derivedOI_layerFlowExecutable_one_not_phaseFree`); quantum mechanics satisfies both hypotheses
+(`derivedOI_layerFlowExecutable_of_qm`). Seventeen named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Relative to the baseline `DerivedOI` the frontier of Route A is
+two named assumptions, the phase intervention and the executability; `SubstratumAvail` is neither
+needed for the endpoint nor derived from the closure. Not claimed: that the phases are sourced;
+uniqueness or minimality of either resource; anything about the lift, Route A or a manuscript, the
+narration being an owner decision for a propagation round. Guard `R7-Q3`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
