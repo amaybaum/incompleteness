@@ -1325,14 +1325,17 @@ diagonal states (`hadamard_not_monomial`, `hadamard_not_preservesDiag`, `siteSwa
 the polarized class is not configuration-level (`polGen_not_configurationLevel`), the quarter phase is
 available at level one (`polarizedTheory_phase_level_one`), and the swap-layer flow at time one half is
 exactly the Hadamard-conjugated quarter phase and is available at level one (`gateFlow_half_eq_hsh`,
-`polarizedTheory_swap_half_level_one`). Both obligations then fail for one reason, the finiteness of
-the Weil image of a finite symplectic group, which contains neither the controlled quarter phase a
-composite level needs nor the flow at a non-Clifford time; these two failures are stated with their
-reason and not kernel-proved, the missing step, a conjugation invariant over the instrument closure,
-named. Verdict: C, underdetermined, sharpened: the one stated map sources a non-configuration-level
-coherent closure and is cut off from both obligations by the discreteness of the alphabet, so what
-a surviving candidate would need is a continuous canonical structure on the partition, which the
-corpus does not state. Seventeen named results, each printing only `propext`, `Classical.choice`,
+`polarizedTheory_swap_half_level_one`). Beyond level one the candidate is underdetermined for the
+full generated theory: the controlled quarter phase a composite level needs and the flow at a
+non-Clifford time lie outside the bare Weil subgroup, whose finiteness identifies the candidate
+obstruction to both obligations, and whether the instrument closure synthesizes either is not
+decided, the missing step, a conjugation invariant stable under that closure, named. Verdict: C,
+underdetermined, read under the round's scope amendment: the corpus states neither a
+non-bijection-valued coupling nor the polarization map; the one stated map sources a
+non-configuration-level coherent closure whose level-one content is kernel-proved and whose
+content beyond that is undecided; what a surviving candidate would need, if the obstruction
+survives closure, is a continuous canonical structure on the partition, which the corpus does not
+state. Seventeen named results, each printing only `propext`, `Classical.choice`,
 `Quot.sound`. Nothing is named C5 or adopted; the polarization map is a candidate, not derived from
 the stated access; no manuscript changes. Guard `R7-C5D`.
 

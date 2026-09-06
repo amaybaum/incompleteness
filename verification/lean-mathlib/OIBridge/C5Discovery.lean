@@ -30,9 +30,12 @@ candidate or a test. The kernel content:
   Hadamard-conjugated quarter phase (`gateFlow_half_eq_hsh`) and is available at level one
   (`polarizedTheory_swap_half_level_one`).
 
-Not proved here, and recorded in the note as the one missing kernel step: that the polarized
-theory has no quarter phase on a single configuration at level two and executes no layer flow at
-every time, both consequences of the finiteness of the Weil image of a finite symplectic group.
+Not proved here, and undecided for the full generated theory: whether the polarized theory has the
+quarter phase on a single configuration at level two, and whether it executes the swap-layer flow at
+a non-Clifford time. The finiteness of the bare Weil subgroup identifies the candidate obstruction
+to both and proves nothing about what the closure operations, the scalars, projections, blocks and
+the instrument closure, synthesize from it; the missing kernel step is a conjugation invariant
+stable under that closure.
 
 Not claimed: that any candidate is a C5; that the polarization map is available to the observer;
 anything about a manuscript.

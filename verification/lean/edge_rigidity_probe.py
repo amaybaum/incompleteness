@@ -5036,7 +5036,8 @@ for _t in ('substratumTheory_not_layerFlowExecutable', 'onesTheory_layerFlowExec
 # the note: question with the two obligations, outcomes, eight tests, two candidates, tests, meanings, non-doings, outcome
 _kc = [_c5n.find(h) for h in ('## The question', '## Three admissible outcomes, frozen', '## The necessary tests every candidate must pass, frozen',
        '## The two candidate families, frozen', '## The tests, each with its admissible outcomes', '## What the outcomes mean, fixed in advance',
-       '## What the round does not do', '## The outcome', '## What this note does not claim')]
+       '## What the round does not do', '## Scope amendment, recorded after the preregistration', '## The outcome',
+       '## What this note does not claim')]
 ok_c5d &= all(x > 0 for x in _kc) and _kc == sorted(_kc)
 ok_c5d &= _c5n.lstrip().startswith('# The C5 discovery audit')
 for _t in ('Preregistration commit `f57c1f8`', '`main` at `0df6a8a`', 'Status: pass complete',
@@ -5049,12 +5050,21 @@ for _t in ('Preregistration commit `f57c1f8`', '`main` at `0df6a8a`', 'Status: p
            'seventeen named results', 'no C5 named or adopted', 'a candidate is never defined by its output'.replace('a candidate', 'A candidate')):
     ok_c5d &= _t in _c5n1
 _c5n_out = re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
-for _t in ('The verdict is **C, underdetermined**', 'both obligations fail for a single reason, finiteness',
-           'the two resources do not separate under it', 'Outcome A is not reached', 'Outcome B is not reached either',
-           'not kernel-proved', 'the missing kernel step is named', 'continuous canonical structure',
+for _t in ('The verdict is **C, underdetermined**', 'scope amendment above', 'read under the scope amendment',
+           'underdetermined for the full generated theory', 'the finiteness of the bare Weil subgroup identifying the candidate',
+           'not proving failure after closure', 'Outcome A is not reached', 'Outcome B is not reached',
+           'the missing kernel step named', 'continuous canonical structure',
            'the corpus states neither a non-bijection-valued coupling nor the polarization map',
-           '| T5 | candidate 2, the flow: outcome (b).', '| T6 | test 8 for candidate 2: the corpus does not supply the polarization map.'):
+           '| T5 | candidate 2, the flow: outcome (b), read closure-safely.', '| T6 | test 8 for candidate 2: the corpus does not supply the polarization map.'):
     ok_c5d &= _t in _c5n_out
+for _bad in ('both obligations fail for a single reason', 'fail for one and the same reason', 'executes no layer flow at every time',
+             'cut off', 'the controlled quarter phase is outside the polarized theory', 'not kernel-proved', 'fails at level two',
+             'fail together for one reason'):
+    ok_c5d &= _bad not in _c5n_out and _bad not in _rd1 and _bad not in _c5_fam[0]['note'] if '_c5_fam' in dir() else True
+_c5n_am = re.sub(r'\s+', ' ', _c5n[_c5n.find('## Scope amendment, recorded after the preregistration'):_c5n.find('## The outcome')])
+for _t in ('`PolGen` is not the finite Weil group', 'underdetermined for the full generated theory', 'not proving failure after closure',
+           'The preregistration above is untouched', 'no theorem changes'):
+    ok_c5d &= _t in _c5n_am
 # no adoption of a C5 anywhere in the note, the module or the README; no availability read off the representation
 for _bad in ('C5 is the', 'C5 := ', 'define C5 as', 'we adopt C5', 'C5 holds', 'C5 is satisfied', 'the polarization map is available',
              'the observer can execute the Weil', 'outcome A is reached', 'Outcome A is reached', 'a C5 has been found',
@@ -5079,9 +5089,13 @@ ok_c5d &= 'Nothing is named C5 or adopted' in _c5_fam[0]['note'] and 'owner deci
 ok_c5d &= '| C5 discovery: the kill battery and the polarization map | 1 | kernel-only |' in _cen_ps
 for _t in ('`R7-C5D`', 'C5-DISCOVERY-AUDIT.md', 'obligations_independent', 'KillBattery', 'bijectionLevel_fails_obligations',
            'updateLevel_symplectic_inert', 'polGen_not_configurationLevel', 'gateFlow_half_eq_hsh', 'Seventeen named results',
-           'Verdict: C, underdetermined', 'Nothing is named C5 or adopted', 'not kernel-proved',
-           'a continuous canonical structure on the partition'):
+           'Verdict: C, underdetermined', 'Nothing is named C5 or adopted', 'underdetermined for the\nfull generated theory'.replace('\n', ' '),
+           'a continuous canonical structure on the partition', 'whether the instrument closure synthesizes either is not decided'):
     ok_c5d &= _t in _rd1
+for _bad in ('both obligations fail for a single reason', 'fail for one and the same reason', 'executes no layer flow at every time',
+             'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
+    ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
+ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
 ok_c5d &= '127 modules' in _rd1 and '2,787 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
@@ -5092,7 +5106,8 @@ check('R7-C5D', ok_c5d,
       'the level-one quarter phase and the half-time swap flow as the Hadamard-conjugated quarter phase are stated '
       'as pinned; the note keeps the question with the two obligations, the three outcomes, the eight tests, the two '
       'candidates, the tests, the meanings and the non-doings before the outcome, names both commits, records the '
-      'verdict C with its sharpened reason and the two failures as stated with their reason and not kernel-proved, '
+      'verdict C read under the scope amendment, the polarization candidate kernel-proved at level one and undecided beyond '
+      'for the full generated theory with the bare Weil subgroup identifying the obstruction and the missing step named, '
       'and adopts no C5 and reads no availability off the representation; no manuscript is edited; the registry and '
       'the census carry the family as kernel-only and the README carries the paragraph and the counts.')
 
