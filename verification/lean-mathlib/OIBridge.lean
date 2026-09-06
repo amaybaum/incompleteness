@@ -171,6 +171,7 @@ import OIBridge.LiftAudit
 import OIBridge.SubstratumInterfaceAudit
 import OIBridge.ScalarClosure
 import OIBridge.InstrumentRealization
+import OIBridge.FlowEndpoint
 
 namespace OIBridge
 

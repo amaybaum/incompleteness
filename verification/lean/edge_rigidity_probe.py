@@ -950,6 +950,11 @@ for fname, names in (
                      'oiPlusElem_of_qm', 'oiPlusElem_iff_qm', 'oiPlusElem_iff_oiPlusMicro', 'carrier_general_oiPlusElem',
                      'elementary_not_redundant')),
     ('PositivePackage', ('oiPlusPos_iff_qm', 'oiPlusPos_iff_oiPlusElem', 'carrier_general_oiPlusPos')),
+    ('FlowEndpoint', ('onesTheory_avail_conj', 'onesTheory_sourcedOI', 'levelPerm_involutive', 'onesTheory_layerFlowExecutable',
+                      'exists_third', 'onesTheory_no_quarter_flow', 'onesTheory_not_phaseFree_general', 'onesTheory_not_phaseFree',
+                      'flow_endpoint_refuted', 'flow_endpoint_refuted_general', 'phaseGate_mulVec_ones',
+                      'onesTheory_not_phasesAvailable', 'onesTheory_not_derivedOI', 'onesTheory_not_substratumAvail',
+                      'onesTheory_not_qm')),
     ('SubstratumSource', ('genTheory_avail_conj', 'genTheory_elementary', 'quantumArchitecture_supplies_all',
                        'genTheory_qm_of_quantumArchitecture', 'fullClass_drivesElementary', 'fullClass_quantumArchitecture',
                        'qm_generated_by_quantumArchitecture', 'diagClass_not_drivesElementary', 'diagGen_not_quantumArchitectureGenerated')),
@@ -3720,7 +3725,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '121 modules' in _rd1 and '2,699 named results' in _rd1
+ok_sub &= '122 modules' in _rd1 and '2,713 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4037,6 +4042,115 @@ check('R7-MIG', ok_mig,
       'the preregistration commit, the seven outcomes, the name map, the two dropped results, where saturation is '
       'consumed and the GR sentences as an owner decision, and asserts nothing about the flow endpoint; the four '
       'frozen notes carry a migration section each; no manuscript is edited; the README carries the paragraph.')
+
+# ---- The flow-endpoint audit: the arrow from the sourced baseline with the executable layer
+# flow, decided negatively on the migrated semantics by the theory of the ones-fixing class, the
+# negative at level two as preregistered; the least class undefined; the lift audit's Q3 from
+# DerivedOI untouched; no manuscript narrates it ----
+ok_flow = True
+_fe = open(os.path.join(BRIDGE, 'OIBridge', 'FlowEndpoint.lean'), encoding='utf-8').read()
+_feflat2 = ' '.join(_fe.split())
+_fen = open(os.path.join(os.path.dirname(BRIDGE), 'FLOW-ENDPOINT-AUDIT.md'), encoding='utf-8').read()
+_fen1 = re.sub(r'\s+', ' ', _fen)
+_fxn = open(os.path.join(os.path.dirname(BRIDGE), 'FLOW-EXTENSION-AUDIT.md'), encoding='utf-8').read()
+ok_flow &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _fe) is None and 'native_decide' not in _fe
+ok_flow &= 'axiom ' not in re.sub(r'/-.*?-/', '', _fe, flags=re.S)
+_fe_names = re.findall(r"^theorem ([\w']+)", _fe, re.M)
+ok_flow &= len(_fe_names) == 15 and _fe.count('#print axioms') == 15
+for _nm in _fe_names:
+    ok_flow &= ('#print axioms ' + _nm) in _fe
+# the test theory is the generated theory of the ones-fixing class; nothing else is defined
+ok_flow &= 'noncomputable abbrev onesTheory (A : Type) [Fintype A] [DecidableEq A] : FiniteOperationalTheory A := genTheory onesClass onesClass_arch A' in _feflat2
+ok_flow &= re.search(r'(?m)^(noncomputable )?def ', _fe) is None and re.search(r'(?m)^structure ', _fe) is None
+ok_flow &= 'flowClass' not in _fe and 'flowTheory' not in _fe and 'IsGenInstrument' not in _fe and 'branchTheory' not in _fe
+for _t in ('theorem onesTheory_sourcedOI : SourcedOI (onesTheory A)',
+           'theorem onesTheory_layerFlowExecutable {σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) : LayerFlowExecutable (onesTheory S) σ',
+           'theorem onesTheory_no_quarter_flow {n : ℕ} {a b c : A × Fin n} (hab : a ≠ b) (hca : c ≠ a) (hcb : c ≠ b) : ¬ (onesTheory A).availExt n Unit (fun _ => conjChannel (ReachabilitySeam.flow (transition a b) (Real.pi / 2)))',
+           'theorem onesTheory_not_phaseFree_general (h2 : 2 ≤ Fintype.card A) : ¬ PhaseFreeRichness (onesTheory A)',
+           'theorem onesTheory_not_phaseFree : ¬ PhaseFreeRichness (onesTheory (Fin 2))',
+           'theorem flow_endpoint_refuted : ∃ T : FiniteOperationalTheory (Fin 2), SourcedOI T ∧ LayerFlowExecutable T (Equiv.swap 0 1) ∧ ¬ PhaseFreeRichness T',
+           'theorem flow_endpoint_refuted_general (h2 : 2 ≤ Fintype.card A) {σ : Equiv.Perm A} (hσ : ∀ x, σ (σ x) = x) : SourcedOI (onesTheory A) ∧ LayerFlowExecutable (onesTheory A) σ ∧ ¬ PhaseFreeRichness (onesTheory A)',
+           'theorem onesTheory_not_phasesAvailable (h2 : 2 ≤ Fintype.card A) : ¬ PhasesAvailable (onesTheory A)',
+           'theorem onesTheory_not_derivedOI (h2 : 2 ≤ Fintype.card A) : ¬ DerivedOI (onesTheory A)',
+           'theorem onesTheory_not_substratumAvail (h2 : 2 ≤ Fintype.card A) : ¬ SubstratumAvail (onesTheory A)',
+           'theorem onesTheory_not_qm : ¬ ExactAllFiniteEndomorphicQuantumOps (onesTheory (Fin 2))'):
+    ok_flow &= _t in _feflat2
+# the negative is proved at level two: the witness level in the proof is the literal 2
+_npf = _slice(_fe, 'theorem onesTheory_not_phaseFree_general', 'theorem onesTheory_not_phaseFree :')
+ok_flow &= bool(_npf) and 'h 2 hcard' in _npf and 'Fintype.card (A × Fin 2)' in _npf
+ok_flow &= 'flow_realized_not_instrumentRealized' in _slice(_fe, 'theorem onesTheory_no_quarter_flow', 'theorem onesTheory_not_phaseFree_general')
+# the note: question, objects, mechanism, tests, meanings and non-doings precede the outcome
+_k = [_fen.find(h) for h in ('## The question', '## The objects', '## The mechanism, fixed in advance',
+      '## The tests, each with its admissible outcomes', '## What the outcomes mean, fixed in advance',
+      '## What the round does not do', '## Scope amendment, recorded after the preregistration',
+      '## The outcome', '## What this note does not claim')]
+ok_flow &= all(x > 0 for x in _k) and _k == sorted(_k)
+ok_flow &= _fen.lstrip().startswith('# The flow-endpoint audit')
+for _t in ('Preregistration commit `4ec3623`', 'Status: pass complete', 'commit `c19c12a`', 'The level of the negative, fixed now',
+           'preregistered at level `n = 2`', 'not to be relocated', '**F1. The sourced closure.**', '**F2. Executability.**',
+           '**F3. The endpoint, negative at level two.**', '**F4. The endpoint theorem.**', '**F5. The location of the failure.**',
+           '**F6. The surfaces.**', '**F7. The checks.**', '| F1 | ', '| F2 | ', '| F3 | ', '| F4 | ', '| F5 | ', '| F6 | ', '| F7 | ',
+           'no proved statement differs from the preregistered one', 'The obstruction was not moved',
+           'What no outcome establishes', 'What the outcome does not establish', 'stays open as the lift audit records it',
+           'fifteen named results', 'relative phase structure', 'What the round does not do', 'What this note does not claim',
+           'the absence of phases witnesses the failure of `SubstratumAvail`', 'unique or the minimal', 'scope amendment above',
+           'What is retained from the flow-extension audit', 'commit `490e03c`'):
+    ok_flow &= _t in _fen1
+for _bad in ('the preregistered Q3 holds', 'Q3 is refuted', 'the lift is derivable', 'the lift is not derivable',
+             'Route A is closed', 'OI implies QM', 'quantum mechanics requires OI', 'bare OI implies',
+             'the witness is minimal', 'onesTheory is minimal', 'executability is derived',
+             'DerivedOI and executability fail to give phase-free richness'):
+    ok_flow &= not _asserted(_fen, _bad)
+ok_flow &= 'flowClass' not in _fen[_fen.find('## The outcome'):] or 'not defined' in _fen[_fen.find('## The outcome'):]
+# the amended scope: the absence of phases witnesses the failure of SubstratumAvail and the gap is
+# not characterized; relative phase is an obstruction identified, not the unique or minimal resource
+_fen_out = _fen[_fen.find('## The outcome'):]
+for _t in (_fen_out, _rd1, _feflat2, re.sub(r'\s+', ' ', _lan)):
+    for _bad in ('exactly through the phases', 'the missing resource is a relative phase', 'the missing resource being a relative phase',
+                 'gap to `SubstratumAvail` is exactly', 'the resource the executable layer flow lacks being a relative phase'):
+        ok_flow &= _bad not in _t
+for _bad in ('relative phase is the unique missing resource', 'relative phase is the minimal missing resource',
+             'the gap to SubstratumAvail is exactly the phases'):
+    ok_flow &= not _asserted(_fen, _bad)
+# the superseded preregistration names this round; the lift audit records its Q3 untouched
+ok_flow &= '## Superseded, recorded after the deferral' in _fxn and 'FLOW-ENDPOINT-AUDIT.md' in _fxn
+ok_flow &= 'flow_endpoint_refuted' in _fxn and '## Deferral, recorded after the preregistration' in _fxn
+ok_flow &= _fxn.find('## Deferral, recorded after the preregistration') < _fxn.find('## Superseded, recorded after the deferral')
+ok_flow &= '## The flow endpoint on the sourced baseline, recorded after the round' in _lan
+ok_flow &= 'stays open as the outcome above records it' in re.sub(r'\s+', ' ', _lan)
+# no manuscript carries the round; the registry and the census carry the family as kernel-only
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    ok_flow &= 'FlowEndpoint' not in _t and 'onesTheory' not in _t and 'flow_endpoint_refuted' not in _t and 'onesClass' not in _t
+_fe_fam = [f for f in _ptr_reg['families'] if f['name'] == 'flow endpoint: executable layer flow on the sourced baseline']
+ok_flow &= len(_fe_fam) == 1 and _fe_fam[0]['status'] == 'kernel-only' and _fe_fam[0]['modules'] == ['FlowEndpoint']
+ok_flow &= _fe_fam[0]['manuscript'] == [] and 'level two' in _fe_fam[0]['note'] and 'relative phase structure' in _fe_fam[0]['note']
+ok_flow &= 'not shown unique or minimal' in _fe_fam[0]['note'] and 'full gap not characterized' in _fe_fam[0]['note']
+ok_flow &= 'untouched and stays open' in _fe_fam[0]['note'] and 'not claimed minimal' in _fe_fam[0]['note']
+_cen_fe = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+ok_flow &= '| flow endpoint: executable layer flow on the sourced baseline | 1 | kernel-only |' in _cen_fe
+for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_refuted', 'onesTheory_no_quarter_flow',
+           'Fifteen named results', 'preregistered at level two', 'proved there and not elsewhere', 'relative phase structure',
+           'the absence of phases witnesses the failure', 'unique or minimal missing resource',
+           'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
+    ok_flow &= _t in _rd1
+ok_flow &= '122 modules' in _rd1 and '2,713 named results' in _rd1
+check('R7-FLOW', ok_flow,
+      'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
+      'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
+      'and names no least class; the sourced closure, the executability of every layer flow, the quarter-turn '
+      'obstruction on every carrier with a third point, the failure of phase-free richness at the literal level two, '
+      'the endpoint theorem on the two-state carrier and in general, and the failure of the phases, DerivedOI, '
+      'SubstratumAvail and quantum mechanics are stated as pinned; the note keeps the question, the objects, the '
+      'mechanism, the tests, the meanings and the non-doings before the outcome, names both commits, fixes the '
+      'level of the negative in advance and records it proved there, carries the scope amendment reading the absence '
+      'of phases as a witness of the failure of SubstratumAvail with the gap not characterized and relative phase as an '
+      'obstruction identified and not the unique or minimal resource, and asserts nothing about the lift audit\'s '
+      'Q3, the lift, Route A or minimality; the flow-extension note names this round as its superseding '
+      'preregistration after its deferral; the lift audit records its Q3 untouched; no manuscript carries the '
+      'round; the registry and the census carry the family as kernel-only and the README carries the paragraph '
+      'and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
