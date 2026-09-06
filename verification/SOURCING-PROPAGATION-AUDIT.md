@@ -147,3 +147,53 @@ weaken the substratum-source box or the layer-flow equivalence. Claim that eithe
 derived, unique or minimal, or that every realization of the coherent or stochastic channels is
 configuration-level. Narrate Route B, the sourced observer theory or the flow endpoint. Refresh the
 transfer bundle.
+
+## The outcome
+
+Preregistration commit `1dff487`, executed from `main` at `0a7044a`. The items were made as fixed
+in advance; the kernel is untouched, at 126 modules and 2,770 named results. Every test reached the
+outcome expected in advance.
+
+| test | outcome | where |
+|---|---|---|
+| E1 | the paragraph: `[GR §3.3]`'s layer-flow paragraph carries the sourcing statement after the second qualification, with the ExecSource witnesses `obs_not_layerFlowExecutable`, `waveSubstratum_not_layerFlowExecutable_swap`, `exists_nonMonomial_of_layerFlowExecutable`, the LiftSource witnesses `reversibleExtension_conj_monomial`, `correlationExtension_preservesDiag`, `coherentLiftClass_eq_substratumClass`, `stochasticChannel_kraus_monomial`, `avail_one_not_layerFlowExecutable`, the four proved facts, the two reservations, the second display in the words of the first and the exactness sentence, and ends with the no-uniqueness sentence; every pinned sentence of `R7-Q3P` is present | GR §3.3 |
+| E2 | the summary: the new sentence directly after the Q3 summary sentence at Main §3.4, the Explainer, book chapter 1, book chapter 19 and both occurrences in the book's full source, six occurrences, identical up to each site's pointer style, Main carrying the kernel pointers; the Q3 summary sentence still occurs exactly six times | the six sites |
+| E3 | the registry: the executability-source family and the lift-source family current with anchors in GR and Main, their notes recording the propagation; every prior entry preserved; no supersession added; the census passes with sixteen current families | `lean-manuscript-census.json`, `LEAN-MANUSCRIPT-CENSUS.md` |
+| E4 | the surfaces: `R7-SRCP`; the pins of `R7-EXEC` and `R7-LSRC` moved to the propagated state; the README paragraph; GR, Main, the Explainer and the book rebuilt by `sh ./build.sh`, no dropped glyphs | `verification/lean/edge_rigidity_probe.py`, `README.md` |
+| E5 | the re-grep: zero occurrences corpus-wide of `DerivedOI`, `SourcedOI`, `PhasesAvailable`, `SubstratumAvail`, `RouteB`, `LayerFlowExecutable`, `obsTheory`, `permTheory`, of any sentence saying every realization of the channels is configuration-level, that the wave-operator lift is excluded, or that the executability is derived; six occurrences of the new sentence; two of the layer-flow display's right-hand side, one in each display | the manuscripts and their generated forms |
+| E6 | the checks: release gate, every step; the probe, every guard; the census; the counts unchanged | the release gate |
+
+**The artifacts.** Rebuilt by `sh ./build.sh GR Main Explainer` and `sh ./build.sh --book`, the
+xelatex log clean of dropped glyphs.
+
+| artifact | pages |
+|---|---|
+| `papers/GR.pdf` | 82 |
+| `papers/Main.pdf` | 85 |
+| `papers/Explainer.pdf` | 66 |
+| `book/The-Incompleteness-of-Observation-FULL.pdf` | 535 |
+
+GR gains one page for three sentences and a display; the others hold their counts for one
+sentence each, as expected.
+
+**What the outcome establishes.** The manuscripts state the boundary the kernel proves. Within
+the closure, exact finite endomorphic operational quantum mechanics is equivalent to one nontrivial
+layer flow executable, for each involution with a moved configuration; the stated substratum
+dynamics with observer access does not make one nontrivial layer flow executable, the discrete
+layer endpoint at time one being available and fractional-time access an additional physical
+intervention assumption; and the observer-level lift, in every formulation stated that lands in
+the operational interface, derives neither a non-monomial admissible operator nor the layer flow,
+the reversible coherent lift monomial, every coherent completion diagonal-preserving, the explicit
+Kraus realization of the projected operator configuration-level, and a generator with its
+time-one exponential available not executing the flow at intermediate times. The equivalence is
+exact; the physical sourcing of one of its hypotheses is not. The relative-phase sourcing stands
+as the phase-source and phase-propagation rounds left it.
+
+**What the outcome does not establish.** Anything not already proved: the round adds no theorem.
+That every realization of the coherent or stochastic channels is configuration-level. That the
+wave-operator lift is excluded, or that it is derivable. That either assumption is derivable, or
+that the pair is unique or minimal.
+
+Status: pass complete, publication-only. The sourcing statement is in GR §3.3 with its second
+display, the summary at its six sites, the two families current, guard `R7-SRCP` pinning the
+propagated text, and the kernel unchanged.

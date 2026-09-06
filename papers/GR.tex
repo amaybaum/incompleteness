@@ -1789,9 +1789,41 @@ preserve diagonal states (kernel:
 \texttt{gateFlow\_half\_not\_preservesDiag},
 \texttt{configurationLevel\_not\_layerFlowExecutable},
 \texttt{substratumTheory\_not\_layerFlowExecutable} in
-\texttt{OIBridge/LiftAudit.lean}). No uniqueness or minimality is
-claimed for the pair of assumptions; a different pair could be
-sufficient as well.
+\texttt{OIBridge/LiftAudit.lean}). Nor is that executability sourced by
+the substratum's own dynamics with the observer's stated access: the
+theory the read and write access generates on the configuration space
+executes no layer flow of an involution with a moved configuration, its
+own shear and swap layers included, the layers being available at time
+one and not at intermediate times, and any access that does execute one
+supplies a non-monomial admissible operator at level one (kernel:
+\texttt{obs\_not\_layerFlowExecutable},
+\texttt{waveSubstratum\_not\_layerFlowExecutable\_swap},
+\texttt{exists\_nonMonomial\_of\_layerFlowExecutable} in
+\texttt{OIBridge/ExecSource.lean}). The observer-level lift of {[}SM
+§4.1{]}, in every formulation stated that lands in the operational
+interface, derives neither such an operator nor the layer flow: the
+reversible coherent lift of a permutation is monomial, every coherent
+completion, reversible or not, preserves diagonal states, the explicit
+Kraus realization of the projected observer operator is
+configuration-level, and a generator whose time-one exponential is
+available does not make the exponential available at intermediate times
+(kernel: \texttt{reversibleExtension\_conj\_monomial},
+\texttt{correlationExtension\_preservesDiag},
+\texttt{coherentLiftClass\_eq\_substratumClass},
+\texttt{stochasticChannel\_kraus\_monomial},
+\texttt{avail\_one\_not\_layerFlowExecutable} in
+\texttt{OIBridge/LiftSource.lean}); whether every realization of those
+channels is configuration-level is not decided, and the site-space
+wave-operator formulation is unresolved rather than excluded, no
+operational map from it to the configuration carrier being stated.
+Fractional-time access to one layer flow is therefore an additional
+physical intervention assumption, as the phase intervention is:
+
+\[\boxed{\text{stated substratum dynamics with observer access} \;\not\Rightarrow\; \text{one nontrivial layer flow executable}}\]
+
+The equivalence displayed above is exact; the physical sourcing of this
+one of its hypotheses is not. No uniqueness or minimality is claimed for
+the pair of assumptions; a different pair could be sufficient as well.
 
 \textbf{Typed form.} The statements above are endomorphic: every
 operation acts from a finite carrier back to the same carrier, the
@@ -4891,4 +4923,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: 5d256266ee4886fbf9b8d7ff9d09f96bff478893104a831f3af7873b5a86ec9a
+% source-sha256: e8a2cb3e7b99518b9c700cd041433390c13ee5b7ec001b69cb365a503472830b
