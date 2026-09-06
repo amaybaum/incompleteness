@@ -4485,8 +4485,12 @@ _qpn = open(os.path.join(os.path.dirname(BRIDGE), 'Q3-PROPAGATION-AUDIT.md'), en
 _qpn1 = re.sub(r'\s+', ' ', _qpn)
 ok_q3p &= _qpn.lstrip().startswith('# The Q3 propagation round')
 _kqp = [_qpn.find(h) for h in ('## The items, fixed in advance', '## The constraints, fixed in advance',
-        '## The tests, fixed in advance', '## What the round does not do', '## The outcome')]
+        '## The tests, fixed in advance', '## What the round does not do',
+        '## Scope amendment, recorded after the preregistration', '## The outcome')]
 ok_q3p &= all(x > 0 for x in _kqp) and _kqp == sorted(_kqp)
+# the amendment: the generic theorem and the concrete swap-layer instance kept distinct
+ok_q3p &= 'keeps the generic theorem and the concrete instance distinct' in _qpn1
+ok_q3p &= 'scope amendment above' in _qpn[_qpn.find('## The outcome'):]
 for _t in ('Preregistration commit `6eb213b`', 'Status: pass complete', '`main` at `be31589`',
            '**Item 1, the layer-flow form in `[GR §3.3]`.**',
            '**Item 3, the registry and the census, per §A.35, in the same commit.**',
@@ -4508,6 +4512,10 @@ for _t in ('**Layer-flow form.**',
            'the square of the quarter phase on the image of a moved configuration is a sign flip',
            '`gateFlow_isolation_flip`', '`phaseFree_of_derivedOI_layerFlowExecutable`',
            '`qm_of_derivedOI_layerFlowExecutable`', "`derivedOI_qm_iff_layerFlowExecutable_swap'`",
+           'For the concrete substratum factorization, the swap-layer flow on a nonempty region with a nontrivial '
+           'alphabet is the one-parameter unitary group of one of its gates and is an instance of this equivalence',
+           'the equivalence itself is stated for each involution with a moved configuration, whether or not it is a '
+           'gate of that factorization',
            'Two qualifications are part of the statement.',
            'The phase intervention is an assumption on the substratum class, as stated above, and not a consequence of '
            'the finite states with the bijective read-write dynamics',
@@ -4545,7 +4553,8 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Su
                  'the executability is derived', 'executability is derived from', 'derives the executability',
                  'the layer flow is derived', 'the phases are derived', 'derives the phases',
                  'the pair of assumptions is minimal', 'the assumptions are minimal', 'is the unique resource',
-                 'the minimal resource'):
+                 'the minimal resource',
+                 'The layer flow is the one-parameter unitary group of one gate of the depth-two factorization'):
         ok_q3p &= _bad not in _t1
 # the registry: both families current with anchors, the two supersessions, the census rows, the README
 _qp_fam = [f for f in _ptr_reg['families'] if f['name'] == 'Q3 from the closure: one executable layer flow']

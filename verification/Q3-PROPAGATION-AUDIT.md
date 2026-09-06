@@ -117,9 +117,27 @@ Remove or weaken the substratum-source box. Claim that either assumption is deri
 minimal. Narrate Route B, the sourced observer theory or the flow endpoint. Refresh the transfer
 bundle.
 
+## Scope amendment, recorded after the preregistration
+
+At review of the round at `10f5a59`, the owner found one sentence of the drafted `[GR §3.3]`
+paragraph too broad. It said that the layer flow is the one-parameter unitary group of one gate of
+the depth-two factorization of the substratum update, read on a region, with the swap layer as an
+instance. The endpoint theorem `derivedOI_qm_iff_layerFlowExecutable'` is generic, for each
+involution with a moved configuration; the theorem that ties the endpoint to a gate of the actual
+factorization is the swap-layer instance `derivedOI_qm_iff_layerFlowExecutable_swap'`. Read
+literally, the sentence identified every involution of the equivalence with a gate of the actual
+factorization, which overstates what is sourced and prejudges the executability-sourcing round.
+The sentence keeps the generic theorem and the concrete instance distinct: for the concrete
+substratum factorization, the swap-layer flow on a nonempty region with a nontrivial alphabet is
+the one-parameter unitary group of one of its gates and is an instance of the equivalence, and the
+equivalence itself is stated for each involution with a moved configuration, whether or not it is
+a gate of that factorization. The preregistration above is unchanged, its Item 1 having named the
+swap layer as an instance and nothing more; no theorem changes; the guard pins the amended
+sentence and rejects the drafted one.
+
 ## The outcome
 
-Preregistration commit `6eb213b`, executed from `main` at `be31589`. The items were made as fixed
+Preregistration commit `6eb213b`, scope amendment above, executed from `main` at `be31589`. The items were made as fixed
 in advance; the kernel is untouched, at 124 modules and 2,740 named results. Every test reached
 the outcome expected in advance.
 
