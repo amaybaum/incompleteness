@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 122 modules and,
-  at this commit, 2,713 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 123 modules and,
+  at this commit, 2,723 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1104,6 +1104,42 @@ preregistered Q3, from `DerivedOI`, is untouched and stays open. Fifteen named r
 least class of one layer involution, which is not defined; the minimality of the witness; whether
 the observer-level lift is derivable; Route A in either direction; no manuscript changes, none
 narrating the endpoint. Guard `R7-FLOW`.
+
+`PHASE-SOURCE-AUDIT.md` and `OIBridge/PhaseSource.lean` ask, before the lift audit's Q3 from
+`DerivedOI` is attacked, whether the stated substratum and observer access derive
+`PhasesAvailable`, the one conjunct by which `DerivedOI` exceeds `SourcedOI`
+(`derivedOI_iff_sourcedOI_phases`), rather than assume it. Four distinctions are frozen at the
+outset: gauge is not an intervention, a representation fact is not availability, a global phase is
+not the resource, and availability is instrument realization. A census of every purported source
+in the corpus and the kernel is taken before the pass, nine entries, and the criteria for the three
+outcomes, positive, negative and underdetermined, are fixed in advance. The kernel: no architecture
+whose admissible isometries fix the all-ones ray sources a quarter phase at any level with two or
+more states (`onesFixing_not_phasesAvailable`); the sourced class is ones-fixing
+(`permClass_onesFixing`), so its theory carries no quarter phase by the same invariant that decides
+the flow endpoint (`permTheory_not_phasesAvailable_onesFixing`), and the bijective interventions,
+the read-write operators and the layer gate flows fix the all-ones vector; the quarter phase is not
+a scalar, its conjugation is not the identity, and every diagonal unitary fixes it under
+conjugation, so a rephasing of the representation neither creates nor removes it
+(`phaseGate_not_scalar`, `conjChannel_phaseGate_ne_id`, `diagonal_conj_phaseGate`); and the
+quarter phase moves the all-ones ray, so the monomial class of the round-62 interface is not
+ones-fixing through its declared phase intervention alone (`phaseGate_moves_ones`,
+`substratumClass_not_onesFixing`). The verdict for the stated access is negative: every operation
+the manuscripts state the observer performs is ones-fixing, the observer architecture's own
+operations preserve the invariant, and the kernel's `PhasesAvailable` on the substratum side rests
+on the round-62 phase intervention, a stipulation, and on nothing else; current OI sourcing stops
+at `SourcedOI`, and an executable relative-phase intervention is an additional physical assumption
+on the route to quantum mechanics. The phrase "the phase structure" of the substratum-source form
+is underdetermined, and what it would have to supply is stated in two parts under a scope
+amendment at review: the necessary condition, an admissible operator selectable at every level
+that moves the all-ones ray, which no ones-fixing class supplies, and the sufficient access tested,
+the quarter-phase intervention itself, moving the ray alone being no guarantee of a quarter phase
+(`substratumTheory_derivedOI`, the positive control). Ten named
+results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that
+relative phase is the unique or minimal resource; that moving the all-ones ray suffices to source
+the phases; anything about the arrow from `DerivedOI`;
+anything about a richer substratum ontology than the one the manuscripts state; no manuscript
+changes, the requalification of the substratum-source sentence being recorded for the propagation
+round. Guard `R7-PHASE`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

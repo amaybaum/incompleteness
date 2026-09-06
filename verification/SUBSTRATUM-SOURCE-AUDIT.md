@@ -207,3 +207,25 @@ no claim is made that the elementary control repertoire is mathematically minima
 compact-semigroup redundancy of the inverse clause is proved in `INVERSE-CLAUSE-AUDIT.md`, and the
 minimum control repertoire remains a backlog optimization: it can simplify the theorem but cannot
 change the physical conclusion.
+
+## Fifth entry, recorded after the freeze: the phase source
+
+The freeze above lists the phases among what the concrete OI substratum supplies. The phase-source
+audit (`PHASE-SOURCE-AUDIT.md`, `OIBridge/PhaseSource.lean`) traces that supply to its source and
+decides the two escape routes of the second entry that concern it, "relabelling/gauge symmetry"
+and "phase-recovery machinery", together with the round-62 interface itself. The finding: the
+phases enter the kernel through the phase intervention `phaseOperator` declared at the interface,
+a stipulation; every operation the manuscripts state the observer performs, readout, bijective
+write access, relabelling, and the layer flows under executability, supplies an operator fixing
+the all-ones ray, and the operations of the observer architecture preserve that invariant, so no
+theory they generate carries a quarter phase (`onesFixing_not_phasesAvailable`,
+`permClass_onesFixing`); the gauge and phase-recovery routes are gauge and representation facts,
+and a rephasing of the representation fixes the quarter phase under conjugation
+(`diagonal_conj_phaseGate`). The monomial class is the one class of this audit that is not
+ones-fixing, and it is so through the phase intervention alone (`substratumClass_not_onesFixing`).
+So the freeze's list is read with its source made explicit: the substratum supplies the closure,
+the spectator stability, the relabelling invariance, the reversibility and the exchanges; the
+phases are supplied by the interface's declared phase intervention, an executable relative-phase
+access that the stated substratum and observer machinery do not derive. The endpoint of the
+fourth entry is unchanged, its controllability hypothesis stated on an extension of the monomial
+class as before.
