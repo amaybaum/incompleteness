@@ -8540,7 +8540,7 @@ if os.path.exists(_il68):
     ok68 &= 'Whether context stability is redundant given implementation generation' in _il_txt68
 check("F68", ok68,
       "ROUND 57: THE SOURCE OF OBSERVATIONAL INDEPENDENCE (phase three, round fifty-seven; kernel: "
-      "OIBridge/ImplementationLocality.lean, 26 results -- twoPosFamily_regrouping, "
+      "OIBridge/ImplementationLocality.lean, 81 results after the instrument migration -- twoPosFamily_regrouping, "
       "twoPosFamily_relabelling, countermodel_ambient, countermodel_embeddedObservation, "
       "redundancy_fails, form_fixed_existence_fails, realized_withSpectator, "
       "parallel_of_implementationLocal, observationalIndependence_of_implementationLocality, "
@@ -8575,8 +8575,9 @@ check("F68", ok68,
 
 # F69 -- ROUND 58: MICROSCOPIC REVERSIBILITY -- reversible richness split into inverse
 # accessibility and Lie-rank richness; the inverse clause derived from dagger-stable
-# implementations through the rank-one ray lemma; the redundancy test left open with the seam
-# named (phase three, round fifty-eight).
+# implementations through the rank-one ray lemma, under unitary-ray saturation after the
+# instrument migration, and from Lie-rank control on the well-formed theory after the
+# inverse-clause audit (phase three, round fifty-eight).
 ok69 = True
 def _vec69(M):
     """The kernel's vectorization of a matrix: p = (row index second, column index first)."""
@@ -8608,7 +8609,7 @@ ok69 &= rank17(add52(_off69, dyad47(_w69))) == 2 and rank17(_off69) == 1
 # --- (b) the seam, illustrated: at su(2) the inverse of a control is reached by conjugating
 # with the drift's quarter-period flow, with no adjoint closure assumed -- exp(-i pi/2 sigma_z)
 # = diag(-i, i) is exact, and it carries the rational x-rotation to its inverse. An
-# illustration of why the redundancy test is not expected to fail, not a theorem.
+# illustration of the mechanism the positive-reachability theorem makes exact, not a theorem.
 _i69 = C17(Frac(0), Frac(1))
 _Z69 = [[C17(0) - _i69, CZ17], [CZ17, _i69]]
 _Ux69 = [[C17(Frac(3, 5)), C17(0) - scale52(C17(Frac(4, 5)), [[_i69]])[0][0]],
@@ -8626,38 +8627,43 @@ if os.path.exists(_mr69):
     ok69 &= 'theorem reversibleImplementationLocality_of_qm' in _mr_txt69
     ok69 &= '∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A), OIPlusMicro T ↔ ExactAllFiniteEndomorphicQuantumOps T' in _mr_txt69
     ok69 &= 'sorry' not in _mr_txt69
-    ok69 &= 'is NOT settled here, in either direction' in _mr_txt69
+    ok69 &= 'force inverse accessibility' in _mr_txt69 and 'theorem control_of_lieRank (h : LieRankRichness T)' in _mr_txt69
+    ok69 &= 'def UnitaryRaySaturated' in _mr_txt69 and '(hs : UnitaryRaySaturated 𝓘) : InverseAccessibility T' in _mr_txt69
 check("F69", ok69,
       "ROUND 58: MICROSCOPIC REVERSIBILITY (phase three, round fifty-eight; kernel: "
-      "OIBridge/MicroscopicReversibility.lean, 16 results -- reversibleRichness_iff, "
-      "control_of_lieRank_inverse, dyad_sum_span_single, conjChannel_smul, kraus_of_conj_unitary, "
-      "implementationLocality_of_reversible, inverseAccessibility_of_generated_daggerStable, "
-      "inverseAccessibility_of_reversibleImplementationLocality, fullClass_daggerStable, "
-      "reversibleImplementationLocality_of_qm, oiPlusLocal_of_oiPlusMicro, qm_of_oiPlusMicro, "
-      "oiPlusMicro_of_qm, oiPlusMicro_iff_qm, oiPlusMicro_iff_oiPlusLocal, "
-      "carrier_general_oiPlusMicro). THE SPLIT: reversible richness is exactly inverse "
+      "OIBridge/MicroscopicReversibility.lean, 21 results -- reversibleRichness_iff, "
+      "control_of_lieRank_inverse, control_of_lieRank, inverseAccessibility_of_lieRank, "
+      "dyad_sum_span_single, kraus_of_conj_unitary, implementationLocality_of_reversible, "
+      "conjChannel_zero', exists_scaled_mem_of_instAvail_unitary, "
+      "inverseAccessibility_of_generated_daggerStable, "
+      "inverseAccessibility_of_reversibleImplementationLocality, "
+      "genTheory_reversibleImplementationLocality, fullClass_daggerStable, "
+      "fullClass_unitaryRaySaturated, reversibleImplementationLocality_of_qm, "
+      "oiPlusLocal_of_oiPlusMicro, qm_of_oiPlusMicro, oiPlusMicro_of_qm, oiPlusMicro_iff_qm, "
+      "oiPlusMicro_iff_oiPlusLocal, carrier_general_oiPlusMicro). THE SPLIT: reversible richness is exactly inverse "
       "accessibility (every available conjugation channel has its adjoint channel available) "
       "and Lie-rank richness (the drift/control certificate at every level). THE PRIMITIVE, "
       "below availability: a dagger-stable implementation class, the adjoint of an admissible "
-      "operator admissible. THE DERIVATION: an available conjugation channel is realized by "
-      "admissible operators and trace preserving, so V is an isometry; the Choi matrix of conj V "
-      "is the dyad of vec V, so every realizing operator lies on the ray of V (the rank-one span "
-      "lemma, no Kraus-uniqueness theorem invoked); the squared moduli sum to one; the adjoint "
-      "family realizes conj V^dag, which is available. NECESSITY: exact QM is generated by the "
+      "operator admissible. THE DERIVATION, on the migrated semantics: an available conjugation "
+      "channel of an architecture is branch-realized by admissible operators and trace preserving, "
+      "so V is an isometry; the Choi matrix of conj V is the dyad of vec V, so every realizing "
+      "operator lies on the ray of V (the rank-one span lemma, no Kraus-uniqueness theorem "
+      "invoked) and some is nonzero; unitary-ray saturation lifts it to V, dagger stability "
+      "supplies V^dag, and one step realizes conj V^dag. NECESSITY: exact QM is generated by the "
       "full class, which is dagger-stable. THE COMPRESSED SET: reversible implementation "
       "locality + Lie-rank richness + embedded observation iff exact finite endomorphic "
-      "operational QM on every nonempty finite carrier. THE REDUNDANCY TEST is left open in both "
-      "directions with the seam named: the kernel consumes the inverse clause exactly at the "
-      "hstar hypothesis of the round-50 reachability theorem; a compact-semigroup argument "
-      "suggests the clause may be redundant, and neither that proof nor a countermodel is built. "
+      "operational QM on every nonempty finite carrier, its inverse clause taken from Lie-rank "
+      "control on the well-formed theory (control_of_lieRank, inverseAccessibility_of_lieRank, "
+      "stated here on the positive-reachability core), so neither dagger stability nor "
+      "saturation is consumed by the equivalence. "
       "Verified exactly here: a redundant two-operator decomposition of a rational unitary "
       "channel reproducing it, the Choi matrix as the dyad of the vectorized unitary, the adjoint "
       "family reproducing the adjoint channel with normalization and trace preserved, the rank of "
       "an off-ray dyad sum, the su(2) illustration in which the drift's quarter-period flow "
       "carries a control to its inverse, and the kernel text read back. NOT CLAIMED, "
-      "lint-guarded: the redundancy of inverse accessibility given the other principles, in "
-      "either direction; the converse from inverse accessibility to dagger stability; any source "
-      "for the Lie-rank clause.")
+      "lint-guarded: the converse from inverse accessibility to dagger stability; inverse "
+      "accessibility from dagger stability without saturation; any source for the Lie-rank "
+      "clause.")
 
 # F70 -- ROUND 59: THE SOURCE OF LIE-RANK RICHNESS -- the redundancy test fails on the diagonal
 # architecture; Lie-rank richness is derived from elementary transitions (one driven pair, one
@@ -8744,8 +8750,8 @@ if os.path.exists(_ls70):
     ok70 &= 'The minimal elementary repertoire' in _ls_txt70
 check("F70", ok70,
       "ROUND 59: THE SOURCE OF LIE-RANK RICHNESS (phase three, round fifty-nine; kernel: "
-      "OIBridge/LieRankSource.lean, 57 results -- among them Architecture, genTheory, "
-      "genTheory_embeddedObservation, genTheory_reversibleImplementationLocality, diagClass, "
+      "OIBridge/LieRankSource.lean, 40 results after the instrument migration, Architecture and "
+      "genTheory in ImplementationLocality -- among them diagClass, "
       "diagClass_arch, diagGen_not_control, lieRank_not_redundant, transition, transitionY, "
       "phaseGate, perm_conj_transition, phase_conj_transition, bracket_XY, exists_perm_pair, "
       "pair_decomp, hControl_star, ctrl, avail_ctrl, lieRank_of_elementary, elementary_of_control, "
@@ -8818,7 +8824,7 @@ if os.path.exists(_ss71):
     ok71 &= 'does not derive a quantum architecture from A1-A6' in _ss_txt71
 check("F71", ok71,
       "ROUND 61: SUBSTRATUM-SOURCE AUDIT, FIRST ENTRY (phase three, round sixty-one; kernel: "
-      "OIBridge/SubstratumSource.lean, 11 results -- DrivesElementary, genTheory_avail_conj, "
+      "OIBridge/SubstratumSource.lean, 9 results -- DrivesElementary, genTheory_avail_conj, "
       "genTheory_elementary, quantumArchitecture_supplies_all, genTheory_qm_of_quantumArchitecture, "
       "fullClass_arch, fullClass_drivesElementary, fullClass_quantumArchitecture, "
       "qm_generated_by_quantumArchitecture, diagClass_not_drivesElementary, "
@@ -9071,7 +9077,7 @@ if os.path.exists(_sc74):
     ok74 &= 'no control law is postulated' in _sc_txt74
 check("F74", ok74,
       "ROUND 64: STRUCTURAL CLOSURE OF THE SUBSTRATUM ARCHITECTURE (phase three, round sixty-four; "
-      "kernel: OIBridge/StructuralClosure.lean, 34 results -- among them monomial_iff_submonomial, "
+      "kernel: OIBridge/StructuralClosure.lean, 35 results -- among them monomial_iff_submonomial, "
       "substratumClass_arch, substratumClass_contextStable, substratumClass_labelInvariant, "
       "substratumClass_daggerStable, substratumClass_structurallyClosed, bijectiveOperator_conjTranspose, "
       "phaseOperator_conjTranspose, substratumGen_not_qm, quantumArchitecture_iff_drives_of_closed, "
