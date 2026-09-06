@@ -244,7 +244,8 @@ ones-fixing class of the instrument-realization audit, which satisfies `SourcedO
 layer flow at every level and time, and drives no pair at level two
 (`FlowEndpoint.flow_endpoint_refuted`). That witness carries no quarter phase, so it fails
 `PhasesAvailable`, `DerivedOI` and `SubstratumAvail` (`FlowEndpoint.onesTheory_not_substratumAvail`):
-it meets neither the hypothesis of Q3′ nor that of the preregistered Q3. Q3′ is therefore sharp in
-its hypothesis, the substratum's availability supplying the relative phase the isolation identity
-consumes and the executability alone not supplying it; and the preregistered Q3, from `DerivedOI`
+the absence of phases witnessing that failure, with the full gap not characterized: it meets
+neither the hypothesis of Q3′ nor that of the preregistered Q3. Q3′ is therefore sharp in its
+hypothesis, the substratum's availability supplying the diagonals the isolation identity consumes
+and the executability alone not supplying them; and the preregistered Q3, from `DerivedOI`
 and executability, is untouched by the witness and stays open as the outcome above records it.

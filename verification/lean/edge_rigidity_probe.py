@@ -4082,7 +4082,8 @@ ok_flow &= 'flow_realized_not_instrumentRealized' in _slice(_fe, 'theorem onesTh
 # the note: question, objects, mechanism, tests, meanings and non-doings precede the outcome
 _k = [_fen.find(h) for h in ('## The question', '## The objects', '## The mechanism, fixed in advance',
       '## The tests, each with its admissible outcomes', '## What the outcomes mean, fixed in advance',
-      '## What the round does not do', '## The outcome', '## What this note does not claim')]
+      '## What the round does not do', '## Scope amendment, recorded after the preregistration',
+      '## The outcome', '## What this note does not claim')]
 ok_flow &= all(x > 0 for x in _k) and _k == sorted(_k)
 ok_flow &= _fen.lstrip().startswith('# The flow-endpoint audit')
 for _t in ('Preregistration commit `4ec3623`', 'Status: pass complete', 'commit `c19c12a`', 'The level of the negative, fixed now',
@@ -4091,7 +4092,8 @@ for _t in ('Preregistration commit `4ec3623`', 'Status: pass complete', 'commit 
            '**F6. The surfaces.**', '**F7. The checks.**', '| F1 | ', '| F2 | ', '| F3 | ', '| F4 | ', '| F5 | ', '| F6 | ', '| F7 | ',
            'no proved statement differs from the preregistered one', 'The obstruction was not moved',
            'What no outcome establishes', 'What the outcome does not establish', 'stays open as the lift audit records it',
-           'fifteen named results', 'a relative phase', 'What the round does not do', 'What this note does not claim',
+           'fifteen named results', 'relative phase structure', 'What the round does not do', 'What this note does not claim',
+           'the absence of phases witnesses the failure of `SubstratumAvail`', 'unique or the minimal', 'scope amendment above',
            'What is retained from the flow-extension audit', 'commit `490e03c`'):
     ok_flow &= _t in _fen1
 for _bad in ('the preregistered Q3 holds', 'Q3 is refuted', 'the lift is derivable', 'the lift is not derivable',
@@ -4100,6 +4102,16 @@ for _bad in ('the preregistered Q3 holds', 'Q3 is refuted', 'the lift is derivab
              'DerivedOI and executability fail to give phase-free richness'):
     ok_flow &= not _asserted(_fen, _bad)
 ok_flow &= 'flowClass' not in _fen[_fen.find('## The outcome'):] or 'not defined' in _fen[_fen.find('## The outcome'):]
+# the amended scope: the absence of phases witnesses the failure of SubstratumAvail and the gap is
+# not characterized; relative phase is an obstruction identified, not the unique or minimal resource
+_fen_out = _fen[_fen.find('## The outcome'):]
+for _t in (_fen_out, _rd1, _feflat2, re.sub(r'\s+', ' ', _lan)):
+    for _bad in ('exactly through the phases', 'the missing resource is a relative phase', 'the missing resource being a relative phase',
+                 'gap to `SubstratumAvail` is exactly', 'the resource the executable layer flow lacks being a relative phase'):
+        ok_flow &= _bad not in _t
+for _bad in ('relative phase is the unique missing resource', 'relative phase is the minimal missing resource',
+             'the gap to SubstratumAvail is exactly the phases'):
+    ok_flow &= not _asserted(_fen, _bad)
 # the superseded preregistration names this round; the lift audit records its Q3 untouched
 ok_flow &= '## Superseded, recorded after the deferral' in _fxn and 'FLOW-ENDPOINT-AUDIT.md' in _fxn
 ok_flow &= 'flow_endpoint_refuted' in _fxn and '## Deferral, recorded after the preregistration' in _fxn
@@ -4113,12 +4125,14 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Su
     ok_flow &= 'FlowEndpoint' not in _t and 'onesTheory' not in _t and 'flow_endpoint_refuted' not in _t and 'onesClass' not in _t
 _fe_fam = [f for f in _ptr_reg['families'] if f['name'] == 'flow endpoint: executable layer flow on the sourced baseline']
 ok_flow &= len(_fe_fam) == 1 and _fe_fam[0]['status'] == 'kernel-only' and _fe_fam[0]['modules'] == ['FlowEndpoint']
-ok_flow &= _fe_fam[0]['manuscript'] == [] and 'level two' in _fe_fam[0]['note'] and 'relative phase' in _fe_fam[0]['note']
+ok_flow &= _fe_fam[0]['manuscript'] == [] and 'level two' in _fe_fam[0]['note'] and 'relative phase structure' in _fe_fam[0]['note']
+ok_flow &= 'not shown unique or minimal' in _fe_fam[0]['note'] and 'full gap not characterized' in _fe_fam[0]['note']
 ok_flow &= 'untouched and stays open' in _fe_fam[0]['note'] and 'not claimed minimal' in _fe_fam[0]['note']
 _cen_fe = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_flow &= '| flow endpoint: executable layer flow on the sourced baseline | 1 | kernel-only |' in _cen_fe
 for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_refuted', 'onesTheory_no_quarter_flow',
-           'Fifteen named results', 'preregistered at level two', 'proved there and not elsewhere', 'a relative phase',
+           'Fifteen named results', 'preregistered at level two', 'proved there and not elsewhere', 'relative phase structure',
+           'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
 ok_flow &= '122 modules' in _rd1 and '2,713 named results' in _rd1
@@ -4130,7 +4144,9 @@ check('R7-FLOW', ok_flow,
       'the endpoint theorem on the two-state carrier and in general, and the failure of the phases, DerivedOI, '
       'SubstratumAvail and quantum mechanics are stated as pinned; the note keeps the question, the objects, the '
       'mechanism, the tests, the meanings and the non-doings before the outcome, names both commits, fixes the '
-      'level of the negative in advance and records it proved there, and asserts nothing about the lift audit\'s '
+      'level of the negative in advance and records it proved there, carries the scope amendment reading the absence '
+      'of phases as a witness of the failure of SubstratumAvail with the gap not characterized and relative phase as an '
+      'obstruction identified and not the unique or minimal resource, and asserts nothing about the lift audit\'s '
       'Q3, the lift, Route A or minimality; the flow-extension note names this round as its superseding '
       'preregistration after its deferral; the lift audit records its Q3 untouched; no manuscript carries the '
       'round; the registry and the census carry the family as kernel-only and the README carries the paragraph '

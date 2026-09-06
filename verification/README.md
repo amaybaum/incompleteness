@@ -1095,9 +1095,11 @@ exists (`flow_endpoint_refuted`), and on every carrier with at least two states 
 involution (`flow_endpoint_refuted_general`). The witness carries no quarter phase, fails
 `PhasesAvailable`, `DerivedOI` and `SubstratumAvail`, and is not quantum mechanics
 (`onesTheory_not_phasesAvailable`, `onesTheory_not_derivedOI`, `onesTheory_not_substratumAvail`,
-`onesTheory_not_qm`): the lift audit's Q3′ is sharp in its hypothesis, the resource the
-executable layer flow lacks being a relative phase, and the lift audit's preregistered Q3, from
-`DerivedOI`, is untouched and stays open. Fifteen named results, each printing only `propext`,
+`onesTheory_not_qm`): the absence of phases witnesses the failure of the substratum's
+availability, the full gap to it not characterized; the lift audit's Q3′ is sharp in its
+hypothesis; the ones-ray invariant isolates relative phase structure as an obstruction the witness
+lacks, with no claim that it is the unique or minimal missing resource; and the lift audit's
+preregistered Q3, from `DerivedOI`, is untouched and stays open. Fifteen named results, each printing only `propext`,
 `Classical.choice`, `Quot.sound`. Not claimed: anything about the arrow from `DerivedOI`; the
 least class of one layer involution, which is not defined; the minimality of the witness; whether
 the observer-level lift is derivable; Route A in either direction; no manuscript changes, none

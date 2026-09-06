@@ -12,7 +12,7 @@ countercontrol `flow_realized_not_instrumentRealized`), `OIBridge/Implementation
 `INSTRUMENT-MIGRATION-AUDIT.md`, `LIFT-AUDIT.md`; guard `R7-FLOW` in
 `verification/lean/edge_rigidity_probe.py`.
 
-**Status: pass complete. F1–F5 proved as preregistered, the negative at level two; the arrow `SourcedOI ∧ LayerFlowExecutable ⟹ PhaseFreeRichness` is refuted on the migrated semantics; the lift audit's preregistered Q3, from `DerivedOI`, is untouched.** Written from `main` at commit `c19c12a`, the merge
+**Status: pass complete. F1–F5 proved as preregistered, the negative at level two, F5 read under the scope amendment recorded below; the arrow `SourcedOI ∧ LayerFlowExecutable ⟹ PhaseFreeRichness` is refuted on the migrated semantics; the lift audit's preregistered Q3, from `DerivedOI`, is untouched.** Written from `main` at commit `c19c12a`, the merge
 of the instrument migration, on which both repairs the deferral named have landed: contractive
 scalar closure (`SCALAR-CLOSURE-AUDIT.md`) and provenance-aware realization as the implementation
 semantics (`INSTRUMENT-MIGRATION-AUDIT.md`). The sections below fix the objects, the test theory,
@@ -180,9 +180,32 @@ Derive `LayerFlowExecutable` from anything; it is a hypothesis of the arrow and 
 witness. Read availability off the CT2 path. Edit a manuscript. Propagate Route B. Refresh the
 transfer bundle.
 
+## Scope amendment, recorded after the preregistration
+
+The preregistration above (commit `4ec3623`) is frozen and unchanged. One reading in it is
+requalified before the outcome is recorded, at the owner's direction at review, quoted:
+
+> Change the intended reading from "onesTheory fails SubstratumAvail exactly through the phases"
+> to "the absence of phases already witnesses failure of SubstratumAvail." Likewise soften "the
+> missing resource is a relative phase" to "the invariant identifies a missing resource /
+> obstruction: relative phase structure that moves the all-ones ray." Reason: from #515 we have
+> `SubstratumAvail ⇒ PhasesAvailable`, so `¬PhasesAvailable ⇒ ¬SubstratumAvail`, but we never
+> proved the converse or characterized the full gap. We should not accidentally resurrect the
+> scope overstatement that #515 repaired. That does not weaken the main target.
+
+So the sentences of the mechanism section that say the mechanism "says exactly where" the
+witness fails `SubstratumAvail` and that "the missing resource is named by the invariant" are
+read as follows. The kernel proves `SubstratumAvail T → PhasesAvailable T`
+(`substratumAvail_phasesAvailable`) and that the witness has no quarter phase; so the absence of
+phases witnesses the failure of `SubstratumAvail`, and the full gap between the witness and the
+substratum's availability is not characterized by this round. The ones-ray invariant identifies an
+obstruction the witness lacks, relative phase structure that moves the all-ones ray; it does not
+establish that relative phase is the unique or the minimal missing resource. F5 is read with this
+scope, its four theorems unchanged; the main target, F4, is unaffected.
+
 ## The outcome
 
-Preregistration commit `4ec3623`. The kernel module is `OIBridge/FlowEndpoint.lean`, fifteen named
+Preregistration commit `4ec3623`, scope amendment above. The kernel module is `OIBridge/FlowEndpoint.lean`, fifteen named
 results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Every test reached the
 outcome fixed in advance, at the level fixed in advance; no proved statement differs from the
 preregistered one.
@@ -193,25 +216,28 @@ preregistered one.
 | F2 | executability: the layer involution read at any level is an involution, its gate flow fixes the all-ones vector and is unitary, so it is one admissible step at every level and time, for every finite carrier and every involution | `levelPerm_involutive`, `onesTheory_layerFlowExecutable` |
 | F3 | the endpoint, negative at level two: on every carrier with a third point no pair's quarter-turn transition flow is available, by the countercontrol of the instrument-realization audit; a carrier with at least two states has at least four at level two, so every pair there has a third point, and `PhaseFreeRichness` fails at `n = 2`; on `Fin 2` in particular. The obstruction was not moved: level two is where it was fixed and where it is proved | `exists_third`, `onesTheory_no_quarter_flow`, `onesTheory_not_phaseFree_general`, `onesTheory_not_phaseFree` |
 | F4 | the endpoint theorem: on the two-state carrier a theory with the sourced closure and the executable layer flow of the exchange and without phase-free richness, `onesTheory (Fin 2)` the witness; and on every carrier with at least two states, for every involution | `flow_endpoint_refuted`, `flow_endpoint_refuted_general` |
-| F5 | the location of the failure: the quarter phase carries the all-ones vector to a vector with `i` at one state and `1` elsewhere, off the ray on a carrier with two states, so the ones-fixing theory carries no quarter phase, fails `PhasesAvailable`, `DerivedOI` and `SubstratumAvail`, and on `Fin 2` is not quantum mechanics | `phaseGate_mulVec_ones`, `onesTheory_not_phasesAvailable`, `onesTheory_not_derivedOI`, `onesTheory_not_substratumAvail`, `onesTheory_not_qm` |
+| F5 | the absence of phases: the quarter phase carries the all-ones vector to a vector with `i` at one state and `1` elsewhere, off the ray on a carrier with two states, so the ones-fixing theory carries no quarter phase and fails `PhasesAvailable` and `DerivedOI`; that absence witnesses the failure of `SubstratumAvail`, with the full gap to it not characterized; and on `Fin 2` the witness is not quantum mechanics | `phaseGate_mulVec_ones`, `onesTheory_not_phasesAvailable`, `onesTheory_not_derivedOI`, `onesTheory_not_substratumAvail`, `onesTheory_not_qm` |
 | F6 | the surfaces: `R7-FLOW` pins the test theory as the generated theory of `onesClass`, the statements of F1–F5 with the level-two locus, the absence of the least class, this note and its non-claims; `FLOW-EXTENSION-AUDIT.md` names this round as its superseding preregistration; `LIFT-AUDIT.md` records that its preregistered Q3 is untouched; the README carries the paragraph and the counts; the census carries the family as kernel-only with no anchor | `verification/lean/edge_rigidity_probe.py` |
 | F7 | the checks: full build, axiom check, release gate, probe, census, all green | the release gate |
 
 **What the outcome establishes.** `SourcedOI ∧ LayerFlowExecutable ⇏ PhaseFreeRichness` on the
 migrated semantics: on the faithful sourced baseline, with the executable layer flow adjoined at
 every level and time, the continuous mixing of one pair is not supplied. The theorem that says why
-names the resource: every available unitary conjugation of the witness fixes the all-ones vector
-up to a scalar, and a relative phase, a diagonal unitary that moves that vector off its ray, is
-what the isolation identity of the lift audit consumes and what the witness lacks. The lift
-audit's Q3′ is thereby sharp in its hypothesis: the substratum's availability, not the
-executability alone, supplies the mixing. The witness is not minimal and is not claimed to be;
+identifies an obstruction: every available unitary conjugation of the witness fixes the all-ones
+vector up to a scalar, and relative phase structure that moves that vector off its ray, which the
+isolation identity of the lift audit consumes, is what the witness lacks. The lift audit's Q3′ is
+thereby sharp in its hypothesis: the substratum's availability, not the executability alone,
+supplies the mixing. The witness is not minimal and is not claimed to be;
 it is the closed-form class the instrument-realization audit built for its countercontrol, and its
 strength is the point: it contains every layer gate flow, every permutation matrix and every
 contractive compression of a ones-fixing unitary, and still cannot drive one pair.
 
-**What the outcome does not establish.** The lift audit's preregistered Q3, from `DerivedOI` and
-executability: the witness has no phases, so it meets neither that hypothesis nor
-`SubstratumAvail`, and the question from `DerivedOI` stays open as the lift audit records it. The
+**What the outcome does not establish.** That relative phase is the unique or the minimal
+resource the witness lacks, or that the phases are the whole of its gap to `SubstratumAvail`: the
+absence of phases witnesses that failure and the full gap is not characterized. The lift audit's
+preregistered Q3, from `DerivedOI` and executability: the witness has no phases, so it meets
+neither that hypothesis nor `SubstratumAvail`, and the question from `DerivedOI` stays open as
+the lift audit records it. The
 least class `flowClass σ`: not defined, not asked, and whether the gadget block lies in it is not
 asked. The minimality of `onesTheory` among countermodels. Whether the observer-level lift is
 derivable. Route A in either direction. Bare OI. Any manuscript sentence: the manuscripts state
@@ -220,7 +246,9 @@ result is consistent with, and narration is an owner decision.
 
 ## What this note does not claim
 
-That the preregistered Q3 of the lift audit, from `DerivedOI`, is refuted or holds. That
+That relative phase is the unique or minimal missing resource, or that the phases are the whole
+of the witness's gap to `SubstratumAvail`. That the preregistered Q3 of the lift audit, from
+`DerivedOI`, is refuted or holds. That
 `DerivedOI ∧ LayerFlowExecutable` fails to give phase-free richness: the witness does not satisfy
 `DerivedOI`. That the least class is defined or that the witness is minimal. That the
 observer-level lift is derivable or is not. That Route A is closed in either direction. That

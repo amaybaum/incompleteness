@@ -19,13 +19,15 @@ class generates.
 * F4, the endpoint theorem: `SourcedOI ∧ LayerFlowExecutable ⇏ PhaseFreeRichness`
   (`flow_endpoint_refuted`, and `flow_endpoint_refuted_general` on every carrier with at least two
   states).
-* F5, the location of the failure: the countermodel carries no quarter phase, so it fails
-  `PhasesAvailable`, `DerivedOI` and `SubstratumAvail`, consistent with the lift audit's Q3′, and
-  it is not quantum mechanics (`onesTheory_not_phasesAvailable`, `onesTheory_not_derivedOI`,
+* F5, the absence of phases: the countermodel carries no quarter phase, so it fails
+  `PhasesAvailable` and `DerivedOI`, and that absence witnesses its failure of `SubstratumAvail`,
+  with the full gap to the substratum's availability not characterized; consistent with the lift
+  audit's Q3′, whose hypothesis it does not meet; and it is not quantum mechanics (`onesTheory_not_phasesAvailable`, `onesTheory_not_derivedOI`,
   `onesTheory_not_substratumAvail`, `onesTheory_not_qm`).
 
 Not claimed: anything about the lift audit's preregistered Q3, from `DerivedOI`; the least class of
-one layer involution, which is not defined; the minimality of `onesTheory` among countermodels.
+one layer involution, which is not defined; the minimality of `onesTheory` among countermodels;
+that relative phase is the unique or minimal resource the witness lacks.
 -/
 
 namespace OIBridge
@@ -158,7 +160,7 @@ theorem flow_endpoint_refuted_general (h2 : 2 ≤ Fintype.card A) {σ : Equiv.Pe
 
 end Endpoint
 
-/-! ### Section D — the location of the failure -/
+/-! ### Section D — the absence of phases -/
 
 section Location
 
@@ -188,12 +190,13 @@ theorem onesTheory_not_phasesAvailable (h2 : 2 ≤ Fintype.card A) :
   have := congrArg Complex.im (h1.trans h2'.symm)
   simp at this
 
-/-- **F5 — THE ONES-FIXING THEORY FAILS THE CONSEQUENCE CLOSURE**, through the phases. -/
+/-- **F5 — THE ONES-FIXING THEORY FAILS THE CONSEQUENCE CLOSURE**, the phases witnessing it. -/
 theorem onesTheory_not_derivedOI (h2 : 2 ≤ Fintype.card A) : ¬ DerivedOI (onesTheory A) :=
   fun h => onesTheory_not_phasesAvailable h2 h.2.2.2.1
 
-/-- **F5 — THE ONES-FIXING THEORY FAILS THE SUBSTRATUM'S AVAILABILITY**, through the phases:
-the countermodel is consistent with the lift audit's Q3′, whose hypothesis it does not meet. -/
+/-- **F5 — THE ONES-FIXING THEORY FAILS THE SUBSTRATUM'S AVAILABILITY**, the absence of phases
+witnessing it and the full gap not characterized: the countermodel is consistent with the lift
+audit's Q3′, whose hypothesis it does not meet. -/
 theorem onesTheory_not_substratumAvail (h2 : 2 ≤ Fintype.card A) :
     ¬ SubstratumAvail (onesTheory A) :=
   fun h => onesTheory_not_phasesAvailable h2 (substratumAvail_phasesAvailable h)
