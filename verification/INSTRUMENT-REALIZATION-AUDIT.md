@@ -161,3 +161,52 @@ Define the replacement before this note is committed. Add a constructor that tak
 finite sum of admissible operators. Restrict `Architecture` further, or change `Realized` itself,
 which stays as the branch-wise notion for the comparison theorems. Prove or refute the flow
 endpoint. Narrate anything in a manuscript. Propagate Route B. Refresh the transfer bundle.
+
+## Amendments, recorded after the preregistration
+
+Preregistration commit `9741199`, untouched. The owner confirmed the two design choices, the
+uniform ancilla and the operational feed-forward, and amended the primitive in three places before
+it was defined. The decision, quoted:
+
+> Uniform ancilla: yes. Classical feed-forward constructor: yes. No arbitrary sum constructor:
+> definitely yes. Hidden preparation label `e`: must not become a feed-forward outcome. Step
+> operator: require contractivity and normalization, deriving isometry; or require isometry
+> directly. T2 negative mechanism: strengthen from a class-level isometry invariant to a
+> complete-instrument/protocol invariant. Do not prejudge whether such an invariant actually
+> survives measurement and feed-forward.
+
+**The hidden label.** The uniformly weighted input index `e` of a step is Kraus provenance and
+not an observer outcome: the branches of a step are `Φₖ = Σₑ conjChannel ((1/√m) • ancBlock K k e)`,
+grouped by the reported value `k` or its coarse-graining `f k`, and sequential composition
+conditions on the reported value only, never on `e`. In the definition below the label `e` is
+summed inside the discard and is never an outcome type.
+
+**The step operator.** The operator of a step is an isometry, `Kᴴ * K = 1`, required directly;
+the equivalent reading, an admissible contraction with the aggregate trace-preservation
+condition, is recorded as the theorem that a one-outcome conjugation preserves the trace exactly
+when its operator is an isometry. On a finite carrier an isometric endomorphism is unitary, so
+the step is the application of an admissible unitary on the enlarged carrier.
+
+**The negative mechanism.** A class-level invariant is not the mechanism: the leaves of a protocol
+realizing a unitary conjugation are contractions `cⱼ • U`, not isometries, and measurement with
+feed-forward is not assumed to preserve anything. The target is a theorem about the whole
+provenance-respecting tree, `InstrumentRealized 𝓘 T Unit (fun _ => conjChannel U) ∧ Uᴴ * U = 1 →
+∃ z, U *ᵥ 𝟙 = z • 𝟙`, for a class whose admissible unitaries fix the all-ones vector up to a
+scalar, proved by an invariant of complete instruments that is checked constructor by constructor,
+including the feed-forward, or found to fail there, in which case T2 returns the positive
+admissible outcome.
+
+**The order of the constructors.** The formalism mirrors the operational structure of a finite
+operational theory: the uniform preparation produces the enlarged carrier, the native readout acts
+on that enlarged carrier, outcome-dependent continuation acts there, and the discard is a later
+constructor. The ancilla blocks appear only in the discard, when the observer returns to the
+smaller carrier; a measured fresh ancilla therefore stays present for a conditional swap before it
+is discarded, which is what the pure-seed derivation of T4 needs.
+
+**The resulting shape.** `InstrumentRealized 𝓘 T O F` is an inductive predicate on a carrier `T`
+with exactly five constructors: the step (one outcome, an admissible isometry), the readout (the
+native Lüders readout of a register `T' × Fin m ≃ T` of the carrier, its projectors admissible),
+coarse-graining, sequential composition with outcome-dependent continuation, and the discard of a
+uniformly attached ancilla of positive size. No constructor takes a sum. The readout names its
+register by a bijection so that the predicate is transported along carrier bijections when the
+class is label-invariant, which the theory family's relabelling invariance consumes.
