@@ -249,3 +249,27 @@ neither the hypothesis of Q3′ nor that of the preregistered Q3. Q3′ is there
 hypothesis, the substratum's availability supplying the diagonals the isolation identity consumes
 and the executability alone not supplying them; and the preregistered Q3, from `DerivedOI`
 and executability, is untouched by the witness and stays open as the outcome above records it.
+
+## Q3 at its preregistered hypothesis, decided, recorded after the round
+
+The Q3 round (`DERIVED-Q3-AUDIT.md`, preregistration commit `f206058`, from `main` at `f80688e`)
+decides the preregistered Q3 in its constructive branch, with `PhasesAvailable` an explicit
+hypothesis of the closure and not a consequence of the stated substratum, as the phase-source
+audit established: `phaseFree_of_derivedOI_layerFlowExecutable`, from `DerivedOI T`, an
+involution with a moved configuration and `LayerFlowExecutable T σ`, gives `PhaseFreeRichness T`,
+and the closure enters only through the phases and the exchanges
+(`phaseFree_of_phases_layerFlowExecutable`). The mechanism is the one fixed in Q3 above with one
+change: the diagonal phase `e^{−iπt}` that `gateFlow_isolation` uses to remove the scalar, which the
+quarter phases do not supply, is replaced by time reversal, which `LayerFlowExecutable` supplies at
+every real time. The sign-flip identity `gateFlow_isolation_flip` states that the gate flow, times
+the time-reversed gate flow conjugated by the sign flip at the image of the chosen configuration,
+is the transition flow on the chosen pair at angle `πt`; the sign flip is the square of one
+quarter phase (`phaseGate_mul_self`, `flip_avail`), the step at which the phase hypothesis is
+consumed. The endpoint follows at the preregistered hypothesis of Q4:
+`derivedOI_qm_iff_layerFlowExecutable'`, under `DerivedOI T` alone, with the swap-layer instances;
+the baseline `DerivedOI ∧ SubstratumAvail` of Q4′ is superseded by `DerivedOI`, and
+`SubstratumAvail` is neither needed for the endpoint nor derived from the closure here. The
+moved-configuration hypothesis is necessary (`derivedOI_layerFlowExecutable_one_not_phaseFree`),
+and the phase hypothesis is necessary by the flow-endpoint theorem `flow_endpoint_refuted`. The
+outcome table above stands as the record of this pass; the row for Q3 is decided by the later
+round and not edited here.

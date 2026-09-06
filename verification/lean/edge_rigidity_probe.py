@@ -959,6 +959,13 @@ for fname, names in (
                      'bijectiveOperator_mulVec_ones', 'readWriteOperator_mulVec_ones', 'phaseGate_not_scalar',
                      'conjChannel_phaseGate_ne_id', 'diagonal_conj_phaseGate', 'phaseGate_moves_ones',
                      'substratumClass_not_onesFixing')),
+    ('DerivedQ3', ('flipAt_self', 'flipAt_of_ne', 'phaseGate_mul_self', 'gateFlow_isolation_flip', 'flip_avail',
+                   'phaseFree_of_phases_layerFlowExecutable', 'phaseFree_of_derivedOI_layerFlowExecutable',
+                   'qm_of_derivedOI_layerFlowExecutable', "derivedOI_qm_iff_layerFlowExecutable'",
+                   'derivedOI_layerFlowExecutable_of_qm', 'phaseFree_of_derivedOI_layerFlowExecutable_swap',
+                   "derivedOI_qm_iff_layerFlowExecutable_swap'", 'gateFlow_one_eq_one', 'levelPerm_one',
+                   'layerFlowExecutable_one', 'substratumTheory_layerFlowExecutable_one',
+                   'derivedOI_layerFlowExecutable_one_not_phaseFree')),
     ('SubstratumSource', ('genTheory_avail_conj', 'genTheory_elementary', 'quantumArchitecture_supplies_all',
                        'genTheory_qm_of_quantumArchitecture', 'fullClass_drivesElementary', 'fullClass_quantumArchitecture',
                        'qm_generated_by_quantumArchitecture', 'diagClass_not_drivesElementary', 'diagGen_not_quantumArchitectureGenerated')),
@@ -3729,7 +3736,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '123 modules' in _rd1 and '2,723 named results' in _rd1
+ok_sub &= '124 modules' in _rd1 and '2,740 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4140,7 +4147,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '123 modules' in _rd1 and '2,723 named results' in _rd1
+ok_flow &= '124 modules' in _rd1 and '2,740 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4360,6 +4367,117 @@ check('R7-PROP', ok_prop,
       'from every manuscript source and generated form; the registry carries the phase-source family as current '
       'with anchors in GR and Main and the instrument-realization note corrected; the census note and the README '
       'carry the round.')
+
+# ---- the Q3 round: phase-free richness from the closure and one executable layer flow, the phase
+# hypothesis explicit and consumed at the sign flip; the endpoint under the closure alone ----
+ok_q3 = True
+_q3 = open(os.path.join(BRIDGE, 'OIBridge', 'DerivedQ3.lean'), encoding='utf-8').read()
+_q3flat = ' '.join(_q3.split())
+_q3n = open(os.path.join(os.path.dirname(BRIDGE), 'DERIVED-Q3-AUDIT.md'), encoding='utf-8').read()
+_q3n1 = re.sub(r'\s+', ' ', _q3n)
+ok_q3 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _q3) is None and 'native_decide' not in _q3
+ok_q3 &= 'axiom ' not in re.sub(r'/-.*?-/', '', _q3, flags=re.S)
+_q3_names = re.findall(r"^theorem ([\w']+)", _q3, re.M)
+ok_q3 &= len(_q3_names) == 17 and _q3.count('#print axioms') == 17
+for _nm in _q3_names:
+    ok_q3 &= ('#print axioms ' + _nm) in _q3
+# the module defines one function, the sign flip, and no intervention kind, class or theory
+ok_q3 &= re.findall(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) (\w+)', _q3, re.M) == ['flipAt']
+ok_q3 &= 'import OIBridge.PhaseSource' in _q3 and 'import OIBridge.DerivedQ3' in root
+# no continuous phase, no substratum availability and no countertheory enter
+for _t in ('phaseFun', 'SubstratumAvail', 'diagonal_avail', 'derivedQ3_refuted'):
+    ok_q3 &= _t not in _q3
+# the statements, as preregistered
+for _t in ('def flipAt (b z : S) : ℂ := if z = b then -1 else 1',
+           'theorem phaseGate_mul_self (b : S) : phaseGate b * phaseGate b = Matrix.diagonal (flipAt b)',
+           'theorem gateFlow_isolation_flip {τ : Equiv.Perm S} (hτ : ∀ z, τ (τ z) = z) {a : S} (ha : τ a ≠ a) (t : ℝ) : '
+           'gateFlow τ t * (Matrix.diagonal (flipAt (τ a)) * gateFlow τ (-t) * Matrix.diagonal (flipAt (τ a))) '
+           '= ReachabilitySeam.flow (transition a (τ a)) (Real.pi * t)',
+           'theorem flip_avail (T : FiniteOperationalTheory S) (hph : PhasesAvailable T) (n : ℕ) (b : S × Fin n) : '
+           'T.availExt n Unit (fun _ => conjChannel (Matrix.diagonal (flipAt b)))',
+           'theorem phaseFree_of_phases_layerFlowExecutable (T : FiniteOperationalTheory S) (hph : PhasesAvailable T) '
+           '(hexch : ExchangesAvailable T) {σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) {x : S} (hx : σ x ≠ x) '
+           '(hex : LayerFlowExecutable T σ) : PhaseFreeRichness T',
+           'theorem phaseFree_of_derivedOI_layerFlowExecutable (T : FiniteOperationalTheory S) (hd : DerivedOI T) '
+           '{σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) {x : S} (hx : σ x ≠ x) (hex : LayerFlowExecutable T σ) : PhaseFreeRichness T',
+           "theorem derivedOI_qm_iff_layerFlowExecutable' [Nonempty S] (T : FiniteOperationalTheory S) (hd : DerivedOI T) "
+           '{σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) {x : S} (hx : σ x ≠ x) : ExactAllFiniteEndomorphicQuantumOps T ↔ LayerFlowExecutable T σ',
+           'theorem gateFlow_one_eq_one (t : ℝ) : gateFlow (1 : Equiv.Perm S) t = 1',
+           'theorem derivedOI_layerFlowExecutable_one_not_phaseFree : ∃ T : FiniteOperationalTheory (Fin 2), '
+           'DerivedOI T ∧ LayerFlowExecutable T 1 ∧ ¬ PhaseFreeRichness T',
+           'theorem derivedOI_layerFlowExecutable_of_qm [Nonempty S] (T : FiniteOperationalTheory S) '
+           '(h : ExactAllFiniteEndomorphicQuantumOps T) {σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) : DerivedOI T ∧ LayerFlowExecutable T σ'):
+    ok_q3 &= _t in _q3flat
+# the phase hypothesis is consumed at the sign flip; Q3 from the closure uses the phases and the exchanges only;
+# the transition flow is assembled from the sign-flip identity with the time-reversed flow
+ok_q3 &= 'rw [← phaseGate_mul_self]' in _q3
+ok_q3 &= 'phaseFree_of_phases_layerFlowExecutable T hd.2.2.2.1 hd.2.2.1 hσ hx hex' in _q3flat
+ok_q3 &= 'flip_avail T hph n' in _q3flat and 'gateFlow_isolation_flip hτ ha (t / Real.pi)' in _q3flat
+ok_q3 &= 'hex n (-(t / Real.pi))' in _q3flat
+# the note: question, distinctions, attack, countercontrols, tests, meanings and non-doings precede the outcome
+_kq = [_q3n.find(h) for h in ('## The frozen question', '## Three distinctions, frozen', '## The attack, fixed in advance',
+       '## The countercontrols, fixed in advance', '## The tests, fixed in advance',
+       '## What the outcomes mean, fixed in advance', '## What the round does not do',
+       '## Scope amendment, recorded after the preregistration', '## The outcome')]
+ok_q3 &= all(x > 0 for x in _kq) and _kq == sorted(_kq)
+ok_q3 &= _q3n.lstrip().startswith('# The Q3 round')
+# the amendment: the identity case "in every theory" was too broad; C2 needs and proves the substratum witness
+_q3n_out = _q3n[_q3n.find('## The outcome'):]
+ok_q3 &= 'availExt_id_of_control' in _q3n and 'scope amendment above' in _q3n_out
+ok_q3 &= 'is not automatic from the bare `FiniteOperationalTheory` structure' in _q3n1
+ok_q3 &= 'is amended above and is not a statement any theorem makes' in _q3n1
+ok_q3 &= 'holds in every theory, in particular' not in _q3n_out
+for _t in ('Preregistration commit `f206058`', 'Status: pass complete', '`main` at `f80688e`',
+           '**(D1) The phase hypothesis is used materially.**',
+           '**(D2) Sufficiency of the quarter phase as a sourced access is not sufficiency for the repertoire.**',
+           '**(D3) The target is phase-free richness.**', '**The sign-flip identity, to be proved.**',
+           '**The negative branch.**', '**C1, the phase hypothesis is necessary.**',
+           '**C2, the moved-configuration hypothesis is necessary.**', '**T1. The sign-flip identity.**',
+           '**T7. The surfaces and the checks.**', '| T1 | ', '| T7 | ', 'the constructive branch',
+           'The negative branch is not reached', 'consumed at the sign flip', 'seventeen named results',
+           '`PhasesAvailable` as an explicit extra hypothesis'):
+    ok_q3 &= _t in _q3n1
+for _bad in ('PhasesAvailable is derived', 'the phase structure is derived', 'SubstratumAvail follows from DerivedOI',
+             'the baseline is minimal', 'relative phase is the unique', 'relative phase is the minimal',
+             'the lift is derivable', 'the lift is not derivable', 'Route A is closed', 'OI implies QM',
+             'quantum mechanics requires OI', 'bare OI implies', 'the manuscripts are wrong'):
+    ok_q3 &= not _asserted(_q3n, _bad)
+# the lift audit and the phase-source note record the decision after their frozen text
+ok_q3 &= '## Q3 at its preregistered hypothesis, decided, recorded after the round' in _lan
+ok_q3 &= _lan.find('## What this note does not claim') < _lan.find('## Q3 at its preregistered hypothesis, decided')
+ok_q3 &= 'phaseFree_of_derivedOI_layerFlowExecutable' in _lan and 'gateFlow_isolation_flip' in _lan
+ok_q3 &= '## The decision that followed, recorded after the round' in _psn
+ok_q3 &= _psn.find('## What this note does not claim') < _psn.find('## The decision that followed')
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+# carries the paragraph and the counts
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    ok_q3 &= 'DerivedQ3' not in _t and 'gateFlow_isolation_flip' not in _t and 'flipAt' not in _t
+    ok_q3 &= 'DERIVED-Q3' not in _t and 'LayerFlowExecutable' not in _t
+_q3_fam = [f for f in _ptr_reg['families'] if f['name'] == 'Q3 from the closure: one executable layer flow']
+ok_q3 &= len(_q3_fam) == 1 and _q3_fam[0]['status'] == 'kernel-only' and _q3_fam[0]['modules'] == ['DerivedQ3']
+ok_q3 &= _q3_fam[0]['manuscript'] == [] and 'sign-flip identity' in _q3_fam[0]['note'] and 'explicit hypothesis' in _q3_fam[0]['note']
+ok_q3 &= '| Q3 from the closure: one executable layer flow | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFree_of_derivedOI_layerFlowExecutable',
+           "derivedOI_qm_iff_layerFlowExecutable'", 'derivedOI_layerFlowExecutable_one_not_phaseFree',
+           'Seventeen named results', 'time reversal replacing the continuous phase',
+           'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
+    ok_q3 &= _t in _rd1
+ok_q3 &= '124 modules' in _rd1 and '2,740 named results' in _rd1
+check('R7-Q3', ok_q3,
+      'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
+      'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
+      'phase, the substratum availability nor a countertheory; the sign-flip identity, the square of the quarter '
+      'phase, its availability, Q3 from the phases and the exchanges, Q3 from the closure, the endpoint under the '
+      'closure alone, the identity countercontrol and the consistency theorem are stated as pinned, the phase '
+      'hypothesis consumed at the sign flip and the closure entering only through the phases and the exchanges; the '
+      'note keeps the question, the three distinctions, the attack with the negative branch, the countercontrols, the '
+      'tests, the meanings and the non-doings before the outcome, names both commits, records the constructive branch '
+      'with the negative branch not reached, and asserts nothing about sourcing the phases, minimality, the lift, '
+      'Route A or the manuscripts; the lift audit and the phase-source note carry the decision after their frozen '
+      'text; no manuscript is edited; the registry and the census carry the family as kernel-only and the README '
+      'carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

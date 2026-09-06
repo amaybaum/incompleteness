@@ -173,6 +173,7 @@ import OIBridge.ScalarClosure
 import OIBridge.InstrumentRealization
 import OIBridge.FlowEndpoint
 import OIBridge.PhaseSource
+import OIBridge.DerivedQ3
 
 namespace OIBridge
 
