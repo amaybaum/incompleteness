@@ -14,9 +14,10 @@ that consume the generated theory (`SubstratumSource`, `StructuralClosure`, `Sub
 and the guards `R7-INST`, `R7-SUB`, `R7-SCAL`, `R7-MAX`, `R7-LIFT` in
 `verification/lean/edge_rigidity_probe.py`.
 
-**Status: preregistered, no kernel edit made.** The sections below fix the decision, the census
-of what changes, the module plan and the tests with their admissible outcomes before any edit;
-the outcome section is added afterwards. Nothing here is a manuscript claim.
+**Status: pass complete.** The sections through the non-doings fix the decision, the census of
+what changes, the module plan and the tests with their admissible outcomes before any edit, at
+commit `45e6063`; the outcome section records what the migration did. Nothing here is a
+manuscript claim.
 
 ## The decision it implements
 
@@ -177,3 +178,119 @@ Edit a manuscript. Delete `Realized`, `IsGenInstrument` or the scalar-hull regre
 stay as the branch-wise comparison. Change `Architecture.smul` or any class. Define the least
 class `flowClass`. Assert or refute the flow endpoint. Propagate Route B. Refresh the transfer
 bundle.
+
+## The outcome
+
+Preregistration commit `45e6063`. The migration was made as fixed in advance. The kernel builds
+and every result prints only `propext`, `Classical.choice`, `Quot.sound`: 121 modules and 2,699
+named results at this commit, each result counted once, the parallel names of the previous round
+gone.
+
+| test | outcome | kernel |
+|---|---|---|
+| M1 | the semantics: `ImplementationGenerated T 𝓘` is `T.availExt N O F ↔ InstAvail 𝓘 (A × Fin N) O F` and `genTheory 𝓘 arch S` carries the instrument fields, both in `ImplementationLocality`, with `InstAvail` and its five constructors, `Architecture`, the branch-wise closure lemmas, soundness and the relabelling and spectator closures placed upstream of them in that module; `IsGenInstrument` and `branchTheory` carry the branch-wise notion in `InstrumentRealization`, and the generated theory lies inside the branch-wise theory at every level | `InstAvail`, `ImplementationGenerated`, `genTheory`, `realized_of_instAvail`, `instAvail_withSpectator`, `IsGenInstrument`, `branchTheory`, `genTheory_le_branchTheory` |
+| M2 | statements: every theorem consuming the migrated definitions keeps its name and its statement, except the three fixed in advance: `inverseAccessibility_of_generated_daggerStable` gains `(arch : Architecture 𝓘)` and `(hs : UnitaryRaySaturated 𝓘)`; `inverseAccessibility_of_reversibleImplementationLocality` gains the per-class hypothesis `∀ 𝓘, ImplementationGenerated T 𝓘 → Architecture 𝓘 ∧ UnitaryRaySaturated 𝓘`; `genTheory_availExt_eq` has `InstAvail 𝓘 (A × Fin n) O F` on its right. No further theorem needed a hypothesis. `control_of_lieRank`, `inverseAccessibility_of_lieRank` and `genTheory_reversibleImplementationLocality` are stated in `MicroscopicReversibility` with unchanged statements | the three, and `lieRank_not_redundant`, whose proof takes the inverse clause of the diagonal theory from the saturated derivation with `diagClass_unitaryRaySaturated` |
+| M3 | the compressed sets: `oiPlusLocal_iff_qm`, `oiPlusMicro_iff_qm`, `oiPlusElem_iff_qm`, `oiPlusPos_iff_qm`, `oiPlusMin_iff_qm` and their carrier-general forms keep their statements; `oiPlusLocal_of_oiPlusMicro` takes the inverse clause from `inverseAccessibility_of_lieRank` on the well-formed theory, so no package consumes the saturation condition | `oiPlusLocal_of_oiPlusMicro`, `carrier_general_oiPlusLocal`, `carrier_general_oiPlusMicro`, `carrier_general_oiPlusElem`, `carrier_general_oiPlusPos`, `carrier_general_oiPlusMin` |
+| M4 | saturation, local: `UnitaryRaySaturated` is defined once, in `MicroscopicReversibility` beside inverse accessibility, holds for the four classes of the kernel, and occurs in no package definition and in no equivalence with quantum mechanics, guarded | `UnitaryRaySaturated`, `fullClass_unitaryRaySaturated`, `diagClass_unitaryRaySaturated`, `substratumClass_unitaryRaySaturated`, `permClass_unitaryRaySaturated` |
+| M5 | one name per result: the parallel names are removed, each to the canonical name it duplicated, per the list below; two parallel results have no counterpart and are dropped, recorded below; the countercontrol, the ones-fixing class and the protocol invariant are unchanged | `InstrumentRealization`, 69 named results |
+| M6 | the surfaces: `R7-MIG` pins the migrated definitions and rejects the parallel names and the branch-wise generation clause; `R7-INST`, `R7-SUB`, `R7-SCAL`, `R7-INV` and the per-module registry pin the migrated text; the four frozen notes carry a migration section each; the README paragraphs are corrected in place; the census family is corrected; no manuscript is edited, and the GR §3.3 sentences on the normalization clause are recorded below as an owner decision for a propagation round | `verification/lean/edge_rigidity_probe.py` |
+| M7 | the checks: full build, axiom check, release gate, probe, census, all green | the release gate |
+
+**The module plan, as executed.** `PositiveReachability` keeps Sections A–G, nineteen results,
+with no import of `LieRankSource`; `PositivePackage` holds `OIPlusPos` and its three equivalences
+in the namespace `PositiveReachability`, so every name is unchanged; `MicroscopicReversibility`
+imports the positive-reachability core and states `control_of_lieRank` and
+`inverseAccessibility_of_lieRank` beside the split of reversible richness.
+`ImplementationLocality` holds, in order, the primitive (`readProj`, `InstAvail`,
+`conjChannel_trace_iff`, `instAvail_mono`, `instAvail_trace`, `ImplementationGenerated`,
+`ContextStable`, `LabelInvariant`, `ImplementationLocality`, `fullClass`), the branch-wise
+closure (`cp_of_realized`, `conjChannel_smul`, the `realized_*` lemmas), the architecture
+(`Architecture`, `fullClass_arch`, `realized_of_instAvail`, `cp_of_instAvail`, the one-outcome
+composition lemmas), the relabelling and spectator closures with their matrix lemmas, the
+generated theory (`genTheory`, `genFamily`, `genTheory_embeddedObservation`,
+`genTheory_availExt_iff`, `genTheory_fullClass_control`, `genTheory_mono`, `genTheory_generated`,
+`genTheory_implementationLocality`), the derivation, necessity with
+`instAvail_fullClass_of_krausFamily`, the diagnosis and the compressed set: 81 named results.
+`LieRankSource` keeps the diagonal architecture, the elementary transitions and `OIPlusElem`.
+`SubstratumSource` proves `genTheory_avail_conj` as one step. The eight consuming modules are
+repaired through `realized_of_instAvail` and `instAvail_mono` with unchanged statements.
+
+**The names, each to its canonical counterpart.** `InstrumentGenerated` to
+`ImplementationGenerated`; `InstrumentLocality` to `ImplementationLocality`;
+`ReversibleInstrumentLocality` to `ReversibleImplementationLocality`;
+`instrumentLocality_of_reversible` to `implementationLocality_of_reversible`; `instTheory`,
+`instFamily` and the `instTheory_*`, `instFamily_*` results to `genTheory`, `genFamily` and the
+`genTheory_*`, `genFamily_*` results, `instTheory_le_genTheory` to `genTheory_le_branchTheory`;
+`parallel_of_instrumentLocal`, `observationalIndependence_of_instrumentLocality`,
+`krausSoundExt_of_instrumentGenerated`, `validity_of_instrumentLocality`,
+`instrumentGenerated_of_qm`, `instrumentLocality_of_qm`, `reversibleInstrumentLocality_of_qm`,
+`countermodel_not_instrumentGenerated`, `countermodel_not_instrumentLocality`,
+`instrumentLocality_independent` to the results of the same name with `implementation` for
+`instrument` and `generated_of_qm` for `instrumentGenerated_of_qm`; `OIPlusInst` and its four
+results to `OIPlusLocal` and its; `OIPlusMinInst`, `qm_of_oiPlusMinInst`, `oiPlusMinInst_of_qm`,
+`oiPlusMinInst_iff_qm`, `carrier_general_oiPlusMinInst` to `OIPlusMin`, `qm_of_oiPlusMin`,
+`oiPlusMin_of_qm`, `oiPlusMin_iff_qm`, `carrier_general_oiPlusMin`; `PhaseSaturated` to
+`UnitaryRaySaturated` and the four `*_phaseSaturated` instances to `*_unitaryRaySaturated`;
+`inverseAccessibility_of_instrumentGenerated` to `inverseAccessibility_of_generated_daggerStable`
+and `inverseAccessibility_of_reversibleInstrumentLocality` to
+`inverseAccessibility_of_reversibleImplementationLocality`; `DerivedOIInst`, `SourcedOIInst` and
+their five results to `DerivedOI`, `SourcedOI` and theirs; `substratumInstTheory` and
+`permInstTheory` with their results to `substratumTheory` and `permTheory` with theirs
+(`_derivedOI`, `_sourcedOI`, `_not_phasesAvailable`, `_not_derivedOI`, `_availExt_le_substratum`,
+`_falsifierUnavailable`, `_not_phaseFree`, `_relabel`, `_realizesSealedOICore`,
+`_not_substratumAvail`), `bijectionLevel_not_phasesAvailable_inst` to
+`bijectionLevel_not_phasesAvailable`, `configurationLevel_instAvailExt_le` to
+`configurationLevel_availExt_le`; `SubstratumAvailInst` and `substratumAvailInst_phasesAvailable`
+to `SubstratumAvail` and `substratumAvail_phasesAvailable`; `RouteBTargetInst` and
+`routeB_target_inst` to `RouteBTarget` and `routeB_target`. The primitive's own results keep their
+names in `ImplementationLocality`: `InstAvail`, `readProj`, `conjChannel_trace_iff`,
+`instAvail_mono`, `instAvail_trace`, `realized_of_instAvail`, `cp_of_instAvail`,
+`instAvail_comp_one`, `instAvail_one_comp`, `instAvail_id`, the transport and spectator lemmas,
+`instAvail_transport`, `instAvail_spectator`, `instAvail_withSpectator`,
+`instAvail_fullClass_of_krausFamily`; `conjChannel_zero'` and
+`exists_scaled_mem_of_instAvail_unitary` move to `MicroscopicReversibility`.
+
+**Two parallel results dropped.** `isGenInstrument_of_instrumentGenerated`, which is
+`isGenInstrument_of_instAvail` applied to the generation clause, and `oiPlusMinInst_iff_oiPlusMin`,
+an identity after the migration. Neither has a canonical counterpart because neither says
+anything the canonical names do not.
+
+**The scalar-hull regression, re-proved.** `permTheory_hull_availExt_iff` keeps its statement.
+Its proof is two new lemmas: an isometry in the scalar hull of the sourced class lies in the
+sourced class, its common entry having modulus at most one by the row norm
+(`permClass_of_scalarHull_isometry`), and the readout projectors lie in it, so instrument
+realization by the hull is instrument realization by the class (`instAvail_scalarHull_permClass`);
+the converse is `instAvail_mono`. The branch-wise regression `realized_scalarHull_iff` is
+unchanged, as fixed in advance; `ScalarClosure` has 12 named results.
+
+**Where the saturation condition is consumed.** In `inverseAccessibility_of_generated_daggerStable`
+and its per-class corollary, and, for the diagonal class, in `lieRank_not_redundant`. Nowhere
+else. Whether inverse accessibility fails for some dagger-stable architecture that is not
+unitary-ray saturated is open, as it was in the survival record.
+
+**The GR §3.3 sentences.** GR §3.3 states implementation locality as generation "by finite
+families of admissible implementation operators with aggregate probability normalization" and
+that "the normalization half of operational validity is explicit in implementation generation".
+Under the migrated semantics the normalization is a theorem of the primitive
+(`instAvail_trace`), not a clause of the generation, and the families are the outcomes of one
+protocol. Whether those two sentences are to be requalified is an owner decision for a propagation
+round; no manuscript is edited here, and the census family stays verification-only.
+
+**What the outcome establishes.** The kernel's implementation semantics is provenance-aware
+realization: availability in an implementation-generated theory is instrument realization by the
+class, with no sum constructor, and every publication-facing consequence of implementation
+locality holds with an unchanged statement. The saturation condition is confined to the
+derivation of inverse accessibility from dagger stability, which no equivalence with quantum
+mechanics consumes.
+
+**What the outcome does not establish.** Anything about the flow endpoint, which is neither
+asserted nor refuted; that is the round to be re-preregistered on the migrated semantics. That
+inverse accessibility holds for every dagger-stable architecture without saturation. That any
+manuscript sentence is changed.
+
+## What this note does not claim
+
+That the flow endpoint is settled in either direction. That the least class `flowClass` is
+defined. That inverse accessibility holds without the saturation condition for every dagger-stable
+class. That the GR §3.3 sentences on the normalization clause have been requalified. That
+anything here reaches a manuscript.

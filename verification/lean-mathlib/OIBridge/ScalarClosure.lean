@@ -6,8 +6,8 @@ import OIBridge.SubstratumInterfaceAudit
 The preregistered pass of `SCALAR-CLOSURE-AUDIT.md`. `Architecture.smul` is stated for scalars
 of modulus at most one. This file records what that restriction leaves unchanged:
 
-* the availability of every generated theory is `IsGenInstrument` by definition
-  (`genTheory_availExt_eq`), so no scalar closure enters it;
+* the availability of every generated theory is instrument realization by the class by
+  definition (`genTheory_availExt_eq`), so no scalar closure enters it;
 * for a class closed under contractive scalars, realization by its scalar hull is realization
   by the class (`realized_scalarHull_iff`): a conjugation by `a • K` with `|a| > 1` is
   `⌊|a|²⌋` conjugations by `K` and one by a contractive multiple of `K`;
@@ -30,11 +30,11 @@ section Generated
 variable {𝓘 : ImplementationClass} (arch : Architecture 𝓘)
 variable {A : Type} [Fintype A] [DecidableEq A]
 
-/-- **T1 — THE AVAILABILITY OF A GENERATED THEORY IS THE GENERATED-INSTRUMENT PREDICATE**, by
+/-- **T1 — THE AVAILABILITY OF A GENERATED THEORY IS INSTRUMENT REALIZATION BY THE CLASS**, by
 definition; no scalar closure enters it. -/
 theorem genTheory_availExt_eq (n : ℕ) {O : Type} [Fintype O] [DecidableEq O]
     (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) :
-    (genTheory 𝓘 arch A).availExt n O F ↔ IsGenInstrument 𝓘 (A × Fin n) F :=
+    (genTheory 𝓘 arch A).availExt n O F ↔ InstAvail 𝓘 (A × Fin n) O F :=
   Iff.rfl
 
 end Generated
@@ -155,6 +155,50 @@ theorem scalarHull_permClass_iff (K : Matrix S S ℂ) :
         rw [hc _ _ (mul_ne_zero_iff.mp h).2, inv_mul_cancel₀ hc0]
       · rw [smul_smul, mul_inv_cancel₀ hc0, one_smul]
 
+/-- **AN ISOMETRY IN THE HULL OF THE SOURCED CLASS IS IN THE SOURCED CLASS**: its common entry
+has modulus at most one by the row norm. -/
+theorem permClass_of_scalarHull_isometry {K : Matrix S S ℂ} (hK : scalarHull permClass S K)
+    (hiso : Kᴴ * K = 1) : permClass S K := by
+  obtain ⟨a, K', ⟨hsub, c₀, -, hall⟩, rfl⟩ := hK
+  have hentry : ∀ i j, (a • K') i j ≠ 0 → (a • K') i j = a * c₀ := fun i j h => by
+    rw [Matrix.smul_apply, smul_eq_mul] at h ⊢
+    rw [hall i j (mul_ne_zero_iff.mp h).2]
+  refine ⟨submonomial_smul a hsub, ?_⟩
+  by_cases hex : ∃ i j, (a • K') i j ≠ 0
+  · obtain ⟨i, j, hij⟩ := hex
+    refine ⟨a * c₀, ?_, hentry⟩
+    have hVV : (a • K') * (a • K')ᴴ = 1 := mul_eq_one_comm.mp hiso
+    have hrow := congrFun (congrFun hVV i) i
+    rw [Matrix.mul_apply, Matrix.one_apply_eq] at hrow
+    have h1 : (∑ k, Complex.normSq ((a • K') i k) : ℝ) = 1 := by
+      have h2 : ∑ k, (a • K') i k * (a • K')ᴴ k i
+          = ((∑ k, Complex.normSq ((a • K') i k) : ℝ) : ℂ) := by
+        push_cast
+        refine Finset.sum_congr rfl fun k _ => ?_
+        rw [Matrix.conjTranspose_apply, Complex.star_def, Complex.mul_conj]
+      rw [h2] at hrow
+      exact_mod_cast hrow
+    have hle : Complex.normSq ((a • K') i j) ≤ 1 := by
+      rw [← h1]
+      exact Finset.single_le_sum (fun k _ => Complex.normSq_nonneg _) (Finset.mem_univ j)
+    rw [hentry i j hij, Complex.normSq_eq_norm_sq] at hle
+    exact (pow_le_one_iff_of_nonneg (norm_nonneg _) two_ne_zero).mp hle
+  · have hex' : ∀ i j, (a • K') i j = 0 := fun i j => by_contra fun h => hex ⟨i, j, h⟩
+    exact ⟨0, by simp, fun i j h => absurd (hex' i j) h⟩
+
+/-- **INSTRUMENT REALIZATION BY THE HULL OF THE SOURCED CLASS IS INSTRUMENT REALIZATION BY THE
+SOURCED CLASS**: the steps are isometries and the readouts are projectors, both in the class. -/
+theorem instAvail_scalarHull_permClass {T : Type} [Fintype T] [DecidableEq T] {O : Type}
+    [Fintype O] [DecidableEq O] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ}
+    (h : InstAvail (scalarHull permClass) T O F) : InstAvail permClass T O F := by
+  induction h with
+  | op K hK hiso => exact InstAvail.op K (permClass_of_scalarHull_isometry hK hiso) hiso
+  | readout e _ =>
+    exact InstAvail.readout e fun k => permClass_labelInvariant _ _ e _ (permClass_arch.proj _ _ k)
+  | coarse f _ ih => exact InstAvail.coarse f ih
+  | bind _ _ ihF ihG => exact InstAvail.bind ihF ihG
+  | discard hm _ ih => exact InstAvail.discard hm ih
+
 variable {A : Type} [Fintype A] [DecidableEq A]
 
 /-- **T3 — THE UNRESTRICTED AND THE MIGRATED SOURCED CLASSES GENERATE THE SAME AVAILABILITY** at
@@ -164,9 +208,7 @@ theorem permTheory_hull_availExt_iff (n : ℕ) {O : Type} [Fintype O] [Decidable
     (genTheory (scalarHull permClass) (scalarHull_arch permClass_arch) A).availExt n O F
       ↔ (permTheory A).availExt n O F := by
   rw [genTheory_availExt_eq, genTheory_availExt_eq]
-  unfold IsGenInstrument
-  refine and_congr (forall_congr' fun a => ?_) Iff.rfl
-  exact realized_scalarHull_iff (fun a K ha hK => permClass_arch.smul _ a K ha hK) (F a)
+  exact ⟨instAvail_scalarHull_permClass, instAvail_mono fun _ _ _ _ h => mem_scalarHull_self h⟩
 
 end Perm
 
@@ -179,6 +221,8 @@ end Perm
 #print axioms ancBlock_smul
 #print axioms scalarHull_arch
 #print axioms scalarHull_permClass_iff
+#print axioms permClass_of_scalarHull_isometry
+#print axioms instAvail_scalarHull_permClass
 #print axioms permTheory_hull_availExt_iff
 
 end ScalarClosure

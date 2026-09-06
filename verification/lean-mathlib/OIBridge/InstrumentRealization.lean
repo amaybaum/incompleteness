@@ -4,26 +4,21 @@ import Mathlib.Data.Matrix.ColumnRowPartitioned
 /-!
 # The instrument-realization audit — one-instrument provenance for realized operations
 
-The preregistered pass of `INSTRUMENT-REALIZATION-AUDIT.md`. `Realized 𝓘 S Φ` takes the
-branches of an operation from the class one at a time, with nothing connecting them, and so
-admits the replication of a post-selected contraction `c • U` into the unitary conjugation by
-`U`. This file defines the replacement, `InstAvail`: a family of operations on a carrier is
-instrument-realized when it is built from admissible isometric steps, the native readout of a
-register, coarse-graining, sequential composition with outcome-dependent continuation, and the
-discard of a uniformly attached ancilla, by exactly those five constructors and no sum. Its
-uniformly weighted preparation label is summed inside the discard and is never an outcome.
+The preregistered pass of `INSTRUMENT-REALIZATION-AUDIT.md`, after the migration of
+`INSTRUMENT-MIGRATION-AUDIT.md`. `Realized 𝓘 S Φ` takes the branches of an operation from the
+class one at a time, with nothing connecting them, and so admits the replication of a
+post-selected contraction `c • U` into the unitary conjugation by `U`. The replacement,
+`InstAvail`, is the implementation semantics of the kernel (`ImplementationLocality`): a family
+of operations on a carrier is instrument-realized when it is built from admissible isometric
+steps, the native readout of a register, coarse-graining, sequential composition with
+outcome-dependent continuation, and the discard of a uniformly attached ancilla, by exactly
+those five constructors and no sum. This file keeps the branch-wise notion as the comparison
+object and proves that the two differ.
 
-* T1, soundness: every instrument-realized family is branch-realized and trace preserving
-  (`realized_of_instAvail`, `instAvail_trace`, `isGenInstrument_of_instAvail`).
-* T3, the generated theory: `instTheory 𝓘 S` is a finite operational theory for every
-  architecture, with embedded observation when the class is label-invariant
-  (`instTheory_embeddedObservation`); the predicate is closed under relabelling
-  (`instAvail_transport`) and under uncoupled spectators (`instAvail_spectator`).
-* T4, survival: the implementation-locality stack re-established for the new primitive under
-  the names `InstrumentGenerated`, `InstrumentLocality`, `ReversibleInstrumentLocality`,
-  `OIPlusInst`, `OIPlusMinInst`, `DerivedOIInst`, `SourcedOIInst`, with validity, observational
-  independence, the exact quantum theories, the countermodel, the substratum and the sourced
-  theories; inverse accessibility with the added hypothesis `PhaseSaturated`.
+* The comparison object: the branch-wise instruments `IsGenInstrument` and the branch-wise
+  theory `branchTheory` of an architecture; every instrument-realized family is a branch-wise
+  instrument (`isGenInstrument_of_instAvail`), so the generated theory lies inside the
+  branch-wise theory at every level (`genTheory_le_branchTheory`).
 * T2, the converse fails: the invariant `OnesNormal` of complete instruments, a Kraus
   decomposition of the whole family whose operators sum against the all-ones vector to the
   all-ones vector, is preserved by every constructor including the feed-forward
@@ -42,7 +37,8 @@ No theorem here asserts or refutes the flow endpoint.
 namespace OIBridge
 namespace InstrumentRealization
 
-open Complex Matrix CoherentLift SpectatorBridge OperationalAssembly AncillaClosure
+open Complex Matrix SpectatorBridge OperationalAssembly AncillaClosure
+open CoherentLift hiding readProj
 open MonoidalCompletion InterventionLocality MicroReversibility PrimitiveSource LieRankSource
 open DiagonalTheory SubstratumInterface StructuralClosure ReadWriteControl MinimalRepertoire
 open LevelOneSeam PhysicalCharacterization RouteB ManuscriptAxioms OIRealization
@@ -53,850 +49,100 @@ open OperationalValidity DimensionalObstruction OIHierarchy IndependenceCensus
 
 open scoped ComplexOrder
 
-/-! ### Section A — the primitive -/
+/-! ### Section A — the branch-wise notion, the comparison object -/
 
-section Primitive
+section Branch
 
-/-- The readout projector onto the register value `k` of the carrier `T × Fin m`. -/
-def readProj (T : Type) [DecidableEq T] (m : ℕ) (k : Fin m) :
-    Matrix (T × Fin m) (T × Fin m) ℂ :=
-  Matrix.diagonal fun r => if r.2 = k then 1 else 0
+/-- **THE BRANCH-WISE INSTRUMENTS**: branch-realized branches, trace preserved in aggregate. -/
+def IsGenInstrument (𝓘 : ImplementationClass) (S : Type) [Fintype S] [DecidableEq S]
+    {O : Type} [Fintype O] [DecidableEq O] (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop :=
+  (∀ a, Realized 𝓘 S (F a)) ∧ ∀ X, ∑ a, ((F a) X).trace = X.trace
 
-/-- **INSTRUMENT REALIZATION.** A family of operations on the carrier `T` with outcomes `O` is
-instrument-realized by the class `𝓘` when it is built from: one admissible isometric step;
-the native Lüders readout of a register `T' × Fin m ≃ T` of the carrier, its projectors
-admissible; classical coarse-graining of the outcome; sequential composition with
-outcome-dependent continuation; and the discard of a uniformly attached ancilla of positive
-size. There is no constructor taking a sum of admissible operators: the branches of a realized
-family arise together as the outcomes of one protocol, and the uniformly weighted preparation
-label is summed inside the discard and is never an outcome. -/
-inductive InstAvail (𝓘 : ImplementationClass) :
-    ∀ (T : Type) [Fintype T] [DecidableEq T] (O : Type) [Fintype O] [DecidableEq O],
-      (O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ) → Prop
-  | op {T : Type} [Fintype T] [DecidableEq T] (K : Matrix T T ℂ) (hK : 𝓘 T K)
-      (hiso : Kᴴ * K = 1) : InstAvail 𝓘 T Unit (fun _ => conjChannel K)
-  | readout {T T' : Type} [Fintype T] [DecidableEq T] [Fintype T'] [DecidableEq T'] {m : ℕ}
-      (e : T' × Fin m ≃ T) (hP : ∀ k, 𝓘 T (Matrix.reindex e e (readProj T' m k))) :
-      InstAvail 𝓘 T (Fin m) (fun k => conjChannel (Matrix.reindex e e (readProj T' m k)))
-  | coarse {T : Type} [Fintype T] [DecidableEq T] {O O' : Type} [Fintype O] [DecidableEq O]
-      [Fintype O'] [DecidableEq O'] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (f : O → O')
-      (h : InstAvail 𝓘 T O F) :
-      InstAvail 𝓘 T O' (fun a => ∑ j ∈ Finset.univ.filter (fun j => f j = a), F j)
-  | bind {T : Type} [Fintype T] [DecidableEq T] {O O' : Type} [Fintype O] [DecidableEq O]
-      [Fintype O'] [DecidableEq O'] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ}
-      {G : O → O' → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (hF : InstAvail 𝓘 T O F)
-      (hG : ∀ a, InstAvail 𝓘 T O' (G a)) :
-      InstAvail 𝓘 T (O × O') (fun c => (G c.1 c.2).comp (F c.1))
-  | discard {T : Type} [Fintype T] [DecidableEq T] {m : ℕ} (hm : 0 < m) {O : Type} [Fintype O]
-      [DecidableEq O]
-      {F : O → Matrix (T × Fin m) (T × Fin m) ℂ →ₗ[ℂ] Matrix (T × Fin m) (T × Fin m) ℂ}
-      (h : InstAvail 𝓘 (T × Fin m) O F) :
-      InstAvail 𝓘 T O (fun a => discardWith (A := T) m (uniformAttach m) (F a))
+variable (𝓘 : ImplementationClass) (arch : Architecture 𝓘)
 
-variable {𝓘 : ImplementationClass}
-
-/-- A one-outcome conjugation preserves the trace exactly when its operator is an isometry: the
-contractive-plus-normalized reading of a step is the isometric one. -/
-theorem conjChannel_trace_iff {T : Type} [Fintype T] [DecidableEq T] (K : Matrix T T ℂ) :
-    (∀ X : Matrix T T ℂ, (conjChannel K X).trace = X.trace) ↔ Kᴴ * K = 1 := by
-  constructor
-  · intro h
-    have := sum_conjTranspose_mul_eq_one_of_trace (fun _ : Unit => K) fun X => by
-      rw [Fintype.sum_unique]; exact h X
-    rwa [Fintype.sum_unique] at this
-  · intro h X
-    exact conjChannel_trace K h X
-
-theorem instAvail_mono {𝓙 : ImplementationClass}
-    (hle : ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ), 𝓘 S K → 𝓙 S K)
-    {T : Type} [Fintype T] [DecidableEq T] {O : Type} [Fintype O] [DecidableEq O]
-    {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (h : InstAvail 𝓘 T O F) : InstAvail 𝓙 T O F := by
-  induction h with
-  | op K hK hiso => exact InstAvail.op K (hle _ _ hK) hiso
-  | readout e hP => exact InstAvail.readout e fun k => hle _ _ (hP k)
-  | coarse f _ ih => exact InstAvail.coarse f ih
-  | bind _ _ ihF ihG => exact InstAvail.bind ihF ihG
-  | discard hm _ ih => exact InstAvail.discard hm ih
-
-/-- **T1, THE TRACE**: an instrument-realized family preserves the trace in aggregate. -/
-theorem instAvail_trace {T : Type} [Fintype T] [DecidableEq T] {O : Type} [Fintype O]
-    [DecidableEq O] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (h : InstAvail 𝓘 T O F) :
-    ∀ X, ∑ a, ((F a) X).trace = X.trace := by
-  induction h with
-  | op K hK hiso =>
-    intro X
-    rw [Fintype.sum_unique]
-    exact conjChannel_trace K hiso X
-  | readout e hP =>
-    intro X
-    have h1 : ∀ k, conjChannel (Matrix.reindex e e (readProj _ _ k)) = transport e (localLuders k) :=
-      fun k => by rw [localLuders_eq_conjChannel, transport_conjChannel]; rfl
-    simp only [h1, trace_transport]
-    rw [localLuders_trace_sum, trace_reindex]
-  | coarse f _ ih =>
-    intro X
+/-- **THE BRANCH-WISE THEORY OF AN ARCHITECTURE** on a carrier: availability is branch
+realization with the aggregate trace preserved. The comparison object of T2; no theory of the
+kernel is generated this way. -/
+noncomputable def branchTheory (S : Type) [Fintype S] [DecidableEq S] :
+    FiniteOperationalTheory S where
+  avail := fun _ _ _ F => IsGenInstrument 𝓘 S F
+  availExt := fun _ _ _ _ F => IsGenInstrument 𝓘 _ F
+  avail_id := ⟨fun _ => realized_id (arch.one S), fun X => by
+    rw [Fintype.sum_unique, LinearMap.id_apply]⟩
+  avail_coarse := by
+    rintro O O' _ _ _ _ F f ⟨h2, htr⟩
+    refine ⟨fun a' => realized_sum _ _ fun j _ => h2 j, fun X => ?_⟩
     rw [Finset.sum_congr rfl fun a' _ => by rw [LinearMap.sum_apply, Matrix.trace_sum],
-      Finset.sum_fiberwise_of_maps_to (fun x _ => Finset.mem_univ (f x))]
-    exact ih X
-  | bind _ hG ihF ihG =>
-    intro X
+      Finset.sum_fiberwise_of_maps_to (fun x _ => Finset.mem_univ (f x))
+        (fun j => ((F j) X).trace)]
+    exact htr X
+  availExt_coarse := by
+    rintro n O O' _ _ _ _ F f ⟨h2, htr⟩
+    refine ⟨fun a' => realized_sum _ _ fun j _ => h2 j, fun X => ?_⟩
+    rw [Finset.sum_congr rfl fun a' _ => by rw [LinearMap.sum_apply, Matrix.trace_sum],
+      Finset.sum_fiberwise_of_maps_to (fun x _ => Finset.mem_univ (f x))
+        (fun j => ((F j) X).trace)]
+    exact htr X
+  availExt_bind := by
+    rintro n O O' _ _ _ _ F G ⟨hF2, hFtr⟩ hG
+    refine ⟨fun c => realized_comp (arch.mul _) ((hG c.1).1 c.2) (hF2 c.1), fun X => ?_⟩
     rw [Fintype.sum_prod_type]
-    simp only [LinearMap.comp_apply]
-    rw [Finset.sum_congr rfl fun a _ => ihG a _]
-    exact ihF X
-  | discard hm _ ih =>
-    intro X
-    simp only [discardWith_trace]
-    rw [ih, uniformAttach_trace _ hm.ne']
+    show ∑ a, ∑ b, ((G a b) ((F a) X)).trace = X.trace
+    rw [Finset.sum_congr rfl fun a _ => (hG a).2 ((F a) X)]
+    exact hFtr X
+  prepAvail := fun n P => 0 < n ∧ ∃ Φ, IsGenInstrument 𝓘 _ (fun _ : Unit => Φ)
+    ∧ P = Φ.comp (uniformAttach n)
+  prepAvail_uniform := fun n =>
+    ⟨n.succ_pos, LinearMap.id,
+      ⟨fun _ => realized_id (arch.one _), fun X => by
+        rw [Fintype.sum_unique, LinearMap.id_apply]⟩, by rw [LinearMap.id_comp]⟩
+  prepAvail_post := by
+    rintro n P Φ ⟨hn, Ψ, ⟨hΨ2, hΨtr⟩, rfl⟩ ⟨hΦ2, hΦtr⟩
+    refine ⟨hn, Φ.comp Ψ, ⟨fun _ => realized_comp (arch.mul _) (hΦ2 ()) (hΨ2 ()), fun X => ?_⟩,
+      by rw [LinearMap.comp_assoc]⟩
+    rw [Fintype.sum_unique]
+    have h1 := hΦtr (Ψ X)
+    rw [Fintype.sum_unique] at h1
+    have h2 := hΨtr X
+    rw [Fintype.sum_unique] at h2
+    exact h1.trans h2
+  readout := fun _ k => localLuders k
+  readout_avail := fun _ => ⟨fun k => realized_localLuders (arch.proj _ _) k, localLuders_trace_sum⟩
+  readout_local := fun _ k => localLuders_mapSpectatorIndependent k
+  prepAvail_discard := by
+    rintro n P O _ _ F ⟨hn, Φ, ⟨hΦ2, hΦtr⟩, rfl⟩ ⟨hF2, hFtr⟩
+    refine ⟨fun a => ?_, fun X => ?_⟩
+    · show Realized 𝓘 S (discardWith n (Φ.comp (uniformAttach n)) (F a))
+      have h : discardWith n (Φ.comp (uniformAttach n)) (F a)
+          = discardWith n (uniformAttach n) ((F a).comp Φ) := by
+        simp only [discardWith, LinearMap.comp_assoc]
+      rw [h]
+      exact realized_discard (arch.block _ _) (arch.smul _)
+        (realized_comp (arch.mul _) (hF2 a) (hΦ2 ()))
+    · show ∑ a, ((discardWith n (Φ.comp (uniformAttach n)) (F a)) X).trace = X.trace
+      rw [Finset.sum_congr rfl fun a _ => discardWith_trace n _ (F a) X, hFtr]
+      have h := hΦtr (uniformAttach n X)
+      rw [Fintype.sum_unique] at h
+      exact h.trans (uniformAttach_trace n hn.ne' X)
 
-/-- **T1, SOUNDNESS**: for an architecture, every branch of an instrument-realized family is
-branch-realized: the step and the readout are conjugations by admissible operators, the
-continuation multiplies admissible operators, and the discard takes contractive blocks. -/
-theorem realized_of_instAvail (arch : Architecture 𝓘) {T : Type} [Fintype T] [DecidableEq T]
-    {O : Type} [Fintype O] [DecidableEq O] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ}
-    (h : InstAvail 𝓘 T O F) : ∀ a, Realized 𝓘 T (F a) := by
-  induction h with
-  | op K hK hiso => exact fun _ => realized_conj hK
-  | readout e hP => exact fun k => realized_conj (hP k)
-  | coarse f _ ih => exact fun a => realized_sum _ _ fun j _ => ih j
-  | bind _ _ ihF ihG => exact fun c => realized_comp (arch.mul _) (ihG c.1 c.2) (ihF c.1)
-  | discard hm _ ih => exact fun a => realized_discard (arch.block _ _) (arch.smul _) (ih a)
+variable {A : Type} [Fintype A] [DecidableEq A] {𝓘}
 
-/-- **T1**: an instrument-realized family is a generated instrument of the branch-wise notion. -/
+/-- **T1**: an instrument-realized family is a branch-wise instrument. -/
 theorem isGenInstrument_of_instAvail (arch : Architecture 𝓘) {T : Type} [Fintype T]
     [DecidableEq T] {O : Type} [Fintype O] [DecidableEq O]
     {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (h : InstAvail 𝓘 T O F) : IsGenInstrument 𝓘 T F :=
   ⟨realized_of_instAvail arch h, instAvail_trace h⟩
 
-/-- Every branch of an instrument-realized family is completely positive, for every class. -/
-theorem cp_of_instAvail {T : Type} [Fintype T] [DecidableEq T] {O : Type} [Fintype O]
-    [DecidableEq O] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (h : InstAvail 𝓘 T O F) (a : O) :
-    IsCompletelyPositive (F a) :=
-  cp_of_realized (realized_of_instAvail fullClass_arch
-    (instAvail_mono (fun _ _ _ _ _ => trivial) h) a)
-
-/-- Post-composition of every branch by an available one-outcome operation: the continuation
-with a constant choice, coarse-grained along the outcome. -/
-theorem instAvail_comp_one {T : Type} [Fintype T] [DecidableEq T] {O : Type} [Fintype O]
-    [DecidableEq O] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ}
-    {Φ : Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (hF : InstAvail 𝓘 T O F)
-    (hΦ : InstAvail 𝓘 T Unit (fun _ => Φ)) : InstAvail 𝓘 T O (fun a => (F a).comp Φ) := by
-  have h := InstAvail.coarse (fun c : Unit × O => c.2) (InstAvail.bind hΦ (fun _ => hF))
-  have e : (fun a => (F a).comp Φ)
-      = fun a => ∑ j ∈ Finset.univ.filter (fun j : Unit × O => j.2 = a), (F j.2).comp Φ := by
-    funext a
-    rw [Finset.sum_filter, Fintype.sum_prod_type, Fintype.sum_unique]
-    simp
-  rw [e]
-  exact h
-
-theorem instAvail_one_comp {T : Type} [Fintype T] [DecidableEq T] {O : Type} [Fintype O]
-    [DecidableEq O] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ}
-    {Φ : Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (hΦ : InstAvail 𝓘 T Unit (fun _ => Φ))
-    (hF : InstAvail 𝓘 T O F) : InstAvail 𝓘 T O (fun a => Φ.comp (F a)) := by
-  have h := InstAvail.coarse (fun c : O × Unit => c.1) (InstAvail.bind hF (fun _ => hΦ))
-  have e : (fun a => Φ.comp (F a))
-      = fun a => ∑ j ∈ Finset.univ.filter (fun j : O × Unit => j.1 = a), Φ.comp (F j.1) := by
-    funext a
-    rw [Finset.sum_filter, Fintype.sum_prod_type]
-    simp
-  rw [e]
-  exact h
-
-/-- The identity is instrument-realized in every class containing the identity operator. -/
-theorem instAvail_id {T : Type} [Fintype T] [DecidableEq T] (hone : 𝓘 T 1) :
-    InstAvail 𝓘 T Unit (fun _ => LinearMap.id) := by
-  have h := InstAvail.op (𝓘 := 𝓘) (1 : Matrix T T ℂ) hone (by simp)
-  rwa [conjChannel_one] at h
-
-end Primitive
-
-/-! ### Section B — relabelling and spectators -/
-
-section Transport
-
-variable {𝓘 : ImplementationClass}
-
-theorem transport_refl {T : Type} [Fintype T] [DecidableEq T]
-    (Φ : Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ) : transport (Equiv.refl T) Φ = Φ := by
-  refine LinearMap.ext fun X => ?_
-  simp [transport_apply]
-
-theorem transport_trans {T T' T'' : Type} [Fintype T] [DecidableEq T] [Fintype T'] [DecidableEq T']
-    [Fintype T''] [DecidableEq T''] (e : T ≃ T') (e' : T' ≃ T'')
-    (Φ : Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ) :
-    transport e' (transport e Φ) = transport (e.trans e') Φ := by
-  refine LinearMap.ext fun X => ?_
-  simp only [transport_apply, Matrix.reindex_apply, Matrix.submatrix_submatrix]
-  rfl
-
-theorem transport_comp {T T' : Type} [Fintype T] [DecidableEq T] [Fintype T'] [DecidableEq T']
-    (e : T ≃ T') (Φ Ψ : Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ) :
-    transport e (Φ.comp Ψ) = (transport e Φ).comp (transport e Ψ) := by
-  refine LinearMap.ext fun X => ?_
-  simp only [transport_apply, LinearMap.comp_apply]
-  rw [← Matrix.reindex_symm, Equiv.symm_apply_apply]
-
-theorem reindex_reindex {l m n : Type} (e₀ : l ≃ m) (e : m ≃ n) (M : Matrix l l ℂ) :
-    Matrix.reindex e e (Matrix.reindex e₀ e₀ M) = Matrix.reindex (e₀.trans e) (e₀.trans e) M := by
-  rw [← Matrix.reindex_trans]
-  rfl
-
-theorem reindex_isometry' {T T' : Type} [Fintype T] [DecidableEq T] [Fintype T'] [DecidableEq T']
-    (e : T ≃ T') {K : Matrix T T ℂ} (hK : Kᴴ * K = 1) :
-    (Matrix.reindex e e K)ᴴ * Matrix.reindex e e K = 1 := by
-  rw [Matrix.reindex_apply, Matrix.conjTranspose_submatrix, Matrix.submatrix_mul_equiv, hK,
-    Matrix.submatrix_one_equiv]
-
-theorem uniformAttach_reindex {T T' : Type} [Fintype T] [DecidableEq T] [Fintype T']
-    [DecidableEq T'] (e : T ≃ T') (m : ℕ) (X : Matrix T' T' ℂ) :
-    uniformAttach m (Matrix.reindex e.symm e.symm X)
-      = Matrix.reindex (e.prodCongr (Equiv.refl (Fin m))).symm
-          (e.prodCongr (Equiv.refl (Fin m))).symm (uniformAttach m X) := by
-  ext ⟨s, f⟩ ⟨t, f'⟩
-  simp [Matrix.reindex_apply, Matrix.submatrix_apply]
-
-/-- Relabelling the carrier commutes with the discard of a fresh ancilla. -/
-theorem transport_discard {T T' : Type} [Fintype T] [DecidableEq T] [Fintype T'] [DecidableEq T']
-    (e : T ≃ T') {m : ℕ}
-    (Φ : Matrix (T × Fin m) (T × Fin m) ℂ →ₗ[ℂ] Matrix (T × Fin m) (T × Fin m) ℂ) :
-    transport e (discardWith (A := T) m (uniformAttach m) Φ)
-      = discardWith (A := T') m (uniformAttach m)
-          (transport (e.prodCongr (Equiv.refl (Fin m))) Φ) := by
-  refine LinearMap.ext fun X => ?_
-  ext s t
-  simp only [transport_apply, discardWith, LinearMap.comp_apply, Matrix.reindex_apply,
-    Matrix.submatrix_apply]
-  show ptraceAnc m (Φ (uniformAttach m (Matrix.reindex e.symm e.symm X))) (e.symm s) (e.symm t)
-    = ptraceAnc m (Matrix.reindex _ _ (Φ (Matrix.reindex _ _ (uniformAttach m X)))) s t
-  rw [uniformAttach_reindex]
-  simp [Matrix.reindex_apply, Matrix.submatrix_apply]
-
-/-- **RELABELLING**: for a label-invariant class the predicate is transported along every
-carrier bijection. -/
-theorem instAvail_transport (hl : LabelInvariant 𝓘) {T : Type} [Fintype T] [DecidableEq T]
-    {O : Type} [Fintype O] [DecidableEq O] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ}
-    (h : InstAvail 𝓘 T O F) :
-    ∀ (T' : Type) [Fintype T'] [DecidableEq T'] (e : T ≃ T'),
-      InstAvail 𝓘 T' O (fun a => transport e (F a)) := by
-  induction h with
-  | op K hK hiso =>
-    intro T' _ _ e
-    have := InstAvail.op (𝓘 := 𝓘) (Matrix.reindex e e K) (hl _ _ e _ hK) (reindex_isometry' e hiso)
-    simpa only [transport_conjChannel] using this
-  | readout e₀ hP =>
-    intro T' _ _ e
-    have := InstAvail.readout (𝓘 := 𝓘) (e₀.trans e) fun k => by
-      rw [← reindex_reindex]; exact hl _ _ e _ (hP k)
-    simpa only [transport_conjChannel, reindex_reindex] using this
-  | coarse f _ ih =>
-    intro T' _ _ e
-    have := InstAvail.coarse f (ih T' e)
-    simpa only [transport_sum] using this
-  | bind _ _ ihF ihG =>
-    intro T' _ _ e
-    have := InstAvail.bind (ihF T' e) (fun a => ihG a T' e)
-    simpa only [transport_comp] using this
-  | discard hm _ ih =>
-    intro T' _ _ e
-    have := InstAvail.discard (𝓘 := 𝓘) hm (ih _ (e.prodCongr (Equiv.refl _)))
-    simpa only [transport_discard] using this
-
-end Transport
-
-section Spectator
-
-variable {𝓘 : ImplementationClass}
-
-theorem tensorOf_conjTranspose {R S : Type} [Fintype R] [DecidableEq R] [Fintype S] [DecidableEq S]
-    (A : Matrix R R ℂ) (B : Matrix S S ℂ) : (tensorOf A B)ᴴ = tensorOf Aᴴ Bᴴ := by
-  ext p q
-  simp [Matrix.conjTranspose_apply, tensorOf_apply]
-
-theorem tensorOf_mul' {R S : Type} [Fintype R] [DecidableEq R] [Fintype S] [DecidableEq S]
-    (A C : Matrix R R ℂ) (B D : Matrix S S ℂ) :
-    tensorOf A B * tensorOf C D = tensorOf (A * C) (B * D) := by
-  ext p q
-  simp only [Matrix.mul_apply, tensorOf_apply, Fintype.sum_prod_type, Finset.sum_mul_sum]
-  refine Finset.sum_congr rfl fun u _ => Finset.sum_congr rfl fun v _ => ?_
-  ring
-
-theorem tensorOf_one_isometry' {R S : Type} [Fintype R] [DecidableEq R] [Fintype S] [DecidableEq S]
-    {K : Matrix S S ℂ} (hK : Kᴴ * K = 1) :
-    (tensorOf (1 : Matrix R R ℂ) K)ᴴ * tensorOf (1 : Matrix R R ℂ) K = 1 := by
-  rw [tensorOf_conjTranspose, tensorOf_mul', Matrix.conjTranspose_one, Matrix.one_mul, hK,
-    tensorOf_one_one]
-
-theorem amplRefL_conjChannel (R : Type) [Fintype R] [DecidableEq R] {S : Type} [Fintype S]
-    [DecidableEq S] (K : Matrix S S ℂ) :
-    amplRefL R (conjChannel K) = conjChannel (tensorOf (1 : Matrix R R ℂ) K) :=
-  LinearMap.ext fun M => amplRef_conjChannel K M
-
-theorem amplRefL_sum (R : Type) [Fintype R] [DecidableEq R] {S : Type} [Fintype S] [DecidableEq S]
-    {ι : Type*} (s : Finset ι) (Φ : ι → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) :
-    amplRefL R (∑ i ∈ s, Φ i) = ∑ i ∈ s, amplRefL R (Φ i) := by
-  refine LinearMap.ext fun M => ?_
-  rw [LinearMap.sum_apply]
-  exact amplRef_sum_map s Φ M
-
-theorem amplRef_apply' {R S : Type} [Fintype R] [DecidableEq R] [Fintype S] [DecidableEq S]
-    (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) (M : Matrix (R × S) (R × S) ℂ) (p q : R × S) :
-    amplRef R Φ M p q = Φ (refBlockR M p.1 q.1) p.2 q.2 := rfl
-
-theorem refBlockR_amplRef {R S : Type} [Fintype R] [DecidableEq R] [Fintype S] [DecidableEq S]
-    (Ψ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) (M : Matrix (R × S) (R × S) ℂ) (r r' : R) :
-    refBlockR (amplRef R Ψ M) r r' = Ψ (refBlockR M r r') := by
-  ext k l
-  rfl
-
-theorem amplRefL_comp (R : Type) [Fintype R] [DecidableEq R] {S : Type} [Fintype S] [DecidableEq S]
-    (Φ Ψ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) :
-    amplRefL R (Φ.comp Ψ) = (amplRefL R Φ).comp (amplRefL R Ψ) := by
-  refine LinearMap.ext fun M => ?_
-  ext ⟨r, k⟩ ⟨r', l⟩
-  show amplRef R (Φ.comp Ψ) M (r, k) (r', l) = amplRef R Φ (amplRef R Ψ M) (r, k) (r', l)
-  rw [amplRef_apply', amplRef_apply', refBlockR_amplRef]
-  rfl
-
-theorem tensorOf_one_reindex {R S S' : Type} [Fintype R] [DecidableEq R] [Fintype S] [DecidableEq S]
-    [Fintype S'] [DecidableEq S'] (e : S ≃ S') (K : Matrix S S ℂ) :
-    tensorOf (1 : Matrix R R ℂ) (Matrix.reindex e e K)
-      = Matrix.reindex ((Equiv.refl R).prodCongr e) ((Equiv.refl R).prodCongr e)
-          (tensorOf (1 : Matrix R R ℂ) K) := by
-  ext ⟨r, x⟩ ⟨r', y⟩
-  simp [Matrix.reindex_apply, Matrix.submatrix_apply]
-
-theorem tensorOf_one_readProj {R S : Type} [Fintype R] [DecidableEq R] [Fintype S] [DecidableEq S]
-    (m : ℕ) (k : Fin m) :
-    tensorOf (1 : Matrix R R ℂ) (readProj S m k)
-      = Matrix.reindex (Equiv.prodAssoc R S (Fin m)) (Equiv.prodAssoc R S (Fin m))
-          (readProj (R × S) m k) := by
-  ext ⟨r, x, f⟩ ⟨r', y, f'⟩
-  simp only [tensorOf_apply, readProj, Matrix.diagonal_apply, Matrix.one_apply, Matrix.reindex_apply,
-    Matrix.submatrix_apply, Equiv.prodAssoc_symm_apply, Prod.mk.injEq]
-  by_cases hr : r = r' <;> by_cases hx : x = y <;> by_cases hf : f = f' <;> simp [hr, hx, hf]
-
-/-- Amplification by a spectator commutes with relabelling of the carrier. -/
-theorem amplRefL_transport (R : Type) [Fintype R] [DecidableEq R] {S S' : Type} [Fintype S]
-    [DecidableEq S] [Fintype S'] [DecidableEq S'] (e : S ≃ S')
-    (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) :
-    amplRefL R (transport e Φ)
-      = transport ((Equiv.refl R).prodCongr e) (amplRefL R Φ) := by
-  refine LinearMap.ext fun M => ?_
-  ext ⟨r, x⟩ ⟨r', y⟩
-  simp only [amplRefL_apply, amplRef, Matrix.of_apply, transport_apply, Matrix.reindex_apply,
-    Matrix.submatrix_apply, Equiv.prodCongr_symm, Equiv.prodCongr_apply, Equiv.refl_symm,
-    Equiv.coe_refl, Prod.map_apply, id_eq]
-  congr 2
-
-theorem refBlockR_reindex_uniformAttach {R S : Type} [Fintype R] [DecidableEq R] [Fintype S]
-    [DecidableEq S] (m : ℕ) (M : Matrix (R × S) (R × S) ℂ) (r r' : R) :
-    refBlockR (Matrix.reindex (Equiv.prodAssoc R S (Fin m)) (Equiv.prodAssoc R S (Fin m))
-        (uniformAttach m M)) r r'
-      = uniformAttach m (refBlockR M r r') := by
-  ext ⟨x, f⟩ ⟨y, f'⟩
-  simp [refBlockR, Matrix.reindex_apply, Matrix.submatrix_apply]
-
-/-- Amplification by a spectator commutes with the discard of a fresh ancilla, the ancilla
-being regrouped past the spectator. -/
-theorem amplRefL_discard (R : Type) [Fintype R] [DecidableEq R] {S : Type} [Fintype S]
-    [DecidableEq S] {m : ℕ}
-    (Φ : Matrix (S × Fin m) (S × Fin m) ℂ →ₗ[ℂ] Matrix (S × Fin m) (S × Fin m) ℂ) :
-    amplRefL R (discardWith (A := S) m (uniformAttach m) Φ)
-      = discardWith (A := R × S) m (uniformAttach m)
-          (transport (Equiv.prodAssoc R S (Fin m)).symm (amplRefL R Φ)) := by
-  refine LinearMap.ext fun M => ?_
-  ext ⟨r, x⟩ ⟨r', y⟩
-  simp only [amplRefL_apply, amplRef, Matrix.of_apply, discardWith, LinearMap.comp_apply,
-    transport_apply, Equiv.symm_symm]
-  show ∑ f, (Φ (uniformAttach m (refBlockR M r r'))) (x, f) (y, f)
-    = ∑ f, (Matrix.reindex (Equiv.prodAssoc R S (Fin m)).symm (Equiv.prodAssoc R S (Fin m)).symm
-        (amplRef R Φ (Matrix.reindex (Equiv.prodAssoc R S (Fin m)) (Equiv.prodAssoc R S (Fin m))
-          (uniformAttach m M)))) ((r, x), f) ((r', y), f)
-  refine Finset.sum_congr rfl fun f _ => ?_
-  rw [Matrix.reindex_apply, Matrix.submatrix_apply, Equiv.symm_symm, Equiv.prodAssoc_apply,
-    Equiv.prodAssoc_apply, amplRef_apply', refBlockR_reindex_uniformAttach]
-
-/-- **SPECTATORS**: for a context-stable, label-invariant class the predicate is closed under
-an uncoupled spectator. -/
-theorem instAvail_spectator (hc : ContextStable 𝓘) (hl : LabelInvariant 𝓘) (R : Type) [Fintype R]
-    [DecidableEq R] {T : Type} [Fintype T] [DecidableEq T] {O : Type} [Fintype O] [DecidableEq O]
-    {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (h : InstAvail 𝓘 T O F) :
-    InstAvail 𝓘 (R × T) O (fun a => amplRefL R (F a)) := by
-  induction h with
-  | op K hK hiso =>
-    have := InstAvail.op (𝓘 := 𝓘) (tensorOf (1 : Matrix R R ℂ) K) (hc R _ _ hK)
-      (tensorOf_one_isometry' hiso)
-    simpa only [amplRefL_conjChannel] using this
-  | readout e hP =>
-    have hre : ∀ k, tensorOf (1 : Matrix R R ℂ) (Matrix.reindex e e (readProj _ _ k))
-        = Matrix.reindex ((Equiv.prodAssoc R _ _).trans ((Equiv.refl R).prodCongr e))
-            ((Equiv.prodAssoc R _ _).trans ((Equiv.refl R).prodCongr e)) (readProj (R × _) _ k) :=
-      fun k => by rw [tensorOf_one_reindex, tensorOf_one_readProj, reindex_reindex]
-    have := InstAvail.readout (𝓘 := 𝓘)
-      ((Equiv.prodAssoc R _ _).trans ((Equiv.refl R).prodCongr e))
-      fun k => by rw [← hre]; exact hc R _ _ (hP k)
-    simpa only [amplRefL_conjChannel, hre] using this
-  | coarse f _ ih =>
-    have := InstAvail.coarse f ih
-    simpa only [amplRefL_sum] using this
-  | bind _ _ ihF ihG =>
-    have := InstAvail.bind ihF ihG
-    simpa only [amplRefL_comp] using this
-  | discard hm _ ih =>
-    have := InstAvail.discard (𝓘 := 𝓘) hm
-      (instAvail_transport hl ih _ (Equiv.prodAssoc R _ _).symm)
-    simpa only [amplRefL_discard] using this
-
-/-- **THE LOCAL FORM KEEPS INSTRUMENT REALIZATION**: the spectator extension of an
-instrument-realized family is instrument-realized. -/
-theorem instAvail_withSpectator (hc : ContextStable 𝓘) (hl : LabelInvariant 𝓘) {A : Type}
-    [Fintype A] [DecidableEq A] {R : Type} [Fintype R] [DecidableEq R] {n m : ℕ}
-    (e : R × (A × Fin n) ≃ A × Fin m) {O : Type} [Fintype O] [DecidableEq O]
-    {F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ}
-    (h : InstAvail 𝓘 (A × Fin n) O F) :
-    InstAvail 𝓘 (A × Fin m) O (fun a => withSpectator R e (F a)) :=
-  instAvail_transport hl (instAvail_spectator hc hl R h) _ e
-
-end Spectator
-
-/-! ### Section C — the theory an architecture generates by instruments -/
-
-section Generated
-
-variable (𝓘 : ImplementationClass) (arch : Architecture 𝓘)
-
-/-- **THE INSTRUMENT THEORY OF AN ARCHITECTURE** on a carrier: availability is instrument
-realization, on the system and at every level. -/
-noncomputable def instTheory (S : Type) [Fintype S] [DecidableEq S] :
-    FiniteOperationalTheory S where
-  avail := fun _ _ _ F => InstAvail 𝓘 S _ F
-  availExt := fun _ _ _ _ F => InstAvail 𝓘 _ _ F
-  avail_id := instAvail_id (arch.one S)
-  avail_coarse := fun _ _ _ _ _ _ _ f h => InstAvail.coarse f h
-  availExt_coarse := fun _ _ _ _ _ _ _ _ f h => InstAvail.coarse f h
-  availExt_bind := fun _ _ _ _ _ _ _ _ _ hF hG => InstAvail.bind hF hG
-  prepAvail := fun n P => 0 < n ∧ ∃ Φ, InstAvail 𝓘 _ Unit (fun _ : Unit => Φ)
-    ∧ P = Φ.comp (uniformAttach n)
-  prepAvail_uniform := fun n =>
-    ⟨n.succ_pos, LinearMap.id, instAvail_id (arch.one _), by rw [LinearMap.id_comp]⟩
-  prepAvail_post := by
-    rintro n P Φ ⟨hn, Ψ, hΨ, rfl⟩ hΦ
-    exact ⟨hn, Φ.comp Ψ, instAvail_one_comp hΦ hΨ, by rw [LinearMap.comp_assoc]⟩
-  readout := fun _ k => localLuders k
-  readout_avail := fun n => by
-    have h := InstAvail.readout (𝓘 := 𝓘) (Equiv.refl (S × Fin n))
-      (fun k => by rw [Matrix.reindex_refl_refl]; exact arch.proj S n k)
-    simp only [Matrix.reindex_refl_refl] at h
-    have e : (fun k : Fin n => localLuders (A := S) k)
-        = fun k => conjChannel (readProj S n k) := funext fun k => localLuders_eq_conjChannel k
-    rw [e]
-    exact h
-  readout_local := fun _ k => localLuders_mapSpectatorIndependent k
-  prepAvail_discard := by
-    rintro n P O _ _ F ⟨hn, Φ, hΦ, rfl⟩ hF
-    have e : (fun a => discardWith n (Φ.comp (uniformAttach n)) (F a))
-        = fun a => discardWith (A := S) n (uniformAttach n) ((F a).comp Φ) := by
-      funext a
-      simp only [discardWith, LinearMap.comp_assoc]
-    rw [e]
-    exact InstAvail.discard hn (instAvail_comp_one hF hΦ)
-
-/-- The instrument family. -/
-noncomputable def instFamily : TheoryFamily := fun S _ _ => instTheory 𝓘 arch S
-
-theorem instFamily_regrouping : RegroupingInvariant (instFamily 𝓘 arch) := by
-  intro S _ _ m _ O _ _ F
-  exact Iff.rfl
-
-theorem instFamily_relabelling (hl : LabelInvariant 𝓘) :
-    RelabellingInvariant (instFamily 𝓘 arch) := by
-  intro S S' _ _ _ _ e O _ _ F h
-  exact instAvail_transport hl h S' e
-
-variable {A : Type} [Fintype A] [DecidableEq A]
-
-theorem instTheory_ambient : IsAmbientMember (instTheory 𝓘 arch A) (instFamily 𝓘 arch) :=
-  ⟨fun _ _ _ _ => Iff.rfl, fun _ _ _ _ _ _ => Iff.rfl⟩
-
-/-- **T3: INSTRUMENT THEORIES CARRY EMBEDDED OBSERVATION** when the class is label-invariant. -/
-theorem instTheory_embeddedObservation (hl : LabelInvariant 𝓘) :
-    EmbeddedObservation (instTheory 𝓘 arch A) :=
-  ⟨instFamily 𝓘 arch, instFamily_regrouping 𝓘 arch, instFamily_relabelling 𝓘 arch hl,
-    instTheory_ambient 𝓘 arch⟩
-
-theorem instTheory_availExt_iff (n : ℕ) {O : Type} [Fintype O] [DecidableEq O]
-    (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) :
-    (instTheory 𝓘 arch A).availExt n O F ↔ InstAvail 𝓘 (A × Fin n) O F :=
-  Iff.rfl
-
-/-- **THE INSTRUMENT THEORY LIES INSIDE THE GENERATED THEORY**: every family available by
-instruments is available branch-wise. -/
-theorem instTheory_le_genTheory (n : ℕ) {O : Type} [Fintype O] [DecidableEq O]
-    (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
-    (h : (instTheory 𝓘 arch A).availExt n O F) : (genTheory 𝓘 arch A).availExt n O F :=
+/-- **THE GENERATED THEORY LIES INSIDE THE BRANCH-WISE THEORY**: every family available by
+instruments is available branch-wise. The converse fails (T2). -/
+theorem genTheory_le_branchTheory (arch : Architecture 𝓘) (n : ℕ) {O : Type} [Fintype O]
+    [DecidableEq O] (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+    (h : (genTheory 𝓘 arch A).availExt n O F) : (branchTheory 𝓘 arch A).availExt n O F :=
   isGenInstrument_of_instAvail arch h
 
-/-- A unitary conjugation is available in the instrument theory of a class containing the
-unitary. -/
-theorem instTheory_avail_conj {n : ℕ} {V : Matrix (A × Fin n) (A × Fin n) ℂ}
-    (hV : 𝓘 (A × Fin n) V) (hiso : Vᴴ * V = 1) :
-    (instTheory 𝓘 arch A).availExt n Unit (fun _ => conjChannel V) :=
-  InstAvail.op V hV hiso
+end Branch
 
-/-- **COMPOSITE UNITARY CONTROL IN THE INSTRUMENT THEORY OF THE FULL CLASS.** -/
-theorem instTheory_fullClass_control : HasCompositeUnitaryControl (instTheory fullClass fullClass_arch A) :=
-  fun _ U hU => InstAvail.op U trivial hU
-
-/-- Class inclusion carries instrument availability at every level. -/
-theorem instTheory_mono {𝓙 : ImplementationClass} (arch' : Architecture 𝓙)
-    (hle : ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ), 𝓘 S K → 𝓙 S K) (n : ℕ)
-    {O : Type} [Fintype O] [DecidableEq O]
-    (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
-    (h : (instTheory 𝓘 arch A).availExt n O F) : (instTheory 𝓙 arch' A).availExt n O F :=
-  instAvail_mono hle h
-
-end Generated
-
-/-! ### Section D — the implementation-locality stack for the new primitive -/
-
-section Stack
-
-variable {A : Type} [Fintype A] [DecidableEq A]
-
-/-- **(G′) INSTRUMENT GENERATION**: at every positive level, availability is instrument
-realization by the class. The normalization half of validity is a theorem of the predicate
-(`instAvail_trace`), not a clause. -/
-def InstrumentGenerated (T : FiniteOperationalTheory A) (𝓘 : ImplementationClass) : Prop :=
-  ∀ (N : ℕ), 0 < N → ∀ (O : Type) [Fintype O] [DecidableEq O]
-    (F : O → Matrix (A × Fin N) (A × Fin N) ℂ →ₗ[ℂ] Matrix (A × Fin N) (A × Fin N) ℂ),
-    T.availExt N O F ↔ InstAvail 𝓘 (A × Fin N) O F
-
-/-- **INSTRUMENT LOCALITY**: availability is instrument-generated by a context-stable,
-label-invariant implementation class. -/
-def InstrumentLocality (T : FiniteOperationalTheory A) : Prop :=
-  ∃ 𝓘 : ImplementationClass, InstrumentGenerated T 𝓘 ∧ ContextStable 𝓘 ∧ LabelInvariant 𝓘
-
-/-- **REVERSIBLE INSTRUMENT LOCALITY**: instrument locality with a dagger-stable class. -/
-def ReversibleInstrumentLocality (T : FiniteOperationalTheory A) : Prop :=
-  ∃ 𝓘 : ImplementationClass, InstrumentGenerated T 𝓘 ∧ ContextStable 𝓘 ∧ LabelInvariant 𝓘
-    ∧ DaggerStable 𝓘
-
-theorem instrumentLocality_of_reversible {T : FiniteOperationalTheory A}
-    (h : ReversibleInstrumentLocality T) : InstrumentLocality T := by
-  obtain ⟨𝓘, hg, hc, hl, -⟩ := h
-  exact ⟨𝓘, hg, hc, hl⟩
-
-variable {𝓘 : ImplementationClass}
-
-theorem instTheory_generated (arch : Architecture 𝓘) :
-    InstrumentGenerated (instTheory 𝓘 arch A) 𝓘 :=
-  fun _ _ _ _ _ _ => Iff.rfl
-
-theorem instTheory_instrumentLocality (arch : Architecture 𝓘) (hc : ContextStable 𝓘)
-    (hl : LabelInvariant 𝓘) : InstrumentLocality (instTheory 𝓘 arch A) :=
-  ⟨𝓘, instTheory_generated arch, hc, hl⟩
-
-theorem instTheory_reversibleInstrumentLocality (arch : Architecture 𝓘) (hc : ContextStable 𝓘)
-    (hl : LabelInvariant 𝓘) (hd : DaggerStable 𝓘) :
-    ReversibleInstrumentLocality (instTheory 𝓘 arch A) :=
-  ⟨𝓘, instTheory_generated arch, hc, hl, hd⟩
-
-/-- **INSTRUMENT GENERATION IS SOUND FOR BRANCH-WISE GENERATION**: every family available in an
-instrument-generated theory of an architecture is a generated instrument of the branch-wise
-notion. The converse is the content of T2. -/
-theorem isGenInstrument_of_instrumentGenerated (arch : Architecture 𝓘)
-    {T : FiniteOperationalTheory A} (hg : InstrumentGenerated T 𝓘) {N : ℕ} (hN : 0 < N)
-    {O : Type} [Fintype O] [DecidableEq O]
-    {F : O → Matrix (A × Fin N) (A × Fin N) ℂ →ₗ[ℂ] Matrix (A × Fin N) (A × Fin N) ℂ}
-    (hF : T.availExt N O F) : IsGenInstrument 𝓘 (A × Fin N) F :=
-  isGenInstrument_of_instAvail arch ((hg N hN O F).mp hF)
-
-/-- **OBSERVATIONAL INDEPENDENCE FROM INSTRUMENT LOCALITY**, in its parallel reference-extension
-form. -/
-theorem parallel_of_instrumentLocal [Nonempty A] {T : FiniteOperationalTheory A}
-    (hg : InstrumentGenerated T 𝓘) (hc : ContextStable 𝓘) (hl : LabelInvariant 𝓘) :
-    HasParallelReferenceExtension T := by
-  intro R _ _ n m e O _ _ F hF
-  rcases m with _ | m'
-  · exact availExt_zero T _
-  rcases n with _ | k
-  · exfalso
-    have hc' := Fintype.card_congr e
-    simp only [Fintype.card_prod, Fintype.card_fin, mul_zero] at hc'
-    exact absurd hc'.symm (Nat.mul_pos Fintype.card_pos m'.succ_pos).ne'
-  exact (hg (m' + 1) m'.succ_pos O _).mpr
-    (instAvail_withSpectator hc hl e ((hg (k + 1) k.succ_pos O F).mp hF))
-
-theorem observationalIndependence_of_instrumentLocality [Nonempty A]
-    {T : FiniteOperationalTheory A} (h : InstrumentLocality T) : ObservationalIndependence T := by
-  obtain ⟨𝓘, hg, hc, hl⟩ := h
-  exact parallel_of_instrumentLocal hg hc hl
-
-/-- Instrument-generated theories are composite Kraus-sound, for every class. -/
-theorem krausSoundExt_of_instrumentGenerated [Nonempty A] {T : FiniteOperationalTheory A}
-    (hg : InstrumentGenerated T 𝓘) : KrausSoundExt T := by
-  intro n O _ _ F hF
-  have h := (hg (n + 1) n.succ_pos O F).mp hF
-  exact isKrausFamily_of_cp_of_factorization (psdFactorization_discharged _) F
-    (cp_of_instAvail h) (instAvail_trace h)
-
-/-- **VALIDITY IS DERIVED** from instrument locality. -/
-theorem validity_of_instrumentLocality [Nonempty A] {T : FiniteOperationalTheory A}
-    (h : InstrumentLocality T) : CompositeOperationalValidity T := by
-  obtain ⟨𝓘, hg, -, -⟩ := h
-  exact validity_of_krausSoundExt T (krausSoundExt_of_instrumentGenerated hg)
-
-/-- **EVERY FINITE KRAUS FAMILY IS INSTRUMENT-REALIZED BY THE FULL CLASS**: the Stinespring
-circuit of the instrument theory of the full class, a pure seed obtained from the uniform ancilla
-by readout and feed-forward, a composite unitary extending the Stinespring isometry, the readout
-and the discard, followed by the coarse-graining along the outcome labelling. -/
-theorem instAvail_fullClass_of_krausFamily {S : Type} [Fintype S] [DecidableEq S] {O : Type}
-    [Fintype O] [DecidableEq O] {F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ} (hK : IsKrausFamily F) :
-    InstAvail fullClass S O F := by
-  obtain ⟨n, K, out, hnorm, hKF⟩ := hK
-  have hfull := fullInstruments_of_control (instTheory fullClass fullClass_arch S)
-    (finiteIsometryExtensionSF_discharged S) instTheory_fullClass_control
-  have h := InstAvail.coarse out (hfull n (n + 1) K id hnorm)
-  have e : F = fun a => ∑ j ∈ Finset.univ.filter (fun j => out j = a), instrumentBranch K id j := by
-    funext a
-    rw [hKF a]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    simp [instrumentBranch, Finset.filter_eq']
-  rw [e]
-  exact h
-
-/-- **AN EXACT THEORY IS INSTRUMENT-GENERATED BY THE FULL CLASS.** -/
-theorem instrumentGenerated_of_qm [Nonempty A] (T : FiniteOperationalTheory A)
-    (h : ExactAllFiniteEndomorphicQuantumOps T) : InstrumentGenerated T fullClass := by
-  intro N hN O _ _ F
-  constructor
-  · intro hF
-    exact instAvail_fullClass_of_krausFamily (krausFamily_of_exactComposite T h.2 N hN F hF)
-  · intro hI
-    have : Nonempty (A × Fin N) := ⟨(Classical.arbitrary A, ⟨0, hN⟩)⟩
-    exact availExt_of_krausFamily T h.2 N hN F
-      (isKrausFamily_of_cp_of_factorization (psdFactorization_discharged _) F
-        (cp_of_instAvail hI) (instAvail_trace hI))
-
-/-- **EXACT FINITE OPERATIONAL QM IS INSTRUMENT-LOCAL.** -/
-theorem instrumentLocality_of_qm [Nonempty A] (T : FiniteOperationalTheory A)
-    (h : ExactAllFiniteEndomorphicQuantumOps T) : InstrumentLocality T :=
-  ⟨fullClass, instrumentGenerated_of_qm T h, fullClass_contextStable, fullClass_labelInvariant⟩
-
-theorem reversibleInstrumentLocality_of_qm [Nonempty A] (T : FiniteOperationalTheory A)
-    (h : ExactAllFiniteEndomorphicQuantumOps T) : ReversibleInstrumentLocality T :=
-  ⟨fullClass, instrumentGenerated_of_qm T h, fullClass_contextStable, fullClass_labelInvariant,
-    fun _ _ _ _ _ => trivial⟩
-
-/-- **THE DIAGNOSIS**: the countermodel is not instrument-generated by any class. -/
-theorem countermodel_not_instrumentGenerated :
-    ¬ ∃ 𝓘 : ImplementationClass, InstrumentGenerated countermodel 𝓘 := by
-  rintro ⟨𝓘, hg⟩
-  have h := (hg 2 two_pos Unit (fun _ => reduction2 (Fin 2 × Fin 2))).mp
-    countermodel_reduction2_available
-  exact reduction2_not_cp (cp_of_instAvail h ())
-
-theorem countermodel_not_instrumentLocality : ¬ InstrumentLocality countermodel :=
-  fun ⟨𝓘, hg, _⟩ => countermodel_not_instrumentGenerated ⟨𝓘, hg⟩
-
-/-- **INSTRUMENT LOCALITY IS NOT SUPPLIED** by the core, validity, reversible richness and
-embedded observation. -/
-theorem instrumentLocality_independent :
-    ∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ CompositeOperationalValidity T
-      ∧ OIHierarchyGeneral.ReversibleRichness T ∧ EmbeddedObservation T ∧ ¬ InstrumentLocality T :=
-  ⟨countermodel, countermodel_realizesSealedOICore, countermodel_validity,
-    countermodel_reversibleRichness, countermodel_embeddedObservation,
-    countermodel_not_instrumentLocality⟩
-
-/-- **THE COMPRESSED SET, INSTRUMENT FORM**: instrument locality, reversible richness, embedded
-observation. -/
-def OIPlusInst (T : FiniteOperationalTheory A) : Prop :=
-  InstrumentLocality T ∧ OIHierarchyGeneral.ReversibleRichness T ∧ EmbeddedObservation T
-
-/-- **THE MINIMAL-REPERTOIRE PACKAGE, INSTRUMENT FORM**: instrument locality, phase-free
-richness, embedded observation. -/
-def OIPlusMinInst (T : FiniteOperationalTheory A) : Prop :=
-  InstrumentLocality T ∧ PhaseFreeRichness T ∧ EmbeddedObservation T
-
-variable [Nonempty A] (T : FiniteOperationalTheory A)
-
-theorem oiPlusEmbedded_of_oiPlusInst (h : OIPlusInst T) : OIPlusEmbedded T :=
-  ⟨validity_of_instrumentLocality h.1, observationalIndependence_of_instrumentLocality h.1,
-    h.2.1, h.2.2⟩
-
-theorem qm_of_oiPlusInst (h : OIPlusInst T) : ExactAllFiniteEndomorphicQuantumOps T :=
-  qm_of_oiPlusEmbedded T (oiPlusEmbedded_of_oiPlusInst T h)
-
-theorem oiPlusInst_of_qm (h : ExactAllFiniteEndomorphicQuantumOps T) : OIPlusInst T :=
-  have hp := oiPlusEmbedded_of_qm T h
-  ⟨instrumentLocality_of_qm T h, hp.2.2.1, hp.2.2.2⟩
-
-/-- **THE COMPRESSED SET, INSTRUMENT FORM, ⟺ FINITE OPERATIONAL QM.** -/
-theorem oiPlusInst_iff_qm : OIPlusInst T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
-  ⟨qm_of_oiPlusInst T, oiPlusInst_of_qm T⟩
-
-theorem qm_of_oiPlusMinInst (h : OIPlusMinInst T) : ExactAllFiniteEndomorphicQuantumOps T := by
-  obtain ⟨hloc, hrich, hemb⟩ := h
-  have hwf : WellFormed T :=
-    ⟨validity_of_instrumentLocality hloc, systemToLevelOne_of_embeddedObservation hemb⟩
-  rw [exactAll_iff_substantive T hwf]
-  exact ⟨(observationalIndependence_iff_inert T).mp
-      (observationalIndependence_of_instrumentLocality hloc),
-    control_of_phaseFree T (closure_of_embeddedObservation hemb) hrich,
-    closure_of_embeddedObservation hemb⟩
-
-theorem oiPlusMinInst_of_qm (h : ExactAllFiniteEndomorphicQuantumOps T) : OIPlusMinInst T :=
-  ⟨instrumentLocality_of_qm T h,
-    phaseFree_of_elementary T (elementary_of_control T (physical_of_exactAll T h).2.2.1),
-    embeddedObservation_of_qm T h⟩
-
-/-- **THE MINIMAL-REPERTOIRE PACKAGE, INSTRUMENT FORM, ⟺ FINITE OPERATIONAL QM.** -/
-theorem oiPlusMinInst_iff_qm : OIPlusMinInst T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
-  ⟨qm_of_oiPlusMinInst T, oiPlusMinInst_of_qm T⟩
-
-/-- The two forms of the package agree, through quantum mechanics. -/
-theorem oiPlusMinInst_iff_oiPlusMin : OIPlusMinInst T ↔ OIPlusMin T := by
-  rw [oiPlusMinInst_iff_qm, oiPlusMin_iff_qm]
-
-end Stack
-
-/-- **THE CARRIER-GENERAL STATEMENT**, quantified over the carrier. -/
-theorem carrier_general_oiPlusMinInst :
-    ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A]
-      (T : FiniteOperationalTheory A),
-      OIPlusMinInst T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
-  fun _ _ _ _ T => oiPlusMinInst_iff_qm T
-
-/-! ### Section E — inverse accessibility, with the hypothesis it now needs -/
-
-section Inverse
-
-variable {A : Type} [Fintype A] [DecidableEq A] {𝓘 : ImplementationClass}
-
-/-- **PHASE SATURATION**: a class that contains a nonzero contractive multiple of a unitary
-contains the unitary. The four classes of the kernel have it; the closed-form class of the
-countercontrol does not. -/
-def PhaseSaturated (𝓘 : ImplementationClass) : Prop :=
-  ∀ (S : Type) [Fintype S] [DecidableEq S] (c : ℂ) (V : Matrix S S ℂ), c ≠ 0 → Vᴴ * V = 1 →
-    𝓘 S (c • V) → 𝓘 S V
-
-theorem conjChannel_zero' {S : Type} [Fintype S] [DecidableEq S] :
-    conjChannel (0 : Matrix S S ℂ) = 0 := by
-  refine LinearMap.ext fun X => ?_
-  show (0 : Matrix S S ℂ) * X * (0 : Matrix S S ℂ)ᴴ = 0
-  simp
-
-/-- **AN INSTRUMENT-REALIZED UNITARY CONJUGATION HAS ITS UNITARY ADMISSIBLE** up to a nonzero
-contractive scalar: every branch of its branch-wise realization is proportional to the unitary,
-and some branch is nonzero. -/
-theorem exists_scaled_mem_of_instAvail_unitary (arch : Architecture 𝓘) {S : Type} [Fintype S]
-    [DecidableEq S] [Nonempty S] {V : Matrix S S ℂ}
-    (h : InstAvail 𝓘 S Unit (fun _ => conjChannel V)) : ∃ c : ℂ, c ≠ 0 ∧ 𝓘 S (c • V) := by
-  obtain ⟨ι, _, K, hK, hadm⟩ := realized_of_instAvail arch h ()
-  have hiso : Vᴴ * V = 1 := (conjChannel_trace_iff V).mp fun X => by
-    have := instAvail_trace h X
-    rwa [Fintype.sum_unique] at this
-  have hV0 : V ≠ 0 := by
-    intro h0
-    rw [h0, Matrix.mul_zero] at hiso
-    exact zero_ne_one hiso
-  have hK' := kraus_of_conj_unitary K V hV0 hK.symm
-  choose c hc using hK'
-  by_contra hall
-  have hall' : ∀ c' : ℂ, c' ≠ 0 → ¬ 𝓘 S (c' • V) := fun c' hc' hm => hall ⟨c', hc', hm⟩
-  have hzero : ∀ i, K i = 0 := fun i => by
-    by_cases hci : c i = 0
-    · rw [hc i, hci, zero_smul]
-    · exact absurd (hc i ▸ hadm i) (hall' (c i) hci)
-  have h0 : conjChannel V = 0 := by
-    rw [hK]
-    exact Finset.sum_eq_zero fun i _ => by rw [hzero i, conjChannel_zero']
-  have h1 := congrFun (congrFun (congrArg (fun Φ => Φ (1 : Matrix S S ℂ)) h0)
-    (Classical.arbitrary S)) (Classical.arbitrary S)
-  simp only [conjChannel_apply, Matrix.mul_one, mul_eq_one_comm.mp hiso, LinearMap.zero_apply,
-    Matrix.one_apply_eq, Matrix.zero_apply] at h1
-  exact one_ne_zero h1
-
-/-- **INVERSE ACCESSIBILITY FROM DAGGER-STABLE INSTRUMENT GENERATION, UNDER PHASE
-SATURATION.** The branch-wise proof re-summed the adjoint branches; the adjoint of a protocol
-is not a protocol, so the unitary itself has to be admissible: phase saturation supplies it
-from the nonzero branch, dagger stability supplies the adjoint, and one step realizes it. -/
-theorem inverseAccessibility_of_instrumentGenerated [Nonempty A] {T : FiniteOperationalTheory A}
-    (arch : Architecture 𝓘) (hg : InstrumentGenerated T 𝓘) (hd : DaggerStable 𝓘)
-    (hs : PhaseSaturated 𝓘) : InverseAccessibility T := by
-  intro n V hV
-  rcases n with _ | k
-  · exact availExt_zero T _
-  have hI := (hg (k + 1) k.succ_pos Unit _).mp hV
-  have hiso : Vᴴ * V = 1 := (conjChannel_trace_iff V).mp fun X => by
-    have := instAvail_trace hI X
-    rwa [Fintype.sum_unique] at this
-  have : Nonempty (A × Fin (k + 1)) := ⟨(Classical.arbitrary A, ⟨0, k.succ_pos⟩)⟩
-  obtain ⟨c, hc0, hcV⟩ := exists_scaled_mem_of_instAvail_unitary arch hI
-  have hVmem : 𝓘 _ V := hs _ c V hc0 hiso hcV
-  refine (hg (k + 1) k.succ_pos Unit _).mpr (InstAvail.op Vᴴ (hd _ _ hVmem) ?_)
-  rw [Matrix.conjTranspose_conjTranspose]
-  exact mul_eq_one_comm.mp hiso
-
-theorem inverseAccessibility_of_reversibleInstrumentLocality [Nonempty A]
-    {T : FiniteOperationalTheory A} (h : ReversibleInstrumentLocality T)
-    (harch : ∀ 𝓘, InstrumentGenerated T 𝓘 → Architecture 𝓘 ∧ PhaseSaturated 𝓘) :
-    InverseAccessibility T := by
-  obtain ⟨𝓘, hg, -, -, hd⟩ := h
-  exact inverseAccessibility_of_instrumentGenerated (harch 𝓘 hg).1 hg hd (harch 𝓘 hg).2
-
-/-- The four classes of the kernel are phase-saturated. -/
-theorem fullClass_phaseSaturated : PhaseSaturated fullClass := fun _ _ _ _ _ _ _ _ => trivial
-
-theorem diagClass_phaseSaturated : PhaseSaturated diagClass := by
-  intro S _ _ c V hc _ h p q hpq
-  have := h p q hpq
-  rw [Matrix.smul_apply, smul_eq_mul] at this
-  exact (mul_eq_zero.mp this).resolve_left hc
-
-theorem substratumClass_phaseSaturated : PhaseSaturated substratumClass := by
-  intro S _ _ c V hc _ h
-  obtain ⟨σ, d, hd⟩ := h
-  refine ⟨σ, c⁻¹ • d, ?_⟩
-  rw [Matrix.diagonal_smul, Matrix.mul_smul, ← hd, smul_smul, inv_mul_cancel₀ hc, one_smul]
-
-theorem permClass_phaseSaturated : PhaseSaturated permClass := by
-  intro S _ _ c V hc hV hK
-  obtain ⟨hsub, c₀, hc₀, hall⟩ := hK
-  have hne : ∀ i j, V i j ≠ 0 → (c • V) i j ≠ 0 := fun i j h => by
-    rw [Matrix.smul_apply, smul_eq_mul]
-    exact mul_ne_zero hc h
-  have hentry : ∀ i j, V i j ≠ 0 → V i j = c₀ / c := fun i j h => by
-    have := hall i j (hne i j h)
-    rw [Matrix.smul_apply, smul_eq_mul] at this
-    rw [← this, mul_div_cancel_left₀ _ hc]
-  refine ⟨⟨fun i j j' h h' => hsub.1 i j j' (hne i j h) (hne i j' h'),
-    fun i i' j h h' => hsub.2 i i' j (hne i j h) (hne i' j h')⟩, ?_⟩
-  by_cases hex : ∃ i j, V i j ≠ 0
-  · obtain ⟨i, j, hij⟩ := hex
-    refine ⟨c₀ / c, ?_, hentry⟩
-    have hVV : V * Vᴴ = 1 := mul_eq_one_comm.mp hV
-    have hrow := congrFun (congrFun hVV i) i
-    rw [Matrix.mul_apply, Matrix.one_apply_eq] at hrow
-    have h1 : (∑ k, Complex.normSq (V i k) : ℝ) = 1 := by
-      have h2 : ∑ k, V i k * Vᴴ k i = ((∑ k, Complex.normSq (V i k) : ℝ) : ℂ) := by
-        push_cast
-        refine Finset.sum_congr rfl fun k _ => ?_
-        rw [Matrix.conjTranspose_apply, Complex.star_def, Complex.mul_conj]
-      rw [h2] at hrow
-      exact_mod_cast hrow
-    have hle : Complex.normSq (V i j) ≤ 1 := by
-      rw [← h1]
-      exact Finset.single_le_sum (fun k _ => Complex.normSq_nonneg _) (Finset.mem_univ j)
-    rw [hentry i j hij, Complex.normSq_eq_norm_sq] at hle
-    exact (pow_le_one_iff_of_nonneg (norm_nonneg _) two_ne_zero).mp hle
-  · have hex' : ∀ i j, V i j = 0 := fun i j => by_contra fun h => hex ⟨i, j, h⟩
-    exact ⟨0, by simp, fun i j h => absurd (hex' i j) h⟩
-
-end Inverse
-
-/-! ### Section F — T2: the converse fails -/
+/-! ### Section B — T2: the converse fails -/
 
 section Converse
 
@@ -1183,7 +429,7 @@ theorem instAvail_unitary_fixes_ones (hf : OnesFixing 𝓘) {T : Type} [Fintype 
 
 end Converse
 
-/-! ### Section G — the closed-form ones-fixing class -/
+/-! ### Section C — the closed-form ones-fixing class -/
 
 section OnesClass
 
@@ -1651,7 +897,7 @@ theorem isometry_fixes_ones : OnesFixing onesClass := by
 
 end OnesClass
 
-/-! ### Section H — the countercontrol -/
+/-! ### Section D — the countercontrol -/
 
 section Witness
 
@@ -1969,263 +1215,8 @@ theorem flow_realized_not_instrumentRealized {a b c : T} (hab : a ≠ b) (hca : 
 
 end Witness
 
-/-! ### Section I — the substratum and the sourced theories by instruments -/
-
-section Theories
-
-variable {A : Type} [Fintype A] [DecidableEq A]
-
-/-- **THE CONSEQUENCE CLOSURE, INSTRUMENT FORM**: reversible instrument locality, embedded
-observation, the exchanges, the phases and the read-write operators at every level. -/
-def DerivedOIInst (T : FiniteOperationalTheory A) : Prop :=
-  ReversibleInstrumentLocality T ∧ EmbeddedObservation T
-    ∧ ExchangesAvailable T ∧ PhasesAvailable T ∧ ReadWriteAvailable T
-
-/-- **THE SOURCED CLOSURE, INSTRUMENT FORM**: the conjuncts other than the phases. -/
-def SourcedOIInst (T : FiniteOperationalTheory A) : Prop :=
-  ReversibleInstrumentLocality T ∧ EmbeddedObservation T
-    ∧ ExchangesAvailable T ∧ ReadWriteAvailable T
-
-theorem derivedOIInst_iff_sourcedOIInst_phases (T : FiniteOperationalTheory A) :
-    DerivedOIInst T ↔ SourcedOIInst T ∧ PhasesAvailable T := by
-  constructor
-  · rintro ⟨h1, h2, h3, h4, h5⟩
-    exact ⟨⟨h1, h2, h3, h5⟩, h4⟩
-  · rintro ⟨⟨h1, h2, h3, h5⟩, h4⟩
-    exact ⟨h1, h2, h3, h4, h5⟩
-
-theorem sourcedOIInst_of_derivedOIInst {T : FiniteOperationalTheory A} (h : DerivedOIInst T) :
-    SourcedOIInst T :=
-  ((derivedOIInst_iff_sourcedOIInst_phases T).mp h).1
-
-theorem derivedOIInst_of_qm [Nonempty A] (T : FiniteOperationalTheory A)
-    (h : ExactAllFiniteEndomorphicQuantumOps T) : DerivedOIInst T :=
-  have hd := derivedOI_of_qm T h
-  ⟨reversibleInstrumentLocality_of_qm T h, hd.2.1, hd.2.2.1, hd.2.2.2.1, hd.2.2.2.2⟩
-
-/-- **UNDER THE INSTRUMENT CLOSURE, QUANTUM MECHANICS IS EXACTLY PHASE-FREE RICHNESS.** -/
-theorem derivedOIInst_qm_iff_phaseFree [Nonempty A] {T : FiniteOperationalTheory A}
-    (h : DerivedOIInst T) : ExactAllFiniteEndomorphicQuantumOps T ↔ PhaseFreeRichness T :=
-  ⟨fun hqm => ((oiPlusMinInst_iff_qm T).mpr hqm).2.1,
-    fun hpf => (oiPlusMinInst_iff_qm T).mp ⟨instrumentLocality_of_reversible h.1, hpf, h.2.1⟩⟩
-
-theorem sourcedOIInst_qm_iff_phaseFree [Nonempty A] {T : FiniteOperationalTheory A}
-    (h : SourcedOIInst T) : ExactAllFiniteEndomorphicQuantumOps T ↔ PhaseFreeRichness T :=
-  ⟨fun hqm => ((oiPlusMinInst_iff_qm T).mpr hqm).2.1,
-    fun hpf => (oiPlusMinInst_iff_qm T).mp ⟨instrumentLocality_of_reversible h.1, hpf, h.2.1⟩⟩
-
-/-- **THE SUBSTRATUM INSTRUMENT THEORY**: the instrument theory of the monomial class. -/
-noncomputable abbrev substratumInstTheory (A : Type) [Fintype A] [DecidableEq A] :
-    FiniteOperationalTheory A :=
-  instTheory substratumClass substratumClass_arch A
-
-/-- **THE SOURCED INSTRUMENT THEORY**: the instrument theory of the sourced class. -/
-noncomputable abbrev permInstTheory (A : Type) [Fintype A] [DecidableEq A] :
-    FiniteOperationalTheory A :=
-  instTheory permClass permClass_arch A
-
-/-- **THE SUBSTRATUM INSTRUMENT THEORY SATISFIES THE INSTRUMENT CLOSURE** on every carrier. -/
-theorem substratumInstTheory_derivedOIInst : DerivedOIInst (substratumInstTheory A) :=
-  ⟨instTheory_reversibleInstrumentLocality _ substratumClass_contextStable
-      substratumClass_labelInvariant substratumClass_daggerStable,
-    instTheory_embeddedObservation _ _ substratumClass_labelInvariant,
-    fun _ a b => instTheory_avail_conj _ _ (exchange_monomial a b) (permMatrix_isometry _),
-    fun _ a => instTheory_avail_conj _ _ (phase_monomial a) (phaseGate_unitary a),
-    fun _ _ _ F l => instTheory_avail_conj _ _ (readWriteOperator_monomial F l)
-      (by rw [readWriteOperator_eq_perm]; exact permMatrix_isometry _)⟩
-
-/-- **THE SOURCED INSTRUMENT THEORY SATISFIES THE SOURCED INSTRUMENT CLOSURE.** -/
-theorem permInstTheory_sourcedOIInst : SourcedOIInst (permInstTheory A) :=
-  ⟨instTheory_reversibleInstrumentLocality _ permClass_contextStable permClass_labelInvariant
-      permClass_daggerStable,
-    instTheory_embeddedObservation _ _ permClass_labelInvariant,
-    fun _ a b => instTheory_avail_conj _ _ (permClass_permMatrix (Equiv.swap a b))
-      (permMatrix_isometry _),
-    fun _ _ _ F l => instTheory_avail_conj _ _ (permClass_readWrite F l)
-      (by rw [readWriteOperator_eq_perm]; exact permMatrix_isometry _)⟩
-
-/-- **NO PHASE IN THE INSTRUMENT THEORY OF A BIJECTION-LEVEL CLASS**, through soundness. -/
-theorem bijectionLevel_not_phasesAvailable_inst [Nonempty A] {𝓘 : ImplementationClass}
-    (arch : Architecture 𝓘) (hb : BijectionLevel 𝓘) : ¬ PhasesAvailable (instTheory 𝓘 arch A) := by
-  intro hp
-  have hav := hp 2 (Classical.arbitrary A, 0)
-  exact phaseGate_not_preservesNonneg _
-    (preservesNonneg_of_realized hb (realized_of_instAvail arch hav ()))
-
-theorem permInstTheory_not_phasesAvailable [Nonempty A] : ¬ PhasesAvailable (permInstTheory A) :=
-  bijectionLevel_not_phasesAvailable_inst permClass_arch permClass_bijectionLevel
-
-/-- **THE SOURCED INSTRUMENT THEORY FAILS THE INSTRUMENT CLOSURE**: the phases are the failing
-conjunct. -/
-theorem permInstTheory_not_derivedOIInst [Nonempty A] : ¬ DerivedOIInst (permInstTheory A) :=
-  fun h => permInstTheory_not_phasesAvailable h.2.2.2.1
-
-/-- **A CONFIGURATION-LEVEL CLASS GENERATES INSIDE THE SUBSTRATUM INSTRUMENT THEORY.** -/
-theorem configurationLevel_instAvailExt_le {𝓘 : ImplementationClass} (arch : Architecture 𝓘)
-    (h : ConfigurationLevel 𝓘) {n : ℕ} {O : Type} [Fintype O] [DecidableEq O]
-    (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
-    (hF : (instTheory 𝓘 arch A).availExt n O F) : (substratumInstTheory A).availExt n O F :=
-  instAvail_mono (fun S _ _ K hK => h S K hK) hF
-
-/-- **THE SOURCED INSTRUMENT THEORY LIES INSIDE THE SUBSTRATUM INSTRUMENT THEORY.** -/
-theorem permInstTheory_availExt_le_substratum {n : ℕ} {O : Type} [Fintype O] [DecidableEq O]
-    (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
-    (hF : (permInstTheory A).availExt n O F) : (substratumInstTheory A).availExt n O F :=
-  instAvail_mono (fun _ _ _ K hK => permClass_le_substratum K hK) hF
-
-/-- **THE FALSIFIER IS UNAVAILABLE IN THE SUBSTRATUM INSTRUMENT THEORY.** -/
-theorem substratumInstTheory_falsifierUnavailable :
-    FalsifierUnavailable (substratumInstTheory (Fin 2)) := by
-  intro h
-  obtain ⟨ι, _, K, hK, hadm⟩ := realized_of_instAvail substratumClass_arch h ()
-  have hK' : conjChannel rot = ∑ i, conjChannel (K i) := hK
-  apply rot_not_preservesDiag
-  rw [hK']
-  exact preservesDiag_sum _ _ fun i _ => preservesDiag_conj_of_monomial (hadm i)
-
-theorem permInstTheory_falsifierUnavailable : FalsifierUnavailable (permInstTheory (Fin 2)) :=
-  fun h => substratumInstTheory_falsifierUnavailable (permInstTheory_availExt_le_substratum _ h)
-
-theorem substratumInstTheory_not_phaseFree : ¬ PhaseFreeRichness (substratumInstTheory (Fin 2)) :=
-  not_phaseFree_of_falsifier_unavailable _ substratumInstTheory_derivedOIInst.2.1
-    substratumInstTheory_falsifierUnavailable
-
-/-- A transported permutation of the core is available in the substratum instrument theory. -/
-theorem substratumInstTheory_relabel (g : Equiv.Perm Core) :
-    (substratumInstTheory (Fin 2)).availExt 4 Unit
-      (fun _ => transport coreIdx (correlationExtension g (onesCorr Core))) := by
-  rw [correlationExtension_ones_eq_conjChannel, transport_conjChannel]
-  exact instTheory_avail_conj _ _
-    (substratumClass_labelInvariant _ _ coreIdx _ (monomial_permMatrix g))
-    (SpectatorBridge.reindex_isometry _ _ (permMatrix_isometry g))
-
-theorem permInstTheory_relabel (g : Equiv.Perm Core) :
-    (permInstTheory (Fin 2)).availExt 4 Unit
-      (fun _ => transport coreIdx (correlationExtension g (onesCorr Core))) := by
-  rw [correlationExtension_ones_eq_conjChannel, transport_conjChannel]
-  exact instTheory_avail_conj _ _
-    (permClass_labelInvariant _ _ coreIdx _ (permClass_permMatrix g))
-    (SpectatorBridge.reindex_isometry _ _ (permMatrix_isometry g))
-
-/-- **THE SUBSTRATUM INSTRUMENT THEORY REALIZES THE SEALED OI CORE.** -/
-theorem substratumInstTheory_realizesSealedOICore :
-    RealizesSealedOICore (substratumInstTheory (Fin 2)) :=
-  ⟨core_isC1C4, substratumInstTheory_relabel sigmaPerm, substratumInstTheory_relabel tauPerm,
-    fun r => by rw [readVisible_eq_localLuders, readout_is_localLuders],
-    by rw [readVisible_family_eq (substratumInstTheory (Fin 2))]; exact readout_relabel_available _,
-    fun steps w => realizedFold_diagonal steps w⟩
-
-/-- **THE SOURCED INSTRUMENT THEORY REALIZES THE SEALED OI CORE**, with no phase. -/
-theorem permInstTheory_realizesSealedOICore : RealizesSealedOICore (permInstTheory (Fin 2)) :=
-  ⟨core_isC1C4, permInstTheory_relabel sigmaPerm, permInstTheory_relabel tauPerm,
-    fun r => by rw [readVisible_eq_localLuders, readout_is_localLuders],
-    by rw [readVisible_family_eq (permInstTheory (Fin 2))]; exact readout_relabel_available _,
-    fun steps w => realizedFold_diagonal steps w⟩
-
-/-- **THE SUBSTRATUM INSTRUMENT THEORY'S AVAILABILITY**, as a property of a theory. -/
-def SubstratumAvailInst (T : FiniteOperationalTheory A) : Prop :=
-  ∀ (n : ℕ) (O : Type) [Fintype O] [DecidableEq O]
-    (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ),
-    (substratumInstTheory A).availExt n O F → T.availExt n O F
-
-theorem substratumAvailInst_phasesAvailable {T : FiniteOperationalTheory A}
-    (hsub : SubstratumAvailInst T) : PhasesAvailable T :=
-  fun n a => hsub n Unit _ (substratumInstTheory_derivedOIInst.2.2.2.1 n a)
-
-/-- **THE SOURCED INSTRUMENT THEORY FAILS THE SUBSTRATUM INSTRUMENT AVAILABILITY**, the phases
-witnessing the failure. -/
-theorem permInstTheory_not_substratumAvailInst [Nonempty A] :
-    ¬ SubstratumAvailInst (permInstTheory A) :=
-  fun h => permInstTheory_not_phasesAvailable (substratumAvailInst_phasesAvailable h)
-
-/-- **THE ROUTE B TARGET, INSTRUMENT FORM.** -/
-def RouteBTargetInst : Prop :=
-  ∃ T : FiniteOperationalTheory (Fin 2),
-    (DerivedOIInst T ∧ RealizesSealedOICore T) ∧ FalsifierUnavailable T
-
-/-- **THE ROUTE B TARGET HOLDS FOR THE NEW PRIMITIVE**, with the substratum instrument theory as
-the witness. -/
-theorem routeB_target_inst : RouteBTargetInst :=
-  ⟨substratumInstTheory (Fin 2),
-    ⟨substratumInstTheory_derivedOIInst, substratumInstTheory_realizesSealedOICore⟩,
-    substratumInstTheory_falsifierUnavailable⟩
-
-end Theories
-
-#print axioms conjChannel_trace_iff
-#print axioms instAvail_mono
-#print axioms instAvail_trace
-#print axioms realized_of_instAvail
 #print axioms isGenInstrument_of_instAvail
-#print axioms cp_of_instAvail
-#print axioms instAvail_comp_one
-#print axioms instAvail_one_comp
-#print axioms instAvail_id
-#print axioms transport_refl
-#print axioms transport_trans
-#print axioms transport_comp
-#print axioms reindex_reindex
-#print axioms reindex_isometry'
-#print axioms uniformAttach_reindex
-#print axioms transport_discard
-#print axioms instAvail_transport
-#print axioms tensorOf_conjTranspose
-#print axioms tensorOf_mul'
-#print axioms tensorOf_one_isometry'
-#print axioms amplRefL_conjChannel
-#print axioms amplRefL_sum
-#print axioms amplRef_apply'
-#print axioms refBlockR_amplRef
-#print axioms amplRefL_comp
-#print axioms tensorOf_one_reindex
-#print axioms tensorOf_one_readProj
-#print axioms amplRefL_transport
-#print axioms refBlockR_reindex_uniformAttach
-#print axioms amplRefL_discard
-#print axioms instAvail_spectator
-#print axioms instAvail_withSpectator
-#print axioms instFamily_regrouping
-#print axioms instFamily_relabelling
-#print axioms instTheory_ambient
-#print axioms instTheory_embeddedObservation
-#print axioms instTheory_availExt_iff
-#print axioms instTheory_le_genTheory
-#print axioms instTheory_avail_conj
-#print axioms instTheory_fullClass_control
-#print axioms instTheory_mono
-#print axioms instrumentLocality_of_reversible
-#print axioms instTheory_generated
-#print axioms instTheory_instrumentLocality
-#print axioms instTheory_reversibleInstrumentLocality
-#print axioms isGenInstrument_of_instrumentGenerated
-#print axioms parallel_of_instrumentLocal
-#print axioms observationalIndependence_of_instrumentLocality
-#print axioms krausSoundExt_of_instrumentGenerated
-#print axioms validity_of_instrumentLocality
-#print axioms instAvail_fullClass_of_krausFamily
-#print axioms instrumentGenerated_of_qm
-#print axioms instrumentLocality_of_qm
-#print axioms reversibleInstrumentLocality_of_qm
-#print axioms countermodel_not_instrumentGenerated
-#print axioms countermodel_not_instrumentLocality
-#print axioms instrumentLocality_independent
-#print axioms oiPlusEmbedded_of_oiPlusInst
-#print axioms qm_of_oiPlusInst
-#print axioms oiPlusInst_of_qm
-#print axioms oiPlusInst_iff_qm
-#print axioms qm_of_oiPlusMinInst
-#print axioms oiPlusMinInst_of_qm
-#print axioms oiPlusMinInst_iff_qm
-#print axioms oiPlusMinInst_iff_oiPlusMin
-#print axioms carrier_general_oiPlusMinInst
-#print axioms conjChannel_zero'
-#print axioms exists_scaled_mem_of_instAvail_unitary
-#print axioms inverseAccessibility_of_instrumentGenerated
-#print axioms inverseAccessibility_of_reversibleInstrumentLocality
-#print axioms fullClass_phaseSaturated
-#print axioms diagClass_phaseSaturated
-#print axioms substratumClass_phaseSaturated
-#print axioms permClass_phaseSaturated
+#print axioms genTheory_le_branchTheory
 #print axioms ones_apply
 #print axioms ones_prod
 #print axioms ones_sum
@@ -2293,28 +1284,6 @@ end Theories
 #print axioms transition_scaled_mem_onesClass
 #print axioms flow_mulVec_ones_apply
 #print axioms flow_realized_not_instrumentRealized
-#print axioms derivedOIInst_iff_sourcedOIInst_phases
-#print axioms sourcedOIInst_of_derivedOIInst
-#print axioms derivedOIInst_of_qm
-#print axioms derivedOIInst_qm_iff_phaseFree
-#print axioms sourcedOIInst_qm_iff_phaseFree
-#print axioms substratumInstTheory_derivedOIInst
-#print axioms permInstTheory_sourcedOIInst
-#print axioms bijectionLevel_not_phasesAvailable_inst
-#print axioms permInstTheory_not_phasesAvailable
-#print axioms permInstTheory_not_derivedOIInst
-#print axioms configurationLevel_instAvailExt_le
-#print axioms permInstTheory_availExt_le_substratum
-#print axioms substratumInstTheory_falsifierUnavailable
-#print axioms permInstTheory_falsifierUnavailable
-#print axioms substratumInstTheory_not_phaseFree
-#print axioms substratumInstTheory_relabel
-#print axioms permInstTheory_relabel
-#print axioms substratumInstTheory_realizesSealedOICore
-#print axioms permInstTheory_realizesSealedOICore
-#print axioms substratumAvailInst_phasesAvailable
-#print axioms permInstTheory_not_substratumAvailInst
-#print axioms routeB_target_inst
 
 end InstrumentRealization
 end OIBridge

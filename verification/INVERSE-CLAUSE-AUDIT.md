@@ -117,3 +117,18 @@ context stability given generation, or the empirical addition of off-diagonal co
 touched. That the converse from inverse accessibility to dagger stability holds. That anything here
 bears on the OI-N freeze, the concrete-cut freeze, or CT3. That anything here concerns non-compact
 or infinite-dimensional groups.
+
+## Migration, recorded after the round
+
+The instrument-migration round (`INSTRUMENT-MIGRATION-AUDIT.md`) places the positive-reachability
+core, Sections A–G with nineteen named results, in `OIBridge/PositiveReachability.lean` with no
+import of `LieRankSource`, so that it sits upstream of the implementation-locality stack.
+`control_of_lieRank` and `inverseAccessibility_of_lieRank` are stated in
+`MicroscopicReversibility`, beside the split of reversible richness, with unchanged statements;
+`inverseAccessibility_of_lieRank` is a theorem about well-formed theories, as before, and
+`oiPlusLocal_of_oiPlusMicro` takes the inverse clause of the compressed set from it, so that
+neither dagger stability nor the saturation condition of the migrated inverse derivation is
+consumed by any equivalence with quantum mechanics. The package `OIPlusPos` and its three
+equivalences are in `OIBridge/PositivePackage.lean`, in the namespace `PositiveReachability`, so
+every name of the outcome is unchanged. Twenty-four named results across the three modules, each
+printing only `propext`, `Classical.choice`, `Quot.sound`.

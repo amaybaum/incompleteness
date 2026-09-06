@@ -332,3 +332,22 @@ That the flow endpoint is settled in either direction. That the least class `flo
 or that the gadget block lies in it. That inverse accessibility holds for every dagger-stable class
 under the new primitive. That `Realized` or `ImplementationGenerated` has changed. That anything
 here reaches a manuscript.
+
+## Migration, recorded after the round
+
+The survival record above is executed by `INSTRUMENT-MIGRATION-AUDIT.md`, the owner's decision at
+review. `InstAvail` and its five constructors are the implementation semantics of the kernel, in
+`ImplementationLocality`: `ImplementationGenerated T 𝓘` is `T.availExt N O F ↔ InstAvail 𝓘
+(A × Fin N) O F`, `genTheory` carries the instrument fields, and every theorem of the stack keeps
+its name and its statement except inverse accessibility from dagger stability, which carries the
+added hypotheses of the survival record. Phase saturation is named `UnitaryRaySaturated` there,
+beside inverse accessibility in `MicroscopicReversibility`, since it is a statement that a nonzero
+scalar multiple of a unitary can be promoted back to the unitary and not a statement about the
+phase resource of a theory; it occurs in no package and in no equivalence with quantum mechanics,
+the inverse clause of the compressed sets being taken from Lie-rank control on the well-formed
+theory (`inverseAccessibility_of_lieRank`). The parallel instrument names of T4 are removed,
+each to the canonical name it duplicated, and `OIBridge/InstrumentRealization.lean` keeps the
+comparison object (`IsGenInstrument`, `branchTheory`, `genTheory_le_branchTheory`) and T2, the
+protocol invariant, the closed-form class and the countercontrol unchanged: 69 named results.
+The outcome above is the record of the round as it was made, read with the names of the
+migration; the names of T1, T3 and T4 there are the ones the migration maps.

@@ -112,9 +112,9 @@ the round-50 reachability theorem (`control_of_lieRank_inverse`).
 **The redundancy test, honestly.** Whether implementation locality, embedded observation
 and Lie-rank richness already force inverse accessibility is not settled in either
 direction by this audit; it is settled affirmatively by `INVERSE-CLAUSE-AUDIT.md`: Lie-rank
-richness gives full control unconditionally (`PositiveReachability.control_of_lieRank`), and on a
+richness gives full control unconditionally (`MicroReversibility.control_of_lieRank`), and on a
 well-formed theory — which implementation locality and embedded observation supply — full control
-yields inverse accessibility (`PositiveReachability.inverseAccessibility_of_lieRank`). Without the clause the available unitaries at a level form a semigroup
+yields inverse accessibility (`MicroReversibility.inverseAccessibility_of_lieRank`). Without the clause the available unitaries at a level form a semigroup
 containing the flows in both time directions and the controls; a subsemigroup of a compact
 group with nonempty interior is a group, and the flows plausibly give that interior, so the
 clause may be redundant. Neither that proof, which needs closure groups and interior of

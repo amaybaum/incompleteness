@@ -354,3 +354,21 @@ closure. The unrestricted class of the outcome above is the scalar hull of the m
 level (`ScalarClosure.permTheory_hull_availExt_iff`), so no outcome of this round changes. The
 preregistration's "for a scalar `c`" is read, after the migration, as "for a scalar `c` of
 modulus at most one".
+
+## Migration to instrument realization, recorded after the round
+
+The instrument-migration round (`INSTRUMENT-MIGRATION-AUDIT.md`) makes provenance-aware
+realization the implementation semantics of the kernel: `permTheory A` is `genTheory permClass
+permClass_arch A` with availability instrument realization by the sourced class, and
+`ImplementationGenerated`, `ImplementationLocality` and `ReversibleImplementationLocality` carry
+that semantics. Every theorem of the module keeps its name and its statement; the proofs that
+destructured an available family into its branches take the branches from soundness
+(`realized_of_instAvail permClass_arch`), so the nonnegativity invariant applies to every operation
+of the sourced theory as before, and `permTheory_availExt_le_substratum` is class monotonicity
+(`instAvail_mono`). The sourced class is unitary-ray saturated
+(`permClass_unitaryRaySaturated`): a unitary with a nonzero multiple in the class is in the class,
+its common entry having modulus at most one by the row norm, so the module has eighty-two named
+results after the migration. No outcome of this round changes; the
+preregistration's "generates" is read, after the migration, as instrument generation, and Q3's
+`SourcedOI` keeps its definition, its conjunct reversible implementation locality carrying the
+migrated semantics.
