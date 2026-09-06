@@ -191,3 +191,98 @@ Name or adopt a C5. Infer anything from the finiteness of the bare Weil or Cliff
 Prove a negative for `PolGen` other than by transfer from `PolC`. Change `PolGen`,
 `polarizedTheory`, `LayerFlowExecutable`, `PhasesAvailable` or any definition. Attempt the
 continuous coupling. Edit a manuscript. Refresh the transfer bundle.
+
+## The outcome
+
+Preregistration commit `a7c1db0`, executed from `main` at `2554000`. The kernel module is
+`OIBridge/PolarizationClosure.lean`, twenty-six named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`; the kernel is at 128 modules and 2,813 named results. Nothing is
+named "C5" in the module or adopted in this note. The verdict is **split**, the expected outcome:
+O1 holds for `PolC` at every level by explicit construction, and O2 fails for `PolC`, and by
+transfer for `PolGen`, through the full class and the bridge, by counting. Each side has its own
+proof; the mechanism of the positive side and the reason of the negative side are named below.
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | the bridge, cited: an available unitary conjugation has its unitary in the class up to a nonzero scalar; the converse is the constructor `op` | `exists_scaled_mem_of_instAvail_unitary`, `kraus_of_conj_unitary` (cited) |
+| T2 | the counting theorem: the gate flow of an involution with a moved configuration takes pairwise non-proportional values at distinct times in `[0, 2)`, from its diagonal and off-diagonal entries; for any architecture and carrier with a moved involution, a countable set of matrices at the level-one carrier of which every operator of the class is a scalar multiple excludes the executability of that flow in the generated theory, the ray map on the uncountable interval being injective into a countable set otherwise; contrapositively, a class whose theory executes a layer flow has no such countable set | `gateFlow_entries`, `gateFlow_not_proportional`, `countable_not_layerFlowExecutable`, `uncountable_of_layerFlowExecutable` |
+| T3 | countability of the polarized classes: `PolC` is countable up to scalar at every carrier, by the depth-indexed family `Gen` of countable sets, level zero the zero–one matrices and the relabelled images from every `Fin 2 × Fin n` equivalent to the carrier, each step closed under products and ancilla blocks over all `m`, the family stable under relabelling, every element of `PolC` a scalar multiple of an element at some depth; `PolGen ⊆ PolC` gives the same for `PolGen`; so neither polarized theory executes any layer flow of a moved involution, at any carrier | `gen_countable`, `gen_reindex`, `polC_mem_gen`, `polC_countable_upToScalar`, `polGen_countable_upToScalar`, `polGen_le_polC`, `polarizedTheoryC_not_layerFlowExecutable`, `polarizedTheory_not_layerFlowExecutable` |
+| T4 | O1 for `PolC`: the relabelling `Fin 2 × Fin (2n) ≃ (Fin 2 × Fin n) × Fin 2` is stated explicitly, the commutation and the halving of the position followed by one exchange; the first-fiber block of the relabelled site phase at level `2n` is exactly the quarter phase on the chosen configuration of the level-`n` carrier; that block is in `PolC` by relabelling, site phase and ancilla block; so the label-invariant polarized theory on the two-valued alphabet has the quarter phase on every configuration at every level. For `PolGen` the statement is recorded as undecidable in the type-indexed formulation, for the reason frozen above | `phaseRelabel`, `phaseRelabel_symm_fst`, `phaseRelabel_block`, `polC_phaseGate`, `polarizedTheoryC_phasesAvailable` |
+| T5 | the label-invariant polarized theory as a theory: `PolC` is an architecture, label-invariant, dagger-stable (the adjoint of the site phase its cube, the swap image self-adjoint, blocks and relabellings commuting with the adjoint) and context-stable (the identity tensored with either image at level `n` is the relabelled image at level `card R · n`, along an explicit relabelling; tensoring commutes with products, scalars, projections, blocks and relabellings); with T4 the theory satisfies the whole closure `DerivedOI`, and with T3 it is not quantum mechanics; the kill battery is extended by it as `KillBattery'` | `polC_arch`, `polC_labelInvariant`, `polC_daggerStable`, `ctxRelabel`, `tensorOf_one_siteShearImage`, `tensorOf_one_siteSwapImage`, `polC_contextStable`, `polarizedTheoryC_derivedOI`, `polarizedTheoryC_not_qm`, `KillBattery'`, `killBattery'_not_qm` |
+| T6 | the level-three structure: the word `H · P · H · P · H` at level three, with `P` the cycle of the three configurations with position one, is in `PolGen`; along the relabelling with fibers `{(0,0),(1,1)}`, `{(0,2),(1,0)}`, `{(0,1),(1,2)}` its block from the first fiber to the second is `hc · [[1, 1/2], [1/2, −1]]` with `hc = 1/√2`, proportional to the reflection `(1/√5) · [[2, 1], [1, −2]]`, nonzero, and conjugating `Z` to a matrix with nonzero diagonal and off-diagonal entries, so not Clifford; that block lies in `PolC` at level one. The block is contractive, not unitary; its membership in the class is what is proved, and the availability of the unitary direction of that ray is not claimed. The infinite order of the hexagon product is recorded from the numerical check and not proved | `levelThreeWord_mem`, `fiberRelabel`, `levelThreeWord_apply`, `levelThree_word_block`, `levelThree_block_ne_zero`, `levelThree_block_not_clifford`, `polC_levelThree_block` |
+| T7 | the verdict: split, with the mechanism and the reason below, and the transfer to `PolGen` stated for each side | the table above |
+| T8 | the surfaces and the checks: `R7-PCL`; the README and the census, the family kernel-only; the C5 discovery note's section after its frozen text; full build, axiom check, release gate, probe, census, all green; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+
+**The verdict, with the mechanism and the reason.** The verdict is split. O1 holds for `PolC` at
+every level, and the mechanism is the positive escape the discovery audit asked to be named: a
+site–ancilla mixing relabelling together with one site phase, through an ancilla block. The
+quarter phase on a single configuration of a level-`n` carrier is the first-fiber block of the
+site phase at level `2n` relabelled so that the `2n` configurations with position one fill the
+second fiber except for the one exchanged into the first. Three constructors, each a stated
+operation of the class. O2 fails for `PolC`, and the reason has nothing to do with polarization,
+finiteness or Clifford structure: every element of `PolC` at a carrier is a scalar multiple of an
+element of one countable set, and the gate flow of a moved involution takes uncountably many
+pairwise non-proportional values in `[0, 2)`, so by the bridge no time-indexed family of
+conjugations by that flow is available. The theorem-level conclusion is that O2 requires an
+uncountable projective image: a class whose generated theory executes one nontrivial layer flow
+has uncountably many pairwise non-proportional admissible operators at level one
+(`uncountable_of_layerFlowExecutable`). The publication-level form of the same statement is that
+no finitely or countably projectively generated implementation structure sources an executable
+nontrivial layer flow. The reading of that uncountable image as a continuous parameter in the
+image of the sourcing map, the reading fixed in advance above, is physical interpretation:
+continuity is not formalized in the kernel, and no theorem of the round asserts the necessity of
+a continuous parameter.
+
+**The transfer to `PolGen`.** The negative transfers: `PolGen ⊆ PolC` at every carrier, so
+`polarizedTheory` executes no layer flow of a moved involution (`polarizedTheory_not_layerFlowExecutable`),
+a negative for `PolGen` derived from `PolC` and from nothing about bare subgroups. The positive does
+not transfer: the relabelled ancilla structure the construction needs is not available in `PolGen`
+in the type-indexed formulation, and whether `PolGen` has the quarter phase at composite levels is
+undecidable in that formulation, for the reason frozen above. O1 at composite levels and O2 at
+non-Clifford times, left underdetermined for the full generated theory by the discovery audit, are
+decided here for the physically faithful class: O1 yes, O2 no; and O2 no for `PolGen` as well.
+
+**The honesty boundary on the constructed theory.** `polarizedTheoryC (Fin 2)` is a candidate
+theory constructed by this round, not a theory the corpus sources: the polarization map remains
+the discovery audit's stated candidate, and test 8 of that audit, that the corpus does not supply
+the map, is unchanged by anything here. The positive O1 result says what the closure of the
+candidate contains, not that the observer has it. What the round adds to the picture of the
+corpus is a second kind of non-quantum theory satisfying the whole closure: `KillBattery'` holds
+`DerivedOI` theories with the phases and a non-monomial admissible operator that execute no layer
+flow, alongside the three named theories, and none of them is quantum mechanics.
+
+**What the outcome does to the Clifford diagnosis.** The Clifford structure of the level-one and
+level-two closures is an artifact of the two smallest levels: at level one the label-invariant
+closure contains the non-Clifford reflection block of T6, and the numerical check records
+infinite-order elements at level three. The obstruction to O2 is not discrete canonical structure
+under the stated closure; it is the countability of the primitive family up to scalar. The
+necessary condition for any C5 candidate is sharpened from "a non-monomial admissible operator" to
+"uncountably many pairwise non-proportional admissible operators at level one", stated at the
+theorem level as above. Whether one realization-level condition supplies both obligations
+remains the C5 question, with both halves characterized: O1 is reached by the polarization
+candidate after closure; O2 needs an uncountable projective image, which no countably generated
+class supplies.
+
+**What the outcome does not establish.** That a C5 exists or does not. That the polarization map,
+or the theory `PolC` generates, is available to the observer: the round decides what the closure
+contains. That O2 needs continuity: the kernel states uncountability of the projective image, and
+continuity is not formalized. That the unitary direction of the level-three
+reflection is available: its contractive block is in the class. That the hexagon product has
+infinite order: recorded from the numerical check, not proved. That `PolGen` fails or has O1 at
+composite levels in the type-indexed formulation. Minimality or uniqueness of anything. Anything
+about a manuscript.
+
+## What this note does not claim
+
+That any candidate is a C5, or that "C5" names a condition of the framework. That the polarization
+map is derived from the observer's stated access, or that `polarizedTheoryC` is sourced by the
+corpus rather than constructed by this round. That anything follows from the finiteness of the
+bare Weil or Clifford subgroup: every negative here passes through the countability of the full
+class and the bridge. That continuity is necessary for O2, or that the countability obstruction
+names the physical mechanism that supplies O2: only that the projective image must be uncountable.
+That any manuscript statement changes.
+
+Status: pass complete. Verdict split: O1 positive for `PolC` at every level by relabelling, site
+phase and ancilla block; O2 negative for `PolC` and `PolGen` by countability of the class up to
+scalar and the bridge; the label-invariant polarized theory satisfies the whole closure and is not
+quantum mechanics; twenty-six named results; no C5 named or adopted; no manuscript edited.

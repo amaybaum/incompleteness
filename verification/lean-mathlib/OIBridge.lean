@@ -177,6 +177,7 @@ import OIBridge.DerivedQ3
 import OIBridge.ExecSource
 import OIBridge.LiftSource
 import OIBridge.C5Discovery
+import OIBridge.PolarizationClosure
 
 namespace OIBridge
 

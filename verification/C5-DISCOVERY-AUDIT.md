@@ -297,3 +297,24 @@ states neither map; the polarization candidate is non-configuration-level and su
 quarter phase and the half-time swap-flow point at level one, kernel-proved, and is undecided beyond
 that for the full generated theory; seventeen named results; no C5 named or adopted; no manuscript
 edited.
+
+## Recorded after the round: the polarization closure audit
+
+`POLARIZATION-CLOSURE-AUDIT.md`, preregistered at `a7c1db0` and executed from `main` at `2554000`,
+decides the two items this note left underdetermined for the full generated theory, for the
+relabelling closure `PolC` of `PolGen`, the physically faithful class. O2 is negative for `PolC`
+and, by `PolGen ⊆ PolC`, for `PolGen`: the classes are countable up to scalar at every carrier and
+the gate flow of a moved involution takes uncountably many pairwise non-proportional values, so by
+the unitary-channel Kraus bridge neither polarized theory executes any layer flow
+(`polarizedTheoryC_not_layerFlowExecutable`, `polarizedTheory_not_layerFlowExecutable`); the
+obstruction is the countability of the primitive family up to scalar, not the finiteness of the
+bare Weil subgroup, and the closure-safe reading of this note stands as written. O1 is positive
+for `PolC` at every level by an explicit construction, a site–ancilla mixing relabelling with one
+site phase through an ancilla block (`polarizedTheoryC_phasesAvailable`); the question is
+undecidable for `PolGen` in the type-indexed formulation. The label-invariant polarized theory
+satisfies the whole closure and is not quantum mechanics (`polarizedTheoryC_derivedOI`,
+`polarizedTheoryC_not_qm`) and extends the kill battery (`KillBattery'`). Test 8 above is
+unchanged: the corpus does not supply the polarization map, and the closure the later round
+constructs is a candidate theory of that round. The verdict C of this note is unchanged; the
+missing kernel step named above is replaced, for the flow, by the counting argument, and the
+conjugation invariant is not needed. Nothing is named C5 or adopted.
