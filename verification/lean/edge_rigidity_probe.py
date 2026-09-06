@@ -3691,7 +3691,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '119 modules' in _rd1 and '2,591 named results' in _rd1
+ok_sub &= '120 modules' in _rd1 and '2,749 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 check('R7-SUB', ok_sub,
       'Substratum-interface guard: the module carries no sorry, axiom or native_decide and prints the axioms '
@@ -3777,6 +3777,104 @@ check('R7-SCAL', ok_scal,
       'outcome, the outcome per test, nothing weakening, the restriction as not sufficient for the flow endpoint, '
       'and the non-claims; no manuscript narrates the scalar closure; the registry and the census carry the family '
       'as verification-only and the README carries the paragraph and the counts.')
+
+# ---- The instrument-realization audit: the replacement of branch-wise realization by an
+# inductive predicate with five constructors and no sum; soundness; the instrument theory of an
+# architecture; the stack re-established under instrument names with phase saturation the one
+# added hypothesis; the protocol invariant and the countercontrol in the closed-form ones-fixing
+# class; the branch-wise definitions unchanged; the flow endpoint neither asserted nor refuted ----
+ok_inst = True
+_ir = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentRealization.lean'), encoding='utf-8').read()
+_irflat = ' '.join(_ir.split())
+_irn = open(os.path.join(os.path.dirname(BRIDGE), 'INSTRUMENT-REALIZATION-AUDIT.md'), encoding='utf-8').read()
+_irn1 = re.sub(r'\s+', ' ', _irn)
+_il = open(os.path.join(BRIDGE, 'OIBridge', 'ImplementationLocality.lean'), encoding='utf-8').read()
+_ilflat = ' '.join(_il.split())
+ok_inst &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _ir) is None and 'native_decide' not in _ir
+ok_inst &= 'axiom ' not in re.sub(r'/-.*?-/', '', _ir, flags=re.S)
+_ir_names = re.findall(r"^theorem ([\w']+)", _ir, re.M)
+ok_inst &= len(_ir_names) == 163 and _ir.count('#print axioms') == 163
+for _nm in _ir_names:
+    ok_inst &= ('#print axioms ' + _nm) in _ir
+# the inductive definition: exactly five constructors, named, and no sum
+_i_ind = _ir.find('inductive InstAvail (𝓘 : ImplementationClass) :')
+ok_inst &= _i_ind > 0
+_ind_block = _ir[_i_ind:_ir.find('\n\n', _i_ind)]
+_ctors = re.findall(r'^  \| (\w+)', _ind_block, re.M)
+ok_inst &= _ctors == ['op', 'readout', 'coarse', 'bind', 'discard']
+ok_inst &= '∑' not in ' '.join(l for l in _ind_block.splitlines() if l.strip().startswith('| op') or l.strip().startswith('| bind') or l.strip().startswith('| discard'))
+for _t in ('| op {T : Type} [Fintype T] [DecidableEq T] (K : Matrix T T ℂ) (hK : 𝓘 T K) (hiso : Kᴴ * K = 1) : InstAvail 𝓘 T Unit (fun _ => conjChannel K)',
+           '| readout {T T\' : Type} [Fintype T] [DecidableEq T] [Fintype T\'] [DecidableEq T\'] {m : ℕ} (e : T\' × Fin m ≃ T) (hP : ∀ k, 𝓘 T (Matrix.reindex e e (readProj T\' m k))) : InstAvail 𝓘 T (Fin m) (fun k => conjChannel (Matrix.reindex e e (readProj T\' m k)))',
+           'InstAvail 𝓘 T (O × O\') (fun c => (G c.1 c.2).comp (F c.1))',
+           '| discard {T : Type} [Fintype T] [DecidableEq T] {m : ℕ} (hm : 0 < m) {O : Type} [Fintype O] [DecidableEq O]',
+           'InstAvail 𝓘 T O (fun a => discardWith (A := T) m (uniformAttach m) (F a))',
+           'theorem instAvail_trace',
+           'theorem realized_of_instAvail (arch : Architecture 𝓘)',
+           'theorem isGenInstrument_of_instAvail (arch : Architecture 𝓘)',
+           'def OnesNormal (T : Type) [Fintype T] [DecidableEq T] {O : Type} [Fintype O] [DecidableEq O] (F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ) : Prop := ∃ (ι : Type) (_ : Fintype ι) (K : ι → Matrix T T ℂ) (out : ι → O), (∀ a, F a = ∑ i ∈ Finset.univ.filter (fun i => out i = a), conjChannel (K i)) ∧ ∑ i, (K i)ᴴ *ᵥ ones T = ones T',
+           'def OnesFixing (𝓘 : ImplementationClass) : Prop := ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ), 𝓘 S K → Kᴴ * K = 1 → ∃ z : ℂ, K *ᵥ ones S = z • ones S',
+           'theorem instAvail_onesNormal (hf : OnesFixing 𝓘)',
+           'theorem instAvail_unitary_fixes_ones (hf : OnesFixing 𝓘)',
+           'theorem isometry_fixes_ones : OnesFixing onesClass',
+           'theorem flow_realized_not_instrumentRealized {a b c : T} (hab : a ≠ b) (hca : c ≠ a) (hcb : c ≠ b) : IsGenInstrument onesClass T (fun _ : Unit => conjChannel (ReachabilitySeam.flow (transition a b) (Real.pi / 2))) ∧ ¬ InstAvail onesClass T Unit (fun _ => conjChannel (ReachabilitySeam.flow (transition a b) (Real.pi / 2)))',
+           'def PhaseSaturated (𝓘 : ImplementationClass) : Prop :=',
+           '(hs : PhaseSaturated 𝓘) : InverseAccessibility T',
+           'theorem instrumentGenerated_of_qm', 'theorem countermodel_not_instrumentGenerated',
+           'theorem oiPlusMinInst_iff_qm', 'theorem routeB_target_inst : RouteBTargetInst',
+           'theorem instTheory_embeddedObservation', 'theorem instAvail_withSpectator'):
+    ok_inst &= _t in _irflat
+ok_inst &= 'LayerFlowExecutable' not in _ir
+# the branch-wise definitions are unchanged
+ok_inst &= 'Φ = ∑ i, conjChannel (K i) ∧ ∀ i, 𝓘 S (K i)' in _ilflat
+ok_inst &= 'T.availExt N O F ↔ (∀ a, Realized 𝓘 (A × Fin N) (F a)) ∧ ∀ X, ∑ a, ((F a) X).trace = X.trace' in _ilflat
+# the note: the defect, the census, the shape, the tests, the non-doings, the amendments precede the outcome
+_j = [_irn.find(h) for h in ('## The defect', '## The census of consumers, taken before the change',
+      '## The replacement, as an object to be defined', '## The tests, each with its admissible outcomes',
+      '## What the round does not do', '## Amendments, recorded after the preregistration', '## The outcome')]
+ok_inst &= all(x > 0 for x in _j) and _j == sorted(_j)
+ok_inst &= _irn.lstrip().startswith('# The instrument-realization audit')
+for _t in ('Preregistration commit `9741199`', 'amendments commit `1f730b2`', 'Uniform ancilla: yes',
+           '**T1. Soundness.**', '**T2. The converse fails.**', '**T3. The generated theory exists.**',
+           '**T4. Survival.**', '**T5. The flow endpoint is not settled here.**', '**T6. Guards.**',
+           '| T1 | ', '| T2 | ', '| T3 | ', '| T4 | ', '| T5 | ', '| T6 | ', '163 named results',
+           'provenance removes the replication', '### T4, the survival record',
+           'added hypotheses `Architecture 𝓘` and `PhaseSaturated 𝓘`', 'a recorded deviation',
+           'What this note does not claim', 'That `Realized` or `ImplementationGenerated` has changed'):
+    ok_inst &= _t in _irn1
+ok_inst &= 'Status: pass complete' in _irn1
+for _bad in ('settles the flow endpoint', 'the flow endpoint holds', 'the flow endpoint is refuted',
+             'flowTheory fails', 'flowTheory has phase-free richness',
+             'OI implies QM', 'quantum mechanics requires OI', 'bare OI implies',
+             'the countermodel is established', 'ImplementationGenerated is replaced'):
+    ok_inst &= not _asserted(_irn, _bad)
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    ok_inst &= 'InstrumentRealization' not in _t and 'InstAvail' not in _t and 'instrument-realized' not in _t
+_ir_fam = [f for f in _ptr_reg['families'] if f['name'] == 'instrument realization: one-instrument provenance']
+ok_inst &= len(_ir_fam) == 1 and _ir_fam[0]['status'] == 'verification-only' and _ir_fam[0]['modules'] == ['InstrumentRealization']
+ok_inst &= _ir_fam[0]['manuscript'] == [] and 'provenance removes the replication' in _ir_fam[0]['note'] and 'flow endpoint' in _ir_fam[0]['note']
+_cen_ir = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+ok_inst &= '| instrument realization: one-instrument provenance | 1 | verification-only |' in _cen_ir
+for _t in ('`R7-INST`', 'INSTRUMENT-REALIZATION-AUDIT.md', 'flow_realized_not_instrumentRealized',
+           'instAvail_unitary_fixes_ones', '163 named results', 'provenance removes the replication',
+           'PhaseSaturated', 'neither asserted nor refuted'):
+    ok_inst &= _t in _rd1
+check('R7-INST', ok_inst,
+      'Instrument-realization guard: InstAvail is an inductive predicate with exactly the five constructors '
+      'op, readout, coarse, bind and discard, no constructor taking a sum, its step an admissible isometry, its '
+      'readout a register readout with admissible projectors and its discard of positive size, stated as '
+      'pinned; the module carries no sorry, axiom or native_decide and prints the axioms of exactly its 163 '
+      'results; the trace and soundness theorems, the protocol invariant OnesNormal, the ones-fixing property, '
+      'the general negative theorem and the countercontrol in the closed-form class, phase saturation with '
+      'inverse accessibility, the quantum, countermodel, package and Route B forms and the embedded-observation '
+      'and spectator closures are stated as pinned; the module mentions no executability; the branch-wise '
+      'Realized and ImplementationGenerated are unchanged; the note keeps the defect, the census, the shape, '
+      'the tests, the non-doings and the amendments before the outcome, names both commits, the owner decision, '
+      'the six outcomes, the survival record with the one added hypothesis, the deviation in the class of the '
+      'countercontrol and the non-claims, and asserts nothing about the flow endpoint; no manuscript carries '
+      'the primitive; the registry and the census carry the family as verification-only and the README carries '
+      'the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

@@ -169,6 +169,7 @@ import OIBridge.ManuscriptAxioms
 import OIBridge.LiftAudit
 import OIBridge.SubstratumInterfaceAudit
 import OIBridge.ScalarClosure
+import OIBridge.InstrumentRealization
 
 namespace OIBridge
 

@@ -11,10 +11,14 @@ observational independence, `implementationLocality_of_qm`, the countermodel dia
 (`permClass`, `SourcedOI`); `FLOW-EXTENSION-AUDIT.md` (the deferral that names the loophole),
 `SCALAR-CLOSURE-AUDIT.md`; guard `R7-INST` in `verification/lean/edge_rigidity_probe.py`.
 
-**Status: preregistered, no definition made.** The sections below fix the defect, the census of
-the primitive's consumers, the shape of the replacement as an object to be defined, and the tests
-with their admissible outcomes, before any kernel edit; the outcome section is added afterwards.
-Nothing here is a manuscript claim.
+**Status: pass complete. `InstAvail` is defined with the five constructors and no sum; T1
+soundness holds; T3 the instrument theory of every architecture exists with embedded observation;
+T4 the implementation-locality stack is re-established under instrument names, one theorem with
+an added hypothesis; T2 the countercontrol holds in the closed-form ones-fixing class, by an
+invariant of complete instruments that survives measurement and feed-forward: provenance removes
+the replication.** The preregistration sections were written before any edit (commit `9741199`),
+the amendments after the owner's decision (commit `1f730b2`); this status line and the outcome
+section are the only later edits. Nothing here is a manuscript claim.
 
 ## The defect
 
@@ -210,3 +214,121 @@ coarse-graining, sequential composition with outcome-dependent continuation, and
 uniformly attached ancilla of positive size. No constructor takes a sum. The readout names its
 register by a bijection so that the predicate is transported along carrier bijections when the
 class is label-invariant, which the theory family's relabelling invariance consumes.
+
+## The outcome
+
+Preregistration commit `9741199`, amendments commit `1f730b2`. The kernel module is
+`OIBridge/InstrumentRealization.lean`, 163 named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Every test reached its expected outcome; the one deviation from
+the preregistered text of T2 is the class in which the countercontrol is stated, recorded below.
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | soundness: an instrument-realized family preserves the trace in aggregate, and for an architecture every branch is branch-realized, the step and the readout as conjugations by admissible operators, the continuation by products, the discard by contractive blocks; so it is a generated instrument of the branch-wise notion, and the instrument theory lies inside the generated theory at every level; complete positivity needs no hypothesis on the class | `instAvail_trace`, `realized_of_instAvail`, `isGenInstrument_of_instAvail`, `instTheory_le_genTheory`, `cp_of_instAvail`, `conjChannel_trace_iff` |
+| T2 | the converse fails: the invariant `OnesNormal` of complete instruments, a Kraus decomposition of the whole family over one index set whose operators sum against the all-ones vector to the all-ones vector, is preserved by every constructor, the feed-forward included, for a class whose admissible unitaries fix the all-ones vector up to a scalar; an instrument-realized unitary conjugation of such a class fixes the all-ones vector; the closed-form class `onesClass` of contractive compressions of ones-fixing unitaries is an architecture, context-stable, label-invariant, dagger-stable and ones-fixing, and contains the permutation matrices and the gate flows; a contractive multiple of the transition flow is the level-zero block of a product of two ones-fixing unitaries on the doubled carrier; on a carrier with a third point the conjugation by the transition flow at a quarter turn is branch-realized by the class with the trace preserved and is not instrument-realized by it | `OnesNormal`, `OnesFixing`, `instAvail_onesNormal`, `instAvail_unitary_fixes_ones`, `onesClass`, `onesClass_arch`, `onesClass_contextStable`, `onesClass_labelInvariant`, `onesClass_daggerStable`, `isometry_fixes_ones`, `onesClass_permMatrix`, `onesClass_gateFlow`, `gadget_block`, `transition_scaled_mem_onesClass`, `flow_realized_not_instrumentRealized` |
+| T3 | the instrument theory of every architecture is a finite operational theory, with embedded observation when the class is label-invariant; the predicate is transported along carrier bijections for a label-invariant class and closed under an uncoupled spectator for a context-stable, label-invariant class; what the class supplies: the identity operator for `avail_id`, the readout projectors for `readout_avail`, and the products, blocks and contractive scalars only through T1; context stability and label invariance are consumed by the spectator and relabelling closures, label invariance also in the discard case of the spectator closure, where the fresh ancilla is regrouped past the spectator | `instTheory`, `instFamily_regrouping`, `instFamily_relabelling`, `instTheory_embeddedObservation`, `instAvail_transport`, `instAvail_spectator`, `instAvail_withSpectator` |
+| T4 | survival: every theorem of the stack is re-established for the new primitive under an instrument name with an unchanged statement, except inverse accessibility, which carries the added hypothesis of phase saturation; the record is the table below | the table below |
+| T5 | no theorem of the round asserts or refutes the flow endpoint; the countercontrol is a statement about one family in one class | absence, guarded |
+| T6 | `R7-INST` pins the inductive definition and its five constructors, the absence of a sum constructor, the soundness and trace theorems, the invariant and the countercontrol, the survival names, the unchanged branch-wise definitions, this note, the registry and the README, and rejects any statement that the flow endpoint is settled | `verification/lean/edge_rigidity_probe.py` |
+
+**The mechanism of T2, as proved.** The invariant is a property of the whole family, not of a
+class: some Kraus decomposition of all the branches together, over one index set with an outcome
+labelling, has `Σᵢ Kᵢᴴ 𝟙 = 𝟙`. A step by an admissible unitary `K` with `K 𝟙 = z 𝟙` has `|z| = 1`
+and is rephased to `z̄ • K`; the readout's projectors sum to the identity; coarse-graining regroups
+the same decomposition; the feed-forward multiplies each continuation's decomposition into the
+branch it follows, after the continuations are decomposed over one common index set
+(`onesNormal_uniform`), and the sums telescope because each continuation's constant is exactly
+one; the discard splits each block `(1/√m) • ancBlock K k e` into three contractive copies with
+weights `1/m`, `β`, `−β`, `β² = (m − 1)/(2m²)`, whose squares sum to `1/m` and which sum to `1/m`,
+so that the `m` preparation sectors of `Kᴴ 𝟙 = 𝟙` recombine to the all-ones vector of the smaller
+carrier (`splitWeight`, `ancBlock_conjTranspose_mulVec_ones`). For a one-outcome unitary
+conjugation every operator of the decomposition is proportional to the unitary
+(`kraus_of_conj_unitary`, the extremality lemma of round sixty-one), so the invariant gives
+`(Σᵢ c̄ᵢ) Uᴴ 𝟙 = 𝟙` with a nonzero sum, hence `U 𝟙 ∝ 𝟙`. Nothing in the argument assumes that
+measurement or feed-forward preserves anything; the invariant is checked constructor by
+constructor, and the feed-forward case is where the uniform index set and the exact constant are
+needed.
+
+**The class of the countercontrol, a recorded deviation.** The preregistered text names the least
+class `flowClass` of `FLOW-EXTENSION-AUDIT.md`, which that deferral never defined and which this
+round does not define. The countercontrol is stated in the closed-form class `onesClass` of
+contractive compressions `c • Eᴴ W F` of all-ones-fixing unitaries `W` along ones-compatible
+isometries `E`, `F`, which is the structural invariant the preregistration named
+(`flowClass_compression` becomes the definition of the test class rather than a lemma about a
+least class). The class is an architecture, context-stable, label-invariant and dagger-stable
+(`onesClass_arch`, `onesClass_contextStable`, `onesClass_labelInvariant`,
+`onesClass_daggerStable`), the products being compressions of a product on the disjoint union of
+the two carriers joined by a reflection that exchanges the two embedded copies of the system, and
+it contains every permutation matrix and every gate flow (`onesClass_permMatrix`,
+`onesClass_gateFlow`); so every class generated from those by the architecture operations,
+spectators, relabelling and the adjoint lies inside it, and the negative half of the
+countercontrol passes to every such class by `instAvail_mono`. The positive half, that a
+contractive multiple of the transition flow is admissible, is proved in `onesClass` by an explicit
+gadget, the phased flow `e^{it} U P + (1 − P)` tensored with the identity followed by the two-level
+gate with phase `e^{−it}` on the pair and `e^{it}` elsewhere (`gadget_block`), and whether the same
+block lies in the least class of a single layer involution is part of the flow round to be
+re-preregistered. The negative theorem itself is general: `instAvail_unitary_fixes_ones` holds for
+every class with `OnesFixing`, and `isometry_fixes_ones` proves that property for the closed-form
+class by the defect identity `Vᴴ V + Mᴴ M = 1` with `M = (1 − E Eᴴ) W F`.
+
+### T4, the survival record
+
+Each row names the branch-wise theorem, its instrument form, and the outcome per the
+preregistered admissible outcomes: unchanged statement and re-proved; unchanged statement with an
+added hypothesis, named; or not surviving, with the reason. The instrument forms are new names in
+the new module; the branch-wise theorems are untouched.
+
+| branch-wise | instrument form | outcome |
+|---|---|---|
+| `validity_of_implementationLocality` | `validity_of_instrumentLocality` | unchanged, re-proved: complete positivity and the trace from T1, Kraus soundness as before |
+| `observationalIndependence_of_implementationLocality` | `observationalIndependence_of_instrumentLocality` | unchanged, re-proved from `instAvail_withSpectator`; the discard case of the spectator closure consumes label invariance, which the branch-wise proof did not need there |
+| `implementationLocality_of_qm`, `generated_of_qm` | `instrumentLocality_of_qm`, `instrumentGenerated_of_qm`, `instAvail_fullClass_of_krausFamily` | unchanged, re-proved: every Kraus family is the Stinespring circuit of the instrument theory of the full class, a pure seed by readout and feed-forward swap, a composite unitary extending the Stinespring isometry, the readout, the discard and the coarse-graining along the outcome labelling (`fullInstruments_of_control`, `finiteIsometryExtensionSF_discharged`) |
+| `countermodel_not_implementationGenerated`, `implementationLocality_independent` | `countermodel_not_instrumentGenerated`, `instrumentLocality_independent` | unchanged, re-proved |
+| `carrier_general_oiPlusLocal`, `oiPlusLocal_iff_qm` | `oiPlusInst_iff_qm` | unchanged, re-proved |
+| `oiPlusMin_iff_qm`, `carrier_general_oiPlusMin` | `oiPlusMinInst_iff_qm`, `carrier_general_oiPlusMinInst`, `oiPlusMinInst_iff_oiPlusMin` | unchanged, re-proved; the two forms of the package agree through quantum mechanics |
+| `ReversibleImplementationLocality`, `genTheory_reversibleImplementationLocality` | `ReversibleInstrumentLocality`, `instTheory_reversibleInstrumentLocality` | unchanged, re-proved |
+| `inverseAccessibility_of_generated_daggerStable` | `inverseAccessibility_of_instrumentGenerated` | **added hypotheses `Architecture 𝓘` and `PhaseSaturated 𝓘`**: the branch-wise proof re-summed the adjoint branches, which is free recombination; the adjoint of a protocol is not a protocol, so the unitary itself must be admissible; a nonzero contractive multiple of it is (`exists_scaled_mem_of_instAvail_unitary`), phase saturation lifts that to the unitary, dagger stability to its adjoint, and one step realizes the inverse; the four classes of the kernel are phase-saturated (`fullClass_phaseSaturated`, `diagClass_phaseSaturated`, `substratumClass_phaseSaturated`, `permClass_phaseSaturated`); whether inverse accessibility fails for some dagger-stable class that is not phase-saturated is open |
+| `genTheory_embeddedObservation` | `instTheory_embeddedObservation` | unchanged, re-proved |
+| `DerivedOI`, `SourcedOI`, `derivedOI_iff_sourcedOI_phases`, `sourcedOI_of_derivedOI`, `derivedOI_of_qm`, `derivedOI_qm_iff_phaseFree`, `sourcedOI_qm_iff_phaseFree` | `DerivedOIInst`, `SourcedOIInst`, `derivedOIInst_iff_sourcedOIInst_phases`, `sourcedOIInst_of_derivedOIInst`, `derivedOIInst_of_qm`, `derivedOIInst_qm_iff_phaseFree`, `sourcedOIInst_qm_iff_phaseFree` | unchanged, re-proved |
+| `substratumTheory_derivedOI` | `substratumInstTheory_derivedOIInst` | unchanged, re-proved: the exchanges, the phases and the read-write operators are single steps |
+| `permTheory_sourcedOI` | `permInstTheory_sourcedOIInst` | unchanged, re-proved |
+| `bijectionLevel_not_phasesAvailable`, `permTheory_not_phasesAvailable`, `permTheory_not_derivedOI` | `bijectionLevel_not_phasesAvailable_inst`, `permInstTheory_not_phasesAvailable`, `permInstTheory_not_derivedOIInst` | unchanged, re-proved through T1 and the nonnegativity invariant |
+| `configurationLevel_availExt_le`, `permTheory_availExt_le_substratum` | `configurationLevel_instAvailExt_le`, `permInstTheory_availExt_le_substratum` | unchanged, re-proved by monotonicity in the class |
+| `substratumTheory_falsifierUnavailable`, `permTheory_falsifierUnavailable`, `substratumTheory_not_phaseFree` | `substratumInstTheory_falsifierUnavailable`, `permInstTheory_falsifierUnavailable`, `substratumInstTheory_not_phaseFree` | unchanged, re-proved through T1 |
+| `substratumTheory_realizesSealedOICore`, `permTheory_realizesSealedOICore` | `substratumInstTheory_realizesSealedOICore`, `permInstTheory_realizesSealedOICore` | unchanged, re-proved: the core's permutations are single steps, the readout family is the theory's own readout coarse-grained |
+| `routeB_target` | `routeB_target_inst` | unchanged, re-proved with the substratum instrument theory as the witness |
+| `substratumAvail_phasesAvailable`, `permTheory_not_substratumAvail` | `substratumAvailInst_phasesAvailable`, `permInstTheory_not_substratumAvailInst` | unchanged, re-proved |
+| `realized_scalarHull_iff`, `permTheory_hull_availExt_iff` | none | stated for `Realized` and not migrated, as fixed in advance |
+
+The expectation fixed in advance was that every theorem survives; one needed a stronger
+hypothesis. The reason is exactly the one the preregistration named for the hull regression:
+the branch-wise proof of inverse accessibility consumed free recombination.
+
+**What the round leaves in place.** `Realized`, `ImplementationGenerated`, `ImplementationLocality`,
+`genTheory` and every theorem about them are unchanged, and the manuscripts, which state generation
+by a context-stable, label-invariant class of implementations, cite none of the Kraus-sum details.
+The instrument forms are parallel definitions in the new module. Replacing `ImplementationGenerated`
+by `InstrumentGenerated` in place, and `genTheory` by `instTheory`, is the migration step; given the
+survival record it is mechanical everywhere except at inverse accessibility, where the phase
+saturation hypothesis enters, and it is an owner decision to take after this record is reviewed.
+
+**What the outcome establishes.** The replacement primitive exists, generates a finite operational
+theory for every architecture, is sound for the branch-wise notion, and is strictly finer than it:
+provenance removes the replication of a contractive branch, in every class whose admissible unitaries
+fix the all-ones vector, by an invariant of complete instruments that measurement and feed-forward
+preserve. The stack of publication-facing consequences holds for the new primitive with unchanged
+statements, except that inverse accessibility from dagger stability needs the class to be
+phase-saturated, which the four classes of the kernel are.
+
+**What the outcome does not establish.** Anything about the flow endpoint: the countercontrol is
+a statement about one family in the closed-form class, not about a theory generated by a least
+class of one layer involution, and `SourcedOI ∧ LayerFlowExecutable → PhaseFreeRichness` is neither
+asserted nor refuted. That inverse accessibility holds without phase saturation. That the
+in-place replacement of `ImplementationGenerated` has been made: it has not.
+
+## What this note does not claim
+
+That the flow endpoint is settled in either direction. That the least class `flowClass` is defined
+or that the gadget block lies in it. That inverse accessibility holds for every dagger-stable class
+under the new primitive. That `Realized` or `ImplementationGenerated` has changed. That anything
+here reaches a manuscript.
