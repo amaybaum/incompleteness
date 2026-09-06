@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 119 modules and,
-  at this commit, 2,591 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 120 modules and,
+  at this commit, 2,749 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1019,6 +1019,39 @@ with no common-instrument provenance, which is the object of a separate preregis
 Ten named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed:
 anything about the flow endpoint; no manuscript changes, none narrating the scalar closure.
 Guard `R7-SCAL`.
+
+`OIBridge/InstrumentRealization.lean` is the preregistered instrument-realization audit
+(`INSTRUMENT-REALIZATION-AUDIT.md`), the round on realization provenance that the flow-extension
+deferral and the scalar-closure audit both named. `Realized` takes the branches of an operation
+from the class one at a time and so admits the replication of a post-selected contraction `c · U`
+into the unitary conjugation by `U`. The replacement `InstAvail` is an inductive predicate with
+exactly five constructors and no sum: an admissible isometric step, the native Lüders readout of a
+register with admissible projectors, coarse-graining, sequential composition with outcome-dependent
+continuation, and the discard of a uniformly attached ancilla of positive size, the uniformly
+weighted preparation label summed inside the discard and never an outcome. Soundness holds
+(`instAvail_trace`, `realized_of_instAvail`): every instrument-realized family is a generated
+instrument of the branch-wise notion. The instrument theory of every architecture is a finite
+operational theory with embedded observation when the class is label-invariant (`instTheory`,
+`instTheory_embeddedObservation`), the predicate being closed under relabelling and under
+uncoupled spectators. The implementation-locality stack is re-established for the new primitive
+under instrument names (`InstrumentGenerated`, `InstrumentLocality`, `OIPlusMinInst`,
+`oiPlusMinInst_iff_qm`, `DerivedOIInst`, `SourcedOIInst`, the substratum and the sourced instrument
+theories, `routeB_target_inst`) with unchanged statements, except inverse accessibility from dagger
+stability, which carries the added hypothesis `PhaseSaturated` that the four classes of the kernel
+satisfy. The converse of soundness fails: the invariant `OnesNormal` of complete instruments, a
+Kraus decomposition of the whole family whose operators sum against the all-ones vector to the
+all-ones vector, is preserved by every constructor including the feed-forward, so in a class whose
+admissible unitaries fix the all-ones vector every instrument-realized unitary conjugation fixes it
+(`instAvail_unitary_fixes_ones`); the closed-form class of contractive compressions of
+ones-fixing unitaries is an architecture, context-stable, label-invariant, dagger-stable and
+ones-fixing (`isometry_fixes_ones`) and contains a contractive multiple of the transition flow
+(`gadget_block`), so on a carrier with a third point the transition flow's conjugation is
+branch-realized with the trace preserved and is not instrument-realized
+(`flow_realized_not_instrumentRealized`): provenance removes the replication. 163 named results,
+each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: the flow endpoint,
+neither asserted nor refuted; the least class of one layer involution, which is not defined; that
+`Realized` or `ImplementationGenerated` has changed, the in-place replacement being a migration
+step after review. Guard `R7-INST`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

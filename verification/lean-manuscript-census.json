@@ -201,6 +201,13 @@
       "note": "The preregistered pass of SCALAR-CLOSURE-AUDIT.md: Architecture.smul restricted to scalars of modulus at most one after a census of its consumers; the generated theory of every class unchanged by definition (genTheory_availExt_eq); the scalar-hull regression theorem (realized_scalarHull_iff) and its instance for the migrated sourced class (scalarHull_permClass_iff, permTheory_hull_availExt_iff). Verification machinery: a repair of the implementation-architecture primitive, narrated by no manuscript, which state closure under composition, coarse-graining and ancilla blocks and never under scalars; the restriction is not sufficient for the flow endpoint, whose replication loophole in Realized is a separate round."
     },
     {
+      "name": "instrument realization: one-instrument provenance",
+      "modules": ["InstrumentRealization"],
+      "status": "verification-only",
+      "manuscript": [],
+      "note": "The preregistered pass of INSTRUMENT-REALIZATION-AUDIT.md: the inductive predicate InstAvail with five constructors and no sum replaces branch-wise realization as a parallel definition; soundness for the branch-wise notion (realized_of_instAvail, instAvail_trace); the instrument theory of every architecture with embedded observation (instTheory, instTheory_embeddedObservation); the implementation-locality stack re-established under instrument names with unchanged statements (InstrumentLocality, oiPlusMinInst_iff_qm, DerivedOIInst, SourcedOIInst, routeB_target_inst), inverse accessibility with the added hypothesis PhaseSaturated; the protocol invariant OnesNormal preserved by every constructor including the feed-forward, so that an instrument-realized unitary conjugation of a ones-fixing class fixes the all-ones vector (instAvail_unitary_fixes_ones), and the countercontrol flow_realized_not_instrumentRealized in the closed-form class of contractive compressions of ones-fixing unitaries: provenance removes the replication. Verification machinery, narrated by no manuscript, which state generation by a context-stable, label-invariant class of implementations and never the Kraus-sum form; Realized and ImplementationGenerated are unchanged and the in-place replacement is a migration step after review; the flow endpoint is neither asserted nor refuted."
+    },
+    {
       "name": "OI-N passive observation",
       "modules": ["PassiveObservation", "CentralObservation", "PassiveIndependence", "InternalObserver"],
       "status": "current",
