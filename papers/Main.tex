@@ -3353,20 +3353,22 @@ implementations under the adjoint and no inverse accessibility assumed
 nonempty finite carrier, inverse accessibility following on any
 well-formed theory (kernel: \texttt{carrier\_general\_oiPlusMin},
 \texttt{oiPlusMin\_iff\_qm} in \texttt{OIBridge/MinimalRepertoire.lean};
-\texttt{carrier\_general\_oiPlusPos},
+\texttt{carrier\_general\_oiPlusPos} in
+\texttt{OIBridge/PositivePackage.lean},
 \texttt{inverseAccessibility\_of\_lieRank} in
-\texttt{OIBridge/PositiveReachability.lean}). A substratum-source form
-completes that refinement: the concrete OI substratum supplies the
+\texttt{OIBridge/MicroscopicReversibility.lean}). A substratum-source
+form completes that refinement: the concrete OI substratum supplies the
 structural architecture --- closure under composition and
 coarse-graining, stability under an uncoupled spectator, relabelling
-invariance, reversibility, the exchanges of distinguishable states, and
-the phases --- but, under finite bijective read-write dynamics, not the
-continuously tunable state-mixing operation; with that one operation
-added as an empirical controllability resource it is equivalent to the
-same operational quantum mechanics on every nonempty finite carrier,
-while finite reversible read-write dynamics, even with genuine
-hidden-memory and readback behavior, does not itself generate quantum
-state mixing ({[}GR §3.3{]}; kernel:
+invariance, reversibility, the exchanges of distinguishable states, and,
+as a stated intervention principle rather than a consequence of its
+finite states and bijective dynamics, the phases --- but, under finite
+bijective read-write dynamics, not the continuously tunable state-mixing
+operation; with that one operation added as an empirical controllability
+resource it is equivalent to the same operational quantum mechanics on
+every nonempty finite carrier, while finite reversible read-write
+dynamics, even with genuine hidden-memory and readback behavior, does
+not itself generate quantum state mixing ({[}GR §3.3{]}; kernel:
 \texttt{substratum\_plus\_control\_qm} in
 \texttt{OIBridge/StructuralClosure.lean},
 \texttt{readWriteSourced\_not\_qm} in
@@ -4993,4 +4995,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: e420d10ef24e21b278bc072c148167ddfee5da6c96569cbb985293cd5177ea79
+% source-sha256: 3c3ecaf4492a9797b123ac1d70688299efe61ef8f7a05f9075e8b20aa5bb6b79

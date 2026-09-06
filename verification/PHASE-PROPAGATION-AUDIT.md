@@ -140,4 +140,57 @@ verdict, the scope amendment or the note of the phase-source audit. Narrate Rout
 observer theory, the flow endpoint or the lift audit in a manuscript. Reword any manuscript
 sentence outside the sites listed. Reopen `[Substratum §4]`. Refresh the transfer bundle.
 
-Status: preregistered; the outcome follows in its own section.
+## The outcome
+
+Preregistration commit `76e1a3a`, executed from `main` at `05e290b`. The three items were made
+as fixed in advance, with the mirrors; the kernel is untouched, at 123 modules and 2,723 named
+results. Every test reached the outcome expected in advance.
+
+| test | outcome | where |
+|---|---|---|
+| E1 | the two normalization sentences: `[GR §3.3]` principle 1 states realization by one protocol, the five steps named, the branches arising together as the outcomes of one protocol, and probability normalization in aggregate as a consequence of that realization, citing `instAvail_trace`; the sentence after the boxed equivalence states the normalization half of validity as a consequence of implementation generation; neither superseded clause occurs in any manuscript source | GR §3.3 |
+| E2 | the attributions: `control_of_lieRank` to `OIBridge/MicroscopicReversibility.lean` at both GR sentences, `carrier_general_oiPlusPos` and `oiPlusPos_iff_qm` to `OIBridge/PositivePackage.lean` at the primitive-source opening, `carrier_general_oiPlusPos` to `OIBridge/PositivePackage.lean` and `inverseAccessibility_of_lieRank` to `OIBridge/MicroscopicReversibility.lean` in Main §3.4; the two attributions to `OIBridge/PositiveReachability.lean` that remain are both `universalReachability_of_lieRank_positive`, which is stated there; the census resolves every identifier and path | GR §3.3, Main §3.4 |
+| E3 | the requalification: the substratum is stated as finite states and bijective microscopic dynamics together with one further intervention principle, a relative phase on a single state selectable at every level; the phase intervention enters as an assumption on the substratum class, not as a consequence of the finite states with the bijective read-write dynamics, with the three deciding theorems cited; the necessary condition, an operator carrying the all-ones vector off its ray, is stated as necessary and not shown sufficient, and the access assumed is the quarter-phase intervention itself, a member of the class as stated (`phase_monomial`); the sentence after the boxed endpoint reads the left side of the box as the class with the phase intervention stated | GR §3.3 |
+| E4 | the mirrors: the summary clause qualifies the phases as a stated intervention principle rather than a consequence of the finite states and bijective dynamics at Main §3.4, the Explainer, book chapter 1, book chapter 19 and both occurrences in the book's full source, six occurrences at five sites; the unqualified clause returns zero occurrences corpus-wide; the pinned primitive-source summary is unchanged | the five sites |
+| E5 | the surfaces: guard `R7-PROP`; the pins of `R7-MIG`, `R7-PHASE` and `R7-SUB` moved to the propagated text; the registry carries the phase-source family as current with anchors in GR and Main and the instrument-realization note corrected; the census note's row; the README paragraph; `GR`, `Main`, `Explainer` and the book rebuilt by `sh ./build.sh` | `verification/lean/edge_rigidity_probe.py`, `lean-manuscript-census.json`, `LEAN-MANUSCRIPT-CENSUS.md`, `README.md` |
+| E6 | the checks: release gate, every step; the probe, every guard; the census; no kernel change | the release gate |
+
+**The re-grep, per §A.25.**
+
+| phrase | occurrences after the round |
+|---|---|
+| "the exchanges of distinguishable states, and the phases — but" | zero |
+| "as a stated intervention principle rather than a consequence of its finite states and bijective dynamics" | six, at Main §3.4, the Explainer, book chapter 1, book chapter 19, and twice in the book's full source |
+| "with aggregate probability normalization" | zero |
+| "explicit in implementation generation" | zero |
+| "and the phase structure — supplies the structural part in full" | zero |
+| a moved name attributed to `OIBridge/PositiveReachability.lean` | zero; the two attributions to that module that remain are `universalReachability_of_lieRank_positive` |
+
+**The artifacts.** Rebuilt by `sh ./build.sh GR Main Explainer` and `sh ./build.sh --book`, the
+xelatex log clean of dropped glyphs.
+
+| artifact | pages |
+|---|---|
+| `papers/GR.pdf` | 80 |
+| `papers/Main.pdf` | 84 |
+| `papers/Explainer.pdf` | 66 |
+| `book/The-Incompleteness-of-Observation-FULL.pdf` | 534 |
+
+Each count equals the count of the artifact it replaces.
+
+**What the outcome establishes.** The manuscripts state the boundary the kernel proves: the
+substratum's structural part is supplied by finite states and bijective dynamics together with a
+stated intervention principle for the relative phase; the phases are an assumption of the
+substratum class and not a consequence of `(S, φ)` with the stated observer access; implementation
+locality is realization by one protocol with normalization in aggregate as its consequence; and
+every kernel name cited is attributed to the module that states it. The distinction of the
+phase-source scope amendment stands in the manuscript sentence as in the note: the ray-moving
+condition necessary, the quarter-phase intervention the sufficient access assumed.
+
+**What the outcome does not establish.** Anything not already proved: the round adds no theorem.
+Whether `DerivedOI` with `LayerFlowExecutable` gives `PhaseFreeRichness`, the lift audit's Q3, a
+conditional question with `PhasesAvailable` an explicit hypothesis. Whether a relative-phase
+intervention can be sourced as a physical principle. Uniqueness or minimality of relative phase.
+
+Status: pass complete, publication-only. The three items are propagated with their mirrors, the
+guard `R7-PROP` pins the propagated text, and the kernel is unchanged.
