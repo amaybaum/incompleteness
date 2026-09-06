@@ -223,3 +223,96 @@ observation; the permutation containment gives the exchanges and the read-write 
 phase containment gives `PhasesAvailable`; hence `DerivedOI`; the mixing images with the phases
 give the layer flow; the cited closure theorem gives the completion. The preregistered concrete
 endpoint, bridge, comparisons and outcomes are unchanged.
+
+## The outcome
+
+Preregistration commit `fc4498d`, scope amendment `314076c`, executed from `main` at `f9e9648`.
+The kernel module is `OIBridge/StateMixingCoupling.lean`, twenty-five named results, each printing
+only `propext`, `Classical.choice`, `Quot.sound`; the kernel is at 130 modules and 2,855 named
+results. Nothing is named "C5" in the module or adopted in this note; the word of the frozen rule
+is not used; no existing definition changes; no manuscript is edited. The verdict is **outcome 1,
+sufficient**: the endpoint holds for `mixTheory (Fin 2)` and in the class-level form read under
+the scope amendment, the resource check holds from the datum, and both replacement classes fail.
+
+**The datum and the class, as built.** `rot θ` is the real rotation by the mixing angle;
+`mixImage n θ` its transport to `Fin 2 × Fin n` with the ancilla a spectator; the class is stated
+as a family `MixR D`, the stated access and the datum at the angles of `D` closed under the
+architecture operations and relabelling, with `MixC := MixR Set.univ` the class of the
+preregistration and `MixR D` for countable `D` the replacement class of T4; `mixTheory S` is the
+theory `MixC` generates. The definition region names no flow, no transition, no polarization image
+and no quantum-control predicate; the guard enforces this.
+
+**The bridge, step by step.** The identity holds as preregistered
+(`gateFlow_eq_shear_mix`): the lifted site exchange's gate flow at time `t` equals
+`e^{iπt/2}` times the site shear, the datum at `−πt/2`, and the adjoint site shear, proved
+entrywise with the half-angle abstracted and the real and imaginary parts closed by
+`cos² + sin² = 1`. The composition holds: the product of the stated phase gates over any finite set
+of configurations is in any architecture containing the phase gates (`phaseIndicator_mem`, by
+induction on the set), so the site shear is in the class (`siteShear_mem`); the adjoint site shear
+is its cube; the triple product and its unit multiple are in the class; the result is the gate
+flow, unitary, and its conjugation is available by `op`
+(`layerFlowExecutable_of_mixSourced`, `mixTheory_layerFlowExecutable`). The closure holds: the
+adjoint of the datum is the datum at the opposite angle (`mixImage_conjTranspose`), the datum is
+unitary (`mixImage_unitary`), the identity tensored with the datum is the relabelled datum at level
+`card R · n` (`tensorOf_one_mixImage`), and the identity tensored with a phase gate is a relabelled
+product of phase gates, a case the preregistration did not foresee and the product lemma settles
+(`tensorOf_one_phaseGate_mem`); so `MixC` is dagger-stable and context-stable
+(`mixC_daggerStable`, `mixC_contextStable`), and with the exchanges and the read-write operators by
+`perm` and the phases by `phase` the theory satisfies `DerivedOI` (`derivedOI_of_stated`,
+`mixTheory_derivedOI`). The endpoint holds by the cited closure theorem: phase-free richness
+(`mixTheory_phaseFree`) and exact finite operational quantum mechanics (`mixTheory_qm`), packaged
+with the closure (`mixTheory_endpoint`), and in the class-level form of the scope amendment
+(`qm_of_mixSourced`): architecture, the three stabilities, `permClass` in the class, the phase
+gates in the class, the datum in the class at every level and angle, give the closure and the
+completion on the two-valued alphabet.
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | the datum, its sourcing map, the class family and the theory, the definition region clean of the forbidden names | `rot`, `mixImage`, `MixR`, `MixC`, `mixR_arch`, `mixC_arch`, `mixR_labelInvariant`, `mixR_le_mixC`, `mixTheoryR`, `mixTheory` |
+| T2 | the resource from the datum: the image unitary; non-monomial at every angle in `(0, π/2)`; distinct angles non-proportional; uncountably many non-monomial rays at level one, proved from the datum and not through quantum mechanics | `mixImage_mul`, `mixImage_unitary`, `mixImage_not_monomial`, `mixImage_not_proportional`, `mixC_uncountableNonMonomialRays` |
+| T3 | the bridge: the phase-gate product, the site shear, the identity, executability, dagger and context stability, the closure, phase-free richness, the completion, the class-level form | `phaseIndicator_mem`, `siteShear_mem`, `gateFlow_eq_shear_mix`, `layerFlowExecutable_of_mixSourced`, `mixTheory_layerFlowExecutable`, `mixC_daggerStable`, `mixC_contextStable`, `derivedOI_of_stated`, `mixTheory_derivedOI`, `qm_of_mixSourced`, `mixTheory_phaseFree`, `mixTheory_qm` |
+| T4 | the countercontrols: with the datum at countably many angles the class is countable up to scalar, by the depth-indexed apparatus with the phase gates and the images at those angles at depth zero, so the theory executes no layer flow and is not quantum mechanics; with the datum removed, the bijection-valued replacement, every permutation-valued family lying in the stated access already, the same; the polarization closure the cited second witness; the general bijection-level and read-write statements cited | `MixImagesAt`, `GenM`, `genM_countable`, `genM_reindex`, `mixR_mem_genM`, `mixR_countable_upToScalar`, `mixTheoryR_not_layerFlowExecutable`, `mixTheoryR_not_qm`, `mixTheory_empty_not_qm`; `polarizedTheoryC_not_qm`, `bijectionLevel_fails_obligations`, `readWrite_parameter_uncountable_image_finite` (cited) |
+| T5 | the endpoint, stated: the closure and the completion for the constructed theory, and the class-level form; the comparison recorded as a comparison | `mixTheory_endpoint`, `qm_of_mixSourced`, `comparison` |
+| T6 | what the endpoint means, below | — |
+| T7 | the surfaces and the checks: `R7-SMC`; the README and the census, the family kernel-only; the coherent-continuum note's cross-reference section after its frozen text; full build, axiom check, release gate, probe, Bohr probe, census, voice check, all green; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+| T8 | the verdict: outcome 1, the bridge stated step by step above, the comparisons stated as comparisons | the table |
+
+**The verdict, with its content.** Outcome 1 is reached. One real mixing datum on a single site
+pair, sourced by a stated map and closed with the stated access under the architecture operations
+and relabelling, generates a theory that satisfies the closure and executes the layer flow of the
+site exchange, and is therefore exact finite operational quantum mechanics on the two-valued
+alphabet. The same closure with the datum at countably many angles, or with no datum, is not.
+This is the comparison the round set out to prove: one pair coupling with a continuum of angles
+suffices, and the two named weaker replacement classes fail. It is not a global minimality or
+uniqueness theorem, and none is claimed.
+
+**What the endpoint means.** The manuscripts' sentence, that with the one state-mixing operation
+added the theory is equivalent to the same operational quantum mechanics on every nonempty finite
+carrier, has a sourced kernel form on the two-valued alphabet: the operation as a real mixing datum
+on one pair, closed with the stated access, gives the closure and the flow, hence the completion.
+The constructed theory is quantum mechanics, so the kill battery is not extended. The datum is a
+postulate, the round's formalization of what the manuscripts call an empirical controllability
+resource; nothing here derives it from the substratum, from C1–C4, or from the stated access, and
+nothing here says that nature, the OI substratum, or the observer supplies it. The manuscript
+status of the resource is unchanged. The question the round leaves is exactly the one it was
+built to sharpen: what realization-level physical principle forces the mixing datum. That
+question is not attempted here.
+
+**What the outcome does not establish.** That the datum follows from anything, that it is physical, or
+that anyone has it: only that its closure with the stated access is the completion. That the class-level theorem holds
+without the permutation containment: no such theorem was sought, by the scope amendment. Global
+minimality or uniqueness of the datum, of the pair, or of the closure. That a C5 exists or does
+not, or that the datum names a C5. Anything about a manuscript.
+
+## What this note does not claim
+
+That the construction is smallest in any sense, unique, or forced. That the datum is derived from the stated
+access, from the substratum, or from C1–C4, or that it is available to the observer. That any
+condition of this round is C5. That the class-level endpoint holds without the stated-access
+containment. That any manuscript statement changes.
+
+Status: pass complete. Outcome 1, sufficient: the stated access with one sourced real mixing datum
+on a single pair generates the closure and exact finite operational quantum mechanics on the
+two-valued alphabet, by the identity, the composition and the cited closure theorem; the
+countable-angle and the no-datum replacements are not quantum mechanics; twenty-five named
+results; no C5 named or adopted; no manuscript edited.
