@@ -219,13 +219,14 @@ form and rejects the overbroad one in the outcome.
 
 The lift-source audit (`LIFT-SOURCE-AUDIT.md`, `OIBridge/LiftSource.lean`) takes X7 on its own
 terms: whether the observer-level lift can be formulated so that it supplies an admissible
-intervention rather than a representation. Every formulation the corpus states that lands in the
-operational interface delivers configuration-level operations: the coherent completion of a
+intervention rather than a representation. No formulation the corpus states that lands in the
+operational interface derives either a non-monomial admissible operator or the gate flow of a layer;
+where the kernel proves more, it is recorded: the coherent completion of a
 permutation is a monomial conjugation when reversible and a diagonal-preserving channel in every
 case, the class of the substratum's operators with every reversible coherent lift being the
 substratum class itself (`coherentLiftClass_eq_substratumClass`,
 `coherentLiftClass_not_layerFlowExecutable`); the projected observer operator is a classical
-stochastic map with monomial Kraus operators (`stochasticChannel_kraus_monomial`); a generator with
+stochastic map with an explicit monomial Kraus realization (`stochasticChannel_kraus_monomial`); a generator with
 its time-one exponential available does not make the exponential available at any other time
 (`avail_one_not_layerFlowExecutable`). Neither the necessary condition of T1 nor the sufficient
 access is reached by any of them, so the verdict above stands unchanged. The wave-operator lift on

@@ -4713,7 +4713,8 @@ check('R7-EXEC', ok_exec,
       'README carries the paragraph and the counts.')
 
 # ---- the lift-source audit: the observer-level lift, in every formulation the corpus states that lands in the
-# operational interface, delivers configuration-level operations; the wave-operator lift underdetermined ----
+# operational interface, derives either target; the wave-operator lift underdetermined; the stronger statements
+# attached only where the kernel proves them (the scope amendment) ----
 ok_lsrc = True
 _ls = open(os.path.join(BRIDGE, 'OIBridge', 'LiftSource.lean'), encoding='utf-8').read()
 _lsflat = ' '.join(_ls.split())
@@ -4768,7 +4769,8 @@ for _t in ('reversibleExtension_iff_rankOne', 'rankOne_extension_monomial', 'cor
 _kl = [_lsn.find(h) for h in ('## The question', '## Five distinctions, frozen at the outset',
        '## The census of formulations, taken before the pass', '## The criteria, fixed in advance',
        '## The tests, each with its admissible outcomes', '## What the outcomes mean, fixed in advance',
-       '## What the round does not do', '## The outcome', '## What this note does not claim')]
+       '## What the round does not do', '## Scope amendment, recorded after the preregistration', '## The outcome',
+       '## What this note does not claim')]
 ok_lsrc &= all(x > 0 for x in _kl) and _kl == sorted(_kl)
 ok_lsrc &= _lsn.lstrip().startswith('# The lift-source audit')
 for _t in ('Preregistration commit `5e20f45`', '`main` at `04b7acf`', 'Status: pass complete',
@@ -4779,12 +4781,16 @@ for _t in ('Preregistration commit `5e20f45`', '`main` at `04b7acf`', 'Status: p
            '**(D4) A map on a different space has not landed.**', '**(D5) Diagonal preservation is the invariant.**',
            '| L1, ', '| L2, ', '| L3, ', '| L4, ', '| L5, ', '**T1. The diagonal criterion.**', '**T8. The surfaces and the checks.**',
            '| T1 | ', '| T8 | ', 'The verdicts, per formulation', 'What the wave-operator lift would have to supply',
-           'Neither target is reached', 'stands unchanged', 'eighteen named results',
+           'Neither target is derived', 'stands unchanged', 'eighteen named results',
            'Target A is necessary for Target B and not sufficient for it'):
     ok_lsrc &= _t in _lsn1
 _lsn_out = re.sub(r'\s+', ' ', _lsn[_lsn.find('## The outcome'):])
-for _t in ('representational for every formulation the corpus states that lands', 'underdetermined for the one that does not',
-           '| L1, the coherent completion on the configuration carrier | representational; Target A and Target B negative |',
+for _t in ('read under the scope amendment above', 'no formulation the corpus states that lands in the operational interface derives either target',
+           'the one that does not land is underdetermined', 'The stronger statements hold where the kernel proves them, and there only',
+           'is not the exclusion of every other realization', 'the implementation classes of the nonreversible members are not classified here',
+           'other realizations of the same channel are not classified here',
+           '| L1, the coherent completion on the configuration carrier | representational; derives neither target |',
+           '| L2, the projected observer operator on visible distributions | representational; derives neither target |',
            '| L3, the harmonic wave-operator lift on the amplitude space | **underdetermined** |',
            '| L5, the executable reading | not a source |', 'X7 is decided for the formulations that land'):
     ok_lsrc &= _t in _lsn_out
@@ -4795,8 +4801,17 @@ for _bad in ('the lift is derived', 'the lift is not derivable', 'executability 
              'no such map exists', 'the map does not exist', 'reads availability off'):
     ok_lsrc &= not _asserted(_lsn, _bad)
 _lsn_out_body = _lsn_out[:_lsn_out.find('## What this note does not claim')]
-for _bad in ('the lift is derivable', 'the lift sources executability', 'the lift supplies a non-monomial'):
+for _bad in ('the lift is derivable', 'the lift sources executability', 'the lift supplies a non-monomial',
+             'both targets negative for every formulation that lands', 'delivers configuration-level operations',
+             'lands only as configuration-level', 'Target A and Target B negative', 'adding nothing to the stated access',
+             'Neither target is reached'):
     ok_lsrc &= _bad not in _lsn_out_body
+# the amendment: the stronger statements only where the kernel proves them; the broader form rejected on every
+# publication-facing surface
+_lsn_am = _lsn1[_lsn1.find('## Scope amendment, recorded after the preregistration'):_lsn1.find('## The outcome')]
+for _t in ('the reversible coherent members', 'every Kraus realization', 'is not read as the exclusion of every non-monomial realization',
+           'no formulation that lands derives either target', 'read as "derives neither target"', 'no theorem changes'):
+    ok_lsrc &= _t in _lsn_am
 # the executability-source note and the axiom audit record the decision after their frozen text
 _exn_ls = open(os.path.join(os.path.dirname(BRIDGE), 'EXEC-SOURCE-AUDIT.md'), encoding='utf-8').read()
 ok_lsrc &= '## The lift, decided for the formulations that land, recorded after the round' in _exn_ls
@@ -4814,16 +4829,32 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Su
     ok_lsrc &= 'stochasticChannel' not in _t and 'coherentLift_isMonomial' not in _t
 _ls_fam = [f for f in _ptr_reg['families'] if f['name'] == 'lift source: the observer-level lift in the operational interface']
 ok_lsrc &= len(_ls_fam) == 1 and _ls_fam[0]['status'] == 'kernel-only' and _ls_fam[0]['modules'] == ['LiftSource']
-ok_lsrc &= _ls_fam[0]['manuscript'] == [] and 'Representational for every formulation' in _ls_fam[0]['note']
+ok_lsrc &= _ls_fam[0]['manuscript'] == [] and 'No formulation the corpus states that lands in the operational interface derives either target' in _ls_fam[0]['note']
+ok_lsrc &= 'not read as the exclusion of every other realization' in _ls_fam[0]['note']
 ok_lsrc &= 'Underdetermined for the wave-operator lift' in _ls_fam[0]['note'] and 'owner decision' in _ls_fam[0]['note']
 ok_lsrc &= '| lift source: the observer-level lift in the operational interface | 1 | kernel-only |' in _cen_ps
 for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_preservesDiag', 'coherentLiftClass_eq_substratumClass',
            'waveSubstratum_coherentLift_not_layerFlowExecutable_swap', 'stochastic_not_layerFlowExecutable',
            'avail_one_not_layerFlowExecutable', 'coherentLiftClass_contains_lift', 'Eighteen named results',
-           'representational for the coherent completion', 'both targets negative for every formulation that lands',
+           'no formulation that lands in the operational interface derives either target',
+           'the stronger\nstatements attached only where the kernel proves them'.replace('\n', ' '),
+           'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
 ok_lsrc &= '126 modules' in _rd1 and '2,770 named results' in _rd1
+_ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
+_ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
+_ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
+_ls_cenrow = _ls_cenrow[:_ls_cenrow.find(' |\n') + 1] if ' |\n' in _ls_cenrow else _ls_cenrow[:3000]
+for _bad in ('delivers configuration-level operations', 'deliver configuration-level operations',
+             'both targets negative for every formulation that lands', 'lands only as configuration-level',
+             'adding nothing to the stated access', 'adds nothing to the stated access',
+             'Both targets negative', 'both targets, a non-monomial admissible operator and one executable layer flow, negative'):
+    ok_lsrc &= _bad not in _rd1 and _bad not in _ls_fam[0]['note'] and _bad not in _ls_cenrow
+    ok_lsrc &= _bad not in re.sub(r'\s+', ' ', _ls_exsec) and _bad not in re.sub(r'\s+', ' ', _ls_maasec)
+ok_lsrc &= 'derives either a non-monomial admissible operator or the gate flow of a layer' in re.sub(r'\s+', ' ', _ls_exsec)
+ok_lsrc &= 'derive neither a non-monomial admissible operator nor an executable layer flow' in re.sub(r'\s+', ' ', _ls_maasec)
+ok_lsrc &= 'every implementation of a nonreversible coherent completion' in _lsflat
 check('R7-LSRC', ok_lsrc,
       'Lift-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'eighteen results, defines exactly the lift-extended class, its theory and the Kraus form of a stochastic '
@@ -4834,10 +4865,13 @@ check('R7-LSRC', ok_lsrc,
       'substratum instance, the monomial scaled matrix units and Kraus operators of the stochastic channel, and '
       'the two generator countermodels are stated as pinned; the note keeps the question with its two targets and '
       'the discipline, the five distinctions, the five-formulation census, the criteria, the tests, the meanings '
-      'and the non-doings before the outcome, names both commits, records the verdict representational for every '
-      'formulation that lands with both targets negative and underdetermined for the wave-operator lift with what '
-      'it would have to supply, and asserts nothing about the lift being derived or not derivable, a map from the '
-      'wave operator existing or not, a non-monomial operator sufficing, the phase, Route A or the manuscripts; '
+      'and the non-doings before the scope amendment and the outcome, names both commits, records the verdict as no '
+      'formulation that lands deriving either target with the stronger statements attached only where the kernel '
+      'proves them, the reversible coherent members monomial, every coherent completion diagonal-preserving and the '
+      'explicit realization of the stochastic channel configuration-level, no exclusion of other realizations '
+      'claimed on any surface, and underdetermined for the wave-operator lift with what it would have to supply, '
+      'and asserts nothing about the lift being derived or not derivable, a map from the wave operator existing '
+      'or not, a non-monomial operator sufficing, the phase, Route A or the manuscripts; '
       'the executability-source note and the axiom audit carry the decision after their frozen text; no '
       'manuscript is edited; the registry and the census carry the family as kernel-only and the README carries '
       'the paragraph and the counts.')

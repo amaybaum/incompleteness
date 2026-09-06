@@ -283,8 +283,9 @@ The lift-source audit (`LIFT-SOURCE-AUDIT.md`, `OIBridge/LiftSource.lean`) tests
 lift `φ → L_obs`, the third item above, in every formulation the corpus states, on whether it
 supplies an admissible intervention. The formulations that land in the operational interface, the
 coherent completion on the configuration carrier, the projected observer operator on visible
-distributions and the generator reading, deliver configuration-level operations and no executable
-layer flow: adjoining every reversible coherent lift of every permutation to the substratum's
+distributions and the generator reading, derive neither a non-monomial admissible operator nor an
+executable layer flow, the reversible coherent lifts being monomial, every coherent completion
+diagonal-preserving and the explicit realization of the projected operator configuration-level: adjoining every reversible coherent lift of every permutation to the substratum's
 operators gives the substratum class back (`coherentLiftClass_eq_substratumClass`), the sourcing
 bound above then applying to the lift-extended theory as to the substratum theory. The wave-operator
 lift on the amplitude space names no operation on the carrier and stays underdetermined, with what
