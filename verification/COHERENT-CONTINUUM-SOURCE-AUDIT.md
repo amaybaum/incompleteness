@@ -216,3 +216,92 @@ census, and voice check all green.
   manuscript.
 
 Status: preregistered; no proof attempted.
+
+## The outcome
+
+Preregistration commit `24dd290`, executed from `main` at `fa0938b`. The kernel module is
+`OIBridge/CoherentContinuumSource.lean`, seventeen named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`; the kernel is at 129 modules and 2,830 named results. Nothing is
+named "C5" in the module or adopted in this note; no coupling is defined; `gateFlow` is placed in
+no implementation class; no existing definition changes. The verdict is **outcome 2, no current
+source; the empirical extension remains**, the expected outcome. Every route that lands in the
+operational interface fails the strengthened necessary condition or is already proved not to
+execute the flow; the canonical path has the algebraic continuum and is not an available family;
+S7 still lacks a carrier map; S8 remains explicitly outside the current axioms.
+
+**The strengthened necessary condition, proved.** `NonMonomialCountablyCovered 𝓘 T` says one
+countable set of representatives covers, up to scalar, every non-monomial operator of `𝓘` at `T`;
+`UncountableNonMonomialRays 𝓘 T` is its negation. For a moved involution, every intermediate-time
+point of the layer flow at `0 < t < 1` is non-monomial, its diagonal and moved off-diagonal entries
+at the moved configuration having imaginary part `± sin(π t)/2` (`gateFlow_entries_im`,
+`gateFlow_not_monomial`); distinct times in `[0, 2)` are non-proportional
+(`gateFlow_not_proportional`, cited); and the one-way bridge places each point in the class up to a
+nonzero scalar, non-monomiality surviving the scalar (`isMonomial_of_smul`). So a class whose
+generated theory executes the flow has uncountably many pairwise non-proportional non-monomial
+rays at level one (`uncountableNonMonomialRays_of_layerFlowExecutable`), and a class whose
+non-monomial sector at level one is countably covered generates no theory executing a flow
+(`not_layerFlowExecutable_of_nonMonomialCountablyCovered`). The condition of the closure audit is
+a consequence (`nonMonomialCountablyCovered_of_countable`) and is not superseded. The condition is
+necessary only: nothing here infers executability, phase-free richness or quantum mechanics from
+it, and the reading as a continuous coherent control parameter is interpretation, continuity and a
+sourcing map being unformalized.
+
+| route | outcome | kernel |
+|---|---|---|
+| S1 | stated observer access: finite permutations of the carrier, monomial, finite up to scalar; the observer theory executes no layer flow of a moved involution | `obs_not_layerFlowExecutable`, `permTheory_not_qm` (cited) |
+| S2 | substratum class and phase intervention: every operator monomial, the coherent part failing maximally, while the class is not countably covered up to scalar, the real diagonal weights on one configuration already forming a continuum of non-proportional operators; the substratum theory executes no layer flow; continuum without coherent mixing | `substratumClass_monomial`, `weightGate`, `weightGate_not_proportional`, `substratumClass_not_countablyCovered`, `substratumTheory_not_layerFlowExecutable` (cited) |
+| S3 | the read-write family with real parameter: the operator range is finite, contained in the permutation matrices of the carrier, with no continuity of the family assumed; the parameter domain is uncountable; every value monomial; uncountable parameter domain does not give uncountable operational image | `readWriteOperator_range_finite`, `readWrite_parameter_uncountable_image_finite`, `readWriteOperator_monomial` (cited) |
+| S4 | the polarization closure: non-monomial operators present, the non-monomial sector countably covered, no layer flow executed; coherent mixing without a continuum | `polC_nonMonomialCountablyCovered`, `siteSwapImage_not_monomial`, `polarizedTheoryC_not_layerFlowExecutable` (cited) |
+| S5 | the canonical gate interpolation: every intermediate-time point non-monomial and the path not countably covered up to scalar, a statement about `gateFlow` and nothing about availability; the substratum theory executes no layer flow of it and no configuration-level class makes its half-time point available; the two statements coexist, and the inference from the mathematical continuum to executability is rejected | `gateFlow_path_coherent_continuum`, `coherent_continuum_not_sourced`, `configurationLevel_not_avail_gateFlow_half` (cited) |
+| S6 | emergent continuous time and effective Hamiltonian: representational; the corpus states no implementation-class image and no availability for the Hamiltonian flow or `Ĥ_eff` on the finite operational carrier, as the executability-source and lift-source audits record; no kernel object of the round, since nothing lands in a class to be tested | none; `EXEC-SOURCE-AUDIT.md`, `LIFT-SOURCE-AUDIT.md` (cited) |
+| S7 | the observer-level wave lift: the map from site or amplitude space to the operational carrier and the admissibility of its image are stated nowhere in the corpus, as the lift-source audit records (unresolved rather than excluded); no map is invented; the route does not land in the operational interface and is not an underdetermined operational route in the sense of outcome 3 | none; `LIFT-SOURCE-AUDIT.md` (cited) |
+| S8 | the named coupling, traced: the manuscripts name it, at Main §3.4 and its five mirrors (the Explainer, book chapters one and nineteen, the full book twice) and at GR §3.3, as "the continuously tunable state-mixing operation", supplied by no finite bijective read-write dynamics and "added as an empirical controllability resource"; the verification notes and the kernel docstrings name it "an irreducible empirical addition" (`SUBSTRATUM-SOURCE-AUDIT.md`, `README.md`, `ReadWriteControl.lean`, `EXEC-SOURCE-AUDIT.md`); nowhere is it defined as an operation of the current theory or given an implementation family; outside the current axioms, a future physical extension | none |
+| S9 | the consistency control: a class whose generated theory on two configurations is exact finite operational quantum mechanics has uncountably many non-monomial rays at level one; a stipulated theory, not a source derivation | `uncountableNonMonomialRays_of_qm` |
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | every intermediate-time point of the layer flow of a moved involution, on the open interval `(0, 1)`, is non-monomial, both endpoint exclusions explicit | `exp_im_pos_of_Ioo`, `gateFlow_entries_im`, `gateFlow_not_monomial` |
+| T2 | layer-flow executability forces uncountably many pairwise non-proportional non-monomial rays at level one; the contrapositive; the older condition a consequence, not superseded | `NonMonomialCountablyCovered`, `UncountableNonMonomialRays`, `isMonomial_of_smul`, `gateFlow_not_countablyCovered`, `uncountableNonMonomialRays_of_layerFlowExecutable`, `not_layerFlowExecutable_of_nonMonomialCountablyCovered`, `nonMonomialCountablyCovered_of_countable` |
+| T3 | the two known failures are orthogonal, on the level-one carrier of two configurations: the substratum class all monomial and not countably covered; the polarized class with a non-monomial operator and countably covered; neither class changed | `substratumClass_monomial`, `weightGate_mem`, `weightGate_not_proportional`, `substratumClass_not_countablyCovered`, `polC_nonMonomialCountablyCovered`, `known_failures_orthogonal` |
+| T4 | the real-valued read-write knob has finite operational image, no continuity assumed; the monomial obstruction kept independently | `readWriteOperator_range_finite`, `readWrite_parameter_uncountable_image_finite` |
+| T5 | the canonical path has the algebraic continuum and is not sourced; the inference from existence to executability rejected | `gateFlow_path_coherent_continuum`, `coherent_continuum_not_sourced` |
+| T6 | S6 representational, S7 underdetermined for want of a carrier map; nothing invented; no kernel object | the S6 and S7 rows |
+| T7 | the coupling traced to its sites and recorded as an empirical addition outside the current axioms; the three obligations of any later extension recorded below | the S8 row |
+| T8 | outcome 2; `R7-CCS`; README and census, the family kernel-only; the closure note's cross-reference section after its frozen text; full build, axiom check, release gate, probe, Bohr probe, census, voice check, all green; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+
+**The verdict, with its reason.** The current OI corpus contains both kinds of partial resource
+separately — continuous/projective variation inside the monomial sector, and coherent non-monomial
+operations inside a countably generated polarized sector — but no stated operational source of an
+uncountable coherent projective family. The canonical gate path has that family mathematically and
+is not available. A continuously tunable non-bijection-valued coupling remains an explicitly extra
+physical extension, not a consequence of C1–C4 or of the stated access. Outcome 1 is not reached:
+no route of S1–S7 states an operational map whose image supplies the family. Outcome 3 is not
+reached: every route that lands in the operational interface is decided, S1–S4 failing the
+strengthened condition or failing executability outright, and S7 does not land.
+
+**What any later realization-level extension would have to supply.** Recorded, not adopted:
+first, a realization-to-implementation sourcing map on the finite operational carrier; second, an
+uncountable family of pairwise non-proportional non-monomial admissible rays at level one; third,
+enough sourced structure to derive `LayerFlowExecutable`, or, by an independently proved route, the
+exact finite-QM completion. The second item alone is necessary and not sufficient, and is not C5.
+
+**What the outcome does not establish.** That a C5 exists or does not. That the coupling the
+manuscripts name is impossible, unphysical, or derivable: only that it is an addition to the
+current axioms and that no stated structure supplies its operational content. That
+uncountability of the non-monomial sector, even with the phases, is sufficient for a layer flow.
+That continuity is necessary: the kernel states the cardinality and coherence of the sector, and
+continuity is not formalized. Anything about the wave lift beyond the absence of a stated carrier
+map. Minimality or uniqueness of anything. Anything about a manuscript.
+
+## What this note does not claim
+
+That any condition of this round is C5, or that "C5" names a condition of the framework. That the
+observer can execute the canonical path because it exists, or that an effective Hamiltonian, a
+continuous representation or a generator is an available intervention. That an uncountable
+non-monomial sector is sufficient for a layer flow. That the continuously tunable coupling is
+defined, sourced, or excluded. That any manuscript statement changes.
+
+Status: pass complete. Outcome 2, no current source, the empirical extension remaining: the
+strengthened necessary condition proved, the two known failures proved orthogonal, the read-write
+image proved finite, the canonical path proved to have the continuum and proved unsourced, the
+coupling traced; seventeen named results; no C5 named or adopted; no manuscript edited.

@@ -309,3 +309,18 @@ Status: pass complete. Verdict split: O1 positive for `PolC` at every level by r
 phase and ancilla block; O2 negative for `PolC` and `PolGen` by countability of the class up to
 scalar and the bridge; the label-invariant polarized theory satisfies the whole closure and is not
 quantum mechanics; twenty-six named results; no C5 named or adopted; no manuscript edited.
+
+## Recorded after the round: the coherent-continuum source audit
+
+`COHERENT-CONTINUUM-SOURCE-AUDIT.md`, preregistered at `24dd290` and executed from `main` at
+`fa0938b`, strengthens the necessary condition above. The uncountable projective image that
+`uncountable_of_layerFlowExecutable` states is not by itself diagnostic, the monomial substratum
+class having uncountable projective content through its diagonal weights alone
+(`substratumClass_not_countablyCovered`); the later round proves that every intermediate-time point
+of the flow is non-monomial (`gateFlow_not_monomial`) and that executability forces uncountably
+many pairwise non-proportional non-monomial rays at level one
+(`uncountableNonMonomialRays_of_layerFlowExecutable`), of which the condition above is a consequence
+(`nonMonomialCountablyCovered_of_countable`). The two failures are orthogonal: `PolC` has the
+coherent operators and no continuum, the substratum class the continuum and no coherent operator
+(`known_failures_orthogonal`). The verdict of this note is unchanged, and the later round records
+no stated source of the coherent continuum in the corpus. Nothing is named C5 or adopted.
