@@ -297,13 +297,17 @@ either; `nonnegBounded_verdict` states the same of every theory inside the class
 how many independent additions an extension would need, and the possibility that a single resource
 supplies both is left open exactly as preregistered.
 
-**The rule does not enter.** `sourcing_rule_independent` records that every property of the observer
-theory — the two obligations among them — takes the same value whatever the rule, since two
-substrata on the same sites and alphabet have the same observer theory
-(`obsTheory_rule_independent`); `phase_ceiling_rule_independent` is the instance. Changing the
-microscopic dynamics while holding the configuration space fixed cannot move either ceiling under
-the present interface. A3 through A5 and the manuscripts' wave rule contribute nothing to
-availability here, and A6 stays the gap it was.
+**The rule adds no availability.** The substrate's own update is sourced, and it is rule-dependent:
+`obs_dynamics_avail` places `permMatrix (levelPerm 𝒮.φ n)` into availability, and `𝒮.φ` is built
+from the rule. What the round establishes is narrower than the update being absent. Every operation
+the rule sources is a configuration bijection, so it is already available from the bijections
+themselves and lands inside the class (`obs_dynamics_preservesNonneg`); and the resulting theory is
+the same whatever the rule, since two substrata on the same sites and alphabet have the same
+observer theory (`obsTheory_rule_independent`, `sourcing_rule_independent`, with
+`phase_ceiling_rule_independent` the instance). So the rule's dynamical structure contributes no
+availability beyond the configuration-level observer theory, and changing the microscopic rule while
+holding the sites and alphabet fixed does not move either ceiling. A3 through A5 and the
+manuscripts' wave rule add no availability beyond that level here, and A6 stays the gap it was.
 
 **The two sides fit.** The canonical fixed-gate theory of the discrete completion audit does have
 dense unitary control, so it is not inside the class (`fixedGateTheory_outside_ceiling`). The
@@ -316,7 +320,7 @@ theory fails to exist, and it takes nothing back from the density side.
 | T2 | the scope: the sourced theory and every observer theory carry the invariant, through the class and the realization theorem | `NonnegBounded`, `nonnegBounded_of_bijectionLevel`, `permTheory_nonnegBounded`, `obsTheory_nonnegBounded` |
 | T3 | the phase ceiling at class level, and the closure with it | `nonnegBounded_not_phasesAvailable`, `permTheory_phase_ceiling`, `nonnegBounded_not_derivedOI` |
 | T4 | the dense-control ceiling by the invariant, proved twice from two witnesses, the second carrying no phase | `norm_entry_le_l2_opNorm`, `preservesNonneg_of_approx`, `nonnegBounded_not_denseUnitaryControl`, `permTheory_dense_ceiling`, `mixImage_not_preservesNonneg`, `nonnegBounded_not_denseUnitaryControl_rot` |
-| T5 | the rule contributes nothing to availability under the present interface | `sourcing_rule_independent`, `phase_ceiling_rule_independent` |
+| T5 | the rule's own update sourced and inside the class, contributing no availability beyond the configuration-level observer theory, so neither ceiling moves with the rule | `obs_dynamics_preservesNonneg`, `sourcing_rule_independent`, `phase_ceiling_rule_independent` |
 | T6 | the combined verdict, after the separate audits, with one resource for both left open | `frozen_sourcing_verdict`, `nonnegBounded_verdict` |
 | T7 | the surfaces and the checks: `R7-FSS`; README and census, the family kernel-only; the two cross-reference sections; full build, axiom check, gate, probe, Bohr probe, census, voice check; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
 | T8 | the verdict: outcome 3, with the census, the two ceilings and the combined verdict stated separately | this section |
@@ -326,8 +330,8 @@ reached. The scientific content is that the quantum-enabling nonclassical resour
 empirical datum relative to the presently stated OI architecture, for both obligations at once. The
 architecture's operational interface carries the configuration bijections and what they generate,
 and that is a class with an invariant which the phases and dense control both violate. The
-substratum's dynamical content does not reach the interface at all, so the shortfall is not repaired
-by choosing a different microscopic rule.
+rule's dynamical structure contributes no availability beyond that configuration level, so the
+shortfall is not repaired by choosing a different microscopic rule.
 
 **What the outcome does not establish.** The round does not claim any of the following. That the
 architecture is refuted; the result is about what
