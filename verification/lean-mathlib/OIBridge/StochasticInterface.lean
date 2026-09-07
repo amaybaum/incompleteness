@@ -5,7 +5,14 @@ import OIBridge.CanonicalMeasure
 # The stochastic observer-interface determination audit — does the architecture fix a map and an ensemble?
 
 The preregistered pass of `STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md`, read under its scope amendment.
-Stage 1 asks whether the stated architecture determines the observation map and the initial
+This module formalizes the **reduced substratum layer frozen by that audit**: `Substratum`, A1–A5,
+its dynamics, and the candidate kernel structures enumerated there. A post-#538 reconciliation
+records that the maintained manuscript observation model states additional inputs — the `(S, φ, V)`
+observer cut/projection and a maximal-entropy counting selection principle — which this reduced
+record does not represent. The theorems below are unchanged and are claims about the reduced layer
+and invariance alone, not a corpus-wide absence claim.
+
+Stage 1 asks whether that frozen reduced layer determines the observation map and the initial
 ensemble; the induced process and the divisibility predicates of stage 2 are defined only if it
 does. No correspondence theorem is stated, cited as a premise, or used, and no predicate for one is
 defined here. Nothing is named "C5"; nothing is added to the substratum and nothing added anywhere
@@ -27,8 +34,10 @@ section Determination
 variable {S : Type*} [Fintype S] [DecidableEq S]
 
 /-- **THE ENSEMBLE IS DETERMINED BY INVARIANCE**: exactly one probability law on the state space is
-invariant under the dynamics. This is the only ensemble constraint the architecture states, so it
-is the predicate the census must test; it is not a new principle and nothing here selects a law. -/
+invariant under the dynamics. In the reduced substratum layer frozen for this audit, no
+measure-selection field is represented, so invariance is the constraint tested here. The maintained
+manuscript separately adopts a maximal-entropy counting law as a baseline selection principle; this
+predicate does not deny or encode that additional manuscript-level input. -/
 def EnsembleDetermined (φ : Equiv.Perm S) : Prop :=
   ∃! p : S → ℝ, IsProb p ∧ Invariant φ p
 
@@ -112,9 +121,10 @@ variable (𝒮 : Substratum) [Fintype 𝒮.ι] [Fintype 𝒮.V] [DecidableEq �
 
 /-- **THE ENSEMBLE LEG FAILS FOR EVERY SUBSTRATUM WITH A LINEAR RULE AND MORE THAN ONE
 CONFIGURATION.** The zero configuration is fixed, so it and the orbit of any other configuration
-are disjoint nonempty invariant sets, and invariance leaves the law undetermined. The architecture
-states A5 and states no ensemble beyond invariance, so nothing here selects a law and nothing is
-added. -/
+are disjoint nonempty invariant sets, and invariance leaves the law undetermined. The reduced `Substratum` record
+states A5 and carries no measure-selection field, so this theorem tests invariance alone and selects
+no law. It does not say that the maintained manuscript lacks its separately stated maximal-entropy
+baseline selection principle. -/
 theorem ensemble_underdetermined (h5 : 𝒮.A5) {y : 𝒮.Conf} (hy : y ≠ 0) :
     ¬ EnsembleDetermined 𝒮.φ :=
   not_ensembleDetermined_of_fixedPoint 𝒮.φ (phi_fixes_zero 𝒮 h5) hy
@@ -171,14 +181,16 @@ end ObservationLeg
 section Verdict
 
 /-- **OUTCOME A, THE INTERFACE GAP, ON THE ENSEMBLE LEG.** For every substratum whose rule is
-linear and whose configuration space carries more than the zero configuration, the only ensemble
-constraint the architecture states — invariance — leaves the law undetermined, and the single-orbit
-route that would have derived one is closed by the same fixed point. Stage 1 therefore does not
+linear and whose configuration space carries more than the zero configuration, invariance alone
+leaves the law undetermined, and the single-orbit route that would have derived uniqueness from the
+reduced layer is closed by the same fixed point. Stage 1 therefore does not
 deliver a sourced pair, and the round stops: the induced process of stage 2 is not defined and the
 divisibility predicates are not introduced.
 
-Nothing here says the architecture is refuted, that no extension could supply an ensemble, or that
-the observation-map leg fares better or worse; the observation-map leg is recorded separately. -/
+Nothing here says the reduced substratum is refuted, that no richer observation layer could supply
+an ensemble, or that the observation-map leg fares better or worse; the observation-map leg is
+recorded separately. The maintained manuscript's richer observer primitive is outside this theorem's
+hypotheses and is reconciled in `OBSERVER-PRIMITIVE-RECONCILIATION-RESULT.md`. -/
 theorem stochastic_interface_gap (𝒮 : Substratum) [Fintype 𝒮.ι] [Fintype 𝒮.V] [DecidableEq 𝒮.V]
     (h5 : 𝒮.A5) {y : 𝒮.Conf} (hy : y ≠ 0) :
     ¬ EnsembleDetermined 𝒮.φ ∧ ¬ ∃ s : 𝒮.Conf, ∀ t : 𝒮.Conf, t ∈ orbit 𝒮.φ s :=
