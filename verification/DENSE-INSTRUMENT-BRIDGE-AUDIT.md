@@ -259,3 +259,75 @@ instrument step was a quantitative gap that closes, or an exact operational cond
 does not supply.
 
 Status: preregistered; no proof attempted.
+
+## Scope amendment, recorded after the preregistration
+
+Recorded at review of the preregistration, before any proof; the preregistration above is
+untouched, and the question, the frozen endpoint, the steps, the admissible outcomes and the tests
+are unchanged. The amendment corrects the framing of the round, the expected route of step 3, the
+hypothesis list of the general assembly theorem, and one sentence of the discrete completion
+audit's outcome.
+
+**(1) The round is a Barandes and Stinespring closure audit.** The stochastic-quantum
+correspondence supplies, conceptually, the first and third arrows of the chain this round proves:
+a finite instrument has a Kraus representation, and by Stinespring dilation a unitary
+representation on a larger system from which the branches are recovered by a fixed preparation,
+readout and discard. The discrete completion audit supplied the middle arrow, an available
+approximant of every such unitary. The question of this round is therefore read as: is outcome 2
+of the discrete completion audit a formal continuity gap, closed by the branch bound of step 1, or
+a new physical condition that the closure does not supply? The correspondence is cited as
+motivation only. It is an existence statement about a representation; this round proves
+availability inside a specific generated theory under exact compositional rules, a different
+quantifier, and the kernel proof is self-contained and cites nothing external.
+
+**(2) Step 3 is a citation for every theory satisfying the closure.** Inert-spectator
+compositionality is a consequence of `DerivedOI` on every nonempty carrier, through three existing
+theorems: `DerivedOI.implementationLocality` gives implementation locality from the reversible
+conjunct; `observationalIndependence_of_implementationLocality` gives parallel reference extension
+from implementation locality on a nonempty carrier; `observationalIndependence_iff_inert`
+identifies parallel reference extension with `InertSpectatorCompositionality`. The route
+preregistered for the canonical theory in step 3, through the fixed-angle class's context stability
+and label invariance, is the same chain specialized, and either form is admissible. The fallback of
+step 3, a named additional condition, is retained only for the case that this chain fails to
+typecheck against the shifted theory as refactored; it is not expected to be needed, and no
+condition on an arbitrary theory is anticipated.
+
+**(3) The general assembly theorem carries no spectator hypothesis.** Test T6 is read as:
+
+> `DerivedOI T ∧ DenseUnitaryControl T → KrausDense T`,
+
+on the two-valued carrier, with identity availability, ancilla-swap availability, inert-spectator
+compositionality and iterated ancilla closure all derived from `DerivedOI` inside the proof and none
+of them a hypothesis. Soundness stays separate, exactly as the discrete completion audit's scope
+amendment separated it:
+
+> `DerivedOI T ∧ DenseUnitaryControl T ∧ KrausSoundExt T → DenseFiniteQM T`.
+
+A theory satisfying the closure with dense unitary control may carry a surplus operation that is
+not Kraus, so the second statement is not a consequence of the first, and the slogan "the closure
+with one fixed gate gives dense finite quantum mechanics" is read with the soundness conjunct for
+an arbitrary theory. For the canonical theory the soundness is already proved
+(`fixedGateTheory_krausSoundExt`), so the canonical endpoint is `DenseFiniteQM (fixedGateTheory α)`
+for every `α` with `α/π` irrational, as frozen.
+
+**(4) A correction to the discrete completion audit's outcome.** Its T7 paragraph says that the
+shifted theory "also takes inert-spectator compositionality, which is not among the conjuncts of
+`DerivedOI`", and that it "would need proving for the theory". The first clause is literally true
+and materially misleading, and the second is wrong as a statement of what the kernel had at that
+commit: the property is derived from `DerivedOI` by the chain of (2), which was in the kernel when
+the outcome was written, and nothing needed proving beyond citing it. The discrete completion note
+receives that correction in its append-only section when this round is packaged; its frozen text
+and its outcome section are not edited.
+
+**(5) The frontier hierarchy, recorded correctly.** Of the three items that the outcome of the
+discrete completion audit left open on the instrument side, the passage from dense unitary control
+to dense instruments is a formal continuity question, this round's step 1 and step 4; the
+spectator and ancilla compositionality of the fixed-gate theory is already discharged in the
+kernel, by (2) and by `DerivedOI.closure`; and the sole remaining physical sourcing question in
+this thread is the fixed nonclassical gate itself. Nothing in this round or in any preceding round
+claims that OI supplies that gate; it is a stated datum, and this amendment does not change that.
+
+The frozen endpoint, the branch-map bound with its carrier-only constant, the refactored shifted
+theory beside the untouched `shift`, the census of exact consumptions, the explicit `δ`, the three
+admissible outcomes, the prediction of outcome 1 with the partial-trace bound as the named place
+of a possible obstruction, and every item under what this round does not do are unchanged.
