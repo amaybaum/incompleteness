@@ -185,6 +185,7 @@ import OIBridge.PairFlowEquivalence
 import OIBridge.DiscreteCompletion
 import OIBridge.DenseInstrumentBridge
 import OIBridge.FrozenSourcing
+import OIBridge.StochasticInterface
 
 namespace OIBridge
 

@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_sub &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_flow &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_q3 &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_exec &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_lsrc &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_srcp &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_c5d &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_pcl &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5413,7 +5413,7 @@ for _t in ('strengthens the necessary condition above', 'is not by itself diagno
 ok_ccs &= _pcn_rec1.count('## ') == 1
 # the discovery note is untouched by this round: still exactly one recorded section
 ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
-ok_ccs &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_ccs &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-CCS', ok_ccs,
       'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
@@ -5569,7 +5569,7 @@ for _t in ('stated as a postulate', 'meets the three obligations recorded above'
     ok_smc &= _t in _ccn_rec1
 ok_smc &= _ccn_rec1.count('## ') == 1
 ok_smc &= 'state-mixing coupling construction audit' not in _c5n and 'state-mixing coupling construction audit' not in _pcn
-ok_smc &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_smc &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-SMC', ok_smc,
       'State-mixing coupling guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-five results, defines exactly the datum, its sourcing map, the class family and its full instance, the two '
@@ -5725,7 +5725,7 @@ for _t in ('reduces the datum of this round to a principle', 'stated without the
     ok_rpf &= _t in _smn_rec1
 ok_rpf &= _smn_rec1.count('## ') == 1
 ok_rpf &= 'real pair-flow reduction audit' not in _c5n and 'real pair-flow reduction audit' not in _pcn and 'real pair-flow reduction audit' not in _ccn
-ok_rpf &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_rpf &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-RPF', ok_rpf,
       'Real pair-flow guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty results, defines exactly the principle, its transport, the rotation as conclusion, the local angle, the '
@@ -5883,7 +5883,7 @@ for _t in ('states the principle of this note as a predicate on a finite operati
 ok_pfe &= _rpn_rec1.count('## ') == 1
 for _n in (_smn, _ccn, _pcn, _c5n):
     ok_pfe &= 'operational pair-flow equivalence audit' not in _n and 'PairFlowSourced' not in _n
-ok_pfe &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_pfe &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-PFE', ok_pfe,
       'Operational pair-flow equivalence guard: the module carries no sorry, axiom or native_decide, prints the axioms of '
       'exactly its fifteen results, defines exactly the theory-level predicate on the two-valued carrier and the canonical '
@@ -6046,7 +6046,7 @@ for _t in ('replaces the sourced pair flow of this note by one fixed discrete ga
 ok_dca &= _pfn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n):
     ok_dca &= 'discrete completion audit' not in _n and 'FixedGateSourced' not in _n
-ok_dca &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_dca &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-DCA', ok_dca,
       'Discrete completion guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its fifty-one results, defines exactly the predicates and the metric, the closure of availability, the block '
@@ -6216,7 +6216,7 @@ for _t in ('The frozen text and the outcome of this note are not edited', 'liter
 ok_dib &= _dcn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn):
     ok_dib &= 'dense-instrument bridge' not in _n and 'DenseInstrumentBridge' not in _n
-ok_dib &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_dib &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-DIB', ok_dib,
       'Dense-instrument bridge guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its thirty-two results, defines exactly the shifted theory from identity availability and the bijection matrix, '
@@ -6386,7 +6386,7 @@ for _t in ('The frozen text and the outcome of this note are not edited', '`fixe
 ok_fss &= _din_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn):
     ok_fss &= 'frozen substratum sourcing' not in _n and 'FrozenSourcing' not in _n
-ok_fss &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+ok_fss &= '136 modules' in _rd1 and '3,008 named results' in _rd1
 check('R7-FSS', ok_fss,
       'Frozen substratum sourcing guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twenty-three results, defines exactly the nonnegativity invariant and nothing else, names nothing C5, mentions '
@@ -6403,6 +6403,174 @@ check('R7-FSS', ok_fss,
       'no-architecture-can-source claim; no manuscript is edited; the registry and the census carry the family as '
       'kernel-only; the substratum interface note and the dense-instrument bridge note each carry one section after their '
       'frozen text and the older notes are untouched; the README carries the paragraph and the counts.')
+
+# ---- R7-SOI: the stochastic observer-interface determination audit -- the determination predicate, the single-orbit
+# positive route stated and then closed by the architecture's own additivity axiom, the ensemble leg proved undetermined
+# for the manuscripts' wave rule, the observation-map leg recorded by census; outcome A, the interface gap; stage 2 not
+# entered, so no induced process, no divisibility predicate, no correspondence; no C5 ----
+ok_soi = True
+_so = open(os.path.join(BRIDGE, 'OIBridge', 'StochasticInterface.lean'), encoding='utf-8').read()
+_soflat = ' '.join(_so.split())
+_socode = re.sub(r'/-.*?-/|--[^\n]*', '', _so, flags=re.S)
+_son = open(os.path.join(os.path.dirname(BRIDGE), 'STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md'), encoding='utf-8').read()
+_son1 = re.sub(r'\s+', ' ', _son)
+ok_soi &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _so) is None and 'native_decide' not in _so
+ok_soi &= 'axiom ' not in _socode
+_so_names = re.findall(r"^theorem ([\w'.]+)", _so, re.M)
+ok_soi &= len(_so_names) == 12 and _so.count('#print axioms') == 12
+for _nm in ('ensembleDetermined_of_transitive', 'not_ensembleDetermined_of_disjoint',
+            'not_ensembleDetermined_of_fixedPoint', 'phi_fixes_zero', 'waveSubstratum_phi_fixes_zero',
+            'ensemble_underdetermined', 'waveSubstratum_ensemble_underdetermined', 'not_transitive_of_fixedPoint',
+            'readWriteFamily_exists', 'readWriteFamily_exists_two', 'stochastic_interface_gap',
+            'waveSubstratum_stochastic_interface_gap'):
+    ok_soi &= ('#print axioms OIBridge.StochasticInterface.' + _nm) in _so and _nm in _so_names
+# THE FREEZE: exactly one definition, the determination predicate; no observation map, no ensemble, no induced process,
+# no divisibility predicate, no correspondence predicate, no A6, nothing named C5, no existing definition restated
+_so_defs = re.findall(r"^(?:noncomputable )?(?:def|abbrev|structure|inductive) ([\w'.]+)", _so, re.M)
+ok_soi &= _so_defs == ['EnsembleDetermined']
+ok_soi &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive|theorem) [Cc]5', _so, re.M) is None
+ok_soi &= 'A6' not in _so and re.search(r'(?m)^axiom ', _so) is None
+ok_soi &= 'Markov' not in _so and 'markov' not in _so
+ok_soi &= re.search(r'(?i)divisib', _socode) is None
+ok_soi &= re.search(r'(?i)barandes', _so) is None
+for _t in ('Substratum', 'permClass', 'permTheory', 'obsTheory', 'Rule', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6',
+           'NonnegBounded', 'PreservesNonneg', 'BijectionLevel', 'DerivedOI', 'SourcedOI', 'PhasesAvailable',
+           'DenseUnitaryControl', 'KrausDense', 'DenseFiniteQM', 'ChanWithin', 'conjChannel', 'ReadWriteFamily',
+           'readWriteOperator', 'IsProb', 'Invariant', 'orbit', 'unif', 'entropy', 'marg', 'Core', 'vis', 'swapFn',
+           'histTriple', 'CoreC1C4', 'genTheory', 'fixedGateTheory', 'Divisible', 'Indivisible', 'PDivisible',
+           'Obs', 'Ensemble', 'InducedProcess', 'Correspondence'):
+    ok_soi &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) ' + _t + r'\b', _so, re.M) is None
+_socode_noopen = re.sub(r'^open .*$', '', _socode, flags=re.M)
+ok_soi &= re.search(r'\bPairFlow\b', _socode_noopen) is None
+ok_soi &= ('import OIBridge.FrozenSourcing' in _so and 'import OIBridge.CanonicalMeasure' in _so
+           and 'import OIBridge.StochasticInterface' in root)
+# the statements, as executed
+for _t in ('def EnsembleDetermined (φ : Equiv.Perm S) : Prop := ∃! p : S → ℝ, IsProb p ∧ Invariant φ p',
+           'theorem ensembleDetermined_of_transitive (φ : Equiv.Perm S) (s : S) (htr : ∀ t : S, t ∈ orbit φ s) : EnsembleDetermined φ',
+           'theorem not_ensembleDetermined_of_disjoint (φ : Equiv.Perm S) {A B : Finset S} (hA : A.Nonempty) (hB : B.Nonempty) (hAm : ∀ x ∈ A, φ x ∈ A) (hBm : ∀ x ∈ B, φ x ∈ B) (hdisj : Disjoint A B) : ¬ EnsembleDetermined φ',
+           'theorem not_ensembleDetermined_of_fixedPoint (φ : Equiv.Perm S) {x y : S} (hx : φ x = x) (hxy : y ≠ x) : ¬ EnsembleDetermined φ',
+           'theorem phi_fixes_zero (h5 : 𝒮.A5) : 𝒮.φ 0 = 0',
+           'theorem waveSubstratum_phi_fixes_zero (d L q : ℕ) [NeZero L] [NeZero q] (α : ZMod q) : (waveSubstratum d L q α).φ 0 = 0',
+           'theorem ensemble_underdetermined (h5 : 𝒮.A5) {y : 𝒮.Conf} (hy : y ≠ 0) : ¬ EnsembleDetermined 𝒮.φ',
+           'theorem waveSubstratum_ensemble_underdetermined (d L q : ℕ) [NeZero L] [NeZero q] [Fact (1 < q)] (α : ZMod q) : ¬ EnsembleDetermined (waveSubstratum d L q α).φ',
+           'theorem not_transitive_of_fixedPoint {S : Type*} [Fintype S] [DecidableEq S] (φ : Equiv.Perm S) {x y : S} (hx : φ x = x) (hxy : y ≠ x) : ¬ ∃ s : S, ∀ t : S, t ∈ orbit φ s',
+           'theorem readWriteFamily_exists (a b : S) : Nonempty (ReadWriteFamily a b)',
+           'theorem readWriteFamily_exists_two {a b c d : S} : Nonempty (ReadWriteFamily a b) ∧ Nonempty (ReadWriteFamily c d)',
+           'theorem stochastic_interface_gap (𝒮 : Substratum) [Fintype 𝒮.ι] [Fintype 𝒮.V] [DecidableEq 𝒮.V] (h5 : 𝒮.A5) {y : 𝒮.Conf} (hy : y ≠ 0) : ¬ EnsembleDetermined 𝒮.φ ∧ ¬ ∃ s : 𝒮.Conf, ∀ t : 𝒮.Conf, t ∈ orbit 𝒮.φ s'):
+    ok_soi &= _t in _soflat
+# the note: the question, the frozen architecture, the stages, the quantifier, the guard, the outcomes, the prediction,
+# the tests, the non-doings, the amendment, then the outcome and the non-claims, in that order
+_kso = [_son.find(h) for h in ('## The question', '## The architecture, frozen exactly as it stands', '## The stages, frozen',
+        '## The ensemble quantifier, frozen', "## The guard, stricter than the frozen sourcing audit's",
+        '## Admissible outcomes, frozen', '## The prediction, recorded before proof', '## Tests, frozen',
+        '## What this round does not do', '## Scope amendment, recorded after the preregistration',
+        '## The outcome', '## What this note does not claim')]
+ok_soi &= all(x > 0 for x in _kso) and _kso == sorted(_kso)
+ok_soi &= _son.lstrip().startswith('# The stochastic observer-interface determination audit')
+for _t in ('Preregistration commit `23c1dbd`, amendment commit `892d81c`', '`main` at `22ef402`',
+           'Status: preregistered; no proof attempted', 'Status: pass complete', 'Exactly three, in this order.',
+           '1. **Outcome A, the interface gap.**', '2. **Outcome B, sourced interface, divisible process.**',
+           '3. **Outcome C, sourced interface, indivisible process.**', '**A6 remains a gap with no predicate**',
+           'twelve named results', 'Outcome A is expected, on the ensemble leg',
+           'Neither `Obs` nor `μ` may be selected because it yields indivisibility',
+           'Carrying `vis` from the census core to `Substratum.Conf` by analogy',
+           'Invariance does not select **in general**', 'remains a selection principle rather than a consequence',
+           'a *sourced family* of'):
+    ok_soi &= _t in _son1
+_son_out = re.sub(r'\s+', ' ', _son[_son.find('## The outcome'):])
+# the substantive outcome, with the round's own non-claim paragraph and the non-claims section set aside
+_son_cut = _son_out.find('**What the outcome does not establish')
+_son_out_claims = _son_out[:_son_cut] if _son_cut > 0 else _son_out
+for _t in ('The verdict is **outcome A, the interface gap**',
+           'the ensemble leg fails by theorem rather than by absence of a candidate',
+           'No axiom, observation map, ensemble, coupling or class enrichment was added',
+           'Invariance is the only ensemble constraint the architecture states',
+           'The positive route, taken up first', 'That ensemble would have been derived, not chosen',
+           'The fixed point, from a stated axiom', 'Nothing was added to obtain this; the axiom was read',
+           'The same fixed point closes the positive route',
+           'any configuration other than zero serves equally, and none was chosen for the verdict it would yield',
+           'on a one-letter alphabet the configuration space is a single point',
+           'the structure privileges no pair', 'it induces no function on configurations',
+           'The frozen text records that carrying it across is an addition rather than a finding',
+           'it proves no claim that a map cannot exist',
+           'the divisibility predicates were not introduced, and the diagnostic was not run',
+           'Outcome A is reached; outcome B is not reached; outcome C is not reached',
+           'obtained by supplying two of its three inputs from outside',
+           '**What the outcome does not establish', '| T1 | ', '| T4 | ', '| T5 | ', '| T8 | '):
+    ok_soi &= _t in _son_out
+for _bad in ('The verdict is **outcome B', 'The verdict is **outcome C', 'Outcome A is not reached', 'is C5.', 'C5 holds',
+             'we adopt C5', 'define C5', 'OI supplies the', 'OI itself supplies', 'the architecture is refuted',
+             'refutes the architecture', 'A6 is filled', 'we add an axiom', 'no architecture can supply',
+             'cannot be supplied by any', 'minimal', 'Minimal', 'PairFlow enters', 'non-Markovian', 'the process is divisible',
+             'the process is indivisible', 'the correspondence applies', 'we use the uniform measure',
+             'we use the counting measure', 'we carry `vis`'):
+    ok_soi &= _bad not in _son_out_claims
+for _bad in ('the architecture is refuted', 'A6 has a predicate', 'no extension could supply',
+             'an observation map on `Conf` cannot exist', 'the induced process is indivisible'):
+    ok_soi &= not _asserted(_son[_son.find('## The outcome'):], _bad)
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    for _bad in ('StochasticInterface', 'STOCHASTIC-OBSERVER-INTERFACE', 'EnsembleDetermined',
+                 'stochastic_interface_gap', 'ensemble_underdetermined', 'not_transitive_of_fixedPoint',
+                 'readWriteFamily_exists'):
+        ok_soi &= _bad not in _t
+_so_fam = [f for f in _ptr_reg['families']
+           if f['name'] == 'stochastic observer interface: the determination gap of the stated architecture']
+ok_soi &= len(_so_fam) == 1 and _so_fam[0]['status'] == 'kernel-only' and _so_fam[0]['modules'] == ['StochasticInterface']
+ok_soi &= _so_fam[0]['manuscript'] == []
+for _t in ('Verdict outcome A, the interface gap', 'A6 a gap with no predicate and not filled',
+           'no correspondence theorem is stated or cited and no predicate for one is defined',
+           "the census core's vis is not carried to Substratum.Conf",
+           'invariance being the only ensemble constraint the architecture states',
+           'divisibility is never identified with Markovianity because neither predicate was introduced',
+           'conditional on A5 and on a configuration space carrying more than the zero configuration',
+           'nothing is named C5', 'owner decision'):
+    ok_soi &= _t in _so_fam[0]['note']
+for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', 'minimal', 'non-Markovian'):
+    ok_soi &= _bad not in _so_fam[0]['note']
+ok_soi &= '| stochastic observer interface: the determination gap of the stated architecture | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-SOI`', 'STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md', 'EnsembleDetermined',
+           'ensembleDetermined_of_transitive', 'phi_fixes_zero', 'waveSubstratum_phi_fixes_zero',
+           'not_ensembleDetermined_of_disjoint', 'not_ensembleDetermined_of_fixedPoint', 'ensemble_underdetermined',
+           'not_transitive_of_fixedPoint', 'waveSubstratum_ensemble_underdetermined',
+           'waveSubstratum_stochastic_interface_gap', 'stochastic_interface_gap', 'readWriteFamily_exists',
+           'readWriteFamily_exists_two', 'Verdict: outcome A, the interface gap',
+           'A6 a gap with no predicate and not filled', 'Twelve named results',
+           'no divisibility predicate exists in the kernel'):
+    ok_soi &= _t in _rd1
+for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', 'non-Markovian'):
+    ok_soi &= _bad not in _rd1
+# the frozen sourcing note carries exactly one section after its own non-claims; the older notes untouched
+_fsn4 = open(os.path.join(os.path.dirname(BRIDGE), 'FROZEN-SUBSTRATUM-SOURCING-AUDIT.md'), encoding='utf-8').read()
+_fsn_x = _fsn4.find('## Cross-reference, appended after the frozen text')
+ok_soi &= _fsn_x > _fsn4.find('## What this note does not claim') and _fsn_x > _fsn4.find('Status: pass complete')
+_fsn_x1 = re.sub(r'\s+', ' ', _fsn4[_fsn_x:])
+for _t in ('takes up the narrow reading this note gives its own outcome 3', 'reports outcome A, the interface gap',
+           'The ensemble leg is proved from A5', 'Nothing above is changed by that result'):
+    ok_soi &= _t in _fsn_x1
+ok_soi &= _fsn_x1.count('## ') == 1
+for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn, _din):
+    ok_soi &= 'stochastic observer interface' not in _n and 'StochasticInterface' not in _n
+ok_soi &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+check('R7-SOI', ok_soi,
+      'Stochastic observer-interface determination guard: the module carries no sorry, axiom or native_decide, prints the '
+      'axioms of exactly its twelve results, defines exactly the ensemble-determination predicate and nothing else -- no '
+      'observation map, no ensemble, no induced process, no divisibility predicate, no correspondence predicate -- names '
+      'nothing C5, mentions no A6 and defines no predicate for it, never writes Markov or Barandes, restates no existing '
+      'definition of the substratum, the measure layer, the census core, the interface or the density side, and carries no '
+      'pair flow; the determination predicate, the single-orbit positive route, the fixed point from A5 for every additive '
+      'rule and for the wave rule, the disjoint-invariant-sets route to undetermination, the ensemble leg for every '
+      'substratum and for the wave rule, the failure of transitivity, the read-write existence witnesses and the two '
+      'combined verdicts are stated as pinned; the note keeps the question, the frozen architecture, the stages, the '
+      'ensemble quantifier, the guard, the outcomes, the prediction, the tests, the non-doings and the scope amendment '
+      'before the outcome, names all three commits, records outcome A with both legs stated separately, the positive route '
+      'stated and then closed, the one-letter-alphabet and additivity hypotheses stated, stage 2 not entered and no '
+      'divisibility predicate defined, and no C5, no OI-supplies-the-resource, no architecture-refuted, no A6-filled, no '
+      'no-extension-could-supply, no map-cannot-exist, no divisibility verdict and no correspondence claim; no manuscript '
+      'is edited; the registry and the census carry the family as kernel-only; the frozen sourcing note carries exactly one '
+      'section after its own non-claims and the older notes are untouched; the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

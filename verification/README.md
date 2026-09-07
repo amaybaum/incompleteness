@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 135 modules and,
-  at this commit, 2,996 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 136 modules and,
+  at this commit, 3,008 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1618,6 +1618,37 @@ outside the class (`fixedGateTheory_outside_ceiling`). No claim of refutation, o
 extension could source, of a count of independent additions, or of a predicate for A6. Twenty-three named results, each printing only `propext`, `Classical.choice`,
 `Quot.sound`. Nothing is named C5 or adopted; no continuous pair flow enters any route; no
 definition changes; no manuscript changes. Guard `R7-FSS`.
+
+The stochastic observer-interface determination audit (`STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md`,
+`OIBridge/StochasticInterface.lean`) asks the question that stands before any stochastic reading of
+the architecture: the observed law is a function of the triple `(φ, Obs, μ)`, the dynamics, the
+observation map and the initial ensemble, so does the stated architecture fix `Obs` and `μ` without
+adding structure? The architecture is frozen, A6 a gap with no predicate and not filled, no
+correspondence theorem is stated or cited, nothing is named C5, and the census core's `vis` is not
+carried to `Substratum.Conf`. Determination is tested by one predicate of the dynamics,
+`EnsembleDetermined φ`, exactly one invariant probability law, invariance being the only ensemble
+constraint the architecture states. The positive route the round's scope amendment admits is stated
+first: a transitive dynamics determines its ensemble, the orbit-uniform law, by the kernel's
+single-orbit uniqueness (`ensembleDetermined_of_transitive`). It is then closed by the
+architecture's own axiom. A5, additivity, gives `F 0 = 0`, so the phase-space step fixes the
+all-zero configuration (`phi_fixes_zero`, `waveSubstratum_phi_fixes_zero`); the singleton `{0}` and
+the orbit of any other configuration are disjoint nonempty invariant sets, which is exactly the
+hypothesis of `invariance_does_not_select`; so invariance leaves the law undetermined
+(`not_ensembleDetermined_of_disjoint`, `not_ensembleDetermined_of_fixedPoint`,
+`ensemble_underdetermined`) and the same fixed point rules out transitivity
+(`not_transitive_of_fixedPoint`). The manuscripts' own wave rule is covered on every torus whose
+alphabet has more than one letter (`waveSubstratum_ensemble_underdetermined`,
+`waveSubstratum_stochastic_interface_gap`, `stochastic_interface_gap`). The observation-map leg is
+recorded by census rather than by a nonexistence claim: the read-write structure privileges no
+locus, a family existing at every pair (`readWriteFamily_exists`, `readWriteFamily_exists_two`); the
+operational readout selects an ancilla index of a matrix over the carrier and induces no function on
+configurations; and `vis` lives on the census core. Verdict: outcome A, the interface gap, on both
+legs, the ensemble leg by theorem; stage 2 is not entered, so the induced process is not defined and
+no divisibility predicate exists in the kernel. No claim of refutation, of a limit on what an
+extension could supply, of anything about divisibility or Markovianity, or of a predicate for A6;
+the ensemble result is conditional on A5 and on a configuration space carrying more than the zero
+configuration, and both hypotheses are stated. Twelve named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Guard `R7-SOI`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

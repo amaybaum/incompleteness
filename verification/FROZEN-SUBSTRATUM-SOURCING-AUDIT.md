@@ -357,3 +357,20 @@ the phase ceiling at class level, the dense-control ceiling through the limit le
 from two witnesses, the rule-independence of both ceilings, and the combined verdict; twenty-three
 named results; no axiom or operation added to the substratum; no C5 named or adopted; no manuscript
 edited.
+
+## Cross-reference, appended after the frozen text
+
+The stochastic observer-interface determination audit
+(`STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md`, `OIBridge/StochasticInterface.lean`) takes up the narrow
+reading this note gives its own outcome 3. The reading was that the interface audited here promotes
+configuration-level transformations directly into availability, and that a different interface might
+read the observed stochastic law instead. That audit asks what such an interface would need before
+it could be examined at all, and reports outcome A, the interface gap: the architecture states the
+dynamics and determines neither the observation map nor the ensemble. The ensemble leg is proved
+from A5, the additivity axiom this note leaves frozen — it forces a fixed configuration, hence two
+disjoint invariant sets, hence undetermination under the existing `invariance_does_not_select`, and
+it also rules out the single-orbit route that would have derived an ensemble.
+
+Nothing above is changed by that result. The class `NonnegBounded`, the two ceilings, the
+rule-independence of both, and `frozen_sourcing_verdict` stand exactly as stated, and the stochastic
+round adds no axiom, operation, carrier map or class enrichment to the substratum.
