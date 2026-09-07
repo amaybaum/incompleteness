@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 133 modules and,
-  at this commit, 2,941 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 134 modules and,
+  at this commit, 2,973 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1550,6 +1550,41 @@ ingredients, and `π/8` stays a prediction. Fifty-one named results, each printi
 `Classical.choice`, `Quot.sound`. Nothing is named C5 or adopted; no continuous pair flow enters
 any constructive route; no irrationality condition is a physical principle; no definition changes;
 no manuscript changes. Guard `R7-DCA`.
+
+The quantitative dense-instrument bridge audit (`DENSE-INSTRUMENT-BRIDGE-AUDIT.md`,
+`OIBridge/DenseInstrumentBridge.lean`) asks whether the instrument stall of the discrete completion
+audit was a formal continuity gap or a physical condition: whether the canonical fixed-gate theory
+approximates every finite endomorphic Kraus instrument, outcome by outcome in the channel metric, at
+every angle with `α/π` irrational. Read under its scope amendment as a Barandes and Stinespring
+closure audit, the correspondence cited as motivation only and the kernel proof self-contained. The
+branch map of the Stinespring circuit is Lipschitz in the unitary with the constant `2 (r + 1)`
+depending only on the carrier (`branch_within`): the pure attachment is isometric
+(`esf_gram`, `norm_pureAttach_le`), the conjugation is within twice the unitary distance
+(`conj_within`), the local Lüders selector is a contraction (`norm_localLuders_le`), and the partial
+trace is the sum of the isometric compressions onto the ancilla basis, bounded by the ancilla
+dimension (`ptraceAnc_eq_sum`, `norm_ptraceAnc_le`). The shifted theory is rebuilt from identity
+availability beside the untouched `shift` (`shiftId`), since control enters `shift` only through
+the identity; every exact consumption of the circuit is discharged from the closure: the identity
+(`id_avail_of_derivedOI`), the ancilla swaps as permutation matrices on the packed carrier
+(`reindex_permMatrix`, `shiftId_swap_avail`), the readout and the discard as the existing fields,
+and the unitary actually run (`circuit_available_of_avail`); dense control descends to the shifted
+theory, reindexing being conjugation by the rectangular isometry of the bijection
+(`reindex_eq_eqvMatrix_conj`, `norm_reindex_le`, `shiftId_approx`). Inert-spectator
+compositionality is a consequence of the closure on every nonempty carrier, by citation
+(`inert_of_derivedOI`, through `DerivedOI.implementationLocality`,
+`observationalIndependence_of_implementationLocality` and `observationalIndependence_iff_inert`).
+The approximate Stinespring assembly gives `KrausDense` from the closure and dense unitary control
+with no spectator hypothesis (`krausDense_of_denseControl`), soundness kept as its own conjunct
+(`denseFiniteQM_of_denseControl`), and the fixed-gate form (`krausDense_of_fixedGate`); the
+canonical fixed-gate theory is dense finite quantum mechanics at every angle with `α/π` irrational
+(`fixedGateTheory_krausDense`, `fixedGateTheory_denseFiniteQM`), the angle one radian a concrete
+witness (`fixedGateTheory_one_denseFiniteQM`), and it is still not exact quantum mechanics
+(`fixedGateTheory_not_qm`). Verdict: outcome 1, full dense-instrument success; the stall was a
+formal gap; the sole remaining physical sourcing question in the thread is the fixed nonclassical
+gate itself, a stated datum. D3 and its two debts are untouched; `π/8` stays a prediction.
+Thirty-two named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Nothing
+is named C5 or adopted; no continuous pair flow enters any constructive route; no definition
+changes; no manuscript changes. Guard `R7-DIB`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

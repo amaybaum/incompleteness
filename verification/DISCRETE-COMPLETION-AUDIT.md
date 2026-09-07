@@ -494,3 +494,30 @@ every multiple of `π/4`, the canonical fixed-gate theory with the closure, the 
 soundness, dense unitary control and no exactness, and the instrument chain's consumption of exact
 control named with its missing lemma; fifty-one named results; no C5 named or adopted; no
 manuscript edited.
+
+## Recorded after the round: the dense-instrument bridge audit
+
+Recorded after this note's pass, at the packaging of the quantitative dense-instrument bridge
+audit (`DENSE-INSTRUMENT-BRIDGE-AUDIT.md`, `OIBridge/DenseInstrumentBridge.lean`). The frozen
+text and the outcome of this note are not edited.
+
+**A correction to T7.** The T7 paragraph above says that the shifted theory "also takes
+inert-spectator compositionality, which is not among the conjuncts of `DerivedOI`", and that it
+"would need proving for the theory". The first clause is literally true and materially misleading,
+and the second is wrong as a statement of what the kernel had at this note's commit: the property
+is a consequence of `DerivedOI` on every nonempty carrier, through `DerivedOI.implementationLocality`,
+`observationalIndependence_of_implementationLocality` and `observationalIndependence_iff_inert`,
+all present in the kernel when the outcome was written. The bridge audit records it as the one-line
+citation `inert_of_derivedOI`. The missing-lemma list of T7 is therefore read with that item
+struck: what remained was the branch bound and the shifted theory under identity availability.
+
+**The bridge audit's result.** Both remaining items close. The branch map is Lipschitz with the
+constant `2 (r + 1)` depending only on the carrier (`branch_within`); the shifted theory is rebuilt
+from identity availability beside the untouched `shift` (`shiftId`); the assembly gives
+`krausDense_of_denseControl` from the closure and dense unitary control with no spectator
+hypothesis, soundness kept separate; and the canonical fixed-gate theory of this note is dense
+finite quantum mechanics at every angle with `α/π` irrational (`fixedGateTheory_krausDense`,
+`fixedGateTheory_denseFiniteQM`), while still not exact quantum mechanics
+(`fixedGateTheory_not_qm`). Outcome 2 of this note was a formal continuity gap and not a physical
+condition. Its D3, with its two debts, is untouched by the bridge audit; the `π/8` prediction and
+the classification statements of this note are unchanged; the gate remains a stated datum.
