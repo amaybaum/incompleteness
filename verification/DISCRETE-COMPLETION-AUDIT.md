@@ -304,3 +304,193 @@ The level-one prediction, the irrational witness as the first kernel target, the
 recorded and uncertified prediction, and the instrument audit as the home of outcome 2 are all
 unchanged. `DerivedOI` supplies `IteratedAncillaClosure` (`DerivedOI.closure`), so that part of the
 instrument route is not an additional hypothesis.
+
+## The outcome
+
+Preregistration commit `d4deada`, scope amendment `0a6ccbb`, executed from `main` at `1cb923d`.
+The kernel module is `OIBridge/DiscreteCompletion.lean`, fifty-one named results, each printing
+only `propext`, `Classical.choice`, `Quot.sound`; the kernel is at 133 modules and 2,941 named
+results. Nothing is named "C5" in the module or adopted in this note; no continuous pair flow
+enters any constructive route; no irrationality condition is stated as a physical principle;
+nothing is generalized beyond `Fin 2`; no existing definition changes; no manuscript is edited.
+The verdict is **outcome 2, unitary density succeeds, instrument density stalls**: dense unitary
+control is proved at every level, for every fixed angle with `α/π` irrational, and the instrument
+half stops at named steps of the exact Stinespring and Kraus chain, each stated below with the
+lemma it would need.
+
+**The predicates and the bridge (T1, T2).** `FixedGateSourced α T`, `ChanWithin ε Φ Ψ`,
+`DenseUnitaryControl T`, `KrausDense T`, `DenseFiniteQM T := KrausSoundExt T ∧ KrausDense T` and
+`ClosureAvail` are defined in the frozen forms, with the amendment's separation of density from
+soundness. Unitaries have operator norm one (`norm_eq_one_of_unitary`); unitaries within `ε` have
+conjugation channels within `2 ε` (`conj_within`), the constant `2` as frozen; and a product of two
+unitaries is within the sum of the errors (`norm_mul_sub_mul_le`), the only error-accumulation
+rule the round needs.
+
+**The block algebra and the C*-identity bound.** The ancilla projector `anc k₀` and its
+complement address one site pair: `blockOnly k₀ M` is `M` on the pair with ancilla value `k₀` and
+zero elsewhere, `blockOf k₀ M` the same with the identity elsewhere; both are tensor forms, so the
+group law, the adjoint and unitarity are one-line tensor identities (`blockOf_mul`,
+`blockOf_unitary`). The distance from an addressed rotation to the identity is bounded by the
+angle through the C*-identity `‖A‖² = ‖Aᴴ A‖` and the Gram matrix `(rot δ − 1)ᴴ (rot δ − 1) =
+(2 − 2 cos δ) · 1` (`rot_sub_one_gram`, `blockOnly_rot_sub_one_norm_le`, `blockOf_rot_dist_le`),
+with no passage between entries and the operator norm anywhere.
+
+**The Euler decomposition.** The addressed quarter phase `S2`, the exchange `X2` and the
+perpendicular rotation `rx θ = S2 · rot θ · S2ᴴ` (`rx_eq_conj`) give the product formula
+`rot_rx_rot`. A two-by-two unitary of determinant one has the special-unitary form (`su2_form`),
+every unitary is a unit scalar times one (`exists_unit_scalar_su2`), and the special-unitary form is
+`rot a · rx b · rot c` for real angles obtained from two planar arguments and one arcsine
+(`euler_of_su2`, `euler_of_unitary`).
+
+**T4, density from one irrational angle.** The integer combinations of `β` and `2π` are dense when
+`β/π` is irrational (`dense_angles`), by the dense-or-cyclic dichotomy for subgroups of the line
+(`AddSubgroup.dense_or_cyclic` with `AddSubgroup.mem_closure_pair`); the preregistration named the
+circle-density form of the same theorem, and the executed route uses the dichotomy it rests on,
+the Mathlib module of the circle form not being in the project's build cache. A block repertoire,
+a set containing the identity, closed under products, containing the addressed rotation by `β`,
+the addressed quarter phase and the addressed exchange (`BlockRepertoire`), approximates every
+addressed rotation (`rot_approx`, through integer powers, the exchange for negative multiples and
+`2π`-periodicity) and every addressed perpendicular rotation (`rx_approx`), hence every addressed
+special unitary within any `ε` by three approximations (`dense_block_su2`). At level one the
+available set of a theory with the closure and the fixed gate is such a repertoire
+(`blockRepertoire_levelOne`), and every unitary at level one is approximated up to a unit scalar by
+an available unitary (`levelOne_dense`). The theorem is uniform over all `α` with `α/π`
+irrational, not one witness.
+
+**T6, the all-level lift.** Isolation as the amendment records: the sign flips over any finite set
+of configurations are available (`flipSet_avail`); conjugating the parallel gate by the flips on
+the configurations with site value one and ancilla value other than `k₀`, and multiplying by the
+parallel gate again, cancels every unselected block and leaves the rotation by `2α` on block `k₀`
+(`echo_identity`), so the isolated gate is available at every level (`isolated_mem_availSet`) and
+the available set at every level is a block repertoire at the doubled angle on every block
+(`blockRepertoire_level`, with `2α/π` irrational when `α/π` is). Relocation: a permutation carries
+any pair to any pair (`exists_perm_pair_map`), every permutation is available from the exchanges, and
+the relocated addressed gate is approximated on every pair (`relocated_dense`). The Givens step is
+carried out in full and not left named: the two-level matrix on a pair is written in the Sylvester
+form `1 + ι (M − 1) ιᵀ` with `ι` the inclusion of the pair (`incl`, `twoLevel`), which makes the
+group law, the adjoint and unitarity algebraic (`twoLevel_mul`, `twoLevel_unitary`) and the
+determinant the determinant of the block by `det (1 + A B) = det (1 + B A)` (`det_twoLevel`);
+the relocated gate is the two-level matrix on the carried pair (`relocated_eq_twoLevel`). Every
+special unitary supported on a finite set of indices is a product of two-level special unitaries
+(`su_mem_closure_of_suppOn`, `su_mem_closure_twoLevel`): the column of one index is cleared by
+Givens blocks (`givens`, unitary and of determinant one, `givens_kill`), the unit phase that
+remains is pushed onto another index by a diagonal special-unitary block (`phaseBlock`), the row is
+then trivial by unitarity (`row_zero_of_col_zero`), and the rest is supported on fewer indices;
+when one index remains the determinant fixes its phase. Products of approximable unitaries are
+approximable with the errors added (`closure_approx`, by closure induction, so no factor count is
+needed), every special unitary at every positive level is approximated (`su_dense`), every unitary
+is a unit scalar times a special unitary on any finite carrier (`exists_unit_scalar_su'`), and
+**D1 holds** (`denseUnitaryControl_of_fixedGate`): under `DerivedOI` and one fixed gate at any
+angle with `α/π` irrational, dense unitary control at every level, level zero included.
+
+**T3, the finite countercontrols.** The level-one group generated by the fixed gate, the quarter
+phase and the exchange (`Gen2 β`) is finite up to scalar at `π/4`
+(`gen2_pi_div_four_finite_upToScalar`): every element normalizes the sixteen-element Pauli set
+(`Pauli`, `pauli_mul`, `Gen2.pauli_conj`, from the six conjugation identities
+`rot_pi_div_four_X`, `rot_pi_div_four_Z`, `S2_X2`, `S2_Z2`, `X2_X2`, `X2_Z2`), two elements with the
+same action on `X` and `Z` are proportional because the commutant of `X` and `Z` is the scalars
+(`scalar_of_comm_XZ`, `proportional_of_same_conj`), and the action takes finitely many values.
+Uniformly in `k ∈ ℤ`, the group at `k π/4` sits inside the group at `π/4` (`Gen2.subset_pi_div_four`)
+and is finite up to scalar (`gen2_multiple_finite_upToScalar`). Ambition level 1 is reached in its
+strongest uniform form.
+
+**T5, the classification.** Ambition levels 1 and 2 are reached, each uniformly: finite up to
+scalar at every multiple of `π/4`, dense at every `α` with `α/π` irrational. The predicted
+classification is not kernel-proved in either remaining direction. That finiteness forces
+`α ∈ (π/4)ℤ` needs the classification of finite subgroups of `SO(3)`; that density holds at
+rational `α/π` outside `(1/4)ℤ`, the `π/8` case included, needs the classification of closed
+subgroups of `SO(3)`. Neither is in Mathlib, neither was added as a hypothesis, and both are
+recorded as the exact missing ingredients. The `π/8` case stays a prediction.
+
+**The canonical theory.** The stated access with the datum at one angle, `fixedGateTheory α :=
+mixTheoryR {α} (Fin 2)`, satisfies the closure (`fixedGateTheory_derivedOI`, through the
+dagger-stability and context-stability of the fixed-angle class, the adjoint of the gate being its
+exchange conjugate: `mixR_singleton_daggerStable`, `mixR_singleton_contextStable`), sources the
+gate (`fixedGateTheory_fixedGateSourced`), is Kraus-sound as every implementation-generated theory
+is (`fixedGateTheory_krausSoundExt`), has dense unitary control at every angle with `α/π`
+irrational (`fixedGateTheory_denseUnitaryControl`), and is not exact quantum mechanics
+(`fixedGateTheory_not_qm`, the construction audit's countable-angle negative): density is not
+exactness. The angle one radian is a concrete witness (`fixedGateTheory_one_denseUnitaryControl`,
+from the irrationality of `π`).
+
+**T7, the instrument audit: where the chain stops.** The exact chain
+`HasCompositeUnitaryControl → shift → circuit_available_pureSeed → stinespringCircuit_branch →
+fullInstruments_of_control → compositeCompleteness → exactComposite_of_soundExt_full` consumes
+exact composite unitary control at two structural places, and `KrausDense` is not claimed.
+(i) The shifted theory `shift T hctrl hin hclos n`, through which the composite levels are
+reached, takes exact control as an argument: its composite identity is `availExt_id_of_control`,
+and it also takes inert-spectator compositionality, which is not among the conjuncts of
+`DerivedOI`. Under dense control the identity itself is available at every level from the
+exchanges alone (`one_mem_availSet`), so that obligation is discharged; but the shifted theory is
+stated with exact control and would need restating with identity availability in its place, and
+inert-spectator compositionality would need proving for the theory. (ii) `circuit_available`
+requires the Stinespring unitary `U` of the target instrument itself to be available. Under dense
+control an available approximant `V` within `ε` of `U` exists, and the circuit built from `V` is
+available by the same closure properties; the distance between the two circuits, in the channel
+metric at the composite carrier, is controlled by a Lipschitz bound for the branch map
+`U ↦ discardMap ∘ localLuders ∘ conjChannel U`, which is not proved. The quantitative lemma
+required is therefore: the branch map is Lipschitz in the operator norm of `U` with a constant
+depending only on the carrier, together with the shifted-theory construction under identity
+availability and inert-spectator compositionality for the fixed-gate theory. Dense unitary control
+is not promoted to dense quantum mechanics.
+
+**T8, the completion.** `ClosureAvail` is defined as frozen. Its two obligations are named and not
+proved: that the closed availability satisfies `availExt_coarse` and `availExt_bind`, and that the
+finite normalized Kraus instruments are closed in the channel metric. No completion statement is
+made beyond the definition.
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | the predicates and the metric, in the frozen forms, density separated from soundness | `FixedGateSourced`, `ChanWithin`, `DenseUnitaryControl`, `KrausDense`, `DenseFiniteQM`, `ClosureAvail` |
+| T2 | the bridge at constant two, unit norm of unitaries, the product error rule | `norm_eq_one_of_unitary`, `conj_within`, `norm_mul_sub_mul_le` |
+| T3 | finite up to scalar at `π/4` and uniformly at every `k π/4` | `Gen2.pauli_conj`, `scalar_of_comm_XZ`, `proportional_of_same_conj`, `gen2_pi_div_four_finite_upToScalar`, `gen2_multiple_finite_upToScalar` |
+| T4 | density at level one for every `α` with `α/π` irrational: dense angles, the block repertoire, the Euler decomposition | `dense_angles`, `BlockRepertoire.rot_approx`, `BlockRepertoire.rx_approx`, `BlockRepertoire.dense_block_su2`, `euler_of_su2`, `euler_of_unitary`, `blockRepertoire_levelOne`, `levelOne_dense` |
+| T5 | levels 1 and 2 reached uniformly; the finite-only-if direction and the rational non-exceptional case not proved; the classifications of finite and of closed subgroups of `SO(3)` named as the missing ingredients; `π/8` a prediction | the theorems of T3 and T4 |
+| T6 | isolation by the echo, relocation, two-level density on every pair, the Givens decomposition, dense unitary control at every level | `echo_identity`, `isolated_mem_availSet`, `blockRepertoire_level`, `relocated_dense`, `det_twoLevel`, `su_mem_closure_twoLevel`, `closure_approx`, `su_dense`, `denseUnitaryControl_of_fixedGate` |
+| T7 | outcome 2: the chain consumes exact control in the shifted theory and in the circuit availability; the Lipschitz bound for the branch map, the shifted theory under identity availability and inert-spectator compositionality named; `KrausDense` not claimed; the canonical theory Kraus-sound | `fixedGateTheory_krausSoundExt`; the named lemmas |
+| T8 | the closure defined; its two obligations named, not proved | `ClosureAvail` |
+| T9 | the surfaces and the checks: `R7-DCA`; README and census, the family kernel-only; the pair-flow equivalence note's cross-reference section; full build, axiom check, gate, probe, Bohr probe, census, voice check; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+| T10 | the verdict: outcome 2, with the level-one, all-level and instrument statuses stated | this section |
+
+**The verdict, with its content.** Outcome 2 is reached. Discrete fixed-gate access, one gate at
+one angle with `α/π` irrational on top of the closure, gives dense unitary control at every level,
+with the continuum entering only in the closure of what is executable: every unitary at every level
+is a limit of available unitaries, and the fixed-gate theory itself is not exact quantum
+mechanics. Dense finite quantum mechanics is not reached, because the exact instrument chain is
+built on exact composite control at two places, and the quantitative replacement is named and not
+proved. Outcome 1 is not reached; outcome 3 is not reached.
+
+**What the outcome means.** On the unitary side the question of the round is answered: the
+continuous pair flow of the preceding rounds is not needed for dense unitary control, one fixed
+discrete gate suffices, and the continuity that exact quantum mechanics carries appears in the
+completion of the generated repertoire and not as primitive executable structure. On the
+instrument side the answer is deferred to a quantitative audit of the Stinespring and Kraus
+assembly, whose missing lemma is stated. The exact benchmark of the equivalence audit stands
+untouched: exact finite quantum mechanics on the two-valued carrier remains exactly the closure
+with one sourced pair flow, and the fixed-gate theory, dense in the unitaries, is not it. The
+`π/8` prediction, that irrationality of the primitive angle is not the requirement, is unchanged
+and unproved; the irrational witness is the formal route's convenience and nothing more. The
+manuscript status of the state-mixing resource is unchanged.
+
+**What the outcome does not establish.** `KrausDense` or `DenseFiniteQM` for any theory. Any
+completion statement beyond the definition of the closure. The full level-one classification, or
+density at any rational `α/π`. That OI itself supplies the gate; the gate is a stated datum.
+That exact quantum mechanics follows from density. Anything about a manuscript.
+
+## What this note does not claim
+
+That dense finite quantum mechanics, or the completion of D3, holds for the fixed-gate theory or
+any theory; only dense unitary control is proved. That the level-one classification is
+kernel-proved beyond the multiples of `π/4` and the irrational angles, or that the `π/8` case is
+dense. That OI itself supplies the fixed gate. That density is exactness, or that exact quantum
+mechanics follows from density without the completion operation, which is only defined here. That
+anything is named C5. That any manuscript statement changes.
+
+Status: pass complete. Outcome 2, unitary density succeeds, instrument density stalls: the
+predicates and the bridge, the block algebra with its C*-identity bound, the Euler decomposition,
+density at level one from one irrational angle, isolation by the sign echo, relocation, the Givens
+decomposition and dense unitary control at every level, the finite countercontrols uniformly at
+every multiple of `π/4`, the canonical fixed-gate theory with the closure, the sourced gate,
+soundness, dense unitary control and no exactness, and the instrument chain's consumption of exact
+control named with its missing lemma; fifty-one named results; no C5 named or adopted; no
+manuscript edited.
