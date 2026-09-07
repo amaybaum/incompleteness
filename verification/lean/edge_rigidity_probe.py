@@ -5670,15 +5670,22 @@ for _t in ('The verdict is **outcome 2, reduction succeeds, sourcing fails**', '
            'Outcome 1 is not reached; outcome 3 is not reached',
            'what physical principle gives a nontrivial continuous orthogonal action on one distinguishable pair',
            'the principle is not named C5', 'Nothing here says that the completion needs continuity, orthogonality or the principle',
-           'The manuscript status of the state-mixing resource is unchanged', '| T1 | ', '| T4 | ', '| T8 | '):
+           'The manuscript status of the state-mixing resource is unchanged', '| T1 | ', '| T4 | ', '| T8 | ',
+           'with orthogonality and nontriviality independently tested by the countercontrols',
+           '## Countercontrol scope correction, recorded after the execution',
+           'do not establish independent necessity of all five pair-flow hypotheses',
+           'It does not prove separate necessity or minimality of identity, the group law, or continuity',
+           'The five-hypothesis classification theorem and outcome 2 are unchanged'):
     ok_rpf &= _t in _rpn_out
+ok_rpf &= _rpn.find('## Countercontrol scope correction, recorded after the execution') > _rpn.find('## What this note does not claim')
 for _bad in ('The verdict is **outcome 1', 'The verdict is **outcome 3', 'Outcome 1 is reached', 'outcome 1 is reached',
              'continuity is necessary for the completion, ', 'the principle is necessary for', 'orthogonality is necessary for the completion, ',
              'the principle is C5', 'is C5.', 'C5 is the', 'we adopt C5', 'a C5 has been found', 'define C5', 'Liouville preservation gives',
              'measure preservation gives orthogonality', 'determinant one gives orthogonality', 'recurrence gives an orthogonal',
              'the corpus sources the pair flow', 'the corpus supplies the pair flow', 'nature realizes', 'is realized by nature',
-             'differentiability hypothesis is added', 'generator hypothesis is added'):
-    ok_rpf &= _bad not in _rpn_out
+             'differentiability hypothesis is added', 'generator hypothesis is added', 'each shown necessary',
+             'each hypothesis is necessary', 'necessity of all five', 'minimality of the five'):
+    ok_rpf &= _bad not in _rpn_out.replace('do not establish independent necessity of all five pair-flow hypotheses', '')
 for _bad in ('continuity is necessary', 'the principle is C5', 'is derived from the substratum', 'the observer can execute',
              'the corpus sources the pair flow', 'C5 holds', 'a C5 has been found'):
     ok_rpf &= not _asserted(_rpn[_rpn.find('## The outcome'):], _bad)

@@ -282,8 +282,8 @@ inherits the stabilities and satisfies the closure and the completion (`pairFlow
 real orthogonal action on one distinguishable pair is a rotation family at a nonzero rate, so after
 reparameterizing time it supplies the mixing datum at every angle, and with the stated access it
 gives the completion: the matrix postulate of the construction audit is replaced by a principle
-with five separately intelligible obligations, each shown necessary for the reduction by a
-countercontrol. No stated structure of the corpus establishes those obligations on the operational
+with five separately intelligible obligations, with orthogonality and nontriviality independently
+tested by the countercontrols. No stated structure of the corpus establishes those obligations on the operational
 carrier. Outcome 1 is not reached; outcome 3 is not reached, the classification having closed under
 the five hypotheses.
 
@@ -313,3 +313,15 @@ Status: pass complete. Outcome 2, reduction succeeds, sourcing fails: the five-h
 classification proved with no hypothesis added, the supply of the datum at every angle, the
 composition to the completion, the three countercontrols, and no stated corpus source of the pair
 flow on the operational carrier; twenty named results; no C5 named or adopted; no manuscript edited.
+
+## Countercontrol scope correction, recorded after the execution
+
+The three countercontrols do not establish independent necessity of all five pair-flow
+hypotheses. `shearFlow` and `boostFlow` isolate the failure of orthogonality while retaining
+identity, group law, continuity and nontriviality; `constFlow` isolates the failure of
+nontriviality while retaining identity, group law, continuity and orthogonality. This round
+therefore proves that orthogonality and nontriviality cannot simply be omitted within these
+comparisons. It does not prove separate necessity or minimality of identity, the group law, or
+continuity, and the frozen sentence above reading that the countercontrols show each hypothesis
+needed is read under this correction. The five-hypothesis classification theorem and outcome 2 are
+unchanged.
