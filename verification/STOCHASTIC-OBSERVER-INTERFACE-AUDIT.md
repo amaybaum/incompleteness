@@ -274,3 +274,131 @@ Everything else is unchanged: no correspondence theorem enters at any point and 
 is defined; the census core's `vis` may not be carried to `Substratum.Conf` by analogy; neither the
 observation map nor the ensemble may be selected because it yields indivisibility; and the order of
 work remains part of the guard.
+
+## The outcome
+
+Executed from `main` at `22ef402` on the branch `stochastic-observer-interface`.
+Preregistration commit `23c1dbd`, amendment commit `892d81c`; both are untouched. Module
+`OIBridge/StochasticInterface.lean`; twelve named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. No axiom, observation map, ensemble, coupling or class enrichment
+was added to the architecture, nothing added anywhere is reported as sourced, no A6 predicate was
+defined, no correspondence theorem was stated or cited, nothing is named C5, and no manuscript was
+edited.
+
+The verdict is **outcome A, the interface gap**. Both legs fail, and the ensemble leg fails by
+theorem rather than by absence of a candidate. Stage 1 therefore does not deliver a sourced pair,
+stage 2 is not entered, and no divisibility predicate exists in the kernel at the end of the round.
+
+**What determination was taken to mean.** The round works with one predicate of the dynamics, not of
+any chosen law:
+
+> `EnsembleDetermined φ`: exactly one probability law on the state space is invariant under `φ`.
+
+Invariance is the only ensemble constraint the architecture states, so this is the predicate the
+census tests. It selects nothing and it adds nothing.
+
+**The positive route, taken up first.** The amendment required that the single-orbit route be
+followed if the architecture supplies its hypotheses, and the round states that route as a theorem
+before testing it: `ensembleDetermined_of_transitive` shows that when one orbit exhausts the state
+space, the orbit-uniform law is invariant and is the only invariant law, by the kernel's
+`orbit_invariant_unique`. That ensemble would have been derived, not chosen. The census then asks
+whether the architecture's own dynamics is transitive.
+
+**The fixed point, from a stated axiom.** A5 — additivity of the rule, one of the architecture's
+own axiom predicates — gives `F 0 = 0`, and the phase-space step `(p, c) ↦ (c, F c − p)` therefore
+fixes the all-zero configuration (`phi_fixes_zero`). The manuscripts' wave rule satisfies A5 by
+`waveSubstratum_A5`, which was already proved, so it fixes the zero configuration too
+(`waveSubstratum_phi_fixes_zero`). Nothing was added to obtain this; the axiom was read.
+
+**T3, the ensemble leg: the gap, proved.** The singleton `{0}` and the orbit of any other
+configuration are disjoint nonempty invariant sets, which is exactly the hypothesis of the kernel's
+`invariance_does_not_select` under the scope the amendment fixed. So invariance leaves the law
+undetermined: `not_ensembleDetermined_of_disjoint`, then `not_ensembleDetermined_of_fixedPoint`,
+then `ensemble_underdetermined` for every substratum whose rule satisfies A5 and whose configuration
+space carries more than the zero configuration. The same fixed point closes the positive route:
+`not_transitive_of_fixedPoint` shows a dynamics with a fixed point and another state is not
+transitive, so the hypotheses of `orbit_invariant_unique` are not supplied here and the orbit-uniform
+ensemble is unavailable. `stochastic_interface_gap` states both legs of that together, and
+`waveSubstratum_stochastic_interface_gap` states them of the manuscripts' own substratum, on every
+torus whose alphabet has more than one letter. The witness for the second orbit is the constant
+configuration carrying the alphabet's unit in the past coordinate; any configuration other than zero
+serves equally, and none was chosen for the verdict it would yield.
+
+The hypothesis that the configuration space carries more than the zero configuration is doing real
+work and is stated: on a one-letter alphabet the configuration space is a single point, the
+invariant law is unique for the trivial reason, and the gap does not arise.
+
+**T2, the observation-map leg: the gap, by census.** No definition or theorem of the architecture
+gives a map out of `Substratum.Conf`.
+
+- The read-write structure carries its coupled pair `{a, b}` as parameters supplied from outside, and
+  the structure privileges no pair: a family exists at every pair (`readWriteFamily_exists`, witnessed
+  by the constant reference coupling the structure's own axioms already admit), and at two pairs at
+  once (`readWriteFamily_exists_two`). Existence of a family therefore distinguishes no locus and
+  selects no readout.
+- The operational readout `FiniteOperationalTheory.readout`, with `readout_is_localLuders`,
+  `localLuders`, `ptraceAnc` and `discardWith`, is a family of linear maps on matrices over
+  `A × Fin n` selecting an ancilla index. It is sourced on the operational carrier and it induces no
+  function on configurations, because a matrix over the carrier is not a configuration. Supplying the
+  missing step would be the addition this round forbids.
+- `vis` lives on the census core `Core`, not on `Substratum.Conf`. The frozen text records that
+  carrying it across is an addition rather than a finding, and it was not carried across.
+
+The leg is therefore recorded as a gap in the sense the guard fixes: maps out of `Conf` are
+definable, and nothing in the architecture selects one. The round proves that the read-write
+structure's own candidate locus is not distinguished; it proves no claim that a map cannot exist.
+
+**T4, T5, T6: not reached, with the leg named.** Stage 1 delivered neither a unique sourced pair nor
+a sourced family, so under the frozen order the induced process `X t := π (φ^[t] s₀)` was not
+defined, the divisibility predicates were not introduced, and the diagnostic was not run. Both legs
+blocked stage 2; the ensemble leg blocked it by theorem.
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | the census: every observation-map candidate definable or living off `Conf`, none sourced; every ensemble candidate definable, none sourced, with the single-orbit route tested and closed | `readWriteFamily_exists`, `readWriteFamily_exists_two`, `ensembleDetermined_of_transitive`, `not_transitive_of_fixedPoint` |
+| T2 | the observation-map leg: the gap; the read-write structure distinguishes no locus, the operational readout induces no function on configurations, and `vis` was left on the census core | `readWriteFamily_exists`, `readWriteFamily_exists_two` |
+| T3 | the ensemble leg: the gap, proved from A5; invariance alone does not select, cited to the existing theorem under its own hypotheses | `phi_fixes_zero`, `not_ensembleDetermined_of_disjoint`, `not_ensembleDetermined_of_fixedPoint`, `ensemble_underdetermined`, `waveSubstratum_ensemble_underdetermined` |
+| T4 | the induced process: not defined; both legs blocked stage 2 | — |
+| T5 | the divisibility predicates: absent, stage 1 stopped the round; neither predicate was identified with Markovianity because neither was introduced | — |
+| T6 | the diagnostic: not reached | — |
+| T7 | the surfaces and the checks: `R7-SOI`; README and census, the family kernel-only; the cross-reference section on the frozen sourcing note; full build, axiom check, gate, probe, Bohr probe, census, voice check; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+| T8 | the verdict: outcome A, with the observation-map leg, the ensemble leg and the diagnostic stated separately | this section |
+
+**The verdict, with its content.** Outcome A is reached; outcome B is not reached; outcome C is not
+reached, so the correspondence round is not earned and was not entered. The scientific content is
+that the stochastic law the route would read off is a function of a triple `(φ, Obs, μ)` of which
+the architecture states one member. The dynamics is stated. The observation map is definable and
+unselected. The ensemble is undetermined by the only constraint the architecture places on it, and
+the one route that would have derived an ensemble is closed by a fixed point that the architecture's
+own additivity axiom forces. Any stochastic law obtained from this architecture at present is
+obtained by supplying two of its three inputs from outside, which is the tuning the guard was written
+to detect.
+
+**What the outcome does not establish.** The round does not claim any of the following. That the
+architecture is refuted; the result is about what it determines, not about whether it is true. That
+no extension could supply the interface; the scope is the presently stated architecture, and the
+census records exactly what an extension would have to add — a map out of `Conf` with a reason for
+that map, and an ensemble with a reason for that ensemble. That the ensemble gap holds of substrata
+whose rule is not additive; A5 is a hypothesis of every result here. That the gap holds on a
+one-letter alphabet; it does not. That an observation map on `Conf` cannot exist. That `vis` or the
+operational readout is unsound where it lives; both are untouched. That anything is known about
+divisibility, indivisibility or Markovianity of any process; no such predicate was defined. That any
+correspondence theorem is true, false, applicable or inapplicable. That A6, if given a predicate,
+would or would not change the verdict; A6 remains the gap it was. Anything about a manuscript.
+
+## What this note does not claim
+
+That the OI architecture is refuted or that its axioms are false. That the interface cannot be
+sourced by some extension. That the counting, uniform, stationary or maximum-entropy measure is
+excluded as an ensemble by fiat; each remains definable, and what the round shows is that invariance
+does not select among them here. That maximal-entropy selection has become a consequence rather than
+a principle. That A6 has a predicate, a reading, or a consequence here. That anything is named or
+adopted as C5. That `frozen_sourcing_verdict`, `krausDense_of_denseControl`,
+`fixedGateTheory_denseFiniteQM` or any existing result is retracted or weakened. That any manuscript
+statement changes.
+
+Status: pass complete. Outcome A, the interface gap: the census, the single-orbit route stated and
+closed, the fixed point from A5, the ensemble leg proved undetermined for the manuscripts' own wave
+rule, the observation-map leg recorded separately, and stage 2 not entered; twelve named results; no
+axiom or map added to the architecture; no divisibility predicate defined; no correspondence theorem
+stated or cited; no C5 named or adopted; no manuscript edited.
