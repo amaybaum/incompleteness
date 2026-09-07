@@ -129,11 +129,32 @@ the maintained manuscript had already declared the extra inputs whose absence #5
 in the reduced kernel.
 
 This positive baseline does **not** earn the stochastic-to-quantum correspondence audit by itself.
-One still needs a sourced/verified history-readback or other exact hypothesis that yields the
-correspondence's required indivisibility property for that same baseline process, and the
-correspondence theorem itself must then be retrieved and audited at its exact hypotheses. #538's
-`C4e => C4r => P-indivisibility` theorem remains a mathematical implication; the manuscript's C4
-has not been proved to imply `C4e` or `C4r`.
+#538's `C4e => C4r => P-indivisibility` theorem remains a mathematical implication; the manuscript's
+history-level C4 has not been proved there to imply either candidate at the readback window.
+
+### Baseline control check — why immediate marginal revival is not the next target
+
+There is an exact four-state full-counting control on `V = H = Z/2Z`:
+
+> `φ(p,c) = (c, p XOR c)`, with visible coordinate `c` and the uniform hidden prior.
+
+`φ` is a bijection. Under the canonical full counting law, conditioning on `X₀ = c` leaves `p`
+uniform, and direct enumeration gives
+
+- `Γ₁ = J/2`;
+- `Γ₂ = J/2`;
+- `Γ₃ = I`;
+- `X₂ = X₀ XOR X₁`, so the order-two history gap is maximal.
+
+Thus the manuscript baseline itself can have maximal history readback while the first two rooted
+one-time maps are identical. Canonical counting therefore does **not** repair the failed implication
+“history-level C4 at this window => immediate `C4e`/`C4r` at this window.” But finite recurrence
+later returns the rooted map to the identity, producing the collision-then-separation pattern at the
+recurrence scale.
+
+This control is a determination calculation, not a new kernel theorem. It redirects the next audit
+toward the manuscript's already-stated global readback route rather than toward strengthening #538's
+window-local candidates after the fact.
 
 ## T6 — preserved results
 
@@ -142,7 +163,7 @@ Unchanged and still binding:
 - `ensemble_underdetermined`, `waveSubstratum_ensemble_underdetermined`, and `phi_fixes_zero`;
 - `invariance_does_not_select`, `counting_invariant`, `counting_maximal_entropy`;
 - the #536 `NonnegBounded` sourcing ceiling and its fixed-gate/phase consequences;
-- #538's `C4e => C4r => P-indivisibility` results and the absence of the manuscript-C4 converse;
+- #538's `C4e => C4r => P-indivisibility` results and the absence of the manuscript-C4 window-local converse;
 - #533–#535's exact/dense finite-QM operational benchmarks.
 
 ## What changes next
@@ -163,14 +184,20 @@ load-bearing. It should not be added merely to make the reconciliation look stro
 ## Research frontier after the reconciliation
 
 The observer-map question is no longer correctly phrased as “invent or source a map from A1–A5.”
-The maintained framework already declares the map at its observation layer. The live question is
-now narrower:
+The maintained framework already declares the map at its observation layer. Nor should the next
+round try to force manuscript C4 into #538's window-local `C4e`/`C4r`: the four-state full-counting
+control above shows why that implication is false at the readback window.
 
-> Can the manuscript-stated observer primitive and baseline measure be connected to the same
-> history-readback process strongly enough to discharge the exact indivisibility hypothesis needed
-> downstream, without choosing a preparation prior or strengthening C4 after seeing the answer?
+The next question is instead:
 
-That puts #538's missing C4-to-rooted-marginal bridge ahead of a new observation-map search. The
-fixed nonclassical gate remains a separate empirical boundary.
+> Does the existing kernel already support the manuscript's global chain “history-level C4 implies
+> some non-permutation rooted map; finite recurrence returns the rooted map to identity; stochastic
+> inverse rigidity then yields P-indivisibility somewhere in the recurrence cycle” on the canonical
+> baseline interface recovered here, without a preparation-specific prior?
+
+The stochastic-inverse step is already kernelized in `EquivalenceChain.isPermMatrix_of_stochastic_inverse`.
+The remaining audit is therefore specifically the C4-to-non-permutation step and its interface with
+the recurrence statement, not a new stochastic-inverse proof and not an immediate-revival theorem.
+The fixed nonclassical gate remains a separate empirical boundary.
 
 Status: **Outcome B recorded. No prior theorem retracted; scope repair required.**
