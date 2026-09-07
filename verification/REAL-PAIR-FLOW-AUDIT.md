@@ -325,3 +325,18 @@ comparisons. It does not prove separate necessity or minimality of identity, the
 continuity, and the frozen sentence above reading that the countercontrols show each hypothesis
 needed is read under this correction. The five-hypothesis classification theorem and outcome 2 are
 unchanged.
+
+## Recorded after the round: the operational pair-flow equivalence audit
+
+`PAIR-FLOW-EQUIVALENCE-AUDIT.md`, preregistered at `4db4d7a` with a scope amendment at `3bfcb03`
+and executed from `main` at `acd001f`, states the principle of this note as a predicate on a finite
+operational theory of the two-valued carrier, the availability of the transports of one pair flow
+at every level and time (`PairFlowSourced`), and proves the biconditional
+`ExactAllFiniteEndomorphicQuantumOps T ↔ DerivedOI T ∧ PairFlowSourced T`
+(`qm_iff_derivedOI_pairFlowSourced`): the forward direction from composite unitary control with the
+rate-one rotation as the witness flow, the backward direction at the theory level through the
+supply above (`PairFlow.pairFlow_supplies_mixImage`), the site shear from the closure's phases and
+the construction audit's identity, with no reach back through any implementation class. The
+verdict of this note is unchanged: the reduction stands, the sourcing question stands in the form
+of the frontier question above, and the pair flow remains an operationally sourced condition.
+Nothing is named C5 or adopted.

@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 131 modules and,
-  at this commit, 2,875 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 132 modules and,
+  at this commit, 2,890 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1482,6 +1482,37 @@ fails; the frontier is the question what physical principle gives a nontrivial c
 orthogonal action on one distinguishable pair. Nothing says continuity or the principle is
 necessary. Twenty named results, each printing only `propext`, `Classical.choice`, `Quot.sound`.
 Nothing is named C5 or adopted; no definition changes; no manuscript changes. Guard `R7-RPF`.
+
+The operational pair-flow equivalence audit (`PAIR-FLOW-EQUIVALENCE-AUDIT.md`,
+`OIBridge/PairFlowEquivalence.lean`) asks whether, on the two-valued carrier, exact finite
+endomorphic operational quantum mechanics is exactly the consequence closure `DerivedOI` together
+with one sourced real pair flow, the pair flow stated as a predicate on a finite operational theory:
+the availability of the conjugation channels of the transports of one `PairFlow` at every level and
+time (`PairFlowSourced`), the theory-level analogue of `LayerFlowExecutable`, on availability and
+not on class membership. The rate-one real rotation is a pair flow (`rotFlow`, `rotFlow_A`,
+`rotR_orth`, `rotR_continuous`, `rotR_pi_ne_one`). The forward direction is canonical: quantum
+mechanics has composite unitary control and the transported rotation is the unitary datum, so the
+closure and a sourced pair flow hold (`pairFlowSourced_of_qm`, `derivedOI_pairFlowSourced_of_qm`).
+The backward direction stays within the theory's availability, with no reach back through any
+implementation class: the datum's conjugation is available at every angle by the reduction audit's
+supply (`mixAvail_of_pairFlowSourced`); the identity is available at every level from the witness
+flow at time zero (`identity_avail_of_pairFlowSourced`), the scope amendment's base case; the
+phase products and the site shear are available by finite composition (`phaseIndicator_avail`,
+`siteShear_avail`); a unit scalar leaves a conjugation channel unchanged (`conjChannel_unit_smul`);
+the lifted site exchange's layer flow is executable through the construction audit's identity
+(`layerFlowExecutable_of_derivedOI_pairFlowSourced`); and the existing Q3 gives quantum mechanics
+(`qm_of_derivedOI_pairFlowSourced`). The central theorem is the biconditional
+(`qm_iff_derivedOI_pairFlowSourced`). The countercontrols: the polarization closure satisfies the
+closure and carries no sourced pair flow (`polarizedTheoryC_not_pairFlowSourced`); a theory whose
+available unit conjugations at level one are countable up to scalar carries none
+(`countable_not_pairFlowSourced`), the theory-level form of the coherent-continuum necessity and a
+necessary condition only. Verdict: outcome 1, both directions close, with no hypothesis added on
+either side; principally a repackaging of the construction audit's bridge and the reduction audit's
+supply into the theory-level biconditional the kernel did not have, plus a canonical forward
+direction, and not new physics. Fifteen named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Nothing is named C5 or adopted; nothing is generalized beyond
+`Fin 2`; the reverse reconstruction's generation semantics is deferred; no definition changes; no
+manuscript changes. Guard `R7-PFE`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
