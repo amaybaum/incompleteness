@@ -331,3 +331,142 @@ The frozen endpoint, the branch-map bound with its carrier-only constant, the re
 theory beside the untouched `shift`, the census of exact consumptions, the explicit `δ`, the three
 admissible outcomes, the prediction of outcome 1 with the partial-trace bound as the named place
 of a possible obstruction, and every item under what this round does not do are unchanged.
+
+## The outcome
+
+Executed from `main` at `5ff795e` on the branch `dense-instrument-bridge`. Preregistration commit
+`f8a9b80`; scope amendment `e5498b1`; the frozen text and the amendment are untouched. Module
+`OIBridge/DenseInstrumentBridge.lean`; thirty-two named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`.
+
+The verdict is **outcome 1, full dense-instrument success**. Outcome 2 of the discrete completion
+audit was a formal continuity gap and not a physical condition: the branch bound closes, the shifted
+theory needs only the identity, every exact consumption of the circuit is discharged from the
+closure, and the canonical fixed-gate theory is dense finite quantum mechanics at every angle with
+`α/π` irrational.
+
+**Step 1, the branch bound (T1, T2).** The calculus of the metric: monotone in the tolerance
+(`chanWithin_mono`), additive under finite sums with the constant the cardinality
+(`chanWithin_sum`), and a unit scalar on the unitary leaves the conjugation channel unchanged and
+the unitary unitary (`unitary_unit_smul`, with the pair-flow equivalence audit's
+`conjChannel_unit_smul` cited). The pieces: an isometry has operator norm one by the C*-identity
+(`norm_eq_one_of_isometry`), conjugation and compression by an isometry do not increase the norm
+(`norm_isometry_conj_le`, `norm_isometry_compress_le`); the seed embedding is an isometry
+(`esf_gram`), so the pure attachment is isometric (`norm_pureAttach_le`); the local Lüders selector
+is conjugation by a diagonal projector of norm at most one, hence a contraction
+(`norm_localLuders_le`); the partial trace is the sum of the isometric compressions onto the
+ancilla basis vectors (`ptraceAnc_eq_sum`), hence bounded by the ancilla dimension
+(`norm_ptraceAnc_le`). The bound:
+
+> `branch_within`: for unitary `U, V` on `A × Fin (r + 1)` and `‖U − V‖ ≤ δ`,
+> `ChanWithin (2 (r + 1) δ) (discardMap (r + 1) k₀ ((localLuders k).comp (conjChannel U)))
+> (discardMap (r + 1) k₀ ((localLuders k).comp (conjChannel V)))`.
+
+The constant is `2 (r + 1)`, depending only on the carrier, as frozen: the factor `2` from
+`conj_within` and the factor `r + 1` from the partial trace. No sharper constant is claimed.
+
+**Step 2, the shifted theory from identity availability (T3, T4).** `shiftId T hid hin hclos n` is
+the new definition beside the untouched `shift`, with `hid : ∀ n, T.availExt n Unit (fun _ =>
+LinearMap.id)` in place of full composite control and the same fields otherwise; the two fields
+that consumed control, `avail_id` and `prepAvail_uniform`, consume `hid`, and nothing else changes
+(`shiftId_avail_iff`, `shiftId_availExt_conj_iff`). The census of the circuit's exact consumptions,
+each discharged: the identity at every level from the exchanges alone (`id_avail_of_derivedOI`,
+through `one_mem_availSet` and `conjChannel_one`); the ancilla swaps of the pure seed as permutation
+matrices on the packed carrier, available from the exchanges and transported along `shiftIdx`
+(`reindex_permMatrix`, `shiftId_swap_avail`, consumed by `pureSeedPrep_available_of_swap`); the
+readout by inert-spectator compositionality and the discard by iterated ancilla closure, the
+existing fields; and the unitary itself, for which `circuit_available_of_avail` restates
+`circuit_available` with the one use of composite control replaced by the availability of the
+unitary actually run. Dense control descends to the shifted theory at every unitary
+(`shiftId_approx`): the packed unitary is approximated in `T`, the approximant is unpacked, and the
+reindexing does not increase the operator norm, reindexing being conjugation by the rectangular
+isometry of the bijection (`eqvMatrix_gram`, `reindex_eq_eqvMatrix_conj`, `norm_reindex_le`).
+
+**Step 3, inert spectators (T5).** By citation for every theory satisfying the closure on a
+nonempty carrier, as the amendment recorded: `inert_of_derivedOI` is
+`DerivedOI.implementationLocality`, then `observationalIndependence_of_implementationLocality`,
+then `observationalIndependence_iff_inert`. No condition on any theory is added, and the fallback
+of the preregistration is not used.
+
+**Step 4, the assembly (T6).** `krausDense_of_denseControl : DerivedOI T → DenseUnitaryControl T →
+KrausDense T`, on the two-valued carrier, with the identity, the swaps, the spectators and the
+closure derived inside the proof and none of them a hypothesis. The route as frozen: the
+representation is unfolded to `r`, `K`, `out`; the Stinespring unitary `U` of `Vsf K` comes from
+the unconditional isometry extension (`finiteIsometryExtensionSF_discharged`); with
+`δ := ε / (2 (r + 1) (r + 1))` an available approximant `c • V` within `δ` is chosen in the shifted
+theory at the carrier `Fin 2 × Fin (k + 1)` and level `r + 1`; the circuit is run from `c • V`,
+available in the shifted theory's system availability, which is `T.availExt (k + 1)`, and
+coarse-grained along `out`; branch `j` of the circuit from `U` is exactly `conjChannel (K j)`
+(`stinespringCircuit_branch`), each branch is within `2 (r + 1) δ` by the bound, and each outcome
+sums at most `r + 1` branches, so each outcome is within `ε`. Soundness stays separate
+(`denseFiniteQM_of_denseControl`, with `KrausSoundExt` as its own hypothesis), and the fixed-gate
+form is `krausDense_of_fixedGate` through `denseUnitaryControl_of_fixedGate`.
+
+**Step 5, the endpoints (T7).** `fixedGateTheory_krausDense : Irrational (α / π) → KrausDense
+(fixedGateTheory α)` and `fixedGateTheory_denseFiniteQM : Irrational (α / π) → DenseFiniteQM
+(fixedGateTheory α)`, from the canonical soundness `fixedGateTheory_krausSoundExt`; the angle one
+radian is the concrete witness (`fixedGateTheory_one_denseFiniteQM`). The canonical theory is still
+not exact quantum mechanics (`fixedGateTheory_not_qm`); it is dense in it. Density is not the
+completion, and D3 is not claimed.
+
+**Step 6, D3.** Untouched, with its two debts as recorded.
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | the branch bound with the constant `2 (r + 1)`, depending only on the carrier | `norm_eq_one_of_isometry`, `norm_isometry_conj_le`, `norm_isometry_compress_le`, `esf_gram`, `ptraceAnc_eq_sum`, `norm_ptraceAnc_le`, `norm_localLuders_le`, `norm_pureAttach_le`, `branch_within` |
+| T2 | the calculus of the metric: monotone, additive under finite sums, invariant under a unit scalar, reindexing a contraction | `chanWithin_mono`, `chanWithin_sum`, `unitary_unit_smul`, `norm_reindex_le` |
+| T3 | the shifted theory from identity availability, the existing `shift` untouched | `shiftId`, `shiftId_avail_iff`, `shiftId_availExt_conj_iff` |
+| T4 | the census: the identity and the swaps from the exchanges, the readout and the discard as the existing fields, the unitary the only approximant; dense control descends | `id_avail_of_derivedOI`, `reindex_permMatrix`, `shiftId_swap_avail`, `circuit_available_of_avail`, `eqvMatrix_gram`, `reindex_eq_eqvMatrix_conj`, `shiftId_approx` |
+| T5 | inert spectators by citation for every theory satisfying the closure on a nonempty carrier | `inert_of_derivedOI` |
+| T6 | the general assembly, no spectator hypothesis, soundness separate; the fixed-gate form | `krausDense_of_denseControl`, `denseFiniteQM_of_denseControl`, `krausDense_of_fixedGate` |
+| T7 | the endpoints and the witness | `fixedGateTheory_krausDense`, `fixedGateTheory_denseFiniteQM`, `fixedGateTheory_one_denseFiniteQM` |
+| T8 | the surfaces and the checks: `R7-DIB`; README and census, the family kernel-only; the discrete completion note's recorded section; full build, axiom check, gate, probe, Bohr probe, census, voice check; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+| T9 | the verdict: outcome 1, with the branch-bound, shifted-theory, spectator and endpoint statuses each proved | this section |
+
+**The verdict, with its content.** Outcome 1 is reached; outcome 2 is not reached; outcome 3 is not
+reached. The branch bound holds with a carrier-only constant; the shifted theory needs identity
+availability and nothing more from control; the spectator property is a citation; the assembly
+closes with the explicit `δ`. The general theorem is the amendment's:
+
+> `DerivedOI T ∧ DenseUnitaryControl T → KrausDense T`, and with `KrausSoundExt T`,
+> `DenseFiniteQM T`;
+
+and for the canonical theory, `Irrational (α / π) → DenseFiniteQM (fixedGateTheory α)`.
+
+**What the outcome means.** The instrument stall of the discrete completion audit was a formal gap.
+On the two-valued carrier, the closure with one fixed discrete mixing gate at one angle with `α/π`
+irrational generates a theory that is Kraus-sound and dense in the finite endomorphic instruments
+at every positive level, with the continuum entering only in the closure of what is executable.
+Of the three items the discrete completion audit left open on the instrument side, the passage from
+unitary density to instrument density is closed here, the spectator and ancilla compositionality
+was already discharged in the kernel, and the sole remaining physical sourcing question in this
+thread is the fixed nonclassical gate itself. The gate is a stated datum; this note does not claim
+that OI supplies it. The exact benchmark of the pair-flow equivalence audit stands: exact
+finite quantum mechanics remains exactly the closure with one sourced pair flow, and the fixed-gate
+theory, dense in the finite instruments, is not exact quantum mechanics. The manuscript status of
+the state-mixing resource is unchanged. The stochastic-quantum correspondence was cited as
+motivation for the representation and dilation arrows only; the kernel proof cites nothing
+external and proves availability inside the generated theory.
+
+**What the outcome does not establish, and does not claim.** D3, or any completion statement, or
+that the completion of D3 is exact quantum mechanics; the two debts of D3 stand. Density at any rational `α/π`; `π/8` stays a
+prediction. Anything beyond `Fin 2` at the endpoint. That the gate is supplied by OI. That density is
+the same as exactness. Anything about a manuscript.
+
+## What this note does not claim
+
+That D3 or any completion statement holds, or that the completion of the fixed-gate theory is exact
+quantum mechanics; only dense finite quantum mechanics is proved, and the two debts of D3 are
+untouched. That the fixed-gate theory is exact quantum mechanics; it is not
+(`fixedGateTheory_not_qm`). That density at any rational `α/π`, `π/8` included, is proved. That the
+gate is supplied by OI, or that any theory beyond the closure's consequences is characterized. That
+the stochastic-quantum correspondence is consumed by the kernel proof. That anything is named C5.
+That any manuscript statement changes.
+
+Status: pass complete. Outcome 1, full dense-instrument success: the calculus of the metric, the
+norm bounds of the circuit pieces, the branch bound with the constant `2 (r + 1)`, the shifted
+theory from identity availability beside the untouched `shift`, the census of exact consumptions
+each discharged from the closure, inert spectators by citation, the descent of dense control, the
+approximate Stinespring assembly with the explicit `δ`, and the canonical theory dense finite quantum
+mechanics at every angle with `α/π` irrational; thirty-two named results; no C5 named or adopted; no
+manuscript edited.

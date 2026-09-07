@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_sub &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_flow &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_q3 &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_exec &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_lsrc &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_srcp &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_c5d &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_pcl &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5413,7 +5413,7 @@ for _t in ('strengthens the necessary condition above', 'is not by itself diagno
 ok_ccs &= _pcn_rec1.count('## ') == 1
 # the discovery note is untouched by this round: still exactly one recorded section
 ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
-ok_ccs &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_ccs &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 check('R7-CCS', ok_ccs,
       'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
@@ -5569,7 +5569,7 @@ for _t in ('stated as a postulate', 'meets the three obligations recorded above'
     ok_smc &= _t in _ccn_rec1
 ok_smc &= _ccn_rec1.count('## ') == 1
 ok_smc &= 'state-mixing coupling construction audit' not in _c5n and 'state-mixing coupling construction audit' not in _pcn
-ok_smc &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_smc &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 check('R7-SMC', ok_smc,
       'State-mixing coupling guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-five results, defines exactly the datum, its sourcing map, the class family and its full instance, the two '
@@ -5725,7 +5725,7 @@ for _t in ('reduces the datum of this round to a principle', 'stated without the
     ok_rpf &= _t in _smn_rec1
 ok_rpf &= _smn_rec1.count('## ') == 1
 ok_rpf &= 'real pair-flow reduction audit' not in _c5n and 'real pair-flow reduction audit' not in _pcn and 'real pair-flow reduction audit' not in _ccn
-ok_rpf &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_rpf &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 check('R7-RPF', ok_rpf,
       'Real pair-flow guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty results, defines exactly the principle, its transport, the rotation as conclusion, the local angle, the '
@@ -5883,7 +5883,7 @@ for _t in ('states the principle of this note as a predicate on a finite operati
 ok_pfe &= _rpn_rec1.count('## ') == 1
 for _n in (_smn, _ccn, _pcn, _c5n):
     ok_pfe &= 'operational pair-flow equivalence audit' not in _n and 'PairFlowSourced' not in _n
-ok_pfe &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_pfe &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 check('R7-PFE', ok_pfe,
       'Operational pair-flow equivalence guard: the module carries no sorry, axiom or native_decide, prints the axioms of '
       'exactly its fifteen results, defines exactly the theory-level predicate on the two-valued carrier and the canonical '
@@ -6046,7 +6046,7 @@ for _t in ('replaces the sourced pair flow of this note by one fixed discrete ga
 ok_dca &= _pfn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n):
     ok_dca &= 'discrete completion audit' not in _n and 'FixedGateSourced' not in _n
-ok_dca &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+ok_dca &= '134 modules' in _rd1 and '2,973 named results' in _rd1
 check('R7-DCA', ok_dca,
       'Discrete completion guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its fifty-one results, defines exactly the predicates and the metric, the closure of availability, the block '
@@ -6063,6 +6063,177 @@ check('R7-DCA', ok_dca,
       'claimed beyond the proved cases, and no C5, no OI-supplies-the-gate, no density-is-exactness claim; no manuscript '
       'is edited; the registry and the census carry the family as kernel-only; the pair-flow equivalence note carries one '
       'section after its frozen text and the older notes are untouched; the README carries the paragraph and the counts.')
+
+# ---- the quantitative dense-instrument bridge audit: from dense unitary control to dense instruments; the branch bound with
+# a carrier-only constant, the shifted theory from identity availability beside the untouched shift, every exact consumption
+# of the circuit discharged from the closure, inert spectators by citation, the approximate Stinespring assembly, the canonical
+# theory dense finite quantum mechanics; outcome 1; no C5; no continuous pair flow; no completion claim ----
+ok_dib = True
+_di = open(os.path.join(BRIDGE, 'OIBridge', 'DenseInstrumentBridge.lean'), encoding='utf-8').read()
+_diflat = ' '.join(_di.split())
+_dicode = re.sub(r'/-.*?-/|--[^\n]*', '', _di, flags=re.S)
+_din = open(os.path.join(os.path.dirname(BRIDGE), 'DENSE-INSTRUMENT-BRIDGE-AUDIT.md'), encoding='utf-8').read()
+_din1 = re.sub(r'\s+', ' ', _din)
+ok_dib &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _di) is None and 'native_decide' not in _di
+ok_dib &= 'axiom ' not in _dicode
+_di_names = re.findall(r"^theorem ([\w'.]+)", _di, re.M)
+ok_dib &= len(_di_names) == 32 and _di.count('#print axioms') == 32
+for _nm in ('chanWithin_mono', 'chanWithin_sum', 'unitary_unit_smul', 'norm_eq_one_of_isometry', 'norm_isometry_conj_le',
+            'norm_isometry_compress_le', 'esf_gram', 'ptraceAnc_eq_sum', 'norm_ptraceAnc_le', 'norm_localLuders_le',
+            'norm_pureAttach_le', 'branch_within', 'shiftId_avail_iff', 'shiftId_availExt_conj_iff', 'circuit_available_of_avail',
+            'reindex_permMatrix', 'eqvMatrix_apply', 'eqvMatrix_mul', 'mul_eqvMatrix_conjTranspose', 'eqvMatrix_gram',
+            'reindex_eq_eqvMatrix_conj', 'norm_reindex_le', 'id_avail_of_derivedOI', 'inert_of_derivedOI', 'shiftId_swap_avail',
+            'shiftId_approx', 'krausDense_of_denseControl', 'denseFiniteQM_of_denseControl', 'krausDense_of_fixedGate',
+            'fixedGateTheory_krausDense', 'fixedGateTheory_denseFiniteQM', 'fixedGateTheory_one_denseFiniteQM'):
+    ok_dib &= ('#print axioms OIBridge.DenseInstrumentBridge.' + _nm) in _di and _nm in _di_names
+# the definitions: exactly the shifted theory from identity availability and the bijection matrix; nothing named C5; no
+# existing definition or circuit theorem restated; the existing shift untouched
+_di_defs = re.findall(r"^(?:noncomputable )?(?:def|abbrev|structure|inductive) ([\w'.]+)", _di, re.M)
+ok_dib &= _di_defs == ['shiftId', 'eqvMatrix']
+ok_dib &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive|theorem) [Cc]5', _di, re.M) is None
+for _t in ('shift', 'ChanWithin', 'KrausDense', 'DenseFiniteQM', 'DenseUnitaryControl', 'FixedGateSourced', 'ClosureAvail',
+           'mixImage', 'MixR', 'mixTheoryR', 'DerivedOI', 'PairFlow', 'PairFlowSourced', 'conjChannel',
+           'IsFiniteEndomorphicKrausInstrument', 'InertSpectatorCompositionality', 'IteratedAncillaClosure',
+           'HasCompositeUnitaryControl', 'HasAncillaSwapControl', 'discardMap', 'localLuders', 'ptraceAnc', 'pureAttach'):
+    ok_dib &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) ' + _t + r'\b', _di, re.M) is None
+for _t in ('circuit_available', 'stinespringCircuit_branch', 'fullInstruments_of_control', 'conj_within', 'conjChannel_unit_smul',
+           'denseUnitaryControl_of_fixedGate', 'shift_avail_iff', 'shift_control', 'shift_full'):
+    ok_dib &= re.search(r'^theorem ' + _t + r'\b', _di, re.M) is None
+_anc = open(os.path.join(BRIDGE, 'OIBridge', 'AncillaClosure.lean'), encoding='utf-8').read()
+ok_dib &= 'noncomputable def shift (T : FiniteOperationalTheory A) (hctrl : HasCompositeUnitaryControl T)' in _anc
+ok_dib &= 'avail_id := availExt_id_of_control T hctrl n' in _anc
+_dicode_noopen = re.sub(r'^open .*$', '', _dicode, flags=re.M)
+ok_dib &= 'PairFlowSourced' not in _dicode and re.search(r'\bPairFlow\b', _dicode_noopen) is None
+ok_dib &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive)[^\n]*Irrational', _di, re.M) is None
+ok_dib &= 'import OIBridge.DiscreteCompletion' in _di and 'import OIBridge.DenseInstrumentBridge' in root
+# the statements, as preregistered and amended
+for _t in ('ChanWithin (s.card * ε) (∑ i ∈ s, F i) (∑ i ∈ s, G i)',
+           'theorem norm_eq_one_of_isometry [Nonempty S] {l : Type} [Fintype l] [DecidableEq l] {E : Matrix l S ℂ} (hE : Eᴴ * E = 1) : ‖E‖ = 1',
+           'Matrix.l2_opNorm_conjTranspose_mul_self',
+           'theorem esf_gram {n : ℕ} (k₀ : Fin n) : (Esf (A := A) k₀)ᴴ * Esf (A := A) k₀ = 1',
+           'ptraceAnc n M = ∑ e : Fin n, (Esf (A := A) e)ᴴ * M * Esf (A := A) e',
+           '‖ptraceAnc n M‖ ≤ n * ‖M‖', '‖localLuders k X‖ ≤ ‖X‖', '‖pureAttach n k₀ ρ‖ ≤ ‖ρ‖',
+           'theorem branch_within [Nonempty A] {r : ℕ} (k₀ k : Fin (r + 1))',
+           'ChanWithin (2 * ((r : ℝ) + 1) * δ) (discardMap (r + 1) k₀ ((localLuders k).comp (conjChannel U))) (discardMap (r + 1) k₀ ((localLuders k).comp (conjChannel V)))',
+           'noncomputable def shiftId (T : FiniteOperationalTheory A) (hid : ∀ n, T.availExt n Unit (fun _ => LinearMap.id)) (hin : InertSpectatorCompositionality T) (hclos : IteratedAncillaClosure T) (n : ℕ) : FiniteOperationalTheory (A × Fin n) where',
+           'avail_id := hid n', 'readout_avail := fun m => availExt_relativeReadout T hin n m',
+           'have h := hclos n m\' O (fun a => (F a).comp Φ) hcomp',
+           '(shiftId T hid hin hclos n).avail O F ↔ T.availExt n O F := Iff.rfl',
+           'theorem circuit_available_of_avail (T : FiniteOperationalTheory A) (n : ℕ)',
+           '(hUav : T.availExt n Unit (fun _ => conjChannel U))',
+           'Matrix.reindex e e (permMatrix σ) = permMatrix ((e.symm.trans σ).trans e)',
+           '(eqvMatrix e)ᴴ * eqvMatrix e = 1', 'Matrix.reindex e e M = eqvMatrix e * M * (eqvMatrix e)ᴴ',
+           '[Nonempty l] (e : l ≃ l\') (M : Matrix l l ℂ) : ‖Matrix.reindex e e M‖ ≤ ‖M‖',
+           'theorem id_avail_of_derivedOI {T : FiniteOperationalTheory (Fin 2)} (hd : DerivedOI T) (n : ℕ) : T.availExt n Unit (fun _ => LinearMap.id)',
+           'theorem inert_of_derivedOI {A : Type} [Fintype A] [DecidableEq A] [Nonempty A] {T : FiniteOperationalTheory A} (hd : DerivedOI T) : InertSpectatorCompositionality T := (OIHierarchyGeneral.observationalIndependence_iff_inert T).mp (observationalIndependence_of_implementationLocality hd.implementationLocality)',
+           'exact permMatrix_mem_availSet T hd (Nat.mul_pos hn hm) _',
+           'theorem krausDense_of_denseControl {T : FiniteOperationalTheory (Fin 2)} (hd : DerivedOI T) (hdense : DenseUnitaryControl T) : KrausDense T',
+           'finiteIsometryExtensionSF_discharged (Fin 2 × Fin (k + 1)) r 0 (Vsf K)',
+           'set δ := ε / (2 * ((r : ℝ) + 1) * ((r : ℝ) + 1)) with hδdef',
+           'pureSeedPrep_available_of_swap (shiftId T hid hin hclos (k + 1)) r 0 hswap',
+           'stinespringCircuit_branch K 0 j U hUE ρ', 'PairFlowEquivalence.conjChannel_unit_smul hc',
+           'theorem denseFiniteQM_of_denseControl {T : FiniteOperationalTheory (Fin 2)} (hd : DerivedOI T) (hdense : DenseUnitaryControl T) (hs : KrausSoundExt T) : DenseFiniteQM T',
+           'theorem krausDense_of_fixedGate {T : FiniteOperationalTheory (Fin 2)} (hd : DerivedOI T) {α : ℝ} (hα : Irrational (α / Real.pi)) (hg : FixedGateSourced α T) : KrausDense T',
+           'theorem fixedGateTheory_krausDense {α : ℝ} (hα : Irrational (α / Real.pi)) : KrausDense (fixedGateTheory α)',
+           'theorem fixedGateTheory_denseFiniteQM {α : ℝ} (hα : Irrational (α / Real.pi)) : DenseFiniteQM (fixedGateTheory α) := ⟨fixedGateTheory_krausSoundExt α, fixedGateTheory_krausDense hα⟩',
+           'theorem fixedGateTheory_one_denseFiniteQM : DenseFiniteQM (fixedGateTheory 1)'):
+    ok_dib &= _t in _diflat
+# the note: the question, the objects, the steps, the prediction, the outcomes, the tests, the non-doings, the amendment,
+# then the outcome and the non-claims, in that order
+_kdi = [_din.find(h) for h in ('## The question', '## The objects, all existing and unchanged', '## The steps, frozen',
+        '## The prediction', '## Admissible outcomes, frozen', '## Tests, frozen', '## What this round does not do',
+        '## Scope amendment, recorded after the preregistration', '## The outcome', '## What this note does not claim')]
+ok_dib &= all(x > 0 for x in _kdi) and _kdi == sorted(_kdi)
+ok_dib &= _din.lstrip().startswith('# The quantitative dense-instrument bridge audit')
+ok_dib &= _din.count('## Scope amendment, recorded after the preregistration') == 1
+for _t in ('Preregistration commit `f8a9b80`', 'scope amendment `e5498b1`', '`main` at `5ff795e`', 'Status: preregistered; no proof attempted',
+           'Status: pass complete', '1. **Full dense-instrument success.**',
+           '2. **Branch continuity succeeds, the structure exposes one exact missing operational condition.**',
+           '3. **A quantitative branch or assembly obstruction prevents `KrausDense`.**', 'Exactly three.',
+           '**(1) The round is a Barandes and Stinespring closure audit.**', '**(2) Step 3 is a citation for every theory satisfying the closure.**',
+           '**(3) The general assembly theorem carries no spectator hypothesis.**', '**(4) A correction to the discrete completion audit\'s outcome.**',
+           '**(5) The frontier hierarchy, recorded correctly.**', 'literally true and materially misleading',
+           'The correspondence is cited as motivation only', 'thirty-two named results'):
+    ok_dib &= _t in _din1
+_din_out = re.sub(r'\s+', ' ', _din[_din.find('## The outcome'):])
+for _t in ('The verdict is **outcome 1, full dense-instrument success**', 'The constant is `2 (r + 1)`, depending only on the carrier',
+           'No sharper constant is claimed', 'the new definition beside the untouched `shift`',
+           'By citation for every theory satisfying the closure on a nonempty carrier', 'the fallback of the preregistration is not used',
+           'none of them a hypothesis', 'Soundness stays separate', 'Density is not the completion, and D3 is not claimed',
+           'Outcome 1 is reached; outcome 2 is not reached; outcome 3 is not reached', 'was a formal gap',
+           'the sole remaining physical sourcing question in this thread is the fixed nonclassical gate itself', 'The gate is a stated datum',
+           'is not exact quantum mechanics', 'The manuscript status of the state-mixing resource is unchanged',
+           'cited as motivation for the representation and dilation arrows only', 'the two debts of D3 stand',
+           '| T1 | ', '| T5 | ', '| T7 | ', '| T9 | '):
+    ok_dib &= _t in _din_out
+for _bad in ('The verdict is **outcome 2', 'The verdict is **outcome 3', 'Outcome 1 is not reached', 'is C5.', 'C5 holds', 'C5 is the',
+             'we adopt C5', 'define C5', 'the fixed gate is C5', 'OI supplies the', 'OI itself supplies', 'D3 is proved',
+             'the completion is proved', 'exact quantum mechanics is the completion', 'density is exactness', 'minimal', 'Minimal',
+             'PairFlow enters', 'continuous pair flow is used', 'Barandes proves', 'proved by Barandes', 'the correspondence proves',
+             'is fundamental physics', 'fundamental physics is'):
+    ok_dib &= _bad not in _din_out
+for _bad in ('the fixed gate is C5', 'C5 holds', 'the gate is supplied by OI', 'D3 holds', 'the completion holds',
+             'is exact quantum mechanics'):
+    ok_dib &= not _asserted(_din[_din.find('## The outcome'):], _bad)
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    for _bad in ('DenseInstrumentBridge', 'DENSE-INSTRUMENT-BRIDGE', 'krausDense_of_denseControl', 'fixedGateTheory_denseFiniteQM',
+                 'fixedGateTheory_krausDense', 'shiftId', 'branch_within', 'inert_of_derivedOI'):
+        ok_dib &= _bad not in _t
+_di_fam = [f for f in _ptr_reg['families'] if f['name'] == 'dense-instrument bridge: from dense unitary control to dense finite quantum mechanics']
+ok_dib &= len(_di_fam) == 1 and _di_fam[0]['status'] == 'kernel-only' and _di_fam[0]['modules'] == ['DenseInstrumentBridge']
+ok_dib &= _di_fam[0]['manuscript'] == []
+for _t in ('Verdict outcome 1, full dense-instrument success', 'the stall was a formal gap', 'a stated datum', 'D3 is not claimed',
+           'still not exact quantum mechanics', 'Nothing is named C5 or adopted', 'no continuous pair flow in any constructive route',
+           'the correspondence cited as motivation only', 'owner decision'):
+    ok_dib &= _t in _di_fam[0]['note']
+for _bad in ('the fixed gate is C5', 'C5 holds', 'D3 is proved', 'the completion is proved', 'density is exactness', 'minimal', 'OI supplies the'):
+    ok_dib &= _bad not in _di_fam[0]['note']
+ok_dib &= '| dense-instrument bridge: from dense unitary control to dense finite quantum mechanics | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-DIB`', 'DENSE-INSTRUMENT-BRIDGE-AUDIT.md', 'branch_within', 'esf_gram', 'norm_pureAttach_le', 'norm_localLuders_le',
+           'ptraceAnc_eq_sum', 'norm_ptraceAnc_le', 'shiftId', 'id_avail_of_derivedOI', 'reindex_permMatrix', 'shiftId_swap_avail',
+           'circuit_available_of_avail', 'reindex_eq_eqvMatrix_conj', 'norm_reindex_le', 'shiftId_approx', 'inert_of_derivedOI',
+           'DerivedOI.implementationLocality', 'observationalIndependence_of_implementationLocality', 'observationalIndependence_iff_inert',
+           'krausDense_of_denseControl', 'denseFiniteQM_of_denseControl', 'krausDense_of_fixedGate', 'fixedGateTheory_krausDense',
+           'fixedGateTheory_denseFiniteQM', 'fixedGateTheory_one_denseFiniteQM', 'fixedGateTheory_not_qm',
+           'Verdict: outcome 1, full dense-instrument success', 'the stall was a formal gap', 'a stated datum',
+           'D3 and its two debts are untouched; `π/8` stays a prediction', 'Thirty-two named results',
+           'Nothing is named C5 or adopted; no continuous pair flow enters any constructive route; no definition changes; no manuscript changes'):
+    ok_dib &= _t in _rd1
+for _bad in ('the fixed gate is C5', 'C5 holds', 'D3 is proved', 'the completion is proved', 'density is exactness', 'OI supplies the'):
+    ok_dib &= _bad not in _rd1
+# the discrete completion note: one section recorded after its frozen text and its outcome; the older notes untouched
+_dcn2 = open(os.path.join(os.path.dirname(BRIDGE), 'DISCRETE-COMPLETION-AUDIT.md'), encoding='utf-8').read()
+_dcn_rec = _dcn2.find('## Recorded after the round: the dense-instrument bridge audit')
+ok_dib &= _dcn_rec > _dcn2.find('## What this note does not claim') and _dcn_rec > _dcn2.find('Status: pass complete')
+_dcn_rec1 = re.sub(r'\s+', ' ', _dcn2[_dcn_rec:])
+for _t in ('The frozen text and the outcome of this note are not edited', 'literally true and materially misleading', '`inert_of_derivedOI`',
+           '`branch_within`', '`shiftId`', '`fixedGateTheory_denseFiniteQM`', 'while still not exact quantum mechanics',
+           'Outcome 2 of this note was a formal continuity gap and not a physical condition', 'the gate remains a stated datum'):
+    ok_dib &= _t in _dcn_rec1
+ok_dib &= _dcn_rec1.count('## ') == 1
+for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn):
+    ok_dib &= 'dense-instrument bridge' not in _n and 'DenseInstrumentBridge' not in _n
+ok_dib &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+check('R7-DIB', ok_dib,
+      'Dense-instrument bridge guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
+      'its thirty-two results, defines exactly the shifted theory from identity availability and the bijection matrix, '
+      'nothing named C5, no existing definition or circuit theorem restated, the existing shift untouched, no pair flow '
+      'in any constructive route and no irrationality inside a definition; the calculus of the metric, the isometry '
+      'norms, the seed embedding, the partial trace as a sum of compressions with its bound, the Lüders contraction, the '
+      'isometric attachment, the branch bound with the constant two times the ancilla dimension, the shifted theory '
+      'field by field, the circuit from the availability of its unitary, the reindexed permutation, the bijection '
+      'matrix, the identity and the swaps from the closure, inert spectators by citation, the descent of dense control, '
+      'the assembly with the explicit delta, soundness separate, the fixed-gate form and the canonical endpoints are '
+      'stated as pinned; the note keeps the question, the objects, the steps, the prediction, the outcomes, the tests '
+      'and the non-doings before the amendment and the outcome, names the three commits, records the amendment\'s five '
+      'points, records outcome 1 with the branch bound, the shifted theory, the spectators and the endpoints proved, '
+      'D3 and the completion not claimed, the gate a stated datum, and no C5, no OI-supplies-the-gate, no '
+      'density-is-exactness, no completion claim; no manuscript is edited; the registry and the census carry the family '
+      'as kernel-only; the discrete completion note carries one section after its frozen text and its outcome, with the '
+      'T7 correction, and the older notes are untouched; the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

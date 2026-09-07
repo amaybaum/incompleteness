@@ -183,6 +183,7 @@ import OIBridge.StateMixingCoupling
 import OIBridge.RealPairFlow
 import OIBridge.PairFlowEquivalence
 import OIBridge.DiscreteCompletion
+import OIBridge.DenseInstrumentBridge
 
 namespace OIBridge
 
