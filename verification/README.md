@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 134 modules and,
-  at this commit, 2,973 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 135 modules and,
+  at this commit, 2,996 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1585,6 +1585,39 @@ gate itself, a stated datum. D3 and its two debts are untouched; `π/8` stays a 
 Thirty-two named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Nothing
 is named C5 or adopted; no continuous pair flow enters any constructive route; no definition
 changes; no manuscript changes. Guard `R7-DIB`.
+
+The frozen substratum nonclassical-resource sourcing audit (`FROZEN-SUBSTRATUM-SOURCING-AUDIT.md`,
+`OIBridge/FrozenSourcing.lean`) asks the sourcing question below the consequence closure, since the
+sourced and observer theories both fail it at the phases: does the presently stated substratum and
+observer architecture source any operational resource from which both `PhasesAvailable` and
+`DenseUnitaryControl` follow? The architecture is frozen exactly as it stands, A6 a gap with no
+predicate and not filled, and no axiom, operation, carrier map, coupling or class enrichment is
+added or reported as sourced. The round works with one predicate of a theory's availability,
+`NonnegBounded`, every available composite one-outcome operation preserving nonnegative entries,
+reached through the implementation class and the realization theorem
+(`nonnegBounded_of_bijectionLevel`) and carried by the sourced theory and by the observer theory of
+every substratum (`permTheory_nonnegBounded`, `obsTheory_nonnegBounded`). The census puts the
+configuration bijections, the read-write operators and the substrate's own update inside the class
+(`permMatrix_preservesNonneg`, `readWrite_preservesNonneg`, `obs_dynamics_preservesNonneg`) and the
+phase operator outside it, represented and not sourced (`phaseOperator_outside_ceiling`). The phase
+ceiling is stated of the invariant (`nonnegBounded_not_phasesAvailable`,
+`nonnegBounded_not_derivedOI`, `permTheory_phase_ceiling`). The dense-control ceiling is audited
+independently: the invariant passes to limits (`norm_entry_le_l2_opNorm`,
+`preservesNonneg_of_approx`), so dense control would make every unitary's conjugation preserve
+nonnegative entries (`nonnegBounded_not_denseUnitaryControl`, `permTheory_dense_ceiling`), and the
+ceiling is proved a second time from a witness carrying no phase, the pair rotation at a quarter
+turn (`mixImage_not_preservesNonneg`, `nonnegBounded_not_denseUnitaryControl_rot`), so neither
+obligation is derived from the other. Both ceilings are independent of the rule
+(`sourcing_rule_independent`, `phase_ceiling_rule_independent`), since two substrata on the same
+sites and alphabet have the same observer theory. Verdict: outcome 3, the no-go
+(`frozen_sourcing_verdict`, `nonnegBounded_verdict`); the quantum-enabling nonclassical resource is
+an independent empirical datum relative to the presently stated architecture, for both obligations
+at once, and choosing a different microscopic rule does not move either ceiling. The density side
+is downstream and untouched: the canonical fixed-gate theory has dense unitary control and so sits
+outside the class (`fixedGateTheory_outside_ceiling`). No claim of refutation, of a limit on what an
+extension could source, of a count of independent additions, or of a predicate for A6. Twenty-three named results, each printing only `propext`, `Classical.choice`,
+`Quot.sound`. Nothing is named C5 or adopted; no continuous pair flow enters any route; no
+definition changes; no manuscript changes. Guard `R7-FSS`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

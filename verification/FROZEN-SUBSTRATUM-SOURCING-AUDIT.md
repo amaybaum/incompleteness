@@ -239,3 +239,117 @@ shows to be sufficient is latent in the OI architecture as stated, or is an inde
 datum relative to it.
 
 Status: preregistered; no proof attempted.
+
+## The outcome
+
+Executed from `main` at `8f277f5` on the branch `frozen-sourcing`. Preregistration commit
+`c0e763c`; the frozen text above is untouched. Module `OIBridge/FrozenSourcing.lean`; twenty-three
+named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. No axiom, operation,
+carrier map, coupling or class enrichment was added to the substratum, and nothing added anywhere
+is reported as sourced.
+
+The verdict is **outcome 3, the no-go**. Every resource the frozen architecture actually sources
+stays inside one characterized class, and that class supplies neither obligation.
+
+**The characterized class.** The round works with one predicate of a theory's availability, not of
+any single matrix:
+
+> `NonnegBounded T`: every available composite one-outcome operation preserves nonnegative entries.
+
+It is reached through the implementation class and the realization theorem, never through a claim
+that some available channel is itself a scaled partial permutation
+(`nonnegBounded_of_bijectionLevel`, by `realized_of_instAvail` and `preservesNonneg_of_realized`).
+The sourced theory carries it (`permTheory_nonnegBounded`), and so does the observer theory of every
+substratum satisfying the finiteness A1 supplies (`obsTheory_nonnegBounded`).
+
+**Layer 1, the census.** Everything the interface places into availability lands inside the class:
+the configuration bijections generally (`permMatrix_preservesNonneg`), the read-write operators
+(`readWrite_preservesNonneg`), and the substrate's own update at every level, the operation
+`obs_dynamics_avail` sources (`obs_dynamics_preservesNonneg`). The phase operator is on the other
+side of the line: it is an object the kernel writes down whose conjugation is outside the class
+(`phaseOperator_outside_ceiling`), so no sourcing theorem can place it into the availability of a
+theory carrying the invariant. Represented, not sourced.
+
+**Layer 2, the phase ceiling.** Stated of the invariant, so it holds of every theory carrying it and
+not merely of one class: `nonnegBounded_not_phasesAvailable`, hence
+`nonnegBounded_not_derivedOI`, hence `permTheory_phase_ceiling`.
+
+**Layer 3, the dense-control ceiling.** Audited independently of layer 2 and answered by the same
+invariant. The new content is that the invariant passes to limits
+(`preservesNonneg_of_approx`): entries are bounded by the operator norm
+(`norm_entry_le_l2_opNorm`), the bridge `conj_within` controls the channel difference, and each
+entry of the limit is a limit of nonnegative numbers. Dense control would place, next to every
+unitary, an exactly available conjugation carrying the invariant, so every unitary's conjugation
+would preserve nonnegative entries. Hence `nonnegBounded_not_denseUnitaryControl`, and
+`permTheory_dense_ceiling` on the two-valued carrier, which is where `DenseUnitaryControl` is
+stated. The ceiling is a property of the class and not a statement about one gate.
+
+The round proves the ceiling twice, from two witnesses, so that the two obligations stay visibly
+separate. The first route refutes the limit with the quarter phase and so shares its witness with
+layer 2. The second refutes it with the pair rotation at a quarter turn, which carries no phase at
+all (`mixImage_not_preservesNonneg`, `nonnegBounded_not_denseUnitaryControl_rot`): the dense-control
+ceiling does not depend on the phase ceiling, and neither obligation is derived from the other.
+
+**Layer 4, the combined verdict.** Asked only after the two were audited separately:
+`frozen_sourcing_verdict` records that the theory the frozen architecture sources on the two-valued
+carrier has no phase structure, no dense unitary control, and therefore not the consequence closure
+either; `nonnegBounded_verdict` states the same of every theory inside the class. Nothing here says
+how many independent additions an extension would need, and the possibility that a single resource
+supplies both is left open exactly as preregistered.
+
+**The rule does not enter.** `sourcing_rule_independent` records that every property of the observer
+theory — the two obligations among them — takes the same value whatever the rule, since two
+substrata on the same sites and alphabet have the same observer theory
+(`obsTheory_rule_independent`); `phase_ceiling_rule_independent` is the instance. Changing the
+microscopic dynamics while holding the configuration space fixed cannot move either ceiling under
+the present interface. A3 through A5 and the manuscripts' wave rule contribute nothing to
+availability here, and A6 stays the gap it was.
+
+**The two sides fit.** The canonical fixed-gate theory of the discrete completion audit does have
+dense unitary control, so it is not inside the class (`fixedGateTheory_outside_ceiling`). The
+sourcing verdict says that the frozen architecture does not reach that theory; it does not say the
+theory fails to exist, and it takes nothing back from the density side.
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | the census: the bijections, the read-write operators and the substrate's own update inside the class; the phase operator outside it, represented and not sourced | `permMatrix_preservesNonneg`, `readWrite_preservesNonneg`, `obs_dynamics_preservesNonneg`, `phaseOperator_outside_ceiling` |
+| T2 | the scope: the sourced theory and every observer theory carry the invariant, through the class and the realization theorem | `NonnegBounded`, `nonnegBounded_of_bijectionLevel`, `permTheory_nonnegBounded`, `obsTheory_nonnegBounded` |
+| T3 | the phase ceiling at class level, and the closure with it | `nonnegBounded_not_phasesAvailable`, `permTheory_phase_ceiling`, `nonnegBounded_not_derivedOI` |
+| T4 | the dense-control ceiling by the invariant, proved twice from two witnesses, the second carrying no phase | `norm_entry_le_l2_opNorm`, `preservesNonneg_of_approx`, `nonnegBounded_not_denseUnitaryControl`, `permTheory_dense_ceiling`, `mixImage_not_preservesNonneg`, `nonnegBounded_not_denseUnitaryControl_rot` |
+| T5 | the rule contributes nothing to availability under the present interface | `sourcing_rule_independent`, `phase_ceiling_rule_independent` |
+| T6 | the combined verdict, after the separate audits, with one resource for both left open | `frozen_sourcing_verdict`, `nonnegBounded_verdict` |
+| T7 | the surfaces and the checks: `R7-FSS`; README and census, the family kernel-only; the two cross-reference sections; full build, axiom check, gate, probe, Bohr probe, census, voice check; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+| T8 | the verdict: outcome 3, with the census, the two ceilings and the combined verdict stated separately | this section |
+
+**The verdict, with its content.** Outcome 3 is reached; outcome 1 is not reached; outcome 2 is not
+reached. The scientific content is that the quantum-enabling nonclassical resource is an independent
+empirical datum relative to the presently stated OI architecture, for both obligations at once. The
+architecture's operational interface carries the configuration bijections and what they generate,
+and that is a class with an invariant which the phases and dense control both violate. The
+substratum's dynamical content does not reach the interface at all, so the shortfall is not repaired
+by choosing a different microscopic rule.
+
+**What the outcome does not establish.** The round does not claim any of the following. That the
+architecture is refuted; the result is about what
+it sources, not about whether it is true. That no architecture can source the resource; the scope is
+the presently stated one. That the phases and dense control need two independent additions; a single
+resource could supply both, and this round leaves that open. That OI supplies any gate, phase or
+resource. That A6, if given a predicate, would or would not change the verdict; A6 remains a gap and
+was not filled. Anything about a manuscript.
+
+## What this note does not claim
+
+That the OI architecture is refuted or that its axioms are false. That the resource cannot be
+sourced by some extension of the architecture, or that two independent additions are needed. That
+A6 has a predicate, a reading, or a consequence here. That OI supplies the phases, the fixed gate,
+or any nonclassical resource. That `PhasesAvailable` and `DenseUnitaryControl` imply one another;
+they are audited separately and neither is derived from the other. That sufficiency for dense
+quantum mechanics is the same thing as sourcing by the substratum. That the dense-instrument bridge
+theorem is weakened; it is downstream and untouched. That anything is named C5. That any manuscript
+statement changes.
+
+Status: pass complete. Outcome 3, the no-go: the census, the invariant of the frozen source class,
+the phase ceiling at class level, the dense-control ceiling through the limit lemma and proved twice
+from two witnesses, the rule-independence of both ceilings, and the combined verdict; twenty-three
+named results; no axiom or operation added to the substratum; no C5 named or adopted; no manuscript
+edited.

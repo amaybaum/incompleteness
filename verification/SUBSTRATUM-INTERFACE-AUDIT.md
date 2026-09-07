@@ -399,3 +399,23 @@ involution with a moved configuration, its own layers included (`obs_not_layerFl
 `obs_availExt_le_substratum` and the lift audit's Q2, and the wave substratum's swap layer moves a
 configuration (`waveSubstratum_swap_moves`). The executability is an additional physical
 assumption on the route, as the phases are; nothing in this note changes.
+
+## Recorded after the round: the frozen substratum sourcing audit
+
+Recorded at the packaging of the frozen substratum nonclassical-resource sourcing audit
+(`FROZEN-SUBSTRATUM-SOURCING-AUDIT.md`, `OIBridge/FrozenSourcing.lean`). The frozen text and the
+outcome of this note are not edited.
+
+That round takes this note's negatives as its starting point and asks the sourcing question below
+the consequence closure, for the phases and dense unitary control at once, with the architecture
+frozen exactly as this note left it and A6 still a gap with no predicate. It works with one
+predicate of a theory's availability, `NonnegBounded`, reached through the implementation class and
+the realization theorem this note supplies (`preservesNonneg_of_realized`, `realized_of_instAvail`),
+and carried by the sourced theory and by the observer theory of every substratum. This note's phase
+negative is restated at that level (`nonnegBounded_not_phasesAvailable`), and the dense-control
+ceiling is proved beside it from the same invariant, twice, the second time from a witness carrying
+no phase. The verdict is outcome 3: the resource is an independent empirical datum relative to the
+presently stated architecture, for both obligations. This note's `obsTheory_rule_independent` is
+what makes that verdict rule-independent: a different microscopic rule does not move either
+ceiling. Nothing in that round adds an axiom or an operation to the substratum, fills A6, or claims
+the architecture is refuted.

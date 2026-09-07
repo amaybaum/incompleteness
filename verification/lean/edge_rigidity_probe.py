@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_sub &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_flow &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_q3 &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_exec &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_lsrc &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_srcp &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_c5d &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_pcl &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5413,7 +5413,7 @@ for _t in ('strengthens the necessary condition above', 'is not by itself diagno
 ok_ccs &= _pcn_rec1.count('## ') == 1
 # the discovery note is untouched by this round: still exactly one recorded section
 ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
-ok_ccs &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_ccs &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-CCS', ok_ccs,
       'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
@@ -5569,7 +5569,7 @@ for _t in ('stated as a postulate', 'meets the three obligations recorded above'
     ok_smc &= _t in _ccn_rec1
 ok_smc &= _ccn_rec1.count('## ') == 1
 ok_smc &= 'state-mixing coupling construction audit' not in _c5n and 'state-mixing coupling construction audit' not in _pcn
-ok_smc &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_smc &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-SMC', ok_smc,
       'State-mixing coupling guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-five results, defines exactly the datum, its sourcing map, the class family and its full instance, the two '
@@ -5725,7 +5725,7 @@ for _t in ('reduces the datum of this round to a principle', 'stated without the
     ok_rpf &= _t in _smn_rec1
 ok_rpf &= _smn_rec1.count('## ') == 1
 ok_rpf &= 'real pair-flow reduction audit' not in _c5n and 'real pair-flow reduction audit' not in _pcn and 'real pair-flow reduction audit' not in _ccn
-ok_rpf &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_rpf &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-RPF', ok_rpf,
       'Real pair-flow guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty results, defines exactly the principle, its transport, the rotation as conclusion, the local angle, the '
@@ -5883,7 +5883,7 @@ for _t in ('states the principle of this note as a predicate on a finite operati
 ok_pfe &= _rpn_rec1.count('## ') == 1
 for _n in (_smn, _ccn, _pcn, _c5n):
     ok_pfe &= 'operational pair-flow equivalence audit' not in _n and 'PairFlowSourced' not in _n
-ok_pfe &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_pfe &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-PFE', ok_pfe,
       'Operational pair-flow equivalence guard: the module carries no sorry, axiom or native_decide, prints the axioms of '
       'exactly its fifteen results, defines exactly the theory-level predicate on the two-valued carrier and the canonical '
@@ -6046,7 +6046,7 @@ for _t in ('replaces the sourced pair flow of this note by one fixed discrete ga
 ok_dca &= _pfn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n):
     ok_dca &= 'discrete completion audit' not in _n and 'FixedGateSourced' not in _n
-ok_dca &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_dca &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-DCA', ok_dca,
       'Discrete completion guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its fifty-one results, defines exactly the predicates and the metric, the closure of availability, the block '
@@ -6216,7 +6216,7 @@ for _t in ('The frozen text and the outcome of this note are not edited', 'liter
 ok_dib &= _dcn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn):
     ok_dib &= 'dense-instrument bridge' not in _n and 'DenseInstrumentBridge' not in _n
-ok_dib &= '134 modules' in _rd1 and '2,973 named results' in _rd1
+ok_dib &= '135 modules' in _rd1 and '2,996 named results' in _rd1
 check('R7-DIB', ok_dib,
       'Dense-instrument bridge guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its thirty-two results, defines exactly the shifted theory from identity availability and the bijection matrix, '
@@ -6234,6 +6234,173 @@ check('R7-DIB', ok_dib,
       'density-is-exactness, no completion claim; no manuscript is edited; the registry and the census carry the family '
       'as kernel-only; the discrete completion note carries one section after its frozen text and its outcome, with the '
       'T7 correction, and the older notes are untouched; the README carries the paragraph and the counts.')
+
+# ---- the frozen substratum nonclassical-resource sourcing audit: the sourcing question below the closure, for the phases and
+# dense unitary control at once, with the architecture frozen and A6 left a gap; one invariant of a theory's availability,
+# the census, the two ceilings audited separately with the dense-control one proved twice, both rule-independent; outcome 3,
+# the no-go; no axiom or operation added to the substratum and nothing added reported as sourced; no C5 ----
+ok_fss = True
+_fs = open(os.path.join(BRIDGE, 'OIBridge', 'FrozenSourcing.lean'), encoding='utf-8').read()
+_fsflat = ' '.join(_fs.split())
+_fscode = re.sub(r'/-.*?-/|--[^\n]*', '', _fs, flags=re.S)
+_fsn = open(os.path.join(os.path.dirname(BRIDGE), 'FROZEN-SUBSTRATUM-SOURCING-AUDIT.md'), encoding='utf-8').read()
+_fsn1 = re.sub(r'\s+', ' ', _fsn)
+ok_fss &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _fs) is None and 'native_decide' not in _fs
+ok_fss &= 'axiom ' not in _fscode
+_fs_names = re.findall(r"^theorem ([\w'.]+)", _fs, re.M)
+ok_fss &= len(_fs_names) == 23 and _fs.count('#print axioms') == 23
+for _nm in ('norm_entry_le_l2_opNorm', 'le_zero_of_forall_pos', 'nonneg_of_forall_pos', 'nonnegBounded_of_bijectionLevel',
+            'permTheory_nonnegBounded', 'obsTheory_nonnegBounded', 'nonnegBounded_not_phasesAvailable',
+            'permTheory_phase_ceiling', 'nonnegBounded_not_derivedOI', 'preservesNonneg_of_approx',
+            'nonnegBounded_not_denseUnitaryControl', 'permTheory_dense_ceiling', 'mixImage_not_preservesNonneg',
+            'nonnegBounded_not_denseUnitaryControl_rot', 'permMatrix_preservesNonneg', 'readWrite_preservesNonneg',
+            'obs_dynamics_preservesNonneg', 'phaseOperator_outside_ceiling', 'sourcing_rule_independent',
+            'phase_ceiling_rule_independent', 'frozen_sourcing_verdict', 'nonnegBounded_verdict',
+            'fixedGateTheory_outside_ceiling'):
+    ok_fss &= ('#print axioms OIBridge.FrozenSourcing.' + _nm) in _fs and _nm in _fs_names
+# THE FREEZE: exactly one definition, the invariant; nothing named C5; no axiom, no A6 predicate, no substratum structure,
+# no existing definition restated, no enrichment of the implementation class
+_fs_defs = re.findall(r"^(?:noncomputable )?(?:def|abbrev|structure|inductive) ([\w'.]+)", _fs, re.M)
+ok_fss &= _fs_defs == ['NonnegBounded']
+ok_fss &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive|theorem) [Cc]5', _fs, re.M) is None
+ok_fss &= 'A6' not in _fs and re.search(r'(?m)^axiom ', _fs) is None
+for _t in ('Substratum', 'permClass', 'permTheory', 'obsTheory', 'BijectionLevel', 'PreservesNonneg', 'IsScaledPartialPerm',
+           'IsMonomial', 'MonomialSource', 'phaseOperator', 'bijectiveOperator', 'phaseGate', 'mixImage', 'DerivedOI',
+           'SourcedOI', 'PhasesAvailable', 'DenseUnitaryControl', 'KrausDense', 'DenseFiniteQM', 'ChanWithin', 'conjChannel',
+           'ReadWriteFamily', 'readWriteOperator', 'Rule', 'A1', 'A2', 'A3', 'A4', 'A5', 'ImplementationClass',
+           'Architecture', 'genTheory', 'fixedGateTheory'):
+    ok_fss &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) ' + _t + r'\b', _fs, re.M) is None
+_fscode_noopen = re.sub(r'^open .*$', '', _fscode, flags=re.M)
+ok_fss &= 'PairFlowSourced' not in _fscode and re.search(r'\bPairFlow\b', _fscode_noopen) is None
+ok_fss &= 'import OIBridge.DenseInstrumentBridge' in _fs and 'import OIBridge.FrozenSourcing' in root
+# the statements, as preregistered
+for _t in ('def NonnegBounded (T : FiniteOperationalTheory A) : Prop := ∀ (n : ℕ) (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ), T.availExt n Unit (fun _ => Φ) → PreservesNonneg Φ',
+           'theorem nonnegBounded_of_bijectionLevel {𝓘 : ImplementationClass} (arch : Architecture 𝓘) (hb : BijectionLevel 𝓘) : NonnegBounded (genTheory 𝓘 arch A) := fun _ _ hav => preservesNonneg_of_realized hb (realized_of_instAvail arch hav ())',
+           'theorem permTheory_nonnegBounded : NonnegBounded (permTheory A)',
+           'theorem obsTheory_nonnegBounded (𝒮 : Substratum) [Fintype 𝒮.ι] [Fintype 𝒮.V] [DecidableEq 𝒮.V] : NonnegBounded (obsTheory 𝒮)',
+           '(M : Matrix m n ℂ) (p : m) (q : n) : ‖M p q‖ ≤ ‖M‖',
+           'theorem nonnegBounded_not_phasesAvailable [Nonempty A] {T : FiniteOperationalTheory A} (h : NonnegBounded T) : ¬ PhasesAvailable T',
+           'theorem nonnegBounded_not_derivedOI [Nonempty A] {T : FiniteOperationalTheory A} (h : NonnegBounded T) : ¬ DerivedOI T',
+           'theorem preservesNonneg_of_approx [Nonempty S] {U : Matrix S S ℂ} (hU : Uᴴ * U = 1)',
+           'Wᴴ * W = 1 ∧ PreservesNonneg (conjChannel W) ∧ ‖U - W‖ < ε) : PreservesNonneg (conjChannel U)',
+           'conj_within hU hW hUW.le X',
+           'theorem nonnegBounded_not_denseUnitaryControl {T : FiniteOperationalTheory (Fin 2)} (h : NonnegBounded T) : ¬ DenseUnitaryControl T',
+           'theorem permTheory_dense_ceiling : ¬ DenseUnitaryControl (permTheory (Fin 2))',
+           'theorem mixImage_not_preservesNonneg {n : ℕ} (k : Fin n) {θ : ℝ} (hs : 0 < Real.sin θ) (hc : 0 < Real.cos θ) : ¬ PreservesNonneg (conjChannel (mixImage n θ))',
+           'theorem nonnegBounded_not_denseUnitaryControl_rot {T : FiniteOperationalTheory (Fin 2)} (h : NonnegBounded T) : ¬ DenseUnitaryControl T',
+           'theorem obs_dynamics_preservesNonneg (𝒮 : Substratum)',
+           'PreservesNonneg (conjChannel (permMatrix (levelPerm 𝒮.φ n)))',
+           'theorem phaseOperator_outside_ceiling',
+           "(R R' : Rule ι V) (P : FiniteOperationalTheory (ι → V × V) → Prop) : P (obsTheory { ι := ι, V := V, R := R }) ↔ P (obsTheory { ι := ι, V := V, R := R' }) := Iff.rfl",
+           'theorem frozen_sourcing_verdict : ¬ PhasesAvailable (permTheory (Fin 2)) ∧ ¬ DenseUnitaryControl (permTheory (Fin 2)) ∧ ¬ DerivedOI (permTheory (Fin 2))',
+           'theorem nonnegBounded_verdict {T : FiniteOperationalTheory (Fin 2)} (h : NonnegBounded T) : ¬ PhasesAvailable T ∧ ¬ DenseUnitaryControl T ∧ ¬ DerivedOI T',
+           'theorem fixedGateTheory_outside_ceiling {α : ℝ} (hα : Irrational (α / Real.pi)) : ¬ NonnegBounded (fixedGateTheory α)'):
+    ok_fss &= _t in _fsflat
+# the note: the question, the frozen architecture, the layers, the prediction, the outcomes, the guard, the tests, the
+# non-doings, then the outcome and the non-claims, in that order
+_kfs = [_fsn.find(h) for h in ('## The question', '## The architecture, frozen exactly as it stands', '## The four layers, frozen',
+        '## The prediction, recorded before proof', '## Admissible outcomes, frozen',
+        "## The circularity guard, the round's most important constraint", '## Tests, frozen',
+        '## What this round does not do', '## The outcome', '## What this note does not claim')]
+ok_fss &= all(x > 0 for x in _kfs) and _kfs == sorted(_kfs)
+ok_fss &= _fsn.lstrip().startswith('# The frozen substratum nonclassical-resource sourcing audit')
+for _t in ('Preregistration commit `c0e763c`', '`main` at `8f277f5`', 'Status: preregistered; no proof attempted',
+           'Status: pass complete', '1. **Positive.**', '2. **Split or partial.**', '3. **No-go.**', 'Exactly three.',
+           '**A6 remains a gap with no predicate**', 'twenty-three named results',
+           'No new axiom, carrier map, coupling, phase intervention, polarization map, continuous control,',
+           'enrichment of the implementation class may be added to the frozen', 'reported as sourced by OI',
+           'candidate empirical extension', '`PhasesAvailable` is not `DenseUnitaryControl`',
+           'A resource sufficient for dense quantum mechanics is not a resource sourced by the substratum'):
+    ok_fss &= _t in _fsn1
+_fsn_out = re.sub(r'\s+', ' ', _fsn[_fsn.find('## The outcome'):])
+# the substantive outcome, with the round's own non-claim paragraph and the non-claims section set aside: an honest
+# disclaimer must not trip the guard built to protect it
+_fsn_cut = _fsn_out.find('**What the outcome does not establish')
+_fsn_out_claims = _fsn_out[:_fsn_cut] if _fsn_cut > 0 else _fsn_out
+for _t in ('The verdict is **outcome 3, the no-go**', 'No axiom, operation, carrier map, coupling or class enrichment was added',
+           'never through a claim that some available channel is itself a scaled partial permutation',
+           'Represented, not sourced', 'Audited independently of layer 2', 'the invariant passes to limits',
+           'The ceiling is a property of the class and not a statement about one gate',
+           'which carries no phase at all', 'neither obligation is derived from the other',
+           'Asked only after the two were audited separately', 'The rule does not enter', 'A6 stays the gap it was',
+           'The two sides fit', 'it takes nothing back from the density side',
+           'Outcome 3 is reached; outcome 1 is not reached; outcome 2 is not reached',
+           'an independent empirical datum relative to the presently stated OI architecture',
+           'not repaired by choosing a different microscopic rule', '**What the outcome does not establish',
+           '| T1 | ', '| T4 | ', '| T5 | ', '| T8 | '):
+    ok_fss &= _t in _fsn_out
+for _bad in ('The verdict is **outcome 1', 'The verdict is **outcome 2', 'Outcome 3 is not reached', 'is C5.', 'C5 holds',
+             'we adopt C5', 'define C5', 'OI supplies the', 'OI itself supplies', 'the architecture is refuted',
+             'refutes the architecture', 'A6 is filled', 'we add an axiom', 'two independent additions are needed',
+             'no architecture can source', 'cannot be sourced by any', 'minimal', 'Minimal', 'PairFlow enters',
+             'density is exactness', 'we enrich the'):
+    ok_fss &= _bad not in _fsn_out_claims
+for _bad in ('the architecture is refuted', 'OI supplies the phases', 'A6 has a predicate', 'two independent additions are needed',
+             'no extension could source'):
+    ok_fss &= not _asserted(_fsn[_fsn.find('## The outcome'):], _bad)
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    for _bad in ('FrozenSourcing', 'FROZEN-SUBSTRATUM-SOURCING', 'NonnegBounded', 'frozen_sourcing_verdict',
+                 'permTheory_dense_ceiling', 'nonnegBounded_not_denseUnitaryControl', 'sourcing_rule_independent'):
+        ok_fss &= _bad not in _t
+_fs_fam = [f for f in _ptr_reg['families'] if f['name'] == 'frozen substratum sourcing: the ceilings of the stated architecture']
+ok_fss &= len(_fs_fam) == 1 and _fs_fam[0]['status'] == 'kernel-only' and _fs_fam[0]['modules'] == ['FrozenSourcing']
+ok_fss &= _fs_fam[0]['manuscript'] == []
+for _t in ('Verdict outcome 3, the no-go', 'an independent empirical datum relative to the presently stated architecture',
+           'A6 a gap with no predicate and not filled', 'no axiom, operation, carrier map, coupling or class enrichment is added',
+           'a different microscopic rule does not move either ceiling', 'neither obligation is derived from the other',
+           'Nothing is named C5 or adopted', 'owner decision'):
+    ok_fss &= _t in _fs_fam[0]['note']
+for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', 'two independent additions are needed', 'minimal'):
+    ok_fss &= _bad not in _fs_fam[0]['note']
+ok_fss &= '| frozen substratum sourcing: the ceilings of the stated architecture | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-FSS`', 'FROZEN-SUBSTRATUM-SOURCING-AUDIT.md', 'NonnegBounded', 'nonnegBounded_of_bijectionLevel',
+           'permTheory_nonnegBounded', 'obsTheory_nonnegBounded', 'permMatrix_preservesNonneg', 'readWrite_preservesNonneg',
+           'obs_dynamics_preservesNonneg', 'phaseOperator_outside_ceiling', 'nonnegBounded_not_phasesAvailable',
+           'nonnegBounded_not_derivedOI', 'permTheory_phase_ceiling', 'norm_entry_le_l2_opNorm', 'preservesNonneg_of_approx',
+           'nonnegBounded_not_denseUnitaryControl', 'permTheory_dense_ceiling', 'mixImage_not_preservesNonneg',
+           'nonnegBounded_not_denseUnitaryControl_rot', 'sourcing_rule_independent', 'phase_ceiling_rule_independent',
+           'frozen_sourcing_verdict', 'nonnegBounded_verdict', 'fixedGateTheory_outside_ceiling',
+           'Verdict: outcome 3, the no-go', 'A6 a gap with no predicate and not filled',
+           'an independent empirical datum relative to the presently stated architecture', 'Twenty-three named results',
+           'Nothing is named C5 or adopted; no continuous pair flow enters any route; no definition changes; no manuscript changes'):
+    ok_fss &= _t in _rd1
+for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', 'two independent additions are needed'):
+    ok_fss &= _bad not in _rd1
+# the two prior notes each carry one section after their frozen text; the older notes untouched
+_sin2 = open(os.path.join(os.path.dirname(BRIDGE), 'SUBSTRATUM-INTERFACE-AUDIT.md'), encoding='utf-8').read()
+_sin_rec = _sin2.find('## Recorded after the round: the frozen substratum sourcing audit')
+ok_fss &= _sin_rec > _sin2.find('## What this note does not claim')
+ok_fss &= re.sub(r'\s+', ' ', _sin2[_sin_rec:]).count('## ') == 1
+_din3 = open(os.path.join(os.path.dirname(BRIDGE), 'DENSE-INSTRUMENT-BRIDGE-AUDIT.md'), encoding='utf-8').read()
+_din_rec = _din3.find('## Recorded after the round: the frozen substratum sourcing audit')
+ok_fss &= _din_rec > _din3.find('## What this note does not claim') and _din_rec > _din3.find('Status: pass complete')
+_din_rec1 = re.sub(r'\s+', ' ', _din3[_din_rec:])
+for _t in ('The frozen text and the outcome of this note are not edited', '`fixedGateTheory_outside_ceiling`',
+           'it takes nothing back from the density side', 'larger than the fixed gate'):
+    ok_fss &= _t in _din_rec1
+ok_fss &= _din_rec1.count('## ') == 1
+for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn):
+    ok_fss &= 'frozen substratum sourcing' not in _n and 'FrozenSourcing' not in _n
+ok_fss &= '135 modules' in _rd1 and '2,996 named results' in _rd1
+check('R7-FSS', ok_fss,
+      'Frozen substratum sourcing guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
+      'its twenty-three results, defines exactly the nonnegativity invariant and nothing else, names nothing C5, mentions '
+      'no A6 and defines no predicate for it, adds no axiom and restates no existing definition of the substratum, the '
+      'interface, the shape predicates or the density side, and carries no pair flow; the invariant, its derivation through '
+      'the implementation class and the realization theorem, the sourced and observer theories carrying it, the entrywise '
+      'bound, the limit lemma, the phase ceiling at class level, the closure negative, the dense-control ceiling and its '
+      'second route from the rotation witness, the census of the sourced operations and of the phase operator outside the '
+      'ceiling, the rule-independence of the verdict and the combined verdicts are stated as pinned; the note keeps the '
+      'question, the frozen architecture, the layers, the prediction, the outcomes, the circularity guard, the tests and the '
+      'non-doings before the outcome, names both commits, records outcome 3 with the census, the two ceilings audited '
+      'separately and the dense-control one proved twice, the rule contributing nothing, A6 still a gap, the density side '
+      'untouched, and no C5, no OI-supplies-the-resource, no architecture-refuted, no A6-filled, no two-additions and no '
+      'no-architecture-can-source claim; no manuscript is edited; the registry and the census carry the family as '
+      'kernel-only; the substratum interface note and the dense-instrument bridge note each carry one section after their '
+      'frozen text and the older notes are untouched; the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
