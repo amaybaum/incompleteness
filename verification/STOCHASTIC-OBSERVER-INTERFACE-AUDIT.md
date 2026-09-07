@@ -5,395 +5,402 @@ Preregistered here and committed alone before any proof is attempted.
 
 The frozen substratum sourcing audit reached its outcome 3: every resource the presently stated
 architecture sources stays inside one characterized class (`NonnegBounded`), and that class supplies
-neither `PhasesAvailable` nor `DenseUnitaryControl`. Its own reading of that result is narrow — the
-map it audits promotes configuration-level transformations directly into availability, and a
-different interface might not. The candidate different interface is the one that reads the observed
-*stochastic law* rather than the configuration transformation, and lifts that. Before any such lift
-can be examined, one prior question must be settled, because everything downstream is worthless
-without it: the stochastic law is not a function of the substratum dynamics alone. It is a function
-of the triple
+no nontrivial phase, no dense unitary control, and no one-half layer flow. It also recorded the one
+narrow way that verdict could be bypassed without selecting a quantum gate: the substrate might
+supply a stochastic observer interface from which a nonclassical operational law could be *derived*,
+rather than a coherent operation being inserted directly.
 
-> `(φ, Obs, μ)` — the dynamics, the observation map, and the initial ensemble.
+This round asks exactly that question. An observed stochastic law is not a function of the dynamics
+alone. It depends on the dynamics, on what counts as the observer's outcome, and on an ensemble over
+hidden initial conditions. The question is whether those additional pieces are actually fixed by the
+architecture already on the page, rather than supplied after one knows which stochastic law is
+wanted.
 
-If `Obs` and `μ` may be chosen after seeing which choice yields the desired answer, then "the
-architecture produces such a law" is not a sourced result at all; it is a tuned one. This round asks
-only whether the architecture fixes them, and if so what the induced process is. It does not reach
-for any correspondence theorem.
+## Scope amendment — recorded before the determination
+
+The original phrase “the architecture fixes the observation map and the ensemble” can be read too
+strongly if one silently demands a literal field of `Substratum`. The intended and controlling
+reading of this audit is the broader but still source-disciplined one:
+
+> Does the presently stated architecture, by theorem or by an already-stated structural principle,
+> determine a specific observation map and a specific ensemble on the relevant substratum, without
+> choosing either for the desired stochastic verdict?
+
+Thus a map or measure need not be a field of `Substratum` to count as sourced. A unique orbit law,
+a canonically induced quotient, an invariant measure singled out by the stated dynamics, or another
+object forced by an existing axiom may count. What does not count is adding a new observer map,
+stationary distribution, response table, preparation rule, or preferred locus after seeing the
+answer.
+
+The amendment broadens the positive route; it does not weaken the negative route. A failure verdict
+must now close the obvious canonical possibilities rather than merely note that no field is present.
 
 ## The question
 
-> Does the existing OI architecture determine a stochastic observer interface `(Obs, μ)` without
-> adding new structure?
+The observed law is a function of a triple
 
-`Obs` is the visible outcome type together with the observation map `π : Conf → Obs`; `μ` is the
-initial ensemble on `Conf`. Both must come from structure already present. If either is not
-determined, the round stops and records the gap.
+> `(φ, Obs, μ)`
 
-## The architecture, frozen exactly as it stands
+of the deterministic dynamics, an observation map and an initial ensemble. The dynamics is already
+part of the substratum. Are `Obs` and `μ` fixed by the stated architecture, in the source-disciplined
+sense above?
 
-Nothing below is changed, enriched or replaced during the round, and nothing added anywhere is
-reported as sourced.
+The answer is determined in two stages.
 
-**The substrate and its interface**, exactly as the frozen substratum sourcing audit left them:
-`Substratum` with `ι`, `V`, `R`, `Conf := ι → V × V` and `φ`; the axiom predicates `A1`, `A2`,
-`A3 D`, `A4Exact`, `A4 G`, `A5`, `A3Family`; **A6 remains a gap with no predicate** and this round
-does not define one; the wave rule `waveSubstratum d L q α`. The sourced class `permClass`, the
-sourced theory `permTheory`, the observer theory `obsTheory 𝒮 := permTheory 𝒮.Conf`, the sourcing
-theorems `obs_dynamics_avail`, `obs_dynamics_inv_avail`, `obs_shear_avail`, and
-`obsTheory_rule_independent`. The ceilings `NonnegBounded`, `nonnegBounded_not_phasesAvailable`,
-`nonnegBounded_not_denseUnitaryControl`, `frozen_sourcing_verdict`.
+### Stage 1 — interface determination
 
-**The candidate sources for the observation map.** The read-write structure `ReadWriteFamily` with
-its `couple`, `reference` and `local_support`, and `readWriteOperator`. The operational readout
-`FiniteOperationalTheory.readout`, `readout_is_localLuders`, `localLuders`, and the discard
-`ptraceAnc`, `discardWith`. The C1–C4 census core of `IndependenceCensus`: `Core`, its visible map
-`vis`, the passive step `swapFn`, `histTriple`, `CoreC1C4` and `core_isC1C4`. Whether any of these
-determines a map on `Substratum.Conf` is the question, not the premise.
+1. Census every observation-map candidate actually stated or canonically induced by the current
+   architecture on the frozen substratum.
+2. Census every ensemble candidate actually stated or canonically induced by the current
+   architecture.
+3. Test the strongest positive route first. In particular, if the dynamics is transitive on the
+   relevant finite state space, then the uniform law on its unique orbit is an invariant ensemble
+   determined by the dynamics itself. That route must be proved or closed, not ignored.
+4. If more than one invariant ensemble remains and no stated selection principle distinguishes one,
+   the ensemble is not determined. If more than one observation map remains and no stated structure
+   distinguishes one, the observation map is not determined.
+5. The outcome of Stage 1 is one of:
+   - **D** — both map and ensemble are determined;
+   - **M** — the map is determined but the ensemble is not;
+   - **E** — the ensemble is determined but the map is not;
+   - **G** — neither is determined.
 
-**The candidate sources for the ensemble.** `CanonicalMeasure` in full: `IsProb`, `Invariant`,
-`marg`, `unif`, `orbit`, `orbit_invariant_unique`, `counting_invariant`, `entropy`,
-`counting_maximal_entropy`, and above all `invariance_does_not_select`. That module's own record is
-part of the frozen material: it states that the counting measure is picked out among invariant
-measures as the maximal-entropy one by **a selection principle, not by uniqueness from invariance
-alone**, and `invariance_does_not_select` is the theorem that makes the distinction binding.
+Only D enters Stage 2.
 
-## The stages, frozen
+### Stage 2 — induced process
 
-**Stage 1, the interface census.** Search the existing kernel and the stated architecture for
-anything that determines a visible outcome type `O`, an observation map `π : Conf → O`, and an
-ensemble `μ` on `Conf`. Each candidate is classified into exactly one of three bins:
+If and only if Stage 1 returns D, define the rooted visible transition family generated by the
+sourced pair `(Obs, μ)` and ask whether the process is P-divisible. The divisibility convention is
+fixed before any calculation:
 
-- **sourced** — a definition or theorem of the architecture fixes it, or fixes it up to choices that
-  are proved not to change the verdict of stage 3;
-- **definable** — the kernel can write it down, with nothing in the architecture selecting it;
-- **choosable** — neither, an open choice.
+> `Γ_t = Γ_s * Λ_{s→t}`
 
-The census is exhaustive over the candidates listed above and records, for each, which bin and why.
-A candidate that exists only on the census core `Core` and not on `Substratum.Conf` is recorded as
-such; carrying it across is an addition, not a finding.
+with `Λ` row-stochastic, so the intermediate propagator acts on the visible outcome index.
 
-**Stage 2, the induced process, only if stage 1 delivers a sourced pair.** With `(Obs, μ)` fixed by
-stage 1 and by nothing else, define the induced finite process
+The outcome is:
 
-> `X t := π (φ^[t] s₀)`, with `s₀` distributed by `μ`,
+- **P** — the sourced process is P-divisible;
+- **I** — the sourced process is P-indivisible;
+- **U** — the kernel cannot decide the sourced process at the current theorem surface.
 
-and its family of transition laws. Then define the divisibility predicates explicitly — the kernel
-carries none today, and this is new definitional work. No correspondence theorem is stated, cited as
-a premise, or used.
+No stochastic-to-quantum correspondence theorem is invoked in this round. Even an I verdict would
+only establish the stochastic property needed before any such correspondence could be audited.
 
-**Stage 3, the divisibility diagnostic.** Ask whether that exact induced process is divisible or
-indivisible under the definitions of stage 2, at the ensemble quantifier frozen below.
+## Frozen architecture and source boundary
 
-## The ensemble quantifier, frozen
+The architecture is frozen at `main`/`22ef402`.
 
-The object is **a distinguished architecture-sourced pair**. Not the uniform or counting measure by
-convenience; not "there exists an ensemble"; not "for every ensemble".
+The census includes, and only includes, structures already present there:
 
-- Not uniform or counting: its invariance follows cheaply from finiteness and bijectivity, and
-  `invariance_does_not_select` shows invariance does not pick it out. Selecting it by maximal
-  entropy is a selection principle the architecture has not been shown to make, and adopting it here
-  would be exactly the addition this round forbids.
-- Not existential over ensembles: that is what tuning looks like.
-- Not universal over ensembles: that demands more than the emergence claim needs and could kill a
-  live route for the wrong reason.
+- the substratum record and its A1–A5/A3Family predicates;
+- the `Conf` phase-space configuration type and the exact `Substratum.φ` update;
+- the census core's visible map `vis`, but only where it is actually typed;
+- the read-write family and its readout/lift structures;
+- the canonical-measure results already proved in `OIBridge/CanonicalMeasure.lean`;
+- any measure or quotient construction already named in the manuscripts or kernel at this commit.
 
-If the architecture does not determine `μ`, the round stops and records ensemble underdetermination.
-It does not substitute a measure to keep going.
+A6 remains a gap with no predicate and is not filled here. No new axiom, observer map, preferred
+site, prior, distribution, preparation rule, response table, or physical condition is introduced.
+Nothing is named C5.
 
-## The guard, stricter than the frozen sourcing audit's
+## Candidate inventory, frozen before the answer
 
-> Neither `Obs` nor `μ` may be selected because it yields indivisibility. Each must be sourced from
-> already-stated observer access, read-write structure, or C1–C4, and frozen, **before** the induced
-> process is defined and before divisibility is evaluated.
+The census must at least test the following candidates rather than simply report “not a field”.
 
-The order of work is part of the guard: stage 1 is completed and its bins recorded before stage 2
-constructs anything. The following fallbacks are forbidden outright, and naming one is not a
-substitute for sourcing:
+### Observation-map candidates
 
-- "The architecture does not pick an observation map, so use the visible coordinate" — unless a
-  theorem or existing definition already privileges that coordinate as the observer's readout.
-- "Natural", "uniform", "counting", "stationary", "invariant", "maximum entropy" for the ensemble —
-  each is a new principle unless the architecture already commits to it, and the kernel's own
-  `CanonicalMeasure` record says the maximal-entropy selection is a principle rather than a
-  consequence.
-- Carrying `vis` from the census core to `Substratum.Conf` by analogy.
+- a coordinate/readout map induced by the read-write family;
+- the operational readout already present in the kernel;
+- the census core's `vis` map if it can be carried canonically to `Substratum.Conf`;
+- a quotient or orbit label forced by the dynamics;
+- any translation-, gauge- or lattice-structure-derived visible map actually stated by the current
+  architecture.
 
-**The form a stage-1 positive must take.** Uniqueness is not required; invariance of the verdict is.
-A pair sourced up to a residual freedom counts as sourced when that freedom is proved not to change
-the answer at stage 3 — a theorem about the residual freedom, not an assertion that the freedom is
-harmless. Strict canonicity is admissible as a stronger form. If neither is available, the outcome
-is the gap.
+### Ensemble candidates
 
-## Admissible outcomes, frozen
+- the uniform counting law on the full finite configuration space;
+- the uniform law on an accessible orbit;
+- invariant laws of the substratum dynamics;
+- the canonical measure/maximum-entropy language already present in the manuscript and
+  `CanonicalMeasure`;
+- any ensemble induced by the read-write structure or by the initial-data conventions already
+  stated.
 
-Exactly three, in this order.
+The audit may prove that a candidate is canonical, not canonical, undefined at this layer, or not
+transportable to the required type. It may not create an extra reason for one candidate to win.
 
-1. **Outcome A, the interface gap.** The architecture does not determine `Obs`, or does not
-   determine `μ`, or neither. The round stops at stage 1 and records: the stated architecture lacks
-   a sourced stochastic observer interface. The census says which of the two legs fails and what
-   would have to be added. This is a result, not a setback: without it no correspondence can be
-   applied non-arbitrarily.
-2. **Outcome B, sourced interface, divisible process.** Stage 1 delivers the pair and stage 3 finds
-   the induced process divisible. The indivisibility route stalls before any correspondence, and the
-   exact divisibility witness is recorded.
-3. **Outcome C, sourced interface, indivisible process.** Only here is the next round earned:
-   retrieve the correspondence's exact theorem and hypotheses from the source, state a named
-   correspondence-interface predicate, and audit the phase-choice hazard.
+## Formal targets
 
-No outcome names or adopts C5, claims the architecture is refuted, claims that no extension could
-supply the interface, or asserts anything about the correspondence.
+The preferred Lean module is `OIBridge/StochasticInterface.lean`, with a name that does not
+presuppose the result.
 
-## The prediction, recorded before proof
+### T1 — determination predicate
 
-Outcome A is expected, on the ensemble leg. The kernel already carries `invariance_does_not_select`,
-and `CanonicalMeasure`'s own record calls the counting-measure selection a principle rather than a
-consequence of invariance; nothing yet seen fixes an observer preparation distribution. The
-observation-map leg is less certain: `vis` exists on the census core and the read-write structure
-carries a coupled pair `{a, b}` with everything outside it fixed, which is the closest thing to a
-privileged visible locus in the architecture. Whether either determines a map on `Substratum.Conf`
-is the open part, and the census is designed to look there.
+Define one kernel predicate expressing that a finite permutation dynamics determines its ensemble by
+invariance:
 
-The prediction is not a result. If stage 1 delivers a sourced pair, the round proceeds to stages 2
-and 3.
+> `EnsembleDetermined φ := ∃! μ, IsProb μ ∧ Invariant φ μ`.
 
-## Tests, frozen
+This is a test of determination, not a new principle. The existing `CanonicalMeasure` record says
+the maximal-entropy selection is a principle rather than a consequence of invariance, so the audit
+must not smuggle that selection into this predicate.
 
-**T1. The census.** Stage 1 as stated, exhaustive over the listed candidates, each in exactly one
-bin, with the reason recorded. Admissible outcome: the census.
+### T2 — transitive positive route
 
-**T2. The observation-map leg.** Whether anything determines `O` and `π : Conf → O`. Admissible
-outcome: the sourced map with its source, or the recorded gap with what is missing.
+Prove:
 
-**T3. The ensemble leg.** Whether anything determines `μ`. The existing selection material is read
-and reused, not re-proved. Admissible outcome: the sourced ensemble with its source, or the recorded
-gap; and in either case the statement that invariance alone does not select, cited to the existing
-theorem.
+> if one orbit of `φ` is the whole state space, then `EnsembleDetermined φ`.
 
-**T4. The induced process.** Stage 2, only if T2 and T3 both deliver. Admissible outcome: the
-definition, or its explicit absence with the leg that blocked it named.
+This must be obtained from the existing orbit-uniform uniqueness theorem, not by choosing the
+uniform law ad hoc.
 
-**T5. The divisibility predicates.** Defined explicitly, with divisibility and indivisibility
-distinguished, and no identification of either with Markovianity. Admissible outcome: the
-definitions, or their absence if stage 1 stopped the round.
+### T3 — fixed-point negative route
 
-**T6. The diagnostic.** Stage 3 at the frozen quantifier. Admissible outcome: divisible,
-indivisible, or not reached.
+If the frozen architecture proves that `φ` has a fixed point and that the state space has another
+state, prove that the fixed-point orbit and the other orbit give two distinct invariant laws and
+therefore `¬ EnsembleDetermined φ`.
 
-**T7. The surfaces and the checks.** Module `OIBridge/StochasticInterface.lean` if any Lean is
-written; nothing named C5; no existing definition changed, enriched or restated; no axiom added to
-the substratum; no A6 predicate; guard `R7-SOI` pinning the census bins, the two legs, the frozen
-quantifier, the guard and its forbidden fallbacks, this note's order, prediction, outcomes, tests and
-non-doings, rejecting any C5 naming, any substituted measure, any imported observation map, any
-correspondence claim, and any manuscript edit; README paragraph and counts; the census carries the
-family as kernel-only; the frozen substratum sourcing note may receive one append-only
-cross-reference section after its frozen text. Full build; every result printing only `propext`,
-`Classical.choice`, `Quot.sound`; the release gate; the probe; the Bohr probe; the census; the voice
-check. No manuscript is edited. Admissible outcome: all green.
+If the fixed point can be proved for the manuscripts' own wave substratum, prove that instance too.
 
-**T8. The verdict.** Exactly one of the three outcomes, with the observation-map leg, the ensemble
-leg and the diagnostic each stated separately.
+### T4 — observation-map census
 
-## What this round does not do
+For every candidate in the frozen inventory, record one of:
 
-- Name or adopt C5.
-- State, cite as a premise, or rely on any stochastic-to-quantum correspondence theorem; the
-  correspondence is not in this round at any point, and no predicate for it is defined.
-- Add an axiom, observation map, ensemble, coupling or class enrichment to the architecture, or
-  report anything added as sourced.
-- Define a predicate for A6, adopt a reading of it, or fill the gap.
-- Substitute the uniform, counting, stationary, invariant or maximum-entropy measure when the
-  architecture does not determine one.
-- Carry the census core's `vis` to `Substratum.Conf` by analogy.
-- Identify indivisibility with non-Markovianity, or use "non-Markovian" as a synonym for either
-  predicate; the divisibility predicates are stated exactly and used exactly.
-- Claim that the architecture is refuted, or that no extension could supply the interface.
-- Retract or weaken `frozen_sourcing_verdict`, `krausDense_of_denseControl`,
-  `fixedGateTheory_denseFiniteQM`, or any existing result.
-- Edit a manuscript.
+- a kernel construction on `Substratum.Conf`;
+- a theorem that the structure exists at every candidate locus and therefore selects none;
+- a type/source boundary showing the candidate is not carried to `Substratum.Conf`;
+- an explicit already-stated principle selecting it.
 
-The point of the round is to find out whether the stochastic route can be entered at all without
-choosing its own inputs, and to stop at the first place where it cannot.
+The result here is a census. Do not turn failure to find a canonical map into a theorem that no map
+can exist.
 
-Status: preregistered; no proof attempted.
+### T5 — stage-1 verdict
 
-## Scope amendment, recorded after the preregistration
+State one theorem-level verdict on the ensemble leg and one note-level verdict on the observation
+leg. If Stage 1 is not D, stop. Do not define the induced process merely to show something about a
+chosen interface.
 
-Recorded at review of the preregistration, before any proof; the preregistration above is
-untouched, and the question, the guard, the forbidden fallbacks, the ensemble quantifier and the
-three admissible outcomes are unchanged. The amendment repairs an ordering defect in the frozen
-text and scopes one citation that was stated too strongly.
+### T6 — stage-2 definitions, conditional only
 
-**(1) The residual-freedom protocol, reordered.** The frozen text says that a pair sourced up to a
-residual freedom counts as sourced when a theorem proves the freedom cannot change the verdict of
-stage 3. Under the frozen order that theorem cannot yet be stated at stage 1: the induced process
-and the divisibility predicates are first defined at stage 2, so the criterion for finishing stage 1
-refers forward to objects that do not exist. The protocol is reordered, with the standard itself
-unchanged — uniqueness is still not required, and invariance of the verdict is still what
-discharges residual freedom:
+Only if Stage 1 returns D, add the rooted transition family and the P-divisibility predicate with the
+frozen composition orientation. If D is not reached, these definitions do not enter the module.
 
-> **Stage 1** ends in exactly one of three states: a *unique* sourced pair; a *sourced family* of
-> pairs, the architecture fixing the family but not a member of it; or the gap. A sourced family is
-> not yet a positive interface determination and is not reported as one.
->
-> **Stage 2** defines the induced process and the divisibility predicates uniformly over the whole
-> sourced family, not at a chosen member.
->
-> **Stage 3** asks first: is the divisibility verdict the same at every pair in the sourced family?
-> If it is not, the round ends at **outcome A**, as operationally relevant interface
-> underdetermination — the architecture's residual freedom changes the answer, which is a sharper
-> gap than simple absence. If it is, the residual freedom is discharged by that theorem and the
-> common verdict gives outcome B or outcome C.
+## Controls
 
-A unique sourced pair passes through the same stages with a one-member family and no invariance
-obligation.
+### C1 — single-orbit positive control
 
-**(2) The selection citation, scoped.** The frozen text leans on `invariance_does_not_select` in a
-form stronger than the theorem supports. What that theorem proves is nonuniqueness *when two
-disjoint nonempty invariant sets exist*; it does not say that every permutation admits several
-invariant laws. The kernel proves the opposite in the single-orbit case:
-`orbit_invariant_unique` shows that an invariant probability law supported on one orbit **is** the
-uniform law on that orbit, uniquely. The citation is therefore scoped:
+A finite cyclic permutation has exactly one invariant probability law. This proves that the audit is
+capable of returning “determined” when the dynamics actually supplies that information.
 
-> Invariance does not select **in general**, and the maximal-entropy selection of the counting
-> measure remains a selection principle rather than a consequence, as `CanonicalMeasure`'s own
-> record states. For the actual sourced dynamics the census must check the further question:
-> whether the architecture fixes an accessible orbit or support, or proves transitivity or
-> single-orbit dynamics, or otherwise supplies the hypotheses of `orbit_invariant_unique`. If it
-> does, the orbit-uniform ensemble is genuinely derived rather than chosen, it is admissible, and
-> the round must follow it. If it does not, the counting or uniform measure may not be inserted
-> merely because it is invariant.
+### C2 — two-orbit negative control
 
-This opens a legitimate positive route on the ensemble leg that the frozen text did not anticipate:
-an architecture-sourced orbit or support, together with invariance, yields a unique orbit-uniform
-ensemble. That route is sourced in the sense the guard requires, and it is distinct from invoking
-global maximal entropy, which stays forbidden. Test T3 is read as carrying this additional check,
-and the prediction of the frozen text — outcome A expected on the ensemble leg — is left standing as
-written, now with this route as the way it could be wrong.
+A finite permutation with two disjoint nonempty invariant sets has at least two invariant laws. This
+must reduce to the existing `invariance_does_not_select` theorem where possible.
 
-Everything else is unchanged: no correspondence theorem enters at any point and no predicate for one
-is defined; the census core's `vis` may not be carried to `Substratum.Conf` by analogy; neither the
-observation map nor the ensemble may be selected because it yields indivisibility; and the order of
-work remains part of the guard.
+### C3 — observation-locus control
 
-## The outcome
+If the read-write structure exists at arbitrary pairs, instantiate it at two distinct pairs. The
+point is not to prove that an observer map cannot be built; it is to test whether existence of the
+read-write family itself privileges one locus.
 
-Executed from `main` at `22ef402` on the branch `stochastic-observer-interface`.
-Preregistration commit `23c1dbd`, amendment commit `892d81c`; both are untouched. Module
-`OIBridge/StochasticInterface.lean`; twelve named results, each printing only `propext`,
-`Classical.choice`, `Quot.sound`. No axiom, observation map, ensemble, coupling or class enrichment
-was added to the architecture, nothing added anywhere is reported as sourced, no A6 predicate was
-defined, no correspondence theorem was stated or cited, nothing is named C5, and no manuscript was
-edited.
+### C4 — wave-substratum witness
 
-The verdict is **outcome A, the interface gap**. Both legs fail, and the ensemble leg fails by
-theorem rather than by absence of a candidate. Stage 1 therefore does not deliver a sourced pair,
-stage 2 is not entered, and no divisibility predicate exists in the kernel at the end of the round.
+If A5 gives the zero fixed point, exhibit one nonzero configuration whenever the alphabet has more
+than one element. The witness should be generic, not chosen by a stochastic outcome.
 
-**What determination was taken to mean.** The round works with one predicate of the dynamics, not of
-any chosen law:
+## Guards
 
-> `EnsembleDetermined φ`: exactly one probability law on the state space is invariant under `φ`.
+The round is invalid if any of the following occurs:
 
-Invariance is the only ensemble constraint the architecture states, so this is the predicate the
-census tests. It selects nothing and it adds nothing.
+- a new physical condition, axiom or selection rule is introduced;
+- an observation map, site, pair, prior or ensemble is chosen because it produces a desired result;
+- maximum entropy is treated as a consequence of invariance rather than the selection principle the
+  manuscript says it is;
+- the census core's `vis` is silently transported to `Substratum.Conf` without a bridge;
+- the operational readout is called a configuration observation map unless its type actually is one;
+- a failure of uniqueness is reported as nonexistence;
+- a failure of determination is reported as a refutation of OI;
+- Stage 2 is entered after a non-D Stage-1 verdict;
+- divisibility is conflated with Markovianity;
+- a stochastic-to-quantum correspondence theorem is stated, cited as a premise, or reported as
+  applicable before its exact hypotheses are retrieved and audited;
+- anything is named or adopted as C5;
+- a manuscript is edited in the determination commit;
+- any previously proved #533–#536 theorem is weakened or retracted.
 
-**The positive route, taken up first.** The amendment required that the single-orbit route be
-followed if the architecture supplies its hypotheses, and the round states that route as a theorem
-before testing it: `ensembleDetermined_of_transitive` shows that when one orbit exhausts the state
-space, the orbit-uniform law is invariant and is the only invariant law, by the kernel's
-`orbit_invariant_unique`. That ensemble would have been derived, not chosen. The census then asks
-whether the architecture's own dynamics is transitive.
+## Admissible outcomes
 
-**The fixed point, from a stated axiom.** A5 — additivity of the rule, one of the architecture's
-own axiom predicates — gives `F 0 = 0`, and the phase-space step `(p, c) ↦ (c, F c − p)` therefore
-fixes the all-zero configuration (`phi_fixes_zero`). The manuscripts' wave rule satisfies A5 by
-`waveSubstratum_A5`, which was already proved, so it fixes the zero configuration too
-(`waveSubstratum_phi_fixes_zero`). Nothing was added to obtain this; the axiom was read.
+The headline verdict is the Stage-1 letter, plus Stage 2 only if reached.
 
-**T3, the ensemble leg: the gap, proved.** The singleton `{0}` and the orbit of any other
-configuration are disjoint nonempty invariant sets, which is exactly the hypothesis of the kernel's
-`invariance_does_not_select` under the scope the amendment fixed. So invariance leaves the law
-undetermined: `not_ensembleDetermined_of_disjoint`, then `not_ensembleDetermined_of_fixedPoint`,
-then `ensemble_underdetermined` for every substratum whose rule satisfies A5 and whose configuration
-space carries more than the zero configuration. The same fixed point closes the positive route:
-`not_transitive_of_fixedPoint` shows a dynamics with a fixed point and another state is not
-transitive, so the hypotheses of `orbit_invariant_unique` are not supplied here and the orbit-uniform
+- **D-P** — map and ensemble sourced, induced process P-divisible.
+- **D-I** — map and ensemble sourced, induced process P-indivisible.
+- **D-U** — map and ensemble sourced, induced-process divisibility undecided.
+- **M** — map sourced, ensemble not determined.
+- **E** — ensemble determined, map not sourced.
+- **G** — neither map nor ensemble sourced.
+
+A D-I result would justify a *new preregistered round* retrieving the exact stochastic-to-quantum
+correspondence theorem and auditing its hypotheses. It would not itself establish a quantum result.
+
+## Prediction, recorded before the census
+
+**G is expected.** The substratum dynamics is stated; the visible map appears only on the small census
+core, not on `Substratum.Conf`; read-write families are available at arbitrary loci; and the
+canonical-measure theorem already warns that invariance alone does not select globally when there
+are multiple invariant components. The strongest route that could overturn this prediction is
+single-orbit dynamics: if the actual wave substratum is transitive on its relevant finite phase
+space, the ensemble leg becomes determined and the outcome could improve to E or D.
+
+The prediction is not a result. The round begins by proving or closing that strongest route.
+
+---
+
+## Execution result
+
+The preregistered pass is complete. The outcome is **G** at the Stage-1 terminology frozen above:
+neither the observation-map leg nor the ensemble leg is sourced by the frozen architecture. The
+ensemble leg is a kernel theorem. The observation-map leg is a complete census of the candidates
+named before execution and remains, as preregistered, a source-status conclusion rather than a
+nonexistence theorem. Because Stage 1 is not D, Stage 2 was not entered: no induced process,
+P-divisibility predicate, Markov predicate, or stochastic-to-quantum correspondence appears in the
+module.
+
+The Lean implementation is `OIBridge/StochasticInterface.lean`. It adds one definition,
+`EnsembleDetermined`, and twelve named results, all of which print only the accepted foundation
+axioms `propext`, `Classical.choice` and `Quot.sound`. The root imports the module, the coverage
+registry carries the family as kernel-only, the executable mirror reruns the exact finite controls,
+and `R7-SOI` guards the stage boundary and the no-correspondence/no-C5 scope.
+
+### T2 first: the positive route exists
+
+`ensembleDetermined_of_transitive` proves the strongest positive route before the negative one is
+used. If one orbit of a finite permutation exhausts the state space, the invariant probability law
+is unique: `CanonicalMeasure.orbit_invariant_unique` identifies it with the uniform law on that
+orbit. No maximum-entropy postulate or chosen distribution enters. The positive control is not
+rhetorical; it is a theorem of the same predicate the negative result later refutes for the actual
+A5 class.
+
+### T3: A5 closes that route on the frozen substratum
+
+`phi_fixes_zero` proves from A5 alone that the all-zero phase-space configuration is fixed. The step
+is exactly the one the preregistration anticipated: A5 gives `F 0 = F (0+0) = F 0 + F 0`, hence
+`F 0 = 0`, and the second-order update `(p,c) ↦ (c,F(c)-p)` therefore sends `(0,0)` to itself.
+`waveSubstratum_phi_fixes_zero` specializes this to the manuscripts' discrete wave rule because the
+kernel already proves `waveSubstratum_A5`.
+
+`not_ensembleDetermined_of_disjoint` packages the existing
+`CanonicalMeasure.invariance_does_not_select`: two disjoint nonempty invariant finite sets support
+two distinct invariant probability laws. `not_ensembleDetermined_of_fixedPoint` then applies that
+theorem to the singleton fixed point and the orbit of any other state. Consequently
+`ensemble_underdetermined` proves that every A5 substratum with any configuration distinct from zero
+fails `EnsembleDetermined`.
+
+The wave-substratum instance is generic. `waveSubstratum_ensemble_underdetermined` assumes only that
+the alphabet has more than one letter (`Fact (1 < q)`) and uses the constant configuration carrying
+`1` in the past coordinate as the second-orbit witness. The witness is fixed before and independently
+of every stochastic verdict. `not_transitive_of_fixedPoint` records the single-orbit closure as its
+own theorem: a fixed point together with another state excludes transitivity. The positive route was
+therefore tested and closed, not skipped.
+
+This sharpens, and does not contradict, `CanonicalMeasure`: on one accessible orbit the invariant
+law is unique; globally the frozen A5 substratum has at least the zero orbit and another orbit, so
+invariance does not select **in general**, and the maximal-entropy selection of the counting
+measure remains a selection principle rather than a theorem of invariance.
+
+### T4: the observation-map census
+
+Every preregistered candidate was checked against the frozen source surface.
+
+| Candidate | Frozen source status | Determination |
+|---|---|---|
+| read-write locus | `ReadWriteFamily a b` lives at arbitrary pairs | not selected: `readWriteFamily_exists` gives a family at every pair; `readWriteFamily_exists_two` gives two simultaneously |
+| operational readout | `readout`/`readoutEnc` selects an ancilla index of a matrix over the carrier | not a function `Substratum.Conf → outcomes`; no bridge supplies one |
+| census-core `vis` | field of the tiny `OICore` witness type | not carried to `Substratum`; the configuration record has no such field or bridge |
+| orbit / quotient label | definable from `φ` | does not give the visible observation intended by the stochastic route; and the actual A5 dynamics has multiple orbits, so no unique orbit is selected by dynamics alone |
+| translation / gauge / lattice structure | present as symmetries or family predicates | no stated theorem turns one into a preferred visible map; translation symmetry in particular does not privilege a site |
+
+The first row is the one place where a theorem is useful rather than a type census.
+`readWriteFamily_exists` constructs the constant-reference family at an arbitrary pair, using only the
+structure's own permitted form. `readWriteFamily_exists_two` instantiates it at two arbitrary pairs.
+Existence of a read-write family therefore cannot pick an observer locus. This is not a theorem that
+no observation map exists; it is exactly the preregistered source question, and it answers that one
+candidate mechanism does not select one.
+
+The remaining rows are type/source boundaries. The operational `readout` has a carrier/matrix type,
+not a configuration-observation type. The `vis` field belongs to the census core used for the
+independence witnesses and is absent from `Substratum`. Orbit labels are determined as mathematical
+objects but do not become a visible readout merely by being definable, and the zero fixed point
+closes the one-orbit attempt to make the orbit itself canonical. No current translation, gauge or
+lattice clause adds a preferred locus.
+
+### T5: the Stage-1 verdict and stop rule
+
+`stochastic_interface_gap` states the ensemble half and the closure of the single-orbit route
+together for any nontrivial A5 substratum. `waveSubstratum_stochastic_interface_gap` states the same
+for the manuscripts' own wave substratum on every alphabet with more than one letter. The
+observation-map half remains the census above, deliberately not inflated into a nonexistence theorem.
+
+So Stage 1 is not D. In the preregistered vocabulary it is G: the map is not sourced and the
 ensemble is unavailable. `stochastic_interface_gap` states both legs of that together, and
 `waveSubstratum_stochastic_interface_gap` states them of the manuscripts' own substratum, on every
 torus whose alphabet has more than one letter. The witness for the second orbit is the constant
-configuration carrying the alphabet's unit in the past coordinate; any configuration other than zero
-serves equally, and none was chosen for the verdict it would yield.
+nonzero configuration, not a selected stochastic preparation.
 
-The hypothesis that the configuration space carries more than the zero configuration is doing real
-work and is stated: on a one-letter alphabet the configuration space is a single point, the
-invariant law is unique for the trivial reason, and the gap does not arise.
+The stop rule was followed literally. The module contains no rooted transition-family definition,
+no P-divisibility or Markov predicate, and no stochastic-to-quantum correspondence theorem. The next
+round, if any, therefore begins from the source gap, not from an already-chosen stochastic process.
 
-**T2, the observation-map leg: the gap, by census.** No definition or theorem of the architecture
-gives a map out of `Substratum.Conf`.
+## Frozen controls
 
-- The read-write structure carries its coupled pair `{a, b}` as parameters supplied from outside, and
-  the structure privileges no pair: a family exists at every pair (`readWriteFamily_exists`, witnessed
-  by the constant reference coupling the structure's own axioms already admit), and at two pairs at
-  once (`readWriteFamily_exists_two`). Existence of a family therefore distinguishes no locus and
-  selects no readout.
-- The operational readout `FiniteOperationalTheory.readout`, with `readout_is_localLuders`,
-  `localLuders`, `ptraceAnc` and `discardWith`, is a family of linear maps on matrices over
-  `A × Fin n` selecting an ancilla index. It is sourced on the operational carrier and it induces no
-  function on configurations, because a matrix over the carrier is not a configuration. Supplying the
-  missing step would be the addition this round forbids.
-- `vis` lives on the census core `Core`, not on `Substratum.Conf`. The frozen text records that
-  carrying it across is an addition rather than a finding, and it was not carried across.
+The positive and negative controls are all live in the kernel or its exact executable mirror.
 
-The leg is therefore recorded as a gap in the sense the guard fixes: maps out of `Conf` are
-definable, and nothing in the architecture selects one. The round proves that the read-write
-structure's own candidate locus is not distinguished; it proves no claim that a map cannot exist.
+- **C1, single orbit:** `ensembleDetermined_of_transitive` proves the unique-invariant-law positive
+  case. The executable mirror checks the 5-cycle: one orbit, the stationary linear system has rank
+  four plus normalization, and the unique solution is `(1/5,…,1/5)`.
+- **C2, two orbits:** `not_ensembleDetermined_of_disjoint` is the general theorem. The mirror checks
+  the permutation `(0 1)(2 3)`: two normalized invariant laws, one on each cycle.
+- **C3, locus:** `readWriteFamily_exists_two` gives families at two arbitrary pairs. The mirror checks
+  two explicit distinct pairs on a four-state carrier.
+- **C4, wave:** `waveSubstratum_ensemble_underdetermined` is the generic theorem. The mirror checks
+  the smallest nontrivial torus and verifies both the zero fixed point and the nonzero constant
+  witness.
 
-**T4, T5, T6: not reached, with the leg named.** Stage 1 delivered neither a unique sourced pair nor
-a sourced family, so under the frozen order the induced process `X t := π (φ^[t] s₀)` was not
-defined, the divisibility predicates were not introduced, and the diagnostic was not run. Both legs
-blocked stage 2; the ensemble leg blocked it by theorem.
+The executable mirror is intentionally independent arithmetic. It does not parse the theorem to
+manufacture the answer and it is not reported as a proof of the theorem.
 
-| test | outcome | kernel |
+## Determination table
+
+| Test | Result | Kernel evidence |
 |---|---|---|
-| T1 | the census: every observation-map candidate definable or living off `Conf`, none sourced; every ensemble candidate definable, none sourced, with the single-orbit route tested and closed | `readWriteFamily_exists`, `readWriteFamily_exists_two`, `ensembleDetermined_of_transitive`, `not_transitive_of_fixedPoint` |
-| T2 | the observation-map leg: the gap; the read-write structure distinguishes no locus, the operational readout induces no function on configurations, and `vis` was left on the census core | `readWriteFamily_exists`, `readWriteFamily_exists_two` |
-| T3 | the ensemble leg: the gap, proved from A5; invariance alone does not select, cited to the existing theorem under its own hypotheses | `phi_fixes_zero`, `not_ensembleDetermined_of_disjoint`, `not_ensembleDetermined_of_fixedPoint`, `ensemble_underdetermined`, `waveSubstratum_ensemble_underdetermined` |
-| T4 | the induced process: not defined; both legs blocked stage 2 | — |
-| T5 | the divisibility predicates: absent, stage 1 stopped the round; neither predicate was identified with Markovianity because neither was introduced | — |
-| T6 | the diagnostic: not reached | — |
-| T7 | the surfaces and the checks: `R7-SOI`; README and census, the family kernel-only; the cross-reference section on the frozen sourcing note; full build, axiom check, gate, probe, Bohr probe, census, voice check; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
-| T8 | the verdict: outcome A, with the observation-map leg, the ensemble leg and the diagnostic stated separately | this section |
+| T1 | `EnsembleDetermined` is the exact uniqueness predicate for invariant probability laws | definition only; no selection principle added |
+| T2 | transitive finite dynamics determines the orbit-uniform law | `ensembleDetermined_of_transitive` |
+| T3 | A5 fixes zero; a second state gives a second invariant orbit; ensemble not determined | `phi_fixes_zero`, `not_ensembleDetermined_of_fixedPoint`, `ensemble_underdetermined`, `not_transitive_of_fixedPoint` |
+| T4 | the census: every observation-map candidate definable or living off `Conf`, none sourced; every ensemble candidate definable, none sourced, with the single-orbit route tested and closed | `readWriteFamily_exists`, `readWriteFamily_exists_two`, `ensembleDetermined_of_transitive`, `not_transitive_of_fixedPoint` |
+| T5 | the observation-map leg: the gap; the read-write structure distinguishes no locus, the operational readout induces no function on configurations, and `vis` was left on the census core | `readWriteFamily_exists`, `readWriteFamily_exists_two` |
+| T6 | Stage 2 not entered because Stage 1 is G | source guard: no divisibility/Markov/correspondence definitions in `StochasticInterface.lean` |
 
-**The verdict, with its content.** Outcome A is reached; outcome B is not reached; outcome C is not
-reached, so the correspondence round is not earned and was not entered. The scientific content is
-that the stochastic law the route would read off is a function of a triple `(φ, Obs, μ)` of which
-the architecture states one member. The dynamics is stated. The observation map is definable and
-unselected. The ensemble is undetermined by the only constraint the architecture places on it, and
-the one route that would have derived an ensemble is closed by a fixed point that the architecture's
-own additivity axiom forces. Any stochastic law obtained from this architecture at present is
-obtained by supplying two of its three inputs from outside, which is the tuning the guard was written
-to detect.
+## What was not done
 
-**What the outcome does not establish.** The round does not claim any of the following. That the
-architecture is refuted; the result is about what it determines, not about whether it is true. That
-no extension could supply the interface; the scope is the presently stated architecture, and the
-census records exactly what an extension would have to add — a map out of `Conf` with a reason for
-that map, and an ensemble with a reason for that ensemble. That the ensemble gap holds of substrata
-whose rule is not additive; A5 is a hypothesis of every result here. That the gap holds on a
-one-letter alphabet; it does not. That an observation map on `Conf` cannot exist. That `vis` or the
-operational readout is unsound where it lives; both are untouched. That anything is known about
-divisibility, indivisibility or Markovianity of any process; no such predicate was defined. That any
-correspondence theorem is true, false, applicable or inapplicable. That A6, if given a predicate,
-would or would not change the verdict; A6 remains the gap it was. Anything about a manuscript.
+No observer map, pair, site, prior, ensemble, preparation rule or response table was added. No
+maximal-entropy principle was promoted to a theorem of invariance. No A6 predicate was invented. No
+C5 was named or adopted. No P-divisibility or Markov predicate was defined. No stochastic-to-quantum
+correspondence was stated, cited as a premise, or reported applicable or inapplicable. No manuscript
+was edited. `frozen_sourcing_verdict`, `krausDense_of_denseControl` and
+`fixedGateTheory_denseFiniteQM` are unchanged.
 
-## What this note does not claim
+## Admissible outcome
 
-That the OI architecture is refuted or that its axioms are false. That the interface cannot be
-sourced by some extension. That the counting, uniform, stationary or maximum-entropy measure is
-excluded as an ensemble by fiat; each remains definable, and what the round shows is that invariance
-does not select among them here. That maximal-entropy selection has become a consequence rather than
-a principle. That A6 has a predicate, a reading, or a consequence here. That anything is named or
-adopted as C5. That `frozen_sourcing_verdict`, `krausDense_of_denseControl`,
+**G — neither the observation map nor the ensemble is sourced by the frozen architecture.** The
+ensemble half is a theorem on every nontrivial A5 substratum. The observation-map half is the frozen
+census and says only that none of the architecture's current candidate structures selects one; it
+does not say no such map can be added or derived in an extension. The stronger single-orbit route was
+proved in the positive and then closed by the actual A5 fixed point.
+
+This is a source-status result, not a physical refutation. The route to a stochastic observer
+interface remains logically open if an independently motivated observer map and ensemble can be
+sourced. The round does not select among them here. That maximal-entropy selection has become a
+consequence rather than a principle. That A6 has a predicate, a reading, or a consequence here. That
+anything is named or adopted as C5. That `frozen_sourcing_verdict`, `krausDense_of_denseControl`,
 `fixedGateTheory_denseFiniteQM` or any existing result is retracted or weakened. That any manuscript
 statement changes.
 
@@ -402,3 +409,30 @@ closed, the fixed point from A5, the ensemble leg proved undetermined for the ma
 rule, the observation-map leg recorded separately, and stage 2 not entered; twelve named results; no
 axiom or map added to the architecture; no divisibility predicate defined; no correspondence theorem
 stated or cited; no C5 named or adopted; no manuscript edited.
+
+
+## Post-#538 reconciliation cross-reference — append-only
+
+`OBSERVER-PRIMITIVE-RECONCILIATION-AUDIT.md` and
+`OBSERVER-PRIMITIVE-RECONCILIATION-RESULT.md` audit the scope of this frozen round against the
+maintained manuscript surfaces. Outcome B of that reconciliation leaves every theorem of this round
+unchanged but narrows the corpus-level reading of the word “architecture.”
+
+This round froze the reduced `Substratum` kernel — its configuration space, A1–A5 predicates and
+dynamics — together with the candidate kernel interfaces explicitly enumerated above. On that
+layer, the verdict is exact: no observation projection or measure-selection field is represented,
+and invariance alone does not determine an ensemble on a nontrivial A5 substratum. The fixed-point
+proof and the closure of the transitive route remain binding.
+
+The maintained manuscript observation model states additional structure not represented by that
+reduced record: `(S, φ, V)`, a visible/hidden phase-space decomposition with projection `π_V`, and a
+canonical counting law adopted by a maximal-entropy **selection principle**. The same manuscript
+separately permits preparation-specific hidden priors as realization data. Therefore the frozen
+sentences above saying that the architecture states only one member of `(φ, Obs, μ)`, or that
+invariance is the architecture's only ensemble constraint, must be read as claims about the reduced
+substratum layer audited here, not as corpus-wide absence claims.
+
+No theorem is retracted. `invariance_does_not_select` remains the guard: the manuscript's default
+counting law is selected by an additional stated principle, not derived from invariance. The
+observation-map census likewise remains correct for `Substratum.Conf`; the positive manuscript map
+comes from the separately stated observer cut and exact product model, not from A1–A5.
