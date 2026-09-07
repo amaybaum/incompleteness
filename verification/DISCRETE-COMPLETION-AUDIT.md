@@ -243,3 +243,64 @@ The point of the round is to decide whether the continuous completion resource o
 rounds was fundamental physics or an artifact of asking for exact availability instead of closure.
 
 Status: preregistered; no proof attempted.
+
+## Scope amendment, recorded after the preregistration
+
+Recorded at review of the preregistration, before any proof; the preregistration above is
+untouched, and the question, the targets, the prediction and the admissible outcomes are
+unchanged.
+
+**(1) Isolation before relocation in the all-level route.** At level `n > 1` the fixed gate
+`mixImage n α` acts on every ancilla-indexed site pair `(0, k), (1, k)` in parallel, its matrix
+block-diagonal in the ancilla index. Conjugation by a permutation moves that whole matching; it
+does not by itself produce a single two-level gate. The all-level route therefore has a discrete
+isolation step before the relocation step. The first formal positive route may use a phase-echo
+identity: the sign flips that `DerivedOI` supplies (`flip_avail`, the quarter phase squared)
+conjugate the parallel gate so that every unselected block sees the rotation by `−α` while the
+selected block keeps the rotation by `α`, and the product with the original parallel gate cancels
+the unselected blocks and leaves a single rotation at the doubled angle `2α` on the selected pair.
+This suffices for the irrational-angle witness, since `2α/π` is irrational when `α/π` is. No claim
+is made that this doubled-angle route propagates the `α = π/8` level-one prediction to all levels:
+doubling `π/8` gives `π/4`, a Clifford angle, and the rational prediction at higher levels needs
+either a better discrete addressing identity or a separate argument, neither promised here.
+
+**(2) Resource density and quantum soundness are separate theorems.** `DerivedOI T ∧
+FixedGateSourced α T` targets dense unitary control:
+
+> `DerivedOI T ∧ FixedGateSourced α T → DenseUnitaryControl T`, for the successful angles.
+
+A theory satisfying those two predicates may also carry an unrelated surplus operation that is not
+Kraus, so full dense finite quantum mechanics additionally requires soundness:
+
+> `DerivedOI T ∧ FixedGateSourced α T ∧ KrausSoundExt T → DenseFiniteQM T`, if the instrument
+> audit succeeds.
+
+To remove the redundancy in D2 and D3, `KrausDense T` is the density-only predicate, every finite
+endomorphic Kraus instrument at every positive level approximable by available families in the
+metric of D2, and `DenseFiniteQM T := KrausSoundExt T ∧ KrausDense T`; wherever the preregistration
+writes "`DenseFiniteQM T` and `KrausSoundExt T`" it is read as `DenseFiniteQM T` alone. The
+canonical fixed-gate theory `mixTheoryR {α} (Fin 2)` is the primary full-density target: its
+soundness is proved separately, or cited if the kernel already carries it for generated theories,
+and full `DenseFiniteQM` is concluded for it; the generated theory is never conflated with every
+theory containing the same resources.
+
+**(3) Two closure obligations in D3.** The closure of availability must satisfy the relevant theory
+axioms, `availExt_coarse` and `availExt_bind`, as the preregistration records; and, separately,
+the set of finite normalized Kraus instruments must be closed in the chosen channel metric:
+
+> `G_j → F` in the metric of D2, with every `G_j` a finite endomorphic Kraus instrument, implies
+> that `F` is one.
+
+Soundness of every approximant does not by itself give this. The kernel carries the direction
+from Kraus to completely positive, and its own comments record that the converse needs a
+positive-semidefinite factorization; `ExactCompositeQuantumOps` is equality with the finite
+Kraus-instrument predicate, so the inclusion of the closure in the Kraus instruments is a genuine
+obligation of D3. It is proved, in finite dimension through the Choi matrix, closedness of the
+positive-semidefinite and trace constraints, and a finite-dimensional Kraus representation, or it is
+named as the exact D3 obstruction. `KrausSoundExt` of the approximating theory alone is not treated
+as sufficient.
+
+The level-one prediction, the irrational witness as the first kernel target, the `π/8` case as a
+recorded and uncertified prediction, and the instrument audit as the home of outcome 2 are all
+unchanged. `DerivedOI` supplies `IteratedAncillaClosure` (`DerivedOI.closure`), so that part of the
+instrument route is not an additional hypothesis.
