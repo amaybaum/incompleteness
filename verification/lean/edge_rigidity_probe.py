@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+ok_sub &= '132 modules' in _rd1 and '2,890 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+ok_flow &= '132 modules' in _rd1 and '2,890 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+ok_q3 &= '132 modules' in _rd1 and '2,890 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+ok_exec &= '132 modules' in _rd1 and '2,890 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+ok_lsrc &= '132 modules' in _rd1 and '2,890 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+ok_srcp &= '132 modules' in _rd1 and '2,890 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+ok_c5d &= '132 modules' in _rd1 and '2,890 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+ok_pcl &= '132 modules' in _rd1 and '2,890 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5413,7 +5413,7 @@ for _t in ('strengthens the necessary condition above', 'is not by itself diagno
 ok_ccs &= _pcn_rec1.count('## ') == 1
 # the discovery note is untouched by this round: still exactly one recorded section
 ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
-ok_ccs &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+ok_ccs &= '132 modules' in _rd1 and '2,890 named results' in _rd1
 check('R7-CCS', ok_ccs,
       'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
@@ -5569,7 +5569,7 @@ for _t in ('stated as a postulate', 'meets the three obligations recorded above'
     ok_smc &= _t in _ccn_rec1
 ok_smc &= _ccn_rec1.count('## ') == 1
 ok_smc &= 'state-mixing coupling construction audit' not in _c5n and 'state-mixing coupling construction audit' not in _pcn
-ok_smc &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+ok_smc &= '132 modules' in _rd1 and '2,890 named results' in _rd1
 check('R7-SMC', ok_smc,
       'State-mixing coupling guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-five results, defines exactly the datum, its sourcing map, the class family and its full instance, the two '
@@ -5725,7 +5725,7 @@ for _t in ('reduces the datum of this round to a principle', 'stated without the
     ok_rpf &= _t in _smn_rec1
 ok_rpf &= _smn_rec1.count('## ') == 1
 ok_rpf &= 'real pair-flow reduction audit' not in _c5n and 'real pair-flow reduction audit' not in _pcn and 'real pair-flow reduction audit' not in _ccn
-ok_rpf &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+ok_rpf &= '132 modules' in _rd1 and '2,890 named results' in _rd1
 check('R7-RPF', ok_rpf,
       'Real pair-flow guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty results, defines exactly the principle, its transport, the rotation as conclusion, the local angle, the '
@@ -5741,6 +5741,165 @@ check('R7-RPF', ok_rpf,
       'statuses, the frontier question, and no necessity or C5 claim; no manuscript is edited; the registry and the '
       'census carry the family as kernel-only; the state-mixing note carries one section after its frozen text and the '
       'discovery, closure and coherent-continuum notes are untouched; the README carries the paragraph and the counts.')
+
+# ---- the operational pair-flow equivalence audit: the theory-level predicate on the two-valued carrier, the canonical
+# flow, the forward direction from control, the backward direction within the theory's availability with the amendment's
+# base case from the sourced flow at time zero, the central biconditional, the two countercontrols; outcome 1; no C5; no
+# generalization beyond Fin 2; the generation semantics of the reverse reconstruction deferred ----
+ok_pfe = True
+_pf = open(os.path.join(BRIDGE, 'OIBridge', 'PairFlowEquivalence.lean'), encoding='utf-8').read()
+_pfflat = ' '.join(_pf.split())
+_pfcode = re.sub(r'/-.*?-/|--[^\n]*', '', _pf, flags=re.S)
+_pfn = open(os.path.join(os.path.dirname(BRIDGE), 'PAIR-FLOW-EQUIVALENCE-AUDIT.md'), encoding='utf-8').read()
+_pfn1 = re.sub(r'\s+', ' ', _pfn)
+ok_pfe &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _pf) is None and 'native_decide' not in _pf
+ok_pfe &= 'axiom ' not in _pfcode
+_pf_names = re.findall(r"^theorem ([\w'.]+)", _pf, re.M)
+ok_pfe &= len(_pf_names) == 16 and _pf.count('#print axioms') == 15
+for _nm in ('rotR_orth', 'rotR_continuous', 'rotFlow_A', 'pairFlowSourced_of_qm', 'derivedOI_pairFlowSourced_of_qm',
+            'mixAvail_of_pairFlowSourced', 'identity_avail_of_pairFlowSourced', 'phaseIndicator_avail', 'siteShear_avail',
+            'conjChannel_unit_smul', 'layerFlowExecutable_of_derivedOI_pairFlowSourced', 'qm_of_derivedOI_pairFlowSourced',
+            'qm_iff_derivedOI_pairFlowSourced', 'polarizedTheoryC_not_pairFlowSourced', 'countable_not_pairFlowSourced'):
+    ok_pfe &= ('#print axioms OIBridge.PairFlowEquivalence.' + _nm) in _pf and _nm in _pf_names
+# the definitions: the predicate and the canonical flow, nothing else; nothing named C5; no existing definition restated
+_pf_defs = re.findall(r"^(?:noncomputable )?(?:def|abbrev|structure|inductive) ([\w'.]+)", _pf, re.M)
+ok_pfe &= _pf_defs == ['PairFlowSourced', 'rotFlow']
+ok_pfe &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive|theorem) [Cc]5', _pf, re.M) is None
+for _t in ('PairFlow', 'transport', 'rotR', 'mixImage', 'rot', 'LayerFlowExecutable', 'PhaseFreeRichness', 'DerivedOI', 'gateFlow',
+           'siteShearImage', 'PhasesAvailable', 'conjChannel'):
+    ok_pfe &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) ' + _t + r'\b', _pf, re.M) is None
+# the predicate is on availability in the theory and the backward direction stays there: no class generation, no
+# implementation class, no architecture anywhere in the code; the carrier is the two-valued one throughout
+for _bad in ('genTheory', 'ImplementationClass', 'Architecture', 'arch.', 'FiniteOperationalTheory S', 'FiniteOperationalTheory A'):
+    ok_pfe &= _bad not in _pfcode
+ok_pfe &= 'import OIBridge.RealPairFlow' in _pf and 'import OIBridge.PairFlowEquivalence' in root
+# the statements, as preregistered and amended
+for _t in ('def PairFlowSourced (T : FiniteOperationalTheory (Fin 2)) : Prop := ∃ F : PairFlow, ∀ (n : ℕ) (t : ℝ), T.availExt n Unit (fun _ => conjChannel (transport n (F.A t)))',
+           'noncomputable def rotFlow : PairFlow where A := rotR',
+           'theorem rotFlow_A (t : ℝ) : rotFlow.A t = rotR t := rfl',
+           'theorem pairFlowSourced_of_qm (T : FiniteOperationalTheory (Fin 2)) (h : ExactAllFiniteEndomorphicQuantumOps T) : PairFlowSourced T',
+           'theorem mixAvail_of_pairFlowSourced (hs : PairFlowSourced T) (n : ℕ) (θ : ℝ) : T.availExt n Unit (fun _ => conjChannel (mixImage n θ))',
+           'theorem identity_avail_of_pairFlowSourced (hs : PairFlowSourced T) (n : ℕ) : T.availExt n Unit (fun _ => conjChannel (1 : Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ))',
+           'theorem phaseIndicator_avail (hph : PhasesAvailable T) (hs : PairFlowSourced T) (n : ℕ)',
+           'theorem siteShear_avail (hph : PhasesAvailable T) (hs : PairFlowSourced T) (n : ℕ) : T.availExt n Unit (fun _ => conjChannel (siteShearImage n))',
+           'theorem layerFlowExecutable_of_derivedOI_pairFlowSourced (hd : DerivedOI T) (hs : PairFlowSourced T) : LayerFlowExecutable T (Equiv.swap 0 1)',
+           'theorem qm_of_derivedOI_pairFlowSourced (hd : DerivedOI T) (hs : PairFlowSourced T) : ExactAllFiniteEndomorphicQuantumOps T',
+           'theorem qm_iff_derivedOI_pairFlowSourced (T : FiniteOperationalTheory (Fin 2)) : ExactAllFiniteEndomorphicQuantumOps T ↔ DerivedOI T ∧ PairFlowSourced T',
+           'theorem polarizedTheoryC_not_pairFlowSourced : ¬ PairFlowSourced (polarizedTheoryC (Fin 2))',
+           'theorem countable_not_pairFlowSourced (T : FiniteOperationalTheory (Fin 2)) (D : Set (Matrix (Fin 2 × Fin 1) (Fin 2 × Fin 1) ℂ)) (hD : D.Countable)',
+           # the amendment's base case: the witness flow at time zero, its identity field, the transport of the identity
+           'have h1 : transport n (1 : Matrix (Fin 2) (Fin 2) ℝ) = 1 := constFlow_transport n 0', 'rwa [F.zero, h1] at this',
+           'exact identity_avail_of_pairFlowSourced hs n',
+           # the routes: the supply, control, the shear-mix identity, the unit scalar, the composition, the existing Q3
+           'F.pairFlow_supplies_mixImage n θ', 'physical_of_exactAll T h', 'rw [rotFlow_A, transport_rotR]', 'mixImage_unitary n t',
+           'derivedOI_of_qm T h', 'gateFlow_eq_shear_mix', 'conjChannel_unit_smul (Complex.norm_exp_ofReal_mul_I _)', 'avail_conj_mul T n',
+           'siteShearImage_conjTranspose', 'qm_of_derivedOI_layerFlowExecutable T hd hσ', 'polarizedTheoryC_derivedOI',
+           'polarizedTheoryC_not_qm', 'mixImage_not_proportional (0 : Fin 1)', 'Cardinal.mk_Ioo_real', 'Cardinal.aleph0_lt_continuum'):
+    ok_pfe &= _t in _pfflat
+# the note: the theorem, the predicate, the routes, the boundary, the countercontrols, the deferred reconstruction, the
+# meaning, the outcomes, the tests, the non-doings, the amendment, then the outcome and the non-claims, in that order
+_kpf = [_pfn.find(h) for h in ('## The theorem, frozen', '## The predicate, frozen in form', '## The two directions, frozen as routes',
+        '## The vocabulary boundary for future sources, frozen now', '## The countercontrols, frozen with their exact scope',
+        '## The reverse reconstruction, deferred with both formulations recorded', '## What this round establishes if the theorem is proved',
+        '## Admissible outcomes, frozen', '## Tests, frozen', '## What this round does not do',
+        '## Scope amendment, recorded after the preregistration', '## The outcome', '## What this note does not claim')]
+ok_pfe &= all(x > 0 for x in _kpf) and _kpf == sorted(_kpf)
+ok_pfe &= _pfn.lstrip().startswith('# The operational pair-flow equivalence audit')
+ok_pfe &= _pfn.count('## Scope amendment, recorded after the preregistration') == 1
+for _t in ('Preregistration commit `4db4d7a`', 'scope amendment `3bfcb03`', '`main` at `acd001f`', 'Status: preregistered; no proof attempted',
+           'Status: pass complete', '`ExactAllFiniteEndomorphicQuantumOps T ↔ DerivedOI T ∧ PairFlowSourced T`',
+           'The two-valued carrier is frozen', 'is not claimed and is deferred',
+           '`∃ F : PairFlow, ∀ n t, T.availExt n Unit (fun _ => conjChannel (transport n (F.A t)))`',
+           'not membership of the matrices in an implementation class',
+           'It does not bind this round\'s predicate', '1. **Both directions close.**', '2. **The backward direction needs a hypothesis beyond `DerivedOI`.**',
+           '3. **A direction fails.**', 'This round chooses neither', 'the next round must choose one before testing any realization-level necessity',
+           'nothing here says that a coherent continuum is insufficient', 'This is a necessary condition',
+           'is not claimed from `PhasesAvailable` alone at every level', 'by evaluating its witness flow at time zero',
+           'outcome 2 is not triggered by this base case', 'fifteen named results'):
+    ok_pfe &= _t in _pfn1
+# the frozen vocabulary boundary, a blockquote, read with its quote markers removed
+_pfn1q = re.sub(r'\s+', ' ', _pfn.replace('\n> ', ' '))
+for _t in ('No future realization-level candidate counts as a source of `PairFlowSourced` if its statement uses `PairFlow`, `transport`, rotation, cosine or sine, orthogonal-matrix dynamics, `mixImage`, `LayerFlowExecutable`, or an equivalent operational-control predicate',
+           'Such a condition is a restatement of the target rather than an independent physical source'):
+    ok_pfe &= _t in _pfn1q
+_pfn_out = re.sub(r'\s+', ' ', _pfn[_pfn.find('## The outcome'):])
+for _t in ('The verdict is **outcome 1, both directions close**', 'with no hypothesis added on either side',
+           'the base case of the scope amendment is discharged from the sourced flow at time zero',
+           'No step reaches back through `genTheory` or any implementation class', 'Canonical, and not new physics',
+           'Outcome 2 is not reached', 'outcome 3 is not reached', 'principally a repackaging of proved machinery',
+           'It is not a discovery of new physics', 'nothing here is named C5', 'a necessary condition only',
+           'nothing here exhibits a non-quantum theory with a coherent continuum', 'The pair flow remains an operationally sourced condition',
+           'must be frozen before any realization-level necessity is tested', 'The manuscript status of the state-mixing resource is unchanged',
+           'nothing is generalized beyond `Fin 2`', '| T1 | ', '| T4 | ', '| T5 | ', '| T6 | ', '| T8 | '):
+    ok_pfe &= _t in _pfn_out
+_pfn_out_claims = _pfn_out.replace('nothing here says a coherent continuum is insufficient', '').replace('That a coherent continuum is insufficient', '')
+for _bad in ('The verdict is **outcome 2', 'The verdict is **outcome 3', 'Outcome 1 is not reached', 'outcome 1 is not reached',
+             'the pair flow is C5', 'is C5.', 'C5 is the', 'we adopt C5', 'a C5 has been found', 'define C5', 'C5 holds',
+             'coherent continuum is insufficient', 'the corpus sources the pair flow', 'realization-level necessity is proved',
+             'every realization compatible with OI carries', 'generalized to an arbitrary carrier', 'holds on every carrier',
+             'availability containment is chosen', 'generated-theory equality is chosen', 'the semantics is decided',
+             'new physics is', 'discovery of new physics.', 'sources the pair flow from', 'minimal', 'Minimal'):
+    ok_pfe &= _bad not in _pfn_out_claims
+for _bad in ('the pair flow is C5', 'C5 holds', 'the corpus sources the pair flow', 'is necessary at the realization level'):
+    ok_pfe &= not _asserted(_pfn[_pfn.find('## The outcome'):], _bad)
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    for _bad in ('PairFlowEquivalence', 'PAIR-FLOW-EQUIVALENCE', 'PairFlowSourced', 'pairFlowSourced', 'rotFlow',
+                 'qm_iff_derivedOI_pairFlowSourced'):
+        ok_pfe &= _bad not in _t
+_pf_fam = [f for f in _ptr_reg['families'] if f['name'] == 'operational pair-flow equivalence: the closure with one sourced pair flow is exactly quantum mechanics']
+ok_pfe &= len(_pf_fam) == 1 and _pf_fam[0]['status'] == 'kernel-only' and _pf_fam[0]['modules'] == ['PairFlowEquivalence']
+ok_pfe &= _pf_fam[0]['manuscript'] == []
+for _t in ('Verdict outcome 1, both directions close', 'with no hypothesis added on either side', 'not new physics',
+           'a necessary condition only', 'Nothing is named C5 or adopted', 'nothing generalized beyond Fin 2',
+           'generation semantics deferred', 'the manuscript status of the state-mixing resource, which is unchanged', 'owner decision'):
+    ok_pfe &= _t in _pf_fam[0]['note']
+for _bad in ('the pair flow is C5', 'C5 holds', 'the corpus sources the pair flow', 'coherent continuum is insufficient.', 'minimal'):
+    ok_pfe &= _bad not in _pf_fam[0]['note']
+ok_pfe &= '| operational pair-flow equivalence: the closure with one sourced pair flow is exactly quantum mechanics | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-PFE`', 'PAIR-FLOW-EQUIVALENCE-AUDIT.md', 'PairFlowSourced', 'rotFlow', 'rotFlow_A', 'rotR_orth', 'rotR_continuous',
+           'rotR_pi_ne_one', 'pairFlowSourced_of_qm', 'derivedOI_pairFlowSourced_of_qm', 'mixAvail_of_pairFlowSourced',
+           'identity_avail_of_pairFlowSourced', 'phaseIndicator_avail', 'siteShear_avail', 'conjChannel_unit_smul',
+           'layerFlowExecutable_of_derivedOI_pairFlowSourced', 'qm_of_derivedOI_pairFlowSourced', 'qm_iff_derivedOI_pairFlowSourced',
+           'polarizedTheoryC_not_pairFlowSourced', 'countable_not_pairFlowSourced', 'on availability and not on class membership',
+           'with no reach back through any implementation class', 'the scope amendment\'s base case',
+           'Verdict: outcome 1, both directions close', 'and not new physics', 'a necessary condition only', 'Fifteen named results',
+           'Nothing is named C5 or adopted; nothing is generalized beyond `Fin 2`; the reverse reconstruction\'s generation semantics is deferred; no definition changes; no manuscript changes'):
+    ok_pfe &= _t in _rd1
+for _bad in ('the pair flow is C5', 'C5 holds', 'the corpus sources the pair flow', 'Outcome 2 is reached', 'Outcome 3 is reached',
+             'coherent continuum is insufficient.'):
+    ok_pfe &= _bad not in _rd1
+# the real pair-flow note: one section recorded after its countercontrol correction; the state-mixing, coherent-continuum,
+# closure and discovery notes untouched by this round
+_rpn_rec = _rpn.find('## Recorded after the round: the operational pair-flow equivalence audit')
+ok_pfe &= _rpn_rec > _rpn.find('## Countercontrol scope correction, recorded after the execution') and _rpn_rec > _rpn.find('Status: pass complete')
+_rpn_rec1 = re.sub(r'\s+', ' ', _rpn[_rpn_rec:])
+for _t in ('states the principle of this note as a predicate on a finite operational theory', '`PairFlowSourced`',
+           '`qm_iff_derivedOI_pairFlowSourced`', 'with no reach back through any implementation class',
+           'The verdict of this note is unchanged', 'the pair flow remains an operationally sourced condition', 'Nothing is named C5 or adopted'):
+    ok_pfe &= _t in _rpn_rec1
+ok_pfe &= _rpn_rec1.count('## ') == 1
+for _n in (_smn, _ccn, _pcn, _c5n):
+    ok_pfe &= 'operational pair-flow equivalence audit' not in _n and 'PairFlowSourced' not in _n
+ok_pfe &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+check('R7-PFE', ok_pfe,
+      'Operational pair-flow equivalence guard: the module carries no sorry, axiom or native_decide, prints the axioms of '
+      'exactly its fifteen results, defines exactly the theory-level predicate on the two-valued carrier and the canonical '
+      'rate-one rotation flow, nothing named C5 and no existing definition restated, with no class generation, '
+      'implementation class or architecture anywhere in the code; the predicate, the canonical flow, the forward direction '
+      'from composite unitary control, the datum\'s availability, the identity at every level from the witness flow at '
+      'time zero as the amendment\'s base case, the phase products and the site shear by finite composition, the unit '
+      'scalar, the layer flow through the construction audit\'s identity, the existing Q3, the central biconditional and '
+      'the two countercontrols are stated as pinned; the note keeps the theorem, the predicate, the routes, the vocabulary '
+      'boundary for future sources, the countercontrols with their exact scope, the deferred reconstruction semantics, '
+      'the meaning, the outcomes, the tests and the non-doings before the amendment and the outcome, names the three '
+      'commits, records outcome 1 with both directions, no hypothesis added, the repackaging status and no new physics, '
+      'and no C5, generalization, realization-level necessity, coherent-continuum insufficiency or semantics claim; no '
+      'manuscript is edited; the registry and the census carry the family as kernel-only; the real pair-flow note carries '
+      'one section after its countercontrol correction and the state-mixing, coherent-continuum, closure and discovery '
+      'notes are untouched; the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

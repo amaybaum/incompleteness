@@ -228,3 +228,111 @@ case.
 **The named tests, sharpened.** `phaseIndicator_avail`: from `PhasesAvailable T` together with
 level-wise identity availability extracted from `PairFlowSourced T`. `siteShear_avail`:
 consequently, under `DerivedOI T ∧ PairFlowSourced T`.
+
+## The outcome
+
+Preregistration commit `4db4d7a`, scope amendment `3bfcb03`, executed from `main` at `acd001f`.
+The kernel module is `OIBridge/PairFlowEquivalence.lean`, fifteen named results, each printing only
+`propext`, `Classical.choice`, `Quot.sound`; the kernel is at 132 modules and 2,890 named results.
+Nothing is named "C5" in the module or adopted in this note; no existing definition changes;
+nothing is generalized beyond `Fin 2`; no manuscript is edited. The verdict is **outcome 1, both
+directions close**, the expected outcome: the central theorem is proved exactly as frozen, with no
+hypothesis added on either side, and the base case of the scope amendment is discharged from the
+sourced flow at time zero exactly as recorded.
+
+**The predicate and the canonical flow.** `PairFlowSourced T` is the existence of a `PairFlow`
+whose transport's conjugation channel is available in `T` at every level and time, in the frozen
+form; `PairFlow` and `transport` are the reduction audit's definitions, untouched. The rate-one
+real rotation is a pair flow (`rotFlow`): identity and group law from the reduction audit's
+`rotR_zero` and `rotR_mul`, continuity of the entries (`rotR_continuous`), orthogonality from
+`cos² + sin² = 1` (`rotR_orth`), nontriviality at `t = π` (`rotR_pi_ne_one`); its matrix at time
+`t` is `rotR t` (`rotFlow_A`).
+
+**The forward direction.** Exact finite endomorphic operational quantum mechanics has composite
+unitary control (`physical_of_exactAll`); the canonical flow's transport at level `n` and time `t`
+is the datum `mixImage n t` (`transport_rotR`), unitary (`mixImage_unitary`), so its conjugation
+channel is available at every level and time (`pairFlowSourced_of_qm`); with `derivedOI_of_qm`,
+the conjunction (`derivedOI_pairFlowSourced_of_qm`). Canonical, and not new physics.
+
+**The backward direction, at the theory level.** From a sourced pair flow, the datum's
+conjugation is available at every level and angle, by the reduction audit's supply
+(`mixAvail_of_pairFlowSourced`). The identity's conjugation is available at every level, including
+level zero, from the witness flow at time zero, its identity field and the transport of the identity
+matrix (`identity_avail_of_pairFlowSourced`), as the scope amendment records. The product of the
+phases over any finite set of configurations is then available by finite composition
+(`phaseIndicator_avail`, through `avail_conj_mul` along a `Finset` induction with that base case),
+and so is the site shear (`siteShear_avail`), and its adjoint as the cube of the site shear
+(`siteShearImage_conjTranspose`). The construction audit's identity `gateFlow_eq_shear_mix` writes
+the lifted site exchange's gate flow as a unit scalar times the site shear, the datum at `−πt/2` and
+the adjoint site shear; a unit scalar does not change a conjugation channel
+(`conjChannel_unit_smul`), and the product of available conjugations is available; so the layer
+flow of the site exchange is executable (`layerFlowExecutable_of_derivedOI_pairFlowSourced`). The
+existing Q3 at the site exchange, which moves `0`, gives quantum mechanics
+(`qm_of_derivedOI_pairFlowSourced`, through `qm_of_derivedOI_layerFlowExecutable`). No step reaches
+back through `genTheory` or any implementation class; the class-level bridge of the construction
+audit is replaced by the theory's own composition of available unit conjugations.
+
+**The central theorem.** `qm_iff_derivedOI_pairFlowSourced`: for `T : FiniteOperationalTheory
+(Fin 2)`, `ExactAllFiniteEndomorphicQuantumOps T ↔ DerivedOI T ∧ PairFlowSourced T`.
+
+**The countercontrols.** The polarization closure satisfies the closure
+(`polarizedTheoryC_derivedOI`) and is not quantum mechanics (`polarizedTheoryC_not_qm`), so by the
+backward direction it carries no sourced pair flow (`polarizedTheoryC_not_pairFlowSourced`): the
+closure alone does not carry one. A theory whose one-outcome available unit conjugations at level
+one are countable up to scalar carries no sourced pair flow (`countable_not_pairFlowSourced`): the
+datum's images at distinct angles in `(0, π/2)` are pairwise non-proportional
+(`mixImage_not_proportional`), so a sourced flow gives an injection of an uncountable interval into
+a countable set. This is the theory-level form of the coherent-continuum audit's necessity and is a
+necessary condition only; nothing here exhibits a non-quantum theory with a coherent continuum, and
+nothing here says a coherent continuum is insufficient. The no-datum closure is cited
+(`mixTheory_empty_not_qm`).
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | the predicate, on the two-valued carrier, in the frozen form; `PairFlow` and `transport` unchanged | `PairFlowSourced` |
+| T2 | the canonical flow, the rate-one real rotation, its matrix at time `t` the rotation | `rotFlow`, `rotFlow_A`, `rotR_orth`, `rotR_continuous`, `rotR_pi_ne_one` |
+| T3 | the forward direction, canonical: quantum mechanics has the closure and a sourced pair flow | `pairFlowSourced_of_qm`, `derivedOI_pairFlowSourced_of_qm` |
+| T4 | the backward direction at the theory level: the datum available, the identity available from time zero, the phase products and the site shear available, the layer flow executable, quantum mechanics; no hypothesis added, the amendment's base case discharged | `mixAvail_of_pairFlowSourced`, `identity_avail_of_pairFlowSourced`, `phaseIndicator_avail`, `siteShear_avail`, `conjChannel_unit_smul`, `layerFlowExecutable_of_derivedOI_pairFlowSourced`, `qm_of_derivedOI_pairFlowSourced` |
+| T5 | the central theorem | `qm_iff_derivedOI_pairFlowSourced` |
+| T6 | the countercontrols, with the coherent-continuum scope as frozen: the polarization closure not sourced; the countable-up-to-scalar theories not sourced, a necessary condition only | `polarizedTheoryC_not_pairFlowSourced`, `countable_not_pairFlowSourced`; `mixTheory_empty_not_qm` (cited) |
+| T7 | the surfaces and the checks: `R7-PFE`; the README and the census, the family kernel-only; the real pair-flow note's cross-reference section after its frozen text; full build, axiom check, release gate, probe, Bohr probe, census, voice check, all green; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+| T8 | the verdict: outcome 1, both directions stated above | the table |
+
+**The verdict, with its content.** Outcome 1 is reached. On the two-valued carrier, exact finite
+quantum mechanics is exactly the OI consequence closure together with one sourced nontrivial real
+pair flow. Outcome 2 is not reached, the base case of the phase-product induction having been
+supplied by the sourced flow itself; outcome 3 is not reached.
+
+**What the outcome means.** The operational question is closed in this form: what separates exact
+finite quantum mechanics from the other theories satisfying the consequence closure, on the
+two-valued carrier, is exactly the availability of one nontrivial continuous orthogonal action on
+the distinguishable pair. The theorem is principally a repackaging of proved machinery, the
+construction audit's bridge and the reduction audit's supply, into the theory-level biconditional
+the kernel did not have, plus a canonical forward direction. It is a closure theorem of the
+operational question. It is not a discovery of new physics; it does not source the pair flow from
+any realization-level structure; and nothing here is named C5. The pair flow remains an
+operationally sourced condition. The realization-level question that follows, whether some
+realization-level condition stated within the vocabulary boundary above is equivalent to
+`PairFlowSourced`, is the next round's, and its generation semantics, generated-theory equality or
+availability containment, must be frozen before any realization-level necessity is tested. The
+manuscript status of the state-mixing resource is unchanged.
+
+**What the outcome does not establish.** That any realization compatible with OI must carry a pair
+flow. That the theorem holds on any carrier other than `Fin 2`. That a coherent continuum is
+insufficient, or that any non-quantum theory with a coherent continuum exists. Which generation
+semantics the reverse reconstruction should use. That the pair flow has a realization-level source.
+Anything about a manuscript.
+
+## What this note does not claim
+
+That the pair flow is necessary at the realization level, or that any realization compatible with
+OI must carry one. That the central theorem holds beyond the two-valued carrier. That a coherent
+continuum is insufficient. That the reverse reconstruction's generation semantics is decided. That
+the pair flow is sourced by any realization-level structure, or that it names C5. That any
+manuscript statement changes.
+
+Status: pass complete. Outcome 1, both directions close: the theory-level predicate, the canonical
+flow, the forward direction from composite unitary control, the backward direction entirely within
+the theory's availability with the amendment's base case discharged from the sourced flow at time
+zero, the central biconditional on the two-valued carrier, and the two countercontrols with their
+exact scope; fifteen named results; no C5 named or adopted; no manuscript edited.

@@ -181,6 +181,7 @@ import OIBridge.PolarizationClosure
 import OIBridge.CoherentContinuumSource
 import OIBridge.StateMixingCoupling
 import OIBridge.RealPairFlow
+import OIBridge.PairFlowEquivalence
 
 namespace OIBridge
 
