@@ -215,3 +215,62 @@ The point of the round is to find out whether the stochastic route can be entere
 choosing its own inputs, and to stop at the first place where it cannot.
 
 Status: preregistered; no proof attempted.
+
+## Scope amendment, recorded after the preregistration
+
+Recorded at review of the preregistration, before any proof; the preregistration above is
+untouched, and the question, the guard, the forbidden fallbacks, the ensemble quantifier and the
+three admissible outcomes are unchanged. The amendment repairs an ordering defect in the frozen
+text and scopes one citation that was stated too strongly.
+
+**(1) The residual-freedom protocol, reordered.** The frozen text says that a pair sourced up to a
+residual freedom counts as sourced when a theorem proves the freedom cannot change the verdict of
+stage 3. Under the frozen order that theorem cannot yet be stated at stage 1: the induced process
+and the divisibility predicates are first defined at stage 2, so the criterion for finishing stage 1
+refers forward to objects that do not exist. The protocol is reordered, with the standard itself
+unchanged — uniqueness is still not required, and invariance of the verdict is still what
+discharges residual freedom:
+
+> **Stage 1** ends in exactly one of three states: a *unique* sourced pair; a *sourced family* of
+> pairs, the architecture fixing the family but not a member of it; or the gap. A sourced family is
+> not yet a positive interface determination and is not reported as one.
+>
+> **Stage 2** defines the induced process and the divisibility predicates uniformly over the whole
+> sourced family, not at a chosen member.
+>
+> **Stage 3** asks first: is the divisibility verdict the same at every pair in the sourced family?
+> If it is not, the round ends at **outcome A**, as operationally relevant interface
+> underdetermination — the architecture's residual freedom changes the answer, which is a sharper
+> gap than simple absence. If it is, the residual freedom is discharged by that theorem and the
+> common verdict gives outcome B or outcome C.
+
+A unique sourced pair passes through the same stages with a one-member family and no invariance
+obligation.
+
+**(2) The selection citation, scoped.** The frozen text leans on `invariance_does_not_select` in a
+form stronger than the theorem supports. What that theorem proves is nonuniqueness *when two
+disjoint nonempty invariant sets exist*; it does not say that every permutation admits several
+invariant laws. The kernel proves the opposite in the single-orbit case:
+`orbit_invariant_unique` shows that an invariant probability law supported on one orbit **is** the
+uniform law on that orbit, uniquely. The citation is therefore scoped:
+
+> Invariance does not select **in general**, and the maximal-entropy selection of the counting
+> measure remains a selection principle rather than a consequence, as `CanonicalMeasure`'s own
+> record states. For the actual sourced dynamics the census must check the further question:
+> whether the architecture fixes an accessible orbit or support, or proves transitivity or
+> single-orbit dynamics, or otherwise supplies the hypotheses of `orbit_invariant_unique`. If it
+> does, the orbit-uniform ensemble is genuinely derived rather than chosen, it is admissible, and
+> the round must follow it. If it does not, the counting or uniform measure may not be inserted
+> merely because it is invariant.
+
+This opens a legitimate positive route on the ensemble leg that the frozen text did not anticipate:
+an architecture-sourced orbit or support, together with invariance, yields a unique orbit-uniform
+ensemble. That route is sourced in the sense the guard requires, and it is distinct from invoking
+global maximal entropy, which stays forbidden. Test T3 is read as carrying this additional check,
+and the prediction of the frozen text — outcome A expected on the ensemble leg — is left standing as
+written, now with this route as the way it could be wrong.
+
+Everything else is unchanged: no correspondence theorem enters at any point and no predicate for one
+is defined; the census core's `vis` may not be carried to `Substratum.Conf` by analogy; neither the
+observation map nor the ensemble may be selected because it yields indivisibility; and the order of
+work remains part of the guard.
