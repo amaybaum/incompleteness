@@ -158,9 +158,8 @@ theorem readWriteFamily_exists (a b : S) : Nonempty (ReadWriteFamily a b) :=
      reference := rfl
      local_support := fun _ _ _ _ => rfl }⟩
 
-/-- **AND IT PRIVILEGES NO PAIR EVEN AMONG DISTINCT PAIRS**: on a carrier with at least three
-states there are two pairs sharing no locus, each carrying a family, so no pair is distinguished by
-the existence of a family. -/
+/-- **AND IT PRIVILEGES NO PAIR OVER ANOTHER**: for any two specified pairs, a read-write family
+exists at both; therefore existence of a family cannot distinguish one pair from another. -/
 theorem readWriteFamily_exists_two {a b c d : S} :
     Nonempty (ReadWriteFamily a b) ∧ Nonempty (ReadWriteFamily c d) :=
   ⟨readWriteFamily_exists a b, readWriteFamily_exists c d⟩
