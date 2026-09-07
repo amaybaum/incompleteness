@@ -470,3 +470,20 @@ each discharged from the closure, inert spectators by citation, the descent of d
 approximate Stinespring assembly with the explicit `δ`, and the canonical theory dense finite quantum
 mechanics at every angle with `α/π` irrational; thirty-two named results; no C5 named or adopted; no
 manuscript edited.
+
+## Recorded after the round: the frozen substratum sourcing audit
+
+Recorded at the packaging of the frozen substratum nonclassical-resource sourcing audit
+(`FROZEN-SUBSTRATUM-SOURCING-AUDIT.md`, `OIBridge/FrozenSourcing.lean`). The frozen text and the
+outcome of this note are not edited.
+
+That round takes up the sourcing question this note's outcome identified as the one remaining
+physical item, and finds it larger than the fixed gate: the consequence closure carries the phases
+as a conjunct, and the sourced and observer theories fail it there, so the sourcing question is
+asked below the closure for the phases and dense unitary control at once. Its verdict is outcome 3,
+a no-go for the presently stated architecture on both obligations. This note's theorems are
+downstream of it and untouched: the canonical fixed-gate theory has dense unitary control and so
+lies outside the class that round characterizes (`fixedGateTheory_outside_ceiling`), which is the
+consistency check between the two sides. The sourcing verdict says the frozen architecture does not
+reach that theory; it takes nothing back from the density side, and it claims nothing about whether
+an extension could source the resource.
