@@ -9,7 +9,10 @@ The preregistered pass of `C4-CAUSAL-READBACK-AUDIT.md`, read under
 
 `C4e` and `C4r` are candidate causal-readback forms on rooted one-time visible marginals. They are
 not asserted to strengthen, imply, or be implied by the manuscript's history-level condition; that
-relationship is reported in the note, not claimed here. Nothing is named "C5"; no fifth condition is
+relationship is reported in the note, not claimed here. They are marginal-revival signatures: a
+collision and a later separation of rooted one-time marginals. Neither by itself exhibits a causal
+hidden write, store and read mechanism, and an observer retaining the visible history need not have
+lost the root distinction at the collision time. Nothing is named "C5"; no fifth condition is
 defined; no correspondence theorem is stated, cited as a premise, or used, and no predicate for one
 is defined; the manuscript's own condition is not renamed and no manuscript is edited.
 
@@ -54,7 +57,7 @@ def PDivisible (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop :=
 /-- **P-INDIVISIBILITY WITHIN A HORIZON**: the negation. Some pair admits no such propagator. -/
 def PIndivisibleWithin (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop := ¬ PDivisible K Γ
 
-/-- **C4e, EXACT CAUSAL READBACK**: two distinct rooted preparations whose one-time visible
+/-- **C4e, THE CANDIDATE EXACT MARGINAL-REVIVAL FORM**: two distinct rooted preparations whose one-time visible
 marginals coincide at some time and differ at a later time within the horizon. -/
 def C4e (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop :=
   ∃ (a b : V) (s t : ℕ), a ≠ b ∧ s < t ∧ t ≤ K ∧ Γ s a = Γ s b ∧ Γ t a ≠ Γ t b
@@ -140,7 +143,7 @@ theorem c4r_implies_pIndivisible (K : ℕ) (Γ : ℕ → Matrix V V ℝ) (h : C4
   rw [hrow a, hrow b] at hgrow
   exact absurd (tv_mul_le hΛ (Γ s a) (Γ s b)) (not_le.mpr hgrow)
 
-/-- **THE EXACT-READBACK NO-GO, BY THE ROW OBSTRUCTION**: a collision followed by a separation
+/-- **THE MARGINAL COLLISION–REVIVAL NO-GO, BY THE ROW OBSTRUCTION**: a collision followed by a separation
 forbids P-divisibility directly, with no metric and no stochasticity used. -/
 theorem c4e_implies_pIndivisible (K : ℕ) (Γ : ℕ → Matrix V V ℝ) (h : C4e K Γ) :
     PIndivisibleWithin K Γ := by
@@ -149,7 +152,7 @@ theorem c4e_implies_pIndivisible (K : ℕ) (Γ : ℕ → Matrix V V ℝ) (h : C4
   obtain ⟨Λ, -, hfac⟩ := hdiv s t hst htK
   exact hsep (rows_eq_of_factor hfac hcol)
 
-/-- **THE EXACT-READBACK NO-GO, BY THE CONTRACTION**: the same conclusion reached through `C4r`,
+/-- **THE MARGINAL COLLISION–REVIVAL NO-GO, BY THE CONTRACTION**: the same conclusion reached through `C4r`,
 so the headline result does not rest on a single formalization of distinguishability. -/
 theorem c4e_implies_pIndivisible_via_c4r (K : ℕ) (Γ : ℕ → Matrix V V ℝ) (h : C4e K Γ) :
     PIndivisibleWithin K Γ :=
@@ -273,7 +276,7 @@ history-level memory and still be P-divisible, so that memory alone does not del
 theorem pdFamily_not_c4e_not_c4r (K : ℕ) : ¬ C4e K pdFamily ∧ ¬ C4r K pdFamily :=
   not_c4e_and_not_c4r_of_pDivisible K pdFamily (pdFamily_pDivisible K)
 
-/-- **P1 EXHIBITS EXACT CAUSAL READBACK**: the rooted rows collide at the mixing time and separate
+/-- **P1 EXHIBITS THE MARGINAL COLLISION–REVIVAL PATTERN**: the rooted rows collide at the mixing time and separate
 one step later. -/
 theorem peFamily_c4e : C4e 3 peFamily := by
   refine ⟨0, 1, 2, 3, by decide, by norm_num, by norm_num, ?_, ?_⟩
@@ -287,7 +290,7 @@ theorem peFamily_pIndivisible : PIndivisibleWithin 3 peFamily :=
   c4e_implies_pIndivisible 3 peFamily peFamily_c4e
 
 /-- **THE WEAK/STRONG SEPARATION AT THE MARGINAL LEVEL**: one family is P-divisible and exhibits
-neither candidate, the other exhibits exact readback and is P-indivisible. The history-level memory
+neither candidate, the other exhibits the marginal collision–revival pattern and is P-indivisible. The history-level memory
 of the first is certified by the exact probe and is not restated here. -/
 theorem control_separation :
     (PDivisible 3 pdFamily ∧ ¬ C4e 3 pdFamily ∧ ¬ C4r 3 pdFamily) ∧

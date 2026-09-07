@@ -440,19 +440,21 @@ records the causal read-write cycle as a property "to be independently demonstra
 cosmological realization rather than as one the architecture supplies; this round does not
 demonstrate it and does not treat that clause as a source.
 
-**A conditional theorem is not a sourced one.** What the round establishes is that strengthening
-toward causal readback is the mathematically correct repair *once an observer interface is fixed* —
-which is worth knowing, because it says the repair is available and identifies exactly what must be
-supplied for it to bite.
+**A conditional theorem is not a sourced one.** What the round establishes is that the candidate
+causal-readback route is mathematically sufficient for P-indivisibility once a rooted observer
+family is fixed — which is worth knowing, because it says the route is available and identifies
+exactly what must be supplied for it to bite. It does not establish that this route is the correct
+repair, that it is the only one, or that the candidates recover what the manuscript's own condition
+does; T7 left that open.
 
 | test | outcome | kernel |
 |---|---|---|
 | T1 | the provenance census: the manuscript's own condition explicitly permits a pre-sampled response table; the four controls recorded, two of them carried by the exact probes | this section; `papers/Main.md`, `review4_probes.py`, `translation_probes.py` |
 | T2 | the rooted maps from a finite reversible realization with a common prior, proved stochastic | `RootedRealization`, `rootedMap`, `rootedMap_isRowStochastic` |
 | T3 | divisibility defined at the rooted-map level in the frozen orientation, with no identification with generic memory | `PDivisible`, `PIndivisibleWithin` |
-| T4 | exact causal readback defined as frozen; the factorization obstruction proved, and proved without using stochasticity | `C4e`, `rows_eq_of_factor`, `c4e_implies_pIndivisible` |
+| T4 | the candidate exact marginal-revival form defined as frozen under its frozen test name; the factorization obstruction proved, and proved without using stochasticity | `C4e`, `rows_eq_of_factor`, `c4e_implies_pIndivisible` |
 | T5 | quantitative revival defined as frozen; the contractivity route proved from the data-processing bound | `C4r`, `tv_mul_le`, `c4r_implies_pIndivisible` |
-| T6 | the weak/strong separation: the maximal-memory control stays P-divisible and exhibits neither candidate; the revival control fires for both and is P-indivisible | `pdFamily_pDivisible`, `pdFamily_not_c4e_not_c4r`, `peFamily_c4e`, `peFamily_pIndivisible`, `control_separation` |
+| T6 | the history-memory / marginal-revival separation, recorded under T6's frozen name: the maximal-memory control stays P-divisible and exhibits neither candidate; the revival control fires for both and is P-indivisible | `pdFamily_pDivisible`, `pdFamily_not_c4e_not_c4r`, `peFamily_c4e`, `peFamily_pIndivisible`, `control_separation` |
 | T7 | one direction settled, the converse open with its required support hypothesis named; no ordering forced | `pdFamily_not_c4e_not_c4r`; this section |
 | T8 | the sourcing census: S-B, conditional only; #537 binding and not weakened | this section |
 | T9 | the surfaces and the checks: `R7-C4R`; README and census, the family kernel-only; the existing C4 statement pins re-run unchanged; full build, axiom check, gate, probes, Bohr probe, census, voice check; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
