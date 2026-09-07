@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 130 modules and,
-  at this commit, 2,855 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 131 modules and,
+  at this commit, 2,875 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1448,6 +1448,40 @@ one pair coupling with a continuum of angles suffices and the two named weaker r
 a comparison and not a global minimality or uniqueness theorem. Twenty-five named results, each
 printing only `propext`, `Classical.choice`, `Quot.sound`. Nothing is named C5 or adopted; no
 definition changes; no manuscript changes. Guard `R7-SMC`.
+
+The real pair-flow reduction audit (`REAL-PAIR-FLOW-AUDIT.md`, `OIBridge/RealPairFlow.lean`) asks
+whether the construction audit's mixing datum follows from a weaker realization-level principle
+with an independent physical meaning, a nontrivial continuous one-parameter real orthogonal action
+on one distinguishable pair, stated as a structure with identity, group law, continuity, real
+orthogonality and nontriviality and without the rotation form (`PairFlow`, `transport`), and
+whether any stated structure of the corpus supplies that principle. The reduction is proved under
+the five hypotheses with none added: the determinant is one everywhere by the intermediate value
+theorem (`PairFlow.pairFlow_det_one`), every value is a rotation of the plane
+(`PairFlow.pairFlow_form`), the local angle is additive on an interval around zero
+(`PairFlow.pairFlow_ang_add`, through `rotR_inj_small`), linear on a closed sub-interval by
+continuity and density (`PairFlow.pairFlow_ang_linear`), and the all-time rotation form at a
+nonzero rate follows by subdividing time through the group law (`PairFlow.pairFlow_rate`); after
+reparameterizing time the flow supplies the datum at every angle
+(`PairFlow.pairFlow_supplies_mixImage`). The composition with the construction audit gives the
+class-level endpoint for a sourced pair flow under the stated-access containment
+(`qm_of_pairFlowSourced`), the pair-flow class equals the construction audit's class
+(`flowR_eq_mixC`), and the pair-flow theory satisfies the closure and is exact finite operational
+quantum mechanics (`pairFlowTheory_endpoint`, `pairFlowTheory_qm`). The countercontrols: the shear
+and the boost satisfy every hypothesis but orthogonality, with determinant one, and contain no datum
+at any angle with nonzero sine, so measure preservation alone and continuity with reversibility
+alone are insufficient (`shearFlow_all_but_orth`, `shearFlow_ne_rotR`, `boostFlow_all_but_orth`,
+`boostFlow_ne_rotR`); the constant identity satisfies every hypothesis but nontriviality and
+transports to the identity (`constFlow_all_but_nontrivial`, `constFlow_transport`). The sourcing
+audit, narrow by preregistration, finds no stated structure establishing the hypotheses on the
+operational carrier: Main §2.3's continuous-time extension states an induced stochastic transition
+family with continuity and departure from the permutation class but no orthogonal action on the
+pair, Liouville preservation never read as norm preservation; recurrence is a return, not an action;
+the wave lift has no stated carrier map; and no quadratic invariant on the operational pair is
+stated, the amendment's basis qualification unmet. Verdict: outcome 2, reduction succeeds, sourcing
+fails; the frontier is the question what physical principle gives a nontrivial continuous
+orthogonal action on one distinguishable pair. Nothing says continuity or the principle is
+necessary. Twenty named results, each printing only `propext`, `Classical.choice`, `Quot.sound`.
+Nothing is named C5 or adopted; no definition changes; no manuscript changes. Guard `R7-RPF`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

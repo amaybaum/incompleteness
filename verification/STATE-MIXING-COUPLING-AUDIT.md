@@ -316,3 +316,16 @@ on a single pair generates the closure and exact finite operational quantum mech
 two-valued alphabet, by the identity, the composition and the cited closure theorem; the
 countable-angle and the no-datum replacements are not quantum mechanics; twenty-five named
 results; no C5 named or adopted; no manuscript edited.
+
+## Recorded after the round: the real pair-flow reduction audit
+
+`REAL-PAIR-FLOW-AUDIT.md`, preregistered at `ed3c224` with a scope amendment at `7038c0c` and
+executed from `main` at `e6ca6ed`, reduces the datum of this round to a principle: a nontrivial
+continuous one-parameter real orthogonal action on one distinguishable pair, stated without the
+rotation form, is a rotation family at a nonzero rate (`PairFlow.pairFlow_rate`) and supplies
+`mixImage` at every angle after reparameterizing time (`PairFlow.pairFlow_supplies_mixImage`), so the
+class-level endpoint above holds for any class containing the transports of such an action
+(`qm_of_pairFlowSourced`), and the pair-flow class is `MixC` itself (`flowR_eq_mixC`). The later
+round finds no stated corpus structure establishing the principle's hypotheses on the operational
+carrier. The verdict of this note is unchanged; the datum keeps its postulate status, its sourcing
+reduced to that of the principle. Nothing is named C5 or adopted.

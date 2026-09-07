@@ -180,6 +180,7 @@ import OIBridge.C5Discovery
 import OIBridge.PolarizationClosure
 import OIBridge.CoherentContinuumSource
 import OIBridge.StateMixingCoupling
+import OIBridge.RealPairFlow
 
 namespace OIBridge
 
