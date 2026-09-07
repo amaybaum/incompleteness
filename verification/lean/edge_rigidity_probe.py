@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_sub &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_flow &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_q3 &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_exec &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_lsrc &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_srcp &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_c5d &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_pcl &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5413,7 +5413,7 @@ for _t in ('strengthens the necessary condition above', 'is not by itself diagno
 ok_ccs &= _pcn_rec1.count('## ') == 1
 # the discovery note is untouched by this round: still exactly one recorded section
 ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
-ok_ccs &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_ccs &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-CCS', ok_ccs,
       'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
@@ -5569,7 +5569,7 @@ for _t in ('stated as a postulate', 'meets the three obligations recorded above'
     ok_smc &= _t in _ccn_rec1
 ok_smc &= _ccn_rec1.count('## ') == 1
 ok_smc &= 'state-mixing coupling construction audit' not in _c5n and 'state-mixing coupling construction audit' not in _pcn
-ok_smc &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_smc &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-SMC', ok_smc,
       'State-mixing coupling guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-five results, defines exactly the datum, its sourcing map, the class family and its full instance, the two '
@@ -5725,7 +5725,7 @@ for _t in ('reduces the datum of this round to a principle', 'stated without the
     ok_rpf &= _t in _smn_rec1
 ok_rpf &= _smn_rec1.count('## ') == 1
 ok_rpf &= 'real pair-flow reduction audit' not in _c5n and 'real pair-flow reduction audit' not in _pcn and 'real pair-flow reduction audit' not in _ccn
-ok_rpf &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_rpf &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-RPF', ok_rpf,
       'Real pair-flow guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty results, defines exactly the principle, its transport, the rotation as conclusion, the local angle, the '
@@ -5883,7 +5883,7 @@ for _t in ('states the principle of this note as a predicate on a finite operati
 ok_pfe &= _rpn_rec1.count('## ') == 1
 for _n in (_smn, _ccn, _pcn, _c5n):
     ok_pfe &= 'operational pair-flow equivalence audit' not in _n and 'PairFlowSourced' not in _n
-ok_pfe &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_pfe &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-PFE', ok_pfe,
       'Operational pair-flow equivalence guard: the module carries no sorry, axiom or native_decide, prints the axioms of '
       'exactly its fifteen results, defines exactly the theory-level predicate on the two-valued carrier and the canonical '
@@ -6046,7 +6046,7 @@ for _t in ('replaces the sourced pair flow of this note by one fixed discrete ga
 ok_dca &= _pfn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n):
     ok_dca &= 'discrete completion audit' not in _n and 'FixedGateSourced' not in _n
-ok_dca &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_dca &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-DCA', ok_dca,
       'Discrete completion guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its fifty-one results, defines exactly the predicates and the metric, the closure of availability, the block '
@@ -6216,7 +6216,7 @@ for _t in ('The frozen text and the outcome of this note are not edited', 'liter
 ok_dib &= _dcn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn):
     ok_dib &= 'dense-instrument bridge' not in _n and 'DenseInstrumentBridge' not in _n
-ok_dib &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_dib &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-DIB', ok_dib,
       'Dense-instrument bridge guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its thirty-two results, defines exactly the shifted theory from identity availability and the bijection matrix, '
@@ -6386,7 +6386,7 @@ for _t in ('The frozen text and the outcome of this note are not edited', '`fixe
 ok_fss &= _din_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn):
     ok_fss &= 'frozen substratum sourcing' not in _n and 'FrozenSourcing' not in _n
-ok_fss &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_fss &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-FSS', ok_fss,
       'Frozen substratum sourcing guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twenty-three results, defines exactly the nonnegativity invariant and nothing else, names nothing C5, mentions '
@@ -6553,7 +6553,7 @@ for _t in ('takes up the narrow reading this note gives its own outcome 3', 'rep
 ok_soi &= _fsn_x1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn, _din):
     ok_soi &= 'stochastic observer interface' not in _n and 'StochasticInterface' not in _n
-ok_soi &= '136 modules' in _rd1 and '3,008 named results' in _rd1
+ok_soi &= '137 modules' in _rd1 and '3,029 named results' in _rd1
 check('R7-SOI', ok_soi,
       'Stochastic observer-interface determination guard: the module carries no sorry, axiom or native_decide, prints the '
       'axioms of exactly its twelve results, defines exactly the ensemble-determination predicate and nothing else -- no '
@@ -6571,6 +6571,156 @@ check('R7-SOI', ok_soi,
       'no-extension-could-supply, no map-cannot-exist, no divisibility verdict and no correspondence claim; no manuscript '
       'is edited; the registry and the census carry the family as kernel-only; the frozen sourcing note carries exactly one '
       'section after its own non-claims and the older notes are untouched; the README carries the paragraph and the counts.')
+
+# ---- R7-C4R: the C4 causal-readback audit -- the two candidate forms on rooted one-time visible marginals, the
+# frozen composition orientation, the chain to P-indivisibility by two independent routes, the layer used only for
+# the construction, the four controls, and the two verdicts reported separately; no fifth condition, no C5 ----
+ok_c4r = True
+_cr = open(os.path.join(BRIDGE, 'OIBridge', 'CausalReadback.lean'), encoding='utf-8').read()
+_crflat = ' '.join(_cr.split())
+_crcode = re.sub(r'/-.*?-/|--[^\n]*', '', _cr, flags=re.S)
+_crn = open(os.path.join(os.path.dirname(BRIDGE), 'C4-CAUSAL-READBACK-AUDIT.md'), encoding='utf-8').read()
+_crn1 = re.sub(r'\s+', ' ', _crn)
+_cra = open(os.path.join(os.path.dirname(BRIDGE), 'C4-CAUSAL-READBACK-AUDIT-AMENDMENT.md'), encoding='utf-8').read()
+_cra1 = re.sub(r'\s+', ' ', _cra)
+ok_c4r &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _cr) is None and 'native_decide' not in _cr
+ok_c4r &= 'axiom ' not in _crcode and re.search(r'(?m)^axiom ', _cr) is None
+_cr_names = re.findall(r"^theorem ([\w'.]+)", _cr, re.M)
+ok_c4r &= len(_cr_names) == 21 and _cr.count('#print axioms') == 21
+for _nm in ('tv_nonneg', 'tv_eq_zero_iff', 'tv_pos_of_ne', 'tv_mul_le', 'rows_eq_of_factor', 'c4e_implies_c4r',
+            'c4r_implies_pIndivisible', 'c4e_implies_pIndivisible', 'c4e_implies_pIndivisible_via_c4r',
+            'not_c4e_and_not_c4r_of_pDivisible', 'rootedMap_isRowStochastic', 'j2_isRowStochastic',
+            'one_isRowStochastic', 'j2_rows_eq', 'one_rows_ne', 'pdFamily_pDivisible', 'pdFamily_not_c4e_not_c4r',
+            'peFamily_c4e', 'peFamily_pIndivisible', 'control_separation', 'causal_readback_verdict'):
+    ok_c4r &= ('#print axioms OIBridge.CausalReadback.' + _nm) in _cr and _nm in _cr_names
+# THE FREEZE: exactly the audit's own definitions; no fifth condition; nothing named C5; total variation REUSED
+# from the kernel rather than redefined; the manuscript condition not renamed; no correspondence predicate
+_cr_defs = re.findall(r"^(?:noncomputable )?(?:def|abbrev|structure|inductive) ([\w'.]+)", _cr, re.M)
+ok_c4r &= _cr_defs == ['IsRowStochastic', 'PDivisible', 'PIndivisibleWithin', 'C4e', 'C4r',
+                       'RootedRealization', 'rootedMap', 'J2', 'pdFamily', 'peFamily']
+ok_c4r &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive|theorem) [Cc]5', _cr, re.M) is None
+ok_c4r &= 'A6' not in _cr
+ok_c4r &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) tv\b', _cr, re.M) is None
+ok_c4r &= 'import OIBridge.HiddenMemory' in _cr and 'HiddenMemory' in _crflat
+for _t in ('C4w', 'Markov', 'markov', 'Barandes', 'Divisible ', 'Correspondence', 'Obs', 'Ensemble'):
+    ok_c4r &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) ' + _t + r'\b', _cr, re.M) is None
+ok_c4r &= 'import OIBridge.CausalReadback' in root
+# the frozen orientation, and the statements as executed
+for _t in ('def PDivisible (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop := ∀ s t : ℕ, s < t → t ≤ K → ∃ Λ : Matrix V V ℝ, IsRowStochastic Λ ∧ Γ t = Γ s * Λ',
+           'def C4e (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop := ∃ (a b : V) (s t : ℕ), a ≠ b ∧ s < t ∧ t ≤ K ∧ Γ s a = Γ s b ∧ Γ t a ≠ Γ t b',
+           'def C4r (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop := ∃ (a b : V) (s t : ℕ), a ≠ b ∧ s < t ∧ t ≤ K ∧ tv (Γ s a) (Γ s b) < tv (Γ t a) (Γ t b)',
+           'theorem tv_mul_le {Λ : Matrix V V ℝ} (hΛ : IsRowStochastic Λ) (p q : V → ℝ) : tv (fun j => ∑ i, p i * Λ i j) (fun j => ∑ i, q i * Λ i j) ≤ tv p q',
+           'theorem rows_eq_of_factor {Γs Γt Λ : Matrix V V ℝ} (hfac : Γt = Γs * Λ) {a b : V} (hrow : Γs a = Γs b) : Γt a = Γt b',
+           'theorem c4e_implies_c4r (K : ℕ) (Γ : ℕ → Matrix V V ℝ) (h : C4e K Γ) : C4r K Γ',
+           'theorem c4r_implies_pIndivisible (K : ℕ) (Γ : ℕ → Matrix V V ℝ) (h : C4r K Γ) : PIndivisibleWithin K Γ',
+           'theorem c4e_implies_pIndivisible (K : ℕ) (Γ : ℕ → Matrix V V ℝ) (h : C4e K Γ) : PIndivisibleWithin K Γ',
+           'theorem pdFamily_pDivisible (K : ℕ) : PDivisible K pdFamily',
+           'theorem peFamily_c4e : C4e 3 peFamily',
+           'theorem peFamily_pIndivisible : PIndivisibleWithin 3 peFamily',
+           'multiplication, `Γ t = Γ s * Λ`. Left multiplication mixes over the root index and is not the'):
+    ok_c4r &= _t in _crflat
+# the note: the frozen sections in order, then the outcome and the non-claims
+_kcr = [_crn.find(h) for h in ('## Why this round exists', '## The question, frozen', '## Layer boundary, frozen',
+        '## The current C4, frozen as the weak form', '## Candidate strengthened C4, frozen before proof',
+        '## P-divisibility, frozen', '## The core theorem targets', '## Mandatory controls', '## Relationship to C4w',
+        '## Physical-sourcing census', '## Admissible outcomes', '## Barandes boundary', '## Tests, frozen',
+        '## Guard', '## Prediction, recorded before proof', '## The outcome', '## What this note does not claim')]
+ok_c4r &= all(x > 0 for x in _kcr) and _kcr == sorted(_kcr)
+ok_c4r &= _crn.lstrip().startswith('# C4 causal-readback strengthening audit')
+for _t in ('Preregistration commit `ada7ccf`, amendment commit `53830de`', '`main` at `5ca538a`',
+           'twenty-one named results', 'No fifth condition is defined, nothing is named C5',
+           'M-A on the mathematics** and **S-B on the sourcing'):
+    ok_c4r &= _t in _crn1
+# the amendment is binding, additions-only, and carries all four corrections plus the guard clause
+for _t in ('This amendment is binding and additions-only', 'byte-for-byte untouched',
+           'A1 — `C4e` / `C4r` are candidate causal-readback forms, not yet proved strengthenings',
+           'A2 — row-stochastic composition convention is frozen now', '`Gamma_t = Gamma_s * Lambda_(t,s)`',
+           'Left multiplication by `Lambda` mixes over the root index',
+           'A3 — layer construction and abstract no-go theorems are separate', 'layer-independent',
+           'A4 — “left the visible description” means the one-time marginal only',
+           'A5 — execution guard for the audit-local C4 vocabulary'):
+    ok_c4r &= _t in _cra1
+_crn_out = re.sub(r'\s+', ' ', _crn[_crn.find('## The outcome'):])
+_crn_cut = _crn_out.find('### What the outcome does not establish')
+_crn_out_claims = _crn_out[:_crn_cut] if _crn_cut > 0 else _crn_out
+for _t in ('The verdict is **M-A on the mathematics** and **S-B on the sourcing**',
+           'Stochasticity of the propagator is never used',
+           'The composition convention did real work',
+           'Under the opposite orientation the argument fails outright',
+           'the kernel proves the divisibility half, and\nthe existing exact probe proves the memory half'.replace('\n', ' '),
+           'is\n**not proved and is not claimed**'.replace('\n', ' '),
+           'the word *strengthening* is therefore not used',
+           'not comparable in the proved direction',
+           'They probe different observables',
+           'A conditional theorem is not a sourced one',
+           '#537 remains binding and is not weakened here',
+           '| T1 | ', '| T7 | ', '| T8 | ', '| T10 | '):
+    ok_c4r &= _t in _crn_out
+for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', 'minimal', 'Minimal', 'is C5.',
+             'C5 holds', 'we adopt C5', 'define C5', 'a fifth condition', 'C4e strengthens C4w',
+             'C4r strengthens C4w', 'the strengthened C4 succeeds', 'necessary for P-indivisibility.',
+             'non-Markovian', 'the correspondence applies', 'closes #537', 'S-A is reached'):
+    ok_c4r &= _bad not in _crn_out_claims
+for _bad in ('the architecture is refuted', 'the architecture sources', 'C4e implies C4w',
+             'either candidate is necessary', 'a causal hidden write-then-read mechanism is exhibited'):
+    ok_c4r &= not _asserted(_crn[_crn.find('## The outcome'):], _bad)
+# no manuscript carries the round, and the manuscript's own C4 is untouched by the audit vocabulary
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    for _bad in ('CausalReadback', 'C4-CAUSAL-READBACK', 'C4e', 'C4r', 'C4w', 'PIndivisibleWithin',
+                 'causal_readback_verdict', 'pdFamily', 'peFamily'):
+        ok_c4r &= _bad not in _t
+# the manuscript's own C4 clause, which the round cites as provenance, is still present and unedited
+_main_c4 = open(os.path.join(_msroot, 'papers/Main.md'), encoding='utf-8').read()
+ok_c4r &= 'it does not by itself assert a causal write-then-read cycle' in _main_c4
+ok_c4r &= 'a pre-sampled hidden variable revealed by the history satisfies it' in _main_c4
+_cr_fam = [f for f in _ptr_reg['families']
+           if f['name'] == 'causal readback: the candidate forms and the divisibility no-go']
+ok_c4r &= len(_cr_fam) == 1 and _cr_fam[0]['status'] == 'kernel-only' and _cr_fam[0]['modules'] == ['CausalReadback']
+ok_c4r &= _cr_fam[0]['manuscript'] == []
+for _t in ('neither is called a strengthening of the manuscript condition',
+           'the opposite orientation mixing over the root index and breaking the argument',
+           'two independent routes', 'layer-independent',
+           'verdict M-A on the mathematics and S-B on the sourcing, reported separately',
+           'total variation is the kernel', 'nothing is named C5', 'owner decision'):
+    ok_c4r &= _t.lower() in _cr_fam[0]['note'].lower()
+for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', 'minimal', 'non-Markovian'):
+    ok_c4r &= _bad not in _cr_fam[0]['note']
+ok_c4r &= '| causal readback: the candidate forms and the divisibility no-go | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-C4R`', 'C4-CAUSAL-READBACK-AUDIT.md', 'causal_readback_verdict', 'tv_mul_le', 'rows_eq_of_factor',
+           'c4r_implies_pIndivisible', 'c4e_implies_pIndivisible', 'RootedRealization', 'rootedMap_isRowStochastic',
+           'pdFamily_pDivisible', 'pdFamily_not_c4e_not_c4r', 'peFamily_c4e', 'peFamily_pIndivisible',
+           'control_separation', 'Twenty-one named results', 'M-A on the mathematics, S-B on the sourcing',
+           'neither candidate is called a\nstrengthening'.replace('\n', ' '),
+           'Γ t = Γ s * Λ', 'right multiplication on the outcome index'):
+    ok_c4r &= _t in _rd1
+# the forbidden forms are the ASSERTIONS, not the round's own disclaimer, which names the same words
+for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', 'non-Markovian',
+             'a fifth condition is defined', 'a fifth condition is named', 'defines a fifth condition',
+             'names a fifth condition'):
+    ok_c4r &= _bad not in _rd1
+# the older notes are untouched by this round
+for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn, _din, _fsn, _son):
+    ok_c4r &= 'causal readback' not in _n and 'CausalReadback' not in _n
+ok_c4r &= '137 modules' in _rd1 and '3,029 named results' in _rd1
+check('R7-C4R', ok_c4r,
+      'C4 causal-readback guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
+      'its twenty-one results, defines exactly the audit predicates, the rooted realization and the two controls and '
+      'nothing else -- no fifth condition, no correspondence predicate, no observation map, no ensemble -- names '
+      'nothing C5, mentions no A6, never redefines total variation but reuses the kernel definition, and does not '
+      'rename the manuscript condition; the frozen right-multiplication orientation is stated in the module header '
+      'and used in every statement, and the two routes to the endpoint -- the data-processing contraction and the '
+      'row obstruction that uses neither stochasticity nor the layer -- are separately pinned, as are the rooted '
+      'construction, the four controls and the combined verdict; the note keeps its frozen sections in order before '
+      'the outcome, names both commits, and the amendment is binding, additions-only and carries all five of its '
+      'clauses; the outcome records M-A and S-B separately, states that stochasticity is unused by the exact route, '
+      'that the orientation is load-bearing, that the kernel proves the divisibility half while the exact probe '
+      'proves the memory half, that the converse to the manuscript condition is unproved so no ordering is forced '
+      'and the word strengthening is not used, and that the interface gap remains binding; no architecture-refuted, '
+      'no OI-sources-it, no A6-filled, no fifth-condition, no necessity and no correspondence claim; the manuscript '
+      'C4 clause the round cites as provenance is present and unedited and no manuscript carries the round; the '
+      'registry and the census carry the family as kernel-only; the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

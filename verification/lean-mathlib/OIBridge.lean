@@ -186,6 +186,7 @@ import OIBridge.DiscreteCompletion
 import OIBridge.DenseInstrumentBridge
 import OIBridge.FrozenSourcing
 import OIBridge.StochasticInterface
+import OIBridge.CausalReadback
 
 namespace OIBridge
 
