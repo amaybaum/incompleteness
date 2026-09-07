@@ -349,3 +349,143 @@ theorem.
 The scientific aim is to recover the original role of C4 as **readback of information that actually
 left the visible description**, without inserting quantum structure into the classical substratum and
 without manufacturing a fifth condition.
+## The outcome
+
+Executed from `main` at `5ca538a` on the branch `c4-causal-readback`. Preregistration commit
+`ada7ccf`, amendment commit `53830de`; both are untouched, and where the preregistration's
+provisional wording conflicts with the amendment the amendment controlled execution and controls
+this section. Module `OIBridge/CausalReadback.lean`; twenty-one named results, each printing only
+`propext`, `Classical.choice`, `Quot.sound`. No fifth condition is defined, nothing is named C5, no
+correspondence theorem is stated or cited and no predicate for one is defined, the manuscript's own
+condition is not renamed, A6 is untouched, and no manuscript was edited.
+
+The verdict is **M-A on the mathematics** and **S-B on the sourcing**, reported separately as the
+preregistration requires.
+
+### The mathematical verdict: M-A
+
+**The frozen chain holds, by two independent routes.**
+
+> `C4e(K) => C4r(K) => PIndivisibleWithin(K)`
+
+`c4e_implies_c4r` is immediate once distinguishability is pinned: the collision makes total
+variation zero at `s` (`tv_eq_zero_iff`) and the separation makes it positive at `t`
+(`tv_pos_of_ne`), so it strictly increases. `c4r_implies_pIndivisible` is the contraction route,
+resting on `tv_mul_le`: right multiplication by a row-stochastic propagator cannot increase total
+variation between two rows. `c4e_implies_pIndivisible` is the exact route, resting on
+`rows_eq_of_factor`. `causal_readback_verdict` states the chain in one place, and
+`c4e_implies_pIndivisible_via_c4r` records that the second route reaches the same endpoint, so the
+headline does not depend on a single formalization of distinguishability.
+
+**The exact route needs less than expected.** `rows_eq_of_factor` proves that equal rows survive
+right multiplication by an *arbitrary* matrix. Stochasticity of the propagator is never used. The
+row obstruction is therefore strictly weaker in hypothesis than the contraction route, and the two
+are independent in the sense the preregistration required — not merely two proofs of one lemma.
+
+**The composition convention did real work.** Under the amendment's frozen orientation
+`Γ t = Γ s * Λ`, equal rows at `s` remain equal at `t`. Under the opposite orientation the argument
+fails outright, because left multiplication mixes over the root index. The convention was frozen
+before proof and the module states it in its header.
+
+### The separation, and what carries which half
+
+`pdFamily_pDivisible` proves the exclusive-or control P-divisible at every horizon, and
+`pdFamily_not_c4e_not_c4r` then gives `¬ C4e` and `¬ C4r` for it through
+`not_c4e_and_not_c4r_of_pDivisible`. `peFamily_c4e` exhibits the delayed-revival control's collision
+at the mixing time and separation one step later, and `peFamily_pIndivisible` concludes.
+`control_separation` states both halves together.
+
+The division of labour is exact and is not blurred: **the kernel proves the divisibility half, and
+the existing exact probe proves the memory half.** That the exclusive-or control carries maximal
+history-level memory, `I(X0;X2|X1) = 1` bit, is `review4_probes.py`'s rational computation and is
+not restated in Lean. Both controls' realizations on the frozen visible/hidden layer are likewise
+the probe's: `build` there returns a `phi` asserted to be a total permutation of the state set with
+a uniform prior over padded hidden states, which is exactly the layer this note freezes, and
+`kstep` computes exactly the rooted maps. The kernel's `rootedMap` and
+`rootedMap_isRowStochastic` are the general construction (T2); the two controls are not instantiated
+as `rootedMap` of an explicit realization in Lean, and this note does not claim they are.
+
+### T7, the relationship to the manuscript's condition
+
+**One direction is settled and the other is not.** The exclusive-or control has maximal
+history-level memory and exhibits neither candidate, so the manuscript's condition does not imply
+`C4e` or `C4r`. That half is a theorem in the kernel (`pdFamily_not_c4e_not_c4r`) once the probe
+supplies the memory value.
+
+The converse — whether `C4e` or `C4r` implies the manuscript's exact history-level predicate — is
+**not proved and is not claimed**. It requires a positive-support hypothesis to make the conditioning
+well posed, and the round did not establish it. Under the amendment this is reported as it stands
+rather than forced into an ordering: on the present evidence the two are **not comparable in the
+proved direction**, and the word *strengthening* is therefore not used of `C4e` or `C4r` anywhere in
+this outcome. They are candidate causal-readback forms that do what the manuscript's condition
+provably does not, and whether they also do what it does is open.
+
+The reason the two need not be comparable is structural and was frozen before proof: the
+manuscript's condition is about history-sensitive future conditionals, while `C4e` and `C4r` are
+about one-time rooted marginals. They probe different observables.
+
+### T8, the sourcing verdict: S-B
+
+**Conditional only.** The mathematical result holds on any rooted stochastic family, and the
+physical reading holds on a fixed finite reversible realization with one common hidden prior. The
+present architecture does not supply that datum. #537 remains binding and is not weakened here: it
+proves that the stated substratum architecture determines neither the observation map nor the
+ensemble, and a rooted family is exactly an observation map together with a preparation-indexed
+ensemble. Nothing in this round sources one.
+
+The census of already-stated structures found no source. The read-write structure privileges no
+locus (`readWriteFamily_exists`, `readWriteFamily_exists_two` from #537). The census core's visible
+map was not carried to the configuration space. The manuscript's own realization clause already
+records the causal read-write cycle as a property "to be independently demonstrated" in the
+cosmological realization rather than as one the architecture supplies; this round does not
+demonstrate it and does not treat that clause as a source.
+
+**A conditional theorem is not a sourced one.** What the round establishes is that strengthening
+toward causal readback is the mathematically correct repair *once an observer interface is fixed* —
+which is worth knowing, because it says the repair is available and identifies exactly what must be
+supplied for it to bite.
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | the provenance census: the manuscript's own condition explicitly permits a pre-sampled response table; the four controls recorded, two of them carried by the exact probes | this section; `papers/Main.md`, `review4_probes.py`, `translation_probes.py` |
+| T2 | the rooted maps from a finite reversible realization with a common prior, proved stochastic | `RootedRealization`, `rootedMap`, `rootedMap_isRowStochastic` |
+| T3 | divisibility defined at the rooted-map level in the frozen orientation, with no identification with generic memory | `PDivisible`, `PIndivisibleWithin` |
+| T4 | exact causal readback defined as frozen; the factorization obstruction proved, and proved without using stochasticity | `C4e`, `rows_eq_of_factor`, `c4e_implies_pIndivisible` |
+| T5 | quantitative revival defined as frozen; the contractivity route proved from the data-processing bound | `C4r`, `tv_mul_le`, `c4r_implies_pIndivisible` |
+| T6 | the weak/strong separation: the maximal-memory control stays P-divisible and exhibits neither candidate; the revival control fires for both and is P-indivisible | `pdFamily_pDivisible`, `pdFamily_not_c4e_not_c4r`, `peFamily_c4e`, `peFamily_pIndivisible`, `control_separation` |
+| T7 | one direction settled, the converse open with its required support hypothesis named; no ordering forced | `pdFamily_not_c4e_not_c4r`; this section |
+| T8 | the sourcing census: S-B, conditional only; #537 binding and not weakened | this section |
+| T9 | the surfaces and the checks: `R7-C4R`; README and census, the family kernel-only; the existing C4 statement pins re-run unchanged; full build, axiom check, gate, probes, Bohr probe, census, voice check; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+| T10 | the two verdicts stated separately, and not compressed | this section |
+
+### What the outcome does not establish
+
+The round does not claim any of the following. That `C4e` or `C4r` strengthens, implies, or is
+implied by the manuscript's condition; only the one non-implication is proved. That either candidate
+is necessary for P-indivisibility; the existing translation probe exhibits P-indivisible families
+with no total-variation revival, so `C4r` is a sufficient operational witness and not a
+characterization, and the biconditional is not asserted. That marginal collision and revival by
+themselves exhibit a causal hidden write-then-read mechanism; they are marginal-revival signatures,
+and an observer retaining the visible history may never have lost the root distinction. That the
+architecture sources either candidate, or the realization datum they are interpreted on. That #537's
+interface gap is closed, narrowed, or affected. That reversibility is used by the no-go theorems; it
+is not, and later citations must not attribute Section A to it. That any correspondence theorem is
+true, false, applicable or inapplicable. That a fifth condition exists or is named. Anything about a
+manuscript.
+
+## What this note does not claim
+
+That the OI architecture is refuted or that its axioms are false. That the manuscript's C4 is wrong,
+renamed, or redefined; it is untouched, and `C4w` was an audit-local label throughout. That either
+candidate is adopted as an OI condition; adoption is an owner decision this round does not make.
+That the conditional theorem can be reported as a sourced substratum theorem. That A6 has a
+predicate, a reading, or a consequence here. That `frozen_sourcing_verdict`,
+`krausDense_of_denseControl`, `fixedGateTheory_denseFiniteQM`, `stochastic_interface_gap` or any
+existing result is retracted or weakened.
+
+Status: pass complete. M-A on the mathematics and S-B on the sourcing: the frozen chain proved by
+two independent routes, the exact route using neither stochasticity nor the layer, the separation
+established with the divisibility half in the kernel and the memory half in the exact probe, the
+converse to the manuscript's condition left open with its hypothesis named, and the sourcing
+conditional with #537 binding; twenty-one named results; no fifth condition; no correspondence
+theorem stated or cited; no manuscript edited.

@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 136 modules and,
-  at this commit, 3,008 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 137 modules and,
+  at this commit, 3,029 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1649,6 +1649,36 @@ extension could supply, of anything about divisibility or Markovianity, or of a 
 the ensemble result is conditional on A5 and on a configuration space carrying more than the zero
 configuration, and both hypotheses are stated. Twelve named results, each printing only `propext`,
 `Classical.choice`, `Quot.sound`. Guard `R7-SOI`.
+
+The C4 causal-readback audit (`C4-CAUSAL-READBACK-AUDIT.md`, its amendment, and
+`OIBridge/CausalReadback.lean`) asks whether a causal, visible-originating readback condition
+forbids stochastic divisibility where the manuscript's history-level condition does not — the
+manuscript itself records that its condition permits a pre-sampled response table and so does not
+require a write-then-read cycle. Two candidate forms are frozen on rooted one-time visible
+marginals: `C4e`, two distinct rooted preparations whose marginals collide at one time and separate
+later, and `C4r`, strictly increasing total-variation distinguishability. The composition convention
+is frozen before proof as `Γ t = Γ s * Λ`, right multiplication on the outcome index; the opposite
+orientation mixes over the root index and breaks the argument. The chain
+`C4e ⇒ C4r ⇒ P-indivisibility` is proved by two independent routes (`causal_readback_verdict`): the
+contraction route from the data-processing bound for row-stochastic propagators (`tv_mul_le`,
+`c4r_implies_pIndivisible`), new because the kernel's existing `tv_marg_le` covers deterministic
+channels only, and the exact route from the row obstruction (`rows_eq_of_factor`,
+`c4e_implies_pIndivisible`), which uses neither stochasticity nor the realization layer. Sections
+beyond the construction are layer-independent; only `RootedRealization`, `rootedMap` and
+`rootedMap_isRowStochastic` use the finite reversible visible/hidden datum. The frozen controls
+separate the notions: the exclusive-or family is P-divisible at every horizon and exhibits neither
+candidate (`pdFamily_pDivisible`, `pdFamily_not_c4e_not_c4r`), the delayed-revival family exhibits
+exact readback and is P-indivisible (`peFamily_c4e`, `peFamily_pIndivisible`, `control_separation`).
+The kernel proves the divisibility half; that the first control's history-level memory is maximal at
+one bit, and both controls' realizations on the frozen layer, are the exact probes'
+(`review4_probes.py`). Verdict: M-A on the mathematics, S-B on the sourcing, reported separately —
+the manuscript's condition does not imply either candidate, the converse is open with its
+positive-support hypothesis named and no ordering forced, so neither candidate is called a
+strengthening; and the architecture does not source the rooted family, #537 remaining binding. No
+claim that either candidate is necessary for P-indivisibility, that marginal revival alone exhibits
+a causal hidden write-then-read mechanism, that reversibility is used by the no-go theorems, or that
+a fifth condition exists. Twenty-one named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Guard `R7-C4R`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
