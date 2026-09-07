@@ -206,3 +206,25 @@ Bohr probe; the census; the voice check. No manuscript is edited. Admissible out
 - Edit a manuscript, or change the manuscript status of the state-mixing resource.
 
 Status: preregistered; no proof attempted.
+
+## Scope amendment, recorded after the preregistration
+
+Recorded at review of the preregistration, before any proof; the preregistration above is
+untouched, and the central theorem and the expected outcome are unchanged.
+
+**The empty product in T4 and the backward route.** The finite phase-product construction is not
+claimed from `PhasesAvailable` alone at every level. A bare `FiniteOperationalTheory` does not
+automatically provide the composite identity at positive levels; the kernel records that identity
+as normally needing an additional source such as control. Under the actual backward hypotheses,
+however, `PairFlowSourced T` supplies that identity at every level by evaluating its witness flow at
+time zero: `F.A 0 = 1` by the identity field, and the transport of the identity matrix is the
+identity at every level, the computation the reduction audit recorded as `constFlow_transport`.
+This available identity is the base case for the finite phase-product induction, including level
+zero. Hence `phaseIndicator_avail` and `siteShear_avail` may consume both `PhasesAvailable T` and
+`PairFlowSourced T`, or an explicitly extracted level-wise identity-availability lemma. No
+additional hypothesis is added to the central theorem, and outcome 2 is not triggered by this base
+case.
+
+**The named tests, sharpened.** `phaseIndicator_avail`: from `PhasesAvailable T` together with
+level-wise identity availability extracted from `PairFlowSourced T`. `siteShear_avail`:
+consequently, under `DerivedOI T ∧ PairFlowSourced T`.
