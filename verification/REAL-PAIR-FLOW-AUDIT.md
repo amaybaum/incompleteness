@@ -189,3 +189,28 @@ and the sourcing table's statuses stated.
 - Edit a manuscript, or change the manuscript status of the state-mixing resource.
 
 Status: preregistered; no proof attempted.
+
+## Scope amendment, recorded after the preregistration
+
+Recorded at review of the preregistration, before any proof; the preregistration above is
+untouched, and the theorem target and the expected outcome are unchanged.
+
+**The reduction route.** In the route, local additivity of the angle is first converted, using
+continuity, into local linearity, `φ t = ω t` on an interval around zero; the all-time rotation
+identity is then obtained by subdividing an arbitrary time through the group law,
+`A t = (A (t / n))ⁿ = R(ω t / n)ⁿ = R(ω t)` for `n` with `t / n` in the interval. The displayed
+global extension `ψ t = n · φ (t / n)` is heuristic only and is not a required proof construction.
+No differentiability or generator hypothesis is added unless the five-hypothesis classification
+itself genuinely requires weakening; awkwardness of one construction is not such a requirement.
+
+**Sourcing route S4.** Preservation of an arbitrary positive-definite quadratic form on the pair
+does not by itself establish the preregistered pair-flow hypotheses or supply the datum in the
+operational basis: a form `Q` with `(A t)ᵀ Q (A t) = Q` gives `B⁻¹ (A t) B = R(ω t)` only after a
+change of basis `B` that need not be orthogonal, and the implementation class grants no arbitrary
+`B` as a gauge transformation, relabellings being much narrower; a corpus-sourced `Q` may therefore
+yield an elliptic conjugate of a rotation, not the real rotation the construction audit's
+class-level theorem consumes. Route S4 counts as a source only if the corpus identifies the
+invariant with the standard Euclidean form on the operational pair up to a positive scalar, or
+independently supplies an admissible realization-to-operational basis map whose transport is proved
+to land in the implementation class. A merely mathematical change to a suitable basis is
+insufficient. Outcome 1 must satisfy this qualification.
