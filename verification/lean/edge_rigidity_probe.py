@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_sub &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_flow &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_q3 &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_exec &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_lsrc &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_srcp &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_c5d &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_pcl &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5413,7 +5413,7 @@ for _t in ('strengthens the necessary condition above', 'is not by itself diagno
 ok_ccs &= _pcn_rec1.count('## ') == 1
 # the discovery note is untouched by this round: still exactly one recorded section
 ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
-ok_ccs &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_ccs &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 check('R7-CCS', ok_ccs,
       'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
@@ -5569,7 +5569,7 @@ for _t in ('stated as a postulate', 'meets the three obligations recorded above'
     ok_smc &= _t in _ccn_rec1
 ok_smc &= _ccn_rec1.count('## ') == 1
 ok_smc &= 'state-mixing coupling construction audit' not in _c5n and 'state-mixing coupling construction audit' not in _pcn
-ok_smc &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_smc &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 check('R7-SMC', ok_smc,
       'State-mixing coupling guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-five results, defines exactly the datum, its sourcing map, the class family and its full instance, the two '
@@ -5725,7 +5725,7 @@ for _t in ('reduces the datum of this round to a principle', 'stated without the
     ok_rpf &= _t in _smn_rec1
 ok_rpf &= _smn_rec1.count('## ') == 1
 ok_rpf &= 'real pair-flow reduction audit' not in _c5n and 'real pair-flow reduction audit' not in _pcn and 'real pair-flow reduction audit' not in _ccn
-ok_rpf &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_rpf &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 check('R7-RPF', ok_rpf,
       'Real pair-flow guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty results, defines exactly the principle, its transport, the rotation as conclusion, the local angle, the '
@@ -5883,7 +5883,7 @@ for _t in ('states the principle of this note as a predicate on a finite operati
 ok_pfe &= _rpn_rec1.count('## ') == 1
 for _n in (_smn, _ccn, _pcn, _c5n):
     ok_pfe &= 'operational pair-flow equivalence audit' not in _n and 'PairFlowSourced' not in _n
-ok_pfe &= '132 modules' in _rd1 and '2,890 named results' in _rd1
+ok_pfe &= '133 modules' in _rd1 and '2,941 named results' in _rd1
 check('R7-PFE', ok_pfe,
       'Operational pair-flow equivalence guard: the module carries no sorry, axiom or native_decide, prints the axioms of '
       'exactly its fifteen results, defines exactly the theory-level predicate on the two-valued carrier and the canonical '
@@ -5900,6 +5900,169 @@ check('R7-PFE', ok_pfe,
       'manuscript is edited; the registry and the census carry the family as kernel-only; the real pair-flow note carries '
       'one section after its countercontrol correction and the state-mixing, coherent-continuum, closure and discovery '
       'notes are untouched; the README carries the paragraph and the counts.')
+
+# ---- the discrete completion audit: one fixed discrete gate at one fixed angle on top of the closure, the density targets
+# frozen, dense unitary control proved at every level for every angle with alpha/pi irrational through the echo, the
+# relocation, the Euler decomposition and the Givens decomposition, the finite countercontrols uniform at the multiples of
+# pi/4, the canonical fixed-gate theory, the instrument chain's consumption of exact control named; outcome 2; no C5; no
+# continuous pair flow in any constructive route; no irrationality as a physical principle ----
+ok_dca = True
+_dc = open(os.path.join(BRIDGE, 'OIBridge', 'DiscreteCompletion.lean'), encoding='utf-8').read()
+_dcflat = ' '.join(_dc.split())
+_dccode = re.sub(r'/-.*?-/|--[^\n]*', '', _dc, flags=re.S)
+_dcn = open(os.path.join(os.path.dirname(BRIDGE), 'DISCRETE-COMPLETION-AUDIT.md'), encoding='utf-8').read()
+_dcn1 = re.sub(r'\s+', ' ', _dcn)
+ok_dca &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _dc) is None and 'native_decide' not in _dc
+ok_dca &= 'axiom ' not in _dccode
+_dc_names = re.findall(r"^theorem ([\w'.]+)", _dc, re.M)
+ok_dca &= len(_dc_names) == 160 and _dc.count('#print axioms') == 51
+for _nm in ('conj_within', 'norm_mul_sub_mul_le', 'blockOf_mul', 'blockOf_unitary', 'blockOnly_rot_sub_one_norm_le',
+            'blockOf_rot_dist_le', 'rx_eq_conj', 'rot_rx_rot', 'su2_form', 'exists_unit_scalar_su2', 'euler_of_su2',
+            'euler_of_unitary', 'dense_angles', 'BlockRepertoire.rot_approx', 'BlockRepertoire.rx_approx',
+            'BlockRepertoire.dense_block_su2', 'blockRepertoire_levelOne', 'levelOne_dense', 'flipSet_avail', 'echo_identity',
+            'isolated_mem_availSet', 'blockRepertoire_level', 'exists_perm_pair_map', 'relocated_dense', 'twoLevel_mul',
+            'det_twoLevel', 'twoLevel_mul_apply', 'givens_unitary', 'det_givens', 'row_zero_of_col_zero',
+            'su_mem_closure_of_suppOn', 'su_mem_closure_twoLevel', 'relocated_eq_twoLevel', 'twoLevelSU_approx',
+            'closure_approx', 'su_dense', "exists_unit_scalar_su'", 'denseUnitaryControl_of_fixedGate', 'Gen2.pauli_conj',
+            'scalar_of_comm_XZ', 'proportional_of_same_conj', 'gen2_pi_div_four_finite_upToScalar',
+            'gen2_multiple_finite_upToScalar', 'mixR_singleton_daggerStable', 'mixR_singleton_contextStable',
+            'fixedGateTheory_derivedOI', 'fixedGateTheory_fixedGateSourced', 'fixedGateTheory_krausSoundExt',
+            'fixedGateTheory_denseUnitaryControl', 'fixedGateTheory_not_qm', 'fixedGateTheory_one_denseUnitaryControl'):
+    ok_dca &= ('#print axioms OIBridge.DiscreteCompletion.' + _nm) in _dc and (_nm in _dc_names or _nm.split('.')[-1] in _dc_names)
+# the definitions: the predicates, the metric, the closure, the block algebra, the gates, the repertoire, the available set,
+# the flips, the relocation, the two-level apparatus, the Givens block, the level-one group, the Pauli set, the canonical
+# theory; nothing named C5; no existing definition restated
+_dc_defs = re.findall(r"^(?:noncomputable )?(?:def|abbrev|structure|inductive) ([\w'.]+)", _dc, re.M)
+ok_dca &= _dc_defs == ['FixedGateSourced', 'ChanWithin', 'DenseUnitaryControl', 'KrausDense', 'DenseFiniteQM', 'ClosureAvail',
+                       'anc', 'ancC', 'blockOnly', 'blockOf', 'S2', 'X2', 'rx', 'BlockRepertoire', 'availSet', 'flipSet', 'Z2',
+                       'echoSet', 'relocated', 'incl', 'twoLevel', 'SuppOn', 'givens', 'TwoLevelSU', 'phaseBlock', 'Gen2', 'Y2',
+                       'pauliBase', 'Pauli', 'pmul', 'fixedGateTheory']
+ok_dca &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive|theorem) [Cc]5', _dc, re.M) is None
+for _t in ('mixImage', 'MixR', 'mixTheoryR', 'DerivedOI', 'PairFlow', 'PairFlowSourced', 'LayerFlowExecutable', 'KrausSoundExt',
+           'conjChannel', 'IsFiniteEndomorphicKrausInstrument'):
+    ok_dca &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) ' + _t + r'\b', _dc, re.M) is None
+# no continuous pair flow in any constructive route, and no irrationality condition inside a definition
+_dccode_noopen = re.sub(r'^open .*$', '', _dccode, flags=re.M)
+ok_dca &= 'PairFlowSourced' not in _dccode and re.search(r'\bPairFlow\b', _dccode_noopen) is None
+ok_dca &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive)[^\n]*Irrational', _dc, re.M) is None
+ok_dca &= 'import OIBridge.PairFlowEquivalence' in _dc and 'import OIBridge.DiscreteCompletion' in root
+# the statements, as preregistered and amended
+for _t in ('def FixedGateSourced (α : ℝ) (T : FiniteOperationalTheory (Fin 2)) : Prop := ∀ n : ℕ, T.availExt n Unit (fun _ => conjChannel (mixImage n α))',
+           '∀ X : Matrix S S ℂ, ‖Φ X - Ψ X‖ ≤ ε * ‖X‖',
+           'Vᴴ * V = 1 ∧ ‖c‖ = 1 ∧ T.availExt n Unit (fun _ => conjChannel V) ∧ ‖U - c • V‖ < ε',
+           'def DenseFiniteQM (T : FiniteOperationalTheory (Fin 2)) : Prop := KrausSoundExt T ∧ KrausDense T',
+           '{ε : ℝ} (h : ‖U - V‖ ≤ ε) : ChanWithin (2 * ε) (conjChannel U) (conjChannel V)',
+           '‖A * B - A\'\' * B\'\'‖ ≤ ‖A - A\'\'‖ + ‖B - B\'\'‖'.replace("''", "'"),
+           '‖blockOnly k₀ (StateMixingCoupling.rot δ - 1)‖ ≤ |δ|',
+           'theorem dense_angles {β : ℝ} (hβ : Irrational (β / Real.pi)) (θ δ : ℝ) (hδ : 0 < δ) : ∃ k m : ℤ, |(k : ℝ) * β + m * (2 * Real.pi) - θ| < δ',
+           'AddSubgroup.dense_or_cyclic', 'AddSubgroup.mem_closure_pair',
+           '∃ V ∈ A, Vᴴ * V = 1 ∧ ‖blockOf k₀ M - V‖ < ε',
+           'theorem levelOne_dense (hd : DerivedOI T) {α : ℝ} (hα : Irrational (α / Real.pi)) (hg : FixedGateSourced α T)',
+           'flipSet (echoSet k₀) * mixImage n α * flipSet (echoSet k₀) * mixImage n α = blockOf k₀ (StateMixingCoupling.rot (2 * α))',
+           'BlockRepertoire k₀ (2 * α) (availSet T n)',
+           '∃ V ∈ availSet T n, Vᴴ * V = 1 ∧ ‖relocated σ k₀ M - V‖ < ε',
+           'def twoLevel (a b : S) (M : Matrix (Fin 2) (Fin 2) ℂ) : Matrix S S ℂ := 1 + incl a b * (M - 1) * (incl a b)ᵀ',
+           '(twoLevel a b M).det = M.det', 'Matrix.det_one_add_mul_comm',
+           'W ∈ Submonoid.closure {V : Matrix S S ℂ | TwoLevelSU V}',
+           'theorem denseUnitaryControl_of_fixedGate (hd : DerivedOI T) {α : ℝ} (hα : Irrational (α / Real.pi)) (hg : FixedGateSourced α T) : DenseUnitaryControl T',
+           'theorem gen2_multiple_finite_upToScalar (k : ℤ)',
+           'noncomputable abbrev fixedGateTheory (α : ℝ) : FiniteOperationalTheory (Fin 2) := mixTheoryR {α} (Fin 2)',
+           'theorem fixedGateTheory_not_qm (α : ℝ) : ¬ ExactAllFiniteEndomorphicQuantumOps (fixedGateTheory α) := mixTheoryR_not_qm (Set.countable_singleton α)',
+           'theorem fixedGateTheory_one_denseUnitaryControl : DenseUnitaryControl (fixedGateTheory 1)', 'irrational_pi'):
+    ok_dca &= _t in _dcflat
+# the note: the question, the resource, the targets, the prediction, the lift, the fork, the outcomes, the tests, the
+# non-doings, the amendment, then the outcome and the non-claims, in that order
+_kdc = [_dcn.find(h) for h in ('## The question', '## The lead resource, frozen', '## The targets, frozen',
+        '## The level-one prediction, frozen, with what must be kernel-proved distinguished', '## The all-level lift, frozen as a route',
+        '## The instrument fork, frozen', '## Admissible outcomes, frozen', '## Tests, frozen', '## What this round does not do',
+        '## Scope amendment, recorded after the preregistration', '## The outcome', '## What this note does not claim')]
+ok_dca &= all(x > 0 for x in _kdc) and _kdc == sorted(_kdc)
+ok_dca &= _dcn.lstrip().startswith('# The discrete completion audit')
+ok_dca &= _dcn.count('## Scope amendment, recorded after the preregistration') == 1
+for _t in ('Preregistration commit `d4deada`', 'scope amendment `0a6ccbb`', '`main` at `1cb923d`', 'Status: preregistered; no proof attempted',
+           'Status: pass complete', '`G_α` is finite if and only if `α ∈ (π/4)ℤ`', '`α = π/8`', '1. **Full success.**',
+           '2. **Unitary density succeeds, instrument density stalls.**', '3. **Level-one or all-level density fails.**',
+           'Isolation before relocation', 'Resource density and quantum soundness are separate theorems', 'Two closure obligations in D3',
+           'fifty-one named results'):
+    ok_dca &= _t in _dcn1
+_dcn_out = re.sub(r'\s+', ' ', _dcn[_dcn.find('## The outcome'):])
+for _t in ('The verdict is **outcome 2, unitary density succeeds, instrument density stalls**', 'the constant `2` as frozen',
+           'with no passage between entries and the operator norm anywhere', 'The theorem is uniform over all `α` with `α/π` irrational',
+           'The Givens step is carried out in full and not left named', '**D1 holds**', 'Ambition level 1 is reached in its strongest uniform form',
+           'The predicted classification is not kernel-proved in either remaining direction', 'The `π/8` case stays a prediction',
+           'density is not exactness', 'consumes exact composite unitary control at two structural places', '`KrausDense` is not claimed',
+           'Dense unitary control is not promoted to dense quantum mechanics', 'Its two obligations are named and not proved',
+           'Outcome 1 is not reached; outcome 3 is not reached', 'the gate is a stated datum',
+           'The manuscript status of the state-mixing resource is unchanged', '| T1 | ', '| T5 | ', '| T7 | ', '| T8 | ', '| T10 | '):
+    ok_dca &= _t in _dcn_out
+_dcn_out_claims = _dcn_out.replace('That OI itself supplies the gate; the gate is a stated datum', '').replace('That OI itself supplies the fixed gate', '') \
+    .replace('That exact quantum mechanics follows from density', '').replace('or that exact quantum mechanics follows from density without the completion operation', '') \
+    .replace('That density is exactness', '')
+for _bad in ('The verdict is **outcome 1', 'The verdict is **outcome 3', 'Outcome 2 is not reached', 'is C5.', 'C5 holds', 'C5 is the',
+             'we adopt C5', 'define C5', 'the fixed gate is C5', 'OI supplies the', 'OI itself supplies', 'KrausDense is proved',
+             'DenseFiniteQM is proved', 'dense finite quantum mechanics is proved', 'the completion is proved', 'the classification is kernel-proved',
+             'π/8 is proved', '`π/8` is proved', 'exact quantum mechanics follows from density', 'density is exactness',
+             'fundamental physics is', 'is fundamental physics', 'minimal', 'Minimal', 'PairFlow enters', 'continuous pair flow is used'):
+    ok_dca &= _bad not in _dcn_out_claims
+for _bad in ('the fixed gate is C5', 'C5 holds', 'OI supplies the fixed gate', 'KrausDense holds', 'DenseFiniteQM holds', 'the completion holds'):
+    ok_dca &= not _asserted(_dcn[_dcn.find('## The outcome'):], _bad)
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    for _bad in ('DiscreteCompletion', 'DISCRETE-COMPLETION', 'FixedGateSourced', 'DenseUnitaryControl', 'KrausDense', 'DenseFiniteQM',
+                 'fixedGateTheory', 'denseUnitaryControl_of_fixedGate'):
+        ok_dca &= _bad not in _t
+_dc_fam = [f for f in _ptr_reg['families'] if f['name'] == 'discrete completion: one fixed gate, dense unitary control and the instrument fork']
+ok_dca &= len(_dc_fam) == 1 and _dc_fam[0]['status'] == 'kernel-only' and _dc_fam[0]['modules'] == ['DiscreteCompletion']
+ok_dca &= _dc_fam[0]['manuscript'] == []
+for _t in ('Verdict outcome 2, unitary density succeeds, instrument density stalls', 'KrausDense is not claimed', 'pi/8 stays a prediction',
+           'Nothing is named C5 or adopted', 'no continuous pair flow in any constructive route', 'no irrationality condition a physical principle',
+           'the manuscript status of the state-mixing resource, which is unchanged', 'owner decision'):
+    ok_dca &= _t in _dc_fam[0]['note']
+for _bad in ('the fixed gate is C5', 'C5 holds', 'KrausDense is proved', 'density is exactness', 'minimal'):
+    ok_dca &= _bad not in _dc_fam[0]['note']
+ok_dca &= '| discrete completion: one fixed gate, dense unitary control and the instrument fork | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-DCA`', 'DISCRETE-COMPLETION-AUDIT.md', 'FixedGateSourced', 'DenseUnitaryControl', 'ChanWithin', 'conj_within', 'KrausDense',
+           'DenseFiniteQM', 'ClosureAvail', 'denseUnitaryControl_of_fixedGate', 'dense_angles', 'euler_of_su2', 'euler_of_unitary',
+           'BlockRepertoire.dense_block_su2', 'blockOnly_rot_sub_one_norm_le', 'levelOne_dense', 'echo_identity', 'isolated_mem_availSet',
+           'relocated_dense', 'det_twoLevel', 'su_mem_closure_twoLevel', 'closure_approx', 'su_dense', 'Gen2.pauli_conj',
+           'proportional_of_same_conj', 'gen2_multiple_finite_upToScalar', 'fixedGateTheory_derivedOI', 'fixedGateTheory_fixedGateSourced',
+           'fixedGateTheory_krausSoundExt', 'fixedGateTheory_denseUnitaryControl', 'fixedGateTheory_not_qm', 'fixedGateTheory_one_denseUnitaryControl',
+           'Verdict: outcome 2, unitary density succeeds, instrument density stalls', '`KrausDense` is not claimed', '`π/8` stays a prediction',
+           'Fifty-one named results', 'Nothing is named C5 or adopted; no continuous pair flow enters any constructive route; no irrationality condition is a physical principle; no definition changes; no manuscript changes'):
+    ok_dca &= _t in _rd1
+for _bad in ('the fixed gate is C5', 'C5 holds', 'KrausDense is proved', 'density is exactness', 'Outcome 1 is reached', 'Outcome 3 is reached'):
+    ok_dca &= _bad not in _rd1
+# the pair-flow equivalence note: one section recorded after its frozen text; the other notes untouched by this round
+_pfn2 = open(os.path.join(os.path.dirname(BRIDGE), 'PAIR-FLOW-EQUIVALENCE-AUDIT.md'), encoding='utf-8').read()
+_pfn_rec = _pfn2.find('## Recorded after the round: the discrete completion audit')
+ok_dca &= _pfn_rec > _pfn2.find('## What this note does not claim') and _pfn_rec > _pfn2.find('Status: pass complete')
+_pfn_rec1 = re.sub(r'\s+', ' ', _pfn2[_pfn_rec:])
+for _t in ('replaces the sourced pair flow of this note by one fixed discrete gate at one fixed angle', '`denseUnitaryControl_of_fixedGate`',
+           '`fixedGateTheory_not_qm`', 'The benchmark of this note is unchanged', 'reaches density of the unitaries and not exactness',
+           'Nothing is named C5 or adopted'):
+    ok_dca &= _t in _pfn_rec1
+ok_dca &= _pfn_rec1.count('## ') == 1
+for _n in (_rpn, _smn, _ccn, _pcn, _c5n):
+    ok_dca &= 'discrete completion audit' not in _n and 'FixedGateSourced' not in _n
+ok_dca &= '133 modules' in _rd1 and '2,941 named results' in _rd1
+check('R7-DCA', ok_dca,
+      'Discrete completion guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
+      'its fifty-one results, defines exactly the predicates and the metric, the closure of availability, the block '
+      'algebra, the gates, the block repertoire, the available set, the flips, the relocation, the two-level apparatus, '
+      'the Givens block, the level-one group, the Pauli set and the canonical theory, nothing named C5, no existing '
+      'definition restated, no pair flow in any constructive route and no irrationality inside a definition; the '
+      'predicates, the bridge at constant two, the C*-identity bound, the dense angles by the dense-or-cyclic '
+      'dichotomy, the block density, level one, the echo identity, the repertoire at the doubled angle, the relocation, '
+      'the two-level Sylvester form with its determinant, the Givens closure, dense unitary control, the uniform finite '
+      'countercontrols and the canonical theory are stated as pinned; the note keeps the question, the resource, the '
+      'targets, the prediction, the lift, the fork, the outcomes, the tests and the non-doings before the amendment and '
+      'the outcome, names the three commits, records outcome 2 with dense unitary control proved, the instrument chain\'s '
+      'consumption of exact control named with its missing lemma, the closure obligations named, the classification not '
+      'claimed beyond the proved cases, and no C5, no OI-supplies-the-gate, no density-is-exactness claim; no manuscript '
+      'is edited; the registry and the census carry the family as kernel-only; the pair-flow equivalence note carries one '
+      'section after its frozen text and the older notes are untouched; the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

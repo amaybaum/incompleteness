@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 132 modules and,
-  at this commit, 2,890 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 133 modules and,
+  at this commit, 2,941 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1513,6 +1513,43 @@ direction, and not new physics. Fifteen named results, each printing only `prope
 `Classical.choice`, `Quot.sound`. Nothing is named C5 or adopted; nothing is generalized beyond
 `Fin 2`; the reverse reconstruction's generation semantics is deferred; no definition changes; no
 manuscript changes. Guard `R7-PFE`.
+
+The discrete completion audit (`DISCRETE-COMPLETION-AUDIT.md`, `OIBridge/DiscreteCompletion.lean`)
+asks whether the consequence closure together with one fixed discrete mixing gate, `mixImage n α` at
+every level at one fixed angle and no continuous parameter (`FixedGateSourced`), generates a theory
+dense in finite quantum mechanics, continuity allowed only in the topological completion. The
+targets are stated as frozen: dense unitary control up to a unit scalar in the operator norm
+(`DenseUnitaryControl`), the channel metric as a quantitative predicate (`ChanWithin`) with the
+bridge at constant two (`conj_within`), the density half of dense finite quantum mechanics
+separated from soundness (`KrausDense`, `DenseFiniteQM`), and the closure of availability
+(`ClosureAvail`). Dense unitary control is proved at every level for every angle with `α/π`
+irrational (`denseUnitaryControl_of_fixedGate`): the angles are dense by the dense-or-cyclic
+dichotomy (`dense_angles`); a block repertoire approximates every addressed rotation and every
+addressed special unitary through the Euler decomposition (`euler_of_su2`, `euler_of_unitary`,
+`BlockRepertoire.dense_block_su2`) with the C*-identity bound `‖blockOf (rot δ) − 1‖ ≤ |δ|`
+(`blockOnly_rot_sub_one_norm_le`); level one follows (`levelOne_dense`); at every level the sign
+echo isolates the parallel gate to one block at the doubled angle (`echo_identity`,
+`isolated_mem_availSet`), permutations relocate it to every pair (`relocated_dense`), the Givens
+decomposition writes every special unitary as a product of two-level special unitaries
+(`det_twoLevel` by Sylvester's identity, `su_mem_closure_twoLevel`), and the errors add under
+closure induction (`closure_approx`, `su_dense`). The finite countercontrols hold uniformly: the
+level-one group at every multiple of `π/4` is finite up to scalar, by the Pauli-normalizer
+argument (`Gen2.pauli_conj`, `proportional_of_same_conj`, `gen2_multiple_finite_upToScalar`). The
+canonical fixed-gate theory satisfies the closure, sources the gate, is Kraus-sound, has dense
+unitary control and is not exact quantum mechanics (`fixedGateTheory_derivedOI`,
+`fixedGateTheory_fixedGateSourced`, `fixedGateTheory_krausSoundExt`,
+`fixedGateTheory_denseUnitaryControl`, `fixedGateTheory_not_qm`), the angle one radian a concrete
+witness (`fixedGateTheory_one_denseUnitaryControl`). Verdict: outcome 2, unitary density succeeds,
+instrument density stalls: the exact Stinespring and Kraus chain consumes exact composite control
+in the shifted theory and in the circuit availability, and the Lipschitz bound for the circuit
+branch map, the shifted theory under identity availability and inert-spectator compositionality are
+named as the missing lemmas; `KrausDense` is not claimed; the closure's two obligations are named
+and not proved. The classification beyond the multiples of `π/4` and the irrational angles is not
+proved, the classifications of finite and closed subgroups of `SO(3)` named as the missing
+ingredients, and `π/8` stays a prediction. Fifty-one named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Nothing is named C5 or adopted; no continuous pair flow enters
+any constructive route; no irrationality condition is a physical principle; no definition changes;
+no manuscript changes. Guard `R7-DCA`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather

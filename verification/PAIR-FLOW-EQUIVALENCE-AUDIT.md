@@ -336,3 +336,16 @@ flow, the forward direction from composite unitary control, the backward directi
 the theory's availability with the amendment's base case discharged from the sourced flow at time
 zero, the central biconditional on the two-valued carrier, and the two countercontrols with their
 exact scope; fifteen named results; no C5 named or adopted; no manuscript edited.
+
+## Recorded after the round: the discrete completion audit
+
+`DISCRETE-COMPLETION-AUDIT.md`, preregistered at `d4deada` with a scope amendment at `0a6ccbb` and
+executed from `main` at `1cb923d`, replaces the sourced pair flow of this note by one fixed discrete
+gate at one fixed angle (`FixedGateSourced`) and changes the target from exact availability to
+density: under the closure and the fixed gate at any angle with `α/π` irrational, dense unitary
+control holds at every level (`denseUnitaryControl_of_fixedGate`), while the fixed-gate theory is
+not exact quantum mechanics (`fixedGateTheory_not_qm`). The benchmark of this note is unchanged:
+exact finite quantum mechanics on the two-valued carrier remains exactly the closure with one
+sourced pair flow, and the discrete round reaches density of the unitaries and not exactness, with
+the instrument half stopping at named steps of the exact Stinespring and Kraus chain. Nothing is
+named C5 or adopted.
