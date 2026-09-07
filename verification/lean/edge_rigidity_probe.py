@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '130 modules' in _rd1 and '2,855 named results' in _rd1
+ok_sub &= '131 modules' in _rd1 and '2,875 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '130 modules' in _rd1 and '2,855 named results' in _rd1
+ok_flow &= '131 modules' in _rd1 and '2,875 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '130 modules' in _rd1 and '2,855 named results' in _rd1
+ok_q3 &= '131 modules' in _rd1 and '2,875 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '130 modules' in _rd1 and '2,855 named results' in _rd1
+ok_exec &= '131 modules' in _rd1 and '2,875 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '130 modules' in _rd1 and '2,855 named results' in _rd1
+ok_lsrc &= '131 modules' in _rd1 and '2,875 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '130 modules' in _rd1 and '2,855 named results' in _rd1
+ok_srcp &= '131 modules' in _rd1 and '2,875 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '130 modules' in _rd1 and '2,855 named results' in _rd1
+ok_c5d &= '131 modules' in _rd1 and '2,875 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '130 modules' in _rd1 and '2,855 named results' in _rd1
+ok_pcl &= '131 modules' in _rd1 and '2,875 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5413,7 +5413,7 @@ for _t in ('strengthens the necessary condition above', 'is not by itself diagno
 ok_ccs &= _pcn_rec1.count('## ') == 1
 # the discovery note is untouched by this round: still exactly one recorded section
 ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
-ok_ccs &= '130 modules' in _rd1 and '2,855 named results' in _rd1
+ok_ccs &= '131 modules' in _rd1 and '2,875 named results' in _rd1
 check('R7-CCS', ok_ccs,
       'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
@@ -5569,7 +5569,7 @@ for _t in ('stated as a postulate', 'meets the three obligations recorded above'
     ok_smc &= _t in _ccn_rec1
 ok_smc &= _ccn_rec1.count('## ') == 1
 ok_smc &= 'state-mixing coupling construction audit' not in _c5n and 'state-mixing coupling construction audit' not in _pcn
-ok_smc &= '130 modules' in _rd1 and '2,855 named results' in _rd1
+ok_smc &= '131 modules' in _rd1 and '2,875 named results' in _rd1
 check('R7-SMC', ok_smc,
       'State-mixing coupling guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-five results, defines exactly the datum, its sourcing map, the class family and its full instance, the two '
@@ -5583,6 +5583,157 @@ check('R7-SMC', ok_smc,
       'unchanged manuscript status, and uses no minimality word in its claims; no manuscript is edited; the registry and '
       'the census carry the family as kernel-only; the coherent-continuum note carries one section after its frozen text '
       'and the discovery and closure notes are untouched; the README carries the paragraph and the counts.')
+
+# ---- the real pair-flow reduction audit: the five-hypothesis principle stated without the rotation form, the reduction to
+# the datum under those hypotheses alone, the composition to the completion, the three countercontrols, the narrow
+# sourcing audit negative; outcome 2; no C5; no continuity-necessity claim ----
+ok_rpf = True
+_rp = open(os.path.join(BRIDGE, 'OIBridge', 'RealPairFlow.lean'), encoding='utf-8').read()
+_rpflat = ' '.join(_rp.split())
+_rpcode = re.sub(r'/-.*?-/|--[^\n]*', '', _rp, flags=re.S)
+_rpn = open(os.path.join(os.path.dirname(BRIDGE), 'REAL-PAIR-FLOW-AUDIT.md'), encoding='utf-8').read()
+_rpn1 = re.sub(r'\s+', ' ', _rpn)
+ok_rpf &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _rp) is None and 'native_decide' not in _rp
+ok_rpf &= 'axiom ' not in _rpcode
+_rp_names = re.findall(r"^theorem ([\w'.]+)", _rp, re.M)
+ok_rpf &= len(_rp_names) == 49 and _rp.count('#print axioms') == 20
+for _nm in ('rotR_inj_small', 'transport_rotR', 'PairFlow.pairFlow_det_one', 'PairFlow.pairFlow_form', 'PairFlow.pairFlow_eq_rotR_ang',
+            'PairFlow.pairFlow_exists_eps', 'PairFlow.pairFlow_ang_add', 'PairFlow.pairFlow_ang_linear', 'PairFlow.pairFlow_rate',
+            'PairFlow.pairFlow_supplies_mixImage', 'qm_of_pairFlowSourced', 'flowR_eq_mixC', 'pairFlowTheory_endpoint',
+            'pairFlowTheory_qm', 'shearFlow_all_but_orth', 'shearFlow_ne_rotR', 'boostFlow_all_but_orth', 'boostFlow_ne_rotR',
+            'constFlow_all_but_nontrivial', 'constFlow_transport'):
+    ok_rpf &= ('#print axioms OIBridge.RealPairFlow.' + _nm) in _rp and _nm in _rp_names
+# the definitions: the principle, its transport, the rotation as conclusion, the local angle, the pair-flow class and theory,
+# the three countercontrol families; nothing named C5; no existing definition restated
+_rp_defs = re.findall(r"^(?:noncomputable )?(?:def|abbrev|structure|inductive) ([\w'.]+)", _rp, re.M)
+ok_rpf &= _rp_defs == ['PairFlow', 'transport', 'rotR', 'PairFlow.ang', 'FlowR', 'pairFlowTheory', 'shearFlow', 'boostFlow', 'constFlow']
+ok_rpf &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive|theorem) [Cc]5', _rp, re.M) is None
+for _t in ('MixR', 'MixC', 'mixImage', 'rot', 'mixTheory', 'LayerFlowExecutable', 'PhaseFreeRichness', 'DerivedOI', 'gateFlow'):
+    ok_rpf &= re.search(r'^(?:noncomputable )?(?:def|abbrev|structure|inductive) ' + _t + r'\b', _rp, re.M) is None
+# the vocabulary boundary on the definition region of the principle and its transport, comments stripped: no cosine, sine,
+# rotation, datum, flow, transition, exponential or quantum-control predicate
+_rp_defregion = _rpcode[_rpcode.find('structure PairFlow'):_rpcode.find('end Principle')]
+ok_rpf &= 'A : ℝ → Matrix (Fin 2) (Fin 2) ℝ' in _rp_defregion and 'nontrivial : ∃ t : ℝ, A t ≠ 1' in _rp_defregion
+for _bad in ('cos', 'sin', 'rot', 'mixImage', 'gateFlow', 'flow ', 'transition', 'PhaseFreeRichness', 'LayerFlowExecutable',
+             'HasCompositeUnitaryControl', 'exp', 'Quantum', 'quantum', 'HasDerivAt', 'deriv', 'Differentiable', 'generator'):
+    ok_rpf &= _bad not in _rp_defregion
+# no differentiability or generator hypothesis anywhere in the code: the classification closes under the five hypotheses
+for _bad in ('HasDerivAt', 'deriv ', 'Differentiable', 'HasFDerivAt', 'fderiv'):
+    ok_rpf &= _bad not in _rpcode
+ok_rpf &= 'import OIBridge.StateMixingCoupling' in _rp and 'import OIBridge.RealPairFlow' in root
+# the statements, as preregistered and amended
+for _t in ('structure PairFlow where A : ℝ → Matrix (Fin 2) (Fin 2) ℝ zero : A 0 = 1 add : ∀ s t : ℝ, A (s + t) = A s * A t cont : Continuous A orth : ∀ t : ℝ, (A t)ᵀ * A t = 1 nontrivial : ∃ t : ℝ, A t ≠ 1',
+           'def transport (n : ℕ) (M : Matrix (Fin 2) (Fin 2) ℝ) : Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ := Matrix.of fun p q => if p.2 = q.2 then (M p.1 q.1 : ℂ) else 0',
+           'theorem PairFlow.pairFlow_det_one (t : ℝ) : (F.A t).det = 1',
+           'theorem PairFlow.pairFlow_rate : ∃ ω : ℝ, ω ≠ 0 ∧ ∀ t : ℝ, F.A t = rotR (ω * t)',
+           'theorem PairFlow.pairFlow_supplies_mixImage (n : ℕ) (θ : ℝ) : ∃ t : ℝ, transport n (F.A t) = mixImage n θ',
+           '(hflow : ∀ (n : ℕ) (t : ℝ), 𝓘 (Fin 2 × Fin n) (transport n (F.A t))) : DerivedOI (genTheory 𝓘 arch (Fin 2)) ∧ ExactAllFiniteEndomorphicQuantumOps (genTheory 𝓘 arch (Fin 2))',
+           '| flow (n : ℕ) (t : ℝ) : FlowR F (Fin 2 × Fin n) (transport n (F.A t))',
+           'theorem flowR_eq_mixC : FlowR F = MixC',
+           'theorem pairFlowTheory_qm : ExactAllFiniteEndomorphicQuantumOps (pairFlowTheory F (Fin 2))',
+           'def shearFlow (t : ℝ) : Matrix (Fin 2) (Fin 2) ℝ := !![1, t; 0, 1]',
+           'noncomputable def boostFlow (t : ℝ) : Matrix (Fin 2) (Fin 2) ℝ := !![Real.cosh t, Real.sinh t; Real.sinh t, Real.cosh t]',
+           'def constFlow (_ : ℝ) : Matrix (Fin 2) (Fin 2) ℝ := 1',
+           'theorem shearFlow_ne_rotR {θ : ℝ} (hθ : Real.sin θ ≠ 0) (t : ℝ) : shearFlow t ≠ rotR θ',
+           'theorem boostFlow_ne_rotR {θ : ℝ} (hθ : Real.sin θ ≠ 0) (t : ℝ) : boostFlow t ≠ rotR θ',
+           '∧ (∀ t : ℝ, (shearFlow t).det = 1) ∧ (∃ t : ℝ, shearFlow t ≠ 1) ∧ ¬ (∀ t : ℝ, (shearFlow t)ᵀ * shearFlow t = 1)',
+           '∧ (∀ t : ℝ, (constFlow t)ᵀ * constFlow t = 1) ∧ ¬ (∃ t : ℝ, constFlow t ≠ 1)',
+           'theorem constFlow_transport (n : ℕ) (t : ℝ) : transport n (constFlow t) = 1'):
+    ok_rpf &= _t in _rpflat
+# the route as amended: the intermediate value theorem, the complex exponential for the small-angle injectivity, density
+# on rational multiples with clamped continuous functions, subdivision through the group law, the construction audit's
+# class-level theorem
+for _t in ('intermediate_value_uIcc', 'Complex.exp_eq_exp_iff_exists_int', 'Rat.denseRange_cast', 'ext_on', 'Real.arcsin',
+           'Real.cos_arcsin', 'pairFlow_pow', 'rotR_pow', 'qm_of_mixSourced', 'Real.cosh_sq_sub_sinh_sq', 'exists_nat_ge'):
+    ok_rpf &= _t in _rpflat
+# the note: the two questions, the principle, the route, the sourcing table, the outcomes, the tests, the non-doings, the
+# amendment, then the outcome and the non-claims, in that order
+_krp = [_rpn.find(h) for h in ('## The two questions', '## The candidate principle, frozen in form', '## The reduction, frozen as a route',
+        '## The sourcing audit, frozen narrow', '## Admissible outcomes, frozen', '## Tests, frozen', '## What this round does not do',
+        '## Scope amendment, recorded after the preregistration', '## The outcome', '## What this note does not claim')]
+ok_rpf &= all(x > 0 for x in _krp) and _krp == sorted(_krp)
+ok_rpf &= _rpn.lstrip().startswith('# The real pair-flow reduction audit')
+for _t in ('Preregistration commit `ed3c224`', 'scope amendment `7038c0c`', '`main` at `e6ca6ed`', 'Status: preregistered; no proof attempted',
+           'Status: pass complete', '1. identity: `A 0 = 1`', '5. nontriviality: `A t ≠ 1` for some `t`', 'The rotation form is not assumed; it is the conclusion',
+           '1. **Existing principle sources the pair flow.**', '2. **Reduction succeeds, sourcing fails.**', '3. **Reduction fails or weakens.**',
+           '| S1, the continuous-time extension of `[Main §2.3]`', '| S4, an invariant quadratic or energy structure',
+           'Liouville measure preservation is never read as Euclidean norm preservation; determinant one is never read as orthogonality',
+           'heuristic only and is not a required proof construction', 'A merely mathematical change to a suitable basis is insufficient',
+           'twenty named results'):
+    ok_rpf &= _t in _rpn1
+_rpn_out = re.sub(r'\s+', ' ', _rpn[_rpn.find('## The outcome'):])
+for _t in ('The verdict is **outcome 2, reduction succeeds, sourcing fails**', 'with no differentiability or generator hypothesis added',
+           'the rotation form was not assumed', 'the intermediate value theorem on the connected line', 'a dense set',
+           'the heuristic global extension of the preregistration is not used', 'by subdividing an arbitrary time through the group law',
+           '`flowR_eq_mixC`', '| S1 | no pair flow |', '| S2 | no pair flow |', '| S3 | no carrier map; not a source |',
+           '| S4 | none stated on the pair; not a source |', 'the qualification of the scope amendment', 'is not met',
+           'Outcome 1 is not reached; outcome 3 is not reached',
+           'what physical principle gives a nontrivial continuous orthogonal action on one distinguishable pair',
+           'the principle is not named C5', 'Nothing here says that the completion needs continuity, orthogonality or the principle',
+           'The manuscript status of the state-mixing resource is unchanged', '| T1 | ', '| T4 | ', '| T8 | '):
+    ok_rpf &= _t in _rpn_out
+for _bad in ('The verdict is **outcome 1', 'The verdict is **outcome 3', 'Outcome 1 is reached', 'outcome 1 is reached',
+             'continuity is necessary for the completion, ', 'the principle is necessary for', 'orthogonality is necessary for the completion, ',
+             'the principle is C5', 'is C5.', 'C5 is the', 'we adopt C5', 'a C5 has been found', 'define C5', 'Liouville preservation gives',
+             'measure preservation gives orthogonality', 'determinant one gives orthogonality', 'recurrence gives an orthogonal',
+             'the corpus sources the pair flow', 'the corpus supplies the pair flow', 'nature realizes', 'is realized by nature',
+             'differentiability hypothesis is added', 'generator hypothesis is added'):
+    ok_rpf &= _bad not in _rpn_out
+for _bad in ('continuity is necessary', 'the principle is C5', 'is derived from the substratum', 'the observer can execute',
+             'the corpus sources the pair flow', 'C5 holds', 'a C5 has been found'):
+    ok_rpf &= not _asserted(_rpn[_rpn.find('## The outcome'):], _bad)
+# no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    for _bad in ('RealPairFlow', 'REAL-PAIR-FLOW', 'PairFlow', 'pairFlow', 'shearFlow', 'boostFlow', 'constFlow', 'flowR_eq_mixC',
+                 'qm_of_pairFlowSourced'):
+        ok_rpf &= _bad not in _t
+_rp_fam = [f for f in _ptr_reg['families'] if f['name'] == 'real pair-flow reduction: the principle, the reduction and the sourcing audit']
+ok_rpf &= len(_rp_fam) == 1 and _rp_fam[0]['status'] == 'kernel-only' and _rp_fam[0]['modules'] == ['RealPairFlow']
+ok_rpf &= _rp_fam[0]['manuscript'] == []
+for _t in ('Verdict outcome 2, reduction succeeds, sourcing fails', 'with none added', 'stated without the rotation form',
+           'Nothing says continuity or the principle is necessary', 'nothing is named C5 or adopted', 'the manuscript status of the state-mixing resource, which is unchanged',
+           'owner decision'):
+    ok_rpf &= _t in _rp_fam[0]['note']
+for _bad in ('continuity is necessary', 'the principle is C5', 'the corpus sources the pair flow', 'C5 holds'):
+    ok_rpf &= _bad not in _rp_fam[0]['note']
+ok_rpf &= '| real pair-flow reduction: the principle, the reduction and the sourcing audit | 1 | kernel-only |' in _cen_ps
+for _t in ('`R7-RPF`', 'REAL-PAIR-FLOW-AUDIT.md', 'PairFlow', 'transport', 'PairFlow.pairFlow_det_one', 'PairFlow.pairFlow_form',
+           'PairFlow.pairFlow_ang_add', 'PairFlow.pairFlow_ang_linear', 'PairFlow.pairFlow_rate', 'PairFlow.pairFlow_supplies_mixImage',
+           'qm_of_pairFlowSourced', 'flowR_eq_mixC', 'pairFlowTheory_endpoint', 'pairFlowTheory_qm', 'shearFlow_all_but_orth',
+           'shearFlow_ne_rotR', 'boostFlow_all_but_orth', 'boostFlow_ne_rotR', 'constFlow_all_but_nontrivial', 'constFlow_transport',
+           'with none added', 'without the rotation form', 'Liouville preservation never read as norm preservation',
+           'Verdict: outcome 2, reduction succeeds, sourcing fails', 'Nothing says continuity or the principle is necessary',
+           'Twenty named results', 'Nothing is named C5 or adopted; no definition changes; no manuscript changes'):
+    ok_rpf &= _t in _rd1
+for _bad in ('continuity is necessary for', 'the principle is C5', 'the corpus sources the pair flow', 'Outcome 1 is reached', 'C5 holds'):
+    ok_rpf &= _bad not in _rd1
+# the state-mixing note: one section recorded after its frozen text; the discovery, closure and coherent-continuum notes untouched
+_smn_rec = _smn.find('## Recorded after the round: the real pair-flow reduction audit')
+ok_rpf &= _smn_rec > _smn.find('## What this note does not claim') and _smn_rec > _smn.find('Status: pass complete')
+_smn_rec1 = re.sub(r'\s+', ' ', _smn[_smn_rec:])
+for _t in ('reduces the datum of this round to a principle', 'stated without the rotation form', 'The verdict of this note is unchanged',
+           'the datum keeps its postulate status', 'Nothing is named C5 or adopted'):
+    ok_rpf &= _t in _smn_rec1
+ok_rpf &= _smn_rec1.count('## ') == 1
+ok_rpf &= 'real pair-flow reduction audit' not in _c5n and 'real pair-flow reduction audit' not in _pcn and 'real pair-flow reduction audit' not in _ccn
+ok_rpf &= '131 modules' in _rd1 and '2,875 named results' in _rd1
+check('R7-RPF', ok_rpf,
+      'Real pair-flow guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
+      'twenty results, defines exactly the principle, its transport, the rotation as conclusion, the local angle, the '
+      'pair-flow class and theory and the three countercontrol families, nothing named C5 and no existing definition '
+      'restated, with the principle\'s definition region naming no cosine, sine, rotation, datum, flow, transition, '
+      'exponential, derivative or quantum-control predicate and no differentiability hypothesis anywhere; the '
+      'principle, the transport, the determinant, the rate, the supply, the class-level endpoint, the class equality, '
+      'the pair-flow theory and the countercontrols are stated as pinned, the route passing through the intermediate '
+      'value theorem, the complex exponential, density on rational multiples, subdivision through the group law and the '
+      'construction audit\'s class-level theorem; the note keeps the two questions, the principle, the route, the '
+      'sourcing table, the outcomes, the tests and the non-doings before the amendment and the outcome, names the three '
+      'commits, records outcome 2 with the reduction step by step under the five hypotheses alone, the four sourcing '
+      'statuses, the frontier question, and no necessity or C5 claim; no manuscript is edited; the registry and the '
+      'census carry the family as kernel-only; the state-mixing note carries one section after its frozen text and the '
+      'discovery, closure and coherent-continuum notes are untouched; the README carries the paragraph and the counts.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

@@ -214,3 +214,102 @@ invariant with the standard Euclidean form on the operational pair up to a posit
 independently supplies an admissible realization-to-operational basis map whose transport is proved
 to land in the implementation class. A merely mathematical change to a suitable basis is
 insufficient. Outcome 1 must satisfy this qualification.
+
+## The outcome
+
+Preregistration commit `ed3c224`, scope amendment `7038c0c`, executed from `main` at `e6ca6ed`.
+The kernel module is `OIBridge/RealPairFlow.lean`, twenty named results, each printing only
+`propext`, `Classical.choice`, `Quot.sound`; the kernel is at 131 modules and 2,875 named results.
+Nothing is named "C5" in the module or adopted in this note; the rotation form was not assumed; no
+existing definition changes; no manuscript is edited. The verdict is **outcome 2, reduction
+succeeds, sourcing fails**, the expected outcome: the five-hypothesis classification is proved under
+the five hypotheses exactly as frozen, with no differentiability or generator hypothesis added, and
+no stated structure of the corpus establishes those hypotheses on the operational carrier.
+
+**The reduction, step by step.** The principle is the structure `PairFlow` with the five fields;
+its transport to level `n` is `transport`, cosine- and sine-free. The determinant is one everywhere
+(`PairFlow.pairFlow_det_one`): its square is one from orthogonality, it is continuous in time, one
+at zero, and the intermediate value theorem on the connected line excludes the value minus one.
+Every value is then the rotation `[[a, −c], [c, a]]` of its first column
+(`PairFlow.pairFlow_form`), by the orthogonality relations and the determinant alone. The local
+angle is the arcsine of the moved entry (`PairFlow.ang`); on the positive-cosine region the value is
+the rotation by that angle (`PairFlow.pairFlow_eq_rotR_ang`), with the angle strictly inside
+`(−π/2, π/2)`; the region contains an interval around zero by continuity
+(`PairFlow.pairFlow_exists_eps`). On half that interval the angle is additive
+(`PairFlow.pairFlow_ang_add`), by the group law and the injectivity of rotations on small angles,
+proved through the complex exponential (`rotR_inj_small`); hence the angle of an integer multiple
+is the integer multiple of the angle while both stay in the half-interval
+(`PairFlow.pairFlow_ang_nsmul`, `PairFlow.pairFlow_ang_zsmul`, the sign case through
+`A (−t) = (A t)ᵀ`). Local linearity is then obtained as the amendment reads it: on the closed
+quarter-interval the angle equals a fixed rate times the time, because the two clamped functions,
+the angle of the clamped time and the rate times the clamped time, are continuous and agree on the
+rational multiples of the quarter-interval's endpoint, a dense set (`PairFlow.pairFlow_ang_linear`,
+through `Continuous.ext_on` and `Rat.denseRange_cast`); the heuristic global extension of the
+preregistration is not used. The all-time identity follows by subdividing an arbitrary time through
+the group law, `A t = (A (t / m))ᵐ = R(ω t / m)ᵐ = R(ω t)` (`PairFlow.pairFlow_pow`, `rotR_pow`), and
+nontriviality gives `ω ≠ 0` (`PairFlow.pairFlow_rate`). The supply is the time `θ / ω`
+(`PairFlow.pairFlow_supplies_mixImage`, `transport_rotR`).
+
+**The composition.** The class-level endpoint holds under the construction audit's scope
+amendment (`qm_of_pairFlowSourced`): architecture, the three stabilities, `permClass`, the phase
+gates and the transports of a pair flow at every level and time give the closure and exact finite
+operational quantum mechanics on the two-valued alphabet. The concrete pair-flow class, the stated
+access with the transports of one pair flow closed under the architecture operations and
+relabelling (`FlowR`), is the construction audit's class itself (`flowR_eq_mixC`): each transport is
+the datum at the reparameterized angle, and each datum is a transport; so the pair-flow theory
+inherits the stabilities and satisfies the closure and the completion (`pairFlowTheory_endpoint`,
+`pairFlowTheory_qm`).
+
+| test | outcome | kernel |
+|---|---|---|
+| T1 | the principle and its transport, the definition region clean of cosine, sine, the datum, the flows and the quantum-control predicates | `PairFlow`, `transport` |
+| T2 | the reduction under the five hypotheses, no hypothesis added: determinant one, the rotation form, the local angle, the positive-cosine interval, local additivity and integer multiples, local linearity by density, the all-time identity by subdivision, the nonzero rate, the supply | `rotR_inj_small`, `PairFlow.pairFlow_det_one`, `PairFlow.pairFlow_form`, `PairFlow.pairFlow_eq_rotR_ang`, `PairFlow.pairFlow_exists_eps`, `PairFlow.pairFlow_ang_add`, `PairFlow.pairFlow_ang_linear`, `PairFlow.pairFlow_rate`, `PairFlow.pairFlow_supplies_mixImage`, `transport_rotR` |
+| T3 | the composition: the class-level endpoint for a sourced pair flow; the pair-flow class equal to the construction audit's class; the pair-flow theory the closure and the completion | `qm_of_pairFlowSourced`, `FlowR`, `flowR_eq_mixC`, `pairFlowTheory_endpoint`, `pairFlowTheory_qm` |
+| T4 | the countercontrols: the shear and the boost satisfy identity, group law, continuity, determinant one and nontriviality and fail orthogonality, and neither equals the rotation at any angle with nonzero sine; the constant identity satisfies every hypothesis but nontriviality and transports to the identity, its closure with the stated access the no-datum replacement | `shearFlow_all_but_orth`, `shearFlow_ne_rotR`, `boostFlow_all_but_orth`, `boostFlow_ne_rotR`, `constFlow_all_but_nontrivial`, `constFlow_transport`; `mixTheory_empty_not_qm` (cited) |
+| T5 | the sourcing audit, below, with exactly one status per route | the table below |
+| T6 | what the outcome means, below | — |
+| T7 | the surfaces and the checks: `R7-RPF`; the README and the census, the family kernel-only; the state-mixing note's cross-reference section after its frozen text; full build, axiom check, release gate, probe, Bohr probe, census, voice check, all green; no manuscript edited | `verification/lean/edge_rigidity_probe.py` |
+| T8 | the verdict: outcome 2, the reduction stated step by step above, the sourcing statuses below | the tables |
+
+| route | status | reason |
+|---|---|---|
+| S1 | no pair flow | `[Main §2.3]` states the Hamiltonian flow preserving Liouville measure on compact energy surfaces, `T(t)` continuous with `T(0) = I`, the departure from the permutation class under C1, and Poincaré recurrence; `T(t)` is the induced transition object on the visible sector, a stochastic matrix by Liouville marginalization, and no sentence states a real orthogonal action on the finite operational pair; Liouville preservation is not read as Euclidean norm preservation; the stochastic realization of such a family is configuration-level (`stochasticChannel_kraus_monomial`, cited) and executes no layer flow (`configurationLevel_not_layerFlowExecutable`, cited) |
+| S2 | no pair flow | recurrence returns the hidden state to within `δ` at a recurrence time; a return is not an orthogonal action |
+| S3 | no carrier map; not a source | the wave lift's map to the operational carrier is stated nowhere, as the lift-source audit records; no map is invented |
+| S4 | none stated on the pair; not a source | the corpus's energy and symplectic structure live on phase space, the leapfrog update and its inverse of `[Main §2.4]` included; `[Main]`, `[GR]` and `[Substratum]` state no quadratic form on the operational pair, and the qualification of the scope amendment, identification with the Euclidean form up to a positive scalar or an admissible basis map landing in the class, is not met |
+
+**The verdict, with its content.** Outcome 2 is reached. A nontrivial continuous one-parameter
+real orthogonal action on one distinguishable pair is a rotation family at a nonzero rate, so after
+reparameterizing time it supplies the mixing datum at every angle, and with the stated access it
+gives the completion: the matrix postulate of the construction audit is replaced by a principle
+with five separately intelligible obligations, each shown necessary for the reduction by a
+countercontrol. No stated structure of the corpus establishes those obligations on the operational
+carrier. Outcome 1 is not reached; outcome 3 is not reached, the classification having closed under
+the five hypotheses.
+
+**What the outcome means.** The completion frontier is stated as the question what physical
+principle gives a nontrivial continuous orthogonal action on one distinguishable pair, in place of
+the question why nature should contain a particular cosine and sine family. The mixing datum keeps
+its postulate status, its sourcing reduced to that of the principle; the principle is not named C5,
+and even a future source of it would be a sufficient realization-level principle whose relation to
+C1–C4 needs separate analysis. Nothing here says that the completion needs continuity, orthogonality or the
+principle: the coherent-continuum audit proved only the cardinality and
+coherence necessity, and this round strengthens nothing on that side. The manuscript status of the
+state-mixing resource is unchanged.
+
+**What the outcome does not establish.** That the completion needs the principle, or needs continuity.
+That the corpus's continuous-time extension is wrong or incomplete on its own terms: only that it
+states no orthogonal action on the operational pair. That any physical system realizes the
+principle. That the principle names C5 or forces C1–C4. Anything about a manuscript.
+
+## What this note does not claim
+
+That the completion needs continuity, orthogonality, or the principle. That any stated structure
+of the corpus supplies a pair flow, or that the wave lift or the phase-space energy could not be given a carrier
+map or a pair invariant by a future statement: only that none is stated. That the principle names C5.
+That any manuscript statement changes.
+
+Status: pass complete. Outcome 2, reduction succeeds, sourcing fails: the five-hypothesis
+classification proved with no hypothesis added, the supply of the datum at every angle, the
+composition to the completion, the three countercontrols, and no stated corpus source of the pair
+flow on the operational carrier; twenty named results; no C5 named or adopted; no manuscript edited.
