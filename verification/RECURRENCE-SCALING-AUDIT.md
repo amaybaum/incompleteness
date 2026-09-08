@@ -85,21 +85,39 @@ proved: neither promoted to an absolute bound nor demoted to unresolved because 
 State `C` explicitly, and whether the frozen physical realization is known to lie in it, known not
 to, or not determined.
 
-It refutes S1 only together with a **coverage theorem**: that *every* tight realization admitting an
-unbounded family lies in `C`. S1 is existential — it asserts that some unbounded tight family exists
-— so its negation is universal over all such families. Showing that one attempted family lies in `C`
-kills that candidate and nothing more; it says nothing about families outside `C`. Coverage is a
-separate theorem, to be stated and proved, never inferred from the failure of the families actually
-tried.
+It refutes S1 only together with a **coverage theorem**, quantified over families rather than over
+realizations:
+
+`for all (R_k): [ (for all k, tight(R_k)) and N_CR(R_k) -> infinity ]`
+`  -> exists k_0, for all k >= k_0, R_k in C`.
+
+The stronger form, `for all k, R_k in C`, is also admissible. Either version, together with the
+uniform bound on `C`, refutes S1.
+
+There is no predicate "a realization admitting an unbounded family": admitting is a property of a
+family, not of any single realization, and the coverage statement must be written over families to
+mean anything.
+
+S1 is existential — it asserts that some unbounded tight family exists — so its negation is
+universal over all such families. Showing that one attempted family lies in `C` kills that candidate
+and nothing more; it says nothing about families outside `C`. Coverage is a separate theorem, to be
+stated and proved, never inferred from the failure of the families actually tried.
 
 **S2-c — parameter-dependent bound.** `N_CR(R) <= f(|V|, |H|)` or similar, for tight `R`. This
-does **not** by itself refute S1. S1 permits the carriers to grow along the family, so a bound that
-grows with `|H|` is consistent with `N_CR -> infinity`.
+does **not** by itself refute S1. S1 places no bound on the carriers along the family, so a bound
+depending on `|V|` or `|H|` is consistent with `N_CR -> infinity`.
 
-A parameter-dependent bound refutes S1 only together with a carrier bound that is **uniform over
-every potential S1 witness** — a proof that no unbounded tight family can have growing carriers, not
-that some particular attempted family does not. That uniformity is itself a result to be stated and
-proved, and carries the same existential/universal discipline as the S2-b coverage theorem.
+A parameter-dependent bound refutes S1 only together with a **uniform carrier bound**, quantified
+over families in the same shape as the S2-b coverage theorem:
+
+`for all (R_k): [ (for all k, tight(R_k)) and N_CR(R_k) -> infinity ]`
+`  -> exists k_0, exists M, for all k >= k_0, |V_k| <= M and |H_k| <= M`.
+
+The eventual form suffices; the stronger `for all k` version is also admissible. Note that this is
+strictly stronger than saying the carriers cannot *grow*: an unbounded but non-monotone carrier
+sequence has no growth in the naive sense and would slip through that phrasing, while it is excluded
+here. As with coverage, the statement is about every putative S1 family, not about the families
+actually attempted, and is itself a result to be stated and proved.
 
 Execution must state which of S2-a, S2-b, S2-c any proved bound is, and must state explicitly
 whether it refutes S1.
