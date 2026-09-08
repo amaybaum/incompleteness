@@ -3,12 +3,12 @@
 Base: `main` at `7f4e95a490124fb5f147db85ea3d192ba32a898b` (post-PR #545).
 
 Backlog item #63. This round asks whether the controlling readback-return horizon of PR #543 can grow
-without bound while the tightness property is preserved, or whether some earlier obstruction is
-forced. It is the last unresolved physical question in Arc A of `OI-QM-RESEARCH-PROGRAMME.md`.
+without bound while the tightness property is preserved, or whether tight realizations have a
+bounded horizon. It is the last unresolved physical question in Arc A of `OI-QM-RESEARCH-PROGRAMME.md`.
 
 No candidate family, realization, permutation, prior, or bound has been searched for, inspected,
-simulated, or constructed before this preregistration. The disclosure in §7 records a prior
-expectation held before execution and is not evidence.
+simulated, or constructed before this preregistration. The prior-expectation disclosure below records an
+expectation held before execution, and is not evidence.
 
 ## Fixed inherited layer
 
@@ -36,8 +36,8 @@ every `K < N_CR`, and `PDivisibleWithin(N_CR)` fails. PR #543 exhibits one tight
 
 ## The question
 
-Can `N_CR` be made arbitrarily large while tightness is preserved, or is some earlier obstruction
-forced?
+Can `N_CR` be made arbitrarily large while tightness is preserved, or is the horizon of tight
+realizations bounded?
 
 ## Target independence, frozen before execution
 
@@ -59,20 +59,53 @@ member, not checked at finitely many values and extrapolated. A finite table of 
 at increasing horizons is **not** an unbounded family; it is a partial result and must be reported
 as one, with the exact horizons reached.
 
-### S2 — earlier-horizon bound
+### S2 — horizon bound on tight realizations
 
-Independently, determine whether any bound forces an obstruction strictly before `N_CR`: a theorem
-of the form "every parent-positive finite reversible realization in class `C` fails
-`PDivisibleWithin(K)` for some `K < N_CR`", with `C` and the bound both named.
+The negative target is **not** that an obstruction is forced strictly before `N_CR` in every
+realization. That statement is already false: PR #543's witness is parent-positive with `N_CR = 3`
+and is `PDivisibleWithin(K)` for every `K < 3`, so no such universal earlier obstruction exists. It
+is exactly what #543 proved cannot hold, and it may not be preregistered as a target.
 
-A theorem proved for a **named structural subclass** is a legitimate positive result on this side.
-It is to be reported at exactly the scope proved: neither promoted to a universal no-go, nor demoted
-to unresolved because it is not universal. The class `C` must be stated explicitly, together with
-whether the frozen physical realization is known to lie in it, known not to, or not determined.
+The correct negation of S1 is a **bound on the horizon of tight realizations**:
+
+`exists B, for all R: tight(R) -> N_CR(R) <= B`.
+
+Equivalently: once `N_CR(R) > B`, some `K < N_CR(R)` must already fail `PDivisibleWithin(K)`, so `R`
+is not tight. This negates unbounded tight scaling while remaining consistent with the known
+`N_CR = 3` witness, which simply satisfies `3 <= B`.
+
+Three strengths are distinguished, and must not be conflated.
+
+**S2-a — absolute bound.** `B` is a constant, independent of every parameter of the realization.
+This refutes S1 outright.
+
+**S2-b — class-restricted bound.** `exists B, for all R in C: tight(R) -> N_CR(R) <= B`, for a named
+structural class `C`. A legitimate positive result on this side, reported at exactly the scope
+proved: neither promoted to an absolute bound nor demoted to unresolved because it is not universal.
+State `C` explicitly, and whether the frozen physical realization is known to lie in it, known not
+to, or not determined. It refutes S1 only if the S1 family is shown to lie in `C`.
+
+**S2-c — parameter-dependent bound.** `N_CR(R) <= f(|V|, |H|)` or similar, for tight `R`. This
+does **not** by itself refute S1. S1 permits the carriers to grow along the family, so a bound that
+grows with `|H|` is consistent with `N_CR -> infinity`. A parameter-dependent bound refutes S1 only
+together with a separate proof that tight families require bounded carriers, which is itself a
+result that must be stated and proved rather than assumed.
+
+Execution must state which of S2-a, S2-b, S2-c any proved bound is, and must state explicitly
+whether it refutes S1.
+
+### Refutation standard for S1
+
+S1 is **refuted** only by an actual theorem excluding unbounded tight families — S2-a, or S2-b with
+the family shown to lie in `C`, or S2-c together with a proved carrier bound.
+
+Failure to construct such a family does not refute S1. Neither does exhaustive search over any
+finite range of horizons, carriers, or priors: finite exhaustion bounds nothing beyond the range
+exhausted, and must be reported as the finite statement it is. A failed construction is O-5.
 
 ## The mixed outcome is admissible and is not a contradiction
 
-It may turn out that unbounded tight families exist in general **while** a strong earlier-horizon
+It may turn out that unbounded tight families exist in general **while** a strong horizon
 bound holds under an additional physically motivated structural condition.
 
 That is a scientifically important mixed outcome, not an inconsistency: the two statements quantify
@@ -91,11 +124,12 @@ it sounds like the stronger outcome for the programme. Neither reading is admiss
 times are inaccessible. Exhibiting realizations with large `N_CR` says nothing about the `N_CR` of
 any physical realization.
 
-**An earlier-bound result** shows an earlier obstruction **only for the class the theorem quantifies
-over**. It does **not** establish physical accessibility unless both of the following are separately
-established: the bound is quantitative, and the physical realization is independently shown to
-satisfy the class condition. A qualitative bound, or a quantitative bound over a class the physical
-realization is not known to inhabit, supports no accessibility claim.
+**A horizon-bound result** caps `N_CR` **only over the class the theorem quantifies over**, and only
+at the strength proved (S2-a, S2-b or S2-c). It does **not** establish physical accessibility
+unless both of the following are separately established: the bound is quantitative, and the
+physical realization is independently shown to satisfy the class condition. A qualitative bound, or
+a quantitative bound over a class the physical realization is not known to inhabit, supports no
+accessibility claim.
 
 Neither outcome, alone or together, licenses any statement about accessible quantum-like
 nonclassicality. Reporting rule 2 of the programme map remains binding.
@@ -124,14 +158,16 @@ The round must report exactly one headline class, and must not silently collapse
 **O-1 — unbounded tight construction proved.** A family with `N_CR -> infinity`, each member tight,
 is exhibited and verified uniformly.
 
-**O-2 — universal earlier-horizon bound proved.** Every parent-positive finite reversible
-realization fails `PDivisibleWithin(K)` for some `K < N_CR`, with the bound stated. This refutes S1.
+**O-2 — absolute horizon bound proved (S2-a).** A constant `B`, independent of every parameter of
+the realization, with `tight(R) -> N_CR(R) <= B` for all `R`. This refutes S1.
 
-**O-3 — class-restricted or partial bound proved.** An earlier-horizon bound is proved for a named
-structural subclass, or a partial quantitative statement is proved, without a universal no-go.
-Reported at exactly the scope proved.
+**O-3 — class-restricted or parameter-dependent bound proved (S2-b or S2-c).** A horizon bound is
+proved for a named structural class, or as a function of the carriers, without an absolute bound.
+Reported at exactly the scope proved, stating which of S2-b or S2-c it is and whether it refutes S1
+— which for S2-b requires the S1 family to lie in the class, and for S2-c requires a separate proved
+carrier bound.
 
-**O-4 — mixed.** Both an unbounded general construction and a restricted earlier-horizon bound are
+**O-4 — mixed.** Both an unbounded general construction and a restricted horizon bound are
 proved, per the section above.
 
 **O-5 — unresolved.** Neither direction is settled. The construction or formalization fails and no
@@ -198,8 +234,11 @@ This preregistration does not:
 
 The final report must state separately:
 
-1. S1: proved / refuted / partial / not settled, with the horizons actually reached;
-2. S2: universal bound / class-restricted bound / partial / not settled, with the class named;
+1. S1: proved / refuted / partial / not settled, with the horizons actually reached, and — if
+   refuted — the theorem that refutes it, never a failed search or a finite exhaustion;
+2. S2: S2-a absolute bound / S2-b class-restricted / S2-c parameter-dependent / not settled, with
+   `B` and any class or parameter dependence named, and an explicit statement of whether the bound
+   refutes S1;
 3. headline outcome: O-1 / O-2 / O-3 / O-4 / O-5;
 4. the two-sided interpretation, stating explicitly what the result does not establish about
    physical accessibility in either direction;
