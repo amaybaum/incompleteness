@@ -162,6 +162,16 @@ def cycleState {M : ℕ} (c : CycleIndex V M) : V × ResponseHidden V M :=
   else
     (c.1 (c.2.1, ⟨c.2.2, hk⟩), Sum.inr (c.1, (c.2.1, ⟨c.2.2, hk⟩)))
 
+@[simp] theorem cycleState_zero {M : ℕ} (f : ResponseTable V M) (a : V) :
+    cycleState (V := V) (f, (a, 0)) = (a, Sum.inl f) := by
+  simp [cycleState]
+
+/-- At a nonzero phase, the visible state is exactly the table response at that root/phase. -/
+theorem cycleState_nonzero {M : ℕ} (f : ResponseTable V M) (a : V) (k : Fin M) (hk : k ≠ 0) :
+    cycleState (V := V) (f, (a, k)) =
+      (f (a, ⟨k, hk⟩), Sum.inr (f, (a, ⟨k, hk⟩))) := by
+  simp [cycleState, hk]
+
 /-- The cycle coordinates are embedded injectively.  This is the exact structural point that
 prevents the closing-arrow collision: phase zero records the root in the visible coordinate, while
 nonzero phases record it in the hidden padding coordinate. -/
@@ -226,6 +236,64 @@ noncomputable def responseStep (M : ℕ) : Equiv.Perm (V × ResponseHidden V M) 
     (Equiv.Perm.viaFintypeEmbedding_apply_image
       (cyclePerm (V := V) M) (cycleEmbedding (V := V) M) c)
 
+/-! #### The one common prior -/
+
+/-- The categorical weight assigned to a response-table coordinate. -/
+def responseLocalWeight (Γ : ℕ → Matrix V V ℝ) {M : ℕ} (i : ResponseIndex V M) (j : V) : ℝ :=
+  Γ (i.2.1 : ℕ) i.1 j
+
+/-- Product weight of a complete nonzero-phase response table. -/
+def tableWeight (Γ : ℕ → Matrix V V ℝ) {M : ℕ} (f : ResponseTable V M) : ℝ :=
+  responseWeight (responseLocalWeight Γ) f
+
+/-- Table weights are nonnegative whenever the target family is row-stochastic. -/
+theorem tableWeight_nonneg {Γ : ℕ → Matrix V V ℝ} {M : ℕ}
+    (hstoch : ∀ t, IsRowStochastic (Γ t)) (f : ResponseTable V M) :
+    0 ≤ tableWeight Γ f := by
+  apply responseWeight_nonneg
+  intro i j
+  exact (hstoch (i.2.1 : ℕ)).1 i.1 j
+
+/-- The table weights sum to one.  This is the product construction that makes one prior serve all
+roots and all nonzero phases simultaneously. -/
+theorem tableWeight_sum {Γ : ℕ → Matrix V V ℝ} {M : ℕ}
+    (hstoch : ∀ t, IsRowStochastic (Γ t)) :
+    ∑ f : ResponseTable V M, tableWeight Γ f = 1 := by
+  apply responseWeight_sum
+  intro i
+  exact (hstoch (i.2.1 : ℕ)).2 i.1
+
+/-- The prior lives on the phase-zero table states.  Every padding state has exactly zero mass. -/
+def responsePrior (Γ : ℕ → Matrix V V ℝ) {M : ℕ} : ResponseHidden V M → ℝ
+  | Sum.inl f => tableWeight Γ f
+  | Sum.inr _ => 0
+
+/-- Nonnegativity of the one common prior. -/
+theorem responsePrior_nonneg {Γ : ℕ → Matrix V V ℝ} {M : ℕ}
+    (hstoch : ∀ t, IsRowStochastic (Γ t)) :
+    ∀ h : ResponseHidden V M, 0 ≤ responsePrior Γ h := by
+  intro h
+  cases h with
+  | inl f => exact tableWeight_nonneg hstoch f
+  | inr _ => simp [responsePrior]
+
+/-- Normalization of the one common prior. -/
+theorem responsePrior_sum {Γ : ℕ → Matrix V V ℝ} {M : ℕ}
+    (hstoch : ∀ t, IsRowStochastic (Γ t)) :
+    ∑ h : ResponseHidden V M, responsePrior Γ h = 1 := by
+  rw [Fintype.sum_sum_type]
+  simp only [responsePrior, Finset.sum_const_zero, add_zero]
+  exact tableWeight_sum hstoch
+
+/-- The concrete inherited-interface realization attached to a target family and a declared
+period.  It uses one total reversible update and one fixed prior shared by every root. -/
+noncomputable def responseRealization (Γ : ℕ → Matrix V V ℝ) (M : ℕ)
+    (hstoch : ∀ t, IsRowStochastic (Γ t)) : RootedRealization V (ResponseHidden V M) where
+  step := responseStep (V := V) M
+  prior := responsePrior Γ
+  prior_nonneg := responsePrior_nonneg hstoch
+  prior_sum := responsePrior_sum hstoch
+
 end RootedClassification
 end OIBridge
 
@@ -237,3 +305,7 @@ end OIBridge
 #print axioms OIBridge.RootedClassification.rootedMap_mem_PPer
 #print axioms OIBridge.RootedClassification.cycleState_injective
 #print axioms OIBridge.RootedClassification.responseStep_cycle
+#print axioms OIBridge.RootedClassification.tableWeight_nonneg
+#print axioms OIBridge.RootedClassification.tableWeight_sum
+#print axioms OIBridge.RootedClassification.responsePrior_nonneg
+#print axioms OIBridge.RootedClassification.responsePrior_sum
