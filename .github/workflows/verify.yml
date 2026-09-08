@@ -82,6 +82,7 @@ jobs:
           lean --version
           lake exe cache get
           lake build
+          lake env lean OIBridge/RootedClassificationAllTime.lean
 
   probes:
     name: Numerical probes
