@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 138 modules and,
-  at this commit, 3,038 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 139 modules and,
+  at this commit, 3,049 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1707,6 +1707,25 @@ the audit's separate tightness question, neither answered nor prejudged here, an
 claim is made for the horizon itself. No manuscript condition is renamed and no manuscript is
 edited. Nine named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Guard
 `R7-RCH`.
+
+`OIBridge/ScalingFamily.lean` carries the abstract half of target S1 of
+`RECURRENCE-SCALING-AUDIT.md`, executed under that frozen preregistration. Every statement is
+quantified over the horizon and over the retention sequence; none is a check at a particular
+horizon. A symmetric binary channel has rows `(p, 1-p)` and `(1-p, p)`; the family is closed under
+composition, `B p * B q = B (2pq - p - q + 1)` (`Bmat_mul`), and the rooted-row total-variation
+distance is exactly `|2p - 1|` (`tv_Bmat`). From those two facts, a retention sequence that is
+antitone and strictly above `1/2` below the horizon and returns to `1` at it gives a family
+P-divisible on every strictly shorter horizon and P-indivisible at the horizon (`tight_at`). The
+divisibility side is constructive rather than existential: the propagator
+`(p_t + p_s - 1) / (2 p_s - 1)` is exhibited and proved stochastic exactly under `1/2 <= p_t <= p_s`
+(`Bmat_factor`), the inequalities that make it so. The indivisibility side is not reproved — it is
+the merged `c4r_implies_pIndivisible` applied to a revival witness at the pair immediately before
+the return (`c4r_at_return`, `pIndivisible_at_return`). The module constructs no realization,
+defines no readback parent and fixes no horizon symbol; it supplies the family-level content that a
+realization-layer construction must exhibit, and it is not itself the round's construction target.
+No claim is made that such a construction exists, none about the physical accessibility of any
+horizon, and no manuscript is edited. Eleven named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Guard `R7-SCF`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
