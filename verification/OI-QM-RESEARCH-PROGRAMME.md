@@ -1,6 +1,6 @@
 # OI → QM research programme map
 
-Status base: `main` at `a656642ee8a4d7cc6b58301cbde8000b6b85731b` (post-PR #543).
+Status base: `main` at `a656642ee8a4d7cc6b58301cbde8000b6b85731b` (post-PR #543); records the results of PR #546, pending its merge.
 
 This file is the canonical **strategic map** for the larger OI → QM research programme. It is not a theorem, an audit, a preregistration, or a replacement for the detailed verification ledger. Its purpose is to state, in one place:
 
@@ -156,25 +156,37 @@ The horizon is also tight. One exact finite reversible parent-positive realizati
 
 with controlling horizon `N_CR = 3`: it is P-divisible on every shorter horizon and first fails when the identity return is included.
 
-**Interpretation:** no universal theorem from the frozen parent can replace the controlling return horizon by an unspecified strictly earlier one. Nothing follows about scale. The witness has `N_CR = 3`, so the result does not show that the horizon is large, and no accessibility conclusion is available from it — that question is §4's frontier, not this entry's content.
+**Interpretation:** no universal theorem from the frozen parent can replace the controlling return horizon by an unspecified strictly earlier one. The witness has `N_CR = 3`, so #543 alone does not show that the horizon is large.
+
+### 3.9 The scaling law of the return horizon is known
+
+PR #546 settles what #543 left open about scale, as outcome **O-4 mixed** under its frozen taxonomy.
+
+Tight horizons are unbounded: for every `N >= 4` there is a parent-positive finite reversible realization tight at `N_CR = N`, so no absolute constant bounds the horizon of tight realizations. The family-level tightness is kernel-checked in `OIBridge/ScalingFamily.lean`, quantified over the horizon rather than verified at particular horizons; the realization half is a uniform prose argument with exact instance controls.
+
+Independently, every parent-positive finite reversible realization satisfies
+
+`N_CR <= 2 ord(phi)`,   hence   `N_CR <= 2 (|V||H|)!`,
+
+by normalizing a parent witness modulo the microscopic period. This bound is carrier-dependent, and so does not refute the unbounded construction: the construction's carriers, and hence its microscopic period, grow with the horizon.
+
+The sharp joint statement is about the **worst case**: the dependence of the controlling horizon on the microscopic period is `Theta(ord(phi))` — universally `O(ord(phi))`, and attained up to a constant by a family with `N_CR = ord(phi)/2`. It is not a pointwise comparison: nothing bounds `N_CR` from below, and a realization may have a large microscopic period and a small controlling horizon.
+
+**Interpretation:** the scaling law is now known, and it is a mathematical law about microscopic periods. It carries no accessibility conclusion in either direction. A bound stated in microscopic periods is not a bound in physical time without an independently sourced relation between one microscopic step, or `ord(phi)`, and experimentally accessible time — and no such relation is supplied here. What #546 establishes is that no fixed accessibility guarantee follows from recurrence alone; it says nothing about which recurrence periods nature realizes.
 
 ---
 
 ## 4. Current frontier
 
-The active frontier after PR #543 is the **recurrence-horizon scaling and accessibility problem**, carried as backlog item #63.
+Arc A is closed in its mathematical part (§3.8, §3.9). The recurrence-scale obstruction is proved, its horizon is tight, and its scaling law is known:
 
-The return-horizon obstruction and its tightness are settled (§3.8). What is not settled is scale, and scale is what decides the physical reading:
+`N_CR` unbounded in general,   and   `N_CR <= 2 ord(phi)` universally,
 
-> Does there exist a family of parent-positive finite reversible realizations with `N_CR -> infinity`, each remaining P-divisible on every horizon `K < N_CR` and first becoming P-indivisible when the identity return is included?
+so worst-case `Theta(ord(phi))`. What that does **not** settle is reachability: the law is stated in microscopic periods, and no independently sourced map from microscopic steps to experimentally accessible time exists. Arc A's recurrence-scaling question is closed; physical accessibility is not solved, and it is a sourcing question for Arcs D and E rather than a further stochastic-boundary question.
 
-The three outcomes are to be kept separate, and preregistered before execution:
+The active frontier is therefore **Arc B — the intrinsic characterization of the OI-realizable rooted stochastic class `C_OI`**.
 
-- **positive** — arbitrarily large tight horizons exist: the guaranteed stochastic obstruction can be postponed arbitrarily far without extra assumptions, and the equivalence claim inherits that limitation;
-- **negative** — such scaling is impossible: derive the strongest universal earlier-horizon bound and identify which finite-state or recurrence structure forces it, which makes the OI → QM bridge physically stronger;
-- **unresolved** — the construction or formalization fails without an impossibility theorem: record it as open, never as independence or impossibility (§6 *Open*, reporting rule 9).
-
-This is the question that promotes, or refuses to promote, #543's existential tightness statement into a statement about physically reachable behavior.
+The stochastic boundary is now sharp enough for that question to be well-posed. We know what finite reversible OI forces, at which horizon, under which preparation assumptions, and how the horizon scales. What is not known is the converse shape: which rooted stochastic families are realizable at all. Until `C_OI` is characterized intrinsically — without reference to a hidden permutation construction — neither the equivalence endpoint nor the classification endpoint of §1 can be stated, because both quantify over exactly that class.
 
 No recurrence-scale result should be described as accessible quantum-like nonclassicality without an independent accessibility bound.
 
@@ -184,17 +196,19 @@ No recurrence-scale result should be described as accessible quantum-like noncla
 
 The remaining programme should proceed in the following order unless a later audit supplies a reason to reorder it.
 
-### Arc A — finish the stochastic/nonclassicality boundary
+### Arc A — finish the stochastic/nonclassicality boundary — **closed (mathematical part)**
 
 1. Complete the recurrence-scale theorem at the exact controlling visible-return horizon. **Done — PR #543 (§3.8).**
 2. Determine horizon tightness. **Done — PR #543, T3-A with the `N_CR = 3` witness (§3.8).**
 3. Record the hypotheses actually used, and do not assert that they are the weakest available unless that has itself been proved; in particular distinguish storage overlap from the full write/store/read parent when the stronger clauses are not load-bearing.
 4. Correct publication wording where preparation or horizon scope is demonstrably too strong.
-5. **#63 — recurrence-horizon scaling / accessibility.** Tightness succeeded, so this item's condition has fired and it is now the live task: determine whether tight parent-positive realizations exist with `N_CR -> infinity` while remaining P-divisible for every `K < N_CR`, or else derive the strongest universal earlier-horizon bound. Report the outcome as positive, negative, or unresolved in the sense of §4, keeping tooling failure distinct from impossibility. §4 and reporting rule 2 both make an accessibility bound the condition under which a recurrence-scale obstruction could carry a physical reading, so obtaining or excluding such a bound is programme work, not a standing caveat. If no bound is available, the guaranteed obstruction is exact but of unknown physical reach, and the equivalence claim must say so.
+5. **#63 — recurrence-horizon scaling / accessibility. Done — PR #546 (§3.9).** Tight horizons are unbounded, and every parent-positive finite reversible realization satisfies `N_CR <= 2 ord(phi)`; jointly, worst-case `Theta(ord(phi))`. Outcome O-4 mixed: an unbounded tight construction together with a non-refuting carrier-dependent bound. No accessibility bound was obtained, and none follows: the result is stated in microscopic periods, not in physical time.
 
-**Exit condition:** we know exactly what nonclassical stochastic behavior finite reversible OI forces, at what horizon, under which preparation assumptions, and whether that horizon is reachable.
+**Exit condition — met, in its mathematical part.** We now know what nonclassical stochastic behavior finite reversible OI forces, at what horizon, under which preparation assumptions, and how that horizon scales: worst-case `Theta(ord(phi))`, unbounded in general.
 
-### Arc B — characterize the full class of OI-realizable rooted stochastic families
+The reachability half is **not** met, and is not closed by the scaling law. #546 shows that no fixed accessibility guarantee follows from recurrence alone; it does not establish what recurrence periods physical realizations have. Closing that would need an independently sourced map from microscopic steps, or `ord(phi)`, to experimentally accessible time — which is a sourcing question for Arc D and Arc E, not a further stochastic-boundary question. Arc A's recurrence-scaling question is closed; physical accessibility is not solved.
+
+### Arc B — characterize the full class of OI-realizable rooted stochastic families — **active frontier**
 
 Move beyond examples and individual memory criteria. Seek an intrinsic characterization of the complete family of rooted stochastic processes realizable by finite reversible OI with the allowed observation and preparation structure.
 
@@ -398,6 +412,6 @@ Use the following sources for detailed status:
 
 ## 10. Current one-line programme state
 
-At the post-#543 boundary:
+At the post-#546 boundary:
 
-**OI already has a strong finite operational completion classification and a clear quantum-representation route, but bare OI does not yet physically source the full quantum operational repertoire; the stochastic obstruction is now proved at the controlling return horizon and that horizon is tight, so the immediate task is to settle whether such horizons can grow without bound, then characterize the full OI-realizable stochastic class before returning to coherent-control sourcing and composite/Bell equivalence.**
+**OI already has a strong finite operational completion classification and a clear quantum-representation route, but bare OI does not yet physically source the full quantum operational repertoire; the stochastic boundary is now settled — the obstruction is proved at the controlling return horizon, that horizon is tight, and its scaling law is worst-case `Theta(ord(phi))` with tight horizons unbounded — so Arc A is mathematically closed while physical reachability remains open, and the immediate task is the intrinsic characterization of the OI-realizable stochastic class `C_OI` before returning to coherent-control sourcing and composite/Bell equivalence.**
