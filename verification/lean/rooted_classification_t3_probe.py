@@ -16,10 +16,14 @@ three-valued carrier.  Every realization is checked for a total, injective, surj
 V x H, a nonnegative normalized prior, and entrywise agreement with Gamma at every time up to
 three periods.
 
-Section B is the negative control on the construction's own hypothesis.  The response tables must
-be restricted to those of nonzero product weight.  Gamma_0 = I forces f(a,0) = a there, and that is
-what closes each M-cycle onto the root it started from.  Dropping the restriction is shown to break
-injectivity, so the restriction has observable content rather than being a convenience.
+Section B records why a response table must not store phase zero.  In a variant whose tables carry
+a phase-zero entry, the step map is a permutation exactly when f(.,0) is injective — checked here
+table by table, as an iff — because the closing arrows of two root-cycles otherwise land on the
+same phase-zero state.  Gamma_0 = I rescues that only on tables of nonzero product weight, which
+makes reversibility depend on a support invariant.  The kernel construction avoids the hazard
+structurally instead, by indexing tables on nonzero phases alone and taking the root itself as the
+phase-zero state.  This section is the negative control on the variant that was set aside, not an
+audit of the kernel's own carrier.
 
 Section C carries the round's first separation result:
 
@@ -203,18 +207,24 @@ for name, gam, n, M in HOSTILE:
     ok &= all(rooted_map(hidden, prior, step, n, t) == gam[t % M] for t in range(3 * M + 1))
     check(f"{name}: reversible, common prior, exact at all t <= 3M  (|H|={len(hidden)})", ok)
 
-print("\nSection B — the support restriction has observable content")
+print("\nSection B — why the phase-zero-storing table variant was set aside")
 gam, n, M = [ident(2), THIRD], 2, 2
 h_s, _p, step_s, _c = build(supported_tables(gam, n, M), n, M)
 check("supported tables: the step map is a permutation", is_permutation(step_s, h_s, n))
 h_a, _p2, step_a, _c2 = build(all_tables(gam, n, M), n, M)
 check("unrestricted tables: the step map is not a permutation",
       not is_permutation(step_a, h_a, n))
-# The failure is on the target side: for a table with f(a,0) = f(b,0), the closing arrows of the
-# cycles for roots a and b both land on the phase-0 state of the cycle for f(a,0).
-clash = [f for (_k, f, _w) in all_tables(gam, n, M)
-         if len({f[(a, 0)] for a in range(n)}) < n]
-check("the tables that break it are exactly those with f(.,0) not injective", len(clash) > 0)
+
+# The failure is on the target side, so a source-collision counter does not see it: for a table
+# with f(a,0) = f(b,0), the closing arrows of the cycles for roots a and b both land on the
+# phase-zero state of the cycle for f(a,0). Checked table by table, as an iff rather than by
+# exhibiting one bad table.
+iff_holds = True
+for (key, f, _w) in all_tables(gam, n, M):
+    h1, _p1, s1, _c1 = build([(key, f, Q(1))], n, M)
+    if is_permutation(s1, h1, n) != (len({f[(a, 0)] for a in range(n)}) == n):
+        iff_holds = False
+check("table by table: the step is a permutation iff f(.,0) is injective", iff_holds)
 check("Gamma_0 = I forces f(.,0) = id on every supported table",
       all(all(f[(a, 0)] == a for a in range(n))
           for (_k, f, _w) in supported_tables(gam, n, M)))
