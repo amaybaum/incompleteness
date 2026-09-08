@@ -136,8 +136,9 @@ visible root, rather than a property inferred later from positive support.  The 
 therefore drives both reversibility and the eventual all-time agreement proof.
 -/
 
-/-- Nonzero phases of a declared visible period. -/
-abbrev NonzeroPhase (M : ℕ) := {k : Fin M // k ≠ 0}
+/-- Nonzero phases of a declared visible period, expressed on `Fin.val` so this carrier remains
+well-typed even before the positive-period witness is introduced. -/
+abbrev NonzeroPhase (M : ℕ) := {k : Fin M // k.1 ≠ 0}
 
 /-- One response-table coordinate: a visible root and a nonzero phase. -/
 abbrev ResponseIndex (V : Type u) (M : ℕ) := V × NonzeroPhase M
@@ -154,20 +155,23 @@ abbrev ResponseHidden (V : Type u) (M : ℕ) := ResponseTable V M ⊕ PadIndex V
 /-- Abstract cycle coordinates before embedding into the microscopic `V × H` carrier. -/
 abbrev CycleIndex (V : Type u) (M : ℕ) := ResponseTable V M × (V × Fin M)
 
-/-- Embed one response-table cycle into the microscopic state space.  Phase zero is always
-`(a, inl f)`; every nonzero phase remembers `a` in the hidden padding label. -/
+/-- Embed one response-table cycle into the microscopic state space.  A phase whose value is zero
+uses the visible root; every nonzero phase remembers that root in the hidden padding label. -/
 def cycleState {M : ℕ} (c : CycleIndex V M) : V × ResponseHidden V M :=
-  if hk : c.2.2 = 0 then
+  if hk : c.2.2.1 = 0 then
     (c.2.1, Sum.inl c.1)
   else
     (c.1 (c.2.1, ⟨c.2.2, hk⟩), Sum.inr (c.1, (c.2.1, ⟨c.2.2, hk⟩)))
 
-@[simp] theorem cycleState_zero {M : ℕ} (f : ResponseTable V M) (a : V) :
-    cycleState (V := V) (f, (a, 0)) = (a, Sum.inl f) := by
-  simp [cycleState]
+/-- Any phase with value zero is represented by the root/table state. -/
+theorem cycleState_val_zero {M : ℕ} (f : ResponseTable V M) (a : V) (k : Fin M)
+    (hk : k.1 = 0) :
+    cycleState (V := V) (f, (a, k)) = (a, Sum.inl f) := by
+  simp [cycleState, hk]
 
 /-- At a nonzero phase, the visible state is exactly the table response at that root/phase. -/
-theorem cycleState_nonzero {M : ℕ} (f : ResponseTable V M) (a : V) (k : Fin M) (hk : k ≠ 0) :
+theorem cycleState_nonzero {M : ℕ} (f : ResponseTable V M) (a : V) (k : Fin M)
+    (hk : k.1 ≠ 0) :
     cycleState (V := V) (f, (a, k)) =
       (f (a, ⟨k, hk⟩), Sum.inr (f, (a, ⟨k, hk⟩))) := by
   simp [cycleState, hk]
@@ -180,14 +184,14 @@ theorem cycleState_injective {M : ℕ} :
   intro x y hxy
   rcases x with ⟨f, a, k⟩
   rcases y with ⟨g, b, l⟩
-  by_cases hk : k = 0 <;> by_cases hl : l = 0
-  · subst k
+  by_cases hk : k.1 = 0 <;> by_cases hl : l.1 = 0
+  · have hkl : k = l := Fin.ext (hk.trans hl.symm)
     subst l
     have hv : a = b := by
-      simpa [cycleState] using congrArg Prod.fst hxy
+      simpa [cycleState, hk] using congrArg Prod.fst hxy
     have hh : f = g := by
       have hs := congrArg Prod.snd hxy
-      simpa [cycleState] using hs
+      simpa [cycleState, hk] using hs
     subst b
     subst g
     rfl
