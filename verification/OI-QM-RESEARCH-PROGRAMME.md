@@ -219,7 +219,20 @@ Existing conditional results should be used as assembly theorems: once a resourc
 
 The crucial question is whether the currently missing continuous off-diagonal control resource can be derived from a deeper OI condition, or whether it is genuinely an independent empirical principle.
 
-**Exit condition:** every operational-QM resource is either derived from OI, proved reducible to a smaller physical condition, or explicitly classified as additional.
+#### Physical lift seam: from sourced single-system control to sourced instruments and composites
+
+Sourcing a coherent operator or control law on one visible carrier is not by itself enough to claim that OI physically supplies the full instrument or composite repertoire. After any single-system control resource is sourced, audit whether that **same physical source** survives and is compatible with:
+
+- adjoining and discarding ancillas;
+- locality / inert-spectator requirements;
+- subsystem restriction and regrouping;
+- composition of sourced operations;
+- measurement/instrument dilation;
+- the composite interfaces used by the finite operational-QM assembly theorems.
+
+Abstract completion theorems may be used to assemble the consequences of a physically sourced resource, but they must not substitute for proving that the source itself lifts through these interfaces. In particular, do not infer “OI sources composite operational QM” merely from “OI sources one-carrier coherent control” plus an abstract availability theorem whose hypotheses have not themselves been physically sourced.
+
+**Exit condition:** every operational-QM resource is either derived from OI, proved reducible to a smaller physical condition, or explicitly classified as additional, and any single-system source used in that derivation has been shown to lift through the instrument/composite interfaces actually required.
 
 ### Arc E — composites, locality, entanglement, and Bell structure
 
@@ -304,7 +317,23 @@ These four statuses should remain separate in both audits and manuscript summari
 
 ---
 
-## 8. Relation to existing documentation
+## 8. Parallel research tracks outside this roadmap
+
+This roadmap covers the **OI → QM equivalence/classification programme only**. Other major corpus programmes remain active or backlogged, but they are not prerequisites for the equivalence chain unless a later theorem explicitly connects them.
+
+Parallel tracks include, in particular:
+
+- gravity / G3 sourcing and the remaining locality/interacting-sector debts;
+- curved-continuum or geometry reconstruction questions;
+- IR Lorentz / universal-cone questions;
+- full-response, memory-resummed, or related dynamical-response programmes;
+- other model-specific physics programmes whose results may constrain OI but do not currently sit on the logical path from the OI observer structure to operational QM.
+
+These tracks retain their own theorem, audit, and backlog status. Progress on them must not be counted as progress on the OI → QM equivalence chain unless an explicit bridge is proved; conversely, the equivalence programme should not silently absorb or supersede their unresolved questions.
+
+---
+
+## 9. Relation to existing documentation
 
 This file is intentionally high-level.
 
@@ -321,7 +350,7 @@ Use the following sources for detailed status:
 
 ---
 
-## 9. Current one-line programme state
+## 10. Current one-line programme state
 
 At the post-#542 boundary:
 
