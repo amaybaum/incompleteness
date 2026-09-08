@@ -132,6 +132,14 @@ This exposes two independent preparation dependencies:
 
 **Interpretation:** real hidden causal memory is not enough to guarantee short-time quantum-style information backflow.
 
+### 3.7 Part of what is established is carried by no manuscript
+
+The registry classifies sixteen kernel families as carried by no publication-facing statement. Among them is the operational pair-flow equivalence, whose own registry entry records the closure with one sourced pair flow as exactly quantum mechanics — a statement stronger than anything the corpus presently asserts.
+
+This is a scope gap in the direction opposite to overclaiming. The reporting rules in §7 all guard against asserting more than has been proved; a result proved in the kernel and narrated nowhere is the same defect reflected, and it is not visible from the manuscripts alone.
+
+**Interpretation:** the publication-facing corpus is not an inventory of what the programme has established. Closing this debt is a matter of stating results at the scope they were proved, which is separate from, and must not be used to soften, the corrections owed where publication wording is too strong.
+
 ---
 
 ## 4. Current frontier
@@ -163,10 +171,11 @@ The remaining programme should proceed in the following order unless a later aud
 
 1. Complete the recurrence-scale theorem at the exact controlling visible-return horizon.
 2. Determine horizon tightness.
-3. Record the minimal hypothesis actually used; in particular distinguish storage overlap from the full write/store/read parent when the stronger clauses are not load-bearing.
+3. Record the hypotheses actually used, and do not assert that they are the weakest available unless that has itself been proved; in particular distinguish storage overlap from the full write/store/read parent when the stronger clauses are not load-bearing.
 4. Correct publication wording where preparation or horizon scope is demonstrably too strong.
+5. If tightness succeeds, determine whether the controlling visible-return horizon admits an independent bound for physically relevant realizations. §4 and reporting rule 2 both make an accessibility bound the condition under which a recurrence-scale obstruction could carry a physical reading; obtaining or excluding such a bound is therefore programme work, not a standing caveat. If tightness succeeds and no bound is available, the guaranteed obstruction is exact but of unknown physical reach, and the equivalence claim must say so.
 
-**Exit condition:** we know exactly what nonclassical stochastic behavior finite reversible OI forces, at what horizon, and under which preparation assumptions.
+**Exit condition:** we know exactly what nonclassical stochastic behavior finite reversible OI forces, at what horizon, under which preparation assumptions, and whether that horizon is reachable.
 
 ### Arc B — characterize the full class of OI-realizable rooted stochastic families
 
@@ -258,6 +267,14 @@ Therefore quantum Bell correlations cannot be claimed from that local hidden com
 
 Assemble the previous arcs into the strongest justified final statement.
 
+**Which endpoint is live must be decidable in advance, not chosen at assembly time.** §1 records that a negative result at an intermediate bridge is not a programme failure if it sharpens the classification. That is correct, but on its own it lets every outcome be read as progress, which leaves the programme unfalsifiable at the strategic level. The endpoints are therefore governed by an explicit retirement condition, fixed here rather than after the fact:
+
+> **F1 is retired** when any arc returns an *Independent* verdict in the sense of §6 on a resource that F1 requires — a countermodel showing the resource does not follow from the OI axioms then in force. The standing candidate is Arc D's continuous off-diagonal control: a countermodel there retires F1, and the programme commits to F2 or F3 with that resource named as an additional principle.
+>
+> An *Open* verdict retires nothing. A construction or formalization that fails without an impossibility theorem leaves F1 live, and recording it otherwise would be the error §6 already forbids.
+
+Retiring F1 is a result, not a defeat: it converts the programme's endpoint from an equivalence claim to a classification with an explicitly identified selection principle, which §1 names as an acceptable terminus.
+
 Possible endpoints are:
 
 #### F1. Full conditional equivalence
@@ -314,6 +331,8 @@ These four statuses should remain separate in both audits and manuscript summari
 6. When a resource is not derived, distinguish “not derived under current axioms” from “forbidden by OI.”
 7. Prefer exact classification of the residual theory space over forcing a false equivalence claim.
 8. Every final equivalence statement must identify which direction is proved and which hypotheses are load-bearing.
+9. State the evidence type of every reported result: kernel-checked, exact-probe-checked, or prose. Rules 1–8 guard the scope of a claim; this one guards its standing. A prose proof is not a formalized success, and a formalization or tooling failure is not a mathematical negative — the second half of that is already §6's *Open*, and the first half is its counterpart. Where a round's positive and negative results carry different evidence types, say so in the same place they are reported, so the asymmetry is visible without reading the sources.
+10. Do not treat the publication-facing corpus as the inventory of what is proved. Where the kernel carries a result at a scope no manuscript states, that is a recorded debt (§3.7), not an absence of the result — and closing it means stating the result at the scope proved, never at a stronger one.
 
 ---
 
