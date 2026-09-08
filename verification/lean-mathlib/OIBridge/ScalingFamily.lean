@@ -1,4 +1,5 @@
 import OIBridge.RecurrenceHorizon
+import OIBridge.RootedClassification
 
 /-!
 # Symmetric binary rooted families and tightness uniform in the horizon
@@ -75,7 +76,7 @@ theorem Bmat_factor {ps pt : ℝ} (hs : 1 / 2 < ps) (ht : 1 / 2 ≤ pt) (hle : p
 
 /-! ### Distinguishability of the two rooted rows -/
 
-/-- **THE ROOTED-ROW DISTANCE IS `|2p - 1|`.** -/
+/-- **THE ROOTED-ROW DISTANCE IS `|2p - 1|`. -/
 theorem tv_Bmat (p : ℝ) : tv (Bmat p 0) (Bmat p 1) = |2 * p - 1| := by
   have h : ∀ x : ℝ, |x| + |x| = 2 * |x| := by intro x; ring
   unfold tv
