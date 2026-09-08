@@ -110,6 +110,10 @@ still asks whether a hidden realization exists. Unless that search is eliminated
 visible predicate, it is **not** B1; the taxonomy below has a separate structural/decidability
 outcome for exactly this case.
 
+If `C*` is an infinite schema of visible conditions, the schema must be given by an explicit uniform
+description that can be stated without reference to realizability. A schema defined as the set of
+all visible conditions necessary for membership is the semantic definition restated and is not B1.
+
 Hidden objects are of course allowed inside a proof of sufficiency or necessity. The restriction is
 on what is presented as the final membership criterion.
 
