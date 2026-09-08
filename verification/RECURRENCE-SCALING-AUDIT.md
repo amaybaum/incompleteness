@@ -83,21 +83,33 @@ This refutes S1 outright.
 structural class `C`. A legitimate positive result on this side, reported at exactly the scope
 proved: neither promoted to an absolute bound nor demoted to unresolved because it is not universal.
 State `C` explicitly, and whether the frozen physical realization is known to lie in it, known not
-to, or not determined. It refutes S1 only if the S1 family is shown to lie in `C`.
+to, or not determined.
+
+It refutes S1 only together with a **coverage theorem**: that *every* tight realization admitting an
+unbounded family lies in `C`. S1 is existential — it asserts that some unbounded tight family exists
+— so its negation is universal over all such families. Showing that one attempted family lies in `C`
+kills that candidate and nothing more; it says nothing about families outside `C`. Coverage is a
+separate theorem, to be stated and proved, never inferred from the failure of the families actually
+tried.
 
 **S2-c — parameter-dependent bound.** `N_CR(R) <= f(|V|, |H|)` or similar, for tight `R`. This
 does **not** by itself refute S1. S1 permits the carriers to grow along the family, so a bound that
-grows with `|H|` is consistent with `N_CR -> infinity`. A parameter-dependent bound refutes S1 only
-together with a separate proof that tight families require bounded carriers, which is itself a
-result that must be stated and proved rather than assumed.
+grows with `|H|` is consistent with `N_CR -> infinity`.
+
+A parameter-dependent bound refutes S1 only together with a carrier bound that is **uniform over
+every potential S1 witness** — a proof that no unbounded tight family can have growing carriers, not
+that some particular attempted family does not. That uniformity is itself a result to be stated and
+proved, and carries the same existential/universal discipline as the S2-b coverage theorem.
 
 Execution must state which of S2-a, S2-b, S2-c any proved bound is, and must state explicitly
 whether it refutes S1.
 
 ### Refutation standard for S1
 
-S1 is **refuted** only by an actual theorem excluding unbounded tight families — S2-a, or S2-b with
-the family shown to lie in `C`, or S2-c together with a proved carrier bound.
+S1 is **refuted** only by an actual theorem excluding unbounded tight families: S2-a, or S2-b with
+a proved coverage theorem, or S2-c with a proved uniform carrier bound. Because S1 is existential,
+each of these must quantify over every potential witness; ruling out the families actually
+attempted refutes nothing.
 
 Failure to construct such a family does not refute S1. Neither does exhaustive search over any
 finite range of horizons, carriers, or priors: finite exhaustion bounds nothing beyond the range
@@ -164,11 +176,18 @@ the realization, with `tight(R) -> N_CR(R) <= B` for all `R`. This refutes S1.
 **O-3 — class-restricted or parameter-dependent bound proved (S2-b or S2-c).** A horizon bound is
 proved for a named structural class, or as a function of the carriers, without an absolute bound.
 Reported at exactly the scope proved, stating which of S2-b or S2-c it is and whether it refutes S1
-— which for S2-b requires the S1 family to lie in the class, and for S2-c requires a separate proved
-carrier bound.
+— which for S2-b requires a proved coverage theorem, and for S2-c a proved uniform carrier bound.
+Applies when no unbounded construction is also proved; if one is, the outcome is O-4.
 
-**O-4 — mixed.** Both an unbounded general construction and a restricted horizon bound are
-proved, per the section above.
+**O-4 — mixed.** An unbounded tight construction (S1) is proved **together with** any non-refuting
+bound: a class-restricted bound (S2-b) without coverage, a parameter-dependent bound (S2-c) without
+a uniform carrier bound, or both.
+
+This is the resolving class whenever O-1 and O-3 would each otherwise apply, and it takes precedence
+over both, so exactly one headline class is reported. It is not a contradiction: S1 and a
+non-refuting bound quantify over different classes, and the report states the general construction,
+each restricted bound, the condition separating them, and whether that condition has independent
+physical motivation.
 
 **O-5 — unresolved.** Neither direction is settled. The construction or formalization fails and no
 impossibility theorem is proved. This is **Open** in the sense of §6 of the programme map: it is
