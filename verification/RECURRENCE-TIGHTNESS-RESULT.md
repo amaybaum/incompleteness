@@ -8,7 +8,7 @@ Executed under the frozen preregistration `RECURRENCE-TIGHTNESS-AUDIT.md` and co
 2. **Target 2 — proved and kernelized via merged #538.** The Target-1 witness composes directly with `c4r_implies_pIndivisible`, giving `PIndivisibleWithin` at the same horizon. No stochastic-inverse rigidity lemma is needed.
 3. **Target 3 — T3-A, tightness construction succeeds.** There exists one finite reversible parent-positive realization whose rooted family is P-divisible on every shorter horizon and first fails when the controlling readback-return horizon is reached.
 
-The Target-3 witness is checked independently and exactly by `verification/lean/recurrence_tightness_probe.py`.
+The Target-3 witness is checked independently and exactly by `verification/lean/recurrence_tightness_probe.py`. Its classification, exact witness data, controlling horizon, accessibility disclaimer, and no-scaling disclaimer are pinned by the CI-gated `R7-RCH-T3` guard in `verification/lean/recurrence_tightness_guard_probe.py`, including negative controls that must fire on those three classes of regression.
 
 ---
 
