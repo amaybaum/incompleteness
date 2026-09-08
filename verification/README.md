@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 137 modules and,
-  at this commit, 3,029 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 138 modules and,
+  at this commit, 3,038 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1679,6 +1679,34 @@ claim that either candidate is necessary for P-indivisibility, that marginal rev
 a causal hidden write-then-read mechanism, that reversibility is used by the no-go theorems, or that
 a fifth condition exists. Twenty-one named results, each printing only `propext`,
 `Classical.choice`, `Quot.sound`. Guard `R7-C4R`.
+
+`OIBridge/RecurrenceHorizon.lean` carries Targets 1 and 2 of
+`RECURRENCE-TIGHTNESS-AUDIT.md`, read under `RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md`, which
+controls the horizon symbol. The frozen route is that a rooted family whose map returns to the
+identity at a time `n`, together with a strictly earlier time `s` at which two distinct rooted rows
+overlap, exhibits a `C4r n` witness on the pair `(s, n)`
+(`c4r_of_identity_return_of_overlap`), after which the already-merged `c4r_implies_pIndivisible`
+supplies `PIndivisibleWithin n` (`pIndivisible_of_identity_return_of_overlap`); the second arrow is
+reused rather than reproved, and no stochastic-inverse rigidity lemma is introduced. Total variation
+is the kernel's existing `HiddenMemory.tv`: the identity `tv p q = 1 - ∑ min` is an addition to that
+notion and not a redefinition (`tv_eq_one_sub_sum_min`), and it carries both endpoints, since two
+distinct identity rows share no overlap mass and stand at distance exactly one (`tv_one_rows`) while
+two probability rows sharing positive mass at one visible value stand strictly below one
+(`tv_le_one_sub_min`, `tv_lt_one_of_overlap`). The dependency is the round's own reportable result:
+the horizon route consumes only the store clause's consequence, a visible value carrying positive
+probability under both rooted preparations, so the write clause and both read legs of the frozen
+readback parent play no part and the recurrence-scale obstruction does not require that parent as a
+whole; no realization-level readback predicate is defined here. Section A is layer-independent,
+every result there a fact about a family of matrices using neither reversibility, nor a hidden
+carrier, nor a prior; Section B instantiates the same statements on the existing
+`RootedRealization` and `rootedMap`, drawing on the realization solely for the row-stochasticity
+Section A takes as a hypothesis (`c4r_of_rooted_identity_return_of_overlap`,
+`pIndivisible_of_rooted_identity_return_of_overlap`). The recorded pair is `horizon_verdict`.
+Nothing is claimed for any horizon below `n`: whether all shorter horizons can remain divisible is
+the audit's separate tightness question, neither answered nor prejudged here, and no accessibility
+claim is made for the horizon itself. No manuscript condition is renamed and no manuscript is
+edited. Nine named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Guard
+`R7-RCH`.
 
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
