@@ -72,15 +72,16 @@ theorem responseWeight_marginal {w : I → V → ℝ} (hsum : ∀ i, ∑ j : V, 
       by_cases hr : r i0 = j0
       · rw [if_pos hr]
         unfold responseWeight
-        rw [Fintype.prod_eq_mul_prod_subtype_ne, Fintype.prod_eq_mul_prod_subtype_ne]
+        rw [Fintype.prod_eq_mul_prod_subtype_ne (fun i : I => w i (r i)) i0,
+          Fintype.prod_eq_mul_prod_subtype_ne (fun i : I => w' i (r i)) i0]
         simp [w', hr]
       · rw [if_neg hr]
-        rw [Fintype.prod_eq_mul_prod_subtype_ne]
+        rw [Fintype.prod_eq_mul_prod_subtype_ne (fun i : I => w' i (r i)) i0]
         simp [w', hr]
     _ = ∏ i : I, ∑ j : V, w' i j := by
       rw [Fintype.prod_sum]
     _ = w i0 j0 := by
-      rw [Fintype.prod_eq_mul_prod_subtype_ne]
+      rw [Fintype.prod_eq_mul_prod_subtype_ne (fun i : I => ∑ j : V, w' i j) i0]
       simp [w', hsum]
 
 end ResponsePrior
@@ -117,8 +118,9 @@ theorem rootedMap_periodic {H : Type*} [Fintype H] (R : RootedRealization V H) :
   simp only [rootedMap]
   apply Finset.sum_congr rfl
   intro h _
-  congr 1
-  rw [R.step.iterate_eq_pow, R.step.iterate_eq_pow, pow_add, hpow, mul_one]
+  have hiter : ((⇑R.step)^[t + M]) (a, h) = ((⇑R.step)^[t]) (a, h) := by
+    rw [Equiv.Perm.iterate_eq_pow, Equiv.Perm.iterate_eq_pow, pow_add, hpow, mul_one]
+  rw [hiter]
 
 /-- **T1 NECESSITY, AT THE MERGED ROOTED INTERFACE.** Every inherited realization on a finite visible
  carrier lies in the visible class `PPer`.  The three conjuncts expose their dependencies: root
@@ -202,10 +204,12 @@ theorem cycleState_injective {M : ℕ} :
     have hs := congrArg Prod.snd hxy
     simpa [cycleState, hk, hl] using hs
   · have hs := congrArg Prod.snd hxy
-    have hp : (f, (a, ⟨k, hk⟩)) = (g, (b, ⟨l, hl⟩)) := by
+    have hp : (f, (a, (⟨k, hk⟩ : NonzeroPhase M))) =
+        (g, (b, (⟨l, hl⟩ : NonzeroPhase M))) := by
       simpa [cycleState, hk, hl] using hs
     have hfg : f = g := congrArg Prod.fst hp
-    have habphase : (a, ⟨k, hk⟩) = (b, ⟨l, hl⟩) := congrArg Prod.snd hp
+    have habphase : (a, (⟨k, hk⟩ : NonzeroPhase M)) =
+        (b, (⟨l, hl⟩ : NonzeroPhase M)) := congrArg Prod.snd hp
     have hab : a = b := congrArg Prod.fst habphase
     have hphase : (⟨k, hk⟩ : NonzeroPhase M) = ⟨l, hl⟩ := congrArg Prod.snd habphase
     have hkl : k = l := congrArg Subtype.val hphase
@@ -229,13 +233,15 @@ def cyclePerm (M : ℕ) : Equiv.Perm (CycleIndex V M) :=
 /-- **ONE TOTAL REVERSIBLE MICROSCOPIC UPDATE.** Rotate every embedded response-table cycle by one
 phase and fix the entire complement.  `viaFintypeEmbedding` supplies a genuine permutation of the
 whole product carrier, not merely a partial map on prior-supported states. -/
-noncomputable def responseStep (M : ℕ) : Equiv.Perm (V × ResponseHidden V M) :=
-  (cyclePerm (V := V) M).viaFintypeEmbedding (cycleEmbedding (V := V) M)
+noncomputable def responseStep (M : ℕ) : Equiv.Perm (V × ResponseHidden V M) := by
+  letI : DecidableEq (V × ResponseHidden V M) := Classical.decEq _
+  exact (cyclePerm (V := V) M).viaFintypeEmbedding (cycleEmbedding (V := V) M)
 
 /-- On an embedded cycle the total update is exactly the declared phase rotation. -/
 @[simp] theorem responseStep_cycle {M : ℕ} (c : CycleIndex V M) :
     responseStep (V := V) M (cycleState (V := V) c) =
       cycleState (V := V) (cyclePerm (V := V) M c) := by
+  letI : DecidableEq (V × ResponseHidden V M) := Classical.decEq _
   simpa [responseStep, cycleEmbedding] using
     (Equiv.Perm.viaFintypeEmbedding_apply_image
       (cyclePerm (V := V) M) (cycleEmbedding (V := V) M) c)
