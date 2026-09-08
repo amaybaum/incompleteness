@@ -188,6 +188,7 @@ import OIBridge.FrozenSourcing
 import OIBridge.StochasticInterface
 import OIBridge.CausalReadback
 import OIBridge.RecurrenceHorizon
+import OIBridge.ScalingFamily
 
 namespace OIBridge
 
