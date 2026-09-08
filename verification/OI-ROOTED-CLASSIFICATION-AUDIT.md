@@ -531,4 +531,5 @@ The final report must state separately:
     this round.
 
 Status: **preregistered draft; no sufficiency construction, counterexample search, proof search,
-brute-force census, probe, or simulation has begun.**
+brute-force census, probe, or simulation has begun; nothing in this file is frozen until the
+reviewer approves an exact commit/blob as the preregistration freeze.**
