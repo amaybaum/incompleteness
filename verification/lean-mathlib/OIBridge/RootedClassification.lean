@@ -74,7 +74,13 @@ theorem responseWeight_marginal {w : I → V → ℝ} (hsum : ∀ i, ∑ j : V, 
         unfold responseWeight
         rw [Fintype.prod_eq_mul_prod_subtype_ne (fun i : I => w i (r i)) i0,
           Fintype.prod_eq_mul_prod_subtype_ne (fun i : I => w' i (r i)) i0]
-        simp [w', hr]
+        have hhead : w' i0 (r i0) = w i0 (r i0) := by
+          simp [w', hr]
+        rw [hhead]
+        apply congrArg (fun z : ℝ => w i0 (r i0) * z)
+        apply Finset.prod_congr rfl
+        intro x _
+        simp [w', x.2]
       · rw [if_neg hr]
         rw [Fintype.prod_eq_mul_prod_subtype_ne (fun i : I => w' i (r i)) i0]
         simp [w', hr]
@@ -82,7 +88,14 @@ theorem responseWeight_marginal {w : I → V → ℝ} (hsum : ∀ i, ∑ j : V, 
       rw [Fintype.prod_sum]
     _ = w i0 j0 := by
       rw [Fintype.prod_eq_mul_prod_subtype_ne (fun i : I => ∑ j : V, w' i j) i0]
-      simp [w', hsum]
+      have hhead : (∑ j : V, w' i0 j) = w i0 j0 := by
+        simp [w']
+      rw [hhead]
+      have htail : (∏ x : {i // i ≠ i0}, ∑ j : V, w' x.1 j) = 1 := by
+        apply Finset.prod_eq_one
+        intro x _
+        simp [w', x.2, hsum]
+      rw [htail, mul_one]
 
 end ResponsePrior
 
