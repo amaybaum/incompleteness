@@ -331,7 +331,7 @@ These four statuses should remain separate in both audits and manuscript summari
 6. When a resource is not derived, distinguish “not derived under current axioms” from “forbidden by OI.”
 7. Prefer exact classification of the residual theory space over forcing a false equivalence claim.
 8. Every final equivalence statement must identify which direction is proved and which hypotheses are load-bearing.
-9. State the evidence type of every reported result: kernel-checked, exact-probe-checked, or prose. Rules 1–8 guard the scope of a claim; this one guards its standing. A prose proof is not a formalized success, and a formalization or tooling failure is not a mathematical negative — the second half of that is already §6's *Open*, and the first half is its counterpart. Where a round's positive and negative results carry different evidence types, say so in the same place they are reported, so the asymmetry is visible without reading the sources.
+9. State the evidence type of every reported result: kernel-checked, exact-probe-checked, or prose. Rules 1–8 guard the scope of a claim; this one guards its standing. A prose proof is not a formalized success, and a formalization or tooling failure is not a mathematical negative — the second half of that is already §6's *Open*, and the first half is its counterpart. Where a round's positive and negative results carry different evidence types, say so in the same place they are reported, so the asymmetry is visible without reading the sources. A theorem proved from a cited external premise is a fourth type, and is neither a gap nor a fully kernel-checked result; §8 records the corpus's standing instance.
 10. Do not treat the publication-facing corpus as the inventory of what is proved. Where the kernel carries a result at a scope no manuscript states, that is a recorded debt (§3.7), not an absence of the result — and closing it means stating the result at the scope proved, never at a stronger one.
 
 ---
@@ -349,6 +349,16 @@ Parallel tracks include, in particular:
 - other model-specific physics programmes whose results may constrain OI but do not currently sit on the logical path from the OI observer structure to operational QM.
 
 These tracks retain their own theorem, audit, and backlog status. Progress on them must not be counted as progress on the OI → QM equivalence chain unless an explicit bridge is proved; conversely, the equivalence programme should not silently absorb or supersede their unresolved questions.
+
+### The standing formalization debt of the reconstruction track
+
+One parallel-track debt is named here because it is the corpus's largest instance of what reporting rule 9 governs, and because it is invisible from the manuscript statement it qualifies.
+
+The reconstruction programme's two-branch theorem is graded K2 rather than K3 on a single unformalized input: the integer Piccard/Bekir–Golomb classification, carried in the kernel as the `Prop` `BGIntegerClassification` in `OIBridge/TurnpikeScopeTransfer.lean` and consumed as a cited external premise. That module records it as the only unproved input of the reconstruction programme. Every other step is kernel-proved, including the integer-to-real passage and the assembly `twoBranch_of_BGClassification`, and three probes record formalizing the 2007 classification as the sole remaining K3 backlog item.
+
+The status is therefore precise and should be reported as such: the theorem is proved *relative to* a stated external classification, not from the kernel alone. It is neither a gap in the mathematics nor a fully kernel-checked result, and it is exactly the case rule 9 exists to keep visible.
+
+This debt sits on the reconstruction track, not on the OI → QM chain. Discharging it neither advances nor blocks the equivalence programme, and it must not be counted in either direction.
 
 ---
 
