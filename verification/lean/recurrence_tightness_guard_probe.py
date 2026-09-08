@@ -47,6 +47,17 @@ PROBE_REQUIRED = (
     'checks.append(("P-indivisible at K=3"',
 )
 
+# The two anti-overclaim disclaimers necessarily name the vocabulary they disclaim, and both are
+# REQUIRED verbatim above. Scanning them for forbidden substrings would make the guard
+# unsatisfiable, since the only way to pass would be to delete the protection itself. The forbidden
+# scan therefore runs over the note with exactly these sentences excised. They cannot conceal an
+# overclaim: their presence, verbatim, is separately required, and the structural check below
+# refuses any protected sentence that is not also a required one.
+PROTECTED = (
+    "It does **not** show that `N_CR` is always large or physically inaccessible; the exact witness here has `N_CR = 3`.",
+    "No claim is made that arbitrarily large `N_CR` admits an analogous tight witness; that stronger scaling question was not preregistered in this round.",
+)
+
 FORBIDDEN = (
     "before recurrence",
     "accessible quantum",
@@ -75,8 +86,16 @@ def validate(note: str, witness_probe: str):
             checks.append(("scaling only in no-claim disclaimer",
                            line.startswith("No claim is made that ") and "not preregistered" in line))
 
+    # An exemption may never be widened into a hiding place: every protected sentence must itself
+    # be required verbatim, so excising it cannot remove text the note is free to change.
+    checks.append(("protected disclaimers are themselves required",
+                   all(p in REQUIRED for p in PROTECTED)))
+
+    scan = note
+    for protected in PROTECTED:
+        scan = scan.replace(protected, "")
     for bad in FORBIDDEN:
-        checks.append(("forbidden: " + bad, bad.lower() not in note.lower()))
+        checks.append(("forbidden: " + bad, bad.lower() not in scan.lower()))
 
     checks.append(("order/horizon distinction",
                    "happen to coincide" in note and "do not identify those notions in general" in note))
@@ -104,10 +123,24 @@ positive_scaling = text.replace(
 )
 wrong_horizon = text.replace("The controlling horizon is exactly N_CR = 3", "The controlling horizon is exactly N_CR = 4")
 
+# The forbidden scan exempts the two protected disclaimers. These two controls prove that exemption
+# is narrow: an overclaim placed anywhere else is still caught, and a disclaimer reworded so that it
+# is no longer the protected sentence verbatim loses the exemption along with the protection.
+smuggled_elsewhere = text.replace(
+    "## Publication boundary",
+    "## Publication boundary\n\nThis shows nonclassicality is physically inaccessible.\n",
+)
+reworded_disclaimer = text.replace(
+    PROTECTED[0],
+    "It does not really show that `N_CR` is always large.",
+)
+
 negative_controls = (
     ("negative control: accessibility overclaim fires", not all_ok(validate(weakened_accessibility, probe))),
     ("negative control: scaling overclaim fires", not all_ok(validate(positive_scaling, probe))),
     ("negative control: horizon mutation fires", not all_ok(validate(wrong_horizon, probe))),
+    ("negative control: overclaim outside the exemption fires", not all_ok(validate(smuggled_elsewhere, probe))),
+    ("negative control: reworded disclaimer loses the exemption", not all_ok(validate(reworded_disclaimer, probe))),
 )
 for name, ok in negative_controls:
     print(f"  {'PASS' if ok else 'FAIL'}  {name}")
