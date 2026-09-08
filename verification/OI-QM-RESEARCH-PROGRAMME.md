@@ -1,6 +1,6 @@
 # OI → QM research programme map
 
-Status base: `main` at `7d4b9ec3d2df5d6ace28fe24d0cb83f853235ba6` (post-PR #542).
+Status base: `main` at `a656642ee8a4d7cc6b58301cbde8000b6b85731b` (post-PR #543).
 
 This file is the canonical **strategic map** for the larger OI → QM research programme. It is not a theorem, an audit, a preregistration, or a replacement for the detailed verification ledger. Its purpose is to state, in one place:
 
@@ -140,24 +140,41 @@ This is a scope gap in the direction opposite to overclaiming. The reporting rul
 
 **Interpretation:** the publication-facing corpus is not an inventory of what the programme has established. Closing this debt is a matter of stating results at the scope they were proved, which is separate from, and must not be used to soften, the corrections owed where publication wording is too strong.
 
+### 3.8 The return-horizon obstruction is proved, and the horizon is tight
+
+PR #543 settles the recurrence-scale question at both ends.
+
+The obstruction holds:
+
+`identity return + strictly earlier rooted-row overlap -> C4r -> P-indivisibility`
+
+at that horizon, kernel-checked in `OIBridge/RecurrenceHorizon.lean` and composed with the merged revival no-go. Its load-bearing ingredient is only the storage-overlap consequence — a visible value carrying positive probability under both rooted preparations. The write clause and both read legs of the causal-readback parent play no part, so the obstruction applies to realizations that store without any causal write at all, under hypotheses strictly weaker than the parent.
+
+The horizon is also tight. One exact finite reversible parent-positive realization has rooted family
+
+`I -> B_(7/10) -> B_(3/5) -> I`
+
+with controlling horizon `N_CR = 3`: it is P-divisible on every shorter horizon and first fails when the identity return is included.
+
+**Interpretation:** no universal theorem from the frozen parent can replace the controlling return horizon by an unspecified strictly earlier one. Nothing follows about scale. The witness has `N_CR = 3`, so the result does not show that the horizon is large, and no accessibility conclusion is available from it — that question is §4's frontier, not this entry's content.
+
 ---
 
 ## 4. Current frontier
 
-The active frontier after PR #542 is the **recurrence-scale indivisibility and horizon-tightness problem**.
+The active frontier after PR #543 is the **recurrence-horizon scaling and accessibility problem**, carried as backlog item #63.
 
-The primary mathematical route is now:
+The return-horizon obstruction and its tightness are settled (§3.8). What is not settled is scale, and scale is what decides the physical reading:
 
-`storage overlap + later visible return to identity -> TV revival -> P-indivisibility`.
+> Does there exist a family of parent-positive finite reversible realizations with `N_CR -> infinity`, each remaining P-divisible on every horizon `K < N_CR` and first becoming P-indivisible when the identity return is included?
 
-The important question is not merely whether a recurrence-scale obstruction exists, but whether that horizon is tight.
+The three outcomes are to be kept separate, and preregistered before execution:
 
-The active audit asks whether there can be a finite reversible parent-positive realization that remains P-divisible on every shorter horizon and becomes indivisible only when the relevant visible-return horizon is reached.
+- **positive** — arbitrarily large tight horizons exist: the guaranteed stochastic obstruction can be postponed arbitrarily far without extra assumptions, and the equivalence claim inherits that limitation;
+- **negative** — such scaling is impossible: derive the strongest universal earlier-horizon bound and identify which finite-state or recurrence structure forces it, which makes the OI → QM bridge physically stronger;
+- **unresolved** — the construction or formalization fails without an impossibility theorem: record it as open, never as independence or impossibility (§6 *Open*, reporting rule 9).
 
-This distinction controls the physical interpretation:
-
-- if tightness succeeds, the universally guaranteed obstruction may occur only at a potentially inaccessible recurrence/readback-return scale;
-- if some shorter-horizon obstruction is mathematically unavoidable, the OI → QM bridge is physically stronger.
+This is the question that promotes, or refuses to promote, #543's existential tightness statement into a statement about physically reachable behavior.
 
 No recurrence-scale result should be described as accessible quantum-like nonclassicality without an independent accessibility bound.
 
@@ -169,11 +186,11 @@ The remaining programme should proceed in the following order unless a later aud
 
 ### Arc A — finish the stochastic/nonclassicality boundary
 
-1. Complete the recurrence-scale theorem at the exact controlling visible-return horizon.
-2. Determine horizon tightness.
+1. Complete the recurrence-scale theorem at the exact controlling visible-return horizon. **Done — PR #543 (§3.8).**
+2. Determine horizon tightness. **Done — PR #543, T3-A with the `N_CR = 3` witness (§3.8).**
 3. Record the hypotheses actually used, and do not assert that they are the weakest available unless that has itself been proved; in particular distinguish storage overlap from the full write/store/read parent when the stronger clauses are not load-bearing.
 4. Correct publication wording where preparation or horizon scope is demonstrably too strong.
-5. If tightness succeeds, determine whether the controlling visible-return horizon admits an independent bound for physically relevant realizations. §4 and reporting rule 2 both make an accessibility bound the condition under which a recurrence-scale obstruction could carry a physical reading; obtaining or excluding such a bound is therefore programme work, not a standing caveat. If tightness succeeds and no bound is available, the guaranteed obstruction is exact but of unknown physical reach, and the equivalence claim must say so.
+5. **#63 — recurrence-horizon scaling / accessibility.** Tightness succeeded, so this item's condition has fired and it is now the live task: determine whether tight parent-positive realizations exist with `N_CR -> infinity` while remaining P-divisible for every `K < N_CR`, or else derive the strongest universal earlier-horizon bound. Report the outcome as positive, negative, or unresolved in the sense of §4, keeping tooling failure distinct from impossibility. §4 and reporting rule 2 both make an accessibility bound the condition under which a recurrence-scale obstruction could carry a physical reading, so obtaining or excluding such a bound is programme work, not a standing caveat. If no bound is available, the guaranteed obstruction is exact but of unknown physical reach, and the equivalence claim must say so.
 
 **Exit condition:** we know exactly what nonclassical stochastic behavior finite reversible OI forces, at what horizon, under which preparation assumptions, and whether that horizon is reachable.
 
@@ -381,6 +398,6 @@ Use the following sources for detailed status:
 
 ## 10. Current one-line programme state
 
-At the post-#542 boundary:
+At the post-#543 boundary:
 
-**OI already has a strong finite operational completion classification and a clear quantum-representation route, but bare OI does not yet physically source the full quantum operational repertoire; the immediate task is to finish the stochastic recurrence/tightness boundary, then characterize the full OI-realizable stochastic class before returning to coherent-control sourcing and composite/Bell equivalence.**
+**OI already has a strong finite operational completion classification and a clear quantum-representation route, but bare OI does not yet physically source the full quantum operational repertoire; the stochastic obstruction is now proved at the controlling return horizon and that horizon is tight, so the immediate task is to settle whether such horizons can grow without bound, then characterize the full OI-realizable stochastic class before returning to coherent-control sourcing and composite/Bell equivalence.**
