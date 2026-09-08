@@ -225,5 +225,5 @@ check("non-monotone weights break P-divisibility below the horizon", broke)
 print(f"\nscaling_family_probe: {len(PASS)} passed, {len(FAIL)} failed")
 if FAIL:
     raise SystemExit("failed: " + "; ".join(FAIL))
-print("Instance controls only. The uniform statements are proved in "
+print("Instance controls only. The uniform statements, and the S2 bound, are proved in "
       "RECURRENCE-SCALING-RESULT.md; a finite table is not an unbounded family.")
