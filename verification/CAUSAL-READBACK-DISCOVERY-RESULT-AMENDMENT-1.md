@@ -47,6 +47,9 @@ Therefore:
 
 This is distinct from the hidden-prior dependence already recorded in the round. Here `mu_H` and the entire rooted family are unchanged; only the standalone visible root law `p_0` changes.
 
+The exact mixed-root positive witness and both fixed-root negative controls are machine-checked by
+`verification/lean/causal_readback_t1_scope_probe.py`, which is included in the required Numerical probes gate.
+
 ## Consequences for the round headline
 
 The T2, T3 and T4 conclusions are unchanged:
@@ -63,5 +66,7 @@ The T1 entry in the final classification is corrected to:
 - fixed-root `delta_a` laws can be C4w-negative even when the same rooted realization is parent-positive.
 
 Accordingly the headline is best read as **Outcome C on the audited accessible window conditional on witness-root preparation support**, together with the already-recorded E-type hidden-prior qualification and this additional visible-preparation support qualification.
+
+Strictly, the frozen A–E taxonomy did not include a separate label for “parent calibration passes but T1 needs visible-root support.” This amendment does not invent a new outcome class after execution; it records the exact support condition under which the frozen Outcome C statement is earned and leaves the unqualified T1 implication marked false.
 
 No manuscript edit is made here. No stronger physical preparation principle is inferred. The separate recurrence-scale route remains a distinct next audit.
