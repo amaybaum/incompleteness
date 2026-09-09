@@ -753,6 +753,17 @@
         }
       ],
       "note": "The frozen exploratory thread (OI-N-FREEZE.md), narrated in one paragraph of Main 3.4 and one of the Explainer, outside the assumptions and arrows of the OI->QM characterization: noncommutativity forbids complete passive observation; passive incompleteness is theory-insensitive and does not diagnose OICore (the N4 anti-conflation stated in the same paragraph: not evidence for a hidden ontology, no statement that QM rests on OI); a passive internal observer only reads an existing record; a new internal record changes the joint system. Citable only for what its modules prove; the freeze note is unchanged."
+    },
+    {
+      "name": "rooted classification: the finite-visible intrinsic characterization of the realizable class",
+      "modules": [
+        "RootedClassification",
+        "RootedClassificationT2",
+        "RootedClassificationAllTime"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "The finite-visible intrinsic classification of the merged rooted realization interface, executed under the frozen preregistration OI-ROOTED-CLASSIFICATION-AUDIT.md. For every finite visible carrier, a complete rooted family is realizable by some finite hidden carrier, one reversible update, and one prior shared by every visible root, agreeing at every time, exactly when it has the identity at the root time, is row-stochastic at every time, and has a positive finite visible period (finiteRootedRealizable_iff_pper). Necessity rests on finiteness of the microscopic carrier and reversibility; sufficiency is constructive, putting the categorical marginals of every root and nonzero phase on one common product prior over response tables and carrying them by reversible cycles embedded in the visible carrier crossed with tables and padding. The semantic class is a separate named predicate from the visible one, so the identification is a theorem rather than a reader's inference across two statements, and the carrier universe costs nothing: any realization in any universe yields membership, proved rather than assumed. The result is finite-visible only. Finiteness of the visible carrier is what makes the update a permutation of a finite set and so forces the visible period, and nothing here classifies the arbitrary-visible interface, which the inherited structure permits. Zero prior mass is used by the construction and is not incidental: a family in the visible class is exhibited that admits no full-support realization at any finite hidden carrier. The two standing readback controls are not periodic as complete families and so are not realizable at this interface; the horizon constructions that display their behaviour realize the requested horizon and depend on it. No manuscript is edited and no accessibility claim is made."
     }
   ]
 }

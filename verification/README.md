@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 139 modules and,
-  at this commit, 3,049 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 142 modules and,
+  at this commit, 3,089 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1685,6 +1685,33 @@ claim that either candidate is necessary for P-indivisibility, that marginal rev
 a causal hidden write-then-read mechanism, that reversibility is used by the no-go theorems, or that
 a fifth condition exists. Twenty-one named results, each printing only `propext`,
 `Classical.choice`, `Quot.sound`. Guard `R7-C4R`.
+
+`OIBridge/RootedClassification.lean`, `OIBridge/RootedClassificationT2.lean` and
+`OIBridge/RootedClassificationAllTime.lean` carry the finite-visible intrinsic classification of
+`OI-ROOTED-CLASSIFICATION-AUDIT.md`. The capstone is one theorem, not two directions left to a
+reader: for every finite visible carrier, a complete rooted family is realizable by some finite
+hidden carrier, one reversible update and one prior shared by every visible root, agreeing at every
+time, exactly when `Gamma_0 = I`, every `Gamma_t` is row-stochastic, and the family has a positive
+finite visible period (`finiteRootedRealizable_iff_pper`). The semantic class is its own named
+predicate (`FiniteRootedRealizable`), kept apart from the visible one so the identification is a
+theorem rather than an inference across two statements; its hidden carrier is quantified in the
+visible carrier's universe, and that costs nothing, since a realization on a finite carrier in any
+universe yields membership (`finiteRootedRealizable_of_realization`) rather than that being assumed.
+Necessity is `rootedMap_mem_PPer`, resting on finiteness of the microscopic carrier and
+reversibility; sufficiency is `pper_has_responseRealization`, constructive, putting the categorical
+marginals of every root and nonzero phase on one common product prior over response tables and
+carrying them by reversible cycles embedded in `V` crossed with tables and padding, with phase zero
+represented by the root itself rather than stored. **The result is finite-visible only.** Finiteness
+of the visible carrier is what makes the update a permutation of a finite set and so forces the
+period; the inherited interface requires finiteness of the hidden carrier alone, and nothing here
+classifies the arbitrary-visible case. Zero prior mass is used by the construction and is not
+incidental: a family in the visible class is exhibited that admits no full-support realization at
+any finite hidden carrier. Under that classification the two standing readback controls are not
+periodic as complete families and so are not realizable at this interface
+(`pdFamily_not_finiteRootedRealizable`, `peFamily_not_finiteRootedRealizable`), which
+`C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md` reconciles against the horizon constructions that display
+their behaviour. Forty named results, each printing only `propext`, `Classical.choice`,
+`Quot.sound`. Guard `R7-RCL`.
 
 `OIBridge/RecurrenceHorizon.lean` carries Targets 1 and 2 of
 `RECURRENCE-TIGHTNESS-AUDIT.md`, read under `RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md`, which
