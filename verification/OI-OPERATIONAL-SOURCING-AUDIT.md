@@ -208,14 +208,14 @@ Round 1 results are not stated as bearing on any of them.
 ## Independent targets, frozen before execution
 
 The dependency structure is stated exactly, because "independent" loosely applied would be false of
-one of the four pieces. **S1, S2 and S3b are mutually independent**: each is provable and reportable
-without either of the others, and none may be reported as settled on the strength of another. **S3a
+one of the four pieces. **S1, S2 and S3b are mutually independent**: each may be proved and reported
+independently of the others, and none may be reported as settled on the strength of another. **S3a
 consumes S1's consequence 3 by construction** and says so where it is stated; if consequence 3 is
 unproved, S3a is reported as unproved with it.
 
-In particular S3b does not rest on S1 or S2. What makes it provable is the frozen access semantics
-itself, stated under S3b below, and the outcome class RD3 — the reconciliation proved with the
-quarantine unproved — is a real possibility rather than a formality.
+In particular S3b does not rest on S1 or S2. Its route is the frozen access semantics itself, stated
+under S3b below, so the outcome class RD3 — the reconciliation proved with the quarantine unproved —
+is a real possibility rather than a formality.
 
 ### S1 — the representation layer supplies no operator content
 
@@ -322,17 +322,18 @@ This is a claim about the round's own criterion, and it must be proved or report
 may not be assumed from the fact that Arc C changed no Lean definition in the sourcing modules: that
 is an observation about the source tree, not a theorem about availability.
 
-**What carries it is the frozen access and provenance semantics, and nothing else.** Availability in
-`genTheory 𝓘 arch A` *is* `InstAvail 𝓘`, whose constructors quantify over the admissible class of the
-stated access and over admissible protocols built from it. A `QfbData` is not a class, `QStar Γ` is a
-proposition about a rooted family, and neither supplies a constructor or an admissible protocol. So
-the stability theorem is proved from the definitions that are already frozen, at the same scope the
-inherited verdict carries.
+**The route to be taken is the frozen access and provenance semantics, and nothing else.**
+Availability in `genTheory 𝓘 arch A` *is* `InstAvail 𝓘`, whose constructors quantify over the
+admissible class of the stated access and over admissible protocols built from it. A `QfbData` is not
+a class, `QStar Γ` is a proposition about a rooted family, and neither is a constructor or an
+admissible protocol. **The proof obligation is to derive the stability theorem from the definitions
+already frozen**, at the same scope the inherited verdict carries. Whether that obligation is
+discharged is settled by execution, not here.
 
-S1 and S2 **corroborate** the theorem and are not prerequisites of it: S2 exhibits the canonical
-witness as adding nothing to the access, S1 shows that the coherent witnesses which do exist add
-nothing either. Both make the result harder to misread, and neither is load-bearing. If either is
-unproved, S3b is unaffected — which is what outcome class RD3 records.
+S1 and S2 would **corroborate** the theorem and are not prerequisites of it: S2 would exhibit the
+canonical witness as adding nothing to the access, S1 that the coherent witnesses which do exist add
+nothing either. Each would make the result harder to misread, and neither is load-bearing. If either
+is left unproved, S3b is unaffected — which is what outcome class RD3 records.
 
 The result note states, in the same place, which part of the phase verdict is inherited and which is
 new. The new part is the stability theorem alone.
@@ -370,8 +371,8 @@ a conclusion whose ground is unproved out of the headline.
 ### RD3 — reconciliation without the quarantine
 
 S3b's stability theorem is proved and S1 is not. This is a genuine class rather than a formality:
-S3b rests on the frozen access and provenance semantics, not on S1 or S2, so it can land while the
-quarantine does not. Reported with the quarantine's status stated in the same place as the
+S3b's route is the frozen access and provenance semantics rather than S1 or S2, so it can land while
+the quarantine does not. Reported with the quarantine's status stated in the same place as the
 reconciliation, so that the ground is visible without reading the sources.
 
 ### RD4 — criterion only
