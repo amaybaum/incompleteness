@@ -56,6 +56,13 @@ This is an existential worst-case lower bound, not a pointwise claim and not a T
 it does not cross the construction's upper bound |V|^(|V|M) (1 + |V|M) at any M.  The counting
 attack therefore closes without an obstruction, for a proved reason rather than by exhaustion.
 
+Both statements are prose theorems, and the corollary's arbitrary-M form rests further on the
+classical Q-linear independence of square roots of distinct primes.  What runs below is neither: it
+is twenty instances, M = 1..20 over a fixed list of thirty primes, plus the denominator control.
+Section C is the same shape -- its theorem covers every finite |H|, while the executable part is one
+witness and a bounded control at |H| <= 3.  Frozen control 12 applies to both: the bounded results
+are reported at their bounds and are not extrapolated to the general statements they accompany.
+
 Section E is the frozen negative visible control: the P_per checker must reject families violating
 row stochasticity, Gamma_0 = I, and temporal periodicity.
 """

@@ -1706,7 +1706,8 @@ of the visible carrier is what makes the update a permutation of a finite set an
 period; the inherited interface requires finiteness of the hidden carrier alone, and nothing here
 classifies the arbitrary-visible case. Zero prior mass is used by the construction and is not
 incidental: a family in the visible class is exhibited that admits no full-support realization at
-any finite hidden carrier. Under that classification the two standing readback controls are not
+any finite hidden carrier, by a counting argument carried in the round's result note and probe
+rather than in the kernel. Under that classification the two standing readback controls are not
 periodic as complete families and so are not realizable at this interface
 (`pdFamily_not_finiteRootedRealizable`, `peFamily_not_finiteRootedRealizable`), which
 `C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md` reconciles against the horizon constructions that display

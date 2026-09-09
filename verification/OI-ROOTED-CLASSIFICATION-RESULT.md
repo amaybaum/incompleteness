@@ -121,8 +121,15 @@ in `P_per` and **is** realizable at the inherited interface, so this separates t
 from its full-support variant rather than restricting the class. Zero-prior padding is unavoidable
 on such a family, not an artifact of one construction.
 
-Evidence: exact rational probe, `verification/lean/rooted_classification_t3_probe.py` Section C. Not
-kernelized; it is not load-bearing for B1.
+Evidence: **prose theorem**. The counting argument above covers every finite `|H|`; it is not
+kernelized, and no probe establishes it. Section C of
+`verification/lean/rooted_classification_t3_probe.py` supplies the witness — that it lies in
+`P_per`, that it drives two distinct roots deterministically onto one visible value, that it is
+realizable at the inherited interface, and that the realization carries zero-prior states — together
+with a bounded control at `|H| <= 3` on a sixths grid and a refinement control confirming that a
+family without a deterministic collision is not excluded by the theorem. Those are a witness and
+controls at their stated bounds. Neither the bounded control nor any other executed check
+establishes the universal statement, and neither is offered as doing so. Not load-bearing for B1.
 
 ### Carrier lower bound
 
@@ -132,8 +139,20 @@ kernelized; it is not load-bearing for B1.
 > Hence no carrier bound is a function of `|V|` alone: at `|V| = 2` there are period-`M` families in
 > `P_per` forcing `|H| >= M`, for every `M`.
 
-This is an existential worst-case bound, not a pointwise claim and not a `Theta(M)` claim. Evidence:
-exact rational probe, Section D, with the range check carried as integer arithmetic.
+This is an existential worst-case bound, not a pointwise claim and not a `Theta(M)` claim.
+
+Evidence: **prose theorem**, for the lemma and for the corollary alike. Neither is kernelized. The
+corollary's arbitrary-`M` statement rests additionally on the classical linear independence over the
+rationals of square roots of distinct primes, which is cited rather than proved here.
+
+Section D of the probe executes **instances at `M = 1..20`**, over a fixed list of thirty primes: for
+each `M` it computes the family's exact rational span dimension, checks the row sums, checks the
+range condition `4q <= D^2` as integer arithmetic, and checks that the forced carrier does not cross
+the construction's upper bound; it then carries the denominator negative control at 2503. That
+sweep verifies twenty instances and gives the denominator repair observable content. **It does not
+prove the statement for every `M`**, and under frozen control 12 it is reported at its bounds and is
+not extrapolated. A reader who wants the arbitrary-`M` claim has the prose argument for it and
+nothing executable.
 
 ### Standing-control reconciliation
 
@@ -172,8 +191,11 @@ The preregistration requires twelve things stated separately.
 9. **Standing-control reconciliation.** `pdFamily` and `peFamily` are horizon realizations, not
    complete-family ones; corrected in `verification/README.md` in place and recorded in the C4
    amendment.
-10. **Evidence types and debt.** B1: kernel, both directions, no debt. Side results: exact rational
-    probe, kernelization not required and not claimed.
+10. **Evidence types and debt.** B1: kernel theorem, both directions, no debt. Both supporting
+    results: prose theorems, neither kernelized, each stating that boundary where it is stated. The
+    exact rational probe supplies a witness and bounded controls for the separation and instances at
+    `M = 1..20` for the lower bound; it is not offered as proof of either universal statement.
+    Kernelizing them is open formalization work, and no result of this round rests on it.
 11. **Closure.** Finite-visible Arc B is mathematically closed **and** kernel-closed.
 12. **Arc C.** Arc C can begin at a precise finite-visible `C_OI` interface: the class is now a
     named visible predicate with a two-way kernel bridge to the reversible realization. No Arc C
