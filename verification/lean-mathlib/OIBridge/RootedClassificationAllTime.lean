@@ -52,6 +52,18 @@ theorem responseLocalWeight_sum {Γ : ℕ → Matrix V V ℝ} {M : ℕ}
   intro i
   exact (hstoch (i.2.1 : ℕ)).2 i.1
 
+/-- **THE PADDING HALF CONTRIBUTES NOTHING.** Every `inr` state carries zero prior, so the padding
+summand vanishes at every time and every pair of visible values. Both marginal computations below
+split the carrier along `Fintype.sum_sum_type` and need this to discard the half that the frozen
+interface allows to carry no mass. -/
+theorem responseRealization_pad_sum {Γ : ℕ → Matrix V V ℝ} (M : ℕ)
+    (hstoch : ∀ t, IsRowStochastic (Γ t)) (s : ℕ) (a j : V) :
+    (∑ x : PadIndex V M,
+        (if (((⇑(responseRealization (V := V) Γ M hstoch).step)^[s]) (a, Sum.inr x)).1 = j
+         then (responseRealization (V := V) Γ M hstoch).prior (Sum.inr x) else 0)) = 0 := by
+  refine Finset.sum_eq_zero fun x _ => ?_
+  split <;> simp [responseRealization, responsePrior]
+
 /-- **FIRST-PERIOD MARGINAL AGREEMENT.** At every positive `t < M`, summing the common table prior
 over responses selected by the microscopic cycle gives exactly `Γ_t`. -/
 theorem rootedMap_responseRealization_of_pos_lt {Γ : ℕ → Matrix V V ℝ}
@@ -67,12 +79,14 @@ theorem rootedMap_responseRealization_of_pos_lt {Γ : ℕ → Matrix V V ℝ}
         ∑ f : ResponseTable V M,
           (if (((⇑(responseStep (V := V) M))^[t]) (a, Sum.inl f)).1 = j
            then tableWeight Γ f else 0) := by
-      simp [rootedMap, responseRealization, responsePrior, Fintype.sum_sum_type]
+      simp only [rootedMap]
+      rw [Fintype.sum_sum_type, responseRealization_pad_sum, add_zero]
+      simp only [responseRealization, responsePrior]
+      rfl
     _ = ∑ f : ResponseTable V M, (if f i0 = j then tableWeight Γ f else 0) := by
       apply Finset.sum_congr rfl
       intro f _
       rw [responseStep_visible_of_pos_lt M hM f a t ht0 ht]
-      rfl
     _ = Γ t a j := by
       simpa [tableWeight, responseLocalWeight, i0] using
         (responseWeight_marginal (V := V)
@@ -101,12 +115,21 @@ theorem rootedMap_responseRealization_add_period {Γ : ℕ → Matrix V V ℝ}
       rootedMap (responseRealization (V := V) Γ M hstoch) t := by
   classical
   ext a j
-  simp only [rootedMap, responseRealization]
-  rw [Fintype.sum_sum_type, Fintype.sum_sum_type]
-  simp only [responsePrior, ite_self, Finset.sum_const_zero, add_zero]
-  apply Finset.sum_congr rfl
-  intro f _
-  rw [Function.iterate_add_apply, responseStep_iterate_phaseZero_period M hM f a]
+  simp only [rootedMap]
+  refine Finset.sum_congr rfl fun h _ => ?_
+  cases h with
+  | inl f =>
+      have hret : ((⇑(responseRealization (V := V) Γ M hstoch).step)^[t + M]) (a, Sum.inl f)
+          = ((⇑(responseRealization (V := V) Γ M hstoch).step)^[t]) (a, Sum.inl f) := by
+        rw [Function.iterate_add_apply]
+        show ((⇑(responseStep (V := V) M))^[t]) (((⇑(responseStep (V := V) M))^[M]) (a, Sum.inl f))
+            = ((⇑(responseStep (V := V) M))^[t]) (a, Sum.inl f)
+        rw [responseStep_iterate_phaseZero_period M hM f a]
+      rw [hret]
+  | inr x =>
+      have h0 : (responseRealization (V := V) Γ M hstoch).prior (Sum.inr x) = 0 := rfl
+      rw [h0]
+      split <;> split <;> rfl
 
 /-- **ALL-TIME AGREEMENT.** If the target has period `M`, first-period agreement plus the same
 microscopic `M`-return extends the one realization to every natural time. -/
