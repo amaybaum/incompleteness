@@ -14,7 +14,8 @@ Arc D's exit condition — every operational-QM resource derived, reduced to a s
 condition, or classified as additional, with any single-system source shown to lift through the
 instrument and composite interfaces — is the exit condition of the **arc**, not of this round. This
 round fixes the criterion that later rounds adjudicate against, proves the theorem that makes the
-criterion non-vacuous, and adjudicates one resource. Every other resource is deferred by name below.
+criterion non-vacuous, and reconciles the one already-settled disposition against the layer Arc C
+added. It adjudicates no new resource; every resource is either inherited or deferred by name below.
 
 The bias-allocation machinery of the Arc C round is retired for this one, as
 `OI-QUANTUM-REPRESENTATION-AUDIT-AMENDMENT-1.md` retired it there: this preregistration carries no
@@ -125,50 +126,69 @@ The phase-source audit's four distinctions are inherited verbatim and are not re
 
 ## The frozen disposition criterion
 
-Fix a resource `R` — a predicate on finite operational theories, such as `PhasesAvailable` — and fix
-the stated access, meaning the merged implementation class attached to the OI realization together
-with `genTheory`. The disposition of `R` is exactly one of four:
+Fix a resource `R` — a predicate on finite operational theories, such as `PhasesAvailable` — fix the
+stated access, meaning the merged implementation class attached to the OI realization together with
+`genTheory`, and fix the scope (carrier, level, class). The disposition of `R` at that scope is
+assigned **by precedence**, in this order, and is the first clause that applies:
 
-- **Sourced.** `R (genTheory 𝓘 arch A)` is proved, for the stated access and at the stated scope.
-  This is the roadmap's *Derived*.
-- **Reducible.** `R` is proved to follow from a **named** further physical condition, that condition
-  is stated explicitly, and its own disposition is recorded separately. Necessity, sufficiency, or
-  both are recorded as proved. This is the roadmap's *Conditional*.
-- **Additional.** `¬ R (genTheory 𝓘 arch A)` is proved for the stated access. `R` is then an explicit
-  selection principle rather than a consequence. This is the roadmap's *Independent*.
-- **Open.** None of the three is proved. A failed construction, a bounded search, or a formalization
-  blocker lands here and is never promoted. This is the roadmap's *Open*.
+1. **Sourced.** `R (genTheory 𝓘 arch A)` is proved for the stated access. This is the roadmap's
+   *Derived*.
+2. **Additional.** `¬ R (genTheory 𝓘 arch A)` is proved for the stated access. `R` is then an
+   explicit selection principle rather than a consequence. This is the roadmap's *Independent*.
+3. **Reducible.** Neither of the above is proved, and `R` is proved to follow from a **named**
+   further physical condition, that condition is stated explicitly, and its own status is recorded
+   separately. Necessity, sufficiency, or both are recorded as proved. This is the roadmap's
+   *Conditional*.
+4. **Open.** None of the above. A failed construction, a bounded search, or a formalization blocker
+   lands here and is never promoted. This is the roadmap's *Open*.
 
-The four are mutually exclusive and jointly exhaustive by construction: the first three each require
-a proof, the third is the negation of the first at the same scope, and the fourth is the absence of
-all three. Every adjudicated resource carries exactly one, with the load-bearing hypotheses and the
-scope (carrier, level, class) named beside it.
+Precedence is what makes the four exhaustive and exclusive, and it is doing real work rather than
+tie-breaking. Clauses 1 and 3 genuinely overlap on the facts — a resource the stated access already
+supplies may also follow from some named further condition — and so do clauses 2 and 3, since a
+resource proved absent under the stated access may still follow once a further condition is imposed.
+Without precedence, *Reducible* would swallow verdicts that the stated access has already decided, in
+both directions. So *Reducible* is reserved for the case where the stated access settles nothing.
+
+A conditional or reduction theorem may still be **recorded alongside** a *Sourced* or *Additional*
+disposition, and should be where it is informative. It does not change the disposition, and it is
+never reported as one.
+
+Every adjudicated resource carries exactly one disposition, with the load-bearing hypotheses and the
+scope named beside it, and with the evidence type stated.
 
 ### "Represented" is a disqualified ground, not a disposition
 
-The owner's framing contrasts resources *sourced by OI* with those *merely available in a
-mathematical representation*. That contrast is exactly right, and the criterion above implements it
-by refusing "represented" the status of a disposition.
+The programme framing contrasts resources *sourced by OI* with those *merely available in a
+mathematical representation*. The criterion above implements that contrast by refusing "represented"
+the status of a disposition, at any rank.
 
 The reason is that the represented category, if admitted, is not a category. Target S1 below proves
 that every resource expressible in the representing operator is present in some representation of
 **every** representable family. A disposition that every resource carries for every family
-distinguishes nothing, and admitting it would let any resource be reported at a status above *Open*
-on no evidence about the physics. So representational presence is recorded where it belongs: as a
-ground that is disqualified, by a theorem, from supporting any disposition.
+distinguishes nothing, and admitting it at any rank would let a resource be reported above *Open* on
+no evidence about the physics.
 
-**This is the one drafting decision in this file that departs from the owner's stated wording, and it
-is flagged for the freeze review rather than buried.** The alternative — a three-way *sourced /
-represented / additional* taxonomy — is available and would be honest if S1 fails. If the reviewer
-prefers it, the repair is to make "represented" a disposition of last resort, ranked below
-*Additional* and above *Open*, and to require that anything landing there also record what it would
-take to move it. The round can execute under either, but not under both, and the choice must be
-frozen before execution because it changes what the outcome classes below mean.
+Representational presence is therefore recorded in two places and neither is a status. It is an
+**orthogonal descriptive annotation** — a true and sometimes useful fact about a family, noted where
+it is informative — and it is a **disqualified ground**: it may not support any disposition, and S1
+is exactly what disqualifies it.
 
 ## The round's scope
 
-**Adjudicated in this round:** relative-phase control, at the stated access and the finite carrier
-scope the merged material already supports.
+**Inherited, not adjudicated here:** the disposition of relative-phase control. PR #521 adjudicated
+the phase-source question negatively at the stated access, and PR #515 supplies the merged theorem
+`permTheory_not_phasesAvailable_onesFixing` — the theory generated by the stated `permClass` access
+has no quarter phase at any carrier with two or more states. Under the criterion above that is a
+proved *Additional* disposition, and it stands as merged. This round does not re-prove it, does not
+re-open it, and does not describe it as its own adjudication.
+
+**New in this round:** the stability and reconciliation theorem for that inherited disposition
+against the Arc C layer. Arc C added a representation boundary to the corpus, and the question this
+round must answer is whether anything in it moves an already-settled sourcing verdict. The claim to
+be proved is that `Q*` membership, the Arc C inclusion, and facts about representing data do not
+enlarge `genTheory` under the stated access, so the inherited disposition is unchanged. That claim
+is about the round's own criterion and is not established by the observation that Arc C changed no
+Lean definition in the sourcing modules.
 
 **Deferred, by name, and not adjudicated even provisionally:**
 
@@ -246,7 +266,7 @@ unitaries are as coherent as one likes; S2 says the canonical one is inert. Toge
 the coherent representations exist and carry no sourcing content, which is the quarantine. Neither
 alone is that statement.
 
-### S3 — the first adjudication, and the trivialization that justifies the criterion
+### S3 — the boundary reconciliation, and the trivialization that justifies the criterion
 
 Two parts, reported separately.
 
@@ -263,20 +283,28 @@ The reported conclusion is the disqualification, not the availability: a criteri
 route to sourcing. This is the theorem that makes the disposition criterion non-vacuous, and it is
 why S1 outranks S3 in the outcome precedence below.
 
-**S3b — relative phase, adjudicated.** Record the disposition of relative-phase control against the
-frozen criterion, at the stated access and at the merged scope. The merged material already supplies
-the ingredients: `permClass` is ones-fixing, and no ones-fixing architecture's theory has a quarter
-phase at a carrier with two or more states. The round's own contribution is not to re-prove that; it
-is to state the disposition under the frozen criterion, and to establish that Arc C does not move it.
+**S3b — the stability theorem.** The disposition of relative-phase control is settled and merged:
+`permClass` is ones-fixing, no ones-fixing architecture's theory has a quarter phase at a carrier
+with two or more states, and PR #521 adjudicated the question negatively at the stated access. Under
+the frozen criterion that is *Additional*, and it is inherited. Nothing about it is this round's
+result, and the round does not re-prove it, restate it more strongly, or count it as an adjudication
+of its own.
 
-The obligation specific to this round is the stability claim: neither `Q*` membership, nor the Arc C
-inclusion, nor any fact about a representing datum changes the disposition, because none of them
-enlarges the theory generated by the stated access. That is a claim about the round's own criterion
-and must be proved or reported as unproved; it may not be assumed from the fact that Arc C changed no
-Lean definition in the sourcing modules.
+What is this round's is the reconciliation of that merged verdict with the layer Arc C added. The
+theorem to prove is stability:
 
-Merged findings are inherited, not re-litigated and not re-opened. Where S3b needs one, it cites it,
-and the result note says which part of the disposition is inherited and which is new.
+> the Arc C layer does not enlarge the theory generated by the stated access — `Q*` membership, the
+> inclusion `C_OI ⊆ Q*`, and any fact about a representing datum add no available operation — and so
+> the inherited *Additional* disposition is unchanged.
+
+This is a claim about the round's own criterion, and it must be proved or reported as unproved. It
+may not be assumed from the fact that Arc C changed no Lean definition in the sourcing modules: that
+is an observation about the source tree, not a theorem about availability. S1 and S2 are what make it
+provable rather than asserted — S2 because the canonical witness is inert, S1 because the coherent
+witnesses that do exist supply nothing.
+
+The result note states, in the same place, which part of the phase verdict is inherited and which is
+new. The new part is the stability theorem alone.
 
 ## Outcome taxonomy
 
@@ -288,26 +316,31 @@ precedence order is
 The labels are `RD` to avoid collision with the manuscript's `C1`–`C4`, with `C_OI`, and with Arc C's
 `RC1`–`RC5`.
 
-### RD1 — quarantine proved and a resource adjudicated
+Inheriting a merged disposition is not an outcome. No class below may be reached by restating the
+phase verdict of PR #521, and a report that did so would be recording someone else's result as this
+round's.
 
-S1 is proved, and at least one named resource carries a proved disposition of *Sourced*, *Reducible*
-or *Additional* under the frozen criterion, with its scope and load-bearing hypotheses stated. This
-closes the round. It does not close Arc D, and the report says which deferred resources remain.
+### RD1 — quarantine proved and the boundary reconciled
 
-### RD2 — quarantine proved, no verdict
+S1 is proved, and S3b's stability theorem is proved: the Arc C layer does not enlarge the theory
+generated by the stated access, so the inherited disposition of relative-phase control stands
+unchanged against it, with the scope and load-bearing hypotheses stated. This closes the round. It
+does not close Arc D, and the report says which deferred resources remain.
 
-S1 is proved, with or without S2, and no resource is adjudicated above *Open*. The criterion is fixed
-and carries no verdicts.
+### RD2 — quarantine proved, reconciliation open
+
+S1 is proved, with or without S2, and S3b's stability theorem is not. The quarantine is a general
+theorem and stands on its own; the boundary is left unreconciled and the report says so.
 
 RD2 outranks RD3 deliberately. A general theorem about what representation cannot supply is worth
-more to the programme than a verdict resting on an unproved quarantine, and the ordering keeps a
-verdict whose ground is unproved out of the headline.
+more to the programme than a reconciliation resting on an unproved quarantine, and the ordering keeps
+a conclusion whose ground is unproved out of the headline.
 
-### RD3 — a verdict without the quarantine
+### RD3 — reconciliation without the quarantine
 
-A resource carries a proved disposition, but S1 is unproved. Admissible, and reported with the
-quarantine's status stated in the same place as the verdict, so that the ground is visible without
-reading the sources.
+S3b's stability theorem is proved and S1 is not. Admissible, and reported with the quarantine's
+status stated in the same place as the reconciliation, so that the ground is visible without reading
+the sources.
 
 ### RD4 — criterion only
 
@@ -319,9 +352,9 @@ a definitional result, never as a sourcing result, and never as evidence about a
 No new general theorem and no frozen criterion. Failed constructions, bounded searches and
 formalization blockers are recorded here, and none of them is promoted.
 
-The classes are disjoint as written: RD1 requires S1 and a verdict, RD2 requires S1 without a
-verdict, RD3 requires a verdict without S1, RD4 requires neither with the criterion fixed, RD5
-requires neither with the criterion unfixed.
+The classes are disjoint as written: RD1 requires S1 and the stability theorem, RD2 requires S1
+without it, RD3 requires it without S1, RD4 requires neither with the criterion fixed, RD5 requires
+neither with the criterion unfixed.
 
 ## Mandatory controls
 
@@ -342,33 +375,39 @@ requires neither with the criterion unfixed.
    are cited rather than re-derived. Where a result of this round turns on one, it says so.
 6. **Deferred-resource guard.** No deferred resource receives a disposition, provisionally or
    otherwise, and no result of this round is stated as bearing on one.
-7. **Disposition completeness.** Every adjudicated resource carries exactly one of *Sourced*,
-   *Reducible*, *Additional*, *Open*, with evidence type, scope, and load-bearing hypotheses named.
-   The word "represented" never appears as a disposition unless the freeze review adopts the
-   alternative taxonomy above, in which case the amendment recording that adoption is frozen before
-   execution.
-8. **Padding generality.** S1 is quantified over an arbitrary finite ancilla unitary. A single
+7. **Disposition completeness and precedence.** Every adjudicated resource carries exactly one of
+   *Sourced*, *Additional*, *Reducible*, *Open*, assigned by the frozen precedence and never by
+   whichever clause is most flattering, with evidence type, scope, and load-bearing hypotheses named.
+   A conditional or reduction theorem recorded beside a *Sourced* or *Additional* verdict does not
+   change it. The word "represented" never appears as a disposition, at any rank.
+8. **Inheritance guard.** A disposition already merged is inherited and cited, never re-proved, never
+   restated more strongly, and never counted as this round's adjudication. The relative-phase verdict
+   of PR #521 is the standing instance: this round's result about it is the stability theorem alone,
+   and the report says so where the verdict appears.
+9. **Padding generality.** S1 is quantified over an arbitrary finite ancilla unitary. A single
    padding witness is a control, never the theorem, and the report states the quantifier at the point
    of use.
-9. **Scope split on consequence 3.** The relabelling step of S1's consequence 3 is proved or the
+10. **Scope split on consequence 3.** The relabelling step of S1's consequence 3 is proved or the
    consequence is reported as unproved. A quarantine resting on consequences 1 and 2 is stated as
    resting on them.
-10. **Negative controls, mutation-tested.** A guard `R7-SOURCE` in
+11. **Negative controls, mutation-tested.** A guard `R7-SOURCE` in
     `verification/lean/edge_rigidity_probe.py`, each check mutation-tested with a change-the-source
     assertion, against at least these frozen failure modes: a representation fact cited as a
     sourcing fact; `permData`'s unitary read as anything but a permutation matrix; a deferred
     resource acquiring a disposition; S1 weakened from an arbitrary ancilla unitary to a fixed
-    witness; the augmented class of S3a used as an access.
-11. **Arc-boundary guard.** Nothing here is promoted to composites, locality, entanglement or Bell
+    witness; the augmented class of S3a used as an access; a *Reducible* verdict recorded where the
+    stated access already settles the resource; the merged relative-phase verdict presented as this
+    round's adjudication.
+12. **Arc-boundary guard.** Nothing here is promoted to composites, locality, entanglement or Bell
     structure, which are Arc E. Nothing here decides the decisive Arc D question of whether a deeper
     OI condition sources continuous off-diagonal control.
-12. **`#540` binding.** Mathematical unitary and Born representability does not source the physical
+13. **`#540` binding.** Mathematical unitary and Born representability does not source the physical
     coherent-control repertoire. This round proves a kernel form of that boundary; no result of it
     weakens, replaces, or re-decides the primary-source determination, and none claims the converse.
-13. **No fifth condition.** The round does not name or adopt C5, and does not define the continuously
+14. **No fifth condition.** The round does not name or adopt C5, and does not define the continuously
     tunable non-bijection-valued coupling that earlier audits record as a candidate empirical
     addition.
-14. **Corpus-consistency obligation.** If a theorem proved here contradicts or destabilizes a merged
+15. **Corpus-consistency obligation.** If a theorem proved here contradicts or destabilizes a merged
     description, the result note records it and it becomes a backlog item. Immutable audits receive
     append-only amendments; mutable status surfaces are corrected in place. No manuscript, book,
     bibliography, or publication edit occurs in this round.
@@ -435,15 +474,16 @@ final packaging, subject to frozen-file discipline.
 
 The final report must state separately:
 
-1. the frozen disposition criterion as executed, and whether the freeze review adopted the
-   alternative taxonomy;
+1. the frozen disposition criterion as executed, including the precedence order actually applied and
+   any conditional or reduction theorem recorded beside a verdict without changing it;
 2. S1: proved / partly proved / open, with the quantifier over the ancilla unitary stated, and with
    consequence 3's relabelling step reported as proved or unproved;
 3. S2: proved / open, and the negative statement it licenses, stated as a statement about the Arc C
    witness rather than about `Q*`;
 4. S3a: proved / open, and the disqualification it establishes;
-5. S3b: the disposition of relative-phase control, with scope, evidence type, load-bearing
-   hypotheses, and which part is inherited from merged material;
+5. S3b: the stability theorem, proved / open, with scope, evidence type and load-bearing hypotheses
+   — and, stated in the same place, that the relative-phase *Additional* disposition it stabilizes is
+   inherited from PR #521 and PR #515 and is not this round's adjudication;
 6. every place a representation-level fact was used, and what it was used for;
 7. headline outcome RD1 / RD2 / RD3 / RD4 / RD5;
 8. the deferred resources, restated by name, each still undecided;
