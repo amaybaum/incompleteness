@@ -54,6 +54,12 @@ Likewise, bibliographic, typographic, formatting, or purely historical/provenanc
 
 What is deferred is **new strengthening and proof-narrative integration**, not correction of known errors.
 
+### The under-claiming debt is deferred deliberately
+
+The synchronization gate defers not only new strengthening but also integration of kernel-proved results currently absent from the publication-facing corpus, including the §3.7 under-claiming debt. Those results remain valid verification-layer results during the freeze and are to be integrated at their proved scope in the synchronized manuscript pass. Corrections to statements already known to be false, over-scoped, or misqualified remain exempt from the gate.
+
+This is recorded explicitly because §3.7 classifies under-claiming as the same defect as overclaiming, reflected. Deferring it is a decision about sequencing, not a judgement that the debt is less real, and it should not be discharged piecemeal ahead of the pass.
+
 ## 3. Pre-publication theorem spine
 
 Before the next substantive manuscript synchronization, construct an explicit theorem-to-prose spine for the OI → QM chain:

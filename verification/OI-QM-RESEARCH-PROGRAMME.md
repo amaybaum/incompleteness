@@ -1,6 +1,8 @@
 # OI → QM research programme map
 
-Status base: `main` at `a656642ee8a4d7cc6b58301cbde8000b6b85731b` (post-PR #543); records the results of PR #546, pending its merge.
+Status base: `main` at `a3695ce27b25a468a9593e796fade1a1e938895c` (post-PR #550, Arc C closed).
+
+The formalization-first manuscript synchronization gate and the theorem-to-prose spine are carried by `verification/OI-QM-RESEARCH-PROGRAMME-AMENDMENT-1.md`, referenced from §7 rule 11 and §9.
 
 This file is the canonical **strategic map** for the larger OI → QM research programme. It is not a theorem, an audit, a preregistration, or a replacement for the detailed verification ledger. Its purpose is to state, in one place:
 
@@ -174,6 +176,29 @@ The sharp joint statement is about the **worst case**: the dependence of the con
 
 **Interpretation:** the scaling law is now known, and it is a mathematical law about microscopic periods. It carries no accessibility conclusion in either direction. A bound stated in microscopic periods is not a bound in physical time without an independently sourced relation between one microscopic step, or `ord(phi)`, and experimentally accessible time — and no such relation is supplied here. What #546 establishes is that no fixed accessibility guarantee follows from recurrence alone; it says nothing about which recurrence periods nature realizes.
 
+### 3.10 The OI-realizable rooted stochastic class is characterized intrinsically
+
+Arc B is closed. For finite visible carriers,
+
+`C_OI(V) = PPer(V)`,
+
+where `PPer` asks for identity at the root time, row stochasticity at every time, and periodicity of the family. The characterization is intrinsic: it refers to no hidden permutation construction, and it is kernel-closed.
+
+**Interpretation:** the visible stochastic boundary of finite reversible OI is now known in both directions, at the inherited realization interface and at finite visible carriers. The finite-visible restriction is part of the theorem and is not to be dropped in restatement.
+
+### 3.11 The all-time quantum-representation boundary is settled in both directions
+
+Arc C is closed, with headline outcome **RC1 — proper overlap** between `C_OI` and the all-time fixed-basis Born representation class `Q*`. Carrierwise:
+
+- at the empty carrier, `Q*(V) = ∅ ⊊ C_OI(V)`;
+- at every nonempty finite carrier, `C_OI(V) ⊆ Q*(V)`;
+- at `V = Fin 2`, the inclusion is strict: `C_OI(V) ⊊ Q*(V)`;
+- strictness at every nonempty finite carrier is **not** claimed.
+
+The two failures of global inclusion occur at different carriers, which is why neither one-sided reading is available.
+
+**Interpretation:** this is a representation result and nothing more. It does not source coherent control, phases, Hamiltonians, preparations, measurements, instruments, ancillas, composites, or any other physical operational repertoire. §3.5's separation of the two routes stands, and the #540 boundary remains binding: mathematical representability is not physical availability.
+
 ---
 
 ## 4. Current frontier
@@ -184,11 +209,15 @@ Arc A is closed in its mathematical part (§3.8, §3.9). The recurrence-scale ob
 
 so worst-case `Theta(ord(phi))`. What that does **not** settle is reachability: the law is stated in microscopic periods, and no independently sourced map from microscopic steps to experimentally accessible time exists. Arc A's recurrence-scaling question is closed; physical accessibility is not solved, and it is a sourcing question for Arcs D and E rather than a further stochastic-boundary question.
 
-The active frontier is therefore **Arc B — the intrinsic characterization of the OI-realizable rooted stochastic class `C_OI`**.
+Arcs B and C are also closed (§3.10, §3.11). The class `C_OI` is characterized intrinsically as `PPer` at finite visible carriers, and its relation to the all-time fixed-basis Born class `Q*` is RC1 proper overlap.
 
-The stochastic boundary is now sharp enough for that question to be well-posed. We know what finite reversible OI forces, at which horizon, under which preparation assumptions, and how the horizon scales. What is not known is the converse shape: which rooted stochastic families are realizable at all. Until `C_OI` is characterized intrinsically — without reference to a hidden permutation construction — neither the equivalence endpoint nor the classification endpoint of §1 can be stated, because both quantify over exactly that class.
+The active frontier is therefore **Arc D — the physical sourcing of the quantum operational repertoire**.
 
-No recurrence-scale result should be described as accessible quantum-like nonclassicality without an independent accessibility bound.
+The boundary is now sharp enough for that question to be well-posed, and sharp enough to be misread. Every nonempty OI-realizable family has a fixed-basis Born representation, so the question is no longer whether OI behavior can be written quantum-mechanically. It is which operational quantum resources the OI physics itself **sources**, rather than merely admits in some mathematical representation. The Arc C inclusion witness is the standing trap: its unitary is a permutation matrix, and the representation of a family is in any case not unique.
+
+Arc E — composites, locality, entanglement and Bell structure — remains the required continuation wherever the final claim uses subsystem composition, local operations, incompatible measurements, or quantum correlation structure.
+
+No recurrence-scale result should be described as accessible quantum-like nonclassicality without an independent accessibility bound, and no representation result should be described as physical availability.
 
 ---
 
@@ -208,7 +237,11 @@ The remaining programme should proceed in the following order unless a later aud
 
 The reachability half is **not** met, and is not closed by the scaling law. #546 shows that no fixed accessibility guarantee follows from recurrence alone; it does not establish what recurrence periods physical realizations have. Closing that would need an independently sourced map from microscopic steps, or `ord(phi)`, to experimentally accessible time — which is a sourcing question for Arc D and Arc E, not a further stochastic-boundary question. Arc A's recurrence-scaling question is closed; physical accessibility is not solved.
 
-### Arc B — characterize the full class of OI-realizable rooted stochastic families — **active frontier**
+### Arc B — characterize the full class of OI-realizable rooted stochastic families — **closed**
+
+**Done — PR #547 (§3.10).** `C_OI(V) = PPer(V)` for finite visible carriers, kernel-closed. The ideal endpoint below was reached: the characterization refers to no hidden permutation construction.
+
+**Exit condition — met**, at finite visible carriers. The restriction to finite visible `V` is part of the theorem.
 
 Move beyond examples and individual memory criteria. Seek an intrinsic characterization of the complete family of rooted stochastic processes realizable by finite reversible OI with the allowed observation and preparation structure.
 
@@ -226,7 +259,9 @@ Questions include:
 
 **Why this matters:** if full QM equivalence fails, `C_OI` is the natural precise answer to “what other theories does OI allow?”
 
-### Arc C — close the quantum-representation boundary in both directions
+### Arc C — close the quantum-representation boundary in both directions — **closed**
+
+**Done — PR #550 (§3.11).** Headline RC1, proper overlap, with the carrierwise refinement recorded in §3.11.
 
 Formalize the exact interface between the sourced rooted family and the stochastic-to-Hilbert/Born representation theorem.
 
@@ -237,9 +272,9 @@ Then audit the converse direction:
 - which finite quantum stochastic/measurement structures correspond to OI-realizable rooted families?
 - is every relevant finite quantum representation realizable by an OI hidden reversible realization, or only a subclass?
 
-**Exit condition:** the precise mathematical relation between `C_OI` and the quantum representation class is known in both directions.
+**Exit condition — met.** The precise mathematical relation between `C_OI` and the quantum representation class is known in both directions.
 
-### Arc D — attack physical sourcing of the quantum operational repertoire
+### Arc D — attack physical sourcing of the quantum operational repertoire — **active frontier**
 
 This is likely the decisive equivalence stage.
 
@@ -364,6 +399,7 @@ These four statuses should remain separate in both audits and manuscript summari
 8. Every final equivalence statement must identify which direction is proved and which hypotheses are load-bearing.
 9. State the evidence type of every reported result: kernel-checked, exact-probe-checked, or prose. Rules 1–8 guard the scope of a claim; this one guards its standing. A prose proof is not a formalized success, and a formalization or tooling failure is not a mathematical negative — the second half of that is already §6's *Open*, and the first half is its counterpart. Where a round's positive and negative results carry different evidence types, say so in the same place they are reported, so the asymmetry is visible without reading the sources. A theorem proved from a cited external premise is a fourth type, and is neither a gap nor a fully kernel-checked result; §8 records the corpus's standing instance.
 10. Do not treat the publication-facing corpus as the inventory of what is proved. Where the kernel carries a result at a scope no manuscript states, that is a recorded debt (§3.7), not an absence of the result — and closing it means stating the result at the scope proved, never at a stronger one.
+11. **Formalization-first manuscript synchronization gate.** The central OI → QM claims and proof narrative are not to be strengthened, reorganized, or newly integrated into the publication-facing manuscripts while the load-bearing chain is still being formalized. Arc B and Arc C results remain verification-layer results until the Arc D and Arc E obligations the intended claim actually uses are kernel-closed or carry an explicit disposition under §6. Manuscript integration then proceeds in one synchronized pass, generated from the theorem-to-prose spine rather than from the current prose. Corrections to statements already known to be false, over-scoped, or misqualified are exempt and are never delayed; so are bibliographic, typographic and formatting fixes. The gate, its exception, the spine and the synchronization procedure are stated in full in `verification/OI-QM-RESEARCH-PROGRAMME-AMENDMENT-1.md`, which controls their detail.
 
 ---
 
@@ -403,6 +439,7 @@ Use the following sources for detailed status:
 - `verification/coverage/LEDGER.json` — statement-by-statement proof coverage;
 - `verification/CENSUS-oi-compatible-theories.md` — finite OI-compatible completion classes;
 - the individual `*-AUDIT.md`, `*-RESULT.md`, and amendment files — preregistered questions and exact outcomes;
+- `verification/OI-QM-RESEARCH-PROGRAMME-AMENDMENT-1.md` — the formalization-first manuscript synchronization gate, its exception, the theorem-to-prose spine, and the synchronization procedure;
 - `verification/lean-mathlib/OIBridge/` — kernel statements and their hypotheses;
 - `papers/GR.md`, `papers/Main.md`, the Explainer, and book chapters — publication-facing statements under their scope guards.
 
@@ -412,6 +449,6 @@ Use the following sources for detailed status:
 
 ## 10. Current one-line programme state
 
-At the post-#546 boundary:
+At the post-#550 boundary:
 
-**OI already has a strong finite operational completion classification and a clear quantum-representation route, but bare OI does not yet physically source the full quantum operational repertoire; the stochastic boundary is now settled — the obstruction is proved at the controlling return horizon, that horizon is tight, and its scaling law is worst-case `Theta(ord(phi))` with tight horizons unbounded — so Arc A is mathematically closed while physical reachability remains open, and the immediate task is the intrinsic characterization of the OI-realizable stochastic class `C_OI` before returning to coherent-control sourcing and composite/Bell equivalence.**
+**Arcs B and C are kernel-closed: finite reversible OI yields exactly `PPer` at the rooted stochastic level, and its relation to the all-time fixed-basis Born representation class `Q*` is RC1 proper overlap — so every nonempty OI-realizable family has a mathematical fixed-basis Born representation, and that representation sources no physical quantum operation. Arc D, the physical sourcing of the quantum operational repertoire, is the active frontier, followed by the Arc E composite/locality/Bell obligations the final claim actually uses. Publication-facing strengthening of the central OI → QM argument is deferred under §7 rule 11 until that formal chain is closed or precisely classified, after which the manuscripts are synchronized in one pass from an explicit theorem-to-prose spine.**
