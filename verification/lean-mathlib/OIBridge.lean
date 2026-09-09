@@ -195,6 +195,7 @@ import OIBridge.RootedClassificationAllTime
 import OIBridge.QuantumRepresentation
 import OIBridge.QuantumRepresentationT2
 import OIBridge.QuantumRepresentationT3
+import OIBridge.OperationalSourcing
 
 namespace OIBridge
 
