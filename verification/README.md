@@ -1734,10 +1734,12 @@ class entry, so the two are one translation rather than parallel definitions. Fi
 `OIBridge/QuantumRepresentationT2.lean` carries target T2 and **refutes it**: the Hadamard datum
 with an injective readout is a member of the representation class whose induced rooted family is
 exactly the merged N1 control `pdFamily`, already proved nonperiodic, so the representation class is
-not contained in the OI-realizable one (`qStar_not_subset_finiteRootedRealizable`). The witness has
-to be properly quantum — a permutation datum has finite order and is therefore realizable and
-periodic by the Arc B characterization, so any member outside `C_OI` needs a Born matrix that is not
-a permutation matrix, which on two visible values forces an entry of modulus `1/√2`. Seventeen named
+not contained in the OI-realizable one (`qStar_not_subset_finiteRootedRealizable`). What is forced
+is only that the witness use non-permutation Born dynamics, since a permutation datum has finite
+order and is therefore realizable and periodic by the Arc B characterization; the Hadamard
+amplitudes are not forced, a two-state rotation being non-permutation over an interval of angles
+including rational ones. Hadamard is chosen because its Born matrix is exactly fully mixing, which
+makes the identification with `pdFamily` immediate. Seventeen named
 results. T3 remains open, so the strict half of the relation is proved and the relation is not.
 Guard `R7-QSTAR`.
 

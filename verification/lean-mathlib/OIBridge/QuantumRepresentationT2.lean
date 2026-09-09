@@ -8,19 +8,20 @@
   T2 asks whether `Q* ⊆ C_OI`.  This module REFUTES it, by exhibiting one member of `Q*` and
   invoking a merged theorem that puts it outside `C_OI`.  T3 (`C_OI ⊆ Q*`) is untouched here.
 
-  WHY THE WITNESS MUST BE PROPERLY QUANTUM.  A tempting cheaper route is a permutation datum with a
-  many-to-one readout, whose Born weights are rational indicators and need no irrational entry.  It
-  cannot work, and the reason is Arc B: a permutation of a finite carrier has finite order, so such
-  a family is realizable at the inherited interface and therefore periodic
-  (`finiteRootedRealizable_iff_pper`).  Any `Q*` member outside `C_OI` must come from a unitary
-  whose Born matrix is NOT a permutation matrix, and on two visible values that forces an entry of
-  modulus `1/√2`.  The irrational is structural, not an artefact of the choice below.
+  WHAT IS FORCED, AND WHAT IS ONLY CONVENIENT.  A counterexample must use genuinely NON-PERMUTATION
+  Born dynamics, and that much really is forced: a permutation of a finite carrier has finite order,
+  so by Arc B a permutation datum is realizable at the inherited interface and therefore periodic
+  (`finiteRootedRealizable_iff_pper`).  Nothing beyond that is forced.  In particular the amplitudes
+  below are NOT: a two-state rotation is non-permutation for a whole interval of angles, including
+  rational choices such as `3/5` and `4/5`, and such a witness would refute T2 just as well.
 
-  WHAT THE WITNESS IS.  The Hadamard datum on two visible values with an INJECTIVE readout.  Its
-  Born matrix is fully mixing at every step, so the rooted family it induces is exactly `pdFamily`
-  — the merged N1 control, identity at the root time and fully mixing thereafter.  That family is
-  already proved nonperiodic in the merged corpus (`pdFamily_not_periodicFamily`), so the refutation
-  does not rest on a nonperiodicity argument invented for the occasion.
+  WHAT THE WITNESS IS.  The Hadamard datum on two visible values with an INJECTIVE readout.  It is
+  chosen because its Born matrix is exactly fully mixing, which makes the induced rooted family
+  literally `pdFamily` — the merged N1 control, identity at the root time and fully mixing
+  thereafter — so the identification is immediate and the nonperiodicity is the already-merged
+  `pdFamily_not_periodicFamily` rather than an argument invented for the occasion.  The `1/√2`
+  amplitudes are what "fully mixing" costs on two values; they are convenient for this witness, not
+  a requirement of T2.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
@@ -42,7 +43,8 @@ witness does not lean on the non-injective case at all.  A single valid member o
 outside `C_OI` refutes the inclusion; the harder non-injective classification is not needed for
 that, and is not attempted here. -/
 
-/-- `1/√2`, the entry forced by fully mixing Born weights on two values. -/
+/-- `1/√2`: the amplitude that makes the Born weights on two values exactly fully mixing.
+Other amplitudes give other non-permutation Born matrices, which would serve T2 equally well. -/
 noncomputable def hadAmp : ℂ := ((Real.sqrt 2)⁻¹ : ℝ)
 
 theorem hadAmp_sq : hadAmp * hadAmp = (2 : ℂ)⁻¹ := by
