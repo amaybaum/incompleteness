@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 144 modules and,
-  at this commit, 3,121 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 145 modules and,
+  at this commit, 3,135 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1739,8 +1739,19 @@ is only that the witness use non-permutation Born dynamics, since a permutation 
 order and is therefore realizable and periodic by the Arc B characterization; the Hadamard
 amplitudes are not forced, a two-state rotation being non-permutation over an interval of angles
 including rational ones. Hadamard is chosen because its Born matrix is exactly fully mixing, which
-makes the identification with `pdFamily` immediate. Seventeen named
-results. T3 remains open, so the strict half of the relation is proved and the relation is not.
+makes the identification with `pdFamily` immediate. Seventeen named results.
+
+`OIBridge/QuantumRepresentationT3.lean` carries target T3 and proves it **carrierwise exactly**:
+the inclusion holds on a finite visible carrier if and only if that carrier is inhabited
+(`qStar_inclusion_iff_nonempty`). The construction reads the Arc B realization as a quantum system —
+its reversible step is already a permutation of the product, hence unitary by the merged
+`permMatrix_mem_unitaryGroup`, with the shared hidden prior spread over the product and the visible
+coordinate uniform; conditioning on the visible fibre removes that uniform factor and returns
+`rootedMap`. The empty carrier is a genuine failure rather than an oversight: there the realizable
+class is inhabited while the representation class is empty, since a normalised initial law forces a
+nonempty basis and no map runs from a nonempty basis into an empty carrier. Thirteen named results.
+So for nonempty finite `V` the realizable class is contained in the representation class, and the
+containment is strict at `Fin 2` by the T2 witness; strictness at every carrier is not claimed.
 Guard `R7-QSTAR`.
 
 `OIBridge/RecurrenceHorizon.lean` carries Targets 1 and 2 of

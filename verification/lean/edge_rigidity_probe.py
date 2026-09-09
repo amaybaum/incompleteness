@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_sub &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_flow &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_q3 &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_exec &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_lsrc &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_srcp &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_c5d &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_pcl &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5413,7 +5413,7 @@ for _t in ('strengthens the necessary condition above', 'is not by itself diagno
 ok_ccs &= _pcn_rec1.count('## ') == 1
 # the discovery note is untouched by this round: still exactly one recorded section
 ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
-ok_ccs &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_ccs &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-CCS', ok_ccs,
       'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
@@ -5569,7 +5569,7 @@ for _t in ('stated as a postulate', 'meets the three obligations recorded above'
     ok_smc &= _t in _ccn_rec1
 ok_smc &= _ccn_rec1.count('## ') == 1
 ok_smc &= 'state-mixing coupling construction audit' not in _c5n and 'state-mixing coupling construction audit' not in _pcn
-ok_smc &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_smc &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-SMC', ok_smc,
       'State-mixing coupling guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-five results, defines exactly the datum, its sourcing map, the class family and its full instance, the two '
@@ -5725,7 +5725,7 @@ for _t in ('reduces the datum of this round to a principle', 'stated without the
     ok_rpf &= _t in _smn_rec1
 ok_rpf &= _smn_rec1.count('## ') == 1
 ok_rpf &= 'real pair-flow reduction audit' not in _c5n and 'real pair-flow reduction audit' not in _pcn and 'real pair-flow reduction audit' not in _ccn
-ok_rpf &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_rpf &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-RPF', ok_rpf,
       'Real pair-flow guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty results, defines exactly the principle, its transport, the rotation as conclusion, the local angle, the '
@@ -5883,7 +5883,7 @@ for _t in ('states the principle of this note as a predicate on a finite operati
 ok_pfe &= _rpn_rec1.count('## ') == 1
 for _n in (_smn, _ccn, _pcn, _c5n):
     ok_pfe &= 'operational pair-flow equivalence audit' not in _n and 'PairFlowSourced' not in _n
-ok_pfe &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_pfe &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-PFE', ok_pfe,
       'Operational pair-flow equivalence guard: the module carries no sorry, axiom or native_decide, prints the axioms of '
       'exactly its fifteen results, defines exactly the theory-level predicate on the two-valued carrier and the canonical '
@@ -6046,7 +6046,7 @@ for _t in ('replaces the sourced pair flow of this note by one fixed discrete ga
 ok_dca &= _pfn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n):
     ok_dca &= 'discrete completion audit' not in _n and 'FixedGateSourced' not in _n
-ok_dca &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_dca &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-DCA', ok_dca,
       'Discrete completion guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its fifty-one results, defines exactly the predicates and the metric, the closure of availability, the block '
@@ -6216,7 +6216,7 @@ for _t in ('The frozen text and the outcome of this note are not edited', 'liter
 ok_dib &= _dcn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn):
     ok_dib &= 'dense-instrument bridge' not in _n and 'DenseInstrumentBridge' not in _n
-ok_dib &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_dib &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-DIB', ok_dib,
       'Dense-instrument bridge guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its thirty-two results, defines exactly the shifted theory from identity availability and the bijection matrix, '
@@ -6386,7 +6386,7 @@ for _t in ('The frozen text and the outcome of this note are not edited', '`fixe
 ok_fss &= _din_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn):
     ok_fss &= 'frozen substratum sourcing' not in _n and 'FrozenSourcing' not in _n
-ok_fss &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_fss &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-FSS', ok_fss,
       'Frozen substratum sourcing guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twenty-three results, defines exactly the nonnegativity invariant and nothing else, names nothing C5, mentions '
@@ -6553,7 +6553,7 @@ for _t in ('takes up the narrow reading this note gives its own outcome 3', 'rep
 ok_soi &= _fsn_x1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn, _din):
     ok_soi &= 'stochastic observer interface' not in _n and 'StochasticInterface' not in _n
-ok_soi &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_soi &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-SOI', ok_soi,
       'Stochastic observer-interface determination guard: the module carries no sorry, axiom or native_decide, prints the '
       'axioms of exactly its twelve results, defines exactly the ensemble-determination predicate and nothing else -- no '
@@ -6703,7 +6703,7 @@ for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', '
 # the older notes are untouched by this round
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn, _din, _fsn, _son):
     ok_c4r &= 'causal readback' not in _n and 'CausalReadback' not in _n
-ok_c4r &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_c4r &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-C4R', ok_c4r,
       'C4 causal-readback guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twenty-one results, defines exactly the audit predicates, the rooted realization and the two controls and '
@@ -6796,7 +6796,7 @@ for _bad in ('before recurrence', 'accessible quantum', 'A6 is filled', 'OI supp
              'the parent is necessary', 'forces accessible'):
     ok_rch &= _bad not in _rd1[_rd1.find('OIBridge/RecurrenceHorizon.lean'):
                                _rd1.find('OIBridge/RecurrenceHorizon.lean') + 3000]
-ok_rch &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_rch &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-RCH', ok_rch,
       'Recurrence-horizon guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its nine results, and DEFINES NOTHING -- every predicate is the merged causal-readback round\'s, total '
@@ -6884,7 +6884,7 @@ for _t in ('`R7-SCF`', 'RECURRENCE-SCALING-AUDIT.md', 'Bmat_mul', 'tv_Bmat', 'Bm
 for _bad in ('unbounded family is exhibited', 'S1 is proved', 'inaccessible', 'accessible quantum'):
     ok_scf &= _bad not in _rd1[_rd1.find('OIBridge/ScalingFamily.lean'):
                                _rd1.find('OIBridge/ScalingFamily.lean') + 2200]
-ok_scf &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_scf &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 check('R7-SCF', ok_scf,
       'Scaling-family guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its eleven results, and defines exactly one object -- the symmetric binary channel -- introducing no '
@@ -7035,7 +7035,7 @@ for _t in ('`R7-RCL`', 'finiteRootedRealizable_iff_pper', 'finiteRootedRealizabl
            'The result is finite-visible only', 'Forty named results',
            'pdFamily_not_finiteRootedRealizable', 'C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md'):
     ok_rcl &= _t in _rd1
-ok_rcl &= '144 modules' in _rd1 and '3,121 named results' in _rd1
+ok_rcl &= '145 modules' in _rd1 and '3,135 named results' in _rd1
 # the forbidden readings: this classifies the finite-visible slice and nothing wider. The
 # disclaimers themselves contain the forbidden phrases as negations, so they are REQUIRED text and
 # are excised before the scan -- a guard that trips on its own disclaimer is unsatisfiable, and this
@@ -7205,8 +7205,9 @@ def _qs_root_reachable(txt, root_txt, wf_txt):
     Without this the semantic controls above are unenforceable in practice: an unimported module is
     never elaborated by the bridge job, so CI would report green while never compiling the file the
     guard is guarding. Arc B lost a round to exactly this."""
-    if 'import OIBridge.QuantumRepresentation\n' not in root_txt:
-        return False
+    for _m in ('QuantumRepresentation', 'QuantumRepresentationT2', 'QuantumRepresentationT3'):
+        if ('import OIBridge.' + _m + '\n') not in root_txt:
+            return False
     if re.search(r'lake build\s+OIBridge\.QuantumRepresentation', wf_txt):
         return False
     if re.search(r'lake env lean\s+OIBridge/QuantumRepresentation', wf_txt):
@@ -7232,14 +7233,15 @@ ok_qstar &= _qs_root_reachable(_QS, root, _wf)
 ok_qstar &= _qs_seam_closed(_QS)
 # the reachability contract is mutation-tested the way Arc B's was, since dropping the import is
 # the failure that leaves every other control unenforced
-ok_qstar &= not _qs_root_reachable(_QS, root.replace('import OIBridge.QuantumRepresentation\n', ''), _wf)
+ok_qstar &= not _qs_root_reachable(_QS, root.replace('import OIBridge.QuantumRepresentationT3\n', ''), _wf)
+ok_qstar &= not _qs_root_reachable(_QS, root.replace('import OIBridge.QuantumRepresentationT2\n', ''), _wf)
 ok_qstar &= not _qs_root_reachable(_QS, root, _wf + '\n          lake build OIBridge.QuantumRepresentation\n')
 _qs_m6 = _QS.replace('theorem QfbData.rootTraj_marginal', 'theorem QfbData.rootTraj_partial')
 ok_qstar &= _qs_m6 != _QS and not _qs_seam_closed(_qs_m6)
 # axiom reporting as a source contract: theorem-name set equals print-target set
 _qs_decl = re.findall(r"(?m)^(?:@\[[^\]]*\]\s*)?theorem\s+([A-Za-z_][\w'.]*)", _QS)
 _qs_pr = re.findall(r"#print axioms OIBridge\.QuantumRepresentation\.([\w'.]+)", _QS)
-ok_qstar &= set(_qs_decl) == set(_qs_pr) and len(_qs_decl) == len(set(_qs_decl)) and len(_qs_decl) == 15
+ok_qstar &= set(_qs_decl) == set(_qs_pr) and len(_qs_decl) == len(set(_qs_decl)) and len(_qs_decl) == 16
 _qs_m7 = _QS.replace('#print axioms OIBridge.QuantumRepresentation.QfbData.rootTraj_marginal\n', '', 1)
 ok_qstar &= _qs_m7 != _QS
 ok_qstar &= set(re.findall(r"#print axioms OIBridge\.QuantumRepresentation\.([\w'.]+)", _qs_m7)) != set(_qs_decl)
@@ -7257,7 +7259,7 @@ check('R7-QSTAR', ok_qstar,
       'unenforced because CI would never elaborate the file. The seam between QStar and the horizon theorem is '
       'pinned by the marginal theorem, without which the two are parallel definitions rather than one translation. '
       'Axiom reporting is the source contract used by R7-RCL: the set of theorem names equals the set of print '
-      'targets, fifteen in all.')
+      'targets, sixteen in all.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

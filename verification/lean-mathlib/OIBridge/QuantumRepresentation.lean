@@ -265,6 +265,35 @@ theorem QfbData.sum_bornPow (Q : QfbData V) (hU : Q.U ∈ Matrix.unitaryGroup Q.
       rw [Finset.sum_congr rfl fun c _ => hin c]
       exact ih b
 
+/-- When the Born weight is a deterministic step, its iterate is the iterated step.
+
+Stated for an arbitrary datum, where the basis is an opaque type: the same statement about a
+concrete datum has to fight the elaborator, because a projection out of a `def` does not reduce
+during rewriting. -/
+theorem QfbData.bornPow_of_det (Q : QfbData V) (f : Q.Bas → Q.Bas)
+    (hf : ∀ b b', Q.born b b' = if b' = f b then 1 else 0) :
+    ∀ (t : ℕ) (b b' : Q.Bas), Q.bornPow t b b' = if b' = f^[t] b then 1 else 0 := by
+  intro t
+  induction t with
+  | zero =>
+      intro b b'
+      show (if b = b' then (1 : ℝ) else 0) = _
+      simp only [Function.iterate_zero_apply]
+      by_cases h : b = b'
+      · simp [h]
+      · have h' : ¬ (b' = b) := fun hc => h hc.symm
+        simp [h, h']
+  | succ m ih =>
+      intro b b'
+      show (∑ c, Q.bornPow m b c * Q.born c b') = _
+      have hterm : ∀ c : Q.Bas, Q.bornPow m b c * Q.born c b'
+          = if c = f^[m] b then (if b' = f c then (1 : ℝ) else 0) else 0 := by
+        intro c
+        rw [ih b c, hf c b']
+        split <;> simp
+      rw [Finset.sum_congr rfl fun c _ => hterm c, Finset.sum_ite_eq' univ (f^[m] b)]
+      simp [Function.iterate_succ_apply']
+
 /-! ### The Chapman–Kolmogorov seam
 
 `QStar` is stated through `bornPow`; the horizon theorem is stated through the chain weight.  Until
@@ -429,3 +458,4 @@ targets and neither can drift from the other. -/
 #print axioms OIBridge.QuantumRepresentation.QfbData.rootTraj_marginal
 #print axioms OIBridge.QuantumRepresentation.QfbData.sum_born
 #print axioms OIBridge.QuantumRepresentation.QfbData.sum_bornPow
+#print axioms OIBridge.QuantumRepresentation.QfbData.bornPow_of_det
