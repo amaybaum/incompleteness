@@ -1671,10 +1671,10 @@ candidate (`pdFamily_pDivisible`, `pdFamily_not_c4e_not_c4r`), the delayed-reviv
 exact readback and is P-indivisible (`peFamily_c4e`, `peFamily_pIndivisible`, `control_separation`).
 The kernel proves the divisibility half; that the first control's history-level memory is maximal at
 one bit, and both controls' horizon realizations on the frozen layer, are the exact probes'
-(`review4_probes.py`). Those horizon realizations are exactly that: `build(K)` there carries a
-length-`K` saturating ledger and realizes the displayed behaviour on the prefix up to `K`, with the
-realization free to depend on `K`. Neither control is a complete-family realization, and a family of
-per-horizon realizations is not a single realization agreeing at every time. As complete families
+(`review4_probes.py`). Those horizon realizations are exactly that: for every requested finite
+horizon `K`, `build(K)` constructs a `K`-dependent realization, carrying a length-`K` saturating
+ledger, that agrees through that horizon. That is `∀K ∃R_K ∀t <= K`, which does not give
+`∃R ∀t`: a family of per-horizon realizations is not a single realization agreeing at every time. As complete families
 both are nonperiodic and therefore lie outside the inherited class, which is now a kernel result of
 the Arc B classification: `pdFamily_not_periodicFamily`, `peFamily_not_periodicFamily`,
 `pdFamily_not_finiteRootedRealizable`, `peFamily_not_finiteRootedRealizable`. Verdict: M-A on the mathematics, S-B on the sourcing, reported separately —
