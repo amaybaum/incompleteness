@@ -208,6 +208,44 @@ theorem finiteRootedRealizable_of_realization {Γ : ℕ → Matrix V V ℝ} {H :
     rwa [hfun] at h
   exact (finiteRootedRealizable_iff_pper Γ).mpr hp
 
+/-! ### The standing controls, under the classification
+
+Frozen control 13 of the preregistration: once periodicity necessity is proved, the standing
+description of the two `CausalReadback` controls has to be reconciled. Three statements are separated
+deliberately, because collapsing them is exactly the misreading the control exists to prevent. -/
+
+/-- **THE EXCLUSIVE-OR CONTROL IS NOT PERIODIC.** As a complete family it is the identity at the root
+time and fully mixing at every later time, so no shift fixes it: a period would return it to the
+identity, which it never is again. -/
+theorem pdFamily_not_periodicFamily : ¬ PeriodicFamily (V := Fin 2) pdFamily := by
+  rintro ⟨M, hM, hper⟩
+  obtain ⟨n, rfl⟩ : ∃ n, M = n + 1 := ⟨M - 1, (Nat.succ_pred_eq_of_pos hM).symm⟩
+  have h0 : pdFamily (0 + (n + 1)) (0 : Fin 2) 0 = pdFamily 0 (0 : Fin 2) 0 := by rw [hper 0]
+  simp [pdFamily, J2, Matrix.one_apply] at h0
+
+/-- **THE DELAYED-REVIVAL CONTROL IS NOT PERIODIC.** As a complete family it mixes only at `t = 2`
+and is the identity everywhere else, so no shift fixes it either. -/
+theorem peFamily_not_periodicFamily : ¬ PeriodicFamily (V := Fin 2) peFamily := by
+  rintro ⟨M, hM, hper⟩
+  obtain ⟨n, rfl⟩ : ∃ n, M = n + 1 := ⟨M - 1, (Nat.succ_pred_eq_of_pos hM).symm⟩
+  have h0 : peFamily (2 + (n + 1)) (0 : Fin 2) 0 = peFamily 2 (0 : Fin 2) 0 := by rw [hper 2]
+  simp [peFamily, J2, Matrix.one_apply] at h0
+
+/-- **NEITHER CONTROL IS AN INHERITED REALIZATION AS A COMPLETE FAMILY.** By the classification,
+membership requires a visible period, and neither control has one. This says nothing about the
+horizon constructions that exhibit the controls' displayed behaviour on a bounded prefix: those
+realize the requested prefix, with the realization free to depend on the horizon, and a family of
+per-horizon realizations is not a single realization agreeing at every time. -/
+theorem pdFamily_not_finiteRootedRealizable :
+    ¬ FiniteRootedRealizable (V := Fin 2) pdFamily := fun h =>
+  pdFamily_not_periodicFamily (pper_of_finiteRootedRealizable h).2.2
+
+/-- The same for the delayed-revival control; see `pdFamily_not_finiteRootedRealizable` for the
+horizon distinction this does **not** contradict. -/
+theorem peFamily_not_finiteRootedRealizable :
+    ¬ FiniteRootedRealizable (V := Fin 2) peFamily := fun h =>
+  peFamily_not_periodicFamily (pper_of_finiteRootedRealizable h).2.2
+
 end RootedClassification
 end OIBridge
 
@@ -219,3 +257,7 @@ end OIBridge
 #print axioms OIBridge.RootedClassification.pper_has_responseRealization
 #print axioms OIBridge.RootedClassification.finiteRootedRealizable_iff_pper
 #print axioms OIBridge.RootedClassification.finiteRootedRealizable_of_realization
+#print axioms OIBridge.RootedClassification.pdFamily_not_periodicFamily
+#print axioms OIBridge.RootedClassification.peFamily_not_periodicFamily
+#print axioms OIBridge.RootedClassification.pdFamily_not_finiteRootedRealizable
+#print axioms OIBridge.RootedClassification.peFamily_not_finiteRootedRealizable

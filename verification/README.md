@@ -1670,8 +1670,14 @@ separate the notions: the exclusive-or family is P-divisible at every horizon an
 candidate (`pdFamily_pDivisible`, `pdFamily_not_c4e_not_c4r`), the delayed-revival family exhibits
 exact readback and is P-indivisible (`peFamily_c4e`, `peFamily_pIndivisible`, `control_separation`).
 The kernel proves the divisibility half; that the first control's history-level memory is maximal at
-one bit, and both controls' realizations on the frozen layer, are the exact probes'
-(`review4_probes.py`). Verdict: M-A on the mathematics, S-B on the sourcing, reported separately —
+one bit, and both controls' horizon realizations on the frozen layer, are the exact probes'
+(`review4_probes.py`). Those horizon realizations are exactly that: `build(K)` there carries a
+length-`K` saturating ledger and realizes the displayed behaviour on the prefix up to `K`, with the
+realization free to depend on `K`. Neither control is a complete-family realization, and a family of
+per-horizon realizations is not a single realization agreeing at every time. As complete families
+both are nonperiodic and therefore lie outside the inherited class, which is now a kernel result of
+the Arc B classification: `pdFamily_not_periodicFamily`, `peFamily_not_periodicFamily`,
+`pdFamily_not_finiteRootedRealizable`, `peFamily_not_finiteRootedRealizable`. Verdict: M-A on the mathematics, S-B on the sourcing, reported separately —
 the manuscript's condition does not imply either candidate, the converse is open with its
 positive-support hypothesis named and no ordering forced, so neither candidate is called a
 strengthening; and the architecture does not source the rooted family, #537 remaining binding. No
