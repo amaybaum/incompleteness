@@ -74,6 +74,18 @@ confers no protection, and "the framework needs this to be true" is never an arg
   do not rewrite historical commits or status records merely to make the history
   agree with the latest result.
 
+- Frozen control-plane blob after head movement. When a control-plane
+  preregistration is frozen by exact commit SHA and blob SHA, the blob identity is
+  authoritative. If the PR head changes after freeze approval, re-read the frozen
+  file at the new head and verify its blob SHA. If the approved blob is unchanged,
+  the freeze remains valid; record the new head and the unchanged blob without
+  requiring a full repeat review. If the blob changes at all, the freeze approval
+  lapses and a fresh exact-head/blob freeze review is required before merge or
+  execution. A branch sync, merge-from-base, or unrelated commit therefore does not
+  invalidate a freeze merely by moving the head; it invalidates it only if it
+  changes the frozen blob. This exception applies to the freeze itself, not to
+  ordinary final exact-head review of execution/result PRs.
+
 - Keep verification layers distinct: Lean/kernel certification, exact algebra,
   exhaustive finite computation, numerical evidence, and prose/status checks do
   not substitute for one another.
