@@ -189,6 +189,9 @@ import OIBridge.StochasticInterface
 import OIBridge.CausalReadback
 import OIBridge.RecurrenceHorizon
 import OIBridge.ScalingFamily
+import OIBridge.RootedClassification
+import OIBridge.RootedClassificationT2
+import OIBridge.RootedClassificationAllTime
 
 namespace OIBridge
 

@@ -82,14 +82,6 @@ jobs:
           lean --version
           lake exe cache get
           lake build
-          # The rooted-classification chain is not reachable from the bridge root yet, so
-          # `lake build` above does not compile it. Build it as an explicit target rather than
-          # elaborating the files: `lake env lean` type-checks but writes no object file, so the
-          # all-time module could never load the T2 module it imports, and the job reported a
-          # missing object file whatever the proofs said. This builds base, T2 and all-time in
-          # dependency order and fails on any error in any of them. It goes away once both
-          # modules are root-imported.
-          lake build OIBridge.RootedClassificationAllTime
 
   probes:
     name: Numerical probes
