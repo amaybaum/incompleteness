@@ -26,6 +26,13 @@
   content — availability is a function of the class alone — and the unused Arc C hypotheses are the
   statement that the representation layer is not among its inputs.
 
+  WHAT IS AND IS NOT PROVED.  This package proves class-extensionality of availability, together
+  with stability when Arc C facts are carried as extra hypotheses under the **fixed stated access**.
+  It does **not** prove that an arbitrary newly defined access constructed out of Arc C data would
+  equal `permClass`; that is the augmentation question, and it is S3a's, not this module's.  The
+  inert-hypothesis statements are provenance-quarantine certificates and may not be promoted into a
+  theorem about every imaginable Arc-C-derived augmented access.
+
   This is a **definitional** stability result, and the module says so rather than dressing it up.
   Its value is that it closes an inference route, not that it is deep.  It is also why RD3 of the
   frozen taxonomy is a real outcome class: S3b rests on the access semantics, not on S1 or S2.
@@ -80,21 +87,28 @@ stated access has already settled. -/
 variable {V : Type} [Fintype V] [DecidableEq V]
 
 /-- **S3b, GENERAL FORM.**  A resource available under the stated access stays available in the
-presence of the whole Arc C layer: a rooted family, its `Q*` membership, and a representing datum
-with its law and positive root mass.  The Arc C hypotheses are inert. -/
+presence of the whole Arc C layer: a rooted family, its `Q*` membership, and a datum that
+represents **that** family, with its law and positive root mass.  The Arc C hypotheses are inert.
+
+`_hRep` is what makes `Q` a representing datum of `Γ` rather than an unrelated datum carried
+alongside it: `QStar Γ` asserts only that *some* datum represents `Γ`, and does not make this `Q`
+the witness. -/
 theorem availExt_stable_under_arcC {A : Type} [Fintype A] [DecidableEq A]
     (Γ : ℕ → Matrix V V ℝ) (_hΓ : QStar Γ) (Q : QfbData V) (_hQ : Q.IsLaw)
-    (_hQr : Q.PositiveRootMass) {n : ℕ} {O : Type} [Fintype O] [DecidableEq O]
+    (_hQr : Q.PositiveRootMass) (_hRep : ∀ (a : V) (t : ℕ) (j : V), Γ t a j = Q.rooted t a j)
+    {n : ℕ} {O : Type} [Fintype O] [DecidableEq O]
     {F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ}
     (h : (permTheory A).availExt n O F) :
     (permTheory A).availExt n O F :=
   h
 
 /-- **S3b, THE UNAVAILABILITY DIRECTION.**  The same for what the stated access does *not* supply:
-an unavailable family stays unavailable in the presence of the Arc C layer. -/
+an unavailable family stays unavailable in the presence of the Arc C layer, with `Q` linked to `Γ`
+by `_hRep` as above. -/
 theorem availExt_unavailable_stable_under_arcC {A : Type} [Fintype A] [DecidableEq A]
     (Γ : ℕ → Matrix V V ℝ) (_hΓ : QStar Γ) (Q : QfbData V) (_hQ : Q.IsLaw)
-    (_hQr : Q.PositiveRootMass) {n : ℕ} {O : Type} [Fintype O] [DecidableEq O]
+    (_hQr : Q.PositiveRootMass) (_hRep : ∀ (a : V) (t : ℕ) (j : V), Γ t a j = Q.rooted t a j)
+    {n : ℕ} {O : Type} [Fintype O] [DecidableEq O]
     {F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ}
     (h : ¬ (permTheory A).availExt n O F) :
     ¬ (permTheory A).availExt n O F :=
@@ -105,10 +119,11 @@ control is unchanged against the Arc C layer.
 
 The verdict itself is **inherited**, from `permTheory_not_phasesAvailable_onesFixing` (PR #515) and
 the phase-source adjudication (PR #521).  What this statement adds is only that the Arc C
-hypotheses do not disturb it — they appear and are not used. -/
+hypotheses do not disturb it — they appear and are not used, with `Q` linked to `Γ` by `_hRep`. -/
 theorem phasesUnavailable_stable_under_arcC {A : Type} [Fintype A] [DecidableEq A]
     (Γ : ℕ → Matrix V V ℝ) (_hΓ : QStar Γ) (Q : QfbData V) (_hQ : Q.IsLaw)
-    (_hQr : Q.PositiveRootMass) (h2 : 2 ≤ Fintype.card A) :
+    (_hQr : Q.PositiveRootMass) (_hRep : ∀ (a : V) (t : ℕ) (j : V), Γ t a j = Q.rooted t a j)
+    (h2 : 2 ≤ Fintype.card A) :
     ¬ PhasesAvailable (permTheory A) :=
   permTheory_not_phasesAvailable_onesFixing h2
 
@@ -117,7 +132,8 @@ contains, the stated access is still exactly `permClass`, and `instAvail_congr` 
 generated availability is exactly the merged one.  This is the lemma the two statements above are
 shorthand for. -/
 theorem permClass_unchanged_by_arcC (Γ : ℕ → Matrix V V ℝ) (_hΓ : QStar Γ) (Q : QfbData V)
-    (_hQ : Q.IsLaw) :
+    (_hQ : Q.IsLaw) (_hQr : Q.PositiveRootMass)
+    (_hRep : ∀ (a : V) (t : ℕ) (j : V), Γ t a j = Q.rooted t a j) :
     ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ),
       permClass S K ↔ IsScaledPartialPerm K :=
   fun _ _ _ _ => Iff.rfl
