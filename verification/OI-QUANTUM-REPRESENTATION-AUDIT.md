@@ -259,11 +259,19 @@ distinguish proper overlap from disjointness. Two failed inclusions do not decid
 relations — a witness outside each class says nothing about whether anything lies in both — and
 reporting them as though they did is the inflation this class exists to prevent.
 
-### RC2 — one direction settled, the other open
+### RC2 — the directions are partly settled, the relation is not
 
-Exactly one of T2, T3 is proved or refuted; the other remains open, with the gap stated explicitly.
-Neither the settled direction nor the open one may be presented as the relation. This does not close
-Arc C.
+At least one of T2, T3 is proved or refuted, but the round does not reach the bar RC1 sets. Two
+distinct situations land here, and the report says which:
+
+- exactly one of T2, T3 is settled and the other remains open, with the gap stated; or
+- **both are refuted and the intersection is not characterized**, so it is not known whether the two
+  classes overlap properly or are disjoint.
+
+The second case is a real outcome, not a degenerate one: two refutations are two general theorems,
+and they leave the relation undetermined rather than unresolved. Neither a settled direction, nor an
+open one, nor a pair of refutations may be presented as the relation. Any partial information about
+the intersection is reported alongside. This does not close Arc C.
 
 ### RC3 — the intersection is characterized without either inclusion being settled
 
@@ -364,11 +372,23 @@ final packaging, subject to frozen-file discipline.
 ## Execution discipline
 
 - Freeze this preregistration by exact commit SHA **and blob SHA** before any construction, search,
-  proof search, census, probe, or simulation. Blob identity is authoritative if a rebase becomes
-  unavoidable.
+  proof search, census, probe, or simulation. **Blob identity is authoritative.** Merging the frozen
+  text to `main` makes the record durable; it does not make it uneditable, so the blob remains what
+  identifies the frozen preregistration.
 - Once frozen, this file is immutable. Any execution-affecting correction is an append-only
-  amendment, committed and frozen before the affected work.
-- One PR for this research round.
+  amendment, separately frozen, and committed before the work it affects.
+- **Two PRs for this round, in order.** A **control-plane PR** carrying this file and nothing else is
+  reviewed, frozen, and merged **before** any execution; then exactly one **execution/result PR** is
+  branched from the `main` that already carries the frozen blob.
+- Control-plane PRs are the declared exception to the one-PR-per-round rule: this preregistration,
+  and any later execution-affecting amendment, may be documentation-only PRs of their own. There is
+  still exactly **one** execution/result PR for the round, so the anti-fragmentation discipline that
+  the single-PR rule protected is preserved rather than dropped.
+- No execution occurs on a control-plane PR, and no execution PR modifies this file.
+- The execution PR names the frozen commit and blob in its body, and the result note carries the same
+  provenance. Because the freeze is merged before any research commit exists, the ordering is
+  checkable from the history rather than attested: every execution commit descends from the merge
+  that carried the freeze.
 - Record the post-freeze execution allocation before research begins. The author of this draft holds
   the adversarial targets; the freeze authority does not inherit the drafting priors.
 - Final exact-head review is required after all result files, code, controls, registry updates and CI
