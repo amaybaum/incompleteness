@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_sub &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_flow &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_q3 &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_exec &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_lsrc &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_srcp &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_c5d &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_pcl &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5413,7 +5413,7 @@ for _t in ('strengthens the necessary condition above', 'is not by itself diagno
 ok_ccs &= _pcn_rec1.count('## ') == 1
 # the discovery note is untouched by this round: still exactly one recorded section
 ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
-ok_ccs &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_ccs &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-CCS', ok_ccs,
       'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
@@ -5569,7 +5569,7 @@ for _t in ('stated as a postulate', 'meets the three obligations recorded above'
     ok_smc &= _t in _ccn_rec1
 ok_smc &= _ccn_rec1.count('## ') == 1
 ok_smc &= 'state-mixing coupling construction audit' not in _c5n and 'state-mixing coupling construction audit' not in _pcn
-ok_smc &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_smc &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-SMC', ok_smc,
       'State-mixing coupling guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-five results, defines exactly the datum, its sourcing map, the class family and its full instance, the two '
@@ -5725,7 +5725,7 @@ for _t in ('reduces the datum of this round to a principle', 'stated without the
     ok_rpf &= _t in _smn_rec1
 ok_rpf &= _smn_rec1.count('## ') == 1
 ok_rpf &= 'real pair-flow reduction audit' not in _c5n and 'real pair-flow reduction audit' not in _pcn and 'real pair-flow reduction audit' not in _ccn
-ok_rpf &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_rpf &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-RPF', ok_rpf,
       'Real pair-flow guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty results, defines exactly the principle, its transport, the rotation as conclusion, the local angle, the '
@@ -5883,7 +5883,7 @@ for _t in ('states the principle of this note as a predicate on a finite operati
 ok_pfe &= _rpn_rec1.count('## ') == 1
 for _n in (_smn, _ccn, _pcn, _c5n):
     ok_pfe &= 'operational pair-flow equivalence audit' not in _n and 'PairFlowSourced' not in _n
-ok_pfe &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_pfe &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-PFE', ok_pfe,
       'Operational pair-flow equivalence guard: the module carries no sorry, axiom or native_decide, prints the axioms of '
       'exactly its fifteen results, defines exactly the theory-level predicate on the two-valued carrier and the canonical '
@@ -6046,7 +6046,7 @@ for _t in ('replaces the sourced pair flow of this note by one fixed discrete ga
 ok_dca &= _pfn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n):
     ok_dca &= 'discrete completion audit' not in _n and 'FixedGateSourced' not in _n
-ok_dca &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_dca &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-DCA', ok_dca,
       'Discrete completion guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its fifty-one results, defines exactly the predicates and the metric, the closure of availability, the block '
@@ -6216,7 +6216,7 @@ for _t in ('The frozen text and the outcome of this note are not edited', 'liter
 ok_dib &= _dcn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn):
     ok_dib &= 'dense-instrument bridge' not in _n and 'DenseInstrumentBridge' not in _n
-ok_dib &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_dib &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-DIB', ok_dib,
       'Dense-instrument bridge guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its thirty-two results, defines exactly the shifted theory from identity availability and the bijection matrix, '
@@ -6386,7 +6386,7 @@ for _t in ('The frozen text and the outcome of this note are not edited', '`fixe
 ok_fss &= _din_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn):
     ok_fss &= 'frozen substratum sourcing' not in _n and 'FrozenSourcing' not in _n
-ok_fss &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_fss &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-FSS', ok_fss,
       'Frozen substratum sourcing guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twenty-three results, defines exactly the nonnegativity invariant and nothing else, names nothing C5, mentions '
@@ -6553,7 +6553,7 @@ for _t in ('takes up the narrow reading this note gives its own outcome 3', 'rep
 ok_soi &= _fsn_x1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn, _din):
     ok_soi &= 'stochastic observer interface' not in _n and 'StochasticInterface' not in _n
-ok_soi &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_soi &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-SOI', ok_soi,
       'Stochastic observer-interface determination guard: the module carries no sorry, axiom or native_decide, prints the '
       'axioms of exactly its twelve results, defines exactly the ensemble-determination predicate and nothing else -- no '
@@ -6703,7 +6703,7 @@ for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', '
 # the older notes are untouched by this round
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn, _din, _fsn, _son):
     ok_c4r &= 'causal readback' not in _n and 'CausalReadback' not in _n
-ok_c4r &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_c4r &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-C4R', ok_c4r,
       'C4 causal-readback guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twenty-one results, defines exactly the audit predicates, the rooted realization and the two controls and '
@@ -6796,7 +6796,7 @@ for _bad in ('before recurrence', 'accessible quantum', 'A6 is filled', 'OI supp
              'the parent is necessary', 'forces accessible'):
     ok_rch &= _bad not in _rd1[_rd1.find('OIBridge/RecurrenceHorizon.lean'):
                                _rd1.find('OIBridge/RecurrenceHorizon.lean') + 3000]
-ok_rch &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_rch &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-RCH', ok_rch,
       'Recurrence-horizon guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its nine results, and DEFINES NOTHING -- every predicate is the merged causal-readback round\'s, total '
@@ -6884,7 +6884,7 @@ for _t in ('`R7-SCF`', 'RECURRENCE-SCALING-AUDIT.md', 'Bmat_mul', 'tv_Bmat', 'Bm
 for _bad in ('unbounded family is exhibited', 'S1 is proved', 'inaccessible', 'accessible quantum'):
     ok_scf &= _bad not in _rd1[_rd1.find('OIBridge/ScalingFamily.lean'):
                                _rd1.find('OIBridge/ScalingFamily.lean') + 2200]
-ok_scf &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_scf &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 check('R7-SCF', ok_scf,
       'Scaling-family guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its eleven results, and defines exactly one object -- the symmetric binary channel -- introducing no '
@@ -7035,7 +7035,7 @@ for _t in ('`R7-RCL`', 'finiteRootedRealizable_iff_pper', 'finiteRootedRealizabl
            'The result is finite-visible only', 'Forty named results',
            'pdFamily_not_finiteRootedRealizable', 'C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md'):
     ok_rcl &= _t in _rd1
-ok_rcl &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+ok_rcl &= '143 modules' in _rd1 and '3,102 named results' in _rd1
 # the forbidden readings: this classifies the finite-visible slice and nothing wider. The
 # disclaimers themselves contain the forbidden phrases as negations, so they are REQUIRED text and
 # are excised before the scan -- a guard that trips on its own disclaimer is unsatisfiable, and this
@@ -7066,6 +7066,198 @@ check('R7-RCL', ok_rcl,
       'the family as kernel-only over all three modules and claim neither decidability nor accessibility nor a '
       'wider universe; and the README carries the paragraph, the guard name and the counts.')
 
+
+# ---- R7-QSTAR: the Arc C translation layer -- the frozen root-preparation map, enforced as a
+# SHAPE contract on the source rather than trusted to review ----
+#
+# The frozen preregistration names three rejected preparation maps and one rejected weakening of
+# the horizon theorem. A comment saying they are rejected is worth nothing; each is checked here,
+# and each check is mutation-tested against the specific way it would be broken.
+_QS = open(os.path.join(BRIDGE, 'OIBridge', 'QuantumRepresentation.lean'), encoding='utf-8').read()
+
+
+def _qs_body(txt, head):
+    """The text of one declaration: its header through to the first blank line.
+
+    Stopping at the next declaration instead would swallow the prose between them, and the prose
+    here discusses the very shapes these checks forbid -- the section note spells out `∀K ∃Q_K`.
+    A quantifier check reading that would be inspecting a comment, not the definition."""
+    i = txt.find(head)
+    if i < 0:
+        return ''
+    j = txt.find('\n\n', i)
+    return txt[i:j if j > 0 else len(txt)]
+
+
+def _qs_quantifier_order(txt):
+    """The existential block stands OUTSIDE the root, time and outcome quantifiers.
+
+    This is the frozen order, and it is the whole difference between one system serving every root
+    and a per-root family of systems. A guard on the words alone would pass on either arrangement,
+    so the check is positional."""
+    body = _qs_body(txt, 'def QStar')
+    if not body:
+        return False
+    e, a = body.find('∃ Q : QfbData V'), body.find('∀ (a : V)')
+    if e < 0 or a < 0 or e > a:
+        return False
+    # and nothing existentially quantified after the root quantifier: a per-root datum cannot be
+    # smuggled in as an inner existential
+    return '∃' not in body[a:]
+
+
+def _qs_reuses_all_time_data(txt):
+    """condReal reuses the basis, unitary and readout; only the initial law is re-conditioned.
+
+    Checked on the definition rather than on prose, and backed by the three rfl lemmas: a witness
+    assembled per horizon out of unrelated data cannot make them typecheck."""
+    body = _qs_body(txt, 'noncomputable def QfbData.condReal')
+    if not body:
+        return False
+    for _f in ('Bas := Q.Bas', 'U := Q.U', 'read := Q.read', 'init := Q.condInit a'):
+        if _f not in body:
+            return False
+    flat = ' '.join(txt.split())
+    # word-boundary, not substring: `condReal_readout` CONTAINS `condReal_read`, so a plain `in`
+    # test passes on a rename that removes the lemma. That flaw sat in the first draft of this
+    # guard and its own mutation 5 is what exposed it.
+    for _l in ('condReal_Bas', 'condReal_U', 'condReal_read'):
+        if re.search(r'theorem QfbData\.' + _l + r'\b', flat) is None:
+            return False
+    return True
+
+
+def _qs_read_fibre(txt):
+    """Every conditioning event is the READ FIBRE, never a basis point.
+
+    The frozen map conditions on `read (B_0) = a`. Conditioning on a finer basis-level event gives
+    the preparer the hidden label and is a different class."""
+    for _head, _need in (('noncomputable def QfbData.rootMass', 'fun b => Q.read b = a'),
+                         ('noncomputable def QfbData.condInit', 'if Q.read b = a')):
+        if _need not in _qs_body(txt, _head):
+            return False
+    jm = _qs_body(txt, 'noncomputable def QfbData.jointMass')
+    return 'fun b => Q.read b = a' in jm and "fun b' => Q.read b' = j" in jm
+
+
+def _qs_strong_horizon(txt):
+    """The horizon theorem is the strong one, and the per-horizon form is derived FROM it.
+
+    `∀K ∃Q_K` is satisfied by a different basis at every horizon and would establish nothing about
+    Q*. It appears only as a corollary whose proof cites the strong theorem."""
+    flat = ' '.join(txt.split())
+    if 'theorem QfbData.condReal_law' not in flat:
+        return False
+    if '(Q.condReal a K).law = Q.rootTraj K a' not in flat:
+        return False
+    cor = _qs_body(txt, 'theorem qfbRealizable_rootTraj')
+    return 'Q.condReal_law' in cor and 'Q.condReal_isLaw' in cor
+
+
+ok_qstar = True
+# the four contracts hold as the tree stands
+ok_qstar &= _qs_quantifier_order(_QS)
+ok_qstar &= _qs_reuses_all_time_data(_QS)
+ok_qstar &= _qs_read_fibre(_QS)
+ok_qstar &= _qs_strong_horizon(_QS)
+
+# ... and each is mutation-tested against the exact weakening it exists to catch. Every mutation
+# must CHANGE THE SOURCE: a mutation that fails to mutate records a pass while testing nothing,
+# which is how the Arc B guard shipped a vacuous control.
+_qs_m1 = _QS.replace(
+    '∃ Q : QfbData V, Q.IsLaw ∧ Q.PositiveRootMass ∧ ∀ (a : V) (t : ℕ) (j : V), Γ t a j = Q.rooted t a j',
+    '∀ (a : V), ∃ Q : QfbData V, Q.IsLaw ∧ Q.PositiveRootMass ∧ ∀ (t : ℕ) (j : V), Γ t a j = Q.rooted t a j')
+ok_qstar &= _qs_m1 != _QS and not _qs_quantifier_order(_qs_m1)
+
+_qs_m2 = _QS.replace('  U := Q.U\n', '  U := 1\n')
+ok_qstar &= _qs_m2 != _QS and not _qs_reuses_all_time_data(_qs_m2)
+
+_qs_m3 = _QS.replace('  ∑ b ∈ univ.filter (fun b => Q.read b = a), Q.init b',
+                     '  ∑ b ∈ univ.filter (fun b => b = b), Q.init b')
+ok_qstar &= _qs_m3 != _QS and not _qs_read_fibre(_qs_m3)
+
+_qs_m4 = _QS.replace('  ⟨Q.condReal a K, Q.condReal_isLaw hQ hpos a K, Q.condReal_law a K⟩',
+                     '  ⟨Q.condReal a K, sorry, sorry⟩')
+ok_qstar &= _qs_m4 != _QS and not _qs_strong_horizon(_qs_m4)
+
+_qs_m5 = _QS.replace('theorem QfbData.condReal_read', 'theorem QfbData.condReal_readout')
+ok_qstar &= _qs_m5 != _QS and not _qs_reuses_all_time_data(_qs_m5)
+
+# standing hygiene, and the scope the module is allowed to claim
+_qs_code = re.sub(r'/-.*?-/|--[^\n]*', '', _QS, flags=re.S)
+ok_qstar &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _QS) is None and 'native_decide' not in _QS
+ok_qstar &= 'axiom ' not in _qs_code and re.search(r'(?m)^axiom ', _QS) is None
+# T1 only: the module must not claim either inclusion
+_qs_flat = ' '.join(_QS.split()).lower()
+for _bad in ('qstar_subset', 'subset_qstar', 'pper_iff_qstar', 'qstar_iff_pper'):
+    ok_qstar &= _bad not in _qs_flat
+ok_qstar &= 'decides neither inclusion' in _qs_flat
+# the frozen provenance is carried in the file that implements it
+for _t in ('38a8f09d9d314fdd3d7747d0d0351f07c693c582',
+           '8177527b11a0970c7fc71f1bff382112aaf93aa6',
+           'e809e04aee45181d162bd4a2cc2782751b65f509'):
+    ok_qstar &= _t in _QS
+
+
+def _qs_root_reachable(txt, root_txt, wf_txt):
+    """The module is reached by the ORDINARY build.
+
+    Without this the semantic controls above are unenforceable in practice: an unimported module is
+    never elaborated by the bridge job, so CI would report green while never compiling the file the
+    guard is guarding. Arc B lost a round to exactly this."""
+    if 'import OIBridge.QuantumRepresentation\n' not in root_txt:
+        return False
+    if re.search(r'lake build\s+OIBridge\.QuantumRepresentation', wf_txt):
+        return False
+    if re.search(r'lake env lean\s+OIBridge/QuantumRepresentation', wf_txt):
+        return False
+    return True
+
+
+def _qs_seam_closed(txt):
+    """QStar and the horizon theorem speak about the same object.
+
+    QStar is stated through `bornPow`, the horizon theorem through the chain weight. Without the
+    marginal theorem those are two parallel definitions and T1 is not closed, however green the
+    build is."""
+    flat = ' '.join(txt.split())
+    if 'theorem QfbData.rootTraj_marginal' not in flat:
+        return False
+    if 'Q.rootTraj t a τ = Q.rooted t a j' not in flat:
+        return False
+    return 'theorem QfbData.sum_path' in flat
+
+
+ok_qstar &= _qs_root_reachable(_QS, root, _wf)
+ok_qstar &= _qs_seam_closed(_QS)
+# the reachability contract is mutation-tested the way Arc B's was, since dropping the import is
+# the failure that leaves every other control unenforced
+ok_qstar &= not _qs_root_reachable(_QS, root.replace('import OIBridge.QuantumRepresentation\n', ''), _wf)
+ok_qstar &= not _qs_root_reachable(_QS, root, _wf + '\n          lake build OIBridge.QuantumRepresentation\n')
+_qs_m6 = _QS.replace('theorem QfbData.rootTraj_marginal', 'theorem QfbData.rootTraj_partial')
+ok_qstar &= _qs_m6 != _QS and not _qs_seam_closed(_qs_m6)
+# axiom reporting as a source contract: theorem-name set equals print-target set
+_qs_decl = re.findall(r"(?m)^(?:@\[[^\]]*\]\s*)?theorem\s+([A-Za-z_][\w'.]*)", _QS)
+_qs_pr = re.findall(r"#print axioms OIBridge\.QuantumRepresentation\.([\w'.]+)", _QS)
+ok_qstar &= set(_qs_decl) == set(_qs_pr) and len(_qs_decl) == len(set(_qs_decl)) and len(_qs_decl) == 13
+_qs_m7 = _QS.replace('#print axioms OIBridge.QuantumRepresentation.QfbData.rootTraj_marginal\n', '', 1)
+ok_qstar &= _qs_m7 != _QS
+ok_qstar &= set(re.findall(r"#print axioms OIBridge\.QuantumRepresentation\.([\w'.]+)", _qs_m7)) != set(_qs_decl)
+
+check('R7-QSTAR', ok_qstar,
+      'Arc C translation guard: the frozen root-preparation map is enforced as a SHAPE contract on the source, '
+      'not trusted to review. The QStar existential block is checked POSITIONALLY to stand outside the root, time '
+      'and outcome quantifiers, with no inner existential, so a per-root datum cannot be smuggled in; condReal is '
+      'checked to reuse the basis, unitary and readout, backed by three rfl lemmas a per-horizon witness could not '
+      'satisfy; every conditioning sum is checked to run over the READ FIBRE rather than a basis point; and the '
+      'horizon theorem is checked to be the strong one with the per-horizon form derived FROM it. Each of the four '
+      'is mutation-tested against the exact weakening it exists to catch, and every mutation is asserted to change '
+      'the source, since a mutation that fails to mutate records a pass while testing nothing. Reachability is a '
+      'separate contract and is mutation-tested too: an unimported module would leave every semantic control above '
+      'unenforced because CI would never elaborate the file. The seam between QStar and the horizon theorem is '
+      'pinned by the marginal theorem, without which the two are parallel definitions rather than one translation. '
+      'Axiom reporting is the source contract used by R7-RCL: the set of theorem names equals the set of print '
+      'targets, thirteen in all.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '

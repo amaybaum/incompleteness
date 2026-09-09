@@ -229,6 +229,146 @@ theorem qfbRealizable_rootTraj (Q : QfbData V) (hQ : Q.IsLaw) (hpos : Q.Positive
     (a : V) (K : ℕ) : QfbRealizable (Q.rootTraj K a) :=
   ⟨Q.condReal a K, Q.condReal_isLaw hQ hpos a K, Q.condReal_law a K⟩
 
+/-! ### The Chapman–Kolmogorov seam
+
+`QStar` is stated through `bornPow`; the horizon theorem is stated through the chain weight.  Until
+those are identified, the translation is two parallel definitions rather than one.  The path-sum
+lemma below closes that seam.
+
+It is stated with BOTH endpoint weights general, because the induction reapplies itself at a
+different final weight: one step of `snoc` turns `g` into `fun c => ∑ y, born c y * g y`, and a
+version fixing `g` could not be used on itself. -/
+
+/-- Summing a chain weight over all interior states, against arbitrary initial and final weights,
+is the `t`-step Born transition contracted with those weights. -/
+theorem QfbData.sum_path (Q : QfbData V) :
+    ∀ (t : ℕ) (w g : Q.Bas → ℝ),
+      ∑ σ : Fin (t + 1) → Q.Bas,
+          w (σ 0) * (∏ k : Fin t, Q.born (σ k.castSucc) (σ k.succ)) * g (σ (Fin.last t))
+        = ∑ b, ∑ b', w b * Q.bornPow t b b' * g b' := by
+  intro t
+  induction t with
+  | zero =>
+      intro w g
+      have hl : ∑ σ : Fin 1 → Q.Bas,
+          w (σ 0) * (∏ k : Fin 0, Q.born (σ k.castSucc) (σ k.succ)) * g (σ (Fin.last 0))
+          = ∑ b : Q.Bas, w b * g b :=
+        Fintype.sum_equiv (Equiv.funUnique (Fin 1) Q.Bas) _ _ (by intro σ; simp)
+      rw [hl]
+      refine Finset.sum_congr rfl fun b _ => ?_
+      simp [QfbData.bornPow]
+  | succ m ih =>
+      intro w g
+      rw [← Equiv.sum_comp (Fin.snocEquiv (fun _ : Fin (m + 2) => Q.Bas))
+        (fun σ : Fin (m + 2) → Q.Bas =>
+          w (σ 0) * (∏ k : Fin (m + 1), Q.born (σ k.castSucc) (σ k.succ))
+            * g (σ (Fin.last (m + 1))))]
+      have hterm : ∀ q : Q.Bas × (Fin (m + 1) → Q.Bas),
+          (fun σ : Fin (m + 2) → Q.Bas =>
+            w (σ 0) * (∏ k : Fin (m + 1), Q.born (σ k.castSucc) (σ k.succ))
+              * g (σ (Fin.last (m + 1))))
+              (Fin.snocEquiv (fun _ : Fin (m + 2) => Q.Bas) q)
+          = (w (q.2 0) * ∏ k : Fin m, Q.born (q.2 k.castSucc) (q.2 k.succ))
+              * (Q.born (q.2 (Fin.last m)) q.1 * g q.1) := by
+        rintro ⟨y, σ'⟩
+        have h0 : (Fin.snoc σ' y : Fin (m + 2) → Q.Bas) 0 = σ' 0 := by
+          rw [show (0 : Fin (m + 2)) = (0 : Fin (m + 1)).castSucc from rfl, Fin.snoc_castSucc]
+        simp only [Fin.snocEquiv_apply, Fin.prod_univ_castSucc, Fin.snoc_castSucc,
+          Fin.succ_castSucc, Fin.succ_last, Fin.snoc_last, h0]
+        ring
+      rw [Finset.sum_congr rfl fun q _ => hterm q, Fintype.sum_prod_type_right]
+      have hin : ∀ σ' : Fin (m + 1) → Q.Bas,
+          ∑ y : Q.Bas, (w (σ' 0) * ∏ k : Fin m, Q.born (σ' k.castSucc) (σ' k.succ))
+              * (Q.born (σ' (Fin.last m)) y * g y)
+          = w (σ' 0) * (∏ k : Fin m, Q.born (σ' k.castSucc) (σ' k.succ))
+              * ∑ y : Q.Bas, Q.born (σ' (Fin.last m)) y * g y := by
+        intro σ'
+        rw [← Finset.mul_sum]
+      rw [Finset.sum_congr rfl fun σ' _ => hin σ', ih w (fun c => ∑ y, Q.born c y * g y)]
+      refine Finset.sum_congr rfl fun b _ => ?_
+      have hL : ∑ c, w b * Q.bornPow m b c * (∑ y, Q.born c y * g y)
+          = ∑ c, ∑ y, w b * Q.bornPow m b c * (Q.born c y * g y) :=
+        Finset.sum_congr rfl fun c _ => by rw [Finset.mul_sum]
+      have hR : ∑ b', w b * Q.bornPow (m + 1) b b' * g b'
+          = ∑ b', ∑ c, w b * (Q.bornPow m b c * Q.born c b') * g b' := by
+        refine Finset.sum_congr rfl fun b' _ => ?_
+        show w b * (∑ c, Q.bornPow m b c * Q.born c b') * g b' = _
+        rw [Finset.mul_sum, Finset.sum_mul]
+      rw [hL, hR, Finset.sum_comm]
+      exact Finset.sum_congr rfl fun b' _ => Finset.sum_congr rfl fun c _ => by ring
+
+
+/-- Pushing a weighted sum through a pushforward: summing `F` against `marg w e` is summing
+`F ∘ e` against `w`. -/
+theorem sum_marg_mul {α β : Type*} [Fintype α] [Fintype β] [DecidableEq β]
+    (w : α → ℝ) (e : α → β) (F : β → ℝ) :
+    ∑ b, F b * marg w e b = ∑ x, F (e x) * w x := by
+  classical
+  rw [← Finset.sum_fiberwise_of_maps_to (fun x _ => Finset.mem_univ (e x))
+    (fun x => F (e x) * w x)]
+  refine Finset.sum_congr rfl fun b _ => ?_
+  rw [marg, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun x hx => ?_
+  rw [(Finset.mem_filter.1 hx).2]
+
+theorem QfbData.rootTraj_eq (Q : QfbData V) (K : ℕ) (a : V) (τ : Traj V K) :
+    Q.rootTraj K a τ
+      = (if τ 0 = a then (1 : ℝ) else 0)
+          * marg Q.chainW (fun σ => fun k => Q.read (σ k)) τ / Q.rootMass a := by
+  unfold QfbData.rootTraj
+  split
+  · rw [one_mul]
+  · rw [zero_mul, zero_div]
+
+/-- **T1 seam closed.**  The final-coordinate visible marginal of the root-conditioned trajectory
+law is exactly the `Q*` family entry.  This is what makes `rootTraj` and `rooted` one translation
+rather than two parallel definitions: the horizon theorem and the class now speak about the same
+object. -/
+theorem QfbData.rootTraj_marginal (Q : QfbData V) (t : ℕ) (a j : V) :
+    ∑ τ ∈ univ.filter (fun τ : Traj V t => τ (Fin.last t) = j), Q.rootTraj t a τ
+      = Q.rooted t a j := by
+  classical
+  rw [Finset.sum_filter]
+  have hterm : ∀ τ : Traj V t,
+      (if τ (Fin.last t) = j then Q.rootTraj t a τ else 0)
+      = ((if τ (Fin.last t) = j then (1 : ℝ) else 0) * (if τ 0 = a then (1 : ℝ) else 0))
+          * marg Q.chainW (fun σ => fun k => Q.read (σ k)) τ / Q.rootMass a := by
+    intro τ
+    rw [Q.rootTraj_eq]
+    split
+    · rw [one_mul]
+    · simp
+  rw [Finset.sum_congr rfl fun τ _ => hterm τ]
+  have hdiv : ∀ f : Traj V t → ℝ, ∑ τ, f τ / Q.rootMass a = (∑ τ, f τ) / Q.rootMass a :=
+    fun f => (Finset.sum_div _ _ _).symm
+  rw [hdiv]
+  unfold QfbData.rooted
+  congr 1
+  rw [sum_marg_mul Q.chainW (fun σ => fun k => Q.read (σ k))
+    (fun τ => (if τ (Fin.last t) = j then (1 : ℝ) else 0) * (if τ 0 = a then (1 : ℝ) else 0))]
+  have hshape : ∀ σ : Fin (t + 1) → Q.Bas,
+      ((if Q.read (σ (Fin.last t)) = j then (1 : ℝ) else 0)
+          * (if Q.read (σ 0) = a then (1 : ℝ) else 0)) * Q.chainW σ
+      = ((if Q.read (σ 0) = a then (1 : ℝ) else 0) * Q.init (σ 0))
+          * (∏ k : Fin t, Q.born (σ k.castSucc) (σ k.succ))
+          * (if Q.read (σ (Fin.last t)) = j then (1 : ℝ) else 0) := by
+    intro σ
+    unfold QfbData.chainW
+    ring
+  rw [Finset.sum_congr rfl fun σ _ => hshape σ,
+    Q.sum_path t (fun b => (if Q.read b = a then (1 : ℝ) else 0) * Q.init b)
+      (fun b' => if Q.read b' = j then (1 : ℝ) else 0)]
+  unfold QfbData.jointMass
+  rw [Finset.sum_filter]
+  refine Finset.sum_congr rfl fun b _ => ?_
+  by_cases hb : Q.read b = a
+  · simp only [if_pos hb]
+    rw [Finset.sum_filter]
+    refine Finset.sum_congr rfl fun b' _ => ?_
+    by_cases hb' : Q.read b' = j <;> simp [hb']
+  · simp only [if_neg hb]
+    exact Finset.sum_eq_zero fun b' _ => by ring
+
 end QuantumRepresentation
 
 end OIBridge
@@ -247,3 +387,7 @@ targets and neither can drift from the other. -/
 #print axioms OIBridge.QuantumRepresentation.QfbData.condReal_isLaw
 #print axioms OIBridge.QuantumRepresentation.QfbData.condReal_law
 #print axioms OIBridge.QuantumRepresentation.qfbRealizable_rootTraj
+#print axioms OIBridge.QuantumRepresentation.QfbData.sum_path
+#print axioms OIBridge.QuantumRepresentation.sum_marg_mul
+#print axioms OIBridge.QuantumRepresentation.QfbData.rootTraj_eq
+#print axioms OIBridge.QuantumRepresentation.QfbData.rootTraj_marginal
