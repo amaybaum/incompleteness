@@ -352,10 +352,13 @@ end OIBridge
 #print axioms OIBridge.RootedClassification.rootedMap_zero
 #print axioms OIBridge.RootedClassification.rootedMap_periodic
 #print axioms OIBridge.RootedClassification.rootedMap_mem_PPer
-#print axioms OIBridge.RootedClassification.pper_of_finiteRootedRealizable
+#print axioms OIBridge.RootedClassification.cycleState_val_zero
+#print axioms OIBridge.RootedClassification.cycleState_nonzero
 #print axioms OIBridge.RootedClassification.cycleState_injective
+#print axioms OIBridge.RootedClassification.cyclePerm_apply
 #print axioms OIBridge.RootedClassification.responseStep_cycle
 #print axioms OIBridge.RootedClassification.tableWeight_nonneg
 #print axioms OIBridge.RootedClassification.tableWeight_sum
 #print axioms OIBridge.RootedClassification.responsePrior_nonneg
 #print axioms OIBridge.RootedClassification.responsePrior_sum
+#print axioms OIBridge.RootedClassification.pper_of_finiteRootedRealizable

@@ -250,8 +250,12 @@ end RootedClassification
 end OIBridge
 
 #print axioms OIBridge.RootedClassification.finRotate_iterate_phaseZero_period
+#print axioms OIBridge.RootedClassification.cyclePerm_iterate_phaseZero_period
 #print axioms OIBridge.RootedClassification.responseStep_iterate_phaseZero_period
+#print axioms OIBridge.RootedClassification.responseLocalWeight_sum
+#print axioms OIBridge.RootedClassification.responseRealization_pad_sum
 #print axioms OIBridge.RootedClassification.rootedMap_responseRealization_of_pos_lt
+#print axioms OIBridge.RootedClassification.rootedMap_responseRealization_first_period
 #print axioms OIBridge.RootedClassification.rootedMap_responseRealization_add_period
 #print axioms OIBridge.RootedClassification.responseRealization_agrees_all
 #print axioms OIBridge.RootedClassification.pper_has_responseRealization

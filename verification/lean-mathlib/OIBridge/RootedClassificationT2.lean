@@ -90,6 +90,9 @@ end OIBridge
 
 #print axioms OIBridge.RootedClassification.cyclePerm_iterate
 #print axioms OIBridge.RootedClassification.responseStep_iterate_cycle
+#print axioms OIBridge.RootedClassification.phaseZero_val
+#print axioms OIBridge.RootedClassification.cycleState_phaseZero
 #print axioms OIBridge.RootedClassification.finRotate_iterate_phaseZero_of_lt
+#print axioms OIBridge.RootedClassification.cyclePerm_iterate_phaseZero_of_lt
 #print axioms OIBridge.RootedClassification.responseStep_iterate_phaseZero_of_lt
 #print axioms OIBridge.RootedClassification.responseStep_visible_of_pos_lt
