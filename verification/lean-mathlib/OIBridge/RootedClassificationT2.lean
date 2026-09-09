@@ -53,9 +53,12 @@ theorem cycleState_phaseZero (M : ℕ) (hM : 0 < M) (f : ResponseTable V M) (a :
 /-- Rotating phase zero `t < M` times reaches exactly phase `t`. -/
 theorem finRotate_iterate_phaseZero_of_lt (M : ℕ) (hM : 0 < M) (t : ℕ) (ht : t < M) :
     ((⇑(finRotate M))^[t]) (phaseZero M hM) = (⟨t, ht⟩ : Fin M) := by
-  let k : Fin M := ⟨t, ht⟩
-  have h := congrFun (finCycle_eq_finRotate_iterate (k := k)) (phaseZero M hM)
-  simpa [k, phaseZero] using h.symm
+  letI : NeZero M := ⟨Nat.ne_of_gt hM⟩
+  have hz : phaseZero M hM = (0 : Fin M) := by
+    apply Fin.ext
+    rfl
+  rw [hz, ← finCycle_eq_finRotate_iterate (k := (⟨t, ht⟩ : Fin M))]
+  simp [finCycle]
 
 /-- The abstract response-table cycle reaches the declared phase throughout the first period. -/
 theorem cyclePerm_iterate_phaseZero_of_lt (M : ℕ) (hM : 0 < M)
@@ -80,8 +83,7 @@ theorem responseStep_visible_of_pos_lt (M : ℕ) (hM : 0 < M)
     (((⇑(responseStep (V := V) M))^[t]) (a, Sum.inl f)).1 =
       f (a, (⟨(⟨t, ht⟩ : Fin M), by simpa using Nat.ne_of_gt ht0⟩ : NonzeroPhase M)) := by
   rw [responseStep_iterate_phaseZero_of_lt M hM f a t ht]
-  apply congrArg Prod.fst
-  exact cycleState_nonzero f a _ (by simpa using Nat.ne_of_gt ht0)
+  rw [cycleState_nonzero f a (⟨t, ht⟩ : Fin M) (by simpa using Nat.ne_of_gt ht0)]
 
 end RootedClassification
 end OIBridge
