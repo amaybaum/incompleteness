@@ -46,6 +46,8 @@ open Finset Matrix OIBridge.Equivalence OIBridge.FiniteEntropy
 
 universe u
 
+set_option linter.unusedSectionVars false
+
 variable {V : Type u} [Fintype V] [DecidableEq V]
 
 /-! ### The all-time representation datum
@@ -193,34 +195,55 @@ theorem QfbData.condReal_isLaw (Q : QfbData V) (hQ : Q.IsLaw) (hpos : Q.Positive
     exact div_self (hpos a).ne'
 
 /-- **T1 finite-horizon compatibility.**  The root-conditioned trajectory law is the law of the
-datum that reuses `Q`'s basis, unitary and readout. -/
-theorem QfbData.condReal_law (Q : QfbData V) (hpos : Q.PositiveRootMass) (a : V) (K : ℕ) :
+datum that reuses `Q`'s basis, unitary and readout.
+
+No positivity hypothesis: the identity holds for every `Q`.  Positive root mass is what makes the
+re-conditioned initial law NORMALISED (`condReal_isLaw`), and what makes the conditional reading of
+`rootTraj` meaningful; it is not needed for the two sides to agree, and carrying it here would
+advertise a dependency this proof does not have. -/
+theorem QfbData.condReal_law (Q : QfbData V) (a : V) (K : ℕ) :
     (Q.condReal a K).law = Q.rootTraj K a := by
   funext τ
-  show ∑ σ ∈ univ.filter (fun σ => (fun k => Q.read (σ k)) = τ), (Q.condReal a K).chain σ = _
-  unfold QfbData.rootTraj
-  have hroot : ∀ σ ∈ univ.filter (fun σ : Fin (K + 1) → Q.Bas =>
-      (fun k => Q.read (σ k)) = τ), Q.read (σ 0) = τ 0 :=
-    fun σ hσ => congrFun (Finset.mem_filter.1 hσ).2 0
+  -- Everything is put in one type world before any rewrite fires.  `(Q.condReal a K).Bas` reduces
+  -- to `Q.Bas`, but `rw` matches syntactically, so leaving the structure projections standing
+  -- produced an `Application type mismatch` on `σ k` — the same shape as the Arc B padding bug.
+  -- Unfolding the datum to its literal makes the projections reduce and the two sums comparable.
+  unfold QfbData.rootTraj QfbReal.law marg QfbData.condReal QfbReal.chain QfbReal.born
+    QfbData.chainW QfbData.born QfbData.condInit
+  dsimp only
   split
   · rename_i hτ
-    rw [Finset.sum_congr rfl fun σ hσ => by
-      rw [Q.condReal_chain a K σ, if_pos (by rw [hroot σ hσ]; exact hτ)]]
-    rw [← Finset.sum_div]
-    rfl
+    rw [Finset.sum_div]
+    refine Finset.sum_congr rfl fun σ hσ => ?_
+    have hr : Q.read (σ 0) = τ 0 := congrFun (Finset.mem_filter.1 hσ).2 0
+    rw [if_pos (by rw [hr]; exact hτ), div_mul_eq_mul_div]
   · rename_i hτ
     refine Finset.sum_eq_zero fun σ hσ => ?_
-    rw [Q.condReal_chain a K σ, if_neg]
-    rw [hroot σ hσ]
-    exact hτ
+    have hr : Q.read (σ 0) = τ 0 := congrFun (Finset.mem_filter.1 hσ).2 0
+    rw [if_neg (by rw [hr]; exact hτ), zero_mul]
 
 /-- The weaker per-horizon form, DERIVED from the theorem above.  Stated as a corollary precisely so
 that it cannot be mistaken for the theorem: `∀K ∃Q_K` does not constrain the representing data to be
 the same across horizons, and is not what T1 asks for. -/
 theorem qfbRealizable_rootTraj (Q : QfbData V) (hQ : Q.IsLaw) (hpos : Q.PositiveRootMass)
     (a : V) (K : ℕ) : QfbRealizable (Q.rootTraj K a) :=
-  ⟨Q.condReal a K, Q.condReal_isLaw hQ hpos a K, Q.condReal_law hpos a K⟩
+  ⟨Q.condReal a K, Q.condReal_isLaw hQ hpos a K, Q.condReal_law a K⟩
 
 end QuantumRepresentation
 
 end OIBridge
+
+/-! ### Axiom reporting
+
+Every named result above, printed here, so that the set of theorem names equals the set of print
+targets and neither can drift from the other. -/
+
+#print axioms OIBridge.QuantumRepresentation.QfbData.rootMass_nonneg
+#print axioms OIBridge.QuantumRepresentation.QfbData.condReal_Bas
+#print axioms OIBridge.QuantumRepresentation.QfbData.condReal_U
+#print axioms OIBridge.QuantumRepresentation.QfbData.condReal_read
+#print axioms OIBridge.QuantumRepresentation.QfbData.condReal_born
+#print axioms OIBridge.QuantumRepresentation.QfbData.condReal_chain
+#print axioms OIBridge.QuantumRepresentation.QfbData.condReal_isLaw
+#print axioms OIBridge.QuantumRepresentation.QfbData.condReal_law
+#print axioms OIBridge.QuantumRepresentation.qfbRealizable_rootTraj
