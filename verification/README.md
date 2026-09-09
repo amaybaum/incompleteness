@@ -1752,7 +1752,8 @@ class is inhabited while the representation class is empty, since a normalised i
 nonempty basis and no map runs from a nonempty basis into an empty carrier. Thirteen named results.
 So for nonempty finite `V` the realizable class is contained in the representation class, and the
 containment is strict at `Fin 2` by the T2 witness; strictness at every carrier is not claimed.
-Guard `R7-QSTAR`.
+Guard `R7-QSTAR`. The round's determination, its carrierwise refinement and its instrument findings
+are in `OI-QUANTUM-REPRESENTATION-RESULT.md`.
 
 `OIBridge/RecurrenceHorizon.lean` carries Targets 1 and 2 of
 `RECURRENCE-TIGHTNESS-AUDIT.md`, read under `RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md`, which
