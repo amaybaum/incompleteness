@@ -276,6 +276,104 @@ theorem padData_born (W : Matrix Anc Anc ℂ) (w : Anc → ℝ) (b b' : Q.Bas) (
 
 end Padding
 
+/-! ### S1 — the ancilla chain and the rooted-family invariance
+
+The ancilla factor is named by a small helper rather than by manufacturing a second `QfbData`: an
+ancillary representation datum would carry irrelevant `init` and `read` structure and would invite
+the reading that the ancilla is itself a representation of something. -/
+
+section AncillaChain
+
+variable {Anc : Type} [Fintype Anc] [DecidableEq Anc]
+
+/-- The ancilla one-step weight.  A helper, not a datum. -/
+noncomputable def ancBorn (W : Matrix Anc Anc ℂ) (x x' : Anc) : ℝ := ‖W x' x‖ ^ 2
+
+/-- The ancilla powers, mirroring `QfbData.bornPow`. -/
+noncomputable def ancPow (W : Matrix Anc Anc ℂ) : ℕ → Anc → Anc → ℝ
+  | 0, x, x' => if x = x' then 1 else 0
+  | (t + 1), x, x' => ∑ y, ancPow W t x y * ancBorn W y x'
+
+/-- **ROW SUMS OF THE ANCILLA WEIGHT**, from unitarity.  The argument is the merged
+`QfbData.sum_born` one, at the matrix level. -/
+theorem sum_ancBorn {W : Matrix Anc Anc ℂ} (hW : W ∈ Matrix.unitaryGroup Anc ℂ) (x : Anc) :
+    ∑ x', ancBorn W x x' = 1 := by
+  have h := Matrix.mem_unitaryGroup_iff'.1 hW
+  have hxx := congrFun (congrFun h x) x
+  rw [Matrix.mul_apply, Matrix.one_apply_eq] at hxx
+  have hterm : ∀ r : Anc, (star W) x r * W r x = ((‖W r x‖ ^ 2 : ℝ) : ℂ) := by
+    intro r
+    rw [Matrix.star_eq_conjTranspose, Matrix.conjTranspose_apply, mul_comm,
+      RCLike.star_def, Complex.mul_conj]
+    norm_cast
+    exact Complex.normSq_eq_norm_sq _
+  rw [Finset.sum_congr rfl fun r _ => hterm r, ← Complex.ofReal_sum] at hxx
+  exact_mod_cast hxx
+
+/-- **ROW SUMS OF THE ANCILLA POWERS**: the ancilla marginal is one at every step.  This is what
+makes the padding invisible to the visible family. -/
+theorem sum_ancPow {W : Matrix Anc Anc ℂ} (hW : W ∈ Matrix.unitaryGroup Anc ℂ) :
+    ∀ (t : ℕ) (x : Anc), ∑ x', ancPow W t x x' = 1 := by
+  intro t
+  induction t with
+  | zero => intro x; simp [ancPow, Finset.sum_ite_eq]
+  | succ m ih =>
+      intro x
+      have key : ∀ x' : Anc, ancPow W (m + 1) x x' = ∑ y, ancPow W m x y * ancBorn W y x' :=
+        fun _ => rfl
+      rw [Finset.sum_congr rfl fun x' _ => key x', Finset.sum_comm]
+      have hin : ∀ y : Anc, ∑ x', ancPow W m x y * ancBorn W y x' = ancPow W m x y := by
+        intro y; rw [← Finset.mul_sum, sum_ancBorn hW, mul_one]
+      rw [Finset.sum_congr rfl fun y _ => hin y, ih x]
+
+end AncillaChain
+
+section Invariance
+
+variable {V : Type} [Fintype V] [DecidableEq V] (Q : QfbData V)
+variable {Anc : Type} [Fintype Anc] [DecidableEq Anc]
+
+/-- **THE PADDED POWERS FACTORIZE.**  The chain runs `Q` and the ancilla side by side and never
+mixes them, at every horizon. -/
+theorem padData_bornPow (W : Matrix Anc Anc ℂ) (w : Anc → ℝ) :
+    ∀ (t : ℕ) (b b' : Q.Bas) (x x' : Anc),
+      (padData Q Anc W w).bornPow t (b, x) (b', x')
+        = Q.bornPow t b b' * ancPow W t x x' := by
+  intro t
+  induction t with
+  | zero =>
+      intro b b' x x'
+      show (if (b, x) = (b', x') then (1 : ℝ) else 0)
+        = (if b = b' then (1 : ℝ) else 0) * (if x = x' then (1 : ℝ) else 0)
+      by_cases hb : b = b' <;> by_cases hx : x = x' <;>
+        simp [Prod.ext_iff, hb, hx]
+  | succ m ih =>
+      intro b b' x x'
+      have key : (padData Q Anc W w).bornPow (m + 1) (b, x) (b', x')
+          = ∑ c : Q.Bas × Anc, (padData Q Anc W w).bornPow m (b, x) c
+              * (padData Q Anc W w).born c (b', x') := rfl
+      rw [key, Fintype.sum_prod_type]
+      have hterm : ∀ (c : Q.Bas) (y : Anc),
+          (padData Q Anc W w).bornPow m (b, x) (c, y) * (padData Q Anc W w).born (c, y) (b', x')
+            = (Q.bornPow m b c * Q.born c b') * (ancPow W m x y * ancBorn W y x') := by
+        intro c y
+        rw [ih b c x y, padData_born Q W w c b' y x']
+        simp only [ancBorn]
+        ring
+      calc
+        ∑ c : Q.Bas, ∑ y : Anc,
+            (padData Q Anc W w).bornPow m (b, x) (c, y) * (padData Q Anc W w).born (c, y) (b', x')
+            = ∑ c : Q.Bas, ∑ y : Anc,
+              (Q.bornPow m b c * Q.born c b') * (ancPow W m x y * ancBorn W y x') := by
+              exact Finset.sum_congr rfl fun c _ => Finset.sum_congr rfl fun y _ => hterm c y
+        _ = (∑ c : Q.Bas, Q.bornPow m b c * Q.born c b')
+              * (∑ y : Anc, ancPow W m x y * ancBorn W y x') := by
+              rw [Finset.sum_mul]
+              exact Finset.sum_congr rfl fun c _ => (Finset.mul_sum _ _ _).symm
+        _ = Q.bornPow (m + 1) b b' * ancPow W (m + 1) x x' := rfl
+
+end Invariance
+
 end OperationalSourcing
 
 end OIBridge
@@ -294,4 +392,7 @@ end OIBridge
 #print axioms OIBridge.OperationalSourcing.padData_read
 #print axioms OIBridge.OperationalSourcing.kronecker_mem_unitaryGroup
 #print axioms OIBridge.OperationalSourcing.padData_born
+#print axioms OIBridge.OperationalSourcing.sum_ancBorn
+#print axioms OIBridge.OperationalSourcing.sum_ancPow
+#print axioms OIBridge.OperationalSourcing.padData_bornPow
 #print axioms OIBridge.OperationalSourcing.arcCWitness_not_phasesAvailable
