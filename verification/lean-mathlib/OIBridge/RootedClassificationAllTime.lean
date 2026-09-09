@@ -166,6 +166,48 @@ theorem pper_has_responseRealization {Γ : ℕ → Matrix V V ℝ} (hΓ : PPer �
   refine ⟨M, hM, responseRealization (V := V) Γ M hstoch, ?_⟩
   exact responseRealization_agrees_all M hM hzero hstoch hperiod
 
+/-! ### The classification
+
+One theorem, stating the identification the round was preregistered to obtain. It is assembled from
+the two certified directions and adds no mathematics of its own; the point is that the identification
+exists as a named result rather than as a reader's inference from two separately typed statements.
+-/
+
+/-- **THE FINITE-VISIBLE CLASSIFICATION `C_OI(V) = P_per(V)`.** A complete rooted family over a
+finite visible carrier is realizable by the merged inherited interface — some finite hidden carrier,
+one reversible update on `V × H`, one prior shared by every visible root, exact agreement at every
+time — if and only if it has the identity at the root time, is row-stochastic at every time, and has
+a positive finite visible period.
+
+Forward is `pper_of_finiteRootedRealizable`, resting on finiteness of `V × H` and reversibility;
+reverse is `pper_has_responseRealization`, which supplies one concrete realization for the whole
+family.
+
+**Finite visible carriers only.** `V` carries `Fintype` throughout, and that hypothesis is doing
+work rather than decorating the statement: it is what makes the microscopic update a permutation of a
+finite set, hence of finite order, hence the visible period that the right-hand side asserts. Over an
+infinite visible carrier the update may have infinite order and no period need exist, so this
+classifies the finite-visible slice of the interface and nothing beyond it. The inherited
+`RootedRealization` itself requires only `Fintype H`. -/
+theorem finiteRootedRealizable_iff_pper (Γ : ℕ → Matrix V V ℝ) :
+    FiniteRootedRealizable (V := V) Γ ↔ PPer Γ := by
+  refine ⟨pper_of_finiteRootedRealizable, fun hΓ => ?_⟩
+  obtain ⟨M, _hM, R, hR⟩ := pper_has_responseRealization (V := V) hΓ
+  exact ⟨ResponseHidden V M, inferInstance, R, hR⟩
+
+/-- **THE CARRIER UNIVERSE IS NOT A RESTRICTION.** `FiniteRootedRealizable` quantifies its hidden
+carrier in `V`'s own universe. Any realization at all, on a finite carrier in any universe, still
+yields membership: necessity holds for every universe, and the classification then returns a carrier
+in `V`'s. So nothing is lost by the choice, and this is proved rather than assumed. -/
+theorem finiteRootedRealizable_of_realization {Γ : ℕ → Matrix V V ℝ} {H : Type*} [Fintype H]
+    (R : RootedRealization V H) (hR : ∀ t, rootedMap R t = Γ t) :
+    FiniteRootedRealizable (V := V) Γ := by
+  have hfun : (fun t => rootedMap R t) = Γ := funext hR
+  have hp : PPer Γ := by
+    have h := rootedMap_mem_PPer (V := V) R
+    rwa [hfun] at h
+  exact (finiteRootedRealizable_iff_pper Γ).mpr hp
+
 end RootedClassification
 end OIBridge
 
@@ -175,3 +217,5 @@ end OIBridge
 #print axioms OIBridge.RootedClassification.rootedMap_responseRealization_add_period
 #print axioms OIBridge.RootedClassification.responseRealization_agrees_all
 #print axioms OIBridge.RootedClassification.pper_has_responseRealization
+#print axioms OIBridge.RootedClassification.finiteRootedRealizable_iff_pper
+#print axioms OIBridge.RootedClassification.finiteRootedRealizable_of_realization

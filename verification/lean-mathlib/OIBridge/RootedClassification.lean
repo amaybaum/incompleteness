@@ -99,6 +99,23 @@ theorem responseWeight_marginal {w : I → V → ℝ} (hsum : ∀ i, ∑ j : V, 
 
 end ResponsePrior
 
+/-! ### The semantic class
+
+`PPer` is the visible candidate; this is the class it is a candidate *for*. Keeping the two apart is
+the whole point of the round: the semantic predicate quantifies over hidden carriers and says nothing
+intrinsic, and an answer that merely restates it would be no answer at all. -/
+
+/-- **THE SEMANTIC FINITE-VISIBLE INHERITED CLASS `C_OI(V)`.** A visible family is realizable when
+some finite hidden carrier, one reversible update on `V × H`, and one prior shared by every visible
+root reproduce it exactly at every time.
+
+The hidden carrier is quantified in `V`'s own universe. That is not a restriction: any realization
+whatever, in any universe, yields membership here, and `finiteRootedRealizable_of_realization` proves
+it rather than assuming it. -/
+def FiniteRootedRealizable (Γ : ℕ → Matrix V V ℝ) : Prop :=
+  ∃ (H : Type u) (hH : Fintype H),
+    ∃ R : @RootedRealization V H hH, ∀ t, @rootedMap V H _ hH R t = Γ t
+
 /-! ### T1 necessity -/
 
 /-- **ROOT TIME IS THE IDENTITY.** This uses only the common hidden prior normalization and the
@@ -317,6 +334,15 @@ noncomputable def responseRealization (Γ : ℕ → Matrix V V ℝ) (M : ℕ)
   prior_nonneg := responsePrior_nonneg hstoch
   prior_sum := responsePrior_sum hstoch
 
+/-- **NECESSITY AT THE SEMANTIC CLASS.** The forward half of the classification, stated against the
+existential predicate rather than against a fixed realization. -/
+theorem pper_of_finiteRootedRealizable {Γ : ℕ → Matrix V V ℝ}
+    (h : FiniteRootedRealizable (V := V) Γ) : PPer Γ := by
+  obtain ⟨H, hH, R, hR⟩ := h
+  have hfun : (fun t => @rootedMap V H _ hH R t) = Γ := funext hR
+  have := @rootedMap_mem_PPer V _ _ H hH R
+  rwa [hfun] at this
+
 end RootedClassification
 end OIBridge
 
@@ -326,6 +352,7 @@ end OIBridge
 #print axioms OIBridge.RootedClassification.rootedMap_zero
 #print axioms OIBridge.RootedClassification.rootedMap_periodic
 #print axioms OIBridge.RootedClassification.rootedMap_mem_PPer
+#print axioms OIBridge.RootedClassification.pper_of_finiteRootedRealizable
 #print axioms OIBridge.RootedClassification.cycleState_injective
 #print axioms OIBridge.RootedClassification.responseStep_cycle
 #print axioms OIBridge.RootedClassification.tableWeight_nonneg
