@@ -229,6 +229,42 @@ theorem qfbRealizable_rootTraj (Q : QfbData V) (hQ : Q.IsLaw) (hpos : Q.Positive
     (a : V) (K : ℕ) : QfbRealizable (Q.rootTraj K a) :=
   ⟨Q.condReal a K, Q.condReal_isLaw hQ hpos a K, Q.condReal_law a K⟩
 
+/-! ### Row sums of the Born transition
+
+Unitarity, not an assumption: the columns of `U` are unit vectors, which is what makes each Born row
+sum to one. Copied in shape from `QfbReal.sum_born`, and lifted to the iterate because both T2 and
+T3 need it. -/
+
+theorem QfbData.sum_born (Q : QfbData V) (hU : Q.U ∈ Matrix.unitaryGroup Q.Bas ℂ)
+    (b : Q.Bas) : ∑ b', Q.born b b' = 1 := by
+  have h := Matrix.mem_unitaryGroup_iff'.1 hU
+  have hbb := congrFun (congrFun h b) b
+  rw [Matrix.mul_apply, Matrix.one_apply_eq] at hbb
+  have hterm : ∀ r : Q.Bas, (star Q.U) b r * Q.U r b = ((‖Q.U r b‖ ^ 2 : ℝ) : ℂ) := by
+    intro r
+    rw [Matrix.star_eq_conjTranspose, Matrix.conjTranspose_apply, mul_comm,
+      RCLike.star_def, Complex.mul_conj]
+    norm_cast
+    exact Complex.normSq_eq_norm_sq _
+  rw [Finset.sum_congr rfl fun r _ => hterm r, ← Complex.ofReal_sum] at hbb
+  exact_mod_cast hbb
+
+theorem QfbData.sum_bornPow (Q : QfbData V) (hU : Q.U ∈ Matrix.unitaryGroup Q.Bas ℂ) :
+    ∀ (t : ℕ) (b : Q.Bas), ∑ b', Q.bornPow t b b' = 1 := by
+  intro t
+  induction t with
+  | zero => intro b; simp [QfbData.bornPow, Finset.sum_ite_eq]
+  | succ m ih =>
+      intro b
+      have key : ∀ b' : Q.Bas, Q.bornPow (m + 1) b b' = ∑ c, Q.bornPow m b c * Q.born c b' :=
+        fun _ => rfl
+      rw [Finset.sum_congr rfl fun b' _ => key b', Finset.sum_comm]
+      have hin : ∀ c : Q.Bas, ∑ b', Q.bornPow m b c * Q.born c b' = Q.bornPow m b c := by
+        intro c
+        rw [← Finset.mul_sum, Q.sum_born hU c, mul_one]
+      rw [Finset.sum_congr rfl fun c _ => hin c]
+      exact ih b
+
 /-! ### The Chapman–Kolmogorov seam
 
 `QStar` is stated through `bornPow`; the horizon theorem is stated through the chain weight.  Until
@@ -391,3 +427,5 @@ targets and neither can drift from the other. -/
 #print axioms OIBridge.QuantumRepresentation.sum_marg_mul
 #print axioms OIBridge.QuantumRepresentation.QfbData.rootTraj_eq
 #print axioms OIBridge.QuantumRepresentation.QfbData.rootTraj_marginal
+#print axioms OIBridge.QuantumRepresentation.QfbData.sum_born
+#print axioms OIBridge.QuantumRepresentation.QfbData.sum_bornPow

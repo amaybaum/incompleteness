@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 143 modules and,
-  at this commit, 3,102 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 144 modules and,
+  at this commit, 3,121 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1729,8 +1729,17 @@ the same basis, unitary and readout with only the initial law re-conditioned
 (`QfbData.condReal_law`), and the per-horizon existential is derived from it rather than standing in
 for it. The seam between the class and that theorem is closed by `QfbData.rootTraj_marginal`, which
 identifies the final-coordinate visible marginal of the root-conditioned trajectory law with the
-class entry, so the two are one translation rather than parallel definitions. Thirteen named
-results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Guard `R7-QSTAR`.
+class entry, so the two are one translation rather than parallel definitions. Fifteen named results, each printing only `propext`, `Classical.choice`, `Quot.sound`.
+
+`OIBridge/QuantumRepresentationT2.lean` carries target T2 and **refutes it**: the Hadamard datum
+with an injective readout is a member of the representation class whose induced rooted family is
+exactly the merged N1 control `pdFamily`, already proved nonperiodic, so the representation class is
+not contained in the OI-realizable one (`qStar_not_subset_finiteRootedRealizable`). The witness has
+to be properly quantum — a permutation datum has finite order and is therefore realizable and
+periodic by the Arc B characterization, so any member outside `C_OI` needs a Born matrix that is not
+a permutation matrix, which on two visible values forces an entry of modulus `1/√2`. Seventeen named
+results. T3 remains open, so the strict half of the relation is proved and the relation is not.
+Guard `R7-QSTAR`.
 
 `OIBridge/RecurrenceHorizon.lean` carries Targets 1 and 2 of
 `RECURRENCE-TIGHTNESS-AUDIT.md`, read under `RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md`, which
