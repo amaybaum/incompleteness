@@ -44,7 +44,13 @@ Section D carries the carrier lower bound:
   a subset sum of the |H| numbers prior h.
 
   COROLLARY.  No carrier bound is a function of |V| alone: at |V| = 2 there are period-M families
-  in P_per forcing |H| >= M.
+  in P_per forcing |H| >= M, for every M.
+
+  The denominator carrying the radicals must depend on the family.  A fixed one bounds the primes it
+  can admit -- at 1/2 + sqrt(q)/100 the entry leaves [0,1] at q = 2503, and only 367 primes sit below
+  that, so a fixed denominator reaches M <= 368 and no further.  Taking D = 4*max(q_k) keeps every
+  entry in [0,1] because 4q <= D^2, and dividing by a nonzero rational leaves
+  {1, sqrt q_1, ..., sqrt q_(M-1)} Q-linearly independent, so the span dimension is untouched.
 
 This is an existential worst-case lower bound, not a pointwise claim and not a Theta(M) claim, and
 it does not cross the construction's upper bound |V|^(|V|M) (1 + |V|M) at any M.  The counting
@@ -288,7 +294,8 @@ check("a family without a deterministic collision is not excluded by the theorem
 
 print("\nSection D — no carrier bound is a function of |V| alone")
 
-PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23]
+PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
+          73, 79, 83, 89, 97, 101, 103, 107, 109, 113]
 
 
 def rank_Q(vectors):
@@ -313,21 +320,36 @@ def rank_Q(vectors):
 
 
 def radical_family(M):
-    """|V| = 2, period M, Gamma_k = B(1/2 + sqrt(q_k)/100) on the basis {1, sqrt q_1, ...}.
+    """|V| = 2, period M, Gamma_k = B(1/2 + sqrt(q_k)/D) with D = 4*max(q_k) over the primes used.
 
     Square roots of distinct primes are Q-linearly independent, so the entries span a Q-space of
-    dimension M. Coefficients stay rational; no floating point enters.
+    dimension M. The denominator is family-dependent for the reason in the module docstring: a fixed
+    one admits only finitely many primes and so cannot reach arbitrary M. Coefficients stay
+    rational; no floating point enters, and the range condition below is an integer inequality.
     """
+    qs = PRIMES[:M - 1]
+    qmax = max(qs) if qs else 1
+    den = 4 * qmax
     dim = 1 + len(PRIMES)
     one = [Q(1)] + [Q(0)] * (dim - 1)
     zero = [Q(0)] * dim
     gam = [[[one, zero], [zero, one]]]
     for k in range(1, M):
         p = [Q(1, 2)] + [Q(0)] * (dim - 1)
-        p[k] = Q(1, 100)
+        p[k] = Q(1, den)
         q = [a - b for a, b in zip(one, p)]
         gam.append([[p, q], [q, p]])
-    return gam, one
+    return gam, one, qs, den
+
+
+def entries_in_unit_interval(qs, den):
+    """0 <= 1/2 + sqrt(q)/den <= 1 for every q used, as exact integer arithmetic.
+
+    The condition is |sqrt(q)/den| <= 1/2, i.e. 4q <= den^2. Checking row sums alone cannot see
+    this: p + (1-p) = 1 holds coordinatewise whatever p is, which is why a family with an entry
+    above 1 passed an earlier version of this probe.
+    """
+    return all(4 * q <= den * den for q in qs)
 
 
 def upper_bound(nV, M):
@@ -335,14 +357,21 @@ def upper_bound(nV, M):
 
 
 crossed = False
-for M in range(1, 10):
-    gam, one = radical_family(M)
+ranges_ok = True
+for M in range(1, 21):
+    gam, one, qs, den = radical_family(M)
     rows_ok = all(all([sum(c) for c in zip(*row)] == one for row in G) for G in gam)
+    ranges_ok &= entries_in_unit_interval(qs, den)
     dim = rank_Q([e for G in gam for row in G for e in row])
     if not (rows_ok and dim == M and dim <= upper_bound(2, M)):
         crossed = True
-check("period-M families force |H| >= M at |V| = 2, for M = 1..9", not crossed)
+check("period-M families force |H| >= M at |V| = 2, for M = 1..20", not crossed)
+check("every entry stays in [0,1]: 4q <= den^2 over the primes used", ranges_ok)
 check("the forced carrier never crosses the construction's upper bound", not crossed)
+# Negative control on the denominator, so the family-dependent choice has observable content: a
+# fixed denominator of 100 puts the entry above 1 at the first prime past 2500.
+check("a fixed denominator fails: 1/2 + sqrt(2503)/100 > 1",
+      not entries_in_unit_interval([2503], 100) and entries_in_unit_interval([2503], 4 * 2503))
 
 # ------------------------------------------------------- Section E, negative visible controls
 
