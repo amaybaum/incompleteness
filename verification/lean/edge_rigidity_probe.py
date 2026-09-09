@@ -3757,7 +3757,7 @@ for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI'
            'no executability question', 'A6 is a gap', 'owner decision', 'third preregistered outcome'):
     ok_sub &= _t in _rd1
 ok_sub &= 'gap being exactly the phases' not in _cen_sa and 'the full gap to `SubstratumAvail` is not characterized' in _cen_sa
-ok_sub &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_sub &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 ok_sub &= '## Migration, recorded after the round' in _san and 'scalarHull_permClass_iff' in _san1
 ok_sub &= '## Migration to instrument realization, recorded after the round' in _san
 ok_sub &= 'permClass_unitaryRaySaturated' in _san1 and 'realized_of_instAvail permClass_arch' in _san1
@@ -4168,7 +4168,7 @@ for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_r
            'the absence of phases witnesses the failure', 'unique or minimal missing resource',
            'from `DerivedOI`, is untouched and stays open', 'not a minimal one', 'Route A in either direction'):
     ok_flow &= _t in _rd1
-ok_flow &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_flow &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-FLOW', ok_flow,
       'Flow-endpoint guard: the module carries no sorry, axiom or native_decide and prints the axioms of exactly '
       'its fifteen results; it defines nothing but the test theory, the generated theory of the ones-fixing class, '
@@ -4484,7 +4484,7 @@ for _t in ('`R7-Q3`', 'DERIVED-Q3-AUDIT.md', 'gateFlow_isolation_flip', 'phaseFr
            'Seventeen named results', 'time reversal replacing the continuous phase',
            'the step at which the phase hypothesis is consumed', 'two named assumptions', 'nor derived from the closure'):
     ok_q3 &= _t in _rd1
-ok_q3 &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_q3 &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-Q3', ok_q3,
       'Q3 guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its seventeen '
       'results, defines the sign flip and no intervention kind, class or theory, and cites neither the continuous '
@@ -4704,7 +4704,7 @@ for _t in ('`R7-EXEC`', 'EXEC-SOURCE-AUDIT.md', 'exists_nonMonomial_of_layerFlow
            'a non-monomial operator alone being no guarantee', 'underdetermined for the observer-level lift',
            'an additional physical assumption on the route'):
     ok_exec &= _t in _rd1
-ok_exec &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_exec &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-EXEC', ok_exec,
       'Executability-source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twelve results, defines nothing and places no gate flow in a class; the necessary condition, the '
@@ -4848,7 +4848,7 @@ for _t in ('`R7-LSRC`', 'LIFT-SOURCE-AUDIT.md', 'not_layerFlowExecutable_of_pres
            'no exclusion of other realizations of those channels claimed',
            'underdetermined for the wave-operator lift', 'The verdict of the executability-source audit stands unchanged'):
     ok_lsrc &= _t in _rd1
-ok_lsrc &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_lsrc &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 _ls_exsec = _exn_ls[_exn_ls.find('## The lift, decided for the formulations that land'):_exn_ls.find('## The outcome')]
 _ls_maasec = _maa_ls[_maa_ls.find('## The third item of the missing interface'):]
 _ls_cenrow = _cen_ps[_cen_ps.find('| lift source: the observer-level lift in the operational interface |'):]
@@ -4971,7 +4971,7 @@ for _t in ('`R7-SRCP`', 'SOURCING-PROPAGATION-AUDIT.md', 'the sourcing statement
            'the equivalence exact and the sourcing of this one hypothesis not', 'six occurrences',
            'the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed'):
     ok_srcp &= _t in _rd1
-ok_srcp &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_srcp &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-SRCP', ok_srcp,
       'Sourcing propagation guard: GR 3.3\'s layer-flow paragraph carries the sourcing statement after its second '
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
@@ -5096,7 +5096,7 @@ for _bad in ('both obligations fail for a single reason', 'fail for one and the 
              'cut off from both obligations', 'not kernel-proved', 'Both obligations then fail'):
     ok_c5d &= _bad not in _rd1 and _bad not in _c5_fam[0]['note'] and _bad not in re.sub(r'\s+', ' ', _c5n[_c5n.find('## The outcome'):])
 ok_c5d &= 'Verdict C, underdetermined, read under the round' in _c5_fam[0]['note'] and 'does not prove failure after the instrument closure' in _c5_fam[0]['note']
-ok_c5d &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_c5d &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-C5D', ok_c5d,
       'C5 discovery guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'seventeen results, defines exactly the battery, the Hadamard coefficient and matrix, the two images, the '
@@ -5273,7 +5273,7 @@ for _t in ('Test 8 above is unchanged', 'The verdict C of this note is unchanged
            'a candidate theory of that round', 'Nothing is named C5 or adopted'):
     ok_pcl &= _t in _c5n_rec1
 ok_pcl &= _c5n_rec1.count('## ') == 1
-ok_pcl &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_pcl &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-PCL', ok_pcl,
       'Polarization closure guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-six results, defines exactly the relabelling-closed class and its theory, the countability apparatus, the '
@@ -5413,7 +5413,7 @@ for _t in ('strengthens the necessary condition above', 'is not by itself diagno
 ok_ccs &= _pcn_rec1.count('## ') == 1
 # the discovery note is untouched by this round: still exactly one recorded section
 ok_ccs &= _c5n.count('## Recorded after the round') == 1 and 'coherent-continuum' not in _c5n
-ok_ccs &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_ccs &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-CCS', ok_ccs,
       'Coherent-continuum source guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its seventeen results, defines exactly the two cover predicates and the diagonal weight, nothing named C5, no '
@@ -5569,7 +5569,7 @@ for _t in ('stated as a postulate', 'meets the three obligations recorded above'
     ok_smc &= _t in _ccn_rec1
 ok_smc &= _ccn_rec1.count('## ') == 1
 ok_smc &= 'state-mixing coupling construction audit' not in _c5n and 'state-mixing coupling construction audit' not in _pcn
-ok_smc &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_smc &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-SMC', ok_smc,
       'State-mixing coupling guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty-five results, defines exactly the datum, its sourcing map, the class family and its full instance, the two '
@@ -5725,7 +5725,7 @@ for _t in ('reduces the datum of this round to a principle', 'stated without the
     ok_rpf &= _t in _smn_rec1
 ok_rpf &= _smn_rec1.count('## ') == 1
 ok_rpf &= 'real pair-flow reduction audit' not in _c5n and 'real pair-flow reduction audit' not in _pcn and 'real pair-flow reduction audit' not in _ccn
-ok_rpf &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_rpf &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-RPF', ok_rpf,
       'Real pair-flow guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly its '
       'twenty results, defines exactly the principle, its transport, the rotation as conclusion, the local angle, the '
@@ -5883,7 +5883,7 @@ for _t in ('states the principle of this note as a predicate on a finite operati
 ok_pfe &= _rpn_rec1.count('## ') == 1
 for _n in (_smn, _ccn, _pcn, _c5n):
     ok_pfe &= 'operational pair-flow equivalence audit' not in _n and 'PairFlowSourced' not in _n
-ok_pfe &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_pfe &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-PFE', ok_pfe,
       'Operational pair-flow equivalence guard: the module carries no sorry, axiom or native_decide, prints the axioms of '
       'exactly its fifteen results, defines exactly the theory-level predicate on the two-valued carrier and the canonical '
@@ -6046,7 +6046,7 @@ for _t in ('replaces the sourced pair flow of this note by one fixed discrete ga
 ok_dca &= _pfn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n):
     ok_dca &= 'discrete completion audit' not in _n and 'FixedGateSourced' not in _n
-ok_dca &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_dca &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-DCA', ok_dca,
       'Discrete completion guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its fifty-one results, defines exactly the predicates and the metric, the closure of availability, the block '
@@ -6216,7 +6216,7 @@ for _t in ('The frozen text and the outcome of this note are not edited', 'liter
 ok_dib &= _dcn_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn):
     ok_dib &= 'dense-instrument bridge' not in _n and 'DenseInstrumentBridge' not in _n
-ok_dib &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_dib &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-DIB', ok_dib,
       'Dense-instrument bridge guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its thirty-two results, defines exactly the shifted theory from identity availability and the bijection matrix, '
@@ -6386,7 +6386,7 @@ for _t in ('The frozen text and the outcome of this note are not edited', '`fixe
 ok_fss &= _din_rec1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn):
     ok_fss &= 'frozen substratum sourcing' not in _n and 'FrozenSourcing' not in _n
-ok_fss &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_fss &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-FSS', ok_fss,
       'Frozen substratum sourcing guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twenty-three results, defines exactly the nonnegativity invariant and nothing else, names nothing C5, mentions '
@@ -6553,7 +6553,7 @@ for _t in ('takes up the narrow reading this note gives its own outcome 3', 'rep
 ok_soi &= _fsn_x1.count('## ') == 1
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn, _din):
     ok_soi &= 'stochastic observer interface' not in _n and 'StochasticInterface' not in _n
-ok_soi &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_soi &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-SOI', ok_soi,
       'Stochastic observer-interface determination guard: the module carries no sorry, axiom or native_decide, prints the '
       'axioms of exactly its twelve results, defines exactly the ensemble-determination predicate and nothing else -- no '
@@ -6703,7 +6703,7 @@ for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', '
 # the older notes are untouched by this round
 for _n in (_rpn, _smn, _ccn, _pcn, _c5n, _pfn, _dcn, _din, _fsn, _son):
     ok_c4r &= 'causal readback' not in _n and 'CausalReadback' not in _n
-ok_c4r &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_c4r &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-C4R', ok_c4r,
       'C4 causal-readback guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its twenty-one results, defines exactly the audit predicates, the rooted realization and the two controls and '
@@ -6796,7 +6796,7 @@ for _bad in ('before recurrence', 'accessible quantum', 'A6 is filled', 'OI supp
              'the parent is necessary', 'forces accessible'):
     ok_rch &= _bad not in _rd1[_rd1.find('OIBridge/RecurrenceHorizon.lean'):
                                _rd1.find('OIBridge/RecurrenceHorizon.lean') + 3000]
-ok_rch &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_rch &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-RCH', ok_rch,
       'Recurrence-horizon guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its nine results, and DEFINES NOTHING -- every predicate is the merged causal-readback round\'s, total '
@@ -6884,7 +6884,7 @@ for _t in ('`R7-SCF`', 'RECURRENCE-SCALING-AUDIT.md', 'Bmat_mul', 'tv_Bmat', 'Bm
 for _bad in ('unbounded family is exhibited', 'S1 is proved', 'inaccessible', 'accessible quantum'):
     ok_scf &= _bad not in _rd1[_rd1.find('OIBridge/ScalingFamily.lean'):
                                _rd1.find('OIBridge/ScalingFamily.lean') + 2200]
-ok_scf &= '139 modules' in _rd1 and '3,049 named results' in _rd1
+ok_scf &= '142 modules' in _rd1 and '3,089 named results' in _rd1
 check('R7-SCF', ok_scf,
       'Scaling-family guard: the module carries no sorry, axiom or native_decide, prints the axioms of exactly '
       'its eleven results, and defines exactly one object -- the symmetric binary channel -- introducing no '
@@ -6898,6 +6898,173 @@ check('R7-SCF', ok_scf,
       'finite-table rule and bounded-horizon S2 form are intact; no manuscript carries the round; the registry and '
       'the census carry the family as kernel-only and neither claims the construction target is met; the README '
       'carries the paragraph and the counts.')
+
+
+
+# ---- R7-RCL: the rooted classification -- the finite-visible iff, integrated into the ordinary
+# bridge root, with axiom reporting complete at the source rather than inferred from build output ----
+_RC_MODS = ('RootedClassification', 'RootedClassificationT2', 'RootedClassificationAllTime')
+_rc_txt = {_m: open(os.path.join(BRIDGE, 'OIBridge', _m + '.lean'), encoding='utf-8').read()
+           for _m in _RC_MODS}
+_rc_all = '\n'.join(_rc_txt.values())
+_rc_flat = ' '.join(_rc_all.split())
+
+
+def _rc_declared(txt):
+    """Theorem names, counting declarations that carry attributes.
+
+    A bare ^theorem scan misses `@[simp] theorem ...`, and this round found the difference the hard
+    way: the chain scanned as 37 declarations while 40 results were named. Undercounting here would
+    let an unprinted theorem hide inside the count it was supposed to be caught by."""
+    return re.findall(r"(?m)^(?:@\[[^\]]*\]\s*)?theorem\s+([A-Za-z_][\w']*)", txt)
+
+
+def _rc_printed(txt):
+    return re.findall(r"#print axioms OIBridge\.RootedClassification\.([\w']+)", txt)
+
+
+def _rc_prints_complete(txt):
+    """The source-level axiom-reporting contract: every named result is printed, and only those.
+
+    Set equality rather than count equality. A duplicated print together with a dropped one keeps
+    the line count intact while leaving a result unreported, which is exactly the shape a count pin
+    cannot see."""
+    _d, _pr = _rc_declared(txt), _rc_printed(txt)
+    return set(_d) == set(_pr) and len(_d) == len(set(_d))
+
+
+def _rc_root_reachable(root_txt, wf_txt, scf_txt):
+    """The architectural contract: the chain is built by the ordinary bridge build.
+
+    Both halves failed during this round. A development import in ScalingFamily made the chain look
+    gated while `lake build` did not reach it, and the CI workaround that replaced it could report
+    only a missing object file. Reachability is therefore a property to enforce, not a convention to
+    remember."""
+    for _m in _RC_MODS:
+        if ('import OIBridge.' + _m + '\n') not in root_txt:
+            return False
+    if re.search(r'lake build\s+OIBridge\.', wf_txt):
+        return False
+    if re.search(r'lake env lean\s+OIBridge/RootedClassification', wf_txt):
+        return False
+    if 'RootedClassification' in scf_txt:
+        return False
+    return True
+
+
+_rc_scf = open(os.path.join(BRIDGE, 'OIBridge', 'ScalingFamily.lean'), encoding='utf-8').read()
+ok_rcl = True
+# the two contracts hold as the tree stands
+ok_rcl &= all(_rc_prints_complete(_rc_txt[_m]) for _m in _RC_MODS)
+ok_rcl &= _rc_root_reachable(root, _wf, _rc_scf)
+# and each is mutation-tested, one broken way at a time, against the three ways this round broke
+ok_rcl &= not _rc_root_reachable(
+    root.replace('import OIBridge.RootedClassificationAllTime\n', ''), _wf, _rc_scf)
+ok_rcl &= not _rc_root_reachable(
+    root, _wf + '\n          lake build OIBridge.RootedClassificationAllTime\n', _rc_scf)
+ok_rcl &= not _rc_root_reachable(
+    root, _wf, _rc_scf + '\nimport OIBridge.RootedClassification\n')
+# ... and against both ways axiom reporting can go incomplete: a dropped print, and the harder case
+# of a duplicated print masking a dropped one, where the raw line count is unchanged
+_rc_b4 = _rc_printed(_rc_txt['RootedClassification'])
+_rc_m4 = _rc_txt['RootedClassification'].replace(
+    '#print axioms OIBridge.RootedClassification.' + _rc_b4[-1] + '\n', '', 1)
+# the mutation must actually change the text, or the control passes vacuously: an earlier draft of
+# this guard deleted a print line for a `def`, which has none, and so tested nothing
+ok_rcl &= _rc_m4 != _rc_txt['RootedClassification']
+ok_rcl &= not _rc_prints_complete(_rc_m4)
+_rc_names = _rc_printed(_rc_txt['RootedClassificationAllTime'])
+_rc_m5 = _rc_txt['RootedClassificationAllTime'].replace(
+    '#print axioms OIBridge.RootedClassification.' + _rc_names[-1],
+    '#print axioms OIBridge.RootedClassification.' + _rc_names[0])
+ok_rcl &= not _rc_prints_complete(_rc_m5)
+ok_rcl &= (_rc_m5.count('#print axioms') == _rc_txt['RootedClassificationAllTime'].count('#print axioms'))
+# forty named results across the chain, and the standing hygiene
+ok_rcl &= sum(len(_rc_declared(_rc_txt[_m])) for _m in _RC_MODS) == 40
+ok_rcl &= (len(_rc_declared(_rc_txt['RootedClassification'])) == 16
+           and len(_rc_declared(_rc_txt['RootedClassificationT2'])) == 8
+           and len(_rc_declared(_rc_txt['RootedClassificationAllTime'])) == 16)
+_rc_code = re.sub(r'/-.*?-/|--[^\n]*', '', _rc_all, flags=re.S)
+ok_rcl &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _rc_all) is None and 'native_decide' not in _rc_all
+ok_rcl &= 'axiom ' not in _rc_code and re.search(r'(?m)^axiom ', _rc_all) is None
+# the capstone and the semantic class as executed, and the class kept distinct from the candidate
+for _t in ('def FiniteRootedRealizable',
+           'theorem finiteRootedRealizable_iff_pper (Γ : ℕ → Matrix V V ℝ) : FiniteRootedRealizable (V := V) Γ ↔ PPer Γ',
+           'theorem finiteRootedRealizable_of_realization',
+           'theorem pper_of_finiteRootedRealizable',
+           'theorem pper_has_responseRealization',
+           'theorem rootedMap_mem_PPer'):
+    ok_rcl &= _t in _rc_flat
+# the finite-visible restriction is stated where it can be read, not left to the typeclass alone
+for _t in ('Finite visible carriers only', 'classifies the finite-visible slice',
+           'requires only `Fintype H`', 'no period need exist'):
+    ok_rcl &= _t.lower() in _rc_flat.lower()
+# control 13: three separated statements, and the horizon distinction carried in the kernel
+for _t in ('theorem pdFamily_not_periodicFamily', 'theorem peFamily_not_periodicFamily',
+           'theorem pdFamily_not_finiteRootedRealizable', 'theorem peFamily_not_finiteRootedRealizable'):
+    ok_rcl &= _t in _rc_flat
+for _t in ('realize the requested prefix', 'free to depend on the horizon',
+           'not a single realization agreeing at every time'):
+    ok_rcl &= _t.lower() in _rc_flat.lower()
+# the frozen preregistration and its amendment are named where the reconciliation lives
+ok_rcl &= 'OI-ROOTED-CLASSIFICATION-AUDIT.md' in _rd1
+_rc_amd = open(os.path.join(os.path.dirname(BRIDGE), 'C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md'),
+               encoding='utf-8').read()
+_rc_amd1 = re.sub(r'\s+', ' ', _rc_amd)
+for _t in ('append-only', 'superseded', 'does **not** give', 'depends on `K`'):
+    ok_rcl &= _t.lower() in _rc_amd1.lower()
+# no manuscript carries the round
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+             'book/The-Incompleteness-of-Observation-FULL.md'):
+    _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
+    for _bad in ('RootedClassification', 'FiniteRootedRealizable', 'PPer', 'OI-ROOTED-CLASSIFICATION'):
+        ok_rcl &= _bad not in _t
+# registry and census carry the family as kernel-only over all three modules
+_rc_fam = [f for f in _ptr_reg['families'] if f['name'].startswith('rooted classification:')]
+ok_rcl &= len(_rc_fam) == 1 and _rc_fam[0]['status'] == 'kernel-only'
+ok_rcl &= _rc_fam[0]['modules'] == list(_RC_MODS) and _rc_fam[0]['manuscript'] == []
+for _t in ('finite-visible only', 'rather than a reader', 'no full-support realization',
+           'depend on it', 'no accessibility claim'):
+    ok_rcl &= _t.lower() in _rc_fam[0]['note'].lower()
+for _bad in ('decidable', 'arbitrary visible', 'accessible', 'minimal'):
+    ok_rcl &= _bad not in _rc_fam[0]['note'].lower()
+ok_rcl &= ('| rooted classification: the finite-visible intrinsic characterization of the realizable class | 3 | kernel-only |'
+           in _cen_ps)
+# the README carries the paragraph, the guard name, and the updated counts
+for _t in ('`R7-RCL`', 'finiteRootedRealizable_iff_pper', 'finiteRootedRealizable_of_realization',
+           'The result is finite-visible only', 'Forty named results',
+           'pdFamily_not_finiteRootedRealizable', 'C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md'):
+    ok_rcl &= _t in _rd1
+ok_rcl &= '142 modules' in _rd1 and '3,089 named results' in _rd1
+# the forbidden readings: this classifies the finite-visible slice and nothing wider. The
+# disclaimers themselves contain the forbidden phrases as negations, so they are REQUIRED text and
+# are excised before the scan -- a guard that trips on its own disclaimer is unsatisfiable, and this
+# round has already met that shape more than once.
+_rc_win = _rd1[_rd1.find('OIBridge/RootedClassification.lean'):
+               _rd1.find('OIBridge/RootedClassification.lean') + 2600]
+_RC_PROTECTED = ('nothing here classifies the arbitrary-visible case',)
+ok_rcl &= all(_pp in _rc_win for _pp in _RC_PROTECTED)
+_rc_scan = _rc_win
+for _pp in _RC_PROTECTED:
+    _rc_scan = _rc_scan.replace(_pp, '')
+for _bad in ('classifies the arbitrary-visible', 'decides membership', 'physically accessible',
+             'quantum representation class'):
+    ok_rcl &= _bad not in _rc_scan
+check('R7-RCL', ok_rcl,
+      'Rooted-classification guard: the chain carries no sorry, axiom or native_decide, and its axiom reporting is '
+      'checked as a SOURCE contract -- the set of theorem names equals the set of print targets in each module, '
+      'counting attribute-prefixed declarations, so a duplicated print masking a dropped one is caught where a count '
+      'pin is not; sixteen, eight and sixteen results, forty in all. Reachability is a SEPARATE contract and is '
+      'enforced rather than assumed: all three modules are imported by the bridge root, CI carries no '
+      'classification-only build target and no direct elaboration of these files, and no merged module hooks back '
+      'into the chain. Both contracts are mutation-tested, one violation at a time, against the three ways this '
+      'round actually broke reachability and the two ways axiom reporting can go incomplete. The capstone is pinned '
+      'as executed, with the semantic class a distinct named predicate and its carrier universe shown harmless '
+      'rather than assumed so; the finite-visible restriction is pinned as stated text, not left to the typeclass; '
+      'control 13 is pinned as three separated statements with the horizon distinction carried in the kernel, and '
+      'its amendment as append-only and superseding; no manuscript carries the round; the registry and census carry '
+      'the family as kernel-only over all three modules and claim neither decidability nor accessibility nor a '
+      'wider universe; and the README carries the paragraph, the guard name and the counts.')
 
 
 check('R7-AUDB', ok_audb,
