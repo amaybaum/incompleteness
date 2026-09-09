@@ -80,12 +80,15 @@ though a single uniform argument covered every finite carrier would misdescribe 
 ## What this does not change
 
 - **S1's core is unaffected**: the padded datum, its unitarity, the Born factorization, and the
-  arbitrary-ancilla quantification all stand as frozen.
+  arbitrary-ancilla quantification. That core is proved and committed on the execution PR #554; it
+  is **execution content, not frozen material**, and remains subject to final exact-head review like
+  everything else on that PR. Only this preregistration and its amendments are frozen.
 - **The invariance chain is unaffected** and may proceed.
 - **Consequences 1 and 2 are unaffected** and may proceed. Both are existential over representations
   of a given family and never quantify over an empty carrier.
-- **S2 and S3b are unaffected.** Both are already proved and merged into the execution branch, and
-  neither mentions consequence 3.
+- **S2 and S3b are unaffected.** Both are proved and kernel-clean and committed on the execution PR
+  #554 — **not merged to `main`** — and neither mentions consequence 3. Their standing is that of
+  reviewed execution content awaiting final exact-head review, not of settled corpus.
 - Every control, the disposition criterion and its precedence, the outcome taxonomy, the evidence
   hierarchy, the non-doings and the execution discipline stand unchanged.
 
@@ -94,6 +97,12 @@ though a single uniform argument covered every finite carrier would misdescribe 
 **No work on consequence 3 or on S3a occurs until this amendment is frozen and merged.** Work on the
 invariance chain and on consequences 1 and 2 continues meanwhile, under the preregistration as
 frozen.
+
+**Ancestry, not chronology.** After this amendment is frozen and merged to `main`, the execution PR
+#554 **absorbs that merge** before any consequence 3 or S3a execution commit is made. The ordering is
+then checkable from the history — every such commit descends from the merge carrying the amendment —
+rather than merely attested by the order in which the work happened. This is the same standard the
+preregistration's own execution discipline sets for the freeze.
 
 This amendment is itself a control-plane PR, which the frozen discipline declares the exception to
 the one-PR-per-round rule; there is still exactly one execution/result PR for the round.
