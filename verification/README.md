@@ -1711,7 +1711,8 @@ periodic as complete families and so are not realizable at this interface
 (`pdFamily_not_finiteRootedRealizable`, `peFamily_not_finiteRootedRealizable`), which
 `C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md` reconciles against the horizon constructions that display
 their behaviour. Forty named results, each printing only `propext`, `Classical.choice`,
-`Quot.sound`. Guard `R7-RCL`.
+`Quot.sound`. Guard `R7-RCL`. The round's determination, its scope, its two supporting results and
+its instrument findings are in `OI-ROOTED-CLASSIFICATION-RESULT.md`.
 
 `OIBridge/RecurrenceHorizon.lean` carries Targets 1 and 2 of
 `RECURRENCE-TIGHTNESS-AUDIT.md`, read under `RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md`, which
