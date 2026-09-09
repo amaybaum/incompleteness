@@ -50,7 +50,7 @@ namespace OIBridge
 
 namespace OperationalSourcing
 
-open Matrix InterventionLocality LieRankSource RouteB
+open Finset Matrix InterventionLocality LieRankSource RouteB
 open SubstratumInterfaceAudit InstrumentRealization PhaseSource
 open OIBridge.QuantumRepresentation OIBridge.CausalReadback
 
@@ -374,6 +374,90 @@ theorem padData_bornPow (W : Matrix Anc Anc ℂ) (w : Anc → ℝ) :
 
 end Invariance
 
+/-! ### S1 — the rooted family is unchanged
+
+The padded read fibre over `a` is the `Q`-fibre crossed with the whole ancilla, because the readout
+ignores the ancilla.  So `rootMass` and `jointMass` each split into a `Q` factor times an ancilla
+factor, and both ancilla factors collapse to one — by normalisation of `w`, and by `sum_ancPow`.
+The `rooted` quotient is then unchanged exactly, with no approximation anywhere. -/
+
+section RootedInvariance
+
+variable {V : Type} [Fintype V] [DecidableEq V] (Q : QfbData V)
+variable {Anc : Type} [Fintype Anc] [DecidableEq Anc]
+
+/-- **THE FIBRE FACTORIZATION, ONE FIBRE.**  A sum over the read fibre of a product type, whose
+summand factorizes and whose predicate looks only at the first coordinate, splits.  This is the
+whole content of "the readout ignores the ancilla", isolated once. -/
+theorem sum_fibre_one {B A : Type} [Fintype B] [DecidableEq B] [Fintype A] [DecidableEq A]
+    (rd : B → V) (a : V) (f : B → ℝ) (g : A → ℝ) :
+    ∑ p ∈ univ.filter (fun p : B × A => rd p.1 = a), f p.1 * g p.2
+      = (∑ b ∈ univ.filter (fun b => rd b = a), f b) * ∑ x, g x := by
+  classical
+  rw [Finset.sum_filter, Finset.sum_filter, Fintype.sum_prod_type, Finset.sum_mul]
+  refine Finset.sum_congr rfl fun b _ => ?_
+  by_cases hb : rd b = a
+  · simp [hb, ← Finset.mul_sum]
+  · simp [hb]
+
+/-- **THE FIBRE FACTORIZATION, TWO FIBRES.**  The same for the joint sum over a root fibre and an
+outcome fibre. -/
+theorem sum_fibre_two {B A : Type} [Fintype B] [DecidableEq B] [Fintype A] [DecidableEq A]
+    (rd : B → V) (a j : V) (F : B → B → ℝ) (G : A → A → ℝ) :
+    ∑ p ∈ univ.filter (fun p : B × A => rd p.1 = a),
+        ∑ q ∈ univ.filter (fun q : B × A => rd q.1 = j), F p.1 q.1 * G p.2 q.2
+      = (∑ b ∈ univ.filter (fun b => rd b = a), ∑ b' ∈ univ.filter (fun b' => rd b' = j), F b b')
+          * ∑ x : A, ∑ y : A, G x y := by
+  classical
+  have inner : ∀ p : B × A,
+      (∑ q ∈ univ.filter (fun q : B × A => rd q.1 = j), F p.1 q.1 * G p.2 q.2)
+        = (∑ b' ∈ univ.filter (fun b' => rd b' = j), F p.1 b') * ∑ y : A, G p.2 y :=
+    fun p => sum_fibre_one rd j (F p.1) (G p.2)
+  rw [Finset.sum_congr rfl fun p _ => inner p]
+  exact sum_fibre_one rd a (fun b => ∑ b' ∈ univ.filter (fun b' => rd b' = j), F b b')
+    (fun x => ∑ y : A, G x y)
+
+/-- **THE ROOT MASS IS UNCHANGED.**  The ancilla contributes the total weight `∑ w = 1`. -/
+theorem padData_rootMass (W : Matrix Anc Anc ℂ) (w : Anc → ℝ) (hw : ∑ x, w x = 1) (a : V) :
+    (padData Q Anc W w).rootMass a = Q.rootMass a := by
+  show ∑ p ∈ univ.filter (fun p : Q.Bas × Anc => Q.read p.1 = a), Q.init p.1 * w p.2 = _
+  rw [sum_fibre_one Q.read a Q.init w, hw, mul_one]
+  rfl
+
+/-- **THE JOINT MASS IS UNCHANGED.**  The ancilla contributes `∑ x, w x * ∑ y, ancPow = 1`. -/
+theorem padData_jointMass {W : Matrix Anc Anc ℂ} (hW : W ∈ Matrix.unitaryGroup Anc ℂ)
+    (w : Anc → ℝ) (hw : ∑ x, w x = 1) (t : ℕ) (a j : V) :
+    (padData Q Anc W w).jointMass t a j = Q.jointMass t a j := by
+  have hsplit : ∀ (p q : Q.Bas × Anc),
+      (padData Q Anc W w).init p * (padData Q Anc W w).bornPow t p q
+        = (Q.init p.1 * Q.bornPow t p.1 q.1) * (w p.2 * ancPow W t p.2 q.2) := by
+    rintro ⟨b, x⟩ ⟨b', y⟩
+    rw [padData_init Q W w b x, padData_bornPow Q W w t b b' x y]
+    ring
+  show ∑ p ∈ univ.filter (fun p : Q.Bas × Anc => Q.read p.1 = a),
+      ∑ q ∈ univ.filter (fun q : Q.Bas × Anc => Q.read q.1 = j),
+        (padData Q Anc W w).init p * (padData Q Anc W w).bornPow t p q = _
+  rw [Finset.sum_congr rfl fun p _ => Finset.sum_congr rfl fun q _ => hsplit p q]
+  rw [sum_fibre_two Q.read a j (fun b b' => Q.init b * Q.bornPow t b b')
+    (fun x y => w x * ancPow W t x y)]
+  have hanc : ∑ x : Anc, ∑ y : Anc, w x * ancPow W t x y = 1 := by
+    have : ∀ x : Anc, ∑ y : Anc, w x * ancPow W t x y = w x := by
+      intro x; rw [← Finset.mul_sum, sum_ancPow hW t x, mul_one]
+    rw [Finset.sum_congr rfl fun x _ => this x, hw]
+  rw [hanc, mul_one]
+  rfl
+
+/-- **S1's INVARIANCE THEOREM: THE ROOTED FAMILY IS UNCHANGED BY PADDING.**  The visible family a
+datum represents does not see the ancilla, however coherent the ancilla unitary is. -/
+theorem padData_rooted {W : Matrix Anc Anc ℂ} (hW : W ∈ Matrix.unitaryGroup Anc ℂ)
+    (w : Anc → ℝ) (hw : ∑ x, w x = 1) (t : ℕ) (a j : V) :
+    (padData Q Anc W w).rooted t a j = Q.rooted t a j := by
+  show (padData Q Anc W w).jointMass t a j / (padData Q Anc W w).rootMass a = _
+  rw [padData_jointMass Q hW w hw t a j, padData_rootMass Q W w hw a]
+  rfl
+
+end RootedInvariance
+
 end OperationalSourcing
 
 end OIBridge
@@ -395,4 +479,9 @@ end OIBridge
 #print axioms OIBridge.OperationalSourcing.sum_ancBorn
 #print axioms OIBridge.OperationalSourcing.sum_ancPow
 #print axioms OIBridge.OperationalSourcing.padData_bornPow
+#print axioms OIBridge.OperationalSourcing.sum_fibre_one
+#print axioms OIBridge.OperationalSourcing.sum_fibre_two
+#print axioms OIBridge.OperationalSourcing.padData_rootMass
+#print axioms OIBridge.OperationalSourcing.padData_jointMass
+#print axioms OIBridge.OperationalSourcing.padData_rooted
 #print axioms OIBridge.OperationalSourcing.arcCWitness_not_phasesAvailable
