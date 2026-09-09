@@ -54,6 +54,8 @@ open Matrix InterventionLocality LieRankSource RouteB
 open SubstratumInterfaceAudit InstrumentRealization PhaseSource
 open OIBridge.QuantumRepresentation OIBridge.CausalReadback
 
+open scoped Kronecker
+
 set_option linter.unusedSectionVars false
 
 /-! ### Availability is a function of the admissible class
@@ -212,6 +214,68 @@ theorem arcCWitness_not_phasesAvailable {A : Type} [Fintype A] [DecidableEq A] [
     ¬ PhasesAvailable (permTheory A) :=
   permTheory_not_phasesAvailable_onesFixing h2
 
+/-! ### S1 — the representation layer supplies no operator content
+
+The construction is ancilla padding on a hidden factor the readout ignores.  Given a datum `Q`, a
+nonempty finite ancilla, an arbitrary unitary `W` on it and a probability weight `w`, the padded
+datum runs `Q` and `W` side by side and reads only `Q`'s coordinate.
+
+The point of the target is that `W` is **arbitrary**: the theorem is quantified over every finite
+ancilla unitary, so a single padding witness is a control and never the theorem (control 9).
+
+This section builds the datum and its law; the rooted-family invariance and the three consequences
+follow it. -/
+
+section Padding
+
+variable {V : Type} [Fintype V] [DecidableEq V]
+
+/-- **THE PADDED DATUM.**  Basis `Q.Bas × Anc`, unitary the Kronecker product `Q.U ⊗ₖ W`, initial
+law the product weight, and a readout that ignores the ancilla entirely. -/
+noncomputable def padData (Q : QfbData V) (Anc : Type) [Fintype Anc] [DecidableEq Anc]
+    (W : Matrix Anc Anc ℂ) (w : Anc → ℝ) : QfbData V :=
+  letI := Q.fB
+  letI := Q.dB
+  { Bas := Q.Bas × Anc
+    fB := inferInstance
+    dB := inferInstance
+    U := Q.U ⊗ₖ W
+    init := fun b => Q.init b.1 * w b.2
+    read := fun b => Q.read b.1 }
+
+variable (Q : QfbData V) {Anc : Type} [Fintype Anc] [DecidableEq Anc]
+
+@[simp] theorem padData_U (W : Matrix Anc Anc ℂ) (w : Anc → ℝ) :
+    (padData Q Anc W w).U = Q.U ⊗ₖ W := rfl
+
+@[simp] theorem padData_init (W : Matrix Anc Anc ℂ) (w : Anc → ℝ) (b : Q.Bas) (x : Anc) :
+    (padData Q Anc W w).init (b, x) = Q.init b * w x := rfl
+
+@[simp] theorem padData_read (W : Matrix Anc Anc ℂ) (w : Anc → ℝ) (b : Q.Bas) (x : Anc) :
+    (padData Q Anc W w).read (b, x) = Q.read b := rfl
+
+/-- **THE PADDED UNITARY IS UNITARY.**  The Kronecker product of two unitaries is unitary, by the
+merged Kronecker algebra. -/
+theorem kronecker_mem_unitaryGroup {S T : Type} [Fintype S] [DecidableEq S] [Fintype T]
+    [DecidableEq T] {A : Matrix S S ℂ} {B : Matrix T T ℂ}
+    (hA : A ∈ Matrix.unitaryGroup S ℂ) (hB : B ∈ Matrix.unitaryGroup T ℂ) :
+    A ⊗ₖ B ∈ Matrix.unitaryGroup (S × T) ℂ := by
+  rw [Matrix.mem_unitaryGroup_iff] at hA hB ⊢
+  have hA' : A * Aᴴ = 1 := hA
+  have hB' : B * Bᴴ = 1 := hB
+  show (A ⊗ₖ B) * (A ⊗ₖ B)ᴴ = 1
+  rw [Matrix.conjTranspose_kronecker, ← Matrix.mul_kronecker_mul, hA', hB',
+    Matrix.one_kronecker_one]
+
+/-- **THE BORN WEIGHT FACTORIZES.**  This is the mechanism of S1, and it is proved rather than
+asserted: the padded one-step weight is the product of the two one-step weights, so the chain
+factorizes and the ancilla marginal sums to one at every step. -/
+theorem padData_born (W : Matrix Anc Anc ℂ) (w : Anc → ℝ) (b b' : Q.Bas) (x x' : Anc) :
+    (padData Q Anc W w).born (b, x) (b', x') = Q.born b b' * ‖W x' x‖ ^ 2 := by
+  simp only [QfbData.born, padData_U, Matrix.kroneckerMap_apply, norm_mul, mul_pow]
+
+end Padding
+
 end OperationalSourcing
 
 end OIBridge
@@ -225,4 +289,9 @@ end OIBridge
 #print axioms OIBridge.OperationalSourcing.permMatrix_eq_coherent
 #print axioms OIBridge.OperationalSourcing.permClass_permMatrix'
 #print axioms OIBridge.OperationalSourcing.permData_U_permClass
+#print axioms OIBridge.OperationalSourcing.padData_U
+#print axioms OIBridge.OperationalSourcing.padData_init
+#print axioms OIBridge.OperationalSourcing.padData_read
+#print axioms OIBridge.OperationalSourcing.kronecker_mem_unitaryGroup
+#print axioms OIBridge.OperationalSourcing.padData_born
 #print axioms OIBridge.OperationalSourcing.arcCWitness_not_phasesAvailable
