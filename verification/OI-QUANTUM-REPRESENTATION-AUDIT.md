@@ -5,8 +5,8 @@ Base: `main` at `6081a66a57426f4d9d1ac02e07f4412769f5d9c6` (post-PR #547).
 This round opens Arc C of `OI-QM-RESEARCH-PROGRAMME.md`: determine the exact relation, in both
 directions, between the finite-visible OI-realizable rooted class closed by PR #547 and the finite
 quantum representation class. The objective is a **proved relation** — equality, one strict
-inclusion, two-sided proper overlap, or a characterized intersection — not a list of examples on
-either side.
+inclusion, two-sided proper overlap, disjointness, or a characterized intersection — not a list of
+examples on either side.
 
 No construction, counterexample search, proof search, census, probe, or simulation has been executed
 for this round before this preregistration. The drafting expectations recorded below are priors, not
@@ -38,13 +38,16 @@ That reading is invalid, and the reason it is invalid is the same quantifier gap
 
 `finite_horizon_equivalence` is quantified inside `K`. It supplies, for each horizon, a
 representation of that horizon's law, and the representing object may differ at every horizon. PR
-#547 closed the **all-time** rooted class, where a single realization must agree at every time. The
-merged equivalence therefore transfers **nothing** to the all-time comparison, in either direction,
-and this round may not cite it as though it did.
+#547 closed the **all-time** rooted class, where a single realization must agree at every time.
 
-This is the central hazard of the round and is frozen here before execution: **a per-horizon
-equivalence is not an all-time equivalence, and no result of this round may be obtained by treating
-one as the other.**
+What the merged equivalence does not supply is any all-time inclusion, equality, or separation
+between the two sides. It is not inert, and this round does not treat it as inert: correctly
+quantified finite-horizon lemmas and consistency checks against it are legitimate, and T1 below
+requires one. The prohibited move is the quantifier swap itself, not contact with the theorem.
+
+This is the central hazard of the round and is frozen here before execution: **no all-time
+inclusion, equality, or separation may be derived from a per-horizon equivalence, and every use of a
+horizon-indexed result states its quantifier explicitly at the point of use.**
 
 ## Fixed inherited interfaces
 
@@ -106,10 +109,41 @@ The two inherited interfaces do not currently speak about the same object.
   initial law on the whole basis.
 
 Before any comparison is meaningful, the round must construct the all-time rooted analogue of the
-representation class and prove that it is the honest analogue rather than a convenience. Call it
-`Q*(V)`: the rooted families `Γ` for which there exist a finite basis, one unitary `U`, one readout
-`read`, and the inherited rooted preparation discipline, whose fixed-basis Born process reproduces
-`Γ t` at **every** `t`.
+representation class. The merged `QfbReal` carries **one global** `init : Bas → ℝ` and no
+root-indexed preparation field of any kind, so the rooted object is not inherited and must be
+defined. That definition is frozen here, in full, because several inequivalent choices are available
+and they can change the answers to T2 and T3.
+
+### The frozen root-preparation map
+
+Let `(Bas, U, init, read)` be a `QfbReal` datum with `U` unitary and `init` a probability weight, and
+let `B_0, B_1, B_2, ...` be the fixed-basis Born process it induces: `B_0` distributed as `init`, and
+`B_{k+1}` drawn from `born (B_k) ·` where `born b b' = ‖U b' b‖^2`.
+
+`Γ ∈ Q*(V)` is defined to mean, with the quantifiers in exactly this order:
+
+> `∃ Bas` finite with decidable equality, `∃ U` unitary, `∃ init` a probability weight on `Bas`,
+> `∃ read : Bas → V`, such that
+>
+> - (positive root mass) `∀ a : V`, `∑_{b : read b = a} init b > 0`, and
+> - `∀ a : V`, `∀ t : ℕ`, `∀ j : V`, `Γ t a j = P[ read (B_t) = j | read (B_0) = a ]`.
+
+One basis, one unitary, one initial law and one readout serve **every** root and **every** time: the
+existential block stands outside `∀ a, t, j` and may not be moved inside it.
+
+Three alternative maps are available and are rejected here, by name, so that none can be adopted
+after execution as though it had been the frozen one:
+
+- **Root-indexed initial laws** `init_a` sharing `U` and `read`. That is a preparation family rather
+  than one system, and `QfbReal` supplies no such field.
+- **An OI-style common hidden prior** imported onto `Bas`. That transplants the OI side's own
+  structure into the quantum side, and would make T3 partly true by construction.
+- **Conditioning on a basis event finer than** `read (B_0) = a`. That gives the preparer access to
+  the hidden basis label rather than to the visible root, and is not a visible root preparation.
+
+The positive-root-mass clause is a genuine side condition, not a formality: conditioning is undefined
+without it, and it restricts which `(Bas, init, read)` may witness membership. It is treated as part
+of the class, and any result that turns on it is reported as turning on it.
 
 The translation is a target of this round, not an assumption of it. Two failure modes are frozen as
 disqualifying:
@@ -132,11 +166,23 @@ The three targets are independent. No target may be reported as settled on the s
 
 ### T1 — the translation
 
-Construct `Q*(V)` from the merged `QfbReal` interface on the all-time rooted object, and state
-exactly which clauses of the merged class are carried, which are dropped, and why each choice is
-forced rather than convenient. Prove that at every fixed horizon `K` the horizon truncation of a
-`Q*` family is a `QfbRealizable` law, so that `Q*` is a genuine all-time strengthening of the merged
-class rather than an unrelated definition wearing its name.
+Formalize `Q*(V)` exactly as frozen above, and state which clauses of the merged `QfbReal` are
+carried, which are dropped, and why each choice is forced rather than convenient.
+
+Then prove the finite-horizon compatibility theorem, stated so that it cannot be discharged by a
+per-horizon family of unrelated representations. A truncation of `Γ` is a collection of rooted
+marginals, not a joint trajectory law, so the object to be represented must be named rather than
+assumed: for a `Q*` witness `(Bas, U, init, read)` and a root `a`, let `P^a_K` be the length-`K`
+**root-conditioned trajectory law** — the joint law of `(read (B_0), ..., read (B_K))` conditioned on
+`read (B_0) = a`, which the positive-root-mass clause makes well defined.
+
+The theorem is: for every `K` and every root `a`, `P^a_K` is `QfbRealizable`, **and** the witnessing
+representation is built from the same all-time `Bas`, `U` and `read`, with only the initial law
+re-conditioned.
+
+`∀K ∃Q_K` is explicitly not the statement. A proof supplying a different basis or unitary at each
+horizon would satisfy that weaker form while establishing nothing about `Q*`, and would reintroduce
+the quantifier swap this round exists to keep out.
 
 T1 is a prerequisite for T2 and T3 and is not itself a relation result.
 
@@ -203,12 +249,15 @@ collide with both.
 
 ### RC1 — the relation is settled in both directions
 
-Both inclusions are decided, each proved or refuted, and the resulting relation — equality, strict
-inclusion one way, or proper overlap — is stated exactly. This closes the Arc C exit condition.
+Both inclusions are decided, each proved or refuted, and the resulting relation is stated exactly.
+The possibilities are equality, strict inclusion in one direction, proper overlap, and
+**disjointness**. This round does not presuppose which, and in particular does not presuppose that
+the two classes meet at all. This closes the Arc C exit condition.
 
-If the relation is proper overlap, RC1 additionally requires a proved statement about
-`C_OI ∩ Q*`. Two failed inclusions are not a description of the intersection, and reporting them as
-one is the inflation this class exists to prevent.
+When both inclusions fail, RC1 additionally requires enough proved information about `C_OI ∩ Q*` to
+distinguish proper overlap from disjointness. Two failed inclusions do not decide between those two
+relations — a witness outside each class says nothing about whether anything lies in both — and
+reporting them as though they did is the inflation this class exists to prevent.
 
 ### RC2 — one direction settled, the other open
 
@@ -218,10 +267,13 @@ Arc C.
 
 ### RC3 — the intersection is characterized without either inclusion being settled
 
-A proved characterization of `C_OI ∩ Q*` that decides neither inclusion. This is a positive
-mathematical outcome, it does not close Arc C, and it may not be promoted to RC1. It takes precedence
-over RC2 only when it applies to the whole frozen universe; a characterization of the intersection
-inside a restricted subclass does not.
+A proved characterization of `C_OI ∩ Q*` — including a proof that it is empty — that decides neither
+inclusion. This is a positive mathematical outcome, it does not close Arc C, and it may not be
+promoted to RC1.
+
+RC2 and RC3 are disjoint as defined: RC2 requires exactly one inclusion settled, RC3 requires
+neither. The precedence order above therefore never has to adjudicate between them, and neither
+class carries a clause claiming priority over the other.
 
 ### RC4 — translation only
 
@@ -236,15 +288,17 @@ promoted to a relation.
 
 ## Mandatory controls
 
-1. **Horizon quarantine.** No claim in this round may rest on `finite_horizon_equivalence` or on any
-   per-horizon result transported to all-time semantics. Every use of a horizon-indexed theorem must
-   state the quantifier explicitly at the point of use.
+1. **Horizon quarantine.** No all-time inclusion, equality, or separation may be derived from
+   `finite_horizon_equivalence` or from any other per-horizon result. Correctly quantified
+   finite-horizon lemmas and consistency checks are permitted, and T1 requires one. Every use of a
+   horizon-indexed theorem states its quantifier explicitly at the point of use.
 2. **Interface fidelity, OI side.** One finite hidden carrier, one reversible step, one prior common
    to every root. No root-dependent, time-dependent, or renormalized prior.
 3. **Interface fidelity, quantum side.** One time-independent unitary, projective fixed-basis
-   measurement at every step, one readout. Any widening — time-dependent unitaries, POVMs,
-   non-collapse evolution, ancilla refresh between steps — is a different class and requires a
-   preregistered scope extension, not a refinement.
+   measurement at every step, one readout, and the frozen root-preparation map above. Any widening —
+   time-dependent unitaries, POVMs, non-collapse evolution, ancilla refresh between steps, or any of
+   the three rejected preparation maps — is a different class and requires a preregistered scope
+   extension, not a refinement.
 4. **Readout-injectivity split.** Every result states whether it holds for injective readout only or
    for general readout. A theorem proved under injective readout may not be reported as a theorem
    about `Q*`.
@@ -266,7 +320,11 @@ promoted to a relation.
     Those are Arc D and Arc E. In particular #540 remains binding: mathematical unitary and Born
     representability does not source the physical coherent-control repertoire, and no result of this
     round may be read as doing so.
-12. **Corpus-consistency obligation.** If a theorem proved here contradicts or destabilizes a merged
+12. **Positive-root-mass accounting.** Every `Q*` witness supplies the positive-root-mass clause,
+    and every result that depends on it says so. It is a support condition on the representation
+    side and is reported the way frozen control 8 of the Arc B round required zero prior mass to be
+    reported on the OI side.
+13. **Corpus-consistency obligation.** If a theorem proved here contradicts or destabilizes a merged
     description, the result note records it and it becomes a backlog item. Immutable audits receive
     append-only amendments; mutable status surfaces are corrected in place. No manuscript, book,
     bibliography, or publication edit occurs in this round.
@@ -327,7 +385,8 @@ The final report must state separately:
 4. T3: proved / refuted / open, with the refutation standard met or the shortfall named;
 5. the exact relation between `C_OI(V)` and `Q*(V)`, and whether the Arc C exit condition is met;
 6. headline outcome RC1 / RC2 / RC3 / RC4 / RC5;
-7. any characterization of the intersection, and whether its criterion is intrinsic or existential;
+7. any characterization of the intersection, including a proof of disjointness if one is obtained,
+   and whether its criterion is intrinsic or existential;
 8. every place a horizon-indexed result was used, with its quantifier;
 9. evidence type for every general claim, and the remaining formalization debt;
 10. whether Arc C is mathematically closed and whether it is kernel-closed;
