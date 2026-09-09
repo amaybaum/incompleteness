@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 142 modules and,
-  at this commit, 3,089 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 145 modules and,
+  at this commit, 3,135 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -1714,6 +1714,46 @@ periodic as complete families and so are not realizable at this interface
 their behaviour. Forty named results, each printing only `propext`, `Classical.choice`,
 `Quot.sound`. Guard `R7-RCL`. The round's determination, its scope, its two supporting results and
 its instrument findings are in `OI-ROOTED-CLASSIFICATION-RESULT.md`.
+
+`OIBridge/QuantumRepresentation.lean` carries the translation layer of Arc C, executed under the
+frozen `OI-QUANTUM-REPRESENTATION-AUDIT.md` as amended by
+`OI-QUANTUM-REPRESENTATION-AUDIT-AMENDMENT-1.md`. It is target T1 and **decides neither inclusion**:
+whether the representation class sits inside the OI-realizable one, or the reverse, is untouched
+here and nothing in the module is evidence for either. `QfbData` is the merged fixed-basis Born
+datum with the vestigial horizon index dropped, no field of `QfbReal` having mentioned the horizon.
+The rooted object is obtained by conditioning **one** datum on the visible root fibre
+`read (B_0) = a`, with the existential block standing outside the root, time and outcome
+quantifiers, and with positive root mass carried as a support condition rather than a formality.
+The finite-horizon compatibility theorem is the strong one — the witnessing representation reuses
+the same basis, unitary and readout with only the initial law re-conditioned
+(`QfbData.condReal_law`), and the per-horizon existential is derived from it rather than standing in
+for it. The seam between the class and that theorem is closed by `QfbData.rootTraj_marginal`, which
+identifies the final-coordinate visible marginal of the root-conditioned trajectory law with the
+class entry, so the two are one translation rather than parallel definitions. Fifteen named results, each printing only `propext`, `Classical.choice`, `Quot.sound`.
+
+`OIBridge/QuantumRepresentationT2.lean` carries target T2 and **refutes it**: the Hadamard datum
+with an injective readout is a member of the representation class whose induced rooted family is
+exactly the merged N1 control `pdFamily`, already proved nonperiodic, so the representation class is
+not contained in the OI-realizable one (`qStar_not_subset_finiteRootedRealizable`). What is forced
+is only that the witness use non-permutation Born dynamics, since a permutation datum has finite
+order and is therefore realizable and periodic by the Arc B characterization; the Hadamard
+amplitudes are not forced, a two-state rotation being non-permutation over an interval of angles
+including rational ones. Hadamard is chosen because its Born matrix is exactly fully mixing, which
+makes the identification with `pdFamily` immediate. Seventeen named results.
+
+`OIBridge/QuantumRepresentationT3.lean` carries target T3 and proves it **carrierwise exactly**:
+the inclusion holds on a finite visible carrier if and only if that carrier is inhabited
+(`qStar_inclusion_iff_nonempty`). The construction reads the Arc B realization as a quantum system —
+its reversible step is already a permutation of the product, hence unitary by the merged
+`permMatrix_mem_unitaryGroup`, with the shared hidden prior spread over the product and the visible
+coordinate uniform; conditioning on the visible fibre removes that uniform factor and returns
+`rootedMap`. The empty carrier is a genuine failure rather than an oversight: there the realizable
+class is inhabited while the representation class is empty, since a normalised initial law forces a
+nonempty basis and no map runs from a nonempty basis into an empty carrier. Thirteen named results.
+So for nonempty finite `V` the realizable class is contained in the representation class, and the
+containment is strict at `Fin 2` by the T2 witness; strictness at every carrier is not claimed.
+Guard `R7-QSTAR`. The round's determination, its carrierwise refinement and its instrument findings
+are in `OI-QUANTUM-REPRESENTATION-RESULT.md`.
 
 `OIBridge/RecurrenceHorizon.lean` carries Targets 1 and 2 of
 `RECURRENCE-TIGHTNESS-AUDIT.md`, read under `RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md`, which

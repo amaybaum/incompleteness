@@ -192,6 +192,9 @@ import OIBridge.ScalingFamily
 import OIBridge.RootedClassification
 import OIBridge.RootedClassificationT2
 import OIBridge.RootedClassificationAllTime
+import OIBridge.QuantumRepresentation
+import OIBridge.QuantumRepresentationT2
+import OIBridge.QuantumRepresentationT3
 
 namespace OIBridge
 
