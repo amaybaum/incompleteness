@@ -81,8 +81,12 @@ def Admissible (Q : QfbData V) (μ : FibreWeight Q) : Prop :=
   (∀ k b, Q.read b ≠ k → μ k b = 0) ∧ (∀ k b, 0 ≤ μ k b) ∧ (∀ k, ∑ b, μ k b = 1)
 ```
 
-These three conditions are chosen because each is forced by what a candidate propagator has to be —
-a row-stochastic matrix on `V` obtained by marginalizing.
+These three conditions are **not** claimed to be logically necessary for the output to be
+row-stochastic. That would be false: a signed weight on a fibre whose visible rows happen to
+coincide still marginalizes to a stochastic row. What the three say together is that `μ` **is a
+probability distribution on the source fibre** — support, nonnegativity, normalization, one clause
+each — which is what "weight the fibre and marginalize" means. Relative to that reading each clause
+is forced; absolutely, they are sufficient for C1, which is what the round needs of them.
 
 Support and normalization alone do **not** suffice, and the gap is not cosmetic. Write
 `R_b (j) = ∑_{b' ∈ fibre j} bornPow n b b'` for the visible row of a basis point. Then
@@ -179,10 +183,12 @@ theorem admissible_nonUnique : AdmissibleNonUnique      -- the CU1 side
 theorem admissible_agree : AdmissibleAgree              -- the CU2 side
 ```
 
-**Exactly one of those two theorem statements appears in the executed module**, and the frozen text
-above is what it must say. `CU2` therefore requires a proof of `AdmissibleAgree` as sharp as C2's
-existential witness; it is never reached by failing to find a counterexample. Proving neither is
-`CU4`.
+The execution contract on these two, stated conditionally so that it does not collide with `CU4`:
+**if C4 closes, exactly one of those two theorem statements appears in the executed module, and the
+frozen text above is what it must say; under `CU4`, neither appears.** Both appearing is impossible
+and neither is reshaped in either case. `CU2` therefore requires a proof of `AdmissibleAgree` as
+sharp as C2's existential witness; it is never reached by failing to find a counterexample, and a
+failed search for a witness is `CU4`, not `CU2`.
 
 `AdmissibleNonUnique` is deliberately stated over **arbitrary** admissible weights rather than over
 `initWeight` and `uniformWeight` specifically. C2 is the concrete instance at the two named rules;
@@ -191,9 +197,10 @@ named pair while C4 succeeds on some other admissible pair. The reverse cannot h
 makes both named rules admissible and a C2 witness therefore instantiates C4's existential
 directly.
 
-If `Admissible` turns out not to be statable neutrally — if C1 fails for one of the two named rules
-under any strengthening that does not name `init`, `U`, or fibre cardinality — that is `CU3`, and
-neither C4 theorem is claimed.
+If C1 fails against `Admissible` **as frozen above** for one of the two named rules, that is `CU3`,
+and neither C4 theorem is claimed. Note the scope carefully: what fails in that case is *this*
+criterion, and the round has no means to say more, since Control 4 forbids reshaping `Admissible`
+after freeze and nothing here quantifies over alternative criteria.
 
 ## Admissible outcomes
 
@@ -207,9 +214,18 @@ admissibility conditions force the rules to coincide, and that coincidence is **
 unwitnessed. The interference question becomes well-posed and the next round asks whether OI forces
 a nonzero discrepancy, with §3.6's accessible-window countermodel as its first obstacle.
 
-**CU3 — admissibility is itself underdetermined.** No neutral common specification can be frozen
-without already deciding which extraction counts. A selection principle is missing one level more
-foundationally than in `CU1`.
+**CU3 — the frozen admissibility criterion does not admit both named rules.** C1 fails against
+`Admissible` as frozen, for `initWeight` or for `uniformWeight`, so the two rules are not being
+compared as instances of one common specification and C4 is not asked.
+
+The scope of this outcome is **exactly** that, and the wording is frozen because the overclaim is
+easy to reach for. `CU3` establishes that *this* criterion, at *this* interface, does not do the job
+asked of it. It does **not** establish that no neutral criterion exists, nor that every neutral
+strengthening fails: the round does not formalize "neutral", quantifies over no space of candidate
+criteria, and is forbidden by Control 4 from reshaping `Admissible` to try others. The general
+question of whether some admissibility criterion admits both rules is therefore **left open** by
+`CU3` and must be reported as open. Reaching it would need a target that quantifies over criteria,
+and no such target is frozen here.
 
 **CU4 — unresolved.** Neither non-uniqueness nor uniqueness closes. Recorded as open, with what is
 missing. A failed search is never reported as a uniqueness result.
@@ -240,8 +256,9 @@ place unequal initial weight on basis points of one fibre whose `bornPow` rows d
 reason to expect a witness, not a construction of one, and C2 is a witness target that either closes
 or does not.
 
-`CU3` is live because the neutrality argument for `Admissible` given above is a *reading* of the two
-conditions, not a theorem, and C4 is where it is tested.
+`CU3` is live because the neutrality argued for `Admissible` above is a *reading* of its three
+clauses, not a theorem: C1 is where the frozen criterion has to actually admit both named rules, and
+it can fail there. If it does, the scope constraint stated with `CU3` applies without softening.
 
 **No prediction is recorded on C3**, which is expected to close as stated; if it does not, the
 scoping pass's Finding 2 was wrong and that is reported as such.
@@ -296,7 +313,9 @@ tuple-instantiation lemma, Arc D round 2, or Arc E; edit manuscripts.
 3. the outcome label `CU1`–`CU4`, the prediction, and whether it held;
 4. if `CU1` or `CU3`: what a candidate-selection principle would have to do, stated as a
    **requirement** and not proposed as a condition, and phrased per the constraint above — the
-   merged bridge does not select the candidate, with no claim about the external framework;
+   merged bridge does not select the candidate, with no claim about the external framework; and if
+   `CU3`, that what failed is the frozen criterion at this interface, with the existence of some
+   criterion admitting both rules reported as **open**;
 5. if `CU2`: what the next round must prove, with §3.6 named as its first obstacle;
 6. whether C3 confirmed or refuted the scoping pass's Finding 2;
 7. what remains open;
