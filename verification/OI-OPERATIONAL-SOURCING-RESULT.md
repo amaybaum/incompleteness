@@ -175,6 +175,11 @@ all-ones ray. This is precisely the property `permClass` has and the augmentatio
 `PhasesAvailable` at every carrier, and every unitary conjugation is available at every carrier and
 level.
 
+The scope actually proved is every **unitary** conjugation, which is exactly what the `op`
+constructor of `InstAvail` admits. That is the right scope rather than a shortfall: it is what makes
+the frozen resource predicates fall at once, since the exchanges are conjugations by permutation
+matrices and the phases by `phaseGate`, both unitary.
+
 **What is reported is the disqualification, not the availability.** A criterion that returns
 *Sourced* for every resource expressible in an admissible operator has no discriminating power, so
 representation-augmentation is not a route to sourcing. This is the theorem that makes the frozen
