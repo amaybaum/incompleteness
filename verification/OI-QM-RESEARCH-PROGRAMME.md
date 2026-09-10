@@ -107,7 +107,7 @@ Representability alone sources no OI control. That is now a theorem rather than 
 
 The full Barandes correspondence is a different object from bare representability. It carries its own stochastic hypotheses and develops measurement, interference, decoherence and entanglement downstream of the correspondence, so it may establish quantum-theory equivalence that representability alone cannot. **Those hypotheses must be matched to OI theorem by theorem**, and until they are, nothing about what the correspondence supplies is settled either way.
 
-The Barandes audit supports the use of rooted/conditional stochastic data for the mathematical stochastic-to-quantum representation route. It does not supply physical coherent controls, and it does not identify OI P-indivisibility with every notion of stochastic indivisibility used in the external literature — that identification is exactly what `BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md` exists to settle at definition level.
+The Barandes audit supports the use of rooted/conditional stochastic data for the mathematical stochastic-to-quantum representation route. It does not supply physical coherent controls, and it does not identify OI P-indivisibility with every notion of stochastic indivisibility used in the external literature. That identification is settled at definition level by `BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-RESULT.md`, and it is settled in the negative: see §3.13.
 
 The programme therefore keeps two routes separate:
 
@@ -217,6 +217,18 @@ Three further results accompany it. The Arc C inclusion witness is control-inert
 
 **Interpretation:** this closes the round, not Arc D. No resource receives a new disposition, no *Reducible* verdict is recorded, and the deferred resources — coherent off-diagonal control, continuous unitary or Hamiltonian evolution, preparations, measurements, instruments, ancillas, composition, and everything in Arc E — remain undecided by name. The decisive Arc D question of whether a deeper OI condition sources the continuously tunable off-diagonal generator is untouched, and #540 remains binding.
 
+### 3.13 Barandes's indivisibility is a class name, not our failure predicate
+
+Track B act 1 is closed. `BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-RESULT.md` records the verdict pair **(BD3, BR3)**, determined from primary-source text at pinpoint locations in arXiv:2302.10778v3, arXiv:2507.21192v1 and arXiv:2309.03085v2 alone.
+
+**BD3 — definitional mismatch.** Barandes's *indivisible stochastic process* is the six-component tuple `(C, T, T₀, Γ, p, A)` of arXiv:2309.03085v2 §3.1 eq (24). Membership is a conjunction of normalization and trivialization conditions on the data; it is not a failure predicate. The same paper places any Markov chain inside the class by name (§3.3 eq (54)) and works a fully divisible permutation example that "trivially satisfies" the theorem (§4.3). Our `PIndivisibleWithin` is the negation of an existence claim. The two are predicates of different kinds, and no stated transposition identifies them.
+
+**BR3 — required only downstream.** The theorem quantifies over the whole class (§4.1 eq (69)), and its proof consumes only non-negativity and normalization of the transition entries — eq (72) is called an identity rather than a postulate (§5.1). Failure of divisibility does load-bearing work in exactly one place in the accepted corpus: arXiv:2302.10778v3 §3.5 eq (43), where interference is derived as the discrepancy between the actual dynamics and its would-be division.
+
+**Recorded separately, and not folded into BD.** After transposing his column-stochastic left action to our row-stochastic right action, the factorization equation of arXiv:2302.10778v3 eq (6) is the body of `PDivisible` **exactly**, differing only in horizon and in the endpoint of the intermediate range. An exact equation match standing beside a definitional mismatch is what Amendment 3 to the preregistration exists to keep legible.
+
+**Interpretation.** The programme's use of the correspondence is unaffected on the representation side: `Main.md` §3.1 already states that class membership is tuple instantiation and not a divisibility property, and this round confirms that reading against the source. What changes is the target of any future equivalence attempt: `PIndivisible_OI ↔ Indivisible_Barandes` is not the right statement to aim at, because the right-hand side is a class name. The live question is what `PIndivisibleWithin` adds *on top of* class membership, and eq (43) says what it adds in his framework. One manuscript surface is destabilized and is recorded as backlog without edit.
+
 ---
 
 ## 4. Current frontier
@@ -246,9 +258,11 @@ OI ──> sourced ─────┤                                           
 
 **Track I** continues as before. Its value is independent: it is what tells the programme which assumptions are actually doing the work, and Arc D round 1 is the standing demonstration, since a theorem about the programme's own criterion is not something an external correspondence theorem could supply.
 
-The immediate next act on Track B is a **narrow definition-level audit**, not a proof attempt: `BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md`. The programme does not attempt `PIndivisible_OI ↔ Indivisible_Barandes` before establishing what the right-hand side means in the accepted text.
+Track B act 1, the **narrow definition-level audit** preregistered as `BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md`, is executed and closed at **(BD3, BR3)** (§3.13). The programme declined to attempt `PIndivisible_OI ↔ Indivisible_Barandes` before establishing what the right-hand side means in the accepted text, and the audit's answer is that the right-hand side is a class name rather than a failure predicate, so that equivalence is not the statement to aim at.
 
-**Further Arc D rounds are paused** pending that audit. Everything merged by PR #554 stands; the pause is on new rounds, not a retraction. Whether Arc D round 2 or Arc E is on the critical path is decided after the audit, not before it.
+Track B act 2 is the **Lean transpose bridge**, step 5 of Amendment 2's sequence: the row/column duality of the factorization equation, proved rather than argued in prose, together with the finite-slice `PDivisible` restatement. It needs no primary source and carries no new hypothesis. `BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-RESULT.md` §6 states what act 2 may begin from without executing any of it.
+
+**Further Arc D rounds remain paused** until act 2 reports. Everything merged by PR #554 stands; the pause is on new rounds, not a retraction. Whether Arc D round 2 or Arc E is on the critical path is decided after it, not before.
 
 Arc E — composites, locality, entanglement and Bell structure — remains the required continuation of Track I wherever the final claim uses subsystem composition, local operations, incompatible measurements, or quantum correlation structure.
 
@@ -485,6 +499,6 @@ Use the following sources for detailed status:
 
 ## 10. Current one-line programme state
 
-At the post-#554 boundary:
+At the post-#554 boundary, with Track B act 1 closed:
 
-**Arcs B, C and Arc D round 1 are kernel-closed: finite reversible OI yields exactly `PPer` at the rooted stochastic level, its relation to the all-time fixed-basis Born representation class `Q*` is RC1 proper overlap, and representational presence is now a proved disqualified ground rather than a stated discipline — arbitrary finite-ancilla unitary padding preserves the represented family exactly, so the operator properties Arc D proves free are exhibited in some representation of every representable family, and every resource expressible in an admissible finite-unitary conjugation is vacuous under the representation-augmented criterion, so no sourcing claim may rest on either. The programme is two-track from here: the Barandes correspondence route and the internal Arc B/C/D/E reconstruction route, neither usable as evidence for the other. The next act is the definition-level Barandes indivisibility bridge audit, with further Arc D rounds paused until it answers; whether Arc D round 2 or Arc E is on the critical path is decided after it. Publication-facing strengthening of the central OI → QM argument is deferred under §7 rule 11 until that formal chain is closed or precisely classified, after which the manuscripts are synchronized in one pass from an explicit theorem-to-prose spine.**
+**Arcs B, C and Arc D round 1 are kernel-closed: finite reversible OI yields exactly `PPer` at the rooted stochastic level, its relation to the all-time fixed-basis Born representation class `Q*` is RC1 proper overlap, and representational presence is now a proved disqualified ground rather than a stated discipline — arbitrary finite-ancilla unitary padding preserves the represented family exactly, so the operator properties Arc D proves free are exhibited in some representation of every representable family, and every resource expressible in an admissible finite-unitary conjugation is vacuous under the representation-augmented criterion, so no sourcing claim may rest on either. The programme is two-track from here: the Barandes correspondence route and the internal Arc B/C/D/E reconstruction route, neither usable as evidence for the other. Track B act 1 is closed at (BD3, BR3): Barandes's *indivisible stochastic process* is a tuple class containing Markov chains, not our failure predicate, and failure of divisibility is no hypothesis of his theorem though it is what his interference derivation runs on; separately, his factorization equation is our `PDivisible` body exactly after transposition. The next act is the Lean transpose bridge, with further Arc D rounds paused until it reports; whether Arc D round 2 or Arc E is on the critical path is decided after it. Publication-facing strengthening of the central OI → QM argument is deferred under §7 rule 11 until that formal chain is closed or precisely classified, after which the manuscripts are synchronized in one pass from an explicit theorem-to-prose spine.**

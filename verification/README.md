@@ -1795,6 +1795,27 @@ results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Guard `
 round's headline outcome RD1, its use-by-use record of every representation-level fact, its deferred
 list and its corpus-consistency findings are in `OI-OPERATIONAL-SOURCING-RESULT.md`.
 
+`BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-RESULT.md` carries Track B act 1 under the two-track
+programme of `OI-QM-RESEARCH-PROGRAMME-AMENDMENT-2.md`: a **definition-level** audit of Barandes's
+accepted objects against the merged `PDivisible` / `PIndivisibleWithin`, executed against the
+preregistration frozen at blob `b6727fa8df616e1a3f98e45d69b99b13554cda3e` as amended by
+`BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-AMENDMENT-3.md`, frozen at blob
+`f3f23acf7f30f941b87fa8f113699c5be0c7b87b`. Evidence is primary-source text at pinpoint locations in
+arXiv:2302.10778v3, arXiv:2507.21192v1 and arXiv:2309.03085v2 only. The verdict is the ordered pair
+**(BD3, BR3)**: his *indivisible stochastic process* is the **tuple class** of
+arXiv:2309.03085v2 §3.1 eq (24), membership in which contains Markov chains outright (§3.3 eq (54)),
+so it is not the failure predicate `PIndivisibleWithin` and no stated transposition identifies them;
+and failure of divisibility is no hypothesis of the theorem — arXiv:2309.03085v2 §5.1 eq (72)
+consumes only non-negativity and normalization — but does load-bearing work downstream, where
+arXiv:2302.10778v3 §3.5 eq (43) derives interference from it. Recorded **separately**, as Amendment
+3 requires: after transposing his column-stochastic left action to our row-stochastic right action,
+his eq (6) factorization is our `PDivisible` body **exactly**, differing only in horizon and in the
+endpoint of the intermediate range. An exact equation match beside a definitional mismatch is the
+situation Amendment 3 was written to keep legible, and it is the round's central result. The freeze
+predicted `BR2`; the outcome is `BR3`, recorded as a label miss on a confirmed proposition. No Lean
+was written, no theorem proved, no manuscript edited, and nothing here is a sourcing claim. Guard
+`R7-BRIDGE`, which pins both control-plane blobs by computed git blob identity rather than by prose.
+
 `OIBridge/RecurrenceHorizon.lean` carries Targets 1 and 2 of
 `RECURRENCE-TIGHTNESS-AUDIT.md`, read under `RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md`, which
 controls the horizon symbol. The frozen route is that a rooted family whose map returns to the
