@@ -56,9 +56,11 @@ and negative.
 
 ### C2 — the decisive target, and it closed
 
-The witness is `splitData`: visible carrier `Fin 2`, basis `Fin 3`, readout sending basis points `0`
-and `1` to the visible value `0` and basis point `2` to `1`, evolution the transposition exchanging
-basis points `1` and `2`, initial law `(1/2, 1/4, 1/4)`.
+The witness has visible carrier `Fin 2`, basis `Fin 3`, readout sending basis points `0` and `1` to
+the visible value `0` and basis point `2` to `1`, evolution the transposition exchanging basis points
+`1` and `2`, and initial law `(1/2, 1/4, 1/4)`. It is constructed **inside this theorem's proof**
+rather than named at top level, because the freeze fixes that the round introduces exactly eight
+definitions and a named witness datum would be a ninth.
 
 Two requirements, both necessary. The fibre over `0` must carry two basis points **whose visible
 rows differ** — the transposition fixes basis point `0` inside that fibre and moves basis point `1`
@@ -93,26 +95,49 @@ provisional and explicitly not a theorem. It is now a theorem, at that scope and
 
 `AdmissibleNonUnique` is proved. Note what the frozen statement quantifies over: **arbitrary**
 admissible weights, not the two named rules. C2 could have failed on the named pair while C4
-succeeded on another; it went the other way, and the C2 witness instantiates C4's existential
-directly.
+succeeded on another; it went the other way.
 
-## What was not proved, and why that is not a negative result
+It is proved **from C2 and C1**, with no second witness. The freeze says the C2 witness instantiates
+C4's existential directly; this is that sentence as a derivation rather than as prose, and it needs
+two side facts, both supplied by C2's own payload:
 
-Two frozen theorem statements do **not** appear in the executed module:
+- the visible carrier is inhabited, because over an empty carrier every matrix equals every other
+  and the two candidates could not then differ;
+- every fibre is inhabited, because `rootMass` is a sum over that fibre and `PositiveRootMass` makes
+  it positive.
 
-- **`admissible_agree`** (the `CU2` side). Not proved, and it cannot be: it is the exact negation of
-  what C4 established over the same domain.
-- **`named_rule_inadmissible`** (the `CU3` side). Not proved. C1 closed, so no counterexample to
-  admissibility of the named rules exists to exhibit here.
+The second is the fact that also made `CU3` unlikely, now doing work rather than being observed.
+
+## What was not proved
+
+Two frozen theorem statements do **not** appear in the executed module, and the two cases are not
+alike — the distinction matters and is stated rather than blurred.
+
+**`admissible_agree`** (the `CU2` side). Not proved, and it cannot be: it is the exact negation of
+what C4 established over the same domain.
+
+**`named_rule_inadmissible`** (the `CU3` side). Not proved — and here the honest statement is
+stronger than "unreached". The frozen `NamedRuleInadmissible` carries `IsLaw`, `PositiveRootMass`,
+`∀ k, ∃ b, Q.read b = k` and `Nonempty V` as its own hypotheses, and asks for one of the two named
+rules to fail admissibility. Under exactly those hypotheses, `initWeight_admissible` gives the first
+rule and `uniformWeight_admissible` the second, so **C1's two positive theorems independently
+exclude that witness.** No counterexample exists to exhibit, and that is a fact about the
+mathematics rather than about the search.
+
+The general principle still holds and is not weakened by this case: **absence of a proof is not, by
+itself, evidence against a proposition.** What licenses the stronger statement here is C1, not the
+absence of `named_rule_inadmissible`. Where the two come apart — as they do for a proposition C1
+does not bear on — the weaker reading is the one this round takes.
 
 The freeze predicted `CU3` unlikely and gave its ground, which the proofs bore out: `PositiveRootMass`
 forces every fibre nonempty — that is what `uniformWeight` needs in order to normalize, and positivity
 of the same quantity is what `initWeight` needs for its denominator. `uniformWeight_admissible`'s
-explicit hypothesis `∀ k, ∃ b, Q.read b = k` is therefore derivable from `PositiveRootMass`; it is
-kept as frozen, and costs nothing to discharge.
+explicit hypothesis `∀ k, ∃ b, Q.read b = k` is therefore derivable from `PositiveRootMass`, which is
+exactly how C4 discharges it below; the hypothesis is kept as frozen and costs nothing.
 
-**Absence of a proof is not evidence against a proposition.** `CU3` is reported as **not reached**,
-never as refuted.
+No named corollary `¬ NamedRuleInadmissible` is added. It would be a new target introduced after
+seeing the results, which is what preregistration exists to prevent; the exclusion above is stated as
+a two-line consequence of theorems the round already proves, checkable against their statements.
 
 ## What this licenses, and what it does not
 

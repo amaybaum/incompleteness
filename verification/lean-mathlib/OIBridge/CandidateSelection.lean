@@ -133,9 +133,14 @@ to respect.  Criterion failure is therefore its own frozen target, `NamedRuleIna
 the **first two** statements; `candidateOf_isRowStochastic` has no frozen negative, and its
 non-closure would be `CU4`.
 
-`CU3` is claimed **only** on a proof of that proposition.  C1 closes here, so no such proof appears
-in this module and the proposition is asserted by nothing.  That is what `CU3` not obtaining looks
-like, and it is **not** evidence that the proposition is false. -/
+`CU3` is claimed **only** on a proof of that proposition, and no such proof appears here.  Note the
+two distinct reasons that could hold.  In general, absence of a proof is not evidence against a
+proposition.  In *this* case something stronger is true and is worth stating rather than blurring:
+`NamedRuleInadmissible` carries `IsLaw`, `PositiveRootMass`, inhabited fibres and `Nonempty V` as its
+own hypotheses, and under exactly those the two C1 theorems below give both named rules admissible —
+so C1 independently **excludes** that witness.  What licenses the stronger reading is C1, not the
+absence.  No corollary is added for it: that would be a new target introduced after seeing the
+results. -/
 
 /-- CRITERION FAILURE.  Some representation meeting C1's hypotheses carries a named rule that the
 frozen `Admissible` does not admit.  This is the `CU3` side; nothing in this module proves it. -/
@@ -217,137 +222,89 @@ the two basis points `0` and `1`, which the evolution sends to different visible
 the initial law is unequal.  Both requirements are necessary — on a one-point visible carrier the
 single entry of `candidateOf` *is* the row sum, hence `1` for every admissible weight. -/
 
-section Witness
-
-/-- The witness readout, kept separate from the datum so that fibres evaluate.  Basis points `0`
-and `1` sit over the visible value `0`; basis point `2` sits over `1`. -/
-def splitRead : Fin 3 → Fin 2 := fun b => if b = 2 then 1 else 0
-
-/-- The witness initial law.  It is deliberately **unequal** on the two basis points of the fibre
-over `0`, which is what separates the init-weighted rule from the uniform one. -/
-noncomputable def splitInit : Fin 3 → ℝ := fun b => if b = 0 then 1 / 2 else 1 / 4
-
-/-- The witness evolution: the transposition exchanging the second basis point with the third.  It
-fixes basis point `0`, which stays in the visible fibre over `0`, and moves basis point `1` out of
-that fibre — so the two points of the fibre have different visible rows. -/
-noncomputable def splitU : Matrix (Fin 3) (Fin 3) ℂ :=
-  !![1, 0, 0; 0, 0, 1; 0, 1, 0]
-
-theorem splitU_mem_unitaryGroup : splitU ∈ Matrix.unitaryGroup (Fin 3) ℂ := by
-  rw [Matrix.mem_unitaryGroup_iff]
-  ext i j
-  fin_cases i <;> fin_cases j <;>
-    simp [splitU, Matrix.mul_apply, Fin.sum_univ_three, Matrix.conjTranspose_apply,
-      Matrix.one_apply]
-
-/-- **The C2 witness.**  Its initial law places unequal weight on the two basis points of the fibre
-over `0`, which is what separates the init-weighted rule from the uniform one. -/
-noncomputable def splitData : QfbData (Fin 2) where
-  Bas := Fin 3
-  fB := inferInstance
-  dB := inferInstance
-  U := splitU
-  init := splitInit
-  read := splitRead
-
-@[simp] theorem splitInit_zero : splitInit 0 = 1 / 2 := by
-  unfold splitInit; rw [if_pos (by decide : (0 : Fin 3) = 0)]
-
-@[simp] theorem splitInit_one : splitInit 1 = 1 / 4 := by
-  unfold splitInit; rw [if_neg (by decide : ¬ (1 : Fin 3) = 0)]
-
-@[simp] theorem splitInit_two : splitInit 2 = 1 / 4 := by
-  unfold splitInit; rw [if_neg (by decide : ¬ (2 : Fin 3) = 0)]
-
-theorem splitData_isLaw : splitData.IsLaw := by
-  refine ⟨splitU_mem_unitaryGroup, fun b => ?_, ?_⟩
-  · show (0 : ℝ) ≤ splitInit b
-    unfold splitInit; split <;> norm_num
-  · show (∑ b : Fin 3, splitInit b) = 1
-    rw [Fin.sum_univ_three]
-    norm_num
-
-theorem splitData_fibre_zero :
-    (univ.filter (fun c : Fin 3 => splitRead c = 0)) = ({0, 1} : Finset (Fin 3)) := by
-  ext b
-  fin_cases b <;> simp [splitRead]
-
-theorem splitData_fibre_card :
-    ((univ.filter (fun c => splitData.read c = 0)).card : ℝ) = 2 := by
-  show ((univ.filter (fun c : Fin 3 => splitRead c = 0)).card : ℝ) = 2
-  rw [splitData_fibre_zero]
-  norm_num
-
-theorem splitData_rootMass_zero : splitData.rootMass 0 = 3 / 4 := by
-  show (∑ b ∈ univ.filter (fun b : Fin 3 => splitRead b = 0), splitInit b) = 3 / 4
-  rw [Finset.sum_filter, Fin.sum_univ_three]
-  norm_num [splitRead, Fin.ext_iff]
-
-theorem splitData_rootMass_one : splitData.rootMass 1 = 1 / 4 := by
-  show (∑ b ∈ univ.filter (fun b : Fin 3 => splitRead b = 1), splitInit b) = 1 / 4
-  rw [Finset.sum_filter, Fin.sum_univ_three]
-  norm_num [splitRead, Fin.ext_iff]
-
-theorem splitData_positiveRootMass : splitData.PositiveRootMass := by
-  intro a
-  fin_cases a
-  · show (0 : ℝ) < splitData.rootMass 0
-    rw [splitData_rootMass_zero]; norm_num
-  · show (0 : ℝ) < splitData.rootMass 1
-    rw [splitData_rootMass_one]; norm_num
-
-theorem splitData_fibres_nonempty : ∀ k, ∃ b, splitData.read b = k := by
-  intro k
-  show ∃ b : Fin 3, splitRead b = k
-  fin_cases k
-  · exact ⟨0, by decide⟩
-  · exact ⟨2, by decide⟩
-
-/-- Basis point `0` of the witness, named at the type the datum expects. -/
-def splitB0 : splitData.Bas := (0 : Fin 3)
-
-/-- The `(0, 0)` entry of the candidate at one elapsed step is the weight the rule assigns to basis
-point `0` alone: that point stays over the visible value `0` with weight one, while basis point `1`
-leaves the fibre entirely.  So the entry reads the rule off directly, and the two named rules differ
-there exactly when they weight basis point `0` differently. -/
-theorem splitData_candidate_zero_zero (μ : FibreWeight splitData) :
-    candidateOf splitData μ 1 0 0 = μ 0 splitB0 := by
-  show (∑ b ∈ univ.filter (fun b : Fin 3 => splitRead b = 0),
-          ∑ b' ∈ univ.filter (fun b' : Fin 3 => splitRead b' = 0),
-            μ 0 b * splitData.bornPow 1 b b') = μ 0 splitB0
-  have hb : ∀ b b' : Fin 3, splitData.bornPow 1 b b' = ‖splitU b' b‖ ^ 2 := fun b b' =>
-    (bornPow_one splitData b b').trans rfl
-  simp only [Finset.sum_filter, hb]
-  rw [Fin.sum_univ_three]
-  simp only [Fin.sum_univ_three]
-  show (_ : ℝ) = μ 0 (0 : Fin 3)
-  norm_num [splitRead, splitU, Fin.ext_iff]
-
-theorem splitData_initWeight_zero_zero : initWeight splitData 0 splitB0 = 2 / 3 := by
-  show (if splitRead 0 = 0 then splitInit 0 / splitData.rootMass 0 else 0) = 2 / 3
-  rw [if_pos (by decide : splitRead 0 = 0), splitData_rootMass_zero, splitInit_zero]
-  norm_num
-
-theorem splitData_uniformWeight_zero_zero : uniformWeight splitData 0 splitB0 = 1 / 2 := by
-  show (if splitRead 0 = 0
-          then 1 / ((univ.filter (fun c : Fin 3 => splitRead c = 0)).card : ℝ) else 0) = 1 / 2
-  rw [if_pos (by decide : splitRead 0 = 0), splitData_fibre_zero]
-  norm_num
-
-end Witness
-
 /-- **C2.**  The two named rules differ on one lawful representation, with the representation held
-fixed.  This is what makes underdetermination a theorem rather than an audit observation. -/
+fixed.  This is what makes underdetermination a theorem rather than an audit observation.
+
+The witness is constructed **inside this proof** rather than named at top level, so that the round
+introduces exactly the eight definitions the freeze fixes and no others. -/
 theorem candidate_rules_disagree :
     ∃ (V : Type) (_ : Fintype V) (_ : DecidableEq V) (Q : QfbData V) (n : ℕ),
       Q.IsLaw ∧ Q.PositiveRootMass
       ∧ candidateOf Q (initWeight Q) n ≠ candidateOf Q (uniformWeight Q) n := by
-  refine ⟨Fin 2, inferInstance, inferInstance, splitData, 1, splitData_isLaw,
-    splitData_positiveRootMass, fun hcontra => ?_⟩
+  classical
+  -- Visible carrier `Fin 2`, basis `Fin 3`.  The fibre over the visible value `0` carries basis
+  -- points `0` and `1`; the evolution is the transposition exchanging basis points `1` and `2`, so
+  -- it fixes point `0` inside that fibre and moves point `1` out of it, giving the two points
+  -- different visible rows.  The initial law weights them unequally.
+  set Q : QfbData (Fin 2) :=
+    { Bas := Fin 3
+      fB := inferInstance
+      dB := inferInstance
+      U := !![1, 0, 0; 0, 0, 1; 0, 1, 0]
+      init := fun b => if b = 0 then 1 / 2 else 1 / 4
+      read := fun b => if b = 2 then 1 else 0 } with hQdef
+  have hread : ∀ b : Fin 3, Q.read b = (if b = 2 then 1 else 0 : Fin 2) := fun _ => rfl
+  have hinit : ∀ b : Fin 3, Q.init b = (if b = 0 then 1 / 2 else 1 / 4 : ℝ) := fun _ => rfl
+  have hborn : ∀ b b' : Fin 3, Q.born b b'
+      = ‖(!![1, 0, 0; 0, 0, 1; 0, 1, 0] : Matrix (Fin 3) (Fin 3) ℂ) b' b‖ ^ 2 := fun _ _ => rfl
+  -- the fibre over the visible value `0`
+  have hfib0 : (univ.filter (fun c : Fin 3 => Q.read c = 0)) = ({0, 1} : Finset (Fin 3)) := by
+    ext b
+    fin_cases b <;> simp [hread]
+  have hlaw : Q.IsLaw := by
+    refine ⟨?_, fun b => ?_, ?_⟩
+    · show (!![1, 0, 0; 0, 0, 1; 0, 1, 0] : Matrix (Fin 3) (Fin 3) ℂ)
+        ∈ Matrix.unitaryGroup (Fin 3) ℂ
+      rw [Matrix.mem_unitaryGroup_iff]
+      ext i j
+      fin_cases i <;> fin_cases j <;>
+        simp [Matrix.mul_apply, Fin.sum_univ_three, Matrix.conjTranspose_apply, Matrix.one_apply]
+    · rw [hinit b]; split <;> norm_num
+    · show (∑ b : Fin 3, Q.init b) = 1
+      rw [Fin.sum_univ_three, hinit 0, hinit 1, hinit 2]
+      norm_num [Fin.ext_iff]
+  have hrm0 : Q.rootMass 0 = 3 / 4 := by
+    show (∑ b ∈ univ.filter (fun b : Fin 3 => Q.read b = 0), Q.init b) = 3 / 4
+    rw [hfib0, Finset.sum_pair (by decide : (0 : Fin 3) ≠ 1), hinit 0, hinit 1]
+    norm_num
+  have hrm1 : Q.rootMass 1 = 1 / 4 := by
+    show (∑ b ∈ univ.filter (fun b : Fin 3 => Q.read b = 1), Q.init b) = 1 / 4
+    have h1 : (univ.filter (fun c : Fin 3 => Q.read c = 1)) = ({2} : Finset (Fin 3)) := by
+      ext b
+      fin_cases b <;> simp [hread]
+    rw [h1, Finset.sum_singleton, hinit 2, if_neg (by decide : ¬ (2 : Fin 3) = 0)]
+  have hpos : Q.PositiveRootMass := by
+    intro a
+    fin_cases a
+    · show (0 : ℝ) < Q.rootMass 0
+      rw [hrm0]; norm_num
+    · show (0 : ℝ) < Q.rootMass 1
+      rw [hrm1]; norm_num
+  -- at one elapsed step the `(0,0)` entry reads the rule off at basis point `0` alone
+  have hentry : ∀ μ : FibreWeight Q, candidateOf Q μ 1 0 0 = μ 0 (0 : Fin 3) := by
+    intro μ
+    show (∑ b ∈ univ.filter (fun b : Fin 3 => Q.read b = 0),
+            ∑ b' ∈ univ.filter (fun b' : Fin 3 => Q.read b' = 0),
+              μ 0 b * Q.bornPow 1 b b') = μ 0 (0 : Fin 3)
+    have hb : ∀ b b' : Fin 3, Q.bornPow 1 b b'
+        = ‖(!![1, 0, 0; 0, 0, 1; 0, 1, 0] : Matrix (Fin 3) (Fin 3) ℂ) b' b‖ ^ 2 := fun b b' =>
+      (bornPow_one Q b b').trans (hborn b b')
+    simp only [Finset.sum_filter, hb, hread]
+    rw [Fin.sum_univ_three]
+    simp only [Fin.sum_univ_three]
+    norm_num [Fin.ext_iff]
+  have hiw : initWeight Q 0 (0 : Fin 3) = 2 / 3 := by
+    show (if Q.read 0 = 0 then Q.init 0 / Q.rootMass 0 else 0) = 2 / 3
+    rw [if_pos (by rw [hread 0]; decide), hrm0, hinit 0]
+    norm_num
+  have huw : uniformWeight Q 0 (0 : Fin 3) = 1 / 2 := by
+    show (if Q.read 0 = 0
+            then 1 / ((univ.filter (fun c : Fin 3 => Q.read c = 0)).card : ℝ) else 0) = 1 / 2
+    rw [if_pos (by rw [hread 0]; decide), hfib0]
+    norm_num
+  refine ⟨Fin 2, inferInstance, inferInstance, Q, 1, hlaw, hpos, fun hcontra => ?_⟩
   have h00 := congrFun (congrFun hcontra 0) 0
-  rw [splitData_candidate_zero_zero (initWeight splitData),
-    splitData_candidate_zero_zero (uniformWeight splitData),
-    splitData_initWeight_zero_zero, splitData_uniformWeight_zero_zero] at h00
+  rw [hentry (initWeight Q), hentry (uniformWeight Q), hiw, huw] at h00
   norm_num at h00
 
 /-! ### C3 — the subsidiary padding theorems, at exact scope
@@ -467,17 +424,33 @@ def AdmissibleAgree : Prop :=
     Q.IsLaw → Q.PositiveRootMass → Admissible Q μ → Admissible Q ν →
     candidateOf Q μ n = candidateOf Q ν n
 
-/-- **C4.**  The admissibility conditions do **not** force uniqueness. -/
+/-- **C4.**  The admissibility conditions do **not** force uniqueness.
+
+Proved **from C2 and C1**, not by re-instantiating the witness. The freeze says the C2 witness
+instantiates C4's existential directly; this is that sentence as a derivation rather than as prose.
+Two side facts are needed and both come from C2's own payload: the visible carrier is inhabited
+because over an empty carrier every matrix equals every other, so the two candidates could not
+differ; and every fibre is inhabited because `rootMass` is a sum over that fibre and
+`PositiveRootMass` makes it positive. -/
 theorem admissible_nonUnique : AdmissibleNonUnique := by
-  refine ⟨Fin 2, inferInstance, inferInstance, splitData, initWeight splitData,
-    uniformWeight splitData, 1, splitData_isLaw, splitData_positiveRootMass,
-    initWeight_admissible splitData splitData_isLaw splitData_positiveRootMass,
-    uniformWeight_admissible splitData splitData_fibres_nonempty, fun hcontra => ?_⟩
-  have h00 := congrFun (congrFun hcontra 0) 0
-  rw [splitData_candidate_zero_zero (initWeight splitData),
-    splitData_candidate_zero_zero (uniformWeight splitData),
-    splitData_initWeight_zero_zero, splitData_uniformWeight_zero_zero] at h00
-  norm_num at h00
+  obtain ⟨V, hV, hDV, Q, n, hQ, hP, hne⟩ := candidate_rules_disagree
+  have hVne : Nonempty V := by
+    rcases isEmpty_or_nonempty V with _ | h
+    · exact absurd (funext fun i => (IsEmpty.false i).elim) hne
+    · exact h
+  have hfib : ∀ k, ∃ b, Q.read b = k := by
+    intro k
+    by_contra hno
+    push_neg at hno
+    have hempty : (univ.filter (fun b => Q.read b = k)) = ∅ := by
+      ext b
+      simp [hno b]
+    have hzero : Q.rootMass k = 0 := by
+      show (∑ b ∈ univ.filter (fun b => Q.read b = k), Q.init b) = 0
+      rw [hempty, Finset.sum_empty]
+    exact absurd hzero (ne_of_gt (hP k))
+  exact ⟨V, hV, hDV, Q, initWeight Q, uniformWeight Q, n, hQ, hP,
+    initWeight_admissible Q hQ hP, uniformWeight_admissible Q hfib, hne⟩
 
 /-! ### What these proofs rest on
 

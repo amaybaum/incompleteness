@@ -8087,10 +8087,36 @@ def _cs_frozen_sigs(src, pre):
         '      ∧ candidateOf Q (initWeight Q) n ≠ candidateOf Q (uniformWeight Q) n',
         'theorem candidateOf_initWeight_eq_rooted (Q : QfbData V) (hQ : Q.IsLaw) (hP : Q.PositiveRootMass)\n'
         '    (n : ℕ) (k j : V) : candidateOf Q (initWeight Q) n k j = Q.rooted n k j',
+        # C3's SECOND theorem, whose signature D4 does not pin: D4 checks only that the proof
+        # consumes the general-horizon route, so a drifted binder or a changed statement keeping
+        # those dependencies would otherwise pass
+        'theorem candidateOf_uniformWeight_padData_eq (Q : QfbData V) (Anc : Type) [Fintype Anc]\n'
+        '    [DecidableEq Anc] [Nonempty Anc] (W : Matrix Anc Anc ℂ) (hW : W ∈ Matrix.unitaryGroup Anc ℂ)\n'
+        '    (w : Anc → ℝ) (n : ℕ) (k j : V) :\n'
+        '    candidateOf (padData Q Anc W w) (uniformWeight _) n k j\n'
+        '      = candidateOf Q (uniformWeight Q) n k j',
     ):
         if sig not in src or sig not in pre:
             return False
     return True
+
+
+# the eight names the freeze fixes, and the ONLY top-level definitions the round may introduce
+_CS_DEF_NAMES = {
+    'FibreWeight', 'candidateOf', 'initWeight', 'uniformWeight', 'Admissible',
+    'NamedRuleInadmissible', 'AdmissibleNonUnique', 'AdmissibleAgree',
+}
+
+
+def _cs_only_frozen_defs(src):
+    """D1c -- the eight frozen definitions are the ONLY top-level definitions in the module.
+
+    The freeze says the round introduces exactly eight definitions, and D1 checking that those eight
+    occur verbatim does not enforce it: witness data added as top-level `def`s would satisfy D1 while
+    breaking the count. So the C2 witness is constructed INSIDE its proof, and this pins that. The
+    count is the contract, not a style preference -- a round that may add definitions after seeing
+    what proves is not preregistered."""
+    return set(re.findall(r'(?m)^(?:noncomputable\s+)?def\s+([A-Za-z_][\w\'.]*)', src)) == _CS_DEF_NAMES
 
 
 def _cs_freeze_pin(read=_bb_read):
@@ -8177,6 +8203,7 @@ ok_cs = True
 # the eight contracts hold as the tree stands (D1, D1b, D2-D7)
 ok_cs &= _cs_frozen_defs(_CS, _CSPRE)
 ok_cs &= _cs_frozen_sigs(_CS, _CSPRE)
+ok_cs &= _cs_only_frozen_defs(_CS)
 ok_cs &= _cs_freeze_pin()
 ok_cs &= _cs_outcome_theorems(_CS)
 ok_cs &= _cs_general_horizon(_CS)
@@ -8192,6 +8219,15 @@ ok_cs &= _cs_m1 != _CS and not _cs_frozen_defs(_cs_m1, _CSPRE)
 _cs_m1b = _CS.replace('theorem candidateOf_isRowStochastic (Q : QfbData V) (hQ : Q.IsLaw) (μ : FibreWeight Q)',
                       'theorem candidateOf_isRowStochastic [Nonempty V] (Q : QfbData V) (hQ : Q.IsLaw) (μ : FibreWeight Q)')
 ok_cs &= _cs_m1b != _CS and not _cs_frozen_sigs(_cs_m1b, _CSPRE)
+
+_cs_m1c = _CS.replace(
+    'theorem candidateOf_uniformWeight_padData_eq (Q : QfbData V) (Anc : Type) [Fintype Anc]',
+    'theorem candidateOf_uniformWeight_padData_eq (Q : QfbData V) [Nonempty V] (Anc : Type) [Fintype Anc]')
+ok_cs &= _cs_m1c != _CS and not _cs_frozen_sigs(_cs_m1c, _CSPRE)
+
+# a witness datum re-added as a top-level definition -- the exact escape D1 alone would allow
+_cs_m1d = _CS + '\nnoncomputable def splitData : QfbData (Fin 2) := sorry\n'
+ok_cs &= not _cs_only_frozen_defs(_cs_m1d)
 
 _cs_m3 = _CS.replace('theorem admissible_nonUnique : AdmissibleNonUnique',
                      'theorem admissible_agree : AdmissibleAgree')
@@ -8238,6 +8274,9 @@ check('R7-CAND', ok_cs,
       'introduced definitions are compared VERBATIM against the preregistration\'s own text, the sign clause of '
       'Admissible among them, since without it candidateOf_isRowStochastic is FALSE: support and normalization force '
       'the row sums while leaving each entry an affine rather than convex combination of the fibre\'s visible rows. '
+      'Those eight are also checked to be the ONLY top-level definitions, which verbatim comparison alone does not '
+      'enforce: witness data added as top-level defs would satisfy the comparison while breaking the count the freeze '
+      'fixes, so the C2 witness is built inside its own proof and an added definition is mutation-tested to fail. '
       'The preregistration itself is pinned by computed git blob identity, exercised through the same predicate on '
       'one-byte-drifted bytes. Four of the five outcomes are earned only by a named proof, so WHICH outcome-bearing '
       'theorems exist is the outcome: admissible_nonUnique is present for CU1a, and admissible_agree (CU2) and '
