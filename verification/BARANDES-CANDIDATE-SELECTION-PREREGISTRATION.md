@@ -45,9 +45,9 @@ Merged and used, not redefined: `QfbData`, `IsLaw`, `PositiveRootMass`, `born`, 
 `IsRowStochastic`, `PDivisible`, `PIndivisibleWithin` (`CausalReadback.lean`); the orientation bridge
 of `TransposeBridge.lean`.
 
-**This round introduces exactly seven definitions, each fixed here in the form it will take**: the
-four immediately below, `Admissible` in the subsection after them, and the two competing
-propositions frozen with target C4.
+**This round introduces exactly eight definitions, each fixed here in the form it will take**: the
+four immediately below, `Admissible` in the subsection after them, `NamedRuleInadmissible` with
+target C1, and the two competing propositions frozen with target C4.
 
 ```lean
 /-- Weight assigned to each basis point of the visible fibre over `k`, from which a visible
@@ -117,6 +117,25 @@ theorem candidateOf_isRowStochastic (Q : QfbData V) (hQ : Q.IsLaw) (μ : FibreWe
 ```
 
 Without C1 the later targets compare objects that are not candidates.
+
+**C1's negative is frozen too, and `CU3` requires it.** The three statements above are positive, so
+their failing to close proves nothing about the criterion — exactly the proof-search-versus-negation
+gap that C2's "not established" status exists to respect. Criterion failure is therefore its own
+frozen target:
+
+```lean
+/-- CRITERION FAILURE.  Some representation meeting C1's hypotheses carries a named rule that the
+frozen `Admissible` does not admit. -/
+def NamedRuleInadmissible : Prop :=
+  ∃ (V : Type) (_ : Fintype V) (_ : DecidableEq V) (_ : Nonempty V) (Q : QfbData V),
+    Q.IsLaw ∧ Q.PositiveRootMass ∧ (∀ k, ∃ b, Q.read b = k)
+    ∧ (¬ Admissible Q (initWeight Q) ∨ ¬ Admissible Q (uniformWeight Q))
+
+theorem named_rule_inadmissible : NamedRuleInadmissible    -- the CU3 side
+```
+
+`CU3` is claimed **only** when that theorem is proved. C1 failing to close without it is `CU4`, and
+so is any non-closure of `candidateOf_isRowStochastic`, whose negative is not frozen at all.
 
 **C2 — the decisive question: must the two rules agree?** Exhibit a lawful representation on which
 they differ:
@@ -201,10 +220,10 @@ named pair while C4 succeeds on some other admissible pair. The reverse cannot h
 makes both named rules admissible and a C2 witness therefore instantiates C4's existential
 directly.
 
-If C1 fails against `Admissible` **as frozen above** for one of the two named rules, that is `CU3`,
-and neither C4 theorem is claimed. Note the scope carefully: what fails in that case is *this*
-criterion, and the round has no means to say more, since Control 4 forbids reshaping `Admissible`
-after freeze and nothing here quantifies over alternative criteria.
+If `NamedRuleInadmissible` is proved, that is `CU3`, and neither C4 theorem is claimed. Note the
+scope carefully: what is shown in that case is that *this* criterion fails on a named rule, and the
+round has no means to say more, since Control 4 forbids reshaping `Admissible` after freeze and
+nothing here quantifies over alternative criteria.
 
 ## Admissible outcomes
 
@@ -229,15 +248,27 @@ It is strictly weaker than `CU1a` and carries a strictly weaker licence. What is
 frozen admissibility conditions do not force a unique candidate; whether the two *natural* rules
 differ stays open, and is reported as open unless separately proved.
 
-**CU2 — unique at the tested interface.** `AdmissibleAgree` closes. C2's witness then does not exist
-as a **consequence of that theorem** — C1 makes both named rules admissible, so agreement forces
-their candidates to coincide — rather than because a search for it failed. The interference question
-becomes well-posed and the next round asks whether OI forces a nonzero discrepancy, with §3.6's
-accessible-window countermodel as its first obstacle.
+**CU2 — the internal candidate is unique at this interface.** `AdmissibleAgree` closes. C2's witness
+then does not exist as a **consequence of that theorem** — C1 makes both named rules admissible, so
+agreement forces their candidates to coincide — rather than because a search for it failed.
 
-**CU3 — the frozen admissibility criterion does not admit both named rules.** C1 fails against
-`Admissible` as frozen, for `initWeight` or for `uniformWeight`, so the two rules are not being
-compared as instances of one common specification and C4 is not asked.
+What that buys is stated at its own scope, since this round forbids identifying `candidateOf` with
+any external object. Uniqueness is of **our** `candidateOf` at **this** interface. It makes the
+*this-side* discrepancy a well-defined function of the representation, so a next round may study
+that discrepancy — or may instead discharge the mapping obligation, proving that our representation
+instantiates the external construction. **`CU2` does not make the external interference question
+well-posed**, and the mapping is a separate obligation that no theorem in this round addresses.
+§3.6's accessible-window countermodel remains the first obstacle for the this-side discrepancy
+round.
+
+**CU3 — the frozen admissibility criterion does not admit both named rules.** `NamedRuleInadmissible`
+is **proved**: some representation meeting C1's hypotheses carries a named rule the frozen
+`Admissible` does not admit, so the two rules are not being compared as instances of one common
+specification and C4 is not asked.
+
+`CU3` is reached only that way. C1 merely failing to close is `CU4`, never `CU3`: the C1 statements
+are positive, so their non-closure is a fact about the search and not about the criterion, and the
+round claims criterion failure only where it has proved it.
 
 The scope of this outcome is **exactly** that, and the wording is frozen because the overclaim is
 easy to reach for. `CU3` establishes that *this* criterion, at *this* interface, does not do the job
@@ -248,14 +279,20 @@ question of whether some admissibility criterion admits both rules is therefore 
 `CU3` and must be reported as open. Reaching it would need a target that quantifies over criteria,
 and no such target is frozen here.
 
-**CU4 — unresolved.** C1 closes and neither C4 side closes. C2 is then not established either, since
-a C2 witness together with C1 would prove `AdmissibleNonUnique`. Recorded as open, with what is
-missing. A failed search is never reported as a uniqueness result.
+**CU4 — unresolved.** Either C1 does not close and `NamedRuleInadmissible` is not proved either, or
+C1 closes and neither C4 side closes. In the second case C2 is not established either, since a C2
+witness together with C1 would prove `AdmissibleNonUnique`. Recorded as open, with what is missing.
+A failed search is never reported as a uniqueness result, and never as a criterion-failure result.
 
-**The five cases are exhaustive.** If C1 fails, the outcome is `CU3`. If C1 closes, exactly one of
-three things is true of C4 — `AdmissibleNonUnique` proved, `AdmissibleAgree` proved, or neither —
-giving `CU1a`/`CU1b` (split by whether C2 closes), `CU2`, and `CU4` respectively. No further split
-is needed on C2: it cannot close under `CU2` or `CU4`, for the reasons given in each.
+**The five cases are exhaustive.** If `NamedRuleInadmissible` is proved, the outcome is `CU3`.
+Otherwise, if C1 does not close, the outcome is `CU4`. If C1 closes, exactly one of three things is
+true of C4 — `AdmissibleNonUnique` proved, `AdmissibleAgree` proved, or neither — giving
+`CU1a`/`CU1b` (split by whether C2 closes), `CU2`, and `CU4` respectively. No further split is
+needed on C2: it cannot close under `CU2` or `CU4`, for the reasons given in each.
+
+**Every outcome is earned by a proof, and none by a failed search.** `CU1a` needs C2; `CU1b` needs
+`AdmissibleNonUnique`; `CU2` needs `AdmissibleAgree`; `CU3` needs `NamedRuleInadmissible`. `CU4` is
+the one outcome that reports non-closure, and it reports exactly that.
 
 **C2 has no frozen complement, and this is deliberate.** C4 freezes both sides because its outcome
 label turns on which one is true, so `CU2` must be earned by proof. C2 freezes only the existential,
@@ -320,8 +357,8 @@ round does not extend them.
 
 ## Prediction recorded before proving
 
-**`CU1a` is predicted, at roughly two-to-one against `CU2`, with `CU3` materially live and `CU1b`
-the fallback if the named pair proves harder to separate than the general existential.**
+**`CU1a` is predicted, at roughly two-to-one against `CU2`, with `CU1b` the fallback if the named
+pair proves harder to separate than the general existential, and `CU3` unlikely.**
 
 The ground is that `initWeight` reads `Q.init` and `uniformWeight` reads only the fibre's
 cardinality, and nothing in `IsLaw` or `PositiveRootMass` ties those together: a lawful `Q` may
@@ -333,9 +370,19 @@ Note that the ground concerns the **named** rules specifically, which is why the
 recorded on `CU1a` rather than on the `CU1` family: `CU1b` needs only some admissible pair, so it is
 strictly easier to reach and a prediction covering both would be weaker than the ground supports.
 
-`CU3` is live because the neutrality argued for `Admissible` above is a *reading* of its three
-clauses, not a theorem: C1 is where the frozen criterion has to actually admit both named rules, and
-it can fail there. If it does, the scope constraint stated with `CU3` applies without softening.
+**`CU3` is recorded as unlikely, and the reason is stated so the prediction can be scored.** The
+neutrality argued for `Admissible` above is a *reading* of its three clauses rather than a theorem,
+which is why the outcome exists at all. But `PositiveRootMass` gives `0 < rootMass k`, and
+`rootMass k` is the sum of `init` over the fibre, so every fibre is nonempty — which is exactly what
+`uniformWeight` needs to normalize, and positivity of the same quantity is what `initWeight` needs.
+Nonnegativity then comes from `IsLaw`'s `∀ b, 0 ≤ init b` on one side and from `1 / card` on the
+other. So both named rules look admissible under hypotheses the targets already carry, and
+`NamedRuleInadmissible` looks unprovable.
+
+That is a reading of the merged statements, **not** a proof, and it is recorded here rather than
+acted on: the target stays frozen, because an outcome should be reachable and earned even when it is
+not expected. If C1 nonetheless fails to close and no counterexample is proved, the outcome is
+`CU4`.
 
 **No prediction is recorded on C3**, which is expected to close as stated; if it does not, the
 scoping pass's Finding 2 was wrong and that is reported as such.
@@ -347,12 +394,13 @@ scoping pass's Finding 2 was wrong and that is reported as such.
 2. **No primary source is consulted.**
 3. **The scoping pass is not cited as settled.** Its Findings 2 and 3 are provisional by its own
    terms; C3 is where Finding 2 becomes a theorem, and Finding 3 is not used as a premise anywhere.
-4. **Nothing merged is restated, and nothing frozen is reshaped.** All **seven** definitions this
+4. **Nothing merged is restated, and nothing frozen is reshaped.** All **eight** definitions this
    round introduces are frozen above in the form given — `FibreWeight`, `candidateOf`,
-   `initWeight`, `uniformWeight`, `Admissible`, and the two C4 propositions `AdmissibleNonUnique`
-   and `AdmissibleAgree`. The last two are frozen no less than the first five: the point of stating
-   both is that neither may be reshaped after C2 resolves. If a target is unprovable against them,
-   the outcome is `CU3` or `CU4` and the definitions stand.
+   `initWeight`, `uniformWeight`, `Admissible`, `NamedRuleInadmissible`, and the two C4
+   propositions `AdmissibleNonUnique` and `AdmissibleAgree`. The outcome-bearing propositions are
+   frozen no less than the constructions: the point of stating them is that none may be reshaped
+   after the targets resolve. If a target is unprovable against them, the outcome is `CU4` and the
+   definitions stand.
 5. **Kernel discipline.** No `sorry`, no custom `axiom`, no `native_decide`; a `#print axioms` line
    on every named result, printing only `[propext, Classical.choice, Quot.sound]`.
 6. **§3.6 is not reopened**, and no claim is made about whether OI forces indivisibility.
@@ -398,7 +446,11 @@ tuple-instantiation lemma, Arc D round 2, or Arc E; edit manuscripts.
 4c. if `CU3`: **only** that the frozen admissibility criterion does not compare the two named
    rules, with whether the bridge selects a candidate under some other criterion reported as
    **open**. No requirement statement and no claim about the bridge is permitted from `CU3`;
-5. if `CU2`: what the next round must prove, with §3.6 named as its first obstacle;
+5. if `CU2`: that **our** `candidateOf` is unique at **this** interface, and that this makes the
+   *this-side* discrepancy well defined — **not** that the external interference question is
+   well-posed, which needs the mapping obligation discharged separately; then what a next round
+   must prove, whether that is the this-side discrepancy round with §3.6 named as its first
+   obstacle, or the mapping itself;
 6. whether C3 confirmed or refuted the scoping pass's Finding 2;
 7. what remains open;
 8. explicitly, that nothing here claims OI forces quantum structure, nothing identifies a this-side
