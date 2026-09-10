@@ -101,17 +101,23 @@ once the finite reversible realization and fixed hidden prior are specified.
 
 A unique global invariant ensemble is not required for this rooted conditional family. The fixed hidden prior remains part of the realization datum, and different allowed priors can change the visible rooted family.
 
-### 3.5 The Barandes boundary is a representation boundary, not an operational-sourcing result
+### 3.5 The Barandes route is a separate stochastic → quantum correspondence route
 
-The Barandes audit supports the use of rooted/conditional stochastic data for the mathematical stochastic-to-quantum representation route. It does not supply physical coherent controls or identify OI P-indivisibility with every notion of stochastic indivisibility used in the external literature.
+Representability alone sources no OI control. That is now a theorem rather than a discipline: Arc D's S1 padding theorem (§3.12) shows every resource expressible in a representing operator is present in some representation of every representable family, so representational presence cannot ground a sourcing claim.
 
-The programme must therefore keep two routes separate:
+The full Barandes correspondence is a different object from bare representability. It carries its own stochastic hypotheses and develops measurement, interference, decoherence and entanglement downstream of the correspondence, so it may establish quantum-theory equivalence that representability alone cannot. **Those hypotheses must be matched to OI theorem by theorem**, and until they are, nothing about what the correspondence supplies is settled either way.
+
+The Barandes audit supports the use of rooted/conditional stochastic data for the mathematical stochastic-to-quantum representation route. It does not supply physical coherent controls, and it does not identify OI P-indivisibility with every notion of stochastic indivisibility used in the external literature — that identification is exactly what `BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md` exists to settle at definition level.
+
+The programme therefore keeps two routes separate:
 
 `rooted stochastic family -> quantum mathematical representation`
 
 and
 
-`OI physical realization -> physically available quantum operations`.
+`OI physical realization -> physically available quantum operations`,
+
+and runs the correspondence route and the internal reconstruction route as two independent tracks (§4), with neither usable as evidence for the other.
 
 ### 3.6 Causal hidden readback does not force accessible-window P-indivisibility
 
@@ -199,6 +205,18 @@ The two failures of global inclusion occur at different carriers, which is why n
 
 **Interpretation:** this is a representation result and nothing more. It does not source coherent control, phases, Hamiltonians, preparations, measurements, instruments, ancillas, composites, or any other physical operational repertoire. §3.5's separation of the two routes stands, and the #540 boundary remains binding: mathematical representability is not physical availability.
 
+### 3.12 The representation quarantine is a theorem, and the boundary is reconciled
+
+Arc D round 1 is closed, with headline outcome **RD1 — quarantine proved and the boundary reconciled**.
+
+The quarantine is S1, the padding theorem, quantified over an **arbitrary** finite ancilla: for every finite ancilla, every unitary on it and every probability weight, the padded datum represents exactly the family the original datum represents, at every root, outcome and time. So non-monomiality is free, relative-phase content is free, and at every nonempty finite carrier every unitary occurs — up to the relabelling implementation classes are already invariant under — as the unitary of a representation of an OI-realizable family.
+
+The consequence is the point: **"represented" is a disqualified ground for any sourcing claim, at any rank.** A category every resource carries for every family distinguishes nothing. What §3.5 previously held as a discipline is now a theorem of the corpus.
+
+Three further results accompany it. The Arc C inclusion witness is control-inert — its unitary is a permutation matrix and therefore lies inside the stated access. The representation-augmented access is trivial: it contains every unitary at every finite carrier, so it returns *Sourced* for every resource and has no discriminating power, which is what makes the disposition criterion non-vacuous. And the inherited relative-phase *Additional* verdict of PR #521 and PR #515 is stable against the whole Arc C layer, because availability is a function of the admissible class alone.
+
+**Interpretation:** this closes the round, not Arc D. No resource receives a new disposition, no *Reducible* verdict is recorded, and the deferred resources — coherent off-diagonal control, continuous unitary or Hamiltonian evolution, preparations, measurements, instruments, ancillas, composition, and everything in Arc E — remain undecided by name. The decisive Arc D question of whether a deeper OI condition sources the continuously tunable off-diagonal generator is untouched, and #540 remains binding.
+
 ---
 
 ## 4. Current frontier
@@ -211,11 +229,28 @@ so worst-case `Theta(ord(phi))`. What that does **not** settle is reachability: 
 
 Arcs B and C are also closed (§3.10, §3.11). The class `C_OI` is characterized intrinsically as `PPer` at finite visible carriers, and its relation to the all-time fixed-basis Born class `Q*` is RC1 proper overlap.
 
-The active frontier is therefore **Arc D — the physical sourcing of the quantum operational repertoire**.
+Arc D round 1 is closed at outcome RD1 (§3.12). It proved the quarantine: representational presence is a disqualified ground for any sourcing claim, as a theorem rather than a discipline.
 
-The boundary is now sharp enough for that question to be well-posed, and sharp enough to be misread. Every nonempty OI-realizable family has a fixed-basis Born representation, so the question is no longer whether OI behavior can be written quantum-mechanically. It is which operational quantum resources the OI physics itself **sources**, rather than merely admits in some mathematical representation. The Arc C inclusion witness is the standing trap: its unitary is a permutation matrix, and the representation of a family is in any case not unique.
+**The programme is therefore two-track from here** (Amendment 2). The two tracks share their origin and their endpoint and are otherwise independent:
 
-Arc E — composites, locality, entanglement and Bell structure — remains the required continuation wherever the final claim uses subsystem composition, local operations, incompatible measurements, or quantum correlation structure.
+```
+                    ┌──> Track B: Barandes correspondence route ──┐
+OI ──> sourced ─────┤                                             ├──> operational QM
+       stochastic   └──> Track I: Arc B/C/D/E internal            ┘
+       law               reconstruction route
+```
+
+**Neither track may be used as evidence for the other.** Agreement strengthens the result; disagreement identifies the missing hypothesis, and identifying it is itself a result.
+
+**Track B** runs `OI → observer/hidden realization → rooted transition family → the applicable causal/readback condition → P-indivisibility where applicable → the exact relation to Barandes's indivisibility definition → verification of every hypothesis of his correspondence → determination of exactly what quantum structure his theorem supplies`. It is added because it may reach the intended `OI → QM` claim sooner, and because the cost of not checking is asymmetric.
+
+**Track I** continues as before. Its value is independent: it is what tells the programme which assumptions are actually doing the work, and Arc D round 1 is the standing demonstration, since a theorem about the programme's own criterion is not something an external correspondence theorem could supply.
+
+The immediate next act on Track B is a **narrow definition-level audit**, not a proof attempt: `BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md`. The programme does not attempt `PIndivisible_OI ↔ Indivisible_Barandes` before establishing what the right-hand side means in the accepted text.
+
+**Further Arc D rounds are paused** pending that audit. Everything merged by PR #554 stands; the pause is on new rounds, not a retraction. Whether Arc D round 2 or Arc E is on the critical path is decided after the audit, not before it.
+
+Arc E — composites, locality, entanglement and Bell structure — remains the required continuation of Track I wherever the final claim uses subsystem composition, local operations, incompatible measurements, or quantum correlation structure.
 
 No recurrence-scale result should be described as accessible quantum-like nonclassicality without an independent accessibility bound, and no representation result should be described as physical availability.
 
@@ -274,7 +309,7 @@ Then audit the converse direction:
 
 **Exit condition — met.** The precise mathematical relation between `C_OI` and the quantum representation class is known in both directions.
 
-### Arc D — attack physical sourcing of the quantum operational repertoire — **active frontier**
+### Arc D — attack physical sourcing of the quantum operational repertoire — **round 1 closed (RD1); further rounds paused pending the Barandes bridge audit**
 
 This is likely the decisive equivalence stage.
 
@@ -440,6 +475,7 @@ Use the following sources for detailed status:
 - `verification/CENSUS-oi-compatible-theories.md` — finite OI-compatible completion classes;
 - the individual `*-AUDIT.md`, `*-RESULT.md`, and amendment files — preregistered questions and exact outcomes;
 - `verification/OI-QM-RESEARCH-PROGRAMME-AMENDMENT-1.md` — the formalization-first manuscript synchronization gate, its exception, the theorem-to-prose spine, and the synchronization procedure;
+- `verification/OI-QM-RESEARCH-PROGRAMME-AMENDMENT-2.md` — the two-track programme, the pause on further Arc D rounds, and the rule that neither track is evidence for the other;
 - `verification/lean-mathlib/OIBridge/` — kernel statements and their hypotheses;
 - `papers/GR.md`, `papers/Main.md`, the Explainer, and book chapters — publication-facing statements under their scope guards.
 
@@ -449,6 +485,6 @@ Use the following sources for detailed status:
 
 ## 10. Current one-line programme state
 
-At the post-#550 boundary:
+At the post-#554 boundary:
 
-**Arcs B and C are kernel-closed: finite reversible OI yields exactly `PPer` at the rooted stochastic level, and its relation to the all-time fixed-basis Born representation class `Q*` is RC1 proper overlap — so every nonempty OI-realizable family has a mathematical fixed-basis Born representation, and representability by itself supplies no physical-availability conclusion. Arc D, the physical sourcing of the quantum operational repertoire, is the active frontier, followed by the Arc E composite/locality/Bell obligations the final claim actually uses. Publication-facing strengthening of the central OI → QM argument is deferred under §7 rule 11 until that formal chain is closed or precisely classified, after which the manuscripts are synchronized in one pass from an explicit theorem-to-prose spine.**
+**Arcs B, C and Arc D round 1 are kernel-closed: finite reversible OI yields exactly `PPer` at the rooted stochastic level, its relation to the all-time fixed-basis Born representation class `Q*` is RC1 proper overlap, and representational presence is now a proved disqualified ground rather than a stated discipline — every resource expressible in a representing operator is present in some representation of every representable family, so no sourcing claim may rest on one. The programme is two-track from here: the Barandes correspondence route and the internal Arc B/C/D/E reconstruction route, neither usable as evidence for the other. The next act is the definition-level Barandes indivisibility bridge audit, with further Arc D rounds paused until it answers; whether Arc D round 2 or Arc E is on the critical path is decided after it. Publication-facing strengthening of the central OI → QM argument is deferred under §7 rule 11 until that formal chain is closed or precisely classified, after which the manuscripts are synchronized in one pass from an explicit theorem-to-prose spine.**
