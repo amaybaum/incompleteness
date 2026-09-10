@@ -34,7 +34,9 @@ def PDivisible (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop :=
 def PIndivisibleWithin (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop := ¬ PDivisible K Γ
 ```
 
-A search of `OIBridge/` finds **no** existing column-stochastic predicate, so `IsColStochastic` is introduced by this round rather than reused. Nothing merged is restated or redefined.
+A search of `OIBridge/` finds **no** existing column-stochastic predicate, so `IsColStochastic` and `PDivisibleCol` are introduced by this round rather than reused. Nothing merged is restated or redefined.
+
+**Every definition this round introduces is written out below in the form it will take.** A target stated as a theorem against a predicate the round is still free to choose is not preregistered, because the predicate can then be shaped to whatever proves. So `IsColStochastic`, `PDivisibleCol` and `PIndivisibleColWithin` are all fixed here, and the execution round may not adjust them to fit a proof.
 
 ## The four targets
 
@@ -49,19 +51,44 @@ and prove `IsRowStochastic M ↔ IsColStochastic Mᵀ`, together with the dual d
 
 **T2 — the single-pair factorization bridge.** For matrices `A B Λ : Matrix V V ℝ`:
 
-`(A = B * Λ ∧ IsRowStochastic Λ)  ↔  (Aᵀ = Λᵀ * Bᵀ ∧ IsColStochastic Λᵀ)`
+```lean
+theorem factor_transpose_iff (A B Λ : Matrix V V ℝ) :
+    (A = B * Λ ∧ IsRowStochastic Λ) ↔ (Aᵀ = Λᵀ * Bᵀ ∧ IsColStochastic Λᵀ)
+```
 
 This is the exact content of act 1's transposition, at one time pair, with the propagator moving from the right of a row-stochastic action to the left of a column-stochastic one.
 
-**T3 — the family-level restatement.** Define `PDivisibleCol` in Barandes's orientation — propagator on the left, column-stochastic, acting on a family of transposed maps — and prove
+**T3 — the family-level restatement.** The family-level predicate is fixed **here**, before proving, in the exact form it will take:
+
+```lean
+def PDivisibleCol (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop :=
+  ∀ s t : ℕ, s < t → t ≤ K →
+    ∃ Λ : Matrix V V ℝ, IsColStochastic Λ ∧ Γ t = Λ * Γ s
+
+def PIndivisibleColWithin (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop := ¬ PDivisibleCol K Γ
+```
+
+This mirrors `PDivisible` clause for clause — same quantifier prefix, same horizon bound, same conjunction order — and differs only in the two places the transposition touches: `IsColStochastic` in place of `IsRowStochastic`, and the propagator on the **left** of the earlier map rather than the right.
+
+The targets are then
 
 `PDivisible K Γ  ↔  PDivisibleCol K (fun t => (Γ t)ᵀ)`
 
-together with the immediate corollary for `PIndivisibleWithin`. This is where the equivalence becomes a statement about the *predicate*, not about one factorization instance.
+and the negation corollary
+
+`PIndivisibleWithin K Γ  ↔  PIndivisibleColWithin K (fun t => (Γ t)ᵀ)`.
+
+This is where the equivalence becomes a statement about the *predicate*, not about one factorization instance.
+
+Freezing the definition rather than describing it is the point: a family-level predicate chosen after seeing what proves would let the round manufacture its own success, which is what a preregistration exists to prevent. If the execution round finds this exact form unprovable, that is `RT3` and it is reported as such — the definition is not adjusted to fit the proof.
 
 **T4 — the two scope markers, made checkable.** Act 1 reported exactly two differences of `PDivisible` against the external equation: the **horizon** bound `t ≤ K`, and the admission of `s = 0` where the external range is `t > t′ > t₀` strictly. The horizon has no external counterpart and is left as a stated difference. The endpoint is claimed vacuous, and that claim is provable here:
 
-`Γ 0 = 1 → IsRowStochastic (Γ t) → ∃ Λ, IsRowStochastic Λ ∧ Γ t = Γ 0 * Λ`
+```lean
+theorem root_factor_of_trivial (Γ : ℕ → Matrix V V ℝ) (t : ℕ)
+    (h0 : Γ 0 = 1) (ht : IsRowStochastic (Γ t)) :
+    ∃ Λ : Matrix V V ℝ, IsRowStochastic Λ ∧ Γ t = Γ 0 * Λ
+```
 
 so the `s = 0` instances of `PDivisible` are discharged by `Λ := Γ t` whenever the family trivializes at the root, which `rootedMap R 0 = 1` supplies. Proving this converts "the extra case is vacuous rather than stronger" from an assertion into a lemma.
 
@@ -88,7 +115,7 @@ The prediction is recorded because a confident prediction that turns out wrong i
 1. **No claim about any Barandes predicate.** Act 1 settled the definition axis at `BD3`. This round formalizes a transposition between two orientations of **our own** predicate; it does not identify `PIndivisibleWithin` with any external notion, and `BD3` is not reopened, softened, or re-derived.
 2. **No primary source is consulted.** The round needs none. Any statement about what an external text says is out of scope, and act 1's determinations are cited rather than re-litigated.
 3. **Kernel discipline.** No `sorry`, no custom `axiom`, no `native_decide`. Every named result carries a `#print axioms` line printing only `[propext, Classical.choice, Quot.sound]`.
-4. **Nothing merged is restated.** `IsRowStochastic`, `PDivisible` and `PIndivisibleWithin` are used, not redefined. `IsColStochastic` and `PDivisibleCol` are new because no equivalent exists in `OIBridge/`.
+4. **Nothing merged is restated, and nothing frozen is adjusted.** `IsRowStochastic`, `PDivisible` and `PIndivisibleWithin` are used, not redefined. `IsColStochastic`, `PDivisibleCol` and `PIndivisibleColWithin` are new because no equivalent exists in `OIBridge/`, and they are frozen above in the exact form the execution round must use. If a target turns out unprovable against those definitions, the outcome is `RT3` and the definitions stand; they are not reshaped to fit a proof.
 5. **No manuscript edit.** Whatever is found, no manuscript, book, bibliography or publication edit occurs. The Explainer surface act 1 flagged stays on the backlog untouched.
 6. **No sourcing inference.** Nothing proved here is described as OI *sourcing* anything. A transposition identity is a fact about matrices.
 7. **Track separation.** Amendment 2's rule is binding both ways.
