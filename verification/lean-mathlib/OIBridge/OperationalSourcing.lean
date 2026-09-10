@@ -4,12 +4,22 @@
   Frozen preregistration: commit `15e29b25f97319303738031b1bc87a364bb9c714`, blob
   `e9ca45351b58354564552471aa8fe81537a8e557`, merged to `main` by PR #551.
 
-  This module carries **S3b, the stability theorem**, and **S2, the control-inertness of the Arc C
-  inclusion witness**.  S1 (the arbitrary-ancilla padding theorem) and S3a (the trivialization of
-  representation-augmented access) are separate targets of the round and are not attempted here.
+  This module carries **S3b, the stability theorem**, **S2, the control-inertness of the Arc C
+  inclusion witness**, and **S1, the arbitrary-ancilla padding theorem** with its consequences 1
+  and 2.  S3a (the trivialization of representation-augmented access) is a separate target of the
+  round.
 
-  S2 and S3b are independent, as the frozen dependency structure records: neither is proved on the
-  strength of the other, and S3b's route is the access semantics rather than S2.
+  S1, S2 and S3b are independent, as the frozen dependency structure records: none is proved on the
+  strength of another, and S3b's route is the access semantics rather than S1 or S2.
+
+  WHAT S1 IS.  `padData_rooted` is the theorem: for **every** finite ancilla, **every** unitary on
+  it and **every** probability weight, the padded datum represents exactly the family the original
+  datum represents — at every root, outcome and time.  The two consequences below instantiate it at
+  one witness each (a Hadamard pad, then a `diagonal (1, i)` pad).  A witness is a control and never
+  the theorem; control 9 of the frozen preregistration is what that distinction serves.
+
+  Consequence 3 is narrowed by Amendment 1 (blob `7c552601636d6901275f82fbfc4d172a796a1876`) to
+  nonempty finite carriers, and is not attempted in this section.
 
   WHAT S3b IS, AND WHAT IT IS NOT.  The disposition of relative-phase control at the stated access
   is settled and merged: `permClass` is ones-fixing and no ones-fixing architecture's theory has a
@@ -44,6 +54,7 @@
   Kernel check:  cd verification/lean-mathlib && lake build
 -/
 import OIBridge.PhaseSource
+import OIBridge.QuantumRepresentationT2
 import OIBridge.QuantumRepresentationT3
 
 namespace OIBridge
@@ -52,6 +63,7 @@ namespace OperationalSourcing
 
 open Finset Matrix InterventionLocality LieRankSource RouteB
 open SubstratumInterfaceAudit InstrumentRealization PhaseSource
+open SubstratumInterface StructuralClosure
 open OIBridge.QuantumRepresentation OIBridge.CausalReadback
 
 open scoped Kronecker
@@ -466,6 +478,173 @@ theorem padData_rooted {W : Matrix Anc Anc ℂ} (hW : W ∈ Matrix.unitaryGroup 
 
 end RootedInvariance
 
+/-! ### S1 — consequences 1 and 2
+
+Each consequence **instantiates** the arbitrary-ancilla theorem at a particular witness.  The
+witness is a control, never the theorem: `padData_rooted` is quantified over every finite ancilla
+unitary, and what follows only picks one.  Control 9 of the frozen preregistration is what this
+distinction serves.
+
+Consequence 3 is **not** attempted in this section.  Amendment 1 narrows it to nonempty finite
+carriers, and it is taken up there. -/
+
+section Consequences
+
+variable {V : Type} [Fintype V] [DecidableEq V] (Q : QfbData V)
+variable {Anc : Type} [Fintype Anc] [DecidableEq Anc]
+
+/-- The padded datum is lawful when the pad is. -/
+theorem padData_isLaw {W : Matrix Anc Anc ℂ} (hQ : Q.IsLaw)
+    (hW : W ∈ Matrix.unitaryGroup Anc ℂ) {w : Anc → ℝ} (hw0 : ∀ x, 0 ≤ w x)
+    (hw : ∑ x, w x = 1) : (padData Q Anc W w).IsLaw := by
+  refine ⟨kronecker_mem_unitaryGroup hQ.1 hW, ?_, ?_⟩
+  · rintro ⟨b, x⟩; exact mul_nonneg (hQ.2.1 b) (hw0 x)
+  · show ∑ p : Q.Bas × Anc, Q.init p.1 * w p.2 = 1
+    rw [Fintype.sum_prod_type]
+    have : ∀ b : Q.Bas, ∑ x, Q.init b * w x = Q.init b := by
+      intro b; rw [← Finset.mul_sum, hw, mul_one]
+    rw [Finset.sum_congr rfl fun b _ => this b, hQ.2.2]
+
+/-- The padded datum keeps positive root mass. -/
+theorem padData_positiveRootMass (W : Matrix Anc Anc ℂ) {w : Anc → ℝ} (hw : ∑ x, w x = 1)
+    (hQ : Q.PositiveRootMass) : (padData Q Anc W w).PositiveRootMass := by
+  intro a; rw [padData_rootMass Q W w hw a]; exact hQ a
+
+/-- A lawful datum has a nonempty basis: a sum over an empty type is zero, not one. -/
+theorem nonempty_bas_of_isLaw (hQ : Q.IsLaw) : Nonempty Q.Bas := by
+  by_contra hemp
+  rw [not_nonempty_iff] at hemp
+  have h0 : ∑ b : Q.Bas, Q.init b = 0 := Finset.sum_of_isEmpty _
+  rw [hQ.2.2] at h0
+  exact one_ne_zero h0
+
+/-- Every column of a lawful datum's unitary has a nonzero entry: otherwise its Born row sum would
+be zero rather than one. -/
+theorem exists_ne_zero_of_isLaw (hQ : Q.IsLaw) (b : Q.Bas) : ∃ b', Q.U b' b ≠ 0 := by
+  by_contra hall
+  push_neg at hall
+  have hsum := Q.sum_born hQ.1 b
+  have hz : ∑ b', Q.born b b' = 0 := by
+    refine Finset.sum_eq_zero fun b' _ => ?_
+    show ‖Q.U b' b‖ ^ 2 = 0
+    rw [hall b']; simp
+  rw [hz] at hsum
+  exact zero_ne_one hsum
+
+/-- **S1, CONSEQUENCE 1 — NON-MONOMIALITY IS FREE.**  Every family with a lawful representation has
+a representation whose unitary is not monomial.  The Hadamard pad is the witness, and it is only
+that: the general theorem is `padData_rooted`. -/
+theorem consequence_nonMonomial {Γ : ℕ → Matrix V V ℝ} (h : QStar Γ) :
+    ∃ Q' : QfbData V, Q'.IsLaw ∧ Q'.PositiveRootMass
+      ∧ (∀ (a : V) (t : ℕ) (j : V), Γ t a j = Q'.rooted t a j)
+      ∧ ¬ IsMonomial Q'.U := by
+  obtain ⟨Q, hQ, hQr, hrep⟩ := h
+  have hw2 : ∑ _x : Fin 2, (1 : ℝ) / 2 = 1 := by norm_num [Fin.sum_univ_two]
+  refine ⟨padData Q (Fin 2) hadU (fun _ => 1 / 2), ?_, ?_, ?_, ?_⟩
+  · exact padData_isLaw Q hQ hadU_mem_unitaryGroup (fun _ => by norm_num) hw2
+  · exact padData_positiveRootMass Q hadU hw2 hQr
+  · intro a t j
+    rw [hrep a t j, padData_rooted Q hadU_mem_unitaryGroup (fun _ => 1 / 2) hw2 t a j]
+  intro hmono
+  obtain ⟨b0⟩ := nonempty_bas_of_isLaw Q hQ
+  obtain ⟨b1, hb1⟩ := exists_ne_zero_of_isLaw Q hQ b0
+  have hsub := monomial_submonomial hmono
+  have hamp : hadAmp ≠ 0 := by
+    intro hz
+    have := hadAmp_sq
+    rw [hz, zero_mul] at this
+    exact (by norm_num : (0 : ℂ) ≠ (2 : ℂ)⁻¹) this
+  have hA : (padData Q (Fin 2) hadU (fun _ => 1 / 2)).U (b1, 0) (b0, 0) ≠ 0 := by
+    show Q.U b1 b0 * hadU 0 0 ≠ 0
+    simpa [hadU] using mul_ne_zero hb1 hamp
+  have hB : (padData Q (Fin 2) hadU (fun _ => 1 / 2)).U (b1, 1) (b0, 0) ≠ 0 := by
+    show Q.U b1 b0 * hadU 1 0 ≠ 0
+    simpa [hadU] using mul_ne_zero hb1 hamp
+  have hne : ((b1, 0) : Q.Bas × Fin 2) ≠ (b1, 1) := by
+    simp only [ne_eq, Prod.mk.injEq, not_and]
+    intro _
+    decide
+  exact hne (hsub.2 (b1, 0) (b1, 1) (b0, 0) hA hB)
+
+/-- The relative-phase pad: `diagonal (1, i)` on two ancilla states.  It is a control, not the
+theorem: `padData_rooted` is quantified over every finite ancilla unitary. -/
+noncomputable def phaseU : Matrix (Fin 2) (Fin 2) ℂ := Matrix.diagonal ![1, Complex.I]
+
+theorem phaseU_mem_unitaryGroup : phaseU ∈ Matrix.unitaryGroup (Fin 2) ℂ := by
+  rw [Matrix.mem_unitaryGroup_iff]
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [phaseU, Matrix.mul_apply, Matrix.diagonal_apply]
+
+theorem phaseU_rowSum (x : Fin 2) : ∑ x' : Fin 2, phaseU x x' = ![1, Complex.I] x := by
+  fin_cases x <;> simp [phaseU, Matrix.diagonal_apply]
+
+/-- The all-ones vector scaled: every entry is the scalar. -/
+theorem smul_ones_apply {S : Type} (z : ℂ) (p : S) : (z • ones S) p = z := by
+  simp [ones]
+
+/-- Against the all-ones vector a padded unitary factorizes: a visible row sum times an ancilla
+row sum. -/
+theorem padData_U_mulVec_ones (W : Matrix Anc Anc ℂ) (w : Anc → ℝ) (b : Q.Bas) (x : Anc) :
+    ((padData Q Anc W w).U *ᵥ ones ((padData Q Anc W w).Bas)) (b, x)
+      = (∑ b', Q.U b b') * ∑ x', W x x' := by
+  show ∑ p : Q.Bas × Anc, (Q.U ⊗ₖ W) (b, x) p * ones (Q.Bas × Anc) p = _
+  rw [Fintype.sum_prod_type]
+  simp only [Matrix.kroneckerMap_apply, ones, mul_one]
+  rw [Finset.sum_congr rfl fun b' _ => (Finset.mul_sum _ _ _).symm, ← Finset.sum_mul]
+
+/-- **S1, CONSEQUENCE 2 — RELATIVE-PHASE CONTENT IS FREE.**  Every family with a lawful
+representation has a representation whose unitary moves the all-ones vector off its ray, so no
+ones-fixing implementation class contains that unitary.  The `diagonal (1, i)` pad is the witness,
+and it is only that: the general theorem is `padData_rooted`. -/
+theorem consequence_phaseContent {Γ : ℕ → Matrix V V ℝ} (h : QStar Γ) :
+    ∃ Q' : QfbData V, Q'.IsLaw ∧ Q'.PositiveRootMass
+      ∧ (∀ (a : V) (t : ℕ) (j : V), Γ t a j = Q'.rooted t a j)
+      ∧ ∀ 𝓘 : ImplementationClass, OnesFixing 𝓘 → ¬ 𝓘 Q'.Bas Q'.U := by
+  obtain ⟨Q, hQ, hQr, hrep⟩ := h
+  have hw2 : ∑ _x : Fin 2, (1 : ℝ) / 2 = 1 := by norm_num [Fin.sum_univ_two]
+  have hQ' : (padData Q (Fin 2) phaseU (fun _ => 1 / 2)).IsLaw :=
+    padData_isLaw Q hQ phaseU_mem_unitaryGroup (fun _ => by norm_num) hw2
+  refine ⟨padData Q (Fin 2) phaseU (fun _ => 1 / 2), hQ', ?_, ?_, ?_⟩
+  · exact padData_positiveRootMass Q phaseU hw2 hQr
+  · intro a t j
+    rw [hrep a t j, padData_rooted Q phaseU_mem_unitaryGroup (fun _ => 1 / 2) hw2 t a j]
+  intro 𝓘 hf hmem
+  obtain ⟨b0⟩ := nonempty_bas_of_isLaw Q hQ
+  have hu : (padData Q (Fin 2) phaseU (fun _ => 1 / 2)).Uᴴ
+      * (padData Q (Fin 2) phaseU (fun _ => 1 / 2)).U = 1 :=
+    Matrix.mem_unitaryGroup_iff'.mp hQ'.1
+  obtain ⟨z, hz⟩ := hf _ _ hmem hu
+  have hval : ∀ (b : Q.Bas) (x : Fin 2), (∑ b', Q.U b b') * ![1, Complex.I] x = z := by
+    intro b x
+    have h1 := congrFun hz ((b, x) : Q.Bas × Fin 2)
+    rw [padData_U_mulVec_ones, phaseU_rowSum] at h1
+    exact h1.trans (smul_ones_apply z _)
+  have hz0 := hval b0 0
+  have hz1 := hval b0 1
+  simp only [Matrix.cons_val_zero, Matrix.cons_val_one, mul_one] at hz0 hz1
+  have hzI : z * Complex.I = z := by
+    conv_lhs => rw [← hz0]
+    exact hz1
+  have hzz : z = 0 := by
+    have hfac : z * (Complex.I - 1) = 0 := by linear_combination hzI
+    rcases mul_eq_zero.mp hfac with hcase | hcase
+    · exact hcase
+    · exact absurd (sub_eq_zero.mp hcase) (by simp [Complex.ext_iff])
+  have hvec : Q.U *ᵥ ones Q.Bas = 0 := by
+    funext b
+    have hb := hval b 0
+    simp only [Matrix.cons_val_zero, mul_one, hzz] at hb
+    simpa [ones, Matrix.mulVec_apply_eq_sum] using hb
+  have hQu : Q.Uᴴ * Q.U = 1 := Matrix.mem_unitaryGroup_iff'.mp hQ.1
+  have hones : ones Q.Bas = 0 := by
+    have h2 := congrArg (fun v => Q.Uᴴ *ᵥ v) hvec
+    simpa [Matrix.mulVec_mulVec, hQu] using h2
+  have hfin := congrFun hones b0
+  simp [ones] at hfin
+
+end Consequences
+
 end OperationalSourcing
 
 end OIBridge
@@ -492,4 +671,14 @@ end OIBridge
 #print axioms OIBridge.OperationalSourcing.padData_rootMass
 #print axioms OIBridge.OperationalSourcing.padData_jointMass
 #print axioms OIBridge.OperationalSourcing.padData_rooted
+#print axioms OIBridge.OperationalSourcing.padData_isLaw
+#print axioms OIBridge.OperationalSourcing.padData_positiveRootMass
+#print axioms OIBridge.OperationalSourcing.nonempty_bas_of_isLaw
+#print axioms OIBridge.OperationalSourcing.exists_ne_zero_of_isLaw
+#print axioms OIBridge.OperationalSourcing.consequence_nonMonomial
+#print axioms OIBridge.OperationalSourcing.phaseU_mem_unitaryGroup
+#print axioms OIBridge.OperationalSourcing.phaseU_rowSum
+#print axioms OIBridge.OperationalSourcing.smul_ones_apply
+#print axioms OIBridge.OperationalSourcing.padData_U_mulVec_ones
+#print axioms OIBridge.OperationalSourcing.consequence_phaseContent
 #print axioms OIBridge.OperationalSourcing.arcCWitness_not_phasesAvailable
