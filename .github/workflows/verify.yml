@@ -83,6 +83,19 @@ jobs:
           lake exe cache get
           lake build
 
+      # The release gate runs HERE, after the build, because this job already has
+      # elan, lake and the Mathlib cache, and several gate checks read the built
+      # tree. It is the real `tools/release_gate.py`, not a CI approximation of it:
+      # a second partial implementation would drift from the gate it stands in for,
+      # and drift is exactly the failure this step exists to prevent.
+      #
+      # Before this step existed, "all checks green" said nothing about voice,
+      # claims, coverage, staleness, the manuscript census, or any other gate
+      # check — only about Lean and the probes. A voice_check scope defect reached
+      # main under three green checks that way.
+      - name: Release gate
+        run: python3 tools/release_gate.py
+
   probes:
     name: Numerical probes
     runs-on: ubuntu-latest

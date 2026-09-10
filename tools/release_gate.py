@@ -67,6 +67,12 @@ def main():
         ("toolchain", [sys.executable, "tools/toolchain_check.py"]),
         ("staleness", [sys.executable, "tools/staleness_check.py"]),
         ("voice",     [sys.executable, "tools/voice_check.py"]),
+        # Controls on the gate itself. voice-scope keeps voice_check pointed at
+        # the manuscript and only the manuscript; ci-gate-presence keeps this
+        # gate wired into CI. Both are mutation-tested: each fails if the thing
+        # it guards is removed.
+        ("voice-scope", [sys.executable, "tools/voice_scope_test.py"]),
+        ("ci-gate-presence", [sys.executable, "tools/ci_gate_presence_test.py"]),
         ("claims",    [sys.executable, "tools/claims_check.py"]),
         ("duplicate", [sys.executable, "tools/duplicate_check.py"]),
         ("mirror",    [sys.executable, "papers/oi_lattice_code/mirror_check.py"]),
