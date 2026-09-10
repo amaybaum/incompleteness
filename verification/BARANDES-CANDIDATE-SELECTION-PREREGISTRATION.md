@@ -230,11 +230,35 @@ and no such target is frozen here.
 **CU4 — unresolved.** Neither non-uniqueness nor uniqueness closes. Recorded as open, with what is
 missing. A failed search is never reported as a uniqueness result.
 
-## How a CU1 or CU3 result must be described
+## How a CU1 or a CU3 result must be described
 
-This constraint is frozen because it is the easiest thing in the round to get wrong.
+This constraint is frozen because it is the easiest thing in the round to get wrong. **The two
+outcomes carry different licences, and they are stated separately because `CU3` supports strictly
+less than `CU1` does.**
 
-**Permitted:** *the merged OI → `QfbData` bridge does not select the candidate.*
+### If the outcome is `CU1`
+
+`CU1` proves that two admissible rules differ on one fixed lawful representation, so the bridge
+demonstrably fails to pick between them.
+
+**Permitted:** *the merged OI → `QfbData` bridge does not select the candidate at this interface*,
+together with a statement of what a candidate-selection principle would have to do, given as a
+**requirement** and not proposed as a condition.
+
+### If the outcome is `CU3`
+
+`CU3` proves only that the frozen `Admissible` fails to admit both named rules, and leaves open
+whether some other criterion admits both. Neither of the `CU1` statements follows from it.
+
+**Permitted:** *the frozen admissibility criterion does not compare the two named rules*, with the
+question of whether the bridge selects a candidate under some other admissibility criterion
+reported as **open**.
+
+**Not permitted under `CU3`:** that the merged bridge does not select the candidate; that a
+candidate-selection principle is required; any requirement statement of the `CU1` kind. `CU3` is a
+result about a criterion, not about the bridge.
+
+### Under either outcome
 
 **Not permitted:** *Barandes's framework requires an additional physical principle.*
 
@@ -311,11 +335,12 @@ tuple-instantiation lemma, Arc D round 2, or Arc E; edit manuscripts.
 1. each of the four targets, with its outcome and the named results carrying it;
 2. the axiom line for every named result, and the count;
 3. the outcome label `CU1`–`CU4`, the prediction, and whether it held;
-4. if `CU1` or `CU3`: what a candidate-selection principle would have to do, stated as a
-   **requirement** and not proposed as a condition, and phrased per the constraint above — the
-   merged bridge does not select the candidate, with no claim about the external framework; and if
-   `CU3`, that what failed is the frozen criterion at this interface, with the existence of some
-   criterion admitting both rules reported as **open**;
+4. if `CU1`: that the merged bridge does not select the candidate at this interface, and what a
+   candidate-selection principle would have to do, stated as a **requirement** and not proposed as
+   a condition, with no claim about the external framework;
+4b. if `CU3`: **only** that the frozen admissibility criterion does not compare the two named
+   rules, with whether the bridge selects a candidate under some other criterion reported as
+   **open**. No requirement statement and no claim about the bridge is permitted from `CU3`;
 5. if `CU2`: what the next round must prove, with §3.6 named as its first obstacle;
 6. whether C3 confirmed or refuted the scoping pass's Finding 2;
 7. what remains open;
