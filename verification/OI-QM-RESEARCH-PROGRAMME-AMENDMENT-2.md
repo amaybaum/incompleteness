@@ -6,7 +6,12 @@ This is a strategic roadmap amendment to `verification/OI-QM-RESEARCH-PROGRAMME.
 
 ## 1. What changed, and why the roadmap must change with it
 
-Arc D round 1 is closed at outcome RD1 (`verification/OI-OPERATIONAL-SOURCING-RESULT.md`, merged by PR #554). Its S1 padding theorem proves that every resource expressible in a representing operator is present in some representation of every representable family. Representational presence is therefore a disqualified ground for any sourcing claim — not as a discipline, but as a theorem.
+Arc D round 1 is closed at outcome RD1 (`verification/OI-OPERATIONAL-SOURCING-RESULT.md`, merged by PR #554). What it proves, at the scope proved:
+
+- **S1.** Padding by an arbitrary finite ancilla unitary preserves the represented rooted family **exactly**, at every root, outcome and time. Two operator properties are free in consequence — non-monomiality, and relative-phase content that moves the all-ones vector off its ray — so each is exhibited in some representation of every representable family.
+- **Consequence 3 and S3a.** At the level of the criterion rather than of the family: the representation-augmented access contains every unitary on every finite carrier, so every resource whose predicate is witnessed by the availability of an admissible finite-unitary conjugation is vacuous under that augmented criterion.
+
+Representational presence is therefore a disqualified ground for any sourcing claim — not as a discipline, but as a theorem, at the scope those results establish and not beyond it.
 
 That result is what makes the present roadmap's strategy too narrow rather than merely incomplete. The roadmap currently treats the Barandes route as closed off by §3.5 and makes Arc D the sole active frontier. The warning in §3.5 is correct and survives this amendment intact. Its **strategic** consequence does not: "representability alone sources nothing" is a statement about representability alone. It is not a statement about a full stochastic-to-quantum correspondence carrying its own hypotheses, its own measurement structure, and its own downstream account of interference, decoherence and entanglement.
 
