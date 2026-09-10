@@ -45,7 +45,9 @@ Merged and used, not redefined: `QfbData`, `IsLaw`, `PositiveRootMass`, `born`, 
 `IsRowStochastic`, `PDivisible`, `PIndivisibleWithin` (`CausalReadback.lean`); the orientation bridge
 of `TransposeBridge.lean`.
 
-**This round introduces exactly four definitions, each fixed here in the form it will take.**
+**This round introduces exactly seven definitions, each fixed here in the form it will take**: the
+four immediately below, `Admissible` in the subsection after them, and the two competing
+propositions frozen with target C4.
 
 ```lean
 /-- Weight assigned to each basis point of the visible fibre over `k`, from which a visible
@@ -72,17 +74,28 @@ noncomputable def uniformWeight (Q : QfbData V) : FibreWeight Q :=
 Control 4 forbids reshaping any of these after seeing what proves.
 
 **Admissibility, stated before the targets rather than after.** A `FibreWeight` is *admissible* when
-it is supported on the fibre it names and normalizes there:
+it is supported on the fibre it names, nonnegative, and normalized there:
 
 ```lean
 def Admissible (Q : QfbData V) (μ : FibreWeight Q) : Prop :=
-  (∀ k b, Q.read b ≠ k → μ k b = 0) ∧ (∀ k, ∑ b, μ k b = 1)
+  (∀ k b, Q.read b ≠ k → μ k b = 0) ∧ (∀ k b, 0 ≤ μ k b) ∧ (∀ k, ∑ b, μ k b = 1)
 ```
 
-These two conditions are chosen because each is forced by what a candidate propagator has to be — a
-row-stochastic matrix on `V` obtained by marginalizing — and **neither mentions `init`, `U`, or the
-fibre's cardinality**, so neither privileges `initWeight` or `uniformWeight`. Whether that
-neutrality survives contact with the proofs is target C4.
+These three conditions are chosen because each is forced by what a candidate propagator has to be —
+a row-stochastic matrix on `V` obtained by marginalizing.
+
+Support and normalization alone do **not** suffice, and the gap is not cosmetic. Write
+`R_b (j) = ∑_{b' ∈ fibre j} bornPow n b b'` for the visible row of a basis point. Then
+`candidateOf Q μ n k j = ∑_{b ∈ fibre k} μ k b * R_b (j)`, so the row *sums* come out at one from
+support and normalization by themselves — `∑_j ∑_{b} μ k b * R_b (j) = ∑_{b ∈ fibre k} μ k b = 1` —
+while each *entry* is only an **affine**, not convex, combination of the fibre's visible rows. A
+signed weight `(2, -1)` on two basis points of one fibre whose visible rows differ produces a row
+such as `[2, -1]`: normalized, and negative. `candidateOf_isRowStochastic` is false without the
+sign condition.
+
+Nonnegativity is neutral in exactly the sense the other two conditions are: **none of the three
+mentions `init`, `U`, or the fibre's cardinality**, so none privileges `initWeight` or
+`uniformWeight`. Whether that neutrality survives contact with the proofs is target C4.
 
 ## The four targets
 
@@ -112,10 +125,13 @@ theorem candidate_rules_disagree :
 ```
 
 This is the target that makes underdetermination a theorem rather than an observation, and it holds
-the **representation fixed**: no appeal to representation freedom is made or needed. A witness needs
-a `Q` whose visible fibre has at least two basis points carrying different `init` weight and
-different `bornPow` rows — the smallest shape worth trying is `V = Fin 1` with `Bas = Fin 2`, or
-`V = Fin 2` with one fibre of size two.
+the **representation fixed**: no appeal to representation freedom is made or needed.
+
+A witness needs a `Q` whose visible fibre has at least two basis points carrying different `init`
+weight and different `bornPow` rows, **and a visible carrier with at least two points**. The second
+requirement is not a matter of convenience: on `V = Fin 1` the single entry of `candidateOf Q μ n`
+*is* the row sum, hence `1` for every admissible `μ` whatever `Bas` is, so the two rules cannot
+differ there. The first plausible shape is `V = Fin 2` with one fibre of size two.
 
 **C3 — the subsidiary padding theorems, at exact scope.** The mechanism the scoping pass uncovered,
 proved rather than asserted:
@@ -170,9 +186,10 @@ existential witness; it is never reached by failing to find a counterexample. Pr
 
 `AdmissibleNonUnique` is deliberately stated over **arbitrary** admissible weights rather than over
 `initWeight` and `uniformWeight` specifically. C2 is the concrete instance at the two named rules;
-C4 is the general question, and the two can come apart — C2 could fail on the named pair while C4
-succeeds on some other admissible pair, or the reverse cannot happen since C2's witness would
-instantiate C4's existential.
+C4 is the general question, and the two can come apart in one direction only: C2 could fail on the
+named pair while C4 succeeds on some other admissible pair. The reverse cannot happen, because C1
+makes both named rules admissible and a C2 witness therefore instantiates C4's existential
+directly.
 
 If `Admissible` turns out not to be statable neutrally — if C1 fails for one of the two named rules
 under any strengthening that does not name `init`, `U`, or fibre cardinality — that is `CU3`, and
@@ -236,9 +253,12 @@ scoping pass's Finding 2 was wrong and that is reported as such.
 2. **No primary source is consulted.**
 3. **The scoping pass is not cited as settled.** Its Findings 2 and 3 are provisional by its own
    terms; C3 is where Finding 2 becomes a theorem, and Finding 3 is not used as a premise anywhere.
-4. **Nothing merged is restated, and nothing frozen is reshaped.** The four definitions and
-   `Admissible` are frozen above. If a target is unprovable against them, the outcome is `CU3` or
-   `CU4` and the definitions stand.
+4. **Nothing merged is restated, and nothing frozen is reshaped.** All **seven** definitions this
+   round introduces are frozen above in the form given — `FibreWeight`, `candidateOf`,
+   `initWeight`, `uniformWeight`, `Admissible`, and the two C4 propositions `AdmissibleNonUnique`
+   and `AdmissibleAgree`. The last two are frozen no less than the first five: the point of stating
+   both is that neither may be reshaped after C2 resolves. If a target is unprovable against them,
+   the outcome is `CU3` or `CU4` and the definitions stand.
 5. **Kernel discipline.** No `sorry`, no custom `axiom`, no `native_decide`; a `#print axioms` line
    on every named result, printing only `[propext, Classical.choice, Quot.sound]`.
 6. **§3.6 is not reopened**, and no claim is made about whether OI forces indivisibility.
