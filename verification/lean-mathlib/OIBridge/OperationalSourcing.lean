@@ -6,8 +6,8 @@
 
   This module carries **S3b, the stability theorem**, **S2, the control-inertness of the Arc C
   inclusion witness**, and **S1, the arbitrary-ancilla padding theorem** with its consequences 1
-  and 2.  S3a (the trivialization of representation-augmented access) is a separate target of the
-  round.
+  and 2, and consequence 3 as narrowed by Amendment 1.  S3a (the trivialization of
+  representation-augmented access) is a separate target of the round.
 
   S1, S2 and S3b are independent, as the frozen dependency structure records: none is proved on the
   strength of another, and S3b's route is the access semantics rather than S1 or S2.
@@ -19,7 +19,9 @@
   the theorem; control 9 of the frozen preregistration is what that distinction serves.
 
   Consequence 3 is narrowed by Amendment 1 (blob `7c552601636d6901275f82fbfc4d172a796a1876`) to
-  nonempty finite carriers, and is not attempted in this section.
+  nonempty finite carriers, and is proved at that scope.  The frozen universal form is false at the
+  empty carrier, and the amendment records why; `consequence_augmentedAll` carries the narrowed
+  statement and `reindex_padUnit` carries the relabelling step the freeze singles out.
 
   WHAT S3b IS, AND WHAT IT IS NOT.  The disposition of relative-phase control at the stated access
   is settled and merged: `permClass` is ones-fixing and no ones-fixing architecture's theory has a
@@ -64,7 +66,7 @@ namespace OperationalSourcing
 open Finset Matrix InterventionLocality LieRankSource RouteB
 open SubstratumInterfaceAudit InstrumentRealization PhaseSource
 open SubstratumInterface StructuralClosure
-open OIBridge.QuantumRepresentation OIBridge.CausalReadback
+open OIBridge.QuantumRepresentation OIBridge.CausalReadback OIBridge.RootedClassification
 
 open scoped Kronecker
 
@@ -645,6 +647,150 @@ theorem consequence_phaseContent {Γ : ℕ → Matrix V V ℝ} (h : QStar Γ) :
 
 end Consequences
 
+/-! ### S1 — consequence 3, as narrowed by Amendment 1
+
+Amendment 1 (blob `7c552601636d6901275f82fbfc4d172a796a1876`) narrows the frozen consequence 3 to
+**nonempty** finite carriers.  The frozen universal form is false at `T = ∅`: `IsLaw` normalizes the
+initial law, a sum over an empty type is `0`, and `0 ≠ 1`, so no lawful datum has an empty basis
+(`nonempty_bas_of_isLaw`).  That obstruction is not a gap in the construction; it is a fact about
+the definition, and no padding can route around it.
+
+Consequence 3 is a **consequence of S1** and is proved as one: the datum carrying `W` is produced by
+padding a one-point base datum, and it represents the same family as that base datum by
+`padData_rooted`.  Nothing here re-derives the invariance.
+
+The load-bearing step the freeze names is the relabelling `Fin 1 × T ≃ T`, and it is proved
+(`reindex_padUnit`) rather than waved at.  The relabelling is exactly the one implementation classes
+are already invariant under: `LabelInvariant 𝓘` transports admissibility along a carrier bijection
+by `Matrix.reindex`, and `permClass_labelInvariant` is the merged instance of it. -/
+
+section ConsequenceThree
+
+/-- The one-point base datum: one visible outcome, one basis state, trivial evolution.  Padding it
+is what carries an arbitrary ancilla unitary into a representation. -/
+noncomputable def unitData : QfbData (Fin 1) where
+  Bas := Fin 1
+  fB := inferInstance
+  dB := inferInstance
+  U := 1
+  init := fun _ => 1
+  read := fun _ => 0
+
+theorem unitData_isLaw : unitData.IsLaw := by
+  refine ⟨?_, ?_, ?_⟩
+  · show (1 : Matrix (Fin 1) (Fin 1) ℂ) ∈ Matrix.unitaryGroup (Fin 1) ℂ
+    exact Submonoid.one_mem _
+  · intro _; exact zero_le_one
+  · show ∑ _b : Fin 1, (1 : ℝ) = 1
+    simp
+
+/-- The one-point datum has a one-point basis.  Stated over `unitData.Bas` rather than `Fin 1`,
+because that is the type the `QfbData` API presents and instance search does not see through the
+projection. -/
+theorem unitData_bas_elim (b b' : unitData.Bas) : b = b' :=
+  Subsingleton.elim (α := Fin 1) b b'
+
+/-- Collapsing any sum over the one-point basis. -/
+theorem unitData_sum_collapse (f : unitData.Bas → ℝ) (b0 : unitData.Bas) :
+    ∑ b, f b = f b0 :=
+  Finset.sum_eq_single_of_mem b0 (Finset.mem_univ b0)
+    (fun c _ hc => absurd (unitData_bas_elim c b0) hc)
+
+/-- With a single basis state the Born chain has nowhere to go, so `sum_bornPow` pins its only
+entry. -/
+theorem unitData_bornPow_eq_one (t : ℕ) (b b' : unitData.Bas) :
+    unitData.bornPow t b b' = 1 := by
+  have hsum := unitData.sum_bornPow unitData_isLaw.1 t b
+  rwa [unitData_sum_collapse _ b'] at hsum
+
+theorem unitData_rootMass (a : Fin 1) : unitData.rootMass a = 1 := by
+  have hf : (univ.filter (fun b : unitData.Bas => unitData.read b = a)) = univ :=
+    Finset.filter_true_of_mem fun _ _ => Subsingleton.elim (α := Fin 1) _ _
+  obtain ⟨b0⟩ : Nonempty unitData.Bas := ⟨(0 : Fin 1)⟩
+  show ∑ b ∈ univ.filter (fun b : unitData.Bas => unitData.read b = a), unitData.init b = 1
+  rw [hf, unitData_sum_collapse _ b0]
+  rfl
+
+theorem unitData_positiveRootMass : unitData.PositiveRootMass := by
+  intro a
+  rw [unitData_rootMass]
+  exact one_pos
+
+/-- The one-point datum represents the constant family. -/
+theorem unitData_rooted (t : ℕ) (a j : Fin 1) : unitData.rooted t a j = 1 := by
+  have hfa : (univ.filter (fun b : unitData.Bas => unitData.read b = a)) = univ :=
+    Finset.filter_true_of_mem fun _ _ => Subsingleton.elim (α := Fin 1) _ _
+  have hfj : (univ.filter (fun b : unitData.Bas => unitData.read b = j)) = univ :=
+    Finset.filter_true_of_mem fun _ _ => Subsingleton.elim (α := Fin 1) _ _
+  obtain ⟨b0⟩ : Nonempty unitData.Bas := ⟨(0 : Fin 1)⟩
+  have hjoint : unitData.jointMass t a j = 1 := by
+    show ∑ b ∈ univ.filter (fun b : unitData.Bas => unitData.read b = a),
+        ∑ b' ∈ univ.filter (fun b' : unitData.Bas => unitData.read b' = j),
+          unitData.init b * unitData.bornPow t b b' = 1
+    rw [hfa, hfj, unitData_sum_collapse _ b0, unitData_sum_collapse _ b0,
+      unitData_bornPow_eq_one]
+    show (1 : ℝ) * (1 : ℝ) = 1
+    norm_num
+  show unitData.jointMass t a j / unitData.rootMass a = 1
+  rw [hjoint, unitData_rootMass, div_one]
+
+/-- Nothing hidden, nothing moving: the realization that puts the constant family in `C_OI`. -/
+def unitRealization : RootedRealization (Fin 1) (Fin 1) where
+  step := Equiv.refl _
+  prior := fun _ => 1
+  prior_nonneg := fun _ => zero_le_one
+  prior_sum := by simp
+
+/-- The constant family at a one-point visible carrier is OI-realizable. -/
+theorem unitFamily_realizable :
+    FiniteRootedRealizable (V := Fin 1) (fun _ => (1 : Matrix (Fin 1) (Fin 1) ℝ)) := by
+  refine finiteRootedRealizable_of_realization unitRealization (fun t => ?_)
+  ext a j
+  have ha : a = 0 := Subsingleton.elim _ _
+  have hj : j = 0 := Subsingleton.elim _ _
+  subst ha; subst hj
+  simp [rootedMap, unitRealization]
+
+/-- **THE LOAD-BEARING RELABELLING.**  At a one-point visible carrier the padded basis `Fin 1 × T`
+is `T`, and the padded unitary is `W` itself under that bijection.  This is the passage the frozen
+preregistration singles out as the step that must be proved. -/
+theorem reindex_padUnit (T : Type) [Fintype T] [DecidableEq T] (W : Matrix T T ℂ) :
+    Matrix.reindex (Equiv.uniqueProd T (Fin 1)) (Equiv.uniqueProd T (Fin 1))
+      ((1 : Matrix (Fin 1) (Fin 1) ℂ) ⊗ₖ W) = W := by
+  ext i j
+  simp [Matrix.reindex_apply, Equiv.uniqueProd_symm_apply]
+
+/-- **S1, CONSEQUENCE 3, AS NARROWED BY AMENDMENT 1 — THE AUGMENTED CLASS IS EVERYTHING AT EVERY
+NONEMPTY CARRIER.**  For every nonempty finite carrier and every unitary on it, that unitary is the
+unitary of a representation of an OI-realizable family, up to the relabelling implementation classes
+are already invariant under.
+
+The empty carrier is excluded, and is excluded because the frozen universal form is false there —
+see `nonempty_bas_of_isLaw`.  S3a recovers the empty case from the stated access instead, with no
+appeal to representation. -/
+theorem consequence_augmentedAll (T : Type) [Fintype T] [DecidableEq T] [Nonempty T]
+    (W : Matrix T T ℂ) (hW : W ∈ Matrix.unitaryGroup T ℂ) :
+    ∃ Γ : ℕ → Matrix (Fin 1) (Fin 1) ℝ, FiniteRootedRealizable Γ ∧
+      ∃ Q : QfbData (Fin 1), Q.IsLaw ∧ Q.PositiveRootMass
+        ∧ (∀ (a : Fin 1) (t : ℕ) (j : Fin 1), Γ t a j = Q.rooted t a j)
+        ∧ ∃ e : Q.Bas ≃ T, Matrix.reindex e e Q.U = W := by
+  classical
+  obtain ⟨x0⟩ := ‹Nonempty T›
+  have hw : ∑ x : T, (if x = x0 then (1 : ℝ) else 0) = 1 := by simp
+  have hw0 : ∀ x : T, 0 ≤ (if x = x0 then (1 : ℝ) else 0) := by
+    intro x; split <;> norm_num
+  refine ⟨fun _ => 1, unitFamily_realizable,
+    padData unitData T W (fun x => if x = x0 then 1 else 0), ?_, ?_, ?_, ?_⟩
+  · exact padData_isLaw unitData unitData_isLaw hW hw0 hw
+  · exact padData_positiveRootMass unitData W hw unitData_positiveRootMass
+  · intro a t j
+    rw [padData_rooted unitData hW (fun x => if x = x0 then 1 else 0) hw t a j, unitData_rooted]
+    have haj : a = j := Subsingleton.elim _ _
+    simp [haj, Matrix.one_apply]
+  · exact ⟨Equiv.uniqueProd T (Fin 1), reindex_padUnit T W⟩
+
+end ConsequenceThree
+
 end OperationalSourcing
 
 end OIBridge
@@ -681,4 +827,14 @@ end OIBridge
 #print axioms OIBridge.OperationalSourcing.smul_ones_apply
 #print axioms OIBridge.OperationalSourcing.padData_U_mulVec_ones
 #print axioms OIBridge.OperationalSourcing.consequence_phaseContent
+#print axioms OIBridge.OperationalSourcing.unitData_isLaw
+#print axioms OIBridge.OperationalSourcing.unitData_bas_elim
+#print axioms OIBridge.OperationalSourcing.unitData_sum_collapse
+#print axioms OIBridge.OperationalSourcing.unitData_bornPow_eq_one
+#print axioms OIBridge.OperationalSourcing.unitData_rootMass
+#print axioms OIBridge.OperationalSourcing.unitData_positiveRootMass
+#print axioms OIBridge.OperationalSourcing.unitData_rooted
+#print axioms OIBridge.OperationalSourcing.unitFamily_realizable
+#print axioms OIBridge.OperationalSourcing.reindex_padUnit
+#print axioms OIBridge.OperationalSourcing.consequence_augmentedAll
 #print axioms OIBridge.OperationalSourcing.arcCWitness_not_phasesAvailable
