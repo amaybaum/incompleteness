@@ -74,34 +74,62 @@ Answered in order. Each answer is a determination with a source location, or an 
 
 **Q7 — time domain.** Does our finite discrete-time rooted process satisfy his time-domain assumptions, or is an embedding or interpolation theorem needed? If one is needed, state what it would have to prove.
 
-**Q8 — sufficiency of our data.** Does the sourced common-hidden-prior construction provide **all** his required stochastic data, or is something missing? Name anything missing.
+**Q8 — sufficiency of our data.** Does the merged rooted-realization datum — a fixed reversible update on `V × H` together with one hidden prior common to every visible root, as `RootedRealization` carries it — provide **all** his required stochastic data, or is something missing? Name anything missing.
+
+The prior is a **fixed ingredient of that datum** and is not claimed to be sourced from bare OI; #537 settled that and control 9 governs the language. The question is the sufficiency of the data, not its provenance, and an answer that describes the prior as sourced is wrong on the corpus regardless of what it concludes about sufficiency.
 
 **Q9 — what the correspondence delivers.** Exactly what does his correspondence give: Hilbert representation only, empirical equivalence to textbook QM, measurement structure, composites and entanglement? For each item, is it a **theorem-level result** in the paper or an **interpretive claim**? This distinction is the deliverable, not a caveat on it.
 
-## Admissible outcome shapes
+## Admissible outcome shapes — two independent axes
 
-Exactly one headline is reported, and the precedence is `BB1 > BB2 > BB3 > BB4`.
+The verdict is an **ordered pair** `(BDi, BRj)`. Both axes are always reported, and neither is reported without the other.
 
-**BB1 — exact match.** Our P-indivisibility is precisely Barandes's divisibility failure, after a stated transposition and time-index matching. The original chain is restored close to verbatim, and the next round's equivalence target is well-posed.
+They are separated because they are independent, and a single precedence over a merged list would suppress the combination that matters most. An **exact definitional match** can perfectly well coexist with **indivisibility not being required for the basic correspondence**: the two would say that our predicate is exactly his, and that his theorem does not use it. That pair is the scientifically central outcome, and no ordering may hide half of it.
 
-**BB2 — implication with qualifications.** Our notion implies his, or his ours, under matching conditioning times, orientation and time domain, with the qualifications named. Still a strong result; the next round's target is the implication, at the stated scope.
+Within each axis the labels are mutually exclusive and exhaustive. There is no precedence within an axis and none between them.
 
-**BB3 — indivisibility is not required for the basic correspondence.** The correspondence starts from the transition data and does not use failure of divisibility as a hypothesis. Then P-indivisibility has a **different logical role** than the one the manuscript gives it: it would explain specifically nonclassical or interference behaviour rather than license the Hilbert-space correspondence. This is a corpus-consistency finding of the first order and becomes a backlog item with a named manuscript surface, **without** any manuscript edit in this round.
+### Axis A — the definition bridge
 
-**BB4 — not determinable.** The primary sources examined do not fix the answer. Recorded as such, with what would fix it. A failed determination is never promoted to a finding.
+After the stated transposition and time-index identification, how does our `PIndivisibleWithin` stand to Barandes's divisibility predicate?
+
+**BD1 — exact definitional match.** His divisibility predicate is literally ours under a stated transposition and time-index identification, so his indivisibility is literally `PIndivisibleWithin`. This is a determination about definitions, not a theorem.
+
+**BD2 — qualified or one-way definitional match.** They coincide only under stated further conditions — matching conditioning times, orientation, horizon, time domain — or one is definitionally a restriction of the other in one direction. Reported as a **candidate implication**, not as an implication: the round forbids proof attempts, so the theorem belongs to the next formalization round. The single exception is an identification that is **literally definitional** after the stated transpose and index matching, which is reported as such and still not called a theorem.
+
+**BD3 — definitional mismatch.** They are different predicates and no stated transposition identifies them. What differs is reported at the granularity of the three hazards named above.
+
+**BD4 — undetermined.** The primary sources do not fix his predicate precisely enough to compare. Recorded as such, with what would fix it. A failed determination is never promoted to a finding.
+
+### Axis B — the logical role in the correspondence
+
+What does the basic correspondence do with divisibility?
+
+**BR1 — required.** The basic correspondence uses actual failure of divisibility as a hypothesis.
+
+**BR2 — not assumed, and not required.** The correspondence starts from the transition data. Divisibility is not assumed, and its failure is not a hypothesis of the basic theorem; "indivisible stochastic process" names the framework rather than a hypothesis. "Not assumed divisible" and "assumed not divisible" are different, and this label is the former.
+
+**BR3 — required only downstream.** Failure of divisibility is not needed for the correspondence itself, but is used for specifically nonclassical or interference consequences.
+
+**BR4 — version-dependent or undetermined.** The role differs across versions, or the sources do not fix it. Version-dependence is reported **per version** and is never collapsed into "undetermined"; the two are distinguished in the report even though they share a label.
+
+### The finding that BR2 or BR3 carries
+
+Either of those two means P-indivisibility has a **different logical role** than the one the manuscript gives it: explaining specifically nonclassical or interference behaviour rather than licensing the Hilbert-space correspondence. That is a corpus-consistency finding of the first order. It becomes a backlog item with a named manuscript surface, **without** any manuscript edit in this round, and it is a finding about the role, independent of whatever the definition axis returns.
 
 ## Prediction recorded before source inspection
 
 Recorded so that the outcome cannot be read as confirmation of whatever is found.
 
-**BB3 is the predicted outcome**, at roughly two-to-one against BB1 or BB2 combined. The ground is `BARANDES-BOUNDARY-AUDIT-RESULT.md`, which found that the 2023 theorem imposes no separate indivisibility hypothesis and that the unitarization proof begins from the transition matrix entries. That is a prior, not evidence, and if the accepted text contradicts it the accepted text wins.
+**On the role axis: BR2 is predicted**, at roughly two-to-one against BR1. The ground is `BARANDES-BOUNDARY-AUDIT-RESULT.md`, which found that the 2023 theorem imposes no separate indivisibility hypothesis and that the unitarization proof begins from the transition matrix entries. That is a prior, not evidence, and if the accepted text contradicts it the accepted text wins.
+
+**On the definition axis: no prediction is recorded.** The orientation and time-index hazards named above are exactly the kind that go either way, and a prediction here would be a guess dressed as a prior.
 
 ## Mandatory controls
 
 1. **No proof attempt.** This round determines definitions. It does not prove, or claim, any relation between `PIndivisibleWithin` and any Barandes predicate. A determination that the definitions coincide is a determination about definitions, not a theorem, and is reported as such.
 2. **Transposition is explicit.** Every comparison across the orientation boundary states the transposition performed. An unstated transposition is a defect even when the conclusion is right.
 3. **Version discipline.** Each answer names the version it is answering from. Where versions differ, all are reported and the latest is not projected backward.
-4. **No manuscript edit.** No manuscript, book, bibliography or publication edit occurs in this round, whatever is found. A BB3 outcome creates a backlog item and nothing else.
+4. **No manuscript edit.** No manuscript, book, bibliography or publication edit occurs in this round, whatever is found. A `BR2` or `BR3` outcome creates a backlog item and nothing else.
 5. **Track separation.** Nothing determined here is used as evidence for any Track I result, and no Track I result is used as evidence for a determination here. Amendment 2's rule is binding.
 6. **Deferred resources.** Nothing here adjudicates any resource deferred by the Arc D preregistration, and no determination is stated as bearing on one.
 7. **Arc D's quarantine is not reopened.** The S1 padding theorem stands. If the Barandes correspondence supplies operational content, that is because of its own hypotheses, and it does not make representational presence a ground for anything.
@@ -110,7 +138,7 @@ Recorded so that the outcome cannot be read as confirmation of whatever is found
 
 ## Evidence hierarchy
 
-1. **Primary source quotation with location** — the only admissible evidence for an answer about what Barandes's definitions and theorems say.
+1. **Primary source text at a pinpoint location** — the only admissible evidence for an answer about what Barandes's definitions and theorems say. The evidentiary requirement is the **location**: source, version, date, and the definition, theorem, equation or section number. Brief quotation may accompany it where it helps the reader, and is not itself the requirement.
 2. **Lean formalization of the transposed predicate** — admissible, and preferred, for the *this-side* half of the bridge. A transposed predicate defined in Lean and proved equivalent to `PDivisible` under the stated transposition is worth more than a prose transposition, and step 5 of the Amendment 2 sequence is where that belongs. No `sorry`, no custom axioms, no `native_decide`; every named result carries a `#print axioms` line printing only `[propext, Classical.choice, Quot.sound]`.
 3. **Prose determination** — permitted where the source is genuinely ambiguous, with the ambiguity stated in the same place as the determination.
 
@@ -144,7 +172,7 @@ The final report states separately:
 
 1. each of the nine questions, with its determination, its source location and its version;
 2. the transposition performed between orientations and time indexings, written out;
-3. the headline outcome BB1 / BB2 / BB3 / BB4;
+3. the headline verdict as the ordered pair `(BDi, BRj)`, with both axes reported and neither omitted;
 4. what the correspondence delivers, itemized, each item marked theorem-level or interpretive;
 5. whether any determination contradicts or destabilizes a merged description in this corpus, and the backlog item it becomes;
 6. what the next Track B round can begin from, without executing it;
