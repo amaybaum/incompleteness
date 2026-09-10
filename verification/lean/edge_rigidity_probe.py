@@ -7944,7 +7944,7 @@ def _tb_axioms(src, txt1):
 
 
 ok_tb = True
-# the seven contracts hold as the tree stands
+# the eight contracts hold as the tree stands (C1, C1b, C2-C7)
 ok_tb &= _tb_frozen_defs(_TB, _TBPRE)
 ok_tb &= _tb_frozen_sigs(_TB, _TBPRE)
 ok_tb &= _tb_freeze_pin()
@@ -8015,9 +8015,10 @@ check('R7-TBRIDGE', ok_tb,
       'exactly where act 1 claimed an equivalence. The module and note are checked to make no external-predicate '
       'identification and no sourcing claim, with BD3 neither reopened nor re-derived, because the one thing a '
       'transposition identity must never become is a correspondence claim. The note is checked to report RT1 with '
-      'its prediction, and to declare rootedMap_zero as an ADDITION beyond the four frozen targets rather than '
-      'folding it into T4, since a round that quietly widens its own scope is the failure preregistration exists to '
-      'prevent. The horizon gap is checked to be reported as a difference and not as closed. Axiom reporting is a '
+      'its prediction, and to declare BOTH results beyond the four frozen targets -- rootedMap_zero and '
+      'rootedMap_root_factor -- as ADDITIONS rather than folding either into T4, since a round that quietly widens '
+      'its own scope is the failure preregistration exists to prevent; the required phrasing is plural, so dropping '
+      'one back into T4 fails too. The horizon gap is checked to be reported as a difference and not as closed. Axiom reporting is a '
       'source contract -- the theorem-name set equals the print-target set, eight in all, and the note agrees -- and '
       'reachability is separate, since an unimported module would leave every check above unenforced. Each contract '
       'is mutation-tested against the exact failure it exists to catch.')
