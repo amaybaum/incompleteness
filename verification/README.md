@@ -1805,12 +1805,18 @@ arXiv:2302.10778v3, arXiv:2507.21192v1 and arXiv:2309.03085v2 only. The verdict 
 **(BD3, BR3)**: his *indivisible stochastic process* is the **tuple class** of
 arXiv:2309.03085v2 §3.1 eq (24), membership in which contains Markov chains outright (§3.3 eq (54)),
 so it is not the failure predicate `PIndivisibleWithin` and no stated transposition identifies them;
-and failure of divisibility is no hypothesis of the theorem — arXiv:2309.03085v2 §5.1 eq (72)
-consumes only non-negativity and normalization — but does load-bearing work downstream, where
-arXiv:2302.10778v3 §3.5 eq (43) derives interference from it. Recorded **separately**, as Amendment
-3 requires: after transposing his column-stochastic left action to our row-stochastic right action,
-his eq (6) factorization is our `PDivisible` body **exactly**, differing only in horizon and in the
-endpoint of the intermediate range. An exact equation match beside a definitional mismatch is the
+and **failure of divisibility is not among the hypotheses the proof of arXiv:2309.03085v2 eq (69)
+uses** — a negative claim about divisibility specifically, not a claim that the proof consumes only
+two inputs, since it also uses trivialization at eq (75) and the tuple's `p` and `A` downstream —
+though it does load-bearing work elsewhere, where arXiv:2302.10778v3 §3.5 eq (43) derives
+interference from it. Recorded **separately**, as Amendment 3 requires: after transposing his
+column-stochastic left action to our row-stochastic right action, his eq (6) factorization is our
+`PDivisible` body **exactly**, with exactly two differences against that equation — horizon, and the
+endpoint of the intermediate range. Direction is not one of them: eq (6) restricts to `t > t′ > t₀`,
+the same forward orientation as our `s < t`. arXiv:2507.21192v1 p. 10 separately broadens the
+target-time convention at framework level ("no assumption is made that `t > t₀`"), which widens
+where his `Γ` is defined rather than differing from the factorization equation. An exact equation
+match beside a definitional mismatch is the
 situation Amendment 3 was written to keep legible, and it is the round's central result. The freeze
 predicted `BR2`; the outcome is `BR3`, recorded as a label miss on a confirmed proposition. No Lean
 was written, no theorem proved, no manuscript edited, and nothing here is a sourcing claim. Guard

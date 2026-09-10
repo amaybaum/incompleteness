@@ -7586,9 +7586,14 @@ import hashlib
 _BB = os.path.dirname(BRIDGE)
 
 
-def _bb_blob(path):
-    """The git blob SHA-1 of a file, computed without invoking git."""
-    _d = open(os.path.join(_BB, path), 'rb').read()
+def _bb_read(path):
+    """The bytes of a control-plane file. Injectable so the freeze pin can be mutation-tested."""
+    return open(os.path.join(_BB, path), 'rb').read()
+
+
+def _bb_blob(path, read=_bb_read):
+    """The git blob SHA-1 of a control-plane file, computed without invoking git."""
+    _d = read(path)
     return hashlib.sha1(b'blob %d\0' % len(_d) + _d).hexdigest()
 
 
@@ -7597,11 +7602,11 @@ _BBRES = open(os.path.join(_BB, 'BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-RESULT.md'
 _BBRES1 = ' '.join(_BBRES.split())
 
 
-def _bb_freeze():
+def _bb_freeze(read=_bb_read):
     """B0 -- the preregistration and its amendment are byte-identical to the frozen blobs."""
-    return (_bb_blob('BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md')
+    return (_bb_blob('BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md', read)
             == 'b6727fa8df616e1a3f98e45d69b99b13554cda3e'
-            and _bb_blob('BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-AMENDMENT-3.md')
+            and _bb_blob('BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-AMENDMENT-3.md', read)
             == 'f3f23acf7f30f941b87fa8f113699c5be0c7b87b')
 
 
@@ -7672,6 +7677,30 @@ def _bb_versions(txt1):
             and '**The later terminology is not projected backward**' in txt1)
 
 
+def _bb_proof_dep(txt1):
+    """B11 -- the role-axis claim is the NARROW negative one, and says what it is not.
+
+    "The proof consumes only non-negativity and normalization" is false of Source C SS5.1, which
+    also uses the trivialization condition at eq (75) and draws on the tuple's p and A downstream.
+    The claim BR3 actually needs is that divisibility is not among the hypotheses the proof uses,
+    and an over-strong version of a true conclusion is still a defect."""
+    return ('**failure of divisibility is not among the hypotheses its proof uses**' in txt1
+            and 'the trivialization condition (46) for eq (75)' in txt1
+            and 'consumes only non-negativity and normalization' not in txt1
+            and 'uses only\nnon-negativity and normalization' not in txt1)
+
+
+def _bb_q4_count(txt1):
+    """B12 -- the Q4 difference count is stated AGAINST A NAMED EQUATION, not floated.
+
+    Source A eq (6) restricts to t > t' > t0, the same forward orientation as ours, so direction is
+    not a difference against it; Source B broadens the target-time convention at framework level.
+    Reporting three differences against eq (6) miscounts, and the summaries said two."""
+    return ('**Against Source A eq (6), exactly two quantifier differences remain' in txt1
+            and '**Direction is not one of them, and is recorded separately as a Source B scope '
+                'observation.**' in txt1)
+
+
 def _bb_primary(txt1, txt):
     """B10 -- the primary-source restriction, enforced two ways.
 
@@ -7684,7 +7713,7 @@ def _bb_primary(txt1, txt):
 
 
 ok_bb = True
-# the eleven contracts hold as the tree stands
+# the thirteen contracts hold as the tree stands
 ok_bb &= _bb_freeze()
 ok_bb &= _bb_pair(_BBRES1)
 ok_bb &= _bb_q4_separate(_BBRES1)
@@ -7695,6 +7724,8 @@ ok_bb &= _bb_not_sourcing(_BBRES1)
 ok_bb &= _bb_no_edit(_BBRES1)
 ok_bb &= _bb_prediction(_BBRES1)
 ok_bb &= _bb_versions(_BBRES1)
+ok_bb &= _bb_proof_dep(_BBRES1)
+ok_bb &= _bb_q4_count(_BBRES1)
 ok_bb &= _bb_primary(_BBRES1, _BBRES)
 
 # ... and each is mutation-tested against the exact failure it exists to catch, with every mutation
@@ -7746,15 +7777,44 @@ ok_bb &= _bb_m10 != _BBRES1 and not _bb_primary(_bb_m10, _BBRES)
 _bb_m10b = _BBRES.replace('**Evidence type.** Primary source at pinpoint locations.\n\n### Q6', '### Q6')
 ok_bb &= _bb_m10b != _BBRES and not _bb_primary(' '.join(_bb_m10b.split()), _bb_m10b)
 
-# the freeze pin is mutation-tested on its own terms: a one-byte change to either frozen file must
-# break it, which is what makes blob identity the authoritative check the preregistration says it is
-ok_bb &= hashlib.sha1(b'blob 1\0x').hexdigest() != 'b6727fa8df616e1a3f98e45d69b99b13554cda3e'
+_bb_m11 = _BBRES1.replace('**failure of divisibility is not among the hypotheses its proof uses**',
+                          'its proof consumes only non-negativity and normalization')
+ok_bb &= _bb_m11 != _BBRES1 and not _bb_proof_dep(_bb_m11)
+
+_bb_m11b = _BBRES1.replace('the trivialization condition (46) for eq (75), and the',
+                           'and the')
+ok_bb &= _bb_m11b != _BBRES1 and not _bb_proof_dep(_bb_m11b)
+
+_bb_m12 = _BBRES1.replace('**Against Source A eq (6), exactly two quantifier differences remain',
+                          '**Three quantifier differences remain')
+ok_bb &= _bb_m12 != _BBRES1 and not _bb_q4_count(_bb_m12)
+
+# The freeze pin is mutation-tested THROUGH ITS OWN PREDICATE, on mutated bytes fed to the same
+# code path. The earlier form of this line hashed an unrelated one-byte blob and compared it to the
+# frozen digest -- which is true of almost any input and would have passed with _bb_freeze broken,
+# so it recorded a pass while testing nothing. Injecting the reader is what makes the check real.
+for _bb_f in ('BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md',
+              'BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-AMENDMENT-3.md'):
+    def _bb_drift(path, _f=_bb_f):
+        """One byte appended to one frozen file; every other file read normally."""
+        return _bb_read(path) + (b'\n' if path == _f else b'')
+    ok_bb &= _bb_drift(_bb_f) != _bb_read(_bb_f) and not _bb_freeze(_bb_drift)
+# and the pin passes on the unmutated reader, so the loop above is not failing for an unrelated reason
+ok_bb &= _bb_freeze(_bb_read)
 
 check('R7-BRIDGE', ok_bb,
       'Track B act 1 guard: the Barandes bridge audit ships a determination about an external text, so its frozen '
       'controls are enforced as SHAPE contracts on the result note and its two control-plane files are pinned by '
       'GIT BLOB IDENTITY -- computed here, not read from prose -- since the preregistration makes blob identity '
-      'authoritative and a substring check would pass on a rewritten freeze. The headline is checked to be the '
+      'authoritative and a substring check would pass on a rewritten freeze. That pin is mutation-tested THROUGH '
+      'ITS OWN PREDICATE by injecting a reader that drifts one frozen file by one byte, so the non-vacuity claim '
+      'is about the check that ships rather than about an unrelated digest. The role-axis claim is checked to be '
+      'the NARROW negative -- divisibility is not among the hypotheses the proof uses -- and the over-strong '
+      '"consumes only non-negativity and normalization" is checked absent, since the proof also uses trivialization '
+      'at eq (75) and the tuple\'s p and A downstream, and an over-strong version of a true conclusion is still a '
+      'defect. The Q4 difference count is checked to be stated AGAINST A NAMED EQUATION at exactly two, with '
+      'direction recorded separately as a Source B scope observation rather than miscounted as a third. The '
+      'headline is checked to be the '
       'ordered PAIR with both axes present, so no ordering can hide half of it; Amendment 3 repair 1 is checked by '
       'requiring Q4 to declare itself not a BD verdict; repair 3 is checked by requiring the exact equation match '
       'and the mismatch verdict to stand TOGETHER on the Markov-chain ground, which is the whole reason the '

@@ -21,10 +21,15 @@ hypotheses are, transposed into this programme's vocabulary, and stops.
   *indivisible stochastic process* is a **tuple class**, membership in which neither entails nor is
   entailed by failure of divisibility. Markov chains are members (Source C §3.3, eq (54)), and a
   Markov chain is `PDivisible`. No stated transposition identifies the two predicates.
-- **BR3 — required only downstream.** Failure of divisibility is not a hypothesis of the basic
-  correspondence: Source C's theorem (69) quantifies over the whole class, and its proof uses only
-  non-negativity and normalization of the transition entries. Failure of divisibility is what the
-  accepted text uses to derive interference (Source A §3.5, eq (43)).
+- **BR3 — required only downstream.** Source C's theorem (69) quantifies over the whole class, and
+  **failure of divisibility is not among the hypotheses its proof uses**. Failure of divisibility is
+  what the accepted text uses to derive interference (Source A §3.5, eq (43)).
+
+The BR3 claim is a **negative one about divisibility specifically**, and it is stated that way
+throughout. The proof of (69) does consume other structure from the tuple — non-negativity (45) for
+eq (72), normalization (28) for eq (74), the trivialization condition (46) for eq (75), and the
+standalone distribution and algebra of random variables in the later construction. What it never
+consumes is divisibility or its failure.
 
 The **Q4 equation comparison is recorded separately and is not folded into BD**, as Amendment 3
 requires: against Source A's eq (6) the transposed factorization equation is an **exact match**.
@@ -239,17 +244,22 @@ the transpose carries the stochasticity requirement onto the same factor. There 
 **which** factor is required stochastic: in both, it is the newly introduced intermediate, not the
 given earlier-time map.
 
-**Three quantifier differences remain, and are findings, not formatting.**
+**Against Source A eq (6), exactly two quantifier differences remain, and they are findings, not
+formatting.**
 
 1. **Horizon.** Ours bounds `t ≤ K`. Source A bounds nothing; the intermediate times range over
    `t > t′ > t₀` without a horizon. Our `K` has no counterpart on his side.
 2. **Endpoint of the intermediate range.** Source A requires `t′ > t₀` strictly; ours admits `s = 0`.
    At `s = 0` our condition is discharged by `Λ := Γ_ours t`, since `rootedMap R 0 = 1`, so the extra
    case is vacuous rather than stronger.
-3. **Direction.** Ours requires `s < t`. Source B p. 10 states explicitly that on his side "no
-   assumption is made that `t > t₀`", so his target times are not required to lie after the
-   conditioning time at all; the divisibility discussion of Source A nonetheless restricts to
-   `t > t′ > t₀`.
+
+**Direction is not one of them, and is recorded separately as a Source B scope observation.**
+Source A eq (6) restricts to `t > t′ > t₀`, which is the same forward orientation as our `s < t`, so
+against eq (6) there is no direction difference to report. Source B p. 10 nonetheless broadens the
+convention at the level of the framework rather than of the divisibility equation: "The target time
+`t` … can be treated as a free variable. In particular, no assumption is made that `t > t₀`. One can
+choose `t < t₀` as well." That widens the domain on which his `Γ` is defined; it is not a difference
+between the two factorization equations, and the audit does not report it as one.
 
 **Determination against formulation (b) — Source C eq (35): not a match.** Eq (35) is universally
 quantified and **asserted**, with the intermediate supplied by the data rather than existentially
@@ -289,13 +299,20 @@ a hypothesis. Six independent primary-source locations settle it:
    matrix `Σ` "is already a unistochastic process, and therefore **trivially satisfies the
    stochastic-quantum theorem (69)**."
 
-**And the proof does not use it.** Source C §5.1, p. 20: the construction begins from the
-non-negativity condition (45) alone —"the non-negativity (45) of the system's conditional transition
-probabilities, `Γ_ij(t ← 0) ≥ 0`, means that each transition probability can be written as the
-modulus-square of a non-unique complex number" — giving eq (72), of which the text says: "It is
-worth emphasizing that this formula is an **identity, not a postulate**." The normalization
-condition (28) then gives the summation condition (74). Non-negativity and normalization are the
-only properties of `Γ` the construction consumes.
+**And the proof does not use it.** The claim here is narrow and negative: **divisibility and its
+failure are not among the hypotheses the proof of (69) uses.** Source C §5.1, p. 20, opens the
+construction from the non-negativity condition (45) — "the non-negativity (45) of the system's
+conditional transition probabilities, `Γ_ij(t ← 0) ≥ 0`, means that each transition probability can
+be written as the modulus-square of a non-unique complex number" — giving eq (72), of which the text
+says: "It is worth emphasizing that this formula is an **identity, not a postulate**." The
+normalization condition (28) then gives the summation condition (74).
+
+**What the proof does use is more than those two, and the audit does not claim otherwise.** Source C
+§5.1, p. 21, invokes the **trivialization** condition (46) to set `Θ(0 ← 0) = 1` at eq (75); §5.2
+builds `H ≡ ℂ^N` from `C`; and the later construction — the density matrix of §5.4, the dilation of
+§5.7, and the dilated process of §5.8 — draws on the standalone distribution `p` and the algebra `A`
+of the tuple. Enumerating the proof's inputs is not this round's question. What settles the role
+axis is that **no version of divisibility, and no failure of it, appears among them.**
 
 **Evidence type.** Primary source at pinpoint locations.
 
