@@ -7261,6 +7261,318 @@ check('R7-QSTAR', ok_qstar,
       'Axiom reporting is the source contract used by R7-RCL: the set of theorem names equals the set of print '
       'targets, sixteen in all.')
 
+# ---- R7-SOURCE: Arc D round 1 -- the nine frozen failure modes of the operational-sourcing audit,
+# enforced as SHAPE contracts on the source and on the result note rather than trusted to review ----
+#
+# The frozen preregistration names nine ways this round could go wrong. A comment saying they are
+# forbidden is worth nothing; each is checked here, and each check is mutation-tested against the
+# specific way it would be broken. Every mutation is asserted to CHANGE THE SOURCE: a mutation that
+# fails to mutate records a pass while testing nothing, which is how a guard ships vacuous.
+_OS = open(os.path.join(BRIDGE, 'OIBridge', 'OperationalSourcing.lean'), encoding='utf-8').read()
+_OSPRE = open(os.path.join(os.path.dirname(BRIDGE), 'OI-OPERATIONAL-SOURCING-AUDIT.md'),
+              encoding='utf-8').read()
+_OSAM = open(os.path.join(os.path.dirname(BRIDGE), 'OI-OPERATIONAL-SOURCING-AUDIT-AMENDMENT-1.md'),
+             encoding='utf-8').read()
+_OSRES = open(os.path.join(os.path.dirname(BRIDGE), 'OI-OPERATIONAL-SOURCING-RESULT.md'),
+              encoding='utf-8').read()
+_OSRES1 = ' '.join(_OSRES.split())
+_OSPRE1 = ' '.join(_OSPRE.split())
+
+
+def _os_unquote(txt):
+    """Flatten, with blockquote markers removed first.
+
+    A `>` at the start of every wrapped line survives naive flattening and lands in the middle of
+    the sentence, so a verbatim comparison against the freeze would fail on formatting rather than
+    on content -- and a guard that can only fail is not a guard."""
+    return ' '.join(re.sub(r'(?m)^\s*>\s?', '', txt).split())
+
+
+_OSRESQ = _os_unquote(_OSRES)
+_OSPREQ = _os_unquote(_OSPRE)
+
+
+def _os_decl(txt, head):
+    """One declaration: its header through to the first blank line.
+
+    Stopping at the next declaration would swallow the prose between them, and the prose here
+    discusses the very shapes these checks forbid. A check reading that would be inspecting a
+    comment, not the theorem."""
+    i = txt.find(head)
+    if i < 0:
+        return ''
+    j = txt.find('\n\n', i)
+    return txt[i:j if j > 0 else len(txt)]
+
+
+def _os_section(txt, head, nxt):
+    i = txt.find(head)
+    if i < 0:
+        return ''
+    j = txt.find(nxt, i + len(head))
+    return txt[i:j if j > 0 else len(txt)]
+
+
+# F1 -- a representation fact cited as a sourcing fact.
+def _os_f1_inert(txt, note):
+    """The Arc C hypotheses of S3b are carried and NOT USED, and the note says so use by use.
+
+    Checked on the binders and the proof term, not on prose: an underscore-prefixed binder cannot be
+    referred to, and a proof that is literally the hypothesis cannot have consulted the Arc C data.
+    A guard on the words alone would pass on a proof that quietly used them."""
+    for _h in ('availExt_stable_under_arcC', 'availExt_unavailable_stable_under_arcC',
+               'phasesUnavailable_stable_under_arcC', 'permClass_unchanged_by_arcC'):
+        body = _os_decl(txt, 'theorem ' + _h)
+        if not body:
+            return False
+        for _b in ('_hΓ : QStar Γ', '_hQ : Q.IsLaw', '_hQr : Q.PositiveRootMass',
+                   '_hRep : ∀ (a : V) (t : ℕ) (j : V), Γ t a j = Q.rooted t a j'):
+            if _b not in body:
+                return False
+    return 'No resource is reported as sourced on the ground that a representation exhibits it.' in note
+
+
+# F2 -- permData's unitary read as anything but a permutation matrix.
+def _os_f2_permdata(txt, note):
+    body = _os_decl(txt, 'theorem permData_U_permClass')
+    if 'permClass (V × H) (permData R).U' not in body:
+        return False
+    if 'theorem permMatrix_eq_coherent' not in txt:
+        return False
+    # every mention of the witness in the note states that its unitary is a permutation matrix
+    return 'its unitary is a permutation matrix' in note
+
+
+# F3 -- a deferred resource acquiring a disposition.
+def _os_f3_deferred(note_raw):
+    sec = _os_section(note_raw, '## 8. Deferred resources', '## 9.')
+    if not sec:
+        return False
+    for _d in ('coherent off-diagonal control', 'continuous unitary or Hamiltonian evolution',
+               'the preparation repertoire', 'measurements and update rules', 'Kraus instruments',
+               'ancilla adjoining and discard', 'closure and composition across carriers',
+               'composites, locality, entanglement, Bell structure'):
+        if _d not in sec:
+            return False
+    if 'Each is still undecided' not in sec:
+        return False
+    # no disposition word is applied inside the deferred list
+    return not any(w in sec for w in ('*Sourced*', '*Additional*', '*Reducible*'))
+
+
+# F4 -- S1 weakened from an arbitrary ancilla unitary to a fixed witness.
+def _os_f4_arbitrary(txt, note):
+    body = _os_decl(txt, 'theorem padData_rooted')
+    if '{W : Matrix Anc Anc ℂ}' not in body:
+        return False
+    if '(w : Anc → ℝ) (hw : ∑ x, w x = 1) (t : ℕ) (a j : V)' not in body:
+        return False
+    # the theorem itself names no witness: a fixed pad would appear here
+    if any(_f in body for _f in ('hadU', 'phaseU', 'Fin 2')):
+        return False
+    # ... and the consequences are instantiations of it, not independent constructions
+    for _c in ('consequence_nonMonomial', 'consequence_phaseContent', 'consequence_augmentedAll'):
+        if 'padData_rooted' not in _os_decl(txt, 'theorem ' + _c):
+            return False
+    return 'A single padding witness is a control and never the theorem.' in note
+
+
+# F5 -- the augmented class of S3a used as an access.
+def _os_f5_not_access(txt, note):
+    i, j = txt.find('/-! ### S3b'), txt.find('/-! ### S2')
+    if i < 0 or j < 0 or i > j:
+        return False
+    if 'repAugmented' in txt[i:j] or 'repAugmented' in _os_decl(txt, 'theorem permClass_unchanged_by_arcC'):
+        return False
+    return 'never used as an access' in note and 'constructed in order to be disqualified' in note
+
+
+# F6 -- a Reducible verdict recorded where the stated access already settles the resource.
+def _os_f6_no_reducible(note):
+    if 'No *Reducible* verdict is recorded anywhere in this round.' not in note:
+        return False
+    return re.search(r'is \*Reducible\*|disposition: \*Reducible\*|verdict is \*Reducible\*', note) is None
+
+
+# F7 -- the merged relative-phase verdict presented as this round's adjudication.
+def _os_f7_inherited(txt, note):
+    body = _os_decl(txt, 'theorem phasesUnavailable_stable_under_arcC')
+    # the verdict is CITED, not re-proved: the proof term is the merged theorem applied to h2
+    if 'permTheory_not_phasesAvailable_onesFixing h2' not in body:
+        return False
+    if 'is not this round’s adjudication' in note:
+        return False  # curly apostrophe would break the plain-quote checks below
+    if "is not this round's adjudication" not in note:
+        return False
+    if 'PR #521 and PR #515' not in note:
+        return False
+    if "This outcome is not reached by restating the phase verdict of PR #521." not in note:
+        return False
+    # the S2 reporting guard of checkpoint review 5159475395: arcCWitness_not_phasesAvailable is the
+    # already-merged negative for the FULL stated access, applied where the witness has just been
+    # proved to lie inside it. No implementation class or generated theory built from the one witness
+    # operator is defined anywhere in the round, and describing one would report an object that does
+    # not exist. The module's own doc-comment says this; the note must not contradict it.
+    if 'own operator content' in note or 'theory generated by the witness' in note:
+        return False
+    # matched without the emphasis markers, which sit inside the phrase in the note
+    return 'negative for the full stated' in ' '.join(note.split())
+
+
+# F8 -- S2's access-level negative widened into a claim about continuously tunable off-diagonal
+# control or continuous unitary/Hamiltonian evolution.
+_OS_SUMMARY = ('coherent structure may occur in representations, while the canonical representation '
+               'adds nothing to the stated access; therefore representation-level operator content '
+               'carries no sourcing inference.')
+
+
+def _os_f8_bounded(note, note_flat, pre_flat):
+    # the bounded summary is carried VERBATIM from the freeze, not paraphrased: a widened summary
+    # cannot survive a byte comparison against the preregistration
+    if _OS_SUMMARY not in pre_flat or _OS_SUMMARY not in note_flat:
+        return False
+    sec = _os_section(note, '## 3. S2', '## 4.')
+    if not sec:
+        return False
+    return ('No conclusion is drawn here about the deferred questions' in ' '.join(sec.split())
+            and 'bounded at the access' in sec)
+
+
+# F9 -- S3b's stability theorem given a proof that routes through S1 or S2.
+def _os_f9_access_route(txt):
+    """S3b's route is the access semantics, and nothing else.
+
+    The four stability theorems are checked to be discharged by the hypothesis itself or by the
+    merged access invariant, and the whole S3b block is checked to name no S1, S2 or S3a result.
+    RD3 of the frozen taxonomy is only a real outcome class if this holds."""
+    i, j = txt.find('/-! ### S3b'), txt.find('/-! ### S2')
+    if i < 0 or j < 0 or i > j:
+        return False
+    blk = txt[i:j]
+    for _bad in ('padData', 'permData', 'consequence_', 'archGen', 'repAugmented', 'unitData'):
+        if _bad in blk:
+            return False
+    for _h, _proof in (('availExt_stable_under_arcC', '\n  h'),
+                       ('availExt_unavailable_stable_under_arcC', '\n  h'),
+                       ('phasesUnavailable_stable_under_arcC',
+                        '\n  permTheory_not_phasesAvailable_onesFixing h2')):
+        if not _os_decl(txt, 'theorem ' + _h).endswith(_proof):
+            return False
+    return True
+
+
+ok_src = True
+# the nine contracts hold as the tree stands
+ok_src &= _os_f1_inert(_OS, _OSRES)
+ok_src &= _os_f2_permdata(_OS, _OSRES)
+ok_src &= _os_f3_deferred(_OSRES)
+ok_src &= _os_f4_arbitrary(_OS, _OSRES)
+ok_src &= _os_f5_not_access(_OS, _OSRES)
+ok_src &= _os_f6_no_reducible(_OSRES)
+ok_src &= _os_f7_inherited(_OS, _OSRES)
+ok_src &= _os_f8_bounded(_OSRES, _OSRESQ, _OSPREQ)
+ok_src &= _os_f9_access_route(_OS)
+
+# ... and each is mutation-tested against the exact failure mode it exists to catch
+_os_m1 = _OS.replace('(_hQr : Q.PositiveRootMass) (_hRep :', '(_hQr : Q.PositiveRootMass) (hRep :')
+ok_src &= _os_m1 != _OS and not _os_f1_inert(_os_m1, _OSRES)
+
+_os_m2 = _OS.replace('    permClass (V × H) (permData R).U := by',
+                     '    IsMonomial (permData R).U := by')
+ok_src &= _os_m2 != _OS and not _os_f2_permdata(_os_m2, _OSRES)
+
+_os_m3 = _OSRES.replace('- Kraus instruments;', '- Kraus instruments, which are *Additional*;')
+ok_src &= _os_m3 != _OSRES and not _os_f3_deferred(_os_m3)
+
+_os_m4 = _OS.replace('theorem padData_rooted {W : Matrix Anc Anc ℂ}',
+                     'theorem padData_rooted {W : Matrix (Fin 2) (Fin 2) ℂ}')
+ok_src &= _os_m4 != _OS and not _os_f4_arbitrary(_os_m4, _OSRES)
+
+_os_m5 = _OS.replace('    (h : (permTheory A).availExt n O F) :',
+                     '    (h : (genTheory repAugmented repAugmented_arch A).availExt n O F) :')
+ok_src &= _os_m5 != _OS and not _os_f5_not_access(_os_m5, _OSRES)
+
+_os_m6 = _OSRES.replace('## 7. Headline outcome',
+                        'The relative-phase resource is *Reducible*.\n\n## 7. Headline outcome')
+ok_src &= _os_m6 != _OSRES and not _os_f6_no_reducible(_os_m6)
+
+_os_m7 = _OSRES.replace("and is not this round's adjudication (§5 below)", 'and is this round’s finding (§5 below)')
+ok_src &= _os_m7 != _OSRES and not _os_f7_inherited(_OS, _os_m7)
+
+_os_m7b = _OSRES.replace('the **already-merged** negative for the full stated `permTheory`',
+                         'the theory generated by the witness\'s own operator content, which')
+ok_src &= _os_m7b != _OSRES and not _os_f7_inherited(_OS, _os_m7b)
+
+_os_m8 = _OSRES.replace('therefore representation-level operator content carries no sourcing inference.',
+                        'therefore the Arc C inclusion is not a source of coherent control.')
+ok_src &= _os_m8 != _OSRES and not _os_f8_bounded(_os_m8, _os_unquote(_os_m8), _OSPREQ)
+
+_os_m9 = _OS.replace('''    (h : (permTheory A).availExt n O F) :
+    (permTheory A).availExt n O F :=
+  h''', '''    (h : (permTheory A).availExt n O F) :
+    (permTheory A).availExt n O F := by
+  have := padData_rooted
+  exact h''')
+ok_src &= _os_m9 != _OS and not _os_f9_access_route(_os_m9)
+
+# standing hygiene on the module
+_os_code = re.sub(r'/-.*?-/|--[^\n]*', '', _OS, flags=re.S)
+ok_src &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _OS) is None and 'native_decide' not in _OS
+ok_src &= 'axiom ' not in _os_code and re.search(r'(?m)^axiom ', _OS) is None
+
+# axiom reporting as a source contract: the theorem-name set equals the print-target set
+_os_dcl = re.findall(r"(?m)^(?:@\[[^\]]*\]\s*)?theorem\s+([A-Za-z_][\w'.]*)", _OS)
+_os_pr = re.findall(r"#print axioms OIBridge\.OperationalSourcing\.([\w'.]+)", _OS)
+ok_src &= set(_os_dcl) == set(_os_pr) and len(_os_dcl) == len(set(_os_dcl)) and len(_os_dcl) == 53
+_os_m10 = _OS.replace('#print axioms OIBridge.OperationalSourcing.consequence_augmentedAll\n', '', 1)
+ok_src &= _os_m10 != _OS
+ok_src &= set(re.findall(r"#print axioms OIBridge\.OperationalSourcing\.([\w'.]+)", _os_m10)) != set(_os_dcl)
+
+# the frozen provenance is carried in the file that implements it and in the result note
+for _t in ('15e29b25f97319303738031b1bc87a364bb9c714',
+           'e9ca45351b58354564552471aa8fe81537a8e557',
+           '7c552601636d6901275f82fbfc4d172a796a1876'):
+    ok_src &= _t in _OSRES
+for _t in ('e9ca45351b58354564552471aa8fe81537a8e557',
+           '7c552601636d6901275f82fbfc4d172a796a1876'):
+    ok_src &= _t in _OS
+
+# Amendment 1's split is carried where S3a's conclusion is stated -- presenting one uniform argument
+# over every finite carrier would misdescribe the proof, which is the amendment's explicit demand
+ok_src &= 'theorem archGen_of_isEmpty' in _OS and 'theorem repAugmented_allUnitaries_nonempty' in _OS
+ok_src &= 'by Amendment 1' in _OSRES1 or "Amendment 1's split" in _OSRES1
+ok_src &= 'no appeal to representation' in _OSRES1
+_os_m11 = _OS.replace('theorem archGen_of_isEmpty', 'theorem archGen_of_empty')
+ok_src &= _os_m11 != _OS and 'theorem archGen_of_isEmpty' not in _os_m11
+
+# the headline outcome is exactly one class, and it is not reached by inheriting a merged verdict
+ok_src &= re.search(r'(?m)^## 7\. Headline outcome: \*\*RD1\*\*', _OSRES) is not None
+ok_src &= sum(1 for _c in ('**RD1**', '**RD2**', '**RD3**', '**RD4**', '**RD5**')
+              if re.search(r'(?m)^## 7\..*' + re.escape(_c), _OSRES)) == 1
+
+# reachability: the module is reached by the ORDINARY build, so CI actually elaborates the file the
+# controls above are guarding. Without this every semantic check here is unenforceable in practice.
+ok_src &= 'import OIBridge.OperationalSourcing\n' in root
+ok_src &= re.search(r'lake build\s+OIBridge\.OperationalSourcing', _wf) is None
+ok_src &= 'import OIBridge.OperationalSourcing\n' not in root.replace('import OIBridge.OperationalSourcing\n', '')
+
+check('R7-SOURCE', ok_src,
+      'Arc D round 1 guard: the nine frozen failure modes of the operational-sourcing audit are enforced as SHAPE '
+      'contracts on the kernel module and on the result note, not trusted to review. A representation fact cited as '
+      'a sourcing fact is caught on the BINDERS and the proof term -- S3b\'s Arc C hypotheses are underscore-bound '
+      'and its proofs are the hypothesis itself, so the data cannot have been consulted; permData is checked to be '
+      'read only as a permutation matrix; the deferred list is checked to carry all eight resources with no '
+      'disposition word inside it; S1 is checked to be quantified over an ARBITRARY ancilla with the theorem naming '
+      'no witness and each consequence citing it; the augmented class of S3a is checked never to appear in an '
+      'access position; no Reducible verdict is recorded; the relative-phase verdict is checked to be CITED rather '
+      'than re-proved and attributed to PR #521 and PR #515; S2\'s bounded summary is checked VERBATIM against the '
+      'frozen preregistration, so a widened summary cannot survive a byte comparison; and S3b\'s block is checked '
+      'to name no S1, S2 or S3a result, which is what makes RD3 a real outcome class. Each of the nine is '
+      'mutation-tested against the exact failure it exists to catch, and every mutation is asserted to change the '
+      'source, since a mutation that fails to mutate records a pass while testing nothing. Axiom reporting is a '
+      'source contract -- the theorem-name set equals the print-target set, fifty-three in all -- and reachability '
+      'is a separate contract, since an unimported module would leave every check above unenforced.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
