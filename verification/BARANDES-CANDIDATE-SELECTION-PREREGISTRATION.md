@@ -128,6 +128,10 @@ theorem candidate_rules_disagree :
       ∧ candidateOf Q (initWeight Q) n ≠ candidateOf Q (uniformWeight Q) n
 ```
 
+Only the existential is frozen, so C2 either **closes** or is **not established**; failing to find
+its witness is never reported as agreement of the named rules, and it is what separates `CU1a` from
+`CU1b`.
+
 This is the target that makes underdetermination a theorem rather than an observation, and it holds
 the **representation fixed**: no appeal to representation freedom is made or needed.
 
@@ -179,7 +183,7 @@ These are exact negations of one another over the stated domain, so exactly one 
 round's task is to prove whichever it is:
 
 ```lean
-theorem admissible_nonUnique : AdmissibleNonUnique      -- the CU1 side
+theorem admissible_nonUnique : AdmissibleNonUnique      -- the CU1a / CU1b side
 theorem admissible_agree : AdmissibleAgree              -- the CU2 side
 ```
 
@@ -204,15 +208,32 @@ after freeze and nothing here quantifies over alternative criteria.
 
 ## Admissible outcomes
 
-**CU1 — underdetermined at the candidate layer.** C1 and C2 close: two independently admissible
-extraction rules differ on one lawful representation, with the representation held fixed. A
-candidate-selection principle is then required *before* "OI forces this interference discrepancy"
-is a well-defined family-level question.
+Because C4 quantifies over **arbitrary** admissible weights while C2 asks about the two **named**
+rules, non-uniqueness has two genuinely different strengths, and they are separated here. The
+enumeration below is exhaustive over the possible states of C1, C2 and C4, and its cases are
+mutually exclusive.
 
-**CU2 — unique at the tested interface.** C2's witness does not exist because the frozen
-admissibility conditions force the rules to coincide, and that coincidence is **proved**, not merely
-unwitnessed. The interference question becomes well-posed and the next round asks whether OI forces
-a nonzero discrepancy, with §3.6's accessible-window countermodel as its first obstacle.
+**CU1a — the named rules are underdetermined.** C1 and C2 close: two independently admissible
+extraction rules differ on one lawful representation, with the representation held fixed. C4 closes
+on the non-unique side as well, and necessarily so: C1 makes both named rules admissible, so the C2
+witness instantiates `AdmissibleNonUnique` directly. A candidate-selection principle is then
+required *before* "OI forces this interference discrepancy" is a well-defined family-level question.
+
+**CU1b — the admissibility interface is underdetermined, the named pair unresolved.** C1 closes and
+`AdmissibleNonUnique` closes on **some** admissible pair, while C2 is **not established** on
+`initWeight` and `uniformWeight`. This is a real possibility rather than a bookkeeping case: the C2
+and C4 targets were deliberately separated so that the general existential can close on a pair the
+named rules do not witness.
+
+It is strictly weaker than `CU1a` and carries a strictly weaker licence. What is shown is that the
+frozen admissibility conditions do not force a unique candidate; whether the two *natural* rules
+differ stays open, and is reported as open unless separately proved.
+
+**CU2 — unique at the tested interface.** `AdmissibleAgree` closes. C2's witness then does not exist
+as a **consequence of that theorem** — C1 makes both named rules admissible, so agreement forces
+their candidates to coincide — rather than because a search for it failed. The interference question
+becomes well-posed and the next round asks whether OI forces a nonzero discrepancy, with §3.6's
+accessible-window countermodel as its first obstacle.
 
 **CU3 — the frozen admissibility criterion does not admit both named rules.** C1 fails against
 `Admissible` as frozen, for `initWeight` or for `uniformWeight`, so the two rules are not being
@@ -227,38 +248,65 @@ question of whether some admissibility criterion admits both rules is therefore 
 `CU3` and must be reported as open. Reaching it would need a target that quantifies over criteria,
 and no such target is frozen here.
 
-**CU4 — unresolved.** Neither non-uniqueness nor uniqueness closes. Recorded as open, with what is
+**CU4 — unresolved.** C1 closes and neither C4 side closes. C2 is then not established either, since
+a C2 witness together with C1 would prove `AdmissibleNonUnique`. Recorded as open, with what is
 missing. A failed search is never reported as a uniqueness result.
 
-## How a CU1 or a CU3 result must be described
+**The five cases are exhaustive.** If C1 fails, the outcome is `CU3`. If C1 closes, exactly one of
+three things is true of C4 — `AdmissibleNonUnique` proved, `AdmissibleAgree` proved, or neither —
+giving `CU1a`/`CU1b` (split by whether C2 closes), `CU2`, and `CU4` respectively. No further split
+is needed on C2: it cannot close under `CU2` or `CU4`, for the reasons given in each.
 
-This constraint is frozen because it is the easiest thing in the round to get wrong. **The two
-outcomes carry different licences, and they are stated separately because `CU3` supports strictly
-less than `CU1` does.**
+**C2 has no frozen complement, and this is deliberate.** C4 freezes both sides because its outcome
+label turns on which one is true, so `CU2` must be earned by proof. C2 freezes only the existential,
+so **failure to close C2 is reported as "not established", never as agreement of the named rules**.
+Distinguishing `CU1a` from `CU1b` therefore requires proving C2, not failing to refute it. A
+named-rule agreement theorem could be frozen to make C2 two-sided as well; none is frozen in this
+round, and no claim that the named rules agree is available without one.
 
-### If the outcome is `CU1`
+## How a CU1a, CU1b or CU3 result must be described
 
-`CU1` proves that two admissible rules differ on one fixed lawful representation, so the bridge
-demonstrably fails to pick between them.
+This constraint is frozen because it is the easiest thing in the round to get wrong. **The three
+outcomes carry different licences, in strictly decreasing strength, and they are stated separately
+so that the weaker two cannot borrow the strongest one's sentence.**
+
+### If the outcome is `CU1a`
+
+`CU1a` proves that the two **named** rules — each a natural extraction from the representation —
+differ on one fixed lawful representation, so the bridge demonstrably fails to pick between them.
 
 **Permitted:** *the merged OI → `QfbData` bridge does not select the candidate at this interface*,
 together with a statement of what a candidate-selection principle would have to do, given as a
 **requirement** and not proposed as a condition.
 
+### If the outcome is `CU1b`
+
+`CU1b` proves that **some** admissible pair differs, on weights that need not be natural extraction
+rules, and leaves the named pair unresolved.
+
+**Permitted:** *the frozen admissibility conditions do not force a unique candidate*, with the
+question of whether `initWeight` and `uniformWeight` differ reported as **open**.
+
+**Not permitted under `CU1b`:** the `CU1a` sentence about the bridge; a candidate-selection
+principle stated as required; any suggestion that the two natural rules have been shown to differ.
+`CU1b` is a result about the admissibility interface, not about the named rules — and not a result
+that the named rules agree either, since C2 has no frozen complement.
+
 ### If the outcome is `CU3`
 
 `CU3` proves only that the frozen `Admissible` fails to admit both named rules, and leaves open
-whether some other criterion admits both. Neither of the `CU1` statements follows from it.
+whether some other criterion admits both. None of the statements above follows from it.
 
 **Permitted:** *the frozen admissibility criterion does not compare the two named rules*, with the
 question of whether the bridge selects a candidate under some other admissibility criterion
 reported as **open**.
 
-**Not permitted under `CU3`:** that the merged bridge does not select the candidate; that a
-candidate-selection principle is required; any requirement statement of the `CU1` kind. `CU3` is a
-result about a criterion, not about the bridge.
+**Not permitted under `CU3`:** that the merged bridge does not select the candidate; that the
+admissibility conditions fail to force a unique candidate; that a candidate-selection principle is
+required; any requirement statement of the `CU1a` kind. `CU3` is a result about a criterion, not
+about the bridge and not about uniqueness under that criterion.
 
-### Under either outcome
+### Under any outcome
 
 **Not permitted:** *Barandes's framework requires an additional physical principle.*
 
@@ -272,13 +320,18 @@ round does not extend them.
 
 ## Prediction recorded before proving
 
-**`CU1` is predicted, at roughly two-to-one against `CU2`, with `CU3` materially live.**
+**`CU1a` is predicted, at roughly two-to-one against `CU2`, with `CU3` materially live and `CU1b`
+the fallback if the named pair proves harder to separate than the general existential.**
 
 The ground is that `initWeight` reads `Q.init` and `uniformWeight` reads only the fibre's
 cardinality, and nothing in `IsLaw` or `PositiveRootMass` ties those together: a lawful `Q` may
 place unequal initial weight on basis points of one fibre whose `bornPow` rows differ. That is a
 reason to expect a witness, not a construction of one, and C2 is a witness target that either closes
 or does not.
+
+Note that the ground concerns the **named** rules specifically, which is why the prediction is
+recorded on `CU1a` rather than on the `CU1` family: `CU1b` needs only some admissible pair, so it is
+strictly easier to reach and a prediction covering both would be weaker than the ground supports.
 
 `CU3` is live because the neutrality argued for `Admissible` above is a *reading* of its three
 clauses, not a theorem: C1 is where the frozen criterion has to actually admit both named rules, and
@@ -334,11 +387,15 @@ tuple-instantiation lemma, Arc D round 2, or Arc E; edit manuscripts.
 
 1. each of the four targets, with its outcome and the named results carrying it;
 2. the axiom line for every named result, and the count;
-3. the outcome label `CU1`–`CU4`, the prediction, and whether it held;
-4. if `CU1`: that the merged bridge does not select the candidate at this interface, and what a
+3. the outcome label — one of `CU1a`, `CU1b`, `CU2`, `CU3`, `CU4` — the prediction, and whether it
+   held;
+4. if `CU1a`: that the merged bridge does not select the candidate at this interface, and what a
    candidate-selection principle would have to do, stated as a **requirement** and not proposed as
    a condition, with no claim about the external framework;
-4b. if `CU3`: **only** that the frozen admissibility criterion does not compare the two named
+4b. if `CU1b`: **only** that the frozen admissibility conditions do not force a unique candidate,
+   with the named pair reported as **open** — not as agreeing. No bridge statement and no
+   requirement statement is permitted from `CU1b`;
+4c. if `CU3`: **only** that the frozen admissibility criterion does not compare the two named
    rules, with whether the bridge selects a candidate under some other criterion reported as
    **open**. No requirement statement and no claim about the bridge is permitted from `CU3`;
 5. if `CU2`: what the next round must prove, with §3.6 named as its first obstacle;
