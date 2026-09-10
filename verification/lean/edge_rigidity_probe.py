@@ -7573,6 +7573,261 @@ check('R7-SOURCE', ok_src,
       'source contract -- the theorem-name set equals the print-target set, fifty-three in all -- and reachability '
       'is a separate contract, since an unimported module would leave every check above unenforced.')
 
+# ---- R7-BRIDGE: Track B act 1 -- the Barandes indivisibility/correspondence bridge audit, whose
+# deliverable is a determination about an external text and therefore has no kernel to check ----
+#
+# A definition-level audit ships prose. That is exactly the kind of round where a control is easy
+# to assert and easy to drop, so the frozen controls and Amendment 3's four repairs are enforced
+# here as SHAPE contracts on the result note, and the two frozen control-plane files are pinned by
+# GIT BLOB IDENTITY rather than by a substring: the freeze says blob identity is authoritative, and
+# a check that reads the freeze's prose would pass on a freeze that had been quietly rewritten.
+import hashlib
+
+_BB = os.path.dirname(BRIDGE)
+
+
+def _bb_read(path):
+    """The bytes of a control-plane file. Injectable so the freeze pin can be mutation-tested."""
+    return open(os.path.join(_BB, path), 'rb').read()
+
+
+def _bb_blob(path, read=_bb_read):
+    """The git blob SHA-1 of a control-plane file, computed without invoking git."""
+    _d = read(path)
+    return hashlib.sha1(b'blob %d\0' % len(_d) + _d).hexdigest()
+
+
+_BBRES = open(os.path.join(_BB, 'BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-RESULT.md'),
+              encoding='utf-8').read()
+_BBRES1 = ' '.join(_BBRES.split())
+
+
+def _bb_freeze(read=_bb_read):
+    """B0 -- the preregistration and its amendment are byte-identical to the frozen blobs."""
+    return (_bb_blob('BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md', read)
+            == 'b6727fa8df616e1a3f98e45d69b99b13554cda3e'
+            and _bb_blob('BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-AMENDMENT-3.md', read)
+            == 'f3f23acf7f30f941b87fa8f113699c5be0c7b87b')
+
+
+def _bb_pair(txt1):
+    """B1 -- the headline is the ORDERED PAIR, both axes reported, neither omitted."""
+    return ('**(BD3, BR3).**' in txt1
+            and txt1.count('BD3') >= 2 and txt1.count('BR3') >= 2)
+
+
+def _bb_q4_separate(txt1):
+    """B2 -- Amendment 3 repair 1: Q4 is recorded on its own and is never a BD verdict."""
+    return ('Recorded separately from BD, per Amendment 3 repair 1. This answer is not a BD verdict.'
+            in txt1)
+
+
+def _bb_q4_not_bd1(txt1):
+    """B3 -- Amendment 3 repair 3: an exact Q4 match coexists with BD3, on the Markov ground.
+
+    This is the whole reason the amendment exists. If the note ever reports the exact equation
+    match WITHOUT the mismatch verdict beside it, the conflation the amendment repaired is back."""
+    return ('the transposed factorization equation is an **exact match**' in txt1
+            and 'Markov chains are members' in txt1
+            and 'a Markov chain is `PDivisible`' in txt1
+            and 'No stated transposition identifies the two predicates.' in txt1)
+
+
+def _bb_transpose(txt1):
+    """B4 -- control 2: the transposition is written out, not gestured at."""
+    return ('## The transposition, written out' in txt1
+            and 'Γ_ours t = Γ_ours s * Λ' in txt1
+            and 'column-stochastic exactly when its transpose is row-stochastic' in txt1)
+
+
+def _bb_no_proof(txt1):
+    """B5 -- control 1: no proof attempt, and the note says so where a reader will find it."""
+    return ('This is a **definition-level audit**, not a proof round.' in txt1
+            and 'No theorem is proved or claimed.' in txt1)
+
+
+def _bb_not_sourcing(txt1):
+    """B6 -- control 9: the non-sourcing statement is explicit, not implied by omission."""
+    return ('## 8. This is not a sourcing claim' in txt1
+            and '**nothing determined in this round is a claim that OI sources anything.**' in txt1
+            and 'representational presence remains a disqualified ground for any sourcing claim'
+            in txt1)
+
+
+def _bb_no_edit(txt1):
+    """B7 -- control 4: the destabilized surface is NAMED and left alone.
+
+    Naming without the abstention, or the abstention without the name, both fail: the first is an
+    edit waiting to happen, the second is a finding with nowhere to land."""
+    return ('`papers/Explainer.md` line 287' in txt1
+            and '**This round performs no manuscript edit**' in txt1)
+
+
+def _bb_prediction(txt1):
+    """B8 -- the recorded prediction was BR2 and the outcome is BR3; the miss is reported as one."""
+    return ('The freeze predicted **BR2** on the role axis' in txt1
+            and 'The outcome is **BR3**' in txt1
+            and 'Recorded as a miss at label level' in txt1)
+
+
+def _bb_versions(txt1):
+    """B9 -- control 3: both divisibility formulations are reported, neither projected backward."""
+    return ('**(a) The diagnostic formulation' in txt1
+            and '**(b) The axiom formulation' in txt1
+            and '**The later terminology is not projected backward**' in txt1)
+
+
+def _bb_proof_dep(txt1):
+    """B11 -- the role-axis claim is the NARROW negative one, and says what it is not.
+
+    "The proof consumes only non-negativity and normalization" is false of Source C SS5.1, which
+    also uses the trivialization condition at eq (75) and draws on the tuple's p and A downstream.
+    The claim BR3 actually needs is that divisibility is not among the hypotheses the proof uses,
+    and an over-strong version of a true conclusion is still a defect."""
+    return ('**failure of divisibility is not among the hypotheses its proof uses**' in txt1
+            and 'the trivialization condition (46) for eq (75)' in txt1
+            and 'consumes only non-negativity and normalization' not in txt1
+            and 'uses only\nnon-negativity and normalization' not in txt1)
+
+
+def _bb_q4_count(txt1):
+    """B12 -- the Q4 difference count is stated AGAINST A NAMED EQUATION, not floated.
+
+    Source A eq (6) restricts to t > t' > t0, the same forward orientation as ours, so direction is
+    not a difference against it; Source B broadens the target-time convention at framework level.
+    Reporting three differences against eq (6) miscounts, and the summaries said two."""
+    return ('**Against Source A eq (6), exactly two quantifier differences remain' in txt1
+            and '**Direction is not one of them, and is recorded separately as a Source B scope '
+                'observation.**' in txt1)
+
+
+def _bb_primary(txt1, txt):
+    """B10 -- the primary-source restriction, enforced two ways.
+
+    The repo's own prior paraphrase may LOCATE a passage but may never evidence a verdict, so the
+    simplest enforceable form is that the result note does not lean on it at all; and every one of
+    the nine answers records what kind of evidence it rests on."""
+    return ('BARANDES-BOUNDARY-AUDIT-RESULT' not in txt1
+            and txt.count('**Evidence type.**') == 9
+            and all(('### Q%d —' % _i) in txt for _i in range(1, 10)))
+
+
+ok_bb = True
+# the thirteen contracts hold as the tree stands
+ok_bb &= _bb_freeze()
+ok_bb &= _bb_pair(_BBRES1)
+ok_bb &= _bb_q4_separate(_BBRES1)
+ok_bb &= _bb_q4_not_bd1(_BBRES1)
+ok_bb &= _bb_transpose(_BBRES1)
+ok_bb &= _bb_no_proof(_BBRES1)
+ok_bb &= _bb_not_sourcing(_BBRES1)
+ok_bb &= _bb_no_edit(_BBRES1)
+ok_bb &= _bb_prediction(_BBRES1)
+ok_bb &= _bb_versions(_BBRES1)
+ok_bb &= _bb_proof_dep(_BBRES1)
+ok_bb &= _bb_q4_count(_BBRES1)
+ok_bb &= _bb_primary(_BBRES1, _BBRES)
+
+# ... and each is mutation-tested against the exact failure it exists to catch, with every mutation
+# asserted to CHANGE the note, since a mutation that fails to mutate records a pass while testing
+# nothing -- which is how a prose guard ships vacuous.
+_bb_m1 = _BBRES1.replace('**(BD3, BR3).**', '**BD3.**')
+ok_bb &= _bb_m1 != _BBRES1 and not _bb_pair(_bb_m1)
+
+_bb_m2 = _BBRES1.replace('Recorded separately from BD, per Amendment 3 repair 1. '
+                         'This answer is not a BD verdict.',
+                         'This answer settles the definition axis.')
+ok_bb &= _bb_m2 != _BBRES1 and not _bb_q4_separate(_bb_m2)
+
+_bb_m3 = _BBRES1.replace('No stated transposition identifies the two predicates.',
+                         'The two predicates are therefore identified.')
+ok_bb &= _bb_m3 != _BBRES1 and not _bb_q4_not_bd1(_bb_m3)
+
+_bb_m3b = _BBRES1.replace('Markov chains are members', 'Markov chains are excluded')
+ok_bb &= _bb_m3b != _BBRES1 and not _bb_q4_not_bd1(_bb_m3b)
+
+_bb_m4 = _BBRES1.replace('## The transposition, written out',
+                         '## The transposition (routine; omitted)')
+ok_bb &= _bb_m4 != _BBRES1 and not _bb_transpose(_bb_m4)
+
+_bb_m5 = _BBRES1.replace('No theorem is proved or claimed.',
+                         'The equivalence follows and is proved below.')
+ok_bb &= _bb_m5 != _BBRES1 and not _bb_no_proof(_bb_m5)
+
+_bb_m6 = _BBRES1.replace('## 8. This is not a sourcing claim',
+                         '## 8. What the correspondence sources')
+ok_bb &= _bb_m6 != _BBRES1 and not _bb_not_sourcing(_bb_m6)
+
+_bb_m7 = _BBRES1.replace('**This round performs no manuscript edit**',
+                         'The Explainer sentence is corrected in this round')
+ok_bb &= _bb_m7 != _BBRES1 and not _bb_no_edit(_bb_m7)
+
+_bb_m8 = _BBRES1.replace('Recorded as a miss at label level',
+                         'The prediction is therefore confirmed')
+ok_bb &= _bb_m8 != _BBRES1 and not _bb_prediction(_bb_m8)
+
+_bb_m9 = _BBRES1.replace('**The later terminology is not projected backward**',
+                         'The later terminology governs both papers')
+ok_bb &= _bb_m9 != _BBRES1 and not _bb_versions(_bb_m9)
+
+_bb_m10 = _BBRES1.replace('Source C §3.3, p. 14, eq (54)',
+                          'BARANDES-BOUNDARY-AUDIT-RESULT.md §3')
+ok_bb &= _bb_m10 != _BBRES1 and not _bb_primary(_bb_m10, _BBRES)
+
+_bb_m10b = _BBRES.replace('**Evidence type.** Primary source at pinpoint locations.\n\n### Q6', '### Q6')
+ok_bb &= _bb_m10b != _BBRES and not _bb_primary(' '.join(_bb_m10b.split()), _bb_m10b)
+
+_bb_m11 = _BBRES1.replace('**failure of divisibility is not among the hypotheses its proof uses**',
+                          'its proof consumes only non-negativity and normalization')
+ok_bb &= _bb_m11 != _BBRES1 and not _bb_proof_dep(_bb_m11)
+
+_bb_m11b = _BBRES1.replace('the trivialization condition (46) for eq (75), and the',
+                           'and the')
+ok_bb &= _bb_m11b != _BBRES1 and not _bb_proof_dep(_bb_m11b)
+
+_bb_m12 = _BBRES1.replace('**Against Source A eq (6), exactly two quantifier differences remain',
+                          '**Three quantifier differences remain')
+ok_bb &= _bb_m12 != _BBRES1 and not _bb_q4_count(_bb_m12)
+
+# The freeze pin is mutation-tested THROUGH ITS OWN PREDICATE, on mutated bytes fed to the same
+# code path. The earlier form of this line hashed an unrelated one-byte blob and compared it to the
+# frozen digest -- which is true of almost any input and would have passed with _bb_freeze broken,
+# so it recorded a pass while testing nothing. Injecting the reader is what makes the check real.
+for _bb_f in ('BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md',
+              'BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-AMENDMENT-3.md'):
+    def _bb_drift(path, _f=_bb_f):
+        """One byte appended to one frozen file; every other file read normally."""
+        return _bb_read(path) + (b'\n' if path == _f else b'')
+    ok_bb &= _bb_drift(_bb_f) != _bb_read(_bb_f) and not _bb_freeze(_bb_drift)
+# and the pin passes on the unmutated reader, so the loop above is not failing for an unrelated reason
+ok_bb &= _bb_freeze(_bb_read)
+
+check('R7-BRIDGE', ok_bb,
+      'Track B act 1 guard: the Barandes bridge audit ships a determination about an external text, so its frozen '
+      'controls are enforced as SHAPE contracts on the result note and its two control-plane files are pinned by '
+      'GIT BLOB IDENTITY -- computed here, not read from prose -- since the preregistration makes blob identity '
+      'authoritative and a substring check would pass on a rewritten freeze. That pin is mutation-tested THROUGH '
+      'ITS OWN PREDICATE by injecting a reader that drifts one frozen file by one byte, so the non-vacuity claim '
+      'is about the check that ships rather than about an unrelated digest. The role-axis claim is checked to be '
+      'the NARROW negative -- divisibility is not among the hypotheses the proof uses -- and the over-strong '
+      '"consumes only non-negativity and normalization" is checked absent, since the proof also uses trivialization '
+      'at eq (75) and the tuple\'s p and A downstream, and an over-strong version of a true conclusion is still a '
+      'defect. The Q4 difference count is checked to be stated AGAINST A NAMED EQUATION at exactly two, with '
+      'direction recorded separately as a Source B scope observation rather than miscounted as a third. The '
+      'headline is checked to be the '
+      'ordered PAIR with both axes present, so no ordering can hide half of it; Amendment 3 repair 1 is checked by '
+      'requiring Q4 to declare itself not a BD verdict; repair 3 is checked by requiring the exact equation match '
+      'and the mismatch verdict to stand TOGETHER on the Markov-chain ground, which is the whole reason the '
+      'amendment exists; control 2 by requiring the transposition to be written out to the factorization line and '
+      'the row/column duality; control 1 by the no-proof statement; control 9 by the explicit non-sourcing section '
+      'together with Arc D round 1\'s boundary restated intact; control 4 by requiring the destabilized manuscript '
+      'surface to be NAMED and simultaneously left alone, since naming without abstention is an edit waiting to '
+      'happen and abstention without naming is a finding with nowhere to land; control 3 by requiring both '
+      'divisibility formulations with the later one not projected backward; and the primary-source restriction two '
+      'ways -- the repo\'s own prior paraphrase is not leaned on at all, and each of the nine answers records its '
+      'evidence type. Each contract is mutation-tested against the exact failure it exists to catch, and every '
+      'mutation is asserted to change the note.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
