@@ -15,7 +15,10 @@ never fires is as broken as one that fires everywhere.
   - a synthetic file under `verification/` carrying the trigger phrase must
     PASS, because it is outside the manuscript;
   - the same phrase in a synthetic `papers/*.md` must FAIL;
-  - the same phrase in a synthetic book manuscript chapter must FAIL.
+  - the same phrase in a synthetic book manuscript chapter must FAIL;
+  - `papers/Complexity.md` must PASS, being the one documented exception;
+  - `book/Complexity.md` must FAIL, because that exception is keyed to the
+    papers/ surface and not to the bare filename.
 
 Usage:  python3 tools/voice_scope_test.py
 Exit 1 if the scope has drifted in either direction.
@@ -38,6 +41,10 @@ CASES = [
      "book chapters are manuscript and must be scanned"),
     ("book/README.md", False,
      "directory documentation beside the book is not manuscript prose"),
+    ("papers/Complexity.md", False,
+     "the documented papers/ exception, which stays exempt"),
+    ("book/Complexity.md", True,
+     "the exception is keyed to papers/, not to the bare filename"),
 ]
 
 

@@ -14,17 +14,22 @@ narrate history, and a checker whose docstring says "manuscript" while walking
 the whole repository will eventually flag one of them; it did, on a frozen
 control-plane amendment, which is what made the scope explicit here.
 
-Exempt within scope: papers/Complexity.md (its claims ladder records withdrawn
-EMPIRICAL verdicts, which is honest reporting of a failed analysis, not
-narration of the document's own edits). book/README.md is directory
-documentation rather than manuscript prose and is not in scope.
+Exempt within scope: papers/Complexity.md, and that path only (its claims ladder
+records withdrawn EMPIRICAL verdicts, which is honest reporting of a failed
+analysis, not narration of the document's own edits). The exception is keyed to
+the papers/ surface, not to the bare filename, so a future book/Complexity.md
+would still be scanned. book/README.md is directory documentation rather than
+manuscript prose and is not in scope.
 
 Usage:  python3 voice_check.py [--root DIR]
 Exit 1 if manuscript-voice history narration is present.
 """
 import os, re, sys
 
-EXEMPT = {'Complexity.md'}
+# Exceptions are PATH-SPECIFIC, not filename-specific. The documented exception
+# is `papers/Complexity.md`; a filename-only rule would silently exempt a future
+# `book/Complexity.md`, which nothing justifies.
+PAPERS_EXEMPT = {'Complexity.md'}
 # Directory documentation that lives beside the book manuscript but is not it.
 BOOK_NON_MANUSCRIPT = {'README.md'}
 
@@ -39,13 +44,13 @@ def manuscript_files(root):
     papers = os.path.join(root, 'papers')
     if os.path.isdir(papers):
         for f in sorted(os.listdir(papers)):
-            if f.endswith('.md') and f not in EXEMPT:
+            if f.endswith('.md') and f not in PAPERS_EXEMPT:
                 out.append(os.path.join(papers, f))
     book = os.path.join(root, 'book')
     if os.path.isdir(book):
         for f in sorted(os.listdir(book)):
-            if f.endswith('.md') and f not in EXEMPT \
-                    and f not in BOOK_NON_MANUSCRIPT:
+            # PAPERS_EXEMPT deliberately does not apply here.
+            if f.endswith('.md') and f not in BOOK_NON_MANUSCRIPT:
                 out.append(os.path.join(book, f))
     return out
 PATTERNS = [
