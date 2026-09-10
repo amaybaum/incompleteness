@@ -1,8 +1,8 @@
 # Barandes indivisibility and correspondence bridge audit — preregistration
 
-Base: `main` at `58a7ef040869bad92daa51a80de283e48d37215a` (post-PR #554, Arc D round 1 closed at RD1).
+Base: `main` at `7b0e450227c3e577959167b95b0f7cc543527b5a` (post-PR #557, Amendment 2 merged).
 
-This preregistration **presupposes Amendment 2** (`verification/OI-QM-RESEARCH-PROGRAMME-AMENDMENT-2.md`, PR #557), which establishes the two-track programme this round is act 1 of. It is a separate control-plane PR so that its blob is frozen on its own; it should be merged after Amendment 2, and nothing in it executes before both are on `main`.
+This preregistration **presupposes Amendment 2** (`verification/OI-QM-RESEARCH-PROGRAMME-AMENDMENT-2.md`, merged by PR #557), which establishes the two-track programme this round is act 1 of. That ordering is carried in **ancestry, not prose**: every commit of this branch descends from the merge that brought Amendment 2 to `main`, so the control-plane sequence is checkable from the history. It is a separate control-plane PR so that its blob freezes on its own.
 
 Track B, act 1, under the two-track programme established by Amendment 2. This is a **definition-level audit**, not a proof round. Its deliverable is a determination of what Barandes's objects and hypotheses *are*, transposed into this programme's formal vocabulary, and nothing more.
 
