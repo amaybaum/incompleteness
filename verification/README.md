@@ -1822,6 +1822,32 @@ predicted `BR2`; the outcome is `BR3`, recorded as a label miss on a confirmed p
 was written, no theorem proved, no manuscript edited, and nothing here is a sourcing claim. Guard
 `R7-BRIDGE`, which pins both control-plane blobs by computed git blob identity rather than by prose.
 
+`OIBridge/TransposeBridge.lean` carries Track B act 2, step 5 of the Amendment 2 sequence, executed
+against `BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md` frozen at blob
+`4cb6b71832c033f61ac6052c0d2ba11763150d62` (PR #561). Outcome **RT1 — kernel-closed**, matching the
+prediction the freeze recorded beforehand. The round is a **check on act 1**, not bookkeeping: act 1
+answered its Q4 with a prose transposition, which sits at level 3 of act 1's own evidence hierarchy,
+and that hierarchy rates a Lean equivalence above it at level 2. Had a direction been refused, the
+outcome would have been `RT3` and act 1's Q4 would have taken an appended correction; it was not.
+**T1** proves the duality in both directions (`isRowStochastic_iff_transpose_isColStochastic`,
+`isColStochastic_iff_transpose_isRowStochastic`), and both are load-bearing rather than symmetric
+decoration: T3's forward leg consumes one and its backward leg the other. **T2**
+(`factor_transpose_iff`) discharges the orientation hazard the act 1 freeze named — that
+row-stochastic-on-the-right and column-stochastic-on-the-left might not be the same content — rather
+than assuming it. **T3** (`pDivisible_iff_pDivisibleCol_transpose`, with
+`pIndivisibleWithin_iff_pIndivisibleColWithin_transpose`) lifts that from one factorization instance
+to the predicate. **T4** (`root_factor_of_trivial`) turns act 1's "the extra `s = 0` case is vacuous"
+from an assertion into a lemma, and `rootedMap_zero` — declared in the result note as an addition
+beyond the four frozen targets, not folded into T4 — discharges its trivialization hypothesis for
+every family this programme produces. The **horizon** difference is untouched and is reported as a
+difference of quantifier domain, not a defect. `PDivisibleCol` is this programme's own `PDivisible`
+in the opposite orientation: nothing here identifies `PIndivisibleWithin` with any external
+predicate, act 1's `BD3`/`BR3` are neither reopened nor re-derived, and a transposition identity
+sources nothing. Seven named results, each printing only `propext`, `Classical.choice`, `Quot.sound`.
+Guard `R7-TBRIDGE`, which compares the three introduced definitions **verbatim against the
+preregistration's own text**, so a definition reshaped to fit a proof fails the check. The outcome,
+the axiom table and what remains open are in `BARANDES-TRANSPOSE-BRIDGE-RESULT.md`.
+
 `OIBridge/RecurrenceHorizon.lean` carries Targets 1 and 2 of
 `RECURRENCE-TIGHTNESS-AUDIT.md`, read under `RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md`, which
 controls the horizon symbol. The frozen route is that a rooted family whose map returns to the

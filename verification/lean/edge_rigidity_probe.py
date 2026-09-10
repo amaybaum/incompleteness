@@ -7828,6 +7828,166 @@ check('R7-BRIDGE', ok_bb,
       'evidence type. Each contract is mutation-tested against the exact failure it exists to catch, and every '
       'mutation is asserted to change the note.')
 
+# ---- R7-TBRIDGE: Track B act 2 -- the Lean transpose bridge, whose whole point is that the FROZEN
+# definitions are the ones proved against, not definitions reshaped until something closed ----
+#
+# This round had a live failure mode: act 1's Q4 transposition had never been machine-checked, and
+# had a direction refused, act 1 would have taken a correction. The guard therefore pins two things
+# that a later edit could quietly undo -- that the module's definitions are byte-identical to the
+# ones the freeze fixed, and that the result note reports RT1 rather than a relabelled RT3.
+_TB = open(os.path.join(BRIDGE, 'OIBridge', 'TransposeBridge.lean'), encoding='utf-8').read()
+_TBRES = open(os.path.join(_BB, 'BARANDES-TRANSPOSE-BRIDGE-RESULT.md'), encoding='utf-8').read()
+_TBPRE = open(os.path.join(_BB, 'BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md'), encoding='utf-8').read()
+_TBRES1 = ' '.join(_TBRES.split())
+
+# the three definitions, exactly as the frozen preregistration writes them
+_TB_DEFS = (
+    """def IsColStochastic (M : Matrix V V ℝ) : Prop :=
+  (∀ i j, 0 ≤ M i j) ∧ ∀ j, ∑ i, M i j = 1""",
+    """def PDivisibleCol (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop :=
+  ∀ s t : ℕ, s < t → t ≤ K →
+    ∃ Λ : Matrix V V ℝ, IsColStochastic Λ ∧ Γ t = Λ * Γ s""",
+    """def PIndivisibleColWithin (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop := ¬ PDivisibleCol K Γ""",
+)
+
+
+def _tb_frozen_defs(src, pre):
+    """C1 -- every introduced definition appears VERBATIM in both the freeze and the module.
+
+    Control 4 of the freeze forbids reshaping these to fit a proof. Comparing the module against
+    the preregistration's own text is what makes that checkable rather than attested: a definition
+    edited in one place and not the other fails here."""
+    return all(d in src and d in pre for d in _TB_DEFS)
+
+
+def _tb_freeze_pin():
+    """C2 -- the preregistration is byte-identical to the blob frozen by PR #561."""
+    return (_bb_blob('BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md')
+            == '4cb6b71832c033f61ac6052c0d2ba11763150d62')
+
+
+def _tb_bidirectional(src):
+    """C3 -- T1 is stated in BOTH directions, and both are iffs.
+
+    A one-way T1 would leave the family-level bridge provable in one direction only, which is
+    exactly where act 1 claimed an equivalence."""
+    return ('theorem isRowStochastic_iff_transpose_isColStochastic (M : Matrix V V ℝ) :\n'
+            '    IsRowStochastic M ↔ IsColStochastic Mᵀ' in src
+            and 'theorem isColStochastic_iff_transpose_isRowStochastic (M : Matrix V V ℝ) :\n'
+                '    IsColStochastic M ↔ IsRowStochastic Mᵀ' in src)
+
+
+def _tb_no_external(src, txt1):
+    """C4 -- no external-predicate identification, in the module or the note.
+
+    Act 1 settled the definition axis at BD3. The one thing this round must never be read as
+    doing is quietly promoting a transposition identity into a correspondence claim."""
+    return ('PDivisibleCol` is **this programme\'s own**' in src
+            and '**Nothing here is a claim about any Barandes predicate.**' in txt1
+            and '**Nothing here is a sourcing claim.**' in txt1
+            and 'neither reopened, softened, nor re-derived' in txt1)
+
+
+def _tb_outcome(txt1):
+    """C5 -- RT1 is reported with the prediction, and the addition is declared as an addition.
+
+    rootedMap_zero is beyond the four frozen targets. Folding it into T4 silently would be a round
+    quietly widening its own scope, so the note is required to flag it."""
+    return ('**RT1 — the bridge is kernel-closed.**' in txt1
+            and 'The recorded prediction was **RT1, at high confidence**, and it **held**.' in txt1
+            and '**One result was added beyond the frozen four targets, and is reported as an '
+                'addition rather than folded into T4:**' in txt1)
+
+
+def _tb_horizon(txt1):
+    """C6 -- the horizon gap is reported as a difference and not as closed."""
+    return ('**This is a difference of quantifier domain, and it is reported as a difference, '
+            'not a defect.**' in txt1
+            and 'T4 does not remove it and did not attempt to.' in txt1)
+
+
+def _tb_axioms(src, txt1):
+    """C7 -- the theorem-name set equals the print-target set, and the note's count agrees."""
+    _d = re.findall(r"(?m)^(?:@\[[^\]]*\]\s*)?theorem\s+([A-Za-z_][\w'.]*)", src)
+    _p = re.findall(r"#print axioms OIBridge\.TransposeBridge\.([\w'.]+)", src)
+    return (set(_d) == set(_p) and len(_d) == len(set(_d)) and len(_d) == 7
+            and '**Seven named results.**' in txt1)
+
+
+ok_tb = True
+# the seven contracts hold as the tree stands
+ok_tb &= _tb_frozen_defs(_TB, _TBPRE)
+ok_tb &= _tb_freeze_pin()
+ok_tb &= _tb_bidirectional(_TB)
+ok_tb &= _tb_no_external(_TB, _TBRES1)
+ok_tb &= _tb_outcome(_TBRES1)
+ok_tb &= _tb_horizon(_TBRES1)
+ok_tb &= _tb_axioms(_TB, _TBRES1)
+
+# ... and each is mutation-tested against the exact failure it exists to catch
+_tb_m1 = _TB.replace('∃ Λ : Matrix V V ℝ, IsColStochastic Λ ∧ Γ t = Λ * Γ s',
+                     '∃ Λ : Matrix V V ℝ, IsColStochastic Λ ∧ Γ t = Γ s * Λ')
+ok_tb &= _tb_m1 != _TB and not _tb_frozen_defs(_tb_m1, _TBPRE)
+
+_tb_m2 = _TB.replace('theorem isColStochastic_iff_transpose_isRowStochastic (M : Matrix V V ℝ) :\n'
+                     '    IsColStochastic M ↔ IsRowStochastic Mᵀ',
+                     'theorem isColStochastic_iff_transpose_isRowStochastic (M : Matrix V V ℝ) :\n'
+                     '    IsColStochastic M → IsRowStochastic Mᵀ')
+ok_tb &= _tb_m2 != _TB and not _tb_bidirectional(_tb_m2)
+
+_tb_m3 = _TBRES1.replace('**Nothing here is a claim about any Barandes predicate.**',
+                         'This establishes the correspondence at definition level.')
+ok_tb &= _tb_m3 != _TBRES1 and not _tb_no_external(_TB, _tb_m3)
+
+_tb_m4 = _TBRES1.replace('**One result was added beyond the frozen four targets, and is reported '
+                         'as an addition rather than folded into T4:**', 'Also proved:')
+ok_tb &= _tb_m4 != _TBRES1 and not _tb_outcome(_tb_m4)
+
+_tb_m5 = _TBRES1.replace('**This is a difference of quantifier domain, and it is reported as a '
+                         'difference, not a defect.**', 'The horizon gap is therefore closed.')
+ok_tb &= _tb_m5 != _TBRES1 and not _tb_horizon(_tb_m5)
+
+_tb_m6 = _TB.replace('#print axioms OIBridge.TransposeBridge.rootedMap_zero\n', '', 1)
+ok_tb &= _tb_m6 != _TB and not _tb_axioms(_tb_m6, _TBRES1)
+
+# the freeze pin is exercised through the same code path on drifted bytes, as R7-BRIDGE's is: a
+# comparison against an unrelated digest would pass with the pin broken and test nothing
+def _tb_drift(path):
+    """One byte appended to the act 2 preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path == 'BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md' else b'')
+
+
+ok_tb &= _tb_drift('BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md') != _bb_read(
+    'BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md')
+ok_tb &= (_bb_blob('BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md', _tb_drift)
+          != '4cb6b71832c033f61ac6052c0d2ba11763150d62')
+
+# standing hygiene on the module
+_tb_code = re.sub(r'/-.*?-/|--[^\n]*', '', _TB, flags=re.S)
+ok_tb &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _TB) is None and 'native_decide' not in _TB
+ok_tb &= 'axiom ' not in _tb_code and re.search(r'(?m)^axiom ', _TB) is None
+# reachability: an unimported module would leave every check above unenforced
+ok_tb &= 'import OIBridge.TransposeBridge' in open(
+    os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
+
+check('R7-TBRIDGE', ok_tb,
+      'Track B act 2 guard: the transpose bridge is checked to have been proved against the definitions the freeze '
+      'FIXED, not against definitions reshaped until something closed. IsColStochastic, PDivisibleCol and '
+      'PIndivisibleColWithin are compared VERBATIM against the preregistration\'s own text, so a definition edited in '
+      'the module and not the freeze fails here; and the preregistration itself is pinned by computed git blob '
+      'identity, exercised through the same predicate on one-byte-drifted bytes. T1 is checked to be stated in both '
+      'directions as iffs, since a one-way duality would leave the family-level bridge provable one way only -- '
+      'exactly where act 1 claimed an equivalence. The module and note are checked to make no external-predicate '
+      'identification and no sourcing claim, with BD3 neither reopened nor re-derived, because the one thing a '
+      'transposition identity must never become is a correspondence claim. The note is checked to report RT1 with '
+      'its prediction, and to declare rootedMap_zero as an ADDITION beyond the four frozen targets rather than '
+      'folding it into T4, since a round that quietly widens its own scope is the failure preregistration exists to '
+      'prevent. The horizon gap is checked to be reported as a difference and not as closed. Axiom reporting is a '
+      'source contract -- the theorem-name set equals the print-target set, seven in all, and the note agrees -- and '
+      'reachability is separate, since an unimported module would leave every check above unenforced. Each contract '
+      'is mutation-tested against the exact failure it exists to catch.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
