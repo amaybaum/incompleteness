@@ -7860,9 +7860,37 @@ def _tb_frozen_defs(src, pre):
     return all(d in src and d in pre for d in _TB_DEFS)
 
 
-def _tb_freeze_pin():
-    """C2 -- the preregistration is byte-identical to the blob frozen by PR #561."""
-    return (_bb_blob('BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md')
+def _tb_frozen_sigs(src, pre):
+    """C1b -- the frozen THEOREM SIGNATURES are the ones proved, binder for binder.
+
+    C1 covers the definitions, and an earlier revision of this round stopped there -- which let T4
+    ship with an added `[DecidableEq V]` instance binder that the freeze does not carry. An added
+    hypothesis is a target change under control 4 even when it looks like plumbing: the identity
+    matrix needs decidable equality to elaborate, but that is a reason to supply it from a scoped
+    classical instance, not to widen the published type. So the signatures are compared against the
+    freeze's own text too, and T4's binder list is checked to be free of DecidableEq."""
+    for sig in (
+        'theorem factor_transpose_iff (A B Λ : Matrix V V ℝ) :\n'
+        '    (A = B * Λ ∧ IsRowStochastic Λ) ↔ (Aᵀ = Λᵀ * Bᵀ ∧ IsColStochastic Λᵀ)',
+        'theorem root_factor_of_trivial (Γ : ℕ → Matrix V V ℝ) (t : ℕ)\n'
+        '    (h0 : Γ 0 = 1) (ht : IsRowStochastic (Γ t)) :\n'
+        '    ∃ Λ : Matrix V V ℝ, IsRowStochastic Λ ∧ Γ t = Γ 0 * Λ',
+    ):
+        if sig not in src or sig not in pre:
+            return False
+    # and the identity notation is supplied by a scoped instance rather than a binder
+    return ('open scoped Classical in\n/-- **T4**' in src
+            and 'theorem root_factor_of_trivial [DecidableEq V]' not in src)
+
+
+def _tb_freeze_pin(read=_bb_read):
+    """C2 -- the preregistration is byte-identical to the blob frozen by PR #561.
+
+    The reader is injectable so that BOTH controls below run through THIS predicate: a positive
+    control on the real bytes and a negative one on drifted bytes.  A version that hard-coded the
+    read and compared a separately computed digest would still pass with this function sabotaged to
+    `return True`, which is the exact non-vacuity defect fixed earlier in R7-BRIDGE."""
+    return (_bb_blob('BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md', read)
             == '4cb6b71832c033f61ac6052c0d2ba11763150d62')
 
 
@@ -7891,12 +7919,13 @@ def _tb_no_external(src, txt1):
 def _tb_outcome(txt1):
     """C5 -- RT1 is reported with the prediction, and the addition is declared as an addition.
 
-    rootedMap_zero is beyond the four frozen targets. Folding it into T4 silently would be a round
-    quietly widening its own scope, so the note is required to flag it."""
+    rootedMap_zero and rootedMap_root_factor are beyond the four frozen targets. Folding either
+    into T4 silently would be a round quietly widening its own scope, so the note is required to
+    flag both -- and the required phrasing is plural, so dropping one back into T4 fails here."""
     return ('**RT1 — the bridge is kernel-closed.**' in txt1
             and 'The recorded prediction was **RT1, at high confidence**, and it **held**.' in txt1
-            and '**One result was added beyond the frozen four targets, and is reported as an '
-                'addition rather than folded into T4:**' in txt1)
+            and '**Two results were added beyond the frozen four targets. Both are reported as '
+                'additions rather than folded into T4:**' in txt1)
 
 
 def _tb_horizon(txt1):
@@ -7910,13 +7939,14 @@ def _tb_axioms(src, txt1):
     """C7 -- the theorem-name set equals the print-target set, and the note's count agrees."""
     _d = re.findall(r"(?m)^(?:@\[[^\]]*\]\s*)?theorem\s+([A-Za-z_][\w'.]*)", src)
     _p = re.findall(r"#print axioms OIBridge\.TransposeBridge\.([\w'.]+)", src)
-    return (set(_d) == set(_p) and len(_d) == len(set(_d)) and len(_d) == 7
-            and '**Seven named results.**' in txt1)
+    return (set(_d) == set(_p) and len(_d) == len(set(_d)) and len(_d) == 8
+            and '**Eight named results.**' in txt1)
 
 
 ok_tb = True
 # the seven contracts hold as the tree stands
 ok_tb &= _tb_frozen_defs(_TB, _TBPRE)
+ok_tb &= _tb_frozen_sigs(_TB, _TBPRE)
 ok_tb &= _tb_freeze_pin()
 ok_tb &= _tb_bidirectional(_TB)
 ok_tb &= _tb_no_external(_TB, _TBRES1)
@@ -7929,6 +7959,10 @@ _tb_m1 = _TB.replace('∃ Λ : Matrix V V ℝ, IsColStochastic Λ ∧ Γ t = Λ 
                      '∃ Λ : Matrix V V ℝ, IsColStochastic Λ ∧ Γ t = Γ s * Λ')
 ok_tb &= _tb_m1 != _TB and not _tb_frozen_defs(_tb_m1, _TBPRE)
 
+_tb_m1b = _TB.replace('theorem root_factor_of_trivial (Γ : ℕ → Matrix V V ℝ) (t : ℕ)',
+                      'theorem root_factor_of_trivial [DecidableEq V] (Γ : ℕ → Matrix V V ℝ) (t : ℕ)')
+ok_tb &= _tb_m1b != _TB and not _tb_frozen_sigs(_tb_m1b, _TBPRE)
+
 _tb_m2 = _TB.replace('theorem isColStochastic_iff_transpose_isRowStochastic (M : Matrix V V ℝ) :\n'
                      '    IsColStochastic M ↔ IsRowStochastic Mᵀ',
                      'theorem isColStochastic_iff_transpose_isRowStochastic (M : Matrix V V ℝ) :\n'
@@ -7939,8 +7973,8 @@ _tb_m3 = _TBRES1.replace('**Nothing here is a claim about any Barandes predicate
                          'This establishes the correspondence at definition level.')
 ok_tb &= _tb_m3 != _TBRES1 and not _tb_no_external(_TB, _tb_m3)
 
-_tb_m4 = _TBRES1.replace('**One result was added beyond the frozen four targets, and is reported '
-                         'as an addition rather than folded into T4:**', 'Also proved:')
+_tb_m4 = _TBRES1.replace('**Two results were added beyond the frozen four targets. Both are '
+                         'reported as additions rather than folded into T4:**', 'Also proved:')
 ok_tb &= _tb_m4 != _TBRES1 and not _tb_outcome(_tb_m4)
 
 _tb_m5 = _TBRES1.replace('**This is a difference of quantifier domain, and it is reported as a '
@@ -7950,8 +7984,9 @@ ok_tb &= _tb_m5 != _TBRES1 and not _tb_horizon(_tb_m5)
 _tb_m6 = _TB.replace('#print axioms OIBridge.TransposeBridge.rootedMap_zero\n', '', 1)
 ok_tb &= _tb_m6 != _TB and not _tb_axioms(_tb_m6, _TBRES1)
 
-# the freeze pin is exercised through the same code path on drifted bytes, as R7-BRIDGE's is: a
-# comparison against an unrelated digest would pass with the pin broken and test nothing
+# C2's controls both run THROUGH _tb_freeze_pin, so sabotaging that predicate fails the guard.
+# Asserting a separately computed digest instead would leave the pin itself untested -- the defect
+# fixed earlier in R7-BRIDGE, and reproduced here on the first attempt.
 def _tb_drift(path):
     """One byte appended to the act 2 preregistration; every other file read normally."""
     return _bb_read(path) + (
@@ -7960,8 +7995,7 @@ def _tb_drift(path):
 
 ok_tb &= _tb_drift('BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md') != _bb_read(
     'BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md')
-ok_tb &= (_bb_blob('BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md', _tb_drift)
-          != '4cb6b71832c033f61ac6052c0d2ba11763150d62')
+ok_tb &= not _tb_freeze_pin(_tb_drift)
 
 # standing hygiene on the module
 _tb_code = re.sub(r'/-.*?-/|--[^\n]*', '', _TB, flags=re.S)
@@ -7984,7 +8018,7 @@ check('R7-TBRIDGE', ok_tb,
       'its prediction, and to declare rootedMap_zero as an ADDITION beyond the four frozen targets rather than '
       'folding it into T4, since a round that quietly widens its own scope is the failure preregistration exists to '
       'prevent. The horizon gap is checked to be reported as a difference and not as closed. Axiom reporting is a '
-      'source contract -- the theorem-name set equals the print-target set, seven in all, and the note agrees -- and '
+      'source contract -- the theorem-name set equals the print-target set, eight in all, and the note agrees -- and '
       'reachability is separate, since an unimported module would leave every check above unenforced. Each contract '
       'is mutation-tested against the exact failure it exists to catch.')
 

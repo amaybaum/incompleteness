@@ -145,6 +145,7 @@ theorem pIndivisibleWithin_iff_pIndivisibleColWithin_transpose
 
 /-! ### T4 — the endpoint marker -/
 
+open scoped Classical in
 /-- **T4** — the `s = 0` instances of `PDivisible` cost nothing when the family trivializes at the
 root.
 
@@ -153,8 +154,14 @@ horizon bound, and that `PDivisible` admits `s = 0` where the external range of 
 is strict.  It asserted the second difference is vacuous rather than strengthening.  This is that
 assertion as a lemma: the witness is the map itself, since `Γ 0` is the identity.
 
+The statement is the frozen one **verbatim**, carrying no `DecidableEq V` hypothesis.  The identity
+matrix notation needs decidable equality on `V` to elaborate, and that is supplied by a **scoped
+classical instance** rather than by a binder, so the published theorem type has exactly the four
+arguments the freeze fixed.  Adding an instance argument would have been a target change under
+control 4, and is not made.
+
 The horizon difference is untouched, and no attempt is made here to remove it. -/
-theorem root_factor_of_trivial [DecidableEq V] (Γ : ℕ → Matrix V V ℝ) (t : ℕ)
+theorem root_factor_of_trivial (Γ : ℕ → Matrix V V ℝ) (t : ℕ)
     (h0 : Γ 0 = 1) (ht : IsRowStochastic (Γ t)) :
     ∃ Λ : Matrix V V ℝ, IsRowStochastic Λ ∧ Γ t = Γ 0 * Λ :=
   ⟨Γ t, ht, by rw [h0, Matrix.one_mul]⟩
@@ -174,6 +181,22 @@ theorem rootedMap_zero {H : Type*} [DecidableEq V] [Fintype H]
     simpa using R.prior_sum
   · simp [hj]
 
+/-- **T4 discharged at a concrete rooted family** — the second addition, and the reason the first
+one is worth having.
+
+T4 is stated with the identity matrix elaborated under a **scoped classical** decidable-equality
+instance, because the frozen signature carries no `DecidableEq V` binder and adding one would have
+been a target change.  `rootedMap`, by contrast, carries the ambient instance.  The two identities
+are propositionally equal but not syntactically so, which means "T4's hypotheses hold for every
+family this programme produces" does not follow from `rootedMap_zero` by bare instantiation.
+
+Rather than assert the composition, this proves it directly at the realization layer, so the claim
+rests on a theorem instead of on an instance-compatibility argument left to the reader. -/
+theorem rootedMap_root_factor {H : Type*} [DecidableEq V] [Fintype H]
+    (R : RootedRealization V H) (t : ℕ) :
+    ∃ Λ : Matrix V V ℝ, IsRowStochastic Λ ∧ rootedMap R t = rootedMap R 0 * Λ :=
+  ⟨rootedMap R t, rootedMap_isRowStochastic R t, by rw [rootedMap_zero, Matrix.one_mul]⟩
+
 end Abstract
 
 end TransposeBridge
@@ -186,3 +209,4 @@ end OIBridge
 #print axioms OIBridge.TransposeBridge.pIndivisibleWithin_iff_pIndivisibleColWithin_transpose
 #print axioms OIBridge.TransposeBridge.root_factor_of_trivial
 #print axioms OIBridge.TransposeBridge.rootedMap_zero
+#print axioms OIBridge.TransposeBridge.rootedMap_root_factor

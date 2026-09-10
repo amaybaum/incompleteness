@@ -1837,15 +1837,20 @@ row-stochastic-on-the-right and column-stochastic-on-the-left might not be the s
 than assuming it. **T3** (`pDivisible_iff_pDivisibleCol_transpose`, with
 `pIndivisibleWithin_iff_pIndivisibleColWithin_transpose`) lifts that from one factorization instance
 to the predicate. **T4** (`root_factor_of_trivial`) turns act 1's "the extra `s = 0` case is vacuous"
-from an assertion into a lemma, and `rootedMap_zero` — declared in the result note as an addition
-beyond the four frozen targets, not folded into T4 — discharges its trivialization hypothesis for
-every family this programme produces. The **horizon** difference is untouched and is reported as a
+from an assertion into a lemma, on the **exact frozen signature**: the identity notation's decidable
+equality comes from a scoped classical instance rather than an added binder, since an added
+hypothesis is a target change under control 4. Two results are declared in the result note as
+additions beyond the four frozen targets rather than folded into T4 — `rootedMap_zero`, proving the
+trivialization fact, and `rootedMap_root_factor`, which is needed because T4's identity and
+`rootedMap`'s carry different decidable-equality instances, so the endpoint conclusion at a concrete
+family is proved rather than inferred by bare instantiation. The **horizon** difference is untouched and is reported as a
 difference of quantifier domain, not a defect. `PDivisibleCol` is this programme's own `PDivisible`
 in the opposite orientation: nothing here identifies `PIndivisibleWithin` with any external
 predicate, act 1's `BD3`/`BR3` are neither reopened nor re-derived, and a transposition identity
-sources nothing. Seven named results, each printing only `propext`, `Classical.choice`, `Quot.sound`.
-Guard `R7-TBRIDGE`, which compares the three introduced definitions **verbatim against the
-preregistration's own text**, so a definition reshaped to fit a proof fails the check. The outcome,
+sources nothing. Eight named results, each printing only `propext`, `Classical.choice`, `Quot.sound`.
+Guard `R7-TBRIDGE`, which compares the three introduced definitions **and the frozen theorem
+signatures** verbatim against the preregistration's own text, so a definition or signature reshaped
+to fit a proof fails the check. The outcome,
 the axiom table and what remains open are in `BARANDES-TRANSPOSE-BRIDGE-RESULT.md`.
 
 `OIBridge/RecurrenceHorizon.lean` carries Targets 1 and 2 of

@@ -12,7 +12,8 @@ Kernel module: `verification/lean-mathlib/OIBridge/TransposeBridge.lean`.
 ## Headline outcome
 
 **RT1 — the bridge is kernel-closed.** All four frozen targets are proved against the definitions
-exactly as frozen. Seven named results, each printing only `[propext, Classical.choice, Quot.sound]`.
+**and the signatures** exactly as frozen. Eight named results, each printing only
+`[propext, Classical.choice, Quot.sound]`.
 
 The recorded prediction was **RT1, at high confidence**, and it **held**. Nothing was reshaped to
 make a proof close; `RT3` was never reached for.
@@ -65,7 +66,7 @@ This is where the transposition stops being a statement about one factorization 
 a statement about the **predicate**: the two orientations are the same predicate on transposed
 families, at every horizon and every family.
 
-### T4 — the endpoint marker: **proved**
+### T4 — the endpoint marker: **proved, on the exact frozen signature**
 
 - `root_factor_of_trivial` —
   `Γ 0 = 1 → IsRowStochastic (Γ t) → ∃ Λ, IsRowStochastic Λ ∧ Γ t = Γ 0 * Λ`
@@ -73,21 +74,41 @@ families, at every horizon and every family.
 The witness is `Γ t` itself, and the equation closes by `Matrix.one_mul`. This converts act 1's
 "the extra case is vacuous rather than stronger" from an assertion into a lemma.
 
-**One result was added beyond the frozen four targets, and is reported as an addition rather than
+**On the signature, because it was nearly a target change.** The identity matrix notation needs
+decidable equality on `V` to elaborate at all. A first attempt supplied it as an instance binder,
+`theorem root_factor_of_trivial [DecidableEq V] …`, which the freeze does not carry — and under
+control 4 an added hypothesis is a target change even when it looks like plumbing. The published
+type is instead
+
+    ∀ {V : Type u_1} [inst : Fintype V] (Γ : ℕ → Matrix V V ℝ) (t : ℕ), …
+
+with decidable equality supplied by a **scoped classical instance** rather than a binder, so the
+theorem carries exactly the arguments the freeze fixed. `[Fintype V]` is the section variable the
+frozen statement is written under and is not an addition. The guard now compares the frozen theorem
+signatures against the preregistration's own text, binder for binder, so this cannot recur silently.
+
+**Two results were added beyond the frozen four targets. Both are reported as additions rather than
 folded into T4:**
 
 - `rootedMap_zero` — `rootedMap R 0 = 1`, for any `RootedRealization V H`
+- `rootedMap_root_factor` — `∃ Λ, IsRowStochastic Λ ∧ rootedMap R t = rootedMap R 0 * Λ`
 
 The frozen T4 takes `Γ 0 = 1` as a **hypothesis**, and the preregistration says in prose that
 `rootedMap R 0 = 1` supplies it. Leaving that in prose would have left the endpoint result
-conditional on an unproved side claim about the programme's own realization layer, so it is proved:
-the zeroth iterate of the update is the identity, the diagonal entry sums the prior to one by
-`prior_sum`, and the off-diagonal entries vanish. Together with the merged
-`rootedMap_isRowStochastic`, both hypotheses of `root_factor_of_trivial` now hold for **every**
-family this programme produces, not only for families assumed to trivialize.
+conditional on an unproved side claim about the programme's own realization layer, so `rootedMap_zero`
+proves it: the zeroth iterate of the update is the identity, the diagonal entry sums the prior to one
+by `prior_sum`, and the off-diagonal entries vanish.
 
-This addition does not widen the round: it adds no new target, decides nothing the freeze left open,
-and its statement is about `rootedMap` alone.
+**That alone does not license the claim it was meant to license**, and the second addition exists
+because of it. T4's identity is elaborated under the scoped classical instance; `rootedMap` carries
+the ambient `[DecidableEq V]`. The two identity matrices are propositionally equal but not
+syntactically so, so "T4's hypotheses hold for every family this programme produces" does **not**
+follow from `rootedMap_zero` by bare instantiation. `rootedMap_root_factor` proves the conclusion
+directly at the realization layer, so the claim rests on a theorem rather than on an
+instance-compatibility argument left to the reader.
+
+Neither addition widens the round: neither adds a target, neither decides anything the freeze left
+open, and both are statements about `rootedMap` alone.
 
 ## 2. Axiom status
 
@@ -103,12 +124,13 @@ Every named result carries a `#print axioms` line, and every line prints exactly
 | 5 | `pIndivisibleWithin_iff_pIndivisibleColWithin_transpose` |
 | 6 | `root_factor_of_trivial` |
 | 7 | `rootedMap_zero` |
+| 8 | `rootedMap_root_factor` |
 
-**Seven named results.** No `sorry`, no custom `axiom`, no `native_decide`. The module builds clean
+**Eight named results.** No `sorry`, no custom `axiom`, no `native_decide`. The module builds clean
 with no warnings of its own.
 
 Mathematical status and kernel status are reported separately, as always: the mathematical content
-is a transposition identity, and the kernel status is that all seven results are axiom-clean.
+is a transposition identity, and the kernel status is that all eight results are axiom-clean.
 
 ## 3. Outcome label and prediction
 
@@ -118,6 +140,12 @@ The freeze recorded **`RT1` at high confidence**, on the ground that `Matrix.tra
 product reversal, transposition is involutive, and row and column sums exchange over a `Fintype` — so
 no step would need anything act 1's prose omitted. That is what happened: the three Mathlib facts
 named in the prediction are the three the proofs use, and no additional hypothesis was required.
+
+One qualification the prediction did not anticipate: T4's identity-matrix notation needs decidable
+equality to elaborate, and getting that without widening the frozen signature took a scoped classical
+instance rather than a binder. That is a mechanical point, not a mathematical one, and it was caught
+in review rather than by the round itself — recorded here because a round that reports its prediction
+as held should say what nearly made it false.
 
 The prediction **held**. It is recorded as held rather than as vindication: a confident prediction
 that comes true is weaker evidence than one that survives a genuine chance of failure, and the
