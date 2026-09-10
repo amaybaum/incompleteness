@@ -41,7 +41,8 @@ reachable.** It does not merely observe that two extraction rules exist; it asks
 
 Merged and used, not redefined: `QfbData`, `IsLaw`, `PositiveRootMass`, `born`, `bornPow`,
 `rootMass`, `jointMass`, `rooted`, `QStar` (`QuantumRepresentation.lean`); `padData`,
-`padData_rooted`, `padData_born`, `ancPow`, `sum_ancBorn` (`OperationalSourcing.lean`);
+`padData_rooted`, `ancBorn`, `ancPow`, `padData_bornPow`, `sum_ancPow`, and their one-step
+ingredients `padData_born` and `sum_ancBorn` (`OperationalSourcing.lean`);
 `IsRowStochastic`, `PDivisible`, `PIndivisibleWithin` (`CausalReadback.lean`); the orientation bridge
 of `TransposeBridge.lean`.
 
@@ -118,10 +119,11 @@ theorem candidateOf_isRowStochastic (Q : QfbData V) (hQ : Q.IsLaw) (μ : FibreWe
 
 Without C1 the later targets compare objects that are not candidates.
 
-**C1's negative is frozen too, and `CU3` requires it.** The three statements above are positive, so
-their failing to close proves nothing about the criterion — exactly the proof-search-versus-negation
-gap that C2's "not established" status exists to respect. Criterion failure is therefore its own
-frozen target:
+**The negative of C1's named-rule admissibility subtarget is frozen too, and `CU3` requires it.**
+All three statements above are positive, so their failing to close proves nothing about the
+criterion — exactly the proof-search-versus-negation gap that C2's "not established" status exists
+to respect. Criterion failure is therefore its own frozen target, covering the **first two**
+statements: `candidateOf_isRowStochastic` has no frozen negative, and its non-closure is `CU4`.
 
 ```lean
 /-- CRITERION FAILURE.  Some representation meeting C1's hypotheses carries a named rule that the
@@ -175,8 +177,16 @@ theorem candidateOf_uniformWeight_padData_eq (Q : QfbData V) (Anc : Type) [Finty
 ```
 
 The first is essentially definitional and is stated so that the second is seen not to be. The second
-is the real theorem: the ancilla marginalizes away by `sum_ancBorn`, so the uniform rule is padding-
-invariant despite `padData` multiplying every fibre by `Anc`.
+is the real theorem: the ancilla marginalizes away, so the uniform rule is padding-invariant despite
+`padData` multiplying every fibre by `Anc`.
+
+**The merged route it consumes, named exactly, since the statement is at general `n`.** The
+factorization used is `padData_bornPow`, which gives
+`(padData Q Anc W w).bornPow t (b, x) (b', x') = Q.bornPow t b b' * ancPow W t x x'` at **every**
+horizon, and the normalization used is `sum_ancPow`, which gives `∑ x', ancPow W t x x' = 1` at
+every step. The one-step `padData_born` and `sum_ancBorn` are the ingredients those two are proved
+from, not the theorems C3 applies: `sum_ancBorn` is a row-sum statement about `ancBorn` alone and
+does not reach general `n`.
 
 **C4 — do the admissibility conditions force uniqueness?** **Both competing propositions are frozen
 here, exactly.** Which one is true is not predicted; which one the round proves is not left to be
@@ -290,9 +300,10 @@ true of C4 — `AdmissibleNonUnique` proved, `AdmissibleAgree` proved, or neithe
 `CU1a`/`CU1b` (split by whether C2 closes), `CU2`, and `CU4` respectively. No further split is
 needed on C2: it cannot close under `CU2` or `CU4`, for the reasons given in each.
 
-**Every outcome is earned by a proof, and none by a failed search.** `CU1a` needs C2; `CU1b` needs
-`AdmissibleNonUnique`; `CU2` needs `AdmissibleAgree`; `CU3` needs `NamedRuleInadmissible`. `CU4` is
-the one outcome that reports non-closure, and it reports exactly that.
+**Every decisive outcome is earned by a proof, and none by a failed search.** `CU1a` needs C2;
+`CU1b` needs `AdmissibleNonUnique`; `CU2` needs `AdmissibleAgree`; `CU3` needs
+`NamedRuleInadmissible`. `CU4` is not a decisive outcome: it is the one label that records
+unresolved non-closure, and it records exactly that.
 
 **C2 has no frozen complement, and this is deliberate.** C4 freezes both sides because its outcome
 label turns on which one is true, so `CU2` must be earned by proof. C2 freezes only the existential,
@@ -404,7 +415,8 @@ scoping pass's Finding 2 was wrong and that is reported as such.
 5. **Kernel discipline.** No `sorry`, no custom `axiom`, no `native_decide`; a `#print axioms` line
    on every named result, printing only `[propext, Classical.choice, Quot.sound]`.
 6. **§3.6 is not reopened**, and no claim is made about whether OI forces indivisibility.
-7. **Arc D's quarantine is used, not undermined.** C3 consumes `padData_rooted` and `sum_ancBorn`;
+7. **Arc D's quarantine is used, not undermined.** C3 consumes `padData_rooted`, `padData_bornPow`
+   and `sum_ancPow`, the general-horizon statements, rather than their one-step ingredients;
    it does not re-prove them, and representational presence grounds nothing.
 8. **No manuscript edit**, whatever is found.
 9. **No sourcing inference.** A statement about weightings and marginals sources nothing.
