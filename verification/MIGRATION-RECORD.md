@@ -1,10 +1,45 @@
 # Verification layout — migration record
 
-The migration executed. Every row below is a `git mv`: **content unchanged, blob preserved**.
-Frozen preregistrations therefore keep their blob identity across the move, which is what the
-merged results cite them by.
+The migration executed. Every row below is a `git mv`, so history follows each artifact.
 
-Base: `e0c0c709620db0d114dbd7061975b6747cb7aabc`. Artifacts moved: **91**.
+**What changed inside the moved files, stated precisely.** Most kept their exact bytes. **20**
+non-frozen artifacts additionally had `verification/NAME.md` path strings rewritten to the new
+coordinates — balanced substitutions, no prose touched. The distinction matters because blob
+identity is what a freeze is cited by, so:
+
+- **All 8 blob-pinned control-plane files are byte-identical** to their pre-migration blobs: act 1's
+  audit and its amendment 3, and the act 2 through act 7 preregistrations. `R7-BRIDGE` and its
+  sibling guards recompute those pins and pass.
+- The three freezes cited by blob in merged results — act 7's dilation choice
+  `810bb2f11d88a0872f764e1e32e2aa2f1e2c9b19`, Arc D's operational sourcing
+  `e9ca45351b58354564552471aa8fe81537a8e557`, recurrence-scaling
+  `0df67b4c4794036d341f4dee10408a40d5946359` — are unchanged.
+
+**The test for what may be edited is whether a guard pins the file, not what the file is called.**
+Act 1's amendment 3 is an amendment by name and a pinned control-plane file in fact; a rewrite
+inside it broke its pin during this round and was reverted.
+
+**Manifest inventory base**: `e0c0c709620db0d114dbd7061975b6747cb7aabc` — the commit whose
+root listing the mapping was built from.
+**Migration execution base**: `5f28f6bca38c29b27e860e534766112d9ab75b30` — the merge of the
+navigation round (PR #576), which is the `main` this migration ran from.
+
+The two are different commits and are named separately: the inventory fixes *what* was classified,
+the execution base fixes *where the moves were applied*.
+
+Artifacts moved: **91**.
+
+## The four frozen artifacts keep their historical coordinates
+
+Four artifacts still carry pre-migration `verification/NAME.md` paths inside them, and this is
+**intentional**: the act-01 and act-02 preregistrations,
+`audits/physical-realization/concrete-cut/freeze.md`, and `audits/manuscript/oi-n-freeze.md`.
+
+**Freeze immutability is a property of the artifact, not a consequence of whether a blob SHA was
+later cited.** A frozen document records the coordinates that were in force when it was frozen, and
+rewriting them would edit a frozen artifact to make a path tidy. The stale coordinates are therefore
+left exactly as written, and **this record is the translation layer**: the table below resolves any
+pre-migration path a frozen artifact names.
 
 ## Old path → new path
 

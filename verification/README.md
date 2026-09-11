@@ -28,7 +28,8 @@ mistaken for a verdict on the other.
 | --- | --- |
 | **What is being worked on, and what is still owed** | [`ROADMAP.md`](ROADMAP.md) — the live obligation queue, ranked, with a status for each |
 | The flagship result and the layer contents | the sections below, in this file |
-| Where one of today's root artifacts is headed | [`MIGRATION-MANIFEST.md`](MIGRATION-MANIFEST.md) |
+| Where an artifact named below actually lives | [`MIGRATION-RECORD.md`](MIGRATION-RECORD.md) — the name → path table |
+| The mapping the migration was planned from | [`MIGRATION-MANIFEST.md`](MIGRATION-MANIFEST.md) |
 | Where a **new** artifact goes | the programme/audit hierarchy — see [Where new artifacts go](#where-new-artifacts-go) below |
 | A specific round's freeze and its outcome | the round's own directory once migrated; until then, the root artifact named in the manifest |
 | How to run the checks | [Running the checks](#running-the-checks), at the end of this file |
@@ -51,8 +52,11 @@ headed. It is not the authority on where a future artifact belongs, since a new 
 in a mapping built from the old root set. `tools/artifact_placement_check.py` uses it as a
 grandfather list and fails any new root-level artifact that is not in it.
 
-Moving the existing artifacts is a separate mechanical change; the paths cited throughout this file
-are the ones in force until it lands.
+**How an artifact is cited, and how to find it.** Throughout this file and across the corpus an
+artifact is cited by its **name** — `LIFT-AUDIT.md`, `SUBSTRATUM-INTERFACE-AUDIT.md` — and the R7
+guards pin those names, so a name is an identifier rather than a path. Since the artifacts moved out
+of this root, [`MIGRATION-RECORD.md`](MIGRATION-RECORD.md) resolves any name to its current
+location.
 
 ## The flagship result
 
@@ -229,7 +233,7 @@ modules, in the order the development grew:
   reversible richness and observer recursion, and that hierarchy carried to every nonempty
   finite carrier.
 
-`verification/MILESTONE-finite-quantum-instruments.md` records an earlier checkpoint of this
+`verification/audits/operational/milestone-finite-quantum-instruments.md` records an earlier checkpoint of this
 programme as a status artifact.
 
 ## The external boundary
