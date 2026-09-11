@@ -8335,6 +8335,170 @@ check('R7-CAND', ok_cs,
       'contracts, each mutation-tested against the exact failure it exists to catch, plus the standing hygiene and '
       'reachability checks.')
 
+# ---- R7-DILMAP: Track B act 4 -- the dilation mapping obligation ----
+#
+# A SOURCE-TO-FORMAL round, so the failure modes are different in kind from a kernel round's. What
+# can go wrong here is citing the wrong paper, claiming more than an audit earns, or letting the
+# licence act 3 froze quietly upgrade. The guard pins the frozen contract, the source discipline,
+# and the exact boundary between what MP4 licenses and what it does not.
+_DMRES = open(os.path.join(_BB, 'BARANDES-DILATION-MAPPING-RESULT.md'), encoding='utf-8').read()
+_DMPRE = open(os.path.join(_BB, 'BARANDES-DILATION-MAPPING-PREREGISTRATION.md'),
+              encoding='utf-8').read()
+_DMRES1 = ' '.join(_DMRES.split())
+
+
+def _dm_freeze_pin(read=_bb_read):
+    """E1 -- the preregistration is byte-identical to the blob frozen by PR #566.
+
+    Injectable reader so BOTH controls below run through THIS predicate, positive on real bytes and
+    negative on drifted ones. A separately computed digest would leave the pin passing with this
+    function sabotaged to `return True` -- the non-vacuity defect fixed three times now, in
+    R7-BRIDGE, R7-TBRIDGE and R7-CAND."""
+    return (_bb_blob('BARANDES-DILATION-MAPPING-PREREGISTRATION.md', read)
+            == '3323fc6fc3bbe579dcf34452b147ca12c78e830d')
+
+
+def _dm_source_discipline(txt1):
+    """E2 -- Source C is adjudicated and Source A is not, with the identities act 1 fixed.
+
+    Act 4's one pre-freeze blocker was citing Source A's equations as Source C's. The identities are
+    act 1's and are not restated here, so the note must carry them and must say which source it
+    adjudicates; the alternative is a note whose equation numbers cannot be checked against anything."""
+    return ('arXiv:2309.03085v2' in txt1 and 'arXiv:2302.10778v3' in txt1
+            and 'Only Source C is adjudicated' in txt1
+            and 'Source A' in txt1 and 'out of scope' in txt1)
+
+
+def _dm_outcome(txt1):
+    """E3 -- the outcome is MP4, and the reason is the one the freeze's own semantics give.
+
+    The hazard this contract exists for is the reverse of the usual one: not under-claiming but
+    OVER-claiming, by importing a post-processing step the freeze does not authorize and then
+    attributing its behaviour to the construction. MP2 presupposes the construction yields a
+    candidate; Source C's does not, so M2a is unresolved and the outcome is MP4. The note must
+    therefore carry the label, the unresolved M2a, and the explicit reason MP2 was NOT taken."""
+    return ('`MP4` — unresolved at the frozen interface' in txt1
+            and 'No hypothesis is incompatible. `MP3` is not reached' in txt1
+            and 'M2a — determinacy: **unresolved**' in txt1
+            and '**Why not `MP2`.**' in txt1)
+
+
+def _dm_no_unauthorized_extraction(txt1):
+    """E4 -- the relative-operator route is declined, not adopted, and stays a countercontrol.
+
+    This is the contract the first executed draft failed. The note said Source C never forms the
+    relative operator and this round would not form it on the source's behalf, then used exactly
+    that operator to classify. So the note must say the route is not adopted, must label the
+    calculation a countercontrol, and must state what it does NOT show."""
+    return ('this round does not adopt it' in txt1
+            and 'Countercontrol' in txt1
+            and 'It does **not** show what Source C' in txt1)
+
+
+def _dm_freedoms_scoped(txt1):
+    """E5 -- each freedom is recorded at the scope its evidence supports, and no further.
+
+    Two different burdens. The PHASE freedom is exhibited as candidate-load-bearing for the
+    relative-operator rule -- identity against swap, two admissible choices, same Gamma -- because
+    operator non-uniqueness does not by itself reach the candidate. The STINESPRING completion is
+    NOT exhibited that way, so it must be recorded as downstream representation non-uniqueness and
+    must NOT be named as a candidate-selection datum. Collapsing the two is the same
+    representation-versus-candidate conflation one level over."""
+    return ('identity' in txt1 and 'swap' in txt1
+            and 'different visible propagators' in txt1
+            and 'diagonal unitary' in txt1
+            and 'downstream representation' in txt1
+            and 'not** named as a candidate-selection datum' in txt1)
+
+
+def _dm_cu1a_preserved(txt1):
+    """E6 -- act 3's CU1a is preserved exactly, and the programme-level change is bounded.
+
+    The hazard is an outcome that quietly upgrades an earlier licence. CU1a is a theorem about OUR
+    bridge and no external audit can revise it; and MP4 must not be read as the forbidden claim that
+    the external framework requires an added physical principle, nor as closing off Source A."""
+    return ('`CU1a` is preserved exactly and is not revised' in txt1
+            and 'requires an additional physical principle' in txt1
+            and 'Source A' in txt1)
+
+
+def _dm_not_a_theorem(txt1):
+    """E7 -- the round is reported at its evidence level, and the forward/backward split holds.
+
+    A source reading cited later as though kernel-checked is the durable risk; so is an audit that
+    silently establishes the backward obligation it was forbidden to assume."""
+    return ('audit determination, not a theorem' in txt1
+            and 'never at level 2' in txt1
+            and 'No claim here establishes the backward' in txt1)
+
+
+ok_dm = True
+# the seven named contracts hold as the tree stands (E1-E7)
+ok_dm &= _dm_freeze_pin()
+ok_dm &= _dm_source_discipline(_DMRES1)
+ok_dm &= _dm_outcome(_DMRES1)
+ok_dm &= _dm_no_unauthorized_extraction(_DMRES1)
+ok_dm &= _dm_freedoms_scoped(_DMRES1)
+ok_dm &= _dm_cu1a_preserved(_DMRES1)
+ok_dm &= _dm_not_a_theorem(_DMRES1)
+
+# ... and each is mutation-tested against the exact failure it exists to catch
+_dm_m2 = _DMRES1.replace('Only Source C is adjudicated', 'Both sources are adjudicated together')
+ok_dm &= _dm_m2 != _DMRES1 and not _dm_source_discipline(_dm_m2)
+
+_dm_m3 = _DMRES1.replace('**Why not `MP2`.**', 'The outcome is therefore MP2.')
+ok_dm &= _dm_m3 != _DMRES1 and not _dm_outcome(_dm_m3)
+
+_dm_m4 = _DMRES1.replace('Countercontrol', 'Determination')
+ok_dm &= _dm_m4 != _DMRES1 and not _dm_no_unauthorized_extraction(_dm_m4)
+
+_dm_m5 = _DMRES1.replace('downstream representation', 'a second candidate-selection')
+ok_dm &= _dm_m5 != _DMRES1 and not _dm_freedoms_scoped(_dm_m5)
+
+_dm_m6 = _DMRES1.replace('`CU1a` is preserved exactly and is not revised',
+                         '`CU1a` is superseded by this round')
+ok_dm &= _dm_m6 != _DMRES1 and not _dm_cu1a_preserved(_dm_m6)
+
+_dm_m7 = _DMRES1.replace('No claim here establishes the backward',
+                         'This also establishes the backward')
+ok_dm &= _dm_m7 != _DMRES1 and not _dm_not_a_theorem(_dm_m7)
+
+# E1's controls both run THROUGH _dm_freeze_pin, so sabotaging that predicate fails the guard.
+def _dm_drift(path):
+    """One byte appended to the act 4 preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path == 'BARANDES-DILATION-MAPPING-PREREGISTRATION.md' else b'')
+
+
+ok_dm &= _dm_drift('BARANDES-DILATION-MAPPING-PREREGISTRATION.md') != _bb_read(
+    'BARANDES-DILATION-MAPPING-PREREGISTRATION.md')
+ok_dm &= not _dm_freeze_pin(_dm_drift)
+
+# the round wrote no Lean, and the note says so; a later module would need its own freeze
+ok_dm &= 'no Lean was written in this round' in _DMRES1 or 'No Lean written' in _DMRES1
+
+check('R7-DILMAP', ok_dm,
+      'Track B act 4 guard: the dilation mapping audit is checked to cite the right paper, to classify at the right '
+      'burden, and not to upgrade a licence it did not earn. A SOURCE-TO-FORMAL round fails differently from a kernel '
+      'round, and act 4\'s one pre-freeze blocker was citing Source A\'s equations as Source C\'s, so the note is '
+      'checked to carry act 1\'s source identities and to say that Source C alone is adjudicated with Source A out of '
+      'scope. The outcome is checked to be MP4 with the reason the freeze\'s own semantics give: MP2 presupposes that the '
+      'construction yields a candidate, Source C\'s does not, so M2a is unresolved. The hazard here is the reverse of '
+      'the usual one -- not under-claiming but OVER-claiming, by importing a post-processing step the freeze does not '
+      'authorize and attributing its behaviour to the construction, which is what the first executed draft did: it '
+      'said Source C never forms the relative operator and this round would not form it on the source\'s behalf, then '
+      'classified using exactly that operator. So the note is checked to DECLINE that route, to label the calculation '
+      'a countercontrol, and to state what it does not show. Each freedom is checked at the scope its evidence '
+      'supports: the phase freedom EXHIBITED as candidate-load-bearing for the relative-operator rule, identity '
+      'against swap on the same Gamma, since operator non-uniqueness does not by itself reach the candidate; and the '
+      'Stinespring completion, not exhibited that way, recorded as downstream representation non-uniqueness and NOT '
+      'named as a candidate-selection datum. Act 3\'s CU1a is checked preserved and not revised, since no external audit can revise a theorem '
+      'about our own bridge, and the forbidden additional-physical-principle claim is checked still forbidden with '
+      'Source A still open. Finally the round is checked to report itself as an audit determination rather than a '
+      'theorem and not to establish the backward obligation it was forbidden to assume. The preregistration is pinned '
+      'by computed git blob identity through an injectable reader exercised on one-byte-drifted bytes. Seven named '
+      'contracts, each mutation-tested against the exact failure it exists to catch, plus the freeze-pin controls.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
