@@ -74,23 +74,56 @@ The point of asking Source A is precisely that it *already contains* relative-ti
 same question can be put without introducing an artificial rule of our own. **If Source A turns out
 not to contain it in the load-bearing sense, the answer is `SA3` or `SA4` — not an amendment.**
 
+## The authoritative numbering surface
+
+**Equation and page coordinates are load-bearing in this audit, so the surface they are read off is
+frozen here.**
+
+**The authoritative surface is the PDF of arXiv:2302.10778v3**, which self-identifies by the stamp
+`arXiv:2302.10778v3 [quant-ph] 30 Jul 2025` on p. 1. Every equation number and page number in this
+file and in the result note is read off **that** document.
+
+**arXiv's HTML rendering of the same version is not authoritative here**, and its equation numbering
+is known to differ from the PDF's. A coordinate that does not resolve on the PDF is a **defect to be
+repaired**, never reconciled by silently switching surfaces; if the result note ever needs to cite
+the HTML rendering, it must say so at the citation.
+
+This section exists because the first draft of this freeze pinned one site without checking whether
+others carried the same machinery, and a reviewer reading a different surface found a different
+number. Ambiguous coordinates are not frozen.
+
 ## Reachability: an existence and location check, and nothing more
 
 Made **before** drafting, for one purpose: to confirm there is an object to audit, so the round
 cannot fail for want of one.
 
-**Relative-time machinery exists in Source A, in §3.5 "Interference", pp. 13–14.** Located there:
-a relative time-evolution operator at eq (39), p. 13; a composition law at eq (40), p. 14; a matrix
-written `Γ(t ← t′)` at eq (42), p. 14; and a discrepancy formula at eq (43), p. 14. §3.4
-"Unistochastic processes", pp. 10–12, is where the operator these are built from is introduced.
+**Relative-time machinery exists in Source A at four distinct sites**, all verified on the
+authoritative PDF:
+
+| Site | Location | What is there |
+|---|---|---|
+| **S1** | §3.5 "Interference", pp. 13–14 | relative time-evolution operator, eq (39) p. 13; composition law, eq (40) p. 14; a matrix written `Γ(t ← t′)`, eq (42) p. 14; a discrepancy formula, eq (43) p. 14 |
+| **S2** | §3.7 "Division events and the Markov approximation", pp. 16–18 | a composite-system relative time-evolution operator and its tensor factorization, eq (46) p. 17 |
+| **S3** | §3.9 "Entanglement", p. 21 | a relative transition matrix `Γ^AB(t ← t″)` and its tensor factorization, eqs (65)–(66) |
+| **S4** | §4.2 "The measurement process", pp. 23–25 | a hybrid relative transition matrix, eqs (73)–(77) |
+
+§3.4 "Unistochastic processes", pp. 10–12, is where the operator these are built from is introduced.
 
 **That is the whole of the check, and nothing further is carried from it.** No claim is made here
-about whether any of these objects is part of the construction rather than exposition, what data it
-is computed from, whether it is invariant under the freedoms Source A permits, or whether it is
-unique. Those are A1–A6 and they are adjudicated only after the freeze. In particular, **that an
-equation of candidate shape appears at a located page is not a finding that Source A selects a
-candidate** — that inference is A2's business, and act 4 is the standing reminder of what happens
-when a located object is promoted into a construction that does not contain it.
+about which site (if any) carries the object A1 is after, whether any of these is part of the
+construction rather than exposition, what data it is computed from, whether it is invariant under
+the freedoms Source A permits, or whether it is unique. Those are A1–A6 and they are adjudicated
+only after the freeze.
+
+**A1 is not pre-decided by this table.** Listing four sites rather than one is deliberate: an earlier
+draft named S1 alone, which would have let the location check settle A1 by omission. **A1 must
+determine which site or sites carry the intermediate/relative propagator role**, and may find that
+more than one does, that they are instances of a common object, or that none plays the role in the
+load-bearing sense.
+
+In particular, **that an equation of candidate shape appears at a located page is not a finding that
+Source A selects a candidate** — that inference is A2's business, and act 4 is the standing reminder
+of what happens when a located object is promoted into a construction that does not contain it.
 
 ## The six frozen questions
 
@@ -121,8 +154,14 @@ operator. Three admissible answers: *unique*; *determinate given a named paramet
 it named; or *unresolved*.
 
 **A6 — identification in our vocabulary.** Can the resulting candidate be identified with one of our
-frozen candidate rules — `initWeight`'s or `uniformWeight`'s — or is it a third rule? If a third,
-state it explicitly enough that a later act could define it, **without defining it here**.
+frozen candidate rules — `initWeight`'s or `uniformWeight`'s — or is it a third rule? Three
+admissible answers: *identified*, naming which; *a named third rule*, stated explicitly enough that
+a later act could define it, **without defining it here**; or **unresolved**, when Source A does not
+specify enough to place the visible rule among these — which routes to `SA4`.
+
+**Under `SA2`, A6 names a parameterized rule or family**, not a single rule. A5 having already found
+visible dependence on a choice, requiring A6 to produce one rule would be incoherent; the family and
+its parameter are what A6 reports.
 
 ## The control that act 4 earned: operator freedom is not candidate freedom
 
@@ -154,15 +193,21 @@ assumed.
 
 **`SA1` — canonical selection.** A2 is *part of the construction*, A3 lists inputs, A4 records
 invariance under **every** permitted freedom examined with none outstanding, A5 is *unique*, and A6
-identifies the candidate. The permitted sentence is *Source A's construction selects a visible
-intermediate candidate, canonically from the data it names*. **Not** permitted: that this is a
-theorem-level conclusion of Source A, which an audit of a construction does not earn; nor any claim
-that our side's datum supplies those inputs.
+is *identified* or *a named third rule*. The permitted sentence is *Source A's construction selects a
+visible intermediate candidate, canonically from the data it names*. **Not** permitted: that this is
+a theorem-level conclusion of Source A, which an audit of a construction does not earn; nor any
+claim that our side's datum supplies those inputs.
 
-**`SA2` — selection conditional on a named extra datum.** A2 is *part of the construction*, and A5
-is *determinate given a named parameter or choice*, **exhibited by visible counterexample** per the
-control above. The round then names the datum. This is the most valuable answer short of `SA1`: it
-locates the extra selection precisely rather than leaving it as "something is missing".
+**`SA2` — selection conditional on a named extra datum.** A2 is *part of the construction*, A5 is
+*determinate given a named parameter or choice*, **exhibited by visible counterexample** per the
+control above, and A6 names the parameterized rule or family. The round then names the datum. This
+is the most valuable answer short of `SA1`: it locates the extra selection precisely rather than
+leaving it as "something is missing".
+
+**What `SA2`'s "extra datum" means, and what it does not.** It is **a choice not fixed by the
+Source A data A3 lists** — a freedom internal to Source A's own construction. It is **not** a datum
+missing from *our* side: containment against our `RootedRealization` is deliberately deferred (see
+above), so no `SA2` finding says or implies anything about what our datum supplies.
 
 **`SA3` — no candidate produced.** A2 is *not part of the construction*: Source A's development does
 not itself form a visible intermediate candidate, and forming one would be post-processing this
@@ -170,14 +215,20 @@ round invents. Reported at that scope — a determination about **Source A's con
 claim that no candidate exists or that none could be defined.
 
 **`SA4` — source or interface insufficient to decide.** Any of: A2 undetermined; A3 unable to list
-the inputs; A4 leaving a permitted freedom unexamined that bears on A5; A5 unresolved. Reported as
-**open**, with exactly which question is open and what would settle it. Not a negative result and
-not evidence for any other outcome.
+the inputs; A4 leaving a permitted freedom unexamined that bears on A5; A5 unresolved; **A6
+unresolved**. Reported as **open**, with exactly which question is open and what would settle it.
+Not a negative result and not evidence for any other outcome.
+
+**A6 unresolved is an `SA4`, not a downgrade of A5.** A construction can fix a unique visible
+candidate that Source A does not specify well enough to place among our rules: A5 *unique* with A6
+*unresolved* is a coherent state of the evidence, it belongs to no other outcome, and it is reported
+as `SA4` with A5's finding stated in full rather than discarded.
 
 **Exhaustiveness.** If A2 answers *not part of the construction* → `SA3`. Otherwise if A2 is
 undetermined, or A3 cannot be completed, or A4 leaves a bearing freedom unexamined, or A5 is
-unresolved → `SA4`. Otherwise A5 decides `SA1` against `SA2`. The cases are disjoint, and A6 is
-reported under `SA1` and `SA2` only.
+unresolved, or A6 is unresolved → `SA4`. Otherwise A5 decides `SA1` against `SA2`. The cases are
+disjoint and exhaust the possibilities, and A6 is reported under every outcome — as its answer under
+`SA1` and `SA2`, and as *unresolved* in the `SA4` that its being unresolved produces.
 
 ## Prediction recorded before executing
 
@@ -185,11 +236,12 @@ reported under `SA1` and `SA2` only.
 this round exists to adjudicate, and act 4 is the standing lesson about leaning on a pre-freeze
 reading.
 
-**`SA3` is unlikely, on the location check and on that alone.** An equation of candidate shape was
-located at a named page. That is weaker than it sounds: the located object could still fail A2 by
+**`SA3` is unlikely, on the location check and on that alone.** Equations of candidate shape were
+located at four named sites. That is weaker than it sounds: every one of them could still fail A2 by
 being expository rather than load-bearing in Source A's development, which is a live path to `SA3`
-and is exactly what act 4 found one source over. The prediction is recorded at that strength and no
-higher.
+and is exactly what act 4 found one source over — there the located objects were real, correctly
+cited, and still did not amount to a construction that selects. The prediction is recorded at that
+strength and no higher.
 
 ## What this round produces, and what it does not
 
@@ -205,7 +257,10 @@ its natural first step.
    machinery and its stated freedoms, at pinpoint citation. No claim about any other part of the
    external framework.
 2. **Source letters, pages and equation numbers follow act 1's frozen table**, and equation numbers
-   are never mixed across sources.
+   are never mixed across sources. **Every coordinate resolves on the authoritative surface** — the
+   PDF of arXiv:2302.10778v3, per the section above. A citation to any other rendering says so at
+   the citation, and a coordinate that does not resolve is repaired, never reconciled by silently
+   switching surfaces.
 3. **Act 4's `MP4` is cited, never revised**, and no amendment authorizing a candidate-extraction
    rule is made. Source C is not re-adjudicated.
 4. **Act 1's determinations are cited, never extended.** `BD3`, `BR3` and Q8 are neither reopened,
@@ -257,7 +312,8 @@ begin the tuple-instantiation lemma, the BD3 follow-up, Arc D round 2 or Arc E; 
 3. A5's answer at the visible level, with any exhibited counterexample given as two concrete
    matrices, and any unexhibited operator freedom recorded as representation freedom;
 4. the outcome label `SA1`–`SA4`, the recorded prediction, and whether it held;
-5. under `SA1` or `SA2`: A6's identification in this side's vocabulary;
+5. A6's answer — the identification in this side's vocabulary under `SA1`, the parameterized rule or
+   family under `SA2`, or *unresolved* with what Source A leaves unspecified;
 6. which **obligation** — forward or backward — each claim establishes;
 7. what act 3's `CU1a` licence retains and what its programme-level reading becomes;
 8. what remains open and what would settle it, including whether our datum supplies Source A's
