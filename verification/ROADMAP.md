@@ -21,8 +21,8 @@ The labels are not interchangeable and the distinctions are the point.
 
 | Status | Meaning |
 | --- | --- |
-| **ACTIVE** | A round is running, or is frozen and awaiting execution. |
-| **OPEN** | A named obligation with neither a formal result nor an impossibility proof. Work is possible; nobody has done it. |
+| **ACTIVE** | A round is running, or is **frozen and merged** and awaiting execution. A drafted or closed control plane is not a frozen one. |
+| **OPEN** | A named obligation not closed at the required scope: no closing construction or theorem, and no impossibility theorem. It does **not** mean untouched — several `OPEN` rows carry substantial partial and audit work, and the row's linked artifact is where that work is recorded. |
 | **GAP** | The manuscript states the condition, and the formal interface has **no predicate for it at all** — not a weak one, not an image. Closing it starts with defining the object. |
 | **EXTERNAL** | A published result consumed as a cited premise. Formalizing it is an independent job; until then it is an assumption, and every result above it says so. |
 | **CONDITIONAL** | Formally present, carrying a named hypothesis this programme has not discharged. The manuscript states the hypothesis; the row tracks it. |
@@ -37,7 +37,7 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 
 | Priority | Obligation | Track | Status | Unlocks |
 | --- | --- | --- | --- | --- |
-| **P0** | Continuous off-direct extension | OI→QM / Track B | **ACTIVE** | act 7 layer 2 |
+| **P0** | Continuous off-direct extension | OI→QM / Track B | **OPEN** | act 7 layer 2 |
 | **P1** | Substratum Lemma 24.1 — semigroup transfer | Reconstruction | **OPEN** | unconditional `𝒢_sub` completeness |
 | **P1** | A6 — background independence / local gauge covariance | Substratum | **GAP** | the complete A1–A6 formal package |
 | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN** | the actual physical realization |
@@ -59,6 +59,11 @@ contract that the `ℕ`-indexed off-direct witness does not instantiate. Until t
 is **no object in hand that is simultaneously a lawful OI visible family, off the direct branch, and
 inside Source A's stated contract** — so the dilation-choice test cannot be run on anything. Act 7
 reopens only on a positive outcome; an impossibility proof is itself a classification result.
+
+**`OPEN` rather than `ACTIVE`, and the distinction is the one the vocabulary makes.** This row is
+P0 by priority, but no control plane for it is frozen: the act-8 preregistration exists only as a
+draft. It becomes `ACTIVE` when that control plane is frozen and merged — a drafted or closed one
+does not qualify, or `ACTIVE` would mean "someone intends to" rather than "a freeze governs this".
 
 → [`BARANDES-DILATION-CHOICE-RESULT.md`](BARANDES-DILATION-CHOICE-RESULT.md) (the `DC2a` stop and
 the obligation it names)

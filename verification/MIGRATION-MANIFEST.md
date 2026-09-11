@@ -6,11 +6,13 @@ is a reviewable mapping rather than a judgement call made file by file while mov
 
 Base commit: `e0c0c709620db0d114dbd7061975b6747cb7aabc`. Artifacts classified: **91**
 (plus `README.md`, `ROADMAP.md` and this file, which stay at the root). Flagged for owner
-decision: **1**.
+decision: **0**.
 
 The machine-readable form is [`migration-manifest.json`](migration-manifest.json); the
 migration reads that, not this table. Both are emitted by
-`tools/build_migration_manifest.py` from one mapping, so they cannot drift.
+`tools/build_migration_manifest.py` from one mapping, and the release gate runs that
+script in `--check` mode, so a hand-edit to either generated file fails CI rather than
+silently diverging.
 
 ## Why the destinations are shaped this way
 
@@ -35,6 +37,12 @@ technical subsystems with their own structure and their own roadmaps; the disord
 migration addresses is the research-control Markdown around them.
 
 ## The mapping
+
+### `archive/superseded/`
+
+| Current | Destination | Note |
+| --- | --- | --- |
+| `EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md` | `EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md` | superseded by COMPLETION-ASSUMPTION-AUDIT.md per its own header; historical filename preserved exactly |
 
 ### `audits/foundations/`
 
@@ -285,13 +293,6 @@ migration addresses is the research-control Markdown around them.
 | `ROUTE-B-AUDIT.md` | `route-b-audit.md` | Route B of the substratum programme; unrelated to OI-QM Track B |
 | `SUBSTRATUM-INTERFACE-AUDIT.md` | `interface-audit.md` |  |
 | `SUBSTRATUM-SOURCE-AUDIT.md` | `source-audit.md` |  |
-
-## Flagged for owner decision
-
-Destinations this manifest does **not** decide. Each is a judgement about status, not
-about layout, and guessing would bury the judgement in a mechanical change.
-
-- **`EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md`** - a dated roadmap for the OI-QM equivalence. Whether verification/ROADMAP.md supersedes it or it remains a live programme document is an owner call, not something this manifest decides.
 
 ## Placement rule
 

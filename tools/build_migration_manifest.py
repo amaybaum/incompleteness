@@ -5,13 +5,20 @@ Emits `verification/migration-manifest.json` (machine-readable, read by the
 mechanical migration) and `verification/MIGRATION-MANIFEST.md` (the reviewable
 table) from ONE mapping, so the two cannot disagree.
 
-Asserts that the mapping is in bijection with the root-level `verification/*.md`
-artifacts: an artifact nobody classified fails the build, and so does a mapping
-entry naming a file that is not there. Run it after adding a row.
+Three modes:
 
-Re-running it after the migration will fail the bijection assertion, which is
-correct -- at that point the mapping is a historical record of a completed move
-and `tools/artifact_placement_check.py` is what enforces placement.
+  (default)       render both artifacts and write them.
+  --check         regenerate both in memory and compare against what is checked
+                  in; exit 1 on any difference. Requires no particular layout on
+                  disk, so it holds identically before and after the migration.
+                  This is the mode the release gate runs, and it is what makes
+                  "generated from one mapping" an enforced property rather than
+                  a convention someone can quietly break by hand-editing.
+  --verify-tree   additionally assert the mapping is in bijection with the
+                  root-level artifacts. Meaningful only BEFORE the migration
+                  runs -- afterwards the sources are gone from the root by
+                  design -- so it is opt-in and is never a precondition of
+                  rendering or of --check.
 """
 import json
 import os
@@ -171,33 +178,37 @@ for name, dst in [
 ]:
     add(name, f"audits/manuscript/{dst}")
 
-# ---- flagged: destination is a judgement call, not a mechanical one ----
-FLAGGED = {
-    "EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md": {
-        "candidates": [f"{OIQM}/equivalence-strengthening-roadmap.md",
-                       "archive/superseded/equivalence-strengthening-roadmap-2026-09-05.md"],
-        "why": ("a dated roadmap for the OI-QM equivalence. Whether verification/ROADMAP.md "
-                "supersedes it or it remains a live programme document is an owner call, "
-                "not something this manifest decides."),
-    },
-}
-for name, info in FLAGGED.items():
-    add(name, None, "FLAGGED FOR OWNER DECISION: " + info["why"])
+# ---- archive/superseded ----
+# Resolved in owner review of 19d3506. The file self-identifies in its own
+# header as a "Historical charter" that is "reconciled with, and superseded by,
+# COMPLETION-ASSUMPTION-AUDIT.md". That supersession predates the strategic
+# roadmap and is not caused by it: verification/ROADMAP.md is not what
+# superseded this charter. The historical filename is preserved exactly, date
+# included, because it is how the charter is cited.
+add("EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md",
+    "archive/superseded/EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md",
+    "superseded by COMPLETION-ASSUMPTION-AUDIT.md per its own header; "
+    "historical filename preserved exactly")
 
-# ---- completeness assertion ----
-# The root residents are not migration candidates: the landing page, the
-# strategic queue, and this manifest's own table. Kept in step with
-# ROOT_RESIDENTS in tools/artifact_placement_check.py.
+FLAGGED = {}
+
+# ---- optional tree check: --verify-tree ----
+# The mapping is in bijection with the root artifacts ONLY before the migration
+# runs. Afterwards the sources are gone from the root by design, so this is an
+# opt-in check used while the mapping is being built, never a precondition of
+# rendering. `--check`, the gated mode, does not require it.
 ROOT_RESIDENTS = {"README.md", "ROADMAP.md", "MIGRATION-MANIFEST.md"}
-present = {p.name for p in VER.glob("*.md")} - ROOT_RESIDENTS
-mapped = set(MAP)
-missing = present - mapped
-extra = mapped - present
-if missing:
-    print("UNCLASSIFIED root artifacts:", sorted(missing), file=sys.stderr)
-if extra:
-    print("mapped but absent from tree:", sorted(extra), file=sys.stderr)
-assert not missing and not extra, "manifest is not in bijection with the tree"
+
+if "--verify-tree" in sys.argv:
+    present = {q.name for q in VER.glob("*.md")} - ROOT_RESIDENTS
+    missing = present - set(MAP)
+    extra = set(MAP) - present
+    if missing:
+        print("UNCLASSIFIED root artifacts:", sorted(missing), file=sys.stderr)
+    if extra:
+        print("mapped but absent from tree:", sorted(extra), file=sys.stderr)
+    if missing or extra:
+        sys.exit("build_migration_manifest: mapping is not in bijection with the tree")
 
 out = {
     "note": ("Proposed destinations for the mechanical migration PR. This file is "
@@ -208,7 +219,7 @@ out = {
     "flagged": sorted(FLAGGED),
     "entries": {k: MAP[k] for k in sorted(MAP)},
 }
-(VER / "migration-manifest.json").write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n")
+JSON_TEXT = json.dumps(out, indent=2, ensure_ascii=False) + "\n"
 
 # ---- the reviewable table, from the same mapping ----
 import collections
@@ -233,7 +244,9 @@ L.append("(plus `README.md`, `ROADMAP.md` and this file, which stay at the root)
 L.append(f"decision: **{len(FLAGGED)}**.\n")
 L.append("The machine-readable form is [`migration-manifest.json`](migration-manifest.json); the")
 L.append("migration reads that, not this table. Both are emitted by")
-L.append("`tools/build_migration_manifest.py` from one mapping, so they cannot drift.\n")
+L.append("`tools/build_migration_manifest.py` from one mapping, and the release gate runs that")
+L.append("script in `--check` mode, so a hand-edit to either generated file fails CI rather than")
+L.append("silently diverging.\n")
 L.append("## Why the destinations are shaped this way\n")
 L.append("Preregistration and outcome stay **together**, inside the round that produced them -")
 L.append("`act-07-dilation-choice/preregistration.md` beside `act-07-dilation-choice/result.md` -")
@@ -278,6 +291,36 @@ L.append("the `verification/` root (AGENTS.md §A.36). `tools/artifact_placement
 L.append("this in the release gate, treating this manifest as the grandfather list: any **new**")
 L.append("root-level `verification/*.md` that is not in it fails.\n")
 
-(VER / "MIGRATION-MANIFEST.md").write_text("\n".join(L))
+MD_TEXT = "\n".join(L)
+
+# ---- mode dispatch ----
+TARGETS = [(VER / "migration-manifest.json", JSON_TEXT),
+           (VER / "MIGRATION-MANIFEST.md", MD_TEXT)]
+
+if "--check" in sys.argv:
+    # The enforced form of "generated from one mapping": regenerate both
+    # artifacts in memory and compare against what is checked in. Needs no
+    # root layout, so it holds after the migration exactly as it does before,
+    # which is why this is the mode the release gate runs.
+    drifted = []
+    for path, want in TARGETS:
+        if not path.exists():
+            drifted.append(f"{path.name}: missing")
+        elif path.read_text() != want:
+            drifted.append(f"{path.name}: differs from the mapping")
+    if drifted:
+        print("build_migration_manifest --check: FAIL")
+        for d in drifted:
+            print(f"    {d}")
+        print("  Both artifacts are generated from the MAP in this file. Edit the")
+        print("  mapping and re-run `python3 tools/build_migration_manifest.py`;")
+        print("  do not hand-edit either generated file.")
+        sys.exit(1)
+    print(f"build_migration_manifest --check: OK ({len(MAP)} artifacts; "
+          f"both generated artifacts match the mapping)")
+    sys.exit(0)
+
+for path, textout in TARGETS:
+    path.write_text(textout)
 print(f"classified {len(MAP)} artifacts; {len(FLAGGED)} flagged for owner decision")
 print("wrote migration-manifest.json and MIGRATION-MANIFEST.md")

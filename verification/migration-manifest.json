@@ -3,9 +3,7 @@
   "base_commit": "e0c0c709620db0d114dbd7061975b6747cb7aabc",
   "root": "verification/",
   "count": 91,
-  "flagged": [
-    "EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md"
-  ],
+  "flagged": [],
   "entries": {
     "BARANDES-BOUNDARY-AUDIT-RESULT.md": {
       "to": "programmes/oi-qm/track-b/boundary-audit/result.md",
@@ -156,8 +154,8 @@
       "note": ""
     },
     "EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md": {
-      "to": null,
-      "note": "FLAGGED FOR OWNER DECISION: a dated roadmap for the OI-QM equivalence. Whether verification/ROADMAP.md supersedes it or it remains a live programme document is an owner call, not something this manifest decides."
+      "to": "archive/superseded/EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md",
+      "note": "superseded by COMPLETION-ASSUMPTION-AUDIT.md per its own header; historical filename preserved exactly"
     },
     "EXEC-SOURCE-AUDIT.md": {
       "to": "audits/foundations/exec-source-audit.md",

@@ -78,6 +78,12 @@ def main():
         # a grandfather list, so it survives the mechanical migration unchanged.
         ("artifact-placement",
                       [sys.executable, "tools/artifact_placement_check.py"]),
+        # manifest-drift: the two forms of the migration manifest are rendered
+        # from one mapping, and --check re-renders and compares rather than
+        # trusting that nobody hand-edited a generated file. Needs no
+        # particular layout, so it holds across the migration too.
+        ("manifest-drift",
+                      [sys.executable, "tools/build_migration_manifest.py", "--check"]),
         ("claims",    [sys.executable, "tools/claims_check.py"]),
         ("duplicate", [sys.executable, "tools/duplicate_check.py"]),
         ("mirror",    [sys.executable, "papers/oi_lattice_code/mirror_check.py"]),

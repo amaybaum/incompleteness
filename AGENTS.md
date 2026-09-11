@@ -592,9 +592,15 @@ commit strengthening a theorem in an existing module touches the registry.
 
 New audits, preregistrations, results and amendments go under a **programme**
 or **audit** directory inside `verification/`, never at the `verification/`
-root. `verification/MIGRATION-MANIFEST.md` records the intended destination of
-every artifact and is the authority on where a new one belongs; a round whose
-category is genuinely new adds a directory rather than a root file.
+root. A new artifact's home is decided by the **programme/audit hierarchy** —
+and by the programme's own index once one is present — placed with the round
+or the audit family it belongs to; a round whose category is genuinely new
+adds a directory rather than a root file.
+
+`verification/MIGRATION-MANIFEST.md` governs a narrower thing: the migration
+destinations of the **existing grandfathered root artifacts**. It is not, and
+cannot be, the authority on where a future artifact belongs — a new round has
+no source entry in a mapping built from the old root set.
 
 The root is reserved for `README.md` (the landing page), `ROADMAP.md` (the live
 obligation queue) and the manifest itself.
@@ -611,7 +617,18 @@ by their own conventions.
 
 Enforcement: `tools/artifact_placement_check.py` (release-gate step
 `artifact-placement`) fails on any root-level `verification/*.md` the manifest
-does not account for. The check is one-directional — it never complains that a
-manifest entry has moved to its destination — so it holds across the migration
-without amendment. It carries a self-test that drives the real comparison
-through an unlisted name, a grandfathered name and an already-migrated name.
+does not account for — the manifest serving there as a grandfather list, not as
+a destination authority. The check is one-directional — it never complains that
+a manifest entry has moved to its destination — so it holds across the
+migration without amendment. It carries a self-test that drives the real
+comparison through an unlisted name, a grandfathered name and an
+already-migrated name.
+
+The manifest's two forms are rendered from one mapping in
+`tools/build_migration_manifest.py`, and release-gate step `manifest-drift`
+runs that script's `--check` mode, which re-renders both and compares them to
+what is checked in. A hand-edit to either generated file fails the gate. That
+mode requires no particular layout on disk, so it holds after the migration as
+well as before; the separate `--verify-tree` mode, which asserts the mapping is
+in bijection with the root artifacts, is meaningful only beforehand and is
+opt-in for that reason.
