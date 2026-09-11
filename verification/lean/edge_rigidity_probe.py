@@ -9170,18 +9170,23 @@ def _dc_outcome_route(txt1):
 
 
 def _dc_named_inherited(txt1):
-    """E3 -- the failed hypothesis is NAMED, with coordinates, and named as INHERITED.
+    """E3 -- the failed hypothesis is NAMED, INHERITED, and exactly the DECISIVE one.
 
-    The freeze's `DC2a` requires the hypothesis be named. This round's whole point is that the
-    failure is one §3.4 does not restate locally, so a report naming only a local hypothesis -- or
-    naming the failure without coordinates -- would not be this outcome. Both inherited clauses are
-    required, since either alone is a weaker reading of the contract."""
+    The freeze's `DC2a` requires the hypothesis be named, and this round's point is that the failure
+    is one §3.4 does not restate locally. But the two inherited clauses are NOT equal in force and
+    the report must not treat them as one: p. 3's real-line sentence carries the source's own hedge
+    ("usually"), so it is a stated convention with exceptions admitted on its face and is recorded as
+    the usual setting behind the failure; p. 4's continuity clause is unhedged ("will be assumed")
+    and is the hypothesis `DC2a` rests on. A note resting the outcome on the hedged sentence, or
+    counting the two as independent hard failures, would be claiming more than the source supports."""
     t = txt1.replace('**', '')
-    return ('time-domain and continuity contract' in t
-            and 'isomorphic to the real line ℝ' in txt1
-            and 'continuity condition' in t
+    return ('inherited continuity contract' in t
+            and 'the decisive one' in t
+            and 'THE DECISIVE FAILURE — uninstantiated on `ℕ`' in t
+            and 'That inherited continuity contract alone is what `DC2a` rests on' in t
+            and 'context, not a second failure' in t
+            and 'rather than as an independent universal prerequisite' in t
             and 'p. 3' in txt1 and 'p. 4' in txt1
-            and 'inherited from §2.1 and §2' in t
             and 'Γ : ℕ → Matrix (Fin 2) (Fin 2) ℝ' in txt1)
 
 
@@ -9229,17 +9234,25 @@ def _dc_counterfactual_bounded(txt1):
 
 
 def _dc_crosstime_open(txt1):
-    """E7 -- D3's cross-time coherence gap is recorded, with the citable asymmetry, and kept open.
+    """E7 -- D3's cross-time gap is stated as DERIVATION AND SELECTION, not as a missing assumption.
 
-    This is the one layer-1 finding that survives the stop on its own, because it is a property of
-    Source A's text rather than of our witness. The asymmetry is what makes it a finding rather than
-    an impression: the source imposes differentiability on the UNDILATED unitary at (33) and imposes
-    no analogue on the dilated one, while (39) consumes two times."""
+    This is the one layer-1 finding that survives the stop on its own, and the easy version of it is
+    false. (28) p. 11 drops the tildes WLOG and (33) p. 12 then assumes THAT post-(28) unitary family
+    differentiable, so the source neither "assumes nothing" about a coherent family nor "imposes no
+    analogue" on the dilated object. What it does not do is derive or select an admissible Stinespring
+    choice meeting that regularity, while Stinespring itself supplies only pointwise existence and
+    (39) consumes two times. The guard pins the accurate form and rejects the overstatement."""
     t = txt1.replace('**', '')
-    return ('the source provides none' in t
+    return ('the gap is one of DERIVATION AND SELECTION, not of a missing assumption' in t
+            and 'only pointwise existence' in t
+            and 'neither derives a coherent dilation family nor selects one' in t
             and 'differentiable function of the time `t`' in txt1
-            and 'imposes no analogue on `Ũ`' in t
-            and 'recorded as open and is unaffected by the `DC2a` stop' in t)
+            and 'The open issue is derivation and selection under an assumed regularity, not the '
+                'absence of a regularity assumption' in t
+            and 'recorded as open and is unaffected by the `DC2a` stop' in t
+            # the overstatements must be ABSENT, not merely balanced by a later correction
+            and 'imposes no analogue on `Ũ`' not in t
+            and 'the source provides none' not in t)
 
 
 def _dc_licences(txt1):
@@ -9264,8 +9277,13 @@ def _dc_next_obligation(txt1):
     produces a UNISTOCHASTIC family, which is the wrong side of the branch for an off-direct witness,
     so the obvious continuization may destroy the property the witness exists to have."""
     t = txt1.replace('**', '')
-    return ('Construct a continuous, Source-A-admissible, off-direct OI/`PPer` witness' in t
-            and 'or prove that no such witness exists' in t
+    return ('Construct a Source-A-admissible CONTINUOUS EXTENSION of a lawful off-direct '
+            'OI/`PPer` witness' in t
+            and 'with its OI/`PPer` restriction identified and off-directness preserved' in t
+            and 'or prove that no such extension exists' in t
+            # `PPer` is ℕ-indexed, so "a continuous PPer witness" is not a thing the note may ask for
+            and 'there is no such thing as "a continuous `PPer` witness"' in t
+            and 'defining it is the first sub-obligation, and it is a Track I question' in t
             and 'footnote 11, p. 12' in t.lower()
             and 'lands on the direct branch, which is the wrong side' in t
             and 'recorded as a signpost, not as a proof' in t)
@@ -9288,8 +9306,11 @@ _dc_m1 = _DCRES1.replace('`DC2a` — §3.4\'s input contract is not met by the o
                          '`DC2b` — the source forms no candidate')
 ok_dc &= _dc_m1 != _DCRES1 and not _dc_outcome_route(_dc_m1)
 
-# the failure named, but named as a LOCAL hypothesis rather than an inherited one
-_dc_m2 = _DCRES1.replace('inherited from §2.1 and §2', 'stated in §3.4')
+# the outcome rested on the HEDGED sentence instead of the unhedged one; _DCRES1 is
+# whitespace-normalized, so the sentence is matched in its single-line form
+_dc_m2 = _DCRES1.replace(
+    'That inherited continuity contract alone is what `DC2a` rests on',
+    'Both inherited hypotheses independently fail and `DC2a` rests on either')
 ok_dc &= _dc_m2 != _DCRES1 and not _dc_named_inherited(_dc_m2)
 
 # the post-hoc narrowing the freeze forbids, written back in
@@ -9307,6 +9328,12 @@ _dc_m5 = _DCRES1.replace('This reading settles nothing in this round.',
 ok_dc &= _dc_m5 != _DCRES1 and not _dc_counterfactual_bounded(_dc_m5)
 
 # the emphasis markers sit inside this sentence, so the mutation targets the marked-up form
+# the overstated version of the cross-time finding, written back in
+_dc_m6a = _DCRES1.replace('the gap is one of DERIVATION AND SELECTION, not of a missing assumption',
+                          'the source provides none, and it imposes no analogue on `Ũ`')
+ok_dc &= _dc_m6a != _DCRES1 and not _dc_crosstime_open(_dc_m6a)
+
+# the emphasis markers sit inside this sentence, so the mutation targets the marked-up form
 _dc_m6 = _DCRES1.replace('**recorded as open** and is unaffected by the `DC2a` stop',
                          '**closed** by the `DC2a` stop along with everything else')
 ok_dc &= _dc_m6 != _DCRES1 and not _dc_crosstime_open(_dc_m6)
@@ -9318,6 +9345,12 @@ ok_dc &= _dc_m7 != _DCRES1 and not _dc_licences(_dc_m7)
 _dc_m8 = _DCRES1.replace('recorded as a signpost, not as a proof',
                          'proof that no such witness can exist')
 ok_dc &= _dc_m8 != _DCRES1 and not _dc_next_obligation(_dc_m8)
+
+# the obligation restated as a "continuous PPer witness", which `PPer`'s ℕ-indexing forbids
+_dc_m9 = _DCRES1.replace('Construct a Source-A-admissible CONTINUOUS EXTENSION of a lawful '
+                         'off-direct OI/`PPer` witness',
+                         'Construct a continuous off-direct OI/`PPer` witness')
+ok_dc &= _dc_m9 != _DCRES1 and not _dc_next_obligation(_dc_m9)
 
 # E1's controls both run THROUGH _dc_freeze_pin, so sabotaging that predicate fails the guard.
 def _dc_drift(path):

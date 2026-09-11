@@ -18,19 +18,23 @@ June 30, 2025.
 Reached by the route the stop table fixes: **D1 answered, D2 FAILS on an inherited hypothesis,
 layer 2 not reached.**
 
-**The failed hypothesis, named:** Source A's **time-domain and continuity contract**, inherited from
-§2.1 and §2, against our `ℕ`-indexed discrete off-direct witness.
+**The failed hypothesis, named:** Source A's **inherited continuity contract**, from §2 p. 4, against
+our `ℕ`-indexed discrete off-direct witness.
 
-- **p. 3, §2.1:** "the set of target times `t` will usually be assumed to be **isomorphic to the real
-  line ℝ**, up to a choice of measurement units … the target time `t` is treated here as a
-  **real-valued variable**".
-- **p. 4, after (5):** "On physical grounds, `Γ(t ← t₀)` will be assumed to satisfy the **continuity
-  condition** that in the limit `t → t₀`, it approaches its value `Γ(t₀ ← t₀)`, which will be taken
-  to be the `N × N` identity matrix `𝟙`".
+- **p. 4, after (5) — the decisive one:** "On physical grounds, `Γ(t ← t₀)` **will be assumed** to
+  satisfy the **continuity condition** that in the limit `t → t₀`, it approaches its value
+  `Γ(t₀ ← t₀)`, which will be taken to be the `N × N` identity matrix `𝟙`". Unhedged, and not
+  instantiated on `ℕ`.
+- **p. 3, §2.1 — context, not a second failure:** "the set of target times `t` will **usually** be
+  assumed to be isomorphic to the real line `ℝ`". The hedge is the source's own, so this is the
+  **usual setting** the continuity condition is written for, recorded as the domain mismatch rather
+  than as an independent universal prerequisite.
 
 Act 6's `UB2` witness is literally `Γ : ℕ → Matrix (Fin 2) (Fin 2) ℝ`. On `ℕ` with `t₀ = 0` the limit
-`t → t₀` carries no content, and the target-time set is not isomorphic to `ℝ`. The witness therefore
-does not instantiate the contract Source A states.
+`t → t₀` carries no content, so the witness does not instantiate the continuity condition Source A
+states. The real-line sentence at p. 3 is a stated **usual setting** with exceptions admitted on its
+face; it is recorded as the domain mismatch behind the continuity failure rather than as an
+independent hard prerequisite.
 
 **This is a stop, not a refutation of anything.** `DC2a` says the round's own off-direct witness is
 outside the input contract of the construction under test. It says nothing about whether the dilation
@@ -74,8 +78,17 @@ object, with act 2's `RT1` as the licence for the move.
 | Hypothesis | Coordinate | Our witness |
 | --- | --- | --- |
 | `Γ(t₀ ← t₀) = 𝟙` | p. 4 | `Γ 0 = 1` ✓ |
-| Target times isomorphic to `ℝ`; `t` real-valued | p. 3 | **`ℕ`-indexed — FAILS** |
-| Continuity: `Γ(t ← t₀) → 𝟙` as `t → t₀` | p. 4 | **no content on `ℕ` — FAILS** |
+| Target times "**usually** … isomorphic to `ℝ`" | p. 3 | `ℕ`-indexed — **domain mismatch with the usual setting**, not an independent hard failure |
+| Continuity: `Γ(t ← t₀)` **"will be assumed"** to approach `𝟙` as `t → t₀` | p. 4 | **THE DECISIVE FAILURE — uninstantiated on `ℕ`** |
+
+**Only one of these two is load-bearing, and the distinction is deliberate.** p. 3 says target times
+"will **usually** be assumed to be isomorphic to the real line `ℝ`" — a stated convention that admits
+exceptions on its face, so it is not by itself a universal prerequisite and is not treated as one
+here. p. 4 is stronger and unhedged: `Γ(t ← t₀)` "**will be assumed** to satisfy the continuity
+condition that in the limit `t → t₀`, it approaches its value `Γ(t₀ ← t₀)`". **That inherited
+continuity contract alone is what `DC2a` rests on**: on `ℕ` with `t₀ = 0` the limit `t → t₀` has no
+content, so the condition is not instantiated by the frozen witness. The real-line point is recorded
+as the domain mismatch that makes the continuity condition inapplicable, not as a second failure.
 
 **What was considered, and why it does not narrow the contract.** Two observations cut the other way
 and are recorded rather than suppressed: §3.4's Stinespring step is applied at a fixed `t` and does
@@ -100,20 +113,26 @@ frozen.
 | Initial ancilla configuration `j′` — "for **at least some** choices" | §3.4 p. 10 | **recorded, not examined** |
 | The dilated `Ũ(t ← 0)` itself — Stinespring gives **existence** only | §3.4 p. 10 | **recorded, not examined** |
 
-**Cross-time coherence: the source provides none, and the asymmetry is citable.** §3.4's assertion is
-**per-`t`**: the Stinespring theorem "implies the **existence** of an `Ñ × Ñ` unitary time-evolution
-operator `Θ̃(t ← 0) = Ũ(t ← 0)` whose corresponding … transition matrix `Γ̃(t ← 0)` yields the
-original … `Γ(t ← 0)` by marginalization" (p. 10). Existence is asserted at each `t` separately. The
-source does **not** fix, prove, or assume a coherently chosen time-indexed family `{Ũ(t ← 0)}_t`, and
-states no regularity for one.
+**Cross-time coherence: the gap is one of DERIVATION AND SELECTION, not of a missing assumption.**
+§3.4's assertion is **per-`t`**: the Stinespring theorem "implies the **existence** of an `Ñ × Ñ`
+unitary time-evolution operator `Θ̃(t ← 0) = Ũ(t ← 0)` whose corresponding … transition matrix
+`Γ̃(t ← 0)` yields the original … `Γ(t ← 0)` by marginalization" (p. 10) — existence at each `t`
+separately, with no coherent time-indexed family derived or selected.
 
-The contrast with the undilated case is sharp and is the point: where the source needs regularity of
-a unitary family it says so explicitly — (33) p. 12 assumes `U(t ← 0)` is "a differentiable function
-of the time `t`" — and it imposes no analogue on `Ũ`. Meanwhile the relative operator (39) p. 13
-consumes **two** times. So a coherent dilated family is presupposed by any relative construction on
-the dilated carrier and is supplied nowhere.
+**A regularity assumption does arrive, and it must be stated accurately.** (28) p. 11 drops the
+tildes "without any real loss of generality", continuing with a unitary `U(t ← 0)`; and (33) p. 12
+then assumes that post-(28) unitary family is "a **differentiable function** of the time `t`". So it
+is **not** the case that the source assumes nothing about a coherent family, nor that it imposes no
+analogue on the dilated object.
 
-This freedom is **recorded as open** and is unaffected by the `DC2a` stop: it is a property of the
+**The accurate finding is sharper than that.** Stinespring in §3.4 supplies **only pointwise
+existence**; the source neither **derives** a coherent dilation family nor **selects** one, and it
+does not show that an admissible Stinespring choice meeting (33)'s differentiability exists. (33)
+assumes that regularity of the post-(28) family without proving it attainable from the dilation, and
+the relative operator (39) p. 13 consumes **two** times. **The open issue is derivation and selection
+under an assumed regularity, not the absence of a regularity assumption.**
+
+This gap is **recorded as open** and is unaffected by the `DC2a` stop: it is a property of the
 source's text, not of our witness.
 
 ### D4a, D4b — **not reached** as outcome-bearing tests
@@ -194,11 +213,19 @@ stated contract — reporting a `DC2b` or a `DC1`/`DC3` that the contract did no
 
 **The next obligation is specific and replaces the dilation round rather than cancelling it:**
 
-> **Construct a continuous, Source-A-admissible, off-direct OI/`PPer` witness — or prove that no such
-> witness exists under the OI constraints.**
+> **Construct a Source-A-admissible CONTINUOUS EXTENSION of a lawful off-direct OI/`PPer` witness —
+> with its OI/`PPer` restriction identified and off-directness preserved — or prove that no such
+> extension exists under the OI constraints.**
 
-If such a witness exists, act 7 reopens at exactly **D4a positive / D4b negative**, which triggers the
-readback-amendment path, at reduced strength, per the frozen stop table.
+**The wording is deliberate and the note does not shortcut it.** `PPer` is `ℕ`-indexed by definition,
+so there is no such thing as "a continuous `PPer` witness"; the object sought is a continuous-time
+family that Source A's contract accepts, whose restriction to the `ℕ` grid **is** a lawful `PPer`
+member, and which is still off-direct. **If the extension relation itself is not yet defined, defining
+it is the first sub-obligation, and it is a Track I question** — consistent with this note's own
+record that a continuous-time OI visible class is not presently defined.
+
+If such an extension exists, act 7 reopens at exactly **D4a positive / D4b negative**, which triggers
+the readback-amendment path, at reduced strength, per the frozen stop table.
 
 **A hazard on that route, recorded from the source.** Footnote 11, p. 12 gives Source A's own
 discrete-to-continuous interpolation: with `δt` the discrete time step and `Σ` a permutation matrix,
