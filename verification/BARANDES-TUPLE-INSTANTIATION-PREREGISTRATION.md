@@ -50,7 +50,10 @@ Layer 1 supplies the interface that makes the question statable in the kernel; l
 Define the external stochastic-process tuple interface and **prove** the instantiation theorem, in
 the shape
 
-    PPer Γ  ∧  p normalized   ⟹   BarandesTuple (V, ℕ, {0}, Γᵀ, p, V → ℝ)
+    PPer Γ  ∧  p0 nonneg  ∧  ∑ j, p0 j = 1
+        ⟹   BarandesTuple (V, ℕ, {0}, Γ_B, p, A)
+
+with `Γ_B(t, 0) = (Γ t)ᵀ`, `p` CONSTRUCTED from `Γ_B` and `p0`, and `A` the full algebra on `V × ℕ`
 
 **stated over the visible class rather than over the realization layer.** Arc B's
 `C_OI(V) = PPer(V)` makes `PPer` the exact OI visible class, so proving it there is both stronger
@@ -60,55 +63,90 @@ the merged `rootedMap_mem_PPer`, and is recorded as a corollary rather than as t
 **Layer 1 is independent of layer 2 altogether.** No result in this layer mentions
 unistochasticity, and none is conditioned on the branch test's outcome.
 
-The declarations are exactly these:
+### The interface is Source C v2's actual process, not a simplification
+
+**The interface is typed from Source C v2 §3 directly**, at these coordinates on act 5's
+authoritative surface convention — the PDF of arXiv:2309.03085v2:
+
+| # | Axiom | Source C v2 |
+|---|---|---|
+| **X1** | `C` finite of size `N`; `T₀ ⊆ T` | §3 |
+| **X2** | `Γ_ij(t ← t₀) ≡ p(i,t \| j,t₀) ∈ [0,1]`, for all `i,j ∈ C`, `t ∈ T`, `t₀ ∈ T₀` | eq (27), p. 9 |
+| **X3** | normalization `Σ_i Γ_ij(t ← t₀) = 1`, for all `j`, `t`, `t₀ ∈ T₀` | eq (28), p. 9 |
+| **X4** | trivialization `Γ_ij(t₀ ← t₀) ≡ δ_ij`, for all `t₀ ∈ T₀` | eq (29), p. 9 |
+| **X5** | `p : C × T → [0,1]` | eqs (30)–(31), p. 9 |
+| **X6** | initial normalization `Σ_j p_j(0) = 1` | eq (32), p. 10 |
+| **X7** | marginalization `p_i(t) = Σ_j Γ_ij(t ← 0) p_j(0)` | eq (33), p. 10 |
+| **X8** | all-time normalization `Σ_i p_i(t) = 1` for all `t` | eq (34), p. 10 |
+| **X9** | divisibility over conditioning times: `Γ_ij(t ← t₀) = Σ_k Γ_ik(t ← t′) Γ_kj(t′ ← t₀)`, for all `t ∈ T` and **all `t₀, t′ ∈ T₀`** | eq (35), p. 10 |
+| **X10** | `A : C × T → ℝ`, **maximal** — containing every well-defined map of that form | eqs (40)–(41) and the text, p. 12 |
+
+**The conditioning argument stays in the interface.** `Γ` is a map carrying `t₀ ∈ T₀`; instantiating
+it at `T₀ = {0}` by `Γ_B(t, 0) := (Γ t)ᵀ` is a *declaration*, and the argument does not disappear
+from the type. Proving `TI1` against a `Γ` that had lost it would be proving it for a weaker tuple
+than Source C defines.
+
+**X9 is a required axiom, and its restriction to `T₀` is the source's own.** Source C p. 10 writes
+"The transition map `Γ` **will be assumed to satisfy** the following divisibility condition … for all
+`i, j ∈ C`, `t ∈ T`, `t₀, t′ ∈ T₀`", and p. 11 adds that when `t′` is a target but not a conditioning
+time the values "will not be well-defined, and the divisibility condition will not hold. The process
+described here is therefore **indivisible for generic target times**." So X9 is an axiom *and*
+consistent with act 1's `BD3`: it constrains only conditioning times and is no general divisibility
+requirement.
+
+### The declarations
 
 | Component | Declaration |
 |---|---|
 | `C` | `V`, the visible carrier |
 | `T` | `ℕ` |
 | `T₀` | `{0}` |
-| `Γ(t ← 0)` | `(Γ t)ᵀ` for the `PPer` family — equivalently `(rootedMap R t)ᵀ` at the realization layer; the transposed orientation act 2 settled |
-| `p` | **an arbitrary normalized declaration**, explicitly parameterized |
-| `A` | the **full (maximal) function algebra on `V`**, taken canonically |
+| `Γ_B(t, 0)` | `(Γ t)ᵀ` for the `PPer` family — equivalently `(rootedMap R t)ᵀ`; the transposed orientation act 2 settled, and the one X3's sum over the first index requires |
+| `p` | **constructed from a parameterized initial `p0`** — see below |
+| `A` | the **full (maximal) algebra on `V × ℕ`**, taken canonically |
 
-**`p` is parameterized, not supplied.** Act 1's Q8 established our datum does not carry it. The
-instantiation theorem therefore quantifies over an arbitrary `p` satisfying non-negativity and
-normalization, and the round **does not** pretend OI supplied one. Any statement of the form "our
-datum determines `p`" is forbidden.
+**`p` is parameterized at time 0 only, and constructed thereafter.** X5–X8 are not satisfied by an
+arbitrary normalized static vector: eq (33) *fixes* every later-time value. So the round
+parameterizes an arbitrary non-negative `p0` with `Σ_j p0 j = 1`, defines
 
-**`A` is taken canonically as the full function algebra on `V`**, not derived and not argued
-minimal. The word "minimal" is not used of it.
+    p i t  :=  ∑ j, (Γ t)ᵀ i j * p0 j
+
+and proves X7 **by construction** and X8 **as a consequence** of X3 and X6 — which is how Source C
+itself derives (34), from (28) and (32). **`p` remains declared rather than OI-supplied**, per Q8;
+what changes is that only `p0` is free. Any statement of the form "our datum determines `p0`" is
+forbidden.
+
+**`A` is the full algebra on `V × ℕ`**, not on `V`. Eq (40) types random variables as maps
+`C × T → ℝ`, and the text requires the algebra to be maximal — "containing every well-defined map of
+the form (40)". The curried form `V → ℕ → ℝ` is acceptable; `V → ℝ` is **not**, and this is a
+type-level requirement rather than a matter of wording. `A` is taken canonically, not derived and
+not argued minimal; the word "minimal" is not used of it.
 
 ### Every axiom individually
 
-**Each axiom of the frozen interface is proved as its own named result**, with no aggregate "the
-tuple axioms hold". The separately frozen subresults are:
-
-1. **finite carrier** — `C = V` is a `Fintype`;
-2. **column-stochasticity after transpose** — `IsColStochastic ((Γ t)ᵀ)`, which is Source A's and
-   Source C's normalization orientation; act 2's `isRowStochastic_iff_isColStochastic_transpose` is
-   consumed, not re-proved;
-3. **identity / trivialization at zero** — `(Γ 0)ᵀ = 1`;
-4. **the normalized standalone `p`** — non-negative and summing to one, as declared;
-5. **the full observable algebra** — `V → ℝ` taken canonically as `A`;
-6. **the singleton-`T₀` conditioning condition** — `T₀ = {0}` as the conditioning-time set.
-
-Act 2's `rootedMap_zero` and `rootedMap_isRowStochastic`, and the transpose lemmas, are **consumed,
-not re-proved**; what is new is the interface and the instantiation.
-
-If stating the interface surfaces an axiom act 1's Q8 did not examine, that axiom is proved or its
-status recorded — Q8's ledger is inherited as a ledger of *components*, and this layer extends it to
-the *interface's axioms*, which is a different question.
+**Each of X1–X10 is proved as its own named result**, with no aggregate "the tuple axioms hold".
+Act 2's `rootedMap_zero`, `rootedMap_isRowStochastic` and the transpose lemmas are **consumed, not
+re-proved**; what is new is the interface and the instantiation.
 
 ### The vacuity theorem, stated separately
 
-**A separate named theorem states that the Source-C divisibility condition restricted to
-`T₀ = {0}` is vacuous** — a condition quantified over conditioning times in a singleton says nothing
-about our all-time `PDivisible`, which quantifies over all intermediate times.
+This layer's treatment of X9 does **two** things, and they are separate named results.
 
-**That theorem must not derive all-time `PDivisible`**, and no outcome of this layer is evidence for
-or against it in either direction. The vacuity is recorded precisely because it is easy to mistake
-for a finding, and in both directions at once: it neither establishes divisibility nor refutes it.
+**First, it discharges X9.** At `T₀ = {0}` the only admissible `t₀` and `t′` are both `0`, so the
+condition reads `Γ_B(t,0) = Σ_k Γ_B(t,0)_{ik} Γ_B(0,0)_{kj}`, and X4's trivialization collapses the
+right-hand side. X9 is therefore **proved**, not skipped — it is one of the ten axioms `TI1`
+requires.
+
+**Second, a separate named theorem states that discharging it says nothing about `PDivisible`.**
+Our `PDivisible` quantifies over **all** intermediate times; X9 quantifies over conditioning times
+in a singleton. **That theorem must not derive all-time `PDivisible`**, and no outcome of this layer
+is evidence for or against it in either direction — it neither establishes divisibility nor refutes
+it. Source C's own p. 11 remark, that the process "is therefore indivisible for generic target
+times", is the source-side counterpart and is cited, not extended.
+
+Keeping these two apart is the point: X9 being *discharged* is a fact about the interface at a
+singleton `T₀`, and reading it as a divisibility finding about OI would be exactly the mistake the
+second theorem exists to block.
 
 ### Layer-1 outcomes
 
@@ -117,7 +155,10 @@ shape above, under the declarations above. Any side condition the theorem's stat
 `Nonempty V` or similar — is **named in the statement** and recorded; it does not change the label.
 
 **`TI2` — a named tuple axiom is incompatible, with counterexample.** A lawful member of the class
-is **exhibited** violating a **named** axiom of the interface. This is a refutation and carries a
+is **exhibited** violating a **named** axiom X1–X10. The burden is against the **fully typed frozen
+interface under the frozen declarations** — with `p` constructed from `p0` and `A` on `V × ℕ` — and
+**not** against a weaker reading: a `PPer` family paired with an arbitrarily chosen bad `p` is not a
+counterexample, because `p` is not free at times after 0. This is a refutation and carries a
 refutation's burden.
 
 **`TI3` — unresolved.** Neither proved nor refuted, with the axiom and the obstruction named.
@@ -237,15 +278,16 @@ from scratch above.
 named result, with `#print axioms` printing only `[propext, Classical.choice, Quot.sound]`, and no
 `sorry`, `axiom` or `native_decide`.
 
-**Definition budget.** The module introduces **at most six** top-level definitions, and these are
-the six:
+**Definition budget.** The module introduces **at most seven** top-level definitions, and these are
+the seven:
 
-1. `BarandesTuple` — the interface (a structure);
-2. its axiom predicate, if the structure does not already carry the axioms as fields;
-3. `IsUnistochastic`;
-4. `DirectBranch`;
-5. `OffDirectBranch`;
-6. the `T₀ = {0}` divisibility condition whose vacuity the separate theorem states.
+1. `BarandesTuple` — the interface (a structure carrying X1–X10);
+2. its axiom predicate, if the structure does not carry the axioms as fields;
+3. the constructed `p` from `Γ_B` and `p0` — inline in the instantiation if that keeps the count;
+4. `IsUnistochastic`;
+5. `DirectBranch`;
+6. `OffDirectBranch`;
+7. the `T₀ = {0}` divisibility condition the separate vacuity theorem is about.
 
 `IsColStochastic` and the transpose lemmas are act 2's and are imported, not redefined. **Witnesses
 are built inside the proofs that need them**, per act 3's lesson — no top-level witness definitions.
@@ -262,7 +304,8 @@ The count is pinned in the result note and guarded.
    softened nor re-derived.
 4. **`CU1a`, `MP4` and `SA2` are cited, never revised.** No outcome here revises any of them, and
    acts 4 and 5 are not reopened.
-5. **`p` is parameterized, never supplied.** No claim that our datum determines it.
+5. **`p0` is parameterized, never supplied**, and `p` at later times is **constructed** per X7, not
+declared. No claim that our datum determines `p0`.
 6. **`A` is the full function algebra, taken canonically.** Not derived, not argued minimal, and the
    word "minimal" is not used of any construction.
 7. **Source coordinates**, where cited, follow act 1's frozen table and act 5's authoritative
@@ -272,9 +315,10 @@ The count is pinned in the result note and guarded.
 9. **No representation shortcut**, per the rule above: `QfbData.born`, `overlap_row_sum`,
    `overlap_col_sum`, `QStar` and representation existence are all disqualified from discharging
    `UB1`, and `IsUnistochastic` is defined from scratch rather than through any of them.
-10. **Each interface axiom is a separately named result** — the six frozen subresults above; no
-    aggregate satisfaction claim. **Layer 1 mentions unistochasticity nowhere** and is conditioned on
-    no layer-2 outcome.
+10. **Each interface axiom is a separately named result** — X1 through X10 above; no aggregate
+    satisfaction claim, and the interface is typed from Source C v2 rather than summarized, so that
+    `TI1` is not proved for a weaker tuple than the source defines. **Layer 1 mentions
+    unistochasticity nowhere** and is conditioned on no layer-2 outcome.
 11. **The `T₀ = {0}` divisibility vacuity is recorded**, and no outcome is read as evidence about
     `PDivisible`.
 12. **`UB2` and `TI2` each require an exhibited lawful counterexample**; failure to prove `UB1`
@@ -294,12 +338,14 @@ any construction; begin the BD3 follow-up, Arc D round 2 or Arc E; edit manuscri
 
 ## Prediction recorded before executing
 
-**`TI1` is likely**, on merged grounds rather than on any reading of a source: the axioms the
-interface will require — non-negativity, normalization after transposition, trivialization at `0` —
-are exactly what `PPer` already carries, with `T₀` and `p` declarable per Q8's ledger. The live path
-away from `TI1` is that stating the interface surfaces an axiom Q8 did not examine; act 4's M1 is
-the standing reminder that an interface's axioms are not its components. Whether such an axiom would
-be *refuted* (`TI2`) or merely *unsettled* (`TI3`) cannot be predicted, and is not.
+**`TI1` is likely, but less trivially than the earlier draft assumed.** X2–X4 are what `PPer`
+already carries after transposition, and X9 collapses by X4 at a singleton `T₀`. What the earlier
+draft missed, and what this freeze now requires, is that X5–X8 are a *law* rather than a
+declaration: eq (33) fixes `p` at every later time, and X8 must be derived rather than assumed. The
+live path away from `TI1` is therefore an axiom the earlier component-level ledger did not examine —
+act 4's M1 one level down, and the reason the interface is typed from the source rather than
+summarized. Whether such an axiom would be *refuted* (`TI2`) or merely *unsettled* (`TI3`) cannot be
+predicted, and is not.
 
 **`UB2` is materially likely, and this is the round's substantive prediction.** The ground is
 merged and definitional, not a reading of Source A's construction: Arc B's `PPer` — the exact OI
@@ -326,8 +372,10 @@ only by an exhibited lawful counterexample, and if none is produced the answer i
 
 ## Allowed final report
 
-1. the frozen interface, with each axiom named and its proof status individually;
-2. the instantiation theorem and the declarations it runs under, with `p` shown parameterized;
+1. the frozen interface X1–X10, with each axiom named, cited to Source C v2, and its proof status
+   individually;
+2. the instantiation theorem and the declarations it runs under, with `p0` shown parameterized and
+   `p` shown constructed per X7, and `A` on `V × ℕ`;
 3. the layer-1 label `TI1`–`TI3`, with `TI2`'s named axiom and exhibited counterexample if reached,
    or `TI3`'s named obstruction;
 4. the unistochasticity predicate and the universal statement, in the transposed orientation;
@@ -335,7 +383,8 @@ only by an exhibited lawful counterexample, and if none is produced the answer i
    concrete matrix;
 6. the **pair** `(TIx, UBy)`, reported as a pair and not collapsed;
 7. the recorded predictions and whether each held;
-8. the `T₀ = {0}` divisibility vacuity, and that no outcome bears on `PDivisible`;
+8. X9 discharged at `T₀ = {0}` by trivialization, and — separately — that discharging it bears on
+   `PDivisible` in neither direction;
 9. the definition count, and the `#print axioms` line for every named result;
 10. what remains open and what would settle it — including, under `UB2`, that the dilated branch is
     now the load-bearing obligation;
