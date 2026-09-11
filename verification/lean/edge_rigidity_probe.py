@@ -8701,6 +8701,436 @@ check('R7-SRCA', ok_sa,
       'exercised on one-byte-drifted bytes. Eight named contracts, each mutation-tested against the exact failure it '
       'exists to catch, plus the freeze-pin controls.')
 
+# ---- R7-TUPLE: Track B act 6 -- tuple instantiation and the Source-A branch test ----
+#
+# The first Track B round since act 2 to write Lean, and the first to report a PAIR of outcomes from
+# two logically independent layers. That pairing is itself the live failure mode: collapsing
+# (TI1, UB2) into one headline, or letting either label lean on the other, would assert a connection
+# neither layer proves. The second failure mode is orientation -- the UB2 refutation runs through the
+# ROW half of the structural lemma applied to `Aᵀ`, and the opposite reading was written into a draft
+# of the freeze and corrected under review, so it is pinned here rather than trusted. The third is
+# the representation shortcut: `IsUnistochastic` must be a statement about the matrix under test, not
+# about an encoding of it.
+_TU = open(os.path.join(BRIDGE, 'OIBridge', 'BarandesTuple.lean'), encoding='utf-8').read()
+_TURES = open(os.path.join(_BB, 'BARANDES-TUPLE-INSTANTIATION-RESULT.md'), encoding='utf-8').read()
+_TURES1 = ' '.join(_TURES.split())
+# comments and docstrings stripped: the module's own disclaimers NAME the disqualified objects, so a
+# check that the module does not USE them must look at code alone
+_TUCODE = re.sub(r'/-.*?-/|--[^\n]*', '', _TU, flags=re.S)
+
+
+def _tu_freeze_pin(read=_bb_read):
+    """H1 -- the preregistration is byte-identical to the blob frozen by PR #570.
+
+    Injectable reader, so both controls below run through THIS predicate: positive on the real bytes
+    and negative on drifted ones. A separately computed digest would leave the pin passing with this
+    function sabotaged to `return True`."""
+    return (_bb_blob('BARANDES-TUPLE-INSTANTIATION-PREREGISTRATION.md', read)
+            == '2a2216b7791e93303598dafb0d035db18ad9d88a')
+
+
+def _tu_pair(txt1):
+    """H2 -- the headline is the ORDERED PAIR, both labels present, neither collapsed.
+
+    The freeze fixed two orthogonal grids precisely so that one label could not stand for the round.
+    A note reporting only `TI1`, or only `UB2`, would be reporting a different round."""
+    return ('**`(TI1, UB2)`.**' in txt1
+            and '**`TI1` — tuple instantiation proved.**' in txt1
+            and '**`UB2` — the direct branch refuted.**' in txt1
+            and '**The two labels are independent and are reported as a pair.**' in txt1)
+
+
+def _tu_layers_independent(src, txt1):
+    """H3 -- the two layers are independent in the SOURCE, not only in the prose.
+
+    Layer 1 is checked to mention unistochasticity NOWHERE between its own section marker and
+    Layer 2's -- the freeze's control 10 -- so `TI1` cannot have been conditioned on a Layer-2
+    outcome. The prose disclaimer is checked alongside it, since either alone is weaker: prose
+    without the source check is unenforced, and the source check without the prose leaves a reader
+    free to draw the connection the round does not prove."""
+    i = src.find('/-! ### Layer 1 —')
+    j = src.find('/-! ### Layer 2 —')
+    if i < 0 or j <= i:
+        return False
+    return ('Unistochastic' not in src[i:j]
+            and 'Layer 1 mentions unistochasticity nowhere and is conditioned on no Layer-2 outcome'
+                in txt1
+            and 'Neither label is evidence for the other' in txt1)
+
+
+_TU_DEF_NAMES = {
+    'BarandesTuple', 'tupleP', 'SingletonT0Divisible', 'barandesTupleOfPPer',
+    'IsUnistochastic', 'DirectBranch', 'OffDirectBranch',
+}
+
+
+def _tu_def_budget(src, txt1):
+    """H4 -- exactly the SEVEN frozen top-level definitions, and no eighth.
+
+    The freeze enumerates seven and says witnesses are built inside the proofs that need them, per
+    act 3's lesson. The count is the contract: a round that may add definitions after seeing what
+    proves is not preregistered. This is the check the execution actually failed once -- an eighth
+    definition existed and became a theorem -- so it is guarded rather than remembered."""
+    names = set(re.findall(r'(?m)^(?:noncomputable\s+)?(?:def|structure)\s+([A-Za-z_][\w\'.]*)', src))
+    return names == _TU_DEF_NAMES and '**Exactly seven** top-level definitions' in txt1
+
+
+def _tu_frozen_shapes(src):
+    """H4b -- the three Layer-2 propositions have the shapes the freeze fixed, verbatim.
+
+    The definition NAMES matching is not enough: `OffDirectBranch` weakened to a statement about one
+    carrier, or `DirectBranch` quantified over realizations instead of the class, would keep the name
+    and change the round. `IsUnistochastic` is pinned in its from-scratch form for the same reason."""
+    for d in (
+        'def IsUnistochastic (M : Matrix V V ℝ) : Prop :=\n'
+        '  ∃ U : Matrix V V ℂ, U ∈ Matrix.unitaryGroup V ℂ ∧ ∀ i j, M i j = ‖U i j‖ ^ 2',
+        'def DirectBranch : Prop :=\n'
+        '  ∀ (W : Type) (_ : Fintype W) (_ : DecidableEq W) (Γ : ℕ → Matrix W W ℝ),\n'
+        '    PPer Γ → ∀ t, IsUnistochastic (Γ t)ᵀ',
+        'def OffDirectBranch : Prop :=\n'
+        '  ∃ (W : Type) (_ : Fintype W) (_ : DecidableEq W) (Γ : ℕ → Matrix W W ℝ),\n'
+        '    PPer Γ ∧ ∃ t, ¬ IsUnistochastic (Γ t)ᵀ',
+    ):
+        if d not in src:
+            return False
+    return True
+
+
+def _tu_no_shortcut(code, txt1):
+    """H5 -- no representation shortcut, checked in the CODE and not only in the disclaimer.
+
+    Arc D's `RD1` disqualifies inferring visible unistochasticity from the existence of a
+    representation, and the freeze disqualifies `QfbData.born`, `overlap_row_sum`, `overlap_col_sum`
+    and `QStar` by name. Defining `IsUnistochastic` through any of them would decide the branch test
+    by the encoding rather than by the matrix under test, so the module's executable text is checked
+    to mention none of them -- its docstrings do, which is why the comment-stripped source is what is
+    read."""
+    return (not any(s in code for s in
+                    ('QfbData', 'QStar', 'overlap_row_sum', 'overlap_col_sum', '.born'))
+            and 'No representation shortcut is taken anywhere in the layer' in txt1)
+
+
+def _tu_row_orientation(src, txt1):
+    """H6 -- the UB2 refutation runs through the ROW half, applied to `Aᵀ`, and says so.
+
+    The single most reversible sentence in the round. Transposing a row-stochastic matrix makes it
+    column-stochastic, so `Aᵀ` IS column-stochastic and it is its ROW sums that fail; an execution
+    refuting via column-stochasticity of `Aᵀ` would be proving the wrong obligation. The note is
+    checked to state both halves -- that `Aᵀ` is column-stochastic AND that the row half is what
+    refutes -- since stating only the second leaves the reader unable to see why it is not the
+    first. The source is checked to carry the row-sum computation."""
+    return ('so `Aᵀ` **is** column-stochastic' in txt1
+            and 'The refutation therefore runs through the ROW half of the structural lemma applied '
+                'to `Aᵀ`, and not the column half.' in txt1
+            and 'have hbad : ∑ j, (Wᵀ) 1 j = 0' in src)
+
+
+def _tu_branch_not_dilation(txt1):
+    """H7 -- direct unistochasticity and dilatability stay distinct, in BOTH directions.
+
+    The control the round exists to protect. One direction alone is not enough: a note saying only
+    that UB2 does not imply inapplicability still leaves the converse inference -- that a dilation
+    would show the matrix unistochastic -- available. The dilated branch is checked recorded as act
+    5's UNADJUDICATED one and as an obligation rather than a finding."""
+    return ('**`UB2` does not say Source A is inapplicable to OI.**' in txt1
+            and 'the existence of a dilation would not show the original matrix unistochastic, and '
+                'no result here infers one from the other' in txt1
+            and "act 5's unadjudicated dilated branch" in txt1.replace('**', '')
+            and '**No result in this round says the external correspondence fails.**' in txt1)
+
+
+def _tu_x9_two_parts(src, txt1):
+    """H8 -- the `T₀ = {0}` vacuity is recorded in TWO parts and neither is dropped.
+
+    Part one discharges X9 at the singleton. Part two is the one that matters for over-reading:
+    discharging it bears on our all-time `PDivisible` in NEITHER direction, proved by exhibiting two
+    `PPer` families that both satisfy the singleton condition, one P-divisible and one not. Without
+    part two, `TI1` reads as evidence that the OI family is divisible, which would put act 1's `BD3`
+    in question on no evidence at all. The theorem is checked to EXIST, since the prose alone would
+    be an assertion."""
+    return ('theorem singletonDivisible_independent_of_pdivisible' in src
+            and 'X9 is a required axiom, not an optional one' in txt1.replace('**', '')
+            and 'discharging it bears on `PDivisible` in neither direction' in txt1.replace('**', '')
+            and 'one `PDivisible` and one not' in txt1
+            and "`BD3` is untouched" in txt1)
+
+
+def _tu_p_constructed(src, txt1):
+    """H9 -- `p` is CONSTRUCTED per X7 and X8 is DERIVED, with `p0` parameterized.
+
+    This is the correction that made the freeze's interface the source's rather than a shorthand of
+    it. Source C eq (33) FIXES `p` at every later time from `p(0)` and `Γ`, so a tuple with a freely
+    declared normalized `p` at every time is a WEAKER object than the source defines, and a `TI1`
+    proved against it would be proved against the wrong target. Act 1's Q8 is checked cited, since
+    parameterizing `p0` is exactly the statement that our datum does not supply it."""
+    return ('X8 is derived from X3 and X6' in txt1.replace('**', '')
+            and '`p0` is parameterized, never supplied' in txt1.replace('**', '')
+            and '`p` at later times is constructed, not declared' in txt1.replace('**', '')
+            and "Act 1's **Q8** established that our datum does not carry `p`" in txt1
+            and 'hp0sum : ∑ j, p0 j = 1' in src)
+
+
+def _tu_outcome_theorems(src):
+    """H10 -- exactly the outcome-bearing theorems the reached labels license.
+
+    `UB1` and `UB2` are contradictory, and the freeze earns each only by a named proof. So which
+    theorems exist IS the layer-2 outcome: `offDirectBranch` and `not_directBranch` present, and no
+    theorem asserting `DirectBranch` itself. `barandesTupleOfPPer` carries `TI1`."""
+    has = lambda n: re.search(r'(?m)^(?:noncomputable\s+)?(?:theorem|def)\s+' + n + r'\b', src)
+    return (bool(has('barandesTupleOfPPer'))
+            and bool(has('offDirectBranch'))
+            and bool(has('not_directBranch'))
+            and re.search(r'(?m)^theorem\s+directBranch\b', src) is None
+            and ': DirectBranch :=' not in src)
+
+
+def _tu_axioms(src, txt1):
+    """H11 -- every named result carries a print target, name for name, and the count matches the note.
+
+    A source contract rather than a log one: the build prints what the module asks it to print, so a
+    named result with no `#print axioms` line is a result whose axiom basis is never displayed. The
+    check is by NAME rather than by count, so a line deleted and another duplicated would not pass.
+    The named results are the twenty-three theorems together with `barandesTupleOfPPer`, which carries
+    `TI1` and is a definition only because the tuple it builds is data; the five Prop-valued
+    definitions are definitions rather than results and print nothing."""
+    printed = set(re.findall(r'(?m)^#print axioms OIBridge\.BarandesTupleRound\.([\w\'.]+)', src))
+    named = set(re.findall(r'(?m)^theorem\s+([A-Za-z_][\w\'.]*)', src)) | {'barandesTupleOfPPer'}
+    return (printed == named and len(printed) == 24
+            and '**Twenty-four named results**' in txt1
+            and '`[propext, Classical.choice, Quot.sound]`' in txt1)
+
+
+def _tu_priors_unrevised(txt1):
+    """H12 -- the merged Track B outcomes are cited and left as merged, and nothing is sourced.
+
+    Six outcomes stand upstream of this round and control 4 forbids revising any of them. The
+    sourcing disclaimer is checked in the same contract because Amendment 2's track separation runs
+    BOTH ways, and a note asserting only one direction would leave the other open."""
+    return ("act 3's `CU1a`, act 4's `MP4` and act 5's" in txt1.replace('**', '')
+            and 'left exactly as merged' in txt1
+            and 'Acts 4 and 5 are not reopened' in txt1
+            and 'Nothing here is a sourcing claim' in txt1.replace('**', '')
+            and 'no result here is evidence for Track I' in txt1)
+
+
+# X1a-X10 in the frozen order, each mapped to the named result(s) that carry it. The freeze says
+# verbatim: "Each of X1a-X10 is proved as its own named result, with no aggregate 'the tuple axioms
+# hold'." Four of the ten are carried by the DECLARATIONS rather than by a computation, and those are
+# exactly the ones an execution is tempted to leave implicit -- an `init := 0` or an `alg := ⊤`
+# inside the instantiation is a component supplied without ever being stated.
+_TU_AXIOM_RESULTS = {
+    'X1a': ('decl_carrier_finite',),
+    'X1b': ('decl_init_eq_zero',),
+    'X1c': ('decl_T0_singleton_containing_init',),
+    'X2': ('transpose_nonneg', 'transpose_le_one'),
+    'X3': ('transpose_isColStochastic',),
+    'X4': ('transpose_zero',),
+    'X5': ('tupleP_nonneg', 'tupleP_le_one'),
+    'X6': ('tupleP_init_sum',),
+    'X7': ('tupleP_marg',),
+    'X8': ('tupleP_sum',),
+    'X9': ('singletonDivisible_of_pper',),
+    'X10': ('decl_alg_maximal',),
+}
+
+
+def _tu_axioms_each_named(src, txt1):
+    """H14 -- each of X1a-X10 is proved as its OWN named result, and the note names which.
+
+    The freeze's wording is verbatim and admits no assembly: a component discharged inline inside
+    `barandesTupleOfPPer` is not a named result, and neither is one supplied only as a field value.
+    Counting `#print axioms` targets does not catch this -- the module had eighteen of them while six
+    axioms had no result of their own -- so the check is per axiom: the carrying theorem exists at
+    top level AND has a print target AND is the one the result note's axiom table cites. The table
+    is what a reader checks the claim against, so a theorem present but uncited would still leave the
+    note asserting something the artifact does not show."""
+    printed = set(re.findall(r'(?m)^#print axioms OIBridge\.BarandesTupleRound\.([\w\'.]+)', src))
+    for axiom, names in _TU_AXIOM_RESULTS.items():
+        for n in names:
+            if re.search(r'(?m)^(?:noncomputable\s+)?theorem\s+' + n + r'\b', src) is None:
+                return False
+            if n not in printed:
+                return False
+            if ('| **%s** |' % axiom) not in txt1:
+                return False
+            # the note's row for this axiom must cite this result
+            row = txt1.split('| **%s** |' % axiom, 1)[1].split(' |\n')[0]
+            if n not in row.split('| **X')[0]:
+                return False
+    return ('Each axiom is a **separately named result**, as the freeze requires' in txt1
+            and "with no aggregate 'the tuple axioms hold'" in txt1)
+
+
+def _tu_existential_scope(txt1):
+    """H15 -- `UB2` is reported as EXISTENTIAL, and the dilation consequence is scoped to the full
+    class.
+
+    `OffDirectBranch` exhibits ONE lawful member off the direct branch and refutes the universal
+    `DirectBranch`. It does not classify the class, so "the route from OI to Source A runs through
+    the dilation" is too strong unless 'route' is the route covering all of `PPer`. The contract is
+    both halves: the full-class scoping AND the explicit statement that directly unistochastic
+    members may still use the direct branch, since the second is what stops an existential
+    counterexample being read back as a universal classification."""
+    t = txt1.replace('**', '')
+    return ('This is an existential refutation of the universal statement, not a classification of '
+            'the class' in t
+            and 'a correspondence covering all of `PPer` cannot stay entirely on the direct branch'
+                in t
+            and 'must handle Source A\'s dilated branch for the exhibited off-direct members' in t
+            and 'Directly unistochastic OI members may still use the direct branch' in t)
+
+
+def _tu_registered(src):
+    """H13 -- reachability and registration, without which every check above is unenforced.
+
+    An unimported module is never built, so its `#print axioms` lines never run and its proofs never
+    face the kernel in CI; an unregistered one is invisible to the census."""
+    return ('import OIBridge.BarandesTuple' in open(
+                os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
+            and '"BarandesTuple"' in open(
+                os.path.join(_BB, 'lean-manuscript-census.json'), encoding='utf-8').read()
+            and 'namespace BarandesTupleRound' in src)
+
+
+ok_tu = True
+ok_tu &= _tu_freeze_pin()
+ok_tu &= _tu_pair(_TURES1)
+ok_tu &= _tu_layers_independent(_TU, _TURES1)
+ok_tu &= _tu_def_budget(_TU, _TURES1)
+ok_tu &= _tu_frozen_shapes(_TU)
+ok_tu &= _tu_no_shortcut(_TUCODE, _TURES1)
+ok_tu &= _tu_row_orientation(_TU, _TURES1)
+ok_tu &= _tu_branch_not_dilation(_TURES1)
+ok_tu &= _tu_x9_two_parts(_TU, _TURES1)
+ok_tu &= _tu_p_constructed(_TU, _TURES1)
+ok_tu &= _tu_outcome_theorems(_TU)
+ok_tu &= _tu_axioms(_TU, _TURES1)
+ok_tu &= _tu_priors_unrevised(_TURES1)
+ok_tu &= _tu_axioms_each_named(_TU, _TURES1)
+ok_tu &= _tu_existential_scope(_TURES1)
+ok_tu &= _tu_registered(_TU)
+
+# ---- mutation controls: each predicate is exercised on the exact failure it exists to catch ----
+
+_tu_m1 = _TURES1.replace('**`(TI1, UB2)`.**', '**`TI1`.**')
+ok_tu &= _tu_m1 != _TURES1 and not _tu_pair(_tu_m1)
+
+_tu_m2 = _TU.replace('def OffDirectBranch : Prop :=',
+                     'def UnistochasticWitness : Prop := True\n\ndef OffDirectBranch : Prop :=')
+ok_tu &= _tu_m2 != _TU and not _tu_def_budget(_tu_m2, _TURES1)
+
+_tu_m3 = _TU.replace('  ∃ (W : Type) (_ : Fintype W) (_ : DecidableEq W) (Γ : ℕ → Matrix W W ℝ),\n'
+                     '    PPer Γ ∧ ∃ t, ¬ IsUnistochastic (Γ t)ᵀ',
+                     '  ∃ (Γ : ℕ → Matrix (Fin 2) (Fin 2) ℝ),\n'
+                     '    PPer Γ ∧ ∃ t, ¬ IsUnistochastic (Γ t)ᵀ')
+ok_tu &= _tu_m3 != _TU and not _tu_frozen_shapes(_tu_m3)
+
+_tu_m4 = _TUCODE.replace('def IsUnistochastic (M : Matrix V V ℝ) : Prop :=',
+                         'def IsUnistochastic (M : Matrix V V ℝ) : Prop := ∃ Q : QfbData V, True\n'
+                         'def IsUnistochasticOld (M : Matrix V V ℝ) : Prop :=')
+ok_tu &= _tu_m4 != _TUCODE and not _tu_no_shortcut(_tu_m4, _TURES1)
+
+# the reversal the freeze was corrected for: row and column swapped in the note's own sentence
+_tu_m5 = _TURES1.replace('The refutation therefore runs through the ROW half of the structural lemma '
+                         'applied to `Aᵀ`, and not the column half.',
+                         'The refutation therefore runs through the COLUMN half of the structural '
+                         'lemma applied to `Aᵀ`, and not the row half.')
+ok_tu &= _tu_m5 != _TURES1 and not _tu_row_orientation(_TU, _tu_m5)
+
+_tu_m6 = _TURES1.replace('the existence of a dilation would not show the original matrix '
+                         'unistochastic, and no result here infers one from the other',
+                         'a dilation would establish the matrix unistochastic on the larger carrier')
+ok_tu &= _tu_m6 != _TURES1 and not _tu_branch_not_dilation(_tu_m6)
+
+_tu_m7 = _TU.replace('theorem singletonDivisible_independent_of_pdivisible',
+                     'theorem singletonDivisible_note_pdivisible')
+ok_tu &= _tu_m7 != _TU and not _tu_x9_two_parts(_tu_m7, _TURES1)
+
+_tu_m8 = _TURES1.replace('X8 is derived from X3 and X6', 'X8 is assumed alongside X3 and X6')
+ok_tu &= _tu_m8 != _TURES1 and not _tu_p_constructed(_TU, _tu_m8)
+
+_tu_m9 = _TU.replace('theorem not_directBranch : ¬ DirectBranch := by',
+                     'theorem directBranch : DirectBranch := by')
+ok_tu &= _tu_m9 != _TU and not _tu_outcome_theorems(_tu_m9)
+
+_tu_m10 = _TU.replace('#print axioms OIBridge.BarandesTupleRound.offDirectBranch\n', '', 1)
+ok_tu &= _tu_m10 != _TU and not _tu_axioms(_tu_m10, _TURES1)
+
+_tu_m11 = _TURES1.replace('left exactly as merged', 'revisited in the light of this round')
+ok_tu &= _tu_m11 != _TURES1 and not _tu_priors_unrevised(_tu_m11)
+
+# the layer-independence control runs on the SOURCE, which is the half prose cannot supply
+_tu_m12 = _TU.replace('noncomputable def tupleP (Γ : ℕ → Matrix V V ℝ) (p0 : V → ℝ) : V → ℕ → ℝ :=',
+                      'theorem tupleP_uni : True := trivial\n'
+                      '-- IsUnistochastic\n'
+                      'noncomputable def tupleP (Γ : ℕ → Matrix V V ℝ) (p0 : V → ℝ) : V → ℕ → ℝ :=')
+ok_tu &= _tu_m12 != _TU and not _tu_layers_independent(
+    _tu_m12.replace('-- IsUnistochastic', 'IsUnistochastic'), _TURES1)
+
+# the exact miss this contract exists to catch: X7 discharged inline in the instantiation, with the
+# print-target count left consistent, which every other check here would pass
+_tu_m13 = _TU.replace('theorem tupleP_marg', 'theorem tupleP_marg_aux').replace(
+    '#print axioms OIBridge.BarandesTupleRound.tupleP_marg\n', '', 1)
+ok_tu &= _tu_m13 != _TU and not _tu_axioms_each_named(_tu_m13, _TURES1)
+
+# a declaration-level axiom left implicit: X10 supplied as a field value and never stated
+_tu_m14 = _TU.replace('theorem decl_alg_maximal', 'theorem decl_alg_note')
+ok_tu &= _tu_m14 != _TU and not _tu_axioms_each_named(_tu_m14, _TURES1)
+
+# the existential read back as a universal classification
+_tu_m15 = _TURES1.replace('Directly unistochastic OI members may still use the direct branch',
+                          'Every OI member is therefore off the direct branch')
+ok_tu &= _tu_m15 != _TURES1 and not _tu_existential_scope(_tu_m15)
+
+# H1's controls both run THROUGH _tu_freeze_pin, so sabotaging that predicate fails the guard.
+def _tu_drift(path):
+    """One byte appended to the act 6 preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path == 'BARANDES-TUPLE-INSTANTIATION-PREREGISTRATION.md' else b'')
+
+
+ok_tu &= _tu_drift('BARANDES-TUPLE-INSTANTIATION-PREREGISTRATION.md') != _bb_read(
+    'BARANDES-TUPLE-INSTANTIATION-PREREGISTRATION.md')
+ok_tu &= not _tu_freeze_pin(_tu_drift)
+
+# standing hygiene on the module
+ok_tu &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _TU) is None and 'native_decide' not in _TU
+ok_tu &= 'axiom ' not in _TUCODE and re.search(r'(?m)^axiom ', _TU) is None
+
+check('R7-TUPLE', ok_tu,
+      'Track B act 6 guard: the first Track B round since act 2 to write Lean, and the first to report a PAIR of '
+      'outcomes from two logically independent layers, so the pairing itself is what is guarded first. The headline is '
+      'checked to be the ordered pair (TI1, UB2) with both labels present and the independence stated, since '
+      'collapsing them into one headline would assert a connection neither layer proves. That independence is then '
+      'checked in the SOURCE and not only in the prose: Layer 1 mentions unistochasticity NOWHERE between its own '
+      'section marker and Layer 2\'s, so TI1 cannot have been conditioned on a layer-2 outcome, and the mutation '
+      'inserting one mention fails. The SEVEN frozen top-level definitions are checked to be exactly the ones present '
+      'and no eighth -- the check this execution actually failed once, when an eighth definition existed and became a '
+      'theorem -- and the three layer-2 propositions are pinned in their frozen SHAPES as well as their names, since '
+      'OffDirectBranch weakened to one carrier or DirectBranch quantified over realizations would keep the name and '
+      'change the round. The representation shortcut is checked in the comment-stripped CODE, not in the disclaimer: '
+      'the module\'s docstrings NAME QfbData, QStar, born and overlap in order to disqualify them, so a check on the '
+      'raw text would be vacuous, and defining IsUnistochastic through any of them would decide the branch test by '
+      'the encoding rather than by the matrix under test. The UB2 orientation is pinned in both halves -- that A '
+      'transposed IS column-stochastic AND that the ROW half of the structural lemma is what refutes -- because '
+      'transposing a row-stochastic matrix makes it column-stochastic, the opposite reading was written into a draft '
+      'of the freeze and corrected under review, and stating only the second half leaves a reader unable to see why '
+      'it is not the first; the row-sum computation is checked present in the source and the reversal mutation-tested '
+      'to fail. Direct unistochasticity and dilatability are checked kept apart in BOTH directions, since a note '
+      'saying only that UB2 does not imply inapplicability still leaves the converse inference available, and the '
+      'dilated branch is checked recorded as act 5\'s unadjudicated one. The T0 = {0} vacuity is checked recorded in '
+      'TWO parts with the second proved rather than asserted -- the theorem exhibiting two PPer families that both '
+      'satisfy the singleton condition, one P-divisible and one not -- because without it TI1 reads as evidence that '
+      'the OI family is divisible and puts act 1\'s BD3 in question on no evidence at all. p is checked CONSTRUCTED '
+      'per X7 with X8 DERIVED from X3 and X6 and p0 parameterized against act 1\'s Q8, which is the correction that '
+      'made the interface the source\'s rather than a shorthand of it: a tuple with a freely declared normalized p at '
+      'every time is a WEAKER object than Source C defines. Which outcome-bearing theorems exist IS the layer-2 '
+      'outcome, so offDirectBranch and not_directBranch are checked present and any theorem asserting DirectBranch '
+      'checked absent. Each of X1a-X10 is checked to have its OWN named result, per the freeze\'s verbatim wording, and to be the one the result note\'s axiom table cites -- the check this round actually needed, since the module carried eighteen print targets while six axioms had no result of their own, four of them the declaration-level ones an execution leaves implicit as an init or an algebra field. UB2 is checked reported as EXISTENTIAL with the dilation consequence scoped to the FULL-CLASS route, both halves, since without the sentence that directly unistochastic members may still use the direct branch an existential counterexample reads back as a universal classification. Axiom reporting is a source contract, twenty-four print targets matching the twenty-four named '
+      'results and the count the note states, and registration and reachability are separate, since an unimported '
+      'module never faces the kernel in CI. Fifteen named contracts, each mutation-tested against the exact failure '
+      'it exists to catch, plus the freeze-pin controls and the standing hygiene checks.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
