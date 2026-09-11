@@ -132,7 +132,22 @@ Exactly these, in this order. Each is answered separately, with pinpoint Source 
 
 **A1 — identification of the object.** What exact object in Source A plays the intermediate /
 relative propagator role? Named by equation number and page, with its type stated: operator or
-visible (stochastic) matrix, and indexed from which times.
+visible (stochastic) matrix, and indexed from which times. Three admissible answers:
+
+- ***identified*** — an object is named, and the round proceeds to A2;
+- ***positively none*** — a **positive audit finding** that no site S1–S4, and no common object they
+  instantiate, plays the role in the load-bearing sense. This is a determination about Source A and
+  it supports `SA3`, with A2–A6 **not reached**;
+- ***unresolved*** — the source, or this round's reading of it, does not settle **which** object
+  plays the role. This is a gap in the identification, not a finding that there is no object; it
+  gives `SA4`, with A2–A6 **not reached**.
+
+***Positively none* and *unresolved* are not interchangeable at A1**, and an unresolved A1 is
+**never routed through A2**. Treating "we could not say which object it is" as "Source A forms no
+such object" would make non-identification into evidence that Source A produces no candidate — the
+same unresolved-versus-negative conflation this freeze forbids everywhere else. The burden for
+*positively none* is the burden of any negative finding: it is exhibited against the source's own
+development, not inferred from the round's failure to identify.
 
 **A2 — construction or post-processing.** Is that object part of Source A's own construction, or is
 it something this round would be inventing on the source's behalf? Answered from the source's own
@@ -186,6 +201,8 @@ way, and act 5 inherits the discipline explicitly rather than by analogy.
 
 | Terminating answer | Outcome | Not reached |
 |---|---|---|
+| A1 *positively none* | `SA3` | A2, A3, A4, A5, A6 |
+| A1 *unresolved* | `SA4` | A2, A3, A4, A5, A6 |
 | A2 *not part of the construction* | `SA3` | A3, A4, A5, A6 |
 | A2 *undetermined* | `SA4` | A3, A4, A5, A6 |
 | A3 cannot be completed | `SA4` | A4, A5, A6 |
@@ -198,8 +215,9 @@ terms. Not silently omitted, and not *unresolved*: under `SA3` the reason there 
 identify is that Source A's development forms no visible intermediate candidate, which is `SA3`'s
 own finding and not a further gap in the source.
 
-**A1 is always reached**, since A2 presupposes an identified object; if A1 itself cannot name one,
-that is an A2 *not part of the construction* answer and the round is an `SA3`.
+**A1 is always reached**, being the first question — but reaching it does not mean answering it
+*identified*. Its two terminating answers are distinguished in the table above precisely because
+they carry opposite evidential weight, and neither passes through A2.
 
 ## The control that act 4 earned: operator freedom is not candidate freedom
 
@@ -247,31 +265,38 @@ Source A data A3 lists** — a freedom internal to Source A's own construction. 
 missing from *our* side: containment against our `RootedRealization` is deliberately deferred (see
 above), so no `SA2` finding says or implies anything about what our datum supplies.
 
-**`SA3` — no candidate produced.** A2 is *not part of the construction*: Source A's development does
-not itself form a visible intermediate candidate, and forming one would be post-processing this
-round invents. A3 through A6 are then **not reached**, A6 with the reason stated. Reported at that
-scope — a determination about **Source A's construction**, never a claim that no candidate exists or
-that none could be defined.
+**`SA3` — no candidate produced.** Either A1 is *positively none*, or A1 is *identified* and A2 is
+*not part of the construction*: Source A's development does not itself form a visible intermediate
+candidate, and forming one would be post-processing this round invents. The downstream questions are
+then **not reached** per the table, A6 with the reason stated. Reported at that scope — a
+determination about **Source A's construction**, never a claim that no candidate exists or that none
+could be defined.
 
-**`SA4` — source or interface insufficient to decide.** Any of: A2 undetermined; A3 unable to list
-the inputs; A4 leaving a permitted freedom unexamined that bears on A5; A5 unresolved; **A6
-unresolved**. Reported as **open**, with exactly which question is open and what would settle it.
-Not a negative result and not evidence for any other outcome.
+**`SA4` — source or interface insufficient to decide.** Any of: **A1 unresolved**; A2 undetermined;
+A3 unable to list the inputs; A4 leaving a permitted freedom unexamined that bears on A5; A5
+unresolved; **A6 unresolved**. Reported as **open**, with exactly which question is open and what
+would settle it. Not a negative result and not evidence for any other outcome — in particular, an
+`SA4` from an unresolved A1 says nothing whatever about whether Source A forms such an object.
 
 **A6 unresolved is an `SA4`, not a downgrade of A5.** A construction can fix a unique visible
 candidate that Source A does not specify well enough to place among our rules: A5 *unique* with A6
 *unresolved* is a coherent state of the evidence, it belongs to no other outcome, and it is reported
 as `SA4` with A5's finding stated in full rather than discarded.
 
-**Exhaustiveness.** If A2 answers *not part of the construction* → `SA3`. Otherwise if A2 is
-undetermined, or A3 cannot be completed, or A4 leaves a bearing freedom unexamined, or A5 is
-unresolved, or A6 is unresolved → `SA4`. Otherwise A5 decides `SA1` against `SA2`. The cases are
-disjoint and exhaust the possibilities.
+**Exhaustiveness.** Taken in order. If A1 answers *positively none* → `SA3`; if A1 answers
+*unresolved* → `SA4`. Otherwise A1 is *identified*, and: if A2 answers *not part of the
+construction* → `SA3`. Otherwise if A2 is undetermined, or A3 cannot be completed, or A4 leaves a
+bearing freedom unexamined, or A5 is unresolved, or A6 is unresolved → `SA4`. Otherwise A5 decides
+`SA1` against `SA2`. The cases are disjoint and exhaust the possibilities.
+
+**The two `SA3` routes and the two `SA4` routes are distinguished in the report**, never collapsed:
+an `SA3` says which of A1 *positively none* or A2 *not part of the construction* produced it, and an
+`SA4` says which question was the one left open.
 
 **A6 is reported under every outcome**, with the status the table above assigns it: its answer under
 `SA1` and `SA2`; *unresolved* in the `SA4` that its being unresolved produces; and **not reached**
 under `SA3`, and under any `SA4` terminated before A6 — in the `SA3` case with the reason stated, *no
-candidate exists at this interface*. The same holds for A3, A4 and A5: each appears in the report
+candidate exists at this interface*. The same holds for A2, A3, A4 and A5: each appears in the report
 with an answer or an explicit *not reached*, never absent.
 
 ## Prediction recorded before executing
@@ -318,8 +343,9 @@ its natural first step.
    the control above; unexhibited freedom is recorded as representation freedom.
 9. **Each of A1–A6 appears individually in the report** — with its citation when answered, or with
    an explicit **not reached** when an earlier question terminated the taxonomy, per the table above.
-   None is silently omitted, a not-reached question is never called *unresolved*, and A4's freedoms
-   are enumerated rather than summarized.
+   None is silently omitted, a not-reached question is never called *unresolved*, an **unresolved A1
+   is never routed through A2 and never reported as a negative finding about Source A**, and A4's
+   freedoms are enumerated rather than summarized.
 10. **Direction is stated, never assumed.** Every mapping claim says whether it establishes the
     forward or the backward obligation.
 11. **No manuscript edit**, whatever is found.
@@ -353,7 +379,9 @@ begin the tuple-instantiation lemma, the BD3 follow-up, Arc D round 2 or Arc E; 
 ## Allowed final report
 
 1. A1–A6, each appearing individually — answered with its Source A citation, or marked **not
-   reached** with the terminating answer named;
+   reached** with the terminating answer named. A1's answer is one of *identified*, *positively
+   none*, or *unresolved*, and where the outcome is `SA3` or `SA4` the report says **which** of the
+   two routes to that label produced it;
 2. A4's permitted freedoms, enumerated, each with the object's behaviour under it or an explicit
    *not examined* — or A4 marked *not reached*;
 3. A5's answer at the visible level, with any exhibited counterexample given as two concrete
