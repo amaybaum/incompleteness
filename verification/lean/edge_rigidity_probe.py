@@ -9131,6 +9131,283 @@ check('R7-TUPLE', ok_tu,
       'module never faces the kernel in CI. Fifteen named contracts, each mutation-tested against the exact failure '
       'it exists to catch, plus the freeze-pin controls and the standing hygiene checks.')
 
+# ---- R7-DILCH: Track B act 7 -- the dilation-choice round, layer 1 ----
+#
+# A round that STOPPED, and the live failure mode for a stop is over-reading it in either direction:
+# reading `DC2a` as a finding about dilations (it is a finding about a CONTRACT), or letting the
+# recorded counterfactual D4 reading acquire outcome-bearing force it was explicitly denied. The
+# second hazard is sharper than it looks, because the counterfactual is the part a later round wants
+# to reuse. The guard pins the freeze, the route to the label, the named inherited hypothesis, the
+# not-reached discipline, and the counterfactual's non-outcome-bearing status.
+_DCRES = open(os.path.join(_BB, 'BARANDES-DILATION-CHOICE-RESULT.md'), encoding='utf-8').read()
+# Blockquote markers are stripped BEFORE whitespace normalization: the next obligation is set as a
+# block quote, and without this a sentence wrapped across two quoted lines carries a stray '>' into
+# the normalized text and is unmatchable. A guard that cannot see its own subject is not a guard.
+_DCRES1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _DCRES).split())
+
+
+def _dc_freeze_pin(read=_bb_read):
+    """E1 -- the preregistration is byte-identical to the blob frozen by PR #572.
+
+    Injectable reader, so both controls below run through THIS predicate: positive on the real bytes
+    and negative on drifted ones. A separately computed digest would leave the pin passing with this
+    function sabotaged to `return True`."""
+    return (_bb_blob('BARANDES-DILATION-CHOICE-PREREGISTRATION.md', read)
+            == '810bb2f11d88a0872f764e1e32e2aa2f1e2c9b19')
+
+
+def _dc_outcome_route(txt1):
+    """E2 -- the outcome is `DC2a`, by the route the stop table fixes, with the surface verified.
+
+    `DC2a` has one route and it runs through D2, so the route is stated rather than left implicit.
+    The surface check is act 5's discipline: a source round that does not name the stamp it verified
+    has not established which document it read."""
+    t = txt1.replace('**', '')
+    return ('`DC2a` — §3.4\'s input contract is not met by the off-direct witness' in txt1
+            and 'D1 answered, D2 FAILS on an inherited hypothesis, layer 2 not reached' in t
+            and 'arXiv:2302.10778v3 [quant-ph] 30 Jul 2025' in txt1
+            and 'Only Source A is adjudicated' in txt1)
+
+
+def _dc_named_inherited(txt1):
+    """E3 -- the failed hypothesis is NAMED, INHERITED, and exactly the DECISIVE one.
+
+    The freeze's `DC2a` requires the hypothesis be named, and this round's point is that the failure
+    is one §3.4 does not restate locally. But the two inherited clauses are NOT equal in force and
+    the report must not treat them as one: p. 3's real-line sentence carries the source's own hedge
+    ("usually"), so it is a stated convention with exceptions admitted on its face and is recorded as
+    the usual setting behind the failure; p. 4's continuity clause is unhedged ("will be assumed")
+    and is the hypothesis `DC2a` rests on. A note resting the outcome on the hedged sentence, or
+    counting the two as independent hard failures, would be claiming more than the source supports."""
+    t = txt1.replace('**', '')
+    return ('inherited continuity contract' in t
+            and 'the decisive one' in t
+            and 'THE DECISIVE FAILURE — uninstantiated on `ℕ`' in t
+            and 'That inherited continuity contract alone is what `DC2a` rests on' in t
+            and 'context, not a second failure' in t
+            and 'rather than as an independent universal prerequisite' in t
+            and 'p. 3' in txt1 and 'p. 4' in txt1
+            and 'Γ : ℕ → Matrix (Fin 2) (Fin 2) ℝ' in txt1)
+
+
+def _dc_no_narrowing(txt1):
+    """E4 -- the two counter-observations are RECORDED, and recorded as not licensing a narrowing.
+
+    That §3.4's Stinespring step does not itself consume continuity, and that the source exhibits
+    discrete-time instances of its own, are both true and both cut toward passing D2. Suppressing
+    them would hide the strongest case against the outcome; letting them narrow the contract would be
+    exactly the post-hoc scoping the freeze was written to forbid. So the note must carry BOTH the
+    observations and the refusal, with the freeze's own clause as the ground."""
+    t = txt1.replace('**', '')
+    return ('does not itself invoke continuity' in t
+            and 'discrete-time instances of its own' in t
+            and 'Neither licenses narrowing D2 to §3.4\'s own sentences' in t
+            and 'scoping D2 to §3.4\'s own sentences would be the way to miss a genuine `DC2a`' in t
+            and 'A contract narrowed after reading the source is not the contract that was frozen' in t)
+
+
+def _dc_not_reached(txt1):
+    """E5 -- everything downstream is NOT REACHED, never unresolved, and no Lean is claimed.
+
+    Act 5 froze the distinction and this round is the first to exercise it at a layer boundary. A
+    note calling the layer-2 labels *unresolved* would be claiming the round looked and could not
+    tell, which is false and would license a later `DC3`-shaped reading of a round that never ran."""
+    t = txt1.replace('**', '')
+    return ('not reached — the source layer stopped the round' in t
+            and 'and none of them is *unresolved*' in t
+            and 'all Lean' in t and 'are not reached' in t
+            and 'No module is written, no definition is introduced, no census entry is added' in t)
+
+
+def _dc_counterfactual_bounded(txt1):
+    """E6 -- the D4 counterfactual is recorded AND fenced as non-outcome-bearing.
+
+    The most reusable paragraph in the note is also the most dangerous: a later round wanting to skip
+    layer 1 could cite `D4a positive / D4b negative` as though act 7 had established it. It did not
+    -- it was not reached. The fence is required in both directions: the reading is conditional on
+    D2 being repaired, and it settles nothing here."""
+    t = txt1.replace('**', '')
+    return ('A counterfactual source reading is recorded, and it is NOT outcome-bearing' in t
+            and 'Conditional on D2 being repaired' in t
+            and 'This reading settles nothing in this round' in t
+            and 'would route to the readback-amendment path, not to `DC2b`' in t)
+
+
+def _dc_crosstime_open(txt1):
+    """E7 -- D3's cross-time gap is stated as DERIVATION AND SELECTION, not as a missing assumption.
+
+    This is the one layer-1 finding that survives the stop on its own, and the easy version of it is
+    false. (28) p. 11 drops the tildes WLOG and (33) p. 12 then assumes THAT post-(28) unitary family
+    differentiable, so the source neither "assumes nothing" about a coherent family nor "imposes no
+    analogue" on the dilated object. What it does not do is derive or select an admissible Stinespring
+    choice meeting that regularity, while Stinespring itself supplies only pointwise existence and
+    (39) consumes two times. The guard pins the accurate form and rejects the overstatement."""
+    t = txt1.replace('**', '')
+    return ('the gap is one of DERIVATION AND SELECTION, not of a missing assumption' in t
+            and 'only pointwise existence' in t
+            and 'neither derives a coherent dilation family nor selects one' in t
+            and 'differentiable function of the time `t`' in txt1
+            and 'The open issue is derivation and selection under an assumed regularity, not the '
+                'absence of a regularity assumption' in t
+            and 'recorded as open and is unaffected by the `DC2a` stop' in t
+            # the overstatements must be ABSENT, not merely balanced by a later correction
+            and 'imposes no analogue on `Ũ`' not in t
+            and 'the source provides none' not in t)
+
+
+def _dc_licences(txt1):
+    """E8 -- the stop is not over-read, and the merged outcomes are untouched.
+
+    `DC2a` is a finding about a contract. It is not evidence that the dilation does or does not move
+    the candidate, not evidence about Source A's adequacy, and not a sourcing claim in either track
+    direction."""
+    t = txt1.replace('**', '')
+    return ('This is a stop, not a refutation of anything' in t
+            and 'nothing about whether the dilation moves the visible candidate' in t
+            and 'acts 1 through 6 are not reopened' in t
+            and 'Nothing here is a sourcing claim, in either track direction' in t
+            and 'No manuscript is edited' in t)
+
+
+def _dc_next_obligation(txt1):
+    """E9 -- the next obligation is stated, with the source-recorded hazard against it.
+
+    A stop that does not say what would unblock it converts into a dead end. And the hazard is real
+    rather than decorative: Source A's own discrete-to-continuous interpolation at footnote 11 p. 12
+    produces a UNISTOCHASTIC family, which is the wrong side of the branch for an off-direct witness,
+    so the obvious continuization may destroy the property the witness exists to have."""
+    t = txt1.replace('**', '')
+    return ('Construct a Source-A-admissible CONTINUOUS EXTENSION of a lawful off-direct '
+            'OI/`PPer` witness' in t
+            and 'with its OI/`PPer` restriction identified and off-directness preserved' in t
+            and 'or prove that no such extension exists' in t
+            # `PPer` is ℕ-indexed, so "a continuous PPer witness" is not a thing the note may ask for
+            and 'there is no such thing as "a continuous `PPer` witness"' in t
+            and 'defining it is the first sub-obligation, and it is a Track I question' in t
+            and 'footnote 11, p. 12' in t.lower()
+            and 'lands on the direct branch, which is the wrong side' in t
+            and 'recorded as a signpost, not as a proof' in t)
+
+
+ok_dc = True
+ok_dc &= _dc_freeze_pin()
+ok_dc &= _dc_outcome_route(_DCRES1)
+ok_dc &= _dc_named_inherited(_DCRES1)
+ok_dc &= _dc_no_narrowing(_DCRES1)
+ok_dc &= _dc_not_reached(_DCRES1)
+ok_dc &= _dc_counterfactual_bounded(_DCRES1)
+ok_dc &= _dc_crosstime_open(_DCRES1)
+ok_dc &= _dc_licences(_DCRES1)
+ok_dc &= _dc_next_obligation(_DCRES1)
+
+# ---- mutation controls: each predicate exercised on the exact failure it exists to catch ----
+
+_dc_m1 = _DCRES1.replace('`DC2a` — §3.4\'s input contract is not met by the off-direct witness',
+                         '`DC2b` — the source forms no candidate')
+ok_dc &= _dc_m1 != _DCRES1 and not _dc_outcome_route(_dc_m1)
+
+# the outcome rested on the HEDGED sentence instead of the unhedged one; _DCRES1 is
+# whitespace-normalized, so the sentence is matched in its single-line form
+_dc_m2 = _DCRES1.replace(
+    'That inherited continuity contract alone is what `DC2a` rests on',
+    'Both inherited hypotheses independently fail and `DC2a` rests on either')
+ok_dc &= _dc_m2 != _DCRES1 and not _dc_named_inherited(_dc_m2)
+
+# the post-hoc narrowing the freeze forbids, written back in
+_dc_m3 = _DCRES1.replace('Neither licenses narrowing D2 to §3.4\'s own sentences.',
+                         'Together these narrow D2 to the hypotheses §3.4 actually consumes.')
+ok_dc &= _dc_m3 != _DCRES1 and not _dc_no_narrowing(_dc_m3)
+
+# layer-2 labels demoted from not-reached to unresolved
+_dc_m4 = _DCRES1.replace('and none of them is *unresolved*', 'and each of them is unresolved')
+ok_dc &= _dc_m4 != _DCRES1 and not _dc_not_reached(_dc_m4)
+
+# the counterfactual promoted to a finding -- the reuse hazard
+_dc_m5 = _DCRES1.replace('This reading settles nothing in this round.',
+                         'This round therefore establishes D4a positive and D4b negative.')
+ok_dc &= _dc_m5 != _DCRES1 and not _dc_counterfactual_bounded(_dc_m5)
+
+# the emphasis markers sit inside this sentence, so the mutation targets the marked-up form
+# the overstated version of the cross-time finding, written back in
+_dc_m6a = _DCRES1.replace('the gap is one of DERIVATION AND SELECTION, not of a missing assumption',
+                          'the source provides none, and it imposes no analogue on `Ũ`')
+ok_dc &= _dc_m6a != _DCRES1 and not _dc_crosstime_open(_dc_m6a)
+
+# the emphasis markers sit inside this sentence, so the mutation targets the marked-up form
+_dc_m6 = _DCRES1.replace('**recorded as open** and is unaffected by the `DC2a` stop',
+                         '**closed** by the `DC2a` stop along with everything else')
+ok_dc &= _dc_m6 != _DCRES1 and not _dc_crosstime_open(_dc_m6)
+
+_dc_m7 = _DCRES1.replace('This is a stop, not a refutation of anything.',
+                         'This refutes the applicability of the dilation to OI.')
+ok_dc &= _dc_m7 != _DCRES1 and not _dc_licences(_dc_m7)
+
+_dc_m8 = _DCRES1.replace('recorded as a signpost, not as a proof',
+                         'proof that no such witness can exist')
+ok_dc &= _dc_m8 != _DCRES1 and not _dc_next_obligation(_dc_m8)
+
+# the obligation restated as a "continuous PPer witness", which `PPer`'s ℕ-indexing forbids
+_dc_m9 = _DCRES1.replace('Construct a Source-A-admissible CONTINUOUS EXTENSION of a lawful '
+                         'off-direct OI/`PPer` witness',
+                         'Construct a continuous off-direct OI/`PPer` witness')
+ok_dc &= _dc_m9 != _DCRES1 and not _dc_next_obligation(_dc_m9)
+
+# E1's controls both run THROUGH _dc_freeze_pin, so sabotaging that predicate fails the guard.
+def _dc_drift(path):
+    """One byte appended to the act 7 preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path == 'BARANDES-DILATION-CHOICE-PREREGISTRATION.md' else b'')
+
+
+ok_dc &= _dc_drift('BARANDES-DILATION-CHOICE-PREREGISTRATION.md') != _bb_read(
+    'BARANDES-DILATION-CHOICE-PREREGISTRATION.md')
+ok_dc &= not _dc_freeze_pin(_dc_drift)
+
+# the round wrote no Lean, and the note says so; a later module would need its own freeze
+ok_dc &= 'all Lean' in _DCRES1
+
+check('R7-DILCH', ok_dc,
+      'Track B act 7 guard, layer 1: a round that STOPPED, where the live hazard is over-reading the stop in either '
+      'direction. The outcome is checked to be DC2a by the one route it has -- D1 answered, D2 failing, layer 2 not '
+      'reached -- with the authoritative surface named by its p.1 stamp, since a source round that does not say which '
+      'document it read has established nothing. The failed hypothesis is checked NAMED, with coordinates, and named '
+      'as INHERITED -- and as exactly the DECISIVE one, since the two inherited clauses are not equal in '
+      'force. The hypothesis DC2a rests on is p.4\'s continuity condition, which Gamma(t<-t0) WILL BE ASSUMED to '
+      'satisfy as t approaches t0, unhedged and uninstantiated on the naturals where that limit has no content, act '
+      '6\'s off-direct witness being literally an N-indexed discrete family. p.3\'s sentence that target times are '
+      'USUALLY isomorphic to the real line carries the source\'s own hedge, so it is a stated convention admitting '
+      'exceptions on its face, and is checked recorded as the usual setting behind that failure rather than as an '
+      'independent hard prerequisite; a note resting the outcome on the hedged sentence is mutation-tested to fail, '
+      'as is one naming only a locally-restated hypothesis. The two observations that cut the OTHER way are checked present AND checked not to license a '
+      'narrowing: section 3.4\'s Stinespring step does not itself consume continuity, and the source exhibits '
+      'discrete-time instances of its own at footnote 11 and at (57)-(58) -- both true, both suppressed by a note that '
+      'wanted an easy pass, and both forbidden as grounds for scoping D2 to section 3.4\'s own sentences, which is the '
+      'post-hoc narrowing the freeze was written against and says so in terms. Everything downstream is checked NOT '
+      'REACHED rather than unresolved -- D4a/D4b as outcome-bearing tests, D5a/D5b, T1 through T4, both witnesses and '
+      'all Lean -- since calling them unresolved would claim the round looked and could not tell. The D4 counterfactual '
+      'reading is the most reusable paragraph in the note and therefore the most dangerous, so it is checked fenced in '
+      'both directions: conditional on D2 being repaired, settling nothing here, and routing to the readback-amendment '
+      'path rather than to DC2b. D3\'s cross-time gap is checked stated as one of DERIVATION AND SELECTION rather than as a '
+      'missing assumption, because the easy version of it is false: (28) p.11 drops the tildes without real loss of '
+      'generality and (33) p.12 then assumes THAT post-(28) unitary family differentiable in t, so the source neither '
+      'assumes nothing about a coherent family nor imposes no analogue on the dilated object. What it does not do is '
+      'derive or select an admissible Stinespring choice meeting that regularity, Stinespring supplying only pointwise '
+      'existence while (39) consumes two times. The guard pins the accurate form and requires both overstatements to '
+      'be ABSENT rather than merely balanced by a later correction, with a mutation writing the old version back in. '
+      'It is the one layer-1 finding that survives the stop, because it is a property of the source\'s text rather '
+      'than of our witness, and is checked kept OPEN. The stop is checked not over-read: it says nothing '
+      'about whether the dilation moves the candidate, acts 1 through 6 are unrevised, no manuscript is edited, and '
+      'nothing is a sourcing claim in either track direction. Finally the next obligation is checked stated in the only form PPer admits -- a '
+      'Source-A-admissible CONTINUOUS EXTENSION of a lawful off-direct OI/PPer witness, with its PPer restriction '
+      'identified and off-directness preserved, or a proof that no such extension exists, since PPer is N-indexed by '
+      'definition and there is therefore no such thing as a continuous PPer witness, the phrasing being '
+      'mutation-tested, with defining the extension relation named as the first sub-obligation and a Track I question '
+      '-- together with the hazard the source itself supplies, that its own discrete-to-continuous interpolation at footnote 11 p.12 produces a '
+      'UNISTOCHASTIC family and so lands on the wrong side of the branch, recorded as a signpost rather than as a proof '
+      'of impossibility. Nine named contracts, each mutation-tested against the exact failure it exists to catch -- ten '
+      'mutation controls in all, since the cross-time and obligation contracts each carry two -- plus the freeze-pin '
+      'controls.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
