@@ -2,10 +2,17 @@
 
 The migration executed. Every row below is a `git mv`, so history follows each artifact.
 
-**What changed inside the moved files, stated precisely.** Most kept their exact bytes. **20**
-non-frozen artifacts additionally had `verification/NAME.md` path strings rewritten to the new
-coordinates — balanced substitutions, no prose touched. The distinction matters because blob
-identity is what a freeze is cited by, so:
+**What changed inside the moved files, stated precisely.** **72 of the 91 moves are pure renames**
+— byte-identical, no content patch at all. The remaining **19** additionally had
+`verification/NAME.md` path strings rewritten to the new coordinates: balanced substitutions, no
+prose touched.
+
+The 19 is the count after the repair described below, and the arithmetic is checkable rather than
+asserted: `git diff --numstat -M` against the base shows 72 rename entries at `0 0` and 19 carrying
+a content patch. The rewrite set began at 20; `BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-AMENDMENT-3.md`
+was restored to its exact bytes and is now one of the 72.
+
+The distinction matters because blob identity is what a freeze is cited by, so:
 
 - **All 8 blob-pinned control-plane files are byte-identical** to their pre-migration blobs: act 1's
   audit and its amendment 3, and the act 2 through act 7 preregistrations. `R7-BRIDGE` and its
