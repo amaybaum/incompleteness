@@ -127,7 +127,8 @@ of what happens when a located object is promoted into a construction that does 
 
 ## The six frozen questions
 
-Exactly these, in this order. Each is answered separately, with pinpoint Source A citation.
+Exactly these, in this order. Each is answered separately, with pinpoint Source A citation — or with
+**not reached**, per the next section, when an earlier question has terminated the taxonomy.
 
 **A1 — identification of the object.** What exact object in Source A plays the intermediate /
 relative propagator role? Named by equation number and page, with its type stated: operator or
@@ -162,6 +163,43 @@ specify enough to place the visible rule among these — which routes to `SA4`.
 **Under `SA2`, A6 names a parameterized rule or family**, not a single rule. A5 having already found
 visible dependence on a choice, requiring A6 to produce one rule would be incoherent; the family and
 its parameter are what A6 reports.
+
+## *Not reached* versus *unresolved*, and which questions carry which
+
+The questions are **sequentially dependent**: A3 asks for the A1 object's inputs, A4 for its
+behaviour under freedoms on those inputs, A5 for the visible readout of that object, A6 for the
+identification of that readout. When an earlier question terminates the taxonomy, the later ones are
+**not logically live**, and reporting them as though they had been examined would misstate the
+evidence. So two statuses are frozen, and they are not interchangeable:
+
+- **Unresolved** — the question **was reached and examined**, and Source A does not settle it. This
+  is an evidential finding. It is what routes A2, A5 and A6 to `SA4`.
+- **Not reached** — an earlier question terminated the taxonomy, so this question is not live. It
+  carries **no evidential weight whatever**: it is never a reason for `SA4`, never counts toward any
+  outcome's conditions, and is never reported as a limitation of the source.
+
+**Calling a not-reached question *unresolved* is an error**, because it would convert a structural
+consequence of an earlier answer into a finding about Source A. Act 4 recorded its M2b and M3 this
+way, and act 5 inherits the discipline explicitly rather than by analogy.
+
+**What is not reached, per terminating answer:**
+
+| Terminating answer | Outcome | Not reached |
+|---|---|---|
+| A2 *not part of the construction* | `SA3` | A3, A4, A5, A6 |
+| A2 *undetermined* | `SA4` | A3, A4, A5, A6 |
+| A3 cannot be completed | `SA4` | A4, A5, A6 |
+| A4 leaves a bearing freedom unexamined | `SA4` | A5, A6 |
+| A5 *unresolved* | `SA4` | A6 |
+| A6 *unresolved* | `SA4` | — all reached |
+
+**A6 under `SA3` is reported as *not reached — no candidate exists at this interface***, in those
+terms. Not silently omitted, and not *unresolved*: under `SA3` the reason there is nothing to
+identify is that Source A's development forms no visible intermediate candidate, which is `SA3`'s
+own finding and not a further gap in the source.
+
+**A1 is always reached**, since A2 presupposes an identified object; if A1 itself cannot name one,
+that is an A2 *not part of the construction* answer and the round is an `SA3`.
 
 ## The control that act 4 earned: operator freedom is not candidate freedom
 
@@ -211,8 +249,9 @@ above), so no `SA2` finding says or implies anything about what our datum suppli
 
 **`SA3` — no candidate produced.** A2 is *not part of the construction*: Source A's development does
 not itself form a visible intermediate candidate, and forming one would be post-processing this
-round invents. Reported at that scope — a determination about **Source A's construction**, never a
-claim that no candidate exists or that none could be defined.
+round invents. A3 through A6 are then **not reached**, A6 with the reason stated. Reported at that
+scope — a determination about **Source A's construction**, never a claim that no candidate exists or
+that none could be defined.
 
 **`SA4` — source or interface insufficient to decide.** Any of: A2 undetermined; A3 unable to list
 the inputs; A4 leaving a permitted freedom unexamined that bears on A5; A5 unresolved; **A6
@@ -227,8 +266,13 @@ as `SA4` with A5's finding stated in full rather than discarded.
 **Exhaustiveness.** If A2 answers *not part of the construction* → `SA3`. Otherwise if A2 is
 undetermined, or A3 cannot be completed, or A4 leaves a bearing freedom unexamined, or A5 is
 unresolved, or A6 is unresolved → `SA4`. Otherwise A5 decides `SA1` against `SA2`. The cases are
-disjoint and exhaust the possibilities, and A6 is reported under every outcome — as its answer under
-`SA1` and `SA2`, and as *unresolved* in the `SA4` that its being unresolved produces.
+disjoint and exhaust the possibilities.
+
+**A6 is reported under every outcome**, with the status the table above assigns it: its answer under
+`SA1` and `SA2`; *unresolved* in the `SA4` that its being unresolved produces; and **not reached**
+under `SA3`, and under any `SA4` terminated before A6 — in the `SA3` case with the reason stated, *no
+candidate exists at this interface*. The same holds for A3, A4 and A5: each appears in the report
+with an answer or an explicit *not reached*, never absent.
 
 ## Prediction recorded before executing
 
@@ -272,8 +316,10 @@ its natural first step.
 7. **No candidate-selection principle is adopted or proposed**, on any outcome.
 8. **Operator freedom is not candidate freedom** without an exhibited visible counterexample, per
    the control above; unexhibited freedom is recorded as representation freedom.
-9. **Each of A1–A6 is answered individually**, with its citation, and A4's freedoms are enumerated
-   rather than summarized.
+9. **Each of A1–A6 appears individually in the report** — with its citation when answered, or with
+   an explicit **not reached** when an earlier question terminated the taxonomy, per the table above.
+   None is silently omitted, a not-reached question is never called *unresolved*, and A4's freedoms
+   are enumerated rather than summarized.
 10. **Direction is stated, never assumed.** Every mapping claim says whether it establishes the
     forward or the backward obligation.
 11. **No manuscript edit**, whatever is found.
@@ -306,14 +352,18 @@ begin the tuple-instantiation lemma, the BD3 follow-up, Arc D round 2 or Arc E; 
 
 ## Allowed final report
 
-1. A1–A6, each answered individually with its Source A citation;
+1. A1–A6, each appearing individually — answered with its Source A citation, or marked **not
+   reached** with the terminating answer named;
 2. A4's permitted freedoms, enumerated, each with the object's behaviour under it or an explicit
-   *not examined*;
+   *not examined* — or A4 marked *not reached*;
 3. A5's answer at the visible level, with any exhibited counterexample given as two concrete
-   matrices, and any unexhibited operator freedom recorded as representation freedom;
+   matrices, and any unexhibited operator freedom recorded as representation freedom — or A5 marked
+   *not reached*;
 4. the outcome label `SA1`–`SA4`, the recorded prediction, and whether it held;
-5. A6's answer — the identification in this side's vocabulary under `SA1`, the parameterized rule or
-   family under `SA2`, or *unresolved* with what Source A leaves unspecified;
+5. A6's status — the identification in this side's vocabulary under `SA1`, the parameterized rule or
+   family under `SA2`, *unresolved* with what Source A leaves unspecified in the `SA4` that produces,
+   or **not reached** under `SA3` and under any `SA4` terminated before A6, in the `SA3` case reading
+   *no candidate exists at this interface*;
 6. which **obligation** — forward or backward — each claim establishes;
 7. what act 3's `CU1a` licence retains and what its programme-level reading becomes;
 8. what remains open and what would settle it, including whether our datum supplies Source A's
