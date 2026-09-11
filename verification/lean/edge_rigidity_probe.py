@@ -8370,38 +8370,45 @@ def _dm_source_discipline(txt1):
 
 
 def _dm_outcome(txt1):
-    """E3 -- the outcome is MP2 and the two findings that earn it are both present.
+    """E3 -- the outcome is MP4, and the reason is the one the freeze's own semantics give.
 
-    MP2 is earned only by BOTH halves: every hypothesis satisfied (so not MP3), and a named datum
-    our side does not determine (so not MP1). Reporting the label without the halves would make the
-    classification unauditable."""
-    return ('`MP2` — the construction maps, and consumes data our side does not determine'
-            in txt1
+    The hazard this contract exists for is the reverse of the usual one: not under-claiming but
+    OVER-claiming, by importing a post-processing step the freeze does not authorize and then
+    attributing its behaviour to the construction. MP2 presupposes the construction yields a
+    candidate; Source C's does not, so M2a is unresolved and the outcome is MP4. The note must
+    therefore carry the label, the unresolved M2a, and the explicit reason MP2 was NOT taken."""
+    return ('`MP4` — unresolved at the frozen interface' in txt1
             and 'No hypothesis is incompatible. `MP3` is not reached' in txt1
-            and 'M2b — containment: **no**' in txt1)
+            and 'M2a — determinacy: **unresolved**' in txt1
+            and '**Why not `MP2`.**' in txt1)
 
 
-def _dm_named_parameters(txt1):
-    """E4 -- MP2's deliverable: the consumed data are NAMED, not left as 'something is missing'.
+def _dm_no_unauthorized_extraction(txt1):
+    """E4 -- the relative-operator route is declined, not adopted, and stays a countercontrol.
 
-    An MP2 that cannot say WHICH datum is missing is worth little more than MP4, so the two the
-    round found are pinned by name: the per-target-time phase freedom in Theta beyond |Theta|^2, and
-    the Stinespring completion."""
-    return ('phase freedom in `Θ`' in txt1
-            and 'Stinespring completion' in txt1
-            and 'non-unique' in txt1)
+    This is the contract the first executed draft failed. The note said Source C never forms the
+    relative operator and this round would not form it on the source's behalf, then used exactly
+    that operator to classify. So the note must say the route is not adopted, must label the
+    calculation a countercontrol, and must state what it does NOT show."""
+    return ('this round does not adopt it' in txt1
+            and 'Countercontrol' in txt1
+            and 'It does **not** show what Source C' in txt1)
 
 
-def _dm_candidate_freedom_earned(txt1):
-    """E5 -- the step from operator non-uniqueness to CANDIDATE non-uniqueness is exhibited.
+def _dm_freedoms_scoped(txt1):
+    """E5 -- each freedom is recorded at the scope its evidence supports, and no further.
 
-    This is the inferential gap that sank the first draft of the freeze: that a unitary is non-unique
-    does NOT by itself show the induced visible candidate is, since different realizations may induce
-    the same candidate. The round therefore has to exhibit two admissible choices giving DIFFERENT
-    visible propagators, and the note must carry that exhibit rather than assert the step."""
+    Two different burdens. The PHASE freedom is exhibited as candidate-load-bearing for the
+    relative-operator rule -- identity against swap, two admissible choices, same Gamma -- because
+    operator non-uniqueness does not by itself reach the candidate. The STINESPRING completion is
+    NOT exhibited that way, so it must be recorded as downstream representation non-uniqueness and
+    must NOT be named as a candidate-selection datum. Collapsing the two is the same
+    representation-versus-candidate conflation one level over."""
     return ('identity' in txt1 and 'swap' in txt1
             and 'different visible propagators' in txt1
-            and 'diagonal unitary' in txt1)
+            and 'diagonal unitary' in txt1
+            and 'downstream representation' in txt1
+            and 'not** named as a candidate-selection datum' in txt1)
 
 
 def _dm_cu1a_preserved(txt1):
@@ -8430,8 +8437,8 @@ ok_dm = True
 ok_dm &= _dm_freeze_pin()
 ok_dm &= _dm_source_discipline(_DMRES1)
 ok_dm &= _dm_outcome(_DMRES1)
-ok_dm &= _dm_named_parameters(_DMRES1)
-ok_dm &= _dm_candidate_freedom_earned(_DMRES1)
+ok_dm &= _dm_no_unauthorized_extraction(_DMRES1)
+ok_dm &= _dm_freedoms_scoped(_DMRES1)
 ok_dm &= _dm_cu1a_preserved(_DMRES1)
 ok_dm &= _dm_not_a_theorem(_DMRES1)
 
@@ -8439,15 +8446,14 @@ ok_dm &= _dm_not_a_theorem(_DMRES1)
 _dm_m2 = _DMRES1.replace('Only Source C is adjudicated', 'Both sources are adjudicated together')
 ok_dm &= _dm_m2 != _DMRES1 and not _dm_source_discipline(_dm_m2)
 
-_dm_m3 = _DMRES1.replace('No hypothesis is incompatible. `MP3` is not reached',
-                         'One hypothesis could not be checked')
+_dm_m3 = _DMRES1.replace('**Why not `MP2`.**', 'The outcome is therefore MP2.')
 ok_dm &= _dm_m3 != _DMRES1 and not _dm_outcome(_dm_m3)
 
-_dm_m4 = _DMRES1.replace('Stinespring completion', 'some further ingredient')
-ok_dm &= _dm_m4 != _DMRES1 and not _dm_named_parameters(_dm_m4)
+_dm_m4 = _DMRES1.replace('Countercontrol', 'Determination')
+ok_dm &= _dm_m4 != _DMRES1 and not _dm_no_unauthorized_extraction(_dm_m4)
 
-_dm_m5 = _DMRES1.replace('different visible propagators', 'different operators')
-ok_dm &= _dm_m5 != _DMRES1 and not _dm_candidate_freedom_earned(_dm_m5)
+_dm_m5 = _DMRES1.replace('downstream representation', 'a second candidate-selection')
+ok_dm &= _dm_m5 != _DMRES1 and not _dm_freedoms_scoped(_dm_m5)
 
 _dm_m6 = _DMRES1.replace('`CU1a` is preserved exactly and is not revised',
                          '`CU1a` is superseded by this round')
@@ -8476,14 +8482,17 @@ check('R7-DILMAP', ok_dm,
       'burden, and not to upgrade a licence it did not earn. A SOURCE-TO-FORMAL round fails differently from a kernel '
       'round, and act 4\'s one pre-freeze blocker was citing Source A\'s equations as Source C\'s, so the note is '
       'checked to carry act 1\'s source identities and to say that Source C alone is adjudicated with Source A out of '
-      'scope. The outcome MP2 is checked to be earned by BOTH halves -- every hypothesis satisfied, so not MP3, and a '
-      'datum our side does not determine, so not MP1 -- since a label without its halves is unauditable. MP2\'s '
-      'deliverable is that the consumed data are NAMED, so the phase freedom in Theta beyond its modulus-squares and '
-      'the Stinespring completion are pinned by name; an MP2 that cannot say which datum is missing is worth little '
-      'more than MP4. The step from operator non-uniqueness to CANDIDATE non-uniqueness is checked to be EXHIBITED '
-      'rather than asserted -- two admissible choices giving identity against swap -- because that inference is '
-      'exactly what sank the first draft of the freeze, different realizations being able to induce the same '
-      'candidate. Act 3\'s CU1a is checked preserved and not revised, since no external audit can revise a theorem '
+      'scope. The outcome is checked to be MP4 with the reason the freeze\'s own semantics give: MP2 presupposes that the '
+      'construction yields a candidate, Source C\'s does not, so M2a is unresolved. The hazard here is the reverse of '
+      'the usual one -- not under-claiming but OVER-claiming, by importing a post-processing step the freeze does not '
+      'authorize and attributing its behaviour to the construction, which is what the first executed draft did: it '
+      'said Source C never forms the relative operator and this round would not form it on the source\'s behalf, then '
+      'classified using exactly that operator. So the note is checked to DECLINE that route, to label the calculation '
+      'a countercontrol, and to state what it does not show. Each freedom is checked at the scope its evidence '
+      'supports: the phase freedom EXHIBITED as candidate-load-bearing for the relative-operator rule, identity '
+      'against swap on the same Gamma, since operator non-uniqueness does not by itself reach the candidate; and the '
+      'Stinespring completion, not exhibited that way, recorded as downstream representation non-uniqueness and NOT '
+      'named as a candidate-selection datum. Act 3\'s CU1a is checked preserved and not revised, since no external audit can revise a theorem '
       'about our own bridge, and the forbidden additional-physical-principle claim is checked still forbidden with '
       'Source A still open. Finally the round is checked to report itself as an audit determination rather than a '
       'theorem and not to establish the backward obligation it was forbidden to assume. The preregistration is pinned '

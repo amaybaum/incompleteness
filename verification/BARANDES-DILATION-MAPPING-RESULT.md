@@ -11,16 +11,24 @@ numbers below are Source C's throughout.
 
 ## Outcome
 
-**`MP2` — the construction maps, and consumes data our side does not determine.**
+**`MP4` — unresolved at the frozen interface.**
 
 Every hypothesis of Source C's construction is satisfied by our source-side datum under the
-permitted `T₀` and `p` declarations. The construction runs. What it does **not** do is fix a visible
-intermediate candidate from the transition data alone: the candidate is determinate only given
-choices that `Γ` leaves open, and the round names them.
+permitted `T₀` and `p` declarations, so `MP3` is not reached. But M2a has no determinate answer:
+**Source C's construction defines no map from its outputs to a visible intermediate candidate**, and
+M2a asks what *the construction* fixes. With no such map in the construction, the question the freeze
+poses has no answer at the interface the freeze fixed, and `MP4` is the label for that.
 
-**Answering the question as posed:** Source C's construction does **not** itself select a visible
-intermediate candidate from the stochastic datum we already have. The selection depends on extra
-information our datum does not determine.
+**Answering the question as posed, at the scope the evidence supports:** Source C's construction, as
+stated, does **not** itself produce a visible intermediate candidate at all — so it does not select
+one. Whether a candidate-extraction rule attached to its outputs would be canonical is **open**, and
+this round does not attach one.
+
+**Why not `MP2`.** `MP2` says the construction *maps* and consumes a datum our side does not
+determine. That presupposes the construction yields a candidate, which it does not. Classifying this
+as `MP2` would require importing a post-processing step the freeze does not authorize and then
+attributing its behaviour to the construction — which is precisely what the freeze's own rule
+against forming the relative operator on the source's behalf forbids.
 
 ## M1 — the construction's hypotheses, one at a time
 
@@ -55,8 +63,8 @@ column normalization (28), and hence (74).
 Q8 established that, since our prior lives on the hidden carrier `H` and Source C's `p(·,0)` is a
 distribution on `C`. But Source C eq (32), p. 10 makes `p(0)` freely adjustable subject only to
 normalization, so **any** normalized declaration satisfies the hypothesis. Under the freeze's
-repaired rule, a hypothesis satisfiable under a permitted declaration is **satisfied**, and the
-undetermined datum is `MP2`'s business, not `MP3`'s.
+repaired rule, a hypothesis satisfiable under a permitted declaration is **satisfied**, and an
+undetermined datum is never `MP3`'s business.
 
 **A separate observation about `p`, which matters for the candidate.** `p` enters the construction
 only at the density matrix (84) and at the dilated standalone distribution (109). The
@@ -68,9 +76,10 @@ to the layer that would induce a candidate.
 **No hypothesis is incompatible. `MP3` is not reached**, and not by non-verification: each
 hypothesis above is positively satisfied against the source's own statement of it.
 
-## M2a — determinacy: **determinate given named parameters**
+## M2a — determinacy: **unresolved**
 
-Two findings, and the second is the one that decides the round.
+Two findings. The first is determinate and is the round's main positive content; the second is a
+countercontrol and is carefully **not** a determination about the construction.
 
 ### The construction produces nothing indexed from an intermediate time
 
@@ -80,75 +89,87 @@ dilated unitary `Ũ(t ← 0)` (96), the dilated dictionary (103), and the unisto
 
 The dilated process makes this explicit: its conditioning-time set is declared to be **the singleton
 `{0}`** (§5.8, p. 27). So the construction's own output tuple contains **no** propagator from an
-intermediate time, and therefore contains no visible intermediate candidate.
+intermediate time, and therefore no visible intermediate candidate.
 
-This is not a defect of the construction — it proves a theorem about representation, not about
-division — but it is decisive for our question. The candidate act 3 is about is not among the
-construction's outputs, and the only route to one from those outputs is the relative operator
-`Θ(t ← 0) Θ(t′ ← 0)⁻¹`, or its dilated counterpart. **Source C does not take that step**, and this
-round does not take it on the source's behalf.
+This is a determinate finding about Source C, and it is not a defect of the construction, which
+proves a theorem about representation rather than about division. **But it is what makes M2a
+unresolved**: the frozen M2a asks whether *the construction* fixes a candidate uniquely, or up to a
+named parameter, and a construction that fixes no candidate at all answers neither. Nothing in the
+freeze authorizes attaching an extraction rule and reading the answer off that instead.
 
-### Along that route, the candidate depends on a choice `Γ` does not fix
+### Countercontrol: one natural post-processing would remain choice-dependent
+
+The only evident route from the construction's outputs to an intermediate is the relative operator
+`Θ(t ← 0) Θ(t′ ← 0)⁻¹`, or its dilated counterpart. **Source C does not form it, and this round does
+not adopt it.** What follows is therefore a countercontrol on *that candidate rule*, recorded so the
+open question is not mistaken for an easy one — **not** a determination of what Source C selects.
 
 `Θ` is non-unique, and the source says so in terms: eq (72), p. 20 writes
 `Γ_ij(t ← 0) = |Θ_ij(t ← 0)|²`, with the text stating that "this formula is an **identity**, not a
 postulate. Any non-negative real number can be written **non-uniquely** as the modulus-square of a
-complex number." Eq (73) calls `Θ(t ← 0)` a "**non-unique** 'potential matrix'". The matrix is
-introduced per target time — "For each fixed target time `t`, the complex numbers `Θ_ij(t ← 0)`
-collectively form their own `N × N` matrix" (§5.1, p. 20) — and nothing in (72), (74) or (75)
-relates `Θ` at different times.
+complex number." Eq (73) calls `Θ(t ← 0)` a "**non-unique** 'potential matrix'". It is introduced per
+target time — "For each fixed target time `t`, the complex numbers `Θ_ij(t ← 0)` collectively form
+their own `N × N` matrix" (§5.1, p. 20) — and nothing in (72), (74) or (75) relates `Θ` across times.
 
-**That freedom is not inert at the candidate level**, and establishing this is what separates `MP1`
-from `MP2` rather than leaving unitary non-uniqueness to stand in for candidate non-uniqueness.
 Right-multiplying `Θ(t ← 0)` by any diagonal unitary `D_t` preserves every constraint the
 construction imposes: `|Θ_ij d_{t,j}|² = |Θ_ij|²` leaves (72) and (74) untouched, and taking
 `D_0 = 𝟙` leaves (75) untouched. So `Θ` and `Θ·D` are both admissible for the *same* `Γ`.
 
-A two-configuration instance, computed on the source's own equations. Write `H` for the real
-Hadamard matrix `(1/√2)[[1, 1], [1, −1]]`, and take `Θ(t′ ← 0) = Θ(t ← 0) = H`, which is admissible
-since `|H_ij|² = 1/2` for every entry. The relative operator is then
+A two-configuration instance. Write `H` for the real Hadamard matrix `(1/√2)[[1, 1], [1, −1]]`, and
+take `Θ(t′ ← 0) = Θ(t ← 0) = H`, admissible since `|H_ij|² = 1/2` for every entry. The relative
+operator is then
 
 - with `D_t = 𝟙`: `H H† = 𝟙`, whose modulus-squares are the **identity** matrix;
 - with `D_t = diag(1, −1)`: `H D_t H† = [[0, 1], [1, 0]]`, whose modulus-squares are the **swap**.
 
 Identity and swap are different visible propagators, from the same `Γ` and the same admissible
-construction. The choice is therefore load-bearing for the candidate, not only for the operator.
+construction data.
 
-**Evidence level.** This is a worked example on the source's stated equations — act 1's hierarchy
-puts it at level 3, not level 2. It is not kernel-checked, and no Lean was written in this round.
+**Exactly what this shows, and what it does not.** It shows that *if* the relative-operator rule were
+adopted as the candidate extraction, the resulting candidate would depend on a choice `Γ` does not
+fix. It does **not** show what Source C's construction selects, because Source C selects nothing
+here; and it does not by itself establish that every admissible extraction rule is choice-dependent.
 
-### The named parameters
+**Evidence level.** A worked example on the source's stated equations — act 1's hierarchy puts it at
+level 3, not level 2. Not kernel-checked, and no Lean was written in this round.
 
-1. **The per-target-time phase freedom in `Θ`** — everything about `Θ(t ← 0)` beyond `|Θ_ij|²`,
-   which is all that `Γ` fixes. Eq (72), (73), §5.1 p. 20.
-2. **The Stinespring completion.** §5.7, p. 24 and footnote 13, p. 25: the partial isometry is
-   extended to a unitary by adding columns that "**can always be chosen** so that they are mutually
-   orthogonal with each other and with the previous `N²` columns", and the dilated dimension `Ñ` is
-   only bounded, `N ≤ Ñ ≤ N³` (94), with `1 ≤ N′ ≤ N²` (99). Neither the completion nor the
-   dimension is determined by `Γ`.
+### The freedoms the construction leaves, and their status
 
-## M2b — containment: **no**
+- **The per-target-time phase freedom in `Θ`**, beyond `|Θ_ij|²`, which is all that `Γ` fixes —
+  eq (72), (73), §5.1 p. 20. **Exhibited above as candidate-load-bearing for the relative-operator
+  rule**, and for that rule only.
+- **The Stinespring completion.** §5.7, p. 24 and footnote 13, p. 25: the partial isometry is
+  extended to a unitary by adding columns that "**can always be chosen** so that they are mutually
+  orthogonal with each other and with the previous `N²` columns", and the dilated dimension `Ñ` is
+  only bounded, `N ≤ Ñ ≤ N³` (94), with `1 ≤ N′ ≤ N²` (99). This is **downstream representation
+  non-uniqueness**, and this round does **not** exhibit two admissible completions changing any
+  visible candidate. It is therefore recorded as representation freedom and is **not** named as a
+  candidate-selection datum — the same distinction between representation freedom and candidate
+  freedom that the phase example had to earn.
 
-Our source-side datum determines `Γ`, and `Γ` determines `|Θ_ij(t ← 0)|²` and nothing more. Neither
-named parameter is determined by the datum or by the permitted `T₀` and `p` declarations:
+## M2b — containment: **not reached**
 
-- the phase freedom is invisible to `Γ` by construction, since `Γ` is the modulus-square;
-- the Stinespring completion is a choice made downstream of `Γ`, on the source's own account of it.
+M2b is conditional on M2a's answer — the freeze asks whether every datum the construction consumes,
+*including any parameter M2a names*, is determined by our datum. M2a is unresolved, so there is no
+consumed-datum list to test and M2b is **not reached**.
 
-So a datum the construction consumes — in the sense of consuming a *choice* in order to yield a
-determinate intermediate — is **not** determined by our side.
+Recorded separately, because it is true and will matter if an extraction rule is ever authorized:
+`Γ` determines `|Θ_ij(t ← 0)|²` and nothing more, so the phase freedom is invisible to `Γ` by
+construction and is not determined by our datum or by the permitted `T₀` and `p` declarations. That
+is a fact about our side, not an answer to M2b.
 
 ## M3 — not reached
 
-M3 is conditional on M2 yielding a determinate candidate. It does not: the candidate is determinate
-only relative to parameters our datum leaves open, which is `MP2`. **No candidate is identified in
-our vocabulary**, and in particular nothing here says the induced candidate is `initWeight`'s,
-`uniformWeight`'s, or a third.
+M3 is conditional on M2 yielding a determinate candidate. M2a is unresolved, so M3 is not reached,
+and the two are consistent: there is no candidate to name because the construction fixes none.
 
-Whether some admissible choice of the named parameters reproduces `initWeight`'s candidate, or
-`uniformWeight`'s, is a well-posed question and is recorded as **open**. It is not asked here,
-because asking it would mean selecting among the parameters, which is the candidate-selection
-principle this round is forbidden to adopt.
+**No candidate is identified in our vocabulary**, and in particular nothing here says the induced
+candidate is `initWeight`'s, `uniformWeight`'s, or a third.
+
+Whether, under some authorized extraction rule, an admissible choice reproduces either named rule's
+candidate is a well-posed question and is recorded as **open**. It is not asked here, because asking
+it would require both adopting an extraction rule the freeze does not authorize and then selecting
+among its parameters — two things this round is forbidden to do.
 
 ## M4 — what act 3's `CU1a` retains, and what changes at programme level
 
@@ -156,16 +177,19 @@ principle this round is forbidden to adopt.
 does not select the candidate at this interface, and it is a theorem about **our** bridge. Nothing
 in this round bears on it: act 4 audits an external construction and touches no this-side object.
 
-**What changes is the programme-level reading**, and only this much. Before act 4 it was open
-whether the missing selection was already supplied by the external correspondence. Against **Source
-C's construction**, it is not: that construction does not produce an intermediate candidate at all,
-and the route from its outputs to one turns on parameters `Γ` does not fix.
+**What changes is the programme-level reading**, and less than an `MP1` or `MP2` would have changed.
+Before act 4 it was open whether the missing selection was supplied by the external correspondence.
+What is now determinate is narrower: **Source C's construction, as stated, produces no intermediate
+propagator**, so it does not supply a selection — not because it supplies an ambiguous one, but
+because it produces no candidate at that layer at all.
 
 **What this does not license.** Not that the external framework requires an additional physical
-principle — that claim is forbidden by act 3's frozen licence and this round does not earn it.
-Not that the selection is unavailable: **Source A's earlier construction is out of scope by the
-freeze** and forms relative operators in its own development, so it may yet supply what Source C's
-does not. Not anything about the backward obligation, which was not attempted.
+principle — forbidden by act 3's frozen licence, and not earned. Not that the selection is
+unavailable: **Source A's earlier construction is out of scope by the freeze** and forms relative
+operators in its own development, so it may yet supply what Source C's does not. Not that every
+extraction rule attachable to Source C's outputs is choice-dependent — only the relative-operator
+rule was examined, and only as a countercontrol. Not anything about the backward obligation, which
+was not attempted.
 
 ## Direction, stated per the freeze
 
@@ -183,15 +207,21 @@ It recorded **`MP3` unlikely**, on Q8's ledger rather than on any reading of the
 **held**: every hypothesis is satisfied, and the two Q8 identified as undetermined turned out to be
 declarable exactly as Q8 suggested.
 
-It recorded **`MP4` materially live**. That did **not** obtain: the construction's own text settles
-both M2a and M2b without ambiguity, and the non-uniqueness is stated by the source rather than
-inferred.
+It recorded **`MP4` materially live**. That **held**, and is the outcome. What made it live was not
+an unclear source — Source C is entirely clear about what it builds — but the gap between what the
+construction produces and what the frozen M2a asks about. The freeze was right to keep `MP4`
+reachable.
 
 ## What remains open
 
-- **Source A's construction**, out of scope here. Whether it supplies a selection Source C's does
-  not, and whether the two agree, is the natural next question on this route.
-- Whether any admissible choice of the named parameters reproduces either named rule's candidate.
+- **Source A's construction**, out of scope here. It forms relative operators in its own
+  development, so it is the natural next question on this route, and the sharpest one.
+- **Whether any candidate-extraction rule attached to Source C's outputs is canonical.** Settling
+  this needs an append-only frozen amendment that admits and defines the extraction, since reading
+  an answer off an unauthorized post-processing is exactly what this round declined to do. The
+  countercontrol above says only that the relative-operator rule would not be choice-free.
+- Whether the Stinespring completion freedom is candidate-load-bearing. Not exhibited here, and
+  recorded as representation freedom rather than as a selection datum.
 - The **backward obligation**, untouched.
 - Whether a selection principle *should* be adopted on our side — deliberately not asked.
 
