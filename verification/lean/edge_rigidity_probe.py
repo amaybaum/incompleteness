@@ -8134,14 +8134,47 @@ def _cs_outcome_theorems(src):
     """D3 -- exactly the outcome-bearing theorems the reached outcome licenses, and no others.
 
     Four of the five outcomes are earned only by a named proof, so which theorems exist IS the
-    outcome. CU1a was reached: `admissible_nonUnique` is proved, and the two theorems belonging to
-    outcomes NOT reached must be absent -- `admissible_agree` (CU2) and `named_rule_inadmissible`
-    (CU3). Their absence is not evidence against them, which is why the note must report the
-    unreached outcomes as unreached rather than as refuted."""
+    outcome. CU1a was reached: `admissible_nonUnique` is proved -- its exact frozen header pinned
+    here, since D1b covers only the C1-C3 signatures -- and the two theorems belonging to outcomes
+    NOT reached must be absent: `admissible_agree` (CU2) and `named_rule_inadmissible` (CU3).
+
+    What may be SAID about those absences is a separate contract, D3b: absence alone licenses
+    nothing, and the two cases here are not alike."""
     return ('theorem admissible_nonUnique : AdmissibleNonUnique' in src
             and 'theorem candidate_rules_disagree' in src
             and 'theorem admissible_agree' not in src
             and 'theorem named_rule_inadmissible' not in src)
+
+
+def _cs_cu3_grounding(txt1):
+    """D3b -- the note's CU3 statement is grounded in C1, and not in the theorem's absence.
+
+    Two claims that look alike and are not. `named_rule_inadmissible` is absent, AND the frozen
+    witness is excluded -- but what excludes it is C1's two positive theorems under
+    `NamedRuleInadmissible`'s OWN hypotheses, which is a fact about the mathematics. Inferring the
+    proposition false FROM the absence would be exactly the null inference this round exists to
+    avoid, and the two are indistinguishable in a note that states only the conclusion.
+
+    So the grounding is required explicitly, the general disclaimer is required alongside it so the
+    stronger reading cannot be generalized to propositions C1 does not bear on, and the note must
+    not carry the fallacious form."""
+    for marker in (
+        "C1's two positive theorems independently exclude that witness",
+        'absence of a proof is not, by itself, evidence against a proposition',
+        'What licenses the stronger statement here is C1, not the absence',
+    ):
+        if marker not in txt1:
+            return False
+    for fallacy in (
+        'so it is false',
+        'therefore false',
+        'false because no proof',
+        'unproved, hence',
+        'refuted by the absence',
+    ):
+        if fallacy in txt1:
+            return False
+    return True
 
 
 def _cs_general_horizon(src):
@@ -8200,12 +8233,13 @@ def _cs_axioms(src, txt1):
 
 
 ok_cs = True
-# the eight contracts hold as the tree stands (D1, D1b, D2-D7)
+# the nine named contracts hold as the tree stands (D1, D1b, D1c, D2, D3, D3b, D4-D7)
 ok_cs &= _cs_frozen_defs(_CS, _CSPRE)
 ok_cs &= _cs_frozen_sigs(_CS, _CSPRE)
 ok_cs &= _cs_only_frozen_defs(_CS)
 ok_cs &= _cs_freeze_pin()
 ok_cs &= _cs_outcome_theorems(_CS)
+ok_cs &= _cs_cu3_grounding(_CSRES1)
 ok_cs &= _cs_general_horizon(_CS)
 ok_cs &= _cs_licence(_CSRES1)
 ok_cs &= _cs_no_external(_CS, _CSRES1)
@@ -8235,6 +8269,12 @@ ok_cs &= _cs_m3 != _CS and not _cs_outcome_theorems(_cs_m3)
 
 _cs_m3b = _CS + '\ntheorem named_rule_inadmissible : NamedRuleInadmissible := by sorry\n'
 ok_cs &= not _cs_outcome_theorems(_cs_m3b)
+
+# the note grounding CU3's exclusion in the ABSENCE rather than in C1 -- the null inference itself
+_cs_m3c = _CSRES1.replace(
+    "so **C1's two positive theorems independently exclude that witness.**",
+    'and since no proof of it appears, the proposition is therefore false.')
+ok_cs &= _cs_m3c != _CSRES1 and not _cs_cu3_grounding(_cs_m3c)
 
 _cs_m4 = _CS.replace('padData_bornPow', 'padData_born').replace('sum_ancPow', 'sum_ancBorn')
 ok_cs &= _cs_m4 != _CS and not _cs_general_horizon(_cs_m4)
@@ -8279,16 +8319,21 @@ check('R7-CAND', ok_cs,
       'fixes, so the C2 witness is built inside its own proof and an added definition is mutation-tested to fail. '
       'The preregistration itself is pinned by computed git blob identity, exercised through the same predicate on '
       'one-byte-drifted bytes. Four of the five outcomes are earned only by a named proof, so WHICH outcome-bearing '
-      'theorems exist is the outcome: admissible_nonUnique is present for CU1a, and admissible_agree (CU2) and '
-      'named_rule_inadmissible (CU3) are checked ABSENT -- absence that is not evidence against them, which is why '
-      'the note must report unreached outcomes as unreached and never as refuted. C3\'s second theorem is checked to '
+      'theorems exist is the outcome: admissible_nonUnique is present for CU1a with its exact frozen header pinned, and '
+      'admissible_agree (CU2) and named_rule_inadmissible (CU3) are checked ABSENT. What may be SAID about those '
+      'absences is its own contract: absence alone licenses nothing, and the two cases differ, so the note is '
+      'required to ground CU3\'s exclusion in C1 -- whose two positive theorems exclude the frozen witness under '
+      'NamedRuleInadmissible\'s OWN hypotheses -- to carry the general disclaimer alongside it so the stronger '
+      'reading cannot be generalized to propositions C1 does not bear on, and to avoid the fallacious form; a note '
+      'inferring the proposition false FROM the absence is mutation-tested to fail. C3\'s second theorem is checked to '
       'consume the GENERAL-HORIZON route, padData_bornPow and sum_ancPow, not the one-step ingredients that cannot '
       'carry a statement at arbitrary n. The note is checked to name CU1a and to carry the bridge sentence at its '
       'interface scope -- permitted only because C2 closed on the two NAMED rules, and forbidden had only the general '
       'existential closed -- while claiming nothing about the external framework and identifying candidateOf with no '
       'external object. Axiom reporting is a source contract, seven print targets agreeing with the note, and '
-      'reachability is separate, since an unimported module would leave every check above unenforced. Each contract '
-      'is mutation-tested against the exact failure it exists to catch.')
+      'reachability is separate, since an unimported module would leave every check above unenforced. Nine named '
+      'contracts, each mutation-tested against the exact failure it exists to catch, plus the standing hygiene and '
+      'reachability checks.')
 
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
