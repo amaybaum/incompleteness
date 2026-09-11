@@ -197,7 +197,8 @@ FLAGGED = {}
 # runs. Afterwards the sources are gone from the root by design, so this is an
 # opt-in check used while the mapping is being built, never a precondition of
 # rendering. `--check`, the gated mode, does not require it.
-ROOT_RESIDENTS = {"README.md", "ROADMAP.md", "MIGRATION-MANIFEST.md"}
+ROOT_RESIDENTS = {"README.md", "ROADMAP.md", "MIGRATION-MANIFEST.md",
+                  "MIGRATION-RECORD.md"}
 
 if "--verify-tree" in sys.argv:
     present = {q.name for q in VER.glob("*.md")} - ROOT_RESIDENTS

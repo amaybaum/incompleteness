@@ -10,7 +10,7 @@
     {
       "id": "A",
       "title": "C1/C4, hidden memory, and the minimality machinery",
-      "note": "verification/C1C4-MINIMALITY-AUDIT.md",
+      "note": "verification/audits/foundations/C1C4-MINIMALITY-AUDIT.md",
       "charter": "every live manuscript use of C1 coupling, C4 readback, hidden predictive memory, raw versus minimal carrier, the observability quotient, passive minimality, and claims that hidden memory or the observer distinction follows automatically",
       "vocabularies": [
         {
@@ -102,7 +102,7 @@
     {
       "id": "B",
       "title": "the SM/GR concrete cut",
-      "note": "verification/CONCRETE-CUT-AUDIT.md",
+      "note": "verification/audits/physical-realization/concrete-cut/preregistration.md",
       "charter": "which abstract observer, quotient, minimality and coherence hypotheses are instantiated at the concrete physical cut, as against merely available in the formal framework",
       "vocabularies": [
         {

@@ -25,7 +25,8 @@ MANIFEST = VER / "migration-manifest.json"
 
 # Files whose home IS the root: the landing page, the strategic queue, and the
 # manifest's own human-readable form.
-ROOT_RESIDENTS = {"README.md", "ROADMAP.md", "MIGRATION-MANIFEST.md"}
+ROOT_RESIDENTS = {"README.md", "ROADMAP.md", "MIGRATION-MANIFEST.md",
+                  "MIGRATION-RECORD.md"}
 
 
 def grandfathered():
