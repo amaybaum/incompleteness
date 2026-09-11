@@ -22,6 +22,38 @@ The two kernel verdicts are always reported separately: the zero-import files an
 project have their own toolchains and their own CI jobs, so a breakage in either can never be
 mistaken for a verdict on the other.
 
+## Start here
+
+| If you want | Go to |
+| --- | --- |
+| **What is being worked on, and what is still owed** | [`ROADMAP.md`](ROADMAP.md) — the live obligation queue, ranked, with a status for each |
+| The flagship result and the layer contents | the sections below, in this file |
+| Where one of today's root artifacts is headed | [`MIGRATION-MANIFEST.md`](MIGRATION-MANIFEST.md) |
+| Where a **new** artifact goes | the programme/audit hierarchy — see [Where new artifacts go](#where-new-artifacts-go) below |
+| A specific round's freeze and its outcome | the round's own directory once migrated; until then, the root artifact named in the manifest |
+| How to run the checks | [Running the checks](#running-the-checks), at the end of this file |
+
+**`ROADMAP.md` and this file answer different questions, and the split is deliberate.** This file
+describes the verification *machinery* — the layers, what each certifies, how to run it. The roadmap
+tracks *obligations*: what is load-bearing in the manuscripts, what has a formal result behind it,
+what has only a named hypothesis, and what has been settled negatively. The census keeps registered
+claims synchronized with the strongest applicable formal result; it does not rank what is missing,
+and the roadmap does.
+
+### Where new artifacts go
+
+New audits, preregistrations and results go under a **programme** or **audit** directory, never at
+this root, placed with the round or audit family they belong to (AGENTS.md §A.36). A round whose
+category is genuinely new adds a directory.
+
+`MIGRATION-MANIFEST.md` governs something narrower: where each artifact **already at this root** is
+headed. It is not the authority on where a future artifact belongs, since a new round has no entry
+in a mapping built from the old root set. `tools/artifact_placement_check.py` uses it as a
+grandfather list and fails any new root-level artifact that is not in it.
+
+Moving the existing artifacts is a separate mechanical change; the paths cited throughout this file
+are the ones in force until it lands.
+
 ## The flagship result
 
 `OIBridge/GeneralCarrier.lean`, `main_result` — for every nonempty finite observable system:
