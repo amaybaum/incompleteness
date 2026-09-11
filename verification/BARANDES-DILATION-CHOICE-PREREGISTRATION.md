@@ -40,7 +40,7 @@ the round reports.
 | §3.4's input contract is not met by the off-direct witness | **not reached** | `DC2a` |
 | Contract met, but the source forms **no candidate at all** from the dilated unitary — not even on the dilated carrier | **not reached** | `DC2b` |
 | Contract met; a candidate is formed on the dilated carrier; the source **supplies** a map back to `V` | executed at **full strength** | `DC1`, `DC3` or `DC4` |
-| Contract met; a candidate is formed on the dilated carrier; the source supplies **no** map back to `V` | executed at **reduced strength**, the absence recorded as a finding | `DC1`, `DC3` or `DC4`, each marked reduced-strength |
+| Contract met; a candidate is formed on the dilated carrier; the source supplies **no** map back to `V` | **paused** until an append-only amendment freezing the readback map is merged, then executed at **reduced strength** | `DC1`, `DC3` or `DC4`, each marked reduced-strength |
 
 **The third and fourth rows are different branches and must not be run together.** `DC2b` is
 reserved for the case where the source forms no candidate at all; a source that forms one on the
@@ -113,10 +113,16 @@ unitary time-evolution operator, but the downstream candidate at (39)/(42) consu
 through `U(t ← 0) U†(t′ ← 0)`. A pointwise existence theorem at each time is **not** the same object
 as one coherently chosen time-indexed family. So D3 must ask explicitly: does the source **fix**,
 **prove**, or merely **assume** cross-time coherence of the dilated family, and what regularity does
-it require of it? Any freedom there is enumerated with the rest. **This may be exactly where a
-dilation choice becomes load-bearing**, since two pointwise-admissible families agreeing at every
-single time can still differ in the relative object that uses two of them at once — which is the
-shape of act 5's own `F1` witness.
+it require of it? Any freedom there is enumerated with the rest.
+
+**This may be exactly where a dilation choice becomes load-bearing**, by act 5's own `F1` mechanism.
+Two families can reproduce the **same visible stochastic matrix at every time** while differing **as
+unitaries** — and then their relative operators at a pair of times differ, because the relative
+operator is built from the unitaries and not from the visible matrices. That is precisely act 5's
+witness: `U′(s ← 0) = U(s ← 0) D(s)` gives `|U′(s ← 0)|² = |U(s ← 0)|²` at every `s`, yet the
+relative readout at `(t, t′)` is the identity from one and the swap from the other. **Note what the
+sentence does not say:** families whose *unitaries* agree pointwise have identical relative objects,
+trivially. The freedom lives in agreeing on the visible data while differing underneath.
 
 **D4 — what consumes the dilation downstream, asked as TWO separate questions.** Which subsequent
 equations use the dilated object? The two questions below are distinct and route
@@ -135,13 +141,32 @@ formed on the dilated carrier, does the source supply a map returning it to `V`?
 here does NOT stop the round.** It is recorded as a finding, our own readback is frozen per T3, and
 every layer-2 outcome is reported at **reduced strength**. `DC2b` is reserved for D4a.
 
-**D5 — is the dilation padding-like in act 3's sense?** Act 3 proved
-`candidateOf_uniformWeight_padData_eq`: tensoring an **arbitrary** finite ancilla with an arbitrary
-unitary and weight leaves the induced candidate **unmoved**, because the ancilla marginalizes at
-every horizon. So if §3.4's dilation is of that shape, a merged theorem already bears on the answer
-and `DC3`/`DC4` is the live branch. If it is not — if it alters the visible block rather than
-tensoring beside it — `DC1` is live. Determine which, with coordinates. **This question must be
-answered before any witness is examined**, so that the answer is not selected by the outcome.
+**D5 — is the dilation padding-like in act 3's sense, and does act 3's theorem actually reach it?**
+Act 3 proved `candidateOf_uniformWeight_padData_eq`: for an **arbitrary** finite ancilla, unitary and
+weight, the induced candidate is **unmoved**, because the ancilla marginalizes at every horizon.
+
+**But that theorem is about our internal construction, and two bridge conditions must both hold
+before it bears on Source A's candidate at all.** It proves invariance of `candidateOf` under the
+exact `padData` tensor-product padding, at `uniformWeight` specifically. It does **not** prove
+invariance of Source A's (39)/(42) relative-unitary candidate merely because §3.4 also introduces an
+ancilla. So D5 returns **both** of:
+
+- **D5a — the shape condition.** Does §3.4's dilation match `padData`'s shape: the visible carrier
+  tensored with a finite ancilla, with the unitary and the weight in the form the theorem covers, the
+  weight uniform? Structural resemblance is not enough; the answer names the mismatch if there is one.
+- **D5b — the quantity condition.** Is the candidate-and-readback under test **identified with**, or
+  **proved equivalent to**, the theorem's `candidateOf … uniformWeight`? The relative-unitary
+  candidate of (39)/(42) and our `candidateOf` are different constructions until something says
+  otherwise, and no merged theorem says otherwise today.
+
+**If both hold, the merged theorem is evidence and `DC3`/`DC4` is the live branch. If either fails,
+the padding theorem is recorded as an ANALOGY AND CONTROL ONLY — not evidence for `DC3` or `DC4` —
+and the round proceeds with the witnesses as though it did not exist.** In no case does D5 make
+`DC1` forbidden: a merged theorem about a different quantity forbids nothing about this one.
+
+If the dilation instead alters the visible block rather than tensoring beside it, `DC1` is live.
+Determine which, with coordinates. **This question must be answered before any witness is examined**,
+so that the answer is not selected by the outcome.
 
 **D6 — does the source itself acknowledge the freedom.** Record whether §3.4 or its surroundings say
 anything about non-uniqueness of the completion, as act 5 recorded p. 7's "not unique" and footnote
@@ -190,20 +215,26 @@ one act on, and it is the single most likely way this round could be quietly unf
 
 ### T3 — the visible readback, fixed before comparison
 
-An explicit map carrying a candidate on the dilated carrier back to a matrix on `V`, **fixed in this
-freeze's execution before either witness is examined**. No alternative projection, restriction or
-marginalization convention may be introduced after seeing a result.
+An explicit map carrying a candidate on the dilated carrier back to a matrix on `V`. **The readback
+is outcome-bearing** — different restriction or marginalization conventions can create or erase a
+visible divergence — so it is never an execution-time choice. No alternative convention may be
+introduced after seeing a result, and none may be selected while a result is in view.
 
 **And its provenance is itself reported.** This is D4b's branch, and it is reached only once D4a has
 established that the source forms a candidate on the dilated carrier at all — if it does not, the
 round has already stopped at `DC2b` and there is nothing to read back.
 
 - **Source specifies the readback** → it is transcribed, and the round runs at **full strength**.
-- **Source specifies none** → the absence is a recorded finding, the readback is declared **ours**,
-  and every layer-2 outcome is reported at **reduced strength**, because a divergence produced under
-  a readback we chose could be an artifact of that choice rather than of the dilation freedom. In
-  that case a `DC3` or `DC4` says only that the candidate is unmoved **under our readback**, and is
-  never paraphrased as invariance simpliciter.
+- **Source specifies none** → the absence is a recorded finding, and **layer 2 PAUSES**. It does not
+  proceed under a map chosen at execution time. Instead:
+  1. the finding is recorded;
+  2. an **append-only control-plane amendment** specifying the exact readback map is written,
+     reviewed and **merged** — a separate freeze, under the same split protocol as this document;
+  3. only then does layer 2 resume, at **reduced strength**, under that separately frozen map.
+
+  This keeps the reduced-strength branch available without letting the execution choose the
+  observable being compared. A `DC3` or `DC4` reached that way says the candidate is unmoved **under
+  the amendment's readback**, and is never paraphrased as invariance simpliciter.
 
 Act 3's reference points are `candidateOf` and act 5's (42) readout; neither is adopted by default.
 
@@ -281,11 +312,17 @@ programme has had to repair at every act where an existential met a universal.
 - `DC3` is the absence of an exhibition and licenses nothing.
 - `DC4` alone is universal, and only over the class its statement names.
 
-**Act 3's padding theorem is a live and merged constraint, not a rhetorical one.**
-`candidateOf_uniformWeight_padData_eq` proves that arbitrary finite-ancilla unitary padding leaves
-the candidate unmoved. If D5 finds §3.4's dilation is padding-like, `DC1` is correspondingly
-unlikely and the round should say so rather than hunt for a divergence its own merged corpus
-forbids. If D5 finds it is not padding-like, that difference is the mechanism and must be named.
+**Act 3's padding theorem bears on this round only through D5a AND D5b, and the round must not
+over-apply it.** `candidateOf_uniformWeight_padData_eq` proves that `padData` padding leaves **our
+`candidateOf` at `uniformWeight`** unmoved. That is a statement about a particular internal
+construction and a particular weight — not about Source A's relative-unitary candidate, which is a
+different quantity built from the unitaries rather than from fibre weightings.
+
+So: **the merged corpus forbids nothing about this round's question**, and no sentence in the result
+may say it does. If D5a and D5b both hold, the theorem is evidence and `DC3`/`DC4` is correspondingly
+more likely. If either fails, the theorem is an **analogy and a control** — useful for seeing what
+*kind* of enlargement leaves a candidate fixed — and the witnesses are examined as though it were
+absent. `DC1` is never ruled out in advance by it.
 
 ## Definition budget
 
@@ -316,31 +353,36 @@ affects; it is not a licence taken at execution time.
 4. **`DC2b` is D4a's answer only.** A source that forms no candidate from the dilated unitary stops
    the round; a source that forms one on the dilated carrier but supplies no map back to `V` does
    **not** stop it. The two are never merged.
-5. **The readback is fixed before either witness is examined**, and its provenance — source's or
-   ours — is reported. Under our own readback every layer-2 outcome is reported at reduced strength
-   and `DC3`/`DC4` state invariance **under that readback**, never invariance simpliciter (T3).
-6. **The input contract is tested in Source A's external orientation** — `(Γ t)ᵀ` or its `Θ`, never
+5. **The readback is never chosen at execution time.** If the source supplies one it is transcribed;
+   if it does not, layer 2 **pauses** for an append-only, separately frozen and merged amendment
+   specifying the map, and resumes at reduced strength under it. Its provenance is reported either
+   way, and under a non-source readback `DC3`/`DC4` state invariance **under that readback**, never
+   invariance simpliciter (T3).
+6. **Act 3's padding theorem is applied only if D5a AND D5b both hold** — the shape condition and the
+   identification of the quantity under test with `candidateOf … uniformWeight`. Absent either it is
+   an analogy and a control, never evidence for `DC3`/`DC4`, and it rules out `DC1` in no case.
+7. **The input contract is tested in Source A's external orientation** — `(Γ t)ᵀ` or its `Θ`, never
    raw internal `Γ` — and covers **inherited** prerequisites, not only what §3.4 restates locally
    (D2, T2). Act 2's `RT1` licenses the orientation move and is consumed, never re-proved.
-7. **Cross-time coherence of the dilated family is asked explicitly** (D3), since (39)/(42) consume
+8. **Cross-time coherence of the dilated family is asked explicitly** (D3), since (39)/(42) consume
    two times and a pointwise existence theorem is not a coherently chosen family.
-8. **Visible level, never operator level.** A divergence in dilations, unitaries or hidden carriers
+9. **Visible level, never operator level.** A divergence in dilations, unitaries or hidden carriers
    is **not** a `DC1`. Act 4's control, and act 5's exhibition burden.
-9. **Per-witness reporting.** Witness A and witness B results are stated separately and never merged
+10. **Per-witness reporting.** Witness A and witness B results are stated separately and never merged
    into one claim.
-10. **`DC3` may not be paraphrased as uniqueness, harmlessness or representation freedom.**
-11. **`DC4` is earned only by a theorem over all admissible dilations**, never by an unsuccessful
+11. **`DC3` may not be paraphrased as uniqueness, harmlessness or representation freedom.**
+12. **`DC4` is earned only by a theorem over all admissible dilations**, never by an unsuccessful
    search.
-12. **Source coordinates** follow act 1's frozen table and act 5's authoritative surface, and are
+13. **Source coordinates** follow act 1's frozen table and act 5's authoritative surface, and are
    never mixed across sources. Only Source A is adjudicated; Sources B and C are not compared with it
    on any axis.
-13. **The `n = 3` properness is cited, not proved**, is recorded at evidence level 3, and **no
+14. **The `n = 3` properness is cited, not proved**, is recorded at evidence level 3, and **no
    outcome rests on it**. The `n = 2` coincidence is proved in-round without external citation.
-14. **The screen is necessary, not sufficient**, and is stated that way everywhere it appears.
-15. **`BD3`, `BR3`, `RT1`, `CU1a`, `MP4`, `SA2`, `TI1` and `UB2` are cited and never revised.** Acts
+15. **The screen is necessary, not sufficient**, and is stated that way everywhere it appears.
+16. **`BD3`, `BR3`, `RT1`, `CU1a`, `MP4`, `SA2`, `TI1` and `UB2` are cited and never revised.** Acts
    1 through 6 are not reopened.
-16. **No manuscript edit**, whatever is found.
-17. **No sourcing inference.** Track separation both ways, per Amendment 2. No fifth condition, no
+17. **No manuscript edit**, whatever is found.
+18. **No sourcing inference.** Track separation both ways, per Amendment 2. No fifth condition, no
    deferred Arc D resource adjudicated, §3.6 not reopened.
 
 ## Non-doings
@@ -361,12 +403,13 @@ introduced on the direct branch where the unitary is already at hand. That is re
 possibility rather than a formality — call it around one in three — and it is the reason D4 is asked
 before any witness work.
 
-**If layer 1 passes, the two outcomes are close to balanced, and the deciding fact is D5.** Two
-merged results pull opposite ways. Act 5 exhibited a unitary-lift freedom moving the visible
-candidate on the direct branch, and that same freedom sits inside any dilated unitary — which argues
-for `DC1`. Act 3 proved arbitrary finite-ancilla padding leaves the candidate unmoved — which argues
-for `DC3` or `DC4` if the dilation is padding-like. Which merged result governs is exactly what D5
-decides, and the round is designed so that D5 is answered before the witnesses rather than after.
+**If layer 1 passes, the two outcomes are close to balanced, and D5 is what moves the balance.** Act
+5 exhibited a unitary-lift freedom moving the visible candidate on the direct branch, and that same
+freedom sits inside any dilated unitary — which argues for `DC1`, and argues at full force, since it
+is a statement about the same kind of object. Act 3's padding theorem argues the other way **only if
+D5a and D5b both hold**; absent either, it is an analogy and shifts nothing. The honest prior is
+therefore tilted toward `DC1` rather than balanced, and the freeze records it that way — while noting
+that a prior is not a finding and `DC1` is earned only by an exhibited visible divergence.
 
 **The prediction is recorded at that strength and no higher.** It is not a finding. `DC1` is earned
 only by an exhibited visible divergence, `DC4` only by a universal theorem, and if neither is
@@ -378,6 +421,11 @@ produced the answer is `DC3`.
   authoritative.**
 - Once frozen, immutable; execution-affecting corrections are append-only amendments, separately
   frozen, committed before the work they affect.
+- **One amendment is anticipated by name.** If D4b returns negative — the source forms a candidate on
+  the dilated carrier but supplies no map back to `V` — layer 2 pauses and an amendment fixing the
+  exact readback map is written, reviewed and merged before any layer-2 formalization or witness
+  calculation. That amendment is a control-plane artifact under this same protocol, not an execution
+  decision.
 - **Two PRs, in order.** Control-plane PR carrying **this file alone**, reviewed, frozen and merged
   before any execution; then exactly one execution/result PR from the resulting `main`.
 - Final exact-head review after the source reading, any Lean, the result note and registry updates
@@ -386,13 +434,15 @@ produced the answer is `DC3`.
 
 ## Allowed final report
 
-1. D1, D2, D3, D4a, D4b, D5 and D6 answered with exact coordinates, each freedom recorded *examined*
-   or *not examined* — cross-time coherence among them — and D5's determination stated before any
-   witness result;
+1. D1, D2, D3, D4a, D4b, D5a, D5b and D6 answered with exact coordinates, each freedom recorded
+   *examined* or *not examined* — cross-time coherence among them — and D5's determination stated
+   before any witness result, including whether act 3's padding theorem was applied as **evidence**
+   (D5a and D5b both holding) or recorded as **analogy and control only**;
 2. the admissibility predicate, stated in Source A's external orientation, listing the **inherited**
    prerequisites as well as §3.4's local ones, with any source-implicit condition named as a finding;
-3. the readback map and **whose** it is, with the strength of every layer-2 claim adjusted
-   accordingly, and `DC3`/`DC4` under our own readback stated as invariance under that readback;
+3. the readback map and **whose** it is — the source's, or the one a merged append-only amendment
+   froze — with the strength of every layer-2 claim adjusted accordingly, and `DC3`/`DC4` under a
+   non-source readback stated as invariance under **that** readback;
 4. the screen T1, stated as necessary and not sufficient, with the `n = 2` proof in-round and the
    `n = 3` properness cited at evidence level 3;
 5. both witnesses, their `PPer` membership and off-direct status proved, and their results
