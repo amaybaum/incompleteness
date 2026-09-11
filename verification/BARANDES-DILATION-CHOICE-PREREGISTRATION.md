@@ -26,18 +26,26 @@ This round asks the next question, and only it:
 ## Two layers, and they are SEQUENTIAL rather than orthogonal
 
 Act 6's two layers were independent and reported as a pair. **This round's are not**, and the
-difference is deliberate. Layer 2 is meaningful only if layer 1 establishes that Source A's dilation
-accepts our data and that the source itself forms a visible candidate from the dilated object. If it
-does not, the round **stops at layer 1 and reports that**, rather than constructing something
-broader on the source's behalf.
+difference is deliberate. Layer 2 is meaningful only if layer 1 establishes both that Source A's
+dilation **accepts our data** and that the source itself **forms a candidate from the dilated
+unitary at all**. If either fails, the round **stops at layer 1 and reports that**, rather than
+constructing something broader on the source's behalf. Whether that candidate is then brought back
+to `V` is a third, separate question: it does not stop the round, it sets the **strength** at which
+the round reports.
 
 ### The stop table
 
 | Layer 1 finding | Layer 2 | Outcome |
 | --- | --- | --- |
 | §3.4's input contract is not met by the off-direct witness | **not reached** | `DC2a` |
-| Input contract met, but the source forms no visible candidate from the dilated object | **not reached** | `DC2b` |
-| Input contract met and a visible candidate is formed | executed | `DC1`, `DC3` or `DC4` |
+| Contract met, but the source forms **no candidate at all** from the dilated unitary — not even on the dilated carrier | **not reached** | `DC2b` |
+| Contract met; a candidate is formed on the dilated carrier; the source **supplies** a map back to `V` | executed at **full strength** | `DC1`, `DC3` or `DC4` |
+| Contract met; a candidate is formed on the dilated carrier; the source supplies **no** map back to `V` | executed at **reduced strength**, the absence recorded as a finding | `DC1`, `DC3` or `DC4`, each marked reduced-strength |
+
+**The third and fourth rows are different branches and must not be run together.** `DC2b` is
+reserved for the case where the source forms no candidate at all; a source that forms one on the
+dilated carrier but never brings it back to `V` does **not** stop the round — it lowers the strength
+of whatever the round concludes, per T3.
 
 *Not reached* and *unresolved* are different statuses and are never interchanged, per act 5's
 discipline. Under `DC2a` and `DC2b` the layer-2 questions are recorded **not reached — the source
@@ -55,9 +63,12 @@ So the dilation is the one unexamined step on which a full-class `OI → QM` sta
 and act 5 recorded its freedom (`F4`, the Stinespring dilation freedom) as **scoped, not dismissed**
 precisely against this round.
 
-**What the answer would mean.** If every source-admissible dilation of a fixed off-direct OI process
-yields the same visible candidate, the freedom is representation freedom and a strong conditional
-`OI → QM` statement stays reachable. If two admissible dilations yield different visible candidates,
+**What the answer would mean, and under which readback.** If every source-admissible dilation of a
+fixed off-direct OI process yields the same visible candidate **under a readback the source itself
+specifies**, the freedom is representation freedom and a strong conditional `OI → QM` statement stays
+reachable. If the readback is **ours** (T3), the same finding says only that the candidate is
+invariant under **our** chosen readback, which is a weaker statement and is never paraphrased as the
+stronger one. If two admissible dilations yield different visible candidates,
 then OI plus Source A's construction does not determine the visible prediction, and the reachable
 statement is `OI + a named selection principle ⇒ QM` rather than `OI ⇔ QM`. Either answer is a
 result. Neither is assumed here.
@@ -74,19 +85,55 @@ or answered *not determinable from the text* — which is itself an answer and i
 transition family `Γ`, the potential matrix `Θ(t ← 0)`, or something else? Quote the defining
 sentence.
 
-**D2 — what the input contract is.** What hypotheses does §3.4 require of that object? List them
-individually. State, for each, whether a general row-stochastic-only `PPer` family satisfies it.
-**If any hypothesis fails, the round stops at `DC2a` with that hypothesis named.**
+**D2 — what the input contract is, in Source A's own orientation and including what it inherits.**
+What hypotheses does §3.4 require of that object? List them individually.
 
-**D3 — what is free in the completion.** Enumerate every choice the construction leaves open:
-carrier dimension, the completion's free block, phases, ordering, anything else. Each freedom is
-recorded as *examined* or *not examined*, per act 5's discipline — absence is never silent.
+**Orientation.** Source A's stochastic matrix is in the **external column-stochastic** orientation,
+which acts 2 and 6 reach through `(Γ t)ᵀ`. The contract is therefore tested against the exact
+external object — `(Γ t)ᵀ`, or the `Θ` built from it — and **never** against our raw internal `Γ`.
+Testing the wrong orientation would answer a different question, and act 2's `RT1` is what makes the
+translation legitimate rather than assumed.
 
-**D4 — what consumes the dilation downstream.** Which subsequent equations use the dilated object?
-In particular: **does any equation form the relative operator (39) from the DILATED unitary, and
-does any equation read a candidate back onto the original visible carrier?** If the source never
-does, the round stops at `DC2b`: forming that composite would be constructing on the source's
-behalf, which act 4 declined to do and this round declines likewise.
+**Inherited prerequisites count.** The list is **not** limited to hypotheses §3.4 restates locally.
+It must include every upstream prerequisite the construction actually needs — the time-domain and
+continuity assumptions carried down from earlier sections, and whatever the `Θ`/Kraus construction
+presupposes. Scoping D2 to §3.4's own sentences would be the way to miss a genuine `DC2a`.
+
+State, for each hypothesis, whether our discrete `PPer` witness in the external orientation satisfies
+it. **If any fails, the round stops at `DC2a` with that hypothesis named**, whether it is stated in
+§3.4 or inherited.
+
+**D3 — what is free in the completion, including ACROSS TIMES.** Enumerate every choice the
+construction leaves open: carrier dimension, the completion's free block, phases, ordering, anything
+else. Each freedom is recorded as *examined* or *not examined*, per act 5's discipline — absence is
+never silent.
+
+**And one freedom that a pointwise reading would hide.** §3.4 invokes Stinespring to obtain a dilated
+unitary time-evolution operator, but the downstream candidate at (39)/(42) consumes **two** times,
+through `U(t ← 0) U†(t′ ← 0)`. A pointwise existence theorem at each time is **not** the same object
+as one coherently chosen time-indexed family. So D3 must ask explicitly: does the source **fix**,
+**prove**, or merely **assume** cross-time coherence of the dilated family, and what regularity does
+it require of it? Any freedom there is enumerated with the rest. **This may be exactly where a
+dilation choice becomes load-bearing**, since two pointwise-admissible families agreeing at every
+single time can still differ in the relative object that uses two of them at once — which is the
+shape of act 5's own `F1` witness.
+
+**D4 — what consumes the dilation downstream, asked as TWO separate questions.** Which subsequent
+equations use the dilated object? The two questions below are distinct and route
+differently. Running them together would leave the execution branch ambiguous — a stop and a
+strength reduction are not the same instruction — so they are asked separately and answered
+separately.
+
+**D4a — is a candidate formed from the dilated unitary at all?** Does any equation form the relative
+operator (39), or any readout of (42)'s shape, from the **dilated** unitary — on the dilated carrier
+or anywhere? **If the source never forms one, the round stops at `DC2b`**: building that composite
+would be constructing on the source's behalf, which act 4 declined to do and this round declines
+likewise.
+
+**D4b — is that candidate brought back to the original visible carrier?** Given that a candidate is
+formed on the dilated carrier, does the source supply a map returning it to `V`? **A negative answer
+here does NOT stop the round.** It is recorded as a finding, our own readback is frozen per T3, and
+every layer-2 outcome is reported at **reduced strength**. `DC2b` is reserved for D4a.
 
 **D5 — is the dilation padding-like in act 3's sense?** Act 3 proved
 `candidateOf_uniformWeight_padData_eq`: tensoring an **arbitrary** finite ancilla with an arbitrary
@@ -131,7 +178,9 @@ statement; it is recorded so the screen is not over-read as a characterization.
 
 ### T2 — source admissibility, transcribed and not invented
 
-A predicate naming exactly the hypotheses D2 returns, and nothing else.
+A predicate naming exactly the hypotheses D2 returns, and nothing else — **stated about the external
+object** `(Γ t)ᵀ` or its `Θ`, in Source A's column-stochastic orientation, matching D2. Act 2's `RT1`
+is what licenses moving between orientations and is consumed, never re-proved.
 
 **The binding control.** Admissibility is **transcribed from §3.4's stated hypotheses**. If the
 construction turns out to need a condition the source leaves implicit, that condition is recorded as
@@ -145,12 +194,18 @@ An explicit map carrying a candidate on the dilated carrier back to a matrix on 
 freeze's execution before either witness is examined**. No alternative projection, restriction or
 marginalization convention may be introduced after seeing a result.
 
-**And its provenance is itself reported.** If the source specifies the readback, it is transcribed
-and the round runs at full strength. If the source does **not** specify one, that absence is a
-recorded finding, the readback is declared **ours**, and every layer-2 outcome is reported at
-**reduced strength** — because a divergence produced under a readback we chose could be an artifact
-of that choice rather than of the dilation freedom. Act 3's reference points are `candidateOf` and
-act 5's (42) readout; neither is adopted by default.
+**And its provenance is itself reported.** This is D4b's branch, and it is reached only once D4a has
+established that the source forms a candidate on the dilated carrier at all — if it does not, the
+round has already stopped at `DC2b` and there is nothing to read back.
+
+- **Source specifies the readback** → it is transcribed, and the round runs at **full strength**.
+- **Source specifies none** → the absence is a recorded finding, the readback is declared **ours**,
+  and every layer-2 outcome is reported at **reduced strength**, because a divergence produced under
+  a readback we chose could be an artifact of that choice rather than of the dilation freedom. In
+  that case a `DC3` or `DC4` says only that the candidate is unmoved **under our readback**, and is
+  never paraphrased as invariance simpliciter.
+
+Act 3's reference points are `candidateOf` and act 5's (42) readout; neither is adopted by default.
 
 ### T4 — two witnesses, reported separately
 
@@ -170,8 +225,10 @@ stochastic, hence off the direct branch by T1. **Recorded as the planned witness
 the execution must still prove `PPer` membership and off-direct status, and may substitute another
 family meeting the same three stated properties, recording the substitution and why.
 
-Both witnesses are lawful `PPer` families and both are lifted to a genuine `RootedRealization`
-through the merged `pper_has_responseRealization`, as act 6 did.
+**The execution must prove** both witnesses are lawful `PPer` families, must prove both off-direct,
+and must lift both to a genuine `RootedRealization` through the merged
+`pper_has_responseRealization`, as act 6 did. None of that is carried by this freeze; only witness
+A's `PPer` membership is merged, from act 6.
 
 **Why two.** Witness A is rank-one degenerate, so a dilation result on it alone could be an artifact
 of rank collapse rather than a fact about the dilation. Witness B separates the two.
@@ -189,9 +246,12 @@ control, load-bearing here as it was in act 5. Earned by one witness; the result
 **`DC2a` — the input contract fails.** §3.4 does not accept the off-direct witness, with the failed
 hypothesis named. Layer 2 *not reached*.
 
-**`DC2b` — the source forms no visible candidate from the dilated object.** The contract is met but
-nothing downstream reads the dilated object back to a candidate on `V`. Layer 2 *not reached*. This
-is act 4's `MP4` one branch over and is a live possibility, not a formality.
+**`DC2b` — the source forms no candidate at all from the dilated unitary.** The contract is met, but
+nothing downstream builds a relative object or readout from the dilated unitary, on the dilated
+carrier or anywhere. Layer 2 *not reached*. This is act 4's `MP4` one branch over and is a live
+possibility, not a formality. **`DC2b` is D4a's answer only**: a source that forms the candidate on
+the dilated carrier but supplies no map back to `V` is D4b, which lowers strength rather than
+stopping the round.
 
 **`DC3` — no visible divergence exhibited on the tested witnesses. UNRESOLVED.**
 
@@ -253,26 +313,35 @@ affects; it is not a licence taken at execution time.
    complete, and layer 2's definitions are transcribed from D1–D6's findings.
 3. **Admissibility is transcribed, not invented** (T2). Any condition the source leaves implicit is
    reported as a finding, named, and never added to make an outcome come out.
-4. **The readback is fixed before either witness is examined**, and its provenance — source's or
-   ours — is reported, with reduced strength in the second case (T3).
-5. **Visible level, never operator level.** A divergence in dilations, unitaries or hidden carriers
+4. **`DC2b` is D4a's answer only.** A source that forms no candidate from the dilated unitary stops
+   the round; a source that forms one on the dilated carrier but supplies no map back to `V` does
+   **not** stop it. The two are never merged.
+5. **The readback is fixed before either witness is examined**, and its provenance — source's or
+   ours — is reported. Under our own readback every layer-2 outcome is reported at reduced strength
+   and `DC3`/`DC4` state invariance **under that readback**, never invariance simpliciter (T3).
+6. **The input contract is tested in Source A's external orientation** — `(Γ t)ᵀ` or its `Θ`, never
+   raw internal `Γ` — and covers **inherited** prerequisites, not only what §3.4 restates locally
+   (D2, T2). Act 2's `RT1` licenses the orientation move and is consumed, never re-proved.
+7. **Cross-time coherence of the dilated family is asked explicitly** (D3), since (39)/(42) consume
+   two times and a pointwise existence theorem is not a coherently chosen family.
+8. **Visible level, never operator level.** A divergence in dilations, unitaries or hidden carriers
    is **not** a `DC1`. Act 4's control, and act 5's exhibition burden.
-6. **Per-witness reporting.** Witness A and witness B results are stated separately and never merged
+9. **Per-witness reporting.** Witness A and witness B results are stated separately and never merged
    into one claim.
-7. **`DC3` may not be paraphrased as uniqueness, harmlessness or representation freedom.**
-8. **`DC4` is earned only by a theorem over all admissible dilations**, never by an unsuccessful
+10. **`DC3` may not be paraphrased as uniqueness, harmlessness or representation freedom.**
+11. **`DC4` is earned only by a theorem over all admissible dilations**, never by an unsuccessful
    search.
-9. **Source coordinates** follow act 1's frozen table and act 5's authoritative surface, and are
+12. **Source coordinates** follow act 1's frozen table and act 5's authoritative surface, and are
    never mixed across sources. Only Source A is adjudicated; Sources B and C are not compared with it
    on any axis.
-10. **The `n = 3` properness is cited, not proved**, is recorded at evidence level 3, and **no
-    outcome rests on it**. The `n = 2` coincidence is proved in-round without external citation.
-11. **The screen is necessary, not sufficient**, and is stated that way everywhere it appears.
-12. **`BD3`, `BR3`, `RT1`, `CU1a`, `MP4`, `SA2`, `TI1` and `UB2` are cited and never revised.** Acts
-    1 through 6 are not reopened.
-13. **No manuscript edit**, whatever is found.
-14. **No sourcing inference.** Track separation both ways, per Amendment 2. No fifth condition, no
-    deferred Arc D resource adjudicated, §3.6 not reopened.
+13. **The `n = 3` properness is cited, not proved**, is recorded at evidence level 3, and **no
+   outcome rests on it**. The `n = 2` coincidence is proved in-round without external citation.
+14. **The screen is necessary, not sufficient**, and is stated that way everywhere it appears.
+15. **`BD3`, `BR3`, `RT1`, `CU1a`, `MP4`, `SA2`, `TI1` and `UB2` are cited and never revised.** Acts
+   1 through 6 are not reopened.
+16. **No manuscript edit**, whatever is found.
+17. **No sourcing inference.** Track separation both ways, per Amendment 2. No fifth condition, no
+   deferred Arc D resource adjudicated, §3.6 not reopened.
 
 ## Non-doings
 
@@ -317,17 +386,20 @@ produced the answer is `DC3`.
 
 ## Allowed final report
 
-1. D1–D6 answered with exact coordinates, each freedom recorded *examined* or *not examined*, and
-   D5's determination stated before any witness result;
-2. the admissibility predicate, with any source-implicit condition named as a finding;
+1. D1, D2, D3, D4a, D4b, D5 and D6 answered with exact coordinates, each freedom recorded *examined*
+   or *not examined* — cross-time coherence among them — and D5's determination stated before any
+   witness result;
+2. the admissibility predicate, stated in Source A's external orientation, listing the **inherited**
+   prerequisites as well as §3.4's local ones, with any source-implicit condition named as a finding;
 3. the readback map and **whose** it is, with the strength of every layer-2 claim adjusted
-   accordingly;
+   accordingly, and `DC3`/`DC4` under our own readback stated as invariance under that readback;
 4. the screen T1, stated as necessary and not sufficient, with the `n = 2` proof in-round and the
    `n = 3` properness cited at evidence level 3;
 5. both witnesses, their `PPer` membership and off-direct status proved, and their results
    **separately**;
 6. the outcome — `DC1`, `DC2a`, `DC2b`, `DC3` or `DC4` — with the route to the label stated, since
-   `DC2` has two routes and `DC3` and `DC4` must not be confused;
+   `DC2` has two routes, `DC3` and `DC4` must not be confused, and a `DC2b` must be shown to answer
+   D4a rather than D4b;
 7. the recorded predictions and whether each held;
 8. the definition count and the `#print axioms` line for every named result;
 9. what remains open and what would settle it;
