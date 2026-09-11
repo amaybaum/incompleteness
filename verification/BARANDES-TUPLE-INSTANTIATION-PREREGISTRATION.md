@@ -192,8 +192,10 @@ round exists to forbid straight into the predicate.
 
 This is Source A's own observation at p. 11 — "every unistochastic transition matrix is doubly
 stochastic" — proved here rather than cited. `IsColStochastic` and the transpose lemmas are act 2's
-and are **consumed, not re-proved**. This lemma is what makes a `UB2` witness checkable by a
-column-sum computation rather than by reasoning about all unitaries.
+and are **consumed, not re-proved**. This lemma is what makes a `UB2` witness checkable by a **failed
+row- or column-stochasticity check** rather than by reasoning about all unitaries — and **for the
+planned witness below, specifically by a row-sum computation on `Aᵀ`**, since `Aᵀ` is
+column-stochastic and it is its row sums that fail.
 
 **3. The direct-branch proposition, in the exact external orientation**, and its genuine
 counterexample complement:
