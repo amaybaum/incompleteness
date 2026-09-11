@@ -8023,6 +8023,318 @@ check('R7-TBRIDGE', ok_tb,
       'reachability is separate, since an unimported module would leave every check above unenforced. Each contract '
       'is mutation-tested against the exact failure it exists to catch.')
 
+# ---- R7-CAND: Track B act 3 -- candidate selection and uniqueness ----
+#
+# This round's live failure mode is not that a proof breaks but that a RESULT gets over-read. Its
+# five outcomes carry strictly different licences, and four of the five are earned only by a named
+# proof: dropping a theorem while keeping the label would silently upgrade what the round claims.
+# The guard therefore pins the frozen text, which outcome-bearing theorems exist, and which
+# sentences the note is allowed to say.
+_CS = open(os.path.join(BRIDGE, 'OIBridge', 'CandidateSelection.lean'), encoding='utf-8').read()
+_CSRES = open(os.path.join(_BB, 'BARANDES-CANDIDATE-SELECTION-RESULT.md'), encoding='utf-8').read()
+_CSPRE = open(os.path.join(_BB, 'BARANDES-CANDIDATE-SELECTION-PREREGISTRATION.md'), encoding='utf-8').read()
+_CSRES1 = ' '.join(_CSRES.split())
+
+# all EIGHT definitions the round introduces, exactly as the frozen preregistration writes them
+_CS_DEFS = (
+    """def FibreWeight (Q : QfbData V) : Type := V → Q.Bas → ℝ""",
+    """noncomputable def candidateOf (Q : QfbData V) (μ : FibreWeight Q) (n : ℕ) : Matrix V V ℝ :=
+  fun k j => ∑ b ∈ univ.filter (fun b => Q.read b = k),
+               ∑ b' ∈ univ.filter (fun b' => Q.read b' = j), μ k b * Q.bornPow n b b'""",
+    """noncomputable def initWeight (Q : QfbData V) : FibreWeight Q :=
+  fun k b => if Q.read b = k then Q.init b / Q.rootMass k else 0""",
+    """noncomputable def uniformWeight (Q : QfbData V) : FibreWeight Q :=
+  fun k b => if Q.read b = k
+    then 1 / (univ.filter (fun c => Q.read c = k)).card else 0""",
+    """def Admissible (Q : QfbData V) (μ : FibreWeight Q) : Prop :=
+  (∀ k b, Q.read b ≠ k → μ k b = 0) ∧ (∀ k b, 0 ≤ μ k b) ∧ (∀ k, ∑ b, μ k b = 1)""",
+    """def NamedRuleInadmissible : Prop :=
+  ∃ (V : Type) (_ : Fintype V) (_ : DecidableEq V) (_ : Nonempty V) (Q : QfbData V),
+    Q.IsLaw ∧ Q.PositiveRootMass ∧ (∀ k, ∃ b, Q.read b = k)
+    ∧ (¬ Admissible Q (initWeight Q) ∨ ¬ Admissible Q (uniformWeight Q))""",
+    """def AdmissibleNonUnique : Prop :=
+  ∃ (V : Type) (_ : Fintype V) (_ : DecidableEq V) (Q : QfbData V) (μ ν : FibreWeight Q) (n : ℕ),
+    Q.IsLaw ∧ Q.PositiveRootMass ∧ Admissible Q μ ∧ Admissible Q ν
+    ∧ candidateOf Q μ n ≠ candidateOf Q ν n""",
+    """def AdmissibleAgree : Prop :=
+  ∀ (V : Type) (_ : Fintype V) (_ : DecidableEq V) (Q : QfbData V) (μ ν : FibreWeight Q) (n : ℕ),
+    Q.IsLaw → Q.PositiveRootMass → Admissible Q μ → Admissible Q ν →
+    candidateOf Q μ n = candidateOf Q ν n""",
+)
+
+
+def _cs_frozen_defs(src, pre):
+    """D1 -- every one of the eight introduced definitions appears VERBATIM in freeze and module.
+
+    The sign clause of `Admissible` is the one most worth pinning: without it
+    `candidateOf_isRowStochastic` is FALSE, since support and normalization force the row sums while
+    leaving each entry an affine rather than convex combination of the fibre's visible rows."""
+    return all(d in src and d in pre for d in _CS_DEFS)
+
+
+def _cs_frozen_sigs(src, pre):
+    """D1b -- the frozen THEOREM SIGNATURES are the ones proved, binder for binder."""
+    for sig in (
+        'theorem initWeight_admissible (Q : QfbData V) (hQ : Q.IsLaw) (hP : Q.PositiveRootMass) :\n'
+        '    Admissible Q (initWeight Q)',
+        'theorem uniformWeight_admissible (Q : QfbData V) [Nonempty V] (h : ∀ k, ∃ b, Q.read b = k) :\n'
+        '    Admissible Q (uniformWeight Q)',
+        'theorem candidateOf_isRowStochastic (Q : QfbData V) (hQ : Q.IsLaw) (μ : FibreWeight Q)\n'
+        '    (hμ : Admissible Q μ) (n : ℕ) : IsRowStochastic (candidateOf Q μ n)',
+        'theorem candidate_rules_disagree :\n'
+        '    ∃ (V : Type) (_ : Fintype V) (_ : DecidableEq V) (Q : QfbData V) (n : ℕ),\n'
+        '      Q.IsLaw ∧ Q.PositiveRootMass\n'
+        '      ∧ candidateOf Q (initWeight Q) n ≠ candidateOf Q (uniformWeight Q) n',
+        'theorem candidateOf_initWeight_eq_rooted (Q : QfbData V) (hQ : Q.IsLaw) (hP : Q.PositiveRootMass)\n'
+        '    (n : ℕ) (k j : V) : candidateOf Q (initWeight Q) n k j = Q.rooted n k j',
+        # C3's SECOND theorem, whose signature D4 does not pin: D4 checks only that the proof
+        # consumes the general-horizon route, so a drifted binder or a changed statement keeping
+        # those dependencies would otherwise pass
+        'theorem candidateOf_uniformWeight_padData_eq (Q : QfbData V) (Anc : Type) [Fintype Anc]\n'
+        '    [DecidableEq Anc] [Nonempty Anc] (W : Matrix Anc Anc ℂ) (hW : W ∈ Matrix.unitaryGroup Anc ℂ)\n'
+        '    (w : Anc → ℝ) (n : ℕ) (k j : V) :\n'
+        '    candidateOf (padData Q Anc W w) (uniformWeight _) n k j\n'
+        '      = candidateOf Q (uniformWeight Q) n k j',
+    ):
+        if sig not in src or sig not in pre:
+            return False
+    return True
+
+
+# the eight names the freeze fixes, and the ONLY top-level definitions the round may introduce
+_CS_DEF_NAMES = {
+    'FibreWeight', 'candidateOf', 'initWeight', 'uniformWeight', 'Admissible',
+    'NamedRuleInadmissible', 'AdmissibleNonUnique', 'AdmissibleAgree',
+}
+
+
+def _cs_only_frozen_defs(src):
+    """D1c -- the eight frozen definitions are the ONLY top-level definitions in the module.
+
+    The freeze says the round introduces exactly eight definitions, and D1 checking that those eight
+    occur verbatim does not enforce it: witness data added as top-level `def`s would satisfy D1 while
+    breaking the count. So the C2 witness is constructed INSIDE its proof, and this pins that. The
+    count is the contract, not a style preference -- a round that may add definitions after seeing
+    what proves is not preregistered."""
+    return set(re.findall(r'(?m)^(?:noncomputable\s+)?def\s+([A-Za-z_][\w\'.]*)', src)) == _CS_DEF_NAMES
+
+
+def _cs_freeze_pin(read=_bb_read):
+    """D2 -- the preregistration is byte-identical to the blob frozen by PR #564.
+
+    The reader is injectable so that BOTH controls below run through THIS predicate, positive on the
+    real bytes and negative on drifted ones.  Comparing a separately computed digest instead would
+    leave the pin passing with this function sabotaged to `return True` -- the non-vacuity defect
+    fixed twice already, in R7-BRIDGE and then in R7-TBRIDGE."""
+    return (_bb_blob('BARANDES-CANDIDATE-SELECTION-PREREGISTRATION.md', read)
+            == '64e07da7f20f362386da01087a260723a2213e68')
+
+
+def _cs_outcome_theorems(src):
+    """D3 -- exactly the outcome-bearing theorems the reached outcome licenses, and no others.
+
+    Four of the five outcomes are earned only by a named proof, so which theorems exist IS the
+    outcome. CU1a was reached: `admissible_nonUnique` is proved -- its exact frozen header pinned
+    here, since D1b covers only the C1-C3 signatures -- and the two theorems belonging to outcomes
+    NOT reached must be absent: `admissible_agree` (CU2) and `named_rule_inadmissible` (CU3).
+
+    What may be SAID about those absences is a separate contract, D3b: absence alone licenses
+    nothing, and the two cases here are not alike."""
+    return ('theorem admissible_nonUnique : AdmissibleNonUnique' in src
+            and 'theorem candidate_rules_disagree' in src
+            and 'theorem admissible_agree' not in src
+            and 'theorem named_rule_inadmissible' not in src)
+
+
+def _cs_cu3_grounding(txt1):
+    """D3b -- the note's CU3 statement is grounded in C1, and not in the theorem's absence.
+
+    Two claims that look alike and are not. `named_rule_inadmissible` is absent, AND the frozen
+    witness is excluded -- but what excludes it is C1's two positive theorems under
+    `NamedRuleInadmissible`'s OWN hypotheses, which is a fact about the mathematics. Inferring the
+    proposition false FROM the absence would be exactly the null inference this round exists to
+    avoid, and the two are indistinguishable in a note that states only the conclusion.
+
+    So the grounding is required explicitly, the general disclaimer is required alongside it so the
+    stronger reading cannot be generalized to propositions C1 does not bear on, and the note must
+    not carry the fallacious form."""
+    for marker in (
+        "C1's two positive theorems independently exclude that witness",
+        'absence of a proof is not, by itself, evidence against a proposition',
+        'What licenses the stronger statement here is C1, not the absence',
+    ):
+        if marker not in txt1:
+            return False
+    for fallacy in (
+        'so it is false',
+        'therefore false',
+        'false because no proof',
+        'unproved, hence',
+        'refuted by the absence',
+    ):
+        if fallacy in txt1:
+            return False
+    return True
+
+
+def _cs_general_horizon(src):
+    """D4 -- C3's second theorem consumes the GENERAL-HORIZON merged route.
+
+    `candidateOf_uniformWeight_padData_eq` is stated at general `n`, so its dependencies are
+    `padData_bornPow` (factorization at every horizon) and `sum_ancPow` (ancilla marginal one at
+    every step). The one-step `padData_born` and `sum_ancBorn` are the ingredients those are proved
+    from and cannot carry the statement; naming them as the route was a real provenance error caught
+    at the control plane, and this pins the correction. Comments are stripped first, so the module
+    may still EXPLAIN why the one-step theorems are not the route without satisfying the check."""
+    code = re.sub(r'/-.*?-/|--[^\n]*', '', src, flags=re.S)
+    return ('padData_bornPow' in code and 'sum_ancPow' in code
+            and 'sum_ancBorn' not in code)
+
+
+def _cs_licence(txt1):
+    """D5 -- the note reports CU1a and says only what CU1a licenses.
+
+    The reporting licences differ by outcome in strictly decreasing strength, and the CU1a sentence
+    is the strongest. It is permitted HERE because C2 closed on the two NAMED rules; had only the
+    general existential closed, the outcome would have been CU1b and this sentence forbidden.
+
+    The external-framework sentence is checked by POSITION rather than by absence: a note that never
+    mentions it is not thereby disciplined, and this round's whole hazard is over-reading. So the
+    phrase must appear, and must appear AFTER the not-claimed marker -- moving it into an assertion
+    earlier in the note fails here."""
+    if not ('CU1a' in txt1 and 'does not select the candidate at this interface' in txt1):
+        return False
+    _marker = 'Not claimed, and not available from anything here'
+    _forbidden = 'requires an additional physical principle'
+    if _marker not in txt1 or _forbidden not in txt1:
+        return False
+    return txt1.index(_marker) < txt1.index(_forbidden)
+
+
+def _cs_no_external(src, txt1):
+    """D6 -- nothing identifies `candidateOf` with any external object.
+
+    Act 1 settled that the external diagnostic uses a PARTICULAR candidate while this programme's
+    `PDivisible` quantifies existentially. This round may cite that and may not extend it."""
+    for bad in ('Barandes candidate', 'is the Barandes', 'identified with the external',
+                'establishes the correspondence'):
+        if bad in src or bad in txt1:
+            return False
+    return ('identifies `candidateOf` with any external object' in txt1
+            or 'identifies candidateOf with any external object' in txt1)
+
+
+def _cs_axioms(src, txt1):
+    """D7 -- axiom reporting is a source contract: theorem-name set equals print-target set."""
+    _d = re.findall(r"(?m)^(?:@\[[^\]]*\]\s*)?theorem\s+([A-Za-z_][\w'.]*)", src)
+    _p = re.findall(r"#print axioms OIBridge\.CandidateSelection\.([\w'.]+)", src)
+    return (set(_p) <= set(_d) and len(_p) == len(set(_p)) and len(_p) == 7
+            and '**Seven named results.**' in txt1)
+
+
+ok_cs = True
+# the nine named contracts hold as the tree stands (D1, D1b, D1c, D2, D3, D3b, D4-D7)
+ok_cs &= _cs_frozen_defs(_CS, _CSPRE)
+ok_cs &= _cs_frozen_sigs(_CS, _CSPRE)
+ok_cs &= _cs_only_frozen_defs(_CS)
+ok_cs &= _cs_freeze_pin()
+ok_cs &= _cs_outcome_theorems(_CS)
+ok_cs &= _cs_cu3_grounding(_CSRES1)
+ok_cs &= _cs_general_horizon(_CS)
+ok_cs &= _cs_licence(_CSRES1)
+ok_cs &= _cs_no_external(_CS, _CSRES1)
+ok_cs &= _cs_axioms(_CS, _CSRES1)
+
+# ... and each is mutation-tested against the exact failure it exists to catch
+_cs_m1 = _CS.replace('(∀ k b, Q.read b ≠ k → μ k b = 0) ∧ (∀ k b, 0 ≤ μ k b) ∧ (∀ k, ∑ b, μ k b = 1)',
+                     '(∀ k b, Q.read b ≠ k → μ k b = 0) ∧ (∀ k, ∑ b, μ k b = 1)')
+ok_cs &= _cs_m1 != _CS and not _cs_frozen_defs(_cs_m1, _CSPRE)
+
+_cs_m1b = _CS.replace('theorem candidateOf_isRowStochastic (Q : QfbData V) (hQ : Q.IsLaw) (μ : FibreWeight Q)',
+                      'theorem candidateOf_isRowStochastic [Nonempty V] (Q : QfbData V) (hQ : Q.IsLaw) (μ : FibreWeight Q)')
+ok_cs &= _cs_m1b != _CS and not _cs_frozen_sigs(_cs_m1b, _CSPRE)
+
+_cs_m1c = _CS.replace(
+    'theorem candidateOf_uniformWeight_padData_eq (Q : QfbData V) (Anc : Type) [Fintype Anc]',
+    'theorem candidateOf_uniformWeight_padData_eq (Q : QfbData V) [Nonempty V] (Anc : Type) [Fintype Anc]')
+ok_cs &= _cs_m1c != _CS and not _cs_frozen_sigs(_cs_m1c, _CSPRE)
+
+# a witness datum re-added as a top-level definition -- the exact escape D1 alone would allow
+_cs_m1d = _CS + '\nnoncomputable def splitData : QfbData (Fin 2) := sorry\n'
+ok_cs &= not _cs_only_frozen_defs(_cs_m1d)
+
+_cs_m3 = _CS.replace('theorem admissible_nonUnique : AdmissibleNonUnique',
+                     'theorem admissible_agree : AdmissibleAgree')
+ok_cs &= _cs_m3 != _CS and not _cs_outcome_theorems(_cs_m3)
+
+_cs_m3b = _CS + '\ntheorem named_rule_inadmissible : NamedRuleInadmissible := by sorry\n'
+ok_cs &= not _cs_outcome_theorems(_cs_m3b)
+
+# the note grounding CU3's exclusion in the ABSENCE rather than in C1 -- the null inference itself
+_cs_m3c = _CSRES1.replace(
+    "so **C1's two positive theorems independently exclude that witness.**",
+    'and since no proof of it appears, the proposition is therefore false.')
+ok_cs &= _cs_m3c != _CSRES1 and not _cs_cu3_grounding(_cs_m3c)
+
+_cs_m4 = _CS.replace('padData_bornPow', 'padData_born').replace('sum_ancPow', 'sum_ancBorn')
+ok_cs &= _cs_m4 != _CS and not _cs_general_horizon(_cs_m4)
+
+_cs_m5 = _CSRES1.replace('CU1a', 'CU1b')
+ok_cs &= _cs_m5 != _CSRES1 and not _cs_licence(_cs_m5)
+
+_cs_m6 = _CSRES1.replace('identifies `candidateOf` with any external object',
+                         'establishes the correspondence')
+ok_cs &= _cs_m6 != _CSRES1 and not _cs_no_external(_CS, _cs_m6)
+
+_cs_m7 = _CS.replace('#print axioms OIBridge.CandidateSelection.candidate_rules_disagree\n', '', 1)
+ok_cs &= _cs_m7 != _CS and not _cs_axioms(_cs_m7, _CSRES1)
+
+# D2's controls both run THROUGH _cs_freeze_pin, so sabotaging that predicate fails the guard.
+def _cs_drift(path):
+    """One byte appended to the act 3 preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path == 'BARANDES-CANDIDATE-SELECTION-PREREGISTRATION.md' else b'')
+
+
+ok_cs &= _cs_drift('BARANDES-CANDIDATE-SELECTION-PREREGISTRATION.md') != _bb_read(
+    'BARANDES-CANDIDATE-SELECTION-PREREGISTRATION.md')
+ok_cs &= not _cs_freeze_pin(_cs_drift)
+
+# standing hygiene on the module
+_cs_code = re.sub(r'/-.*?-/|--[^\n]*', '', _CS, flags=re.S)
+ok_cs &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _CS) is None and 'native_decide' not in _CS
+ok_cs &= 'axiom ' not in _cs_code and re.search(r'(?m)^axiom ', _CS) is None
+# reachability: an unimported module would leave every check above unenforced
+ok_cs &= 'import OIBridge.CandidateSelection' in open(
+    os.path.join(BRIDGE, 'OIBridge.lean'), encoding='utf-8').read()
+
+check('R7-CAND', ok_cs,
+      'Track B act 3 guard: candidate selection is checked to have been proved against the definitions the freeze '
+      'FIXED, and -- the point of this round -- to claim only what the outcome it reached licenses. All EIGHT '
+      'introduced definitions are compared VERBATIM against the preregistration\'s own text, the sign clause of '
+      'Admissible among them, since without it candidateOf_isRowStochastic is FALSE: support and normalization force '
+      'the row sums while leaving each entry an affine rather than convex combination of the fibre\'s visible rows. '
+      'Those eight are also checked to be the ONLY top-level definitions, which verbatim comparison alone does not '
+      'enforce: witness data added as top-level defs would satisfy the comparison while breaking the count the freeze '
+      'fixes, so the C2 witness is built inside its own proof and an added definition is mutation-tested to fail. '
+      'The preregistration itself is pinned by computed git blob identity, exercised through the same predicate on '
+      'one-byte-drifted bytes. Four of the five outcomes are earned only by a named proof, so WHICH outcome-bearing '
+      'theorems exist is the outcome: admissible_nonUnique is present for CU1a with its exact frozen header pinned, and '
+      'admissible_agree (CU2) and named_rule_inadmissible (CU3) are checked ABSENT. What may be SAID about those '
+      'absences is its own contract: absence alone licenses nothing, and the two cases differ, so the note is '
+      'required to ground CU3\'s exclusion in C1 -- whose two positive theorems exclude the frozen witness under '
+      'NamedRuleInadmissible\'s OWN hypotheses -- to carry the general disclaimer alongside it so the stronger '
+      'reading cannot be generalized to propositions C1 does not bear on, and to avoid the fallacious form; a note '
+      'inferring the proposition false FROM the absence is mutation-tested to fail. C3\'s second theorem is checked to '
+      'consume the GENERAL-HORIZON route, padData_bornPow and sum_ancPow, not the one-step ingredients that cannot '
+      'carry a statement at arbitrary n. The note is checked to name CU1a and to carry the bridge sentence at its '
+      'interface scope -- permitted only because C2 closed on the two NAMED rules, and forbidden had only the general '
+      'existential closed -- while claiming nothing about the external framework and identifying candidateOf with no '
+      'external object. Axiom reporting is a source contract, seven print targets agreeing with the note, and '
+      'reachability is separate, since an unimported module would leave every check above unenforced. Nine named '
+      'contracts, each mutation-tested against the exact failure it exists to catch, plus the standing hygiene and '
+      'reachability checks.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '

@@ -188,6 +188,7 @@ import OIBridge.FrozenSourcing
 import OIBridge.StochasticInterface
 import OIBridge.CausalReadback
 import OIBridge.TransposeBridge
+import OIBridge.CandidateSelection
 import OIBridge.RecurrenceHorizon
 import OIBridge.ScalingFamily
 import OIBridge.RootedClassification
