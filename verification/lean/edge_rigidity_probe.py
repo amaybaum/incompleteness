@@ -8542,30 +8542,41 @@ def _sa_outcome(txt1):
     return ('`SA2` — selection conditional on a named extra datum' in txt1
             and 'A1 *identified*, A2 affirmative, A3 complete, A4 not invariant (exhibited), A5 '
                 '*determinate given a named parameter*, A6 a named third rule' in txt1
-            and 'The datum `SA2` names is the choice of unitary representatives' in txt1)
+            and 'The datum `SA2` names is that choice of unitary lift' in txt1)
 
 
 def _sa_containment_deferred(txt1):
-    """G4 -- SA2's datum is Source-A-internal, and the containment question stays deferred.
+    """G4 -- SA2's datum is Source-A-internal and TYPED, and the containment question stays deferred.
 
-    The specific way this round could quietly undo the frontier ordering: let "a datum the
-    construction consumes that is not fixed by its own data" slide into "a datum our side does not
-    supply". The freeze defines the term to exclude that, and the note must carry the definition."""
-    return ('a choice not fixed by the Source A data A3 lists' in txt1
+    Two failure modes, one structural and one about the frontier. Structurally, A3 lists the lift
+    among the inputs, so naming "the lift" as the extra datum is circular UNLESS A3 separates the
+    base stochastic datum from the extra construction parameter -- the note must carry that split,
+    not just the phrase. And the frontier ordering could be quietly undone by letting "a datum the
+    construction consumes beyond its own base data" slide into "a datum our side does not supply"."""
+    return ('Layer 1 — the base stochastic datum' in txt1
+            and 'Layer 2 — the extra construction parameter' in txt1
+            and 'not fixed by the base stochastic datum' in txt1
             and 'not** a datum missing from our side' in txt1
             and 'deliberately deferred by the freeze' in txt1.lower()
             and 'No claim here establishes the forward obligation' in txt1)
 
 
 def _sa_visible_counterexample(txt1):
-    """G5 -- the candidate-level freedom is EXHIBITED at the visible level, as two concrete matrices.
+    """G5 -- the freedom is exhibited at the VISIBLE level, FAMILY-wide, on a DEFINITIONAL ground.
 
-    Act 4's earned control, carried into act 5 and load-bearing here for the first time: operator
-    non-uniqueness is not candidate non-uniqueness. The note must display the two readouts AFTER the
-    modulus-square, and say that is what it is displaying."""
+    Three things the SA2 burden needs, and each was weaker in an earlier draft. The readouts must be
+    displayed after the modulus-square (act 4's earned control: operator non-uniqueness is not
+    candidate non-uniqueness). The two lifts must agree with the base datum at EVERY time, not just
+    at the two endpoints in play -- the source datum is the family, so an endpoint-level witness
+    would not show the family fails to fix the lift. And admissibility must rest on (30)/(39), which
+    define it, rather than on footnote 6, whose separate empirical-results sentence could be read as
+    restricting which transformations count as gauge and so make the citation circular."""
     return ('[[1, 0], [0, 1]]' in txt1 and '[[0, 1], [1, 0]]' in txt1
             and 'the identity' in txt1 and 'the swap' in txt1
-            and 'visible counterexample, not an operator-level one' in txt1)
+            and 'visible counterexample, not an operator-level one' in txt1
+            and 'at the level of the whole stochastic family' in txt1
+            and 'for **every** `s`' in txt1
+            and 'admissibility ground is definitional, and does not rest on footnote 6' in txt1)
 
 
 def _sa_freedoms_scoped(txt1):
@@ -8578,8 +8589,10 @@ def _sa_freedoms_scoped(txt1):
     return ('**Not examined.**' in txt1
             and 'representation freedom' in txt1
             and 'not** named as a candidate-selection datum' in txt1
-            and 'Why no unexamined freedom bears on A5' in txt1
-            and 'completeness of the parameter list' in txt1)
+            and 'why no unexamined freedom bears on A5 within it' in txt1
+            and 'completeness of the parameter list' in txt1
+            and 'F4 is scoped, not dismissed' in txt1
+            and 'established on the **direct unistochastic branch**' in txt1)
 
 
 def _sa_licences_untouched(txt1):
@@ -8616,20 +8629,19 @@ ok_sa &= _sa_not_a_theorem(_SARES1)
 _sa_m2 = _SARES1.replace('Only Source A is adjudicated', 'Both sources are adjudicated together')
 ok_sa &= _sa_m2 != _SARES1 and not _sa_source_discipline(_sa_m2)
 
-_sa_m3 = _SARES1.replace('The datum `SA2` names is the choice of unitary representatives',
+_sa_m3 = _SARES1.replace('The datum `SA2` names is that choice of unitary lift',
                          'The construction selects the candidate outright')
 ok_sa &= _sa_m3 != _SARES1 and not _sa_outcome(_sa_m3)
 
-_sa_m4 = _SARES1.replace('not** a datum missing from our side',
-                         'precisely a datum missing from our side')
+_sa_m4 = _SARES1.replace('Layer 2 — the extra construction parameter',
+                         'Layer 2 — a restatement of the same data')
 ok_sa &= _sa_m4 != _SARES1 and not _sa_containment_deferred(_sa_m4)
 
-_sa_m5 = _SARES1.replace('visible counterexample, not an operator-level one',
-                         'operator-level argument, which suffices')
+_sa_m5 = _SARES1.replace('for **every** `s`', 'at the two times in play')
 ok_sa &= _sa_m5 != _SARES1 and not _sa_visible_counterexample(_sa_m5)
 
-_sa_m6 = _SARES1.replace('Why no unexamined freedom bears on A5',
-                         'Unexamined freedoms need no accounting')
+_sa_m6 = _SARES1.replace('F4 is scoped, not dismissed',
+                         'F4 is globally irrelevant to A5')
 ok_sa &= _sa_m6 != _SARES1 and not _sa_freedoms_scoped(_sa_m6)
 
 _sa_m7 = _SARES1.replace('No candidate-selection principle is adopted or proposed',
@@ -8663,16 +8675,25 @@ check('R7-SRCA', ok_sa,
       'source selects a candidate from the visible data" is exactly what the round disproves. So SA2 is checked earned '
       'by BOTH halves: A2 affirmative, and A5 determinate-only-given-a-named-parameter, with the parameter named as '
       'the choice of unitary representatives. The candidate-level freedom is checked EXHIBITED at the VISIBLE level as '
-      'two concrete matrices, the identity against the swap on the same transition data, and checked to say that is '
-      'what it displays -- act 4\'s earned control that operator non-uniqueness is not candidate non-uniqueness, '
-      'load-bearing here for the first time. Each freedom is checked at the scope its evidence supports: F1 examined '
-      'and exhibited, F2 through F4 recorded NOT EXAMINED rather than absent, and the Stinespring freedom recorded as '
-      'representation freedom and NOT named as a selection datum, exactly as act 4 recorded it; and because an '
-      'unexamined freedom bearing on A5 would force SA4 instead, the note is checked to ARGUE that boundary rather '
-      'than assume it, and to carry the parameter list\'s incompleteness as open. The containment deferral is checked '
-      'intact from both directions -- SA2\'s datum defined as a choice not fixed by Source A\'s own data and '
-      'explicitly not one missing from our side, and no forward obligation established -- since letting those slide '
-      'together is how this round could quietly undo the frontier ordering that put the tuple lemma second. Act 3\'s '
+      'two concrete matrices, the identity against the swap, and checked to say that is what it displays -- act 4\'s '
+      'earned control that operator non-uniqueness is not candidate non-uniqueness, load-bearing here for the first '
+      'time. Two further strengths of that witness are checked, because an earlier draft had neither: it is '
+      'FAMILY-level, the two lifts agreeing with the base datum at EVERY time rather than only at the two endpoints in '
+      'play, since the source datum is the family and an endpoint witness would not show the family fails to fix the '
+      'lift; and its admissibility rests on the DEFINITIONAL ground (30)/(39) rather than on footnote 6, whose '
+      'separate all-empirical-results-unchanged sentence could be read as restricting which transformations count as '
+      'gauge and so make that citation circular. Each freedom is checked at the scope its evidence supports: F1 '
+      'examined and exhibited, F2 through F4 recorded NOT EXAMINED rather than absent, and the Stinespring freedom '
+      'recorded as representation freedom and NOT named as a selection datum, exactly as act 4 recorded it; and '
+      'because an unexamined freedom bearing on A5 would force SA4 instead, the note is checked to ARGUE that boundary '
+      'rather than assume it, to SCOPE the outcome to the direct unistochastic branch eq (39) assumes, and to record '
+      'F4 as scoped rather than globally irrelevant, since on a non-unistochastic process the section 3.4 dilation '
+      'runs first and its choice may then be load-bearing. The containment deferral is checked intact from both '
+      'directions. Structurally, A3 lists the lift among the inputs, so naming the lift as the extra datum would be '
+      'circular unless A3 separates the base stochastic datum from the extra construction parameter -- the guard '
+      'checks that two-layer split is present, not merely the phrase. And the frontier ordering is checked not to be '
+      'undone by letting a datum the construction consumes beyond its own base data slide into a datum our side does '
+      'not supply, with no forward obligation established. Act 3\'s '
       'CU1a is checked preserved, act 4\'s MP4 checked unrevised, no extraction rule authorized, and A6\'s named '
       'family checked named rather than selected from. Finally the round is checked to report itself as an audit '
       'determination rather than a theorem and to leave its sharpest open question open rather than settling it '
