@@ -68,10 +68,17 @@ fixed off-direct OI process yields the same visible candidate **under a readback
 specifies**, the freedom is representation freedom and a strong conditional `OI → QM` statement stays
 reachable. If the readback is **ours** (T3), the same finding says only that the candidate is
 invariant under **our** chosen readback, which is a weaker statement and is never paraphrased as the
-stronger one. If two admissible dilations yield different visible candidates,
-then OI plus Source A's construction does not determine the visible prediction, and the reachable
-statement is `OI + a named selection principle ⇒ QM` rather than `OI ⇔ QM`. Either answer is a
-result. Neither is assumed here.
+stronger one.
+
+**The divergence direction is bounded the same way, and for the same reason.** If two admissible
+dilations yield different visible candidates **under a readback the source itself specifies**, then
+OI plus Source A's construction does not determine the visible prediction, and the reachable
+statement is `OI + a named selection principle ⇒ QM` rather than `OI ⇔ QM`. **Under a readback fixed
+by our own amendment the same exhibition establishes strictly less**: that two source-admissible
+dilations give different outputs **under that map**. The difference could still be an artifact of the
+extra map rather than of the dilation freedom, so it does not by itself show Source A's own visible
+prediction underdetermined, and it does not by itself require a selection principle. Either answer is
+a result at its own strength. Neither is assumed here.
 
 ## Layer 1 — the source reading
 
@@ -233,8 +240,11 @@ round has already stopped at `DC2b` and there is nothing to read back.
   3. only then does layer 2 resume, at **reduced strength**, under that separately frozen map.
 
   This keeps the reduced-strength branch available without letting the execution choose the
-  observable being compared. A `DC3` or `DC4` reached that way says the candidate is unmoved **under
-  the amendment's readback**, and is never paraphrased as invariance simpliciter.
+  observable being compared. **All three layer-2 labels are bounded by it, not only the negative
+  ones.** A `DC3` or `DC4` reached that way says the candidate is unmoved **under the amendment's
+  readback**, and is never paraphrased as invariance simpliciter; a `DC1` reached that way says the
+  two dilations differ **under the amendment's readback**, and is never paraphrased as Source A's
+  visible prediction being underdetermined or as a selection principle being required.
 
 Act 3's reference points are `candidateOf` and act 5's (42) readout; neither is adopted by default.
 
@@ -273,6 +283,12 @@ existential positive. Agreement on **both** earns only *not exhibited on these w
 fixed off-direct OI witness are **exhibited**, giving **different** visible candidates under the
 frozen T3 readback. Exhibition at the **visible** level, never the operator level — act 4's earned
 control, load-bearing here as it was in act 5. Earned by one witness; the result names which.
+
+**`DC1` carries a strength, exactly as `DC3` and `DC4` do.** Under a **source-specified** readback it
+licenses the full conclusion: Source A's own visible prediction is underdetermined by the visible
+data, and a selection principle is required. Under a readback fixed by **our** amendment it licenses
+only that the two dilations differ **under that map** — the divergence could be an artifact of the
+extra map — and the result states that and not the full conclusion.
 
 **`DC2a` — the input contract fails.** §3.4 does not accept the off-direct witness, with the failed
 hypothesis named. Layer 2 *not reached*.
@@ -356,8 +372,10 @@ affects; it is not a licence taken at execution time.
 5. **The readback is never chosen at execution time.** If the source supplies one it is transcribed;
    if it does not, layer 2 **pauses** for an append-only, separately frozen and merged amendment
    specifying the map, and resumes at reduced strength under it. Its provenance is reported either
-   way, and under a non-source readback `DC3`/`DC4` state invariance **under that readback**, never
-   invariance simpliciter (T3).
+   way, and under a non-source readback **every** layer-2 label is bounded by it: `DC3`/`DC4` state
+   invariance **under that readback**, never invariance simpliciter, and `DC1` states divergence
+   **under that readback**, never underdetermination of Source A's visible prediction and never a
+   requirement for a selection principle (T3).
 6. **Act 3's padding theorem is applied only if D5a AND D5b both hold** — the shape condition and the
    identification of the quantity under test with `candidateOf … uniformWeight`. Absent either it is
    an analogy and a control, never evidence for `DC3`/`DC4`, and it rules out `DC1` in no case.
@@ -441,8 +459,9 @@ produced the answer is `DC3`.
 2. the admissibility predicate, stated in Source A's external orientation, listing the **inherited**
    prerequisites as well as §3.4's local ones, with any source-implicit condition named as a finding;
 3. the readback map and **whose** it is — the source's, or the one a merged append-only amendment
-   froze — with the strength of every layer-2 claim adjusted accordingly, and `DC3`/`DC4` under a
-   non-source readback stated as invariance under **that** readback;
+   froze — with the strength of every layer-2 claim adjusted accordingly: under a non-source readback,
+   `DC3`/`DC4` stated as invariance under **that** readback, and `DC1` stated as divergence under
+   **that** readback rather than as underdetermination of Source A's visible prediction;
 4. the screen T1, stated as necessary and not sufficient, with the `n = 2` proof in-round and the
    `n = 3` properness cited at evidence level 3;
 5. both witnesses, their `PPer` membership and off-direct status proved, and their results
