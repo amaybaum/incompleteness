@@ -21,7 +21,9 @@ stochastic-process tuple, under the frozen declarations, with every axiom kernel
 named result.
 
 **`UB2` — the direct branch refuted.** A lawful OI family is **exhibited** that is not directly
-unistochastic in Source A's orientation, so `DirectBranch` is false.
+unistochastic in Source A's orientation, so `DirectBranch` is false. This is an **existential**
+refutation of the universal statement, not a classification of the class: some member is off the
+direct branch, not every member.
 
 **The two labels are independent and are reported as a pair.** Layer 1 mentions unistochasticity
 nowhere and is conditioned on no Layer-2 outcome; Layer 2 uses no component of the tuple. Neither
@@ -39,21 +41,27 @@ fields. The conditioning-time argument is **kept in `Γ`'s type**: instantiating
 
 | Axiom | Source C v2 | What it says | Status |
 | --- | --- | --- | --- |
-| **X1a** | §3, p. 8 | `C` finite | proved — the `Fintype` instance on `V` |
-| **X1b** | p. 8 | `T` contains an initial time `0` | proved — `init := 0` |
-| **X1c** | p. 8 | `T₀ ⊂ T` contains the initial time | proved — `Cond := (· = 0)`, `init_cond` |
+| **X1a** | §3, p. 8 | `C` finite | `decl_carrier_finite` |
+| **X1b** | p. 8 | `T` contains an initial time `0` | `decl_init_eq_zero` |
+| **X1c** | p. 8 | `T₀ ⊂ T` contains the initial time | `decl_T0_singleton_containing_init` |
 | **X2** | (25) p. 8, (27) p. 9 | `Γ` takes values in `[0,1]` | `transpose_nonneg`, `transpose_le_one` |
 | **X3** | (28) p. 9 | `∑ᵢ Γᵢⱼ = 1`, over the **first** index | `transpose_isColStochastic` |
 | **X4** | (29) p. 9 | `Γᵢⱼ(t₀ ← t₀) = δᵢⱼ` | `transpose_zero` |
 | **X5** | (30)–(31) p. 9 | `p` takes values in `[0,1]` | `tupleP_nonneg`, `tupleP_le_one` |
-| **X6** | (32) p. 10 | `∑ⱼ pⱼ(0) = 1` | `tupleP_zero` with the hypothesis on `p0` |
-| **X7** | (33) p. 10 | `pᵢ(t) = ∑ⱼ Γᵢⱼ(t ← 0) pⱼ(0)` | holds **by construction** of `tupleP` |
+| **X6** | (32) p. 10 | `∑ⱼ pⱼ(0) = 1` | `tupleP_init_sum` |
+| **X7** | (33) p. 10 | `pᵢ(t) = ∑ⱼ Γᵢⱼ(t ← 0) pⱼ(0)` | `tupleP_marg` |
 | **X8** | (34) p. 10 | `∑ᵢ pᵢ(t) = 1` at every `t` | `tupleP_sum`, **derived** from X3 and X6 |
 | **X9** | (35) p. 10 | divisibility over conditioning times | `singletonDivisible_of_pper` |
-| **X10** | (40)–(41) and text, p. 12 | `𝒜` a commutative algebra of maps `C × T → ℝ` | `alg := ⊤`, taken maximal |
+| **X10** | (40)–(41) and text, p. 12 | `𝒜` a commutative algebra of maps `C × T → ℝ` | `decl_alg_maximal` |
 
-Each axiom is a **separately named result**; the instantiation `barandesTupleOfPPer` only assembles
-them. There is no aggregate satisfaction claim.
+Each axiom is a **separately named result**, as the freeze requires — "Each of X1a–X10 is proved as
+its own named result, with no aggregate 'the tuple axioms hold'" — and `barandesTupleOfPPer` only
+assembles them. Four of the ten are carried by the **declarations** rather than by a computation,
+and they are named anyway: a component supplied by `rfl` is still a component that has to be checked
+against what the source asks for. `decl_T0_singleton_containing_init` states both halves, and the
+first is the one that would otherwise go unrecorded — `T₀` is the singleton `{0}` *exactly*, which is
+the declaration X9's discharge runs at. `decl_alg_maximal` likewise states the operative half, that
+**every** map `V × ℕ → ℝ` is a member, rather than only that `alg = ⊤`.
 
 ### The declarations, and what is parameterized
 
@@ -167,8 +175,8 @@ These are **different propositions**, and nothing here relates them in either di
 
 - **`UB2` does not say Source A is inapplicable to OI.** Source A **§3.4, p. 10** dilates a
   non-unitary `Θ(t ← 0)` to a unitary one on a larger carrier, so a visible matrix that is not
-  unistochastic may still embed there. `UB2` places the OI class on **act 5's unadjudicated dilated
-  branch**.
+  unistochastic may still embed there. `UB2` puts the **full-class route** onto **act 5's
+  unadjudicated dilated branch**, for the members it exhibits — not every OI family.
 - **Conversely**, the existence of a dilation would not show the original matrix unistochastic, and
   no result here infers one from the other.
 - **Whether the dilation choice moves the induced candidate is not adjudicated here.** It is the next
@@ -196,9 +204,14 @@ declarations. The instantiation obligation act 3 named as a separate task — "t
 show our representation instantiates his construction" — is discharged **at Layer 1's scope**: the
 tuple of Source C v2 §3, at `T₀ = {0}`, with `p` parameterized at time zero.
 
-**Licensed.** The OI class sits off Source A's direct unistochastic branch, so any route from OI to
-Source A's construction runs through the **dilation**, and the dilation's choice structure is the
-next thing that must be settled.
+**Licensed, at exactly the strength `UB2` has.** The OI class is **not contained in** Source A's
+direct unistochastic branch: `DirectBranch` is false, which is an **existential** fact — some lawful
+member is off the branch — and **not** a classification saying every OI family is. What follows is
+therefore a statement about the **full-class route**: a correspondence covering all of `PPer` cannot
+stay entirely on the direct branch, and must handle Source A's **dilated** branch for the exhibited
+off-direct members. Directly unistochastic OI members may still use the direct branch, and this
+round says nothing about how many there are. So the dilation's choice structure is the next thing
+that must be settled **for the full-class route**.
 
 **Not licensed.** Nothing here says the correspondence fails, that Source A is inapplicable, or that
 the OI family is `PDivisible` or `PIndivisible`. Nothing identifies any object here with any external
@@ -228,8 +241,9 @@ the exhibited witness rather than by the prediction.
 
 ## What remains open, and what would settle it
 
-1. **The dilated branch.** `UB2` makes Source A's §3.4 dilation the load-bearing step for any
-   OI-to-Source-A route. What would settle it: a round that types the dilation, determines whether
+1. **The dilated branch.** `UB2` makes Source A's §3.4 dilation the load-bearing step for the
+   **full-class** OI-to-Source-A route — for the off-direct members it exhibits, not for every
+   member. What would settle it: a round that types the dilation, determines whether
    the dilation choice moves the induced visible candidate, and reports at act 5's `A4`/`A5` burden —
    an exhibited visible-level witness, not an operator-level one.
 2. **`T₀` beyond the singleton.** `TI1` runs at `T₀ = {0}`. Whether the OI class instantiates the
@@ -241,13 +255,14 @@ the exhibited witness rather than by the prediction.
 
 ## Controls, discharged
 
-- **Kernel discipline.** No `sorry`, `axiom` or `native_decide`. **Eighteen named results**, each
+- **Kernel discipline.** No `sorry`, `axiom` or `native_decide`. **Twenty-four named results**, each
   with a `#print axioms` line printing only `[propext, Classical.choice, Quot.sound]`. The module is
   registered in `verification/lean-manuscript-census.json` and imported in `OIBridge.lean`.
 - **Definition budget.** **Exactly seven** top-level definitions, matching the freeze:
   `BarandesTuple`, `tupleP`, `SingletonT0Divisible`, `barandesTupleOfPPer`, `IsUnistochastic`,
   `DirectBranch`, `OffDirectBranch`. Witnesses are built **inside the proofs that need them**, per
-  act 3's lesson; `rootedRealization_instantiates` is a theorem for the same reason.
+  act 3's lesson; `rootedRealization_instantiates` is a theorem for the same reason, and the six
+  named results carrying X1a, X1b, X1c, X6, X7 and X10 are theorems, so the budget is unaffected.
 - **Merged results consumed, never re-proved:** `rootedMap_zero`, `rootedMap_mem_PPer`,
   `pper_has_responseRealization`, act 2's `RT1` bridge and `IsColStochastic`.
 - **`A` is the full function algebra, taken canonically** — not derived, and not argued to be the

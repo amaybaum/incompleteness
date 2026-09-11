@@ -57,6 +57,12 @@ import OIBridge.TransposeBridge
   act 5's unadjudicated dilated branch and is not adjudicated here.  Conversely the existence of a
   dilation would not show the original matrix unistochastic.  **No result here says the external
   correspondence fails.**
+
+  NOR IS `UB2` A CLASSIFICATION.  `OffDirectBranch` is EXISTENTIAL: it exhibits one lawful member off
+  the direct branch, refuting the universal `DirectBranch`.  It does not say every OI family is off
+  that branch, and directly unistochastic members may still use the direct branch.  What follows is a
+  statement about the FULL-CLASS route — a correspondence covering all of `PPer` cannot stay entirely
+  on the direct branch — and nothing stronger.
 -/
 
 namespace OIBridge
@@ -301,6 +307,26 @@ theorem singletonDivisible_independent_of_pdivisible :
     simp [Matrix.mul_apply] at e00 e10
     linarith
 
+/-- **X6** — Source C eq (32), p. 10.  The constructed `p` is normalized at the initial time.
+
+Its own named result rather than an assembly inside the instantiation: X6 is one of the ten axioms,
+and the freeze requires each to be proved separately.  The content is that `tupleP` agrees with `p0`
+at time zero, so the hypothesis on `p0` transfers. -/
+theorem tupleP_init_sum {Γ : ℕ → Matrix V V ℝ} (hΓ : PPer Γ) {p0 : V → ℝ}
+    (hp0sum : ∑ j, p0 j = 1) : ∑ j, tupleP Γ p0 j 0 = 1 := by
+  rw [Finset.sum_congr rfl fun j _ => tupleP_zero hΓ p0 j]
+  exact hp0sum
+
+/-- **X7** — Source C eq (33), p. 10, the marginalization law.
+
+The equation that FIXES `p` at every target time from `p(0)` and `Γ`, stated here about the
+construction's OWN time-zero values rather than about `p0` directly: that is the shape the tuple's
+field has, and `tupleP_zero` is what identifies the two. -/
+theorem tupleP_marg {Γ : ℕ → Matrix V V ℝ} (hΓ : PPer Γ) (p0 : V → ℝ) (i : V) (t : ℕ) :
+    tupleP Γ p0 i t = ∑ j, (Γ t)ᵀ i j * tupleP Γ p0 j 0 := by
+  rw [Finset.sum_congr rfl fun j _ => by rw [tupleP_zero hΓ p0 j]]
+  rfl
+
 /-! #### The instantiation -/
 
 /-- **LAYER 1's TARGET — the OI visible class instantiates the external tuple.**
@@ -309,7 +335,9 @@ theorem singletonDivisible_independent_of_pdivisible :
 `T₀ = {0}`, with `Γ_B(t ← 0) = (Γ t)ᵀ`, `p` constructed by `tupleP`, and `𝒜 = ⊤` the maximal
 algebra of maps `V × ℕ → ℝ`.
 
-Every one of the ten axioms is supplied by a named result above; this assembles them. -/
+Every one of the ten axioms is supplied by its own named result — X2 through X9 above, and
+X1a, X1b, X1c and X10 immediately below, which are statements about this construction and so
+cannot precede it.  This definition assembles them and proves nothing on its own. -/
 noncomputable def barandesTupleOfPPer (Γ : ℕ → Matrix V V ℝ) (hΓ : PPer Γ)
     (p0 : V → ℝ) (hp0 : ∀ j, 0 ≤ p0 j) (hp0sum : ∑ j, p0 j = 1) :
     BarandesTuple V ℕ where
@@ -326,11 +354,8 @@ noncomputable def barandesTupleOfPPer (Γ : ℕ → Matrix V V ℝ) (hΓ : PPer 
   p := tupleP Γ p0
   p_nonneg := fun i t => tupleP_nonneg hΓ hp0 i t
   p_le_one := fun i t => tupleP_le_one hΓ hp0 hp0sum i t
-  p_init_sum := by
-    rw [Finset.sum_congr rfl fun j _ => tupleP_zero hΓ p0 j]; exact hp0sum
-  p_marg := fun i t => by
-    rw [Finset.sum_congr rfl fun j _ => by rw [tupleP_zero hΓ p0 j]]
-    rfl
+  p_init_sum := tupleP_init_sum hΓ hp0sum
+  p_marg := fun i t => tupleP_marg hΓ p0 i t
   p_sum := fun t => tupleP_sum hΓ hp0sum t
   Γ_div := fun i j t t₀ t' => by
     have h' : t'.1 = 0 := t'.2
@@ -338,6 +363,52 @@ noncomputable def barandesTupleOfPPer (Γ : ℕ → Matrix V V ℝ) (hΓ : PPer 
     exact singletonDivisible_of_pper hΓ i j t
   alg := ⊤
   alg_maximal := rfl
+
+/-! #### The four declaration-level axioms, each as its own named result
+
+X1a–X1c and X10 are carried by the DECLARATIONS rather than by a computation, which is exactly why
+they are stated here rather than left implicit in the assembly above: the freeze requires each of
+X1a–X10 to be proved as its own named result, and a component supplied by `rfl` is still a component
+that has to be checked against what the source asks for. -/
+
+omit [DecidableEq V] in
+/-- **X1a** — Source C v2 §3, p. 8: the configuration space `C` is FINITE.
+
+The declaration is `C := V`, and `V` carries `Fintype` throughout this module. -/
+theorem decl_carrier_finite : Set.Finite (Set.univ : Set V) := Set.finite_univ
+
+/-- **X1b** — Source C v2 p. 8: the time set `T` is "assumed to contain" an initial time `0`.
+
+The declaration is `T := ℕ`, and the tuple's initial time is `0` in it. -/
+theorem decl_init_eq_zero (Γ : ℕ → Matrix V V ℝ) (hΓ : PPer Γ) (p0 : V → ℝ)
+    (hp0 : ∀ j, 0 ≤ p0 j) (hp0sum : ∑ j, p0 j = 1) :
+    (barandesTupleOfPPer Γ hΓ p0 hp0 hp0sum).init = 0 := rfl
+
+/-- **X1c** — Source C v2 p. 8: the conditioning times `T₀ ⊂ T` are "assumed to include the initial
+time 0".
+
+BOTH halves are stated, and the first is the one that would otherwise go unrecorded: `T₀` is the
+singleton `{0}` exactly, not merely some subset containing `0`.  That is the declaration every later
+`T₀`-quantified axiom is discharged at, so pinning it here is what keeps X9's discharge honest. -/
+theorem decl_T0_singleton_containing_init (Γ : ℕ → Matrix V V ℝ) (hΓ : PPer Γ) (p0 : V → ℝ)
+    (hp0 : ∀ j, 0 ≤ p0 j) (hp0sum : ∑ j, p0 j = 1) :
+    (∀ t : ℕ, (barandesTupleOfPPer Γ hΓ p0 hp0 hp0sum).Cond t ↔ t = 0)
+      ∧ (barandesTupleOfPPer Γ hΓ p0 hp0 hp0sum).Cond
+          (barandesTupleOfPPer Γ hΓ p0 hp0 hp0sum).init :=
+  ⟨fun _ => Iff.rfl, rfl⟩
+
+/-- **X10** — Source C v2 eqs (40)–(41) and the text, p. 12: `𝒜` is an algebra whose elements are
+the maps `C × T → ℝ`, taken maximal.
+
+The second conjunct is the operative half: EVERY such map is a member, which is what taking the
+algebra maximal amounts to.  Stating only `alg = ⊤` would record the declaration without recording
+what it gives, and the component the source describes is the algebra rather than any one random
+variable. -/
+theorem decl_alg_maximal (Γ : ℕ → Matrix V V ℝ) (hΓ : PPer Γ) (p0 : V → ℝ)
+    (hp0 : ∀ j, 0 ≤ p0 j) (hp0sum : ∑ j, p0 j = 1) :
+    (barandesTupleOfPPer Γ hΓ p0 hp0 hp0sum).alg = ⊤
+      ∧ ∀ f : V × ℕ → ℝ, f ∈ (barandesTupleOfPPer Γ hΓ p0 hp0 hp0sum).alg :=
+  ⟨rfl, fun _ => Algebra.mem_top⟩
 
 /-- **THE REALIZATION-LAYER COROLLARY.**  A merged `RootedRealization` instantiates the tuple,
 through the merged `rootedMap_mem_PPer`.  Recorded as a corollary because the theorem above is
@@ -446,9 +517,11 @@ failure that survives transposition into Source A's orientation is the row one.
 
 **WHAT THIS DOES NOT SAY.**  It does not say Source A is inapplicable to OI.  Source A §3.4 p. 10
 dilates a non-unitary `Θ(t ← 0)` to a unitary one on a larger carrier, so a visible matrix that is
-not unistochastic may still embed there.  This result places the OI class on act 5's **unadjudicated
-dilated branch**; whether the dilation choice moves the induced candidate is not adjudicated here
-and belongs to a later round with its own freeze. -/
+not unistochastic may still embed there.  Nor does it classify the class: the statement is
+EXISTENTIAL, so it puts the FULL-CLASS route onto act 5's **unadjudicated dilated branch** — a
+correspondence covering all of `PPer` must handle that branch for the members exhibited here — while
+directly unistochastic members may still use the direct one.  Whether the dilation choice moves the
+induced candidate is not adjudicated here and belongs to a later round with its own freeze. -/
 theorem offDirectBranch : OffDirectBranch := by
   classical
   obtain ⟨Γ, hpper, h1, _⟩ := collapsing_witness
@@ -492,10 +565,16 @@ Printed at build time so the kernel's own answer, not a claim in a comment, is w
 #print axioms OIBridge.BarandesTupleRound.tupleP_nonneg
 #print axioms OIBridge.BarandesTupleRound.tupleP_sum
 #print axioms OIBridge.BarandesTupleRound.tupleP_le_one
+#print axioms OIBridge.BarandesTupleRound.tupleP_init_sum
+#print axioms OIBridge.BarandesTupleRound.tupleP_marg
 #print axioms OIBridge.BarandesTupleRound.singletonDivisible_of_pper
 #print axioms OIBridge.BarandesTupleRound.collapsing_witness
 #print axioms OIBridge.BarandesTupleRound.singletonDivisible_independent_of_pdivisible
 #print axioms OIBridge.BarandesTupleRound.barandesTupleOfPPer
+#print axioms OIBridge.BarandesTupleRound.decl_carrier_finite
+#print axioms OIBridge.BarandesTupleRound.decl_init_eq_zero
+#print axioms OIBridge.BarandesTupleRound.decl_T0_singleton_containing_init
+#print axioms OIBridge.BarandesTupleRound.decl_alg_maximal
 #print axioms OIBridge.BarandesTupleRound.rootedRealization_instantiates
 #print axioms OIBridge.BarandesTupleRound.unistochastic_isRowStochastic_and_isColStochastic
 #print axioms OIBridge.BarandesTupleRound.collapsed_slice_not_unistochastic

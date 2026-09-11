@@ -8890,13 +8890,13 @@ def _tu_axioms(src, txt1):
     A source contract rather than a log one: the build prints what the module asks it to print, so a
     named result with no `#print axioms` line is a result whose axiom basis is never displayed. The
     check is by NAME rather than by count, so a line deleted and another duplicated would not pass.
-    The named results are the seventeen theorems together with `barandesTupleOfPPer`, which carries
+    The named results are the twenty-three theorems together with `barandesTupleOfPPer`, which carries
     `TI1` and is a definition only because the tuple it builds is data; the five Prop-valued
     definitions are definitions rather than results and print nothing."""
     printed = set(re.findall(r'(?m)^#print axioms OIBridge\.BarandesTupleRound\.([\w\'.]+)', src))
     named = set(re.findall(r'(?m)^theorem\s+([A-Za-z_][\w\'.]*)', src)) | {'barandesTupleOfPPer'}
-    return (printed == named and len(printed) == 18
-            and '**Eighteen named results**' in txt1
+    return (printed == named and len(printed) == 24
+            and '**Twenty-four named results**' in txt1
             and '`[propext, Classical.choice, Quot.sound]`' in txt1)
 
 
@@ -8911,6 +8911,73 @@ def _tu_priors_unrevised(txt1):
             and 'Acts 4 and 5 are not reopened' in txt1
             and 'Nothing here is a sourcing claim' in txt1.replace('**', '')
             and 'no result here is evidence for Track I' in txt1)
+
+
+# X1a-X10 in the frozen order, each mapped to the named result(s) that carry it. The freeze says
+# verbatim: "Each of X1a-X10 is proved as its own named result, with no aggregate 'the tuple axioms
+# hold'." Four of the ten are carried by the DECLARATIONS rather than by a computation, and those are
+# exactly the ones an execution is tempted to leave implicit -- an `init := 0` or an `alg := ⊤`
+# inside the instantiation is a component supplied without ever being stated.
+_TU_AXIOM_RESULTS = {
+    'X1a': ('decl_carrier_finite',),
+    'X1b': ('decl_init_eq_zero',),
+    'X1c': ('decl_T0_singleton_containing_init',),
+    'X2': ('transpose_nonneg', 'transpose_le_one'),
+    'X3': ('transpose_isColStochastic',),
+    'X4': ('transpose_zero',),
+    'X5': ('tupleP_nonneg', 'tupleP_le_one'),
+    'X6': ('tupleP_init_sum',),
+    'X7': ('tupleP_marg',),
+    'X8': ('tupleP_sum',),
+    'X9': ('singletonDivisible_of_pper',),
+    'X10': ('decl_alg_maximal',),
+}
+
+
+def _tu_axioms_each_named(src, txt1):
+    """H14 -- each of X1a-X10 is proved as its OWN named result, and the note names which.
+
+    The freeze's wording is verbatim and admits no assembly: a component discharged inline inside
+    `barandesTupleOfPPer` is not a named result, and neither is one supplied only as a field value.
+    Counting `#print axioms` targets does not catch this -- the module had eighteen of them while six
+    axioms had no result of their own -- so the check is per axiom: the carrying theorem exists at
+    top level AND has a print target AND is the one the result note's axiom table cites. The table
+    is what a reader checks the claim against, so a theorem present but uncited would still leave the
+    note asserting something the artifact does not show."""
+    printed = set(re.findall(r'(?m)^#print axioms OIBridge\.BarandesTupleRound\.([\w\'.]+)', src))
+    for axiom, names in _TU_AXIOM_RESULTS.items():
+        for n in names:
+            if re.search(r'(?m)^(?:noncomputable\s+)?theorem\s+' + n + r'\b', src) is None:
+                return False
+            if n not in printed:
+                return False
+            if ('| **%s** |' % axiom) not in txt1:
+                return False
+            # the note's row for this axiom must cite this result
+            row = txt1.split('| **%s** |' % axiom, 1)[1].split(' |\n')[0]
+            if n not in row.split('| **X')[0]:
+                return False
+    return ('Each axiom is a **separately named result**, as the freeze requires' in txt1
+            and "with no aggregate 'the tuple axioms hold'" in txt1)
+
+
+def _tu_existential_scope(txt1):
+    """H15 -- `UB2` is reported as EXISTENTIAL, and the dilation consequence is scoped to the full
+    class.
+
+    `OffDirectBranch` exhibits ONE lawful member off the direct branch and refutes the universal
+    `DirectBranch`. It does not classify the class, so "the route from OI to Source A runs through
+    the dilation" is too strong unless 'route' is the route covering all of `PPer`. The contract is
+    both halves: the full-class scoping AND the explicit statement that directly unistochastic
+    members may still use the direct branch, since the second is what stops an existential
+    counterexample being read back as a universal classification."""
+    t = txt1.replace('**', '')
+    return ('This is an existential refutation of the universal statement, not a classification of '
+            'the class' in t
+            and 'a correspondence covering all of `PPer` cannot stay entirely on the direct branch'
+                in t
+            and 'must handle Source A\'s dilated branch for the exhibited off-direct members' in t
+            and 'Directly unistochastic OI members may still use the direct branch' in t)
 
 
 def _tu_registered(src):
@@ -8939,6 +9006,8 @@ ok_tu &= _tu_p_constructed(_TU, _TURES1)
 ok_tu &= _tu_outcome_theorems(_TU)
 ok_tu &= _tu_axioms(_TU, _TURES1)
 ok_tu &= _tu_priors_unrevised(_TURES1)
+ok_tu &= _tu_axioms_each_named(_TU, _TURES1)
+ok_tu &= _tu_existential_scope(_TURES1)
 ok_tu &= _tu_registered(_TU)
 
 # ---- mutation controls: each predicate is exercised on the exact failure it exists to catch ----
@@ -8998,6 +9067,21 @@ _tu_m12 = _TU.replace('noncomputable def tupleP (Γ : ℕ → Matrix V V ℝ) (p
 ok_tu &= _tu_m12 != _TU and not _tu_layers_independent(
     _tu_m12.replace('-- IsUnistochastic', 'IsUnistochastic'), _TURES1)
 
+# the exact miss this contract exists to catch: X7 discharged inline in the instantiation, with the
+# print-target count left consistent, which every other check here would pass
+_tu_m13 = _TU.replace('theorem tupleP_marg', 'theorem tupleP_marg_aux').replace(
+    '#print axioms OIBridge.BarandesTupleRound.tupleP_marg\n', '', 1)
+ok_tu &= _tu_m13 != _TU and not _tu_axioms_each_named(_tu_m13, _TURES1)
+
+# a declaration-level axiom left implicit: X10 supplied as a field value and never stated
+_tu_m14 = _TU.replace('theorem decl_alg_maximal', 'theorem decl_alg_note')
+ok_tu &= _tu_m14 != _TU and not _tu_axioms_each_named(_tu_m14, _TURES1)
+
+# the existential read back as a universal classification
+_tu_m15 = _TURES1.replace('Directly unistochastic OI members may still use the direct branch',
+                          'Every OI member is therefore off the direct branch')
+ok_tu &= _tu_m15 != _TURES1 and not _tu_existential_scope(_tu_m15)
+
 # H1's controls both run THROUGH _tu_freeze_pin, so sabotaging that predicate fails the guard.
 def _tu_drift(path):
     """One byte appended to the act 6 preregistration; every other file read normally."""
@@ -9042,9 +9126,9 @@ check('R7-TUPLE', ok_tu,
       'made the interface the source\'s rather than a shorthand of it: a tuple with a freely declared normalized p at '
       'every time is a WEAKER object than Source C defines. Which outcome-bearing theorems exist IS the layer-2 '
       'outcome, so offDirectBranch and not_directBranch are checked present and any theorem asserting DirectBranch '
-      'checked absent. Axiom reporting is a source contract, eighteen print targets matching the eighteen named '
+      'checked absent. Each of X1a-X10 is checked to have its OWN named result, per the freeze\'s verbatim wording, and to be the one the result note\'s axiom table cites -- the check this round actually needed, since the module carried eighteen print targets while six axioms had no result of their own, four of them the declaration-level ones an execution leaves implicit as an init or an algebra field. UB2 is checked reported as EXISTENTIAL with the dilation consequence scoped to the FULL-CLASS route, both halves, since without the sentence that directly unistochastic members may still use the direct branch an existential counterexample reads back as a universal classification. Axiom reporting is a source contract, twenty-four print targets matching the twenty-four named '
       'results and the count the note states, and registration and reachability are separate, since an unimported '
-      'module never faces the kernel in CI. Thirteen named contracts, each mutation-tested against the exact failure '
+      'module never faces the kernel in CI. Fifteen named contracts, each mutation-tested against the exact failure '
       'it exists to catch, plus the freeze-pin controls and the standing hygiene checks.')
 
 check('R7-AUDB', ok_audb,
