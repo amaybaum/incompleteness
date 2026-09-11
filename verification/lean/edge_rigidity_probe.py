@@ -8499,6 +8499,208 @@ check('R7-DILMAP', ok_dm,
       'by computed git blob identity through an injectable reader exercised on one-byte-drifted bytes. Seven named '
       'contracts, each mutation-tested against the exact failure it exists to catch, plus the freeze-pin controls.')
 
+# ---- R7-SRCA: Track B act 5 -- Source A's candidate selection ----
+#
+# The second SOURCE-TO-FORMAL round, and act 5's outcome is the first in Track B where an external
+# construction is found to FORM a visible candidate. That makes the over-claiming hazard sharper
+# than act 4's, not milder: the step from "Source A defines this object" to "Source A selects a
+# candidate from the visible data" is exactly the step the exhibited counterexample forbids. The
+# guard pins the frozen contract, the source discipline, both halves of the SA2 classification, the
+# visible-level counterexample, the scope of each freedom, and the licences the round may not touch.
+_SARES = open(os.path.join(_BB, 'BARANDES-SOURCE-A-CANDIDATE-RESULT.md'), encoding='utf-8').read()
+_SARES1 = ' '.join(_SARES.split())
+
+
+def _sa_freeze_pin(read=_bb_read):
+    """G1 -- the preregistration is byte-identical to the blob frozen by PR #568.
+
+    Injectable reader, so both controls below run through THIS predicate: positive on real bytes,
+    negative on drifted ones. A separately computed digest would leave the pin passing with this
+    function sabotaged to `return True`."""
+    return (_bb_blob('BARANDES-SOURCE-A-CANDIDATE-PREREGISTRATION.md', read)
+            == 'd4180a572297f31932aea2de41dff7d1e1fcb789')
+
+
+def _sa_source_discipline(txt1):
+    """G2 -- Source A alone is adjudicated, on the authoritative surface, without comparison.
+
+    Act 4's one pre-freeze blocker was citing Source A's equations as Source C's; act 5 runs the
+    other way and must not drift back. The freeze also forbids comparing the two sources on any
+    axis, and fixes the PDF as the numbering surface because the HTML rendering numbers differently."""
+    return ('Only Source A is adjudicated' in txt1
+            and 'arXiv:2302.10778v3 [quant-ph] 30 Jul 2025' in txt1
+            and 'Source C is not re-adjudicated' in txt1
+            and 'all four are outside this round' in txt1)
+
+
+def _sa_outcome(txt1):
+    """G3 -- the outcome is SA2, by the route the taxonomy requires, with the datum named.
+
+    SA2 needs BOTH halves: A2 affirmative AND A5 determinate-given-a-named-parameter, the latter
+    exhibited rather than argued. The freeze also requires the route to the label to be stated,
+    since SA2 is reached only one way but SA3 and SA4 each have two."""
+    return ('`SA2` — selection conditional on a named extra datum' in txt1
+            and 'A1 *identified*, A2 affirmative, A3 complete, A4 not invariant (exhibited), A5 '
+                '*determinate given a named parameter*, A6 a named third rule' in txt1
+            and 'The datum `SA2` names is that choice of unitary lift' in txt1)
+
+
+def _sa_containment_deferred(txt1):
+    """G4 -- SA2's datum is Source-A-internal and TYPED, and the containment question stays deferred.
+
+    Two failure modes, one structural and one about the frontier. Structurally, A3 lists the lift
+    among the inputs, so naming "the lift" as the extra datum is circular UNLESS A3 separates the
+    base stochastic datum from the extra construction parameter -- the note must carry that split,
+    not just the phrase. And the frontier ordering could be quietly undone by letting "a datum the
+    construction consumes beyond its own base data" slide into "a datum our side does not supply"."""
+    return ('Layer 1 — the base stochastic datum' in txt1
+            and 'Layer 2 — the extra construction parameter' in txt1
+            and 'not fixed by the base stochastic datum' in txt1
+            and 'not** a datum missing from our side' in txt1
+            and 'deliberately deferred by the freeze' in txt1.lower()
+            and 'No claim here establishes the forward obligation' in txt1)
+
+
+def _sa_visible_counterexample(txt1):
+    """G5 -- the freedom is exhibited at the VISIBLE level, FAMILY-wide, on a DEFINITIONAL ground.
+
+    Three things the SA2 burden needs, and each was weaker in an earlier draft. The readouts must be
+    displayed after the modulus-square (act 4's earned control: operator non-uniqueness is not
+    candidate non-uniqueness). The two lifts must agree with the base datum at EVERY time, not just
+    at the two endpoints in play -- the source datum is the family, so an endpoint-level witness
+    would not show the family fails to fix the lift. And admissibility must rest on (30)/(39), which
+    define it, rather than on footnote 6, whose separate empirical-results sentence could be read as
+    restricting which transformations count as gauge and so make the citation circular."""
+    return ('[[1, 0], [0, 1]]' in txt1 and '[[0, 1], [1, 0]]' in txt1
+            and 'the identity' in txt1 and 'the swap' in txt1
+            and 'visible counterexample, not an operator-level one' in txt1
+            and 'at the level of the whole stochastic family' in txt1
+            and 'for **every** `s`' in txt1
+            and 'admissibility ground is definitional, and does not rest on footnote 6' in txt1)
+
+
+def _sa_freedoms_scoped(txt1):
+    """G6 -- each freedom is recorded at the scope its evidence supports, and the SA4 boundary argued.
+
+    F1 examined and exhibited; F2-F4 recorded NOT EXAMINED rather than absent; the Stinespring
+    freedom recorded as representation freedom and not named as a selection datum, exactly as act 4
+    recorded it. And because an unexamined freedom that BORE on A5 would force SA4, the note must
+    argue that boundary rather than assume it."""
+    return ('**Not examined.**' in txt1
+            and 'representation freedom' in txt1
+            and 'not** named as a candidate-selection datum' in txt1
+            and 'why no unexamined freedom bears on A5 within it' in txt1
+            and 'completeness of the parameter list' in txt1
+            and 'F4 is scoped, not dismissed' in txt1
+            and 'established on the **direct unistochastic branch**' in txt1)
+
+
+def _sa_licences_untouched(txt1):
+    """G7 -- CU1a preserved, MP4 unrevised, no extraction rule authorized, no principle adopted.
+
+    An outcome that FINDS a candidate is the one most likely to be read as licensing its adoption.
+    A6 names a family; naming is not selecting, and the note must say so."""
+    return ('`CU1a` is preserved exactly and is not revised' in txt1
+            and "Act 4's `MP4` is unrevised" in txt1
+            and 'no amendment authorizing a candidate-extraction rule has been made' in txt1.lower()
+            and 'No candidate-selection principle is adopted or proposed' in txt1
+            and 'selecting a member of it is not' in txt1)
+
+
+def _sa_not_a_theorem(txt1):
+    """G8 -- reported at its evidence level, with the open questions carried rather than closed."""
+    return ('audit determination, not a theorem' in txt1
+            and 'never at level 2' in txt1
+            and 'This round does not adjudicate how those two readings sit together' in txt1)
+
+
+ok_sa = True
+# the eight named contracts hold as the tree stands (G1-G8)
+ok_sa &= _sa_freeze_pin()
+ok_sa &= _sa_source_discipline(_SARES1)
+ok_sa &= _sa_outcome(_SARES1)
+ok_sa &= _sa_containment_deferred(_SARES1)
+ok_sa &= _sa_visible_counterexample(_SARES1)
+ok_sa &= _sa_freedoms_scoped(_SARES1)
+ok_sa &= _sa_licences_untouched(_SARES1)
+ok_sa &= _sa_not_a_theorem(_SARES1)
+
+# ... and each is mutation-tested against the exact failure it exists to catch
+_sa_m2 = _SARES1.replace('Only Source A is adjudicated', 'Both sources are adjudicated together')
+ok_sa &= _sa_m2 != _SARES1 and not _sa_source_discipline(_sa_m2)
+
+_sa_m3 = _SARES1.replace('The datum `SA2` names is that choice of unitary lift',
+                         'The construction selects the candidate outright')
+ok_sa &= _sa_m3 != _SARES1 and not _sa_outcome(_sa_m3)
+
+_sa_m4 = _SARES1.replace('Layer 2 — the extra construction parameter',
+                         'Layer 2 — a restatement of the same data')
+ok_sa &= _sa_m4 != _SARES1 and not _sa_containment_deferred(_sa_m4)
+
+_sa_m5 = _SARES1.replace('for **every** `s`', 'at the two times in play')
+ok_sa &= _sa_m5 != _SARES1 and not _sa_visible_counterexample(_sa_m5)
+
+_sa_m6 = _SARES1.replace('F4 is scoped, not dismissed',
+                         'F4 is globally irrelevant to A5')
+ok_sa &= _sa_m6 != _SARES1 and not _sa_freedoms_scoped(_sa_m6)
+
+_sa_m7 = _SARES1.replace('No candidate-selection principle is adopted or proposed',
+                         'This round adopts the rule A6 names')
+ok_sa &= _sa_m7 != _SARES1 and not _sa_licences_untouched(_sa_m7)
+
+_sa_m8 = _SARES1.replace('This round does not adjudicate how those two readings sit together',
+                         'This round settles that Source A is mistaken here')
+ok_sa &= _sa_m8 != _SARES1 and not _sa_not_a_theorem(_sa_m8)
+
+# G1's controls both run THROUGH _sa_freeze_pin, so sabotaging that predicate fails the guard.
+def _sa_drift(path):
+    """One byte appended to the act 5 preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path == 'BARANDES-SOURCE-A-CANDIDATE-PREREGISTRATION.md' else b'')
+
+
+ok_sa &= _sa_drift('BARANDES-SOURCE-A-CANDIDATE-PREREGISTRATION.md') != _bb_read(
+    'BARANDES-SOURCE-A-CANDIDATE-PREREGISTRATION.md')
+ok_sa &= not _sa_freeze_pin(_sa_drift)
+
+# the round wrote no Lean, and the note says so; a later module would need its own freeze
+ok_sa &= 'No Lean module is written in this round' in _SARES1
+
+check('R7-SRCA', ok_sa,
+      'Track B act 5 guard: the Source A candidate-selection audit is checked to cite the right paper on the right '
+      'surface, to classify at the right burden, and not to convert a located construction into a licence. Act 5 is '
+      'the first Track B round to find that an external construction DOES form a visible intermediate candidate -- '
+      'Source A eq (42) p.14, built from the relative time-evolution operator eq (39) p.13 -- which makes the '
+      'over-claiming hazard sharper rather than milder, since the step from "the source defines this object" to "the '
+      'source selects a candidate from the visible data" is exactly what the round disproves. So SA2 is checked earned '
+      'by BOTH halves: A2 affirmative, and A5 determinate-only-given-a-named-parameter, with the parameter named as '
+      'the choice of unitary representatives. The candidate-level freedom is checked EXHIBITED at the VISIBLE level as '
+      'two concrete matrices, the identity against the swap, and checked to say that is what it displays -- act 4\'s '
+      'earned control that operator non-uniqueness is not candidate non-uniqueness, load-bearing here for the first '
+      'time. Two further strengths of that witness are checked, because an earlier draft had neither: it is '
+      'FAMILY-level, the two lifts agreeing with the base datum at EVERY time rather than only at the two endpoints in '
+      'play, since the source datum is the family and an endpoint witness would not show the family fails to fix the '
+      'lift; and its admissibility rests on the DEFINITIONAL ground (30)/(39) rather than on footnote 6, whose '
+      'separate all-empirical-results-unchanged sentence could be read as restricting which transformations count as '
+      'gauge and so make that citation circular. Each freedom is checked at the scope its evidence supports: F1 '
+      'examined and exhibited, F2 through F4 recorded NOT EXAMINED rather than absent, and the Stinespring freedom '
+      'recorded as representation freedom and NOT named as a selection datum, exactly as act 4 recorded it; and '
+      'because an unexamined freedom bearing on A5 would force SA4 instead, the note is checked to ARGUE that boundary '
+      'rather than assume it, to SCOPE the outcome to the direct unistochastic branch eq (39) assumes, and to record '
+      'F4 as scoped rather than globally irrelevant, since on a non-unistochastic process the section 3.4 dilation '
+      'runs first and its choice may then be load-bearing. The containment deferral is checked intact from both '
+      'directions. Structurally, A3 lists the lift among the inputs, so naming the lift as the extra datum would be '
+      'circular unless A3 separates the base stochastic datum from the extra construction parameter -- the guard '
+      'checks that two-layer split is present, not merely the phrase. And the frontier ordering is checked not to be '
+      'undone by letting a datum the construction consumes beyond its own base data slide into a datum our side does '
+      'not supply, with no forward obligation established. Act 3\'s '
+      'CU1a is checked preserved, act 4\'s MP4 checked unrevised, no extraction rule authorized, and A6\'s named '
+      'family checked named rather than selected from. Finally the round is checked to report itself as an audit '
+      'determination rather than a theorem and to leave its sharpest open question open rather than settling it '
+      'against the source. The preregistration is pinned by computed git blob identity through an injectable reader '
+      'exercised on one-byte-drifted bytes. Eight named contracts, each mutation-tested against the exact failure it '
+      'exists to catch, plus the freeze-pin controls.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
