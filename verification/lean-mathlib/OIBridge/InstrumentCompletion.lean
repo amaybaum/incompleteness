@@ -7,7 +7,7 @@
   not complete the operational availability relation of Level II. This entry opens the audit of
   that seam. It is an audit, not a level: no target class is adopted, and the round decides which
   of the pre-registered questions the finite theory settles. See
-  `verification/INSTRUMENT-COMPLETION-AUDIT.md` for the pre-registration and the status table.
+  `verification/audits/operational/instrument-completion-audit.md` for the pre-registration and the status table.
 
   THE CONVENTION. Instruments are Heisenberg-picture: a finite family of maps of the algebra to
   itself whose sum is unital. Complete positivity enters through its concrete Kraus witness,

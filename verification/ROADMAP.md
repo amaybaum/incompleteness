@@ -65,7 +65,7 @@ P0 by priority, but no control plane for it is frozen: the act-8 preregistration
 draft. It becomes `ACTIVE` when that control plane is frozen and merged — a drafted or closed one
 does not qualify, or `ACTIVE` would mean "someone intends to" rather than "a freeze governs this".
 
-→ [`BARANDES-DILATION-CHOICE-RESULT.md`](BARANDES-DILATION-CHOICE-RESULT.md) (the `DC2a` stop and
+→ [`BARANDES-DILATION-CHOICE-RESULT.md`](programmes/oi-qm/track-b/act-07-dilation-choice/result.md) (the `DC2a` stop and
 the obligation it names)
 
 ### P1 — Substratum Lemma 24.1, the semigroup-transfer step
@@ -83,7 +83,7 @@ Lean programme is built to close, which is why it ranks above obligations that a
 
 → [`papers/Structure.md`](../papers/Structure.md) (Theorem 23, §G3),
 [`papers/Complexity.md`](../papers/Complexity.md) (Theorem 24's conditional closure),
-[`REPRESENTATION-SECTOR-AUDIT.md`](REPRESENTATION-SECTOR-AUDIT.md) (the finite-stage GNS setting)
+[`REPRESENTATION-SECTOR-AUDIT.md`](audits/manuscript/representation-sector-audit.md) (the finite-stage GNS setting)
 
 ### P1 — A6, and what is and is not already represented
 
@@ -107,8 +107,8 @@ theory**, which has no distinguished substratum: there A1 and A2 have realized-c
 images are not the axioms. That finding is about the operational interface; the paragraph above is
 about the substratum structure. Both hold, of different objects.
 
-→ [`MANUSCRIPT-AXIOM-AUDIT.md`](MANUSCRIPT-AXIOM-AUDIT.md),
-[`SUBSTRATUM-INTERFACE-AUDIT.md`](SUBSTRATUM-INTERFACE-AUDIT.md),
+→ [`MANUSCRIPT-AXIOM-AUDIT.md`](programmes/substratum/manuscript-axiom-audit.md),
+[`SUBSTRATUM-INTERFACE-AUDIT.md`](programmes/substratum/interface-audit.md),
 [`lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean`](lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean)
 
 ### P1 — physical C4 discharge
@@ -118,8 +118,8 @@ realization is not: at the cosmological cut C4 is open, and at the lattice cut C
 hypotheses. Prose inferring C4 from bidirectional coupling was corrected in the audit; the row
 tracks the discharge, not the wording.
 
-→ [`C4-CAUSAL-READBACK-AUDIT.md`](C4-CAUSAL-READBACK-AUDIT.md),
-[`CONCRETE-CUT-AUDIT.md`](CONCRETE-CUT-AUDIT.md)
+→ [`C4-CAUSAL-READBACK-AUDIT.md`](audits/physical-realization/c4-causal-readback/preregistration.md),
+[`CONCRETE-CUT-AUDIT.md`](audits/physical-realization/concrete-cut/preregistration.md)
 
 ### P1 — H-Bell and composite closure
 
@@ -181,8 +181,8 @@ whether the GR and H-state conditions **transport** to states of the formal quas
 algebra. A real interface seam, and downstream of the core OI→QM question, which is why it sits at
 P3 rather than higher.
 
-→ [`REPRESENTATION-SECTOR-AUDIT.md`](REPRESENTATION-SECTOR-AUDIT.md),
-[`QUASILOCAL-COMPLETION-AUDIT.md`](QUASILOCAL-COMPLETION-AUDIT.md)
+→ [`REPRESENTATION-SECTOR-AUDIT.md`](audits/manuscript/representation-sector-audit.md),
+[`QUASILOCAL-COMPLETION-AUDIT.md`](audits/operational/quasilocal-completion-audit.md)
 
 ## Settled negatively — `INDEPENDENT`, and not queue items
 
@@ -200,9 +200,9 @@ The kernel result is negative and it is a result: the stated configuration-level
 formulations that actually land in the operational interface repairs that. Under the current
 architecture these are identified independent resources — proofs nobody has neglected to write.
 
-→ [`PHASE-SOURCE-AUDIT.md`](PHASE-SOURCE-AUDIT.md),
-[`FLOW-ENDPOINT-AUDIT.md`](FLOW-ENDPOINT-AUDIT.md),
-[`LIFT-AUDIT.md`](LIFT-AUDIT.md), [`LIFT-SOURCE-AUDIT.md`](LIFT-SOURCE-AUDIT.md)
+→ [`PHASE-SOURCE-AUDIT.md`](audits/foundations/phase-source-audit.md),
+[`FLOW-ENDPOINT-AUDIT.md`](audits/foundations/flow-endpoint-audit.md),
+[`LIFT-AUDIT.md`](audits/foundations/lift-audit.md), [`LIFT-SOURCE-AUDIT.md`](audits/foundations/lift-source-audit.md)
 
 ## Deliberately not prioritized
 

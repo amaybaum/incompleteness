@@ -1,0 +1,145 @@
+# Verification layout — migration record
+
+The migration executed. Every row below is a `git mv`, so history follows each artifact.
+
+**What changed inside the moved files, stated precisely.** **72 of the 91 moves are pure renames**
+— byte-identical, no content patch at all. The remaining **19** additionally had
+`verification/NAME.md` path strings rewritten to the new coordinates: balanced substitutions, no
+prose touched.
+
+The 19 is the count after the repair described below, and the arithmetic is checkable rather than
+asserted: `git diff --numstat -M` against the base shows 72 rename entries at `0 0` and 19 carrying
+a content patch. The rewrite set began at 20; `BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-AMENDMENT-3.md`
+was restored to its exact bytes and is now one of the 72.
+
+The distinction matters because blob identity is what a freeze is cited by, so:
+
+- **All 8 blob-pinned control-plane files are byte-identical** to their pre-migration blobs: act 1's
+  audit and its amendment 3, and the act 2 through act 7 preregistrations. `R7-BRIDGE` and its
+  sibling guards recompute those pins and pass.
+- The three freezes cited by blob in merged results — act 7's dilation choice
+  `810bb2f11d88a0872f764e1e32e2aa2f1e2c9b19`, Arc D's operational sourcing
+  `e9ca45351b58354564552471aa8fe81537a8e557`, recurrence-scaling
+  `0df67b4c4794036d341f4dee10408a40d5946359` — are unchanged.
+
+**The test for what may be edited is whether a guard pins the file, not what the file is called.**
+Act 1's amendment 3 is an amendment by name and a pinned control-plane file in fact; a rewrite
+inside it broke its pin during this round and was reverted.
+
+**Manifest inventory base**: `e0c0c709620db0d114dbd7061975b6747cb7aabc` — the commit whose
+root listing the mapping was built from.
+**Migration execution base**: `5f28f6bca38c29b27e860e534766112d9ab75b30` — the merge of the
+navigation round (PR #576), which is the `main` this migration ran from.
+
+The two are different commits and are named separately: the inventory fixes *what* was classified,
+the execution base fixes *where the moves were applied*.
+
+Artifacts moved: **91**.
+
+## The four frozen artifacts keep their historical coordinates
+
+Four artifacts still carry pre-migration `verification/NAME.md` paths inside them, and this is
+**intentional**: the act-01 and act-02 preregistrations,
+`audits/physical-realization/concrete-cut/freeze.md`, and `audits/manuscript/oi-n-freeze.md`.
+
+**Freeze immutability is a property of the artifact, not a consequence of whether a blob SHA was
+later cited.** A frozen document records the coordinates that were in force when it was frozen, and
+rewriting them would edit a frozen artifact to make a path tidy. The stale coordinates are therefore
+left exactly as written, and **this record is the translation layer**: the table below resolves any
+pre-migration path a frozen artifact names.
+
+## Old path → new path
+
+| Old | New |
+| --- | --- |
+| `verification/BARANDES-BOUNDARY-AUDIT-RESULT.md` | `verification/programmes/oi-qm/track-b/boundary-audit/result.md` |
+| `verification/BARANDES-BOUNDARY-AUDIT.md` | `verification/programmes/oi-qm/track-b/boundary-audit/preregistration.md` |
+| `verification/BARANDES-CANDIDATE-SELECTION-PREREGISTRATION.md` | `verification/programmes/oi-qm/track-b/act-03-candidate-selection/preregistration.md` |
+| `verification/BARANDES-CANDIDATE-SELECTION-RESULT.md` | `verification/programmes/oi-qm/track-b/act-03-candidate-selection/result.md` |
+| `verification/BARANDES-DILATION-CHOICE-PREREGISTRATION.md` | `verification/programmes/oi-qm/track-b/act-07-dilation-choice/preregistration.md` |
+| `verification/BARANDES-DILATION-CHOICE-RESULT.md` | `verification/programmes/oi-qm/track-b/act-07-dilation-choice/result.md` |
+| `verification/BARANDES-DILATION-MAPPING-PREREGISTRATION.md` | `verification/programmes/oi-qm/track-b/act-04-dilation-mapping/preregistration.md` |
+| `verification/BARANDES-DILATION-MAPPING-RESULT.md` | `verification/programmes/oi-qm/track-b/act-04-dilation-mapping/result.md` |
+| `verification/BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-AMENDMENT-3.md` | `verification/programmes/oi-qm/track-b/act-01-indivisibility/amendments/amendment-3.md` |
+| `verification/BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-RESULT.md` | `verification/programmes/oi-qm/track-b/act-01-indivisibility/result.md` |
+| `verification/BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md` | `verification/programmes/oi-qm/track-b/act-01-indivisibility/preregistration.md` |
+| `verification/BARANDES-REPRESENTATION-FREEDOM-SCOPING.md` | `verification/programmes/oi-qm/track-b/representation-freedom-scoping.md` |
+| `verification/BARANDES-SOURCE-A-CANDIDATE-PREREGISTRATION.md` | `verification/programmes/oi-qm/track-b/act-05-source-a-candidate/preregistration.md` |
+| `verification/BARANDES-SOURCE-A-CANDIDATE-RESULT.md` | `verification/programmes/oi-qm/track-b/act-05-source-a-candidate/result.md` |
+| `verification/BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md` | `verification/programmes/oi-qm/track-b/act-02-transpose-bridge/preregistration.md` |
+| `verification/BARANDES-TRANSPOSE-BRIDGE-RESULT.md` | `verification/programmes/oi-qm/track-b/act-02-transpose-bridge/result.md` |
+| `verification/BARANDES-TUPLE-INSTANTIATION-PREREGISTRATION.md` | `verification/programmes/oi-qm/track-b/act-06-tuple-instantiation/preregistration.md` |
+| `verification/BARANDES-TUPLE-INSTANTIATION-RESULT.md` | `verification/programmes/oi-qm/track-b/act-06-tuple-instantiation/result.md` |
+| `verification/C1C4-MINIMALITY-AUDIT.md` | `verification/audits/foundations/C1C4-MINIMALITY-AUDIT.md` |
+| `verification/C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md` | `verification/audits/physical-realization/c4-causal-readback/amendments/amendment-1.md` |
+| `verification/C4-CAUSAL-READBACK-AUDIT-AMENDMENT.md` | `verification/audits/physical-realization/c4-causal-readback/amendments/amendment.md` |
+| `verification/C4-CAUSAL-READBACK-AUDIT.md` | `verification/audits/physical-realization/c4-causal-readback/preregistration.md` |
+| `verification/C5-DISCOVERY-AUDIT.md` | `verification/audits/foundations/c5-discovery-audit.md` |
+| `verification/CAUSAL-READBACK-DISCOVERY-AMENDMENT-1.md` | `verification/programmes/oi-qm/track-i/causal-readback-discovery/amendments/amendment-1.md` |
+| `verification/CAUSAL-READBACK-DISCOVERY-AUDIT.md` | `verification/programmes/oi-qm/track-i/causal-readback-discovery/preregistration.md` |
+| `verification/CAUSAL-READBACK-DISCOVERY-RESULT-AMENDMENT-1.md` | `verification/programmes/oi-qm/track-i/causal-readback-discovery/amendments/result-amendment-1.md` |
+| `verification/CAUSAL-READBACK-DISCOVERY-RESULT.md` | `verification/programmes/oi-qm/track-i/causal-readback-discovery/result.md` |
+| `verification/CENSUS-oi-compatible-theories.md` | `verification/audits/operational/census-oi-compatible-theories.md` |
+| `verification/COHERENT-CONTINUUM-SOURCE-AUDIT.md` | `verification/audits/foundations/coherent-continuum-source-audit.md` |
+| `verification/COMPLETION-ASSUMPTION-AUDIT.md` | `verification/audits/operational/completion-assumption-audit.md` |
+| `verification/CONCRETE-CUT-AUDIT.md` | `verification/audits/physical-realization/concrete-cut/preregistration.md` |
+| `verification/CONCRETE-CUT-FREEZE.md` | `verification/audits/physical-realization/concrete-cut/freeze.md` |
+| `verification/CONTINUOUS-TIME-AUDIT.md` | `verification/audits/physical-realization/continuous-time-audit.md` |
+| `verification/CT3-R2B-Q2-PERIOD-AND-CYCLES.md` | `verification/audits/physical-realization/ct3-r2b-q2-period-and-cycles.md` |
+| `verification/DENSE-INSTRUMENT-BRIDGE-AUDIT.md` | `verification/audits/operational/dense-instrument-bridge-audit.md` |
+| `verification/DERIVED-Q3-AUDIT.md` | `verification/audits/foundations/derived-q3-audit.md` |
+| `verification/DISCRETE-COMPLETION-AUDIT.md` | `verification/audits/operational/discrete-completion-audit.md` |
+| `verification/EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md` | `verification/archive/superseded/EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md` |
+| `verification/EXEC-SOURCE-AUDIT.md` | `verification/audits/foundations/exec-source-audit.md` |
+| `verification/FLOW-ENDPOINT-AUDIT.md` | `verification/audits/foundations/flow-endpoint-audit.md` |
+| `verification/FLOW-EXTENSION-AUDIT.md` | `verification/audits/foundations/flow-extension-audit.md` |
+| `verification/FROZEN-SUBSTRATUM-SOURCING-AUDIT.md` | `verification/programmes/substratum/frozen-sourcing-audit.md` |
+| `verification/INSTRUMENT-COMPLETION-AUDIT.md` | `verification/audits/operational/instrument-completion-audit.md` |
+| `verification/INSTRUMENT-MIGRATION-AUDIT.md` | `verification/audits/operational/instrument-migration-audit.md` |
+| `verification/INSTRUMENT-REALIZATION-AUDIT.md` | `verification/audits/operational/instrument-realization-audit.md` |
+| `verification/INVERSE-CLAUSE-AUDIT.md` | `verification/audits/foundations/inverse-clause-audit.md` |
+| `verification/LEAN-MANUSCRIPT-CENSUS.md` | `verification/audits/manuscript/lean-manuscript-census.md` |
+| `verification/LIFT-AUDIT.md` | `verification/audits/foundations/lift-audit.md` |
+| `verification/LIFT-SOURCE-AUDIT.md` | `verification/audits/foundations/lift-source-audit.md` |
+| `verification/MANUSCRIPT-AXIOM-AUDIT.md` | `verification/programmes/substratum/manuscript-axiom-audit.md` |
+| `verification/MILESTONE-finite-quantum-instruments.md` | `verification/audits/operational/milestone-finite-quantum-instruments.md` |
+| `verification/MINIMAL-REPERTOIRE-AUDIT.md` | `verification/audits/foundations/MINIMAL-REPERTOIRE-AUDIT.md` |
+| `verification/OI-CORE-FORWARD-REDUNDANCY.md` | `verification/audits/foundations/oi-core-forward-redundancy.md` |
+| `verification/OI-HYDRODYNAMICS-SINGULARITY-RESEARCH-PROGRAMME.md` | `verification/programmes/hydrodynamics/PROGRAMME.md` |
+| `verification/OI-N-EXPLORATORY.md` | `verification/audits/manuscript/oi-n-exploratory.md` |
+| `verification/OI-N-FREEZE.md` | `verification/audits/manuscript/oi-n-freeze.md` |
+| `verification/OI-OPERATIONAL-SOURCING-AUDIT-AMENDMENT-1.md` | `verification/programmes/oi-qm/track-i/arc-d-operational-sourcing/amendments/amendment-1.md` |
+| `verification/OI-OPERATIONAL-SOURCING-AUDIT.md` | `verification/programmes/oi-qm/track-i/arc-d-operational-sourcing/preregistration.md` |
+| `verification/OI-OPERATIONAL-SOURCING-RESULT.md` | `verification/programmes/oi-qm/track-i/arc-d-operational-sourcing/result.md` |
+| `verification/OI-QM-RESEARCH-PROGRAMME-AMENDMENT-1.md` | `verification/programmes/oi-qm/amendments/amendment-1.md` |
+| `verification/OI-QM-RESEARCH-PROGRAMME-AMENDMENT-2.md` | `verification/programmes/oi-qm/amendments/amendment-2.md` |
+| `verification/OI-QM-RESEARCH-PROGRAMME.md` | `verification/programmes/oi-qm/PROGRAMME.md` |
+| `verification/OI-QUANTUM-REPRESENTATION-AUDIT-AMENDMENT-1.md` | `verification/programmes/oi-qm/track-i/arc-c-quantum-representation/amendments/amendment-1.md` |
+| `verification/OI-QUANTUM-REPRESENTATION-AUDIT.md` | `verification/programmes/oi-qm/track-i/arc-c-quantum-representation/preregistration.md` |
+| `verification/OI-QUANTUM-REPRESENTATION-RESULT.md` | `verification/programmes/oi-qm/track-i/arc-c-quantum-representation/result.md` |
+| `verification/OI-ROOTED-CLASSIFICATION-AUDIT.md` | `verification/programmes/oi-qm/track-i/arc-b-rooted-classification/preregistration.md` |
+| `verification/OI-ROOTED-CLASSIFICATION-RESULT.md` | `verification/programmes/oi-qm/track-i/arc-b-rooted-classification/result.md` |
+| `verification/PAIR-FLOW-EQUIVALENCE-AUDIT.md` | `verification/audits/foundations/pair-flow-equivalence-audit.md` |
+| `verification/PHASE-PROPAGATION-AUDIT.md` | `verification/audits/foundations/phase-propagation-audit.md` |
+| `verification/PHASE-SOURCE-AUDIT.md` | `verification/audits/foundations/phase-source-audit.md` |
+| `verification/POLARIZATION-CLOSURE-AUDIT.md` | `verification/audits/foundations/polarization-closure-audit.md` |
+| `verification/PRIMITIVE-SOURCE-AUDIT.md` | `verification/programmes/substratum/primitive-source-audit.md` |
+| `verification/Q3-PROPAGATION-AUDIT.md` | `verification/audits/foundations/q3-propagation-audit.md` |
+| `verification/QUASILOCAL-COMPLETION-AUDIT.md` | `verification/audits/operational/quasilocal-completion-audit.md` |
+| `verification/REAL-PAIR-FLOW-AUDIT.md` | `verification/audits/foundations/real-pair-flow-audit.md` |
+| `verification/RECURRENCE-SCALING-AUDIT.md` | `verification/programmes/oi-qm/track-i/recurrence-scaling/preregistration.md` |
+| `verification/RECURRENCE-SCALING-RESULT.md` | `verification/programmes/oi-qm/track-i/recurrence-scaling/result.md` |
+| `verification/RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md` | `verification/programmes/oi-qm/track-i/recurrence-tightness/amendments/amendment-1.md` |
+| `verification/RECURRENCE-TIGHTNESS-AUDIT.md` | `verification/programmes/oi-qm/track-i/recurrence-tightness/preregistration.md` |
+| `verification/RECURRENCE-TIGHTNESS-RESULT.md` | `verification/programmes/oi-qm/track-i/recurrence-tightness/result.md` |
+| `verification/REPRESENTATION-SECTOR-AUDIT.md` | `verification/audits/manuscript/representation-sector-audit.md` |
+| `verification/ROOTED-OBSERVER-FAMILY-SOURCING-AUDIT-RESULT.md` | `verification/audits/operational/rooted-observer-family-sourcing/result.md` |
+| `verification/ROOTED-OBSERVER-FAMILY-SOURCING-AUDIT.md` | `verification/audits/operational/rooted-observer-family-sourcing/preregistration.md` |
+| `verification/ROUTE-B-AUDIT.md` | `verification/programmes/substratum/route-b-audit.md` |
+| `verification/SCALAR-CLOSURE-AUDIT.md` | `verification/audits/foundations/scalar-closure-audit.md` |
+| `verification/SOURCING-PROPAGATION-AUDIT.md` | `verification/audits/operational/sourcing-propagation-audit.md` |
+| `verification/STATE-MIXING-COUPLING-AUDIT.md` | `verification/audits/foundations/state-mixing-coupling-audit.md` |
+| `verification/STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md` | `verification/audits/operational/stochastic-observer-interface-audit.md` |
+| `verification/SUBSTRATUM-INTERFACE-AUDIT.md` | `verification/programmes/substratum/interface-audit.md` |
+| `verification/SUBSTRATUM-SOURCE-AUDIT.md` | `verification/programmes/substratum/source-audit.md` |
+| `verification/TYPED-COMPLETION-AUDIT.md` | `verification/audits/operational/typed-completion-audit.md` |
