@@ -73,6 +73,11 @@ def main():
         # it guards is removed.
         ("voice-scope", [sys.executable, "tools/voice_scope_test.py"]),
         ("ci-gate-presence", [sys.executable, "tools/ci_gate_presence_test.py"]),
+        # artifact-placement: new audits and preregistrations stay out of the
+        # verification/ root. One-directional against the migration manifest as
+        # a grandfather list, so it survives the mechanical migration unchanged.
+        ("artifact-placement",
+                      [sys.executable, "tools/artifact_placement_check.py"]),
         ("claims",    [sys.executable, "tools/claims_check.py"]),
         ("duplicate", [sys.executable, "tools/duplicate_check.py"]),
         ("mirror",    [sys.executable, "papers/oi_lattice_code/mirror_check.py"]),

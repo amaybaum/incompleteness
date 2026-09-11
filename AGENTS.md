@@ -587,3 +587,31 @@ left the paper unnoticed. Both were corrected in owner review.
 Enforcement: guard `R7-MSP` pins this section, the anchor requirement in the
 census tool and the contract sentence in the registry; reviewers check that a
 commit strengthening a theorem in an existing module touches the registry.
+
+## §A.36 Placement of verification artifacts
+
+New audits, preregistrations, results and amendments go under a **programme**
+or **audit** directory inside `verification/`, never at the `verification/`
+root. `verification/MIGRATION-MANIFEST.md` records the intended destination of
+every artifact and is the authority on where a new one belongs; a round whose
+category is genuinely new adds a directory rather than a root file.
+
+The root is reserved for `README.md` (the landing page), `ROADMAP.md` (the live
+obligation queue) and the manifest itself.
+
+Preregistration and outcome stay **together**, inside the round that produced
+them, with amendments in that round's `amendments/` subdirectory. They are not
+split into global `preregistrations/` and `results/` folders: the split-PR
+protocol already separates them in time, and separating them in space as well
+leaves the relationship recoverable only from filenames.
+
+`lean/`, `lean-mathlib/` and `coverage/` are out of scope for this rule. They
+are technical subsystems with their own structure, and their layout is governed
+by their own conventions.
+
+Enforcement: `tools/artifact_placement_check.py` (release-gate step
+`artifact-placement`) fails on any root-level `verification/*.md` the manifest
+does not account for. The check is one-directional — it never complains that a
+manifest entry has moved to its destination — so it holds across the migration
+without amendment. It carries a self-test that drives the real comparison
+through an unlisted name, a grandfathered name and an already-migrated name.

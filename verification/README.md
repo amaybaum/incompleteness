@@ -22,6 +22,31 @@ The two kernel verdicts are always reported separately: the zero-import files an
 project have their own toolchains and their own CI jobs, so a breakage in either can never be
 mistaken for a verdict on the other.
 
+## Start here
+
+| If you want | Go to |
+| --- | --- |
+| **What is being worked on, and what is still owed** | [`ROADMAP.md`](ROADMAP.md) — the live obligation queue, ranked, with a status for each |
+| The flagship result and the layer contents | the sections below, in this file |
+| Where an artifact lives, or where a new one goes | [`MIGRATION-MANIFEST.md`](MIGRATION-MANIFEST.md) |
+| A specific round's freeze and its outcome | the round's own directory once migrated; until then, the root artifact named in the manifest |
+| How to run the checks | [Running the checks](#running-the-checks), at the end of this file |
+
+**`ROADMAP.md` and this file answer different questions, and the split is deliberate.** This file
+describes the verification *machinery* — the layers, what each certifies, how to run it. The roadmap
+tracks *obligations*: what is load-bearing in the manuscripts, what has a formal result behind it,
+what has only a named hypothesis, and what has been settled negatively. The census keeps registered
+claims synchronized with the strongest applicable formal result; it does not rank what is missing,
+and the roadmap does.
+
+### Where new artifacts go
+
+New audits, preregistrations and results go under a **programme** or **audit** directory, never at
+this root. `tools/artifact_placement_check.py` enforces that in the release gate, treating
+`MIGRATION-MANIFEST.md` as the grandfather list for artifacts already here. The manifest records the
+destination of each one; moving them is a separate mechanical change, and the paths cited throughout
+this file are the ones in force until it lands.
+
 ## The flagship result
 
 `OIBridge/GeneralCarrier.lean`, `main_result` — for every nonempty finite observable system:
