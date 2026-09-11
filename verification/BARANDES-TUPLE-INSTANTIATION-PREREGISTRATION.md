@@ -53,7 +53,8 @@ the shape
     PPer Γ  ∧  p0 nonneg  ∧  ∑ j, p0 j = 1
         ⟹   BarandesTuple (V, ℕ, {0}, Γ_B, p, A)
 
-with `Γ_B(t, 0) = (Γ t)ᵀ`, `p` CONSTRUCTED from `Γ_B` and `p0`, and `A` the full algebra on `V × ℕ`
+with `Γ_B(t, 0) = (Γ t)ᵀ`, `p` CONSTRUCTED from `Γ_B` and `p0`, and `𝒜` the full commutative
+algebra of maps `V × ℕ → ℝ`
 
 **stated over the visible class rather than over the realization layer.** Arc B's
 `C_OI(V) = PPer(V)` makes `PPer` the exact OI visible class, so proving it there is both stronger
@@ -70,8 +71,10 @@ authoritative surface convention — the PDF of arXiv:2309.03085v2:
 
 | # | Axiom | Source C v2 |
 |---|---|---|
-| **X1** | `C` finite of size `N`; `T₀ ⊆ T` | §3 |
-| **X2** | `Γ_ij(t ← t₀) ≡ p(i,t \| j,t₀) ∈ [0,1]`, for all `i,j ∈ C`, `t ∈ T`, `t₀ ∈ T₀` | eq (27), p. 9 |
+| **X1a** | `C` finite, of size `N` | p. 8; the tuple `(C, T, T₀, Γ, p, A)` at eq (24), p. 8 |
+| **X1b** | `T` is the set of target times and **includes the initial time `0`** | p. 8: "`T` denotes the system's set of target times, **including a time 0** that will be called the system's initial time" |
+| **X1c** | `T₀ ⊂ T` is the set of conditioning times and **includes that same `0`** | p. 8: "`T₀ … is taken to be a subset `T₀ ⊂ T` … **`T₀` will be assumed to include the initial time 0**" |
+| **X2** | `Γ : C² × T × T₀ → [0,1]`, with `Γ_ij(t ← t₀) ≡ p(i,t \| j,t₀)` for all `i,j ∈ C`, `t ∈ T`, `t₀ ∈ T₀` | eq (25), p. 8; eq (27), p. 9 |
 | **X3** | normalization `Σ_i Γ_ij(t ← t₀) = 1`, for all `j`, `t`, `t₀ ∈ T₀` | eq (28), p. 9 |
 | **X4** | trivialization `Γ_ij(t₀ ← t₀) ≡ δ_ij`, for all `t₀ ∈ T₀` | eq (29), p. 9 |
 | **X5** | `p : C × T → [0,1]` | eqs (30)–(31), p. 9 |
@@ -79,7 +82,7 @@ authoritative surface convention — the PDF of arXiv:2309.03085v2:
 | **X7** | marginalization `p_i(t) = Σ_j Γ_ij(t ← 0) p_j(0)` | eq (33), p. 10 |
 | **X8** | all-time normalization `Σ_i p_i(t) = 1` for all `t` | eq (34), p. 10 |
 | **X9** | divisibility over conditioning times: `Γ_ij(t ← t₀) = Σ_k Γ_ik(t ← t′) Γ_kj(t′ ← t₀)`, for all `t ∈ T` and **all `t₀, t′ ∈ T₀`** | eq (35), p. 10 |
-| **X10** | `A : C × T → ℝ`, **maximal** — containing every well-defined map of that form | eqs (40)–(41) and the text, p. 12 |
+| **X10** | `𝒜` is a **commutative algebra whose elements are maps** `A : C × T → ℝ`, under pointwise function arithmetic — **and is taken maximal**, containing every well-defined map of that form | eq (40), p. 12: "`A` denotes a **commutative algebra of maps of the form** `A : C × T → ℝ`, under the usual rules of function arithmetic"; eq (41); and p. 12: "will always be taken to be **maximal**, in the sense of containing every well-defined map of the form (40)" |
 
 **The conditioning argument stays in the interface.** `Γ` is a map carrying `t₀ ∈ T₀`; instantiating
 it at `T₀ = {0}` by `Γ_B(t, 0) := (Γ t)ᵀ` is a *declaration*, and the argument does not disappear
@@ -103,7 +106,7 @@ requirement.
 | `T₀` | `{0}` |
 | `Γ_B(t, 0)` | `(Γ t)ᵀ` for the `PPer` family — equivalently `(rootedMap R t)ᵀ`; the transposed orientation act 2 settled, and the one X3's sum over the first index requires |
 | `p` | **constructed from a parameterized initial `p0`** — see below |
-| `A` | the **full (maximal) algebra on `V × ℕ`**, taken canonically |
+| `𝒜` | the **full commutative algebra of maps `V × ℕ → ℝ`** under pointwise arithmetic, taken maximal and canonical |
 
 **`p` is parameterized at time 0 only, and constructed thereafter.** X5–X8 are not satisfied by an
 arbitrary normalized static vector: eq (33) *fixes* every later-time value. So the round
@@ -116,15 +119,18 @@ itself derives (34), from (28) and (32). **`p` remains declared rather than OI-s
 what changes is that only `p0` is free. Any statement of the form "our datum determines `p0`" is
 forbidden.
 
-**`A` is the full algebra on `V × ℕ`**, not on `V`. Eq (40) types random variables as maps
-`C × T → ℝ`, and the text requires the algebra to be maximal — "containing every well-defined map of
-the form (40)". The curried form `V → ℕ → ℝ` is acceptable; `V → ℝ` is **not**, and this is a
-type-level requirement rather than a matter of wording. `A` is taken canonically, not derived and
-not argued minimal; the word "minimal" is not used of it.
+**`𝒜` is the algebra, not one random variable, and it lives over `V × ℕ`.** Source C p. 12 says
+"`A` denotes a **commutative algebra of maps of the form** `A : C × T → ℝ`" — so the tuple component
+is the algebra whose *elements* are such maps, under pointwise function arithmetic, and the text then
+takes it **maximal**, "containing every well-defined map of the form (40)". Two errors are therefore
+forbidden: typing the component as a single map `C × T → ℝ`, and typing it over `V` alone. The
+curried element form `V → ℕ → ℝ` is acceptable; `V → ℝ` is **not**. This is a type-level requirement
+rather than a matter of wording. `𝒜` is taken canonically, not derived and not argued minimal; the
+word "minimal" is not used of it.
 
 ### Every axiom individually
 
-**Each of X1–X10 is proved as its own named result**, with no aggregate "the tuple axioms hold".
+**Each of X1a–X10 is proved as its own named result**, with no aggregate "the tuple axioms hold".
 Act 2's `rootedMap_zero`, `rootedMap_isRowStochastic` and the transpose lemmas are **consumed, not
 re-proved**; what is new is the interface and the instantiation.
 
@@ -155,7 +161,7 @@ shape above, under the declarations above. Any side condition the theorem's stat
 `Nonempty V` or similar — is **named in the statement** and recorded; it does not change the label.
 
 **`TI2` — a named tuple axiom is incompatible, with counterexample.** A lawful member of the class
-is **exhibited** violating a **named** axiom X1–X10. The burden is against the **fully typed frozen
+is **exhibited** violating a **named** axiom X1a–X10. The burden is against the **fully typed frozen
 interface under the frozen declarations** — with `p` constructed from `p0` and `A` on `V × ℕ` — and
 **not** against a weaker reading: a `PPer` family paired with an arbitrarily chosen bad `p` is not a
 counterexample, because `p` is not free at times after 0. This is a refutation and carries a
@@ -219,8 +225,19 @@ is the row-stochastic
 
     A  =  [[1, 0], [1, 0]]
 
-with `Γ 0 = 1` and period `2`. Its transpose has a zero row, so it is not column-stochastic, and the
-structural lemma then denies unistochasticity.
+with `Γ 0 = 1` and period `2`. Its transpose is
+
+    Aᵀ  =  [[1, 1], [0, 0]]
+
+whose **columns** each sum to `1` — so `Aᵀ` **is** column-stochastic — and whose **rows** sum to `2`
+and `0`, so it fails **row** stochasticity. The refutation therefore runs through the **row half** of
+`IsUnistochastic M → IsRowStochastic M ∧ IsColStochastic M`, applied to `Aᵀ`, and **not** the column
+half.
+
+**The orientation is frozen here because it is easy to get backwards.** Transposing a row-stochastic
+matrix makes it column-stochastic, so the failure that survives transposition into Source A's
+orientation is the row one. An execution attempting to refute via column-stochasticity of `Aᵀ` would
+be proving the wrong obligation, and would fail.
 
 **This is recorded here as the planned route, not as an executed result.** It is written into the
 freeze so the execution cannot quietly substitute a weaker or differently-shaped witness, and it is
@@ -281,7 +298,7 @@ named result, with `#print axioms` printing only `[propext, Classical.choice, Qu
 **Definition budget.** The module introduces **at most seven** top-level definitions, and these are
 the seven:
 
-1. `BarandesTuple` — the interface (a structure carrying X1–X10);
+1. `BarandesTuple` — the interface (a structure carrying X1a–X10);
 2. its axiom predicate, if the structure does not carry the axioms as fields;
 3. the constructed `p` from `Γ_B` and `p0` — inline in the instantiation if that keeps the count;
 4. `IsUnistochastic`;
@@ -315,7 +332,7 @@ declared. No claim that our datum determines `p0`.
 9. **No representation shortcut**, per the rule above: `QfbData.born`, `overlap_row_sum`,
    `overlap_col_sum`, `QStar` and representation existence are all disqualified from discharging
    `UB1`, and `IsUnistochastic` is defined from scratch rather than through any of them.
-10. **Each interface axiom is a separately named result** — X1 through X10 above; no aggregate
+10. **Each interface axiom is a separately named result** — X1a through X10 above; no aggregate
     satisfaction claim, and the interface is typed from Source C v2 rather than summarized, so that
     `TI1` is not proved for a weaker tuple than the source defines. **Layer 1 mentions
     unistochasticity nowhere** and is conditioned on no layer-2 outcome.
@@ -372,7 +389,7 @@ only by an exhibited lawful counterexample, and if none is produced the answer i
 
 ## Allowed final report
 
-1. the frozen interface X1–X10, with each axiom named, cited to Source C v2, and its proof status
+1. the frozen interface X1a–X10, with each axiom named, cited to Source C v2, and its proof status
    individually;
 2. the instantiation theorem and the declarations it runs under, with `p0` shown parameterized and
    `p` shown constructed per X7, and `A` on `V × ℕ`;
