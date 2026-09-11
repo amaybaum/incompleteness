@@ -8340,7 +8340,7 @@ check('R7-CAND', ok_cs,
 # A SOURCE-TO-FORMAL round, so the failure modes are different in kind from a kernel round's. What
 # can go wrong here is citing the wrong paper, claiming more than an audit earns, or letting the
 # licence act 3 froze quietly upgrade. The guard pins the frozen contract, the source discipline,
-# and the exact boundary between what MP2 licenses and what it does not.
+# and the exact boundary between what MP4 licenses and what it does not.
 _DMRES = open(os.path.join(_BB, 'BARANDES-DILATION-MAPPING-RESULT.md'), encoding='utf-8').read()
 _DMPRE = open(os.path.join(_BB, 'BARANDES-DILATION-MAPPING-PREREGISTRATION.md'),
               encoding='utf-8').read()
@@ -8415,7 +8415,7 @@ def _dm_cu1a_preserved(txt1):
     """E6 -- act 3's CU1a is preserved exactly, and the programme-level change is bounded.
 
     The hazard is an outcome that quietly upgrades an earlier licence. CU1a is a theorem about OUR
-    bridge and no external audit can revise it; and MP2 must not be read as the forbidden claim that
+    bridge and no external audit can revise it; and MP4 must not be read as the forbidden claim that
     the external framework requires an added physical principle, nor as closing off Source A."""
     return ('`CU1a` is preserved exactly and is not revised' in txt1
             and 'requires an additional physical principle' in txt1
