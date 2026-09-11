@@ -2,7 +2,7 @@
 
 Base: `main` at `958cf8862efb6c6eb8b536bfd5acffbf69dc62b4` (post-PR #558, the bridge audit frozen).
 
-Amends `verification/programmes/oi-qm/track-b/act-01-indivisibility/preregistration.md`, frozen at blob
+Amends `verification/BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md`, frozen at blob
 `b6727fa8df616e1a3f98e45d69b99b13554cda3e`, merged to `main` by PR #558.
 
 This is an **append-only, execution-affecting amendment**, committed before the work it affects, as the frozen execution discipline requires. The preregistration itself is immutable and is not edited.

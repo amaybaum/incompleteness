@@ -69,6 +69,22 @@ from fractions import Fraction
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BRIDGE = os.path.abspath(os.path.join(HERE, '..', 'lean-mathlib'))
+VERIFICATION = os.path.dirname(BRIDGE)
+
+# The verification artifacts moved out of the verification/ root into the
+# programme/audit hierarchy.  The guards below refer to them by their original
+# NAMES, which is also how the artifacts' own prose cites each other -- so the
+# names stay as written and only the resolution to a path changes.  The
+# migration manifest is the single source of truth for that mapping; a name it
+# does not carry resolves at the root, as before.
+with open(os.path.join(VERIFICATION, 'migration-manifest.json'), encoding='utf-8') as _mf:
+    _MIGRATED = {k: v['to'] for k, v in json.load(_mf)['entries'].items()}
+
+
+def _artifact(name):
+    """Absolute path of a verification artifact, by its pre-migration name."""
+    return os.path.join(VERIFICATION, *_MIGRATED.get(name, name).split('/'))
+
 
 CHECKS = []
 
@@ -2088,7 +2104,7 @@ for _w in ('axiom continuity', 'InnerProductSpace', 'HilbertSpace', 'GelfandNaim
     ok6 &= _w not in inc
 ok6 &= 'structure FiniteOperationalTheory' not in inc and 'native_decide' not in inc
 # the audit file must carry the pre-registered questions and keep the undecided ones undecided
-_aud = open(os.path.join(os.path.dirname(BRIDGE), 'INSTRUMENT-COMPLETION-AUDIT.md'),
+_aud = open(_artifact('INSTRUMENT-COMPLETION-AUDIT.md'),
             encoding='utf-8').read()
 for _q in ('| Q1 |', '| Q2 |', '| Q3 |', '| Q4 |', '| Q5 |'):
     ok6 &= _q in _aud
@@ -2180,7 +2196,7 @@ def _asserted(text, phrase, markers=_NOCLAIM):
 # ---- CT3 guard: the centralizer census must be reported as a NECESSARY condition only ----
 _sg = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'static_generator_probe.py'),
            encoding='utf-8').read()
-_cta = open(os.path.join(os.path.dirname(BRIDGE), 'CONTINUOUS-TIME-AUDIT.md'),
+_cta = open(_artifact('CONTINUOUS-TIME-AUDIT.md'),
             encoding='utf-8').read()
 ok_ct3 = True
 # CT3 must be stated in the infinite-volume form, not as a bounded element of the algebra
@@ -2211,7 +2227,7 @@ ok_ct3 &= 'Floquet' in _cta
 ok_ct3 &= 'sorry' not in _sg
 # ---- forward-redundancy guard: the OI/QM reading must stay frozen ----
 _co = open(os.path.join(BRIDGE, 'OIBridge', 'CompletedOI.lean'), encoding='utf-8').read()
-_fr = open(os.path.join(os.path.dirname(BRIDGE), 'OI-CORE-FORWARD-REDUNDANCY.md'),
+_fr = open(_artifact('OI-CORE-FORWARD-REDUNDANCY.md'),
            encoding='utf-8').read()
 _frflat = ' '.join(_fr.split())
 _coflat = ' '.join(_co.split())
@@ -2313,7 +2329,7 @@ for _bad in ('CT3 is settled', 'R2-B is settled', 'no static generator exists',
 # ---- CT3-R2B-Q2 guard: the period correction must stay corrected, and the round stay scoped ----
 _wp = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'wave_period_probe.py'),
            encoding='utf-8').read()
-_q2 = open(os.path.join(os.path.dirname(BRIDGE), 'CT3-R2B-Q2-PERIOD-AND-CYCLES.md'),
+_q2 = open(_artifact('CT3-R2B-Q2-PERIOD-AND-CYCLES.md'),
            encoding='utf-8').read()
 ok_ct3d = True
 for _tok in ('PERIOD-CORRECTED', 'WIDER-RANGE-OPEN', 'Q2-ONLY', 'CONJECTURE-FALSE',
@@ -2344,7 +2360,7 @@ ok_ct3d &= 'cmath' not in _wp and '1e-6' not in _wp
 # ---- Audit A guard: the recurrence chain must keep C1, and the audit must keep its scope ----
 _pc = open(os.path.join(os.path.dirname(BRIDGE), 'lean', 'partition_coupling_probe.py'),
            encoding='utf-8').read()
-_aa = open(os.path.join(os.path.dirname(BRIDGE), 'C1C4-MINIMALITY-AUDIT.md'),
+_aa = open(_artifact('C1C4-MINIMALITY-AUDIT.md'),
            encoding='utf-8').read()
 _root = os.path.dirname(os.path.dirname(BRIDGE))
 ok_auda = True
@@ -2368,7 +2384,7 @@ for _bad in ('C1 is sufficient', 'C1 suffices', 'recurrence alone gives backflow
 # the audit must publish the clean axes and its own limits, not only its hit
 ok_auda &= 'The axes that came back clean' in _aa and 'What this audit does not claim' in _aa
 # ---- Audit B guard: C4 at the concrete cut is named, not discharged, and not a hypothesis of hbar ----
-_cc = open(os.path.join(os.path.dirname(BRIDGE), 'CONCRETE-CUT-AUDIT.md'), encoding='utf-8').read()
+_cc = open(_artifact('CONCRETE-CUT-AUDIT.md'), encoding='utf-8').read()
 _gr = open(os.path.join(_root, 'papers/GR.md'), encoding='utf-8').read()
 ok_audb = True
 # the fourth entry exists at the cut and carries the status verdict, in GR and in both book sources
@@ -2423,7 +2439,7 @@ for _cell in ('verified structurally', 'verified, timescale margin', 'verified, 
     ok_audb &= _cell in _cc
 ok_audb &= 'copies this table verbatim' in _cc
 # the freeze copies the table verbatim: same five cells, same two rows, and it names its enforcement
-_fz = open(os.path.join(os.path.dirname(BRIDGE), 'CONCRETE-CUT-FREEZE.md'), encoding='utf-8').read()
+_fz = open(_artifact('CONCRETE-CUT-FREEZE.md'), encoding='utf-8').read()
 for _cell in ('verified structurally', 'verified, timescale margin', 'verified, capacity margin',
               'capacity floor, data processing', 'named, not presently discharged'):
     ok_audb &= _cell in _fz
@@ -2440,7 +2456,7 @@ ok_audb &= 'readback is named there and still to be demonstrated' in \
     open(os.path.join(_root, 'book/ch00-introduction.md'), encoding='utf-8').read()
 # ---- OI-N guard: the exploratory thread stays exploratory, and its two proved ends stay scoped ----
 _po = open(os.path.join(BRIDGE, 'OIBridge', 'PassiveObservation.lean'), encoding='utf-8').read()
-_on = open(os.path.join(os.path.dirname(BRIDGE), 'OI-N-EXPLORATORY.md'), encoding='utf-8').read()
+_on = open(_artifact('OI-N-EXPLORATORY.md'), encoding='utf-8').read()
 ok_oin = True
 ok_oin &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _po) is None and 'native_decide' not in _po
 for _nm in ('psd_summand_of_rankOne', 'choiMatrix_id', 'passive_branch_scalar',
@@ -2558,7 +2574,7 @@ for _t in (re.sub(r'\s+', ' ', _io), re.sub(r'\s+', ' ', _on), re.sub(r'\s+', ' 
 ok_oin &= 'every block has dimension one' not in re.sub(r'\s+', ' ', _co)
 ok_oin &= 'at most one basis state' in re.sub(r'\s+', ' ', _co)
 # ---- the OI-N freeze: the endpoint stated once, in the form the guard enforces ----
-_fzn = open(os.path.join(os.path.dirname(BRIDGE), 'OI-N-FREEZE.md'), encoding='utf-8').read()
+_fzn = open(_artifact('OI-N-FREEZE.md'), encoding='utf-8').read()
 _fzn1 = re.sub(r'\s+', ' ', _fzn)
 ok_oin &= 'Status: frozen' in _fzn and 'What the freeze does not claim' in _fzn
 for _line in ('Noncommutativity forbids complete passive observation',
@@ -2612,7 +2628,7 @@ check('R7-OIN', ok_oin,
       'rigidity, and assert neither that QM requires OI nor that a hidden ontology is forced.')
 
 # ---- the completion-assumption audit: the charter's ledger reconciled with the kernel ----
-_caa = open(os.path.join(os.path.dirname(BRIDGE), 'COMPLETION-ASSUMPTION-AUDIT.md'),
+_caa = open(_artifact('COMPLETION-ASSUMPTION-AUDIT.md'),
             encoding='utf-8').read()
 _lor = open(os.path.join(BRIDGE, 'OIBridge', 'LevelOneRecursion.lean'), encoding='utf-8').read()
 ok_caa = True
@@ -2640,8 +2656,7 @@ for _bad in ('SystemToLevelOne is derived from observer recursion',
 # and it does not send a future agent back to the five rows; and OIPlusElem is "the most
 # compressed package currently recorded", never "the kernel's smallest", since global minimality
 # is exactly the open item
-_chr = open(os.path.join(os.path.dirname(BRIDGE),
-                         'EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md'), encoding='utf-8').read()
+_chr = open(_artifact('EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md'), encoding='utf-8').read()
 _chr1 = re.sub(r'\s+', ' ', _chr)
 ok_caa &= _chr.lstrip().startswith('# Equivalence strengthening roadmap')
 ok_caa &= 'Historical charter' in _chr and 'superseded by' in _chr1
@@ -2670,7 +2685,7 @@ check('R7-CAA', ok_caa,
       'drives the elementary transitions, nor that the inverse clause is redundant.')
 
 # ---- the inverse-clause audit: dagger stability leaves the exact characterization ----
-_inv = open(os.path.join(os.path.dirname(BRIDGE), 'INVERSE-CLAUSE-AUDIT.md'),
+_inv = open(_artifact('INVERSE-CLAUSE-AUDIT.md'),
             encoding='utf-8').read()
 _inv1 = re.sub(r'\s+', ' ', _inv)
 _pr = open(os.path.join(BRIDGE, 'OIBridge', 'PositiveReachability.lean'), encoding='utf-8').read()
@@ -2740,7 +2755,7 @@ ok_inv &= 'carrier_general_oiPlusPos' in _rd1 and 'Twenty-four named results' in
 ok_inv &= 'Guard `R7-INV`' in _rd1
 # inverseAccessibility_of_lieRank is a theorem about well-formed theories: every paragraph that
 # names it says so, and no text derives inverse accessibility from Lie-rank richness alone
-_psa_txt = open(os.path.join(os.path.dirname(BRIDGE), 'PRIMITIVE-SOURCE-AUDIT.md'),
+_psa_txt = open(_artifact('PRIMITIVE-SOURCE-AUDIT.md'),
                 encoding='utf-8').read()
 for _t in (_caa, _rd, _inv, _psa_txt):
     for _para in _t.split('\n\n'):
@@ -2767,7 +2782,7 @@ check('R7-INV', ok_inv,
       'is stated with its well-formedness hypothesis wherever it is named.')
 
 # ---- the minimal-repertoire audit: one driven transition and the exchanges, no phase ----
-_min = open(os.path.join(os.path.dirname(BRIDGE), 'MINIMAL-REPERTOIRE-AUDIT.md'),
+_min = open(_artifact('MINIMAL-REPERTOIRE-AUDIT.md'),
             encoding='utf-8').read()
 _min1 = re.sub(r'\s+', ' ', _min)
 _mr = open(os.path.join(BRIDGE, 'OIBridge', 'MinimalRepertoire.lean'), encoding='utf-8').read()
@@ -2905,7 +2920,7 @@ ok_msp &= "ANCHORED = ('current', 'consistent-uncited', 'scope-consistent')" in 
 ok_msp &= 'NOANCHOR' in _cens_tool and 'complete relative to the maintained registry' in _cens_tool
 _cens_reg = open(os.path.join(_msroot, 'verification', 'lean-manuscript-census.json'), encoding='utf-8').read()
 ok_msp &= 'Registry contract (AGENTS.md A.35)' in _cens_reg and '"papers/SM.md"' in _cens_reg
-_cens_note = re.sub(r'\s+', ' ', open(os.path.join(_msroot, 'verification', 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+_cens_note = re.sub(r'\s+', ' ', open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_msp &= 'Status: complete relative to the maintained registry' in _cens_note
 ok_msp &= 'updates the registry in the same commit' in _cens_note
 ok_msp &= 'so a kernel strengthening that reaches the verification notes and the guards and not the papers is caught at the next run' not in _cens_note
@@ -3037,7 +3052,7 @@ ok_ctn &= 'No group law and no generator are asserted' in re.sub(r'\s+', ' ', _s
 _ctn_reg = json.loads(open(os.path.join(_msroot, 'verification', 'lean-manuscript-census.json'), encoding='utf-8').read())
 _ctn_fam = [f for f in _ctn_reg['families'] if f['name'] == 'continuous time (CT2)']
 ok_ctn &= len(_ctn_fam) == 1 and _ctn_fam[0]['status'] == 'current' and len(_ctn_fam[0]['manuscript']) >= 5
-ok_ctn &= '| continuous time (CT2) | 4 | current |' in open(os.path.join(_msroot, 'verification', 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read()
+ok_ctn &= '| continuous time (CT2) | 4 | current |' in open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read()
 check('R7-CTN', ok_ctn,
       'CT2 narration guard: GR 3.3 states the depth-two factorization, the two layer groups and the '
       'norm-continuous path of isometric *-automorphisms from the identity to the update, as a path '
@@ -3123,7 +3138,7 @@ for _rel in ('papers/Main.tex', 'papers/Explainer.tex'):
 # the registry carries OI-N as current with its anchors; the census note agrees; the freeze note is untouched
 _oinn_fam = [f for f in _ctn_reg['families'] if f['name'] == 'OI-N passive observation']
 ok_oinn &= len(_oinn_fam) == 1 and _oinn_fam[0]['status'] == 'current' and len(_oinn_fam[0]['manuscript']) >= 5
-ok_oinn &= '| OI-N passive observation | 4 | current |' in open(os.path.join(_msroot, 'verification', 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read()
+ok_oinn &= '| OI-N passive observation | 4 | current |' in open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read()
 check('R7-OINN', ok_oinn,
       'OI-N narration guard: Main 3.4 carries one paragraph, outside the characterization (no '
       'package name, arrow or box in it), stating the four endpoint items with their kernel names, '
@@ -3209,7 +3224,7 @@ check('R7-PTR', ok_ptr,
 ok_rb0 = True
 _rb = open(os.path.join(BRIDGE, 'OIBridge', 'RouteB.lean'), encoding='utf-8').read()
 _rbflat = ' '.join(_rb.split())
-_rbn = open(os.path.join(os.path.dirname(BRIDGE), 'ROUTE-B-AUDIT.md'), encoding='utf-8').read()
+_rbn = open(_artifact('ROUTE-B-AUDIT.md'), encoding='utf-8').read()
 _rbn1 = re.sub(r'\s+', ' ', _rbn)
 ok_rb0 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _rb) is None and 'native_decide' not in _rb
 ok_rb0 &= 'axiom ' not in _rb
@@ -3358,7 +3373,7 @@ for _t in ('| 1, passive step | `substratumTheory_passiveStep` | `substratumTheo
            'Route A is not closed by this note'):
     ok_rb1 &= _t in _rbn1
 # the census note carries the kernel-only row for the family, and the README the B1 sentences
-_cen = open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read()
+_cen = open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read()
 _cen1 = re.sub(r'\s+', ' ', _cen)
 ok_rb1 &= '| route B: consequence closure | 1 | kernel-only |' in _cen1 and 'routeB_target' in _cen1
 ok_rb1 &= re.search(r'The exceptions? (is|are) the Route B family', _cen1) is not None and '`kernel-only`' in _cen1
@@ -3384,7 +3399,7 @@ check('R7-RB1', ok_rb1,
 ok_max = True
 _ma = open(os.path.join(BRIDGE, 'OIBridge', 'ManuscriptAxioms.lean'), encoding='utf-8').read()
 _maflat = ' '.join(_ma.split())
-_man = open(os.path.join(os.path.dirname(BRIDGE), 'MANUSCRIPT-AXIOM-AUDIT.md'), encoding='utf-8').read()
+_man = open(_artifact('MANUSCRIPT-AXIOM-AUDIT.md'), encoding='utf-8').read()
 _man1 = re.sub(r'\s+', ' ', _man)
 ok_max &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _ma) is None and 'native_decide' not in _ma
 ok_max &= 'axiom ' not in re.sub(r'/-.*?-/', '', _ma, flags=re.S)
@@ -3482,7 +3497,7 @@ ok_max &= _ma_fam[0]['manuscript'] == [] and 'asserts nothing about whether the 
 ok_max &= 'realized-core images' in _ma_fam[0]['note'] and 'requires some non-configuration-level sourcing' in _ma_fam[0]['note']
 for _bad in ('faithful theory-level forms', 'every configuration-level sourcing of any substratum', 'only through the observer-level lift'):
     ok_max &= _bad not in _ma_fam[0]['note']
-_cen_ma = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+_cen_ma = re.sub(r'\s+', ' ', open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_max &= '| manuscript axioms A1–A6 | 1 | kernel-only |' in _cen_ma and 'realized-core images of A1 and A2' in _cen_ma
 for _t in ('`R7-MAX`', 'MANUSCRIPT-AXIOM-AUDIT.md', 'A1Realized', 'A2Realized', 'ConfigurationLevel',
            'configurationLevel_not_phaseFree', 'formalization gap', 'Eleven named results',
@@ -3515,7 +3530,7 @@ check('R7-MAX', ok_max,
 ok_lift = True
 _la = open(os.path.join(BRIDGE, 'OIBridge', 'LiftAudit.lean'), encoding='utf-8').read()
 _laflat = ' '.join(_la.split())
-_lan = open(os.path.join(os.path.dirname(BRIDGE), 'LIFT-AUDIT.md'), encoding='utf-8').read()
+_lan = open(_artifact('LIFT-AUDIT.md'), encoding='utf-8').read()
 _lan1 = re.sub(r'\s+', ' ', _lan)
 ok_lift &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _la) is None and 'native_decide' not in _la
 ok_lift &= 'axiom ' not in re.sub(r'/-.*?-/', '', _la, flags=re.S)
@@ -3600,7 +3615,7 @@ _la_fam = [f for f in _ptr_reg['families'] if f['name'] == 'lift audit: executab
 ok_lift &= len(_la_fam) == 1 and _la_fam[0]['status'] == 'current' and _la_fam[0]['modules'] == ['LiftAudit']
 ok_lift &= _la_fam[0]['manuscript'] != [] and 'about whether the observer-level lift is derivable' in _la_fam[0]['note']
 ok_lift &= 'relative to the baseline DerivedOI with SubstratumAvail' in _la_fam[0]['note'] and 'is open' in _la_fam[0]['note']
-_cen_la = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+_cen_la = re.sub(r'\s+', ' ', open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_lift &= '| lift audit: executable layer flows | 1 | current |' in _cen_la
 for _t in ('`R7-LIFT`', 'LIFT-AUDIT.md', 'LayerFlowExecutable', 'gateFlow_isolation', 'phaseFree_of_layerFlowExecutable',
            'derivedOI_qm_iff_layerFlowExecutable', 'Fifty-six named results', 'never the composite drive',
@@ -3636,7 +3651,7 @@ check('R7-LIFT', ok_lift,
 ok_sub = True
 _sa = open(os.path.join(BRIDGE, 'OIBridge', 'SubstratumInterfaceAudit.lean'), encoding='utf-8').read()
 _saflat = ' '.join(_sa.split())
-_san = open(os.path.join(os.path.dirname(BRIDGE), 'SUBSTRATUM-INTERFACE-AUDIT.md'), encoding='utf-8').read()
+_san = open(_artifact('SUBSTRATUM-INTERFACE-AUDIT.md'), encoding='utf-8').read()
 _san1 = re.sub(r'\s+', ' ', _san)
 ok_sub &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sa) is None and 'native_decide' not in _sa
 ok_sub &= 'axiom ' not in re.sub(r'/-.*?-/', '', _sa, flags=re.S)
@@ -3748,7 +3763,7 @@ for _t in (_san[_san.find('## The outcome'):], _rd1, _saflat, _sa_fam[0]['note']
         ok_sub &= _bad not in _t
 ok_sub &= 'no executability question' in _sa_fam[0]['note'] and 'owner decision' in _sa_fam[0]['note']
 ok_sub &= 'asserts nothing about whether the observer-level lift is derivable' in _sa_fam[0]['note']
-_cen_sa = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+_cen_sa = re.sub(r'\s+', ' ', open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_sub &= '| substratum interface: sourced observer theory | 1 | kernel-only |' in _cen_sa
 for _t in ('`R7-SUB`', 'SUBSTRATUM-INTERFACE-AUDIT.md', 'permClass', 'SourcedOI', 'obsTheory', 'PreservesNonneg',
            'permClass_le_of_exchanges', 'bijectionLevel_not_phasesAvailable', 'permTheory_realizesSealedOICore',
@@ -3787,7 +3802,7 @@ _lrs = open(os.path.join(BRIDGE, 'OIBridge', 'ImplementationLocality.lean'), enc
 _lrsflat = ' '.join(_lrs.split())
 _sc = open(os.path.join(BRIDGE, 'OIBridge', 'ScalarClosure.lean'), encoding='utf-8').read()
 _scflat = ' '.join(_sc.split())
-_scn = open(os.path.join(os.path.dirname(BRIDGE), 'SCALAR-CLOSURE-AUDIT.md'), encoding='utf-8').read()
+_scn = open(_artifact('SCALAR-CLOSURE-AUDIT.md'), encoding='utf-8').read()
 _scn1 = re.sub(r'\s+', ' ', _scn)
 ok_scal &= ('smul : ∀ (S : Type) [Fintype S] [DecidableEq S] (a : ℂ) (K : Matrix S S ℂ), ‖a‖ ≤ 1 → 𝓘 S K → 𝓘 S (a • K)') in _lrsflat
 ok_scal &= ('theorem realized_smul_nonneg (hsmul : ∀ (a : ℂ) (K : Matrix S S ℂ), ‖a‖ ≤ 1 → 𝓘 S K → 𝓘 S (a • K)) '
@@ -3834,7 +3849,7 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Su
 _sc_fam = [f for f in _ptr_reg['families'] if f['name'] == 'scalar closure: contractive architecture']
 ok_scal &= len(_sc_fam) == 1 and _sc_fam[0]['status'] == 'verification-only' and _sc_fam[0]['modules'] == ['ScalarClosure']
 ok_scal &= _sc_fam[0]['manuscript'] == [] and 'not sufficient for the flow endpoint' in _sc_fam[0]['note']
-_cen_sc = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+_cen_sc = re.sub(r'\s+', ' ', open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_scal &= '| scalar closure: contractive architecture | 1 | verification-only |' in _cen_sc
 for _t in ('`R7-SCAL`', 'SCALAR-CLOSURE-AUDIT.md', 'realized_scalarHull_iff', 'permTheory_hull_availExt_iff',
            'instAvail_scalarHull_permClass', 'Twelve named results', 'modulus at most one', 'Nothing weakens',
@@ -3858,7 +3873,7 @@ check('R7-SCAL', ok_scal,
 ok_inst = True
 _ir = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentRealization.lean'), encoding='utf-8').read()
 _irflat = ' '.join(_ir.split())
-_irn = open(os.path.join(os.path.dirname(BRIDGE), 'INSTRUMENT-REALIZATION-AUDIT.md'), encoding='utf-8').read()
+_irn = open(_artifact('INSTRUMENT-REALIZATION-AUDIT.md'), encoding='utf-8').read()
 _irn1 = re.sub(r'\s+', ' ', _irn)
 _il = open(os.path.join(BRIDGE, 'OIBridge', 'ImplementationLocality.lean'), encoding='utf-8').read()
 _ilflat = ' '.join(_il.split())
@@ -3933,7 +3948,7 @@ _ir_fam = [f for f in _ptr_reg['families'] if f['name'] == 'instrument realizati
 ok_inst &= len(_ir_fam) == 1 and _ir_fam[0]['status'] == 'verification-only' and _ir_fam[0]['modules'] == ['InstrumentRealization']
 ok_inst &= _ir_fam[0]['manuscript'] == [] and 'provenance removes the replication' in _ir_fam[0]['note'] and 'flow endpoint' in _ir_fam[0]['note']
 ok_inst &= 'implementation semantics of the kernel' in _ir_fam[0]['note'] and 'UnitaryRaySaturated' in _ir_fam[0]['note']
-_cen_ir = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+_cen_ir = re.sub(r'\s+', ' ', open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_inst &= '| instrument realization: one-instrument provenance | 1 | verification-only |' in _cen_ir
 ok_inst &= 'implementation semantics of the kernel after its migration' in _cen_ir
 for _t in ('`R7-INST`', 'INSTRUMENT-REALIZATION-AUDIT.md', 'flow_realized_not_instrumentRealized',
@@ -3960,7 +3975,7 @@ check('R7-INST', ok_inst,
 # accessibility and in no package; the positive-reachability core upstream of the stack; the four
 # frozen notes with a migration section each; no manuscript edited ----
 ok_mig = True
-_mgn = open(os.path.join(os.path.dirname(BRIDGE), 'INSTRUMENT-MIGRATION-AUDIT.md'), encoding='utf-8').read()
+_mgn = open(_artifact('INSTRUMENT-MIGRATION-AUDIT.md'), encoding='utf-8').read()
 _mgn1 = re.sub(r'\s+', ' ', _mgn)
 _mrv2 = open(os.path.join(BRIDGE, 'OIBridge', 'MicroscopicReversibility.lean'), encoding='utf-8').read()
 _mrv2flat = ' '.join(_mrv2.split())
@@ -4048,7 +4063,7 @@ for _rel, _hdr in (('SUBSTRATUM-INTERFACE-AUDIT.md', '## Migration to instrument
                    ('SCALAR-CLOSURE-AUDIT.md', '## Migration to instrument realization, recorded after the round'),
                    ('INSTRUMENT-REALIZATION-AUDIT.md', '## Migration, recorded after the round'),
                    ('INVERSE-CLAUSE-AUDIT.md', '## Migration, recorded after the round')):
-    _t = open(os.path.join(os.path.dirname(BRIDGE), _rel), encoding='utf-8').read()
+    _t = open(_artifact(_rel), encoding='utf-8').read()
     ok_mig &= _hdr in _t and 'INSTRUMENT-MIGRATION-AUDIT.md' in _t
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
@@ -4083,9 +4098,9 @@ check('R7-MIG', ok_mig,
 ok_flow = True
 _fe = open(os.path.join(BRIDGE, 'OIBridge', 'FlowEndpoint.lean'), encoding='utf-8').read()
 _feflat2 = ' '.join(_fe.split())
-_fen = open(os.path.join(os.path.dirname(BRIDGE), 'FLOW-ENDPOINT-AUDIT.md'), encoding='utf-8').read()
+_fen = open(_artifact('FLOW-ENDPOINT-AUDIT.md'), encoding='utf-8').read()
 _fen1 = re.sub(r'\s+', ' ', _fen)
-_fxn = open(os.path.join(os.path.dirname(BRIDGE), 'FLOW-EXTENSION-AUDIT.md'), encoding='utf-8').read()
+_fxn = open(_artifact('FLOW-EXTENSION-AUDIT.md'), encoding='utf-8').read()
 ok_flow &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _fe) is None and 'native_decide' not in _fe
 ok_flow &= 'axiom ' not in re.sub(r'/-.*?-/', '', _fe, flags=re.S)
 _fe_names = re.findall(r"^theorem ([\w']+)", _fe, re.M)
@@ -4161,7 +4176,7 @@ ok_flow &= len(_fe_fam) == 1 and _fe_fam[0]['status'] == 'kernel-only' and _fe_f
 ok_flow &= _fe_fam[0]['manuscript'] == [] and 'level two' in _fe_fam[0]['note'] and 'relative phase structure' in _fe_fam[0]['note']
 ok_flow &= 'not shown unique or minimal' in _fe_fam[0]['note'] and 'full gap not characterized' in _fe_fam[0]['note']
 ok_flow &= 'untouched and stays open' in _fe_fam[0]['note'] and 'not claimed minimal' in _fe_fam[0]['note']
-_cen_fe = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+_cen_fe = re.sub(r'\s+', ' ', open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_flow &= '| flow endpoint: executable layer flow on the sourced baseline | 1 | kernel-only |' in _cen_fe
 for _t in ('`R7-FLOW`', 'FLOW-ENDPOINT-AUDIT.md', 'onesTheory', 'flow_endpoint_refuted', 'onesTheory_no_quarter_flow',
            'Fifteen named results', 'preregistered at level two', 'proved there and not elsewhere', 'relative phase structure',
@@ -4192,7 +4207,7 @@ check('R7-FLOW', ok_flow,
 ok_phase = True
 _ps = open(os.path.join(BRIDGE, 'OIBridge', 'PhaseSource.lean'), encoding='utf-8').read()
 _psflat = ' '.join(_ps.split())
-_psn = open(os.path.join(os.path.dirname(BRIDGE), 'PHASE-SOURCE-AUDIT.md'), encoding='utf-8').read()
+_psn = open(_artifact('PHASE-SOURCE-AUDIT.md'), encoding='utf-8').read()
 _psn1 = re.sub(r'\s+', ' ', _psn)
 ok_phase &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _ps) is None and 'native_decide' not in _ps
 ok_phase &= 'axiom ' not in re.sub(r'/-.*?-/', '', _ps, flags=re.S)
@@ -4251,7 +4266,7 @@ for _t in (_psn_out, _rd1, re.sub(r'\s+', ' ', _san)):
                  'of which the quarter phase is the canonical instance', 'of which the quarter phase `phaseGate a` is the canonical instance'):
         ok_phase &= _bad not in _t
 # the frozen notes carry their sections; no manuscript is edited
-_ssn = open(os.path.join(os.path.dirname(BRIDGE), 'SUBSTRATUM-SOURCE-AUDIT.md'), encoding='utf-8').read()
+_ssn = open(_artifact('SUBSTRATUM-SOURCE-AUDIT.md'), encoding='utf-8').read()
 ok_phase &= '## Fifth entry, recorded after the freeze: the phase source' in _ssn and _ssn.find('## Freeze') < _ssn.find('## Fifth entry, recorded after the freeze')
 ok_phase &= 'substratumClass_not_onesFixing' in _ssn
 ok_phase &= '## The phases, decided, recorded after the round' in _san and 'permClass_onesFixing' in _san
@@ -4269,7 +4284,7 @@ ok_phase &= len(_ps_fam) == 1 and _ps_fam[0]['status'] == 'current' and _ps_fam[
 ok_phase &= _ps_fam[0]['manuscript'] != [] and 'a stipulation' in _ps_fam[0]['note'] and 'underdetermined' in _ps_fam[0]['note']
 ok_phase &= 'PHASE-PROPAGATION-AUDIT.md' in _ps_fam[0]['note'] and 'no complex structure' in _ps_fam[0]['note']
 ok_phase &= 'sufficient access tested' in _ps_fam[0]['note'] and 'missing access named as an admissible operator' not in _ps_fam[0]['note']
-_cen_ps = re.sub(r'\s+', ' ', open(os.path.join(os.path.dirname(BRIDGE), 'LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
+_cen_ps = re.sub(r'\s+', ' ', open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read())
 ok_phase &= '| phase source: the stated access and the stipulated phases | 1 | current |' in _cen_ps
 for _t in ('`R7-PHASE`', 'PHASE-SOURCE-AUDIT.md', 'onesFixing_not_phasesAvailable', 'permClass_onesFixing',
            'substratumClass_not_onesFixing', 'Ten named results', 'a stipulation, and on nothing else',
@@ -4294,7 +4309,7 @@ check('R7-PHASE', ok_phase,
 
 # ---- phase-source propagation guard: the manuscripts state the sourced boundary, publication-only ----
 ok_prop = True
-_ppn = open(os.path.join(os.path.dirname(BRIDGE), 'PHASE-PROPAGATION-AUDIT.md'), encoding='utf-8').read()
+_ppn = open(_artifact('PHASE-PROPAGATION-AUDIT.md'), encoding='utf-8').read()
 _ppn1 = re.sub(r'\s+', ' ', _ppn)
 ok_prop &= _ppn.lstrip().startswith('# The phase-source propagation round')
 _i_pitems = _ppn.find('## The three items, fixed in advance')
@@ -4394,7 +4409,7 @@ check('R7-PROP', ok_prop,
 ok_q3 = True
 _q3 = open(os.path.join(BRIDGE, 'OIBridge', 'DerivedQ3.lean'), encoding='utf-8').read()
 _q3flat = ' '.join(_q3.split())
-_q3n = open(os.path.join(os.path.dirname(BRIDGE), 'DERIVED-Q3-AUDIT.md'), encoding='utf-8').read()
+_q3n = open(_artifact('DERIVED-Q3-AUDIT.md'), encoding='utf-8').read()
 _q3n1 = re.sub(r'\s+', ' ', _q3n)
 ok_q3 &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _q3) is None and 'native_decide' not in _q3
 ok_q3 &= 'axiom ' not in re.sub(r'/-.*?-/', '', _q3, flags=re.S)
@@ -4502,7 +4517,7 @@ check('R7-Q3', ok_q3,
 # ---- the Q3 propagation: the layer-flow endpoint in GR 3.3 and the summaries, publication-only, the
 # witness of each direction named, both sourcing qualifications kept, the families current ----
 ok_q3p = True
-_qpn = open(os.path.join(os.path.dirname(BRIDGE), 'Q3-PROPAGATION-AUDIT.md'), encoding='utf-8').read()
+_qpn = open(_artifact('Q3-PROPAGATION-AUDIT.md'), encoding='utf-8').read()
 _qpn1 = re.sub(r'\s+', ' ', _qpn)
 ok_q3p &= _qpn.lstrip().startswith('# The Q3 propagation round')
 _kqp = [_qpn.find(h) for h in ('## The items, fixed in advance', '## The constraints, fixed in advance',
@@ -4610,7 +4625,7 @@ check('R7-Q3P', ok_q3p,
 ok_exec = True
 _ex = open(os.path.join(BRIDGE, 'OIBridge', 'ExecSource.lean'), encoding='utf-8').read()
 _exflat = ' '.join(_ex.split())
-_exn = open(os.path.join(os.path.dirname(BRIDGE), 'EXEC-SOURCE-AUDIT.md'), encoding='utf-8').read()
+_exn = open(_artifact('EXEC-SOURCE-AUDIT.md'), encoding='utf-8').read()
 _exn1 = re.sub(r'\s+', ' ', _exn)
 ok_exec &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _ex) is None and 'native_decide' not in _ex
 ok_exec &= 'axiom ' not in re.sub(r'/-.*?-/', '', _ex, flags=re.S)
@@ -4725,7 +4740,7 @@ check('R7-EXEC', ok_exec,
 ok_lsrc = True
 _ls = open(os.path.join(BRIDGE, 'OIBridge', 'LiftSource.lean'), encoding='utf-8').read()
 _lsflat = ' '.join(_ls.split())
-_lsn = open(os.path.join(os.path.dirname(BRIDGE), 'LIFT-SOURCE-AUDIT.md'), encoding='utf-8').read()
+_lsn = open(_artifact('LIFT-SOURCE-AUDIT.md'), encoding='utf-8').read()
 _lsn1 = re.sub(r'\s+', ' ', _lsn)
 ok_lsrc &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _ls) is None and 'native_decide' not in _ls
 ok_lsrc &= 'axiom ' not in re.sub(r'/-.*?-/', '', _ls, flags=re.S)
@@ -4820,11 +4835,11 @@ for _t in ('the reversible coherent members', 'every Kraus realization', 'is not
            'no formulation that lands derives either target', 'read as "derives neither target"', 'no theorem changes'):
     ok_lsrc &= _t in _lsn_am
 # the executability-source note and the axiom audit record the decision after their frozen text
-_exn_ls = open(os.path.join(os.path.dirname(BRIDGE), 'EXEC-SOURCE-AUDIT.md'), encoding='utf-8').read()
+_exn_ls = open(_artifact('EXEC-SOURCE-AUDIT.md'), encoding='utf-8').read()
 ok_lsrc &= '## The lift, decided for the formulations that land, recorded after the round' in _exn_ls
 ok_lsrc &= _exn_ls.find('## Scope amendment, recorded after the preregistration') < _exn_ls.find('## The lift, decided for the formulations that land') < _exn_ls.find('## The outcome')
 ok_lsrc &= 'coherentLiftClass_eq_substratumClass' in _exn_ls and 'stays underdetermined' in _exn_ls
-_maa_ls = open(os.path.join(os.path.dirname(BRIDGE), 'MANUSCRIPT-AXIOM-AUDIT.md'), encoding='utf-8').read()
+_maa_ls = open(_artifact('MANUSCRIPT-AXIOM-AUDIT.md'), encoding='utf-8').read()
 ok_lsrc &= '## The third item of the missing interface, decided for the formulations that land, recorded after the round' in _maa_ls
 ok_lsrc &= _maa_ls.find('## What this note does not claim') < _maa_ls.find('## The third item of the missing interface')
 ok_lsrc &= 'coherentLiftClass_eq_substratumClass' in _maa_ls and 'the lift is derivable' not in _maa_ls[_maa_ls.find('## The third item'):]
@@ -4886,7 +4901,7 @@ check('R7-LSRC', ok_lsrc,
 # ---- the sourcing propagation round: the combined executability-source and lift-source verdict in GR 3.3 and the
 # mirrored summaries; the equivalence exact, the sourcing of its layer-flow hypothesis not ----
 ok_srcp = True
-_spn = open(os.path.join(os.path.dirname(BRIDGE), 'SOURCING-PROPAGATION-AUDIT.md'), encoding='utf-8').read()
+_spn = open(_artifact('SOURCING-PROPAGATION-AUDIT.md'), encoding='utf-8').read()
 _spn1 = re.sub(r'\s+', ' ', _spn)
 ok_srcp &= _spn.lstrip().startswith('# The sourcing propagation round')
 _ksp = [_spn.find(h) for h in ('## The statement to be carried, fixed in advance', '## The items, fixed in advance',
@@ -4989,7 +5004,7 @@ check('R7-SRCP', ok_srcp,
 ok_c5d = True
 _c5 = open(os.path.join(BRIDGE, 'OIBridge', 'C5Discovery.lean'), encoding='utf-8').read()
 _c5flat = ' '.join(_c5.split())
-_c5n = open(os.path.join(os.path.dirname(BRIDGE), 'C5-DISCOVERY-AUDIT.md'), encoding='utf-8').read()
+_c5n = open(_artifact('C5-DISCOVERY-AUDIT.md'), encoding='utf-8').read()
 _c5n1 = re.sub(r'\s+', ' ', _c5n)
 ok_c5d &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _c5) is None and 'native_decide' not in _c5
 ok_c5d &= 'axiom ' not in re.sub(r'/-.*?-/', '', _c5, flags=re.S)
@@ -5116,7 +5131,7 @@ check('R7-C5D', ok_c5d,
 ok_pcl = True
 _pc = open(os.path.join(BRIDGE, 'OIBridge', 'PolarizationClosure.lean'), encoding='utf-8').read()
 _pcflat = ' '.join(_pc.split())
-_pcn = open(os.path.join(os.path.dirname(BRIDGE), 'POLARIZATION-CLOSURE-AUDIT.md'), encoding='utf-8').read()
+_pcn = open(_artifact('POLARIZATION-CLOSURE-AUDIT.md'), encoding='utf-8').read()
 _pcn1 = re.sub(r'\s+', ' ', _pcn)
 ok_pcl &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _pc) is None and 'native_decide' not in _pc
 ok_pcl &= 'axiom ' not in re.sub(r'/-.*?-/', '', _pc, flags=re.S)
@@ -5295,7 +5310,7 @@ check('R7-PCL', ok_pcl,
 ok_ccs = True
 _cc = open(os.path.join(BRIDGE, 'OIBridge', 'CoherentContinuumSource.lean'), encoding='utf-8').read()
 _ccflat = ' '.join(_cc.split())
-_ccn = open(os.path.join(os.path.dirname(BRIDGE), 'COHERENT-CONTINUUM-SOURCE-AUDIT.md'), encoding='utf-8').read()
+_ccn = open(_artifact('COHERENT-CONTINUUM-SOURCE-AUDIT.md'), encoding='utf-8').read()
 _ccn1 = re.sub(r'\s+', ' ', _ccn)
 ok_ccs &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _cc) is None and 'native_decide' not in _cc
 ok_ccs &= 'axiom ' not in re.sub(r'/-.*?-/', '', _cc, flags=re.S)
@@ -5435,7 +5450,7 @@ check('R7-CCS', ok_ccs,
 ok_smc = True
 _sm = open(os.path.join(BRIDGE, 'OIBridge', 'StateMixingCoupling.lean'), encoding='utf-8').read()
 _smflat = ' '.join(_sm.split())
-_smn = open(os.path.join(os.path.dirname(BRIDGE), 'STATE-MIXING-COUPLING-AUDIT.md'), encoding='utf-8').read()
+_smn = open(_artifact('STATE-MIXING-COUPLING-AUDIT.md'), encoding='utf-8').read()
 _smn1 = re.sub(r'\s+', ' ', _smn)
 ok_smc &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sm) is None and 'native_decide' not in _sm
 ok_smc &= 'axiom ' not in re.sub(r'/-.*?-/', '', _sm, flags=re.S)
@@ -5591,7 +5606,7 @@ ok_rpf = True
 _rp = open(os.path.join(BRIDGE, 'OIBridge', 'RealPairFlow.lean'), encoding='utf-8').read()
 _rpflat = ' '.join(_rp.split())
 _rpcode = re.sub(r'/-.*?-/|--[^\n]*', '', _rp, flags=re.S)
-_rpn = open(os.path.join(os.path.dirname(BRIDGE), 'REAL-PAIR-FLOW-AUDIT.md'), encoding='utf-8').read()
+_rpn = open(_artifact('REAL-PAIR-FLOW-AUDIT.md'), encoding='utf-8').read()
 _rpn1 = re.sub(r'\s+', ' ', _rpn)
 ok_rpf &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _rp) is None and 'native_decide' not in _rp
 ok_rpf &= 'axiom ' not in _rpcode
@@ -5750,7 +5765,7 @@ ok_pfe = True
 _pf = open(os.path.join(BRIDGE, 'OIBridge', 'PairFlowEquivalence.lean'), encoding='utf-8').read()
 _pfflat = ' '.join(_pf.split())
 _pfcode = re.sub(r'/-.*?-/|--[^\n]*', '', _pf, flags=re.S)
-_pfn = open(os.path.join(os.path.dirname(BRIDGE), 'PAIR-FLOW-EQUIVALENCE-AUDIT.md'), encoding='utf-8').read()
+_pfn = open(_artifact('PAIR-FLOW-EQUIVALENCE-AUDIT.md'), encoding='utf-8').read()
 _pfn1 = re.sub(r'\s+', ' ', _pfn)
 ok_pfe &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _pf) is None and 'native_decide' not in _pf
 ok_pfe &= 'axiom ' not in _pfcode
@@ -5910,7 +5925,7 @@ ok_dca = True
 _dc = open(os.path.join(BRIDGE, 'OIBridge', 'DiscreteCompletion.lean'), encoding='utf-8').read()
 _dcflat = ' '.join(_dc.split())
 _dccode = re.sub(r'/-.*?-/|--[^\n]*', '', _dc, flags=re.S)
-_dcn = open(os.path.join(os.path.dirname(BRIDGE), 'DISCRETE-COMPLETION-AUDIT.md'), encoding='utf-8').read()
+_dcn = open(_artifact('DISCRETE-COMPLETION-AUDIT.md'), encoding='utf-8').read()
 _dcn1 = re.sub(r'\s+', ' ', _dcn)
 ok_dca &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _dc) is None and 'native_decide' not in _dc
 ok_dca &= 'axiom ' not in _dccode
@@ -6035,7 +6050,7 @@ for _t in ('`R7-DCA`', 'DISCRETE-COMPLETION-AUDIT.md', 'FixedGateSourced', 'Dens
 for _bad in ('the fixed gate is C5', 'C5 holds', 'KrausDense is proved', 'density is exactness', 'Outcome 1 is reached', 'Outcome 3 is reached'):
     ok_dca &= _bad not in _rd1
 # the pair-flow equivalence note: one section recorded after its frozen text; the other notes untouched by this round
-_pfn2 = open(os.path.join(os.path.dirname(BRIDGE), 'PAIR-FLOW-EQUIVALENCE-AUDIT.md'), encoding='utf-8').read()
+_pfn2 = open(_artifact('PAIR-FLOW-EQUIVALENCE-AUDIT.md'), encoding='utf-8').read()
 _pfn_rec = _pfn2.find('## Recorded after the round: the discrete completion audit')
 ok_dca &= _pfn_rec > _pfn2.find('## What this note does not claim') and _pfn_rec > _pfn2.find('Status: pass complete')
 _pfn_rec1 = re.sub(r'\s+', ' ', _pfn2[_pfn_rec:])
@@ -6072,7 +6087,7 @@ ok_dib = True
 _di = open(os.path.join(BRIDGE, 'OIBridge', 'DenseInstrumentBridge.lean'), encoding='utf-8').read()
 _diflat = ' '.join(_di.split())
 _dicode = re.sub(r'/-.*?-/|--[^\n]*', '', _di, flags=re.S)
-_din = open(os.path.join(os.path.dirname(BRIDGE), 'DENSE-INSTRUMENT-BRIDGE-AUDIT.md'), encoding='utf-8').read()
+_din = open(_artifact('DENSE-INSTRUMENT-BRIDGE-AUDIT.md'), encoding='utf-8').read()
 _din1 = re.sub(r'\s+', ' ', _din)
 ok_dib &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _di) is None and 'native_decide' not in _di
 ok_dib &= 'axiom ' not in _dicode
@@ -6205,7 +6220,7 @@ for _t in ('`R7-DIB`', 'DENSE-INSTRUMENT-BRIDGE-AUDIT.md', 'branch_within', 'esf
 for _bad in ('the fixed gate is C5', 'C5 holds', 'D3 is proved', 'the completion is proved', 'density is exactness', 'OI supplies the'):
     ok_dib &= _bad not in _rd1
 # the discrete completion note: one section recorded after its frozen text and its outcome; the older notes untouched
-_dcn2 = open(os.path.join(os.path.dirname(BRIDGE), 'DISCRETE-COMPLETION-AUDIT.md'), encoding='utf-8').read()
+_dcn2 = open(_artifact('DISCRETE-COMPLETION-AUDIT.md'), encoding='utf-8').read()
 _dcn_rec = _dcn2.find('## Recorded after the round: the dense-instrument bridge audit')
 ok_dib &= _dcn_rec > _dcn2.find('## What this note does not claim') and _dcn_rec > _dcn2.find('Status: pass complete')
 _dcn_rec1 = re.sub(r'\s+', ' ', _dcn2[_dcn_rec:])
@@ -6243,7 +6258,7 @@ ok_fss = True
 _fs = open(os.path.join(BRIDGE, 'OIBridge', 'FrozenSourcing.lean'), encoding='utf-8').read()
 _fsflat = ' '.join(_fs.split())
 _fscode = re.sub(r'/-.*?-/|--[^\n]*', '', _fs, flags=re.S)
-_fsn = open(os.path.join(os.path.dirname(BRIDGE), 'FROZEN-SUBSTRATUM-SOURCING-AUDIT.md'), encoding='utf-8').read()
+_fsn = open(_artifact('FROZEN-SUBSTRATUM-SOURCING-AUDIT.md'), encoding='utf-8').read()
 _fsn1 = re.sub(r'\s+', ' ', _fsn)
 ok_fss &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _fs) is None and 'native_decide' not in _fs
 ok_fss &= 'axiom ' not in _fscode
@@ -6372,11 +6387,11 @@ for _t in ('`R7-FSS`', 'FROZEN-SUBSTRATUM-SOURCING-AUDIT.md', 'NonnegBounded', '
 for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', 'two independent additions are needed'):
     ok_fss &= _bad not in _rd1
 # the two prior notes each carry one section after their frozen text; the older notes untouched
-_sin2 = open(os.path.join(os.path.dirname(BRIDGE), 'SUBSTRATUM-INTERFACE-AUDIT.md'), encoding='utf-8').read()
+_sin2 = open(_artifact('SUBSTRATUM-INTERFACE-AUDIT.md'), encoding='utf-8').read()
 _sin_rec = _sin2.find('## Recorded after the round: the frozen substratum sourcing audit')
 ok_fss &= _sin_rec > _sin2.find('## What this note does not claim')
 ok_fss &= re.sub(r'\s+', ' ', _sin2[_sin_rec:]).count('## ') == 1
-_din3 = open(os.path.join(os.path.dirname(BRIDGE), 'DENSE-INSTRUMENT-BRIDGE-AUDIT.md'), encoding='utf-8').read()
+_din3 = open(_artifact('DENSE-INSTRUMENT-BRIDGE-AUDIT.md'), encoding='utf-8').read()
 _din_rec = _din3.find('## Recorded after the round: the frozen substratum sourcing audit')
 ok_fss &= _din_rec > _din3.find('## What this note does not claim') and _din_rec > _din3.find('Status: pass complete')
 _din_rec1 = re.sub(r'\s+', ' ', _din3[_din_rec:])
@@ -6412,7 +6427,7 @@ ok_soi = True
 _so = open(os.path.join(BRIDGE, 'OIBridge', 'StochasticInterface.lean'), encoding='utf-8').read()
 _soflat = ' '.join(_so.split())
 _socode = re.sub(r'/-.*?-/|--[^\n]*', '', _so, flags=re.S)
-_son = open(os.path.join(os.path.dirname(BRIDGE), 'STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md'), encoding='utf-8').read()
+_son = open(_artifact('STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md'), encoding='utf-8').read()
 _son1 = re.sub(r'\s+', ' ', _son)
 ok_soi &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _so) is None and 'native_decide' not in _so
 ok_soi &= 'axiom ' not in _socode
@@ -6543,7 +6558,7 @@ for _t in ('`R7-SOI`', 'STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md', 'EnsembleDeterm
 for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', 'non-Markovian'):
     ok_soi &= _bad not in _rd1
 # the frozen sourcing note carries exactly one section after its own non-claims; the older notes untouched
-_fsn4 = open(os.path.join(os.path.dirname(BRIDGE), 'FROZEN-SUBSTRATUM-SOURCING-AUDIT.md'), encoding='utf-8').read()
+_fsn4 = open(_artifact('FROZEN-SUBSTRATUM-SOURCING-AUDIT.md'), encoding='utf-8').read()
 _fsn_x = _fsn4.find('## Cross-reference, appended after the frozen text')
 ok_soi &= _fsn_x > _fsn4.find('## What this note does not claim') and _fsn_x > _fsn4.find('Status: pass complete')
 _fsn_x1 = re.sub(r'\s+', ' ', _fsn4[_fsn_x:])
@@ -6579,9 +6594,9 @@ ok_c4r = True
 _cr = open(os.path.join(BRIDGE, 'OIBridge', 'CausalReadback.lean'), encoding='utf-8').read()
 _crflat = ' '.join(_cr.split())
 _crcode = re.sub(r'/-.*?-/|--[^\n]*', '', _cr, flags=re.S)
-_crn = open(os.path.join(os.path.dirname(BRIDGE), 'C4-CAUSAL-READBACK-AUDIT.md'), encoding='utf-8').read()
+_crn = open(_artifact('C4-CAUSAL-READBACK-AUDIT.md'), encoding='utf-8').read()
 _crn1 = re.sub(r'\s+', ' ', _crn)
-_cra = open(os.path.join(os.path.dirname(BRIDGE), 'C4-CAUSAL-READBACK-AUDIT-AMENDMENT.md'), encoding='utf-8').read()
+_cra = open(_artifact('C4-CAUSAL-READBACK-AUDIT-AMENDMENT.md'), encoding='utf-8').read()
 _cra1 = re.sub(r'\s+', ' ', _cra)
 ok_c4r &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _cr) is None and 'native_decide' not in _cr
 ok_c4r &= 'axiom ' not in _crcode and re.search(r'(?m)^axiom ', _cr) is None
@@ -6729,8 +6744,8 @@ ok_rch = True
 _rh = open(os.path.join(BRIDGE, 'OIBridge', 'RecurrenceHorizon.lean'), encoding='utf-8').read()
 _rhflat = ' '.join(_rh.split())
 _rhcode = re.sub(r'/-.*?-/|--[^\n]*', '', _rh, flags=re.S)
-_rhn = open(os.path.join(os.path.dirname(BRIDGE), 'RECURRENCE-TIGHTNESS-AUDIT.md'), encoding='utf-8').read()
-_rha = open(os.path.join(os.path.dirname(BRIDGE), 'RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md'), encoding='utf-8').read()
+_rhn = open(_artifact('RECURRENCE-TIGHTNESS-AUDIT.md'), encoding='utf-8').read()
+_rha = open(_artifact('RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md'), encoding='utf-8').read()
 _rha1 = re.sub(r'\s+', ' ', _rha)
 ok_rch &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _rh) is None and 'native_decide' not in _rh
 ok_rch &= 'axiom ' not in _rhcode and re.search(r'(?m)^axiom ', _rh) is None
@@ -6822,7 +6837,7 @@ ok_scf = True
 _sf = open(os.path.join(BRIDGE, 'OIBridge', 'ScalingFamily.lean'), encoding='utf-8').read()
 _sfflat = ' '.join(_sf.split())
 _sfcode = re.sub(r'/-.*?-/|--[^\n]*', '', _sf, flags=re.S)
-_sfn = open(os.path.join(os.path.dirname(BRIDGE), 'RECURRENCE-SCALING-AUDIT.md'), encoding='utf-8').read()
+_sfn = open(_artifact('RECURRENCE-SCALING-AUDIT.md'), encoding='utf-8').read()
 _sfn1 = re.sub(r'\s+', ' ', _sfn)
 ok_scf &= re.search(r'(?<![A-Za-z])sorry(?![A-Za-z])', _sf) is None and 'native_decide' not in _sf
 ok_scf &= 'axiom ' not in _sfcode and re.search(r'(?m)^axiom ', _sf) is None
@@ -7008,7 +7023,7 @@ for _t in ('realize the requested prefix', 'free to depend on the horizon',
     ok_rcl &= _t.lower() in _rc_flat.lower()
 # the frozen preregistration and its amendment are named where the reconciliation lives
 ok_rcl &= 'OI-ROOTED-CLASSIFICATION-AUDIT.md' in _rd1
-_rc_amd = open(os.path.join(os.path.dirname(BRIDGE), 'C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md'),
+_rc_amd = open(_artifact('C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md'),
                encoding='utf-8').read()
 _rc_amd1 = re.sub(r'\s+', ' ', _rc_amd)
 for _t in ('append-only', 'superseded', 'does **not** give', 'depends on `K`'):
@@ -7269,11 +7284,11 @@ check('R7-QSTAR', ok_qstar,
 # specific way it would be broken. Every mutation is asserted to CHANGE THE SOURCE: a mutation that
 # fails to mutate records a pass while testing nothing, which is how a guard ships vacuous.
 _OS = open(os.path.join(BRIDGE, 'OIBridge', 'OperationalSourcing.lean'), encoding='utf-8').read()
-_OSPRE = open(os.path.join(os.path.dirname(BRIDGE), 'OI-OPERATIONAL-SOURCING-AUDIT.md'),
+_OSPRE = open(_artifact('OI-OPERATIONAL-SOURCING-AUDIT.md'),
               encoding='utf-8').read()
-_OSAM = open(os.path.join(os.path.dirname(BRIDGE), 'OI-OPERATIONAL-SOURCING-AUDIT-AMENDMENT-1.md'),
+_OSAM = open(_artifact('OI-OPERATIONAL-SOURCING-AUDIT-AMENDMENT-1.md'),
              encoding='utf-8').read()
-_OSRES = open(os.path.join(os.path.dirname(BRIDGE), 'OI-OPERATIONAL-SOURCING-RESULT.md'),
+_OSRES = open(_artifact('OI-OPERATIONAL-SOURCING-RESULT.md'),
               encoding='utf-8').read()
 _OSRES1 = ' '.join(_OSRES.split())
 _OSPRE1 = ' '.join(_OSPRE.split())
@@ -7587,8 +7602,13 @@ _BB = os.path.dirname(BRIDGE)
 
 
 def _bb_read(path):
-    """The bytes of a control-plane file. Injectable so the freeze pin can be mutation-tested."""
-    return open(os.path.join(_BB, path), 'rb').read()
+    """The bytes of a control-plane file. Injectable so the freeze pin can be mutation-tested.
+
+    Resolved through `_artifact`, so the blob pins below keep computing over the
+    same bytes after the artifacts moved out of the verification/ root -- which
+    is the point of the pin: a freeze that moved is still the same freeze, and a
+    freeze that was rewritten is not."""
+    return open(_artifact(path), 'rb').read()
 
 
 def _bb_blob(path, read=_bb_read):
@@ -7597,7 +7617,7 @@ def _bb_blob(path, read=_bb_read):
     return hashlib.sha1(b'blob %d\0' % len(_d) + _d).hexdigest()
 
 
-_BBRES = open(os.path.join(_BB, 'BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-RESULT.md'),
+_BBRES = open(_artifact('BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-RESULT.md'),
               encoding='utf-8').read()
 _BBRES1 = ' '.join(_BBRES.split())
 
@@ -7836,8 +7856,8 @@ check('R7-BRIDGE', ok_bb,
 # that a later edit could quietly undo -- that the module's definitions are byte-identical to the
 # ones the freeze fixed, and that the result note reports RT1 rather than a relabelled RT3.
 _TB = open(os.path.join(BRIDGE, 'OIBridge', 'TransposeBridge.lean'), encoding='utf-8').read()
-_TBRES = open(os.path.join(_BB, 'BARANDES-TRANSPOSE-BRIDGE-RESULT.md'), encoding='utf-8').read()
-_TBPRE = open(os.path.join(_BB, 'BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md'), encoding='utf-8').read()
+_TBRES = open(_artifact('BARANDES-TRANSPOSE-BRIDGE-RESULT.md'), encoding='utf-8').read()
+_TBPRE = open(_artifact('BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md'), encoding='utf-8').read()
 _TBRES1 = ' '.join(_TBRES.split())
 
 # the three definitions, exactly as the frozen preregistration writes them
@@ -8031,8 +8051,8 @@ check('R7-TBRIDGE', ok_tb,
 # The guard therefore pins the frozen text, which outcome-bearing theorems exist, and which
 # sentences the note is allowed to say.
 _CS = open(os.path.join(BRIDGE, 'OIBridge', 'CandidateSelection.lean'), encoding='utf-8').read()
-_CSRES = open(os.path.join(_BB, 'BARANDES-CANDIDATE-SELECTION-RESULT.md'), encoding='utf-8').read()
-_CSPRE = open(os.path.join(_BB, 'BARANDES-CANDIDATE-SELECTION-PREREGISTRATION.md'), encoding='utf-8').read()
+_CSRES = open(_artifact('BARANDES-CANDIDATE-SELECTION-RESULT.md'), encoding='utf-8').read()
+_CSPRE = open(_artifact('BARANDES-CANDIDATE-SELECTION-PREREGISTRATION.md'), encoding='utf-8').read()
 _CSRES1 = ' '.join(_CSRES.split())
 
 # all EIGHT definitions the round introduces, exactly as the frozen preregistration writes them
@@ -8341,8 +8361,8 @@ check('R7-CAND', ok_cs,
 # can go wrong here is citing the wrong paper, claiming more than an audit earns, or letting the
 # licence act 3 froze quietly upgrade. The guard pins the frozen contract, the source discipline,
 # and the exact boundary between what MP4 licenses and what it does not.
-_DMRES = open(os.path.join(_BB, 'BARANDES-DILATION-MAPPING-RESULT.md'), encoding='utf-8').read()
-_DMPRE = open(os.path.join(_BB, 'BARANDES-DILATION-MAPPING-PREREGISTRATION.md'),
+_DMRES = open(_artifact('BARANDES-DILATION-MAPPING-RESULT.md'), encoding='utf-8').read()
+_DMPRE = open(_artifact('BARANDES-DILATION-MAPPING-PREREGISTRATION.md'),
               encoding='utf-8').read()
 _DMRES1 = ' '.join(_DMRES.split())
 
@@ -8507,7 +8527,7 @@ check('R7-DILMAP', ok_dm,
 # candidate from the visible data" is exactly the step the exhibited counterexample forbids. The
 # guard pins the frozen contract, the source discipline, both halves of the SA2 classification, the
 # visible-level counterexample, the scope of each freedom, and the licences the round may not touch.
-_SARES = open(os.path.join(_BB, 'BARANDES-SOURCE-A-CANDIDATE-RESULT.md'), encoding='utf-8').read()
+_SARES = open(_artifact('BARANDES-SOURCE-A-CANDIDATE-RESULT.md'), encoding='utf-8').read()
 _SARES1 = ' '.join(_SARES.split())
 
 
@@ -8712,7 +8732,7 @@ check('R7-SRCA', ok_sa,
 # the representation shortcut: `IsUnistochastic` must be a statement about the matrix under test, not
 # about an encoding of it.
 _TU = open(os.path.join(BRIDGE, 'OIBridge', 'BarandesTuple.lean'), encoding='utf-8').read()
-_TURES = open(os.path.join(_BB, 'BARANDES-TUPLE-INSTANTIATION-RESULT.md'), encoding='utf-8').read()
+_TURES = open(_artifact('BARANDES-TUPLE-INSTANTIATION-RESULT.md'), encoding='utf-8').read()
 _TURES1 = ' '.join(_TURES.split())
 # comments and docstrings stripped: the module's own disclaimers NAME the disqualified objects, so a
 # check that the module does not USE them must look at code alone
@@ -9139,7 +9159,7 @@ check('R7-TUPLE', ok_tu,
 # second hazard is sharper than it looks, because the counterfactual is the part a later round wants
 # to reuse. The guard pins the freeze, the route to the label, the named inherited hypothesis, the
 # not-reached discipline, and the counterfactual's non-outcome-bearing status.
-_DCRES = open(os.path.join(_BB, 'BARANDES-DILATION-CHOICE-RESULT.md'), encoding='utf-8').read()
+_DCRES = open(_artifact('BARANDES-DILATION-CHOICE-RESULT.md'), encoding='utf-8').read()
 # Blockquote markers are stripped BEFORE whitespace normalization: the next obligation is set as a
 # block quote, and without this a sentence wrapped across two quoted lines carries a stray '>' into
 # the normalized text and is unmatchable. A guard that cannot see its own subject is not a guard.
@@ -9522,7 +9542,7 @@ for _w in ('theorem oi_forbids', 'theorem infiniteSupport_impossible',
     ok6 &= _w not in ina
 ok6 &= 'structure FiniteOperationalTheory' not in ina and 'native_decide' not in ina
 # the audit file must record Q3 as decided and keep Q2, Q4, Q5 open
-_aud2 = open(os.path.join(os.path.dirname(BRIDGE), 'INSTRUMENT-COMPLETION-AUDIT.md'),
+_aud2 = open(_artifact('INSTRUMENT-COMPLETION-AUDIT.md'),
              encoding='utf-8').read()
 ok6 &= 'Second entry' in _aud2 and _aud2.count('**open') >= 3
 # b24a GUARDS.  Physical local tomography must rest on PRODUCT RANK-ONE EFFECTS, not on

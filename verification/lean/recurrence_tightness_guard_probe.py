@@ -14,7 +14,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 VERIFICATION = HERE.parent
-RESULT = VERIFICATION / "RECURRENCE-TIGHTNESS-RESULT.md"
+RESULT = VERIFICATION / "programmes" / "oi-qm" / "track-i" / "recurrence-tightness" / "result.md"
 PROBE = HERE / "recurrence_tightness_probe.py"
 
 text = RESULT.read_text(encoding="utf-8")
