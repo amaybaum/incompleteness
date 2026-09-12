@@ -32,12 +32,15 @@ in Section D, which answers the freeze's own screening question E0 — a questio
 * **(d) the restriction map**, `restrict`, in the other direction. `restriction_of_extends` proves
   the restriction of an extension of `Γ` is `Γ` itself, with no "up to" anywhere.
 * **(e) away from the embedded times: ROW-STOCHASTICITY, AND NOTHING ELSE.** Continuity is **not**
-  part of the relation, and neither is differentiability or continuous-time periodicity. This is the
-  load-bearing choice of layer 0 and it is a refusal rather than a preference: continuity is exactly
-  what Source A's contract was found to want at act 7's `DC2a`, so building it into a Track I
-  relation would be letting a Track B need shape the definition. Regularity is carried by separate
-  predicates, conjoined where a theorem needs it — entrywise `Continuous` below — and layer 1 is
-  where the source's own demands get transcribed.
+  part of the relation, and neither is differentiability or continuous-time periodicity.
+
+  **The reason is internal to Track I.** `PPer` specifies only the discrete samples and their
+  stochasticity; it carries **no regularity law governing intermediate times**. Continuity,
+  differentiability and continuous-time periodicity are therefore *additional properties of an
+  extension*, not part of the extension relation itself — an argument that stands with Source A
+  absent from the room, which is what the freeze's separation test asks of it. Regularity is carried
+  by separate predicates, conjoined where a theorem needs it (entrywise `Continuous` below), so
+  layer 1 can read off which of the source's own demands the relation already supplies.
 
 **Periodicity is asked, not assumed** (E1(e) again). The relation requires no periodicity of `Γhat`.
 `PPer` constrains the *restriction*, and `Section C` exhibits an extension that is in fact periodic
@@ -49,9 +52,10 @@ in continuous time; that is a property of the witness, not of the relation.
   embedded time, the root condition transported, and stochasticity inherited by the restriction.
 * **B** — the convexity toolkit, and `cos_nat_mul_pi`, proved by induction from `Real.cos_add`
   rather than by citing a parity lemma.
-* **C** — **E2**: the extension is **not determined**. Two entrywise-continuous extensions of one
-  lawful `PPer` family agree at every embedded time and differ at `t = 1/2`
-  (`extension_not_unique_visible`). This is a **visible-level** separation, which is what makes it
+* **C** — **E2**: under this relation the same OI family admits **multiple** continuous extensions.
+  Two entrywise-continuous extensions of one lawful `PPer` family agree at every embedded time and
+  differ at `t = 1/2` (`extension_not_unique_visible`). The claim is indexed to the relation: a
+  relation carrying more requirements would admit fewer extensions. This is a **visible-level** separation, which is what makes it
   new: `RegionLimit.continuous_extension_not_unique` separates two flows at the operator level, and
   `regionLimit_analogue_has_equal_visible_shadows` proves in-round that those two flows have the
   **same** entrywise modulus-squared at every time — so that merged theorem exhibits no visible
@@ -221,8 +225,9 @@ theorem interp_continuous (A : Matrix V V ℝ) (p : ℝ) (i j : V) :
 other than the identity, the constant identity family — a lawful `PPer` member — has **two**
 entrywise-continuous extensions that agree at every embedded time and differ half a step in.
 
-**So OI structure admits a CLASS of extensions, not a unique one, and every extension this round
-exhibits is a SELECTION rather than a canonical object.**
+**So under this relation the same OI family admits MULTIPLE continuous extensions, and every
+extension this round exhibits is a SELECTION rather than a canonical object.** The statement is
+indexed to the relation rather than asserted of OI structure simpliciter.
 
 **The separation is at the VISIBLE level**, which is what distinguishes it from the merged
 operator-level precedent; see `regionLimit_analogue_has_equal_visible_shadows`. -/

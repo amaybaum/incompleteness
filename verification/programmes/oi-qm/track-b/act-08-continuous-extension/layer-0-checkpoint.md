@@ -16,10 +16,18 @@ layer 1.
 ## Outcome of layer 0: no Track I obstruction. `CE3` is NOT reached, and layer 1 is licensed
 
 The freeze routes `CE3` to "the extension relation **cannot be defined** from current OI structure
-without an extra principle, and the principle is **named**". The relation is defined below from
-nothing but a finite carrier, a time domain, an embedding and row-stochasticity — all of which the
-OI visible class already carries — so **no extra principle was needed and none is named**. Layer 0
-therefore produces **no genuine Track I obstruction** and the round proceeds to layer 1.
+without an extra principle, and the principle is **named**".
+
+**The extension relation is definable from the existing discrete OI family together with an
+explicitly chosen ambient time domain and embedding, without adding a new physical or dynamical
+principle. The `CE3` stop is therefore not triggered.**
+
+**The split matters and is stated rather than blurred.** OI supplies the finite carrier and the
+`ℕ`-indexed row-stochastic family. It does **not** supply `ℝ≥0` or `ι n = n`: those are layer-0
+choices, made here and recorded as choices below. What `CE3` asks about is whether a new *principle*
+was needed, and none was — picking an ambient domain and an embedding is not a physical or dynamical
+posit. Layer 0 therefore produces **no genuine Track I obstruction** and the round proceeds to
+layer 1.
 
 That matches the freeze's own prediction, which called `CE3` "the outcome this freeze considers
 least likely, since E1's ingredients — a time domain, an embedding, an agreement condition and a
@@ -47,12 +55,18 @@ after rescaling time by `δ`, and nothing in the layer depends on the scale.
 **(e) is the load-bearing decision of layer 0, and it is a REFUSAL.** Continuity is **not** part of
 the extension relation. Neither is differentiability, nor periodicity of the continuous family.
 
-The reason is the round's track-separation control rather than taste. Continuity is precisely what
-Source A's contract was found to want when act 7 stopped at `DC2a`. Writing it into a **Track I**
-relation would be letting a Track B need shape a Track I definition — the one thing the freeze's
-layer-0 control forbids structurally. Regularity is therefore carried by **separate** predicates and
-conjoined only where a theorem needs it; layer 1 is where the source's own demands get transcribed,
-and it can then be read off which of them the relation does and does not already supply.
+**The reason is internal to Track I, and it has to be, because that is the freeze's separation
+test.** `PPer` specifies only the discrete samples and their stochasticity. It contains **no
+regularity law governing intermediate times.** Continuity, differentiability and continuous-time
+periodicity are therefore **additional properties of an extension**, not part of the extension
+relation itself. That argument survives with Source A completely absent from the room, which is
+exactly what the control asks of it.
+
+*(Whether continuity is also something the source wants is a layer-1 question and is not the reason
+for this decision. Had it been the reason, the definition would have been shaped by a Track B need —
+which is what the control forbids. Regularity is carried by separate predicates and conjoined only
+where a theorem needs it, so layer 1 can read off which of the source's demands the relation already
+supplies and which it does not.)*
 
 **Periodicity was asked, not assumed.** The relation requires no periodicity of `Γ̂`. `PPer`
 constrains the **restriction**. The witness of Section D happens to be periodic in continuous time;
@@ -64,14 +78,19 @@ obligation succeed could not be stated in their vocabulary at all.
 
 ## E2 — the extension is a SELECTION, not a canonical object
 
-**Settled: OI structure admits a CLASS of extensions, not a unique one.**
+**Settled: under the frozen layer-0 extension relation, the same OI family admits MULTIPLE
+continuous extensions.**
+
+The claim is indexed to the relation deliberately. It is not a statement that "OI structure admits a
+class of extensions" simpliciter: what admits many is the family *under this relation*, and a
+relation carrying more requirements would admit fewer.
 
 `extension_not_unique_visible` exhibits, for any row-stochastic `A ≠ 1`, **two** entrywise-continuous
 extensions of the constant identity family — a lawful `PPer` member — that agree at **every**
 embedded time and differ half a step in.
 
 **Consequence the round now carries:** every extension this round exhibits, here and in layers 1–2,
-is a **selection**. No result may be stated as though the extension were canonical.
+is a **selection** under this relation. No result may be stated as though the extension were canonical.
 
 **The separation is at the VISIBLE level, and that is what makes it new.** The freeze admitted the
 merged `RegionLimit.continuous_extension_not_unique` as **analogy and control only**, and required
