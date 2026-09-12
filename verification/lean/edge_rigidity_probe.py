@@ -9428,6 +9428,356 @@ check('R7-DILCH', ok_dc,
       'mutation controls in all, since the cross-time and obligation contracts each carry two -- plus the freeze-pin '
       'controls.')
 
+# ---- R7-DILL2: Track B act 7 LAYER 2 -- the dilation-choice test at reduced strength ----
+#
+# A round that reached a POSITIVE existential label under a readback that is OURS rather than the
+# source's. The live hazard is therefore the opposite of R7-DILCH's: not over-reading a stop, but
+# letting a bounded positive shed its bound. Every sentence this guard pins is one a later round
+# would want to cite in the unbounded form -- `DC1` as underdetermination of Source A's prediction,
+# `DC4` refuted simpliciter, `CE1` extended to a second witness, act 3's padding theorem as
+# evidence, `D3` quietly closed. The bound is the result; the guard treats it that way.
+_DL2 = open(_artifact('programmes/oi-qm/track-b/act-07-dilation-choice/layer-2-result.md'),
+            encoding='utf-8').read()
+# Blockquote markers stripped before whitespace normalization: the operative bound is set as a
+# block quote, and a '>' carried into the normalized text would make it unmatchable.
+_DL21 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _DL2).split())
+
+
+def _dl2_freeze_pin(read=_bb_read):
+    """L1 -- all four governing control-plane artifacts are byte-identical to their merged blobs.
+
+    Injectable reader so both drift controls below run through THIS predicate. Act 7's own
+    preregistration governs in full; the resumption freeze, the resumption result and the readback
+    amendment are append-only additions to it, and layer 2 is only interpretable against all four."""
+    d = 'programmes/oi-qm/track-b/act-07-dilation-choice/'
+    return (_bb_blob(d + 'preregistration.md', read)
+            == '810bb2f11d88a0872f764e1e32e2aa2f1e2c9b19'
+            and _bb_blob(d + 'resumption-preregistration.md', read)
+            == '3bb88717267a4adb45125b6277edae4e56c5cf26'
+            and _bb_blob(d + 'resumption-result.md', read)
+            == '216cb9e65cda9b2f3b9777c2ecfcdf8d8bb58df0'
+            and _bb_blob(d + 'readback-amendment.md', read)
+            == '0e2c067a90ef9b8e3a4596299ff594bb6ba6807a')
+
+
+def _dl2_bound(t=None):
+    """L2 -- `DC1` is stated UNDER THE FROZEN READBACK, and the two things it is not.
+
+    This is the whole strength reduction. `D4b` came back negative, so the map is ours; a `DC1`
+    reported without this clause would be a different and unearned claim."""
+    t = _DL21 if t is None else t
+    return ('**`DC1` here states divergence UNDER THE FROZEN READBACK `R_{a₀}` ON ANCHORED '
+            'DILATIONS.**' in t
+            and "It does **not** state that Source A's own visible prediction is underdetermined "
+                'by the visible data' in t
+            and 'does **not** demonstrate that a candidate-selection principle is required' in t)
+
+
+def _dl2_artifact_open(t=None):
+    """L3 -- the divergence may still be an artifact of the map or of the anchoring convention.
+
+    The positive result's own defeater, left open rather than argued away. Deleting this sentence
+    is the cheapest way to promote a reduced-strength `DC1` to a full-strength one."""
+    t = _DL21 if t is None else t
+    return ('**A divergence found under `R_{a₀}` could still be an artifact of the map or of '
+            'the anchoring convention rather than of the dilation freedom.**' in t
+            and 'Nothing here closes that possibility' in t)
+
+
+def _dl2_per_witness(t=None):
+    """L4 -- the two witnesses are reported separately and never merged, and each is characterized.
+
+    Act 7 required per-witness reporting because witness A is rank-one degenerate: a result on it
+    alone could be an artifact of rank collapse rather than a fact about the dilation."""
+    t = _DL21 if t is None else t
+    return ('**Their results are reported separately below and are never merged into one claim.**'
+            in t
+            and "once on each of act 7's two preregistered witnesses" in t
+            and '**`DC1` is EXISTENTIAL.** One pair of dilation choices, one time pair, one anchor, '
+                'per witness.' in t)
+
+
+def _dl2_d5_fails(t=None):
+    """L5 -- D5a and D5b BOTH fail, so act 3's padding theorem is analogy and control only.
+
+    Act 7's clause 6: the theorem is evidence only if both hold. The reuse hazard is a later round
+    citing `candidateOf_uniformWeight_padData_eq` as though it bore on Source A's candidate."""
+    t = _DL21 if t is None else t
+    return ('### `D5a` — the shape condition: **FAILS**, on two independent mismatches' in t
+            and '### `D5b` — the quantity condition: **FAILS**' in t
+            and "**Act 3's padding theorem is recorded as ANALOGY AND CONTROL ONLY, never as "
+                'evidence for `DC3` or `DC4`**' in t
+            and '**And it forbids nothing about `DC1`.**' in t)
+
+
+def _dl2_d5a_is_theorem(t=None):
+    """L6 -- D5a's shape mismatch is decided by a THEOREM, not by resemblance.
+
+    A shape judgement made by eye is exactly the kind of determination an outcome can select. This
+    one cannot be: a Kronecker-product anchored dilation forces a unistochastic visible slice, and
+    both witnesses are off the direct branch."""
+    t = _DL21 if t is None else t
+    return ('`kronecker_admissible_isUnistochastic` proves that if `U ⊗ₖ W` is an '
+            'admissible anchored dilation of `G`, then `G` is **unistochastic**' in t
+            and '**This is a theorem about the padding form, proved in-round, and it mentions no '
+                'witness.**' in t
+            and '**Mismatch 1 — the shape is not merely unnecessary, it is UNAVAILABLE.**' in t)
+
+
+def _dl2_ordering_not_certified(t=None):
+    """L7 -- the frozen D5 ordering control is recorded NOT CERTIFIED and DEVIATED FROM.
+
+    Act 7's condition is chronological in terms: the question must be answered before any witness is
+    examined. This round cannot certify that, and the guard requires the deviation stated AS a
+    deviation -- never as a control satisfied in some other sense. A frozen procedural condition
+    cannot be re-specified once the outcome is known, so the guard also requires the round NOT to
+    describe itself as fully preregistration-compliant, and requires the outcome-independence to be
+    carried as SEPARATE corpus-level evidence that explicitly does not discharge the control. The
+    status is required in the provenance table as well, since a reader who stops at the header must
+    still meet it."""
+    t = _DL21 if t is None else t
+    return ('**The `D5` chronological-ordering control is NOT CERTIFIED for this round, and the '
+            'round deviated from it procedurally.**' in t
+            and '**This round cannot certify that.**' in t
+            and 'the frozen procedural condition is recorded here as **deviated from**, not as '
+                'satisfied' in t
+            and 'Consequently **this round is NOT fully preregistration-compliant**' in t
+            and '**It is not the frozen control, it is not a substitute for it, and it does not '
+                'discharge it.**' in t
+            and '| Frozen `D5` chronological-ordering control | **NOT CERTIFIED** \u2014 '
+                'procedurally deviated from; see below |' in t)
+
+
+def _dl2_dc4_scoped(t=None):
+    """L8 -- the DC4 refutation is recorded at exactly the class its statement names.
+
+    `DC4` is universal, so its refutation is too -- over the class named, and no wider. A narrower
+    admissible class, for instance one cut down by a coherence condition, could still satisfy
+    invariance, and that is `D3`'s open gap rather than a settled question."""
+    t = _DL21 if t is None else t
+    return ('**A narrower class could still satisfy invariance**' in t
+            and 'nothing here should be read as refuting every `DC4`-shaped statement.' in t
+            and 'all admissible anchored dilations over the dilated carrier `Fin 2 × Fin 2` of '
+                'that visible pair at anchor `0`' in t)
+
+
+def _dl2_d3_open(t=None):
+    """L9 -- act 7's D3 coherent-dilation gap is neither closed nor silently used.
+
+    `T2` is stated at ONE time precisely so the gap stays visible, since (39) p. 13 consumes two
+    independent dilation choices and Stinespring supplies only pointwise existence."""
+    t = _DL21 if t is None else t
+    return ("**It does not close `D3`'s coherent-dilation gap, and does not silently use it.**" in t
+            and '`D3` remains **separately OPEN**.' in t
+            and '**The predicate is stated at ONE time.**' in t)
+
+
+def _dl2_ce1_existential(t=None):
+    """L10 -- CE1 is not restated as a classification, and witness B's standing is a SECOND instance.
+
+    Witness B is not covered by `CE1`, which is existential. Its contract standing is proved
+    in-round from act 8's general lemmas, and the difference between a second instance and an
+    extension of the label is the difference between an existential and a classification."""
+    t = _DL21 if t is None else t
+    return ('**`CE1` says nothing about it**' in t
+            and '**Neither statement is a classification.**' in t
+            and 'a second instance rather than an extension of `CE1`' in t)
+
+
+def _dl2_screen_not_sufficient(t=None):
+    """L11 -- T1 is necessary and NOT sufficient, with the n = 3 properness claimed at level 3 only.
+
+    The screen is not a characterization, and nothing in the outcome may rest on external
+    literature the round does not prove."""
+    t = _DL21 if t is None else t
+    return ('**Not sufficient, and the `n = 2` coincidence is proved in-round without external '
+            'citation**' in t
+            and '**evidence level 3** and **not proved here**' in t
+            and "**Nothing in this round's outcome rests on it**" in t)
+
+
+def _dl2_no_manuscript(t=None):
+    """L12 -- no manuscript edit, and no Track I sourcing in either direction."""
+    t = _DL21 if t is None else t
+    return ('**It touches no manuscript.** No propagation in this round.' in t
+            and '**It says nothing about Track I**, and nothing here is evidence for anything there.'
+            in t
+            and '**Track I is not touched, in either direction.** Neither branch is evidence for '
+                'the other.' in t)
+
+
+ok_dl2 = True
+ok_dl2 &= _dl2_freeze_pin()
+ok_dl2 &= _dl2_bound()
+ok_dl2 &= _dl2_artifact_open()
+ok_dl2 &= _dl2_per_witness()
+ok_dl2 &= _dl2_d5_fails()
+ok_dl2 &= _dl2_d5a_is_theorem()
+ok_dl2 &= _dl2_ordering_not_certified()
+ok_dl2 &= _dl2_dc4_scoped()
+ok_dl2 &= _dl2_d3_open()
+ok_dl2 &= _dl2_ce1_existential()
+ok_dl2 &= _dl2_screen_not_sufficient()
+ok_dl2 &= _dl2_no_manuscript()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# the bound dropped, and `DC1` promoted to underdetermination of Source A's own prediction
+_dl2_m1 = _DL21.replace(
+    "It does **not** state that Source A's own visible prediction is underdetermined by the "
+    'visible data',
+    "It establishes that Source A's own visible prediction is underdetermined by the visible data")
+ok_dl2 &= _dl2_m1 != _DL21 and not _dl2_bound(_dl2_m1)
+
+# the result's own defeater argued away instead of left open
+_dl2_m2 = _DL21.replace(
+    '**A divergence found under `R_{a₀}` could still be an artifact of the map or of the '
+    'anchoring convention rather than of the dilation freedom.**',
+    'The divergence is therefore a fact about the dilation freedom and not about the map.')
+ok_dl2 &= _dl2_m2 != _DL21 and not _dl2_artifact_open(_dl2_m2)
+
+# the two witnesses merged into one claim -- act 7's per-witness rule, written out
+_dl2_m3 = _DL21.replace(
+    '**Their results are reported separately below and are never merged into one claim.**',
+    'Their results are combined below into a single finding about the dilation.')
+ok_dl2 &= _dl2_m3 != _DL21 and not _dl2_per_witness(_dl2_m3)
+
+# `DC1` restated as a classification of the OI class
+_dl2_m3b = _DL21.replace(
+    '**`DC1` is EXISTENTIAL.** One pair of dilation choices, one time pair, one anchor, per witness.',
+    '`DC1` holds for every off-direct OI process.')
+ok_dl2 &= _dl2_m3b != _DL21 and not _dl2_per_witness(_dl2_m3b)
+
+# act 3's padding theorem promoted from control to evidence, which needs BOTH D5 parts to hold
+_dl2_m4 = _DL21.replace(
+    "**Act 3's padding theorem is recorded as ANALOGY AND CONTROL ONLY, never as evidence for "
+    '`DC3` or `DC4`**',
+    "**Act 3's padding theorem is evidence for `DC3`**")
+ok_dl2 &= _dl2_m4 != _DL21 and not _dl2_d5_fails(_dl2_m4)
+
+# D5a decided by resemblance rather than by the theorem
+_dl2_m5 = _DL21.replace(
+    '**This is a theorem about the padding form, proved in-round, and it mentions no witness.**',
+    'The shapes plainly do not resemble one another.')
+ok_dl2 &= _dl2_m5 != _DL21 and not _dl2_d5a_is_theorem(_dl2_m5)
+
+# the deviation written back as a satisfied control -- the exact repair this contract exists for
+_dl2_m6 = _DL21.replace(
+    '**The `D5` chronological-ordering control is NOT CERTIFIED for this round, and the round '
+    'deviated from it procedurally.**',
+    '**The `D5` chronological-ordering control is satisfied: both parts were answered before any '
+    'witness was examined.**')
+ok_dl2 &= _dl2_m6 != _DL21 and not _dl2_ordering_not_certified(_dl2_m6)
+
+# outcome-independence promoted from separate evidence to the control's discharge
+_dl2_m6b = _DL21.replace(
+    '**It is not the frozen control, it is not a substitute for it, and it does not discharge it.**',
+    'That is what the frozen control asks for, so the control is discharged.')
+ok_dl2 &= _dl2_m6b != _DL21 and not _dl2_ordering_not_certified(_dl2_m6b)
+
+# the round described as fully preregistration-compliant despite the uncertified control
+_dl2_m6c = _DL21.replace(
+    'Consequently **this round is NOT fully preregistration-compliant**',
+    'Consequently **this round is fully preregistration-compliant**')
+ok_dl2 &= _dl2_m6c != _DL21 and not _dl2_ordering_not_certified(_dl2_m6c)
+
+# the status dropped from the provenance table, leaving it only where the round argues for itself
+_dl2_m6d = _DL21.replace(
+    '| Frozen `D5` chronological-ordering control | **NOT CERTIFIED** \u2014 procedurally '
+    'deviated from; see below |', '')
+ok_dl2 &= _dl2_m6d != _DL21 and not _dl2_ordering_not_certified(_dl2_m6d)
+
+# the DC4 refutation widened past the class its statement names
+_dl2_m7 = _DL21.replace('**A narrower class could still satisfy invariance**',
+                        '**No admissible class can satisfy invariance**')
+ok_dl2 &= _dl2_m7 != _DL21 and not _dl2_dc4_scoped(_dl2_m7)
+
+# D3's gap closed by the round that was forbidden to touch it
+_dl2_m8 = _DL21.replace('`D3` remains **separately OPEN**.',
+                        '`D3` is settled by the exhibitions above.')
+ok_dl2 &= _dl2_m8 != _DL21 and not _dl2_d3_open(_dl2_m8)
+
+# `T2` silently given a coherent time-indexed family, which is exactly what D3 lacks
+_dl2_m8b = _DL21.replace('**The predicate is stated at ONE time.**',
+                         '**The predicate ranges over a coherent time-indexed family.**')
+ok_dl2 &= _dl2_m8b != _DL21 and not _dl2_d3_open(_dl2_m8b)
+
+# `CE1` stretched to cover witness B -- an existential restated as a classification
+_dl2_m9 = _DL21.replace('**`CE1` says nothing about it**',
+                        '**`CE1` covers it as well**')
+ok_dl2 &= _dl2_m9 != _DL21 and not _dl2_ce1_existential(_dl2_m9)
+
+# the screen over-read as a characterization
+_dl2_m10 = _DL21.replace(
+    '**Not sufficient, and the `n = 2` coincidence is proved in-round without external citation**',
+    '**The screen characterizes the direct branch**')
+ok_dl2 &= _dl2_m10 != _DL21 and not _dl2_screen_not_sufficient(_dl2_m10)
+
+# the n = 3 properness promoted above its citation level, which nothing in the outcome may rest on
+_dl2_m10b = _DL21.replace("**Nothing in this round's outcome rests on it**",
+                          '**The outcome depends on it**')
+ok_dl2 &= _dl2_m10b != _DL21 and not _dl2_screen_not_sufficient(_dl2_m10b)
+
+# a manuscript propagation the round is forbidden to make
+_dl2_m11 = _DL21.replace('**It touches no manuscript.** No propagation in this round.',
+                         'The manuscripts carry this result.')
+ok_dl2 &= _dl2_m11 != _DL21 and not _dl2_no_manuscript(_dl2_m11)
+
+# the cross-track firewall dropped
+_dl2_m11b = _DL21.replace(
+    '**Track I is not touched, in either direction.** Neither branch is evidence for the other.',
+    'Track I corroborates this result.')
+ok_dl2 &= _dl2_m11b != _DL21 and not _dl2_no_manuscript(_dl2_m11b)
+
+# L1's controls run THROUGH _dl2_freeze_pin, so sabotaging that predicate fails the guard.
+def _dl2_drift(path):
+    """One byte appended to the readback amendment; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('readback-amendment.md') else b'')
+
+
+ok_dl2 &= _dl2_drift(
+    'programmes/oi-qm/track-b/act-07-dilation-choice/readback-amendment.md') != _bb_read(
+    'programmes/oi-qm/track-b/act-07-dilation-choice/readback-amendment.md')
+ok_dl2 &= not _dl2_freeze_pin(_dl2_drift)
+
+check('R7-DILL2', ok_dl2,
+      'Track B act 7 guard, layer 2: a round that reached a POSITIVE existential label under a readback that is OURS '
+      'rather than the source\'s, so the live hazard inverts R7-DILCH\'s -- not over-reading a stop, but letting a '
+      'bounded positive shed its bound. All four governing control-plane artifacts are pinned by blob: act 7\'s '
+      'preregistration, which governs in full, plus the three append-only additions -- the resumption freeze, the '
+      'resumption result carrying D4a positive and D4b negative, and the readback amendment that fixed T3 to one '
+      'anchored marginal map. The operative bound is checked present in the exact form act 7\'s T3 and the amendment '
+      'require: DC1 states divergence UNDER THE FROZEN READBACK on ANCHORED dilations, NOT that Source A\'s own '
+      'visible prediction is underdetermined and NOT that a candidate-selection principle is required, with the '
+      'unbounded version mutation-tested to fail. The result\'s own defeater -- that the divergence could still be an '
+      'artifact of the map or of the anchoring convention -- is checked left OPEN rather than argued away, since '
+      'deleting that one sentence is the cheapest route from a reduced-strength DC1 to a full-strength one. '
+      'Act 7\'s per-witness rule is checked kept: two witnesses, results never merged, DC1 recorded EXISTENTIAL at one '
+      'pair of dilation choices, one time pair and one anchor per witness, with both the merge and the classification '
+      'mutation-tested. D5a and D5b are checked BOTH FAILING, so act 3\'s padding theorem is analogy and control only '
+      'and never evidence for DC3 or DC4 -- act 7\'s clause 6, and the most reusable wrong citation available to a '
+      'later round -- while still forbidding nothing about DC1. D5a is checked decided by a THEOREM rather than by '
+      'resemblance: a Kronecker-product anchored dilation forces a unistochastic visible slice, so padData\'s shape is '
+      'UNAVAILABLE on witnesses that are off the direct branch, and the theorem mentions no witness. The '
+      'chronological ordering control act 7 imposes on D5 -- the question answered before any witness is examined -- '
+      'is checked recorded NOT CERTIFIED and DEVIATED FROM, in the provenance table as well as in the section that '
+      'argues it, because a frozen procedural condition cannot be re-specified once the outcome is known. The round '
+      'is required NOT to describe itself as fully preregistration-compliant, and the outcome-independence of D5a and '
+      'D5b is required to be carried as SEPARATE corpus-level evidence that explicitly does not discharge the '
+      'control; four mutations write back the four ways that boundary erodes -- the deviation restated as a satisfied '
+      'control, the outcome-independence promoted to its discharge, the compliance claim reinstated, and the status '
+      'dropped from the table so only the argument carries it. The DC4 refutation is checked '
+      'scoped to exactly the class its universal statement names, with a narrower class left able to satisfy '
+      'invariance and no reading that refutes every DC4-shaped statement. Act 7\'s D3 coherent-dilation gap is checked '
+      'neither closed nor silently used, with T2 stated at ONE time for that reason and both failures mutation-tested. '
+      'CE1 is checked NOT restated as a classification: it says nothing about witness B, whose contract standing is a '
+      'SECOND existential instance proved in-round from act 8\'s general lemmas rather than an extension of the label. '
+      'T1 is checked necessary and NOT sufficient, with the n = 2 coincidence proved in-round and the n = 3 properness '
+      'claimed at evidence level 3 with nothing in the outcome resting on it. Finally no manuscript edit and no '
+      'cross-track sourcing in either direction. Twelve named contracts, fifteen mutation controls, plus the '
+      'freeze-pin drift controls.')
+
 check('R7-AUDB', ok_audb,
       'Audit B guard: [GR] 2.2 carries a fourth entry recording C4 as a named realization condition at '
       'the cosmological cut, not presently discharged, with exactly what remains stated; both book '
