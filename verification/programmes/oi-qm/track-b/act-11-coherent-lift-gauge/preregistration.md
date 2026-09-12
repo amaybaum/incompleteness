@@ -119,12 +119,28 @@ the size of the ambiguity.
 `𝒢ˢ_{a₀}` is **trivial** while `𝒢ʷ_{a₀} ≅ U(1)^{|V|}` has dimension `|V|` — so a round that measured
 invisible freedom by `𝒢ˢ` alone would report *none* exactly where act 5's construction lives.
 
-**Maximality, as a target rather than an assumption.** `𝒢ʷ_{a₀}` is claimed to be the **largest**
-class of `K` that preserves the visible marginal of **every** admissible `U` — i.e. the largest
-*uniform* visibility-preserving right action. The derivation to be formalized: preservation for all
-`U` requires `‖P_i U K e_{(j,a₀)}‖ = ‖P_i U e_{(j,a₀)}‖` for every fibre projection `P_i` and every
-unitary `U`, which forces `K e_{(j,a₀)}` to be a unit multiple of `e_{(j,a₀)}`. **The `|V| = 1` case
-is degenerate and must be stated**, not assumed away.
+**Maximality, as a target rather than an assumption, AND ONLY FOR `|V| ≥ 2`.** For `|V| ≥ 2`,
+`𝒢ʷ_{a₀}` is claimed to be the **largest** class of `K` preserving the visible marginal of **every**
+admissible `U` — the largest *uniform* visibility-preserving right action. The derivation to be
+formalized: preservation for all `U` requires `‖P_i U K e_{(j,a₀)}‖ = ‖P_i U e_{(j,a₀)}‖` for every
+fibre projection `P_i` and every unitary `U`, which forces `K e_{(j,a₀)}` to be a unit multiple of
+`e_{(j,a₀)}`. **That argument draws its force from having at least two fibres to separate, which is
+exactly why the hypothesis is `|V| ≥ 2` and not a cosmetic restriction.**
+
+**`|V| = 1` IS A GENUINE EXCEPTION, NOT A DEGENERACY TO BE WAVED AT, and it is recorded as its own
+statement.** With a single visible state the only visible entry is
+
+    G 0 0 = ∑_a ‖U (0,a) (0,a₀)‖² = ‖ the (0,a₀) column of U ‖² = 1
+
+for **every** unitary `U`, since unitary columns are unit vectors. **The visible datum is therefore
+constant, and every right-unitary `K ∈ U(|A|)` preserves it uniformly.** So at `|V| = 1` the maximal
+uniform visibility-preserving class is **all of `U(|A|)`**, which strictly contains
+`𝒢ʷ_{a₀} ≅ U(1) × U(|A| − 1)` whenever `|A| ≥ 2`; the two coincide only at `|A| = 1`. **`GL1w`'s
+maximality claim is false at `|V| = 1` and is not made there.**
+
+**The group identities themselves are unrestricted.** `GL1s` and `GL1w`'s isomorphism types and
+dimensions hold for every nonempty carrier; it is **only the maximality claim** that carries the
+`|V| ≥ 2` hypothesis.
 
 **Uniformity is part of the claim and the round may not silently drop it.** For a *single* fixed `U`
 there can be further `K` preserving that `U`'s marginal alone; `𝒢ʷ_{a₀}` is maximal among classes
@@ -177,6 +193,13 @@ phrasing of the form "the obstruction is exactly time-dependence", read as a two
 class. Only failure to lie in `𝒢ʷ_{a₀}` — the maximal uniform class of `GL1w` — supports that
 reading, and `GI2` is therefore stated against `𝒢ʷ_{a₀}` and nothing smaller.
 
+**And the "maximal uniform invisible gauge" reading of `GI1`/`GI2` is scoped to `|V| ≥ 2`**, exactly
+where `GL1w`'s maximality holds. At `|V| = 1` the maximal uniform class is all of `U(|A|)`, so
+non-membership in `𝒢ʷ_{a₀}` would carry no "not gauge" force there; the labels may still be stated
+against `𝒢ʷ_{a₀}` at `|V| = 1`, but **only as a statement about that subgroup**, never as a claim
+about invisible freedom. The witnesses this round uses have `|V| = 2`, so the scoped reading covers
+them — but the restriction is recorded rather than left to depend on that.
+
 **Why the fork decides the shape of the remaining work.** Under `GI1` the extra structure needed is
 exactly a gauge fixing — a rule selecting `K t`, i.e. a connection. Under `GI2` the extra structure
 must be larger than a gauge fixing.
@@ -212,8 +235,10 @@ constructor.
 
 ## The preregistered predictions, at HONEST and DIFFERENT confidence levels
 
-**`GL1s` and `GL1w` — expected to go through as derived**, including the `|A| = 1` and `|V| = 1` edge
-cases and `GL1w`'s maximality-under-uniformity.
+**`GL1s` and `GL1w` — expected to go through as derived**: the group identities for every nonempty
+carrier, `GL1w`'s maximality **under uniformity and for `|V| ≥ 2`**, and the two edge cases as
+separate statements — `|A| = 1` (strong class trivial, weak class `U(1)^{|V|}`) and `|V| = 1` (visible
+datum constant, maximal uniform class all of `U(|A|)`, so maximality of `𝒢ʷ_{a₀}` fails).
 
 **`GL2` and `GL3` — predicted, and strongly**, in this wording:
 
@@ -334,17 +359,22 @@ the statement that needs it, as act 10 did.
    prior countercontrol on the continuous side, not a theorem of this round.
 7. **Dropping uniformity from `GL1w`'s maximality.** Maximal among classes preserving *every*
    admissible `U`'s marginal — a single fixed `U` admits more.
-8. **`GL2` over-read as OI ≠ QM**, or as requiring a candidate-selection principle.
-9. **Presuming coherent-lift existence** within Source A's bounds.
-10. **Answering `D3`'s existence/regularity audit.** Subsumption is of the uniqueness mechanism only.
-11. **A chronology guard that certifies only the head.** See clause 5.
+8. **Claiming `GL1w` maximality at `|V| = 1`.** It is FALSE there: the visible datum is constant at
+   `1`, so the maximal uniform class is all of `U(|A|)`, strictly larger than `𝒢ʷ_{a₀}` whenever
+   `|A| ≥ 2`. The maximality target carries a `|V| ≥ 2` hypothesis, and the `GI` labels' "maximal
+   uniform invisible gauge" reading is scoped the same way.
+9. **`GL2` over-read as OI ≠ QM**, or as requiring a candidate-selection principle.
+10. **Presuming coherent-lift existence** within Source A's bounds.
+11. **Answering `D3`'s existence/regularity audit.** Subsumption is of the uniqueness mechanism only.
+12. **A chronology guard that certifies only the head.** See clause 5.
 
 ## Non-doings
 
 Do not: run any part of the execution before this file is merged; introduce any execution-specific
 object about lifts, stabilizers or their orbits before then (**the frozen derivations inside this
 blob are the permitted exception, per chronology clause 1**); present `𝒢ˢ_{a₀}` as the invisible
-freedom; state `GI1` or `GI2` over `𝒢ˢ_{a₀}`; treat either merged witness as a `GI2` candidate;
+freedom; state `GI1` or `GI2` over `𝒢ˢ_{a₀}`; claim `GL1w` maximality at `|V| = 1`, or read the `GI` labels
+as being about invisible freedom there; treat either merged witness as a `GI2` candidate;
 state `GL3` as a two-sided claim; claim a smoothness result about the `ℕ`-indexed object; revise
 `DC1`, `DC2a`, `D4a`, `D4b`, `CE1`, `RB3`, `RB1-A`, `RB1-B`, `AB0-A`, `AB0-B`, act 7 layer 2's `D5`
 NOT-CERTIFIED status, or any act-1-through-10 finding; claim `P0` closed; retire or weaken act 7
@@ -371,8 +401,10 @@ Source C on any axis; source anything across to Track I; edit manuscripts.
 1. **`GL1s`** — the strong stabilizer exactly, with its dimension, the `|A| = 1` triviality, the
    orbit classification, and the statement that its dimension is a **lower bound** on invisible
    freedom;
-2. **`GL1w`** — the weak stabilizer exactly, its dimension, its **maximality under uniformity**, and
-   the `|A| = 1` / `|V| = 1` edge cases, with the strong/weak gap stated;
+2. **`GL1w`** — the weak stabilizer exactly, its dimension, and its **maximality under uniformity
+   for `|V| ≥ 2`**, with the strong/weak gap stated; plus the two edge cases as their own
+   statements — `|A| = 1`, and `|V| = 1` where the visible datum is constant and the maximal uniform
+   class is all of `U(|A|)`, so `𝒢ʷ_{a₀}` is **not** maximal;
 3. **`GL2`** — the no-go, existential, over `𝒢ˢ_{a₀}`, on `ℕ`-indexed coherence, with the vacuity of
    the cocycle condition stated rather than leaned on;
 4. **`GL3`** — necessity of time-dependence, as a universal theorem, reported as one direction;
@@ -381,7 +413,8 @@ Source C on any axis; source anything across to Track I; edit manuscripts.
 6. the **forced gauge elements** of both merged witnesses, with the conjugation shown, and the
    record that neither is a `GI2` candidate;
 7. **`GI1`, `GI2`, or UNDECIDED** — with the route to the label, `GI2` only via a forced element
-   proved outside `𝒢ʷ_{a₀}`;
+   proved outside `𝒢ʷ_{a₀}`, and the "maximal uniform invisible gauge" reading asserted only under
+   `|V| ≥ 2`;
 8. the `D3` split as frozen, with any coherent-lift existence gap reported on that side;
 9. what the outcomes do **not** license, in the wording this file fixes;
 10. the definition count against the six-slot budget, with conditional slots marked fired or unused;
