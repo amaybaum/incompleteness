@@ -180,8 +180,10 @@ move lands squarely in that territory, which is a second reason the boundary abo
 ## The chronology control — act 9's CORRECTED mechanism, carried forward by name
 
 The ordering discipline is act 9's, and the execution **must reuse act 9's corrected guard
-mechanism** rather than re-derive one. Act 9's took two review rounds to get right, and both defects
-would have passed silently under a weaker design; repeating them is avoidable and is hereby avoided:
+mechanism** rather than re-derive one, strengthened as clause 5 requires. Act 9's guard took two
+review rounds to get right — a shallow-clone gap, then a synthetic-merge-commit gap — and clause 5
+closes a third, found in review of this freeze. Every one of the three would have passed silently
+under a weaker design and shown green. They are avoidable here, and are hereby avoided:
 
 1. **This preregistration blob is merged into `main` before any execution-specific anchor object
    enters the repository tree** — any Lean definition or proof about an alternative anchor, any
