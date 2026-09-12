@@ -37,7 +37,7 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 
 | Priority | Obligation | Track | Status | Unlocks |
 | --- | --- | --- | --- | --- |
-| **P0** | The readback map from the dilated carrier — act 7's append-only amendment | OI→QM / Track B | **OPEN** | act 7 layer 2, at reduced strength |
+| **P0** | Readback robustness — does act 7's `DC1` survive other readback conventions | OI→QM / Track B | **OPEN** | separating a fact about the dilation freedom from an artifact of `R_{a₀}` |
 | **P1** | Substratum Lemma 24.1 — semigroup transfer | Reconstruction | **OPEN** | unconditional `𝒢_sub` completeness |
 | **P1** | A6 — background independence / local gauge covariance | Substratum | **GAP** | the complete A1–A6 formal package |
 | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN** | the actual physical realization |
@@ -48,32 +48,41 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 | **P2** | Covariant matter→boundary coupling (the G3 map) | Gravity | **OPEN** | the MOND / dark-sector chain |
 | **P3** | GR states → Level-III quasilocal states | Gravity / Level III | **OPEN** | formal state-layer integration |
 
-### P0 — the readback map from the dilated carrier
+### P0 — readback robustness for act 7's `DC1`
 
-Fix, by a **separately frozen append-only amendment**, an explicit map carrying a candidate on the
-dilated carrier back to the original visible carrier `V`. Act 7's layer 2 is **paused** until that
-amendment is merged, and runs at **reduced strength** afterwards.
+**Act 7's layer 2 is executed.** The readback amendment is merged, and layer 2 ran under it at
+reduced strength. The outcome is **`DC1`, exhibited separately on both of act 7's witnesses**, with
+**`DC4` refuted at each exhibited visible pair and anchor**. Witness A is act 8's frozen object;
+witness B is full rank, and its §3.4 contract standing was proved in-round as a second existential
+instance rather than inherited from `CE1`.
 
-**This row succeeds act 7's `D4a`/`D4b` adjudication, which is now answered.** `D4a` is **positive**:
-Source A does form the relative candidate from the dilated unitary, through (28) p. 11's reduction to
-the unitary case and then (39) p. 13 and (42) p. 14, with §3.7's (46) and (52) as an independent
-instance on an enlarged carrier. So `DC2b` is **not reached**. `D4b` is **negative**: §3.4 p. 10
-supplies marginalization back to `V` for the **rooted** object only, and only "for at least some
-choices" of the initial ancilla configuration, while every relative-object readback in the paper —
-§3.7 (50)/(52), §3.8 (66), §4 (74) — consumes a posited tensor factorization and, in §3.7 and §4, an
-idealized correlation condition, none of which Source A states of a generic Stinespring dilation.
+**The bound is the whole reason this row is now the P0.** `D4b` is negative, so the readback
+`R_{a₀}(M)_{ij} = ∑_a M_{(i,a),(j,a₀)}` is **ours**, and so is the convention that the distinguished
+ancilla configuration belongs to the dilation datum. `DC1` therefore states divergence **under that
+map on anchored dilations** — never that Source A's own visible prediction is underdetermined, and
+never that a candidate-selection principle is required. **A divergence found under `R_{a₀}` could
+still be an artifact of the map or of the anchoring convention** rather than of the dilation freedom.
 
-**The strength bound is already fixed.** Under a readback supplied by our own amendment rather than
-by the source, `DC3`/`DC4` would state invariance **under that readback** and `DC1` divergence
-**under that readback** — never invariance or underdetermination simpliciter, and never a
-demonstrated need for a selection principle.
+**The open obligation is to settle that.** The amendment deferred the robustness question to a
+separate later round with its own freeze, deliberately run *after* the main result so that an
+alternative convention could not be introduced while a result was in view. **It is not preregistered
+yet**, and it is not a second branch inside the executed layer 2.
 
-**No `DC` label is assigned yet**, and act 7's `D3` gap — Stinespring's pointwise existence with no
-coherent regular family derived or selected — remains **separately open** and is not what this
-amendment is about. `DC2a` is unrevised, and act 8's `CE1` remains existential.
+**Act 7's `D3` gap remains separately OPEN and was not used.** Stinespring supplies **pointwise**
+existence, with no coherent time-indexed family derived or selected and no stated link from the
+visible family's regularity to `Θ`'s or `U`'s. `T2` was stated at a single time so the gap stays
+visible. `D3` is also the live route by which `DC4` could still hold on a **narrower** class — one cut
+down by a coherence condition — which is why the layer-2 refutation is recorded at exactly the class
+its statement names and no wider.
 
+`DC2a` is unrevised, `CE1` remains existential, and no manuscript was touched.
+
+→ [act 7 layer-2 result](programmes/oi-qm/track-b/act-07-dilation-choice/layer-2-result.md) (the
+`DC1` exhibitions, `D5a`/`D5b`, and every bound carried on the label)
+→ [act 7 readback amendment](programmes/oi-qm/track-b/act-07-dilation-choice/readback-amendment.md)
+(the frozen map, and the deferral of the robustness round)
 → [act 7 resumption result](programmes/oi-qm/track-b/act-07-dilation-choice/resumption-result.md)
-(the `D4a`/`D4b` answers with coordinates, and the routing to this amendment)
+(the `D4a`/`D4b` answers with coordinates)
 → [act 7 result](programmes/oi-qm/track-b/act-07-dilation-choice/result.md) (the `DC2a` stop and the
 frozen stop table)
 → [act 8 result](programmes/oi-qm/track-b/act-08-continuous-extension/result.md) (`CE1`, the object
