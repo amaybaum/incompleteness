@@ -43,21 +43,37 @@ repository tree, and this round's work descends from that commit. Guard `R7-RBR`
 by content, and the ancestry by `git merge-base --is-ancestor`, **fail-closed** — if git is
 unavailable the check fails rather than passing.
 
-**The ancestry half does not depend on how the repository was cloned, and the guard makes that so
-itself.** `merge-base` can only decide the question where the pinned commit is present, and a
-shallow checkout does not contain it. So the guard **recovers the history** before asking —
-deepening a shallow clone, or fetching the pinned commit when it is merely absent — by operations
-that add objects and change no ref, no worktree file and no branch. **Recovery never substitutes for
-the check**: the pinned `merge-base --is-ancestor` still runs afterwards and still decides, and no
-textual or base-SHA assertion stands in for it. If recovery fails, the guard **fails**. CI also
-checks out with `fetch-depth: 0`, which makes the recovery a no-op on the common path rather than a
-network round-trip.
+### Which commit the guard certifies, and why that is not `HEAD` in CI
 
-**All four paths were exercised before this was reported**: a full clone passes; a shallow clone with
-a reachable origin recovers and passes; a shallow clone whose origin is unreachable fails, with the
-recovery failure named in the output; and a head that does *not* descend from the base fails on the
-pinned check itself. A control that silently passed where it could not be evaluated would be no
-control.
+**The guard certifies the real execution head, named in its own output.** That distinction is
+load-bearing rather than pedantic. `actions/checkout` on a `pull_request` event checks out GitHub's
+**synthetic merge commit** `refs/pull/<n>/merge`, whose parents are the PR head *and the PR base*. So
+an ancestry check asked of that `HEAD` passes **by construction** — the base branch already contains
+the pinned commit — and would pass whatever the PR head did. On this very PR the synthetic merge's
+first parent is `79872cb` **itself**, so a `HEAD`-based check was passing trivially through the base
+parent, with the PR head contributing nothing to the verdict.
+
+So in a PR run the guard resolves the actual `pull_request.head.sha` from the Actions event payload
+and asks the pinned question of **that** commit. Outside PR CI, ordinary `HEAD` is the right object
+and is used. **There is no fallback to the synthetic merge `HEAD`**: an unresolvable PR head **fails**
+the guard rather than being answered against the wrong object.
+
+**Availability is the guard's own responsibility, not the environment's.** `merge-base` can only
+decide where both commits are present, and a shallow checkout contains neither the base nor
+necessarily the PR head. So the guard **recovers the history** before asking — deepening a shallow
+clone, or fetching the commit when it is merely absent, with `refs/pull/<n>/head` as a second attempt
+for a fork head — by operations that add objects and change no ref, no worktree file and no branch.
+**Recovery never substitutes for the check**: the pinned `merge-base --is-ancestor` still runs
+afterwards and still decides, and no textual or base-SHA assertion stands in for it. CI's
+`fetch-depth: 0` is a convenience that makes recovery a no-op on the common path; nothing here
+depends on it.
+
+**Every path was exercised before this was reported.** A full clone passes; a shallow clone with a
+reachable origin recovers and passes; a shallow clone whose origin is unreachable fails with the
+recovery failure named; a PR payload naming a head that does **not** descend from the base fails on
+the pinned check; and a PR run with no readable payload, or one whose `pull_request.head.sha` cannot
+be resolved, fails closed. A control that silently passed where it could not be evaluated — or that
+evaluated the wrong object — would be no control.
 
 **What it does not certify** is what anyone thought, drafted outside the tree, or worked out
 privately. Git certifies what entered the tree and when; this round claims that and nothing more.

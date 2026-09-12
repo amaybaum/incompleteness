@@ -9778,19 +9778,20 @@ def _rbr_git(*args, **kw):
         return None
 
 
-def _rbr_ensure_base_present():
-    """Make the pinned base commit available, or report that it could not be.
+def _rbr_ensure_present(rev, pr_number=None):
+    """Make `rev` available in this clone, or report that it could not be.
 
-    A shallow checkout does not contain `_RBR_BASE` at all, so `merge-base` cannot decide the
-    question there. The guard therefore RECOVERS the history itself rather than depending on how
-    the repository happened to be cloned -- deepening a shallow clone, or fetching the pinned
-    commit when it is merely absent. The operations are additive: they add objects and change no
-    ref, no worktree file and no branch.
+    A shallow checkout does not contain the pinned base -- nor, sometimes, the real PR head -- so
+    `merge-base` cannot decide the question there. The guard therefore RECOVERS the history itself
+    rather than depending on how the repository happened to be cloned: deepening a shallow clone,
+    or fetching the commit when it is merely absent, with `refs/pull/<n>/head` as a second attempt
+    when a PR number is known and the bare SHA is refused (a fork head). The operations are
+    additive: they add objects and change no ref, no worktree file and no branch.
 
     **This never substitutes for the ancestry check.** It only makes the check answerable; the
     pinned `merge-base --is-ancestor` still runs afterwards and still decides. If recovery fails,
     the guard FAILS."""
-    present = _rbr_git('cat-file', '-e', _RBR_BASE + '^{commit}')
+    present = _rbr_git('cat-file', '-e', rev + '^{commit}')
     if present is None:
         return False
     if present.returncode == 0:
@@ -9799,46 +9800,93 @@ def _rbr_ensure_base_present():
     if shallow is None:
         return False
     if shallow.stdout.decode('utf-8', 'replace').strip() == 'true':
-        print('    R7-RBR ancestry: shallow checkout; deepening to reach %s' % _RBR_BASE[:12])
+        print('    R7-RBR ancestry: shallow checkout; deepening to reach %s' % rev[:12])
         got = _rbr_git('fetch', '--unshallow', 'origin', timeout=900)
         if got is None or got.returncode != 0:
             got = _rbr_git('fetch', '--deepen=2147483647', 'origin', timeout=900)
     else:
-        print('    R7-RBR ancestry: %s absent; fetching it' % _RBR_BASE[:12])
-        got = _rbr_git('fetch', 'origin', _RBR_BASE, timeout=900)
+        print('    R7-RBR ancestry: %s absent; fetching it' % rev[:12])
+        got = _rbr_git('fetch', 'origin', rev, timeout=900)
+    if (got is None or got.returncode != 0) and pr_number is not None:
+        got = _rbr_git('fetch', 'origin', 'refs/pull/%s/head' % pr_number, timeout=900)
     if got is None or got.returncode != 0:
-        print('    R7-RBR ancestry: history recovery FAILED; the check fails rather than skips')
+        print('    R7-RBR ancestry: recovery of %s FAILED; the check fails rather than skips'
+              % rev[:12])
         return False
-    present = _rbr_git('cat-file', '-e', _RBR_BASE + '^{commit}')
+    present = _rbr_git('cat-file', '-e', rev + '^{commit}')
     return present is not None and present.returncode == 0
 
 
+def _rbr_target_commit(env=None):
+    """The commit the ancestry claim is ABOUT -- and in PR CI that is NOT `HEAD`.
+
+    `actions/checkout` on a `pull_request` event checks out GitHub's **synthetic merge commit**
+    `refs/pull/<n>/merge`, which has the PR BASE as a parent by construction. So an ancestry check
+    against that `HEAD` passes whatever the PR head does: the base branch already contains the
+    pinned commit, and the check would be VACUOUS exactly where it matters most.
+
+    In a PR run the target is therefore the real `pull_request.head.sha`, read from the Actions
+    event payload. Outside PR CI, ordinary `HEAD` is the right object and is used.
+
+    Returns `(rev, label, pr_number)`, or `(None, None, None)` to FAIL CLOSED. **There is no
+    fallback to the synthetic merge `HEAD`**: an unresolvable PR head fails the guard rather than
+    being answered against the wrong object."""
+    env = os.environ if env is None else env
+    if not env.get('GITHUB_EVENT_NAME', '').startswith('pull_request'):
+        return 'HEAD', 'HEAD', None
+    path = env.get('GITHUB_EVENT_PATH', '')
+    if not path or not os.path.exists(path):
+        print('    R7-RBR ancestry: pull_request run with no readable event payload; '
+              'failing closed rather than certifying the synthetic merge HEAD')
+        return None, None, None
+    try:
+        with open(path, encoding='utf-8') as fh:
+            payload = json.load(fh)
+        sha = payload['pull_request']['head']['sha']
+        num = payload['pull_request']['number']
+    except Exception as exc:
+        print('    R7-RBR ancestry: cannot resolve pull_request.head.sha (%s); failing closed'
+              % type(exc).__name__)
+        return None, None, None
+    if not (isinstance(sha, str) and re.fullmatch(r'[0-9a-f]{40}', sha)):
+        print('    R7-RBR ancestry: pull_request.head.sha is not a full 40-hex SHA; failing closed')
+        return None, None, None
+    return sha, 'pull_request.head.sha %s' % sha[:12], num
+
+
 def _rbr_base_ancestry():
-    """B2 -- the execution work DESCENDS from the control plane's merge commit.
+    """B2 -- the EXECUTION HEAD descends from the control plane's merge commit.
 
     This is the half of the chronology control that a content hash cannot carry, so it is asked of
-    git directly, and it is asked in exactly one way: `merge-base --is-ancestor` against the pinned
-    base. **No textual or base-SHA assertion substitutes for it**, because a claim about the shape
-    of the history has to be answered by the history.
+    git directly, and in exactly one way: `merge-base --is-ancestor` against the pinned base.
+    **No textual or base-SHA assertion substitutes for it**, because a claim about the shape of the
+    history has to be answered by the history.
 
-    The guard first ensures the pinned commit is actually available, recovering the history if the
-    checkout is shallow -- so the control does not silently depend on clone depth. CI additionally
-    checks out with `fetch-depth: 0`, which makes that recovery a no-op on the common path rather
-    than a network round-trip.
+    Two things make the question the right one rather than merely answerable. The guard resolves
+    the target commit first -- the real PR head in a PR run, not the synthetic merge `HEAD`, which
+    would make the check vacuous -- and then ensures both that commit and the pinned base are
+    present, recovering history if the checkout is shallow. CI's `fetch-depth: 0` is a convenience
+    that makes the recovery a no-op on the common path; nothing here depends on it.
 
-    FAIL-CLOSED throughout: a missing git, a failed recovery, a missing object or a non-zero exit
-    all FAIL the check rather than passing or skipping it. An unverifiable ordering claim is exactly
-    what act 7 layer 2's NOT-CERTIFIED D5 control was, and a guard that passed where it could not
-    evaluate would reproduce it."""
-    if not _rbr_ensure_base_present():
+    FAIL-CLOSED throughout: a missing git, an unresolvable PR head, a failed recovery, a missing
+    object or a non-zero exit all FAIL the check rather than passing or skipping it. An unverifiable
+    ordering claim is exactly what act 7 layer 2's NOT-CERTIFIED D5 control was, and a guard that
+    passed where it could not evaluate -- or evaluated the wrong object -- would reproduce it."""
+    target, label, num = _rbr_target_commit()
+    if target is None:
         return False
-    r = _rbr_git('merge-base', '--is-ancestor', _RBR_BASE, 'HEAD')
+    if not _rbr_ensure_present(_RBR_BASE):
+        return False
+    if not _rbr_ensure_present(target, pr_number=num):
+        return False
+    r = _rbr_git('merge-base', '--is-ancestor', _RBR_BASE, target)
     if r is None:
         return False
     if r.returncode != 0:
-        print('    R7-RBR ancestry: %s is present but is NOT an ancestor of HEAD'
-              % _RBR_BASE[:12])
+        print('    R7-RBR ancestry: %s is present but is NOT an ancestor of %s'
+              % (_RBR_BASE[:12], label))
         return False
+    print('    R7-RBR ancestry: certified %s descends from %s' % (label, _RBR_BASE[:12]))
     return True
 
 
