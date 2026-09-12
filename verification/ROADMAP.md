@@ -37,7 +37,7 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 
 | Priority | Obligation | Track | Status | Unlocks |
 | --- | --- | --- | --- | --- |
-| **P0** | `P0b` — anchor robustness: does a different reproducing anchor make act 7's `DC1` pair agree | OI→QM / Track B | **OPEN** | the second half of act 7 layer 2's limitation; `P0a` is closed |
+| **P0** | The anchoring convention's contribution to act 7's `DC1` divergence | OI→QM / Track B | **OPEN** — not reachable downstream (`AB0`); the live part is the **upstream** anchor choice | act 7 layer 2's remaining limitation; `P0a` closed, `P0b` run and collapsed |
 | **P1** | Substratum Lemma 24.1 — semigroup transfer | Reconstruction | **OPEN** | unconditional `𝒢_sub` completeness |
 | **P1** | A6 — background independence / local gauge covariance | Substratum | **GAP** | the complete A1–A6 formal package |
 | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN** | the actual physical realization |
@@ -62,13 +62,34 @@ from act 7 layer 2's three merged theorems.
 > not an artifact of the readback map within the `R-1`/`R-2`/`R-3` same-interface class; dependence
 > on the **anchoring convention** remains open.
 
-**`P0b` is what remains, and it is genuinely open.** `RB3` forces the readback **at each anchor
-separately**, so the forced values at two anchors are the anchored marginals at those anchors —
-different matrices in general. Nothing proved so far compares two reproducing anchors. The question:
-**is there an anchor, which BOTH compared dilations reproduce at, under which the two visible
-candidates agree?** It carries its own nonemptiness sub-obligation — a candidate anchor must be
-reproducing for both dilations, or the question is vacuous there — and it needs its own freeze, not
-yet written.
+**`P0b`, the ANCHOR axis, was run — and it COLLAPSED.** Act 10 asked the frozen question: holding
+act 7's compared dilations fixed, is there an anchor at which they *all* still reproduce their
+visible slices, under which the two visible candidates agree?
+
+**Availability was answered first, and answered in the negative on both witnesses.** The jointly
+reproducing anchors of each compared configuration are **exactly the singleton `{a₀ = 0}` act 7
+already used** — proved by exhaustion over the finite anchor domain, in both directions, so the
+domain is a singleton and not empty. That is **`AB0-A`** and **`AB0-B`**, reported separately.
+
+**`AB1` was therefore NOT assigned on either witness, although its proposition is TRUE on both.**
+Every jointly reproducing anchor does preserve the divergence — trivially, there being only one. A
+universal satisfied only because its domain has no new element is not a robustness result, and act
+10's freeze refused the label in advance for exactly this case. `AB2` is false on both: the collapse
+conceals no agreement.
+
+**So `P0` is NOT closed, and the anchor-axis dependence is not resolved — it is RECLASSIFIED** as not
+reachable by this construction. The collapse localizes entirely to the `G₁` side: the identity
+dilation of `G₂ = 𝟙` is admissible at **every** anchor, proved for any carrier. And the
+reclassification is made precise by a theorem rather than a caveat — an admissible dilation of
+witness A's `G₁` slice **does exist at the other anchor**, so `AB0` is a fact about the compared
+configuration and not about the anchor.
+
+**What stays live is the UPSTREAM choice.** Act 7's dilations were built around `a₀ = 0`; a different
+anchor chosen upstream would have produced **different dilations**, and whether that pairing diverges
+is a question act 10's freeze put explicitly out of scope — adjusting a dilation to admit a new
+anchor is a second dilation search, and it belongs to dilation-choice / coherence territory alongside
+`D3`. Act 7 layer 2's caveat therefore **stands unchanged**; if anything `AB0` makes it more
+necessary, since the convention could not even be varied to test it.
 
 **Act 7's `D3` gap remains separately OPEN and was not used.** Stinespring supplies **pointwise**
 existence, with no coherent time-indexed family derived or selected and no stated link from the
@@ -76,13 +97,24 @@ visible family's regularity to `Θ`'s or `U`'s. It is still the live route by wh
 invariance could hold on a **narrower** class — one cut down by a coherence condition — which is why
 act 7's refutation is recorded at exactly the class its statement names.
 
-**Act 7's merged `DC1` is unrevised**, and act 9 cites rather than rewrites it. Act 7 layer 2's `D5`
-chronological-ordering control also stands **NOT CERTIFIED**: act 9 repaired the *practice*, pinning
-its own ordering in git — preregistration blob merged before any robustness proof entered the tree,
-execution descending from that merge commit, both pinned by guard `R7-RBR` fail-closed — but that
-repair is forward-looking and does not certify the earlier round. `DC2a` and `CE1` are unrevised, and
-no manuscript was touched.
+**Act 7's merged `DC1` is unrevised**, and acts 9 and 10 cite rather than rewrite it. Act 7 layer 2's
+`D5` chronological-ordering control also stands **NOT CERTIFIED**: acts 9 and 10 repaired the
+*practice*, pinning their own ordering in git, but that repair is forward-looking and does not
+certify the earlier round. `DC2a` and `CE1` are unrevised, and no manuscript was touched by either.
 
+**The chronology guard strengthened twice more.** Act 9's `R7-RBR` was repaired in review to recover
+shallow history itself and to ask its question of the real `pull_request.head.sha` rather than the
+synthetic PR merge commit. Act 10's `R7-ABR` reuses that mechanism and strengthens the **predicate**:
+head-only ancestry admits a commit made before the freeze and merged in alongside it, so `R7-ABR`
+additionally enumerates `git rev-list H ^B` and requires **every** commit of the execution-only
+history to descend from the freeze, fail-closed, recovery included. The property certified is *no
+commit reachable from the execution head lies outside the freeze's descendants*.
+
+→ [act 10 result](programmes/oi-qm/track-b/act-10-anchor-robustness/result.md) (`AB0-A`, `AB0-B`,
+the withheld `AB1` labels, and why `P0` is reclassified rather than closed)
+→ [act 10 preregistration](programmes/oi-qm/track-b/act-10-anchor-robustness/preregistration.md)
+(the property cut, the three-valued grid, the availability prerequisite, and the strengthened
+chronology contract)
 → [act 9 result](programmes/oi-qm/track-b/act-09-readback-robustness/result.md) (`RB3`, `RB1-A`,
 `RB1-B`, and why `P0` is not closed)
 → [act 9 preregistration](programmes/oi-qm/track-b/act-09-readback-robustness/preregistration.md)
