@@ -79,17 +79,20 @@ conceals no agreement.
 
 **So `P0` is NOT closed, and the anchor-axis dependence is not resolved — it is RECLASSIFIED** as not
 reachable by this construction. The collapse localizes entirely to the `G₁` side: the identity
-dilation of `G₂ = 𝟙` is admissible at **every** anchor, proved for any carrier. And the
-reclassification is made precise by a theorem rather than a caveat — an admissible dilation of
-witness A's `G₁` slice **does exist at the other anchor**, so `AB0` is a fact about the compared
-configuration and not about the anchor.
+dilation of `G₂ = 𝟙` is admissible at **every** anchor, proved for any carrier.
 
-**What stays live is the UPSTREAM choice.** Act 7's dilations were built around `a₀ = 0`; a different
-anchor chosen upstream would have produced **different dilations**, and whether that pairing diverges
-is a question act 10's freeze put explicitly out of scope — adjusting a dilation to admit a new
-anchor is a second dilation search, and it belongs to dilation-choice / coherence territory alongside
-`D3`. Act 7 layer 2's caveat therefore **stands unchanged**; if anything `AB0` makes it more
-necessary, since the convention could not even be varied to test it.
+**The reclassification rests on `AB0` alone.** `AB0` is a statement about act 7's **fixed** compared
+configuration: what collapses is joint reproduction by those four dilations, at the only other anchor
+the frozen ancilla provides. **Whether some other anchor admits some other dilation is neither asked
+nor answered** — in either direction. Constructing a dilation to make a different anchor admissible
+is a dilation-choice result whatever it is framed as, act 10's freeze puts it out of scope for `P0b`,
+and it belongs with `D3`.
+
+**What stays live is therefore the UPSTREAM choice, wholly untouched.** Act 7's dilations were built
+around `a₀ = 0`; a different anchor chosen upstream would have produced **different dilations**, and
+whether that pairing diverges is out of scope here and needs its own freeze. Act 7 layer 2's caveat
+**stands unchanged**; if anything `AB0` makes it more necessary, since the convention could not even
+be varied to test it.
 
 **Act 7's `D3` gap remains separately OPEN and was not used.** Stinespring supplies **pointwise**
 existence, with no coherent time-indexed family derived or selected and no stated link from the

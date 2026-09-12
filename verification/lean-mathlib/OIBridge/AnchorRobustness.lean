@@ -48,11 +48,11 @@ composed, enlarged or re-derived on different data.
 * **`AB2` is false** on both witnesses — the collapse is not concealing an agreement.
 * **Where the collapse localizes**: `one_admissible_at_every_anchor` shows the `G₂`-side identity
   dilation reproduces at **every** anchor, so the failure is entirely on the `G₁` side.
-* **What `AB0` does not license**, formally rather than in prose:
-  `exists_admissible_dilation_at_other_anchor` exhibits an admissible dilation of witness A's `G₁`
-  slice **at the other anchor**. Anchor `1` is therefore perfectly usable *in principle*; what fails
-  is joint reproduction by *these* dilations. The upstream question — which dilations one would have
-  built around a different anchor — is live, out of scope, and demonstrably nonvacuous.
+* **What `AB0` does not license** is recorded, and recorded *without answering any part of it*:
+  `P0b` collapsed **for act 7's fixed configuration**, and the upstream question — which dilations
+  one would have built around a different anchor — stays live and untouched. **Whether any other
+  anchor admits some other dilation is not asked or answered here**, in either direction: that is
+  a dilation-choice question, and the freeze puts it out of scope for `P0b`.
 
 ## Definition budget — TWO of the frozen four slots fire
 
@@ -503,38 +503,7 @@ theorem not_ab2_witnessB
   fun h => (ab2_iff_not_anchorInvariantDivergence _ _ _ _ _ _).2 h
     (anchorInvariantDivergence_trivial_witnessB U hU ρ hρ)
 
-/-! ### Section E — what `AB0` does NOT license, recorded formally -/
-
-/-- **THE OTHER ANCHOR IS NOT UNUSABLE — IT IS UNUSABLE BY *THESE* DILATIONS.**
-
-This is the round's central control, and it is a theorem rather than a caveat. At `a₀ = 1` witness
-A's `G₁` slice `Aᵀ` **does** admit an admissible dilation: the four-cycle
-`(0,0) → (0,1) → (1,1) → (1,0) → (0,0)`, whose inverse carries both anchored columns into the
-visible fibre over `0`, which is where `Aᵀ`'s mass sits.
-
-**So `AB0` is a fact about the compared configuration, not about the anchor.** What collapses is
-joint reproduction by act 7's *fixed* dilations; the anchor itself is perfectly serviceable. The
-move that would exploit this — adjusting a dilation until the new anchor becomes admissible — is
-**exactly** what the freeze puts out of scope for `P0b`, and it lands in act 7's `D3` /
-dilation-choice territory. This theorem marks that boundary from the inside: it shows the
-out-of-scope question is **nonvacuous**, and it stops there.
-
-**`P0` is therefore NOT closed by this round**, and the anchor-axis dependence is not resolved but
-**reclassified** as unreachable by this construction. Act 7 layer 2's caveat stands unchanged; the
-upstream anchor choice — which dilations one would have built around a different anchor — is the
-live remainder. -/
-theorem exists_admissible_dilation_at_other_anchor :
-    ∃ W : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ,
-      AdmissibleDilationAt
-        ((Matrix.of fun _ j => if j = 0 then (1 : ℝ) else 0) : Matrix (Fin 2) (Fin 2) ℝ)ᵀ
-        (1 : Fin 2) W := by
-  classical
-  obtain ⟨τ, hτ⟩ : ∃ τ : Equiv.Perm (Fin 2 × Fin 2),
-      τ = Equiv.swap ((0 : Fin 2), (0 : Fin 2)) ((0 : Fin 2), (1 : Fin 2)) *
-        Equiv.swap ((0 : Fin 2), (1 : Fin 2)) ((1 : Fin 2), (1 : Fin 2)) *
-        Equiv.swap ((1 : Fin 2), (1 : Fin 2)) ((1 : Fin 2), (0 : Fin 2)) := ⟨_, rfl⟩
-  refine ⟨τ.permMatrix ℂ, admissible_permMatrix _ _ fun i j => ?_⟩
-  fin_cases i <;> fin_cases j <;> simp +decide [hτ, Matrix.transpose_apply]
+/-! ### Section E — what `AB0` does NOT license -/
 
 /-- **THE ANCHOR AXIS IS RECLASSIFIED, NOT CLOSED** — both witnesses' `AB0` characterizations in
 one statement, with the labels each earns.
@@ -596,5 +565,4 @@ end OIBridge
 #print axioms OIBridge.AnchorRobustness.no_second_jointlyReproducing_anchor_witnessB
 #print axioms OIBridge.AnchorRobustness.anchorInvariantDivergence_trivial_witnessB
 #print axioms OIBridge.AnchorRobustness.not_ab2_witnessB
-#print axioms OIBridge.AnchorRobustness.exists_admissible_dilation_at_other_anchor
 #print axioms OIBridge.AnchorRobustness.ab0_on_both_witnesses

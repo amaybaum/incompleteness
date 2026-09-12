@@ -113,19 +113,17 @@ way. It is restated here unchanged.
 **`P0` is not closed and the anchor-axis dependence is not resolved.** It is **reclassified** as not
 reachable by this construction, with the upstream anchor choice named as the live remainder.
 
-### The control that makes the reclassification precise, and it is a theorem
+### What the reclassification is a statement about, and what it leaves untouched
 
-`exists_admissible_dilation_at_other_anchor` exhibits an admissible dilation of witness A's `G₁`
-slice **at the other anchor** — the four-cycle `(0,0) → (0,1) → (1,1) → (1,0) → (0,0)`, whose
-inverse carries both anchored columns into the visible fibre over `0`, which is where `Aᵀ`'s mass
-sits.
+**`AB0` is a statement about act 7's fixed compared configuration.** What collapses is joint
+reproduction by *those four dilations*, at the only other anchor the frozen ancilla provides.
 
-**So `AB0` is a fact about the compared configuration, not about the anchor.** Anchor `1` is
-perfectly serviceable in principle; what fails is joint reproduction by *these* dilations. The move
-that would exploit this — adjusting a dilation until the new anchor becomes admissible — is
-**exactly** what the freeze puts out of scope for `P0b`, and it lands in dilation-choice / coherence
-territory. This theorem marks that boundary from the inside: it shows the out-of-scope question is
-**nonvacuous**, and it stops there.
+**Whether any other anchor admits some other dilation is not asked or answered here, in either
+direction.** That is a dilation-choice question: constructing a dilation to make a different anchor
+admissible is precisely the move the freeze puts out of scope for `P0b`, and it lands in
+dilation-choice / coherence territory alongside act 7's `D3` gap. This round does not take it — not
+as a headline, not as a side observation, and not as a control. **The upstream anchor question is
+therefore live and wholly untouched**, and a later round that wants it must freeze it first.
 
 ## The structural boundary held: this round did not become a dilation search
 
@@ -208,7 +206,7 @@ as act 7 layer 2 binds witness B's unitary and permutation inside its own exhibi
 
 ## Evidence level and axiom report
 
-**Evidence level 2** — kernel-checked. Thirteen named results, **no `sorry`, no `axiom`, no
+**Evidence level 2** — kernel-checked. Twelve named results, **no `sorry`, no `axiom`, no
 `native_decide`**, every one printing only `[propext, Classical.choice, Quot.sound]`:
 
 | Result | Axioms |
@@ -224,7 +222,6 @@ as act 7 layer 2 binds witness B's unitary and permutation inside its own exhibi
 | `no_second_jointlyReproducing_anchor_witnessB` | `[propext, Classical.choice, Quot.sound]` |
 | `anchorInvariantDivergence_trivial_witnessB` | `[propext, Classical.choice, Quot.sound]` |
 | `not_ab2_witnessB` | `[propext, Classical.choice, Quot.sound]` |
-| `exists_admissible_dilation_at_other_anchor` | `[propext, Classical.choice, Quot.sound]` |
 | `ab0_on_both_witnesses` | `[propext, Classical.choice, Quot.sound]` |
 
 ## What this round does not do

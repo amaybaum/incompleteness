@@ -10310,16 +10310,21 @@ def _abr_p0_not_closed(t=None):
             and 'If anything `AB0` makes the caveat more necessary, not less' in t)
 
 
-def _abr_upstream_live(t=None):
-    """C8 -- the reclassification made precise BY A THEOREM, and the boundary marked from inside.
+def _abr_upstream_untouched(t=None):
+    """C8 -- the round ANSWERS NO PART of the excluded dilation-choice question.
 
-    The other anchor is not unusable; it is unusable by THESE dilations. Exhibiting an admissible
-    dilation there is what keeps AB0 from being read as a fact about the anchor, and it is also
-    where the round has to STOP."""
+    The freeze says that constructing or changing a dilation to make another anchor admissible is
+    not P0b and answers a question nobody preregistered. An existence result at another anchor is
+    such an answer even when it feeds nothing else in the round -- which is why this contract
+    guards the ABSENCE of the claim rather than its careful framing. The reclassification stands on
+    AB0 alone: the compared configuration collapsed, and the upstream question is left whole."""
     t = _ABR1 if t is None else t
-    return ('### The control that makes the reclassification precise, and it is a theorem' in t
-            and '**So `AB0` is a fact about the compared configuration, not about the anchor.**' in t
-            and 'it shows the out-of-scope question is **nonvacuous**, and it stops there' in t)
+    return ('### What the reclassification is a statement about, and what it leaves untouched' in t
+            and '**Whether any other anchor admits some other dilation is not asked or answered '
+                'here, in either direction.**' in t
+            and 'This round does not take it -- not as a headline, not as a side observation, and '
+                'not as a control.' in t.replace('\u2014', '--')
+            and '**The upstream anchor question is therefore live and wholly untouched**' in t)
 
 
 def _abr_not_a_dilation_search(t=None):
@@ -10408,7 +10413,7 @@ ok_abr &= _abr_outcome()
 ok_abr &= _abr_ab1_withheld()
 ok_abr &= _abr_ab2_false()
 ok_abr &= _abr_p0_not_closed()
-ok_abr &= _abr_upstream_live()
+ok_abr &= _abr_upstream_untouched()
 ok_abr &= _abr_not_a_dilation_search()
 ok_abr &= _abr_localized()
 ok_abr &= _abr_chronology_strong()
@@ -10463,16 +10468,24 @@ _abr_m8 = _ABR1.replace('If anything `AB0` makes the caveat more necessary, not 
                         'The caveat can therefore be retired')
 ok_abr &= _abr_m8 != _ABR1 and not _abr_p0_not_closed(_abr_m8)
 
-# AB0 read as a fact about the anchor rather than about the compared configuration
+# THE SCOPE BLOCKER THIS CONTRACT EXISTS FOR: the round answering the excluded question by
+# exhibiting an admissible dilation at the other anchor. An earlier head of this round proved
+# exactly that, framed as a control on how AB0 should be read; it is a dilation-choice result
+# whatever it is framed as, and review rejected it. The mutation writes the claim back.
 _abr_m9 = _ABR1.replace(
-    '**So `AB0` is a fact about the compared configuration, not about the anchor.**',
-    'So the other anchor is not usable at all.')
-ok_abr &= _abr_m9 != _ABR1 and not _abr_upstream_live(_abr_m9)
+    '**Whether any other anchor admits some other dilation is not asked or answered here, in '
+    'either direction.**',
+    'An admissible dilation of the same slice does exist at the other anchor, so the anchor is '
+    'serviceable in principle.')
+ok_abr &= _abr_m9 != _ABR1 and not _abr_upstream_untouched(_abr_m9)
 
-# the round continuing past its boundary into the out-of-scope dilation search
-_abr_m10 = _ABR1.replace('it shows the out-of-scope question is **nonvacuous**, and it stops there',
-                         'the natural next step is to adjust a dilation until that anchor admits it')
-ok_abr &= _abr_m10 != _ABR1 and not _abr_upstream_live(_abr_m10)
+# the same boundary eroded the other way -- the round presented as having probed the out-of-scope
+# direction just far enough to report on it
+_abr_m10 = _ABR1.replace(
+    'This round does not take it \u2014 not as a headline, not as a side observation, and not as '
+    'a control.',
+    'This round takes it only far enough to show the out-of-scope question is nonvacuous.')
+ok_abr &= _abr_m10 != _ABR1 and not _abr_upstream_untouched(_abr_m10)
 
 # a compared dilation altered, which takes the round out of P0b entirely
 _abr_m11 = _ABR1.replace(
@@ -10566,10 +10579,12 @@ check('R7-ABR', ok_abr,
       'anchor axis RECLASSIFIED rather than resolved, with act 7 layer 2\'s caveat left UNCHANGED and the upstream '
       'anchor choice named as the live remainder; the closure claim and the retired caveat are separately '
       'mutation-tested, since a collapse is the most inviting possible licence to retire the very caveat it leaves '
-      'standing. The reclassification is checked made precise BY A THEOREM -- an admissible dilation of the same '
-      'slice EXISTS at the other anchor, so AB0 is a fact about the compared configuration and not about the anchor '
-      '-- and checked to STOP there, with the out-of-scope continuation mutation-tested in the exact words a later '
-      'round would reach for. The structural boundary is checked held: dilations pinned by equation to act 7\'s own '
+      'standing. The reclassification is checked to rest on AB0 ALONE: the round must answer NO PART of the excluded '
+      'dilation-choice direction, so the contract guards the ABSENCE of any existence claim at another anchor rather '
+      'than its careful framing -- an earlier head of this round proved exactly such a theorem, presented as a '
+      'control on how AB0 should be read, and review rejected it as a dilation-choice result whatever it is framed '
+      'as; that claim and a softer "probed it just far enough" version are both mutation-tested. '
+      'The structural boundary is checked held: dilations pinned by equation to act 7\'s own '
       'expressions, none replaced, composed or re-derived, and the ancilla not enlarged. The localization is checked '
       'to rest on a theorem about EVERY anchor rather than an observation about two. The chronology control is the '
       'one repaired in review and is checked at its STRONG form: the blob by content, the real pull_request.head.sha '
