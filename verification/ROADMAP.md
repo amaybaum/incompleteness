@@ -37,7 +37,7 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 
 | Priority | Obligation | Track | Status | Unlocks |
 | --- | --- | --- | --- | --- |
-| **P0** | Continuous off-direct extension | OI→QM / Track B | **OPEN** | act 7 layer 2 |
+| **P0** | Act 7's `D4a`/`D4b` dilation-choice adjudication | OI→QM / Track B | **OPEN** | act 7 layer 2, and the OI→QM route past the dilation-choice test |
 | **P1** | Substratum Lemma 24.1 — semigroup transfer | Reconstruction | **OPEN** | unconditional `𝒢_sub` completeness |
 | **P1** | A6 — background independence / local gauge covariance | Substratum | **GAP** | the complete A1–A6 formal package |
 | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN** | the actual physical realization |
@@ -48,25 +48,31 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 | **P2** | Covariant matter→boundary coupling (the G3 map) | Gravity | **OPEN** | the MOND / dark-sector chain |
 | **P3** | GR states → Level-III quasilocal states | Gravity / Level III | **OPEN** | formal state-layer integration |
 
-### P0 — continuous off-direct extension
+### P0 — act 7's `D4a`/`D4b` dilation-choice adjudication
 
-Construct a Source-A-admissible continuous extension of a lawful off-direct OI/`PPer` witness — with
-the discrete restriction identified and off-directness preserved — or prove no such extension
-exists.
+Ask and answer act 7's two frozen questions on Source A: whether §3.4's dilation choice moves the
+induced candidate, and what the readback map is. **The signs are unset**, and act 7's conditional
+`D4a`-positive/`D4b`-negative reading is carried as a prediction, never as a finding.
 
-Track B act 7 layer 1 stopped at `DC2a`: Source A's §3.4 dilation runs on an inherited continuity
-contract that the `ℕ`-indexed off-direct witness does not instantiate. Until this is resolved there
-is **no object in hand that is simultaneously a lawful OI visible family, off the direct branch, and
-inside Source A's stated contract** — so the dilation-choice test cannot be run on anything. Act 7
-reopens only on a positive outcome; an impossibility proof is itself a classification result.
+**This row succeeds the continuous-extension obligation, which act 8 closed at `CE1`.** Act 7 layer 1
+had stopped at `DC2a`: Source A's §3.4 dilation runs on an inherited continuity contract that the
+`ℕ`-indexed off-direct witness does not instantiate, so there was no object in hand that was
+simultaneously a lawful OI visible family, off the direct branch, and inside Source A's stated
+contract — and the dilation-choice test could be run on nothing. Act 8 supplies that object: a
+kernel-checked continuous extension of act 6's frozen witness, satisfying Source A's transcribed
+contract, whose discrete restriction is the same lawful `PPer` member and is still off-direct, and
+whose every compatible potential at the frozen index is non-unitary.
 
-**`OPEN` rather than `ACTIVE`, and the distinction is the one the vocabulary makes.** This row is
-P0 by priority, but no control plane for it is frozen: the act-8 preregistration exists only as a
-draft. It becomes `ACTIVE` when that control plane is frozen and merged — a drafted or closed one
-does not qualify, or `ACTIVE` would mean "someone intends to" rather than "a freeze governs this".
+**`CE1` is EXISTENTIAL — one witness, one extension — and is not a classification.** It does not say
+every off-direct `PPer` member has an admissible continuous extension; uniformity over the class
+would be a different theorem and act 8 supplies none. `DC2a` is unrevised and remains true of the
+discrete witness it was about. Act 8's result is kernel-checked and **is not propagated to any
+manuscript**, its freeze forbidding manuscript edits.
 
-→ [`BARANDES-DILATION-CHOICE-RESULT.md`](programmes/oi-qm/track-b/act-07-dilation-choice/result.md) (the `DC2a` stop and
-the obligation it names)
+→ [act 8 result](programmes/oi-qm/track-b/act-08-continuous-extension/result.md) (`CE1`, the
+construction, and what it leaves open)
+→ [act 7 result](programmes/oi-qm/track-b/act-07-dilation-choice/result.md) (the `DC2a` stop, and the
+frozen stop table this adjudication routes through)
 
 ### P1 — Substratum Lemma 24.1, the semigroup-transfer step
 

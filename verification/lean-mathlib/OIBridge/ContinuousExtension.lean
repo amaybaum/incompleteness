@@ -70,7 +70,7 @@ labelled a screening result wherever it appears.
 namespace OIBridge
 namespace ContinuousExtension
 
-open Finset Matrix CausalReadback RootedClassification BarandesTupleRound
+open Finset Matrix CausalReadback RootedClassification TransposeBridge BarandesTupleRound
 
 universe u
 
@@ -279,6 +279,27 @@ theorem regionLimit_analogue_has_equal_visible_shadows (t : ℝ) (i j : Fin 2) :
     · rw [if_neg h0]
   · rw [Matrix.one_apply_ne h, Matrix.diagonal_apply_ne _ h]
 
+/-- **ACT 6's COLLAPSING SLICE IS ROW-STOCHASTIC.** Named so that Sections D and G run through one
+statement of the witness's lawfulness rather than two copies of the same computation. -/
+theorem collapsingSlice_isRowStochastic : IsRowStochastic
+    (Matrix.of (fun _ j => if j = 0 then (1 : ℝ) else 0) : Matrix (Fin 2) (Fin 2) ℝ) := by
+  constructor
+  · intro i j
+    show (0 : ℝ) ≤ if j = 0 then (1 : ℝ) else 0
+    split <;> norm_num
+  · intro i
+    show (∑ j : Fin 2, if j = 0 then (1 : ℝ) else 0) = 1
+    simp
+
+/-- **AN EXTENSION HANDS THE FROZEN SLICE OVER UNCHANGED**, by agreement at the embedded time `ι 1`.
+That index is `L1`, fixed by layer 1 before any construction was attempted. -/
+theorem collapsingSlice_of_extends {Γ : ℕ → Matrix (Fin 2) (Fin 2) ℝ}
+    {Γhat : NNReal → Matrix (Fin 2) (Fin 2) ℝ} (hext : Extends Γhat Γ)
+    (hone : Γ 1 = Matrix.of (fun _ j => if j = 0 then (1 : ℝ) else 0)) :
+    Γhat (1 : NNReal) = Matrix.of (fun _ j => if j = 0 then (1 : ℝ) else 0) := by
+  have h1 : ((1 : ℕ) : NNReal) = (1 : NNReal) := by norm_num
+  rw [← h1, extends_apply hext 1, hone]
+
 /-! ### Section D — E0, the screening question -/
 
 /-- **E0 — THE SCREENING QUESTION, ANSWERED POSITIVELY.** For any row-stochastic `A`, the
@@ -342,26 +363,182 @@ theorem screening_extension_nonunistochastic_slice :
         ∧ Γhat 0 = 1
         ∧ ¬ IsUnistochastic (Γhat (1 : NNReal))ᵀ := by
   classical
-  have hA : IsRowStochastic
-      (Matrix.of (fun _ j => if j = 0 then (1 : ℝ) else 0) : Matrix (Fin 2) (Fin 2) ℝ) := by
-    constructor
-    · intro i j
-      show (0 : ℝ) ≤ if j = 0 then (1 : ℝ) else 0
-      split <;> norm_num
-    · intro i
-      show (∑ j : Fin 2, if j = 0 then (1 : ℝ) else 0) = 1
-      simp
-  obtain ⟨Γ, Γhat, hpper, hext, hcont, hroot, hone⟩ := screening_continuous_extension _ hA
+  obtain ⟨Γ, Γhat, hpper, hext, hcont, hroot, hone⟩ :=
+    screening_continuous_extension _ collapsingSlice_isRowStochastic
   refine ⟨Γ, Γhat, hpper, hext, hcont, hroot, ?_⟩
-  have hslice : Γhat (1 : NNReal) = Matrix.of (fun _ j => if j = 0 then (1 : ℝ) else 0) := by
-    have h1 : ((1 : ℕ) : NNReal) = (1 : NNReal) := by norm_num
-    rw [← h1, extends_apply hext 1, hone]
-  exact collapsed_slice_not_unistochastic hslice
+  exact collapsed_slice_not_unistochastic (collapsingSlice_of_extends hext hone)
+
+/-! ### Section E — layer 2: SOURCE A's TRANSCRIBED CONTRACT (Track B)
+
+The layer-1 checkpoint transcribed Source A's admissibility contract for a continuous-time family
+with page and equation coordinates. `SourceAAdmissible` below is that transcription and nothing
+more: **the contract is not narrowed or widened here**, in either direction, and what the source
+leaves unstated is left out rather than supplied.
+
+**This is a SECOND predicate, applied to an extension.** It is never fused into `Extends`, which
+stays in Track I vocabulary; the freeze's two-predicate design is what makes the gap between the two
+readable instead of hidden. -/
+
+/-- **SOURCE A's ADMISSIBILITY CONTRACT FOR A ROOTED CONTINUOUS-TIME FAMILY**, transcribed from the
+authoritative surface (arXiv:2302.10778v3) by layer 1, in the source's own external **(column)
+stochastic** orientation — act 2's `RT1` licenses the transpose.
+
+Three clauses, and exactly three:
+
+* **non-negativity (2) p. 4 together with normalization over the first index (3) p. 4**, which p. 4
+  names as identifying "a (column) stochastic matrix for **each pair of times**";
+* **the root condition** `Γ(t₀ ← t₀) = 𝟙`, p. 4;
+* **the continuity condition**, p. 4 immediately after (5): `Γ(t ← t₀)` "will be assumed to satisfy
+  the continuity condition that in the limit `t → t₀`, it approaches its value `Γ(t₀ ← t₀)`". The
+  limit is taken in the **target** variable, with the conditioning time held fixed; on the rooted
+  instantiation E4 establishes, it has the single instance at `0`.
+
+**WHAT IS ABSENT IS ABSENT BY TRANSCRIPTION, AND IS READABLE FROM THE STATEMENT.** There is no
+clause requiring `Γhat` to be continuous away from `0`, none requiring differentiability or
+smoothness of `Γhat`, and none requiring indivisibility. Layer 1 records each as a finding with its
+coordinate: the source states regularity in `t` exactly once, at (33) p. 12, and there of the
+post-(28) unitary family `U(t ← 0)` inside the Hamiltonian derivation — not of `Γhat`, and not as an
+admissibility condition. The potential and Kraus layer ((12) p. 6, (13) p. 7, (25)–(26) p. 10) adds
+nothing further: the source states (12) as "not a postulate—it is a mathematical identity" and
+derives (13) and (26) from normalization alone. -/
+def SourceAAdmissible (Γhat : NNReal → Matrix V V ℝ) : Prop :=
+  (∀ t : NNReal, IsColStochastic ((Γhat t)ᵀ))
+    ∧ Γhat 0 = 1
+    ∧ ∀ i j, ContinuousAt (fun t : NNReal => Γhat t i j) 0
+
+/-- **AN ENTRYWISE-CONTINUOUS EXTENSION OF A ROOTED FAMILY IS SOURCE-A ADMISSIBLE.**
+
+Each clause is discharged by a separate merged or in-round fact, so which part of the contract comes
+from where stays visible: stochasticity from `Extends`'s own first conjunct through act 2's
+transpose equivalence, the root condition from the `PPer` family through `extends_root`, and the
+continuity condition from continuity at `0` alone.
+
+**The hypothesis is stronger than the contract needs**, and that asymmetry is recorded rather than
+smoothed over: continuity at every time is supplied, while the contract asks for it only in the
+limit at the conditioning time. -/
+theorem sourceAAdmissible_of_extends {Γhat : NNReal → Matrix V V ℝ} {Γ : ℕ → Matrix V V ℝ}
+    (h : Extends Γhat Γ) (h0 : Γ 0 = 1)
+    (hcont : ∀ i j, Continuous fun t : NNReal => Γhat t i j) : SourceAAdmissible Γhat :=
+  ⟨fun t => (isRowStochastic_iff_transpose_isColStochastic (Γhat t)).1 (h.1 t),
+    extends_root h h0, fun i j => (hcont i j).continuousAt⟩
+
+/-! ### Section F — E6, the footnote-11 negative control, RUN
+
+Source A's footnote 11, p. 12: with `δt` the discrete time step and `Σ` a permutation matrix,
+`Γ_ij(n δt + t ← n δt) ≡ |(Σ^{t/δt})_ij|²` "defines a **unistochastic** matrix that analytically
+interpolates the original discrete, deterministic process to a smooth, unistochastic process".
+
+**The control is run here and returns NON-APPLICABLE, for a structural reason rather than an
+accident of the witness.** -/
+
+/-- **EVERY FOOTNOTE-11 OUTPUT IS UNISTOCHASTIC — the recipe cannot leave the direct branch.**
+
+The recipe's output is by construction the entrywise modulus-squared of a unitary matrix, and that
+is precisely act 6's `IsUnistochastic`. So a footnote-11 interpolation is on the direct branch at
+every time it is defined, whatever permutation it starts from. -/
+theorem fn11_output_unistochastic {X : Type} [Fintype X] [DecidableEq X] {U : Matrix X X ℂ}
+    (hU : U ∈ unitaryGroup X ℂ) :
+    IsUnistochastic (Matrix.of fun i j => ‖U i j‖ ^ 2 : Matrix X X ℝ) :=
+  ⟨U, hU, fun _ _ => rfl⟩
+
+/-- **E6 — THE FOOTNOTE-11 RECIPE IS NOT APPLICABLE TO THE FROZEN WITNESS**, and the reason is the
+very property that makes the witness interesting.
+
+Act 6's collapsing slice, in Source A's orientation, is **not** the modulus-squared of any unitary —
+that is `UB2`. By `fn11_output_unistochastic` every footnote-11 output **is**. So no footnote-11
+interpolation can produce this round's discrete restriction, and the hazard act 7 recorded from the
+source's own text cannot reach the frozen witness at all.
+
+**The control is therefore reported as non-applicable, which the freeze names as a live answer**, and
+it is reported the same way whatever this round's own construction does. -/
+theorem fn11_not_applicable_to_frozen_witness {W : Matrix (Fin 2) (Fin 2) ℝ}
+    (hW : W = Matrix.of (fun _ j => if j = 0 then (1 : ℝ) else 0)) :
+    ∀ U : Matrix (Fin 2) (Fin 2) ℂ, U ∈ unitaryGroup (Fin 2) ℂ →
+      Wᵀ ≠ Matrix.of fun i j => ‖U i j‖ ^ 2 := by
+  intro U hU hEq
+  exact collapsed_slice_not_unistochastic hW ⟨U, hU, fun i j => by rw [hEq, Matrix.of_apply]⟩
+
+/-! ### Section G — E7 and E5: the construction, and off-directness at the frozen location -/
+
+/-- **EVERY COMPATIBLE POTENTIAL OF A NON-UNISTOCHASTIC MATRIX IS NON-UNITARY.**
+
+This is the universal step that discharges the frozen `O-C` **without moving it**. `O-C` says, in the
+freeze's own words, that the particular `Θ(t ← 0)` §3.4 consumes is "not already a unitary matrix"
+(§3.4 p. 10) — a statement about the selected potential. Source A's `Θ` is not unique (p. 7) and
+carries a time-dependent phase gauge (fn. 6 p. 7), so a statement about one selected `Θ` would leave
+open whether some other admissible choice is unitary and the dilated branch therefore avoidable.
+
+**The resolution is to prove more, not to redefine the target.** A unitary `Θ` compatible with `M`
+via (12) p. 6 would itself witness `IsUnistochastic M`. So when `M` is not unistochastic, **no**
+compatible `Θ` is unitary — and the frozen `O-C` follows for whichever one §3.4 selects, because the
+selected potential is one of the compatible ones. -/
+theorem compatible_theta_nonunitary {X : Type} [Fintype X] [DecidableEq X] {M : Matrix X X ℝ}
+    (hM : ¬ IsUnistochastic M) (Θ : Matrix X X ℂ) (hΘ : ∀ i j, M i j = ‖Θ i j‖ ^ 2) :
+    Θ ∉ unitaryGroup X ℂ :=
+  fun hu => hM ⟨Θ, hu, hΘ⟩
+
+/-- **E7 — AN ADMISSIBLE OFF-DIRECT CONTINUOUS EXTENSION OF ACT 6's FROZEN WITNESS EXISTS.**
+
+Everything the freeze requires of the construction, in one object:
+
+* the discrete restriction is a lawful `PPer` member (**preservation clause 1**, proved);
+* it **is** act 6's merged witness, identified by its slice at the embedded time `1` rather than
+  described (**preservation clause 3** — the witness was frozen before use, and no amendment was
+  taken);
+* the continuous family extends it under the layer-0 relation;
+* it satisfies **`SourceAAdmissible`**, layer 1's transcription of Source A's contract;
+* it is entrywise continuous at **every** time — more than the contract asks, recorded as such;
+* **`O-B`**: the restriction is off-direct at the embedded time `1` (**preservation clause 2**,
+  through act 6's `UB2`, proved rather than asserted);
+* **`O-C`**: every potential compatible with that slice is non-unitary, so §3.4's dilation is
+  entered for whichever potential it selects (**preservation clause 4**).
+
+**EXISTENTIAL, AND REPORTED AS EXISTENTIAL.** One witness, one extension. It does not say that every
+off-direct `PPer` member has an admissible continuous extension, and it is never paraphrased that
+way — the same discipline `UB2` carries.
+
+**THE TARGET DOMAIN IS `ℝ≥0`, AND THAT IS STATED RATHER THAN ELIDED.** The contract is instantiated
+on the non-negative half-line: the rooted family `Γhat(t ← 0)` is defined for `t ≥ 0`, and every
+clause of `SourceAAdmissible` is proved there. Source A's target-time convention, §2.1 p. 3, is that
+target times will "**usually**" be assumed isomorphic to `ℝ` — a hedged usual setting which act 7
+already read as a domain mismatch rather than an independent prerequisite. **Nothing here is claimed
+to satisfy or to fail a real-line requirement**, because the source states none.
+
+**NO COMPLETION MACHINERY IS INVOLVED**, and no density statement: the extension is the closed-form
+convex interpolation of Section B, built inside the proof, and the freeze's no-shortcut rule has
+nothing to discharge here.
+
+**HOW THIS DIFFERS FROM FOOTNOTE 11**, which the freeze requires a construction to state. Footnote
+11 interpolates a **permutation** matrix through real powers of a unitary, so its output is
+unistochastic at every time (`fn11_output_unistochastic`) and it can never leave the direct branch.
+This construction interpolates through the **convex** structure of the row-stochastic matrices
+instead, which contains matrices that are not doubly stochastic — act 6's collapsing slice among
+them. The difference is not a clause of the contract that one satisfies and the other does not:
+**both would satisfy it.** It is that footnote 11's recipe cannot accept an off-direct discrete
+process as input, and this one does not require its input to be deterministic, unitary or doubly
+stochastic. -/
+theorem admissible_offDirect_continuous_extension :
+    ∃ (Γ : ℕ → Matrix (Fin 2) (Fin 2) ℝ) (Γhat : NNReal → Matrix (Fin 2) (Fin 2) ℝ),
+      PPer Γ
+        ∧ Γ 1 = Matrix.of (fun _ j => if j = 0 then (1 : ℝ) else 0)
+        ∧ Extends Γhat Γ
+        ∧ SourceAAdmissible Γhat
+        ∧ (∀ i j, Continuous fun t : NNReal => Γhat t i j)
+        ∧ ¬ IsUnistochastic (Γhat (1 : NNReal))ᵀ
+        ∧ ∀ Θ : Matrix (Fin 2) (Fin 2) ℂ,
+            (∀ i j, ((Γhat (1 : NNReal))ᵀ) i j = ‖Θ i j‖ ^ 2) →
+              Θ ∉ unitaryGroup (Fin 2) ℂ := by
+  classical
+  obtain ⟨Γ, Γhat, hpper, hext, hcont, _, hone⟩ :=
+    screening_continuous_extension _ collapsingSlice_isRowStochastic
+  have hnot := collapsed_slice_not_unistochastic (collapsingSlice_of_extends hext hone)
+  exact ⟨Γ, Γhat, hpper, hone, hext, sourceAAdmissible_of_extends hext hpper.1 hcont, hcont, hnot,
+    fun Θ hΘ => compatible_theta_nonunitary hnot Θ hΘ⟩
 
 end ContinuousExtension
 end OIBridge
 
-/-! ### Axiom report — one line per named result, all eighteen -/
+/-! ### Axiom report — one line per named result, all twenty-five -/
 
 #print axioms OIBridge.ContinuousExtension.restriction_of_extends
 #print axioms OIBridge.ContinuousExtension.extends_apply
@@ -379,5 +556,12 @@ end OIBridge
 #print axioms OIBridge.ContinuousExtension.interp_continuous
 #print axioms OIBridge.ContinuousExtension.extension_not_unique_visible
 #print axioms OIBridge.ContinuousExtension.regionLimit_analogue_has_equal_visible_shadows
+#print axioms OIBridge.ContinuousExtension.collapsingSlice_isRowStochastic
+#print axioms OIBridge.ContinuousExtension.collapsingSlice_of_extends
 #print axioms OIBridge.ContinuousExtension.screening_continuous_extension
 #print axioms OIBridge.ContinuousExtension.screening_extension_nonunistochastic_slice
+#print axioms OIBridge.ContinuousExtension.sourceAAdmissible_of_extends
+#print axioms OIBridge.ContinuousExtension.fn11_output_unistochastic
+#print axioms OIBridge.ContinuousExtension.fn11_not_applicable_to_frozen_witness
+#print axioms OIBridge.ContinuousExtension.compatible_theta_nonunitary
+#print axioms OIBridge.ContinuousExtension.admissible_offDirect_continuous_extension
