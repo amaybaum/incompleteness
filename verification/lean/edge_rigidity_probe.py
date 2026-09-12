@@ -9741,6 +9741,418 @@ ok_dl2 &= _dl2_drift(
     'programmes/oi-qm/track-b/act-07-dilation-choice/readback-amendment.md')
 ok_dl2 &= not _dl2_freeze_pin(_dl2_drift)
 
+# ---- R7-RBR: Track B act 9 -- readback robustness on the MAP axis (P0a) ----
+#
+# A round whose central theorem is CHEAP and whose hazard is therefore entirely in the scope. The
+# freeze predicted the theorem before execution, so the interesting failures are not mathematical:
+# they are reading RB3 as closing P0, reading it as strengthening act 7's merged DC1, claiming R-1
+# and R-3 are redundant generally, or letting the frozen property cut be replaced by an encodable
+# approximation. The guard pins the scope, the stop condition's non-firing, and the two halves of
+# the chronology control -- blob and ancestry, the latter fail-closed.
+_RBR = open(_artifact('programmes/oi-qm/track-b/act-09-readback-robustness/result.md'),
+            encoding='utf-8').read()
+_RBR1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _RBR).split())
+_RBRDIR = 'programmes/oi-qm/track-b/act-09-readback-robustness/'
+# The mandated execution base: the merge commit of act 9's control-plane PR #584.
+_RBR_BASE = '79872cbbb0e26188f619b8c6a99b379bb46b7b0c'
+
+
+def _rbr_freeze_pin(read=_bb_read):
+    """B1 -- act 9's preregistration is byte-identical to the blob merged by PR #584.
+
+    Injectable reader so the drift controls below run through THIS predicate. The blob is the
+    round's chronology record: it carries the property cut, the outcome grid AND the central forcing
+    derivation, all merged before any robustness proof entered the tree."""
+    return _bb_blob(_RBRDIR + 'preregistration.md', read) == (
+        '061fd38343185b4c6f764da0da9602367ad8f370')
+
+
+def _rbr_git(*args, **kw):
+    """Run git at the repository root. Returns None if git itself is unusable."""
+    import subprocess
+    try:
+        return subprocess.run(('git',) + args, cwd=os.path.dirname(VERIFICATION),
+                              capture_output=True, timeout=kw.get('timeout', 60))
+    except Exception as exc:
+        print('    R7-RBR ancestry: git unusable (%s)' % type(exc).__name__)
+        return None
+
+
+def _rbr_ensure_present(rev, pr_number=None):
+    """Make `rev` available in this clone, or report that it could not be.
+
+    A shallow checkout does not contain the pinned base -- nor, sometimes, the real PR head -- so
+    `merge-base` cannot decide the question there. The guard therefore RECOVERS the history itself
+    rather than depending on how the repository happened to be cloned: deepening a shallow clone,
+    or fetching the commit when it is merely absent, with `refs/pull/<n>/head` as a second attempt
+    when a PR number is known and the bare SHA is refused (a fork head). The operations are
+    additive: they add objects and change no ref, no worktree file and no branch.
+
+    **This never substitutes for the ancestry check.** It only makes the check answerable; the
+    pinned `merge-base --is-ancestor` still runs afterwards and still decides. If recovery fails,
+    the guard FAILS."""
+    present = _rbr_git('cat-file', '-e', rev + '^{commit}')
+    if present is None:
+        return False
+    if present.returncode == 0:
+        return True
+    shallow = _rbr_git('rev-parse', '--is-shallow-repository')
+    if shallow is None:
+        return False
+    if shallow.stdout.decode('utf-8', 'replace').strip() == 'true':
+        print('    R7-RBR ancestry: shallow checkout; deepening to reach %s' % rev[:12])
+        got = _rbr_git('fetch', '--unshallow', 'origin', timeout=900)
+        if got is None or got.returncode != 0:
+            got = _rbr_git('fetch', '--deepen=2147483647', 'origin', timeout=900)
+    else:
+        print('    R7-RBR ancestry: %s absent; fetching it' % rev[:12])
+        got = _rbr_git('fetch', 'origin', rev, timeout=900)
+    if (got is None or got.returncode != 0) and pr_number is not None:
+        got = _rbr_git('fetch', 'origin', 'refs/pull/%s/head' % pr_number, timeout=900)
+    if got is None or got.returncode != 0:
+        print('    R7-RBR ancestry: recovery of %s FAILED; the check fails rather than skips'
+              % rev[:12])
+        return False
+    present = _rbr_git('cat-file', '-e', rev + '^{commit}')
+    return present is not None and present.returncode == 0
+
+
+def _rbr_target_commit(env=None):
+    """The commit the ancestry claim is ABOUT -- and in PR CI that is NOT `HEAD`.
+
+    `actions/checkout` on a `pull_request` event checks out GitHub's **synthetic merge commit**
+    `refs/pull/<n>/merge`, which has the PR BASE as a parent by construction. So an ancestry check
+    against that `HEAD` passes whatever the PR head does: the base branch already contains the
+    pinned commit, and the check would be VACUOUS exactly where it matters most.
+
+    In a PR run the target is therefore the real `pull_request.head.sha`, read from the Actions
+    event payload. Outside PR CI, ordinary `HEAD` is the right object and is used.
+
+    Returns `(rev, label, pr_number)`, or `(None, None, None)` to FAIL CLOSED. **There is no
+    fallback to the synthetic merge `HEAD`**: an unresolvable PR head fails the guard rather than
+    being answered against the wrong object."""
+    env = os.environ if env is None else env
+    if not env.get('GITHUB_EVENT_NAME', '').startswith('pull_request'):
+        return 'HEAD', 'HEAD', None
+    path = env.get('GITHUB_EVENT_PATH', '')
+    if not path or not os.path.exists(path):
+        print('    R7-RBR ancestry: pull_request run with no readable event payload; '
+              'failing closed rather than certifying the synthetic merge HEAD')
+        return None, None, None
+    try:
+        with open(path, encoding='utf-8') as fh:
+            payload = json.load(fh)
+        sha = payload['pull_request']['head']['sha']
+        num = payload['pull_request']['number']
+    except Exception as exc:
+        print('    R7-RBR ancestry: cannot resolve pull_request.head.sha (%s); failing closed'
+              % type(exc).__name__)
+        return None, None, None
+    if not (isinstance(sha, str) and re.fullmatch(r'[0-9a-f]{40}', sha)):
+        print('    R7-RBR ancestry: pull_request.head.sha is not a full 40-hex SHA; failing closed')
+        return None, None, None
+    return sha, 'pull_request.head.sha %s' % sha[:12], num
+
+
+def _rbr_base_ancestry():
+    """B2 -- the EXECUTION HEAD descends from the control plane's merge commit.
+
+    This is the half of the chronology control that a content hash cannot carry, so it is asked of
+    git directly, and in exactly one way: `merge-base --is-ancestor` against the pinned base.
+    **No textual or base-SHA assertion substitutes for it**, because a claim about the shape of the
+    history has to be answered by the history.
+
+    Two things make the question the right one rather than merely answerable. The guard resolves
+    the target commit first -- the real PR head in a PR run, not the synthetic merge `HEAD`, which
+    would make the check vacuous -- and then ensures both that commit and the pinned base are
+    present, recovering history if the checkout is shallow. CI's `fetch-depth: 0` is a convenience
+    that makes the recovery a no-op on the common path; nothing here depends on it.
+
+    FAIL-CLOSED throughout: a missing git, an unresolvable PR head, a failed recovery, a missing
+    object or a non-zero exit all FAIL the check rather than passing or skipping it. An unverifiable
+    ordering claim is exactly what act 7 layer 2's NOT-CERTIFIED D5 control was, and a guard that
+    passed where it could not evaluate -- or evaluated the wrong object -- would reproduce it."""
+    target, label, num = _rbr_target_commit()
+    if target is None:
+        return False
+    if not _rbr_ensure_present(_RBR_BASE):
+        return False
+    if not _rbr_ensure_present(target, pr_number=num):
+        return False
+    r = _rbr_git('merge-base', '--is-ancestor', _RBR_BASE, target)
+    if r is None:
+        return False
+    if r.returncode != 0:
+        print('    R7-RBR ancestry: %s is present but is NOT an ancestor of %s'
+              % (_RBR_BASE[:12], label))
+        return False
+    print('    R7-RBR ancestry: certified %s descends from %s' % (label, _RBR_BASE[:12]))
+    return True
+
+
+def _rbr_outcome(t=None):
+    """B3 -- the outcome is RB3 with RB1-A and RB1-B DERIVED from it, not three findings.
+
+    RB3 is the statement about which control does the work; presenting the per-witness labels as
+    independent results would overstate what was proved three times over."""
+    t = _RBR1 if t is None else t
+    return ('## Outcome: **`RB3`**, and from it **`RB1-A`** and **`RB1-B`**' in t
+            and '**`R-2` ALONE forces every same-interface readback to agree with the merged '
+                '`R_{a\u2080}` on every modulus-squared unitary matrix on the dilated carrier**'
+                in t
+            and '`R-1` and `R-3` are **redundant for this theorem**' in t)
+
+
+def _rbr_stop_not_fired(t=None):
+    """B4 -- the exact heterogeneous cut IS represented, so the formalization stop did NOT fire.
+
+    Act 9 made an unencodable cut a stop rather than a scope note. The guard requires the round to
+    say which way that went, and to say no RB1 label was assigned against a substitute class."""
+    t = _RBR1 if t is None else t
+    return ('**The stop did not fire.**' in t
+            and '`R-3` quantified over a bijection of **two** label sets' in t
+            and '**No `RB1` label here is assigned against a substitute class.**' in t)
+
+
+def _rbr_nonempty_first(t=None):
+    """B5 -- nonemptiness is proved BEFORE any universal statement, from the merged theorems.
+
+    A universal over an unexhibited class is not a result, and act 9 made this an obligation."""
+    t = _RBR1 if t is None else t
+    return ('**Nonemptiness is proved before any universal statement is made**' in t
+            and '`readback_isColStochastic` (`R-1`), `readback_of_admissible` (`R-2`), '
+                '`readback_relabel` (`R-3`' in t
+            and '**The member is constructed inside that proof**, not as a top-level definition.'
+                in t)
+
+
+def _rbr_p0_not_closed(t=None):
+    """B6 -- P0 is NOT closed: the map axis only, with the anchor axis left live.
+
+    The single most likely over-reading of RB3, and the reason act 9 split P0a from P0b before
+    execution. The round also carries a FORMAL record of the anchorwise shape, so the limit is
+    structural rather than promissory."""
+    t = _RBR1 if t is None else t
+    return ('## `P0` is NOT closed. `P0b` is the live remainder' in t
+            and '**It does not close `P0`.** Only the map axis.' in t
+            and '`rb3_is_anchorwise` records why formally' in t
+            and 'the forced values at two anchors are the anchored marginals at those anchors' in t)
+
+
+def _rbr_caveat_wording(t=None):
+    """B7 -- the sharpened caveat appears in the FROZEN wording and no stronger.
+
+    Act 9 fixed the permitted sentence in advance precisely so the sharpening could not drift into
+    'not an artifact' simpliciter."""
+    t = _RBR1 if t is None else t
+    return ('**not an artifact of the readback map within the `R-1`/`R-2`/`R-3` same-interface '
+            'class; dependence on the anchoring convention remains open.**' in t)
+
+
+def _rbr_dc1_unrevised(t=None):
+    """B8 -- act 7's merged DC1 is CITED and unrevised, and its strength label is not upgraded."""
+    t = _RBR1 if t is None else t
+    return ('**It does not revise act 7’s merged `DC1`.**' in t.replace("'", '’')
+            and '**It does not upgrade `DC1`’s strength label.**' in t.replace("'", '’')
+            and 'consumed unmodified' in t)
+
+
+def _rbr_redundancy_bounded(t=None):
+    """B9 -- the R-1/R-3 redundancy is claimed for THIS theorem only, not generally.
+
+    Both remain membership conditions, and both were needed for nonemptiness -- which is the fact
+    that makes the bounded claim checkable rather than rhetorical."""
+    t = _RBR1 if t is None else t
+    return ('**It does not claim `R-1` and `R-3` are redundant generally** — only for this '
+            'theorem, on this domain.' in t
+            and 'Both are still required for membership, and both were needed to prove '
+                'nonemptiness.' in t)
+
+
+def _rbr_cheap_preregistered(t=None):
+    """B10 -- the round records that the theorem was CHEAP, and that the freeze said so in advance.
+
+    Act 8 could only record that after the fact; act 9's merged blob carries it. The guard requires
+    both halves -- the cheapness AND that it was preregistered -- since the first without the
+    second is just a disclaimer."""
+    t = _RBR1 if t is None else t
+    return ('**The result is cheap, and act 9’s freeze said so before it was proved.**'
+            in t.replace("'", '’')
+            and '**This round recorded the analogous fact in advance**' in t)
+
+
+def _rbr_chronology_scoped(t=None):
+    """B11 -- the chronology claim is scoped to the repository record, and D5 stays NOT CERTIFIED.
+
+    Git certifies what entered the tree and when, nothing about anyone's private state; and this
+    round repairs the practice rather than act 7 layer 2's record."""
+    t = _RBR1 if t is None else t
+    return ('**The chronology control HELD, and what it certifies is stated exactly.**' in t
+            and '**fail-closed**' in t
+            and '**What it does not certify** is what anyone thought, drafted outside the tree, or '
+                'worked out privately.' in t
+            and 'that status stands unrevised' in t)
+
+
+def _rbr_d3_open(t=None):
+    """B12 -- act 7's D3 coherent-dilation gap is neither closed nor used, and stays OPEN."""
+    t = _RBR1 if t is None else t
+    return ("**It does not close or use act 7’s `D3` coherent-dilation gap**"
+            in t.replace("'", '’')
+            and 'Separately open, untouched' in t)
+
+
+def _rbr_budget(t=None):
+    """B13 -- three of act 9's four slots used, slot 2 fired with its reason, slot 4 unused."""
+    t = _RBR1 if t is None else t
+    return ('**Three top-level definitions, from act 9’s frozen four-slot budget:**'
+            in t.replace("'", '’')
+            and 'the class cannot be stated over bare functions at one fixed ancilla without '
+                'losing heterogeneous `R-3`' in t
+            and '**unused**: the freeze permits `RB2` as the negation of slot 3' in t
+            and '**No fifth definition was introduced**' in t)
+
+
+def _rbr_no_manuscript(t=None):
+    """B14 -- no manuscript edit, and no cross-track sourcing in either direction."""
+    t = _RBR1 if t is None else t
+    return ('**It touches no manuscript.** No propagation in this round.' in t
+            and '**It says nothing about Track I**, and nothing here is evidence for anything '
+                'there.' in t)
+
+
+ok_rbr = True
+ok_rbr &= _rbr_freeze_pin()
+ok_rbr &= _rbr_base_ancestry()
+ok_rbr &= _rbr_outcome()
+ok_rbr &= _rbr_stop_not_fired()
+ok_rbr &= _rbr_nonempty_first()
+ok_rbr &= _rbr_p0_not_closed()
+ok_rbr &= _rbr_caveat_wording()
+ok_rbr &= _rbr_dc1_unrevised()
+ok_rbr &= _rbr_redundancy_bounded()
+ok_rbr &= _rbr_cheap_preregistered()
+ok_rbr &= _rbr_chronology_scoped()
+ok_rbr &= _rbr_d3_open()
+ok_rbr &= _rbr_budget()
+ok_rbr &= _rbr_no_manuscript()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# the per-witness labels promoted from consequences of RB3 to independent findings
+_rbr_m1 = _RBR1.replace('## Outcome: **`RB3`**, and from it **`RB1-A`** and **`RB1-B`**',
+                        '## Outcome: three independent findings -- `RB3`, `RB1-A`, `RB1-B`')
+ok_rbr &= _rbr_m1 != _RBR1 and not _rbr_outcome(_rbr_m1)
+
+# the formalization stop reported as having fired when the cut was in fact represented, or the
+# substitute-class disclaimer dropped
+_rbr_m2 = _RBR1.replace('**No `RB1` label here is assigned against a substitute class.**', '')
+ok_rbr &= _rbr_m2 != _RBR1 and not _rbr_stop_not_fired(_rbr_m2)
+
+# a universal statement made without nonemptiness first -- vacuity, the freeze's named hazard
+_rbr_m3 = _RBR1.replace(
+    '**Nonemptiness is proved before any universal statement is made**',
+    'Nonemptiness may be taken for granted since the merged readback obviously qualifies')
+ok_rbr &= _rbr_m3 != _RBR1 and not _rbr_nonempty_first(_rbr_m3)
+
+# P0 declared closed -- the single most likely over-reading
+_rbr_m4 = _RBR1.replace('## `P0` is NOT closed. `P0b` is the live remainder',
+                        '## `P0` is closed')
+ok_rbr &= _rbr_m4 != _RBR1 and not _rbr_p0_not_closed(_rbr_m4)
+
+# the anchorwise formal record dropped, leaving the limit as prose only
+_rbr_m4b = _RBR1.replace('`rb3_is_anchorwise` records why formally',
+                         'the reason is obvious on inspection')
+ok_rbr &= _rbr_m4b != _RBR1 and not _rbr_p0_not_closed(_rbr_m4b)
+
+# the caveat sharpened past the frozen wording, into 'not an artifact' simpliciter
+_rbr_m5 = _RBR1.replace(
+    '**not an artifact of the readback map within the `R-1`/`R-2`/`R-3` same-interface class; '
+    'dependence on the anchoring convention remains open.**',
+    '**not an artifact of any convention: the divergence is a fact about the dilation freedom.**')
+ok_rbr &= _rbr_m5 != _RBR1 and not _rbr_caveat_wording(_rbr_m5)
+
+# DC1's merged strength label upgraded by this round's say-so
+_rbr_m6 = _RBR1.replace("**It does not upgrade `DC1`'s strength label.**",
+                        "`DC1` is hereby upgraded to full strength.")
+ok_rbr &= _rbr_m6 != _RBR1 and not _rbr_dc1_unrevised(_rbr_m6)
+
+# the redundancy claimed generally rather than for this theorem on this domain
+_rbr_m7 = _RBR1.replace(
+    '**It does not claim `R-1` and `R-3` are redundant generally** — only for this theorem, '
+    'on this domain.',
+    '`R-1` and `R-3` are redundant and could be dropped from the cut.')
+ok_rbr &= _rbr_m7 != _RBR1 and not _rbr_redundancy_bounded(_rbr_m7)
+
+# the cheapness disclaimed, or presented as a discovery rather than a preregistered fact
+_rbr_m8 = _RBR1.replace('**This round recorded the analogous fact in advance**',
+                        'This round discovered, on completing the proof,')
+ok_rbr &= _rbr_m8 != _RBR1 and not _rbr_cheap_preregistered(_rbr_m8)
+
+# the chronology claim widened past the repository record
+_rbr_m9 = _RBR1.replace(
+    '**What it does not certify** is what anyone thought, drafted outside the tree, or worked out '
+    'privately.',
+    'The control therefore certifies that the answer was not known in advance.')
+ok_rbr &= _rbr_m9 != _RBR1 and not _rbr_chronology_scoped(_rbr_m9)
+
+# act 7 layer 2's NOT-CERTIFIED D5 status retroactively repaired by this round
+_rbr_m9b = _RBR1.replace('that status stands unrevised',
+                         'that status is now certified in retrospect')
+ok_rbr &= _rbr_m9b != _RBR1 and not _rbr_chronology_scoped(_rbr_m9b)
+
+# D3 closed by a round forbidden to touch it
+_rbr_m10 = _RBR1.replace('Separately open, untouched', 'Settled by the forcing theorem')
+ok_rbr &= _rbr_m10 != _RBR1 and not _rbr_d3_open(_rbr_m10)
+
+# slot 2 fired without its reason -- the carrier presented as convenience rather than necessity
+_rbr_m11 = _RBR1.replace(
+    'the class cannot be stated over bare functions at one fixed ancilla without losing '
+    'heterogeneous `R-3`',
+    'a bundle is tidier than bare functions')
+ok_rbr &= _rbr_m11 != _RBR1 and not _rbr_budget(_rbr_m11)
+
+# a manuscript propagation the round is forbidden to make
+_rbr_m12 = _RBR1.replace('**It touches no manuscript.** No propagation in this round.',
+                         'The manuscripts carry the sharpened caveat.')
+ok_rbr &= _rbr_m12 != _RBR1 and not _rbr_no_manuscript(_rbr_m12)
+
+# B1's controls run THROUGH _rbr_freeze_pin, so sabotaging that predicate fails the guard.
+def _rbr_drift(path):
+    """One byte appended to act 9's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-09-readback-robustness/preregistration.md') else b'')
+
+
+ok_rbr &= _rbr_drift(_RBRDIR + 'preregistration.md') != _bb_read(_RBRDIR + 'preregistration.md')
+ok_rbr &= not _rbr_freeze_pin(_rbr_drift)
+
+check('R7-RBR', ok_rbr,
+      'Track B act 9 guard (P0a, the map axis): a round whose central theorem is CHEAP and whose entire hazard is '
+      'therefore scope. Act 9\'s freeze derived the forcing argument before execution, so the guard spends its '
+      'contracts on what could still go wrong afterwards. The chronology control is pinned in BOTH halves: the '
+      'preregistration blob by content -- it carries the property cut, the outcome grid and the forcing derivation, '
+      'all merged before any robustness proof entered the tree -- and the base ancestry asked of git directly, '
+      'FAIL-CLOSED, since a missing git or a non-zero exit must fail rather than pass, an unverifiable ordering claim '
+      'being exactly what act 7 layer 2\'s NOT-CERTIFIED D5 control was. The outcome is checked to be RB3 with RB1-A '
+      'and RB1-B DERIVED from it rather than presented as three findings, because RB3 is the statement about which '
+      'control does the work. The formalization stop is checked reported as NOT FIRED, with the heterogeneous R-3 '
+      'quantified over a bijection of two label sets and an explicit statement that no RB1 label was assigned against '
+      'a substitute class. Nonemptiness is checked proved BEFORE any universal statement and from the three merged '
+      'theorems, with the member built inside the proof, since a universal over an unexhibited class is not a result. '
+      'P0 is checked NOT closed -- the most likely over-reading of RB3 -- with the anchor axis left live and the '
+      'anchorwise shape recorded FORMALLY by rb3_is_anchorwise, so the limit is structural rather than promissory, and '
+      'two mutations write back both the closure claim and the loss of that formal record. The sharpened caveat is '
+      'checked present in act 9\'s frozen wording and no stronger, with the drift into "not an artifact" simpliciter '
+      'mutation-tested. Act 7\'s merged DC1 is checked cited and unrevised, its strength label not upgraded, its two '
+      'witness exhibitions consumed unmodified. The R-1/R-3 redundancy is checked claimed for THIS theorem on THIS '
+      'domain only, with both conditions still required for membership and both needed for nonemptiness -- the fact '
+      'that makes the bounded claim checkable rather than rhetorical. The round is checked to record that the theorem '
+      'was cheap AND that the freeze said so in advance, since cheapness without the preregistration is just a '
+      'disclaimer. D3 stays open and unused; slot 2 is checked fired WITH its necessity rather than as convenience; '
+      'slot 4 unused; no manuscript edit and no cross-track sourcing. Fourteen named contracts, fifteen mutation '
+      'controls, plus the freeze-pin drift controls.')
+
 check('R7-DILL2', ok_dl2,
       'Track B act 7 guard, layer 2: a round that reached a POSITIVE existential label under a readback that is OURS '
       'rather than the source\'s, so the live hazard inverts R7-DILCH\'s -- not over-reading a stop, but letting a '

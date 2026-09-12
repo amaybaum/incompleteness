@@ -37,7 +37,7 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 
 | Priority | Obligation | Track | Status | Unlocks |
 | --- | --- | --- | --- | --- |
-| **P0** | Readback robustness — does act 7's `DC1` survive other readback conventions | OI→QM / Track B | **OPEN** | separating a fact about the dilation freedom from an artifact of `R_{a₀}` |
+| **P0** | `P0b` — anchor robustness: does a different reproducing anchor make act 7's `DC1` pair agree | OI→QM / Track B | **OPEN** | the second half of act 7 layer 2's limitation; `P0a` is closed |
 | **P1** | Substratum Lemma 24.1 — semigroup transfer | Reconstruction | **OPEN** | unconditional `𝒢_sub` completeness |
 | **P1** | A6 — background independence / local gauge covariance | Substratum | **GAP** | the complete A1–A6 formal package |
 | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN** | the actual physical realization |
@@ -48,47 +48,50 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 | **P2** | Covariant matter→boundary coupling (the G3 map) | Gravity | **OPEN** | the MOND / dark-sector chain |
 | **P3** | GR states → Level-III quasilocal states | Gravity / Level III | **OPEN** | formal state-layer integration |
 
-### P0 — readback robustness for act 7's `DC1`
+### P0 — `P0b`, anchor robustness for act 7's `DC1`
 
-**Act 7's layer 2 is executed, with one frozen control NOT CERTIFIED.** The readback amendment is
-merged, and layer 2 ran under it at reduced strength. The outcome is **`DC1`, exhibited separately on
-both of act 7's witnesses**, with **`DC4` refuted at each exhibited visible pair and anchor**.
-Witness A is act 8's frozen object; witness B is full rank, and its §3.4 contract standing was proved
-in-round as a second existential instance rather than inherited from `CE1`.
+**`P0a`, the MAP axis, is CLOSED.** Act 9 proved that **`R-2` alone** forces every same-interface
+readback to agree with the merged `R_{a₀}` on every modulus-squared unitary on the dilated carrier
+(`RB3`) — `R-1` and `R-3` being redundant for that theorem — and derived from it that each of act 7's
+two witnesses keeps its `DC1` divergence under **every** member of the frozen `R-1`/`R-2`/`R-3`
+same-interface class (`RB1-A`, `RB1-B`, reported separately). Class nonemptiness was proved first,
+from act 7 layer 2's three merged theorems.
 
-**The round is NOT fully preregistration-compliant, and the deviation is recorded rather than
-absorbed.** Act 7's `D5` chronological-ordering control — the question answered before any witness is
-examined — is **NOT CERTIFIED**: the formalization and the `D5` determinations were developed in one
-execution and no independent record of the chronology exists. `D5a` and `D5b` are outcome-independent
-corpus-level determinations, which is separate evidence that the conclusions are not
-witness-specific — **not a discharge of that control**. The kernel results stand on their own
-statements and proofs; the procedural certification does not.
+**So act 7 layer 2's caveat sharpens, in the wording act 9 froze in advance and no further:**
 
-**The bound is the whole reason this row is now the P0.** `D4b` is negative, so the readback
-`R_{a₀}(M)_{ij} = ∑_a M_{(i,a),(j,a₀)}` is **ours**, and so is the convention that the distinguished
-ancilla configuration belongs to the dilation datum. `DC1` therefore states divergence **under that
-map on anchored dilations** — never that Source A's own visible prediction is underdetermined, and
-never that a candidate-selection principle is required. **A divergence found under `R_{a₀}` could
-still be an artifact of the map or of the anchoring convention** rather than of the dilation freedom.
+> not an artifact of the readback map within the `R-1`/`R-2`/`R-3` same-interface class; dependence
+> on the **anchoring convention** remains open.
 
-**The open obligation is to settle that.** The amendment deferred the robustness question to a
-separate later round with its own freeze, deliberately run *after* the main result so that an
-alternative convention could not be introduced while a result was in view. **It is not preregistered
-yet**, and it is not a second branch inside the executed layer 2.
+**`P0b` is what remains, and it is genuinely open.** `RB3` forces the readback **at each anchor
+separately**, so the forced values at two anchors are the anchored marginals at those anchors —
+different matrices in general. Nothing proved so far compares two reproducing anchors. The question:
+**is there an anchor, which BOTH compared dilations reproduce at, under which the two visible
+candidates agree?** It carries its own nonemptiness sub-obligation — a candidate anchor must be
+reproducing for both dilations, or the question is vacuous there — and it needs its own freeze, not
+yet written.
 
 **Act 7's `D3` gap remains separately OPEN and was not used.** Stinespring supplies **pointwise**
 existence, with no coherent time-indexed family derived or selected and no stated link from the
-visible family's regularity to `Θ`'s or `U`'s. `T2` was stated at a single time so the gap stays
-visible. `D3` is also the live route by which `DC4` could still hold on a **narrower** class — one cut
-down by a coherence condition — which is why the layer-2 refutation is recorded at exactly the class
-its statement names and no wider.
+visible family's regularity to `Θ`'s or `U`'s. It is still the live route by which a `DC4`-shaped
+invariance could hold on a **narrower** class — one cut down by a coherence condition — which is why
+act 7's refutation is recorded at exactly the class its statement names.
 
-`DC2a` is unrevised, `CE1` remains existential, and no manuscript was touched.
+**Act 7's merged `DC1` is unrevised**, and act 9 cites rather than rewrites it. Act 7 layer 2's `D5`
+chronological-ordering control also stands **NOT CERTIFIED**: act 9 repaired the *practice*, pinning
+its own ordering in git — preregistration blob merged before any robustness proof entered the tree,
+execution descending from that merge commit, both pinned by guard `R7-RBR` fail-closed — but that
+repair is forward-looking and does not certify the earlier round. `DC2a` and `CE1` are unrevised, and
+no manuscript was touched.
 
+→ [act 9 result](programmes/oi-qm/track-b/act-09-readback-robustness/result.md) (`RB3`, `RB1-A`,
+`RB1-B`, and why `P0` is not closed)
+→ [act 9 preregistration](programmes/oi-qm/track-b/act-09-readback-robustness/preregistration.md)
+(the frozen class cut, the outcome grid, the formalization stop condition, and the chronology
+control)
 → [act 7 layer-2 result](programmes/oi-qm/track-b/act-07-dilation-choice/layer-2-result.md) (the
-`DC1` exhibitions, `D5a`/`D5b`, and every bound carried on the label)
+`DC1` exhibitions this round quantifies over, and the limitation it half-closes)
 → [act 7 readback amendment](programmes/oi-qm/track-b/act-07-dilation-choice/readback-amendment.md)
-(the frozen map, and the deferral of the robustness round)
+(the frozen map, and `R-1`/`R-2`/`R-3` in their original role)
 → [act 7 resumption result](programmes/oi-qm/track-b/act-07-dilation-choice/resumption-result.md)
 (the `D4a`/`D4b` answers with coordinates)
 → [act 7 result](programmes/oi-qm/track-b/act-07-dilation-choice/result.md) (the `DC2a` stop and the
