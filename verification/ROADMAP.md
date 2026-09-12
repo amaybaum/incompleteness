@@ -50,11 +50,19 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 
 ### P0 — readback robustness for act 7's `DC1`
 
-**Act 7's layer 2 is executed.** The readback amendment is merged, and layer 2 ran under it at
-reduced strength. The outcome is **`DC1`, exhibited separately on both of act 7's witnesses**, with
-**`DC4` refuted at each exhibited visible pair and anchor**. Witness A is act 8's frozen object;
-witness B is full rank, and its §3.4 contract standing was proved in-round as a second existential
-instance rather than inherited from `CE1`.
+**Act 7's layer 2 is executed, with one frozen control NOT CERTIFIED.** The readback amendment is
+merged, and layer 2 ran under it at reduced strength. The outcome is **`DC1`, exhibited separately on
+both of act 7's witnesses**, with **`DC4` refuted at each exhibited visible pair and anchor**.
+Witness A is act 8's frozen object; witness B is full rank, and its §3.4 contract standing was proved
+in-round as a second existential instance rather than inherited from `CE1`.
+
+**The round is NOT fully preregistration-compliant, and the deviation is recorded rather than
+absorbed.** Act 7's `D5` chronological-ordering control — the question answered before any witness is
+examined — is **NOT CERTIFIED**: the formalization and the `D5` determinations were developed in one
+execution and no independent record of the chronology exists. `D5a` and `D5b` are outcome-independent
+corpus-level determinations, which is separate evidence that the conclusions are not
+witness-specific — **not a discharge of that control**. The kernel results stand on their own
+statements and proofs; the procedural certification does not.
 
 **The bound is the whole reason this row is now the P0.** `D4b` is negative, so the readback
 `R_{a₀}(M)_{ij} = ∑_a M_{(i,a),(j,a₀)}` is **ours**, and so is the convention that the distinguished

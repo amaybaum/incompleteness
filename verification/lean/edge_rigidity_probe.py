@@ -9524,16 +9524,28 @@ def _dl2_d5a_is_theorem(t=None):
             and '**Mismatch 1 — the shape is not merely unnecessary, it is UNAVAILABLE.**' in t)
 
 
-def _dl2_ordering_honest(t=None):
-    """L7 -- the D5 ordering control is met by OUTCOME-INDEPENDENCE, and the limit is stated.
+def _dl2_ordering_not_certified(t=None):
+    """L7 -- the frozen D5 ordering control is recorded NOT CERTIFIED and DEVIATED FROM.
 
-    Act 7 requires D5 answered before the witness outcomes. The round says what it can support --
-    both answers are outcome-independent by construction, checkable from their statements -- and
-    says plainly what it cannot: a chronological guarantee. A note claiming the stronger thing
-    would be claiming something no reader could verify."""
+    Act 7's condition is chronological in terms: the question must be answered before any witness is
+    examined. This round cannot certify that, and the guard requires the deviation stated AS a
+    deviation -- never as a control satisfied in some other sense. A frozen procedural condition
+    cannot be re-specified once the outcome is known, so the guard also requires the round NOT to
+    describe itself as fully preregistration-compliant, and requires the outcome-independence to be
+    carried as SEPARATE corpus-level evidence that explicitly does not discharge the control. The
+    status is required in the provenance table as well, since a reader who stops at the header must
+    still meet it."""
     t = _DL21 if t is None else t
-    return ('**outcome-independent by construction**' in t
-            and '**What this round cannot offer is a chronological guarantee**' in t)
+    return ('**The `D5` chronological-ordering control is NOT CERTIFIED for this round, and the '
+            'round deviated from it procedurally.**' in t
+            and '**This round cannot certify that.**' in t
+            and 'the frozen procedural condition is recorded here as **deviated from**, not as '
+                'satisfied' in t
+            and 'Consequently **this round is NOT fully preregistration-compliant**' in t
+            and '**It is not the frozen control, it is not a substitute for it, and it does not '
+                'discharge it.**' in t
+            and '| Frozen `D5` chronological-ordering control | **NOT CERTIFIED** \u2014 '
+                'procedurally deviated from; see below |' in t)
 
 
 def _dl2_dc4_scoped(t=None):
@@ -9601,7 +9613,7 @@ ok_dl2 &= _dl2_artifact_open()
 ok_dl2 &= _dl2_per_witness()
 ok_dl2 &= _dl2_d5_fails()
 ok_dl2 &= _dl2_d5a_is_theorem()
-ok_dl2 &= _dl2_ordering_honest()
+ok_dl2 &= _dl2_ordering_not_certified()
 ok_dl2 &= _dl2_dc4_scoped()
 ok_dl2 &= _dl2_d3_open()
 ok_dl2 &= _dl2_ce1_existential()
@@ -9649,11 +9661,31 @@ _dl2_m5 = _DL21.replace(
     'The shapes plainly do not resemble one another.')
 ok_dl2 &= _dl2_m5 != _DL21 and not _dl2_d5a_is_theorem(_dl2_m5)
 
-# the chronological guarantee claimed instead of the outcome-independence actually available
+# the deviation written back as a satisfied control -- the exact repair this contract exists for
 _dl2_m6 = _DL21.replace(
-    '**What this round cannot offer is a chronological guarantee**',
-    '**Both determinations were written down before any witness was computed**')
-ok_dl2 &= _dl2_m6 != _DL21 and not _dl2_ordering_honest(_dl2_m6)
+    '**The `D5` chronological-ordering control is NOT CERTIFIED for this round, and the round '
+    'deviated from it procedurally.**',
+    '**The `D5` chronological-ordering control is satisfied: both parts were answered before any '
+    'witness was examined.**')
+ok_dl2 &= _dl2_m6 != _DL21 and not _dl2_ordering_not_certified(_dl2_m6)
+
+# outcome-independence promoted from separate evidence to the control's discharge
+_dl2_m6b = _DL21.replace(
+    '**It is not the frozen control, it is not a substitute for it, and it does not discharge it.**',
+    'That is what the frozen control asks for, so the control is discharged.')
+ok_dl2 &= _dl2_m6b != _DL21 and not _dl2_ordering_not_certified(_dl2_m6b)
+
+# the round described as fully preregistration-compliant despite the uncertified control
+_dl2_m6c = _DL21.replace(
+    'Consequently **this round is NOT fully preregistration-compliant**',
+    'Consequently **this round is fully preregistration-compliant**')
+ok_dl2 &= _dl2_m6c != _DL21 and not _dl2_ordering_not_certified(_dl2_m6c)
+
+# the status dropped from the provenance table, leaving it only where the round argues for itself
+_dl2_m6d = _DL21.replace(
+    '| Frozen `D5` chronological-ordering control | **NOT CERTIFIED** \u2014 procedurally '
+    'deviated from; see below |', '')
+ok_dl2 &= _dl2_m6d != _DL21 and not _dl2_ordering_not_certified(_dl2_m6d)
 
 # the DC4 refutation widened past the class its statement names
 _dl2_m7 = _DL21.replace('**A narrower class could still satisfy invariance**',
@@ -9727,10 +9759,15 @@ check('R7-DILL2', ok_dl2,
       'and never evidence for DC3 or DC4 -- act 7\'s clause 6, and the most reusable wrong citation available to a '
       'later round -- while still forbidding nothing about DC1. D5a is checked decided by a THEOREM rather than by '
       'resemblance: a Kronecker-product anchored dilation forces a unistochastic visible slice, so padData\'s shape is '
-      'UNAVAILABLE on witnesses that are off the direct branch, and the theorem mentions no witness. The ordering '
-      'control act 7 imposes on D5 is checked satisfied the only way this round can support -- outcome-independence '
-      'checkable from the statements -- with the stronger chronological claim checked ABSENT and mutation-tested, '
-      'because a guarantee no reader could verify is worse than the limitation stated. The DC4 refutation is checked '
+      'UNAVAILABLE on witnesses that are off the direct branch, and the theorem mentions no witness. The '
+      'chronological ordering control act 7 imposes on D5 -- the question answered before any witness is examined -- '
+      'is checked recorded NOT CERTIFIED and DEVIATED FROM, in the provenance table as well as in the section that '
+      'argues it, because a frozen procedural condition cannot be re-specified once the outcome is known. The round '
+      'is required NOT to describe itself as fully preregistration-compliant, and the outcome-independence of D5a and '
+      'D5b is required to be carried as SEPARATE corpus-level evidence that explicitly does not discharge the '
+      'control; four mutations write back the four ways that boundary erodes -- the deviation restated as a satisfied '
+      'control, the outcome-independence promoted to its discharge, the compliance claim reinstated, and the status '
+      'dropped from the table so only the argument carries it. The DC4 refutation is checked '
       'scoped to exactly the class its universal statement names, with a narrower class left able to satisfy '
       'invariance and no reading that refutes every DC4-shaped statement. Act 7\'s D3 coherent-dilation gap is checked '
       'neither closed nor silently used, with T2 stated at ONE time for that reason and both failures mutation-tested. '

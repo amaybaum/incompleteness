@@ -38,6 +38,7 @@ robustness round is what would address it. This paragraph is the result, not a c
 | Readback amendment (`T3`) | `readback-amendment.md`, blob `0e2c067a90ef9b8e3a4596299ff594bb6ba6807a` |
 | Executed from `main` at | `4ac6a7fce76949ba37634499a8ed456bddecd01c` |
 | Formal module | `verification/lean-mathlib/OIBridge/DilationChoice.lean` |
+| Frozen `D5` chronological-ordering control | **NOT CERTIFIED** — procedurally deviated from; see below |
 
 Source identities per act 1's frozen table: **A** = arXiv:2302.10778v3, **B** = arXiv:2507.21192v1,
 **C** = arXiv:2309.03085v2. **Only Source A is adjudicated**, and every coordinate below is read off
@@ -45,10 +46,31 @@ its PDF, the authoritative surface. Sources B and C are not compared with it on 
 
 **Track I is not touched, in either direction.** Neither branch is evidence for the other.
 
-## `D5a` and `D5b` — answered, and answered BEFORE the witness outcomes
+## `D5a` and `D5b` — answered, with the frozen ordering control NOT CERTIFIED
 
-Act 7 requires `D5`'s determination to be stated before any witness result, so that the answer is not
-selected by the outcome. It is stated here, ahead of the witness sections, and both parts fail.
+**The `D5` chronological-ordering control is NOT CERTIFIED for this round, and the round deviated
+from it procedurally.** Act 7 froze the condition in terms:
+
+> This question must be answered before any witness is examined, so that the answer is not selected
+> by the outcome.
+
+**This round cannot certify that.** The layer-2 formalization and the `D5` determinations were
+developed within one execution, and no independent record of the actual chronology exists. So the
+frozen procedural condition is recorded here as **deviated from**, not as satisfied — and not as
+satisfied in some other sense. A frozen control cannot be re-specified after the outcome is known,
+and nothing below should be read as re-specifying it.
+
+**What IS available is a different fact, and it is stated as a different fact.** `D5a` and `D5b` are
+**outcome-independent, corpus-level determinations**: checkable from their statements alone, and
+incapable of having come out differently on a different witness result. That is useful evidence that
+the conclusions are not witness-specific. **It is not the frozen control, it is not a substitute for
+it, and it does not discharge it.**
+
+Consequently **this round is NOT fully preregistration-compliant**, and may not be described as
+such. The `D5a`/`D5b` determinations and the `DC1` exhibitions stand on their own statements and
+proofs; the procedural certification does not.
+
+Both parts of `D5` fail.
 
 ### `D5a` — the shape condition: **FAILS**, on two independent mismatches
 
@@ -84,7 +106,7 @@ summing target fibres of `bornPow`; the object under test is built from (39) p. 
 `U(t ← 0) U†(t′ ← 0)` through (42) p. 14. **No merged theorem identifies the two, or proves them
 equivalent.** Act 7 froze that as the exact test, and it comes back negative.
 
-### Consequence, and the ordering control
+### Consequence
 
 **Act 3's padding theorem is recorded as ANALOGY AND CONTROL ONLY, never as evidence for `DC3` or
 `DC4`**, and the round proceeds as though it did not exist — act 7's clause 6, applied. It is useful
@@ -93,15 +115,11 @@ for seeing what *kind* of enlargement leaves a candidate fixed, and for nothing 
 **And it forbids nothing about `DC1`.** Act 7 states that in no case does `D5` make `DC1` forbidden:
 a merged theorem about a different quantity forbids nothing about this one.
 
-**On the ordering, exactly what can and cannot be claimed.** Both determinations are
-**outcome-independent by construction**, and that is checkable from their statements rather than from
-a chronology: `D5a` fails on a property of the padding *form* — now a theorem about
-`U ⊗ₖ W` — and on `uniformWeight`'s definition; `D5b` fails on the absence of an identification
-theorem in the merged corpus. Neither mentions a witness, and neither could have come out differently
-on a different witness result. **What this round cannot offer is a chronological guarantee**: the
-layer-2 formalization and these determinations were developed within one execution. The control's
-purpose is met by the outcome-independence, and the limitation is recorded here rather than left for a
-reader to notice.
+**Where the outcome-independence comes from**, for the reader who wants to check it rather than take
+it: `D5a` fails on a property of the padding *form* — now a theorem about `U ⊗ₖ W` — and on
+`uniformWeight`'s definition; `D5b` fails on the absence of an identification theorem in the merged
+corpus. Neither mentions a witness. **This is offered as corpus-level evidence and nothing more**;
+the frozen ordering control remains **NOT CERTIFIED**, per the section head above.
 
 ## The layer-1 questions, carried not re-derived
 
@@ -347,6 +365,9 @@ exactly `[propext, Classical.choice, Quot.sound]`.** No `sorry`, no `axiom`, no 
 - **It does not use act 3's padding theorem as evidence.** Analogy and control only.
 - **It claims nothing about the `n = 3` unistochasticity inclusion** beyond the level-3 citation, and
   nothing in the outcome rests on it.
+- **It does not claim to be fully preregistration-compliant.** The `D5` chronological-ordering
+  control is **NOT CERTIFIED** and was deviated from; outcome-independence is recorded as separate
+  corpus-level evidence and never as that control's discharge.
 - **It touches no manuscript.** No propagation in this round.
 - **It says nothing about Track I**, and nothing here is evidence for anything there.
 
