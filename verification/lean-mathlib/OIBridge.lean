@@ -190,6 +190,7 @@ import OIBridge.CausalReadback
 import OIBridge.TransposeBridge
 import OIBridge.CandidateSelection
 import OIBridge.BarandesTuple
+import OIBridge.ContinuousExtension
 import OIBridge.RecurrenceHorizon
 import OIBridge.ScalingFamily
 import OIBridge.RootedClassification
