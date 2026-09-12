@@ -37,7 +37,7 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 
 | Priority | Obligation | Track | Status | Unlocks |
 | --- | --- | --- | --- | --- |
-| **P0** | The anchoring convention's contribution to act 7's `DC1` divergence | OI→QM / Track B | **OPEN** — not reachable downstream (`AB0`); the live part is the **upstream** anchor choice | act 7 layer 2's remaining limitation; `P0a` closed, `P0b` run and collapsed |
+| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**, and now STRUCTURAL: act 11 proved the visible family does not fix it, and that the freedom is **not** exhausted by the maximal uniform invisible gauge | the conditional OI ⇔ QM statement; `P0a`/`P0b` closed, act 11's `GL2`/`GI2` landed |
 | **P1** | Substratum Lemma 24.1 — semigroup transfer | Reconstruction | **OPEN** | unconditional `𝒢_sub` completeness |
 | **P1** | A6 — background independence / local gauge covariance | Substratum | **GAP** | the complete A1–A6 formal package |
 | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN** | the actual physical realization |
@@ -48,7 +48,7 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 | **P2** | Covariant matter→boundary coupling (the G3 map) | Gravity | **OPEN** | the MOND / dark-sector chain |
 | **P3** | GR states → Level-III quasilocal states | Gravity / Level III | **OPEN** | formal state-layer integration |
 
-### P0 — `P0b`, anchor robustness for act 7's `DC1`
+### P0 — what fixes the relative evolution: act 11's no-go, and what it leaves
 
 **`P0a`, the MAP axis, is CLOSED.** Act 9 proved that **`R-2` alone** forces every same-interface
 readback to agree with the merged `R_{a₀}` on every modulus-squared unitary on the dilated carrier
@@ -100,10 +100,64 @@ visible family's regularity to `Θ`'s or `U`'s. It is still the live route by wh
 invariance could hold on a **narrower** class — one cut down by a coherence condition — which is why
 act 7's refutation is recorded at exactly the class its statement names.
 
-**Act 7's merged `DC1` is unrevised**, and acts 9 and 10 cite rather than rewrite it. Act 7 layer 2's
+## Act 11 moved the question above the convention layer, and answered it in the negative
+
+**Acts 9 and 10 were characterizing conventions on a structure underdetermined one level up.**
+`AdmissibleDilationAt G a₀ U` constrains `U` only through `G i j = ∑_a ‖U (i,a) (j,a₀)‖²`: that
+fixes an anchored modulus-squared marginal and **determines no channel**. Stinespring uniqueness
+cannot close the gap, for a reason of order — it speaks about dilations *of a given channel*, and
+here the channel is not yet pinned.
+
+**Act 11 asked what a coherent time-indexed lift on a fixed carrier determines, and proved it
+determines less than uniqueness needs.**
+
+- **`GL2`** — a **time-dependent** element of the anchored stabilizer carries a coherent lift to
+  another coherent lift of the **same** visible family, with exact cross-time composition for both,
+  while the relative candidate **moves**. Proved over the *strong* stabilizer, the smaller of the
+  two classes, which makes the statement stronger. The cocycle condition is recorded **vacuous** —
+  it holds for every family whatsoever — and nothing in the round draws force from it.
+- **`GL3`** — a **constant** gauge leaves every relative object unchanged, so time-dependence is
+  **necessary**. One direction only: `GL2` supplies that it *can be* sufficient, and neither says
+  every time-dependent gauge moves every candidate.
+- **`GI2`** — and this the freeze predicted at **no strength on either side**: there are two
+  coherent lifts of one visible family whose forced relating element lies **outside the maximal
+  uniform invisible gauge**. So the residual ambiguity is **not** pure gauge.
+
+**Two stabilizers, because conflating them was the error act 11's control plane was corrected for.**
+Fixing the anchored columns is **sufficient** for invisibility, not necessary: the **strong** class
+`𝒢ˢ ≅ U(|V|(|A|−1))` is a subgroup whose size is a **lower bound** on invisible freedom, while the
+**weak** class `𝒢ʷ ≅ U(1)^{|V|} × U(|V|(|A|−1))` adds the anchored phases and is the maximal
+*uniform* visibility-preserving class **for `|V| ≥ 2`**. At `|V| = 1` the visible datum is
+identically `1`, every unitary preserves it, and the maximal class is all of `U(|A|)` — so `𝒢ʷ` is
+**not** maximal there, and act 11 does not claim it is.
+
+**What this changes about `P0`.** The open question is no longer whether some convention rescues
+uniqueness — it does not — but **what additional structure determines the relative evolution**.
+`GI2` constrains the answer's shape: since not all the ambiguity is gauge, that structure is
+**larger than a gauge fixing**, so a connection alone would not suffice. That is a statement about
+shape only; act 11 does not say what the structure is, does not say it fails to exist, and does not
+measure the non-gauge part.
+
+**What act 11 does NOT license.** `P0` is not closed. Act 7 layer 2's caveat **stands unchanged** —
+made structural rather than provisional, which is not the same as retired. Nothing proves OI and QM
+inequivalent: the claim is that the visible family does not *by itself* fix the relative evolution,
+and a conditional equivalence with an additional stated principle is untouched. No
+candidate-selection principle is claimed or shown to be required.
+
+**Act 7's `D3` is partially subsumed, precisely.** Act 11 subsumes it as a proposed *uniqueness
+mechanism* and **does not close its source-level existence/regularity audit**, which remains open.
+Coherent-lift existence was not presumed: the round exhibits concrete lifts where it needs them.
+
+→ [act 11 result](programmes/oi-qm/track-b/act-11-coherent-lift-gauge/result.md) (`GL1s`, `GL1w`,
+`GL2`, `GL3`, `GI2`, and what none of them licenses)
+→ [act 11 preregistration](programmes/oi-qm/track-b/act-11-coherent-lift-gauge/preregistration.md)
+(the two stabilizers, the targets, and the `|V| ≥ 2` scoping)
+
+**Act 7's merged `DC1` is unrevised**, and acts 9, 10 and 11 cite rather than rewrite it. Act 7 layer 2's
 `D5` chronological-ordering control also stands **NOT CERTIFIED**: acts 9 and 10 repaired the
 *practice*, pinning their own ordering in git, but that repair is forward-looking and does not
-certify the earlier round. `DC2a` and `CE1` are unrevised, and no manuscript was touched by either.
+certify the earlier round. `DC2a` and `CE1` are unrevised, and no manuscript was touched by any of
+them.
 
 **The chronology guard strengthened twice more.** Act 9's `R7-RBR` was repaired in review to recover
 shallow history itself and to ask its question of the real `pull_request.head.sha` rather than the
