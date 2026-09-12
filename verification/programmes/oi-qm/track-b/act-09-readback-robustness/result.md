@@ -43,12 +43,21 @@ repository tree, and this round's work descends from that commit. Guard `R7-RBR`
 by content, and the ancestry by `git merge-base --is-ancestor`, **fail-closed** — if git is
 unavailable the check fails rather than passing.
 
-**The ancestry half has a precondition, and it is recorded rather than left to be discovered.** The
-check can only be answered where the base commit is present, so the `Numerical probes` CI job
-checks this repository out with `fetch-depth: 0`; the default depth-1 clone cannot see `79872cb` and
-the guard **fails** there rather than skipping, which is the fail-closed behaviour working as
-intended. A control that silently passed where it could not be evaluated would be no control, so the
-CI history is part of the mechanism and not incidental to it.
+**The ancestry half does not depend on how the repository was cloned, and the guard makes that so
+itself.** `merge-base` can only decide the question where the pinned commit is present, and a
+shallow checkout does not contain it. So the guard **recovers the history** before asking —
+deepening a shallow clone, or fetching the pinned commit when it is merely absent — by operations
+that add objects and change no ref, no worktree file and no branch. **Recovery never substitutes for
+the check**: the pinned `merge-base --is-ancestor` still runs afterwards and still decides, and no
+textual or base-SHA assertion stands in for it. If recovery fails, the guard **fails**. CI also
+checks out with `fetch-depth: 0`, which makes the recovery a no-op on the common path rather than a
+network round-trip.
+
+**All four paths were exercised before this was reported**: a full clone passes; a shallow clone with
+a reachable origin recovers and passes; a shallow clone whose origin is unreachable fails, with the
+recovery failure named in the output; and a head that does *not* descend from the base fails on the
+pinned check itself. A control that silently passed where it could not be evaluated would be no
+control.
 
 **What it does not certify** is what anyone thought, drafted outside the tree, or worked out
 privately. Git certifies what entered the tree and when; this round claims that and nothing more.

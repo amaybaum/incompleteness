@@ -9767,28 +9767,76 @@ def _rbr_freeze_pin(read=_bb_read):
         '061fd38343185b4c6f764da0da9602367ad8f370')
 
 
+def _rbr_git(*args, **kw):
+    """Run git at the repository root. Returns None if git itself is unusable."""
+    import subprocess
+    try:
+        return subprocess.run(('git',) + args, cwd=os.path.dirname(VERIFICATION),
+                              capture_output=True, timeout=kw.get('timeout', 60))
+    except Exception as exc:
+        print('    R7-RBR ancestry: git unusable (%s)' % type(exc).__name__)
+        return None
+
+
+def _rbr_ensure_base_present():
+    """Make the pinned base commit available, or report that it could not be.
+
+    A shallow checkout does not contain `_RBR_BASE` at all, so `merge-base` cannot decide the
+    question there. The guard therefore RECOVERS the history itself rather than depending on how
+    the repository happened to be cloned -- deepening a shallow clone, or fetching the pinned
+    commit when it is merely absent. The operations are additive: they add objects and change no
+    ref, no worktree file and no branch.
+
+    **This never substitutes for the ancestry check.** It only makes the check answerable; the
+    pinned `merge-base --is-ancestor` still runs afterwards and still decides. If recovery fails,
+    the guard FAILS."""
+    present = _rbr_git('cat-file', '-e', _RBR_BASE + '^{commit}')
+    if present is None:
+        return False
+    if present.returncode == 0:
+        return True
+    shallow = _rbr_git('rev-parse', '--is-shallow-repository')
+    if shallow is None:
+        return False
+    if shallow.stdout.decode('utf-8', 'replace').strip() == 'true':
+        print('    R7-RBR ancestry: shallow checkout; deepening to reach %s' % _RBR_BASE[:12])
+        got = _rbr_git('fetch', '--unshallow', 'origin', timeout=900)
+        if got is None or got.returncode != 0:
+            got = _rbr_git('fetch', '--deepen=2147483647', 'origin', timeout=900)
+    else:
+        print('    R7-RBR ancestry: %s absent; fetching it' % _RBR_BASE[:12])
+        got = _rbr_git('fetch', 'origin', _RBR_BASE, timeout=900)
+    if got is None or got.returncode != 0:
+        print('    R7-RBR ancestry: history recovery FAILED; the check fails rather than skips')
+        return False
+    present = _rbr_git('cat-file', '-e', _RBR_BASE + '^{commit}')
+    return present is not None and present.returncode == 0
+
+
 def _rbr_base_ancestry():
     """B2 -- the execution work DESCENDS from the control plane's merge commit.
 
     This is the half of the chronology control that a content hash cannot carry, so it is asked of
-    git directly. FAIL-CLOSED: a missing git, a missing object or a non-zero exit all fail the
-    check rather than passing it, because an unverifiable ordering claim is exactly what act 7
-    layer 2's NOT-CERTIFIED D5 control was."""
-    import subprocess
-    try:
-        r = subprocess.run(
-            ['git', 'merge-base', '--is-ancestor', _RBR_BASE, 'HEAD'],
-            cwd=os.path.dirname(VERIFICATION), capture_output=True, timeout=60)
-    except Exception as exc:
-        print('    R7-RBR ancestry: git unavailable (%s); the check FAILS rather than skips'
-              % type(exc).__name__)
+    git directly, and it is asked in exactly one way: `merge-base --is-ancestor` against the pinned
+    base. **No textual or base-SHA assertion substitutes for it**, because a claim about the shape
+    of the history has to be answered by the history.
+
+    The guard first ensures the pinned commit is actually available, recovering the history if the
+    checkout is shallow -- so the control does not silently depend on clone depth. CI additionally
+    checks out with `fetch-depth: 0`, which makes that recovery a no-op on the common path rather
+    than a network round-trip.
+
+    FAIL-CLOSED throughout: a missing git, a failed recovery, a missing object or a non-zero exit
+    all FAIL the check rather than passing or skipping it. An unverifiable ordering claim is exactly
+    what act 7 layer 2's NOT-CERTIFIED D5 control was, and a guard that passed where it could not
+    evaluate would reproduce it."""
+    if not _rbr_ensure_base_present():
+        return False
+    r = _rbr_git('merge-base', '--is-ancestor', _RBR_BASE, 'HEAD')
+    if r is None:
         return False
     if r.returncode != 0:
-        # The commonest cause is a SHALLOW clone that cannot see the base commit at all, which is
-        # why CI checks this repository out with `fetch-depth: 0` for the probes job. Say so, so a
-        # future failure here is self-diagnosing instead of a bare tag.
-        print('    R7-RBR ancestry: %s is not an ancestor of HEAD, or is absent from this clone '
-              '(a shallow checkout cannot see it -- CI uses fetch-depth: 0 for this reason)'
+        print('    R7-RBR ancestry: %s is present but is NOT an ancestor of HEAD'
               % _RBR_BASE[:12])
         return False
     return True
