@@ -185,11 +185,31 @@ and can set the row once instead of setting it twice.
 
 ## Definition budget
 
-**Act 7's budget is inherited unchanged and is not enlarged here.** Its five slots — the visible
-screen `T1`, source admissibility `T2`, the visible readback `T3`, the `DC1` proposition and the
-`DC4` proposition — belong to act 7's layer 2 and are untouched while layer 2 is unreached. **The
-adjudication introduces NO definitions and NO Lean**: it is a reading of the accepted text, act 1's
-evidence level 3.
+**Act 7's budget is inherited unchanged, and is neither enlarged NOR narrowed here.** Act 7's
+execution introduces **at most six** top-level definitions, and these are the six, carried from the
+frozen preregistration:
+
+1. the source-admissible dilation predicate (`T2`);
+2. the dilated-family carrier or datum, **if** the predicate cannot be stated without one;
+3. the visible readback map (`T3`);
+4. the `DC1` proposition — two admissible dilations, different visible candidates;
+5. the `DC4` proposition — visible invariance over all admissible dilations;
+6. the double-stochasticity screen predicate, **if** act 2's `IsRowStochastic`/`IsColStochastic` pair
+   does not already state it without a new name.
+
+**The two conditional slots — 2 and 6 — are part of the budget and are carried as conditional.**
+Dropping either would narrow act 7's frozen layer-2 control plane, which this file has no authority
+to do: the original preregistration governs in full, and "in full" includes the slots that may turn
+out to be unneeded.
+
+**Witnesses are built inside the proofs that need them**, per act 3's lesson — no top-level witness
+definitions. Merged definitions are consumed, never redefined. **If layer 1's findings require a
+seventh, that is an append-only amendment**, separately frozen and merged before the work it affects;
+it is not a licence taken at execution time.
+
+All six slots belong to act 7's **layer 2** and are untouched while layer 2 is unreached. **The
+adjudication itself introduces NO definitions and NO Lean**: it is a reading of the accepted text,
+act 1's evidence level 3.
 
 ## Mandatory controls
 
