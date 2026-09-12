@@ -317,7 +317,7 @@ theorem screening_continuous_extension (A : Matrix V V ℝ) (hA : IsRowStochasti
     ∃ (Γ : ℕ → Matrix V V ℝ) (Γhat : NNReal → Matrix V V ℝ),
       PPer Γ ∧ Extends Γhat Γ
         ∧ (∀ i j, Continuous fun t : NNReal => Γhat t i j)
-        ∧ Γhat 0 = 1 ∧ Γ 1 = A := by
+        ∧ Γhat 0 = 1 ∧ ∀ n, Γ n = if n % 2 = 0 then 1 else A := by
   classical
   refine ⟨fun n => if n % 2 = 0 then 1 else A,
     fun t => (1 - (1 - Real.cos (Real.pi * (t : ℝ))) / 2) • (1 : Matrix V V ℝ)
@@ -346,8 +346,7 @@ theorem screening_continuous_extension (A : Matrix V V ℝ) (hA : IsRowStochasti
     have h0 : (((0 : NNReal) : ℝ)) = 0 := by norm_num
     rw [h0]
     simp
-  · show (if 1 % 2 = 0 then (1 : Matrix V V ℝ) else A) = A
-    norm_num
+  · intro n; rfl
 
 /-- **E0's SLICE CLAUSE, AT THE EMBEDDED TIME.** The screening extension of act 6's collapsing
 slice is non-unistochastic at `t = 1`, in the external orientation act 2's `RT1` licenses — because
@@ -363,10 +362,11 @@ theorem screening_extension_nonunistochastic_slice :
         ∧ Γhat 0 = 1
         ∧ ¬ IsUnistochastic (Γhat (1 : NNReal))ᵀ := by
   classical
-  obtain ⟨Γ, Γhat, hpper, hext, hcont, hroot, hone⟩ :=
+  obtain ⟨Γ, Γhat, hpper, hext, hcont, hroot, hfull⟩ :=
     screening_continuous_extension _ collapsingSlice_isRowStochastic
   refine ⟨Γ, Γhat, hpper, hext, hcont, hroot, ?_⟩
-  exact collapsed_slice_not_unistochastic (collapsingSlice_of_extends hext hone)
+  exact collapsed_slice_not_unistochastic
+    (collapsingSlice_of_extends hext (by simpa using hfull 1))
 
 /-! ### Section E — layer 2: SOURCE A's TRANSCRIBED CONTRACT (Track B)
 
@@ -482,9 +482,12 @@ theorem compatible_theta_nonunitary {X : Type} [Fintype X] [DecidableEq X] {M : 
 Everything the freeze requires of the construction, in one object:
 
 * the discrete restriction is a lawful `PPer` member (**preservation clause 1**, proved);
-* it **is** act 6's merged witness, identified by its slice at the embedded time `1` rather than
-  described (**preservation clause 3** — the witness was frozen before use, and no amendment was
-  taken);
+* it **is** act 6's merged witness, and the theorem says so by exhibiting the **whole restriction**,
+  `Γ n = 𝟙` at even `n` and act 6's collapsing slice at odd `n` — the same term `collapsing_witness`
+  builds, at every index rather than at one (**preservation clause 3**; the witness was frozen before
+  use, and no amendment was taken). **A single slice would not have identified it**: many lawful
+  periodic families share a slice at `n = 1`, so the equality is stated for all `n` and a downstream
+  user can recover the family rather than infer it;
 * the continuous family extends it under the layer-0 relation;
 * it satisfies **`SourceAAdmissible`**, layer 1's transcription of Source A's contract;
 * it is entrywise continuous at **every** time — more than the contract asks, recorded as such;
@@ -520,7 +523,8 @@ stochastic. -/
 theorem admissible_offDirect_continuous_extension :
     ∃ (Γ : ℕ → Matrix (Fin 2) (Fin 2) ℝ) (Γhat : NNReal → Matrix (Fin 2) (Fin 2) ℝ),
       PPer Γ
-        ∧ Γ 1 = Matrix.of (fun _ j => if j = 0 then (1 : ℝ) else 0)
+        ∧ (∀ n, Γ n = if n % 2 = 0 then 1
+            else Matrix.of (fun _ j => if j = 0 then (1 : ℝ) else 0))
         ∧ Extends Γhat Γ
         ∧ SourceAAdmissible Γhat
         ∧ (∀ i j, Continuous fun t : NNReal => Γhat t i j)
@@ -529,10 +533,11 @@ theorem admissible_offDirect_continuous_extension :
             (∀ i j, ((Γhat (1 : NNReal))ᵀ) i j = ‖Θ i j‖ ^ 2) →
               Θ ∉ unitaryGroup (Fin 2) ℂ := by
   classical
-  obtain ⟨Γ, Γhat, hpper, hext, hcont, _, hone⟩ :=
+  obtain ⟨Γ, Γhat, hpper, hext, hcont, _, hfull⟩ :=
     screening_continuous_extension _ collapsingSlice_isRowStochastic
-  have hnot := collapsed_slice_not_unistochastic (collapsingSlice_of_extends hext hone)
-  exact ⟨Γ, Γhat, hpper, hone, hext, sourceAAdmissible_of_extends hext hpper.1 hcont, hcont, hnot,
+  have hnot := collapsed_slice_not_unistochastic
+    (collapsingSlice_of_extends hext (by simpa using hfull 1))
+  exact ⟨Γ, Γhat, hpper, hfull, hext, sourceAAdmissible_of_extends hext hpper.1 hcont, hcont, hnot,
     fun Θ hΘ => compatible_theta_nonunitary hnot Θ hΘ⟩
 
 end ContinuousExtension

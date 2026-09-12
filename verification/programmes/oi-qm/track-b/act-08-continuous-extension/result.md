@@ -46,7 +46,7 @@ the label is the conjunction the freeze names: the transcribed contract, `O-B`, 
 | Clause | Status |
 | --- | --- |
 | `PPer Γ` — the restriction is a lawful `PPer` member | **proved** (preservation clause 1) |
-| `Γ 1 = A`, act 6's collapsing slice — the restriction **is** the merged witness | **proved** (preservation clause 3) |
+| `∀ n, Γ n = 𝟙` at even `n`, act 6's collapsing slice at odd `n` — the restriction **is** the merged witness, at every index | **proved** (preservation clause 3) |
 | `Extends Γ̂ Γ` — the layer-0 relation holds | **proved** |
 | `SourceAAdmissible Γ̂` — layer 1's transcription of the contract | **proved** |
 | entrywise `Continuous` at **every** time | **proved** — more than the contract asks |
@@ -56,6 +56,13 @@ the label is the conjunction the freeze names: the transcribed contract, `O-B`, 
 **The witness was frozen before it was used.** It is act 6's merged `UB2` witness, and **no
 append-only amendment was taken** — the freeze anticipated one by name in case a different witness
 were needed, and none was. Substitution at execution time did not occur and was foreclosed.
+
+**Clause 3 is established by an equality at EVERY index, not at one slice.** The headline theorem
+exhibits the whole restriction — `𝟙` at even `n`, act 6's collapsing slice at odd `n` — which is the
+same term `collapsing_witness` builds. A statement of the form `PPer Γ ∧ Γ 1 = A` would **not** have
+identified the family: many lawful periodic families share a slice at `n = 1`, so the conjunct would
+have left a downstream reader inferring the witness rather than recovering it. The first draft of
+this round stated it that way and was repaired under review before signoff.
 
 **The extension is a SELECTION, not a canonical object**, as layer 0's `E2` requires of every
 extension this round exhibits. `extension_not_unique_visible` settled that the relation does not
