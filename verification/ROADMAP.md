@@ -37,7 +37,7 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 
 | Priority | Obligation | Track | Status | Unlocks |
 | --- | --- | --- | --- | --- |
-| **P0** | Act 7's `D4a`/`D4b` dilation-choice adjudication | OI→QM / Track B | **OPEN** | act 7 layer 2, and the OI→QM route past the dilation-choice test |
+| **P0** | The readback map from the dilated carrier — act 7's append-only amendment | OI→QM / Track B | **OPEN** | act 7 layer 2, at reduced strength |
 | **P1** | Substratum Lemma 24.1 — semigroup transfer | Reconstruction | **OPEN** | unconditional `𝒢_sub` completeness |
 | **P1** | A6 — background independence / local gauge covariance | Substratum | **GAP** | the complete A1–A6 formal package |
 | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN** | the actual physical realization |
@@ -48,31 +48,36 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 | **P2** | Covariant matter→boundary coupling (the G3 map) | Gravity | **OPEN** | the MOND / dark-sector chain |
 | **P3** | GR states → Level-III quasilocal states | Gravity / Level III | **OPEN** | formal state-layer integration |
 
-### P0 — act 7's `D4a`/`D4b` dilation-choice adjudication
+### P0 — the readback map from the dilated carrier
 
-Ask and answer act 7's two frozen questions on Source A: whether §3.4's dilation choice moves the
-induced candidate, and what the readback map is. **The signs are unset**, and act 7's conditional
-`D4a`-positive/`D4b`-negative reading is carried as a prediction, never as a finding.
+Fix, by a **separately frozen append-only amendment**, an explicit map carrying a candidate on the
+dilated carrier back to the original visible carrier `V`. Act 7's layer 2 is **paused** until that
+amendment is merged, and runs at **reduced strength** afterwards.
 
-**This row succeeds the continuous-extension obligation, which act 8 closed at `CE1`.** Act 7 layer 1
-had stopped at `DC2a`: Source A's §3.4 dilation runs on an inherited continuity contract that the
-`ℕ`-indexed off-direct witness does not instantiate, so there was no object in hand that was
-simultaneously a lawful OI visible family, off the direct branch, and inside Source A's stated
-contract — and the dilation-choice test could be run on nothing. Act 8 supplies that object: a
-kernel-checked continuous extension of act 6's frozen witness, satisfying Source A's transcribed
-contract, whose discrete restriction is the same lawful `PPer` member and is still off-direct, and
-whose every compatible potential at the frozen index is non-unitary.
+**This row succeeds act 7's `D4a`/`D4b` adjudication, which is now answered.** `D4a` is **positive**:
+Source A does form the relative candidate from the dilated unitary, through (28) p. 11's reduction to
+the unitary case and then (39) p. 13 and (42) p. 14, with §3.7's (46) and (52) as an independent
+instance on an enlarged carrier. So `DC2b` is **not reached**. `D4b` is **negative**: §3.4 p. 10
+supplies marginalization back to `V` for the **rooted** object only, and only "for at least some
+choices" of the initial ancilla configuration, while every relative-object readback in the paper —
+§3.7 (50)/(52), §3.8 (66), §4 (74) — consumes a posited tensor factorization and, in §3.7 and §4, an
+idealized correlation condition, none of which Source A states of a generic Stinespring dilation.
 
-**`CE1` is EXISTENTIAL — one witness, one extension — and is not a classification.** It does not say
-every off-direct `PPer` member has an admissible continuous extension; uniformity over the class
-would be a different theorem and act 8 supplies none. `DC2a` is unrevised and remains true of the
-discrete witness it was about. Act 8's result is kernel-checked and **is not propagated to any
-manuscript**, its freeze forbidding manuscript edits.
+**The strength bound is already fixed.** Under a readback supplied by our own amendment rather than
+by the source, `DC3`/`DC4` would state invariance **under that readback** and `DC1` divergence
+**under that readback** — never invariance or underdetermination simpliciter, and never a
+demonstrated need for a selection principle.
 
-→ [act 8 result](programmes/oi-qm/track-b/act-08-continuous-extension/result.md) (`CE1`, the
-construction, and what it leaves open)
-→ [act 7 result](programmes/oi-qm/track-b/act-07-dilation-choice/result.md) (the `DC2a` stop, and the
-frozen stop table this adjudication routes through)
+**No `DC` label is assigned yet**, and act 7's `D3` gap — Stinespring's pointwise existence with no
+coherent regular family derived or selected — remains **separately open** and is not what this
+amendment is about. `DC2a` is unrevised, and act 8's `CE1` remains existential.
+
+→ [act 7 resumption result](programmes/oi-qm/track-b/act-07-dilation-choice/resumption-result.md)
+(the `D4a`/`D4b` answers with coordinates, and the routing to this amendment)
+→ [act 7 result](programmes/oi-qm/track-b/act-07-dilation-choice/result.md) (the `DC2a` stop and the
+frozen stop table)
+→ [act 8 result](programmes/oi-qm/track-b/act-08-continuous-extension/result.md) (`CE1`, the object
+that made the adjudication reachable)
 
 ### P1 — Substratum Lemma 24.1, the semigroup-transfer step
 
