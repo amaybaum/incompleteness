@@ -225,26 +225,60 @@ domain and whether it covers every `DC1`-generable candidate, (iii) the `R-1`/`R
 question settled rather than assumed, (iv) the caveat sharpened on the map axis, and (v) `P0b`
 isolated as the live remainder.
 
-**The prediction could fail in three identified ways**, and each is a reportable finding rather than a
-defect: the forced domain might not contain every `DC1`-generable candidate; the Lean encoding of the
-class might be unable to express `R-3`'s heterogeneous form and so state a narrower class than the cut
-above (see the hazard below); or universal `R-2` might turn out unsatisfiable in combination with
-`R-1` at the frozen signature, which would make the class **empty** and every `RB1` vacuous — which is
-why nonemptiness is an obligation.
+**The prediction could fail in two identified ways**, and each is a reportable finding rather than a
+defect: the forced domain might not contain every `DC1`-generable candidate; or universal `R-2` might
+turn out unsatisfiable in combination with `R-1` at the frozen signature, which would make the class
+**empty** and every `RB1` vacuous — which is why nonemptiness is an obligation.
+
+**A third possibility is NOT a reportable outcome but a STOP.** If the exact property cut cannot be
+represented, the round does not continue against whatever class the encoding does express. See the
+formalization stop condition below.
+
+## The formalization STOP condition — the class is not negotiable at execution time
+
+**The admissible family is EXACTLY the frozen property cut. If the exact cut cannot be represented,
+the round STOPS; it does not proceed against a different class.**
+
+`R-3` is stated for a bijection between **two** label sets. A Lean encoding that fixes one ancilla
+type cannot express it; what it can express is the same-type restriction, which is **weaker** than
+`R-3` and therefore admits a **WIDER** class of maps than the cut.
+
+**The direction of the difference is not the point, and naming it makes the reason sharper.** Over a
+wider class, `RB1` — a universal — would be a **stronger** statement than the frozen one, while `RB2`
+— an existential — would be a **weaker** one. Substituting the encodable condition would therefore
+strengthen one frozen label and weaken the other, in a way no reader could detect from the label
+itself. That is why an execution-time substitution is unsafe whichever way it points, and why this is
+a stop rather than a scope note.
+
+**The permitted responses, and only these:**
+
+1. **Encode the exact cut.** Conditional budget slot 2 — a carrier or bundle for a readback — exists
+   for exactly this: use it to carry the polymorphic family so `R-3`'s heterogeneous form is stated as
+   frozen. **This is the preferred route.**
+2. **Stop and amend.** If slot 2 does not suffice, **no `RB1` or `RB2` label is assigned**, the
+   execution halts, and the next artifact is a separately frozen append-only amendment fixing the
+   class actually to be quantified over — reviewed and merged before any further execution, under this
+   same split protocol. The halt is reported as a **formalization stop**, never as a robustness
+   outcome.
+
+**`RB3` is exempt, and the exemption is bounded.** `RB3` is a statement about every same-interface map
+satisfying **`R-2` alone**; it mentions neither `R-1`, `R-3` nor the class, so it can be stated and
+proved whether or not the cut is encodable. **`RB3` landing does NOT license assigning
+`RB1-A`/`RB1-B`** when the class is not the frozen one: the per-witness labels are defined over the
+cut and are assigned only against the cut. A round that proves `RB3` and stops short of the frozen
+labels is a legitimate **partial** outcome and is reported as one.
 
 ## Named hazards
 
-1. **The encoding must not narrow the class.** `R-3` is stated for a bijection between **two** label
-   sets. A Lean encoding that fixes one ancilla type cannot express it. If the execution takes that
-   route, the narrowing is a **recorded scope note** on the class actually quantified over — never a
-   silent drop, and never a claim that `R-3` was imposed when a weaker same-type condition was.
-2. **Vacuity.** A universal statement over an empty or unexhibited class is not a result. Nonemptiness
+1. **Vacuity.** A universal statement over an empty or unexhibited class is not a result. Nonemptiness
    is proved first, from the three merged theorems.
-3. **Interface creep.** The single most likely way to reach a wrong `RB2` is to admit a map that
+2. **Interface creep.** The single most likely way to reach a wrong `RB2` is to admit a map that
    secretly receives provenance — a time index threaded through a structure field, a dilation datum
    passed alongside, a class indexed by the root. The signature above is the test.
-4. **Reading `RB1` as closing `P0`.** It closes the map axis only. See the scope section.
-5. **Reading `RB1` as strengthening `DC1`'s merged label.** See the revision rule.
+3. **Reading `RB1` as closing `P0`.** It closes the map axis only. See the scope section.
+4. **Reading `RB1` as strengthening `DC1`'s merged label.** See the revision rule.
+5. **Assigning a frozen label against an unfrozen class.** See the stop condition above — the one
+   hazard this round answers with a halt rather than a note.
 
 ## The revision rule
 
@@ -281,7 +315,8 @@ the proof that needs it, per act 3's lesson and act 7 layer 2's practice.
 
 ## Non-doings
 
-Do not: run any part of the execution before this file is merged; introduce an alternative readback,
+Do not: assign `RB1` or `RB2` against any class other than the frozen cut; run any part of the
+execution before this file is merged; introduce an alternative readback,
 or any definition or proof about one, before then; enumerate a family instead of cutting it by the
 frozen properties; add a fourth membership condition; admit a map of a different signature; average
 over anchors; postselect; renormalize; import §3.7's (45)/(46); apply any readback to amplitudes or to
@@ -307,8 +342,9 @@ Track I; edit manuscripts.
 
 ## Allowed final report
 
-1. The class as cut, with nonemptiness **proved** from the three merged theorems, and any encoding
-   narrowing recorded as a scope note;
+1. The class as cut, with nonemptiness **proved** from the three merged theorems, and the exact cut
+   confirmed **represented as frozen** — or, failing that, the formalization stop reported with **no**
+   `RB1`/`RB2` label assigned;
 2. `R-2`'s reading, fixed here, stated as fixed here;
 3. the per-witness outcome — `RB1-A`/`RB2-A` and `RB1-B`/`RB2-B` — **separately**, with the route to
    each label, and `RB3` recorded if it lands, with `RB1-A`/`RB1-B` presented as following from it
