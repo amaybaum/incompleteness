@@ -9768,17 +9768,21 @@ def _rbr_freeze_pin(read=_bb_read):
 
 
 def _rbr_git(*args, **kw):
-    """Run git at the repository root. Returns None if git itself is unusable."""
+    """Run git at the repository root. Returns None if git itself is unusable.
+
+    `tag` only labels the diagnostics, so a later round reusing this mechanism reports under its
+    own guard name rather than this one's."""
     import subprocess
     try:
         return subprocess.run(('git',) + args, cwd=os.path.dirname(VERIFICATION),
                               capture_output=True, timeout=kw.get('timeout', 60))
     except Exception as exc:
-        print('    R7-RBR ancestry: git unusable (%s)' % type(exc).__name__)
+        print('    %s ancestry: git unusable (%s)'
+              % (kw.get('tag', 'R7-RBR'), type(exc).__name__))
         return None
 
 
-def _rbr_ensure_present(rev, pr_number=None):
+def _rbr_ensure_present(rev, pr_number=None, tag='R7-RBR'):
     """Make `rev` available in this clone, or report that it could not be.
 
     A shallow checkout does not contain the pinned base -- nor, sometimes, the real PR head -- so
@@ -9791,33 +9795,33 @@ def _rbr_ensure_present(rev, pr_number=None):
     **This never substitutes for the ancestry check.** It only makes the check answerable; the
     pinned `merge-base --is-ancestor` still runs afterwards and still decides. If recovery fails,
     the guard FAILS."""
-    present = _rbr_git('cat-file', '-e', rev + '^{commit}')
+    present = _rbr_git('cat-file', '-e', rev + '^{commit}', tag=tag)
     if present is None:
         return False
     if present.returncode == 0:
         return True
-    shallow = _rbr_git('rev-parse', '--is-shallow-repository')
+    shallow = _rbr_git('rev-parse', '--is-shallow-repository', tag=tag)
     if shallow is None:
         return False
     if shallow.stdout.decode('utf-8', 'replace').strip() == 'true':
-        print('    R7-RBR ancestry: shallow checkout; deepening to reach %s' % rev[:12])
-        got = _rbr_git('fetch', '--unshallow', 'origin', timeout=900)
+        print('    %s ancestry: shallow checkout; deepening to reach %s' % (tag, rev[:12]))
+        got = _rbr_git('fetch', '--unshallow', 'origin', timeout=900, tag=tag)
         if got is None or got.returncode != 0:
-            got = _rbr_git('fetch', '--deepen=2147483647', 'origin', timeout=900)
+            got = _rbr_git('fetch', '--deepen=2147483647', 'origin', timeout=900, tag=tag)
     else:
-        print('    R7-RBR ancestry: %s absent; fetching it' % rev[:12])
-        got = _rbr_git('fetch', 'origin', rev, timeout=900)
+        print('    %s ancestry: %s absent; fetching it' % (tag, rev[:12]))
+        got = _rbr_git('fetch', 'origin', rev, timeout=900, tag=tag)
     if (got is None or got.returncode != 0) and pr_number is not None:
-        got = _rbr_git('fetch', 'origin', 'refs/pull/%s/head' % pr_number, timeout=900)
+        got = _rbr_git('fetch', 'origin', 'refs/pull/%s/head' % pr_number, timeout=900, tag=tag)
     if got is None or got.returncode != 0:
-        print('    R7-RBR ancestry: recovery of %s FAILED; the check fails rather than skips'
-              % rev[:12])
+        print('    %s ancestry: recovery of %s FAILED; the check fails rather than skips'
+              % (tag, rev[:12]))
         return False
-    present = _rbr_git('cat-file', '-e', rev + '^{commit}')
+    present = _rbr_git('cat-file', '-e', rev + '^{commit}', tag=tag)
     return present is not None and present.returncode == 0
 
 
-def _rbr_target_commit(env=None):
+def _rbr_target_commit(env=None, tag='R7-RBR'):
     """The commit the ancestry claim is ABOUT -- and in PR CI that is NOT `HEAD`.
 
     `actions/checkout` on a `pull_request` event checks out GitHub's **synthetic merge commit**
@@ -9836,8 +9840,8 @@ def _rbr_target_commit(env=None):
         return 'HEAD', 'HEAD', None
     path = env.get('GITHUB_EVENT_PATH', '')
     if not path or not os.path.exists(path):
-        print('    R7-RBR ancestry: pull_request run with no readable event payload; '
-              'failing closed rather than certifying the synthetic merge HEAD')
+        print('    %s ancestry: pull_request run with no readable event payload; '
+              'failing closed rather than certifying the synthetic merge HEAD' % tag)
         return None, None, None
     try:
         with open(path, encoding='utf-8') as fh:
@@ -9845,11 +9849,12 @@ def _rbr_target_commit(env=None):
         sha = payload['pull_request']['head']['sha']
         num = payload['pull_request']['number']
     except Exception as exc:
-        print('    R7-RBR ancestry: cannot resolve pull_request.head.sha (%s); failing closed'
-              % type(exc).__name__)
+        print('    %s ancestry: cannot resolve pull_request.head.sha (%s); failing closed'
+              % (tag, type(exc).__name__))
         return None, None, None
     if not (isinstance(sha, str) and re.fullmatch(r'[0-9a-f]{40}', sha)):
-        print('    R7-RBR ancestry: pull_request.head.sha is not a full 40-hex SHA; failing closed')
+        print('    %s ancestry: pull_request.head.sha is not a full 40-hex SHA; failing closed'
+              % tag)
         return None, None, None
     return sha, 'pull_request.head.sha %s' % sha[:12], num
 
@@ -10152,6 +10157,449 @@ check('R7-RBR', ok_rbr,
       'disclaimer. D3 stays open and unused; slot 2 is checked fired WITH its necessity rather than as convenience; '
       'slot 4 unused; no manuscript edit and no cross-track sourcing. Fourteen named contracts, fifteen mutation '
       'controls, plus the freeze-pin drift controls.')
+
+# ---- R7-ABR: Track B act 10 -- anchor robustness on the ANCHOR axis (P0b) ----
+#
+# A round whose outcome is NEGATIVE on availability, which inverts the usual hazard: nothing here
+# over-claims a positive, and the live failures are (a) reading AB0 as closing P0 or as retiring act
+# 7's caveat, (b) assigning AB1 because its PROPOSITION is true -- it is, and the label is still
+# withheld, which is the case the freeze's nonvacuity block quote was written for, (c) letting the
+# anchor test turn into a second dilation search, and (d) a chronology guard that certifies only the
+# final head. The last is why this guard's ancestry check is strictly stronger than R7-RBR's: it
+# enumerates the execution-only history and requires every commit in it to descend from the freeze.
+_ABR = open(_artifact('programmes/oi-qm/track-b/act-10-anchor-robustness/result.md'),
+            encoding='utf-8').read()
+_ABR1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _ABR).split())
+_ABRDIR = 'programmes/oi-qm/track-b/act-10-anchor-robustness/'
+# The mandated execution base: the merge commit of act 10's control-plane PR #586.
+_ABR_BASE = '93c2ca63c6cd7a61388d577b8baf22c3c1fdb41f'
+
+
+# **THE CHRONOLOGY MECHANISM IS ACT 9's, REUSED RATHER THAN RE-DERIVED**, exactly as act 10's freeze
+# requires: the same git runner, the same fail-closed history recovery, and the same resolution of
+# the real `pull_request.head.sha` in place of the synthetic merge commit. Act 9's guard took two
+# review rounds to get those right and both defects would have passed silently; re-deriving them
+# here would put a third copy at risk of the same. Only the pinned base and the ancestry PREDICATE
+# differ -- and the predicate is the part act 10's review strengthened.
+def _abr_git(*args, **kw):
+    kw.setdefault('tag', 'R7-ABR')
+    return _rbr_git(*args, **kw)
+
+
+def _abr_ensure_present(rev, pr_number=None):
+    return _rbr_ensure_present(rev, pr_number=pr_number, tag='R7-ABR')
+
+
+def _abr_target_commit(env=None):
+    return _rbr_target_commit(env=env, tag='R7-ABR')
+
+
+def _abr_freeze_pin(read=_bb_read):
+    """C1 -- act 10's preregistration is byte-identical to the blob merged by PR #586.
+
+    Injectable reader so the drift control below runs through THIS predicate. The blob carries the
+    property cut, the three-valued grid, the availability prerequisite AND the frozen a0' = 1
+    derivation with its AB0 prediction -- all merged before any anchor-specific execution object
+    entered the tree."""
+    return _bb_blob(_ABRDIR + 'preregistration.md', read) == (
+        '2e92464dca3809558959d240314dbaf9eaa1c500')
+
+
+def _abr_execution_ancestry():
+    """C2 -- NO COMMIT REACHABLE FROM THE EXECUTION HEAD LIES OUTSIDE THE FREEZE'S DESCENDANTS.
+
+    Head-only ancestry is too weak for the claim the freeze makes, and act 10's control plane says
+    so in terms. Counterexample it must exclude: an anchor-specific commit E is made BEFORE the
+    control-plane merge B exists, and is later merged together with B into the execution head H.
+    Then B is an ancestor of H and a head-only guard passes, while E is reachable from H and never
+    descended from B -- execution material that entered history before the freeze, certified clean.
+
+    So the check has two parts, and both must hold:
+
+      * B is an ancestor of H; AND
+      * every commit in `git rev-list H ^B` is itself a descendant of B.
+
+    The second part is what excludes pre-freeze side history. H is act 9's hardened target -- the
+    real `pull_request.head.sha` in a PR run, never the synthetic merge commit -- and the history
+    recovery machinery is reused for B, for H and for every enumerated commit alike, since an
+    enumeration run against a truncated graph would reproduce act 9's shallow-clone defect in a new
+    place.
+
+    FAIL-CLOSED throughout: a missing git, an unresolvable head, a failed recovery, a missing object
+    or any non-zero exit FAILS the check rather than passing or skipping it."""
+    target, label, num = _abr_target_commit()
+    if target is None:
+        return False
+    if not _abr_ensure_present(_ABR_BASE):
+        return False
+    if not _abr_ensure_present(target, pr_number=num):
+        return False
+    r = _abr_git('merge-base', '--is-ancestor', _ABR_BASE, target)
+    if r is None:
+        return False
+    if r.returncode != 0:
+        print('    R7-ABR ancestry: %s is present but is NOT an ancestor of %s'
+              % (_ABR_BASE[:12], label))
+        return False
+    listed = _abr_git('rev-list', '%s' % target, '^%s' % _ABR_BASE)
+    if listed is None:
+        return False
+    if listed.returncode != 0:
+        print('    R7-ABR ancestry: could not enumerate the execution-only history; failing closed')
+        return False
+    revs = listed.stdout.decode('utf-8', 'replace').split()
+    for rev in revs:
+        if not _abr_ensure_present(rev, pr_number=num):
+            return False
+        step = _abr_git('merge-base', '--is-ancestor', _ABR_BASE, rev)
+        if step is None:
+            return False
+        if step.returncode != 0:
+            print('    R7-ABR ancestry: %s is reachable from %s but does NOT descend from %s -- '
+                  'pre-freeze side history' % (rev[:12], label, _ABR_BASE[:12]))
+            return False
+    print('    R7-ABR ancestry: certified %s and all %d commit(s) of the execution-only history '
+          'descend from %s' % (label, len(revs), _ABR_BASE[:12]))
+    return True
+
+
+def _abr_availability_first(t=None):
+    """C3 -- availability answered FIRST, in the negative, per witness, by theorem not by search."""
+    t = _ABR1 if t is None else t
+    return ('## Availability answered FIRST, as the freeze required' in t
+            and '**It is answered here first, and answered in the negative on both witnesses.**' in t
+            and 'refuses to let it be inferred from an unsuccessful search' in t)
+
+
+def _abr_outcome(t=None):
+    """C4 -- the outcome is AB0 on BOTH witnesses, by exhaustion, with the singleton not empty."""
+    t = _ABR1 if t is None else t
+    return ('## Outcome: **`AB0-A`** and **`AB0-B`**, and no other label is assigned' in t
+            and '**proved by exhaustion over the finite anchor domain, never by an unsuccessful '
+                'search**' in t
+            and 'the domain is proved to be a **singleton and not empty**' in t
+            and 'the difference between a collapse and a vacuity' in t)
+
+
+def _abr_ab1_withheld(t=None):
+    """C5 -- AB1's PROPOSITION is true and the LABEL is withheld anyway.
+
+    The round's sharpest control. A true universal over a domain with no new element is not a
+    robustness result, and this is the case the freeze's block quote was written for."""
+    t = _ABR1 if t is None else t
+    return ('**`AB1`’s proposition is TRUE on both witnesses**' in t.replace("'", '’')
+            and '**The `AB1-A` and `AB1-B` labels are NOT EARNED AND ARE NOT ASSIGNED.**' in t
+            and 'A universal quantifier satisfied only because its domain has no new element is '
+                'not a robustness result' in t)
+
+
+def _abr_ab2_false(t=None):
+    """C6 -- AB2 false on both, so AB0 is not an undecided middle."""
+    t = _ABR1 if t is None else t
+    return ('## `AB2` is false on both witnesses' in t
+            and 'the collapse is **not** concealing an agreement' in t)
+
+
+def _abr_p0_not_closed(t=None):
+    """C7 -- P0 NOT closed; the axis RECLASSIFIED, not resolved; act 7's caveat unchanged."""
+    t = _ABR1 if t is None else t
+    return ('## `P0` is NOT closed. The anchor axis is RECLASSIFIED, not resolved' in t
+            and '**`P0` is not closed and the anchor-axis dependence is not resolved.**' in t
+            and 'It is **reclassified** as not reachable by this construction' in t
+            and 'the upstream anchor choice named as the live remainder' in t
+            and 'If anything `AB0` makes the caveat more necessary, not less' in t)
+
+
+def _abr_upstream_untouched(t=None):
+    """C8 -- the round ANSWERS NO PART of the excluded dilation-choice question.
+
+    The freeze says that constructing or changing a dilation to make another anchor admissible is
+    not P0b and answers a question nobody preregistered. An existence result at another anchor is
+    such an answer even when it feeds nothing else in the round -- which is why this contract
+    guards the ABSENCE of the claim rather than its careful framing. The reclassification stands on
+    AB0 alone: the compared configuration collapsed, and the upstream question is left whole."""
+    t = _ABR1 if t is None else t
+    return ('### What the reclassification is a statement about, and what it leaves untouched' in t
+            and '**Whether any other anchor admits some other dilation is not asked or answered '
+                'here, in either direction.**' in t
+            and 'This round does not take it -- not as a headline, not as a side observation, and '
+                'not as a control.' in t.replace('\u2014', '--')
+            and '**The upstream anchor question is therefore live and wholly untouched**' in t)
+
+
+def _abr_not_a_dilation_search(t=None):
+    """C9 -- the structural boundary held: no dilation replaced, composed or re-derived."""
+    t = _ABR1 if t is None else t
+    return ('## The structural boundary held: this round did not become a dilation search' in t
+            and '**pinned by an equation in the statement**' in t
+            and 'No dilation was replaced, composed with anything, or re-derived on different '
+                'data' in t
+            and 'the ancilla was not enlarged' in t)
+
+
+def _abr_localized(t=None):
+    """C10 -- the collapse localized to the G1 side, with the deciding entries recorded.
+
+    A localized collapse is more informative than a bare one, and the localization is a THEOREM
+    about every anchor rather than an observation about two."""
+    t = _ABR1 if t is None else t
+    return ('## Where the collapse localizes: entirely on the `G₁` side' in t
+            and 'admissible **at every anchor**' in t
+            and '**half of each configuration is indifferent to the anchor**' in t)
+
+
+def _abr_chronology_strong(t=None):
+    """C11 -- the note states the STRONG property the guard certifies, not head-only ancestry.
+
+    The freeze was repaired on exactly this point, so the note must not describe the weaker check."""
+    t = _ABR1 if t is None else t
+    return ('**every commit in `git rev-list H ^B` is required to be a descendant of `B`**' in t
+            and 'excludes pre-freeze side history rather than merely certifying the final head' in t
+            and '**The property certified is: no commit reachable from the execution head lies '
+                'outside `B`’s descendants.**' in t.replace("'", '’')
+            and 'a failed recovery **fails** the check rather than skipping it' in t)
+
+
+def _abr_chronology_scoped(t=None):
+    """C12 -- and that claim is scoped to the repository record, with D5 left NOT CERTIFIED."""
+    t = _ABR1 if t is None else t
+    return ('Git certifies what entered the tree and when, not what anyone thought, drafted '
+            'outside the tree, or worked out privately.' in t
+            and '**Act 7 layer 2’s `D5` chronological-ordering control stands NOT CERTIFIED.**'
+                in t.replace("'", '’')
+            and 'Nothing here repairs it retroactively' in t)
+
+
+def _abr_d3_open(t=None):
+    """C13 -- D3 neither closed nor used, and named as where the out-of-scope move would land."""
+    t = _ABR1 if t is None else t
+    return ('**It does not close or use act 7’s `D3` coherent-dilation gap.**'
+            in t.replace("'", '’')
+            and '**separately open, untouched**' in t
+            and 'lands squarely in that territory' in t)
+
+
+def _abr_budget(t=None):
+    """C14 -- two of four slots fired, and slot 4's non-firing PROVED rather than claimed."""
+    t = _ABR1 if t is None else t
+    return ('## Definition budget: **TWO of act 10’s frozen four slots fire**'
+            in t.replace("'", '’')
+            and '**Slot 4’s non-firing is proved rather than claimed**' in t.replace("'", '’')
+            and '**`AB0` gets no slot**' in t
+            and '**No fifth definition was introduced**' in t)
+
+
+def _abr_witnesses_separate(t=None):
+    """C15 -- witnesses reported separately; the conjunction proves nothing either does not."""
+    t = _ABR1 if t is None else t
+    return ('**The witnesses are reported separately and never merged.**' in t
+            and '**proves nothing that either does not already prove alone**' in t)
+
+
+def _abr_no_manuscript(t=None):
+    """C16 -- no manuscript edit, no cross-track sourcing, no candidate-selection principle."""
+    t = _ABR1 if t is None else t
+    return ('**It touches no manuscript.** No propagation in this round.' in t
+            and '**It says nothing about Track I**, and nothing here is evidence for anything '
+                'there.' in t
+            and '**It claims no candidate-selection principle**' in t)
+
+
+ok_abr = True
+ok_abr &= _abr_freeze_pin()
+ok_abr &= _abr_execution_ancestry()
+ok_abr &= _abr_availability_first()
+ok_abr &= _abr_outcome()
+ok_abr &= _abr_ab1_withheld()
+ok_abr &= _abr_ab2_false()
+ok_abr &= _abr_p0_not_closed()
+ok_abr &= _abr_upstream_untouched()
+ok_abr &= _abr_not_a_dilation_search()
+ok_abr &= _abr_localized()
+ok_abr &= _abr_chronology_strong()
+ok_abr &= _abr_chronology_scoped()
+ok_abr &= _abr_d3_open()
+ok_abr &= _abr_budget()
+ok_abr &= _abr_witnesses_separate()
+ok_abr &= _abr_no_manuscript()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# availability inferred from a failed search rather than discharged by theorem
+_abr_m1 = _ABR1.replace('refuses to let it be inferred from an unsuccessful search',
+                        'is satisfied once no alternative anchor turns up')
+ok_abr &= _abr_m1 != _ABR1 and not _abr_availability_first(_abr_m1)
+
+# AB0 asserted by search rather than proved by exhaustion -- the freeze's named hazard 4
+_abr_m2 = _ABR1.replace(
+    '**proved by exhaustion over the finite anchor domain, never by an unsuccessful search**',
+    'established by checking the other anchor and finding it does not work')
+ok_abr &= _abr_m2 != _ABR1 and not _abr_outcome(_abr_m2)
+
+# the singleton/empty distinction dropped -- a vacuity reported as a collapse
+_abr_m3 = _ABR1.replace('the domain is proved to be a **singleton and not empty**',
+                        'the domain contains no new anchor')
+ok_abr &= _abr_m3 != _ABR1 and not _abr_outcome(_abr_m3)
+
+# AB1 assigned because its proposition is true -- the single likeliest over-claim in this round
+_abr_m4 = _ABR1.replace('**The `AB1-A` and `AB1-B` labels are NOT EARNED AND ARE NOT ASSIGNED.**',
+                        'The `AB1-A` and `AB1-B` labels therefore hold.')
+ok_abr &= _abr_m4 != _ABR1 and not _abr_ab1_withheld(_abr_m4)
+
+# the nonvacuity reason removed, leaving the withholding unexplained and reversible
+_abr_m5 = _ABR1.replace(
+    'A universal quantifier satisfied only because its domain has no new element is '
+    'not a robustness result',
+    'The labels are withheld out of caution')
+ok_abr &= _abr_m5 != _ABR1 and not _abr_ab1_withheld(_abr_m5)
+
+# AB0 presented as an undecided middle rather than with AB2 refuted
+_abr_m6 = _ABR1.replace('the collapse is **not** concealing an agreement',
+                        'whether an agreeing anchor exists is left open')
+ok_abr &= _abr_m6 != _ABR1 and not _abr_ab2_false(_abr_m6)
+
+# P0 declared closed -- the most likely over-reading of AB0
+_abr_m7 = _ABR1.replace('**`P0` is not closed and the anchor-axis dependence is not resolved.**',
+                        '**`P0` is closed and the anchor-axis dependence is resolved.**')
+ok_abr &= _abr_m7 != _ABR1 and not _abr_p0_not_closed(_abr_m7)
+
+# act 7's caveat retired on the strength of a collapse -- the inversion the freeze warned about
+_abr_m8 = _ABR1.replace('If anything `AB0` makes the caveat more necessary, not less',
+                        'The caveat can therefore be retired')
+ok_abr &= _abr_m8 != _ABR1 and not _abr_p0_not_closed(_abr_m8)
+
+# THE SCOPE BLOCKER THIS CONTRACT EXISTS FOR: the round answering the excluded question by
+# exhibiting an admissible dilation at the other anchor. An earlier head of this round proved
+# exactly that, framed as a control on how AB0 should be read; it is a dilation-choice result
+# whatever it is framed as, and review rejected it. The mutation writes the claim back.
+_abr_m9 = _ABR1.replace(
+    '**Whether any other anchor admits some other dilation is not asked or answered here, in '
+    'either direction.**',
+    'An admissible dilation of the same slice does exist at the other anchor, so the anchor is '
+    'serviceable in principle.')
+ok_abr &= _abr_m9 != _ABR1 and not _abr_upstream_untouched(_abr_m9)
+
+# the same boundary eroded the other way -- the round presented as having probed the out-of-scope
+# direction just far enough to report on it
+_abr_m10 = _ABR1.replace(
+    'This round does not take it \u2014 not as a headline, not as a side observation, and not as '
+    'a control.',
+    'This round takes it only far enough to show the out-of-scope question is nonvacuous.')
+ok_abr &= _abr_m10 != _ABR1 and not _abr_upstream_untouched(_abr_m10)
+
+# a compared dilation altered, which takes the round out of P0b entirely
+_abr_m11 = _ABR1.replace(
+    'No dilation was replaced, composed with anything, or re-derived on different data',
+    'One dilation was composed with a permutation to reach the new anchor')
+ok_abr &= _abr_m11 != _ABR1 and not _abr_not_a_dilation_search(_abr_m11)
+
+# the localization weakened from a theorem about every anchor to an observation about two
+_abr_m12 = _ABR1.replace('admissible **at every anchor**', 'admissible at both anchors as it happens')
+ok_abr &= _abr_m12 != _ABR1 and not _abr_localized(_abr_m12)
+
+# the chronology guard described as head-only -- exactly the weakness the freeze was repaired for
+_abr_m13 = _ABR1.replace(
+    '**every commit in `git rev-list H ^B` is required to be a descendant of `B`**',
+    'the execution head is required to descend from `B`')
+ok_abr &= _abr_m13 != _ABR1 and not _abr_chronology_strong(_abr_m13)
+
+# recovery failure treated as a skip rather than a failure
+_abr_m14 = _ABR1.replace('a failed recovery **fails** the check rather than skipping it',
+                         'a failed recovery leaves the check unevaluated')
+ok_abr &= _abr_m14 != _ABR1 and not _abr_chronology_strong(_abr_m14)
+
+# the chronology claim widened past the repository record
+_abr_m15 = _ABR1.replace(
+    'Git certifies what entered the tree and when, not what anyone thought, drafted outside the '
+    'tree, or worked out privately.',
+    'The control therefore certifies that the outcome was not known in advance.')
+ok_abr &= _abr_m15 != _ABR1 and not _abr_chronology_scoped(_abr_m15)
+
+# act 7 layer 2's NOT-CERTIFIED D5 status repaired in retrospect by a round forbidden to touch it
+_abr_m16 = _ABR1.replace('Nothing here repairs it retroactively',
+                         'This round’s guard repairs it retroactively')
+ok_abr &= _abr_m16 != _ABR1 and not _abr_chronology_scoped(_abr_m16)
+
+# D3 closed by a round forbidden to touch it
+_abr_m17 = _ABR1.replace('**separately open, untouched**', '**settled by the collapse above**')
+ok_abr &= _abr_m17 != _ABR1 and not _abr_d3_open(_abr_m17)
+
+# slot 4 asserted unused rather than proved unnecessary
+_abr_m18 = _ABR1.replace(
+    '**Slot 4’s non-firing is proved rather than claimed**'.replace('’', "'"),
+    'Slot 4 simply was not needed')
+_abr_m18 = _abr_m18.replace('**Slot 4’s non-firing is proved rather than claimed**',
+                            'Slot 4 simply was not needed')
+ok_abr &= _abr_m18 != _ABR1 and not _abr_budget(_abr_m18)
+
+# the two witnesses merged into one finding
+_abr_m19 = _ABR1.replace('**The witnesses are reported separately and never merged.**',
+                         'The two witnesses give one combined finding.')
+ok_abr &= _abr_m19 != _ABR1 and not _abr_witnesses_separate(_abr_m19)
+
+# the conjunction theorem presented as stronger than its halves
+_abr_m20 = _ABR1.replace('**proves nothing that either does not already prove alone**',
+                         'strengthens both by covering them uniformly')
+ok_abr &= _abr_m20 != _ABR1 and not _abr_witnesses_separate(_abr_m20)
+
+# a manuscript propagation the round is forbidden to make
+_abr_m21 = _ABR1.replace('**It touches no manuscript.** No propagation in this round.',
+                         'The manuscripts carry the reclassified anchor axis.')
+ok_abr &= _abr_m21 != _ABR1 and not _abr_no_manuscript(_abr_m21)
+
+# a candidate-selection principle claimed off the back of the collapse
+_abr_m22 = _ABR1.replace('**It claims no candidate-selection principle**',
+                         'The collapse makes a candidate-selection principle necessary')
+ok_abr &= _abr_m22 != _ABR1 and not _abr_no_manuscript(_abr_m22)
+
+# C1's control runs THROUGH _abr_freeze_pin, so sabotaging that predicate fails the guard.
+def _abr_drift(path):
+    """One byte appended to act 10's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-10-anchor-robustness/preregistration.md') else b'')
+
+
+ok_abr &= _abr_drift(_ABRDIR + 'preregistration.md') != _bb_read(_ABRDIR + 'preregistration.md')
+ok_abr &= not _abr_freeze_pin(_abr_drift)
+
+check('R7-ABR', ok_abr,
+      'Track B act 10 guard (P0b, the anchor axis): a round whose outcome is NEGATIVE on availability, which inverts '
+      'the hazard R7-RBR guards. Nothing here over-claims a positive; what can go wrong is reading the collapse as a '
+      'closure, assigning AB1 because its proposition happens to be TRUE, letting the anchor test become a second '
+      'dilation search, or certifying chronology too weakly. Availability is checked answered FIRST and in the '
+      'NEGATIVE per witness, by theorem rather than by a failed search, since the freeze made it a prerequisite with '
+      'its own obligation. AB0 is checked earned by EXHAUSTION over the finite anchor domain -- never by an '
+      'unsuccessful search -- and checked to record that the surviving domain is a SINGLETON AND NOT EMPTY, which is '
+      'the difference between a collapse to the used anchor and a vacuity; both the search route and the lost '
+      'distinction are mutation-tested. AB1 is the round\'s sharpest control and is checked in the form that survives '
+      'the awkward fact: the PROPOSITION is true on both witnesses and the LABEL is withheld on both, with the '
+      'nonvacuity reason present in full, because a universal satisfied only over a domain with no new element is not '
+      'a robustness result -- assigning the label and deleting the reason are both mutation-tested. AB2 is checked '
+      'refuted on both witnesses so AB0 is not reported as an undecided middle. P0 is checked NOT closed and the '
+      'anchor axis RECLASSIFIED rather than resolved, with act 7 layer 2\'s caveat left UNCHANGED and the upstream '
+      'anchor choice named as the live remainder; the closure claim and the retired caveat are separately '
+      'mutation-tested, since a collapse is the most inviting possible licence to retire the very caveat it leaves '
+      'standing. The reclassification is checked to rest on AB0 ALONE: the round must answer NO PART of the excluded '
+      'dilation-choice direction, so the contract guards the ABSENCE of any existence claim at another anchor rather '
+      'than its careful framing -- an earlier head of this round proved exactly such a theorem, presented as a '
+      'control on how AB0 should be read, and review rejected it as a dilation-choice result whatever it is framed '
+      'as; that claim and a softer "probed it just far enough" version are both mutation-tested. '
+      'The structural boundary is checked held: dilations pinned by equation to act 7\'s own '
+      'expressions, none replaced, composed or re-derived, and the ancilla not enlarged. The localization is checked '
+      'to rest on a theorem about EVERY anchor rather than an observation about two. The chronology control is the '
+      'one repaired in review and is checked at its STRONG form: the blob by content, the real pull_request.head.sha '
+      'rather than the synthetic merge commit, B an ancestor of the head AND every commit of the execution-only '
+      'history enumerated by rev-list required to descend from B -- which is what excludes pre-freeze side history '
+      'merged in later -- with recovery covering the enumerated commits and a failed recovery FAILING rather than '
+      'skipping; the head-only description and the recovery-as-skip reading are both mutation-tested. That claim is '
+      'checked scoped to the repository record, and act 7 layer 2\'s D5 control checked left NOT CERTIFIED rather '
+      'than repaired in retrospect. D3 stays open, unused, and named as where the out-of-scope move would land. Two '
+      'of four definition slots fired, with slot 4\'s non-firing PROVED rather than asserted and AB0 given no slot. '
+      'Witnesses reported separately, the conjunction theorem checked to claim no more than its halves. No manuscript '
+      'edit, no cross-track sourcing, no candidate-selection principle. Sixteen named contracts, twenty-two mutation '
+      'controls, plus the freeze-pin drift controls.')
+
+
 
 check('R7-DILL2', ok_dl2,
       'Track B act 7 guard, layer 2: a round that reached a POSITIVE existential label under a readback that is OURS '
