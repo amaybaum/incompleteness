@@ -81,9 +81,11 @@ Verbatim, p. 4, immediately following (5):
 explicitly, "over which `t₀`, and in which variable the limit is taken":
 
 - **The limit is taken in the TARGET variable `t`.** `t₀` is held fixed while `t → t₀`.
-- **The condition is indexed by `t₀`, ranging over the conditioning-time set of B3.** Under B4's
-  reduction that set is `{0}`, so on the surface the correspondence actually runs on, **D2 binds at
-  `t₀ = 0` alone**: `Γ̂(t ← 0) → 𝟙` as `t → 0`.
+- **The condition is indexed by `t₀`, ranging over the conditioning-time set of B3** — whatever set a
+  given instantiation has. B4 does **not** redefine that set; it fixes attention on `t₀ = 0` "for
+  purposes of notational simplicity". So on an instantiation whose conditioning-time set is `{0}` —
+  admissible under B3, and the one the correspondence is developed on from §3.1 p. 6 — **D2 has the
+  single instance** `Γ̂(t ← 0) → 𝟙` as `t → 0`.
 - **D2 is a one-point limit condition at the conditioning time. It is NOT a requirement that
   `t ↦ Γ(t ← t₀)` be continuous at every `t`.** The source states no such requirement anywhere; see
   finding **F-1** below.
@@ -197,19 +199,24 @@ reading is inherited here unchanged and is not re-adjudicated.**
 later step reads an extension's divisibility as an admissibility failure, or its indivisibility as
 evidence of anything.
 
-### The domain gap this layer opens, stated rather than deferred silently
+### The target-domain compatibility item, stated rather than deferred silently
 
 Layer 0 fixed the extension relation's ambient domain as `ℝ≥0`, before the source was read, for a
-Track I reason recorded there. **B1 asks for `ℝ`.** These do not agree, and layer 1 records the
-disagreement now rather than discovering it convenient later:
+Track I reason recorded there. B1's target-time convention is `ℝ`, **stated with a hedge**.
+
+**This is a compatibility item, not a contract gap, and it is not reported as one.** B1 says target
+times will "**usually**" be assumed isomorphic to the real line. Act 7's `D2` already fixed the
+reading — a hedged usual setting, a domain mismatch, and **not** an independent prerequisite — and
+rested `DC2a` on the continuity condition alone. **That reading is inherited here unchanged and is
+not re-adjudicated.** `F-3` records it.
 
 - The layer-0 relation is a **Track I** object and is not revised by a Track B finding; the freeze's
   two-predicate design exists precisely so that source admissibility is a **second** predicate applied
   to an extension, never fused into the first.
-- **Layer 2 therefore carries an explicit obligation**: either extend to all of `ℝ` and satisfy B1 as
-  stated, or satisfy the contract on `t ≥ 0` and **say so**, citing B1's own hedge and act 7's
-  `F-3` reading. **Which of these the round does is a layer-2 report item, not a layer-1
-  determination, and it may not be settled by whichever turns out to be easier to build.**
+- **Layer 2 may construct over `ℝ`, or work over `ℝ≥0` and state explicitly that it instantiates the
+  rooted contract on that target domain.** Both are open; **neither is promoted to satisfying or
+  failing a hard `ℝ` condition**, because B1 states no such condition. Which route the round takes is
+  a layer-2 **report** item, recorded either way.
 
 ## E4 — ROOTED. The contract is satisfied by a family with conditioning-time set `{0}`
 
@@ -220,11 +227,17 @@ disagreement now rather than discovering it convenient later:
 
 1. **§2.1 p. 3, B3** — "The set of conditioning times `t₀` will be assumed to **contain at least one
    element**, which can be taken to be the 'initial time' `0` without loss of generality." The
-   requirement placed on the conditioning-time set is **nonemptiness**. A singleton meets it.
+   requirement placed on the conditioning-time set is **nonemptiness**, so **`{0}` is an admissible
+   instantiation** of it.
 2. **§3.1 p. 6, B4** — "For purposes of notational simplicity, the conditioning time `t₀` will now be
-   taken to be the 'initial time' `0`." Every object of the correspondence from (12) p. 6 onward is
-   written `(t ← 0)`: `Θ(t ← 0)`, `ρ(t)`, `Ψ(t)`, the Kraus operators (25) p. 10, the dilation §3.4
-   p. 10, `U(t ← 0)` at (28) p. 11, and the Hamiltonian (33) p. 12.
+   taken to be the 'initial time' `0`." **This does not redefine the conditioning-time set**, and is
+   not read here as doing so: it fixes attention, and the correspondence is then **run at `t₀ = 0`**.
+   Every object from (12) p. 6 onward is written `(t ← 0)`: `Θ(t ← 0)`, `ρ(t)`, `Ψ(t)`, the Kraus
+   operators (25) p. 10, the dilation §3.4 p. 10, `U(t ← 0)` at (28) p. 11, and the Hamiltonian (33)
+   p. 12.
+
+**The route is therefore B3 then B4, in that order, and neither step alone.** B3 makes a rooted
+instantiation admissible; B4 shows the correspondence is developed on one.
 
 **And the confirmation that decides it — the source's own two-time objects are DERIVED from the rooted
 family, not posited alongside it:**
@@ -246,7 +259,7 @@ here, with coordinates, and answered:
 | Points toward two-time | Coordinate | Why it does not change the finding |
 | --- | --- | --- |
 | The general definition uses **two index sets**, "possibly distinct", and writes `Γ_{t←t₀}` generically | §2.1 p. 3 | It **permits** many conditioning times; B3 **requires** only one. Permission is not a requirement. |
-| D2's continuity is stated for `Γ(t ← t₀)` generically | p. 4 | Its quantifier is over the conditioning-time set. If that set is `{0}`, D2 binds at `0`. The quantifier was read off the text, per the freeze's instruction, not assumed. |
+| D2's continuity is stated for `Γ(t ← t₀)` generically | p. 4 | Its quantifier is over the conditioning-time set of whatever instantiation is in hand. On a rooted instantiation — admissible under B3 — it has the single instance at `0`. The quantifier was read off the text, per the freeze's instruction, not assumed. |
 | "the initial time `0` will typically be only one of **many** conditioning times" | §2.1 p. 3, forward-referencing §3.7 | A **derived** claim about systems "in sufficiently strong contact with a repeatedly eavesdropping environment", under added physical hypotheses — and hedged by "typically". Not an admissibility condition. |
 | **Division events**: `t′` "has become a valid conditioning time"; `Γ^S(t ← 0) = Γ^S(t ← t′)Γ^S(t′ ← 0)` | §3.7 **(56) p. 19** | Derived from an environment interaction, and it produces **divisibility** at `t′` — the opposite of the generic case. It describes what happens to some systems, not what a family must satisfy to be admissible. |
 | fn. 11 p. 12 writes `Γ_ij(n δt + t ← n δt)`, a **non-zero** conditioning time | fn. 11 p. 12 | An illustrative interpolation formula, not a statement of the contract. It is layer 2's control (E6) and is **not run here**. |
@@ -268,8 +281,9 @@ supply a two-time family **absent an established composition or selection theore
 from arguing it from indivisibility or class membership. That prohibition stands; this round has no
 occasion to invoke it, and **invokes nothing in its place**.
 
-**What E4 does establish for layer 2, and only this:** the continuity condition D2 binds at `t₀ = 0`,
-in the limit `t → 0`, and the object the correspondence consumes throughout is the rooted family. The
+**What E4 does establish for layer 2, and only this:** on a rooted instantiation the continuity
+condition D2 has the single instance at `t₀ = 0`, in the limit `t → 0`, and the object the
+correspondence consumes from §3.1 p. 6 onward is the rooted family. The
 obligation acts 6 and 7 identified is at the rooted family, and Source A puts its correspondence
 there too.
 
@@ -283,15 +297,19 @@ them.
 | --- | --- | --- | --- |
 | **`O-A`** | the continuous family `Γ̂` | **somewhere** in the ambient domain: `∃ t` with `¬ IsUnistochastic ((Γ̂ t)ᵀ)` | unistochasticity as Source A defines it, (30)–(31) and the naming sentence, p. 11 |
 | **`O-B`** | the **discrete restriction** `restrict Γ̂` | **at an embedded time**: `∃ n : ℕ` with `¬ IsUnistochastic ((Γ̂ (ι n))ᵀ)` | act 6's `UB2`, via `collapsed_slice_not_unistochastic`; the source's own (32) p. 12 is the same route and is cited, not imported |
-| **`O-C`** | the **potential** `Θ(t ← 0)` — a different object from the transition matrix | at the time index where §3.4's dilation is invoked | **§3.4 p. 10**: "if `Θ(t ← 0)` is **not already a unitary matrix**" — act 7's `D1` |
+| **`O-C`** | the **particular potential `Θ(t ← 0)` that §3.4 consumes** — a different object from the transition matrix | at the time index where §3.4's dilation is invoked | **§3.4 p. 10**: "if `Θ(t ← 0)` is **not already a unitary matrix**" — act 7's `D1` |
 
 **The required conjunction, as frozen: `CE1` requires `O-B ∧ O-C`.** `O-A` alone is never sufficient,
 and a result stating only `O-A` is reported as `O-A`.
 
+**All three keep the freeze's own statements. E5 locates them; it does not restate or strengthen
+any of them.**
+
 ### Two locations E5 fixes now, before any construction
 
 The freeze leaves E5 to fix where off-directness must hold. Two determinations are made here, in
-layer 1, so that layer 2 cannot make them after seeing what is convenient.
+layer 1, so that layer 2 cannot make them after seeing what is convenient. **Neither changes what
+any of `O-A`, `O-B` or `O-C` says.**
 
 **`L1` — `O-B`'s index, on act 6's merged witness.** Act 6's witness is `Γ 0 = 𝟙` with period `2` and
 `A = [[1,0],[1,0]]` at odd times. Its transpose `Aᵀ = [[1,1],[0,0]]` is column-stochastic with row
@@ -301,19 +319,25 @@ sums `2` and `0`, which is what `collapsed_slice_not_unistochastic` computes. So
 `t = 1` for the screening extension; that theorem answers E0's own wording and **is not `O-B` for a
 layer-2 construction**, which must prove it of whatever extension layer 2 exhibits.
 
-**`L2` — `O-C`'s index and its quantifier over the non-unique `Θ`.** Two readings of G1 are possible,
-because `Θ` is not unique (p. 7) and carries the time-dependent phase gauge of fn. 6 p. 7:
+**`L2` — `O-C`'s index, and the non-uniqueness of `Θ` handled WITHOUT touching the freeze.**
 
-- **de re** — *some particular chosen* `Θ(t ← 0)` fails to be unitary;
-- **de dicto** — *no* admissible `Θ(t ← 0)` at that time is unitary.
+**`O-C` keeps the frozen statement, unchanged: the particular Source-A `Θ(t ← 0)` that §3.4 consumes
+is not already unitary — the *de re* reading.** `Θ` is not unique (p. 7) and carries the
+time-dependent phase gauge of fn. 6 p. 7, so a stronger *de dicto* proposition is available — that
+**no** compatible `Θ` at that time is unitary. **That stronger proposition is not adopted as the
+definition of `O-C`.** Redefining a frozen proposition after the freeze would strengthen `CE1`'s
+condition post hoc, which is exactly what the split-PR protocol forbids; doing so would require an
+append-only frozen amendment merged before construction, and **none is sought.**
 
-**This round uses the de dicto reading, and that choice is made here and fixed.** The de re reading
-would let an extension satisfy `O-C` while a gauge change produced a unitary `Θ` at the same time — so
-§3.4's dilation would be avoidable, and "the source's construction never enters its dilated branch" is
-exactly the failure the freeze's `O-C` clause exists to block. The de dicto reading is a
-**strengthening** of the requirement, adopted before construction, and it is not a narrowing of the
-contract. **`O-C`'s time index is fixed to coincide with `L1`'s**: the embedded time `n = 1` at which
-`O-B` holds, since §3.4's dilation is invoked per-`t` (act 7's `D3`).
+**The non-uniqueness is handled by proving more, not by redefining the target.** Layer 2 proves, at
+`L1`'s index, the stronger theorem — **every `Θ` compatible with the slice there is non-unitary**,
+equivalently that a unitary compatible `Θ` would witness unistochasticity of that slice, which act 6
+has refuted. That theorem **discharges the frozen `O-C` for whichever `Θ` §3.4 selects**, since the
+selected `Θ` is one of the compatible ones. The freeze is satisfied as written, and the gauge freedom
+is closed off by a proof rather than by a definition.
+
+**`O-C`'s time index is fixed to coincide with `L1`'s**: the embedded time `n = 1` at which `O-B`
+holds, since §3.4's dilation is invoked per-`t` (act 7's `D3`).
 
 ### Entailments: what is available, what is required, and what is NOT yet proved
 
@@ -324,7 +348,7 @@ in-round**. None is proved in layer 1, and none is assumed. The status of each i
 | --- | --- |
 | `O-B ⟹ O-A` | **available and unproved.** An embedded time is a time. If layer 2 uses it, layer 2 proves it. |
 | `O-A ⟹ O-B` | **false in general** and not used. A family may leave the unistochastic set strictly between embedded times and sit inside it at every embedded time. |
-| `¬ IsUnistochastic ((Γ̂ (ι n))ᵀ) ⟹ O-C` at `n`, under `L2` | **required for `CE1`, and NOT proved.** The route runs through (12) p. 6 together with act 6's structural lemma: under the de dicto reading, `O-C` at a time says no `Θ` there is unitary, and by F1 a unitary `Θ` at that time would exhibit the slice as unistochastic. **The transpose orientation must be handled explicitly in that proof.** Layer 2 proves this in-round or the round does not use it. |
+| `¬ IsUnistochastic ((Γ̂ (ι n))ᵀ) ⟹` every compatible `Θ` at `n` is non-unitary `⟹ O-C` at `n` | **required for `CE1`, and NOT proved.** The route runs through (12) p. 6 together with act 6's structural lemma: a unitary compatible `Θ` at that time would exhibit the slice as unistochastic. The universal step is what makes the conclusion independent of which `Θ` §3.4 selects, so the **frozen de re `O-C`** follows for the selected one. **The transpose orientation must be handled explicitly in that proof.** Layer 2 proves this in-round or the round does not use it. |
 
 **Nothing in the informal reading above is evidence.** The three propositions remain distinct until a
 kernel-checked proof relates them.
@@ -346,6 +370,11 @@ layer 2's, each to be proved rather than asserted.
 - **No outcome label.** `CE1`, `CE2`, `CE3`, `CE4` and `CE5` are all unassigned.
 - **No construction, and no witness search.** Layer 2 is unexecuted.
 - **No `O-A`, `O-B` or `O-C` for any layer-2 object**, and no entailment among them proved.
+- **No amendment to the freeze, and no restatement of anything it fixes.** `O-C` keeps its frozen
+  *de re* form; the stronger universal-`Θ` proposition is a **theorem layer 2 must prove**, never a
+  redefinition. No append-only amendment is sought, and the definition budget is untouched.
+- **No hard target-domain condition is attributed to Source A.** B1 is hedged; act 7's reading of it
+  is inherited, and layer 2's route over `ℝ` or over `ℝ≥0` is a report item, not a pass/fail.
 - **`E6` is not run.** The fn. 11 control (fn. 11 p. 12) is layer 2's, and its non-applicability is a
   live answer there. Nothing in this file prejudges it. The observation that fn. 11's formula uses a
   non-zero conditioning time is recorded above **only** as evidence bearing on E4, not as a finding
@@ -368,7 +397,8 @@ money; it is asked with a coordinate precisely because the temptation to read it
 shape — is strong."
 
 **That prediction did not hold in the direction the freeze leaned toward.** E4 returns **rooted**, on
-B3's nonemptiness requirement and B4's reduction, confirmed by (37) and (39) p. 13 deriving the
+B3's nonemptiness requirement making `{0}` an admissible instantiation and B4 running the
+correspondence there, confirmed by (37) and (39) p. 13 deriving the
 source's two-time objects from the rooted family. The freeze's hardest anticipated cost — a second
 construction with no composition theorem to determine it — **does not arrive.**
 
@@ -376,4 +406,5 @@ construction with no composition theorem to determine it — **does not arrive.*
 anticipated obligation; it supplies no construction, and it makes nothing about layer 2 easier except
 by not adding to it. The round's difficulty now sits where E3's findings put it: `F-1` and `F-2` —
 that the source states no regularity on `Γ̂` and no link from `Γ̂`'s regularity to `Θ`'s — together
-with the `ℝ` versus `ℝ≥0` domain gap, and the unproved `O-C` entailment that `CE1` requires.
+with the target-domain compatibility item, and the unproved universal-`Θ` step that the frozen `O-C`
+requires for `CE1`.
