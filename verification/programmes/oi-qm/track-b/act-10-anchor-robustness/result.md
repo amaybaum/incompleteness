@@ -162,6 +162,28 @@ made **before** the control-plane merge `B` and later merged alongside `B` into 
 **The property certified is: no commit reachable from the execution head lies outside `B`'s
 descendants.**
 
+**The mechanism is act 9's, reused rather than re-derived**, exactly as the freeze requires — the
+same git runner, the same fail-closed recovery, the same head resolution, with the diagnostic label
+threaded so shared machinery reports under the calling guard's name. Act 9's took two review rounds
+to get right and both defects would have shown green; a third copy would have been a third chance to
+reintroduce them. **Only the predicate differs, and the predicate is the part review strengthened.**
+
+### Eight paths exercised against real history before this was pushed
+
+| Path | Verdict |
+| --- | --- |
+| head descends, no side history | **PASS**, 1 execution commit enumerated |
+| **the freeze's counterexample**: `E` committed before `B`, then merged alongside it into `H` | **FAIL**, naming `E` as pre-freeze side history |
+| head does not descend from `B` at all | **FAIL** on the ancestry check |
+| PR payload path, head carrying the same side history | **FAIL**, naming `E`, against `pull_request.head.sha` |
+| PR run, event payload unreadable | **FAIL CLOSED**, no fallback to the synthetic merge `HEAD` |
+| PR run, `head.sha` unresolvable | **FAIL CLOSED** |
+| shallow clone, origin reachable | recovers history itself, then **PASS** |
+| shallow clone, origin unreachable | recovery **FAILED**, check **FAILS** rather than skipping |
+
+On the counterexample, `git merge-base --is-ancestor B H` was confirmed to return **0** — so a
+head-only guard would have **passed** it. That is the defect, reproduced rather than argued.
+
 **The claim is scoped to the repository record.** Git certifies what entered the tree and when, not
 what anyone thought, drafted outside the tree, or worked out privately. As in act 9, the central
 prediction was written into the freeze before merge, so **the merged blob is itself the record** of
