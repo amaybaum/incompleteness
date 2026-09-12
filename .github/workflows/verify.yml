@@ -100,7 +100,15 @@ jobs:
     name: Numerical probes
     runs-on: ubuntu-latest
     steps:
+      # Full history, not the default depth-1 clone. `edge_rigidity_probe.py`'s R7-RBR guard pins
+      # act 9's chronology control by asking git whether the execution work descends from the
+      # commit that merged its preregistration, and that check is deliberately FAIL-CLOSED: a
+      # shallow clone that cannot see the base commit must fail the guard rather than skip it,
+      # since a control that silently passes where it cannot be evaluated is not a control. So the
+      # history has to be here for the guard to be answerable at all.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:

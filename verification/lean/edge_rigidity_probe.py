@@ -9779,9 +9779,19 @@ def _rbr_base_ancestry():
         r = subprocess.run(
             ['git', 'merge-base', '--is-ancestor', _RBR_BASE, 'HEAD'],
             cwd=os.path.dirname(VERIFICATION), capture_output=True, timeout=60)
-    except Exception:
+    except Exception as exc:
+        print('    R7-RBR ancestry: git unavailable (%s); the check FAILS rather than skips'
+              % type(exc).__name__)
         return False
-    return r.returncode == 0
+    if r.returncode != 0:
+        # The commonest cause is a SHALLOW clone that cannot see the base commit at all, which is
+        # why CI checks this repository out with `fetch-depth: 0` for the probes job. Say so, so a
+        # future failure here is self-diagnosing instead of a bare tag.
+        print('    R7-RBR ancestry: %s is not an ancestor of HEAD, or is absent from this clone '
+              '(a shallow checkout cannot see it -- CI uses fetch-depth: 0 for this reason)'
+              % _RBR_BASE[:12])
+        return False
+    return True
 
 
 def _rbr_outcome(t=None):
