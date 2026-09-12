@@ -1,9 +1,12 @@
 # Track B act 10 — anchor robustness (`P0b`): CONTROL PLANE
 
 **This file is a preregistration and nothing else.** It carries no execution, no Lean, no probe
-guard, no roadmap edit, no alternative anchor, no anchor-specific object of any kind, and no outcome
-label. It is merged before any execution begins, and the execution PR descends from the commit that
-merges it.
+guard, no roadmap edit, and no outcome label. It **does** carry, deliberately, the frozen
+`a₀′ = 1` derivation and the `AB0` prediction it supports — that is what a preregistration is for,
+and recording them here before merge is what makes them auditable rather than retrospective. Every
+*execution-specific* anchor object is excluded. It is merged before any execution begins, and the
+execution PR descends from the commit that merges it, under the strengthened ancestry certificate
+frozen below.
 
 ## Start state
 
@@ -180,18 +183,38 @@ The ordering discipline is act 9's, and the execution **must reuse act 9's corre
 mechanism** rather than re-derive one. Act 9's took two review rounds to get right, and both defects
 would have passed silently under a weaker design; repeating them is avoidable and is hereby avoided:
 
-1. **This preregistration blob is merged into `main` before any anchor-specific definition,
-   implementation, computation or proof enters the repository tree.**
+1. **This preregistration blob is merged into `main` before any execution-specific anchor object
+   enters the repository tree** — any Lean definition or proof about an alternative anchor, any
+   search, any probe guard, any result artifact. **The single permitted exception is the analysis
+   recorded inside this control-plane blob itself**: the frozen `a₀′ = 1` derivation and the `AB0`
+   prediction of the section above are part of the freeze, are merged *as* the freeze, and are
+   exactly what a preregistration is for. What the ordering discipline forbids before merge is
+   execution material beyond this file, not this file's own recorded expectation.
 2. **The execution PR's base must be exactly the merge commit of this control-plane PR**, and its
    first commit must descend from it.
-3. **The execution guard pins both**: this file's blob SHA by content, and the base ancestry by
-   `git merge-base --is-ancestor`, **fail-closed**.
+3. **The execution guard pins both**: this file's blob SHA by content, and the execution ancestry,
+   **fail-closed**.
 4. **The ancestry question is asked of the real execution head.** In a `pull_request` Actions run the
    guard resolves `pull_request.head.sha` from the event payload — **never** the synthetic merge
    commit `refs/pull/<n>/merge`, whose parents include the PR base, which would make the check
    vacuous. An unresolvable head **fails closed**, with no fallback.
-5. **The guard recovers whatever history it needs itself** — deepening a shallow clone, or fetching an
-   absent commit — and **fails** if recovery fails. Recovery never substitutes for the check.
+5. **The ancestry check must exclude pre-freeze side history, not merely certify the final head.**
+   Head-only ancestry is too weak for the claim it is asked to support. Let `B` be the merge commit
+   of this control-plane PR and `H` the real execution head resolved by clause 4. Requiring only
+   `git merge-base --is-ancestor B H` admits this counterexample: an anchor-specific commit `E` is
+   made **before** `B` exists, and is later merged together with `B` into `H`. Then `B` is an
+   ancestor of `H` and a head-only guard passes, while `E` is reachable from `H` and never descended
+   from `B` — execution material that entered history before the freeze, certified clean. The guard
+   must therefore require, fail-closed:
+   - `B` is an ancestor of `H`; **and**
+   - **every** commit in `git rev-list H ^B` is itself a descendant of `B`.
+
+   Equivalent formulations are permitted, but the property certified must be the strong one: **no
+   commit reachable from the execution head lies outside `B`'s descendants.** A guard that checks
+   only the head does not discharge this clause.
+6. **The guard recovers whatever history it needs itself** — deepening a shallow clone, or fetching an
+   absent commit — and **fails** if recovery fails. Recovery never substitutes for the check, and it
+   applies to `B`, to `H`, and to the commits enumerated under clause 5 alike.
 
 **The claim this supports is scoped to the repository record**: git certifies what entered the tree
 and when, not what anyone thought, drafted outside the tree, or worked out privately. As in act 9,
@@ -234,11 +257,19 @@ inside the proof that needs it, per act 3's lesson and acts 7/9's practice.
 4. **`AB0` asserted rather than proved.** The domain is finite; exhaustion is available; a failed
    search is not the statement.
 5. **Merging the two witnesses.** They are reported separately, as in acts 7 and 9.
+6. **A chronology guard that certifies only the head.** Head-only ancestry passes over pre-freeze
+   side history merged in later, as the chronology section's counterexample shows. This is the third
+   distinct way this family of guard has been found too weak — after act 9's shallow-clone gap and
+   its synthetic-merge-commit gap — and each was invisible from a green check. The guard must
+   certify clause 5's strong property, and a green result that only establishes head ancestry does
+   not discharge it.
 
 ## Non-doings
 
-Do not: run any part of the execution before this file is merged; introduce an alternative anchor, or
-any definition, computation or proof about one, before then; change any compared dilation, the
+Do not: run any part of the execution before this file is merged; introduce any execution-specific
+object about an alternative anchor — a Lean definition, a proof, a search, a probe guard or a result
+artifact — before then (**the frozen derivation and prediction recorded inside this blob are the
+permitted exception, per the chronology section's clause 1**); change any compared dilation, the
 ancilla, or the visible pair; enumerate "reasonable" anchors instead of cutting the family by the
 property; assign `AB1` or `AB2` without an exhibited second jointly reproducing anchor; assign `AB0`
 by search rather than by theorem; claim `P0` closed; claim the anchor-axis dependence resolved; revise
@@ -255,8 +286,9 @@ axis; source anything across to Track I; edit manuscripts.
   frozen and merged before the work they affect.
 - **This PR carries this file alone.** No Lean, no probe guard, no roadmap edit, no census edit.
 - **Then exactly one execution PR**, based on the merge commit of this one, carrying the Lean, the
-  result note, the probe guard (pinning this blob and the base ancestry, by act 9's corrected
-  mechanism), the `ROADMAP` `P0` propagation, and the census entry.
+  result note, the probe guard (pinning this blob, resolving the real PR head by act 9's corrected
+  mechanism, and certifying the **side-history-excluding** ancestry of the chronology section's
+  clause 5), the `ROADMAP` `P0` propagation, and the census entry.
 - Exact-head review after execution is complete, with full CI green.
 - **No merge without an explicit owner direction after exact-head review, naming the exact head
   SHA.**
@@ -275,6 +307,8 @@ axis; source anything across to Track I; edit manuscripts.
    anchor-axis dependence **not** resolved but reclassified, act 7's caveat **unchanged**, and the
    upstream anchor choice named as the live remainder;
 6. `D3` restated as separately open and untouched;
-7. the chronology control, with what it does and does not certify;
+7. the chronology control, naming the property actually certified — **no commit reachable from the
+   execution head lies outside the control-plane merge's descendants** — and what it does not
+   certify (anything outside the repository record);
 8. the definition count against the four-slot budget, with conditional slots marked fired or unused;
 9. the axiom report, one line per named result.
