@@ -237,20 +237,27 @@ Decided from the quotations recorded above and no others. The outcome menu:
 - **SPLIT** — different coordinates assert different readings, each listed with its coordinate;
 - **UNDECIDED** — the text does not fix a reading at a coordinate; the obstruction is quoted.
 
-**Prediction: SPLIT**, as follows. `Substratum.md:102`, first sentence, asserts **(a)** literally —
+**Prediction: (a) at the definition, with (b) as its stated consequence; UNDECIDED at the
+use-sites; (d) at `SM.md:100`.** `Substratum.md:102`, first sentence, asserts **(a)** literally —
 "spatially-varying … preserve … pointwise" is `A6Inv` word for word — and its second sentence
-glosses the assumption's content as **(b)**, "the resulting global commutant symmetry", while
-placing **(c)** outside the assumption, "a derivation step … not part of the assumption itself".
-`Substratum.md:104`, `Substratum.md:162` and `SM.md:110` use A6 as the premise that *promotes* the
-global symmetry to local gauge invariance — reading **(c)**, the promotion being what A6 supplies
-rather than what is derived from it. `SM.md:100` is **(d)** under the same name. `Substratum.md:220`
-fixes nothing. Strength: **high** — the quotations are in hand and the determination consists of
-matching them to the frozen definitions.
+states **(b)**, "the resulting global commutant symmetry", as the consequence, while placing the
+promotion to local gauge invariance outside the assumption: "a derivation step … not part of the
+assumption itself". The definition is unusually explicit, and it is the authoritative coordinate.
+The use-sites `Substratum.md:104`, `Substratum.md:162` and `SM.md:110`, which say A6 "promotes"
+the global symmetry to local gauge invariance, admit **two readings from the quoted text alone**:
+shorthand for the derivation the definition names — A6 being the premise *from which* the
+promotion is derived, together with further premises — or a genuinely covariant reading **(c)**,
+in which the promotion is what A6 itself supplies. Both are compatible with the sentences as
+written, so the text does not fix a reading there, and `D1` reports the use-sites **UNDECIDED**
+with the obstruction quoted — **not** as a contradiction with the definition. `SM.md:100` is
+**(d)** under the same name and is a separate object. `Substratum.md:220` fixes nothing. Strength:
+**high** for the definition and for `SM.md:100`; the use-site label is UNDECIDED *by prediction*,
+which makes the audit neutral rather than a preregistered textual conflict.
 
-**What would falsify it:** a reading of the three use-sites under which "promotes" names a
-derivation from `A6-inv` or `A6-glob` together with some further premise, rather than A6 as the
-promoting premise; if the execution finds that reading supportable from the quoted text, `D1` is
-reported as **(a)/(b) at the definition, UNDECIDED at the use-sites**, not as SPLIT.
+**What would falsify it:** a use-site whose quoted text excludes the shorthand reading — then that
+coordinate is reported **(c)** and the outcome becomes SPLIT, listed by coordinate; or one whose
+text excludes **(c)** — then it is reported **(a)**. Either way the definition's label stands on
+its own sentence and is not revised by the use-sites.
 
 **What `D1` does not decide:** which reading the programme *adopts*. That is an owner decision,
 made after `D1`, `D3` and `D4` are reported together, and it is not this round's.
@@ -333,7 +340,7 @@ A6; under (c) A6 is an identity on it. `D4` does not choose among these.
 
 | target | type | prediction | strength | what would falsify it |
 | --- | --- | --- | --- | --- |
-| `D1` | P | SPLIT: (a) literal and (b) glossed at `Substratum.md:102`; (c) at `Substratum.md:104`, `:162`, `SM.md:110`; (d) at `SM.md:100` | high | the use-sites read as derivation-from-A6 rather than A6-as-premise; then (a)/(b) at the definition, UNDECIDED at the use-sites |
+| `D1` | P | (a) at `Substratum.md:102` with (b) as its stated consequence; UNDECIDED at `Substratum.md:104`, `:162`, `SM.md:110` (shorthand-for-the-derivation versus (c), not fixed by the text); (d) at `SM.md:100` | high for the definition and `SM.md:100`; UNDECIDED by prediction at the use-sites | a use-site whose text excludes the shorthand reading (then (c) there, and SPLIT) or excludes (c) (then (a) there) |
 | `D2-i` | level 2 | `A6-inv` fails on the degenerate form at `q = 3` | full | nothing plausible; the equation is written above |
 | `D2-ii` | level 2 | `A6-glob` holds for every `waveSubstratum` | high | only the additive-to-linear step for `AddAut (ZMod q)` |
 | `D2-iii` | P | the degenerate form is not the axiom; A6 for the wave substratum stays a gap at manuscript level | high | a manuscript coordinate assigning site-dependent alphabet rescaling to A6 rather than to A5 |
@@ -361,9 +368,10 @@ target has a fallback**: each is level 2, or type P, or UNDECIDED.
   changes only by an owner decision recorded in the execution PR's propagation, not by this file.
 - **`A6-sd` is not formalized**, and nothing is said about H-Bell, preparation-indexed adjacency,
   or the state-dependent Einstein construction.
-- **No manuscript is edited by this round.** The conflict `D1` is predicted to find between the
-  definition and the use-sites is reported, not repaired; whether and how to repair it is an owner
-  call for a propagation round.
+- **No manuscript is edited by this round.** No textual conflict is preregistered: the definition
+  asserts `A6-inv`, and the use-sites are predicted UNDECIDED between shorthand for its derivation
+  and a covariant reading. Whatever `D1` reports at the use-sites is reported, not repaired; whether
+  and how to sharpen the wording is an owner call for a propagation round.
 - **Nothing here decides whether A4 and A6 overlap** (`Substratum.md:104`) or whether A6 is
   independent of A1–A5.
 
