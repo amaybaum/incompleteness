@@ -11137,6 +11137,465 @@ check('R7-CLG', ok_clg,
 
 
 
+# ---- R7-TSG: Track B act 12 -- the two-sided invisible gauge and the fibre-Gram classification ----
+#
+# A classification round, not a fork: every target was predicted positive, so the hazards here are
+# not "did it land" but "what is it read as". The guard spends its weight on the readings the
+# control plane fixed in advance -- joint maximality NOT claimed, RO1 read as right-only
+# insufficiency and not as a statement about every gauge or connection, the Gram data a coordinate
+# and not physics, per-slice and not cross-time, overlap not memory, SH1-C2 at most one and not
+# existence -- and on the two strengths that could silently move: SH1 sufficiency reported at
+# level 2 only because it was reached there, and LG1 (2) reported with no hypothesis because none
+# was needed.
+_TSG = open(_artifact('programmes/oi-qm/track-b/act-12-two-sided-gauge/result.md'),
+            encoding='utf-8').read()
+_TSG1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _TSG).split())
+_TSGLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'TwoSidedGauge.lean'), encoding='utf-8').read().split())
+_TSGDIR = 'programmes/oi-qm/track-b/act-12-two-sided-gauge/'
+# The mandated execution base: the merge commit of act 12's control-plane PR #591.
+_TSG_BASE = 'b821d69ae86f7d76020383735b3161e77c064ccc'
+
+
+def _tsg_git(*args, **kw):
+    kw.setdefault('tag', 'R7-TSG')
+    return _rbr_git(*args, **kw)
+
+
+def _tsg_ensure_present(rev, pr_number=None):
+    return _rbr_ensure_present(rev, pr_number=pr_number, tag='R7-TSG')
+
+
+def _tsg_target_commit(env=None):
+    return _rbr_target_commit(env=env, tag='R7-TSG')
+
+
+def _tsg_freeze_pin(read=_bb_read):
+    """T1 -- act 12's preregistration is byte-identical to the blob merged by PR #591."""
+    return _bb_blob(_TSGDIR + 'preregistration.md', read) == (
+        '5850238f290f0424ff677ff6d5cc2c039b1f58c2')
+
+
+def _tsg_execution_ancestry():
+    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused verbatim through act 11's copy: the head-only check is
+    insufficient because a commit made before the freeze and merged in alongside it leaves the head
+    descended from the freeze while itself not being."""
+    target, label, num = _tsg_target_commit()
+    if target is None:
+        return False
+    if not _tsg_ensure_present(_TSG_BASE):
+        return False
+    if not _tsg_ensure_present(target, pr_number=num):
+        return False
+    r = _tsg_git('merge-base', '--is-ancestor', _TSG_BASE, target)
+    if r is None:
+        return False
+    if r.returncode != 0:
+        print('    R7-TSG ancestry: %s is present but is NOT an ancestor of %s'
+              % (_TSG_BASE[:12], label))
+        return False
+    listed = _tsg_git('rev-list', '%s' % target, '^%s' % _TSG_BASE)
+    if listed is None or listed.returncode != 0:
+        print('    R7-TSG ancestry: could not enumerate the execution-only history; failing closed')
+        return False
+    revs = listed.stdout.decode('utf-8', 'replace').split()
+    for rev in revs:
+        if not _tsg_ensure_present(rev, pr_number=num):
+            return False
+        step = _tsg_git('merge-base', '--is-ancestor', _TSG_BASE, rev)
+        if step is None:
+            return False
+        if step.returncode != 0:
+            print('    R7-TSG ancestry: %s is reachable from %s but does NOT descend from %s -- '
+                  'pre-freeze side history' % (rev[:12], label, _TSG_BASE[:12]))
+            return False
+    print('    R7-TSG ancestry: certified %s and all %d commit(s) of the execution-only history '
+          'descend from %s' % (label, len(revs), _TSG_BASE[:12]))
+    return True
+
+
+def _tsg_all_landed(t=None):
+    """T3 -- all five targets landed at level 2 and SH1 sufficiency was reached at kernel level."""
+    t = _TSG1 if t is None else t
+    return ('**All five targets landed positively, at evidence level 2, and `SH1` sufficiency was '
+            'reached at kernel level — the frozen level-3 fallback was not used.**' in t
+            and 'Nothing else moved from its predicted strength.' in t)
+
+
+def _tsg_lg1_no_hypothesis(t=None):
+    """T4 -- LG1 (2) maximality reported with NO hypothesis, and with the |V| = 1 non-exception."""
+    t = _TSG1 if t is None else t
+    return ('**Maximality under uniformity, with NO hypothesis beyond unitarity.**' in t
+            and '**One family of test dilations does all the work** and no search over unitaries '
+                'is needed' in t
+            and '**At `|V| = 1` there is no exception**' in t)
+
+
+def _tsg_lg1_bounded(t=None):
+    """T5 -- LG1 is maximality among uniform LEFT actions considered alone, nothing more."""
+    t = _TSG1 if t is None else t
+    return ('maximal *among uniform left actions considered alone*' in t
+            and '**It does not say the two-sided action is jointly maximal**' in t
+            and 'non-uniform, family-specific invisible freedoms are neither asserted nor excluded'
+                in t)
+
+
+def _tsg_joint_maximality_not_claimed(t=None):
+    """T6 -- hazard 5: joint maximality neither asserted nor excluded, and the phrase is the frozen one."""
+    t = _TSG1 if t is None else t
+    return ('**Joint maximality is neither asserted nor excluded**' in t
+            and 'non-invisible effects of the two factors could cancel' in t
+            and '**the two-sided uniform gauge generated by the separately maximal factors**' in t
+            and 'never "the maximal uniform two-sided action"' in t
+            and '**It does not prove joint maximality of the two-sided action**' in t)
+
+
+def _tsg_ro1_reading(t=None):
+    """T7 -- RO1 read as right-only insufficiency carried by LEFT moves; the inflation named forbidden."""
+    t = _TSG1 if t is None else t
+    return ('quotienting by the maximal uniform **right** weak gauge is insufficient to determine '
+            'the relative evolution' in t
+            and '**It is not** a statement about every gauge or connection description' in t
+            and '**The relating element in each instance is a left move**' in t
+            and 'the hypothesis is the first conjunct, in the form `GL1w`’s maximality takes it'
+                in t.replace("'", '’'))
+
+
+def _tsg_ro1_kernel(t=None):
+    """T8 -- RO1's statement carries |V| >= 2, the non-relatedness, the relative difference AND the
+    left move, as conjuncts of ONE theorem."""
+    t = _TSGLEAN if t is None else t
+    return ('theorem ro1_right_only_insufficient' in t
+            and "(∀ j : Fin 2, ∃ j' : Fin 2, j' ≠ j) ∧ CoherentLift (0 : Fin 2) Γ U ∧ CoherentLift "
+                "(0 : Fin 2) Γ U' ∧ ¬ GaugeRelated (WeakAnchorStabilizer (0 : Fin 2)) U U' ∧ (∃ t s : "
+                "ℕ, U' t * (U' s)ᴴ ≠ U t * (U s)ᴴ) ∧ (∀ t, LeftFibreGroup (L t)) ∧ (∀ t, U' t = L t * "
+                "U t)" in t)
+
+
+def _tsg_tg2_both_directions(t=None):
+    """T9 -- TG2 in both directions, the Gram-isometry lemma for ARBITRARY families, the converse on
+    act 11's orbit theorem, and the lifted form per slice."""
+    t = _TSG1 if t is None else t
+    return ('**It is stated for arbitrary families**' in t
+            and '**The converse rides on act 11’s orbit theorem and one lemma**'
+                in t.replace("'", '’')
+            and 'two `ℕ`-indexed lifts are two-sided related iff their fibre-Gram data are '
+                '`∼_D`-equivalent at every time. **Per slice only.**' in t)
+
+
+def _tsg_tg3_witness(t=None):
+    """T10 -- the Hadamard witness with the cross-ratio in the kernel, |A| = 1 the strongest case,
+    and both act 11 pairs recorded as controls INSIDE single two-sided orbits."""
+    t = _TSG1 if t is None else t
+    return ('**The cross-ratio is computed in the kernel.**' in t
+            and '`C(H(1)) = 1` and `C(H(i)) = i`' in t
+            and '**`|A| = 1` is the strongest case, not a degenerate one**' in t
+            and '**The controls: both act 11 pairs lie inside single two-sided orbits**' in t
+            and 'Neither is a `TG3` witness' in t)
+
+
+def _tsg_sh1_level(t=None):
+    """T11 -- SH1 sufficiency at level 2 with the fallback recorded UNUSED and the rank constraint
+    named load-bearing."""
+    t = _TSG1 if t is None else t
+    return ('**Sufficiency, at level 2 — the frozen fallback is NOT used.**' in t
+            and '**This is where the rank constraint is consumed**' in t
+            and 'sufficiency is false without it' in t)
+
+
+def _tsg_shape_sentence(t=None):
+    """T12 -- the shape sentence asserted at full strength and per slice."""
+    t = _TSG1 if t is None else t
+    return ('**Together, the sentence the round is for, asserted at full strength:**' in t
+            and '**The visible law is exactly the diagonal of the fibre-Gram data. The residual lift '
+                'freedom, after the two-sided uniform gauge `𝒢_L × 𝒢ʷ_{a₀}`, is exactly the '
+                'off-diagonal fibre-Gram data modulo the anchored phases — per time slice.**' in t)
+
+
+def _tsg_c1_bounded(t=None):
+    """T13 -- SH1-C1 one-way, from positivity alone, no converse, no memory claim."""
+    t = _TSG1 if t is None else t
+    return ('proved from positivity alone' in t
+            and '**No converse is claimed**' in t
+            and '**no memory claim is made**: a memoryless Markov slice can have overlap' in t
+            and '**Overlap is not memory**' in t)
+
+
+def _tsg_c2_bounded(t=None):
+    """T14 -- SH1-C2 stated as AT MOST ONE, never existence, with the orbit consequence tied to the
+    TG2 converse."""
+    t = _TSG1 if t is None else t
+    return ('**Stated as "at most one", never as existence**' in t
+            and 'the rank bound can then obstruct realization at small `|A|`' in t
+            and '**The orbit consequence is reported together with the `TG2` converse, which '
+                'landed**' in t)
+
+
+def _tsg_not_licensed(t=None):
+    """T15 -- the frozen non-licences: no inequivalence, a coordinate not physics, per slice, no
+    selection principle, no connection claim either way, P0 not closed and TWO-PART.
+
+    Exact-head review found the one-part frontier sentence incomplete: even the full Gram
+    trajectory does not fix the relative evolution, since act 11's GL2 gauge fixes every anchored
+    column and hence every fibre-Gram matrix while moving the relative object. The note must carry
+    both parts."""
+    t = _TSG1 if t is None else t
+    return ('**Nothing here says OI and QM are inequivalent.**' in t
+            and '**The fibre-Gram data is a coordinate on the lift space, not a physical '
+                'quantity.**' in t
+            and '**Nothing here is a cross-time statement.**' in t
+            and '**No selection principle is named, endorsed or excluded**' in t
+            and 'connections or gauge fixings **in either direction**' in t
+            and '**`P0` is not closed, and it is two-part.**' in t
+            and '**Act 11’s `GL2` shows the second is not fixed even by the full Gram trajectory**'
+                in t.replace("'", '’')
+            and 'No connection, gauge-fixing mechanism, or selection principle is asserted.' in t)
+
+
+def _tsg_gi2_rereading(t=None):
+    """T16 -- GI2 re-read as a left move with identical Gram data; explained, not revised."""
+    t = _TSG1 if t is None else t
+    return ('Act 11’s `GI2` pair is a **left in-fibre move**' in t.replace("'", '’')
+            and '**`GI2` is not revised; it is explained.**' in t
+            and 'Act 11’s `GL1w` stands as stated' in t.replace("'", '’'))
+
+
+def _tsg_budget(t=None):
+    """T17 -- five of six slots, slot 6 unused with its reason, no seventh, act 11's reused."""
+    t = _TSG1 if t is None else t
+    return ('## Definition budget: **FIVE of the frozen six slots fire**' in t
+            and 'Slot 6 did not fire' in t
+            and '**No seventh definition was introduced**' in t
+            and 'Act 11’s four definitions are reused, not redefined.' in t.replace("'", '’'))
+
+
+def _tsg_no_manuscript(t=None):
+    """T18 -- no manuscript edit, no selection principle, no Track I, D5 left NOT CERTIFIED."""
+    t = _TSG1 if t is None else t
+    return ('**It touches no manuscript.**' in t
+            and '**It claims no candidate-selection principle**' in t
+            and '**It says nothing about Track I**' in t
+            and '**Act 7 layer 2’s `D5` chronological-ordering control stands NOT '
+                'CERTIFIED.**' in t.replace("'", '’'))
+
+
+def _tsg_lean_defs(t=None):
+    """T19 -- exactly the five budget definitions are top-level `def`s in the module, and the
+    module's own docstring carries the frozen non-licences."""
+    t = _TSGLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['LeftFibreGroup', 'TwoSidedRelated', 'FibreGram', 'GramPhaseEquiv',
+                     'RealizableGram']
+            and '**Joint maximality is neither asserted nor excluded**' in t
+            and '**Overlap is not memory.**' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+ok_tsg = True
+ok_tsg &= _tsg_freeze_pin()
+ok_tsg &= _tsg_execution_ancestry()
+ok_tsg &= _tsg_all_landed()
+ok_tsg &= _tsg_lg1_no_hypothesis()
+ok_tsg &= _tsg_lg1_bounded()
+ok_tsg &= _tsg_joint_maximality_not_claimed()
+ok_tsg &= _tsg_ro1_reading()
+ok_tsg &= _tsg_ro1_kernel()
+ok_tsg &= _tsg_tg2_both_directions()
+ok_tsg &= _tsg_tg3_witness()
+ok_tsg &= _tsg_sh1_level()
+ok_tsg &= _tsg_shape_sentence()
+ok_tsg &= _tsg_c1_bounded()
+ok_tsg &= _tsg_c2_bounded()
+ok_tsg &= _tsg_not_licensed()
+ok_tsg &= _tsg_gi2_rereading()
+ok_tsg &= _tsg_budget()
+ok_tsg &= _tsg_no_manuscript()
+ok_tsg &= _tsg_lean_defs()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# SH1 sufficiency reported at level 2 with the fallback quietly used -- hazard 11, written back
+_tsg_m1 = _TSG1.replace(
+    '**All five targets landed positively, at evidence level 2, and `SH1` sufficiency was '
+    'reached at kernel level — the frozen level-3 fallback was not used.**',
+    'All five targets landed; SH1 sufficiency is certified numerically on the stated family.')
+ok_tsg &= _tsg_m1 != _TSG1 and not _tsg_all_landed(_tsg_m1)
+
+# LG1 (2) reported with a |V| >= 2 hypothesis it does not need, or as a search
+_tsg_m2 = _TSG1.replace('**Maximality under uniformity, with NO hypothesis beyond unitarity.**',
+                        'Maximality under uniformity, for |V| >= 2 as in GL1w.')
+ok_tsg &= _tsg_m2 != _TSG1 and not _tsg_lg1_no_hypothesis(_tsg_m2)
+
+# THE JOINT-MAXIMALITY INFERENCE THE CONTROL PLANE WAS CORRECTED FOR, written back
+_tsg_m3 = _TSG1.replace('**It does not say the two-sided action is jointly maximal**',
+                        'So the two-sided action is the maximal uniform invisible action')
+ok_tsg &= _tsg_m3 != _TSG1 and not _tsg_lg1_bounded(_tsg_m3)
+
+_tsg_m4 = _TSG1.replace('**Joint maximality is neither asserted nor excluded**',
+                        '**Joint maximality follows from the two separate maximality theorems**')
+ok_tsg &= _tsg_m4 != _TSG1 and not _tsg_joint_maximality_not_claimed(_tsg_m4)
+
+_tsg_m5 = _TSG1.replace(
+    '**the two-sided uniform gauge generated by the separately maximal factors**',
+    '**the maximal uniform two-sided action**')
+ok_tsg &= _tsg_m5 != _TSG1 and not _tsg_joint_maximality_not_claimed(_tsg_m5)
+
+# RO1 re-inflated to "gauge fixing cannot suffice" -- hazard 4, exactly as after PR #589's review
+_tsg_m6 = _TSG1.replace(
+    '**It is not** a statement about every gauge or connection description',
+    'So no gauge fixing and no connection can determine the relative evolution')
+ok_tsg &= _tsg_m6 != _TSG1 and not _tsg_ro1_reading(_tsg_m6)
+
+# the relating element's LEFT character dropped from the reading
+_tsg_m7 = _TSG1.replace('**The relating element in each instance is a left move**',
+                        'The relating element is outside the weak class')
+ok_tsg &= _tsg_m7 != _TSG1 and not _tsg_ro1_reading(_tsg_m7)
+
+# the |V| >= 2 conjunct removed from RO1's THEOREM, leaving a formally valid but mis-scoped witness
+_tsg_m8 = _TSGLEAN.replace("(∀ j : Fin 2, ∃ j' : Fin 2, j' ≠ j) ∧ CoherentLift (0 : Fin 2) Γ U ∧",
+                           "CoherentLift (0 : Fin 2) Γ U ∧")
+ok_tsg &= _tsg_m8 != _TSGLEAN and not _tsg_ro1_kernel(_tsg_m8)
+
+# the left move dropped from RO1's THEOREM, so the note's reading would no longer be in the kernel
+_tsg_m9 = _TSGLEAN.replace(" ∧ (∀ t, LeftFibreGroup (L t)) ∧ (∀ t, U' t = L t * U t)", "")
+ok_tsg &= _tsg_m9 != _TSGLEAN and not _tsg_ro1_kernel(_tsg_m9)
+
+# the Gram-isometry lemma restricted to spanning families -- hazard 10
+_tsg_m10 = _TSG1.replace('**It is stated for arbitrary families**',
+                         'It is stated for linearly independent families, which suffices')
+ok_tsg &= _tsg_m10 != _TSG1 and not _tsg_tg2_both_directions(_tsg_m10)
+
+# the lifted form promoted from per-slice to a cross-time statement -- hazard 3
+_tsg_m11 = _TSG1.replace('**Per slice only.**', 'This couples the Gram data across time.')
+ok_tsg &= _tsg_m11 != _TSG1 and not _tsg_tg2_both_directions(_tsg_m11)
+
+# GI2's pair promoted to a TG3 witness -- hazard 7
+_tsg_m12 = _TSG1.replace('Neither is a `TG3` witness', 'Both are `TG3` witnesses in their own right')
+ok_tsg &= _tsg_m12 != _TSG1 and not _tsg_tg3_witness(_tsg_m12)
+
+# |A| = 1 read as a limitation -- hazard 8
+_tsg_m13 = _TSG1.replace('**`|A| = 1` is the strongest case, not a degenerate one**',
+                         'The `|A| = 1` case is degenerate and the witness should be read with care')
+ok_tsg &= _tsg_m13 != _TSG1 and not _tsg_tg3_witness(_tsg_m13)
+
+# the rank constraint dropped from SH1's account -- hazard 9
+_tsg_m14 = _TSG1.replace('**This is where the rank constraint is consumed**',
+                         'The rank bound is a convenience and plays no role')
+ok_tsg &= _tsg_m14 != _TSG1 and not _tsg_sh1_level(_tsg_m14)
+
+# the shape sentence asserted without the per-slice qualifier
+_tsg_m15 = _TSG1.replace(
+    'off-diagonal fibre-Gram data modulo the anchored phases — per time slice.**',
+    'off-diagonal fibre-Gram data modulo the anchored phases, across all times.**')
+ok_tsg &= _tsg_m15 != _TSG1 and not _tsg_shape_sentence(_tsg_m15)
+
+# SH1-C1 given a converse
+_tsg_m16 = _TSG1.replace('**No converse is claimed**',
+                         '**And conversely every overlap pair carries Gram freedom**')
+ok_tsg &= _tsg_m16 != _TSG1 and not _tsg_c1_bounded(_tsg_m16)
+
+# overlap promoted to memory -- hazard 13
+_tsg_m17 = _TSG1.replace('**Overlap is not memory**', 'Overlap is the kernel signature of memory')
+ok_tsg &= _tsg_m17 != _TSG1 and not _tsg_c1_bounded(_tsg_m17)
+
+# SH1-C2 promoted to existence
+_tsg_m18 = _TSG1.replace('**Stated as "at most one", never as existence**',
+                         'So every deterministic slice has exactly one realizable Gram tuple')
+ok_tsg &= _tsg_m18 != _TSG1 and not _tsg_c2_bounded(_tsg_m18)
+
+# the Gram data promoted to physics -- hazard 2
+_tsg_m19 = _TSG1.replace(
+    '**The fibre-Gram data is a coordinate on the lift space, not a physical quantity.**',
+    'The fibre-Gram data is the physical content the visible law leaves free.')
+ok_tsg &= _tsg_m19 != _TSG1 and not _tsg_not_licensed(_tsg_m19)
+
+# a selection principle named -- hazard 12
+_tsg_m20 = _TSG1.replace('**No selection principle is named, endorsed or excluded**',
+                         'The selection principle is minimality of the Gram trajectory')
+ok_tsg &= _tsg_m20 != _TSG1 and not _tsg_not_licensed(_tsg_m20)
+
+# P0 declared closed by a classification
+_tsg_m21 = _TSG1.replace('**`P0` is not closed, and it is two-part.**',
+                         '**`P0` is closed by this classification.**')
+ok_tsg &= _tsg_m21 != _TSG1 and not _tsg_not_licensed(_tsg_m21)
+
+# THE EXACT-HEAD REVIEW BLOCKER: the frontier collapsed to one part, as if the Gram trajectory
+# alone fixed the relative evolution -- GL2 refutes that
+_tsg_m26 = _TSG1.replace(
+    "**Act 11's `GL2` shows the second is not fixed even by the full Gram trajectory**",
+    'So the Gram trajectory across time is all that remains to be selected')
+ok_tsg &= _tsg_m26 != _TSG1 and not _tsg_not_licensed(_tsg_m26)
+
+# a selection mechanism asserted alongside the two-part statement
+_tsg_m27 = _TSG1.replace('No connection, gauge-fixing mechanism, or selection principle is asserted.',
+                         'A connection on the orbit bundle supplies the threading.')
+ok_tsg &= _tsg_m27 != _TSG1 and not _tsg_not_licensed(_tsg_m27)
+
+# GI2 "revised" rather than explained
+_tsg_m22 = _TSG1.replace('**`GI2` is not revised; it is explained.**',
+                         '**`GI2` is superseded and its label is retired.**')
+ok_tsg &= _tsg_m22 != _TSG1 and not _tsg_gi2_rereading(_tsg_m22)
+
+# a seventh definition slipped in
+_tsg_m23 = _TSG1.replace('**No seventh definition was introduced**',
+                         'A seventh definition was convenient and was added')
+ok_tsg &= _tsg_m23 != _TSG1 and not _tsg_budget(_tsg_m23)
+
+# a manuscript propagation the round is forbidden to make
+_tsg_m24 = _TSG1.replace('**It touches no manuscript.**', 'The manuscripts carry the classification.')
+ok_tsg &= _tsg_m24 != _TSG1 and not _tsg_no_manuscript(_tsg_m24)
+
+# a sixth `def` in the module, over the frozen budget
+_tsg_m25 = _TSGLEAN.replace('def RealizableGram', 'def HadamardFamily (z : ℂ) := z def RealizableGram')
+ok_tsg &= _tsg_m25 != _TSGLEAN and not _tsg_lean_defs(_tsg_m25)
+
+# T1's control runs THROUGH _tsg_freeze_pin, so sabotaging that predicate fails the guard.
+def _tsg_drift(path):
+    """One byte appended to act 12's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-12-two-sided-gauge/preregistration.md') else b'')
+
+
+ok_tsg &= _tsg_drift(_TSGDIR + 'preregistration.md') != _bb_read(_TSGDIR + 'preregistration.md')
+ok_tsg &= not _tsg_freeze_pin(_tsg_drift)
+
+check('R7-TSG', ok_tsg,
+      'Track B act 12 guard: a CLASSIFICATION round in which every target was predicted positive, so what can go '
+      'wrong is the READING, not the landing. The freeze fixed those readings in advance and the guard checks '
+      'each in terms. Joint maximality of the two-sided action is checked NEITHER ASSERTED NOR EXCLUDED, with the '
+      'frozen phrase "the two-sided uniform gauge generated by the separately maximal factors" present and the '
+      'inference from two separate maximality theorems to a joint one -- the correction the control plane took -- '
+      'mutation-tested in three forms. LG1 is checked reported as maximality among uniform LEFT actions considered '
+      'alone, with NO hypothesis needed and the |V| = 1 non-exception stated, since a hypothesis carried over from '
+      'GL1w would understate a theorem that does not need it. RO1 is checked read EXACTLY as right-only '
+      'insufficiency carried by LEFT moves, never as "no gauge fixing or connection can suffice" -- the inflation '
+      'PR #589\'s review struck -- and the |V| >= 2 conjunct, the non-relatedness, the relative difference AND the '
+      'left move are checked to be conjuncts of ONE kernel theorem, with the conjunct removals mutation-tested. TG2 '
+      'is checked in both directions with the Gram-isometry lemma stated for ARBITRARY families (dependent anchored '
+      'components occur whenever a visible entry vanishes) and the lifted form PER SLICE, the spanning restriction '
+      'and the cross-time promotion both mutation-tested. TG3 is checked to compute the cross-ratio in the kernel, '
+      'to call |A| = 1 the strongest case, and to record GI2\'s and GL2\'s pairs as controls INSIDE single two-sided '
+      'orbits and never as witnesses. SH1 sufficiency is checked reported at level 2 BECAUSE it was reached there, '
+      'with the frozen fallback recorded unused and the rank constraint named load-bearing; the fallback-in-disguise '
+      'and the dropped rank bound are mutation-tested. The shape sentence is checked asserted at full strength and '
+      'PER SLICE. SH1-C1 is checked one-way from positivity alone with no converse and no memory claim, SH1-C2 '
+      'checked "at most one" and never existence with its orbit consequence tied to the TG2 converse, and overlap '
+      'checked NOT promoted to memory. The frozen non-licences are checked present in terms -- no inequivalence, the '
+      'Gram data a coordinate not physics, per slice, no selection principle, nothing about connections in either '
+      'direction, and P0 NOT CLOSED AND TWO-PART -- orbit/Gram-trajectory selection AND the cross-time threading '
+      'within selected orbits, the second shown by act 11\'s GL2 not to be fixed even by the full Gram trajectory; '
+      'the one-part collapse that exact-head review caught is mutation-tested. GI2 is checked re-read as a left move '
+      'with identical Gram data, explained and not revised. Five of six definition slots fire with slot 6 unused for '
+      'a stated reason and no seventh; the module is checked to carry EXACTLY those five top-level definitions and '
+      'no sorry, axiom or native_decide. The chronology control is act 10\'s STRONG form: the blob by content, the '
+      'real pull_request.head.sha rather than the synthetic merge commit, B an ancestor of the head AND every commit '
+      'of the execution-only history required to descend from B, recovery included and fail-closed. No manuscript '
+      'edit, no candidate-selection principle, nothing about Track I, D5 left NOT CERTIFIED. Nineteen named '
+      'contracts, twenty-seven mutation controls, plus the freeze-pin drift controls.')
+
 # ---- R7-A11P: the act 11 scope propagation round (publication only) ----
 #
 # The manuscript round that carries act 11's GL2 conclusion into the corpus. Its hazard is not the one

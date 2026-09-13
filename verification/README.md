@@ -2055,5 +2055,35 @@ selection open. A re-grep found no stale bridge claim in `Substratum`, `Structur
 the applied papers, so none was edited. `R7-A11P` grows to eighteen contracts and twenty mutation
 controls.
 
+Track B act 12 (`programmes/oi-qm/track-b/act-12-two-sided-gauge/`, preregistration blob
+`5850238`, merged by PR #591 as `b821d69`, the mandated execution base) is the classification
+round that follows act 11's no-go. `OIBridge/TwoSidedGauge.lean` supplies the **left** factor act 11
+did not classify — `LeftFibreGroup`, the fibre-block unitaries, invisible universally and maximal
+among uniform left actions considered alone with no hypothesis beyond unitarity
+(`left_preserves_admissible`, `left_of_preserves_every_admissible`) — and classifies the quotient by
+the two-sided uniform gauge the two separately maximal factors generate: two dilations are related
+by it exactly when their fibre-Gram data `FibreGram` agree up to anchored phases
+(`twoSided_slice_iff`, with the Gram-isometry lemma `exists_unitary_of_gram_eq` stated for arbitrary
+families), the realizable Gram tuples are exactly the positive semidefinite, rank-at-most-`|A|`,
+identity-summing, `Γ`-diagonal families (`sh1_shape`, sufficiency reached at kernel level), and the
+quotient is nontrivial on a single law and dynamically distinct at `|A| = 1` through the Hadamard
+witness with its cross-ratio computed in the kernel (`hadamard_slices_not_twoSided`,
+`hadamard_lifts_not_twoSided`, `hadamard_cross_ratio`). Act 11's open target is closed positively as
+right-only insufficiency carried by left moves (`ro1_right_only_insufficient`), read exactly as
+"quotienting by the maximal uniform right weak gauge is insufficient" and not as a statement about
+every gauge or connection description; `GI2`'s pair is a constant left move inside one two-sided
+orbit, explained and not revised. `SH1-C1` (a vanishing visible entry zeroes its Gram row and column,
+one-way, from positivity alone) and `SH1-C2` (a deterministic slice has at most one Gram tuple, and
+with the `TG2` converse a unique two-sided orbit) are corollaries. Joint maximality of the two-sided
+action is neither asserted nor excluded; the Gram data is a coordinate on the lift space and not a
+physical quantity; overlap is not memory; nothing is cross-time; no selection principle is named;
+`P0` is not closed and is two-part: selection of the Gram/orbit trajectory across time, and the
+cross-time threading within selected orbits, which act 11's `GL2` shows is not fixed even by the full
+Gram trajectory. Forty-three named
+results, each printing only `propext`, `Classical.choice`, `Quot.sound`; five of six definition slots
+fired; no manuscript edit. Guard `R7-TSG` pins the preregistration blob by content and certifies the
+strengthened execution ancestry, and checks each frozen reading in terms with twenty-seven mutation
+controls.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.
