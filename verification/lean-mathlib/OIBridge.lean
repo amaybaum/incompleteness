@@ -208,6 +208,7 @@ import OIBridge.QuantumRepresentation
 import OIBridge.QuantumRepresentationT2
 import OIBridge.QuantumRepresentationT3
 import OIBridge.OperationalSourcing
+import OIBridge.PhysicalC4Discharge
 
 namespace OIBridge
 

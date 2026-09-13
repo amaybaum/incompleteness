@@ -2196,5 +2196,38 @@ archive mode after the merge, and checks every frozen sentence with thirteen mut
 `R7-A11P`'s contracts E4, E5 and E18 — the three whose pinned sentences this round supersedes —
 are re-pinned in the same commit, with both of its blob pins and every other contract untouched.
 
+The physical-realization programme's first executed round, **Physical C4 discharge round 1**
+(`programmes/physical-realization/round-c4-1-physical-discharge/`, preregistration blob
+`a80334a5d5f19125b69459523acf723b607f97e1`, merged by PR #607 as `ebc3951`, the mandated execution
+base), is a discharge audit with kernel bounding and not a proof of a physical fact. It states in
+`OIBridge/PhysicalC4Discharge.lean` the realization-level predicate the manuscripts' own realization
+clause describes — a visible-history record written into hidden boundary degrees routed back into
+future visible conditionals within the accessible window — as `RoutedReadback`, transcribed clause
+for clause from Track I's frozen write/store/read parent, so that "discharged" has a formal
+referent; it is not a new condition, nothing is numbered beyond C4, and it is not called a
+strengthening of the manuscript's condition. Three carriers bound what a discharge would need: the
+uncoupled product has no write at any window, so recurrence — even an exact return of the rooted map
+to the identity at `12` — is not readback; the tape-and-ledger coin has a write, a store and
+history-level memory and yet no routed readback within the window `3`, the visible law being
+P-divisible there, with the routed form and P-indivisibility both appearing at the return `4`; and
+the sealed C1–C4 core carries no routed witness at any window under the frozen spelling, a
+preregistered prediction falsified with its obstruction located by a computed certificate and
+recorded rather than repaired. What a discharge would buy is bounded in the other direction: a
+routed witness forces P-indivisibility at the **return horizon and nothing below it**, the scope
+remark of `[Main]` §2.3 travelling with the statement. The lattice cut's realization datum is built
+on the kernel's wave substratum as `cutRealization`, and `[SM]` Theorem 22's readback genericity
+lemma is named as `LatticeCutReadback` over admissible regions at the return window; one toy
+instance at four sites is certified by exact probe at evidence level 3 under the control plane's
+frozen fallback, which shows the predicate is not vacuous on the manuscripts' dynamics and shows
+nothing else. A type-P pass classified every C4 coordinate in the papers, the book chapters and the
+parallel book source by quotation, confirming both predicted inference residues and finding no
+mechanism claimed at any physical cut. **Nothing here says C4 holds, or fails, at either physical
+cut**, no horizon is called accessible, no manuscript was edited, and the `P1` row stays **OPEN**
+with its residual now exact per cut: at the cosmological cut the finite realization datum itself,
+then a routed witness within the window; at the lattice cut the genericity lemma in the named form.
+Guard `R7-PC4` pins the preregistration by blob, certifies the strengthened execution ancestry with
+archive mode after the merge, and holds the status rule, every target's frozen reading, the `RS`
+labels, the definition list and the axiom table against fifteen mutation controls.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.

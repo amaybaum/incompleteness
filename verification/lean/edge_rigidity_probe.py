@@ -13468,6 +13468,407 @@ check('R7-A12P', ok_a12p,
       'sentences in the same commit, and no other. Twelve named contracts, thirteen mutation controls, plus one '
       'freeze-pin drift control.')
 
+# ---- R7-PC4: physical realization -- Physical C4 discharge, round 1 ----
+#
+# The FIRST executed round on a physical-realization obligation, and a DISCHARGE AUDIT WITH KERNEL
+# BOUNDING, not a proof that C4 holds physically. No round can prove a physical fact and this one
+# does not try, so what can go wrong is almost entirely the READING: C4 declared discharged at a
+# cut; the routed predicate called a further condition or a strengthening, or something numbered
+# beyond C4; a predicate invented over the cosmological datum the manuscripts do not supply; the toy
+# instance at four sites promoted to Theorem 22's genericity lemma; the two inference residues
+# quietly repaired in the manuscripts instead of recorded; H-Bell entered; or the ROADMAP label
+# moved. On top of those the round carries one falsified prediction -- under the frozen spelling the
+# sealed C1-C4 core carries NO routed witness at any window -- which must be reported as the
+# negative it is, with the freeze left unedited. The guard checks each of these in the freeze's own
+# words, pins the chronology in both halves, and holds the module to the frozen six-slot budget.
+_PC4DIR = 'programmes/physical-realization/round-c4-1-physical-discharge/'
+_PC4 = open(_artifact(_PC4DIR + 'result.md'), encoding='utf-8').read()
+_PC41 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _PC4).split()).replace('\u2019', "'")
+_PC4LEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'PhysicalC4Discharge.lean'), encoding='utf-8').read().split())
+_PC4ROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+# The mandated execution base: the merge commit of this round's control-plane PR #607.
+_PC4_BASE = 'ebc3951dc581d558373f720a90f1ba7deb2a8ed8'
+# The SEALED execution head and the merge commit that carried it, set once this round's execution
+# PR has merged. Set, the guard runs in ARCHIVE MODE: the same strong check re-run against those
+# objects, plus their reachability from the current target. Unset (None), as now, the guard
+# certifies the run's real target.
+_PC4_SEALED_HEAD = None
+_PC4_MERGE = None
+
+
+def _pc4_freeze_pin(read=_bb_read):
+    """Z1 -- this round's preregistration is byte-identical to the blob merged by PR #607."""
+    return _bb_blob(_PC4DIR + 'preregistration.md', read) == (
+        'a80334a5d5f19125b69459523acf723b607f97e1')
+
+
+def _pc4_execution_ancestry():
+    """Z2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, carried forward by name: the head-only check is insufficient
+    because a commit made before the freeze and merged in alongside it leaves the head descended
+    from the freeze while itself not being. The question is asked of the real
+    `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails
+    closed with no fallback.
+
+    Execution mode (pin unset, as now): the strong check against the run's real target. Archive
+    mode (pin set): the same strong check re-run against the sealed head, with the pinned merge
+    required to carry it and both required reachable from the current target, fail-closed."""
+    if _PC4_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-PC4')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_PC4_BASE, target, label, num, tag='R7-PC4')
+    return _rbr_archive_ancestry(_PC4_BASE, _PC4_SEALED_HEAD, _PC4_MERGE, tag='R7-PC4')
+
+
+def _pc4_outcome(t=None):
+    """Z3 -- the outcome line reports the one falsified prediction and the one level-3 fallback in
+    terms, nothing is UNDECIDED, and the row stays OPEN."""
+    t = _PC41 if t is None else t
+    return ('**Every target landed at or above its predicted strength except `RD1-a`, whose '
+            'preregistered prediction is falsified by a computed certificate, and `RD6`, which is '
+            "reported at evidence level 3 under the control plane's own frozen fallback.**" in t
+            and '**One target moved BELOW its prediction in sign**: `RD1-a`. **No target is '
+                'UNDECIDED.**' in t
+            and '**The `ROADMAP` row stays OPEN.**' in t)
+
+
+def _pc4_status_rule(t=None):
+    """Z4 -- the frozen status rule: the row stays OPEN whatever landed, and no outcome of the
+    round moves it. The ROADMAP row itself is checked OPEN in the same predicate."""
+    t = _PC41 if t is None else t
+    return ('**The row stays OPEN**, its section carrying that residual in these words.' in t
+            and "It moves the row's status by nothing." in t
+            and '**The label stays OPEN, and the residual is now exact per cut.**' in _PC4ROAD
+            and '| **P1** | Physical C4 discharge at the cosmological and lattice cuts | '
+                'Physical realization | **OPEN**' in _PC4ROAD)
+
+
+def _pc4_residual(t=None):
+    """Z5 -- the residual made EXACT PER CUT in the freeze's words, and the first non-licence in
+    terms: nothing says C4 holds, or fails, at either physical cut."""
+    t = _PC41 if t is None else t
+    return ('at the cosmological cut a finite realization datum the manuscripts describe but do '
+            'not supply, then a routed witness within `K \u03c4_S \u226a \u03c4_B`; at the '
+            "lattice cut Theorem 22's readback genericity lemma in the form `LatticeCutReadback` "
+            'over admissible regions at the stationarity window.**' in t
+            and '**No claim that C4 holds, or fails, at either physical cut.**' in t)
+
+
+def _pc4_cuts_kept_apart(t=None):
+    """Z6 -- the two cuts differ IN KIND and are kept apart: at the cosmological cut the residual
+    is the datum itself and NO predicate is defined over it, since an existential over all finite
+    realizations is witnessed by the sealed core and says nothing about the horizon; at the lattice
+    cut the residual is a mathematical job on an object the kernel already carries."""
+    t = _PC41 if t is None else t
+    return ('it defines no predicate for the cosmological cut, since an existential over all '
+            'finite realizations is witnessed by the sealed core and says nothing about the '
+            'horizon' in t
+            and 'no kernel predicate over it is definable without being vacuous' in _PC4ROAD
+            and 'At the **cosmological cut** the residual is the datum itself' in _PC4ROAD
+            and 'the residual is a mathematical job' in _PC4ROAD)
+
+
+def _pc4_no_further_condition(t=None):
+    """Z7 -- `RoutedReadback` is the manuscripts' realization clause formalized: not a further
+    condition, not called a strengthening, nothing numbered beyond C4."""
+    t = _PC41 if t is None else t
+    return ('**No new condition and nothing numbered beyond C4.**' in t
+            and '**This is not a new condition**' in t
+            and "it is not called a strengthening of the manuscript's condition" in t
+            and '**not a new condition**' in _PC4LEAN
+            and '**nothing is numbered beyond C4**' in _PC4LEAN)
+
+
+def _pc4_rd1(t=None):
+    """Z8 -- RD1 reported as the NEGATIVE it is, with the obstruction located and the freeze left
+    unedited; and the one-carrier reading kept bounded."""
+    t = _PC41 if t is None else t
+    return ('**`RD1-a` \u2014 preregistered positive, landed NEGATIVE at full strength.**' in t
+            and '**no routed witness at any window**' in t
+            and '**The freeze is immutable and is not edited**' in t
+            and 'That is a fact about one carrier and licenses nothing about the general relation '
+                'of the forms.' in t)
+
+
+def _pc4_rd2(t=None):
+    """Z9 -- RD2's frozen reading, and the fallback recorded UNUSED."""
+    t = _PC41 if t is None else t
+    return ('Recurrence alone \u2014 even a full return of the rooted map to the identity '
+            '\u2014 is not a routed readback' in t
+            and '**`RD2-b`, positive and ABOVE the predicted strength.**' in t
+            and '**the fallback was not used**' in t)
+
+
+def _pc4_rd3(t=None):
+    """Z10 -- RD3's frozen reading: write and store, history-sensitive and divisible on the window,
+    routed at the return; it says nothing about either cut and does not reverse T1."""
+    t = _PC41 if t is None else t
+    return ('**no routed readback within the window `K = 3`**' in t
+            and '**It says nothing about either physical cut**' in t
+            and "the discovery round's T1 stands, and `RD3` is the converse's failure on one "
+                'carrier' in t
+            and '**the fallback was not used and no probe was added for it**' in t)
+
+
+def _pc4_rd4(t=None):
+    """Z11 -- RD4's scope remark travels VERBATIM, and the conclusion is the return horizon and
+    nothing below it."""
+    t = _PC41 if t is None else t
+    return ("buy global indivisibility of the cut's rooted law at its return horizon and, **by "
+            "itself, nothing on the accessible window**" in t
+            and 'It does **not** say that C4 forces P-indivisibility on every accessible '
+                'short-time window; the XOR control remains a counterexample to that stronger '
+                'statement.' in t
+            and 'nothing below the return horizon' in _PC4LEAN)
+
+
+def _pc4_rd5(t=None):
+    """Z12 -- the lattice residual is NAMED and NOT proved, the region class and the window are
+    carried in words and not formalized, and the ensemble gap is consumed unweakened."""
+    t = _PC41 if t is None else t
+    return ('The round names it and **does not prove it**.' in t
+            and 'connectedness is **not formalized here**' in t
+            and 'which the kernel does not define and **this round does not define either**' in t
+            and 'the #537 gap is neither closed nor narrowed' in t)
+
+
+def _pc4_rd6(t=None):
+    """Z13 -- RD6 at evidence level 3 with the fallback declared FIRED, no kernel claim for the
+    instance, and the three forbidden sentences restated."""
+    t = _PC41 if t is None else t
+    return ('**The fallback fired.**' in t
+            and '**The kernel carries no theorem about this instance**' in t
+            and '**That is the entire content.**' in t
+            and '**The forbidden sentences are "C4 holds at the lattice cut", "the lattice cut is '
+                'discharged", and "the genericity lemma holds in an instance."**' in t)
+
+
+def _pc4_rs(t=None):
+    """Z14 -- the type-P determination returned as predicted, both residues RECORDED and no
+    manuscript edited, labelled type P and kept OUT of the axiom table."""
+    t = _PC41 if t is None else t
+    return ('**The determination returned exactly as predicted: (a) everywhere but the two `(b)` '
+            'residues, `(c-toy)` at the two worked models, and `(c)` at NO physical cut.**' in t
+            and '**Both residues are recorded and left for a separate owner call.**' in t
+            and '**No manuscript edit is made by this round**' in t
+            and '**Evidence type: prose/source audit, type P.**' in t
+            and 'is **not** part of the axiom table' in t)
+
+
+def _pc4_successor(t=None):
+    """Z15 -- H-Bell is NAMED as the successor and NOT entered, and nothing is said about it."""
+    t = _PC41 if t is None else t
+    return ('it does not begin H-Bell, which is the named successor and is entirely untouched.'
+            in t
+            and '**Nothing about Bell or H-Bell.** H-Bell is the named successor; the round does '
+                'not enter it' in t)
+
+
+def _pc4_budget(t=None):
+    """Z16 -- four of the frozen six slots fire, the two conditional carrier slots are UNUSED with
+    their reasons, and no seventh definition was introduced."""
+    t = _PC41 if t is None else t
+    return ('## Definition budget: **FOUR of the frozen six slots fire**' in t
+            and '**No seventh definition was introduced**' in t
+            and 'the transport is a bound variable pinned by the step and prior equations of '
+                '`RD1`' in t
+            and 'the sixteen-state bijection is pinned inline by its defining equation' in t)
+
+
+def _pc4_axiom_table(t=None):
+    """Z17 -- the axiom table is one line per named result, every line the clean triple, and the
+    evidence levels are stated with the type-P determination excluded."""
+    t = _PC41 if t is None else t
+    return (t.count('| `[propext, Classical.choice, Quot.sound]` |') == 35
+            and 'no `sorry`, no `axiom`, no `native_decide`, none of those literal strings '
+                'anywhere in the module including its docstrings' in t
+            and '**Evidence level 2**' in t
+            and '**Evidence level 3** for `RD6-a` and `RD6-b`' in t)
+
+
+def _pc4_chronology(t=None):
+    """Z18 -- the chronology claim names the property certified, is scoped to the repository
+    record, and the discrepancies are recorded rather than repaired in the freeze."""
+    t = _PC41 if t is None else t
+    return ('**The property certified: no commit reachable from the execution head lies outside '
+            "the control-plane merge's descendants.**" in t
+            and '**The claim is scoped to the repository record.**' in t
+            and 'The preregistration is immutable. Each item below is recorded here and pinned by '
+                'the guard; none is edited into the freeze.' in t)
+
+
+def _pc4_lean_defs(t=None):
+    """Z19 -- exactly the four fired budget definitions are top-level `def`s in the module, in the
+    freeze's names, with no sorry, axiom or native_decide anywhere, and the module's own docstring
+    carrying the first non-licence and the recorded discrepancy."""
+    t = _PC4LEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['rootedPosterior', 'RoutedReadback', 'cutRealization', 'LatticeCutReadback']
+            and '**Nothing in this module says that C4 holds, or fails, at either physical cut.**'
+                in t
+            and '**A recorded discrepancy, not repaired here.**' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+ok_pc4 = True
+ok_pc4 &= _pc4_freeze_pin()
+ok_pc4 &= _pc4_execution_ancestry()
+ok_pc4 &= _pc4_outcome()
+ok_pc4 &= _pc4_status_rule()
+ok_pc4 &= _pc4_residual()
+ok_pc4 &= _pc4_cuts_kept_apart()
+ok_pc4 &= _pc4_no_further_condition()
+ok_pc4 &= _pc4_rd1()
+ok_pc4 &= _pc4_rd2()
+ok_pc4 &= _pc4_rd3()
+ok_pc4 &= _pc4_rd4()
+ok_pc4 &= _pc4_rd5()
+ok_pc4 &= _pc4_rd6()
+ok_pc4 &= _pc4_rs()
+ok_pc4 &= _pc4_successor()
+ok_pc4 &= _pc4_budget()
+ok_pc4 &= _pc4_axiom_table()
+ok_pc4 &= _pc4_chronology()
+ok_pc4 &= _pc4_lean_defs()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# C4 declared discharged at a physical cut -- the round's first forbidden reading
+_pc4_m1 = _PC41.replace('**No claim that C4 holds, or fails, at either physical cut.**',
+                        'C4 is therefore discharged at the lattice cut and open at the '
+                        'cosmological one.')
+ok_pc4 &= _pc4_m1 != _PC41 and not _pc4_residual(_pc4_m1)
+
+# the routed predicate named as a further condition -- the causal-readback audit's inherited rule
+_pc4_m2 = _PC41.replace('**No new condition and nothing numbered beyond C4.**',
+                        'A further realization condition is named beyond C4 and carried by the '
+                        'kernel.')
+ok_pc4 &= _pc4_m2 != _PC41 and not _pc4_no_further_condition(_pc4_m2)
+
+# the cosmological datum invented as an existential over all finite realizations
+_pc4_m3 = _PC41.replace(
+    'it defines no predicate for the cosmological cut, since an existential over all finite '
+    'realizations is witnessed by the sealed core and says nothing about the horizon',
+    'the cosmological cut receives its predicate as an existential over all finite realizations')
+ok_pc4 &= _pc4_m3 != _PC41 and not _pc4_cuts_kept_apart(_pc4_m3)
+
+# the lattice residual reported as discharged by the toy instance
+_pc4_m4 = _PC41.replace('The round names it and **does not prove it**.',
+                        'The toy instance discharges the genericity lemma for the wave rule.')
+ok_pc4 &= _pc4_m4 != _PC41 and not _pc4_rd5(_pc4_m4)
+
+# the two inference residues repaired in the manuscripts instead of recorded
+_pc4_m5 = _PC41.replace('**No manuscript edit is made by this round**',
+                        'Both residues were repaired in the manuscripts by this round')
+ok_pc4 &= _pc4_m5 != _PC41 and not _pc4_rs(_pc4_m5)
+
+# H-Bell entered rather than named
+_pc4_m6 = _PC41.replace(
+    'it does not begin H-Bell, which is the named successor and is entirely untouched.',
+    'it opens H-Bell, whose locality question the routed predicate settles.')
+ok_pc4 &= _pc4_m6 != _PC41 and not _pc4_successor(_pc4_m6)
+
+# the status label moved without owner direction
+_pc4_m7 = _PC41.replace('**The row stays OPEN**, its section carrying that residual in these '
+                        'words.',
+                        '**The row moves to CONDITIONAL**, the lattice half being in hand.')
+ok_pc4 &= _pc4_m7 != _PC41 and not _pc4_status_rule(_pc4_m7)
+
+# RD1's falsified prediction quietly reported as the predicted positive
+_pc4_m8 = _PC41.replace('**`RD1-a` \u2014 preregistered positive, landed NEGATIVE at full '
+                        'strength.**',
+                        '**`RD1-a`, positive at full strength, as predicted.**')
+ok_pc4 &= _pc4_m8 != _PC41 and not _pc4_rd1(_pc4_m8)
+
+# the freeze repaired instead of the discrepancy recorded
+_pc4_m9 = _PC41.replace('**The freeze is immutable and is not edited**',
+                        "The freeze's spelling was corrected to the storage-time reading")
+ok_pc4 &= _pc4_m9 != _PC41 and not _pc4_rd1(_pc4_m9)
+
+# RD4 read as a statement about the accessible window -- the scope remark dropped
+_pc4_m10 = _PC41.replace("buy global indivisibility of the cut's rooted law at its return "
+                         'horizon and, **by itself, nothing on the accessible window**',
+                         "buy P-indivisibility on the cut's accessible window")
+ok_pc4 &= _pc4_m10 != _PC41 and not _pc4_rd4(_pc4_m10)
+
+# RD3 read as "C4 fails" rather than as one carrier on one window
+_pc4_m11 = _PC41.replace('**It says nothing about either physical cut**',
+                         'So C4 fails on accessible windows')
+ok_pc4 &= _pc4_m11 != _PC41 and not _pc4_rd3(_pc4_m11)
+
+# a forbidden RD6 reading substituted for the frozen one
+_pc4_m12 = _PC41.replace('**That is the entire content.**',
+                         'So the genericity lemma holds in an instance.')
+ok_pc4 &= _pc4_m12 != _PC41 and not _pc4_rd6(_pc4_m12)
+
+# a fifth `def` in the module, over the frozen budget
+_pc4_m13 = _PC4LEAN.replace('def LatticeCutReadback',
+                            'def tauReturn (x : \u2115) := x def LatticeCutReadback')
+ok_pc4 &= _pc4_m13 != _PC4LEAN and not _pc4_lean_defs(_pc4_m13)
+
+# the module's docstring dropping the first non-licence
+_pc4_m14 = _PC4LEAN.replace(
+    '**Nothing in this module says that C4 holds, or fails, at either physical cut.**',
+    'The module settles C4 at the lattice cut.')
+ok_pc4 &= _pc4_m14 != _PC4LEAN and not _pc4_lean_defs(_pc4_m14)
+
+# a seventh definition slipped in against the budget table
+_pc4_m15 = _PC41.replace('**No seventh definition was introduced**',
+                         'A seventh definition was convenient and was added')
+ok_pc4 &= _pc4_m15 != _PC41 and not _pc4_budget(_pc4_m15)
+
+# Z1's control runs THROUGH _pc4_freeze_pin, so sabotaging that predicate fails the guard.
+def _pc4_drift(path):
+    """One byte appended to this round's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('round-c4-1-physical-discharge/preregistration.md') else b'')
+
+
+ok_pc4 &= _pc4_drift(_PC4DIR + 'preregistration.md') != _bb_read(_PC4DIR + 'preregistration.md')
+ok_pc4 &= not _pc4_freeze_pin(_pc4_drift)
+
+check('R7-PC4', ok_pc4,
+      "Physical C4 discharge round 1 guard: the FIRST executed round on a physical-realization obligation, and a "
+      "DISCHARGE AUDIT WITH KERNEL BOUNDING rather than a proof that C4 holds physically -- so what can go wrong is "
+      "the READING, and on top of that one preregistered prediction that did not hold. The chronology control is "
+      "pinned in BOTH halves -- the preregistration blob by content, carrying the frozen predicate, the frozen "
+      "discharge condition, the frozen targets and the scratch arithmetic merged before any execution object "
+      "entered the tree, and the strengthened ancestry asked of git directly against the real "
+      "pull_request.head.sha, every commit of git rev-list H ^B a descendant of the base, recovery included, "
+      "FAIL-CLOSED. The status rule is checked in the freeze's own terms: the ROADMAP P1 row stays OPEN, the "
+      "section says the row stays OPEN, and nothing in the round moves it, with the label-move mutation-tested. "
+      "The residual is checked made EXACT PER CUT -- at the cosmological cut the finite realization datum the "
+      "manuscripts describe and do not supply, then a routed witness within the window; at the lattice cut "
+      "Theorem 22's readback genericity lemma in the form LatticeCutReadback over admissible regions at the "
+      "stationarity window -- with the two cuts checked kept apart in kind, no predicate defined over the missing "
+      "cosmological datum, and 'C4 is discharged at a cut', 'the toy instance discharges the lemma' and the "
+      "invented cosmological existential all mutation-tested. RoutedReadback is checked reported as the "
+      "manuscripts' own realization clause formalized: NOT a further condition, never called a strengthening, "
+      "nothing numbered beyond C4, in the note and in the module docstring, with the further-condition mutation "
+      "tested. RD1 is checked reported as the NEGATIVE it is -- no routed witness at any window on the sealed core "
+      "-- with the obstruction located by a computed certificate, the one-carrier reading kept bounded, and the "
+      "freeze left UNEDITED, both the quiet-positive and the repaired-freeze mutations tested. RD2 and RD3 are "
+      "checked at their frozen readings with both level-3 fallbacks recorded UNUSED, and 'C4 fails' "
+      "mutation-tested. RD4 is checked carrying [Main] 2.3's scope remark VERBATIM -- the return horizon and "
+      "nothing below it -- with the accessible-window over-reading mutation-tested. RD5 is checked naming the "
+      "residual and NOT proving it, leaving connectedness and the return window unformalized and the #537 ensemble "
+      "gap unweakened. RD6 is checked at evidence level 3 with the frozen fallback declared FIRED, no kernel claim "
+      "for the instance, and the three forbidden sentences restated, with a forbidden reading mutation-tested. RS "
+      "is checked returning as predicted with both residues RECORDED and no manuscript edited, labelled type P and "
+      "kept OUT of the axiom table, with the repaired-residue mutation tested. H-Bell is checked NAMED and not "
+      "entered. The module is held to the frozen six-slot budget -- exactly the four fired definitions as "
+      "top-level defs, the two conditional carrier slots unused with their reasons, no seventh definition, no "
+      "sorry, axiom or native_decide -- with the over-budget def and the docstring slide both mutation-tested, and "
+      "the axiom table checked one clean line per named result. ARCHIVE MODE after the merge: the same strong "
+      "check re-run against the SEALED execution head pinned by SHA, the pinned merge commit required to carry it "
+      "and both required reachable from the current target, fail-closed. Fifteen mutation controls and the "
+      "freeze-pin drift control.")
+
+
 # ---- R7-A6D: substratum -- A6 background independence, round 1: definition and closure ----
 #
 # A DEFINITION round, not a proof round: the ROADMAP carries A6 as a GAP because the manuscript
