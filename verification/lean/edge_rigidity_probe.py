@@ -11596,6 +11596,534 @@ check('R7-TSG', ok_tsg,
       'edit, no candidate-selection principle, nothing about Track I, D5 left NOT CERTIFIED. Nineteen named '
       'contracts, twenty-seven mutation controls, plus the freeze-pin drift controls.')
 
+# ---- R7-SGT: Substratum Lemma 24.1 -- the semigroup-transfer step ----
+#
+# A FORK round with three negatives: the hazards are (a) reading a refuted proof ROUTE as a refuted
+# THEOREM -- Lemma 24.1 "false", the four generators "incomplete" -- when the round says nothing
+# about generators (ii)/(iv) and the completeness theorem could have another proof; (b) reading
+# ST5's frozen fallback as a repair -- sufficiency is UNDECIDED, so full word-trace data is a
+# candidate strengthened hypothesis and not a certified one; (c) the two cyclicities conflated, or
+# ST1's per-time W_t quietly promoted to a constant one; (d) ST4's deep-sector model widened past
+# the frozen exact product; (e) the P1 label moved off OPEN, or a manuscript edited. The guard
+# checks the central sentence and the three boundaries in the owner's words, each frozen reading
+# in terms, the three negatives IN THE KERNEL as conjuncts of single theorems, and the six-slot
+# budget with both conditional slots recorded fired.
+_SGT = open(_artifact('programmes/substratum/lemma-24-1-semigroup-transfer/result.md'),
+            encoding='utf-8').read()
+_SGT1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _SGT).split())
+_SGTLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'SemigroupTransfer.lean'), encoding='utf-8').read().split())
+_SGTDIR = 'programmes/substratum/lemma-24-1-semigroup-transfer/'
+# The mandated execution base: the merge commit of the control-plane PR #594.
+_SGT_BASE = 'c46e1606d4cafe2720afd69dc06c667eb0f1acff'
+
+
+def _sgt_git(*args, **kw):
+    kw.setdefault('tag', 'R7-SGT')
+    return _rbr_git(*args, **kw)
+
+
+def _sgt_ensure_present(rev, pr_number=None):
+    return _rbr_ensure_present(rev, pr_number=pr_number, tag='R7-SGT')
+
+
+def _sgt_target_commit(env=None):
+    return _rbr_target_commit(env=env, tag='R7-SGT')
+
+
+def _sgt_freeze_pin(read=_bb_read):
+    """T1 -- the preregistration is byte-identical to the blob merged by PR #594."""
+    return _bb_blob(_SGTDIR + 'preregistration.md', read) == (
+        'b8168df9ed1acff21eb89e84487b43470124f845')
+
+
+def _sgt_execution_ancestry():
+    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
+    commit made before the freeze and merged in alongside it leaves the head descended from the
+    freeze while itself not being."""
+    target, label, num = _sgt_target_commit()
+    if target is None:
+        return False
+    if not _sgt_ensure_present(_SGT_BASE):
+        return False
+    if not _sgt_ensure_present(target, pr_number=num):
+        return False
+    r = _sgt_git('merge-base', '--is-ancestor', _SGT_BASE, target)
+    if r is None:
+        return False
+    if r.returncode != 0:
+        print('    R7-SGT ancestry: %s is present but is NOT an ancestor of %s'
+              % (_SGT_BASE[:12], label))
+        return False
+    listed = _sgt_git('rev-list', '%s' % target, '^%s' % _SGT_BASE)
+    if listed is None or listed.returncode != 0:
+        print('    R7-SGT ancestry: could not enumerate the execution-only history; failing closed')
+        return False
+    revs = listed.stdout.decode('utf-8', 'replace').split()
+    for rev in revs:
+        if not _sgt_ensure_present(rev, pr_number=num):
+            return False
+        step = _sgt_git('merge-base', '--is-ancestor', _SGT_BASE, rev)
+        if step is None:
+            return False
+        if step.returncode != 0:
+            print('    R7-SGT ancestry: %s is reachable from %s but does NOT descend from %s -- '
+                  'pre-freeze side history' % (rev[:12], label, _SGT_BASE[:12]))
+            return False
+    print('    R7-SGT ancestry: certified %s and all %d commit(s) of the execution-only history '
+          'descend from %s' % (label, len(revs), _SGT_BASE[:12]))
+    return True
+
+
+def _sgt_outcome(t=None):
+    """T3 -- the boxed outcome: ST0-ST4 landed, ST5 necessity landed, ST5 sufficiency UNDECIDED."""
+    t = _SGT1 if t is None else t
+    return ('**`ST0`–`ST4` landed; `ST5` necessity landed; `ST5` sufficiency is UNDECIDED.**' in t
+            and 'exactly at its frozen fallback — necessity at level 2, sufficiency UNDECIDED with '
+                'the obstruction named' in t
+            and 'Nothing else moved from its predicted strength.' in t)
+
+
+def _sgt_central(t=None):
+    """T4 -- the central result sentence, at the strength jointly reached, in the owner's words."""
+    t = _SGT1 if t is None else t
+    return ('the visible channel family does not determine the underlying dilation up to a single '
+            'time-independent hidden conjugation, even under the frozen GNS-cyclic reading and the '
+            'frozen decoupled-enlargement control' in t
+            and 'The present semigroup-transfer proof route therefore does not establish '
+                'completeness of `𝒢_sub`.' in t
+            and 'Equality of all block-word traces is necessary for hidden conjugation, but this '
+                'round does not establish that it is sufficient.' in t
+            and 'the P1 completeness obligation remains OPEN, with stronger multi-time information '
+                'or a different proof route required' in t)
+
+
+def _sgt_boundary_lemma(t=None):
+    """T5 -- boundary 1: the lemma is not called false without qualification; a proof ROUTE is refuted."""
+    t = _SGT1 if t is None else t
+    return ('**Lemma 24.1 is not called false without qualification.**' in t
+            and 'is refuted on the tested readings' in t
+            and 'the broader completeness theorem could still have another proof' in t)
+
+
+def _sgt_boundary_st5(t=None):
+    """T6 -- boundary 2: ST5 does not repair the lemma; a candidate hypothesis, not a certified repair."""
+    t = _SGT1 if t is None else t
+    return ('**`ST5` does not repair the lemma.**' in t
+            and 'a candidate strengthened hypothesis, not a certified repair' in t)
+
+
+def _sgt_boundary_generators(t=None):
+    """T7 -- boundary 3: the four generators are not called incomplete; (ii)/(iv) untouched."""
+    t = _SGT1 if t is None else t
+    return ('**The four gauge generators are not called incomplete.**' in t
+            and 'the round deliberately says nothing about (ii)/(iv)' in t
+            and 'exhaustiveness remains neither proved nor refuted' in t)
+
+
+def _sgt_st0c(t=None):
+    """T8 -- ST0(c) at level 2 in BOTH directions, with the two cyclicities kept distinct."""
+    t = _SGT1 if t is None else t
+    return ('**`ST0(c)`, GNS cyclicity is trivial hidden commutant — at level 2, in both '
+            'directions.**' in t
+            and '**The two cyclicity notions are different**' in t
+            and 'is not a hypothesis of any theorem here' in t)
+
+
+def _sgt_st1_pertime(t=None):
+    """T9 -- ST1 reported per time and no more: the existential inside the ∀ t."""
+    t = _SGT1 if t is None else t
+    return ('**The existential is inside the `∀ t`. Nothing in Reading A makes `W_t` constant in '
+            '`t`, nor of the product form `W ⊗ W̄`**' in t
+            and 'This is the direction the completeness argument does **not** need' in t)
+
+
+def _sgt_st2(t=None):
+    """T10 -- ST2 negative at full strength on Pair A, WITH the absorption and the bounded wording."""
+    t = _SGT1 if t is None else t
+    return ('**NEGATIVE, at full strength, as predicted.** Pair A' in t
+            and "**step (2)'s conclusion, as written, fails on a two-qubit substratum pair; "
+                'exhaustiveness is untouched by this pair**' in t
+            and "`φ̂' = (X ⊗ 𝟙) φ̂ (X ⊗ 𝟙)` is its last conjunct" in t
+            and 'a universal over `W`, never a failed search' in t)
+
+
+def _sgt_st2_kernel(t=None):
+    """T11 -- ST2's theorem carries the family equality, the non-conjugacy AND the absorption as
+    conjuncts of ONE statement."""
+    t = _SGTLEAN if t is None else t
+    return ('theorem ST2_pairA' in t
+            and "(∀ t, familyAt U t = familyAt U' t) ∧ ¬ HiddenConjugate U U' ∧ U' = ((Equiv.swap "
+                "(0 : Fin 2) 1).permMatrix ℂ ⊗ₖ (1 : Matrix (Fin 2) (Fin 2) ℂ)) * U *" in t)
+
+
+def _sgt_st3(t=None):
+    """T12 -- ST3 negative on Pair C: trivial commutants, equal families, non-trivial statistics,
+    NO unitary whatsoever; the target that decides the expected mechanism."""
+    t = _SGT1 if t is None else t
+    return ('**both hidden commutants are trivial**' in t
+            and '**the families are equal at every `t`**' in t
+            and '**the visible statistics are non-trivial**' in t
+            and '**no unitary whatsoever conjugates one to the other on the fixed carrier**' in t
+            and "**This is the target that decides the manuscript's expected mechanism**" in t)
+
+
+def _sgt_st3_kernel(t=None):
+    """T13 -- ST3's theorem carries the two trivial commutants, the family equality, the
+    all-unitary non-conjugacy and both traces as conjuncts of ONE statement."""
+    t = _SGTLEAN if t is None else t
+    return ('theorem ST3_pairC' in t
+            and "HiddenCommutantTrivial U ∧ HiddenCommutantTrivial U' ∧ (∀ t, familyAt U t = "
+                "familyAt U' t) ∧ (∀ G : Matrix (Fin 2 × Fin 3) (Fin 2 × Fin 3) ℂ, Gᴴ * G = 1 → U' ≠ "
+                "G * U * Gᴴ) ∧ trace U = 2 ∧ trace U' = 0 ∧" in t)
+
+
+def _sgt_st4(t=None):
+    """T14 -- ST4 negative with the frozen deep-sector model stated and bounded, both relabellings
+    checked, only balanced words used."""
+    t = _SGT1 if t is None else t
+    return ('**The frozen deep-sector model is stated in the theorem and is the only one this round '
+            'bounds**' in t
+            and 'Approximate decoupling and unequal sizes are outside it.' in t
+            and 'Both visible relabellings are checked' in t
+            and 'only balanced words are used' in t
+            and '**This is the target that bounds the lemma\'s "up to enlargement/reduction of the '
+                'deep sector" clause**' in t)
+
+
+def _sgt_st4_kernel(t=None):
+    """T15 -- ST4's theorem quantifies over EVERY finite non-empty D, every pair of unitaries, every
+    visible permutation and every hidden unitary, and the enlargement lemma is stated for balanced
+    words only."""
+    t = _SGTLEAN if t is None else t
+    return ('theorem ST4_pairC' in t
+            and "∀ (D : Type) [Fintype D] [DecidableEq D] [Nonempty D] (δ δ' : Matrix D D ℂ) (σ : "
+                "Equiv.Perm (Fin 2)) (W : Matrix (Fin 3 × D) (Fin 3 × D) ℂ), δᴴ * δ = 1 → δ'ᴴ * δ' = 1 "
+                "→ Wᴴ * W = 1 → enlarge U' δ' ≠ (σ.permMatrix ℂ ⊗ₖ W) * enlarge U δ * (σ.permMatrix ℂ "
+                "⊗ₖ W)ᴴ" in t
+            and 'theorem trace_wordEval_enlarge' in t
+            and '(hw : (w.map fun l => if l.2.2 then (1 : ℤ) else -1).sum = 0)' in t)
+
+
+def _sgt_st5(t=None):
+    """T16 -- ST5 at its frozen fallback: necessity at level 2, sufficiency UNDECIDED with the
+    obstruction named, NOT promoted."""
+    t = _SGT1 if t is None else t
+    return ('**Necessity, at level 2.**' in t
+            and '**Sufficiency is UNDECIDED, and the obstruction is the one the freeze named**' in t
+            and 'it was not attempted' in t
+            and '**necessity at level 2 is not sufficiency and is not promoted**' in t
+            and 'its hypothesis is **strictly stronger than the family**' in t)
+
+
+def _sgt_post_round(t=None):
+    """T17 -- the frozen post-round sentence at full strength, with its own ceiling."""
+    t = _SGT1 if t is None else t
+    return ('**The present completeness proof therefore remains conditional**' in t
+            and 'because the family carries only the sorted balanced word data and not the '
+                'interleaved multi-time data' in t
+            and '**This round does not prove that stronger data are necessary for completeness '
+                'itself**' in t)
+
+
+def _sgt_not_licensed(t=None):
+    """T18 -- the frozen non-licences, in terms."""
+    t = _SGT1 if t is None else t
+    return ('**Nothing here says the four families fail to exhaust `𝒢_sub`, and nothing here says '
+            'they do.**' in t
+            and 'the forbidden sentences are "completeness is false", "completeness holds", and '
+                '"completeness itself requires stronger data than the lemma names"' in t
+            and '**Nothing about Bell or H-Bell.**' in t
+            and '**Nothing about A6.**' in t
+            and "**Nothing about Track B's `P0`**" in t
+            and '**No manuscript claim changes in this round.**' in t
+            and '**Nothing about the physical substratum.**' in t
+            and '**Nothing about approximate deep sectors.**' in t
+            and '**No selection principle is named.**' in t
+            and "The P1 row's status label stays **OPEN**" in t)
+
+
+def _sgt_budget(t=None):
+    """T19 -- six of six slots, both conditional slots recorded FIRED with reasons, no seventh."""
+    t = _SGT1 if t is None else t
+    return ('## Definition budget: **SIX of the frozen six slots fire**' in t
+            and 'slot 5, conditional — **fired**' in t
+            and 'slot 6, conditional — **fired**' in t
+            and '**No seventh definition was introduced.**' in t
+            and 'no witness pair, no `W`, no carrier, no word and no enlargement is a top-level '
+                'definition' in t)
+
+
+def _sgt_lean_defs(t=None):
+    """T20 -- exactly the six budget definitions are top-level `def`s in the module, in the frozen
+    slots' names, and the module carries no unproved declaration."""
+    t = _SGTLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['visibleBlock', 'familyAt', 'HiddenCommutantTrivial', 'HiddenConjugate',
+                     'wordEval', 'enlarge']
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t
+            and 'import OIBridge.CoherentLiftGauge' not in t
+            and 'import OIBridge.TwoSidedGauge' not in t
+            and 'import OIBridge.DilationChoice' not in t)
+
+
+def _sgt_no_manuscript(t=None):
+    """T21 -- no manuscript edit, no label change, no selection principle, no act 11/12 import."""
+    t = _SGT1 if t is None else t
+    return ('**It touches no manuscript.**' in t
+            and '**It changes no status label.** The P1 row stays **OPEN**' in t
+            and '**It names no selection principle.**' in t
+            and '**It imports neither act 11 nor act 12**' in t)
+
+
+def _sgt_chronology_scope(t=None):
+    """T22 -- the chronology certification names the property certified AND what it does not."""
+    t = _SGT1 if t is None else t
+    return ('**The property certified is that no commit reachable from the execution head lies '
+            "outside the control-plane merge's descendants.**" in t
+            and 'What it does not certify' in t
+            and 'blob SHAs are what is pinned' in t)
+
+
+def _sgt_discrepancy(t=None):
+    """T23 -- the one start-state discrepancy recorded, not repaired; the freeze not edited."""
+    t = _SGT1 if t is None else t
+    return ('**one recorded discrepancy**' in t
+            and 'byte-identical in the two blobs' in t
+            and 'The preregistration is not edited; the discrepancy is recorded here and nowhere '
+                'repaired.' in t)
+
+
+ok_sgt = True
+ok_sgt &= _sgt_freeze_pin()
+ok_sgt &= _sgt_execution_ancestry()
+ok_sgt &= _sgt_outcome()
+ok_sgt &= _sgt_central()
+ok_sgt &= _sgt_boundary_lemma()
+ok_sgt &= _sgt_boundary_st5()
+ok_sgt &= _sgt_boundary_generators()
+ok_sgt &= _sgt_st0c()
+ok_sgt &= _sgt_st1_pertime()
+ok_sgt &= _sgt_st2()
+ok_sgt &= _sgt_st2_kernel()
+ok_sgt &= _sgt_st3()
+ok_sgt &= _sgt_st3_kernel()
+ok_sgt &= _sgt_st4()
+ok_sgt &= _sgt_st4_kernel()
+ok_sgt &= _sgt_st5()
+ok_sgt &= _sgt_post_round()
+ok_sgt &= _sgt_not_licensed()
+ok_sgt &= _sgt_budget()
+ok_sgt &= _sgt_lean_defs()
+ok_sgt &= _sgt_no_manuscript()
+ok_sgt &= _sgt_chronology_scope()
+ok_sgt &= _sgt_discrepancy()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# ST5 sufficiency quietly promoted in the boxed outcome -- hazard 8
+_sgt_m1 = _SGT1.replace('**`ST0`–`ST4` landed; `ST5` necessity landed; `ST5` sufficiency is UNDECIDED.**',
+                        '**`ST0`–`ST5` landed, sufficiency included.**')
+ok_sgt &= _sgt_m1 != _SGT1 and not _sgt_outcome(_sgt_m1)
+
+# the central sentence inflated from the proof route to the theorem
+_sgt_m2 = _SGT1.replace('The present semigroup-transfer proof route therefore does not establish '
+                        'completeness of `𝒢_sub`.',
+                        'Completeness of `𝒢_sub` therefore fails.')
+ok_sgt &= _sgt_m2 != _SGT1 and not _sgt_central(_sgt_m2)
+
+# the central sentence closing the obligation
+_sgt_m3 = _SGT1.replace('the P1 completeness obligation remains OPEN, with stronger multi-time '
+                        'information or a different proof route required',
+                        'the P1 completeness obligation is settled negatively')
+ok_sgt &= _sgt_m3 != _SGT1 and not _sgt_central(_sgt_m3)
+
+# boundary 1 written back: the lemma called false
+_sgt_m4 = _SGT1.replace('**Lemma 24.1 is not called false without qualification.**',
+                        '**Lemma 24.1 is false.**')
+ok_sgt &= _sgt_m4 != _SGT1 and not _sgt_boundary_lemma(_sgt_m4)
+
+_sgt_m5 = _SGT1.replace('the broader completeness theorem could still have another proof',
+                        'so the completeness theorem has no proof')
+ok_sgt &= _sgt_m5 != _SGT1 and not _sgt_boundary_lemma(_sgt_m5)
+
+# boundary 2 written back: ST5 read as a repair
+_sgt_m6 = _SGT1.replace('a candidate strengthened hypothesis, not a certified repair',
+                        'the certified repair of the lemma')
+ok_sgt &= _sgt_m6 != _SGT1 and not _sgt_boundary_st5(_sgt_m6)
+
+# boundary 3 written back: the generators called incomplete -- hazard 1
+_sgt_m7 = _SGT1.replace('**The four gauge generators are not called incomplete.**',
+                        '**The four gauge generators are incomplete.**')
+ok_sgt &= _sgt_m7 != _SGT1 and not _sgt_boundary_generators(_sgt_m7)
+
+_sgt_m8 = _SGT1.replace('exhaustiveness remains neither proved nor refuted',
+                        'exhaustiveness is refuted by Pair C')
+ok_sgt &= _sgt_m8 != _SGT1 and not _sgt_boundary_generators(_sgt_m8)
+
+# ST0(c) reported one-directional, or the two cyclicities conflated -- hazard 3
+_sgt_m9 = _SGT1.replace('**`ST0(c)`, GNS cyclicity is trivial hidden commutant — at level 2, in both '
+                        'directions.**',
+                        '**`ST0(c)`, GNS cyclicity implies trivial hidden commutant — at level 2, one '
+                        'direction.**')
+ok_sgt &= _sgt_m9 != _SGT1 and not _sgt_st0c(_sgt_m9)
+
+_sgt_m10 = _SGT1.replace('**The two cyclicity notions are different**',
+                         'The two cyclicity notions coincide on permutation instances')
+ok_sgt &= _sgt_m10 != _SGT1 and not _sgt_st0c(_sgt_m10)
+
+# ST1's per-time W_t promoted to a constant or product one
+_sgt_m11 = _SGT1.replace('**The existential is inside the `∀ t`. Nothing in Reading A makes `W_t` '
+                         'constant in `t`, nor of the product form `W ⊗ W̄`**',
+                         'The unitary `W` can be taken independent of `t` and of the form `W ⊗ W̄`')
+ok_sgt &= _sgt_m11 != _SGT1 and not _sgt_st1_pertime(_sgt_m11)
+
+# ST2's bounded wording dropped: the negative read as touching exhaustiveness
+_sgt_m12 = _SGT1.replace("**step (2)'s conclusion, as written, fails on a two-qubit substratum pair; "
+                         'exhaustiveness is untouched by this pair**',
+                         'step (2) fails on a two-qubit pair and exhaustiveness fails with it')
+ok_sgt &= _sgt_m12 != _SGT1 and not _sgt_st2(_sgt_m12)
+
+# the absorption dropped from ST2's THEOREM
+_sgt_m13 = _SGTLEAN.replace(" ∧ ¬ HiddenConjugate U U' ∧ U' = ((Equiv.swap (0 : Fin 2) 1).permMatrix ℂ "
+                            "⊗ₖ (1 : Matrix (Fin 2) (Fin 2) ℂ)) * U *",
+                            " ∧ ¬ HiddenConjugate U U' ∧ True ∧ U' = U *")
+ok_sgt &= _sgt_m13 != _SGTLEAN and not _sgt_st2_kernel(_sgt_m13)
+
+# ST3's all-unitary clause weakened to hidden-only, in the note and in the kernel
+_sgt_m14 = _SGT1.replace('**no unitary whatsoever conjugates one to the other on the fixed carrier**',
+                         'no hidden unitary conjugates one to the other on the fixed carrier')
+ok_sgt &= _sgt_m14 != _SGT1 and not _sgt_st3(_sgt_m14)
+
+_sgt_m15 = _SGTLEAN.replace("(∀ G : Matrix (Fin 2 × Fin 3) (Fin 2 × Fin 3) ℂ, Gᴴ * G = 1 → U' ≠ "
+                            "G * U * Gᴴ) ∧",
+                            "¬ HiddenConjugate U U' ∧")
+ok_sgt &= _sgt_m15 != _SGTLEAN and not _sgt_st3_kernel(_sgt_m15)
+
+# a trivial-commutant hypothesis dropped from ST3's THEOREM -- the reading would then be reachable-cyclic only
+_sgt_m16 = _SGTLEAN.replace("HiddenCommutantTrivial U ∧ HiddenCommutantTrivial U' ∧ (∀ t, familyAt U t = "
+                            "familyAt U' t) ∧ (∀ G",
+                            "HiddenCommutantTrivial U ∧ (∀ t, familyAt U t = familyAt U' t) ∧ (∀ G")
+ok_sgt &= _sgt_m16 != _SGTLEAN and not _sgt_st3_kernel(_sgt_m16)
+
+# ST4's deep-sector model widened past the frozen exact product -- hazard 6
+_sgt_m17 = _SGT1.replace('Approximate decoupling and unequal sizes are outside it.',
+                         'Approximate decoupling is covered by continuity.')
+ok_sgt &= _sgt_m17 != _SGT1 and not _sgt_st4(_sgt_m17)
+
+# one visible relabelling silently skipped
+_sgt_m18 = _SGT1.replace('Both visible relabellings are checked', 'The identity relabelling is checked')
+ok_sgt &= _sgt_m18 != _SGT1 and not _sgt_st4(_sgt_m18)
+
+# the enlargement lemma stated for every word -- hazard 5 (unbalanced words are not enlargement-stable)
+_sgt_m19 = _SGTLEAN.replace('(hw : (w.map fun l => if l.2.2 then (1 : ℤ) else -1).sum = 0)', '')
+ok_sgt &= _sgt_m19 != _SGTLEAN and not _sgt_st4_kernel(_sgt_m19)
+
+# ST4's theorem restricted to a fixed deep sector
+_sgt_m20 = _SGTLEAN.replace("∀ (D : Type) [Fintype D] [DecidableEq D] [Nonempty D] (δ δ' : Matrix D D ℂ) "
+                            "(σ : Equiv.Perm (Fin 2))",
+                            "∀ (δ δ' : Matrix (Fin 2) (Fin 2) ℂ) (σ : Equiv.Perm (Fin 2))")
+ok_sgt &= _sgt_m20 != _SGTLEAN and not _sgt_st4_kernel(_sgt_m20)
+
+# ST5's fallback promoted -- hazard 8, in the ST5 section
+_sgt_m21 = _SGT1.replace('**Sufficiency is UNDECIDED, and the obstruction is the one the freeze named**',
+                         '**Sufficiency follows by the standard Specht argument**')
+ok_sgt &= _sgt_m21 != _SGT1 and not _sgt_st5(_sgt_m21)
+
+# the post-round ceiling removed -- hazard 1
+_sgt_m22 = _SGT1.replace('**This round does not prove that stronger data are necessary for '
+                         'completeness itself**',
+                         'So completeness itself requires stronger data than the lemma names')
+ok_sgt &= _sgt_m22 != _SGT1 and not _sgt_post_round(_sgt_m22)
+
+# a non-licence dropped: exhaustiveness
+_sgt_m23 = _SGT1.replace('**Nothing here says the four families fail to exhaust `𝒢_sub`, and nothing '
+                         'here says they do.**',
+                         '**The four families fail to exhaust `𝒢_sub`.**')
+ok_sgt &= _sgt_m23 != _SGT1 and not _sgt_not_licensed(_sgt_m23)
+
+# a selection principle named -- hazard 13
+_sgt_m24 = _SGT1.replace('**No selection principle is named.**',
+                         'The selection principle is the full word-trace functional.')
+ok_sgt &= _sgt_m24 != _SGT1 and not _sgt_not_licensed(_sgt_m24)
+
+# the P1 label moved -- hazard 10
+_sgt_m25 = _SGT1.replace('**It changes no status label.** The P1 row stays **OPEN**',
+                         'The P1 row is relabelled **REFUTED**')
+ok_sgt &= _sgt_m25 != _SGT1 and not _sgt_no_manuscript(_sgt_m25)
+
+# a manuscript edit the round is forbidden to make -- hazard 9
+_sgt_m26 = _SGT1.replace('**It touches no manuscript.**', 'The manuscripts carry the corrected lemma.')
+ok_sgt &= _sgt_m26 != _SGT1 and not _sgt_no_manuscript(_sgt_m26)
+
+# a seventh definition, or a conditional slot reported unused when it fired
+_sgt_m27 = _SGT1.replace('**No seventh definition was introduced.**',
+                         'A seventh definition was convenient and was added.')
+ok_sgt &= _sgt_m27 != _SGT1 and not _sgt_budget(_sgt_m27)
+
+_sgt_m28 = _SGTLEAN.replace('def enlarge', 'def deepSector (D : Type) := D def enlarge')
+ok_sgt &= _sgt_m28 != _SGTLEAN and not _sgt_lean_defs(_sgt_m28)
+
+# act 11/12 imported as evidence -- hazard 2
+_sgt_m29 = _SGTLEAN.replace('import OIBridge.UhlmannUniqueness',
+                            'import OIBridge.UhlmannUniqueness import OIBridge.CoherentLiftGauge')
+ok_sgt &= _sgt_m29 != _SGTLEAN and not _sgt_lean_defs(_sgt_m29)
+
+# the chronology scope overstated
+_sgt_m30 = _SGT1.replace('What it does not certify', 'It certifies in addition')
+ok_sgt &= _sgt_m30 != _SGT1 and not _sgt_chronology_scope(_sgt_m30)
+
+# the start-state discrepancy repaired by editing the freeze
+_sgt_m31 = _SGT1.replace('The preregistration is not edited; the discrepancy is recorded here and '
+                         'nowhere repaired.',
+                         'The preregistration was corrected to the base blob.')
+ok_sgt &= _sgt_m31 != _SGT1 and not _sgt_discrepancy(_sgt_m31)
+
+# T1's control runs THROUGH _sgt_freeze_pin, so sabotaging that predicate fails the guard.
+def _sgt_drift(path):
+    """One byte appended to the Lemma 24.1 preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('lemma-24-1-semigroup-transfer/preregistration.md') else b'')
+
+
+ok_sgt &= _sgt_drift(_SGTDIR + 'preregistration.md') != _bb_read(_SGTDIR + 'preregistration.md')
+ok_sgt &= not _sgt_freeze_pin(_sgt_drift)
+
+check('R7-SGT', ok_sgt,
+      'Substratum Lemma 24.1 guard: a FORK round with three kernel-certified negatives, so what can go wrong is '
+      'reading a refuted proof ROUTE as a refuted THEOREM. The boxed outcome is checked verbatim -- ST0-ST4 '
+      'landed, ST5 necessity landed, ST5 sufficiency UNDECIDED -- with the sufficiency promotion mutation-tested '
+      'in the outcome line and in the ST5 section. The central result sentence is checked in the owner\'s words: '
+      'the visible channel family does not determine the dilation up to a single time-independent hidden '
+      'conjugation even under the GNS-cyclic reading and the decoupled-enlargement control, the present '
+      'semigroup-transfer proof ROUTE does not establish completeness, block-word-trace equality is necessary '
+      'but not shown sufficient, and P1 remains OPEN; the inflation to "completeness fails" and the closure of '
+      'the obligation are both mutation-tested. The three boundaries are checked present in terms and each '
+      'written back as a mutation: Lemma 24.1 NOT called false without qualification (a route refuted on the '
+      'tested readings, the theorem possibly provable otherwise), ST5 NOT a repair (a candidate hypothesis, not '
+      'a certified one), the four generators NOT called incomplete ((ii)/(iv) untouched, exhaustiveness neither '
+      'proved nor refuted). ST0(c) is checked at level 2 in BOTH directions with the two cyclicities kept '
+      'distinct; ST1 checked per time with the existential inside the forall and the constant/product promotion '
+      'mutation-tested; ST2 checked negative WITH the visible-relabelling absorption and the bounded wording, the '
+      'absorption conjunct of the kernel theorem mutation-tested; ST3 checked with both trivial commutants, equal '
+      'families, non-trivial statistics and NO unitary whatsoever as conjuncts of ONE kernel theorem, with the '
+      'hidden-only weakening and a dropped commutant hypothesis mutation-tested; ST4 checked with the frozen '
+      'exact-product deep-sector model stated and bounded, both relabellings checked, the enlargement lemma '
+      'restricted to BALANCED words, and the theorem quantifying over EVERY finite non-empty D -- the widening to '
+      'approximate decoupling, the skipped relabelling, the unbalanced-word lemma and the fixed-D restriction all '
+      'mutation-tested. The frozen post-round sentence and its own ceiling are checked, the non-licences checked '
+      'in terms with the exhaustiveness and selection-principle inflations mutation-tested, the P1 label checked '
+      'OPEN and no manuscript touched. Six of six definition slots fire with both conditional slots recorded '
+      'fired for stated reasons and no seventh; the module is checked to carry EXACTLY those six top-level '
+      'definitions, no unproved declaration, and no import of act 7, 11 or 12. The chronology control is act '
+      '10\'s STRONG form: the blob by content, the real pull_request.head.sha rather than the synthetic merge '
+      'commit, B an ancestor of the head AND every commit of the execution-only history required to descend '
+      'from B, recovery included and fail-closed, with the certified property and its limits stated. '
+      'Twenty-three named contracts, thirty-one mutation controls, plus the freeze-pin drift controls.')
+
 # ---- R7-A11P: the act 11 scope propagation round (publication only) ----
 #
 # The manuscript round that carries act 11's GL2 conclusion into the corpus. Its hazard is not the one
