@@ -3135,11 +3135,24 @@ linear. Nonlinear alternatives are not ruled out as theoretical
 possibilities but would require a separate derivation chain not
 developed here.
 
-\emph{(A6) Background independence.} The dynamics is invariant under
-spatially varying internal-index transformations that preserve the
-coupling structure pointwise. The promotion of the resulting global
-symmetry to local gauge invariance is a derivation step rather than an
-assumption.
+\emph{(A6) Background independence.} The dynamics is covariant under
+spatially varying internal-index transformations: a site-dependent
+transformation of the internal index is a symmetry provided the coupling
+data carried on the links are transformed with it. The content of the
+assumption is this covariant interface --- the coupling is link-valued
+data on which the transformations act --- and once it is in place the
+local transformation law imposes no further condition on the rule. It is
+not the stronger fixed-background condition that the same
+transformations leave the dynamics invariant with the coupling held
+fixed, which for an invertible constant coupling forces the
+transformation to agree across every coupled pair of sites and fails at
+the symmetric point of the coupling matrix for every transformation that
+differs across a coupled pair; the global commutant symmetry --- the
+transformations constant across the lattice that leave the coupling
+unchanged --- is the specialization from which the local gauge reading
+of Chapter 5 proceeds. The state-dependent coupling graph, under which
+the graph itself evolves with the state, is a separate principle that
+shares the name.
 
 The reconstruction theorem's claim is that, under E1--E7 and A1--A6 with
 M1-T, C2-mixing and the semigroup-transfer completeness step, the
@@ -7185,20 +7198,26 @@ commutant \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\)
 derived so far is a global symmetry of the matrix wave equation: the
 same gauge transformation applies at every lattice site. The Standard
 Model is, of course, a local gauge theory --- the gauge transformations
-vary from site to site. The promotion from global to local gauge
-invariance is performed by the framework's commitment to background
-independence.
+vary from site to site. The step from global to local is what background
+independence (A6) supplies: the local transformations act covariantly
+once the coupling data on the links are transformed with them.
 
-Background independence, established in the framework's prior content,
-requires the coupling structure to be dynamical rather than fixed: the
-coupling matrix \(M\) depends on the state, with
-\(M(\mathbf{n}, \hat{e}_j)\) varying from site to site as the state
-evolves. The matrix structure at each site has eigenvalue multiplicities
-\((3, 2, 1)\) because spatial isotropy still holds locally, but the
-specific orientation of the eigenbases differs from site to site. The
-commutant \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\)
-then acts independently at each site, and the resulting gauge
-transformations are site-dependent.
+Background independence, as the reconstruction's assumption A6 states
+it, is a covariance requirement: a site-dependent internal-index
+transformation is a symmetry of the dynamics provided the coupling data
+on the links are transformed with it. It is not the requirement that the
+coupling structure be held fixed and left invariant --- for an
+invertible coupling that stronger fixed-background condition holds only
+for transformations that agree across every coupled pair of sites ---
+and it is not the state-dependent coupling graph \(G(x)\) on which the
+Bell branch of Chapter 1 rests, under which the graph itself evolves
+with the state; those are different principles that share a name. The
+matrix structure at each site has eigenvalue multiplicities
+\((3, 2, 1)\) because spatial isotropy holds locally, and the coupling
+on each link, \(M(\mathbf{n}, \hat{e}_j)\), is the data the
+site-dependent transformations act on; the commutant
+\(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) acts at each
+site, and the resulting gauge transformations are site-dependent.
 
 Under a site-dependent transformation \(G(\mathbf{n})\) of the form
 \(\boldsymbol{\phi}(\mathbf{n}) \to G(\mathbf{n})\,\boldsymbol{\phi}(\mathbf{n})\)
@@ -12587,13 +12606,18 @@ the visible-sector level. Matrix models with linear evolution on matrix
 degrees of freedom are consistent; non-linear matrix dynamics would not
 be.
 
-\emph{A6 (background independence).} The framework operates in a
-background-independent way --- the substratum is the background, with
-spacetime emergent. Matrix models with explicit background spacetime are
-not background-independent in this sense; the bridge would require the
-matrix model to be of background-independent form (BFSS in its M-theory
-interpretation, for instance, where spacetime emerges from the matrix
-dynamics).
+\emph{A6 (background independence).} The framework's assumption is
+covariance under spatially varying internal-index transformations, with
+the link coupling transformed alongside; separately, the framework has
+no fixed spacetime background --- the substratum is the background, with
+spacetime emergent --- and that is a different sense of the same words.
+Matrix models with explicit background spacetime are not
+background-independent in the emergent-spacetime sense; the bridge would
+require the matrix model to be of background-independent form (BFSS in
+its M-theory interpretation, for instance, where spacetime emerges from
+the matrix dynamics), and whether its matrix-internal gauge covariance
+then plays the role the assumption requires depends on that
+matrix-spatial bridge.
 
 The summary is that \emph{some} matrix models are bridge-compatible with
 the framework, but not all. The framework's structural axioms place real
@@ -26425,10 +26449,10 @@ dimensions of the Standard Model gauge group factors. \(\square\)
 matrix \(M = \text{diag}(\mu_c I_3, \mu_w I_2, 1)\) is the maximal group
 preserving the eigenvalue structure:
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\).
-Background independence --- the requirement that the dynamics be
-invariant under local choices of basis within each eigenspace ---
-promotes this global commutant to local gauge invariance. The result is
-the emergent
+Background independence --- covariance of the dynamics under
+site-dependent choices of basis within each eigenspace, the link
+coupling transforming with them --- promotes this global commutant to
+local gauge invariance. The result is the emergent
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) gauge
 theory of the Standard Model.
 
@@ -28287,6 +28311,26 @@ physically by the Bekenstein bound at the cosmological horizon
 (\(\sim 10^{122}\) distinguishable states). Discussed in Chapter 2 §2.5,
 with defense in Appendix C §C.6.
 
+\textbf{Background independence (A6).} The sixth of the framework's
+structural assumptions A1--A6: the substratum dynamics is covariant
+under spatially varying internal-index transformations, a site-dependent
+transformation being a symmetry provided the coupling data carried on
+the links are transformed with it. The content of the assumption is the
+covariant interface itself --- the coupling is link-valued data the
+transformations act on --- and once that is in place the local
+transformation law imposes no further condition on the rule. It is
+distinct from the stronger fixed-background condition that the same
+transformations leave the dynamics invariant with the coupling held
+fixed, which for an invertible coupling forces agreement across every
+coupled pair of sites; from the global commutant symmetry, its
+specialization to transformations constant across the lattice that leave
+the coupling unchanged, from which the local gauge reading proceeds; and
+from the state-dependent coupling graph, a separate principle sharing
+the name, under which the graph itself evolves with the state. Where the
+framework says it has no fixed spacetime background, with spacetime
+emergent, that is a third sense of the words and not this assumption.
+Developed in Chapter 2 §2.4 and Chapter 5 §5.5.
+
 \textbf{Barandes correspondence.} The mathematical result establishing
 that stochastic processes in its own indivisible class correspond
 structurally to unitary quantum dynamics under its hypotheses. The class
@@ -29709,4 +29753,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: f31f18a2d9401217528dacb5e7aeb522d5e82828e764efc0a3cf4f8e82ec0568
+% source-sha256: bcff54083f1ded996e096e983cb0aa2bdf250f3927f89373f7e3da9ed5dcff31

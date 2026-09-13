@@ -314,7 +314,7 @@ The decomposition $\mathbf{6} = T_1 \oplus E \oplus A_1$ produces three eigenval
 
 The identification is structural: the cubic rotation group's representation theory determines the internal structure, and the isotypic block multiplicities of the equivariant structure are the dimensions of the Standard Model gauge group factors. $\square$
 
-**The link to gauge invariance.** The commutant of the coupling matrix $M = \text{diag}(\mu_c I_3, \mu_w I_2, 1)$ is the maximal group preserving the eigenvalue structure: $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. Background independence — the requirement that the dynamics be invariant under local choices of basis within each eigenspace — promotes this global commutant to local gauge invariance. The result is the emergent $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge theory of the Standard Model.
+**The link to gauge invariance.** The commutant of the coupling matrix $M = \text{diag}(\mu_c I_3, \mu_w I_2, 1)$ is the maximal group preserving the eigenvalue structure: $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. Background independence — covariance of the dynamics under site-dependent choices of basis within each eigenspace, the link coupling transforming with them — promotes this global commutant to local gauge invariance. The result is the emergent $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge theory of the Standard Model.
 
 **Combined structural result.** Combining B.6.1 and B.6.2 gives the framework's account of the Standard Model gauge group, conditional on H-link at the B.6.1 step and unconditional at the B.6.2 step:
 
