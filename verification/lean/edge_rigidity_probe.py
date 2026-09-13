@@ -14071,8 +14071,8 @@ _HYBDIR = 'programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/'
 _HYB_BASE = '8de0478ef31fe4cabcf89fc5787f80f38376a957'
 # The SEALED execution head and the merge commit that carries it, pinned once the execution PR has
 # merged; set, the guard runs in ARCHIVE MODE. Unset (None), the guard certifies the run's real target.
-_HYB_SEALED_HEAD = None
-_HYB_MERGE = None
+_HYB_SEALED_HEAD = '54b33c4304bdbda52a09dfe0a06f3e7ff350d832'
+_HYB_MERGE = '2ac870f0b7f04df35f32e80f7717d67667b5df83'
 
 
 def _hyb_freeze_pin(read=_bb_read):
