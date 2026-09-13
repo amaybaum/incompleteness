@@ -13497,8 +13497,8 @@ _CTI_BASE = 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
 # guard certifies the run's real target. Set by the one pin-only change after the merge, the guard
 # runs in ARCHIVE MODE: the same strong check re-run against that object, plus its reachability
 # from the current target.
-_CTI_SEALED_HEAD = None
-_CTI_MERGE = None
+_CTI_SEALED_HEAD = '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
+_CTI_MERGE = '292848b3c908d33ac432a5360effe0c259e3ce16'
 
 
 def _cti_git(*args, **kw):
