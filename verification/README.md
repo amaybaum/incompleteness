@@ -2303,5 +2303,36 @@ passage was located by content and found verbatim at the base, and the A6 row an
 byte-identical to the control plane's quotation. Every other surface the control plane pins was at
 its recorded blob.
 
+The reconstruction programme's Lemma 24.1A round
+(`programmes/substratum/lemma-24-1a-word-trace-sufficiency/`, preregistration blob `98cfcfd`,
+merged by PR #606 as `baadea2`, the mandated execution base) continues the Lemma 24.1 round at its
+one open target, `ST5` sufficiency: does equality of all block-word traces force a single hidden
+conjugation? `OIBridge/WordTraceSufficiency.lean` proves the trace-form kernel step in full
+(`WT1_transfer`: under word-trace equality the map `w(U) ↦ w(U')` extends to the named induced
+map `transferMap` on the word span, well defined because equal word traces make the two Gram forms
+`Tr[w₁(·)ᴴ w₂(·)]` agree and `Tr[Aᴴ A] = 0` forces `A = 0`, and it is injective, unital,
+multiplicative, `*`-preserving and trace-preserving with range the other word span, under no
+unitarity hypothesis), and on the spanning class — both word spans all of `M_m(ℂ)` — implements it
+by a hidden unitary through the matrix-unit construction (`exists_unitary_of_starMul`:
+`e_{ij} = φ(E_{ij})` are matrix units, `W` has columns `e_{jo} ξ` for a nonzero column `ξ` of the
+projection `e_{oo}`, `Wᴴ W = 1` and `W E_{ij} Wᴴ = e_{ij}`), giving `WT2gen_hiddenConjugate`
+two-sided as frozen and `WT2gen_oneSided` as the permitted strengthening. `WT3_spanning_iff` is
+the biconditional on that class — hidden conjugation iff equal word traces — with the merged
+necessity as its reverse; `WT4_finite_spanning_family` gives a finite spanning family of words
+with no length bound claimed; the controls exclude the `ST3` pair from the hypothesis by the
+merged word certificate and exhibit the hidden transposition of `ℤ₃` as a positive control with
+its `W` pinned. `WT2`, the general case, is UNDECIDED at its frozen fallback: the spatial
+structure theory of `*`-subalgebras of `M_m(ℂ)` is carried by neither Mathlib at the pin nor the
+corpus. So sufficiency on general pairs is UNDECIDED, the frozen spanning-class sentence is
+asserted and no higher, and the P1 obligation remains OPEN: Lemma 24.1 is not repaired, the four
+generators are neither called complete nor called incomplete, the manuscripts' route is not
+restored, and round 24.1B — whether the reconstruction framework supplies the block-word trace
+data — is named and not begun. Forty named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`; five of six definition slots fired; no manuscript edit. Guard
+`R7-WTS` pins the preregistration blob by content and certifies the strengthened execution
+ancestry with the archive-mode pins carried as `None` until the post-merge follow-up, and checks
+the outcome, the frozen sentence, each target's reading and the kernel statements in terms with
+thirty-one mutation controls.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.

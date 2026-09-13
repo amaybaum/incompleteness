@@ -15065,6 +15065,588 @@ check('R7-A6P', ok_a6p,
       'paragraph. R7-A6D\'s row contract and its label mutation are re-pinned in the same commit, and no other. '
       'Eleven named contracts, twelve mutation controls, plus one freeze-pin drift control.')
 
+
+# ---- R7-WTS: Substratum Lemma 24.1A -- ST5 sufficiency, the word-trace kernel ----
+#
+# A POSITIVE-EXPECTATION round with a formalization risk, continuing the Lemma 24.1 fork round at
+# its one open target: does equality of all block-word traces force a single hidden conjugation?
+# The kernel step (WT1) and the spanning-class implementation (WT2-gen) landed in full; the general
+# implementation (WT2) is UNDECIDED at its frozen fallback. So what can go wrong is not the landing
+# but the READING: (a) the spanning-class result written as the general one -- WT2 promoted, WT3
+# stated above the class reached, the post-round sentence swapped for the all-unitary-pairs one;
+# (b) a sufficiency theorem for a STRONGER hypothesis read as a repair of Lemma 24.1, as
+# completeness of G_sub, as a verdict on the four generators, or as a restoration of the
+# manuscripts' route; (c) the one-sided form silently substituted for the frozen two-sided label,
+# or WT1 quietly acquiring a unitarity hypothesis; (d) a same-trace non-conjugate pair -- which
+# would contradict the literature theorem -- reported as a negative label rather than a finding for
+# owner review; (e) 24.1B claimed begun or done; (f) the P1 label moved off OPEN, or a manuscript
+# edited. The guard checks each of these in the freeze's own terms, the kernel statements in
+# terms, the five-slot budget with slot 6 recorded unused, and the forty-line axiom table.
+_WTS = open(_artifact('programmes/substratum/lemma-24-1a-word-trace-sufficiency/result.md'),
+            encoding='utf-8').read()
+_WTS1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _WTS).split())
+_WTSLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'WordTraceSufficiency.lean'), encoding='utf-8').read().split())
+_WTSROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+_WTSREADME = ' '.join(open(_artifact('README.md'), encoding='utf-8').read().split())
+_WTSCENSUS = open(_artifact('lean-manuscript-census.json'), encoding='utf-8').read()
+_WTSDIR = 'programmes/substratum/lemma-24-1a-word-trace-sufficiency/'
+# The mandated execution base: the merge commit of the control-plane PR #606.
+_WTS_BASE = 'baadea2638019b335d96c892590491a6fb420936'
+# The SEALED execution head and the merge commit that carries it. Unset (None), the guard runs in
+# EXECUTION MODE and certifies the run's real target. Set by the post-merge follow-up under
+# clause 7, the guard runs in ARCHIVE MODE: the same strong check re-run against the sealed head,
+# plus its reachability from the current target.
+_WTS_SEALED_HEAD = None
+_WTS_MERGE = None
+
+
+def _wts_git(*args, **kw):
+    kw.setdefault('tag', 'R7-WTS')
+    return _rbr_git(*args, **kw)
+
+
+def _wts_ensure_present(rev, pr_number=None):
+    return _rbr_ensure_present(rev, pr_number=pr_number, tag='R7-WTS')
+
+
+def _wts_target_commit(env=None):
+    return _rbr_target_commit(env=env, tag='R7-WTS')
+
+
+def _wts_freeze_pin(read=_bb_read):
+    """W1 -- the preregistration is byte-identical to the blob merged by PR #606."""
+    return _bb_blob(_WTSDIR + 'preregistration.md', read) == (
+        '98cfcfdc0e74ffe0186c502517a842bfeb25d351')
+
+
+def _wts_execution_ancestry():
+    """W2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused verbatim through `_rbr_strong_ancestry`. Execution
+    mode (pins unset, as now): the strong check against the run's real target -- the real
+    `pull_request.head.sha` in PR CI, `HEAD` otherwise. Archive mode (pins set by the post-merge
+    follow-up): `_rbr_archive_ancestry` against the sealed head and its merge, fail-closed."""
+    if _WTS_SEALED_HEAD is None:
+        target, label, num = _wts_target_commit()
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_WTS_BASE, target, label, num, tag='R7-WTS')
+    return _rbr_archive_ancestry(_WTS_BASE, _WTS_SEALED_HEAD, _WTS_MERGE, tag='R7-WTS')
+
+
+def _wts_outcome(t=None):
+    """W3 -- the boxed outcome: WT0, WT1, WT2-gen, WT3 on the spanning class, WT4 landed; WT2
+    UNDECIDED; the spanning-class result NOT the general one."""
+    t = _WTS1 if t is None else t
+    return ('**`WT0`, `WT1`, `WT2-gen`, `WT3` on the spanning class and `WT4` landed; `WT2` is '
+            'UNDECIDED.**' in t
+            and '`WT2` exactly at its frozen fallback — UNDECIDED with the obstruction named' in t
+            and '**the spanning-class result is not the general one**' in t)
+
+
+def _wts_post_round(t=None):
+    """W4 -- the frozen post-round sentence for the spanning-class case, verbatim, with 24.1B OPEN
+    and the P1 row OPEN inside it."""
+    t = _WTS1 if t is None else t
+    return ('*On every finite carrier `V × H`, for pairs of dilation data whose visible blocks each '
+            'span all of `M_m(ℂ)`, equality of all block-word traces is necessary and sufficient '
+            'for hidden conjugation; on general pairs necessity holds and sufficiency is reached at '
+            'the strength of `WT1`' in t
+            and 'Whether the reconstruction framework supplies that data is round 24.1B and is '
+                'OPEN. The P1 row stays OPEN.*' in t
+            and 'Only `WT2-gen` landed, so `WT3` lands on the spanning class' in t)
+
+
+def _wts_boundaries(t=None):
+    """W5 -- the three boundaries: the lemma NOT repaired, the generators NEITHER complete NOR
+    incomplete, the manuscripts' route NOT restored; and no negative label."""
+    t = _WTS1 if t is None else t
+    return ('**Lemma 24.1 is not repaired.**' in t
+            and '**The four gauge generators are neither called complete nor called incomplete.**'
+                in t
+            and "**The manuscripts' route is not restored.**" in t
+            and '**No negative is reported**' in t
+            and 'none would be labelled without an append-only amendment' in t)
+
+
+def _wts_wt0(t=None):
+    """W6 -- WT0: necessity cited and NOT re-proved, the ST3 pair excluded by the merged word
+    certificate, the positive control with its W exhibited and U' ≠ U kept."""
+    t = _WTS1 if t is None else t
+    return ('**not re-proved and not restated under a new name**' in t
+            and 'The pair the family cannot see, the word traces do see' in t
+            and '**The `U\' ≠ U` conjunct is kept**' in t
+            and 'The last conjunct is the consumed necessity, applied to the exhibited `W`.' in t)
+
+
+def _wts_wt1(t=None):
+    """W7 -- WT1 in full: the named induced map, the trace form as the kernel step, the seven
+    properties, NO unitarity hypothesis."""
+    t = _WTS1 if t is None else t
+    return ('**The kernel step is the trace form.**' in t
+            and '**equal word traces make the two Gram forms agree**' in t
+            and '**The seven frozen properties, each its own theorem and all conjuncts of '
+                '`WT1_transfer`:**' in t
+            and '**No unitarity hypothesis is carried and none was added**' in t)
+
+
+def _wts_wt2gen(t=None):
+    """W8 -- WT2-gen: the matrix-unit construction and no other, the TWO-SIDED form the label, the
+    one-sided form reported as the strengthening, spanning never HiddenCommutantTrivial."""
+    t = _WTS1 if t is None else t
+    return ('**The matrix-unit construction is the frozen one and no other**' in t
+            and 'No Wedderburn, no Skolem–Noether, no double commutant.' in t
+            and '**The two-sided form is the label; the one-sided form is proved and reported as '
+                'the strengthening.**' in t
+            and 'spanning and never `HiddenCommutantTrivial`' in t)
+
+
+def _wts_wt2(t=None):
+    """W9 -- WT2 UNDECIDED with the obstruction named among (a)-(f), NOT promoted."""
+    t = _WTS1 if t is None else t
+    return ("**UNDECIDED, and the obstruction is named among the freeze's (a)–(f).**" in t
+            and '**The obstruction is (b) together with (e)**' in t
+            and '**`WT2-gen` is reported at its strength and `WT2` is not promoted.**' in t)
+
+
+def _wts_wt3(t=None):
+    """W10 -- WT3 on the class reached and NEVER above it; the biconditional with the consumed
+    necessity as its reverse; unitarity dropped and said."""
+    t = _WTS1 if t is None else t
+    return ('**Stated once, on the class reached, and never at a class above the one reached.**'
+            in t
+            and 'its reverse direction the consumed `trace_wordEval_hiddenConjugate`' in t
+            and '**dropped because the proof does not use them**' in t)
+
+
+def _wts_wt4(t=None):
+    """W11 -- WT4 at full strength with NO length bound claimed."""
+    t = _WTS1 if t is None else t
+    return ('**No explicit length bound is claimed.**' in t
+            and 'external, cited, and not a target' in t)
+
+
+def _wts_not_licensed(t=None):
+    """W12 -- the frozen non-licences in terms: the six forbidden sentences, (ii)/(iv), no
+    manuscript, no selection principle, the P1 label OPEN, 24.1B named and NOT begun."""
+    t = _WTS1 if t is None else t
+    return ('**Nothing about the completeness of `𝒢_sub`.**' in t
+            and 'The forbidden sentences are "Lemma 24.1 is repaired", "completeness holds", '
+                '"completeness is false", "the generators are complete", "the generators are '
+                'incomplete", and "the manuscripts\' route is restored".' in t
+            and '**Nothing may say Lemma 24.1 is repaired; nothing may say the four generators are '
+                'complete or incomplete; nothing may say the manuscripts\' route is restored.**' in t
+            and '**Nothing about generators (ii) and (iv)**' in t
+            and '**No manuscript claim changes in this round.**' in t
+            and '**No selection principle is named.** The P1 row\'s status label stays **OPEN**.'
+                in t
+            and '**Round 24.1B is named and not begun.**' in t)
+
+
+def _wts_budget(t=None):
+    """W13 -- five of six slots, the three conditional slots recorded FIRED with reasons, slot 6
+    recorded UNUSED, no seventh; no witness a top-level definition."""
+    t = _WTS1 if t is None else t
+    return ('## Definition budget: **FIVE of the frozen six slots fire**' in t
+            and 'slot 3, conditional — **fired**' in t
+            and 'slot 4, conditional — **fired**' in t
+            and 'slot 5, conditional — **fired**' in t
+            and '**Slot 6 is unused**' in t
+            and '**No seventh definition was introduced.**' in t
+            and 'no witness pair, no `W`, no `ξ`, no carrier and no word is a top-level definition'
+                in t)
+
+
+def _wts_lean_defs(t=None):
+    """W14 -- exactly the five budget definitions are top-level `def`s, in the frozen slots' names
+    and order; no unproved declaration; the merged module imported and no act 7/11/12 module."""
+    t = _WTSLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['wordStar', 'wordSpan', 'WordTracesEqual', 'BlockSpanning', 'transferMap']
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t
+            and 'import OIBridge.SemigroupTransfer' in t
+            and 'import OIBridge.CoherentLiftGauge' not in t
+            and 'import OIBridge.TwoSidedGauge' not in t
+            and 'import OIBridge.DilationChoice' not in t)
+
+
+def _wts_lean_wt1(t=None):
+    """W15 -- WT1's theorem carries word-trace equality as its ONLY hypothesis and the seven
+    properties as conjuncts of ONE existential."""
+    t = _WTSLEAN if t is None else t
+    return ("theorem WT1_transfer (U U' : Matrix (V × H) (V × H) ℂ) (h : WordTracesEqual U U') : "
+            "∃ φ : wordSpan U →ₗ[ℂ] Matrix H H ℂ," in t
+            and "LinearMap.range φ = wordSpan U' ∧ Function.Injective φ ∧ φ ⟨1, one_mem_wordSpan "
+                "U⟩ = 1 ∧" in t
+            and "(∀ x : wordSpan U, trace (φ x) = trace (x : Matrix H H ℂ))" in t)
+
+
+def _wts_lean_wt2gen(t=None):
+    """W16 -- WT2-gen's frozen TWO-SIDED statement is present with BOTH spanning hypotheses and no
+    unitarity hypothesis, derived from the one-sided construction; the matrix-unit construction is
+    a theorem about an arbitrary multiplicative *-preserving injective map of M_m(C)."""
+    t = _WTSLEAN if t is None else t
+    return ("theorem WT2gen_hiddenConjugate (U U' : Matrix (V × H) (V × H) ℂ) (hU : BlockSpanning "
+            "U) (hU' : BlockSpanning U') (h : WordTracesEqual U U') : HiddenConjugate U U' := "
+            "WT2gen_oneSided U U' hU h" in t
+            and "theorem WT2gen_oneSided (U U' : Matrix (V × H) (V × H) ℂ) (hU : BlockSpanning U) "
+                "(h : WordTracesEqual U U') : HiddenConjugate U U' := by" in t
+            and "theorem exists_unitary_of_starMul (ψ : Matrix H H ℂ →ₗ[ℂ] Matrix H H ℂ) (hmul : ∀ "
+                "x y, ψ (x * y) = ψ x * ψ y) (hstar : ∀ x, ψ xᴴ = (ψ x)ᴴ) (hinj : Function.Injective "
+                "ψ) : ∃ W : Matrix H H ℂ, Wᴴ * W = 1 ∧ ∀ x, ψ x = W * x * Wᴴ := by" in t)
+
+
+def _wts_lean_wt3(t=None):
+    """W17 -- WT3 is stated on the spanning class with the frozen inline quantifier, the
+    biconditional on the same class, and NO theorem states sufficiency on all unitary pairs."""
+    t = _WTSLEAN if t is None else t
+    return ("theorem WT3_spanning (U U' : Matrix (V × H) (V × H) ℂ) (hU : BlockSpanning U) (hU' : "
+            "BlockSpanning U') : (∀ w : List (V × V × Bool), trace (wordEval U w) = trace (wordEval "
+            "U' w)) → HiddenConjugate U U' :=" in t
+            and "theorem WT3_spanning_iff (U U' : Matrix (V × H) (V × H) ℂ) (hU : BlockSpanning U) "
+                "(hU' : BlockSpanning U') : HiddenConjugate U U' ↔ WordTracesEqual U U' :=" in t
+            and 'theorem WT2_' not in t and 'theorem WT3_all' not in t)
+
+
+def _wts_lean_controls(t=None):
+    """W18 -- WT0(b) states the ST3 pair OUTSIDE the hypothesis, WT0(c) keeps U' ≠ U and pins the
+    exhibited W by an equation, WT4 states a Finset of words with no bound."""
+    t = _WTSLEAN if t is None else t
+    return ("U = Equiv.Perm.permMatrix ℂ φC ∧ U' = Equiv.Perm.permMatrix ℂ φC' ∧ ¬ WordTracesEqual "
+            "U U' := by" in t
+            and "U = Equiv.Perm.permMatrix ℂ φC ∧ W = Equiv.Perm.permMatrix ℂ τ ∧" in t
+            and "Wᴴ * W = 1 ∧ HiddenConjugate U U' ∧ U' ≠ U ∧ WordTracesEqual U U' := by" in t
+            and "∃ S : Finset (List (V × V × Bool)), Submodule.span ℂ (wordEval U '' ↑S) = wordSpan "
+                "U := by" in t)
+
+
+def _wts_axioms(note=None, lean=None):
+    """W19 -- forty named results: forty `#print axioms` lines in the module, forty rows in the
+    note's table, name for name, every row exactly the three permitted axioms, the count stated
+    in words."""
+    note = _WTS1 if note is None else note
+    lean = _WTSLEAN if lean is None else lean
+    prints = re.findall(r"#print axioms OIBridge\.WordTraceSufficiency\.([A-Za-z0-9_']+)", lean)
+    rows = re.findall(r"\| `([A-Za-z0-9_']+)` \| [^|]+ \| `\[propext, Classical\.choice, "
+                      r"Quot\.sound\]` \|", note)
+    bad = re.findall(r"\| `([A-Za-z0-9_']+)` \| [^|]+ \| `\[[^\]]*sorryAx[^\]]*\]` \|", note)
+    return (len(prints) == 40 and len(rows) == 40 and not bad
+            and sorted(prints) == sorted(rows)
+            and 'Forty named results, one `#print axioms` line each' in note)
+
+
+def _wts_no_manuscript(t=None):
+    """W20 -- no manuscript edit, no label change, no selection principle, no act 11/12 import,
+    SemigroupTransfer and R7-SGT untouched, 24.1B not begun."""
+    t = _WTS1 if t is None else t
+    return ('**It touches no manuscript.**' in t
+            and '**It changes no status label.** The P1 row stays **OPEN**' in t
+            and '**It names no selection principle.**' in t
+            and '**It edits neither `SemigroupTransfer.lean` nor `R7-SGT` nor any merged label**'
+                in t
+            and '**It imports neither act 11 nor act 12**' in t
+            and '**It begins no part of 24.1B.**' in t)
+
+
+def _wts_chronology_scope(t=None):
+    """W21 -- the chronology certification names the property certified, what it does not certify,
+    and that archive mode is armed by the post-merge follow-up."""
+    t = _WTS1 if t is None else t
+    return ('**The property certified is that no commit reachable from the execution head lies '
+            "outside the control-plane merge's descendants.**" in t
+            and 'What it does not certify' in t
+            and '**Archive mode is armed by the post-merge follow-up**' in t
+            and 'blob SHAs are what is pinned' in t)
+
+
+def _wts_discrepancy(t=None):
+    """W22 -- the two informational-row discrepancies recorded, not repaired; the freeze not
+    edited; the ROADMAP row and section byte-identical to the quotation."""
+    t = _WTS1 if t is None else t
+    return ('both are **recorded discrepancies**, not repaired' in t
+            and 'byte-identical to the freeze\'s quotation at the base' in t
+            and 'The preregistration is not edited; the discrepancies are recorded here and '
+                'nowhere repaired.' in t)
+
+
+def _wts_roadmap(t=None):
+    """W23 -- the P1 row keeps its OPEN label with the 24.1A outcome appended, and the P1 section
+    carries the 24.1A paragraph with the frozen sentence and the row OPEN."""
+    t = _WTSROAD if t is None else t
+    return ('| **P1** | Substratum Lemma 24.1 — semigroup transfer | Reconstruction | **OPEN** — the '
+            'semigroup-transfer route is refuted on the tested readings (`ST2`–`ST4`); the '
+            'obligation itself is untouched; 24.1A:' in t
+            and '**Executed, 24.1A** — `programmes/substratum/lemma-24-1a-word-trace-sufficiency/`'
+                in t
+            and 'for pairs of dilation data whose visible blocks each span all of `M_m(ℂ)`, '
+                'equality of all block-word traces is necessary and sufficient for hidden '
+                'conjugation; on general pairs necessity holds and sufficiency is reached at the '
+                'strength of `WT1`' in t
+            and 'Whether the reconstruction framework supplies that data is round 24.1B and is '
+                'OPEN. The P1 row stays OPEN.' in t
+            and '**The label stays OPEN**: Lemma 24.1 is not repaired' in t)
+
+
+def _wts_ledger(readme=None, census=None):
+    """W24 -- the README ledger paragraph names the guard and the outcome at its strength, and the
+    census carries WordTraceSufficiency as a kernel-only family with no manuscript anchor."""
+    readme = _WTSREADME if readme is None else readme
+    census = _WTSCENSUS if census is None else census
+    try:
+        fams = json.loads(census)['families']
+    except Exception:
+        return False
+    ent = [f for f in fams if f.get('modules') == ['WordTraceSufficiency']]
+    return ('Guard `R7-WTS` pins the preregistration blob by content' in readme
+            and 'sufficiency on general pairs is UNDECIDED' in readme
+            and 'Lemma 24.1 is not repaired' in readme
+            and len(ent) == 1 and ent[0].get('status') == 'kernel-only'
+            and ent[0].get('manuscript') == []
+            and 'WT2 UNDECIDED' in ent[0].get('note', '')
+            and 'P1 label stays OPEN' in ent[0].get('note', ''))
+
+
+ok_wts = True
+ok_wts &= _wts_freeze_pin()
+ok_wts &= _wts_execution_ancestry()
+ok_wts &= _wts_outcome()
+ok_wts &= _wts_post_round()
+ok_wts &= _wts_boundaries()
+ok_wts &= _wts_wt0()
+ok_wts &= _wts_wt1()
+ok_wts &= _wts_wt2gen()
+ok_wts &= _wts_wt2()
+ok_wts &= _wts_wt3()
+ok_wts &= _wts_wt4()
+ok_wts &= _wts_not_licensed()
+ok_wts &= _wts_budget()
+ok_wts &= _wts_lean_defs()
+ok_wts &= _wts_lean_wt1()
+ok_wts &= _wts_lean_wt2gen()
+ok_wts &= _wts_lean_wt3()
+ok_wts &= _wts_lean_controls()
+ok_wts &= _wts_axioms()
+ok_wts &= _wts_no_manuscript()
+ok_wts &= _wts_chronology_scope()
+ok_wts &= _wts_discrepancy()
+ok_wts &= _wts_roadmap()
+ok_wts &= _wts_ledger()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# the spanning-class result written as the general one -- hazard 4, in the boxed outcome
+_wts_m1 = _WTS1.replace('**`WT0`, `WT1`, `WT2-gen`, `WT3` on the spanning class and `WT4` landed; '
+                        '`WT2` is UNDECIDED.**',
+                        '**`WT0`–`WT4` landed, `WT2` on all unitary pairs included.**')
+ok_wts &= _wts_m1 != _WTS1 and not _wts_outcome(_wts_m1)
+
+# the post-round sentence swapped for the all-unitary-pairs one -- hazard 4
+_wts_m2 = _WTS1.replace('for pairs of dilation data whose visible blocks each span all of `M_m(ℂ)`, '
+                        'equality of all block-word traces is necessary and sufficient for hidden '
+                        'conjugation; on general pairs necessity holds and sufficiency is reached at '
+                        'the strength of `WT1`',
+                        'equality of all block-word traces is necessary and sufficient for hidden '
+                        'conjugation of two unitary dilation data')
+ok_wts &= _wts_m2 != _WTS1 and not _wts_post_round(_wts_m2)
+
+# Lemma 24.1 called repaired -- hazard 1
+_wts_m3 = _WTS1.replace('**Lemma 24.1 is not repaired.**', '**Lemma 24.1 is repaired.**')
+ok_wts &= _wts_m3 != _WTS1 and not _wts_boundaries(_wts_m3)
+
+# the generators called complete, and called incomplete
+_wts_m4 = _WTS1.replace('**The four gauge generators are neither called complete nor called '
+                        'incomplete.**',
+                        '**The four gauge generators are complete.**')
+ok_wts &= _wts_m4 != _WTS1 and not _wts_boundaries(_wts_m4)
+
+_wts_m5 = _WTS1.replace('**The four gauge generators are neither called complete nor called '
+                        'incomplete.**',
+                        '**The four gauge generators are incomplete.**')
+ok_wts &= _wts_m5 != _WTS1 and not _wts_boundaries(_wts_m5)
+
+# the manuscripts' route called restored
+_wts_m6 = _WTS1.replace("**The manuscripts' route is not restored.**",
+                        "**The manuscripts' route is restored.**")
+ok_wts &= _wts_m6 != _WTS1 and not _wts_boundaries(_wts_m6)
+
+# a same-trace non-conjugate pair reported as a NEGATIVE label -- hazard 8
+_wts_m7 = _WTS1.replace('**No negative is reported**',
+                        '**NEGATIVE**: a pair with equal word traces and no hidden conjugation is '
+                        'exhibited')
+ok_wts &= _wts_m7 != _WTS1 and not _wts_boundaries(_wts_m7)
+
+# 24.1B claimed done -- hazard 15
+_wts_m8 = _WTS1.replace('**Round 24.1B is named and not begun.**', '**Round 24.1B is complete.**')
+ok_wts &= _wts_m8 != _WTS1 and not _wts_not_licensed(_wts_m8)
+
+# the P1 label moved -- hazard 12
+_wts_m9 = _WTS1.replace('**It changes no status label.** The P1 row stays **OPEN**',
+                        'The P1 row is relabelled **CLOSED**')
+ok_wts &= _wts_m9 != _WTS1 and not _wts_no_manuscript(_wts_m9)
+
+# a manuscript edit the round is forbidden to make -- hazard 11
+_wts_m10 = _WTS1.replace('**It touches no manuscript.**', 'The manuscripts carry the sufficiency theorem.')
+ok_wts &= _wts_m10 != _WTS1 and not _wts_no_manuscript(_wts_m10)
+
+# WT2 promoted in its own section -- hazard 4
+_wts_m11 = _WTS1.replace('**`WT2-gen` is reported at its strength and `WT2` is not promoted.**',
+                         '**`WT2` follows by Wedderburn–Artin and is landed.**')
+ok_wts &= _wts_m11 != _WTS1 and not _wts_wt2(_wts_m11)
+
+# the one-sided form promoted above its strength, or substituted for the label -- hazard 5
+_wts_m12 = _WTS1.replace('**The two-sided form is the label; the one-sided form is proved and '
+                         'reported as the strengthening.**',
+                         'The one-sided form is the label.')
+ok_wts &= _wts_m12 != _WTS1 and not _wts_wt2gen(_wts_m12)
+
+# WT3 stated above the class reached
+_wts_m13 = _WTS1.replace('**Stated once, on the class reached, and never at a class above the one '
+                         'reached.**',
+                         'Stated on all unitary pairs.')
+ok_wts &= _wts_m13 != _WTS1 and not _wts_wt3(_wts_m13)
+
+# a word-length bound claimed
+_wts_m14 = _WTS1.replace('**No explicit length bound is claimed.**',
+                         'Words of length at most `2m²` suffice.')
+ok_wts &= _wts_m14 != _WTS1 and not _wts_wt4(_wts_m14)
+
+# a seventh definition in the module
+_wts_m15 = _WTSLEAN.replace('def BlockSpanning', 'def implementingUnitary (W : ℕ) := W def BlockSpanning')
+ok_wts &= _wts_m15 != _WTSLEAN and not _wts_lean_defs(_wts_m15)
+
+# an unproved declaration
+_wts_m16 = _WTSLEAN.replace('exact e.symm', 'sorry', 1)
+ok_wts &= _wts_m16 != _WTSLEAN and not _wts_lean_defs(_wts_m16)
+
+# act 11 imported as evidence -- hazard 10
+_wts_m17 = _WTSLEAN.replace('import OIBridge.SemigroupTransfer',
+                            'import OIBridge.SemigroupTransfer import OIBridge.CoherentLiftGauge')
+ok_wts &= _wts_m17 != _WTSLEAN and not _wts_lean_defs(_wts_m17)
+
+# WT1 quietly acquiring a unitarity hypothesis -- hazard 6
+_wts_m18 = _WTSLEAN.replace("theorem WT1_transfer (U U' : Matrix (V × H) (V × H) ℂ) (h : "
+                            "WordTracesEqual U U') :",
+                            "theorem WT1_transfer (U U' : Matrix (V × H) (V × H) ℂ) (hU : Uᴴ * U = 1) "
+                            "(h : WordTracesEqual U U') :")
+ok_wts &= _wts_m18 != _WTSLEAN and not _wts_lean_wt1(_wts_m18)
+
+# the frozen two-sided statement dropped from the module, only the one-sided form kept -- hazard 5
+_wts_m19 = _WTSLEAN.replace("(hU : BlockSpanning U) (hU' : BlockSpanning U') (h : WordTracesEqual "
+                            "U U') : HiddenConjugate U U' := WT2gen_oneSided U U' hU h",
+                            "(hU : BlockSpanning U) (h : WordTracesEqual U U') : HiddenConjugate U "
+                            "U' := WT2gen_oneSided U U' hU h")
+ok_wts &= _wts_m19 != _WTSLEAN and not _wts_lean_wt2gen(_wts_m19)
+
+# WT3 stated in the module without the spanning hypotheses -- hazard 4 in the kernel
+_wts_m20 = _WTSLEAN.replace("theorem WT3_spanning (U U' : Matrix (V × H) (V × H) ℂ) (hU : "
+                            "BlockSpanning U) (hU' : BlockSpanning U') : (∀ w",
+                            "theorem WT3_spanning (U U' : Matrix (V × H) (V × H) ℂ) : (∀ w")
+ok_wts &= _wts_m20 != _WTSLEAN and not _wts_lean_wt3(_wts_m20)
+
+# the positive control's U' ≠ U conjunct dropped
+_wts_m21 = _WTSLEAN.replace("Wᴴ * W = 1 ∧ HiddenConjugate U U' ∧ U' ≠ U ∧ WordTracesEqual U U' := by",
+                            "Wᴴ * W = 1 ∧ HiddenConjugate U U' ∧ WordTracesEqual U U' := by")
+ok_wts &= _wts_m21 != _WTSLEAN and not _wts_lean_controls(_wts_m21)
+
+# an axiom-table row carrying sorryAx, and a print line missing from the module
+_wts_m22 = _WTS1.replace('| `WT3_spanning_iff` | `WT3` | `[propext, Classical.choice, Quot.sound]` |',
+                         '| `WT3_spanning_iff` | `WT3` | `[propext, sorryAx, Classical.choice, '
+                         'Quot.sound]` |')
+ok_wts &= _wts_m22 != _WTS1 and not _wts_axioms(note=_wts_m22)
+
+_wts_m23 = _WTSLEAN.replace('#print axioms OIBridge.WordTraceSufficiency.WT2gen_hiddenConjugate ', ' ')
+ok_wts &= _wts_m23 != _WTSLEAN and not _wts_axioms(lean=_wts_m23)
+
+# slot 6 reported fired when it was not, or a seventh definition in the note
+_wts_m24 = _WTS1.replace('**Slot 6 is unused**', 'Slot 6 fired')
+ok_wts &= _wts_m24 != _WTS1 and not _wts_budget(_wts_m24)
+
+_wts_m25 = _WTS1.replace('**No seventh definition was introduced.**',
+                         'A seventh definition was convenient and was added.')
+ok_wts &= _wts_m25 != _WTS1 and not _wts_budget(_wts_m25)
+
+# the chronology scope overstated
+_wts_m26 = _WTS1.replace('What it does not certify', 'It certifies in addition')
+ok_wts &= _wts_m26 != _WTS1 and not _wts_chronology_scope(_wts_m26)
+
+# the start-state discrepancies repaired by editing the freeze
+_wts_m27 = _WTS1.replace('The preregistration is not edited; the discrepancies are recorded here and '
+                         'nowhere repaired.',
+                         'The preregistration was corrected to the base blobs.')
+ok_wts &= _wts_m27 != _WTS1 and not _wts_discrepancy(_wts_m27)
+
+# a selection principle named -- hazard 13
+_wts_m28 = _WTS1.replace('**No selection principle is named.** The P1 row\'s status label stays **OPEN**.',
+                         'The selection principle is the word-trace functional. The P1 row\'s status '
+                         'label stays **OPEN**.')
+ok_wts &= _wts_m28 != _WTS1 and not _wts_not_licensed(_wts_m28)
+
+# the ROADMAP row label moved, and the ROADMAP paragraph's sentence generalised
+_wts_m29 = _WTSROAD.replace('| Reconstruction | **OPEN** — the semigroup-transfer route is refuted',
+                            '| Reconstruction | **CLOSED** — the semigroup-transfer route is refuted')
+ok_wts &= _wts_m29 != _WTSROAD and not _wts_roadmap(_wts_m29)
+
+_wts_m30 = _WTSROAD.replace('for pairs of dilation data whose visible blocks each span all of '
+                            '`M_m(ℂ)`, equality of all block-word traces',
+                            'for all pairs of unitary dilation data, equality of all block-word traces')
+ok_wts &= _wts_m30 != _WTSROAD and not _wts_roadmap(_wts_m30)
+
+# the census family flipped to current without an anchor
+_wts_m31 = _WTSCENSUS.replace('"WordTraceSufficiency"\n      ],\n      "status": "kernel-only"',
+                              '"WordTraceSufficiency"\n      ],\n      "status": "current"')
+ok_wts &= _wts_m31 != _WTSCENSUS and not _wts_ledger(census=_wts_m31)
+
+# W1's control runs THROUGH _wts_freeze_pin, so sabotaging that predicate fails the guard.
+def _wts_drift(path):
+    """One byte appended to the Lemma 24.1A preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('lemma-24-1a-word-trace-sufficiency/preregistration.md') else b'')
+
+
+ok_wts &= _wts_drift(_WTSDIR + 'preregistration.md') != _bb_read(_WTSDIR + 'preregistration.md')
+ok_wts &= not _wts_freeze_pin(_wts_drift)
+
+check('R7-WTS', ok_wts,
+      'Substratum Lemma 24.1A guard: ST5 sufficiency, a positive-expectation round that landed WT0, WT1 and '
+      'WT2-gen in full and left WT2 UNDECIDED at its frozen fallback, so what can go wrong is the READING. The '
+      'boxed outcome is checked verbatim -- WT0, WT1, WT2-gen, WT3 on the spanning class and WT4 landed, WT2 '
+      'UNDECIDED, the spanning-class result NOT the general one -- with the promotion of WT2 mutation-tested in '
+      'the outcome line and in the WT2 section, the post-round sentence checked as the frozen SPANNING-CLASS '
+      'sentence with the all-unitary-pairs sentence mutation-tested, and WT3 checked stated on the class reached '
+      'and never above it in the note AND in the kernel (the spanning hypotheses dropped from WT3_spanning '
+      'mutation-tested). The three boundaries are checked in terms and each written back as a mutation: Lemma '
+      '24.1 NOT repaired, the four generators NEITHER complete NOR incomplete (both inflations mutation-tested), '
+      'the manuscripts\' route NOT restored; and a same-trace non-conjugate pair reported as a NEGATIVE label is '
+      'mutation-tested against the finding-for-owner-review clause. WT0 is checked with necessity cited and not '
+      're-proved, the ST3 pair excluded from the hypothesis in the kernel, and the positive control with its W '
+      'pinned by an equation and U\' ≠ U kept (the dropped conjunct mutation-tested). WT1 is checked with the '
+      'trace form as the kernel step, the seven properties as conjuncts of ONE existential, and word-trace '
+      'equality as its ONLY hypothesis, a unitarity hypothesis added in the kernel mutation-tested. WT2-gen is '
+      'checked as the matrix-unit construction and no other, the TWO-SIDED statement present in the kernel with '
+      'both spanning hypotheses as the label and the one-sided form reported as the strengthening, with the '
+      'two-sided statement dropped from the module and the one-sided form substituted for the label both '
+      'mutation-tested; spanning is checked never HiddenCommutantTrivial. WT2 is checked UNDECIDED with the '
+      'obstruction named among (a)-(f) and not promoted; WT4 checked with NO length bound, a bound '
+      'mutation-tested. The non-licences are checked in terms with the six forbidden sentences listed, 24.1B '
+      'named and NOT begun (claimed done mutation-tested), no selection principle (mutation-tested), the P1 '
+      'label OPEN in the note and in the ROADMAP row (both moves mutation-tested) and no manuscript touched. '
+      'Five of six definition slots fire with the three conditional slots recorded fired for stated reasons and '
+      'slot 6 recorded UNUSED (reported fired mutation-tested); the module is checked to carry EXACTLY those '
+      'five top-level definitions in the frozen names, no unproved declaration, the merged module imported and '
+      'no import of act 7, 11 or 12 (a seventh definition, an unproved declaration and an act 11 import each '
+      'mutation-tested). The axiom table is checked forty rows against forty print lines, name for name, every '
+      'row the three permitted axioms, with a sorryAx row and a dropped print line mutation-tested. The README '
+      'paragraph and the kernel-only census family are checked (the status flipped mutation-tested). The '
+      'chronology control is act 10\'s STRONG form: the blob by content, the real pull_request.head.sha rather '
+      'than the synthetic merge commit, B an ancestor of the head AND every commit of the execution-only history '
+      'required to descend from B, recovery included and fail-closed, with the certified property and its limits '
+      'stated; the archive-mode pins are carried as None until the post-merge follow-up sets them, when the '
+      'merged _rbr_archive_ancestry re-runs the same strong check. Twenty-four named contracts, thirty-one '
+      'mutation controls, plus the freeze-pin drift control.')
+
+
 # ---- R7-A6D: substratum -- A6 background independence, round 1: definition and closure ----
 #
 # A DEFINITION round, not a proof round: the ROADMAP carries A6 as a GAP because the manuscript
