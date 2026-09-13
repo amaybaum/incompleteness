@@ -9821,8 +9821,44 @@ def _rbr_ensure_present(rev, pr_number=None, tag='R7-RBR'):
     return present is not None and present.returncode == 0
 
 
-def _rbr_target_commit(env=None, tag='R7-RBR'):
+def _rbr_merged_head(note_path, tag='R7-RBR'):
+    """Outside PR CI, the EXECUTION HEAD reconstructed from the repository record.
+
+    Once an execution PR has merged, `HEAD` on `main` is no longer the execution head: it also
+    reaches every sibling round merged before or after, and a sibling branched before this round's
+    freeze is exactly the "pre-freeze side history" the strengthened predicate exists to refuse --
+    correctly for the execution head, wrongly for `main`. The frozen property is a property of the
+    execution head, so that is what must be certified. It is recoverable from the record without a
+    pin: the first-parent commit that INTRODUCED the round's result note is the merge of the
+    execution PR, and its second parent is the exact execution head that was reviewed and merged.
+    Before the merge -- on the execution branch itself -- the introducing commit is the execution
+    commit and is used directly; before the note is committed at all, there is nothing to resolve
+    and the caller falls back to `HEAD`.
+
+    Returns `(rev, label)` or `(None, None)` when the note has no committed history yet."""
+    found = _rbr_git('log', '--first-parent', '--diff-filter=A', '--format=%H', '--',
+                     os.path.join('verification', note_path), tag=tag)
+    if found is None or found.returncode != 0:
+        return None, None
+    shas = found.stdout.decode('utf-8', 'replace').split()
+    if not shas:
+        return None, None
+    intro = shas[-1]
+    parents = _rbr_git('log', '-1', '--format=%P', intro, tag=tag)
+    if parents is None or parents.returncode != 0:
+        return None, None
+    ps = parents.stdout.decode('utf-8', 'replace').split()
+    if len(ps) >= 2:
+        return ps[1], 'merged execution head %s (second parent of %s)' % (ps[1][:12], intro[:12])
+    return intro, 'execution commit %s (introduced the result note)' % intro[:12]
+
+
+def _rbr_target_commit(env=None, tag='R7-RBR', note_path=None):
     """The commit the ancestry claim is ABOUT -- and in PR CI that is NOT `HEAD`.
+
+    With `note_path` given, a non-PR run certifies the merged execution head reconstructed by
+    `_rbr_merged_head` rather than `HEAD`, so that sibling rounds merged around this one do not
+    enter a predicate that is about this round's history alone.
 
     `actions/checkout` on a `pull_request` event checks out GitHub's **synthetic merge commit**
     `refs/pull/<n>/merge`, which has the PR BASE as a parent by construction. So an ancestry check
@@ -9837,6 +9873,10 @@ def _rbr_target_commit(env=None, tag='R7-RBR'):
     being answered against the wrong object."""
     env = os.environ if env is None else env
     if not env.get('GITHUB_EVENT_NAME', '').startswith('pull_request'):
+        if note_path is not None:
+            rev, label = _rbr_merged_head(note_path, tag=tag)
+            if rev is not None:
+                return rev, label, None
         return 'HEAD', 'HEAD', None
     path = env.get('GITHUB_EVENT_PATH', '')
     if not path or not os.path.exists(path):
@@ -10631,7 +10671,7 @@ def _hya_ensure_present(rev, pr_number=None):
 
 
 def _hya_target_commit(env=None):
-    return _rbr_target_commit(env=env, tag='R7-HYA')
+    return _rbr_target_commit(env=env, tag='R7-HYA', note_path=_HYADIR + 'result.md')
 
 
 def _hya_freeze_pin(read=_bb_read):
@@ -12104,7 +12144,7 @@ def _sgt_ensure_present(rev, pr_number=None):
 
 
 def _sgt_target_commit(env=None):
-    return _rbr_target_commit(env=env, tag='R7-SGT')
+    return _rbr_target_commit(env=env, tag='R7-SGT', note_path=_SGTDIR + 'result.md')
 
 
 def _sgt_freeze_pin(read=_bb_read):
@@ -13036,7 +13076,7 @@ def _a6d_ensure_present(rev, pr_number=None):
 
 
 def _a6d_target_commit(env=None):
-    return _rbr_target_commit(env=env, tag='R7-A6D')
+    return _rbr_target_commit(env=env, tag='R7-A6D', note_path=_A6DDIR + 'result.md')
 
 
 def _a6d_freeze_pin(read=_bb_read):
