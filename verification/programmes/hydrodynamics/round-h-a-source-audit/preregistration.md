@@ -184,10 +184,14 @@ function of `|k|²`; so `T` is `O_h`-invariant but **not** rotation-invariant, a
 strength.** The computation consumes the existing quartic-anisotropy result and adds only the
 stencil moment.
 
-**Reported status for H2: HI for the present axis stencil.** This is the cubic-lattice fourth-order
-anisotropy that deterministic lattice-gas hydrodynamics historically had to escape by changing the
-stencil; it says nothing about stencils the round does not examine, and it is precisely the kind of
-finding H-B is designed to act on. Corollary 1a's quadratic isotropy is consumed unchanged and is
+**Reported status for H2: exact stencil anisotropy proved; conditional HI if H5's stress closure
+consumes this tensor; otherwise H2 remains HO.** Whether the bare fourth moment of the stencil is
+the effective rank-4 tensor the H5 stress closure consumes is a bridge this round does **not**
+build; until it lands, the anisotropy is a proved fact about the stencil and a *conditional* finding
+about hydrodynamics, and the round does not label the isotropy obligation HI outright. This is the
+cubic-lattice fourth-order anisotropy that deterministic lattice-gas hydrodynamics historically had
+to escape by changing the stencil; it says nothing about stencils the round does not examine, and
+it is precisely the kind of finding H-B is designed to act on. Corollary 1a's quadratic isotropy is consumed unchanged and is
 **not** contradicted: quadratic order is isotropic, quartic order is not, and Navier–Stokes needs
 the quartic order.
 
@@ -198,10 +202,16 @@ side `b ∣ L`, the block sums `B_β(x) = Σ_{i ∈ β} x(i) ∈ ZMod q`, and th
 `(B(x_t), B(x_{t−1}))`.
 
 **`H3a` (kernel).** The block state does **not** close: there exist two microscopic pairs with equal
-block states at `(t, t−1)` whose block states at `t + 1` differ. A concrete witness at `d = 1`,
-`L = 4`, `b = 2`, `q ≥ 2`, `α = 1` is expected (two configurations with the same block sums whose
-neighbour sums differ across the block boundary), pinned by equation in the statement.
-**Prediction: positive (non-closure), full strength.**
+block states at `(t, t−1)` whose block states at `t + 1` differ. The witness, valid for **every**
+`q ≥ 2`, is at `d = 1`, `L = 6`, `b = 3`, `α = 1`, pinned by equation in the statement: both pairs
+have `x_{t−1} = 0`; one has `x_t = 0`, the other `x_t = y = (−1, 1, 0, 0, 0, 0)`. Both block states
+are `(0, 0)` at `t` and at `t − 1`. At `t + 1` the zero trajectory stays zero, while on block
+`{0, 1, 2}`
+`Σ_{i∈{0,1,2}} F(y)_i = (y_5 + y_1) + (y_0 + y_2) + (y_1 + y_3) = 1 ≠ 0`.
+**The smaller candidate `d = 1`, `L = 4`, `b = 2` is NOT a witness and is recorded as a control**:
+there the block sum of `F` over `{0, 1}` is `(x_3 + x_1) + (x_0 + x_2)`, the total sum, which the two
+block sums determine, so that block variable closes. **Prediction: positive (non-closure), full
+strength.**
 
 **Reported status for H3: HO.** Non-closure of one exact coarse observable is not an impossibility
 of a statistical closure at some other scale or in some other variable, and no local-equilibrium
@@ -236,18 +246,19 @@ satisfies its hypotheses. This paragraph binds H-C; it is not a target of H-A.
 | `H1-c` | positive: conserved iff `q ∣ 4` | full | HI for the total-sum candidate under the `q`-gauge principle; HO for other candidates | a `ZMod` arithmetic slip; would change the set, not the shape of the finding |
 | `H2a` spanning | positive | high | — | — |
 | `H2a` dimension count | positive: `2` vs `1` | **medium at kernel level** | — | the averaging argument exceeding the round; frozen level-3 fallback |
-| `H2b` | positive: the axis stencil is not rotation-isotropic at fourth order | full | HI for the present stencil | — |
-| `H3a` | positive: non-closure witness | full | HO for H3 | a block variable that happens to close at `d = 1`, `L = 4`, `b = 2` — then a larger witness is sought, and if none is found the diagnostic is UNDECIDED |
+| `H2b` | positive: the axis stencil is not rotation-isotropic at fourth order | full | exact anisotropy proved; conditional HI if H5 consumes this tensor; otherwise HO | — |
+| `H3a` | positive: non-closure witness at `d = 1`, `L = 6`, `b = 3` | full | HO for H3 | an error in the witness arithmetic recorded above — then a larger witness is sought, and if none is found the diagnostic is UNDECIDED |
 | `H4a` | skeleton recorded | — | HO | — |
 
 **UNDECIDED remains a permitted label for every target**, reported with the obstruction.
 
 **The programme-level reading the round is allowed to give, if all of the above land:** the present
-wave representative is pushed toward **HI for a direct Navier–Stokes limit** by two independent
-gates — the linearity gate on `ZMod q`-linear coarse variables and the fourth-order anisotropy of
-the axis stencil — together with the `q`-dependence of the only total-sum conservation law; while
-the broader construction programme (H-B: other OI-compatible reversible local substrata) is
-**entirely alive** and is where the next round belongs. **This reading is conditional on every
+wave representative is pushed toward **HI for a direct Navier–Stokes limit** by the linearity gate
+on `ZMod q`-linear coarse variables, together with the `q`-dependence of the only total-sum
+conservation law, and — **conditionally on H5's closure consuming the stencil's fourth moment** — by
+the fourth-order anisotropy of the axis stencil; while the broader construction programme (H-B:
+other OI-compatible reversible local substrata) is **entirely alive** and is where the next round
+belongs. **This reading is conditional on every
 qualifier above**, and the execution may not shorten it.
 
 ## What none of these outcomes licenses
@@ -336,6 +347,8 @@ under the frozen fallback. `H4a` is a recorded specification, evidence type "pro
    statement; dropping the class over-reads it.
 5. **Reading `H2b` against Corollary 1a.** Quadratic isotropy holds and is consumed; quartic
    anisotropy is what Navier–Stokes trips on. The two orders are different statements.
+   **And reading `H2b` as HI outright**: the bare stencil moment is not yet shown to be the tensor
+   H5's closure consumes; the status is conditional until that bridge lands.
 6. **Counting the wrong tensor space.** `2` versus `1` is the fully symmetric count; general rank-4
    invariant counts are other numbers and belong to other physics.
 7. **Reading `H3a`'s non-closure as absence of local equilibrium.** It is a diagnostic about one
@@ -380,7 +393,8 @@ Track I, Bell, gravity or singularities.
    `q`, and the `q`-gauge test in this file's bounded words: the candidate field fails `q`-gauge
    invariance; no universal no-go;
 3. **`H2a`/`H2b`** — the fully symmetric counts at the strength reached, with the fallback label if
-   used; the axis-stencil moment; HI for the present stencil and nothing about other stencils;
+   used; the axis-stencil moment as a proved anisotropy; the conditional status in this file's
+   words — HI only if H5 consumes this tensor, otherwise HO — and nothing about other stencils;
 4. **`H3a`** — the witness with coordinates; HO for H3; no timescale;
 5. **`H4a`** — the skeleton, as a list of unfixed choices;
 6. the programme-level reading, verbatim from this file and conditional on every qualifier;
