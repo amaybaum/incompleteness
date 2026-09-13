@@ -201,6 +201,7 @@ import OIBridge.CoherentLiftGauge
 import OIBridge.TwoSidedGauge
 import OIBridge.CrossTimeInvariants
 import OIBridge.SemigroupTransfer
+import OIBridge.WordTraceSufficiency
 import OIBridge.RecurrenceHorizon
 import OIBridge.ScalingFamily
 import OIBridge.RootedClassification
