@@ -2196,5 +2196,40 @@ archive mode after the merge, and checks every frozen sentence with thirteen mut
 `R7-A11P`'s contracts E4, E5 and E18 — the three whose pinned sentences this round supersedes —
 are re-pinned in the same commit, with both of its blob pins and every other contract untouched.
 
+The substratum A6 covariance propagation (`audits/foundations/a6-covariance-propagation-audit.md`,
+preregistration blob `e7cb701`, committed alone as `d24dc3c`, written from `main` at `999f1b5`) is
+publication-only and owner-called. It adopts `A6-cov` as the publication meaning of the sixth
+structural assumption — local internal-index transformations act covariantly provided the link
+coupling is transformed with them — and rewrites the manuscripts' definition around it:
+`Substratum.md`'s definition of the sixth assumption states the covariant interface and that the
+local transformation law imposes no further condition on the rule once the coupling is link-valued
+data; names the stronger fixed-background invariance as a separate condition the assumption does not
+assert, with its rigidity across every coupled pair of sites and its failure at the symmetric point;
+names the global commutant symmetry as the specialization the local gauge reading proceeds from; and
+names the state-dependent coupling graph of `SM.md` §3.1 as a different principle under a shared
+name, which `SM.md` §3.1 says in place. `SM.md` §3.1's transformation law is written as the content
+of the assumption and its invariance as the covariance identity, with no claim that the complex-lift
+statement is kernel-checked: `a6cov_all` is on the finite-alphabet link-coupled interface and the
+complex lift is outside it. Chapter 2, Chapter 5 §5.5, Chapter 9, Appendix B and the glossary carry
+the same meaning at their level, mirrored in the full-book source, and `Structure.md` §6.6 states
+the assumption as covariance. The `ROADMAP` row `P1 — A6` carries `CONDITIONAL` in place of `GAP`:
+the predicate `A6Cov` exists and holds identically on link-coupled rules, and the named undischarged
+hypothesis is that the manuscripts' substratum — the `K = 6` link-coupled rule, not packaged as a
+`Substratum`, and its complex lift, outside the interface — instantiates that interface; not
+`DERIVED`, because nothing is proved of the manuscripts' object. The historical round records that
+describe the gap as it stood — the substratum-interface round, the frozen-sourcing and
+stochastic-interface rounds, the interface audit's Q1 table and round 1's own record — are
+untouched. The census family moves to `current` with the anchors the round creates. `R7-A6D`'s row
+contract is re-pinned to the new row and its label mutation to a `DERIVED` overclaim, and nothing
+else in it changes. Nothing about the Standard-Model gauge-group derivation, Track B, `P0` or
+hydrodynamics; no kernel change. Guard `R7-A6P`. Discrepancies recorded and not repaired: the
+control plane's line coordinates and blobs for `ROADMAP.md`, this README, the guard file, the
+census, the glossary, the full-book source, `Main.md` and `Explainer.md` refer to `main` at
+`999f1b5`, whereas the mandated base `07ab365` also carries the act 12 propagation execution (#603),
+its archive pins (#605) and the `ROADMAP` interpretation-boundary section (#608); every frozen
+passage was located by content and found verbatim at the base, and the A6 row and section were
+byte-identical to the control plane's quotation. Every other surface the control plane pins was at
+its recorded blob.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.

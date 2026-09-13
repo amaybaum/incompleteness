@@ -726,11 +726,28 @@ pending it, nonlinear alternatives are excluded precisely to the extent
 amplitude-scale gauge is assumed, and would otherwise require a separate
 derivation.)
 
-(A6) \textbf{Background independence.} The dynamics is invariant under
-spatially-varying internal-index transformations that preserve the
-cubic-symmetric coupling matrix pointwise. The promotion of the
-resulting global commutant symmetry to local gauge invariance is then a
-derivation step ({[}SM §3.1{]}) --- not part of the assumption itself.
+(A6) \textbf{Background independence.} The dynamics is covariant under
+spatially-varying internal-index transformations: a site-dependent
+transformation \(G(\mathbf{n})\) of the internal index is a symmetry of
+the dynamics provided the coupling data carried on the links are
+transformed with it,
+\(M(\mathbf{n}, \hat{e}_j) \to G(\mathbf{n})\,M(\mathbf{n}, \hat{e}_j)\,G(\mathbf{n}+\hat{e}_j)^{-1}\)
+({[}SM §3.1{]}). The content of the assumption is this covariant
+interface --- the coupling is link-valued data on which the
+transformations act --- and once it is in place the local transformation
+law imposes no further condition on the rule. A6 is not the stronger
+fixed-background condition that the same transformations leave the
+dynamics invariant with the coupling held fixed and preserved pointwise:
+for an invertible constant coupling that condition forces the
+transformation to agree across every coupled pair of sites, and at the
+symmetric point of the coupling matrix it fails for every transformation
+that differs across a coupled pair. The global commutant symmetry ---
+the transformations constant across the lattice that leave the coupling
+itself unchanged, the specialization of A6 in which nothing needs
+transporting --- is what the local gauge reading of {[}SM §3.1{]}
+proceeds from. The state-dependent coupling graph of {[}SM §3.1{]},
+under which the graph itself evolves with the state, is a separate
+principle that shares the name and is not A6.
 
 The theorem's uniqueness claim holds under E1--E7 \textbf{and} A1--A6
 jointly; removing any of A3--A6 either requires new derivations or
@@ -1042,9 +1059,11 @@ doublet \((\mathbf{1}, \mathbf{2}, +1/2)\) - Anomaly-free hypercharges
   the \(V_2\) block. The singlet-block \(U(1)\) survives this stripping
   (it cannot be absorbed into alphabet-freedom because it acts
   non-trivially on the other blocks via the determinant constraint) and
-  becomes the hypercharge \(U(1)\). Background independence (A6) then
-  promotes the remaining global \(SU(3) \times SU(2) \times U(1)\) to
-  local gauge invariance ({[}SM §3.1{]}).
+  becomes the hypercharge \(U(1)\). Background independence (A6) ---
+  covariance under site-dependent transformations, the link coupling
+  transformed with them --- then promotes the remaining global
+  \(SU(3) \times SU(2) \times U(1)\) to local gauge invariance ({[}SM
+  §3.1{]}).
 \item
   \emph{Matter content.} Staggered reduction gives three degenerate
   spin-1/2 sectors (Theorems 8--10). Fermion embedding is completed via
@@ -1317,7 +1336,11 @@ can in principle be weakened or replaced:
   separate class one obtains exactly when that gauge principle is
   dropped.
 \item
-  A6 (background independence) is standard for gauge theories.
+  A6 (background independence), as covariance under local internal-index
+  transformations with the link coupling transformed alongside, is the
+  standard gauge-theoretic requirement; the stronger fixed-background
+  invariance, with the coupling held fixed, is a separate condition and
+  is not what A6 asserts.
 \end{itemize}
 
 Weakening any \(A_i\) does not merely enlarge the equivalence class; it
@@ -3021,4 +3044,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 (2026).
 
 \end{document}
-% source-sha256: 0cbbfe5060def168136a00c475f6e18aa07440112fccb17845dd0741cc6cf71e
+% source-sha256: 33c1f14476ba9a3e999debd79ed01c6af8a2bde792f4e013f7a79a3186e6965b

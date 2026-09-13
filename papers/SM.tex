@@ -666,9 +666,16 @@ independence}\label{background-independence}}
 
 The companion paper {[}Main{]} treats the coupling graph as fixed. In
 general relativity, the spacetime geometry is dynamical. If space is the
-coupling graph, background independence requires the graph to evolve
-with the state: s(t+1) = φ\_\{s(t)\}(s(t)), where each φ\_s is a
-bijection but G\_\{φ\_s\} varies with s.
+coupling graph, background independence in the geometric sense --- the
+state-dependent-geometry principle of this section --- requires the
+graph to evolve with the state: s(t+1) = φ\_\{s(t)\}(s(t)), where each
+φ\_s is a bijection but G\_\{φ\_s\} varies with s. This principle is not
+the structural assumption (A6) of {[}Substratum §3.1{]}, which is
+covariance of the dynamics under site-dependent internal-index
+transformations with the link coupling transformed alongside (below);
+the two share a name and are different requirements, a coupling that
+depends on the state and a coupling that transforms under a gauge group
+being different objects.
 
 \textbf{Bijectivity is automatic.} The wave equation is second-order:
 x\_i(t+1) = f(neighbors of i at time t) − x\_i(t−1) mod q. The
@@ -714,16 +721,21 @@ of the state) all hold for any L and q.
 conditional carrier reading.} On the H-link + H-cust single-copy branch,
 the six-link carrier has the exact \((3,2,1)\) cubic decomposition of
 Theorem 7 and the corresponding generic condensate stabilizer of Theorem
-5. Background independence is then the premise promoting the surviving
-global stabilizer to the local gauge reading developed below. Without
-H-link, Theorem 7 remains a theorem about geometric links rather than a
-proof of the physical gauge carrier.
+5. Background independence in the sense of (A6) --- covariance under
+site-dependent transformations with the link coupling transformed
+alongside --- is then the premise carrying the surviving global
+stabilizer to the local gauge reading developed below. Without H-link,
+Theorem 7 remains a theorem about geometric links rather than a proof of
+the physical gauge carrier.
 
 \[\phi(\mathbf{n}) \to G(\mathbf{n})\,\phi(\mathbf{n}), \qquad M(\mathbf{n}, \hat{e}_j) \to G(\mathbf{n})\,M(\mathbf{n}, \hat{e}_j)\,G(\mathbf{n}+\hat{e}_j)^{-1}\]
 
-The wave equation is invariant. This is local gauge invariance. The link
-variable \(M(\mathbf{n}, \hat{e}_j)\) transforms as a gauge connection:
-the plaquette product
+The wave equation is carried to itself: this is the covariance that (A6)
+asserts, and once the link variable is data transported in this way the
+local transformation law imposes no further condition on the rule. This
+is local gauge invariance. The link variable
+\(M(\mathbf{n}, \hat{e}_j)\) transforms as a gauge connection: the
+plaquette product
 \(P(\mathbf{n}, j, k) = M(\mathbf{n}, \hat{e}_j)\,M(\mathbf{n}+\hat{e}_j, \hat{e}_k)\,M(\mathbf{n}+\hat{e}_k, \hat{e}_j)^{-1}\,M(\mathbf{n}, \hat{e}_k)^{-1}\)
 transforms in the adjoint
 (\(P \to G(\mathbf{n})\,P\,G(\mathbf{n})^{-1}\)), so
@@ -8749,4 +8761,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: d87613ccded6b5220085558aecccb886ee162a00412c6cf398c88abd9ead01c2
+% source-sha256: 6346c2d0f634a3b5a4d178397fad45d91f34bc59acb1638ac7c024fb7c0ff43e
