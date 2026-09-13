@@ -132,7 +132,7 @@ jobs:
                    wave_period partition_coupling audit_census repertoire_lie edge_rigidity \
                    causal_readback_discovery causal_readback_bridge causal_readback_t1_scope \
                    recurrence_tightness recurrence_tightness_guard scaling_family \
-                   rooted_classification_t3; do
+                   rooted_classification_t3 physical_c4_toy_instance; do
             echo "=== ${p}_probe.py ==="
             python3 "${p}_probe.py"
           done
