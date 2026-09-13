@@ -526,6 +526,8 @@ The characterization is best read as a layered biconditional rather than a singl
 
 **Operational boundary.** These theorems do not yet prove that the entire family of coherent instruments and composites equals the unique standard local quantum operational theory. That residual is an active-lifting statement, not a qualification on the exact finite stochastic/representation equivalence itself.
 
+A second boundary sits alongside it, and it concerns which unitary evolution relates two times. The equivalence says which visible laws admit a fixed-basis unitary representation; it does not single out the evolution connecting one time to the next. For dilated processes one visible family can admit distinct coherent unitary lifts — each reproducing the visible law at every time, each composing exactly across times — whose relating evolutions differ, because a lift may be deformed by a time-dependent right action that preserves everything the visible law sees. A deformation constant in time cancels from every relating evolution, so time dependence is what the nonuniqueness needs. Making the relating evolution unique therefore requires a selection condition beyond visible-law representability and ordinary coherence, and this book does not supply one or say what form one must take. Nor is the freedom simply the invisible freedom: two lifts of one visible family can fail to be related by any uniformly invisible deformation and still agree on every relating evolution. Whether a pair exists that is outside the uniformly invisible class *and* differs in its relating evolution is open. None of this weakens the finite observable-law equivalence, and none of it makes embedded observation and quantum mechanics inequivalent.
+
 ## 1.9 What the theorem says
 
 The theorem says something stronger than “quantum mechanics can be simulated by a classical hidden model” and something more precise than “C1–C4 uniquely force all of quantum mechanics.”
@@ -4062,7 +4064,7 @@ By tuning the chain length $L$, the framework's prediction is:
 - Short chain ($L \lesssim 5$, $\tau_B \sim \tau_S$): Markovian regime. Standard decoherence. The bath equilibrates between gate operations.
 - Long chain ($L \gtrsim 20$, $\tau_B \gg \tau_S$): P-indivisible regime. Information backflow. Correlations from gate $k$ return at gate $k + \tau_B/\tau_S$, partially restoring coherence.
 
-The transition is sharp: the P-indivisibility theorem from Chapter 1 guarantees that once $\tau_B/\tau_S$ exceeds the C2 threshold, the dynamics becomes qualitatively non-Markovian rather than gradually so.
+The transition is sharp: once $\tau_B/\tau_S$ exceeds the C2 threshold the record survives to readback, and the visible law carries accessible finite-horizon memory rather than acquiring it gradually. On a fixed finite reversible representative, where recurrence returns the visible map to the identity and a readback gap forces a non-permutation rooted map, that memory also shows up as stochastic indivisibility of the visible population law. Neither statement is a claim about generic open-system non-Markovianity of a quantum channel, which is a different notion and does not follow from either.
 
 The platform is testable on existing technologies: superconducting qubits coupled to engineered spin chains, NV centers in diamond with controllable nuclear spin baths, or trapped ions with engineered phonon modes. The framework's prediction is that at the critical chain length, the qubit's $T_2$ coherence time shows a *qualitative* change — from monotonic exponential decay to oscillatory behavior with partial revivals at multiples of $\tau_B$.
 
@@ -5289,13 +5291,21 @@ The specific $27/68$ split between dark matter and dark energy depends on the ma
 
 The framework predicts transient deviations from the Born rule in the very early universe (Chapter 18 §18.2), with the deviations decaying on the hidden sector's equilibration timescale. CMB-S4 and LiteBIRD will tighten constraints on these transient violations through CMB non-Gaussianity searches over the next decade.
 
+**Two frontiers, not one.** The split recorded above concerns the *operational* extension: which
+conditions select one common theory of coherent preparations, instruments and composites, answered
+conditionally by the completion principles. A second and separate question is left open by that
+answer — which unitary evolution relates one time to the next, given a visible OI family that admits
+several coherent lifts. Ordinary coherence does not settle it, and the completion characterization
+does not address it. That frontier is recorded at §19.3.9; the two should not be read as one
+residue.
+
 *Developed in:* Chapter 1, with forward content in Chapter 18 §18.2.
 
 ***
 
 ## 19.3 Problems open within the framework
 
-This section develops the six entries the framework does not fully resolve — the five standard open problems counted in the headline inventory, plus the framework-specific chirality hypothesis H-χ' (§19.3.8), which is internal to the Standard-Model identification rather than one of the seventeen standard problems. Each entry pairs the standard formulation, the framework's current status, an assessment of what remains open, and a note on the prospects for closing the open question.
+This section develops the seven entries the framework does not fully resolve — the five standard open problems counted in the headline inventory, plus two framework-specific items internal to the framework rather than to the seventeen standard problems: the chirality hypothesis H-χ' (§19.3.8), internal to the Standard-Model identification, and the selection of the relative quantum evolution (§19.3.9), internal to the OI–QM bridge. Neither framework-specific item changes the count of standard open problems. Each entry pairs the standard formulation, the framework's current status, an assessment of what remains open, and a note on the prospects for closing the open question.
 
 ### 19.3.1 The flavor problem
 
@@ -5405,6 +5415,51 @@ This premise has a second dependency alongside the partition. The effective theo
 
 The Standard-Model identification carries one named structural hypothesis. **H-χ' (sharpened, 2026-08-12):** a *non-minimal* mechanism renders the effective SU(2) coupling taste-chirality-selective. The minimal question is settled: the link-current embeddings the construction delivers are certified taste-blind for all three gauge blocks — SU(3), SU(2), U(1) alike — by exact spin⊗taste classification (`hchi_selectivity_probes.py`), so the minimal SU(2) is vector-like and any selectivity must enter through a taste-asymmetric structure (condensate/mass sector) in the Schur-complement effective theory. What is proved, and probe-certified (`chirality_grading_probes.py`): on the visible sector the spin-chirality and taste-chirality operators coincide, so a gauge coupling is spin-chiral there if and only if its embedding is taste-chirality-selective (SM §4.8, Theorem 13); the grading itself is $(d_L, d_R) = (4, 4)$ with $\Gamma(0) = I_4$ chirality-neutral, refuting the earlier "even sublattice = left-handed" identification; SU(3) is vector-like; and the generation count does not depend on H-χ'. What is open is H-χ' itself: whether the substratum's SU(2) embedding is in fact taste-chirality-selective. The resolution path is a computation in the framework's own representation machinery — the embedding's action on the graded components of the coupling matrix (the Theorem 7 apparatus). A computed non-selective embedding falsifies the chirality identification, and with it the specific Standard-Model matter assignment, while leaving the gauge group, the multiplicities $(3, 2, 1)$, and the generation count intact; a computed selective embedding discharges the hypothesis and upgrades the chirality clause corpus-wide. The condition's standing status is transcribed in the status ledger (Main §4.5).
 
+### 19.3.9 Selection of the relative quantum evolution
+
+**Framework-specific.** This is not one of the standard open problems; it is a frontier internal to
+the OI–QM bridge, and it is recorded here so that the bridge's settled and unsettled parts are not
+read as one thing.
+
+**What is settled.** The finite-law bridge is solved at the level of exact representability: every
+finite-horizon visible law has a finite reversible realization and a fixed-basis unitary/Born
+representation, and the three descriptions are equivalent ($S \iff D \iff Q_{\mathrm{fb}}$,
+[Main §3.4]). Separately, exact finite operational quantum mechanics is characterized
+*conditionally*: it holds exactly when the explicit completion principles hold, none of which bare
+embedded observation supplies ([GR §3.3], §19.2.12).
+
+**What is open.** Between those two lies a question neither answers. A visible OI family does not
+come with a single unitary evolution relating one time to the next: it admits coherent lifts, and
+the lifts need not agree on that relating evolution. So the open question is whether, and by what,
+one relative quantum evolution is selected from the coherent lifts compatible with a single visible
+family.
+
+**What is proved about it.** Ordinary coherence is not enough. Two coherent lifts of the same
+visible family can be related by a time-dependent deformation that preserves everything the visible
+law sees, while their relating evolutions differ; a deformation constant in time cancels from every
+relating evolution, so the nonuniqueness is carried by time dependence specifically ([Main §3.4]).
+
+**What is not proved about it.** The obvious sharper test is a pair of lifts of one visible family
+that lies *outside* the maximal uniform class of deformations the visible law cannot see **and**
+differs in relating evolution. No such pair is exhibited. The pair currently known to lie outside
+that class agrees on every relating evolution, so it separates the space of lifts without separating
+the dynamics, and the combined target remains open.
+
+**What is not claimed.** None of this makes embedded observation and quantum mechanics inequivalent,
+and none of it narrows $S \iff D \iff Q_{\mathrm{fb}}$. No selection mechanism is endorsed here:
+the framework does not claim the missing structure must be more than a gauge fixing, does not claim
+a connection or gauge choice could not supply it, and does not claim that no such structure exists.
+
+**Prospects.** The question is sharply enough posed to be attacked directly, since membership in the
+invisible class is decidable for a given pair of lifts: the deformation relating them is forced, and
+can be computed and tested. Progress would come from either exhibiting the combined pair or proving
+it cannot exist.
+
+*Developed in:* Chapter 1 (the operational boundary), with the representability side in
+Chapter 1 §1.5 and the conditional completion side in §19.2.12.
+
+***
+
 ## 19.4 Chapter close: summary table and what the framework does not address
 
 The framework's content against the standard list of open problems in fundamental physics summarizes as follows. The status labels are the framework's claims as argued in the cited chapters, and every label inherits the conditionality ledger of [Main §4.5] for the foundational claims — in particular the C2 leg's mixing-hypothesis conditionality — together with the observer/gauge-carrier flags carried at their sources: H-link single-copy and H-cust [SM §§4.5–4.6], the open chirality hypothesis H-χ' [SM §4.8], the physical-spin identification H-spin' [SM §4.7] (its free-kernel form and the four-dimensional staggered route are settled negative — `hspin_kernel_probes.py`, `hspin4d_probes.py`; the condensate-dressed form is the open), and the flagged carrier input of the Casimir chain [SM §4.7]; no label asserts more than its cited derivation, and "Dissolved" or "Derived" is always relative to that ledger.
@@ -5427,6 +5482,7 @@ The framework's content against the standard list of open problems in fundamenta
 | Generation puzzle | Three, with hierarchical masses | Conditional branch: three candidate tastes on single-copy H-link; physical-generation reading additionally under H-spin'; hierarchy pattern open | Ch 6 §§6.5-6.6 |
 | Dark sector budget | $95\%$ unexplained | Derived (total budget) | Ch 7 §7.9 |
 | Born rule origin | Independent postulate | Split: representation level settled — admitted universally ($S \iff D \iff Q_{\mathrm{fb}}$); coherent operational extension characterized by five named conditions; read-write equilibrium a mechanism proposal | Ch 1, Ch 18 §18.2, [Main §3.4] |
+| Relative-evolution selection (framework-specific) | Not a standard problem | Open — representability settled and operational completion characterized conditionally, but no theorem selects one relative evolution from the coherent lifts of a visible family; ordinary coherence proved insufficient | §19.3.9, Ch 1, [Main §3.4] |
 | **Flavor problem** | **13 free parameters** | **Open (research program; $m_b/m_\tau$ at 0.4% match with Layer 2(a) verification residual)** | §19.3.1 |
 | **Hubble tension** | **$> 5\sigma$ disagreement** | **Open ($\nu_{\text{OI}}$ too small)** | §19.3.2 |
 | **Baryogenesis** | **Sakharov conditions** | **Solution-specific ($\eta_B$ inherits flavor-CP input status)** | §19.3.3 |
@@ -6590,7 +6646,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **MOND (Modified Newtonian Dynamics).** A phenomenological framework for galactic rotation curves involving an acceleration scale $a_0 \approx 1.2 \times 10^{-10}$ m/s². Conventionally treated as a phenomenological alternative to dark matter. The framework derives $a_0 = cH/6$ from entropy displacement at the cosmological boundary with no fitted parameters, at the G1 register and conditional on the covariant rung G3 (see the GR ladder). Developed in Chapter 7 §7.9.
 
-**Non-Markovian.** A stochastic process whose future depends on past states beyond the present. The framework's embedded-observer dynamics is fundamentally memory-bearing — non-Markovian on accessible horizons, P-indivisible at the recurrence scale — and this, not representability (which is universal), carries the discriminating content ([Main §3.4]). Predicted to appear at multiple scales: cosmological (quantum mechanics), biological (enzyme kinetics, gene expression), engineered (qubit noise). Defined in Chapter 1 §1.5.
+**Non-Markovian.** A stochastic process whose future depends on past states beyond the present. The framework's embedded-observer dynamics is fundamentally memory-bearing — non-Markovian on accessible horizons, P-indivisible at the recurrence scale — and this, not representability (which is universal), carries the discriminating content ([Main §3.4]). Predicted to appear at multiple scales: cosmological (quantum mechanics), biological (enzyme kinetics, gene expression), engineered (qubit noise). Defined in Chapter 1 §1.5. Three notions are kept apart throughout and none unconditionally implies another: *accessible finite-horizon memory* (equivalently information backflow in the visible law) is the framework's own term and is what "non-Markovian on accessible horizons" means here; *stochastic P-indivisibility* is failure of divisibility of the visible population law and rests on recurrence together with a non-permutation rooted map, not on C1/C3/C4 alone; *generic quantum non-Markovianity* is an open-system notion whose content depends on the quantum divisibility or backflow criterion adopted, and it is not what either of the first two asserts.
 
 **Operational gluing theorem.** The framework's finite-resolution operational result ([Main §3.4]): every finite adaptive quantum experiment — instrument family $\mathcal{F}$, horizon $K$, grid $G$ — has a finite reversible deterministic embedded realization whose adaptive outcome statistics lie within the stated $O(K/G)$ bound, with one fixed mechanism per instrument, gluing by restriction across overlapping families, sequential and parallel composition, and explicit hidden-capacity bounds. The theorem establishes finite operational **realizability** and, together with the uniform-continuum theorem, finite-test density. It does not by itself prove that the standard local quantum instrument category is the unique coherent operational completion, because the same finite reversible machinery can realize non-quantum instrument families. That residual common coherent/composite lift is the narrowly stated frontier. Certified in exact arithmetic (`opglue_probes.py`).
 
@@ -6604,7 +6660,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **Partition-relativity.** The framework's structural feature that the same physical substratum admits multiple visible/hidden partitions, each producing its own emergent description. The emergent description depends on the partition choice; the underlying substratum does not. Resolves several no-go theorems including Frauchiger-Renner. Developed in Chapter 1 §1.4.
 
-**P-indivisibility.** Failure of a stochastic transition family to factor through valid intermediate stochastic maps. In OI, a non-permutation one-step marginal on a fixed finite reversible system is a sufficient recurrence witness. More generally, genuine C4 history readback forces global indivisibility somewhere in the full recurrence cycle: recurrence returns the rooted visible map to the identity, while C4 forces some earlier rooted map to be non-permutation, and a non-permutation stochastic matrix has no stochastic inverse. This global result does not imply accessible short-time P-indivisibility in every window; the two notions are kept distinct.
+**P-indivisibility.** Failure of a stochastic transition family to factor through valid intermediate stochastic maps. In OI, a non-permutation one-step marginal on a fixed finite reversible system is a sufficient recurrence witness. More generally, genuine C4 history readback forces global indivisibility somewhere in the full recurrence cycle: recurrence returns the rooted visible map to the identity, while C4 forces some earlier rooted map to be non-permutation, and a non-permutation stochastic matrix has no stochastic inverse. This global result does not imply accessible short-time P-indivisibility in every window; the two notions are kept distinct. P-indivisibility is a statement about the visible population law and is not generic quantum non-Markovianity: inside the framework's diagonal-preserving realizations it does rule out a stochastic intermediate map and hence CP-divisibility, but outside that class the two come apart — a CP-divisible family with a unitary intermediate map can induce P-indivisible computational-basis populations, the intermediate map consuming coherences the population law never sees ([Main §2.3]).
 
 **PMNS (Pontecorvo-Maki-Nakagawa-Sakata) matrix.** The unitary mixing matrix between Standard Model neutrino mass and flavor eigenstates. The framework derives all three PMNS mixing angles from the cubic-group flavor structure, including the solar angle $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$, which matches the JUNO-era global fit at $0.07\sigma$ (a retrodiction). Discussed in Chapter 8.
 
