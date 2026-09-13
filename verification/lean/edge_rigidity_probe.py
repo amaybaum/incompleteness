@@ -11161,6 +11161,11 @@ _A11P_CH01 = _a11p_root('book/ch01-observation.md')
 _A11P_GLOS = _a11p_root('book/glossary.md')
 _A11P_FULL = _a11p_root('book/The-Incompleteness-of-Observation-FULL.md')
 _A11P_CH15 = _a11p_root('book/ch15-quantum-engineering.md')
+_A11P_CH19 = _a11p_root('book/ch19-open-problems.md')
+_A11P_GR = _a11p_root('papers/GR.md')
+_A11P_METH = _a11p_root('papers/Methodology.md')
+# The append-only scope amendment, pinned by blob like the original freeze.
+_A11P_AMEND = _A11P_DIR + 'act11-scope-propagation-open-frontier-amendment.md'
 
 
 def _a11p_freeze_pin(read=_bb_read):
@@ -11274,6 +11279,79 @@ def _a11p_mirrored(t=None):
         'non-Markovianity'))
 
 
+def _a11p_amendment_pin(read=_bb_read):
+    """E13 -- the append-only scope amendment is byte-identical to the blob committed alone.
+
+    The original freeze stays authoritative for its own surfaces; this pins the amendment that added
+    the open-frontier surfaces, by blob, on the same principle."""
+    return _bb_blob(_A11P_AMEND, read) == '50f74a0869789dd7188f850cf5ceee125596fb9b'
+
+
+def _a11p_ch19_frontier(t=None):
+    """E14 -- chapter 19 carries the selection gap as an explicit framework-specific frontier.
+
+    The point of the amendment: the gap must be discoverable in the open-problem inventory, not only
+    implied by a local scope remark elsewhere."""
+    t = _A11P_CH19 if t is None else t
+    return ('### 19.3.9 Selection of the relative quantum evolution' in t
+            and 'whether, and by what, one relative quantum evolution is selected from the coherent '
+                'lifts compatible with a single visible family' in t
+            and 'Ordinary coherence is not enough.' in t
+            and '**Two frontiers, not one.**' in t
+            and 'That frontier is recorded at §19.3.9; the two should not be read as one residue.'
+                in t)
+
+
+def _a11p_ch19_tally(t=None):
+    """E15 -- the standard open-problem count is untouched by a framework-specific addition."""
+    t = _A11P_CH19 if t is None else t
+    return ('the five standard open problems counted in the headline inventory' in t
+            and 'two framework-specific items internal to the framework rather than to the seventeen '
+                'standard problems' in t
+            and 'Neither framework-specific item changes the count of standard open problems.' in t)
+
+
+def _a11p_three_statuses(main=None):
+    """E16 -- Main, Explainer, GR, Methodology and chapter 19 agree on the three statuses.
+
+    representability established / operational completion conditionally characterized / bare-OI
+    relative selection open."""
+    _mn = _A11P_MAIN if main is None else main
+    return (
+        'This is an open frontier of the correspondence, not a local technical caveat.' in _mn
+        and 'selection of a unique relating evolution from the coherent lifts of one visible family '
+            'is *open*' in _mn
+        and 'The bridge therefore has three statuses' in _A11P_EXPL
+        and 'characterized conditionally' in _A11P_EXPL
+        and 'does not prove that bare OI selects a unique relative quantum evolution' in _A11P_GR
+        and 'Selection of a unique relative quantum evolution from the coherent lifts compatible '
+            'with one visible family is **open**' in _A11P_METH
+        and 'characterized *conditionally*' in _A11P_CH19
+        and '**What is settled.**' in _A11P_CH19
+        and '**What is open.**' in _A11P_CH19)
+
+
+def _a11p_frontier_no_overreach(t=None):
+    """E17 -- the frontier statement carries none of the forbidden inferences.
+
+    Naming a gap is exactly where the temptation to say what fills it appears, so the chapter says in
+    terms that it endorses no mechanism and rules none out."""
+    t = _A11P_CH19 if t is None else t
+    return ('does not claim the missing structure must be more than a gauge fixing' in t
+            and 'does not claim a connection or gauge choice could not supply it' in t
+            and 'does not claim that no such structure exists' in t
+            and 'None of this makes embedded observation and quantum mechanics inequivalent' in t)
+
+
+def _a11p_frontier_target_open(t=None):
+    """E18 -- the stronger combined target stays open where the frontier is stated at full strength."""
+    t = _A11P_CH19 if t is None else t
+    return ('outside* the maximal uniform class of deformations the visible law cannot see' in t
+            and 'agrees on every relating evolution, so it separates the space of lifts without '
+                'separating\nthe dynamics'.replace('\n', ' ') in ' '.join(t.split())
+            and 'the combined target remains open' in t)
+
+
 ok_a11p = True
 ok_a11p &= _a11p_freeze_pin()
 ok_a11p &= _a11p_boundary_stated()
@@ -11287,6 +11365,12 @@ ok_a11p &= _a11p_c134_scope()
 ok_a11p &= _a11p_bridge_scope_survives()
 ok_a11p &= _a11p_application_narrowed()
 ok_a11p &= _a11p_mirrored()
+ok_a11p &= _a11p_amendment_pin()
+ok_a11p &= _a11p_ch19_frontier()
+ok_a11p &= _a11p_ch19_tally()
+ok_a11p &= _a11p_three_statuses()
+ok_a11p &= _a11p_frontier_no_overreach()
+ok_a11p &= _a11p_frontier_target_open()
 
 # ---- mutation controls ----
 
@@ -11366,6 +11450,53 @@ _a11p_m13 = _A11P_FULL.replace(
     '')
 ok_a11p &= _a11p_m13 != _A11P_FULL
 
+# the frontier entry deleted, leaving the gap implied by a local scope remark only -- the exact
+# omission the amendment exists to correct.
+_a11p_m14 = _A11P_CH19.replace('### 19.3.9 Selection of the relative quantum evolution', '')
+ok_a11p &= _a11p_m14 != _A11P_CH19 and not _a11p_ch19_frontier(_a11p_m14)
+
+# the two frontiers run together again, so the operational residue reads as the only one left
+_a11p_m15 = _A11P_CH19.replace('**Two frontiers, not one.**', 'The residue is a single question.')
+ok_a11p &= _a11p_m15 != _A11P_CH19 and not _a11p_ch19_frontier(_a11p_m15)
+
+# a framework-specific addition silently inflating the standard open-problem tally
+_a11p_m16 = _A11P_CH19.replace(
+    'Neither framework-specific item changes the count of standard open problems.',
+    'The inventory therefore counts six standard open problems.')
+ok_a11p &= _a11p_m16 != _A11P_CH19 and not _a11p_ch19_tally(_a11p_m16)
+
+# the gap demoted back to a local caveat in Main
+_a11p_m17 = _A11P_MAIN.replace(
+    'This is an open frontier of the correspondence, not a local technical caveat.',
+    'This is a technical caveat on the dilation construction.')
+ok_a11p &= _a11p_m17 != _A11P_MAIN and not _a11p_three_statuses(_a11p_m17)
+
+# the frontier used to endorse or exclude a mechanism -- both directions forbidden
+_a11p_m18 = _A11P_CH19.replace(
+    'does not claim a connection or gauge choice could not supply it',
+    'shows a connection or gauge choice could not supply it')
+ok_a11p &= _a11p_m18 != _A11P_CH19 and not _a11p_frontier_no_overreach(_a11p_m18)
+
+# the frontier escalated into an inequivalence claim at the inventory surface
+_a11p_m19 = _A11P_CH19.replace(
+    'None of this makes embedded observation and quantum mechanics inequivalent',
+    'This makes embedded observation and quantum mechanics inequivalent')
+ok_a11p &= _a11p_m19 != _A11P_CH19 and not _a11p_frontier_no_overreach(_a11p_m19)
+
+# the known witness misreported as separating the dynamics, which would close the combined target
+_a11p_m20 = _A11P_CH19.replace('the combined target remains open',
+                               'the combined target is therefore met')
+ok_a11p &= _a11p_m20 != _A11P_CH19 and not _a11p_frontier_target_open(_a11p_m20)
+
+# E13's control: one byte appended to the scope amendment
+def _a11p_amend_drift(path):
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act11-scope-propagation-open-frontier-amendment.md') else b'')
+
+
+ok_a11p &= _a11p_amend_drift(_A11P_AMEND) != _bb_read(_A11P_AMEND)
+ok_a11p &= not _a11p_amendment_pin(_a11p_amend_drift)
+
 # E1's control: one byte appended to the propagation preregistration
 def _a11p_drift(path):
     return _bb_read(path) + (b'\n' if path.endswith('act11-scope-propagation-audit.md') else b'')
@@ -11396,8 +11527,20 @@ check('R7-A11P', ok_a11p,
       'mutation-tested. The pre-existing bridge controls this round may not touch -- the diagonal-preserving '
       'hypothesis, the Hadamard countercontrol, and system-only backflow as sufficient but never necessary -- are '
       'checked to survive unchanged. The application-level slide from P-indivisibility into generic non-Markovianity is '
-      'checked gone, and every changed book passage checked mirrored in the full-book source. Twelve named contracts, '
-      'thirteen mutation controls, plus the freeze-pin drift control.')
+      'checked gone, and every changed book passage checked mirrored in the full-book source. THE APPEND-ONLY SCOPE '
+      'AMENDMENT adds the open-frontier surfaces and is pinned by blob on the same principle as the original freeze. '
+      'Chapter 19 is checked to carry the selection gap as an EXPLICIT framework-specific frontier rather than leaving '
+      'it implied by a local scope remark, with the two frontiers -- conditional operational completion versus bare-OI '
+      'dynamical selection -- checked distinguished at 19.2.12 rather than run together; deleting the entry or merging '
+      'the two frontiers is mutation-tested. The standard open-problem tally is checked UNCHANGED by a '
+      'framework-specific addition, and silent inflation of the count is mutation-tested. The three statuses -- '
+      'representability established, operational completion characterized conditionally, bare-OI relative selection '
+      'open -- are checked to agree across Main, Explainer, GR, Methodology and chapter 19, with the demotion of the '
+      'frontier back to a local caveat mutation-tested. Naming a gap is where the temptation to say what fills it '
+      'appears, so the chapter is checked to endorse no mechanism AND rule none out: claiming a connection could not '
+      'supply it, and escalating the gap into an inequivalence claim, are separately mutation-tested, as is '
+      'misreporting the known witness as separating the dynamics. Eighteen named contracts, twenty mutation controls, '
+      'plus two freeze-pin drift controls.')
 
 
 check('R7-DILL2', ok_dl2,

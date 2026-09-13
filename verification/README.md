@@ -2039,5 +2039,21 @@ controls — the diagonal-preserving hypothesis, the Hadamard countercontrol, an
 as sufficient but never necessary — are consumed unchanged. No theorem, probe result, roadmap
 status, `D3` or `D5` state changes, and the kernel count is unchanged. Guard `R7-A11P`.
 
+An append-only scope amendment (`audits/foundations/act11-scope-propagation-open-frontier-amendment.md`,
+blob `50f74a0`, committed alone as `995d143`) extends the same round to the open-frontier surfaces,
+leaving the original freeze unchanged and authoritative for its own. `book/ch19-open-problems.md`
+gains §19.3.9, a framework-specific entry recording that the finite-law bridge is solved at the level
+of representability, that exact finite operational quantum mechanics is already characterized
+conditionally by the explicit completion principles, and that the still-open question is whether and
+by what one relative evolution is selected from the coherent lifts of a single visible family —
+with ordinary coherence proved insufficient, the known outside-the-class witness noted to agree on
+every relating evolution, and no mechanism endorsed or excluded. §19.2.12 is cross-linked so the
+operational residue and the selection frontier are not read as one, and the standard open-problem
+tally is unchanged. Main, `Explainer`, `GR` and `Methodology` carry the same three statuses:
+representability established, operational completion characterized conditionally, bare-OI relative
+selection open. A re-grep found no stale bridge claim in `Substratum`, `Structure`, `Complexity` or
+the applied papers, so none was edited. `R7-A11P` grows to eighteen contracts and twenty mutation
+controls.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.
