@@ -37,7 +37,7 @@ in a list of obligations, exactly like a thing nobody got round to. It is not, a
 
 | Priority | Obligation | Track | Status | Unlocks |
 | --- | --- | --- | --- | --- |
-| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**, and now STRUCTURAL: act 11 proved the visible family does not fix it, and that the freedom is **not** exhausted by the maximal uniform invisible gauge | the conditional OI ⇔ QM statement; `P0a`/`P0b` closed, act 11's `GL2`/`GI2` landed |
+| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**, and now STRUCTURAL: act 11's `GL2` proved the visible family does not fix the relative evolution; its `GI2` proved the **lift space** exceeds the maximal uniform weak stabilizer, but with *identical* relative objects, so the **shape** of the missing structure stays open | the conditional OI ⇔ QM statement; `P0a`/`P0b` closed, act 11's `GL2`/`GI2` landed |
 | **P1** | Substratum Lemma 24.1 — semigroup transfer | Reconstruction | **OPEN** | unconditional `𝒢_sub` completeness |
 | **P1** | A6 — background independence / local gauge covariance | Substratum | **GAP** | the complete A1–A6 formal package |
 | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN** | the actual physical realization |
@@ -121,7 +121,10 @@ determines less than uniqueness needs.**
   every time-dependent gauge moves every candidate.
 - **`GI2`** — and this the freeze predicted at **no strength on either side**: there are two
   coherent lifts of one visible family whose forced relating element lies **outside the maximal
-  uniform invisible gauge**. So the residual ambiguity is **not** pure gauge.
+  uniform weak stabilizer**. So the **lift space** is not exhausted by that class. The same theorem
+  proves this pair has the **same relative object at every pair of times**, so `GI2` is **not**
+  evidence that the relative evolution carries non-gauge ambiguity; `GL2` is the only
+  relative-evolution no-go here.
 
 **Two stabilizers, because conflating them was the error act 11's control plane was corrected for.**
 Fixing the anchored columns is **sufficient** for invisibility, not necessary: the **strong** class
@@ -129,14 +132,18 @@ Fixing the anchored columns is **sufficient** for invisibility, not necessary: t
 **weak** class `𝒢ʷ ≅ U(1)^{|V|} × U(|V|(|A|−1))` adds the anchored phases and is the maximal
 *uniform* visibility-preserving class **for `|V| ≥ 2`**. At `|V| = 1` the visible datum is
 identically `1`, every unitary preserves it, and the maximal class is all of `U(|A|)` — so `𝒢ʷ` is
-**not** maximal there, and act 11 does not claim it is.
+**not** maximal there, and act 11 does not claim it is. **The two `≅` identifications above are
+arithmetic, not kernel-certified**: the module proves the structural characterizations and the
+complement's cardinality, and nothing rests on the group identities or dimensions.
 
 **What this changes about `P0`.** The open question is no longer whether some convention rescues
-uniqueness — it does not — but **what additional structure determines the relative evolution**.
-`GI2` constrains the answer's shape: since not all the ambiguity is gauge, that structure is
-**larger than a gauge fixing**, so a connection alone would not suffice. That is a statement about
-shape only; act 11 does not say what the structure is, does not say it fails to exist, and does not
-measure the non-gauge part.
+uniqueness — it does not, by `GL2` — but **what additional structure determines the relative
+evolution**. Act 11 does **not** constrain that structure's shape. `GI2` does not do it: its
+witness lies outside the weak class yet has *identical* relative objects, so it separates the lift
+space from the gauge class without separating the relative evolutions. **The shape question stays
+open**, and what would bear on it is a same-visible pair that is **both** outside the weak class
+**and** different in relative evolution. Act 11 supplies none and shows neither that one exists nor
+that one cannot.
 
 **What act 11 does NOT license.** `P0` is not closed. Act 7 layer 2's caveat **stands unchanged** —
 made structural rather than provisional, which is not the same as retired. Nothing proves OI and QM

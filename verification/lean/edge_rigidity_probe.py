@@ -10610,6 +10610,11 @@ check('R7-ABR', ok_abr,
 _CLG = open(_artifact('programmes/oi-qm/track-b/act-11-coherent-lift-gauge/result.md'),
             encoding='utf-8').read()
 _CLG1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _CLG).split())
+# The module itself: E18 checks that GI2's bound is carried by the THEOREM STATEMENT, so that the
+# over-reading the execution head was blocked for cannot be made from the theorem in isolation.
+_CLGLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'CoherentLiftGauge.lean'), encoding='utf-8').read().split())
 _CLGDIR = 'programmes/oi-qm/track-b/act-11-coherent-lift-gauge/'
 # The mandated execution base: the merge commit of act 11's control-plane PR #588.
 _CLG_BASE = '6cff07cc0655124f1f29e04b156cc05a3d717a48'
@@ -10773,13 +10778,62 @@ def _clg_gi2_earned(t=None):
 
 
 def _clg_gi2_bounded(t=None):
-    """E12 -- what GI2 does and does not say, including that it does not MEASURE the non-gauge part."""
+    """E12 -- GI2 is a LIFT-SPACE statement and is NOT evidence about the relative evolution.
+
+    The review blocker on the execution head. GI2's own witness uses two lifts constant in t, so the
+    forced element is constant and GL3 applies to it: the pair has IDENTICAL relative objects. A
+    nonmember of the weak class is therefore not by itself a difference in relative evolution, and
+    the note must say so where the reading would otherwise be made."""
     t = _CLG1 if t is None else t
-    return ('**`GI2` does not measure the non-gauge part.**' in t
-            and 'it does not say by how much, and the round makes no such claim' in t
-            and '**larger than a gauge fixing**' in t
-            and 'It is not a statement that the structure does not exist, and not a statement '
-                'about what it is.' in t)
+    return ('**`GI2` is NOT evidence of non-gauge ambiguity in the relative quantum evolution.**'
+                in t
+            and 'The exhibited pair is **proved** to have the same relative object at every pair '
+                'of times' in t
+            and '**`GI2` is a statement about the lift space, not about relative evolution.**' in t
+            and '**identical relative objects at every pair of times**; each is identically `1`.'
+                in t
+            and 'it is the **final conjunct of `gi2_lifts_not_weakly_gauge_related`**, '
+                'kernel-checked.' in t)
+
+
+def _clg_gi2_no_shape_claim(t=None):
+    """E17 -- the two over-readings are named and refuted, not merely left unstated.
+
+    'larger than a gauge fixing' and 'a connection alone would not suffice' are exactly the
+    inferences GI2 does not support, so the note disclaims them in terms."""
+    t = _CLG1 if t is None else t
+    return ('**`GI2` does not license any claim that the structure needed to pin the relative '
+            'evolution must be larger than a gauge fixing**' in t
+            and 'or that a connection could not suffice' in t
+            and 'refuted by `GI2`’s own witness' in t.replace("'", '’')
+            and '**`GL2` remains the round’s only relative-evolution no-go**'
+                in t.replace("'", '’')
+            and '**The stronger target is open and is named here so it is not mistaken for '
+                'settled**' in t)
+
+
+def _clg_gi2_conjunct_kernel(t=None):
+    """E18 -- the bound is IN THE THEOREM, not only in the note.
+
+    The statement itself carries the relative-object coincidence, so the over-reading cannot be
+    made from the theorem in isolation."""
+    t = _CLGLEAN if t is None else t
+    return ('∧ ∀ t s, U\' t * (U\' s)ᴴ = U t * (U s)ᴴ' in t
+            and 'both lifts are constant, so each relative object is identically `1`' in t
+            and 'does **not** exhibit non-gauge ambiguity in the relative quantum evolution' in t
+            and '`GL2` remains the round’s only relative-evolution no-go' in t.replace("'", '’'))
+
+
+def _clg_gl1w_scope(t=None):
+    """E19 -- GL1w reports what is kernel-checked and what is arithmetic, exactly as GL1s does.
+
+    'All targets landed' must not read as kernel certification of a Lie-group formula the module
+    never proves."""
+    t = _CLG1 if t is None else t
+    return ('**Scope of the evidence, stated as explicitly as for `GL1s`.**' in t
+            and 'not theorems of the module**' in t
+            and '"`GL1w` landed" means the structural theorems landed' in t
+            and 'It does not kernel-certify the Lie-group identifications or dimensions' in t)
 
 
 def _clg_p0_not_closed(t=None):
@@ -10836,6 +10890,9 @@ ok_clg &= _clg_act5_countercontrol()
 ok_clg &= _clg_witness_controls()
 ok_clg &= _clg_gi2_earned()
 ok_clg &= _clg_gi2_bounded()
+ok_clg &= _clg_gi2_no_shape_claim()
+ok_clg &= _clg_gi2_conjunct_kernel()
+ok_clg &= _clg_gl1w_scope()
 ok_clg &= _clg_p0_not_closed()
 ok_clg &= _clg_d3_split()
 ok_clg &= _clg_budget()
@@ -10921,16 +10978,59 @@ _clg_m14 = _CLG1.replace(
     'No weak-class element relating the two could be found.')
 ok_clg &= _clg_m14 != _CLG1 and not _clg_gi2_earned(_clg_m14)
 
-# GI2 over-read as measuring the non-gauge part
-_clg_m15 = _CLG1.replace('**`GI2` does not measure the non-gauge part.**',
-                         'GI2 measures how much of the ambiguity is not gauge.')
+# THE BLOCKER ON THE EXECUTION HEAD: GI2 read as evidence about the relative evolution, when its
+# own witness has identical relative objects at every pair of times.
+_clg_m15 = _CLG1.replace(
+    '**`GI2` is NOT evidence of non-gauge ambiguity in the relative quantum evolution.**',
+    'GI2 shows the relative quantum evolution carries non-gauge ambiguity.')
 ok_clg &= _clg_m15 != _CLG1 and not _clg_gi2_bounded(_clg_m15)
 
-# GI2 over-read into a claim about what the missing structure is, or that none exists
+# the relative-object coincidence demoted from a proved conjunct to an unstated aside
 _clg_m16 = _CLG1.replace(
-    'It is not a statement that the structure does not exist, and not a statement about what it is.',
-    'No such structure can therefore exist.')
+    'it is the **final conjunct of `gi2_lifts_not_weakly_gauge_related`**, kernel-checked.', '')
 ok_clg &= _clg_m16 != _CLG1 and not _clg_gi2_bounded(_clg_m16)
+
+# the shape inference written back in the exact form the review struck out
+_clg_m26 = _CLG1.replace(
+    '**`GI2` does not license any claim that the structure needed to pin the relative evolution '
+    'must be larger than a gauge fixing**',
+    'So the structure needed to pin the relative evolution is larger than a gauge fixing')
+ok_clg &= _clg_m26 != _CLG1 and not _clg_gi2_no_shape_claim(_clg_m26)
+
+# GL2 demoted from sole relative-evolution no-go, so GI2 could stand in for it
+_clg_m27 = _CLG1.replace(
+    '**`GL2` remains the round’s only relative-evolution no-go**'.replace('’', "'"),
+    'GL2 and GI2 are both relative-evolution no-gos')
+_clg_m27 = _clg_m27.replace(
+    '**`GL2` remains the round’s only relative-evolution no-go**',
+    'GL2 and GI2 are both relative-evolution no-gos')
+ok_clg &= _clg_m27 != _CLG1 and not _clg_gi2_no_shape_claim(_clg_m27)
+
+# the stronger target quietly treated as settled rather than named open
+_clg_m28 = _CLG1.replace(
+    '**The stronger target is open and is named here so it is not mistaken for settled**',
+    'The stronger target is settled by the above')
+ok_clg &= _clg_m28 != _CLG1 and not _clg_gi2_no_shape_claim(_clg_m28)
+
+# the bound removed from the THEOREM, leaving it only in the note -- E18's whole point
+_clg_m29 = _CLGLEAN.replace("∧ ∀ t s, U' t * (U' s)ᴴ = U t * (U s)ᴴ", '')
+ok_clg &= _clg_m29 != _CLGLEAN and not _clg_gi2_conjunct_kernel(_clg_m29)
+
+# the module docstring re-asserting the struck inference next to the theorem
+_clg_m30 = _CLGLEAN.replace(
+    'does **not** exhibit non-gauge ambiguity in the relative quantum evolution',
+    'exhibits non-gauge ambiguity in the relative quantum evolution')
+ok_clg &= _clg_m30 != _CLGLEAN and not _clg_gi2_conjunct_kernel(_clg_m30)
+
+# GL1w's Lie-group identity presented as kernel-certified rather than as arithmetic
+_clg_m31 = _CLG1.replace('not theorems of the module**', 'proved in the module**')
+ok_clg &= _clg_m31 != _CLG1 and not _clg_gl1w_scope(_clg_m31)
+
+# 'all targets landed' left to imply certification of a formula the module never proves
+_clg_m32 = _CLG1.replace(
+    'It does not kernel-certify the Lie-group identifications or dimensions',
+    'It kernel-certifies the Lie-group identifications and dimensions')
+ok_clg &= _clg_m32 != _CLG1 and not _clg_gl1w_scope(_clg_m32)
 
 # P0 declared closed on the strength of a no-go
 _clg_m17 = _CLG1.replace('**`P0` is NOT closed.**', '**`P0` is closed by this round.**')
@@ -11013,13 +11113,25 @@ check('R7-CLG', ok_clg,
       'required to be COMPUTED, since reading the constructor factor off is wrong and was wrong in an earlier draft. '
       'GI2 -- which the freeze predicted at NO strength and which landed -- is checked earned by a computed forced '
       'element proved outside the weak class, never by a failed search and with no universal over the class needed, '
-      'and checked BOUNDED: it does not measure the non-gauge part, does not say the missing structure cannot exist, '
-      'and does not say what it is. P0 is checked NOT closed with act 7 layer 2 caveat made structural rather than '
+      'AND CHECKED BOUNDED WHERE THE EXECUTION HEAD WAS BLOCKED: the GI2 witness uses two lifts CONSTANT IN '
+      'TIME, so the forced element is constant and GL3 applies to it, and the pair has IDENTICAL relative '
+      'objects at every pair of times. GI2 is therefore a statement about the LIFT SPACE and is NOT evidence '
+      'of non-gauge ambiguity in the relative evolution; the guard checks that the note says so, that the two '
+      'struck inferences -- larger than a gauge fixing, and a connection alone would not suffice -- are named '
+      'and refuted rather than merely left unstated, that GL2 is recorded as the ONLY relative-evolution no-go '
+      'of the round, and that the stronger target (a same-visible pair BOTH outside the weak class AND '
+      'differing in relative evolution) is named OPEN. All four are mutation-tested in the words the blocked '
+      'draft used. The bound is checked IN THE THEOREM STATEMENT and not only in the note: the GI2 conjunct '
+      'proving the two relative objects equal, and the docstring disclaimer beside it, are each mutation-tested '
+      'against deletion, so the over-reading cannot be made from the theorem in isolation. GL1w gets the same '
+      'evidence-scope treatment as GL1s -- the structural content is what is kernel-checked, while the '
+      'Lie-group identification and dimension are arithmetic recorded in the note, so that all targets landed '
+      'cannot read as certification of a formula the module never proves. P0 is checked NOT closed with act 7 layer 2 caveat made structural rather than '
       'retired, and the inequivalence over-reading mutation-tested. D3 is checked subsumed as a uniqueness mechanism '
       'ONLY with its existence/regularity audit still open and coherent-lift existence not presumed. Four of six '
       'definition slots fired, both conditional slots unused with reasons, no seventh. No manuscript edit, no '
-      'candidate-selection principle, no cross-track sourcing, and D5 left NOT CERTIFIED. Sixteen named contracts, '
-      'twenty-five mutation controls, plus the freeze-pin drift controls.')
+      'candidate-selection principle, no cross-track sourcing, and D5 left NOT CERTIFIED. Nineteen named '
+      'contracts, thirty-two mutation controls, plus the freeze-pin drift controls.')
 
 
 

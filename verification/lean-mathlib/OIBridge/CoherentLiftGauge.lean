@@ -44,6 +44,11 @@ carries two nested objects:
   `visible_marginal_eq_one_of_visible_subsingleton` and
   `all_preserve_admissible_of_visible_subsingleton` recording that at `|V| = 1` the visible datum is
   constant and **every** unitary preserves it, so `𝒢ʷ` is *not* maximal there.
+
+  **Scope, as for `GL1s`**: what is kernel-checked is the **structural characterization** —
+  membership, the unit-circle coefficients, maximality, the `|V| = 1` exception. The Lie-group
+  identification `𝒢ʷ ≅ U(1)^{|V|} × U(|V|(|A| − 1))` and its dimension are **not** theorems of this
+  module and nothing here rests on them.
 * **`GL2`** — `gl2_strong_gauge_moves_relative_candidate`: a time-dependent element of the
   **strong** class carries a coherent lift to another coherent lift of the same visible family while
   the relative candidate moves. Using the smaller class makes the statement stronger.
@@ -54,8 +59,10 @@ carries two nested objects:
   `K = Uᴴ U'` puts **both** act 7 witnesses in the strong class. Witness A's element *conjugates*
   under act 7's convention, which is why reading it off the constructor is wrong.
 * **`GI2`** — `gi2_lifts_not_weakly_gauge_related`: two coherent lifts of the same visible family
-  whose forced element lies **outside** the weak class. So the ambiguity is **not** exhausted by the
-  maximal uniform invisible gauge.
+  whose forced element lies **outside** the weak class, so the **lift space** is not exhausted by
+  the maximal uniform weak stabilizer. The theorem's final conjunct proves this pair nevertheless
+  has the **same relative object at every pair of times**, so it is *not* evidence of non-gauge
+  ambiguity in the relative evolution. `GL2` is the round's only relative-evolution no-go.
 
 **The cocycle condition is vacuous and nothing here uses it.** With relatives defined as
 `U t (U s)ᴴ`, `U'_{t←s} U'_{s←r} = U'_{t←r}` holds for every family whatsoever.
@@ -652,14 +659,25 @@ therefore maps the anchored line at `j = 0` onto the anchored line at `j = 1`, a
 weak class does that: weak membership requires each anchored column to be a multiple of its own
 basis vector.
 
-**What this does and does not say.** With `GL1w`'s maximality (`|V| ≥ 2`), the extra structure
-needed to pin the relative evolution is therefore **larger than a gauge fixing** — a connection
-alone would not suffice. It does **not** say OI and QM are inequivalent, it does not close `P0`, and
-it does not show any particular candidate-selection principle is required. -/
+**What this does and does not say — and the bound is proved, not promised.** The final conjunct
+states that this pair has the **same relative object at every pair of times**. Both lifts are
+constant in `t`, so each relative object is identically `1`; equivalently, the forced element
+`P(ρ)` is constant, and `gl3_constant_gauge_preserves_relative` applies to it.
+
+So `GI2` says the lift space is **not exhausted by the maximal uniform weak stabilizer**, and that
+is all it says. It does **not** exhibit non-gauge ambiguity in the relative quantum evolution, does
+**not** show that the structure needed to pin the relative evolution must be larger than a gauge
+fixing, and does **not** show a connection cannot suffice — this very pair is a counterexample to
+reading it that way. `GL2` remains the round's only relative-evolution no-go. It does not say OI and
+QM are inequivalent, does not close `P0`, and shows no candidate-selection principle required.
+
+**The stronger target stays open**: a same-visible pair that lies outside the weak class *and*
+differs in relative evolution. Nothing here supplies one. -/
 theorem gi2_lifts_not_weakly_gauge_related :
     ∃ (Γ : ℕ → Matrix (Fin 2) (Fin 2) ℝ) (U U' : ℕ → Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ),
       CoherentLift (0 : Fin 2) Γ U ∧ CoherentLift (0 : Fin 2) Γ U'
-        ∧ ¬ GaugeRelated (WeakAnchorStabilizer (0 : Fin 2)) U U' := by
+        ∧ ¬ GaugeRelated (WeakAnchorStabilizer (0 : Fin 2)) U U'
+        ∧ ∀ t s, U' t * (U' s)ᴴ = U t * (U s)ᴴ := by
   classical
   obtain ⟨σ, hσ⟩ : ∃ σ : Equiv.Perm (Fin 2 × Fin 2), σ = Equiv.prodComm (Fin 2) (Fin 2) := ⟨_, rfl⟩
   obtain ⟨ρ, hρ⟩ : ∃ ρ : Equiv.Perm (Fin 2 × Fin 2),
@@ -673,7 +691,7 @@ theorem gi2_lifts_not_weakly_gauge_related :
         (0 : Fin 2) (σ'.permMatrix ℂ) := fun σ' h => admissible_permMatrix _ σ' h
   refine ⟨fun _ =>
       (((Matrix.of fun _ j => if j = 0 then (1 : ℝ) else 0) : Matrix (Fin 2) (Fin 2) ℝ)ᵀ),
-    fun _ => σ.permMatrix ℂ, fun _ => (ρ * σ).permMatrix ℂ, fun _ => ?_, fun _ => ?_, ?_⟩
+    fun _ => σ.permMatrix ℂ, fun _ => (ρ * σ).permMatrix ℂ, fun _ => ?_, fun _ => ?_, ?_, ?_⟩
   · refine hAT σ (fun i j => ?_)
     fin_cases i <;> fin_cases j <;> simp +decide [hσ, Matrix.transpose_apply]
   · refine hAT (ρ * σ) (fun i j => ?_)
@@ -705,6 +723,16 @@ theorem gi2_lifts_not_weakly_gauge_related :
     rw [if_neg (by decide : ((1 : Fin 2), (0 : Fin 2)) ≠ ((0 : Fin 2), (0 : Fin 2)))] at hbad
     rw [permMatrix_apply_eq, hρ] at hbad
     simp +decide at hbad
+  · -- both lifts are constant, so each relative object is identically `1`
+    have hunit : ∀ π : Equiv.Perm (Fin 2 × Fin 2),
+        (π.permMatrix ℂ) * (π.permMatrix ℂ)ᴴ = 1 := by
+      intro π
+      have h := Matrix.mem_unitaryGroup_iff.1 (permMatrix_mem_unitaryGroup π)
+      rwa [Matrix.star_eq_conjTranspose] at h
+    intro t s
+    show ((ρ * σ).permMatrix ℂ) * ((ρ * σ).permMatrix ℂ)ᴴ
+      = (σ.permMatrix ℂ) * (σ.permMatrix ℂ)ᴴ
+    rw [hunit, hunit]
 
 end CoherentLiftGauge
 end OIBridge

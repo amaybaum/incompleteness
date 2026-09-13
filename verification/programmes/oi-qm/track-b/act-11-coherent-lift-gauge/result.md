@@ -24,8 +24,16 @@ direction; neither branch is evidence for the other.
 ## Outcome, in one line
 
 **`GL1s`, `GL1w`, `GL2` and `GL3` all landed, and `GI2` landed — which the freeze predicted at no
-strength on either side.** Ordinary coherent lifting does not restore uniqueness, and the residual
-ambiguity is **not** exhausted by the maximal uniform invisible gauge.
+strength on either side.** Ordinary coherent lifting does not restore uniqueness of the relative
+evolution (`GL2`), and the **lift space** is not exhausted by the maximal uniform weak stabilizer
+(`GI2`).
+
+**Two scope statements belong in the headline, not the footnotes.** First, `GI2` is about the lift
+space **only**: its witness is proved to have the *same* relative object at every pair of times, so
+it is not evidence of non-gauge ambiguity in the relative evolution, and `GL2` is the round's only
+relative-evolution no-go. Second, "all targets landed" means the **structural** content of each
+target; the Lie-group identifications and dimensions that `GL1s` and `GL1w` state are recorded as
+arithmetic and are **not** kernel-certified here. Both are made precise below.
 
 ## `GL1s` — the strong stabilizer
 
@@ -78,6 +86,14 @@ uniform class there is all of `U(|A|)`, which strictly contains the weak class w
 
 **Uniformity is part of the claim.** Maximal among classes preserving the marginal of *every*
 admissible `U`; a single fixed `U` admits more.
+
+**Scope of the evidence, stated as explicitly as for `GL1s`.** What the module certifies is the
+**structural** content: membership, the unit-circle coefficients (`weak_anchor_coeff_norm_one`),
+maximality for `|V| ≥ 2`, and the `|V| = 1` exception. The **Lie-group identification**
+`𝒢ʷ_{a₀} ≅ U(1)^{|V|} × U(|V|(|A| − 1))` and its real dimension `|V| + (|V|(|A| − 1))²` are
+**arithmetic recorded in this note, not theorems of the module** — exactly the status `GL1s`'s
+dimension has. Nothing in the round rests on either formula, and "`GL1w` landed" means the
+structural theorems landed, **not** that the group identity is kernel-certified.
 
 ## `GL2` — the no-go
 
@@ -132,10 +148,12 @@ be **computed**, and `forced_gauge_perm` is the general identity that computes i
 **Consequence: neither merged witness is a `GI2` candidate.** They are controls, not discoveries —
 exactly as the freeze assigned them.
 
-## `GI2` — the ambiguity is NOT exhausted by the maximal uniform invisible gauge
+## `GI2` — the LIFT SPACE is not exhausted by the maximal uniform weak stabilizer
 
 `gi2_lifts_not_weakly_gauge_related`. **The freeze predicted this fork at no strength on either
-side, and the round settled it.**
+side, and the round settled it** — in the lift space, and there only. The section title says "lift
+space" rather than "the ambiguity" deliberately: the difference between those two readings is the
+whole content of the scope paragraph below.
 
 Two coherent lifts of the **same** visible family, on a carrier with `|V| = 2` so `GL1w`'s
 maximality applies and the reading is licensed, whose forced element lies **outside the weak class**:
@@ -159,6 +177,13 @@ the same slice — available because admissibility sees only a fibre sum.
 search, and no universal over the class was needed, because the relating element is forced and
 membership is therefore decidable.
 
+**And the witness bounds its own reading — provably.** Both lifts are **constant in `t`**, so the
+forced element `P(swap((0,0),(1,0)))` is constant, and `gl3_constant_gauge_preserves_relative`
+applies to it: the two lifts have the **same relative object at every pair of times** (each is
+identically `1`). That is the theorem's **final conjunct**, kernel-checked rather than asserted
+here. A nonmember of the weak class is therefore *not* by itself a difference in relative evolution,
+and this witness is a concrete demonstration of the gap. See *What `GI2` does say* below.
+
 ## What these outcomes do NOT license
 
 - **`P0` is NOT closed.** Act 7 layer 2's caveat, as act 9 sharpened it, **stands unchanged** —
@@ -170,19 +195,40 @@ membership is therefore decidable.
   would be needed for relative uniqueness; naming one is out of scope, and `C5` is neither named nor
   adopted.
 - **`GL1s`'s dimension is not the size of the invisible freedom.**
-- **`GI2` does not measure the non-gauge part.** It shows the ambiguity exceeds the maximal uniform
-  invisible gauge; it does not say by how much, and the round makes no such claim.
+- **`GI2` is NOT evidence of non-gauge ambiguity in the relative quantum evolution.** It is about
+  the **lift space**, not about relative evolution. The exhibited pair is **proved** to have the
+  same relative object at every pair of times — see the next section, where the point is made
+  precise. `GL2` is the round's only relative-evolution no-go.
+- **`GI2` does not license any claim that the structure needed to pin the relative evolution must
+  be larger than a gauge fixing**, or that a connection could not suffice. Those readings are
+  refuted by `GI2`'s own witness.
 - **The direct-branch statement is exactly** act 7's and no more: `D4a` positive on the direct
   branch, `T1` **necessary, not sufficient**, `n = 3` properness at **evidence level 3**, and **no
   claim about what fraction of OI lies in the direct sector.**
 
-## What `GI2` does say, stated once and carefully
+## What `GI2` does say, stated once and carefully — and the reading it does not support
 
-Under `GL1w`'s maximality (`|V| ≥ 2`), the extra structure needed to pin the relative evolution is
-**larger than a gauge fixing** — a connection alone would not suffice, since not all of the
-ambiguity is gauge. That is a statement about the *shape* of the missing structure, and it is the
-round's contribution to the classification question. It is not a statement that the structure does
-not exist, and not a statement about what it is.
+**`GI2` is a statement about the lift space, not about relative evolution.** Under `GL1w`'s
+maximality (`|V| ≥ 2`), it says the set of coherent lifts of a fixed visible family is **not
+exhausted by the orbit of the maximal uniform weak stabilizer**. That is its whole content.
+
+**It is not evidence that the relative quantum evolution carries non-gauge ambiguity, and the
+witness itself shows why.** Both `GI2` lifts are **constant in `t`** — `U t = P(σ)` and
+`U' t = P(ρ·σ)` for every `t` — so the forced element `K t = P(ρ)` is constant, and this module's
+own `gl3_constant_gauge_preserves_relative` applies to it. The two lifts therefore have **identical
+relative objects at every pair of times**; each is identically `1`. This is not an observation left
+to prose: it is the **final conjunct of `gi2_lifts_not_weakly_gauge_related`**, kernel-checked.
+
+So `GI2` **does not** license "the structure needed to pin the relative evolution is larger than a
+gauge fixing", and **does not** license "a connection alone would not suffice". Those readings do
+not follow from a nonmember of the weak class; they would need a nonmember that *also* moves the
+relative evolution, and `GI2`'s witness is the opposite of one. **`GL2` remains the round's only
+relative-evolution no-go**, and it is a strong-class statement that stands on its own.
+
+**The stronger target is open and is named here so it is not mistaken for settled**: a pair of
+coherent lifts of the same visible family that lies **outside the weak class** *and* **differs in
+relative evolution**. Act 11 does not supply one, does not show one exists, and does not show one
+cannot. That pair, not `GI2`, is what would bear on the shape of the missing structure.
 
 ## `D3` — the split held
 
@@ -263,6 +309,12 @@ a top-level definition — each is a bound variable pinned by an equation, as ac
 - **Act 7 layer 2's `D5` chronological-ordering control stands NOT CERTIFIED.** Nothing here repairs
   it retroactively, and nothing here depends on it.
 - **It claims no candidate-selection principle**, proposes none, and does not name or adopt `C5`.
+- **It does not exhibit a same-visible lift pair that lies outside the weak class AND differs in
+  relative evolution**, and does not show one exists or cannot. That pair — not `GI2` — is what
+  would bear on whether the missing structure exceeds a gauge fixing. It stays **open**.
+- **It does not kernel-certify the Lie-group identifications or dimensions** that `GL1s` and `GL1w`
+  state. Those are arithmetic recorded in this note; the module proves the structural
+  characterizations and `card_offAnchor`'s cardinality.
 - **It compares Source A with neither Source B nor Source C**, on any axis.
 - **It touches no manuscript.** No propagation in this round.
 - **It says nothing about Track I**, and nothing here is evidence for anything there.
