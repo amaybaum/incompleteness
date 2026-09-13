@@ -495,13 +495,17 @@ one carrier, which is what the discovery round's N1 control already showed by pr
 
 ### `RD4` — what a discharge would buy: indivisibility at the return horizon
 
-**`RD4-a` (kernel).** `RoutedReadback K R → ∀ n, s < n → rootedMap R n = 1 →
-C4r n (rootedMap R) ∧ PIndivisibleWithin n (rootedMap R)`, with `s` the storage time extracted by
-`RD0-c`; by `RecurrenceHorizon.horizon_verdict`, reused and not reproved.
+**`RD4-a` (kernel).** `RoutedReadback K R → ∃ s, s < K ∧ ∀ n, s < n → rootedMap R n = 1 →
+C4r n (rootedMap R) ∧ PIndivisibleWithin n (rootedMap R)`: the storage time `s` is bound by the
+statement itself, extracted from the routed-readback witness by `RD0-c` (`RoutedReadback`
+existentially binds its own `s`, so the target exposes that extraction rather than leaving `s`
+free); then every identity return after the storage surface gives the recurrence-horizon
+conclusion, by `RecurrenceHorizon.horizon_verdict`, reused and not reproved.
 
 **`RD4-b` (kernel).** `RoutedReadback K R → ∃ n, PIndivisibleWithin n (rootedMap R)`: finite
 reversibility supplies a period `M > 0` with `Γ_{t+M} = Γ_t` (`rootedMap_periodic`), root time is
-the identity (`rootedMap_zero`), so `Γ_{qM} = 1` for every `q`, and some multiple exceeds `s`.
+the identity (`rootedMap_zero`), so `Γ_{qM} = 1` for every `q`, and some multiple exceeds the `s`
+that `RD4-a` binds.
 
 **Prediction: positive, full strength.** Assembly of merged results.
 
