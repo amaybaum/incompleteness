@@ -64,7 +64,7 @@ finite-range second-order rule `R : Rule ι V`; `Conf := ι → V × V` and `φ 
 | `A4Exact` | `∀ v c, 𝒮.R.F (shiftBy v c) = shiftBy v (𝒮.R.F c)` | `A4 ⊥` follows, `a4_of_exact` |
 | `A4 G` | center independence up to the gauge `G : Subgroup (Equiv.Perm 𝒮.Conf)` | the gauge is a parameter |
 | **`A5`** | **`∀ c c' : 𝒮.ι → 𝒮.V, 𝒮.R.F (c + c') = 𝒮.R.F c + 𝒮.R.F c'`** | **additivity of the rule over the alphabet** |
-| `A6` | **no predicate**; the `ROADMAP` carries it as a `GAP` | four readings are frozen in `BackgroundIndependence.lean` and none is adopted |
+| `A6` | **no predicate** in the `Substratum` structure | four readings are frozen in `BackgroundIndependence.lean` and none is adopted; **A6 is outside this round, and whatever status the execution base carries for it is consumed unchanged** |
 
 **The kernel's A5 is additivity of `F`; the manuscripts' A5 is linearity of the wave equation.**
 These are two statements, related by the kernel's instance theorem `waveSubstratum_A5` for the one
@@ -241,7 +241,8 @@ what it finds, including any divergence from what is recorded here.
 1. **A5 in the kernel** is `∀ c c', F (c + c') = F c + F c'` on the rule of a `Substratum`
    (`SubstratumInterfaceAudit.lean`). The module's own header records A1, A2 and A5 as "stated
    outright", A3 with the degree as a parameter and in family form, A4 with the gauge as a
-   parameter, and A6 as a gap with no predicate.
+   parameter, and A6 as carrying no predicate. **This round asserts no status for A6**: A6 is
+   outside it, and whatever status the execution base carries is consumed unchanged.
 2. **The named kernel results whose statements carry `𝒮.A5` or an instance of it**, as located by
    reading the tree: `A5` itself and `waveSubstratum_A5` (`SubstratumInterfaceAudit.lean`);
    `map_zero_of_additive`, `coarse_evolution_additive`, `coarseCloses_additive_on_range`,
@@ -317,6 +318,12 @@ explicit and was read before the freeze (recorded reading 4).
 **Can A5 be derived from observational incompleteness itself, independent of the quantum
 reconstruction? If it cannot, is there a clean OI-admissible counterexample without A5?**
 
+**Two findings, kept apart throughout this group:** the **search result** — whether a derivation
+was found on the record searched — and the **requirement question** — whether A5 is a bare-OI
+requirement. The first does not settle the second, and the sentence "A5 is not a bare-OI
+requirement" is reserved by status rule 7 to a clean OI-admissible substratum failing A5 or an
+actual non-derivability result (hazard 21).
+
 **`A5S-1a` (type P) — the derivation question.** Search the named bare-OI record — [Main §1],
 [Main §3]'s C1–C4, [Structure §2.1] Levels A and B, [Structure §9.6]'s Definition 9.9,
 Proposition 9.10 and Corollary 9.11 — for any statement entailing additivity of the substratum
@@ -369,10 +376,13 @@ may not do:** construct the object, weaken (iv), or report H-B's candidate as th
 (hazard 19).
 
 **Permitted outcomes for question (a):** *derivable* — a derivation from bare-OI conditions alone is
-exhibited and cited; *no derivation on the record searched* — with the record named in the same
-paragraph; *counterexample exhibited* — `A5S-1c` positive, with the five conditions checked; or
-**UNDECIDED**. The evidence bar for reporting the sentence "A5 is not a bare-OI requirement" is
-status rule 7.
+exhibited and cited; *not a bare-OI requirement* — on one of status rule 7's two grounds, a clean
+OI-admissible substratum failing A5 or an actual non-derivability result, and on no other;
+*no derivation on the record searched* — the search result, with the record named, which is **not**
+the previous outcome and may not be reported as it; or **UNDECIDED**, which is what the requirement
+half is predicted to receive. `A5S-1c`'s own outcomes are *counterexample exhibited*, with the five
+conditions checked, or **UNDECIDED**. The bar on the stronger sentence is status rule 7
+(hazard 21).
 
 ### `A5S-2` — QUESTION (b), QUANTUM-ROUTE NECESSITY
 
@@ -508,26 +518,35 @@ rule 6's bar; or **UNDECIDED**, which is what `A5S-3a`–`A5S-3d` are predicted 
 evidence and the boundary of that evidence, under the permitted outcomes above and the status rule
 below. **The three answers may disagree, and a mixed report is the expected shape.**
 
-**Prediction, per question:** (a) *no derivation on the record searched*, with `A5S-1c`
-**UNDECIDED**; (b) the uses located, and quantum-specific at medium strength; (c) **UNDECIDED**.
-**So the predicted report is the first of the two worked examples frozen below.** *Reason:*
-recorded readings 3, 5 and 6 for (a) and (b); for (c), `A5S-3d` — H3–H7 are HO and the evidence
-bar of status rule 6 is not met by `A5S-3a` and `A5S-3b`. **Strength:** high for (a) as stated,
-medium for (b), and for (c) full strength that the answer is UNDECIDED. **UNDECIDED is a permitted
-outcome of every one of the three**, reported with the obstruction named.
+**Prediction, per question:** (a) *no derivation on the record searched*, and the **requirement
+half UNDECIDED** — `A5S-1c` returns UNDECIDED, so neither of status rule 7's two grounds is
+available and the stronger sentence is not reportable; (b) the uses located, and quantum-specific
+at medium strength; (c) **UNDECIDED**. **So the predicted report is the first of the two worked
+examples frozen below — the one that states the search result and leaves both the bare-OI
+requirement question and the Navier–Stokes question undecided.** *Reason:* recorded readings 3, 5
+and 6 for (a) and (b); for (c), `A5S-3d` — H3–H7 are HO and the evidence bar of status rule 6 is
+not met by `A5S-3a` and `A5S-3b`. **Strength:** high for (a)'s search result as stated, full
+strength that (a)'s requirement half is UNDECIDED, medium for (b), and full strength that (c) is
+UNDECIDED. **UNDECIDED is a permitted outcome of every one of the three**, reported with the
+obstruction named.
 
-**`A5S-4b` (type P).** Report the consequence for H-B's candidate under the disqualification rule
-frozen below: whether any **established** ground disqualifies it as a **hydrodynamic candidate** on
-its A5 failure. **Prediction: none is established, on the findings `A5S-4a` predicts; the note says
-that and no more.** **Strength: full, conditional on `A5S-4a`.** **Frozen in advance:** "no
-established ground for disqualification" is **not** "the candidate reaches a hydrodynamic limit",
-is **not** a ruling that the A1–A4, ¬A5 class is admissible as an OI substratum — that separate
-owner decision **stays open** — and is bounded by the guardrail in terms (hazards 3, 16).
+**`A5S-4b` (type P).** Report the consequence for H-B's candidate under the **two** disqualification
+rules frozen below, and report them **separately**: whether any **established** ground disqualifies
+it as an **OI-admissible candidate or substratum** (rule (a)), and whether any established ground
+disqualifies it as a **candidate for the targeted Euler or Navier–Stokes limit** (rule (c)).
+**Prediction: neither is established, on the findings `A5S-4a` predicts; the note reports the two
+separately and says no more.** **Strength: full, conditional on `A5S-4a`.** **Frozen in advance:**
+the two rules reach different conclusions about different things, and **neither may be reported,
+summarized or propagated as the other** (hazards 22 and 23). In either rule, "no established ground
+for disqualification" is **not** the corresponding positive: it is not "the candidate reaches a
+hydrodynamic limit" (the guardrail, hazard 16), and it is not a ruling that the A1–A4, ¬A5 class is
+admissible as an OI substratum — that separate owner decision **stays open** (hazard 3).
 
 ### `A5S-5` — scope, and what the successor inherits
 
 **`A5S-5a` (type P).** Record what remains attached to H-B's candidate after this round, whatever
-`A5S-4` lands: A6 is a `GAP` on its own branch and is untouched; the candidate is two-dimensional
+`A5S-4` lands: **A6 is outside this round — whatever status the execution base carries is consumed
+unchanged, and no status for it is asserted here**; the candidate is two-dimensional
 and nothing about `d = 3` is said; H3 and H4 are HO for it and H5–H7 are not begun; its
 observer-admission is not established, so `A5S-1c` does not close on it; the OI-substratum
 admissibility of its class is open; and no statement of this round is evidence that the candidate
@@ -547,7 +566,7 @@ H3–H7 and H-C. **Prediction: the statement is carried and the objective is lef
 | --- | --- | --- | --- | --- | --- |
 | `A5S-0a` | — | P | positive: two statements of A5, no identification theorem in the tree | full | an identification theorem found in the tree; then it is cited and the round records it |
 | `A5S-0b` | — | P | positive: the sourcing table, all six conditions, as inputs to the reconstruction | full | a misread section reference; repaired, not reinterpreted |
-| `A5S-1a` | (a) | P | **negative**: no bare-OI derivation of A5 on the record searched | high, **for the record searched only** | a derivation from bare-OI conditions alone; then (a) is answered *derivable* |
+| `A5S-1a` | (a) | P | **negative**: no bare-OI derivation of A5 on the record searched — the search result, which does not settle the requirement question | high, **for the record searched only** | a derivation from bare-OI conditions alone; then (a) is answered *derivable* |
 | `A5S-1b` | (a) | P over kernel | positive enumeration; **negative** for OI → QM appearance | full for statements; high for the dependency reading | a missed downstream consumer; the list grows and the shape of the finding is unchanged unless the consumer is in the OI → QM chain |
 | `A5S-1c` | (a) | P | **UNDECIDED**: no clean OI-admissible ¬A5 substratum is exhibited in the tree, condition (iv) having no carrier | high, that UNDECIDED is the outcome | an existing result establishing observer-admission for a concrete ¬A5 substratum; then the counterexample is reported exhibited |
 | `A5S-2a` | (b) | P | positive: the uses located, with what each step concludes, in the manuscripts' words | full | a cited step that on reading does not consume A5; then that step comes off the list |
@@ -558,9 +577,9 @@ H3–H7 and H-C. **Prediction: the statement is carried and the objective is lef
 | `A5S-3b` | (c) | K-cited | positive: that conservation content together with that stencil content does not entail A5, H-B's candidate witnessing the failure — and nothing about a limit | full | an error in reading H-B's statements; they are re-read, not reinterpreted |
 | `A5S-3c` | (c) | K-cited | positive: A5 is the hypothesis of H-A's advection gate on its named class, so A5 is not neutral for the target | full | — |
 | `A5S-3d` | (c) | P | the boundary and the two settling conditions recorded; neither is met at the start state | **no sign** | a derivation at the H3–H7 level, either way |
-| `A5S-4a` | all | P | (a) no derivation on the record searched, counterexample UNDECIDED; (b) located, quantum-specific; (c) **UNDECIDED** — the first worked example | high (a); medium (b); full that (c) is UNDECIDED | any of the three questions landing elsewhere; each is reported on its own evidence |
-| `A5S-4b` | all | P | no **established** ground disqualifies H-B's candidate as a hydrodynamic candidate | full, conditional on `A5S-4a` | (a) answered *derivable*, or (c) answered *required* |
-| `A5S-5a` | — | P | the residual list recorded, no item resolved | full | — |
+| `A5S-4a` | all | P | (a) no derivation on the record searched **and the requirement half UNDECIDED**; (b) located, quantum-specific; (c) **UNDECIDED** — the first worked example, verbatim | high for (a)'s search result; full that (a)'s requirement half is UNDECIDED; medium (b); full that (c) is UNDECIDED | any of the three questions landing elsewhere; each is reported on its own evidence |
+| `A5S-4b` | all | P | no **established** ground disqualifies H-B's candidate under **either** rule — neither as an OI-admissible candidate (rule (a)) nor as a candidate for the targeted limit (rule (c)), the two reported separately | full, conditional on `A5S-4a` | (a) answered *derivable*, which fires rule (a) only; or (c) answered *required*, which fires rule (c) only |
+| `A5S-5a` | — | P | the residual list recorded, no item resolved, no A6 status asserted | full | — |
 | `A5S-5b` | — | P | the scope statement carried, the programme objective left open | full | — |
 
 **UNDECIDED remains a permitted label for every target and for every one of the three questions**,
@@ -579,20 +598,45 @@ evidence at (a); and a non-entailment at (c) established on microscopic content 
 examples, in the owner's words, and the result note may use either verbatim when its evidence bar
 is met:
 
-> **"A5 is not a bare-OI requirement, is needed by the current quantum-completion route, and its
+> **"No derivation of A5 from bare OI was found on the record searched; whether A5 is a bare-OI
+> requirement remains undecided. A5 is needed by the current quantum-completion route, and its
 > necessity for Navier–Stokes remains undecided."**
 
 > **"A5 is QM-specific and not required by the hydrodynamic route."**
 
-The first is the round's predicted report. The second is the stronger one, and it carries the
-evidence bar of status rule 6; the first carries the bar of status rule 7 on its opening clause.
+The first is the round's predicted report: it states the search result, and leaves **both** the
+bare-OI requirement question and the Navier–Stokes question undecided, which is what `A5S-1a`,
+`A5S-1c` and `A5S-3d` together deliver. The second is the stronger one and carries the evidence bar
+of status rule 6.
 
-**The disqualification rule, FROZEN.** H-B's candidate is disqualified as a **hydrodynamic
-candidate** by its A5 failure **only if** question (a) is answered *derivable* — A5 derived from
-observational incompleteness itself — **or** question (c) is answered *required*. On any other
-outcome the round reports that **no established ground disqualifies it on that basis**, and reports
-nothing further: in particular nothing about whether it reaches a limit (the guardrail), and
-nothing about its class's admissibility as an OI substratum, which stays open.
+**The sentence "A5 is not a bare-OI requirement" is a third and stronger thing than either**, and
+is not implied by the first: "no derivation was found on the record searched" and "A5 is not a
+bare-OI requirement" are different claims, and status rule 7 reserves the second to exactly two
+grounds (hazard 21).
+
+**The disqualification rules, FROZEN — there are two, and neither is the other.** They follow the
+three-question independence rather than cutting across it: (a) and (c) ask different questions, and
+their consequences land on different objects.
+
+**Rule (a) — OI admissibility.** If question (a) is answered *derivable* — A5 derived from
+observational incompleteness itself, for every admissible substratum — then H-B's candidate, which
+fails A5 by theorem, is thereby disqualified **as an OI-admissible candidate or substratum**. That
+conclusion is about OI admissibility and **says nothing about whether the candidate is a good
+hydrodynamic model**: a rule outside the OI-admissible class may still be a perfectly good fluid
+model, and question (c) is where its standing for the targeted limit is asked.
+
+**Rule (c) — the targeted limit.** If question (c) is answered *required* — some step of H3–H7 is
+shown to require A5 — then the candidate is thereby disqualified **as a candidate for the targeted
+Euler or Navier–Stokes limit**. That conclusion is about the limit and **says nothing about the
+candidate's OI admissibility**, which rule (a) and H-B's open owner question govern.
+
+**Neither rule may masquerade as the other, in either direction** (hazards 22 and 23): a
+disqualification under rule (a) may not be reported, summarized or propagated as disqualification
+for the limit, and a disqualification under rule (c) may not be reported as inadmissibility under
+OI. On any other outcome the round reports, **for each rule separately**, that no established
+ground disqualifies the candidate under it, and reports nothing further: in particular nothing
+about whether it reaches a limit (the guardrail), and nothing about its class's admissibility as an
+OI substratum, which stays open.
 
 ## The status rule for the execution, FROZEN
 
@@ -631,11 +675,16 @@ Whatever the execution lands, the following binds the result note and every prop
    result at that level. **H-B alone may never support it**, and **the absence of A5 from the
    H1–H7 statements as they are currently written may never support it**, alone or together with
    H-B. Absent such evidence, question (c) is reported **UNDECIDED** (hazard 16).
-7. **THE EVIDENCE BAR ON "A5 is not a bare-OI requirement."** That clause may be reported only when
-   either `A5S-1c` exhibits a clean OI-admissible counterexample at the five conditions, **or** the
-   paragraph carrying it names, in the same paragraph, the record `A5S-1a` searched and states that
-   the finding is the absence of a derivation on that record. Otherwise question (a) is reported
-   **UNDECIDED**.
+7. **THE EVIDENCE BAR ON "A5 is not a bare-OI requirement."** That sentence, and every paraphrase
+   of it, may be reported on **exactly two grounds**: (i) `A5S-1c` exhibits a **clean OI-admissible
+   substratum failing A5**, in the five-condition sense this file defines; or (ii) an **actual
+   non-derivability result** — a proof that A5 does not follow from the bare-OI conditions.
+   **Naming the record searched does not license it.** A search that finds no derivation, however
+   carefully its boundary is scoped, yields *"no derivation of A5 from bare OI was found on the
+   record searched"* and nothing stronger; that sentence and the stronger one may not be written as
+   equivalent, abbreviated one into the other, or compressed into the stronger one in a summary,
+   abstract, table cell or propagation line. Absent ground (i) or (ii), **question (a)'s requirement
+   half is reported UNDECIDED**, with the search result reported as the search result (hazard 21).
 8. **The programme's HD/HC/HI/HO taxonomy is not applied to A5.** A5 is a condition, not a
    hydrodynamic obligation; the taxonomy labels obligations. The round's outputs are the three
    answers, and the round applies no taxonomy label to any obligation either (status rule 3).
@@ -647,13 +696,14 @@ Whatever the execution lands, the following binds the result note and every prop
     of that structure**, and no sentence may suggest that removing A5 from a candidate list
     identifies what suffices or shows that what remains suffices (hazard 18).
 11. `../PROGRAMME.md` §8's one-line state, when a later action refreshes it, carries the three
-    answers and the disqualification-rule consequence in the words this file uses, and nothing
-    stronger. If the round lands where it predicts, that is: "A5 is not derivable from
-    observational incompleteness on the record searched, with the counterexample question
-    undecided; it is used at located steps of the reconstruction, quantum-specific on the present
-    record; its necessity for Navier–Stokes is undecided; no established ground disqualifies H-B's
-    candidate on its A5 failure, and OI-substratum admissibility of the A1–A4, ¬A5 class remains
-    open."
+    answers and **both** disqualification-rule consequences in the words this file uses, and
+    nothing stronger. If the round lands where it predicts, that is: "no derivation of A5 from bare
+    OI was found on the record searched and the counterexample question is undecided, so whether A5
+    is a bare-OI requirement is undecided; A5 is used at located steps of the reconstruction,
+    quantum-specific on the present record; its necessity for Navier–Stokes is undecided; and no
+    established ground disqualifies H-B's candidate either as an OI-admissible candidate or as a
+    candidate for the targeted limit, with OI-substratum admissibility of the A1–A4, ¬A5 class
+    remaining open."
 
 ## What none of these outcomes licenses
 
@@ -685,9 +735,10 @@ Whatever the execution lands, the following binds the result note and every prop
   variables HO by H-A's own statement (hazard 7).
 - **Nothing here repairs, extends or re-executes H-B.** H-B's result stands as H-B states it
   (status rule 3).
-- **Nothing here changes A1–A6, their status, or their number.** A6 remains a `GAP` on its own
-  branch; the wave representative's A1–A5 are consumed as proved; **no condition is added to the
-  A-list or to the C-list, and none is named** (hazard 11).
+- **Nothing here changes A1–A6, their status, or their number.** **A6 is outside this round, and
+  whatever status the execution base carries for it is consumed unchanged**; the wave
+  representative's A1–A5 are consumed as proved; **no condition is added to the A-list or to the
+  C-list, and none is named** (hazard 11).
 - **Nothing here establishes that observational incompleteness has more than one emergent effective
   theory.** The three-set separation is bookkeeping over obligations. That two targets may need
   different completion packages is the round's organizing frame, not a result of it (hazard 10).
@@ -757,13 +808,16 @@ readings 1–8 are analysis, not evidence.
 
 1. **Reading question (a)'s negative as a theorem.** "No derivation found on the record searched"
    is not "observational incompleteness does not require A5". The record searched is named, and the
-   distinction is written into every sentence that reports the negative (status rule 7).
+   distinction is written into every sentence that reports the negative (status rule 7,
+   hazard 21).
 2. **Reading question (b)'s answer as a demotion of A5.** Locating A5's uses and judging them
    quantum-specific says where their conclusions are consumed; it does not weaken the
    reconstruction, and the chain consumes A5 exactly as the manuscripts state.
-3. **Reading the round as ruling on OI-substratum admissibility.** Hydrodynamic candidacy is what
-   the disqualification rule decides. The admissibility of the A1–A4, ¬A5 class as an OI substratum
-   is H-B's open owner question and stays open in those words.
+3. **Reading the round as ruling on OI-substratum admissibility.** The two disqualification rules
+   can only **disqualify**, each on its own object — rule (a) OI admissibility, rule (c) the
+   targeted limit — and neither can establish admissibility. The admissibility of the A1–A4, ¬A5
+   class as an OI substratum is H-B's open owner question and stays open in those words, whatever
+   the three answers are.
 4. **Reading H-B's A5 failure as a criticism of the manuscripts' linear rule**, which A5 is there
    to secure. H-A's and H-B's findings stand as those rounds state them, for their own objects.
 5. **Confusing the substratum axiom A5 with the act-level target labels `A4` and `A5` of
@@ -815,6 +869,21 @@ readings 1–8 are analysis, not evidence.
 20. **Collapsing `A5S-2a` into `A5S-2b`.** Locating a use and judging it quantum-specific are two
     obligations with different evidence; a located use is not thereby quantum-specific, and the
     result note reports the two findings separately for each use.
+21. **Sliding from the search result to "A5 is not a bare-OI requirement".** The two are different
+    claims, and the stronger one has exactly two grounds — a clean OI-admissible substratum failing
+    A5, or an actual non-derivability result (status rule 7). **Scoping the search carefully does
+    not convert its result into the stronger sentence**, and neither does a compressed summary, a
+    table cell, an abstract or a propagation line. The round predicts neither ground is available,
+    so the requirement half of question (a) is predicted UNDECIDED; an execution that writes the
+    stronger sentence off `A5S-1a` has committed this hazard.
+22. **Reporting a rule-(a) disqualification as disqualification for the limit.** If question (a)
+    were answered *derivable*, what H-B's candidate would fail is being an **OI-admissible**
+    candidate or substratum. It could still be a good hydrodynamic model, and nothing about the
+    targeted Euler or Navier–Stokes limit would follow.
+23. **Reporting a rule-(c) disqualification as inadmissibility under OI.** If question (c) were
+    answered *required*, what the candidate would fail is being a candidate for the **targeted
+    limit**. Its OI admissibility is a different question, governed by rule (a) and by H-B's open
+    owner question, and nothing about it would follow.
 
 ## Non-doings
 
@@ -852,8 +921,9 @@ whether the hydrodynamic ladder requires it. The sufficiency question belongs to
 H3–H7 and to H-C, which fix the mixing/local-equilibrium condition, the scaling map and the
 convergence topology before any limit is taken. If this round lands where it predicts, the
 immediate successor on this branch is H3 and H4 for H-B's candidate — the level at which
-question (c) becomes answerable at all — with the candidate's A6 status, its dimension, its
-observer-admission and its class's OI-substratum admissibility all still open.
+question (c) becomes answerable at all — with the candidate's position on A6, its dimension, its
+observer-admission and its class's OI-substratum admissibility all outside what this round
+settles.
 
 ## Allowed final report
 
@@ -876,8 +946,9 @@ observer-admission and its class's OI-substratum admissibility all still open.
    conditions; UNDECIDED unless status rule 6's bar is met;
 5. **`A5S-4`** — the three answers reported **independently**, each with its evidence and boundary,
    mixed outcomes as such, UNDECIDED where undecided, one of the two frozen worked examples where
-   its bar is met; and the disqualification-rule consequence for H-B's candidate, in this file's
-   words and no further;
+   its bar is met — and the sentence "A5 is not a bare-OI requirement" only on one of status
+   rule 7's two grounds; and the consequences for H-B's candidate under **both** disqualification
+   rules, reported separately, in this file's words and no further;
 6. **`A5S-5`** — the residual list, no item resolved; the scope statement, with the programme
    objective named and left uncharacterized;
 7. what the outcomes do **not** license, in this file's wording, the guardrail among them;
