@@ -526,7 +526,7 @@ The characterization is best read as a layered biconditional rather than a singl
 
 **Operational boundary.** These theorems do not yet prove that the entire family of coherent instruments and composites equals the unique standard local quantum operational theory. That residual is an active-lifting statement, not a qualification on the exact finite stochastic/representation equivalence itself.
 
-A second boundary sits alongside it, and it concerns which unitary evolution relates two times. The equivalence says which visible laws admit a fixed-basis unitary representation; it does not single out the evolution connecting one time to the next. For dilated processes one visible family can admit distinct coherent unitary lifts — each reproducing the visible law at every time, each composing exactly across times — whose relating evolutions differ, because a lift may be deformed by a time-dependent right action that preserves everything the visible law sees. A deformation constant in time cancels from every relating evolution, so time dependence is what the nonuniqueness needs. Making the relating evolution unique therefore requires a selection condition beyond visible-law representability and ordinary coherence, and this book does not supply one or say what form one must take. Nor is the freedom simply the invisible freedom: two lifts of one visible family can fail to be related by any uniformly invisible deformation and still agree on every relating evolution. Whether a pair exists that is outside the uniformly invisible class *and* differs in its relating evolution is open. None of this weakens the finite observable-law equivalence, and none of it makes embedded observation and quantum mechanics inequivalent.
+A second boundary sits alongside it, and it concerns which unitary evolution relates two times. The equivalence says which visible laws admit a fixed-basis unitary representation; it does not single out the evolution connecting one time to the next. For dilated processes one visible family can admit distinct coherent unitary lifts — each reproducing the visible law at every time, each composing exactly across times — whose relating evolutions differ, because a lift may be deformed by a time-dependent right action that preserves everything the visible law sees. A deformation constant in time cancels from every relating evolution, so time dependence is what the nonuniqueness needs. Making the relating evolution unique therefore requires a selection condition beyond visible-law representability and ordinary coherence, and this book does not supply one or say what form one must take. The invisible freedom itself has two sides — a right action by the anchored class and a left action within each visible output's hidden fibre, each maximal among uniform actions of its kind — and it does not exhaust the freedom: two lifts can fail to be related by any uniformly invisible right deformation and still agree on every relating evolution, and a pair outside that right class can differ in relating evolution while being related by a left in-fibre move. At one time, what the visible law leaves free after both actions is known exactly: it is the off-diagonal part of the fibre-Gram data — for each visible output, the overlaps among the hidden states into which the lift sends the visible inputs — modulo phases, with the visible law as its diagonal; and that residue is not inert, since two lifts of one visible law can differ in it and differ in relating evolution. What remains open is two-part: what selects the trajectory of that data through time, and what fixes the relating evolution within a trajectory — the latter not fixed even by the complete trajectory. No selection principle is named or excluded. None of this weakens the finite observable-law equivalence, and none of it makes embedded observation and quantum mechanics inequivalent.
 
 ## 1.9 What the theorem says
 
@@ -5432,28 +5432,42 @@ embedded observation supplies ([GR §3.3], §19.2.12).
 come with a single unitary evolution relating one time to the next: it admits coherent lifts, and
 the lifts need not agree on that relating evolution. So the open question is whether, and by what,
 one relative quantum evolution is selected from the coherent lifts compatible with a single visible
-family.
+family. The question is two-part: what selects or constrains, through time, the fibre-Gram data of
+the lift — for each visible output, the overlaps among the hidden states into which the lift sends
+the visible inputs — and what fixes the relating evolution within a given trajectory of that data.
 
 **What is proved about it.** Ordinary coherence is not enough. Two coherent lifts of the same
 visible family can be related by a time-dependent deformation that preserves everything the visible
 law sees, while their relating evolutions differ; a deformation constant in time cancels from every
 relating evolution, so the nonuniqueness is carried by time dependence specifically ([Main §3.4]).
+The invisible deformations are two-sided — a right action by the anchored class and a left action
+within each visible output's hidden fibre, each maximal among uniform actions of its kind — and at
+one time the residue after both is classified exactly: two lifts are related by the two-sided action
+exactly when their fibre-Gram data agree up to phases, the visible law is the diagonal of that data,
+and every positive semidefinite, rank-bounded, identity-summing family with the prescribed diagonal
+occurs. So the freedom the visible law leaves at one time is exactly the off-diagonal fibre-Gram
+data modulo phases.
 
-**What is not proved about it.** The obvious sharper test is a pair of lifts of one visible family
-that lies *outside* the maximal uniform class of deformations the visible law cannot see **and**
-differs in relating evolution. No such pair is exhibited. The pair currently known to lie outside
-that class agrees on every relating evolution, so it separates the space of lifts without separating
-the dynamics, and the combined target remains open.
+**What is sharper, and what it does not settle.** A pair of lifts of one visible family outside the
+maximal uniform right class and differing in relating evolution exists; every such pair exhibited is
+related by a left in-fibre move, so the right class alone is not the invisible freedom and
+quotienting by it alone does not determine the relating evolution. A pair outside the two-sided
+action and differing in relating evolution exists as well, on a single visible law. The complete
+trajectory of fibre-Gram data does not fix the relating evolution either: a time-dependent invisible
+right deformation preserves every fibre-Gram matrix at every time and changes the relating
+evolution. So the two-part question above is open in both parts.
 
 **What is not claimed.** None of this makes embedded observation and quantum mechanics inequivalent,
 and none of it narrows $S \iff D \iff Q_{\mathrm{fb}}$. No selection mechanism is endorsed here:
 the framework does not claim the missing structure must be more than a gauge fixing, does not claim
 a connection or gauge choice could not supply it, and does not claim that no such structure exists.
+The fibre-Gram data is a coordinate on the space of lifts, not a physical quantity, and no statement
+is made about which trajectory of it is selected.
 
-**Prospects.** The question is sharply enough posed to be attacked directly, since membership in the
-invisible class is decidable for a given pair of lifts: the deformation relating them is forced, and
-can be computed and tested. Progress would come from either exhibiting the combined pair or proving
-it cannot exist.
+**Prospects.** The question is sharply posed at one time and the open part is cross-time: the data
+left free at each time is known exactly, so progress would come from a statement about what
+constrains that data across times, and about what fixes the relating evolution within a trajectory
+of it.
 
 *Developed in:* Chapter 1 (the operational boundary), with the representability side in
 Chapter 1 §1.5 and the conditional completion side in §19.2.12.
@@ -5482,7 +5496,7 @@ The framework's content against the standard list of open problems in fundamenta
 | Generation puzzle | Three, with hierarchical masses | Conditional branch: three candidate tastes on single-copy H-link; physical-generation reading additionally under H-spin'; hierarchy pattern open | Ch 6 §§6.5-6.6 |
 | Dark sector budget | $95\%$ unexplained | Derived (total budget) | Ch 7 §7.9 |
 | Born rule origin | Independent postulate | Split: representation level settled — admitted universally ($S \iff D \iff Q_{\mathrm{fb}}$); coherent operational extension characterized by five named conditions; read-write equilibrium a mechanism proposal | Ch 1, Ch 18 §18.2, [Main §3.4] |
-| Relative-evolution selection (framework-specific) | Not a standard problem | Open — representability settled and operational completion characterized conditionally, but no theorem selects one relative evolution from the coherent lifts of a visible family; ordinary coherence proved insufficient | §19.3.9, Ch 1, [Main §3.4] |
+| Relative-evolution selection (framework-specific) | Not a standard problem | Open — representability settled and operational completion characterized conditionally; the freedom the visible law leaves at one time is classified exactly by the fibre-Gram data, but no theorem selects that data's trajectory or the relating evolution within it; ordinary coherence proved insufficient | §19.3.9, Ch 1, [Main §3.4] |
 | **Flavor problem** | **13 free parameters** | **Open (research program; $m_b/m_\tau$ at 0.4% match with Layer 2(a) verification residual)** | §19.3.1 |
 | **Hubble tension** | **$> 5\sigma$ disagreement** | **Open ($\nu_{\text{OI}}$ too small)** | §19.3.2 |
 | **Baryogenesis** | **Sakharov conditions** | **Solution-specific ($\eta_B$ inherits flavor-CP input status)** | §19.3.3 |
@@ -6609,6 +6623,8 @@ This glossary defines the framework's distinctive terminology and the technical 
 **Epigenome.** The set of chromatin marks and methylation patterns that regulate gene expression while remaining heritable across cell divisions and (partially) generations. The biological instantiation of the framework's *substratum-emergent operator distinction* at the molecular scale. Discussed in Chapter 16 §§16.9-16.10.
 
 **Extended Church-Turing Thesis (ECT).** Conventionally, the classical efficient-simulation conjecture — any physically realizable computation efficiently simulable by a probabilistic classical Turing machine — the thesis quantum computing challenges. Its quantum counterpart, the BQP-form (quantum) ECT, asserts efficient quantum-simulability of all physical computation. The framework derives the BQP-form (quantum) ECT as a *conditional theorem* under a global-coverage premise (every physically realizable computation falling under Chapter 14 §14.4's operational-closure and efficiency hypotheses): any computation so covered satisfies the BQP bound. Developed in Chapter 14 §14.6.
+
+**Fibre-Gram data.** For a coherent lift of a visible law and each visible output, the Gram matrix of the hidden states into which the lift sends the visible inputs. Its diagonal is the visible law itself. Two lifts are related by the two-sided invisible action at one time exactly when their fibre-Gram data agree up to phases, so the off-diagonal part modulo phases is exactly what the visible law leaves free at that time. It is a coordinate on the space of lifts, not a physical quantity, and no statement is made about what selects its trajectory through time. Developed in Chapter 1 and §19.3.9.
 
 **Fine-tuning.** The observation that certain physical parameters (fine-structure constant, mass ratios, cosmological constant) appear to occupy narrow ranges supporting chemistry and complexity. The framework's reading: most chemistry-supporting features are *structural* (derived from the framework's commitments) rather than parametric, dissolving the conventional fine-tuning problem. Discussed in Chapter 10 §10.8.
 

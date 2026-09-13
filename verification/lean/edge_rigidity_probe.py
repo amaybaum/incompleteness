@@ -12746,6 +12746,14 @@ check('R7-SGT', ok_sgt,
 # blocked for -- reading GI2 as a relative-evolution result -- is the one that would do the most damage
 # if it reached the published corpus, so the guard spends its weight there, and on the three-level
 # non-Markovianity vocabulary that the round exists to disambiguate.
+#
+# AMENDED by the act 12 scope propagation (R7-A12P, control plane blob 1d471edd, merged by PR #600):
+# exactly the three contracts whose pinned sentences that round supersedes -- E4 (the witness is now
+# outside the uniformly invisible RIGHT class), E5 (the stronger combined target is now MET by a left
+# in-fibre move, and what is stated open is the two-part cross-time question) and E18 (chapter 19's
+# "What is not proved" paragraph is now "What is sharper, and what it does not settle") -- are
+# re-pinned to the new sentences, with their mutations m2, m6 and m20 following. Both blob pins and
+# every other contract are untouched.
 _A11P_DIR = 'audits/foundations/'
 _A11P_PREREG = _A11P_DIR + 'act11-scope-propagation-audit.md'
 
@@ -12802,15 +12810,19 @@ def _a11p_gi2_not_a_no_go(t=None):
     evolution. No manuscript may turn it into a relative-evolution no-go, say the missing structure
     exceeds a gauge fixing, or say a connection cannot suffice."""
     t = _A11P_MAIN if t is None else t
-    return ('can fail to be related by any uniformly invisible deformation and still agree on every '
-            'relating evolution' in t
+    return ('can fail to be related by any uniformly invisible right deformation and still agree on '
+            'every relating evolution' in t
             and 'lift freedom and freedom in the relating evolution are not the same freedom' in t)
 
 
 def _a11p_stronger_target_open(t=None):
-    """E5 -- the stronger combined target is stated OPEN wherever the boundary is stated."""
+    """E5 -- re-pinned by the act 12 propagation: the stronger combined target is MET by a left
+    in-fibre move wherever the boundary is stated, and what is stated OPEN there is the two-part
+    cross-time question, whose second part the complete Gram trajectory does not fix."""
     return all(
-        'outside the uniformly invisible class' in x and 'is open' in x
+        'related by a left in-fibre move' in x
+        and 'not fixed even by the complete trajectory' in x
+        and ('both parts are open' in x or 'What remains open is two-part' in x)
         for x in ((_A11P_MAIN, _A11P_EXPL, _A11P_CH01) if t is None else (t,)))
 
 
@@ -12947,10 +12959,12 @@ def _a11p_frontier_no_overreach(t=None):
 def _a11p_frontier_target_open(t=None):
     """E18 -- the stronger combined target stays open where the frontier is stated at full strength."""
     t = _A11P_CH19 if t is None else t
-    return ('outside* the maximal uniform class of deformations the visible law cannot see' in t
-            and 'agrees on every relating evolution, so it separates the space of lifts without '
-                'separating\nthe dynamics'.replace('\n', ' ') in ' '.join(t.split())
-            and 'the combined target remains open' in t)
+    return ('**What is sharper, and what it does not settle.**' in t
+            and 'related by a left in-fibre move, so the right class alone is not the invisible '
+                'freedom' in t
+            and 'The complete trajectory of fibre-Gram data does not fix the relating evolution '
+                'either' in t
+            and 'So the two-part question above is open in both parts' in t)
 
 
 ok_a11p = True
@@ -12983,8 +12997,8 @@ ok_a11p &= _a11p_m1 != _A11P_MAIN and not _a11p_gi2_not_a_no_go(_a11p_m1)
 
 # the witness's agreement on relating evolutions deleted, which is what licenses the over-reading
 _a11p_m2 = _A11P_MAIN.replace(
-    'can fail to be related by any uniformly invisible deformation and still agree on every relating '
-    'evolution', 'are never related by a uniformly invisible deformation')
+    'can fail to be related by any uniformly invisible right deformation and still agree on every '
+    'relating evolution', 'are never related by a uniformly invisible right deformation')
 ok_a11p &= _a11p_m2 != _A11P_MAIN and not _a11p_gi2_not_a_no_go(_a11p_m2)
 
 # the selection condition named, which the freeze forbids in either direction
@@ -13006,7 +13020,8 @@ _a11p_m5 = _A11P_MAIN.replace(
 ok_a11p &= _a11p_m5 != _A11P_MAIN and not _a11p_no_inequivalence(_a11p_m5)
 
 # the stronger target quietly treated as settled
-_a11p_m6 = _A11P_MAIN.replace('is open.', 'is settled below.')
+_a11p_m6 = _A11P_MAIN.replace('the second not fixed even by the complete trajectory',
+                              'the second fixed by the complete trajectory')
 ok_a11p &= _a11p_m6 != _A11P_MAIN and not _a11p_stronger_target_open(_a11p_m6)
 
 # the three-notion distinction collapsed into an equivalence
@@ -13085,8 +13100,8 @@ _a11p_m19 = _A11P_CH19.replace(
 ok_a11p &= _a11p_m19 != _A11P_CH19 and not _a11p_frontier_no_overreach(_a11p_m19)
 
 # the known witness misreported as separating the dynamics, which would close the combined target
-_a11p_m20 = _A11P_CH19.replace('the combined target remains open',
-                               'the combined target is therefore met')
+_a11p_m20 = _A11P_CH19.replace('So the two-part question above is open in both parts',
+                               'So the two-part question above is closed in both parts')
 ok_a11p &= _a11p_m20 != _A11P_CH19 and not _a11p_frontier_target_open(_a11p_m20)
 
 # E13's control: one byte appended to the scope amendment
@@ -13119,8 +13134,10 @@ check('R7-A11P', ok_a11p,
       'can fail to be related by any uniformly invisible deformation and STILL AGREE on every relating evolution, so '
       'the lift-space result is never a relative-evolution no-go; writing back either the struck inference or the '
       'deletion that would license it fails the guard. The stronger combined target -- outside the uniformly invisible '
-      'class AND different in relating evolution -- is checked stated OPEN in Main, Explainer and chapter 1 alike, with '
-      'the settled reading mutation-tested. The boundary is checked never escalated into an OI/QM inequivalence claim '
+      'RIGHT class AND different in relating evolution -- is checked MET by a left in-fibre move in Main, Explainer and '
+      'chapter 1 alike, with the two-part cross-time question checked stated OPEN and its second part checked not fixed '
+      'by the complete Gram trajectory (E4, E5 and E18 re-pinned by the act 12 propagation, R7-A12P), the settled '
+      'reading mutation-tested. The boundary is checked never escalated into an OI/QM inequivalence claim '
       'and never allowed to narrow the equivalence itself, both mutation-tested. The three-notion vocabulary -- '
       'accessible finite-horizon memory, stochastic P-indivisibility, generic quantum non-Markovianity -- is checked '
       'explicit with NO unconditional implication among them, the framework term checked locally defined as the '
@@ -13140,8 +13157,311 @@ check('R7-A11P', ok_a11p,
       'frontier back to a local caveat mutation-tested. Naming a gap is where the temptation to say what fills it '
       'appears, so the chapter is checked to endorse no mechanism AND rule none out: claiming a connection could not '
       'supply it, and escalating the gap into an inequivalence claim, are separately mutation-tested, as is '
-      'misreporting the known witness as separating the dynamics. Eighteen named contracts, twenty mutation controls, '
+      'declaring the two-part question closed. Eighteen named contracts, twenty mutation controls, '
       'plus two freeze-pin drift controls.')
+
+# ---- R7-A12P: the act 12 scope propagation round (publication only) ----
+#
+# The manuscript round that carries act 12's classification -- the two-sided invisible action, the
+# per-slice fibre-Gram classification, right-only insufficiency by a left in-fibre move, and the
+# two-part cross-time frontier -- into Main, Explainer, chapter 1, chapter 19 and the glossary. As
+# for R7-A11P nothing is proved here, so the only failure is saying MORE than the merged theorems:
+# the fibre-Gram data promoted to physics; joint maximality of the two factors asserted; the Gram
+# trajectory said to fix the relating evolution; a selection principle or connection named or
+# excluded; the two-part question collapsed to one part or declared closed; the boundary escalated
+# into inequivalence; the two-sided action called "the maximal two-sided action". Each is checked
+# absent in the words the freeze fixes and written back as a mutation.
+_A12P_PREREG = _A11P_DIR + 'act12-scope-propagation-audit.md'
+# The mandated execution base: the merge commit of the control-plane PR #600.
+_A12P_BASE = '999f1b5b3c9d6960233a12698d83c1a56a16fe10'
+# The SEALED execution head and the merge commit that carried it, once reviewed and merged; set,
+# the guard runs in ARCHIVE MODE. Unset (None), the guard certifies the run's real target.
+_A12P_SEALED_HEAD = None
+_A12P_MERGE = None
+_A12P_SURFACES = (_A11P_MAIN, _A11P_EXPL, _A11P_CH01, _A11P_CH19)
+
+
+def _a12p_reg():
+    with open(os.path.join(VERIFICATION, 'lean-manuscript-census.json'), encoding='utf-8') as fh:
+        return json.load(fh)
+
+
+def _a12p_freeze_pin(read=_bb_read):
+    """P1 -- the propagation preregistration is byte-identical to the blob merged alone by PR #600."""
+    return _bb_blob(_A12P_PREREG, read) == '1d471eddde3bc0df8b7dbf26ddf642c4af6783b5'
+
+
+def _a12p_execution_ancestry():
+    """P2 -- act 10's strengthened ancestry predicate against the merge commit of PR #600; archive
+    mode once the sealed head and its merge commit are pinned."""
+    if _A12P_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-A12P')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_A12P_BASE, target, label, num, tag='R7-A12P')
+    return _rbr_archive_ancestry(_A12P_BASE, _A12P_SEALED_HEAD, _A12P_MERGE, tag='R7-A12P')
+
+
+def _a12p_two_sided(main=None, expl=None, ch01=None):
+    """P3 -- the invisible freedom is stated TWO-SIDED, each factor maximal among uniform actions of
+    its kind, and NOWHERE is the two-sided action itself called maximal."""
+    _mn = _A11P_MAIN if main is None else main
+    _ex = _A11P_EXPL if expl is None else expl
+    _c1 = _A11P_CH01 if ch01 is None else ch01
+    return ('The uniformly invisible deformations of a lift are two-sided' in _mn
+            and 'each is maximal among uniform actions of its kind' in _mn
+            and all('The invisible freedom itself has two sides' in x
+                    and 'each maximal among uniform actions of its kind' in x for x in (_ex, _c1))
+            and all('the maximal two-sided action' not in x for x in (_mn, _ex, _c1, _A11P_CH19)))
+
+
+def _a12p_right_only_bounded(main=None):
+    """P4 -- right-only insufficiency is carried by a LEFT in-fibre move and read exactly as
+    "quotienting by the right class alone does not determine", never as a statement about every
+    gauge or connection description."""
+    _mn = _A11P_MAIN if main is None else main
+    return ('related by a left in-fibre move, so quotienting by the right class alone does not '
+            'determine the relating evolution' in _mn
+            and 'no gauge or connection' not in _mn
+            and all('related by a left in-fibre move' in x for x in (_A11P_EXPL, _A11P_CH01)))
+
+
+def _a12p_per_slice(main=None):
+    """P5 -- the per-slice classification in Main, in the merged result's terms and scoped to a
+    single time; Explainer, chapter 1 and chapter 19 carry it at their level."""
+    _mn = _A11P_MAIN if main is None else main
+    return ('At a single time the residue after the two-sided action is classified exactly' in _mn
+            and 'the fibre-Gram data — agrees up to the anchored phases' in _mn
+            and 'the visible law is exactly the diagonal of that data' in _mn
+            and 'every positive semidefinite, rank-bounded, identity-summing family with the '
+                'prescribed diagonal is realized' in _mn
+            and 'exactly the off-diagonal fibre-Gram data modulo phases' in _mn
+            and all('off-diagonal' in x and 'fibre-Gram data' in x and 'modulo phases' in x
+                    for x in (_A11P_EXPL, _A11P_CH01, _A11P_CH19)))
+
+
+def _a12p_not_inert(main=None):
+    """P6 -- the residue is stated neither empty nor inert (the Hadamard reading), not merely
+    nonempty."""
+    _mn = _A11P_MAIN if main is None else main
+    return ('that freedom is neither empty nor inert' in _mn
+            and all('that residue is not inert' in x for x in (_A11P_EXPL, _A11P_CH01)))
+
+
+def _a12p_two_part_open(main=None, ch19=None):
+    """P7 -- the cross-time frontier is TWO-PART and OPEN IN BOTH PARTS on every surface, with the
+    complete Gram trajectory stated NOT to fix the relating evolution."""
+    _mn = _A11P_MAIN if main is None else main
+    _c19 = _A11P_CH19 if ch19 is None else ch19
+    return ('Across time the question is two-part, and both parts are open' in _mn
+            and 'the second not fixed even by the complete trajectory' in _mn
+            and all('What remains open is two-part' in x
+                    and 'the latter not fixed even by the complete trajectory' in x
+                    for x in (_A11P_EXPL, _A11P_CH01))
+            and 'The question is two-part: what selects or constrains, through time, the fibre-Gram '
+                'data of the lift' in _c19
+            and 'The complete trajectory of fibre-Gram data does not fix the relating evolution '
+                'either' in _c19
+            and 'So the two-part question above is open in both parts' in _c19)
+
+
+def _a12p_coordinate_not_physics(main=None, ch19=None, glos=None):
+    """P8 -- the fibre-Gram data is a COORDINATE, not a physical quantity, wherever it is named, and
+    nothing says what selects it."""
+    _mn = _A11P_MAIN if main is None else main
+    _c19 = _A11P_CH19 if ch19 is None else ch19
+    _gl = _A11P_GLOS if glos is None else glos
+    return ('The fibre-Gram data is a coordinate on the space of lifts, not a physical quantity, and '
+            'nothing here says what selects it' in _mn
+            and 'The fibre-Gram data is a coordinate on the space of lifts, not a physical quantity, '
+                'and no statement is made about which trajectory of it is selected' in _c19
+            and 'It is a coordinate on the space of lifts, not a physical quantity' in _gl
+            and all('No selection principle is named or excluded' in x for x in (_A11P_EXPL, _A11P_CH01)))
+
+
+def _a12p_ch19_entry(ch19=None):
+    """P9 -- chapter 19's frontier entry: the sharpened paragraph, the corrected Prospects, the
+    corrected summary row, the non-endorsement sentences preserved."""
+    _c19 = _A11P_CH19 if ch19 is None else ch19
+    return ('**What is sharper, and what it does not settle.**' in _c19
+            and 'The question is sharply posed at one time and the open part is cross-time' in _c19
+            and 'the freedom the visible law leaves at one time is classified exactly by the '
+                'fibre-Gram data, but no theorem selects that data\'s trajectory or the relating '
+                'evolution within it' in _c19
+            and 'does not claim a connection or gauge choice could not supply it' in _c19
+            and 'does not claim that no such structure exists' in _c19
+            and '**Two frontiers, not one.**' in _c19)
+
+
+def _a12p_three_statuses(main=None):
+    """P10 -- the three statuses survive the round: representability established, operational
+    completion characterized conditionally, selection OPEN; GR and Methodology re-pinned unchanged."""
+    _mn = _A11P_MAIN if main is None else main
+    return ('selection of a unique relating evolution from the coherent lifts of one visible family '
+            'is *open*' in _mn
+            and 'none of it makes embedded observation and quantum mechanics inequivalent' in _mn
+            and 'The bridge therefore has three statuses' in _A11P_EXPL
+            and 'does not prove that bare OI selects a unique relative quantum evolution' in _A11P_GR
+            and 'Selection of a unique relative quantum evolution' in _A11P_METH)
+
+
+def _a12p_mirrored(full=None):
+    """P11 -- every changed book passage is mirrored in the full-book source, including the new
+    glossary entry."""
+    _fl = _A11P_FULL if full is None else full
+    return ('The invisible freedom itself has two sides' in _fl
+            and '**What is sharper, and what it does not settle.**' in _fl
+            and '**Fibre-Gram data.**' in _fl
+            and 'classified exactly by the fibre-Gram data, but no theorem selects' in _fl
+            and '**Fibre-Gram data.**' in _A11P_GLOS)
+
+
+def _a12p_census(reg=None):
+    """P12 -- the act 12 census family is CURRENT with real anchors and no status stronger than the
+    merged theorems; the anchors are the sentences this round wrote."""
+    reg = _a12p_reg() if reg is None else reg
+    fam = [f for f in reg['families'] if f['name'] ==
+           'the two-sided invisible gauge and the fibre-Gram classification (act 12, Track B)']
+    if len(fam) != 1:
+        return False
+    fam = fam[0]
+    files = {m['file'] for m in fam['manuscript']}
+    return (fam['status'] == 'current' and fam['modules'] == ['TwoSidedGauge']
+            and {'papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md',
+                 'book/ch19-open-problems.md', 'book/glossary.md'} <= files
+            and 'NOT EXCEEDING the merged theorems' in fam['note']
+            and 'joint maximality neither asserted nor excluded' in fam['note']
+            and 'P0 is not closed' in fam['note'])
+
+
+ok_a12p = True
+ok_a12p &= _a12p_freeze_pin()
+ok_a12p &= _a12p_execution_ancestry()
+ok_a12p &= _a12p_two_sided()
+ok_a12p &= _a12p_right_only_bounded()
+ok_a12p &= _a12p_per_slice()
+ok_a12p &= _a12p_not_inert()
+ok_a12p &= _a12p_two_part_open()
+ok_a12p &= _a12p_coordinate_not_physics()
+ok_a12p &= _a12p_ch19_entry()
+ok_a12p &= _a12p_three_statuses()
+ok_a12p &= _a12p_mirrored()
+ok_a12p &= _a12p_census()
+
+# ---- mutation controls: each over-reading written back ----
+
+# the fibre-Gram data promoted to physics
+_a12p_m1 = _A11P_MAIN.replace(
+    'The fibre-Gram data is a coordinate on the space of lifts, not a physical quantity',
+    'The fibre-Gram data is a physical quantity')
+ok_a12p &= _a12p_m1 != _A11P_MAIN and not _a12p_coordinate_not_physics(main=_a12p_m1)
+
+# joint maximality asserted
+_a12p_m2 = _A11P_MAIN.replace(
+    'each is maximal among uniform actions of its kind',
+    'together they form the maximal two-sided action')
+ok_a12p &= _a12p_m2 != _A11P_MAIN and not _a12p_two_sided(main=_a12p_m2)
+
+# the two-sided action called maximal in Explainer
+_a12p_m3 = _A11P_EXPL.replace(
+    'each maximal among uniform actions of its kind',
+    'each maximal among uniform actions of its kind, forming the maximal two-sided action')
+ok_a12p &= _a12p_m3 != _A11P_EXPL and not _a12p_two_sided(expl=_a12p_m3)
+
+# the complete trajectory said to fix the relating evolution
+_a12p_m4 = _A11P_MAIN.replace(
+    'the second not fixed even by the complete trajectory',
+    'the second fixed by the complete trajectory')
+ok_a12p &= _a12p_m4 != _A11P_MAIN and not _a12p_two_part_open(main=_a12p_m4)
+
+# a selection principle named
+_a12p_m5 = _A11P_MAIN.replace(
+    'nothing here says what selects it',
+    'a connection on the lift bundle selects it')
+ok_a12p &= _a12p_m5 != _A11P_MAIN and not _a12p_coordinate_not_physics(main=_a12p_m5)
+
+# the two-part question collapsed to one part
+_a12p_m6 = _A11P_MAIN.replace(
+    'Across time the question is two-part, and both parts are open',
+    'Across time there is one question, and it is open')
+ok_a12p &= _a12p_m6 != _A11P_MAIN and not _a12p_two_part_open(main=_a12p_m6)
+
+# the two-part question declared closed at the inventory surface
+_a12p_m7 = _A11P_CH19.replace(
+    'So the two-part question above is open in both parts',
+    'So the two-part question above is closed in both parts')
+ok_a12p &= _a12p_m7 != _A11P_CH19 and not _a12p_two_part_open(ch19=_a12p_m7)
+
+# the boundary escalated into inequivalence
+_a12p_m8 = _A11P_MAIN.replace(
+    'none of it makes embedded observation and quantum mechanics inequivalent',
+    'so embedded observation and quantum mechanics are inequivalent')
+ok_a12p &= _a12p_m8 != _A11P_MAIN and not _a12p_three_statuses(main=_a12p_m8)
+
+# right-only insufficiency over-read as a statement about every gauge or connection description
+_a12p_m9 = _A11P_MAIN.replace(
+    'so quotienting by the right class alone does not determine the relating evolution',
+    'so no gauge or connection description determines the relating evolution')
+ok_a12p &= _a12p_m9 != _A11P_MAIN and not _a12p_right_only_bounded(main=_a12p_m9)
+
+# the residue demoted to merely nonempty
+_a12p_m10 = _A11P_MAIN.replace('that freedom is neither empty nor inert',
+                               'that freedom is nonempty')
+ok_a12p &= _a12p_m10 != _A11P_MAIN and not _a12p_not_inert(main=_a12p_m10)
+
+# a connection excluded at the inventory surface
+_a12p_m11 = _A11P_CH19.replace(
+    'does not claim a connection or gauge choice could not supply it',
+    'shows a connection or gauge choice could not supply it')
+ok_a12p &= _a12p_m11 != _A11P_CH19 and not _a12p_ch19_entry(ch19=_a12p_m11)
+
+# the glossary entry dropped from the full-book mirror
+_a12p_m12 = _A11P_FULL.replace('**Fibre-Gram data.**', '')
+ok_a12p &= _a12p_m12 != _A11P_FULL and not _a12p_mirrored(full=_a12p_m12)
+
+# the census family's status flipped back, or its anchors dropped
+_a12p_m13 = json.loads(json.dumps(_a12p_reg()))
+for _f in _a12p_m13['families']:
+    if _f['name'] == 'the two-sided invisible gauge and the fibre-Gram classification (act 12, Track B)':
+        _f['status'] = 'kernel-only'
+ok_a12p &= not _a12p_census(_a12p_m13)
+
+# P1's control: one byte appended to the propagation preregistration
+def _a12p_drift(path):
+    return _bb_read(path) + (b'\n' if path.endswith('act12-scope-propagation-audit.md') else b'')
+
+
+ok_a12p &= _a12p_drift(_A12P_PREREG) != _bb_read(_A12P_PREREG)
+ok_a12p &= not _a12p_freeze_pin(_a12p_drift)
+
+check('R7-A12P', ok_a12p,
+      'Act 12 scope propagation guard (publication only): the round that carries the merged two-sided classification '
+      'into the corpus. Nothing new is proved, so the only failure mode is the manuscript saying MORE than the merged '
+      'theorems support. The propagation preregistration is pinned BY BLOB (1d471edd), and the execution ancestry is '
+      'certified in act 10\'s strengthened form against the merge commit of PR #600 (999f1b5b): the real '
+      'pull_request.head.sha, never the synthetic merge; the base an ancestor of the head AND every commit of '
+      'rev-list H ^B a descendant of the base; recovery by the guard; fail-closed. ARCHIVE MODE after the merge: once '
+      'the sealed head and its merge commit are pinned, the same strong check is re-run against them and both are '
+      'required reachable from the current target. The invisible freedom is checked stated TWO-SIDED in Main, '
+      'Explainer and chapter 1 with each factor maximal among uniform actions of its kind and the two-sided action '
+      'itself NEVER called maximal (joint maximality asserted is mutation-tested twice). Right-only insufficiency is '
+      'checked carried by a LEFT in-fibre move and read exactly as "quotienting by the right class alone does not '
+      'determine", with the over-reading to every gauge or connection description mutation-tested. The per-slice '
+      'classification is checked in the merged result\'s terms -- fibre-Gram data up to anchored phases, the visible '
+      'law its diagonal, realizability as stated, the residue exactly the off-diagonal data modulo phases -- and '
+      'scoped to a single time; the residue is checked NEITHER EMPTY NOR INERT with demotion mutation-tested. The '
+      'cross-time frontier is checked TWO-PART and OPEN IN BOTH PARTS on all four surfaces with the complete Gram '
+      'trajectory stated NOT to fix the relating evolution; collapsing it to one part, declaring it closed, and the '
+      'trajectory said to fix the evolution are separately mutation-tested. The fibre-Gram data is checked a COORDINATE '
+      'and not a physical quantity wherever named, no selection principle named or excluded, both mutation-tested; the '
+      'escalation into inequivalence and a connection excluded at the inventory surface are mutation-tested. Chapter '
+      '19\'s sharpened entry, corrected Prospects and corrected summary row are checked present with the '
+      'non-endorsement sentences preserved; the three statuses survive with GR and Methodology re-pinned unchanged; '
+      'every changed book passage and the new glossary entry are checked mirrored in the full-book source; the act 12 '
+      'census family is checked CURRENT with real anchors and a note that does not exceed the merged theorems, with '
+      'the status flipped back mutation-tested. R7-A11P\'s contracts E4, E5 and E18 are re-pinned to the superseding '
+      'sentences in the same commit, and no other. Twelve named contracts, thirteen mutation controls, plus one '
+      'freeze-pin drift control.')
 
 # ---- R7-A6D: substratum -- A6 background independence, round 1: definition and closure ----
 #

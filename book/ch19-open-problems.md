@@ -268,28 +268,42 @@ embedded observation supplies ([GR §3.3], §19.2.12).
 come with a single unitary evolution relating one time to the next: it admits coherent lifts, and
 the lifts need not agree on that relating evolution. So the open question is whether, and by what,
 one relative quantum evolution is selected from the coherent lifts compatible with a single visible
-family.
+family. The question is two-part: what selects or constrains, through time, the fibre-Gram data of
+the lift — for each visible output, the overlaps among the hidden states into which the lift sends
+the visible inputs — and what fixes the relating evolution within a given trajectory of that data.
 
 **What is proved about it.** Ordinary coherence is not enough. Two coherent lifts of the same
 visible family can be related by a time-dependent deformation that preserves everything the visible
 law sees, while their relating evolutions differ; a deformation constant in time cancels from every
 relating evolution, so the nonuniqueness is carried by time dependence specifically ([Main §3.4]).
+The invisible deformations are two-sided — a right action by the anchored class and a left action
+within each visible output's hidden fibre, each maximal among uniform actions of its kind — and at
+one time the residue after both is classified exactly: two lifts are related by the two-sided action
+exactly when their fibre-Gram data agree up to phases, the visible law is the diagonal of that data,
+and every positive semidefinite, rank-bounded, identity-summing family with the prescribed diagonal
+occurs. So the freedom the visible law leaves at one time is exactly the off-diagonal fibre-Gram
+data modulo phases.
 
-**What is not proved about it.** The obvious sharper test is a pair of lifts of one visible family
-that lies *outside* the maximal uniform class of deformations the visible law cannot see **and**
-differs in relating evolution. No such pair is exhibited. The pair currently known to lie outside
-that class agrees on every relating evolution, so it separates the space of lifts without separating
-the dynamics, and the combined target remains open.
+**What is sharper, and what it does not settle.** A pair of lifts of one visible family outside the
+maximal uniform right class and differing in relating evolution exists; every such pair exhibited is
+related by a left in-fibre move, so the right class alone is not the invisible freedom and
+quotienting by it alone does not determine the relating evolution. A pair outside the two-sided
+action and differing in relating evolution exists as well, on a single visible law. The complete
+trajectory of fibre-Gram data does not fix the relating evolution either: a time-dependent invisible
+right deformation preserves every fibre-Gram matrix at every time and changes the relating
+evolution. So the two-part question above is open in both parts.
 
 **What is not claimed.** None of this makes embedded observation and quantum mechanics inequivalent,
 and none of it narrows $S \iff D \iff Q_{\mathrm{fb}}$. No selection mechanism is endorsed here:
 the framework does not claim the missing structure must be more than a gauge fixing, does not claim
 a connection or gauge choice could not supply it, and does not claim that no such structure exists.
+The fibre-Gram data is a coordinate on the space of lifts, not a physical quantity, and no statement
+is made about which trajectory of it is selected.
 
-**Prospects.** The question is sharply enough posed to be attacked directly, since membership in the
-invisible class is decidable for a given pair of lifts: the deformation relating them is forced, and
-can be computed and tested. Progress would come from either exhibiting the combined pair or proving
-it cannot exist.
+**Prospects.** The question is sharply posed at one time and the open part is cross-time: the data
+left free at each time is known exactly, so progress would come from a statement about what
+constrains that data across times, and about what fixes the relating evolution within a trajectory
+of it.
 
 *Developed in:* Chapter 1 (the operational boundary), with the representability side in
 Chapter 1 §1.5 and the conditional completion side in §19.2.12.
@@ -318,7 +332,7 @@ The framework's content against the standard list of open problems in fundamenta
 | Generation puzzle | Three, with hierarchical masses | Conditional branch: three candidate tastes on single-copy H-link; physical-generation reading additionally under H-spin'; hierarchy pattern open | Ch 6 §§6.5-6.6 |
 | Dark sector budget | $95\%$ unexplained | Derived (total budget) | Ch 7 §7.9 |
 | Born rule origin | Independent postulate | Split: representation level settled — admitted universally ($S \iff D \iff Q_{\mathrm{fb}}$); coherent operational extension characterized by five named conditions; read-write equilibrium a mechanism proposal | Ch 1, Ch 18 §18.2, [Main §3.4] |
-| Relative-evolution selection (framework-specific) | Not a standard problem | Open — representability settled and operational completion characterized conditionally, but no theorem selects one relative evolution from the coherent lifts of a visible family; ordinary coherence proved insufficient | §19.3.9, Ch 1, [Main §3.4] |
+| Relative-evolution selection (framework-specific) | Not a standard problem | Open — representability settled and operational completion characterized conditionally; the freedom the visible law leaves at one time is classified exactly by the fibre-Gram data, but no theorem selects that data's trajectory or the relating evolution within it; ordinary coherence proved insufficient | §19.3.9, Ch 1, [Main §3.4] |
 | **Flavor problem** | **13 free parameters** | **Open (research program; $m_b/m_\tau$ at 0.4% match with Layer 2(a) verification residual)** | §19.3.1 |
 | **Hubble tension** | **$> 5\sigma$ disagreement** | **Open ($\nu_{\text{OI}}$ too small)** | §19.3.2 |
 | **Baryogenesis** | **Sakharov conditions** | **Solution-specific ($\eta_B$ inherits flavor-CP input status)** | §19.3.3 |
