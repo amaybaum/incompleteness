@@ -14560,8 +14560,8 @@ _A6P_BASE = '07ab3657c2c78b48e4c11e0c3ceb30c82ac0b484'
 # exact-head review and merge. Set, the guard runs in ARCHIVE MODE: the same strong check re-run
 # against that object, plus its reachability from the current target. Unset (None), the guard
 # certifies the run's real target.
-_A6P_SEALED_HEAD = None
-_A6P_MERGE = None
+_A6P_SEALED_HEAD = '58100aea15eea8f5808b351d64163f55c9fed1bf'
+_A6P_MERGE = '98d0c894c96b81e9138b97d92b4635356751e194'
 _A6P_SUB = _a11p_root('papers/Substratum.md')
 _A6P_SM = _a11p_root('papers/SM.md')
 _A6P_STR = _a11p_root('papers/Structure.md')
