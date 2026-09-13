@@ -219,9 +219,15 @@ overlap is necessary but not sufficient for such freedom.
   quotient by the *defined* action exactly.
 - **Overlap is not memory**, and "supported only on overlap" is not "supported on every overlap
   pair".
-- **`P0` is not closed.** It moves: after this round the open question is **what additional
-  condition selects or constrains the fibre-Gram trajectory across time**. That is the **next**
-  frontier and is **not** this round's.
+- **`P0` is not closed, and it is two-part.** Act 12 exactly classifies the per-slice quotient by
+  the defined two-sided action. What remains open is (1) what selects or constrains the Gram/orbit
+  trajectory across time, and (2) what determines the cross-time representative — the threading —
+  within those selected orbits. **Act 11's `GL2` shows the second is not fixed even by the full Gram
+  trajectory**: a time-dependent strong right gauge fixes every anchored column, hence every
+  fibre-Gram matrix at every time, yet changes the relative evolution. No connection, gauge-fixing
+  mechanism, or selection principle is asserted. The freeze named the first part as the next
+  frontier; the second is recorded here at exact-head review as a corollary of merged `GL2`, adds no
+  target, and is equally **not** this round's.
 - **`D3`, `D5`, the direct-branch statement, and every merged label** are consumed unmodified.
   The direct-branch statement is exactly act 7's: `D4a` positive on the direct branch; `T1`
   **necessary, not sufficient**; `n = 3` properness at **evidence level 3**; **no claim about what

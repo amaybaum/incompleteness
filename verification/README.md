@@ -2077,10 +2077,12 @@ one-way, from positivity alone) and `SH1-C2` (a deterministic slice has at most 
 with the `TG2` converse a unique two-sided orbit) are corollaries. Joint maximality of the two-sided
 action is neither asserted nor excluded; the Gram data is a coordinate on the lift space and not a
 physical quantity; overlap is not memory; nothing is cross-time; no selection principle is named;
-`P0` is not closed and moves to the cross-time selection of the Gram trajectory. Forty-three named
+`P0` is not closed and is two-part: selection of the Gram/orbit trajectory across time, and the
+cross-time threading within selected orbits, which act 11's `GL2` shows is not fixed even by the full
+Gram trajectory. Forty-three named
 results, each printing only `propext`, `Classical.choice`, `Quot.sound`; five of six definition slots
 fired; no manuscript edit. Guard `R7-TSG` pins the preregistration blob by content and certifies the
-strengthened execution ancestry, and checks each frozen reading in terms with twenty-five mutation
+strengthened execution ancestry, and checks each frozen reading in terms with twenty-seven mutation
 controls.
 
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the

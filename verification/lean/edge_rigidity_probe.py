@@ -11336,7 +11336,12 @@ def _tsg_c2_bounded(t=None):
 
 def _tsg_not_licensed(t=None):
     """T15 -- the frozen non-licences: no inequivalence, a coordinate not physics, per slice, no
-    selection principle, no connection claim either way, P0 moved not closed."""
+    selection principle, no connection claim either way, P0 not closed and TWO-PART.
+
+    Exact-head review found the one-part frontier sentence incomplete: even the full Gram
+    trajectory does not fix the relative evolution, since act 11's GL2 gauge fixes every anchored
+    column and hence every fibre-Gram matrix while moving the relative object. The note must carry
+    both parts."""
     t = _TSG1 if t is None else t
     return ('**Nothing here says OI and QM are inequivalent.**' in t
             and '**The fibre-Gram data is a coordinate on the lift space, not a physical '
@@ -11344,9 +11349,10 @@ def _tsg_not_licensed(t=None):
             and '**Nothing here is a cross-time statement.**' in t
             and '**No selection principle is named, endorsed or excluded**' in t
             and 'connections or gauge fixings **in either direction**' in t
-            and '**`P0` is not closed.** It moves' in t
-            and 'That is the **next** frontier and is **not** this round’s.'
-                in t.replace("'", '’'))
+            and '**`P0` is not closed, and it is two-part.**' in t
+            and '**Act 11’s `GL2` shows the second is not fixed even by the full Gram trajectory**'
+                in t.replace("'", '’')
+            and 'No connection, gauge-fixing mechanism, or selection principle is asserted.' in t)
 
 
 def _tsg_gi2_rereading(t=None):
@@ -11512,8 +11518,21 @@ _tsg_m20 = _TSG1.replace('**No selection principle is named, endorsed or exclude
 ok_tsg &= _tsg_m20 != _TSG1 and not _tsg_not_licensed(_tsg_m20)
 
 # P0 declared closed by a classification
-_tsg_m21 = _TSG1.replace('**`P0` is not closed.** It moves', '**`P0` is closed by this classification.**')
+_tsg_m21 = _TSG1.replace('**`P0` is not closed, and it is two-part.**',
+                         '**`P0` is closed by this classification.**')
 ok_tsg &= _tsg_m21 != _TSG1 and not _tsg_not_licensed(_tsg_m21)
+
+# THE EXACT-HEAD REVIEW BLOCKER: the frontier collapsed to one part, as if the Gram trajectory
+# alone fixed the relative evolution -- GL2 refutes that
+_tsg_m26 = _TSG1.replace(
+    "**Act 11's `GL2` shows the second is not fixed even by the full Gram trajectory**",
+    'So the Gram trajectory across time is all that remains to be selected')
+ok_tsg &= _tsg_m26 != _TSG1 and not _tsg_not_licensed(_tsg_m26)
+
+# a selection mechanism asserted alongside the two-part statement
+_tsg_m27 = _TSG1.replace('No connection, gauge-fixing mechanism, or selection principle is asserted.',
+                         'A connection on the orbit bundle supplies the threading.')
+ok_tsg &= _tsg_m27 != _TSG1 and not _tsg_not_licensed(_tsg_m27)
 
 # GI2 "revised" rather than explained
 _tsg_m22 = _TSG1.replace('**`GI2` is not revised; it is explained.**',
@@ -11566,14 +11585,16 @@ check('R7-TSG', ok_tsg,
       'checked "at most one" and never existence with its orbit consequence tied to the TG2 converse, and overlap '
       'checked NOT promoted to memory. The frozen non-licences are checked present in terms -- no inequivalence, the '
       'Gram data a coordinate not physics, per slice, no selection principle, nothing about connections in either '
-      'direction, P0 MOVED to the cross-time Gram trajectory and not closed. GI2 is checked re-read as a left move '
+      'direction, and P0 NOT CLOSED AND TWO-PART -- orbit/Gram-trajectory selection AND the cross-time threading '
+      'within selected orbits, the second shown by act 11\'s GL2 not to be fixed even by the full Gram trajectory; '
+      'the one-part collapse that exact-head review caught is mutation-tested. GI2 is checked re-read as a left move '
       'with identical Gram data, explained and not revised. Five of six definition slots fire with slot 6 unused for '
       'a stated reason and no seventh; the module is checked to carry EXACTLY those five top-level definitions and '
       'no sorry, axiom or native_decide. The chronology control is act 10\'s STRONG form: the blob by content, the '
       'real pull_request.head.sha rather than the synthetic merge commit, B an ancestor of the head AND every commit '
       'of the execution-only history required to descend from B, recovery included and fail-closed. No manuscript '
       'edit, no candidate-selection principle, nothing about Track I, D5 left NOT CERTIFIED. Nineteen named '
-      'contracts, twenty-five mutation controls, plus the freeze-pin drift controls.')
+      'contracts, twenty-seven mutation controls, plus the freeze-pin drift controls.')
 
 # ---- R7-A11P: the act 11 scope propagation round (publication only) ----
 #
