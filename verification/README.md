@@ -2085,5 +2085,37 @@ fired; no manuscript edit. Guard `R7-TSG` pins the preregistration blob by conte
 strengthened execution ancestry, and checks each frozen reading in terms with twenty-seven mutation
 controls.
 
+The reconstruction programme's Substratum Lemma 24.1 round
+(`programmes/substratum/lemma-24-1-semigroup-transfer/`, preregistration blob `b8168df`, merged by
+PR #594 as `c46e160`, the mandated execution base) tests the lemma's semigroup-transfer step —
+that equality of the uniform-prior channel family `Φ_t(ρ) = Tr_H[U^t (ρ ⊗ 𝟙/m) U^{-t}]` at every `t`
+fixes the dilating unitary up to a hidden conjugation. `OIBridge/SemigroupTransfer.lean` places the
+family in the merged single-map idiom (`familyAt_single`, the block-trace form;
+`familyAt_eq_stinespringChannel`, the purification with the maximally entangled reference) and
+proves GNS cyclicity of the reference subspace equivalent to a trivial hidden commutant in both
+directions (`ST0c_cyclic_iff`, through the orthogonal-projection lemma `starProjection_comm`).
+Reading A follows from the merged inputs per time and no more (`readingA_perTime`: a Kraus-mixing
+unitary at each `t`, the existential inside the `∀ t`), hidden conjugation preserves the family
+(`familyAt_hiddenConjugate`), and then the three negatives, each a trace certificate in the kernel:
+`ST2_pairA` (the literal reading fails on a two-qubit pair that generator (i)'s visible part
+absorbs), `ST3_pairC` (the GNS-cyclic reading fails on a six-element pair with both hidden
+commutants trivial, equal families at every time and non-trivial visible statistics, since
+`Tr φ̂ = 2 ≠ 0 = Tr φ̂'` excludes every unitary conjugation), and `ST4_pairC` (the same pair escapes
+`P_σ ⊗ W` after any decoupled enlargement by unitaries on any finite non-empty `D`, by a balanced
+block word under both visible relabellings, with the enlargement lemma `trace_wordEval_enlarge`
+and the relabelling lemma `trace_wordEval_conj`). `ST5` lands at its frozen fallback: hidden
+conjugation preserves every word trace (`trace_wordEval_hiddenConjugate`), and sufficiency of
+full word-trace equality is UNDECIDED, the unitary implementation of a trace-preserving
+`*`-isomorphism being outside Mathlib and the corpus. The central result: the visible channel
+family does not determine the underlying dilation up to a single time-independent hidden
+conjugation, so the present semigroup-transfer proof route does not establish completeness of
+`𝒢_sub`, and the P1 obligation remains OPEN with stronger multi-time information or a different
+proof route required. Lemma 24.1 is not called false without qualification, `ST5` is not a repair,
+and the four generators are not called incomplete — nothing is said about (ii)/(iv). Sixty-one
+named results, each printing only `propext`, `Classical.choice`, `Quot.sound`; six of six
+definition slots fired; no manuscript edit. Guard `R7-SGT` pins the preregistration blob by
+content and certifies the strengthened execution ancestry, and checks the central sentence, the
+three boundaries and each frozen reading in terms with thirty-one mutation controls.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.

@@ -196,6 +196,7 @@ import OIBridge.ReadbackRobustness
 import OIBridge.AnchorRobustness
 import OIBridge.CoherentLiftGauge
 import OIBridge.TwoSidedGauge
+import OIBridge.SemigroupTransfer
 import OIBridge.RecurrenceHorizon
 import OIBridge.ScalingFamily
 import OIBridge.RootedClassification
