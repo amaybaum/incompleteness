@@ -60,6 +60,7 @@ import OIBridge.C3Necessity
 import OIBridge.CanonicalMeasure
 import OIBridge.Finiteness
 import OIBridge.CubicIsotropy
+import OIBridge.HydroSourceAudit
 import OIBridge.FactorUniqueness
 import OIBridge.IdempotentTrace
 import OIBridge.Irreducibility

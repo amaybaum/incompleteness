@@ -1980,6 +1980,37 @@ evidence, the even-carrier countercontrol cited and no minimality of the driven 
 Guard `R7-MSP` pins the propagated statements in sources and generated forms and the presence of
 the census in the gate.
 
+Hydrodynamics round H-A (`programmes/hydrodynamics/round-h-a-source-audit/`, preregistration blob
+`934cd6a`, merged by PR #595 as `ae81459`, the mandated execution base) is the source audit of the
+concrete wave representative `waveSubstratum d L q α`, executed at evidence level 2 in
+`OIBridge/HydroSourceAudit.lean`. `H0`: for every additive coarse map the coarse two-time evolution
+is additive (`coarse_evolution_additive`, from `waveSubstratum_A5`), and a coarse rule that closes
+(`CoarseCloses`) is additive on the range of `(C, C)` and degree-one homogeneous there
+(`coarseCloses_additive_on_range`, `coarseCloses_nsmul`) — the advection obligation is HI
+conditional on `ZMod q`-linear coarse variables, with real-valued or nonlinear coarse variables HO.
+`H1`: on the torus `Σ_i F(x)(i) = 2dα Σ_i x(i)` (`totalSum_waveF`), the first difference of the
+total sum is conserved on every trajectory iff `2dα − 2 = 0` in `ZMod q` (`deltaS_conserved_iff`),
+`a S_t + b S_{t−1}` is conserved iff `b = −a` and `a (2dα − 2) = 0` (`combination_conserved_iff`),
+and the manuscript instance `d = 3`, `α = 1` is conserved iff `q ∣ 4`, i.e. for `q ≥ 2` iff
+`q ∈ {2, 4}` (`deltaS_conserved_iff_dvd_four`, `deltaS_conserved_iff_two_or_four`) — so this
+candidate field, under this rule, is not `q`-gauge invariant; this is not a universal no-go for
+other hydrodynamic variables, and no `q` is chosen to rescue it. `H2a`: the fully symmetric
+`O_h`-invariant rank-4 tensors on `ℝ³` are exactly `x·D + y·P` for a unique `(x, y)`
+(`symInvariantQuartic_iff`), `D` the tensor of `Σ k_i⁴` and `P` three times that of `(Σ k_i²)²`,
+and the rotation-invariant ones are exactly the multiples of `P` (`symInvariant_isotropic_iff`) —
+2 versus 1, reached at kernel level with the level-3 fallback unused. `H2b`: the axis stencil's
+fourth moment is `2·[a = b = c = e]` (`axisMoment4_eq`), `O_h`-invariant and not
+rotation-invariant (`axisMoment4_form_not_isotropic`, consuming `quartic_not_isotropic`) — exact
+stencil anisotropy proved; conditional HI if H5's stress closure consumes this tensor; otherwise
+H2 remains HO. `H3a`: the block variable at `d = 1`, `L = 6`, `b = 3` does not close for every
+`q ≥ 2` (`h3a_block_state_not_closed`, `h3a_no_closure`) and the `L = 4`, `b = 2` control closes
+(`h3a_control_L4_closes`) — H3 HO, no timescale asserted. `H4a` records the scaling skeleton as a
+list of unfixed choices — HO, no PDE. Round H-B is entirely alive. Forty-four named results, no
+`sorry`, no `axiom`, no `native_decide`, every axiom line within `propext`, `Classical.choice`,
+`Quot.sound`; six of seven definition slots fired; no manuscript edit. Guard `R7-HYA` pins the
+preregistration blob by content and certifies the strengthened execution ancestry, and checks each
+frozen status and reading in terms with twenty-four mutation controls.
+
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
 audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its
 disposition and the reason, re-run on every CI pass and failing on drift. The manifest carries its
