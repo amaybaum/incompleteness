@@ -15098,8 +15098,8 @@ _WTS_BASE = 'baadea2638019b335d96c892590491a6fb420936'
 # EXECUTION MODE and certifies the run's real target. Set by the post-merge follow-up under
 # clause 7, the guard runs in ARCHIVE MODE: the same strong check re-run against the sealed head,
 # plus its reachability from the current target.
-_WTS_SEALED_HEAD = None
-_WTS_MERGE = None
+_WTS_SEALED_HEAD = 'c31fe45d28d6aa37782902f67aba404ef721a59e'
+_WTS_MERGE = '6a6f206f830f5b44e1b19a6912b823d545207126'
 
 
 def _wts_git(*args, **kw):
