@@ -426,6 +426,30 @@ here bears on the OI → QM chain, and no row of the queue above changes.
 → [round H-A preregistration](programmes/hydrodynamics/round-h-a-source-audit/preregistration.md)
 (the frozen object, the targets, the predictions, and the twelve hazards)
 
+### Hydrodynamics programme — round H-B: one candidate executed
+
+The frozen streaming-and-collision candidate — a six-channel Boolean lattice gas on the `L × L`
+periodic lattice in the hexagonal basis, placed inside the kernel's `Substratum` interface
+unmodified as the second-order rule `F c = Φ c + Φ⁻¹ c` — is executed at evidence level 2 on the
+mandated base `8de0478` (`OIBridge/HexLatticeGas.lean`, guard `R7-HYB`): it satisfies A1–A4 and
+fails A5 with the recorded witness; its graph sector `Γ` is invariant and carries the gas, and
+mass is not conserved off `Γ`; mass and both momentum components are exactly conserved by the gas
+on every configuration for every `L`, on `Γ`, and are the only conserved site-independent
+channel-weighted totals; the gas commutes with the lattice's `60°` rotation; the stencil's fourth
+moment is `(3/4)(δδ + δδ + δδ)`, rotation-isotropic, and its sixth is not, with no claim about
+higher orders; the block-charge two-time state does not close at `L = 4`, `b = 2`, and the charge
+sectors are invariant. The labels are labels for the candidate: H1 HD for mass and momentum on
+the sector, HO outside the class; H2 HD for the stencil tensor, HC for the stress conditional on
+H5 consuming it, otherwise HO; the advection obligation, H3 and H4 HO. **Round H-B is not
+reported closed**: the execution establishes a reversible fluid witness in the A1–A4, ¬A5 class,
+and whether that class is admissible as OI physics is an owner decision recorded as open. Nothing
+here bears on the OI → QM chain, and no row of the queue above changes.
+
+→ [round H-B result](programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/result.md)
+(`HB0`–`HB3`, the status rule, and what none of them licenses)
+→ [round H-B preregistration](programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/preregistration.md)
+(the frozen candidate, the recorded analysis, the targets, and the fourteen hazards)
+
 ## Settled negatively — `INDEPENDENT`, and not queue items
 
 **These are findings. They do not belong on the list above and are recorded here so they are not
