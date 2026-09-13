@@ -314,8 +314,12 @@ fixing the visible channel family fixes the substratum dilation at each time up 
 time-dependent Kraus-mixing unitary, and does **not** fix the dilating unitary up to hidden
 conjugation — not on the reachable-cyclic reading, not on the GNS-cyclic reading, and not up to
 decoupled deep-sector enlargement — because the family carries only the sorted balanced word data
-and not the interleaved multi-time data; the exhaustiveness of `𝒢_sub` therefore remains
-**conditional**, on a hypothesis strictly stronger than the one Lemma 24.1 names.
+and not the interleaved multi-time data. **The present completeness proof therefore remains
+conditional**: equality of the visible channel family does not supply the semigroup-transfer
+conclusion as stated. Repairing this route requires stronger multi-time data — such as `ST5`'s full
+word-trace hypothesis — or a different argument. **This round does not prove that stronger data are
+necessary for completeness itself**: `ST2`–`ST4` show what the present route needs, not what every
+possible completeness proof needs.
 
 ## What none of these outcomes licenses
 
@@ -323,8 +327,10 @@ and not the interleaved multi-time data; the exhaustiveness of `𝒢_sub` theref
   A negative `ST2` is absorbed by (i). A negative `ST3`/`ST4` shows the lemma's *route* does not
   deliver completeness and that Pair C escapes (i) and (iii) at the frozen exact-decoupling
   reading; it says **nothing** about (ii) and (iv), which have no meaning on a six-element carrier.
-  The permitted sentence is "completeness remains conditional, on a stronger hypothesis than the
-  lemma names"; the forbidden sentences are "completeness is false" and "completeness holds".
+  The permitted sentence is "the present completeness proof remains conditional, and repairing
+  its route needs stronger multi-time data or a different argument"; the forbidden sentences are
+  "completeness is false", "completeness holds", and "completeness itself requires stronger data
+  than the lemma names".
 - **Nothing about Bell or H-Bell.** Theorem 23 already keeps Bell-inclusive uniqueness outside the
   lemma's scope; this round does not enter it.
 - **Nothing about A6.** The A1–A6 package and its `GAP` row are untouched.
@@ -420,8 +426,9 @@ label.
 ## Named hazards
 
 1. **Reading a negative as a refutation of exhaustiveness.** Pair A is (i)-related. Pair C escapes
-   (i) and (iii) at the frozen reading and says nothing about (ii) or (iv). "Conditional on a
-   stronger hypothesis" is the ceiling.
+   (i) and (iii) at the frozen reading and says nothing about (ii) or (iv). "The present proof
+   route remains conditional" is the ceiling; "completeness itself needs stronger data" is above
+   it, since a different argument, or generators (ii)/(iv), could close what this route cannot.
 2. **Importing Track B acts 11/12.** `GL2`/`GI2` and the fibre-Gram classification are about
    anchored modulus-squared marginals, a datum weaker than a channel family, on a different object.
    They are not evidence here in either direction, and no analogy between a fibre-wise hidden move
