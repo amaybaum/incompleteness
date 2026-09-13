@@ -64,17 +64,18 @@ coherent lifts of one constant family, not two-sided related, with `U'_1 U'_0ᴴ
 The owner checked the matrix identities independently; the execution re-derives them in the kernel.
 
 So neither the one-sided nor the two-sided existence question is a fork. What remains — and what
-this round is — is the **classification**: the invisible gauge is two-sided; its orbits are
-determined by a computable invariant; the visible law fixes exactly the diagonal of that invariant;
-and the residual lift freedom is exactly the rest of it.
+this round is — is the **classification**: there is a natural two-sided uniform invisible gauge;
+its orbits are determined by a computable invariant; the visible law fixes exactly the diagonal of
+that invariant; and the residual lift freedom is exactly the rest of it.
 
 ## The structural correction, FROZEN BEFORE ANYTHING ELSE
 
-**Act 11's `𝒢ʷ_{a₀}` is the right factor of the invisible gauge, not the invisible gauge.** The
-statements "`𝒢ʷ_{a₀}` is the maximal uniform visibility-preserving right action for `|V| ≥ 2`" and
-"the maximal uniform invisible gauge" are not the same statement, and the second is not what act
-11 proved. This round supplies the left factor and the two-sided quotient. Nothing in act 11's
-merged record is revised; its `GL1w` is consumed as the right-factor theorem it is.
+**Act 11's `𝒢ʷ_{a₀}` is the right factor of the two-sided uniform gauge classified here, not the
+whole of it.** The statements "`𝒢ʷ_{a₀}` is the maximal uniform visibility-preserving right action
+for `|V| ≥ 2`" and "the maximal uniform invisible gauge" are not the same statement, and the
+second is not what act 11 proved. This round supplies the left factor and classifies the quotient
+by the two-sided action the two factors generate. Nothing in act 11's merged record is revised;
+its `GL1w` is consumed as the right-factor theorem it is.
 
 ## The objects, FROZEN
 
@@ -113,19 +114,25 @@ sides, matching `GaugeRelated`'s convention. `GaugeRelated 𝒢ʷ_{a₀}` is the
    maps each fibre into itself. **No `|V| ≥ 2` hypothesis is expected** — at `|V| = 1` there is one
    fibre and `𝒢_L` is everything. Record whichever hypothesis the proof needs.
 3. **Escape from the right orbit.** A concrete `L ∈ 𝒢_L` and admissible `U` with `L·U` not
-   `GaugeRelated 𝒢ʷ_{a₀}` to `U`. The in-fibre anchor swap `L = P(swap((0,a₀),(0,a₁)))` on the
-   identity family with `U = 1` suffices, and this is the same object as the identity-family
-   instance of `RO1`.
+   `GaugeRelated 𝒢ʷ_{a₀}` to `U`, **on a carrier with `|V| ≥ 2`** so that act 11's maximality of
+   `𝒢ʷ_{a₀}` applies and "the right orbit" means the maximal uniform one. The in-fibre anchor swap
+   `L = P(swap((0,a₀),(0,a₁)))` on the identity family with `U = 1`, frozen on `V = Fin 2`,
+   `A = Fin 2`, suffices, and this is the same object as the identity-family instance of `RO1`.
 
-**Bounded reading:** `LG1` says the invisible gauge has a left factor act 11 did not classify. It
-does not say the two-sided action is the maximal invisible action *of every kind* — non-uniform,
-family-specific invisible freedoms are neither asserted nor excluded.
+**Bounded reading:** `LG1` says there is a left invisible factor act 11 did not classify, and that
+it is maximal *among uniform left actions considered alone*. It does **not** say the two-sided
+action is jointly maximal — see hazard 5 — and it does not say it is the maximal invisible action
+*of every kind*: non-uniform, family-specific invisible freedoms are neither asserted nor excluded.
 
 ### `RO1` — right-only insufficiency: the originally stated target, closed and bounded
 
 Formalize the first corollary above as a theorem in act 11's vocabulary: two coherent lifts of one
-family, `¬ GaugeRelated (WeakAnchorStabilizer a₀) U U'`, with `U'_t U'_sᴴ ≠ U_t U_sᴴ` for some
-`t, s`. Either the `GI2` orbit-switching pair or the identity-family in-fibre swap discharges it;
+family **on a carrier with `|V| ≥ 2`**, `¬ GaugeRelated (WeakAnchorStabilizer a₀) U U'`, with
+`U'_t U'_sᴴ ≠ U_t U_sᴴ` for some `t, s`. **The `|V| ≥ 2` hypothesis is part of the statement**, because
+the advertised reading names the *maximal uniform* right weak gauge, and act 11 proved `𝒢ʷ_{a₀}`
+maximal only there — at `|V| = 1` it is explicitly not maximal, so a `|V| = 1` witness would be
+formally valid and semantically mis-scoped. Either the `GI2` orbit-switching pair (already on
+`V = Fin 2`) or the identity-family in-fibre swap frozen on `V = Fin 2`, `A = Fin 2` discharges it;
 the execution records which, and may record both.
 
 **The reading is fixed exactly:** quotienting by the maximal uniform **right** weak gauge is
@@ -186,7 +193,7 @@ at `a₀` **iff** it is a realizable Gram tuple — `G^{(i)} ⪰ 0`, `rank G^{(i
 Together with `TG2`, `SH1` gives the statement the round is for:
 
 > **The visible law is exactly the diagonal of the fibre-Gram data. The residual lift freedom,
-> after the two-sided uniform invisible gauge, is exactly the off-diagonal fibre-Gram data modulo
+> after the two-sided uniform gauge `𝒢_L × 𝒢ʷ_{a₀}`, is exactly the off-diagonal fibre-Gram data modulo
 > the anchored phases — per time slice.**
 
 ## The preregistered predictions, and their strengths
@@ -313,8 +320,15 @@ target, with the single preregistered exception of `SH1` sufficiency under its f
    "the trajectory" that is not the explicit next-frontier statement is out of scope.
 4. **Re-inflating `RO1`.** "Right-only quotient insufficient" is the claim; "gauge fixing cannot
    suffice" and "a connection cannot suffice" remain forbidden, exactly as after PR #589's review.
-5. **Calling `𝒢_L × 𝒢ʷ_{a₀}` the maximal invisible action of every kind.** It is the maximal
-   *uniform two-sided* action, if `LG1` (2) lands; non-uniform freedoms are not addressed.
+5. **Joint maximality is not claimed.** `LG1` (2) and act 11's `GL1w` establish maximality of the
+   left and right factors *separately*. They do not by themselves establish that every uniformly
+   invisible two-sided transformation `U ↦ L·U·K` factorizes through `𝒢_L × 𝒢ʷ_{a₀}`: in principle
+   non-invisible effects of the two factors could cancel, and excluding that needs a separate
+   joint-maximality theorem this round does not attempt. The round therefore calls `𝒢_L × 𝒢ʷ_{a₀}`
+   **the two-sided uniform gauge generated by the separately maximal factors**, never "the maximal
+   uniform two-sided action". Joint maximality is neither asserted nor excluded. `TG2` and `SH1` are
+   unaffected: they classify the quotient by the *defined* action exactly, and need no theorem that
+   it exhausts every conceivable invisible equivalence.
 6. **Forgetting the anchor.** `𝒢ʷ_{a₀}` and the Gram data depend on `a₀`; `𝒢_L` does not. State
    which objects carry the anchor.
 7. **Using `GL2`'s or `GI2`'s pair as a `TG3` witness.** Both lie inside one two-sided orbit; they
