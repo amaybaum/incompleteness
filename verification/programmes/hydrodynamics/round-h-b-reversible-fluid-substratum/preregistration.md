@@ -325,9 +325,10 @@ re-proved. **Prediction: positive, full strength.**
 **`HB2-d` (kernel, the bound).** The sixth moment is not isotropic: stated inline,
 `Σ_k (u_k)₁⁶ = 33/16` and `Σ_k (u_k)₁⁴ (u_k)₂² = 3/16`, whereas a rotation-isotropic fully
 symmetric rank-6 tensor has `T₁₁₁₁₁₁ = 5 T₁₁₁₁₂₂`. **Prediction: positive (the failure), full
-strength.** This bounds `HB2-b`: isotropy is at fourth order and no higher, which is the order the
-Navier–Stokes stress expansion needs and the order beyond which (Burnett-level) the round says
-nothing.
+strength.** This bounds `HB2-b`: fourth-order isotropy holds, while isotropy already fails at
+sixth order; **no claim is made about higher orders** — the round proves the fourth and the sixth
+moment and classifies no other even order. Fourth order is the order the Navier–Stokes stress
+expansion needs, and beyond it (Burnett-level) the round says nothing.
 
 **Reported status for H2: the stencil's fourth moment is proved isotropic — HD for the stencil
 tensor; for the hydrodynamic stress, HC conditional on H5's closure consuming this tensor, otherwise
@@ -408,6 +409,32 @@ gauge principle; **whether that class is admissible as an OI substratum is an ow
 round does not make.** H3 and H4 remain HO; the round says nothing about H5–H7, nothing about
 `d = 3`, and nothing about the OI → QM chain. **This reading is conditional on every qualifier
 above**, and the execution may not shorten it.
+
+## The post-round programme status, FROZEN
+
+The programme's H-B obligation, as `../PROGRAMME.md` §6 states it, is an **OI-compatible** reversible
+fluid witness. This candidate fails A5 by construction. Therefore, **whatever the execution lands,
+the following status rule binds the result note and every propagation of it:**
+
+1. **Round H-B is not reported closed by this round**, and the programme's H-B obligation is not
+   reported discharged. The round is reported as **one candidate executed**, with its outcomes.
+2. **H1 is not reported "HD for OI"**, and no target's status is written with "for OI" or "for the
+   OI substratum" attached. Every HD, HC, HI or HO label in this file is a label **for the
+   candidate**, in the class it lies in, and the result note writes it that way.
+3. What the execution **can** establish, at full strength, is exactly this: **a rigorous reversible
+   fluid witness in the A1–A4, ¬A5 class** — finite, deterministic, reversible, translation-covariant,
+   of bounded degree, inside the kernel's `Substratum` interface — **with exact mass and momentum
+   conservation on every configuration for every lattice size and fourth-order stencil isotropy**,
+   proved and not assumed.
+4. **Whether the A1–A4, ¬A5 class counts as admissible OI physics is a separate question** — the
+   owner decision named above and in hazard 2 — and the result note records it as **open**, in
+   those words, in its status section. If the owner later rules the class admissible, the
+   programme-level closure of H-B is a **separate owner action** on the record, not a consequence
+   the execution draws; if the owner rules it inadmissible, the candidate stands as a witness
+   about the class and H-B's obligation stays open.
+5. `../PROGRAMME.md` §8's one-line state, when the execution refreshes it, reads "H-B: one
+   candidate executed in the A1–A4, ¬A5 class; OI-compatibility of the class open" or a shorter
+   sentence with the same three facts, and nothing stronger.
 
 ## What none of these outcomes licenses
 
@@ -597,7 +624,10 @@ singularities.
    conditional status for the stress, in this file's words;
 4. **`HB3`** — the witness with coordinates; the sector-measure statement; HO for H3; no timescale;
 5. the inherited scaling skeleton, with the one choice the candidate fixes named;
-6. the programme-level reading, verbatim from this file and conditional on every qualifier;
+6. the programme-level reading, verbatim from this file and conditional on every qualifier, and the
+   post-round programme status under the frozen status rule — H-B not reported closed, no label
+   written "for OI", the witness stated as a witness in the A1–A4, ¬A5 class, the admissibility of
+   that class recorded as open;
 7. what the outcomes do **not** license, in this file's wording, with the owner decision on A5
    named as open and `d = 3` named as the successor question;
 8. the definition count against the eight-slot budget, the conditional slot marked fired or unused;
