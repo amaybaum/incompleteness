@@ -13468,6 +13468,581 @@ check('R7-A12P', ok_a12p,
       'sentences in the same commit, and no other. Twelve named contracts, thirteen mutation controls, plus one '
       'freeze-pin drift control.')
 
+# ---- R7-CTI: Track B act 13 -- cross-time invariants of the relative evolution ----
+#
+# A BOUNDING round: one frozen family of cross-time data at three resolutions, the exact quotient
+# each member computes proved in both directions, and the family bounded from below (levels 0-2
+# blind to every strong-right threading, universally) and from above (level 3 blind to a constant
+# left move, by an explicit pair). Every target was predicted positive except the fork CT3 (d),
+# which the freeze left unpredicted, so the hazards are READINGS: the two-sided action of act 12
+# said to act on relative evolutions (it does not; the quotient is constant-right, CT1); level 0
+# RAW equality said to compute the per-slice two-sided quotient (only its phase class does, TG2);
+# the Hadamard pair said to share per-time Gram data (TG3 proves it does not); CT2 (a) read as
+# sufficiency (CT4 refutes it); CT4 dropped or the ladder's last clause asserted without it; CT2
+# (b) forward reported at full when only the backward direction landed (it landed at full, and
+# the guard checks the kernel iff and the arbitrary-index Gram-isometry lemma); a selection
+# principle named; P0 closed by a characterization. The guard checks the central sentences in the
+# freeze's words, each frozen reading in terms, the kernel statements as conjuncts of single
+# theorems, and the six-slot budget with both conditional slots recorded unused.
+_CTI = open(_artifact('programmes/oi-qm/track-b/act-13-cross-time-invariants/result.md'),
+            encoding='utf-8').read()
+_CTI1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _CTI).split())
+_CTILEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'CrossTimeInvariants.lean'), encoding='utf-8').read().split())
+_CTIDIR = 'programmes/oi-qm/track-b/act-13-cross-time-invariants/'
+# The mandated execution base: the merge commit of act 13's control-plane PR #602.
+_CTI_BASE = 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
+# The SEALED execution head and the merge commit that carried it. Unset (None) at execution, the
+# guard certifies the run's real target. Set by the one pin-only change after the merge, the guard
+# runs in ARCHIVE MODE: the same strong check re-run against that object, plus its reachability
+# from the current target.
+_CTI_SEALED_HEAD = None
+_CTI_MERGE = None
+
+
+def _cti_git(*args, **kw):
+    kw.setdefault('tag', 'R7-CTI')
+    return _rbr_git(*args, **kw)
+
+
+def _cti_ensure_present(rev, pr_number=None):
+    return _rbr_ensure_present(rev, pr_number=pr_number, tag='R7-CTI')
+
+
+def _cti_target_commit(env=None):
+    return _rbr_target_commit(env=env, tag='R7-CTI')
+
+
+def _cti_freeze_pin(read=_bb_read):
+    """T1 -- act 13's preregistration is byte-identical to the blob merged by PR #602."""
+    return _bb_blob(_CTIDIR + 'preregistration.md', read) == (
+        '5d8bee2c616d12c53234c54bfa7efae19dc1dcc1')
+
+
+def _cti_execution_ancestry():
+    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
+    commit made before the freeze and merged in alongside it leaves the head descended from the
+    freeze while itself not being.
+
+    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
+    mode (pins set, after the merge): the same strong check re-run against the sealed head, with
+    the pinned merge required to carry it and both required reachable from the current target,
+    fail-closed."""
+    if _CTI_SEALED_HEAD is None:
+        target, label, num = _cti_target_commit()
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_CTI_BASE, target, label, num, tag='R7-CTI')
+    return _rbr_archive_ancestry(_CTI_BASE, _CTI_SEALED_HEAD, _CTI_MERGE, tag='R7-CTI')
+
+
+def _cti_outcome(t=None):
+    """T3 -- the boxed outcome: every target landed at level 2, CT2 (b) forward at kernel level
+    with the fallback unused, CT3 (d) UNDECIDED; Case A with the fork clause adding nothing."""
+    t = _CTI1 if t is None else t
+    return ('**`CT1`, `CT2` (a) and (b) in both directions, `CT3` (G), (a), (b), (c) and `CT4` '
+            'with `CL1` all landed at evidence level 2, `CT2` (b) forward at kernel level — the '
+            'frozen fallback was not used — and the fork `CT3` (d) is UNDECIDED, as the freeze '
+            'permits.**' in t
+            and 'This is the freeze\'s **Case A** with the fork clause adding nothing.' in t)
+
+
+def _cti_structural_point(t=None):
+    """T4 -- hazard 1: the two-sided action does NOT act on relative evolutions; every 'up to'
+    names its quotient, which is constant-right."""
+    t = _CTI1 if t is None else t
+    return ('**The two-sided action of act 12 does not act on relative evolutions.**' in t
+            and 'The quotient in which the relative evolution lives is the lift modulo a '
+                '**constant right** unitary — any unitary, not a gauge class — and that is `CT1`.'
+                in t
+            and 'Every "determines the relative evolution" below means "determines the lift modulo '
+                'constant right unitaries", and every "determines up to" names the exact quotient '
+                'it means.' in t)
+
+
+def _cti_level0_reading(t=None):
+    """T5 -- level 0 raw equality kept apart from level 0 modulo anchored phases: the raw datum is
+    moved by the weak-right action and does not itself compute the per-slice quotient."""
+    t = _CTI1 if t is None else t
+    return ('**Level 0 is read at two strengths, kept apart exactly as the freeze says.**' in t
+            and '**raw level-0 equality is not invariant under the whole weak-right action and does '
+                'not itself compute act 12\'s per-slice quotient**' in t
+            and 'Raw level-0 equality is the stronger, representative-level equality: sufficient '
+                'to place two slices in one two-sided orbit, not implied by membership in it.' in t)
+
+
+def _cti_ct1(t=None):
+    """T6 -- CT1 in both directions, the forward by the forced element, the backward consumed from
+    GL3, and the bounded reading: CT1 does not say what pins the lift."""
+    t = _CTI1 if t is None else t
+    return ('**forward, this round\'s** — `ct1_forward`: the one forced element `K = U_0ᴴ U\'_0`'
+            in t
+            and '**backward, consumed** — `ct1_backward` is act 11\'s merged '
+                '`gl3_constant_gauge_preserves_relative` applied and renamed, nothing more' in t
+            and '**`CT1` does not say what pins it.**' in t
+            and 'The constant is not restricted to a gauge class, and cannot be' in t)
+
+
+def _cti_ct2a(t=None):
+    """T7 -- hazard 2: CT2 (a) both directions, the conjugation consequence stated exactly and NOT
+    read as sufficiency; CT4 the certificate."""
+    t = _CTI1 if t is None else t
+    return ('**(a) Level 3, both directions at level 2.**' in t
+            and 'hence the relative evolution up to **conjugation by one constant unitary**' in t
+            and 'is **not** the identity on relative candidates — `CT4` is the certificate.' in t
+            and '"Determines the lift up to `≈_L`" and "determines the relative candidate" are '
+                'different claims, and only the first is made.' in t)
+
+
+def _cti_ct2b(t=None):
+    """T8 -- hazard 10: CT2 (b) both directions, the forward REACHED at kernel level through the
+    arbitrary-index Gram-isometry lemma, the fallback NOT used, the corollary not attempted."""
+    t = _CTI1 if t is None else t
+    return ('**(b) Level 2, both directions at level 2.**' in t
+            and '**Forward** (`ct2b_forward`), **reached at kernel level; the frozen fallback is '
+                'NOT used.**' in t
+            and 'two families of vectors in `ℂ^A` indexed by **any** type `ι`, with the same '
+                'pairwise inner products, are related by one unitary on `ℂ^A`' in t
+            and 'Nothing assumes the family is finite, spanning or independent, so no '
+                'finite-spanning-subfamily reduction was needed.' in t
+            and '**The phase-quotiented corollary was not attempted.**' in t)
+
+
+def _cti_ct2b_kernel(t=None):
+    """T9 -- the CT2 (b) iff and the arbitrary-index Gram-isometry lemma ARE in the kernel, as
+    stated: the lemma over `{ι : Type}` and the iff with the constant left move and the strong
+    time-dependent gauge as its right-hand side."""
+    t = _CTILEAN if t is None else t
+    return ('theorem exists_unitary_of_inner_eq {ι : Type} (x y : ι → EuclideanSpace ℂ A) (h : ∀ p '
+            'q, inner ℂ (x p) (x q) = inner ℂ (y p) (y q)) : ∃ M : Matrix A A ℂ, M ∈ '
+            'Matrix.unitaryGroup A ℂ ∧ ∀ p, M *ᵥ WithLp.ofLp (x p) = WithLp.ofLp (y p)' in t
+            and 'theorem ct2b_fibreCrossGram_iff' in t
+            and "(∀ i t s, FibreCrossGram a₀ U' i t s = FibreCrossGram a₀ U i t s) ↔ ∃ W : Matrix "
+                "(V × A) (V × A) ℂ, LeftFibreGroup W ∧ GaugeRelated (StrongAnchorStabilizer a₀) "
+                "(fun t => W * U t) U'" in t
+            and 'theorem ct1_relative_iff_constRight' in t
+            and "(∀ t s, U' t * (U' s)ᴴ = U t * (U s)ᴴ) ↔ ConstRightRelated U U'" in t
+            and 'theorem ct2a_crossGram_iff_constLeft' in t
+            and "(∀ t s, CrossGram U' t s = CrossGram U t s) ↔ ConstLeftRelated U U'" in t)
+
+
+def _cti_ladder(t=None):
+    """T10 -- the ladder sentence at full strength, with its last clause, tied to CT4."""
+    t = _CTI1 if t is None else t
+    return ('**(c) The ladder sentence, asserted at full strength, since (a), (b) and `CT4` all '
+            'landed:**' in t
+            and '**Level 0 modulo anchored phases classifies the per-slice two-sided orbit of act '
+                '12 at every time, so it determines the lift up to act 12\'s time-dependent '
+                'two-sided action, with raw level-0 equality a stronger representative-level '
+                'equality; level 2 up to a constant in-fibre left move and a time-dependent strong '
+                'right gauge; level 3 up to a constant left unitary. No level determines the '
+                'relative candidate.**' in t
+            and 'the last clause is `CT4`.' in t)
+
+
+def _cti_ct3g_a(t=None):
+    """T11 -- CT3 (G) universal, CT3 (a) with the certified entry named, its values, and the
+    uncertified entry NOT claimed."""
+    t = _CTI1 if t is None else t
+    return ('**(G) Universal blindness of levels 0–2 to strong-right threading, at level 2.**' in t
+            and '**the least separating column-Gram datum for `GL2`-type pairs lies outside the '
+                'anchored block.**' in t
+            and '**the certified entry is `((0,1),(1,1))` of `Ξ^{(0,1)}`, with values `0` for `U` '
+                'and `1` for `U\'`**' in t
+            and 'was not certified and is not claimed' in t
+            and '**`GL2`\'s pair shares every per-time Gram matrix, every level-1 and every '
+                'level-2 datum, and is separated by one off-anchor entry of `Ξ`.**' in t)
+
+
+def _cti_ct3b(t=None):
+    """T12 -- hazard 4: the Hadamard pair the TRAJECTORY-TYPE control, its per-time Gram data
+    stated inequivalent, NOT presented as sharing per-time Gram data."""
+    t = _CTI1 if t is None else t
+    return ('**(b) The Hadamard pair is the trajectory-type control, not a threading witness, at '
+            'level 2.**' in t
+            and 'have per-time Gram data already **inequivalent** at `t = 1`' in t
+            and '**the pair is not one sharing every per-time Gram matrix and is not presented as '
+                'one**' in t
+            and 'because the difference is a difference of Gram trajectory, not of threading' in t)
+
+
+def _cti_ct3c_d(t=None):
+    """T13 -- CT3 (c) with the off-anchor x off-anchor entry and the candidate values; CT3 (d)
+    UNDECIDED with neither side claimed and CT4's pair NOT the fork witness (hazard 5)."""
+    t = _CTI1 if t is None else t
+    return ('**the certified off-anchor × off-anchor entry `((0,1),(0,1))` of `Ξ^{(0,1)}`, values '
+            '`1` for `U` and `0` for `U\'`**' in t
+            and '**`0` against `1/4`**' in t
+            and '**(d) The fork — does level 3 separate every `GL2`-type pair? UNDECIDED.**' in t
+            and 'Neither `CT3-d⁺` nor `CT3-d⁻` was reached, and neither is claimed.' in t
+            and '`CT4`\'s pair is not a candidate: its relating element is a constant left `W ∈ '
+                '𝒢_L`, and the forced right element `U_tᴴ W U_t` is not strong at `t = 0`.' in t
+            and '**The fork clause therefore adds nothing to the post-round sentence.**' in t)
+
+
+def _cti_ct4(t=None):
+    """T14 -- CT4 with CL1: the constant W in G_L, equal cross-Grams at EVERY t, s, the candidate
+    entries 1 against 0, CL1 existential, GI2 not revised, |A| >= 2 in the statement (hazard 7)."""
+    t = _CTI1 if t is None else t
+    return ('**`Ξ^{(t,s)}(U\') = Ξ^{(t,s)}(U)` for all `t, s`**' in t
+            and '**the relative candidates differ at the entry `(0,0)`: `1` against `0`.**' in t
+            and '**`CL1` is existential and says nothing about every constant left move.**' in t
+            and '`CL1` is not a revision of `GI2`' in t
+            and '**`|A| = 1` is out of `CT4`\'s reach, and the scoping is part of the '
+                'statement.**' in t
+            and 'no member of the frozen family, up to and including the full column cross-Gram, '
+                'determines the relative candidate' in t
+            and 'not the naming of one' in t)
+
+
+def _cti_ct4_kernel(t=None):
+    """T15 -- CT4's theorem carries |A| >= 2, the constant left move IN THE LEFT FIBRE GROUP, both
+    coherence conjuncts, the cross-Gram equality at every t, s, the fibre cross-Gram equality and
+    BOTH readback values as conjuncts of ONE statement."""
+    t = _CTILEAN if t is None else t
+    return ('theorem ct4_constant_left_obstruction' in t
+            and "(∀ a : Fin 2, ∃ a' : Fin 2, a' ≠ a) ∧ (∀ t, Γ t = 1) ∧ U 0 = 1 ∧" in t
+            and "∧ (∀ t, U' t = W * U t) ∧ LeftFibreGroup W ∧ CoherentLift (0 : Fin 2) Γ U ∧ "
+                "CoherentLift (0 : Fin 2) Γ U' ∧ ConstLeftRelated U U' ∧ (∀ t s, CrossGram U' t s = "
+                "CrossGram U t s) ∧ (∀ i t s, FibreCrossGram (0 : Fin 2) U' i t s = FibreCrossGram "
+                "(0 : Fin 2) U i t s) ∧ readback (0 : Fin 2) (Matrix.of fun p q => ‖(U 1 * (U 0)ᴴ) "
+                "p q‖ ^ 2) 0 0 = 1 ∧ readback (0 : Fin 2) (Matrix.of fun p q => ‖(U' 1 * (U' 0)ᴴ) "
+                "p q‖ ^ 2) 0 0 = 0" in t
+            and 'theorem cl1_constant_left_moves_relative_candidate' in t
+            and 'theorem ct3g_fibreCrossGram_strong_right' in t)
+
+
+def _cti_post_round(t=None):
+    """T16 -- the frozen Case A sentence, verbatim, and the row's label unchanged."""
+    t = _CTI1 if t is None else t
+    return ('`P0` remains open and two-part, and the threading part is localized exactly: the fibre '
+            'cross-Gram trajectory determines the lift up to one constant in-fibre left move and one '
+            'time-dependent strong right gauge, and no column-Gram datum — up to and including the '
+            'full two-time column Gram — determines the relative candidate, by a constant-left '
+            'obstruction. The residual threading freedom relative to this datum is exactly a '
+            'strong-right family modulo a constant together with one constant in-fibre frame; '
+            'nothing in act 13 selects either, and no connection, gauge fixing or selection '
+            'principle is asserted or excluded.' in t
+            and 'The `P0` row stays **OPEN**.' in t
+            and '**No case closes `P0`.**' in t)
+
+
+def _cti_not_licensed(t=None):
+    """T17 -- the frozen non-licences, in terms."""
+    t = _CTI1 if t is None else t
+    return ('**No selection principle is named**, endorsed or excluded.' in t
+            and '**No connection and no gauge-fixing mechanism is asserted**, in either direction.'
+                in t
+            and '**`P0` is not closed by a characterization.**' in t
+            and '**Nothing here says OI and QM are inequivalent.**' in t
+            and '**The cross-Gram data are coordinates on the lift space, not physical '
+                'quantities**' in t
+            and '**Nothing is imported from the substratum Lemma 24.1 round.**' in t
+            and '**Nothing about Track I.**' in t)
+
+
+def _cti_relation(t=None):
+    """T18 -- the relation to acts 11 and 12: GL2, GL3, GI2, TG2, TG3, RO1 consumed, none revised."""
+    t = _CTI1 if t is None else t
+    return ('Act 11\'s `GL2` **stands as stated** and is consumed as the threading witness' in t
+            and 'Act 11\'s `GI2` is **not revised** by `CL1`' in t
+            and 'Act 12\'s `TG2` is consumed as the **phase-quotiented** reading of level 0 of the '
+                'ladder' in t
+            and 'the Hadamard pair is not presented as sharing per-time Gram data, because `TG3` '
+                'proves it does not' in t
+            and 'Act 12\'s `RO1` is consumed as the time-dependent left move; `CL1` is the constant '
+                'one.' in t
+            and '**It revises no merged result.**' in t)
+
+
+def _cti_budget(t=None):
+    """T19 -- four of six slots, both conditional slots unused with reasons, no seventh."""
+    t = _CTI1 if t is None else t
+    return ('## Definition budget: **FOUR of the frozen six slots fire**' in t
+            and '5 (conditional) | a cross-time phase equivalence on fibre cross-Gram data | '
+                '**unused**' in t
+            and '6 (conditional) | a relative-object or relative-candidate abbreviation | '
+                '**unused**' in t
+            and '**No seventh definition was introduced**' in t
+            and 'Act 7\'s, act 11\'s and act 12\'s definitions are reused, not redefined.' in t)
+
+
+def _cti_lean_defs(t=None):
+    """T20 -- exactly the four budget definitions are top-level `def`s in the module, in the
+    frozen slots' names and order, and the module carries no unproved declaration."""
+    t = _CTILEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['CrossGram', 'FibreCrossGram', 'ConstRightRelated', 'ConstLeftRelated']
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t
+            and 'import OIBridge.TwoSidedGauge' in t
+            and 'import OIBridge.SemigroupTransfer' not in t)
+
+
+def _cti_chronology_scope(t=None):
+    """T21 -- the chronology certification names the property certified and the archive pins as
+    UNSET at execution."""
+    t = _CTI1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside '
+            '`B`\'s descendants.**' in t
+            and '**archive mode** (`_CTI_SEALED_HEAD`, `_CTI_MERGE`) is present and **unset**' in t
+            and '**unset at execution**' in t)
+
+
+def _cti_no_manuscript(t=None):
+    """T22 -- no manuscript edit, no selection principle, no smallest sufficient datum, no Track I,
+    D5 left NOT CERTIFIED, no discrepancy recorded (every start-state blob present)."""
+    t = _CTI1 if t is None else t
+    return ('**It touches no manuscript.**' in t
+            and '**It names, endorses and excludes no selection principle**' in t
+            and '**It does not name a smallest sufficient datum.**' in t
+            and '**It says nothing about Track I**' in t
+            and '**Act 7 layer 2\'s `D5` chronological-ordering control stands NOT CERTIFIED.**'
+                in t
+            and '**Every blob in the freeze\'s start-state table is present at the mandated base '
+                'with the SHA the freeze records; no discrepancy is recorded.**' in t)
+
+
+ok_cti = True
+ok_cti &= _cti_freeze_pin()
+ok_cti &= _cti_execution_ancestry()
+ok_cti &= _cti_outcome()
+ok_cti &= _cti_structural_point()
+ok_cti &= _cti_level0_reading()
+ok_cti &= _cti_ct1()
+ok_cti &= _cti_ct2a()
+ok_cti &= _cti_ct2b()
+ok_cti &= _cti_ct2b_kernel()
+ok_cti &= _cti_ladder()
+ok_cti &= _cti_ct3g_a()
+ok_cti &= _cti_ct3b()
+ok_cti &= _cti_ct3c_d()
+ok_cti &= _cti_ct4()
+ok_cti &= _cti_ct4_kernel()
+ok_cti &= _cti_post_round()
+ok_cti &= _cti_not_licensed()
+ok_cti &= _cti_relation()
+ok_cti &= _cti_budget()
+ok_cti &= _cti_lean_defs()
+ok_cti &= _cti_chronology_scope()
+ok_cti &= _cti_no_manuscript()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# P0 declared closed by the characterization -- the over-reading the freeze forbids in every case
+_cti_m1 = _CTI1.replace('**`P0` is not closed by a characterization.**',
+                        '**`P0` is closed by this characterization.**')
+ok_cti &= _cti_m1 != _CTI1 and not _cti_not_licensed(_cti_m1)
+
+_cti_m2 = _CTI1.replace('**No case closes `P0`.**', '**Case A closes `P0`.**')
+ok_cti &= _cti_m2 != _CTI1 and not _cti_post_round(_cti_m2)
+
+# a selection principle named -- hazard 13
+_cti_m3 = _CTI1.replace('**No selection principle is named**, endorsed or excluded.',
+                        'The selection principle is the constant in-fibre frame of least norm.')
+ok_cti &= _cti_m3 != _CTI1 and not _cti_not_licensed(_cti_m3)
+
+# the two-sided action said to act on relative evolutions -- hazard 1
+_cti_m4 = _CTI1.replace('**The two-sided action of act 12 does not act on relative evolutions.**',
+                        'The relative evolution is determined up to the two-sided action of act 12.')
+ok_cti &= _cti_m4 != _CTI1 and not _cti_structural_point(_cti_m4)
+
+# level 0 RAW equality said to compute the two-sided quotient
+_cti_m5 = _CTI1.replace(
+    '**raw level-0 equality is not invariant under the whole weak-right action and does not '
+    'itself compute act 12\'s per-slice quotient**',
+    'raw level-0 equality is invariant under the two-sided action and computes act 12\'s '
+    'per-slice quotient')
+ok_cti &= _cti_m5 != _CTI1 and not _cti_level0_reading(_cti_m5)
+
+# the Hadamard pair said to share per-time Gram data -- hazard 4
+_cti_m6 = _CTI1.replace(
+    '**the pair is not one sharing every per-time Gram matrix and is not presented as one**',
+    'the pair shares every per-time Gram matrix and is a second threading witness')
+ok_cti &= _cti_m6 != _CTI1 and not _cti_ct3b(_cti_m6)
+
+# CT4 dropped from the outcome line
+_cti_m7 = _CTI1.replace(
+    '**`CT1`, `CT2` (a) and (b) in both directions, `CT3` (G), (a), (b), (c) and `CT4` with '
+    '`CL1` all landed at evidence level 2',
+    '**`CT1`, `CT2` (a) and (b) in both directions and `CT3` (G), (a), (b), (c) landed at '
+    'evidence level 2; `CT4` is UNDECIDED')
+ok_cti &= _cti_m7 != _CTI1 and not _cti_outcome(_cti_m7)
+
+# CT4's candidate entries dropped from its section, or its constant W not in the left fibre group
+_cti_m8 = _CTI1.replace(
+    '**the relative candidates differ at the entry `(0,0)`: `1` against `0`.**',
+    'the relative candidates agree, as they must for a left move in the invisible group.')
+ok_cti &= _cti_m8 != _CTI1 and not _cti_ct4(_cti_m8)
+
+# the ladder's last clause asserted without CT4, or the sentence detached from CT4
+_cti_m9 = _CTI1.replace('the last clause is `CT4`.',
+                        'the last clause follows from the conjugation consequence of `CT2` (a).')
+ok_cti &= _cti_m9 != _CTI1 and not _cti_ladder(_cti_m9)
+
+_cti_m10 = _CTI1.replace(
+    '**(c) The ladder sentence, asserted at full strength, since (a), (b) and `CT4` all landed:**',
+    '**(c) The ladder sentence, asserted at full strength, since (a) and (b) landed:**')
+ok_cti &= _cti_m10 != _CTI1 and not _cti_ladder(_cti_m10)
+
+# CT2 (a) read as sufficiency -- hazard 2
+_cti_m11 = _CTI1.replace(
+    'is **not** the identity on relative candidates — `CT4` is the certificate.',
+    'so the column cross-Gram determines the relative candidate.')
+ok_cti &= _cti_m11 != _CTI1 and not _cti_ct2a(_cti_m11)
+
+# CT2 (b) forward reported at full with the fallback quietly used -- hazard 10
+_cti_m12 = _CTI1.replace(
+    '**Forward** (`ct2b_forward`), **reached at kernel level; the frozen fallback is NOT used.**',
+    '**Forward**, certified on the finite spanning subfamily; the infinite family follows.')
+ok_cti &= _cti_m12 != _CTI1 and not _cti_ct2b(_cti_m12)
+
+# the Gram-isometry lemma restricted to a finite index type in the KERNEL
+_cti_m13 = _CTILEAN.replace('theorem exists_unitary_of_inner_eq {ι : Type} (x y : ι → EuclideanSpace ℂ A)',
+                            'theorem exists_unitary_of_inner_eq {ι : Type} [Fintype ι] '
+                            '(x y : ι → EuclideanSpace ℂ A)')
+ok_cti &= _cti_m13 != _CTILEAN and not _cti_ct2b_kernel(_cti_m13)
+
+# CT2 (b)'s iff weakened to the backward implication in the KERNEL
+_cti_m14 = _CTILEAN.replace(
+    "(∀ i t s, FibreCrossGram a₀ U' i t s = FibreCrossGram a₀ U i t s) ↔ ∃ W : Matrix",
+    "(∀ i t s, FibreCrossGram a₀ U' i t s = FibreCrossGram a₀ U i t s) ← ∃ W : Matrix")
+ok_cti &= _cti_m14 != _CTILEAN and not _cti_ct2b_kernel(_cti_m14)
+
+# CT1's constant restricted to a gauge class -- hazard 3
+_cti_m15 = _CTI1.replace('The constant is not restricted to a gauge class, and cannot be',
+                         'The constant may be taken in the weak class without loss')
+ok_cti &= _cti_m15 != _CTI1 and not _cti_ct1(_cti_m15)
+
+# the fork resolved without a theorem or a witness
+_cti_m16 = _CTI1.replace('Neither `CT3-d⁺` nor `CT3-d⁻` was reached, and neither is claimed.',
+                         '`CT3-d⁺` holds: level 3 separates every `GL2`-type pair.')
+ok_cti &= _cti_m16 != _CTI1 and not _cti_ct3c_d(_cti_m16)
+
+# CT4's pair promoted to the fork witness -- hazard 5
+_cti_m17 = _CTI1.replace(
+    '`CT4`\'s pair is not a candidate: its relating element is a constant left `W ∈ 𝒢_L`, and the '
+    'forced right element `U_tᴴ W U_t` is not strong at `t = 0`.',
+    '`CT4`\'s pair decides the fork negatively: it is strong-right related with equal `Ξ`.')
+ok_cti &= _cti_m17 != _CTI1 and not _cti_ct3c_d(_cti_m17)
+
+# CL1 read against GI2 -- hazard 6
+_cti_m18 = _CTI1.replace('`CL1` is not a revision of `GI2`', '`CL1` revises `GI2`')
+ok_cti &= _cti_m18 != _CTI1 and not _cti_ct4(_cti_m18)
+
+# CL1 universalized
+_cti_m19 = _CTI1.replace('**`CL1` is existential and says nothing about every constant left move.**',
+                         'So every constant left move changes the relative candidate.')
+ok_cti &= _cti_m19 != _CTI1 and not _cti_ct4(_cti_m19)
+
+# the |A| >= 2 conjunct removed from CT4's THEOREM -- hazard 7
+_cti_m20 = _CTILEAN.replace("(∀ a : Fin 2, ∃ a' : Fin 2, a' ≠ a) ∧ (∀ t, Γ t = 1) ∧ U 0 = 1 ∧",
+                            "(∀ t, Γ t = 1) ∧ U 0 = 1 ∧")
+ok_cti &= _cti_m20 != _CTILEAN and not _cti_ct4_kernel(_cti_m20)
+
+# the cross-Gram equality dropped from CT4's THEOREM, leaving a left move with no cross-time claim
+_cti_m21 = _CTILEAN.replace(" ∧ ConstLeftRelated U U' ∧ (∀ t s, CrossGram U' t s = CrossGram U t s) ∧",
+                            " ∧ ConstLeftRelated U U' ∧")
+ok_cti &= _cti_m21 != _CTILEAN and not _cti_ct4_kernel(_cti_m21)
+
+# the uncertified entry of CT3 (a) claimed
+_cti_m22 = _CTI1.replace('was not certified and is not claimed', 'was certified as well')
+ok_cti &= _cti_m22 != _CTI1 and not _cti_ct3g_a(_cti_m22)
+
+# the shape remark promoted to a datum -- hazard 12
+_cti_m23 = _CTI1.replace('not the naming of one', 'and the row-Gram data are that datum')
+ok_cti &= _cti_m23 != _CTI1 and not _cti_ct4(_cti_m23)
+
+# a smallest sufficient datum named -- hazard 11
+_cti_m24 = _CTI1.replace('**It does not name a smallest sufficient datum.**',
+                         'The smallest sufficient datum is the full column cross-Gram.')
+ok_cti &= _cti_m24 != _CTI1 and not _cti_no_manuscript(_cti_m24)
+
+# the substratum round's vocabulary imported -- hazard 14
+_cti_m25 = _CTI1.replace('**Nothing is imported from the substratum Lemma 24.1 round.**',
+                         'The block-word traces of the Lemma 24.1 round are the level-4 datum.')
+ok_cti &= _cti_m25 != _CTI1 and not _cti_not_licensed(_cti_m25)
+
+# a merged label revised
+_cti_m26 = _CTI1.replace('Act 11\'s `GI2` is **not revised** by `CL1`',
+                         'Act 11\'s `GI2` is **superseded** by `CL1`')
+ok_cti &= _cti_m26 != _CTI1 and not _cti_relation(_cti_m26)
+
+# a fifth definition slipped in, or the budget misreported
+_cti_m27 = _CTILEAN.replace('def ConstLeftRelated',
+                            'def CrossPhaseEquiv (c : ℕ → V → ℂ) := c def ConstLeftRelated')
+ok_cti &= _cti_m27 != _CTILEAN and not _cti_lean_defs(_cti_m27)
+
+_cti_m28 = _CTI1.replace('**No seventh definition was introduced**',
+                         'A seventh definition was convenient and was added')
+ok_cti &= _cti_m28 != _CTI1 and not _cti_budget(_cti_m28)
+
+# a manuscript propagation the round is forbidden to make
+_cti_m29 = _CTI1.replace('**It touches no manuscript.**', 'The manuscripts carry the ladder.')
+ok_cti &= _cti_m29 != _CTI1 and not _cti_no_manuscript(_cti_m29)
+
+# the archive pins reported set at execution
+_cti_m30 = _CTI1.replace('**archive mode** (`_CTI_SEALED_HEAD`, `_CTI_MERGE`) is present and **unset**',
+                         '**archive mode** (`_CTI_SEALED_HEAD`, `_CTI_MERGE`) is present and **set**')
+ok_cti &= _cti_m30 != _CTI1 and not _cti_chronology_scope(_cti_m30)
+
+# a connection asserted alongside the post-round sentence
+_cti_m31 = _CTI1.replace('**No connection and no gauge-fixing mechanism is asserted**, in either '
+                         'direction.',
+                         'A connection on the orbit bundle supplies the strong-right family.')
+ok_cti &= _cti_m31 != _CTI1 and not _cti_not_licensed(_cti_m31)
+
+# T1's control runs THROUGH _cti_freeze_pin, so sabotaging that predicate fails the guard.
+def _cti_drift(path):
+    """One byte appended to act 13's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-13-cross-time-invariants/preregistration.md') else b'')
+
+
+ok_cti &= _cti_drift(_CTIDIR + 'preregistration.md') != _bb_read(_CTIDIR + 'preregistration.md')
+ok_cti &= not _cti_freeze_pin(_cti_drift)
+
+check('R7-CTI', ok_cti,
+      'Track B act 13 guard: a BOUNDING round -- one frozen family of cross-time column-Gram data at three '
+      'resolutions, the exact quotient each member computes proved in both directions, the family bounded from '
+      'below by a universal theorem and from above by an explicit pair. The boxed outcome is checked verbatim -- '
+      'every target at level 2, CT2 (b) forward at kernel level with the frozen fallback UNUSED, CT3 (d) UNDECIDED, '
+      'Case A with the fork clause adding nothing -- with CT4 dropped from it mutation-tested. The structural point '
+      'is checked in the freeze\'s words: the two-sided action does NOT act on relative evolutions and the quotient '
+      'is constant-right (CT1), the promotion mutation-tested; level 0 RAW equality is checked kept apart from level '
+      '0 modulo anchored phases, the raw datum moved by the weak-right action and NOT computing the per-slice '
+      'quotient, the conflation mutation-tested. CT1 is checked in both directions with the forward by the forced '
+      'element and the backward consumed from GL3, the constant NOT restricted to a gauge class; CT2 (a) checked '
+      'in both directions with the conjugation consequence stated exactly and NOT read as sufficiency, CT4 the '
+      'certificate; CT2 (b) checked in both directions with the forward REACHED at kernel level through the '
+      'Gram-isometry lemma stated for an ARBITRARY index type -- the lemma\'s signature and the iff checked in the '
+      'kernel, the finite restriction and the one-way weakening mutation-tested -- and the phase-quotiented '
+      'corollary recorded not attempted. The ladder sentence is checked at full strength and tied to CT4, its '
+      'detachment mutation-tested. CT3 (G) is checked universal; CT3 (a) checked with the certified entry '
+      '((0,1),(1,1)) named and the uncertified entry NOT claimed; CT3 (b) checked as the TRAJECTORY-TYPE control '
+      'with the per-time Gram inequivalence stated and the pair NOT presented as sharing per-time Gram data, the '
+      'promotion mutation-tested; CT3 (c) checked with the off-anchor x off-anchor entry and the candidate values 0 '
+      'and 1/4; CT3 (d) checked UNDECIDED with neither side claimed and CT4\'s pair NOT the fork witness, both '
+      'mutation-tested. CT4 is checked with the constant W in the left fibre group, equal cross-Grams at EVERY t, s, '
+      'the candidate entries 1 against 0 and the |A| >= 2 scoping as conjuncts of ONE kernel theorem, with the '
+      'scoping conjunct and the cross-Gram conjunct removals mutation-tested; CL1 checked existential and NOT a '
+      'revision of GI2, with the universalization and the GI2 revision mutation-tested. The frozen Case A '
+      'post-round sentence is checked verbatim with P0 OPEN, the non-licences checked in terms -- no selection '
+      'principle, no connection, P0 not closed by a characterization, no inequivalence, coordinates not physics, '
+      'nothing from the Lemma 24.1 round, nothing about Track I -- with the closure, the named principle, the '
+      'connection and the substratum import mutation-tested; the shape remark checked NOT promoted to a datum and '
+      'no smallest sufficient datum named. GL2, GL3, GI2, TG2, TG3 and RO1 are checked consumed and none revised. '
+      'Four of six definition slots fire with both conditional slots recorded unused for stated reasons and no '
+      'seventh; the module is checked to carry EXACTLY those four top-level definitions in the frozen names, no '
+      'unproved declaration, and no import of the Lemma 24.1 module. The chronology control is act 10\'s STRONG '
+      'form: the blob by content, the real pull_request.head.sha rather than the synthetic merge commit, B an '
+      'ancestor of the head AND every commit of the execution-only history required to descend from B, recovery '
+      'included and fail-closed, with the archive-mode scaffolding carried and its pins checked recorded UNSET at '
+      'execution. No manuscript edit, no discrepancy in the start-state table. Twenty-two named contracts, '
+      'thirty-one mutation controls, plus the freeze-pin drift controls.')
+
 # ---- R7-A6D: substratum -- A6 background independence, round 1: definition and closure ----
 #
 # A DEFINITION round, not a proof round: the ROADMAP carries A6 as a GAP because the manuscript

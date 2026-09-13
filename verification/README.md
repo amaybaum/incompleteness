@@ -2196,5 +2196,40 @@ archive mode after the merge, and checks every frozen sentence with thirteen mut
 `R7-A11P`'s contracts E4, E5 and E18 — the three whose pinned sentences this round supersedes —
 are re-pinned in the same commit, with both of its blob pins and every other contract untouched.
 
+Track B act 13 (`programmes/oi-qm/track-b/act-13-cross-time-invariants/`, preregistration blob
+`5d8bee2`, merged by PR #602 as `d019718`, the mandated execution base) is the bounding round that
+follows act 12's classification: it freezes one family of cross-time data — the two-time Gram data
+of the dilation columns at three resolutions — and proves which quotient of the lift each member
+computes. `OIBridge/CrossTimeInvariants.lean` fixes the structural point first: the two-sided action
+of act 12 does not act on relative evolutions, and the relative evolution is exactly the lift modulo
+a constant right unitary (`ct1_relative_iff_constRight`, the backward direction act 11's `GL3`
+consumed). The column cross-Gram `CrossGram` determines the lift up to one constant left unitary in
+both directions (`ct2a_crossGram_iff_constLeft`), hence the relative evolution up to conjugation by
+one constant unitary (`ct2a_relative_conj`); the fibre cross-Gram `FibreCrossGram`, whose `t = s`
+diagonal is act 12's `FibreGram` definitionally, determines the lift up to one constant in-fibre
+left move and one time-dependent strong right gauge in both directions
+(`ct2b_fibreCrossGram_iff`), the forward direction through a Gram-isometry lemma stated for an
+arbitrary index type (`exists_unitary_of_inner_eq`) and act 11's orbit theorem, so the frozen
+fallback was not used. The family is bounded from below by a universal theorem — levels 0, 1 and 2
+are invariant under every strong-right family (`ct3g_fibreCrossGram_strong_right`) — and from above
+by an explicit pair: two coherent lifts of the identity family at `|A| = 2`, related by a constant
+in-fibre swap in `LeftFibreGroup`, with equal column cross-Grams at every pair of times and
+relative candidates `1` against `0` (`ct4_constant_left_obstruction`,
+`cl1_constant_left_moves_relative_candidate`). `GL2`'s pair is separated by level 3 at the
+off-anchor entry `((0,1),(1,1))` (`ct3a_gl2_pair_separated_by_crossGram`); act 12's Hadamard pair,
+whose per-time Gram data are already inequivalent, is the trajectory-type control
+(`ct3b_hadamard_trajectory_control`); the constant-lift variant of `GL2` agrees on every anchored
+column of the cross-Gram and is separated only at an off-anchor × off-anchor entry, with relative
+candidates `0` against `1/4` (`ct3c_constant_lift_variant`); whether level 3 separates every
+`GL2`-type pair is UNDECIDED. Level 0 raw equality is kept apart from level 0 modulo anchored
+phases (`fibreCrossGram_mul_weak_apply`): the raw datum does not itself compute act 12's per-slice
+quotient. `P0` stays OPEN and two-part with its threading part localized exactly; no selection
+principle is named, no connection or gauge fixing asserted, `GL2`, `GL3`, `GI2`, `TG2`, `TG3` and
+`RO1` consumed and none revised. Thirty-five named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`; four of six definition slots fired; no manuscript edit. Guard
+`R7-CTI` pins the preregistration blob by content and certifies the strengthened execution
+ancestry with the archive-mode scaffolding carried and its pins unset at execution, and checks each
+frozen reading in terms with thirty-one mutation controls.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.
