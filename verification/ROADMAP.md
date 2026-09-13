@@ -409,6 +409,23 @@ P3 rather than higher.
 → [`REPRESENTATION-SECTOR-AUDIT.md`](audits/manuscript/representation-sector-audit.md),
 [`QUASILOCAL-COMPLETION-AUDIT.md`](audits/operational/quasilocal-completion-audit.md)
 
+### Hydrodynamics programme — round H-A executed
+
+The source audit of the concrete wave representative `waveSubstratum d L q α` is executed at
+evidence level 2 on the mandated base `ae81459` (`OIBridge/HydroSourceAudit.lean`, guard
+`R7-HYA`): the linearity gate makes the advection obligation HI conditional on `ZMod q`-linear
+coarse variables, with real-valued or nonlinear coarse variables HO; the only total-sum
+conservation law is conserved in the manuscript instance iff `q ∣ 4`, so that candidate field is
+not `q`-gauge invariant, which is not a universal no-go for other hydrodynamic variables; the axis
+stencil's fourth moment is proved anisotropic — conditional HI if H5's stress closure consumes
+this tensor, otherwise H2 remains HO; and H3 and H4 are HO. Round H-B is entirely alive, nothing
+here bears on the OI → QM chain, and no row of the queue above changes.
+
+→ [round H-A result](programmes/hydrodynamics/round-h-a-source-audit/result.md) (`H0`, `H1`,
+`H2a`/`H2b`, `H3a`, `H4a`, and what none of them licenses)
+→ [round H-A preregistration](programmes/hydrodynamics/round-h-a-source-audit/preregistration.md)
+(the frozen object, the targets, the predictions, and the twelve hazards)
+
 ## Settled negatively — `INDEPENDENT`, and not queue items
 
 **These are findings. They do not belong on the list above and are recorded here so they are not

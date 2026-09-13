@@ -10599,6 +10599,481 @@ check('R7-ABR', ok_abr,
       'edit, no cross-track sourcing, no candidate-selection principle. Sixteen named contracts, twenty-two mutation '
       'controls, plus the freeze-pin drift controls.')
 
+# ---- R7-HYA: Hydrodynamics round H-A -- the source audit of the concrete wave representative ----
+#
+# The first executed round of the hydrodynamics programme, and a SOURCE AUDIT: every target was
+# predicted positive with its reason recorded in the freeze, so what can go wrong is the STATUS
+# each finding is reported under, not the landing. The hazards the control plane named are all
+# readings -- H1-c inflated to a universal no-go, or rescued by choosing q; H0's HI reported
+# without its coarse-variable class; H2b reported HI outright before the H5 bridge exists; H3a's
+# non-closure read as absence of local equilibrium, or a timescale separation slipped in; H4 read
+# as a PDE; anything said about the S-branch; H-B read as prejudiced. The guard checks each in the
+# freeze's own words, with a mutation control per contract, pins the chronology in both halves,
+# and holds the module to the frozen seven-slot budget.
+_HYA = open(_artifact('programmes/hydrodynamics/round-h-a-source-audit/result.md'),
+            encoding='utf-8').read()
+_HYA1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _HYA).split()).replace('’', "'")
+_HYALEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'HydroSourceAudit.lean'), encoding='utf-8').read().split())
+_HYADIR = 'programmes/hydrodynamics/round-h-a-source-audit/'
+# The mandated execution base: the merge commit of round H-A's control-plane PR #595.
+_HYA_BASE = 'ae81459372887cfbe27b427b30bbdad1b564f2b7'
+
+
+def _hya_git(*args, **kw):
+    kw.setdefault('tag', 'R7-HYA')
+    return _rbr_git(*args, **kw)
+
+
+def _hya_ensure_present(rev, pr_number=None):
+    return _rbr_ensure_present(rev, pr_number=pr_number, tag='R7-HYA')
+
+
+def _hya_target_commit(env=None):
+    return _rbr_target_commit(env=env, tag='R7-HYA')
+
+
+def _hya_freeze_pin(read=_bb_read):
+    """Y1 -- round H-A's preregistration is byte-identical to the blob merged by PR #595."""
+    return _bb_blob(_HYADIR + 'preregistration.md', read) == (
+        '934cd6aff1cfb07b823c9b131693ee59bb98c632')
+
+
+def _hya_execution_ancestry():
+    """Y2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused verbatim through acts 11 and 12's copies: the head-only
+    check is insufficient because a commit made before the freeze and merged in alongside it leaves
+    the head descended from the freeze while itself not being."""
+    target, label, num = _hya_target_commit()
+    if target is None:
+        return False
+    if not _hya_ensure_present(_HYA_BASE):
+        return False
+    if not _hya_ensure_present(target, pr_number=num):
+        return False
+    r = _hya_git('merge-base', '--is-ancestor', _HYA_BASE, target)
+    if r is None:
+        return False
+    if r.returncode != 0:
+        print('    R7-HYA ancestry: %s is present but is NOT an ancestor of %s'
+              % (_HYA_BASE[:12], label))
+        return False
+    listed = _hya_git('rev-list', '%s' % target, '^%s' % _HYA_BASE)
+    if listed is None or listed.returncode != 0:
+        print('    R7-HYA ancestry: could not enumerate the execution-only history; failing closed')
+        return False
+    revs = listed.stdout.decode('utf-8', 'replace').split()
+    for rev in revs:
+        if not _hya_ensure_present(rev, pr_number=num):
+            return False
+        step = _hya_git('merge-base', '--is-ancestor', _HYA_BASE, rev)
+        if step is None:
+            return False
+        if step.returncode != 0:
+            print('    R7-HYA ancestry: %s is reachable from %s but does NOT descend from %s -- '
+                  'pre-freeze side history' % (rev[:12], label, _HYA_BASE[:12]))
+            return False
+    print('    R7-HYA ancestry: certified %s and all %d commit(s) of the execution-only history '
+          'descend from %s' % (label, len(revs), _HYA_BASE[:12]))
+    return True
+
+
+def _hya_outcome(t=None):
+    """Y3 -- every target at its predicted sign at level 2, the H2a dimension count reached at
+    kernel level with the level-3 fallback recorded UNUSED, nothing moved, nothing UNDECIDED."""
+    t = _HYA1 if t is None else t
+    return ('**Every target landed at its predicted sign and at evidence level 2, and the `H2a` '
+            'dimension count was reached at kernel level — the frozen level-3 fallback for the '
+            '`H2a` dimension count was not used.**' in t
+            and '**Nothing moved from its predicted strength, and no target is UNDECIDED.**' in t)
+
+
+def _hya_h0_status(t=None):
+    """Y4 -- hazards 3 and 4: H0's status carries its coarse-variable class, real-valued or
+    nonlinear coarse variables are HO, and "wrap is the only nonlinearity" is NOT asserted."""
+    t = _HYA1 if t is None else t
+    return ('**Reported status for the advection obligation: HI, conditional on the '
+            'coarse-variable class.**' in t
+            and 'The class is `ZMod q`-linear coarse-graining, named in the statement.' in t
+            and '**Real-valued or nonlinear coarse variables are HO**' in t
+            and 'does **not** assert "the mod-`q` wraparound is the only nonlinearity available"'
+                in t)
+
+
+def _hya_h1_reading(t=None):
+    """Y5 -- hazards 1 and 2: H1 read as THIS candidate field under THIS rule failing q-gauge
+    invariance, NOT a universal no-go, no q chosen to rescue it, and the status in the freeze's
+    two-part form."""
+    t = _HYA1 if t is None else t
+    return ('**Therefore the candidate conserved field `ΔS` is not `q`-gauge invariant**' in t
+            and 'The finding is that **this candidate field**, under **this rule**, fails `q`-gauge '
+                'invariance. It is **not** a universal no-go for all possible hydrodynamic '
+                'variables' in t
+            and '**The execution does not choose `q = 2` or `q = 4` to rescue the field**' in t
+            and '"No hydrodynamic variable can be conserved" is not said here, in any form' in t
+            and '**Reported status for H1: HI for the total-sum candidate under the `q`-gauge '
+                'principle; HO for every other candidate conserved field.**' in t)
+
+
+def _hya_h1_kernel(t=None):
+    """Y6 -- H1-c's exact set is carried by the THEOREM STATEMENTS: iff q | 4, and for q >= 2 iff
+    q = 2 or q = 4, with the alphabet-class hypothesis a hypothesis of the second."""
+    t = _HYALEAN if t is None else t
+    return ('theorem deltaS_conserved_iff_dvd_four' in t
+            and '↔ q ∣ 4' in t
+            and 'theorem deltaS_conserved_iff_two_or_four (hq : 2 ≤ q)' in t
+            and '↔ (q = 2 ∨ q = 4)' in t
+            and 'theorem combination_conserved_iff (a b : ZMod q)' in t
+            and '↔ (b = -a ∧ a * (2 * d * α - 2) = 0)' in t)
+
+
+def _hya_h2_status(t=None):
+    """Y7 -- hazards 5 and 6: H2 reported in the freeze's conditional words, never HI outright,
+    Corollary 1a not contradicted, the counts the fully symmetric 2 versus 1, the fallback unused."""
+    t = _HYA1 if t is None else t
+    return ("**Reported status for H2: exact stencil anisotropy proved; conditional HI if H5's "
+            'stress closure consumes this tensor; otherwise H2 remains HO.**' in t
+            and 'the round does not label the isotropy obligation HI outright' in t
+            and "**Corollary 1a's quadratic isotropy is consumed unchanged and is not "
+                'contradicted**' in t
+            and '**The counts are the fully symmetric ones — 2 versus 1.**' in t
+            and '**the fallback is not used**, and no probe was added' in t)
+
+
+def _hya_h2_kernel(t=None):
+    """Y8 -- the anisotropy is in the kernel in the freeze's form (two vectors of equal length on
+    which the stencil's quartic form differs), consuming quartic_not_isotropic, and the moment's
+    closed form is the theorem's RHS."""
+    t = _HYALEAN if t is None else t
+    return ('theorem axisMoment4_eq (d : ℕ) (a b c e : Fin d) : axisMoment4 d a b c e = '
+            'if a = b ∧ b = c ∧ c = e then 2 else 0' in t
+            and 'theorem axisMoment4_form_not_isotropic' in t
+            and 'obtain ⟨k, k\', h2, h4⟩ := quartic_not_isotropic' in t
+            and 'theorem symInvariantQuartic_iff' in t
+            and '∃! xy : ℝ × ℝ' in t)
+
+
+def _hya_h3_status(t=None):
+    """Y9 -- hazards 7 and 8: H3 HO, no timescale separation preregistered or asserted, no
+    local-equilibrium or mixing statement in either direction, and the L = 4 control CLOSES."""
+    t = _HYA1 if t is None else t
+    return ('**Reported status for H3: HO.**' in t
+            and '**No relation `τ_B ≪ τ_S` is preregistered**, no timescale is asserted' in t
+            and 'no local-equilibrium or mixing statement is made in either direction' in t
+            and 'is **not** a witness, and this is proved rather than only recorded' in t)
+
+
+def _hya_h3_kernel(t=None):
+    """Y10 -- the witness is pinned by equations in ONE theorem statement for every q >= 2, and
+    the non-closure is the negation of CoarseCloses on the frozen block map."""
+    t = _HYALEAN if t is None else t
+    return ('theorem h3a_block_state_not_closed (q : ℕ) (hq : 2 ≤ q)' in t
+            and '∧ curOf y = (fun i => if i 0 = 0 then -1 else if i 0 = 1 then 1 else 0)' in t
+            and '∧ blockSum 1 6 q 3 (curOf (leap (waveF 1 6 q 1) y)) (fun _ => 0) = 1' in t
+            and 'CoarseCloses (blockSum 1 6 q 3) (waveF 1 6 q 1) Φ' in t
+            and 'theorem h3a_control_L4_closes (q : ℕ) (α : ZMod q) : CoarseCloses '
+                '(blockSum 1 4 q 2) (waveF 1 4 q α)' in t)
+
+
+def _hya_h4_status(t=None):
+    """Y11 -- hazard 9: H4 HO with the skeleton as a list of UNFIXED choices, no PDE, and the
+    rigorous-limit calibration not attached to it."""
+    t = _HYA1 if t is None else t
+    return ('**Reported status for H4: HO**, with the skeleton as the deliverable. No limit is '
+            'taken and no PDE is written.' in t
+            and '**None is fixed by the manuscripts or by A1–A6.**' in t
+            and 'the lattice spacing as a function of `L`' in t
+            and 'the time step' in t
+            and 'the field normalization' in t
+            and 'the carrier growth' in t
+            and 'the topology in which convergence would be claimed' in t
+            and 'calibration for H5–H7 only and is not attached to H4' in t)
+
+
+def _hya_no_s_branch(t=None):
+    """Y12 -- hazard 11: nothing about the S-branch's subject anywhere in the note; only the
+    frozen sentence that the continuum-breakdown branch stays closed."""
+    t = _HYA1 if t is None else t
+    return ('singularit' not in t.lower()
+            and 'the continuum-breakdown branch (S1–S5) stays closed until H4–H7 exist' in t
+            and '**Nothing here is a continuum statement.**' in t)
+
+
+def _hya_hb_alive(t=None):
+    """Y13 -- H-B named ALIVE and unprejudiced, and the first non-licence in terms."""
+    t = _HYA1 if t is None else t
+    return ('(H-B: other OI-compatible reversible local substrata) is **entirely alive** and is '
+            'where the next round belongs' in t
+            and "H-B's construction question is untouched and unprejudiced, and H-B is entirely "
+                'alive' in t
+            and '**Nothing here says OI cannot support fluid hydrodynamics.**' in t)
+
+
+def _hya_reading_conditional(t=None):
+    """Y14 -- the programme-level reading VERBATIM from the freeze, conditional on every
+    qualifier, and not shortened."""
+    t = _HYA1 if t is None else t
+    return ('the present wave representative is pushed toward **HI for a direct Navier–Stokes '
+            'limit** by the linearity gate on `ZMod q`-linear coarse variables, together with the '
+            '`q`-dependence of the only total-sum conservation law, and — **conditionally on H5\'s '
+            'closure consuming the stencil\'s fourth moment** — by the fourth-order anisotropy of '
+            'the axis stencil; while the broader construction programme (H-B: other OI-compatible '
+            'reversible local substrata) is **entirely alive** and is where the next round '
+            'belongs. **This reading is conditional on every qualifier above**, and the execution '
+            'may not shorten it.' in t
+            and 'The execution does not shorten it.' in t)
+
+
+def _hya_control1(t=None):
+    """Y15 -- hazard 10 and control 1: nothing imported from or exported to the OI -> QM chain,
+    Track B, Bell or gravity; the q-gauge principle consumed, not tested."""
+    t = _HYA1 if t is None else t
+    return ('**Nothing here bears on the OI → QM chain**' in t
+            and 'No Track B label is imported as evidence here and none of these findings is '
+                'exported there' in t
+            and '**The `q`-gauge principle is consumed as the manuscript states it, not tested.**'
+                in t
+            and '**It says nothing about Track B, Track I, Bell, or gravity**' in t)
+
+
+def _hya_no_manuscript(t=None):
+    """Y16 -- no manuscript edit, and A1-A6 untouched."""
+    t = _HYA1 if t is None else t
+    return ('**No manuscript is edited by this round.**' in t
+            and '**It touches no manuscript.**' in t
+            and '**Nothing here changes A1–A6 or their status.**' in t)
+
+
+def _hya_budget(t=None):
+    """Y17 -- six of seven slots, slot 7 unused with its reason, no eighth, the inputs reused."""
+    t = _HYA1 if t is None else t
+    return ('## Definition budget: **SIX of the frozen seven slots fire**' in t
+            and 'Slot 7 did not fire' in t
+            and '**No eighth definition was introduced**' in t
+            and "`CubicIsotropy`'s and `SubstratumInterfaceAudit`'s definitions are reused, not "
+                'redefined' in t)
+
+
+def _hya_chronology_scoped(t=None):
+    """Y18 -- the chronology claim scoped to the repository record, the preregistration unamended
+    and no discrepancy found."""
+    t = _HYA1 if t is None else t
+    return ('**The claim is scoped to the repository record.**' in t
+            and '**No discrepancy between the preregistration and the execution was found**' in t
+            and 'the preregistration is unamended' in t)
+
+
+def _hya_lean_defs(t=None):
+    """Y19 -- exactly the six fired budget definitions are top-level `def`s in the module, in the
+    freeze's names, with no sorry, axiom or native_decide, and the module's own docstring carrying
+    the conditional H2 status and the bounded H1 reading."""
+    t = _HYALEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['CoarseCloses', 'totalSum', 'SymInvariantQuartic', 'IsotropicQuartic',
+                     'axisMoment4', 'blockSum']
+            and "conditional HI if H5's stress closure consumes this tensor; otherwise `H2` "
+                'remains HO' in t
+            and '**This is not a universal no-go for all possible hydrodynamic variables**' in t
+            and '**No `q` is chosen to rescue the field.**' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+ok_hya = True
+ok_hya &= _hya_freeze_pin()
+ok_hya &= _hya_execution_ancestry()
+ok_hya &= _hya_outcome()
+ok_hya &= _hya_h0_status()
+ok_hya &= _hya_h1_reading()
+ok_hya &= _hya_h1_kernel()
+ok_hya &= _hya_h2_status()
+ok_hya &= _hya_h2_kernel()
+ok_hya &= _hya_h3_status()
+ok_hya &= _hya_h3_kernel()
+ok_hya &= _hya_h4_status()
+ok_hya &= _hya_no_s_branch()
+ok_hya &= _hya_hb_alive()
+ok_hya &= _hya_reading_conditional()
+ok_hya &= _hya_control1()
+ok_hya &= _hya_no_manuscript()
+ok_hya &= _hya_budget()
+ok_hya &= _hya_chronology_scoped()
+ok_hya &= _hya_lean_defs()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# the H2a dimension count quietly reported at level 3 while claiming level 2 throughout
+_hya_m1 = _HYA1.replace(
+    '**Every target landed at its predicted sign and at evidence level 2, and the `H2a` '
+    'dimension count was reached at kernel level — the frozen level-3 fallback for the `H2a` '
+    'dimension count was not used.**',
+    'Every target landed; the H2a dimension count is certified by exact enumeration in a probe.')
+ok_hya &= _hya_m1 != _HYA1 and not _hya_outcome(_hya_m1)
+
+# H0's HI with its coarse-variable class dropped -- hazard 4
+_hya_m2 = _HYA1.replace(
+    '**Reported status for the advection obligation: HI, conditional on the coarse-variable '
+    'class.**',
+    '**Reported status for the advection obligation: HI.**')
+ok_hya &= _hya_m2 != _HYA1 and not _hya_h0_status(_hya_m2)
+
+# "wrap is the only nonlinearity" frozen as a finding -- hazard 3
+_hya_m3 = _HYA1.replace('**Real-valued or nonlinear coarse variables are HO**',
+                        'The mod-q wraparound is the only nonlinearity available, so every coarse '
+                        'variable is linear')
+ok_hya &= _hya_m3 != _HYA1 and not _hya_h0_status(_hya_m3)
+
+# H1-c inflated to a universal no-go -- hazard 1
+_hya_m4 = _HYA1.replace(
+    'It is **not** a universal no-go for all possible hydrodynamic variables',
+    'So no hydrodynamic variable of the present rule can be conserved')
+ok_hya &= _hya_m4 != _HYA1 and not _hya_h1_reading(_hya_m4)
+
+# the field rescued by choosing q -- hazard 2
+_hya_m5 = _HYA1.replace(
+    '**The execution does not choose `q = 2` or `q = 4` to rescue the field**',
+    'At q = 4 the substratum therefore has a conserved momentum, which the round adopts')
+ok_hya &= _hya_m5 != _HYA1 and not _hya_h1_reading(_hya_m5)
+
+# the exact set narrowed in the THEOREM, so the note's {2, 4} would no longer be in the kernel
+_hya_m6 = _HYALEAN.replace('↔ (q = 2 ∨ q = 4)', '↔ q = 4')
+ok_hya &= _hya_m6 != _HYALEAN and not _hya_h1_kernel(_hya_m6)
+
+# H2 reported HI outright, the H5 bridge assumed -- hazard 5
+_hya_m7 = _HYA1.replace(
+    "**Reported status for H2: exact stencil anisotropy proved; conditional HI if H5's stress "
+    'closure consumes this tensor; otherwise H2 remains HO.**',
+    '**Reported status for H2: HI.** The stencil is anisotropic, so the isotropy obligation fails.')
+ok_hya &= _hya_m7 != _HYA1 and not _hya_h2_status(_hya_m7)
+
+# Corollary 1a read as contradicted by the quartic anisotropy -- hazard 5
+_hya_m8 = _HYA1.replace(
+    "**Corollary 1a's quadratic isotropy is consumed unchanged and is not contradicted**",
+    'Corollary 1a is contradicted at fourth order and must be re-read')
+ok_hya &= _hya_m8 != _HYA1 and not _hya_h2_status(_hya_m8)
+
+# the wrong tensor space counted -- hazard 6
+_hya_m9 = _HYA1.replace('**The counts are the fully symmetric ones — 2 versus 1.**',
+                        'The rank-4 invariant counts are 3 versus 2.')
+ok_hya &= _hya_m9 != _HYA1 and not _hya_h2_status(_hya_m9)
+
+# the anisotropy witness dropped from the kernel, leaving only the closed form
+_hya_m10 = _HYALEAN.replace("obtain ⟨k, k', h2, h4⟩ := quartic_not_isotropic", '')
+ok_hya &= _hya_m10 != _HYALEAN and not _hya_h2_kernel(_hya_m10)
+
+# non-closure read as absence of local equilibrium -- hazard 7
+_hya_m11 = _HYA1.replace('**Reported status for H3: HO.**',
+                         '**Reported status for H3: HI.** The block variable does not close, so '
+                         'no local equilibrium exists.')
+ok_hya &= _hya_m11 != _HYA1 and not _hya_h3_status(_hya_m11)
+
+# a timescale separation slipped in -- hazard 8
+_hya_m12 = _HYA1.replace('**No relation `τ_B ≪ τ_S` is preregistered**, no timescale is asserted',
+                         'Since `τ_B ≪ τ_S`, the block variable relaxes before the total sum')
+ok_hya &= _hya_m12 != _HYA1 and not _hya_h3_status(_hya_m12)
+
+# the witness statement weakened to an unspecified configuration
+_hya_m13 = _HYALEAN.replace(
+    '∧ curOf y = (fun i => if i 0 = 0 then -1 else if i 0 = 1 then 1 else 0)', '')
+ok_hya &= _hya_m13 != _HYALEAN and not _hya_h3_kernel(_hya_m13)
+
+# H4 given a PDE
+_hya_m14 = _HYA1.replace('No limit is taken and no PDE is written.',
+                         'In the limit the block field satisfies the linear wave equation.')
+ok_hya &= _hya_m14 != _HYA1 and not _hya_h4_status(_hya_m14)
+
+# the rigorous-limit calibration attached to H4 -- hazard 9
+_hya_m15 = _HYA1.replace('calibration for H5–H7 only and is not attached to H4',
+                         'the calibration H4 is measured against')
+ok_hya &= _hya_m15 != _HYA1 and not _hya_h4_status(_hya_m15)
+
+# something said about the S-branch's subject -- hazard 11
+_hya_m16 = _HYA1 + ' The finite substratum therefore resolves the continuum singularity.'
+ok_hya &= _hya_m16 != _HYA1 and not _hya_no_s_branch(_hya_m16)
+
+# H-B prejudiced by H-A
+_hya_m17 = _HYA1.replace(
+    "H-B's construction question is untouched and unprejudiced, and H-B is entirely alive",
+    "H-B's construction question is settled negatively by H-A and the programme stops")
+ok_hya &= _hya_m17 != _HYA1 and not _hya_hb_alive(_hya_m17)
+
+# the programme-level reading shortened to an unconditional HI
+_hya_m18 = _HYA1.replace(
+    '**This reading is conditional on every qualifier above**, and the execution may not shorten '
+    'it.',
+    'The present wave representative is HI for a direct Navier–Stokes limit.')
+ok_hya &= _hya_m18 != _HYA1 and not _hya_reading_conditional(_hya_m18)
+
+# a Track B label imported as evidence -- hazard 10
+_hya_m19 = _HYA1.replace(
+    'No Track B label is imported as evidence here and none of these findings is exported there',
+    "Track B's P0 supplies the missing closure and is consumed here")
+ok_hya &= _hya_m19 != _HYA1 and not _hya_control1(_hya_m19)
+
+# a manuscript propagation the round is forbidden to make
+_hya_m20 = _HYA1.replace('**It touches no manuscript.**', 'The manuscripts carry the audit.')
+ok_hya &= _hya_m20 != _HYA1 and not _hya_no_manuscript(_hya_m20)
+
+# an eighth definition slipped in
+_hya_m21 = _HYA1.replace('**No eighth definition was introduced**',
+                         'An eighth definition was convenient and was added')
+ok_hya &= _hya_m21 != _HYA1 and not _hya_budget(_hya_m21)
+
+# the chronology claim widened beyond the repository record
+_hya_m22 = _HYA1.replace('**The claim is scoped to the repository record.**',
+                         'The claim covers everything anyone drafted before the freeze.')
+ok_hya &= _hya_m22 != _HYA1 and not _hya_chronology_scoped(_hya_m22)
+
+# a seventh `def` in the module, over the fired budget: the unused slot 7 would be a def, and the
+# guard would then have to be re-derived against the note's budget table
+_hya_m23 = _HYALEAN.replace('def blockSum', 'def deltaS (x : ℕ) := x def blockSum')
+ok_hya &= _hya_m23 != _HYALEAN and not _hya_lean_defs(_hya_m23)
+
+# the module's docstring sliding H2 to HI outright
+_hya_m24 = _HYALEAN.replace(
+    "conditional HI if H5's stress closure consumes this tensor; otherwise `H2` remains HO",
+    'HI outright')
+ok_hya &= _hya_m24 != _HYALEAN and not _hya_lean_defs(_hya_m24)
+
+# Y1's control runs THROUGH _hya_freeze_pin, so sabotaging that predicate fails the guard.
+def _hya_drift(path):
+    """One byte appended to round H-A's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('round-h-a-source-audit/preregistration.md') else b'')
+
+
+ok_hya &= _hya_drift(_HYADIR + 'preregistration.md') != _bb_read(_HYADIR + 'preregistration.md')
+ok_hya &= not _hya_freeze_pin(_hya_drift)
+
+check('R7-HYA', ok_hya,
+      'Hydrodynamics round H-A guard: a SOURCE AUDIT in which every target was predicted positive with its reason '
+      'frozen, so what can go wrong is the STATUS each finding is reported under, not the landing. The chronology '
+      'control is pinned in BOTH halves -- the preregistration blob by content, carrying the H1 arithmetic and the '
+      'H2b moment merged before any execution object entered the tree, and the strengthened ancestry asked of git '
+      'directly against the real pull_request.head.sha, every commit of git rev-list H ^B a descendant of the base, '
+      'recovery included, FAIL-CLOSED. H0 is checked reported HI WITH its coarse-variable class -- ZMod q-linear '
+      'coarse-graining, named in the statement -- and real-valued or nonlinear coarse variables HO, with "wrap is '
+      'the only nonlinearity" checked NOT asserted and the class-dropping over-reading mutation-tested. H1 is checked '
+      'read EXACTLY as THIS candidate field under THIS rule failing q-gauge invariance, NOT a universal no-go for '
+      'all hydrodynamic variables, with no q chosen to rescue the field and the exact set {2, 4} carried by the '
+      'kernel theorem, the inflation and the rescue both mutation-tested. H2 is checked reported in the freeze\'s '
+      'conditional words -- exact stencil anisotropy proved; conditional HI if H5\'s stress closure consumes this '
+      'tensor; otherwise H2 remains HO -- and NEVER HI outright, with Corollary 1a consumed and not contradicted, '
+      'the counts the fully symmetric 2 versus 1, the dimension count reached at kernel level and the level-3 '
+      'fallback UNUSED, and the anisotropy witness consuming quartic_not_isotropic in the kernel. H3 is checked HO '
+      'with NO timescale separation preregistered or asserted and no local-equilibrium statement either way, the '
+      'witness pinned by equations in ONE theorem for every q >= 2 and the L = 4 control proved to CLOSE. H4 is '
+      'checked HO with the skeleton a list of UNFIXED choices, no PDE, and the rigorous-limit calibration not '
+      'attached to it. The note is checked to say nothing about the S-branch\'s subject beyond the frozen sentence '
+      'that the branch stays closed, to name H-B ALIVE and unprejudiced, to carry the programme-level reading '
+      'VERBATIM and conditional on every qualifier, to import and export nothing across control 1, and to edit no '
+      'manuscript. The module is held to the frozen seven-slot budget -- exactly the six fired definitions as '
+      'top-level defs, slot 7 unused, no sorry, axiom or native_decide -- with the over-budget def and the '
+      'docstring slide to HI outright both mutation-tested. Twenty-four mutation controls and the freeze-pin drift '
+      'control.')
+
+
 # ---- R7-CLG: Track B act 11 -- the coherent-lift stabilizer no-go ----
 #
 # The round that reframed Track B above the convention layer, and the one whose control plane took
