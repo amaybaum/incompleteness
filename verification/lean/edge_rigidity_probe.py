@@ -14539,6 +14539,532 @@ check('R7-HYB', ok_hyb,
       'sorry, axiom or native_decide. Eighteen named contracts, twenty-five mutation controls, plus one freeze-pin '
       'drift control.')
 
+# ---- R7-A6P: the substratum A6 covariance propagation round (publication only) ----
+#
+# The manuscript round that propagates the owner decision on the sixth structural assumption:
+# A6-cov -- local internal-index transformations act covariantly provided the link coupling is
+# transformed with them -- is the publication meaning, and the manuscripts' definition is rewritten
+# around it, with A6-inv named in words as a separate stronger fixed-background condition, A6-glob as
+# the global specialization and A6-sd as a different principle under a shared name. Nothing is proved
+# here, so the only failure is saying MORE than round 1's merged result: the definition written back
+# as A6-inv; A6-inv identified with A6-cov, or A6-sd with it; the Standard-Model gauge-group
+# derivation declared settled; the complex-lift covariance of SM.md section 3.1 declared
+# kernel-checked; the ROADMAP row escalated to DERIVED; the assumption said to hold of the physical
+# substratum; a census anchor placed on the complex-lift sentences; the glossary entry or the
+# full-book mirror dropped; round 1's record edited; chapter 5's state-dependent identification
+# written back. Each is checked absent in the words the freeze fixes and written back as a mutation.
+_A6P_PREREG = _A11P_DIR + 'a6-covariance-propagation-audit.md'
+# The mandated execution base: the merge commit of the control-plane PR #604.
+_A6P_BASE = '07ab3657c2c78b48e4c11e0c3ceb30c82ac0b484'
+# The SEALED execution head and the merge commit that carried it, to be pinned in a follow-up after
+# exact-head review and merge. Set, the guard runs in ARCHIVE MODE: the same strong check re-run
+# against that object, plus its reachability from the current target. Unset (None), the guard
+# certifies the run's real target.
+_A6P_SEALED_HEAD = None
+_A6P_MERGE = None
+_A6P_SUB = _a11p_root('papers/Substratum.md')
+_A6P_SM = _a11p_root('papers/SM.md')
+_A6P_STR = _a11p_root('papers/Structure.md')
+_A6P_CH02 = _a11p_root('book/ch02-substratum.md')
+_A6P_CH05 = _a11p_root('book/ch05-gauge-structure.md')
+_A6P_CH09 = _a11p_root('book/ch09-universality.md')
+_A6P_APPB = _a11p_root('book/appendix-b-derivations.md')
+_A6P_GLOS = _a11p_root('book/glossary.md')
+_A6P_FULL = _a11p_root('book/The-Incompleteness-of-Observation-FULL.md')
+_A6P_ROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+_A6P_README = ' '.join(open(os.path.join(VERIFICATION, 'README.md'), encoding='utf-8').read().split())
+_A6P_CP = ' '.join(open(_artifact(_A6P_PREREG), encoding='utf-8').read().split())
+_A6P_IFA = ' '.join(open(_artifact('programmes/substratum/interface-audit.md'),
+                         encoding='utf-8').read().split())
+_A6P_SELF = ' '.join(open(os.path.abspath(__file__), encoding='utf-8').read().split())
+_A6P_R1DIR = 'programmes/substratum/a6-background-independence/'
+_A6P_LEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'BackgroundIndependence.lean'), encoding='utf-8').read().split())
+
+# The frozen replacement text of the control plane's Items 1-7, whitespace-flattened as the surfaces
+# are read. Kernel scope, for the record: the covariance clause and "no further condition" are
+# A6Cov and a6cov_all on the finite-alphabet link-coupled interface; "agree across every coupled
+# pair of sites" is d4a_single_edge with d4b_edge_rigidity; the symmetric-point failure is
+# d4b_not_a6inv_of_nonconstant with d4b_mu_id; the global commutant symmetry is A6Glob; the
+# state-dependent graph is round 1's D1 at SM.md:100. No frozen sentence claims the complex lift.
+_A6P_SUB_COV = (r'The dynamics is covariant under spatially-varying internal-index transformations: a '
+                r'site-dependent transformation $G(\mathbf{n})$ of the internal index is a symmetry of the '
+                r'dynamics provided the coupling data carried on the links are transformed with it, '
+                r'$M(\mathbf{n}, \hat{e}_j) \to G(\mathbf{n})\,M(\mathbf{n}, \hat{e}_j)\,G(\mathbf{n}+\hat{e}_j)^{-1}$ '
+                r'([SM §3.1])')
+_A6P_NO_FURTHER = 'the local transformation law imposes no further condition on the rule'
+_A6P_SUB_NOT_INV = ('A6 is not the stronger fixed-background condition that the same transformations leave '
+                    'the dynamics invariant with the coupling held fixed and preserved pointwise')
+_A6P_EDGE = 'forces the transformation to agree across every coupled pair of sites'
+_A6P_SUB_SD = 'is a separate principle that shares the name and is not A6'
+_A6P_SUB_162 = (r'Background independence (A6) — covariance under site-dependent transformations, the link '
+                r'coupling transformed with them — then promotes the remaining global $SU(3) \times SU(2) '
+                r'\times U(1)$ to local gauge invariance ([SM §3.1]).')
+_A6P_SUB_220 = ('- A6 (background independence), as covariance under local internal-index transformations '
+                'with the link coupling transformed alongside, is the standard gauge-theoretic requirement; '
+                'the stronger fixed-background invariance, with the coupling held fixed, is a separate '
+                'condition and is not what A6 asserts.')
+_A6P_INV_WORDING = ('invariant under spatially-varying internal-index transformations that preserve the '
+                    'cubic-symmetric coupling matrix pointwise')
+_A6P_SM_100 = ('This principle is not the structural assumption (A6) of [Substratum §3.1], which is '
+               'covariance of the dynamics under site-dependent internal-index transformations with the '
+               'link coupling transformed alongside (below); the two share a name and are different '
+               'requirements, a coupling that depends on the state and a coupling that transforms under a '
+               'gauge group being different objects.')
+_A6P_SM_SD_EQ = ('requires the graph to evolve with the state: s(t+1) = φ_{s(t)}(s(t)), where each φ_s is '
+                 'a bijection but G_{φ_s} varies with s.')
+_A6P_SM_110 = ('Background independence in the sense of (A6) — covariance under site-dependent '
+               'transformations with the link coupling transformed alongside — is then the premise carrying '
+               'the surviving global stabilizer to the local gauge reading developed below.')
+_A6P_SM_110_CLOSE = ('Without H-link, Theorem 7 remains a theorem about geometric links rather than a proof '
+                     'of the physical gauge carrier.')
+_A6P_SM_112 = (r'$$\phi(\mathbf{n}) \to G(\mathbf{n})\,\phi(\mathbf{n}), \qquad M(\mathbf{n}, \hat{e}_j) '
+               r'\to G(\mathbf{n})\,M(\mathbf{n}, \hat{e}_j)\,G(\mathbf{n}+\hat{e}_j)^{-1}$$')
+_A6P_SM_114 = ('The wave equation is carried to itself: this is the covariance that (A6) asserts, and once '
+               'the link variable is data transported in this way the local transformation law imposes no '
+               'further condition on the rule. This is local gauge invariance.')
+_A6P_STR_311 = ("OI's A6 requires covariance under spatially varying internal-index transformations, with "
+                'the link coupling transformed alongside, but BFSS has no spatial structure beyond the '
+                'matrix index')
+_A6P_CH02_86 = ('*(A6) Background independence.* The dynamics is covariant under spatially varying '
+                'internal-index transformations: a site-dependent transformation of the internal index is a '
+                'symmetry provided the coupling data carried on the links are transformed with it. The '
+                'content of the assumption is this covariant interface — the coupling is link-valued data on '
+                'which the transformations act — and once it is in place the local transformation law '
+                'imposes no further condition on the rule. It is not the stronger fixed-background condition '
+                'that the same transformations leave the dynamics invariant with the coupling held fixed, '
+                'which for an invertible constant coupling forces the transformation to agree across every '
+                'coupled pair of sites and fails at the symmetric point of the coupling matrix for every '
+                'transformation that differs across a coupled pair; the global commutant symmetry — the '
+                'transformations constant across the lattice that leave the coupling unchanged — is the '
+                'specialization from which the local gauge reading of Chapter 5 proceeds. The state-dependent '
+                'coupling graph, under which the graph itself evolves with the state, is a separate principle '
+                'that shares the name.')
+_A6P_CH05_141 = ('The step from global to local is what background independence (A6) supplies: the local '
+                 'transformations act covariantly once the coupling data on the links are transformed with '
+                 'them.')
+_A6P_CH05_143 = (r"Background independence, as the reconstruction's assumption A6 states it, is a covariance "
+                 r'requirement: a site-dependent internal-index transformation is a symmetry of the dynamics '
+                 r'provided the coupling data on the links are transformed with it. It is not the requirement '
+                 r'that the coupling structure be held fixed and left invariant — for an invertible coupling '
+                 r'that stronger fixed-background condition holds only for transformations that agree across '
+                 r'every coupled pair of sites — and it is not the state-dependent coupling graph $G(x)$ on '
+                 r'which the Bell branch of Chapter 1 rests, under which the graph itself evolves with the '
+                 r'state; those are different principles that share a name. The matrix structure at each '
+                 r'site has eigenvalue multiplicities $(3, 2, 1)$ because spatial isotropy holds locally, and '
+                 r'the coupling on each link, $M(\mathbf{n}, \hat{e}_j)$, is the data the site-dependent '
+                 r'transformations act on; the commutant $\mathrm{U}(3) \times \mathrm{U}(2) \times '
+                 r'\mathrm{U}(1)$ acts at each site, and the resulting gauge transformations are '
+                 r'site-dependent.')
+_A6P_CH05_145 = (r'the matrix wave equation is invariant provided the coupling matrix transforms as '
+                 r'$M(\mathbf{n}, \hat{e}_j) \to G(\mathbf{n})\,M(\mathbf{n}, \hat{e}_j)\,G(\mathbf{n} + '
+                 r'\hat{e}_j)^{-1}$')
+_A6P_CH05_SD = 'requires the coupling structure to be dynamical rather than fixed'
+_A6P_CH09_207 = ("*A6 (background independence).* The framework's assumption is covariance under spatially "
+                 'varying internal-index transformations, with the link coupling transformed alongside; '
+                 'separately, the framework has no fixed spacetime background — the substratum is the '
+                 'background, with spacetime emergent — and that is a different sense of the same words. '
+                 'Matrix models with explicit background spacetime are not background-independent in the '
+                 'emergent-spacetime sense; the bridge would require the matrix model to be of '
+                 'background-independent form (BFSS in its M-theory interpretation, for instance, where '
+                 'spacetime emerges from the matrix dynamics), and whether its matrix-internal gauge '
+                 'covariance then plays the role the assumption requires depends on that matrix-spatial '
+                 'bridge.')
+_A6P_APPB_317 = ('Background independence — covariance of the dynamics under site-dependent choices of basis '
+                 'within each eigenspace, the link coupling transforming with them — promotes this global '
+                 'commutant to local gauge invariance.')
+_A6P_GLOS_ENTRY = ("**Background independence (A6).** The sixth of the framework's structural assumptions "
+                   'A1–A6: the substratum dynamics is covariant under spatially varying internal-index '
+                   'transformations, a site-dependent transformation being a symmetry provided the coupling '
+                   'data carried on the links are transformed with it. The content of the assumption is the '
+                   'covariant interface itself — the coupling is link-valued data the transformations act on '
+                   '— and once that is in place the local transformation law imposes no further condition on '
+                   'the rule. It is distinct from the stronger fixed-background condition that the same '
+                   'transformations leave the dynamics invariant with the coupling held fixed, which for an '
+                   'invertible coupling forces agreement across every coupled pair of sites; from the global '
+                   'commutant symmetry, its specialization to transformations constant across the lattice '
+                   'that leave the coupling unchanged, from which the local gauge reading proceeds; and from '
+                   'the state-dependent coupling graph, a separate principle sharing the name, under which '
+                   'the graph itself evolves with the state. Where the framework says it has no fixed '
+                   'spacetime background, with spacetime emergent, that is a third sense of the words and not '
+                   'this assumption. Developed in Chapter 2 §2.4 and Chapter 5 §5.5.')
+_A6P_ROW = ('| **P1** | A6 — background independence / local gauge covariance | Substratum | **CONDITIONAL** '
+            '— the adopted meaning is covariance, `A6Cov`, which holds identically on every link-coupled rule '
+            'of the least interface (`a6cov_all`), so its content is the covariant interface and not a '
+            "constraint; the named hypothesis is that the manuscripts' substratum instantiates that "
+            'interface: the `K = 6` link-coupled rule is not packaged as a `Substratum` (the interface\'s '
+            '`waveSubstratum` has a singleton internal index) and the complex lift on which `[SM §3.1]` '
+            'conducts the gauge derivation is outside the interface; `A6-inv` is a separate, stronger '
+            'fixed-background condition, refuted on the frozen two-site carrier and at the symmetric point '
+            '`M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` its global specialization '
+            '(`a6glob_of_a6inv`); `A6-sd` a different principle under a shared name | the complete A1–A6 '
+            'formal package |')
+_A6P_ROAD_HYP = ("The named hypothesis the row carries is that the manuscripts' substratum — the `K = 6` "
+                 'link-coupled rule on `(ℤ/qℤ)^6` and its complex lift — instantiates the link-coupled '
+                 'interface on which `a6cov_all` is stated.')
+_A6P_FAMILY = 'A6 background independence, round 1: definition and interface audit (substratum)'
+# sha1 of round 1's census note, up to and including "No manuscript propagation in this round.": the
+# round-1 text is not edited, and the propagation sentence is appended after it.
+_A6P_NOTE_PREFIX_SHA = 'e07d405623f787ef9876de6dfc3c89b6f61fbccc'
+_A6P_ANCHORS = {
+    ('papers/Substratum.md', 'provided the coupling data carried on the links are transformed with it'),
+    ('papers/Substratum.md', _A6P_NO_FURTHER),
+    ('papers/Substratum.md', _A6P_EDGE),
+    ('book/ch02-substratum.md', _A6P_NO_FURTHER),
+    ('book/glossary.md', '**Background independence (A6).**'),
+}
+
+
+def _a6p_reg():
+    with open(os.path.join(VERIFICATION, 'lean-manuscript-census.json'), encoding='utf-8') as fh:
+        return json.load(fh)
+
+
+def _a6p_section(road):
+    """The ROADMAP section 'P1 — A6, and what is and is not already represented', flattened."""
+    a = road.find('### P1 — A6, and what is and is not already represented')
+    b = road.find('### P1 — physical C4 discharge')
+    return road[a:b] if 0 <= a < b else ''
+
+
+def _a6p_paragraph(readme):
+    """The README current-state paragraph of this round, flattened."""
+    a = readme.find('The substratum A6 covariance propagation (`audits/foundations/')
+    b = readme.find('`.github/workflows/verify.yml` runs', a)
+    return readme[a:b] if 0 <= a < b else ''
+
+
+def _a6p_sm31(sm):
+    """SM.md section 3.1, flattened."""
+    a = sm.find('### 3.1 Background independence')
+    b = sm.find('### 3.2 Why d = 3', a)
+    return sm[a:b] if 0 <= a < b else ''
+
+
+def _a6p_freeze_pin(read=_bb_read):
+    """P1 -- the propagation control plane is byte-identical to the blob merged alone by PR #604."""
+    return _bb_blob(_A6P_PREREG, read) == 'e7cb7013747f783135c8e166d290ce6670df0ae9'
+
+
+def _a6p_execution_ancestry():
+    """P2 -- act 10's strengthened ancestry predicate against the merge commit of PR #604.
+
+    Execution mode (pin unset, as now): the strong check against the run's real target. Archive
+    mode (pin set): the same strong check re-run against the sealed head, with the pinned merge
+    required to carry it and both required reachable from the current target, fail-closed."""
+    if _A6P_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-A6P')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_A6P_BASE, target, label, num, tag='R7-A6P')
+    return _rbr_archive_ancestry(_A6P_BASE, _A6P_SEALED_HEAD, _A6P_MERGE, tag='R7-A6P')
+
+
+def _a6p_round1_pins(read=_bb_read):
+    """P3 -- round 1's preregistration and result are byte-identical to their merged blobs, so that
+    'the result note is not edited' is a checked fact and not a promise."""
+    return (_bb_blob(_A6P_R1DIR + 'preregistration.md', read) == 'afbf1ee0e8ea94cb7fb3e57e690cd08b8d7e0bc3'
+            and _bb_blob(_A6P_R1DIR + 'result.md', read) == '331b1928adde22d5c716a92adb864b523d0c09b8')
+
+
+def _a6p_definition(sub=None):
+    """P4 -- Substratum.md's definition is the frozen covariance text: the covariance clause, no
+    further condition, the fixed-background condition named as NOT A6 with its edge rigidity, the
+    state-dependent graph a separate principle; :162's gloss and :220's sentence present; the A6-inv
+    wording absent from the definition."""
+    _s = _A6P_SUB if sub is None else sub
+    return (_A6P_SUB_COV in _s and _A6P_NO_FURTHER in _s and _A6P_SUB_NOT_INV in _s
+            and _A6P_EDGE in _s and _A6P_SUB_SD in _s
+            and _A6P_SUB_162 in _s and _A6P_SUB_220 in _s
+            and _A6P_INV_WORDING not in _s)
+
+
+def _a6p_sm(sm=None):
+    """P5 -- SM.md section 3.1: the state-dependent principle disambiguated in place with its equation
+    preserved, :110's premise and :114's covariance identity in the frozen words, the transformation
+    law of :112 verbatim, the conditional carrier's closing sentence preserved, and no kernel claim:
+    the word is absent from the gauge passage (the heading through the Wilson action "now derived
+    rather than postulated"), and no proof-kernel language appears anywhere in the section. The
+    section's own physics uses further down -- the smearing kernel and the kernel width of the
+    emergent-Lorentz scope paragraphs, untouched by the round -- are not kernel claims."""
+    _m = _A6P_SM if sm is None else sm
+    _31 = _a6p_sm31(_m)
+    _end = _31.find('now derived rather than postulated.')
+    _gauge = _31[:_end] if _end >= 0 else ''
+    return (_A6P_SM_100 in _31 and _A6P_SM_SD_EQ in _31 and _A6P_SM_110 in _31
+            and _A6P_SM_110_CLOSE in _31 and _A6P_SM_112 in _31 and _A6P_SM_114 in _31
+            and _gauge != '' and 'kernel' not in _gauge.lower()
+            and not any(x in _31 for x in ('kernel-check', 'Lean', 'a6cov_all', 'A6Cov',
+                                           'machine-checked', 'formally verified')))
+
+
+def _a6p_book(str_=None, ch02=None, ch05=None, ch09=None, appb=None):
+    """P6 -- Structure.md's clause and the book passages carry the frozen text; chapter 5's
+    transformation law is preserved and its state-dependent identification is gone."""
+    _st = _A6P_STR if str_ is None else str_
+    _c2 = _A6P_CH02 if ch02 is None else ch02
+    _c5 = _A6P_CH05 if ch05 is None else ch05
+    _c9 = _A6P_CH09 if ch09 is None else ch09
+    _ab = _A6P_APPB if appb is None else appb
+    return (_A6P_STR_311 in _st
+            and _A6P_CH02_86 in _c2
+            and _A6P_CH05_141 in _c5 and _A6P_CH05_143 in _c5 and _A6P_CH05_145 in _c5
+            and _A6P_CH05_SD not in _c5
+            and _A6P_CH09_207 in _c9
+            and _A6P_APPB_317 in _ab)
+
+
+def _a6p_mirrored(glos=None, full=None):
+    """P7 -- the glossary entry is present, and every changed book passage is byte-identical in the
+    full-book source."""
+    _g = _A6P_GLOS if glos is None else glos
+    _f = _A6P_FULL if full is None else full
+    return (_A6P_GLOS_ENTRY in _g
+            and all(x in _f for x in (_A6P_CH02_86, _A6P_CH05_141, _A6P_CH05_143, _A6P_CH05_145,
+                                       _A6P_CH09_207, _A6P_APPB_317, _A6P_GLOS_ENTRY)))
+
+
+def _a6p_roadmap(road=None):
+    """P8 -- the row equals Item 7's line; the section carries the label's reasons, the named
+    hypothesis, the complex lift NOT kernel-checked, the three-readings paragraph, the two attached
+    qualifications and the bare-carrier paragraph carried over, and the link to this round."""
+    _r = _A6P_ROAD if road is None else road
+    _sec = _a6p_section(_r)
+    return (_A6P_ROW in _r
+            and '**The adopted meaning is covariance.**' in _sec
+            and '**Why the row is `CONDITIONAL`, and neither `DERIVED` nor `GAP`.**' in _sec
+            and _A6P_ROAD_HYP in _sec
+            and 'on the complex lift is not kernel-checked' in _sec
+            and '**The three readings that are not the adopted one, kept distinct.**' in _sec
+            and '**Two qualifications this row keeps attached, because dropping either would overstate '
+                'the position.**' in _sec
+            and '**A separate and still-true statement, about a different carrier.**' in _sec
+            and 'audits/foundations/a6-covariance-propagation-audit.md' in _sec)
+
+
+def _a6p_readme(readme=None):
+    """P9 -- the README paragraph of Item 8 is present, and every historical record the control
+    plane lists as untouched is still present verbatim: the three README round records, the
+    substratum-source round's not-claimed clause, round 1's own record, the interface audit's Q1 row,
+    the module docstring, and R7-A6D's header comment."""
+    _rd = _A6P_README if readme is None else readme
+    _p = _a6p_paragraph(_rd)
+    _hdr = ('# A DEFINITION round, not a proof round: the ROADMAP carries A6 as a ' + 'GAP because the '
+            'manuscript # wording admits an invariant reading and a covariant reading which must not be '
+            'silently identified,')
+    return ('preregistration blob `e7cb701`, committed alone as `d24dc3c`' in _p
+            and 'It adopts `A6-cov` as the publication meaning of the sixth structural assumption' in _p
+            and 'with no claim that the complex-lift statement is kernel-checked' in _p
+            and 'The `ROADMAP` row `P1 — A6` carries `CONDITIONAL` in place of `GAP`' in _p
+            and "not `DERIVED`, because nothing is proved of the manuscripts' object" in _p
+            and 'Guard `R7-A6P`' in _p
+            and 'A6 is a gap and has no predicate, the alphabet carrying no internal index and the '
+                'manuscript statement admitting two readings the round does not adjudicate' in _rd
+            and 'The architecture is frozen exactly as it stands, A6 a gap with no predicate and not '
+                'filled' in _rd
+            and 'The architecture is frozen, A6 a gap with no predicate and not filled' in _rd
+            and 'that A6 holds or fails for any substratum' in _rd
+            and 'the `ROADMAP` carries A6 as a `GAP` because the manuscript wording admits an invariant '
+                'and a covariant reading that must not be silently identified' in _rd
+            and 'No reading is adopted, the `ROADMAP` label is unchanged, and no manuscript is edited' in _rd
+            and '| A6 background independence | invariance under site-dependent internal-index '
+                'transformations preserving the cubic-symmetric coupling matrix pointwise | **gap**' in _A6P_IFA
+            and 'and it adopts no reading.' in _A6P_LEAN
+            and _hdr in _A6P_SELF)
+
+
+def _a6p_census(reg=None):
+    """P10 -- the round-1 family is CURRENT with exactly the anchors this round wrote, each present in
+    its file, none in papers/SM.md, and the round-1 note unchanged as a prefix."""
+    reg = _a6p_reg() if reg is None else reg
+    fam = [f for f in reg['families'] if f['name'] == _A6P_FAMILY]
+    if len(fam) != 1:
+        return False
+    fam = fam[0]
+    anchors = {(m['file'], m['anchor']) for m in fam['manuscript']}
+    marker = 'No manuscript propagation in this round.'
+    note = fam['note']
+    k = note.find(marker)
+    if k < 0:
+        return False
+    prefix = note[:k + len(marker)]
+    if hashlib.sha1(prefix.encode('utf-8')).hexdigest() != _A6P_NOTE_PREFIX_SHA:
+        return False
+    if not note[k + len(marker):].startswith(' PROPAGATED by the A6 covariance propagation round'):
+        return False
+    if fam['status'] != 'current' or fam['modules'] != ['BackgroundIndependence']:
+        return False
+    if anchors != _A6P_ANCHORS or any(f == 'papers/SM.md' for f, _ in anchors):
+        return False
+    for f, a in anchors:
+        if a not in _a11p_root(f):
+            return False
+    return True
+
+
+_A6P_NEG = re.compile(r'\b(not|nothing|neither|never|no|non|absent)\b', re.IGNORECASE)
+_A6P_PHRASES = ('holds of the physical substratum', 'kernel-checked', 'thereby derived',
+                'is the same as the fixed-background condition', 'principle is the structural assumption')
+
+
+def _a6p_affirms(text):
+    """True if some sentence of `text` carries one of the frozen non-licence phrases without a
+    negation -- the assumption said to hold of the physical substratum, the complex lift said to be
+    kernel-checked, the Standard-Model gauge group said thereby derived, two readings identified."""
+    for sent in re.split(r'(?<=[.!?])\s+', text):
+        if any(p in sent for p in _A6P_PHRASES) and not _A6P_NEG.search(sent):
+            return True
+    return False
+
+
+def _a6p_non_licences(sub=None, sm=None, road=None, readme=None):
+    """P11 -- the frozen non-licences are absent, in the affirmative, from every frozen surface, the
+    control plane, the ROADMAP section and the README paragraph."""
+    _s = _A6P_SUB if sub is None else sub
+    _m = _A6P_SM if sm is None else sm
+    _r = _A6P_ROAD if road is None else road
+    _rd = _A6P_README if readme is None else readme
+    return not any(_a6p_affirms(t) for t in (
+        _s, _m, _A6P_STR, _A6P_CH02, _A6P_CH05, _A6P_CH09, _A6P_APPB, _A6P_GLOS, _A6P_CP,
+        _a6p_section(_r), _a6p_paragraph(_rd)))
+
+
+ok_a6p = True
+ok_a6p &= _a6p_freeze_pin()
+ok_a6p &= _a6p_execution_ancestry()
+ok_a6p &= _a6p_round1_pins()
+ok_a6p &= _a6p_definition()
+ok_a6p &= _a6p_sm()
+ok_a6p &= _a6p_book()
+ok_a6p &= _a6p_mirrored()
+ok_a6p &= _a6p_roadmap()
+ok_a6p &= _a6p_readme()
+ok_a6p &= _a6p_census()
+ok_a6p &= _a6p_non_licences()
+
+# ---- mutation controls: each over-reading written back ----
+
+# m1: the definition written back as A6-inv, the coupling held fixed
+_a6p_m1 = _A6P_SUB.replace(
+    'The dynamics is covariant under spatially-varying internal-index transformations: a site-dependent '
+    'transformation',
+    'The dynamics is ' + _A6P_INV_WORDING + ', the coupling held fixed: a site-dependent transformation')
+ok_a6p &= _a6p_m1 != _A6P_SUB and not _a6p_definition(sub=_a6p_m1)
+
+# m2: A6-inv and A6-cov identified
+_a6p_m2 = _A6P_SUB.replace('A6 is not the stronger fixed-background condition',
+                           'A6 is the same as the fixed-background condition')
+ok_a6p &= _a6p_m2 != _A6P_SUB and not _a6p_definition(sub=_a6p_m2)
+ok_a6p &= not _a6p_non_licences(sub=_a6p_m2)
+
+# m3: A6-sd identified with A6-cov at SM.md:100
+_a6p_m3 = _A6P_SM.replace('This principle is not the structural assumption (A6)',
+                          'This principle is the structural assumption (A6)')
+ok_a6p &= _a6p_m3 != _A6P_SM and not _a6p_sm(sm=_a6p_m3)
+ok_a6p &= not _a6p_non_licences(sm=_a6p_m3)
+
+# m4: the Standard-Model gauge-group derivation declared settled by the assumption at SM.md:114
+_a6p_m4 = _A6P_SM.replace(
+    'This is local gauge invariance. The link variable',
+    'This is local gauge invariance, and the Standard-Model gauge group is thereby derived without further '
+    'hypothesis. The link variable')
+ok_a6p &= _a6p_m4 != _A6P_SM and not _a6p_non_licences(sm=_a6p_m4)
+
+# m5: the complex-lift covariance declared kernel-checked in the ROADMAP section
+_a6p_m5 = _A6P_ROAD.replace(
+    ', and the covariance of `SM.md:112–114` on the complex lift is not kernel-checked.',
+    '. The covariance of `SM.md:112–114` on the complex lift is kernel-checked.')
+ok_a6p &= _a6p_m5 != _A6P_ROAD and not _a6p_roadmap(road=_a6p_m5)
+ok_a6p &= not _a6p_non_licences(road=_a6p_m5)
+
+# m6: the row's label written DERIVED
+_a6p_m6 = _A6P_ROAD.replace('| Substratum | **CONDITIONAL** —', '| Substratum | **DERIVED** —')
+ok_a6p &= _a6p_m6 != _A6P_ROAD and not _a6p_roadmap(road=_a6p_m6)
+
+# m7: the assumption asserted to hold of the physical substratum in the README paragraph
+_a6p_m7 = _A6P_README.replace('Guard `R7-A6P`.',
+                              'The assumption holds of the physical substratum. Guard `R7-A6P`.')
+ok_a6p &= _a6p_m7 != _A6P_README and not _a6p_non_licences(readme=_a6p_m7)
+
+# m8: a census anchor placed on SM.md's complex-lift sentences
+_a6p_m8 = json.loads(json.dumps(_a6p_reg()))
+for _f in _a6p_m8['families']:
+    if _f['name'] == _A6P_FAMILY:
+        _f['manuscript'].append({'file': 'papers/SM.md',
+                                 'anchor': 'this is the covariance that (A6) asserts'})
+ok_a6p &= not _a6p_census(_a6p_m8)
+
+# m9: the glossary entry removed
+_a6p_m9 = _A6P_GLOS.replace('**Background independence (A6).**', '')
+ok_a6p &= _a6p_m9 != _A6P_GLOS and not _a6p_mirrored(glos=_a6p_m9)
+
+# m10: the full-book mirror diverging from chapter 2 by one word
+_a6p_m10 = _A6P_FULL.replace(
+    '*(A6) Background independence.* The dynamics is covariant under spatially varying',
+    '*(A6) Background independence.* The dynamics is invariant under spatially varying')
+ok_a6p &= _a6p_m10 != _A6P_FULL and not _a6p_mirrored(full=_a6p_m10)
+
+# m11: one byte appended to round 1's result note
+def _a6p_result_drift(path):
+    return _bb_read(path) + (b'\n' if path.endswith('a6-background-independence/result.md') else b'')
+
+
+ok_a6p &= _a6p_result_drift(_A6P_R1DIR + 'result.md') != _bb_read(_A6P_R1DIR + 'result.md')
+ok_a6p &= not _a6p_round1_pins(_a6p_result_drift)
+
+# m12: chapter 5's state-dependent identification written back
+_a6p_m12 = _A6P_CH05.replace(
+    'is a covariance requirement: a site-dependent internal-index transformation is a symmetry of the '
+    'dynamics provided the coupling data on the links are transformed with it.',
+    _A6P_CH05_SD + ': the coupling matrix $M$ depends on the state.')
+ok_a6p &= _a6p_m12 != _A6P_CH05 and not _a6p_book(ch05=_a6p_m12)
+
+# P1's control: one byte appended to the propagation control plane
+def _a6p_drift(path):
+    return _bb_read(path) + (b'\n' if path.endswith('a6-covariance-propagation-audit.md') else b'')
+
+
+ok_a6p &= _a6p_drift(_A6P_PREREG) != _bb_read(_A6P_PREREG)
+ok_a6p &= not _a6p_freeze_pin(_a6p_drift)
+
+check('R7-A6P', ok_a6p,
+      'Substratum A6 covariance propagation guard (publication only): the round that carries the owner decision -- '
+      'A6-cov the publication meaning of the sixth structural assumption -- into the manuscripts, the ROADMAP row, '
+      'the README and the census. Nothing new is proved, so the only failure mode is a surface saying MORE than '
+      'round 1\'s merged result. The control plane is pinned BY BLOB (e7cb7013), and the execution ancestry is '
+      'certified in act 10\'s strengthened form against the merge commit of PR #604 (07ab3657): the real '
+      'pull_request.head.sha, never the synthetic merge; the base an ancestor of the head AND every commit of '
+      'rev-list H ^B a descendant of the base; recovery by the guard; fail-closed. ARCHIVE MODE after the merge: '
+      'once the sealed head and its merge commit are pinned, the same strong check is re-run against them and both '
+      'are required reachable from the current target. Round 1\'s preregistration and result are pinned by blob, so '
+      'the result note recording that round 1 left the GAP label is a checked fact, one byte appended '
+      'mutation-tested. Substratum.md\'s definition is checked to be the frozen covariance text -- the covariant '
+      'interface, no further condition on the rule, the stronger fixed-background condition named as NOT A6 with its '
+      'rigidity across every coupled pair of sites and its symmetric-point failure, the global commutant symmetry the '
+      'specialization, the state-dependent graph a separate principle -- with the A6-inv wording absent, the '
+      'write-back as A6-inv and the identification of the two conditions both mutation-tested. SM.md section 3.1 is '
+      'checked to disambiguate the state-dependent principle in place with its equation preserved, to carry the '
+      'transformation law verbatim as the content of the assumption and the covariance identity in the frozen words, '
+      'to keep the conditional carrier\'s closing sentence, and to make NO kernel claim; A6-sd identified with the '
+      'assumption and the Standard-Model gauge group declared thereby derived are mutation-tested. Structure.md\'s '
+      'clause, chapter 2\'s definition, chapter 5\'s two paragraphs with the transformation law preserved and the '
+      'state-dependent identification absent (its write-back mutation-tested), chapter 9\'s emergent-spacetime sense '
+      'named as a different sense, and appendix B\'s gloss are checked in the frozen words; the glossary entry is '
+      'checked present and every changed book passage byte-identical in the full-book source, the entry removed and '
+      'the mirror diverging by one word both mutation-tested. The ROADMAP row is checked equal to Item 7\'s line and '
+      'the section checked to carry the reasons the label is CONDITIONAL and neither DERIVED nor GAP, the named '
+      'undischarged hypothesis, the complex lift NOT kernel-checked, the three readings kept distinct, and the two '
+      'attached qualifications and the bare-carrier paragraph carried over; a DERIVED label and a kernel-checked '
+      'complex lift are mutation-tested. The README paragraph is checked present with every historical record the '
+      'control plane lists as untouched still present verbatim, the assumption asserted to hold of the physical '
+      'substratum mutation-tested. The census family is checked CURRENT with exactly the anchors this round wrote on '
+      'the finite-alphabet definition and its book mirror, none on SM.md\'s complex-lift sentences (an SM.md anchor '
+      'mutation-tested), and the round-1 note unchanged as a prefix by hash. The frozen non-licences are checked '
+      'absent in the affirmative from every frozen surface, the control plane, the ROADMAP section and the README '
+      'paragraph. R7-A6D\'s row contract and its label mutation are re-pinned in the same commit, and no other. '
+      'Eleven named contracts, twelve mutation controls, plus one freeze-pin drift control.')
+
 # ---- R7-A6D: substratum -- A6 background independence, round 1: definition and closure ----
 #
 # A DEFINITION round, not a proof round: the ROADMAP carries A6 as a GAP because the manuscript
@@ -14780,12 +15306,25 @@ def _a6d_unsettled(t=None):
 
 
 def _a6d_roadmap_row(t=None, r=None):
-    """A18 -- the ROADMAP row P1 -- A6 keeps its GAP label absent owner direction, and the
-    propagation is a paragraph with links, not a label change."""
+    """A18 -- the ROADMAP row P1 -- A6 carries the label the owner decision set, and round 1's
+    result note still records, truly, that round 1 left the GAP label in place.
+
+    AMENDED by the A6 covariance propagation (R7-A6P, control plane blob e7cb7013, merged by PR
+    #604): the row clause is re-pinned from the GAP row to the full CONDITIONAL row of that
+    plan's Item 7; the two link clauses and the result-note clause are unchanged."""
     t = _A6D1 if t is None else t
     r = _A6DROAD if r is None else r
     return ('| **P1** | A6 — background independence / local gauge covariance | Substratum | '
-            '**GAP** | the complete A1–A6 formal package |' in r
+            '**CONDITIONAL** — the adopted meaning is covariance, `A6Cov`, which holds identically on '
+            'every link-coupled rule of the least interface (`a6cov_all`), so its content is the '
+            'covariant interface and not a constraint; the named hypothesis is that the manuscripts\' '
+            'substratum instantiates that interface: the `K = 6` link-coupled rule is not packaged as a '
+            '`Substratum` (the interface\'s `waveSubstratum` has a singleton internal index) and the '
+            'complex lift on which `[SM §3.1]` conducts the gauge derivation is outside the interface; '
+            '`A6-inv` is a separate, stronger fixed-background condition, refuted on the frozen two-site '
+            'carrier and at the symmetric point `M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` '
+            'its global specialization (`a6glob_of_a6inv`); `A6-sd` a different principle under a shared '
+            'name | the complete A1–A6 formal package |' in r
             and 'programmes/substratum/a6-background-independence/result.md' in r
             and 'programmes/substratum/a6-background-independence/preregistration.md' in r
             and '**The `ROADMAP` row `P1 — A6` keeps its `GAP` label**' in t)
@@ -14992,10 +15531,11 @@ _a6d_m24 = _A6D1.replace('no instance was chosen to resolve it',
                          'the scalar instance `μ I_6` is taken as the denotation')
 ok_a6d &= _a6d_m24 != _A6D1 and not _a6d_unsettled(_a6d_m24)
 
-# the ROADMAP label changed without owner direction
+# the ROADMAP label escalated to a DERIVED overclaim (re-pinned by the A6 covariance propagation,
+# R7-A6P, from the pre-decision label change it caught before the owner decision)
 _a6d_m25 = _A6DROAD.replace(
-    '| **P1** | A6 — background independence / local gauge covariance | Substratum | **GAP** |',
-    '| **P1** | A6 — background independence / local gauge covariance | Substratum | **DEFINED** |')
+    '| **P1** | A6 — background independence / local gauge covariance | Substratum | **CONDITIONAL** —',
+    '| **P1** | A6 — background independence / local gauge covariance | Substratum | **DERIVED** —')
 ok_a6d &= _a6d_m25 != _A6DROAD and not _a6d_roadmap_row(r=_a6d_m25)
 
 # a manuscript propagation the round is forbidden to make
@@ -15065,8 +15605,9 @@ check('R7-A6D', ok_a6d,
       'formalized, no manuscript edited, the A4/A6 overlap undecided -- with the physical verdict and the '
       'SM-chain claim mutation-tested. The three unsettled points are checked listed and NOT resolved, the '
       'coupling-matrix denotation checked not decided by choosing an instance, mutation-tested. The ROADMAP row '
-      'P1 -- A6 is checked to keep its GAP label, absent owner direction, with the propagation a paragraph and '
-      'links only; a label change is mutation-tested. No manuscript edit, mutation-tested. Seven of nine '
+      'P1 -- A6 is checked to carry the CONDITIONAL label the owner decision of the covariance propagation set, '
+      'with round 1\'s result note still recording that round 1 left the GAP label in place; a DERIVED overclaim '
+      'is mutation-tested. No manuscript edit, mutation-tested. Seven of nine '
       'definition slots fire with both conditional slots unused for stated reasons and no tenth; the module is '
       'checked to carry EXACTLY the seven budgeted top-level definitions in the freeze\'s order and names, no '
       'sorry, axiom or native_decide, with an A6-sd predicate and a witness-as-definition both mutation-tested. '
