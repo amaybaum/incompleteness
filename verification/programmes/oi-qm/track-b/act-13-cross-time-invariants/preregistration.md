@@ -148,7 +148,20 @@ resolutions, each a function of the next:
 | 3 | the column cross-Gram `Ξ^{(t,s)}` | every column |
 
 with the per-time fibre-Gram trajectory `{FibreGram a₀ (U t) i}_{t,i}` as **level 0**, the
-`t = s` diagonal of level 2. **Nothing outside this family is frozen as a datum**: the dual
+`t = s` diagonal of level 2.
+
+**Level 0 is read at two strengths, and the file keeps them apart.** The **raw** reading is
+entrywise equality of the trajectory. The **phase-quotiented** reading is act 12's
+`GramPhaseEquiv` at every `t` and every `i`. Act 12's two-sided action does not leave the raw datum
+fixed: a weak right move with anchored phases `D` carries `FibreGram a₀ U i` to `Dᴴ · FibreGram a₀ U i · D`
+(`fibreGram_mul_weak_apply`), so raw level-0 equality is **not** invariant under the whole
+weak-right action and therefore does not itself compute act 12's per-slice quotient. What computes
+that quotient exactly is the pointwise phase-equivalence class of the level-0 datum (`TG2`, both
+directions). Raw level-0 equality is the **stronger, representative-level** equality: it is
+sufficient to place two slices in one two-sided orbit, and it is not implied by membership in that
+orbit. Every "level 0" below is the raw reading unless it says "modulo anchored phases".
+
+**Nothing outside this family is frozen as a datum**: the dual
 row-Gram data `U_t U_sᴴ` are the relative objects themselves and are not a "datum beyond" anything;
 word or trace data of acts 11–12's objects are not adopted.
 
@@ -277,11 +290,14 @@ only if a cross-time phase-equivalence predicate is within the budget (slot 5).
 
 **(c) The ladder sentence**, asserted at the strength jointly reached by (a) and (b):
 
-> **Level 0 determines the lift up to act 12's time-dependent two-sided action; level 2 up to a
-> constant in-fibre left move and a time-dependent strong right gauge; level 3 up to a constant
-> left unitary. No level determines the relative candidate.**
+> **Level 0 modulo anchored phases classifies the per-slice two-sided orbit of act 12 at every time,
+> so it determines the lift up to act 12's time-dependent two-sided action, with raw level-0
+> equality a stronger representative-level equality; level 2 up to a constant in-fibre left move
+> and a time-dependent strong right gauge; level 3 up to a constant left unitary. No level
+> determines the relative candidate.**
 
-The last clause is `CT4`, and the sentence is not asserted without it.
+The first clause is act 12's `TG2` applied slice by slice and is consumed, not re-proved; the last
+clause is `CT4`, and the sentence is not asserted without it.
 
 ### `CT3` — separation and blindness on the merged witnesses
 
@@ -397,10 +413,10 @@ that the outcome cannot choose its own wording.
 > `P0` remains open and two-part, and the threading part is localized exactly: the fibre cross-Gram
 > trajectory determines the lift up to one constant in-fibre left move and one time-dependent strong
 > right gauge, and no column-Gram datum — up to and including the full two-time column Gram —
-> determines the relative candidate, by a constant-left obstruction. What selects the threading is
-> therefore exactly a strong-right family modulo a constant together with one constant in-fibre
-> frame; nothing in act 13 selects either, and no connection, gauge fixing or selection principle
-> is asserted or excluded.
+> determines the relative candidate, by a constant-left obstruction. The residual threading freedom
+> relative to this datum is exactly a strong-right family modulo a constant together with one
+> constant in-fibre frame; nothing in act 13 selects either, and no connection, gauge fixing or
+> selection principle is asserted or excluded.
 
 **Case B — as A, but `CT2` (b) forward UNDECIDED:**
 
@@ -450,8 +466,10 @@ selection of anything, and the row's label does not change.
   failing, and does not touch `GL3`.
 - Act 11's `GI2` is **not revised** by `CL1`: its constant lifts have `W R Wᴴ = R` for the trivial
   reason, and act 12's reading of it as a left in-fibre move with identical Gram data stands.
-- Act 12's `TG2` is consumed as level 0 of the ladder; `CT2` (b) is its cross-time extension and
-  rides on the same orbit theorem. Act 12's `TG3` is consumed as the trajectory-type control; the
+- Act 12's `TG2` is consumed as the **phase-quotiented** reading of level 0 of the ladder: it
+  classifies the per-slice two-sided orbit by the phase-equivalence class of the per-time
+  fibre-Gram datum, not by its raw value, which the weak-right action moves by `Dᴴ G D`. `CT2` (b)
+  is the cross-time extension of the raw reading and rides on the same orbit theorem. Act 12's `TG3` is consumed as the trajectory-type control; the
   freeze does not present the Hadamard pair as sharing per-time Gram data, because `TG3` proves it
   does not.
 - Act 12's `RO1` is consumed as the time-dependent left move; `CL1` is the constant one.
