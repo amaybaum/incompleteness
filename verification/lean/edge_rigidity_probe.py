@@ -12001,6 +12001,560 @@ check('R7-A11P', ok_a11p,
       'misreporting the known witness as separating the dynamics. Eighteen named contracts, twenty mutation controls, '
       'plus two freeze-pin drift controls.')
 
+# ---- R7-A6D: substratum -- A6 background independence, round 1: definition and closure ----
+#
+# A DEFINITION round, not a proof round: the ROADMAP carries A6 as a GAP because the manuscript
+# wording admits an invariant reading and a covariant reading which must not be silently identified,
+# and this round freezes four readings on three interfaces and tests them on frozen carriers. Every
+# kernel target was predicted positive, so what can go wrong is not the landing but the READING:
+# identifying A6-inv with A6-cov or A6-sd; calling one of them "the" A6; reading the derivation step
+# into the assumption at the use-sites; reporting the degenerate wave form as the wave substratum's
+# A6 verdict; reporting D3 as symmetric; promoting D3-a to "local gauge invariance is trivial";
+# spending a connectivity definition; or changing the ROADMAP label without an owner decision. The
+# guard checks each of these in the freeze's own terms.
+_A6DDIR = 'programmes/substratum/a6-background-independence/'
+_A6D = open(_artifact(_A6DDIR + 'result.md'), encoding='utf-8').read()
+_A6D1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _A6D).split())
+_A6DLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'BackgroundIndependence.lean'), encoding='utf-8').read().split())
+_A6DROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+# The mandated execution base: the merge commit of the A6 control-plane PR #593.
+_A6D_BASE = '8792801beeeccbf0673db137cae83e6663d21fba'
+
+
+def _a6d_git(*args, **kw):
+    kw.setdefault('tag', 'R7-A6D')
+    return _rbr_git(*args, **kw)
+
+
+def _a6d_ensure_present(rev, pr_number=None):
+    return _rbr_ensure_present(rev, pr_number=pr_number, tag='R7-A6D')
+
+
+def _a6d_target_commit(env=None):
+    return _rbr_target_commit(env=env, tag='R7-A6D')
+
+
+def _a6d_freeze_pin(read=_bb_read):
+    """A1 -- the A6 preregistration is byte-identical to the blob merged by PR #593."""
+    return _bb_blob(_A6DDIR + 'preregistration.md', read) == (
+        'afbf1ee0e8ea94cb7fb3e57e690cd08b8d7e0bc3')
+
+
+def _a6d_execution_ancestry():
+    """A2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused through act 12's copy: the head-only check is
+    insufficient because a commit made before the freeze and merged in alongside it leaves the head
+    descended from the freeze while itself not being."""
+    target, label, num = _a6d_target_commit()
+    if target is None:
+        return False
+    if not _a6d_ensure_present(_A6D_BASE):
+        return False
+    if not _a6d_ensure_present(target, pr_number=num):
+        return False
+    r = _a6d_git('merge-base', '--is-ancestor', _A6D_BASE, target)
+    if r is None:
+        return False
+    if r.returncode != 0:
+        print('    R7-A6D ancestry: %s is present but is NOT an ancestor of %s'
+              % (_A6D_BASE[:12], label))
+        return False
+    listed = _a6d_git('rev-list', '%s' % target, '^%s' % _A6D_BASE)
+    if listed is None or listed.returncode != 0:
+        print('    R7-A6D ancestry: could not enumerate the execution-only history; failing closed')
+        return False
+    revs = listed.stdout.decode('utf-8', 'replace').split()
+    for rev in revs:
+        if not _a6d_ensure_present(rev, pr_number=num):
+            return False
+        step = _a6d_git('merge-base', '--is-ancestor', _A6D_BASE, rev)
+        if step is None:
+            return False
+        if step.returncode != 0:
+            print('    R7-A6D ancestry: %s is reachable from %s but does NOT descend from %s -- '
+                  'pre-freeze side history' % (rev[:12], label, _A6D_BASE[:12]))
+            return False
+    print('    R7-A6D ancestry: certified %s and all %d commit(s) of the execution-only history '
+          'descend from %s' % (label, len(revs), _A6D_BASE[:12]))
+    return True
+
+
+def _a6d_outcome(t=None):
+    """A3 -- every kernel target at level 2 as predicted, both type-P labels as predicted, and the
+    round declared a DEFINITION round with no reading adopted."""
+    t = _A6D1 if t is None else t
+    return ('**Every kernel target landed positively at evidence level 2, as predicted, and both '
+            'type-P determinations returned their predicted labels' in t
+            and '**This is a definition round, not a proof round**' in t
+            and 'No target moved from its predicted strength, no target fell to UNDECIDED, and no '
+                'falsifier of `D1` occurred.' in t)
+
+
+def _a6d_readings_distinct(t=None):
+    """A4 -- hazard 1: the four readings are four objects on three interfaces, never identified."""
+    t = _A6D1 if t is None else t
+    return ('are four objects on three interfaces and must not be silently identified' in t
+            and '**`A6-cov` is not a predicate of a `Substratum`**' in t
+            and 'is a separate object under a shared name' in t
+            and 'A coupling that depends on the state and a coupling that transforms under a gauge '
+                'group are different objects' in t)
+
+
+def _a6d_no_reading_adopted(t=None):
+    """A5 -- hazard 4: no reading is "the" A6, and the adoption decision is named open."""
+    t = _A6D1 if t is None else t
+    return ('**No reading is adopted.**' in t
+            and '**No reading is "the" A6.**' in t
+            and 'which reading to adopt — is named as open and not this round\'s' in t
+            and '**It adopts no reading**, and calls no reading "the" A6.' in t)
+
+
+def _a6d_d1_type_p(t=None):
+    """A6 -- D1 labelled type P, (a) at the definition with (b) as its consequence, UNDECIDED at
+    the three use-sites and NOT a contradiction, (d) at SM.md:100, with the quotations present."""
+    t = _A6D1 if t is None else t
+    return ('**`D1` — evidence type P**' in t
+            and '**Outcome: (a) at the definition, with (b) as its stated consequence; UNDECIDED '
+                'at the use-sites; (d) at `SM.md:100`.**' in t
+            and '**`Substratum.md:102` — (a), with (b) as its stated consequence.**' in t
+            and '**`Substratum.md:104` — UNDECIDED.**' in t
+            and '**`Substratum.md:162` — UNDECIDED.**' in t
+            and '**`SM.md:110` — UNDECIDED.**' in t
+            and '**`SM.md:100` — (d).**' in t
+            and '**The use-sites are reported UNDECIDED, not as a contradiction with the '
+                'definition**' in t
+            and 'The dynamics is invariant under spatially-varying internal-index transformations '
+                'that preserve the cubic-symmetric coupling matrix pointwise.' in t
+            and 'a derivation step ([SM §3.1]) — not part of the assumption itself.' in t
+            and 'It is not a kernel result and does not appear in the axiom table.' in t)
+
+
+def _a6d_d1_no_falsifier(t=None):
+    """A7 -- hazard 2: the derivation step is not read into the assumption; no use-site is
+    reported (c) and the outcome is not SPLIT on that ground."""
+    t = _A6D1 if t is None else t
+    return ('**No falsifier fired**: no use-site\'s quoted text excludes the shorthand reading' in t
+            and 'so no coordinate is reported **(c)** and the outcome does not become SPLIT on that '
+                'ground' in t
+            and 'What `D1` reports at the use-sites is reported, not repaired' in t)
+
+
+def _a6d_d2_degenerate(t=None):
+    """A8 -- hazards 7 and 9: D2-iii type P in the freeze's words; the degenerate form is NOT the
+    axiom; singleton-K rescalings are the A5 freedom; the manuscript-level gap is unchanged."""
+    t = _A6D1 if t is None else t
+    return ('**`D2-iii` — evidence type P, as predicted, in the freeze\'s words: statable, '
+            'degenerate, not the axiom, gap unchanged at manuscript level.**' in t
+            and '**The degenerate form is not the manuscripts\' A6.**' in t
+            and 'the amplitude-scale freedom the manuscripts assign to A5' in t
+            and 'reported as facts about the degenerate form, labelled so' in t
+            and 'A6 status at manuscript level remains a gap after `D2`' in t
+            and 'Statable; degenerate; false in the degenerate form at `q = 3`; true in its global '
+                'specialization; and not the axiom.' in t)
+
+
+def _a6d_d2_witness(t=None):
+    """A9 -- D2-i's frozen witness pinned by equations, in the note and in the kernel statement."""
+    t = _A6D1 if t is None else t
+    return ('`d = 1`, `L = 3`, `q = 3`, `α = 1`; `g 0 = 1`, `g 1 = 2`, `g 2 = 1`' in t
+            and '`F (g · c) 0 = 2` and `g 0 (F c 0) = 1`' in t
+            and 'The frozen witness was used unchanged.' in t)
+
+
+def _a6d_d2_kernel(t=None):
+    """A10 -- D2-i and D2-ii read on (waveSubstratum d L q α).R.F with the site coupling mulLeft,
+    and no new definition."""
+    t = _A6DLEAN if t is None else t
+    return ('theorem d2i_wave_not_a6inv : ¬ A6Inv (ι := Fin 1 → ZMod 3) (V := ZMod 3) '
+            '(waveSubstratum 1 3 3 1).R.F (AddMonoidHom.mulLeft 1)' in t
+            and 'theorem d2ii_wave_a6glob (d L q : ℕ) (α : ZMod q) : A6Glob (ι := Fin d → ZMod L) '
+                '(V := ZMod q) (waveSubstratum d L q α).R.F (AddMonoidHom.mulLeft α)' in t
+            and '∧ (waveSubstratum 1 3 3 1).R.F (siteAct g c) (fun _ => 0) = (2 : ZMod 3)' in t
+            and '∧ g (fun _ => 0) ((waveSubstratum 1 3 3 1).R.F c (fun _ => 0)) = (1 : ZMod 3)'
+                in t)
+
+
+def _a6d_d3_one_directional(t=None):
+    """A11 -- hazard 5: the D3 distinction is ONE-DIRECTIONAL and A6-inv is the stronger one."""
+    t = _A6D1 if t is None else t
+    return ('**The distinction is one-directional.**' in t
+            and '`A6-inv` is the strictly stronger condition there' in t
+            and '**no rule satisfies `A6-inv` and fails `A6-cov`**' in t
+            and '"Provably distinct" means exactly: there is a carrier on which one holds and the '
+                'other fails, in the one direction available.' in t)
+
+
+def _a6d_d3a_bounded(t=None):
+    """A12 -- hazard 6: D3-a is a statement about the frozen A6Cov over a finite alphabet, not
+    "local gauge invariance is trivial" and not about SM.md:114's derivation."""
+    t = _A6D1 if t is None else t
+    return ('**`A6-cov` restricts no link-coupled rule; its content is the interface, not a '
+            'constraint.**' in t
+            and 'it is not "local gauge invariance is trivial" and not a statement about '
+                '`SM.md:114`\'s derivation on the complex lift' in t)
+
+
+def _a6d_d3_kernel(t=None):
+    """A13 -- D3-a universal and D3-b on the frozen two-site carrier, as ONE identity theorem and
+    ONE refutation, the carrier written into the statement."""
+    t = _A6DLEAN if t is None else t
+    return ('theorem a6cov_all (N : ι → Finset ι) (M : ι → ι → (V →+ V)) : A6Cov N M' in t
+            and 'theorem d3b_not_a6inv : ¬ A6Inv (linkF (![{1}, {0}] : Fin 2 → Finset (Fin 2)) '
+                '(fun _ _ => AddMonoidHom.id (Fin 2 → ZMod 2))) (AddMonoidHom.id _)' in t
+            and 'g 0 = AddEquiv.refl _ ∧ (∀ v, g 1 v = fun k => v (k + 1)) ∧ c 1 = ![1, 0]' in t)
+
+
+def _a6d_d4_single_edge(t=None):
+    """A14 -- hazard 11: D4 single-edge, the connected corollary ANALYSIS not a target, no
+    connectivity definition spent, and D4 choosing among no readings."""
+    t = _A6D1 if t is None else t
+    return ('**Bounded reading of `D4`, as frozen. Single-edge by design.**' in t
+            and 'is recorded here as analysis, **not** as a target' in t
+            and 'no connectivity definition is spent' in t
+            and '`D4` does not choose among these.' in t)
+
+
+def _a6d_d4_kernel(t=None):
+    """A15 -- the single-edge theorem, the edge rigidity, and the symmetric point pinned by the
+    equation M₀ v = μ • v with μ a unit."""
+    t = _A6DLEAN if t is None else t
+    return ('theorem d4a_single_edge [DecidableEq ι] {N : ι → Finset ι} {M₀ : V →+ V} '
+            '{g : ι → AddAut V}' in t
+            and '{i j : ι} (hj : j ∈ N i) (v : V) : g i (M₀ v) = M₀ (g j v)' in t
+            and 'theorem d4b_edge_rigidity' in t
+            and 'theorem d4b_mu_id [DecidableEq ι] {K : Type} {q : ℕ} {N : ι → Finset ι} '
+                '(μ : (ZMod q)ˣ)' in t
+            and '(hM : ∀ v, M₀ v = (μ : ZMod q) • v)' in t
+            and '¬ A6Inv (linkF N (fun _ _ => M₀)) M₀ ∧ A6Glob (linkF N (fun _ _ => M₀)) M₀' in t)
+
+
+def _a6d_not_licensed(t=None):
+    """A16 -- the frozen non-licences, in terms."""
+    t = _A6D1 if t is None else t
+    return ('**Nothing here says A6 holds of the physical substratum**, or fails of it.' in t
+            and '**Nothing here touches the Standard-Model gauge-group derivation.**' in t
+            and '**Nothing here is about Track B, `P0`, the fibre-Gram classification, or '
+                'hydrodynamics.**' in t
+            and '**`A6-sd` is not formalized**' in t
+            and '**No manuscript is edited by this round.**' in t
+            and '**Nothing here decides whether A4 and A6 overlap**' in t
+            and 'No sentence here begins "the substratum satisfies A6" or "A6 is refuted"' in t)
+
+
+def _a6d_unsettled(t=None):
+    """A17 -- hazard 10 and item 7 of the allowed report: the three unsettled points LISTED and
+    NOT RESOLVED, the coupling-matrix denotation among them."""
+    t = _A6D1 if t is None else t
+    return ('## The points where the manuscripts\' intended reading was found unsettled, listed '
+            'and not resolved' in t
+            and '**The definition/use-site split.**' in t
+            and '**The `μ I_6`-versus-block-scalar denotation of "the cubic-symmetric coupling '
+                'matrix".**' in t
+            and 'no instance was chosen to resolve it' in t
+            and '**The shared name between `A6-sd` and the gauge readings.**' in t)
+
+
+def _a6d_roadmap_row(t=None, r=None):
+    """A18 -- the ROADMAP row P1 -- A6 keeps its GAP label absent owner direction, and the
+    propagation is a paragraph with links, not a label change."""
+    t = _A6D1 if t is None else t
+    r = _A6DROAD if r is None else r
+    return ('| **P1** | A6 — background independence / local gauge covariance | Substratum | '
+            '**GAP** | the complete A1–A6 formal package |' in r
+            and 'programmes/substratum/a6-background-independence/result.md' in r
+            and 'programmes/substratum/a6-background-independence/preregistration.md' in r
+            and '**The `ROADMAP` row `P1 — A6` keeps its `GAP` label**' in t)
+
+
+def _a6d_no_manuscript(t=None):
+    """A19 -- no manuscript edit, the wording sharpening an owner call."""
+    t = _A6D1 if t is None else t
+    return ('**It edits no manuscript.**' in t
+            and '`papers/` and `book/` are untouched' in t
+            and 'whether and how to sharpen the wording is an owner call for a propagation round'
+                in t)
+
+
+def _a6d_budget(t=None):
+    """A20 -- seven of nine slots, both conditional slots unused with their reasons, no tenth, no
+    witness or carrier as a definition, Substratum unchanged."""
+    t = _A6D1 if t is None else t
+    return ('## Definition budget: **SEVEN of the nine frozen slots fire**' in t
+            and 'Slot 8 did not fire' in t
+            and 'Slot 9 did not fire' in t
+            and '**No tenth definition was introduced**' in t
+            and 'no witness, carrier, transformation, configuration or coupling is a top-level '
+                'definition' in t
+            and 'no field is added to `Substratum`' in t)
+
+
+def _a6d_lean_defs(t=None):
+    """A21 -- exactly the seven budgeted top-level `def`s, named as the freeze names them, in the
+    freeze's order; no sorry, axiom or native_decide; the module docstring carries the
+    non-identification and the non-adoption."""
+    t = _A6DLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['siteAct', 'PreservesPointwise', 'A6Inv', 'A6Glob', 'linkF', 'gaugeLink',
+                     'A6Cov']
+            and '**It does not try to prove A6 for anything physical, and it adopts no reading.**'
+                in t
+            and '**Not a predicate of a `Substratum`**' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+def _a6d_axiom_table(t=None):
+    """A22 -- one axiom line per named kernel result, sixteen of them matching the module's
+    #print axioms lines, nothing outside the three standard axioms, and no type-P item in it."""
+    t = _A6D1 if t is None else t
+    rows = re.findall(r'\| `([A-Za-z0-9_]+)` \| `\[([^\]]*)\]` \|', t)
+    names = [n for n, _ in rows]
+    printed = re.findall(r'#print axioms OIBridge\.BackgroundIndependence\.([A-Za-z0-9_]+)',
+                         _A6DLEAN)
+    permitted = {'propext', 'Classical.choice', 'Quot.sound'}
+    return (len(rows) == 16 and 'Sixteen named results' in t
+            and sorted(names) == sorted(printed) and len(set(names)) == 16
+            and all(set(a.strip() for a in ax.split(',')) <= permitted for _, ax in rows)
+            and '**No type-P item is in this table**' in t
+            and '| `D1`' not in t and '| `D2-iii`' not in t)
+
+
+ok_a6d = True
+ok_a6d &= _a6d_freeze_pin()
+ok_a6d &= _a6d_execution_ancestry()
+ok_a6d &= _a6d_outcome()
+ok_a6d &= _a6d_readings_distinct()
+ok_a6d &= _a6d_no_reading_adopted()
+ok_a6d &= _a6d_d1_type_p()
+ok_a6d &= _a6d_d1_no_falsifier()
+ok_a6d &= _a6d_d2_degenerate()
+ok_a6d &= _a6d_d2_witness()
+ok_a6d &= _a6d_d2_kernel()
+ok_a6d &= _a6d_d3_one_directional()
+ok_a6d &= _a6d_d3a_bounded()
+ok_a6d &= _a6d_d3_kernel()
+ok_a6d &= _a6d_d4_single_edge()
+ok_a6d &= _a6d_d4_kernel()
+ok_a6d &= _a6d_not_licensed()
+ok_a6d &= _a6d_unsettled()
+ok_a6d &= _a6d_roadmap_row()
+ok_a6d &= _a6d_no_manuscript()
+ok_a6d &= _a6d_budget()
+ok_a6d &= _a6d_lean_defs()
+ok_a6d &= _a6d_axiom_table()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# a proof-round outcome written over a definition round
+_a6d_m1 = _A6D1.replace('**This is a definition round, not a proof round**',
+                        'This round proves A6 on the least interface')
+ok_a6d &= _a6d_m1 != _A6D1 and not _a6d_outcome(_a6d_m1)
+
+# hazard 1: the readings identified -- A6-cov called a predicate of a Substratum
+_a6d_m2 = _A6D1.replace('**`A6-cov` is not a predicate of a `Substratum`**',
+                        '`A6-cov` is the predicate of a `Substratum` that `A6-inv` abbreviates')
+ok_a6d &= _a6d_m2 != _A6D1 and not _a6d_readings_distinct(_a6d_m2)
+
+# hazard 8: A6-sd conflated with A6-cov
+_a6d_m3 = _A6D1.replace(
+    'A coupling that depends on the state and a coupling that transforms under a gauge group are '
+    'different objects',
+    'A coupling that depends on the state is the covariant coupling seen from the state')
+ok_a6d &= _a6d_m3 != _A6D1 and not _a6d_readings_distinct(_a6d_m3)
+
+# hazard 4: a reading adopted
+_a6d_m4 = _A6D1.replace('**No reading is adopted.**', '**`A6-inv` is adopted as A6.**')
+ok_a6d &= _a6d_m4 != _A6D1 and not _a6d_no_reading_adopted(_a6d_m4)
+
+# hazard 12: the adoption decision made here rather than named open
+_a6d_m5 = _A6D1.replace('which reading to adopt — is named as open and not this round\'s',
+                        'which reading to adopt — is taken here: reading (a)')
+ok_a6d &= _a6d_m5 != _A6D1 and not _a6d_no_reading_adopted(_a6d_m5)
+
+# D1 reported without its type-P label
+_a6d_m6 = _A6D1.replace('**`D1` — evidence type P**', '**`D1` — level 2**')
+ok_a6d &= _a6d_m6 != _A6D1 and not _a6d_d1_type_p(_a6d_m6)
+
+# hazard 2: a use-site decided (c) -- the derivation step read into the assumption
+_a6d_m7 = _A6D1.replace('**`Substratum.md:162` — UNDECIDED.**', '**`Substratum.md:162` — (c).**')
+ok_a6d &= _a6d_m7 != _A6D1 and not _a6d_d1_type_p(_a6d_m7)
+
+# the use-sites reported as a textual conflict with the definition
+_a6d_m8 = _A6D1.replace(
+    '**The use-sites are reported UNDECIDED, not as a contradiction with the definition**',
+    '**The use-sites contradict the definition and the manuscripts must be repaired**')
+ok_a6d &= _a6d_m8 != _A6D1 and not _a6d_d1_type_p(_a6d_m8)
+
+# SPLIT declared on a ground the text does not supply
+_a6d_m9 = _A6D1.replace(
+    'so no coordinate is reported **(c)** and the outcome does not become SPLIT on that ground',
+    'so `Substratum.md:162` is reported **(c)** and the outcome is SPLIT')
+ok_a6d &= _a6d_m9 != _A6D1 and not _a6d_d1_no_falsifier(_a6d_m9)
+
+# hazard 7: the degenerate wave form reported as the wave substratum's A6 verdict
+_a6d_m10 = _A6D1.replace('**The degenerate form is not the manuscripts\' A6.**',
+                         '**So the wave substratum fails A6.**')
+ok_a6d &= _a6d_m10 != _A6D1 and not _a6d_d2_degenerate(_a6d_m10)
+
+# hazard 9: singleton-K rescalings taken for internal-index transformations
+_a6d_m11 = _A6D1.replace('the amplitude-scale freedom the manuscripts assign to A5',
+                         'exactly the internal-index freedom A6 is about')
+ok_a6d &= _a6d_m11 != _A6D1 and not _a6d_d2_degenerate(_a6d_m11)
+
+# the manuscript-level gap quietly closed by D2
+_a6d_m12 = _A6D1.replace('A6 status at manuscript level remains a gap after `D2`',
+                         'A6 status at manuscript level is settled by `D2`')
+ok_a6d &= _a6d_m12 != _A6D1 and not _a6d_d2_degenerate(_a6d_m12)
+
+# a different witness reported as the frozen one
+_a6d_m13 = _A6D1.replace('The frozen witness was used unchanged.',
+                         'A smaller witness at q = 2 was substituted.')
+ok_a6d &= _a6d_m13 != _A6D1 and not _a6d_d2_witness(_a6d_m13)
+
+# D2 restated on waveRule rather than on the substratum's own F, a new packaging in disguise
+_a6d_m14 = _A6DLEAN.replace('(waveSubstratum 1 3 3 1).R.F (AddMonoidHom.mulLeft 1)',
+                            '(waveRule 1 3 3 1).F (AddMonoidHom.mulLeft 1)')
+ok_a6d &= _a6d_m14 != _A6DLEAN and not _a6d_d2_kernel(_a6d_m14)
+
+# hazard 5: D3 reported as symmetric
+_a6d_m15 = _A6D1.replace('**The distinction is one-directional.**',
+                         '**The distinction runs both ways: each reading fails where the other holds.**')
+ok_a6d &= _a6d_m15 != _A6D1 and not _a6d_d3_one_directional(_a6d_m15)
+
+_a6d_m16 = _A6D1.replace('**no rule satisfies `A6-inv` and fails `A6-cov`**',
+                         '**a rule satisfying `A6-inv` and failing `A6-cov` is exhibited**')
+ok_a6d &= _a6d_m16 != _A6D1 and not _a6d_d3_one_directional(_a6d_m16)
+
+# hazard 6: D3-a promoted to physics
+_a6d_m17 = _A6D1.replace(
+    'it is not "local gauge invariance is trivial" and not a statement about `SM.md:114`\'s '
+    'derivation on the complex lift',
+    'so local gauge invariance is trivial and `SM.md:114`\'s derivation carries no content')
+ok_a6d &= _a6d_m17 != _A6D1 and not _a6d_d3a_bounded(_a6d_m17)
+
+# D3-a weakened to the frozen carrier only, so the identity would lose its universality
+_a6d_m18 = _A6DLEAN.replace(
+    'theorem a6cov_all (N : ι → Finset ι) (M : ι → ι → (V →+ V)) : A6Cov N M',
+    'theorem a6cov_all (M : Fin 2 → Fin 2 → ((Fin 2 → ZMod 2) →+ (Fin 2 → ZMod 2))) : '
+    'A6Cov ![{1}, {0}] M')
+ok_a6d &= _a6d_m18 != _A6DLEAN and not _a6d_d3_kernel(_a6d_m18)
+
+# hazard 11: the connected corollary promoted to a target
+_a6d_m19 = _A6D1.replace('is recorded here as analysis, **not** as a target',
+                         'is proved here as the round\'s fifth target')
+ok_a6d &= _a6d_m19 != _A6D1 and not _a6d_d4_single_edge(_a6d_m19)
+
+# D4 choosing among the readings
+_a6d_m20 = _A6D1.replace('`D4` does not choose among these.',
+                         '`D4` therefore settles that reading (b) is the manuscripts\' A6.')
+ok_a6d &= _a6d_m20 != _A6D1 and not _a6d_d4_single_edge(_a6d_m20)
+
+# the symmetric point's coupling unpinned from its equation
+_a6d_m21 = _A6DLEAN.replace('(hM : ∀ v, M₀ v = (μ : ZMod q) • v)', '(hM : Function.Injective M₀)')
+ok_a6d &= _a6d_m21 != _A6DLEAN and not _a6d_d4_kernel(_a6d_m21)
+
+# hazard 12: a physical A6 verdict
+_a6d_m22 = _A6D1.replace('**Nothing here says A6 holds of the physical substratum**, or fails of it.',
+                         'The physical substratum satisfies A6 under reading (b).')
+ok_a6d &= _a6d_m22 != _A6D1 and not _a6d_not_licensed(_a6d_m22)
+
+# the Standard-Model chain touched
+_a6d_m23 = _A6D1.replace('**Nothing here touches the Standard-Model gauge-group derivation.**',
+                         'This settles the gauge-group derivation of `SM`.')
+ok_a6d &= _a6d_m23 != _A6D1 and not _a6d_not_licensed(_a6d_m23)
+
+# hazard 10: the coupling-matrix denotation decided by choosing an instance
+_a6d_m24 = _A6D1.replace('no instance was chosen to resolve it',
+                         'the scalar instance `μ I_6` is taken as the denotation')
+ok_a6d &= _a6d_m24 != _A6D1 and not _a6d_unsettled(_a6d_m24)
+
+# the ROADMAP label changed without owner direction
+_a6d_m25 = _A6DROAD.replace(
+    '| **P1** | A6 — background independence / local gauge covariance | Substratum | **GAP** |',
+    '| **P1** | A6 — background independence / local gauge covariance | Substratum | **DEFINED** |')
+ok_a6d &= _a6d_m25 != _A6DROAD and not _a6d_roadmap_row(r=_a6d_m25)
+
+# a manuscript propagation the round is forbidden to make
+_a6d_m26 = _A6D1.replace('**It edits no manuscript.**',
+                         'The manuscripts now carry `A6-inv` as the definition of A6.')
+ok_a6d &= _a6d_m26 != _A6D1 and not _a6d_no_manuscript(_a6d_m26)
+
+# a tenth definition slipped in
+_a6d_m27 = _A6D1.replace('**No tenth definition was introduced**',
+                         'A tenth definition, the connectivity predicate, was convenient and was added')
+ok_a6d &= _a6d_m27 != _A6D1 and not _a6d_budget(_a6d_m27)
+
+# an eighth `def` in the module, over the frozen seven -- a predicate for A6-sd
+_a6d_m28 = _A6DLEAN.replace('def A6Cov', 'def A6Sd (Φ : (ι → V) → Rule ι V) : Prop := True def A6Cov')
+ok_a6d &= _a6d_m28 != _A6DLEAN and not _a6d_lean_defs(_a6d_m28)
+
+# a witness promoted to a top-level definition
+_a6d_m29 = _A6DLEAN.replace('theorem d3b_witness', 'def d3bCarrier : Fin 2 → Finset (Fin 2) := ![{1}, {0}] theorem d3b_witness')
+ok_a6d &= _a6d_m29 != _A6DLEAN and not _a6d_lean_defs(_a6d_m29)
+
+# a type-P item smuggled into the axiom table, and a foreign axiom
+_a6d_m30 = _A6D1.replace('| `d2ii_wave_a6glob` | `[propext, Classical.choice, Quot.sound]` |',
+                         '| `d2ii_wave_a6glob` | `[propext, Classical.choice, Quot.sound]` | '
+                         '| `D2-iii` | `[propext]` |')
+ok_a6d &= _a6d_m30 != _A6D1 and not _a6d_axiom_table(_a6d_m30)
+
+_a6d_m31 = _A6D1.replace('| `a6cov_all` | `[propext, Quot.sound]` |',
+                         '| `a6cov_all` | `[propext, Quot.sound, Lean.ofReduceBool]` |')
+ok_a6d &= _a6d_m31 != _A6D1 and not _a6d_axiom_table(_a6d_m31)
+
+# A1's control runs THROUGH _a6d_freeze_pin, so sabotaging that predicate fails the guard.
+def _a6d_drift(path):
+    """One byte appended to the A6 preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('a6-background-independence/preregistration.md') else b'')
+
+
+ok_a6d &= _a6d_drift(_A6DDIR + 'preregistration.md') != _bb_read(_A6DDIR + 'preregistration.md')
+ok_a6d &= not _a6d_freeze_pin(_a6d_drift)
+
+check('R7-A6D', ok_a6d,
+      'Substratum A6 round 1 guard: a DEFINITION round, not a proof round, so what can go wrong is the READING '
+      'of four readings on three interfaces, and the guard checks each in the freeze\'s own terms. The readings '
+      'are checked never silently identified -- A6-cov not a predicate of a Substratum, A6-sd a separate object '
+      'under a shared name and not the covariant coupling -- with both identifications mutation-tested. No '
+      'reading is checked adopted and the adoption decision checked named OPEN and not this round\'s, with the '
+      'adoption and the decision-taken both mutation-tested. D1 is checked reported with the type-P label, (a) at '
+      'the definition with (b) as its stated consequence, UNDECIDED at Substratum.md:104, :162 and SM.md:110 -- '
+      'NOT a contradiction with the definition -- and (d) at SM.md:100, with the definition\'s two sentences '
+      'quoted; a use-site decided (c), the use-sites reported as a textual conflict, a SPLIT declared without a '
+      'text that excludes the shorthand reading, and the type-P label dropped are each mutation-tested. D2-iii '
+      'is checked in the freeze\'s words -- statable, degenerate, not the axiom, gap unchanged at manuscript '
+      'level -- with the degenerate form checked NOT reported as the wave substratum\'s A6 verdict, the '
+      'singleton-K rescalings checked assigned to A5 and not to A6, and the manuscript-level gap checked '
+      'unchanged, all three mutation-tested; D2-i\'s frozen witness is checked pinned by equations in the note '
+      'and in the kernel statement on (waveSubstratum d L q α).R.F with no new definition, the substitution of '
+      'a witness and the restatement on waveRule both mutation-tested. D3 is checked ONE-DIRECTIONAL with '
+      'A6-inv the strictly stronger condition and no rule satisfying A6-inv while failing A6-cov, the symmetric '
+      'reading mutation-tested in two forms; D3-a is checked bounded to the frozen A6Cov over a finite alphabet '
+      'and not promoted to "local gauge invariance is trivial", the promotion mutation-tested, and the identity '
+      'theorem checked universal over every N and M with its restriction to the frozen carrier mutation-tested. '
+      'D4 is checked single-edge with the connected corollary recorded as ANALYSIS and no connectivity '
+      'definition spent, the promotion to a target and D4 choosing a reading both mutation-tested; the '
+      'symmetric-point coupling is checked pinned by the equation M₀ v = μ • v with μ a unit, the unpinning '
+      'mutation-tested. The frozen non-licences are checked present in terms -- nothing about the physical '
+      'substratum, nothing about the Standard-Model derivation, nothing about Track B or P0, A6-sd not '
+      'formalized, no manuscript edited, the A4/A6 overlap undecided -- with the physical verdict and the '
+      'SM-chain claim mutation-tested. The three unsettled points are checked listed and NOT resolved, the '
+      'coupling-matrix denotation checked not decided by choosing an instance, mutation-tested. The ROADMAP row '
+      'P1 -- A6 is checked to keep its GAP label, absent owner direction, with the propagation a paragraph and '
+      'links only; a label change is mutation-tested. No manuscript edit, mutation-tested. Seven of nine '
+      'definition slots fire with both conditional slots unused for stated reasons and no tenth; the module is '
+      'checked to carry EXACTLY the seven budgeted top-level definitions in the freeze\'s order and names, no '
+      'sorry, axiom or native_decide, with an A6-sd predicate and a witness-as-definition both mutation-tested. '
+      'The axiom table is checked to carry one line per #print axioms line, sixteen, nothing outside the three '
+      'standard axioms and no type-P item, with a smuggled type-P row and a foreign axiom both mutation-tested. '
+      'The chronology control is act 10\'s STRONG form: the blob by content, the real pull_request.head.sha '
+      'rather than the synthetic merge commit, B an ancestor of the head AND every commit of the execution-only '
+      'history required to descend from B, recovery included and fail-closed. Twenty-two named contracts, '
+      'thirty-one mutation controls, plus the freeze-pin drift controls.')
+
 
 check('R7-DILL2', ok_dl2,
       'Track B act 7 guard, layer 2: a round that reached a POSITIVE existential label under a readback that is OURS '
