@@ -2008,6 +2008,27 @@ Lie-rank condition is necessary for exact reachability.
     python3 tools/release_gate.py       # toolchain, staleness, voice, claims, mirror,
                                         # citation, architecture, coverage, lean-axioms, ...
 
+The substratum A6 round 1 (`programmes/substratum/a6-background-independence/`, preregistration
+blob `afbf1ee`, merged alone by PR #593 as `8792801`, which the freeze fixes as the execution base)
+is a definition round, not a proof round, and is owner-called: the `ROADMAP` carries A6 as a `GAP`
+because the manuscript wording admits an invariant and a covariant reading that must not be
+silently identified. `BackgroundIndependence.lean` states four readings on three interfaces —
+`A6Inv`, `A6Glob`, `A6Cov` on the least interface (site-dependent transformations `ι → AddAut V`, a
+site coupling `V →+ V`, a link coupling and its transport), with `A6-sd` frozen as a reading and
+not formalized — and closes the preregistered targets at level 2: `A6-inv ⟹ A6-glob`; `A6-cov` an
+identity on link-coupled rules; a link-coupled rule failing `A6-inv` on the frozen two-site
+carrier, the distinction one-directional; single-edge rigidity of `A6-inv` on the constant-coupling
+rule with its symmetric-point consequence at `M = μ I_6`; and on `waveSubstratum` a degenerate
+`A6-inv` failing at `q = 3` with `A6-glob` holding, labelled as facts about the degenerate form and
+not as the axiom. The type-P determination reads `Substratum.md:102` as `A6-inv` with `A6-glob` as
+its stated consequence, the three use-sites as UNDECIDED, and `SM.md:100` as `A6-sd`. No reading is
+adopted, the `ROADMAP` label is unchanged, and no manuscript is edited. Guard `R7-A6D` pins the
+blob by content, certifies the execution ancestry in act 10's strong form, and checks the readings
+never identified, no reading adopted, `D1` type-P with the use-sites UNDECIDED, the degenerate form
+not the axiom, `D3` one-directional, the row's label unchanged, no manuscript edit, and exactly the
+seven budgeted definitions with no `sorry`, `axiom` or `native_decide`, each contract with a
+mutation control.
+
 The act 11 scope propagation round (`audits/foundations/act11-scope-propagation-audit.md`,
 preregistration blob `cc6d5ad`, committed alone as `a2c2310`, written from `main` at `e4e04eb`) is
 publication-only and owner-called. It carries act 11's `GL2` conclusion into the corpus and nothing

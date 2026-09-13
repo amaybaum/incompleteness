@@ -169,6 +169,7 @@ import OIBridge.RouteB
 import OIBridge.ManuscriptAxioms
 import OIBridge.LiftAudit
 import OIBridge.SubstratumInterfaceAudit
+import OIBridge.BackgroundIndependence
 import OIBridge.ScalarClosure
 import OIBridge.InstrumentRealization
 import OIBridge.FlowEndpoint
