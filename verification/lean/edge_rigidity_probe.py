@@ -9774,7 +9774,7 @@ def _rbr_git(*args, **kw):
     own guard name rather than this one's."""
     import subprocess
     try:
-        return subprocess.run(('git',) + args, cwd=os.path.dirname(VERIFICATION),
+        return subprocess.run(('git',) + args, cwd=kw.get('cwd') or os.path.dirname(VERIFICATION),
                               capture_output=True, timeout=kw.get('timeout', 60))
     except Exception as exc:
         print('    %s ancestry: git unusable (%s)'
@@ -9782,7 +9782,7 @@ def _rbr_git(*args, **kw):
         return None
 
 
-def _rbr_ensure_present(rev, pr_number=None, tag='R7-RBR'):
+def _rbr_ensure_present(rev, pr_number=None, tag='R7-RBR', cwd=None):
     """Make `rev` available in this clone, or report that it could not be.
 
     A shallow checkout does not contain the pinned base -- nor, sometimes, the real PR head -- so
@@ -9795,70 +9795,34 @@ def _rbr_ensure_present(rev, pr_number=None, tag='R7-RBR'):
     **This never substitutes for the ancestry check.** It only makes the check answerable; the
     pinned `merge-base --is-ancestor` still runs afterwards and still decides. If recovery fails,
     the guard FAILS."""
-    present = _rbr_git('cat-file', '-e', rev + '^{commit}', tag=tag)
+    present = _rbr_git('cat-file', '-e', rev + '^{commit}', tag=tag, cwd=cwd)
     if present is None:
         return False
     if present.returncode == 0:
         return True
-    shallow = _rbr_git('rev-parse', '--is-shallow-repository', tag=tag)
+    shallow = _rbr_git('rev-parse', '--is-shallow-repository', tag=tag, cwd=cwd)
     if shallow is None:
         return False
     if shallow.stdout.decode('utf-8', 'replace').strip() == 'true':
         print('    %s ancestry: shallow checkout; deepening to reach %s' % (tag, rev[:12]))
-        got = _rbr_git('fetch', '--unshallow', 'origin', timeout=900, tag=tag)
+        got = _rbr_git('fetch', '--unshallow', 'origin', timeout=900, tag=tag, cwd=cwd)
         if got is None or got.returncode != 0:
-            got = _rbr_git('fetch', '--deepen=2147483647', 'origin', timeout=900, tag=tag)
+            got = _rbr_git('fetch', '--deepen=2147483647', 'origin', timeout=900, tag=tag, cwd=cwd)
     else:
         print('    %s ancestry: %s absent; fetching it' % (tag, rev[:12]))
-        got = _rbr_git('fetch', 'origin', rev, timeout=900, tag=tag)
+        got = _rbr_git('fetch', 'origin', rev, timeout=900, tag=tag, cwd=cwd)
     if (got is None or got.returncode != 0) and pr_number is not None:
-        got = _rbr_git('fetch', 'origin', 'refs/pull/%s/head' % pr_number, timeout=900, tag=tag)
+        got = _rbr_git('fetch', 'origin', 'refs/pull/%s/head' % pr_number, timeout=900, tag=tag, cwd=cwd)
     if got is None or got.returncode != 0:
         print('    %s ancestry: recovery of %s FAILED; the check fails rather than skips'
               % (tag, rev[:12]))
         return False
-    present = _rbr_git('cat-file', '-e', rev + '^{commit}', tag=tag)
+    present = _rbr_git('cat-file', '-e', rev + '^{commit}', tag=tag, cwd=cwd)
     return present is not None and present.returncode == 0
 
 
-def _rbr_merged_head(note_path, tag='R7-RBR'):
-    """Outside PR CI, the EXECUTION HEAD reconstructed from the repository record.
-
-    Once an execution PR has merged, `HEAD` on `main` is no longer the execution head: it also
-    reaches every sibling round merged before or after, and a sibling branched before this round's
-    freeze is exactly the "pre-freeze side history" the strengthened predicate exists to refuse --
-    correctly for the execution head, wrongly for `main`. The frozen property is a property of the
-    execution head, so that is what must be certified. It is recoverable from the record without a
-    pin: the first-parent commit that INTRODUCED the round's result note is the merge of the
-    execution PR, and its second parent is the exact execution head that was reviewed and merged.
-    Before the merge -- on the execution branch itself -- the introducing commit is the execution
-    commit and is used directly; before the note is committed at all, there is nothing to resolve
-    and the caller falls back to `HEAD`.
-
-    Returns `(rev, label)` or `(None, None)` when the note has no committed history yet."""
-    found = _rbr_git('log', '--first-parent', '--diff-filter=A', '--format=%H', '--',
-                     os.path.join('verification', note_path), tag=tag)
-    if found is None or found.returncode != 0:
-        return None, None
-    shas = found.stdout.decode('utf-8', 'replace').split()
-    if not shas:
-        return None, None
-    intro = shas[-1]
-    parents = _rbr_git('log', '-1', '--format=%P', intro, tag=tag)
-    if parents is None or parents.returncode != 0:
-        return None, None
-    ps = parents.stdout.decode('utf-8', 'replace').split()
-    if len(ps) >= 2:
-        return ps[1], 'merged execution head %s (second parent of %s)' % (ps[1][:12], intro[:12])
-    return intro, 'execution commit %s (introduced the result note)' % intro[:12]
-
-
-def _rbr_target_commit(env=None, tag='R7-RBR', note_path=None):
+def _rbr_target_commit(env=None, tag='R7-RBR'):
     """The commit the ancestry claim is ABOUT -- and in PR CI that is NOT `HEAD`.
-
-    With `note_path` given, a non-PR run certifies the merged execution head reconstructed by
-    `_rbr_merged_head` rather than `HEAD`, so that sibling rounds merged around this one do not
-    enter a predicate that is about this round's history alone.
 
     `actions/checkout` on a `pull_request` event checks out GitHub's **synthetic merge commit**
     `refs/pull/<n>/merge`, which has the PR BASE as a parent by construction. So an ancestry check
@@ -9873,10 +9837,6 @@ def _rbr_target_commit(env=None, tag='R7-RBR', note_path=None):
     being answered against the wrong object."""
     env = os.environ if env is None else env
     if not env.get('GITHUB_EVENT_NAME', '').startswith('pull_request'):
-        if note_path is not None:
-            rev, label = _rbr_merged_head(note_path, tag=tag)
-            if rev is not None:
-                return rev, label, None
         return 'HEAD', 'HEAD', None
     path = env.get('GITHUB_EVENT_PATH', '')
     if not path or not os.path.exists(path):
@@ -9897,6 +9857,176 @@ def _rbr_target_commit(env=None, tag='R7-RBR', note_path=None):
               % tag)
         return None, None, None
     return sha, 'pull_request.head.sha %s' % sha[:12], num
+
+
+def _rbr_strong_ancestry(base, target, label, num, tag='R7-RBR', cwd=None):
+    """The strengthened predicate, factored: `base` an ancestor of `target`, and every commit of
+    `git rev-list target ^base` itself a descendant of `base`, recovery included, fail-closed."""
+    if not _rbr_ensure_present(base, tag=tag, cwd=cwd):
+        return False
+    if not _rbr_ensure_present(target, pr_number=num, tag=tag, cwd=cwd):
+        return False
+    r = _rbr_git('merge-base', '--is-ancestor', base, target, tag=tag, cwd=cwd)
+    if r is None:
+        return False
+    if r.returncode != 0:
+        print('    %s ancestry: %s is present but is NOT an ancestor of %s' % (tag, base[:12], label))
+        return False
+    listed = _rbr_git('rev-list', '%s' % target, '^%s' % base, tag=tag, cwd=cwd)
+    if listed is None or listed.returncode != 0:
+        print('    %s ancestry: could not enumerate the execution-only history; failing closed' % tag)
+        return False
+    revs = listed.stdout.decode('utf-8', 'replace').split()
+    for rev in revs:
+        if not _rbr_ensure_present(rev, pr_number=num, tag=tag, cwd=cwd):
+            return False
+        step = _rbr_git('merge-base', '--is-ancestor', base, rev, tag=tag, cwd=cwd)
+        if step is None:
+            return False
+        if step.returncode != 0:
+            print('    %s ancestry: %s is reachable from %s but does NOT descend from %s -- '
+                  'pre-freeze side history' % (tag, rev[:12], label, base[:12]))
+            return False
+    print('    %s ancestry: certified %s and all %d commit(s) of the execution-only history '
+          'descend from %s' % (tag, label, len(revs), base[:12]))
+    return True
+
+
+def _rbr_archive_ancestry(base, sealed, merge, tag='R7-RBR', env=None, target=None, cwd=None):
+    """ARCHIVE MODE -- the same strong certificate, re-run against the SEALED execution head.
+
+    Once an execution PR has merged, neither `HEAD` on `main` nor the head of a later pull request
+    is the execution head: both reach every sibling round merged before or after, and a sibling
+    branched before this round's freeze is exactly the "pre-freeze side history" the strengthened
+    predicate exists to refuse -- correctly for the execution head, wrongly for anything that
+    merely contains it. The predicate is a property of the object that was reviewed, so after the
+    merge it is re-run against that object: the sealed head pinned by SHA, together with the merge
+    commit that carried it. Three things are required, each fail-closed: the pinned merge commit's
+    second parent IS the sealed head (the pin is consistent with the record); the sealed head
+    passes the strong check against the base exactly as it did in its own PR run; and both the
+    sealed head and the merge commit are still reachable from the current target -- the real
+    `pull_request.head.sha` in PR CI, `HEAD` otherwise -- so that a rewritten or vanished history
+    fails rather than passes. Nothing about the base or the preregistration pin changes."""
+    if target is None:
+        target, label, _num = _rbr_target_commit(env=env, tag=tag)
+        if target is None:
+            return False
+    else:
+        label = target[:12]
+    for rev in (base, sealed, merge, target):
+        if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
+            return False
+    parents = _rbr_git('log', '-1', '--format=%P', merge, tag=tag, cwd=cwd)
+    if parents is None or parents.returncode != 0:
+        return False
+    ps = parents.stdout.decode('utf-8', 'replace').split()
+    if len(ps) < 2 or ps[1] != sealed:
+        print('    %s archive: pinned merge %s does not carry the sealed head %s as its second '
+              'parent; failing closed' % (tag, merge[:12], sealed[:12]))
+        return False
+    if not _rbr_strong_ancestry(base, sealed, 'sealed execution head %s' % sealed[:12], None,
+                                tag=tag, cwd=cwd):
+        return False
+    for rev, what in ((sealed, 'sealed head'), (merge, 'pinned merge')):
+        reach = _rbr_git('merge-base', '--is-ancestor', rev, target, tag=tag, cwd=cwd)
+        if reach is None:
+            return False
+        if reach.returncode != 0:
+            print('    %s archive: %s %s is NOT reachable from %s; failing closed'
+                  % (tag, what, rev[:12], label))
+            return False
+    print('    %s archive: re-certified sealed head %s (merge %s), both reachable from %s'
+          % (tag, sealed[:12], merge[:12], label))
+    return True
+
+
+def _rbr_archive_regression():
+    """Synthetic regression: two sibling execution rounds merged sequentially, both archived
+    certifications valid, and the archive check failing closed on a rewritten history.
+
+    Builds a throwaway repository with the topology that made `main` red on 2026-09-13: a common
+    root `c0`; freeze A branched from `c0` and merged as base `BA`; freeze B branched from `c0`
+    BEFORE A's merge and merged afterwards as base `BB`; execution A from `BA`; execution B from
+    `BB`; then A merged, then B. On that `main`, the HEAD-based reading of A's predicate refuses
+    freeze B's commit as pre-freeze side history (the bug), while the archive re-certification of
+    A's sealed head passes, as does B's; a target that does not reach A's sealed head fails, a pin
+    whose merge commit does not carry the sealed head fails, and a sealed head that itself carries
+    side history fails."""
+    import shutil
+    import tempfile
+    cwd = tempfile.mkdtemp(prefix='r7-arch-')
+    try:
+        cfg = ('-c', 'user.name=r7', '-c', 'user.email=r7@example.invalid',
+               '-c', 'commit.gpgsign=false')
+
+        def run(*a):
+            r = _rbr_git(*(cfg + a), tag='R7-ARCH', cwd=cwd)
+            if r is None or r.returncode != 0:
+                raise RuntimeError('git %s: %s' % (' '.join(a), (r.stderr if r else b'').decode(
+                    'utf-8', 'replace')))
+            return r.stdout.decode('utf-8', 'replace').strip()
+
+        def head():
+            return run('rev-parse', 'HEAD')
+
+        run('init', '-q', '-b', 'main')
+        run('commit', '-q', '--allow-empty', '-m', 'c0')
+        c0 = head()
+        run('checkout', '-q', '-b', 'freeze-a', c0)
+        run('commit', '-q', '--allow-empty', '-m', 'freeze A')
+        run('checkout', '-q', '-b', 'freeze-b', c0)
+        run('commit', '-q', '--allow-empty', '-m', 'freeze B (branched before A merged)')
+        run('checkout', '-q', 'main')
+        run('merge', '-q', '--no-ff', '-m', 'merge freeze A', 'freeze-a')
+        ba = head()
+        run('merge', '-q', '--no-ff', '-m', 'merge freeze B', 'freeze-b')
+        bb = head()
+        run('checkout', '-q', '-b', 'exec-a', ba)
+        run('commit', '-q', '--allow-empty', '-m', 'execution A')
+        a1 = head()
+        run('checkout', '-q', '-b', 'exec-b', bb)
+        run('commit', '-q', '--allow-empty', '-m', 'execution B')
+        b1 = head()
+        run('checkout', '-q', 'main')
+        run('merge', '-q', '--no-ff', '-m', 'merge execution A', 'exec-a')
+        ma = head()
+        run('merge', '-q', '--no-ff', '-m', 'merge execution B', 'exec-b')
+        mb = head()
+        ok = True
+        # the bug: A's predicate asked of main's HEAD refuses freeze B's commit
+        ok &= not _rbr_strong_ancestry(ba, mb, 'synthetic main', None, tag='R7-ARCH', cwd=cwd)
+        # both execution heads certified in their own PR runs (execution mode)
+        ok &= _rbr_strong_ancestry(ba, a1, 'synthetic exec A head', None, tag='R7-ARCH', cwd=cwd)
+        ok &= _rbr_strong_ancestry(bb, b1, 'synthetic exec B head', None, tag='R7-ARCH', cwd=cwd)
+        # both archived certifications valid on the merged main
+        ok &= _rbr_archive_ancestry(ba, a1, ma, tag='R7-ARCH', target=mb, cwd=cwd)
+        ok &= _rbr_archive_ancestry(bb, b1, mb, tag='R7-ARCH', target=mb, cwd=cwd)
+        # fail-closed: a target that does not reach the sealed head (history rewritten or vanished)
+        ok &= not _rbr_archive_ancestry(ba, a1, ma, tag='R7-ARCH', target=bb, cwd=cwd)
+        # fail-closed: a pin whose merge commit does not carry the sealed head
+        ok &= not _rbr_archive_ancestry(ba, a1, mb, tag='R7-ARCH', target=mb, cwd=cwd)
+        # fail-closed: a sealed head that itself carries pre-freeze side history
+        ok &= not _rbr_archive_ancestry(ba, b1, mb, tag='R7-ARCH', target=mb, cwd=cwd)
+        return ok
+    except Exception as exc:
+        print('    R7-ARCH: synthetic repository could not be built (%s); failing closed'
+              % type(exc).__name__)
+        return False
+    finally:
+        shutil.rmtree(cwd, ignore_errors=True)
+
+
+ok_arch = _rbr_archive_regression()
+check('R7-ARCH', ok_arch,
+      'Provenance-guard archive mode, synthetic regression: two sibling execution rounds whose freezes both branch '
+      'from one root, merged in sequence. The HEAD-based reading of the strengthened predicate is checked to REFUSE '
+      'the merged main for the first round (the sibling freeze is pre-freeze side history relative to that base -- '
+      'the failure main showed after #598, #596 and #597 merged), while both execution heads certify in execution '
+      'mode and BOTH archived certifications -- the same strong check re-run against each sealed head, with the '
+      'pinned merge commit required to carry it and both required reachable from the target -- remain valid. '
+      'Fail-closed is checked three ways: a target that does not reach the sealed head, a pin whose merge commit '
+      'does not carry the sealed head, and a sealed head that itself carries side history all FAIL. No blob pin '
+      'and no base is touched by archive mode; it re-certifies the object that was reviewed.')
 
 
 def _rbr_base_ancestry():
@@ -10659,6 +10789,11 @@ _HYALEAN = ' '.join(open(
 _HYADIR = 'programmes/hydrodynamics/round-h-a-source-audit/'
 # The mandated execution base: the merge commit of round H-A's control-plane PR #595.
 _HYA_BASE = 'ae81459372887cfbe27b427b30bbdad1b564f2b7'
+# The SEALED execution head reviewed and merged as #597, and the merge commit that carried it. Set,
+# the guard runs in ARCHIVE MODE: the same strong check re-run against this object, plus its
+# reachability from the current target. Unset (None), the guard certifies the run's real target.
+_HYA_SEALED_HEAD = '6a8675efca5e5ceeab0195036af1a658b49ace80'
+_HYA_MERGE = 'd2314f5edc33fbeb4f75642ec87f9d302ee734f4'
 
 
 def _hya_git(*args, **kw):
@@ -10671,7 +10806,7 @@ def _hya_ensure_present(rev, pr_number=None):
 
 
 def _hya_target_commit(env=None):
-    return _rbr_target_commit(env=env, tag='R7-HYA', note_path=_HYADIR + 'result.md')
+    return _rbr_target_commit(env=env, tag='R7-HYA')
 
 
 def _hya_freeze_pin(read=_bb_read):
@@ -10685,39 +10820,18 @@ def _hya_execution_ancestry():
 
     Act 10's strengthened predicate, reused verbatim through acts 11 and 12's copies: the head-only
     check is insufficient because a commit made before the freeze and merged in alongside it leaves
-    the head descended from the freeze while itself not being."""
-    target, label, num = _hya_target_commit()
-    if target is None:
-        return False
-    if not _hya_ensure_present(_HYA_BASE):
-        return False
-    if not _hya_ensure_present(target, pr_number=num):
-        return False
-    r = _hya_git('merge-base', '--is-ancestor', _HYA_BASE, target)
-    if r is None:
-        return False
-    if r.returncode != 0:
-        print('    R7-HYA ancestry: %s is present but is NOT an ancestor of %s'
-              % (_HYA_BASE[:12], label))
-        return False
-    listed = _hya_git('rev-list', '%s' % target, '^%s' % _HYA_BASE)
-    if listed is None or listed.returncode != 0:
-        print('    R7-HYA ancestry: could not enumerate the execution-only history; failing closed')
-        return False
-    revs = listed.stdout.decode('utf-8', 'replace').split()
-    for rev in revs:
-        if not _hya_ensure_present(rev, pr_number=num):
+    the head descended from the freeze while itself not being.
+
+    Execution mode (pin unset): the strong check against the run's real target. Archive mode (pin
+    set, as now): the same strong check re-run against the sealed head 6a8675efca5e, with the
+    pinned merge d2314f5edc33 required to carry it and both required reachable from the current
+    target, fail-closed."""
+    if _HYA_SEALED_HEAD is None:
+        target, label, num = _hya_target_commit()
+        if target is None:
             return False
-        step = _hya_git('merge-base', '--is-ancestor', _HYA_BASE, rev)
-        if step is None:
-            return False
-        if step.returncode != 0:
-            print('    R7-HYA ancestry: %s is reachable from %s but does NOT descend from %s -- '
-                  'pre-freeze side history' % (rev[:12], label, _HYA_BASE[:12]))
-            return False
-    print('    R7-HYA ancestry: certified %s and all %d commit(s) of the execution-only history '
-          'descend from %s' % (label, len(revs), _HYA_BASE[:12]))
-    return True
+        return _rbr_strong_ancestry(_HYA_BASE, target, label, num, tag='R7-HYA')
+    return _rbr_archive_ancestry(_HYA_BASE, _HYA_SEALED_HEAD, _HYA_MERGE, tag='R7-HYA')
 
 
 def _hya_outcome(t=None):
@@ -11110,8 +11224,8 @@ check('R7-HYA', ok_hya,
       'VERBATIM and conditional on every qualifier, to import and export nothing across control 1, and to edit no '
       'manuscript. The module is held to the frozen seven-slot budget -- exactly the six fired definitions as '
       'top-level defs, slot 7 unused, no sorry, axiom or native_decide -- with the over-budget def and the '
-      'docstring slide to HI outright both mutation-tested. Twenty-four mutation controls and the freeze-pin drift '
-      'control.')
+      'docstring slide to HI outright both mutation-tested. ARCHIVE MODE after the merge: the same strong check re-run against the SEALED execution head pinned by SHA, the pinned merge commit required to carry it and both required reachable from the current target, fail-closed (R7-ARCH is the synthetic regression). '
+      'Twenty-four mutation controls and the freeze-pin drift control.')
 
 
 # ---- R7-CLG: Track B act 11 -- the coherent-lift stabilizer no-go ----
@@ -12132,6 +12246,11 @@ _SGTLEAN = ' '.join(open(
 _SGTDIR = 'programmes/substratum/lemma-24-1-semigroup-transfer/'
 # The mandated execution base: the merge commit of the control-plane PR #594.
 _SGT_BASE = 'c46e1606d4cafe2720afd69dc06c667eb0f1acff'
+# The SEALED execution head reviewed and merged as #598, and the merge commit that carried it. Set,
+# the guard runs in ARCHIVE MODE: the same strong check re-run against this object, plus its
+# reachability from the current target. Unset (None), the guard certifies the run's real target.
+_SGT_SEALED_HEAD = '57103e9ddf430c538094fed48358c4d1b050ce4d'
+_SGT_MERGE = '11a8a59d22793a10182f853fe3c05edf5415d724'
 
 
 def _sgt_git(*args, **kw):
@@ -12144,7 +12263,7 @@ def _sgt_ensure_present(rev, pr_number=None):
 
 
 def _sgt_target_commit(env=None):
-    return _rbr_target_commit(env=env, tag='R7-SGT', note_path=_SGTDIR + 'result.md')
+    return _rbr_target_commit(env=env, tag='R7-SGT')
 
 
 def _sgt_freeze_pin(read=_bb_read):
@@ -12158,39 +12277,18 @@ def _sgt_execution_ancestry():
 
     Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
     commit made before the freeze and merged in alongside it leaves the head descended from the
-    freeze while itself not being."""
-    target, label, num = _sgt_target_commit()
-    if target is None:
-        return False
-    if not _sgt_ensure_present(_SGT_BASE):
-        return False
-    if not _sgt_ensure_present(target, pr_number=num):
-        return False
-    r = _sgt_git('merge-base', '--is-ancestor', _SGT_BASE, target)
-    if r is None:
-        return False
-    if r.returncode != 0:
-        print('    R7-SGT ancestry: %s is present but is NOT an ancestor of %s'
-              % (_SGT_BASE[:12], label))
-        return False
-    listed = _sgt_git('rev-list', '%s' % target, '^%s' % _SGT_BASE)
-    if listed is None or listed.returncode != 0:
-        print('    R7-SGT ancestry: could not enumerate the execution-only history; failing closed')
-        return False
-    revs = listed.stdout.decode('utf-8', 'replace').split()
-    for rev in revs:
-        if not _sgt_ensure_present(rev, pr_number=num):
+    freeze while itself not being.
+
+    Execution mode (pin unset): the strong check against the run's real target. Archive mode (pin
+    set, as now): the same strong check re-run against the sealed head 57103e9ddf43, with the
+    pinned merge 11a8a59d2279 required to carry it and both required reachable from the current
+    target, fail-closed."""
+    if _SGT_SEALED_HEAD is None:
+        target, label, num = _sgt_target_commit()
+        if target is None:
             return False
-        step = _sgt_git('merge-base', '--is-ancestor', _SGT_BASE, rev)
-        if step is None:
-            return False
-        if step.returncode != 0:
-            print('    R7-SGT ancestry: %s is reachable from %s but does NOT descend from %s -- '
-                  'pre-freeze side history' % (rev[:12], label, _SGT_BASE[:12]))
-            return False
-    print('    R7-SGT ancestry: certified %s and all %d commit(s) of the execution-only history '
-          'descend from %s' % (label, len(revs), _SGT_BASE[:12]))
-    return True
+        return _rbr_strong_ancestry(_SGT_BASE, target, label, num, tag='R7-SGT')
+    return _rbr_archive_ancestry(_SGT_BASE, _SGT_SEALED_HEAD, _SGT_MERGE, tag='R7-SGT')
 
 
 def _sgt_outcome(t=None):
@@ -12637,6 +12735,7 @@ check('R7-SGT', ok_sgt,
       '10\'s STRONG form: the blob by content, the real pull_request.head.sha rather than the synthetic merge '
       'commit, B an ancestor of the head AND every commit of the execution-only history required to descend '
       'from B, recovery included and fail-closed, with the certified property and its limits stated. '
+      'ARCHIVE MODE after the merge: the same strong check re-run against the SEALED execution head pinned by SHA, the pinned merge commit required to carry it and both required reachable from the current target, fail-closed (R7-ARCH is the synthetic regression). '
       'Twenty-three named contracts, thirty-one mutation controls, plus the freeze-pin drift controls.')
 
 # ---- R7-A11P: the act 11 scope propagation round (publication only) ----
@@ -13064,6 +13163,11 @@ _A6DLEAN = ' '.join(open(
 _A6DROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
 # The mandated execution base: the merge commit of the A6 control-plane PR #593.
 _A6D_BASE = '8792801beeeccbf0673db137cae83e6663d21fba'
+# The SEALED execution head reviewed and merged as #596, and the merge commit that carried it. Set,
+# the guard runs in ARCHIVE MODE: the same strong check re-run against this object, plus its
+# reachability from the current target. Unset (None), the guard certifies the run's real target.
+_A6D_SEALED_HEAD = 'd0b8c6e83c32a01a586f947c0dfd9618a8b42a91'
+_A6D_MERGE = '4fb0a6052d33193d442dd2a2cb72f64937177291'
 
 
 def _a6d_git(*args, **kw):
@@ -13076,7 +13180,7 @@ def _a6d_ensure_present(rev, pr_number=None):
 
 
 def _a6d_target_commit(env=None):
-    return _rbr_target_commit(env=env, tag='R7-A6D', note_path=_A6DDIR + 'result.md')
+    return _rbr_target_commit(env=env, tag='R7-A6D')
 
 
 def _a6d_freeze_pin(read=_bb_read):
@@ -13090,39 +13194,18 @@ def _a6d_execution_ancestry():
 
     Act 10's strengthened predicate, reused through act 12's copy: the head-only check is
     insufficient because a commit made before the freeze and merged in alongside it leaves the head
-    descended from the freeze while itself not being."""
-    target, label, num = _a6d_target_commit()
-    if target is None:
-        return False
-    if not _a6d_ensure_present(_A6D_BASE):
-        return False
-    if not _a6d_ensure_present(target, pr_number=num):
-        return False
-    r = _a6d_git('merge-base', '--is-ancestor', _A6D_BASE, target)
-    if r is None:
-        return False
-    if r.returncode != 0:
-        print('    R7-A6D ancestry: %s is present but is NOT an ancestor of %s'
-              % (_A6D_BASE[:12], label))
-        return False
-    listed = _a6d_git('rev-list', '%s' % target, '^%s' % _A6D_BASE)
-    if listed is None or listed.returncode != 0:
-        print('    R7-A6D ancestry: could not enumerate the execution-only history; failing closed')
-        return False
-    revs = listed.stdout.decode('utf-8', 'replace').split()
-    for rev in revs:
-        if not _a6d_ensure_present(rev, pr_number=num):
+    descended from the freeze while itself not being.
+
+    Execution mode (pin unset): the strong check against the run's real target. Archive mode (pin
+    set, as now): the same strong check re-run against the sealed head d0b8c6e83c32, with the
+    pinned merge 4fb0a6052d33 required to carry it and both required reachable from the current
+    target, fail-closed."""
+    if _A6D_SEALED_HEAD is None:
+        target, label, num = _a6d_target_commit()
+        if target is None:
             return False
-        step = _a6d_git('merge-base', '--is-ancestor', _A6D_BASE, rev)
-        if step is None:
-            return False
-        if step.returncode != 0:
-            print('    R7-A6D ancestry: %s is reachable from %s but does NOT descend from %s -- '
-                  'pre-freeze side history' % (rev[:12], label, _A6D_BASE[:12]))
-            return False
-    print('    R7-A6D ancestry: certified %s and all %d commit(s) of the execution-only history '
-          'descend from %s' % (label, len(revs), _A6D_BASE[:12]))
-    return True
+        return _rbr_strong_ancestry(_A6D_BASE, target, label, num, tag='R7-A6D')
+    return _rbr_archive_ancestry(_A6D_BASE, _A6D_SEALED_HEAD, _A6D_MERGE, tag='R7-A6D')
 
 
 def _a6d_outcome(t=None):
@@ -13595,8 +13678,8 @@ check('R7-A6D', ok_a6d,
       'standard axioms and no type-P item, with a smuggled type-P row and a foreign axiom both mutation-tested. '
       'The chronology control is act 10\'s STRONG form: the blob by content, the real pull_request.head.sha '
       'rather than the synthetic merge commit, B an ancestor of the head AND every commit of the execution-only '
-      'history required to descend from B, recovery included and fail-closed. Twenty-two named contracts, '
-      'thirty-one mutation controls, plus the freeze-pin drift controls.')
+      'history required to descend from B, recovery included and fail-closed. ARCHIVE MODE after the merge: the same strong check re-run against the SEALED execution head pinned by SHA, the pinned merge commit required to carry it and both required reachable from the current target, fail-closed (R7-ARCH is the synthetic regression). '
+      'Twenty-two named contracts, thirty-one mutation controls, plus the freeze-pin drift controls.')
 
 
 check('R7-DILL2', ok_dl2,
