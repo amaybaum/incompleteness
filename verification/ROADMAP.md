@@ -294,6 +294,30 @@ about the substratum structure. Both hold, of different objects.
 [`SUBSTRATUM-INTERFACE-AUDIT.md`](programmes/substratum/interface-audit.md),
 [`lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean`](lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean)
 
+**Round 1 of the definitional job is executed, and the row's label is unchanged pending an owner
+decision.** `BackgroundIndependence.lean` states the readings the audits named on the least
+interface — `A6Inv` (invariance of a fixed rule under site-dependent internal-index transformations
+`ι → AddAut V` preserving the site coupling pointwise), `A6Glob` (its constant-`g` case, the global
+commutant symmetry) and `A6Cov` (covariance, on link-coupled rules only: the link coupling is
+transported) — with `A6-sd`, the state-dependent graph of `SM.md:100`, frozen as a fourth reading
+and not formalized. Four objects on three interfaces, never identified. Kernel results: `A6-inv ⟹
+A6-glob`; `A6-cov` is an identity on link-coupled rules, so its content is the interface and not a
+constraint; a link-coupled rule failing `A6-inv` on a two-site carrier, so the distinction is
+**one-directional**; single-edge rigidity of `A6-inv` on the constant-coupling rule, so that at the
+manuscripts' symmetric point `M = μ I_6` `A6-inv` fails for every nonconstant transformation while
+`A6-glob` holds; and on `waveSubstratum` a **degenerate** `A6-inv` (singleton internal index) that
+fails at `q = 3` while `A6-glob` holds — recorded as facts about the degenerate form and **not** as
+the wave substratum's A6 verdict, which stays a gap. The type-P determination by quotation: the
+definition `Substratum.md:102` asserts `A6-inv` with `A6-glob` as its stated consequence; the three
+use-sites saying A6 "promotes" are UNDECIDED between shorthand for that derivation and a covariant
+reading; `SM.md:100` is `A6-sd`. No reading is adopted; which to adopt is an owner decision this
+round sets up and does not make, and no manuscript is edited.
+
+→ [A6 round 1 result](programmes/substratum/a6-background-independence/result.md) (`D1`–`D4`, the
+one-directional distinction, the degenerate form labelled so, and what none of it licenses)
+→ [A6 round 1 preregistration](programmes/substratum/a6-background-independence/preregistration.md)
+(the four readings, the least interface, the frozen witnesses, and the twelve hazards)
+
 ### P1 — physical C4 discharge
 
 The abstract realization and readback structure is clarified in the kernel. The **physical**
