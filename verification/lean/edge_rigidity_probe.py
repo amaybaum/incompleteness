@@ -10599,6 +10599,542 @@ check('R7-ABR', ok_abr,
       'edit, no cross-track sourcing, no candidate-selection principle. Sixteen named contracts, twenty-two mutation '
       'controls, plus the freeze-pin drift controls.')
 
+# ---- R7-CLG: Track B act 11 -- the coherent-lift stabilizer no-go ----
+#
+# The round that reframed Track B above the convention layer, and the one whose control plane took
+# three review rounds to get right. Two of those rounds were about the SAME error in two forms:
+# conflating a sufficient condition for invisibility with the invisible-freedom class, and then
+# claiming maximality for the repaired class where it is false. So the guard spends its weight on
+# the strong/weak distinction, on the |V| = 1 exception, and on the two labels that are easiest to
+# over-read -- GL3 (necessity only) and GI2 (which landed, and says less than it looks like it says).
+_CLG = open(_artifact('programmes/oi-qm/track-b/act-11-coherent-lift-gauge/result.md'),
+            encoding='utf-8').read()
+_CLG1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _CLG).split())
+# The module itself: E18 checks that GI2's bound is carried by the THEOREM STATEMENT, so that the
+# over-reading the execution head was blocked for cannot be made from the theorem in isolation.
+_CLGLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'CoherentLiftGauge.lean'), encoding='utf-8').read().split())
+_CLGDIR = 'programmes/oi-qm/track-b/act-11-coherent-lift-gauge/'
+# The mandated execution base: the merge commit of act 11's control-plane PR #588.
+_CLG_BASE = '6cff07cc0655124f1f29e04b156cc05a3d717a48'
+
+
+def _clg_git(*args, **kw):
+    kw.setdefault('tag', 'R7-CLG')
+    return _rbr_git(*args, **kw)
+
+
+def _clg_ensure_present(rev, pr_number=None):
+    return _rbr_ensure_present(rev, pr_number=pr_number, tag='R7-CLG')
+
+
+def _clg_target_commit(env=None):
+    return _rbr_target_commit(env=env, tag='R7-CLG')
+
+
+def _clg_freeze_pin(read=_bb_read):
+    """E1 -- act 11's preregistration is byte-identical to the blob merged by PR #588."""
+    return _bb_blob(_CLGDIR + 'preregistration.md', read) == (
+        '0f6d37fafd857d9e54d5dbff6d062cc360ea08e5')
+
+
+def _clg_execution_ancestry():
+    """E2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
+    commit made before the freeze and merged in alongside it leaves the head descended from the
+    freeze while itself not being."""
+    target, label, num = _clg_target_commit()
+    if target is None:
+        return False
+    if not _clg_ensure_present(_CLG_BASE):
+        return False
+    if not _clg_ensure_present(target, pr_number=num):
+        return False
+    r = _clg_git('merge-base', '--is-ancestor', _CLG_BASE, target)
+    if r is None:
+        return False
+    if r.returncode != 0:
+        print('    R7-CLG ancestry: %s is present but is NOT an ancestor of %s'
+              % (_CLG_BASE[:12], label))
+        return False
+    listed = _clg_git('rev-list', '%s' % target, '^%s' % _CLG_BASE)
+    if listed is None or listed.returncode != 0:
+        print('    R7-CLG ancestry: could not enumerate the execution-only history; failing closed')
+        return False
+    revs = listed.stdout.decode('utf-8', 'replace').split()
+    for rev in revs:
+        if not _clg_ensure_present(rev, pr_number=num):
+            return False
+        step = _clg_git('merge-base', '--is-ancestor', _CLG_BASE, rev)
+        if step is None:
+            return False
+        if step.returncode != 0:
+            print('    R7-CLG ancestry: %s is reachable from %s but does NOT descend from %s -- '
+                  'pre-freeze side history' % (rev[:12], label, _CLG_BASE[:12]))
+            return False
+    print('    R7-CLG ancestry: certified %s and all %d commit(s) of the execution-only history '
+          'descend from %s' % (label, len(revs), _CLG_BASE[:12]))
+    return True
+
+
+def _clg_two_stabilizers(t=None):
+    """E3 -- the strong class is a SUBGROUP of invisible freedom, and its size a LOWER BOUND.
+
+    The error the control plane was corrected for, twice. Fixing the anchored columns is sufficient
+    for invisibility, not necessary."""
+    t = _CLG1 if t is None else t
+    return ('**`GL1s`’S DIMENSION IS A LOWER BOUND ON INVISIBLE FREEDOM, NOT ITS MEASURE.**'
+            in t.replace("'", '’')
+            and 'right name for the weak class and not the strong one' in t)
+
+
+def _clg_gl1s_scope(t=None):
+    """E4 -- GL1s reports what is kernel-checked and what is arithmetic, without blurring them."""
+    t = _CLG1 if t is None else t
+    return ('**block characterization**' in t
+            and 'complement’s **cardinality**' in t.replace("'", '’')
+            and '**recorded here as arithmetic, not as theorems of this module**' in t
+            and 'Nothing in the round’s conclusions rests on the dimension count.'
+                in t.replace("'", '’')
+            and '**`|A| = 1` triviality**' in t)
+
+
+def _clg_gl1w_maximality(t=None):
+    """E5 -- maximality is scoped to |V| >= 2, uniform, and proved by two tests not a search."""
+    t = _CLG1 if t is None else t
+    return ('its maximality for `|V| ≥ 2`' in t
+            and 'proved by exactly two test dilations** rather than by a search over unitaries' in t
+            and '**`|V| ≥ 2` is where the force comes from**' in t
+            and 'the hypothesis is structural rather than cosmetic' in t
+            and '**Uniformity is part of the claim.**' in t)
+
+
+def _clg_gl1w_exception(t=None):
+    """E6 -- |V| = 1 is a PROVED exception, with the maximal class named and maximality disclaimed."""
+    t = _CLG1 if t is None else t
+    return ('**`|V| = 1` IS A GENUINE EXCEPTION AND IS PROVED TO BE ONE.**' in t
+            and 'hence **identically `1`**' in t
+            and 'The maximal uniform class there is all of `U(|A|)`' in t
+            and 'is not maximal at `|V| = 1`, and this round does not claim it is' in t)
+
+
+def _clg_gl2(t=None):
+    """E7 -- the no-go over the STRONG class, N-indexed, with the cocycle recorded vacuous."""
+    t = _CLG1 if t is None else t
+    return ('**The strong class is deliberately the weaker choice**' in t
+            and 'using the smaller group makes the statement stronger' in t
+            and '**The cocycle condition is vacuous, and nothing in the round uses it.**' in t
+            and 'holds for **every** family whatsoever' in t
+            and '**`GL2` is scoped to `ℕ`-indexed coherence**' in t
+            and '**No regularity result is claimed about it.**' in t)
+
+
+def _clg_gl3_necessity(t=None):
+    """E8 -- GL3 is necessity ONLY, with the two-sided reading named wrong.
+
+    The freeze forbids the two-sided phrasing in terms, so the note must disclaim it rather than
+    merely avoid it."""
+    t = _CLG1 if t is None else t
+    return ('## `GL3` — necessity, and only necessity' in t
+            and '**This is one direction.**' in t
+            and '**Neither says every time-dependent gauge moves every relative candidate**' in t
+            and 'Any two-sided reading of the form "the obstruction is exactly time-dependence" '
+                'is wrong.' in t)
+
+
+def _clg_act5_countercontrol(t=None):
+    """E9 -- act 5 is placed in the WEAK class, on the continuous side, and not as a theorem here."""
+    t = _CLG1 if t is None else t
+    return ('**prior merged countercontrol on the continuous side**' in t
+            and 'it lies in `\U0001d4a2ʷ_{a₀}` and **not** in `\U0001d4a2ˢ_{a₀}`'
+                in t
+            and 'rather than an instance of `GL2`’s statement' in t.replace("'", '’'))
+
+
+def _clg_witness_controls(t=None):
+    """E10 -- both merged witnesses are GL2 instances, and the conjugation trap is recorded."""
+    t = _CLG1 if t is None else t
+    return ('## The witness controls: BOTH act 7 witnesses are `GL2` instances' in t
+            and 'Witness A’s **conjugates**' in t.replace("'", '’')
+            and '**Reading the constructor’s `τ` off directly is wrong'
+                in t.replace("'", '’')
+            and 'The forced element must be **computed**' in t
+            and '**Consequence: neither merged witness is a `GI2` candidate.**' in t)
+
+
+def _clg_gi2_earned(t=None):
+    """E11 -- GI2 is earned by a COMPUTED forced element proved outside the weak class.
+
+    Never by a failed search, and -- because the relating element is forced -- with no universal
+    over the class needed."""
+    t = _CLG1 if t is None else t
+    return ('**The `GI2` label is earned in the form the freeze requires**' in t
+            and 'is computed and proved to fall outside' in t
+            and 'It is **not** a failed search, and no universal over the class was needed, '
+                'because the relating element is forced and membership is therefore decidable.' in t
+            and 'the freeze predicted this fork at no strength on either side' in t.lower())
+
+
+def _clg_gi2_bounded(t=None):
+    """E12 -- GI2 is a LIFT-SPACE statement and is NOT evidence about the relative evolution.
+
+    The review blocker on the execution head. GI2's own witness uses two lifts constant in t, so the
+    forced element is constant and GL3 applies to it: the pair has IDENTICAL relative objects. A
+    nonmember of the weak class is therefore not by itself a difference in relative evolution, and
+    the note must say so where the reading would otherwise be made."""
+    t = _CLG1 if t is None else t
+    return ('**`GI2` is NOT evidence of non-gauge ambiguity in the relative quantum evolution.**'
+                in t
+            and 'The exhibited pair is **proved** to have the same relative object at every pair '
+                'of times' in t
+            and '**`GI2` is a statement about the lift space, not about relative evolution.**' in t
+            and '**identical relative objects at every pair of times**; each is identically `1`.'
+                in t
+            and 'it is the **final conjunct of `gi2_lifts_not_weakly_gauge_related`**, '
+                'kernel-checked.' in t)
+
+
+def _clg_gi2_no_shape_claim(t=None):
+    """E17 -- the two over-readings are named and refuted, not merely left unstated.
+
+    'larger than a gauge fixing' and 'a connection alone would not suffice' are exactly the
+    inferences GI2 does not support, so the note disclaims them in terms."""
+    t = _CLG1 if t is None else t
+    return ('**`GI2` does not license any claim that the structure needed to pin the relative '
+            'evolution must be larger than a gauge fixing**' in t
+            and 'or that a connection could not suffice' in t
+            and 'refuted by `GI2`’s own witness' in t.replace("'", '’')
+            and '**`GL2` remains the round’s only relative-evolution no-go**'
+                in t.replace("'", '’')
+            and '**The stronger target is open and is named here so it is not mistaken for '
+                'settled**' in t)
+
+
+def _clg_gi2_conjunct_kernel(t=None):
+    """E18 -- the bound is IN THE THEOREM, not only in the note.
+
+    The statement itself carries the relative-object coincidence, so the over-reading cannot be
+    made from the theorem in isolation."""
+    t = _CLGLEAN if t is None else t
+    return ('∧ ∀ t s, U\' t * (U\' s)ᴴ = U t * (U s)ᴴ' in t
+            and 'both lifts are constant, so each relative object is identically `1`' in t
+            and 'does **not** exhibit non-gauge ambiguity in the relative quantum evolution' in t
+            and '`GL2` remains the round’s only relative-evolution no-go' in t.replace("'", '’'))
+
+
+def _clg_gl1w_scope(t=None):
+    """E19 -- GL1w reports what is kernel-checked and what is arithmetic, exactly as GL1s does.
+
+    'All targets landed' must not read as kernel certification of a Lie-group formula the module
+    never proves."""
+    t = _CLG1 if t is None else t
+    return ('**Scope of the evidence, stated as explicitly as for `GL1s`.**' in t
+            and 'not theorems of the module**' in t
+            and '"`GL1w` landed" means the structural theorems landed' in t
+            and 'It does not kernel-certify the Lie-group identifications or dimensions' in t)
+
+
+def _clg_p0_not_closed(t=None):
+    """E13 -- P0 not closed; the caveat made structural, which is not retiring it."""
+    t = _CLG1 if t is None else t
+    return ('**`P0` is NOT closed.**' in t
+            and '**stands unchanged**' in t
+            and 'makes it structural rather than provisional, which is not the same as retiring it'
+                in t
+            and '**`GL2` and `GI2` are NOT a proof that OI and QM are inequivalent.**' in t)
+
+
+def _clg_d3_split(t=None):
+    """E14 -- D3 subsumed as a uniqueness mechanism only; the existence audit stays open."""
+    t = _CLG1 if t is None else t
+    return ('## `D3` — the split held' in t
+            and 'did not close `D3`’s source-level existence/regularity audit'
+                in t.replace("'", '’')
+            and 'That audit **remains open**' in t
+            and '**Coherent-lift existence was not presumed and was not needed in general.**' in t)
+
+
+def _clg_budget(t=None):
+    """E15 -- four of six slots, both conditional slots unused WITH their reasons, no seventh."""
+    t = _CLG1 if t is None else t
+    return ('## Definition budget: **FOUR of the frozen six slots fire**' in t
+            and 'Slot 5 did not fire' in t
+            and 'Slot 6 did not fire' in t
+            and 'budget spent on `¬`' in t
+            and '**No seventh definition was introduced**' in t)
+
+
+def _clg_no_manuscript(t=None):
+    """E16 -- no manuscript edit, no candidate-selection principle, no cross-track sourcing."""
+    t = _CLG1 if t is None else t
+    return ('**It touches no manuscript.** No propagation in this round.' in t
+            and '**It claims no candidate-selection principle**' in t
+            and '**It says nothing about Track I**, and nothing here is evidence for anything '
+                'there.' in t
+            and '**Act 7 layer 2’s `D5` chronological-ordering control stands NOT '
+                'CERTIFIED.**' in t.replace("'", '’'))
+
+
+ok_clg = True
+ok_clg &= _clg_freeze_pin()
+ok_clg &= _clg_execution_ancestry()
+ok_clg &= _clg_two_stabilizers()
+ok_clg &= _clg_gl1s_scope()
+ok_clg &= _clg_gl1w_maximality()
+ok_clg &= _clg_gl1w_exception()
+ok_clg &= _clg_gl2()
+ok_clg &= _clg_gl3_necessity()
+ok_clg &= _clg_act5_countercontrol()
+ok_clg &= _clg_witness_controls()
+ok_clg &= _clg_gi2_earned()
+ok_clg &= _clg_gi2_bounded()
+ok_clg &= _clg_gi2_no_shape_claim()
+ok_clg &= _clg_gi2_conjunct_kernel()
+ok_clg &= _clg_gl1w_scope()
+ok_clg &= _clg_p0_not_closed()
+ok_clg &= _clg_d3_split()
+ok_clg &= _clg_budget()
+ok_clg &= _clg_no_manuscript()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# THE ERROR THE CONTROL PLANE WAS CORRECTED FOR: the strong subgroup promoted to the whole of
+# invisible freedom, so that its dimension reads as the size of the ambiguity.
+_clg_m1 = _CLG1.replace(
+    '**`GL1s`’S DIMENSION IS A LOWER BOUND ON INVISIBLE FREEDOM, NOT ITS MEASURE.**'
+        .replace('’', "'"),
+    'GL1s therefore measures the invisible freedom exactly.')
+_clg_m1 = _clg_m1.replace(
+    '**`GL1s`’S DIMENSION IS A LOWER BOUND ON INVISIBLE FREEDOM, NOT ITS MEASURE.**',
+    'GL1s therefore measures the invisible freedom exactly.')
+ok_clg &= _clg_m1 != _CLG1 and not _clg_two_stabilizers(_clg_m1)
+
+# the dimension presented as a kernel theorem rather than as arithmetic
+_clg_m2 = _CLG1.replace('**recorded here as arithmetic, not as theorems of this module**',
+                        'kernel-checked in this module alongside the rest')
+ok_clg &= _clg_m2 != _CLG1 and not _clg_gl1s_scope(_clg_m2)
+
+# maximality stated unconditionally -- the second review blocker, written back
+_clg_m3 = _CLG1.replace('**`|V| ≥ 2` is where the force comes from**',
+                        'The argument goes through for every nonempty carrier')
+ok_clg &= _clg_m3 != _CLG1 and not _clg_gl1w_maximality(_clg_m3)
+
+# uniformity dropped, so a single fixed U would count
+_clg_m4 = _CLG1.replace('**Uniformity is part of the claim.**',
+                        'Maximality holds against any admissible U one cares to fix.')
+ok_clg &= _clg_m4 != _CLG1 and not _clg_gl1w_maximality(_clg_m4)
+
+# the |V| = 1 exception softened back to a degeneracy note
+_clg_m5 = _CLG1.replace('**`|V| = 1` IS A GENUINE EXCEPTION AND IS PROVED TO BE ONE.**',
+                        'The `|V| = 1` case is degenerate and may be passed over.')
+ok_clg &= _clg_m5 != _CLG1 and not _clg_gl1w_exception(_clg_m5)
+
+# G^w claimed maximal at |V| = 1 after all
+_clg_m6 = _CLG1.replace('is not maximal at `|V| = 1`, and this round does not claim it is',
+                        'remains maximal at `|V| = 1` as elsewhere')
+ok_clg &= _clg_m6 != _CLG1 and not _clg_gl1w_exception(_clg_m6)
+
+# force drawn from the cocycle identity -- the freeze forbids it because it is a tautology
+_clg_m7 = _CLG1.replace('**The cocycle condition is vacuous, and nothing in the round uses it.**',
+                        'Cross-time coherence is what constrains the gauge here.')
+ok_clg &= _clg_m7 != _CLG1 and not _clg_gl2(_clg_m7)
+
+# a regularity result claimed about the N-indexed object
+_clg_m8 = _CLG1.replace('**No regularity result is claimed about it.**',
+                        'The smooth case follows by the same argument.')
+ok_clg &= _clg_m8 != _CLG1 and not _clg_gl2(_clg_m8)
+
+# GL3 restated two-sidedly -- the exact phrasing the freeze forbids
+_clg_m9 = _CLG1.replace('**This is one direction.**',
+                        'So the obstruction is exactly time-dependence, in both directions.')
+ok_clg &= _clg_m9 != _CLG1 and not _clg_gl3_necessity(_clg_m9)
+
+# the disclaimer against the two-sided reading deleted, leaving it merely unstated
+_clg_m10 = _CLG1.replace(
+    'Any two-sided reading of the form "the obstruction is exactly time-dependence" is wrong.', '')
+ok_clg &= _clg_m10 != _CLG1 and not _clg_gl3_necessity(_clg_m10)
+
+# act 5 mis-placed into the strong class, which is the citation error the freeze was repaired for
+_clg_m11 = _CLG1.replace('**prior merged countercontrol on the continuous side**',
+                         'an instance of GL2 in the strong class')
+ok_clg &= _clg_m11 != _CLG1 and not _clg_act5_countercontrol(_clg_m11)
+
+# witness A read off its constructor -- the conjugation trap, written back
+_clg_m12 = _CLG1.replace('The forced element must be **computed**',
+                         'The constructor factor may be read off directly')
+ok_clg &= _clg_m12 != _CLG1 and not _clg_witness_controls(_clg_m12)
+
+# a merged witness promoted to a GI2 instance
+_clg_m13 = _CLG1.replace('**Consequence: neither merged witness is a `GI2` candidate.**',
+                         'Witness A is therefore also a `GI2` instance.')
+ok_clg &= _clg_m13 != _CLG1 and not _clg_witness_controls(_clg_m13)
+
+# GI2 reported from a failed search rather than a computed nonmember
+_clg_m14 = _CLG1.replace(
+    'It is **not** a failed search, and no universal over the class was needed, because the '
+    'relating element is forced and membership is therefore decidable.',
+    'No weak-class element relating the two could be found.')
+ok_clg &= _clg_m14 != _CLG1 and not _clg_gi2_earned(_clg_m14)
+
+# THE BLOCKER ON THE EXECUTION HEAD: GI2 read as evidence about the relative evolution, when its
+# own witness has identical relative objects at every pair of times.
+_clg_m15 = _CLG1.replace(
+    '**`GI2` is NOT evidence of non-gauge ambiguity in the relative quantum evolution.**',
+    'GI2 shows the relative quantum evolution carries non-gauge ambiguity.')
+ok_clg &= _clg_m15 != _CLG1 and not _clg_gi2_bounded(_clg_m15)
+
+# the relative-object coincidence demoted from a proved conjunct to an unstated aside
+_clg_m16 = _CLG1.replace(
+    'it is the **final conjunct of `gi2_lifts_not_weakly_gauge_related`**, kernel-checked.', '')
+ok_clg &= _clg_m16 != _CLG1 and not _clg_gi2_bounded(_clg_m16)
+
+# the shape inference written back in the exact form the review struck out
+_clg_m26 = _CLG1.replace(
+    '**`GI2` does not license any claim that the structure needed to pin the relative evolution '
+    'must be larger than a gauge fixing**',
+    'So the structure needed to pin the relative evolution is larger than a gauge fixing')
+ok_clg &= _clg_m26 != _CLG1 and not _clg_gi2_no_shape_claim(_clg_m26)
+
+# GL2 demoted from sole relative-evolution no-go, so GI2 could stand in for it
+_clg_m27 = _CLG1.replace(
+    '**`GL2` remains the round’s only relative-evolution no-go**'.replace('’', "'"),
+    'GL2 and GI2 are both relative-evolution no-gos')
+_clg_m27 = _clg_m27.replace(
+    '**`GL2` remains the round’s only relative-evolution no-go**',
+    'GL2 and GI2 are both relative-evolution no-gos')
+ok_clg &= _clg_m27 != _CLG1 and not _clg_gi2_no_shape_claim(_clg_m27)
+
+# the stronger target quietly treated as settled rather than named open
+_clg_m28 = _CLG1.replace(
+    '**The stronger target is open and is named here so it is not mistaken for settled**',
+    'The stronger target is settled by the above')
+ok_clg &= _clg_m28 != _CLG1 and not _clg_gi2_no_shape_claim(_clg_m28)
+
+# the bound removed from the THEOREM, leaving it only in the note -- E18's whole point
+_clg_m29 = _CLGLEAN.replace("∧ ∀ t s, U' t * (U' s)ᴴ = U t * (U s)ᴴ", '')
+ok_clg &= _clg_m29 != _CLGLEAN and not _clg_gi2_conjunct_kernel(_clg_m29)
+
+# the module docstring re-asserting the struck inference next to the theorem
+_clg_m30 = _CLGLEAN.replace(
+    'does **not** exhibit non-gauge ambiguity in the relative quantum evolution',
+    'exhibits non-gauge ambiguity in the relative quantum evolution')
+ok_clg &= _clg_m30 != _CLGLEAN and not _clg_gi2_conjunct_kernel(_clg_m30)
+
+# GL1w's Lie-group identity presented as kernel-certified rather than as arithmetic
+_clg_m31 = _CLG1.replace('not theorems of the module**', 'proved in the module**')
+ok_clg &= _clg_m31 != _CLG1 and not _clg_gl1w_scope(_clg_m31)
+
+# 'all targets landed' left to imply certification of a formula the module never proves
+_clg_m32 = _CLG1.replace(
+    'It does not kernel-certify the Lie-group identifications or dimensions',
+    'It kernel-certifies the Lie-group identifications and dimensions')
+ok_clg &= _clg_m32 != _CLG1 and not _clg_gl1w_scope(_clg_m32)
+
+# P0 declared closed on the strength of a no-go
+_clg_m17 = _CLG1.replace('**`P0` is NOT closed.**', '**`P0` is closed by this round.**')
+ok_clg &= _clg_m17 != _CLG1 and not _clg_p0_not_closed(_clg_m17)
+
+# the structural reading turned into a retirement of act 7's caveat
+_clg_m18 = _CLG1.replace(
+    'makes it structural rather than provisional, which is not the same as retiring it',
+    'makes it structural, so it can now be retired')
+ok_clg &= _clg_m18 != _CLG1 and not _clg_p0_not_closed(_clg_m18)
+
+# the no-go over-read as an inequivalence proof
+_clg_m19 = _CLG1.replace('**`GL2` and `GI2` are NOT a proof that OI and QM are inequivalent.**',
+                         'Together GL2 and GI2 show OI and QM are inequivalent.')
+ok_clg &= _clg_m19 != _CLG1 and not _clg_p0_not_closed(_clg_m19)
+
+# D3's existence audit closed by a round that only subsumed the uniqueness mechanism
+_clg_m20 = _CLG1.replace('That audit **remains open**', 'That audit is therefore closed')
+ok_clg &= _clg_m20 != _CLG1 and not _clg_d3_split(_clg_m20)
+
+# coherent-lift existence presumed rather than exhibited where needed
+_clg_m21 = _CLG1.replace(
+    '**Coherent-lift existence was not presumed and was not needed in general.**',
+    'Coherent lifts exist in general, so nothing further is required.')
+ok_clg &= _clg_m21 != _CLG1 and not _clg_d3_split(_clg_m21)
+
+# a conditional slot fired without its reason, or a seventh definition slipped in
+_clg_m22 = _CLG1.replace('**No seventh definition was introduced**',
+                         'A seventh definition was convenient and was added')
+ok_clg &= _clg_m22 != _CLG1 and not _clg_budget(_clg_m22)
+
+# a manuscript propagation the round is forbidden to make
+_clg_m23 = _CLG1.replace('**It touches no manuscript.** No propagation in this round.',
+                         'The manuscripts carry the no-go.')
+ok_clg &= _clg_m23 != _CLG1 and not _clg_no_manuscript(_clg_m23)
+
+# a candidate-selection principle claimed off the back of the no-go
+_clg_m24 = _CLG1.replace('**It claims no candidate-selection principle**',
+                         'The no-go makes a candidate-selection principle necessary')
+ok_clg &= _clg_m24 != _CLG1 and not _clg_no_manuscript(_clg_m24)
+
+# act 7 layer 2's D5 status repaired in retrospect
+_clg_m25 = _CLG1.replace(
+    "**Act 7 layer 2's `D5` chronological-ordering control stands NOT CERTIFIED.**",
+    "**Act 7 layer 2's `D5` control is certified in retrospect by this round.**")
+ok_clg &= _clg_m25 != _CLG1 and not _clg_no_manuscript(_clg_m25)
+
+# E1's control runs THROUGH _clg_freeze_pin, so sabotaging that predicate fails the guard.
+def _clg_drift(path):
+    """One byte appended to act 11's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-11-coherent-lift-gauge/preregistration.md') else b'')
+
+
+ok_clg &= _clg_drift(_CLGDIR + 'preregistration.md') != _bb_read(_CLGDIR + 'preregistration.md')
+ok_clg &= not _clg_freeze_pin(_clg_drift)
+
+check('R7-CLG', ok_clg,
+      'Track B act 11 guard: the round that moved Track B above the convention layer, and the one whose control plane '
+      'took THREE review rounds. Two were the same error in two forms -- conflating a SUFFICIENT condition for '
+      'invisibility with the invisible-freedom class, then claiming maximality for the repaired class where it is '
+      'false -- so the guard spends its weight exactly there. The strong class is checked reported as a SUBGROUP whose '
+      'size is a LOWER BOUND and never the measure of the ambiguity, with the promotion mutation-tested in the words '
+      'the first draft used. GL1s is checked to separate what is kernel-proved (the block characterization and the '
+      'complement cardinality) from what is arithmetic (the isomorphism type and real dimension), and to record that '
+      'nothing in the round rests on the dimension count -- the reverse claim is mutation-tested, since a guard that '
+      'let arithmetic pass as a theorem would be certifying the wrong thing. GL1w maximality is checked SCOPED to '
+      '|V| >= 2 with the hypothesis called structural, checked UNIFORM (a single fixed U admits more), and checked '
+      'proved by two test dilations rather than a search; the unconditional version and the dropped uniformity are '
+      'separately mutation-tested. The |V| = 1 case is checked as a PROVED exception with the maximal class named as '
+      'all of U(|A|) and maximality explicitly disclaimed -- both the softening back to "degenerate" and the outright '
+      'reinstatement of maximality are mutation-tested, because that exception is exactly what the second review '
+      'round was about. GL2 is checked over the STRONG class with the smaller group noted as the stronger statement, '
+      'scoped to N-indexed coherence with no regularity claimed, and with the cocycle identity recorded VACUOUS and '
+      'unused; drawing force from the tautology and claiming the smooth case are both mutation-tested. GL3 is checked '
+      'NECESSITY ONLY, with the two-sided reading named wrong rather than merely avoided, and both the two-sided '
+      'restatement and the deletion of the disclaimer mutation-tested. Act 5 is checked placed in the WEAK class on '
+      'the continuous side and NOT as an instance of GL2 -- the mis-citation the freeze was repaired for. Both act 7 '
+      'witnesses are checked recorded as GL2 instances with the CONJUGATION trap stated and the forced element '
+      'required to be COMPUTED, since reading the constructor factor off is wrong and was wrong in an earlier draft. '
+      'GI2 -- which the freeze predicted at NO strength and which landed -- is checked earned by a computed forced '
+      'element proved outside the weak class, never by a failed search and with no universal over the class needed, '
+      'AND CHECKED BOUNDED WHERE THE EXECUTION HEAD WAS BLOCKED: the GI2 witness uses two lifts CONSTANT IN '
+      'TIME, so the forced element is constant and GL3 applies to it, and the pair has IDENTICAL relative '
+      'objects at every pair of times. GI2 is therefore a statement about the LIFT SPACE and is NOT evidence '
+      'of non-gauge ambiguity in the relative evolution; the guard checks that the note says so, that the two '
+      'struck inferences -- larger than a gauge fixing, and a connection alone would not suffice -- are named '
+      'and refuted rather than merely left unstated, that GL2 is recorded as the ONLY relative-evolution no-go '
+      'of the round, and that the stronger target (a same-visible pair BOTH outside the weak class AND '
+      'differing in relative evolution) is named OPEN. All four are mutation-tested in the words the blocked '
+      'draft used. The bound is checked IN THE THEOREM STATEMENT and not only in the note: the GI2 conjunct '
+      'proving the two relative objects equal, and the docstring disclaimer beside it, are each mutation-tested '
+      'against deletion, so the over-reading cannot be made from the theorem in isolation. GL1w gets the same '
+      'evidence-scope treatment as GL1s -- the structural content is what is kernel-checked, while the '
+      'Lie-group identification and dimension are arithmetic recorded in the note, so that all targets landed '
+      'cannot read as certification of a formula the module never proves. P0 is checked NOT closed with act 7 layer 2 caveat made structural rather than '
+      'retired, and the inequivalence over-reading mutation-tested. D3 is checked subsumed as a uniqueness mechanism '
+      'ONLY with its existence/regularity audit still open and coherent-lift existence not presumed. Four of six '
+      'definition slots fired, both conditional slots unused with reasons, no seventh. No manuscript edit, no '
+      'candidate-selection principle, no cross-track sourcing, and D5 left NOT CERTIFIED. Nineteen named '
+      'contracts, thirty-two mutation controls, plus the freeze-pin drift controls.')
+
+
+
 
 
 check('R7-DILL2', ok_dl2,

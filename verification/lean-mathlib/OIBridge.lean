@@ -194,6 +194,7 @@ import OIBridge.ContinuousExtension
 import OIBridge.DilationChoice
 import OIBridge.ReadbackRobustness
 import OIBridge.AnchorRobustness
+import OIBridge.CoherentLiftGauge
 import OIBridge.RecurrenceHorizon
 import OIBridge.ScalingFamily
 import OIBridge.RootedClassification
