@@ -8,3 +8,9 @@ __pycache__/
 # thing that actually has to be under version control.
 .lake/
 lake-manifest.json
+
+# Subagent git worktrees. Each is a throwaway checkout carrying its own multi-gigabyte Lean build
+# tree, created for one execution round and removed when that round finishes; the deliverable
+# always lands as a commit on the round's own branch, never from here. Only the worktrees are
+# ignored, so tracked `.claude` configuration remains possible.
+/.claude/worktrees/
