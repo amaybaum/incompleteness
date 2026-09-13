@@ -15673,8 +15673,8 @@ _PC4_BASE = 'ebc3951dc581d558373f720a90f1ba7deb2a8ed8'
 # PR has merged. Set, the guard runs in ARCHIVE MODE: the same strong check re-run against those
 # objects, plus their reachability from the current target. Unset (None), as now, the guard
 # certifies the run's real target.
-_PC4_SEALED_HEAD = None
-_PC4_MERGE = None
+_PC4_SEALED_HEAD = '6c1acdd28f03f614f71a7ce15c6efc141906e080'
+_PC4_MERGE = 'e82755cafdbc0314890ad3809bc48e72e5995311'
 
 
 def _pc4_freeze_pin(read=_bb_read):
