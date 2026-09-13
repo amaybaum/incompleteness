@@ -13174,10 +13174,11 @@ check('R7-A11P', ok_a11p,
 _A12P_PREREG = _A11P_DIR + 'act12-scope-propagation-audit.md'
 # The mandated execution base: the merge commit of the control-plane PR #600.
 _A12P_BASE = '999f1b5b3c9d6960233a12698d83c1a56a16fe10'
-# The SEALED execution head and the merge commit that carried it, once reviewed and merged; set,
-# the guard runs in ARCHIVE MODE. Unset (None), the guard certifies the run's real target.
-_A12P_SEALED_HEAD = None
-_A12P_MERGE = None
+# The SEALED execution head reviewed and merged as #603, and the merge commit that carried it. Set,
+# the guard runs in ARCHIVE MODE: the same strong check re-run against this object, plus its
+# reachability from the current target. Unset (None), the guard certifies the run's real target.
+_A12P_SEALED_HEAD = '2792a7836d70e10b7f085f4e35fb8a92d77eb133'
+_A12P_MERGE = '2706a3aa7b87e481df17e3ceab88cd3244ce780d'
 _A12P_SURFACES = (_A11P_MAIN, _A11P_EXPL, _A11P_CH01, _A11P_CH19)
 
 
@@ -13192,8 +13193,12 @@ def _a12p_freeze_pin(read=_bb_read):
 
 
 def _a12p_execution_ancestry():
-    """P2 -- act 10's strengthened ancestry predicate against the merge commit of PR #600; archive
-    mode once the sealed head and its merge commit are pinned."""
+    """P2 -- act 10's strengthened ancestry predicate against the merge commit of PR #600.
+
+    Execution mode (pin unset): the strong check against the run's real target. Archive mode (pin
+    set, as now): the same strong check re-run against the sealed head 2792a7836d70, with the
+    pinned merge 2706a3aa7b87 required to carry it and both required reachable from the current
+    target, fail-closed."""
     if _A12P_SEALED_HEAD is None:
         target, label, num = _rbr_target_commit(tag='R7-A12P')
         if target is None:
