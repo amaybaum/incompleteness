@@ -11137,6 +11137,269 @@ check('R7-CLG', ok_clg,
 
 
 
+# ---- R7-A11P: the act 11 scope propagation round (publication only) ----
+#
+# The manuscript round that carries act 11's GL2 conclusion into the corpus. Its hazard is not the one
+# the kernel rounds face: nothing new is proved here, so the only way to go wrong is to say MORE in the
+# manuscript than the merged theorem supports. The exact over-reading act 11's own execution PR was
+# blocked for -- reading GI2 as a relative-evolution result -- is the one that would do the most damage
+# if it reached the published corpus, so the guard spends its weight there, and on the three-level
+# non-Markovianity vocabulary that the round exists to disambiguate.
+_A11P_DIR = 'audits/foundations/'
+_A11P_PREREG = _A11P_DIR + 'act11-scope-propagation-audit.md'
+
+
+def _a11p_root(rel):
+    """Read a manuscript file, which lives above the verification tree."""
+    with open(os.path.join(os.path.dirname(VERIFICATION), *rel.split('/')), encoding='utf-8') as fh:
+        return ' '.join(fh.read().split())
+
+
+_A11P_MAIN = _a11p_root('papers/Main.md')
+_A11P_EXPL = _a11p_root('papers/Explainer.md')
+_A11P_CH01 = _a11p_root('book/ch01-observation.md')
+_A11P_GLOS = _a11p_root('book/glossary.md')
+_A11P_FULL = _a11p_root('book/The-Incompleteness-of-Observation-FULL.md')
+_A11P_CH15 = _a11p_root('book/ch15-quantum-engineering.md')
+
+
+def _a11p_freeze_pin(read=_bb_read):
+    """E1 -- the propagation preregistration is byte-identical to the blob committed alone.
+
+    Pinned BY BLOB, not by the commit SHA: the commit that carried it is a2c2310, but blob identity is
+    what survives rebase and is what this programme treats as authoritative."""
+    return _bb_blob(_A11P_PREREG, read) == 'cc6d5adb5682cd560d9342496fbaeeb957b760b9'
+
+
+def _a11p_boundary_stated(t=None):
+    """E2 -- the act 11 boundary reaches Main: representability is not selection."""
+    t = _A11P_MAIN if t is None else t
+    return ('representability, not selection of the relating evolution' in t
+            and 'not which unitary evolution relating two times is the physical one' in t
+            and 'Ordinary coherence therefore does not by itself make the relating evolution unique'
+                in t
+            and 'A deformation constant in time cancels from every relating evolution' in t)
+
+
+def _a11p_condition_unnamed(t=None):
+    """E3 -- the needed selection condition is left UNNAMED, in Main and in the summary."""
+    t = _A11P_MAIN if t is None else t
+    return ('this paper neither supplies one nor says what form one must take' in t
+            and 'representability together with ordinary coherence does not by itself select the '
+                'unitary evolution relating two times' in t)
+
+
+def _a11p_gi2_not_a_no_go(t=None):
+    """E4 -- THE BLOCKED OVER-READING, kept out of the corpus.
+
+    GI2 reaches the manuscript as a lift-space statement whose witness AGREES on every relating
+    evolution. No manuscript may turn it into a relative-evolution no-go, say the missing structure
+    exceeds a gauge fixing, or say a connection cannot suffice."""
+    t = _A11P_MAIN if t is None else t
+    return ('can fail to be related by any uniformly invisible deformation and still agree on every '
+            'relating evolution' in t
+            and 'lift freedom and freedom in the relating evolution are not the same freedom' in t)
+
+
+def _a11p_stronger_target_open(t=None):
+    """E5 -- the stronger combined target is stated OPEN wherever the boundary is stated."""
+    return all(
+        'outside the uniformly invisible class' in x and 'is open' in x
+        for x in ((_A11P_MAIN, _A11P_EXPL, _A11P_CH01) if t is None else (t,)))
+
+
+def _a11p_no_inequivalence(t=None):
+    """E6 -- the boundary is never escalated into an OI/QM inequivalence claim."""
+    t = _A11P_MAIN if t is None else t
+    return ('none of it makes embedded observation and quantum mechanics inequivalent' in t
+            and 'alters $S \\iff D \\iff Q_{\\mathrm{fb}}$ as the exact finite observable-law '
+                'correspondence' in t)
+
+
+def _a11p_three_notions(t=None):
+    """E7 -- the three-level vocabulary is explicit and carries no unconditional implication."""
+    t = _A11P_MAIN if t is None else t
+    return ('Remark (three notions, kept apart)' in t
+            and 'Accessible finite-horizon memory' in t
+            and 'Stochastic P-indivisibility' in t
+            and 'Generic quantum non-Markovianity' in t
+            and 'No unconditional implication among the three is asserted here' in t)
+
+
+def _a11p_local_definition(t=None):
+    """E8 -- where the framework's term is retained, it is locally defined as the visible-law notion."""
+    t = _A11P_MAIN if t is None else t
+    return ('Where this paper writes "accessible non-Markovianity" it means exactly this and says '
+            'nothing about a quantum channel' in t)
+
+
+def _a11p_c134_scope(t=None):
+    """E9 -- P-indivisibility is not sourced from C1/C3/C4 alone.
+
+    The recurrence and non-permutation hypotheses are named where the result is invoked."""
+    t = _A11P_MAIN if t is None else t
+    return ('resting on recurrence together with a non-permutation rooted map, not on (C1), (C3) and '
+            '(C4) alone' in t)
+
+
+def _a11p_bridge_scope_survives(t=None):
+    """E10 -- act 11's round does not weaken the pre-existing quantum-bridge scope controls.
+
+    The diagonal-preserving hypothesis, the Hadamard countercontrol, and the ancilla-assisted witness
+    are consumed unchanged; this round is forbidden to touch them."""
+    t = _A11P_MAIN if t is None else t
+    return ('Remark (scope: P-indivisibility is not quantum non-Markovianity)' in t
+            and 'must therefore not be equated with open-system non-Markovianity outside the '
+                'diagonal-preserving class' in t
+            and 'Backflow in the system alone is therefore sufficient evidence of indivisibility, '
+                'never necessary.' in t)
+
+
+def _a11p_application_narrowed(t=None):
+    """E11 -- the application-level slide from P-indivisibility into generic non-Markovianity is gone."""
+    t = _A11P_CH15 if t is None else t
+    return ('the dynamics becomes qualitatively non-Markovian' not in t
+            and 'Neither statement is a claim about generic open-system non-Markovianity of a quantum '
+                'channel' in t)
+
+
+def _a11p_mirrored(t=None):
+    """E12 -- every changed book passage is mirrored in the full-book source."""
+    return all(x in _A11P_FULL for x in (
+        'A second boundary sits alongside it, and it concerns which unitary evolution relates two '
+        'times.',
+        'Neither statement is a claim about generic open-system non-Markovianity of a quantum channel',
+        'Three notions are kept apart throughout and none unconditionally implies another',
+        'P-indivisibility is a statement about the visible population law and is not generic quantum '
+        'non-Markovianity'))
+
+
+ok_a11p = True
+ok_a11p &= _a11p_freeze_pin()
+ok_a11p &= _a11p_boundary_stated()
+ok_a11p &= _a11p_condition_unnamed()
+ok_a11p &= _a11p_gi2_not_a_no_go()
+ok_a11p &= _a11p_stronger_target_open()
+ok_a11p &= _a11p_no_inequivalence()
+ok_a11p &= _a11p_three_notions()
+ok_a11p &= _a11p_local_definition()
+ok_a11p &= _a11p_c134_scope()
+ok_a11p &= _a11p_bridge_scope_survives()
+ok_a11p &= _a11p_application_narrowed()
+ok_a11p &= _a11p_mirrored()
+
+# ---- mutation controls ----
+
+# THE BLOCKED OVER-READING, written into the manuscript instead of kept out of it.
+_a11p_m1 = _A11P_MAIN.replace(
+    'lift freedom and freedom in the relating evolution are not the same freedom',
+    'the structure needed to pin the relating evolution is larger than a gauge fixing')
+ok_a11p &= _a11p_m1 != _A11P_MAIN and not _a11p_gi2_not_a_no_go(_a11p_m1)
+
+# the witness's agreement on relating evolutions deleted, which is what licenses the over-reading
+_a11p_m2 = _A11P_MAIN.replace(
+    'can fail to be related by any uniformly invisible deformation and still agree on every relating '
+    'evolution', 'are never related by a uniformly invisible deformation')
+ok_a11p &= _a11p_m2 != _A11P_MAIN and not _a11p_gi2_not_a_no_go(_a11p_m2)
+
+# the selection condition named, which the freeze forbids in either direction
+_a11p_m3 = _A11P_MAIN.replace(
+    'this paper neither supplies one nor says what form one must take',
+    'that condition is a choice of connection on the lift bundle')
+ok_a11p &= _a11p_m3 != _A11P_MAIN and not _a11p_condition_unnamed(_a11p_m3)
+
+# the boundary escalated into an inequivalence claim
+_a11p_m4 = _A11P_MAIN.replace(
+    'none of it makes embedded observation and quantum mechanics inequivalent',
+    'so embedded observation and quantum mechanics are inequivalent')
+ok_a11p &= _a11p_m4 != _A11P_MAIN and not _a11p_no_inequivalence(_a11p_m4)
+
+# the equivalence itself weakened by a round forbidden to touch it
+_a11p_m5 = _A11P_MAIN.replace(
+    'alters $S \\iff D \\iff Q_{\\mathrm{fb}}$ as the exact finite observable-law correspondence',
+    'narrows $S \\iff D \\iff Q_{\\mathrm{fb}}$')
+ok_a11p &= _a11p_m5 != _A11P_MAIN and not _a11p_no_inequivalence(_a11p_m5)
+
+# the stronger target quietly treated as settled
+_a11p_m6 = _A11P_MAIN.replace('is open.', 'is settled below.')
+ok_a11p &= _a11p_m6 != _A11P_MAIN and not _a11p_stronger_target_open(_a11p_m6)
+
+# the three-notion distinction collapsed into an equivalence
+_a11p_m7 = _A11P_MAIN.replace(
+    'No unconditional implication among the three is asserted here',
+    'The three notions coincide for the framework')
+ok_a11p &= _a11p_m7 != _A11P_MAIN and not _a11p_three_notions(_a11p_m7)
+
+# the framework's term left undefined, so it reads as the generic open-system notion
+_a11p_m8 = _A11P_MAIN.replace(
+    'Where this paper writes "accessible non-Markovianity" it means exactly this and says nothing '
+    'about a quantum channel', 'This is ordinary quantum non-Markovianity')
+ok_a11p &= _a11p_m8 != _A11P_MAIN and not _a11p_local_definition(_a11p_m8)
+
+# P-indivisibility sourced from C1/C3/C4 alone -- the conflation E5 of the freeze forbids
+_a11p_m9 = _A11P_MAIN.replace(
+    'resting on recurrence together with a non-permutation rooted map, not on (C1), (C3) and (C4) '
+    'alone', 'which (C1), (C3) and (C4) already imply')
+ok_a11p &= _a11p_m9 != _A11P_MAIN and not _a11p_c134_scope(_a11p_m9)
+
+# the pre-existing Hadamard scope control removed by a round that may not touch it
+_a11p_m10 = _A11P_MAIN.replace(
+    'must therefore not be equated with open-system non-Markovianity outside the '
+    'diagonal-preserving class', 'is equivalent to open-system non-Markovianity')
+ok_a11p &= _a11p_m10 != _A11P_MAIN and not _a11p_bridge_scope_survives(_a11p_m10)
+
+# system-only trace-distance revival promoted to a necessary witness
+_a11p_m11 = _A11P_MAIN.replace(
+    'Backflow in the system alone is therefore sufficient evidence of indivisibility, never '
+    'necessary.', 'Backflow in the system alone is necessary for indivisibility.')
+ok_a11p &= _a11p_m11 != _A11P_MAIN and not _a11p_bridge_scope_survives(_a11p_m11)
+
+# the application-level slide restored
+_a11p_m12 = _A11P_CH15.replace(
+    'Neither statement is a claim about generic open-system non-Markovianity of a quantum channel',
+    'the dynamics becomes qualitatively non-Markovian')
+ok_a11p &= _a11p_m12 != _A11P_CH15 and not _a11p_application_narrowed(_a11p_m12)
+
+# a book passage changed without its full-book mirror
+_a11p_m13 = _A11P_FULL.replace(
+    'A second boundary sits alongside it, and it concerns which unitary evolution relates two times.',
+    '')
+ok_a11p &= _a11p_m13 != _A11P_FULL
+
+# E1's control: one byte appended to the propagation preregistration
+def _a11p_drift(path):
+    return _bb_read(path) + (b'\n' if path.endswith('act11-scope-propagation-audit.md') else b'')
+
+
+ok_a11p &= _a11p_drift(_A11P_PREREG) != _bb_read(_A11P_PREREG)
+ok_a11p &= not _a11p_freeze_pin(_a11p_drift)
+
+check('R7-A11P', ok_a11p,
+      'Act 11 scope propagation guard (publication only): the round that carries the merged GL2 conclusion into the '
+      'corpus. Nothing new is proved here, so the only failure mode is the manuscript saying MORE than the theorem '
+      'supports, and the guard is weighted accordingly. The propagation preregistration is pinned BY BLOB rather than '
+      'by the commit that carried it, blob identity being what survives rebase. The act 11 boundary is checked present '
+      'in Main: the correspondence is representability at the finite observable-law layer and NOT selection of the '
+      'evolution relating two times; ordinary coherent lifting does not make that evolution unique; a constant '
+      'deformation cancels from every relating object, so the nonuniqueness is carried by time dependence. The needed '
+      'selection condition is checked UNNAMED, and naming it as a connection is mutation-tested. THE OVER-READING THE '
+      'ACT 11 EXECUTION PR WAS BLOCKED FOR IS KEPT OUT OF THE PUBLISHED CORPUS: the manuscript states that two lifts '
+      'can fail to be related by any uniformly invisible deformation and STILL AGREE on every relating evolution, so '
+      'the lift-space result is never a relative-evolution no-go; writing back either the struck inference or the '
+      'deletion that would license it fails the guard. The stronger combined target -- outside the uniformly invisible '
+      'class AND different in relating evolution -- is checked stated OPEN in Main, Explainer and chapter 1 alike, with '
+      'the settled reading mutation-tested. The boundary is checked never escalated into an OI/QM inequivalence claim '
+      'and never allowed to narrow the equivalence itself, both mutation-tested. The three-notion vocabulary -- '
+      'accessible finite-horizon memory, stochastic P-indivisibility, generic quantum non-Markovianity -- is checked '
+      'explicit with NO unconditional implication among them, the framework term checked locally defined as the '
+      'visible-law notion, and P-indivisibility checked NOT sourced from C1/C3/C4 alone; all three collapses are '
+      'mutation-tested. The pre-existing bridge controls this round may not touch -- the diagonal-preserving '
+      'hypothesis, the Hadamard countercontrol, and system-only backflow as sufficient but never necessary -- are '
+      'checked to survive unchanged. The application-level slide from P-indivisibility into generic non-Markovianity is '
+      'checked gone, and every changed book passage checked mirrored in the full-book source. Twelve named contracts, '
+      'thirteen mutation controls, plus the freeze-pin drift control.')
+
+
 check('R7-DILL2', ok_dl2,
       'Track B act 7 guard, layer 2: a round that reached a POSITIVE existential label under a readback that is OURS '
       'rather than the source\'s, so the live hazard inverts R7-DILCH\'s -- not over-reading a stop, but letting a '

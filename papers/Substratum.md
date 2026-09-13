@@ -108,7 +108,7 @@ The theorem's uniqueness claim holds under E1–E7 **and** A1–A6 jointly; remo
 - [Main §2.3] history readback / accessible temporal P-indivisibility for the **memory-bearing temporal** sector used in Stage 1 (a modeling premise about the temporal data, not an inference from Bell violation)
 - [Main §3.3] Bell ceiling and the adopted measurement-independent, ontically parameter-dependent Bell branch (a separate spatial-composite premise; Bell violation is not used as a witness of temporal P-indivisibility)
 - [Main §3.2] Forward Stinespring dilation (bijection → CPTP channel) and reverse-direction lemma (stochastic process → bijection)
-- [Main §3.4] Characterization theorem (accessible non-Markovianity ⟺ C1/C3/C4 per finite horizon; C2's necessity conditional on the hidden-sector mixing hypothesis, ETH its physical motivation)
+- [Main §3.4] Characterization theorem (accessible non-Markovianity — the framework's finite-horizon visible-law memory/backflow notion, not generic quantum non-Markovianity — ⟺ C1/C3/C4 per finite horizon; C2's necessity conditional on the hidden-sector mixing hypothesis, ETH its physical motivation)
 - [SM §3.2] Coupling-graph dimension → d = 3
 - [SM §4.1] Center independence + isotropy + linearity → wave equation
 - [SM Theorems 5–15] Gauge group, generations, hypercharges derivation chain

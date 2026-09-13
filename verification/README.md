@@ -2008,5 +2008,36 @@ Lie-rank condition is necessary for exact reachability.
     python3 tools/release_gate.py       # toolchain, staleness, voice, claims, mirror,
                                         # citation, architecture, coverage, lean-axioms, ...
 
+The act 11 scope propagation round (`audits/foundations/act11-scope-propagation-audit.md`,
+preregistration blob `cc6d5ad`, committed alone as `a2c2310`, written from `main` at `e4e04eb`) is
+publication-only and owner-called. It carries act 11's `GL2` conclusion into the corpus and nothing
+more: Main gains a scope remark stating that the finite observable-law correspondence is a
+representability theorem and not a selection theorem for the evolution relating two times, that
+ordinary coherent lifting therefore does not make that evolution unique, that a constant deformation
+cancels from every relating object so the nonuniqueness is carried by time dependence, and that the
+selection condition the uniqueness claim would need is left unnamed. `Explainer` and
+`book/ch01-observation.md` carry the same bounded statement at their own level, mirrored in the
+full-book source.
+
+`GI2` is propagated as a **lift-space result only**. Each of the three surfaces records that two
+lifts of one visible family can fail to be related by any uniformly invisible deformation and still
+agree on every relating evolution, so the lift-space result is never used as a relative-evolution
+no-go, and the stronger combined target — outside the uniformly invisible class *and* different in
+relating evolution — is stated **open**. No manuscript says the missing structure exceeds a gauge
+fixing or that a connection cannot suffice.
+
+The round also fixes the memory vocabulary corpus-wide. Main gains a remark separating three
+notions that travel under nearby names, with no unconditional implication among them: accessible
+finite-horizon memory, the framework's own visible-law notion and the one its shorthand abbreviates;
+stochastic P-indivisibility, which rests on recurrence together with a non-permutation rooted map
+rather than on C1/C3/C4 alone; and the generic open-system quantum memory notion, whose content
+depends on which quantum divisibility or backflow criterion is adopted. The first summary surface of
+each other maintained document gains the local definition, and the glossary carries the three-way
+entry. The application-level slide from P-indivisibility into the generic open-system vocabulary is
+narrowed in `book/ch15-quantum-engineering.md` and `papers/Complexity.md`. The pre-existing bridge
+controls — the diagonal-preserving hypothesis, the Hadamard countercontrol, and system-only backflow
+as sufficient but never necessary — are consumed unchanged. No theorem, probe result, roadmap
+status, `D3` or `D5` state changes, and the kernel count is unchanged. Guard `R7-A11P`.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.

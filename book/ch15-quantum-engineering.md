@@ -111,7 +111,7 @@ By tuning the chain length $L$, the framework's prediction is:
 - Short chain ($L \lesssim 5$, $\tau_B \sim \tau_S$): Markovian regime. Standard decoherence. The bath equilibrates between gate operations.
 - Long chain ($L \gtrsim 20$, $\tau_B \gg \tau_S$): P-indivisible regime. Information backflow. Correlations from gate $k$ return at gate $k + \tau_B/\tau_S$, partially restoring coherence.
 
-The transition is sharp: the P-indivisibility theorem from Chapter 1 guarantees that once $\tau_B/\tau_S$ exceeds the C2 threshold, the dynamics becomes qualitatively non-Markovian rather than gradually so.
+The transition is sharp: once $\tau_B/\tau_S$ exceeds the C2 threshold the record survives to readback, and the visible law carries accessible finite-horizon memory rather than acquiring it gradually. On a fixed finite reversible representative, where recurrence returns the visible map to the identity and a readback gap forces a non-permutation rooted map, that memory also shows up as stochastic indivisibility of the visible population law. Neither statement is a claim about generic open-system non-Markovianity of a quantum channel, which is a different notion and does not follow from either.
 
 The platform is testable on existing technologies: superconducting qubits coupled to engineered spin chains, NV centers in diamond with controllable nuclear spin baths, or trapped ions with engineered phonon modes. The framework's prediction is that at the critical chain length, the qubit's $T_2$ coherence time shows a *qualitative* change — from monotonic exponential decay to oscillatory behavior with partial revivals at multiples of $\tau_B$.
 

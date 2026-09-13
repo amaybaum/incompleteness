@@ -2253,6 +2253,27 @@ standard local quantum operational theory. That residual is an
 active-lifting statement, not a qualification on the exact finite
 stochastic/representation equivalence itself.
 
+A second boundary sits alongside it, and it concerns which unitary
+evolution relates two times. The equivalence says which visible laws
+admit a fixed-basis unitary representation; it does not single out the
+evolution connecting one time to the next. For dilated processes one
+visible family can admit distinct coherent unitary lifts --- each
+reproducing the visible law at every time, each composing exactly across
+times --- whose relating evolutions differ, because a lift may be
+deformed by a time-dependent right action that preserves everything the
+visible law sees. A deformation constant in time cancels from every
+relating evolution, so time dependence is what the nonuniqueness needs.
+Making the relating evolution unique therefore requires a selection
+condition beyond visible-law representability and ordinary coherence,
+and this book does not supply one or say what form one must take. Nor is
+the freedom simply the invisible freedom: two lifts of one visible
+family can fail to be related by any uniformly invisible deformation and
+still agree on every relating evolution. Whether a pair exists that is
+outside the uniformly invisible class \emph{and} differs in its relating
+evolution is open. None of this weakens the finite observable-law
+equivalence, and none of it makes embedded observation and quantum
+mechanics inequivalent.
+
 \hypertarget{what-the-theorem-says}{%
 \subsection{1.9 What the theorem says}\label{what-the-theorem-says}}
 
@@ -18440,9 +18461,15 @@ By tuning the chain length \(L\), the framework's prediction is:
   gate \(k + \tau_B/\tau_S\), partially restoring coherence.
 \end{itemize}
 
-The transition is sharp: the P-indivisibility theorem from Chapter 1
-guarantees that once \(\tau_B/\tau_S\) exceeds the C2 threshold, the
-dynamics becomes qualitatively non-Markovian rather than gradually so.
+The transition is sharp: once \(\tau_B/\tau_S\) exceeds the C2 threshold
+the record survives to readback, and the visible law carries accessible
+finite-horizon memory rather than acquiring it gradually. On a fixed
+finite reversible representative, where recurrence returns the visible
+map to the identity and a readback gap forces a non-permutation rooted
+map, that memory also shows up as stochastic indivisibility of the
+visible population law. Neither statement is a claim about generic
+open-system non-Markovianity of a quantum channel, which is a different
+notion and does not follow from either.
 
 The platform is testable on existing technologies: superconducting
 qubits coupled to engineered spin chains, NV centers in diamond with
@@ -28576,7 +28603,17 @@ horizons, P-indivisible at the recurrence scale --- and this, not
 representability (which is universal), carries the discriminating
 content ({[}Main §3.4{]}). Predicted to appear at multiple scales:
 cosmological (quantum mechanics), biological (enzyme kinetics, gene
-expression), engineered (qubit noise). Defined in Chapter 1 §1.5.
+expression), engineered (qubit noise). Defined in Chapter 1 §1.5. Three
+notions are kept apart throughout and none unconditionally implies
+another: \emph{accessible finite-horizon memory} (equivalently
+information backflow in the visible law) is the framework's own term and
+is what ``non-Markovian on accessible horizons'' means here;
+\emph{stochastic P-indivisibility} is failure of divisibility of the
+visible population law and rests on recurrence together with a
+non-permutation rooted map, not on C1/C3/C4 alone; \emph{generic quantum
+non-Markovianity} is an open-system notion whose content depends on the
+quantum divisibility or backflow criterion adopted, and it is not what
+either of the first two asserts.
 
 \textbf{Operational gluing theorem.} The framework's finite-resolution
 operational result ({[}Main §3.4{]}): every finite adaptive quantum
@@ -28646,7 +28683,14 @@ cycle: recurrence returns the rooted visible map to the identity, while
 C4 forces some earlier rooted map to be non-permutation, and a
 non-permutation stochastic matrix has no stochastic inverse. This global
 result does not imply accessible short-time P-indivisibility in every
-window; the two notions are kept distinct.
+window; the two notions are kept distinct. P-indivisibility is a
+statement about the visible population law and is not generic quantum
+non-Markovianity: inside the framework's diagonal-preserving
+realizations it does rule out a stochastic intermediate map and hence
+CP-divisibility, but outside that class the two come apart --- a
+CP-divisible family with a unitary intermediate map can induce
+P-indivisible computational-basis populations, the intermediate map
+consuming coherences the population law never sees ({[}Main §2.3{]}).
 
 \textbf{PMNS (Pontecorvo-Maki-Nakagawa-Sakata) matrix.} The unitary
 mixing matrix between Standard Model neutrino mass and flavor
@@ -29543,4 +29587,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: dd008f366a482879ce3dbdb7c3ed908c5afcdafac3f7c45fdd639480647b82ed
+% source-sha256: db1817b21efb70ff76289bccf09e3aaa4d7e2abcff316575719193693eeca9d5
