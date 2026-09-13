@@ -196,6 +196,34 @@ Together with `TG2`, `SH1` gives the statement the round is for:
 > after the two-sided uniform gauge `𝒢_L × 𝒢ʷ_{a₀}`, is exactly the off-diagonal fibre-Gram data modulo
 > the anchored phases — per time slice.**
 
+#### `SH1-C1` and `SH1-C2` — two corollaries, frozen with `SH1`, not new targets
+
+**`SH1-C1` — zero-diagonal support.** For every realizable fibre-Gram tuple,
+`G^{(i)}_{jj} = 0 ⇒ ∀ k, G^{(i)}_{jk} = G^{(i)}_{kj} = 0`; equivalently, in the visible diagonal,
+`Γ_{ij} = 0 ⇒ G^{(i)}_{jk} = G^{(i)}_{kj} = 0`. This needs only that each `G^{(i)}` is PSD — not `SH1`
+sufficiency. **Bounded reading:** off-diagonal Gram freedom can occur *only* between visible inputs
+that both have positive support into the same output fibre. **No converse is claimed** — rank and
+`Σ_i G^{(i)} = I` can force an overlap entry to zero — and **no memory claim is made**: a memoryless
+Markov slice can have overlap.
+
+**`SH1-C2` — deterministic slices have at most one Gram tuple.** If `Γ` is deterministic (every
+column has a single nonzero entry), there is **at most one** realizable fibre-Gram tuple for `Γ`;
+equivalently, whenever admissible dilations exist, all of them have identical fibre-Gram data. The
+proof is two lines: for `j ≠ k` landing in different fibres every cross-term vanishes by `SH1-C1`;
+landing in the same fibre, the cross-term equals the full column inner product `⟨U e_j, U e_k⟩ = 0`
+by unitarity. So each `G^{(i)}` is diagonal and fixed by `Γ`. **Stated as "at most one", never as
+existence**: several inputs may collapse deterministically onto one visible output, and the rank
+bound `rank G^{(i)} ≤ |A|` can then obstruct realization at small `|A|`.
+
+**The orbit consequence is conditional and the dependency is frozen:**
+`SH1-C2` **+ the `TG2` converse** `⇒` a realizable deterministic slice has a **unique two-sided
+orbit**. If the Gram-isometry formalization stalls, "unique Gram tuple" is reported and "unique
+orbit" is **not** promoted from it.
+
+**Post-round interpretation, one sentence:** rule-1 freedom is supported only on stochastic
+overlap — deterministic slices have no Gram-orbit selection freedom, while stochastic overlap is
+necessary but not sufficient for such freedom.
+
 ## The preregistered predictions, and their strengths
 
 | target | prediction | strength | what would falsify it |
@@ -208,6 +236,8 @@ Together with `TG2`, `SH1` gives the statement the round is for:
 | `TG3` | positive | full | the identities were checked independently by the owner and numerically here |
 | `SH1` necessity | positive | full | — |
 | `SH1` sufficiency | positive | **medium at kernel level** | the factorization or basis-extension may exceed the round formally; see the fallback below |
+| `SH1-C1` | positive | full | needs only PSD structure of the Gram matrices |
+| `SH1-C2` | positive | full | two lines from `SH1-C1` and unitarity; the orbit consequence rides on the `TG2` converse and is reported only if that lands |
 
 **`SH1` sufficiency fallback, frozen now.** If the kernel proof of sufficiency is not reached, the
 execution reports `SH1` as **necessity at evidence level 2 plus sufficiency at evidence level 3**
@@ -343,6 +373,9 @@ target, with the single preregistered exception of `SH1` sufficiency under its f
     frozen; use it.
 12. **Any sentence beginning "the selection principle is".** None is named. `C5` is neither named
     nor adopted.
+13. **Promoting `SH1-C2` past its statement.** "At most one Gram tuple" is not "a realization
+    exists", and "unique Gram tuple" is not "unique two-sided orbit" without the `TG2` converse.
+    "Supported only on overlap" is not "supported on every overlap pair", and overlap is not memory.
 
 ## Non-doings
 
@@ -377,7 +410,9 @@ edit any manuscript; or say anything about Track I.
 4. **`TG3`** — the Hadamard witness with the cross-ratio invariant computed in the kernel, and the
    record that `GL2`'s and `GI2`'s pairs lie inside single two-sided orbits;
 5. **`SH1`** — necessity at level 2; sufficiency at level 2, or at level 3 under the frozen
-   fallback with the label stated, or UNDECIDED with the obstruction;
+   fallback with the label stated, or UNDECIDED with the obstruction; with **`SH1-C1`** and
+   **`SH1-C2`** as corollaries in this file's bounded wording, the orbit consequence of `SH1-C2`
+   reported only together with the `TG2` converse;
 6. the shape sentence, asserted at the strength jointly reached by `TG2` and `SH1`;
 7. what the outcomes do **not** license, in this file's wording, and the next frontier — cross-time
    selection of the Gram trajectory — named as **open and not this round's**;
