@@ -2169,5 +2169,32 @@ definition slots fired; no manuscript edit. Guard `R7-SGT` pins the preregistrat
 content and certifies the strengthened execution ancestry, and checks the central sentence, the
 three boundaries and each frozen reading in terms with thirty-one mutation controls.
 
+The act 12 scope propagation round (`audits/foundations/act12-scope-propagation-audit.md`,
+preregistration blob `1d471ed`, committed alone as `0970a3e` from `main` at `aa4ac3a`, merged by
+PR #600 as `999f1b5`, the mandated execution base) is publication-only and owner-called. It carries
+act 12's classification into the corpus and nothing more. Main's scope remark, the `Explainer` and
+`book/ch01-observation.md` boundary paragraphs, `book/ch19-open-problems.md` §19.3.9 with its
+summary-table row, and a glossary entry **Fibre-Gram data** now state, in manuscript voice: that
+the uniformly invisible deformations of a lift are two-sided — the right action by the anchored
+class and a left action within each visible output's hidden fibre — each maximal among uniform
+actions of its kind, with joint maximality neither asserted nor excluded; that act 11's combined
+target is met by a left in-fibre move, read exactly as "quotienting by the right class alone does
+not determine the relating evolution" and not as a statement about every gauge or connection
+description; that at a single time the residue after the two-sided action is classified exactly by
+the fibre-Gram data up to anchored phases, with the visible law its diagonal and realizability as
+in the shape theorem, so what the visible law leaves free at one time is exactly the off-diagonal
+fibre-Gram data modulo phases, neither empty nor inert; and that the cross-time question is
+two-part and open in both parts — what selects the trajectory of fibre-Gram data, and what fixes
+the relating evolution within a trajectory, the latter not fixed even by the complete trajectory.
+The fibre-Gram data is stated a coordinate on the space of lifts and not a physical quantity; no
+selection principle is named or excluded; nothing escalates into inequivalence; the three statuses
+of the bridge are unchanged, with `GR` and `Methodology` re-pinned as they stand. The act 12 census
+family moves from `kernel-only` to `current` with the sentences this round wrote as its anchors.
+No theorem, probe result or roadmap status changes and the kernel count is unchanged. Guard
+`R7-A12P` pins the preregistration by blob, certifies the strengthened execution ancestry with
+archive mode after the merge, and checks every frozen sentence with thirteen mutation controls;
+`R7-A11P`'s contracts E4, E5 and E18 — the three whose pinned sentences this round supersedes —
+are re-pinned in the same commit, with both of its blob pins and every other contract untouched.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.
