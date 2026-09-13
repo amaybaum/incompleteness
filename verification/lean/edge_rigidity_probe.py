@@ -14043,6 +14043,502 @@ check('R7-CTI', ok_cti,
       'execution. No manuscript edit, no discrepancy in the start-state table. Twenty-two named contracts, '
       'thirty-one mutation controls, plus the freeze-pin drift controls.')
 
+# ---- R7-HYB: Hydrodynamics round H-B -- the reversible streaming-and-collision substratum ----
+#
+# The second executed round of the hydrodynamics programme, and a CONSTRUCTIVE one: a frozen lattice
+# gas placed inside the kernel's Substratum interface unmodified, with every target predicted
+# positive and its reason recorded. What can go wrong is again the STATUS -- and this round has a
+# STATUS RULE frozen in advance: the candidate fails A5 by construction, so the round may not report
+# H-B closed, may not write any label "for OI", must name the witness as a witness in the A1-A4,
+# not-A5 class, and must record the admissibility of that class as OPEN. The hazards the control plane
+# named are readings -- the sector qualifier dropped from a conservation statement; a q-gauge test
+# manufactured for an alphabet that carries no parameter; the sixth-order bound read as isotropy at
+# all orders, or as a defect; non-additivity slid into advection; non-closure read as absence of
+# local equilibrium, or the sector measure as its presence; a timescale, a PDE, d = 3, the S-branch.
+# The guard checks each in the freeze's own words, with a mutation control per contract, pins the
+# chronology in both halves, pins PROGRAMME.md's one-line state to the frozen sentence, and holds
+# the module to the frozen eight-slot budget.
+_HYB = open(_artifact('programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/result.md'),
+            encoding='utf-8').read()
+_HYB1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _HYB).split()).replace('’', "'")
+_HYBLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'HexLatticeGas.lean'), encoding='utf-8').read().split())
+_HYBPROG = ' '.join(open(_artifact('programmes/hydrodynamics/PROGRAMME.md'),
+                         encoding='utf-8').read().split())
+_HYBDIR = 'programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/'
+# The mandated execution base: the merge commit of round H-B's control-plane PR #601.
+_HYB_BASE = '8de0478ef31fe4cabcf89fc5787f80f38376a957'
+# The SEALED execution head and the merge commit that carries it, pinned once the execution PR has
+# merged; set, the guard runs in ARCHIVE MODE. Unset (None), the guard certifies the run's real target.
+_HYB_SEALED_HEAD = None
+_HYB_MERGE = None
+
+
+def _hyb_freeze_pin(read=_bb_read):
+    """Z1 -- round H-B's preregistration is byte-identical to the blob merged by PR #601."""
+    return _bb_blob(_HYBDIR + 'preregistration.md', read) == (
+        '37cc9dae301ee10d55adb73b296aa2fc7d0578e3')
+
+
+def _hyb_execution_ancestry():
+    """Z2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused verbatim through R7-HYA's copy. Execution mode (pins
+    unset, as now): the strong check against the run's real target. Archive mode (pins set): the
+    same strong check re-run against the sealed head, with the pinned merge required to carry it
+    and both required reachable from the current target, fail-closed."""
+    if _HYB_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-HYB')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_HYB_BASE, target, label, num, tag='R7-HYB')
+    return _rbr_archive_ancestry(_HYB_BASE, _HYB_SEALED_HEAD, _HYB_MERGE, tag='R7-HYB')
+
+
+def _hyb_outcome(t=None):
+    """Z3 -- every target at its predicted sign at level 2 at full strength, the three frozen
+    fallbacks recorded UNUSED, nothing moved, nothing UNDECIDED."""
+    t = _HYB1 if t is None else t
+    return ('**Every target landed at its predicted sign and at evidence level 2, at full '
+            'strength:' in t
+            and 'the frozen fallbacks for `HB1-b`, `HB1-e` and `HB3-a` were not used.**' in t
+            and '**Nothing moved from its predicted strength, and no target is UNDECIDED.**' in t)
+
+
+def _hyb_status_rule(t=None):
+    """Z4 -- the frozen status rule, in its four parts: H-B NOT closed, no label "for OI", the
+    witness named in the A1-A4, not-A5 class, the admissibility of that class recorded OPEN."""
+    t = _HYB1 if t is None else t
+    return ('**Round H-B is not reported closed by this round**, and the programme\'s H-B '
+            'obligation is not reported discharged.' in t
+            and '**No label in this note is written "for OI"**' in t
+            and 'HD for OI' not in t and 'HC for OI' not in t and 'HI for OI' not in t
+            and 'HO for OI' not in t and 'HD for the OI substratum' not in t
+            and '**a rigorous reversible fluid witness in the A1–A4, ¬A5 class**' in t
+            and '**Whether the A1–A4, ¬A5 class counts as admissible OI physics is a separate '
+                'question**' in t
+            and '**its admissibility is recorded here as open.**' in t
+            and 'H-B is closed' not in t and 'H-B closed' not in t
+            and 'discharges the programme' not in t)
+
+
+def _hyb_h0_status(t=None):
+    """Z5 -- hazards 7 and 8: A5 fails with the witness, the advection obligation HO for the
+    candidate and not slid to HD/HC/HI, the sector named and the off-sector control kept."""
+    t = _HYB1 if t is None else t
+    return ('**Reported status for the advection obligation: HO for the candidate.**' in t
+            and 'non-additivity is necessary for an advective term and not sufficient, and no '
+                'coarse description carrying one is exhibited or claimed' in t
+            and 'The round does not label the advection obligation HD, HC or HI.' in t
+            and 'and therefore `¬ (hexSubstratum L).A5` (`hexSubstratum_not_A5`)' in t
+            and 'the sector `Γ` is invariant and the sector dynamics is exactly the '
+                'streaming-and-collision gas' in t
+            and 'the mass of `curOf (leap F x)` is not `1`, for every `L ≥ 1`' in t)
+
+
+def _hyb_h1_reading(t=None):
+    """Z6 -- hazards 3, 4 and 7: H1 in the freeze's form -- HD for mass and momentum, FOR THE
+    CANDIDATE, ON THE SECTOR, HO outside the class; the q-gauge test with no analogue and none
+    manufactured; staggered invariants not adjudicated; every conservation statement on Gamma."""
+    t = _HYB1 if t is None else t
+    return ('**Reported status for H1: HD for mass and momentum, for the candidate, on the '
+            'sector**' in t
+            and '**with the uniqueness within the frozen class stated and the outside of the '
+                'class HO.**' in t
+            and '**That test has no analogue here**' in t
+            and 'there is no `q` to vary and no `q` to choose, and the round does not manufacture '
+                'one' in t
+            and 'are outside the class and are **not adjudicated** (hazard 4)' in t
+            and 'Every conservation statement of this round is a statement on `Γ`' in t
+            and 'exactly conserved by the gas on every configuration for every `L`, on `Γ`' in t)
+
+
+def _hyb_h1_kernel(t=None):
+    """Z7 -- the classification and the sector conservation are carried by the THEOREM
+    STATEMENTS: the three conditions as the iff, the Z-span, the gas iff, and the sector relation
+    as the HYPOTHESIS of the trajectory statement."""
+    t = _HYBLEAN if t is None else t
+    return ('theorem hexCollide_conserved_iff (w : Fin 6 → ℤ)' in t
+            and '↔ (w 0 + w 3 = w 1 + w 4 ∧ w 1 + w 4 = w 2 + w 5 ∧ w 0 + w 2 + w 4 = w 1 + w 3 + '
+                'w 5)' in t
+            and '↔ ∃ a b₁ b₂ : ℤ, w = fun k => a + b₁ * hexDir k 0 + b₂ * hexDir k 1' in t
+            and 'theorem hexSum_hexGas_iff (w : Fin 6 → ℤ) : (∀ c : (Fin 2 → ZMod L) → Fin 6 → '
+                'ZMod 2, hexSum univ w (hexGas L c) = hexSum univ w c) ↔' in t
+            and '(x : (hexSubstratum L).Conf) (hx : prevOf x = (hexGas L).symm (curOf x :)) : '
+                'hexSum (univ : Finset (Fin 2 → ZMod L)) w (curOf (leap (hexSubstratum L).R.F x) :)'
+                in t
+            and 'theorem hexSubstratum_not_A5 : ¬ (hexSubstratum L).A5' in t
+            and 'theorem hexGas_hexRot' in t)
+
+
+def _hyb_h2_status(t=None):
+    """Z8 -- hazards 5 and 11: H2 in the freeze's conditional words -- HD for the stencil
+    tensor, HC for the stress conditional on H5, otherwise HO -- the bridge not built, and the
+    sixth-order bound stated exactly with no claim about higher orders and no defect read."""
+    t = _HYB1 if t is None else t
+    return ('**Reported status for H2: the stencil\'s fourth moment is proved isotropic — HD for '
+            'the stencil tensor; for the hydrodynamic stress, HC conditional on H5\'s closure '
+            'consuming this tensor, otherwise HO.**' in t
+            and 'is a bridge this round does **not** build; the round labels the stencil and not '
+                'the obligation (hazard 5)' in t
+            and 'fourth-order isotropy holds, while isotropy already fails at sixth order; **no '
+                'claim is made about higher orders**' in t
+            and 'The sixth-moment anisotropy is not a negative finding about H2 (hazard 11).' in t
+            and 'isotropy at all orders' not in t and 'isotropic at every order' not in t)
+
+
+def _hyb_h2_kernel(t=None):
+    """Z9 -- the fourth moment's closed form, its isotropy, the sixth-moment ratio and the
+    comparison with axisMoment4 2 are the theorem statements."""
+    t = _HYBLEAN if t is None else t
+    return ('theorem hexMoment4_eq (a b c e : Fin 2) : hexMoment4 a b c e = 3 / 4 * ((if a = b '
+            'then (1 : ℝ) else 0) * (if c = e then 1 else 0)' in t
+            and 'theorem hexMoment4_isotropic (k k\' : Fin 2 → ℝ) (h : (∑ i, k i ^ 2) = ∑ i, k\' i '
+                '^ 2)' in t
+            and 'theorem hexMoment6_not_isotropic' in t
+            and '≠ 5 * ∑ k : Fin 6, ((hexDir k 0 : ℝ) + (hexDir k 1 : ℝ) / 2) ^ 4' in t
+            and 'theorem axisMoment4_two_not_isotropic' in t
+            and 'k\' = ![1 / Real.sqrt 2, 1 / Real.sqrt 2]' in t)
+
+
+def _hyb_h3_status(t=None):
+    """Z10 -- hazards 9 and 10: H3 HO, no timescale preregistered or asserted, no
+    local-equilibrium or mixing statement in either direction, the sector measure licensing no
+    ergodicity, the witness not replaced at an uncovered size."""
+    t = _HYB1 if t is None else t
+    return ('**Reported status for H3: HO.**' in t
+            and '**No timescale is preregistered and none is asserted**' in t
+            and 'no local-equilibrium or mixing statement is made in either direction' in t
+            and 'it licenses no ergodicity, mixing or equidistribution statement within a sector'
+                in t
+            and 'no larger witness was sought, and the frozen fallback was not used' in t)
+
+
+def _hyb_h3_kernel(t=None):
+    """Z11 -- the witness is pinned by equations in ONE theorem statement at L = 4, b = 2, the
+    non-closure is the negation of a coarse rule on the block-charge two-time state, and the
+    sector measure is a Set.BijOn."""
+    t = _HYBLEAN if t is None else t
+    return ('theorem hb3a_block_state_not_closed' in t
+            and 'c = (fun i => if i = ![0, 0] then ![1, 0, 0, 0, 0, 0] else if i = ![0, 1] then '
+                '![0, 0, 0, 1, 0, 0] else 0) ∧ c\' = (fun i => if i = ![0, 0] then '
+                '![1, 0, 0, 1, 0, 0] else 0)' in t
+            and '(fun k => hexDir k 0) (hexGas 4 c) = 1' in t
+            and '(fun k => hexDir k 0) (hexGas 4 c\') = 0' in t
+            and 'theorem hb3a_no_closure : ¬ ∃ Ψ' in t
+            and 'theorem hexGas_bijOn_sector (m : ℤ) (p : ℤ × ℤ) : Set.BijOn (hexGas L)' in t)
+
+
+def _hyb_h4_status(t=None):
+    """Z12 -- the inherited scaling skeleton: ONE choice fixed by the candidate (the field
+    lift), four unfixed, H4 HO, no PDE."""
+    t = _HYB1 if t is None else t
+    return ('The candidate fixes **one** of its five choices: the field lift is the integer count '
+            'of Boolean occupations' in t
+            and 'remain unfixed. **Reported status for H4: HO.** No limit is taken and no PDE is '
+                'written.' in t)
+
+
+def _hyb_reading_conditional(t=None):
+    """Z13 -- the programme-level reading VERBATIM from the freeze, conditional on every
+    qualifier, and not shortened."""
+    t = _HYB1 if t is None else t
+    return ('inside the kernel\'s `Substratum` interface, consumed unmodified, there is a finite, '
+            'deterministic, reversible, translation-covariant rule of degree `6` whose invariant '
+            'graph sector carries a streaming-and-collision gas with **exactly conserved mass and '
+            'momentum on every configuration for every lattice size**, with **no other '
+            'site-independent channel-weighted invariant**, and with a stencil whose fourth moment '
+            'is **rotation-isotropic** and whose sixth is not; the rule is **not additive**, so '
+            'H-A\'s linearity gate does not apply to it, and H-A\'s `q`-gauge finding has no '
+            'analogue for it because it carries no free alphabet parameter. The candidate is '
+            'compatible with A1–A4 as the kernel states them and lies in the class obtained by '
+            'dropping A5\'s amplitude-scale gauge principle; **whether that class is admissible as '
+            'an OI substratum is an owner decision this round does not make.** H3 and H4 remain '
+            'HO; the round says nothing about H5–H7, nothing about `d = 3`, and nothing about the '
+            'OI → QM chain. **This reading is conditional on every qualifier above**, and the '
+            'execution may not shorten it.' in t
+            and 'The execution does not shorten it.' in t)
+
+
+def _hyb_not_licensed(t=None):
+    """Z14 -- hazards 1, 2, 12 and 13 and control 1: what none of the outcomes licenses, in the
+    freeze's wording, with the owner decision on A5 named open and d = 3 the successor."""
+    t = _HYB1 if t is None else t
+    return ('**Nothing here bears on the OI → QM chain**' in t
+            and 'No Track B label is imported as evidence here and none of these findings is '
+                'exported there' in t
+            and '**Nothing here says H-A\'s wave representative is wrong for any other purpose.**'
+                in t
+            and '**Nothing here says OI yields Navier–Stokes.**' in t
+            and '"OI has a fluid" is not said here, in any form' in t
+            and '**Nothing here is a continuum statement.** No PDE limit is asserted' in t
+            and '**No timescale separation is asserted.**' in t
+            and '**Nothing here changes A1–A6 or their status.**' in t
+            and '**whether either disqualifies the candidate as an OI substratum is not decided '
+                'here — the owner decision on A5 is open.**' in t
+            and '**No manuscript is edited by this round.**' in t
+            and '**a three-dimensional candidate of the same type is the successor question**' in t
+            and 'singularit' not in t.lower())
+
+
+def _hyb_budget(t=None):
+    """Z15 -- eight of eight slots, slot 8 fired with its reason, no ninth, the inputs reused."""
+    t = _HYB1 if t is None else t
+    return ('## Definition budget: **EIGHT of the frozen eight slots fire**' in t
+            and '`hexRot` | **fired** — `HB1-e` was attempted, and reached, at kernel level' in t
+            and '**No ninth definition was introduced.**' in t
+            and '`HydroSourceAudit`\'s, `CubicIsotropy`\'s and `SubstratumInterfaceAudit`\'s '
+                'definitions are reused, not redefined' in t)
+
+
+def _hyb_chronology_scoped(t=None):
+    """Z16 -- the chronology claim scoped to the repository record, archive mode prepared and not
+    yet entered, the one discrepancy recorded and the preregistration unamended."""
+    t = _HYB1 if t is None else t
+    return ('**The claim is scoped to the repository record.**' in t
+            and '**archive mode is prepared and not yet entered**' in t
+            and '**One discrepancy between the preregistration\'s recorded analysis and the '
+                'execution was found and is recorded above**' in t
+            and '(`w₁ − w₂`, not `w₂ − w₁`); it affects no target\'s statement, and **the '
+                'preregistration is unamended**' in t)
+
+
+def _hyb_lean_defs(t=None):
+    """Z17 -- exactly the eight budgeted definitions are top-level `def`s in the module, in the
+    freeze's names and order, with no sorry, axiom or native_decide, and the module's own
+    docstring carrying the status rule and the sixth-order bound."""
+    t = _HYBLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['hexDir', 'hexCollide', 'hexStream', 'hexGas', 'hexSubstratum', 'hexSum',
+                     'hexMoment4', 'hexRot']
+            and '**a rigorous reversible fluid witness in the A1–A4, ¬A5 class**' in t
+            and 'Round H-B is therefore **not** reported closed by this module, and no label here '
+                'is a label "for OI"' in t
+            and '**every conservation statement below is a statement on `Γ`**' in t
+            and 'isotropy already fails at sixth order, and **no claim is made about higher '
+                'orders**' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+def _hyb_programme_line(t=None):
+    """Z18 -- PROGRAMME.md's section 8 one-line state carries exactly the frozen sentence and
+    the status base names the mandated execution base."""
+    t = _HYBPROG if t is None else t
+    return ('H-B: one candidate executed in the A1–A4, ¬A5 class; OI-compatibility of the class '
+            'open (`round-h-b-reversible-fluid-substratum/result.md`).' in t
+            and 'Status base: `main` at `8de0478ef31fe4cabcf89fc5787f80f38376a957`' in t
+            and 'H-B is closed' not in t and 'H-B closed' not in t
+            and 'H-B is executed and closed' not in t)
+
+
+ok_hyb = True
+ok_hyb &= _hyb_freeze_pin()
+ok_hyb &= _hyb_execution_ancestry()
+ok_hyb &= _hyb_outcome()
+ok_hyb &= _hyb_status_rule()
+ok_hyb &= _hyb_h0_status()
+ok_hyb &= _hyb_h1_reading()
+ok_hyb &= _hyb_h1_kernel()
+ok_hyb &= _hyb_h2_status()
+ok_hyb &= _hyb_h2_kernel()
+ok_hyb &= _hyb_h3_status()
+ok_hyb &= _hyb_h3_kernel()
+ok_hyb &= _hyb_h4_status()
+ok_hyb &= _hyb_reading_conditional()
+ok_hyb &= _hyb_not_licensed()
+ok_hyb &= _hyb_budget()
+ok_hyb &= _hyb_chronology_scoped()
+ok_hyb &= _hyb_lean_defs()
+ok_hyb &= _hyb_programme_line()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# H-B declared closed
+_hyb_m1 = _HYB1.replace(
+    '**Round H-B is not reported closed by this round**, and the programme\'s H-B obligation is '
+    'not reported discharged.',
+    '**Round H-B is closed by this round**, and the programme\'s H-B obligation is discharged.')
+ok_hyb &= _hyb_m1 != _HYB1 and not _hyb_status_rule(_hyb_m1)
+
+# "HD for OI" written
+_hyb_m2 = _HYB1.replace(
+    '**Reported status for H1: HD for mass and momentum, for the candidate, on the sector**',
+    '**Reported status for H1: HD for OI**')
+ok_hyb &= _hyb_m2 != _HYB1 and not _hyb_status_rule(_hyb_m2) and not _hyb_h1_reading(_hyb_m2)
+
+# the A5 failure dropped -- the witness reported as an OI substratum outright
+_hyb_m3 = _HYB1.replace(
+    '**a rigorous reversible fluid witness in the A1–A4, ¬A5 class**',
+    '**a rigorous reversible OI fluid witness satisfying A1–A5**')
+ok_hyb &= _hyb_m3 != _HYB1 and not _hyb_status_rule(_hyb_m3)
+
+# the class widened -- admissibility settled by the execution
+_hyb_m4 = _HYB1.replace(
+    '**its admissibility is recorded here as open.**',
+    '**the class is admissible OI physics, so H-B is closed.**')
+ok_hyb &= _hyb_m4 != _HYB1 and not _hyb_status_rule(_hyb_m4)
+
+# the advection obligation slid from non-additivity to HD -- hazard 8
+_hyb_m5 = _HYB1.replace(
+    '**Reported status for the advection obligation: HO for the candidate.**',
+    '**Reported status for the advection obligation: HD for the candidate.** Non-additivity '
+    'supplies the advective term.')
+ok_hyb &= _hyb_m5 != _HYB1 and not _hyb_h0_status(_hyb_m5)
+
+# the sector qualifier dropped from a conservation statement -- hazard 7
+_hyb_m6 = _HYB1.replace(
+    '**Reported status for H1: HD for mass and momentum, for the candidate, on the sector**',
+    '**Reported status for H1: HD for mass and momentum, for the candidate**')
+ok_hyb &= _hyb_m6 != _HYB1 and not _hyb_h1_reading(_hyb_m6)
+
+# a q-gauge test manufactured -- hazard 3
+_hyb_m7 = _HYB1.replace(
+    'there is no `q` to vary and no `q` to choose, and the round does not manufacture one',
+    'the round introduces an alphabet parameter `q` and finds the law `q`-gauge invariant')
+ok_hyb &= _hyb_m7 != _HYB1 and not _hyb_h1_reading(_hyb_m7)
+
+# the uniqueness read as "no spurious invariants" outright -- hazard 4
+_hyb_m8 = _HYB1.replace('are outside the class and are **not adjudicated** (hazard 4)',
+                        'are excluded as well, so the candidate has no spurious invariant')
+ok_hyb &= _hyb_m8 != _HYB1 and not _hyb_h1_reading(_hyb_m8)
+
+# the sector relation dropped from the trajectory THEOREM
+_hyb_m9 = _HYBLEAN.replace(
+    '(x : (hexSubstratum L).Conf) (hx : prevOf x = (hexGas L).symm (curOf x :)) : hexSum (univ : '
+    'Finset (Fin 2 → ZMod L)) w (curOf (leap (hexSubstratum L).R.F x) :)',
+    '(x : (hexSubstratum L).Conf) : hexSum (univ : Finset (Fin 2 → ZMod L)) w (curOf (leap '
+    '(hexSubstratum L).R.F x) :)')
+ok_hyb &= _hyb_m9 != _HYBLEAN and not _hyb_h1_kernel(_hyb_m9)
+
+# "isotropy at all orders" -- hazard 11's mirror image
+_hyb_m10 = _HYB1.replace(
+    'fourth-order isotropy holds, while isotropy already fails at sixth order; **no claim is made '
+    'about higher orders**',
+    'the stencil is isotropic at all orders')
+ok_hyb &= _hyb_m10 != _HYB1 and not _hyb_h2_status(_hyb_m10)
+
+# H2 reported HD for the stress outright, the H5 bridge assumed -- hazard 5
+_hyb_m11 = _HYB1.replace(
+    '**Reported status for H2: the stencil\'s fourth moment is proved isotropic — HD for the '
+    'stencil tensor; for the hydrodynamic stress, HC conditional on H5\'s closure consuming this '
+    'tensor, otherwise HO.**',
+    '**Reported status for H2: HD.** The stencil is isotropic, so the isotropy obligation holds.')
+ok_hyb &= _hyb_m11 != _HYB1 and not _hyb_h2_status(_hyb_m11)
+
+# the sixth-moment ratio dropped from the kernel, leaving the fourth moment alone
+_hyb_m12 = _HYBLEAN.replace(
+    '≠ 5 * ∑ k : Fin 6, ((hexDir k 0 : ℝ) + (hexDir k 1 : ℝ) / 2) ^ 4', '')
+ok_hyb &= _hyb_m12 != _HYBLEAN and not _hyb_h2_kernel(_hyb_m12)
+
+# non-closure read as absence of local equilibrium -- hazard 9
+_hyb_m13 = _HYB1.replace('**Reported status for H3: HO.**',
+                         '**Reported status for H3: HI.** The block variable does not close, so '
+                         'no local equilibrium exists.')
+ok_hyb &= _hyb_m13 != _HYB1 and not _hyb_h3_status(_hyb_m13)
+
+# a timescale separation slipped in -- hazard 10
+_hyb_m14 = _HYB1.replace('**No timescale is preregistered and none is asserted**',
+                         'Since the collision time is short against the block-crossing time')
+ok_hyb &= _hyb_m14 != _HYB1 and not _hyb_h3_status(_hyb_m14)
+
+# the witness statement weakened to unspecified configurations
+_hyb_m15 = _HYBLEAN.replace(
+    'c = (fun i => if i = ![0, 0] then ![1, 0, 0, 0, 0, 0] else if i = ![0, 1] then '
+    '![0, 0, 0, 1, 0, 0] else 0) ∧ c\' = (fun i => if i = ![0, 0] then ![1, 0, 0, 1, 0, 0] else 0)',
+    'True')
+ok_hyb &= _hyb_m15 != _HYBLEAN and not _hyb_h3_kernel(_hyb_m15)
+
+# a PDE / continuum claim
+_hyb_m16 = _HYB1.replace(
+    'remain unfixed. **Reported status for H4: HO.** No limit is taken and no PDE is written.',
+    'are fixed by the gas, and in the limit the block fields satisfy the Euler equations.')
+ok_hyb &= _hyb_m16 != _HYB1 and not _hyb_h4_status(_hyb_m16)
+
+# the programme-level reading shortened to an unconditional "OI has a fluid"
+_hyb_m17 = _HYB1.replace(
+    '**This reading is conditional on every qualifier above**, and the execution may not shorten '
+    'it.',
+    'OI has a fluid.')
+ok_hyb &= _hyb_m17 != _HYB1 and not _hyb_reading_conditional(_hyb_m17)
+
+# a Track B label imported as evidence -- hazard 12
+_hyb_m18 = _HYB1.replace(
+    'No Track B label is imported as evidence here and none of these findings is exported there',
+    'Track B\'s P0 supplies the missing closure and is consumed here')
+ok_hyb &= _hyb_m18 != _HYB1 and not _hyb_not_licensed(_hyb_m18)
+
+# d = 3 claimed -- hazard 1
+_hyb_m19 = _HYB1.replace(
+    '**a three-dimensional candidate of the same type is the successor question**',
+    'the same construction carries over to the manuscripts\' `d = 3` substratum')
+ok_hyb &= _hyb_m19 != _HYB1 and not _hyb_not_licensed(_hyb_m19)
+
+# something said about the S-branch's subject -- hazard 13
+_hyb_m20 = _HYB1 + ' The finite gas therefore resolves the continuum singularity.'
+ok_hyb &= _hyb_m20 != _HYB1 and not _hyb_not_licensed(_hyb_m20)
+
+# a ninth definition slipped in
+_hyb_m21 = _HYB1.replace('**No ninth definition was introduced.**',
+                         'A ninth definition was convenient and was added')
+ok_hyb &= _hyb_m21 != _HYB1 and not _hyb_budget(_hyb_m21)
+
+# a ninth `def` in the module, over the frozen budget
+_hyb_m22 = _HYBLEAN.replace('def hexRot', 'def hexBlock (x : ℕ) := x def hexRot')
+ok_hyb &= _hyb_m22 != _HYBLEAN and not _hyb_lean_defs(_hyb_m22)
+
+# the module's docstring closing H-B
+_hyb_m23 = _HYBLEAN.replace(
+    'Round H-B is therefore **not** reported closed by this module, and no label here is a label '
+    '"for OI"',
+    'Round H-B is therefore closed by this module, HD for OI')
+ok_hyb &= _hyb_m23 != _HYBLEAN and not _hyb_lean_defs(_hyb_m23)
+
+# the chronology claim widened beyond the repository record, or the discrepancy hidden
+_hyb_m24 = _HYB1.replace(
+    '**One discrepancy between the preregistration\'s recorded analysis and the execution was '
+    'found and is recorded above**',
+    '**No discrepancy between the preregistration and the execution was found**')
+ok_hyb &= _hyb_m24 != _HYB1 and not _hyb_chronology_scoped(_hyb_m24)
+
+# PROGRAMME.md's one-line state strengthened beyond the frozen sentence
+_hyb_m25 = _HYBPROG.replace(
+    'H-B: one candidate executed in the A1–A4, ¬A5 class; OI-compatibility of the class open',
+    'H-B is closed: an OI-compatible reversible fluid witness exists')
+ok_hyb &= _hyb_m25 != _HYBPROG and not _hyb_programme_line(_hyb_m25)
+
+
+# Z1's control runs THROUGH _hyb_freeze_pin, so sabotaging that predicate fails the guard.
+def _hyb_drift(path):
+    """One byte appended to round H-B's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('round-h-b-reversible-fluid-substratum/preregistration.md') else b'')
+
+
+ok_hyb &= _hyb_drift(_HYBDIR + 'preregistration.md') != _bb_read(_HYBDIR + 'preregistration.md')
+ok_hyb &= not _hyb_freeze_pin(_hyb_drift)
+
+check('R7-HYB', ok_hyb,
+      'Hydrodynamics round H-B guard: a CONSTRUCTIVE round executed under a STATUS RULE frozen in advance, so what '
+      'can go wrong is the status the witness is reported under, not the landing. The chronology control is pinned '
+      'in BOTH halves -- the preregistration blob by content, carrying recorded items 1-7 merged before any '
+      'execution object entered the tree, and the strengthened ancestry asked of git directly against the real '
+      'pull_request.head.sha, every commit of git rev-list H ^B a descendant of the base, recovery included, '
+      'FAIL-CLOSED, with archive mode prepared and entered once the sealed head and its merge are pinned. The '
+      'status rule is checked in its four parts: H-B NOT reported closed, no label written "for OI", the witness '
+      'named in the A1-A4, not-A5 class, the admissibility of that class recorded OPEN -- and PROGRAMME.md\'s '
+      'section 8 line pinned to the frozen sentence. Each target\'s frozen reading is checked in terms: the '
+      'advection obligation HO for the candidate; H1 HD for mass and momentum FOR THE CANDIDATE ON THE SECTOR with '
+      'the outside of the class HO, no q-gauge test manufactured, staggered invariants not adjudicated; H2 HD for '
+      'the stencil tensor and HC for the stress conditional on H5, the sixth-order bound exact with no claim about '
+      'higher orders; H3 HO with no timescale and no local-equilibrium statement; H4 HO with the field lift the one '
+      'fixed choice; the programme-level reading verbatim and conditional; every non-licence in terms with the owner '
+      'decision on A5 open and d = 3 the successor. The kernel is held to the theorem statements -- the three '
+      'conditions, the Z-span, the gas iff, the sector relation as hypothesis, the fourth-moment closed form, the '
+      'sixth-moment ratio, the pinned L = 4 witness, the Set.BijOn -- and to the frozen eight-slot budget with no '
+      'sorry, axiom or native_decide. Eighteen named contracts, twenty-five mutation controls, plus one freeze-pin '
+      'drift control.')
+
 # ---- R7-A6D: substratum -- A6 background independence, round 1: definition and closure ----
 #
 # A DEFINITION round, not a proof round: the ROADMAP carries A6 as a GAP because the manuscript

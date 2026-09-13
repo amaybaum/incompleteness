@@ -2231,5 +2231,42 @@ principle is named, no connection or gauge fixing asserted, `GL2`, `GL3`, `GI2`,
 ancestry with the archive-mode scaffolding carried and its pins unset at execution, and checks each
 frozen reading in terms with thirty-one mutation controls.
 
+Hydrodynamics round H-B (`programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/`,
+preregistration blob `37cc9da`, merged by PR #601 as `8de0478`, the mandated execution base)
+executes one frozen candidate at evidence level 2 in `OIBridge/HexLatticeGas.lean`: a
+streaming-and-collision lattice gas on `Fin 2 → ZMod L` with alphabet `Fin 6 → ZMod 2` — six
+directions `hexDir`, the chiral on-site collision `hexCollide` moving the five head-on and
+three-body states, streaming `hexStream`, the gas `hexGas`, and the kernel's `Substratum`
+consumed unmodified as `hexSubstratum L` with rule `F c = Φ c + Φ⁻¹ c`. `HB0`: A1, A2, A3 with
+degree 6 and `A4Exact` hold (`hexSubstratum_A1` … `hexSubstratum_A4Exact`) and A5 fails on the
+recorded witness (`hexSubstratum_A5_witness`, `hexSubstratum_not_A5`); the graph sector
+`prevOf x = Φ⁻¹ (curOf x)` is invariant and carries the gas (`hexSubstratum_sector`) and mass is
+not conserved off it (`hexSubstratum_mass_not_conserved_off_sector`) — the advection obligation
+is HO for the candidate. `HB1`: streaming preserves every channel-weighted total
+(`hexSum_hexStream`); the collision preserves the total with weight `w` iff `w₀ + w₃ = w₁ + w₄`,
+`w₁ + w₄ = w₂ + w₅`, `w₀ + w₂ + w₄ = w₁ + w₃ + w₅` (`hexCollide_conserved_iff`,
+`hexSum_collide_iff`) iff `w ∈ span_ℤ {1, d₁, d₂}` (`hexCollide_conditions_iff_span`); so mass
+and momentum are exactly conserved by the gas on every configuration for every `L` and along
+every trajectory in the sector (`hexSum_hexGas`, `hexSum_leap_sector`), and are the only such
+totals (`hexSum_hexGas_iff_span`); they are translation-invariant (`hexSum_shiftBy`) and the gas
+commutes with the `60°` rotation `hexRot` (`hexGas_hexRot`, `hexRot_charges`) — HD for mass and
+momentum, for the candidate, on the sector, HO outside the class, with no `q`-gauge analogue
+because the alphabet carries no free parameter. `HB2`: the second moment of the embedded stencil
+is `3 δ` (`hexMoment2_eq`), the fourth is `(3/4)(δδ + δδ + δδ)` with quartic form
+`(9/4)|k|⁴` (`hexMoment4_eq`, `hexMoment4_quartic`, `hexMoment4_isotropic`), H-A's
+`axisMoment4 2` fails on two equal-length vectors where the hexagonal form agrees
+(`axisMoment4_two_not_isotropic`), and the sixth moment is not isotropic, ratio `11` against `5`
+(`hexMoment6_not_isotropic`) — HD for the stencil tensor, HC for the stress conditional on H5
+consuming it, otherwise HO, and no claim about higher orders. `HB3`: the block-charge two-time
+state at `L = 4`, `b = 2` does not close (`hb3a_block_state_not_closed`, `hb3a_no_closure`) and
+the charge sectors are invariant (`hexGas_bijOn_sector`) — H3 HO, no timescale asserted. **Round
+H-B is not reported closed**: the execution establishes a reversible fluid witness in the
+A1–A4, ¬A5 class, and whether that class is admissible as OI physics is recorded as open.
+Seventy-one named results, no `sorry`, no `axiom`, no `native_decide`, every axiom line within
+`propext`, `Classical.choice`, `Quot.sound`; all eight definition slots fired; no manuscript
+edit. Guard `R7-HYB` pins the preregistration blob by content, certifies the strengthened
+execution ancestry with archive mode prepared, and checks the status rule and each frozen
+reading in terms with mutation controls.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.
