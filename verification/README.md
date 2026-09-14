@@ -2367,5 +2367,50 @@ Guard `R7-PC4` pins the preregistration by blob, certifies the strengthened exec
 archive mode after the merge, and holds the status rule, every target's frozen reading, the `RS`
 labels, the definition list and the axiom table against fifteen mutation controls.
 
+The substratum A6 instantiation round 2
+(`programmes/substratum/a6-instantiation/`, preregistration blob `6f991c1`, merged alone by PR #623
+as `3e5d6a8`, the mandated execution base) discharges what it can of the named hypothesis the
+`P1 — A6` row carries, in the two halves that row states and never merged. **The organizing caveat
+comes first and governs every positive**: `a6cov_all` makes the adopted meaning hold identically on
+every link-coupled rule of the interface, so an instantiation positive says exactly that the
+manuscripts' rule is of that form and says nothing about a condition having been tested and
+survived. `OIBridge/A6Instantiation.lean` packages the manuscripts' six-fold link-coupled rule as a
+`Substratum` of the kernel's own structure with **no field added** — the cubic torus, the
+six-component alphabet over `ℤ/qℤ`, the axis neighbourhood, the link-valued coupling as a parameter
+and the second-order term carried by the leap — and proves the bridge equation identifying the
+packaged carrier's update map with the interface's link-coupled map, `A1`–`A5` on that carrier
+(`A4Exact` **under the translation-invariance hypothesis on the link coupling**, which is part of
+the statement and travels with it), a non-scalar additive automorphism of the six-component
+alphabet removing the singleton-index degeneracy for this carrier, and the separate stronger
+fixed-background condition failing at the symmetric point `M = μ I_6` while the global commutant
+specialization holds there — that failure being the recorded reason it is not the adopted meaning,
+and not a defect of the manuscripts' rule. On the lift half the round splits "inside the interface"
+in two, and the split is the load-bearing result: the **covariance statement** comes inside —
+`A6Cov` at `V = Fin 6 → ℂ` with no new definition and no structure added, with the manuscripts'
+site-dependent transformation proved to be an instance of the interface's transformation class both
+in `ℂ`-linear and in matrix-unitary form — while the **carrier** does not, the complex carrier being
+proved **not** to be a `Substratum` satisfying `A1`, since `A1` is finiteness. `A1` is not weakened,
+no second substratum structure is introduced, and no unitary group, inner product, condensate, state
+or cubic action enters the interface. The covariant form reaches the second-order dynamics at both
+alphabets. Twenty-five named results, no `sorry`, no `axiom`, no `native_decide`, every axiom line
+within `propext`, `Classical.choice`, `Quot.sound`; two of the five definition slots fired and the
+three conditional slots are recorded unused; no target fell to UNDECIDED and the one preregistered
+negative landed as a computed certificate. **The `ROADMAP` row `P1 — A6` keeps `CONDITIONAL`, its
+label cell and its reasons byte-identical**, so status rule clause 2's permitted re-pin of
+`R7-A6D`'s row clause was not performed, its condition being unmet; the section gains one paragraph
+and two links. What stays outside is named exactly: that the manuscripts' **physical** substratum is
+the packaged carrier is a premise no round discharges, and the part of `[SM §3.1]`'s derivation that
+consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)`
+or the cubic decomposition is neither consumed nor judged. Nothing about the Standard-Model
+gauge-group derivation, and no label recommendation: the stronger-label decision is named as open
+and the owner's. No manuscript is edited; round 1's two artifacts and the propagation's control
+plane are pinned by blob so that this is a checked fact. Guard `R7-A6I` pins the preregistration by
+content with a drift control, certifies the strengthened execution ancestry against the real
+`pull_request.head.sha` with archive-mode scaffolding present and its pins unset, and holds the
+status rule, each target's frozen reading, the definition budget and the axiom table against
+mutation controls. **No discrepancy against the freeze's start-state table**: every pinned blob was
+byte-identical at the mandated base and every quoted passage was found verbatim at its recorded
+coordinate.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.
