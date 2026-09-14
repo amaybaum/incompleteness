@@ -172,6 +172,7 @@ import OIBridge.ManuscriptAxioms
 import OIBridge.LiftAudit
 import OIBridge.SubstratumInterfaceAudit
 import OIBridge.BackgroundIndependence
+import OIBridge.A6Instantiation
 import OIBridge.ScalarClosure
 import OIBridge.InstrumentRealization
 import OIBridge.FlowEndpoint

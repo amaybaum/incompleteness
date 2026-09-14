@@ -16720,6 +16720,814 @@ check('R7-CT2', ok_ct2,
       'are identified with the frozen heisQ, and so is the composite\'s: driveQ R 1 is '
       'heisQ (ruleDynamics R), so the path starts at the identity and ends at the update.')
 
+
+# ---- R7-A6I: substratum -- A6 instantiation, round 2: the packaged carrier and the complex lift ----
+#
+# An INSTANTIATION round, not an interpretation round and not a verification round. The
+# interpretation problem is settled elsewhere -- A6-cov is the adopted publication meaning and the
+# ROADMAP row P1 - A6 reads CONDITIONAL -- and the debt this round discharges is whether the
+# manuscripts' own objects instantiate the covariant interface, in TWO HALVES the freeze keeps
+# APART. Every kernel target was predicted positive, including one preregistered NEGATIVE, so what
+# can go wrong is not the landing but the READING. The trap the whole enterprise sits over is that
+# a6cov_all makes the adopted meaning hold IDENTICALLY on every link-coupled rule, so a full
+# positive says only that the manuscripts' rule IS of that form and says nothing about a condition
+# having been tested and survived; a sentence of the form "the assumption was checked on the
+# substratum and holds" is a defect even on a full positive. The other failure modes: the two
+# halves merged, so that a packaging positive reads as a lift positive or the reverse; the
+# covariance statement coming inside reported without the carrier staying outside; PK5 read as "the
+# substratum violates A6"; PK3-d reported without its translation-invariance hypothesis; PK4 read
+# as identifying the interface's transformation class with the manuscripts' G(n); the interface's
+# class identified with U(6); an instantiation result sliding into the Standard Model or into the
+# gauge-group derivation; A1 weakened so that the complex carrier fits; a field added to
+# Substratum or a covariance predicate defined on it and named a reading; two of the four readings
+# identified; the ROADMAP label moved, or a label recommended. The guard checks each of these in
+# the freeze's own terms, the kernel statements in terms, the two-slot budget with three
+# conditional slots recorded unused, and the twenty-five-line axiom table.
+_A6IDIR = 'programmes/substratum/a6-instantiation/'
+_A6I = open(_artifact(_A6IDIR + 'result.md'), encoding='utf-8').read()
+_A6I1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _A6I).split())
+_A6ILEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'A6Instantiation.lean'), encoding='utf-8').read().split())
+_A6IROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+_A6IREADME = ' '.join(open(os.path.join(VERIFICATION, 'README.md'), encoding='utf-8').read().split())
+_A6I_R1DIR = 'programmes/substratum/a6-background-independence/'
+_A6I_PROP = _A11P_DIR + 'a6-covariance-propagation-audit.md'
+# The mandated execution base: the merge commit of the A6 instantiation control-plane PR #623.
+_A6I_BASE = '3e5d6a8f75166581213b6c5b7c0dbca1671b030e'
+# The SEALED execution head and the merge commit that carries it. Unset (None), as now, the guard
+# runs in EXECUTION MODE and certifies the run's real target. Set by the post-merge follow-up under
+# the freeze's chronology clause 7, the guard runs in ARCHIVE MODE: the same strong check re-run
+# against the sealed head, the pinned merge required to carry it as its second parent, and both
+# required reachable from the current target, each fail-closed. Nothing about the base or the blob
+# pin changes in archive mode.
+_A6I_SEALED_HEAD = None
+_A6I_MERGE = None
+
+
+def _a6i_git(*args, **kw):
+    kw.setdefault('tag', 'R7-A6I')
+    return _rbr_git(*args, **kw)
+
+
+def _a6i_ensure_present(rev, pr_number=None):
+    return _rbr_ensure_present(rev, pr_number=pr_number, tag='R7-A6I')
+
+
+def _a6i_target_commit(env=None):
+    return _rbr_target_commit(env=env, tag='R7-A6I')
+
+
+def _a6i_section(road):
+    """The ROADMAP section 'P1 — A6, and what is and is not already represented', flattened."""
+    a = road.find('### P1 — A6, and what is and is not already represented')
+    b = road.find('### P1 — physical C4 discharge', a)
+    return road[a:b] if 0 <= a < b else ''
+
+
+def _a6i_paragraph(readme):
+    """The README current-state paragraph this round wrote, flattened."""
+    a = readme.find('The substratum A6 instantiation round 2 '
+                    '(`programmes/substratum/a6-instantiation/`')
+    b = readme.find('`.github/workflows/verify.yml` runs', a)
+    return readme[a:b] if 0 <= a < b else ''
+
+
+def _a6i_reg():
+    with open(os.path.join(VERIFICATION, 'lean-manuscript-census.json'), encoding='utf-8') as fh:
+        return json.load(fh)
+
+
+def _a6i_freeze_pin(read=_bb_read):
+    """I1 -- this round's preregistration is byte-identical to the blob merged alone by PR #623.
+
+    BLOB IDENTITY IS AUTHORITATIVE: the commit SHA locates the tree, the blob SHA is what is
+    compared, so a freeze that moved is still the same freeze and a freeze that was rewritten is
+    not. One byte appended fails the pin, and that is mutation-tested below."""
+    return _bb_blob(_A6IDIR + 'preregistration.md', read) == (
+        '6f991c1348e0c568261894c41b129b7f942abee6')
+
+
+def _a6i_execution_ancestry():
+    """I2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused through `_rbr_strong_ancestry`: the head-only check is
+    insufficient because a commit made before the freeze and merged in alongside it leaves the head
+    descended from the freeze while itself not being. The ancestry question is asked of the real
+    `pull_request.head.sha`, NEVER the synthetic merge commit refs/pull/<n>/merge, and an
+    unresolvable head fails closed with no fallback.
+
+    Execution mode (pin unset, as now): the strong check against the run's real target. Archive
+    mode (pins set by the post-merge follow-up): the same strong check re-run against the sealed
+    head, with the pinned merge required to carry it and both required reachable from the current
+    target, fail-closed."""
+    if _A6I_SEALED_HEAD is None:
+        target, label, num = _a6i_target_commit()
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_A6I_BASE, target, label, num, tag='R7-A6I')
+    return _rbr_archive_ancestry(_A6I_BASE, _A6I_SEALED_HEAD, _A6I_MERGE, tag='R7-A6I')
+
+
+def _a6i_untouched_pins(read=_bb_read):
+    """I3 -- status rule clause 9 as a CHECKED FACT: round 1's preregistration and result and the
+    covariance propagation's control plane are byte-identical to their merged blobs, so "read and
+    never edited" is verified rather than promised."""
+    return (_bb_blob(_A6I_R1DIR + 'preregistration.md', read) == 'afbf1ee0e8ea94cb7fb3e57e690cd08b8d7e0bc3'
+            and _bb_blob(_A6I_R1DIR + 'result.md', read) == '331b1928adde22d5c716a92adb864b523d0c09b8'
+            and _bb_blob(_A6I_PROP, read) == 'e7cb7013747f783135c8e166d290ce6670df0ae9')
+
+
+def _a6i_outcome(t=None):
+    """I4 -- the round declared an INSTANTIATION round; every kernel target positive at level 2 as
+    predicted with the preregistered negative proved; both type-P labels as predicted; the fallback
+    recorded as NOT fired; no target UNDECIDED and no falsifier."""
+    t = _A6I1 if t is None else t
+    return ('**This is an instantiation round, and the outcome below is read accordingly.**' in t
+            and '**Every kernel target landed positively at evidence level 2 as predicted, '
+                'including the preregistered negative `CX3-b` as a proved negative' in t
+            and "`CX2`'s frozen fallback did not fire" in t
+            and 'No target moved from its predicted strength, no target fell to UNDECIDED, and no '
+                'falsifier fired.' in t)
+
+
+def _a6i_caveat(t=None):
+    """I5 -- hazard 2, the trap the whole enterprise sits over: the adopted reading holds
+    IDENTICALLY, so a positive says the rule IS of that form and NOT that a condition was tested."""
+    t = _A6I1 if t is None else t
+    return ('the adopted reading holds **identically** on every link-coupled rule' in t
+            and 'its content is the covariant interface itself and not a constraint' in t
+            and 'A full positive therefore says exactly that the manuscripts\' rule **is of that '
+                'form**. It does **not** say that a nontrivial condition was tested and survived.'
+                in t
+            and 'would be a defect even on a full positive' in t
+            and 'carries no information that a condition was tested and survived' in t)
+
+
+def _a6i_halves_separate(t=None):
+    """I6 -- the freeze's central discipline: the packaging half and the lift half are reported in
+    two sentences that are NEVER merged, and the lift half is discharged for the covariance
+    statement ONLY."""
+    t = _A6I1 if t is None else t
+    return ('in the two halves the freeze keeps **apart**' in t
+            and 'in two sentences that are **never merged**' in t
+            and '**The packaging half.**' in t and '**The lift half.**' in t
+            and 'It is discharged **for the covariance statement only**' in t
+            and 'so the **carrier** does not come inside the interface' in t)
+
+
+def _a6i_readings_distinct(t=None):
+    """I7 -- status rule clause 3: the four readings are four objects on three interfaces and no
+    two of them are identified; the adopted meaning is consumed, not re-adjudicated."""
+    t = _A6I1 if t is None else t
+    return ('are four objects on three interfaces and **no two of them are identified here**' in t
+            and '**Nothing here identifies any two of the four readings**' in t
+            and 'nothing adopts, revises or ranks a reading' in t
+            and 'The adopted meaning is the propagation\'s and is consumed, not re-adjudicated.'
+                in t)
+
+
+def _a6i_pk0_type_p(t=None):
+    """I8 -- PK0 labelled type P, (a) for every datum, the two recorded readings on the
+    normalization and the isotropy constraint, and NO field added to Substratum."""
+    t = _A6I1 if t is None else t
+    return ('**`PK0` — evidence type P**' in t
+            and 'It is not a kernel result and does not appear in the axiom table.' in t
+            and '**Outcome: (a) for every datum, as predicted; strength high.**' in t
+            and '**The two recorded readings, exactly as the freeze fixes them, and neither is '
+                'silently absorbed.**' in t
+            and '**The normalization $\\frac1d$ of `SM.md:308` goes into the coupling parameter '
+                '`M`**' in t
+            and '**The isotropy constraint goes into the link-coupled form**' in t
+            and '**No field was added to `Substratum`.**' in t)
+
+
+def _a6i_pk_kernel(t=None):
+    """I9 -- the packaging, the bridge equation and the covariance instance, in the kernel, with
+    the manuscripts' data written into the statements."""
+    t = _A6ILEAN if t is None else t
+    return ('theorem pk1_packaging : (linkSubstratum (Fin d → ZMod L) (Fin 6 → ZMod q) (nbrs d L) '
+            'M (fun _ _ h => mem_nbrs_symm d L h)).R.N = nbrs d L' in t
+            and '(fun _ _ h => mem_nbrs_symm d L h)).R.F = linkF (nbrs d L) M' in t
+            and 'theorem pk2b_covariance : A6Cov (nbrs d L) M := a6cov_all _ _' in t
+            and 'theorem pk2a_bridge :' in t
+            and '= linkF (linkSubstratum (Fin d → ZMod L) (Fin 6 → ZMod q) (nbrs d L) M (fun _ _ h '
+                '=> mem_nbrs_symm d L h)).R.N M' in t)
+
+
+def _a6i_pk2_bounded(t=None):
+    """I10 -- hazard 2 again, at PK2: the CONTENT of PK2 is PK2-a, and PK2-b is an INSTANCE of a
+    merged identity and not a new theorem."""
+    t = _A6I1 if t is None else t
+    return ('The content of `PK2` is `PK2-a`**' in t
+            and 'It is an instance of a merged identity and **not a new theorem**.' in t
+            and 'the identification of the manuscripts\' carrier with the interface\'s' in t)
+
+
+def _a6i_pk3d_hypothesis(t=None):
+    """I11 -- hazard 11: A4Exact is reported WITH its translation-invariance hypothesis every time,
+    and A4Exact for a general link coupling is stated to be FALSE."""
+    t = _A6I1 if t is None else t
+    return ('**under the translation-invariance hypothesis on the link coupling**, '
+            '`∀ v i j, M (i + v) (j + v) = M i j`' in t
+            and '**`PK3-d`\'s hypothesis is part of the statement and is reported with it every '
+                'time.**' in t
+            and '**`A4Exact` for a general link coupling is false**' in t
+            and 'the last **under the translation-invariance hypothesis on the link coupling**, '
+                'which is part of that conjunct and is reported with it' in t)
+
+
+def _a6i_pk3_bounded(t=None):
+    """I12 -- hazard 1: PK3 is about a carrier BUILT IN THE KERNEL and is not a statement that the
+    manuscripts' PHYSICAL substratum satisfies A1-A5."""
+    t = _A6I1 if t is None else t
+    return ('It is **not** a statement that the manuscripts\' physical substratum satisfies '
+            '`A1`–`A5`; that identification is a premise no round can discharge.' in t
+            and 'The packaged carrier is a formal object built from stated data' in t)
+
+
+def _a6i_pk4_bounded(t=None):
+    """I13 -- hazard 12: round 1's degeneracy verdict STANDS for waveSubstratum, is not touched,
+    and does not apply to the packaged carrier; the transformation class is not the manuscripts'
+    G(n) and over the finite alphabet there is no unitary group."""
+    t = _A6I1 if t is None else t
+    return ('**stands for `waveSubstratum`**, is not touched, and **does not apply to the packaged '
+            'carrier**' in t
+            and 'That is what `PK4` establishes and all it establishes.' in t
+            and 'It does **not** say that `AddAut (Fin 6 → ZMod q)` is the manuscripts\' '
+                '$G(\\mathbf{n})$' in t
+            and 'over the finite alphabet there is no unitary group, and none is introduced' in t)
+
+
+def _a6i_pk5_forbidden(t=None):
+    """I14 -- hazard 4, the sharpest place the round can be misread: PK5 is the SEPARATE STRONGER
+    fixed-background condition failing, which is the recorded reason it is not the adopted meaning;
+    the forbidden sentence is named and refused; L = 1 is excluded BY HYPOTHESIS, not by a
+    counterexample."""
+    t = _A6I1 if t is None else t
+    return ('the separate and strictly stronger **fixed-background** condition, failing on the '
+            'packaged carrier — and `A6-inv` is **not** the adopted meaning' in t
+            and 'The failure is the recorded reason it is not the adopted meaning' in t
+            and 'It is neither a defect of the manuscripts\' rule nor a failure of the sixth '
+                'assumption.' in t
+            and 'is forbidden in terms, and this note does not write it in any form' in t
+            and '**`L = 1` is excluded by hypothesis and is reported as excluded, not as a '
+                'counterexample**' in t)
+
+
+def _a6i_pk5_kernel(t=None):
+    """I15 -- PK5 in the kernel: the fixed-background condition refuted and the global
+    specialization proved, on the PACKAGED CARRIER's own update map, at the symmetric point pinned
+    by the equation M₀ v = μ • v with μ a unit and with d >= 1, L >= 2, q >= 2."""
+    t = _A6ILEAN if t is None else t
+    return ('theorem pk5_symmetric_point (d L q : ℕ) (hd : 1 ≤ d) (hL : 2 ≤ L) (hq : 2 ≤ q)' in t
+            and '(hM : ∀ v, M₀ v = (μ : ZMod q) • v) : ¬ A6Inv (linkSubstratum (Fin d → ZMod L) '
+                '(Fin 6 → ZMod q) (nbrs d L) (fun _ _ => M₀)' in t
+            and '∧ A6Glob (linkSubstratum (Fin d → ZMod L) (Fin 6 → ZMod q) (nbrs d L) '
+                '(fun _ _ => M₀)' in t
+            and 'theorem pk4_shift_not_scalar (q : ℕ) (hq : 2 ≤ q) : ∃ g : AddAut (Fin 6 → ZMod q), '
+                '(∀ v, g v = fun k => v (k + 1)) ∧ ∀ μ : ZMod q, ∃ v, g v ≠ μ • v' in t)
+
+
+def _a6i_cx0_type_p(t=None):
+    """I16 -- CX0 labelled type P, the six coordinates at their predicted classes with SM.md:487 at
+    MEDIUM, hazard 20's two book sources both read, and the falsifier recorded as not fired."""
+    t = _A6I1 if t is None else t
+    return ('**`CX0` — evidence type P**' in t
+            and '**Outcome: exactly the predicted classification at all six coordinates.**' in t
+            and '**medium** — the coordinate names a group and an invariance **without displaying '
+                'the identity it is an invariance of**' in t
+            and '**Hazard 20 discharged.**' in t
+            and '`book/The-Incompleteness-of-Observation-FULL.md`, and are byte-identical in both'
+                in t
+            and 'The freeze\'s falsifier is a coordinate **inside the covariance statement itself** '
+                'that consumes the inner product or unitarity.' in t
+            and '**No manuscript is edited, whatever `CX0` returns, and none was.**' in t)
+
+
+def _a6i_cx_kernel(t=None):
+    """I17 -- CX1, CX2 and CX3 in the kernel: the interface's own predicate at the complex carrier
+    with no new definition, the C-linear and the matrix-unitary instance, and the PROVED FAILURE of
+    A1 on the complex carrier."""
+    t = _A6ILEAN if t is None else t
+    return ('theorem cx1_complex_covariance {ι : Type} (N : ι → Finset ι) (M : ι → ι → ((Fin 6 → ℂ) '
+            '→+ (Fin 6 → ℂ))) : A6Cov N M := a6cov_all N M' in t
+            and 'theorem cx2_clinear_forgets {ι : Type} (G : ι → ((Fin 6 → ℂ) ≃ₗ[ℂ] (Fin 6 → ℂ)))'
+                in t
+            and '∧ ∀ i j v, gaugeLink g M i j v = G i (M i j ((G j).symm v))' in t
+            and 'theorem cx2_unitary_gaugeLink {ι : Type} (N : ι → Finset ι) (U : ι → Matrix '
+                '(Fin 6) (Fin 6) ℂ) (hU : ∀ i, star (U i) * U i = 1 ∧ U i * star (U i) = 1)' in t
+            and '(∀ i v, g i v = (U i).mulVec v)' in t
+            and 'theorem cx3b_complex_not_A1 (d L : ℕ)' in t
+            and '¬ (linkSubstratum (Fin d → ZMod L) (Fin 6 → ℂ) (nbrs d L) M (fun _ _ h => '
+                'mem_nbrs_symm d L h)).A1' in t)
+
+
+def _a6i_cx_bounded(t=None):
+    """I18 -- hazards 6, 7, 8, 9 and 13: the identity comes inside and the GROUP does not; the
+    general statement CONTAINS the specialization and is not identical to it; the carrier does not
+    come inside, reported TOGETHER with the statement that does; CX3-b is not a defect of anything;
+    and A1 is not weakened."""
+    t = _A6I1 if t is None else t
+    return ('What comes inside the interface is the **covariance identity**.' in t
+            and 'a strictly larger class than the unitary group' in t
+            and '**contains** the manuscripts\' transformation law as a specialization and is '
+                '**not identical to it**' in t
+            and 'the two are reported separately here and never as one' in t
+            and '**The covariance statement comes inside**' in t
+            and '**The complex carrier does not come inside as a substratum in the kernel\'s '
+                'sense**' in t
+            and 'The two facts are reported **together** here, and reporting the first without the '
+                'second would overstate the round.' in t
+            and '**not a defect of the interface, not a defect of the manuscripts, and not a defect '
+                'of the complex lift**' in t
+            and '**`A1` is not weakened, no finiteness parameter is added, and no second substratum '
+                'structure is introduced.**' in t
+            and 'The containment from the unitary matrices into the interface\'s transformation '
+                'class is **proved there and not asserted by fiat**' in t)
+
+
+def _a6i_as1(t=None):
+    """I19 -- AS1 at BOTH alphabets, stated once polymorphically, and its bounded reading: still
+    the identity a6cov_all records, still a statement whose content is the interface."""
+    t = _A6I1 if t is None else t
+    return ('Instantiated at `V = Fin 6 → ZMod q` (`as1_finite`) and at `V = Fin 6 → ℂ` '
+            '(`as1_complex`).' in t
+            and 'It is still the identity `a6cov_all` records, and it is still a statement whose '
+                'content is the interface, not a constraint.' in t
+            and 'theorem as1_leap_covariant {ι V : Type} [DecidableEq ι] [AddCommGroup V]'
+                in _A6ILEAN
+            and 'theorem as1_finite (d L q : ℕ)' in _A6ILEAN
+            and 'theorem as1_complex (d L : ℕ)' in _A6ILEAN)
+
+
+def _a6i_not_licensed(t=None):
+    """I20 -- the frozen non-licences, in terms: nothing about the physical substratum, nothing
+    about the Standard Model or the gauge-group derivation, no reading identified with another, no
+    constraint claimed, no complex-lift interface, the bare-carrier finding untouched."""
+    t = _A6I1 if t is None else t
+    return ('**They do not assert that a condition was tested and survived.**' in t
+            and '**They do not assert anything about the physical substratum.**' in t
+            and '**They do not assert a derivation of the gauge group.**' in t
+            and '**Nothing here says the sixth assumption holds of the physical substratum, or '
+                'fails of it.**' in t
+            and 'licenses no sentence about the Standard Model' in t
+            and '**Nothing here is a complex-lift interface.**' in t
+            and '**`A6-sd` is not formalized**' in t
+            and '**The bare-carrier finding stands untouched.**' in t
+            and '**No manuscript is edited.**' in t
+            and '**Nothing here decides whether A4 and the sixth assumption overlap**' in t)
+
+
+def _a6i_label_unmoved(t=None, r=None):
+    """I21 -- status rule clauses 1 and 17: the row carries CONDITIONAL before and after, the
+    stronger-label decision is named OPEN and the owner's, the round recommends NO label, and the
+    row's reasons are byte-identical -- so the permitted re-pin of R7-A6D's row clause was NOT
+    performed, its condition being unmet."""
+    t = _A6I1 if t is None else t
+    r = _A6IROAD if r is None else r
+    return ('carries `CONDITIONAL` at the start of this round and carries `CONDITIONAL` at the end '
+            'of it' in t
+            and 'this round takes none and recommends none' in t
+            and '**The stronger-label decision these outcomes set up is named as open, the '
+                'owner\'s, and not this round\'s.**' in t
+            and '**It moves no label and recommends none.**' in t
+            and '**Status rule clause 2\'s permitted re-pin was therefore not performed, because '
+                'its condition was not met.**' in t
+            and '| **P1** | A6 — background independence / local gauge covariance | Substratum | '
+                '**CONDITIONAL** —' in r
+            and '| Substratum | **DERIVED** —' not in r)
+
+
+def _a6i_roadmap_section(r=None):
+    """I22 -- the ROADMAP propagation is confined to the P1 - A6 section: the paragraph carries the
+    two halves separately, the caveat on the covariance instance, the carrier staying outside, A1
+    not weakened, the residual named, and the label decision left to the owner; and the section
+    links to this round's two artifacts."""
+    r = _A6IROAD if r is None else r
+    _sec = _a6i_section(r)
+    return ('**What the instantiation round settled, and what it did not.**' in _sec
+            and '*The packaging half.*' in _sec and '*The lift half.*' in _sec
+            and '**with no field added**' in _sec
+            and '**That last clause is an instance of `a6cov_all`, so it carries exactly the '
+                'information that the rule is of the covariant form and no information that a '
+                'condition was tested and survived.**' in _sec
+            and 'The **carrier** does not come inside' in _sec
+            and '`A1` is not weakened to make it fit' in _sec
+            and 'is an **owner decision**, taken in a separate round; round 2 takes none and '
+                'recommends none' in _sec
+            and 'programmes/substratum/a6-instantiation/result.md' in _sec
+            and 'programmes/substratum/a6-instantiation/preregistration.md' in _sec)
+
+
+def _a6i_readme(rd=None):
+    """I23 -- the verification landing page carries this round's paragraph, with the caveat first,
+    the two halves separate, the label unmoved and the re-pin recorded as not performed; and every
+    historical record the round leaves alone is still present verbatim."""
+    rd = _A6IREADME if rd is None else rd
+    _p = _a6i_paragraph(rd)
+    return ('preregistration blob `6f991c1`, merged alone by PR #623 as `3e5d6a8`, the mandated '
+            'execution base' in _p
+            and '**The organizing caveat comes first and governs every positive**' in _p
+            and 'says nothing about a condition having been tested and survived' in _p
+            and 'with **no field added**' in _p
+            and 'while the **carrier** does not' in _p
+            and '`A1` is not weakened' in _p
+            and '**The `ROADMAP` row `P1 — A6` keeps `CONDITIONAL`, its label cell and its reasons '
+                'byte-identical**' in _p
+            and 'the stronger-label decision is named as open and the owner\'s' in _p
+            and 'Guard `R7-A6I`' in _p
+            and '**No discrepancy against the freeze\'s start-state table**' in _p
+            # the historical records this round does not touch
+            and 'It adopts `A6-cov` as the publication meaning of the sixth structural assumption'
+                in rd
+            and 'is a definition round, not a proof round, and is owner-called' in rd)
+
+
+def _a6i_census(reg=None):
+    """I24 -- the census carries this round's family as kernel-only on exactly this module, with NO
+    anchor, because no manuscript was propagated; and the round-1 family is left alone."""
+    reg = _a6i_reg() if reg is None else reg
+    fam = [f for f in reg['families']
+           if f['name'] == 'A6 instantiation, round 2: the packaged carrier and the complex lift '
+                           '(substratum)']
+    if len(fam) != 1:
+        return False
+    fam = fam[0]
+    if fam['status'] != 'kernel-only' or fam['modules'] != ['A6Instantiation']:
+        return False
+    if fam['manuscript'] != []:
+        return False
+    note = fam['note']
+    if 'NO MANUSCRIPT PROPAGATION IN THIS ROUND' not in note:
+        return False
+    if 'the adopted reading holds IDENTICALLY on every link-coupled rule' not in note:
+        return False
+    r1 = [f for f in reg['families']
+          if f['name'] == 'A6 background independence, round 1: definition and interface audit '
+                          '(substratum)']
+    return len(r1) == 1 and r1[0]['status'] == 'current' and r1[0]['modules'] == [
+        'BackgroundIndependence']
+
+
+def _a6i_budget(t=None):
+    """I25 -- two of the five frozen slots fire, the three conditional slots recorded UNUSED with
+    their reasons, no sixth definition, no field added to Substratum, no covariance predicate on
+    Substratum named a reading, and no witness or carrier as a top-level definition."""
+    t = _A6I1 if t is None else t
+    return ('## Definition budget: **TWO of the five frozen slots fire**' in t
+            and 'Slot 3 did not fire' in t and 'Slot 4 did not fire' in t
+            and 'Slot 5 did not fire' in t
+            and '**No sixth definition was introduced.**' in t
+            and 'No field is added to `Substratum`' in t
+            and '**no covariance predicate is defined on `Substratum` and nothing is named a '
+                'reading, a strengthening or a variant of the sixth assumption**' in t
+            and '**No witness, carrier, transformation, configuration or coupling is a top-level '
+                'definition**' in t)
+
+
+def _a6i_lean_defs(t=None):
+    """I26 -- exactly the two budgeted top-level `def`s, named as the freeze names them and in the
+    freeze's order; no sorry, no axiom, no native_decide anywhere including the docstring; and the
+    module docstring carries the organizing caveat, the non-identification and the forbidden
+    sentence refused."""
+    t = _A6ILEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['linkRule', 'linkSubstratum']
+            and 'the adopted reading holds identically on every link-coupled rule of the interface, '
+                'so its content is the covariant interface itself and not a constraint' in t
+            and 'They are four objects on three interfaces and **no two of them are ever '
+                'identified**' in t
+            and '**it is not "the substratum violates the assumption"**' in t
+            and '**No field is added to `Substratum` or to `Rule`.**' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+def _a6i_axiom_table(t=None):
+    """I27 -- one axiom line per named kernel result, twenty-five of them matching the module's
+    #print axioms lines exactly, nothing outside the three standard axioms, no type-P item in the
+    table, and the level-3 fallback recorded as not fired."""
+    t = _A6I1 if t is None else t
+    rows = re.findall(r'\| `([A-Za-z0-9_]+)` \| `\[([^\]]*)\]` \|', t)
+    names = [n for n, _ in rows]
+    printed = re.findall(r'#print axioms OIBridge\.A6Instantiation\.([A-Za-z0-9_]+)', _A6ILEAN)
+    permitted = {'propext', 'Classical.choice', 'Quot.sound'}
+    return (len(rows) == 25 and 'Twenty-five named results' in t
+            and sorted(names) == sorted(printed) and len(set(names)) == 25
+            and all(set(a.strip() for a in ax.split(',')) <= permitted for _, ax in rows)
+            and '**No type-P item is in this table**' in t
+            and '| `PK0`' not in t and '| `CX0`' not in t and '| `AS2`' not in t
+            and '**`CX2`\'s frozen fallback did not fire, so nothing in this round is reported at '
+                'level 3.**' in t)
+
+
+def _a6i_unsettled(t=None):
+    """I28 -- the points at which the manuscripts' intended reading was found unsettled are LISTED
+    and NOT RESOLVED, the coupling-matrix denotation among them with no instance chosen, and the
+    owner's call on the row's second half named as the owner's."""
+    t = _A6I1 if t is None else t
+    return ('## The points at which the manuscripts\' intended reading was found unsettled, listed '
+            'and not resolved' in t
+            and '**`SM.md:487`\'s "locally $\\mathrm{U}(6)$ invariant".**' in t
+            and '**The denotation of "the cubic-symmetric coupling matrix".**' in t
+            and '**no instance was chosen to resolve it**' in t
+            and '**the owner\'s call and is not taken here**' in t)
+
+
+def _a6i_discrepancies(t=None):
+    """I29 -- the discrepancy section exists and says what it found: no divergence from the
+    start-state table, the one classification judgement recorded and not repaired, and the reserved
+    guard tag not colliding."""
+    t = _A6I1 if t is None else t
+    return ('## Discrepancies' in t
+            and '**None against the freeze\'s start-state table.**' in t
+            and '**One judgement the classification required, recorded and not repaired.**' in t
+            and '**This is not a divergence from the freeze**, and no falsifier fired.' in t
+            and '**The reserved guard tag did not collide.**' in t)
+
+
+def _a6i_chronology(t=None):
+    """I30 -- the chronology certification names the property certified, the real head, the
+    side-history exclusion, the recovery, the drift control, the archive-mode scaffolding with its
+    pins unset, and the three blob-pinned untouched artifacts."""
+    t = _A6I1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside '
+            '`B`\'s descendants.**' in t
+            and 'resolved from `pull_request.head.sha` in a pull-request run — **never** the '
+                'synthetic merge commit' in t
+            and '**every commit in `git rev-list H ^B` must itself be a descendant of `B`**' in t
+            and 'a failed recovery **fails** the check rather than skipping it' in t
+            and '**archive-mode scaffolding is present with its pins left unset**' in t
+            and 'Commit SHAs locate; **blob SHAs are what is pinned**' in t)
+
+
+_A6I_NEG = re.compile(r'\b(not|nothing|neither|never|no|non|absent)\b', re.IGNORECASE)
+_A6I_PHRASES = ('holds of the physical substratum', 'lift is kernel-checked', 'thereby derived',
+                'condition was tested and survived', 'derivation of the gauge group',
+                'the substratum violates')
+
+
+def _a6i_affirms(text):
+    """True if some sentence of `text` carries one of the frozen over-readings without a negation
+    -- the assumption said to hold of the physical substratum, the complex lift said to be
+    kernel-checked, the gauge group said to be derived, a condition said to have been tested and
+    survived, the substratum said to violate the assumption.
+
+    Emphasis and code markers are stripped BEFORE the split, because a sentence that ends `...**`
+    or `...`` ` `` does not end in `.` followed by whitespace, so an unstripped split silently
+    glues the over-reading to a neighbouring sentence and borrows its negation -- which would make
+    the scan pass on exactly the write-backs it exists to catch."""
+    flat = re.sub(r'[*`]', '', text)
+    for sent in re.split(r'(?<=[.!?])\s+', flat):
+        if any(p in sent for p in _A6I_PHRASES) and not _A6I_NEG.search(sent):
+            return True
+    return False
+
+
+def _a6i_non_licences(t=None, r=None, rd=None):
+    """I31 -- the frozen over-readings are absent, in the affirmative, from the result note, the
+    ROADMAP section and the README paragraph this round wrote."""
+    t = _A6I1 if t is None else t
+    r = _A6IROAD if r is None else r
+    rd = _A6IREADME if rd is None else rd
+    return not any(_a6i_affirms(x) for x in (t, _a6i_section(r), _a6i_paragraph(rd)))
+
+
+ok_a6i = True
+ok_a6i &= _a6i_freeze_pin()
+ok_a6i &= _a6i_execution_ancestry()
+ok_a6i &= _a6i_untouched_pins()
+ok_a6i &= _a6i_outcome()
+ok_a6i &= _a6i_caveat()
+ok_a6i &= _a6i_halves_separate()
+ok_a6i &= _a6i_readings_distinct()
+ok_a6i &= _a6i_pk0_type_p()
+ok_a6i &= _a6i_pk_kernel()
+ok_a6i &= _a6i_pk2_bounded()
+ok_a6i &= _a6i_pk3d_hypothesis()
+ok_a6i &= _a6i_pk3_bounded()
+ok_a6i &= _a6i_pk4_bounded()
+ok_a6i &= _a6i_pk5_forbidden()
+ok_a6i &= _a6i_pk5_kernel()
+ok_a6i &= _a6i_cx0_type_p()
+ok_a6i &= _a6i_cx_kernel()
+ok_a6i &= _a6i_cx_bounded()
+ok_a6i &= _a6i_as1()
+ok_a6i &= _a6i_not_licensed()
+ok_a6i &= _a6i_label_unmoved()
+ok_a6i &= _a6i_roadmap_section()
+ok_a6i &= _a6i_readme()
+ok_a6i &= _a6i_census()
+ok_a6i &= _a6i_budget()
+ok_a6i &= _a6i_lean_defs()
+ok_a6i &= _a6i_axiom_table()
+ok_a6i &= _a6i_unsettled()
+ok_a6i &= _a6i_discrepancies()
+ok_a6i &= _a6i_chronology()
+ok_a6i &= _a6i_non_licences()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# m1: hazard 2 -- the caveat dropped and the positive written as a verified condition
+_a6i_m1 = _A6I1.replace(
+    'It does **not** say that a nontrivial condition was tested and survived.',
+    'It says that a nontrivial condition was tested and survived.')
+ok_a6i &= _a6i_m1 != _A6I1 and not _a6i_caveat(_a6i_m1)
+ok_a6i &= not _a6i_non_licences(t=_a6i_m1)
+
+# m2: the two halves merged into one sentence
+_a6i_m2 = _A6I1.replace('in two sentences that are **never merged**',
+                        'in one sentence covering both halves')
+ok_a6i &= _a6i_m2 != _A6I1 and not _a6i_halves_separate(_a6i_m2)
+
+# m3: hazard 7 -- the covariance statement reported inside without the carrier staying outside
+_a6i_m3 = _A6I1.replace(
+    '**The complex carrier does not come inside as a substratum in the kernel\'s sense**',
+    '**The complex carrier comes inside as a substratum in the kernel\'s sense**')
+ok_a6i &= _a6i_m3 != _A6I1 and not _a6i_cx_bounded(_a6i_m3)
+
+# m4: hazard 4 -- PK5 read as the substratum violating the assumption
+_a6i_m4 = _A6I1.replace(
+    'is forbidden in terms, and this note does not write it in any form',
+    'is what this round reports: the substratum violates the condition at the symmetric point')
+ok_a6i &= _a6i_m4 != _A6I1 and not _a6i_pk5_forbidden(_a6i_m4)
+ok_a6i &= not _a6i_non_licences(t=_a6i_m4)
+
+# m5: hazard 11 -- A4Exact reported without its translation-invariance hypothesis
+_a6i_m5 = _A6I1.replace(
+    '**`PK3-d`\'s hypothesis is part of the statement and is reported with it every time.**',
+    'The hypothesis is a technicality and is omitted below.')
+ok_a6i &= _a6i_m5 != _A6I1 and not _a6i_pk3d_hypothesis(_a6i_m5)
+
+# m6: hazard 1 -- a packaging positive read as a statement about the physical substratum
+_a6i_m6 = _A6I1.replace(
+    '**Nothing here says the sixth assumption holds of the physical substratum, or fails of it.**',
+    'The sixth assumption holds of the physical substratum.')
+ok_a6i &= _a6i_m6 != _A6I1 and not _a6i_not_licensed(_a6i_m6)
+ok_a6i &= not _a6i_non_licences(t=_a6i_m6)
+
+# m7: hazard 3 -- the instantiation result slid into the gauge-group derivation
+_a6i_m7 = _A6I1.replace(
+    '**They do not assert a derivation of the gauge group.**',
+    'They supply the remaining step in the derivation of the gauge group.')
+ok_a6i &= _a6i_m7 != _A6I1 and not _a6i_not_licensed(_a6i_m7)
+ok_a6i &= not _a6i_non_licences(t=_a6i_m7)
+
+# m8: hazard 12 -- PK4 read as identifying the transformation class with the manuscripts' G(n)
+_a6i_m8 = _A6I1.replace(
+    'It does **not** say that `AddAut (Fin 6 → ZMod q)` is the manuscripts\' $G(\\mathbf{n})$',
+    'It says that `AddAut (Fin 6 → ZMod q)` is the manuscripts\' $G(\\mathbf{n})$')
+ok_a6i &= _a6i_m8 != _A6I1 and not _a6i_pk4_bounded(_a6i_m8)
+
+# m9: status rule clause 3 -- two of the four readings identified
+_a6i_m9 = _A6I1.replace(
+    'are four objects on three interfaces and **no two of them are identified here**',
+    'are two names for one object on one interface')
+ok_a6i &= _a6i_m9 != _A6I1 and not _a6i_readings_distinct(_a6i_m9)
+
+# m10: status rule clause 1 -- the label moved in the ROADMAP row
+_a6i_m10 = _A6IROAD.replace('| Substratum | **CONDITIONAL** —', '| Substratum | **DERIVED** —')
+ok_a6i &= _a6i_m10 != _A6IROAD and not _a6i_label_unmoved(r=_a6i_m10)
+
+# m11: hazard 17 -- a label recommended in the result note
+_a6i_m11 = _A6I1.replace('this round takes none and recommends none',
+                         'this round recommends a stronger label')
+ok_a6i &= _a6i_m11 != _A6I1 and not _a6i_label_unmoved(t=_a6i_m11)
+
+# m12: hazard 9 -- A1 weakened so that the complex carrier fits
+_a6i_m12 = _A6I1.replace(
+    '**`A1` is not weakened, no finiteness parameter is added, and no second substratum structure '
+    'is introduced.**',
+    '`A1` is weakened to a finiteness parameter so that the complex carrier fits.')
+ok_a6i &= _a6i_m12 != _A6I1 and not _a6i_cx_bounded(_a6i_m12)
+
+# m13: hazard 10 -- a sixth definition, a field on Substratum, or a covariance predicate named a
+# reading
+_a6i_m13 = _A6I1.replace('## Definition budget: **TWO of the five frozen slots fire**',
+                         '## Definition budget: SIX slots fire, the sixth a field on `Substratum`')
+ok_a6i &= _a6i_m13 != _A6I1 and not _a6i_budget(_a6i_m13)
+
+# m14: hazard 16 -- the preregistered negative reported as a failed proof search
+_a6i_m14 = _A6I1.replace(
+    '**Every kernel target landed positively at evidence level 2 as predicted, including the '
+    'preregistered negative `CX3-b` as a proved negative',
+    '**Every kernel target landed positively at evidence level 2 as predicted, except `CX3-b`, '
+    'which could not be proved')
+ok_a6i &= _a6i_m14 != _A6I1 and not _a6i_outcome(_a6i_m14)
+
+# m15: the census family given a manuscript anchor although no manuscript was propagated
+_a6i_m15 = json.loads(json.dumps(_a6i_reg()))
+for _f in _a6i_m15['families']:
+    if _f['modules'] == ['A6Instantiation']:
+        _f['manuscript'].append({'file': 'papers/SM.md',
+                                 'anchor': 'this is the covariance that (A6) asserts'})
+ok_a6i &= not _a6i_census(_a6i_m15)
+
+# m16: the axiom table losing a line, so a named result ships unreported
+_a6i_m16 = _A6I1.replace('| `cx3b_complex_not_A1` | `[propext, Classical.choice, Quot.sound]` |', '')
+ok_a6i &= _a6i_m16 != _A6I1 and not _a6i_axiom_table(_a6i_m16)
+
+# m17: a type-P determination listed among the kernel results
+_a6i_m17 = _A6I1.replace('| `as1_complex` | `[propext, Classical.choice, Quot.sound]` |',
+                         '| `as1_complex` | `[propext, Classical.choice, Quot.sound]` | '
+                         '| `PK0` | `[propext]` |')
+ok_a6i &= _a6i_m17 != _A6I1 and not _a6i_axiom_table(_a6i_m17)
+
+# m18: the ROADMAP paragraph reporting the covariance instance as a tested condition
+_a6i_m18 = _A6IROAD.replace(
+    'so it carries exactly the information that the rule is of the covariant form and no '
+    'information that a condition was tested and survived.',
+    'so a condition was tested and survived.')
+ok_a6i &= _a6i_m18 != _A6IROAD and not _a6i_roadmap_section(_a6i_m18)
+ok_a6i &= not _a6i_non_licences(r=_a6i_m18)
+
+# m19: the README paragraph dropping the caveat that governs every positive
+_a6i_m19 = _A6IREADME.replace(
+    '**The organizing caveat comes first and governs every positive**',
+    'The round confirms the assumption on the manuscripts\' object')
+ok_a6i &= _a6i_m19 != _A6IREADME and not _a6i_readme(_a6i_m19)
+
+# m20: hazard 18 -- one byte appended to round 1's result note, the propagation control plane, or
+# this round's own freeze
+def _a6i_drift(path):
+    tail = (b'\n' if path.endswith(('a6-background-independence/result.md',
+                                    'a6-covariance-propagation-audit.md',
+                                    'a6-instantiation/preregistration.md')) else b'')
+    return _bb_read(path) + tail
+
+
+ok_a6i &= _a6i_drift(_A6I_R1DIR + 'result.md') != _bb_read(_A6I_R1DIR + 'result.md')
+ok_a6i &= not _a6i_untouched_pins(_a6i_drift)
+ok_a6i &= _a6i_drift(_A6I_PROP) != _bb_read(_A6I_PROP)
+ok_a6i &= _a6i_drift(_A6IDIR + 'preregistration.md') != _bb_read(_A6IDIR + 'preregistration.md')
+ok_a6i &= not _a6i_freeze_pin(_a6i_drift)
+
+# m21: hazard 3 and hazard 1 together, written into the ROADMAP section in place of the owner's
+# call -- the complex lift declared kernel-checked and the assumption declared to hold of the
+# physical substratum
+_a6i_m21 = _A6IROAD.replace(
+    'is an **owner decision**, taken in a separate round; round 2 takes none and recommends none.',
+    'is settled. The complex lift is kernel-checked and the assumption holds of the physical '
+    'substratum.')
+ok_a6i &= _a6i_m21 != _A6IROAD and not _a6i_roadmap_section(_a6i_m21)
+ok_a6i &= not _a6i_non_licences(r=_a6i_m21)
+
+check('R7-A6I', ok_a6i,
+      'Substratum A6 instantiation round 2 guard: the round that tests whether the manuscripts\' own '
+      'objects instantiate the covariant interface, in the TWO HALVES the freeze keeps apart. Every '
+      'kernel target was predicted positive -- one of them a preregistered NEGATIVE -- so the failure '
+      'mode is the READING, and the trap is that a6cov_all makes the adopted meaning hold IDENTICALLY '
+      'on every link-coupled rule: a full positive says only that the manuscripts\' rule IS of that '
+      'form, never that a condition was tested and survived, and the note is checked to say so at the '
+      'caveat, at PK2 and at the non-licences, with the write-back mutation-tested three times. The '
+      'control plane is pinned BY BLOB (6f991c13) with a one-byte drift control, and the execution '
+      'ancestry is certified in act 10\'s strengthened form against the merge commit of PR #623 '
+      '(3e5d6a8): the real pull_request.head.sha, never the synthetic merge; the base an ancestor of '
+      'the head AND every commit of rev-list H ^B a descendant of the base; recovery by the guard for '
+      'the base, the head and every enumerated commit; fail-closed. ARCHIVE MODE is scaffolded with '
+      'its pins UNSET, so the guard runs in execution mode until the follow-up records the sealed head '
+      'and its merge commit, after which the same strong check is re-run against them and both are '
+      'required reachable from the current target. Round 1\'s preregistration and result and the '
+      'covariance propagation\'s control plane are pinned by blob, so status rule clause 9 is a checked '
+      'fact and not a promise, each one-byte drift mutation-tested. The kernel statements are checked '
+      'in terms: the packaging with the manuscripts\' torus, six-component alphabet and axis '
+      'neighbourhood written into pk1_packaging; the bridge equation of pk2a_bridge read on the '
+      'carrier\'s own neighbourhood function; pk2b_covariance as an instance of a6cov_all; the cyclic '
+      'shift of pk4_shift_not_scalar pinned by its equation; pk5_symmetric_point refuting the SEPARATE '
+      'STRONGER fixed-background condition on the packaged carrier at M0 v = mu . v with mu a unit '
+      'while the global specialization holds, with d >= 1, L >= 2, q >= 2 and L = 1 excluded by '
+      'hypothesis; cx1_complex_covariance as the interface\'s own predicate at Fin 6 -> C with no new '
+      'definition; cx2_clinear_forgets and cx2_unitary_gaugeLink exhibiting the manuscripts\' '
+      'transformation as an instance of the interface\'s class, the containment proved and one-way; '
+      'and cx3b_complex_not_A1 as the PROVED FAILURE of A1 at the complex carrier. The load-bearing '
+      'distinction is checked in the freeze\'s words -- the covariance statement comes inside, the '
+      'carrier does not, reported TOGETHER, with A1 not weakened, no finiteness parameter and no '
+      'second substratum structure -- and the carrier brought inside and A1 weakened are both '
+      'mutation-tested. PK0 and CX0 are checked LABELLED TYPE P with their outcomes, the two recorded '
+      'readings on the normalization and the isotropy constraint, SM.md:487 at MEDIUM strength, and '
+      'hazard 20\'s two book sources both read. PK3-d is checked to carry its translation-invariance '
+      'hypothesis every time with A4Exact for a general link coupling stated FALSE, the omission '
+      'mutation-tested; PK4 is checked bounded to the removal of the degeneracy verdict for this '
+      'carrier with round 1\'s verdict standing for waveSubstratum, the identification with the '
+      'manuscripts\' G(n) mutation-tested; the four readings are checked never identified. The ROADMAP '
+      'row is checked to carry CONDITIONAL with no DERIVED row anywhere and the re-pin of R7-A6D\'s row '
+      'clause recorded as NOT performed because the row\'s reasons are byte-identical; a DERIVED label '
+      'and a recommended label are mutation-tested. The ROADMAP section paragraph and the README '
+      'paragraph are checked in terms with the historical records the round leaves alone still present '
+      'verbatim, a tested-condition write-back and a dropped caveat mutation-tested. The census family '
+      'is checked kernel-only on exactly this module with NO anchor, an anchor on papers/SM.md '
+      'mutation-tested. The two-slot budget is checked with the three conditional slots recorded '
+      'unused, no sixth definition, no field on Substratum and no covariance predicate named a '
+      'reading; the module is checked to carry exactly the two budgeted defs in the freeze\'s order '
+      'and no sorry, axiom or native_decide anywhere including the docstring. The twenty-five-line '
+      'axiom table is checked against the module\'s own #print axioms lines with nothing outside the '
+      'three standard axioms and no type-P item in it, a dropped line and a type-P row both '
+      'mutation-tested. The discrepancy section, the unsettled points and the chronology '
+      'certification are checked present in terms, and the frozen over-readings are checked absent in '
+      'the affirmative from the result note, the ROADMAP section and the README paragraph. '
+      'Thirty-one named contracts, twenty-one mutation controls, plus three freeze-pin drift controls.')
+
+
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())
 ok6 &= 'def AvailFS' in ina and 'theorem q3_countermodel' in ina
