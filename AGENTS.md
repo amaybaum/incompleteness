@@ -471,6 +471,15 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
 - The seven manifestations of the QM-emergence-interface antipattern (catalogued in the private
   records) are the recurring reason Step 5 exists; every historical overclaim audited traced to
   one of them.
+- Two sealed executions had their pull-request builds go red for one reason only: an archive
+  clause had entered main after their base was cut, so the synthetic merge ran a newer guard
+  against an older head. One was first reported as a stale watcher, and the job log said
+  otherwise. Hence §A.37's diagnostic rule — check the exact-head certification before calling a
+  red badge a research failure, and never cure it by merging main into a sealed execution.
+- A landing's obligation table collided on four rows at once, three of which a sibling round had
+  moved since the base; taking either side wholesale would have silently reverted a label merged
+  twenty minutes earlier. Hence §A.37's resolve-by-merits rule and its check that a landing adds
+  exactly the execution's own diff.
 
 ---
 
@@ -632,3 +641,89 @@ mode requires no particular layout on disk, so it holds after the migration as
 well as before; the separate `--verify-tree` mode, which asserts the mapping is
 in bijection with the root artifacts, is meaningful only beforehand and is
 opt-in for that reason.
+
+---
+
+## §A.37 Round lifecycle: control plane, sealed execution, landing wrapper
+
+A round is run in two pull requests, never one. The **control plane** is the
+preregistration alone — targets, predictions with their signs and strengths,
+recorded reasons, the status rule, the hazards, the definition budget and the
+chronology control. It is reviewed, amended as the owner directs, and merged
+**before any execution object exists**. Amendment happens before the merge and
+only then: once merged the preregistration is **immutable**, and an execution
+that diverges from it **records the discrepancy** rather than repairing the
+freeze. A freeze that can be edited after the outcome is known is not a freeze.
+
+The control plane's **merge commit is the mandated execution base**. The
+execution branches from exactly that commit and from nothing else, and its
+first act is to verify that the preregistration at that base has the blob the
+freeze names, before any target is executed.
+
+**An execution never absorbs later main.** No merge from main, no rebase, no
+amend, no force-push. Its head is the sealed object the guard certifies, and
+changing it destroys the ancestry the chronology control exists to establish.
+The branch will show as behind, and often as conflicted, for as long as it
+lives. That is the protocol working, not a defect to repair.
+
+### Certifying the exact head
+
+The guard asks its ancestry question of the real `pull_request.head.sha`, never
+of the synthetic merge commit that continuous integration builds. The two can
+disagree, and there is one situation where they reliably do.
+
+Continuous integration builds a pull request as its head merged into the
+**current** base. When an archive clause enters main **after** an execution's
+base was cut, that build runs main's newer guard file against the older head,
+and the clause demands a sealed head the execution cannot reach. It fails
+closed, correctly. On the exact head the guard file is the base's own, which
+carries no such clause, and the check passes.
+
+So: **a red badge on a sealed execution branch is not by itself a research
+failure.** Ask first whether the execution's own exact-head certification is
+green, and whether the red comes solely from an archive clause that entered
+main after the base. If both, the execution stands certified and is left
+untouched. Obtain the exact-head certification by dispatching the workflow on
+the branch, which builds the branch itself with no synthetic merge.
+
+A **control plane** carries no mandated historical base, so the opposite rule
+applies to it: when a newly landed archive clause reddens its build, merging
+current main into the branch is the correct cure. Confirm afterwards that the
+frozen blob is unchanged, so what freezes is what was reviewed.
+
+### The landing wrapper
+
+A sealed execution is brought into main by a **separate pull request**, in two
+commits and in this order:
+
+1. A **landing merge** whose first parent is current main and whose second
+   parent is **exactly the sealed execution head**. Conflicts are resolved
+   here, never on the execution branch.
+2. The **archive pin**, setting the guard's sealed-head and merge constants to
+   that head and to the landing merge that carries it.
+
+With both set the guard runs in **archive mode**: the strong ancestry check is
+re-run against the sealed object rather than against the current target, the
+pinned merge's second parent is required to equal the sealed head, and both are
+required to be reachable from the target. Fail-closed throughout. A result note
+recording that the pins were unset at execution stays true, being a statement
+about the execution.
+
+Landing conflicts are resolved **by merits, not by side**. Where an obligation
+table or a section collides, take each row or block from whichever branch
+actually owns that content: the execution owns the round's own row, and main
+owns every row a sibling round has moved since the base. Taking either side
+wholesale silently reverts someone else's landing. Verify the resolution
+against main afterwards: the landing should add **exactly the execution's own
+diff against its own base**, and nothing else.
+
+The landing's exact-head build must be green before it merges, and the
+resulting main build must be green before the next landing is constructed.
+Landings are taken one at a time for that reason.
+
+### Why the two pull requests are never one
+
+Folding a pin into the execution would make the execution's own head depend on
+where it landed, which is circular. Splitting the landing from the pin would
+place main, between the two merges, in a state the guard rejects. The two-commit
+landing is the arrangement that avoids both.
