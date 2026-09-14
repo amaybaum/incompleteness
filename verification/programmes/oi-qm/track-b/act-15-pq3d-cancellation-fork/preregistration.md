@@ -138,18 +138,117 @@ From `act-14-threading-observability/result.md`, lines 320–328:
 > universal theorem about how a `𝒢_L`-conjugation acts on the readback of a general relative object
 > exists anywhere in the merged record**. Neither side was attempted in this round.
 
-**That last clause is the whole reason this freeze is shaped the way it is.** The branch this
-programme refers to as `PQ3-d⁻` requires a universal theorem quantified over the threading
-equivalence `≈_T`, and act 14 recorded that no such theorem is in the merged record. This freeze
-does not take that recording on trust: `CF0` below makes the absence a target of this round, settled
-by a named and bounded search, with the survey behind the freeze's prediction recorded as the
-prediction's reason and not as a finding.
+**That last clause is the whole reason this freeze is shaped the way it is.** The branch act 14
+labels `PQ3-d⁻` requires a universal theorem quantified over the threading equivalence `≈_T` — on
+either of the two readings the next section separates — and act 14 recorded that no such theorem is
+in the merged record. This freeze does not take that recording on trust: `CF0` below makes the
+absence a target of this round, settled by a named and bounded search, with the survey behind the
+freeze's prediction recorded as the prediction's reason and not as a finding.
 
 **So a second UNDECIDED is a live outcome of this round, preregistered as such and not as a
 fallback.** A round that must either exhibit a triple or supply a universal theorem the record does
 not contain can honestly end with neither. The status rule below writes that outcome's post-round
 sentence out in full, and the prediction table rates the fork's resolution at no better than
 **low**.
+
+## The `PQ3-d⁻` seam: two propositions under one label, RECORDED AND FROZEN APART
+
+**Act 14's `PQ3-d⁻` row carries two statements, and they are not logically equivalent.** This
+section records that, freezes the two apart, and states the relation between them. **It repairs
+nothing.** Act 14's merged text stands exactly as act 14 wrote it; nothing below edits it,
+reinterprets it, or normalizes it, and every use of act 14's label in this round resolves to one of
+the two propositions by name rather than to the label alone.
+
+### The evidence that this is a seam in the record and not a reading of this round's own
+
+**First, the row that carries both formulations.** From
+`act-14-threading-observability/preregistration.md`, **line 417**, quoted verbatim:
+
+> | **`PQ3-d⁻`** | no such triple exists — relative to `𝒪₂` the pair is redundancy only when both parts are | a universal theorem over `≈_T` |
+
+The clause before the dash is one statement; the clause after it is another.
+
+**Second, the propagation wording, which carries only the weaker of the two.** From the same file,
+**lines 563–566**, quoted verbatim — the `PQ3-d⁻` clause is on line 565:
+
+> **The fork `PQ3` (d)** changes one clause only: `PQ3-d⁺` adds "and relative to the
+> relative-candidate carrier the two parts can cancel, so the pair can be redundancy when neither part
+> is"; `PQ3-d⁻` adds "and relative to the relative-candidate carrier the two parts cannot cancel";
+> UNDECIDED adds nothing.
+
+"The two parts cannot cancel" is the row's first clause and not its second. **The pair of passages
+is the evidence**: the same merged file states the label one way where it defines it and another way
+where it propagates it, so the ambiguity is in the record and is not something this round may
+silently settle by choosing a reading.
+
+### The three per-triple predicates, FROZEN
+
+For a triple `(U, W, K)` as defined below, with composite `U'_t = W · U_t · K_t`:
+
+```
+C(U, W, K)  :  𝒪₂(U')      = 𝒪₂(U)      — the composite is redundant relative to 𝒪₂ on this triple
+L(U, W, K)  :  𝒪₂(W U_·)   = 𝒪₂(U)      — the left part alone is redundant relative to 𝒪₂ on it
+R(U, W, K)  :  𝒪₂(U_· K_·) = 𝒪₂(U)      — the strong-right part alone is redundant relative to 𝒪₂ on it
+```
+
+Each is an equality of the whole two-time family, at every time pair, and each is carrier-indexed to
+`𝒪₂` with act 7's boundary carried. A triple is **cancelling** iff `C ∧ ¬L ∧ ¬R` — which is act 14's
+question, quoted above, written in these letters.
+
+**This per-triple reading is the merged record's own.** Act 14's `pq3b_no_cancellation_on_anchoredChannel`
+is stated for a given `W`, a given `M` and a given strong `K` and concludes an iff between two
+per-datum equalities, and act 14's fork is quoted above in exactly that pointwise form. **That
+theorem is about `𝒪₁` and is not consumed here as evidence about `𝒪₂`**; only the shape of the
+quantification is being read off it.
+
+### `N` and `S`, FROZEN SEPARATELY
+
+> **`N` — no cancelling triple exists.** For every triple `(U, W, K)`, the three conditions
+> `C(U, W, K)`, `¬L(U, W, K)` and `¬R(U, W, K)` do not all hold. Equivalently: for every triple,
+> `C(U, W, K) → ( L(U, W, K) ∨ R(U, W, K) )`. **`N` is the exact negation of `PQ3-d⁺`**, and it is
+> the reading act 14's row carries before the dash and its propagation sentence carries throughout.
+
+> **`S` — the composite is redundant only when both halves are.** For every triple `(U, W, K)`,
+> `C(U, W, K) → ( L(U, W, K) ∧ R(U, W, K) )`. **`S` is the reading act 14's row carries after the
+> dash** — "relative to `𝒪₂` the pair is redundancy only when both parts are" — taken pointwise over
+> triples, which is the only form in which it is a statement with a truth value here.
+
+### The relation between `N` and `S`, checked against the definitions and stated exactly
+
+1. **`S` implies `N`, unconditionally.** Suppose `S` and suppose some triple had `C ∧ ¬L ∧ ¬R`. `S`
+   applied to that triple gives `L ∧ R`, contradicting `¬L`. So no cancelling triple exists. **The
+   step uses propositional logic alone** — no property of `𝒪₂`, of `≈_T`, of the readback or of any
+   merged result enters it.
+2. **`N` does not imply `S`.** As schemas, `C → (L ∨ R)` does not entail `C → (L ∧ R)`: a triple
+   satisfying `C ∧ L ∧ ¬R`, or one satisfying `C ∧ ¬L ∧ R`, satisfies `N` and refutes `S`. **So `S`
+   is strictly the stronger of the two**, and a proof of `N` is not a proof of `S`.
+3. **Whether the two coincide over the actual triples is NOT settled by the merged record**, and
+   this freeze does not assume it either way. Separating them needs a triple with `C ∧ L ∧ ¬R` or
+   with `C ∧ ¬L ∧ R`; the merged record exhibits no such triple and proves none impossible, and on
+   the bounded search `CF0` runs the record is expected to be silent on the point. **The freeze
+   therefore keeps `N` and `S` apart at every use rather than treating them as one label.**
+
+**The shape of a separating triple, recorded as analysis and not as a finding.** A triple with
+`C ∧ L ∧ ¬R` is one in which the constant left element's conjugation undoes, in the anchored
+readback, what the strong threading does — a cancellation in substance — while the left part happens
+to be redundant on its own, so that act 14's fork does not count it. **No such triple is named,
+proposed or excluded here**, nothing in this round rests on this paragraph, and it is not evidence
+for any target. It is recorded so that the difference between `N` and `S` is visible as a difference
+about objects and not only as a difference of quantifier shape.
+
+### What this section does to act 14: nothing
+
+**Act 14 is not touched.** Its preregistration and its result note are consumed unmodified, at their
+own strengths, and the two passages quoted above stand exactly as act 14 wrote them. **The ambiguity
+is RECORDED as a discrepancy of this round's reading against act 14's label — not repaired, not
+corrected, not reinterpreted, and not normalized.** A merged artifact is a statement about its own
+round and is not edited afterwards; the execution's result note records the discrepancy in the
+discrepancies section and does nothing else with it. No target of this round is carried by the
+discrepancy, and no prediction changes sign or strength because of it.
+
+**What this round does instead** is refuse the undifferentiated label: `CF5`'s status hierarchy below
+has four outcomes rather than three, so that a proof of `N` cannot be reported as a proof of `S` and
+a proof of `S` is not required in order to report `N`.
 
 ## The act 13 `CT3` (d) anti-conflation clause, FROZEN VERBATIM
 
@@ -239,11 +338,14 @@ entrywise modulus squared, exactly as acts 7, 11, 13 and 14 write them.
 with `LeftFibreGroup W`, and `K : ℕ → U(V × A)` a family with `StrongAnchorStabilizer a₀ (K t)` for
 every `t`. Its **composite** is `U'_t := W · U_t · K_t`, which is `≈_T`-related to `U` by act 13's
 `CT2` (b) as act 14 names that relation. A triple is **cancelling** iff all three of act 14's
-conjuncts hold: `𝒪₂(U') = 𝒪₂(U)`, `𝒪₂(W U_·) ≠ 𝒪₂(U)` and `𝒪₂(U_· K_·) ≠ 𝒪₂(U)`.
+conjuncts hold: `𝒪₂(U') = 𝒪₂(U)`, `𝒪₂(W U_·) ≠ 𝒪₂(U)` and `𝒪₂(U_· K_·) ≠ 𝒪₂(U)` — which is
+`C ∧ ¬L ∧ ¬R` in the three per-triple predicates frozen in the seam section above.
 
-**`PQ3-d⁺` is the existence of a cancelling triple; `PQ3-d⁻` is the universal statement that none
-exists.** This file does not restate act 14's fork in different words anywhere else; the definition
-just given is the fork, and every target below is stated over it.
+**`PQ3-d⁺` is the existence of a cancelling triple.** Its negation is **`N`**, and the statement act
+14's row also puts under the same label is **`S`**, the two frozen apart above with `S` strictly the
+stronger. This file does not restate act 14's fork in different words anywhere else; the definition
+just given is the fork, and every target below is stated over it — with `N` and `S` named
+individually wherever the outcome turns on which of them is meant.
 
 **Act 7's boundary is carried at every use of `𝒪₂`**, exactly as act 14 carries it: act 7's `D4b`
 came back **negative** — Source A supplies no general map carrying the relative candidate on the
@@ -293,18 +395,24 @@ silent on the point, which is what `CF0` asks.
 
 Six targets, `CF0` through `CF5`. Each names what settles it and what evidence counts.
 
-### `CF0` — is the universal ingredient `PQ3-d⁻` needs present in the merged record?
+### `CF0` — is the universal ingredient `N` and `S` would both need present in the merged record?
 
 **The question.** Does the merged record contain a universal theorem, quantified over the threading
 equivalence `≈_T` — equivalently over triples `(U, W, K)` as defined above — about how a constant
 `𝒢_L` conjugation acts on the anchored readback of a general relative object?
 
+**Why it is asked once for both propositions.** `N` and `S` are frozen apart above and `S` is
+strictly the stronger, but each is a universal statement over triples about the readback of a
+conjugated relative object, so each would need the same ingredient. `CF0` therefore asks after the
+ingredient and not after either proposition, and its finding is reported once and applied to both.
+
 **What settles it.** The bounded search frozen above, executed and recorded in full.
 
 **What evidence counts.** Rule 1 or 2 of the evidence rule if the theorem is found — a verbatim
-quotation with a coordinate, plus the derivation of the fork's `PQ3-d⁻` branch from it if that
-derivation is immediate. Rule 3 if it is not — the recorded statement that the passage sought does
-not exist on the named and bounded search, with the per-term record.
+quotation with a coordinate, plus the derivation of `N`, or of `S`, or of both, from it where that
+derivation is immediate, with the record saying which of the two it reaches. Rule 3 if it is not —
+the recorded statement that the passage sought does not exist on the named and bounded search, with
+the per-term record.
 
 **This is a type-P target.** It is settled by locating and quoting, or by a recorded bounded-search
 negative, and by nothing else. **No Lean is written for `CF0`**, and no outcome of `CF0` is a
@@ -393,26 +501,46 @@ and `CF3` they are the constraints any `PQ3-d⁺` witness must satisfy, written 
 round has them stated rather than reconstructed. **Their conjunction is not a further, stronger
 statement**, and in particular it is not a non-existence theorem.
 
-### `CF5` — THE FORK: `PQ3-d⁺`, `PQ3-d⁻`, or UNDECIDED for the second time
+### `CF5` — THE FORK, under a strict four-outcome status hierarchy
 
 **The question is act 14's, restated over `CF1`'s normal form and over nothing else.** Is there a
-triple `(U, W, K)` that is cancelling?
+triple `(U, W, K)` that is cancelling — and if not, which of `N` and `S` is proved?
 
-| label | statement | earned only by |
-| --- | --- | --- |
-| **`PQ3-d⁺`** | a cancelling triple exists — relative to `𝒪₂` the pair can be redundancy while neither part is | an exhibited triple with **all three** conjuncts proved in the kernel, at evidence level 2, with the lift's coherence discharged from merged results and the two inequalities certified at named time pairs and named entries |
-| **`PQ3-d⁻`** | no cancelling triple exists — relative to `𝒪₂` the pair is redundancy only when both parts are | a **universal** theorem over `≈_T`, at evidence level 2, quantified over every lift, every `W ∈ 𝒢_L` and every strong family, with no cardinality hypothesis beyond those `CF3` establishes as necessary |
-| **UNDECIDED** | neither branch was reached | the recorded statement that neither was reached, with the obstruction named and with `CF0`'s finding recorded alongside it |
+**`CF5` is attempted in this round.** The owner's scope decision is recorded here: the round attempts
+the fork rather than stopping at `CF0`–`CF4`, and the second UNDECIDED below is priced accordingly
+rather than standing in for the attempt.
+
+**The hierarchy is strict and exhaustive, and the outcome reached is the highest line the kernel
+actually carries** — never a higher one:
+
+| # | outcome | statement | earned only by |
+| --- | --- | --- | --- |
+| 1 | **`PQ3-d⁺`** | a cancelling triple exists — relative to `𝒪₂` the pair can be redundancy while neither part is | an exhibited triple with **all three** conjuncts proved in the kernel, at evidence level 2, with the lift's coherence discharged from merged results and the two inequalities certified at named time pairs and named entries |
+| 2 | **the historical `PQ3-d⁻`** | **`S`** — for every triple, `C → (L ∧ R)` | a **universal** proof of `S` at evidence level 2, quantified over every lift, every `W ∈ 𝒢_L` and every strong family, with no cardinality hypothesis beyond those `CF3` establishes as necessary. `N` follows from it by the implication frozen in the seam section and is reported as following, not as separately proved |
+| 3 | **`CF5-no-cancelling`** | **`N` and not `S`** — for every triple, `C → (L ∨ R)`, with `S` not proved | a **universal** proof of `N` at evidence level 2, under the same quantification and the same cardinality discipline, **without** a proof of `S`. The outcome's frozen sentence says in terms that the literal cancellation fork is answered negatively and that act 14's stronger `PQ3-d⁻` wording is **NOT** claimed |
+| 4 | **UNDECIDED** | none of the above was reached | the recorded statement that none was reached, with the obstruction named and with `CF0`'s finding recorded alongside it |
+
+**Line 3 exists because `S` is strictly stronger than `N`.** The seam section proves `S → N` by
+propositional logic and records that `N → S` does not hold as a schema and is not settled over the
+actual triples by the merged record. So a round that proves `N` has answered act 14's question as its
+row's first clause and its propagation sentence state it, and has **not** established the row's
+second clause. **Line 3 is what prevents spending a hard universal proof and then reporting something
+strictly stronger than what was proved.**
 
 **A second UNDECIDED is a preregistered outcome of this round, not a fallback.** The freeze rates it
 the single most likely outcome and says so in the prediction table, with its reason. Its post-round
 sentence is written out in full in the status rule below, before the round runs.
 
-**What `CF5` may not do.** It may not report a branch at a strength the kernel does not carry; it
-may not report `PQ3-d⁻` on the strength of `CF2`, `CF3` and `CF4` together, which are necessary
-conditions and not a universal theorem; and it may not report `PQ3-d⁺` on the strength of an
-unexhibited construction. **Reporting `PQ3-d⁻` because a witness was sought and not found is the
-specific error this target's status rule exists to prevent.**
+**What `CF5` may not do.**
+
+- It may not report an outcome at a strength the kernel does not carry.
+- It may not report line 2 on the strength of a proof of `N`. **A proof of `N` is line 3**, and the
+  gap between them is the difference between `L ∨ R` and `L ∧ R`.
+- It may not report line 2 or line 3 on the strength of `CF2`, `CF3` and `CF4` together, which are
+  necessary conditions on a witness and not a universal theorem.
+- It may not report line 1 on the strength of an unexhibited construction.
+- **Reporting line 2 or line 3 because a witness was sought and not found is the specific error this
+  target's status rule exists to prevent.**
 
 ## The preregistered predictions, with their signs, strengths and recorded reasons
 
@@ -425,15 +553,17 @@ specific error this target's status rule exists to prevent.**
 | `CF3` (b) | positive | **medium** | The conclusion follows from column-stochasticity of the readback on a one-element visible index set, but the exact merged route — act 7's `readback_isColStochastic` applied to the modulus square of a unitary relative object, or act 11's `visible_marginal_eq_one_of_visible_subsingleton` — is not frozen here, and supplying the column-stochasticity of the modulus square may cost a lemma. **Reporting `CF3` (b) UNDECIDED with the obstruction named is an allowed outcome**, and it does not move `CF3` (a). |
 | `CF4` (a) | positive | **high** | The contrapositive of an equality of matrices; if the relative objects agree at every time pair their readbacks do. |
 | `CF4` (b) | positive | **high** | Act 13's merged `ct2a_relative_conj` rewrites the left part's relative object as the conjugation; the rest is the contrapositive. |
-| `CF5` | **UNDECIDED** — the fork is recorded undecided for the second time | **medium** | `PQ3-d⁻` needs the universal theorem `CF0` predicts is absent, and constructing one is a research step no merged result reduces to a computation. `PQ3-d⁺` needs a triple in which a `𝒢_L` conjugation undoes, in the anchored readback and at **every** time pair, exactly what a strong threading does; the freeze names no candidate and knows of none. |
-| `CF5` → `PQ3-d⁺` | not predicted | **low** | If a witness is found the freeze expects it to come from a permutation triple on small `V` and `A`, where the readback is a sum of zeros and ones; the freeze names no such triple and does not rate the search better than low. |
-| `CF5` → `PQ3-d⁻` | not predicted | **low** | Rated low for the reason `CF0` records: the ingredient is absent from the merged record, and the round's definition budget does not fund building a general theory of how `𝒢_L` conjugation acts on anchored readbacks. |
+| `CF5` | **UNDECIDED** — the fork is recorded undecided for the second time | **medium** | Both `N` and `S` need the universal ingredient `CF0` predicts is absent, and constructing it is a research step no merged result reduces to a computation. `PQ3-d⁺` needs a triple in which a `𝒢_L` conjugation undoes, in the anchored readback and at **every** time pair, exactly what a strong threading does; the freeze names no candidate and knows of none. |
+| `CF5` → line 1, `PQ3-d⁺` | not predicted | **low** | If a witness is found the freeze expects it to come from a permutation triple on small `V` and `A`, where the readback is a sum of zeros and ones; the freeze names no such triple and does not rate the search better than low. |
+| `CF5` → line 2, the historical `PQ3-d⁻` (`S`) | not predicted | **low** | `S` is strictly the stronger of the two propositions, and it is stronger in a direction nothing in the merged record reaches: it constrains triples in which one half is redundant on its own, which no merged statement touches. Rated at or below line 3's strength for that reason, and never above it. |
+| `CF5` → line 3, `CF5-no-cancelling` (`N` and not `S`) | not predicted | **low** | Rated low for the reason `CF0` records: the ingredient is absent from the merged record, and the round's definition budget does not fund building a general theory of how `𝒢_L` conjugation acts on anchored readbacks. **It is rated at or above line 2**, because `S` implies `N` and so any route to line 2 is also a route to line 3, while the converse fails; a freeze that rated the stronger proposition higher than the weaker one would be incoherent. |
 
 **No target has a numerical fallback**, and none is offered for a universal statement. **UNDECIDED
 remains a permitted label for every target**, reported with the obstruction named.
 
-**The two `CF5` rows rating `PQ3-d⁺` and `PQ3-d⁻` at low are the freeze's whole position on the
-fork's resolution.** No sentence of this file predicts the fork's resolution at medium or high.
+**The three `CF5` rows rating lines 1, 2 and 3 at low are the freeze's whole position on the fork's
+resolution.** No sentence of this file predicts the fork's resolution at medium or high, on any of
+the three lines.
 
 ## The status rule: the outcomes per target, each with its FROZEN post-round sentence
 
@@ -456,8 +586,9 @@ The wording is fixed before the round runs so that no outcome can choose its own
   > The merged record contains the universal ingredient, quoted verbatim above with its coordinate.
   > **Act 14's recorded absence is recorded as a discrepancy against this round's search and act
   > 14's result note is not edited**: a merged result note is a statement about its own round and
-  > stays as it stands. Whether the located theorem yields `PQ3-d⁻` is `CF5`'s question and is not
-  > settled by locating the theorem.
+  > stays as it stands. Whether the located theorem yields `N`, or `S`, or both, is `CF5`'s question
+  > and is not settled by locating the theorem; the record says which of the two the located
+  > statement reaches and claims nothing beyond it.
 
 ### `CF1`
 
@@ -506,9 +637,9 @@ The wording is fixed before the round runs so that no outcome can choose its own
   > The conjunct reached is reported at evidence level 2 and the other is reported UNDECIDED with
   > the obstruction named; neither covers the other.
 
-### `CF5` — the fork, with the second UNDECIDED written out in full
+### `CF5` — the fork, with a frozen sentence for each of the four outcomes
 
-- **Outcome `PQ3-d⁺`:**
+- **Outcome line 1, `PQ3-d⁺`:**
   > A cancelling triple is exhibited: relative to the relative-candidate carrier, and under act 7's
   > readback convention with `D4b` negative, the pair of a constant in-fibre left move and a
   > time-dependent strong right gauge can be redundancy while neither part is. The triple's three
@@ -519,23 +650,45 @@ The wording is fixed before the round runs so that no outcome can choose its own
   > from different operations on the lift with no implication proved between them in either
   > direction. **No carrier is adopted as the physical one**, `P0` stays OPEN and two-part, and
   > nothing here names, endorses or excludes a selection principle.
-- **Outcome `PQ3-d⁻`:**
-  > No cancelling triple exists: relative to the relative-candidate carrier, and under act 7's
-  > readback convention with `D4b` negative, the pair is redundancy only when both parts are. The
-  > statement is universal over the threading equivalence at evidence level 2, with the universal
-  > ingredient supplied by this round and recorded as this round's own result. **This is a statement
-  > about `𝒪₂` and travels to no other carrier.** **No carrier is adopted as the physical one**,
-  > `P0` stays OPEN and two-part, and nothing here names, endorses or excludes a selection
+- **Outcome line 2, the historical `PQ3-d⁻` — `S` proved:**
+  > Relative to the relative-candidate carrier, and under act 7's readback convention with `D4b`
+  > negative, **`S` holds: for every triple, if the composite is redundant then both halves are
+  > redundant individually.** The statement is universal over the threading equivalence at evidence
+  > level 2, with the universal ingredient supplied by this round and recorded as this round's own
+  > result. **`N` follows from `S` by propositional logic and is reported as following, not as
+  > separately proved**, so no cancelling triple exists either. This is the outcome act 14's
+  > `PQ3-d⁻` row names in its second clause, and it is reported with `S` written out rather than by
+  > the label alone. **This is a statement about `𝒪₂` and travels to no other carrier.** **No
+  > carrier is adopted as the physical one**, `P0` stays OPEN and two-part, and nothing here names,
+  > endorses or excludes a selection principle.
+- **Outcome line 3, `CF5-no-cancelling` — `N` proved, `S` NOT claimed:**
+  > Relative to the relative-candidate carrier, and under act 7's readback convention with `D4b`
+  > negative, **`N` holds: no cancelling triple exists — for every triple, if the composite is
+  > redundant then at least one of its two halves is redundant individually.** The statement is
+  > universal over the threading equivalence at evidence level 2. **The literal cancellation fork
+  > `PQ3` (d), as act 14's question and as act 14's propagation sentence state it, is thereby
+  > answered negatively: the two parts cannot cancel.** **Act 14's stronger `PQ3-d⁻` wording —
+  > "relative to `𝒪₂` the pair is redundancy only when both parts are", the proposition this round
+  > calls `S` — is NOT claimed, is not proved, and does not follow from what is proved here.** `S`
+  > implies `N` and `N` does not imply `S`; what this round establishes is the weaker of the two, and
+  > whether `S` also holds is **UNDECIDED** and is recorded as such, with the separating shape — a
+  > triple satisfying `C ∧ L ∧ ¬R`, or one satisfying `C ∧ ¬L ∧ R` — named and neither exhibited nor
+  > excluded. **Act 14 is not corrected by this**: its row stands as written, and the difference
+  > between its two clauses is recorded as a discrepancy of reading, not repaired. **This is a
+  > statement about `𝒪₂` and travels to no other carrier.** **No carrier is adopted as the physical
+  > one**, `P0` stays OPEN and two-part, and nothing here names, endorses or excludes a selection
   > principle.
-- **Outcome `CF5`-UNDECIDED — the SECOND UNDECIDED, its post-round sentence frozen in full:**
-  > **The cancellation fork `PQ3` (d) is recorded UNDECIDED for the second time.** Neither
-  > `PQ3-d⁺` nor `PQ3-d⁻` was reached in this round, and **neither is claimed**. `PQ3-d⁺` would need
-  > an exhibited triple in which the constant left element's conjugation undoes, in the anchored
-  > readback and at every time pair, exactly what the strong threading does, with all three
-  > conjuncts proved; this round exhibits no such triple and names no candidate. `PQ3-d⁻` would need
-  > a universal theorem over the threading equivalence saying no such cancellation exists; on the
-  > named and bounded search this round records, that theorem is absent from the merged record, and
-  > this round does not supply it. **What this round adds is the shape of any resolution and not a
+- **Outcome line 4, `CF5`-UNDECIDED — the SECOND UNDECIDED, its post-round sentence frozen in full:**
+  > **The cancellation fork `PQ3` (d) is recorded UNDECIDED for the second time.** None of the three
+  > settling outcomes was reached in this round, and **none is claimed**: no cancelling triple is
+  > exhibited, `N` is not proved, and `S` is not proved. `PQ3-d⁺` would need an exhibited triple in
+  > which the constant left element's conjugation undoes, in the anchored readback and at every time
+  > pair, exactly what the strong threading does, with all three conjuncts proved; this round
+  > exhibits no such triple and names no candidate. `N` and `S` would each need a universal theorem
+  > over the threading equivalence — `N` that no cancelling triple exists, `S` the strictly stronger
+  > statement that a redundant composite forces both halves to be redundant; on the named and
+  > bounded search this round records, the ingredient either would need is absent from the merged
+  > record, and this round supplies neither. **What this round adds is the shape of any resolution and not a
   > resolution**: the composite's relative object is the constant left element's conjugation of
   > `U_t K_t K_sᴴ U_sᴴ`; a cancelling triple's strong family cannot be constant in time; none exists
   > with a single ancilla configuration or with a single visible outcome; and in any such triple the
@@ -561,36 +714,54 @@ UNDECIDED.** This is the case the freeze predicts.
 > stands exactly as act 14 states it. The cancellation fork `PQ3` (d) — whether a constant in-fibre
 > left move and a time-dependent strong right gauge can cancel on the relative-candidate carrier, so
 > that the pair is redundancy relative to that carrier while neither part is — is recorded UNDECIDED
-> for the second time, and neither `PQ3-d⁺` nor `PQ3-d⁻` is claimed. What this round adds is the
+> for the second time; no cancelling triple is exhibited, and neither the proposition that none
+> exists nor the strictly stronger proposition that a redundant composite forces both halves to be
+> redundant is claimed. What this round adds is the
 > shape of any resolution and not a resolution: the composite's relative object is the constant left
 > element's conjugation of `U_t K_t K_sᴴ U_sᴴ`; a cancelling triple's strong family cannot be
 > constant in time; none exists with a single ancilla configuration or with a single visible
 > outcome; and in any such triple the strong family moves the relative object itself while the
 > constant left element moves the anchored readback of some relative object, so the constant left
 > element is not the identity. On the named and bounded search this round records, the universal
-> theorem over the threading equivalence that `PQ3-d⁻` would need is absent from the merged record,
-> and this round does not supply it. A second UNDECIDED is a statement about this round and about
+> theorem over the threading equivalence that either of those two propositions would need is absent
+> from the merged record, and this round supplies neither. A second UNDECIDED is a statement about this round and about
 > the record, not about the question: the fork is not reported unresolvable, no bound on its
 > difficulty is asserted, and nothing in act 14's settled results is weakened. Act 13's `CT3` (d)
 > stays UNDECIDED and is untouched; neither fork answers the other. **No carrier is adopted as the
 > physical one**, `P0`'s other part — what selects or constrains the Gram/orbit trajectory across
 > time — is untouched, and nothing here names, endorses or excludes a selection principle.
 
-**Case B — as A, but `CF5` reaches `PQ3-d⁺`:** the clause "is recorded UNDECIDED for the second
-time, and neither `PQ3-d⁺` nor `PQ3-d⁻` is claimed" is replaced by "is answered `PQ3-d⁺`: relative
-to the relative-candidate carrier, under act 7's readback convention with `D4b` negative, the two
-parts can cancel, so the pair can be redundancy relative to that carrier while neither part is"; the
-sentence beginning "On the named and bounded search" and the sentence beginning "A second UNDECIDED"
-are omitted; every other clause stands.
+In each case below, **the replaced clause** is Case A's
 
-**Case C — as A, but `CF5` reaches `PQ3-d⁻`:** the clause "is recorded UNDECIDED for the second
-time, and neither `PQ3-d⁺` nor `PQ3-d⁻` is claimed" is replaced by "is answered `PQ3-d⁻`: relative
-to the relative-candidate carrier, under act 7's readback convention with `D4b` negative, the two
-parts cannot cancel, so the pair is redundancy relative to that carrier only when both parts are";
-the sentence beginning "On the named and bounded search" is replaced by "the universal theorem over
-the threading equivalence that `PQ3-d⁻` needs is supplied by this round and is recorded as this
-round's own result"; the sentence beginning "A second UNDECIDED" is omitted; every other clause
-stands.
+> "is recorded UNDECIDED for the second time; no cancelling triple is exhibited, and neither the
+> proposition that none exists nor the strictly stronger proposition that a redundant composite
+> forces both halves to be redundant is claimed"
+
+and **the search clause** is Case A's sentence beginning "On the named and bounded search".
+
+**Case B — as A, but `CF5` reaches line 1, `PQ3-d⁺`:** the replaced clause becomes "is answered
+`PQ3-d⁺`: relative to the relative-candidate carrier, under act 7's readback convention with `D4b`
+negative, the two parts can cancel, so the pair can be redundancy relative to that carrier while
+neither part is"; the search clause and the sentence beginning "A second UNDECIDED" are omitted;
+every other clause stands.
+
+**Case C — as A, but `CF5` reaches line 2, the historical `PQ3-d⁻` with `S` proved:** the replaced
+clause becomes "is answered in the stronger of its two recorded readings: relative to the
+relative-candidate carrier, under act 7's readback convention with `D4b` negative, a redundant
+composite forces both halves to be redundant individually, so in particular the two parts cannot
+cancel"; the search clause becomes "the universal theorem over the threading equivalence that this
+needs is supplied by this round and is recorded as this round's own result"; the sentence beginning
+"A second UNDECIDED" is omitted; every other clause stands.
+
+**Case E — as A, but `CF5` reaches line 3, `CF5-no-cancelling` with `N` proved and `S` not
+claimed:** the replaced clause becomes "is answered negatively in its literal form: relative to the
+relative-candidate carrier, under act 7's readback convention with `D4b` negative, no cancelling
+triple exists, so the two parts cannot cancel — while the strictly stronger reading, that a
+redundant composite forces both halves to be redundant individually, is **not** claimed and remains
+undecided"; the search clause becomes "the universal theorem the weaker proposition needs is
+supplied by this round and is recorded as this round's own result, and the ingredient the stronger
+one would need is absent from the merged record on the named and bounded search this round records";
+the sentence beginning "A second UNDECIDED" is omitted; every other clause stands.
 
 **Case D — `CF1` UNDECIDED:** every clause of Case A's "what this round adds" list that is stated
 over the normal form is omitted, the clauses that land are reported at their own strengths, and
@@ -605,7 +776,7 @@ round, in any paraphrase, in a summary line, an abstract, a table cell or a prop
 
 1. **"The fork is unresolvable."** An UNDECIDED here is **not** a finding that the fork is
    unresolvable, not a finding that it is undecidable, and not a finding that it is hard. It is the
-   recorded fact that neither branch was reached in this round.
+   recorded fact that none of the three settling outcomes was reached in this round.
 2. **"Act 14 was wrong", or any sentence that treats an UNDECIDED here as evidence against act 14.**
    An UNDECIDED here is **not** a finding against act 14's settled results. `PQ0`, `PQ1` (a)–(d),
    `PQ2`, `PQ3` (a)–(c) and `PQ4` stand exactly as act 14 states them.
@@ -614,9 +785,22 @@ round, in any paraphrase, in a summary line, an abstract, a table cell or a prop
    non-existence theorem, and their conjunction is not a further, stronger sentence.
 4. **"A witness was sought and not found, so there is none."** Absence of a witness in this round is
    not a negative result, and no search is presented as exhaustive over triples.
-5. **"The record's silence shows the theorem is false."** `CF0`'s finding, if silent, is that the
+5. **ANY SENTENCE OF `S`'s FORM, ON THE STRENGTH OF `CF5-no-cancelling`.** **Line 3 of the `CF5`
+   hierarchy licenses no sentence of `S`'s form, in any paraphrase.** The forbidden sentences
+   include, and are not limited to: "relative to `𝒪₂` the pair is redundancy only when both parts
+   are"; "a redundant composite forces both halves to be redundant"; "if the composite is redundant
+   then the left part is redundant"; "if the composite is redundant then the strong-right part is
+   redundant"; "`𝒪₂` sees the pair exactly when it sees both parts"; and act 14's `PQ3-d⁻` label
+   used bare, without saying which of `N` and `S` is meant. What line 3 proves is `C → (L ∨ R)`; `S`
+   is `C → (L ∧ R)`; **the disjunction is not the conjunction**, and reporting the stronger on the
+   strength of the weaker is the specific defect the four-line hierarchy exists to prevent.
+6. **"Act 14's `PQ3-d⁻` row is corrected", or any sentence that repairs, reinterprets, normalizes
+   or supersedes it.** The two readings are **recorded** as a discrepancy and act 14's merged text
+   stands as written. No artifact of this round edits act 14, and no sentence of this round says
+   what act 14 "meant".
+7. **"The record's silence shows the theorem is false."** `CF0`'s finding, if silent, is that the
    record is silent. Silence is not a truth value.
-6. **Any sentence that carries an outcome of this round to act 13's `CT3` (d), or an ingredient of
+8. **Any sentence that carries an outcome of this round to act 13's `CT3` (d), or an ingredient of
    `CT3` (d) to this round.** The anti-conflation clause governs:
    > **THE CLAUSE, carried at this mention — the list of what no outcome licenses.**
    > `CT3` (d) is act 13's fork and `PQ3` (d) is act 14's. `CT3` (d) asks whether the full column
@@ -626,23 +810,24 @@ round, in any paraphrase, in a summary line, an abstract, a table cell or a prop
    > parts of one relation. **Neither instantiates, constrains, nor supplies evidence for the other,
    > and no implication transfers in either direction.** Act 13's `CT3` (d) stays UNDECIDED whatever
    > this round returns, and no outcome of this round moves it in either direction.
-7. **"The threading freedom is gauge" or "the threading freedom is physical."** Act 14's status rule
+9. **"The threading freedom is gauge" or "the threading freedom is physical."** Act 14's status rule
    3 binds this round too: there is no carrier-free verdict, and every verdict names its carrier.
-8. **"Carrier `𝒪ₓ` is the physical one", or "carrier `𝒪ₓ` is not the physical one."** No carrier is
-   adopted and none is asserted not to be.
-9. **"`P0` is closed", or "`P0`'s threading part is closed."** The row stays OPEN and two-part in
-   every case.
-10. **"The selection principle is …", "the connection is …", "the gauge fixing is …"** — no sentence
+10. **"Carrier `𝒪ₓ` is the physical one", or "carrier `𝒪ₓ` is not the physical one."** No carrier is
+    adopted and none is asserted not to be.
+11. **"`P0` is closed", or "`P0`'s threading part is closed."** The row stays OPEN and two-part in
+    every case.
+12. **"The selection principle is …", "the connection is …", "the gauge fixing is …"** — no sentence
     of this round may begin that way, and none may assert or deny that a connection or gauge fixing
     exists or suffices, in either direction.
-11. **"OI and QM are inequivalent."** Two lifts differing is not two theories differing, and the
+13. **"OI and QM are inequivalent."** Two lifts differing is not two theories differing, and the
     established finite observable-law correspondence is untouched. Every `𝒪₂` statement is further a
     statement under act 7's own readback convention, with `D4b` negative.
-12. **Any transfer of a verdict between carriers.** A settlement on `𝒪₁` is not a settlement on
+14. **Any transfer of a verdict between carriers.** A settlement on `𝒪₁` is not a settlement on
     `𝒪₂`, in either direction, and an UNDECIDED on one carrier is not covered by a verdict on
-    another.
-13. **Any sentence about Track I**, or about Source B or Source C, on any axis.
-14. **Any import from the substratum Lemma 24.1 rounds.** A shared word is not a bridge.
+    another. **`PQ3` (b) is the case that matters here**: act 14 settles the composite-versus-left
+    question on `𝒪₁`, and that is not evidence for `N`, for `S`, or against either, on `𝒪₂`.
+15. **Any sentence about Track I**, or about Source B or Source C, on any axis.
+16. **Any import from the substratum Lemma 24.1 rounds.** A shared word is not a bridge.
 
 ## Named hazards
 
@@ -669,69 +854,81 @@ round, in any paraphrase, in a summary line, an abstract, a table cell or a prop
    plausible-sounding, absent from the record, and licensed by nothing in it. The anchored readback
    is not a trace: it sums modulus squares over the ancilla index at the anchored **input** column,
    and the record contains no statement that it is unchanged by conjugation by a general element of
-   `𝒢_L` — which is exactly what `CF0` asks and exactly what `PQ3-d⁻` would need. Every step of
-   every proof in this round is discharged from a merged result cited by name or from an argument
+   `𝒢_L` — which is exactly what `CF0` asks and exactly what `N` and `S` would each need. Every step
+   of every proof in this round is discharged from a merged result cited by name or from an argument
    written out in the kernel. Nothing is discharged from what "is well known".
-3. **Reporting `PQ3-d⁻` because a witness was sought and not found.** Absence of a witness is not a
-   universal theorem. The `CF5` status rule fixes the wording for UNDECIDED so that the two cannot
-   be written as one.
-4. **Reporting `PQ3-d⁻` on the strength of `CF2`, `CF3` and `CF4`.** Those bound where a witness can
-   live. The specific failure guarded against is adding the three necessary conditions together and
-   calling the sum an impossibility result.
-5. **Reporting the second UNDECIDED as a finding about the fork rather than about this round.** The
+3. **Collapsing `N` and `S` back into one label.** **This is the seam hazard, and it is third only
+   because the two above it are prior to it.** `S` implies `N`; `N` does not imply `S`; and act 14's
+   `PQ3-d⁻` row carries both under one name. The specific failure guarded against is an artifact of
+   this round writing `PQ3-d⁻` bare — in a heading, a summary line, a table cell, a propagation line
+   or an axiom-table caption — where the reader cannot tell which proposition is meant, or reporting
+   a proof of `N` in `S`'s words. **Every use of act 14's label in this round names `N` or `S`
+   alongside it.**
+4. **Reporting line 2 on the strength of a proof of `N`.** The gap is `L ∨ R` against `L ∧ R`. The
+   specific failure guarded against is a result note that proves no cancelling triple exists and
+   then writes "so the pair is redundancy only when both parts are" — which is `S`, is strictly
+   stronger, and is not what was proved. `CF5`'s line 3 and its frozen sentence exist to make the
+   weaker report the natural one.
+5. **Reporting a settling outcome because a witness was sought and not found.** Absence of a witness
+   is not a universal theorem, neither `N` nor `S`. The `CF5` status rule fixes the wording for
+   UNDECIDED so that the two cannot be written as one.
+6. **Reporting a settling outcome on the strength of `CF2`, `CF3` and `CF4`.** Those bound where a
+   witness can live. The specific failure guarded against is adding the three necessary conditions
+   together and calling the sum an impossibility result.
+7. **Reporting the second UNDECIDED as a finding about the fork rather than about this round.** The
    specific failure guarded against is the sentence "the fork is unresolvable", and every paraphrase
    of it, including "no progress is possible" and "the question is ill-posed".
-6. **Treating an UNDECIDED here as evidence against act 14.** The specific failure guarded against
+8. **Treating an UNDECIDED here as evidence against act 14.** The specific failure guarded against
    is a sentence weakening `PQ0`, `PQ1`, `PQ2`, `PQ3` (a)–(c) or `PQ4` because this round did not
    settle `PQ3` (d). Those labels are consumed at their own strengths and none is revised.
-7. **Carrying act 14's `PQ3` (b) from `𝒪₁` to `𝒪₂`.** `PQ3` (b) proves the pair factors through the
+9. **Carrying act 14's `PQ3` (b) from `𝒪₁` to `𝒪₂`.** `PQ3` (b) proves the pair factors through the
    left part on the anchored-channel carrier, so no cancellation happens there. The specific failure
-   guarded against is reporting that as an answer to the fork, or as evidence for `PQ3-d⁻`. Act 14's
-   own freeze records that the one-time and re-anchored rows have **no** implication proved between
-   them in either direction.
-8. **Treating `𝒪₂` as an established observable.** Act 7's `D4b` is negative and the readback is the
-   repository's own convention. Every `𝒪₂` statement in this round is a statement under that
-   convention and is reported with it at each use.
-9. **Adopting a carrier.** The specific failure guarded against is a sentence of the form "since the
-   physical carrier is `𝒪₂`". No carrier is adopted and none is asserted not to be.
-10. **Reading `CF1` as a statement about readbacks.** `CF1` is an identity of matrices. The specific
+   guarded against is reporting that as an answer to the fork, or as evidence for `N` or for `S`.
+   Act 14's own freeze records that the one-time and re-anchored rows have **no** implication proved
+   between them in either direction.
+10. **Treating `𝒪₂` as an established observable.** Act 7's `D4b` is negative and the readback is the
+    repository's own convention. Every `𝒪₂` statement in this round is a statement under that
+    convention and is reported with it at each use.
+11. **Adopting a carrier.** The specific failure guarded against is a sentence of the form "since the
+    physical carrier is `𝒪₂`". No carrier is adopted and none is asserted not to be.
+12. **Reading `CF1` as a statement about readbacks.** `CF1` is an identity of matrices. The specific
     failure guarded against is writing "so the readbacks agree", which does not follow and is the
     fork's whole content.
-11. **Extending act 11's `GL3` into a converse.** `GL3` says a constant right factor moves no
+13. **Extending act 11's `GL3` into a converse.** `GL3` says a constant right factor moves no
     relative object. The specific failure guarded against is reporting `CF2` as "every
     time-dependent strong family moves the relative candidate", which act 11's own note refuses in
     terms.
-12. **Enlarging `GL2`, `CT4` or `CL1` from existential to universal.** Each is an existential
+14. **Enlarging `GL2`, `CT4` or `CL1` from existential to universal.** Each is an existential
     statement about one exhibited lift. The specific failure guarded against is citing one of them
-    as though it quantified over lifts, which is exactly the gap `PQ3-d⁻` needs filled.
-13. **Treating `CF3`'s cardinality conjuncts as evidence that a witness exists.** They bound where
+    as though it quantified over lifts, which is exactly the gap `N` and `S` each need filled.
+15. **Treating `CF3`'s cardinality conjuncts as evidence that a witness exists.** They bound where
     one could live. The specific failure guarded against is "so a witness must have `|V| ≥ 2` and
     `|A| ≥ 2`, and here is one on `Fin 2`" with the second clause unproved.
-14. **The conjugation trap, again.** Under act 7's convention `P(g) P(h) = P(h·g)` and
+16. **The conjugation trap, again.** Under act 7's convention `P(g) P(h) = P(h·g)` and
     `(P(σ) M)_{pq} = M_{σ p, q}`. Forced elements, anchored columns, conjugates and separating
     entries are computed in the kernel, never read off a constructor. The specific failure guarded
     against is an inverted permutation making a hoped-for cancellation look real.
-15. **Forgetting the anchor.** `readback a₀` and the strong class both carry `a₀`; the relative
+17. **Forgetting the anchor.** `readback a₀` and the strong class both carry `a₀`; the relative
     object `U_t U_sᴴ` does not. The specific failure guarded against is a statement that silently
     changes which configuration is anchored — which act 7's `R-3` explicitly does **not** license,
     being a statement about names and not about which configuration is anchored.
-16. **Reading act 7's `R-3` as invariance of the readback under a `𝒢_L` conjugation.** `R-3` is
+18. **Reading act 7's `R-3` as invariance of the readback under a `𝒢_L` conjugation.** `R-3` is
     about relabelling the ancilla type along a bijection carrying the anchor. The specific failure
     guarded against is quoting `R-3` as the missing universal ingredient; it is not it, and `CF0`'s
     search records why for each hit.
-17. **Consuming a sibling round's result because it is present at the mandated base.** The
+19. **Consuming a sibling round's result because it is present at the mandated base.** The
     anti-contamination invariant governs; the specific failure guarded against is an execution that
     reads a lane that merged between this freeze and its base.
-18. **Importing the substratum Lemma 24.1 rounds' vocabulary.** Those rounds work on a different
+20. **Importing the substratum Lemma 24.1 rounds' vocabulary.** Those rounds work on a different
     carrier with a uniform prior in a different programme. Nothing is consumed or compared, and a
     shared word is not a bridge.
-19. **A landing without `P`.** This is a sealing round. The specific failure guarded against is
+21. **A landing without `P`.** This is a sealing round. The specific failure guarded against is
     treating `L` as the end of it: in execution mode the ancestry check enumerates
     `git rev-list HEAD ^_TCF_BASE`, which at `L` reaches sibling rounds that do not descend from the
     base, and fails closed. `P` is what moves the clause to archive mode.
-20. **A chronology guard that certifies only the head, or that certifies `HEAD` on `main` after the
+22. **A chronology guard that certifies only the head, or that certifies `HEAD` on `main` after the
     merge.** See the chronology control's clauses 5 and 7.
-21. **Editing this freeze after an outcome is known.** The preregistration is immutable once merged.
+23. **Editing this freeze after an outcome is known.** The preregistration is immutable once merged.
     An execution that diverges **records the discrepancy** and does not repair the freeze.
 
 ## Non-doings
@@ -742,7 +939,10 @@ sufficient for the relative candidate; introduce a measurement model, regularity
 generated evolution or source-level coherence condition; change `CoherentLift`'s `ℕ`-indexing;
 revise `GL1s`, `GL1w`, `GL2`, `GL3`, `GI2`, `LG1`, `RO1`, `TG2`, `TG3`, `SH1`, `CT1`, `CT2`, `CT3`,
 `CT4`, `CL1`, `PQ0`, `PQ1`, `PQ2`, `PQ3` (a)–(c), `PQ4` or any merged label; answer act 13's fork
-`CT3` (d) or move it in either direction; change `D3`, `D4b`, `D5`, the direct-branch statement or
+`CT3` (d) or move it in either direction; **repair, correct, reinterpret, normalize or supersede act
+14's `PQ3-d⁻` row, which is recorded as carrying two readings and is left exactly as act 14 wrote
+it**; report a proof of `N` in `S`'s words, or `S` on the strength of `N`; change `D3`, `D4b`, `D5`,
+the direct-branch statement or
 the readback convention; alter any existing archive seal constant; consume or compare anything from
 the substratum Lemma 24.1 rounds; compare Source A with B or C; edit any manuscript; close `P0` or
 either of its parts; or say anything about Track I.
@@ -773,8 +973,8 @@ it, as acts 10, 11, 12, 13 and 14 did. Acts 7's, 10's, 11's, 12's, 13's and 14's
 
 **Evidence level 2** — kernel-checked, every named result printing only
 `[propext, Classical.choice, Quot.sound]`, with **no unproved declaration, no added axiom and no
-kernel-bypassing decision procedure** — for `CF1`, `CF2`, `CF3`, `CF4` and, if either branch is
-reached, `CF5`.
+kernel-bypassing decision procedure** — for `CF1`, `CF2`, `CF3`, `CF4` and, if any of lines 1, 2 or
+3 of its hierarchy is reached, `CF5`.
 
 **`CF0` is type P and carries no evidence level.** It is settled by the frozen evidence rule —
 verbatim quotation with a coordinate, or the recorded statement that the passage sought does not
@@ -865,16 +1065,22 @@ round consumes only what this freeze's start-state table names.
 5. **`CF3`** — the two cardinality scopings, each reported separately;
 6. **`CF4`** — the two non-triviality conjuncts, with `GL2`, `CT4` and `CL1` consumed at their own
    existential strengths;
-7. **`CF5`** — `PQ3-d⁺`, `PQ3-d⁻` or UNDECIDED, in the status rule's frozen wording for the outcome
-   reached, with the obstruction named in the UNDECIDED case;
-8. the frozen `P0` sentence for the case reached, verbatim, and the row's label unchanged;
-9. what no outcome licenses, in this file's wording, and the status rule as honoured;
-10. the relation to acts 11, 12, 13 and 14 — every merged label consumed, none revised — and act
+7. **`CF5`** — the outcome as the highest line of the four-line hierarchy the kernel actually
+   carries: `PQ3-d⁺`, the historical `PQ3-d⁻` with `S` written out, `CF5-no-cancelling` with `N`
+   written out and `S` explicitly not claimed, or UNDECIDED — in the status rule's frozen wording
+   for the outcome reached, with the obstruction named in the UNDECIDED case;
+8. **the seam** — `N` and `S` restated, the implication `S → N` and the failure of its converse,
+   and the record that act 14's `PQ3-d⁻` row carries both readings while its propagation sentence
+   carries only the weaker, **entered in the discrepancies section and nowhere else**, with act 14
+   unedited;
+9. the frozen `P0` sentence for the case reached, verbatim, and the row's label unchanged;
+10. what no outcome licenses, in this file's wording, and the status rule as honoured;
+11. the relation to acts 11, 12, 13 and 14 — every merged label consumed, none revised — and act
     13's `CT3` (d) still UNDECIDED, with the anti-conflation clause carried verbatim at each
     mention;
-11. the definition count against the two-slot budget, with the conditional slot marked fired or
+12. the definition count against the two-slot budget, with the conditional slot marked fired or
     unused;
-12. the chronology certification, naming the property certified, the preconditions checked at `B`,
+13. the chronology certification, naming the property certified, the preconditions checked at `B`,
     and the archive-mode pins as unset at execution;
-13. the axiom table with one line per named result;
-14. the discrepancies, if any, recorded and not repaired.
+14. the axiom table with one line per named result;
+15. the discrepancies, if any, recorded and not repaired — the seam among them.
