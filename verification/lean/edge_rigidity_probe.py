@@ -14073,8 +14073,8 @@ _PQT_BASE = 'bc76a88dbe300a35715d5ce8196002f31aa62493'
 # guard certifies the run's real target. Set by the one pin-only change after the merge, the guard
 # runs in ARCHIVE MODE: the same strong check re-run against that object, plus its reachability
 # from the current target.
-_PQT_SEALED_HEAD = None
-_PQT_MERGE = None
+_PQT_SEALED_HEAD = '5008a47bf7e67edc502120f9269c4a4661ef7342'
+_PQT_MERGE = 'c50dd22457bfd4812761cb56e7ca1a559af33c5e'
 
 
 def _pqt_git(*args, **kw):
