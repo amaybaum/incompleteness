@@ -662,10 +662,11 @@ reaches back into a merged round, and no merged artifact changes because of it.
 
 The vocabulary has since changed too. Freezes written before this wording say
 **guarded** and **unguarded** where this rule now says *sealing* and
-*non-sealing*. Those words keep the meaning their own freeze gives them, and in
-every case so far that freeze spells the shape out in terms — no guard, no pin,
-`E` → `L` — rather than resting on the adjective. A preregistration is not
-amended to track later vocabulary, and none needs to be.
+*non-sealing*. Earlier freezes retain the meaning fixed by their own chronology
+controls; the later vocabulary does not reinterpret them. In particular #631 —
+the only two-pull-request freeze written between the two wordings — states its
+shape explicitly as no guard, no pin, `E` → `L`, so its meaning is unchanged. A
+preregistration is not amended to track later vocabulary, and none needs to be.
 
 ### The invariant
 
@@ -769,26 +770,24 @@ green main**; its second parent is **exactly `E`**. Conflicts are resolved
 **in `L`, never in `E`** — the sealed commit stays byte-identical, and `L` is
 where the reconciliation with everything main gained since the freeze lives.
 
-**Then the shape splits on what the round seals — not on what it touches:**
+**Then the shape splits on what the round owns — not on what it touches:**
 
-1. **A sealing round — the round creates seal state of its own, a guard whose
-   sealed-head and merge constants this round is the one to fill — takes a pin
-   commit `P`, and `P` is mandatory.** `P` sets those constants to `E` and to
-   `L`. Mandatory is not a stylistic preference: in execution mode the guard
-   requires every commit of `git rev-list HEAD ^base` to descend from the base,
-   and once `L` is on the head, that set reaches the sibling rounds merged into
-   main since the freeze, which do not descend from it. Without `P` the guard
-   fails closed on the landing and the round cannot land at all. `P` is what
-   moves the guard to archive mode, where the landing is certifiable.
-2. **A non-sealing round — the round creates no seal state of its own — takes
-   `L` alone.** It has nothing to pin, and a pin commit added there would pin
-   nothing. This holds **even where the round's scoped work modifies an
-   existing guard**: editing a guard file is not the same as owning seal
-   constants. A round that adjusts a contract belonging to an already sealed
-   round still creates no seal state of its own, and the object it would
-   otherwise pin is not its to pin.
+1. **A sealing round — a round whose preregistration prospectively owns seal
+   state: either it creates new seal and pin state, or it explicitly takes
+   ownership of changing existing seal state — takes a pin commit `P`, and `P`
+   is mandatory.** `P` sets the constants it owns to `E` and to `L`. Mandatory
+   is not a stylistic preference: in execution mode the guard requires every
+   commit of `git rev-list HEAD ^base` to descend from the base, and once `L`
+   is on the head, that set reaches the sibling rounds merged into main since
+   the freeze, which do not descend from it. Without `P` the guard fails closed
+   on the landing and the round cannot land at all. `P` is what moves the guard
+   to archive mode, where the landing is certifiable.
+2. **A non-sealing round — a round that owns no seal state — takes `L`
+   alone.** It **may** modify other contracts inside an existing guard; it
+   **may not** alter existing seal constants. It has nothing to pin, and a pin
+   commit added there would pin nothing.
 
-That last clause is the one worth stating in terms, because the older
+That **may** / **may not** pair is worth stating in terms, because the older
 guarded/unguarded wording got it wrong by implication:
 
 > **An archive seal belongs to the round that set it, and stays immutable
