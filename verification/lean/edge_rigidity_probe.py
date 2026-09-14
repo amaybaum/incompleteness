@@ -16761,8 +16761,8 @@ _A6I_BASE = '3e5d6a8f75166581213b6c5b7c0dbca1671b030e'
 # against the sealed head, the pinned merge required to carry it as its second parent, and both
 # required reachable from the current target, each fail-closed. Nothing about the base or the blob
 # pin changes in archive mode.
-_A6I_SEALED_HEAD = None
-_A6I_MERGE = None
+_A6I_SEALED_HEAD = '93405f3ff7eb4818a2895b5f5e2861094d9fe757'
+_A6I_MERGE = 'ae0baf8ad5b8ef0daa473f2b772d4217a210f520'
 
 
 def _a6i_git(*args, **kw):
