@@ -103,7 +103,7 @@ is exact rather than approximately true.
 | path | blob at this freeze's `main` | what this round writes there |
 | --- | --- | --- |
 | `verification/lean/edge_rigidity_probe.py` | `dc30d365a06cb3a118d3bdb100c18b9b8c0d799e` | guard contracts about the live row and the live label cell, per `AJ7` and `AJ8`; **no seal constant, no merge constant, no base constant** |
-| `verification/ROADMAP.md` | `4f9af3d3e8a2d5d66ff063c94a388d2c7c04f218` | the row `P1 — A6` and its section `P1 — A6, and what is and is not already represented`, per `AJ7` and `AJ9`; no other row, section or research status |
+| `verification/ROADMAP.md` | `4f9af3d3e8a2d5d66ff063c94a388d2c7c04f218` | the row `P1 — A6` and its section `P1 — A6, and what is and is not already represented`, per `AJ7` and `AJ9`; under `AJ6-derived` alone, also the queue table's loss of that row and the settled record `AJ7` freezes; no other row, section or research status |
 | `verification/README.md` | `585dd145186dae654f58e2dc16712550b68ec9e0` | one appended paragraph for this round, per `AJ9`; no existing paragraph is edited |
 | `verification/programmes/substratum/a6-status-adjudication/result.md` | absent | this round's result note |
 
@@ -215,6 +215,16 @@ repaired.
 Report also, by quotation, the propagation's **per-label reasoning** — why `GAP`, `DERIVED`, `OPEN`,
 `EXTERNAL`, `INDEPENDENT` and `ACTIVE` were each set aside — and its recorded point of imperfect fit.
 
+**The separation this target must keep, FROZEN.** What the label tracks and what stands **outside
+`A6Cov`** are two lists, reported separately and never merged. The named hypothesis is the
+**substratum identification** — that the manuscripts' physical substratum is the packaged carrier.
+The part of the gauge derivation that consumes the inner product, unitarity as a constraint, the
+condensate `Σ`, the stabilizer in `U(6)` or the cubic decomposition, and the complex carrier's
+failure of `A1`, stand **outside `A6Cov`** and are **not components of the condition the label
+carries**. Writing either list into the other is a defect of the execution: folding the outside
+material into the hypothesis makes the assumption conditional on something it never was, and folding
+the hypothesis outward empties the label.
+
 ### `AJ2` — the packaging half: what the record says about its discharge
 
 Determine, by quotation from round 2's merged result and from the `ROADMAP` section, whether the
@@ -239,17 +249,31 @@ it accompanies.
 **Silence is a finding.** If the record does not say whether a discharge "for the covariance statement
 only" discharges the half as the propagation stated it, the finding is that it does not say.
 
-### `AJ4` — the residual, enumerated from the record
+### `AJ4` — the residual, enumerated from the record, in two lists that are never merged
 
 List, each with its own quotation and coordinate, every statement the merged record says survives
-every outcome of the landed rounds. The known candidates, **to be checked and not assumed**: the
-physical-substratum premise; the part of `[SM §3.1]`'s derivation that consumes the inner product,
-unitarity as a constraint, the condensate, the stabilizer in `U(6)` or the cubic decomposition; the
-`A4Exact` translation-invariance hypothesis; round 2's six unsettled points; round 1's three unsettled
-points; and the manuscript-axiom audit's bare-carrier finding.
+every outcome of the landed rounds, **sorted into two lists**:
 
-**This is a census, not an adjudication.** No residual item is judged fatal or harmless here; the list
-exists so that `AJ6` is matched against an enumerated residual rather than a remembered one.
+- **`AJ4-in` — what the record presents as a hypothesis the row tracks.** The candidate, to be
+  checked and not assumed, is the **substratum identification**: that the manuscripts' physical
+  substratum is the packaged carrier. For it, record by quotation whether the record presents it as
+  *this row's* named hypothesis or as a premise ambient to the programme's rows generally. That
+  determination is the hinge of `AJ6`'s gate, and it is the only item this list is expected to
+  weigh.
+- **`AJ4-out` — what the record places outside `A6Cov`.** The part of `[SM §3.1]`'s derivation that
+  consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in
+  `U(6)` or the cubic decomposition; and the complex carrier's failure of `A1`. **These stand
+  outside the interface and are no part of the condition the label carries**, and **no outcome of
+  this round moves an item from `AJ4-out` into `AJ4-in`.**
+
+Report alongside both, and in neither, the items that qualify a named result rather than the label:
+the `A4Exact` translation-invariance hypothesis, reported with the conjunct it qualifies; round 2's
+six unsettled points; round 1's three unsettled points; and the manuscript-axiom audit's bare-carrier
+finding, which is about a different carrier.
+
+**This is a census, not an adjudication.** No item is judged fatal or harmless here; the two lists
+exist so that `AJ6`'s gate is matched against an enumerated hypothesis rather than a remembered one,
+and so that material standing outside `A6Cov` cannot reach the gate at all.
 
 ### `AJ5` — the current row text, clause by clause, against the merged record
 
@@ -270,74 +294,154 @@ and not a pair compared. Exactly one of:
 
 - **`AJ6-conditional`** — `CONDITIONAL`'s stated meaning, "Formally present, carrying a named
   hypothesis this programme has not discharged. The manuscript states the hypothesis; the row tracks
-  it", is true of the row. Requires a named, undischarged hypothesis identified from `AJ4`'s
-  enumerated residual and quoted, **and** a recorded statement of whether that hypothesis is one the
-  manuscripts state, since the vocabulary's second sentence says it is.
+  it", is true of the row. Requires the named, undischarged hypothesis to be identified from
+  **`AJ4-in`** and quoted, **and** a recorded statement of whether that hypothesis is one the
+  manuscripts state, since the vocabulary's second sentence says it is. **No item of `AJ4-out`
+  carries this outcome either**: what stands outside `A6Cov` is not a hypothesis the label tracks.
 - **`AJ6-derived`** — `DERIVED`'s stated meaning, "Kernel-proved and propagated to the manuscript.
   Rows reach this state and then leave the queue", is true of the row. Requires `AJ2` and `AJ3` both
-  discharged on the record, **and** the gating condition immediately below.
+  discharged on the record, **and** the gating condition immediately below. **Both sentences of the
+  entry bind**: the second is part of the label, so `AJ6-derived` carries the row's **departure from
+  the queue**, specified in `AJ7` and not deferred to anyone.
 - **`AJ6-UNDECIDED`** — the permitted fallback, with the obstruction named and quoted.
 
 **The gating condition on `AJ6-derived`, FROZEN:**
 
-> `AJ6-derived` may be written only if `AJ4`'s enumerated residual contains **no item the record
-> presents as a hypothesis the row tracks**, and only if `AJ3` establishes, **from the propagation's
-> own words for the lift half**, that what those words name is what round 2 proved — and not merely
-> that something adjacent to it was proved. If a residual item is a tracked hypothesis, or if the
-> record is silent on whether the propagation's words are answered by the covariance statement
-> alone, the outcome is `AJ6-conditional` or `AJ6-UNDECIDED`, never `AJ6-derived`.
+> `AJ6-derived` may be written only if **the substratum identification is established not to be a
+> hypothesis this row tracks** — `AJ4` records, by quotation, whether the record presents "the
+> manuscripts' physical substratum is the packaged carrier" as this row's named hypothesis or as a
+> premise ambient to the programme's rows generally — and only if `AJ3` establishes, **from the
+> propagation's own words for the lift half**, that what those words name is what round 2 proved,
+> and not merely that something adjacent to it was proved. If the substratum identification is this
+> row's tracked hypothesis, or if the record is silent on whether the propagation's words are
+> answered by the covariance statement alone, the outcome is `AJ6-conditional` or `AJ6-UNDECIDED`,
+> never `AJ6-derived`.
+>
+> **What the gate does not test.** The part of the gauge derivation that consumes the inner product,
+> unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic decomposition
+> **does not enter this gate**, and neither does the complex carrier's failure of `A1`. Those lie
+> **outside `A6Cov`** and are no part of the condition the label carries; treating one as a gate
+> input would block `AJ6-derived` on something the row does not track, which is a defect of the
+> execution and is checked for in the final report.
 
 **Both halves of the gate are genuinely open.** The propagation's words for the lift half name the
 covariance of `SM.md:112–114` on an interface, and round 2 proves that identity at the complex
 six-component carrier; whether those are the same statement is a question about two quoted passages
-and is answerable either way. The gate exists to make the answer be read off the passages rather
-than assumed from round 2's own framing of what "inside the interface" splits into.
+and is answerable either way. Whether the substratum identification is this row's own hypothesis or
+a premise the whole programme carries is likewise a question about quoted passages. The gate exists
+to make both answers be read off the passages rather than assumed.
 
 **Why this gate exists.** `AJ2` and `AJ3` landing positive would establish that the hypothesis *as
 the propagation named it* is discharged. That is not the same as there being no hypothesis left for
 the row to track, and the two are easy to run together. The gate makes the decision rule match the
-vocabulary's own wording rather than the easier question underneath it.
+vocabulary's own wording rather than the easier question underneath it — and it tests exactly one
+thing, the substratum identification, so that the decision turns on the condition the label carries
+and on nothing standing beside it.
 
 **`AJ6-derived` is not a finding that the A6 result is stronger than the landed rounds made it, and
 `AJ6-conditional` is not a finding that they achieved less.** Both are findings about which label
 describes the row. See the non-licence section.
 
-### `AJ7` — the replacement row text, written out here in full
+### `AJ7` — the replacement row text and, under `AJ6-derived`, the departure
 
 The execution writes the text frozen below for the outcome `AJ6` returns, **character for
-character**, into `verification/ROADMAP.md:65` and into `_A6P_ROW`, and into every clause `AJ8`
-enumerates that pins the same string. It composes no row text of its own.
+character**, into `_A6P_ROW` and into every clause `AJ8` enumerates that pins the same string, and
+places it in `verification/ROADMAP.md` at the position this target fixes. It composes no row text of
+its own.
 
 **Decision rule, frozen:**
 
-- `AJ6-derived` → **`ROW-derived`** below.
+- `AJ6-derived` → **`ROW-derived`** below, **and the departure specified immediately after it**.
 - `AJ6-conditional` or `AJ6-UNDECIDED`, **and** `AJ5` found at least one clause not carried →
-  **`ROW-conditional`** below.
+  **`ROW-conditional`** below, written at `verification/ROADMAP.md:65`, the row staying in the queue.
 - `AJ6-conditional` or `AJ6-UNDECIDED`, **and** `AJ5` found every clause carried → the row stays
-  **byte-identical** and `_A6P_ROW` is untouched.
+  **byte-identical** at `verification/ROADMAP.md:65` and `_A6P_ROW` is untouched.
+
+**Only `AJ6-derived` moves the row.** Under `AJ-stand-asis`, `AJ-stand-restate` and `AJ6-UNDECIDED`
+the queue keeps the row where it is, in the order it is in, and the queue table is otherwise
+byte-identical under all four outcomes.
 
 **`ROW-conditional`, FROZEN:**
 
 ```
-| **P1** | A6 — background independence / local gauge covariance | Substratum | **CONDITIONAL** — the adopted meaning is covariance, `A6Cov`, which holds identically on every link-coupled rule of the least interface (`a6cov_all`), so its content is the covariant interface and not a constraint; the `K = 6` link-coupled rule is packaged as a `Substratum` with no field added, the packaged carrier's update map is the interface's link-coupled map, `A1`–`A5` hold of it with `A4Exact` under the translation-invariance hypothesis on the link coupling, and the covariance statement of `[SM §3.1]` is proved at the complex six-component carrier with the manuscripts' site-dependent transformation an instance of the interface's transformation class (`pk1_packaging`, `pk2a_bridge`, `pk3a_A1`–`pk3e_A5`, `cx1_complex_covariance`, `cx2_unitary_gaugeLink`); the named hypothesis is that the manuscripts' physical substratum is that packaged carrier, and the part of the gauge derivation that consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic decomposition stays outside the interface, the complex carrier being proved not to satisfy `A1` (`cx3b_complex_not_A1`); `A6-inv` is a separate, stronger fixed-background condition, refuted on the frozen two-site carrier and at the symmetric point `M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` its global specialization (`a6glob_of_a6inv`); `A6-sd` a different principle under a shared name | the complete A1–A6 formal package |
+| **P1** | A6 — background independence / local gauge covariance | Substratum | **CONDITIONAL** — the adopted meaning is covariance, `A6Cov`, which holds identically on every link-coupled rule of the least interface (`a6cov_all`), so its content is the covariant interface and not a constraint; the `K = 6` link-coupled rule is packaged as a `Substratum` with no field added, the packaged carrier's update map is the interface's link-coupled map, `A1`–`A5` hold of it with `A4Exact` under the translation-invariance hypothesis on the link coupling, and the covariance statement of `[SM §3.1]` is proved at the complex six-component carrier with the manuscripts' site-dependent transformation an instance of the interface's transformation class (`pk1_packaging`, `pk2a_bridge`, `pk3a_A1`–`pk3e_A5`, `cx1_complex_covariance`, `cx2_unitary_gaugeLink`); the named hypothesis is that the manuscripts' physical substratum is that packaged carrier, and that identification is the whole of what this row tracks; separately, and outside `A6Cov` rather than a condition on it, the part of the gauge derivation that consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic decomposition stands outside the interface, as does the complex carrier itself, proved not to satisfy `A1` (`cx3b_complex_not_A1`); `A6-inv` is a separate, stronger fixed-background condition, refuted on the frozen two-site carrier and at the symmetric point `M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` its global specialization (`a6glob_of_a6inv`); `A6-sd` a different principle under a shared name | the complete A1–A6 formal package |
 ```
 
 **`ROW-derived`, FROZEN:**
 
 ```
-| **P1** | A6 — background independence / local gauge covariance | Substratum | **DERIVED** — the adopted meaning is covariance, `A6Cov`, which holds identically on every link-coupled rule of the least interface (`a6cov_all`), so its content is the covariant interface and not a constraint; the `K = 6` link-coupled rule is packaged as a `Substratum` with no field added, the packaged carrier's update map is the interface's link-coupled map, `A1`–`A5` hold of it with `A4Exact` under the translation-invariance hypothesis on the link coupling, the adopted meaning holds of its own link data, and the covariance statement of `[SM §3.1]` is proved at the complex six-component carrier with the manuscripts' site-dependent transformation an instance of the interface's transformation class (`pk1_packaging`, `pk2a_bridge`, `pk3a_A1`–`pk3e_A5`, `pk2b_covariance`, `cx1_complex_covariance`, `cx2_unitary_gaugeLink`); the row asserts that the manuscripts' carrier is an instance of the covariant interface, and asserts neither that a condition was tested and survived, nor that the physical substratum is that carrier, nor that the gauge group is derived — the complex carrier is proved not to satisfy `A1` (`cx3b_complex_not_A1`), and the part of the gauge derivation that consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic decomposition stays outside the interface; `A6-inv` is a separate, stronger fixed-background condition, refuted on the frozen two-site carrier and at the symmetric point `M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` its global specialization (`a6glob_of_a6inv`); `A6-sd` a different principle under a shared name | the complete A1–A6 formal package |
+| **P1** | A6 — background independence / local gauge covariance | Substratum | **DERIVED** — the adopted meaning is covariance, `A6Cov`, which holds identically on every link-coupled rule of the least interface (`a6cov_all`), so its content is the covariant interface and not a constraint; the `K = 6` link-coupled rule is packaged as a `Substratum` with no field added, the packaged carrier's update map is the interface's link-coupled map, `A1`–`A5` hold of it with `A4Exact` under the translation-invariance hypothesis on the link coupling, the adopted meaning holds of its own link data, and the covariance statement of `[SM §3.1]` is proved at the complex six-component carrier with the manuscripts' site-dependent transformation an instance of the interface's transformation class (`pk1_packaging`, `pk2a_bridge`, `pk3a_A1`–`pk3e_A5`, `pk2b_covariance`, `cx1_complex_covariance`, `cx2_unitary_gaugeLink`); the row asserts that the manuscripts' carrier is an instance of the covariant interface, and asserts neither that a condition was tested and survived, nor that the physical substratum is that carrier, nor that the gauge group is derived; separately, and outside `A6Cov` rather than a condition on it, the part of the gauge derivation that consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic decomposition stands outside the interface, as does the complex carrier itself, proved not to satisfy `A1` (`cx3b_complex_not_A1`); `A6-inv` is a separate, stronger fixed-background condition, refuted on the frozen two-site carrier and at the symmetric point `M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` its global specialization (`a6glob_of_a6inv`); `A6-sd` a different principle under a shared name | the complete A1–A6 formal package |
 ```
 
 **Both are in manuscript voice.** Each states what is; neither narrates a change, cites a round
 number, or refers to any state of the row other than the one it writes. That is a requirement of the
 target, and a row text that narrates is a defect of the execution.
 
+#### The departure, FROZEN — written only under `AJ6-derived`
+
+`DERIVED`'s vocabulary entry has two sentences and both bind: "Kernel-proved and propagated to the
+manuscript. **Rows reach this state and then leave the queue.**" A row written `DERIVED` and left in
+the queue is an inconsistent record, so the departure is part of this outcome and is specified here
+rather than left to a later call.
+
+**1. What the obligation table becomes.** In `## The queue`, the row `P1 — A6` is removed from the
+table. Every remaining row is byte-identical and keeps its order, so the table carries the nine rows
+that remain: `P0`; `P1` Substratum Lemma 24.1; `P1` physical C4 discharge; `P1` H-Bell; `P2`
+Bekir–Golomb; `P2` H-link; `P2` H-state / H-frame / H-slope; `P2` covariant matter→boundary coupling;
+`P3` GR states → Level-III. **No other row's cells change, and no row is reordered.**
+
+**2. Where the departed row goes.** `ROW-derived` is written **verbatim** into a settled-obligation
+record carrying the queue's own five columns, placed immediately **before** the section
+`## Settled negatively — `INDEPENDENT`, and not queue items`, whose heading, standing note, table and
+links are untouched. The record's heading, standing note and table header are frozen exactly as:
+
+```
+## Settled — `DERIVED`, and not queue items
+
+**These are obligations closed in the kernel and carried by the manuscripts. They do not belong on
+the list above and are recorded here so they are not re-added to it.**
+
+| Priority | Obligation | Track | Status | Unlocks |
+| --- | --- | --- | --- | --- |
+```
+
+with `ROW-derived` as the single row beneath it. The form follows the `INDEPENDENT` record, which is
+the file's own way of holding what has left the queue; the five columns are kept so that the row is
+the row, character for character, and not a paraphrase of it.
+
+**3. The row's section stays where it is.** `### P1 — A6, and what is and is not already
+represented` keeps its position between `### P1 — Substratum Lemma 24.1, the semigroup-transfer step`
+and `### P1 — physical C4 discharge`, so that `_a6p_section` and `_a6i_section` bound the same text,
+and it carries one sentence, in manuscript voice, saying where the obligation's row stands.
+
+**4. `_A6P_ROW` is set to `ROW-derived`.** The clause consuming it, `_a6p_roadmap`'s `_A6P_ROW in
+_r`, asks membership of the whole flattened `ROADMAP` rather than of the queue table, and is
+satisfied by the row in its settled position; the same holds of `_a6d_roadmap_row`'s inline row
+string. The execution states that this is why the two clauses need the string updated and not
+re-scoped, rather than leaving the reader to check it.
+
+**5. `_a6i_label_unmoved` is re-pointed, not relaxed.** Its label-cell clause and its
+`| Substratum | **DERIVED** —` absence clause are both assertions about the live file. Each is
+replaced by an assertion of the **same kind** about the settled record — a positive clause naming the
+settled row and a negative clause forbidding a queue row for it — and neither is deleted or weakened
+to a tautology.
+
+**6. The landing page.** `verification/README.md` gains this round's one appended paragraph, which
+records the departure and where the row is recorded.
+
+**The departure is confined to these six items.** No other row leaves, no other section is created,
+moved or removed, and the `INDEPENDENT` record is not touched.
+
 ### `AJ8` — the guard-contract surface, enumerated and bounded
 
 List every constant, clause and mutation control in `verification/lean/edge_rigidity_probe.py` at the
 pinned blob whose assertion is about the live `ROW`, the live label cell, or the live `P1 — A6`
 section, with its line coordinate and its exact assertion, and state for each whether `AJ7`'s decision
-rule requires it to change. The known candidates, **to be checked and not assumed**:
+rule requires it to change. **Under `AJ6-derived` the census covers the departure as well**: every
+clause whose assertion would be falsified by the row leaving the queue table, or by the settled
+record existing, is listed and its re-pointing stated, and a clause that the departure reaches and
+the table below omits is reported under the bounding clause. The known candidates, **to be checked
+and not assumed**:
 
 | coordinate | constant / clause | what it asserts about the live file |
 | --- | --- | --- |
@@ -359,6 +463,12 @@ that the pins were unset at execution stays true, being a statement about the ex
 is the clause of `_a6d_roadmap_row` asserting round 1's result note still records that round 1 left
 the `GAP` label in place.
 
+**Departure note on the census, FROZEN.** Each of the three mutation controls asserts its guarded
+clause **rejects** a label overclaim. Under `AJ6-derived` their rewrites target a queue cell the live
+file does not carry, so each is re-pointed at an overclaim of the **settled** state — for instance a
+settled row whose reasons assert that the assumption was verified, or a queue row re-added for the
+departed obligation — and each stays a mutation control that its guarded clause rejects. **None is deleted, and none is weakened to a rewrite the clause would reject trivially.**
+
 **Bounding clause, FROZEN.** `AJ8`'s list is the **whole** edit surface in that file. A constant or
 clause outside it is not edited. If the execution finds a clause it must edit that `AJ8` does not
 name, it **records the discrepancy, names the clause, and reports the freeze as having under-counted
@@ -371,10 +481,18 @@ reasons in prose and is pinned by `_a6p_roadmap` and `_a6i_roadmap_section`. Det
 sentences the adjudication requires to change, write them in manuscript voice, and append one
 paragraph to `verification/README.md` recording this round.
 
-**Bounded in terms.** The `ROADMAP` edit is confined to the row `P1 — A6` and its section; no other
-row, section or research status is touched. The `README` edit is **one appended paragraph**; no
-existing paragraph is edited. **No manuscript is edited**: `papers/` and `book/` are read and never
-written, and the census gains no anchor, because no manuscript propagation occurs in this round.
+**Under `AJ6-derived`** the section keeps its position and gains the one sentence `AJ7`'s departure
+item 3 requires, the settled record of item 2 is created with the frozen heading, standing note and
+table header, and the appended `README` paragraph records the departure and where the row is
+recorded. The section's prose separates, as the row does, the named hypothesis from what stands
+outside `A6Cov`.
+
+**Bounded in terms.** The `ROADMAP` edit is confined to the row `P1 — A6`, its section, and — under
+`AJ6-derived` alone — the queue table's loss of that row and the settled record `AJ7` freezes. No
+other row, section or research status is touched, and no other row moves, changes cell or changes
+order under any outcome. The `README` edit is **one appended paragraph**; no existing paragraph is
+edited. **No manuscript is edited**: `papers/` and `book/` are read and never written, and the census
+gains no anchor, because no manuscript propagation occurs in this round.
 
 ## The preregistered predictions, and their strengths
 
@@ -386,10 +504,10 @@ Recorded before execution, with reasons, so that the outcome can be compared aga
 | `AJ1` | positive, and **the two statements of the hypothesis are expected to agree** | high | the `ROADMAP` section's named-hypothesis sentence is pinned by `_A6P_ROAD_HYP` and the propagation's own text is its source; whether they agree in the halves as well as the headline is what the target checks |
 | `AJ2` | positive — **discharged**, at evidence level 2 | high | round 2's result reports it in terms, and the `ROADMAP` section carries the same finding; this is a quotation, not a judgement |
 | `AJ3` | positive, **with the covariance statement discharged and the carrier proved outside** | high | round 2 reports the split in terms; the **scope question** — whether the propagation's own words for this half are answered by the covariance statement alone — is a separate determination against two quoted passages, predicted positive at **medium**, since the propagation's wording names the covariance and round 2's framing names the carrier as well |
-| `AJ4` | positive, and **the physical-substratum premise is expected to head the list** | high | round 2 calls it "a premise no round can discharge" and "the residual that survives every outcome"; the rest of the census is mechanical |
+| `AJ4` | positive; **`AJ4-in` is expected to hold the substratum identification and nothing else, and `AJ4-out` the §3.1 material and the complex carrier's failure of `A1`** | high on the sorting, **medium** on whether the record presents the substratum identification as this row's own hypothesis | round 2 calls that premise "a premise no round can discharge" and "the residual that survives every outcome", and separately names the §3.1 material as staying outside the interface; whether the first is *this row's* hypothesis or the programme's ambient premise is the one judgement the census must return and the gate's hinge |
 | `AJ5` | **at least two clauses not carried** | medium | the row asserts in the present tense that the `K = 6` rule is not packaged as a `Substratum` and that the complex lift is outside the interface, and round 2's `pk1_packaging` and `cx1_complex_covariance` bear directly on both; whether that makes the clauses "not carried" or merely narrower is exactly what the target must settle |
-| `AJ6` | **`AJ6-conditional`** | **medium** | the hypothesis *as the propagation named it* looks discharged, but `AJ4`'s residual is expected to contain the physical-substratum premise, which the record presents as a premise the row would still be tracking; and `DERIVED`'s second conjunct, "propagated to the manuscript", together with its departure clause, fits a row whose section names an outstanding residual poorly. **The principal falsifier, and the principal escape hatch, is `AJ4`**: if the record presents the physical premise as ambient to every row rather than as this row's tracked hypothesis, the gate on `AJ6-derived` opens and the prediction is wrong. A single quoted passage treating the residual as outside the row's scope would also move it. |
-| `AJ7` | positive | high | mechanical: the text is frozen above and is copied, not composed |
+| `AJ6` | **`AJ6-conditional`** | **medium** | the hypothesis *as the propagation named it* looks discharged, but `AJ4-in` is expected to hold the substratum identification, which the record is expected to present as a premise this row still tracks. **The principal falsifier, and the principal escape hatch, is `AJ4-in`**: if the record presents the substratum identification as ambient to the programme's rows rather than as this row's tracked hypothesis, the gate opens and the prediction is wrong. A quoted passage answering the propagation's own words for the lift half with the covariance statement alone would also move it. **Nothing in `AJ4-out` bears on this prediction in either direction.** |
+| `AJ7` | positive | high on the row text, **medium** on the departure | the row text is frozen above and is copied, not composed, which is mechanical; the departure is six specified items against a file sibling rounds also move, and the risk is a remaining row disturbed or a clause the departure reaches unlisted |
 | `AJ8` | positive, **and the eight-row candidate list is expected to be complete** | medium | the candidates were found by searching the pinned blob for the label token and the row string, and a clause that pins the row by a paraphrase rather than by the string would escape that search |
 | `AJ9` | positive | medium | the section's sentences are prose and the rewrite is a judgement about which of them the adjudication reaches |
 
@@ -411,21 +529,32 @@ against prediction, and the prediction is not amended.
    row text carries.
 3. **The row text written is the frozen text for the outcome, character for character**, or the
    byte-identical row where `AJ7`'s decision rule says so. The execution composes no row text.
-4. **No seal constant, merge constant or base constant is touched.** `_A6P_SEALED_HEAD`,
+4. **`AJ6-derived` carries the departure, and only `AJ6-derived` does.** The row leaves the queue
+   table and is recorded verbatim in the settled record `AJ7` freezes, with the frozen heading,
+   standing note and table header. Under `AJ-stand-asis`, `AJ-stand-restate` and `AJ6-UNDECIDED` the
+   queue and the row's place in it are left as they are. Under every outcome the other rows are
+   byte-identical and keep their order.
+5. **What the label tracks and what stands outside `A6Cov` are written as two things.** The named
+   hypothesis is the substratum identification. The part of the gauge derivation consuming the inner
+   product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic
+   decomposition, and the complex carrier's failure of `A1`, are recorded as standing outside the
+   interface and **never as conditions on the assumption**. A row, section or note that folds the
+   second into the first is a defect of the execution.
+6. **No seal constant, merge constant or base constant is touched.** `_A6P_SEALED_HEAD`,
    `_A6D_SEALED_HEAD`, `_A6I_SEALED_HEAD`, `_A6P_MERGE`, `_A6D_MERGE`, `_A6I_MERGE`, `_A6P_BASE`,
    `_A6D_BASE` and `_A6I_BASE` are read and never written. An outcome requiring otherwise is out of
    scope and is recorded as such.
-5. **No merged result note, preregistration or audit is edited**, and no `README` round record is
+7. **No merged result note, preregistration or audit is edited**, and no `README` round record is
    edited. Those are statements about their own rounds and stay true.
-6. **No manuscript is edited.** `papers/` and `book/` are read and never written.
-7. **The round may not identify any two of the four readings.** `A6-inv`, `A6-cov`, `A6-glob` and
+8. **No manuscript is edited.** `papers/` and `book/` are read and never written.
+9. **The round may not identify any two of the four readings.** `A6-inv`, `A6-cov`, `A6-glob` and
    `A6-sd` are four objects on three interfaces. Any sentence using the bare name outside a
    quotation, the row name, or a guard, family, directory or round name is a defect.
-8. **The round may not report the gauge-group derivation settled**, in either direction.
-9. **The round records UNDECIDED, with the obstruction named and quoted, wherever it cannot settle a
-   target**, and reports every negative as a located absence on a named and bounded search rather
-   than as a failed search.
-10. **The organizing caveat is carried verbatim wherever a positive of `AJ2` or `AJ3` is reported.**
+10. **The round may not report the gauge-group derivation settled**, in either direction.
+11. **The round records UNDECIDED, with the obstruction named and quoted, wherever it cannot settle a
+    target**, and reports every negative as a located absence on a named and bounded search rather
+    than as a failed search.
+12. **The organizing caveat is carried verbatim wherever a positive of `AJ2` or `AJ3` is reported.**
 
 ## The post-round sentence, frozen now, one per outcome
 
@@ -437,9 +566,11 @@ Exactly one is written, verbatim, in the result note and nowhere else.
 > the predicate is formally present and proved, the hypothesis the covariance propagation named is
 > discharged in its packaging half at evidence level 2 and discharged for the covariance statement in
 > its lift half, and the hypothesis the row tracks is the one named in the frozen row text — that the
-> manuscripts' physical substratum is the packaged carrier, with the part of the gauge derivation
-> that consumes the inner product, unitarity as a constraint, the condensate, the stabilizer in
-> `U(6)` or the cubic decomposition standing outside the interface. The row's reasons are written to
+> manuscripts' physical substratum is the packaged carrier, and that identification is the whole of
+> it. Separately, and outside `A6Cov` rather than as a condition on it, the part of the gauge
+> derivation that consumes the inner product, unitarity as a constraint, the condensate, the
+> stabilizer in `U(6)` or the cubic decomposition stands outside the interface, as does the complex
+> carrier. The row stays in the queue and its reasons are written to
 > the frozen text. Nothing here strengthens or weakens what the three landed A6 rounds established,
 > nothing here says the sixth assumption holds of the physical substratum or fails of it, and nothing
 > here is a derivation of the gauge group.
@@ -448,28 +579,32 @@ Exactly one is written, verbatim, in the result note and nowhere else.
 
 > The row `P1 — A6` carries `CONDITIONAL` and its text stands byte-identical: every clause of the
 > row's reasons is carried by the merged record, and the hypothesis the row names is one the record
-> presents as undischarged. `_A6P_ROW` is untouched, and so is every clause of `AJ8`'s surface.
-> Nothing here strengthens or weakens what the three landed A6 rounds established.
+> presents as undischarged. The row stays in the queue, `_A6P_ROW` is untouched, and so is every
+> clause of `AJ8`'s surface. Nothing here strengthens or weakens what the three landed A6 rounds
+> established.
 
 **If `AJ6-derived` — `AJ-move`:**
 
 > The row `P1 — A6` carries `DERIVED`: the hypothesis the covariance propagation named is discharged
-> on the merged record in both of its halves, at evidence level 2, and the adopted meaning is
-> propagated to the manuscripts. The row's reasons are written to the frozen text, and that text
-> states what the label does and does not assert: that the manuscripts' carrier is an instance of the
-> covariant interface, and neither that a condition was tested and survived, nor that the physical
-> substratum is that carrier, nor that the gauge group is derived. Whether the row departs the queue,
-> as the vocabulary's entry for this label describes, is named in the result note as an owner call
-> with its own round, and is not taken here. Nothing here strengthens what the three landed A6 rounds
-> established.
+> on the merged record in both of its halves, at evidence level 2, the substratum identification is
+> not a hypothesis this row tracks, and the adopted meaning is carried by the manuscripts. The row's
+> reasons are written to the frozen text, and that text states what the label does and does not
+> assert: that the manuscripts' carrier is an instance of the covariant interface, and neither that a
+> condition was tested and survived, nor that the physical substratum is that carrier, nor that the
+> gauge group is derived. The obligation leaves the queue, as the vocabulary's entry for this label
+> states, and the row is recorded verbatim in the settled record, the queue's other rows byte-identical
+> and in their order. The part of the gauge derivation that consumes the inner product, unitarity as a
+> constraint, the condensate, the stabilizer in `U(6)` or the cubic decomposition stands outside
+> `A6Cov`, as does the complex carrier, and neither is a condition on the assumption. Nothing here
+> strengthens what the three landed A6 rounds established.
 
 **If `AJ6-UNDECIDED`:**
 
 > Which label the queue's vocabulary supports for the row `P1 — A6` is UNDECIDED, with the obstruction
-> named and quoted in the result note. The row keeps `CONDITIONAL`, its reasons written to the frozen
-> `ROW-conditional` text where `AJ5` found a clause not carried and byte-identical otherwise. The
-> three landed A6 rounds stand at their own strengths, none is revised, and no manuscript claim
-> changes.
+> named and quoted in the result note. The row keeps `CONDITIONAL` and stays in the queue, its
+> reasons written to the frozen `ROW-conditional` text where `AJ5` found a clause not carried and
+> byte-identical otherwise. The three landed A6 rounds stand at their own strengths, none is revised,
+> and no manuscript claim changes.
 
 ## What none of these outcomes licenses
 
@@ -495,7 +630,13 @@ Exactly one is written, verbatim, in the result note and nowhere else.
   and `AS2` are consumed as merged and none is revised, promoted, demoted or re-derived.
 - **`AJ6-derived` would not close the obligation column.** The row's closing column names the
   complete A1–A6 formal package; whether that obligation is met is not a target here, and no outcome
-  asserts it.
+  asserts it. **Departing the queue is what the label's own entry says a row at that label does; it
+  is not a claim that the closing column is satisfied**, and the settled record carries the column
+  unchanged rather than as a discharge.
+- **Nothing here makes the §3.1 residual a condition on the assumption.** What stands outside
+  `A6Cov` is recorded as standing outside it. No outcome moves an item of `AJ4-out` into the
+  hypothesis the label tracks, and no outcome asserts that the material outside is thereby settled,
+  in either direction.
 - **`AJ6-conditional` is not a verdict that the landed rounds fell short.** It is a finding about
   which vocabulary entry describes a row that carries a named residual.
 - **Nothing here weakens `A1`**, adds a field to `Substratum`, defines a predicate for `A6-sd`, or
@@ -516,11 +657,11 @@ Exactly one is written, verbatim, in the result note and nowhere else.
    row, owns no seal state, and lands `E` → `L`. `§A.37` states it in terms — a later round "does not
    acquire a pin commit merely by touching the guard file that carries it" — and a pin added here
    "would pin nothing". Guarded against by the shape declaration at the head of this file, by status
-   rule clause 4, by the chronology control, and by the allowed final report, which requires the
+   rule clause 6, by the chronology control, and by the allowed final report, which requires the
    landing shape to be stated.
 2. **Altering a sealed head to make a check pass.** The inverse failure: an execution that finds an
    archive clause red and repairs it at the constant. The three sealed heads belong to their own
-   rounds. Guarded against by status rule clause 4 and by `AJ8`'s bounding clause.
+   rounds. Guarded against by status rule clause 6 and by `AJ8`'s bounding clause.
 3. **Reconstructive inference presented as a finding.** A reader who knows the programme can supply
    an argument for either label that the record does not contain. The evidence rule forbids it; the
    final report states, for each determination, which quotation carries it.
@@ -528,7 +669,7 @@ Exactly one is written, verbatim, in the result note and nowhere else.
    section because it is the natural misreading of any status round: the label describes the row, and
    the theorems are what they were. The post-round sentences each close by saying so.
 5. **Losing the organizing caveat.** Reporting `AJ2` or `AJ3` positive without it turns an
-   instantiation finding into a verification finding. Status rule clause 10 carries it verbatim at
+   instantiation finding into a verification finding. Status rule clause 12 carries it verbatim at
    every positive.
 6. **Merging the two halves of the hypothesis, or the two scopes of the lift half.** `AJ1` requires
    the halves reported separately; `AJ3` requires the covariance statement and the carrier reported
@@ -540,34 +681,52 @@ Exactly one is written, verbatim, in the result note and nowhere else.
    that the label is unavailable nor evidence that it applies.
 8. **Repairing a mutation control by deleting it.** `_a6p_m6`, `_a6d_m25` and `_a6i_m10` each rewrite
    the live label cell from `CONDITIONAL` to `DERIVED` and require the guarded clause to reject the
-   result. Under `AJ6-derived` those rewrites become no-ops and the controls fail by construction.
-   **The repair is to re-point each control at an overclaim of the new row, preserving it as a
-   mutation control**; deleting one, or weakening it to a tautology, is a defect of the execution and
-   is checked for in the final report.
+   result. Under `AJ6-derived` those rewrites become no-ops and the controls fail by construction —
+   and the departure sharpens this, because the label cell they rewrite is then in the settled record
+   and not in the queue at all, so a control left pointed at the queue would rewrite nothing whatever
+   the label said. **The repair is to re-point each control at an overclaim of the new state — a
+   settled row asserting that the assumption was verified, or a queue row re-added for the departed
+   obligation — preserving each as a mutation control its guarded clause rejects**; deleting one, or
+   weakening it to a rewrite the clause would reject trivially, is a defect of the execution and is
+   checked for in the final report.
 9. **Editing a merged record to keep it consistent.** Round 1's result note records that round 1 left
    the `GAP` label in place; the propagation's `README` paragraph and round 2's record say what those
    rounds did with the label. Each is a true statement about its own round under every outcome here.
-   Status rule clause 5 forbids editing them, and `AJ8` names the three clauses expected to stand.
+   Status rule clause 7 forbids editing them, and `AJ8` names the three clauses expected to stand.
 10. **Under-counting the guard surface.** A clause that pins the row by paraphrase rather than by the
     string would escape the search that built `AJ8`'s candidate list, and the failure would surface as
     a red landing or, worse, as a clause quietly weakened to pass. `AJ8`'s bounding clause requires
     the discrepancy to be recorded and the freeze reported as having under-counted.
-11. **Executing the queue-departure clause silently.** `DERIVED`'s vocabulary entry says rows reach
-    that state and leave the queue. Removing the row would change the obligation table's shape and
-    collide with every sibling round that moves it. Under `AJ6-derived` the row is written in place
-    and the departure question is named as an owner call with its own round.
-12. **Resolving the landing conflict by side.** The `ROADMAP` row and its obligation table are shared
-    ground that sibling rounds move. `§A.37` requires conflicts resolved by merits: this round's
-    landing takes its own row and section from the execution and every row a sibling moved from
-    `main`, and afterwards the landing is verified to add exactly this round's own diff against its
-    own base and nothing else.
-13. **Consuming a sibling result present at the base but absent from this freeze.** Governed by the
+11. **Deleting the departed row instead of recording it.** Under `AJ6-derived` the row leaves the
+    queue table; striking it without writing `ROW-derived` verbatim into the settled record would drop
+    the obligation's record from the file and would falsify `_A6P_ROW`'s membership clause, which asks
+    the whole file and not the queue. The destination, its heading, its standing note and its table
+    header are frozen in `AJ7`, and the row is copied, not paraphrased. **A departure that leaves no
+    record is not a departure; it is a deletion**, and it is checked for in the final report.
+12. **Disturbing a row the departure does not reach.** Removing one row from a table is where a
+    neighbouring row's cells or the table's order quietly change. Under `AJ6-derived` the nine
+    remaining rows are byte-identical and keep their order, and the execution verifies that against
+    the base rather than asserting it.
+13. **Resolving the landing conflict by side.** The `ROADMAP` row and its obligation table are shared
+    ground that sibling rounds move, and a departure makes the collision likelier, since the table's
+    row set changes rather than one cell of it. `§A.37` requires conflicts resolved by merits: this
+    round's landing takes its own row, its section and — under `AJ6-derived` — the settled record from
+    the execution, and every row a sibling moved from `main`; afterwards the landing is verified to
+    add exactly this round's own diff against its own base and nothing else.
+14. **Folding what stands outside `A6Cov` into what the label tracks.** The natural compression, and
+    the one the owner's ruling forbids: writing the hypothesis and the §3.1 residual into one clause
+    makes the assumption conditional on material that was never part of the condition, and would block
+    `AJ6-derived` on something the row does not track. `AJ1`'s separation clause, `AJ4`'s two lists,
+    the gate's "what the gate does not test" paragraph and status rule clause 5 exist for this
+    hazard, and the final report states for the row, the section and the note that the two are
+    distinct.
+15. **Consuming a sibling result present at the base but absent from this freeze.** Governed by the
     anti-contamination invariant, carried verbatim above.
-14. **Reading round 2's "recommends none" as a prohibition.** Round 2 declined to take the decision
+16. **Reading round 2's "recommends none" as a prohibition.** Round 2 declined to take the decision
     and named it as belonging to a separate round. That is this round's charter, quoted above, and
     not a bar on it.
-15. **Scope creep into the gauge derivation or the physical premise.** Both are outside the round in
-    terms, and both are the residual the adjudication is matched against rather than material it may
+17. **Scope creep into the gauge derivation or the physical premise.** Both are outside the round in
+    terms, and both are material the adjudication is matched against rather than material it may
     advance.
 
 ## Definition budget
@@ -623,10 +782,13 @@ Phrased so that each clause is checkable mechanically.
    in the sealed commit.
 7. **The `ROADMAP` row and its obligation table are shared ground**, and sibling rounds may move rows
    in the same table between this freeze and this landing. The landing resolves such collisions **by
-   merits per `§A.37`** — this round's own row and section from the execution, every other row from
-   `main` — and afterwards the landing is verified to add exactly the execution's own diff against its
-   own base and nothing else, by comparing the two diffs and accounting for every difference. A clean
-   automatic merge is not treated as evidence of a correct one.
+   merits per `§A.37`** — this round's own row, its section and, under `AJ6-derived`, the settled
+   record from the execution; every other row from `main` — and afterwards the landing is verified to
+   add exactly the execution's own diff against its own base and nothing else, by comparing the two
+   diffs and accounting for every difference. A clean automatic merge is not treated as evidence of a
+   correct one. **Under `AJ6-derived` the collision is over the table's row set rather than over one
+   cell**, so the verification names, row by row, which rows `main` has since moved and confirms that
+   each survives the landing.
 8. **The certification of record is the run whose `head_sha` is the sealed execution head**, and not
    whichever run happens to be latest on the branch.
 9. **Full continuous integration passes again on `L`** before the pull request merges, and the
@@ -636,26 +798,31 @@ Phrased so that each clause is checkable mechanically.
 
 No Lean. No definition. No new guard. No new guard tag. No archive pin. No seal constant touched. No
 manuscript edit. No census anchor. No merged result note, preregistration or audit edited. No `README`
-round record edited. No other `ROADMAP` row, section or research status touched. No row removed from
-the queue. No reading adopted, revised, ranked or identified with another. No re-derivation of any
-landed target. No new object, and no distinction drawn on the record's behalf.
+round record edited. No other `ROADMAP` row, section or research status touched. **No row but
+`P1 — A6` moved, and that row moves only under `AJ6-derived`, into the settled record `AJ7` freezes
+rather than out of the file.** No second settled record, and no change to the `INDEPENDENT` one. No
+item moved from `AJ4-out` into the hypothesis the label tracks. No reading adopted, revised, ranked or
+identified with another. No re-derivation of any landed target. No new object, and no distinction
+drawn on the record's behalf.
 
 ## Execution discipline
 
-The execution produces **the result note**, the `ROADMAP` row and section, the appended `README`
-paragraph, and the guard-contract edits `AJ8` bounds — and nothing else. One pull request from the
-mandated base carrying the execution; after certification the same pull request carries the landing
-merge, and no pin commit.
+The execution produces **the result note**, the `ROADMAP` row and section, the settled record where
+`AJ6-derived` requires it, the appended `README` paragraph, and the guard-contract edits `AJ8` bounds
+— and nothing else. One pull request from the mandated base carrying the execution; after
+certification the same pull request carries the landing merge, and no pin commit.
 
 ## Allowed final report
 
 Every target with its outcome, evidence type, strength and the quotation carrying it; the two halves
-of the hypothesis reported separately; the two scopes of the lift half reported separately; `AJ4`'s
-residual census; `AJ5`'s clause-by-clause collation; `AJ8`'s surface with, for each entry, whether it
-changed; the organizing caveat verbatim at every positive of `AJ2` and `AJ3`; the discrepancy section;
-the single frozen post-round sentence; an explicit statement that the round is type P with no axiom
-table; and an explicit statement that the round is **non-sealing**, that no seal constant was touched,
-and that the landing is `E` → `L` with no pin. Nothing else.
+of the hypothesis reported separately; the two scopes of the lift half reported separately; `AJ4-in`
+and `AJ4-out` reported as two lists; `AJ5`'s clause-by-clause collation; `AJ8`'s surface with, for
+each entry, whether it changed; under `AJ6-derived`, the departure's six items each reported done or
+recorded otherwise, with the queue's remaining rows verified byte-identical and in order; the
+organizing caveat verbatim at every positive of `AJ2` and `AJ3`; the discrepancy section; the single
+frozen post-round sentence; an explicit statement that the round is type P with no axiom table; and an
+explicit statement that the round is **non-sealing**, that no seal constant was touched, and that the
+landing is `E` → `L` with no pin. Nothing else.
 
 ## Points at which this freeze chose a reading, recorded rather than resolved
 
@@ -666,33 +833,45 @@ and that the landing is `E` → `L` with no pin. Nothing else.
    reading would treat the row as one atom, so that the label standing means the row standing
    byte-identical. This freeze splits them, which is why `AJ-stand-asis` and `AJ-stand-restate` are
    two outcomes with two post-round sentences, and records the choice here.
-3. **The queue-departure clause of `DERIVED` is read as a consequence of the label rather than as
-   part of its test.** On the other reading, a row that cannot depart cannot take the label at all,
-   and `AJ6-derived` would be unavailable by construction. This freeze does not take that reading; it
-   writes the row in place and names departure as an owner call. Recorded, not resolved.
-4. **The physical-substratum premise is treated as a candidate tracked hypothesis, not as settled
+3. **The destination of the departed row is the file's own form for what has left the queue.** The
+   `INDEPENDENT` record is the precedent, and this freeze follows it with the queue's five columns so
+   that the row survives character-for-character rather than as a paraphrase. An alternative would
+   record the departure only in the row's section and let the row itself go; this freeze does not,
+   because a row recorded nowhere is a row deleted, and records the choice here.
+4. **The substratum identification is treated as a candidate tracked hypothesis, not as settled
    background.** Whether the record presents it as this row's hypothesis or as a premise ambient to
-   the whole programme is `AJ4`'s business and is the gate's hinge, and the freeze declines to settle
-   it in advance in either direction.
+   the programme's rows is `AJ4-in`'s business and is the gate's hinge, and the freeze declines to
+   settle it in advance in either direction.
 5. **The round is non-sealing.** An alternative would give the adjudication its own guard tag and its
    own ancestry seal. This freeze does not, because the definition budget is zero, there is no kernel
    object to order, and the blob pins in the start-state tables carry the immutability the round
    needs — and because taking a seal here would be taking ownership of state the round has no use
    for.
 
+## The owner's rulings, carried into this freeze as its authority
+
+Two questions this control plane put to the owner are settled, and the settlements are written into
+the targets, the gate, the status rule, the frozen row texts and the frozen post-round sentences
+above rather than left as options.
+
+1. **Queue departure belongs to `AJ6-derived` itself.** `DERIVED`'s vocabulary entry says rows reach
+   that state and leave the queue, so a round that writes the label and leaves the row in the queue
+   produces an inconsistent record. The departure is therefore part of the outcome, specified in
+   `AJ7` in six items, covered by `AJ8`'s census and by hazards 8, 11, 12 and 13, and carried in
+   `AJ-move`'s frozen sentence. **The other three outcomes leave the row and the queue as they are.**
+2. **`ROW-conditional`'s named hypothesis is the substratum identification.** The part of the gauge
+   derivation that consumes the inner product, unitarity as a constraint, the condensate `Σ`, the
+   stabilizer in `U(6)` or the cubic decomposition is retained in the record as material standing
+   **outside `A6Cov`**, and is no component of the A6 condition. The separation is carried by `AJ1`'s
+   separation clause, `AJ4`'s two lists, the gate's "what the gate does not test" paragraph, status
+   rule clause 5, both frozen row texts and hazard 14, so that the gate tests the substratum
+   identification and is not blocked by material that was never part of the condition.
+
 ## Open to the owner before this freeze merges
 
 Recorded so that the amendment happens before the merge, which is the only time a freeze may be
 amended.
 
-1. **Whether the queue-departure question is in scope.** Under `AJ6-derived` this freeze writes the
-   row in place and names departure as a separate owner call. If the owner wants departure executed in
-   the same round, this freeze needs that written in before it merges, along with what the obligation
-   table's shape becomes.
-2. **Whether `ROW-conditional`'s named hypothesis is the one the owner wants the row to track.** The
-   frozen text names the physical-substratum premise together with the residual of the gauge
-   derivation. Round 2 recorded, as its sixth unsettled point, that which half an owner wishes the row
-   to track is the owner's call.
-3. **Whether the section's sentence naming the stronger-label decision as belonging to a separate
+1. **Whether the section's sentence naming the stronger-label decision as belonging to a separate
    round stays as written** once that round has run. The freeze leaves it standing, since it is
    accurate in manuscript voice; an owner who wants it recast should say so before the merge.
