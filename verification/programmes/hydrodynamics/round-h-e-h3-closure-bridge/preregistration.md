@@ -230,14 +230,21 @@ triple `(a, b₁, b₂) : ℝ³` through the channel fugacities `z_k := exp(a + 
   `(a, b₁, b₂)` alone. **It is a function of the parameters and not, by this clause, a function of
   the coarse charges**: whether the parameters are themselves recovered from the charge data is a
   separate statement, and it is `H3-ident` below.
-- **`H3-ident` (parameter identifiability).** The mean-charge map — the triple of expected mass and
-  expected momentum components of one site as a function of `(a, b₁, b₂)` — is injective, so that a
-  triple of coarse charge values names **at most one** family member, and `H3-flux` thereby becomes
-  a function of the charge data.
-- **`H3-prop` (propagation).** The coarse evolution of a state whose local charge data varies
-  slowly is determined, to the accuracy the hydrodynamic target requires and at the scale the
-  scaling map fixes, by `H3-flux` applied locally with the parameters read from the local charge
-  data — **that reading being licensed by `H3-ident` and by nothing else in this freeze.**
+- **`H3-ident` (parameter identifiability, **on `im Ψ`**).** The mean-charge map `Ψ` — the triple of
+  expected mass and expected momentum components of one site as a function of `(a, b₁, b₂)` — is
+  injective, so that a triple of coarse charge values **lying in `im Ψ`** names **exactly one**
+  family member, and `H3-flux` thereby becomes a function of the charge data **on `im Ψ` and
+  nowhere else**. **The restriction is part of the clause, not a gloss on it.** Injectivity supplies
+  a recovery only where a preimage exists; for charge data outside `im Ψ` the clause supplies no
+  family member and therefore no flux, and **whether any particular charge data lies in `im Ψ` is a
+  question this round does not ask** — the image of `Ψ` is not characterized here and stays **HO**.
+- **`H3-prop` (propagation, **on `im Ψ`**).** The coarse evolution of a state whose local charge
+  data varies slowly is determined, to the accuracy the hydrodynamic target requires and at the
+  scale the scaling map fixes, by `H3-flux` applied locally with the parameters read from the local
+  charge data — **that reading being licensed by `H3-ident`, and by nothing else in this freeze,
+  and only at sites whose local charge data lies in `im Ψ`.** **The restriction is part of the
+  clause.** Where the local charge data leaves `im Ψ` the clause says nothing, and no sentence of
+  this round extends it by continuity, by approximation, or by taking the nearest family member.
 
 **`H3-prod`, `H3-inv`, `H3-flux` and `H3-ident` are exact finite statements about H-B's candidate**,
 and the round decides them in the kernel. **`H3-prop` is the clause that would actually supply
@@ -251,6 +258,13 @@ determine the three parameters of a family member. `H3-ident` is that missing st
 the target that decides it, and **every sentence of this round that would slide from the one to the
 other is routed through `HE2-f`**. Closure needs the charge-data form; the parameter form alone is
 not it (hazard 17).
+
+**And the charge-data form that `H3-ident` supplies is restricted.** `Ψ` is a map into the
+mean-charge space, not onto it, and injectivity gives a recovery **only where a preimage exists** —
+that is, on `im Ψ`. The restriction therefore lives **in the clauses `H3-ident` and `H3-prop`
+themselves**, which is where a reader meets them; every downstream carrier of it, the gate on
+`HE6-bridge` included, **restates the clauses' own limit rather than being the place the limit is
+recorded** (hazard 18).
 
 **H3 is a CANDIDATE.** This freeze does not preregister H3 as correct, does not preregister it as
 the right shape of bridge condition, and does not preregister that its clauses hold. Two questions
@@ -393,8 +407,9 @@ that is: a triple of mean-charge values is produced by **at most one** parameter
 statement is injectivity and nothing more.** It does **not** say that every triple of charge values
 arising anywhere in the dynamics or in a coarse state lies in the image of `Ψ`; the image
 characterization is **not a target of this round**, is not attempted, and is reported **HO** wherever
-it is named. So what `HE2-f` delivers, if positive, is a recovery defined **on the image of `Ψ`**,
-and every sentence consuming it carries that qualifier.
+it is named. So what `HE2-f` delivers, if positive, is a recovery defined **on `im Ψ`** — which is
+exactly the restriction `H3-ident` and `H3-prop` already carry in their own statements, and every
+sentence consuming `HE2-f` carries it from there.
 
 **The mechanism the execution is expected to use, recorded so the target is reviewable.** Write
 `t_k := (1, (c_k)₁, (c_k)₂) ∈ ℝ³`, so that `θ_k = σ ⟨t_k, λ⟩` with `σ x = eˣ / (1 + eˣ)` and
@@ -533,7 +548,8 @@ each has a frozen post-round sentence below.**
 **The gate on `HE6-bridge`, FROZEN:**
 
 > `HE6-bridge` may be written only if **all four** of the following hold: `HE3-holds`; **`HE2-f`
-> positive in its global form**, so that the mean charges recover the parameters; `H3-prop`
+> positive in its global form**, so that the mean charges recover the parameters on `im Ψ` as
+> `H3-ident` states it; `H3-prop`
 > **statable** on the record (`HE5-statable`); and `H3-prop` **carried** by a quotation or a proved
 > statement. `HE3-holds` alone, `HE3-holds` with `HE5`, and `HE3-holds` with `HE5` and a carried
 > `H3-prop` **but without recovery**, may none of them produce it.
@@ -550,6 +566,11 @@ each has a frozen post-round sentence below.**
 > A `HE2-f` that lands only in its **local** form does not meet this gate: local injectivity
 > supplies no globally defined recovery, and the outcome is `HE6-component` with the local statement
 > recorded as what was reached.
+>
+> **The `im Ψ` restriction this gate carries is not this gate's own.** It is `H3-ident`'s and
+> `H3-prop`'s, stated in those clauses; the gate restates it so that an outcome written through the
+> gate cannot shed it, and a reader who meets the clauses outside the gate's context finds the limit
+> already there.
 
 **The gate on `HE6-wrong-shape`, FROZEN:**
 
@@ -607,8 +628,8 @@ Exactly one sentence per target is written, verbatim, in the result note.
 | `HE2-a`…`HE2-e` | positive | The clause landed at evidence level 2, at the scope its statement carries, and at no wider scope. |
 | `HE2-a`…`HE2-e` | negative | The clause is refuted for H-B's candidate by the named statement, and the refutation is a statement about this candidate and this family. |
 | `HE2-a`…`HE2-e` | UNDECIDED | The clause is neither established nor refuted at evidence level 2, with the obstruction named, and nothing is asserted in its place. |
-| `HE2-f` | positive, global | The mean-charge map of the frozen family is injective on the whole of `ℝ³` at evidence level 2, so a triple of mean-charge values names at most one parameter triple and the flux identity of `HE2-e` becomes a function of the charge data **on the image of that map**. **Injectivity is all that is established**: the image is not characterized, that characterization is not a target of this round and stays **HO**, and nothing here is closure. |
-| `HE2-f` | positive, local only | Local injectivity of the mean-charge map is established at every parameter triple through the positive-definite Jacobian, and **the global statement was not reached**. A locally defined recovery is not a globally defined one, `HE6-bridge`'s recovery gate is unmet, and no sentence of this round reads the flux off charge data outside a neighbourhood the statement names. |
+| `HE2-f` | positive, global | The mean-charge map of the frozen family is injective on the whole of `ℝ³` at evidence level 2, so a triple of mean-charge values names at most one parameter triple, and `H3-ident` holds **with the restriction its own statement carries**: the flux identity of `HE2-e` is a function of the charge data **on `im Ψ` and nowhere else**. **Injectivity is all that is established**: the image is not characterized, that characterization is not a target of this round and stays **HO**, and nothing here is closure. |
+| `HE2-f` | positive, local only | Local injectivity of the mean-charge map is established at every parameter triple through the positive-definite Jacobian, and **the global statement was not reached**. A locally defined recovery is not a globally defined one, `HE6-bridge`'s recovery gate is unmet, and no sentence of this round reads the flux off charge data outside `im Ψ`, nor outside a neighbourhood the statement names. |
 | `HE2-f` | negative | The mean-charge map of the frozen family is **not** injective, refuted by the named statement with its witness pinned by equation. The coarse charges do not determine the family member, `HE6-bridge` is unreachable, and this is a finding about this family's parameterization — not a finding that closure is unreachable or that no bridge condition exists. |
 | `HE2-f` | UNDECIDED | Whether the mean charges recover the parameters of the frozen family is UNDECIDED, with the obstruction named. **The consequence, frozen: `HE3` can still establish product form, invariance and parameter-space flux, and `HE6-component` remains reachable. What cannot be claimed is closure from charge data.** |
 | `HE3` | `HE3-holds` | For round H-B's candidate, the product-form, family-invariance and flux clauses of the frozen candidate bridge condition H3 hold at evidence level 2, at the scope their statements carry — the family being homogeneous, and the flux identity being an identity about the family **in its parameters, which is a function of the coarse charges only so far as `HE2-f` separately establishes**. **This is not closure**: the clause that would supply closure is the propagation clause, which this round does not establish, and no hydrodynamic limit, continuum equation or transport coefficient follows from anything here. |
@@ -621,7 +642,7 @@ Exactly one sentence per target is written, verbatim, in the result note.
 | `HE5` | `HE5-statable` | Every item the propagation clause's statement requires is fixed on the merged record at the base, with the quotations that fix them recorded per item. |
 | `HE5` | `HE5-unstatable` | The propagation clause of the frozen candidate bridge condition H3 cannot be stated at the mandated base, because the named items of the scaling skeleton are unfixed on the record searched. **That is a statement about the record, not about the clause**: it is not a finding that the clause is false, that it is unprovable, or that no propagation clause can be stated, and the items it names belong to the programme's H4 obligation, which stays **HO**. |
 | `HE5` | `HE5-UNDECIDED` | Whether the propagation clause is statable at the mandated base is UNDECIDED, with the obstruction named. |
-| `HE6` | `HE6-bridge` | H3, as this round froze it, is a bridge condition of the right shape for the closure step: its decidable clauses hold, **the mean charges recover the parameters globally by `HE2-f`**, and the record carries its propagation clause by the quotation or the proved statement named in the result note. **What follows is exactly this and no more**: the closure step is supplied **for round H-B's candidate**, at the scale named, **on the image of the mean-charge map**, conditional on every qualifier the clauses carry. The programme's H3 obligation is reported **HC**, conditional on H3 as stated, for the candidate; H4–H7 are untouched and stay **HO**; no continuum limit is taken, no equation is written, and nothing is said about OI. |
+| `HE6` | `HE6-bridge` | H3, as this round froze it, is a bridge condition of the right shape for the closure step: its decidable clauses hold, **the mean charges recover the parameters globally by `HE2-f`**, and the record carries its propagation clause by the quotation or the proved statement named in the result note. **What follows is exactly this and no more**: the closure step is supplied **for round H-B's candidate**, at the scale named, and **only on `im Ψ`, as `H3-ident` and `H3-prop` state in their own words** — for local charge data outside `im Ψ` the clauses supply nothing and neither does this outcome — conditional on every qualifier the clauses carry. The programme's H3 obligation is reported **HC**, conditional on H3 as stated, for the candidate; H4–H7 are untouched and stay **HO**; no continuum limit is taken, no equation is written, and nothing is said about OI. |
 | `HE6` | `HE6-component` | H3, as this round froze it, is not by itself a bridge condition that supplies closure: its decidable clauses hold for round H-B's candidate at the scope they carry, and what would supply closure is its propagation clause, which is not established here and whose statement requires items of the scaling skeleton that the record leaves unfixed. **H3 stands as a component of a bridge and not as one**, the programme's H3 obligation stays **HO**, and nothing here shows that closure is unreachable or that a bridge condition of another shape would not supply it. |
 | `HE6` | `HE6-wrong-shape` | H3, as this round froze it, is **not the right shape of bridge condition**: a condition consisting of an invariance statement for a parameterized family of measures together with a flux identity for that family does not address the gap this round enumerated, and is satisfied by a rule whose conserved-charge structure is not the candidate's. **This is a finding about the shape of the condition, not about round H-B's candidate and not about the programme's target.** The programme's H3 obligation stays **HO**; what shape a bridge would have to have instead is named in the result note as this round's adjudication and not as a theorem; and nothing here shows that closure is unreachable, that no bridge condition exists, or that the ladder is blocked. |
 | `HE6` | `HE6-UNDECIDED` | Whether H3, as this round froze it, is the right shape of bridge condition toward closure is UNDECIDED, with the obstruction named. The programme's H3 obligation stays **HO**, and neither the affirmative nor the wrong-shape reading is written anywhere. |
@@ -654,10 +675,19 @@ H4, H5, H6 and H7 keep the labels the merged record gives them and are not moved
   establish product form, invariance and parameter-space flux, and `HE6-component` remains
   reachable — what cannot be claimed is closure from charge data. A `HE2-f` reached only locally
   licenses no global sentence of this kind either.
+- **Even with a positive global `HE2-f`, the flux-from-charges rule holds only on `im Ψ`.**
+  `H3-ident` and `H3-prop` carry that restriction in their own statements, so a sentence that drops
+  it misreports the clause and not merely the gate. Forbidden: "the flux is a function of the coarse
+  charges" written without the restriction; "the parameters are read from the local charge data"
+  written without it; "the recovery extends by continuity"; "the nearest family member is taken
+  where no preimage exists"; and any propagation sentence about sites whose local charge data the
+  round has not placed in `im Ψ`.
 - **A positive `HE2-f` is injectivity, not surjectivity, and not closure.** Forbidden: "every coarse
   charge state is a family member", "the family exhausts the charge sectors", "the recovery is
-  defined on all charge data", and "recovery gives closure". The image of the mean-charge map is
-  **not** characterized by this round and stays **HO**.
+  defined on all charge data", "the coarse charge data lies in `im Ψ`", and "recovery gives
+  closure". The image of the mean-charge map is **not** characterized by this round and stays **HO**,
+  so **whether the charge data any particular coarse state carries lies in `im Ψ` is unsettled here
+  and is reported unsettled** wherever it bears on a sentence.
 - **Failing to establish H3 is not a finding that closure is unreachable.** Forbidden: "closure is
   unreachable", "no bridge condition exists", "the hydrodynamic programme is blocked",
   "Navier–Stokes is independent of the substratum", "the candidate has no hydrodynamic limit". A
@@ -746,9 +776,13 @@ H4, H5, H6 and H7 keep the labels the merged record gives them and are not moved
     two are joined only by `HE2-f`, and the merged record joins them nowhere. Every sentence that
     would cross is routed through `HE2-f`, the gate on `HE6-bridge` requires it in its global form,
     and the forbidden sentences are listed.
-18. **Reading a positive `HE2-f` as more than injectivity.** It says at most one parameter triple
-    produces given mean charges. It does not say the charge data encountered lies in the image, and
-    the image characterization is outside this round.
+18. **Reading a positive `HE2-f` as more than injectivity, or meeting `H3-ident` and `H3-prop`
+    without their restriction.** `HE2-f` says at most one parameter triple produces given mean
+    charges; it does not say the charge data encountered lies in `im Ψ`, and the image
+    characterization is outside this round. The guard against the second half is **where the
+    restriction is written**: `H3-ident` and `H3-prop` carry "on `im Ψ`" in their own statements, so
+    a reader who consumes either clause away from `HE6-bridge`'s gate still meets the limit, and a
+    downstream sentence that drops it is reporting the clause wrongly rather than the gate.
 
 ## Definition budget
 
@@ -906,8 +940,9 @@ queue row; say anything about Track B, Track I, Bell, gravity or singularities.
    `HE2-e`'s statement reported with the parameter triple as its argument;
 4. **`HE2-f`** — the mean-charge map, its frozen domain, the form of recovery reached (global, local
    or UNDECIDED) with its fallback marked used or unused, the frozen recovery-consequence sentence
-   wherever the outcome is UNDECIDED or local, and the record that the image of the map is not
-   characterized and stays **HO**;
+   wherever the outcome is UNDECIDED or local, the record that the image of the map is not
+   characterized and stays **HO**, and **the `im Ψ` restriction reproduced as `H3-ident` and
+   `H3-prop` state it** wherever either clause is reported;
 5. **`HE3`** — the assembled determination, with its single frozen sentence;
 6. **`HE4`** — the two bounds with their witnesses pinned by equation, each reported as a bound;
 7. **`HE5`** — the five scaling items reported separately as fixed or unfixed, with quotations, and
@@ -943,8 +978,10 @@ queue row; say anything about Track B, Track I, Bell, gravity or singularities.
    recorded as not meeting `HE6-bridge`'s gate. **The complementary question — whether the charge
    data actually encountered lies in the image of the mean-charge map — was considered and
    deliberately left outside the round**: it is a different statement, it would need its own target,
-   and freezing it here would widen the round without sharpening it. Its absence is why every
-   consumer of a positive `HE2-f` carries "on the image of the mean-charge map".
+   and freezing it here would widen the round without sharpening it. **Because it is left outside,
+   the limit it leaves behind is written into `H3-ident` and `H3-prop` themselves rather than into
+   the gate alone** — a clause read away from its gate must still carry its own restriction, and
+   these do.
 5. **The round is sealing.** An alternative would write no Lean and settle every target by
    locating and quoting, which would make it non-sealing and land `E` → `L`. This freeze does not,
    because `HE2` and `HE4` are exact finite statements about a kernel object and a candidate
