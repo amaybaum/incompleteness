@@ -2231,6 +2231,51 @@ principle is named, no connection or gauge fixing asserted, `GL2`, `GL3`, `GI2`,
 ancestry with the archive-mode scaffolding carried and its pins unset at execution, and checks each
 frozen reading in terms with thirty-one mutation controls.
 
+Track B act 14 (`programmes/oi-qm/track-b/act-14-threading-observability/`, preregistration blob
+`1b16008`, merged by PR #621 as `bc76a88`, the mandated execution base) is the adjudication round
+that asks what act 13's residual threading freedom **means**. Its central work is definitional and
+was frozen before any target: a **carrier of observables** is a map from coherent lifts to values
+together with a recorded reason for treating its values as observations, a freedom is *redundancy
+relative to `𝒪`* when every pair it relates has equal `𝒪`-value and *physical relative to `𝒪`* when
+some pair does not, and **four** carriers are frozen on two axes — the visible carrier `𝒪₀`, the
+anchored-channel carrier `𝒪₁`, the relative-candidate carrier `𝒪₂` and the re-anchored-channel
+carrier `𝒪₃`. **None is adopted**, and every verdict below names its carrier.
+`OIBridge/ThreadingObservability.lean` fixes the split first: the freedom is a **pair of parts**, the
+strong right factor changing no anchored column at any time and the constant left factor changing
+every anchored column by one constant in-fibre unitary. `AnchoredChannel` and `CrossFibreGram` are
+tied to merged objects rather than invented — act 7's readback is the diagonal action of the channel
+(`pq0a_readback_is_diagonal_action`), the diagonal is the visible law, and the channel is
+trace-preserving on a unitary (`pq0d_anchoredChannel_trace_preserving`), which earns the word
+*channel* and is not a claim that it is observable. The constant in-fibre left move is redundancy
+relative to `𝒪₀` (`pq1a_constant_left_redundant_visible`), physical relative to `𝒪₁` on two coherent
+lifts of the identity family whose visible reduced states differ **in modulus** at the coherence
+`(0,1)`, `1/2` against `0`, with both diagonals equal
+(`pq1b_constant_left_physical_anchoredChannel`), and physical relative to `𝒪₂` by act 13's `CT4` and
+`CL1` consumed; among constant in-fibre moves the exact `𝒪₁` stabilizer is the **uniform** ancilla
+relabellings, uniform ones redundant for every matrix
+(`pq1d_plus_uniform_left_redundant_anchoredChannel`) and every non-uniform one separated on a
+permutation lift over arbitrary finite `V` and `A`
+(`pq1d_minus_nonuniform_left_physical_anchoredChannel`), so the frozen medium-strength fallback was
+not used. The strong right gauge leaves the anchored column family **identical**
+(`pq2b_anchored_column_identity`), hence is redundancy relative to `𝒪₀`, to `𝒪₁` and to **every**
+carrier definable from single-time anchored data, named or not
+(`pq2b_every_single_time_anchored_carrier`), and is not redundancy relative to `𝒪₂`, where act 11's
+`GL2` separates it under act 7's readback convention — both true, neither the other. Relative to
+`𝒪₁` the pair acts exactly as its left part, as an iff
+(`pq3b_no_cancellation_on_anchoredChannel`), so no cancellation lives there; relative to `𝒪₂` the
+pair is separated with both parts nontrivial on a **deliberately cheap** witness
+(`pq3c_pair_physical_relative_candidate`), and whether the two parts can cancel on `𝒪₂` is
+**UNDECIDED** with its obstruction named — it is not act 13's fork `CT3` (d). `PQ4` states the two
+reductions in the one direction each has, both converses refused and no datum and no principle
+named. `P0` stays OPEN and two-part; no carrier is adopted as the physical one and none is asserted
+not to be; every `𝒪₂` and `𝒪₃` verdict carries act 7's boundary with `D4b` negative; `GL2`, `GL3`,
+`GI2`, `LG1`, `RO1`, `TG2`, `TG3`, `SH1` and `CT1`–`CT4` with `CL1` are consumed and none revised.
+Thirty-nine named results, each printing only `propext`, `Classical.choice`, `Quot.sound`; four of
+six definition slots fired; no manuscript edit. Guard `R7-PQT` pins the preregistration blob by
+content, certifies the strengthened execution ancestry with the archive-mode scaffolding carried and
+its pins unset at execution, checks each frozen reading in terms with fifty mutation controls, and
+checks structurally that the two carrier-free verdicts appear nowhere in the round's artifacts.
+
 Hydrodynamics round H-B (`programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/`,
 preregistration blob `37cc9da`, merged by PR #601 as `8de0478`, the mandated execution base)
 executes one frozen candidate at evidence level 2 in `OIBridge/HexLatticeGas.lean`: a

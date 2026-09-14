@@ -14043,6 +14043,782 @@ check('R7-CTI', ok_cti,
       'execution. No manuscript edit, no discrepancy in the start-state table. Twenty-two named contracts, '
       'thirty-one mutation controls, plus the freeze-pin drift controls.')
 
+# ---- R7-PQT: Track B act 14 -- is the residual threading freedom redundancy or physical ----
+#
+# An ADJUDICATION round, and the one whose central work is DEFINITIONAL: four carriers of
+# observables are frozen, what each does to each part of act 13's residual threading freedom is
+# computed, and NONE of the four is adopted. The predicted answer was carrier-dependent and the
+# execution reached it, so every hazard here is a READING that would flatten the carrier index or
+# the split between the two parts: "the freedom is gauge" or "the freedom is physical" written
+# without naming a carrier; a carrier adopted as the physical one; O_2 treated as an established
+# observable although act 7's D4b is negative; O_0 adopted and P0's threading part declared
+# dissolved without the price; the anchored channel offered as the sufficient datum act 13 declined
+# to name; PQ1 (b) read as a decoherence claim; PQ2 (b) read as "the strong-right part is gauge";
+# the four carriers read as a ladder; PQ3 (c) read as the substantive pair result; PQ3 (d)
+# conflated with act 13's CT3 (d) or quietly strengthened; PQ1-d- reported at full when only d+
+# landed; PQ4 promoted from a reduction to a proposal; a selection principle named; P0 closed. The
+# guard checks the central sentences in the freeze's words, each frozen reading in terms, the
+# kernel statements as conjuncts of single theorems, the six-slot budget with both unused
+# conditional slots recorded, and the literal absence of the two carrier-free verdicts.
+_PQT = open(_artifact('programmes/oi-qm/track-b/act-14-threading-observability/result.md'),
+            encoding='utf-8').read()
+_PQT1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _PQT).split())
+_PQTLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'ThreadingObservability.lean'), encoding='utf-8').read().split())
+_PQTDIR = 'programmes/oi-qm/track-b/act-14-threading-observability/'
+# The mandated execution base: the merge commit of act 14's control-plane PR #621.
+_PQT_BASE = 'bc76a88dbe300a35715d5ce8196002f31aa62493'
+# The SEALED execution head and the merge commit that carried it. Unset (None) at execution, the
+# guard certifies the run's real target. Set by the one pin-only change after the merge, the guard
+# runs in ARCHIVE MODE: the same strong check re-run against that object, plus its reachability
+# from the current target.
+_PQT_SEALED_HEAD = None
+_PQT_MERGE = None
+
+
+def _pqt_git(*args, **kw):
+    kw.setdefault('tag', 'R7-PQT')
+    return _rbr_git(*args, **kw)
+
+
+def _pqt_ensure_present(rev, pr_number=None):
+    return _rbr_ensure_present(rev, pr_number=pr_number, tag='R7-PQT')
+
+
+def _pqt_target_commit(env=None):
+    return _rbr_target_commit(env=env, tag='R7-PQT')
+
+
+def _pqt_freeze_pin(read=_bb_read):
+    """U1 -- act 14's preregistration is byte-identical to the blob merged by PR #621."""
+    return _bb_blob(_PQTDIR + 'preregistration.md', read) == (
+        '1b16008470bb1e2456c57aad58421a5941a55e0c')
+
+
+def _pqt_execution_ancestry():
+    """U2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused verbatim through acts 12's and 13's copies: the
+    head-only check is insufficient because a commit made before the freeze and merged in alongside
+    it leaves the head descended from the freeze while itself not being.
+
+    Execution mode (pins unset, as now): the strong check against the run's real target, resolved
+    from the real `pull_request.head.sha` and never from the synthetic merge commit. Archive mode
+    (pins set, after the merge): the same strong check re-run against the sealed head, with the
+    pinned merge required to carry it and both required reachable from the current target,
+    fail-closed."""
+    if _PQT_SEALED_HEAD is None:
+        target, label, num = _pqt_target_commit()
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_PQT_BASE, target, label, num, tag='R7-PQT')
+    return _rbr_archive_ancestry(_PQT_BASE, _PQT_SEALED_HEAD, _PQT_MERGE, tag='R7-PQT')
+
+
+def _pqt_outcome(t=None):
+    """U3 -- the boxed outcome: every target at level 2, PQ1-d- reached with the frozen fallback
+    UNUSED, PQ3 (d) UNDECIDED; Case A with the fork clause adding nothing; and the verdict recorded
+    as CARRIER-DEPENDENT with no carrier adopted."""
+    t = _PQT1 if t is None else t
+    return ('**`PQ0` (a)–(d), `PQ1` (a)–(c), `PQ1` (d) in both halves — `PQ1-d⁻` reached at '
+            'evidence level 2, so the frozen fallback was not used — `PQ2` (a)–(c), `PQ3` (a)–(c) '
+            'and `PQ4` all landed at evidence level 2, and the fork `PQ3` (d) is UNDECIDED, as the '
+            'freeze permits.**' in t
+            and "This is the freeze's **Case A** with the fork clause adding nothing." in t
+            and '**The verdict is carrier-dependent, and that is the round\'s substantive '
+                'content.**' in t
+            and '**No carrier is adopted as the physical one, and none is asserted not to be.**'
+                in t)
+
+
+def _pqt_structural_point(t=None):
+    """U4 -- hazard 1: the freedom is a PAIR OF PARTS, never quantified over as one object, with
+    both transformation laws stated as derivations."""
+    t = _PQT1 if t is None else t
+    return ('**The residual freedom act 13 localized is not one object; it is a pair of parts with '
+            'different transformation behaviour, and no sentence of this note quantifies over "the '
+            'freedom" without saying which part.**' in t
+            and '**the strong right factor changes no anchored column, at any time.**' in t
+            and '**the constant left factor changes every anchored column by one constant in-fibre '
+                'unitary.**' in t
+            and '**So the question "is the residual threading freedom redundancy or physical" '
+                'splits at the outset**' in t)
+
+
+def _pqt_carriers(t=None):
+    """U5 -- hazards 2, 3 and 6: the four carriers with their PRESUPPOSITIONS, the price of
+    adopting O_0 recorded, act 7's D4b boundary on O_2, NONE adopted, and no verdict travelling."""
+    t = _PQT1 if t is None else t
+    return ('**These are the only two predicates used below, and each is always carrier-indexed.**'
+            in t
+            and '"Invisible" keeps acts 11 and 12\'s meaning' in t
+            and 'dissolves the whole of `P0`, not only its threading part. **The round records that '
+                'consequence and does not adopt the carrier.**' in t
+            and 'act 7\'s `D4b` came back **negative**' in t
+            and '**Every `𝒪₂` verdict below is a verdict under that convention, and this note says '
+                'so at each use.**' in t
+            and '**None of the four is adopted as the physical one, and none is asserted not to '
+                'be.**' in t
+            and '**no verdict travels**' in t)
+
+
+def _pqt_not_a_ladder(t=None):
+    """U6 -- hazard 8: only the two diagonal-action refinements are proved and NO implication
+    between the one-time and re-anchored rows is asserted, in either direction."""
+    t = _PQT1 if t is None else t
+    return ('**The four are not a ladder ordered by resolution.**' in t
+            and '**no implication between the one-time row and the re-anchored row is asserted in '
+                'either direction.**' in t
+            and 'sequential-measurement statistics, which would need a measurement model the tree '
+                'does not contain' in t
+            and '**no claim is made about what such a carrier would say**' in t)
+
+
+def _pqt_pq0(t=None):
+    """U7 -- PQ0: the diagonal action bounded, and trace preservation EARNING the word channel
+    rather than asserting observability; complete positivity recorded not stated."""
+    t = _PQT1 if t is None else t
+    return ('**(a) The readback is the diagonal action of the anchored channel, at level 2.**' in t
+            and '**it does not say either new carrier is observable.**' in t
+            and '**This is what earns the word *channel* for `𝔇_{a₀}` rather than asserting it**'
+                in t
+            and "**It is not a claim that the channel is observable**" in t
+            and '**Complete positivity was not free and is not stated**' in t)
+
+
+def _pqt_pq1b(t=None):
+    """U8 -- hazard 5: PQ1 (b) with its NAMED time, input and entry, its MODULUS form, the |A| >= 2
+    scoping, and NOT a decoherence claim."""
+    t = _PQT1 if t is None else t
+    return ('**the named input is `ρ = ½ · J`, the uniform visible superposition; the named time is '
+            '`t = 0`; the named entry is the coherence `(0,1)`; and the certified values are `1/2` '
+            'for `U` against `0` for `U\'`**' in t
+            and 'the separation is stated **with the modulus**' in t
+            and '**`|A| ≥ 2` is part of the statement.**' in t
+            and '**This is not a decoherence claim.**' in t
+            and '**It says nothing about which lift the framework realizes, nothing about any '
+                'mechanism, and nothing about decoherence theory.**' in t)
+
+
+def _pqt_pq1d(t=None):
+    """U9 -- hazard 11: PQ1 (d) in BOTH halves at level 2 with the frozen fallback NOT used, the
+    exact stabilizer stated for O_1 and for no other carrier, and R-3 not consumed as evidence."""
+    t = _PQT1 if t is None else t
+    return ('**`PQ1-d⁺`, at level 2.**' in t
+            and '**`PQ1-d⁻`, at level 2 — the frozen fallback is NOT used.**' in t
+            and 'over arbitrary finite `V` and `A`' in t
+            and '**Consequence, stated exactly:** among constant in-fibre left moves, redundancy '
+                'relative to `𝒪₁` holds **exactly** for the uniform ancilla relabellings.' in t
+            and '**This is a statement about `𝒪₁` and about no other carrier.**' in t
+            and '**neither is evidence for the other**' in t)
+
+
+def _pqt_pq2(t=None):
+    """U10 -- hazard 7: PQ2 (b)'s load-bearing conjunct is the anchored-column IDENTITY, its reach
+    covers every single-time anchored carrier, CT3 (G) is NOT revised, and (b) with (c) is stated
+    as two truths neither of which is the other."""
+    t = _PQT1 if t is None else t
+    return ('**The load-bearing conjunct is `pq2b_anchored_column_identity`:**' in t
+            and 'the anchored column family is **identical**, not merely equal after some '
+                'functional is applied' in t
+            and '**every** carrier definable from the single-time anchored columns — at any level, '
+                'including carriers this round does not name — is blind to every strong-right '
+                'family' in t
+            and '**This covers act 13\'s merged `CT3` (G), which is stated for the Gram data, and '
+                'more — the whole anchored column family — and it revises nothing:**' in t
+            and '**Both are true; neither is the other**, and their conjunction is not a third, '
+                'stronger sentence.' in t)
+
+
+def _pqt_pq3(t=None):
+    """U11 -- hazards 9 and 10: PQ3 (b)'s factorization stated exactly with no cancellation on
+    O_1; PQ3 (c) recorded CHEAP; PQ3 (d) UNDECIDED with neither side claimed, the obstruction
+    named, and NOT act 13's CT3 (d)."""
+    t = _PQT1 if t is None else t
+    return ('**So on `𝒪₁` there is no case of "the pair separates although neither part does".**'
+            in t
+            and '**This witness is deliberately cheap and is recorded as such: its strong family '
+                'does no work at the certified time pair.**' in t
+            and '**(d) The fork — can a nontrivial left part and a nontrivial strong-right part '
+                'cancel on `𝒪₂`? UNDECIDED.**' in t
+            and 'Neither `PQ3-d⁺` nor `PQ3-d⁻` was reached, and **neither is claimed**' in t
+            and '**The obstruction, named.**' in t
+            and '**no universal theorem about how a `𝒢_L`-conjugation acts on the readback of a '
+                'general relative object exists anywhere in the merged record**' in t
+            and '**The fork is not act 13\'s `CT3` (d)**' in t
+            and '**neither answers the other, and act 13\'s fork stays UNDECIDED regardless.**'
+                in t
+            and '**The fork clause therefore adds nothing to the post-round sentence.**' in t)
+
+
+def _pqt_pq4(t=None):
+    """U12 -- hazard 12: PQ4 is a REDUCTION in one direction each, both converses explicitly not
+    claimed, the selector shape stated conditionally and nothing named."""
+    t = _PQT1 if t is None else t
+    return ('**a carrier separates it only if that carrier reads data the single-time anchored '
+            'columns do not determine**' in t
+            and '**a carrier separates it only if that carrier reads relations between the hidden '
+                'fibres of distinct visible outcomes**' in t
+            and '**This is not an answer to that question and the round does not answer it.**' in t
+            and 'Stated conditionally, as a description of a shape, and never as a proposal.**'
+                in t
+            and '**No such datum is named, proposed or excluded here**' in t)
+
+
+def _pqt_kernel(t=None):
+    """U13 -- the load-bearing statements ARE in the kernel as stated: the anchored channel and the
+    cross-fibre Gram as definitions, PQ2 (b)'s anchored-column identity and its arbitrary-carrier
+    form, PQ1 (d-) over arbitrary V and A with a coherent lift on both sides, and PQ3 (b)'s iff."""
+    t = _PQTLEAN if t is None else t
+    return ('def AnchoredChannel (a₀ : A) (M : Matrix (V × A) (V × A) ℂ) (ρ : Matrix V V ℂ) : '
+            'Matrix V V ℂ := Matrix.of fun i i\' => ∑ a : A, (M.submatrix id (fun j : V => (j, a₀)) '
+            '* ρ * (M.submatrix id (fun j : V => (j, a₀)))ᴴ) (i, a) (i\', a)' in t
+            and 'def CrossFibreGram (a₀ : A) (M : Matrix (V × A) (V × A) ℂ) (i i\' : V) : '
+                'Matrix V V ℂ := (M.submatrix (fun a : A => (i, a)) (fun j : V => (j, a₀)))ᴴ '
+                '* M.submatrix (fun a : A => (i\', a)) (fun j : V => (j, a₀))' in t
+            and 'theorem pq2b_anchored_column_identity' in t
+            and '(U t * K t).submatrix id (fun j : V => (j, a₀)) = (U t).submatrix id '
+                '(fun j : V => (j, a₀))' in t
+            and 'theorem pq2b_every_single_time_anchored_carrier {β : Type} '
+                '(𝒪 : Matrix (V × A) V ℂ → β)' in t
+            and 'theorem pq1d_minus_nonuniform_left_physical_anchoredChannel {a₀ : A} '
+                '{W : Matrix (V × A) (V × A) ℂ} (hW : LeftFibreGroup W) (hnu : ¬ UniformLeft W)'
+                in t
+            and 'CoherentLift a₀ Γ U ∧ CoherentLift a₀ Γ (fun t => W * U t) ∧ ∀ t, '
+                'AnchoredChannel a₀ (W * U t) ρ m n ≠ AnchoredChannel a₀ (U t) ρ m n' in t
+            and 'theorem pq3b_no_cancellation_on_anchoredChannel' in t
+            and '(∀ ρ : Matrix V V ℂ, AnchoredChannel a₀ (W * M * K) ρ = AnchoredChannel a₀ M ρ) ↔ '
+                '∀ ρ : Matrix V V ℂ, AnchoredChannel a₀ (W * M) ρ = AnchoredChannel a₀ M ρ' in t)
+
+
+def _pqt_pq1b_kernel(t=None):
+    """U14 -- PQ1 (b)'s witness carries |A| >= 2, the constant W IN THE LEFT FIBRE GROUP, both
+    coherence conjuncts, the threading relation, the MODULUS separation and the agreeing diagonals
+    as conjuncts of ONE statement; PQ3 (c) carries W != 1 and a non-constant strong family."""
+    t = _PQTLEAN if t is None else t
+    return ('theorem pq1b_constant_left_physical_anchoredChannel' in t
+            and "(∀ a : Fin 2, ∃ a' : Fin 2, a' ≠ a) ∧ (∀ t, Γ t = 1) ∧ (∀ t, U t = 1) ∧" in t
+            and "∧ LeftFibreGroup W ∧ CoherentLift (0 : Fin 2) Γ U ∧ CoherentLift (0 : Fin 2) Γ U' "
+                "∧ ThreadingRelated (0 : Fin 2) U U'" in t
+            and "∧ AnchoredChannel (0 : Fin 2) (U 0) ρ 0 1 = 1 / 2 ∧ AnchoredChannel (0 : Fin 2) "
+                "(U' 0) ρ 0 1 = 0 ∧ ‖AnchoredChannel (0 : Fin 2) (U' 0) ρ 0 1‖ ≠ "
+                "‖AnchoredChannel (0 : Fin 2) (U 0) ρ 0 1‖" in t
+            and "∧ (∀ i : Fin 2, AnchoredChannel (0 : Fin 2) (U' 0) ρ i i = AnchoredChannel "
+                "(0 : Fin 2) (U 0) ρ i i)" in t
+            and 'theorem pq3c_pair_physical_relative_candidate' in t
+            and 'LeftFibreGroup W ∧ W ≠ 1 ∧ (∀ t, StrongAnchorStabilizer (0 : Fin 2) (K t)) ∧ '
+                '(∃ t s : ℕ, K t ≠ K s)' in t)
+
+
+def _pqt_lean_defs(t=None):
+    """U15 -- exactly the four fired budget definitions are top-level `def`s in the module, in the
+    frozen slots' names and order, and the module carries no unproved declaration."""
+    t = _PQTLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['AnchoredChannel', 'CrossFibreGram', 'ThreadingRelated', 'UniformLeft']
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t
+            and 'import OIBridge.CrossTimeInvariants' in t
+            and 'import OIBridge.SemigroupTransfer' not in t)
+
+
+def _pqt_no_carrier_free_verdict(t=None):
+    """U16 -- hazard 1, structurally: the two unqualified verdicts appear NOWHERE in the round's
+    artifacts except inside the status-rule sentence that declares their absence. Checked over the
+    result note and the module together, with that one declared quotation excised first."""
+    t = (_PQT1 + ' ' + _PQTLEAN) if t is None else t
+    declared = ('The unqualified sentences "the threading freedom is gauge" and "the threading '
+                'freedom is physical" appear nowhere in this round')
+    lower = t.replace(declared, '').lower()
+    return ('the threading freedom is gauge' not in lower
+            and 'the threading freedom is physical' not in lower
+            and 'the freedom is gauge' not in lower
+            and 'the freedom is physical' not in lower)
+
+
+def _pqt_status_rule(t=None):
+    """U17 -- the status rule as honoured, in terms: P0 not closed and neither part closed, no
+    selection principle, every verdict carrier-indexed, no carrier adopted, UNDECIDED recorded with
+    its obstruction, act 7's boundary at each use, no manuscript, no merged label revised."""
+    t = _PQT1 if t is None else t
+    return ('`P0` is not closed and neither of its two parts is reported closed; the row stays OPEN.'
+            in t
+            and 'No selection principle is named, adopted, endorsed or excluded' in t
+            and 'no sentence of this note begins "the selection principle is", "the connection is" '
+                'or "the gauge fixing is"' in t
+            and '**The unqualified sentences "the threading freedom is gauge" and "the threading '
+                'freedom is physical" appear nowhere in this round\'s artifacts, in any paraphrase, '
+                'including in summary lines and table cells.**' in t
+            and 'No carrier is adopted as the physical one, and none is asserted not to be.' in t
+            and '**No verdict travels between carriers.**' in t
+            and '**No manuscript is edited by this round.**' in t)
+
+
+def _pqt_post_round(t=None):
+    """U18 -- the frozen Case A sentence, verbatim, and the row's label unchanged."""
+    t = _PQT1 if t is None else t
+    return ('`P0` remains open and two-part, and the threading part is answered relative to each '
+            'frozen carrier of observables and to none other. The time-dependent strong right gauge '
+            'changes no anchored column at any time, so it is redundancy relative to the visible '
+            'carrier, relative to the anchored-channel carrier and relative to every carrier '
+            'definable from single-time anchored data; it is not redundancy relative to the '
+            'relative-candidate carrier, where act 11\'s `GL2` separates it under act 7\'s readback '
+            'convention. The constant in-fibre left move is redundancy relative to the visible '
+            'carrier and, among constant in-fibre moves, relative to the anchored-channel carrier '
+            'exactly for the uniform ancilla relabellings; it is separated by the anchored-channel '
+            'carrier on two coherent lifts of one visible family whose visible reduced states '
+            'differ in modulus at one coherence, and by the relative-candidate carrier, where act '
+            '13\'s `CL1` separates it. Relative to the anchored-channel carrier the two parts '
+            'together act exactly as the left part alone. **No carrier is adopted as the physical '
+            'one**, so whether an additional selector is required turns on a decision this round '
+            'does not take; if one is required it must select one constant in-fibre frame modulo '
+            'the uniform relabellings together with one strong-right family modulo a constant, on '
+            'data that is neither constant-left invariant nor strong-right invariant — which no '
+            'fibre-Gram or column-Gram datum is. Nothing here names, endorses or excludes a '
+            'selection principle, and `P0`\'s other part — what selects or constrains the Gram/orbit '
+            'trajectory across time — is untouched.' in t
+            and 'The `P0` row stays **OPEN**.' in t
+            and '**No case closes `P0`.**' in t
+            and '**Neither of `P0`\'s two parts is reported closed.**' in t)
+
+
+def _pqt_not_licensed(t=None):
+    """U19 -- the frozen non-licences, in terms."""
+    t = _PQT1 if t is None else t
+    return ('**No selection principle is named**, endorsed or excluded.' in t
+            and '**No carrier is asserted to be the physical one**, and none is asserted not to be.'
+                in t
+            and '**`P0` is not closed by an answer relative to a carrier.**' in t
+            and '**Nothing here says OI and QM are inequivalent.**' in t
+            and '**Nothing here is a claim about decoherence.**' in t
+            and '**The anchored channel is not offered as a datum sufficient for the relative '
+                'candidate.**' in t
+            and '**The cross-fibre Gram and the anchored channel are constructions on the lift '
+                'space**' in t
+            and '**Nothing is imported from the substratum Lemma 24.1 round.**' in t
+            and '**Nothing about Track I.**' in t)
+
+
+def _pqt_relation(t=None):
+    """U20 -- the relation to acts 11, 12 and 13: every merged label consumed, none revised, GI2
+    not read as PQ1 (b), joint maximality neither asserted nor excluded, CT3 (d) still UNDECIDED."""
+    t = _PQT1 if t is None else t
+    return ('Act 11\'s `GL2` **stands as stated**' in t
+            and 'Act 11\'s `GI2` is **not revised**' in t
+            and '**`PQ1` (b) is not a `GI2` statement**' in t
+            and '**joint maximality of the two-sided action is neither asserted nor excluded here '
+                'either**' in t
+            and 'this note does not present its pair as sharing per-time Gram data, because `TG3` '
+                'proves it does not' in t
+            and 'Act 13\'s fork `CT3` (d) stands UNDECIDED and is **not** this round\'s `PQ3` (d)'
+                in t
+            and '**It revises no merged result.**' in t)
+
+
+def _pqt_budget(t=None):
+    """U21 -- four of six slots with the fired conditional slot and both unused slots recorded for
+    stated reasons, and no seventh."""
+    t = _PQT1 if t is None else t
+    return ('## Definition budget: **FOUR of the frozen six slots fire**' in t
+            and '4 (conditional) | a uniformity predicate on `𝒢_L` — `UniformLeft` | **fired**' in t
+            and '5 (conditional) | a per-carrier observational-equality predicate | **unused**' in t
+            and '6 (conditional) | a relative-object or relative-candidate abbreviation | '
+                '**unused**' in t
+            and '**No seventh definition was introduced**' in t
+            and 'Acts 7\'s, 11\'s, 12\'s and 13\'s definitions are **reused, not redefined**.' in t)
+
+
+def _pqt_chronology_scope(t=None):
+    """U22 -- the chronology certification names the property certified and the archive pins as
+    UNSET at execution."""
+    t = _PQT1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside '
+            '`B`\'s descendants.**' in t
+            and '**archive mode** (`_PQT_SEALED_HEAD`, `_PQT_MERGE`) is present and **unset**' in t
+            and '**unset at execution**' in t)
+
+
+def _pqt_discrepancy(t=None):
+    """U23 -- the start-state table is clean, the one recorded item is the unnamed module path, the
+    PQ1 (d-) fallback is recorded AVAILABLE AND UNUSED, D5 stands NOT CERTIFIED and no smallest
+    sufficient datum is named."""
+    t = _PQT1 if t is None else t
+    return ('**Every blob in the freeze\'s start-state table is present at the mandated base with '
+            'the SHA the freeze records.**' in t
+            and '**The freeze reserves the guard tag `R7-PQT` but does not name the module path.**'
+                in t
+            and '**The frozen `PQ1` (d⁻) fallback was available and was not used**' in t
+            and '**Act 7 layer 2\'s `D5` chronological-ordering control stands NOT CERTIFIED.**'
+                in t
+            and '**It does not name a smallest sufficient datum.**' in t
+            and '**It does not answer act 13\'s fork `CT3` (d)**' in t
+            and '**It touches no manuscript.**' in t)
+
+
+ok_pqt = True
+ok_pqt &= _pqt_freeze_pin()
+ok_pqt &= _pqt_execution_ancestry()
+ok_pqt &= _pqt_outcome()
+ok_pqt &= _pqt_structural_point()
+ok_pqt &= _pqt_carriers()
+ok_pqt &= _pqt_not_a_ladder()
+ok_pqt &= _pqt_pq0()
+ok_pqt &= _pqt_pq1b()
+ok_pqt &= _pqt_pq1d()
+ok_pqt &= _pqt_pq2()
+ok_pqt &= _pqt_pq3()
+ok_pqt &= _pqt_pq4()
+ok_pqt &= _pqt_kernel()
+ok_pqt &= _pqt_pq1b_kernel()
+ok_pqt &= _pqt_lean_defs()
+ok_pqt &= _pqt_no_carrier_free_verdict()
+ok_pqt &= _pqt_status_rule()
+ok_pqt &= _pqt_post_round()
+ok_pqt &= _pqt_not_licensed()
+ok_pqt &= _pqt_relation()
+ok_pqt &= _pqt_budget()
+ok_pqt &= _pqt_chronology_scope()
+ok_pqt &= _pqt_discrepancy()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# P0 closed by an answer relative to a carrier -- the over-reading the freeze forbids in every case
+_pqt_m1 = _PQT1.replace('**`P0` is not closed by an answer relative to a carrier.**',
+                        '**`P0` is closed by the answer relative to `𝒪₁`.**')
+ok_pqt &= _pqt_m1 != _PQT1 and not _pqt_not_licensed(_pqt_m1)
+
+_pqt_m2 = _PQT1.replace('**No case closes `P0`.**', '**Case A closes the threading part of `P0`.**')
+ok_pqt &= _pqt_m2 != _PQT1 and not _pqt_post_round(_pqt_m2)
+
+# one of P0's two parts reported closed -- status rule clause 1
+_pqt_m3 = _PQT1.replace('`P0` is not closed and neither of its two parts is reported closed; the '
+                        'row stays OPEN.',
+                        'The threading part of `P0` is closed; the row is retired.')
+ok_pqt &= _pqt_m3 != _PQT1 and not _pqt_status_rule(_pqt_m3)
+
+# a selection principle named -- status rule clause 2
+_pqt_m4 = _PQT1.replace('**No selection principle is named**, endorsed or excluded.',
+                        'The selection principle is the uniform ancilla relabelling gauge fixing.')
+ok_pqt &= _pqt_m4 != _PQT1 and not _pqt_not_licensed(_pqt_m4)
+
+# a carrier adopted as the physical one -- status rule clause 4, hazard 3
+_pqt_m5 = _PQT1.replace('**None of the four is adopted as the physical one, and none is asserted '
+                        'not to be.**',
+                        'The anchored-channel carrier is the physically appropriate equivalence '
+                        'relation.')
+ok_pqt &= _pqt_m5 != _PQT1 and not _pqt_carriers(_pqt_m5)
+
+_pqt_m6 = _PQT1.replace('**No carrier is asserted to be the physical one**, and none is asserted '
+                        'not to be.',
+                        'The relative-candidate carrier is the physical one.')
+ok_pqt &= _pqt_m6 != _PQT1 and not _pqt_not_licensed(_pqt_m6)
+
+# the price of adopting O_0 dropped -- hazard 3
+_pqt_m7 = _PQT1.replace('dissolves the whole of `P0`, not only its threading part. **The round '
+                        'records that consequence and does not adopt the carrier.**',
+                        'dissolves the threading part of `P0`, which the round adopts.')
+ok_pqt &= _pqt_m7 != _PQT1 and not _pqt_carriers(_pqt_m7)
+
+# act 7's D4b boundary dropped from the O_2 verdicts -- hazard 2, status rule clause 6
+_pqt_m8 = _PQT1.replace('**Every `𝒪₂` verdict below is a verdict under that convention, and this '
+                        'note says so at each use.**',
+                        'The relative-candidate carrier is an established observable.')
+ok_pqt &= _pqt_m8 != _PQT1 and not _pqt_carriers(_pqt_m8)
+
+# a carrier-free verdict written -- hazard 1, in the note
+_pqt_m9 = _PQT1 + ' So the threading freedom is gauge.'
+ok_pqt &= not _pqt_no_carrier_free_verdict(_pqt_m9)
+
+_pqt_m10 = _PQT1 + ' So the threading freedom is physical.'
+ok_pqt &= not _pqt_no_carrier_free_verdict(_pqt_m10)
+
+# the pair of parts flattened into one object -- the freeze's structural point
+_pqt_m11 = _PQT1.replace('**The residual freedom act 13 localized is not one object; it is a pair '
+                         'of parts with different transformation behaviour, and no sentence of this '
+                         'note quantifies over "the freedom" without saying which part.**',
+                         'The residual freedom act 13 localized is one object and is treated as '
+                         'one throughout.')
+ok_pqt &= _pqt_m11 != _PQT1 and not _pqt_structural_point(_pqt_m11)
+
+# the four carriers presented as a ladder -- hazard 8
+_pqt_m12 = _PQT1.replace('**The four are not a ladder ordered by resolution.**',
+                         'The four carriers form a ladder ordered by resolution.')
+ok_pqt &= _pqt_m12 != _PQT1 and not _pqt_not_a_ladder(_pqt_m12)
+
+_pqt_m13 = _PQT1.replace('**no implication between the one-time row and the re-anchored row is '
+                         'asserted in either direction.**',
+                         'the re-anchored row refines the one-time row.')
+ok_pqt &= _pqt_m13 != _PQT1 and not _pqt_not_a_ladder(_pqt_m13)
+
+# a measurement-model carrier supplied -- hazard 13
+_pqt_m14 = _PQT1.replace('**no claim is made about what such a carrier would say**',
+                         'such a carrier would separate both parts')
+ok_pqt &= _pqt_m14 != _PQT1 and not _pqt_not_a_ladder(_pqt_m14)
+
+# the trace conjunct read as observability -- PQ0 (d)'s bound
+_pqt_m15 = _PQT1.replace('**It is not a claim that the channel is observable**',
+                         'So the channel is observable')
+ok_pqt &= _pqt_m15 != _PQT1 and not _pqt_pq0(_pqt_m15)
+
+# PQ0 (a) read as making the new carriers observable
+_pqt_m16 = _PQT1.replace('**it does not say either new carrier is observable.**',
+                         'so both new carriers are observable.')
+ok_pqt &= _pqt_m16 != _PQT1 and not _pqt_pq0(_pqt_m16)
+
+# PQ1 (b) read as a decoherence claim -- hazard 5
+_pqt_m17 = _PQT1.replace('**This is not a decoherence claim.**',
+                         'This is a decoherence claim.')
+ok_pqt &= _pqt_m17 != _PQT1 and not _pqt_pq1b(_pqt_m17)
+
+# PQ1 (b)'s modulus form weakened to a phase difference
+_pqt_m18 = _PQT1.replace('the separation is stated **with the modulus**',
+                         'the separation is a difference of phase')
+ok_pqt &= _pqt_m18 != _PQT1 and not _pqt_pq1b(_pqt_m18)
+
+# the |A| >= 2 conjunct removed from PQ1 (b)'s THEOREM
+_pqt_m19 = _PQTLEAN.replace("(∀ a : Fin 2, ∃ a' : Fin 2, a' ≠ a) ∧ (∀ t, Γ t = 1) ∧ (∀ t, U t = 1) ∧",
+                            "(∀ t, Γ t = 1) ∧ (∀ t, U t = 1) ∧")
+ok_pqt &= _pqt_m19 != _PQTLEAN and not _pqt_pq1b_kernel(_pqt_m19)
+
+# the modulus separation dropped from PQ1 (b)'s THEOREM, leaving the two values alone
+_pqt_m20 = _PQTLEAN.replace("∧ ‖AnchoredChannel (0 : Fin 2) (U' 0) ρ 0 1‖ ≠ "
+                            "‖AnchoredChannel (0 : Fin 2) (U 0) ρ 0 1‖", "")
+ok_pqt &= _pqt_m20 != _PQTLEAN and not _pqt_pq1b_kernel(_pqt_m20)
+
+# PQ1-d- reported at full when only d+ landed -- hazard 11
+_pqt_m21 = _PQT1.replace('**`PQ1-d⁻`, at level 2 — the frozen fallback is NOT used.**',
+                         '**`PQ1-d⁻`** follows from `PQ1-d⁺` by the same computation.')
+ok_pqt &= _pqt_m21 != _PQT1 and not _pqt_pq1d(_pqt_m21)
+
+# the exact stabilizer claimed for every carrier rather than for O_1 -- status rule clause 5
+_pqt_m22 = _PQT1.replace('**This is a statement about `𝒪₁` and about no other carrier.**',
+                         'The same exact stabilizer holds on every carrier.')
+ok_pqt &= _pqt_m22 != _PQT1 and not _pqt_pq1d(_pqt_m22)
+
+# act 7's R-3 consumed as the d+ computation -- hazard 17
+_pqt_m23 = _PQT1.replace('**neither is evidence for the other**',
+                         'so `R-3` is the `PQ1` (d⁺) computation')
+ok_pqt &= _pqt_m23 != _PQT1 and not _pqt_pq1d(_pqt_m23)
+
+# PQ1-d-'s universality weakened to the witness carrier in the KERNEL
+_pqt_m24 = _PQTLEAN.replace('theorem pq1d_minus_nonuniform_left_physical_anchoredChannel {a₀ : A} '
+                            '{W : Matrix (V × A) (V × A) ℂ} (hW : LeftFibreGroup W) '
+                            '(hnu : ¬ UniformLeft W)',
+                            'theorem pq1d_minus_nonuniform_left_physical_anchoredChannel '
+                            '{a₀ : Fin 2} {W : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ} '
+                            '(hW : LeftFibreGroup W) (hnu : ¬ UniformLeft W)')
+ok_pqt &= _pqt_m24 != _PQTLEAN and not _pqt_kernel(_pqt_m24)
+
+# PQ2 (b) read as "the strong-right part is gauge" -- hazard 7
+_pqt_m25 = _PQT1.replace('**Both are true; neither is the other**, and their conjunction is not a '
+                         'third, stronger sentence.',
+                         'Together they say the strong-right part is gauge.')
+ok_pqt &= _pqt_m25 != _PQT1 and not _pqt_pq2(_pqt_m25)
+
+# PQ2 (b)'s reach narrowed to the Gram data, or CT3 (G) declared revised
+_pqt_m26 = _PQT1.replace('**This covers act 13\'s merged `CT3` (G), which is stated for the Gram '
+                         'data, and more — the whole anchored column family — and it revises '
+                         'nothing:**',
+                         '**This supersedes act 13\'s `CT3` (G):**')
+ok_pqt &= _pqt_m26 != _PQT1 and not _pqt_pq2(_pqt_m26)
+
+# the anchored-column identity weakened to equality after a functional
+_pqt_m27 = _PQT1.replace('the anchored column family is **identical**, not merely equal after some '
+                         'functional is applied',
+                         'the anchored column family agrees after the channel is applied')
+ok_pqt &= _pqt_m27 != _PQT1 and not _pqt_pq2(_pqt_m27)
+
+# PQ2 (b)'s arbitrary-carrier form narrowed in the KERNEL to the anchored channel alone
+_pqt_m28 = _PQTLEAN.replace('theorem pq2b_every_single_time_anchored_carrier {β : Type} '
+                            '(𝒪 : Matrix (V × A) V ℂ → β)',
+                            'theorem pq2b_every_single_time_anchored_carrier '
+                            '(𝒪 : Matrix (V × A) V ℂ → Matrix V V ℂ)')
+ok_pqt &= _pqt_m28 != _PQTLEAN and not _pqt_kernel(_pqt_m28)
+
+# PQ3 (c) promoted to the substantive pair result -- hazard 9
+_pqt_m29 = _PQT1.replace('**This witness is deliberately cheap and is recorded as such: its strong '
+                         'family does no work at the certified time pair.**',
+                         'This witness settles the pair question.')
+ok_pqt &= _pqt_m29 != _PQT1 and not _pqt_pq3(_pqt_m29)
+
+# the fork resolved without a triple or a universal theorem
+_pqt_m30 = _PQT1.replace('Neither `PQ3-d⁺` nor `PQ3-d⁻` was reached, and **neither is claimed**',
+                         '`PQ3-d⁻` holds: relative to `𝒪₂` the two parts cannot cancel')
+ok_pqt &= _pqt_m30 != _PQT1 and not _pqt_pq3(_pqt_m30)
+
+# PQ3 (d) conflated with act 13's CT3 (d) -- hazard 10
+_pqt_m31 = _PQT1.replace('**The fork is not act 13\'s `CT3` (d)**',
+                         '**The fork is act 13\'s `CT3` (d) restated**')
+ok_pqt &= _pqt_m31 != _PQT1 and not _pqt_pq3(_pqt_m31)
+
+# the O_1 factorization weakened so that a cancellation is left open there
+_pqt_m32 = _PQT1.replace('**So on `𝒪₁` there is no case of "the pair separates although neither '
+                         'part does".**',
+                         'Whether the pair separates on `𝒪₁` when neither part does is undecided.')
+ok_pqt &= _pqt_m32 != _PQT1 and not _pqt_pq3(_pqt_m32)
+
+# PQ3 (b)'s iff weakened to one implication in the KERNEL
+_pqt_m33 = _PQTLEAN.replace('(∀ ρ : Matrix V V ℂ, AnchoredChannel a₀ (W * M * K) ρ = '
+                            'AnchoredChannel a₀ M ρ) ↔ ∀ ρ : Matrix V V ℂ, '
+                            'AnchoredChannel a₀ (W * M) ρ = AnchoredChannel a₀ M ρ',
+                            '(∀ ρ : Matrix V V ℂ, AnchoredChannel a₀ (W * M * K) ρ = '
+                            'AnchoredChannel a₀ M ρ) → ∀ ρ : Matrix V V ℂ, '
+                            'AnchoredChannel a₀ (W * M) ρ = AnchoredChannel a₀ M ρ')
+ok_pqt &= _pqt_m33 != _PQTLEAN and not _pqt_kernel(_pqt_m33)
+
+# PQ4 promoted from a reduction to an answer -- hazard 12
+_pqt_m34 = _PQT1.replace('**This is not an answer to that question and the round does not answer '
+                         'it.**',
+                         'So the off-anchor columns carry physical content.')
+ok_pqt &= _pqt_m34 != _PQT1 and not _pqt_pq4(_pqt_m34)
+
+# PQ4 (c) promoted from a shape to a proposal
+_pqt_m35 = _PQT1.replace('Stated conditionally, as a description of a shape, and never as a '
+                         'proposal.**',
+                         'The selector this round proposes is the following.')
+ok_pqt &= _pqt_m35 != _PQT1 and not _pqt_pq4(_pqt_m35)
+
+# a sufficient datum named -- hazard 4, status rule clause 2
+_pqt_m36 = _PQT1.replace('**No such datum is named, proposed or excluded here**',
+                         'The sufficient datum is the cross-fibre Gram trajectory')
+ok_pqt &= _pqt_m36 != _PQT1 and not _pqt_pq4(_pqt_m36)
+
+# the anchored channel offered as the datum act 13 declined to name -- hazard 4
+_pqt_m37 = _PQT1.replace('**The anchored channel is not offered as a datum sufficient for the '
+                         'relative candidate.**',
+                         'The anchored channel is the datum act 13 declined to name.')
+ok_pqt &= _pqt_m37 != _PQT1 and not _pqt_not_licensed(_pqt_m37)
+
+# the substratum round's vocabulary imported -- hazard 14
+_pqt_m38 = _PQT1.replace('**Nothing is imported from the substratum Lemma 24.1 round.**',
+                         'The Lemma 24.1 round\'s channel family is the fifth carrier.')
+ok_pqt &= _pqt_m38 != _PQT1 and not _pqt_not_licensed(_pqt_m38)
+
+# a merged label revised -- hazard 18, status rule clause 8
+_pqt_m39 = _PQT1.replace('Act 11\'s `GI2` is **not revised**', 'Act 11\'s `GI2` is **superseded**')
+ok_pqt &= _pqt_m39 != _PQT1 and not _pqt_relation(_pqt_m39)
+
+_pqt_m40 = _PQT1.replace('**`PQ1` (b) is not a `GI2` statement**',
+                         '**`PQ1` (b) is the `GI2` statement corrected**')
+ok_pqt &= _pqt_m40 != _PQT1 and not _pqt_relation(_pqt_m40)
+
+# joint maximality asserted -- act 12's boundary
+_pqt_m41 = _PQT1.replace('**joint maximality of the two-sided action is neither asserted nor '
+                         'excluded here either**',
+                         '**the two-sided action is jointly maximal**')
+ok_pqt &= _pqt_m41 != _PQT1 and not _pqt_relation(_pqt_m41)
+
+# a fifth definition slipped in, or the budget misreported
+_pqt_m42 = _PQTLEAN.replace('def UniformLeft',
+                            'def CarrierEqual (𝒪 : ℕ → Prop) := 𝒪 def UniformLeft')
+ok_pqt &= _pqt_m42 != _PQTLEAN and not _pqt_lean_defs(_pqt_m42)
+
+_pqt_m43 = _PQT1.replace('**No seventh definition was introduced**',
+                         'A seventh definition was convenient and was added')
+ok_pqt &= _pqt_m43 != _PQT1 and not _pqt_budget(_pqt_m43)
+
+# the archive pins reported set at execution -- hazard 20
+_pqt_m44 = _PQT1.replace('**archive mode** (`_PQT_SEALED_HEAD`, `_PQT_MERGE`) is present and '
+                         '**unset**',
+                         '**archive mode** (`_PQT_SEALED_HEAD`, `_PQT_MERGE`) is present and '
+                         '**set**')
+ok_pqt &= _pqt_m44 != _PQT1 and not _pqt_chronology_scope(_pqt_m44)
+
+# the head-only chronology claim substituted for the strong one -- hazard 20
+_pqt_m45 = _PQT1.replace('**The property certified is: no commit reachable from the execution head '
+                         'lies outside `B`\'s descendants.**',
+                         '**The property certified is: the execution head descends from `B`.**')
+ok_pqt &= _pqt_m45 != _PQT1 and not _pqt_chronology_scope(_pqt_m45)
+
+# the fallback quietly used while d- is reported landed
+_pqt_m46 = _PQT1.replace('**The frozen `PQ1` (d⁻) fallback was available and was not used**',
+                         'The frozen `PQ1` (d⁻) fallback was used')
+ok_pqt &= _pqt_m46 != _PQT1 and not _pqt_discrepancy(_pqt_m46)
+
+# act 13's fork answered -- the non-doing
+_pqt_m47 = _PQT1.replace('**It does not answer act 13\'s fork `CT3` (d)**',
+                         '**It answers act 13\'s fork `CT3` (d) negatively**')
+ok_pqt &= _pqt_m47 != _PQT1 and not _pqt_discrepancy(_pqt_m47)
+
+# a manuscript propagation the round is forbidden to make
+_pqt_m48 = _PQT1.replace('**It touches no manuscript.**', 'The manuscripts carry the four carriers.')
+ok_pqt &= _pqt_m48 != _PQT1 and not _pqt_discrepancy(_pqt_m48)
+
+# the outcome line strengthened on the unpredicted fork
+_pqt_m49 = _PQT1.replace('and the fork `PQ3` (d) is UNDECIDED, as the freeze permits.**',
+                         'and the fork `PQ3` (d) landed positively.**')
+ok_pqt &= _pqt_m49 != _PQT1 and not _pqt_outcome(_pqt_m49)
+
+# the carrier-dependence of the verdict erased from the outcome line
+_pqt_m50 = _PQT1.replace('**The verdict is carrier-dependent, and that is the round\'s substantive '
+                         'content.**',
+                         'The verdict is uniform across the carriers.')
+ok_pqt &= _pqt_m50 != _PQT1 and not _pqt_outcome(_pqt_m50)
+
+# U1's control runs THROUGH _pqt_freeze_pin, so sabotaging that predicate fails the guard.
+def _pqt_drift(path):
+    """One byte appended to act 14's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-14-threading-observability/preregistration.md') else b'')
+
+
+ok_pqt &= _pqt_drift(_PQTDIR + 'preregistration.md') != _bb_read(_PQTDIR + 'preregistration.md')
+ok_pqt &= not _pqt_freeze_pin(_pqt_drift)
+
+check('R7-PQT', ok_pqt,
+      'Track B act 14 guard: an ADJUDICATION round whose central work is DEFINITIONAL -- four carriers of '
+      'observables frozen, what each does to each of the TWO PARTS of act 13\'s residual threading freedom '
+      'computed, and NONE of the four adopted. The boxed outcome is checked verbatim -- every target at level 2, '
+      'PQ1-d- reached over arbitrary V and A with the frozen fallback UNUSED, PQ3 (d) UNDECIDED, Case A with the '
+      'fork clause adding nothing, the verdict recorded CARRIER-DEPENDENT -- with the unpredicted fork '
+      'strengthened and the carrier-dependence erased both mutation-tested. The structural point is checked in the '
+      'freeze\'s words: the freedom is a PAIR OF PARTS, never quantified over as one object, the strong right '
+      'factor changing no anchored column and the constant left factor changing every anchored column by one '
+      'constant in-fibre unitary; the flattening is mutation-tested. The four carriers are checked present with '
+      'their PRESUPPOSITIONS -- the price of adopting the visible carrier (it identifies act 12\'s TG3 pair and '
+      'dissolves the whole of P0) recorded, act 7\'s D4b boundary carried at EVERY relative-candidate verdict, '
+      'none adopted as the physical one and none asserted not to be, and no verdict travelling between carriers; '
+      'the adoption, the dropped price and the dropped D4b boundary are each mutation-tested. The four are checked '
+      'NOT a ladder, with no implication between the one-time and re-anchored rows in either direction, and the '
+      'sequential-measurement carrier recorded as an absent choice with no claim about what it would say; both '
+      'promotions mutation-tested. PQ0 is checked bounded -- the diagonal action does NOT make either new carrier '
+      'observable, trace preservation EARNS the word channel rather than asserting observability, complete '
+      'positivity recorded not stated -- both over-readings mutation-tested. PQ1 (b) is checked with its NAMED '
+      'time, input and entry, its MODULUS form, the |A| >= 2 scoping and the explicit refusal of a decoherence '
+      'reading, with the scoping conjunct and the modulus conjunct removals mutation-tested in the KERNEL and the '
+      'decoherence reading and the phase weakening mutation-tested in the note. PQ1 (d) is checked in BOTH halves '
+      'at level 2 with the exact O_1 stabilizer stated for O_1 AND FOR NO OTHER CARRIER and act 7\'s R-3 NOT '
+      'consumed as evidence for it, with the d- collapse, the stabilizer transfer and the R-3 conflation '
+      'mutation-tested and the universality narrowing mutation-tested in the kernel. PQ2 (b) is checked resting on '
+      'the anchored-column IDENTITY, reaching EVERY carrier definable from single-time anchored data through a '
+      'statement over an arbitrary function of the anchored column family, ADDING to act 13\'s CT3 (G) and '
+      'revising nothing, and stated with PQ2 (c) as two truths neither of which is the other; the gauge reading, '
+      'the supersession, the weakened identity and the kernel narrowing are each mutation-tested. PQ3 is checked '
+      'with (b)\'s factorization stated exactly as an iff in the kernel -- so no cancellation on the '
+      'anchored-channel carrier -- (c) recorded DELIBERATELY CHEAP, and (d) UNDECIDED with neither side claimed, '
+      'the obstruction named, and NOT act 13\'s CT3 (d); the promotion of (c), the resolution of (d), the '
+      'conflation with CT3 (d), the reopening of the O_1 factorization and the one-way weakening in the kernel are '
+      'each mutation-tested. PQ4 is checked a REDUCTION in one direction each with both converses refused and the '
+      'selector shape conditional and unnamed; the promotion to an answer, the promotion to a proposal and the '
+      'named datum are mutation-tested. The two carrier-free verdicts -- "the threading freedom is gauge" and '
+      '"the threading freedom is physical" -- are checked ABSENT from the note and the module together, with both '
+      'insertions mutation-tested. The status rule is checked clause by clause; the frozen Case A post-round '
+      'sentence is checked verbatim with P0 OPEN and neither part closed; the non-licences are checked in terms '
+      'with the closure, the named principle, the adopted carrier, the sufficient datum and the substratum import '
+      'mutation-tested. GL2, GL3, GI2, LG1, RO1, TG2, TG3, SH1, CT1-CT4 and CL1 are checked consumed and none '
+      'revised, joint maximality neither asserted nor excluded, and act 13\'s CT3 (d) still UNDECIDED. Four of six '
+      'definition slots fire with the fired conditional slot and both unused slots recorded for stated reasons and '
+      'no seventh; the module is checked to carry EXACTLY those four top-level definitions in the frozen names, no '
+      'unproved declaration, and no import of the Lemma 24.1 module. The chronology control is act 10\'s STRONG '
+      'form: the blob by content, the real pull_request.head.sha rather than the synthetic merge commit, B an '
+      'ancestor of the head AND every commit of the execution-only history required to descend from B, recovery '
+      'included and fail-closed, with the archive-mode scaffolding carried and its pins checked recorded UNSET at '
+      'execution; the head-only substitution and the set pins are mutation-tested. The start-state table is clean, '
+      'the one recorded item is the module path the freeze does not name, the PQ1 (d-) fallback is recorded '
+      'available and unused, D5 stands NOT CERTIFIED, no smallest sufficient datum is named, act 13\'s fork is not '
+      'answered and no manuscript is edited. Twenty-three named contracts, fifty mutation controls, plus the '
+      'freeze-pin drift controls.')
+
 # ---- R7-HYB: Hydrodynamics round H-B -- the reversible streaming-and-collision substratum ----
 #
 # The second executed round of the hydrodynamics programme, and a CONSTRUCTIVE one: a frozen lattice
