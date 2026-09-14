@@ -459,6 +459,36 @@ operational theory**, which has no distinguished substratum: there A1 and A2 hav
 *images*, and images are not the axioms. That finding is about the operational interface; the
 paragraphs above are about the substratum structure. Both hold, of different objects.
 
+**What the instantiation round settled, and what it did not.** Round 2, linked below, tests the
+row's named hypothesis directly, in the two halves the row states, and leaves the label where it
+stands. *The packaging half.* `A6Instantiation.lean` packages the manuscripts' six-fold
+link-coupled rule as a `Substratum` of the kernel's own structure **with no field added** — cubic
+torus, six-component alphabet over `ℤ/qℤ`, axis neighbourhood, link-valued coupling carried as a
+parameter, second-order term carried by the leap — and proves that the packaged carrier's update
+map is the interface's link-coupled map (`pk2a_bridge`), that `A1`–`A5` hold of it
+(`pk3a_A1`–`pk3e_A5`, with `A4Exact` **under the translation-invariance hypothesis on the link
+coupling**, `∀ v i j, M (i + v) (j + v) = M i j`, which is part of that statement and is reported
+with it every time), that its transformation class is larger than the singleton-index one
+(`pk4_shift_not_scalar`), and that the adopted meaning holds of its own link data
+(`pk2b_covariance`). **That last clause is an instance of `a6cov_all`, so it carries exactly the
+information that the rule is of the covariant form and no information that a condition was tested
+and survived.** *The lift half.* The round splits "inside the interface" in two. The **covariance
+statement** comes inside: `A6Cov` is proved at `V = Fin 6 → ℂ` with no new definition and no
+structure added (`cx1_complex_covariance`), and the manuscripts' site-dependent transformation —
+`ℂ`-linear, and unitary in its matrix packaging — is proved to be an instance of the interface's
+transformation class (`cx2_clinear_forgets`, `cx2_manuscript_law`, `cx2_unitary_gaugeLink`), the
+containment proved rather than asserted and running one way only. The **carrier** does not come
+inside: the complex carrier is proved **not** to be a `Substratum` satisfying `A1`, `A1` being
+finiteness (`cx3b_complex_not_A1`), and `A1` is not weakened to make it fit. The covariant form
+reaches the second-order dynamics at both alphabets (`as1_leap_covariant`). *What is left.* That
+the manuscripts' **physical** substratum is the packaged carrier is a premise no round discharges;
+and the part of `[SM §3.1]`'s derivation that consumes the inner product, unitarity as a
+constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic decomposition stays outside
+the interface and is neither consumed nor judged — none of it is a derivation of the gauge group
+and none of it licenses a sentence about the Standard Model. Whether these outcomes warrant a label
+stronger than `CONDITIONAL` is an **owner decision**, taken in a separate round; round 2 takes none
+and recommends none.
+
 → [`MANUSCRIPT-AXIOM-AUDIT.md`](programmes/substratum/manuscript-axiom-audit.md),
 [`SUBSTRATUM-INTERFACE-AUDIT.md`](programmes/substratum/interface-audit.md),
 [`lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean`](lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean),
@@ -469,6 +499,12 @@ one-directional distinction, the degenerate form labelled so, and what none of i
 (the four readings, the least interface, the frozen witnesses, and the twelve hazards)
 → [A6 covariance propagation](audits/foundations/a6-covariance-propagation-audit.md) (the owner
 decision, the frozen manuscript wording, the label's reasons, and the named hypothesis)
+→ [A6 instantiation round 2 result](programmes/substratum/a6-instantiation/result.md) (`PK`, `CX`
+and `AS` at the strength reached, the packaging half and the lift half never merged, and what none
+of it licenses)
+→ [A6 instantiation round 2 preregistration](programmes/substratum/a6-instantiation/preregistration.md)
+(the frozen objects, the targets with their predictions and falsifiers, the status rule, the
+twenty-one hazards and the five-slot definition budget)
 
 ### P1 — physical C4 discharge
 
