@@ -200,6 +200,7 @@ import OIBridge.AnchorRobustness
 import OIBridge.CoherentLiftGauge
 import OIBridge.TwoSidedGauge
 import OIBridge.CrossTimeInvariants
+import OIBridge.ThreadingObservability
 import OIBridge.SemigroupTransfer
 import OIBridge.WordTraceSufficiency
 import OIBridge.RecurrenceHorizon
