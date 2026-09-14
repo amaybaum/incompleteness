@@ -721,14 +721,31 @@ So: **a red badge on a pull request sitting at its sealed head is not by itself
 a research failure.** Ask first whether the execution's own exact-head
 certification is green, and whether the red comes solely from an archive clause
 that entered main after the base. If both, the execution stands certified and
-is left untouched. Obtain the exact-head certification by dispatching the
-workflow on the branch, which builds the branch itself with no synthetic merge.
+is left untouched.
+
+**Dispatch is the fallback, not the routine.** The ordinary pull-request build
+certifies the exact head whenever the guard-bearing job succeeds, because the
+guard asks its question of the real `pull_request.head.sha` — of `E` — even
+though the job runs on the synthetic merge. That is the common case: it holds
+whenever no archive clause has entered main since the base, and the round needs
+nothing further. **`workflow_dispatch` on the branch is for the other case**,
+where the synthetic merge imports later archive state and the build fails for
+chronology alone; dispatching builds the branch itself, with no synthetic
+merge, and certifies `E` directly. Reach for it only then.
 
 This transient red remains possible under the two-pull-request lifecycle, for
 the same reason and for as long as the pull request sits at `E`. **It does not
 invalidate an exact-SHA certification**, and it is not cured by merging main
-into the execution. It clears when the landing merge goes on, which is what
-makes the clause's sealed head reachable.
+into the execution.
+
+When it clears is worth stating exactly, because the two halves come apart.
+Putting `L` on makes the **sibling rounds' sealed heads reachable**, so their
+archive clauses stop failing. But a guarded round's **own** ancestry check is
+still in execution mode at that point, and execution mode rejects the sibling
+history `L` has just brought in. So for a guarded round the synthetic-archive
+red may clear at `L` while the round is **not final-certifiable until `P`**;
+only the pin moves its own check to archive mode. For an unguarded round, which
+has no check of its own to switch, `L` is the end of it.
 
 A **control plane** carries no mandated historical base, so the opposite rule
 applies to it: when a newly landed archive clause reddens its build, merging
