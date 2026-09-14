@@ -157,10 +157,29 @@ Determine, by quotation, the **exact content** of the observables-preserving hyp
 a transformation `g` is assumed to preserve, quantified how, and over what index set. Report the
 enumeration as a list, each entry carried by its own quotation.
 
-Report separately, and do not merge: what the hypothesis states **in Theorem 24's own statement**;
+Report separately, and do not merge, **four** statements: the **equivalence relation `∼`** as
+defined immediately before Theorem 24; what the hypothesis states **in Theorem 24's own statement**;
 what the completeness argument's **Step 1** assumes; and what the **Scope** paragraph says the
-argument is relative to. If these three differ, **the difference is the finding** and is reported as
+argument is relative to. If these four differ, **the difference is the finding** and is reported as
 a discrepancy of the source, not repaired.
+
+### `WD1-q` — the partition quantifier, reported for each of the four
+
+**A distinct subtarget, because the same observable vocabulary can carry two different amounts of
+information.** For each of the four statements above, determine and report **which partitions the
+observable data is quantified over**:
+
+- **fixed-partition** — the data of one visible/hidden partition; or
+- **all-partitions** — the data of every partition of the structural class; or
+- **unstated** — the passage names the observables without fixing the quantifier.
+
+Report the quantifier **per statement, with its own quotation**, and do not carry a quantifier from
+one statement to another. If the four disagree, that disagreement is a finding of `WD1` and is
+recorded rather than normalized.
+
+This subtarget exists because `ST3`/`ST4` refute a **fixed-partition** claim. Whether they bear on
+an **all-partitions** claim is a separate question, which `WD2-q` asks and which this round may
+leave open.
 
 ### `WD2` — one-time channel data against interleaved multi-time data
 
@@ -179,6 +198,20 @@ Consume `ST3`/`ST4` from the merged Lemma 24.1 result **as established**, unrevi
 record that the uniform-prior channel family alone does not determine the block-word traces. This
 round does not re-derive them, does not extend them, and does not weaken them.
 
+### `WD2-q` — what `ST3`/`ST4` refute, and over which partitions
+
+**A distinct subtarget, because `ST3`/`ST4` refute a claim whose quantifier must be read before it
+can be matched against `WD1-q`'s.** Determine and report, by quotation from the merged result:
+
+1. **Over which partitions `ST3`/`ST4`'s refutation runs** — whether their channel family is the
+   data of one partition or of every partition of a class.
+2. **Whether any passage anywhere on the record addresses the all-partitions family** — whether the
+   observable data of *every* partition of the structural class determines the block-word traces.
+   Report what is found, or record that nothing is found on a named and bounded search.
+
+**Do not assume the two families coincide, and do not assume they differ.** If the record settles
+neither, that is the finding, and it is the finding that gates `WD3` below.
+
 ### `WD3` — does `H_obs` entail `ST5`'s hypothesis?
 
 The assembled determination, at the strength jointly reached by `WD1` and `WD2`, in exactly one of:
@@ -188,8 +221,28 @@ The assembled determination, at the strength jointly reached by `WD1` and `WD2`,
   argument in the manuscripts that (a) determines (b). Absent that, this reading is **not** written.
 - **`WD3-no`** — the framework's observable set as stated does not include that data. Requires the
   enumeration of `WD1` to be complete on the record searched, **and** `WD2` to have found (b) absent
-  from `O_set`, **and** no quoted passage asserting (a) determines (b).
+  from `O_set`, **and** no quoted passage asserting (a) determines (b), **and** the gating condition
+  immediately below.
 - **`WD3-UNDECIDED`** — the permitted fallback, with the obstruction named.
+
+**The gating condition on `WD3-no`, FROZEN:**
+
+> `WD3-no` may be written only if `WD1`/`WD2` establish that the full information quantified by
+> `H_obs` is no stronger, for the purpose at issue, than the channel-family data separated by
+> `ST3`/`ST4` — including resolution of the "for all partitions of the same structural class"
+> quantifier. If the manuscripts impose all-partitions data and the record does not establish
+> whether that richer family fixes the block-word traces, the outcome is `WD3-UNDECIDED`, not
+> `WD3-no`.
+
+**Why this gate exists.** Absence of (b) from a stated observable set is not by itself the
+determination the target asks for. The target asks whether `H_obs` **entails** `ST5`'s hypothesis,
+and `H_obs` may quantify over strictly more than the family `ST3`/`ST4` separated. Enumerating
+`O_set` and finding (b) missing would settle a **fixed-partition** reading and leave an
+**all-partitions** reading untouched. The gate makes the decision rule match the target's wording
+rather than the easier question underneath it.
+
+**The gate binds the decision rule, not the prediction.** The prediction below leans to `WD3-no`;
+the gate is what stops the round from reaching it on insufficient grounds.
 
 **`WD3-no` is a statement about the manuscripts' stated observable set. It is not a statement that
 the framework is wrong, that Theorem 24 is false, that completeness fails, or that 24.1A's theorem
@@ -214,8 +267,10 @@ Recorded before execution, with reasons, so that the outcome can be compared aga
 | --- | --- | --- | --- |
 | `WD0` | positive | full | the passages were located while drafting this freeze |
 | `WD1` | positive | high | the *Scope* paragraph states an observable set explicitly |
+| `WD1-q` | positive, and **the four statements are expected to disagree on the quantifier** | medium | the `∼` definition carries "for all partitions of the same structural class" while Step 1 is written about one channel family; whether that is a real disagreement or one wording of one thing is what the subtarget must settle |
 | `WD2` | positive, and **(b) is expected absent from `O_set` as written** | medium | the located set is written in terms of `T_ij(t)`, `H` up to D-gauge and `ℏ`; whether that wording excludes (b) is a reading this round must settle, not assume |
-| `WD3` | `WD3-no` | medium | follows from `WD1` and `WD2` if both land as predicted; medium because a single quoted passage elsewhere asserting (a) determines (b) would move it |
+| `WD2-q` | positive on part 1; **part 2 is expected to find nothing** | medium | `ST3`/`ST4` were proved about a channel family on a fixed carrier; whether anything on the record addresses the all-partitions family is exactly what the search must determine |
+| `WD3` | `WD3-no` | medium | follows from `WD1` and `WD2` if both land as predicted. **The principal falsifier, and the principal escape hatch, is the all-partitions quantifier**: if `H_obs` is read as imposing the observable data of every partition of the structural class, that family is strictly richer than the one `ST3`/`ST4` separated, and nothing on the record is expected to say whether the richer family fixes the block-word traces. In that case the gate forces `WD3-UNDECIDED`. A single quoted passage elsewhere asserting (a) determines (b) would also move it. |
 | `WD4` | positive | high | a census over pinned blobs |
 
 **Two predictions are deliberately held at medium.** `WD2` and `WD3` are the round's substance, and
@@ -233,12 +288,14 @@ Exactly one is written, verbatim, in the result note and nowhere else.
 
 > The reconstruction framework's observables-preserving hypothesis, as the manuscripts state it,
 > fixes the time-resolved visible channel family and the observable set relative to which Theorem
-> 24's completeness argument is stated. On the record searched, that set does not include the
-> interleaved multi-time correlation data over which `ST5`'s hypothesis quantifies, and no passage
-> asserts that the channel family determines it. Lemma 24.1A's sufficiency result therefore stands
-> as proved and is not, on this record, supplied by the framework's own hypothesis. The `P1`
-> completeness obligation remains OPEN, no manuscript claim changes, and nothing here shows that
-> completeness fails or that Theorem 24 is false.
+> 24's completeness argument is stated, **with the partition quantifier resolved as recorded in
+> `WD1-q` and the information it carries established no stronger, for the purpose at issue, than the
+> family `ST3`/`ST4` separated**. On the record searched, that set does not include the interleaved
+> multi-time correlation data over which `ST5`'s hypothesis quantifies, and no passage asserts that
+> the channel family determines it. Lemma 24.1A's sufficiency result therefore stands as proved and
+> is not, on this record, supplied by the framework's own hypothesis. The `P1` completeness
+> obligation remains OPEN, no manuscript claim changes, and nothing here shows that completeness
+> fails or that Theorem 24 is false.
 
 **If `WD3-yes`:**
 
@@ -254,6 +311,13 @@ Exactly one is written, verbatim, in the result note and nowhere else.
 > trace data is UNDECIDED, with the obstruction named in the result note. Lemma 24.1A's sufficiency
 > result stands as proved at its own strength. The `P1` completeness obligation remains OPEN and no
 > manuscript claim changes.
+
+If the obstruction is the partition quantifier, the result note names it in these terms and no
+others: the manuscripts impose observable data over all partitions of the structural class; that
+family is strictly richer than the fixed-partition channel family `ST3`/`ST4` separated; and the
+record does not establish whether the richer family fixes the block-word traces. **That is a
+statement about what the record settles, not a claim that the richer family does or does not fix
+them.** Naming it is a finding; resolving it would be a later round.
 
 ## What none of these outcomes licenses
 
@@ -328,6 +392,16 @@ leaving the absence to be inferred.
 5. **Scope creep into `WT2`.** Excluded in terms by the owner's direction and by the non-licence.
 6. **Treating silence as denial.** Where the manuscripts do not pose the question, the finding is
    that they do not pose it — not that they answer it negatively.
+7. **Normalizing the partition quantifier.** The sharpest hazard of the round after (1). The same
+   observable vocabulary — `T_ij(t)`, the emergent Hamiltonian, `ℏ` — appears with a fixed-partition
+   reading in one place and an all-partitions reading in another, and the two carry different
+   amounts of information. Reading them as one thing would let `WD3-no` fire on a question strictly
+   easier than the one the target asks. `WD1-q`, `WD2-q` and the gate on `WD3-no` exist for this
+   hazard and are checked for in the final report.
+8. **Answering the quantifier question instead of recording it.** If the record does not settle
+   whether the all-partitions family fixes the block-word traces, the round says so. Settling it
+   would be a matrix question, which this round is not, and a later round with its own control
+   plane.
 
 ## Non-doings
 
