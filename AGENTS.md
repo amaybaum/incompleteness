@@ -660,6 +660,14 @@ arrangement — their frozen chronology controls say so in terms, and a
 preregistration is not reinterpreted after its outcome is known. Nothing below
 reaches back into a merged round, and no merged artifact changes because of it.
 
+The vocabulary has since changed too. Freezes written before this wording say
+**guarded** and **unguarded** where this rule now says *sealing* and
+*non-sealing*. Earlier freezes retain the meaning fixed by their own chronology
+controls; the later vocabulary does not reinterpret them. In particular #631 —
+the only two-pull-request freeze written between the two wordings — states its
+shape explicitly as no guard, no pin, `E` → `L`, so its meaning is unchanged. A
+preregistration is not amended to track later vocabulary, and none needs to be.
+
 ### The invariant
 
 > The **sealed execution commit never changes.** Before certification the
@@ -740,12 +748,12 @@ into the execution.
 
 When it clears is worth stating exactly, because the two halves come apart.
 Putting `L` on makes the **sibling rounds' sealed heads reachable**, so their
-archive clauses stop failing. But a guarded round's **own** ancestry check is
+archive clauses stop failing. But a sealing round's **own** ancestry check is
 still in execution mode at that point, and execution mode rejects the sibling
-history `L` has just brought in. So for a guarded round the synthetic-archive
+history `L` has just brought in. So for a sealing round the synthetic-archive
 red may clear at `L` while the round is **not final-certifiable until `P`**;
-only the pin moves its own check to archive mode. For an unguarded round, which
-has no check of its own to switch, `L` is the end of it.
+only the pin moves its own check to archive mode. For a non-sealing round,
+which has no check of its own to switch, `L` is the end of it.
 
 A **control plane** carries no mandated historical base, so the opposite rule
 applies to it: when a newly landed archive clause reddens its build, merging
@@ -762,24 +770,36 @@ green main**; its second parent is **exactly `E`**. Conflicts are resolved
 **in `L`, never in `E`** — the sealed commit stays byte-identical, and `L` is
 where the reconciliation with everything main gained since the freeze lives.
 
-**Then the shape splits on the round:**
+**Then the shape splits on what the round owns — not on what it touches:**
 
-1. **A guarded round — the round wrote a guard with seal constants — takes a
-   pin commit `P`, and `P` is mandatory.** It sets that guard's sealed-head and
-   merge constants to `E` and to `L`. Mandatory is not a stylistic preference:
-   in execution mode the guard requires every commit of
-   `git rev-list HEAD ^base` to descend from the base, and once `L` is on the
-   head, that set reaches the sibling rounds merged into main since the freeze,
-   which do not descend from it. Without `P` the guard fails closed on the
-   landing and the round cannot land at all. `P` is what moves the guard to
-   archive mode, where the landing is certifiable.
-2. **An unguarded round — the frozen round has no guard and no pin state —
-   takes `L` alone.** A round whose freeze states that it adds no guard and
-   modifies none, and whose budget writes no kernel object for an ancestry
-   guard to order, has nothing to pin; adding a pin commit there would pin
-   nothing.
+1. **A sealing round — a round whose preregistration prospectively owns seal
+   state: either it creates new seal and pin state, or it explicitly takes
+   ownership of changing existing seal state — takes a pin commit `P`, and `P`
+   is mandatory.** `P` sets the constants it owns to `E` and to `L`. Mandatory
+   is not a stylistic preference: in execution mode the guard requires every
+   commit of `git rev-list HEAD ^base` to descend from the base, and once `L`
+   is on the head, that set reaches the sibling rounds merged into main since
+   the freeze, which do not descend from it. Without `P` the guard fails closed
+   on the landing and the round cannot land at all. `P` is what moves the guard
+   to archive mode, where the landing is certifiable.
+2. **A non-sealing round — a round that owns no seal state — takes `L`
+   alone.** It **may** modify other contracts inside an existing guard; it
+   **may not** alter existing seal constants. It has nothing to pin, and a pin
+   commit added there would pin nothing.
 
-Read the freeze before building a landing rather than assuming a shape.
+That **may** / **may not** pair is worth stating in terms, because the older
+guarded/unguarded wording got it wrong by implication:
+
+> **An archive seal belongs to the round that set it, and stays immutable
+> afterwards.** A later round does not re-pin it, and does not acquire a pin
+> commit merely by touching the guard file that carries it. An existing seal
+> constant changes only in a round whose own preregistration says in advance
+> that it changes it — and such a round is *sealing*, because it has taken
+> ownership of that state prospectively rather than as a side effect of its
+> diff.
+
+So the freeze names the shape, and the diff does not. Read the freeze before
+building a landing rather than inferring a shape from which files moved.
 
 In **archive mode** the strong ancestry check is re-run against the sealed
 object rather than against the current target, the pinned merge's second parent
@@ -798,7 +818,7 @@ evidence of a correct one where both sides touched the same files — compare th
 two diffs and account for every difference.
 
 **Full continuous integration must pass again on the final head** — `P` for a
-guarded round, `L` for an unguarded one — before that pull request merges, and
+sealing round, `L` for a non-sealing one — before that pull request merges, and
 the resulting main build must be green before the next round's landing is
 constructed. **One landing at a time, with green main between rounds.**
 
