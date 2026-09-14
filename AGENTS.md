@@ -693,16 +693,26 @@ frozen blob is unchanged, so what freezes is what was reviewed.
 
 ### The landing wrapper
 
-A sealed execution is brought into main by a **separate pull request**, in two
-commits and in this order:
+A sealed execution is brought into main by a **separate pull request**. It
+always carries a **landing merge** whose first parent is current main and whose
+second parent is **exactly the sealed execution head**. Conflicts are resolved
+there, never on the execution branch.
 
-1. A **landing merge** whose first parent is current main and whose second
-   parent is **exactly the sealed execution head**. Conflicts are resolved
-   here, never on the execution branch.
-2. The **archive pin**, setting the guard's sealed-head and merge constants to
-   that head and to the landing merge that carries it.
+Whether it carries a second commit depends on the round:
 
-With both set the guard runs in **archive mode**: the strong ancestry check is
+1. **The round wrote a guard with seal constants.** The landing adds an
+   **archive pin** after the merge, setting that guard's sealed-head and merge
+   constants to the sealed head and to the landing merge that carries it. Two
+   commits, in that order.
+2. **The frozen round has no guard and no pin state.** The landing is the merge
+   alone. A round whose freeze states that it adds no guard and modifies none,
+   and whose budget writes no kernel object for an ancestry guard to order, has
+   nothing to pin; adding a pin commit there would pin nothing.
+
+Read the freeze before building a landing rather than assuming the two-commit
+shape. Both shapes are correct, for different rounds.
+
+With the constants set the guard runs in **archive mode**: the strong ancestry check is
 re-run against the sealed object rather than against the current target, the
 pinned merge's second parent is required to equal the sealed head, and both are
 required to be reachable from the target. Fail-closed throughout. A result note
@@ -721,9 +731,11 @@ The landing's exact-head build must be green before it merges, and the
 resulting main build must be green before the next landing is constructed.
 Landings are taken one at a time for that reason.
 
-### Why the two pull requests are never one
+### Why the landing is never folded into the execution
 
 Folding a pin into the execution would make the execution's own head depend on
-where it landed, which is circular. Splitting the landing from the pin would
-place main, between the two merges, in a state the guard rejects. The two-commit
-landing is the arrangement that avoids both.
+where it landed, which is circular. And where a pin is needed, splitting it
+into its own pull request would place main, between the two merges, in a state
+the guard rejects. A landing that carries the merge and the pin together avoids
+both; a landing for a round with nothing to pin carries the merge alone, and
+neither problem arises.
