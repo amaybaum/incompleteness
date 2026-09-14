@@ -618,6 +618,35 @@ residues — `[GR]` §8.1 line 561 and `book/ch01` §1.10 line 257 with its FULL
 mechanism claimed at any physical cut. No manuscript was edited; the propagation is a separate
 owner call.
 
+**Executed, round 2** — `programmes/physical-realization/round-c4-2-storage-readback/`
+(preregistration blob `16cfd1303e7c279c8d6bab68b7112c3f25a7460e`, merged by PR #636 as
+`0ef0741`, the mandated execution base; `OIBridge/PhysicalC4StorageReadback.lean`, guard
+`R7-PC4S`). The round states the **storage-time reading** of the discovery round's store clause and
+its causal read leg — `Law(H_s | X_s = x, X_0 = a)`, the law of the hidden state at the storage
+time, rather than the root-conditioned weight of the initial hidden seed — as a second kernel
+predicate, `RoutedReadbackAtStorage`, and re-runs on it every carrier round 1 ran. Round 1's
+`RoutedReadback` keeps its name and its statement, every theorem about it stands as merged, and
+none is reopened or re-proved. `CS1`–`CS5` landed at evidence level 2; `CS6`'s toy instance is at
+evidence level 3 by the control plane's own design. The read leg is the conditional visible law
+`Law(X_t | X_s = x, X_0 = a)`, proved from the step's bijectivity alone
+(`rootedStatePosterior_marg_eq`); under the storage-time reading the sealed C1–C4 core carries a
+routed witness at window `2` on round 1's own frozen tuple (`core_routedReadbackAtStorage_two`),
+with the contrast at the storage surface certified (`core_storage_contrast`); both controls survive
+the correction (`product_not_routedReadbackAtStorage`,
+`tapeLedger_not_routedReadbackAtStorage_three`, `tapeLedger_routedReadbackAtStorage_four`, the last
+on round 1's own recorded scratch tuple); and the return-horizon consequence transfers unchanged,
+with the scope remark of `[Main]` §2.3 travelling verbatim
+(`routedAtStorage_forces_return_indivisibility`). **The two readings are incomparable as
+predicates**, by two exhibited carriers with exact certificates and in neither direction by a
+failed search: the sealed core satisfies the storage-time reading at window `2` and round 1's at no
+window (`storageReadback_not_implies_routedReadback`), and a second exhibited carrier satisfies
+round 1's reading at window `2` and the storage-time reading at no admissible tuple there
+(`routedReadback_not_implies_storageReadback`) — which reverses this round's own preregistered sign
+for that direction, reported against prediction with the freeze left unedited. Neither reading is
+called stronger than the other, neither is called the correct reading of C4, and the manuscripts
+are **silent** on which random variable the realization clause's record is at the storage surface,
+on the bounded search the result note names. No manuscript was edited.
+
 **The label stays OPEN, and the residual is now exact per cut.** At the **cosmological cut** the
 residual is the datum itself: the manuscripts describe the horizon partition in prose — interior,
 exterior, ADM boundary coupling, `τ_B ~ 1/H`, `A/ε²` modes — and supply no finite object, so no
@@ -632,6 +661,8 @@ successor on this track is H-Bell, which this round does not enter.
 
 → [`round-c4-1-physical-discharge/`](programmes/physical-realization/round-c4-1-physical-discharge/preregistration.md)
 ([result](programmes/physical-realization/round-c4-1-physical-discharge/result.md)),
+[`round-c4-2-storage-readback/`](programmes/physical-realization/round-c4-2-storage-readback/preregistration.md)
+([result](programmes/physical-realization/round-c4-2-storage-readback/result.md)),
 [`C4-CAUSAL-READBACK-AUDIT.md`](audits/physical-realization/c4-causal-readback/preregistration.md),
 [`CONCRETE-CUT-AUDIT.md`](audits/physical-realization/concrete-cut/preregistration.md)
 
