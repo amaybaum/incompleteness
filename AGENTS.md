@@ -644,27 +644,65 @@ opt-in for that reason.
 
 ---
 
-## §A.37 Round lifecycle: control plane, sealed execution, landing wrapper
+## §A.37 Round lifecycle: control plane, then execution and landing
 
-A round is run in two pull requests, never one. The **control plane** is the
-preregistration alone — targets, predictions with their signs and strengths,
-recorded reasons, the status rule, the hazards, the definition budget and the
-chronology control. It is reviewed, amended as the owner directs, and merged
-**before any execution object exists**. Amendment happens before the merge and
-only then: once merged the preregistration is **immutable**, and an execution
-that diverges from it **records the discrepancy** rather than repairing the
-freeze. A freeze that can be edited after the outcome is known is not a freeze.
+A round is run in **two pull requests**. The **control plane** carries the
+preregistration alone. The **execution pull request** carries the round's work,
+and after that work is certified the same pull request carries the landing that
+brings it into main.
+
+### What this rule governs
+
+This rule governs **rounds begun after it was written**. Rounds already
+complete were run under a three-pull-request arrangement in which the landing
+was a third, separate pull request, and they stay governed by that
+arrangement — their frozen chronology controls say so in terms, and a
+preregistration is not reinterpreted after its outcome is known. Nothing below
+reaches back into a merged round, and no merged artifact changes because of it.
+
+### The invariant
+
+> The **sealed execution commit never changes.** Before certification the
+> execution branch never absorbs later main. After exact-head certification the
+> branch may advance **only** through the canonical landing merge whose second
+> parent is that sealed commit, followed by the archive pin where the round has
+> one.
+
+The invariant is attached to the **sealed execution object, not permanently to
+the branch name**. That is the whole reason the third pull request can be
+dropped without weakening chronology or auditability: what the guard certifies,
+what review approved, and what the record must be able to identify forever is a
+commit — `E` — and `E` remains exactly identifiable as the landing merge's
+second parent no matter where the branch pointer has since moved.
+
+### The control plane
+
+The preregistration alone — targets, predictions with their signs and
+strengths, recorded reasons, the status rule, the hazards, the definition
+budget and the chronology control. It is reviewed, amended as the owner
+directs, and merged **before any execution object exists**. Amendment happens
+before the merge and only then: once merged the preregistration is
+**immutable**, and an execution that diverges from it **records the
+discrepancy** rather than repairing the freeze. A freeze that can be edited
+after the outcome is known is not a freeze.
 
 The control plane's **merge commit is the mandated execution base**. The
 execution branches from exactly that commit and from nothing else, and its
 first act is to verify that the preregistration at that base has the blob the
 freeze names, before any target is executed.
 
-**An execution never absorbs later main.** No merge from main, no rebase, no
-amend, no force-push. Its head is the sealed object the guard certifies, and
-changing it destroys the ancestry the chronology control exists to establish.
-The branch will show as behind, and often as conflicted, for as long as it
-lives. That is the protocol working, not a defect to repair.
+### The execution, up to certification
+
+**Before certification an execution never absorbs later main.** No merge from
+main, no rebase, no amend, no force-push. Its head is the object the guard
+certifies, and changing it destroys the ancestry the chronology control exists
+to establish. The branch will show as behind, and often as conflicted, for as
+long as it sits there. That is the protocol working, not a defect to repair.
+
+Certification fixes the sealed commit `E`. From that point `E` can never
+change, and **the certification of record is the run whose `head_sha` is `E`** —
+identified by that SHA, not by which run happens to be latest on the branch,
+because the branch advances past `E` at landing.
 
 ### Certifying the exact head
 
@@ -679,45 +717,58 @@ and the clause demands a sealed head the execution cannot reach. It fails
 closed, correctly. On the exact head the guard file is the base's own, which
 carries no such clause, and the check passes.
 
-So: **a red badge on a sealed execution branch is not by itself a research
-failure.** Ask first whether the execution's own exact-head certification is
-green, and whether the red comes solely from an archive clause that entered
-main after the base. If both, the execution stands certified and is left
-untouched. Obtain the exact-head certification by dispatching the workflow on
-the branch, which builds the branch itself with no synthetic merge.
+So: **a red badge on a pull request sitting at its sealed head is not by itself
+a research failure.** Ask first whether the execution's own exact-head
+certification is green, and whether the red comes solely from an archive clause
+that entered main after the base. If both, the execution stands certified and
+is left untouched. Obtain the exact-head certification by dispatching the
+workflow on the branch, which builds the branch itself with no synthetic merge.
+
+This transient red remains possible under the two-pull-request lifecycle, for
+the same reason and for as long as the pull request sits at `E`. **It does not
+invalidate an exact-SHA certification**, and it is not cured by merging main
+into the execution. It clears when the landing merge goes on, which is what
+makes the clause's sealed head reachable.
 
 A **control plane** carries no mandated historical base, so the opposite rule
 applies to it: when a newly landed archive clause reddens its build, merging
 current main into the branch is the correct cure. Confirm afterwards that the
 frozen blob is unchanged, so what freezes is what was reviewed.
 
-### The landing wrapper
+### The landing phase, on the same pull request
 
-A sealed execution is brought into main by a **separate pull request**. It
-always carries a **landing merge** whose first parent is current main and whose
-second parent is **exactly the sealed execution head**. Conflicts are resolved
-there, never on the execution branch.
+Once `E` is certified, the execution pull request transitions into landing mode
+by **appending** to it. Nothing is rewritten.
 
-Whether it carries a second commit depends on the round:
+**The landing merge `L`** goes on first, always. Its first parent is **current
+green main**; its second parent is **exactly `E`**. Conflicts are resolved
+**in `L`, never in `E`** — the sealed commit stays byte-identical, and `L` is
+where the reconciliation with everything main gained since the freeze lives.
 
-1. **The round wrote a guard with seal constants.** The landing adds an
-   **archive pin** after the merge, setting that guard's sealed-head and merge
-   constants to the sealed head and to the landing merge that carries it. Two
-   commits, in that order.
-2. **The frozen round has no guard and no pin state.** The landing is the merge
-   alone. A round whose freeze states that it adds no guard and modifies none,
-   and whose budget writes no kernel object for an ancestry guard to order, has
-   nothing to pin; adding a pin commit there would pin nothing.
+**Then the shape splits on the round:**
 
-Read the freeze before building a landing rather than assuming the two-commit
-shape. Both shapes are correct, for different rounds.
+1. **A guarded round — the round wrote a guard with seal constants — takes a
+   pin commit `P`, and `P` is mandatory.** It sets that guard's sealed-head and
+   merge constants to `E` and to `L`. Mandatory is not a stylistic preference:
+   in execution mode the guard requires every commit of
+   `git rev-list HEAD ^base` to descend from the base, and once `L` is on the
+   head, that set reaches the sibling rounds merged into main since the freeze,
+   which do not descend from it. Without `P` the guard fails closed on the
+   landing and the round cannot land at all. `P` is what moves the guard to
+   archive mode, where the landing is certifiable.
+2. **An unguarded round — the frozen round has no guard and no pin state —
+   takes `L` alone.** A round whose freeze states that it adds no guard and
+   modifies none, and whose budget writes no kernel object for an ancestry
+   guard to order, has nothing to pin; adding a pin commit there would pin
+   nothing.
 
-With the constants set the guard runs in **archive mode**: the strong ancestry check is
-re-run against the sealed object rather than against the current target, the
-pinned merge's second parent is required to equal the sealed head, and both are
-required to be reachable from the target. Fail-closed throughout. A result note
-recording that the pins were unset at execution stays true, being a statement
-about the execution.
+Read the freeze before building a landing rather than assuming a shape.
+
+In **archive mode** the strong ancestry check is re-run against the sealed
+object rather than against the current target, the pinned merge's second parent
+is required to equal the sealed head, and both are required to be reachable
+from the target. Fail-closed throughout. A result note recording that the pins
+were unset at execution stays true, being a statement about the execution.
 
 Landing conflicts are resolved **by merits, not by side**. Where an obligation
 table or a section collides, take each row or block from whichever branch
@@ -725,17 +776,33 @@ actually owns that content: the execution owns the round's own row, and main
 owns every row a sibling round has moved since the base. Taking either side
 wholesale silently reverts someone else's landing. Verify the resolution
 against main afterwards: the landing should add **exactly the execution's own
-diff against its own base**, and nothing else.
+diff against its own base**, and nothing else. A clean automatic merge is not
+evidence of a correct one where both sides touched the same files — compare the
+two diffs and account for every difference.
 
-The landing's exact-head build must be green before it merges, and the
-resulting main build must be green before the next landing is constructed.
-Landings are taken one at a time for that reason.
+**Full continuous integration must pass again on the final head** — `P` for a
+guarded round, `L` for an unguarded one — before that pull request merges, and
+the resulting main build must be green before the next round's landing is
+constructed. **One landing at a time, with green main between rounds.**
 
-### Why the landing is never folded into the execution
+### Why the execution and the landing share one pull request
 
-Folding a pin into the execution would make the execution's own head depend on
-where it landed, which is circular. And where a pin is needed, splitting it
-into its own pull request would place main, between the two merges, in a state
-the guard rejects. A landing that carries the merge and the pin together avoids
-both; a landing for a round with nothing to pin carries the merge alone, and
-neither problem arises.
+What must never change is the sealed commit, and appending to a branch does not
+change a commit. `E` stays byte-identical, stays the second parent of `L`,
+stays the object the guard re-certifies in archive mode, and stays the
+`head_sha` of the certification of record. Every property the chronology
+control exists to establish is a property of `E`, and every one of them
+survives.
+
+What a separate landing pull request bought was the branch pointer never
+moving, which nothing depends on. What it cost was a third review surface, a
+second subscription, and an execution pull request left to be auto-closed by
+reachability.
+
+Two things still cannot be done. **A pin cannot be folded into the execution
+proper**, before certification: it would make the execution's own head depend
+on where it landed, which is circular — hence the pin goes on *after* `E` is
+fixed, and pins `E` rather than being pinned by it. And **a needed pin cannot
+be split into its own pull request after the merge**, which would place main,
+between the two merges, in a state the guard rejects. `L` and `P` travelling
+together, in that order, on the branch that already holds `E`, avoids both.
