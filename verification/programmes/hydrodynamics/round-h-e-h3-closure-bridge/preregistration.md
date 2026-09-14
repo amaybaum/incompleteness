@@ -197,6 +197,11 @@ data, at a stated accuracy and a stated scale**. Given (3), any statement of "st
 "stated scale" presupposes the scaling map. Those two sentences are the whole of what this round
 asks H3 to be measured against.
 
+**Note the argument of that rule: coarse charge data.** A rule whose argument is a parameter of some
+family is not yet such a rule, and becomes one only through a statement that the charge data
+determines the parameter. The merged record carries no such statement, so this round asks for it as
+a target of its own (`HE2-f`) rather than assuming it (hazard 17).
+
 ## H3, the candidate bridge condition, FROZEN
 
 `../PROGRAMME.md` §3 states the H3 obligation as:
@@ -210,7 +215,7 @@ candidate and for it alone. **The round claims no extremal property of the candi
 asserted to be the weakest such condition, no target asserts an extremal property, and no sentence
 of the execution may add one.
 
-**`H3` — the local-equilibrium bridge candidate, in four clauses.** Write `Φ` for H-B's gas,
+**`H3` — the local-equilibrium bridge candidate, in five clauses.** Write `Φ` for H-B's gas,
 `hexDir` for its six lattice directions, `d₁`, `d₂` for the two coordinate rows of `hexDir`, and
 `M`, `P₁`, `P₂` for H-B's three conserved charges. The candidate family is parameterized by a
 triple `(a, b₁, b₂) : ℝ³` through the channel fugacities `z_k := exp(a + b₁ (c_k)₁ + b₂ (c_k)₂)`.
@@ -221,24 +226,38 @@ triple `(a, b₁, b₂) : ℝ³` through the channel fugacities `z_k := exp(a + 
   `∏_i ∏_k z_k^{n_k(i)}`, with the fugacities **site-independent**, is invariant under `Φ`.
 - **`H3-flux` (flux as a function of the parameters).** Under a member of the family the mean
   channel occupations are `θ_k = z_k / (1 + z_k)`, and the momentum-flux tensor
-  `Σ_k θ_k (u_k)_a (u_k)_b` over the embedded stencil is a function of the parameters alone — so
-  that, at the level of the family, the flux is determined by the charge data that names the family
-  member.
+  `Σ_k θ_k (u_k)_a (u_k)_b` over the embedded stencil is a function of **the parameters**
+  `(a, b₁, b₂)` alone. **It is a function of the parameters and not, by this clause, a function of
+  the coarse charges**: whether the parameters are themselves recovered from the charge data is a
+  separate statement, and it is `H3-ident` below.
+- **`H3-ident` (parameter identifiability).** The mean-charge map — the triple of expected mass and
+  expected momentum components of one site as a function of `(a, b₁, b₂)` — is injective, so that a
+  triple of coarse charge values names **at most one** family member, and `H3-flux` thereby becomes
+  a function of the charge data.
 - **`H3-prop` (propagation).** The coarse evolution of a state whose local charge data varies
   slowly is determined, to the accuracy the hydrodynamic target requires and at the scale the
   scaling map fixes, by `H3-flux` applied locally with the parameters read from the local charge
-  data.
+  data — **that reading being licensed by `H3-ident` and by nothing else in this freeze.**
 
-**`H3-prod`, `H3-inv` and `H3-flux` are exact finite statements about H-B's candidate**, and the
-round decides them in the kernel. **`H3-prop` is the clause that would actually supply closure**,
-and the round asks first whether it is statable at all on the merged record, since its statement
-names an accuracy and a scale.
+**`H3-prod`, `H3-inv`, `H3-flux` and `H3-ident` are exact finite statements about H-B's candidate**,
+and the round decides them in the kernel. **`H3-prop` is the clause that would actually supply
+closure**, and the round asks first whether it is statable at all on the merged record, since its
+statement names an accuracy and a scale.
+
+**THE SEAM THIS FREEZE KEEPS OPEN, IN TERMS.** "The flux is a function of the parameters" and "the
+flux is a function of the coarse charges" are **two statements**, and the merged record carries no
+theorem joining them: nothing in H-A or H-B says that the three expected conserved charges
+determine the three parameters of a family member. `H3-ident` is that missing statement, `HE2-f` is
+the target that decides it, and **every sentence of this round that would slide from the one to the
+other is routed through `HE2-f`**. Closure needs the charge-data form; the parameter form alone is
+not it (hazard 17).
 
 **H3 is a CANDIDATE.** This freeze does not preregister H3 as correct, does not preregister it as
 the right shape of bridge condition, and does not preregister that its clauses hold. Two questions
 are live and are answered separately:
 
-- **does it hold?** — `HE3`, over `H3-prod`, `H3-inv`, `H3-flux`;
+- **does it hold?** — `HE3`, over `H3-prod`, `H3-inv`, `H3-flux`; and, separately, `HE2-f` over
+  `H3-ident`, which `HE3` does **not** consume;
 - **is it the right bridge?** — `HE6`, the shape adjudication, which has a
   **wrong-shape outcome with its own frozen post-round sentence** and which no prediction here
   anticipates at high strength.
@@ -297,10 +316,15 @@ items and the execution's list is the finding**, recorded and not repaired.
 
 ### `HE2` — does H3's decidable part hold for H-B's candidate? (kernel)
 
-**What settles each of `HE2-a`–`HE2-e`:** a named kernel result whose statement is the one written
+**What settles each of `HE2-a`–`HE2-f`:** a named kernel result whose statement is the one written
 below, checked at evidence level 2. **What counts as evidence:** the kernel statement itself, with
 its axiom line; no probe, no numeric run, and no recorded analysis is evidence for these targets.
 A clause neither proved nor refuted at level 2 is **UNDECIDED** with the obstruction named.
+
+**`HE2-f` is separated from the rest deliberately.** `HE2-a`–`HE2-e` decide `H3-prod`, `H3-inv` and
+`H3-flux`, and those three are what `HE3` assembles. **`HE2-f` decides `H3-ident`, and `HE3` does
+not consume it**: `HE3` can land at `HE3-holds` with `HE2-f` UNDECIDED. What `HE2-f` gates is
+`HE6-bridge`, and the gate says so in terms.
 
 **`HE2-a` (kernel).** For every `(a, b₁, b₂) : ℝ³` and every local state `v : Fin 6 → ZMod 2`,
 `∏_k z_k^{(v k).val} = exp(a · m(v) + b₁ · p₁(v) + b₂ · p₂(v))`, where `m`, `p₁`, `p₂` are the local
@@ -333,16 +357,82 @@ six embedded unit vectors is a function of `(a, b₁, b₂)` alone; and at `b₁
 `θ_k` is the common value `θ`, it equals `3 θ δ_{ab}`, through H-B's second-moment identity
 `hexMoment2_eq`. This is `H3-flux`, stated as an identity about the family and **not** as a
 constitutive law, a stress tensor of a continuum theory, or a term of any equation.
+**The statement's variable is the parameter triple.** `HE2-e` establishes a function of
+`(a, b₁, b₂)` and establishes **no** function of the coarse charges; the execution may not restate
+it with charges as its argument unless `HE2-f` lands, and then only in `HE2-f`'s terms (hazard 17).
+
+### `HE2-f` — Gibbs parameter identifiability: do the mean charges recover the parameters? (kernel)
+
+**Why this target exists.** `HE2-e` gives the family's flux tensor as a function of the
+**parameters**. Closure needs it as a function of the **coarse charges**. The merged record carries
+no theorem joining the two, and this freeze does not assume one: `HE2-f` asks whether the three
+expected conserved charges determine the three parameters, and nothing else.
+
+**The object, FROZEN.** With `θ_k := z_k / (1 + z_k)` and `z_k` the frozen fugacities, the
+**mean-charge map** is
+
+```
+Ψ : ℝ³ → ℝ³,   Ψ (a, b₁, b₂) := ( Σ_k θ_k ,  Σ_k θ_k · (c_k)₁ ,  Σ_k θ_k · (c_k)₂ ),
+```
+
+the expected mass and the two expected momentum components at one site under the family member
+`(a, b₁, b₂)`, the momentum components taken in H-B's lattice coordinates as `hexSum`'s weights
+`d₁`, `d₂` take them.
+
+**The domain, FROZEN: all of `ℝ³`.** No parameter is restricted, no degenerate set is excised, no
+compactness is assumed, and no bound is placed on `(a, b₁, b₂)`. `z_k > 0` and hence `0 < θ_k < 1`
+for every parameter triple, so `Ψ` is defined on the whole of `ℝ³`.
+
+**What "recover" means, FROZEN: global injectivity.** The statement is
+
+```
+∀ λ μ : ℝ³,  Ψ λ = Ψ μ → λ = μ,
+```
+
+that is: a triple of mean-charge values is produced by **at most one** parameter triple. **The
+statement is injectivity and nothing more.** It does **not** say that every triple of charge values
+arising anywhere in the dynamics or in a coarse state lies in the image of `Ψ`; the image
+characterization is **not a target of this round**, is not attempted, and is reported **HO** wherever
+it is named. So what `HE2-f` delivers, if positive, is a recovery defined **on the image of `Ψ`**,
+and every sentence consuming it carries that qualifier.
+
+**The mechanism the execution is expected to use, recorded so the target is reviewable.** Write
+`t_k := (1, (c_k)₁, (c_k)₂) ∈ ℝ³`, so that `θ_k = σ ⟨t_k, λ⟩` with `σ x = eˣ / (1 + eˣ)` and
+`Ψ λ = Σ_k (σ ⟨t_k, λ⟩) · t_k`. For `v := λ − μ`,
+
+```
+⟨Ψ λ − Ψ μ, v⟩ = Σ_k ( σ ⟨t_k, λ⟩ − σ ⟨t_k, μ⟩ ) · ⟨t_k, v⟩,
+```
+
+and `⟨t_k, λ⟩ − ⟨t_k, μ⟩ = ⟨t_k, v⟩`, so each of the six summands is a product of two quantities of
+the same sign: it is `≥ 0` because `σ` is strictly increasing, and `> 0` exactly when
+`⟨t_k, v⟩ ≠ 0`. The three vectors `t₀ = (1, 1, 0)`, `t₁ = (1, 0, 1)`, `t₂ = (1, −1, 1)` have
+determinant `1` and therefore span `ℝ³`, so `v ≠ 0` forces `⟨t_k, v⟩ ≠ 0` for at least one `k`, the
+sum is strictly positive, and `Ψ λ ≠ Ψ μ`. Equivalently `Ψ` is the gradient of the strictly convex
+`λ ↦ Σ_k log (1 + e^{⟨t_k, λ⟩})`; the execution may take either route. **This paragraph is analysis,
+not evidence**, and the kernel re-derives whatever it claims.
+
+**Fallback, frozen now.** If the global statement does not close at evidence level 2, the execution
+reports the **local** statement instead — that the Jacobian `Σ_k (σ′ ⟨t_k, λ⟩) · t_k t_kᵀ` is
+positive definite at every `λ`, each `σ′ > 0` and the `t_k` spanning, so `Ψ` is locally injective
+everywhere — and **says in terms that the global statement was not reached**. If neither closes,
+`HE2-f` is **UNDECIDED** with the obstruction named. **A local outcome does not meet `HE6-bridge`'s
+recovery gate**, which requires the global statement; the gate below says so.
+
+**`HE2-f` is not part of `HE3`.** It is the identifiability question, reported on its own, and
+`HE3` is unaffected by its outcome in either direction.
 
 ### `HE3` — the assembled determination: does H3's decidable part hold?
 
-**What settles it:** the outcomes of `HE2-a`–`HE2-e`. **What counts as evidence:** nothing new;
-`HE3` adds no evidence of its own and is reported at the strength jointly reached by those five.
+**What settles it:** the outcomes of `HE2-a`–`HE2-e`, **and those five only** — `HE2-f` is excluded
+by construction. **What counts as evidence:** nothing new; `HE3` adds no evidence of its own and is
+reported at the strength jointly reached by those five.
 
 Exactly one of:
 
 - **`HE3-holds`** — `HE2-a`–`HE2-e` all land positive at evidence level 2, so `H3-prod`, `H3-inv`
-  and `H3-flux` hold for H-B's candidate at the scope their statements carry.
+  and `H3-flux` hold for H-B's candidate at the scope their statements carry, the flux clause being
+  a statement **in the parameters**.
 - **`HE3-fails`** — at least one of `H3-prod`, `H3-inv`, `H3-flux` is **refuted** for the candidate
   by a proved statement, with the refuting statement named.
 - **`HE3-UNDECIDED`** — a clause is neither established nor refuted at level 2, with the
@@ -422,12 +512,15 @@ each has a frozen post-round sentence below.**
 
 - **`HE6-bridge`** — H3 as frozen is the right shape of bridge condition and, with `HE3-holds`, the
   record establishes that H3 together with what H-A and H-B establish supplies the closure step.
-  **Requires**: `HE3-holds`, **and** `HE5-statable`, **and** a quoted statement on the record, or a
-  proved statement in this round's module, that `H3-prop` follows from the other three clauses at
-  the scale fixed. Absent all three, this outcome is **not** written.
+  **Requires all four**: `HE3-holds`; **`HE2-f` positive in its global form**; `HE5-statable`; **and**
+  a quoted statement on the record, or a proved statement in this round's module, that `H3-prop`
+  follows from the other clauses at the scale fixed. Absent any one of the four, this outcome is
+  **not** written.
 - **`HE6-component`** — H3's decidable clauses hold and are a component of a bridge, but H3 as
   frozen does not supply closure: the clause that would supply it is `H3-prop`, and what is missing
-  is named — the items `HE5` reports unfixed, and the non-discrimination `HE4-a` records.
+  is named — the items `HE5` reports unfixed, the non-discrimination `HE4-a` records, and, where
+  `HE2-f` is UNDECIDED or reached only locally, the absence of a recovery of the parameters from
+  the charge data.
 - **`HE6-wrong-shape`** — H3 as frozen is **not the right shape of bridge condition**: a condition
   of this shape — an invariance statement about a parameterized family of measures, together with
   a flux identity for that family — cannot supply the closure step, and the round names, from what
@@ -439,10 +532,24 @@ each has a frozen post-round sentence below.**
 
 **The gate on `HE6-bridge`, FROZEN:**
 
-> `HE6-bridge` may be written only if `H3-prop` is both **statable** on the record (`HE5-statable`)
-> and **carried** by a quotation or a proved statement. `HE3-holds` alone, and `HE3-holds` together
-> with `HE5`, may not produce it. A bridge condition whose closure-supplying clause is not carried
-> is not a bridge, whatever its other clauses establish.
+> `HE6-bridge` may be written only if **all four** of the following hold: `HE3-holds`; **`HE2-f`
+> positive in its global form**, so that the mean charges recover the parameters; `H3-prop`
+> **statable** on the record (`HE5-statable`); and `H3-prop` **carried** by a quotation or a proved
+> statement. `HE3-holds` alone, `HE3-holds` with `HE5`, and `HE3-holds` with `HE5` and a carried
+> `H3-prop` **but without recovery**, may none of them produce it.
+>
+> **A flux that is a function of the parameters is not yet a function of the coarse charges.**
+> Without `HE2-f` the family's flux identity does not convert into a rule that reads the flux off
+> charge data, and a bridge condition whose closure-supplying clause is not carried — or is carried
+> only in the parameters — is not a bridge, whatever its other clauses establish.
+>
+> **The consequence, frozen:** If `HE2-f` is UNDECIDED, `HE3` can still establish product form,
+> invariance and parameter-space flux, and `HE6-component` remains reachable. What cannot be claimed
+> is closure from charge data.
+>
+> A `HE2-f` that lands only in its **local** form does not meet this gate: local injectivity
+> supplies no globally defined recovery, and the outcome is `HE6-component` with the local statement
+> recorded as what was reached.
 
 **The gate on `HE6-wrong-shape`, FROZEN:**
 
@@ -468,12 +575,13 @@ Recorded before execution, with reasons, so the outcome can be compared against 
 | `HE2-b` | positive — the local weight is constant on collision orbits | medium | it is H-B's collision classification read in the exponent, but that classification is stated for integer weights and the family's parameters are real; the frozen fallback covers the transfer |
 | `HE2-c` | positive — streaming invariance of the homogeneous weight | high | a reindexing of each channel's site product, the same mechanism as H-B's `hexSum_hexStream` |
 | `HE2-d` | positive — `Φ`-invariance of the homogeneous weight | medium | it is the composition of `HE2-b` and `HE2-c` and inherits `HE2-b`'s strength |
-| `HE2-e` | positive — the family's flux tensor is a function of the parameters | high | a finite sum over six embedded unit vectors, with H-B's second-moment identity available for the isotropic case |
+| `HE2-e` | positive — the family's flux tensor is a function of the **parameters** | high | a finite sum over six embedded unit vectors, with H-B's second-moment identity available for the isotropic case |
+| `HE2-f` | positive — the mean-charge map is **globally injective on `ℝ³`** | high | the map is the gradient of the strictly convex `λ ↦ Σ_k log (1 + e^{⟨t_k, λ⟩})`, so its injectivity is gradient monotonicity; in elementary form `⟨Ψ λ − Ψ μ, λ − μ⟩` is a sum of six terms, each `≥ 0` by strict monotonicity of `σ` and at least one `> 0` because `t₀`, `t₁`, `t₂` have determinant `1` and so span `ℝ³`. **The strength is high because the argument is finite and elementary, not because the conclusion is convenient**: the falsifier is a stencil whose `t_k` fail to span, and the determinant settles that by computation. The residual risk is kernel bookkeeping over `ℝ³`, which the frozen local fallback covers |
 | `HE3` | `HE3-holds` | medium | it follows if `HE2-a`–`HE2-e` land as predicted, and `HE2-b` is at medium; a refutation of any clause would be the more interesting outcome and is live |
 | `HE4-a` | positive — pure streaming satisfies the three clauses and carries six invariants | high | H-B proved streaming invariance of `hexSum` for **every** weight, so the six invariants are an instance; the remaining work is a two-state witness for the gas |
 | `HE4-b` | positive — site-dependent fugacities break invariance | high | a single-particle streaming witness; particles alone do not collide by H-B's `hexCollide_of_single` |
 | `HE5` | `HE5-unstatable` | high | this is a determination about the record, not about H3: H-A's `H4a` records in terms that none of the five items is fixed by the manuscripts or by A1–A6, and H-B records that its candidate fixes one of the five |
-| `HE6` | `HE6-component` | **medium** | `HE3-holds` with `HE5-unstatable` and `HE4-a` points there: the decidable clauses would hold, the closure-supplying clause would be unstatable at the base, and the clauses that hold would not discriminate. **But whether that makes H3 a component of the right bridge or the wrong shape entirely turns on whether a propagation clause of this shape can supply closure once the scaling map is fixed, which this round cannot settle** |
+| `HE6` | `HE6-component` | **medium** | `HE3-holds` with `HE5-unstatable` and `HE4-a` points there: the decidable clauses would hold, the closure-supplying clause would be unstatable at the base, and the clauses that hold would not discriminate. A positive `HE2-f` closes the parameters-to-charges seam and does **not** by itself move `HE6`, because `HE5` and the carrying requirement remain. **Whether this makes H3 a component of the right bridge or the wrong shape entirely turns on whether a propagation clause of this shape can supply closure once the scaling map is fixed, which this round cannot settle** |
 
 **No prediction is recorded at high strength for `HE6`, and `HE6-bridge` is not predicted at all.**
 `HE6` is what the round exists to decide, and a freeze that predicted it at high strength would be
@@ -499,7 +607,11 @@ Exactly one sentence per target is written, verbatim, in the result note.
 | `HE2-a`…`HE2-e` | positive | The clause landed at evidence level 2, at the scope its statement carries, and at no wider scope. |
 | `HE2-a`…`HE2-e` | negative | The clause is refuted for H-B's candidate by the named statement, and the refutation is a statement about this candidate and this family. |
 | `HE2-a`…`HE2-e` | UNDECIDED | The clause is neither established nor refuted at evidence level 2, with the obstruction named, and nothing is asserted in its place. |
-| `HE3` | `HE3-holds` | For round H-B's candidate, the product-form, family-invariance and flux clauses of the frozen candidate bridge condition H3 hold at evidence level 2, at the scope their statements carry — the family being homogeneous and the flux identity being an identity about the family. **This is not closure**: the clause that would supply closure is the propagation clause, which this round does not establish, and no hydrodynamic limit, continuum equation or transport coefficient follows from anything here. |
+| `HE2-f` | positive, global | The mean-charge map of the frozen family is injective on the whole of `ℝ³` at evidence level 2, so a triple of mean-charge values names at most one parameter triple and the flux identity of `HE2-e` becomes a function of the charge data **on the image of that map**. **Injectivity is all that is established**: the image is not characterized, that characterization is not a target of this round and stays **HO**, and nothing here is closure. |
+| `HE2-f` | positive, local only | Local injectivity of the mean-charge map is established at every parameter triple through the positive-definite Jacobian, and **the global statement was not reached**. A locally defined recovery is not a globally defined one, `HE6-bridge`'s recovery gate is unmet, and no sentence of this round reads the flux off charge data outside a neighbourhood the statement names. |
+| `HE2-f` | negative | The mean-charge map of the frozen family is **not** injective, refuted by the named statement with its witness pinned by equation. The coarse charges do not determine the family member, `HE6-bridge` is unreachable, and this is a finding about this family's parameterization — not a finding that closure is unreachable or that no bridge condition exists. |
+| `HE2-f` | UNDECIDED | Whether the mean charges recover the parameters of the frozen family is UNDECIDED, with the obstruction named. **The consequence, frozen: `HE3` can still establish product form, invariance and parameter-space flux, and `HE6-component` remains reachable. What cannot be claimed is closure from charge data.** |
+| `HE3` | `HE3-holds` | For round H-B's candidate, the product-form, family-invariance and flux clauses of the frozen candidate bridge condition H3 hold at evidence level 2, at the scope their statements carry — the family being homogeneous, and the flux identity being an identity about the family **in its parameters, which is a function of the coarse charges only so far as `HE2-f` separately establishes**. **This is not closure**: the clause that would supply closure is the propagation clause, which this round does not establish, and no hydrodynamic limit, continuum equation or transport coefficient follows from anything here. |
 | `HE3` | `HE3-fails` | For round H-B's candidate, the frozen candidate bridge condition H3 fails at the named clause, refuted by the named statement. **This is a finding about one candidate condition at one candidate substratum.** It is not a finding that the candidate lacks a hydrodynamic limit, not a finding that closure is unreachable, and not a finding about any other bridge condition. |
 | `HE3` | `HE3-UNDECIDED` | Whether the decidable clauses of the frozen candidate bridge condition H3 hold for round H-B's candidate is UNDECIDED, with the obstruction named. The clauses stand neither established nor refuted, and the programme's H3 obligation stays **HO**. |
 | `HE4-a` | positive | Satisfaction of the frozen condition's product-form, invariance and flux clauses does not select round H-B's candidate's conserved-charge structure: the identity-collision rule satisfies the same three clauses with the same family and carries six independent site-independent channel-weighted invariants where the gas carries three. This bounds what those clauses supply and is not a finding against either rule. |
@@ -509,10 +621,15 @@ Exactly one sentence per target is written, verbatim, in the result note.
 | `HE5` | `HE5-statable` | Every item the propagation clause's statement requires is fixed on the merged record at the base, with the quotations that fix them recorded per item. |
 | `HE5` | `HE5-unstatable` | The propagation clause of the frozen candidate bridge condition H3 cannot be stated at the mandated base, because the named items of the scaling skeleton are unfixed on the record searched. **That is a statement about the record, not about the clause**: it is not a finding that the clause is false, that it is unprovable, or that no propagation clause can be stated, and the items it names belong to the programme's H4 obligation, which stays **HO**. |
 | `HE5` | `HE5-UNDECIDED` | Whether the propagation clause is statable at the mandated base is UNDECIDED, with the obstruction named. |
-| `HE6` | `HE6-bridge` | H3, as this round froze it, is a bridge condition of the right shape for the closure step, and the record carries its propagation clause by the quotation or the proved statement named in the result note. **What follows is exactly this and no more**: the closure step is supplied **for round H-B's candidate**, at the scale named, conditional on every qualifier the clauses carry. The programme's H3 obligation is reported **HC**, conditional on H3 as stated, for the candidate; H4–H7 are untouched and stay **HO**; no continuum limit is taken, no equation is written, and nothing is said about OI. |
+| `HE6` | `HE6-bridge` | H3, as this round froze it, is a bridge condition of the right shape for the closure step: its decidable clauses hold, **the mean charges recover the parameters globally by `HE2-f`**, and the record carries its propagation clause by the quotation or the proved statement named in the result note. **What follows is exactly this and no more**: the closure step is supplied **for round H-B's candidate**, at the scale named, **on the image of the mean-charge map**, conditional on every qualifier the clauses carry. The programme's H3 obligation is reported **HC**, conditional on H3 as stated, for the candidate; H4–H7 are untouched and stay **HO**; no continuum limit is taken, no equation is written, and nothing is said about OI. |
 | `HE6` | `HE6-component` | H3, as this round froze it, is not by itself a bridge condition that supplies closure: its decidable clauses hold for round H-B's candidate at the scope they carry, and what would supply closure is its propagation clause, which is not established here and whose statement requires items of the scaling skeleton that the record leaves unfixed. **H3 stands as a component of a bridge and not as one**, the programme's H3 obligation stays **HO**, and nothing here shows that closure is unreachable or that a bridge condition of another shape would not supply it. |
 | `HE6` | `HE6-wrong-shape` | H3, as this round froze it, is **not the right shape of bridge condition**: a condition consisting of an invariance statement for a parameterized family of measures together with a flux identity for that family does not address the gap this round enumerated, and is satisfied by a rule whose conserved-charge structure is not the candidate's. **This is a finding about the shape of the condition, not about round H-B's candidate and not about the programme's target.** The programme's H3 obligation stays **HO**; what shape a bridge would have to have instead is named in the result note as this round's adjudication and not as a theorem; and nothing here shows that closure is unreachable, that no bridge condition exists, or that the ladder is blocked. |
 | `HE6` | `HE6-UNDECIDED` | Whether H3, as this round froze it, is the right shape of bridge condition toward closure is UNDECIDED, with the obstruction named. The programme's H3 obligation stays **HO**, and neither the affirmative nor the wrong-shape reading is written anywhere. |
+
+**The recovery consequence, frozen once and carried wherever `HE2-f` is consumed:**
+
+> If `HE2-f` is UNDECIDED, `HE3` can still establish product form, invariance and parameter-space
+> flux, and `HE6-component` remains reachable. What cannot be claimed is closure from charge data.
 
 **The programme's status labels, frozen.** Whatever lands, the programme's H3 obligation is
 reported **HO** unless `HE6-bridge` is reached, in which case it is reported **HC**, conditional on
@@ -528,6 +645,19 @@ H4, H5, H6 and H7 keep the labels the merged record gives them and are not moved
   macroscopic equations close", "the candidate has a hydrodynamic limit", "the candidate has a
   Navier–Stokes limit", "H3 is closed", "the ladder is closed to H5". `HE3-holds` is a statement
   about three clauses of one candidate condition at one candidate substratum.
+- **A flux in the parameters is not a flux in the coarse charges, and no outcome may be read as
+  closure without recovery.** Forbidden without a positive global `HE2-f`: "the flux is a function
+  of the local densities", "the flux is determined by the coarse charges", "the stress is a function
+  of the conserved fields", "the local equilibrium state is fixed by the local charges", and any
+  sentence whose subject is a charge where `HE2-e`'s statement has a parameter. **The consequence is
+  frozen and is repeated here in the same words**: if `HE2-f` is UNDECIDED, `HE3` can still
+  establish product form, invariance and parameter-space flux, and `HE6-component` remains
+  reachable — what cannot be claimed is closure from charge data. A `HE2-f` reached only locally
+  licenses no global sentence of this kind either.
+- **A positive `HE2-f` is injectivity, not surjectivity, and not closure.** Forbidden: "every coarse
+  charge state is a family member", "the family exhausts the charge sectors", "the recovery is
+  defined on all charge data", and "recovery gives closure". The image of the mean-charge map is
+  **not** characterized by this round and stays **HO**.
 - **Failing to establish H3 is not a finding that closure is unreachable.** Forbidden: "closure is
   unreachable", "no bridge condition exists", "the hydrodynamic programme is blocked",
   "Navier–Stokes is independent of the substratum", "the candidate has no hydrodynamic limit". A
@@ -610,11 +740,20 @@ H4, H5, H6 and H7 keep the labels the merged record gives them and are not moved
 15. **Importing OI → QM results or Track B labels as evidence here, or exporting these findings
     there** — control 1.
 16. **Speaking about singularities.** S1–S5 remain closed until a continuum map exists.
+17. **Sliding from "a function of the parameters" to "a function of the coarse charges".** The seam
+    this amendment exists to hold open, and the round's second characteristic error after hazard 1.
+    `HE2-e` establishes a function of `(a, b₁, b₂)`; closure needs a function of the charges; the
+    two are joined only by `HE2-f`, and the merged record joins them nowhere. Every sentence that
+    would cross is routed through `HE2-f`, the gate on `HE6-bridge` requires it in its global form,
+    and the forbidden sentences are listed.
+18. **Reading a positive `HE2-f` as more than injectivity.** It says at most one parameter triple
+    produces given mean charges. It does not say the charge data encountered lies in the image, and
+    the image characterization is outside this round.
 
 ## Definition budget
 
-The execution introduces **at most five** top-level definitions, all in the new module
-`verification/lean-mathlib/OIBridge/HydroClosureBridge.lean`, and these are the five:
+The execution introduces **at most six** top-level definitions, all in the new module
+`verification/lean-mathlib/OIBridge/HydroClosureBridge.lean`, and these are the six:
 
 1. **`hexFugacity`** — `ℝ → ℝ → ℝ → Fin 6 → ℝ`, the channel fugacities of the frozen family,
    `(a, b₁, b₂, k) ↦ Real.exp (a + b₁ * (hexDir k 0 : ℝ) + b₂ * (hexDir k 1 : ℝ))`. *Needed.*
@@ -627,11 +766,15 @@ The execution introduces **at most five** top-level definitions, all in the new 
 5. **`hexFamilyFlux`** — the rank-2 tensor `Σ_k (hexMeanOcc z k) * (u_k)_a * (u_k)_b` over the six
    embedded unit vectors, the embedding written inline as H-B writes `hexMoment4`'s. *Conditional*,
    only if `HE2-e` is attempted at kernel level as a named tensor rather than inline.
+6. **`hexMeanCharge`** — the mean-charge map `Ψ : ℝ³ → ℝ³` of `HE2-f`, `(a, b₁, b₂)` to the expected
+   mass and the two expected momentum components at one site, built from `hexFugacity` and
+   `hexMeanOcc` with `hexDir`'s two coordinate rows as the weights. *Needed for `HE2-f`.*
 
-**A sixth definition requires its own append-only amendment**, separately frozen and merged before
+**A seventh definition requires its own append-only amendment**, separately frozen and merged before
 the work it affects, naming the definition and the target it serves. **No witness configuration,
-parameter triple, fugacity instance, weight instance or block is a top-level definition** — each is
-a bound variable pinned by an equation in the statement that needs it. `HexLatticeGas`'s,
+parameter triple, fugacity instance, weight instance, sufficient-statistic vector or block is a
+top-level definition** — each is a bound variable pinned by an equation in the statement that needs
+it; in particular the vectors `t_k` of `HE2-f` are written out inside the statements that use them. `HexLatticeGas`'s,
 `HydroSourceAudit`'s, `CubicIsotropy`'s and `SubstratumInterfaceAudit`'s definitions are **reused,
 not redefined**; in particular `hexDir`, `hexCollide`, `hexStream`, `hexGas`, `hexSubstratum` and
 `hexSum` are consumed unmodified.
@@ -640,8 +783,8 @@ not redefined**; in particular `hexDir`, `hexCollide`, `hexStream`, `hexGas`, `h
 
 **Evidence level 2** — kernel-checked, every named result printing only
 `[propext, Classical.choice, Quot.sound]` or a subset the kernel reports, **no `sorry`, no `axiom`,
-no `native_decide`** — for `HE2-a`–`HE2-e` and `HE4-a`–`HE4-b`, with the frozen fallback for
-`HE2-b`. `decide` over finite types is permitted; `native_decide` is not.
+no `native_decide`** — for `HE2-a`–`HE2-f` and `HE4-a`–`HE4-b`, with the frozen fallbacks for
+`HE2-b` and for `HE2-f`. `decide` over finite types is permitted; `native_decide` is not.
 
 **Evidence type "prose/source audit"** (programme control 9) for `HE0`, `HE1` and `HE5`, under the
 frozen evidence rule. `HE3` and `HE6` are **assembled determinations**: each is reported at the
@@ -671,9 +814,11 @@ Mechanically checkable, clause by clause. An auditor checks each with the comman
    invariant above governs.
 5. **This preregistration blob is merged into `main` before any execution-specific H-E object
    enters the repository tree** — any Lean definition or proof about the fugacity family, the local
-   or configuration weight, the mean occupations or the family's flux tensor; any guard section; any
-   probe; any result artifact. **There is no permitted pre-execution analysis object**: this freeze
-   records no computed witness values, and the execution derives every one it needs.
+   or configuration weight, the mean occupations, the family's flux tensor or the mean-charge map;
+   any guard section; any probe; any result artifact. **The single permitted exception is the
+   mechanism paragraph recorded inside `HE2-f` in this control-plane blob itself**, merged *as* the
+   freeze: it is analysis, it is evidence at no level, and the kernel re-derives whatever it claims.
+   This freeze records no computed witness values, and the execution derives every one it needs.
 6. **The execution pull request's base is exactly the merge commit of this control plane's pull
    request**, and its **first act** is to verify this file's blob at that base before any target is
    executed.
@@ -719,8 +864,9 @@ The round does not: read any manuscript; edit any manuscript; construct a second
 candidate, a three-dimensional candidate, a rest-particle variant or a time-alternating collision;
 take any continuum limit or assert any PDE; assert any ergodicity, mixing, equidistribution or
 propagated local-equilibrium statement; assert any timescale relation; state any invariance for
-site-dependent parameters; modify the `Substratum`, `Rule` or `leap` interfaces, or add fields to
-them; alter any existing seal constant or any existing guard section; report round H-B closed or
+site-dependent parameters; characterize the image of the mean-charge map, or claim that any coarse
+charge state lies in it; restate `HE2-e` with a charge as its argument absent a positive global
+`HE2-f`; modify the `Substratum`, `Rule` or `leap` interfaces, or add fields to them; alter any existing seal constant or any existing guard section; report round H-B closed or
 move its open owner question; re-open, re-decide or consume round H-D's lane; move any `ROADMAP`
 queue row; say anything about Track B, Track I, Bell, gravity or singularities.
 
@@ -755,18 +901,23 @@ queue row; say anything about Track B, Track I, Bell, gravity or singularities.
    absent on a named and bounded search;
 2. **`HE1`** — the closure-gap enumeration, each entry with its quotation, and any discrepancy
    against this freeze's four items recorded as the finding;
-3. **`HE2`** — the five kernel statements with their scopes, the `HE2-b` fallback marked used or
-   unused, and the "site-independent" qualifier carried in every invariance sentence;
-4. **`HE3`** — the assembled determination, with its single frozen sentence;
-5. **`HE4`** — the two bounds with their witnesses pinned by equation, each reported as a bound;
-6. **`HE5`** — the five scaling items reported separately as fixed or unfixed, with quotations, and
+3. **`HE2-a`–`HE2-e`** — the five kernel statements with their scopes, the `HE2-b` fallback marked
+   used or unused, the "site-independent" qualifier carried in every invariance sentence, and
+   `HE2-e`'s statement reported with the parameter triple as its argument;
+4. **`HE2-f`** — the mean-charge map, its frozen domain, the form of recovery reached (global, local
+   or UNDECIDED) with its fallback marked used or unused, the frozen recovery-consequence sentence
+   wherever the outcome is UNDECIDED or local, and the record that the image of the map is not
+   characterized and stays **HO**;
+5. **`HE3`** — the assembled determination, with its single frozen sentence;
+6. **`HE4`** — the two bounds with their witnesses pinned by equation, each reported as a bound;
+7. **`HE5`** — the five scaling items reported separately as fixed or unfixed, with quotations, and
    the determination with its single frozen sentence;
-7. **`HE6`** — the shape adjudication, with its gate satisfied or its outcome changed accordingly,
-   and its single frozen sentence;
-8. what the outcomes do **not** license, in this file's wording, with the lane-D exclusion and the
-   H-B guardrail sentence carried unchanged;
-9. the definition count against the five-slot budget, the conditional slot marked fired or unused;
-10. the chronology certification, clause by clause, including the archive-mode entry at `P`, and
+8. **`HE6`** — the shape adjudication, with each of its four gate requirements reported satisfied or
+   unmet, and its single frozen sentence;
+9. what the outcomes do **not** license, in this file's wording, with the lane-D exclusion, the H-B
+   guardrail sentence and the recovery consequence carried unchanged;
+10. the definition count against the six-slot budget, the conditional slot marked fired or unused;
+11. the chronology certification, clause by clause, including the archive-mode entry at `P`, and
     the axiom table with one line per named result.
 
 ## Points at which this freeze chose a reading, recorded rather than resolved
@@ -785,7 +936,16 @@ queue row; say anything about Track B, Track I, Bell, gravity or singularities.
    already inside the merged record's vocabulary — H-B proved its invariance property for every
    weight — and needs no new construction. A different discriminator would need a new candidate and
    a definition budget this round does not spend.
-4. **The round is sealing.** An alternative would write no Lean and settle every target by
+4. **`HE2-f` is frozen as global injectivity on all of `ℝ³`**, rather than as local injectivity or
+   as injectivity off a degenerate set, because that is the honest statement for this family: the
+   sufficient-statistic vectors span, so the relevant Hessian is positive definite everywhere and no
+   degenerate set has to be excised. The local statement is kept as the frozen fallback and is
+   recorded as not meeting `HE6-bridge`'s gate. **The complementary question — whether the charge
+   data actually encountered lies in the image of the mean-charge map — was considered and
+   deliberately left outside the round**: it is a different statement, it would need its own target,
+   and freezing it here would widen the round without sharpening it. Its absence is why every
+   consumer of a positive `HE2-f` carries "on the image of the mean-charge map".
+5. **The round is sealing.** An alternative would write no Lean and settle every target by
    locating and quoting, which would make it non-sealing and land `E` → `L`. This freeze does not,
    because `HE2` and `HE4` are exact finite statements about a kernel object and a candidate
    condition that is only located and never tested would leave the programme's H3 obligation
