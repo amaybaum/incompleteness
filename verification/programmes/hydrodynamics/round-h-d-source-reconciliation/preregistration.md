@@ -168,9 +168,14 @@ it is a claim about what a named search over a named surface returned.
 > merely because it happens to be present at its mandated base. The round consumes only what its
 > freeze says it consumes.
 
-**Why it matters here specifically:** this round lands **last of the five**, and its mandated base
-will therefore carry every sibling result merged before it — including lane C's H3 round — **none of
-which it consumes**.
+**Why it matters here specifically:** under `§A.37` the execution branches from **this control
+plane's merge commit and from nothing else**. The mandated base is therefore fixed at the moment this
+control plane merges, and carries exactly what `main` carried at that moment — whatever sibling
+results, lane C's H3 round among them, had merged by then. **Those results are not inputs to this
+round, however present they are at its base**: their presence there is a fact about the base, and the
+round consumes only what this freeze says it consumes. Landing position does not enter the question.
+A sibling that merges after this control plane does not appear in this round's base at all, and a
+sibling that merged before it is present there without thereby being consumed.
 
 ## The evidence rule, FROZEN
 
@@ -222,7 +227,9 @@ additivity of the substratum rule over the alphabet, in `SubstratumInterfaceAudi
 `verification/ROADMAP.md` and `verification/README.md`.
 
 **`SR11-words` — the wording status rule 11 mandates** for any later refresh of `../PROGRAMME.md`
-§8, quoted from H-D's freeze and not paraphrased.
+§8, quoted from H-D's freeze and not paraphrased. **This wording is settled**: status rule 11 fixed
+it, this round reproduces it as quotation, and no target of this round proposes, ranks or amends it.
+What H-D left open is which later action carries it out.
 
 The round adds **no object of its own**. Where a distinction is needed that the sources do not draw,
 the execution **records that the sources do not draw it** and does not draw it on their behalf.
@@ -353,8 +360,8 @@ answers appear at all; and where they appear, whether the wording is `SR11-words
 status rule 11 and compared to the text found.
 
 **This is a census, not a propagation.** **This round edits none of the three files** and adjudicates
-no entry as correct or incorrect. The census exists so that the later action H-D's status rule 11
-names has its surface enumerated.
+no entry as correct or incorrect. The census exists so that the later action which carries out the
+already-worded §8 refresh has its surface enumerated before it acts.
 
 **What evidence counts.** Quotation with coordinate of what is found; or the recorded statement that
 a named and bounded search of the named file returns no H-D content.
@@ -382,8 +389,12 @@ stability record (`SR-6`); and **name, without making, the three owner decisions
    named propagation question;
 2. **whether the `R7-HY*` guard family extends to prose-only rounds of this programme** — H-D's
    chronology control 4;
-3. **which later action refreshes `../PROGRAMME.md` §8, and in what words** — H-D's D7 and status
-   rule 11, the words being `SR11-words` and nothing stronger.
+3. **which later action carries out the refresh of `../PROGRAMME.md` §8** — H-D's D7 and status
+   rule 11. **The wording is not the open question and is not this round's to choose**: status
+   rule 11 already fixes the words that refresh must carry, and `SR11-words` is that wording quoted.
+   What H-D left open, and all that is open, is **which later action performs the already-worded
+   refresh**. The result note names that question and states the settled wording beside it, as
+   quotation and not as a choice.
 
 **What evidence counts.** The targets above, cited; and quotation of H-D for each named decision.
 **Naming a decision is not making it**, and the result note makes none of the three.
@@ -399,7 +410,7 @@ stability record (`SR-6`); and **name, without making, the three owner decisions
 | `SR-3` | **no passage adjudicates**; the disagreement stands unadjudicated on the record | negative | high | H-D searched the papers and named the propagation question for the owner, which it would not have done had it found an adjudication; and no adjudicating passage was seen in the pre-freeze reading of the wider surface. High and not full because `SR-2`'s sweep may surface one |
 | `SR-4` | `A5-ker` and `A5-ms` are two statements and **no identification theorem stands in the tree** | positive | high | H-D's `A5S-0a` landed positive at full strength on a narrower base; high here because the base is later and sibling landings may have added Lean this freeze has not read |
 | `SR-5` | **H-D's three answers are absent from all three of `prop-surface`** | negative | high | recorded reading 6, and H-D's D7, which left the §8 refresh to a later action. High and not full because the base is later than this control plane's and a sibling round may have refreshed §8 |
-| `SR-6` | the quoted passages are **byte-identical** across the two bases | positive | medium | at this control plane's base the four manuscript blobs already equal H-D's; medium because this round lands last, its base carries every sibling landing before it, and a manuscript-touching sibling would move them |
+| `SR-6` | the quoted passages are **byte-identical** across the two bases | positive | medium | at this control plane's base the four manuscript blobs already equal H-D's; medium because the execution base is this control plane's merge commit and carries whatever siblings had merged by that moment, and a manuscript-touching sibling among them would move them |
 | `SR-7` | the record is assembled and **all three owner decisions are named and left open** | positive | full, conditional on `SR-1`–`SR-6` | the three are quoted from H-D as decisions it recorded and did not make; this round has no licence to make any of them |
 
 **`UNDECIDED` remains a permitted outcome of every target**, reported with the obstruction named.
@@ -484,16 +495,17 @@ Exactly one sentence per target is written, verbatim, in the result note and now
 - **ABSENT FROM ALL THREE**:
   > At the execution base, H-D's three answers appear on none of `../PROGRAMME.md` §8's one-line
   > state, `verification/ROADMAP.md` or `verification/README.md`. The census is recorded; **this
-  > round edits none of the three**, and the later action H-D's status rule 11 names is left to the
-  > owner with its surface enumerated here.
+  > round edits none of the three**, and which later action carries out the already-worded refresh
+  > is left to the owner, with its surface enumerated here.
 - **PRESENT AND IN THE MANDATED WORDING**:
   > At the execution base, H-D's three answers appear at the coordinates quoted in this note, in the
   > wording H-D's status rule 11 mandates. The census is recorded and no file is edited.
 - **PRESENT AND DIVERGENT**:
   > At the execution base, H-D's three answers appear at the coordinates quoted in this note, and the
   > wording found differs from the wording H-D's status rule 11 mandates in the respects tabulated.
-  > **The divergence is recorded and is repaired nowhere**; whether and how to align it is an owner
-  > decision this round does not make.
+  > **The divergence is recorded and is repaired nowhere.** The wording it would be aligned to is
+  > status rule 11's and is not open; which later action performs that alignment is the owner
+  > decision, and this round does not make it.
 
 ### `SR-6`
 
@@ -511,8 +523,8 @@ Exactly one sentence per target is written, verbatim, in the result note and now
 - **ASSEMBLED, THREE DECISIONS NAMED**:
   > The reconciliation record is assembled in this note, and the three owner decisions H-D
   > recorded — the propagation of the negative resolution, the reach of the `R7-HY*` guard family to
-  > prose-only rounds, and which later action refreshes `../PROGRAMME.md` §8 and in what words — are
-  > named here and made nowhere.
+  > prose-only rounds, and which later action carries out the refresh of `../PROGRAMME.md` §8 whose
+  > words status rule 11 already fixes — are named here and made nowhere.
 
 ### Rules binding every outcome
 
@@ -590,7 +602,9 @@ Exactly one sentence per target is written, verbatim, in the result note and now
    is reported with its surface named, and the surface is not a claim about what lies off it.
 5. **Performing the propagation while enumerating it.** The failure: `SR-5` notices a surface that
    lacks H-D's answers and an execution helpfully adds them. The census is a census; the round edits
-   none of `prop-surface`.
+   none of `prop-surface`. **The companion failure is treating status rule 11's wording as open** and
+   proposing, ranking or improving words for the §8 refresh. Those words are settled and are
+   reproduced as quotation; the open question is which later action carries them.
 6. **Making an owner decision by describing it.** The failure: `SR-7` naming the propagation question
    and then recommending an answer, or writing a sentence from which the answer follows. Naming is
    not making.
@@ -748,8 +762,9 @@ Nothing else.
    the `R7-HY*` family should reach prose-only rounds is one of the owner decisions `SR-7` names and
    does not make.
 5. **`SR-5` is a census and not a propagation.** The alternative — refreshing `../PROGRAMME.md` §8
-   in this round — was set aside because H-D's status rule 11 assigns those words to a later action
-   and this round owns no propagation.
+   in this round — was set aside because H-D's status rule 11 already fixes the words that refresh
+   must carry and leaves the refresh itself to a later action, and this round owns no propagation.
+   Carrying out the refresh here would be this round appointing itself that action.
 
 ## What the owner must decide before this freezes
 
