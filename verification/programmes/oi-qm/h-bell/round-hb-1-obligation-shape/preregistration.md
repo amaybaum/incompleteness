@@ -40,7 +40,7 @@ discrepancy rather than exercising a permission.
 
 ### What this round would own, and what it would not
 
-**It would own, and may change, guard contracts that are not seal state.** The execution may add one
+**It would own, and may change, guard contracts that are not seal state.** The execution **adds** exactly one
 clause to `verification/lean/edge_rigidity_probe.py` under the reserved tag **`R7-HBS`**, whose
 whole content is a **content contract**: that this preregistration is present at its path with the
 blob this control plane merges as; that the result note is present at its path; and that the
@@ -58,13 +58,14 @@ each belonging to the round that set it:
 | `_TCF_BASE`, `_TCF_SEALED_HEAD`, `_TCF_MERGE` | Track B act 15 | read only |
 | `_CTI_*`, `_PQT_*`, `_A6P_*`, `_A6D_*`, `_A6I_*`, `_HYA_*`, and every other `_*_BASE`, `_*_SEALED_HEAD` or `_*_MERGE` in that file | their own rounds | read only |
 
-The execution's diff against `edge_rigidity_probe.py`, if it makes one at all, **adds** the `R7-HBS`
+The execution's diff against `edge_rigidity_probe.py` **adds** the `R7-HBS`
 clause and changes nothing else in the file.
 
-**The landing shape does not turn on whether that clause is written.** If the owner directs that no
-guard edit be made, the round is still non-sealing and still lands `E` → `L`; what changes is only
-whether the freeze is pinned by the guard or by the start-state tables alone. Both readings are
-recorded in *Open to the owner* below.
+**The landing shape does not turn on that clause.** The round is non-sealing and lands `E` → `L`
+because it owns no seal state, and a content contract is not seal state. The clause is required, so
+this preregistration is pinned by the guard and by the start-state tables together, and the opening
+statement that the execution guard pins it by path plus blob holds without qualification. The
+decision is recorded in *Settled by the owner before this freeze merges* below.
 
 ## What this round is not, stated before anything else
 
@@ -161,7 +162,7 @@ that a discrepancy in what the round writes onto is as visible as a discrepancy 
 | path | blob at this base | what the round does to it |
 | --- | --- | --- |
 | `verification/ROADMAP.md` | `5ee35552fbfb41bd3172d3e3053c1a6d860a16d1` | **read** as the pinned statement of the row, the section and the status vocabulary; **written** only by appending the frozen post-round paragraph for the case reached, inside the existing section `P1 — H-Bell and composite closure`; the row's label and the row's five cells unchanged |
-| `verification/lean/edge_rigidity_probe.py` | `6e334e832d99851e7a275842c1bdd856cbeb09f7` | the `R7-HBS` content clause **added**, if the owner directs one; **no seal constant, no merge constant, no base constant altered**, and nothing else in the file changed |
+| `verification/lean/edge_rigidity_probe.py` | `6e334e832d99851e7a275842c1bdd856cbeb09f7` | the `R7-HBS` content clause **added**; **no seal constant, no merge constant, no base constant altered**, and nothing else in the file changed |
 | `verification/README.md` | `d25eb2d44d0aa324c095930f40174296fd0f2279` | one appended paragraph recording this round; no existing paragraph edited |
 | `verification/programmes/oi-qm/h-bell/round-hb-1-obligation-shape/result.md` | absent | this round's result note, created by the execution |
 
@@ -884,8 +885,8 @@ paragraphs and before its link line. Exactly one is written.
 ## Definition budget
 
 **ZERO.** No Lean module, no definition, no theorem, no probe function. The round writes prose, an
-appended `ROADMAP` paragraph, an appended `README` paragraph, and — if the owner directs one — the
-`R7-HBS` content clause, which declares no seal constant and performs no ancestry check.
+appended `ROADMAP` paragraph, an appended `README` paragraph, and the `R7-HBS` content clause,
+which declares no seal constant and performs no ancestry check.
 
 **No slot is reserved, because none would be spendable.** If the census uncovers a precise formal
 subclaim worth separating, the execution **names it and does not build it**, and it becomes a
@@ -917,13 +918,13 @@ Phrased so that each clause is checkable mechanically.
    and tree in the start-state tables is the blob or tree at that commit.
 4. **No new guard file is added and no ancestry guard is written.** The definition budget is zero
    and no Lean module is written, so there is no kernel object for an ancestry guard to order. The
-   `R7-HBS` tag, if used, carries content contracts only.
+   `R7-HBS` tag carries content contracts only.
 5. **No seal state is created or altered.** Every `_*_BASE`, `_*_SEALED_HEAD` and `_*_MERGE` in
    `verification/lean/edge_rigidity_probe.py` is read and never written.
 6. **Because the round is non-sealing, its landing under `§A.37` is the merge alone**: current green
-   `main` as first parent, the sealed execution head `E` as second, and **no archive-pin commit**.
-   The sealed execution commit is never modified; conflicts are resolved in the landing merge `L`
-   and never in `E`.
+   `main` as first parent, the exact-head-certified execution head `E` as second, and **no
+   archive-pin commit**. The execution commit is never modified; conflicts are resolved in the
+   landing merge `L` and never in `E`.
 7. **The `ROADMAP` is shared ground**, and sibling rounds may move rows and sections in the same
    file between this freeze and this landing. The landing resolves such collisions **by merits per
    `§A.37`** — this round's own appended paragraph from the execution, every other row and section
@@ -974,7 +975,7 @@ clause. No distinction drawn on the record's behalf, and no object of this round
 ## Execution discipline
 
 The execution produces **the result note**, the appended `ROADMAP` paragraph, the appended `README`
-paragraph, and — if the owner directs one — the `R7-HBS` content clause, and nothing else. One pull
+paragraph, and the `R7-HBS` content clause, and nothing else. One pull
 request from the mandated base carrying the execution; after certification the same pull request
 carries the landing merge `L`, and no pin commit.
 
@@ -1015,38 +1016,28 @@ clause's own section governs. Nothing else.
    freeze does not, because there is no kernel object to order and because taking a seal would be
    taking ownership of state the round has no use for.
 
-## Open to the owner before this freeze merges
+## Settled by the owner before this freeze merges
 
-Recorded so that the amendment happens before the merge, which is the only time a freeze may be
-amended. **Naming is load-bearing**: the execution guard pins this preregistration by path plus
-blob, so a rename after this merges breaks the pin and cannot be repaired without a new control
-plane.
+**Naming is load-bearing**: the execution guard pins this preregistration by path plus blob, so a
+rename after this merges breaks the pin and cannot be repaired without a new control plane. Each
+decision below is settled, and the freeze carries it.
 
-1. **The directory name and the round's name.** This freeze places itself at
-   `verification/programmes/oi-qm/h-bell/round-hb-1-obligation-shape/preregistration.md`, creating
-   `h-bell/` as a third track directory beside `track-b/` and `track-i/`, on the ground that the row's
-   track cell reads `OI→QM / Bell`. The alternatives the owner may prefer: a flat
-   `verification/programmes/h-bell/round-hb-1-obligation-shape/`, matching `physical-realization/`;
-   or `verification/programmes/oi-qm/track-bell/round-hb-1-obligation-shape/`, matching the existing
-   track naming. **Settle this before the merge.**
-2. **The round's label in prose — `HB-1`.** The freeze uses `HB-1` in the `ROADMAP` paragraph and
-   `HB0`–`HB6` for the targets. If the owner prefers act-style numbering, or a label that does not
-   imply a series, the change belongs here and not after.
-3. **Whether the execution writes a guard clause at all, and under which tag.** The freeze reserves
-   `R7-HBS`, which collides with no tag present in `verification/lean/edge_rigidity_probe.py` at the
-   base. The owner may direct instead that no guard edit be made, in which case the freeze is pinned
-   by the start-state tables alone. **The landing shape is `E` → `L` either way**, so this decision
-   does not touch the `§A.37` declaration.
-4. **Whether the `README` round record is appended by this execution or deferred.** The freeze
-   appends one paragraph. An owner who wants the landing page left alone until a substantive H-Bell
-   round runs should say so.
-5. **Whether `HB6` belongs in this round at all.** Adjudicating the row's label against `VOCAB` is
-   cheap and the prediction is `OPEN` at high strength, so the target is close to a control. An
-   owner who reads label adjudication as belonging to its own round, on the A6 precedent, should
-   strike `HB6` before the merge; the remaining six targets stand without it and the status rule's
-   clause 3 keeps the row byte-identical regardless.
-6. **Whether `HB3` row 9 should name the kernel's composite and operational-lifting modules
-   individually in the freeze**, rather than leaving the census to locate them under search
-   `S-inputs`. The freeze pins six such modules by blob in the start-state table and leaves the
-   identification of which of them, if any, is the ingredient H-Bell quantifies over to the census —
-   which is why that row's prediction is held at medium.
+1. **The directory and the round's name stand as written** —
+   `verification/programmes/oi-qm/h-bell/round-hb-1-obligation-shape/preregistration.md`, with
+   `h-bell/` a third track directory beside `track-b/` and `track-i/`, on the ground that the row's
+   track cell reads `OI→QM / Bell`.
+2. **The round's label in prose is `HB-1`**, and the targets are `HB0`–`HB6`.
+3. **The execution writes the `R7-HBS` clause, and that clause is content contracts only** — no
+   `_HBS_BASE`, no `_HBS_SEALED_HEAD`, no `_HBS_MERGE`, and no ancestry check. `R7-HBS` collides
+   with no tag present in `verification/lean/edge_rigidity_probe.py` at the base. The landing shape
+   is `E` → `L`, which the clause does not touch.
+4. **The `README` round record is appended by this execution**, one paragraph, with no existing
+   paragraph edited.
+5. **`HB6` stands in this round.** Adjudicating the row's label against `VOCAB` is cheap and type P,
+   and it authorizes no change to the row: the status rule's clause 3 keeps the row byte-identical
+   whatever `HB6` returns.
+6. **`HB3` row 9 stays a bounded census.** The freeze pins six candidate modules by blob in the
+   start-state table and leaves the identification of which of them, if any, is the ingredient
+   H-Bell quantifies over to the census under search `S-inputs`. Naming the composite and the
+   operational-lifting modules individually in the freeze would answer part of that census in the
+   freeze, which is why that row's prediction is held at medium.
