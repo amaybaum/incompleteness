@@ -24,7 +24,8 @@ zero, no Lean module is written, and no kernel object exists for an ancestry gua
 guard tag is reserved and none is added.
 
 **The landing shape, therefore: `E` → `L`, with no archive-pin commit `P`.** The landing merge's
-first parent is current green `main`, its second parent is exactly the sealed execution head `E`,
+first parent is current green `main`, its second parent is exactly the exact-head-certified
+execution head `E`,
 and conflicts are resolved in `L` and never in `E`. `§A.37` states the non-sealing case in terms
 (`AGENTS.md:786–788`): such a round "**may** modify other contracts inside an existing guard; it
 **may not** alter existing seal constants. It has nothing to pin, and a pin commit added there would
@@ -202,8 +203,12 @@ is a recorded discrepancy and not a repair.
 execution records the discrepancy and does not repair the freeze.**
 
 **One mechanical sweep runs over a directory rather than over this table** — `HF1-a`'s search of
-`verification/lean-mathlib/OIBridge/*.lean` for a carrier of the condition H-D's `A5S-1c` names. Its
-surface is named and bounded in the target itself, and **the boundary of the sweep is recorded with
+`verification/lean-mathlib/OIBridge/*.lean` **as that tree stands at this freeze's certified
+drafting base `b78eac870ba3ee9ef9e98659ac933bf97dc62226`**, for a carrier of the condition H-D's `A5S-1c`
+names. **The surface is fixed at that commit and not at the execution base**, so that no round
+landing after this freeze is drafted can enter the sweep: the blindness boundary this freeze draws
+around its siblings would otherwise be undone by the search itself. Its surface is named and bounded
+in the target itself, and **the boundary of the sweep is recorded with
 its finding**, exactly as H-D recorded the boundary of its own enumeration. A sweep's surface is not
 a claim that every file on it was quoted; it is a claim about what a named search over a named
 surface returned.
@@ -366,9 +371,12 @@ execution re-locates each at the base and reports the coordinate it finds.
 
 **What settles it.** Quote round H-D's `A5S-1c` obstruction and its "what would change the outcome"
 sentence with coordinates; then determine, on a **named and bounded** search of
-`verification/lean-mathlib/OIBridge/*.lean` at the base, whether the tree carries a predicate or a
-result establishing observer-admission for a concrete substratum — the carrier H-D records as
-absent. The surface, the search terms and the boundary are recorded with the finding.
+`verification/lean-mathlib/OIBridge/*.lean` **as that tree stands at `b78eac870ba3ee9ef9e98659ac933bf97dc62226`**, whether it carries a predicate or a result establishing
+observer-admission for a concrete substratum — the carrier H-D records as absent. **The search
+surface is frozen at that commit.** It is later than the base of H-D's own enumeration, so the
+re-check is not a restatement of H-D's; and it is earlier than any sibling landing of this
+fan-out, so no sibling round's Lean can enter it. The surface, the search terms and the boundary
+are recorded with the finding.
 
 **What evidence counts.** Rule 2 for H-D's statement; rule 1 for any carrier found, quoted with its
 coordinate; rule 3 for the absence, with the search named and bounded. **Reconstructive inference is
@@ -574,19 +582,17 @@ raises:
 4. **which later action carries out the refresh of `../PROGRAMME.md` §8** — round H-D's D7, whose
    wording round H-D's status rule 11 already fixes;
 5. **the `carrier-question`** — which substratum an `axis-HC` round would run on, enumerated at
-   `HF2-d`;
-6. **whether an `axis-HC` control plane is commissioned before or after round H-E's result lands**,
-   round H-E's freeze being present at this round's base and its result not an input here.
+   `HF2-d`.
 
 **What evidence counts.** The targets above, cited; and quotation of the recording round for each
-named decision. **Naming a decision is not making it**, and the result note makes none of the six.
+named decision. **Naming a decision is not making it**, and the result note makes none of the five.
 
 ## The preregistered predictions, with signs, strengths and recorded reasons
 
 | target | prediction | sign | strength | recorded reason |
 | --- | --- | --- | --- | --- |
 | `HF0` | all seventeen passages located and quoted at the base | positive | high | each was located by hand while drafting this freeze, in the pinned blobs; the risk is a coordinate a sibling landing moved, not a passage that is absent |
-| `HF1-a` | the carrier round H-D's `A5S-1c` names is **still absent** on the bounded search | negative | medium | H-D found none on a narrower base at full attention; medium and not higher because the base is later, sibling landings may have added Lean this freeze has not read, and a negative on a sweep is a statement about the sweep |
+| `HF1-a` | the carrier round H-D's `A5S-1c` names is **still absent** on the bounded search | negative | medium | H-D found none on a narrower base at full attention; the search surface is frozen at this freeze's drafting base, which is later than H-D's and carries no sibling landing of this fan-out, so the re-check is meaningful and closed; medium and not higher because a negative on a sweep is a statement about the sweep |
 | `HF1-b` | both settling conditions are quoted, and the record assigns the **negative** one to a derivation at a stated scaling map and convergence topology | positive | high | recorded reading 3; the words are H-D's own and the assignment is carried by them |
 | `HF1-c` | the source-level question stands as round H-D named it, and round H-D-SR's freeze scopes the reconciliation without adjudicating | positive | full | recorded readings from the two pinned freezes; both passages are quotations and neither requires a judgment |
 | `HF1-d` | round H-B's class question stands open in H-B's own words | positive | full | recorded reading 6, quoted from a merged result note |
@@ -597,7 +603,7 @@ named decision. **Naming a decision is not making it**, and the result note make
 | `HF3` | every enumerated item's A5 is identifiable from quoted words as `A5-ker` or `A5-ms` | positive | medium | round H-D is careful to say which throughout, but the classification must be carried by each source's own words at the base, and **a row where the source does not say is a live outcome reported as silence** |
 | `HF4` | **no target, prediction, gate or status sentence depends on round H-D-SR's outcome** | positive | high | the freeze is written so that no determination is stated in terms of the entailment question's resolution; high and not full because the audit is of this file and a missed sentence is the plausible error, which is exactly what the walk is for |
 | `HF5` | **`HF5-H-C`** | **medium** | `HF1` and `HF2` point there: `axis-A5`'s live questions are gated on an absent carrier, on an owner decision, and on a reconciliation this round may not consume, while `axis-HC`'s next step is a control plane `../PROGRAMME.md` §6 assigns to that round and whose required fixings the record leaves to it. **The strength is medium and not higher because `HF5` is what the round exists to decide**, and a freeze that predicted its own adjudication at high strength would be claiming the answer it is chartered to find; `HF5-OWNER` is live and its gate is written so that it is reached rather than forced |
-| `HF6` | the six decisions are named and all six left open | positive | full, conditional on `HF0`–`HF5` | each is quoted from the round that recorded it, or raised by this round's own enumeration; this round has no licence to make any of them |
+| `HF6` | the five decisions are named and all five left open | positive | full, conditional on `HF0`–`HF5` | each is quoted from the round that recorded it, or raised by this round's own enumeration; this round has no licence to make any of them |
 
 **`UNDECIDED` remains a permitted outcome of every target**, reported with the obstruction named.
 **It is a live preregistered outcome and it is not a failure of the round**: a round that reaches
@@ -885,7 +891,7 @@ Exactly one sentence per target is written, verbatim, in the result note and now
   direction — the programme's control 1.
 - **Nothing here promotes a cited result.** Every kernel statement cited keeps the evidence level of
   the round that proved it and is restated no more broadly than the theorem carrying it.
-- **Nothing here makes an owner decision.** `HF6` names six and makes none.
+- **Nothing here makes an owner decision.** `HF6` names five and makes none.
 - **No manuscript is edited and none is read.** Publication-facing claims wait, per the programme's
   control 10.
 
@@ -1013,10 +1019,10 @@ declaration would stand as the record of what was frozen first.
    execution's diff touches no file under `verification/lean/`, no `.lean` file, and no seal
    constant of the `R7-HY*` family.
 9. **Before certification the execution never absorbs later main.** No merge from main, no rebase, no
-   amend, no force-push. *Check:* the sealed head's ancestry contains no merge whose second parent
+   amend, no force-push. *Check:* the execution head's ancestry contains no merge whose second parent
    postdates the base.
 10. **Under `§A.37` the landing is `E` → `L` with no archive pin**, the round being non-sealing.
-    *Check:* the landing merge's second parent equals the sealed execution head, and no pin commit
+    *Check:* the landing merge's second parent equals the execution head `E`, and no pin commit
     follows it.
 11. **The claim is scoped to the repository record** at the execution base.
 
@@ -1051,7 +1057,7 @@ of round H-D-SR's execution or of round H-E's execution; reopen rounds H-A, H-B 
 any of round H-D's three answers; choose a carrier; fix a scaling map, a convergence topology, a
 normalization or a norm; take any limit or assert any PDE, closure or transport coefficient; move,
 close, discharge or relabel any obligation; apply any taxonomy label; assert any status for A6; carry
-out any propagation or refresh any one-line state; commission any round; make any of the six owner
+out any propagation or refresh any one-line state; commission any round; make any of the five owner
 decisions it names; say anything about Track B, Track I, Bell, gravity or singularities.
 
 ## Execution discipline
@@ -1065,7 +1071,7 @@ decisions it names; say anything about Track B, Track I, Bell, gravity or singul
 - **Then exactly one execution pull request**, based on the merge commit of this one, carrying **the
   result note alone**. No Lean, no guard, no manuscript change, no propagation, no roadmap section.
 - Exact-head certification after execution is complete, with full continuous integration green; the
-  certification of record is the run whose `head_sha` is the sealed execution commit. A red badge
+  certification of record is the run whose `head_sha` is the execution commit `E`. A red badge
   arising solely from an archive clause that entered `main` after the base is not a research failure;
   `§A.37`'s exact-head rule applies, and `workflow_dispatch` on the branch is the fallback for that
   case and not the routine.
@@ -1088,7 +1094,7 @@ decisions it names; say anything about Track B, Track I, Bell, gravity or singul
    read into nothing;
 6. `HF5`, the adjudication, with each gate requirement reported satisfied or unmet, and the single
    frozen sentence for the outcome reached;
-7. `HF6`, the six owner decisions named and made nowhere;
+7. `HF6`, the five owner decisions named and made nowhere;
 8. what the outcomes do **not** license, in this file's wording, round H-B's guardrail and THE CLAUSE
    among them;
 9. the discrepancy section — every divergence between this freeze and what the execution finds at
@@ -1126,48 +1132,57 @@ Nothing else.
    order; the blob pins in the start-state table carry the immutability the round needs, and whether
    the `R7-HY*` family should reach prose-only rounds is one of the owner decisions `HF6` names and
    does not make.
-5. **`HF1-a` re-runs a search round H-D already ran.** The alternative was to consume round H-D's
-   finding and stop. This freeze re-runs it because the base is later, because sibling landings may
-   have added Lean this freeze has not read, and because the whole weight of the `axis-A5` gate rests
-   on that carrier's absence — a gate that rests on a stale search is not a gate.
+5. **`HF1-a` re-runs a search round H-D already ran, on a surface frozen at this freeze's drafting
+   base.** The alternative was to consume round H-D's finding and stop. This freeze re-runs it
+   because that base is later than H-D's and because the whole weight of the `axis-A5` gate rests on
+   that carrier's absence — a gate that rests on a stale search is not a gate. The surface is fixed
+   at the drafting base rather than at the execution base so that the sweep cannot reach a sibling
+   round of this fan-out, whose results this freeze excludes from its evidence in terms.
 6. **`HF2-d` enumerates the carrier question rather than deciding it.** The alternative was to fold
    the carrier into the adjudication, so that `HF5-H-C` named both the round and the substratum it
    would run on. This freeze separates them, because the carrier choice carries recorded consequences
    about `A5-ker` for one candidate and about the linearity gate for the other, and a round that
    decided it would be taking a position on the axis it is chartered to compare.
 
-## What the owner must decide before this freezes
+## Settled by the owner before this freeze merges
 
-1. **Is the round's question the right question?** This freeze reads "what the programme does next on
-   the axis round H-B opened" as a choice between two named candidates. If the owner intends a third
-   candidate — a further round on the closure obligation beyond round H-E's, a construction round for
-   a three-dimensional candidate, or a round on the observer-admission carrier `HF1-a` searches
-   for — it belongs in `HF1` and `HF2`'s enumeration and in `HF5`'s outcome list before this merges,
-   not afterwards.
-2. **Should `HF5` reach an adjudication at all, or stop at `HF5-OWNER`?** The freeze as written
-   reaches one, with `HF5-OWNER` live. The alternative is a round that enumerates both axes and makes
-   the choice entirely the owner's by construction, with no adjudication outcome in the status rule.
-   That is a smaller round and a cleaner boundary; it is also one that leaves the record without a
-   written comparison.
-3. **Is the `papers/` exclusion right?** It keeps this round mechanically clear of the concurrent
-   source reconciliation's surface, at the cost of carrying `A5-ms` at one remove through round H-D's
-   note. The owner may prefer the direct quotation with a narrower named surface — for instance
-   [Substratum §3.1]'s A5 sentence alone — and if so the start-state table gains `papers/Substratum.md`
-   and `HF3` gains a bounded-surface clause.
-4. **Is the `carrier-question` this round's to enumerate?** `HF2-d` records what the merged record
-   already says about each exhibited candidate. If the owner prefers the carrier enumerated by the
-   `axis-HC` control plane that would actually choose it, `HF2-d` comes out, `HF6`'s item 5 comes out
-   with it, and the round is a comparison of axes alone.
-5. **Should `HF1-a`'s sweep surface be the OIBridge modules only, or the whole Lean tree?** A wider
-   surface makes the carrier-absence finding stronger and the round longer; the narrower one matches
-   round H-D's own enumeration boundary and keeps the two commensurable.
-6. **Is the six-item list at `HF6` the right six**, and should any further decision the merged record
-   carries be named beside them?
-7. **Whether the execution pull request may carry the `ROADMAP` and `README` pointers this round's
-   own section needs**, or the result note alone. This freeze specifies the result note alone; round
-   H-D's D7 records that the parallel question was live there too.
-8. **What happens to this freeze if the adjudication is overtaken.** Round H-D-SR and round H-E will
-   both have landed before this executes. If either result would change which axis the owner wants
-   next, the owner's remedy is to direct the round before it merges — the freeze is immutable
-   afterwards, and an execution that finds the record moved records the discrepancy and does not
-   repair it.
+Recorded so that the settlement happens before the merge, which is the only time a freeze may be
+amended. Each item below is settled, and the freeze carries it.
+
+1. **The round's question is the choice between the two named candidates**, and no third candidate
+   enters. A round continuing round H-E's closure work is not enabled while the scaling and
+   convergence structure it would need stands unfixed; the three-dimensional construction and the
+   observer-admission carrier are likewise not presently enabled. **This is an owner scope judgement
+   and nothing more**: no outcome of round H-E is evidence inside this round, and none is consulted
+   by any target here.
+2. **`HF5` reaches an adjudication, with `HF5-OWNER` live.** The alternative — enumerating both axes
+   and leaving the comparison to be made informally — is a smaller round that leaves the record
+   without a written determination. The gates stay strict: `HF5-H-C` requires both a writable `H-C`
+   control plane and an `axis-A5` enabling condition actually unmet.
+3. **`papers/` stays excluded**, and `A5-ms` continues to be carried at one remove through round
+   H-D's merged quotation. The source surface is swept by the concurrent source-reconciliation round;
+   reopening it here would duplicate that lane and weaken the mechanical blindness boundary.
+4. **`HF2-d` stays**, enumerating the two exhibited carrier candidates and their recorded properties.
+   Enumeration is input to comparing the axes; **choosing** the carrier remains the later `axis-HC`
+   control plane's act, and the wording keeps enumeration and adoption apart.
+5. **`HF1-a`'s sweep surface is the `OIBridge` modules, frozen at this freeze's certified drafting
+   base** `b78eac870ba3ee9ef9e98659ac933bf97dc62226` — not the whole Lean tree, and not the
+   execution base. That base is later than round H-D's own enumeration base, so the re-check is
+   meaningful; and it precedes every sibling landing of this fan-out, so no sibling round's Lean can
+   enter the sweep. Fixing it at the execution base would have let the search reach results this
+   freeze excludes from its evidence in terms.
+6. **`HF6` names five decisions, not six.** The five are the propagation question, the admissibility
+   of round H-B's class, the reach of the `R7-HY*` guard family to prose-only rounds, the actor for
+   the `../PROGRAMME.md` §8 refresh, and the `carrier-question`. Whether an `axis-HC` control plane
+   is commissioned before or after round H-E's result lands is **not** among them: this round's own
+   preconditions put that landing before this execution, so the question does not stand open at the
+   time the note is written.
+7. **The execution produces the result note alone**, with no `ROADMAP` and no `README` pointer. For a
+   zero-Lean, non-sealing adjudication that is the cleaner provenance object; pointer propagation is
+   a separately owned action and not this round's to absorb.
+8. **The completed sibling outcomes do not change this round's charter.** The source-reconciliation
+   and closure-bridge rounds were both considered, before this freeze merged, for whether either
+   would change which axis the programme compares next. The answer recorded here is that neither
+   does. **Their contents remain excluded from this round's evidence**: no target, prediction, gate
+   or frozen sentence consults them, and an execution that finds the record moved records the
+   discrepancy and does not repair it.
