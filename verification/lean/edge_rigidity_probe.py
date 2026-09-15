@@ -18304,6 +18304,604 @@ check('R7-A6I', ok_a6i,
       'Thirty-one named contracts, twenty-one mutation controls, plus three freeze-pin drift controls.')
 
 
+# ---- R7-TCF: Track B act 15 -- the PQ3 (d) cancellation fork on the relative-candidate carrier ----
+#
+# A SEALING round under AGENTS.md A.37 that takes up the ONE target act 14 left undecided and
+# ANSWERS it, against the freeze's own central prediction. The freeze rated a second UNDECIDED the
+# single most likely outcome at medium strength and rated line 1 of its hierarchy -- PQ3-d+, an
+# exhibited cancelling triple -- not predicted, at low; the round reached line 1. So the failure
+# modes are, in order: reporting the reversal as if it had been predicted, or hiding it; collapsing
+# the N/S seam the freeze holds open, where act 14's PQ3-d- row carries TWO non-equivalent
+# propositions -- N, that no cancelling triple exists, and the strictly stronger S, that a redundant
+# composite forces both halves to be redundant -- so that what the round proves (not-N, with not-S
+# FOLLOWING because S implies N) gets written as a proof of N or of S, or the bare label gets used
+# where the reader cannot tell which is meant; repairing act 14's row instead of RECORDING the two
+# readings as a discrepancy; carrying the O_2 answer to another carrier, act 14's PQ3 (b) on O_1
+# above all; adding the necessary conditions CF2, CF3 and CF4 together and calling the sum an
+# impossibility result, or reading any of them as evidence that a witness exists; reading CF1's
+# matrix identity as a statement about readbacks, which is the fork's whole content; turning CF0's
+# recorded SILENCE into a truth value, or into retro-evidence from CF5's outcome; enlarging GL3 into
+# a converse or GL2, CT4 and CL1 from existential to universal; and conflating the fork with act
+# 13's CT3 (d), which the freeze names its strongest hazard and which stays UNDECIDED whatever this
+# round returns. The guard checks each of these in the freeze's own words, pins the chronology in
+# both halves, holds the module to the frozen TWO-slot budget with the conditional slot recorded
+# unused, and checks act 13's and act 14's seal constants unmoved.
+_TCFDIR = 'programmes/oi-qm/track-b/act-15-pq3d-cancellation-fork/'
+_TCF = open(_artifact(_TCFDIR + 'result.md'), encoding='utf-8').read()
+_TCF1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _TCF).split()).replace('’', "'")
+_TCFLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'CancellationFork.lean'), encoding='utf-8').read().split())
+_TCFROADRAW = open(_artifact('ROADMAP.md'), encoding='utf-8').read()
+_TCFROAD = ' '.join(_TCFROADRAW.split())
+# the ROADMAP with block-quote markers stripped, so the frozen sentence and THE CLAUSE are
+# compared as prose rather than as quoted lines.
+_TCFROADQ = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _TCFROADRAW).split())
+# The mandated execution base: the merge commit of this round's control-plane PR #634.
+_TCF_BASE = 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
+# The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
+# the pin commit P after the landing merge L -- pinning them in the execution would make the
+# execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
+# strong check re-run against those objects, with the pinned merge's second parent required to
+# equal the sealed head and both required reachable from the current target, fail-closed.
+_TCF_SEALED_HEAD = None
+_TCF_MERGE = None
+
+
+def _tcf_freeze_pin(read=_bb_read):
+    """T1 -- this round's preregistration is byte-identical to the blob merged by PR #634."""
+    return _bb_blob(_TCFDIR + 'preregistration.md', read) == (
+        '6428e0acab070ccfd2a84d13c6f55616526206ba')
+
+
+def _tcf_execution_ancestry():
+    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused through acts 12's, 13's and 14's copies: the head-only
+    check is insufficient because a commit made before the freeze and merged in alongside it leaves
+    the head descended from the freeze while itself not being. The question is asked of the real
+    `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails closed
+    with no fallback.
+
+    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
+    mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
+    required to carry it and both required reachable from the current target, fail-closed."""
+    if _TCF_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-TCF')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_TCF_BASE, target, label, num, tag='R7-TCF')
+    return _rbr_archive_ancestry(_TCF_BASE, _TCF_SEALED_HEAD, _TCF_MERGE, tag='R7-TCF')
+
+
+def _tcf_outcome(t=None):
+    """T3 -- the outcome line reports CF5 at LINE 1 of the four-outcome hierarchy, names the
+    preregistered UNDECIDED prediction as REVERSED in terms, and records the outcome as earned by a
+    proved triple and never by a search."""
+    t = _TCF1 if t is None else t
+    return ('`CF5` reached LINE 1 of its four-outcome hierarchy: `PQ3-d⁺`, an exhibited '
+            'cancelling triple.' in t
+            and "**The freeze's central prediction did not hold, and that is reported as what it "
+                'is.**' in t
+            and '**the preregistered `CF5` prediction of UNDECIDED is falsified by this round\'s '
+                'own exhibition**' in t
+            and 'the outcome is earned by a triple with all three conjuncts proved in the kernel '
+                'and never by a search' in t
+            and '| `CF5` | **UNDECIDED** | medium | **line 1, `PQ3-d⁺`**, level 2 | '
+                '**REVERSED** — the predicted outcome did not occur |' in t)
+
+
+def _tcf_seam(t=None):
+    """T4 -- the N/S seam is kept open: not-N is what is proved, not-S FOLLOWS because S implies N,
+    neither N nor S is claimed as proved, and act 14's bare label is never used without naming
+    which of the two is meant."""
+    t = _TCF1 if t is None else t
+    return ('**`S` implies `N`, by propositional logic alone.** **`N` does not imply `S`**' in t
+            and '**What this round establishes is `¬N`, and `¬S` follows from it.**' in t
+            and '**That direction is reported as following, not as separately proved**' in t
+            and '**Lines 2 and 3 were not reached and are not claimed.** Neither `S` nor `N` is '
+                'proved by this round; both are **refuted** by it, which is a different thing' in t
+            and 'Act 14\'s `PQ3-d⁻` label is never used bare in this round: every use names '
+                '`N` or `S` alongside it.' in t
+            and '**This module reaches neither `N` nor `S`. It refutes both**' in _TCFLEAN)
+
+
+def _tcf_act14_untouched(t=None):
+    """T5 -- act 14 is RECORDED, not repaired: the two readings of its PQ3-d- row are entered in the
+    discrepancies section, its merged text stands as written, and none of its settled labels is
+    revised or weakened by this round's answer."""
+    t = _TCF1 if t is None else t
+    return ('**This is recorded as a discrepancy of this round\'s reading against act 14\'s label. '
+            'It is not repaired, not corrected, not reinterpreted and not normalized.**' in t
+            and '**Act 14\'s row stands exactly as act 14 wrote it.**' in t
+            and 'no sentence here says what act 14 "meant"' in t
+            and '**Nothing here is a finding against act 14\'s settled results.**' in t
+            and 'answering it is not a correction of anything act 14 settled' in t
+            and '**Act 14 is not edited by this**' in _TCFLEAN)
+
+
+def _tcf_cf0(t=None):
+    """T6 -- CF0 is type P and out of the axiom table, the bounded search is recorded in full with a
+    per-term result, SILENCE is the finding and not a truth value, reconstructive inference is
+    refused, and CF5's outcome is refused as retro-evidence about the record."""
+    t = _TCF1 if t is None else t
+    return ('**Evidence type: prose and record audit, type P.**' in t
+            and 'is **not** part of the axiom table' in t
+            and '**The finding is that the record is silent on the point.**' in t
+            and '**Reconstructive inference is forbidden as a finding, and none is offered.**' in t
+            and '**Where the record is silent, the finding is that it is silent**' in t
+            and '**is not retro-evidence about `CF0`**' in t
+            and 'Silence is not a truth value' in t
+            and '**That is the gap, and nothing in the merged record closes it.**' in t)
+
+
+def _tcf_cf1(t=None):
+    """T7 -- CF1 is read as an identity of MATRICES and never as a statement about readbacks, which
+    is the freeze's hazard 12, and its non-load-bearing hypotheses are recorded."""
+    t = _TCF1 if t is None else t
+    return ('This is an identity of matrices; it says nothing about the value of any readback and '
+            'nothing about the fork.' in t
+            and '**neither is load-bearing**' in t
+            and 'says nothing about the value of the readback, nothing about whether the two '
+                'sides\' readbacks agree, and nothing about the fork' in _TCFLEAN
+            and 'Reading it as "so the readbacks agree" does not follow and is the fork\'s whole '
+                'content.' in _TCFLEAN)
+
+
+def _tcf_cf2_cf3_cf4(t=None):
+    """T8 -- the three necessary conditions are reported as necessary conditions: GL3 consumed with
+    no converse, the cardinality conjuncts not evidence that a witness exists, GL2/CT4/CL1 not
+    enlarged, and the exhibited witness refused as evidence for any of them."""
+    t = _TCF1 if t is None else t
+    return ('**This is a necessary condition on a hypothetical witness and is not evidence that '
+            'one exists.**' in t
+            and '`GL3` is not extended and no converse is claimed' in t
+            and '**The exhibited witness of `CF5` satisfies this condition and is not evidence for '
+                'it**' in t
+            and '**These bound where a witness could live and are not evidence that one exists.**'
+                in t
+            and 'not evidence that `CF3` implies a witness exists' in t
+            and '**neither is enlarged, and neither of these necessary conditions is evidence that '
+                'a cancelling triple exists.**' in t
+            and '**"No cancelling triple exists" is not asserted, on any strength.** It is '
+                '**refuted**.' in t
+            and 'their conjunction is not a further, stronger sentence' in t)
+
+
+def _tcf_cf5(t=None):
+    """T9 -- the fork's answer: line 1 earned by an exhibited triple with the two inequalities
+    certified at NAMED time pairs and NAMED entries, C proved at EVERY time pair, and the verdict
+    scoped to O_2 with act 14's PQ3 (b) on O_1 untransferred."""
+    t = _TCF1 if t is None else t
+    return ('**`CF5` is reported at the highest line the kernel actually carries, and never a '
+            'higher one.**' in t
+            and '**`C` holds at EVERY time pair.**' in t
+            and 'This is proved as `∀ t s`, not at sampled pairs' in t
+            and '**`¬L` is certified at the time pair `(1,0)` and the entry `(0,0)`:**' in t
+            and '**`¬R` is certified at the time pair `(0,1)` and the entry `(0,0)`:**' in t
+            and '**This is a statement about `𝒪₂` and travels to no other '
+                'carrier**' in t
+            and '**No search is presented as evidence.** The exhibition is a proved triple; the '
+                'exploratory search that located it is provenance and not evidence' in t
+            and '**No verdict is transferred between carriers.**' in t)
+
+
+def _tcf_anticonflation(t=None):
+    """T10 -- act 13's CT3 (d) stays UNDECIDED and untouched, with THE CLAUSE carried verbatim as a
+    block quote at each prose mention, each carriage opening with a line naming where it is
+    carried."""
+    t = _TCF1 if t is None else t
+    clause = ('`CT3` (d) is act 13\'s fork and `PQ3` (d) is act 14\'s. `CT3` (d) asks whether the '
+              'full column cross-Gram separates every strong-right threading — a question '
+              'about one datum\'s separating power. `PQ3` (d) asks whether a constant in-fibre left '
+              'move and a time-dependent strong right gauge can cancel on the relative-candidate '
+              'carrier — a question about cancellation between two parts of one relation. '
+              '**Neither instantiates, constrains, nor supplies evidence for the other, and no '
+              'implication transfers in either direction.** Act 13\'s `CT3` (d) stays UNDECIDED '
+              'whatever this round returns, and no outcome of this round moves it in either '
+              'direction.')
+    return (t.count(clause) == 2
+            and '**THE CLAUSE, carried at this mention — the list of what no outcome of this '
+                'round licenses.**' in t
+            and '**THE CLAUSE, carried at this mention — the relation to acts 11, 12, 13 and '
+                '14.**' in t
+            and '**No outcome of this round is carried to act 13\'s `CT3` (d), and no ingredient '
+                'of `CT3` (d) is carried here.**' in t
+            and 'Recording the resemblance is not transferring it' in t
+            and clause in _TCFLEAN
+            and clause in _TCFROADQ)
+
+
+def _tcf_status_rule(t=None):
+    """T11 -- the P0 row stays OPEN, the frozen Case B sentence is carried verbatim in the ROADMAP,
+    and no carrier is adopted as the physical one."""
+    t = _TCF1 if t is None else t
+    road = _TCFROADQ
+    return ('The `P0` row stays **OPEN** and two-part.' in t
+            and '**No case closes `P0`**, and this case reports neither of its two parts closed.'
+                in t
+            and '**No carrier is adopted as the physical one, and none is asserted not to be.**'
+                in t
+            and '| **P0** | What additional structure determines the relative quantum evolution OI '
+                'leaves free | OI→QM / Track B | **OPEN**' in road
+            and 'The cancellation fork `PQ3` (d) — whether a constant in-fibre left move and '
+                'a time-dependent strong right gauge can cancel on the relative-candidate carrier, '
+                'so that the pair is redundancy relative to that carrier while neither part is '
+                '— is answered `PQ3-d⁺`' in road
+            and '**No carrier is adopted as the physical one**, `P0`\'s other part' in road)
+
+
+def _tcf_budget(t=None):
+    """T12 -- the frozen TWO-slot budget: slot 1 fired, the conditional slot 2 recorded UNUSED, no
+    third definition and no amendment."""
+    t = _TCF1 if t is None else t
+    return ('## Definition budget: **ONE of the frozen two slots fires**' in t
+            and '| 1 | `RelativeCandidate`' in t and '| **fired**' in t
+            and '| 2 (conditional) | a cancelling-triple predicate | **unused**' in t
+            and '**No third definition was introduced** and **no amendment was needed**.' in t
+            and '**No lift, gauge element, witness, matrix, triple, entry value or pair is a '
+                'top-level definition**' in t
+            and 'The module contains exactly one `def`.' in t)
+
+
+def _tcf_axiom_table(t=None):
+    """T13 -- one axiom line per named kernel result, ten of them matching the module's #print
+    axioms lines exactly, nothing outside the three standard axioms, and the type-P target kept out
+    of the table."""
+    t = _TCF1 if t is None else t
+    rows = re.findall(r'\| `([A-Za-z0-9_]+)` \| `\[([^\]]*)\]` \|', t)
+    names = [n for n, _ in rows]
+    printed = re.findall(r'#print axioms OIBridge\.CancellationFork\.([A-Za-z0-9_]+)', _TCFLEAN)
+    permitted = {'propext', 'Classical.choice', 'Quot.sound'}
+    return (len(rows) == 10 and 'Ten named results' in t
+            and sorted(names) == sorted(printed) and len(set(names)) == 10
+            and all(set(a.strip() for a in ax.split(',')) <= permitted for _, ax in rows)
+            and '`native_decide` appears nowhere, and neither does `sorry`' in t
+            and '**`CF0` is type P and carries no evidence level**' in t
+            and '| `CF0` | `[' not in t)
+
+
+def _tcf_chronology(t=None):
+    """T14 -- the chronology claim names the property certified, declares the round SEALING with P
+    mandatory, records the two pins UNSET AT EXECUTION, records that no later main was absorbed,
+    and lists the five preconditions checked at B."""
+    t = _TCF1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside '
+            '`B`\'s descendants.**' in t
+            and '**This is a SEALING round** under `AGENTS.md` `§A.37`' in t
+            and 'lands **`E` → `L` → `P`, with `P` mandatory**' in t
+            and '**`_TCF_SEALED_HEAD` and `_TCF_MERGE` are unset at execution.**' in t
+            and 'That is a statement about this execution and stays true as one.' in t
+            and '**Act 13\'s and act 14\'s seals are untouched.**' in t
+            and '**No existing seal constant is altered**' in t
+            and '**Before certification this execution absorbed no later `main`**' in t
+            and '**The claim is scoped to the repository record.**' in t)
+
+
+def _tcf_discrepancies(t=None):
+    """T15 -- the discrepancies are RECORDED and not repaired, the seam among them, together with
+    the freeze's Case B clause that reads against the outcome and the structural-template read."""
+    t = _TCF1 if t is None else t
+    return ('**Five items are recorded. None is repaired, and the freeze is not edited.**' in t
+            and 'The preregistration is immutable once merged' in t
+            and '**The freeze\'s Case B retains a clause that reads against the outcome reached.**'
+                in t
+            and '**It is carried verbatim as the freeze\'s own frozen wording and is recorded here '
+                'rather than edited**' in t
+            and '**`CF1`\'s frozen hypotheses are not load-bearing.**' in t
+            and '**One sibling artifact was read for structure only.**' in t
+            and '**No result, label, number, prediction or finding of that round is consumed, '
+                'cited or compared**' in t
+            and 'The anti-contamination invariant is honoured.' in t)
+
+
+def _tcf_prior_seals(_cti_base=None, _cti_sealed=None, _cti_merge=None,
+                     _pqt_base=None, _pqt_sealed=None, _pqt_merge=None):
+    """T16 -- act 13's and act 14's archive seals are exactly the values those rounds set. An
+    archive seal belongs to the round that set it; this round reads them and never writes them."""
+    return ((_cti_base or _CTI_BASE) == 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
+            and (_cti_sealed or _CTI_SEALED_HEAD) == '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
+            and (_cti_merge or _CTI_MERGE) == '292848b3c908d33ac432a5360effe0c259e3ce16'
+            and (_pqt_base or _PQT_BASE) == 'bc76a88dbe300a35715d5ce8196002f31aa62493'
+            and (_pqt_sealed or _PQT_SEALED_HEAD) == '5008a47bf7e67edc502120f9269c4a4661ef7342'
+            and (_pqt_merge or _PQT_MERGE) == 'c50dd22457bfd4812761cb56e7ca1a559af33c5e')
+
+
+def _tcf_lean_defs(t=None):
+    """T17 -- exactly the one budgeted definition is a top-level `def` in the module, in the
+    freeze's name, with none of the three forbidden strings anywhere, and the docstring carrying the
+    carrier scoping and the non-adoption."""
+    t = _TCFLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['RelativeCandidate']
+            and '**No carrier is adopted as the physical one**, and none is asserted not to be' in t
+            and '**travels to no other carrier**' in t
+            and '`𝒪₂` is not adopted as the physical carrier here, and is not '
+                'asserted not to be.' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+ok_tcf = True
+ok_tcf &= _tcf_freeze_pin()
+ok_tcf &= _tcf_execution_ancestry()
+ok_tcf &= _tcf_outcome()
+ok_tcf &= _tcf_seam()
+ok_tcf &= _tcf_act14_untouched()
+ok_tcf &= _tcf_cf0()
+ok_tcf &= _tcf_cf1()
+ok_tcf &= _tcf_cf2_cf3_cf4()
+ok_tcf &= _tcf_cf5()
+ok_tcf &= _tcf_anticonflation()
+ok_tcf &= _tcf_status_rule()
+ok_tcf &= _tcf_budget()
+ok_tcf &= _tcf_axiom_table()
+ok_tcf &= _tcf_chronology()
+ok_tcf &= _tcf_discrepancies()
+ok_tcf &= _tcf_prior_seals()
+ok_tcf &= _tcf_lean_defs()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# the reversed prediction quietly reported as the preregistered UNDECIDED -- the round's first trap
+_tcf_m1 = _TCF1.replace(
+    '`CF5` reached LINE 1 of its four-outcome hierarchy: `PQ3-d⁺`, an exhibited cancelling '
+    'triple.',
+    'the fork `PQ3` (d) is UNDECIDED for the second time, as the freeze predicts.')
+ok_tcf &= _tcf_m1 != _TCF1 and not _tcf_outcome(_tcf_m1)
+
+# the reversal reported as if the freeze had predicted it
+_tcf_m2 = _TCF1.replace(
+    "**The freeze's central prediction did not hold, and that is reported as what it is.**",
+    'The outcome is the one the freeze predicted.')
+ok_tcf &= _tcf_m2 != _TCF1 and not _tcf_outcome(_tcf_m2)
+
+# not-N written up as a proof of N -- the seam hazard, collapsing the two propositions
+_tcf_m3 = _TCF1.replace(
+    '**What this round establishes is `¬N`, and `¬S` follows from it.**',
+    '**What this round establishes is `N`, and `S` follows from it.**')
+ok_tcf &= _tcf_m3 != _TCF1 and not _tcf_seam(_tcf_m3)
+
+# not-S claimed as separately proved rather than as following
+_tcf_m4 = _TCF1.replace(
+    '**That direction is reported as following, not as separately proved**',
+    'That direction is proved separately in the kernel')
+ok_tcf &= _tcf_m4 != _TCF1 and not _tcf_seam(_tcf_m4)
+
+# act 14's bare label used where the reader cannot tell which proposition is meant
+_tcf_m5 = _TCF1.replace(
+    'Act 14\'s `PQ3-d⁻` label is never used bare in this round: every use names `N` or `S` '
+    'alongside it.',
+    'Act 14\'s `PQ3-d⁻` is refuted.')
+ok_tcf &= _tcf_m5 != _TCF1 and not _tcf_seam(_tcf_m5)
+
+# act 14's row repaired rather than recorded -- the freeze's non-doing, in terms
+_tcf_m6 = _TCF1.replace(
+    '**This is recorded as a discrepancy of this round\'s reading against act 14\'s label. It is '
+    'not repaired, not corrected, not reinterpreted and not normalized.**',
+    'Act 14\'s row is corrected here to the reading it should have carried.')
+ok_tcf &= _tcf_m6 != _TCF1 and not _tcf_act14_untouched(_tcf_m6)
+
+# the answer treated as evidence against act 14's settled results
+_tcf_m7 = _TCF1.replace(
+    '**Nothing here is a finding against act 14\'s settled results.**',
+    'Act 14 was wrong about the fork and its settled results are weakened accordingly.')
+ok_tcf &= _tcf_m7 != _TCF1 and not _tcf_act14_untouched(_tcf_m7)
+
+# CF0's silence turned into a truth value -- the freeze's forbidden sentence 7
+_tcf_m8 = _TCF1.replace(
+    '**The finding is that the record is silent on the point.**',
+    'The record\'s silence shows the theorem sought is false.')
+ok_tcf &= _tcf_m8 != _TCF1 and not _tcf_cf0(_tcf_m8)
+
+# CF5's outcome used as retro-evidence about what the record contains
+_tcf_m9 = _TCF1.replace('**is not retro-evidence about `CF0`**',
+                        'settles `CF0` retroactively')
+ok_tcf &= _tcf_m9 != _TCF1 and not _tcf_cf0(_tcf_m9)
+
+# reconstructive inference admitted as a finding
+_tcf_m10 = _TCF1.replace(
+    '**Reconstructive inference is forbidden as a finding, and none is offered.**',
+    'The record must contain the ingredient, because otherwise act 14 would not have been written.')
+ok_tcf &= _tcf_m10 != _TCF1 and not _tcf_cf0(_tcf_m10)
+
+# CF1 read as a statement about readbacks -- hazard 12
+_tcf_m11 = _TCF1.replace(
+    'This is an identity of matrices; it says nothing about the value of any readback and nothing '
+    'about the fork.',
+    'So the readbacks agree, which is the fork answered.')
+ok_tcf &= _tcf_m11 != _TCF1 and not _tcf_cf1(_tcf_m11)
+
+# GL3 extended into a converse -- hazard 13
+_tcf_m12 = _TCF1.replace('`GL3` is not extended and no converse is claimed',
+                         'every time-dependent strong family moves the relative candidate')
+ok_tcf &= _tcf_m12 != _TCF1 and not _tcf_cf2_cf3_cf4(_tcf_m12)
+
+# the necessary conditions added together and called an impossibility result -- hazard 6
+_tcf_m13 = _TCF1.replace(
+    '**"No cancelling triple exists" is not asserted, on any strength.** It is **refuted**.',
+    'Taken together `CF2`, `CF3` and `CF4` show that no cancelling triple exists.')
+ok_tcf &= _tcf_m13 != _TCF1 and not _tcf_cf2_cf3_cf4(_tcf_m13)
+
+# the cardinality scoping read as evidence that a witness exists -- hazard 15
+_tcf_m14 = _TCF1.replace(
+    '**These bound where a witness could live and are not evidence that one exists.**',
+    'So a witness must exist somewhere with `|V| >= 2` and `|A| >= 2`.')
+ok_tcf &= _tcf_m14 != _TCF1 and not _tcf_cf2_cf3_cf4(_tcf_m14)
+
+# GL2, CT4 and CL1 enlarged from existential to universal -- hazard 14
+_tcf_m15 = _TCF1.replace(
+    '**neither is enlarged, and neither of these necessary conditions is evidence that a '
+    'cancelling triple exists.**',
+    'both are consumed as universal statements over lifts.')
+ok_tcf &= _tcf_m15 != _TCF1 and not _tcf_cf2_cf3_cf4(_tcf_m15)
+
+# C claimed at sampled pairs rather than at every time pair -- the exhibition's load-bearing clause
+_tcf_m16 = _TCF1.replace('This is proved as `∀ t s`, not at sampled pairs',
+                         'This is checked at the two certified time pairs')
+ok_tcf &= _tcf_m16 != _TCF1 and not _tcf_cf5(_tcf_m16)
+
+# the verdict carried off O_2 -- hazard 9 and the forbidden transfer
+_tcf_m17 = _TCF1.replace('**No verdict is transferred between carriers.**',
+                         'The same cancellation therefore holds on the anchored-channel carrier.')
+ok_tcf &= _tcf_m17 != _TCF1 and not _tcf_cf5(_tcf_m17)
+
+# the outcome earned by a search rather than by a proved triple -- hazard 5's mirror
+_tcf_m18 = _TCF1.replace(
+    '**No search is presented as evidence.** The exhibition is a proved triple; the exploratory '
+    'search that located it is provenance and not evidence',
+    'The search over small carriers is the evidence for the fork\'s answer')
+ok_tcf &= _tcf_m18 != _TCF1 and not _tcf_cf5(_tcf_m18)
+
+# an outcome of this round carried to act 13's CT3 (d) -- the round's STRONGEST hazard
+_tcf_m19 = _TCF1.replace(
+    '**No outcome of this round is carried to act 13\'s `CT3` (d), and no ingredient of `CT3` (d) '
+    'is carried here.**',
+    'The cancelling triple settles act 13\'s fork `CT3` (d) as well.')
+ok_tcf &= _tcf_m19 != _TCF1 and not _tcf_anticonflation(_tcf_m19)
+
+# one carriage of THE CLAUSE dropped, so a prose mention of CT3 (d) stands bare
+_tcf_m20 = _TCF1.replace(
+    '**THE CLAUSE, carried at this mention — the relation to acts 11, 12, 13 and 14.**', '')
+ok_tcf &= _tcf_m20 != _TCF1 and not _tcf_anticonflation(_tcf_m20)
+
+# the P0 row moved off OPEN by an answer relative to one carrier
+_tcf_m21 = _TCF1.replace('The `P0` row stays **OPEN** and two-part.',
+                         'The `P0` row moves to CLOSED, the threading part being answered.')
+ok_tcf &= _tcf_m21 != _TCF1 and not _tcf_status_rule(_tcf_m21)
+
+# a carrier adopted as the physical one -- hazard 11
+_tcf_m22 = _TCF1.replace(
+    '**No carrier is adopted as the physical one, and none is asserted not to be.**',
+    'Since the physical carrier is the relative-candidate carrier, the freedom is physical.')
+ok_tcf &= _tcf_m22 != _TCF1 and not _tcf_status_rule(_tcf_m22)
+
+# a third definition slipped in against the frozen two-slot budget
+_tcf_m23 = _TCF1.replace(
+    '**No third definition was introduced** and **no amendment was needed**.',
+    'A third definition was convenient and was added.')
+ok_tcf &= _tcf_m23 != _TCF1 and not _tcf_budget(_tcf_m23)
+
+# the conditional slot claimed fired when it was not
+_tcf_m24 = _TCF1.replace('| 2 (conditional) | a cancelling-triple predicate | **unused**',
+                         '| 2 (conditional) | a cancelling-triple predicate | **fired**')
+ok_tcf &= _tcf_m24 != _TCF1 and not _tcf_budget(_tcf_m24)
+
+# a third `def` in the module, over the frozen budget
+_tcf_m25 = _TCFLEAN.replace('def RelativeCandidate',
+                            'def cancellingTriple (x : Nat) := x def RelativeCandidate')
+ok_tcf &= _tcf_m25 != _TCFLEAN and not _tcf_lean_defs(_tcf_m25)
+
+# the module docstring dropping the carrier non-adoption
+_tcf_m26 = _TCFLEAN.replace(
+    '**No carrier is adopted as the physical one**, and none is asserted not to be',
+    'The relative-candidate carrier is adopted as the physical one')
+ok_tcf &= _tcf_m26 != _TCFLEAN and not _tcf_lean_defs(_tcf_m26)
+
+# the axiom table losing a line, so a named result ships unreported
+_tcf_m27 = _TCF1.replace(
+    '| `cf5_cancelling_triple_exists` | `[propext, Classical.choice, Quot.sound]` |', '')
+ok_tcf &= _tcf_m27 != _TCF1 and not _tcf_axiom_table(_tcf_m27)
+
+# the type-P determination listed among the kernel results
+_tcf_m28 = _TCF1.replace(
+    '| `relativeCandidate_apply` | `[propext, Classical.choice, Quot.sound]` |',
+    '| `relativeCandidate_apply` | `[propext, Classical.choice, Quot.sound]` | '
+    '| `CF0` | `[propext]` |')
+ok_tcf &= _tcf_m28 != _TCF1 and not _tcf_axiom_table(_tcf_m28)
+
+# the archive pins claimed as set inside the execution -- A.37's circularity
+_tcf_m29 = _TCF1.replace('**`_TCF_SEALED_HEAD` and `_TCF_MERGE` are unset at execution.**',
+                         'The archive pins are set in this commit.')
+ok_tcf &= _tcf_m29 != _TCF1 and not _tcf_chronology(_tcf_m29)
+
+# later main absorbed before certification -- A.37's invariant
+_tcf_m30 = _TCF1.replace('**Before certification this execution absorbed no later `main`**',
+                         'The execution merged current `main` before certification')
+ok_tcf &= _tcf_m30 != _TCF1 and not _tcf_chronology(_tcf_m30)
+
+# the discrepancies tidied away rather than recorded
+_tcf_m31 = _TCF1.replace(
+    '**Five items are recorded. None is repaired, and the freeze is not edited.**',
+    'No discrepancy arose, and the freeze was updated where it needed it.')
+ok_tcf &= _tcf_m31 != _TCF1 and not _tcf_discrepancies(_tcf_m31)
+
+# the freeze's Case B clause repaired in place instead of carried and recorded
+_tcf_m32 = _TCF1.replace(
+    '**It is carried verbatim as the freeze\'s own frozen wording and is recorded here rather than '
+    'edited**',
+    'The clause was corrected in the freeze so that the sentence reads true')
+ok_tcf &= _tcf_m32 != _TCF1 and not _tcf_discrepancies(_tcf_m32)
+
+# a sibling round's RESULT consumed rather than a structural template read
+_tcf_m33 = _TCF1.replace(
+    '**No result, label, number, prediction or finding of that round is consumed, cited or '
+    'compared**',
+    'That round\'s findings are consumed here as inputs')
+ok_tcf &= _tcf_m33 != _TCF1 and not _tcf_discrepancies(_tcf_m33)
+
+# act 13's or act 14's archive seal re-pinned by this round -- A.37's ownership rule
+ok_tcf &= not _tcf_prior_seals(_cti_sealed='0' * 40)
+ok_tcf &= not _tcf_prior_seals(_cti_merge='deadbeef' * 5)
+ok_tcf &= not _tcf_prior_seals(_pqt_sealed='0' * 40)
+ok_tcf &= not _tcf_prior_seals(_pqt_merge='deadbeef' * 5)
+ok_tcf &= not _tcf_prior_seals(_pqt_base='0' * 40)
+
+# T1's control runs THROUGH _tcf_freeze_pin, so sabotaging that predicate fails the guard.
+def _tcf_drift(path):
+    """One byte appended to this round's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-15-pq3d-cancellation-fork/preregistration.md') else b'')
+
+
+ok_tcf &= _tcf_drift(_TCFDIR + 'preregistration.md') != _bb_read(
+    _TCFDIR + 'preregistration.md')
+ok_tcf &= not _tcf_freeze_pin(_tcf_drift)
+
+check('R7-TCF', ok_tcf,
+      "Track B act 15 guard: a SEALING round under A.37 that takes up act 14's ONE undecided target -- the "
+      "cancellation fork PQ3 (d) on the relative-candidate carrier -- and ANSWERS it AGAINST the freeze's own "
+      "central prediction. The freeze rated a second UNDECIDED the single most likely outcome at medium and "
+      "rated line 1 of its hierarchy, PQ3-d+, not predicted at low; the round reached line 1 by an EXHIBITED "
+      "cancelling triple on |V| = 2, |A| = 3, all three of act 14's conjuncts proved at evidence level 2, C "
+      "proved at EVERY time pair and the two inequalities certified at NAMED time pairs and NAMED entries. The "
+      "reversal is checked reported as the reversal it is, earned by a proved triple and NEVER by a search, with "
+      "both faces mutation-tested. THE SEAM IS HELD OPEN: act 14's PQ3-d- row carries two non-equivalent "
+      "propositions, N (no cancelling triple exists) and the strictly stronger S (a redundant composite forces "
+      "both halves to be redundant), and the note is checked to report not-N as what is PROVED with not-S "
+      "FOLLOWING because S implies N, to claim neither N nor S as proved, and never to use act 14's bare label "
+      "without naming which of the two is meant -- four mutation controls. ACT 14 IS HELD IMMUTABLE: the two "
+      "readings are checked RECORDED in the discrepancies section and not repaired, reinterpreted or "
+      "normalized, its merged text left as written, and 'act 14 was wrong' refused in terms, both "
+      "mutation-tested. CF0 is checked type P and OUT of the axiom table, its bounded search recorded in full "
+      "with a per-term result, SILENCE reported as the finding and not as a truth value, reconstructive "
+      "inference refused, and CF5's outcome refused as retro-evidence about the record -- three mutation "
+      "controls. The three NECESSARY CONDITIONS are checked reported as necessary conditions: GL3 consumed with "
+      "no converse, the cardinality conjuncts not evidence that a witness exists, GL2/CT4/CL1 not enlarged from "
+      "existential to universal, their conjunction refused as an impossibility result, and the exhibited "
+      "witness refused as evidence for any of them -- four mutation controls. CF1 is checked read as an "
+      "identity of MATRICES and never as a statement about readbacks, with its non-load-bearing hypotheses "
+      "recorded. THE ANSWER IS CHECKED SCOPED TO O_2 and untransferred to any other carrier, act 14's PQ3 (b) "
+      "on O_1 above all. The ANTI-CONFLATION CLAUSE against act 13's CT3 (d) -- the freeze's strongest hazard "
+      "-- is checked carried VERBATIM as a block quote at every prose mention in the result note (twice, each "
+      "carriage opening with a line naming where it is carried), in the module docstring and in the ROADMAP, "
+      "with CT3 (d) checked still UNDECIDED and untouched, two mutation controls. The P0 row is checked still "
+      "OPEN and two-part with the frozen Case B sentence carried verbatim, no carrier adopted as the physical "
+      "one, two mutation controls. The frozen TWO-slot budget is checked with slot 1 fired and the conditional "
+      "slot recorded UNUSED, the module holding exactly one top-level def and no sorry, axiom or native_decide "
+      "anywhere, four mutation controls. The ten-line axiom table is checked against the module's own #print "
+      "axioms lines with nothing outside the three standard axioms and no type-P item in it, two mutation "
+      "controls. The chronology is pinned in BOTH halves: this round's preregistration blob by content, with a "
+      "drift control that fails the guard if one byte is appended; and the strengthened ancestry asked of git "
+      "directly against the real pull_request.head.sha, never the synthetic merge, every commit of git rev-list "
+      "H ^B required to descend from the base, recovery included, FAIL-CLOSED. The archive pins are carried as "
+      "None -- UNSET AT EXECUTION, set only in the pin commit P after the landing merge L, because pinning them "
+      "in the execution would make the execution's own head depend on where it landed -- and the note is "
+      "checked to say so and to record that no later main was absorbed before certification. ACT 13's AND ACT "
+      "14's SEALS ARE CHECKED UNMOVED, five mutation controls, since an archive seal belongs to the round that "
+      "set it. Seventeen named contracts, thirty-three mutation controls, five seal controls and a freeze-pin "
+      "drift control.")
+
+
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())
 ok6 &= 'def AvailFS' in ina and 'theorem q3_countermodel' in ina
