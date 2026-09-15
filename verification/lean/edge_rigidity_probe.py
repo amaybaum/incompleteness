@@ -18795,6 +18795,665 @@ check('R7-A6I', ok_a6i,
       'Thirty-one named contracts, twenty-one mutation controls, plus three freeze-pin drift controls.')
 
 
+# ---- R7-HYE: Hydrodynamics round H-E -- H3 as a candidate bridge condition toward closure ----
+#
+# A SEALING round that states ONE CANDIDATE bridge condition against an obligation the ladder
+# already carries and decides the part of it that is an exact finite statement. What can go wrong
+# here is almost entirely the READING, and the freeze names two characteristic errors before the
+# rest. First: HE3-holds read as CLOSURE -- three clauses of one candidate condition at one
+# candidate substratum hold, the clause that would supply closure is not among them. Second, the
+# seam: "the flux is a function of the PARAMETERS" slid into "the flux is a function of the COARSE
+# CHARGES", two statements the merged record joins nowhere, joined here only by HE2-f and only ON
+# THE IMAGE of the mean-charge map -- an image this round does not characterize, so a positive
+# HE2-f read as surjectivity, or either clause met without its own "on im Ψ" restriction, is the
+# third. Around those: HE5-unstatable or a wrong-shape outcome converted into a no-go; "site
+# -independent" dropped from an invariance statement, which is exactly what a local-equilibrium
+# statement for a hydrodynamic limit would need and exactly what HE4-b proves the round does not
+# have; HE4-a's non-discrimination reported as a finding against a rule; a continuum object, a
+# timescale, a PDE, d = 3, the S-branch; lane D's A5 question re-opened or consumed; H-B reported
+# closed; a new condition named; an extremal property claimed. The guard checks each in the
+# freeze's own words with a mutation control per contract, pins the chronology in both halves,
+# holds the module to the frozen SIX-slot budget, and checks that round H-A's and round H-B's seal
+# constants are untouched -- this round adds R7-HYE and its own three and alters nothing else.
+_HYEDIR = 'programmes/hydrodynamics/round-h-e-h3-closure-bridge/'
+_HYE = open(_artifact(_HYEDIR + 'result.md'), encoding='utf-8').read()
+_HYE1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _HYE).split()).replace('’', "'")
+_HYELEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'HydroClosureBridge.lean'), encoding='utf-8').read().split())
+_HYEPROG = ' '.join(open(_artifact('programmes/hydrodynamics/PROGRAMME.md'),
+                         encoding='utf-8').read().split())
+_HYEROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+# The mandated execution base: the merge commit of this round's control-plane PR #633.
+_HYE_BASE = '0975bbab380b26cd2bb06ec65ed68f8bcc23937f'
+# The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
+# the pin commit P after the landing merge L -- pinning them in the execution would make the
+# execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
+# strong check re-run against those objects, with the pinned merge's second parent required to
+# equal the sealed head and both required reachable from the current target, fail-closed.
+_HYE_SEALED_HEAD = None
+_HYE_MERGE = None
+
+
+def _hye_freeze_pin(read=_bb_read):
+    """W1 -- this round's preregistration is byte-identical to the blob merged by PR #633."""
+    return _bb_blob(_HYEDIR + 'preregistration.md', read) == (
+        '9f3f4ff4115c8d95215462acd257b4f6b32c9926')
+
+
+def _hye_execution_ancestry():
+    """W2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    The head-only check is insufficient: a commit made before the freeze and merged in alongside it
+    leaves the head descended from the freeze while itself not being. The question is asked of the
+    real `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails
+    closed with no fallback.
+
+    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
+    mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
+    required to carry it and both required reachable from the current target, fail-closed."""
+    if _HYE_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-HYE')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_HYE_BASE, target, label, num, tag='R7-HYE')
+    return _rbr_archive_ancestry(_HYE_BASE, _HYE_SEALED_HEAD, _HYE_MERGE, tag='R7-HYE')
+
+
+def _hye_outcome(t=None):
+    """W3 -- every target at its predicted sign, HE2-f in its GLOBAL form with BOTH frozen
+    fallbacks recorded unused, nothing UNDECIDED and nothing against prediction."""
+    t = _HYE1 if t is None else t
+    return ('**Every target landed at its predicted sign, and every kernel target landed at '
+            'evidence level 2.**' in t
+            and '`HE2-f` landed in its **global** form, so its frozen local fallback was **not** '
+                'used, and `HE2-b`\'s frozen fallback' in t
+            and 'was **not** used either.' in t
+            and '**No target is UNDECIDED, and no target landed against its preregistered sign.**'
+                in t)
+
+
+def _hye_not_closure(t=None):
+    """W4 -- hazard 1: HE3-holds is three clauses of one candidate condition at one candidate
+    substratum, and the clause that would supply closure is not among them."""
+    t = _HYE1 if t is None else t
+    return ('**This is not closure**: the clause that would supply closure is the propagation '
+            'clause, which this round does not establish, and no hydrodynamic limit, continuum '
+            'equation or transport coefficient follows from anything here.' in t
+            and '**Establishing H3\'s decidable clauses is not closure.** The closure obligation '
+                'is not discharged here' in t
+            and 'the candidate is not said to have a hydrodynamic limit or a Navier–Stokes limit, '
+                'H3 is not closed, and the ladder is not closed to H5' in t
+            and 'the closure obligation is discharged' not in t
+            and 'the macroscopic equations close' not in t)
+
+
+def _hye_parameter_seam(t=None):
+    """W5 -- hazard 17, the seam: HE2-e's variable is the PARAMETER TRIPLE, it establishes no
+    function of the coarse charges, and the crossing is routed through HE2-f alone."""
+    t = _HYE1 if t is None else t
+    return ('**The statement\'s variable is the parameter triple `(a, b₁, b₂)`.** It establishes a '
+            'function of the parameters and **establishes no function of the coarse charges**; '
+            'what joins the two is `HE2-f` alone, and only in `HE2-f`\'s terms.' in t
+            and '**A flux in the parameters is not a flux in the coarse charges.** `HE2-e` '
+                'establishes a function of `(a, b₁, b₂)`; closure needs a function of the charges; '
+                'the two are joined here by `HE2-f` and by nothing else. No sentence of this round '
+                'writes a charge where `HE2-e`\'s statement has a parameter.' in t
+            and 'the flux is a function of the local densities' not in t
+            and 'the stress is a function of the conserved fields' not in t
+            and 'the local equilibrium state is fixed by the local charges' not in t)
+
+
+def _hye_image_restriction(t=None):
+    """W6 -- hazard 18: a positive HE2-f is INJECTIVITY, the image is NOT characterized and stays
+    HO, and the `im Ψ` restriction is carried as H3-ident and H3-prop state it, in their own
+    words, with the two carriages named separately so neither can be dropped."""
+    t = _HYE1 if t is None else t
+    return ('**Injectivity is all that is established**: the image is not characterized, that '
+            'characterization is not a target of this round and stays **HO**, and nothing here is '
+            'closure.' in t
+            and 'injectivity supplies a recovery only where a preimage exists, so `H3-ident` names '
+                'exactly one family member for a triple of coarse charge values **lying in `im '
+                'Ψ`**' in t
+            and 'where the local charge data leaves `im Ψ` the propagation clause says nothing, '
+                'and no sentence of this round extends it by continuity, by approximation, or by '
+                'taking the nearest family member. The restriction is part of the clause, not a '
+                'gloss on it.' in t
+            and '**A positive `HE2-f` is injectivity, not surjectivity, and not closure.**' in t
+            and 'The image of the mean-charge map is not characterized by this round and stays '
+                '**HO**' in t
+            and 'It is not said that every coarse charge state is a family member' in t
+            and 'nothing extends the recovery by continuity' in t
+            and 'so the flux is a function of the coarse charges' not in t)
+
+
+def _hye_site_independent(t=None):
+    """W7 -- hazard 4: the invariance clauses carry "site-independent" in their own statements,
+    in the note and in the module alike, and HE4-b is the bound that makes the qualifier bite."""
+    t = _HYE1 if t is None else t
+    return ('For **site-independent** fugacities' in t
+            and '**The statement carries "site-independent" and this round does not drop it '
+                'anywhere.**' in t
+            and '**The invariance is an invariance of the homogeneous family; `HE4-b` below bounds '
+                'it, and the qualifier is not dropped.**' in t
+            and '**No inhomogeneous claim.** Every invariance statement of this round is about '
+                'site-independent fugacities, and `HE4-b` bounds it.' in t)
+
+
+def _hye_bounds(t=None):
+    """W8 -- hazards 4 and 5: HE4-a and HE4-b are BOUNDS, with their witnesses pinned by equation
+    and their arithmetic recorded as having evaluated exactly as the freeze recorded it."""
+    t = _HYE1 if t is None else t
+    return ('This bounds what those clauses supply and is not a finding against either rule.' in t
+            and 'Nothing is asserted about families whose parameters vary from site to site.' in t
+            and '**Both are bounds on `HE2`, not findings against H-B\'s candidate.** Neither says '
+                'the candidate lacks closure, and neither says H3 fails.' in t
+            and '`c = Pi.single ![0, 0] ![1, 0, 0, 1, 0, 0]`, the head-on pair `{0, 3}` at the '
+                'origin, both pinned by equation, `hexSum univ w c = 1` and `hexSum univ w (hexGas '
+                'L c) = 0`' in t
+            and t.count('**The witness arithmetic evaluated exactly as the freeze recorded it.**')
+                == 2)
+
+
+def _hye_he5_record_not_clause(t=None):
+    """W9 -- hazards 2 and 9: HE5-unstatable is a statement about the RECORD, the four unfixed
+    items belong to H4 which stays HO, the search is named and bounded, and silence is reported
+    as silence rather than as denial."""
+    t = _HYE1 if t is None else t
+    return ('**That is a statement about the record, not about the clause**: it is not a finding '
+            'that the clause is false, that it is unprovable, or that no propagation clause can be '
+            'stated, and the items it names belong to the programme\'s H4 obligation, which stays '
+            '**HO**.' in t
+            and '**No passage on the record searched fixes the lattice spacing, the time step, the '
+                'carrier growth or the convergence topology.** Where the record is silent, the '
+                'finding is that it is silent' in t
+            and 'it is not a finding that those items cannot be fixed' in t
+            and '**The bounded search** is the five files named under `HE0`, at the mandated base, '
+                'searched for `spacing`, `time step`, `topolog`, `carrier growth` and `lift`.' in t)
+
+
+def _hye_gates(t=None):
+    """W10 -- the two frozen gates, reported requirement by requirement: HE6-bridge needs ALL
+    FOUR and two are unmet, so it is not written; HE6-wrong-shape needs HE4-a AND the recorded
+    argument, which this round does not make and says it does not make."""
+    t = _HYE1 if t is None else t
+    return ('Two of the four are unmet, so **`HE6-bridge` is not written**.' in t
+            and 'no such passage exists on the bounded search of `HE5`, and no such statement is '
+                'proved in `OIBridge/HydroClosureBridge.lean`' in t
+            and 'a recorded argument that the gap `HE1` enumerates is not of the kind any '
+                'strengthening within this shape addresses — is **not made, and this round does '
+                'not make it**' in t
+            and '**`HE6-wrong-shape` is not written.**' in t
+            and 'the gate says in terms that `HE5-unstatable` alone may not produce this outcome, '
+                'item 3 being an obligation of the ladder rather than a defect of H3\'s shape' in t)
+
+
+def _hye_he6_component(t=None):
+    """W11 -- the assembled determination in its single frozen sentence, with H3 reported HO and
+    the other obligations unmoved, and no no-go anywhere."""
+    t = _HYE1 if t is None else t
+    return ('**H3 stands as a component of a bridge and not as one**, the programme\'s H3 '
+            'obligation stays **HO**, and nothing here shows that closure is unreachable or that a '
+            'bridge condition of another shape would not supply it.' in t
+            and 'The H3 obligation is reported **HO**. H1, H2, H4, H5, H6 and H7 keep the labels '
+                'the merged record gives them and are not moved by this round. No label of this '
+                'round is written "for OI" or "for the OI substratum".' in t
+            and 'Closure is not said to be unreachable, no bridge condition is said not to exist, '
+                'the hydrodynamic programme is not said to be blocked' in t
+            and 'A candidate condition not established establishes **Open**, never independence' in t
+            and 'closure is unreachable,' not in t.replace(
+                'Closure is not said to be unreachable,', ''))
+
+
+def _hye_lane_d_excluded(t=None):
+    """W12 -- hazard 3: lane D is excluded in terms, no manuscript is read, the A5 kernel objects
+    carry no finding here, and the H-B guardrail sentence is carried where H-B is consumed."""
+    t = _HYE1 if t is None else t
+    return ('**Nothing about A5\'s status relative to the hydrodynamic target.** That lane is '
+            'excluded in terms: nothing here says A5 is required by the hydrodynamic route or that '
+            'it is not' in t
+            and 'no sentence of this round reports, restates, relies on or disputes round H-D\'s '
+                'findings' in t
+            and '`A5`, `hexSubstratum_A5_witness` and `hexSubstratum_not_A5` are consumed by no '
+                'target and carry no finding here' in t
+            and t.count('H-B shows that A5 is not needed to obtain a promising reversible fluid '
+                        'candidate with the right microscopic ingredients; it does not yet show '
+                        'that A5 is unnecessary for an actual Euler/Navier–Stokes limit.') == 2
+            and '**No manuscript is edited, and no manuscript is read.**' in t)
+
+
+def _hye_not_licensed(t=None):
+    """W13 -- hazards 10, 11, 12, 15 and 16 and controls 1, 5 and 8: no continuum object, no
+    statistical statement beyond what is proved, no timescale, no d = 3, no Track B import or
+    export, no new condition, no extremal claim, and nothing about singularities."""
+    t = _HYE1 if t is None else t
+    return ('**No continuum statement.** No limit is taken, no PDE is asserted or denied' in t
+            and '`HE2-e`\'s identity is not a constitutive law' in t
+            and '**No statistical statement beyond what is proved.** The invariance of a family of '
+                'measures is not ergodicity, not mixing, not equidistribution, and not local '
+                'equilibrium in any propagated sense.' in t
+            and '**No timescale separation.**' in t
+            and '**Nothing about `d = 3`.**' in t
+            and 'No label is imported as evidence here and no finding is exported there.' in t
+            and '**No new condition is named**, no list of conditions is extended or renumbered' in t
+            and '**No extremal claim.** H3 is one candidate. No sentence here asserts that it is '
+                'the weakest, the least, or the only such condition' in t
+            and '**Nothing that closes round H-B or the programme\'s H-B entry.**' in t
+            and 'singularit' not in t.lower().replace(
+                'and nothing here speaks about singularities.', ''))
+
+
+def _hye_evidence_rule(t=None):
+    """W14 -- hazard 8: HE0, HE1 and HE5 are TYPE P, out of the axiom table, each carried by a
+    verbatim quotation with a coordinate or by a recorded absence on a named and bounded search,
+    and HE3 and HE6 add no evidence of their own."""
+    t = _HYE1 if t is None else t
+    return ('**`HE0`, `HE1` and `HE5` carry no kernel evidence and are not part of the axiom '
+            'table.**' in t
+            and 'each is carried below by a verbatim quotation with a file-and-line coordinate, or '
+                'by a recorded statement that the passage sought does not exist on a named and '
+                'bounded search' in t
+            and '**`HE3` and `HE6` are assembled determinations and add no evidence of their '
+                'own.**' in t
+            and 'they are determinations by locating and quoting, evidence type prose/source '
+                'audit, type P, and they are **not** in the table above' in t)
+
+
+def _hye_he1_enumeration(t=None):
+    """W15 -- HE1's four items re-established by quotation, the enumeration scoped to the record,
+    and the one qualifier the freeze did not name RECORDED rather than silently folded in."""
+    t = _HYE1 if t is None else t
+    return ('**No item of the freeze\'s four could not be re-established, and the execution\'s list '
+            'of what stands between the established microscopic facts and a closed coarse system '
+            'is exactly those four.**' in t
+            and '**One qualifier the freeze did not name, recorded rather than added to the '
+                'list.**' in t
+            and '**Whether the qualifier should instead be enumerated as a further gap entry is a '
+                'reading this round records and does not settle.**' in t
+            and 'the enumeration is a statement about the record and not a claim that the list is '
+                'exhaustive over routes nobody has written' in t)
+
+
+def _hye_lean_defs(t=None):
+    """W16 -- exactly the six budgeted definitions are top-level `def`s in the module, in the
+    freeze's names and order, with no sorry, axiom or native_decide, and the module's own docstring
+    carrying the candidate framing, the parameter/charge seam and the `im Ψ` restriction."""
+    t = _HYELEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['hexFugacity', 'hexLocalWeight', 'hexConfWeight', 'hexMeanOcc',
+                     'hexFamilyFlux', 'hexMeanCharge']
+            and '**H3 is a candidate.**' in t
+            and '**no extremal claim is made**' in t
+            and 'its variable is the parameter triple, not the coarse charges' in t
+            and 'The recovery it supplies is defined **on `im Ψ` and nowhere else**' in t
+            and 'the image of the map is **not characterized here**' in t
+            and '**The propagation clause of the candidate condition is not stated and not proved '
+                'here**' in t
+            and '**Round H-B is not reported closed by this module**' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+def _hye_lean_statements(t=None):
+    """W17 -- the kernel is held to the THEOREM STATEMENTS: product form against H-B's hexSum
+    charges, the site-independent invariance, the flux with the parameter triple as its argument,
+    global injectivity on all of ℝ³, and the two witnesses pinned by equation."""
+    t = _HYELEAN if t is None else t
+    return ('theorem hexConfWeight_hexStream (z : Fin 6 → ℝ) (c : (Fin 2 → ZMod L) → Fin 6 → '
+            'ZMod 2) : hexConfWeight z (hexStream L c) = hexConfWeight z c' in t
+            and 'theorem hexConfWeight_hexGas (a b₁ b₂ : ℝ) (c : (Fin 2 → ZMod L) → Fin 6 → '
+                'ZMod 2) : hexConfWeight (hexFugacity a b₁ b₂) (hexGas L c) = hexConfWeight '
+                '(hexFugacity a b₁ b₂) c' in t
+            and 'theorem hexMeanCharge_injective : Function.Injective hexMeanCharge' in t
+            and 'theorem hexFamilyFlux_isotropic (a : ℝ) (x y : Fin 2) : hexFamilyFlux a 0 0 x y' in t
+            and 'w = ![1, 0, 0, 0, 0, 0] ∧ c = Pi.single ![0, 0] ![1, 0, 0, 1, 0, 0] ∧ hexSum '
+                'univ w c = 1 ∧ hexSum univ w (hexGas L c) = 0' in t
+            and 'Z = (fun i => if i = (![0, 0] : Fin 2 → ZMod L) then (fun _ => (2 : ℝ)) else '
+                '(fun _ => (1 : ℝ)))' in t
+            and 'hexSum (univ : Finset (Fin 1)) 1 (fun _ => v)' in t)
+
+
+def _hye_budget(t=None):
+    """W18 -- six of six slots, the CONDITIONAL slot recorded fired with its reason, no seventh,
+    and no witness or sufficient-statistic vector promoted to a definition."""
+    t = _HYE1 if t is None else t
+    return ('## Definition budget: **SIX of the frozen six slots fire**' in t
+            and '`hexFamilyFlux` | **fired** — the conditional slot, fired because `HE2-e` was '
+                'stated at kernel level as a named tensor rather than inline' in t
+            and '**No seventh definition was introduced**' in t
+            and '**No witness configuration, parameter triple, fugacity instance, weight instance, '
+                'sufficient-statistic vector or block is a top-level definition**' in t
+            and 'are consumed unmodified' in t)
+
+
+def _hye_seal_state():
+    """The seal state of the three hydrodynamics rounds, READ from the constants themselves.
+
+    Read and never written: this round owns the R7-HYE triple and nothing else, so rounds H-A's and
+    H-B's appear here only as values being compared, never as assignments."""
+    return {'HYA': (_HYA_BASE, _HYA_SEALED_HEAD, _HYA_MERGE),
+            'HYB': (_HYB_BASE, _HYB_SEALED_HEAD, _HYB_MERGE),
+            'HYE': (_HYE_BASE, _HYE_SEALED_HEAD, _HYE_MERGE)}
+
+
+def _hye_seals_untouched(seals=None):
+    """W19 -- hazard 14 and AGENTS.md A.37: an archive seal belongs to the round that set it. This
+    round adds R7-HYE and its own three constants; round H-A's and round H-B's keep the values
+    their own rounds sealed, and this round's two pins are UNSET in the execution commit."""
+    seals = _hye_seal_state() if seals is None else seals
+    return (seals.get('HYA') == ('ae81459372887cfbe27b427b30bbdad1b564f2b7',
+                                 '6a8675efca5e5ceeab0195036af1a658b49ace80',
+                                 'd2314f5edc33fbeb4f75642ec87f9d302ee734f4')
+            and seals.get('HYB') == ('8de0478ef31fe4cabcf89fc5787f80f38376a957',
+                                     '54b33c4304bdbda52a09dfe0a06f3e7ff350d832',
+                                     '2ac870f0b7f04df35f32e80f7717d67667b5df83')
+            and seals.get('HYE') == ('0975bbab380b26cd2bb06ec65ed68f8bcc23937f', None, None)
+            and '**No existing seal constant is altered by this round**, and no existing guard '
+                'section is altered.' in _HYE1)
+
+
+def _hye_chronology_scoped(t=None):
+    """W20 -- the chronology claim scoped to the repository record, archive mode prepared and not
+    yet entered, and the four start-state discrepancies recorded with the freeze unrepaired and no
+    sibling result consumed."""
+    t = _HYE1 if t is None else t
+    return ('**The claim is scoped to the repository record.**' in t
+            and '**Archive mode is prepared and not yet entered**' in t
+            and '**archive mode is prepared and not yet entered**' in t
+            and '**Four of the five read-and-write blobs differ**' in t
+            and '**None of the four differences touches any surface this round reads.**' in t
+            and '**The freeze is not repaired and neither is any file**, and **no newer sibling '
+                'result is consumed**: this round consumes only what its freeze says it consumes'
+                in t)
+
+
+def _hye_programme_line(t=None):
+    """W21 -- PROGRAMME.md section 8 carries this round's sentence BESIDE round H-B's, with H-B's
+    own sentence and status-base line byte-identical, and nothing stronger than the frozen wording:
+    H3 stays HO and the recovery is restricted to the image of the mean-charge map."""
+    t = _HYEPROG if t is None else t
+    return ('H-B: one candidate executed in the A1–A4, ¬A5 class; OI-compatibility of the '
+            'class open (`round-h-b-reversible-fluid-substratum/result.md`).' in t
+            and 'Status base: `main` at `8de0478ef31fe4cabcf89fc5787f80f38376a957`' in t
+            and 'Status base, round H-E: `main` at '
+                '`0975bbab380b26cd2bb06ec65ed68f8bcc23937f`' in t
+            and 'with the mean charges recovering the parameters on the image of the mean-charge '
+                'map and nowhere else' in t
+            and 'so H3 stands as a component of a bridge and not as one and the H3 obligation '
+                'stays HO (`round-h-e-h3-closure-bridge/result.md`).' in t
+            and 'H3 is closed' not in t and 'H3: HC' not in t)
+
+
+def _hye_roadmap(t=None):
+    """W22 -- the ROADMAP section is written BELOW round H-B's and alongside it, carries the
+    parameter/charge seam and the image restriction, and moves no queue row."""
+    t = _HYEROAD if t is None else t
+    return ('### Hydrodynamics programme — round H-E: one candidate bridge condition, tested' in t
+            and '### Hydrodynamics programme — round H-B: one candidate executed' in t
+            and t.index('round H-B: one candidate executed') < t.index(
+                'round H-E: one candidate bridge condition, tested')
+            and 'the family\'s momentum-flux tensor over the embedded stencil is a function of '
+                '**the parameters**' in t
+            and 'a recovery defined **on the image of that map and nowhere else**, the image being '
+                'uncharacterized here and reported `HO`' in t
+            and '**The clause that would supply closure is the propagation clause, and it is '
+                'neither stated nor proved here**' in t
+            and 'the programme\'s H3 obligation stays `HO`' in t
+            and 'no row of the queue above changes' in t)
+
+
+ok_hye = True
+ok_hye &= _hye_freeze_pin()
+ok_hye &= _hye_execution_ancestry()
+ok_hye &= _hye_outcome()
+ok_hye &= _hye_not_closure()
+ok_hye &= _hye_parameter_seam()
+ok_hye &= _hye_image_restriction()
+ok_hye &= _hye_site_independent()
+ok_hye &= _hye_bounds()
+ok_hye &= _hye_he5_record_not_clause()
+ok_hye &= _hye_gates()
+ok_hye &= _hye_he6_component()
+ok_hye &= _hye_lane_d_excluded()
+ok_hye &= _hye_not_licensed()
+ok_hye &= _hye_evidence_rule()
+ok_hye &= _hye_he1_enumeration()
+ok_hye &= _hye_lean_defs()
+ok_hye &= _hye_lean_statements()
+ok_hye &= _hye_budget()
+ok_hye &= _hye_seals_untouched()
+ok_hye &= _hye_chronology_scoped()
+ok_hye &= _hye_programme_line()
+ok_hye &= _hye_roadmap()
+
+# ---- mutation controls: each contract falsified by the reading it exists to catch ----
+
+# HE3-holds read as closure -- hazard 1
+_hye_m1 = _HYE1.replace(
+    '**This is not closure**: the clause that would supply closure is the propagation clause, '
+    'which this round does not establish, and no hydrodynamic limit, continuum equation or '
+    'transport coefficient follows from anything here.',
+    'The macroscopic equations close and the closure obligation is discharged.')
+ok_hye &= _hye_m1 != _HYE1 and not _hye_not_closure(_hye_m1)
+
+# the seam crossed: a charge written where HE2-e has a parameter -- hazard 17
+_hye_m2 = _HYE1.replace(
+    '**The statement\'s variable is the parameter triple `(a, b₁, b₂)`.** It establishes a '
+    'function of the parameters and **establishes no function of the coarse charges**; what joins '
+    'the two is `HE2-f` alone, and only in `HE2-f`\'s terms.',
+    'The flux is a function of the local densities.')
+ok_hye &= _hye_m2 != _HYE1 and not _hye_parameter_seam(_hye_m2)
+
+# injectivity read as surjectivity -- hazard 18
+_hye_m3 = _HYE1.replace(
+    '**Injectivity is all that is established**: the image is not characterized, that '
+    'characterization is not a target of this round and stays **HO**, and nothing here is closure.',
+    'The recovery is defined on all charge data, so every coarse charge state is a family member.')
+ok_hye &= _hye_m3 != _HYE1 and not _hye_image_restriction(_hye_m3)
+
+# the `im Ψ` restriction dropped from H3-prop's carriage -- hazard 18's second half
+_hye_m4 = _HYE1.replace(
+    'where the local charge data leaves `im Ψ` the propagation clause says nothing, and no '
+    'sentence of this round extends it by continuity, by approximation, or by taking the nearest '
+    'family member. The restriction is part of the clause, not a gloss on it.',
+    'the recovery extends by continuity to all charge data.')
+ok_hye &= _hye_m4 != _HYE1 and not _hye_image_restriction(_hye_m4)
+
+# "site-independent" dropped from an invariance sentence -- hazard 4
+_hye_m5 = _HYE1.replace(
+    '**The statement carries "site-independent" and this round does not drop it anywhere.**',
+    'The statement holds for slowly varying local parameters as well.')
+ok_hye &= _hye_m5 != _HYE1 and not _hye_site_independent(_hye_m5)
+
+# HE4-a reported as a finding against a rule -- hazard 5
+_hye_m6 = _HYE1.replace(
+    'This bounds what those clauses supply and is not a finding against either rule.',
+    'Pure streaming is therefore the wrong rule and H-B\'s candidate is the right one.')
+ok_hye &= _hye_m6 != _HYE1 and not _hye_bounds(_hye_m6)
+
+# a witness whose arithmetic did not evaluate, reported as though it had
+_hye_m7 = _HYE1.replace(
+    '**The witness arithmetic evaluated exactly as the freeze recorded it.**',
+    'The witness was replaced by a different one.', 1)
+ok_hye &= _hye_m7 != _HYE1 and not _hye_bounds(_hye_m7)
+
+# HE5-unstatable converted into a statement about the clause -- hazard 2
+_hye_m8 = _HYE1.replace(
+    '**That is a statement about the record, not about the clause**',
+    '**The propagation clause is therefore unprovable**')
+ok_hye &= _hye_m8 != _HYE1 and not _hye_he5_record_not_clause(_hye_m8)
+
+# silence read as denial -- hazard 9
+_hye_m9 = _HYE1.replace(
+    'it is not a finding that those items cannot be fixed',
+    'those items cannot be fixed')
+ok_hye &= _hye_m9 != _HYE1 and not _hye_he5_record_not_clause(_hye_m9)
+
+# HE6-bridge written with the recovery gate met but the carrying requirement not
+_hye_m10 = _HYE1.replace(
+    'Two of the four are unmet, so **`HE6-bridge` is not written**.',
+    'The recovery gate is met, so `HE6-bridge` is written.')
+ok_hye &= _hye_m10 != _HYE1 and not _hye_gates(_hye_m10)
+
+# the wrong-shape outcome taken on HE5-unstatable alone
+_hye_m11 = _HYE1.replace(
+    '**`HE6-wrong-shape` is not written.**',
+    'The propagation clause cannot be stated, so `HE6-wrong-shape` is written.')
+ok_hye &= _hye_m11 != _HYE1 and not _hye_gates(_hye_m11)
+
+# an Open converted into an Independent -- hazard 2, control 8
+_hye_m12 = _HYE1.replace(
+    'A candidate condition not established establishes **Open**, never independence',
+    'A candidate condition not established establishes that closure is unreachable,')
+ok_hye &= _hye_m12 != _HYE1 and not _hye_he6_component(_hye_m12)
+
+# lane D entered -- hazard 3
+_hye_m13 = _HYE1.replace(
+    'nothing here says A5 is required by the hydrodynamic route or that it is not',
+    'A5 is not required by the hydrodynamic route')
+ok_hye &= _hye_m13 != _HYE1 and not _hye_lane_d_excluded(_hye_m13)
+
+# one carriage of the H-B guardrail sentence dropped
+_hye_m14 = _HYE1.replace(
+    'H-B shows that A5 is not needed to obtain a promising reversible fluid candidate with the '
+    'right microscopic ingredients; it does not yet show that A5 is unnecessary for an actual '
+    'Euler/Navier–Stokes limit.', 'H-B supplies the candidate.', 1)
+ok_hye &= _hye_m14 != _HYE1 and not _hye_lane_d_excluded(_hye_m14)
+
+# a continuum object named -- hazard 10
+_hye_m15 = _HYE1.replace("`HE2-e`'s identity is not a constitutive law",
+                         "`HE2-e`'s identity is the constitutive law of the coarse theory")
+ok_hye &= _hye_m15 != _HYE1 and not _hye_not_licensed(_hye_m15)
+
+# a statistical statement beyond what is proved
+_hye_m16 = _HYE1.replace(
+    '**No statistical statement beyond what is proved.** The invariance of a family of measures is '
+    'not ergodicity, not mixing, not equidistribution, and not local equilibrium in any propagated '
+    'sense.',
+    'The invariance of the family is local equilibrium in the propagated sense.')
+ok_hye &= _hye_m16 != _HYE1 and not _hye_not_licensed(_hye_m16)
+
+# an extremal property claimed -- hazard 12
+_hye_m17 = _HYE1.replace(
+    '**No extremal claim.** H3 is one candidate. No sentence here asserts that it is the weakest, '
+    'the least, or the only such condition',
+    'H3 is the weakest such condition')
+ok_hye &= _hye_m17 != _HYE1 and not _hye_not_licensed(_hye_m17)
+
+# the S-branch entered -- hazard 16
+_hye_m18 = _HYE1 + ' The family therefore resolves the continuum singularity.'
+ok_hye &= _hye_m18 != _HYE1 and not _hye_not_licensed(_hye_m18)
+
+# a type-P target folded into the axiom table -- hazard 8
+_hye_m19 = _HYE1.replace(
+    '**`HE0`, `HE1` and `HE5` carry no kernel evidence and are not part of the axiom table.**',
+    '`HE0`, `HE1` and `HE5` are kernel-checked alongside the rest.')
+ok_hye &= _hye_m19 != _HYE1 and not _hye_evidence_rule(_hye_m19)
+
+# the unnamed qualifier folded in silently instead of recorded
+_hye_m20 = _HYE1.replace(
+    '**Whether the qualifier should instead be enumerated as a further gap entry is a reading this '
+    'round records and does not settle.**',
+    'The qualifier is a further gap entry and the freeze is corrected accordingly.')
+ok_hye &= _hye_m20 != _HYE1 and not _hye_he1_enumeration(_hye_m20)
+
+# a seventh `def` in the module, over the frozen budget
+_hye_m21 = _HYELEAN.replace('def hexMeanCharge',
+                            'def hexBlockCharge (x : ℕ) := x def hexMeanCharge')
+ok_hye &= _hye_m21 != _HYELEAN and not _hye_lean_defs(_hye_m21)
+
+# the module docstring reading the recovery as unrestricted
+_hye_m22 = _HYELEAN.replace(
+    'The recovery it supplies is defined **on `im Ψ` and nowhere else**',
+    'The recovery it supplies is defined everywhere')
+ok_hye &= _hye_m22 != _HYELEAN and not _hye_lean_defs(_hye_m22)
+
+# "site-independent" dropped from the invariance THEOREM's own statement
+_hye_m23 = _HYELEAN.replace(
+    'theorem hexConfWeight_hexGas (a b₁ b₂ : ℝ) (c : (Fin 2 → ZMod L) → Fin 6 → ZMod 2) : '
+    'hexConfWeight (hexFugacity a b₁ b₂) (hexGas L c) = hexConfWeight (hexFugacity a b₁ b₂) c',
+    'theorem hexConfWeight_hexGas (Z : (Fin 2 → ZMod L) → Fin 6 → ℝ) : True')
+ok_hye &= _hye_m23 != _HYELEAN and not _hye_lean_statements(_hye_m23)
+
+# global injectivity weakened to the local fallback without saying so
+_hye_m24 = _HYELEAN.replace('theorem hexMeanCharge_injective : Function.Injective hexMeanCharge',
+                            'theorem hexMeanCharge_locally_injective : True')
+ok_hye &= _hye_m24 != _HYELEAN and not _hye_lean_statements(_hye_m24)
+
+# the conditional budget slot reported unused while the definition is there
+_hye_m25 = _HYE1.replace('## Definition budget: **SIX of the frozen six slots fire**',
+                         '## Definition budget: **FIVE of the frozen six slots fire**')
+ok_hye &= _hye_m25 != _HYE1 and not _hye_budget(_hye_m25)
+
+# an existing seal of a sibling round re-pinned to this round's objects -- hazard 14
+_hye_m26 = dict(_hye_seal_state())
+_hye_m26['HYB'] = (_hye_m26['HYB'][0], _HYE_BASE, _hye_m26['HYB'][2])
+ok_hye &= _hye_m26 != _hye_seal_state() and not _hye_seals_untouched(_hye_m26)
+
+# this round's own pins set in the execution commit, which is circular
+_hye_m27 = dict(_hye_seal_state())
+_hye_m27['HYE'] = (_HYE_BASE, '0' * 40, '1' * 40)
+ok_hye &= _hye_m27 != _hye_seal_state() and not _hye_seals_untouched(_hye_m27)
+
+# a start-state discrepancy hidden, or a sibling result consumed
+_hye_m28 = _HYE1.replace('**Four of the five read-and-write blobs differ**',
+                         'Every blob matches the freeze')
+ok_hye &= _hye_m28 != _HYE1 and not _hye_chronology_scoped(_hye_m28)
+
+# PROGRAMME.md section 8 strengthened beyond the frozen sentence
+_hye_m29 = _HYEPROG.replace(
+    'so H3 stands as a component of a bridge and not as one and the H3 obligation stays HO '
+    '(`round-h-e-h3-closure-bridge/result.md`).',
+    'so H3 is closed for the candidate.')
+ok_hye &= _hye_m29 != _HYEPROG and not _hye_programme_line(_hye_m29)
+
+# the ROADMAP paragraph shedding the image restriction
+_hye_m30 = _HYEROAD.replace(
+    'a recovery defined **on the image of that map and nowhere else**, the image being '
+    'uncharacterized here and reported `HO`',
+    'so the flux is a function of the coarse charges')
+ok_hye &= _hye_m30 != _HYEROAD and not _hye_roadmap(_hye_m30)
+
+
+# W1's control runs THROUGH _hye_freeze_pin, so sabotaging that predicate fails the guard.
+def _hye_drift(path):
+    """One byte appended to round H-E's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('round-h-e-h3-closure-bridge/preregistration.md') else b'')
+
+
+ok_hye &= _hye_drift(_HYEDIR + 'preregistration.md') != _bb_read(_HYEDIR + 'preregistration.md')
+ok_hye &= not _hye_freeze_pin(_hye_drift)
+
+check('R7-HYE', ok_hye,
+      'Hydrodynamics round H-E guard: a SEALING round that states ONE CANDIDATE bridge condition against the H3 '
+      'obligation and decides the part of it that is an exact finite statement, so what can go wrong is the READING '
+      'rather than the landing. The chronology control is pinned in BOTH halves -- the preregistration blob by '
+      'content, merged before any execution object entered the tree, and the strengthened ancestry asked of git '
+      'directly against the real pull_request.head.sha, every commit of git rev-list H ^B a descendant of the base, '
+      'recovery included, FAIL-CLOSED, with archive mode prepared and entered once the sealed head and its merge are '
+      'pinned. The round\'s two characteristic errors are checked in the freeze\'s own words: HE3-holds is NOT '
+      'closure, the clause that would supply it being the propagation clause the round does not establish; and the '
+      'seam holds -- HE2-e\'s variable is the PARAMETER TRIPLE, it establishes no function of the coarse charges, and '
+      'the crossing is routed through HE2-f alone. A positive HE2-f is checked INJECTIVITY and not surjectivity, with '
+      'the image uncharacterized and HO and the "on im Ψ" restriction carried twice, once as H3-ident states it and '
+      'once as H3-prop states it, either carriage dropped mutation-tested. "Site-independent" is checked carried in '
+      'the note and in the theorem statements, HE4-a and HE4-b are checked reported as BOUNDS with their witnesses '
+      'pinned by equation and their arithmetic recorded as evaluating exactly as the freeze recorded it, and '
+      'HE5-unstatable is checked a statement about the RECORD on a named and bounded search with silence reported as '
+      'silence. Both frozen gates are checked requirement by requirement -- HE6-bridge unmet on two of four and '
+      'HE6-wrong-shape unmet on its recorded argument -- with H3 reported HO, no Open converted into an Independent, '
+      'lane D excluded in terms and the H-B guardrail sentence carried at both mentions. HE0, HE1 and HE5 are checked '
+      'LABELLED TYPE P and out of the axiom table, and the one enumeration item the freeze did not name is checked '
+      'RECORDED rather than folded in. The kernel is held to the theorem statements -- the hexSum charges, the '
+      'site-independent invariance, the flux with the parameter triple as its argument, global injectivity on all of '
+      'R^3, and the two pinned witnesses -- and to the frozen SIX-slot budget with the conditional slot recorded '
+      'fired, no seventh definition, and no sorry, axiom or native_decide. Rounds H-A\'s and H-B\'s seal constants are '
+      'checked UNMOVED and this round\'s two pins UNSET, both mutation-tested; the four start-state discrepancies are '
+      'checked recorded with the freeze unrepaired and no sibling result consumed; PROGRAMME.md section 8 and the '
+      'ROADMAP section are pinned to the frozen wording beside round H-B\'s, which stays byte-identical. Twenty-two '
+      'named contracts, thirty mutation controls, plus one freeze-pin drift control.')
+
+
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())
 ok6 &= 'def AvailFS' in ina and 'theorem q3_countermodel' in ina
