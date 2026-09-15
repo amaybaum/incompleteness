@@ -2412,6 +2412,39 @@ Guard `R7-PC4` pins the preregistration by blob, certifies the strengthened exec
 archive mode after the merge, and holds the status rule, every target's frozen reading, the `RS`
 labels, the definition list and the axiom table against fifteen mutation controls.
 
+That programme's second executed round, **Physical C4 round 2, the storage-time reading**
+(`programmes/physical-realization/round-c4-2-storage-readback/`, preregistration blob
+`16cfd1303e7c279c8d6bab68b7112c3f25a7460e`, merged by PR #636 as `0ef0741`, the mandated execution
+base), states in `OIBridge/PhysicalC4StorageReadback.lean` the reading of the discovery round's
+store clause and its causal read leg on the random variable that clause names — the hidden state at
+the storage time, `Law(H_s | X_s = x, X_0 = a)`, rather than the initial hidden seed — as a second
+kernel predicate, `RoutedReadbackAtStorage`, and re-runs on it every carrier round 1 ran. It is the
+manuscripts' same realization clause on the merged rooted interface: not a new condition, not
+called a strengthening, nothing numbered beyond C4. Round 1's predicate keeps its name and its
+statement and every theorem about it stands as merged; the two coexist under distinct names and
+every statement says which one it is about. The read leg is proved to be the conditional visible
+law `Law(X_t | X_s = x, X_0 = a)` from the step's bijectivity alone. Under the storage-time reading
+the sealed C1–C4 core carries a routed witness at window `2` on round 1's own frozen tuple, with the
+contrast at the storage surface certified — the two roots' storage-time hidden laws are the point
+masses at their own visible bits while round 1's seed weights coincide — and both controls survive:
+the uncoupled product has no write at any window, and the tape-and-ledger coin has no routed witness
+within `3` and one at the return `4`, on round 1's own recorded scratch tuple. The return-horizon
+consequence transfers with its scope remark verbatim. **The two readings are incomparable as
+predicates**, by two exhibited carriers with exact certificates and never by a failed search: the
+sealed core satisfies the storage-time reading at a window where round 1's holds at none, and a
+second exhibited carrier satisfies round 1's reading at window `2` while the storage-time reading
+fires at no admissible tuple there — a direction the round preregistered as positive at low
+strength and which landed the other way, reported against prediction with the freeze left unedited.
+**Nothing here says C4 holds, or fails, at either physical cut**, neither reading is called stronger
+than the other or called the correct reading of C4, the manuscripts are found **silent** on the
+distinction on a named and bounded search, no manuscript was edited, and the `P1` row stays
+**OPEN** with its residual exactly as round 1 made it. One toy instance at four sites is certified
+by exact probe at evidence level 3 **by design**, the obstruction to a kernel claim being on round
+1's record. Guard `R7-PC4S` pins this round's preregistration by blob, certifies the strengthened
+execution ancestry with archive mode after the merge, and holds the status rule, every target's
+frozen reading, the incomparability and its two certificates, the definition budget and the axiom
+table against its mutation controls; round 1's `R7-PC4` block and its seal constants are untouched.
+
 The substratum A6 instantiation round 2
 (`programmes/substratum/a6-instantiation/`, preregistration blob `6f991c1`, merged alone by PR #623
 as `3e5d6a8`, the mandated execution base) discharges what it can of the named hypothesis the
