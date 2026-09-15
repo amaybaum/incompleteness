@@ -1171,6 +1171,18 @@ the base held in **`_RNC_BASE`**.
    checks `_TCF_SEALED_HEAD`, `_TCF_MERGE`, `_PQT_SEALED_HEAD`, `_PQT_MERGE`, `_CTI_SEALED_HEAD` and
    `_CTI_MERGE` equal to the values acts 15, 14 and 13 set, because an archive seal belongs to the
    round that set it.
+9. **This round's own triple is never a permanently fixed execution-mode value.** `R7-RNC` must not
+   assert `(_RNC_BASE, _RNC_SEALED_HEAD, _RNC_MERGE)` equal to `(_RNC_BASE, None, None)` as a
+   standing invariant. Either the round's own triple is **excluded** from the prior-seal integrity
+   clause of item 8 — which names other rounds' seals and is the shape this freeze intends — or it
+   is checked **mode-aware**, the expectation being `(_RNC_BASE, None, None)` while
+   `_RNC_SEALED_HEAD` is unset and `(_RNC_BASE, _RNC_SEALED_HEAD, _RNC_MERGE)` once `P` has set
+   them, and read from the module constants rather than from the argument, so that a fabricated
+   tuple cannot define its own expectation. A clause that fixes this round's own pins at `None` for
+   all time contradicts item 7, under which `P` must set them: the guard would then pass at no
+   commit once the round lands, and the round's mandatory lifecycle could not complete. Prior
+   rounds' seals stay read-only invariants exactly as item 8 states; this item constrains only how
+   the round treats its **own** pins.
 
 ### What must have merged before the execution begins, checkable mechanically
 
@@ -1246,3 +1258,21 @@ round consumes only what this freeze's start-state table names.
 14. the axiom table with one line per named result;
 15. the discrepancies, if any, recorded and not repaired — act 14's `PQ4` (c) readings and act 14's
     `𝒪₃` role description among them.
+
+## Owner settlements before immutability
+
+Recorded before this freeze merges and becomes immutable under `§A.37`. These are calls already
+made, written here so the record shows they were settled rather than left open. No target,
+prediction, outcome hierarchy, carrier rule, anti-conflation clause, frozen post-round sentence,
+definition budget or execution shape changes with them.
+
+1. **`𝒪₃` is the question this round asks, now.** The round attempts the cancellation fork on the
+   re-anchored-channel carrier rather than stopping short of it, as the scope decision recorded at
+   `RN3` (b) already states. The empty cell act 15 left in the pair question across act 14's frozen
+   carriers is the reason this round exists.
+2. **`RN4` is retained.** The non-factorization consequence on `𝒪₂` stays a target of this round,
+   with act 14's `PQ4` (c) left unedited and its conjunctive and factoring readings recorded apart.
+3. **Cross-time Gram/orbit selection is the next separate `P0` question, and stays out of scope
+   here.** What selects or constrains the Gram/orbit trajectory across time is `P0`'s other part.
+   It is not asked, not bounded and not prejudged by this round, it remains a non-doing of this
+   freeze, and no outcome reached here bears on it in either direction.
