@@ -18850,8 +18850,8 @@ _HYE_BASE = '0975bbab380b26cd2bb06ec65ed68f8bcc23937f'
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_HYE_SEALED_HEAD = None
-_HYE_MERGE = None
+_HYE_SEALED_HEAD = 'fe8060bd934c874356f7ba4778e414108d6fc36a'
+_HYE_MERGE = 'd98d690bdd2634299862282ac5ed3da4c015e7e1'
 
 
 def _hye_freeze_pin(read=_bb_read):
