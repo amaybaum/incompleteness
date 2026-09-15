@@ -16856,8 +16856,8 @@ _PC4S_BASE = '0ef074104cee3957d3aee9422888859b88fc0ebf'
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_PC4S_SEALED_HEAD = None
-_PC4S_MERGE = None
+_PC4S_SEALED_HEAD = '81b78484a0abf39ac2a23a6a8e4afcd003b79e23'
+_PC4S_MERGE = '8f4934136bae62a57a0744dbf93d3ee485404198'
 
 
 def _pc4s_freeze_pin(read=_bb_read):
