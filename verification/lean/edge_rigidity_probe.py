@@ -18835,8 +18835,8 @@ _TCF_BASE = 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_TCF_SEALED_HEAD = None
-_TCF_MERGE = None
+_TCF_SEALED_HEAD = 'c622461495c6b2db4e09c8084f404bd5ca2c5192'
+_TCF_MERGE = '9e0cc3834538b7bdcb742fcaa046194cfa9526fb'
 
 
 def _tcf_freeze_pin(read=_bb_read):
