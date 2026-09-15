@@ -16824,6 +16824,497 @@ check('R7-PC4', ok_pc4,
       "freeze-pin drift control.")
 
 
+# ---- R7-PC4S: physical realization -- Physical C4, round 2: the storage-time reading ----
+#
+# A SEALING round under AGENTS.md A.37 that states a SECOND reading of one clause of a predicate a
+# landed round already carries, so what can go wrong is almost entirely the READING, and in two
+# directions at once. Downward: round 1 reported as wrong, its result reported as repaired, its
+# predicate reported as defective, its seal constants or its guard block touched, or a ROADMAP
+# sentence R7-PC4 pins overwritten instead of written alongside. Upward: the storage-time reading
+# called the correct reading of C4, called a strengthening, called a new condition, or numbered
+# beyond C4; a reading attributed to manuscripts the round's own bounded search found SILENT; the
+# sealed core or the four-site torus read as a physical discharge; the conditional-law identity read
+# as a claim about the corpus; or H-Bell entered, which is downstream of this round's result and
+# cannot be scoped before it. On top of those the round carries one preregistered sign REVERSED --
+# CS5-b, predicted positive at low strength with UNDECIDED expected, landed NEGATIVE by an exhibited
+# carrier with an exact certificate -- which must be reported as the negative it is, earned by a
+# certificate and never by a failed search, with the freeze left unedited and the control plane's
+# 1,200-carrier scan held at provenance. The guard checks each of these in the freeze's own words,
+# pins the chronology in both halves, holds the module to the frozen TWO-slot budget, and checks
+# round 1's seal constants unmoved.
+_PC4SDIR = 'programmes/physical-realization/round-c4-2-storage-readback/'
+_PC4S = open(_artifact(_PC4SDIR + 'result.md'), encoding='utf-8').read()
+_PC4S1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _PC4S).split()).replace('’', "'")
+_PC4SLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'PhysicalC4StorageReadback.lean'), encoding='utf-8').read().split())
+_PC4SROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+# The mandated execution base: the merge commit of this round's control-plane PR #636.
+_PC4S_BASE = '0ef074104cee3957d3aee9422888859b88fc0ebf'
+# The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
+# the pin commit P after the landing merge L -- pinning them in the execution would make the
+# execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
+# strong check re-run against those objects, with the pinned merge's second parent required to
+# equal the sealed head and both required reachable from the current target, fail-closed.
+_PC4S_SEALED_HEAD = '81b78484a0abf39ac2a23a6a8e4afcd003b79e23'
+_PC4S_MERGE = '8f4934136bae62a57a0744dbf93d3ee485404198'
+
+
+def _pc4s_freeze_pin(read=_bb_read):
+    """Y1 -- this round's preregistration is byte-identical to the blob merged by PR #636."""
+    return _bb_blob(_PC4SDIR + 'preregistration.md', read) == (
+        '16cfd1303e7c279c8d6bab68b7112c3f25a7460e')
+
+
+def _pc4s_execution_ancestry():
+    """Y2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    The head-only check is insufficient: a commit made before the freeze and merged in alongside it
+    leaves the head descended from the freeze while itself not being. The question is asked of the
+    real `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails
+    closed with no fallback.
+
+    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
+    mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
+    required to carry it and both required reachable from the current target, fail-closed."""
+    if _PC4S_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-PC4S')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_PC4S_BASE, target, label, num, tag='R7-PC4S')
+    return _rbr_archive_ancestry(_PC4S_BASE, _PC4S_SEALED_HEAD, _PC4S_MERGE, tag='R7-PC4S')
+
+
+def _pc4s_outcome(t=None):
+    """Y3 -- the outcome line reports the ONE reversed sign in terms, records the CS3-c fallback
+    unused, reports nothing UNDECIDED, and keeps the row OPEN."""
+    t = _PC4S1 if t is None else t
+    return ('**Every target landed at or above its predicted strength except `CS5-b`, whose '
+            'preregistered positive sign is reversed by an exhibited carrier with an exact '
+            'certificate.**' in t
+            and '**One target moved BELOW its prediction in sign**: `CS5-b`, preregistered '
+                'positive at low strength and landed **negative** by a computed certificate.' in t
+            and '**`CS3-c` landed at evidence level 2, so its frozen level-3 fallback was not '
+                'used.** **No target is UNDECIDED.**' in t
+            and '**The `ROADMAP` row stays OPEN.**' in t)
+
+
+def _pc4s_status_rule(t=None):
+    """Y4 -- the frozen status rule: the row stays OPEN whatever landed, no outcome of the round
+    moves it, and a different label needs owner direction. The ROADMAP row is checked OPEN in the
+    same predicate, together with the residual sentence round 1 made and this round leaves."""
+    t = _PC4S1 if t is None else t
+    return ('**Whatever lands, the `ROADMAP` `P1` row stays OPEN**' in t
+            and '**No outcome of this round moves the label**, and a different label needs owner '
+                'direction.' in t
+            and 'its residual stays exactly as round 1 made it' in t
+            and '| **P1** | Physical C4 discharge at the cosmological and lattice cuts | '
+                'Physical realization | **OPEN**' in _PC4SROAD
+            and '**The label stays OPEN, and the residual is now exact per cut.**' in _PC4SROAD)
+
+
+def _pc4s_no_further_condition(t=None):
+    """Y5 -- the storage-time reading is the manuscripts' realization clause on the merged layer:
+    not a new condition, not a strengthening, nothing numbered beyond C4, in the note and in the
+    module docstring alike."""
+    t = _PC4S1 if t is None else t
+    return ('**This is not a new condition**: it is the manuscripts\' realization clause on the '
+            'merged layer' in t
+            and 'the word *strengthening* is not used of it' in t
+            and '**No claim that `RoutedReadbackAtStorage` is a strengthening or a new '
+                'condition.**' in t
+            and '**not a new condition**' in _PC4SLEAN
+            and '**nothing is numbered beyond C4**' in _PC4SLEAN)
+
+
+def _pc4s_cs0(t=None):
+    """Y6 -- CS0 is type P and out of the axiom table; the three located determinations are carried
+    by quotation; the manuscripts are found SILENT and the silence is the finding, with no reading
+    attributed to them; and the preparation backlog item is recorded and NOT acted on."""
+    t = _PC4S1 if t is None else t
+    return ('**Evidence type: prose/source audit, type P.**' in t
+            and 'is **not** part of the axiom table' in t
+            and '**No passage at those blobs states which random variable the realization '
+                'clause\'s record is at the storage surface.**' in t
+            and '**The finding is that the manuscripts are silent, and the silence is the '
+                'finding.**' in t
+            and 'the finding is that the manuscripts are silent, and no reading is attributed to '
+                'them.' in t
+            and '**The record assigns the item to a separate publication-record task, and this '
+                'round does not act on it.**' in t)
+
+
+def _pc4s_cs1(t=None):
+    """Y7 -- CS1's two definitions in the freeze's spelling, the read leg identified as the
+    conditional visible law, and that identity kept OFF the corpus: it is a fact about the kernel
+    predicate's read leg and not a claim about what the manuscripts' condition is."""
+    t = _PC4S1 if t is None else t
+    return ('the propagated law is `Law(X_t | X_s = x, X_0 = a)`' in t
+            and '**It is not called a reformulation of the manuscripts\' condition, and it is not '
+                'a claim that the manuscripts\' condition is a conditional-law condition**: it is '
+                'a fact about this kernel predicate\'s read leg.' in t
+            and 'were not reshaped after seeing a proof' in t)
+
+
+def _pc4s_cs2(t=None):
+    """Y8 -- CS2 kept to ONE CARRIER under ONE READING, and explicitly not a repair of round 1's
+    falsified prediction."""
+    t = _PC4S1 if t is None else t
+    return ('This is a fact about one carrier under one reading. It licenses nothing about the '
+            'general relation of the forms and nothing about either physical cut.' in t
+            and '**It is not a repair of round 1\'s falsified prediction**' in t
+            and 'on **round 1\'s own frozen witness tuple**' in t)
+
+
+def _pc4s_cs3(t=None):
+    """Y9 -- the controls survive the correction, in this file's words, with the failing clause of
+    the coin located as the spelling-independent one and the level-3 fallback recorded UNUSED."""
+    t = _PC4S1 if t is None else t
+    return ('**The reading, in this file\'s words: the controls survive the correction.**' in t
+            and 'The failing clause is R(2), which is **spelling-independent**' in t
+            and '**The frozen level-3 fallback was not used and no probe was added for `CS3-c`.**'
+                in t
+            and 'It says nothing about either physical cut.' in t)
+
+
+def _pc4s_cs4(t=None):
+    """Y10 -- CS4's scope remark travels VERBATIM and the conclusion is the return horizon and
+    nothing below it, with no horizon called accessible."""
+    t = _PC4S1 if t is None else t
+    return ('It does **not** say that C4 forces P-indivisibility on every accessible short-time '
+            'window; the XOR control remains a counterexample to that stronger statement.' in t
+            and 'Nothing is claimed below the return horizon, and **no horizon is called '
+                'accessible**.' in t
+            and 'forces P-indivisibility at the return horizon and, by itself, nothing on the '
+                'accessible window' in t)
+
+
+def _pc4s_cs5(t=None):
+    """Y11 -- the reversed sign reported as the negative it is, earned by an exhibited carrier with
+    an exact certificate and NEVER by a failed search; the control plane's bounded scan held at
+    provenance; the freeze left unedited and the sign NOT amended; and no ordering of the two
+    readings asserted."""
+    t = _PC4S1 if t is None else t
+    return ('**`CS5-b` — preregistered positive at low strength, landed NEGATIVE by a '
+            'computed certificate.**' in t
+            and '**The negative is earned by an exhibited carrier with an exact certificate and '
+                'never by a failed search.**' in t
+            and '**The bounded scan recorded in the control plane is provenance and not '
+                'evidence**' in t
+            and '**The freeze is immutable and is not edited**, and the preregistered sign is '
+                '**not** amended.' in t
+            and '**Neither reading is called stronger than the other**, neither is called the '
+                'correct reading of C4, and no ordering of them is asserted.' in t
+            and 'the two are incomparable as predicates, and no ordering of them is asserted.'
+                in t)
+
+
+def _pc4s_cs6(t=None):
+    """Y12 -- CS6 at evidence level 3 BY DESIGN and not by fallback, with no kernel claim for the
+    instance and the forbidden lattice readings restated."""
+    t = _PC4S1 if t is None else t
+    return ('**Evidence level 3 by design and not by fallback**' in t
+            and '**The kernel carries no theorem about this instance.**' in t
+            and 'That is the entire content.' in t
+            and '**No claim that the genericity lemma holds in an instance.**' in t)
+
+
+def _pc4s_round1_untouched(t=None):
+    """Y13 -- round 1's record is consumed as merged: no theorem reopened, re-proved or edited, the
+    sentence 'round 1 was wrong' refused in terms, and its ROADMAP strings written ALONGSIDE."""
+    t = _PC4S1 if t is None else t
+    return ('**None of round 1\'s theorems is reopened, re-proved or edited.**' in t
+            and '**Round 1 was not wrong**, its result is not repaired, and its predicate is not '
+                'called defective' in t
+            and 'this round\'s paragraph is written **alongside** round 1\'s, never over it.' in t
+            and '**Round 1\'s predicate is untouched.**' in _PC4SLEAN
+            and 'no kernel predicate over it is definable without being vacuous' in _PC4SROAD)
+
+
+def _pc4s_round1_seal(_base=None, _sealed=None, _merge=None):
+    """Y14 -- round 1's seal constants are exactly the values round 1 set. An archive seal belongs
+    to the round that set it; this round creates its own and alters none of round 1's."""
+    base = _PC4_BASE if _base is None else _base
+    sealed = _PC4_SEALED_HEAD if _sealed is None else _sealed
+    merge = _PC4_MERGE if _merge is None else _merge
+    return (base == 'ebc3951dc581d558373f720a90f1ba7deb2a8ed8'
+            and sealed == '6c1acdd28f03f614f71a7ce15c6efc141906e080'
+            and merge == 'e82755cafdbc0314890ad3809bc48e72e5995311')
+
+
+def _pc4s_budget(t=None):
+    """Y15 -- both frozen slots fire, no third definition, no amendment, and no carrier, witness
+    tuple, prior, region or window is a top-level definition."""
+    t = _PC4S1 if t is None else t
+    return ('## Definition budget: **BOTH of the frozen two slots fire**' in t
+            and '**No third definition was introduced** and **no amendment was needed**.' in t
+            and '**No carrier, no witness tuple, no prior, no region and no window is a top-level '
+                'definition**' in t
+            and 'The merged modules\' definitions are **reused, not redefined**' in t)
+
+
+def _pc4s_axiom_table(t=None):
+    """Y16 -- one axiom line per named result, every line the clean triple, and the evidence levels
+    stated with the type-P determination excluded."""
+    t = _PC4S1 if t is None else t
+    return (t.count('| `[propext, Classical.choice, Quot.sound]` |') == 25
+            and '**Evidence level 2**' in t
+            and '**Evidence level 3 by design** for `CS6-a` and `CS6-b`' in t
+            and 'no floating-point evidence enters any label' in t)
+
+
+def _pc4s_chronology(t=None):
+    """Y17 -- the chronology claim names the property certified, declares the round SEALING with P
+    mandatory, records the two pins UNSET AT EXECUTION, and records discrepancies rather than
+    repairing the freeze."""
+    t = _PC4S1 if t is None else t
+    return ('**The property certified: no commit reachable from the execution head lies outside '
+            "the control-plane merge's descendants.**" in t
+            and '**This is a SEALING round**' in t
+            and '**`_PC4S_SEALED_HEAD` and `_PC4S_MERGE` are unset at execution.**' in t
+            and '**Round 1\'s seal is untouched.**' in t
+            and '**The claim is scoped to the repository record.**' in t
+            and 'The preregistration is immutable. Each item below is recorded here and pinned by '
+                'the guard; none is edited into the freeze.' in t)
+
+
+def _pc4s_successor(t=None):
+    """Y18 -- H-Bell is NAMED as downstream and NOT entered, and nothing is said about it."""
+    t = _PC4S1 if t is None else t
+    return ('**H-Bell is downstream of this round and is not entered here**' in t
+            and '**it does not begin H-Bell, which is the named successor and is entirely '
+                'untouched**' in t)
+
+
+def _pc4s_lean_defs(t=None):
+    """Y19 -- exactly the two frozen budget definitions are top-level `def`s in the module, in the
+    freeze's names and in the freeze's order, with none of the three forbidden strings anywhere,
+    and the module docstring carrying the first non-licence and round 1's untouched status."""
+    t = _PC4SLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['rootedStatePosterior', 'RoutedReadbackAtStorage']
+            and '**Nothing in this module says that C4 holds, or fails, at either physical cut.**'
+                in t
+            and '**Round 1\'s predicate is untouched.**' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+ok_pc4s = True
+ok_pc4s &= _pc4s_freeze_pin()
+ok_pc4s &= _pc4s_execution_ancestry()
+ok_pc4s &= _pc4s_outcome()
+ok_pc4s &= _pc4s_status_rule()
+ok_pc4s &= _pc4s_no_further_condition()
+ok_pc4s &= _pc4s_cs0()
+ok_pc4s &= _pc4s_cs1()
+ok_pc4s &= _pc4s_cs2()
+ok_pc4s &= _pc4s_cs3()
+ok_pc4s &= _pc4s_cs4()
+ok_pc4s &= _pc4s_cs5()
+ok_pc4s &= _pc4s_cs6()
+ok_pc4s &= _pc4s_round1_untouched()
+ok_pc4s &= _pc4s_round1_seal()
+ok_pc4s &= _pc4s_budget()
+ok_pc4s &= _pc4s_axiom_table()
+ok_pc4s &= _pc4s_chronology()
+ok_pc4s &= _pc4s_successor()
+ok_pc4s &= _pc4s_lean_defs()
+
+# ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
+
+# the storage-time reading declared the correct reading of C4 -- the round's first upward reading
+_pc4s_m1 = _PC4S1.replace(
+    '**Neither reading is called stronger than the other**, neither is called the correct reading '
+    'of C4, and no ordering of them is asserted.',
+    'The storage-time reading is the correct reading of C4 and round 1\'s is the weaker one.')
+ok_pc4s &= _pc4s_m1 != _PC4S1 and not _pc4s_cs5(_pc4s_m1)
+
+# the reversed sign quietly reported as the preregistered positive
+_pc4s_m2 = _PC4S1.replace(
+    '**`CS5-b` — preregistered positive at low strength, landed NEGATIVE by a computed '
+    'certificate.**',
+    '**`CS5-b`, positive at low strength, as predicted.**')
+ok_pc4s &= _pc4s_m2 != _PC4S1 and not _pc4s_cs5(_pc4s_m2)
+
+# the negative decided by a failed search rather than by a certificate -- hazard 7
+_pc4s_m3 = _PC4S1.replace(
+    '**The negative is earned by an exhibited carrier with an exact certificate and never by a '
+    'failed search.**',
+    'No proof of the implication was found in the search, so the direction is negative.')
+ok_pc4s &= _pc4s_m3 != _PC4S1 and not _pc4s_cs5(_pc4s_m3)
+
+# the control plane's bounded scan floated into a finding -- hazard 8
+_pc4s_m4 = _PC4S1.replace(
+    '**The bounded scan recorded in the control plane is provenance and not evidence**',
+    'The control plane\'s 1,200-carrier scan is the evidence for this direction')
+ok_pc4s &= _pc4s_m4 != _PC4S1 and not _pc4s_cs5(_pc4s_m4)
+
+# "round 1 was wrong" -- hazard 3
+_pc4s_m5 = _PC4S1.replace(
+    '**Round 1 was not wrong**, its result is not repaired, and its predicate is not called '
+    'defective',
+    'Round 1 was wrong and its result is repaired here')
+ok_pc4s &= _pc4s_m5 != _PC4S1 and not _pc4s_round1_untouched(_pc4s_m5)
+
+# CS2 read as a repair of round 1's falsified prediction -- hazard 3, the other face
+_pc4s_m6 = _PC4S1.replace('**It is not a repair of round 1\'s falsified prediction**',
+                          'This repairs round 1\'s falsified prediction')
+ok_pc4s &= _pc4s_m6 != _PC4S1 and not _pc4s_cs2(_pc4s_m6)
+
+# CS2 read as a physical discharge -- hazard 4
+_pc4s_m7 = _PC4S1.replace(
+    'This is a fact about one carrier under one reading. It licenses nothing about the general '
+    'relation of the forms and nothing about either physical cut.',
+    'So C4 is discharged at the cosmological cut under the storage-time reading.')
+ok_pc4s &= _pc4s_m7 != _PC4S1 and not _pc4s_cs2(_pc4s_m7)
+
+# CS3-b read as "C4 fails" -- hazard 5
+_pc4s_m8 = _PC4S1.replace('It says nothing about either physical cut.',
+                          'So C4 fails on accessible windows.')
+ok_pc4s &= _pc4s_m8 != _PC4S1 and not _pc4s_cs3(_pc4s_m8)
+
+# the reading called a new condition or a strengthening -- hazard 6
+_pc4s_m9 = _PC4S1.replace(
+    '**No claim that `RoutedReadbackAtStorage` is a strengthening or a new condition.**',
+    'The storage-time reading is a strengthening of the manuscripts\' condition.')
+ok_pc4s &= _pc4s_m9 != _PC4S1 and not _pc4s_no_further_condition(_pc4s_m9)
+
+# a reading attributed to manuscripts the bounded search found silent
+_pc4s_m10 = _PC4S1.replace(
+    '**The finding is that the manuscripts are silent, and the silence is the finding.**',
+    'The manuscripts therefore intend the storage-time reading.')
+ok_pc4s &= _pc4s_m10 != _PC4S1 and not _pc4s_cs0(_pc4s_m10)
+
+# the preparation backlog item acted on rather than recorded -- hazard 13's neighbour
+_pc4s_m11 = _PC4S1.replace(
+    '**The record assigns the item to a separate publication-record task, and this round does not '
+    'act on it.**',
+    'This round settles the preparation-scope item: C1-C4 depend on preparation.')
+ok_pc4s &= _pc4s_m11 != _PC4S1 and not _pc4s_cs0(_pc4s_m11)
+
+# CS1-d read as a claim about the corpus -- hazard 17
+_pc4s_m12 = _PC4S1.replace(
+    '**It is not called a reformulation of the manuscripts\' condition, and it is not a claim that '
+    'the manuscripts\' condition is a conditional-law condition**: it is a fact about this kernel '
+    'predicate\'s read leg.',
+    'The manuscripts\' condition is therefore a conditional-law condition.')
+ok_pc4s &= _pc4s_m12 != _PC4S1 and not _pc4s_cs1(_pc4s_m12)
+
+# CS4 read as a statement about the accessible window -- the scope remark dropped
+_pc4s_m13 = _PC4S1.replace(
+    'Nothing is claimed below the return horizon, and **no horizon is called accessible**.',
+    'The accessible window therefore carries P-indivisibility.')
+ok_pc4s &= _pc4s_m13 != _PC4S1 and not _pc4s_cs4(_pc4s_m13)
+
+# the toy instance promoted to the genericity lemma -- hazard 4
+_pc4s_m14 = _PC4S1.replace('**No claim that the genericity lemma holds in an instance.**',
+                           'The genericity lemma holds in an instance.')
+ok_pc4s &= _pc4s_m14 != _PC4S1 and not _pc4s_cs6(_pc4s_m14)
+
+# CS6 promoted off its by-design level-3 label with a kernel claim
+_pc4s_m15 = _PC4S1.replace('**The kernel carries no theorem about this instance.**',
+                           'The kernel carries the instance as a theorem.')
+ok_pc4s &= _pc4s_m15 != _PC4S1 and not _pc4s_cs6(_pc4s_m15)
+
+# the status label moved without owner direction -- hazard 18
+_pc4s_m16 = _PC4S1.replace(
+    '**No outcome of this round moves the label**, and a different label needs owner direction.',
+    '**The row moves to CONDITIONAL**, the storage-time reading having fired on the core.')
+ok_pc4s &= _pc4s_m16 != _PC4S1 and not _pc4s_status_rule(_pc4s_m16)
+
+# the fallback for CS3-c claimed as fired when it was not
+_pc4s_m17 = _PC4S1.replace(
+    '**The frozen level-3 fallback was not used and no probe was added for `CS3-c`.**',
+    '**The fallback fired** and `CS3-c` is reported at evidence level 3.')
+ok_pc4s &= _pc4s_m17 != _PC4S1 and not _pc4s_cs3(_pc4s_m17)
+
+# the archive pins claimed as set inside the execution -- A.37's circularity
+_pc4s_m18 = _PC4S1.replace(
+    '**`_PC4S_SEALED_HEAD` and `_PC4S_MERGE` are unset at execution.**',
+    'The archive pins are set in this commit.')
+ok_pc4s &= _pc4s_m18 != _PC4S1 and not _pc4s_chronology(_pc4s_m18)
+
+# H-Bell entered rather than named as downstream -- hazard 12
+_pc4s_m19 = _PC4S1.replace('**H-Bell is downstream of this round and is not entered here**',
+                           'H-Bell is opened here, the storage-time reading settling its locality '
+                           'question')
+ok_pc4s &= _pc4s_m19 != _PC4S1 and not _pc4s_successor(_pc4s_m19)
+
+# a third `def` in the module, over the frozen two-slot budget -- hazard 14
+_pc4s_m20 = _PC4SLEAN.replace('def RoutedReadbackAtStorage',
+                              'def storageWindow (x : ℕ) := x def RoutedReadbackAtStorage')
+ok_pc4s &= _pc4s_m20 != _PC4SLEAN and not _pc4s_lean_defs(_pc4s_m20)
+
+# the module's docstring dropping the first non-licence
+_pc4s_m21 = _PC4SLEAN.replace(
+    '**Nothing in this module says that C4 holds, or fails, at either physical cut.**',
+    'The module settles C4 at the cosmological cut.')
+ok_pc4s &= _pc4s_m21 != _PC4SLEAN and not _pc4s_lean_defs(_pc4s_m21)
+
+# a third definition slipped in against the budget table
+_pc4s_m22 = _PC4S1.replace(
+    '**No third definition was introduced** and **no amendment was needed**.',
+    'A third definition was convenient and was added.')
+ok_pc4s &= _pc4s_m22 != _PC4S1 and not _pc4s_budget(_pc4s_m22)
+
+# round 1's seal re-pinned by this round -- A.37's ownership rule, hazard 1
+ok_pc4s &= not _pc4s_round1_seal(_base='0ef074104cee3957d3aee9422888859b88fc0ebf')
+ok_pc4s &= not _pc4s_round1_seal(_sealed='0000000000000000000000000000000000000000')
+ok_pc4s &= not _pc4s_round1_seal(_merge='deadbeefdeadbeefdeadbeefdeadbeefdeadbeef')
+
+# Y1's control runs THROUGH _pc4s_freeze_pin, so sabotaging that predicate fails the guard.
+def _pc4s_drift(path):
+    """One byte appended to this round's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('round-c4-2-storage-readback/preregistration.md') else b'')
+
+
+ok_pc4s &= _pc4s_drift(_PC4SDIR + 'preregistration.md') != _bb_read(
+    _PC4SDIR + 'preregistration.md')
+ok_pc4s &= not _pc4s_freeze_pin(_pc4s_drift)
+
+check('R7-PC4S', ok_pc4s,
+      "Physical C4 round 2 guard: a SEALING round under A.37 that states a SECOND reading of one clause of a "
+      "predicate a landed round already carries -- the store clause and its causal read leg on the hidden state AT "
+      "THE STORAGE TIME, Law(H_s | X_s = x, X_0 = a), where round 1's rootedPosterior conditions the initial "
+      "hidden SEED -- so what can go wrong is the READING, in two directions at once, and on top of that one "
+      "preregistered sign REVERSED. The chronology control is pinned in BOTH halves: this round's preregistration "
+      "blob by content, carrying the frozen predicate spelling, the frozen targets, their predictions and the "
+      "scratch arithmetic merged before any execution object entered the tree, with a drift control that fails the "
+      "guard if one byte is appended; and the strengthened ancestry asked of git directly against the real "
+      "pull_request.head.sha, never the synthetic merge, every commit of git rev-list H ^B required to descend "
+      "from the base, recovery included, FAIL-CLOSED. The archive pins are carried as None -- UNSET AT EXECUTION, "
+      "set only in the pin commit P after the landing merge L, because pinning them in the execution would make "
+      "the execution's own head depend on where it landed -- and the note is checked to say so. ROUND 1 IS HELD "
+      "IMMUTABLE in both senses: its seal constants _PC4_BASE, _PC4_SEALED_HEAD and _PC4_MERGE are checked equal "
+      "to the values round 1 set, with three mutation controls, since an archive seal belongs to the round that "
+      "set it; and the note is checked to report that none of round 1's theorems is reopened, re-proved or edited, "
+      "that this round's ROADMAP paragraph is written ALONGSIDE round 1's rather than over it, and that 'round 1 "
+      "was wrong' and 'CS2 repairs round 1's falsified prediction' are refused in terms, both mutation-tested. The "
+      "READING is checked upward as well: the storage-time reading is the manuscripts' realization clause on the "
+      "merged layer, NOT a new condition, never called a strengthening, nothing numbered beyond C4, in the note "
+      "and in the module docstring; it is NOT called the correct reading of C4; the conditional-law identity is "
+      "checked kept OFF the corpus as a fact about the kernel predicate's read leg; and the manuscripts are "
+      "checked reported SILENT on which random variable the record is at the storage surface, with no reading "
+      "attributed to them -- each mutation-tested. CS5's reversed sign is checked reported as the NEGATIVE it is, "
+      "earned by an exhibited carrier with an exact certificate and NEVER by a failed search, with the control "
+      "plane's 1,200-carrier scan held at PROVENANCE, the freeze left UNEDITED and the preregistered sign NOT "
+      "amended, and with no ordering of the two readings asserted -- four mutation controls. CS2 and CS6 are "
+      "checked kept off any physical discharge, CS3-b off 'C4 fails', and the toy instance off Theorem 22's "
+      "genericity lemma, with CS6 held at evidence level 3 BY DESIGN and the kernel checked to carry no theorem "
+      "about it. CS3-c's frozen level-3 fallback is checked recorded UNUSED. CS4's scope remark is checked "
+      "travelling VERBATIM -- the return horizon and nothing below it, no horizon called accessible. The ROADMAP "
+      "P1 row is checked OPEN with round 1's residual sentence intact and the label-move mutation-tested. The "
+      "module is held to the frozen TWO-slot budget -- exactly rootedStatePosterior and RoutedReadbackAtStorage as "
+      "top-level defs, in that order, no third definition, none of the three forbidden strings anywhere including "
+      "docstrings -- with the over-budget def and the docstring slide both mutation-tested, and the axiom table "
+      "checked one clean line per named result. H-Bell is checked NAMED as downstream and NOT entered, since its "
+      "freeze must consume this round's execution result. ARCHIVE MODE after the merge: the same strong check "
+      "re-run against the SEALED execution head pinned by SHA, the pinned merge required to carry it and both "
+      "required reachable from the current target, fail-closed. Twenty-two reading mutation controls, three "
+      "seal-ownership controls and the freeze-pin drift control.")
+
+
 # ---- R7-A6D: substratum -- A6 background independence, round 1: definition and closure ----
 #
 # A DEFINITION round, not a proof round: the ROADMAP carries A6 as a GAP because the manuscript
