@@ -215,6 +215,7 @@ import OIBridge.QuantumRepresentationT3
 import OIBridge.OperationalSourcing
 import OIBridge.PhysicalC4Discharge
 import OIBridge.PhysicalC4StorageReadback
+import OIBridge.HydroClosureBridge
 
 namespace OIBridge
 
