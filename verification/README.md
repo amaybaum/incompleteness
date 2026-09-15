@@ -2490,5 +2490,43 @@ mutation controls. **No discrepancy against the freeze's start-state table**: ev
 byte-identical at the mandated base and every quoted passage was found verbatim at its recorded
 coordinate.
 
+The substratum A6 status adjudication (`programmes/substratum/a6-status-adjudication/`,
+preregistration blob `0f98c6a`, merged alone by PR #637 as `c4ae9bf`, the mandated execution base)
+decides which entry of the queue's own status vocabulary the merged record supports for the
+`P1 — A6` row, and writes it. It is a **type-P** round throughout: no Lean, no definition, no
+kernel object and no axiom table, every determination carried by a verbatim quotation from a pinned
+blob with its coordinate, and reconstructive inference forbidden as a finding. **The organizing
+caveat comes first and governs every positive**: `a6cov_all` makes the adopted meaning hold
+identically on every link-coupled rule of the interface, so a positive says exactly that the
+manuscripts' rule is of that form and says nothing about a condition having been tested and
+survived. All seven vocabulary entries were run against the row. The row **keeps `CONDITIONAL`**
+and its reasons are written to the text the freeze fixes character-for-character: the hypothesis
+the covariance propagation named is discharged in its packaging half at evidence level 2 and
+discharged **for the covariance statement only** in its lift half, while what the row tracks is the
+substratum identification — that the manuscripts' physical substratum is the packaged carrier —
+which the merged record carries as a premise no round discharges and as one of the reasons the
+label stands. The stronger label is gated and the gate does not open on either half: the record
+states in terms that the covariance of `SM.md:112–114` on the complex lift is not kernel-checked as
+the manuscripts conduct it, on the carrier they conduct it on, so what the propagation's own words
+for that half name is not established to be what the instantiation round proved. **Separately, and
+outside `A6Cov` rather than as a condition on it**, the part of `[SM §3.1]`'s derivation that
+consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)`
+or the cubic decomposition stands outside the interface, as does the complex carrier; neither is a
+component of the condition the label carries, and neither entered the gate. The row stays in the
+queue in its order, no other row, section or research status is touched, and no manuscript is
+edited. Nothing here strengthens or weakens what the three landed A6 rounds established, nothing
+here says the sixth assumption holds of the physical substratum or fails of it, and nothing here is
+a derivation of the gauge group. The round is **non-sealing** under `§A.37`: it owns the guard
+contracts asserting the live row and the live label cell and owns no seal state, so
+`_A6P_SEALED_HEAD`, `_A6D_SEALED_HEAD`, `_A6I_SEALED_HEAD` and every `_*_MERGE` and `_*_BASE`
+constant are read and never written, and the landing is `E` → `L` with no archive-pin commit.
+`_A6P_ROW`, `_A6P_ROAD_HYP` and `R7-A6D`'s inline row string take the adjudicated text, and the
+propagation guard's complex-lift control is re-pointed at an overclaim of the qualified sentence
+rather than deleted or relaxed; the three label-overclaim controls `_a6p_m6`, `_a6d_m25` and
+`_a6i_m10` stand unmodified, the label cell they rewrite being unchanged. **Four start-state blobs
+differed at the mandated base**, each by a sibling landing that added text elsewhere in the file and
+touched no A6 surface; the discrepancies are recorded in the result note and not repaired, and no
+result absent from this round's freeze was consumed.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.
