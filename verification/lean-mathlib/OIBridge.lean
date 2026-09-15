@@ -214,6 +214,7 @@ import OIBridge.QuantumRepresentationT2
 import OIBridge.QuantumRepresentationT3
 import OIBridge.OperationalSourcing
 import OIBridge.PhysicalC4Discharge
+import OIBridge.PhysicalC4StorageReadback
 
 namespace OIBridge
 
