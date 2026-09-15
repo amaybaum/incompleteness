@@ -15465,20 +15465,26 @@ _A6P_GLOS_ENTRY = ("**Background independence (A6).** The sixth of the framework
                    'the graph itself evolves with the state. Where the framework says it has no fixed '
                    'spacetime background, with spacetime emergent, that is a third sense of the words and not '
                    'this assumption. Developed in Chapter 2 §2.4 and Chapter 5 §5.5.')
-_A6P_ROW = ('| **P1** | A6 — background independence / local gauge covariance | Substratum | **CONDITIONAL** '
-            '— the adopted meaning is covariance, `A6Cov`, which holds identically on every link-coupled rule '
-            'of the least interface (`a6cov_all`), so its content is the covariant interface and not a '
-            "constraint; the named hypothesis is that the manuscripts' substratum instantiates that "
-            'interface: the `K = 6` link-coupled rule is not packaged as a `Substratum` (the interface\'s '
-            '`waveSubstratum` has a singleton internal index) and the complex lift on which `[SM §3.1]` '
-            'conducts the gauge derivation is outside the interface; `A6-inv` is a separate, stronger '
-            'fixed-background condition, refuted on the frozen two-site carrier and at the symmetric point '
-            '`M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` its global specialization '
-            '(`a6glob_of_a6inv`); `A6-sd` a different principle under a shared name | the complete A1–A6 '
-            'formal package |')
-_A6P_ROAD_HYP = ("The named hypothesis the row carries is that the manuscripts' substratum — the `K = 6` "
-                 'link-coupled rule on `(ℤ/qℤ)^6` and its complex lift — instantiates the link-coupled '
-                 'interface on which `a6cov_all` is stated.')
+_A6P_ROW = ('| **P1** | A6 — background independence / local gauge covariance | Substratum | **CONDITIONAL** — the '
+            'adopted meaning is covariance, `A6Cov`, which holds identically on every link-coupled rule of the least '
+            'interface (`a6cov_all`), so its content is the covariant interface and not a constraint; the `K = 6` '
+            "link-coupled rule is packaged as a `Substratum` with no field added, the packaged carrier's update map is "
+            "the interface's link-coupled map, `A1`–`A5` hold of it with `A4Exact` under the translation-invariance "
+            'hypothesis on the link coupling, and the covariance statement of `[SM §3.1]` is proved at the complex '
+            "six-component carrier with the manuscripts' site-dependent transformation an instance of the interface's "
+            'transformation class (`pk1_packaging`, `pk2a_bridge`, `pk3a_A1`–`pk3e_A5`, `cx1_complex_covariance`, '
+            "`cx2_unitary_gaugeLink`); the named hypothesis is that the manuscripts' physical substratum is that "
+            'packaged carrier, and that identification is the whole of what this row tracks; separately, and outside '
+            '`A6Cov` rather than a condition on it, the part of the gauge derivation that consumes the inner product, '
+            'unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic decomposition stands '
+            'outside the interface, as does the complex carrier itself, proved not to satisfy `A1` '
+            '(`cx3b_complex_not_A1`); `A6-inv` is a separate, stronger fixed-background condition, refuted on the '
+            'frozen two-site carrier and at the symmetric point `M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` '
+            'its global specialization (`a6glob_of_a6inv`); `A6-sd` a different principle under a shared name | the '
+            'complete A1–A6 formal package |')
+_A6P_ROAD_HYP = ("The named hypothesis the row carries is that the manuscripts' physical substratum is the "
+                 'packaged carrier — the `Substratum` built from the data the manuscripts state, with no '
+                 'field added — and that identification is the whole of what this row tracks.')
 _A6P_FAMILY = 'A6 background independence, round 1: definition and interface audit (substratum)'
 # sha1 of round 1's census note, up to and including "No manuscript propagation in this round.": the
 # round-1 text is not edited, and the propagation sentence is appended after it.
@@ -15747,10 +15753,15 @@ _a6p_m4 = _A6P_SM.replace(
     'hypothesis. The link variable')
 ok_a6p &= _a6p_m4 != _A6P_SM and not _a6p_non_licences(sm=_a6p_m4)
 
-# m5: the complex-lift covariance declared kernel-checked in the ROADMAP section
+# m5: the complex-lift covariance declared kernel-checked in the ROADMAP section, on the carrier the
+# manuscripts conduct the derivation on -- re-pointed by the A6 status adjudication (R7-A6P's row
+# clause and this control read the live section, whose scope qualification the adjudication writes;
+# the control is preserved as an overclaim `_a6p_roadmap` rejects, not relaxed)
 _a6p_m5 = _A6P_ROAD.replace(
-    ', and the covariance of `SM.md:112–114` on the complex lift is not kernel-checked.',
-    '. The covariance of `SM.md:112–114` on the complex lift is kernel-checked.')
+    'the covariance of `SM.md:112–114` on the complex lift is not kernel-checked as the manuscripts '
+    'conduct it, on the carrier they conduct it on.',
+    'the covariance of `SM.md:112–114` on the complex lift is kernel-checked as the manuscripts '
+    'conduct it, on the carrier they conduct it on.')
 ok_a6p &= _a6p_m5 != _A6P_ROAD and not _a6p_roadmap(road=_a6p_m5)
 ok_a6p &= not _a6p_non_licences(road=_a6p_m5)
 
@@ -17567,14 +17578,22 @@ def _a6d_roadmap_row(t=None, r=None):
     return ('| **P1** | A6 — background independence / local gauge covariance | Substratum | '
             '**CONDITIONAL** — the adopted meaning is covariance, `A6Cov`, which holds identically on '
             'every link-coupled rule of the least interface (`a6cov_all`), so its content is the '
-            'covariant interface and not a constraint; the named hypothesis is that the manuscripts\' '
-            'substratum instantiates that interface: the `K = 6` link-coupled rule is not packaged as a '
-            '`Substratum` (the interface\'s `waveSubstratum` has a singleton internal index) and the '
-            'complex lift on which `[SM §3.1]` conducts the gauge derivation is outside the interface; '
-            '`A6-inv` is a separate, stronger fixed-background condition, refuted on the frozen two-site '
-            'carrier and at the symmetric point `M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` '
-            'its global specialization (`a6glob_of_a6inv`); `A6-sd` a different principle under a shared '
-            'name | the complete A1–A6 formal package |' in r
+            'covariant interface and not a constraint; the `K = 6` link-coupled rule is packaged as a '
+            "`Substratum` with no field added, the packaged carrier's update map is the interface's "
+            'link-coupled map, `A1`–`A5` hold of it with `A4Exact` under the translation-invariance '
+            'hypothesis on the link coupling, and the covariance statement of `[SM §3.1]` is proved at '
+            "the complex six-component carrier with the manuscripts' site-dependent transformation an "
+            "instance of the interface's transformation class (`pk1_packaging`, `pk2a_bridge`, "
+            '`pk3a_A1`–`pk3e_A5`, `cx1_complex_covariance`, `cx2_unitary_gaugeLink`); the named '
+            "hypothesis is that the manuscripts' physical substratum is that packaged carrier, and that "
+            'identification is the whole of what this row tracks; separately, and outside `A6Cov` rather '
+            'than a condition on it, the part of the gauge derivation that consumes the inner product, '
+            'unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic '
+            'decomposition stands outside the interface, as does the complex carrier itself, proved not '
+            'to satisfy `A1` (`cx3b_complex_not_A1`); `A6-inv` is a separate, stronger fixed-background '
+            'condition, refuted on the frozen two-site carrier and at the symmetric point `M = μ I_6` '
+            '(`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` its global specialization (`a6glob_of_a6inv`); '
+            '`A6-sd` a different principle under a shared name | the complete A1–A6 formal package |' in r
             and 'programmes/substratum/a6-background-independence/result.md' in r
             and 'programmes/substratum/a6-background-independence/preregistration.md' in r
             and '**The `ROADMAP` row `P1 — A6` keeps its `GAP` label**' in t)
