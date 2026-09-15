@@ -340,7 +340,7 @@ that a discrepancy in what the round writes onto is as visible as a discrepancy 
 | `verification/README.md` | `d25eb2d44d0aa324c095930f40174296fd0f2279` | one ledger paragraph appended |
 | `verification/lean/edge_rigidity_probe.py` | `6e334e832d99851e7a275842c1bdd856cbeb09f7` | the `R7-SCD` clause **added**; **no existing seal constant altered** |
 | `verification/lean-mathlib/OIBridge.lean` | `0bff51eb9cc3c22859da2ac0efc622910e77d7b4` | one import line added after `WordTraceSufficiency` |
-| `verification/lean-manuscript-census.json` | `3e968e6c970301be5ba0b9631b234c957a6222d1` | **read**, and written only if the round's module earns a census entry; the execution states which |
+| `verification/lean-manuscript-census.json` | `3e968e6c970301be5ba0b9631b234c957a6222d1` | **written**: one new **kernel-only** family entry for this round's module, carrying no manuscript anchor. Every `OIBridge` module carries one of the registry dispositions, and this module is a publication-facing kernel result this round deliberately does not propagate to a manuscript, which is what kernel-only names. The entry is written **in every outcome, `SC5-UNDECIDED` included** — the module exists and carries the round's certified kernel findings whatever `SC5` returns |
 | `verification/lean-mathlib/OIBridge/SpanningClassReach.lean` | — | created by the execution |
 | `verification/programmes/substratum/lemma-24-1c-spanning-class-decision/result.md` | — | created by the execution |
 
@@ -752,8 +752,8 @@ inferred.
 ## 12. Execution discipline
 
 The execution produces **the result note, the one Lean module, the `R7-SCD` guard clause, the one
-import line, and the `ROADMAP` and `README` pointers the round's own section needs** — and nothing
-else. One pull request from the mandated base carrying the execution; after certification the same
+import line, the one kernel-only entry in `verification/lean-manuscript-census.json`, and the
+`ROADMAP` and `README` pointers the round's own section needs** — and nothing else. One pull request from the mandated base carrying the execution; after certification the same
 pull request carries `L` and then `P`.
 
 ---
@@ -809,8 +809,9 @@ before the merge and cannot move afterwards.
    alone.
 6. **Whether `SC6` stays in scope**, or the ordering census is deferred to an owner call outside
    any round.
-7. **Whether the census file `verification/lean-manuscript-census.json` is written**, listed in
-   §3.3 as conditional.
+7. **The census file `verification/lean-manuscript-census.json` is written** — settled. The
+   execution adds one **kernel-only** family entry for its module, with no manuscript anchor, in
+   every outcome including `SC5-UNDECIDED`. §3.3 and §12 carry it.
 8. **The execution's ordering against 24.1B's pending execution.** This freeze is written so the
    two are independent in both directions, and §3.2 governs whichever lands first. If the owner
    wants them ordered, the order is fixed here and the freeze says so.
