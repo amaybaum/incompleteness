@@ -507,7 +507,12 @@ predicate whose verdict it is about in the manuscripts' own words — *the condi
 *(C4) as stated below*, *C4 as stated above*, *C4* in the glossary's own entry — and each of those is
 the operational history-level condition, which is `C4w`. Where P-indivisibility is named it is named
 separately, as its own object, because the prior-dependence half is about that and not about the
-condition. **No inserted sentence mentions a routed read-write cycle as bearing on preparation
+condition. **No sentence attributes both dependences to one datum or to one pair of preparations.**
+Where a sentence states both, it states them as two statements, each with its own held-fixed list:
+the condition's verdict varies with the standalone initial visible law, with the bijection or
+dynamics, the partition **and the hidden prior** held fixed; P-indivisibility's verdict varies with
+the hidden prior, with the map and the partition held fixed. **No sentence says that one pair of
+preparations moves both verdicts**, because the record exhibits no such pair. **No inserted sentence mentions a routed read-write cycle as bearing on preparation
 scope**, and `PS3-b` says in terms that the realization clause's routed cycle is a separate property
 about which the scope remark asserts nothing.
 
@@ -522,7 +527,7 @@ work and is nowhere consumed by a proof here; the realization clauses below are 
 **Inserted sentence, frozen character for character:**
 
 ```text
-Checking them requires the preparation as well as the bijection and the partition: the fixed hidden prior is part of the realization datum (§1.2, *Remark (the measure as a realization datum)*), the standalone initial visible law is a further datum, and two preparations of one bijection and one partition can differ in the verdict they give to (C4) as stated below and in the verdict they give to the P-indivisibility of §2.3.
+Checking them requires the preparation as well as the bijection and the partition: the fixed hidden prior is part of the realization datum (§1.2, *Remark (the measure as a realization datum)*), and the standalone initial visible law is a further datum. With the bijection, the partition and the hidden prior all held fixed, two standalone initial visible laws can give (C4) as stated below different verdicts. Separately, with the bijection and the partition held fixed, two hidden priors can give the P-indivisibility of §2.3 different verdicts.
 ```
 
 #### `PS3-b` — `papers/Main.md` §1.3, line 80, the **(C4)** entry
@@ -551,7 +556,7 @@ erified structurally, C2 and C3 are verified with enormous margins, and C4 is na
 **Inserted sentence, frozen character for character:**
 
 ```text
-Each verdict is relative to a preparation as well as to a dynamics and a partition: the hidden prior belongs to the realization datum and the initial visible law is a further datum, and two preparations of one dynamics and one partition can give C4 as stated above different verdicts, and can give the indivisibility of the visible process different verdicts too.
+C4 as stated above is relative to a preparation and not to the dynamics and the partition alone: with the dynamics, the partition and the hidden prior all held fixed, two initial visible laws can give it different verdicts. Separately, the indivisibility of the visible process is relative to the hidden prior: with the dynamics and the partition held fixed, two hidden priors can give it different verdicts.
 ```
 
 #### `PS3-d` — `book/glossary.md`, the **C4** entry, line 31, mirrored at `book/The-Incompleteness-of-Observation-FULL.md` line 6593
@@ -566,7 +571,7 @@ a quantitative lower bound on observable conditional memory inside an accessible
 **Inserted sentence, frozen character for character:**
 
 ```text
-The verdict is relative to a preparation: the hidden prior and the initial visible law are part of the datum C4 is checked of, alongside the dynamics and the partition.
+The verdict is relative to the initial visible law: C4 is checked of that law alongside the dynamics and the partition, and two such laws can give it different verdicts.
 ```
 
 **Prediction: positive, medium strength.** Each anchor is present and unique at the start-state blobs
@@ -741,16 +746,19 @@ section rather than carrying THE CLAUSE inside them, for the reason stated there
 
 **All four inserted:**
 
-> The manuscripts state at four coordinates that a verdict on the history-readback condition, and on
-> the indivisibility of the visible process, is relative to a preparation as well as to a dynamics and
-> a partition: the fixed hidden prior and the standalone initial visible law are part of the datum.
-> The sentences are the sentences frozen in the control plane, character for character, and each was
-> appended to the anchor line the freeze pins.
+> The manuscripts state at four coordinates that a verdict on the history-readback condition varies
+> with the standalone initial visible law, the dynamics, the partition and the hidden prior held
+> fixed; and, separately, that a verdict on the indivisibility of the visible process varies with the
+> hidden prior, the dynamics and the partition held fixed. Neither dependence is stated of the other's
+> datum, and no pair of preparations is said to move both verdicts. The sentences are the sentences
+> frozen in the control plane, character for character, and each was appended to the anchor line the
+> freeze pins.
 
 **A subset inserted:**
 
 > The manuscripts state at the coordinates named in this note that a verdict on the history-readback
-> condition is relative to a preparation as well as to a dynamics and a partition. The sentences are
+> condition varies with the standalone initial visible law, the dynamics, the partition and the hidden
+> prior held fixed. The sentences are
 > the sentences frozen in the control plane, character for character; the coordinates at which no
 > sentence was inserted are named here with the reason, and the freeze is not edited.
 
@@ -1081,38 +1089,40 @@ hydrodynamics or the substratum ensemble; or consume any sibling lane's result.
    now, and freezing the build rule that governs its failure, keeps an unavailable toolchain from
    becoming a reason to ship an inconsistent corpus.
 
-## Decisions the owner settles before this freezes
+## Settled by the owner before this freeze merges
 
-Each is a choice this file has made in one direction and can be amended in the other. Amendment
-happens **before the merge and only then**; after the merge this file is immutable and an execution
-records a discrepancy rather than repairing it.
+Each decision below is settled, and the freeze carries it. Amendment happens **before the merge and
+only then**; after the merge this file is immutable and an execution records a discrepancy rather
+than repairing it.
 
-1. **Sealing or non-sealing.** This file declares NON-SEALING, `E` → `L`, no `P`, with `R7-PC4P`
-   carrying `_PC4P_BASE`, the blob pin of this file and the manuscript content contracts, and with no
-   `_SEALED_HEAD` and no `_MERGE`. A direction to archive-seal the inserted wording turns the shape
-   into `E` → `L` → `P` and adds the two constants, and must be amended in before execution.
-2. **Whether manuscripts are edited at all.** This file scopes `PS3` to four insertions. A direction
-   that the round determine and record only — locating controls, `PS0`–`PS2` and `PS5`, with the
-   frozen sentences left for a later round — removes `PS3` and `PS4` and makes the round read-only
-   outside `verification/`. That is a smaller round and a defensible one; it is not the shape frozen
-   here.
-3. **The four insertion coordinates, and the four sentences.** The coordinates are `[Main]` §1.3 lines
-   72 and 80, `book/ch01` §1.3 line 61 and the `book/glossary.md` **C4** entry, with the two FULL
-   mirrors. The sentences are frozen character for character above. Every word of them is the owner's
-   to change here, and none of them is the owner's to change afterwards.
-4. **The residue scope.** This file scopes the `[GR]` §8.1 line 561 and `book/ch01` §1.10 line 257
-   residues OUT for repair and IN for verification only. A direction to repair them in this round
-   changes the round's character from a scope repair to a claim change at the cosmological cut and
-   needs its own targets, its own frozen sentences and its own hazards.
-5. **The record-level errors in round 1's freeze.** This file scopes them OUT for repair, on §A.37's
-   immutability rule, and IN for propagation — this round reuses only the corrected attributions. A
-   direction to record them again here would place the same correction in a third artifact.
-6. **The guard tag name `R7-PC4P`,** and whether this round should instead extend `R7-AUDB`'s
-   manuscript contracts rather than open a tag of its own.
-7. **The build rule.** This file freezes that the manuscript edits and the regenerated stamped
-   artifacts land together or not at all, and that an unavailable `pandoc`/`xelatex` returns
-   `PS3` and `PS4` UNDECIDED. A direction that the execution may ship the source edit and leave the
-   rebuild to a later round would need to say so here.
-8. **`PS2`'s bounded search.** The eight files, the coordinate list and the twelve search strings are
-   frozen above. A string the owner wants searched that is absent from that list cannot be added after
-   the outcome is known.
+1. **NON-SEALING**, `E` → `L`, no `P`, with `R7-PC4P` carrying `_PC4P_BASE`, the blob pin of this
+   file and the manuscript content contracts, and no `_SEALED_HEAD` and no `_MERGE`. Content pinning
+   is the right instrument for a prose-only publication repair: no kernel object is created here, so
+   there is nothing an archive seal would seal.
+2. **The manuscripts are edited. `PS3` and `PS4` stay.** The record carries stable preparation-scope
+   facts the publication surfaces do not state, and this round is chartered to propagate them without
+   changing the mathematics. A determine-and-record round would leave the backlog item standing.
+3. **The four coordinates stand; three of the four sentences are sharpened.** The coordinates are
+   unchanged. `PS3-a`, `PS3-c` and `PS3-d` state the two dependences as two statements, each with its
+   own held-fixed list, because the record establishes one fact about the standalone initial visible
+   law and the condition's verdict, and a separate fact about the hidden prior and P-indivisibility's
+   verdict. It establishes no pair of preparations that moves both. `PS3-d` names only the visible-law
+   dependence, the hidden prior not being established here as a dependence of the condition's verdict.
+   `PS3-b` already carried the index in this form and stands as drafted. **An unindexed collective —
+   "each verdict is relative to a preparation" over C1–C4, or over the C4-level predicates — is
+   forbidden by THE CLAUSE and appears in no sentence.**
+4. **The two inference residues stay out of scope for repair and in scope for a byte-identity
+   verification only.** Repairing one is a claim change at the cosmological cut and belongs to a round
+   with its own freeze.
+5. **Round 1's preregistration errors stay out of scope for repair and in scope for propagation.**
+   This round consumes only the corrected result-note attributions, so that no third correction
+   surface is created.
+6. **A dedicated `R7-PC4P`**, rather than extending `R7-AUDB`. This round owns a coherent new
+   contract — its freeze blob, its base and its four insertion contracts — and keeping that ownership
+   separate keeps a later audit clean.
+7. **The all-or-nothing build rule stands.** Source edits without regenerated stamped artifacts are
+   not an acceptable publication repair, and an unavailable `pandoc` or `xelatex` returns `PS3`/`PS4`
+   UNDECIDED rather than shipping an inconsistent corpus.
+8. **`PS2`'s bounded search stands as frozen** — eight files, the `RS` coordinate list, twelve search
+   strings. It is broad enough to falsify the silence predictions and is frozen independently of the
+   outcome.
