@@ -858,6 +858,42 @@ here bears on the OI → QM chain, and no row of the queue above changes.
 → [round H-B preregistration](programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/preregistration.md)
 (the frozen candidate, the recorded analysis, the targets, and the fourteen hazards)
 
+### Hydrodynamics programme — round H-E: one candidate bridge condition, tested
+
+One candidate bridge condition is stated against the programme's H3 obligation, for round H-B's
+frozen candidate and for it alone, and the part of it that is an exact finite statement is decided
+at evidence level 2 on the mandated base `0975bba`
+(`OIBridge/HydroClosureBridge.lean`, guard `R7-HYE`). The candidate is the Gibbs family in H-B's
+three conserved charges, parameterized by a real triple through the channel fugacities
+`z_k = exp(a + b₁ (c_k)₁ + b₂ (c_k)₂)`. Its product-form, family-invariance and flux clauses hold:
+the local Gibbs weight **is** the channel product; with **site-independent** fugacities the
+configuration weight is invariant under the gas, the collision half reusing H-B's integer-weight
+classification read in the exponent and the streaming half reindexing each channel's site product;
+and the family's momentum-flux tensor over the embedded stencil is a function of **the parameters**,
+equal to `3 θ δ` at `b₁ = b₂ = 0` through H-B's second-moment identity. Separately, the mean-charge
+map of the family is proved **injective on the whole of `ℝ³`**, so a triple of mean-charge values
+names at most one family member — a recovery defined **on the image of that map and nowhere else**,
+the image being uncharacterized here and reported `HO`. Two bounds are proved alongside: pure
+streaming, the identity-collision rule, satisfies the same three clauses with the same family and
+carries six independent site-independent channel-weighted invariants where the gas carries three, so
+those clauses do not select the candidate's conserved-charge structure; and with **site-dependent**
+fugacities the configuration weight is not preserved, so the invariance established is an invariance
+of the homogeneous family only. **The clause that would supply closure is the propagation clause, and
+it is neither stated nor proved here**: on a named and bounded search of the merged record, four of
+the five items of H-A's scaling skeleton — lattice spacing as a function of `L`, time step, carrier
+growth, convergence topology — are unfixed, H-B's candidate fixing the field lift alone, so that
+clause cannot be stated at the base at all. **H3 stands as a component of a bridge and not as one**;
+the programme's H3 obligation stays `HO`, and nothing here shows that closure is unreachable or that
+a bridge condition of another shape would not supply it. No continuum limit is taken and no equation
+is written; nothing here bears on the OI → QM chain; round H-B is not reported closed and its open
+owner question stays as it stands; the status of A5 relative to the hydrodynamic target is another
+lane and is neither re-opened nor consumed here; and no row of the queue above changes.
+
+→ [round H-E result](programmes/hydrodynamics/round-h-e-h3-closure-bridge/result.md)
+(`HE0`–`HE6`, the gate on each outcome, and what none of them licenses)
+→ [round H-E preregistration](programmes/hydrodynamics/round-h-e-h3-closure-bridge/preregistration.md)
+(the frozen candidate condition, the targets, the predictions, and the eighteen hazards)
+
 ## Settled negatively — `INDEPENDENT`, and not queue items
 
 **These are findings. They do not belong on the list above and are recorded here so they are not
