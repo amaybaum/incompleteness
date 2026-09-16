@@ -76,12 +76,60 @@ jobs:
           sh elan-init.sh -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
+      # Mathlib's own oleans come from `lake exe cache get` below and are NOT cached here:
+      # that tree is 4.5 GB and has no business in the Actions cache. What is cached is the
+      # 536 MB this package builds itself -- 170 OIBridge modules -- which is thrown away on
+      # every fresh runner and rebuilt from nothing. Three consecutive runs measured 20m34s,
+      # 20m02s and 20m56s of Build, two of them on a tree whose Lean source was byte-identical
+      # to its base, so the cost is paid whether or not any Lean changed.
+      #
+      # The key pins the toolchain, the resolved dependency manifest and the lakefile, so a
+      # Mathlib or toolchain bump can never restore artifacts built against the old one, and
+      # then the Lean sources. The restore prefix drops only the source hash, so a changed
+      # module restores the last build of the same dependency set and recompiles from there.
+      # Both globs name this package's own sources; neither can reach into .lake/, so the key
+      # never depends on downloaded dependency source.
+      - name: Restore the OIBridge build cache
+        uses: actions/cache@v4
+        with:
+          path: verification/lean-mathlib/.lake/build
+          # Both keys are single physical lines on purpose: restore-keys is a
+          # newline-separated LIST, so a key broken across lines would parse as
+          # several malformed keys rather than one.
+          key: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-${{ hashFiles('verification/lean-mathlib/OIBridge.lean', 'verification/lean-mathlib/OIBridge/**/*.lean') }}
+          restore-keys: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-
+
+      # `--rehash` is what makes a restored cache safe to trust: it hashes the files for traces
+      # rather than believing the restored `.hash` files, so the cache supplies candidate
+      # artifacts and the checked-out source still decides which of them may be reused.
+      #
+      # NOT `--old`. Lake's own help says it "only rebuild modified modules (ignore transitive
+      # deps)" -- it would skip dependents of a changed module, which is precisely the assurance
+      # this gate exists to provide. `--rehash` keeps ordinary dependency semantics intact.
+      #
+      # The two phases are timed separately because they have different remedies: time in
+      # `cache get` is Mathlib download and decompression, which the step above deliberately
+      # does not address, and time in the build is this package's own compilation, which it does.
       - name: Build
         working-directory: verification/lean-mathlib
         run: |
           lean --version
+
+          t0=$(date +%s)
           lake exe cache get
-          lake build
+          t1=$(date +%s)
+
+          lake --rehash build
+          t2=$(date +%s)
+
+          echo "TIMING lake-exe-cache-get $((t1 - t0))s"
+          echo "TIMING lake-rehash-build $((t2 - t1))s"
+          {
+            echo "| build phase | seconds |"
+            echo "|---|---|"
+            echo "| \`lake exe cache get\` | $((t1 - t0)) |"
+            echo "| \`lake --rehash build\` | $((t2 - t1)) |"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       # The release gate runs HERE, after the build, because this job already has
       # elan, lake and the Mathlib cache, and several gate checks read the built
