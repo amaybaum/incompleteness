@@ -20124,8 +20124,8 @@ _RNC_BASE = 'd05399020d05d4a7b6f662d2e069062452e7d6b4'
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_RNC_SEALED_HEAD = None
-_RNC_MERGE = None
+_RNC_SEALED_HEAD = '31db7c1082b012c00c43f3fda35ce44c5653e123'
+_RNC_MERGE = 'eb70bbb9b2b3311095945ec3ce2418962f3b741a'
 
 # THE CLAUSE, verbatim -- act 13's CT3 (d) anti-conflation clause, which the freeze carries at every
 # prose mention and which every artifact of this round must carry with it. Compared as prose, with
