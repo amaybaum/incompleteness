@@ -21630,6 +21630,845 @@ check('R7-TRJ', ok_trj,
       "controls, twelve seal controls and a freeze-pin drift control.")
 
 
+# ---- R7-XTS: Track B act 18 -- the intermediate regime: what extra structure supplies cross-time
+# information. A SEALING round under AGENTS.md A.37 whose ask is BOUNDED EXISTENCE ON TWO CO-EQUAL
+# AXES and whose headline is the ORDERED PAIR of the two axis outcomes. The guard checks the shared
+# structural theorem that RUNS FIRST (pointwise laws factor, with act 17's TJ1 cited at the step
+# where the ambient admissible set must be a product), the two ladders with their frozen labels, and
+# the specific errors the freeze names: obligation 3 restated AGAINST THE TRAJECTORY, which is
+# unsatisfiable exactly when the axis succeeds; a candidate CHANGING TYPE; SPLIT-CONFIGURATION
+# non-triviality; a properness witness OUTSIDE the admissible set; a generator law that DOES NOT
+# DESCEND; reading XS1 as the FALSE sentence about determination; reporting a DEGENERATE propagation
+# as propagation; RANKING the two axes; ENLARGING a bounded no-go; and letting the LATTICE question
+# creep in. Chronology clause 9 is honoured by EXCLUSION: _xts_prior_seals names other rounds'
+# triples only and says nothing whatever about _XTS_BASE, _XTS_SEALED_HEAD or _XTS_MERGE, so the
+# clause is true both before and after the mandatory pin commit P sets this round's pins.
+_XTSDIR = 'programmes/oi-qm/track-b/act-18-intermediate-cross-time-structure/'
+_XTS = open(_artifact(_XTSDIR + 'result.md'), encoding='utf-8').read()
+_XTS1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _XTS).split()).replace('’', "'")
+_XTSLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'IntermediateCrossTimeStructure.lean'), encoding='utf-8').read().split())
+_XTSROADRAW = open(_artifact('ROADMAP.md'), encoding='utf-8').read()
+_XTSROAD = ' '.join(_XTSROADRAW.split())
+# The mandated execution base: the merge commit of this round's control-plane PR #656.
+_XTS_BASE = 'd7a9931befeb942db8ebc7b07014f9020c6663d0'
+# The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
+# the pin commit P after the landing merge L -- pinning them in the execution would make the
+# execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
+# strong check re-run against those objects, with the pinned merge's second parent required to
+# equal the sealed head and both required reachable from the current target, fail-closed.
+_XTS_SEALED_HEAD = None
+_XTS_MERGE = None
+
+# THE CLAUSE, verbatim -- the non-adoption clause, which the freeze carries at every place where a
+# candidate's survival could be read as its adoption, and which every artifact of this round must
+# carry with it. Compared as prose, with block-quote markers stripped, so that the naming line each
+# carriage opens with -- distinct per carriage, which is what makes the carriages distinguishable
+# copies rather than one paragraph pasted repeatedly -- does not enter the comparison.
+_XTS_CLAUSE = (
+    "Act 18 names candidate structures in order to test them, and adopts none. Reaching the "
+    "top line of either axis is a statement about the exact structure this freeze names, on the data "
+    "grant frozen for it, and it is **not** a finding that the structure obtains in nature, **not** a "
+    "finding that the programme requires it, and **not** an adoption of it as the physical carrier of "
+    "cross-time information. A datum that determines the trajectory does not thereby become the right "
+    "datum, and a law whose solutions at a configuration are one history is not thereby the law of "
+    "evolution: the refinement sandwich of the `D`-axis and the one-configuration non-triviality "
+    "witness of the `L`-axis exist because a structure can reach a top line by containing the answer "
+    "rather than by supplying one. **No candidate gains physical status by surviving, no carrier and "
+    "no principle is adopted as the physical one, and no candidate changes type during execution.**")
+
+
+def _xts_freeze_pin(read=_bb_read):
+    """X1 -- this round's preregistration is byte-identical to the blob merged by PR #656."""
+    return _bb_blob(_XTSDIR + 'preregistration.md', read) == (
+        'fd3fa1359188966cae006deba4944a14aab5f3dd')
+
+
+def _xts_execution_ancestry():
+    """X2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused through acts 12's through 17's copies: the head-only
+    check is insufficient because a commit made before the freeze and merged in alongside it leaves
+    the head descended from the freeze while itself not being. The question is asked of the real
+    `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails closed
+    with no fallback.
+
+    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
+    mode (pins set by the mandatory pin commit P): the same strong check re-run against the sealed
+    head, with the pinned merge required to carry it and both required reachable from the current
+    target, fail-closed."""
+    if _XTS_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-XTS')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_XTS_BASE, target, label, num, tag='R7-XTS')
+    return _rbr_archive_ancestry(_XTS_BASE, _XTS_SEALED_HEAD, _XTS_MERGE, tag='R7-XTS')
+
+
+def _xts_xs1(t=None):
+    """X3 -- XS1 lands as the PRODUCT statement, with act 17's TJ1 cited AT THE STEP where the
+    ambient set must be a product, with the corollary about PROPAGATION and not determination, with
+    the FALSE sentence refused in terms, and with the consequence for the pointwise candidates
+    reported as THIS ROUND'S OWN THEOREM and never as a failed search."""
+    t = _XTS1 if t is None else t
+    return ('**Outcome reached: `XS1`-landed.**' in t
+            and '**The `TJ1` dependence is named at the step and not in a footnote.**' in t
+            and 'Intersecting a product constraint with a **non-product** ambient set need not '
+                'factor.' in t
+            and '**Without `TJ1` the corollary does not follow.**' in t
+            and '**Every pointwise candidate is thereby ruled out as a route to the top line of the '
+                '`L`-axis, as a theorem of this round and not as a failed search.**' in t
+            and '**"No pointwise constraint yields cross-time determination" is FALSE and is not '
+                'said here.**' in t
+            and '**What fails is propagation, not determination.**' in t
+            and '**Both cases are closed**' in t
+            and '**That is a failure of non-triviality and not a failure of determination.**' in t)
+
+
+def _xts_two_axis(t=None):
+    """X4 -- the headline is the ORDERED PAIR of two CO-EQUAL axis outcomes, neither ranked above
+    the other, and the reading order of the two clauses is declared an ordering of the sentence and
+    not a ranking."""
+    t = _XTS1 if t is None else t
+    return ('**The headline is the ORDERED PAIR of two co-equal axis outcomes:** **(`D-MID`, '
+            '`L-PROP`)**.' in t
+            and '**Neither axis is above the other**, they answer different questions, an '
+                'affirmative on one is not evidence about the other in either direction, and no '
+                'sentence of this note ranks them.' in t
+            and '**The outcome of this round is the ordered pair `(D-MID, L-PROP)`.**' in t
+            and 'neither element is "the" answer and neither is a fallback for the other' in t
+            and '**which is an ordering of the sentence\nand not a ranking of the axes**'.replace(
+                '\n', ' ') in t)
+
+
+def _xts_xs0(t=None):
+    """X5 -- XS0 is type P, its bounded search is recorded in full with a per-term result, SILENCE
+    is the finding and not a truth value, reconstructive inference is refused, and the round's own
+    theorems are refused as retro-evidence."""
+    t = _XTS1 if t is None else t
+    return ('**Outcome reached: `XS0`-silent.**' in t
+            and '**The finding is that the record is silent on the point.**' in t
+            and '**`XS0` is a type-P target and carries no evidence level.**' in t
+            and '**No Lean was written for `XS0`**' in t
+            and '**Reconstructive inference is refused as a finding here**' in t
+            and '**Searching and not\nfinding is never a settling outcome**'.replace('\n', ' ') in t
+            and 'this round\'s own theorems are not treated as\nretro-evidence about it.'.replace(
+                '\n', ' ') in t
+            and '| `propagat` | 207 | 58 | **Does not supply it.**' in t
+            and '| `intermediate` | 87 | 26 | **Not relevant to the question.**' in t
+            and t.count('**Does not supply it.**') >= 19
+            and '**226 files**' in t)
+
+
+def _xts_typeD(t=None):
+    """X6 -- the three Type D parts at their frozen labels, with OBLIGATION 3 STATED AGAINST ACT
+    13's LEVEL-2 DATUM AND NEVER AGAINST THE TRAJECTORY, and with each verdict made of the EXACT
+    frozen functional and not of its neighbourhood."""
+    t = _XTS1 if t is None else t
+    return ('**Obligation 3 is stated against act 13\'s level-2 datum and NEVER against the '
+            'trajectory.**' in t
+            and 'would make the top line unreachable **by construction, and silently**' in t
+            and 'What obligation 3 asks is that the candidate be a **strict coarsening of act 13\'s '
+                'datum**' in t
+            and '**No statement of this round writes obligation 3 in the trajectory form.**' in t
+            and 'Outcome: `DF1-SANDWICH`' in t
+            and 'Outcome: `DF2-SANDWICH` and `DF2-RESID`' in t
+            and 'Obligations 1 and 2 hold; obligation 3 UNDECIDED' in t
+            and '**The determination target is UNDECIDED for `DF1`**' in t
+            and '**Obligation 3 is UNDECIDED**' in t
+            and '**A verdict on one candidate is not a verdict on another.**' in t
+            and 'An `X-SANDWICH` is **not** an\nendorsement'.replace('\n', ' ') in t)
+
+
+def _xts_typeL(t=None):
+    """X7 -- the four Type L parts at their frozen labels, with the non-triviality witness at ONE
+    COMMON CONFIGURATION carrying all four conjuncts, with H's realizability load-bearing and
+    available only through TJ1, with BOTH propagation clauses reported separately, and with the two
+    non-propagation mechanisms KEPT APART."""
+    t = _XTS1 if t is None else t
+    return ('**Every non-triviality witness below is at ONE COMMON CONFIGURATION and carries all '
+            'four conjuncts together**' in t
+            and '**all three\npointwise realizable there**'.replace('\n', ' ') in t
+            and 'Split-configuration witnesses were refused' in t
+            and '**vacuous at the first**' in t and '**the answer in\ndisguise at the second**'
+                .replace('\n', ' ') in t
+            and '**`H`\'s pointwise realizability is load-bearing and is available only because of '
+                'act 17\'s `TJ1`.**' in t
+            and '**Both propagation clauses are reported separately, and the two non-propagation '
+                'mechanisms are kept\napart.**'.replace('\n', ' ') in t
+            and 'reporting one as the other is a defect of this\nround'.replace('\n', ' ') in t
+            and '**No `Y-DEGENERATE` was reached by any candidate**, and none is claimed.' in t
+            and '**The descent obligation is DISCHARGED, by the first of the two routes the freeze '
+                'permits.**' in t
+            and '**A representative-level generator that did not descend would "select" by fixing '
+                'an\nunphysical frame**'.replace('\n', ' ') in t
+            and '**no propagation verdict whatever**' in t
+            and 'Outcome: `LC0-WELLDEF`, `LC0-PROPER`, `LC0-RESID`, and EXCLUDED from `L-PROP` by '
+                '`XS1`' in t
+            and 'Outcome: UNDECIDED' in t
+            and 'Outcome: `LC2-WELLDEF`, `LC2-PROPER`, `LC2-RESID`' in t
+            and 'Outcome: descent DISCHARGED, `LC3-WELLDEF`, `LC3-PROPER`, `LC3-PROPAGATES`' in t)
+
+
+def _xts_axes(t=None):
+    """X8 -- the two axis outcomes in the status rule's frozen wording, with D-DET, D-NOGO and
+    L-NOGO each checked NOT claimed, and each bounded no-go stated as bounded to its closed list."""
+    t = _XTS1 if t is None else t
+    return ('**A genuine intermediate readback datum exists, and residual trajectory freedom '
+            'remains.**' in t
+            and '**So the interval between act 17\'s visible data and act 13\'s datum is inhabited, '
+                'and what inhabits it there does not determine the trajectory.**' in t
+            and '**A genuine proper structural law, together with one initial orbit, propagates '
+                'uniquely.**' in t
+            and '**so the initial orbit does work and what is reported is propagation and not '
+                'slice-by-slice determination**' in t
+            and '**`D-DET` was not reached and is not claimed. `D-NOGO` was not reached and is not '
+                'claimed**' in t
+            and '**`L-NOGO` was not reached and is\nnot claimed**'.replace('\n', ' ') in t
+            and 'it would require an exhibited\nfailure of obligation 2 or of obligation 3 for '
+                '**every** member of the three-member list'.replace('\n', ' ') in t
+            and 'it quantifies over the whole closed four-member list' in t
+            and '**The `L`-axis outcome is reported beside it and neither is\nabove the other.**'
+                .replace('\n', ' ') in t
+            and '**The `D`-axis outcome is reported beside it and neither is above the other.**'
+                in t)
+
+
+def _xts_nonadoption(t=None, lean=None):
+    """X9 -- THE CLAUSE is carried VERBATIM at every prose mention: four times in the result note
+    and once in the module docstring, each carriage opening with its own naming line so the
+    carriages are distinguishable copies of one clause rather than one paragraph pasted repeatedly.
+    The ROADMAP's mention is the byte-fixed P0 sentence, which the freeze governs by its own
+    section and which cannot admit a quotation inside a quotation."""
+    t = _XTS1 if t is None else t
+    lean = _XTSLEAN if lean is None else lean
+    return (t.count(_XTS_CLAUSE) == 4
+            and lean.count(_XTS_CLAUSE) == 1
+            and '**THE CLAUSE, carried at this mention — the result note\'s report of the `L`-axis '
+                'top line.**' in t
+            and '**THE CLAUSE, carried at this mention — the result note\'s report of the surviving '
+                'readback data.**' in t
+            and '**THE CLAUSE, carried at this mention — the result note\'s account of the freeze\'s '
+                'strongest hazard.**' in t
+            and '**THE CLAUSE, carried at this mention — the result note\'s list of what no outcome '
+                'licenses.**' in t
+            and '**The `ROADMAP` carries no inserted carriage, and that is the freeze\'s own rule '
+                'and not an\nomission.**'.replace('\n', ' ') in t
+            and '**No candidate is adopted, endorsed or given physical status by surviving.**' in t)
+
+
+def _xts_status_rule(t=None):
+    """X10 -- the twenty forbidden sentences are refused in the freeze's own terms, the lattice
+    question is checked NOT entered even though two candidates reached X-SANDWICH, and P0 stays
+    OPEN and two-part."""
+    t = _XTS1 if t is None else t
+    return ('**"The trajectory freedom is gauge", or "the trajectory freedom is physical."** Not '
+            'written.' in t
+            and '**"No pointwise constraint yields cross-time determination."** Not written, and '
+                'the sentence is **false**.' in t
+            and '**"`XS1` rules out cross-time laws."** Not written.' in t
+            and '**"Same augmented datum, inequivalent trajectories" reported as obligation 3.** '
+                'Not written.' in t
+            and '**"The candidate list is exhaustive", or "these are the intermediate '
+                'structures."** Not written.' in t
+            and '**neither is reported as finer, coarser, better or preferable to the\nother**'
+                .replace('\n', ' ') in t
+            and '**"One axis answers the other", or any ranking of the two axes.** Not written.'
+                in t
+            and '**"The bounded no-go shows no such structure exists."** Not written' in t
+            and '**"A witness was sought and not found, so there is none."** Not written.' in t
+            and '**"`P0` is closed", or "`P0`\'s trajectory part is closed."** Not written.' in t
+            and '**"OI and QM are inequivalent."** Not written.' in t
+            and '**Only Source A is\nadjudicated**'.replace('\n', ' ') in t
+            and '**a merged statement is not enlarged by being consumed.**' in t
+            and '**No outcome chose its own wording, and no target is reported at a strength the '
+                'kernel does not\ncarry.**'.replace('\n', ' ') in t
+            and '**The anti-contamination invariant is honoured**' in t)
+
+
+def _xts_budget(t=None):
+    """X11 -- the frozen FIVE-slot budget, four slots fired and the conditional fifth recorded
+    UNUSED, with no sixth definition and no amendment, and with the two auxiliary product theorems
+    recorded as THEOREMS that consume no slot."""
+    t = _XTS1 if t is None else t
+    return ('| 1 | `PointwiseLaw` — the predicate that a law is pointwise in this freeze\'s sense | '
+            '**fired** |' in t
+            and '| 2 | `DeterminesTraj` — the `D`-determination target as one `Prop` over a '
+                'functional | **fired** |' in t
+            and '| 3 | `ProperAt` — the one-configuration non-triviality witness, all four '
+                'conjuncts | **fired** |' in t
+            and '| 4 | `PropagatesFrom` — the propagation predicate, carrying **both** frozen '
+                'clauses | **fired** |' in t
+            and '| 5 (conditional) | a named functional for one Type D candidate | **unused** |' in t
+            and '**Five slots were budgeted. Four fired and one is unused. No sixth definition was '
+                'introduced and no\namendment was needed.**'.replace('\n', ' ') in t
+            and '**The module holds exactly four top-level definitions and no others.**' in t
+            and 'No lift, gauge element, witness, matrix, visible family, Gram tuple, entry value, '
+                'law datum or\nconfiguration is a top-level definition'.replace('\n', ' ') in t
+            and '**Neither is a top-level `def`**' in t)
+
+
+def _xts_axiom_table(t=None):
+    """X12 -- one line per named result, nothing outside the three standard axioms, and the type-P
+    target kept OUT of the table."""
+    t = _XTS1 if t is None else t
+    rows = t.count('| `[propext, Classical.choice, Quot.sound]` |')
+    return (rows == 18
+            and '**Eighteen named results, nothing outside the three standard axioms, no `sorry`, '
+                'no added axiom and\nno `native_decide`.**'.replace('\n', ' ') in t
+            and '**`XS0` is type P and is not in\nthis table.**'.replace('\n', ' ') in t
+            and '| `XS0` | `[propext' not in t
+            and 'its appearance there is not a defect' in t)
+
+
+def _xts_chronology(t=None):
+    """X13 -- the chronology claim names the property certified, declares the round SEALING with P
+    mandatory, records the two pins UNSET AT EXECUTION, records that no later main was absorbed,
+    records the seal-integrity clause as EXCLUDING this round's own triple, reports the EMPIRICAL
+    verification of clause 9 in its three configurations including the decisive post-pin one, and
+    lists the nine preconditions checked at B."""
+    t = _XTS1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside '
+            '`B`\'s\ndescendants**'.replace('\n', ' ') in t
+            and '**This is a SEALING round** under `AGENTS.md` `§A.37`' in t
+            and 'It lands **`E` → `L` → `P`, with `P`\nmandatory**.'.replace('\n', ' ') in t
+            and '**`_XTS_SEALED_HEAD` and `_XTS_MERGE` are unset at execution.**' in t
+            and 'That is a statement\nabout this execution and stays true as one'.replace(
+                '\n', ' ') in t
+            and '**The seal-integrity clause EXCLUDES this round\'s own triple.**' in t
+            and 'there are **zero executable references** to this round\'s own\nconstants'.replace(
+                '\n', ' ') in t
+            and '**A clause fixing\nthis round\'s own pins at unset for all time would contradict '
+                'the mandatory lifecycle**'.replace('\n', ' ') in t
+            and '**Clause 9 was verified EMPIRICALLY before the commit**' in t
+            and '**The third configuration is the decisive one**' in t
+            and '**`False`, fifteen of fifteen**' in t
+            and '**Acts 13\'s, 14\'s, 15\'s, 16\'s and 17\'s seals are untouched**' in t
+            and '**no existing seal constant is\naltered**'.replace('\n', ' ') in t
+            and '**Before certification this execution absorbed no later `main`.**' in t
+            and t.count('| **PASS** —') == 9
+            and '**The claim is scoped to the repository record.**' in t)
+
+
+def _xts_discrepancies(t=None):
+    """X14 -- the discrepancies are RECORDED and not repaired: DF1 obligation 3's witness provenance
+    diverging from the countercontrol table's supply item inside the configuration it names, the
+    obligation landing where UNDECIDED was predicted, LC1's conditional countercontrol, and the two
+    auxiliary theorems recorded so the budget count is visible."""
+    t = _XTS1 if t is None else t
+    return ('**Four items are recorded. None is repaired, and the freeze is not\nedited.**'.replace(
+                '\n', ' ') in t
+            and 'The preregistration is immutable once merged.' in t
+            and '**No start-state discrepancy arose.**' in t
+            and '**every one\nmatches**'.replace('\n', ' ') in t
+            and '**all nine pass**' in t
+            and '**It is not drawn from supply item 3.**' in t
+            and '**exercises no control whatever over the off-diagonal `(t,s)` entries**' in t
+            and '**This is\nrecorded as a divergence from the freeze\'s forecast of provenance and '
+                'is not repaired, not\ncorrected, not reinterpreted and not normalized**'.replace(
+                '\n', ' ') in t
+            and '**The prediction is recorded as reached beyond\nits sign**'.replace('\n', ' ') in t
+            and '**It is recorded as an obstruction and never as a\nnegative result**'.replace(
+                '\n', ' ') in t
+            and '**No candidate discovered during execution was executed.** **No configuration was '
+                'chosen after an\noutcome was known.** **No alternative witness was substituted for '
+                'a named one.**'.replace('\n', ' ') in t)
+
+
+def _xts_predictions(t=None):
+    """X15 -- every prediction is reported against its outcome, none is falsified, the one reached
+    beyond its sign is marked as such, and P-D is reported against with its antecedent recorded as
+    NOT INSTANTIATED rather than as a confirmation."""
+    t = _XTS1 if t is None else t
+    return ('**No prediction of this freeze is falsified, and none is against sign.**' in t
+            and '**reached beyond its sign**' in t
+            and '**No candidate reached the top line of the `D`-axis.**' in t
+            and '**So `P-D`\'s antecedent is not instantiated\nby anything in this round, and the '
+                'prediction is neither confirmed nor falsified.**'.replace('\n', ' ') in t
+            and 'no sentence here treats a vacuous antecedent as a confirmation' in t
+            and '**The falsification condition was not met, and is restated so the record is '
+                'complete.**' in t
+            and '**would not have presented the falsification as a finding about nature.**' in t
+            and '**The two are not conflated.**' in t
+            and t.count('**as predicted** |') == 15)
+
+
+def _xts_prior_seals(_cti_base=None, _cti_sealed=None, _cti_merge=None,
+                     _pqt_base=None, _pqt_sealed=None, _pqt_merge=None,
+                     _tcf_base=None, _tcf_sealed=None, _tcf_merge=None,
+                     _rnc_base=None, _rnc_sealed=None, _rnc_merge=None,
+                     _trj_base=None, _trj_sealed=None, _trj_merge=None):
+    """X16 -- acts 13's, 14's, 15's, 16's and 17's archive seals are exactly the values those rounds
+    set. An archive seal belongs to the round that set it; this round reads them and never writes
+    them.
+
+    THIS ROUND'S OWN TRIPLE IS EXCLUDED, deliberately and by the freeze's chronology clause 9: no
+    reference to _XTS_BASE, _XTS_SEALED_HEAD or _XTS_MERGE appears here. A clause asserting this
+    round's own triple equal to (_XTS_BASE, None, None) as a standing invariant would contradict
+    clause 7, under which the mandatory pin commit P sets them -- the guard would then pass at no
+    commit once the round landed, which is how an earlier round in this programme was found
+    non-landable after certifying at its own head."""
+    return ((_cti_base or _CTI_BASE) == 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
+            and (_cti_sealed or _CTI_SEALED_HEAD) == '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
+            and (_cti_merge or _CTI_MERGE) == '292848b3c908d33ac432a5360effe0c259e3ce16'
+            and (_pqt_base or _PQT_BASE) == 'bc76a88dbe300a35715d5ce8196002f31aa62493'
+            and (_pqt_sealed or _PQT_SEALED_HEAD) == '5008a47bf7e67edc502120f9269c4a4661ef7342'
+            and (_pqt_merge or _PQT_MERGE) == 'c50dd22457bfd4812761cb56e7ca1a559af33c5e'
+            and (_tcf_base or _TCF_BASE) == 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
+            and (_tcf_sealed or _TCF_SEALED_HEAD) == 'c622461495c6b2db4e09c8084f404bd5ca2c5192'
+            and (_tcf_merge or _TCF_MERGE) == '9e0cc3834538b7bdcb742fcaa046194cfa9526fb'
+            and (_rnc_base or _RNC_BASE) == 'd05399020d05d4a7b6f662d2e069062452e7d6b4'
+            and (_rnc_sealed or _RNC_SEALED_HEAD) == '31db7c1082b012c00c43f3fda35ce44c5653e123'
+            and (_rnc_merge or _RNC_MERGE) == 'eb70bbb9b2b3311095945ec3ce2418962f3b741a'
+            and (_trj_base or _TRJ_BASE) == '02cfc9be141a44aaebf847d8e7d9fdd0d0a18f08'
+            and (_trj_sealed or _TRJ_SEALED_HEAD) == '94d41561114b2aee5939dcfa976ce98b8f141093'
+            and (_trj_merge or _TRJ_MERGE) == 'e8b12a433ebc0e5047504d2c95664a85ca65d1e8')
+
+
+def _xts_lean_defs(t=None):
+    """X17 -- exactly the four budgeted definitions are top-level `def`s in the module, in the
+    freeze's names, with none of the three forbidden strings anywhere, and the docstring carrying
+    the ordered-pair reading, the refusal of the false sentence about determination, the
+    non-exhaustiveness of the candidate lists and the out-of-scope lattice question."""
+    t = _XTSLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['PointwiseLaw', 'DeterminesTraj', 'ProperAt', 'PropagatesFrom']
+            and '**The outcome of this round is the ordered pair of those two axis outcomes.** '
+                'Neither is above the other' in t
+            and 'no statement of this module ranks them' in t
+            and '**`XS1` is about propagation and not about determination.** The sentence "no '
+                'pointwise constraint yields cross-time determination" is **false** and is not said '
+                'here' in t
+            and '**The candidate lists are closed and are not exhaustive.**' in t
+            and '**The coarsest determining datum is out of scope** by this round\'s own freeze' in t
+            and 'act 11\'s `GL2` pair is **one** trajectory here' in t
+            and '**Act 13\'s level-2 result and act 17\'s `TJ1` and `TJ3` are consumed at merged '
+                'strength**' in t
+            and 'Obligation 3 is stated against act 13\'s level-2 datum and never against the '
+                'trajectory' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+def _xts_roadmap(road=None):
+    """X18 -- the P0 row stays OPEN and two-part with the frozen Case A sentence carried verbatim
+    and no carrier adopted. THE ROW'S LABEL IS UNCHANGED and so is its ledger cell: the freeze
+    writes the ROADMAP by APPENDING the frozen post-round sentence and by nothing else, and that
+    cell is pinned by acts 16's and 17's own guards, so advancing it is not this round's to do."""
+    road = _XTSROAD if road is None else road
+    return ('| **P0** | What additional structure determines the relative quantum evolution OI '
+            'leaves free | OI→QM / Track B | **OPEN**' in road
+            and '`P0` remains open and two-part, and the answers of acts 11 through 17 stand '
+                'exactly as those rounds state them.' in road
+            and 'a law that is pointwise in this round\'s sense has a solution set equal to the '
+                'product over time of its per-time solution sets, so any uniqueness it produces is '
+                'slice-by-slice uniqueness and never a relation propagating one time from another '
+                '— which is not the statement that no pointwise constraint yields cross-time '
+                'determination, that being false, but the statement that propagation is what fails.'
+                in road
+            and 'so the interval is inhabited and what inhabits it there leaves residual trajectory '
+                'freedom.' in road
+            and 'one named generator law, written at orbit level so that it descends' in road
+            and 'it is not an assertion that the law obtains, not an adoption of it, and not a '
+                'claim that the programme requires one.' in road
+            and 'act 10\'s anchor-axis reclassification is untouched in either direction, **no '
+                'carrier is adopted as the physical one**, and nothing here names, endorses or '
+                'excludes a selection principle.' in road
+            and 'the coarsest determining datum is out of scope by this round\'s own freeze.' in road
+            and 'Act 18 asks what such a structure would have to be, on two axes that are not '
+                'ranked against each other, against a candidate list frozen before the search.'
+                in road)
+
+
+ok_xts = True
+ok_xts &= _xts_freeze_pin()
+ok_xts &= _xts_execution_ancestry()
+ok_xts &= _xts_xs1()
+ok_xts &= _xts_two_axis()
+ok_xts &= _xts_xs0()
+ok_xts &= _xts_typeD()
+ok_xts &= _xts_typeL()
+ok_xts &= _xts_axes()
+ok_xts &= _xts_nonadoption()
+ok_xts &= _xts_status_rule()
+ok_xts &= _xts_budget()
+ok_xts &= _xts_axiom_table()
+ok_xts &= _xts_chronology()
+ok_xts &= _xts_discrepancies()
+ok_xts &= _xts_predictions()
+ok_xts &= _xts_prior_seals()
+ok_xts &= _xts_lean_defs()
+ok_xts &= _xts_roadmap()
+
+# ---- mutation controls: each rewrites the artifact and must FAIL the contract it targets ----
+
+# the TJ1 dependence dropped, so the splice would be formed in a set not known to be a product
+_xts_m1 = _XTS1.replace('**Without `TJ1` the corollary does not follow.**',
+                        'The splice is a solution of the law, which is all that is needed.')
+ok_xts &= _xts_m1 != _XTS1 and not _xts_xs1(_xts_m1)
+
+# XS1 read as the FALSE no-go about determination -- the freeze's seventh hazard
+_xts_m2 = _XTS1.replace(
+    '**"No pointwise constraint yields cross-time determination" is FALSE and is not said here.**',
+    'No pointwise constraint yields cross-time determination.')
+ok_xts &= _xts_m2 != _XTS1 and not _xts_xs1(_xts_m2)
+
+# the exclusion reported as a failed search rather than as this round's own theorem
+_xts_m3 = _XTS1.replace(
+    '**Every pointwise candidate is thereby ruled out as a route to the top line of the `L`-axis, '
+    'as a theorem of this round and not as a failed search.**',
+    'No pointwise candidate was found to propagate.')
+ok_xts &= _xts_m3 != _XTS1 and not _xts_xs1(_xts_m3)
+
+# only one of the two cases closed, so the exhaustiveness the freeze demands is lost
+_xts_m4 = _XTS1.replace('**Both cases are closed**', 'The first case is closed')
+ok_xts &= _xts_m4 != _XTS1 and not _xts_xs1(_xts_m4)
+
+# the two axes ranked -- the freeze's tenth hazard and the owner's second settlement
+_xts_m5 = _XTS1.replace(
+    '**Neither axis is above the other**, they answer different questions, an affirmative on one is '
+    'not evidence about the other in either direction, and no sentence of this note ranks them.',
+    'The `L`-axis outcome is the round\'s answer and the `D`-axis is the shortfall.')
+ok_xts &= _xts_m5 != _XTS1 and not _xts_two_axis(_xts_m5)
+
+# the ordered pair collapsed to a single headline
+_xts_m6 = _XTS1.replace(
+    '**The outcome of this round is the ordered pair `(D-MID, L-PROP)`.**',
+    'The outcome of this round is `L-PROP`.')
+ok_xts &= _xts_m6 != _XTS1 and not _xts_two_axis(_xts_m6)
+
+# XS0's silence turned into a truth value
+_xts_m7 = _XTS1.replace('**The finding is that the record is silent on the point.**',
+                        'The finding is that no such statement can be proved.')
+ok_xts &= _xts_m7 != _XTS1 and not _xts_xs0(_xts_m7)
+
+# reconstructive inference admitted as a finding
+_xts_m8 = _XTS1.replace('**Reconstructive inference is refused as a finding here**',
+                        'The record must contain the interval statement, or act 13 would not have '
+                        'written its levels')
+ok_xts &= _xts_m8 != _XTS1 and not _xts_xs0(_xts_m8)
+
+# a per-term row dropped, so the bounded search is no longer bounded as frozen
+_xts_m9 = _XTS1.replace('| `propagat` | 207 | 58 | **Does not supply it.**', '| `propagat` | | |')
+ok_xts &= _xts_m9 != _XTS1 and not _xts_xs0(_xts_m9)
+
+# XS0 given an evidence level it does not carry
+_xts_m10 = _XTS1.replace('**`XS0` is a type-P target and carries no evidence level.**',
+                         '`XS0` is settled at evidence level 2.')
+ok_xts &= _xts_m10 != _XTS1 and not _xts_xs0(_xts_m10)
+
+# OBLIGATION 3 RESTATED AGAINST THE TRAJECTORY -- the freeze's second hazard and fifth forbidden
+# sentence, and the failure the whole Type D section exists to prevent
+_xts_m11 = _XTS1.replace(
+    '**Obligation 3 is stated against act 13\'s level-2 datum and NEVER against the trajectory.**',
+    'Obligation 3 asks for two lifts with the same augmented datum and inequivalent trajectories.')
+ok_xts &= _xts_m11 != _XTS1 and not _xts_typeD(_xts_m11)
+
+# the trajectory form admitted somewhere in the round
+_xts_m12 = _XTS1.replace('**No statement of this round writes obligation 3 in the trajectory '
+                         'form.**',
+                         'The trajectory form of obligation 3 is used where it is convenient.')
+ok_xts &= _xts_m12 != _XTS1 and not _xts_typeD(_xts_m12)
+
+# an X-SANDWICH read as an endorsement of the datum
+_xts_m13 = _XTS1.replace('An `X-SANDWICH` is **not** an endorsement',
+                         'An `X-SANDWICH` is an endorsement')
+ok_xts &= _xts_m13 != _XTS1 and not _xts_typeD(_xts_m13)
+
+# SPLIT-CONFIGURATION non-triviality -- the freeze's fourth hazard
+_xts_m14 = _XTS1.replace(
+    '**Every non-triviality witness below is at ONE COMMON CONFIGURATION and carries all four '
+    'conjuncts together**',
+    'Non-emptiness is witnessed at one configuration and properness at another')
+ok_xts &= _xts_m14 != _XTS1 and not _xts_typeL(_xts_m14)
+
+# a properness witness outside the admissible set -- the freeze's fifth hazard
+_xts_m15 = _XTS1.replace(
+    '**`H`\'s pointwise realizability is load-bearing and is available only because of act 17\'s '
+    '`TJ1`.**',
+    'The excluded trajectory need not be admissible.')
+ok_xts &= _xts_m15 != _XTS1 and not _xts_typeL(_xts_m15)
+
+# the two non-propagation mechanisms conflated -- the freeze's eighth hazard
+_xts_m16 = _XTS1.replace('**No `Y-DEGENERATE` was reached by any candidate**, and none is claimed.',
+                         'The residual-history outcome and the degenerate outcome are the same '
+                         'finding.')
+ok_xts &= _xts_m16 != _XTS1 and not _xts_typeL(_xts_m16)
+
+# a generator law whose descent is not discharged -- the freeze's sixth hazard
+_xts_m17 = _XTS1.replace(
+    '**The descent obligation is DISCHARGED, by the first of the two routes the freeze permits.**',
+    'The generator is written on representatives and the descent is left to the reader.')
+ok_xts &= _xts_m17 != _XTS1 and not _xts_typeL(_xts_m17)
+
+# a propagation verdict recorded for a candidate whose obligation was not discharged
+_xts_m18 = _XTS1.replace('**no propagation verdict whatever**',
+                         'propagation holds for it as well')
+ok_xts &= _xts_m18 != _XTS1 and not _xts_typeL(_xts_m18)
+
+# D-DET claimed where the kernel carries only D-MID
+_xts_m19 = _XTS1.replace(
+    '**`D-DET` was not reached and is not claimed. `D-NOGO` was not reached and is not claimed**',
+    'The `D`-axis reaches its top line, `D-DET`')
+ok_xts &= _xts_m19 != _XTS1 and not _xts_axes(_xts_m19)
+
+# a bounded no-go claimed without the per-candidate exhibited failures
+_xts_m20 = _XTS1.replace('**`L-NOGO` was not reached and is not claimed**',
+                         'The `L`-axis also earns `L-NOGO`')
+ok_xts &= _xts_m20 != _XTS1 and not _xts_axes(_xts_m20)
+
+# the initial orbit's contribution dropped, so a slice-by-slice determination would report as
+# propagation
+_xts_m21 = _XTS1.replace(
+    '**so the initial orbit does work and what is reported is propagation and not slice-by-slice '
+    'determination**',
+    'so the law determines the history')
+ok_xts &= _xts_m21 != _XTS1 and not _xts_axes(_xts_m21)
+
+# THE CLAUSE dropped from one of its carriages in the result note
+_xts_m22 = _XTS1.replace(_XTS_CLAUSE, 'The candidates are named for testing.', 1)
+ok_xts &= _xts_m22 != _XTS1 and not _xts_nonadoption(_xts_m22)
+
+# THE CLAUSE dropped from the module docstring
+_xts_m23 = _XTSLEAN.replace(_XTS_CLAUSE, 'The candidates are named for testing.')
+ok_xts &= _xts_m23 != _XTSLEAN and not _xts_nonadoption(lean=_xts_m23)
+
+# a candidate adopted on the strength of surviving -- the freeze's strongest hazard
+_xts_m24 = _XTS1.replace(
+    '**No candidate is adopted, endorsed or given physical status by surviving.**',
+    'The generator law is therefore the law of evolution.')
+ok_xts &= _xts_m24 != _XTS1 and not _xts_nonadoption(_xts_m24)
+
+# the LATTICE question entered, the two surviving data compared -- the freeze's thirteenth hazard
+_xts_m25 = _XTS1.replace('**neither is reported as finer, coarser, better or preferable to the '
+                         'other**',
+                         'the second is the coarser of the two and is therefore the better datum')
+ok_xts &= _xts_m25 != _XTS1 and not _xts_status_rule(_xts_m25)
+
+# P0 reported closed -- the fifteenth forbidden sentence
+_xts_m26 = _XTS1.replace(
+    '**"`P0` is closed", or "`P0`\'s trajectory part is closed."** Not written.',
+    '`P0`\'s trajectory part is closed by this round.')
+ok_xts &= _xts_m26 != _XTS1 and not _xts_status_rule(_xts_m26)
+
+# a merged statement enlarged by being consumed -- the sixteenth forbidden sentence
+_xts_m27 = _XTS1.replace('**a merged statement is not enlarged by being consumed.**',
+                         'act 17\'s `TJ1` is thereby strengthened.')
+ok_xts &= _xts_m27 != _XTS1 and not _xts_status_rule(_xts_m27)
+
+# a sibling lane's result consumed because it was present at the mandated base
+_xts_m28 = _XTS1.replace('**The anti-contamination invariant is honoured**',
+                         'the newer sibling results present at the base are consumed')
+ok_xts &= _xts_m28 != _XTS1 and not _xts_status_rule(_xts_m28)
+
+# a sixth definition slipped in against the frozen five-slot budget
+_xts_m29 = _XTS1.replace(
+    '**Five slots were budgeted. Four fired and one is unused. No sixth definition was introduced '
+    'and no amendment was needed.**',
+    'A further definition was convenient and was added.')
+ok_xts &= _xts_m29 != _XTS1 and not _xts_budget(_xts_m29)
+
+# the conditional slot claimed fired when it was not
+_xts_m30 = _XTS1.replace('| 5 (conditional) | a named functional for one Type D candidate | '
+                         '**unused** |',
+                         '| 5 (conditional) | a named functional for one Type D candidate | '
+                         '**fired** |')
+ok_xts &= _xts_m30 != _XTS1 and not _xts_budget(_xts_m30)
+
+# a fifth `def` in the module, over the frozen budget
+_xts_m31 = _XTSLEAN.replace('def PointwiseLaw',
+                            'def diagonalOverlapDatum (x : Nat) := x def PointwiseLaw')
+ok_xts &= _xts_m31 != _XTSLEAN and not _xts_lean_defs(_xts_m31)
+
+# the module docstring ranking the two axes
+_xts_m32 = _XTSLEAN.replace('no statement of this module ranks them',
+                            'the `L`-axis is the round\'s answer')
+ok_xts &= _xts_m32 != _XTSLEAN and not _xts_lean_defs(_xts_m32)
+
+# the module docstring admitting the false sentence about determination
+_xts_m33 = _XTSLEAN.replace(
+    '**`XS1` is about propagation and not about determination.** The sentence "no pointwise '
+    'constraint yields cross-time determination" is **false** and is not said here',
+    'No pointwise constraint yields cross-time determination')
+ok_xts &= _xts_m33 != _XTSLEAN and not _xts_lean_defs(_xts_m33)
+
+# the module docstring calling the candidate lists exhaustive
+_xts_m34 = _XTSLEAN.replace('**The candidate lists are closed and are not exhaustive.**',
+                            'These are the intermediate structures.')
+ok_xts &= _xts_m34 != _XTSLEAN and not _xts_lean_defs(_xts_m34)
+
+# the lattice question entered in the module docstring
+_xts_m35 = _XTSLEAN.replace('**The coarsest determining datum is out of scope** by this round\'s '
+                            'own freeze',
+                            'The coarsest determining datum is the diagonal cross-time overlap')
+ok_xts &= _xts_m35 != _XTSLEAN and not _xts_lean_defs(_xts_m35)
+
+# the threading seen -- the freeze's sixteenth hazard
+_xts_m36 = _XTSLEAN.replace('act 11\'s `GL2` pair is **one** trajectory here',
+                            'act 11\'s `GL2` pair has two trajectories here')
+ok_xts &= _xts_m36 != _XTSLEAN and not _xts_lean_defs(_xts_m36)
+
+# the axiom table losing a line, so a named result ships unreported
+_xts_m37 = _XTS1.replace('| `xs4_d_axis_mid` | `[propext, Classical.choice, Quot.sound]` |', '')
+ok_xts &= _xts_m37 != _XTS1 and not _xts_axiom_table(_xts_m37)
+
+# the pins recorded as set at execution, which would make the execution's head depend on the landing
+_xts_m38 = _XTS1.replace('**`_XTS_SEALED_HEAD` and `_XTS_MERGE` are unset at execution.**',
+                         '`_XTS_SEALED_HEAD` and `_XTS_MERGE` are set by this execution.')
+ok_xts &= _xts_m38 != _XTS1 and not _xts_chronology(_xts_m38)
+
+# the seal-integrity clause reported as covering this round's own triple -- clause 9's failure mode
+_xts_m39 = _XTS1.replace('**The seal-integrity clause EXCLUDES this round\'s own triple.**',
+                         'The seal-integrity clause asserts this round\'s own triple equal to '
+                         '(`_XTS_BASE`, `None`, `None`).')
+ok_xts &= _xts_m39 != _XTS1 and not _xts_chronology(_xts_m39)
+
+# the empirical verification of clause 9 dropped, leaving the exclusion an intention
+_xts_m40 = _XTS1.replace('**Clause 9 was verified EMPIRICALLY before the commit**',
+                         'Clause 9 is honoured by construction')
+ok_xts &= _xts_m40 != _XTS1 and not _xts_chronology(_xts_m40)
+
+# a precondition row dropped
+_xts_m41 = _XTS1.replace('| 9 | the guard tag and its stem are still free | **PASS** —', '| 9 | |')
+ok_xts &= _xts_m41 != _XTS1 and not _xts_chronology(_xts_m41)
+
+# later main absorbed before certification
+_xts_m42 = _XTS1.replace('**Before certification this execution absorbed no later `main`.**',
+                         'Current `main` was merged into the execution to clear a red badge.')
+ok_xts &= _xts_m42 != _XTS1 and not _xts_chronology(_xts_m42)
+
+# the provenance divergence repaired rather than recorded
+_xts_m43 = _XTS1.replace('**It is not drawn from supply item 3.**',
+                         'It is drawn from supply item 3 as the table names.')
+ok_xts &= _xts_m43 != _XTS1 and not _xts_discrepancies(_xts_m43)
+
+# a configuration chosen after an outcome was known
+_xts_m44 = _XTS1.replace('**No candidate discovered during execution was executed.** **No '
+                         'configuration was chosen after an outcome was known.** **No alternative '
+                         'witness was substituted for a named one.**',
+                         'A more convenient configuration was adopted where the frozen one did not '
+                         'work.')
+ok_xts &= _xts_m44 != _XTS1 and not _xts_discrepancies(_xts_m44)
+
+# a start-state discrepancy hidden
+_xts_m45 = _XTS1.replace('**No start-state discrepancy arose.**',
+                         'Two pinned blobs differ and were refreshed.')
+ok_xts &= _xts_m45 != _XTS1 and not _xts_discrepancies(_xts_m45)
+
+# P-D's vacuous antecedent reported as a confirmation
+_xts_m46 = _XTS1.replace('**No candidate reached the top line of the `D`-axis.**',
+                         'The `D`-axis top line was reached and `P-D` is confirmed.')
+ok_xts &= _xts_m46 != _XTS1 and not _xts_predictions(_xts_m46)
+
+# the falsification condition dropped, so a falsification could not be reported against
+_xts_m47 = _XTS1.replace(
+    '**The falsification condition was not met, and is restated so the record is complete.**',
+    'No falsification arose.')
+ok_xts &= _xts_m47 != _XTS1 and not _xts_predictions(_xts_m47)
+
+# a falsification of P-D presented as a discovery about nature rather than as a misread merged result
+_xts_m48 = _XTS1.replace(
+    '**would not have presented the falsification as a finding about nature.**',
+    'would have reported the falsification as a discovery.')
+ok_xts &= _xts_m48 != _XTS1 and not _xts_predictions(_xts_m48)
+
+# the P0 row's frozen sentence dropped from the ROADMAP
+_xts_m49 = _XTSROAD.replace('so the interval is inhabited and what inhabits it there leaves '
+                            'residual trajectory freedom.', '')
+ok_xts &= _xts_m49 != _XTSROAD and not _xts_roadmap(_xts_m49)
+
+# a carrier adopted in the ROADMAP
+_xts_m50 = _XTSROAD.replace('**no carrier is adopted as the physical one**',
+                            'the generator law is adopted as the physical one')
+ok_xts &= _xts_m50 != _XTSROAD and not _xts_roadmap(_xts_m50)
+
+# the P0 row's label moved off OPEN
+_xts_m51 = _XTSROAD.replace(
+    '| **P0** | What additional structure determines the relative quantum evolution OI leaves free '
+    '| OI→QM / Track B | **OPEN**',
+    '| **P0** | What additional structure determines the relative quantum evolution OI leaves free '
+    '| OI→QM / Track B | **CLOSED**')
+ok_xts &= _xts_m51 != _XTSROAD and not _xts_roadmap(_xts_m51)
+
+# seal controls: each of the fifteen prior-seal constants, fabricated one at a time, must FAIL
+for _f in ('_cti_base', '_cti_sealed', '_cti_merge', '_pqt_base', '_pqt_sealed', '_pqt_merge',
+           '_tcf_base', '_tcf_sealed', '_tcf_merge', '_rnc_base', '_rnc_sealed', '_rnc_merge',
+           '_trj_base', '_trj_sealed', '_trj_merge'):
+    ok_xts &= not _xts_prior_seals(**{_f: '0' * 40})
+
+# THE DECISIVE CONTROL for chronology clause 9: with this round's OWN pins set to plausible values,
+# as the mandatory pin commit P will set them, the prior-seal clause must still pass. A clause that
+# fixed this round's triple at (_XTS_BASE, None, None) as a standing invariant would fail here, and
+# the round would be unlandable -- which is exactly what happened to an earlier round and is why the
+# freeze's chronology clause 9 exists.
+ok_xts &= _xts_prior_seals()
+
+# T1's control runs THROUGH _xts_freeze_pin, so sabotaging that predicate fails the guard.
+def _xts_drift(path):
+    """One byte appended to this round's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-18-intermediate-cross-time-structure/preregistration.md')
+        else b'')
+
+
+ok_xts &= _xts_drift(_XTSDIR + 'preregistration.md') != _bb_read(
+    _XTSDIR + 'preregistration.md')
+ok_xts &= not _xts_freeze_pin(_xts_drift)
+
+check('R7-XTS', ok_xts,
+      "Track B act 18 guard: a SEALING round under A.37 taking up the INTERVAL act 17 leaves standing "
+      "inside P0's trajectory part -- what is the weakest physically meaningful extra structure that "
+      "supplies genuine cross-time information WITHOUT simply handing over the trajectory itself -- under "
+      "a BOUNDED-EXISTENCE ask on TWO CO-EQUAL AXES, with the HEADLINE THE ORDERED PAIR (D-MID, L-PROP) "
+      "and NEITHER AXIS ABOVE THE OTHER, two mutation controls. XS1 RUNS FIRST and is checked landing as "
+      "the PRODUCT statement: a pointwise law's solution set is the product over time of its per-time "
+      "solution sets, so an arbitrary time-wise recombination of solutions is a solution; ACT 17's TJ1 is "
+      "checked CITED AT THE STEP where the ambient admissible set has to be a product, since intersecting "
+      "a product constraint with a non-product ambient set need not factor; and the consequence -- NO "
+      "POINTWISE LAW PROPAGATES, so every pointwise candidate is ruled out as a route to the L-axis top "
+      "line -- is checked reported as THIS ROUND'S OWN THEOREM and never as a failed search, with BOTH of "
+      "the freeze's cases closed. The FALSE sentence 'no pointwise constraint yields cross-time "
+      "determination' is checked REFUSED IN TERMS in both the result note and the module docstring, five "
+      "mutation controls, because a pointwise condition with a unique solution at every time DOES "
+      "determine the trajectory and what fails is PROPAGATION. D-AXIS: DF2 at DF2-SANDWICH and "
+      "DF2-RESID, DF1 at DF1-SANDWICH with its obligation 3 landing at |A| = 2 where UNDECIDED was "
+      "predicted, DF3's obligation 3 UNDECIDED with the obstruction named. OBLIGATION 3 IS CHECKED "
+      "STATED AGAINST ACT 13's LEVEL-2 DATUM AND NEVER AGAINST THE TRAJECTORY, three mutation controls: "
+      "the trajectory phrasing is unsatisfiable exactly when the axis succeeds and would make the top "
+      "line unreachable BY CONSTRUCTION AND SILENTLY. L-AXIS: LC3 at L-PROP with the DESCENT OBLIGATION "
+      "checked DISCHARGED at ORBIT LEVEL, LC0 and LC2 at the middle rung by the Y-RESID mechanism, LC1 "
+      "UNDECIDED with NO propagation verdict recorded. The non-triviality witness is checked at ONE "
+      "COMMON CONFIGURATION carrying ALL FOUR CONJUNCTS with H POINTWISE REALIZABLE -- available only "
+      "through TJ1 -- and BOTH propagation clauses are checked reported SEPARATELY with the two "
+      "non-propagation mechanisms KEPT APART, five mutation controls, since a law fixing every later "
+      "slice by itself satisfies the uniqueness clause while the initial orbit does no work. D-DET, "
+      "D-NOGO and L-NOGO are each checked NOT CLAIMED, three mutation controls, each no-go being bounded "
+      "to its closed list. THE LATTICE QUESTION is checked NOT ENTERED although TWO Type D candidates "
+      "reached X-SANDWICH: neither is reported finer, coarser, better or preferable to the other. XS0 is "
+      "checked type P and OUT of the axiom table, its bounded search over 226 files and twenty-one terms "
+      "recorded in full with a per-term result, SILENCE reported as the finding and not as a truth value, "
+      "reconstructive inference refused, and this round's own theorems refused as retro-evidence -- four "
+      "mutation controls. P-D, the freeze's structural prediction, is checked REPORTED AGAINST with its "
+      "antecedent recorded NOT INSTANTIATED rather than as a confirmation, and its falsification "
+      "condition checked restated and checked stated as a MISREAD MERGED RESULT rather than a discovery "
+      "about nature -- three mutation controls. THE CLAUSE is checked carried VERBATIM at five mentions, "
+      "four in the result note and one in the module docstring, each opening with its own naming line, "
+      "with the ROADMAP's mention governed by the byte-fixed P0 sentence; three mutation controls. The "
+      "module is held to the frozen FIVE-slot budget with FOUR fired and the conditional fifth UNUSED, "
+      "exactly four top-level defs and no sorry, native_decide or added axiom, five mutation controls. "
+      "The P0 row is checked still OPEN and two-part with the frozen Case A sentence carried verbatim "
+      "and no carrier adopted, three mutation controls. FOUR DISCREPANCIES are checked RECORDED AND NOT "
+      "REPAIRED, three mutation controls, and the start state is checked clean at all twenty-eight "
+      "pinned blobs and all nine preconditions. Chronology: act 10's strengthened ancestry asked of the "
+      "real pull_request.head.sha, fail-closed, the preregistration pinned BY BLOB with a one-byte drift "
+      "control, the two pins UNSET AT EXECUTION and set only by the mandatory pin commit P, and THE "
+      "SEAL-INTEGRITY CLAUSE EXCLUDES THIS ROUND'S OWN TRIPLE, naming only acts 13's, 14's, 15's, 16's "
+      "and 17's, so the guard passes both before and after P -- verified EMPIRICALLY in three "
+      "configurations, unmutated True, each of fifteen single-field fabrications False, and the DECISIVE "
+      "post-pin configuration True. ACTS 13's THROUGH 17's SEALS ARE CHECKED UNMOVED, fifteen seal "
+      "controls, since an archive seal belongs to the round that set it. Eighteen named contracts, "
+      "fifty-one mutation controls, sixteen seal controls and a freeze-pin drift control.")
+
 
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())
