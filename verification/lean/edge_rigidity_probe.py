@@ -21658,8 +21658,8 @@ _XTS_BASE = 'd7a9931befeb942db8ebc7b07014f9020c6663d0'
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_XTS_SEALED_HEAD = None
-_XTS_MERGE = None
+_XTS_SEALED_HEAD = '730a518c173460d7bed525da10a95ee6bd32c7de'
+_XTS_MERGE = '0b893d75cca344faeb9a9e434b5b8537f8b45dac'
 
 # THE CLAUSE, verbatim -- the non-adoption clause, which the freeze carries at every place where a
 # candidate's survival could be read as its adoption, and which every artifact of this round must
