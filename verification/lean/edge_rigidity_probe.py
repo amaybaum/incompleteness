@@ -20432,7 +20432,7 @@ def _rnc_roadmap(road=None, roadq=None):
             and '## Act 16 answered the cancellation question on the re-anchored-channel carrier: '
                 '`RN3⁺`' in road
             and '**The answer is relative to `𝒪₃` and travels to no other carrier**' in road
-            and '`P0a`/`P0b` closed, acts 11–16 landed |' in road
+            and '`P0a`/`P0b` closed, acts 11–17 landed |' in road
             and _RNC_CLAUSE in roadq)
 
 
@@ -21206,7 +21206,7 @@ def _trj_roadmap(road=None, roadq=None):
             and '**The two findings are on two axes and are not merged into one ordering.**' in road
             and '**Line 3 is ruled out by `TJ1`**' in road
             and '**The quantifiers are `∃ C ∀ S`**' in road
-            and '`P0a`/`P0b` closed, acts 11–16 landed |' in road
+            and '`P0a`/`P0b` closed, acts 11–17 landed |' in road
             and _TRJ_CLAUSE in roadq)
 
 
