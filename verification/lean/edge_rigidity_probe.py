@@ -20793,6 +20793,843 @@ check('R7-RNC', ok_rnc,
       "forty-eight mutation controls, eight seal controls and a freeze-pin drift control.")
 
 
+# ---- R7-TRJ: Track B act 17 -- what selects or constrains the cross-time Gram/orbit trajectory ----
+#
+# A SEALING round under AGENTS.md A.37 taking up P0's OTHER part -- what selects or constrains the
+# Gram/orbit trajectory ACROSS TIME -- under a CONSTRAINTS-ONLY ask. The round returns TWO FINDINGS
+# ON TWO AXES and the axes must stay apart: TJ1, OUTSIDE the ladder, that the admissible Gram
+# trajectories of a visible family are EXACTLY the pointwise realizable assignments so the present
+# CoherentLift notion contributes NO universal cross-time constraint at all and any such law must
+# enter as ADDITIONAL STRUCTURE; and TJ3 at LINE 4, class-level selection impossibility in the order
+# EXISTS C FORALL S over the frozen four-member class. So the failure modes are, in order: MERGING
+# THE TWO AXES into one ordering, or reporting the TJ1 baseline as a hierarchy line, when the freeze
+# fixes that "OI itself imposes no cross-time coupling" is neither above nor below "these four
+# proposed selectors all fail at one admissible configuration"; reporting line 3 UNDECIDED where TJ1
+# sufficiency LANDED, when sufficiency makes line 3's clauses (i) and (ii) jointly unsatisfiable and
+# therefore RULES THE LINE OUT as a theorem of the round -- an exclusion reported as an absence loses
+# the round's own finding; reporting a POINTWISE narrowing (act 12's |A| rank bound) as a CROSS-TIME
+# constraint; REVERSING LINE 4's QUANTIFIERS, collecting four per-candidate countermodels and calling
+# the collection an impossibility theorem when FORALL S EXISTS C is strictly weaker and belongs to
+# TJ2; reporting line 2 on a parameterized family without the COMPLETENESS direction, or line 1
+# without naming which of its two routes earned it, or either on a candidate merely surviving;
+# enlarging line 4 to all conceivable selection principles, or to every configuration when act 12's
+# SH1-C2 gives deterministic laws where the orbit is unique for free; letting a candidate read data
+# the round has not licensed, which is why SP4 is executed OUTSIDE the class as a regime probe;
+# answering the question IN THE EQUIVALENCE RELATION by adopting the uniform-phase relation, which
+# couples the slices; SEEING THE THREADING, when the round's relation identifies every pair act 13
+# localized and act 11's GL2 pair is ONE trajectory here; refuting a NEIGHBOURHOOD instead of the
+# exact frozen proposition; enlarging act 12's TG3 from existential to universal or SH1 beyond its
+# strength; and LETTING ACT 16's POSITIVE CARRY into the trajectory question, which the freeze names
+# its strongest hazard. The guard checks each of these in the freeze's own words, pins the chronology
+# in both halves, holds the module to the frozen FOUR-slot budget with two slots fired and two
+# recorded unused, and checks acts 13's, 14's, 15's and 16's seal constants unmoved.
+# Chronology clause 9 is honoured by EXCLUSION: _trj_prior_seals names other rounds' triples only and
+# says nothing whatever about _TRJ_BASE, _TRJ_SEALED_HEAD or _TRJ_MERGE, so the clause is true both
+# before and after the mandatory pin commit P sets this round's pins.
+_TRJDIR = 'programmes/oi-qm/track-b/act-17-gram-trajectory-selection/'
+_TRJ = open(_artifact(_TRJDIR + 'result.md'), encoding='utf-8').read()
+_TRJ1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _TRJ).split()).replace('’', "'")
+_TRJLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'GramTrajectorySelection.lean'), encoding='utf-8').read().split())
+_TRJROADRAW = open(_artifact('ROADMAP.md'), encoding='utf-8').read()
+_TRJROAD = ' '.join(_TRJROADRAW.split())
+# the ROADMAP with block-quote markers stripped, so the frozen sentence and THE CLAUSE are
+# compared as prose rather than as quoted lines.
+_TRJROADQ = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _TRJROADRAW).split())
+# The mandated execution base: the merge commit of this round's control-plane PR #652.
+_TRJ_BASE = '02cfc9be141a44aaebf847d8e7d9fdd0d0a18f08'
+# The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
+# the pin commit P after the landing merge L -- pinning them in the execution would make the
+# execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
+# strong check re-run against those objects, with the pinned merge's second parent required to
+# equal the sealed head and both required reachable from the current target, fail-closed.
+_TRJ_SEALED_HEAD = None
+_TRJ_MERGE = None
+
+# THE CLAUSE, verbatim -- the act 16 anti-conflation clause, which the freeze carries at every prose
+# mention of act 16's positive as bearing on trajectory freedom and which every artifact of this
+# round must carry with it. Compared as prose, with block-quote markers stripped, so that the naming
+# line each carriage opens with -- distinct per carriage, which is what makes the carriages
+# distinguishable copies rather than one paragraph pasted repeatedly -- does not enter the
+# comparison.
+_TRJ_CLAUSE = (
+    "Act 16's `RN3⁺` and act 15's `PQ3-d⁺` are **carrier-specific** cancellation verdicts. "
+    "Each says that on one named carrier — the relative-candidate carrier `\U0001d4aa₂` for "
+    "act 15, the re-anchored-channel carrier `\U0001d4aa₃` for act 16 — a constant in-fibre "
+    "left move together with a time-dependent strong right gauge can be redundancy as a pair while "
+    "neither part is. **That is a statement about the threading pair on a named carrier, and it is "
+    "not a statement about the cross-time Gram/orbit trajectory freedom this round studies.** The "
+    "existence of cancellation on those two carriers **does not license the assumption that all "
+    "residual trajectory freedom is gauge**: act 16 established a cancellation on named carriers and "
+    "established **nothing** about whether the trajectory freedom is redundancy, on any carrier or "
+    "carrier-free, and act 14's status rule that there is no carrier-free verdict binds this round "
+    "too. **No outcome of this round may treat act 16's positive, or act 15's, as evidence that the "
+    "trajectory freedom is gauge or that it is physical; no target of this round consumes either for "
+    "that purpose; and no candidate selection principle is named, rated, predicted, admitted or "
+    "refuted on their strength.**")
+
+
+def _trj_freeze_pin(read=_bb_read):
+    """T1 -- this round's preregistration is byte-identical to the blob merged by PR #652."""
+    return _bb_blob(_TRJDIR + 'preregistration.md', read) == (
+        '3b5570102aa6aacb09788059989a70d8cdd5b70f')
+
+
+def _trj_execution_ancestry():
+    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused through acts 12's through 16's copies: the head-only
+    check is insufficient because a commit made before the freeze and merged in alongside it leaves
+    the head descended from the freeze while itself not being. The question is asked of the real
+    `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails closed
+    with no fallback.
+
+    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
+    mode (pins set by the mandatory pin commit P): the same strong check re-run against the sealed
+    head, with the pinned merge required to carry it and both required reachable from the current
+    target, fail-closed."""
+    if _TRJ_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-TRJ')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_TRJ_BASE, target, label, num, tag='R7-TRJ')
+    return _rbr_archive_ancestry(_TRJ_BASE, _TRJ_SEALED_HEAD, _TRJ_MERGE, tag='R7-TRJ')
+
+
+def _trj_tj1(t=None):
+    """T3 -- TJ1 lands in BOTH directions, its narrowing is labelled POINTWISE in terms, and the
+    line-3 exclusion is reported HERE as this target's own POSITIVE finding."""
+    t = _TRJ1 if t is None else t
+    return ('**Outcome reached: `TJ1`-both-directions.**' in t
+            and '**Necessity and sufficiency both landed, at evidence level 2.**' in t
+            and '**The narrowing this target records is POINTWISE, and is labelled pointwise in '
+                'terms.**' in t
+            and 'That exclusion is **not** a coupling between times' in t
+            and '**Line 3 of the hierarchy is thereby RULED OUT, and the exclusion is this round\'s '
+                'own theorem.**' in t
+            and '**Line 3 is therefore not reported UNDECIDED**' in t
+            and '**This is a positive result and it is reported as one, not as the absence of '
+                'something.**' in t
+            and 'any such law must enter the programme as additional structure.**' in t)
+
+
+def _trj_two_axis(t=None):
+    """T4 -- the TJ1 baseline and the TJ3 selector-class outcome are reported on SEPARATE AXES, the
+    baseline is co-primary and OUTSIDE the ladder, and the two are never merged into one ordering."""
+    t = _TRJ1 if t is None else t
+    return ('CO-PRIMARY AND OUTSIDE THE LADDER' in t
+            and '**This finding is on its own axis and is not a line of the `TJ3` hierarchy.**' in t
+            and '**The two are not merged into one ordering, and the `TJ1` result is not reported as '
+                'a hierarchy line.**' in t
+            and '"OI itself imposes no cross-time coupling" is not naturally above or below "these '
+                'four proposed selectors all fail at one admissible configuration"' in t
+            and '**Neither axis is evidence for the other**' in t)
+
+
+def _trj_tj0(t=None):
+    """T5 -- TJ0 is type P, its bounded search is recorded in full with a per-term result, SILENCE is
+    the finding and not a truth value, and reconstructive inference is refused."""
+    t = _TRJ1 if t is None else t
+    return ('**Outcome reached: `TJ0`-silent.**' in t
+            and '**The finding is that the record is silent on the point.**' in t
+            and '**`TJ0` is a type-P target and carries no evidence level.**' in t
+            and '**No Lean was written for `TJ0`**' in t
+            and '**Reconstructive inference is refused as a finding here**' in t
+            and '**Searching and not finding is never a settling outcome**' in t
+            and '**Nor are this round\'s own theorems treated as retro-evidence about `TJ0`.**' in t
+            and '| `stationar` | 15 | 139 | **Does not supply it.**' in t
+            and t.count('| **Does not supply it.') + t.count('| **Not relevant to the question.') >= 0
+            and t.count('**Does not supply it.**') >= 12)
+
+
+def _trj_tj2(t=None):
+    """T6 -- the six parts, each at its frozen label, each refutation of the EXACT frozen proposition
+    and of nothing in its neighbourhood, and each non-selection or emptiness verdict naming its
+    configuration; the two (B) mechanisms kept apart and the chain propagation reported AS
+    propagation."""
+    t = _TRJ1 if t is None else t
+    return ('**Question (A): `SP1L-ADD`.**' in t and '**Question (B): `SP1L-NOSEL`.**' in t
+            and '**Question (A): `SP1G-ADD`.**' in t
+            and '**Question (A): `SP2-ADD`.**' in t and '**Question (B): `SP2-NOSEL`.**' in t
+            and '**Question (A): `SP3-ADD`.**' in t and '**Question (B): `SP3-NOSEL`.**' in t
+            and '**Question (A): `SP5-ADD`.**' in t and '**Question (B): `SP5-EMPTY`.**' in t
+            and '**Outcome reached: `SP4-THM`, and vacuous.**' in t
+            and '**The mechanism is emptiness and not survival, and the two are kept apart.**' in t
+            and '**The excluded quantity is computed**' in t
+            and '**The propagation, reported as propagation and not as a discovery restated four '
+                'times.**' in t
+            and 'It is **not** a refutation of memorylessness, of homogeneity, or of any other '
+                'transition-rule condition.' in t
+            and 'It is **not** a refutation of decoherence in general' in t
+            and '**law-reading variant is a different and weaker proposition**' in t
+            and '**That is a theorem about containment and not a selection.**' in t
+            and '**`SP4`\'s verdict is not evidence about any member of `𝒮`**' in t
+            and '**A verdict on one candidate is not a verdict on another**' in t
+            and '**`X-ADD` is not a criticism and `X-THM` is not praise.**' in t
+            and '**Naming a candidate is not endorsing it.**' in t)
+
+
+def _trj_outcome(t=None):
+    """T7 -- TJ3 is reported at LINE 4 with the quantifiers written out in the order EXISTS C FORALL
+    S, the reversed order refused as a TJ2 finding, line 1's two routes BOTH named as not taken, line
+    2 refused for want of the completeness direction, and line 3 neither reported nor undecided."""
+    t = _TRJ1 if t is None else t
+    return ('**Outcome reached: line 4, `TJ3-IMP`.**' in t
+            and '**The line reached is the highest the kernel actually carries, and no higher.**' in t
+            and '**The quantifier order is `∃ C ∀ S` and it is load-bearing.**' in t
+            and 'it is not labelled\nline 4 anywhere in this round.'.replace('\n', ' ') in t
+            and '**Route A was not taken**' in t and '**Route B was not taken**' in t
+            and '**Neither route was taken and the two are not mixed.**' in t
+            and '**An unrefuted candidate is not a selecting one**' in t
+            and '**the completeness direction — the surjectivity obligation — is not proved.**' in t
+            and '**No parameterization is reported as a classification.**' in t
+            and '**Line 3, `TJ3-CON`, is RULED OUT by `TJ1` and is not reported here at all**' in t
+            and '**No pointwise narrowing is reported as a cross-time constraint.**' in t
+            and 'It was earned by an exhibited countermodel and never by a search.' in t
+            and '**`C` is admissible under the round\'s own constraints**' in t
+            and '**The relation any quotient is taken over is `GramTrajEquiv`, by name, and no other '
+                'relation.**' in t)
+
+
+def _trj_scope(t=None):
+    """T8 -- the scope boundary is DEMONSTRATED in the kernel: every act 13 threading-related pair is
+    one trajectory here, GL2's pair is one trajectory, and no statement of the round distinguishes
+    two lifts the relation identifies."""
+    t = _TRJ1 if t is None else t
+    return ('**Every pair act 13\'s `CT2` (b) leaves undetermined is identified by this round\'s '
+            'relation**' in t
+            and '**act 11\'s `GL2` pair is ONE trajectory here**' in t
+            and '**No statement of this round distinguishes two lifts the relation identifies.**' in t
+            and '**The cost of the boundary is accepted deliberately**' in t
+            and '**`GramTrajEquiv` was used and no other relation.**' in t
+            and 'Raw Gram equality, uniform-phase equality and act 13\'s level-2 and level-3 '
+                'relations were **not adopted**' in t)
+
+
+def _trj_anticonflation(t=None, lean=None, road=None):
+    """T9 -- THE CLAUSE is carried VERBATIM at every prose mention: four times in the result note,
+    once in the module docstring and once in the ROADMAP, with acts 15's and 16's positives checked
+    NOT consumed as evidence about trajectory freedom. Each carriage in the result note opens with
+    its own naming line, so the carriages are distinguishable copies of one clause rather than one
+    paragraph pasted repeatedly."""
+    t = _TRJ1 if t is None else t
+    lean = _TRJLEAN if lean is None else lean
+    road = _TRJROADQ if road is None else road
+    return (t.count(_TRJ_CLAUSE) == 4
+            and lean.count(_TRJ_CLAUSE) == 1
+            and road.count(_TRJ_CLAUSE) == 1
+            and '**THE CLAUSE, carried at this mention — the result note\'s statement of the '
+                'relation to acts 15 and 16.**' in t
+            and '**THE CLAUSE, carried at this mention — the result note\'s record of the structural '
+                'resemblance recorded as not a bridge.**' in t
+            and '**THE CLAUSE, carried at this mention — the result note\'s list of what no outcome '
+                'licenses.**' in t
+            and '**THE CLAUSE, carried at this mention — the result note\'s account of the freeze\'s '
+                'strongest hazard.**' in t
+            and '**No target of this round is carried by them.**' in t
+            and '**Neither was consumed as evidence about trajectory freedom**' in t
+            and '**The two rounds quantify over different things and neither would establish the '
+                'other.**' in t)
+
+
+def _trj_status_rule(t=None):
+    """T10 -- the twenty forbidden sentences are refused in the freeze's own terms, each target is
+    reported in the frozen wording for the outcome reached, and P0 stays OPEN and two-part."""
+    t = _TRJ1 if t is None else t
+    return ('**"The trajectory freedom is gauge", or "the trajectory freedom is physical."** Not '
+            'written.' in t
+            and '**"No selection principle exists", or "nothing can select the trajectory."** Not '
+                'written.' in t
+            and '**"Selection fails everywhere."** Not written.' in t
+            and '**"A selector is required", or "`P0` needs additional structure of shape X."** Not '
+                'written.' in t
+            and '**"The narrowing is cross-time", asserted of a pointwise constraint.** Not written.'
+                in t
+            and '**"The admissible set is classified", asserted on the strength of a parameterized '
+                'family.** Not written.' in t
+            and '**"No selector selects", asserted on the strength of `∀ S ∃ C`.** Not written.' in t
+            and '**"A witness was sought and not found, so there is none."** Not written.' in t
+            and '**"`P0` is closed", or "`P0`\'s trajectory part is closed."** Not written.' in t
+            and '**"OI and QM are inequivalent."** Not written.' in t
+            and '**Only Source A is adjudicated**, and Track I is not touched in either direction.'
+                in t
+            and '**No outcome chose its own wording, and no target is reported at a strength the '
+                'kernel does not carry.**' in t
+            and '**The anti-contamination invariant is honoured**' in t
+            and '**The strongest hazard is letting act 16\'s positive carry into the trajectory '
+                'question**, and it did not occur.' in t)
+
+
+def _trj_budget(t=None):
+    """T11 -- the frozen FOUR-slot budget, slots 1 and 2 fired and the two conditional slots recorded
+    UNUSED, with no fifth definition and no amendment."""
+    t = _TRJ1 if t is None else t
+    return ('| 1 | `GramTrajEquiv` — the round\'s frozen cross-time equivalence on Gram trajectories '
+            '| **fired** |' in t
+            and '| 2 | `SelectsAt` — the selection predicate lines 1 and 4 both quantify over | '
+                '**fired** |' in t
+            and '| 3 (conditional) | a predicate for `SP3` | **unused** |' in t
+            and '| 4 (conditional) | a named diagonal Gram tuple | **unused** |' in t
+            and '**Four slots were budgeted. Two fired and two are unused. No fifth definition was '
+                'introduced and no amendment was needed.**' in t
+            and '**The module holds exactly two top-level definitions and no others.**' in t
+            and 'No lift, gauge element, witness, matrix, visible family, Gram tuple, entry value or '
+                'configuration is a top-level definition' in t)
+
+
+def _trj_axiom_table(t=None):
+    """T12 -- one line per named result, nothing outside the three standard axioms, and the type-P
+    determination kept OUT of the table."""
+    t = _TRJ1 if t is None else t
+    rows = t.count('| `[propext, Classical.choice, Quot.sound]` |')
+    return (rows == 23
+            and '**Twenty-three named results, nothing outside the three standard axioms, no '
+                '`sorry`, no added axiom and no `native_decide`.**' in t
+            and '**`TJ0` is type P and is not in this table.**' in t
+            and '| `TJ0` | `[propext' not in t
+            and 'its appearance\nthere is not a defect'.replace('\n', ' ') in t)
+
+
+def _trj_chronology(t=None):
+    """T13 -- the chronology claim names the property certified, declares the round SEALING with P
+    mandatory, records the two pins UNSET AT EXECUTION, records that no later main was absorbed,
+    records the seal-integrity clause as EXCLUDING this round's own triple, and lists the eight
+    preconditions checked at B."""
+    t = _TRJ1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside '
+            '`B`\'s descendants.**' in t
+            and '**This is a SEALING round** under `AGENTS.md` `§A.37`' in t
+            and 'It lands **`E` → `L` → `P`, with `P` mandatory**.' in t
+            and '**`_TRJ_SEALED_HEAD` and `_TRJ_MERGE` are unset at execution.**' in t
+            and 'That is a statement about this execution and stays true as one' in t
+            and '**The seal-integrity clause excludes this round\'s own triple.**' in t
+            and '**A clause fixing this round\'s own pins at unset for all time would contradict the '
+                'mandatory lifecycle**' in t
+            and '**Acts 13\'s, 14\'s, 15\'s and 16\'s seals are untouched**' in t
+            and '**no existing seal constant is altered.**' in t
+            and '**Before certification this execution absorbed no later `main`**' in t
+            and t.count('| **PASS** —') == 8
+            and '**The claim is scoped to the repository record.**' in t)
+
+
+def _trj_discrepancies(t=None):
+    """T14 -- the discrepancies are RECORDED and not repaired: act 12's lifted TG3 statement not
+    exposing its family's constancy, and SP5 (B)'s kernel route diverging from the freeze's forecast
+    of consumption; plus the two observations recorded and NEVER substituted as witnesses."""
+    t = _TRJ1 if t is None else t
+    return ('**Two items are recorded. Neither is repaired, and the freeze is not edited.**' in t
+            and 'The preregistration is\nimmutable once merged'.replace('\n', ' ') in t
+            and '**Act 12\'s statement is neither enlarged, revised, nor re-proved**' in t
+            and '**This is recorded as a divergence from the freeze\'s forecast of consumption and '
+                'is not repaired, not corrected, not reinterpreted and not normalized.**' in t
+            and '**It is recorded as an observation and was never substituted as the witness**' in t
+            and '**No start-state discrepancy arose.**' in t
+            and '**No candidate discovered during execution was executed.**' in t
+            and '**No configuration was chosen after an outcome\nwas known.**'.replace('\n', ' ') in t)
+
+
+def _trj_predictions(t=None):
+    """T15 -- every prediction is reported against its outcome, and the fact that NONE was falsified
+    is stated plainly rather than left to inference."""
+    t = _TRJ1 if t is None else t
+    return ('**No prediction of this freeze is falsified, and none is against sign.**' in t
+            and '| `TJ3` | line 4, `TJ3-IMP` | medium | line 4, `TJ3-IMP` | **as predicted** |' in t
+            and '| `TJ3` → line 3 | ruled out, conditional on `TJ1` sufficiency | high, *that it is '
+                'ruled out* | ruled out by `TJ1` | **as predicted** |' in t
+            and t.count('**as predicted** |') == 19)
+
+
+def _trj_prior_seals(_cti_base=None, _cti_sealed=None, _cti_merge=None,
+                     _pqt_base=None, _pqt_sealed=None, _pqt_merge=None,
+                     _tcf_base=None, _tcf_sealed=None, _tcf_merge=None,
+                     _rnc_base=None, _rnc_sealed=None, _rnc_merge=None):
+    """T16 -- acts 13's, 14's, 15's and 16's archive seals are exactly the values those rounds set.
+    An archive seal belongs to the round that set it; this round reads them and never writes them.
+
+    THIS ROUND'S OWN TRIPLE IS EXCLUDED, deliberately and by the freeze's chronology clause 9: no
+    reference to _TRJ_BASE, _TRJ_SEALED_HEAD or _TRJ_MERGE appears here. A clause asserting this
+    round's own triple equal to (_TRJ_BASE, None, None) as a standing invariant would contradict
+    clause 7, under which the mandatory pin commit P sets them -- the guard would then pass at no
+    commit once the round landed, which is how an earlier round in this programme was found
+    non-landable after certifying at its own head."""
+    return ((_cti_base or _CTI_BASE) == 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
+            and (_cti_sealed or _CTI_SEALED_HEAD) == '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
+            and (_cti_merge or _CTI_MERGE) == '292848b3c908d33ac432a5360effe0c259e3ce16'
+            and (_pqt_base or _PQT_BASE) == 'bc76a88dbe300a35715d5ce8196002f31aa62493'
+            and (_pqt_sealed or _PQT_SEALED_HEAD) == '5008a47bf7e67edc502120f9269c4a4661ef7342'
+            and (_pqt_merge or _PQT_MERGE) == 'c50dd22457bfd4812761cb56e7ca1a559af33c5e'
+            and (_tcf_base or _TCF_BASE) == 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
+            and (_tcf_sealed or _TCF_SEALED_HEAD) == 'c622461495c6b2db4e09c8084f404bd5ca2c5192'
+            and (_tcf_merge or _TCF_MERGE) == '9e0cc3834538b7bdcb742fcaa046194cfa9526fb'
+            and (_rnc_base or _RNC_BASE) == 'd05399020d05d4a7b6f662d2e069062452e7d6b4'
+            and (_rnc_sealed or _RNC_SEALED_HEAD) == '31db7c1082b012c00c43f3fda35ce44c5653e123'
+            and (_rnc_merge or _RNC_MERGE) == 'eb70bbb9b2b3311095945ec3ce2418962f3b741a')
+
+
+def _trj_lean_defs(t=None):
+    """T17 -- exactly the two budgeted definitions are top-level `def`s in the module, in the
+    freeze's names, with none of the three forbidden strings anywhere, and the docstring carrying the
+    scope boundary, the non-endorsement and the refusal of the reversed quantifier order."""
+    t = _TRJLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['GramTrajEquiv', 'SelectsAt']
+            and '**No candidate is endorsed.**' in t
+            and '**Nothing here says a selector is required**' in t
+            and 'The reversed quantifier order `∀ S ∃ C` is the conjunction of the '
+                'per-candidate verdicts and is **not** this statement.' in t
+            and '**The candidate class is four named propositions and is not exhaustive**' in t
+            and 'Act 11\'s `GL2` pair is **one** trajectory here.' in t
+            and '**a merged existential is not enlarged to a universal by being consumed**' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+def _trj_roadmap(road=None, roadq=None):
+    """T18 -- the P0 row stays OPEN with the frozen Case A sentence carried verbatim, the act 17
+    section records both axes with line 3 ruled out under TJ1, and no carrier is adopted."""
+    road = _TRJROAD if road is None else road
+    roadq = _TRJROADQ if roadq is None else roadq
+    return ('| **P0** | What additional structure determines the relative quantum evolution OI '
+            'leaves free | OI→QM / Track B | **OPEN**' in road
+            and 'the admissible Gram trajectories of a visible family are exactly the pointwise '
+                'realizable assignments: the merged record constrains each slice by act 12\'s `SH1` '
+                'and imposes no coupling between slices, so every cross-time constraint on the '
+                'trajectory is additional structure rather than a consequence of coherence, and '
+                'there is no additional universal cross-time constraint on coherent Gram '
+                'trajectories beyond pointwise realizability' in road
+            and 'and on that class the outcome is class-level selection impossibility' in road
+            and 'That is impossibility within a frozen class of four named principles at one '
+                'exhibited configuration, earned by an exhibited countermodel and never by a search'
+                in road
+            and '## Act 17 bounded `P0`\'s trajectory part: no cross-time coupling, and class-level '
+                'selection impossibility' in road
+            and '**The two findings are on two axes and are not merged into one ordering.**' in road
+            and '**Line 3 is ruled out by `TJ1`**' in road
+            and '**The quantifiers are `∃ C ∀ S`**' in road
+            and '`P0a`/`P0b` closed, acts 11–16 landed |' in road
+            and _TRJ_CLAUSE in roadq)
+
+
+ok_trj = True
+ok_trj &= _trj_freeze_pin()
+ok_trj &= _trj_execution_ancestry()
+ok_trj &= _trj_tj1()
+ok_trj &= _trj_two_axis()
+ok_trj &= _trj_tj0()
+ok_trj &= _trj_tj2()
+ok_trj &= _trj_outcome()
+ok_trj &= _trj_scope()
+ok_trj &= _trj_anticonflation()
+ok_trj &= _trj_status_rule()
+ok_trj &= _trj_budget()
+ok_trj &= _trj_axiom_table()
+ok_trj &= _trj_chronology()
+ok_trj &= _trj_discrepancies()
+ok_trj &= _trj_predictions()
+ok_trj &= _trj_prior_seals()
+ok_trj &= _trj_lean_defs()
+ok_trj &= _trj_roadmap()
+
+# ---- mutation controls: each rewrites the artifact and must FAIL the contract it targets ----
+
+# TJ1's sufficiency direction quietly dropped, which would leave the set bounded above only
+_trj_m1 = _TRJ1.replace('**Necessity and sufficiency both landed, at evidence level 2.**',
+                        'The necessity direction landed.')
+ok_trj &= _trj_m1 != _TRJ1 and not _trj_tj1(_trj_m1)
+
+# the POINTWISE narrowing reported as a cross-time one -- forbidden sentence 8
+_trj_m2 = _TRJ1.replace(
+    '**The narrowing this target records is POINTWISE, and is labelled pointwise in terms.**',
+    'The narrowing this target records is a cross-time constraint on the trajectory.')
+ok_trj &= _trj_m2 != _TRJ1 and not _trj_tj1(_trj_m2)
+
+# line 3 reported UNDECIDED where sufficiency landed -- the freeze's ninth hazard
+_trj_m3 = _TRJ1.replace(
+    '**Line 3 of the hierarchy is thereby RULED OUT, and the exclusion is this round\'s own '
+    'theorem.**',
+    'Line 3 is recorded UNDECIDED, no cross-time property having been found.')
+ok_trj &= _trj_m3 != _TRJ1 and not _trj_tj1(_trj_m3)
+
+# the exclusion reported as an absence rather than as the round's own positive finding
+_trj_m4 = _TRJ1.replace(
+    '**This is a positive result and it is reported as one, not as the absence of something.**',
+    'Nothing cross-time was found, so nothing is reported here.')
+ok_trj &= _trj_m4 != _TRJ1 and not _trj_tj1(_trj_m4)
+
+# the two axes merged into one ordering -- the owner's two-axis requirement
+_trj_m5 = _TRJ1.replace(
+    '**This finding is on its own axis and is not a line of the `TJ3` hierarchy.**',
+    'This finding is reported as the lowest line of the `TJ3` hierarchy.')
+ok_trj &= _trj_m5 != _TRJ1 and not _trj_two_axis(_trj_m5)
+
+# the baseline reported as a hierarchy line
+_trj_m6 = _TRJ1.replace(
+    '**The two are not merged into one ordering, and the `TJ1` result is not reported as a hierarchy '
+    'line.**',
+    'The two are ordered together, the baseline ranking below line 4.')
+ok_trj &= _trj_m6 != _TRJ1 and not _trj_two_axis(_trj_m6)
+
+# TJ0's silence turned into a truth value
+_trj_m7 = _TRJ1.replace('**The finding is that the record is silent on the point.**',
+                        'The finding is that no such statement can be proved.')
+ok_trj &= _trj_m7 != _TRJ1 and not _trj_tj0(_trj_m7)
+
+# reconstructive inference admitted as a finding
+_trj_m8 = _TRJ1.replace('**Reconstructive inference is refused as a finding here**',
+                        'The record must contain the coupling, or act 12 would not have written it')
+ok_trj &= _trj_m8 != _TRJ1 and not _trj_tj0(_trj_m8)
+
+# TJ0 given an evidence level it does not carry
+_trj_m9 = _TRJ1.replace('**`TJ0` is a type-P target and carries no evidence level.**',
+                        '`TJ0` is settled at evidence level 2.')
+ok_trj &= _trj_m9 != _TRJ1 and not _trj_tj0(_trj_m9)
+
+# a per-term row dropped, so the bounded search is no longer bounded as frozen
+_trj_m10 = _TRJ1.replace('| `stationar` | 15 | 139 | **Does not supply it.**', '| `stationar` | | |')
+ok_trj &= _trj_m10 != _TRJ1 and not _trj_tj0(_trj_m10)
+
+# the round's own theorems read back as retro-evidence about the record
+_trj_m11 = _TRJ1.replace(
+    '**Nor are this round\'s own theorems treated as retro-evidence about `TJ0`.**',
+    'This round\'s own `TJ1` theorem confirms what the record must have contained.')
+ok_trj &= _trj_m11 != _TRJ1 and not _trj_tj0(_trj_m11)
+
+# the two (B) mechanisms conflated -- emptiness reported as survival
+_trj_m12 = _TRJ1.replace(
+    '**The mechanism is emptiness and not survival, and the two are kept apart.**',
+    'Two inequivalent trajectories survive `SP5` at that configuration.')
+ok_trj &= _trj_m12 != _TRJ1 and not _trj_tj2(_trj_m12)
+
+# a neighbourhood refuted instead of the exact frozen proposition
+_trj_m13 = _TRJ1.replace(
+    'It is **not** a refutation of memorylessness, of homogeneity, or of any other '
+    'transition-rule condition.',
+    'So memorylessness is refuted for the Gram/orbit trajectory.')
+ok_trj &= _trj_m13 != _TRJ1 and not _trj_tj2(_trj_m13)
+
+# decoherence in general refuted instead of SP5
+_trj_m14 = _TRJ1.replace('It is **not** a refutation of decoherence in general',
+                         'So decoherence is refuted in general')
+ok_trj &= _trj_m14 != _TRJ1 and not _trj_tj2(_trj_m14)
+
+# the regime probe read as a selection
+_trj_m15 = _TRJ1.replace('**That is a theorem about containment and not a selection.**',
+                         'So the cross-time datum selects the trajectory.')
+ok_trj &= _trj_m15 != _TRJ1 and not _trj_tj2(_trj_m15)
+
+# SP4's verdict read as evidence about a member of the class
+_trj_m16 = _TRJ1.replace('**`SP4`\'s verdict is not evidence about any member of `𝒮`**',
+                         '`SP4`\'s verdict carries to every member of `𝒮`')
+ok_trj &= _trj_m16 != _TRJ1 and not _trj_tj2(_trj_m16)
+
+# the propagation restated as four independent discoveries
+_trj_m17 = _TRJ1.replace(
+    '**The propagation, reported as propagation and not as a discovery restated four times.**',
+    'Four independent refutations were found, one per candidate.')
+ok_trj &= _trj_m17 != _TRJ1 and not _trj_tj2(_trj_m17)
+
+# line 4's quantifiers reversed -- the freeze's eleventh hazard
+_trj_m18 = _TRJ1.replace('**The quantifier order is `∃ C ∀ S` and it is load-bearing.**',
+                         'The four per-candidate countermodels together are the impossibility.')
+ok_trj &= _trj_m18 != _TRJ1 and not _trj_outcome(_trj_m18)
+
+# a line reported at a strength the kernel does not carry
+_trj_m19 = _TRJ1.replace(
+    '**The line reached is the highest the kernel actually carries, and no higher.**',
+    'The round also establishes that no principle whatever can select.')
+ok_trj &= _trj_m19 != _TRJ1 and not _trj_outcome(_trj_m19)
+
+# line 1 claimed without naming which route earned it -- the freeze's tenth hazard
+_trj_m20 = _TRJ1.replace('**Neither route was taken and the two are not mixed.**',
+                         'Line 1 is reached, by one route or the other.')
+ok_trj &= _trj_m20 != _TRJ1 and not _trj_outcome(_trj_m20)
+
+# line 2 reported on a parameterized family without completeness -- the freeze's sixth hazard
+_trj_m21 = _TRJ1.replace(
+    '**the completeness direction — the surjectivity obligation — is not proved.**',
+    'the product over time of the per-slice realizable sets is the classification.')
+ok_trj &= _trj_m21 != _TRJ1 and not _trj_outcome(_trj_m21)
+
+# an unrefuted candidate treated as a selecting one -- the freeze's fourteenth hazard
+_trj_m22 = _TRJ1.replace('**An unrefuted candidate is not a selecting one**',
+                         'A candidate no counterexample defeated selects')
+ok_trj &= _trj_m22 != _TRJ1 and not _trj_outcome(_trj_m22)
+
+# a quotient taken over a relation other than the round's own
+_trj_m23 = _TRJ1.replace(
+    '**The relation any quotient is taken over is `GramTrajEquiv`, by name, and no other relation.**',
+    'The quotient is taken over act 12\'s per-slice relation at a single time.')
+ok_trj &= _trj_m23 != _TRJ1 and not _trj_outcome(_trj_m23)
+
+# the threading seen -- the freeze's fourth hazard
+_trj_m24 = _TRJ1.replace('**act 11\'s `GL2` pair is ONE trajectory here**',
+                         'act 11\'s `GL2` pair has two trajectories here')
+ok_trj &= _trj_m24 != _TRJ1 and not _trj_scope(_trj_m24)
+
+# the uniform-phase relation adopted, which would couple the slices in the relation
+_trj_m25 = _TRJ1.replace(
+    'Raw Gram equality, uniform-phase equality and act 13\'s level-2 and level-3 relations were '
+    '**not adopted**',
+    'The uniform-phase relation was adopted as the round\'s relation')
+ok_trj &= _trj_m25 != _TRJ1 and not _trj_scope(_trj_m25)
+
+# THE CLAUSE dropped from one of its carriages in the result note
+_trj_m26 = _TRJ1.replace(_TRJ_CLAUSE, 'Acts 15 and 16 are nearby.', 1)
+ok_trj &= _trj_m26 != _TRJ1 and not _trj_anticonflation(_trj_m26)
+
+# act 16's positive consumed as evidence about trajectory freedom -- the strongest hazard
+_trj_m27 = _TRJ1.replace('**Neither was consumed as evidence about trajectory freedom**',
+                         'Act 16\'s cancellation shows the trajectory freedom is gauge')
+ok_trj &= _trj_m27 != _TRJ1 and not _trj_anticonflation(_trj_m27)
+
+# THE CLAUSE dropped from the module docstring
+_trj_m28 = _TRJLEAN.replace(_TRJ_CLAUSE, 'Acts 15 and 16 are nearby.')
+ok_trj &= _trj_m28 != _TRJLEAN and not _trj_anticonflation(lean=_trj_m28)
+
+# THE CLAUSE dropped from the ROADMAP
+_trj_m29 = _TRJROADQ.replace(_TRJ_CLAUSE, 'Acts 15 and 16 are nearby.')
+ok_trj &= _trj_m29 != _TRJROADQ and not _trj_anticonflation(road=_trj_m29)
+
+# a sentence saying a selector is required -- forbidden sentence 6
+_trj_m30 = _TRJ1.replace(
+    '**"A selector is required", or "`P0` needs additional structure of shape X."** Not written.',
+    'A selector is therefore required.')
+ok_trj &= _trj_m30 != _TRJ1 and not _trj_status_rule(_trj_m30)
+
+# line 4 enlarged to all conceivable selection principles -- forbidden sentence 3
+_trj_m31 = _TRJ1.replace(
+    '**"No selection principle exists", or "nothing can select the trajectory."** Not written.',
+    'So nothing can select the trajectory.')
+ok_trj &= _trj_m31 != _TRJ1 and not _trj_status_rule(_trj_m31)
+
+# non-selection enlarged from one configuration to every configuration -- forbidden sentence 4
+_trj_m32 = _TRJ1.replace('**"Selection fails everywhere."** Not written.',
+                         'Selection fails everywhere.')
+ok_trj &= _trj_m32 != _TRJ1 and not _trj_status_rule(_trj_m32)
+
+# P0 or its trajectory part reported closed -- forbidden sentence 14
+_trj_m33 = _TRJ1.replace(
+    '**"`P0` is closed", or "`P0`\'s trajectory part is closed."** Not written.',
+    '`P0`\'s trajectory part is closed by this round.')
+ok_trj &= _trj_m33 != _TRJ1 and not _trj_status_rule(_trj_m33)
+
+# a sibling lane's result consumed because it was present at the mandated base
+_trj_m34 = _TRJ1.replace('**The anti-contamination invariant is honoured**',
+                         'the newer sibling results present at the base are consumed')
+ok_trj &= _trj_m34 != _TRJ1 and not _trj_status_rule(_trj_m34)
+
+# a fifth definition slipped in against the frozen four-slot budget
+_trj_m35 = _TRJ1.replace(
+    '**Four slots were budgeted. Two fired and two are unused. No fifth definition was introduced '
+    'and no amendment was needed.**',
+    'A further definition was convenient and was added.')
+ok_trj &= _trj_m35 != _TRJ1 and not _trj_budget(_trj_m35)
+
+# a conditional slot claimed fired when it was not
+_trj_m36 = _TRJ1.replace('| 3 (conditional) | a predicate for `SP3` | **unused** |',
+                         '| 3 (conditional) | a predicate for `SP3` | **fired** |')
+ok_trj &= _trj_m36 != _TRJ1 and not _trj_budget(_trj_m36)
+
+# a third `def` in the module, over the frozen budget
+_trj_m37 = _TRJLEAN.replace('def GramTrajEquiv',
+                            'def diagonalGramTuple (x : Nat) := x def GramTrajEquiv')
+ok_trj &= _trj_m37 != _TRJLEAN and not _trj_lean_defs(_trj_m37)
+
+# the module docstring endorsing a candidate
+_trj_m38 = _TRJLEAN.replace('**No candidate is endorsed.**',
+                            'The natural principle here is the decoherence rule.')
+ok_trj &= _trj_m38 != _TRJLEAN and not _trj_lean_defs(_trj_m38)
+
+# the module docstring admitting the reversed quantifier order as line 4
+_trj_m39 = _TRJLEAN.replace(
+    'The reversed quantifier order `∀ S ∃ C` is the conjunction of the per-candidate '
+    'verdicts and is **not** this statement.',
+    'The reversed quantifier order is the same statement.')
+ok_trj &= _trj_m39 != _TRJLEAN and not _trj_lean_defs(_trj_m39)
+
+# a merged existential enlarged to a universal in the module docstring
+_trj_m40 = _TRJLEAN.replace(
+    '**a merged existential is not enlarged to a universal by being consumed**',
+    'act 12\'s `TG3` holds for every lift')
+ok_trj &= _trj_m40 != _TRJLEAN and not _trj_lean_defs(_trj_m40)
+
+# the axiom table losing a line, so a named result ships unreported
+_trj_m41 = _TRJ1.replace(
+    '| `tj3_imp_class_level_selection_impossibility` | `[propext, Classical.choice, Quot.sound]` |',
+    '')
+ok_trj &= _trj_m41 != _TRJ1 and not _trj_axiom_table(_trj_m41)
+
+# the type-P determination listed among the kernel results
+_trj_m42 = _TRJ1.replace('**`TJ0` is type P and is not in this table.**',
+                         '| `TJ0` | `[propext]` |')
+ok_trj &= _trj_m42 != _TRJ1 and not _trj_axiom_table(_trj_m42)
+
+# the archive pins claimed as set inside the execution -- A.37's circularity
+_trj_m43 = _TRJ1.replace('**`_TRJ_SEALED_HEAD` and `_TRJ_MERGE` are unset at execution.**',
+                         'The archive pins are set in this commit.')
+ok_trj &= _trj_m43 != _TRJ1 and not _trj_chronology(_trj_m43)
+
+# later main absorbed before certification -- A.37's invariant
+_trj_m44 = _TRJ1.replace('**Before certification this execution absorbed no later `main`**',
+                         'The execution merged current `main` before certification')
+ok_trj &= _trj_m44 != _TRJ1 and not _trj_chronology(_trj_m44)
+
+# the seal-integrity clause claimed to fix this round's own pins -- clause 9's non-landable shape
+_trj_m45 = _TRJ1.replace('**The seal-integrity clause excludes this round\'s own triple.**',
+                         'The seal-integrity clause asserts this round\'s own triple unset forever.')
+ok_trj &= _trj_m45 != _TRJ1 and not _trj_chronology(_trj_m45)
+
+# a precondition row silently dropped
+_trj_m46 = _TRJ1.replace('| **PASS** — all three `git cat-file -e` checks succeed |', '| |')
+ok_trj &= _trj_m46 != _TRJ1 and not _trj_chronology(_trj_m46)
+
+# the discrepancies tidied away rather than recorded
+_trj_m47 = _TRJ1.replace(
+    '**Two items are recorded. Neither is repaired, and the freeze is not edited.**',
+    'No discrepancy arose, and the freeze was updated where it needed it.')
+ok_trj &= _trj_m47 != _TRJ1 and not _trj_discrepancies(_trj_m47)
+
+# act 12's merged statement repaired instead of the gap recorded
+_trj_m48 = _TRJ1.replace('**Act 12\'s statement is neither enlarged, revised, nor re-proved**',
+                         'Act 12\'s statement is corrected here to carry the constancy')
+ok_trj &= _trj_m48 != _TRJ1 and not _trj_discrepancies(_trj_m48)
+
+# the SP5 route divergence normalized away instead of recorded
+_trj_m49 = _TRJ1.replace(
+    '**This is recorded as a divergence from the freeze\'s forecast of consumption and is not '
+    'repaired, not corrected, not reinterpreted and not normalized.**',
+    'The freeze\'s countercontrol column is updated to name the route actually taken.')
+ok_trj &= _trj_m49 != _TRJ1 and not _trj_discrepancies(_trj_m49)
+
+# a more elegant counterexample substituted for the frozen witness -- settlement 9
+_trj_m50 = _TRJ1.replace(
+    '**It is recorded as an observation and was never substituted as the witness**',
+    'It is adopted as the witness, being the cleaner of the two')
+ok_trj &= _trj_m50 != _TRJ1 and not _trj_discrepancies(_trj_m50)
+
+# a configuration chosen after the outcome was known
+_trj_m51 = _TRJ1.replace('**No configuration was chosen after an outcome was known.**',
+                         'The configuration was chosen once the outcomes were in.')
+ok_trj &= _trj_m51 != _TRJ1 and not _trj_discrepancies(_trj_m51)
+
+# a falsified prediction hidden, or a confirmation overstated
+_trj_m52 = _TRJ1.replace('**No prediction of this freeze is falsified, and none is against sign.**',
+                         'The freeze predicted line 1 and line 1 was reached.')
+ok_trj &= _trj_m52 != _TRJ1 and not _trj_predictions(_trj_m52)
+
+# the P0 row closed, or its label moved off OPEN
+_trj_m53 = _TRJROAD.replace(
+    '| **P0** | What additional structure determines the relative quantum evolution OI leaves free '
+    '| OI→QM / Track B | **OPEN**',
+    '| **P0** | What additional structure determines the relative quantum evolution OI leaves free '
+    '| OI→QM / Track B | **CLOSED**')
+ok_trj &= _trj_m53 != _TRJROAD and not _trj_roadmap(road=_trj_m53)
+
+# the frozen Case A baseline clause replaced by a wording the freeze does not fix
+_trj_m54 = _TRJROAD.replace(
+    'there is no additional universal cross-time constraint on coherent Gram trajectories beyond '
+    'pointwise realizability',
+    'the trajectory is unconstrained across time')
+ok_trj &= _trj_m54 != _TRJROAD and not _trj_roadmap(road=_trj_m54)
+
+# the ROADMAP merging the two axes
+_trj_m55 = _TRJROAD.replace(
+    '**The two findings are on two axes and are not merged into one ordering.**',
+    'The two findings are ranked, the baseline below line 4.')
+ok_trj &= _trj_m55 != _TRJROAD and not _trj_roadmap(road=_trj_m55)
+
+# the ROADMAP reporting line 3 as undecided rather than ruled out
+_trj_m56 = _TRJROAD.replace('**Line 3 is ruled out by `TJ1`**', 'Line 3 is undecided')
+ok_trj &= _trj_m56 != _TRJROAD and not _trj_roadmap(road=_trj_m56)
+
+# acts 13's, 14's, 15's or act 16's archive seal re-pinned by this round -- A.37's ownership rule
+ok_trj &= not _trj_prior_seals(_cti_sealed='0' * 40)
+ok_trj &= not _trj_prior_seals(_cti_merge='deadbeef' * 5)
+ok_trj &= not _trj_prior_seals(_cti_base='0' * 40)
+ok_trj &= not _trj_prior_seals(_pqt_sealed='0' * 40)
+ok_trj &= not _trj_prior_seals(_pqt_merge='deadbeef' * 5)
+ok_trj &= not _trj_prior_seals(_pqt_base='0' * 40)
+ok_trj &= not _trj_prior_seals(_tcf_sealed='0' * 40)
+ok_trj &= not _trj_prior_seals(_tcf_merge='deadbeef' * 5)
+ok_trj &= not _trj_prior_seals(_tcf_base='0' * 40)
+ok_trj &= not _trj_prior_seals(_rnc_sealed='0' * 40)
+ok_trj &= not _trj_prior_seals(_rnc_merge='deadbeef' * 5)
+ok_trj &= not _trj_prior_seals(_rnc_base='0' * 40)
+
+# T1's control runs THROUGH _trj_freeze_pin, so sabotaging that predicate fails the guard.
+def _trj_drift(path):
+    """One byte appended to this round's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-17-gram-trajectory-selection/preregistration.md') else b'')
+
+
+ok_trj &= _trj_drift(_TRJDIR + 'preregistration.md') != _bb_read(
+    _TRJDIR + 'preregistration.md')
+ok_trj &= not _trj_freeze_pin(_trj_drift)
+
+check('R7-TRJ', ok_trj,
+      "Track B act 17 guard: a SEALING round under A.37 taking up P0's OTHER part -- what selects or "
+      "constrains the Gram/orbit trajectory ACROSS TIME -- under a CONSTRAINTS-ONLY ask, and returning TWO "
+      "FINDINGS ON TWO AXES that the guard checks are kept APART. AXIS 1, TJ1, OUTSIDE THE LADDER and "
+      "co-primary: both directions at level 2 through act 12's merged SH1 consumed slice by slice, so the "
+      "admissible Gram trajectories of a visible family are EXACTLY the pointwise realizable assignments and "
+      "the merged record imposes NO COUPLING BETWEEN SLICES; hence positively that THERE IS NO ADDITIONAL "
+      "UNIVERSAL CROSS-TIME CONSTRAINT beyond pointwise realizability, the present CoherentLift notion "
+      "contributing no coupling at all and any such law having to enter as ADDITIONAL STRUCTURE. That RULES "
+      "LINE 3 OUT as a THEOREM of the round, and the guard checks the exclusion reported under TJ1 as a "
+      "POSITIVE finding and NEVER as a line-3 UNDECIDED, four mutation controls. The |A| rank bound's "
+      "narrowing is checked labelled POINTWISE in terms, the freeze's eighth forbidden sentence. AXIS 2, TJ3: "
+      "LINE 4, TJ3-IMP, at level 2 in the order EXISTS C FORALL S with the configuration chosen FIRST -- one "
+      "admissible configuration, a coherent lift exhibited as a conjunct, at which EVERY member of the frozen "
+      "four-member class fails to select, three by two surviving GramTrajEquiv-inequivalent trajectories and "
+      "the decoherence rule by excluding every trajectory. The REVERSED order FORALL S EXISTS C is checked "
+      "refused as a TJ2 finding and never labelled line 4, and the line is checked earned by an EXHIBITED "
+      "countermodel and never by a search -- six mutation controls. THE TWO AXES ARE CHECKED NOT MERGED into "
+      "one ordering and the baseline checked NOT reported as a hierarchy line, two mutation controls, because "
+      "'OI itself imposes no cross-time coupling' is neither above nor below 'these four proposed selectors "
+      "all fail at one admissible configuration'. Line 1 is checked NOT claimed by EITHER of its two "
+      "preregistered routes with both named, line 2 checked refused for want of the COMPLETENESS direction, "
+      "and an unrefuted candidate checked never treated as a selecting one. TJ0 is checked type P and OUT of "
+      "the axiom table, its bounded search over 223 files and seventeen terms recorded in full with a "
+      "per-term result, SILENCE reported as the finding and not as a truth value, reconstructive inference "
+      "refused, and this round's own theorems refused as retro-evidence -- five mutation controls. The six "
+      "TJ2 parts are checked at their frozen labels with the two (B) mechanisms held APART -- emptiness is "
+      "not survival -- each refutation checked made of the EXACT frozen proposition and NOT of its "
+      "neighbourhood (no memorylessness, no decoherence in general), the chain propagation reported AS "
+      "propagation on ONE merged witness family, and the out-of-regime probe SP4 checked reported as "
+      "CONTAINMENT and not selection, outside the class and quantified over by no hierarchy line -- six "
+      "mutation controls. THE SCOPE BOUNDARY IS CHECKED MECHANICAL, not prose: every act 13 threading-related "
+      "pair and act 11's GL2 pair are ONE trajectory here, no statement distinguishes two lifts the relation "
+      "identifies, and the uniform-phase relation -- which would couple the slices IN THE RELATION -- is "
+      "checked NOT adopted, two mutation controls. The ANTI-CONFLATION CLAUSE against acts 15's and 16's "
+      "positives is checked carried VERBATIM at every prose mention -- four times in the result note, once in "
+      "the module docstring, once in the ROADMAP -- each carriage opening with its own distinct naming line, "
+      "with neither positive consumed as evidence about trajectory freedom, four mutation controls. The "
+      "twenty forbidden sentences are checked refused in the freeze's own terms, five mutation controls. The "
+      "P0 row is checked still OPEN with the frozen Case A sentence carried verbatim and both axes recorded, "
+      "four mutation controls. The frozen FOUR-slot budget is checked with slots 1 and 2 FIRED and the two "
+      "conditional slots recorded UNUSED, the module holding exactly two top-level defs and no sorry, axiom "
+      "or native_decide anywhere, five mutation controls. The twenty-three-line axiom table is checked "
+      "against the module's own #print axioms lines with nothing outside the three standard axioms, "
+      "Classical.choice's appearance in TJ1 sufficiency recorded as expected rather than as a defect, and no "
+      "type-P item in it. TWO DISCREPANCIES are checked RECORDED and not repaired -- act 12's lifted TG3 "
+      "statement not exposing its visible family's CONSTANCY, and SP5 (B)'s kernel route diverging from the "
+      "freeze's forecast of consumption -- together with two observations checked recorded and NEVER "
+      "substituted as witnesses, and the frozen configurations checked never chosen after an outcome was "
+      "known, five mutation controls. Every prediction is checked reported against its outcome with none "
+      "hidden. The chronology is pinned in BOTH halves: this round's preregistration blob by content, with a "
+      "drift control that fails the guard if one byte is appended; and the strengthened ancestry asked of git "
+      "directly against the real pull_request.head.sha, never the synthetic merge, every commit of "
+      "git rev-list H ^B required to descend from the base, recovery included, FAIL-CLOSED. The archive pins "
+      "are carried as None -- UNSET AT EXECUTION, set only in the pin commit P after the landing merge L -- "
+      "and THE SEAL-INTEGRITY CLAUSE EXCLUDES THIS ROUND'S OWN TRIPLE, naming only acts 13's, 14's, 15's and "
+      "16's, so the guard passes both before and after P; a clause fixing this round's own pins at None "
+      "forever would contradict the mandatory lifecycle and is what made an earlier round in this programme "
+      "non-landable. ACTS 13's, 14's, 15's AND 16's SEALS ARE CHECKED UNMOVED, twelve mutation controls, "
+      "since an archive seal belongs to the round that set it. Eighteen named contracts, fifty-six mutation "
+      "controls, twelve seal controls and a freeze-pin drift control.")
+
+
 
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())

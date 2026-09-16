@@ -204,6 +204,7 @@ import OIBridge.CrossTimeInvariants
 import OIBridge.ThreadingObservability
 import OIBridge.CancellationFork
 import OIBridge.ReanchoredChannelScope
+import OIBridge.GramTrajectorySelection
 import OIBridge.SemigroupTransfer
 import OIBridge.WordTraceSufficiency
 import OIBridge.RecurrenceHorizon
