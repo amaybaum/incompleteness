@@ -234,7 +234,8 @@ the kernel.
 
 ## The strength of the ask, FROZEN
 
-**The ask is CONSTRAINTS-ONLY.** The round asks whether anything **excludes** cross-time Gram/orbit
+**The ask is CONSTRAINTS-ONLY, and the owner has settled it as such.** The round asks whether
+anything **excludes** cross-time Gram/orbit
 trajectories, and it does **not** undertake to produce a principle that picks out a single one, nor
 a classification of the admissible set. That is the round's obligation, and falling short of
 uniqueness or of classification is **not** a shortfall of this round.
@@ -262,7 +263,11 @@ scope question the hierarchy raises: a stronger result is reportable **because i
 as reachable**, and never because the execution enlarged the round after finding it. **The scope is
 fixed here, before the search.** The alternative reading — parking a proved uniqueness or
 classification theorem as an out-of-scope observation with the reported outcome held inside the
-settled ask — is drafted at the owner-decision section below and is the owner's to choose.
+settled ask — was considered and **the owner has settled against it**: a kernel-proved theorem
+would then sit in the record with no frozen wording, which invites the execution to describe it in
+wording of its own. **Line 1 in particular has two preregistered routes**, one through the frozen
+selector class and one through the `SP1G` determination claim, so the hierarchy can report the
+surprise by whichever route reaches it.
 
 ## The scope boundary against threading and representative choice, FROZEN
 
@@ -569,11 +574,31 @@ reaches for.
 
 **This is a determination claim, not a selector.** It is a universal statement across lifts, and if
 true it would supply a canonical map from visible laws to per-slice orbits and hence genuine
-selection from the licensed data — it is the round's only route to uniqueness from `L`. **It is not a
-predicate on a single lift**, so it is **not** a member of `𝒮` and no line of the hierarchy
-quantifies over it; its verdict is reported at its own target. `SP1G` implies `SP1L` and `SP1L` does
-not imply `SP1G`, by the shape of the quantifiers alone: `SP1L` is `SP1G` restricted to `U = U'`.
-**So `SP1G` is strictly the stronger**, and no prediction in this freeze rates it above `SP1L`.
+selection from the licensed data. **It is not a predicate on a single lift**, so it is **not** a
+member of `𝒮`, and in particular **line 4 of the graded hierarchy does not quantify over it**:
+line 4's `∀ S` ranges over the homogeneous four-member class and over nothing else. `SP1G` implies
+`SP1L` and `SP1L` does not imply `SP1G`, by the shape of the quantifiers alone: `SP1L` is `SP1G`
+restricted to `U = U'`. **So `SP1G` is strictly the stronger**, and no prediction in this freeze
+rates it above `SP1L`.
+
+**`SP1G` is nonetheless a route to line 1, and the implication is written out here.** Line 1 of the
+graded hierarchy has **two** preregistered routes to one substantive result, and this is the second
+of them. **The argument, at the level of detail the rest of this freeze uses.** Suppose `SP1G` holds
+universally, and let `Γ` be a visible family with coherent lifts `U` and `U'`. At each time `t` the
+two lifts have the **same** visible law by hypothesis — both are coherent lifts of `Γ`, so
+`Γ t = Γ t` — and `SP1G` applied at `U`, `U'`, `t` and `s := t` gives
+`[FibreGram a₀ (U t)] = [FibreGram a₀ (U' t)]`. That holds at **every** `t`, which is exactly
+`GramTrajEquiv (𝔾 U) (𝔾 U')`, this round's frozen cross-time equivalence. **So `SP1G` gives each
+visible family with a coherent lift exactly one `≈_O`-trajectory class**, which is the substantive
+content line 1 reports, reached without any member of `𝒮` selecting. **The existence half is
+immediate** from the configuration's own admissibility conjunct: `Γ` has a coherent lift by
+assumption, and its trajectory is that one class.
+
+**What the second route does not do.** It does not put `SP1G` into `𝒮`, does not give `SP1G` a free
+function parameter, and does not change line 4, whose `∀ S` stays over the four-member class. `SP1G`
+is a different logical kind from the members of `𝒮` and is kept apart as one everywhere else in this
+freeze; what the second route records is that a proposition of that kind, if proved, **would deliver
+line 1's conclusion**, so the hierarchy is capable of reporting the theorem if the surprise happens.
 
 **Where it comes from.** Act 12's `SH1-C2` proves it **on deterministic visible laws**: there the
 orbit is unique, so the law does determine it. `SP1G` is that island's proposed extension to all
@@ -816,6 +841,18 @@ dilations into one lift.
 - **A narrowing recorded here is pointwise and is labelled pointwise.** The rank bound excludes
   trajectory values slice by slice; that exclusion is **not** a cross-time coupling, and reporting it
   as one is the defect the hierarchy's line 3 exists to prevent.
+- **If sufficiency lands, it RULES OUT line 3 of the graded hierarchy, and the exclusion is this
+  round's own theorem.** Line 3 needs a universal property `Q` together with a pointwise realizable
+  trajectory failing it; sufficiency realizes every pointwise realizable trajectory by a coherent
+  lift, and universality then forces `Q` of it. The two clauses are jointly unsatisfiable, so **no
+  additional universal cross-time constraint on coherent Gram trajectories exists beyond pointwise
+  realizability**. The dependency is frozen in both directions at the hierarchy section and is
+  reported there and here, never as line 3 UNDECIDED.
+- **That exclusion is a statement about `CoherentLift` as the programme defines it** — `ℕ`-indexed
+  and pointwise in time — and is **not** a statement that no cross-time structure could be added to
+  the programme, **not** a statement that the trajectory question is closed, and **not** a bound on
+  what a later round could constrain under a different notion of coherence or a larger licensed data
+  set.
 
 ### `TJ2` — the per-candidate verdicts
 
@@ -855,24 +892,46 @@ cross-time constraint → class-level selection impossibility → UNDECIDED with
 
 **The hierarchy is strict and exhaustive, and the outcome reached is the highest line the kernel
 actually carries** — never a higher one. Each line's frozen post-round sentence is written out in the
-status rule below.
+status rule below. **One line is conditional on another target**: line 3 is available only where
+`TJ1` sufficiency does not land, by the dependency frozen after line 3's statement, and where
+sufficiency does land the ladder is strict and exhaustive over lines 1, 2, 4 and 5.
 
 | # | outcome | statement, with its quantifiers | earned only by |
 | --- | --- | --- | --- |
-| 1 | **`TJ3-UNIQ`** | see the frozen statement below | a universal kernel proof at evidence level 2 that some named member of `𝒮` selects at every configuration |
+| 1 | **`TJ3-UNIQ`** | see the frozen statement below | **either** a universal kernel proof at evidence level 2 that some named member of `𝒮` selects at every configuration, **or** a universal kernel proof at evidence level 2 of the `SP1G` determination claim — two routes to one substantive result, both preregistered, and the route taken is named in the report |
 | 2 | **`TJ3-CLASS`** | see the frozen statement below | a kernel proof at evidence level 2 of **both** the soundness and the **completeness** direction, with the parameter type and its map written in the statement |
-| 3 | **`TJ3-CON`** | see the frozen statement below | a kernel proof at evidence level 2 of a universal property, its properness exhibited in **both** directions, and its **cross-time** character proved |
+| 3 | **`TJ3-CON`** | see the frozen statement below | a kernel proof at evidence level 2 of a universal property, its properness exhibited in **both** directions, and its **cross-time** character proved — **and available only if `TJ1` sufficiency does not land**, by the dependency frozen below |
 | 4 | **`TJ3-IMP`** | see the frozen statement below | a kernel proof at evidence level 2 of an `∃ C ∀ S` statement with `C` admissible under this round's own constraints |
 | 5 | **UNDECIDED** | none of the above was reached | the recorded statement that none was reached, with the obstruction named specifically — which candidate, which step, what would settle it |
 
 #### Line 1 — `TJ3-UNIQ`, a unique selector, FROZEN STATEMENT
 
-> **There exists a member `S` of the frozen selector class `𝒮` — named explicitly in the statement,
-> one of `SP1L`, `SP2`, `SP3`, `SP5` — such that for every finite `V`, every finite `A`, every anchor
-> `a₀ : A` and every visible family `Γ : ℕ → Matrix V V ℝ` admitting at least one coherent lift,
-> `S` selects at that configuration: there is a coherent lift `U₀` of `Γ` with `S U₀`, and for every
-> coherent lift `U` of `Γ` with `S U`, `𝔾(U) ≈_O 𝔾(U₀)` — the quotient being taken over
-> `GramTrajEquiv`, this round's frozen cross-time equivalence, and over no other relation.**
+**Line 1 has two preregistered routes to one substantive result, and either earns it.** The route
+taken is named in the report, and no outcome mixes them.
+
+> **ROUTE A, through the frozen selector class.** **There exists a member `S` of the frozen selector
+> class `𝒮` — named explicitly in the statement, one of `SP1L`, `SP2`, `SP3`, `SP5` — such that for
+> every finite `V`, every finite `A`, every anchor `a₀ : A` and every visible family
+> `Γ : ℕ → Matrix V V ℝ` admitting at least one coherent lift, `S` selects at that configuration:
+> there is a coherent lift `U₀` of `Γ` with `S U₀`, and for every coherent lift `U` of `Γ` with
+> `S U`, `𝔾(U) ≈_O 𝔾(U₀)` — the quotient being taken over `GramTrajEquiv`, this round's frozen
+> cross-time equivalence, and over no other relation.**
+
+> **ROUTE B, through the determination claim.** **`SP1G` holds universally: for all coherent lifts
+> `U` of `Γ` and `U'` of `Γ'` over one carrier and anchor and all times `t`, `s`, if `Γ t = Γ' s`
+> then `[FibreGram a₀ (U t)] = [FibreGram a₀ (U' s)]`. Hence, for every finite `V`, every finite `A`,
+> every anchor `a₀ : A` and every visible family `Γ` admitting at least one coherent lift `U₀`, every
+> coherent lift `U` of `Γ` satisfies `𝔾(U) ≈_O 𝔾(U₀)` — the quotient being taken over
+> `GramTrajEquiv`, this round's frozen cross-time equivalence, and over no other relation — so the
+> visible family determines exactly one trajectory class, with no member of `𝒮` imposed.**
+
+**Why route B is sound, stated so the reader need not reconstruct it.** Two coherent lifts of one
+`Γ` have equal visible laws at each `t` by definition of `CoherentLift`; `SP1G` applied at those two
+lifts, at `t` and at `s := t`, gives equality of their per-slice orbit classes at `t`; quantifying
+over `t` gives `GramTrajEquiv` of the two trajectories. The existence half is the configuration's own
+admissibility conjunct. **Route B is stated at the same evidence bar as route A** — a universal
+kernel proof at evidence level 2 — and **route B does not make `SP1G` a member of `𝒮`**: line 4's
+`∀ S` is unchanged and continues to range over the four-member class alone.
 
 #### Line 2 — `TJ3-CLASS`, a complete classification, FROZEN STATEMENT
 
@@ -892,7 +951,10 @@ status rule below.
 requirement and not a wording preference.** Exhibiting a parameterized family of admissible
 trajectories — however natural or convenient its parameterization — earns **line 3 and not line 2**.
 Without (ii) proved, the result is reported at line 3 with the parameterization **recorded as a
-finding rather than as the classification**, in those words. **The trivial parameterization is
+finding rather than as the classification**, in those words. **Where line 3 is itself ruled out by
+`TJ1` sufficiency**, a parameterization without completeness earns **no line at all**: it is recorded
+as a finding under `TJ1`, in the same words, and the reported outcome is whatever line the kernel
+otherwise carries. **The trivial parameterization is
 excluded in terms** by the clause forbidding `P` or `f` to be or contain the lift or trajectory
 types: taking `P` to be the admissible trajectories and `f` the identity satisfies both directions
 and classifies nothing.
@@ -911,8 +973,41 @@ and classifies nothing.
 
 **Clause (iii) is what stops line 3 being earned by restating `SH1`.** A narrowing that is a
 per-slice constraint lifted pointwise to trajectories — which is what `TJ1`'s rank bound is — does
-**not** earn line 3; it is recorded under `TJ1` and labelled pointwise. Whether clause (iii) should
-be required at all is one of the owner decisions recorded below.
+**not** earn line 3; it is recorded under `TJ1` and labelled pointwise. **The owner has settled that
+clause (iii) is required**, on the ground that without it act 12's pointwise `SH1` rank restriction
+trivially earns the trajectory line and destroys the distinction act 17 exists to investigate.
+
+#### The `TJ1` → line 3 dependency, FROZEN IN BOTH DIRECTIONS
+
+**This is a logical dependency between two of this round's own targets, and it is frozen here rather
+than left for a reader to discover.**
+
+> **If `TJ1` sufficiency lands, line 3 is RULED OUT by `TJ1`.** Line 3's clause (i) requires `Q` to
+> hold of `𝔾(U)` for **every** coherent lift `U`, and its clause (ii) requires a **pointwise
+> realizable** trajectory for a named `Γ` that **fails** `Q`. If every pointwise realizable
+> assignment is some coherent lift's Gram trajectory — which is exactly what `TJ1` sufficiency
+> establishes — then that purported counterexample is realized by a coherent lift, and clause (i)
+> forces it to satisfy `Q`, contradicting clause (ii). **Clauses (i) and (ii) are jointly
+> unsatisfiable given `TJ1` sufficiency**, so no property whatever can earn line 3, and the
+> exclusion is a theorem of this round and not a failure to find one.
+>
+> **If `TJ1` sufficiency does not land, line 3 remains logically available** under its existing
+> evidence bar, unchanged: clauses (i), (ii) and (iii) all proved, with the cross-time character
+> established by an exhibited trajectory that satisfies the corresponding pointwise condition and
+> fails `Q`.
+
+**What the ruling-out is, and what it is not.** In the `TJ1`-both case the statement earned is that
+**there is no additional universal cross-time constraint on coherent Gram trajectories beyond
+pointwise realizability** — the present notion of coherence contributes no coupling between times at
+all. **That is a positive finding of this round**, reported as one, and it is **not** a statement
+that no cross-time structure could be added to the programme, **not** a statement that the trajectory
+question is closed, and **not** a bound on what a later round could constrain under a different
+notion of coherence or a larger licensed data set. It is a statement about `CoherentLift` as the
+programme defines it, `ℕ`-indexed and pointwise in time.
+
+**Where this leaves the hierarchy.** With `TJ1` sufficiency landed, the reachable lines are 1, 2, 4
+and 5; line 3 is excluded by `TJ1` and the execution reports that exclusion under `TJ1` rather than
+reporting line 3 UNDECIDED. Without `TJ1` sufficiency, all five lines stay reachable.
 
 #### Line 4 — `TJ3-IMP`, class-level selection impossibility, FROZEN STATEMENT
 
@@ -958,6 +1053,14 @@ information the ladder may discard, and the ladder orders the **outcome**, not t
   witness is line 5**, with the obstruction named.
 - It may not report line 1 or line 2 on the strength of a candidate merely surviving the round's
   tests. **An unrefuted candidate is not a selecting one.**
+- It may not report line 3 at all where `TJ1` sufficiency landed, and **may not report line 3
+  UNDECIDED there either**: the dependency rules the line out, and the exclusion is reported under
+  `TJ1` as that target's own finding.
+- It may not mix line 1's two routes. **Route A is a `SelectsAt` theorem for a named member of `𝒮`;
+  route B is the `SP1G` determination theorem**, and the report names which was taken and states
+  that the other was not.
+- It may not report route B as making `SP1G` a member of `𝒮`, and may not read a route-B outcome as
+  a verdict on any member of `𝒮` beyond the frozen chain read in its own direction.
 
 ## The preregistered predictions, with their signs, strengths and recorded reasons
 
@@ -977,17 +1080,21 @@ information the ladder may discard, and the ladder orders the **outcome**, not t
 | `TJ2` (e) `SP5` (B) | **`SP5-EMPTY`** | **medium** | The diagonal tuple for `Γ ≡ ¼` on `\|V\| = 4` is `(1/4)·I₄` in each fibre, which is invertible and therefore of rank `4`, while `fibreGram_rank_le` bounds the rank by `\|A\| = 1`. The medium rating is for the rank computation in the kernel, not for the argument. **UNDECIDED with the obstruction named is an allowed outcome and does not move (A).** |
 | `TJ2` (f) `SP4` | **`SP4-THM`, and vacuous** | **high** | `fibreCrossGram_diag` is `rfl`: the level-2 datum contains the Gram trajectory at its diagonal, so equality of the former gives equality of the latter and hence `≈_O` with the trivial phase family. |
 | `TJ3` | **line 4, `TJ3-IMP`** | **medium** | Conditional on `TJ2` (a)–(e) landing as predicted, in which case the single configuration `Γ ≡ ¼` on `\|V\| = 4`, `\|A\| = 1` defeats all four members of `𝒮` at once — `SP1L`, `SP2` and `SP3` by two surviving inequivalent trajectories, `SP5` by exclusion of every trajectory — which is the `∃ C ∀ S` shape. The medium rating is for `SP5` (B)'s rank computation, on which the fourth conjunct depends; if it is UNDECIDED, so is line 4, and `TJ3` falls to line 5. |
-| `TJ3` → line 1, `TJ3-UNIQ` | not predicted | **low** | Its only routes are through the members of `𝒮`, every one of which the freeze predicts refuted at (A) or defeated at (B) by one merged witness family. The freeze names no further route and rates none better than low. |
+| `TJ3` → line 1, `TJ3-UNIQ`, **route A** | not predicted | **low** | Route A runs through the members of `𝒮`, every one of which the freeze predicts refuted at (A) or defeated at (B) by one merged witness family. The freeze names no further member and rates none better than low. |
+| `TJ3` → line 1, `TJ3-UNIQ`, **route B** | not predicted | **low** | Route B runs through the `SP1G` determination claim, which `TJ2` (b) predicts refuted at high by act 12's two constant Hadamard lifts read across lifts at one time. **The line is nonetheless preregistered as reachable by this route** — the hierarchy must be capable of reporting the theorem if the surprise happens — and route B's rating is at or below `TJ2` (b)'s, never above it. **The two routes are rated separately and the higher of the two is line 1's rating**, which is low. |
 | `TJ3` → line 2, `TJ3-CLASS` | not predicted | **low** | The completeness direction would need a surjectivity proof over the trajectory space of an arbitrary finite carrier. `TJ1` characterizes that space as a product of per-slice realizable sets, which is a description and not a parameterization by a type independent of the trajectories; the freeze names no parameterization and does not fund building one. |
-| `TJ3` → line 3, `TJ3-CON` | not predicted | **low** | Clause (iii) requires a cross-time property, and the freeze's whole expectation from `TJ1` is that the merged record supplies none. Rated **at or above** line 2's strength, because a complete classification with clause (iii)'s cross-time content would also exhibit a cross-time constraint, while the converse fails. |
-| `TJ3` → line 5, UNDECIDED | not predicted | **medium** | Reached if `SP5` (B) or `SP3` (A) does not land, since line 4's `∀ S` conjunct needs all four. Rated below line 4 and above lines 1, 2 and 3. |
+| `TJ3` → line 3, `TJ3-CON` | **ruled out**, conditional on `TJ1` sufficiency | **high**, *that it is ruled out* | The freeze predicts `TJ1` sufficiency at high, and the frozen dependency makes line 3's clauses (i) and (ii) jointly unsatisfiable once sufficiency lands. **So line 3 is not merely unlikely here: it is formally incompatible with the freeze's own predicted `TJ1` outcome**, and the exclusion is reported under `TJ1` as that target's finding rather than as line 3 UNDECIDED. Should `TJ1` sufficiency fail to land, line 3 is **not predicted, at low**, clause (iii) requiring a cross-time property the freeze expects the merged record to supply none of; in that case it is rated **at or above** line 2's strength, because a complete classification with clause (iii)'s cross-time content would also exhibit a cross-time constraint while the converse fails. |
+| `TJ3` → line 5, UNDECIDED | not predicted | **medium** | Reached if `SP5` (B) or `SP3` (A) does not land, since line 4's `∀ S` conjunct needs all four. Rated below line 4 and above lines 1 and 2. It is **not** compared with line 3, which the predicted `TJ1` outcome rules out rather than leaves open. |
 
 **No target has a numerical fallback**, and none is offered for a universal statement. **UNDECIDED
 remains a permitted label for every target**, reported with the obstruction named specifically.
 
-**The rows rating lines 1, 2 and 3 at low are the freeze's whole position on whether anything
-selects.** No sentence of this file predicts, at medium or high, that any candidate selects, that the
-admissible set is classified, or that a cross-time constraint exists.
+**The rows rating line 1 at low by both of its routes, line 2 at low, and line 3 as ruled out by the
+freeze's own predicted `TJ1` outcome are the freeze's whole position on whether anything selects.**
+No sentence of this file predicts, at medium or high, that any candidate selects or that the
+admissible set is classified; and what it predicts at high about a cross-time constraint is that
+there is **none** beyond pointwise realizability, which is `TJ1`'s finding and is the reason line 3
+is ruled out rather than merely rated low.
 
 ## The status rule: the outcomes per target, each with its FROZEN post-round sentence
 
@@ -1026,13 +1133,25 @@ sentence below is the report, with the obstruction named.
   > trajectory is additional structure rather than a consequence of coherence. The per-slice
   > constraint it records is act 12's `SH1`, consumed at its own strength and neither enlarged nor
   > revised, and the narrowing the rank bound `|A|` effects is **pointwise** and is labelled
-  > pointwise.
+  > pointwise. **And it settles, positively, that there is no additional universal cross-time
+  > constraint on coherent Gram trajectories beyond pointwise realizability**: any such constraint
+  > would have to hold of every coherent lift's trajectory while some pointwise realizable trajectory
+  > failed it, and sufficiency realizes every pointwise realizable trajectory by a coherent lift, so
+  > the two demands are jointly unsatisfiable. **Line 3 of this round's hierarchy is thereby ruled out
+  > by this target rather than left undecided**, and the exclusion is reported as a finding of the
+  > round and not as an absence of one. It is a statement about `CoherentLift` as the programme
+  > defines it, `ℕ`-indexed and pointwise in time; it is **not** a statement that no cross-time
+  > structure could be added to the programme, **not** a statement that the trajectory question is
+  > closed, and **not** a bound on what a later round could constrain under a different notion of
+  > coherence or a larger licensed data set.
 - **Outcome `TJ1`-necessity-only:**
   > The necessity direction holds at evidence level 2: every coherent lift's Gram trajectory is
   > pointwise realizable. The sufficiency direction — that every pointwise realizable assignment is
   > some coherent lift's trajectory — was not reached, with the obstruction named, so the admissible
   > set is bounded above and not characterized, and no statement of this round says the trajectory is
-  > unconstrained across time.
+  > unconstrained across time. **Line 3 of this round's hierarchy is therefore NOT ruled out**: the
+  > dependency that excludes it runs through sufficiency, which did not land, so line 3 stays
+  > logically available under its own unchanged evidence bar and is reported at whatever it reaches.
 - **Outcome `TJ1`-UNDECIDED:**
   > Neither direction was reached in the kernel, with the obstruction named, and every later target
   > stated over the characterization is reported UNDECIDED with this recorded as the obstruction. Act
@@ -1085,15 +1204,27 @@ sentence below is the report, with the obstruction named.
 
 ### The outcomes of `TJ3` — five lines, each with its sentence frozen in full
 
-- **Outcome line 1, `TJ3-UNIQ`:**
+- **Outcome line 1, `TJ3-UNIQ`, ROUTE A — a named member of `𝒮` selects:**
   > A member of the frozen selector class selects: for every configuration, the trajectories of the
   > coherent lifts satisfying the named principle form exactly one class under `GramTrajEquiv`, at
   > evidence level 2. **This is a statement about the four named principles of this round's frozen
   > class, on their frozen data grants, and about nothing else.** It does **not** say that the
   > principle is true of nature, does not adopt it, does not say a selector is required, and does not
   > close `P0`: what it establishes is that one preregistered rule, if imposed, leaves one trajectory.
-  > `P0` stays **OPEN** and two-part, its threading part is untouched, and no carrier is adopted as
-  > the physical one.
+  > **The route taken is route A**, and route B was not taken. `P0` stays **OPEN** and two-part, its
+  > threading part is untouched, and no carrier is adopted as the physical one.
+- **Outcome line 1, `TJ3-UNIQ`, ROUTE B — the `SP1G` determination claim holds:**
+  > The cross-lift law-determination claim `SP1G` holds universally, at evidence level 2, so the
+  > visible family determines the per-slice orbit at every time, and every coherent lift of one
+  > visible family has one and the same trajectory class under `GramTrajEquiv` — with **no** member
+  > of the frozen selector class imposed. **This is a statement about `SP1G` as this freeze states
+  > it, on its frozen data grant, and about nothing else.** It does **not** adopt `SP1G`, does not
+  > say a selector is required, and does not close `P0`. **`SP1G` is not a member of `𝒮` and is not
+  > made one by this route**: line 4's quantifier continues to range over the four-member class
+  > alone, and no verdict about any member of `𝒮` follows from this, in either direction, beyond the
+  > frozen chain `SP5 ⟹ SP1G ⟹ SP1L ⟹ SP2` read in its own direction. **The route taken is route
+  > B**, and route A was not taken. `P0` stays **OPEN** and two-part, its threading part is
+  > untouched, and no carrier is adopted as the physical one.
 - **Outcome line 2, `TJ3-CLASS`:**
   > The admissible trajectory set at the named visible family is **completely classified**: a
   > parameter type and a map from it to Gram trajectories are exhibited, every parameter's trajectory
@@ -1112,7 +1243,10 @@ sentence below is the report, with the obstruction named.
   > level 2. **This is a narrowing and not a classification**: no parameterization is claimed, and in
   > particular no completeness direction is proved, so nothing here says the surviving trajectories
   > are enumerated or parameterized. **It is not a selection**: the survivors are not claimed unique.
-  > `P0` stays **OPEN** and two-part.
+  > **This line is reported only where `TJ1` sufficiency did not land**, because sufficiency and this
+  > line's own clauses (i) and (ii) are jointly unsatisfiable; where sufficiency landed, the exclusion
+  > of this line is reported under `TJ1` as that target's own finding and this line is not reported
+  > UNDECIDED. `P0` stays **OPEN** and two-part.
 - **Outcome line 4, `TJ3-IMP`:**
   > **Selection impossibility at the class level is exhibited.** There is a configuration —
   > admissible under exactly this round's own constraints, the visible family having at least one
@@ -1160,7 +1294,10 @@ reaches line 4.** This is the case the freeze predicts.
 > localized as threading-related, the admissible Gram trajectories of a visible family are exactly
 > the pointwise realizable assignments: the merged record constrains each slice by act 12's `SH1` and
 > imposes no coupling between slices, so every cross-time constraint on the trajectory is additional
-> structure rather than a consequence of coherence. Against that baseline four named candidate
+> structure rather than a consequence of coherence, and there is no additional universal cross-time
+> constraint on coherent Gram trajectories beyond pointwise realizability — a statement about
+> coherence as the programme defines it, indexed by the naturals and pointwise in time, and not a
+> statement that no cross-time structure could be added to the programme. Against that baseline four named candidate
 > principles were frozen before the search and tested — a per-lift law-determination constraint,
 > orbit stationarity under a constant visible law, a homogeneous transition rule, and the decoherence
 > rule that the orbit is the diagonal tuple — together with the cross-lift law-determination claim
@@ -1186,7 +1323,10 @@ outcome.
   > "the admissible Gram trajectories of a visible family are exactly the pointwise realizable
   > assignments: the merged record constrains each slice by act 12's `SH1` and imposes no coupling
   > between slices, so every cross-time constraint on the trajectory is additional structure rather
-  > than a consequence of coherence"
+  > than a consequence of coherence, and there is no additional universal cross-time constraint on
+  > coherent Gram trajectories beyond pointwise realizability — a statement about coherence as the
+  > programme defines it, indexed by the naturals and pointwise in time, and not a statement that no
+  > cross-time structure could be added to the programme"
 - **The verdict clause**, governed by `TJ3`, is Case A's sentence beginning "Against that baseline"
   from the words "and on that class the outcome is" to the end of that sentence.
 - **The bound clause**, governed by `TJ3`, is Case A's sentence beginning "That is impossibility
@@ -1197,16 +1337,19 @@ outcome.
 | `TJ3` | verdict clause | bound clause |
 | --- | --- | --- |
 | line 4, `TJ3-IMP` (**Case A**) | as written above | as written above |
-| line 1, `TJ3-UNIQ` (**Case B**) | "and on that class one named principle selects: at every configuration the trajectories of the coherent lifts satisfying it form exactly one class under the round's cross-time equivalence" | "That is a statement about one preregistered rule and what imposing it leaves, earned universally in the kernel; it does not adopt the rule, does not say a selector is required, and does not close `P0` or either of its parts." |
+| line 1, `TJ3-UNIQ`, **route A** (**Case B1**) | "and on that class one named principle selects: at every configuration the trajectories of the coherent lifts satisfying it form exactly one class under the round's cross-time equivalence" | "That is a statement about one preregistered rule and what imposing it leaves, earned universally in the kernel; it does not adopt the rule, does not say a selector is required, and does not close `P0` or either of its parts." |
+| line 1, `TJ3-UNIQ`, **route B** (**Case B2**) | "and the cross-lift law-determination claim holds universally, so the visible family determines the per-slice orbit at every time and every coherent lift of one visible family has one and the same trajectory class under the round's cross-time equivalence, with no member of the frozen class imposed" | "That is a statement about one preregistered determination claim, earned universally in the kernel; it does not adopt the claim, does not say a selector is required, does not make it a member of the frozen class, and does not close `P0` or either of its parts." |
 | line 2, `TJ3-CLASS` (**Case C**) | "and on the named visible family the admissible trajectory set is completely classified, the completeness direction proved so that every coherent lift's trajectory is equivalent to a parameter's under the round's cross-time equivalence" | "That is a classification of trajectories and not of lifts, the threading being invisible to the relation; it selects nothing and endorses no principle." |
-| line 3, `TJ3-CON` (**Case D**) | "and a proper cross-time constraint on the admissible trajectory class is exhibited, with a pointwise realizable trajectory that fails it, a coherent lift whose trajectory satisfies it, and its cross-time character proved" | "That is a narrowing and not a classification and not a selection: no parameterization is claimed, no completeness direction is proved, and the survivors are not claimed unique." |
+| line 3, `TJ3-CON` (**Case D**, available only where `TJ1` sufficiency did not land) | "and a proper cross-time constraint on the admissible trajectory class is exhibited, with a pointwise realizable trajectory that fails it, a coherent lift whose trajectory satisfies it, and its cross-time character proved" | "That is a narrowing and not a classification and not a selection: no parameterization is claimed, no completeness direction is proved, and the survivors are not claimed unique." |
 | line 5, UNDECIDED (**Case E**) | "and on that class the outcome is recorded UNDECIDED: no member is shown to select, no classification is proved, no proper cross-time constraint is exhibited, and no class-level countermodel is exhibited, with the obstruction named" | "That is a statement about this round and about the record and not about the question: it is not a finding that the question is unresolvable, not a finding that it is hard, and not a bound on what a later round can do." |
 
 **Case F — `TJ1` reaches necessity only, or is UNDECIDED:** the baseline clause is replaced by "the
 admissible Gram trajectories of a visible family are pointwise realizable, the converse being
 undecided in this round with the obstruction named, so the admissible set is bounded above and not
 characterized"; every other clause stands at whatever the other targets reach, and **no sentence
-says the trajectory is unconstrained across time**.
+says the trajectory is unconstrained across time**. **Line 3 is not ruled out in this case**: the
+dependency that excludes it runs through sufficiency, which did not land, so line 3 stays available
+under its own evidence bar and the verdict clause takes whatever `TJ3` reaches, Case D included.
 
 **Case G — one or more `TJ2` parts UNDECIDED while `TJ3` reaches line 4:** unreachable by
 construction, since line 4's `∀ S` conjunct needs all four members settled; if any is UNDECIDED,
@@ -1339,66 +1482,76 @@ round, in any paraphrase, in a summary line, an abstract, a table cell or a prop
 8. **Reporting line 3 on a pointwise narrowing.** `TJ1`'s rank bound excludes trajectory values slice
    by slice and is not a coupling. Clause (iii) of line 3 is the discriminator and is proved, not
    asserted.
-9. **Reversing line 4's quantifiers.** `∀ S ∃ C` is the conjunction of the per-candidate negatives
-   and belongs to `TJ2`. **Line 4 is `∃ C ∀ S`**, and the specific failure guarded against is a
-   result note that collects four per-candidate countermodels and calls the collection an
-   impossibility theorem.
-10. **A line-4 countermodel outside the admissible class.** The specific failure guarded against is a
+9. **Reporting line 3 UNDECIDED where `TJ1` sufficiency landed.** The specific failure guarded
+   against is a result note that proves sufficiency, notices that no cross-time property was found,
+   and records line 3 as undecided — when sufficiency makes line 3's clauses (i) and (ii) jointly
+   unsatisfiable and therefore **rules the line out as a theorem of this round**. An exclusion
+   reported as an absence loses the round's own finding, and the `TJ1` frozen sentence carries it.
+10. **Mixing line 1's two routes, or reading route B as a class membership.** The specific failures
+   guarded against are a report that claims line 1 without naming which route earned it, and a
+   sentence reading route B's `SP1G` theorem as putting `SP1G` into `𝒮` or as a verdict on any
+   member of `𝒮`. **Line 4's `∀ S` ranges over the four-member class and route B does not change
+   it.**
+11. **Reversing line 4's quantifiers.** `∀ S ∃ C` is the conjunction of the per-candidate negatives
+    and belongs to `TJ2`. **Line 4 is `∃ C ∀ S`**, and the specific failure guarded against is a
+    result note that collects four per-candidate countermodels and calls the collection an
+    impossibility theorem.
+12. **A line-4 countermodel outside the admissible class.** The specific failure guarded against is a
     configuration whose visible family has no coherent lift, at which every principle fails to select
     vacuously. The statement carries the existence of a coherent lift as a conjunct.
-11. **Enlarging line 4 to all selection principles.** The specific failure guarded against is a
+13. **Enlarging line 4 to all selection principles.** The specific failure guarded against is a
     sentence of the form "so nothing can select the trajectory". The class has four members and is
     frozen.
-12. **Treating an unrefuted candidate as a selecting one.** The specific failure guarded against is
+14. **Treating an unrefuted candidate as a selecting one.** The specific failure guarded against is
     reporting `X-SEL` because no counterexample was found. `X-SEL` needs a universal proof; a failed
     search is UNDECIDED.
-13. **Enlarging the round mid-execution because something stronger was found.** The specific failure
+15. **Enlarging the round mid-execution because something stronger was found.** The specific failure
     guarded against is an execution that sets out under a constraints-only ask, proves a uniqueness or
     classification theorem, and then reports the round as having asked for it all along. **The scope
     is fixed by this freeze before the search**: lines 1 and 2 are preregistered as reachable with
-    their own frozen sentences and their own evidence bars, and anything not preregistered is recorded
-    as an observation and not executed.
-14. **Naming a candidate and thereby endorsing it.** The specific failure guarded against is a
+    their own frozen sentences and their own evidence bars, **line 1 by both of its two routes**, and
+    anything not preregistered is recorded as an observation and not executed.
+16. **Naming a candidate and thereby endorsing it.** The specific failure guarded against is a
     sentence reading as a proposal — "the natural principle here is …". Naming is for testing, the
     round endorses none, and every refutation is of the exact frozen proposition and of nothing in
     its neighbourhood.
-15. **Refuting a neighbourhood instead of a proposition.** The specific failure guarded against is
+17. **Refuting a neighbourhood instead of a proposition.** The specific failure guarded against is
     reporting `SP3`'s refutation as a refutation of memorylessness, or `SP5`'s as a refutation of
     decoherence in general. Each verdict names the frozen proposition and its data grant.
-16. **Consuming `TG3` or `SH1-C2` at more than their strength.** `TG3` is existential about its own
+18. **Consuming `TG3` or `SH1-C2` at more than their strength.** `TG3` is existential about its own
     exhibited dilations; `SH1-C2` is an at-most-one statement about deterministic slices. The
     specific failure guarded against is citing either as though it quantified over visible families
     or over lifts.
-17. **A reader supplying a missing theorem from background knowledge the record does not contain.**
+19. **A reader supplying a missing theorem from background knowledge the record does not contain.**
     The specific failure guarded against is a step of the form "of course the hidden datum must
     evolve continuously" or "of course a Gram trajectory is determined by its initial value" —
     plausible-sounding, absent from the record, and licensed by nothing in it. Every step of every
     proof in this round is discharged from a merged result cited by name or from an argument written
     out in the kernel.
-18. **Forgetting the anchor, and forgetting the rank bound.** `FibreGram a₀` and `RealizableGram`
+20. **Forgetting the anchor, and forgetting the rank bound.** `FibreGram a₀` and `RealizableGram`
     both carry data that a trajectory statement can silently drop: the anchor, and the `|A|` rank
     bound that makes `SH1` sufficiency true. The specific failures guarded against are a statement
     that silently changes which configuration is anchored — which act 7's `R-3` explicitly does
     **not** license — and a use of `SH1` sufficiency without its rank hypothesis.
-19. **Importing time structure the index type does not have.** `ℕ` carries successor and order and
+21. **Importing time structure the index type does not have.** `ℕ` carries successor and order and
     nothing else. The specific failure guarded against is a candidate, a proof or a sentence resting
     on continuity, differentiability or a limit.
-20. **Touching `P0`'s threading part.** What determines the cross-time representative within the
+22. **Touching `P0`'s threading part.** What determines the cross-time representative within the
     selected orbits is not this round's subject. The specific failure guarded against is a sentence
     of this round bearing on it in either direction.
-21. **Consuming a sibling round's result because it is present at the mandated base.** The
+23. **Consuming a sibling round's result because it is present at the mandated base.** The
     anti-contamination invariant governs; the specific failure guarded against is an execution that
     reads a lane that merged between this freeze and its base.
-22. **Importing the substratum Lemma 24.1 rounds' vocabulary.** Those rounds work on a different
+24. **Importing the substratum Lemma 24.1 rounds' vocabulary.** Those rounds work on a different
     carrier in a different programme. Nothing is consumed or compared, and a shared word is not a
     bridge.
-23. **A landing without `P`.** This is a sealing round. The specific failure guarded against is
+25. **A landing without `P`.** This is a sealing round. The specific failure guarded against is
     treating `L` as the end of it: in execution mode the ancestry check enumerates
     `git rev-list HEAD ^_TRJ_BASE`, which at `L` reaches sibling rounds that do not descend from the
     base, and fails closed. `P` is what moves the clause to archive mode.
-24. **A chronology guard that certifies only the head, or that certifies `HEAD` on `main` after the
+26. **A chronology guard that certifies only the head, or that certifies `HEAD` on `main` after the
     merge.** See the chronology control's clauses 5 and 7.
-25. **Editing this freeze after an outcome is known.** The preregistration is immutable once merged.
+27. **Editing this freeze after an outcome is known.** The preregistration is immutable once merged.
     An execution that diverges **records the discrepancy** and does not repair the freeze.
 
 ## Non-doings
@@ -1571,13 +1724,17 @@ round consumes only what this freeze's start-state table names.
 3. **`TJ0`** — the bounded search, recorded in full, with the per-term result and the finding stated
    as a finding about the record;
 4. **`TJ1`** — the pointwise characterization, both directions or the direction reached, with the
-   narrowing it records labelled **pointwise** in terms;
+   narrowing it records labelled **pointwise** in terms, and — where sufficiency landed — the
+   exclusion of line 3 reported here as this target's own positive finding rather than as a line-3
+   UNDECIDED;
 5. **`TJ2`** — the six parts, each reported separately with its frozen label and sentence, each
    refutation stated of the exact frozen proposition and of nothing in its neighbourhood, and each
    non-selection or emptiness verdict naming its configuration;
 6. **`TJ3`** — the outcome as the highest line of the five-line hierarchy the kernel actually
    carries, in the status rule's frozen wording, with line 4's verdict reported alongside if it is
-   also earned, and with the obstruction named specifically in the UNDECIDED case;
+   also earned, with the obstruction named specifically in the UNDECIDED case, with **line 1's route
+   named** — route A through a member of `𝒮`, or route B through the `SP1G` determination claim —
+   and with line 3 reported as ruled out by `TJ1` wherever `TJ1` sufficiency landed;
 7. **the quantifier structure of whichever of lines 1, 2 and 4 is reported**, written out, together
    with the name of the relation any quotient is taken over;
 8. **the scope boundary as honoured**: the demonstration that every act 13 threading-related pair is
@@ -1597,81 +1754,62 @@ round consumes only what this freeze's start-state table names.
 15. the axiom table with one line per named result;
 16. the discrepancies, if any, recorded and not repaired.
 
-## Open decisions for the owner, to be settled before this freeze merges
+## Owner settlements before immutability
 
-Under `§A.37` this file is immutable once merged, so these are settled **before** the merge and not
-afterwards. Each is a fork with alternatives and this draft's recommendation; the draft as written
-takes the recommended branch in every case, and changing a branch changes the sections named.
+Recorded before this freeze merges and becomes immutable under `§A.37`. **These are calls already
+made**, written here so the record shows they were settled rather than left open. The body of this
+freeze is written to them throughout; nothing below is a proposal, an option or a residual choice.
 
-1. **The strength of the ask.** (a) **Constraints-only** — the round asks what excludes trajectories
-   and undertakes neither uniqueness nor classification. (b) **Uniqueness** — the round's obligation
-   is line 1 and every lower line is a shortfall. (c) **Classification** — the obligation is line 2,
-   with the completeness direction mandatory. **Recommendation: (a)**, and the draft takes it. The
-   merged record already carries act 12's `TG3`, two admissible dilations of one visible law in
-   different orbits, so a uniqueness ask would preregister an obligation the freeze expects to be
-   unreachable from the licensed data; and a classification ask would require a surjectivity proof
-   over the trajectory space that the definition budget does not fund. *Changing this changes*: the
-   ask section, the prediction table's calibration, `TJ3`'s obligation, and the `P0` sentence's
-   Case A.
-2. **Whether a surprise upper-line result is reportable or parked.** (a) **Reportable** — lines 1 and
-   2 are preregistered as reachable with their own frozen sentences and their own evidence bars, so
-   a stronger result is reported because it was preregistered and never because the round enlarged
-   itself. (b) **Parked** — a proved uniqueness or classification theorem is recorded as an
-   out-of-scope observation and the reported outcome stays inside the constraints-only ask.
-   **Recommendation: (a)**, and the draft takes it. Under (b) a kernel-proved theorem would sit in
-   the record without a frozen sentence, which invites the execution to describe it in wording of its
-   own — the failure the status rule exists to prevent. Under (a) the scope is still fixed before the
-   search, because the bar for lines 1 and 2 is frozen here. *Changing this changes*: the last
-   paragraph of the ask section, `TJ3`'s lines 1 and 2, their frozen sentences, and hazard 13.
-3. **Whether line 3 requires a CROSS-TIME constraint, or admits a pointwise one.** (a) **Cross-time
-   required** — clause (iii) of line 3, with the inequivalence to any pointwise condition proved.
-   (b) **Pointwise admitted** — any proper narrowing earns line 3, including `TJ1`'s rank bound
-   lifted to trajectories. **Recommendation: (a)**, and the draft takes it. Under (b) line 3 is
-   earned by restating act 12's `SH1` over all times, the ladder loses its discriminating power at
-   exactly the boundary the hierarchy exists to police, and the round's predicted outcome silently
-   moves from line 4 to line 3. *Changing this changes*: line 3's frozen statement, its frozen
-   sentence, `TJ1`'s bounded reading, the prediction table's `TJ3` row, and hazard 8.
-4. **The membership of the frozen selector class `𝒮`.** (a) **Four members** — `SP1L`, `SP2`, `SP3`,
-   `SP5` — with `SP1G` a determination claim and `SP4` a regime probe, neither in the `∀`-scope of
-   line 4. (b) **Five members**, admitting `SP1G` by reformulating it as a per-lift predicate
-   relative to a fixed function of the law. (c) **Three members**, dropping `SP3` as the least
-   grounded in the merged record. **Recommendation: (a)**, and the draft takes it. `SP1G` is not a
-   predicate on one lift and forcing it into that shape would require the free function `Φ`, which
-   any candidate could then fit to any configuration, making "selects" meaningless. *Changing this
-   changes*: the candidate section, the class definition, line 4's statement, and the prediction
-   table.
-5. **The adjunct rule when a higher line and line 4 are both earned.** (a) **Report the higher line
-   as the outcome and line 4 alongside with its own frozen sentence.** (b) **Report line 4 as the
-   outcome**, on the ground that a class-level impossibility theorem is the stronger claim.
-   (c) **Report only the higher line**, discarding line 4. **Recommendation: (a)**, and the draft
-   takes it, because the owner's canonical order places line 4 below line 3 and (c) would discard a
-   proved theorem. The tension is real and is recorded here rather than hidden: the ordering treats a
-   positive narrowing as better than a negative impossibility, which is a judgement about what the
-   programme wants and not a mathematical fact. *Changing this changes*: the adjunct rule and the
-   allowed final report's item 6.
-6. **Whether `SP4` is executed at all.** (a) **Executed as a regime probe outside `𝒮`**, so that the
-   effect of crossing the data line is on the record as a theorem. (b) **Not executed**, and the
-   containment recorded in prose only. **Recommendation: (a)**, and the draft takes it: the
-   containment is a one-line consequence of `fibreCrossGram_diag` being `rfl`, and having it in the
-   kernel is what makes the data regime a checkable constraint rather than an exhortation. *Changing
-   this changes*: the data regime section, `TJ2` (f), and the prediction table.
-7. **Whether the `SP3` variant that reads the visible law is executed.** (a) **Not executed**, named
-   and parked for a later round, which is the draft. (b) **Executed as a sixth candidate.**
-   **Recommendation: (a)**. The law-reading variant is a weaker and different proposition, and adding
-   it would put a fifth member in `𝒮` and a fifth conjunct in line 4, for content the freeze cannot
-   predict at better than low. *Changing this changes*: the candidate section, `𝒮`, line 4 and the
-   definition budget.
-8. **Whether the uniform-phase relation is tested rather than merely recorded.** (a) **Recorded as a
-   distinct relation this round does not adopt**, which is the draft. (b) **Tested**, by asking
-   whether it differs from `≈_O` on some pair of coherent lifts. **Recommendation: (a)** for this
-   round. Under (b) the round would be asking a question about the relation itself, which is a
-   different question from what constrains the trajectory, and the answer would not bear on any line
-   of the hierarchy. It is a clean target for a later round. *Changing this changes*: the equivalence
-   section and the target list.
-9. **Whether the execution may report a candidate's verdict at a configuration of its own choosing.**
-   (a) **Only at configurations this freeze names** — the Hadamard family and the deterministic
-   island — which is the draft, since the countercontrol table names the configuration for every
-   verdict. (b) **At any configuration it constructs**, provided the construction is exhibited.
-   **Recommendation: (a)**, because a configuration chosen after an outcome is known is a
-   preregistration failure in miniature. *Changing this changes*: the countercontrol table and the
-   `TJ2` evidence bars.
+1. **The strength of the ask is CONSTRAINTS-ONLY.** The round asks what excludes cross-time
+   trajectories and undertakes neither uniqueness nor classification, so falling short of either is
+   not a shortfall. A uniqueness ask would have made line 1 the obligation and every lower line a
+   shortfall; a classification ask would have made line 2's completeness direction mandatory. Neither
+   was taken.
+2. **A stronger result than the ask is REPORTABLE, not parked.** Lines 1 and 2 are preregistered as
+   reachable outcomes, each with its own frozen post-round sentence and its own evidence bar, and
+   **line 1 with both of its two routes**. The scope is therefore fixed by this freeze before the
+   search, and a stronger result is reported because it was preregistered and never because the
+   execution enlarged itself. Parking such a theorem as an out-of-scope observation was considered
+   and rejected: a kernel-proved theorem would then sit in the record with no frozen wording.
+3. **Line 3 REQUIRES a cross-time constraint.** Clause (iii) of line 3 is the discriminator and it
+   stands. The reason is recorded: without it, act 12's pointwise `SH1` rank restriction trivially
+   earns the trajectory line and destroys the distinction act 17 exists to investigate.
+4. **The frozen selector class `𝒮` has FOUR members** — `SP1L`, `SP2`, `SP3`, `SP5`. `SP1G` stays
+   **out** of `𝒮` and is **not** forced into a per-lift predicate by a free function `Φ`: it is a
+   different logical kind, a determination claim across lifts rather than a condition on one, and a
+   free function would let any candidate fit any configuration and make "selects" meaningless.
+   **Line 4's `∀ S` accordingly ranges over the four-member class and over nothing else.** That
+   `SP1G` is nonetheless a preregistered route to line 1 does not make it a member: the route is a
+   statement about what proving `SP1G` would deliver, and it changes no quantifier in `𝒮`.
+5. **When a higher line and line 4 are both earned, the higher line is the outcome and line 4 is
+   reported alongside** with its own frozen sentence. The ladder orders the outcome, not the record,
+   and a class-level impossibility theorem is not information the ladder may discard.
+6. **`SP4` is executed, as an outside-regime probe.** It is granted act 13's level-2 cross-time datum
+   deliberately, sits outside `𝒮`, and exists so that the effect of crossing the data line is on the
+   record as a theorem rather than as an exhortation.
+7. **The law-reading `SP3` variant is PARKED.** It is named as a different and weaker proposition and
+   is not executed in this round; it belongs to a later round with its own freeze.
+8. **The uniform-phase equivalence is RECORDED, not tested.** It is named as a distinct relation this
+   round does not adopt, and asking whether it differs from `≈_O` is a question about the relation
+   rather than about what constrains the trajectory. It is a clean target for a later round.
+9. **The execution uses the FROZEN configurations only.** Every `TJ2` verdict and line 4's
+   countermodel are reported at the configurations this freeze names in the countercontrol table. If
+   another and more elegant counterexample appears during execution it is **recorded as an
+   observation and never substituted as the witness**, because a configuration chosen after an
+   outcome is known is a preregistration failure in miniature.
+10. **The data regime is operational and visible only.** Members of `𝒮` consult the licensed set `L`
+    and nothing in `F`; structural and kernel data are forbidden to them; and `SP4` is the one
+    deliberate exception and is outside the class.
+11. **`GramTrajEquiv` is the adopted cross-time relation**, and it is the only relation any quotient
+    in this round is taken over.
+12. **The round is SEALING, under the guard tag `R7-TRJ`**, with `E` → `L` → `P` and `P` mandatory.
+
+**Two logical repairs were made to this freeze before it merged, and both are recorded as
+settlements rather than as corrections in flight.** The first gave line 1 its **second route**, so
+that the one preregistered proposition whose truth would actually determine the trajectory from the
+visible law — `SP1G` — is reportable by the line that would report it, without being moved into
+`𝒮` and without changing line 4. The second froze the **`TJ1` → line 3 dependency in both
+directions**, so that the incompatibility between `TJ1` sufficiency and line 3's own clauses is
+stated by the freeze rather than discovered by a reader, and so that in the sufficiency case the
+exclusion of line 3 is reported as a **positive finding of the round** rather than as an absence of
+one.
