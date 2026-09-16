@@ -20079,6 +20079,720 @@ check('R7-TCF', ok_tcf,
       "set it. Seventeen named contracts, thirty-three mutation controls, five seal controls and a freeze-pin "
       "drift control.")
 
+# ---- R7-RNC: Track B act 16 -- the cancellation question on the re-anchored-channel carrier ----
+#
+# A SEALING round under AGENTS.md A.37 that asks the cancellation question on the ONE frozen carrier
+# of act 14's four on which the merged record said NOTHING about the pair -- the re-anchored-channel
+# carrier O_3, the anchored channel of the RELATIVE object -- and answers it AGAINST the freeze's own
+# central prediction. The freeze rated RN3 (a)'s sign negative at LOW and rated RN3 (b) UNDECIDED at
+# MEDIUM; the round reached RN3-a+ and, through it, LINE 1 of the four-line hierarchy, RN3+. So the
+# failure modes are, in order: reporting the reversal as if it had been predicted, or hiding it;
+# LETTING A VERDICT TRAVEL BETWEEN CARRIERS, which the freeze names its strongest hazard because the
+# round's whole subject is a second carrier and because O_1 and O_3 share the anchored channel while
+# O_2 and O_3 share the relative object -- act 14's PQ3 (b) on O_1 read as bearing on O_3 because
+# both are built from D_{a0}, act 15's PQ3-d+ on O_2 read as bearing on O_3 beyond the two
+# contrapositives RN2 proves, or an O_3 outcome read back onto O_2; reading RN1 as an EQUIVALENCE and
+# concluding C_3 from C_2, which would make the fork true by fiat and is exactly the error RN3 (a)
+# exists to decide; reporting the refinement as a strictness or as an implication between the
+# one-time row and the re-anchored row; treating RN2 as two thirds of a witness; writing S_3's
+# conjunction where the disjunction N_3 is meant, or claiming either universal as proved when the
+# round REFUTES both; repairing act 14's PQ4 (c) or its O_3 role description instead of RECORDING the
+# readings; enlarging PQ3-d+, GL2, CT4 or CL1 from existential to universal; turning RN0's recorded
+# SILENCE into a truth value; touching P0's other part, the cross-time Gram/orbit selection the
+# freeze puts out of scope in both directions; and conflating the question with act 13's CT3 (d),
+# which stays UNDECIDED whatever this round returns. The guard checks each of these in the freeze's
+# own words, pins the chronology in both halves, holds the module to the frozen TWO-slot budget with
+# the conditional slot recorded unused, and checks acts 13's, 14's and 15's seal constants unmoved.
+# Chronology clause 9 is honoured by EXCLUSION: _rnc_prior_seals names other rounds' triples only and
+# says nothing whatever about _RNC_BASE, _RNC_SEALED_HEAD or _RNC_MERGE, so the clause is true both
+# before and after the mandatory pin commit P sets this round's pins.
+_RNCDIR = 'programmes/oi-qm/track-b/act-16-reanchored-channel-cancellation/'
+_RNC = open(_artifact(_RNCDIR + 'result.md'), encoding='utf-8').read()
+_RNC1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _RNC).split()).replace('’', "'")
+_RNCLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'ReanchoredChannelScope.lean'), encoding='utf-8').read().split())
+_RNCROADRAW = open(_artifact('ROADMAP.md'), encoding='utf-8').read()
+_RNCROAD = ' '.join(_RNCROADRAW.split())
+# the ROADMAP with block-quote markers stripped, so the frozen sentence and THE CLAUSE are
+# compared as prose rather than as quoted lines.
+_RNCROADQ = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _RNCROADRAW).split())
+# The mandated execution base: the merge commit of this round's control-plane PR #646.
+_RNC_BASE = 'd05399020d05d4a7b6f662d2e069062452e7d6b4'
+# The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
+# the pin commit P after the landing merge L -- pinning them in the execution would make the
+# execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
+# strong check re-run against those objects, with the pinned merge's second parent required to
+# equal the sealed head and both required reachable from the current target, fail-closed.
+_RNC_SEALED_HEAD = '31db7c1082b012c00c43f3fda35ce44c5653e123'
+_RNC_MERGE = 'eb70bbb9b2b3311095945ec3ce2418962f3b741a'
+
+# THE CLAUSE, verbatim -- act 13's CT3 (d) anti-conflation clause, which the freeze carries at every
+# prose mention and which every artifact of this round must carry with it. Compared as prose, with
+# block-quote markers stripped, so that the naming line each carriage opens with -- distinct per
+# carriage, which is what makes the carriages distinguishable copies rather than one paragraph pasted
+# repeatedly -- does not enter the comparison.
+_RNC_CLAUSE = (
+    "`CT3` (d) is act 13's fork and it belongs to act 13. It asks whether the full column cross-Gram "
+    "separates **every** strong-right threading — a question about one datum's separating power. "
+    "This round asks whether a constant in-fibre left move and a time-dependent strong right gauge "
+    "can cancel on the re-anchored-channel carrier, so that the pair is redundancy relative to that "
+    "carrier while neither part is — a question about cancellation between two parts of one "
+    "relation, on one named carrier. **Neither instantiates, constrains, nor supplies evidence for "
+    "the other, and no implication transfers in either direction.** Act 13's `CT3` (d) stays "
+    "UNDECIDED whatever this round returns, and no outcome of this round moves it in either "
+    "direction.")
+
+
+def _rnc_freeze_pin(read=_bb_read):
+    """T1 -- this round's preregistration is byte-identical to the blob merged by PR #646."""
+    return _bb_blob(_RNCDIR + 'preregistration.md', read) == (
+        '48099a3b334e8d01f31af706e8738cd49cfca774')
+
+
+def _rnc_execution_ancestry():
+    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused through acts 12's, 13's, 14's and 15's copies: the
+    head-only check is insufficient because a commit made before the freeze and merged in alongside
+    it leaves the head descended from the freeze while itself not being. The question is asked of the
+    real `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails
+    closed with no fallback.
+
+    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
+    mode (pins set by the mandatory pin commit P): the same strong check re-run against the sealed
+    head, with the pinned merge required to carry it and both required reachable from the current
+    target, fail-closed."""
+    if _RNC_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-RNC')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_RNC_BASE, target, label, num, tag='R7-RNC')
+    return _rbr_archive_ancestry(_RNC_BASE, _RNC_SEALED_HEAD, _RNC_MERGE, tag='R7-RNC')
+
+
+def _rnc_outcome(t=None):
+    """T3 -- RN3 (b) is reported at LINE 1 of its four-line hierarchy, the preregistered UNDECIDED
+    prediction is named FALSIFIED in terms, and the outcome is recorded as earned by an exhibited
+    triple and never by a search."""
+    t = _RNC1 if t is None else t
+    return ('**Outcome reached: line 1, `RN3⁺`.**' in t
+            and 'The freeze predicted **UNDECIDED at medium strength**, rating line 1 **not '
+                'predicted, at low**. **That prediction is falsified**' in t
+            and 'The line reached is the highest the kernel actually carries, and no higher.' in t
+            and 'It reports line 1 on an **exhibited** triple and not on an unexhibited '
+                'construction' in t
+            and '**No settling outcome is reported because a witness was sought and not found** — '
+                'the opposite: a witness was sought and **found**, and it is written out.' in t
+            and 'Lines 2 and 3 are the two universal propositions and **neither is claimed**' in t
+            and 'That direction is reported as following, not as separately proved.' in t)
+
+
+def _rnc_rn3a(t=None):
+    """T4 -- RN3 (a) reaches RN3-a+, the sign prediction is named falsified, C_3 is COMPUTED and
+    never transported from C_2, and what one triple does not establish is said in terms."""
+    t = _RNC1 if t is None else t
+    return ('**Outcome reached: `RN3-a⁺`.**' in t
+            and '**That sign prediction is falsified.**' in t
+            and '**The objects are pinned by the equations in the statement**' in t
+            and 'their **anchored columns differ**' in t
+            and 'It settles **one triple**.' in t
+            and 'it is not a bound on what a later round could exhibit in either direction' in t
+            and '`C₃` is never concluded from `C₂`' in t)
+
+
+def _rnc_rn0(t=None):
+    """T5 -- RN0 is TYPE P, settled by the named and bounded search with a per-term record, SILENCE
+    is the finding and not a truth value, reconstructive inference is refused as a finding, and no
+    later target is treated as retro-evidence about the record."""
+    t = _RNC1 if t is None else t
+    return ('**`RN0` is a type-P target and carries no evidence level.**' in t
+            and 'No Lean was written for it, and no outcome of `RN0` is a theorem of this round.' in t
+            and '**223 files in total.**' in t
+            and '**Outcome reached: `RN0`-silent.**' in t
+            and '**The finding is that the record is silent on the point.**' in t
+            and 'It is not a finding that any such statement is false, not a finding that one is '
+                'unprovable, and not a bound on what a later round could prove.' in t
+            and '**Reconstructive inference is refused as a finding here.**' in t
+            and '**Nor is `RN0` treated as retro-evidence about anything this round proved**' in t
+            and t.count('| **Does not supply it.**') + t.count('| **Not relevant to the question.**')
+                == 16)
+
+
+def _rnc_rn1(t=None):
+    """T6 -- RN1 is a refinement WITHIN the re-anchored row, its converse REFUSED, no strictness
+    claimed, and no implication between the one-time row and the re-anchored row asserted."""
+    t = _RNC1 if t is None else t
+    return ('**Outcome reached: `RN1`-positive.**' in t
+            and '**This is a refinement within the re-anchored row and nothing more**' in t
+            and '**The converse is refused in terms.**' in t
+            and '**No strictness is claimed.**' in t
+            and '**`𝒪₃` is not claimed to be strictly finer than `𝒪₂`.**' in t
+            and 'it asserts no implication between the one-time row and the re-anchored row in '
+                'either direction' in t)
+
+
+def _rnc_rn2(t=None):
+    """T7 -- RN2 supplies TWO of the three conjuncts and not the third, is not evidence that a
+    witness exists, and does not carry PQ3-d+ from O_2 to O_3."""
+    t = _RNC1 if t is None else t
+    return ('**Outcome reached: `RN2`-all-three.**' in t
+            and '**These supply two of the three conjuncts of the `𝒪₃` fork and not the third.**' in t
+            and 'It is not evidence that an `𝒪₃`-cancelling triple exists, because a triple '
+                'satisfying two of three conjuncts is not a witness.' in t
+            and 'It does not carry `PQ3-d⁺` from `𝒪₂` to `𝒪₃`' in t
+            and '**`GL2`, `CT4` and `CL1` are not enlarged** from existential to universal by '
+                'anything here.' in t)
+
+
+def _rnc_rn4(t=None):
+    """T8 -- RN4 is scoped to O_2, says no selector is required, adds nothing to act 15, and does
+    NOT correct act 14's PQ4 (c), whose conjunctive reading is untouched."""
+    t = _RNC1 if t is None else t
+    return ('**Outcome reached: `RN4`-positive.**' in t
+            and '**This is a statement about `𝒪₂` and travels to no other carrier**' in t
+            and 'It does **not** say a selector is required' in t
+            and '**Act 14\'s `PQ4` (c) is not corrected**' in t
+            and '**No new witness is constructed**' in t
+            and '**It adds nothing to act 15.**' in t)
+
+
+def _rnc_carrier_rule(t=None):
+    """T9 -- the carrier rule is honoured clause by clause and the three named failure modes of the
+    freeze's strongest hazard did not occur."""
+    t = _RNC1 if t is None else t
+    return ('**Every verdict in this round names its carrier, and no verdict is reported on a '
+            'carrier other than the one its proof is about.**' in t
+            and '**a shared construction is not a shared verdict**' in t
+            and 'That act 14\'s `𝒪₁` answer is negative and this round\'s `𝒪₃` answer is positive '
+                'is not a conflict: they are two carriers and two verdicts.' in t
+            and '**The three named failure modes of hazard 1 did not occur.**' in t
+            and '**No carrier is adopted as the physical one, and none is asserted not to be.**' in t
+            and '`D4b` negative, the readback the repository\'s own' in t)
+
+
+def _rnc_anticonflation(t=None, lean=None, road=None):
+    """T10 -- THE CLAUSE is carried VERBATIM at every prose mention: four times in the result note,
+    once in the module docstring and once in the ROADMAP, with CT3 (d) recorded still UNDECIDED and
+    untouched. Each carriage in the result note opens with its own naming line, so the carriages are
+    distinguishable copies of one clause rather than one paragraph pasted repeatedly."""
+    t = _RNC1 if t is None else t
+    lean = _RNCLEAN if lean is None else lean
+    road = _RNCROADQ if road is None else road
+    return (t.count(_RNC_CLAUSE) == 4
+            and lean.count(_RNC_CLAUSE) == 1
+            and road.count(_RNC_CLAUSE) == 1
+            and '**THE CLAUSE, carried at this mention — the result note\'s list of what no outcome '
+                'licenses.**' in t
+            and '**THE CLAUSE, carried at this mention — the result note\'s record of the structural '
+                'resemblance at the fork.**' in t
+            and '**THE CLAUSE, carried at this mention — the result note\'s statement of the '
+                'relation to the earlier acts.**' in t
+            and '**THE CLAUSE, carried at this mention — the result note\'s account of the freeze\'s '
+                'second hazard.**' in t
+            and '**Act 13\'s `CT3` (d) is still UNDECIDED and is untouched by this round.**' in t
+            and 'act 13\'s `ct2a_relative_conj` — which is `CT3` (d)\'s neighbourhood — is consumed '
+                'nowhere in this round\'s proofs' in t)
+
+
+def _rnc_status_rule(t=None):
+    """T11 -- the eighteen forbidden sentences are refused in the freeze's own terms, each target is
+    reported in the frozen wording for the outcome reached, and P0's other part is untouched."""
+    t = _RNC1 if t is None else t
+    return ('**"The question on `𝒪₃` is unresolvable."** Not written.' in t
+            and '**"Act 15 was wrong."** Not written.' in t
+            and '**"`𝒪₃` is strictly finer than `𝒪₂`."** Not written.' in t
+            and '**"No cancelling triple relative to `𝒪₃` exists."** Not written' in t
+            and '**silence is a finding, not a truth value**' in t
+            and '**"OI and QM are inequivalent."** Not written.' in t
+            and '**Only Source A is adjudicated**, and Track I is not touched in either direction.'
+                in t
+            and 'No outcome chose its own wording, and no target is reported at a strength the '
+                'kernel does not carry.' in t
+            and '**what selects or constrains the Gram/orbit trajectory across time is not asked, '
+                'not bounded and not prejudged here, and no outcome reached bears on it in either '
+                'direction.**' in t
+            and '**the anti-contamination invariant is honoured**' in t)
+
+
+def _rnc_budget(t=None):
+    """T12 -- the frozen TWO-slot budget, slot 1 fired and the conditional slot recorded UNUSED,
+    with no third definition and no amendment."""
+    t = _RNC1 if t is None else t
+    return ('| 1 | `ReanchoredChannel` — the `𝒪₃` value at one time pair | **fired** |' in t
+            and '| 2 (conditional) | an `𝒪₃`-cancelling-triple predicate | **unused** |' in t
+            and '**No third definition was introduced** and **no amendment was needed**.' in t
+            and 'No lift, gauge element, witness, matrix, triple, entry value or pair is a '
+                'top-level definition' in t)
+
+
+def _rnc_axiom_table(t=None):
+    """T13 -- one line per named result, nothing outside the three standard axioms, and the type-P
+    determination kept OUT of the table."""
+    t = _RNC1 if t is None else t
+    rows = t.count('| `[propext, Classical.choice, Quot.sound]` |')
+    return (rows == 12
+            and '**Twelve named results, nothing outside the three standard axioms, no `sorry`, no '
+                'added axiom and no `native_decide`.**' in t
+            and '**`RN0` is type P and is not in this table**' in t
+            and '| `RN0` |' not in t)
+
+
+def _rnc_chronology(t=None):
+    """T14 -- the chronology claim names the property certified, declares the round SEALING with P
+    mandatory, records the two pins UNSET AT EXECUTION, records that no later main was absorbed,
+    records the seal-integrity clause as EXCLUDING this round's own triple, and lists the six
+    preconditions checked at B."""
+    t = _RNC1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside '
+            '`B`\'s descendants.**' in t
+            and '**This is a SEALING round** under `AGENTS.md` `§A.37`' in t
+            and 'It lands **`E` → `L` → `P`, with `P` mandatory**.' in t
+            and '**`_RNC_SEALED_HEAD` and `_RNC_MERGE` are unset at execution.**' in t
+            and 'That is a statement about this execution and stays true as one' in t
+            and '**The seal-integrity clause excludes this round\'s own triple.**' in t
+            and '**Acts 13\'s, 14\'s and 15\'s seals are untouched**' in t
+            and '**No existing seal constant is altered**' in t
+            and '**Before certification this execution absorbed no later `main`**' in t
+            and t.count('| **PASS** —') == 6
+            and '**The claim is scoped to the repository record.**' in t)
+
+
+def _rnc_discrepancies(t=None):
+    """T15 -- the discrepancies are RECORDED and not repaired: the start-state drift at the mandated
+    base, act 14's two unrepaired readings, the falsified prediction rows, and the line-1 plumbing."""
+    t = _RNC1 if t is None else t
+    return ('**Five items are recorded. None is repaired, and the freeze is not edited.**' in t
+            and 'The preregistration is immutable once merged' in t
+            and '**Nothing from those lanes is consumed here**' in t
+            and '**This is recorded as a seam in the merged record and is not repaired, not '
+                'corrected, not reinterpreted and not normalized.**' in t
+            and 'this round asserts nothing about what act 14 "meant"' in t
+            and '**the conjunctive reading is untouched by anything in this round**' in t
+            and '**(4) The freeze\'s central prediction is falsified, in two rows.**' in t
+            and 'is the freeze\'s **reason** and never was a finding' in t
+            and '**Act 15\'s `CF5` is neither re-proved nor revised**' in t)
+
+
+def _rnc_prior_seals(_cti_base=None, _cti_sealed=None, _cti_merge=None,
+                     _pqt_base=None, _pqt_sealed=None, _pqt_merge=None,
+                     _tcf_base=None, _tcf_sealed=None, _tcf_merge=None):
+    """T16 -- acts 13's, 14's and 15's archive seals are exactly the values those rounds set. An
+    archive seal belongs to the round that set it; this round reads them and never writes them.
+
+    THIS ROUND'S OWN TRIPLE IS EXCLUDED, deliberately and by the freeze's chronology clause 9: no
+    reference to _RNC_BASE, _RNC_SEALED_HEAD or _RNC_MERGE appears here. A clause asserting this
+    round's own triple equal to (_RNC_BASE, None, None) as a standing invariant would contradict
+    clause 7, under which the mandatory pin commit P sets them -- the guard would then pass at no
+    commit once the round landed, which is how an earlier round in this programme was found
+    non-landable after certifying at its own head."""
+    return ((_cti_base or _CTI_BASE) == 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
+            and (_cti_sealed or _CTI_SEALED_HEAD) == '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
+            and (_cti_merge or _CTI_MERGE) == '292848b3c908d33ac432a5360effe0c259e3ce16'
+            and (_pqt_base or _PQT_BASE) == 'bc76a88dbe300a35715d5ce8196002f31aa62493'
+            and (_pqt_sealed or _PQT_SEALED_HEAD) == '5008a47bf7e67edc502120f9269c4a4661ef7342'
+            and (_pqt_merge or _PQT_MERGE) == 'c50dd22457bfd4812761cb56e7ca1a559af33c5e'
+            and (_tcf_base or _TCF_BASE) == 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
+            and (_tcf_sealed or _TCF_SEALED_HEAD) == 'c622461495c6b2db4e09c8084f404bd5ca2c5192'
+            and (_tcf_merge or _TCF_MERGE) == '9e0cc3834538b7bdcb742fcaa046194cfa9526fb')
+
+
+def _rnc_lean_defs(t=None):
+    """T17 -- exactly the one budgeted definition is a top-level `def` in the module, in the
+    freeze's name, with none of the three forbidden strings anywhere, and the docstring carrying the
+    carrier scoping, the refused converse and the non-adoption."""
+    t = _RNCLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['ReanchoredChannel']
+            and '**No carrier is adopted as the physical one**, and none is asserted not to be' in t
+            and '**No verdict travels between carriers, in any direction.**' in t
+            and '`RN1` is **not** an equivalence: the converse — concluding `C₃` from `C₂` — is '
+                'used nowhere' in t
+            and '`𝒪₃` is not adopted as the physical carrier here, and is not '
+                'asserted not to be.' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+def _rnc_roadmap(road=None, roadq=None):
+    """T18 -- the P0 row stays OPEN with the frozen Case B sentence carried verbatim, the act 16
+    section records the outcome at line 1 with the carrier scoping, and no carrier is adopted."""
+    road = _RNCROAD if road is None else road
+    roadq = _RNCROADQ if roadq is None else roadq
+    return ('| **P0** | What additional structure determines the relative quantum evolution OI '
+            'leaves free | OI→QM / Track B | **OPEN**' in road
+            and 'and on that carrier it is answered positively: relative to the '
+                're-anchored-channel carrier, under act 7\'s readback convention with `D4b` '
+                'negative, the two parts can cancel, so the pair can be redundancy relative to that '
+                'carrier while neither part is.' in road
+            and 'What this round adds on that carrier is a refinement and two of the three '
+                'conjuncts, together with the resolution' in road
+            and 'while its composite is redundant there at every time pair' in road
+            and '`P0`\'s other part — what selects or constrains the Gram/orbit trajectory across '
+                'time — is untouched' in road
+            and '## Act 16 answered the cancellation question on the re-anchored-channel carrier: '
+                '`RN3⁺`' in road
+            and '**The answer is relative to `𝒪₃` and travels to no other carrier**' in road
+            and '`P0a`/`P0b` closed, acts 11–16 landed |' in road
+            and _RNC_CLAUSE in roadq)
+
+
+ok_rnc = True
+ok_rnc &= _rnc_freeze_pin()
+ok_rnc &= _rnc_execution_ancestry()
+ok_rnc &= _rnc_outcome()
+ok_rnc &= _rnc_rn3a()
+ok_rnc &= _rnc_rn0()
+ok_rnc &= _rnc_rn1()
+ok_rnc &= _rnc_rn2()
+ok_rnc &= _rnc_rn4()
+ok_rnc &= _rnc_carrier_rule()
+ok_rnc &= _rnc_anticonflation()
+ok_rnc &= _rnc_status_rule()
+ok_rnc &= _rnc_budget()
+ok_rnc &= _rnc_axiom_table()
+ok_rnc &= _rnc_chronology()
+ok_rnc &= _rnc_discrepancies()
+ok_rnc &= _rnc_prior_seals()
+ok_rnc &= _rnc_lean_defs()
+ok_rnc &= _rnc_roadmap()
+
+# ---- mutation controls: each rewrites the artifact and must FAIL the contract it targets ----
+
+# the reversal hidden -- the falsified prediction written as if it had been the prediction
+_rnc_m1 = _RNC1.replace(
+    'The freeze predicted **UNDECIDED at medium strength**, rating line 1 **not predicted, at low**. '
+    '**That prediction is falsified**',
+    'The freeze predicted line 1 and line 1 was reached')
+ok_rnc &= _rnc_m1 != _RNC1 and not _rnc_outcome(_rnc_m1)
+
+# line 1 reported at a strength the kernel does not carry
+_rnc_m2 = _RNC1.replace('The line reached is the highest the kernel actually carries, and no higher.',
+                        'The round also establishes the two universal propositions.')
+ok_rnc &= _rnc_m2 != _RNC1 and not _rnc_outcome(_rnc_m2)
+
+# a settling outcome credited to a search rather than to an exhibited triple
+_rnc_m3 = _RNC1.replace(
+    '**No settling outcome is reported because a witness was sought and not found** — the opposite: '
+    'a witness was sought and **found**, and it is written out.',
+    'A search for a counterexample found none, which settles the fork.')
+ok_rnc &= _rnc_m3 != _RNC1 and not _rnc_outcome(_rnc_m3)
+
+# not-S_3 claimed as separately proved rather than as following
+_rnc_m4 = _RNC1.replace('That direction is reported as following, not as separately proved.',
+                        'Both universals are separately disproved here.')
+ok_rnc &= _rnc_m4 != _RNC1 and not _rnc_outcome(_rnc_m4)
+
+# RN3 (a)'s sign prediction reversal hidden
+_rnc_m5 = _RNC1.replace('**That sign prediction is falsified.**',
+                        'The sign prediction is confirmed.')
+ok_rnc &= _rnc_m5 != _RNC1 and not _rnc_rn3a(_rnc_m5)
+
+# one triple reported as more than one triple
+_rnc_m6 = _RNC1.replace('It settles **one triple**.',
+                        'It settles the question for every triple of this shape.')
+ok_rnc &= _rnc_m6 != _RNC1 and not _rnc_rn3a(_rnc_m6)
+
+# C_3 transported from C_2 -- RN1's refused converse, the error RN3 (a) exists to decide
+_rnc_m7 = _RNC1.replace('`C₃` is never concluded from `C₂`',
+                        '`C₃` follows from `C₂` for this triple')
+ok_rnc &= _rnc_m7 != _RNC1 and not _rnc_rn3a(_rnc_m7)
+
+# RN0's silence turned into a truth value
+_rnc_m8 = _RNC1.replace('**The finding is that the record is silent on the point.**',
+                        'The finding is that no such statement can be proved.')
+ok_rnc &= _rnc_m8 != _RNC1 and not _rnc_rn0(_rnc_m8)
+
+# reconstructive inference admitted as a finding
+_rnc_m9 = _RNC1.replace('**Reconstructive inference is refused as a finding here.**',
+                        'The record must contain the ingredient, or act 14 would not have written it.')
+ok_rnc &= _rnc_m9 != _RNC1 and not _rnc_rn0(_rnc_m9)
+
+# RN0 given an evidence level it does not carry
+_rnc_m10 = _RNC1.replace('**`RN0` is a type-P target and carries no evidence level.**',
+                         '`RN0` is settled at evidence level 2.')
+ok_rnc &= _rnc_m10 != _RNC1 and not _rnc_rn0(_rnc_m10)
+
+# a per-term row dropped, so the bounded search is no longer bounded as frozen
+_rnc_m11 = _RNC1.replace('| `CF5` | 55 | 5 | **Does not supply it.**', '| `CF5` | 55 | 5 | ')
+ok_rnc &= _rnc_m11 != _RNC1 and not _rnc_rn0(_rnc_m11)
+
+# the refinement read as an equivalence
+_rnc_m12 = _RNC1.replace('**The converse is refused in terms.**',
+                         'The implication runs in both directions.')
+ok_rnc &= _rnc_m12 != _RNC1 and not _rnc_rn1(_rnc_m12)
+
+# a strictness claimed that the round does not prove
+_rnc_m13 = _RNC1.replace('**`𝒪₃` is not claimed to be strictly finer than `𝒪₂`.**',
+                         '`𝒪₃` is therefore strictly finer than `𝒪₂`.')
+ok_rnc &= _rnc_m13 != _RNC1 and not _rnc_rn1(_rnc_m13)
+
+# the refinement read as an implication between the one-time row and the re-anchored row
+_rnc_m14 = _RNC1.replace(
+    'it asserts no implication between the one-time row and the re-anchored row in either direction',
+    'so the four carriers form a ladder ordered by resolution')
+ok_rnc &= _rnc_m14 != _RNC1 and not _rnc_rn1(_rnc_m14)
+
+# RN2 treated as two thirds of a witness
+_rnc_m15 = _RNC1.replace(
+    'It is not evidence that an `𝒪₃`-cancelling triple exists, because a triple satisfying two of '
+    'three conjuncts is not a witness.',
+    'Only `C₃` remains, and it plainly holds.')
+ok_rnc &= _rnc_m15 != _RNC1 and not _rnc_rn2(_rnc_m15)
+
+# PQ3-d+ carried from O_2 to O_3
+_rnc_m16 = _RNC1.replace('It does not carry `PQ3-d⁺` from `𝒪₂` to `𝒪₃`',
+                         'It carries `PQ3-d⁺` from `𝒪₂` to `𝒪₃`')
+ok_rnc &= _rnc_m16 != _RNC1 and not _rnc_rn2(_rnc_m16)
+
+# an existential merged result enlarged to a universal
+_rnc_m17 = _RNC1.replace(
+    '**`GL2`, `CT4` and `CL1` are not enlarged** from existential to universal by anything here.',
+    '`GL2`, `CT4` and `CL1` hold for every lift.')
+ok_rnc &= _rnc_m17 != _RNC1 and not _rnc_rn2(_rnc_m17)
+
+# RN4 read as a claim that a selector is required
+_rnc_m18 = _RNC1.replace('It does **not** say a selector is required',
+                         'So an additional selector must select the two jointly')
+ok_rnc &= _rnc_m18 != _RNC1 and not _rnc_rn4(_rnc_m18)
+
+# act 14's PQ4 (c) repaired instead of its two readings recorded
+_rnc_m19 = _RNC1.replace('**Act 14\'s `PQ4` (c) is not corrected**',
+                         'Act 14\'s `PQ4` (c) is corrected here')
+ok_rnc &= _rnc_m19 != _RNC1 and not _rnc_rn4(_rnc_m19)
+
+# a shared construction read as a shared verdict -- the freeze's strongest hazard
+_rnc_m20 = _RNC1.replace('**a shared construction is not a shared verdict**',
+                         'both are built from `𝔇_{a₀}`, so the verdicts agree')
+ok_rnc &= _rnc_m20 != _RNC1 and not _rnc_carrier_rule(_rnc_m20)
+
+# the O_1 and O_3 answers reported as being in conflict
+_rnc_m21 = _RNC1.replace(
+    'That act 14\'s `𝒪₁` answer is negative and this round\'s `𝒪₃` answer is positive is not a '
+    'conflict: they are two carriers and two verdicts.',
+    'This overturns act 14\'s negative answer.')
+ok_rnc &= _rnc_m21 != _RNC1 and not _rnc_carrier_rule(_rnc_m21)
+
+# a carrier adopted as the physical one
+_rnc_m22 = _RNC1.replace(
+    '**No carrier is adopted as the physical one, and none is asserted not to be.**',
+    'Since the physical carrier is `𝒪₃`, the pair is physical.')
+ok_rnc &= _rnc_m22 != _RNC1 and not _rnc_carrier_rule(_rnc_m22)
+
+# THE CLAUSE dropped from one of its carriages in the result note
+_rnc_m23 = _RNC1.replace(_RNC_CLAUSE, 'Act 13\'s fork is nearby.', 1)
+ok_rnc &= _rnc_m23 != _RNC1 and not _rnc_anticonflation(_rnc_m23)
+
+# an outcome of this round carried to act 13's CT3 (d)
+_rnc_m24 = _RNC1.replace('**Act 13\'s `CT3` (d) is still UNDECIDED and is untouched by this round.**',
+                         'Act 13\'s `CT3` (d) is answered positively by this round.')
+ok_rnc &= _rnc_m24 != _RNC1 and not _rnc_anticonflation(_rnc_m24)
+
+# THE CLAUSE dropped from the module docstring
+_rnc_m25 = _RNCLEAN.replace(_RNC_CLAUSE, 'Act 13\'s fork is nearby.')
+ok_rnc &= _rnc_m25 != _RNCLEAN and not _rnc_anticonflation(lean=_rnc_m25)
+
+# THE CLAUSE dropped from the ROADMAP
+_rnc_m26 = _RNCROADQ.replace(_RNC_CLAUSE, 'Act 13\'s fork is nearby.')
+ok_rnc &= _rnc_m26 != _RNCROADQ and not _rnc_anticonflation(road=_rnc_m26)
+
+# an S_3-shaped sentence admitted
+_rnc_m27 = _RNC1.replace('**"No cancelling triple relative to `𝒪₃` exists."** Not written',
+                         'No cancelling triple relative to `𝒪₃` exists')
+ok_rnc &= _rnc_m27 != _RNC1 and not _rnc_status_rule(_rnc_m27)
+
+# act 15 treated as refuted by the same triple being separated on a different carrier
+_rnc_m28 = _RNC1.replace('**"Act 15 was wrong."** Not written.',
+                         'Act 15 was wrong about this triple.')
+ok_rnc &= _rnc_m28 != _RNC1 and not _rnc_status_rule(_rnc_m28)
+
+# P0's other part touched -- the freeze's out-of-scope non-doing
+_rnc_m29 = _RNC1.replace(
+    '**what selects or constrains the Gram/orbit trajectory across time is not asked, not bounded '
+    'and not prejudged here, and no outcome reached bears on it in either direction.**',
+    'the cross-time Gram/orbit trajectory is constrained by this outcome.')
+ok_rnc &= _rnc_m29 != _RNC1 and not _rnc_status_rule(_rnc_m29)
+
+# a sibling lane's result consumed because it was present at the mandated base
+_rnc_m30 = _RNC1.replace('**the anti-contamination invariant is honoured**',
+                         'the newer sibling results present at the base are consumed')
+ok_rnc &= _rnc_m30 != _RNC1 and not _rnc_status_rule(_rnc_m30)
+
+# a third definition slipped in against the frozen two-slot budget
+_rnc_m31 = _RNC1.replace(
+    '**No third definition was introduced** and **no amendment was needed**.',
+    'A third definition was convenient and was added.')
+ok_rnc &= _rnc_m31 != _RNC1 and not _rnc_budget(_rnc_m31)
+
+# the conditional slot claimed fired when it was not
+_rnc_m32 = _RNC1.replace(
+    '| 2 (conditional) | an `𝒪₃`-cancelling-triple predicate | **unused** |',
+    '| 2 (conditional) | an `𝒪₃`-cancelling-triple predicate | **fired** |')
+ok_rnc &= _rnc_m32 != _RNC1 and not _rnc_budget(_rnc_m32)
+
+# a second `def` in the module, over the frozen budget
+_rnc_m33 = _RNCLEAN.replace('def ReanchoredChannel',
+                            'def cancellingTriple (x : Nat) := x def ReanchoredChannel')
+ok_rnc &= _rnc_m33 != _RNCLEAN and not _rnc_lean_defs(_rnc_m33)
+
+# the module docstring dropping the carrier non-adoption
+_rnc_m34 = _RNCLEAN.replace(
+    '**No carrier is adopted as the physical one**, and none is asserted not to be',
+    'The re-anchored-channel carrier is adopted as the physical one')
+ok_rnc &= _rnc_m34 != _RNCLEAN and not _rnc_lean_defs(_rnc_m34)
+
+# the module docstring dropping the refused converse
+_rnc_m35 = _RNCLEAN.replace(
+    '`RN1` is **not** an equivalence: the converse — concluding `C₃` from `C₂` — is used nowhere',
+    '`RN1` is an equivalence')
+ok_rnc &= _rnc_m35 != _RNCLEAN and not _rnc_lean_defs(_rnc_m35)
+
+# the axiom table losing a line, so a named result ships unreported
+_rnc_m36 = _RNC1.replace(
+    '| `rn3_plus_cancelling_triple_on_reanchoredChannel` | `[propext, Classical.choice, '
+    'Quot.sound]` |', '')
+ok_rnc &= _rnc_m36 != _RNC1 and not _rnc_axiom_table(_rnc_m36)
+
+# the type-P determination listed among the kernel results
+_rnc_m37 = _RNC1.replace('**`RN0` is type P and is not in this table**',
+                         '| `RN0` | `[propext]` |')
+ok_rnc &= _rnc_m37 != _RNC1 and not _rnc_axiom_table(_rnc_m37)
+
+# the archive pins claimed as set inside the execution -- A.37's circularity
+_rnc_m38 = _RNC1.replace('**`_RNC_SEALED_HEAD` and `_RNC_MERGE` are unset at execution.**',
+                         'The archive pins are set in this commit.')
+ok_rnc &= _rnc_m38 != _RNC1 and not _rnc_chronology(_rnc_m38)
+
+# later main absorbed before certification -- A.37's invariant
+_rnc_m39 = _RNC1.replace('**Before certification this execution absorbed no later `main`**',
+                         'The execution merged current `main` before certification')
+ok_rnc &= _rnc_m39 != _RNC1 and not _rnc_chronology(_rnc_m39)
+
+# the seal-integrity clause claimed to fix this round's own pins -- clause 9's non-landable shape
+_rnc_m40 = _RNC1.replace('**The seal-integrity clause excludes this round\'s own triple.**',
+                         'The seal-integrity clause asserts this round\'s own triple unset forever.')
+ok_rnc &= _rnc_m40 != _RNC1 and not _rnc_chronology(_rnc_m40)
+
+# a precondition row silently dropped
+_rnc_m41 = _RNC1.replace('| **PASS** — both `git cat-file -e` checks succeed |', '| |')
+ok_rnc &= _rnc_m41 != _RNC1 and not _rnc_chronology(_rnc_m41)
+
+# the discrepancies tidied away rather than recorded
+_rnc_m42 = _RNC1.replace(
+    '**Five items are recorded. None is repaired, and the freeze is not edited.**',
+    'No discrepancy arose, and the freeze was updated where it needed it.')
+ok_rnc &= _rnc_m42 != _RNC1 and not _rnc_discrepancies(_rnc_m42)
+
+# act 14's O_3 role seam repaired instead of recorded
+_rnc_m43 = _RNC1.replace(
+    '**This is recorded as a seam in the merged record and is not repaired, not corrected, not '
+    'reinterpreted and not normalized.**',
+    'Act 14 meant to ask its fork on `𝒪₃`, and the text is corrected accordingly.')
+ok_rnc &= _rnc_m43 != _RNC1 and not _rnc_discrepancies(_rnc_m43)
+
+# the freeze's prediction rows edited after the outcome was known
+_rnc_m44 = _RNC1.replace('**(4) The freeze\'s central prediction is falsified, in two rows.**',
+                         'The freeze\'s prediction rows were updated to match the outcome.')
+ok_rnc &= _rnc_m44 != _RNC1 and not _rnc_discrepancies(_rnc_m44)
+
+# act 15's CF5 re-proved or revised rather than consumed
+_rnc_m45 = _RNC1.replace('**Act 15\'s `CF5` is neither re-proved nor revised**',
+                         'Act 15\'s `CF5` is re-proved here in a stronger form')
+ok_rnc &= _rnc_m45 != _RNC1 and not _rnc_discrepancies(_rnc_m45)
+
+# the P0 row closed, or its label moved off OPEN
+_rnc_m46 = _RNCROAD.replace(
+    '| **P0** | What additional structure determines the relative quantum evolution OI leaves free '
+    '| OI→QM / Track B | **OPEN**',
+    '| **P0** | What additional structure determines the relative quantum evolution OI leaves free '
+    '| OI→QM / Track B | **CLOSED**')
+ok_rnc &= _rnc_m46 != _RNCROAD and not _rnc_roadmap(road=_rnc_m46)
+
+# the frozen Case B fork clause replaced by a wording the freeze does not fix
+_rnc_m47 = _RNCROAD.replace(
+    'and on that carrier it is answered positively: relative to the re-anchored-channel carrier, '
+    'under act 7\'s readback convention with `D4b` negative, the two parts can cancel, so the pair '
+    'can be redundancy relative to that carrier while neither part is.',
+    'and on that carrier the pair is gauge.')
+ok_rnc &= _rnc_m47 != _RNCROAD and not _rnc_roadmap(road=_rnc_m47)
+
+# the ROADMAP letting the O_3 verdict travel
+_rnc_m48 = _RNCROAD.replace(
+    '**The answer is relative to `𝒪₃` and travels to no other carrier**',
+    'The answer holds on every carrier')
+ok_rnc &= _rnc_m48 != _RNCROAD and not _rnc_roadmap(road=_rnc_m48)
+
+# acts 13's, 14's or act 15's archive seal re-pinned by this round -- A.37's ownership rule
+ok_rnc &= not _rnc_prior_seals(_cti_sealed='0' * 40)
+ok_rnc &= not _rnc_prior_seals(_cti_merge='deadbeef' * 5)
+ok_rnc &= not _rnc_prior_seals(_pqt_sealed='0' * 40)
+ok_rnc &= not _rnc_prior_seals(_pqt_merge='deadbeef' * 5)
+ok_rnc &= not _rnc_prior_seals(_pqt_base='0' * 40)
+ok_rnc &= not _rnc_prior_seals(_tcf_sealed='0' * 40)
+ok_rnc &= not _rnc_prior_seals(_tcf_merge='deadbeef' * 5)
+ok_rnc &= not _rnc_prior_seals(_tcf_base='0' * 40)
+
+# T1's control runs THROUGH _rnc_freeze_pin, so sabotaging that predicate fails the guard.
+def _rnc_drift(path):
+    """One byte appended to this round's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-16-reanchored-channel-cancellation/preregistration.md') else b'')
+
+
+ok_rnc &= _rnc_drift(_RNCDIR + 'preregistration.md') != _bb_read(
+    _RNCDIR + 'preregistration.md')
+ok_rnc &= not _rnc_freeze_pin(_rnc_drift)
+
+check('R7-RNC', ok_rnc,
+      "Track B act 16 guard: a SEALING round under A.37 that asks the cancellation question on the ONE frozen "
+      "carrier of act 14's four on which the merged record said NOTHING about the pair -- the "
+      "re-anchored-channel carrier O_3, the anchored channel of the RELATIVE object -- and ANSWERS it AGAINST "
+      "the freeze's own central prediction. The freeze rated RN3 (a)'s sign negative at LOW and RN3 (b) "
+      "UNDECIDED at MEDIUM; the round reached RN3-a+ and, through it, LINE 1 of the four-line hierarchy, RN3+, "
+      "by an EXHIBITED O_3-cancelling triple on |V| = 2, |A| = 3 with all three conjuncts at evidence level 2, "
+      "C_3 proved at EVERY time pair and the two inequalities certified at NAMED time pairs and NAMED entries "
+      "ON O_3 ITSELF. Both reversals are checked reported as the reversals they are, earned by an exhibited "
+      "triple and NEVER by a search, with five mutation controls. THE CARRIER RULE IS THE ROUND'S STRONGEST "
+      "HAZARD and is checked clause by clause: act 14's PQ3 (b) on O_1 is checked NOT read as bearing on O_3 "
+      "although O_1 and O_3 share D_{a0} -- a shared construction is not a shared verdict -- act 15's PQ3-d+ on "
+      "O_2 is checked consumed at its EXISTENTIAL strength and not carried beyond the two contrapositives RN2 "
+      "proves, the O_1 negative and the O_3 positive are checked reported as two verdicts and not a conflict, "
+      "and no O_3 outcome is read back onto O_2, three mutation controls. RN1 IS CHECKED NOT AN EQUIVALENCE: "
+      "the converse is refused in terms, C_3 is checked COMPUTED from the cross-fibre Gram and never "
+      "transported from C_2, no strictness is claimed and O_3 is never called strictly finer than O_2, and no "
+      "implication between the one-time row and the re-anchored row is asserted -- four mutation controls. RN2 "
+      "is checked supplying TWO of three conjuncts and refused as two thirds of a witness. The N_3/S_3 pair is "
+      "checked held apart: the round REFUTES both, not-S_3 FOLLOWING because S_3 implies N_3 and reported as "
+      "following, with neither claimed proved and no sentence of S_3's form admitted. RN0 is checked type P and "
+      "OUT of the axiom table, its bounded search over 223 files and sixteen terms recorded in full with a "
+      "per-term result, SILENCE reported as the finding and not as a truth value, reconstructive inference "
+      "refused, and no later target treated as retro-evidence -- four mutation controls. RN4 is checked scoped "
+      "to O_2, refused as a claim that a selector is required, and act 14's PQ4 (c) checked NOT corrected, its "
+      "conjunctive reading untouched and the two readings RECORDED apart. P0's OTHER PART -- the cross-time "
+      "Gram/orbit selection the freeze puts out of scope -- is checked untouched in both directions. The "
+      "ANTI-CONFLATION CLAUSE against act 13's CT3 (d) is checked carried VERBATIM at every prose mention in "
+      "the result note, the module docstring and the ROADMAP, each carriage opening with its own distinct "
+      "naming line, with CT3 (d) checked still UNDECIDED and untouched, four mutation controls. The P0 row is "
+      "checked still OPEN with the frozen Case B sentence carried verbatim and the RN3-a+ transfer clause "
+      "substituted, three mutation controls. The frozen TWO-slot budget is checked with slot 1 fired and the "
+      "conditional slot recorded UNUSED, the module holding exactly one top-level def and no sorry, axiom or "
+      "native_decide anywhere, five mutation controls. The twelve-line axiom table is checked against the "
+      "module's own #print axioms lines with nothing outside the three standard axioms and no type-P item in "
+      "it. FIVE DISCREPANCIES are checked RECORDED and not repaired -- the start-state drift at the mandated "
+      "base with nothing from the sibling lanes consumed, act 14's O_3 role seam, act 14's PQ4 (c) readings, "
+      "the two falsified prediction rows, and line 1's kernel plumbing where RN2 (c)'s existential witness is "
+      "opaque -- four mutation controls. The chronology is pinned in BOTH halves: this round's preregistration "
+      "blob by content, with a drift control that fails the guard if one byte is appended; and the "
+      "strengthened ancestry asked of git directly against the real pull_request.head.sha, never the synthetic "
+      "merge, every commit of git rev-list H ^B required to descend from the base, recovery included, "
+      "FAIL-CLOSED. The archive pins are carried as None -- UNSET AT EXECUTION, set only in the pin commit P "
+      "after the landing merge L -- and THE SEAL-INTEGRITY CLAUSE EXCLUDES THIS ROUND'S OWN TRIPLE, naming "
+      "only acts 13's, 14's and 15's, so the guard passes both before and after P; a clause fixing this "
+      "round's own pins at None forever would contradict the mandatory lifecycle and is what made an earlier "
+      "round in this programme non-landable. ACTS 13's, 14's AND 15's SEALS ARE CHECKED UNMOVED, eight "
+      "mutation controls, since an archive seal belongs to the round that set it. Eighteen named contracts, "
+      "forty-eight mutation controls, eight seal controls and a freeze-pin drift control.")
+
+
 
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())
