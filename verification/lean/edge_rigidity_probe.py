@@ -20844,8 +20844,8 @@ _TRJ_BASE = '02cfc9be141a44aaebf847d8e7d9fdd0d0a18f08'
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_TRJ_SEALED_HEAD = None
-_TRJ_MERGE = None
+_TRJ_SEALED_HEAD = '94d41561114b2aee5939dcfa976ce98b8f141093'
+_TRJ_MERGE = 'e8b12a433ebc0e5047504d2c95664a85ca65d1e8'
 
 # THE CLAUSE, verbatim -- the act 16 anti-conflation clause, which the freeze carries at every prose
 # mention of act 16's positive as bearing on trajectory freedom and which every artifact of this
