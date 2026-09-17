@@ -22810,6 +22810,872 @@ check('R7-XTS', ok_xts,
       "controls, since an archive seal belongs to the round that set it. Eighteen named contracts, "
       "fifty-one mutation controls, sixteen seal controls and a freeze-pin drift control.")
 
+# ---- R7-RNT: Track B act 20 -- what "gauge-natural" means: the naturality classification. A
+# SEALING round under AGENTS.md A.37 taking up the one thing act 19 discovered and could not settle:
+# the phrase was underspecified between THREE notions that a formalization must choose among and
+# that prose does not separate. The guard checks the three notions landing in the freeze's wording
+# with the twisted form's maps fixed BEFORE the quantifiers over inputs and its two CLOSURE
+# CONJUNCTS load-bearing; the lift with its two frozen obligations and no uniqueness claim; the
+# EXACT intertwining law reported PER SIDE as a universally quantified equality of matrices and
+# never as an existential over the output; the identity question and the strict-naturality question
+# kept APART, the second earned only by its OWN exhibited pairs since the inference from a
+# non-identity induced map is a NON-SEQUITUR; RNT5 reported as TWO components with independent bars
+# and NO GLOBAL LABEL; and the classification reported and NOT APPLIED, with no condition chosen for
+# a later round. Chronology clause 9 is honoured by EXCLUSION: _rnt_prior_seals names other rounds'
+# triples only and says nothing whatever about _RNT_BASE, _RNT_SEALED_HEAD or _RNT_MERGE, so the
+# clause is true both before and after the mandatory pin commit P sets this round's pins.
+_RNTDIR = 'programmes/oi-qm/track-b/act-20-representative-naturality/'
+_RNT = open(_artifact(_RNTDIR + 'result.md'), encoding='utf-8').read()
+_RNT1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _RNT).split()).replace('’', "'")
+_RNTLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'RepresentativeNaturality.lean'), encoding='utf-8').read().split())
+# The mandated execution base: the merge commit of this round's control-plane PR #662.
+_RNT_BASE = '84f27b50198ee31c224e31284905ff6c284ea9db'
+# The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
+# the pin commit P after the landing merge L -- pinning them in the execution would make the
+# execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
+# strong check re-run against those objects, with the pinned merge's second parent required to
+# equal the sealed head and both required reachable from the current target, fail-closed.
+_RNT_SEALED_HEAD = None
+_RNT_MERGE = None
+
+# THE CLAUSE, verbatim -- the non-choice clause, which the freeze carries at every place where a
+# classification could be read as a choice, and which every artifact of this round must carry with
+# it. Compared as prose, with block-quote markers stripped, so that the naming line each carriage
+# opens with -- distinct per carriage, which is what makes the carriages distinguishable copies
+# rather than one paragraph pasted repeatedly -- does not enter the comparison.
+_RNT_CLAUSE = (
+    "Act 20 classifies. It formalizes the three notions the phrase \"gauge-natural\" was standing in "
+    "for, constructs the carrier relabelling's representative-level lift, and determines which of "
+    "the three that lift satisfies. **Classifying is not choosing.** No statement of this round "
+    "says which notion a later round's naturality condition ought to impose, which notion is the "
+    "physically right one, or which notion the programme needs: that choice is the owner's and it "
+    "is made in act 21's preregistration, against act 20's merged result. **A classification is a "
+    "fact about an object, not an argument for a condition.** No condition is adopted, no rung is "
+    "written, no ladder is opened, no census is run, and no law, carrier or selection principle is "
+    "named, endorsed or excluded here.")
+
+
+def _rnt_freeze_pin(read=_bb_read):
+    """N1 -- this round's preregistration is byte-identical to the blob merged by PR #662."""
+    return _bb_blob(_RNTDIR + 'preregistration.md', read) == (
+        '131783f48ac492fdfdc46072aee3f39278973622')
+
+
+def _rnt_execution_ancestry():
+    """N2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused through acts 12's through 18's copies: the head-only
+    check is insufficient because a commit made before the freeze and merged in alongside it leaves
+    the head descended from the freeze while itself not being. The question is asked of the real
+    `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails closed
+    with no fallback.
+
+    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
+    mode (pins set by the mandatory pin commit P): the same strong check re-run against the sealed
+    head, with the pinned merge required to carry it and both required reachable from the current
+    target, fail-closed."""
+    if _RNT_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-RNT')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_RNT_BASE, target, label, num, tag='R7-RNT')
+    return _rbr_archive_ancestry(_RNT_BASE, _RNT_SEALED_HEAD, _RNT_MERGE, tag='R7-RNT')
+
+
+def _rnt_notions(t=None):
+    """N3 -- the three notions land in the freeze's wording, with the twisted form's maps fixed
+    BEFORE the quantifiers over inputs and its two closure conjuncts LOAD-BEARING and named at the
+    step where each is used, and with NO CONVERSE established by either implication."""
+    t = _RNT1 if t is None else t
+    return ('**Outcome reached: `CHAIN-PROVED`.**' in t
+            and 'takes its two maps as **parameters, before the quantifiers over inputs**, and '
+                'carries its two closure conjuncts' in t
+            and '**Where each closure conjunct of the twisted notion is used, named at the step.**'
+                in t
+            and 'the **first closure conjunct** -- is what supplies `LeftFibreGroup L\'`'.replace(
+                '--', '—') in t
+            and 'the **second closure conjunct** -- is what supplies `WeakAnchorStabilizer a0 K\'`'
+                .replace('--', '—').replace('a0', 'a₀') in t
+            and '**The chain is not free**: drop either conjunct and the corresponding witness has '
+                'no membership proof.' in t
+            and '**No converse is established by either implication**' in t)
+
+
+def _rnt_lift(t=None):
+    """N4 -- the lift is ONE named declaration with both frozen obligations proved and reported
+    separately, the anchor carried and not moved, and it is a CONSTRUCTION AND NOT A UNIQUENESS
+    STATEMENT."""
+    t = _RNT1 if t is None else t
+    return ('**Outcome reached: `LIFT-BUILT`.**' in t
+            and '**This is a construction and not a uniqueness statement**' in t
+            and '**The two parts are reported separately.**' in t
+            and '**`RNT2` (a), the lifting property -- proved.**'.replace('--', '—') in t
+            and '**`RNT2` (b), admissibility -- proved.**'.replace('--', '—') in t
+            and '**The anchor is carried and not moved**' in t
+            and 'act 7\'s `D4b` came back **negative**' in t
+            and 'Act 7 layer 2\'s `D5` control stands **NOT CERTIFIED**' in t)
+
+
+def _rnt_law(t=None):
+    """N5 -- RNT3 lands as the EXACT law on BOTH sides, with the maps INDEPENDENT OF THE DILATION,
+    the four conjuncts reported SEPARATELY, the two sides never merged, and the weaker theorem never
+    reported as the stronger one."""
+    t = _RNT1 if t is None else t
+    return ('**Outcome reached: `LAW-EXACT`.**' in t
+            and '**The two intertwining conjuncts are equalities of matrices, universally '
+                'quantified over the gauge element and over the dilation, and they are not '
+                'existentials over the output.**' in t
+            and '**`LAW-ORBIT-ONLY` was not reached and is not claimed**' in t
+            and '**The left side and the right side are proved and reported apart.**' in t
+            and '**That the two maps are given by the same formula is an observation about the '
+                'formula and is not one verdict covering both sides**' in t
+            and '**The exact law is what this round reports, and the weaker theorem is never '
+                'reported as the stronger one.**' in t
+            and 'the step at which the dilation drops out is `relabelLift_mul`' in t)
+
+
+def _rnt_alpha(t=None):
+    """N6 -- RNT4 (a) is decided FOR EACH SIDE SEPARATELY, each by an exhibited gauge element with
+    the entry named, at a configuration with |A| ARBITRARY, and neither verdict is inherited."""
+    t = _RNT1 if t is None else t
+    return ('**Outcome reached: `ALPHA-NONTRIVIAL` on the left side, and `ALPHA-NONTRIVIAL` on the '
+            'right side. The two are separate verdicts, each earned separately.**' in t
+            and '`ALPHA-NONTRIVIAL` on the LEFT side.**' in t
+            and '`ALPHA-NONTRIVIAL` on the RIGHT side, which is a separate verdict against a '
+                'separate class.**' in t
+            and '**One gauge element suffices and no search is a substitute**' in t
+            and '**Both negatives are exhibited at `V = Fin 2` with `A` arbitrary and the anchor '
+                'arbitrary**' in t
+            and '`ALPHA-TRIVIAL` was not reached on either side and is not claimed' in t)
+
+
+def _rnt_strict(t=None):
+    """N7 -- RNT4 (b) is earned ONLY by its own exhibited pairs, the non-sequitur from a
+    non-identity induced map is REFUSED IN TERMS, and the verdict is not enlarged into a universal
+    statement over lifts."""
+    t = _RNT1 if t is None else t
+    return ('**Outcome reached: `STRICT-NO`.**' in t
+            and '**This was earned by its own exhibited pairs and by nothing else.**' in t
+            and '**"The induced map is not the identity, therefore the lift is not strictly '
+                'natural" is a non-sequitur, it is a forbidden sentence of this freeze, and it is '
+                'not the argument made here.**' in t
+            and '`ALPHA-NONTRIVIAL` is not offered as a countercontrol for part (b) and would not '
+                'have been accepted as one' in t
+            and '**This is not a statement that no lift of the relabelling\'s transition is '
+                'strictly natural**' in t
+            and '**`STRICT-YES` was not reached and is not claimed.**' in t)
+
+
+def _rnt_separation(t=None):
+    """N8 -- RNT5 is reported as TWO components with independent bars, every sentence naming its
+    side, with NO GLOBAL LABEL, no collapse reported at any configuration, and no failed search
+    reported as an agreement."""
+    t = _RNT1 if t is None else t
+    return ('**Outcome reached on the left side: `SEP-STRICT`.**' in t
+            and '**Outcome reached on the right side: `SEP-STRICT`. This verdict is proved '
+                'independently and is not inherited from the left one.**' in t
+            and '`SEP-STRICT` on the LEFT side.**' in t
+            and '`SEP-STRICT` on the RIGHT side, asked independently and inheriting nothing.**' in t
+            and '**There is no global `RNT5` label and neither side inherits the other\'s.**' in t
+            and '**No `SEP-COLLAPSE` was attempted on either side**, so no configuration was '
+                'committed for one, and no sentence of this note reports a collapse, at any '
+                'configuration, on either side.' in t
+            and 'Nothing here says that the two formulations coincide, that the notions agree, or '
+                'that the wordings are interchangeable.' in t
+            and '**The input-dependence is the content of the separation**' in t)
+
+
+def _rnt_classification(t=None):
+    """N9 -- RNT6 is COMPOSED and never chosen, it carries the frozen closing sentence about the
+    choice being the owner's, and the separation status is carried BESIDE it and not folded in."""
+    t = _RNT1 if t is None else t
+    return ('**Outcome reached: `CLASS-TWISTED-NOT-STRICT`.**' in t
+            and 'The composition rule the freeze fixes requires `LAW-EXACT` with '
+                '`ALPHA-NONTRIVIAL` **and** `STRICT-NO`' in t
+            and '**It does not say which notion a later round\'s naturality condition ought to '
+                'impose**, does not rate the three notions against one another, and does not open, '
+                'adopt or pre-commit any part of a later round\'s ladder. That choice is the '
+                'owner\'s and it is made in act 21\'s preregistration.' in t
+            and '**The separation status is carried beside the classification and not folded into '
+                'it**' in t)
+
+
+def _rnt_nonchoice(t=None, lean=None):
+    """N10 -- THE CLAUSE is carried VERBATIM at every mention: three in the result note and one in
+    the module docstring, each opening with its own naming line."""
+    t = _RNT1 if t is None else t
+    lean = _RNTLEAN if lean is None else lean
+    return (t.count(_RNT_CLAUSE) == 3
+            and t.count('**THE CLAUSE, carried at this mention') == 3
+            and _RNT_CLAUSE in lean
+            and '**THE CLAUSE, carried at this mention' in lean
+            and '**four carriages**' in t)
+
+
+def _rnt_scope(t=None):
+    """N11 -- the scope edges hold: no ladder, no census, no rigidity headline, no same-initial-orbit
+    test, NO CONDITION CHOSEN for a later round, no part of act 21's ladder adopted, and the
+    NORMATIVE QUESTION refused including in its weaker hinting forms."""
+    t = _RNT1 if t is None else t
+    return ('**No ladder was frozen and none was run.**' in t
+            and '**No survivor census was run and no survivors were counted.**' in t
+            and '**No rigidity headline was reported, in any form.**' in t
+            and '**Act 19\'s same-initial-orbit discriminating test was not run.**' in t
+            and '**no part of act 21\'s ladder was adopted or pre-committed**' in t
+            and '**The normative question was not asked, not bounded and not attempted.**' in t
+            and 'no sentence of this note says "the natural choice would be", "this suggests that", '
+                '"a later round would presumably" or "the interesting condition is"' in t
+            and '**`P0` is untouched.**' in t
+            and '**No seventh question was executed.**' in t)
+
+
+def _rnt_act19(t=None):
+    """N12 -- the act 19 boundary: the control plane and closure READ AND NOT EDITED, the execution
+    branch NOT CITED AS SETTLED, and UNCERTIFIED NOT REPORTED AS REFUTED."""
+    t = _RNT1 if t is None else t
+    return ('**Act 19\'s control plane and closure were read and not edited.**' in t
+            and 'Act 19\'s freeze is not amended, not withdrawn, not corrected and not superseded; '
+                'it is valid and unwithdrawn' in t
+            and '**Act 19\'s execution branch `claude/act-19-execution` was not merged, not '
+                'cherry-picked from and not cited as settled.**' in t
+            and 'Everything act 20 needed, act 20 proved under act 20\'s own freeze, in the kernel'
+                in t
+            and '**Nothing uncertified by act 19 is reported as refuted.**' in t
+            and 'the distinction is between a statement being **refuted** and a statement being '
+                '**uncertified by that round**' in t
+            and '**Act 19\'s `L4n` is not adjudicated here.**' in t)
+
+
+def _rnt_budget(t=None):
+    """N13 -- the frozen SEVEN-slot budget with both conditional slots reported FIRED and with slots
+    6 and 7 treated as OUTPUTS, absent at the definition commit."""
+    t = _RNT1 if t is None else t
+    return ('**Seven slots were budgeted. Seven fired, and both conditional slots fired. No eighth '
+            'definition was introduced and no amendment was needed.**' in t
+            and '| 6 (conditional) | `RelabelInducedLeft` | **fired**, at the discrimination '
+                'commit |' in t
+            and '| 7 (conditional) | `RelabelInducedRight` | **fired**, at the discrimination '
+                'commit |' in t
+            and '**Slots 6 and 7 are outputs and not inputs, and they were treated as such**' in t
+            and '**No gauge element, witness, matrix, visible family, Gram tuple, entry value, '
+                'permutation or configuration is a top-level definition.**' in t)
+
+
+def _rnt_axiom_table(t=None):
+    """N14 -- one axiom line per named result, all at evidence level 2."""
+    t = _RNT1 if t is None else t
+    return (t.count('| `[propext, Classical.choice, Quot.sound]` |') == 25
+            and '| `rnt3_law_exact` | `[propext, Classical.choice, Quot.sound]` |' in t
+            and '| `rnt4b_not_strictNatural` | `[propext, Classical.choice, Quot.sound]` |' in t
+            and '| `rnt5_left_separation` | `[propext, Classical.choice, Quot.sound]` |' in t
+            and '| `rnt5_right_separation` | `[propext, Classical.choice, Quot.sound]` |' in t
+            and 'Twenty-five named results, seven top-level definitions, one module.' in t)
+
+
+def _rnt_chronology(t=None):
+    """N15 -- the chronology claim names the property certified, declares the round SEALING with P
+    mandatory, records the two pins UNSET AT EXECUTION, records that no later main was absorbed,
+    records the seal-integrity clause as EXCLUDING this round's own triple, reports the EMPIRICAL
+    verification of clause 9 in its three configurations including the decisive post-pin one, lists
+    the TEN preconditions checked at B, and carries the FOUR ordering records with the THREE
+    attestation answers."""
+    t = _RNT1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside '
+            '`B`\'s descendants**' in t
+            and '**This is a SEALING round** under `AGENTS.md` `§A.37`' in t
+            and 'It lands **`E` → `L` → `P`, with `P` mandatory**' in t
+            and '**`_RNT_SEALED_HEAD` and `_RNT_MERGE` are unset at execution.**' in t
+            and 'That is a statement about this execution and stays true as one' in t
+            and '**The seal-integrity clause EXCLUDES this round\'s own triple.**' in t
+            and 'there are **zero executable references** to this round\'s own constants' in t
+            and '**A clause fixing this round\'s own pins at unset for all time would contradict '
+                'the mandatory lifecycle**' in t
+            and '**Clause 9 was verified EMPIRICALLY before the commit**' in t
+            and '**The third configuration is the decisive one**' in t
+            and '**`False`, eighteen of eighteen**' in t
+            and '**Acts 13\'s, 14\'s, 15\'s, 16\'s, 17\'s and 18\'s seals are untouched**' in t
+            and '**no existing seal constant is altered**' in t
+            and '**Before certification this execution absorbed no later `main`.**' in t
+            and t.count('| **PASS** —') == 10
+            and '**The claim is scoped to the repository record.**' in t)
+
+
+def _rnt_ordering(t=None):
+    """N16 -- the ordering obligation's FOUR records and the THREE attestation answers, with the
+    PARTIAL-FACT rule stated, the history-integrity statement given, and the definition commit's
+    absences stated ITEM BY ITEM against the obligation's own list."""
+    t = _RNT1 if t is None else t
+    return ('**`ce33bb2b4a3b2e6b473b4798d91ab08619649aed`.**' in t
+            and '**`b848b12723fe82d567671ab88cd6d63863e1735e`**' in t
+            and '**Nothing discriminating is present at that commit, and the absences are stated '
+                'item by item against the obligation\'s own list.**' in t
+            and '**no proof about `Ψ_σ` beyond its two frozen obligations**' in t
+            and '**no appearance of `RelabelInducedLeft` or `RelabelInducedRight`**' in t
+            and '**no statement of either intertwining law**' in t
+            and '**no verdict on whether an induced map is the identity**' in t
+            and '**no verdict on strict naturality**' in t
+            and '**no witness or refutation of the separation**' in t
+            and '**No product of the lift with a gauge element on either side occurs anywhere in '
+                'the tree at that commit.**' in t
+            and '**is empty**' in t
+            and '**No `SEP-COLLAPSE` was attempted on either side**' in t
+            and '**There is no threshold below which a fact about the classification does not '
+                'count.**' in t
+            and '| **Q1 — INTENTIONAL** | **NO** |' in t
+            and '| **Q2 — INCIDENTAL** | **NO** |' in t
+            and '| **Q3 — UNAIDED REASONING** | **NO** |' in t
+            and '**What is disclosed, and why it is disclosed although the answer is NO.**' in t
+            and '**No commit on this branch was amended, reset, rebased over, cherry-picked over or '
+                'force-pushed away. There are no superseded SHAs.**' in t
+            and '**One working-tree manoeuvre is disclosed for exactness, because it affects what '
+                'was known when.**' in t)
+
+
+def _rnt_discrepancies(t=None):
+    """N17 -- the discrepancies are RECORDED and not repaired: the garbled archival clause in the
+    base's own merge message, and RNT5 landing beyond the freeze's stated expectation on both
+    sides."""
+    t = _RNT1 if t is None else t
+    return ('**Two items are recorded. Neither is repaired, and the freeze is not edited.**' in t
+            and 'The preregistration is immutable once merged' in t
+            and '**This is a harmless archival wording defect in a commit message.**' in t
+            and 'It needs **no repair to `main` and none to the freeze**' in t
+            and '**The module act 20 owns is `OIBridge/RepresentativeNaturality.lean`**' in t
+            and 'is not repaired, not corrected, not reinterpreted and not normalized' in t
+            and '**No start-state discrepancy arose**' in t
+            and '**every one matches**' in t
+            and '**all ten pass**' in t
+            and '**No candidate discovered during execution was executed.** **No configuration was '
+                'chosen after an outcome was known.** **No alternative witness was substituted for '
+                'a named one.**' in t)
+
+
+def _rnt_predictions(t=None):
+    """N18 -- every prediction is reported against its outcome, none is falsified, the two
+    abstentions are reported as abstentions honoured and never as confirmations, and the one place
+    the round went past the freeze's stated expectation is recorded AS THAT."""
+    t = _RNT1 if t is None else t
+    return ('**No prediction of this freeze is falsified.**' in t
+            and 'abstention honoured; the freeze put nothing at risk here and nothing is scored'
+                in t
+            and '**`RNT5` is the one place the round went past what the freeze expected, and it is '
+                'recorded as that and not as a confirmation.**' in t
+            and '**A separation reached where an UNDECIDED was expected is a stronger outcome than '
+                'the freeze forecast, and the freeze\'s own text preregisters `SEP-STRICT` as '
+                'reachable at full bar on each side independently**' in t
+            and '**The freeze predicted nothing about whether the two sides would agree**' in t
+            and t.count('| **as predicted** |') == 4)
+
+
+def _rnt_prior_seals(_cti_base=None, _cti_sealed=None, _cti_merge=None,
+                     _pqt_base=None, _pqt_sealed=None, _pqt_merge=None,
+                     _tcf_base=None, _tcf_sealed=None, _tcf_merge=None,
+                     _rnc_base=None, _rnc_sealed=None, _rnc_merge=None,
+                     _trj_base=None, _trj_sealed=None, _trj_merge=None,
+                     _xts_base=None, _xts_sealed=None, _xts_merge=None):
+    """N19 -- acts 13's, 14's, 15's, 16's, 17's and 18's archive seals are exactly the values those
+    rounds set. An archive seal belongs to the round that set it; this round reads them and never
+    writes them.
+
+    THIS ROUND'S OWN TRIPLE IS EXCLUDED, deliberately and by the freeze's chronology clause 9: no
+    reference to _RNT_BASE, _RNT_SEALED_HEAD or _RNT_MERGE appears here. A clause asserting this
+    round's own triple equal to (_RNT_BASE, None, None) as a standing invariant would contradict
+    clause 7, under which the mandatory pin commit P sets them -- the guard would then pass at no
+    commit once the round landed, which is how an earlier round in this programme was found
+    non-landable after certifying at its own head.
+
+    ACT 19 SET NO SEAL TRIPLE, so there is no act 19 triple to read and none is invented here."""
+    return ((_cti_base or _CTI_BASE) == 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
+            and (_cti_sealed or _CTI_SEALED_HEAD) == '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
+            and (_cti_merge or _CTI_MERGE) == '292848b3c908d33ac432a5360effe0c259e3ce16'
+            and (_pqt_base or _PQT_BASE) == 'bc76a88dbe300a35715d5ce8196002f31aa62493'
+            and (_pqt_sealed or _PQT_SEALED_HEAD) == '5008a47bf7e67edc502120f9269c4a4661ef7342'
+            and (_pqt_merge or _PQT_MERGE) == 'c50dd22457bfd4812761cb56e7ca1a559af33c5e'
+            and (_tcf_base or _TCF_BASE) == 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
+            and (_tcf_sealed or _TCF_SEALED_HEAD) == 'c622461495c6b2db4e09c8084f404bd5ca2c5192'
+            and (_tcf_merge or _TCF_MERGE) == '9e0cc3834538b7bdcb742fcaa046194cfa9526fb'
+            and (_rnc_base or _RNC_BASE) == 'd05399020d05d4a7b6f662d2e069062452e7d6b4'
+            and (_rnc_sealed or _RNC_SEALED_HEAD) == '31db7c1082b012c00c43f3fda35ce44c5653e123'
+            and (_rnc_merge or _RNC_MERGE) == 'eb70bbb9b2b3311095945ec3ce2418962f3b741a'
+            and (_trj_base or _TRJ_BASE) == '02cfc9be141a44aaebf847d8e7d9fdd0d0a18f08'
+            and (_trj_sealed or _TRJ_SEALED_HEAD) == '94d41561114b2aee5939dcfa976ce98b8f141093'
+            and (_trj_merge or _TRJ_MERGE) == 'e8b12a433ebc0e5047504d2c95664a85ca65d1e8'
+            and (_xts_base or _XTS_BASE) == 'd7a9931befeb942db8ebc7b07014f9020c6663d0'
+            and (_xts_sealed or _XTS_SEALED_HEAD) == '730a518c173460d7bed525da10a95ee6bd32c7de'
+            and (_xts_merge or _XTS_MERGE) == '0b893d75cca344faeb9a9e434b5b8537f8b45dac')
+
+
+def _rnt_lean_defs(t=None):
+    """N20 -- exactly the seven budgeted definitions are top-level `def`s in the module, in the
+    freeze's names and in the freeze's order, with none of the three forbidden strings anywhere, and
+    the docstring carrying the two closure conjuncts as load-bearing, the two sides never merged,
+    the refusal of the non-sequitur, the bounded scope of every verdict, and act 7's boundary."""
+    t = _RNTLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['StrictNatural', 'TwistedNatural', 'OrbitNatural', 'RelabelTransition',
+                     'RelabelLift', 'RelabelInducedLeft', 'RelabelInducedRight']
+            and '**The two closure conjuncts of `TwistedNatural` are load-bearing and not '
+                'bookkeeping.**' in t
+            and '**The maps are parameters of this predicate and are therefore fixed BEFORE the '
+                'quantifiers over inputs**' in t
+            and '**The two sides are different structures and a verdict on one is not a verdict on '
+                'the other**' in t
+            and '**A non-identity induced map does NOT establish that the lift fails strict '
+                'equivariance.**' in t
+            and '**Every verdict of this round is a verdict about the one lift this module '
+                'builds.**' in t
+            and '"No lift of the transition is strictly natural" is a universal statement over '
+                'lifts, it is not this round\'s target, and no result here earns it' in t
+            and '**This is a construction and not a uniqueness statement.**' in t
+            and 'and stating it is not endorsing it.**' in t
+            and 'act 7\'s `D4b` came back negative' in t
+            and '**A merged statement is not enlarged by being consumed.**' in t
+            and 'act 19\'s uncertified conclusions are **uncertified and not refuted**' in t
+            and '**No ladder is frozen or run, no census is run, no rigidity headline is reported**'
+                in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+ok_rnt = True
+ok_rnt &= _rnt_freeze_pin()
+ok_rnt &= _rnt_execution_ancestry()
+ok_rnt &= _rnt_notions()
+ok_rnt &= _rnt_lift()
+ok_rnt &= _rnt_law()
+ok_rnt &= _rnt_alpha()
+ok_rnt &= _rnt_strict()
+ok_rnt &= _rnt_separation()
+ok_rnt &= _rnt_classification()
+ok_rnt &= _rnt_nonchoice()
+ok_rnt &= _rnt_scope()
+ok_rnt &= _rnt_act19()
+ok_rnt &= _rnt_budget()
+ok_rnt &= _rnt_axiom_table()
+ok_rnt &= _rnt_chronology()
+ok_rnt &= _rnt_ordering()
+ok_rnt &= _rnt_discrepancies()
+ok_rnt &= _rnt_predictions()
+ok_rnt &= _rnt_prior_seals()
+ok_rnt &= _rnt_lean_defs()
+
+# ---- mutation controls: each rewrites the artifact and must FAIL the contract it targets ----
+
+# the closure conjuncts of the twisted notion dropped from the step where each is used
+_rnt_m1 = _RNT1.replace('**The chain is not free**: drop either conjunct and the corresponding '
+                        'witness has no membership proof.',
+                        'The witnesses are in their classes.')
+ok_rnt &= _rnt_m1 != _RNT1 and not _rnt_notions(_rnt_m1)
+
+# a proved implication reported as a strict one
+_rnt_m2 = _RNT1.replace('**No converse is established by either implication**',
+                        'The three notions are therefore strictly ordered')
+ok_rnt &= _rnt_m2 != _RNT1 and not _rnt_notions(_rnt_m2)
+
+# the twisted form's maps let loose after the quantifier over inputs
+_rnt_m3 = _RNT1.replace('takes its two maps as **parameters, before the quantifiers over inputs**, '
+                        'and carries its two closure conjuncts',
+                        'asks for a map at each input')
+ok_rnt &= _rnt_m3 != _RNT1 and not _rnt_notions(_rnt_m3)
+
+# the construction reported as a uniqueness statement -- the freeze's fifth hazard
+_rnt_m4 = _RNT1.replace('**This is a construction and not a uniqueness statement**',
+                        'This is the canonical lift of the transition')
+ok_rnt &= _rnt_m4 != _RNT1 and not _rnt_lift(_rnt_m4)
+
+# the anchor silently dropped -- the freeze's thirteenth hazard
+_rnt_m5 = _RNT1.replace('**The anchor is carried and not moved**',
+                        'The anchor is re-chosen along the relabelling')
+ok_rnt &= _rnt_m5 != _RNT1 and not _rnt_lift(_rnt_m5)
+
+# A WEAKER THEOREM REPORTED AS A STRONGER ONE -- the freeze's third hazard, and the specific failure
+# the LAW-ORBIT-ONLY label exists for
+_rnt_m6 = _RNT1.replace('**The two intertwining conjuncts are equalities of matrices, universally '
+                        'quantified over the gauge element and over the dilation, and they are not '
+                        'existentials over the output.**',
+                        'For each gauge element and each dilation there is some gauge element on '
+                        'the output side making the two agree.')
+ok_rnt &= _rnt_m6 != _RNT1 and not _rnt_law(_rnt_m6)
+
+# orbit preservation reported as the round's result rather than as the consequence it is
+_rnt_m7 = _RNT1.replace('**The exact law is what this round reports, and the weaker theorem is '
+                        'never reported as the stronger one.**',
+                        'What this round establishes is orbit preservation.')
+ok_rnt &= _rnt_m7 != _RNT1 and not _rnt_law(_rnt_m7)
+
+# THE TWO SIDES MERGED -- the freeze's twelfth hazard
+_rnt_m8 = _RNT1.replace('**The left side and the right side are proved and reported apart.**',
+                        'The verdict on the left class is the verdict about naturality.')
+ok_rnt &= _rnt_m8 != _RNT1 and not _rnt_law(_rnt_m8)
+
+# the same formula on both sides read as one verdict covering both
+_rnt_m9 = _RNT1.replace('**That the two maps are given by the same formula is an observation about '
+                        'the formula and is not one verdict covering both sides**',
+                        'so one verdict covers both sides')
+ok_rnt &= _rnt_m9 != _RNT1 and not _rnt_law(_rnt_m9)
+
+# RNT4 (a) reported as one verdict rather than two
+_rnt_m10 = _RNT1.replace('**Outcome reached: `ALPHA-NONTRIVIAL` on the left side, and '
+                         '`ALPHA-NONTRIVIAL` on the right side. The two are separate verdicts, each '
+                         'earned separately.**',
+                         '**Outcome reached: `ALPHA-NONTRIVIAL`.**')
+ok_rnt &= _rnt_m10 != _RNT1 and not _rnt_alpha(_rnt_m10)
+
+# ALPHA-TRIVIAL earned by a failed search -- the evidence rule's clause 4
+_rnt_m11 = _RNT1.replace('**One gauge element suffices and no search is a substitute**',
+                         'A search over the class found no element where the map differs')
+ok_rnt &= _rnt_m11 != _RNT1 and not _rnt_alpha(_rnt_m11)
+
+# a verdict reached only at |A| = 1 reported as a verdict at every |A| -- the freeze's fourteenth
+# hazard
+_rnt_m12 = _RNT1.replace('**Both negatives are exhibited at `V = Fin 2` with `A` arbitrary and the '
+                         'anchor arbitrary**',
+                         'Both negatives are exhibited at `|A| = 1`')
+ok_rnt &= _rnt_m12 != _RNT1 and not _rnt_alpha(_rnt_m12)
+
+# THE NON-SEQUITUR -- the freeze's fourth hazard and its second forbidden sentence
+_rnt_m13 = _RNT1.replace('**"The induced map is not the identity, therefore the lift is not '
+                         'strictly natural" is a non-sequitur, it is a forbidden sentence of this '
+                         'freeze, and it is not the argument made here.**',
+                         'The induced map is not the identity, so the lift is not strictly natural.')
+ok_rnt &= _rnt_m13 != _RNT1 and not _rnt_strict(_rnt_m13)
+
+# ALPHA-NONTRIVIAL offered as the countercontrol for part (b), which the freeze forbids in terms
+_rnt_m14 = _RNT1.replace('`ALPHA-NONTRIVIAL` is not offered as a countercontrol for part (b) and '
+                         'would not have been accepted as one',
+                         '`ALPHA-NONTRIVIAL` is the countercontrol for part (b)')
+ok_rnt &= _rnt_m14 != _RNT1 and not _rnt_strict(_rnt_m14)
+
+# A VERDICT ABOUT ONE LIFT ENLARGED INTO A VERDICT ABOUT EVERY LIFT -- the freeze's fifth hazard and
+# its third forbidden sentence
+_rnt_m15 = _RNT1.replace('**This is not a statement that no lift of the relabelling\'s transition '
+                         'is strictly natural**',
+                         'So no lift of the relabelling\'s transition is strictly natural')
+ok_rnt &= _rnt_m15 != _RNT1 and not _rnt_strict(_rnt_m15)
+
+# RNT5 REPORTED WITHOUT A SIDE -- the freeze's forbidden sentence 8b
+_rnt_m16 = _RNT1.replace('**There is no global `RNT5` label and neither side inherits the '
+                         'other\'s.**',
+                         'The `RNT5` outcome is `SEP-STRICT`.')
+ok_rnt &= _rnt_m16 != _RNT1 and not _rnt_separation(_rnt_m16)
+
+# A COLLAPSE REPORTED AS AN IDENTIFICATION OF THE TWO NOTIONS -- the freeze's forbidden sentence 8a
+_rnt_m17 = _RNT1.replace('Nothing here says that the two formulations coincide, that the notions '
+                         'agree, or that the wordings are interchangeable.',
+                         'The two formulations coincide and the wordings are interchangeable.')
+ok_rnt &= _rnt_m17 != _RNT1 and not _rnt_separation(_rnt_m17)
+
+# a collapse claimed although no configuration was committed before the side was worked on --
+# the freeze's forbidden sentence 8c and the fourth ordering record
+_rnt_m18 = _RNT1.replace('**No `SEP-COLLAPSE` was attempted on either side**, so no configuration '
+                         'was committed for one, and no sentence of this note reports a collapse, '
+                         'at any configuration, on either side.',
+                         'A collapse was reached on the left side at a convenient configuration.')
+ok_rnt &= _rnt_m18 != _RNT1 and not _rnt_separation(_rnt_m18)
+
+# the right side's verdict inherited from the left rather than proved
+_rnt_m19 = _RNT1.replace('**Outcome reached on the right side: `SEP-STRICT`. This verdict is proved '
+                         'independently and is not inherited from the left one.**',
+                         'The right side follows from the left.')
+ok_rnt &= _rnt_m19 != _RNT1 and not _rnt_separation(_rnt_m19)
+
+# THE CLASSIFICATION TURNED INTO A CHOICE -- the round's sharpest edge and the owner's second
+# settlement
+_rnt_m20 = _RNT1.replace('**It does not say which notion a later round\'s naturality condition '
+                         'ought to impose**, does not rate the three notions against one another, '
+                         'and does not open, adopt or pre-commit any part of a later round\'s '
+                         'ladder. That choice is the owner\'s and it is made in act 21\'s '
+                         'preregistration.',
+                         'So a later round\'s naturality condition should require twisted '
+                         'equivariance.')
+ok_rnt &= _rnt_m20 != _RNT1 and not _rnt_classification(_rnt_m20)
+
+# the composition rule not honoured, the label chosen rather than composed
+_rnt_m21 = _RNT1.replace('The composition rule the freeze fixes requires `LAW-EXACT` with '
+                         '`ALPHA-NONTRIVIAL` **and** `STRICT-NO`',
+                         'The label was chosen as the best fit')
+ok_rnt &= _rnt_m21 != _RNT1 and not _rnt_classification(_rnt_m21)
+
+# THE CLAUSE dropped from one of its carriages in the result note
+_rnt_m22 = _RNT1.replace(_RNT_CLAUSE, 'The three notions are named for classifying.', 1)
+ok_rnt &= _rnt_m22 != _RNT1 and not _rnt_nonchoice(_rnt_m22)
+
+# THE CLAUSE dropped from the module docstring
+_rnt_m23 = _RNTLEAN.replace(_RNT_CLAUSE, 'The three notions are named for classifying.')
+ok_rnt &= _rnt_m23 != _RNTLEAN and not _rnt_nonchoice(lean=_rnt_m23)
+
+# THE ROUND DRIFTING INTO A RIGIDITY ROUND -- the freeze's seventh hazard
+_rnt_m24 = _RNT1.replace('**No ladder was frozen and none was run.**',
+                         'The relabelling was tested against the ladder and survives it.')
+ok_rnt &= _rnt_m24 != _RNT1 and not _rnt_scope(_rnt_m24)
+
+# a rigidity headline reported
+_rnt_m25 = _RNT1.replace('**No rigidity headline was reported, in any form.**',
+                         'The class is rigid.')
+ok_rnt &= _rnt_m25 != _RNT1 and not _rnt_scope(_rnt_m25)
+
+# THE ROUND DRIFTING INTO ACT 21's DRAFTING -- the freeze's eighth hazard, in its hinting form
+_rnt_m26 = _RNT1.replace('no sentence of this note says "the natural choice would be", "this '
+                         'suggests that", "a later round would presumably" or "the interesting '
+                         'condition is"',
+                         'the natural choice would be the twisted notion')
+ok_rnt &= _rnt_m26 != _RNT1 and not _rnt_scope(_rnt_m26)
+
+# the P0 row written to, against the owner's second settlement
+_rnt_m27 = _RNT1.replace('**`P0` is untouched.**',
+                         'The `P0` row carries a new frozen sentence from this round.')
+ok_rnt &= _rnt_m27 != _RNT1 and not _rnt_scope(_rnt_m27)
+
+# ACT 19's EXECUTION BRANCH CITED AS SETTLED -- the freeze's ninth hazard and the closure's own
+# requirement of every successor at its lines 108-110
+_rnt_m28 = _RNT1.replace('**Act 19\'s execution branch `claude/act-19-execution` was not merged, '
+                         'not cherry-picked from and not cited as settled.**',
+                         'Act 19\'s execution already proved the lift\'s shape.')
+ok_rnt &= _rnt_m28 != _RNT1 and not _rnt_act19(_rnt_m28)
+
+# UNCERTIFIED REPORTED AS REFUTED -- the freeze's tenth hazard
+_rnt_m29 = _RNT1.replace('**Nothing uncertified by act 19 is reported as refuted.**',
+                         'Act 19\'s conclusions are refuted by this round.')
+ok_rnt &= _rnt_m29 != _RNT1 and not _rnt_act19(_rnt_m29)
+
+# act 19's freeze reported as amended -- the freeze's eleventh hazard
+_rnt_m30 = _RNT1.replace('Act 19\'s freeze is not amended, not withdrawn, not corrected and not '
+                         'superseded; it is valid and unwithdrawn',
+                         'Act 19\'s freeze is superseded by this round')
+ok_rnt &= _rnt_m30 != _RNT1 and not _rnt_act19(_rnt_m30)
+
+# an eighth definition slipped in against the frozen seven-slot budget
+_rnt_m31 = _RNT1.replace('**Seven slots were budgeted. Seven fired, and both conditional slots '
+                         'fired. No eighth definition was introduced and no amendment was needed.**',
+                         'A further definition was convenient and was added.')
+ok_rnt &= _rnt_m31 != _RNT1 and not _rnt_budget(_rnt_m31)
+
+# slots 6 and 7 treated as inputs rather than outputs, which would put the answer at the definition
+# commit
+_rnt_m32 = _RNT1.replace('**Slots 6 and 7 are outputs and not inputs, and they were treated as '
+                         'such**',
+                         'Slots 6 and 7 were stated with the other five')
+ok_rnt &= _rnt_m32 != _RNT1 and not _rnt_budget(_rnt_m32)
+
+# an eighth `def` in the module, over the frozen budget
+_rnt_m33 = _RNTLEAN.replace('def StrictNatural',
+                            'def gaugeNaturalCandidate (x : Nat) := x def StrictNatural')
+ok_rnt &= _rnt_m33 != _RNTLEAN and not _rnt_lean_defs(_rnt_m33)
+
+# the module docstring merging the two sides
+_rnt_m34 = _RNTLEAN.replace('**The two sides are different structures and a verdict on one is not '
+                            'a verdict on the other**',
+                            'A verdict on either side is a verdict about naturality')
+ok_rnt &= _rnt_m34 != _RNTLEAN and not _rnt_lean_defs(_rnt_m34)
+
+# the module docstring making the non-sequitur
+_rnt_m35 = _RNTLEAN.replace('**A non-identity induced map does NOT establish that the lift fails '
+                            'strict equivariance.**',
+                            'A non-identity induced map establishes that the lift fails strict '
+                            'equivariance.')
+ok_rnt &= _rnt_m35 != _RNTLEAN and not _rnt_lean_defs(_rnt_m35)
+
+# the module docstring enlarging the verdict into a universal statement over lifts
+_rnt_m36 = _RNTLEAN.replace('**Every verdict of this round is a verdict about the one lift this '
+                            'module builds.**',
+                            'The verdicts of this round are verdicts about every lift of the '
+                            'transition.')
+ok_rnt &= _rnt_m36 != _RNTLEAN and not _rnt_lean_defs(_rnt_m36)
+
+# the module docstring ENDORSING the per-input existential rather than naming it as an object of
+# test, which is what act 19's closure says it must not be called
+_rnt_m37 = _RNTLEAN.replace('and stating it is not endorsing it.**', 'and this is the right notion.**')
+ok_rnt &= _rnt_m37 != _RNTLEAN and not _rnt_lean_defs(_rnt_m37)
+
+# a merged statement enlarged by being consumed -- the freeze's sixteenth forbidden sentence
+_rnt_m38 = _RNTLEAN.replace('**A merged statement is not enlarged by being consumed.**',
+                            'Act 12\'s transformation laws are thereby strengthened.')
+ok_rnt &= _rnt_m38 != _RNTLEAN and not _rnt_lean_defs(_rnt_m38)
+
+# the axiom table losing a line, so a named result ships unreported
+_rnt_m39 = _RNT1.replace('| `rnt3_law_exact` | `[propext, Classical.choice, Quot.sound]` |', '')
+ok_rnt &= _rnt_m39 != _RNT1 and not _rnt_axiom_table(_rnt_m39)
+
+# the pins recorded as set at execution, which would make the execution's head depend on the landing
+_rnt_m40 = _RNT1.replace('**`_RNT_SEALED_HEAD` and `_RNT_MERGE` are unset at execution.**',
+                         '`_RNT_SEALED_HEAD` and `_RNT_MERGE` are set by this execution.')
+ok_rnt &= _rnt_m40 != _RNT1 and not _rnt_chronology(_rnt_m40)
+
+# the seal-integrity clause reported as covering this round's own triple -- clause 9's failure mode,
+# and the freeze's twenty-first hazard
+_rnt_m41 = _RNT1.replace('**The seal-integrity clause EXCLUDES this round\'s own triple.**',
+                         'The seal-integrity clause asserts this round\'s own triple equal to '
+                         '(`_RNT_BASE`, `None`, `None`).')
+ok_rnt &= _rnt_m41 != _RNT1 and not _rnt_chronology(_rnt_m41)
+
+# the empirical verification of clause 9 dropped, leaving the exclusion an intention
+_rnt_m42 = _RNT1.replace('**Clause 9 was verified EMPIRICALLY before the commit**',
+                         'Clause 9 is honoured by construction')
+ok_rnt &= _rnt_m42 != _RNT1 and not _rnt_chronology(_rnt_m42)
+
+# a precondition row dropped
+_rnt_m43 = _RNT1.replace('| 10 | the guard tag and its stem are still free | **PASS** —',
+                         '| 10 | |')
+ok_rnt &= _rnt_m43 != _RNT1 and not _rnt_chronology(_rnt_m43)
+
+# later main absorbed before certification
+_rnt_m44 = _RNT1.replace('**Before certification this execution absorbed no later `main`.**',
+                         'Current `main` was merged into the execution to clear a red badge.')
+ok_rnt &= _rnt_m44 != _RNT1 and not _rnt_chronology(_rnt_m44)
+
+# THE DEFINITION COMMIT CARRYING A DISCRIMINATING RESULT -- the ordering obligation's own boundary
+_rnt_m45 = _RNT1.replace('**no appearance of `RelabelInducedLeft` or `RelabelInducedRight`**',
+                         'the two induced maps stated with the three notions')
+ok_rnt &= _rnt_m45 != _RNT1 and not _rnt_ordering(_rnt_m45)
+
+# the immutability span not empty, so a frozen statement moved after the answer was known -- act
+# 19's own failure
+_rnt_m46 = _RNT1.replace('**is empty**', 'shows one frozen definition restated')
+ok_rnt &= _rnt_m46 != _RNT1 and not _rnt_ordering(_rnt_m46)
+
+# THE PARTIAL-FACT RULE WEAKENED WITH A THRESHOLD -- what makes the three attestations answerable at
+# all
+_rnt_m47 = _RNT1.replace('**There is no threshold below which a fact about the classification does '
+                         'not count.**',
+                         'A fact about a single gauge element is too partial to count.')
+ok_rnt &= _rnt_m47 != _RNT1 and not _rnt_ordering(_rnt_m47)
+
+# the third attestation dropped -- the question act 19's contamination actually used
+_rnt_m48 = _RNT1.replace('| **Q3 — UNAIDED REASONING** | **NO** |', '')
+ok_rnt &= _rnt_m48 != _RNT1 and not _rnt_ordering(_rnt_m48)
+
+# the history-integrity statement dropped
+_rnt_m49 = _RNT1.replace('**No commit on this branch was amended, reset, rebased over, '
+                         'cherry-picked over or force-pushed away. There are no superseded SHAs.**',
+                         'The branch history is in order.')
+ok_rnt &= _rnt_m49 != _RNT1 and not _rnt_ordering(_rnt_m49)
+
+# the archival defect repaired rather than recorded
+_rnt_m50 = _RNT1.replace('It needs **no repair to `main` and none to the freeze**',
+                         'The merge message was corrected on `main`')
+ok_rnt &= _rnt_m50 != _RNT1 and not _rnt_discrepancies(_rnt_m50)
+
+# a start-state discrepancy hidden
+_rnt_m51 = _RNT1.replace('**No start-state discrepancy arose**',
+                         'Two pinned blobs differ and were refreshed')
+ok_rnt &= _rnt_m51 != _RNT1 and not _rnt_discrepancies(_rnt_m51)
+
+# a configuration chosen after an outcome was known
+_rnt_m52 = _RNT1.replace('**No candidate discovered during execution was executed.** **No '
+                         'configuration was chosen after an outcome was known.** **No alternative '
+                         'witness was substituted for a named one.**',
+                         'A more convenient configuration was adopted where the frozen one did not '
+                         'work.')
+ok_rnt &= _rnt_m52 != _RNT1 and not _rnt_discrepancies(_rnt_m52)
+
+# an abstention reported as a confirmation, which would score a prediction the freeze never made
+_rnt_m53 = _RNT1.replace('abstention honoured; the freeze put nothing at risk here and nothing is '
+                         'scored',
+                         '**as predicted** | the freeze anticipated this')
+ok_rnt &= _rnt_m53 != _RNT1 and not _rnt_predictions(_rnt_m53)
+
+# the one place the round went past the freeze's expectation reported as a confirmation of it
+_rnt_m54 = _RNT1.replace('**`RNT5` is the one place the round went past what the freeze expected, '
+                         'and it is recorded as that and not as a confirmation.**',
+                         'The freeze expected the separation and got it.')
+ok_rnt &= _rnt_m54 != _RNT1 and not _rnt_predictions(_rnt_m54)
+
+# the two RNT5 sides treated as evidence about each other
+_rnt_m55 = _RNT1.replace('**The freeze predicted nothing about whether the two sides would agree**',
+                         'The left result is evidence for the right one')
+ok_rnt &= _rnt_m55 != _RNT1 and not _rnt_predictions(_rnt_m55)
+
+# seal controls: each of the eighteen prior-seal constants, fabricated one at a time, must FAIL
+for _f in ('_cti_base', '_cti_sealed', '_cti_merge', '_pqt_base', '_pqt_sealed', '_pqt_merge',
+           '_tcf_base', '_tcf_sealed', '_tcf_merge', '_rnc_base', '_rnc_sealed', '_rnc_merge',
+           '_trj_base', '_trj_sealed', '_trj_merge', '_xts_base', '_xts_sealed', '_xts_merge'):
+    ok_rnt &= not _rnt_prior_seals(**{_f: '0' * 40})
+
+# THE DECISIVE CONTROL for chronology clause 9: with this round's OWN pins set to plausible values,
+# as the mandatory pin commit P will set them, the prior-seal clause must still pass. A clause that
+# fixed this round's triple at (_RNT_BASE, None, None) as a standing invariant would fail here, and
+# the round would be unlandable -- which is exactly what happened to an earlier round and is why the
+# freeze's chronology clause 9 exists. The check is run against a MODULE-LEVEL rebinding of this
+# round's own pins, so it exercises the post-pin configuration and not a copy of it.
+_rnt_pin_probe = (_RNT_SEALED_HEAD, _RNT_MERGE)
+_RNT_SEALED_HEAD = 'f' * 40
+_RNT_MERGE = 'e' * 40
+ok_rnt &= _rnt_prior_seals()
+ok_rnt &= _rnt_execution_ancestry.__doc__ is not None
+_RNT_SEALED_HEAD, _RNT_MERGE = _rnt_pin_probe
+ok_rnt &= (_RNT_SEALED_HEAD, _RNT_MERGE) == (None, None)
+ok_rnt &= _rnt_prior_seals()
+
+# N1's control runs THROUGH _rnt_freeze_pin, so sabotaging that predicate fails the guard.
+def _rnt_drift(path):
+    """One byte appended to this round's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-20-representative-naturality/preregistration.md')
+        else b'')
+
+
+ok_rnt &= _rnt_drift(_RNTDIR + 'preregistration.md') != _bb_read(
+    _RNTDIR + 'preregistration.md')
+ok_rnt &= not _rnt_freeze_pin(_rnt_drift)
+
+check('R7-RNT', ok_rnt,
+      "Track B act 20 guard: a SEALING round under A.37 taking up the one thing act 19 discovered and "
+      "could not settle -- the phrase \"gauge-natural\" was UNDERSPECIFIED between three notions a "
+      "formalization must choose among and that prose does not separate. The three notions are checked "
+      "landing in the freeze's wording, with the TWISTED form's two maps fixed BEFORE the quantifiers "
+      "over inputs and its two CLOSURE CONJUNCTS checked LOAD-BEARING and named at the step where each "
+      "is used, and with NO CONVERSE established by either implication, three mutation controls. The "
+      "lift is checked landing as ONE named declaration with both frozen obligations proved and "
+      "reported separately, the ANCHOR CARRIED AND NOT MOVED, and A CONSTRUCTION AND NOT A UNIQUENESS "
+      "STATEMENT, two mutation controls. RNT3 is checked landing as the EXACT law on BOTH SIDES with "
+      "the maps INDEPENDENT OF THE DILATION and the four conjuncts reported SEPARATELY: the "
+      "intertwining conjuncts are checked stated as UNIVERSALLY QUANTIFIED EQUALITIES OF MATRICES and "
+      "NEVER as existentials over the output, since a proof producing a witness per input earns the "
+      "weaker label however the note would prefer to phrase it; the two sides are checked NEVER "
+      "MERGED, and the coincidence of the two formulas is checked reported as an observation and not "
+      "as one verdict covering both, four mutation controls. RNT4 (a) is checked decided FOR EACH SIDE "
+      "SEPARATELY by an exhibited gauge element with the ENTRY NAMED, at a configuration with |A| "
+      "ARBITRARY so no verdict reached at |A| = 1 is reported as a verdict everywhere, three mutation "
+      "controls. RNT4 (b) is checked EARNED ONLY BY ITS OWN EXHIBITED PAIRS with the NON-SEQUITUR from "
+      "a non-identity induced map REFUSED IN TERMS and the verdict checked NOT ENLARGED into a "
+      "universal statement over lifts, three mutation controls. RNT5 is checked reported as TWO "
+      "COMPONENTS with independent bars, every sentence naming its side, with NO GLOBAL LABEL, NO "
+      "COLLAPSE reported at any configuration, and no sentence saying the two formulations coincide or "
+      "the wordings are interchangeable, four mutation controls. RNT6 is checked COMPOSED and never "
+      "chosen and followed by the frozen sentence that the choice of condition is THE OWNER'S and is "
+      "made in act 21's preregistration, two mutation controls. THE CLAUSE is checked carried VERBATIM "
+      "at four mentions, three in the result note and one in the module docstring, each opening with "
+      "its own naming line, two mutation controls. The scope edges are checked held -- no ladder, no "
+      "census, no rigidity headline, no same-initial-orbit test, P0 untouched, and the NORMATIVE "
+      "QUESTION refused including in its hinting forms -- four mutation controls; and the ACT 19 "
+      "BOUNDARY is checked held: the control plane and closure READ AND NOT EDITED, the execution "
+      "branch NOT CITED AS SETTLED, and UNCERTIFIED NOT REPORTED AS REFUTED, three mutation controls. "
+      "The module is held to the frozen SEVEN-slot budget with all seven fired including both "
+      "conditional slots, exactly seven top-level defs in the freeze's names and order and no sorry, "
+      "native_decide or added axiom, seven mutation controls. THE ORDERING OBLIGATION'S FOUR RECORDS "
+      "are checked present -- the definition commit with its absences stated ITEM BY ITEM against the "
+      "obligation's own list, the discrimination commit with which result crossed, an EMPTY "
+      "immutability span, and the per-side RNT5 collapse-configuration record recorded as NOT REQUIRED "
+      "because no collapse was attempted -- together with the THREE ATTESTATION ANSWERS, the "
+      "PARTIAL-FACT rule checked carrying NO THRESHOLD, and the HISTORY-INTEGRITY statement, five "
+      "mutation controls. TWO DISCREPANCIES are checked RECORDED AND NOT REPAIRED, three mutation "
+      "controls, and the start state is checked clean at all twenty pinned blobs and all ten "
+      "preconditions. Every prediction is checked reported against its outcome with the two "
+      "ABSTENTIONS checked reported as abstentions and never as confirmations and the one outcome "
+      "BEYOND the freeze's stated expectation checked recorded as that, three mutation controls. "
+      "Chronology: act 10's strengthened ancestry asked of the real pull_request.head.sha, "
+      "fail-closed, the preregistration pinned BY BLOB with a one-byte drift control, the two pins "
+      "UNSET AT EXECUTION and set only by the mandatory pin commit P, and THE SEAL-INTEGRITY CLAUSE "
+      "EXCLUDES THIS ROUND'S OWN TRIPLE, naming only acts 13's through 18's, so the guard passes both "
+      "before and after P -- verified EMPIRICALLY in three configurations, unmutated True, each of "
+      "eighteen single-field fabrications False, and the DECISIVE post-pin configuration True against "
+      "a real module-level rebinding of this round's own pins. ACT 19 SET NO SEAL TRIPLE, so none is "
+      "read and none is invented. ACTS 13's THROUGH 18's SEALS ARE CHECKED UNMOVED, eighteen seal "
+      "controls, since an archive seal belongs to the round that set it. Twenty named contracts, "
+      "fifty-five mutation controls, nineteen seal controls and a freeze-pin drift control.")
+
+
 
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())
