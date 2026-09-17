@@ -2528,5 +2528,27 @@ differed at the mandated base**, each by a sibling landing that added text elsew
 touched no A6 surface; the discrepancies are recorded in the result note and not repaired, and no
 result absent from this round's freeze was consumed.
 
+## Seal infrastructure round SI-1 — the shadow validator and the equivalence census
+
+`verification/seals/` carries one JSON record per round: twenty-two of them, eighteen `kind:
+"sealed"` and four `kind: "base-only"`. They are a **transcription** of the seal constants
+`verification/lean/edge_rigidity_probe.py` already carried, and the guard machinery in that file
+remains **authoritative**. `R7-SI1` runs a generic validator over the records as a SHADOW and
+reports a census of its agreement with the existing per-round checks; the shadow decides nothing.
+Presence is not authority, and `SI1-6` establishes that mechanically: the ninety pre-existing check
+tags return identical verdicts at the round's base and at its head, and no seal constant was
+removed.
+
+The census is EXACT over all twenty-two records — the eighteen sealed ones compared on the
+lifecycle axis, the four base-only ones on schema, pinned base and record integrity, having no
+lifecycle to agree about. It is an agreement census and **not a proof of correctness**: it would not
+detect an error both implementations share.
+
+The round records three discrepancies and repairs none. The first is its central finding: the frozen
+derivation rule, scoped to the resolved target alone, **reintroduces the base-age false negative**
+on a pull request opened from a historical base, where a landing sitting on the base branch is
+unreachable from the head. The remedy — deriving over the union of the visibility targets — is
+named and deliberately not applied, and awaits adjudication before `SI-2` moves authority.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.

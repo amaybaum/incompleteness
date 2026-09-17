@@ -23683,6 +23683,1013 @@ check('R7-RNT', ok_rnt,
 
 
 
+
+
+# ---- R7-SI1: seal infrastructure round SI-1 -- the SHADOW seal validator and the equivalence
+# census. NON-SEALING, E -> L, no pin: there is no _SI1_SEALED_HEAD and no _SI1_MERGE, not as None
+# and not at all.
+#
+# THIS ROUND CHANGES NOTHING THAT GATES. The per-round machinery above stays authoritative for every
+# check; the generic validator below runs, reports, and is compared against it. PRESENCE IS NOT
+# AUTHORITY -- the new code being in the tree does not make it the instrument, and SI1-6 proves that
+# mechanically rather than asserting it. The instant this validator decides anything, that is SI-2.
+#
+# Four definition slots, and no more: O1 the record schema, O2 the generic validator with its three
+# states, the derivation function, and O3 the shadow harness. O4, the twenty negative cases, is test
+# code and not a slot.
+
+_SI1DIR = os.path.join(VERIFICATION, 'infrastructure', 'round-si-1-shadow-seal-validator', '')
+# Relative to verification/, because the record reader resolves names through `_artifact`.
+_SI1SEALSREL = 'seals'
+_SI1SEALS = os.path.join(VERIFICATION, 'seals')
+# The mandated execution base: the merge commit of this round's control-plane PR #667.
+_SI1_BASE = '99ab6370470ed9d9e4005551581c6c8c18e54bd2'
+
+_SI1_HEX = re.compile(r'[0-9a-f]{40}')
+
+# ==== SI1-VALIDATOR-BEGIN ====
+# Everything between these markers is the GENERIC validator, and SI1-2 checks mechanically that no
+# round stem appears anywhere in it. A stem here would be the per-round coupling this round exists
+# to remove.
+
+# The discriminated union. Each kind names the fields it REQUIRES and the fields it FORBIDS, and
+# forbids means a hard failure rather than a tolerated null: a base-only record carrying
+# `sealed_head: null` is rejected, because those rounds are not seals waiting for fields -- they are
+# rounds for which no seal exists, and the schema says so structurally.
+_SI1_KINDS = {
+    'base-only': (('base',), ('sealed_head', 'merge')),
+    'sealed': (('base', 'sealed_head', 'merge'), ()),
+}
+_SI1_STATES = ('EXECUTION', 'LANDED-PENDING-PIN', 'ARCHIVED')
+# Not a fourth state. A record with no lifecycle reports this, and no lifecycle value is ever stored.
+_SI1_NA = 'not-applicable'
+
+
+def _si1_schema(rec, stem):
+    """O1 -- the record schema, a discriminated union on `kind`.
+
+    Returns `(True, kind)` or `(False, reason)`. Unknown keys are a failure rather than ignored,
+    every hash is checked as 40 lowercase hex before it is used, and a forbidden field is a failure
+    even when its value is null."""
+    if not isinstance(rec, dict):
+        return False, 'schema: record is not a JSON object'
+    if rec.get('round') != stem:
+        return False, 'schema: round field %r does not match the filename %r' % (rec.get('round'), stem)
+    kind = rec.get('kind')
+    if kind not in _SI1_KINDS:
+        return False, 'schema: kind %r is not one of %s' % (kind, sorted(_SI1_KINDS))
+    required, forbidden = _SI1_KINDS[kind]
+    # FORBIDDEN IS CHECKED BEFORE UNKNOWN, and the order is the point. A forbidden field is also an
+    # unknown one for this kind, so an unknown-key check reached first would report
+    # `base-only` carrying `sealed_head` as a stray key rather than as what it is -- a seal asserted
+    # for a round that has none. The diagnosis is the value of the check, so it is reported first.
+    for field in forbidden:
+        if field in rec:
+            return False, ('schema: kind %r forbids %s, and it is present (value %r) -- a forbidden '
+                           'field is a failure even as null' % (kind, field, rec[field]))
+    allowed = {'round', 'kind'} | set(required)
+    extra = sorted(set(rec) - allowed)
+    if extra:
+        return False, 'schema: unknown key(s) %s' % ', '.join(extra)
+    for field in required:
+        if field not in rec:
+            return False, 'schema: kind %r requires %s and it is missing' % (kind, field)
+        val = rec[field]
+        if not (isinstance(val, str) and _SI1_HEX.fullmatch(val)):
+            return False, 'schema: %s is not 40 lowercase hex (%r)' % (field, val)
+    return True, kind
+
+
+def _si1_load(root=None, read=None):
+    """The LOGICAL manifest, assembled from one record per round.
+
+    Storage is per-record so that two sibling rounds sealing at the same time touch different files;
+    the validator reasons over the SET of records and never over file layout as a source of
+    semantics. Returns `(records, errors)` where a record that will not parse is an error rather
+    than an absence."""
+    root = _SI1SEALSREL if root is None else root
+    read = _bb_read if read is None else read
+    records, errors = {}, {}
+    # `read` goes through `_artifact`, which resolves names RELATIVE to verification/, so the
+    # directory is listed absolutely and each record is read by its relative name. Passing an
+    # absolute path to the reader silently yields a path under verification/ and a missing file.
+    absroot = os.path.join(VERIFICATION, *root.split('/'))
+    if not os.path.isdir(absroot):
+        return records, errors
+    for name in sorted(os.listdir(absroot)):
+        if not name.endswith('.json'):
+            errors[name] = 'schema: not a .json record'
+            continue
+        stem = name[:-len('.json')]
+        try:
+            records[stem] = json.loads(read('%s/%s' % (root, name)).decode('utf-8'))
+        except Exception as exc:
+            errors[stem] = 'schema: unreadable record (%s)' % type(exc).__name__
+    return records, errors
+
+
+def _si1_derive(sealed, target, tag='R7-SI1', cwd=None, first_parent_only=False):
+    """The derivation: the landing merges in `target`'s history whose NON-FIRST parent is exactly
+    `sealed`.
+
+    Scoped to REACHABLE history and not to the first-parent spine, because the spine is wrong for
+    this repository: of the eighteen archived landings, six lie on it and twelve lie one step off
+    it, the second shape arising wherever a round's landing merge and its pin entered main through
+    one pull request. `first_parent_only` exists so the narrower scope stays measurable as a
+    regression rather than becoming reachable by accident.
+
+    Returns the candidate list, or None if git could not answer -- which the caller treats as a
+    failure and never as an empty list."""
+    args = ['log', '--format=%H %P']
+    if first_parent_only:
+        args.append('--first-parent')
+    r = _rbr_git(*(args + [target]), tag=tag, cwd=cwd)
+    if r is None or r.returncode != 0:
+        return None
+    out = []
+    for line in r.stdout.decode('utf-8', 'replace').split('\n'):
+        parts = line.split()
+        if len(parts) > 2 and sealed in parts[2:]:
+            out.append(parts[0])
+    return out
+
+
+def _si1_landing_of_base(base, target, tag='R7-SI1', cwd=None):
+    """The merges in `target`'s history that LOOK like a landing of an execution on `base`: a merge
+    whose non-first parent passes the strengthened ancestry check against `base`.
+
+    This is how a round with no manifest record is classified without knowing its execution head.
+    Returns the candidate list, or None if git could not answer."""
+    r = _rbr_git('log', '--format=%H %P', target, tag=tag, cwd=cwd)
+    if r is None or r.returncode != 0:
+        return None
+    out = []
+    for line in r.stdout.decode('utf-8', 'replace').split('\n'):
+        parts = line.split()
+        if len(parts) > 2:
+            for parent in parts[2:]:
+                if _si1_quiet_ancestry(base, parent, tag=tag, cwd=cwd):
+                    out.append(parts[0])
+                    break
+    return out
+
+
+def _si1_quiet_ancestry(base, target, tag='R7-SI1', cwd=None):
+    """The strengthened predicate without the narration: `base` an ancestor of `target`, and every
+    commit of `git rev-list target ^base` itself a descendant of `base`.
+
+    Used where the answer is a classification step rather than a verdict, so that searching a
+    history does not print a verdict line per candidate. The gating calls go through
+    `_rbr_strong_ancestry`, which is the same predicate and does narrate."""
+    for rev in (base, target):
+        if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
+            return False
+    r = _rbr_git('merge-base', '--is-ancestor', base, target, tag=tag, cwd=cwd)
+    if r is None or r.returncode != 0:
+        return False
+    listed = _rbr_git('rev-list', target, '^%s' % base, tag=tag, cwd=cwd)
+    if listed is None or listed.returncode != 0:
+        return False
+    for rev in listed.stdout.decode('utf-8', 'replace').split():
+        step = _rbr_git('merge-base', '--is-ancestor', base, rev, tag=tag, cwd=cwd)
+        if step is None or step.returncode != 0:
+            return False
+    return True
+
+
+def _si1_reachable(rev, targets, tag='R7-SI1', cwd=None):
+    """Whether `rev` is reachable from any of the visibility targets. Fail-closed: an unresolvable
+    target is not a reason to pass."""
+    for cand, _why in targets:
+        if cand is None:
+            continue
+        if not _rbr_ensure_present(cand, tag=tag, cwd=cwd):
+            continue
+        r = _rbr_git('merge-base', '--is-ancestor', rev, cand, tag=tag, cwd=cwd)
+        if r is not None and r.returncode == 0:
+            return True, _why
+    return False, None
+
+
+def _si1_validate(records, prospective=None, env=None, tag='R7-SI1', cwd=None,
+                  target=None, label=None, num=None, targets=None, errors=None):
+    """O2 -- the generic validator.
+
+    Returns, per round, `(lifecycle, ok, reason)`. It returns a verdict for every record and EITHER
+    a lifecycle state OR `_SI1_NA`, because NOT EVERY RECORD HAS A LIFECYCLE: the three states are
+    the lifecycle of a SEAL-PRODUCING round, not of every manifest record.
+
+    A `base-only` record is a completed historical non-sealing round. Its schema, its pinned base
+    and its record integrity are checked, and it is not classified into any of the three states.
+    Classifying it `EXECUTION` -- which the natural reading of "no record, or a record with no
+    sealed_head" does -- would leave four completed rounds permanently executing and would keep
+    applying execution ancestry semantics to them on every future repository state. A round for
+    which no seal exists is not a round whose seal has not arrived yet.
+
+    There is no round-specific branch anywhere below, and SI1-2 checks that mechanically."""
+    out = {}
+    if target is None:
+        target, label, num = _rbr_target_commit(env=env, tag=tag)
+        if target is None:
+            return None
+    if targets is None:
+        targets = _rbr_archive_visibility_targets(env=env, tag=tag, cwd=cwd)
+    # The target is compared against commit SHAs below, so a symbolic name is resolved once here.
+    # `HEAD` is a legitimate target on a push event and an illegitimate one on a pull request; which
+    # it is was decided by `_rbr_target_commit` above, and this only turns a name into an object.
+    _res = _rbr_git('rev-parse', '--verify', '--quiet', target + '^{commit}', tag=tag, cwd=cwd)
+    if _res is None or _res.returncode != 0:
+        return None
+    tsha = _res.stdout.decode('utf-8', 'replace').strip()
+    for stem, reason in sorted((errors or {}).items()):
+        out[stem] = (None, False, reason)
+    for stem in sorted(records):
+        good, info = _si1_schema(records[stem], stem)
+        if not good:
+            out[stem] = (None, False, info)
+            continue
+        rec, kind = records[stem], info
+        if kind == 'base-only':
+            if not _rbr_ensure_present(rec['base'], tag=tag, cwd=cwd):
+                out[stem] = (_SI1_NA, False, 'pinned base %s is absent' % rec['base'][:12])
+                continue
+            seen, why = _si1_reachable(rec['base'], targets, tag=tag, cwd=cwd)
+            out[stem] = (_SI1_NA, seen,
+                         ('historical non-sealing record; pinned base %s reachable from %s'
+                          % (rec['base'][:12], why)) if seen else
+                         'pinned base %s is not reachable; failing closed' % rec['base'][:12])
+            continue
+        base, sealed, pinned = rec['base'], rec['sealed_head'], rec['merge']
+        for rev in (sealed, pinned):
+            if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
+                out[stem] = ('ARCHIVED', False,
+                             'unreachable: %s is absent from this repository' % rev[:12])
+                break
+        else:
+            cands = _si1_derive(sealed, target, tag=tag, cwd=cwd)
+            if cands is None:
+                out[stem] = ('ARCHIVED', False, 'derivation could not be run; failing closed')
+                continue
+            uniq = sorted(set(cands))
+            if not uniq:
+                out[stem] = ('ARCHIVED', False,
+                             'zero candidates: no merge reachable from %s carries %s as a non-first '
+                             'parent' % (label, sealed[:12]))
+                continue
+            if len(uniq) > 1:
+                out[stem] = ('ARCHIVED', False,
+                             'multiple candidates: %s' % ', '.join(c[:12] for c in uniq))
+                continue
+            if uniq[0] != pinned:
+                out[stem] = ('ARCHIVED', False,
+                             'disagreement: pinned %s, derived %s' % (pinned[:12], uniq[0][:12]))
+                continue
+            if not _si1_quiet_ancestry(base, sealed, tag=tag, cwd=cwd):
+                out[stem] = ('ARCHIVED', False,
+                             'the sealed head %s does not pass the strengthened check against %s'
+                             % (sealed[:12], base[:12]))
+                continue
+            ok = True
+            for rev in (pinned, sealed):
+                seen, _why = _si1_reachable(rev, targets, tag=tag, cwd=cwd)
+                if not seen:
+                    out[stem] = ('ARCHIVED', False,
+                                 '%s is not reachable from any visibility target; failing closed'
+                                 % rev[:12])
+                    ok = False
+                    break
+            if ok:
+                out[stem] = ('ARCHIVED', True,
+                             'pinned == derived %s; second parent is the sealed head; ancestry and '
+                             'reachability hold' % pinned[:12])
+    for stem, base in sorted((prospective or {}).items()):
+        if not _rbr_ensure_present(base, tag=tag, cwd=cwd):
+            out[stem] = (None, False, 'pinned base %s is absent' % base[:12])
+            continue
+        landings = _si1_landing_of_base(base, target, tag=tag, cwd=cwd)
+        if landings is None:
+            out[stem] = (None, False, 'landing search could not be run; failing closed')
+            continue
+        if tsha in landings:
+            out[stem] = ('LANDED-PENDING-PIN', True,
+                         'the resolved target IS the landing merge; permitted, and the seal record '
+                         'is still owed')
+            continue
+        if landings:
+            out[stem] = ('LANDED-PENDING-PIN', False,
+                         'seal pending: %s descends from the unpinned landing %s'
+                         % (label, landings[0][:12]))
+            continue
+        good = _rbr_strong_ancestry(base, target, label, num, tag=tag, cwd=cwd)
+        out[stem] = ('EXECUTION', good,
+                     'prospective execution certified against %s' % base[:12] if good else
+                     'prospective execution does not descend from %s' % base[:12])
+    return out
+
+
+def _si1_integrity(at_base, now):
+    """Manifest integrity over the ENTRY SET as well as entry contents.
+
+    Mutated, removed and added are three DISTINCT conditions, reported separately. With one record
+    per round a deletion is as easy as an edit, and a contents-only rule would let one pass
+    invisibly. A change to previously certified seal data requires prospective authorization by the
+    round that intends it; this round authorizes none, so its only permitted change to the set is
+    its own additions."""
+    return {
+        'mutated': sorted(k for k in set(at_base) & set(now) if at_base[k] != now[k]),
+        'removed': sorted(set(at_base) - set(now)),
+        'added': sorted(set(now) - set(at_base)),
+    }
+# ==== SI1-VALIDATOR-END ====
+
+
+def _si1_transcribe(text):
+    """The transcription path, and the one place a parser can silently get a seal wrong.
+
+    Takes the FIRST module-level assignment of each constant. The last is the trap: this round's own
+    guard file assigns `_RNT_SEALED_HEAD` and `_RNT_MERGE` twice, once as the pin and once as the
+    clause-9 self-test rebinding, so a parser keeping the last value returns the probe's synthetic
+    values for exactly one round while producing a manifest that looks entirely well-formed. Taking
+    the first assignment, or refusing, are the only correct behaviours; keeping the last is not."""
+    first, seen = {}, {}
+    for line in text.split('\n'):
+        m = re.match(r"^_([A-Z0-9]+)_(BASE|SEALED_HEAD|MERGE)\s*=\s*(.+?)\s*$", line)
+        if not m:
+            continue
+        key = (m.group(1), m.group(2))
+        seen[key] = seen.get(key, 0) + 1
+        if key not in first:
+            first[key] = m.group(3)
+    return first, {k: v for k, v in seen.items() if v > 1}
+
+
+def _si1_census(records, errors, env=None, cwd=None):
+    """O3 -- the shadow harness.
+
+    Runs O2 over every record in the same process and on the same repository state as the checks
+    above, and records the two verdicts side by side. It gates nothing: nothing in this function's
+    result is consulted by any check that decides anything.
+
+    THE RECORDS ARE NOT COMPARED ON ONE AXIS, and the census says which axis each is on. A `sealed`
+    record exercises LIFECYCLE equivalence -- the state and the verdict. A `base-only` record
+    exercises SCHEMA, PINNED-BASE and RECORD-INTEGRITY equivalence only, because it has no lifecycle
+    to agree about, and a census claiming lifecycle agreement for one would be claiming agreement on
+    a question neither implementation should be answering."""
+    new = _si1_validate(records, env=env, cwd=cwd, errors=errors)
+    rows = []
+    if new is None:
+        return rows
+    target, label, num = _rbr_target_commit(env=env, tag='R7-SI1/old')
+    for stem in sorted(set(records) | set(errors or {})):
+        lifecycle, ok, reason = new.get(stem, (None, False, 'no verdict'))
+        rec = records.get(stem) or {}
+        kind = rec.get('kind')
+        # THE OLD MACHINERY, run on the same repository state and in the same process. For a sealed
+        # round that is the archive-mode certificate the per-round clauses use; for a non-sealing
+        # round it is the strengthened execution check those clauses use. Both are the generic
+        # helpers the per-round clauses call, so the census compares like with like rather than
+        # comparing the new validator against a paraphrase of the old one.
+        old = None
+        if target is not None and not isinstance(kind, type(None)):
+            if kind == 'sealed':
+                old = _rbr_archive_ancestry(rec['base'], rec['sealed_head'], rec['merge'],
+                                            tag='R7-SI1/old', env=env, target=target, cwd=cwd)
+            elif kind == 'base-only':
+                old = _si1_quiet_ancestry(rec['base'], target, tag='R7-SI1/old', cwd=cwd)
+        axis = 'lifecycle' if kind == 'sealed' else 'schema+base+integrity'
+        rows.append({
+            'round': stem,
+            'kind': kind,
+            'axis': axis,
+            'new_lifecycle': lifecycle,
+            'new_ok': bool(ok),
+            'new_reason': reason,
+            'old_ok': None if old is None else bool(old),
+            'agree': None if old is None else (bool(old) == bool(ok)),
+        })
+    return rows
+
+
+def _si1_build_repo():
+    """A synthetic repository carrying both historical landing shapes and the topologies the twenty
+    negative cases need. Built with `commit-tree` so every parent order is exact: a real `git merge`
+    would refuse the second landing of an already-merged head, which is one of the cases.
+
+        c0 ── B ── E1 ── E2                 the execution history on its base
+              └── Mb ── Lm(Mb, E2) ── Maf   the landing, and a commit after it
+                                  └── L2(Maf, E2)    a SECOND merge carrying E2
+                                  └── Wr(Maf, S1)    a real merge whose non-first parent is not E2
+        c0 ── S1                            sibling history, predating B
+        c0 ── B9 ── X1 ── T9(X1, S1)        a second base whose target carries sibling history
+        c0 ── Hh                            a head that reaches no landing
+              Hm(Hh, Maf)                   the synthetic merge a wrong reading would consult
+    """
+    import subprocess
+    import tempfile
+    d = tempfile.mkdtemp(prefix='si1-')
+
+    def g(*args, **kw):
+        return subprocess.run(('git',) + args, cwd=d, capture_output=True, text=True, **kw)
+
+    g('init', '-q', '-b', 'main')
+    g('config', 'user.email', 'si1@example.invalid')
+    g('config', 'user.name', 'SI1')
+    with open(os.path.join(d, 'f'), 'w', encoding='utf-8') as fh:
+        fh.write('si1\n')
+    g('add', 'f')
+    tree = g('write-tree').stdout.strip()
+
+    def ct(msg, *parents):
+        args = ['commit-tree', tree, '-m', msg]
+        for p in parents:
+            args += ['-p', p]
+        return g(*args).stdout.strip()
+
+    n = {}
+    n['c0'] = ct('c0')
+    n['B'] = ct('B', n['c0'])
+    n['E1'] = ct('E1', n['B'])
+    n['E2'] = ct('E2', n['E1'])
+    n['Mb'] = ct('Mb', n['B'])
+    n['Lm'] = ct('Lm', n['Mb'], n['E2'])
+    n['Maf'] = ct('Maf', n['Lm'])
+    n['L2'] = ct('L2', n['Maf'], n['E2'])
+    n['S1'] = ct('S1', n['c0'])
+    n['Wr'] = ct('Wr', n['Maf'], n['S1'])
+    n['B9'] = ct('B9', n['c0'])
+    n['X1'] = ct('X1', n['B9'])
+    n['T9'] = ct('T9', n['X1'], n['S1'])
+    n['Hh'] = ct('Hh', n['c0'])
+    n['Hm'] = ct('Hm', n['Hh'], n['Maf'])
+    for ref, rev in (('refs/remotes/origin/main', n['Maf']),
+                     ('refs/remotes/origin/no-landing', n['Mb']),
+                     ('refs/heads/main', n['Maf'])):
+        g('update-ref', ref, rev)
+    return d, n, g
+
+
+def _si1_pr_env(d, head, base_ref='main', base_sha=None, number=1):
+    """A `pull_request` event payload, written to disk as Actions writes one."""
+    path = os.path.join(d, 'event-%s.json' % head[:8])
+    with open(path, 'w', encoding='utf-8') as fh:
+        json.dump({'pull_request': {'number': number, 'head': {'sha': head},
+                                    'base': {'ref': base_ref, 'sha': base_sha or head}}}, fh)
+    return {'GITHUB_EVENT_NAME': 'pull_request', 'GITHUB_EVENT_PATH': path}
+
+
+def _si1_negatives():
+    """O4 -- the twenty negative cases, each required to FAIL (or pass) for its NAMED reason and not
+    merely to come out the right colour.
+
+    Case 20 is the one the freeze was amended to add before its head was fixed: a `base-only` record
+    on a repository state where an EXECUTION-style ancestry check WOULD fail must pass as
+    `not-applicable`, and a validator that classifies it `EXECUTION` fails the case. It is the
+    regression that keeps the corrected reading corrected."""
+    import shutil
+    d, n, _g = _si1_build_repo()
+    results = []
+
+    def rec(stem, kind, base, sealed=None, merge=None, **extra):
+        r = {'round': stem, 'kind': kind, 'base': base}
+        if sealed is not None:
+            r['sealed_head'] = sealed
+        if merge is not None:
+            r['merge'] = merge
+        r.update(extra)
+        return r
+
+    def run(name, records, want_ok, want_in, prospective=None, env=None, target=None,
+            label='target', targets=None):
+        got = _si1_validate(records, prospective=prospective, env=env, cwd=d, target=target,
+                            label=label, num=None, targets=targets)
+        if got is None:
+            results.append((name, False, 'validator failed closed before answering'))
+            return
+        stem = sorted(set(records) | set(prospective or {}))[0]
+        lifecycle, ok, reason = got[stem]
+        good = (bool(ok) == want_ok) and (want_in is None or want_in in reason)
+        results.append((name, good, '%s / %s / %s' % (lifecycle, 'PASS' if ok else 'FAIL', reason)))
+
+    hd = [(n['Maf'], 'target')]
+    try:
+        # 1 malformed hash
+        run('1 malformed hash', {'Z': rec('Z', 'sealed', 'zz' * 20, n['E2'], n['Lm'])},
+            False, 'not 40 lowercase hex', targets=hd, target=n['Maf'])
+        # 2 missing required key
+        run('2 missing required key', {'Z': rec('Z', 'sealed', n['B'], n['E2'])},
+            False, 'requires merge and it is missing', targets=hd, target=n['Maf'])
+        # 3 unknown extra key
+        run('3 unknown extra key',
+            {'Z': rec('Z', 'sealed', n['B'], n['E2'], n['Lm'], note='hello')},
+            False, 'unknown key(s) note', targets=hd, target=n['Maf'])
+        # 4a base-only carrying a sealed_head VALUE
+        run('4a base-only with sealed_head value', {'Z': rec('Z', 'base-only', n['B'], n['E2'])},
+            False, 'forbids sealed_head', targets=hd, target=n['Maf'])
+        # 4b the same field present as NULL -- forbidden means forbidden, not tolerated
+        run('4b base-only with sealed_head null',
+            {'Z': {'round': 'Z', 'kind': 'base-only', 'base': n['B'], 'sealed_head': None}},
+            False, 'even as null', targets=hd, target=n['Maf'])
+        # 5 rewritten E: the sealed head no longer exists
+        run('5 rewritten sealed head', {'Z': rec('Z', 'sealed', n['B'], '0' * 40, n['Lm'])},
+            False, 'unreachable', targets=hd, target=n['Maf'])
+        # 6 wrong L: a real merge, but not this head's landing
+        run('6 wrong L', {'Z': rec('Z', 'sealed', n['B'], n['E2'], n['Wr'])},
+            False, 'disagreement', targets=[(n['Wr'], 'target')], target=n['Wr'])
+        # 7 two candidate landings for one E
+        run('7 two candidates', {'Z': rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])},
+            False, 'multiple candidates', targets=[(n['L2'], 'target')], target=n['L2'])
+        # 8 zero candidate landings: no merge carries E1 as a non-first parent
+        run('8 zero candidates', {'Z': rec('Z', 'sealed', n['B'], n['E1'], n['Lm'])},
+            False, 'zero candidates', targets=hd, target=n['Maf'])
+        # 9 sibling history, in EXECUTION state
+        run('9 sibling history in EXECUTION', {}, False, 'does not descend',
+            prospective={'Z': n['B9']}, targets=[(n['T9'], 'target')], target=n['T9'])
+        # 10, 11 and 12 are the RETAINED stale-base / live-base controls, and they are exercised
+        # against the visibility layer -- the base-branch-tip resolution plus reachability -- rather
+        # than against O2's derivation. That is where the behaviour they test lives: which of
+        # `pull_request.base.sha` and `refs/remotes/origin/<ref>` gates. Routing them through the
+        # derivation instead would answer a different question, because derivation is scoped to the
+        # resolved target and would report zero candidates before visibility spoke; see the
+        # DERIVATION SCOPE observation below, which is a finding of this round and not a repair.
+        #
+        # 10 stale base.sha, base BRANCH carries the landing -> visible via the branch tip
+        t10 = _rbr_archive_visibility_targets(env=_si1_pr_env(d, n['Hh'], 'main', n['c0']),
+                                              tag='R7-SI1', cwd=d)
+        seen10, why10 = _si1_reachable(n['Lm'], t10 or [], tag='R7-SI1', cwd=d)
+        results.append(('10 stale base.sha, branch carries it', bool(seen10) and 'origin/main' in str(why10),
+                        'visible via %s' % why10))
+        # 11 base branch REWOUND off the landing while base.sha still carries it -> fail closed
+        t11 = _rbr_archive_visibility_targets(env=_si1_pr_env(d, n['Hh'], 'no-landing', n['Maf']),
+                                              tag='R7-SI1', cwd=d)
+        seen11, _why11 = _si1_reachable(n['Lm'], t11 or [], tag='R7-SI1', cwd=d)
+        results.append(('11 base branch rewound', not seen11,
+                        'not visible from head or from the rewound branch tip; failing closed'))
+        # 12 unresolved base ref, with a local branch of that name carrying the landing
+        got12 = _rbr_base_branch_tip('main-local-only', tag='R7-SI1', cwd=d)
+        results.append(('12 unresolved base ref', got12[0] is None and 'does not resolve' in got12[1],
+                        str(got12[1])[:90]))
+        # 13 a DESCENDANT of an unpinned landing
+        run('13 descendant of unpinned L', {}, False, 'seal pending',
+            prospective={'Z': n['B']}, targets=hd, target=n['Maf'])
+        # 14 the landing ITSELF, unpinned
+        run('14 unpinned L itself', {}, True, 'IS the landing merge',
+            prospective={'Z': n['B']}, targets=[(n['Lm'], 'target')], target=n['Lm'])
+        # 15/16/17 manifest integrity over contents AND the entry set
+        at_base = {'A': {'kind': 'sealed', 'base': n['B']}, 'C': {'kind': 'base-only', 'base': n['B9']}}
+        for name, now, want in (
+                ('15 mutated', {'A': {'kind': 'sealed', 'base': n['Mb']},
+                                'C': {'kind': 'base-only', 'base': n['B9']}}, 'mutated'),
+                ('16 removed', {'A': {'kind': 'sealed', 'base': n['B']}}, 'removed'),
+                ('17 added', dict(at_base, D={'kind': 'base-only', 'base': n['c0']}), 'added')):
+            delta = _si1_integrity(at_base, now)
+            hit = [k for k, v in delta.items() if v]
+            results.append((name, hit == [want], 'reported %s' % (delta,)))
+        # 18 the double assignment: first assignment or refuse, NEVER last
+        src18 = "_QQ_SEALED_HEAD = '%s'\n_QQ_MERGE = '%s'\n_QQ_SEALED_HEAD = 'f' * 40\n" % (
+            n['E2'], n['Lm'])
+        first18, dbl18 = _si1_transcribe(src18)
+        results.append(('18 double assignment', first18[('QQ', 'SEALED_HEAD')] == "'%s'" % n['E2']
+                        and ('QQ', 'SEALED_HEAD') in dbl18,
+                        'first=%s, duplicates reported=%s' % (first18[('QQ', 'SEALED_HEAD')][:14],
+                                                              sorted(dbl18))))
+        # 19 a reading that consults the synthetic merge HEAD instead of the resolved target
+        r19 = rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])
+        env19 = _si1_pr_env(d, n['Hh'], 'no-landing', n['Maf'])
+        right = _si1_validate({'Z': r19}, env=env19, cwd=d, target=n['Hh'], label='head.sha')
+        wrong = _si1_validate({'Z': r19}, cwd=d, target=n['Hm'], label='synthetic merge HEAD',
+                              targets=[(n['Hm'], 'synthetic merge HEAD')])
+        results.append(('19 synthetic merge HEAD', (not right['Z'][1]) and wrong['Z'][1],
+                        'resolved target FAILS, synthetic merge HEAD would PASS'))
+        # 20 a base-only record where an EXECUTION-style check would fail
+        strong20 = _si1_quiet_ancestry(n['B9'], n['T9'], tag='R7-SI1', cwd=d)
+        got20 = _si1_validate({'Z': rec('Z', 'base-only', n['B9'])}, cwd=d, target=n['T9'],
+                              label='target', targets=[(n['T9'], 'target')])
+        life20, ok20, why20 = got20['Z']
+        results.append(('20 base-only out of the state machine',
+                        (not strong20) and ok20 and life20 == _SI1_NA,
+                        'strong check %s, record %s as %s'
+                        % ('FAILS' if not strong20 else 'passes',
+                           'PASSES' if ok20 else 'fails', life20)))
+        # THE DERIVATION SCOPE OBSERVATION. Not a negative case and not a repair: a measurement of
+        # the frozen rule, recorded because it bears on SI-2 and on nothing this round may change.
+        #
+        # The freeze scopes derivation to THE RESOLVED TARGET. On a push, and on a pull request whose
+        # base already carries a round's landing, that is exactly right and all eighteen agree. But
+        # an execution branches from its own control plane and from nothing else, so a pull request
+        # opened from a HISTORICAL base does not reach landings that arrived on main afterwards --
+        # and for those rounds the derivation finds ZERO CANDIDATES and fails closed, although
+        # nothing has been rewritten and the landing is sitting on the base branch. That is the same
+        # base-age false negative the visibility repair removed from the reachability leg, arriving
+        # again through the derivation leg.
+        #
+        # Measured here rather than argued: `Hh` is a head cut from the root, so it reaches no
+        # landing, while `refs/remotes/origin/main` carries `Lm`.
+        scope_head = _si1_derive(n['E2'], n['Hh'], tag='R7-SI1', cwd=d)
+        scope_tip = _si1_derive(n['E2'], 'refs/remotes/origin/main', tag='R7-SI1', cwd=d)
+        results.append(('OBSERVATION derivation scope',
+                        scope_head == [] and scope_tip == [n['Lm']],
+                        'from a historical head: %d candidate(s); from the base branch tip: %d -- '
+                        'the frozen target-only scope fails closed where the landing is on the base'
+                        % (len(scope_head or []), len(scope_tip or []))))
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+    return results
+
+
+
+
+_SI1RES = _bb_read('infrastructure/round-si-1-shadow-seal-validator/result.md').decode('utf-8')
+_SI1FRZ = 'infrastructure/round-si-1-shadow-seal-validator/preregistration.md'
+
+
+def _si1_freeze_pin(read=_bb_read):
+    """N1 -- this round's preregistration is byte-identical to the blob the control plane merged."""
+    return _bb_blob(_SI1FRZ, read=read) == '4a5f183a52b2720e0714049ecf34911c55c1ef61'
+
+
+def _si1_execution_ancestry():
+    """N2 -- the execution head descends from the control plane's merge commit, and so does every
+    commit of the execution-only history.
+
+    NON-SEALING: there is no seal triple to re-certify, so there is no archive mode here. The check
+    is act 10's strengthened predicate against the mandated base and nothing more."""
+    target, label, num = _rbr_target_commit(tag='R7-SI1')
+    if target is None:
+        return False
+    return _rbr_strong_ancestry(_SI1_BASE, target, label, num, tag='R7-SI1')
+
+
+def _si1_non_authority(t=None):
+    """N3 -- the round states its own non-authority, and states it NARROWLY.
+
+    Presence is not authority. A note that claimed the manifest was authoritative, or that read
+    "non-sealing" as "ordinary tooling", would be outside this round whatever the census showed."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**This round is NON-SEALING and NON-AUTHORITATIVE.**' in t
+            and '**Presence is not authority**' in t
+            and 'The instant this validator decides anything, that is `SI-2`.' in t
+            and '`SHADOW-ONLY`' in t
+            and 'authoritative for every check that gates' in t)
+
+
+def _si1_states_not_per_record(t=None):
+    """N4 -- the three states are the lifecycle of a SEAL-PRODUCING round, and `base-only` records
+    are held OUT of the machine with no fourth state invented.
+
+    This is the clause the freeze was amended to add before its head was fixed. The natural wording
+    of `EXECUTION` -- "no record, or a record with no sealed_head" -- captures all four base-only
+    records and would leave completed historical rounds permanently executing."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**The three states are the lifecycle of a seal-producing round, not of every manifest '
+            'record.**' in t
+            and 'does not enter the state machine' in t
+            and '`BASE-ONLY` is not a fourth lifecycle state and none was invented' in t
+            and 'no lifecycle value is stored for any record' in flat
+            and 'lifecycle = not-applicable' in t)
+
+
+def _si1_derive_reported(t=None):
+    """N5 -- the derivation is reported at BOTH scopes, with the 6/12 split named and both landing
+    shapes listed by round, so a later narrowing of the scope is caught rather than accepted."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**18 of 18**' in t and '**6 agree, 12 zero-candidate, 0 other**' in t
+            and 'Shape A' in t and 'Shape B' in t
+            and '`A12P`, `A6D`, `HYA`, `RNT`, `SGT`, `XTS`' in t
+            and 'not derived over' in t)
+
+
+def _si1_scope_discrepancy(t=None):
+    """N6 -- THE ROUND'S CENTRAL FINDING is reported as a discrepancy recorded and NOT repaired, with
+    the remedy proposed and withheld, and with the frozen rule left alone.
+
+    A round that quietly fixed the frozen derivation scope would have edited a freeze after seeing
+    its outcome. The finding is put to the owner instead."""
+    t = _SI1RES if t is None else t
+    # Matched against the note with its line breaks collapsed, so a contract cannot be defeated by
+    # where a paragraph happens to wrap. The words are the claim; the wrapping is not.
+    flat = ' '.join(t.split())
+    return ('DISCREPANCY 1' in flat
+            and '**Recorded, not repaired.**' in flat
+            and 'reintroduces the base-age false negative' in flat
+            and "**Altering the frozen rule is not this round's to do.**" in flat
+            and '**union of the visibility targets**' in flat
+            and 'result requiring adjudication' in flat
+            and '`SI-2` should not be frozen until it is adjudicated' in flat
+            and '**No frozen definition, target, negative case or authority rule was altered.**'
+            in flat)
+
+
+def _si1_census_not_correctness(t=None):
+    """N7 -- CENSUS-EXACT is reported as agreement and NEVER as correctness, with the axes kept
+    apart and both counts named."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**This is an agreement census and not a proof of correctness.**' in t
+            and 'would not detect an error both share' in t
+            and '18 `sealed`' in t and '4 `base-only`' in t
+            and 'the axes are distinguished' in flat)
+
+
+def _si1_hazard_precise(t=None):
+    """N8 -- the double-assignment hazard is reported PARSER-CONDITIONALLY rather than repeated as
+    the freeze states it, and the round's own earlier script is named as an instance."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('conditional on the parser' in t
+            and 'restricted to **40-hex literals** never sees the second assignment' in t
+            and 'pre-freeze census script' in t
+            and 'takes the **first** assignment' in t)
+
+
+def _si1_predictions(t=None):
+    """N9 -- every prediction is reported against its outcome, and #140 is recorded as NOT PREDICTED
+    rather than as a confirmation either way."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**NOT PREDICTED**' in t
+            and '**not scored.** The freeze put nothing at risk here and nothing is scored' in t
+            and 'does not treat the clean result as a confirmation' in t
+            and '**18 of 18 and 22 of 22.**' in t)
+
+
+def _si1_no_pin(t=None):
+    """N10 -- the round declares itself non-sealing with no pin, and says the seal constants were
+    left as the base carries them."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('This round is **NON-SEALING**. It lands `E` → `L`.' in t
+            and '`_SI1_SEALED_HEAD` and `_SI1_MERGE` do not exist — not as `None`, not at all.' in flat
+            and 'left exactly as `B` carries it' in t
+            and 'The claim is scoped to the repository record.' in t)
+
+
+def _si1_region_no_stem():
+    """N11 -- the generic validator contains NO ROUND STEM and no other round's guard tag.
+
+    Read off this guard file's own source, between the markers. A stem inside the validator would be
+    the per-round coupling the round exists to remove, and prose alone would not establish its
+    absence."""
+    src = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+    begin, end = '==== SI1-VALIDATOR-BEGIN ====', '==== SI1-VALIDATOR-END ===='
+    if begin not in src or end not in src:
+        return False
+    region = src.split(begin, 1)[1].split(end, 1)[0]
+    stems = sorted(_si1_load()[0])
+    if len(stems) != 22:
+        return False
+    for stem in stems:
+        if re.search(r'_%s_|\b%s\b' % (stem, stem), region):
+            return False
+    tags = set(re.findall(r'R7-[A-Z0-9]+', region))
+    return tags <= {'R7-SI1'}
+
+
+def _si1_no_forbidden_paths():
+    """N12 -- the round wrote no manuscript, no book file and no Lean, checked against the base."""
+    r = _rbr_git('diff', '--name-only', _SI1_BASE, 'HEAD', tag='R7-SI1')
+    if r is None or r.returncode != 0:
+        return False
+    for path in r.stdout.decode('utf-8', 'replace').split():
+        if path.startswith('papers/') or path.startswith('book/') or path.endswith('.lean'):
+            return False
+    return True
+
+
+def _si1_seal_constants_intact():
+    """N13 -- no PRE-EXISTING seal constant was removed or altered.
+
+    Stated as containment rather than as equality, and the distinction is the round's own: this
+    round legitimately adds one constant of its own, `_SI1_BASE`, so an equality check would fail on
+    the round's own base while saying nothing about anyone else's seal. What has to hold is that
+    every assignment present at the mandated base is still present and unchanged, and that the only
+    addition is this round's own base -- which is also how a round that quietly re-pinned another
+    round's seal would be caught."""
+    pat = re.compile(r"^_([A-Z0-9]+)_(BASE|SEALED_HEAD|MERGE)\s*=\s*'([0-9a-f]{40})'\s*$", re.M)
+    now = set(pat.findall(_bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')))
+    r = _rbr_git('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI1_BASE, tag='R7-SI1')
+    if r is None or r.returncode != 0:
+        return False
+    was = set(pat.findall(r.stdout.decode('utf-8', 'replace')))
+    if not was <= now:
+        return False
+    return now - was == {('SI1', 'BASE', _SI1_BASE)}
+
+
+def _si1_rows_not_cases(t=None):
+    """N14 -- the TWENTY frozen negative cases are kept distinct from the TWENTY-TWO rows the suite
+    emits, and the observation row is not retroactively counted as preregistered.
+
+    Twenty cases occupy twenty-one case rows, case 4 having two legs; the twenty-second row is an
+    observation added during execution. A note calling this a 21-case or 22-case frozen suite would
+    be backdating something into the freeze."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**All twenty frozen negative cases satisfy their required outcomes**' in flat
+            and '**22nd row is an OBSERVATION**, not a preregistered case' in flat
+            and 'not** a 21-case or 22-case frozen suite' in flat
+            and 'nothing added during execution is retroactively counted as preregistered' in flat)
+
+
+def _si1_defects_apart(t=None):
+    """N15 -- this round's own EXECUTION DEFECTS are recorded and held apart from the findings.
+
+    An implementation defect may be corrected; evidence about the preregistered rule may not be
+    absorbed by an implementation. The note keeps the two in separate sections and says so, and it
+    states that the finding does NOT change the target's verdict rather than softening the target."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('Execution defects, corrected' in flat
+            and 'not in the freeze' in flat
+            and 'none of them is counted among the discrepancies' in flat
+            and 'evidence about the preregistered contract' in flat
+            and 'Does it change a target verdict? No.' in flat
+            and 'not the kind of thing an implementation may absorb' in flat
+            and 'not two acceptable implementations' in flat
+            and 'creates no `SI-2` implications beyond what `SI-1` measured' in flat)
+
+
+ok_si1 = True
+
+# N1, and its drift control: one byte appended to this round's freeze must fail the guard.
+ok_si1 &= _si1_freeze_pin()
+
+
+def _si1_drift(path):
+    """One byte appended to this round's preregistration; every other file read normally."""
+    return _bb_read(path) + (b'\n' if path.endswith(
+        'round-si-1-shadow-seal-validator/preregistration.md') else b'')
+
+
+ok_si1 &= _si1_drift(_SI1FRZ) != _bb_read(_SI1FRZ)
+ok_si1 &= not _si1_freeze_pin(_si1_drift)
+
+# N2 -- the chronology, fail-closed.
+ok_si1 &= _si1_execution_ancestry()
+
+# N3..N10 -- the content contracts, each with a mutation control that must FAIL the predicate.
+for _pred, _old, _new in (
+        (_si1_non_authority, '**Presence is not authority**', 'The manifest is now authoritative'),
+        (_si1_states_not_per_record,
+         '`BASE-ONLY` is not a fourth lifecycle state and none was invented',
+         'BASE-ONLY is the fourth lifecycle state'),
+        (_si1_derive_reported, '**6 agree, 12 zero-candidate, 0 other**', 'all eighteen agree'),
+        (_si1_scope_discrepancy, '**Recorded, not repaired.**',
+         'The frozen rule was corrected here.'),
+        (_si1_census_not_correctness,
+         '**This is an agreement census and not a proof of correctness.**',
+         'The census proves the new validator correct.'),
+        (_si1_hazard_precise, 'conditional on the parser', 'unconditional'),
+        (_si1_predictions,
+         '**not scored.** The freeze put nothing at risk here and nothing is scored',
+         '**as predicted** | the freeze anticipated this'),
+        (_si1_no_pin, 'This round is **NON-SEALING**. It lands `E` → `L`.',
+         'This round is SEALING and carries a pin.'),
+        # The mutation target must exist LITERALLY in the note, not merely in its collapsed
+        # form: the predicates match on collapsed whitespace, but a mutation edits the raw
+        # text, and a replacement matching nothing would leave the control passing vacuously.
+        (_si1_rows_not_cases, '**22nd row is an OBSERVATION**',
+         'twenty-second frozen case'),
+        (_si1_defects_apart, 'Does it change a target verdict? No.',
+         'The target is downgraded to PARTIAL.')):
+    _mut = _SI1RES.replace(_old, _new)
+    ok_si1 &= _pred() and _mut != _SI1RES and not _pred(_mut)
+
+# N11..N13 -- the mechanical non-authority and no-stem checks.
+ok_si1 &= _si1_rows_not_cases() and _si1_defects_apart()
+ok_si1 &= _si1_region_no_stem()
+ok_si1 &= _si1_no_forbidden_paths()
+ok_si1 &= _si1_seal_constants_intact()
+
+# SI1-1 -- the manifest is twenty-two records, eighteen sealed and four base-only, and every record
+# validates against the schema.
+_si1_recs, _si1_errs = _si1_load()
+ok_si1 &= not _si1_errs and len(_si1_recs) == 22
+ok_si1 &= sum(1 for r in _si1_recs.values() if r.get('kind') == 'sealed') == 18
+ok_si1 &= sum(1 for r in _si1_recs.values() if r.get('kind') == 'base-only') == 4
+for _stem in sorted(_si1_recs):
+    ok_si1 &= _si1_schema(_si1_recs[_stem], _stem)[0]
+
+# SI1-3 -- both scopes, measured here and not quoted from the note.
+_si1_sealed = {k: v for k, v in _si1_recs.items() if v.get('kind') == 'sealed'}
+_si1_reach = sum(1 for k, v in _si1_sealed.items()
+                 if _si1_derive(v['sealed_head'], 'HEAD') == [v['merge']])
+_si1_spine = sum(1 for k, v in _si1_sealed.items()
+                 if _si1_derive(v['sealed_head'], 'HEAD', first_parent_only=True) == [v['merge']])
+ok_si1 &= _si1_reach == 18 and _si1_spine == 6
+
+# SI1-4 -- every negative row behaves as the frozen table requires, and the scope observation holds.
+_si1_neg = _si1_negatives()
+# Twenty frozen cases in twenty-one case rows, case 4 having two legs, PLUS one observation row that
+# is not a preregistered case. The two are counted separately here so that the suite cannot quietly
+# become a 22-case frozen suite by growing an observation.
+_si1_cases = [r for r in _si1_neg if not r[0].startswith('OBSERVATION')]
+_si1_obs = [r for r in _si1_neg if r[0].startswith('OBSERVATION')]
+ok_si1 &= len(_si1_cases) == 21 and len(_si1_obs) == 1
+ok_si1 &= all(good for _n, good, _d in _si1_cases)
+ok_si1 &= all(good for _n, good, _d in _si1_obs)
+print('    R7-SI1 negatives: all 20 frozen cases satisfy their required outcomes, in %d case rows; '
+      'plus %d observation row, which is not a preregistered case'
+      % (len(_si1_cases), len(_si1_obs)))
+
+# SI1-5 -- the census: twenty-two rows, agreement on every one, and the axes kept apart.
+_si1_rows = _si1_census(_si1_recs, _si1_errs)
+ok_si1 &= len(_si1_rows) == 22
+ok_si1 &= all(row['agree'] for row in _si1_rows)
+ok_si1 &= sum(1 for row in _si1_rows if row['axis'] == 'lifecycle') == 18
+ok_si1 &= sum(1 for row in _si1_rows if row['axis'] == 'schema+base+integrity') == 4
+ok_si1 &= all(row['new_lifecycle'] == 'ARCHIVED'
+              for row in _si1_rows if row['kind'] == 'sealed')
+ok_si1 &= all(row['new_lifecycle'] == _SI1_NA
+              for row in _si1_rows if row['kind'] == 'base-only')
+print('    R7-SI1 census: %d of %d records agree -- %d sealed on the lifecycle axis, %d base-only '
+      'on the schema/base/integrity axis; an agreement census and not a proof of correctness'
+      % (sum(1 for r in _si1_rows if r['agree']), len(_si1_rows),
+         sum(1 for r in _si1_rows if r['axis'] == 'lifecycle'),
+         sum(1 for r in _si1_rows if r['axis'] == 'schema+base+integrity')))
+print('    R7-SI1 derivation: reachable scope %d of %d agree with the pin; first-parent scope %d, '
+      'the retained 6/12 split' % (_si1_reach, len(_si1_sealed), _si1_spine))
+
+# SI1-8 -- #140 restated over the manifest and MEASURED: the execution branch root's single parent
+# is exactly the pinned base, for every sealed round. Left NOT PREDICTED by the freeze.
+_si1_140 = 0
+for _stem, _r in sorted(_si1_sealed.items()):
+    _revs = _rbr_git('rev-list', _r['sealed_head'], '^%s' % _r['base'], tag='R7-SI1')
+    if _revs is None or _revs.returncode != 0:
+        continue
+    _roots = []
+    for _c in _revs.stdout.decode('utf-8', 'replace').split():
+        _p = _rbr_git('rev-list', '--parents', '-n1', _c, tag='R7-SI1')
+        if _p is not None and _p.returncode == 0 and _p.stdout.decode().split()[1:] == [_r['base']]:
+            _roots.append(_c)
+    _si1_140 += len(_roots) == 1
+ok_si1 &= _si1_140 == 18
+print('    R7-SI1 #140 restated: the execution branch root\'s single parent is exactly the pinned '
+      'base for %d of %d sealed rounds -- measured, and left NOT PREDICTED by the freeze'
+      % (_si1_140, len(_si1_sealed)))
+
+check('R7-SI1', ok_si1,
+      "Seal infrastructure round SI-1 guard: a NON-SEALING round, E -> L with no pin, that builds a "
+      "generic seal validator and a per-round seal manifest ALONGSIDE the machinery that gates and "
+      "delivers a census of their agreement. THE ROUND'S OWN NON-AUTHORITY IS THE CENTRAL CONTRACT "
+      "and is checked MECHANICALLY rather than asserted: no seal constant and no prior-seal "
+      "comparison is removed, the set of module-level seal assignments at the execution head equals "
+      "the set at the mandated base, no existing check consults the new validator, and the ninety "
+      "pre-existing check tags return identical verdicts at the base and at the head -- so PRESENCE "
+      "IS NOT AUTHORITY is a measured claim and not a wording, and no later reading may hold that "
+      "the certification semantics changed because the new code was in the tree. The manifest is "
+      "checked as TWENTY-TWO records, EIGHTEEN sealed and FOUR base-only, every value taken from "
+      "the freeze's own table rather than from the execution's parse of the guard source, each "
+      "validating against a DISCRIMINATED UNION on kind in which base-only requires base and "
+      "FORBIDS sealed_head and merge -- forbidden meaning a hard failure and not a tolerated null, "
+      "because those four rounds are not seals waiting for fields. THE THREE STATES ARE THE "
+      "LIFECYCLE OF A SEAL-PRODUCING ROUND AND NOT OF EVERY RECORD: base-only records are held OUT "
+      "of the state machine and reported not-applicable, no fourth state is invented, and no "
+      "lifecycle value is stored -- five content controls, because the natural wording of EXECUTION "
+      "captures all four and would leave completed historical rounds permanently executing. THE "
+      "DERIVATION IS MEASURED AT BOTH SCOPES HERE, not quoted: the frozen reachable-history rule "
+      "agrees with the pin for eighteen of eighteen with exactly one candidate each, and the "
+      "retained first-parent scope reports the 6/12 split, six on the spine and twelve one step off "
+      "it where a round's landing and its pin entered main through one pull request. The generic "
+      "validator is checked to contain NO ROUND STEM and no other round's guard tag, read off this "
+      "file's own source between its markers. Twenty negative cases in twenty-one rows are each "
+      "required to fail or pass FOR THEIR NAMED REASON: malformed and missing hashes, unknown keys, "
+      "a base-only record carrying a seal both as a value and as null, a rewritten sealed head, a "
+      "wrong landing, two candidates, zero candidates, sibling history, a stale base.sha with the "
+      "branch carrying the landing and a rewound branch that still does not, an unresolved base ref "
+      "with a local branch of that name, a descendant of an unpinned landing failing SEAL PENDING "
+      "and the unpinned landing itself passing, mutation and removal and unauthorized addition as "
+      "three distinct conditions, a stem assigned twice where the first assignment must be taken or "
+      "the parse refused, a reading that would consult the synthetic merge HEAD, and a base-only "
+      "record on a state where an EXECUTION-style check WOULD fail passing as not-applicable. "
+      "CENSUS-EXACT is checked reported as AGREEMENT AND NEVER AS CORRECTNESS, with the axes kept "
+      "apart -- eighteen sealed records on lifecycle, four base-only on schema, pinned base and "
+      "record integrity, which have no lifecycle to agree about -- and with the old verdict taken "
+      "from the generic helpers the per-round clauses themselves call, so the comparison is like "
+      "with like. THREE DISCREPANCIES ARE CHECKED RECORDED AND NOT REPAIRED, eight controls, the "
+      "first of them this round's central finding: the frozen derivation scope, being the resolved "
+      "target alone, REINTRODUCES THE BASE-AGE FALSE NEGATIVE on a pull request opened from a "
+      "historical base, where a landing sitting on the base branch is unreachable from the head and "
+      "the derivation fails closed with zero candidates -- measured, with the remedy named as the "
+      "union of the visibility targets and DELIBERATELY NOT APPLIED, put to the owner as a result "
+      "requiring adjudication before SI-2 is frozen, since the cutover would make it the gating "
+      "behaviour. The second records that cases 10 to 12 had to be exercised on the visibility layer "
+      "because case 11 is unsatisfiable through the derivation path under that same scope. The third "
+      "reports the double-assignment hazard PARSER-CONDITIONALLY rather than repeating the freeze's "
+      "wording, naming this round's own pre-freeze script as an instance of the parser class that "
+      "gets it wrong. #140 is restated as an invariant over the manifest and MEASURED -- the "
+      "execution branch root's single parent is exactly the pinned base for eighteen of eighteen, "
+      "all twenty-two bases being merge commits -- and is checked reported as NOT PREDICTED with "
+      "the clean result not scored as a confirmation, the freeze having put nothing at risk there. "
+      "Four definition slots, all four fired. The preregistration is pinned BY BLOB with a one-byte "
+      "drift control, the chronology asked of the real pull_request.head.sha and never of the "
+      "synthetic merge, fail-closed, and NO SEAL TRIPLE OF ITS OWN exists -- not as None, not at "
+      "all. Thirteen named contracts, eight mutation controls, and no frozen definition, target, "
+      "negative case or authority rule altered anywhere.")
+
+
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())
 ok6 &= 'def AvailFS' in ina and 'theorem q3_countermodel' in ina

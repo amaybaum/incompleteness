@@ -1,0 +1,233 @@
+{
+  "round": "SI-1",
+  "base": "99ab6370470ed9d9e4005551581c6c8c18e54bd2",
+  "note": "An AGREEMENT census and not a proof of correctness: it records that the existing per-round machinery and the generic validator do not differ on the cases presented, and it would not detect an error both share. The eighteen sealed records are compared on the LIFECYCLE axis, state and verdict; the four base-only records on SCHEMA, PINNED-BASE and RECORD-INTEGRITY only, having no lifecycle to agree about.",
+  "totals": {
+    "records": 22,
+    "agree": 22,
+    "lifecycle_axis": 18,
+    "schema_axis": 4
+  },
+  "rows": [
+    {
+      "round": "A12P",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 2706a3aa7b87; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "A6D",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 4fb0a6052d33; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "A6I",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived ae0baf8ad5b8; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "A6P",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 98d0c894c96b; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "ABR",
+      "kind": "base-only",
+      "axis": "schema+base+integrity",
+      "new_lifecycle": "not-applicable",
+      "new_ok": true,
+      "new_reason": "historical non-sealing record; pinned base 93c2ca63c6cd reachable from HEAD",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "CLG",
+      "kind": "base-only",
+      "axis": "schema+base+integrity",
+      "new_lifecycle": "not-applicable",
+      "new_ok": true,
+      "new_reason": "historical non-sealing record; pinned base 6cff07cc0655 reachable from HEAD",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "CTI",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 292848b3c908; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "HYA",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived d2314f5edc33; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "HYB",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 2ac870f0b7f0; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "HYE",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived d98d690bdd26; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "PC4",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived e82755cafdbc; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "PC4S",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 8f4934136bae; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "PQT",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived c50dd22457bf; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "RBR",
+      "kind": "base-only",
+      "axis": "schema+base+integrity",
+      "new_lifecycle": "not-applicable",
+      "new_ok": true,
+      "new_reason": "historical non-sealing record; pinned base 79872cbbb0e2 reachable from HEAD",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "RNC",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived eb70bbb9b2b3; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "RNT",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 6a6d62e97518; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "SGT",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 11a8a59d2279; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "TCF",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 9e0cc3834538; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "TRJ",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived e8b12a433ebc; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "TSG",
+      "kind": "base-only",
+      "axis": "schema+base+integrity",
+      "new_lifecycle": "not-applicable",
+      "new_ok": true,
+      "new_reason": "historical non-sealing record; pinned base b821d69ae86f reachable from HEAD",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "WTS",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 6a6f206f830f; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    },
+    {
+      "round": "XTS",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 0b893d75cca3; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true
+    }
+  ]
+}
