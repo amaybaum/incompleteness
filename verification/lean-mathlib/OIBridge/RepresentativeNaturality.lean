@@ -263,6 +263,126 @@ theorem rnt2_admissible {σ : Equiv.Perm V} {Γ : Matrix V V ℝ} {a₀ : A}
     rw [← hΓ i j, h]
     rfl
 
+/-! ### Section E — `RNT3`, the induced maps and the exact intertwining law, per side -/
+
+/-- **`αL_σ` — THE INDUCED MAP ON THE LEFT GAUGE DATA** (budget slot 6, conditional — fired): the
+relabelling applied to the left gauge element itself.
+
+**This is the left side's map and nothing else.** `RelabelInducedRight` is a separate declaration
+with a separate closure theorem against a different class, and the two verdicts of this round are
+reached and reported apart. That the two maps happen to be given by the same formula is an
+observation about the formula; it is **not** one verdict covering both sides, and no statement here
+transfers anything proved on one side to the other. -/
+def RelabelInducedLeft (σ : Equiv.Perm V) (L : Matrix (V × A) (V × A) ℂ) :
+    Matrix (V × A) (V × A) ℂ :=
+  RelabelLift σ L
+
+/-- **`αR_σ` — THE INDUCED MAP ON THE RIGHT GAUGE DATA** (budget slot 7, conditional — fired): the
+relabelling applied to the right gauge element itself.
+
+**This is the right side's map and nothing else**, with its own closure theorem against act 11's
+weak anchored stabilizer, which carries the anchor and is a different structure from the left
+class. See the note on `RelabelInducedLeft`. -/
+def RelabelInducedRight (σ : Equiv.Perm V) (K : Matrix (V × A) (V × A) ℂ) :
+    Matrix (V × A) (V × A) ℂ :=
+  RelabelLift σ K
+
+/-- The entries of the lift, unfolded once, so that no later proof unfolds the definition by hand. -/
+theorem relabelLift_apply (σ : Equiv.Perm V) (U : Matrix (V × A) (V × A) ℂ) (i j : V) (a b : A) :
+    RelabelLift σ U (i, a) (j, b) = U (σ i, a) (σ j, b) := rfl
+
+/-- The lift is the submatrix of `U` along the equivalence `(i, a) ↦ (σ i, a)` on both indices. -/
+theorem relabelLift_eq_submatrix (σ : Equiv.Perm V) (U : Matrix (V × A) (V × A) ℂ) :
+    RelabelLift σ U = U.submatrix (σ.prodCongr (Equiv.refl A)) (σ.prodCongr (Equiv.refl A)) := by
+  ext p q
+  obtain ⟨i, a⟩ := p
+  obtain ⟨j, b⟩ := q
+  rfl
+
+/-- **THE LIFT IS MULTIPLICATIVE.** Reindexing both indices along one equivalence is conjugation by
+a permutation matrix, so it carries products to products. **This is the step at which the exact
+intertwining law becomes available on both sides at once**, and it is the reason the induced maps
+can be written without mentioning the dilation. -/
+theorem relabelLift_mul (σ : Equiv.Perm V) (M N : Matrix (V × A) (V × A) ℂ) :
+    RelabelLift σ (M * N) = RelabelLift σ M * RelabelLift σ N := by
+  rw [relabelLift_eq_submatrix, relabelLift_eq_submatrix, relabelLift_eq_submatrix,
+    Matrix.submatrix_mul_equiv M N _ (σ.prodCongr (Equiv.refl A)) _]
+
+/-- The lift fixes the identity. -/
+theorem relabelLift_one (σ : Equiv.Perm V) :
+    RelabelLift σ (1 : Matrix (V × A) (V × A) ℂ) = 1 := by
+  rw [relabelLift_eq_submatrix, Matrix.submatrix_one_equiv]
+
+/-- **The lift carries unitaries to unitaries.** -/
+theorem relabelLift_unitary {σ : Equiv.Perm V} {U : Matrix (V × A) (V × A) ℂ}
+    (hU : U ∈ Matrix.unitaryGroup (V × A) ℂ) :
+    RelabelLift σ U ∈ Matrix.unitaryGroup (V × A) ℂ := by
+  have h1 : Uᴴ * U = 1 := by
+    have h := Matrix.mem_unitaryGroup_iff'.1 hU
+    rwa [Matrix.star_eq_conjTranspose] at h
+  refine Matrix.mem_unitaryGroup_iff'.2 ?_
+  rw [Matrix.star_eq_conjTranspose, relabelLift_eq_submatrix, Matrix.conjTranspose_submatrix,
+    Matrix.submatrix_mul_equiv Uᴴ U _ (σ.prodCongr (Equiv.refl A)) _, h1,
+    Matrix.submatrix_one_equiv]
+
+/-- **`RNT3`, LEFT CLOSURE CONJUNCT** — the induced map on the left carries the left class into
+itself. The off-fibre vanishing transports because `σ` is injective: `i ≠ j` gives `σ i ≠ σ j`. -/
+theorem rnt3_left_closure {σ : Equiv.Perm V} {L : Matrix (V × A) (V × A) ℂ}
+    (hL : LeftFibreGroup L) : LeftFibreGroup (RelabelInducedLeft σ L) := by
+  refine ⟨relabelLift_unitary hL.1, fun p q hpq => ?_⟩
+  obtain ⟨i, a⟩ := p
+  obtain ⟨j, b⟩ := q
+  exact hL.2 (σ i, a) (σ j, b) fun h => hpq (σ.injective h)
+
+/-- **`RNT3`, LEFT INTERTWINING CONJUNCT** — an equality of matrices, universally quantified over
+the gauge element **and** over the dilation, with the map on the left independent of the dilation.
+**This is not an existential over the output.** -/
+theorem rnt3_left_law (σ : Equiv.Perm V) (L U : Matrix (V × A) (V × A) ℂ) :
+    RelabelLift σ (L * U) = RelabelInducedLeft σ L * RelabelLift σ U :=
+  relabelLift_mul σ L U
+
+/-- **`RNT3`, RIGHT CLOSURE CONJUNCT** — the induced map on the right carries act 11's weak anchored
+stabilizer into itself, **with the anchor carried and not moved**: the lift fixes the ancilla
+component, so the anchored column `(j, a₀)` goes to `(σ j, a₀)` and `a₀` is unchanged. The anchored
+phases are reindexed, `c ↦ c ∘ σ`. -/
+theorem rnt3_right_closure {σ : Equiv.Perm V} {a₀ : A} {K : Matrix (V × A) (V × A) ℂ}
+    (hK : WeakAnchorStabilizer a₀ K) :
+    WeakAnchorStabilizer a₀ (RelabelInducedRight σ K) := by
+  obtain ⟨hKmem, c, hc⟩ := hK
+  refine ⟨relabelLift_unitary hKmem, fun j => c (σ j), fun p j => ?_⟩
+  obtain ⟨i, a⟩ := p
+  rw [show RelabelInducedRight σ K (i, a) (j, a₀) = K (σ i, a) (σ j, a₀) from rfl,
+    hc (σ i, a) (σ j)]
+  congr 1
+  simp only [Prod.mk.injEq, eq_iff_iff]
+  exact ⟨fun h => ⟨σ.injective h.1, h.2⟩, fun h => ⟨by rw [h.1], h.2⟩⟩
+
+/-- **`RNT3`, RIGHT INTERTWINING CONJUNCT** — an equality of matrices, universally quantified over
+the gauge element **and** over the dilation, with the map on the right independent of the dilation.
+**This is not an existential over the output.** -/
+theorem rnt3_right_law (σ : Equiv.Perm V) (U K : Matrix (V × A) (V × A) ℂ) :
+    RelabelLift σ (U * K) = RelabelLift σ U * RelabelInducedRight σ K :=
+  relabelLift_mul σ U K
+
+/-- **`RNT3` — THE EXACT INTERTWINING LAW, BOTH SIDES.** The lift is twisted-natural for the two
+exhibited maps, which are independent of the dilation, and the two closure conjuncts hold.
+
+The four conjuncts are `rnt3_left_closure`, `rnt3_right_closure`, `rnt3_left_law` and
+`rnt3_right_law`, each proved separately and each reported separately.
+
+**This settles the law for the lift this round built, and says nothing about any other lift of the
+same transition.** It establishes **no converse** in either direction. -/
+theorem rnt3_law_exact (σ : Equiv.Perm V) (a₀ : A) :
+    TwistedNatural a₀ (RelabelInducedLeft σ) (RelabelInducedRight σ) (RelabelLift σ) :=
+  ⟨fun _ hL => rnt3_left_closure hL, fun _ hK => rnt3_right_closure hK,
+    fun L U _ => rnt3_left_law σ L U, fun U K _ => rnt3_right_law σ U K⟩
+
+/-- Orbit preservation for the lift, obtained from the exact law through this round's own `RNT1`
+(b). **The exact law is the stronger statement and is what this round reports**; this corollary is
+recorded so that the weaker statement is visible as the consequence it is, and never the reverse. -/
+theorem rnt3_orbit (σ : Equiv.Perm V) (a₀ : A) : OrbitNatural a₀ (RelabelLift σ) :=
+  rnt1_twisted_imp_orbit (rnt3_law_exact σ a₀)
+
 end RepresentativeNaturality
 end OIBridge
 
@@ -272,3 +392,14 @@ end OIBridge
 #print axioms OIBridge.RepresentativeNaturality.rnt1_twisted_imp_orbit
 #print axioms OIBridge.RepresentativeNaturality.rnt2_lifting_property
 #print axioms OIBridge.RepresentativeNaturality.rnt2_admissible
+#print axioms OIBridge.RepresentativeNaturality.relabelLift_apply
+#print axioms OIBridge.RepresentativeNaturality.relabelLift_eq_submatrix
+#print axioms OIBridge.RepresentativeNaturality.relabelLift_mul
+#print axioms OIBridge.RepresentativeNaturality.relabelLift_one
+#print axioms OIBridge.RepresentativeNaturality.relabelLift_unitary
+#print axioms OIBridge.RepresentativeNaturality.rnt3_left_closure
+#print axioms OIBridge.RepresentativeNaturality.rnt3_left_law
+#print axioms OIBridge.RepresentativeNaturality.rnt3_right_closure
+#print axioms OIBridge.RepresentativeNaturality.rnt3_right_law
+#print axioms OIBridge.RepresentativeNaturality.rnt3_law_exact
+#print axioms OIBridge.RepresentativeNaturality.rnt3_orbit
