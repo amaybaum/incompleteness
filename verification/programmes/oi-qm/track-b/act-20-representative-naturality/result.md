@@ -123,14 +123,22 @@ From the discrimination commit through the certified head `E`, **no diff touches
 any frozen definition**. The command the freeze specifies, with its result:
 
 ```
-$ git diff b848b12723fe82d567671ab88cd6d63863e1735e <E> \
+$ git diff b848b12723fe82d567671ab88cd6d63863e1735e 21909c8 \
       -- verification/lean-mathlib/OIBridge/RepresentativeNaturality.lean
 ```
 
 restricted to the declarations `StrictNatural`, `TwistedNatural`, `OrbitNatural`,
-`RelabelTransition` and `RelabelLift`, **is empty**. The five declaration bodies were additionally
-extracted and hashed at the definition commit, at the discrimination commit and at `E`, and the
-three hashes are equal.
+`RelabelTransition` and `RelabelLift`, **is empty** — the diff's `+`/`-` lines contain no `def` line
+for any of the five.
+
+**And the span runs to `E` because the module stops moving at `21909c8`.**
+`git log --oneline b848b127..HEAD -- verification/lean-mathlib/OIBridge/RepresentativeNaturality.lean`
+lists exactly one commit, `21909c8`, and the module's blob is `369fff15e3d1870fbb353939c31cf5367d6f33c9`
+both there and at `E`. So the same command run with `E` in place of `21909c8` returns the same empty
+result, which an auditor confirms without needing `E`'s SHA in advance.
+
+The five declaration bodies were additionally extracted and hashed at the definition commit, at the
+discrimination commit and at the head, and **the three hashes are equal**.
 
 ### 3.4 The `RNT5` collapse-configuration record
 
