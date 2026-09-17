@@ -9892,6 +9892,54 @@ def _rbr_strong_ancestry(base, target, label, num, tag='R7-RBR', cwd=None):
     return True
 
 
+def _rbr_archive_visibility_targets(env=None, tag='R7-RBR'):
+    """The commits an ARCHIVED landing may be visible from. **Archive mode only.**
+
+    Execution mode asks its question of one object and one only -- the real `pull_request.head.sha`
+    -- and `_rbr_target_commit` above is unchanged and still supplies it. This function exists
+    because the ARCHIVE question is different, and asking it of the head alone produced a false
+    negative that had nothing to do with the round being checked.
+
+    The failure: under `A.37` an execution branches from its own control plane's merge commit and
+    from nothing else, so a pull request opened from a historical base cannot reach seals that
+    landed on `main` afterwards. Four such branches failed this leg at once, on four rounds none of
+    them touched, while every pinned object was reachable from `main`. Nothing had been rewritten
+    or had vanished, which is the only condition this leg exists to detect.
+
+    So on a pull request the archived landing may be visible from the real `pull_request.head.sha`
+    **or** the real `pull_request.base.sha`: the first covers a fresh `E` -> `L` -> `P` branch whose
+    own seal is on the head side and not yet on the base, the second covers a historical branch
+    whose current base carries seals that landed after it. On a push, or any non-pull-request event,
+    the single target is `HEAD` as before. **Neither case ever admits the synthetic merge `HEAD`**:
+    both SHAs are read from the event payload, never from the checkout.
+
+    Returns a list of `(rev, label)` candidates, or `None` to FAIL CLOSED."""
+    env = os.environ if env is None else env
+    if not env.get('GITHUB_EVENT_NAME', '').startswith('pull_request'):
+        return [('HEAD', 'HEAD')]
+    path = env.get('GITHUB_EVENT_PATH', '')
+    if not path or not os.path.exists(path):
+        print('    %s archive: pull_request run with no readable event payload; failing closed '
+              'rather than certifying the synthetic merge HEAD' % tag)
+        return None
+    try:
+        with open(path, encoding='utf-8') as fh:
+            payload = json.load(fh)
+        head = payload['pull_request']['head']['sha']
+        base = payload['pull_request']['base']['sha']
+    except Exception as exc:
+        print('    %s archive: cannot resolve pull_request head/base SHAs (%s); failing closed'
+              % (tag, type(exc).__name__))
+        return None
+    out = []
+    for sha, what in ((head, 'pull_request.head.sha'), (base, 'pull_request.base.sha')):
+        if not (isinstance(sha, str) and re.fullmatch(r'[0-9a-f]{40}', sha)):
+            print('    %s archive: %s is not a full 40-hex SHA; failing closed' % (tag, what))
+            return None
+        out.append((sha, '%s %s' % (what, sha[:12])))
+    return out
+
+
 def _rbr_archive_ancestry(base, sealed, merge, tag='R7-RBR', env=None, target=None, cwd=None):
     """ARCHIVE MODE -- the same strong certificate, re-run against the SEALED execution head.
 
@@ -9901,19 +9949,37 @@ def _rbr_archive_ancestry(base, sealed, merge, tag='R7-RBR', env=None, target=No
     predicate exists to refuse -- correctly for the execution head, wrongly for anything that
     merely contains it. The predicate is a property of the object that was reviewed, so after the
     merge it is re-run against that object: the sealed head pinned by SHA, together with the merge
-    commit that carried it. Three things are required, each fail-closed: the pinned merge commit's
-    second parent IS the sealed head (the pin is consistent with the record); the sealed head
-    passes the strong check against the base exactly as it did in its own PR run; and both the
-    sealed head and the merge commit are still reachable from the current target -- the real
-    `pull_request.head.sha` in PR CI, `HEAD` otherwise -- so that a rewritten or vanished history
-    fails rather than passes. Nothing about the base or the preregistration pin changes."""
+    commit that carried it.
+
+    Three things are required, each fail-closed, and the FIRST TWO ARE UNCHANGED:
+
+      1. the pinned merge commit's second parent IS the sealed head -- the pin is consistent with
+         the record, and this is what makes `E` carried by `L` an intrinsic fact rather than a
+         second thing to go looking for;
+      2. the sealed head passes the strong check against the base exactly as it did in its own PR
+         run -- `base` an ancestor of `sealed`, and every commit of the execution-only history
+         itself descending from `base`;
+      3. the PINNED MERGE is still visible from the CI target, so that a rewritten or vanished
+         history fails rather than passes.
+
+    **Only (3) changed, and only in which targets count.** It asks after the pinned merge alone,
+    because (1) has already established that the sealed head is carried by it: `E` is contained in
+    `L` by the shape of the object, so a second independent reachability test on `E` would be a
+    second escape hatch rather than a second check. The sealed head's own reachability is still
+    computed and printed, as DIAGNOSTICS, and does not gate the result. On a pull request the
+    candidates are the real head and the real base SHAs, per
+    `_rbr_archive_visibility_targets`; on a push, `HEAD`. Nothing about the base, the
+    preregistration pin, or execution mode changes."""
     if target is None:
-        target, label, _num = _rbr_target_commit(env=env, tag=tag)
-        if target is None:
+        cands = _rbr_archive_visibility_targets(env=env, tag=tag)
+        if cands is None:
             return False
     else:
-        label = target[:12]
-    for rev in (base, sealed, merge, target):
+        cands = [(target, target[:12])]
+    for rev in (base, sealed, merge):
+        if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
+            return False
+    for rev, _lab in cands:
         if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
             return False
     parents = _rbr_git('log', '-1', '--format=%P', merge, tag=tag, cwd=cwd)
@@ -9927,16 +9993,24 @@ def _rbr_archive_ancestry(base, sealed, merge, tag='R7-RBR', env=None, target=No
     if not _rbr_strong_ancestry(base, sealed, 'sealed execution head %s' % sealed[:12], None,
                                 tag=tag, cwd=cwd):
         return False
-    for rev, what in ((sealed, 'sealed head'), (merge, 'pinned merge')):
-        reach = _rbr_git('merge-base', '--is-ancestor', rev, target, tag=tag, cwd=cwd)
+    seen = None
+    for rev, lab in cands:
+        reach = _rbr_git('merge-base', '--is-ancestor', merge, rev, tag=tag, cwd=cwd)
         if reach is None:
             return False
-        if reach.returncode != 0:
-            print('    %s archive: %s %s is NOT reachable from %s; failing closed'
-                  % (tag, what, rev[:12], label))
-            return False
-    print('    %s archive: re-certified sealed head %s (merge %s), both reachable from %s'
-          % (tag, sealed[:12], merge[:12], label))
+        if reach.returncode == 0:
+            seen = lab
+            break
+    if seen is None:
+        print('    %s archive: pinned merge %s is NOT reachable from %s; failing closed'
+              % (tag, merge[:12], ' or '.join(lab for _r, lab in cands)))
+        return False
+    sealed_vis = _rbr_git('merge-base', '--is-ancestor', sealed, cands[0][0], tag=tag, cwd=cwd)
+    sealed_note = 'reachable' if (sealed_vis is not None and sealed_vis.returncode == 0) \
+        else 'not directly reachable, and carried by the pinned merge'
+    print('    %s archive: re-certified sealed head %s (merge %s); pinned merge reachable from %s; '
+          'sealed head %s from %s'
+          % (tag, sealed[:12], merge[:12], seen, sealed_note, cands[0][1]))
     return True
 
 
@@ -10014,6 +10088,133 @@ def _rbr_archive_regression():
         return False
     finally:
         shutil.rmtree(cwd, ignore_errors=True)
+
+
+def _rbr_archive_visibility_regression():
+    """Synthetic regression for ARCHIVE VISIBILITY: the head-or-base rule, and the five ways it
+    must still fail closed.
+
+    Builds one topology carrying an archived landing `L` on `main`, plus a historical branch cut
+    BEFORE `L` landed -- the shape that produced four simultaneous false negatives on four rounds
+    none of the failing branches touched. Then exercises, in order:
+
+      1. a STALE HISTORICAL pull request -- head from before `L`, base the current `main` that
+         carries it -- PASSES, which is the repair;
+      2. a FRESH LANDING pull request -- `L` on the head side only, base from before it -- PASSES,
+         which is the case the old single-target rule got right and must keep;
+      3. `L` on NEITHER side FAILS, which is the rewritten-or-vanished condition this leg exists
+         for, and is what the repair must not give away;
+      4. a MALFORMED `E` -> `L` relation FAILS even when `L` is plainly visible from both sides;
+      5. a PUSH whose `HEAD` does not carry `L` FAILS, the non-pull-request path being unchanged;
+      6. EXECUTION mode is untouched and remains real-head-only: `_rbr_target_commit` returns the
+         head SHA and never the base, and the strengthened predicate still refuses a base-only
+         target.
+
+    And the control that matters most for (1) and (2): the SYNTHETIC merge `HEAD` of the checkout
+    cannot make any case pass. Case 3 is run with the working tree sitting on a commit that DOES
+    carry `L`, so a reading that consulted the checkout instead of the payload would pass it. It
+    must still fail."""
+    import shutil
+    import tempfile
+    cwd = tempfile.mkdtemp(prefix='r7-vis-')
+    try:
+        cfg = ('-c', 'user.name=r7', '-c', 'user.email=r7@example.invalid',
+               '-c', 'commit.gpgsign=false')
+
+        def run(*a):
+            r = _rbr_git(*(cfg + a), tag='R7-VIS', cwd=cwd)
+            if r is None or r.returncode != 0:
+                raise RuntimeError('git %s' % ' '.join(a))
+            return r.stdout.decode('utf-8', 'replace').strip()
+
+        def head():
+            return run('rev-parse', 'HEAD')
+
+        run('init', '-q', '-b', 'main')
+        run('commit', '-q', '--allow-empty', '-m', 'c0')
+        c0 = head()
+        # the historical branch, cut before anything sealed
+        run('checkout', '-q', '-b', 'historical', c0)
+        run('commit', '-q', '--allow-empty', '-m', 'a historical control plane')
+        hist = head()
+        # the sealed round: freeze merge B, execution E, landing L
+        run('checkout', '-q', 'main')
+        run('commit', '-q', '--allow-empty', '-m', 'freeze')
+        b = head()
+        run('checkout', '-q', '-b', 'execution', b)
+        run('commit', '-q', '--allow-empty', '-m', 'execution E')
+        e = head()
+        run('checkout', '-q', 'main')
+        run('merge', '-q', '--no-ff', '-m', 'landing L', 'execution')
+        ell = head()
+        run('commit', '-q', '--allow-empty', '-m', 'a later sibling')
+        main_now = head()
+
+        payloads = {}
+
+        def env_for(name, head_sha, base_sha):
+            p = os.path.join(cwd, 'event-%s.json' % name)
+            with open(p, 'w', encoding='utf-8') as fh:
+                json.dump({'pull_request': {'number': 1,
+                                            'head': {'sha': head_sha},
+                                            'base': {'sha': base_sha}}}, fh)
+            payloads[name] = p
+            return {'GITHUB_EVENT_NAME': 'pull_request', 'GITHUB_EVENT_PATH': p}
+
+        ok = True
+        # 1. stale historical head, base carries L -> PASSES (the repair)
+        ok &= _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
+                                    env=env_for('stale', hist, main_now))
+        # 2. fresh landing: L on the head side only -> PASSES
+        ok &= _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
+                                    env=env_for('fresh', ell, b))
+        # 3. L on NEITHER side -> FAILS. The checkout is left on main_now, which DOES carry L,
+        #    so a reading that consulted the synthetic merge HEAD would wrongly pass this.
+        run('checkout', '-q', 'main')
+        ok &= not _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
+                                        env=env_for('neither', hist, c0))
+        # 4. malformed E -> L: the pinned merge does not carry the sealed head, L visible on both
+        ok &= not _rbr_archive_ancestry(b, hist, ell, tag='R7-VIS', cwd=cwd,
+                                        env=env_for('malformed', main_now, main_now))
+        # 5. push with HEAD not carrying L -> FAILS
+        run('checkout', '-q', 'historical')
+        ok &= not _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
+                                        env={'GITHUB_EVENT_NAME': 'push'})
+        run('checkout', '-q', 'main')
+        ok &= _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
+                                    env={'GITHUB_EVENT_NAME': 'push'})
+        # 6. EXECUTION mode untouched: the target is the head SHA, never the base
+        tgt, _lab, _n = _rbr_target_commit(env=env_for('exec', hist, main_now), tag='R7-VIS')
+        ok &= (tgt == hist)
+        # and the strengthened predicate still refuses a base-only target
+        ok &= not _rbr_strong_ancestry(b, hist, 'synthetic historical head', None,
+                                       tag='R7-VIS', cwd=cwd)
+        ok &= _rbr_strong_ancestry(b, e, 'synthetic execution head', None, tag='R7-VIS', cwd=cwd)
+        return ok
+    except Exception as exc:
+        print('    R7-VIS: synthetic repository could not be built (%s); failing closed'
+              % type(exc).__name__)
+        return False
+    finally:
+        shutil.rmtree(cwd, ignore_errors=True)
+
+
+ok_vis = _rbr_archive_visibility_regression()
+check('R7-VIS', ok_vis,
+      'Archive-mode VISIBILITY, synthetic regression for the head-or-base repair. Under A.37 an execution branches '
+      'from its own control plane merge and from nothing else, so a pull request opened from a historical base '
+      'cannot reach seals that landed afterwards; four branches failed this leg at once on four rounds none of them '
+      'touched, while every pinned object was reachable from main. Nothing had been rewritten, which is the only '
+      'condition the leg exists to detect. The repair asks after the PINNED MERGE alone -- the sealed head being '
+      'carried by it is already established by the second-parent check, so a second reachability test on the sealed '
+      'head would be a second escape hatch, not a second check -- and accepts it on either the real head or the real '
+      'base SHA of a pull request, HEAD on a push. Six cases are exercised: a stale historical head whose base '
+      'carries the landing PASSES; a fresh landing branch carrying it on the head side only PASSES; the landing on '
+      'NEITHER side FAILS; a malformed sealed-head-to-merge relation FAILS even with the merge visible from both '
+      'sides; a push whose HEAD does not carry the landing FAILS; and execution mode is unchanged, its target still '
+      'the real head SHA and never the base, with the strengthened predicate still refusing a base-only target. The '
+      'neither-side case is run with the checkout sitting on a commit that DOES carry the landing, so a reading that '
+      'consulted the synthetic merge HEAD instead of the event payload would pass it and does not.')
 
 
 ok_arch = _rbr_archive_regression()
