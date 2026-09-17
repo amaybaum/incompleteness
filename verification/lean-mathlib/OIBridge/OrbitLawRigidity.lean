@@ -1467,6 +1467,36 @@ theorem ol5_two_inequivalent_survivors :
     (fun _ => gramPhaseEquiv_refl _)
   exact hmove (gramPhaseEquiv_symm (h2 0))
 
+/-- **A DISCREPANCY IN THE FROZEN TEXT, CERTIFIED IN THE KERNEL AND NOT REPAIRED.** The
+countercontrol table of this round's control plane names the discriminating witness as the identity
+transition against the carrier relabelling **from the initial class of act 12's `H(1)`**, with the
+relabelling taken at `σ` the column transposition act 18's fourth admissible dilation exhibits. Under
+the freeze's own statement of the relabelling — the **simultaneous** relabelling of the fibre index
+and of both matrix indices by `σ` — that pair does **not** separate: the relabelling **fixes** the
+fibre-Gram tuple of `H(1)` exactly, because `H(1)` is invariant under relabelling both of its indices
+by that transposition.
+
+The freeze's `ΦP` statement and the freeze's `SIOP` countercontrol entry are therefore inconsistent
+with each other at the configuration and the permutation both name. **The execution records the
+discrepancy and does not repair the freeze.** The discriminating test is reported from the initial
+class of act 12's `H(i)` instead, which is inside this freeze's own frozen witness supply and at the
+frozen configuration, with the substitution named in the result note. -/
+theorem phiP_fixes_hadamard_one :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      (∀ i j, Γ₀ i j = 1 / 4) ∧ AdmissibleDilationAt Γ₀ (0 : Fin 1) H₁
+        ∧ (fun i : Fin 4 => ((FibreGram (0 : Fin 1) H₁) (Equiv.swap (2 : Fin 4) 3 i)).submatrix
+            (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) = FibreGram (0 : Fin 1) H₁ := by
+  classical
+  obtain ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, hadm₁, hadmᵢ, hnotG, _⟩ := hadamard_slices_not_twoSided
+  refine ⟨Γ₀, H₁, fun i j => by rw [hΓ₀]; rfl, hadm₁, ?_⟩
+  funext i
+  ext j k
+  simp only [Matrix.submatrix_apply, fibreGram_apply, Fin.sum_univ_one, hH₁,
+    Equiv.swap_apply_def]
+  fin_cases i <;> fin_cases j <;> fin_cases k <;>
+    norm_num [Matrix.of_apply, Matrix.cons_val_two, Matrix.cons_val_three, Matrix.head_cons,
+      Matrix.tail_cons, Fin.ext_iff]
+
 end OrbitLawRigidity
 end OIBridge
 
@@ -1490,3 +1520,4 @@ end OIBridge
 #print axioms OIBridge.OrbitLawRigidity.ol3_phiX_fails_l0
 #print axioms OIBridge.OrbitLawRigidity.ol4_siop_yes
 #print axioms OIBridge.OrbitLawRigidity.ol5_two_inequivalent_survivors
+#print axioms OIBridge.OrbitLawRigidity.phiP_fixes_hadamard_one
