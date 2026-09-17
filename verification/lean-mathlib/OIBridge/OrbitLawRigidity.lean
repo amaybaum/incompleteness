@@ -367,5 +367,133 @@ def SameInitialOrbitPair (a₀ : A) (Γ : ℕ → Matrix V V ℝ)
       ∧ (∀ s, s < tstar → GramPhaseEquiv (𝔾 s) (𝔾' s))
       ∧ ¬ GramPhaseEquiv (𝔾 tstar) (𝔾' tstar)
 
+/-! ### Section B — `OL1`, the shared structural theorem, which RUNS FIRST
+
+**This target runs before the census and before the discriminating test.** It is assumption-light
+and structural, and it is what turns "a law that propagates" into "an action on a state space",
+which is the object the ladder's rungs are conditions on.
+
+**What `OL1` is NOT.** It is **not** a statement that such a law exists — act 18's `L-PROP` supplies
+that and this round consumes it. It is **not** a statement that the action is faithful, transitive,
+free, continuous or by any kind of symmetry. It is **not** a statement about laws that fail `L2` or
+`L4d`, about which it says nothing in either direction. And it is **not** a bridge to any
+representation theory: `Φ̄` is a function on classes and is realized here as no operator, no
+unitary, no generator and no group element. -/
+
+/-- **`OL1` (a), THE GENERAL FORM — AN `L-PROP` LAW THAT IS QUOTIENT-WELL-DEFINED AND COMPOSITIONAL
+DESCENDS TO A COMPOSITION OF MAPS ON THE ADMISSIBLE ORBIT SPACES.**
+
+The composite `E` is a **bound variable pinned by its two defining equations** — `E 0` the identity
+and `E (t+1) = Φ t ∘ E t` — and is not a definition of this round. Four conjuncts:
+
+1. **`E t` is well defined on `GramPhaseEquiv`-classes**, at every `t`: this is `L4d`, the first
+   conjunct of `TransitionLaw`, propagated along the composite by induction. So each `E t` induces a
+   map `Ω_0 → Ω_t`, and the evolution from the initial orbit is **a function of the initial class
+   alone**.
+2. **The solution set is read off the transition**: a trajectory solves the law iff
+   `[𝔾 (t+1)] = Φ̄_t [𝔾 t]` at every `t`.
+3. **Every solution is the composite applied to its own initial slice**, `[𝔾 t] = [E t (𝔾 0)]`.
+4. **And the composite's own trajectories are solutions that are realized by a coherent lift.**
+
+**The `TJ1` dependence is named at the step and not in a footnote, and it is conjunct 4.** Reading
+the solution set as a composition of maps on per-time state spaces requires the ambient admissible
+set to be the **product over time** of those spaces: intersecting a product constraint with a
+non-product ambient set need not factor, and it is act 17's merged `tj1_sufficiency` that proves the
+ambient set **is** the product, so that a trajectory assembled slice by slice from the composite
+stays inside it. Without `TJ1` conjunct 4 does not follow. `TJ1` is consumed at merged strength and
+is neither enlarged nor re-proved here. -/
+theorem ol1a_descends_to_composition {a₀ : A} {Γ : ℕ → Matrix V V ℝ}
+    {Φ : ℕ → (V → Matrix V V ℂ) → (V → Matrix V V ℂ)}
+    {Law : (ℕ → V → Matrix V V ℂ) → Prop}
+    (hTL : TransitionLaw Φ Law)
+    (E : ℕ → (V → Matrix V V ℂ) → (V → Matrix V V ℂ))
+    (hE0 : ∀ G, E 0 G = G) (hEs : ∀ t G, E (t + 1) G = Φ t (E t G)) :
+    (∀ (t : ℕ) (G G' : V → Matrix V V ℂ),
+        GramPhaseEquiv G G' → GramPhaseEquiv (E t G) (E t G'))
+      ∧ (∀ 𝔾 : ℕ → V → Matrix V V ℂ, Law 𝔾 ↔ ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+      ∧ (∀ 𝔾 : ℕ → V → Matrix V V ℂ, Law 𝔾 → ∀ t, GramPhaseEquiv (𝔾 t) (E t (𝔾 0)))
+      ∧ (∀ G₀ : V → Matrix V V ℂ, (∀ t, RealizableGram A (Γ t) (E t G₀)) →
+          Law (fun t => E t G₀)
+            ∧ ∃ U : ℕ → Matrix (V × A) (V × A) ℂ,
+                CoherentLift a₀ Γ U ∧ ∀ t, FibreGram a₀ (U t) = E t G₀) := by
+  refine ⟨?_, hTL.2, ?_, ?_⟩
+  · intro t
+    induction t with
+    | zero => intro G G' h; rw [hE0, hE0]; exact h
+    | succ n ih => intro G G' h; rw [hEs, hEs]; exact hTL.1 n _ _ (ih G G' h)
+  · intro 𝔾 hLaw t
+    induction t with
+    | zero => rw [hE0]; exact gramPhaseEquiv_refl _
+    | succ n ih =>
+        rw [hEs]
+        exact gramPhaseEquiv_trans ((hTL.2 𝔾).1 hLaw n) (hTL.1 n _ _ ih)
+  · intro G₀ hreal
+    refine ⟨(hTL.2 _).2 fun t => ?_, tj1_sufficiency a₀ hreal⟩
+    rw [hEs]
+    exact gramPhaseEquiv_refl _
+
+/-- **`OL1` (b), THE HOMOGENEOUS FORM — AT A TIME-HOMOGENEOUS VISIBLE FAMILY THE LAW IS A MONOID
+ACTION OF `(ℕ, +)` ON THE ADMISSIBLE ORBIT SPACE.**
+
+At `Γ t = Γ₀` at every `t` the admissible orbit space is the same set at every time, so there **is**
+a single set for a monoid to act on; with `L2` the transition family is constant and the composite
+is `E_t = Φ̂^t`. Five conjuncts: the state space is constant; `E_0` is the identity; the semigroup
+law `E_{t+s} = E_s ∘ E_t`; well-definedness of every `E_t` on classes; and every solution sitting at
+`[Φ̂^t (𝔾 0)]`.
+
+**The theorem is split in two and this half is stated at time-homogeneous configurations only.**
+When the orbit space varies with `t` there is no single set for a monoid to act on, and what one has
+is a composable family of maps between different sets — a composition and not an action. Writing (b)
+as though it held generally would overstate the theorem, and writing only (a) would lose the
+statement the round actually wants.
+
+**This is a descent statement and not an existence statement.** That an `L-PROP` law exists is act
+18's and is consumed. It says nothing about faithfulness, transitivity, freeness or any symmetry
+property of the induced action, and **the action is not a group**: `(ℕ, +)` is a monoid and no
+inverse is claimed for `Φ̂` here. Reversibility is a separate rung of the ladder and is reported
+separately. -/
+theorem ol1b_monoid_action {a₀ : A} {Γ : ℕ → Matrix V V ℝ} {Γ₀ : Matrix V V ℝ}
+    {Φ : ℕ → (V → Matrix V V ℂ) → (V → Matrix V V ℂ)}
+    {Phih : (V → Matrix V V ℂ) → (V → Matrix V V ℂ)}
+    {Law : (ℕ → V → Matrix V V ℂ) → Prop}
+    (hTL : TransitionLaw Φ Law) (hhom : ∀ t, Φ t = Phih) (hconst : ∀ t, Γ t = Γ₀) :
+    (∀ t, RealizableGram A (Γ t) = RealizableGram A Γ₀)
+      ∧ (∀ G : V → Matrix V V ℂ, Phih^[0] G = G)
+      ∧ (∀ (t s : ℕ) (G : V → Matrix V V ℂ), Phih^[t + s] G = Phih^[s] (Phih^[t] G))
+      ∧ (∀ (t : ℕ) (G G' : V → Matrix V V ℂ),
+          GramPhaseEquiv G G' → GramPhaseEquiv (Phih^[t] G) (Phih^[t] G'))
+      ∧ (∀ 𝔾 : ℕ → V → Matrix V V ℂ, Law 𝔾 → ∀ t, GramPhaseEquiv (𝔾 t) (Phih^[t] (𝔾 0))) := by
+  have hd : ∀ G G' : V → Matrix V V ℂ,
+      GramPhaseEquiv G G' → GramPhaseEquiv (Phih G) (Phih G') := by
+    intro G G' h
+    have h0 := hTL.1 0 G G' h
+    rwa [hhom 0] at h0
+  have hstep : ∀ (t : ℕ) (G G' : V → Matrix V V ℂ),
+      GramPhaseEquiv G G' → GramPhaseEquiv (Phih^[t] G) (Phih^[t] G') := by
+    intro t
+    induction t with
+    | zero => intro G G' h; simpa using h
+    | succ n ih =>
+        intro G G' h
+        rw [Function.iterate_succ_apply', Function.iterate_succ_apply']
+        exact hd _ _ (ih G G' h)
+  refine ⟨fun t => by rw [hconst t], fun G => rfl, ?_, hstep, ?_⟩
+  · intro t s G
+    rw [add_comm t s]
+    exact Function.iterate_add_apply Phih s t G
+  · intro 𝔾 hLaw t
+    induction t with
+    | zero => simpa using gramPhaseEquiv_refl (𝔾 0)
+    | succ n ih =>
+        rw [Function.iterate_succ_apply']
+        have hs := (hTL.2 𝔾).1 hLaw n
+        rw [hhom n] at hs
+        exact gramPhaseEquiv_trans hs (hd _ _ ih)
+
 end OrbitLawRigidity
 end OIBridge
+
+/-! ### Axiom report — one line per named result -/
+
+#print axioms OIBridge.OrbitLawRigidity.ol1a_descends_to_composition
+#print axioms OIBridge.OrbitLawRigidity.ol1b_monoid_action
