@@ -791,27 +791,50 @@ of whether 24.1B's result note was present at the base and was not consumed. Not
 
 ---
 
-## 15. Decisions the owner settles before this freezes
+## 15. Owner settlements, made before this freezes
 
 Listed because the execution guard pins this file by **path and blob**, so each of these is fixed
-before the merge and cannot move afterwards.
+before the merge and cannot move afterwards. **All eight are settled. Nothing in this section is
+open**, and an execution that reads any item here as an open question has misread it.
 
-1. **The round's letter and directory name.** This file is drafted at
-   `verification/programmes/substratum/lemma-24-1c-spanning-class-decision/preregistration.md` and
-   calls the round **24.1C**. The letter `B` is taken: `lemma-24-1b-framework-data/` holds a merged
-   control plane at blob `f614b666ad9098f866969c4c524e47f504e5d71c` and carries no result note at
-   this base. If the owner wants a different letter or a different directory, it changes here.
-2. **The guard tag and its constants.** Drafted as `R7-SCD` with `_SCD_BASE`,
-   `_SCD_SEALED_HEAD`, `_SCD_MERGE`.
-3. **The module name.** Drafted as `verification/lean-mathlib/OIBridge/SpanningClassReach.lean`.
-4. **Whether the round is sealing at all.** §14.3 records the alternative.
-5. **Whether `SC4(c)` and `SC4(d)` stay in scope**, or the round narrows to `SC4(a)` and `SC4(b)`
-   alone.
-6. **Whether `SC6` stays in scope**, or the ordering census is deferred to an owner call outside
-   any round.
-7. **The census file `verification/lean-manuscript-census.json` is written** — settled. The
+1. **The round's letter and directory name — settled as drafted.** The round is **24.1C** and this
+   file stays at
+   `verification/programmes/substratum/lemma-24-1c-spanning-class-decision/preregistration.md`. The
+   letter `B` is taken: `lemma-24-1b-framework-data/` holds a merged control plane at blob
+   `f614b666ad9098f866969c4c524e47f504e5d71c` and carries no result note at this base. The existing
+   Lemma 24.1 family already lives under `verification/programmes/substratum/`, so the directory and
+   the letter are consistent with the repository as it stands.
+2. **The guard tag and its constants — settled as drafted.** `R7-SCD`, with `_SCD_BASE`,
+   `_SCD_SEALED_HEAD` and `_SCD_MERGE`.
+3. **The module name — settled as drafted.** `verification/lean-mathlib/OIBridge/SpanningClassReach.lean`.
+4. **The round is SEALING — settled**, landing `E` → `L` → `P` with `P` mandatory. §14.3's
+   alternative is recorded there and is not taken.
+5. **`SC4(c)` and `SC4(d)` stay in scope — settled.** The round does **not** narrow to `SC4(a)` and
+   `SC4(b)` alone. **The reason is recorded here because it is the reason they exist**: they are what
+   prevent a verdict about the general class from being inferred from an empty or uninhabited class,
+   or from a single carrier. Without them a positive reading of `SC4(a)` and `SC4(b)` could be
+   reported as a general-class result that the evidence does not carry.
+6. **`SC6` stays in scope — settled, as a CENSUS ONLY.** The ordering census records what evidence
+   would settle which continuation comes next, and **recommends no continuation**. A sentence of the
+   result note that recommends, ranks or advocates one continuation over another is outside `SC6`'s
+   scope whatever the census shows.
+7. **The census file `verification/lean-manuscript-census.json` is written — settled.** The
    execution adds one **kernel-only** family entry for its module, with no manuscript anchor, in
    every outcome including `SC5-UNDECIDED`. §3.3 and §12 carry it.
-8. **The execution's ordering against 24.1B's pending execution.** This freeze is written so the
-   two are independent in both directions, and §3.2 governs whichever lands first. If the owner
-   wants them ordered, the order is fixed here and the freeze says so.
+8. **The execution runs INDEPENDENT of 24.1B's pending execution — settled.** The two are **not**
+   ordered against one another. This freeze is written so they are independent in both directions,
+   and §3.2 governs whichever lands first.
+
+### 15.1 One record-level discrepancy, recorded and NOT repaired by this round
+
+`verification/ROADMAP.md` states, in the `P1` row and again in the body, that **24.1B is "named and
+not begun"**, while `verification/programmes/substratum/lemma-24-1b-framework-data/preregistration.md`
+exists at the base with blob `f614b666ad9098f866969c4c524e47f504e5d71c`. Whether a merged control
+plane counts as a round having "begun" is a reading, and this freeze takes neither side of it: what
+is recorded is that the two statements sit together on the record, so a reader of the `P1` row is not
+left to discover the freeze's existence for themselves.
+
+**This round does not repair it.** 24.1C writes nothing to `verification/ROADMAP.md`, the
+`ROADMAP` sits in the read-only start-state table, and correcting another round's row is not this
+round's to do. The execution carries this record forward into its result note unchanged and adds
+nothing to it.
