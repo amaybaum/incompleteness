@@ -22837,8 +22837,8 @@ _RNT_BASE = '84f27b50198ee31c224e31284905ff6c284ea9db'
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_RNT_SEALED_HEAD = None
-_RNT_MERGE = None
+_RNT_SEALED_HEAD = '0f8b4e06a1cc31ab0c01f2edb5011f1efe545e1b'
+_RNT_MERGE = '6a6d62e97518600bf2de51cf1d39146d1adbdff9'
 
 # THE CLAUSE, verbatim -- the non-choice clause, which the freeze carries at every place where a
 # classification could be read as a choice, and which every artifact of this round must carry with
@@ -23604,7 +23604,13 @@ _RNT_MERGE = 'e' * 40
 ok_rnt &= _rnt_prior_seals()
 ok_rnt &= _rnt_execution_ancestry.__doc__ is not None
 _RNT_SEALED_HEAD, _RNT_MERGE = _rnt_pin_probe
-ok_rnt &= (_RNT_SEALED_HEAD, _RNT_MERGE) == (None, None)
+# The restore is checked against the SAVED tuple and not against (None, None). Written the other
+# way -- as it was in the execution -- this line is itself the standing "own pins are unset"
+# assertion the comment above forbids: it passes at E and fails at P, which is the non-landable
+# pattern clause 9 exists to prevent. What has to be true here is that the rebinding above was
+# undone, whatever the pins hold, and that is what is asked.
+ok_rnt &= (_RNT_SEALED_HEAD, _RNT_MERGE) == _rnt_pin_probe
+ok_rnt &= ('f' * 40, 'e' * 40) != _rnt_pin_probe
 ok_rnt &= _rnt_prior_seals()
 
 # N1's control runs THROUGH _rnt_freeze_pin, so sabotaging that predicate fails the guard.
