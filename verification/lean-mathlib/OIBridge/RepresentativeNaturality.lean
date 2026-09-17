@@ -383,6 +383,334 @@ recorded so that the weaker statement is visible as the consequence it is, and n
 theorem rnt3_orbit (σ : Equiv.Perm V) (a₀ : A) : OrbitNatural a₀ (RelabelLift σ) :=
   rnt1_twisted_imp_orbit (rnt3_law_exact σ a₀)
 
+/-! ### Section F — `RNT4` (a), whether each induced map is the identity, per side
+
+The two negatives below are exhibited at `V = Fin 2` with **`A` arbitrary** and the anchor
+arbitrary, so neither is a verdict reached only at `|A| = 1`. -/
+
+/-- The gauge element both `RNT4` witnesses use, and the one `RNT5` uses: the diagonal matrix with
+`1` on the fibre `0` and `-1` on the fibre `1`. It is bound by an equation in each statement that
+needs it and is not a top-level definition. -/
+theorem diag_unit_mem {A : Type} [Fintype A] [DecidableEq A]
+    (d : Fin 2 × A → ℂ) (hd : ∀ p, star (d p) * d p = 1) :
+    (Matrix.diagonal d) ∈ Matrix.unitaryGroup (Fin 2 × A) ℂ := by
+  refine Matrix.mem_unitaryGroup_iff'.2 ?_
+  rw [Matrix.star_eq_conjTranspose, Matrix.diagonal_conjTranspose, Matrix.diagonal_mul_diagonal]
+  rw [← Matrix.diagonal_one]
+  exact congrArg _ (funext fun p => hd p)
+
+/-- **`RNT4` (a), THE LEFT SIDE — the induced map on the left is NOT the identity**, certified as a
+matrix inequality at the named entry `((0, a₀), (0, a₀))`, where the induced map takes the value
+`-1` and the gauge element itself takes the value `1`.
+
+**One gauge element suffices and no search is a substitute.** This is a statement about the induced
+map this round exhibited, for the lift this round built, on the left side named. **It does NOT by
+itself establish that the lift fails strict equivariance**, which is a separate question with its
+own evidence bar, earned separately below by its own exhibited pair. -/
+theorem rnt4a_left_nontrivial {A : Type} [Fintype A] [DecidableEq A] (a₀ : A) :
+    ∃ (σ : Equiv.Perm (Fin 2)) (L : Matrix (Fin 2 × A) (Fin 2 × A) ℂ),
+      σ = Equiv.swap 0 1
+        ∧ L = Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then 1 else -1)
+        ∧ LeftFibreGroup L
+        ∧ RelabelInducedLeft σ L (0, a₀) (0, a₀) = -1
+        ∧ L (0, a₀) (0, a₀) = 1
+        ∧ RelabelInducedLeft σ L ≠ L := by
+  refine ⟨Equiv.swap 0 1, Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then 1 else -1),
+    rfl, rfl,
+    ⟨diag_unit_mem _ fun p => by by_cases hp : p.1 = (0 : Fin 2) <;> simp [hp],
+      fun p q hpq => ?_⟩, ?_, ?_, ?_⟩
+  · exact Matrix.diagonal_apply_ne _ fun h => hpq (congrArg Prod.fst h)
+  · show Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then 1 else -1)
+        (Equiv.swap (0 : Fin 2) 1 0, a₀) (Equiv.swap (0 : Fin 2) 1 0, a₀) = -1
+    rw [Matrix.diagonal_apply_eq]
+    norm_num
+  · rw [Matrix.diagonal_apply_eq]
+    norm_num
+  · intro h
+    have h2 := congrFun (congrFun h (0, a₀)) (0, a₀)
+    have e1 : RelabelInducedLeft (Equiv.swap (0 : Fin 2) 1)
+        (Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then (1 : ℂ) else -1))
+          (0, a₀) (0, a₀) = -1 := by
+      show Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then (1 : ℂ) else -1)
+          (Equiv.swap (0 : Fin 2) 1 0, a₀) (Equiv.swap (0 : Fin 2) 1 0, a₀) = -1
+      rw [Matrix.diagonal_apply_eq]
+      norm_num
+    have e2 : Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then (1 : ℂ) else -1)
+        (0, a₀) (0, a₀) = 1 := by
+      rw [Matrix.diagonal_apply_eq]
+      norm_num
+    have : (-1 : ℂ) = 1 := e1.symm.trans (h2.trans e2)
+    norm_num at this
+
+/-- **`RNT4` (a), THE RIGHT SIDE — the induced map on the right is NOT the identity**, certified as
+a matrix inequality at the named entry `((0, a₀), (0, a₀))`, where the induced map takes the value
+`-1` and the gauge element itself takes the value `1`.
+
+**This is a separate verdict from the left one**, against act 11's weak anchored stabilizer, and
+neither side's verdict is inherited from the other. It does **not** by itself establish a failure of
+strict equivariance. -/
+theorem rnt4a_right_nontrivial {A : Type} [Fintype A] [DecidableEq A] (a₀ : A) :
+    ∃ (σ : Equiv.Perm (Fin 2)) (K : Matrix (Fin 2 × A) (Fin 2 × A) ℂ),
+      σ = Equiv.swap 0 1
+        ∧ K = Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then 1 else -1)
+        ∧ WeakAnchorStabilizer a₀ K
+        ∧ RelabelInducedRight σ K (0, a₀) (0, a₀) = -1
+        ∧ K (0, a₀) (0, a₀) = 1
+        ∧ RelabelInducedRight σ K ≠ K := by
+  refine ⟨Equiv.swap 0 1, Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then 1 else -1),
+    rfl, rfl,
+    ⟨diag_unit_mem _ fun p => by by_cases hp : p.1 = (0 : Fin 2) <;> simp [hp],
+      fun j => if j = 0 then 1 else -1, fun p j => ?_⟩, ?_, ?_, ?_⟩
+  · by_cases hp : p = (j, a₀)
+    · subst hp
+      rw [Matrix.diagonal_apply_eq, if_pos rfl]
+    · rw [Matrix.diagonal_apply_ne _ (Ne.symm (Ne.symm hp)), if_neg hp]
+  · show Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then 1 else -1)
+        (Equiv.swap (0 : Fin 2) 1 0, a₀) (Equiv.swap (0 : Fin 2) 1 0, a₀) = -1
+    rw [Matrix.diagonal_apply_eq]
+    norm_num
+  · rw [Matrix.diagonal_apply_eq]
+    norm_num
+  · intro h
+    have h2 := congrFun (congrFun h (0, a₀)) (0, a₀)
+    have e1 : RelabelInducedRight (Equiv.swap (0 : Fin 2) 1)
+        (Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then (1 : ℂ) else -1))
+          (0, a₀) (0, a₀) = -1 := by
+      show Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then (1 : ℂ) else -1)
+          (Equiv.swap (0 : Fin 2) 1 0, a₀) (Equiv.swap (0 : Fin 2) 1 0, a₀) = -1
+      rw [Matrix.diagonal_apply_eq]
+      norm_num
+    have e2 : Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then (1 : ℂ) else -1)
+        (0, a₀) (0, a₀) = 1 := by
+      rw [Matrix.diagonal_apply_eq]
+      norm_num
+    have : (-1 : ℂ) = 1 := e1.symm.trans (h2.trans e2)
+    norm_num at this
+
+/-! ### Section G — `RNT4` (b), whether the lift is strictly natural
+
+**Earned by its own exhibited pairs and by nothing else.** Neither proof below mentions
+`RelabelInducedLeft` or `RelabelInducedRight`, and neither is obtained from `RNT4` (a): "the induced
+map is not the identity, therefore the lift is not strictly natural" is a non-sequitur and is not
+the argument made here. Each negative exhibits a gauge element and a dilation and certifies an
+inequality of matrices at a named entry. -/
+
+/-- **`RNT4` (b), THE LEFT SIDE.** An exhibited pair `(L, U)` at which the lift of the moved
+dilation and the move of the lifted dilation are different matrices, certified at the named entry
+`((0, a₀), (0, a₀))`, where the first is `-1` and the second is `1`. `U` is the identity dilation.
+
+This is a statement about the lift this round built, at the configuration named. **It is not a
+statement that no lift of the relabelling's transition is strictly natural.** -/
+theorem rnt4b_strict_fails_left {A : Type} [Fintype A] [DecidableEq A] (a₀ : A) :
+    ∃ (σ : Equiv.Perm (Fin 2)) (L U : Matrix (Fin 2 × A) (Fin 2 × A) ℂ),
+      σ = Equiv.swap 0 1
+        ∧ L = Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then 1 else -1)
+        ∧ U = 1
+        ∧ LeftFibreGroup L
+        ∧ RelabelLift σ (L * U) (0, a₀) (0, a₀) = -1
+        ∧ (L * RelabelLift σ U) (0, a₀) (0, a₀) = 1
+        ∧ RelabelLift σ (L * U) ≠ L * RelabelLift σ U := by
+  obtain ⟨σ, L, hσ, hL, hLmem, _, _, _⟩ := rnt4a_left_nontrivial (A := A) a₀
+  have e1 : RelabelLift σ (L * 1) (0, a₀) (0, a₀) = -1 := by
+    rw [mul_one, hσ, hL, relabelLift_apply, Matrix.diagonal_apply_eq]
+    norm_num
+  have e2 : (L * RelabelLift σ (1 : Matrix (Fin 2 × A) (Fin 2 × A) ℂ)) (0, a₀) (0, a₀) = 1 := by
+    rw [relabelLift_one, mul_one, hL, Matrix.diagonal_apply_eq]
+    norm_num
+  refine ⟨σ, L, 1, hσ, hL, rfl, hLmem, e1, e2, fun h => ?_⟩
+  have : (-1 : ℂ) = 1 := e1.symm.trans ((congrFun (congrFun h (0, a₀)) (0, a₀)).trans e2)
+  norm_num at this
+
+/-- **`RNT4` (b), THE RIGHT SIDE.** An exhibited pair `(U, K)` at which the two sides differ,
+certified at the named entry `((0, a₀), (0, a₀))`, where the first is `-1` and the second is `1`.
+`U` is the identity dilation.
+
+**This is a separate exhibition from the left one** and neither side's verdict is inherited from the
+other. -/
+theorem rnt4b_strict_fails_right {A : Type} [Fintype A] [DecidableEq A] (a₀ : A) :
+    ∃ (σ : Equiv.Perm (Fin 2)) (U K : Matrix (Fin 2 × A) (Fin 2 × A) ℂ),
+      σ = Equiv.swap 0 1
+        ∧ U = 1
+        ∧ K = Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then 1 else -1)
+        ∧ WeakAnchorStabilizer a₀ K
+        ∧ RelabelLift σ (U * K) (0, a₀) (0, a₀) = -1
+        ∧ (RelabelLift σ U * K) (0, a₀) (0, a₀) = 1
+        ∧ RelabelLift σ (U * K) ≠ RelabelLift σ U * K := by
+  obtain ⟨σ, K, hσ, hK, hKmem, _, _, _⟩ := rnt4a_right_nontrivial (A := A) a₀
+  have e1 : RelabelLift σ (1 * K) (0, a₀) (0, a₀) = -1 := by
+    rw [one_mul, hσ, hK, relabelLift_apply, Matrix.diagonal_apply_eq]
+    norm_num
+  have e2 : (RelabelLift σ (1 : Matrix (Fin 2 × A) (Fin 2 × A) ℂ) * K) (0, a₀) (0, a₀) = 1 := by
+    rw [relabelLift_one, one_mul, hK, Matrix.diagonal_apply_eq]
+    norm_num
+  refine ⟨σ, 1, K, hσ, rfl, hK, hKmem, e1, e2, fun h => ?_⟩
+  have : (-1 : ℂ) = 1 := e1.symm.trans ((congrFun (congrFun h (0, a₀)) (0, a₀)).trans e2)
+  norm_num at this
+
+/-- **`RNT4` (b) — THE LIFT IS NOT STRICTLY NATURAL**, at `V = Fin 2` with `A` and the anchor
+arbitrary, for the relabelling `Equiv.swap 0 1`.
+
+Each of the two clauses of `StrictNatural` is refuted on its own by its own exhibited pair, so the
+verdict does not rest on either side alone. **This is a verdict about the lift this round built, at
+the configuration named**, and it is not a universal statement over lifts of the transition. -/
+theorem rnt4b_not_strictNatural {A : Type} [Fintype A] [DecidableEq A] (a₀ : A) :
+    ¬ StrictNatural a₀ (RelabelLift (V := Fin 2) (A := A) (Equiv.swap 0 1)) := by
+  rintro ⟨hleft, -⟩
+  obtain ⟨σ, L, U, hσ, _, hU, hLmem, e1, e2, _⟩ := rnt4b_strict_fails_left (A := A) a₀
+  subst hσ
+  subst hU
+  have := congrFun (congrFun (hleft L 1 hLmem) (0, a₀)) (0, a₀)
+  have hcontra : (-1 : ℂ) = 1 := e1.symm.trans (this.trans e2)
+  norm_num at hcontra
+
+/-! ### Section H — `RNT5`, the separation question, asked and answered SEPARATELY ON EACH SIDE
+
+**Two questions with independent evidence bars, and neither side inherits the other's result.**
+Each theorem below exhibits a `Ψ` pinned by equations, proves that side's per-input existential
+conjunct, and proves the non-existence of that side's fixed map. The configuration is part of the
+existential witness and the statement pins it: `V = Fin 2`, `A` and the anchor arbitrary.
+
+**No `SEP-COLLAPSE` is attempted on either side**, so no collapse configuration is committed and
+none is needed. -/
+
+/-- A unitary left factor is cancellable: if `L * U` vanishes then `U` does. -/
+theorem eq_zero_of_left_mul_eq_zero {L U : Matrix (V × A) (V × A) ℂ}
+    (hL : L ∈ Matrix.unitaryGroup (V × A) ℂ) (h : L * U = 0) : U = 0 := by
+  have hs : star L * L = 1 := Matrix.mem_unitaryGroup_iff'.1 hL
+  calc U = (star L * L) * U := by rw [hs, one_mul]
+    _ = star L * (L * U) := by rw [mul_assoc]
+    _ = 0 := by rw [h, mul_zero]
+
+/-- A unitary right factor is cancellable: if `U * K` vanishes then `U` does. -/
+theorem eq_zero_of_mul_right_eq_zero {U K : Matrix (V × A) (V × A) ℂ}
+    (hK : K ∈ Matrix.unitaryGroup (V × A) ℂ) (h : U * K = 0) : U = 0 := by
+  have hs : K * star K = 1 := Matrix.mem_unitaryGroup_iff.1 hK
+  calc U = U * (K * star K) := by rw [hs, mul_one]
+    _ = (U * K) * star K := by rw [mul_assoc]
+    _ = 0 := by rw [h, zero_mul]
+
+/-- **`RNT5` (L) — THE SEPARATION ON THE LEFT.** A map on dilations is exhibited, pinned by the two
+equations `Ψ 0 = 1` and `Ψ U = U` for `U ≠ 0`, which satisfies the left conjunct of `OrbitNatural`
+— the per-input existential over in-fibre left moves — and admits **no** map `αL` carrying the left
+class into itself with `Ψ (L * U) = αL L * Ψ U` at every `L` and every `U`.
+
+The witness for the existential is `L' = L` at every non-zero dilation and `L' = 1` at the zero
+dilation, which is exactly the input-dependence a fixed map cannot absorb: a fixed `αL` would have
+to equal `L` (read off at `U = 1`) and equal `1` (read off at `U = 0`) at the same `L`.
+
+Together with `rnt1_twisted_imp_orbit` the implication is therefore **strict on the left side**, at
+the configuration exhibited. **This is not a statement that the two formulations differ at every
+configuration, and it is not a statement about the right side.** -/
+theorem rnt5_left_separation {A : Type} [Fintype A] [DecidableEq A] (a₀ : A) :
+    ∃ Ψ : Matrix (Fin 2 × A) (Fin 2 × A) ℂ → Matrix (Fin 2 × A) (Fin 2 × A) ℂ,
+      Ψ 0 = 1
+        ∧ (∀ U, U ≠ 0 → Ψ U = U)
+        ∧ (∀ L U, LeftFibreGroup L → ∃ L', LeftFibreGroup L' ∧ Ψ (L * U) = L' * Ψ U)
+        ∧ ¬ ∃ αL : Matrix (Fin 2 × A) (Fin 2 × A) ℂ → Matrix (Fin 2 × A) (Fin 2 × A) ℂ,
+            (∀ L, LeftFibreGroup L → LeftFibreGroup (αL L))
+              ∧ (∀ L U, LeftFibreGroup L → Ψ (L * U) = αL L * Ψ U) := by
+  classical
+  set L₀ : Matrix (Fin 2 × A) (Fin 2 × A) ℂ :=
+    Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then 1 else -1) with hL₀def
+  have hL₀ : LeftFibreGroup L₀ := by
+    refine ⟨diag_unit_mem _ fun p => by by_cases hp : p.1 = (0 : Fin 2) <;> simp [hp],
+      fun p q hpq => ?_⟩
+    exact Matrix.diagonal_apply_ne _ fun h => hpq (congrArg Prod.fst h)
+  have h00 : L₀ (0, a₀) (0, a₀) = 1 := by
+    rw [hL₀def, Matrix.diagonal_apply_eq]; norm_num
+  have h11 : L₀ (1, a₀) (1, a₀) = -1 := by
+    rw [hL₀def, Matrix.diagonal_apply_eq]; norm_num
+  have hL₀ne0 : L₀ ≠ 0 := fun h => by
+    have : (1 : ℂ) = 0 := h00.symm.trans (congrFun (congrFun h (0, a₀)) (0, a₀))
+    norm_num at this
+  have hL₀ne1 : L₀ ≠ 1 := fun h => by
+    have hone : (1 : Matrix (Fin 2 × A) (Fin 2 × A) ℂ) (1, a₀) (1, a₀) = 1 :=
+      Matrix.one_apply_eq _
+    have : (-1 : ℂ) = 1 := h11.symm.trans ((congrFun (congrFun h (1, a₀)) (1, a₀)).trans hone)
+    norm_num at this
+  have hone_ne_zero : (1 : Matrix (Fin 2 × A) (Fin 2 × A) ℂ) ≠ 0 := fun h => by
+    have hone : (1 : Matrix (Fin 2 × A) (Fin 2 × A) ℂ) (0, a₀) (0, a₀) = 1 :=
+      Matrix.one_apply_eq _
+    have : (1 : ℂ) = 0 := hone.symm.trans (congrFun (congrFun h (0, a₀)) (0, a₀))
+    norm_num at this
+  refine ⟨fun U => if U = 0 then 1 else U, if_pos rfl, fun U hU => if_neg hU, ?_, ?_⟩
+  · intro L U hL
+    by_cases hU : U = 0
+    · subst hU
+      exact ⟨1, one_leftFibreGroup, by simp⟩
+    · have hLU : L * U ≠ 0 := fun h => hU (eq_zero_of_left_mul_eq_zero hL.1 h)
+      exact ⟨L, hL, by simp only [if_neg hLU, if_neg hU]⟩
+  · rintro ⟨αL, -, hlaw⟩
+    have hAt1 := hlaw L₀ 1 hL₀
+    simp only [mul_one, if_neg hL₀ne0, if_neg hone_ne_zero] at hAt1
+    have hAt0 := hlaw L₀ 0 hL₀
+    simp only [mul_zero, if_pos, mul_one] at hAt0
+    exact hL₀ne1 (hAt1.trans hAt0.symm)
+
+/-- **`RNT5` (R) — THE SEPARATION ON THE RIGHT.** The same shape on the right conjunct, over act
+11's weak anchored gauges, with the same exhibited map pinned by the same two equations: it
+satisfies the right conjunct of `OrbitNatural` and admits **no** map `αR` carrying the weak anchored
+stabilizer into itself with `Ψ (U * K) = Ψ U * αR K`.
+
+**This is proved on the right side independently and is not inherited from the left result.** The
+two sides are different structures, and this theorem carries its own witness, its own cancellation
+step and its own non-existence argument. Together with `rnt1_twisted_imp_orbit` the implication is
+strict on the right side, at the configuration exhibited, and at no other configuration by this
+theorem. -/
+theorem rnt5_right_separation {A : Type} [Fintype A] [DecidableEq A] (a₀ : A) :
+    ∃ Ψ : Matrix (Fin 2 × A) (Fin 2 × A) ℂ → Matrix (Fin 2 × A) (Fin 2 × A) ℂ,
+      Ψ 0 = 1
+        ∧ (∀ U, U ≠ 0 → Ψ U = U)
+        ∧ (∀ U K, WeakAnchorStabilizer a₀ K → ∃ K', WeakAnchorStabilizer a₀ K' ∧ Ψ (U * K) = Ψ U * K')
+        ∧ ¬ ∃ αR : Matrix (Fin 2 × A) (Fin 2 × A) ℂ → Matrix (Fin 2 × A) (Fin 2 × A) ℂ,
+            (∀ K, WeakAnchorStabilizer a₀ K → WeakAnchorStabilizer a₀ (αR K))
+              ∧ (∀ U K, WeakAnchorStabilizer a₀ K → Ψ (U * K) = Ψ U * αR K) := by
+  classical
+  set K₀ : Matrix (Fin 2 × A) (Fin 2 × A) ℂ :=
+    Matrix.diagonal (fun p : Fin 2 × A => if p.1 = 0 then 1 else -1) with hK₀def
+  have hK₀ : WeakAnchorStabilizer a₀ K₀ := by
+    refine ⟨diag_unit_mem _ fun p => by by_cases hp : p.1 = (0 : Fin 2) <;> simp [hp],
+      fun j => if j = 0 then 1 else -1, fun p j => ?_⟩
+    by_cases hp : p = (j, a₀)
+    · subst hp
+      rw [hK₀def, Matrix.diagonal_apply_eq, if_pos rfl]
+    · rw [hK₀def, Matrix.diagonal_apply_ne _ hp, if_neg hp]
+  have hone_weak : WeakAnchorStabilizer a₀ (1 : Matrix (Fin 2 × A) (Fin 2 × A) ℂ) :=
+    ⟨one_mem _, fun _ => 1, fun p j => by
+      by_cases hp : p = (j, a₀)
+      · subst hp; rw [Matrix.one_apply_eq, if_pos rfl]
+      · rw [Matrix.one_apply_ne hp, if_neg hp]⟩
+  have h00 : K₀ (0, a₀) (0, a₀) = 1 := by
+    rw [hK₀def, Matrix.diagonal_apply_eq]; norm_num
+  have h11 : K₀ (1, a₀) (1, a₀) = -1 := by
+    rw [hK₀def, Matrix.diagonal_apply_eq]; norm_num
+  have hK₀ne0 : K₀ ≠ 0 := fun h => by
+    have : (1 : ℂ) = 0 := h00.symm.trans (congrFun (congrFun h (0, a₀)) (0, a₀))
+    norm_num at this
+  have hK₀ne1 : K₀ ≠ 1 := fun h => by
+    have hone : (1 : Matrix (Fin 2 × A) (Fin 2 × A) ℂ) (1, a₀) (1, a₀) = 1 :=
+      Matrix.one_apply_eq _
+    have : (-1 : ℂ) = 1 := h11.symm.trans ((congrFun (congrFun h (1, a₀)) (1, a₀)).trans hone)
+    norm_num at this
+  have hone_ne_zero : (1 : Matrix (Fin 2 × A) (Fin 2 × A) ℂ) ≠ 0 := fun h => by
+    have hone : (1 : Matrix (Fin 2 × A) (Fin 2 × A) ℂ) (0, a₀) (0, a₀) = 1 :=
+      Matrix.one_apply_eq _
+    have : (1 : ℂ) = 0 := hone.symm.trans (congrFun (congrFun h (0, a₀)) (0, a₀))
+    norm_num at this
+  refine ⟨fun U => if U = 0 then 1 else U, if_pos rfl, fun U hU => if_neg hU, ?_, ?_⟩
+  · intro U K hK
+    by_cases hU : U = 0
+    · subst hU
+      exact ⟨1, hone_weak, by simp⟩
+    · have hUK : U * K ≠ 0 := fun h => hU (eq_zero_of_mul_right_eq_zero hK.1 h)
+      exact ⟨K, hK, by simp only [if_neg hUK, if_neg hU]⟩
+  · rintro ⟨αR, -, hlaw⟩
+    have hAt1 := hlaw 1 K₀ hK₀
+    simp only [one_mul, if_neg hK₀ne0, if_neg hone_ne_zero] at hAt1
+    have hAt0 := hlaw 0 K₀ hK₀
+    simp only [zero_mul, if_pos, one_mul] at hAt0
+    exact hK₀ne1 (hAt1.trans hAt0.symm)
+
 end RepresentativeNaturality
 end OIBridge
 
@@ -403,3 +731,13 @@ end OIBridge
 #print axioms OIBridge.RepresentativeNaturality.rnt3_right_law
 #print axioms OIBridge.RepresentativeNaturality.rnt3_law_exact
 #print axioms OIBridge.RepresentativeNaturality.rnt3_orbit
+#print axioms OIBridge.RepresentativeNaturality.diag_unit_mem
+#print axioms OIBridge.RepresentativeNaturality.rnt4a_left_nontrivial
+#print axioms OIBridge.RepresentativeNaturality.rnt4a_right_nontrivial
+#print axioms OIBridge.RepresentativeNaturality.rnt4b_strict_fails_left
+#print axioms OIBridge.RepresentativeNaturality.rnt4b_strict_fails_right
+#print axioms OIBridge.RepresentativeNaturality.rnt4b_not_strictNatural
+#print axioms OIBridge.RepresentativeNaturality.eq_zero_of_left_mul_eq_zero
+#print axioms OIBridge.RepresentativeNaturality.eq_zero_of_mul_right_eq_zero
+#print axioms OIBridge.RepresentativeNaturality.rnt5_left_separation
+#print axioms OIBridge.RepresentativeNaturality.rnt5_right_separation
