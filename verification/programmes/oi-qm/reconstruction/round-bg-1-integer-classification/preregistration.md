@@ -137,6 +137,28 @@ The line is one long paragraph; the quotation is its opening sentence, verbatim 
 
 > The reconstruction programme's two-branch theorem is graded K2 rather than K3 on a single unformalized input: the integer Piccard/Bekir–Golomb classification, carried in the kernel as the `Prop` `BGIntegerClassification` in `OIBridge/TurnpikeScopeTransfer.lean` and consumed as a cited external premise. That module records it as the only unproved input of the reconstruction programme. Every other step is kernel-proved, including the integer-to-real passage and the assembly `twoBranch_of_BGClassification`, and three probes record formalizing the 2007 classification as the sole remaining K3 backlog item.
 
+### The round's directory, settled by the owner, and load-bearing
+
+**This round lives at
+`verification/programmes/oi-qm/reconstruction/round-bg-1-integer-classification/`, under the
+`oi-qm` programme, and NOT at a new top-level `verification/programmes/reconstruction/`.** Settled
+by the owner before this freeze merged.
+
+**The reason is L6 itself.** `verification/programmes/oi-qm/PROGRAMME.md` owns the reconstruction
+track: it runs the correspondence route and the internal reconstruction route as two independent
+tracks, it identifies this exact Bekir–Golomb debt as that track's standing formalization debt, and
+it records that the debt "sits on the reconstruction track, not on the OI → QM chain. Discharging it
+neither advances nor blocks the equivalence programme, and it must not be counted in either
+direction." A parallel track of an existing programme is not a new programme, and the four top-level
+programmes at this base are `hydrodynamics`, `oi-qm`, `physical-realization` and `substratum`.
+**Creating a fifth to hold one round of an existing programme's own track would put the taxonomy at
+odds with the programme file that owns the work.**
+
+**The path is load-bearing, which is why this is settled HERE and not later.** The `R7-BGC` clause
+pins this file **by path and by blob**, and precondition 1 below reads the preregistration at that
+exact path out of the execution's base. A later rename would therefore break the pin rather than
+tidy it: the directory is fixed at this merge and does not move afterwards.
+
 ## The exact statement of `BGIntegerClassification`, as the tree has it and as it is consumed
 
 **This section is the anti-drift anchor of the round.** The formalization target is the `Prop` below
@@ -376,7 +398,7 @@ a discrepancy in what the round writes onto is as visible as a discrepancy in wh
 | `verification/lean-mathlib/OIBridge.lean` | `0bff51eb9cc3c22859da2ac0efc622910e77d7b4` | one import line added for the round's module |
 | `verification/coverage/LEDGER.json` | `7fd6a369c473520832223fa746cb2b8295d6ae9d` | the `checks` list of entry `GR:T-d-gauge-completeness-two-branch` gains the round's module; its `kernel` grade changes **only** if the premise-removal gate is passed in full |
 | `verification/lean-mathlib/OIBridge/TurnpikeClassification.lean` | — | created by the execution |
-| `verification/programmes/reconstruction/round-bg-1-integer-classification/result.md` | — | created by the execution |
+| `verification/programmes/oi-qm/reconstruction/round-bg-1-integer-classification/result.md` | — | created by the execution |
 
 `verification/coverage/LEDGER.json` and `verification/ROADMAP.md` are the two files this round both
 reads and writes, and they are listed here rather than above for exactly that reason: the verbatim
@@ -1070,11 +1092,11 @@ An auditor checks each of the following at the execution's base commit `B`, with
 
 | # | precondition | mechanical check at `B` |
 | --- | --- | --- |
-| 1 | This control plane is merged, and `B` is its merge commit | `git rev-list --parents -n 1 B` shows two parents; `git cat-file -p B:verification/programmes/reconstruction/round-bg-1-integer-classification/preregistration.md \| git hash-object --stdin` equals the blob the `R7-BGC` clause pins |
+| 1 | This control plane is merged, and `B` is its merge commit | `git rev-list --parents -n 1 B` shows two parents; `git cat-file -p B:verification/programmes/oi-qm/reconstruction/round-bg-1-integer-classification/preregistration.md \| git hash-object --stdin` equals the blob the `R7-BGC` clause pins |
 | 2 | The premise and its two consumers are in the tree | `git show B:verification/lean-mathlib/OIBridge/TurnpikeScopeTransfer.lean` contains `def BGIntegerClassification : Prop :=`, `theorem spectral_classification_of_BG (hBG : BGIntegerClassification)` and `theorem twoBranch_of_BGClassification (hBG : BGIntegerClassification)` |
 | 3 | The merged results the round consumes are in the tree | `git cat-file -e B:verification/lean-mathlib/OIBridge/HomometricSix.lean`, `…/HomometricKill.lean`, `…/PiccardBridge.lean`, `…/CongruentReconstruction.lean` and `…/FrequencyMatching.lean` all succeed |
 | 4 | The `P2` row is still `EXTERNAL` | `git show B:verification/ROADMAP.md` contains `| **P2** | Bekir–Golomb integer classification | Reconstruction | **EXTERNAL** |` as a prefix of the row |
-| 5 | No BG-1 execution object precedes the freeze | `git ls-tree -r B --name-only` contains no path under `verification/programmes/reconstruction/round-bg-1-integer-classification/` other than `preregistration.md`, and no `verification/lean-mathlib/OIBridge/TurnpikeClassification.lean` |
+| 5 | No BG-1 execution object precedes the freeze | `git ls-tree -r B --name-only` contains no path under `verification/programmes/oi-qm/reconstruction/round-bg-1-integer-classification/` other than `preregistration.md`, and no `verification/lean-mathlib/OIBridge/TurnpikeClassification.lean` |
 | 6 | The tag is unused | `git show B:verification/lean/edge_rigidity_probe.py` contains no occurrence of `R7-BGC`, `_BGC_BASE`, `_BGC_SEALED_HEAD` or `_BGC_MERGE` |
 
 **No sibling lane's merge is a precondition of this round**, and the execution does not wait for one.
