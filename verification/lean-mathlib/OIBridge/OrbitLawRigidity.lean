@@ -116,6 +116,8 @@ set_option linter.unusedSectionVars false
 open Finset Matrix DilationChoice CoherentLiftGauge TwoSidedGauge CrossTimeInvariants
   GramTrajectorySelection IntermediateCrossTimeStructure
 
+open scoped ComplexOrder
+
 variable {V A : Type} [Fintype V] [DecidableEq V] [Fintype A] [DecidableEq A]
 
 /-! ### Section A — the budgeted definitions: the condition ladder, frozen before any census
@@ -490,6 +492,981 @@ theorem ol1b_monoid_action {a₀ : A} {Γ : ℕ → Matrix V V ℝ} {Γ₀ : Mat
         rw [hhom n] at hs
         exact gramPhaseEquiv_trans hs (hd _ _ ih)
 
+/-! ### Section C — `OL2` and `OL3`: the rung statuses and the census of the frozen candidate list
+
+Every countercontrol below is at the configuration the freeze names for the obligation it
+discharges, and at no other. **The frozen configuration for the single-carrier candidates** is act
+12's: `V = Fin 4`, `A = Fin 1`, `a₀ = 0`, `Γ ≡ ¼`, with act 12's frozen Hadamard family. Every
+visible family, lift, matrix, permutation and class below is a **bound variable pinned by an
+equation in the statement that needs it**, never a top-level definition. -/
+
+/-- Auxiliary, and **not a definition**: pointwise realizability is invariant under act 12's
+per-slice equivalence. The four conjuncts of act 12's `RealizableGram` each transport across a
+conjugation by the anchored phases — positive semidefiniteness because the conjugating matrix is
+`Dᴴ · D`, the rank bound because rank does not increase under multiplication, the sum because `D`
+is unitary, and the diagonal because the phases have modulus one.
+
+Act 12's `RealizableGram` is **consumed and not redefined**; what is added is the observation that
+it is a property of the orbit class and not merely of the representative, which is what lets a
+verdict about admissibility be stated at class level at all. -/
+theorem realizableGram_of_gramPhaseEquiv {Γ₀ : Matrix V V ℝ} {G G' : V → Matrix V V ℂ}
+    (h : GramPhaseEquiv G G') (hG : RealizableGram A Γ₀ G) : RealizableGram A Γ₀ G' := by
+  obtain ⟨c, hc, hGG⟩ := h
+  have hcc : ∀ j, star (c j) * c j = 1 := by
+    intro j
+    rw [star_mul_self_eq_norm_sq, hc j, one_pow, Complex.ofReal_one]
+  have key : ∀ (M : Matrix V V ℂ) (j k : V),
+      ((Matrix.diagonal c)ᴴ * M * Matrix.diagonal c) j k = star (c j) * M j k * c k := by
+    intro M j k
+    rw [Matrix.diagonal_conjTranspose, Matrix.mul_diagonal, Matrix.diagonal_mul]
+    simp
+  have hEq : ∀ i, G' i = (Matrix.diagonal c)ᴴ * G i * Matrix.diagonal c := by
+    intro i; ext j k; rw [key, hGG]
+  refine ⟨fun i => ?_, fun i => ?_, ?_, fun i j => ?_⟩
+  · rw [hEq i]; exact (hG.1 i).conjTranspose_mul_mul_same _
+  · rw [hEq i]
+    exact le_trans (Matrix.rank_mul_le_left _ _)
+      (le_trans (Matrix.rank_mul_le_right _ _) (hG.2.1 i))
+  · ext j k
+    rw [Matrix.sum_apply]
+    have : ∀ i : V, G' i j k = star (c j) * G i j k * c k := fun i => hGG i j k
+    rw [Finset.sum_congr rfl fun i _ => this i, ← Finset.sum_mul, ← Finset.mul_sum]
+    have hs : (∑ i : V, G i j k) = (1 : Matrix V V ℂ) j k := by
+      rw [← Matrix.sum_apply]; rw [hG.2.2.1]
+    rw [hs]
+    by_cases hjk : j = k
+    · subst hjk; rw [Matrix.one_apply_eq, mul_one, hcc]
+    · rw [Matrix.one_apply_ne hjk]; ring
+  · rw [hGG i j j, hG.2.2.2 i j]
+    calc star (c j) * (Γ₀ i j : ℂ) * c j = (Γ₀ i j : ℂ) * (star (c j) * c j) := by ring
+      _ = (Γ₀ i j : ℂ) := by rw [hcc j, mul_one]
+
+/-- **`OL2`, `L1` — `L1-FREE` AT A TIME-HOMOGENEOUS CONFIGURATION, PROVED UNIVERSALLY AND NOT
+SEARCHED FOR.** Every transition family satisfying the earlier rungs — the descent conjunct `L4d`,
+`L0`, and `L2`'s time-homogeneity — satisfies `L1` at a time-homogeneous visible family.
+
+The argument is the freeze's own and is three steps. `L0` hands every admissible class a solution
+starting there; the law puts that solution's next slice at the transition's value on the class it
+started in, by `L4d`; and that next slice is admissible because it is a slice of a pointwise
+realizable solution. Admissibility being a property of the class, the transition's value on an
+arbitrary admissible tuple is admissible.
+
+**This is stated for the relation on the whole per-slice orbit space**, which is the strictly
+stronger reading `L1` is frozen at, and not merely along the law's own solutions, where the
+condition would be close to vacuous. **`L1-FREE` is a finding and not a shortfall**: it says the
+rung was stated, tested and found to be implied. **The rung stays in the ladder** and stays in the
+conjunction the headline quantifies over, and no artifact of this round reports the ladder as
+having fewer rungs than the freeze names. -/
+theorem ol2_l1_free {a₀ : A} {Γ : ℕ → Matrix V V ℝ} {Γ₀ : Matrix V V ℝ}
+    {Φ : ℕ → (V → Matrix V V ℂ) → (V → Matrix V V ℂ)}
+    {Law : (ℕ → V → Matrix V V ℂ) → Prop}
+    (hTL : TransitionLaw Φ Law) (hconst : ∀ t, Γ t = Γ₀)
+    (hhom : ∃ Phih : (V → Matrix V V ℂ) → (V → Matrix V V ℂ), ∀ t, Φ t = Phih)
+    (hL0 : EvolvesTotally a₀ Γ Law) :
+    PreservesAdmissible a₀ Γ Φ := by
+  obtain ⟨Phih, hP⟩ := hhom
+  intro t G hG
+  rw [hconst t] at hG
+  obtain ⟨𝔾, hreal, hLaw, h0⟩ := hL0 G (by rw [hconst 0]; exact hG)
+  have h3 : GramPhaseEquiv (𝔾 1) (Φ 0 G) :=
+    gramPhaseEquiv_trans ((hTL.2 𝔾).1 hLaw 0) (hTL.1 0 _ _ h0)
+  have h4 : RealizableGram A Γ₀ (𝔾 1) := by rw [← hconst 1]; exact hreal 1
+  rw [hconst (t + 1), hP t, ← hP 0]
+  exact realizableGram_of_gramPhaseEquiv h3 h4
+
+/-- **`OL3`, `ΦI` — THE IDENTITY TRANSITION SURVIVES EVERY RUNG OF THE FROZEN LADDER**, at the
+configuration this freeze names for it: `V = Fin 4`, `A = Fin 1`, anchor `0`, `Γ ≡ ¼`.
+
+`ΦI` is **act 18's own `LC3`**, the generator law that carried act 18's `L-PROP`, with its descent
+obligation discharged at orbit level by that round. It is consumed here as a merged instance and is
+**not rebuilt**: act 18's `ProperAt` and `PropagatesFrom` conjuncts are taken at merged strength,
+the only bridge being that the law this round writes as `[𝔾 (t+1)] = [𝔾 t]` and the law act 18
+writes as `[𝔾 t] = [𝔾 (t+1)]` are the same predicate, act 12's per-slice equivalence being
+symmetric.
+
+Each rung is discharged separately: `L0` by the constant trajectory through any admissible class,
+`L1` because the visible family is constant in time, `L2` because the transition is independent of
+`t` and the identity iterates to itself, `L3i` and `L3s` because the identity is injective and
+surjective on classes, `L4n` by the identity lift on representatives — which carries every in-fibre
+left move and every right gauge at the anchor to itself — and `L5` because the identity factorizes
+as the identity on each factor, **for every product presentation whatever**.
+
+**`L5`'s satisfaction by `ΦI` is the freeze's certificate that `L5` does not presuppose the
+answer**: the identity transition is manifestly not quantum evolution in any sense.
+
+**THE CLAUSE, carried at this mention — the identity transition's census verdict.**
+Act 19 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts
+none. A law that survives every condition this freeze names is a law that survives **those**
+conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in
+nature, **not** a finding that the programme requires it, and **not** an adoption of it as the
+physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about
+the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence
+to add one more condition, or to widen one more equivalence, until a plurality becomes a point.
+**No law gains physical status by surviving, no carrier and no principle is adopted as the physical
+one, and nothing here derives, recognises or approaches quantum evolution.** -/
+theorem ol3_phiI_survives :
+    ∃ (Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ)
+      (Φ : ℕ → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+      (Law : (ℕ → Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → Prop),
+      (∀ t i j, Γ t i j = 1 / 4) ∧ (∀ t, Γ t = Γ 0)
+        ∧ Φ = (fun _ G => G)
+        ∧ Law = (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (𝔾 t))
+        ∧ LadderConds (0 : Fin 1) Γ Φ Law := by
+  classical
+  obtain ⟨Γ, Φ18, Law18, hΓ, hΦ18, hLaw18, _h1, _h2, hproper, hprop, _h3⟩ := lc3_generator_law
+  have hΓc : ∀ t, Γ t = Γ 0 := by
+    intro t; ext i j; rw [hΓ t i j, hΓ 0 i j]
+  have hLeq : (fun 𝔾 : ℕ → Fin 4 → Matrix (Fin 4) (Fin 4) ℂ =>
+      ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (𝔾 t)) = Law18 := by
+    rw [hLaw18, hΦ18]
+    funext 𝔾
+    exact propext ⟨fun h t => gramPhaseEquiv_symm (h t), fun h t => gramPhaseEquiv_symm (h t)⟩
+  refine ⟨Γ, fun _ G => G, fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (𝔾 t), hΓ, hΓc, rfl, rfl, ?_⟩
+  refine ⟨⟨fun _ _ _ h => h, fun _ => Iff.rfl⟩, by rw [hLeq]; exact hproper,
+    by rw [hLeq]; exact hprop, ?_, ?_, ⟨fun G => G, fun _ => rfl⟩, ?_, ?_, ?_, ?_⟩
+  · intro G₀ hG₀
+    exact ⟨fun _ => G₀, fun t => by rw [hΓc t]; exact hG₀, fun _ => gramPhaseEquiv_refl _,
+      gramPhaseEquiv_refl _⟩
+  · intro t G hG
+    rw [hΓc (t + 1), ← hΓc t]
+    exact hG
+  · intro Phih hPhih t s G _
+    have hp : Phih = fun G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ => G := (hPhih 0).symm
+    subst hp
+    have hid : (fun G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ => G) = id := rfl
+    simp only [hid, Function.iterate_id, id_eq]
+    exact gramPhaseEquiv_refl G
+  · intro Phih hPhih
+    have hp : Phih = fun G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ => G := (hPhih 0).symm
+    subst hp
+    exact ⟨fun G G' _ _ h => h, fun G' h => ⟨G', h, gramPhaseEquiv_refl _⟩⟩
+  · exact ⟨fun _ U => U, fun _ _ _ => rfl, fun _ L _ hL => ⟨L, hL, rfl⟩,
+      fun _ _ K hK => ⟨K, hK, rfl⟩⟩
+  · intro V₁ V₂ A₁ A₂ _ _ _ _ _ _ eV eA Γ₁ Γ₂ Phih hPhih _
+    refine ⟨id, id, fun G₁ G₂ _ _ => ?_⟩
+    have hp : Phih = fun G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ => G := (hPhih 0).symm
+    subst hp
+    exact gramPhaseEquiv_refl _
+
+/-- Auxiliary, and **not a definition**: a transition that **descends**, **preserves pointwise
+realizability** and is an **involution** satisfies `L0`, `L1`, `L2` and both conjuncts of `L3` at a
+time-homogeneous configuration, and is injective on classes.
+
+Each rung comes from exactly one of the three hypotheses, and the proof records which. `L0` is the
+orbit of the transition through the given class, admissible at every time by the second hypothesis
+and a solution by construction. `L1` is the second hypothesis itself, the configuration being
+constant in time. `L2`'s composition conjunct is the iteration identity and needs nothing. `L3i`
+follows because the transition descends and squares to the identity, so an equivalence between two
+images pushes forward to an equivalence between the arguments; `L3s` because the transition is its
+own inverse and preserves admissibility.
+
+**The three hypotheses are exactly what the rungs need and nothing more.** In particular no
+finiteness of the admissible orbit space is assumed anywhere, and neither conjunct of `L3` is
+derived from the other. -/
+theorem ladder_of_involutive_transition {Γ₀ : Matrix V V ℝ} (a₀ : A)
+    (P : (V → Matrix V V ℂ) → (V → Matrix V V ℂ))
+    (hdesc : ∀ G G', GramPhaseEquiv G G' → GramPhaseEquiv (P G) (P G'))
+    (hreal : ∀ G, RealizableGram A Γ₀ G → RealizableGram A Γ₀ (P G))
+    (hinvol : ∀ G, P (P G) = G) :
+    TransitionLaw (fun _ => P) (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (P (𝔾 t)))
+      ∧ EvolvesTotally a₀ (fun _ => Γ₀) (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (P (𝔾 t)))
+      ∧ PreservesAdmissible a₀ (fun _ => Γ₀) (fun _ => P)
+      ∧ (∀ Phih : (V → Matrix V V ℂ) → (V → Matrix V V ℂ),
+          (∀ t : ℕ, (fun _ => P) t = Phih) → ∀ (t s : ℕ) (G : V → Matrix V V ℂ),
+            RealizableGram A Γ₀ G → GramPhaseEquiv (Phih^[t + s] G) (Phih^[s] (Phih^[t] G)))
+      ∧ (∀ Phih : (V → Matrix V V ℂ) → (V → Matrix V V ℂ),
+          (∀ t : ℕ, (fun _ => P) t = Phih) → Reversible a₀ Γ₀ Phih)
+      ∧ (∀ X, RealizableGram A Γ₀ X → ∀ t, RealizableGram A Γ₀ (P^[t] X))
+      ∧ (∀ G G', GramPhaseEquiv (P G) (P G') → GramPhaseEquiv G G') := by
+  have horb : ∀ X, RealizableGram A Γ₀ X → ∀ t, RealizableGram A Γ₀ (P^[t] X) := by
+    intro X hX t
+    induction t with
+    | zero => simpa using hX
+    | succ n ih => rw [Function.iterate_succ_apply']; exact hreal _ ih
+  have hPI : ∀ G G', GramPhaseEquiv (P G) (P G') → GramPhaseEquiv G G' := by
+    intro G G' h
+    have h2 := hdesc _ _ h
+    rwa [hinvol, hinvol] at h2
+  refine ⟨⟨fun _ G G' h => hdesc G G' h, fun _ => Iff.rfl⟩, ?_, fun _ G h => hreal G h, ?_, ?_,
+    horb, hPI⟩
+  · intro G₀ hG₀
+    refine ⟨fun t => P^[t] G₀, horb G₀ hG₀, fun t => ?_, ?_⟩
+    · show GramPhaseEquiv (P^[t + 1] G₀) (P (P^[t] G₀))
+      rw [Function.iterate_succ_apply']
+      exact gramPhaseEquiv_refl _
+    · simpa using gramPhaseEquiv_refl G₀
+  · intro Phih hPhih t s G _
+    have hp : P = Phih := hPhih 0
+    subst hp
+    rw [add_comm t s, Function.iterate_add_apply]
+    exact gramPhaseEquiv_refl _
+  · intro Phih hPhih
+    have hp : P = Phih := hPhih 0
+    subst hp
+    exact ⟨fun G G' _ _ h => hPI G G' h,
+      fun G' hG' => ⟨P G', hreal _ hG', by rw [hinvol]; exact gramPhaseEquiv_refl _⟩⟩
+
+/-- Auxiliary, and **not a definition**: reindexing a square matrix by one equivalence on both sides
+commutes with the conjugate transpose. -/
+theorem submatrix_conjTranspose_equiv {m : Type} [Fintype m] [DecidableEq m]
+    (M : Matrix m m ℂ) (e : m ≃ m) : (M.submatrix e e)ᴴ = Mᴴ.submatrix e e := by
+  ext p q; simp [Matrix.conjTranspose_apply, Matrix.submatrix_apply]
+
+/-- Auxiliary, and **not a definition**: reindexing a unitary by one equivalence on both sides
+leaves it unitary, because the reindexing commutes with the conjugate transpose and with the
+product, and carries the identity to the identity. -/
+theorem submatrix_mem_unitaryGroup {m : Type} [Fintype m] [DecidableEq m]
+    {M : Matrix m m ℂ} (hM : M ∈ Matrix.unitaryGroup m ℂ) (e : m ≃ m) :
+    M.submatrix e e ∈ Matrix.unitaryGroup m ℂ := by
+  have h1 : Mᴴ * M = 1 := by
+    have h := Matrix.mem_unitaryGroup_iff'.1 hM
+    rwa [Matrix.star_eq_conjTranspose] at h
+  rw [Matrix.mem_unitaryGroup_iff', Matrix.star_eq_conjTranspose,
+    submatrix_conjTranspose_equiv, Matrix.submatrix_mul_equiv, h1, Matrix.submatrix_one_equiv]
+
+theorem ol3_phiP_survives_through_l4 :
+    ∃ (Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ)
+      (P : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+      (G₀ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+      (∀ t i j, Γ t i j = 1 / 4) ∧ (∀ t, Γ t = Γ 0)
+        ∧ (∀ (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) (i : Fin 4),
+            P G i = (G (Equiv.swap (2 : Fin 4) 3 i)).submatrix
+              (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3))
+        ∧ RealizableGram (Fin 1) (Γ 0) G₀
+        ∧ ¬ GramPhaseEquiv (P G₀) G₀
+        ∧ TransitionLaw (fun _ => P) (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (P (𝔾 t)))
+        ∧ ProperAt (0 : Fin 1) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (P (𝔾 t)))
+        ∧ PropagatesFrom (0 : Fin 1) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (P (𝔾 t)))
+        ∧ EvolvesTotally (0 : Fin 1) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (P (𝔾 t)))
+        ∧ PreservesAdmissible (0 : Fin 1) Γ (fun _ => P)
+        ∧ (∀ Phih, (∀ t : ℕ, (fun _ => P) t = Phih) →
+            ∀ (t s : ℕ) (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+              RealizableGram (Fin 1) (Γ 0) G →
+                GramPhaseEquiv (Phih^[t + s] G) (Phih^[s] (Phih^[t] G)))
+        ∧ (∀ Phih, (∀ t : ℕ, (fun _ => P) t = Phih) → Reversible (0 : Fin 1) (Γ 0) Phih)
+        ∧ (∃ Ψ : ℕ → Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ →
+              Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ,
+            (∀ (t : ℕ) (U : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+                AdmissibleDilationAt (Γ t) (0 : Fin 1) U →
+                (fun _ => P) t (FibreGram (0 : Fin 1) U) = FibreGram (0 : Fin 1) (Ψ t U))
+              ∧ (∀ (t : ℕ) (L U : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ), LeftFibreGroup L →
+                  ∃ L', LeftFibreGroup L' ∧ Ψ t (L * U) = L' * Ψ t U)
+              ∧ ∀ (t : ℕ) (U K : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+                  WeakAnchorStabilizer (0 : Fin 1) K →
+                  ∃ K', WeakAnchorStabilizer (0 : Fin 1) K' ∧ Ψ t (U * K) = Ψ t U * K')
+        ∧ (∀ G G', GramPhaseEquiv (P G) (P G') → GramPhaseEquiv G G')
+        ∧ (∀ X, RealizableGram (Fin 1) (Γ 0) X →
+            ∀ t, RealizableGram (Fin 1) (Γ 0) (P^[t] X)) := by
+  classical
+  obtain ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, hadm₁, hadmᵢ, hnotG, _⟩ := hadamard_slices_not_twoSided
+  have hσσ : ∀ i : Fin 4, Equiv.swap (2 : Fin 4) 3 (Equiv.swap (2 : Fin 4) 3 i) = i :=
+    fun i => Equiv.swap_apply_self 2 3 i
+  have hinvol : ∀ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ,
+      (fun i : Fin 4 => (((fun (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) (i : Fin 4) =>
+          (G (Equiv.swap (2 : Fin 4) 3 i)).submatrix (Equiv.swap (2 : Fin 4) 3)
+            (Equiv.swap (2 : Fin 4) 3)) G) (Equiv.swap (2 : Fin 4) 3 i)).submatrix
+              (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) = G := by
+    intro G; funext i; ext j k; simp only [Matrix.submatrix_apply, hσσ]
+  have hdesc : ∀ G G' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, GramPhaseEquiv G G' →
+      GramPhaseEquiv (fun i => (G (Equiv.swap (2 : Fin 4) 3 i)).submatrix
+          (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3))
+        (fun i => (G' (Equiv.swap (2 : Fin 4) 3 i)).submatrix
+          (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) := by
+    rintro G G' ⟨c, hc, h⟩
+    exact ⟨fun j => c (Equiv.swap (2 : Fin 4) 3 j), fun j => hc _, fun i j k => by
+      simp only [Matrix.submatrix_apply]; exact h _ _ _⟩
+  have hreal : ∀ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G →
+      RealizableGram (Fin 1) Γ₀ (fun i => (G (Equiv.swap (2 : Fin 4) 3 i)).submatrix
+        (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) := by
+    intro G hG
+    refine ⟨fun i => (hG.1 _).submatrix _, fun i => ?_, ?_, fun i j => ?_⟩
+    · rw [Matrix.rank_submatrix]; exact hG.2.1 _
+    · ext j k
+      rw [Matrix.sum_apply]
+      have hs : (∑ i : Fin 4, G (Equiv.swap (2 : Fin 4) 3 i)
+            (Equiv.swap (2 : Fin 4) 3 j) (Equiv.swap (2 : Fin 4) 3 k))
+          = (1 : Matrix (Fin 4) (Fin 4) ℂ)
+              (Equiv.swap (2 : Fin 4) 3 j) (Equiv.swap (2 : Fin 4) 3 k) := by
+        rw [Equiv.sum_comp (Equiv.swap (2 : Fin 4) 3)
+          (fun i => G i (Equiv.swap (2 : Fin 4) 3 j) (Equiv.swap (2 : Fin 4) 3 k)),
+          ← Matrix.sum_apply, hG.2.2.1]
+      simp only [Matrix.submatrix_apply]
+      rw [hs]
+      by_cases hjk : j = k
+      · subst hjk; simp
+      · rw [Matrix.one_apply_ne
+          (fun h => hjk ((Equiv.swap (2 : Fin 4) 3).injective h)), Matrix.one_apply_ne hjk]
+    · simp only [Matrix.submatrix_apply]
+      rw [hG.2.2.2 _ _, hΓ₀]
+      simp
+  obtain ⟨hTL, hL0, hL1, hL2, hL3, horb, hPI⟩ :=
+    ladder_of_involutive_transition (Γ₀ := Γ₀) (0 : Fin 1)
+      (fun (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) (i : Fin 4) =>
+        (G (Equiv.swap (2 : Fin 4) 3 i)).submatrix (Equiv.swap (2 : Fin 4) 3)
+          (Equiv.swap (2 : Fin 4) 3))
+      hdesc hreal hinvol
+  refine ⟨fun _ => Γ₀,
+    fun (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) (i : Fin 4) =>
+      (G (Equiv.swap (2 : Fin 4) 3 i)).submatrix (Equiv.swap (2 : Fin 4) 3)
+        (Equiv.swap (2 : Fin 4) 3),
+    FibreGram (0 : Fin 1) Hᵢ,
+    fun _ i j => by rw [hΓ₀]; rfl, fun _ => rfl, fun G i => rfl, sh1_necessity hadmᵢ, ?_,
+    hTL, ?_, ?_, hL0, hL1, hL2, hL3, ?_, hPI, horb⟩
+  · -- the transition MOVES the class of `H(i)`
+    intro h
+    have hinv := gramPhaseEquiv_cross_invariant h 0 2
+    have hs0 : Equiv.swap (2 : Fin 4) 3 0 = 0 := by decide
+    have hs2 : Equiv.swap (2 : Fin 4) 3 2 = 3 := by decide
+    simp only [Matrix.submatrix_apply, hs0, hs2] at hinv
+    rw [fibreGram_apply, fibreGram_apply, fibreGram_apply, fibreGram_apply,
+      Fin.sum_univ_one, Fin.sum_univ_one, Fin.sum_univ_one, Fin.sum_univ_one, hHᵢ] at hinv
+    norm_num [Matrix.of_apply, Matrix.cons_val_two, Matrix.cons_val_three, Matrix.head_cons,
+      Matrix.tail_cons, Complex.ext_iff] at hinv
+  · -- ProperAt
+    refine ⟨fun t => _^[t] (FibreGram (0 : Fin 1) H₁), fun t => _^[t] (FibreGram (0 : Fin 1) Hᵢ),
+      fun t => if t = 0 then FibreGram (0 : Fin 1) H₁
+        else (fun i => ((FibreGram (0 : Fin 1) Hᵢ) (Equiv.swap (2 : Fin 4) 3 i)).submatrix
+          (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)),
+      horb _ (sh1_necessity hadm₁), horb _ (sh1_necessity hadmᵢ), fun t => ?_, fun t => ?_,
+      fun t => ?_, fun h => hnotG ?_, fun h => ?_⟩
+    · by_cases ht : t = 0
+      · simp only [if_pos ht]; exact sh1_necessity hadm₁
+      · simp only [if_neg ht]; exact hreal _ (sh1_necessity hadmᵢ)
+    · show GramPhaseEquiv (_^[t + 1] _) _
+      rw [Function.iterate_succ_apply']
+      exact gramPhaseEquiv_refl _
+    · show GramPhaseEquiv (_^[t + 1] _) _
+      rw [Function.iterate_succ_apply']
+      exact gramPhaseEquiv_refl _
+    · simpa using h 0
+    · have hh := h 0
+      simp only [if_pos rfl, if_neg (by decide : ¬ ((0 : ℕ) + 1 = 0))] at hh
+      exact hnotG (gramPhaseEquiv_symm (hPI _ _ hh))
+  · -- PropagatesFrom
+    obtain ⟨_, _, _, hiter, hsolve⟩ :=
+      ol1b_monoid_action (a₀ := (0 : Fin 1)) (Γ := fun _ => Γ₀) (Γ₀ := Γ₀)
+        (Phih := fun (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) (i : Fin 4) =>
+          (G (Equiv.swap (2 : Fin 4) 3 i)).submatrix (Equiv.swap (2 : Fin 4) 3)
+            (Equiv.swap (2 : Fin 4) 3))
+        hTL (fun _ => rfl) (fun _ => rfl)
+    refine ⟨fun G₁ G₂ _ _ h₁ h₂ h0 t =>
+      gramPhaseEquiv_trans (hsolve G₁ h₁ t)
+        (gramPhaseEquiv_trans (hiter t _ _ h0) (gramPhaseEquiv_symm (hsolve G₂ h₂ t))),
+      1, fun t => _^[t] (FibreGram (0 : Fin 1) H₁), fun t => _^[t] (FibreGram (0 : Fin 1) Hᵢ),
+      le_refl 1, horb _ (sh1_necessity hadm₁), horb _ (sh1_necessity hadmᵢ), fun t => ?_,
+      fun t => ?_, fun h => hnotG (hPI _ _ ?_)⟩
+    · show GramPhaseEquiv (_^[t + 1] _) _
+      rw [Function.iterate_succ_apply']
+      exact gramPhaseEquiv_refl _
+    · show GramPhaseEquiv (_^[t + 1] _) _
+      rw [Function.iterate_succ_apply']
+      exact gramPhaseEquiv_refl _
+    · simpa using h
+  · -- L4n
+    refine ⟨fun _ U => U.submatrix
+        ((Equiv.swap (2 : Fin 4) 3).prodCongr (Equiv.refl (Fin 1)))
+        ((Equiv.swap (2 : Fin 4) 3).prodCongr (Equiv.refl (Fin 1))), ?_, ?_, ?_⟩
+    · intro t U _
+      funext i
+      ext j k
+      simp only [Matrix.submatrix_apply, fibreGram_apply, Equiv.prodCongr_apply,
+        Equiv.coe_refl, Prod.map_apply, id_eq]
+    · intro t L U hL
+      refine ⟨L.submatrix ((Equiv.swap (2 : Fin 4) 3).prodCongr (Equiv.refl (Fin 1)))
+          ((Equiv.swap (2 : Fin 4) 3).prodCongr (Equiv.refl (Fin 1))),
+        ⟨submatrix_mem_unitaryGroup hL.1 _, fun p q hpq => ?_⟩, ?_⟩
+      · refine hL.2 _ _ ?_
+        simp only [Equiv.prodCongr_apply, Equiv.coe_refl, Prod.map_apply, id_eq]
+        exact fun hc => hpq ((Equiv.swap (2 : Fin 4) 3).injective hc)
+      · rw [Matrix.submatrix_mul_equiv]
+    · intro t U K hK
+      obtain ⟨hKu, c, hc⟩ := hK
+      refine ⟨K.submatrix ((Equiv.swap (2 : Fin 4) 3).prodCongr (Equiv.refl (Fin 1)))
+          ((Equiv.swap (2 : Fin 4) 3).prodCongr (Equiv.refl (Fin 1))),
+        ⟨submatrix_mem_unitaryGroup hKu _, fun j => c (Equiv.swap (2 : Fin 4) 3 j),
+          fun p j => ?_⟩, ?_⟩
+      · have hiff : (((Equiv.swap (2 : Fin 4) 3).prodCongr (Equiv.refl (Fin 1))) p
+              = ((Equiv.swap (2 : Fin 4) 3 j), (0 : Fin 1))) ↔ p = (j, (0 : Fin 1)) := by
+          constructor
+          · intro hcon
+            have h1 : Equiv.swap (2 : Fin 4) 3 p.1 = Equiv.swap (2 : Fin 4) 3 j :=
+              congrArg Prod.fst hcon
+            have h2 : p.2 = (0 : Fin 1) := congrArg Prod.snd hcon
+            exact Prod.ext ((Equiv.swap (2 : Fin 4) 3).injective h1) h2
+          · intro hcon; subst hcon; rfl
+        have hep : (((Equiv.swap (2 : Fin 4) 3).prodCongr (Equiv.refl (Fin 1)))
+            ((j : Fin 4), (0 : Fin 1))) = ((Equiv.swap (2 : Fin 4) 3 j), (0 : Fin 1)) := rfl
+        rw [Matrix.submatrix_apply, hep, hc]
+        simp only [hiff]
+      · rw [Matrix.submatrix_mul_equiv]
+
+/-- Auxiliary, and **not a definition**: at a time-homogeneous configuration, a transition family
+that preserves pointwise realizability satisfies **`L0`**. The witness is the orbit of the given
+class through the family, admissible at every time by induction and a solution by construction.
+
+**This is used only to discharge `L0` for named candidates**; it is not a rung verdict, and no
+`Li-FREE` is claimed from it. `L0`'s own rung verdict is reported from the exhibited
+countercontrol. -/
+theorem evolvesTotally_of_preservesAdmissible {Γ₀ : Matrix V V ℝ} (a₀ : A)
+    (Φ : ℕ → (V → Matrix V V ℂ) → (V → Matrix V V ℂ))
+    (hpres : ∀ t G, RealizableGram A Γ₀ G → RealizableGram A Γ₀ (Φ t G)) :
+    EvolvesTotally a₀ (fun _ => Γ₀) (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) := by
+  intro G₀ hG₀
+  refine ⟨fun t => Nat.rec (motive := fun _ => V → Matrix V V ℂ) G₀ (fun n ih => Φ n ih) t,
+    ?_, fun t => gramPhaseEquiv_refl _, gramPhaseEquiv_refl _⟩
+  intro t
+  induction t with
+  | zero => exact hG₀
+  | succ n ih => exact hpres n _ ih
+
+/-- Auxiliary, and **not a definition**: act 18's propagation clause (i) holds for the law a
+descending transition family generates. Two pointwise realizable solutions whose classes agree at
+time `0` agree at every time, by induction along the transition.
+
+**This is clause (i) alone.** Act 18's clause (ii) — that the initial orbit contributes — is a
+separate demand, is not supplied here, and is reported separately wherever it is at issue. The two
+non-propagation mechanisms stay apart and named. -/
+theorem propagates_uniqueness (Φ : ℕ → (V → Matrix V V ℂ) → (V → Matrix V V ℂ))
+    (hdesc : ∀ (t : ℕ) (G G' : V → Matrix V V ℂ),
+      GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G'))
+    (G₁ G₂ : ℕ → V → Matrix V V ℂ)
+    (h₁ : ∀ t, GramPhaseEquiv (G₁ (t + 1)) (Φ t (G₁ t)))
+    (h₂ : ∀ t, GramPhaseEquiv (G₂ (t + 1)) (Φ t (G₂ t)))
+    (h0 : GramPhaseEquiv (G₁ 0) (G₂ 0)) : GramTrajEquiv G₁ G₂ := by
+  intro t
+  induction t with
+  | zero => exact h0
+  | succ n ih =>
+      exact gramPhaseEquiv_trans (h₁ n)
+        (gramPhaseEquiv_trans (hdesc n _ _ ih) (gramPhaseEquiv_symm (h₂ n)))
+
+/-- Auxiliary, and **not a definition**: act 12's merged Hadamard objects together with the
+carrier-relabelling transition of this round's `ΦP`, and the four facts about it the census uses —
+that it descends, that it preserves pointwise realizability, that it is an involution, and that it
+**moves** the admissible class of act 12's `H(i)`.
+
+The last is certified through act 12's merged `∼_D`-invariant read at the fibre pair `(0,2)`, whose
+values are `1/16` on that class and `i/16` on its image. **One merged witness family, several
+consequences**: act 12's own exhibited Hadamard pair is consumed at its own existential strength and
+is neither enlarged nor re-proved, and what this round draws from it is reported as consequences of
+one witness and never as several independent findings. -/
+theorem relabelling_transition_data :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ)
+      (P : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ)),
+      (∀ i j, Γ₀ i j = 1 / 4)
+        ∧ (∀ (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) (i : Fin 4),
+            P G i = (G (Equiv.swap (2 : Fin 4) 3 i)).submatrix (Equiv.swap (2 : Fin 4) 3)
+              (Equiv.swap (2 : Fin 4) 3))
+        ∧ AdmissibleDilationAt Γ₀ (0 : Fin 1) H₁ ∧ AdmissibleDilationAt Γ₀ (0 : Fin 1) Hᵢ
+        ∧ ¬ GramPhaseEquiv (FibreGram (0 : Fin 1) H₁) (FibreGram (0 : Fin 1) Hᵢ)
+        ∧ (∀ G G', GramPhaseEquiv G G' → GramPhaseEquiv (P G) (P G'))
+        ∧ (∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (P G))
+        ∧ (∀ G, P (P G) = G)
+        ∧ ¬ GramPhaseEquiv (P (FibreGram (0 : Fin 1) Hᵢ)) (FibreGram (0 : Fin 1) Hᵢ) := by
+  classical
+  obtain ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, hadm₁, hadmᵢ, hnotG, _⟩ := hadamard_slices_not_twoSided
+  have hσσ : ∀ i : Fin 4, Equiv.swap (2 : Fin 4) 3 (Equiv.swap (2 : Fin 4) 3 i) = i :=
+    fun i => Equiv.swap_apply_self 2 3 i
+  refine ⟨Γ₀, H₁, Hᵢ,
+    fun (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) (i : Fin 4) =>
+      (G (Equiv.swap (2 : Fin 4) 3 i)).submatrix (Equiv.swap (2 : Fin 4) 3)
+        (Equiv.swap (2 : Fin 4) 3),
+    fun i j => by rw [hΓ₀]; rfl, fun G i => rfl, hadm₁, hadmᵢ, hnotG, ?_, ?_, ?_, ?_⟩
+  · rintro G G' ⟨c, hc, h⟩
+    exact ⟨fun j => c (Equiv.swap (2 : Fin 4) 3 j), fun j => hc _, fun i j k => by
+      simp only [Matrix.submatrix_apply]; exact h _ _ _⟩
+  · intro G hG
+    refine ⟨fun i => (hG.1 _).submatrix _, fun i => ?_, ?_, fun i j => ?_⟩
+    · rw [Matrix.rank_submatrix]; exact hG.2.1 _
+    · ext j k
+      rw [Matrix.sum_apply]
+      have hs : (∑ i : Fin 4, G (Equiv.swap (2 : Fin 4) 3 i)
+            (Equiv.swap (2 : Fin 4) 3 j) (Equiv.swap (2 : Fin 4) 3 k))
+          = (1 : Matrix (Fin 4) (Fin 4) ℂ)
+              (Equiv.swap (2 : Fin 4) 3 j) (Equiv.swap (2 : Fin 4) 3 k) := by
+        rw [Equiv.sum_comp (Equiv.swap (2 : Fin 4) 3)
+          (fun i => G i (Equiv.swap (2 : Fin 4) 3 j) (Equiv.swap (2 : Fin 4) 3 k)),
+          ← Matrix.sum_apply, hG.2.2.1]
+      simp only [Matrix.submatrix_apply]
+      rw [hs]
+      by_cases hjk : j = k
+      · subst hjk; simp
+      · rw [Matrix.one_apply_ne
+          (fun h => hjk ((Equiv.swap (2 : Fin 4) 3).injective h)), Matrix.one_apply_ne hjk]
+    · simp only [Matrix.submatrix_apply]
+      rw [hG.2.2.2 _ _, hΓ₀]
+      simp
+  · intro G; funext i; ext j k; simp only [Matrix.submatrix_apply, hσσ]
+  · intro h
+    have hinv := gramPhaseEquiv_cross_invariant h 0 2
+    have hs0 : Equiv.swap (2 : Fin 4) 3 0 = 0 := by decide
+    have hs2 : Equiv.swap (2 : Fin 4) 3 2 = 3 := by decide
+    simp only [Matrix.submatrix_apply, hs0, hs2] at hinv
+    rw [fibreGram_apply, fibreGram_apply, fibreGram_apply, fibreGram_apply,
+      Fin.sum_univ_one, Fin.sum_univ_one, Fin.sum_univ_one, Fin.sum_univ_one, hHᵢ] at hinv
+    norm_num [Matrix.of_apply, Matrix.cons_val_two, Matrix.cons_val_three, Matrix.head_cons,
+      Matrix.tail_cons, Complex.ext_iff] at hinv
+
+
+/-- Auxiliary, and **not a definition**: the orbit of an admissible class through a transition
+family, pinned by its two defining equations, with admissibility at every time. -/
+theorem orbit_of_family {Γ₀ : Matrix V V ℝ}
+    (Φ : ℕ → (V → Matrix V V ℂ) → (V → Matrix V V ℂ))
+    (hpres : ∀ t G, RealizableGram A Γ₀ G → RealizableGram A Γ₀ (Φ t G))
+    (X : V → Matrix V V ℂ) (hX : RealizableGram A Γ₀ X) :
+    ∃ 𝔾 : ℕ → V → Matrix V V ℂ, 𝔾 0 = X ∧ (∀ t, 𝔾 (t + 1) = Φ t (𝔾 t))
+      ∧ ∀ t, RealizableGram A Γ₀ (𝔾 t) := by
+  refine ⟨fun t => Nat.rec (motive := fun _ => V → Matrix V V ℂ) X (fun n ih => Φ n ih) t,
+    rfl, fun t => rfl, ?_⟩
+  intro t
+  induction t with
+  | zero => exact hX
+  | succ n ih => exact hpres n _ ih
+
+/-- **`OL3`, `ΦT` — THE TIME-INHOMOGENEOUS ALTERNATION FAILS `L2`**, at the configuration this
+freeze names for it: `V = Fin 4`, `A = Fin 1`, anchor `0`, `Γ ≡ ¼`, with `σ` the transposition act
+18's fourth admissible dilation exhibits.
+
+`ΦT` applies the identity transition at even times and the relabelling at odd times. It is the least
+contrived failure of one law iterating consistently: two perfectly good transitions, applied in
+alternation. It satisfies every earlier rung — it descends, it is an `L-PROP` law in act 18's frozen
+sense with **both** propagation clauses, it is total and it preserves pointwise admissibility — and
+**no single transition equals it at every time**, which is `L2`'s first conjunct failing. The
+separation is act 18's already-exhibited class inequivalence, read at `t = 0` against `t = 1`: were
+one transition to serve at both, the identity and the relabelling would agree, and they disagree at
+the admissible class of act 12's `H(i)`.
+
+**So `L2` is a genuine restriction on the class the shared theorem produces and is not decoration.**
+This is a statement about the exact condition frozen under the label `L2`, at the configuration
+named, and it does **not** endorse the condition, does **not** say the programme requires it, and
+does **not** say it is the right condition to impose. It settles this family against this rung and
+nothing in its neighbourhood, and it is **not** a statement that families of its shape fail in
+general. -/
+theorem ol3_phiT_fails_l2 :
+    ∃ (Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ)
+      (Φ : ℕ → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ)),
+      (∀ t i j, Γ t i j = 1 / 4) ∧ (∀ t, Γ t = Γ 0)
+        ∧ Φ 0 = (fun G => G)
+        ∧ (∀ (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) (i : Fin 4),
+            Φ 1 G i = (G (Equiv.swap (2 : Fin 4) 3 i)).submatrix (Equiv.swap (2 : Fin 4) 3)
+              (Equiv.swap (2 : Fin 4) 3))
+        ∧ TransitionLaw Φ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+        ∧ ProperAt (0 : Fin 1) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+        ∧ PropagatesFrom (0 : Fin 1) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+        ∧ EvolvesTotally (0 : Fin 1) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+        ∧ PreservesAdmissible (0 : Fin 1) Γ Φ
+        ∧ ¬ (∃ Phih, ∀ t, Φ t = Phih) := by
+  classical
+  obtain ⟨Γ₀, H₁, Hᵢ, P, hΓ₀, hPdef, hadm₁, hadmᵢ, hnotG, hdescP, hrealP, hinvolP, hmove⟩ :=
+    relabelling_transition_data
+  set T : ℕ → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) :=
+    fun t => if t % 2 = 0 then (fun G => G) else P with hT
+  have hT0 : T 0 = fun G => G := by rw [hT]; norm_num
+  have hT1 : T 1 = P := by rw [hT]; norm_num
+  have hdescT : ∀ (t : ℕ) (G G' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+      GramPhaseEquiv G G' → GramPhaseEquiv (T t G) (T t G') := by
+    intro t G G' h
+    rw [hT]
+    by_cases ht : t % 2 = 0
+    · simp only [if_pos ht]; exact h
+    · simp only [if_neg ht]; exact hdescP G G' h
+  have hpresT : ∀ (t : ℕ) (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+      RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (T t G) := by
+    intro t G hG
+    rw [hT]
+    by_cases ht : t % 2 = 0
+    · simp only [if_pos ht]; exact hG
+    · simp only [if_neg ht]; exact hrealP G hG
+  obtain ⟨𝔾₁, h10, h1s, h1r⟩ := orbit_of_family T hpresT _ (sh1_necessity hadm₁)
+  obtain ⟨𝔾₂, h20, h2s, h2r⟩ := orbit_of_family T hpresT _ (sh1_necessity hadmᵢ)
+  have hLaw1 : ∀ t, GramPhaseEquiv (𝔾₁ (t + 1)) (T t (𝔾₁ t)) := fun t => by
+    rw [h1s t]; exact gramPhaseEquiv_refl _
+  have hLaw2 : ∀ t, GramPhaseEquiv (𝔾₂ (t + 1)) (T t (𝔾₂ t)) := fun t => by
+    rw [h2s t]; exact gramPhaseEquiv_refl _
+  have hsep1 : ¬ GramPhaseEquiv (𝔾₁ 1) (𝔾₂ 1) := by
+    rw [h1s 0, h2s 0, h10, h20, hT0]
+    exact hnotG
+  refine ⟨fun _ => Γ₀, T, fun _ i j => hΓ₀ i j, fun _ => rfl, hT0, fun G i => by
+      rw [hT1]; exact hPdef G i,
+    ⟨hdescT, fun _ => Iff.rfl⟩, ?_, ?_,
+    evolvesTotally_of_preservesAdmissible (0 : Fin 1) T hpresT, fun t G hG => hpresT t G hG, ?_⟩
+  · refine ⟨𝔾₁, 𝔾₂, fun t => if t = 0 then FibreGram (0 : Fin 1) H₁
+      else FibreGram (0 : Fin 1) Hᵢ, h1r, h2r, fun t => ?_, hLaw1, hLaw2,
+      fun h => hnotG ?_, fun h => hnotG ?_⟩
+    · by_cases ht : t = 0
+      · simp only [if_pos ht]; exact sh1_necessity hadm₁
+      · simp only [if_neg ht]; exact sh1_necessity hadmᵢ
+    · have h0 := h 0
+      rw [h10, h20] at h0
+      exact h0
+    · have hh := h 0
+      simp only [if_pos rfl, if_neg (by decide : ¬ ((0 : ℕ) + 1 = 0)), hT0] at hh
+      exact gramPhaseEquiv_symm hh
+  · exact ⟨fun G₁ G₂ _ _ k₁ k₂ h0 => propagates_uniqueness T hdescT G₁ G₂ k₁ k₂ h0,
+      1, 𝔾₁, 𝔾₂, le_refl 1, h1r, h2r, hLaw1, hLaw2, hsep1⟩
+  · rintro ⟨Phih, h⟩
+    have he : (fun G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ => G) = P := by
+      rw [← hT0, ← hT1, h 0, h 1]
+    exact hmove (by rw [← he]; exact gramPhaseEquiv_refl _)
+
+
+/-- **`OL3`, `ΦC` — THE CONSTANT TRANSITION FAILS BOTH CONJUNCTS OF `L3`, AND ALSO FAILS ACT 18's
+PROPAGATION CLAUSE (ii)**, at the configuration this freeze names for it.
+
+`ΦC` sends every state to one named admissible class. It is the crudest evolution that is still an
+evolution. It descends — the image being a single class, descent is immediate — it is total, it
+preserves pointwise admissibility, it is time-homogeneous and its induced evolution composes; it is
+proper at the configuration; and act 18's propagation clause (i) holds for it. **Both conjuncts of
+`L3` fail**: two `∼_D`-inequivalent admissible classes, those of act 12's `H(1)` and `H(i)`, have
+the same image, so injectivity on classes fails; and the image is the single class of `H(1)`, while
+the class of `H(i)` is admissible and outside it, so surjectivity fails.
+
+**The last conjunct is recorded because the freeze's standing hypothesis makes it load-bearing, and
+it is reported rather than repaired.** Act 18's propagation carries two clauses, and clause (ii)
+asks that the initial orbit **contribute**. Every solution of `ΦC`'s law sits at the one named class
+from time `1` onward, so no two solutions are inequivalent at any time after the initial one, and
+clause (ii) **fails**. Act 18 named that mechanism and kept it apart from the other: it is the
+outcome in which the initial orbit does no work. Since this freeze's ladder carries act 18's
+`PropagatesFrom` as a standing hypothesis and says that a candidate which is not an `L-PROP` law is
+not on the ladder at all, **`ΦC` is exhibited in full and its rung status is reported conservatively
+in the result note**, with the tension between the freeze's countercontrol table and the freeze's
+own standing hypothesis recorded as a discrepancy and not repaired.
+
+This settles this family against these rungs and nothing in its neighbourhood. **A failure of `ΦC`
+at `L3i` is not a refutation of irreversible evolutions in general.** -/
+theorem ol3_phiC_fails_l3 :
+    ∃ (Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ)
+      (Φ : ℕ → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+      (G₀ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+      (∀ t i j, Γ t i j = 1 / 4) ∧ (∀ t, Γ t = Γ 0)
+        ∧ Φ = (fun _ _ => G₀)
+        ∧ RealizableGram (Fin 1) (Γ 0) G₀
+        ∧ TransitionLaw Φ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+        ∧ ProperAt (0 : Fin 1) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+        ∧ EvolvesTotally (0 : Fin 1) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+        ∧ PreservesAdmissible (0 : Fin 1) Γ Φ
+        ∧ (∃ Phih, ∀ t, Φ t = Phih)
+        ∧ (∀ Phih, (∀ t, Φ t = Phih) → ∀ (t s : ℕ) (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+            RealizableGram (Fin 1) (Γ 0) G →
+              GramPhaseEquiv (Phih^[t + s] G) (Phih^[s] (Phih^[t] G)))
+        ∧ (∀ G₁ G₂ : ℕ → Fin 4 → Matrix (Fin 4) (Fin 4) ℂ,
+            (∀ t, GramPhaseEquiv (G₁ (t + 1)) (Φ t (G₁ t))) →
+            (∀ t, GramPhaseEquiv (G₂ (t + 1)) (Φ t (G₂ t))) →
+            GramPhaseEquiv (G₁ 0) (G₂ 0) → GramTrajEquiv G₁ G₂)
+        ∧ (∀ Phih, (∀ t, Φ t = Phih) → ¬ Reversible (0 : Fin 1) (Γ 0) Phih)
+        ∧ (∃ G G' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ,
+            RealizableGram (Fin 1) (Γ 0) G ∧ RealizableGram (Fin 1) (Γ 0) G'
+              ∧ GramPhaseEquiv (Φ 0 G) (Φ 0 G') ∧ ¬ GramPhaseEquiv G G')
+        ∧ (∃ G' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) (Γ 0) G'
+            ∧ ∀ G, RealizableGram (Fin 1) (Γ 0) G → ¬ GramPhaseEquiv (Φ 0 G) G')
+        ∧ ¬ PropagatesFrom (0 : Fin 1) Γ
+            (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) := by
+  classical
+  obtain ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, hadm₁, hadmᵢ, hnotG, _⟩ := hadamard_slices_not_twoSided
+  have hr₁ : RealizableGram (Fin 1) Γ₀ (FibreGram (0 : Fin 1) H₁) := sh1_necessity hadm₁
+  have hrᵢ : RealizableGram (Fin 1) Γ₀ (FibreGram (0 : Fin 1) Hᵢ) := sh1_necessity hadmᵢ
+  refine ⟨fun _ => Γ₀, fun _ _ => FibreGram (0 : Fin 1) H₁, FibreGram (0 : Fin 1) H₁,
+    fun _ i j => by rw [hΓ₀]; rfl, fun _ => rfl, rfl, hr₁,
+    ⟨fun _ _ _ _ => gramPhaseEquiv_refl _, fun _ => Iff.rfl⟩, ?_,
+    evolvesTotally_of_preservesAdmissible (0 : Fin 1) _ (fun _ _ _ => hr₁),
+    fun _ _ _ => hr₁, ⟨fun _ => FibreGram (0 : Fin 1) H₁, fun _ => rfl⟩, ?_,
+    fun G₁ G₂ k₁ k₂ h0 =>
+      propagates_uniqueness (fun _ _ => FibreGram (0 : Fin 1) H₁)
+        (fun _ _ _ _ => gramPhaseEquiv_refl _) G₁ G₂ k₁ k₂ h0,
+    ?_, ⟨FibreGram (0 : Fin 1) H₁, FibreGram (0 : Fin 1) Hᵢ, hr₁, hrᵢ,
+      gramPhaseEquiv_refl _, hnotG⟩,
+    ⟨FibreGram (0 : Fin 1) Hᵢ, hrᵢ, fun G _ => hnotG⟩, ?_⟩
+  · refine ⟨fun _ => FibreGram (0 : Fin 1) H₁,
+      fun t => if t = 0 then FibreGram (0 : Fin 1) Hᵢ else FibreGram (0 : Fin 1) H₁,
+      fun t => if t = 0 then FibreGram (0 : Fin 1) H₁ else FibreGram (0 : Fin 1) Hᵢ,
+      fun _ => hr₁, fun t => ?_, fun t => ?_, fun _ => gramPhaseEquiv_refl _, fun t => ?_,
+      fun h => hnotG ?_, fun h => hnotG ?_⟩
+    · by_cases ht : t = 0
+      · simp only [if_pos ht]; exact hrᵢ
+      · simp only [if_neg ht]; exact hr₁
+    · by_cases ht : t = 0
+      · simp only [if_pos ht]; exact hr₁
+      · simp only [if_neg ht]; exact hrᵢ
+    · simp only [if_neg (by omega : ¬ (t + 1 = 0))]
+      exact gramPhaseEquiv_refl _
+    · have h0 := h 0
+      simp only [if_pos rfl] at h0
+      exact h0
+    · have hh := h 0
+      simp only [if_pos rfl, if_neg (by decide : ¬ ((0 : ℕ) + 1 = 0))] at hh
+      exact gramPhaseEquiv_symm hh
+  · intro Phih hPhih t s G _
+    rw [add_comm t s, Function.iterate_add_apply]
+    exact gramPhaseEquiv_refl _
+  · intro Phih hPhih hrev
+    have hp : (fun _ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ => FibreGram (0 : Fin 1) H₁) = Phih :=
+      hPhih 0
+    exact hnotG (hrev.1 _ _ hr₁ hrᵢ (by rw [← hp]; exact gramPhaseEquiv_refl _))
+  · rintro ⟨-, t, G₁, G₂, ht, -, -, k₁, k₂, hne⟩
+    obtain ⟨s, rfl⟩ : ∃ s, t = s + 1 := ⟨t - 1, by omega⟩
+    exact hne (gramPhaseEquiv_trans (k₁ s) (gramPhaseEquiv_symm (k₂ s)))
+
+/-- **`OL3`, `ΦX` — THE RESTRICTED-INITIAL LAW FAILS `L0`**, at the configuration this freeze names
+for it: `V = Fin 4`, `A = Fin 1`, anchor `0`, `Γ ≡ ¼`.
+
+`ΦX` is act 18's `LC0` law datum — the two-class pointwise condition — conjoined with a genuinely
+cross-time constancy requirement, so the law admits a trajectory iff its orbit class is constant in
+time **and** its initial class is one of two named ones. **It is not pointwise**, so act 18's `XS1`
+says nothing about it in either direction.
+
+It is an `L-PROP` law in act 18's frozen sense: nonempty and non-singleton modulo act 17's
+trajectory equivalence, proper against the constant trajectory at the class of act 12's `H(−1)`,
+with clause (i) holding because a solution's class is constant and pinned by its initial class, and
+with clause (ii) holding at `t = 1`, where two solutions from the two named initial classes sit at
+`∼_D`-inequivalent classes. **And `L0` fails**: the class of `H(−1)` is admissible, by act 12's
+merged `sh1_necessity` applied to the third member of act 12's own frozen family, and it is
+`∼_D`-inequivalent to both named classes, so it extends to no solution at all. The law is an
+evolution of part of the admissible orbit state space and not of the space.
+
+**So `L0` is a genuine restriction on the class the shared theorem produces and is not decoration.**
+This is a statement about the exact condition frozen under the label `L0`, at the configuration
+named, and it does **not** endorse the condition, does **not** say the programme requires it, and
+does **not** say it is the right condition to impose. -/
+theorem ol3_phiX_fails_l0 :
+    ∃ (Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ)
+      (G₁ Gᵢ Gneg : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+      (∀ t i j, Γ t i j = 1 / 4) ∧ (∀ t, Γ t = Γ 0)
+        ∧ RealizableGram (Fin 1) (Γ 0) G₁ ∧ RealizableGram (Fin 1) (Γ 0) Gᵢ
+        ∧ RealizableGram (Fin 1) (Γ 0) Gneg
+        ∧ ¬ GramPhaseEquiv G₁ Gᵢ
+        ∧ ¬ GramPhaseEquiv Gneg G₁ ∧ ¬ GramPhaseEquiv Gneg Gᵢ
+        ∧ ProperAt (0 : Fin 1) Γ (fun 𝔾 => (∀ t, GramPhaseEquiv (𝔾 (t + 1)) (𝔾 t))
+            ∧ (GramPhaseEquiv (𝔾 0) G₁ ∨ GramPhaseEquiv (𝔾 0) Gᵢ))
+        ∧ PropagatesFrom (0 : Fin 1) Γ (fun 𝔾 => (∀ t, GramPhaseEquiv (𝔾 (t + 1)) (𝔾 t))
+            ∧ (GramPhaseEquiv (𝔾 0) G₁ ∨ GramPhaseEquiv (𝔾 0) Gᵢ))
+        ∧ ¬ EvolvesTotally (0 : Fin 1) Γ (fun 𝔾 => (∀ t, GramPhaseEquiv (𝔾 (t + 1)) (𝔾 t))
+            ∧ (GramPhaseEquiv (𝔾 0) G₁ ∨ GramPhaseEquiv (𝔾 0) Gᵢ)) := by
+  classical
+  obtain ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, hadm₁, hadmᵢ, hnotG, _⟩ := hadamard_slices_not_twoSided
+  have hunit : (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+      (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, -1, -1, 1; 1, -1, 1, -1; 1, 1, -1, -1] p.1 q.1))
+      ∈ Matrix.unitaryGroup (Fin 4 × Fin 1) ℂ := by
+    rw [Matrix.mem_unitaryGroup_iff, Matrix.star_eq_conjTranspose]
+    ext p q
+    obtain ⟨x, y⟩ := p
+    obtain ⟨u, v⟩ := q
+    fin_cases x <;> fin_cases y <;> fin_cases u <;> fin_cases v <;>
+      simp [Matrix.mul_apply, Fintype.sum_prod_type, Fin.sum_univ_four,
+        Matrix.conjTranspose_apply] <;> norm_num [Complex.ext_iff]
+  have hadmNeg : AdmissibleDilationAt Γ₀ (0 : Fin 1)
+      (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, -1, -1, 1; 1, -1, 1, -1; 1, 1, -1, -1] p.1 q.1)) := by
+    refine ⟨hunit, fun i j => ?_⟩
+    rw [hΓ₀]
+    fin_cases i <;> fin_cases j <;> simp <;> norm_num
+  have hne₁ : ¬ GramPhaseEquiv (FibreGram (0 : Fin 1)
+      (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, -1, -1, 1; 1, -1, 1, -1; 1, 1, -1, -1] p.1 q.1)))
+      (FibreGram (0 : Fin 1) H₁) := by
+    intro hG
+    have hinv := gramPhaseEquiv_cross_invariant hG 0 1
+    rw [hH₁] at hinv
+    simp [fibreGram_apply] at hinv
+    norm_num [Complex.ext_iff] at hinv
+  have hneᵢ : ¬ GramPhaseEquiv (FibreGram (0 : Fin 1)
+      (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, -1, -1, 1; 1, -1, 1, -1; 1, 1, -1, -1] p.1 q.1)))
+      (FibreGram (0 : Fin 1) Hᵢ) := by
+    intro hG
+    have hinv := gramPhaseEquiv_cross_invariant hG 0 1
+    rw [hHᵢ] at hinv
+    simp [fibreGram_apply] at hinv
+    norm_num [Complex.ext_iff] at hinv
+  have hconst : ∀ 𝔾 : ℕ → Fin 4 → Matrix (Fin 4) (Fin 4) ℂ,
+      (∀ t, GramPhaseEquiv (𝔾 (t + 1)) (𝔾 t)) → ∀ t, GramPhaseEquiv (𝔾 t) (𝔾 0) := by
+    intro 𝔾 h t
+    induction t with
+    | zero => exact gramPhaseEquiv_refl _
+    | succ n ih => exact gramPhaseEquiv_trans (h n) ih
+  refine ⟨fun _ => Γ₀, FibreGram (0 : Fin 1) H₁, FibreGram (0 : Fin 1) Hᵢ,
+    FibreGram (0 : Fin 1) _, fun _ i j => by rw [hΓ₀]; rfl, fun _ => rfl,
+    sh1_necessity hadm₁, sh1_necessity hadmᵢ, sh1_necessity hadmNeg, hnotG, hne₁, hneᵢ,
+    ⟨fun _ => FibreGram (0 : Fin 1) H₁, fun _ => FibreGram (0 : Fin 1) Hᵢ,
+      fun _ => FibreGram (0 : Fin 1) _,
+      fun _ => sh1_necessity hadm₁, fun _ => sh1_necessity hadmᵢ,
+      fun _ => sh1_necessity hadmNeg,
+      ⟨fun _ => gramPhaseEquiv_refl _, Or.inl (gramPhaseEquiv_refl _)⟩,
+      ⟨fun _ => gramPhaseEquiv_refl _, Or.inr (gramPhaseEquiv_refl _)⟩,
+      fun h => hnotG (h 0), fun h => h.2.elim hne₁ hneᵢ⟩,
+    ⟨fun G₁ G₂ _ _ k₁ k₂ h0 t =>
+      gramPhaseEquiv_trans (hconst G₁ k₁.1 t)
+        (gramPhaseEquiv_trans h0 (gramPhaseEquiv_symm (hconst G₂ k₂.1 t))),
+      1, fun _ => FibreGram (0 : Fin 1) H₁, fun _ => FibreGram (0 : Fin 1) Hᵢ, le_refl 1,
+      fun _ => sh1_necessity hadm₁, fun _ => sh1_necessity hadmᵢ,
+      ⟨fun _ => gramPhaseEquiv_refl _, Or.inl (gramPhaseEquiv_refl _)⟩,
+      ⟨fun _ => gramPhaseEquiv_refl _, Or.inr (gramPhaseEquiv_refl _)⟩, hnotG⟩, ?_⟩
+  intro h
+  obtain ⟨𝔾, _, hL, h0⟩ := h (FibreGram (0 : Fin 1) _) (sh1_necessity hadmNeg)
+  exact hL.2.elim
+    (fun hc => hne₁ (gramPhaseEquiv_trans (gramPhaseEquiv_symm h0) hc))
+    (fun hc => hneᵢ (gramPhaseEquiv_trans (gramPhaseEquiv_symm h0) hc))
+
+
+/-- **`OL4` — `SIOP-YES`: A SAME-INITIAL-ORBIT PAIR, EXHIBITED AT ITS FIRST DIVERGENCE, WITH
+`t* = 1`.**
+
+Two transition families satisfying every condition of this freeze's ladder from `L0` through `L4` —
+the identity transition and the carrier relabelling, both certified survivors of the census — whose
+laws are **not** equivalent under this round's frozen law equivalence, are handed the **same initial
+orbit class**, that of act 12's `H(i)`, and their solutions **first diverge at `t* = 1`**.
+
+**The earlier-agreement conjunct is part of the witness and is discharged, not assumed.** At
+`t* = 1` it reduces to agreement at time `0`, which is the same-initial-orbit hypothesis itself: the
+two laws are handed the same initial orbit and disagree at the very next step. **So what is
+exhibited is primitive non-uniqueness and not a divergence propagated forward from an earlier one.**
+The separating quantity is act 12's merged `∼_D`-invariant at the fibre pair `(0,2)`, whose values
+are `1/16` and `i/16`.
+
+**So rigidity is cleanly falsified at the configuration named.** This settles the exact ladder this
+freeze fixes and is **not** a statement that no condition set yields rigidity, **not** a statement
+about conditions this round does not test, and **not** a licence to add one.
+
+The condition predicate the pair satisfies is named in the statement and is the conjunction `L0`
+through `L4`; `L5` is reported UNDECIDED for the relabelling and the headline is computed over the
+conditions the kernel actually discharges, exactly as this freeze's `L5` fallback prescribes. -/
+theorem ol4_siop_yes :
+    ∃ Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ,
+      (∀ t i j, Γ t i j = 1 / 4)
+        ∧ SameInitialOrbitPair (0 : Fin 1) Γ
+            (fun Φ Law => TransitionLaw Φ Law ∧ ProperAt (0 : Fin 1) Γ Law
+              ∧ PropagatesFrom (0 : Fin 1) Γ Law ∧ EvolvesTotally (0 : Fin 1) Γ Law
+              ∧ PreservesAdmissible (0 : Fin 1) Γ Φ
+              ∧ (∃ Phih, ∀ t, Φ t = Phih)
+              ∧ (∀ Phih, (∀ t, Φ t = Phih) → ∀ (t s : ℕ) (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+                  RealizableGram (Fin 1) (Γ 0) G →
+                    GramPhaseEquiv (Phih^[t + s] G) (Phih^[s] (Phih^[t] G)))
+              ∧ (∀ Phih, (∀ t, Φ t = Phih) → Reversible (0 : Fin 1) (Γ 0) Phih)
+              ∧ (∃ Ψ : ℕ → Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ →
+                    Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ,
+                  (∀ (t : ℕ) (U : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+                      AdmissibleDilationAt (Γ t) (0 : Fin 1) U →
+                      Φ t (FibreGram (0 : Fin 1) U) = FibreGram (0 : Fin 1) (Ψ t U))
+                    ∧ (∀ (t : ℕ) (L U : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+                        LeftFibreGroup L → ∃ L', LeftFibreGroup L' ∧ Ψ t (L * U) = L' * Ψ t U)
+                    ∧ ∀ (t : ℕ) (U K : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+                        WeakAnchorStabilizer (0 : Fin 1) K →
+                        ∃ K', WeakAnchorStabilizer (0 : Fin 1) K' ∧ Ψ t (U * K) = Ψ t U * K'))
+        ∧ (∃ (Law Law' : (ℕ → Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → Prop)
+             (𝔾 𝔾' : ℕ → Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+            ¬ LawEquiv (0 : Fin 1) Γ Law Law'
+              ∧ (∀ t, RealizableGram (Fin 1) (Γ t) (𝔾 t))
+              ∧ (∀ t, RealizableGram (Fin 1) (Γ t) (𝔾' t))
+              ∧ Law 𝔾 ∧ Law' 𝔾'
+              ∧ GramPhaseEquiv (𝔾 0) (𝔾' 0)
+              ∧ ¬ GramPhaseEquiv (𝔾 1) (𝔾' 1)) := by
+  classical
+  obtain ⟨ΓI, ΦI, LawI, hΓI, hΓIc, hΦI, hLawI, hLadderI⟩ := ol3_phiI_survives
+  obtain ⟨ΓP, P, G₀, hΓP, hΓPc, hPdef, hG₀, hmove, hTLP, hproperP, hpropP, hL0P, hL1P, hL2P,
+    hL3P, hL4nP, hPI, horbP⟩ := ol3_phiP_survives_through_l4
+  have hΓeq : ΓI = ΓP := by
+    funext t; ext i j; rw [hΓI t i j, hΓP t i j]
+  subst hΓeq
+  subst hΦI
+  subst hLawI
+  obtain ⟨hTLI, hproperI, hpropI, hL0I, hL1I, hhomI, hL2I, hL3I, hL4nI, _hL5I⟩ := hLadderI
+  have hrealK : ∀ t, RealizableGram (Fin 1) (ΓI t) G₀ := fun t => by
+    rw [hΓPc t]; exact hG₀
+  have hrealO : ∀ t, RealizableGram (Fin 1) (ΓI t) (P^[t] G₀) := fun t => by
+    rw [hΓPc t]; exact horbP G₀ hG₀ t
+  have hsolI : ∀ t, GramPhaseEquiv ((fun _ : ℕ => G₀) (t + 1)) ((fun _ : ℕ => G₀) t) :=
+    fun _ => gramPhaseEquiv_refl _
+  have hsolP : ∀ t, GramPhaseEquiv ((fun t => P^[t] G₀) (t + 1)) (P ((fun t => P^[t] G₀) t)) := by
+    intro t
+    show GramPhaseEquiv (P^[t + 1] G₀) (P (P^[t] G₀))
+    rw [Function.iterate_succ_apply']
+    exact gramPhaseEquiv_refl _
+  have hne : ¬ GramPhaseEquiv ((fun _ : ℕ => G₀) 1) ((fun t => P^[t] G₀) 1) := by
+    show ¬ GramPhaseEquiv G₀ (P^[1] G₀)
+    rw [Function.iterate_one]
+    exact fun h => hmove (gramPhaseEquiv_symm h)
+  have hnotequiv : ¬ LawEquiv (0 : Fin 1) ΓI
+      (fun 𝔾 : ℕ → Fin 4 → Matrix (Fin 4) (Fin 4) ℂ => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (𝔾 t))
+      (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (P (𝔾 t))) := by
+    intro heq
+    have h2 := (heq (fun _ => G₀) hrealK).1 hsolI
+    exact hmove (gramPhaseEquiv_symm (h2 0))
+  refine ⟨ΓI, hΓI,
+    ⟨fun _ G => G, fun _ => P,
+      fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (𝔾 t),
+      fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (P (𝔾 t)),
+      fun _ => G₀, fun t => P^[t] G₀, 1,
+      ⟨hTLI, hproperI, hpropI, hL0I, hL1I, hhomI, hL2I, hL3I, hL4nI⟩,
+      ⟨hTLP, hproperP, hpropP, hL0P, hL1P, ⟨P, fun _ => rfl⟩, hL2P, hL3P, hL4nP⟩,
+      hnotequiv, hrealK, hrealO, hsolI, hsolP, le_refl 1, ?_, hne⟩,
+    ⟨_, _, _, _, hnotequiv, hrealK, hrealO, hsolI, hsolP, ?_, hne⟩⟩
+  · intro s hs
+    interval_cases s
+    exact gramPhaseEquiv_refl _
+  · exact gramPhaseEquiv_refl _
+
+
+/-- **`OL5` — THE PLURALITY THE HEADLINE RESTS ON: TWO `≈_L`-INEQUIVALENT SURVIVORS.**
+
+Two transition families, both satisfying `L4d`, act 18's `ProperAt` and `PropagatesFrom`, `L0`,
+`L1`, `L2` and both conjuncts of `L3` at the configuration named, generate laws whose solution sets
+among pointwise realizable trajectories **differ**. The separating trajectory is the constant
+trajectory at the admissible class of act 12's `H(i)`, which solves the first law and not the
+second.
+
+**The quotient is act 12's per-slice equivalence, act 17's trajectory lift of it, and the law
+equivalence derived from them, and no other relation.** The law equivalence is set equality of
+solution sets and introduces no new identification. **A plurality that would collapse only under an
+equivalence outside that list is a plurality**, and no equivalence was introduced or widened during
+execution.
+
+**This is the plurality and not a characterization.** The both-directions characterization theorem
+is **not** reached here, and the obstruction is named in the result note. **The absence of a
+characterization is what the headline records, not the presence of a big one.**
+
+**THE CLAUSE, carried at this mention — the headline's plurality.**
+Act 19 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts
+none. A law that survives every condition this freeze names is a law that survives **those**
+conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in
+nature, **not** a finding that the programme requires it, and **not** an adoption of it as the
+physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about
+the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence
+to add one more condition, or to widen one more equivalence, until a plurality becomes a point.
+**No law gains physical status by surviving, no carrier and no principle is adopted as the physical
+one, and nothing here derives, recognises or approaches quantum evolution.** -/
+theorem ol5_two_inequivalent_survivors :
+    ∃ (Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ)
+      (Φ Φ' : ℕ → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+      (Law Law' : (ℕ → Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → Prop),
+      (∀ t i j, Γ t i j = 1 / 4)
+        ∧ TransitionLaw Φ Law ∧ TransitionLaw Φ' Law'
+        ∧ ProperAt (0 : Fin 1) Γ Law ∧ ProperAt (0 : Fin 1) Γ Law'
+        ∧ PropagatesFrom (0 : Fin 1) Γ Law ∧ PropagatesFrom (0 : Fin 1) Γ Law'
+        ∧ EvolvesTotally (0 : Fin 1) Γ Law ∧ EvolvesTotally (0 : Fin 1) Γ Law'
+        ∧ PreservesAdmissible (0 : Fin 1) Γ Φ ∧ PreservesAdmissible (0 : Fin 1) Γ Φ'
+        ∧ (∃ Phih, ∀ t, Φ t = Phih) ∧ (∃ Phih, ∀ t, Φ' t = Phih)
+        ∧ (∀ Phih, (∀ t, Φ t = Phih) → Reversible (0 : Fin 1) (Γ 0) Phih)
+        ∧ (∀ Phih, (∀ t, Φ' t = Phih) → Reversible (0 : Fin 1) (Γ 0) Phih)
+        ∧ ¬ LawEquiv (0 : Fin 1) Γ Law Law' := by
+  classical
+  obtain ⟨ΓI, ΦI, LawI, hΓI, hΓIc, hΦI, hLawI, hLadderI⟩ := ol3_phiI_survives
+  obtain ⟨ΓP, P, G₀, hΓP, hΓPc, hPdef, hG₀, hmove, hTLP, hproperP, hpropP, hL0P, hL1P, hL2P,
+    hL3P, hL4nP, hPI, horbP⟩ := ol3_phiP_survives_through_l4
+  have hΓeq : ΓI = ΓP := by
+    funext t; ext i j; rw [hΓI t i j, hΓP t i j]
+  subst hΓeq
+  subst hΦI
+  subst hLawI
+  obtain ⟨hTLI, hproperI, hpropI, hL0I, hL1I, hhomI, hL2I, hL3I, hL4nI, _hL5I⟩ := hLadderI
+  refine ⟨ΓI, fun _ G => G, fun _ => P,
+    fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (𝔾 t),
+    fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (P (𝔾 t)),
+    hΓI, hTLI, hTLP, hproperI, hproperP, hpropI, hpropP, hL0I, hL0P, hL1I, hL1P, hhomI,
+    ⟨P, fun _ => rfl⟩, hL3I, hL3P, ?_⟩
+  intro heq
+  have h2 := (heq (fun _ => G₀) (fun t => by rw [hΓPc t]; exact hG₀)).1
+    (fun _ => gramPhaseEquiv_refl _)
+  exact hmove (gramPhaseEquiv_symm (h2 0))
+
 end OrbitLawRigidity
 end OIBridge
 
@@ -497,3 +1474,19 @@ end OIBridge
 
 #print axioms OIBridge.OrbitLawRigidity.ol1a_descends_to_composition
 #print axioms OIBridge.OrbitLawRigidity.ol1b_monoid_action
+#print axioms OIBridge.OrbitLawRigidity.realizableGram_of_gramPhaseEquiv
+#print axioms OIBridge.OrbitLawRigidity.ol2_l1_free
+#print axioms OIBridge.OrbitLawRigidity.ol3_phiI_survives
+#print axioms OIBridge.OrbitLawRigidity.ladder_of_involutive_transition
+#print axioms OIBridge.OrbitLawRigidity.submatrix_conjTranspose_equiv
+#print axioms OIBridge.OrbitLawRigidity.submatrix_mem_unitaryGroup
+#print axioms OIBridge.OrbitLawRigidity.ol3_phiP_survives_through_l4
+#print axioms OIBridge.OrbitLawRigidity.evolvesTotally_of_preservesAdmissible
+#print axioms OIBridge.OrbitLawRigidity.propagates_uniqueness
+#print axioms OIBridge.OrbitLawRigidity.relabelling_transition_data
+#print axioms OIBridge.OrbitLawRigidity.orbit_of_family
+#print axioms OIBridge.OrbitLawRigidity.ol3_phiT_fails_l2
+#print axioms OIBridge.OrbitLawRigidity.ol3_phiC_fails_l3
+#print axioms OIBridge.OrbitLawRigidity.ol3_phiX_fails_l0
+#print axioms OIBridge.OrbitLawRigidity.ol4_siop_yes
+#print axioms OIBridge.OrbitLawRigidity.ol5_two_inequivalent_survivors
