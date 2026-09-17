@@ -113,6 +113,21 @@ obligation's own order, **the first appearance of either induced map** — the d
 statement of either intertwining law**, `rnt3_left_law` and `rnt3_right_law`. Both entered in that
 one commit; no earlier commit on the branch carries any item from the obligation's list.
 
+**`b848b127` is the first discriminating result to enter THE BRANCH. It is NOT a record of the first
+discriminating fact LEARNED, and this note does not claim it is.** §4.4 discloses that `RNT3` and
+both `RNT4` (a) negatives were written and compiled together on disk in the interval after the
+definition commit, and that the `RNT4` (a) section was moved out of the working file before this
+commit was created and restored in the next one. **So the split between `b848b127` and `21909c8` is
+presentational, not chronological**: what those two commits jointly record is that `RNT3` and
+`RNT4` (a) crossed together, after `ce33bb2b`.
+
+**What that does and does not affect.** It does **not** touch the ordering obligation, whose content
+is that the frozen definitions are fixed before discriminating knowledge can tune them: every event
+described here postdates the definition commit, and §3.3 certifies that the five frozen definitions
+are byte-identical from `ce33bb2b` through `E`. It does mean that a reader must not take the commit
+order after `ce33bb2b` as evidence about the order in which facts were discovered. **The branch
+records when results entered version control, and nothing more.**
+
 **The step at which the classification became available is named**: `relabelLift_mul`. Reindexing
 both indices along one equivalence is conjugation by a permutation matrix, so the lift is
 multiplicative, and that is what lets the induced maps be written without mentioning the dilation.
@@ -167,14 +182,31 @@ notions fails on **one input**, is already discriminating; a question is answere
 partial fact was acquired, however incidentally, however small, and whether or not it was acted on.
 **There is no threshold below which a fact about the classification does not count.**
 
-**The span answered for is stated exactly, because the two readings of it differ.** The answers
-below are for the span from the mandated base `84f27b50` **to the definition commit `ce33bb2b`** —
-the period in which a contamination could have tuned a frozen definition to its own answer, which
-is what act 19 closed over. What happened between `ce33bb2b` and the discrimination commit
-`b848b127` is reported separately and openly below, because that is the period in which the
-discriminating work was *supposed* to be done.
+### The answered span DEPARTS from the frozen span, and the departure is labelled as such
 
-| question | answer, for `84f27b50` → `ce33bb2b` |
+**The freeze asks the three questions for the span from the mandated base to the DISCRIMINATION
+commit. This note answers them for the span from the mandated base to the DEFINITION commit. That is
+a departure from frozen procedure and is recorded here as one**, not presented as compliance.
+
+**Why the answered span was chosen.** The period in which a contamination could tune a frozen
+definition to its own answer — the failure act 19 closed over — ends at `ce33bb2b`, where the
+definitions are fixed. After that point discriminating work is exactly what the round is *supposed*
+to be doing.
+
+**What the frozen span would yield, stated plainly rather than left for a reader to infer.** Over
+`84f27b50` → `b848b127` the honest answers are **Q1 YES** and, on the ordinary reading, **Q3 YES**:
+intentional discriminating work was done after `ce33bb2b`, which is what produced `RNT3`. Those
+YESes **do not indicate contamination**. They indicate that the frozen attestation span was badly
+chosen for the condition it was meant to diagnose: it ends after the interval in which the answer
+matters and so is satisfied trivially by any round that does its job.
+
+**So this note makes no claim that "the three frozen attestations came back NO."** The table below
+is scoped to the span named above it, and the `ce33bb2b` → `b848b127` interval is reported separately
+and openly further down. **Act 21's freeze should set the attestation span to end at its own
+definition-commit analogue**, and that is recorded as a finding of this round about the instrument
+rather than about the mathematics.
+
+| question | answer, for `84f27b50` → `ce33bb2b` **only** |
 | --- | --- |
 | **Q1 — INTENTIONAL** | **NO** |
 | **Q2 — INCIDENTAL** | **NO** |

@@ -489,11 +489,18 @@ theorem rnt4a_right_nontrivial {A : Type} [Fintype A] [DecidableEq A] (a₀ : A)
 
 /-! ### Section G — `RNT4` (b), whether the lift is strictly natural
 
-**Earned by its own exhibited pairs and by nothing else.** Neither proof below mentions
-`RelabelInducedLeft` or `RelabelInducedRight`, and neither is obtained from `RNT4` (a): "the induced
-map is not the identity, therefore the lift is not strictly natural" is a non-sequitur and is not
-the argument made here. Each negative exhibits a gauge element and a dilation and certifies an
-inequality of matrices at a named entry. -/
+**Strict failure is earned by its own exhibited pairs.** Neither proof below mentions
+`RelabelInducedLeft` or `RelabelInducedRight`, and neither infers strict failure from `RNT4` (a):
+"the induced map is not the identity, therefore the lift is not strictly natural" is a non-sequitur
+and is not the argument made here. Each negative exhibits a gauge element and a dilation and
+certifies an inequality of matrices at a named entry.
+
+**What each proof does take from `RNT4` (a) is its WITNESS DATA, and saying so exactly matters.**
+`rnt4b_strict_fails_left` opens by destructuring `rnt4a_left_nontrivial` for `σ`, `L` and the
+`LeftFibreGroup L` membership, discarding that theorem's induced-map components; the inequality is
+then recomputed directly from `RelabelLift`. The right side does the same with
+`rnt4a_right_nontrivial`. **So these proofs reuse the `RNT4` (a) witness but prove strict failure
+independently of it** — a reuse of data, never a transfer of conclusion. -/
 
 /-- **`RNT4` (b), THE LEFT SIDE.** An exhibited pair `(L, U)` at which the lift of the moved
 dilation and the move of the lifted dilation are different matrices, certified at the named entry
