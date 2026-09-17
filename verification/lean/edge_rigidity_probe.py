@@ -9892,7 +9892,70 @@ def _rbr_strong_ancestry(base, target, label, num, tag='R7-RBR', cwd=None):
     return True
 
 
-def _rbr_archive_visibility_targets(env=None, tag='R7-RBR'):
+def _rbr_base_branch_tip(ref, tag='R7-RBR', cwd=None):
+    """The CURRENT tip of the pull request's base BRANCH, as `refs/remotes/origin/<ref>` and as
+    nothing else.
+
+    `pull_request.base.sha` is NOT a reliable source of it. #644 is the demonstration: that pull
+    request's payload still carried base `b78eac870ba3` after the base branch had advanced through
+    three later landings to `b7cdf49b9262`, with the head pushed to in between. Whatever the
+    field's exact update rule, a value that can sit that far behind cannot answer a question about
+    what is on the base branch NOW, and on a branch cut from a historical base it is as old as the
+    head, so head-or-`base.sha` adds nothing to head alone. That is why the head-or-`base.sha`
+    rule left the false negative it was written to remove exactly where it was.
+
+    The base branch's tip is what the invariant is actually about: an archived landing must still
+    be on the branch the pull request proposes to land on. The name comes from the event --
+    `pull_request.base.ref`, or `GITHUB_BASE_REF` -- and is resolved ONLY against the
+    remote-tracking ref.
+
+    **A local `refs/heads/<ref>` is not accepted in its place**, even when one exists. It is not
+    evidence of the remote branch's tip: in a checkout where the remote-tracking ref is absent, a
+    local branch of the same name is whatever some earlier operation left there, and substituting
+    it would let an abnormal checkout pass a check that should have failed closed. CI fetches
+    `+refs/heads/*:refs/remotes/origin/*` under `fetch-depth: 0`, so the ref is there; a missing
+    one means the checkout is wrong and is reported as such. If the local ref exists it is named
+    in the failure, so the diagnosis is immediate, but it does not gate.
+
+    Resolving a ref is a read of the checkout, and the comment on `_rbr_target_commit` above is
+    emphatic that the checkout must not answer this family of questions. The hazard there is
+    specific and does not arise here: the synthetic merge `HEAD` of a `pull_request` run has the
+    base as a parent AND the head as a parent, so it contains everything either side contains and
+    makes the check vacuous. `refs/remotes/origin/<ref>` contains only what the base branch
+    contains. It cannot make a landing that sits on the head side alone pass, and for an archived
+    landing, being on the base branch is the substantive fact the leg exists to confirm.
+
+    Returns `(sha, label)`, or `(None, reason)` when the name is missing, malformed, or the
+    remote-tracking ref does not resolve -- and the caller FAILS CLOSED on that. There is no
+    fallback to `base.sha` either: a base branch that no longer carries the landing is the
+    rewritten-or-vanished condition, and a stale snapshot that still carries it would hide exactly
+    that."""
+    if not isinstance(ref, str) or not ref:
+        return None, 'the base branch name is absent from the event'
+    if ref.startswith('-') or not re.fullmatch(r'[0-9A-Za-z._][0-9A-Za-z._/-]*', ref):
+        return None, 'the base branch name %r is not a plain ref name' % ref
+    remote = 'refs/remotes/origin/%s' % ref
+    r = _rbr_git('rev-parse', '--verify', '--quiet', remote + '^{commit}', tag=tag, cwd=cwd)
+    if r is None:
+        return None, 'git could not be run to resolve %s' % remote
+    if r.returncode == 0:
+        sha = r.stdout.decode('utf-8', 'replace').strip()
+        if re.fullmatch(r'[0-9a-f]{40}', sha):
+            return sha, '%s %s' % (remote, sha[:12])
+        return None, '%s did not resolve to a full 40-hex commit' % remote
+    local = _rbr_git('rev-parse', '--verify', '--quiet', 'refs/heads/%s^{commit}' % ref,
+                     tag=tag, cwd=cwd)
+    extra = ''
+    if local is not None and local.returncode == 0:
+        extra = (' -- a local refs/heads/%s exists at %s and is NOT accepted in its place, being '
+                 'no evidence of the remote branch tip'
+                 % (ref, local.stdout.decode('utf-8', 'replace').strip()[:12]))
+    return None, ('%s does not resolve in this checkout (a shallow or single-branch clone will do '
+                  'this; fetch-depth: 0 fetches +refs/heads/*:refs/remotes/origin/*)%s'
+                  % (remote, extra))
+
+
+def _rbr_archive_visibility_targets(env=None, tag='R7-RBR', cwd=None):
     """The commits an ARCHIVED landing may be visible from. **Archive mode only.**
 
     Execution mode asks its question of one object and one only -- the real `pull_request.head.sha`
@@ -9907,11 +9970,17 @@ def _rbr_archive_visibility_targets(env=None, tag='R7-RBR'):
     or had vanished, which is the only condition this leg exists to detect.
 
     So on a pull request the archived landing may be visible from the real `pull_request.head.sha`
-    **or** the real `pull_request.base.sha`: the first covers a fresh `E` -> `L` -> `P` branch whose
-    own seal is on the head side and not yet on the base, the second covers a historical branch
-    whose current base carries seals that landed after it. On a push, or any non-pull-request event,
-    the single target is `HEAD` as before. **Neither case ever admits the synthetic merge `HEAD`**:
-    both SHAs are read from the event payload, never from the checkout.
+    **or** from the CURRENT TIP OF THE BASE BRANCH: the first covers a fresh `E` -> `L` -> `P`
+    branch whose own seal is on the head side and not yet on the base, the second covers a
+    historical branch whose base has since taken seals that landed after it. On a push, or any
+    non-pull-request event, the single target is `HEAD` as before.
+
+    The base side is the branch tip, resolved as `refs/remotes/origin/<base ref>` and nothing else,
+    and it is NOT `pull_request.base.sha`. That field is not a reliable source of the live tip: on
+    #644 it still read `b78eac870ba3` after the base branch had advanced through three later
+    landings, with the head pushed to in between, so a rule written on it does not deliver the
+    invariant it appears to. It is still read, and printed, as a DIAGNOSTIC. **No case admits the
+    synthetic merge `HEAD`**, which has both sides as parents and would make the leg vacuous.
 
     Returns a list of `(rev, label)` candidates, or `None` to FAIL CLOSED."""
     env = os.environ if env is None else env
@@ -9925,19 +9994,28 @@ def _rbr_archive_visibility_targets(env=None, tag='R7-RBR'):
     try:
         with open(path, encoding='utf-8') as fh:
             payload = json.load(fh)
-        head = payload['pull_request']['head']['sha']
-        base = payload['pull_request']['base']['sha']
+        pr = payload['pull_request']
+        head = pr['head']['sha']
+        base_ref = (pr.get('base') or {}).get('ref') or env.get('GITHUB_BASE_REF')
+        base_sha = (pr.get('base') or {}).get('sha')
     except Exception as exc:
-        print('    %s archive: cannot resolve pull_request head/base SHAs (%s); failing closed'
+        print('    %s archive: cannot read the pull_request event payload (%s); failing closed'
               % (tag, type(exc).__name__))
         return None
-    out = []
-    for sha, what in ((head, 'pull_request.head.sha'), (base, 'pull_request.base.sha')):
-        if not (isinstance(sha, str) and re.fullmatch(r'[0-9a-f]{40}', sha)):
-            print('    %s archive: %s is not a full 40-hex SHA; failing closed' % (tag, what))
-            return None
-        out.append((sha, '%s %s' % (what, sha[:12])))
-    return out
+    if not (isinstance(head, str) and re.fullmatch(r'[0-9a-f]{40}', head)):
+        print('    %s archive: pull_request.head.sha is not a full 40-hex SHA; failing closed' % tag)
+        return None
+    tip, why = _rbr_base_branch_tip(base_ref, tag=tag, cwd=cwd)
+    if tip is None:
+        print('    %s archive: the base branch tip could not be resolved -- %s. '
+              'pull_request.base.sha is no reliable source of the live tip and is not accepted in '
+              'its place; failing closed' % (tag, why))
+        return None
+    if isinstance(base_sha, str) and re.fullmatch(r'[0-9a-f]{40}', base_sha):
+        print('    %s archive: base branch %s is at %s; the event payload records '
+              'pull_request.base.sha %s, which does not gate'
+              % (tag, base_ref, tip[:12], base_sha[:12]))
+    return [(head, 'pull_request.head.sha %s' % head[:12]), (tip, why)]
 
 
 def _rbr_archive_ancestry(base, sealed, merge, tag='R7-RBR', env=None, target=None, cwd=None):
@@ -9967,11 +10045,11 @@ def _rbr_archive_ancestry(base, sealed, merge, tag='R7-RBR', env=None, target=No
     `L` by the shape of the object, so a second independent reachability test on `E` would be a
     second escape hatch rather than a second check. The sealed head's own reachability is still
     computed and printed, as DIAGNOSTICS, and does not gate the result. On a pull request the
-    candidates are the real head and the real base SHAs, per
+    candidates are the real head SHA and the CURRENT TIP of the base branch, per
     `_rbr_archive_visibility_targets`; on a push, `HEAD`. Nothing about the base, the
     preregistration pin, or execution mode changes."""
     if target is None:
-        cands = _rbr_archive_visibility_targets(env=env, tag=tag)
+        cands = _rbr_archive_visibility_targets(env=env, tag=tag, cwd=cwd)
         if cands is None:
             return False
     else:
@@ -10091,29 +10169,47 @@ def _rbr_archive_regression():
 
 
 def _rbr_archive_visibility_regression():
-    """Synthetic regression for ARCHIVE VISIBILITY: the head-or-base rule, and the five ways it
-    must still fail closed.
+    """Synthetic regression for ARCHIVE VISIBILITY: the head-or-base-BRANCH rule, and the seven
+    ways it must still fail closed.
 
     Builds one topology carrying an archived landing `L` on `main`, plus a historical branch cut
     BEFORE `L` landed -- the shape that produced four simultaneous false negatives on four rounds
-    none of the failing branches touched. Then exercises, in order:
+    none of the failing branches touched.
 
-      1. a STALE HISTORICAL pull request -- head from before `L`, base the current `main` that
-         carries it -- PASSES, which is the repair;
-      2. a FRESH LANDING pull request -- `L` on the head side only, base from before it -- PASSES,
-         which is the case the old single-target rule got right and must keep;
-      3. `L` on NEITHER side FAILS, which is the rewritten-or-vanished condition this leg exists
-         for, and is what the repair must not give away;
-      4. a MALFORMED `E` -> `L` relation FAILS even when `L` is plainly visible from both sides;
-      5. a PUSH whose `HEAD` does not carry `L` FAILS, the non-pull-request path being unchanged;
-      6. EXECUTION mode is untouched and remains real-head-only: `_rbr_target_commit` returns the
-         head SHA and never the base, and the strengthened predicate still refuses a base-only
-         target.
+    **Every pull-request case here supplies a `pull_request.base.sha` that disagrees with the base
+    branch's tip**, because that disagreement is the whole subject. A regression whose payloads
+    give the two the same value tests nothing about which of them is read, and an earlier version
+    of this function had exactly that defect: it wrote `base.sha` equal to the current tip, so it
+    certified a rule that could not work against the payloads GitHub actually sends. Cases 1 and 4
+    are a pair and pin the field: the branch tip decides, the snapshot never does, in both
+    directions.
 
-    And the control that matters most for (1) and (2): the SYNTHETIC merge `HEAD` of the checkout
-    cannot make any case pass. Case 3 is run with the working tree sitting on a commit that DOES
-    carry `L`, so a reading that consulted the checkout instead of the payload would pass it. It
-    must still fail."""
+    The cases, in order:
+
+      1. a STALE HISTORICAL pull request -- head from before `L`, `base.sha` also from before `L`,
+         base BRANCH now carrying it -- PASSES. This is the repair, and it is the case a rule
+         written on `base.sha` fails.
+      2. a FRESH LANDING pull request -- `L` on the head side only, base branch without it --
+         PASSES, which is the case the original single-target rule got right and must keep.
+      3. `L` on NEITHER the head nor the base branch FAILS, which is the rewritten-or-vanished
+         condition this leg exists for and is what the repair must not give away.
+      4. a REWOUND base branch FAILS even though `base.sha` still carries `L`: the snapshot is not
+         an escape hatch, and a landing that has left the base branch is exactly condition 3.
+      5. FOUR ways the base branch fails to resolve, all FAILING CLOSED and none falling back to
+         the snapshot: an unresolvable name; a payload with no base name; a base whose
+         remote-tracking ref is ABSENT while a LOCAL branch of that name carries `L`; and a base
+         whose remote-tracking ref lacks `L` while a local branch of that name carries it. The
+         last two are the point of resolving `refs/remotes/origin/<ref>` and nothing else: a local
+         ref is whatever some earlier operation left behind, not evidence of the remote tip, and
+         accepting it would let an abnormal checkout pass a check that should have failed.
+      6. a MALFORMED `E` -> `L` relation FAILS even when `L` is plainly visible; a PUSH whose
+         `HEAD` does not carry `L` FAILS, the non-pull-request path being unchanged; and EXECUTION
+         mode is untouched and remains real-head-only.
+
+    And the control that runs through all of them: the SYNTHETIC merge `HEAD` of the checkout
+    cannot make any case pass. Every failing pull-request case is run with the working tree sitting
+    on a commit that DOES carry `L`, so a reading that consulted the checkout's `HEAD` instead of
+    the event would pass them. They must still fail."""
     import shutil
     import tempfile
     cwd = tempfile.mkdtemp(prefix='r7-vis-')
@@ -10149,42 +10245,75 @@ def _rbr_archive_visibility_regression():
         ell = head()
         run('commit', '-q', '--allow-empty', '-m', 'a later sibling')
         main_now = head()
+        # Remote-tracking refs, which are the ONLY thing the base side resolves against.
+        run('update-ref', 'refs/remotes/origin/main', main_now)
+        # a base branch that does NOT carry the landing, for the rewind and head-only cases
+        run('branch', 'no-landing', b)
+        run('update-ref', 'refs/remotes/origin/no-landing', b)
+        # local-only: a local branch carrying the landing with NO remote-tracking ref at all
+        run('branch', 'local-only', main_now)
+        # diverged: the remote-tracking ref lacks the landing, the local branch of that name has it
+        run('branch', 'diverged', main_now)
+        run('update-ref', 'refs/remotes/origin/diverged', b)
+        run('checkout', '-q', 'main')
 
         payloads = {}
 
-        def env_for(name, head_sha, base_sha):
+        def env_for(name, head_sha, base_sha, base_ref='main', omit_ref=False):
             p = os.path.join(cwd, 'event-%s.json' % name)
+            base = {'sha': base_sha}
+            if not omit_ref:
+                base['ref'] = base_ref
             with open(p, 'w', encoding='utf-8') as fh:
                 json.dump({'pull_request': {'number': 1,
                                             'head': {'sha': head_sha},
-                                            'base': {'sha': base_sha}}}, fh)
+                                            'base': base}}, fh)
             payloads[name] = p
             return {'GITHUB_EVENT_NAME': 'pull_request', 'GITHUB_EVENT_PATH': p}
 
         ok = True
-        # 1. stale historical head, base carries L -> PASSES (the repair)
+        # 1. stale historical head AND a stale base.sha, base branch now carries L -> PASSES.
+        #    This is the real GitHub shape, and the head-or-base.sha rule fails it.
         ok &= _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
-                                    env=env_for('stale', hist, main_now))
-        # 2. fresh landing: L on the head side only -> PASSES
+                                    env=env_for('stale', hist, c0, 'main'))
+        # 2. fresh landing: L on the head side only, base branch without it -> PASSES
         ok &= _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
-                                    env=env_for('fresh', ell, b))
-        # 3. L on NEITHER side -> FAILS. The checkout is left on main_now, which DOES carry L,
-        #    so a reading that consulted the synthetic merge HEAD would wrongly pass this.
-        run('checkout', '-q', 'main')
+                                    env=env_for('fresh', ell, c0, 'no-landing'))
+        # 3. L on NEITHER the head nor the base branch -> FAILS. The checkout sits on main, which
+        #    DOES carry L, so a reading that consulted the synthetic merge HEAD would pass this.
         ok &= not _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
-                                        env=env_for('neither', hist, c0))
-        # 4. malformed E -> L: the pinned merge does not carry the sealed head, L visible on both
+                                        env=env_for('neither', hist, c0, 'no-landing'))
+        # 4. the base branch has been REWOUND off the landing while base.sha still carries it ->
+        #    FAILS. The pair (1, 4) is what pins the field: tip decides, snapshot never does.
+        ok &= not _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
+                                        env=env_for('rewound', hist, main_now, 'no-landing'))
+        # 5. four ways the base branch fails to resolve -> all FAIL closed, none falling back to
+        #    base.sha, which in every one of them carries the landing.
+        ok &= not _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
+                                        env=env_for('unknown-ref', hist, main_now, 'no-such-branch'))
+        ok &= not _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
+                                        env=env_for('no-ref', hist, main_now, omit_ref=True))
+        #    local-only: refs/heads/local-only carries L, no refs/remotes/origin/local-only exists.
+        #    A local ref is not evidence of the remote branch tip and must not be substituted.
+        ok &= not _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
+                                        env=env_for('local-only', hist, main_now, 'local-only'))
+        #    diverged: the remote-tracking ref lacks L, the local branch of that name carries it.
+        #    The remote decides, so this FAILS.
+        ok &= not _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
+                                        env=env_for('diverged', hist, main_now, 'diverged'))
+        # 6a. malformed E -> L: the pinned merge does not carry the sealed head, L plainly visible
         ok &= not _rbr_archive_ancestry(b, hist, ell, tag='R7-VIS', cwd=cwd,
-                                        env=env_for('malformed', main_now, main_now))
-        # 5. push with HEAD not carrying L -> FAILS
+                                        env=env_for('malformed', main_now, main_now, 'main'))
+        # 6b. push with HEAD not carrying L -> FAILS; on main -> PASSES
         run('checkout', '-q', 'historical')
         ok &= not _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
                                         env={'GITHUB_EVENT_NAME': 'push'})
         run('checkout', '-q', 'main')
         ok &= _rbr_archive_ancestry(b, e, ell, tag='R7-VIS', cwd=cwd,
                                     env={'GITHUB_EVENT_NAME': 'push'})
-        # 6. EXECUTION mode untouched: the target is the head SHA, never the base
-        tgt, _lab, _n = _rbr_target_commit(env=env_for('exec', hist, main_now), tag='R7-VIS')
+        # 6c. EXECUTION mode untouched: the target is the head SHA, never the base
+        tgt, _lab, _n = _rbr_target_commit(env=env_for('exec', hist, main_now, 'main'),
+                                           tag='R7-VIS')
         ok &= (tgt == hist)
         # and the strengthened predicate still refuses a base-only target
         ok &= not _rbr_strong_ancestry(b, hist, 'synthetic historical head', None,
@@ -10201,20 +10330,31 @@ def _rbr_archive_visibility_regression():
 
 ok_vis = _rbr_archive_visibility_regression()
 check('R7-VIS', ok_vis,
-      'Archive-mode VISIBILITY, synthetic regression for the head-or-base repair. Under A.37 an execution branches '
-      'from its own control plane merge and from nothing else, so a pull request opened from a historical base '
-      'cannot reach seals that landed afterwards; four branches failed this leg at once on four rounds none of them '
-      'touched, while every pinned object was reachable from main. Nothing had been rewritten, which is the only '
-      'condition the leg exists to detect. The repair asks after the PINNED MERGE alone -- the sealed head being '
-      'carried by it is already established by the second-parent check, so a second reachability test on the sealed '
-      'head would be a second escape hatch, not a second check -- and accepts it on either the real head or the real '
-      'base SHA of a pull request, HEAD on a push. Six cases are exercised: a stale historical head whose base '
-      'carries the landing PASSES; a fresh landing branch carrying it on the head side only PASSES; the landing on '
-      'NEITHER side FAILS; a malformed sealed-head-to-merge relation FAILS even with the merge visible from both '
-      'sides; a push whose HEAD does not carry the landing FAILS; and execution mode is unchanged, its target still '
-      'the real head SHA and never the base, with the strengthened predicate still refusing a base-only target. The '
-      'neither-side case is run with the checkout sitting on a commit that DOES carry the landing, so a reading that '
-      'consulted the synthetic merge HEAD instead of the event payload would pass it and does not.')
+      'Archive-mode VISIBILITY, synthetic regression for the head-or-base-BRANCH repair. Under A.37 an execution '
+      'branches from its own control plane merge and from nothing else, so a pull request opened from a historical '
+      'base cannot reach seals that landed afterwards; four branches failed this leg at once on four rounds none of '
+      'them touched, while every pinned object was reachable from main. Nothing had been rewritten, which is the '
+      'only condition the leg exists to detect. The repair asks after the PINNED MERGE alone -- the sealed head '
+      'being carried by it is already established by the second-parent check, so a second reachability test on the '
+      'sealed head would be a second escape hatch, not a second check -- and accepts it on the real head SHA of a '
+      'pull request or on the CURRENT TIP of its base branch, HEAD on a push. The base side is refs/remotes/origin/'
+      '<base ref> and NOTHING else -- not pull_request.base.sha, which is no reliable source of the live tip (#644 '
+      'still carried base b78eac870ba3 after the base branch had advanced through three later landings, with its '
+      'head pushed to in between), and not a local refs/heads/<base ref>, which is whatever an earlier operation '
+      'left behind rather than evidence of the remote branch. base.sha is printed as a diagnostic and does not '
+      'gate. Every pull-request case here gives base.sha a value that DISAGREES with the branch tip, because which '
+      'of the two is read is the whole subject and a regression whose payloads agree tests nothing: a stale head '
+      'with a stale base.sha whose base branch now carries the landing PASSES, and a rewound base branch whose '
+      'base.sha still carries it FAILS. Also exercised: a fresh landing on the head side only PASSES; the landing '
+      'on neither side FAILS; and four resolution failures all FAIL CLOSED with no fallback to the snapshot -- an '
+      'unknown base name, a payload with no base name, a base whose remote-tracking ref is absent while a local '
+      'branch of that name carries the landing, and a base whose remote-tracking ref lacks the landing while a '
+      'local branch of that name carries it. Further: a malformed sealed-head-to-merge relation FAILS even with '
+      'the merge plainly visible; a push whose HEAD does not carry the landing FAILS; and execution mode is '
+      'unchanged, its target still the real head SHA and never the base, with the strengthened predicate still '
+      'refusing a base-only target. Every failing pull-request case runs with the checkout sitting on a commit that '
+      'DOES carry the landing, so a reading that consulted the synthetic merge HEAD instead of the event would pass '
+      'them and does not.')
 
 
 ok_arch = _rbr_archive_regression()

@@ -148,12 +148,21 @@ jobs:
     name: Numerical probes
     runs-on: ubuntu-latest
     steps:
-      # Full history rather than the default depth-1 clone. This is a CONVENIENCE and is not
-      # load-bearing: `edge_rigidity_probe.py`'s R7-RBR guard recovers whatever history it needs
-      # itself, and fails closed if it cannot. Cloning deep here just makes that recovery a no-op
-      # instead of a network round-trip. Note that the guard does NOT ask its question of HEAD in a
-      # pull_request run -- HEAD is the synthetic merge commit, which has the PR base as a parent,
-      # so the ancestry check would be vacuous; it resolves pull_request.head.sha instead.
+      # Full history rather than the default depth-1 clone, and LOAD-BEARING. For commits it is
+      # only a convenience -- `edge_rigidity_probe.py`'s R7-RBR guard recovers whatever commits it
+      # needs itself, and fails closed if it cannot, so cloning deep merely makes that recovery a
+      # no-op instead of a network round-trip. But `fetch-depth: 0` is also what fetches
+      # `+refs/heads/*:refs/remotes/origin/*`, and the guard's ARCHIVE mode resolves the pull
+      # request's base BRANCH by name against `refs/remotes/origin/<base ref>` and nothing else. A
+      # shallow or single-branch checkout leaves that ref absent and archive mode fails closed, by
+      # design: neither `pull_request.base.sha` -- which is no reliable source of the live tip, PR
+      # #644 having carried base b78eac870ba3 across three later landings -- nor a local
+      # `refs/heads/<base ref>` is accepted in its place.
+      #
+      # Note that the guard does NOT ask its question of HEAD in a pull_request run -- HEAD is the
+      # synthetic merge commit, which has BOTH the base and the head as parents, so the ancestry
+      # check would be vacuous; execution mode resolves pull_request.head.sha instead, and archive
+      # mode the real head SHA or the base branch tip, never that HEAD.
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0

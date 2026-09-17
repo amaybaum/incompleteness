@@ -803,9 +803,29 @@ building a landing rather than inferring a shape from which files moved.
 
 In **archive mode** the strong ancestry check is re-run against the sealed
 object rather than against the current target, the pinned merge's second parent
-is required to equal the sealed head, and both are required to be reachable
-from the target. Fail-closed throughout. A result note recording that the pins
-were unset at execution stays true, being a statement about the execution.
+is required to equal the sealed head, and the pinned merge is required to still
+be visible. Visibility asks after the **merge alone**: the second-parent check
+has already established that the sealed head is carried by it, so a second
+reachability test on the sealed head would be a second escape hatch rather than
+a second check, and the sealed head's own reachability is printed as a
+diagnostic only. On a push the merge must be reachable from `HEAD`; on a pull
+request, from the real `pull_request.head.sha` **or from the current tip of the
+base branch**, resolved by name as `refs/remotes/origin/<base ref>`.
+
+The base side is that remote-tracking ref and **nothing else**. It is not
+`pull_request.base.sha`, which is no reliable source of the live tip: #644 still
+carried base `b78eac870ba3` after the base branch had advanced through three
+later landings, with its head pushed to in between. It is also not a local
+`refs/heads/<base ref>`, which is whatever an earlier operation left behind
+rather than evidence of the remote branch. Under `A.37` an execution branches
+from its own control plane's merge and from nothing else, so without the live
+base tip every long-lived pull request eventually fails this leg on rounds it
+does not touch — a false negative, the leg existing only to catch a landing that
+has been rewritten or has vanished. Fail-closed throughout, including when the
+remote-tracking ref does not resolve: a shallow or single-branch checkout is a
+reason to fetch properly, not to substitute a local branch or the snapshot. A
+result note recording that the pins were unset at execution stays true, being a
+statement about the execution.
 
 Landing conflicts are resolved **by merits, not by side**. Where an obligation
 table or a section collides, take each row or block from whichever branch
