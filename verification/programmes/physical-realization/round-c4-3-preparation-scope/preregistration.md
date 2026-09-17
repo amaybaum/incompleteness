@@ -959,22 +959,41 @@ Phrased so that an auditor can check each clause mechanically.
    fail-closed, each with a mutation control. *Check:* the guard's blob-pin function compares
    `git hash-object` of this path against a literal, and a drift control fails the guard if one byte
    is appended.
-5. **The ancestry question is asked of the real execution head** — `pull_request.head.sha` from the
-   Actions event payload, **never** the synthetic merge commit `refs/pull/<n>/merge`. An unresolvable
-   head **fails closed**, with no fallback.
-6. **The check excludes pre-freeze side history.** With `B` this control plane's merge commit and `H`
-   the real execution head: `B` ancestor-of `H`, **and every commit in `git rev-list H ^B` itself a
-   descendant of `B`**, fail-closed. A guard that checks only the head does not discharge this clause.
-7. **The guard recovers whatever history it needs itself** — deepening a shallow clone, fetching an
-   absent commit — and **fails** if recovery fails, for `B`, for `H`, and for every enumerated commit
-   alike.
+5. **`R7-PC4P` is a CONTENT AND PROVENANCE CONTRACT, and carries NO STANDING ANCESTRY CHECK.** The
+   guard pins this file by blob, pins the inserted sentences by content, records `_PC4P_BASE` as a
+   literal, and checks nothing about the shape of history. *Check:* the guard block contains no
+   `merge-base --is-ancestor`, no `rev-list`, and no reachability test of any kind.
+
+   **Why, and it is not a relaxation of what this round must prove.** A standing ancestry predicate
+   suits a SEALING round, whose archived object is an `E` → `L` relation that remains checkable
+   forever. This round is **non-sealing**: it has no sealed head and no pinned merge, so a permanent
+   `B` ancestor-of `HEAD` test would be asking, on every future run, whether some *current* commit
+   descends from a historical control-plane merge. That is a question about later history rather than
+   about this round's object, and it is the same class of defect as the archive-visibility false
+   negative — a guard going permanently red because the repository moved on, with nothing rewritten.
+   **The chronology is not dropped; it is checked once, where it is meaningful, and recorded.**
+6. **Execution chronology is certified AT `E`, not by a standing guard.** With `B` this control
+   plane's merge commit and `H` the real execution head — `pull_request.head.sha` from the Actions
+   event payload, **never** the synthetic merge commit `refs/pull/<n>/merge` — the execution
+   certifies, and the result note records with the commands and their output: `B` ancestor-of `H`,
+   **and every commit in `git rev-list H ^B` itself a descendant of `B`**. An unresolvable head is a
+   failure of the certification, with no fallback. **This is a one-time certification of the object
+   under review, and reviewing it is part of approving `E`.** The freeze requires the evidence in the
+   note; it does not require a predicate that re-asks the question after the round is over.
+7. **Landing parentage is checked at `L`, by inspection of the merge commit.** `L`'s first parent is
+   the then-current certified main and its second parent is exactly `E`; the reviewer checks
+   `git rev-parse L^1` and `L^2` against those two SHAs at the landing. Whatever history the
+   certification at `E` needs — deepening a shallow clone, fetching an absent commit — is recovered
+   then, and a failure to recover is a failure of the certification.
 8. **The landing is `E` → `L`, with no pin commit**, this being a non-sealing round. `L`'s first
    parent is current green main and its second parent is exactly `E`; conflicts are resolved in `L`
    and never in `E`, which stays byte-identical. *Check:* `git rev-parse L^2` equals `E`, and the
    branch carries no third commit after `L`.
-9. **`R7-PC4P` has no archive mode**, because the round creates no `_SEALED_HEAD` and no `_MERGE`.
-   *Check:* neither string appears in the guard block, and the block's ancestry check is the
-   execution-mode check of clause 6 alone.
+9. **`R7-PC4P` has no archive mode and no execution-ancestry mode**, because the round creates no
+   `_SEALED_HEAD`, no `_MERGE`, and no standing reachability predicate of any kind. *Check:* neither
+   `_SEALED_HEAD` nor `_MERGE` appears in the guard block, and the block contains no ancestry check
+   at all — the chronology lives in the certification of clause 6 and the parentage check of
+   clause 7, both performed once and recorded, never re-asked by the guard.
 10. **Rounds 1 and 2 are untouched.** *Check:*
     `git diff <base> <L> -- verification/lean/edge_rigidity_probe.py` contains no change to
     `_PC4_BASE`, `_PC4_SEALED_HEAD`, `_PC4_MERGE`, `_PC4S_BASE`, `_PC4S_SEALED_HEAD`, `_PC4S_MERGE`,
@@ -1054,9 +1073,11 @@ hydrodynamics or the substratum ensemble; or consume any sibling lane's result.
 7. the post-round sentences, one per target, verbatim from the status rule, with the `P1` row **OPEN**;
 8. what no outcome licenses, in this file's wording, with THE CLAUSE carried at its mention there;
 9. the definition count against the zero-slot budget;
-10. the chronology certification, naming the property certified — no commit reachable from the
-    execution head lies outside the control-plane merge's descendants — and the statement that this is
-    a non-sealing round with no pin;
+10. the chronology certification of clause 6, **with the commands and their literal output**, naming
+    the property certified — no commit reachable from the execution head lies outside the
+    control-plane merge's descendants — together with the statement that this is a non-sealing round
+    with no pin, and that the certification is **made once here and is not re-asked by the guard**,
+    `R7-PC4P` carrying no standing ancestry check;
 11. the anti-contamination invariant verbatim, with the start-state comparison at the base and any
     discrepancy recorded and not repaired;
 12. a hand scan of this round's own artifacts for the forbidden vocabulary and for any unindexed
