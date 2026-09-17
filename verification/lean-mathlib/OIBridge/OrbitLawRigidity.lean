@@ -724,6 +724,42 @@ theorem submatrix_mem_unitaryGroup {m : Type} [Fintype m] [DecidableEq m]
   rw [Matrix.mem_unitaryGroup_iff', Matrix.star_eq_conjTranspose,
     submatrix_conjTranspose_equiv, Matrix.submatrix_mul_equiv, h1, Matrix.submatrix_one_equiv]
 
+/-- **`OL3`, `ΦP` — THE CARRIER-RELABELLING TRANSITION SURVIVES `L0` THROUGH `L4` OF THE FROZEN
+LADDER**, at the configuration this freeze names for it: `V = Fin 4`, `A = Fin 1`, anchor `0`,
+`Γ ≡ ¼`, with `σ` the transposition act 18's fourth admissible dilation exhibits.
+
+`σ` is chosen before any lift exists and consults no lift, which is what act 18's definition of a
+law datum requires; it is not required to be a canonical function of the visible family, and act
+18's own `LC1` and `LC2` already take data in that sense. At the frozen configuration `Γ ≡ ¼` is
+constant, so **every** permutation of the carrier leaves it invariant.
+
+The rungs are discharged from three facts about the relabelling, each proved once and used
+throughout: it **descends**, the phase family transported along `σ`; it **preserves pointwise
+realizability**, each of act 12's four conjuncts transporting across the reindexing; and it is an
+**involution**, `σ` being a transposition. Reversibility in both conjuncts follows from the
+involution, `L0` from the orbit of any admissible class, `L2` from independence of `t`, and `L4n`
+from the representative-level lift that reindexes a dilation's carrier slots by `σ` — which carries
+every in-fibre left move to an in-fibre left move and every right gauge at the anchor to a right
+gauge at the anchor, so the invisible gauge cannot see the transition's action beyond the class.
+
+**`L5` is NOT among the conjuncts here and is reported UNDECIDED for this candidate**, with the
+obstruction named in the result note. The absence of a discharge is **not** a claim that the rung
+fails.
+
+The final conjuncts are the ones the discriminating test consumes: at the admissible class of act
+12's `H(i)` the relabelling **moves the class**, certified through act 12's merged `∼_D`-invariant
+read at the fibre pair `(0,2)`, whose values are `1/16` before the transition and `i/16` after it.
+
+**THE CLAUSE, carried at this mention — the carrier-relabelling transition's census verdict.**
+Act 19 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts
+none. A law that survives every condition this freeze names is a law that survives **those**
+conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in
+nature, **not** a finding that the programme requires it, and **not** an adoption of it as the
+physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about
+the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence
+to add one more condition, or to widen one more equivalence, until a plurality becomes a point.
+**No law gains physical status by surviving, no carrier and no principle is adopted as the physical
+one, and nothing here derives, recognises or approaches quantum evolution.** -/
 theorem ol3_phiP_survives_through_l4 :
     ∃ (Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ)
       (P : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
