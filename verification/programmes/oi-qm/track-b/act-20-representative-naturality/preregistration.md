@@ -328,8 +328,7 @@ execution records the discrepancy and does not repair the freeze.
 **`verification/ROADMAP.md` is in the read-only table above, and that is a deliberate narrowing of
 this round relative to acts 13 through 19.** Each of those rounds both read the `ROADMAP` and
 appended a frozen post-round sentence to the `P0` row. **Act 20 appends nothing to it.** The reason
-is recorded in its own section below and is put to the owner as an open decision before this freeze
-merges.
+is recorded in the settlements section below, where the owner has settled it.
 
 ### The files this round writes
 
@@ -715,21 +714,51 @@ act 20's result cannot mistake a verdict about one named declaration for a verdi
 
 ### `RNT5` — is the per-input existential STRICTLY weaker than the fixed-map form?
 
-**The statement.** `RNT1` (b) gives one direction. The question is the other:
+**The statement, asked SEPARATELY ON EACH SIDE.** `RNT1` (b) gives one direction. The question is the
+other, and it is **two questions, not one**:
 
-> **`RNT5`.** Is there a `Ψ` with `OrbitNatural a₀ Ψ` and **no** pair of maps making
-> `TwistedNatural` hold — that is, with `¬ ∃ αL αR, TwistedNatural a₀ αL αR Ψ`? Or, at the
-> configuration named, does every `OrbitNatural` lift admit such a pair?
+> **`RNT5` (L).** Is there a `Ψ` satisfying the LEFT conjunct of `OrbitNatural` — the per-input
+> existential over in-fibre left moves — admitting **no** map `αL` with
+> `(∀ L, LeftFibreGroup L → LeftFibreGroup (αL L))` and `(∀ L U, LeftFibreGroup L → Ψ (L * U) = αL L * Ψ U)`?
+> Or, at a configuration named under the rule below, does every such `Ψ` admit one?
+>
+> **`RNT5` (R).** The same question for the RIGHT conjunct, over weak anchor gauges, and `αR`.
 
-**What settles it.**
+**Why the split, stated before either is attempted.** A combined question of the shape
+`OrbitNatural a₀ Ψ ∧ ¬ ∃ αL αR, TwistedNatural a₀ αL αR Ψ` is settled by an obstruction **on either
+side alone**: a left-only obstruction destroys the pair and would earn a global separation label
+while saying nothing whatever about the right converse. **The two sides are different structures**,
+act 12's transformation laws treat them differently, and a verdict on one is not a verdict on the
+other. `RNT5` is therefore reported as **two components with independent evidence bars**, and
+**neither side inherits the other's result**. `SEP-STRICT (L) / SEP-UNDECIDED (R)`,
+`SEP-COLLAPSE (L) / SEP-STRICT (R)` and every other pairing are permitted outcomes; there is no
+global `RNT5` label.
 
-- For the separation: an **exhibited** `Ψ`, pinned by equations, at evidence level 2, with
-  `OrbitNatural a₀ Ψ` proved and the non-existence of the pair proved. Together with `RNT1` (b) this
-  is the statement that the implication is strict.
-- For the collapse: a **universal** kernel proof at evidence level 2, at the configuration named,
-  that `OrbitNatural a₀ Ψ → ∃ αL αR, TwistedNatural a₀ αL αR Ψ`.
-- For UNDECIDED: the recorded statement that neither was reached, with the obstruction named — which
-  direction, which step, and what would settle it.
+**What settles it, per side.**
+
+- For a **separation** on a side: an **exhibited** `Ψ`, pinned by equations, at evidence level 2,
+  with that side's existential conjunct proved and the non-existence of that side's map proved.
+  Together with `RNT1` (b) this is the statement that the implication is strict **on that side**.
+- For a **collapse** on a side: a **universal** kernel proof at evidence level 2, at the
+  configuration named for that side under the rule below, that every `Ψ` satisfying that side's
+  existential conjunct admits that side's map.
+- For **UNDECIDED** on a side: the recorded statement that neither was reached **on that side**, with
+  the obstruction named — which direction, which step, and what would settle it.
+
+**The configuration rule, and it is ASYMMETRIC between the two outcomes on purpose.**
+
+- **For a separation, the configuration is part of the existential witness, and the execution may
+  discover it.** A counterexample legitimately finds its own configuration: exhibiting a `Ψ` at some
+  configuration *is* the theorem, and there is nothing improper about learning which configuration
+  supplies it. The result note pins the configuration in the statement.
+- **For a collapse, the configuration must be committed BEFORE any reasoning, search or proof
+  attempt aimed at that side.** A local universal theorem can be made artificially easy by choosing
+  its domain after looking at how things behave, so the configuration for any `SEP-COLLAPSE` attempt
+  is **recorded in the execution branch, and in the chronology and attestation record, before that
+  side is worked on at all**. **A configuration selected after the attempted result cannot earn
+  `SEP-COLLAPSE`; it earns `SEP-UNDECIDED` on that side**, with the reason recorded. This freeze
+  names no configuration for either side, because it names no construction for a separating lift and
+  cannot know where one would live.
 
 **The UNDECIDED route is preregistered here, explicitly, and it is the route an execution takes when
 it cannot find a counterexample.** Act 19 preregistered the same shape for its own hard rungs and for
@@ -739,10 +768,18 @@ cannot separate two notions **reports that it could not** rather than eliding th
 **not** evidence that the two notions coincide. An execution that writes "no counterexample was
 found, so the two formulations agree" has committed the exact error the target exists to prevent.
 
-**What `RNT5` does NOT establish, in either outcome.** A separation at one configuration is not a
-separation everywhere, and a collapse at one configuration is not a collapse everywhere. The result
-note states the configuration at which whatever it proves was proved, and claims nothing outside it.
-Nor does either outcome say which notion a condition ought to use.
+**What `RNT5` does NOT establish, in any outcome.** A separation at one configuration is not a
+separation everywhere; a collapse at one configuration is not a collapse everywhere; and neither is a
+statement about the other side. The result note states the side and the configuration at which
+whatever it proves was proved, and claims nothing outside them. Nor does any outcome say which notion
+a condition ought to use.
+
+**A collapse is never written as an identification of the two notions.** `SEP-COLLAPSE` on a side is
+reported as **collapse at the named configuration, on that side**, and never as "the two
+formulations coincide", "the notions agree", "the wordings are interchangeable" or any variant that
+drops the configuration or the side. Those are forbidden sentences below. The distinction between a
+local collapse and an identification is exactly what a summary loses first, so the label carries the
+qualification in its own name and its frozen sentence repeats it.
 
 ### `RNT6` — the classification, reported and not applied
 
@@ -771,7 +808,7 @@ is a fallback, none is a shortfall, and UNDECIDED is a live outcome for every ta
 | `RNT3` | `LAW-EXACT` — the two maps exhibited and all four conjuncts proved, both sides · `LAW-EXACT-ONE-SIDE` — as above on one side only, with the side named · `LAW-ORBIT-ONLY` — `OrbitNatural a₀ Ψ_σ` proved and no exact law reached, with the obstruction named · `LAW-UNDECIDED` — neither reached |
 | `RNT4` (a) | `ALPHA-TRIVIAL` — the induced map is the identity, proved universally, with the side named · `ALPHA-NONTRIVIAL` — an exhibited gauge element at which it is not, with the entry named · `ALPHA-UNDECIDED` |
 | `RNT4` (b) | `STRICT-YES` — `StrictNatural a₀ Ψ_σ` proved universally · `STRICT-NO` — an exhibited pair with the two sides unequal at a named entry · `STRICT-UNDECIDED` |
-| `RNT5` | `SEP-STRICT` — the counterexample exhibited, so the implication is strict · `SEP-COLLAPSE` — the converse proved universally at the configuration named · `SEP-UNDECIDED` |
+| `RNT5`, **per side, L and R reported independently** | `SEP-STRICT` — the counterexample exhibited on that side, so the implication is strict there · `SEP-COLLAPSE` — the converse proved universally on that side at the pre-committed configuration · `SEP-UNDECIDED` — including a collapse attempted at a configuration chosen after the attempt. **There is no global `RNT5` label and neither side inherits the other's.** |
 | `RNT6` | `CLASS-STRICT` · `CLASS-TWISTED-NOT-STRICT` · `CLASS-TWISTED-AND-STRICT` · `CLASS-ORBIT-ONLY` · `CLASS-UNDECIDED` |
 
 **`RNT6`'s labels are composed and never chosen.** `CLASS-STRICT` requires `STRICT-YES` with
@@ -877,7 +914,7 @@ nothing else, because on those two targets the cost of the alternative is the ro
 | `RNT3` | **abstained** | — | See the abstention section. Both `LAW-EXACT` and `LAW-ORBIT-ONLY` are preregistered as reachable at the full evidence bar, and `LAW-UNDECIDED` with the obstruction named is allowed. |
 | `RNT4` (a) | **abstained** | — | See the abstention section. `ALPHA-TRIVIAL` and `ALPHA-NONTRIVIAL` stand at equal standing, and `ALPHA-UNDECIDED` is allowed. |
 | `RNT4` (b) | **abstained** | — | See the abstention section. `STRICT-YES` and `STRICT-NO` stand at equal standing, and `STRICT-UNDECIDED` is allowed. The freeze notes only that (b) is a separate question from (a) and must be earned separately, which is a statement about the logic and not a prediction about the answer. |
-| `RNT5` | **not predicted**, with `SEP-UNDECIDED` named as the outcome the freeze expects | **low** | The freeze names no construction for a lift satisfying the per-input existential and admitting no fixed pair, and the merged record supplies none. The converse direction would need a universal statement over lifts that nothing on the record bounds. **`SEP-UNDECIDED` with the obstruction named is an allowed outcome and is the freeze's expectation; it is not a shortfall, and `SEP-STRICT` and `SEP-COLLAPSE` are both preregistered as reachable at full bar.** |
+| `RNT5` (L) and `RNT5` (R), **separately** | **not predicted on either side**, with `SEP-UNDECIDED` named as the outcome the freeze expects on each | **low**, each | The freeze names no construction, on either side, for a lift satisfying that side's per-input existential and admitting no fixed map, and the merged record supplies none. The collapse direction would need a universal statement over lifts that nothing on the record bounds. **`SEP-UNDECIDED` with the obstruction named is an allowed outcome on each side and is the freeze's expectation on each; it is not a shortfall, and `SEP-STRICT` and `SEP-COLLAPSE` are preregistered as reachable at full bar on each side independently.** The freeze predicts nothing about whether the two sides will agree, and a result on one side is not evidence about the other. |
 | `RNT6` | **abstained** | — | It is the composition of `RNT3`, `RNT4` and `RNT5`, on three of which the freeze abstains. All five labels stand at equal standing. |
 
 **No target has a numerical fallback**, and none is offered for a universal statement. **UNDECIDED
@@ -999,26 +1036,35 @@ sentence below is the report, with the obstruction named.
 
 ### The outcomes of `RNT5`
 
-- **`SEP-STRICT`:**
-  > A lift is exhibited that satisfies the per-input existential formulation and admits no pair of
-  > maps making the fixed-map formulation hold, at evidence level 2, with the objects pinned by
-  > equations. **Together with this round's implication from the fixed-map form to the existential
-  > form, the implication is therefore strict**: the unrestricted existential formulation is strictly
-  > weaker. This is a statement at the configuration named and is not a statement that the two
-  > formulations differ at every configuration.
-- **`SEP-COLLAPSE`:**
-  > At the configuration named, every lift satisfying the per-input existential formulation admits a
-  > pair of maps making the fixed-map formulation hold, proved universally in the kernel at evidence
-  > level 2. **So at that configuration the two formulations coincide**, which is a statement about
-  > that configuration and not about every configuration, and which does not make the two wordings
-  > interchangeable in general.
-- **`SEP-UNDECIDED`:**
-  > Whether the unrestricted existential formulation is strictly weaker than the fixed-map
-  > formulation is undecided in this round, with the obstruction named specifically — the direction,
-  > the step, and what would settle it. **The two formulations are kept apart and are not conflated.**
-  > **The absence of a counterexample is not a proof that they coincide**, and no sentence of this
-  > round treats a failed search as an equivalence. A later round that wants the separation freezes
-  > it.
+**`RNT5` is reported as two components. Each sentence below names the side it is about, and the
+result note gives one sentence per side.** No sentence of the result note reports `RNT5` without a
+side.
+
+- **`SEP-STRICT`, on the side named:**
+  > On the side named, a lift is exhibited that satisfies that side's per-input existential conjunct
+  > and admits no map making that side's fixed-map conjunct hold, at evidence level 2, with the
+  > objects and the configuration pinned by equations. **Together with this round's implication from
+  > the fixed-map form to the existential form, the implication is therefore strict on that side.**
+  > This is a statement at the configuration exhibited and on the side named; it is not a statement
+  > that the two formulations differ at every configuration, and it is **not a statement about the
+  > other side**.
+- **`SEP-COLLAPSE`, on the side named:**
+  > On the side named, at the configuration committed before this side was worked on, every lift
+  > satisfying that side's per-input existential conjunct admits a map making that side's fixed-map
+  > conjunct hold, proved universally in the kernel at evidence level 2. **This is a collapse at the
+  > named configuration, on the named side, and nothing more.** It does **not** say that the two
+  > formulations coincide, that the notions agree, or that the wordings are interchangeable; it is
+  > not a statement about any other configuration, and it is **not a statement about the other
+  > side**.
+- **`SEP-UNDECIDED`, on the side named:**
+  > On the side named, whether the unrestricted existential formulation is strictly weaker than the
+  > fixed-map formulation is undecided in this round, with the obstruction named specifically — the
+  > direction, the step, and what would settle it. **The two formulations are kept apart and are not
+  > conflated.** **The absence of a counterexample is not a proof that they coincide**, and no
+  > sentence of this round treats a failed search as an equivalence. This label is also what a
+  > collapse earns when its configuration was chosen after the attempt rather than committed before
+  > it, and the result note says which of the two reasons applies. A later round that wants the
+  > separation freezes it.
 
 ### The outcomes of `RNT6`
 
@@ -1069,8 +1115,10 @@ obligation, and would make the row harder to read rather than easier.
 **So `P0` stays OPEN and two-part, its threading part is untouched, its trajectory part is untouched,
 and no outcome of this round moves, bounds, narrows or widens either.** The obligation act 20
 discharges is to the record of act 19 and to act 21's drafting, not to `P0`. **This is a narrowing
-relative to every recent round of this programme and it is put to the owner as an open decision
-before this freeze merges**, in the settlements section below.
+relative to every recent round of this programme, and the owner has settled it as the correct
+narrowing**, in the settlements section below: act 20 determines the meaning of a piece of formal
+apparatus and deliberately does not advance either part of `P0`, and continuity of round numbering is
+not a sufficient reason to make the roadmap read as though it had.
 
 ## Classifying is not choosing, FROZEN
 
@@ -1149,6 +1197,17 @@ round, in any paraphrase, in a summary line, an abstract, a table cell or a prop
 8. **"The existential and the fixed-map forms are the same thing", said after a search that found no
    counterexample.** That is `SEP-UNDECIDED` reported as `SEP-COLLAPSE`, and it is the specific
    conflation this round exists to prevent.
+8a. **"The two formulations coincide", "the notions agree", "the wordings are interchangeable", or
+    any sentence reporting a `SEP-COLLAPSE` without naming both the configuration and the side.** A
+    collapse is a collapse **at the named configuration, on the named side**, and the qualification
+    is not decoration: it is the whole content of the difference between a local theorem and an
+    identification of two notions. This is the sentence a summary drops first.
+8b. **Any `RNT5` sentence that carries no side, or that reports a result on one side as a result
+    about `RNT5`.** The two sides are asked independently, neither inherits the other's verdict, and
+    there is no global `RNT5` label to report.
+8c. **"`SEP-COLLAPSE` at a configuration chosen once the behaviour was known."** A collapse whose
+    configuration was not committed before the work on that side earns `SEP-UNDECIDED`, and calling
+    it a collapse is the domain-chosen-after-looking error the configuration rule exists to prevent.
 9. **"Act 19 was wrong", "act 19's mathematics is false", or any sentence treating act 19's
    uncertified conclusions as refuted.** Act 19's closure fixes the register at its lines 8–10: the
    distinction is between refuted and uncertified, and act 20 keeps it.
@@ -1392,8 +1451,8 @@ the mechanism forward and adds a third question to it.**
 
 ### The definition commit, the discrimination commit and the immutability span
 
-**Three records, each checkable by an auditor from the branch alone**, plus the attestation set
-below. The result note carries all four, and a missing record is a defect of the round and not a
+**Four records, each checkable by an auditor from the branch alone**, plus the attestation set
+below. The result note carries all five, and a missing record is a defect of the round and not a
 formality.
 
 1. **The definition commit** — act 20's analogue of act 19's ladder commit. The SHA of the commit on
@@ -1414,6 +1473,13 @@ formality.
    >
    > restricted to the declarations `StrictNatural`, `TwistedNatural`, `OrbitNatural`,
    > `RelabelTransition` and `RelabelLift`, is empty.
+4. **The `RNT5` collapse-configuration record, per side.** For each side on which a `SEP-COLLAPSE` is
+   attempted, the SHA of the commit at which that side's configuration was recorded, **together with
+   the statement that no reasoning, search or proof attempt aimed at that side preceded it**. An
+   auditor checks that this SHA precedes every commit carrying work on that side. **A side with no
+   such record cannot earn `SEP-COLLAPSE`**, and reports `SEP-UNDECIDED` with that as the recorded
+   reason. A side on which only a separation is attempted needs no record, because a separation's
+   configuration is part of its witness and is discovered legitimately.
 
 **The definition commit's boundary is weaker here than act 19's ladder commit's was, and the freeze
 says so rather than overselling it.** Act 19's ladder could be stated without determining which laws
@@ -1444,6 +1510,15 @@ discrimination commit.**
 discriminating. **A question is answered YES if any such partial fact was acquired**, however
 incidentally, however small, and whether or not it was acted on. There is no threshold below which a
 fact about the classification does not count.
+
+**The three questions are asked a second time, per side, for any `RNT5` collapse.** For each side on
+which `SEP-COLLAPSE` is attempted, the result note answers Q1, Q2 and Q3 again for the span **from
+the mandated base to that side's configuration record**, with "the classification" replaced by "how
+that side behaves at any candidate configuration". This is what makes the configuration a
+pre-commitment rather than a label: a configuration recorded before the work but chosen after
+reasoning about how the sides behave is a configuration chosen after looking, and it earns
+`SEP-UNDECIDED` on that side exactly as a configuration recorded late does. A separation needs no
+such answer, because its configuration is part of its witness.
 
 **How a YES is handled, frozen before it can be needed.** A YES is **disclosed**, with what was
 learned, when it was learned relative to the definition commit, and whether any frozen statement
@@ -1619,10 +1694,12 @@ round consumes only what this freeze's start-state table names.
 
 ## Owner settlements before immutability
 
-Recorded before this freeze merges and becomes immutable under `§A.37`. **Items 1 through 10 are calls
-already made**, written here so the record shows they were settled rather than left open. The body of
-this freeze is written to them throughout. **The open decisions follow them in their own section and
-are not calls already made.**
+Recorded before this freeze merges and becomes immutable under `§A.37`. **Every item in this section
+is a call already made**, written here so the record shows it was settled rather than left open. The
+body of this freeze is written to them throughout. **Nothing in this freeze is open.** Items 1
+through 10 were settled while the freeze was drafted; the four settlements that follow them in their
+own section were recorded as open questions during drafting and were **settled by the owner before
+this freeze merged**, each with its reason.
 
 1. **The scope is FROZEN as written and is not renegotiated.** Act 20 is the naturality-classification
    round only. No ladder, no census, no survivor count, no rigidity headline, no same-initial-orbit
@@ -1650,65 +1727,74 @@ are not calls already made.**
 10. **Acts 7, 10, 11, 12, 13, 17 and 18 are consumed at merged strength**: not re-proved, not
     strengthened, not redefined.
 
-### Open decisions, recorded for owner settlement before this freeze merges
+### Owner settlements, made before this freeze merges
 
-**These are NOT calls already made.** Each is recorded with its options, this freeze's recommendation
-and the reason, in the act 16, 17, 18 and 19 pattern of recording a settlement rather than leaving one
-implicit. **The freeze does not merge until each is settled**, and the body above is written to the
-recommended option throughout so that settling it the other way is a bounded edit and not a rewrite.
+**These four questions were recorded as open while this file was drafted, and all four are now
+settled by the owner. They are recorded here as settlements rather than left implicit**, in the act
+16, 17, 18 and 19 pattern. The body above is written to the settled option throughout. **No question
+below is open**, and an execution that reads one of them as still open has misread this section.
 
-**Open decision 1 — SEALING or NON-SEALING.**
+**Settlement 1 — the round is SEALING.** Settled by the owner: act 20 is SEALING under the guard tag
+`R7-RNT`, stem `_RNT_`, module `OIBridge/RepresentativeNaturality.lean`, landing `E` → `L` → `P` with
+`P` mandatory, with chronology clause 9 honoured by excluding this round's own triple from the
+prior-seal integrity clause.
 
-- **Option A, recommended: SEALING**, under the guard tag `R7-RNT`, landing `E` → `L` → `P` with `P`
-  mandatory, with chronology clause 9 honoured by excluding this round's own triple from the
-  prior-seal integrity clause. **The reason is derived and not defaulted**: act 20's execution creates
-  the three notions, the lift, the induced maps and the classifying theorem, none of which exists at
-  the base, and the round's whole claim is a claim about **when** those definitions were fixed
-  relative to the classification. That is the owner's sealing criterion exactly, and it applies with
-  more force here than in act 19, because act 20 is the round convened *because* a definition moved
-  after its author knew the answer.
-- **Option B: NON-SEALING**, taking `L` alone under `§A.37` item 2. This is correct **only if** the
-  owner directs that act 20 add no Lean module, no named result and no guard clause. **The cost is
-  recorded honestly**: the three notions would then have no kernel statement to diff, the ordering
-  obligation's three commit records would lose their mechanical check entirely, and the round's
-  central claim would rest on the result note's testimony alone — which, for the round whose subject
-  is act 19's chronology failure, is the weakest possible shape. **The freeze recommends against
-  Option B** for that reason and not because recent rounds have been sealing.
+**The reason is derived and not defaulted**, and the owner's ruling states it in those terms: act
+20's execution creates the three notions, the lift, the induced maps and the classifying theorem,
+none of which exists at the base, and the round's whole claim is a claim about **when** those
+definitions were fixed relative to the classification. Those results must be known to have been
+stated and tested under a fixed preregistration. That is the sealing criterion exactly, and it
+applies with more force here than in act 19, because act 20 is the round convened *because* a
+definition moved after its author knew the answer.
 
-**Open decision 2 — whether act 20 appends a sentence to the `P0` row.**
+**Non-sealing was considered and rejected.** It would be correct only if act 20 added no Lean module,
+no named result and no guard clause — landing no new formal object and merely documenting existing
+mathematics. That is not this round's job. The cost is recorded: the three notions would have no
+kernel statement to diff, the ordering obligation's commit records would lose their mechanical check
+entirely, and the round's central claim would rest on the result note's testimony alone, which for
+the round whose subject *is* act 19's chronology failure is the weakest available shape.
 
-- **Option A, recommended: no `ROADMAP` change at all.** `verification/ROADMAP.md` sits in the
-  read-only start-state table and the execution does not write to it. The reason is that act 20
-  settles nothing `P0` asks: it clarifies a phrase in a control plane and classifies one lift. A
-  sentence appended to `P0` about a programme's own vocabulary would report apparatus as a finding
-  about the obligation.
-- **Option B: append a short frozen sentence to `P0` recording that the naturality notion a
-  cross-time rigidity condition would use has been separated into three and one lift classified
-  against them.** The reason this option is live is continuity: every round from act 13 onward has
-  propagated, and a reader tracing `P0` through the acts will find act 20 missing from the row. **If
-  the owner settles Option B, the sentence is frozen in this file before it merges**, with its per-
-  outcome substitutions, and the `ROADMAP` moves from the read-only table to the written table.
-  Appending a sentence that was not frozen here is forbidden either way.
+**Settlement 2 — act 20 appends nothing to the `P0` row.**
 
-**Open decision 3 — whether the module states the notions for a general gauge class or for the two
-named ones.** The three notions are frozen above against `LeftFibreGroup` and `WeakAnchorStabilizer`
-by name. **Recommended: keep them stated against the two named classes**, because every verdict of
-this round is about those two and a general formulation would add a quantifier no target needs. The
-alternative is to state them over an arbitrary class predicate and instantiate twice, which is more
-general and costs a parameter in every statement and every proof. The freeze recommends the concrete
-form, and records that if the execution finds the general form strictly easier it may **not** switch
-to it: the notions are frozen in the wording above, and a change of that wording is an append-only
-amendment merged before the work it affects.
+Settled by the owner: **no `ROADMAP` change at all.** `verification/ROADMAP.md` sits in the read-only
+start-state table and the execution does not write to it.
 
-**Open decision 4 — whether `RNT5` should name a configuration in advance.** `RNT5`'s separation and
-collapse outcomes are both stated "at the configuration named", and this freeze does not name one,
-because it names no construction for the separating lift and cannot know where one would live.
-**Recommended: leave the configuration to the execution, and require it to record the configuration
-in the result note at the step, never chosen after the outcome is known.** The alternative is to
-freeze act 12's `V = Fin 4`, `A = Fin 1`, `a₀ = 0`, `Γ ≡ ¼` configuration here and confine `RNT5` to
-it, which is cleaner against the hazard of a configuration chosen after an outcome and narrower than
-the target needs. The freeze recommends the first with the recording requirement, and records that
-the second is a defensible call the owner may take instead.
+The reason, in the owner's terms: act 20 is determining the meaning of a piece of **formal
+apparatus**, and it is deliberately not answering the rigidity question or advancing either part of
+`P0`. A sentence appended to `P0` about a programme's own vocabulary would make the roadmap read as
+though scientific progress on `P0` had occurred. **Continuity of round numbering is not a sufficient
+reason to do that**, although the continuity point is real: every round from act 13 onward has
+propagated, and a reader tracing `P0` through the acts will find act 20 absent from the row. That
+absence is correct and is what this settlement records. Appending a sentence that was not frozen here
+is forbidden.
+
+**Settlement 3 — the notions stay specialized to the two named gauge classes.** Settled by the owner:
+the three notions are frozen above against `LeftFibreGroup` and `WeakAnchorStabilizer` **by name**,
+and this round does **not** generalize them to an arbitrary gauge-class predicate.
+
+The reason: every verdict of this round is about those two classes, so a general formulation would
+broaden the theorem surface for no act-20 target — and it would create another place where the
+execution could discover that the generalized definition behaves differently from the concrete one.
+**Generalization can be a later theorem once these concrete notions are stable.** The execution may
+**not** switch to a general form even if it finds one easier: the notions are frozen in the wording
+above, and a change of that wording is an append-only amendment merged before the work it affects.
+
+**Settlement 4 — `RNT5` names no configuration in advance, under an asymmetric rule.** Settled by the
+owner, and the rule is stated in full at `RNT5` above.
+
+**The asymmetry is mathematically natural and is the point of the settlement.** For a **separation**,
+the configuration is part of the existential witness: the theorem exhibits and pins it, and there is
+nothing improper about an execution discovering which configuration supplies the counterexample. For
+a **collapse**, choosing a convenient configuration after seeing how things behave is dangerous,
+because a local universal theorem can be made artificially easy by choosing its domain after looking.
+So the configuration for any `SEP-COLLAPSE` attempt is **committed and recorded before any reasoning,
+search or proof attempt aimed at that side**, and it enters the chronology and attestation record. A
+configuration selected after the attempted result **cannot earn `SEP-COLLAPSE`; it earns
+`SEP-UNDECIDED`** on that side.
+
+Freezing act 12's `V = Fin 4`, `A = Fin 1`, `a₀ = 0`, `Γ ≡ ¼` configuration here for both outcomes
+was considered and rejected: it is narrower than the separation target needs, and the hazard it
+guards against is fully addressed by the pre-commitment rule on the collapse side alone.
 
 **One check was performed at drafting time and its outcome is recorded here as a settlement rather
 than as a correction in flight.** The two mandatory verbatim clauses of this file — the start-state
