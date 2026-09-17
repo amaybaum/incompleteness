@@ -22470,6 +22470,722 @@ check('R7-XTS', ok_xts,
       "fifty-one mutation controls, sixteen seal controls and a freeze-pin drift control.")
 
 
+# ---- R7-OLR: Track B act 19 -- the rigidity of the cross-time laws act 18 opened. A SEALING round
+# under AGENTS.md A.37 whose ask is a BOUNDED RIGIDITY CENSUS over a ladder of conditions frozen
+# BEFORE the census, and whose whole claim is a claim about WHEN the ladder was fixed relative to the
+# census. The guard checks the ORDERING OBLIGATION's five records -- the ladder table, the ladder
+# commit, the discrimination commit with the first discriminating result NAMED, the immutability span
+# with the command and its result, and the quotient record -- and the specific errors the freeze
+# names: a POST-HOC RESCUE CONDITION, a POST-HOC RESCUE EQUIVALENCE, a divergence reported at the
+# WRONG TIME without the earlier-agreement conjunct, L-FAMILY claimed from TWO EXAMPLES, L-WIDE
+# claimed AFTER a characterization, a characterization that RESTATES the ladder, DECORATION reported
+# as a rung, a rung DROPPED because it was found free, deriving quantum evolution BY ACCIDENT,
+# reading OL1 as an EXISTENCE statement, stating the monoid form at a NON-HOMOGENEOUS configuration,
+# and treating an undischarged rung as discharged because no counterexample was found. Chronology
+# clause 9 is honoured by EXCLUSION: _olr_prior_seals names other rounds' triples only and says
+# nothing whatever about _OLR_BASE, _OLR_SEALED_HEAD or _OLR_MERGE, so the clause is true both before
+# and after the mandatory pin commit P sets this round's pins.
+_OLRDIR = 'programmes/oi-qm/track-b/act-19-orbit-law-rigidity/'
+_OLR = open(_artifact(_OLRDIR + 'result.md'), encoding='utf-8').read()
+_OLR1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _OLR).split()).replace('’', "'")
+_OLRLEAN = ' '.join(open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
+                 'OrbitLawRigidity.lean'), encoding='utf-8').read().split())
+_OLRROADRAW = open(_artifact('ROADMAP.md'), encoding='utf-8').read()
+_OLRROAD = ' '.join(_OLRROADRAW.split())
+# The mandated execution base: the merge commit of this round's control-plane PR #660.
+_OLR_BASE = '84b469a8f78d538b204353e66c6066ab197d1a82'
+# The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
+# the pin commit P after the landing merge L -- pinning them in the execution would make the
+# execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
+# strong check re-run against those objects, with the pinned merge's second parent required to
+# equal the sealed head and both required reachable from the current target, fail-closed.
+_OLR_SEALED_HEAD = None
+_OLR_MERGE = None
+
+# THE CLAUSE, verbatim -- the non-adoption clause, which the freeze carries at every place where a
+# law's survival could be read as its adoption, and which every artifact of this round must carry
+# with it. Compared as prose, with block-quote markers stripped, so that the naming line each
+# carriage opens with -- distinct per carriage, which is what makes the carriages distinguishable
+# copies rather than one paragraph pasted repeatedly -- does not enter the comparison.
+_OLR_CLAUSE = (
+    "Act 19 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts "
+    "none. A law that survives every condition this freeze names is a law that survives **those** "
+    "conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in "
+    "nature, **not** a finding that the programme requires it, and **not** an adoption of it as the "
+    "physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement "
+    "about the frozen ladder and about the frozen quotient list, and a family or wide verdict is not "
+    "a licence to add one more condition, or to widen one more equivalence, until a plurality "
+    "becomes a point. **No law gains physical status by surviving, no carrier and no principle is "
+    "adopted as the physical one, and nothing here derives, recognises or approaches quantum "
+    "evolution.**")
+
+
+def _olr_freeze_pin(read=_bb_read):
+    """O1 -- this round's preregistration is byte-identical to the blob merged by PR #660."""
+    return _bb_blob(_OLRDIR + 'preregistration.md', read) == (
+        '8c828cab63ec2a09daf5c9b09dd4ab9924b0a057')
+
+
+def _olr_execution_ancestry():
+    """O2 -- no commit reachable from the execution head lies outside the freeze's descendants.
+
+    Act 10's strengthened predicate, reused through acts 12's through 18's copies: the head-only
+    check is insufficient because a commit made before the freeze and merged in alongside it leaves
+    the head descended from the freeze while itself not being. The question is asked of the real
+    `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails closed
+    with no fallback.
+
+    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
+    mode (pins set by the mandatory pin commit P): the same strong check re-run against the sealed
+    head, with the pinned merge required to carry it and both required reachable from the current
+    target, fail-closed."""
+    if _OLR_SEALED_HEAD is None:
+        target, label, num = _rbr_target_commit(tag='R7-OLR')
+        if target is None:
+            return False
+        return _rbr_strong_ancestry(_OLR_BASE, target, label, num, tag='R7-OLR')
+    return _rbr_archive_ancestry(_OLR_BASE, _OLR_SEALED_HEAD, _OLR_MERGE, tag='R7-OLR')
+
+
+def _olr_ordering(t=None):
+    """O3 -- the ordering obligation's FIVE RECORDS are all present and checkable from the branch.
+
+    The ladder table with one row per rung; the LADDER COMMIT with the statement that no
+    discriminating result is present at it; the DISCRIMINATION COMMIT with the first discriminating
+    result NAMED; the IMMUTABILITY SPAN with the command and its literal result; and the quotient
+    record. A missing record is a defect of the round and not a formality."""
+    t = _OLR1 if t is None else t
+    return ('### Record 1 — the ladder table' in t
+            and '### Record 2 — the ladder commit' in t
+            and '### Record 3 — the discrimination commit' in t
+            and '### Record 4 — the immutability span' in t
+            and '### Record 5 — the quotient record' in t
+            and '**`C_ladder` = `ae983580a38dd416e8fb6a95795f1976eecabe62`.**' in t
+            and '**`C_disc` = `5103154aeb754d4b83ea116f56a3d31fb8ab33b1`.**' in t
+            and 'the proof of the shared structural theorem `OL1`, in both the forms the freeze '
+                'fixes for it — `ol1a_descends_to_composition` and `ol1b_monoid_action`.' in t
+            and 'no discriminating result is present**: no proof of the shared structural theorem, '
+                'no census, no exhibited survivor, no exhibited rung failure, no discriminating '
+                'witness.' in t
+            and 'The module at that commit contains **no theorem at all**' in t
+            and '**The boundary is semantic, not proof-length based.**' in t
+            and 'exit=0' in t
+            and 'Both extracts are 250 lines and are **byte-identical**' in t
+            and '**No rung statement was altered, no rung was added, no rung was removed, and the '
+                'conjunction the headline quantifies over did not change.**' in t
+            and '**No condition was added after the survivors were known, and no equivalence was '
+                'widened after the survivors were known.**' in t)
+
+
+def _olr_quotient(t=None):
+    """O4 -- the ONLY equivalences used in any verdict are the three on the frozen quotient list,
+    with the round that established each named, and NO equivalence was introduced or widened during
+    execution. The equivalence route to a post-hoc rescue is closed by this record exactly as the
+    condition route is closed by the ordering obligation."""
+    t = _OLR1 if t is None else t
+    return ('**The only equivalences used in any verdict of this round are the three on this '
+            "freeze's frozen quotient list**" in t
+            and '**Act 12 supplies the slice equivalence and act 17 supplies the trajectory lift**' in t
+            and '**introduces no new identification**' in t
+            and '**No equivalence was introduced or widened during execution.**' in t
+            and 'neither raw Gram equality, nor the uniform-phase relation, nor act 13' in t
+            and 'a plurality that would collapse only under an equivalence outside this freeze' in t)
+
+
+def _olr_ol1(t=None):
+    """O5 -- OL1 lands in BOTH its frozen parts, with act 17's TJ1 cited AT THE STEP where the
+    ambient admissible set has to be a product, with the monoid form stated at TIME-HOMOGENEOUS
+    configurations ONLY, reported as a DESCENT statement and NOT an existence statement, and with no
+    symmetry property of the induced action claimed."""
+    t = _OLR1 if t is None else t
+    return ('**Outcome reached: `OL1`-landed**, both parts, at evidence level 2.' in t
+            and '**The `TJ1` dependence is named at the step and not in a footnote: it is conjunct '
+                '4 of part (a).**' in t
+            and 'intersecting a product constraint with a **non-product** ambient set need not '
+                'factor' in t
+            and '**Without `TJ1` conjunct 4 does not follow.**' in t
+            and 'at **time-homogeneous visible families only**' in t
+            and '**This is a descent statement and not an existence statement**' in t
+            and 'It says nothing about faithfulness, transitivity, freeness or any symmetry '
+                'property of the induced action' in t
+            and 'realizes the transition as no operator, unitary, generator or group element' in t)
+
+
+def _olr_ladder_status(t=None):
+    """O6 -- the EIGHT rung statuses, each with its frozen label, L4d reported as the shared
+    theorem's HYPOTHESIS and not as a discharged rung, every Li-FREE reported as a finding about the
+    condition and NOT as a licence to shorten the ladder, and every UNDECIDED carrying its
+    obstruction. Decoration is not reported as a rung and no rung is dropped."""
+    t = _OLR1 if t is None else t
+    return (t.count('**`L0-RESTRICTS`**') >= 1 and t.count('**`L1-FREE`**') >= 1
+            and t.count('**`L2-RESTRICTS`**') >= 1
+            and t.count('**`L3i-UNDECIDED`**') >= 1 and t.count('**`L3s-UNDECIDED`**') >= 1
+            and t.count('**`L4d-HYP`**') >= 1 and t.count('**`L4n-UNDECIDED`**') >= 1
+            and t.count('**`L5-UNDECIDED`**') >= 1
+            and '`L4d` is the hypothesis of this round' in t
+            and 'Neither `L4d-RESTRICTS` nor `L4d-FREE` is a meaningful verdict about it and '
+                'neither is claimed.' in t
+            and '**The rung stays in the ladder** and stays in the conjunction the headline '
+                'quantifies over: this is a finding about the condition and not a licence to drop '
+                'it' in t
+            and 'the absence of a violating candidate is **not** reported as the rung being free' in t
+            and 'reports the ladder with **eight** rung entries and **no rung dropped**' in t)
+
+
+def _olr_census(t=None):
+    """O7 -- the SEVEN-candidate census, each reported separately with its frozen label, each verdict
+    stated of the EXACT frozen family at the EXACT frozen configuration and of nothing in its
+    neighbourhood, and the two product-configuration candidates reported UNDECIDED rather than
+    free."""
+    t = _OLR1 if t is None else t
+    return ('**`ΦI`-SURVIVES**' in t and '**`ΦP`-SURVIVES**' in t
+            and '**`ΦX`-FAILS**' in t and '**`ΦC`-FAILS**' in t and '**`ΦT`-FAILS**' in t
+            and '**`ΦPP`-UNDECIDED**' in t and '**`ΦCTRL`-UNDECIDED**' in t
+            and '**This settles that family against that rung and nothing in its neighbourhood**' in t
+            and 'it is not a statement that families of its shape fail in general' in t
+            and '**A failure of `ΦC` at `L3i` is not a refutation of irreversible evolutions in '
+                'general.**' in t
+            and '**`L5`’s rung status falls to `L5-UNDECIDED` rather than to `L5-FREE`, '
+                'because the absence of an exhibited violator is not a proof that none exists.**'
+                .replace('’', "'") in t)
+
+
+def _olr_siop(t=None):
+    """O8 -- the discriminating test is reported at its FIRST divergence with t* NAMED and the
+    EARLIER-AGREEMENT CONJUNCT DISCHARGED, so that what is exhibited is PRIMITIVE non-uniqueness and
+    not a divergence propagated forward; and SIOP-NO is not claimed anywhere."""
+    t = _OLR1 if t is None else t
+    return ('**Outcome reached: `SIOP-YES`, at `t* = 1`.**' in t
+            and '**`t* = 1`.**' in t
+            and '**The earlier-agreement conjunct is discharged and not assumed**' in t
+            and 'it reduces to agreement at time `0`, which is the same-initial-orbit hypothesis '
+                'itself' in t
+            and '**What is exhibited is primitive non-uniqueness and not a propagated divergence.**' in t
+            and '`SIOP-NO` is **not** claimed anywhere, and nothing in this round treats a '
+                'failed search as rigidity.' in t)
+
+
+def _olr_headline(t=None):
+    """O9 -- the headline in the status rule's frozen wording, with the condition set NAMED IN THE
+    LABEL, the obstruction to the characterization's universal direction named SPECIFICALLY, L-WIDE
+    reported as the ABSENCE of a characterization and not the presence of a big one, and two
+    exhibited survivors earning L-WIDE and never L-FAMILY."""
+    t = _OLR1 if t is None else t
+    return ('**Outcome reached: `L-WIDE (L0–L4)`**' in t
+            and 'the headline over the full ladder `L0`–`L5` is undecided' in t
+            and '**This is the absence of a characterization and not the presence of a big one.**' in t
+            and '**Direction (ii) is the one that cannot be skipped and it was not reached.**' in t
+            and '**And two exhibited survivors earn `L-WIDE` and never `L-FAMILY`**' in t
+            and '**`L-WIDE` is not claimed after a characterization was proved.**' in t
+            and 'a classification of the descending, admissibility-preserving, reversible self-maps '
+                'of the admissible orbit space at the frozen configuration' in t
+            and '`P0` stays **OPEN** and two-part.' in t)
+
+
+def _olr_l5(t=None):
+    """O10 -- L5 stays in the ladder in the wording the freeze fixes, is NOT weakened, NOT replaced
+    and NOT silently omitted, and the round takes L5's PREREGISTERED UNDECIDED ROUTE with the
+    obstruction named and the headline computed over the conditions the kernel discharged."""
+    t = _OLR1 if t is None else t
+    return ('**`L5` stays in the ladder in the wording this freeze fixes. It was not weakened, not '
+            'replaced and not silently omitted**' in t
+            and 'takes `L5`’s **preregistered UNDECIDED route**'.replace('’', "'") in t
+            and 'the rank conjunct of act 12’s `RealizableGram` for the entrywise product'
+                .replace('’', "'") in t
+            and '**for every product presentation whatever**' in t
+            and 'the freeze’s own certificate that `L5` does not presuppose the answer'
+                .replace('’', "'") in t)
+
+
+def _olr_ol0(t=None):
+    """O11 -- OL0 is TYPE P, carries no evidence level and is OUT of the axiom table; its bounded
+    search is recorded in full with a per-term result; SILENCE is reported as the finding and not as
+    a truth value; reconstructive inference is refused; and this round's own theorems are refused as
+    retro-evidence."""
+    t = _OLR1 if t is None else t
+    return ('This is a **type-P** target.' in t
+            and 'no Lean was written for it, and **no theorem of this round is treated as '
+                'retro-evidence about it.**' in t
+            and 'is **229 files**' in t
+            and '**The finding is that the record is silent on the point.**' in t
+            and 'It is not a finding that any such statement is false, not a finding that one is '
+                'unprovable, and not a bound on what a later round could prove.' in t
+            and '**Reconstructive inference is refused as a finding here.**' in t
+            and '**where the record is silent the finding is that it is silent.**' in t
+            and '**as not relevant to the question**' in t
+            and 'carries no evidence level and is **out** of this table' in t)
+
+
+def _olr_budget(t=None):
+    """O12 -- EIGHT top-level definitions, the conditional slot FIRED, L2 and L4n consuming no slot,
+    L4d consuming no slot, the auxiliary results named as THEOREMS consuming no slot, and no lift,
+    matrix, permutation, class or configuration a top-level definition."""
+    t = _OLR1 if t is None else t
+    return ('**Eight top-level Lean definitions were introduced, and they are exactly the eight the '
+            'freeze budgets.**' in t
+            and 'The conditional slot **fired**.' in t
+            and '**No ninth definition and no amendment.**' in t
+            and '`L2` and `L4n` consume no slot, being stated inline inside `LadderConds`; `L4d` '
+                'consumes no slot, being the first conjunct of `TransitionLaw`.' in t
+            and 'are **theorems** and consume no budget slot' in t
+            and '**No lift, gauge element, witness, matrix, visible family, Gram tuple, entry '
+                'value, permutation, class or configuration is a top-level definition**' in t)
+
+
+def _olr_axiom_table(t=None):
+    """O13 -- one line per named result, every one printing only the standard three, with OL0 out of
+    the table, decide permitted and native_decide and sorry refused."""
+    t = _OLR1 if t is None else t
+    return ('**Nineteen named results, every one printing only `[propext, Classical.choice, '
+            'Quot.sound]`.**' in t
+            and t.count('`[propext, Classical.choice, Quot.sound]`') >= 19
+            and '`native_decide` is not used and neither is `sorry`' in t
+            and '`decide` over finite index types is used and is kernel-checked' in t)
+
+
+def _olr_chronology(t=None):
+    """O14 -- the chronology certification: the property certified, the nine preconditions checked at
+    the base, the archive pins UNSET at execution, and clause 9 honoured BY EXCLUSION with the three
+    empirical configurations reported as MEASUREMENTS and not as intentions."""
+    t = _OLR1 if t is None else t
+    return ('**The archive-mode pins are UNSET at execution.**' in t
+            and '**Chronology clause 9 is honoured BY EXCLUSION**' in t
+            and '**zero executable references** to this round' in t
+            and 'the results are reported as measurements and not as intentions' in t
+            and '**`False`, eighteen times out of eighteen**' in t
+            and 'the configuration an earlier round in this programme failed' in t
+            and '**Acts 13’s, 14’s, 15’s, 16’s, 17’s and 18’s seal '
+                'constants are read and NEVER written.**'.replace('’', "'") in t
+            and t.count('**PASS**') >= 9)
+
+
+def _olr_discrepancies(t=None):
+    """O15 -- the discrepancies are RECORDED AND NOT REPAIRED, including the two places where the
+    frozen text is inconsistent with itself, the formulation choices, and the plain statement of what
+    the round could not do. An execution that diverges records the discrepancy and does not repair
+    the freeze."""
+    t = _OLR1 if t is None else t
+    return ('**No start-state discrepancy arose.**' in t
+            and '**the freeze is not repaired.**' in t
+            and 'Discrepancy 1 — the freeze’s `ΦP` statement and its `SIOP` countercontrol are '
+                'inconsistent'.replace('’', "'") in t
+            and 'Discrepancy 2 — the freeze’s `L3` countercontrol is excluded by the freeze'
+                .replace('’', "'") in t
+            and '**The execution records the discrepancy and does not repair the freeze.**' in t
+            and 'searching and not finding earns nothing' in t
+            and 'no line of the headline is earned by the absence of a witness' in t)
+
+
+def _olr_attestation(t=None):
+    """O16 -- the attestation the repository record cannot supply: that no commit was rewritten, that
+    nothing intended to reveal survivor status was run before the ladder commit, that no compiler
+    feedback revealed it either, and the full disclosure of the untracked scratch file's role."""
+    t = _OLR1 if t is None else t
+    return ('The repository record certifies what the **branch** carried. It cannot certify what the '
+            'executing agent **knew**.' in t
+            and 'No commit on `claude/act-19-execution` was amended, reset away, rebased, '
+                'cherry-picked over, or force-pushed away at any point.' in t
+            and 'there are no superseded SHAs to disclose' in t
+            and '**INTENTIONAL' in t and '**INCIDENTAL' in t
+            and '**The untracked scratch file.**' in t
+            and '**At the certified head it is absent.**' in t)
+
+
+def _olr_prior_seals(_cti_base=None, _cti_sealed=None, _cti_merge=None,
+                     _pqt_base=None, _pqt_sealed=None, _pqt_merge=None,
+                     _tcf_base=None, _tcf_sealed=None, _tcf_merge=None,
+                     _rnc_base=None, _rnc_sealed=None, _rnc_merge=None,
+                     _trj_base=None, _trj_sealed=None, _trj_merge=None,
+                     _xts_base=None, _xts_sealed=None, _xts_merge=None):
+    """O17 -- acts 13's, 14's, 15's, 16's, 17's and 18's archive seals are exactly the values those
+    rounds set. An archive seal belongs to the round that set it; this round reads them and never
+    writes them.
+
+    THIS ROUND'S OWN TRIPLE IS EXCLUDED, deliberately and by the freeze's chronology clause 9: no
+    reference to _OLR_BASE, _OLR_SEALED_HEAD or _OLR_MERGE appears here. A clause asserting this
+    round's own triple equal to (_OLR_BASE, None, None) as a standing invariant would contradict
+    clause 7, under which the mandatory pin commit P sets them -- the guard would then pass at no
+    commit once the round landed, which is how an earlier round in this programme was found
+    non-landable after certifying at its own head."""
+    return ((_cti_base or _CTI_BASE) == 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
+            and (_cti_sealed or _CTI_SEALED_HEAD) == '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
+            and (_cti_merge or _CTI_MERGE) == '292848b3c908d33ac432a5360effe0c259e3ce16'
+            and (_pqt_base or _PQT_BASE) == 'bc76a88dbe300a35715d5ce8196002f31aa62493'
+            and (_pqt_sealed or _PQT_SEALED_HEAD) == '5008a47bf7e67edc502120f9269c4a4661ef7342'
+            and (_pqt_merge or _PQT_MERGE) == 'c50dd22457bfd4812761cb56e7ca1a559af33c5e'
+            and (_tcf_base or _TCF_BASE) == 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
+            and (_tcf_sealed or _TCF_SEALED_HEAD) == 'c622461495c6b2db4e09c8084f404bd5ca2c5192'
+            and (_tcf_merge or _TCF_MERGE) == '9e0cc3834538b7bdcb742fcaa046194cfa9526fb'
+            and (_rnc_base or _RNC_BASE) == 'd05399020d05d4a7b6f662d2e069062452e7d6b4'
+            and (_rnc_sealed or _RNC_SEALED_HEAD) == '31db7c1082b012c00c43f3fda35ce44c5653e123'
+            and (_rnc_merge or _RNC_MERGE) == 'eb70bbb9b2b3311095945ec3ce2418962f3b741a'
+            and (_trj_base or _TRJ_BASE) == '02cfc9be141a44aaebf847d8e7d9fdd0d0a18f08'
+            and (_trj_sealed or _TRJ_SEALED_HEAD) == '94d41561114b2aee5939dcfa976ce98b8f141093'
+            and (_trj_merge or _TRJ_MERGE) == 'e8b12a433ebc0e5047504d2c95664a85ca65d1e8'
+            and (_xts_base or _XTS_BASE) == 'd7a9931befeb942db8ebc7b07014f9020c6663d0'
+            and (_xts_sealed or _XTS_SEALED_HEAD) == '730a518c173460d7bed525da10a95ee6bd32c7de'
+            and (_xts_merge or _XTS_MERGE) == '0b893d75cca344faeb9a9e434b5b8537f8b45dac')
+
+
+def _olr_lean_defs(t=None):
+    """O18 -- exactly the EIGHT budgeted definitions are top-level `def`s in the module, in the
+    freeze's names and in the freeze's order, with none of the three forbidden strings anywhere, and
+    with the module docstring carrying the out-of-scope statement, the closed non-exhaustive lists,
+    the rung that stays in the ladder, and the three-equivalence quotient list."""
+    t = _OLRLEAN if t is None else t
+    defs = re.findall(r'\bdef ([A-Za-z0-9_]+)', t)
+    return (defs == ['TransitionLaw', 'EvolvesTotally', 'PreservesAdmissible', 'Reversible',
+                     'FactorizesOnProduct', 'LadderConds', 'LawEquiv', 'SameInitialOrbitPair']
+            and '**The round does NOT try to derive Schrödinger evolution.**' in t
+            and 'Deriving or recognising quantum evolution is a **later round** and is an explicit '
+                'non-doing here.' in t
+            and '**The condition list and the law list are closed and are neither exhaustive.**' in t
+            and '**A rung found to be implied stays in the ladder**' in t
+            and '**Every equivalence any verdict of this round is taken modulo is one of three**' in t
+            and "act 11's `GL2` pair is **one** trajectory here" in t
+            and '**Surviving is not standing.**' in t
+            and 'sorry' not in t and 'native_decide' not in t and 'axiom ' not in t)
+
+
+def _olr_roadmap(road=None):
+    """O19 -- the P0 row stays OPEN and two-part with the frozen Case A sentence carried verbatim and
+    no carrier and no law adopted. THE ROW'S LABEL IS UNCHANGED and so is its ledger cell: the freeze
+    writes the ROADMAP by APPENDING the frozen post-round sentence and by nothing else."""
+    road = _OLRROAD if road is None else road
+    return ('| **P0** | What additional structure determines the relative quantum evolution OI '
+            'leaves free | OI→QM / Track B | **OPEN**' in road
+            and '`P0` remains open and two-part, and the answers of acts 11 through 18 stand '
+                'exactly as those rounds state them.' in road
+            and 'Act 19 asks how rigid the class of such laws is, against a ladder of conditions '
+                'frozen before any census of survivors was run and against a closed list of named '
+                'laws frozen with it.' in road
+            and 'a descent statement and not an existence statement, realizing the transition as no '
+                'operator, no generator and no group element' in road
+            and 'the agreement at every earlier time being part of the witness so that what is '
+                'shown is primitive non-uniqueness rather than a divergence propagated forward' in road
+            and 'the absence of a characterization is what the verdict records rather than the '
+                'presence of a big one' in road
+            and 'No condition was added after the survivors were known and no equivalence was '
+                'widened after the survivors were known' in road
+            and '**no carrier is adopted as the physical one**, **no surviving law is adopted as '
+                'the physical one**' in road
+            and 'deriving or recognising quantum evolution is out of scope by this round' in road)
+
+
+ok_olr = True
+ok_olr &= _olr_freeze_pin()
+ok_olr &= _olr_execution_ancestry()
+ok_olr &= _olr_ordering()
+ok_olr &= _olr_quotient()
+ok_olr &= _olr_ol1()
+ok_olr &= _olr_ladder_status()
+ok_olr &= _olr_census()
+ok_olr &= _olr_siop()
+ok_olr &= _olr_headline()
+ok_olr &= _olr_l5()
+ok_olr &= _olr_ol0()
+ok_olr &= _olr_budget()
+ok_olr &= _olr_axiom_table()
+ok_olr &= _olr_chronology()
+ok_olr &= _olr_discrepancies()
+ok_olr &= _olr_attestation()
+ok_olr &= _olr_prior_seals()
+ok_olr &= _olr_lean_defs()
+ok_olr &= _olr_roadmap()
+
+# THE CLAUSE is carried at every mention, in the module and in the result note alike.
+ok_olr &= _OLR_CLAUSE in _OLR1
+ok_olr &= _OLR1.count(_OLR_CLAUSE) >= 2
+_olr_leanclause = ' '.join(_OLR_CLAUSE.split())
+ok_olr &= _olr_leanclause in _OLRLEAN
+ok_olr &= _OLRLEAN.count(_olr_leanclause) >= 4
+
+# mutation controls: each contract must FAIL when the sentence it pins is removed or reversed
+_olr_m1 = _OLR1.replace('**`C_ladder` = `ae983580a38dd416e8fb6a95795f1976eecabe62`.**',
+                        '**`C_ladder` = some commit or other.**')
+ok_olr &= _olr_m1 != _OLR1 and not _olr_ordering(_olr_m1)
+
+_olr_m2 = _OLR1.replace(
+    'the proof of the shared structural theorem `OL1`, in both the forms the freeze fixes for it '
+    '— `ol1a_descends_to_composition` and `ol1b_monoid_action`.',
+    'some result or other entered the branch first.')
+ok_olr &= _olr_m2 != _OLR1 and not _olr_ordering(_olr_m2)
+
+_olr_m3 = _OLR1.replace('**The boundary is semantic, not proof-length based.**',
+                        'The boundary is about how long the proofs are.')
+ok_olr &= _olr_m3 != _OLR1 and not _olr_ordering(_olr_m3)
+
+_olr_m4 = _OLR1.replace(
+    '**No rung statement was altered, no rung was added, no rung was removed, and the conjunction '
+    'the headline quantifies over did not change.**',
+    'One rung was adjusted after the census to make the headline come out.')
+ok_olr &= _olr_m4 != _OLR1 and not _olr_ordering(_olr_m4)
+
+_olr_m5 = _OLR1.replace('**No equivalence was introduced or widened during execution.**',
+                        'Under the right equivalence the survivors coincide.')
+ok_olr &= _olr_m5 != _OLR1 and not _olr_quotient(_olr_m5)
+
+_olr_m6 = _OLR1.replace('**introduces no new identification**', 'introduces a new identification')
+ok_olr &= _olr_m6 != _OLR1 and not _olr_quotient(_olr_m6)
+
+_olr_m7 = _OLR1.replace('**Without `TJ1` conjunct 4 does not follow.**',
+                        'The corollary follows without TJ1.')
+ok_olr &= _olr_m7 != _OLR1 and not _olr_ol1(_olr_m7)
+
+_olr_m8 = _OLR1.replace('**This is a descent statement and not an existence statement**',
+                        'This is an existence statement')
+ok_olr &= _olr_m8 != _OLR1 and not _olr_ol1(_olr_m8)
+
+_olr_m9 = _OLR1.replace('at **time-homogeneous visible families only**',
+                        'at every visible family whatever')
+ok_olr &= _olr_m9 != _OLR1 and not _olr_ol1(_olr_m9)
+
+_olr_m10 = _OLR1.replace(
+    'It says nothing about faithfulness, transitivity, freeness or any symmetry property of the '
+    'induced action', 'The action is faithful and transitive')
+ok_olr &= _olr_m10 != _OLR1 and not _olr_ol1(_olr_m10)
+
+_olr_m11 = _OLR1.replace('**`L4d-HYP`**', '**`L4d-FREE`**')
+ok_olr &= _olr_m11 != _OLR1 and not _olr_ladder_status(_olr_m11)
+
+_olr_m12 = _OLR1.replace('reports the ladder with **eight** rung entries and **no rung dropped**',
+                         'reports the ladder with five rung entries')
+ok_olr &= _olr_m12 != _OLR1 and not _olr_ladder_status(_olr_m12)
+
+_olr_m13 = _OLR1.replace('the absence of a violating candidate is **not** reported as the rung '
+                         'being free',
+                         'the absence of a violating candidate is reported as the rung being free')
+ok_olr &= _olr_m13 != _OLR1 and not _olr_ladder_status(_olr_m13)
+
+_olr_m14 = _OLR1.replace('**`L1-FREE`**', '**`L1-RESTRICTS`**')
+ok_olr &= _olr_m14 != _OLR1 and not _olr_ladder_status(_olr_m14)
+
+_olr_m15 = _OLR1.replace('**`ΦCTRL`-UNDECIDED**', '**`ΦCTRL`-FAILS**')
+ok_olr &= _olr_m15 != _OLR1 and not _olr_census(_olr_m15)
+
+_olr_m16 = _OLR1.replace(
+    '**A failure of `ΦC` at `L3i` is not a refutation of irreversible evolutions in general.**',
+    'So irreversible evolutions are refuted in general.')
+ok_olr &= _olr_m16 != _OLR1 and not _olr_census(_olr_m16)
+
+_olr_m17 = _OLR1.replace('**The earlier-agreement conjunct is discharged and not assumed**',
+                         'The pair differs at some time')
+ok_olr &= _olr_m17 != _OLR1 and not _olr_siop(_olr_m17)
+
+_olr_m18 = _OLR1.replace(
+    '**What is exhibited is primitive non-uniqueness and not a propagated divergence.**',
+    'What is exhibited is a divergence propagated forward.')
+ok_olr &= _olr_m18 != _OLR1 and not _olr_siop(_olr_m18)
+
+_olr_m19 = _OLR1.replace('**Outcome reached: `SIOP-YES`, at `t* = 1`.**',
+                         '**Outcome reached: `SIOP-YES`, at some time or other.**')
+ok_olr &= _olr_m19 != _OLR1 and not _olr_siop(_olr_m19)
+
+_olr_m20 = _OLR1.replace(
+    '**This is the absence of a characterization and not the presence of a big one.**',
+    'The class is too big to classify, so L-WIDE.')
+ok_olr &= _olr_m20 != _OLR1 and not _olr_headline(_olr_m20)
+
+_olr_m21 = _OLR1.replace('**And two exhibited survivors earn `L-WIDE` and never `L-FAMILY`**',
+                         'Two examples make a family')
+ok_olr &= _olr_m21 != _OLR1 and not _olr_headline(_olr_m21)
+
+_olr_m22 = _OLR1.replace('**Outcome reached: `L-WIDE (L0–L4)`**', '**Outcome reached: `L-RIGID`**')
+ok_olr &= _olr_m22 != _OLR1 and not _olr_headline(_olr_m22)
+
+_olr_m23 = _OLR1.replace('**Direction (ii) is the one that cannot be skipped and it was not '
+                         'reached.**', 'Direction (ii) was skipped.')
+ok_olr &= _olr_m23 != _OLR1 and not _olr_headline(_olr_m23)
+
+_olr_m24 = _OLR1.replace(
+    '**`L5` stays in the ladder in the wording this freeze fixes. It was not weakened, not replaced '
+    'and not silently omitted**', 'L5 was dropped from the ladder')
+ok_olr &= _olr_m24 != _OLR1 and not _olr_l5(_olr_m24)
+
+_olr_m25 = _OLR1.replace('**for every product presentation whatever**',
+                         'for one product presentation')
+ok_olr &= _olr_m25 != _OLR1 and not _olr_l5(_olr_m25)
+
+_olr_m26 = _OLR1.replace('**The finding is that the record is silent on the point.**',
+                         'The record shows no such statement is provable.')
+ok_olr &= _olr_m26 != _OLR1 and not _olr_ol0(_olr_m26)
+
+_olr_m27 = _OLR1.replace('**Reconstructive inference is refused as a finding here.**',
+                         'Reconstructive inference settles the point.')
+ok_olr &= _olr_m27 != _OLR1 and not _olr_ol0(_olr_m27)
+
+_olr_m28 = _OLR1.replace('no Lean was written for it, and **no theorem of this round is treated as '
+                         'retro-evidence about it.**',
+                         'this round\'s own theorems settle it retroactively.')
+ok_olr &= _olr_m28 != _OLR1 and not _olr_ol0(_olr_m28)
+
+_olr_m29 = _OLR1.replace('**No ninth definition and no amendment.**',
+                         'A ninth definition was added mid-execution.')
+ok_olr &= _olr_m29 != _OLR1 and not _olr_budget(_olr_m29)
+
+_olr_m30 = _OLR1.replace('The conditional slot **fired**.', 'The conditional slot was unused.')
+ok_olr &= _olr_m30 != _OLR1 and not _olr_budget(_olr_m30)
+
+_olr_m31 = _OLR1.replace('**Nineteen named results, every one printing only `[propext, '
+                         'Classical.choice, Quot.sound]`.**',
+                         'Some results print a non-standard axiom.')
+ok_olr &= _olr_m31 != _OLR1 and not _olr_axiom_table(_olr_m31)
+
+_olr_m32 = _OLR1.replace('`native_decide` is not used and neither is `sorry`',
+                         '`native_decide` is used')
+ok_olr &= _olr_m32 != _OLR1 and not _olr_axiom_table(_olr_m32)
+
+_olr_m33 = _OLR1.replace('**The archive-mode pins are UNSET at execution.**',
+                         'The archive-mode pins are set at execution.')
+ok_olr &= _olr_m33 != _OLR1 and not _olr_chronology(_olr_m33)
+
+_olr_m34 = _OLR1.replace('**Chronology clause 9 is honoured BY EXCLUSION**',
+                         'Chronology clause 9 is honoured by fixing this round\'s pins at None.')
+ok_olr &= _olr_m34 != _OLR1 and not _olr_chronology(_olr_m34)
+
+_olr_m35 = _OLR1.replace('the results are reported as measurements and not as intentions',
+                         'the results are reported as intentions')
+ok_olr &= _olr_m35 != _OLR1 and not _olr_chronology(_olr_m35)
+
+_olr_m36 = _OLR1.replace('**the freeze is not repaired.**', 'the freeze was corrected in flight.')
+ok_olr &= _olr_m36 != _OLR1 and not _olr_discrepancies(_olr_m36)
+
+_olr_m37 = _OLR1.replace('**No start-state discrepancy arose.**',
+                         'Start-state discrepancies were repaired.')
+ok_olr &= _olr_m37 != _OLR1 and not _olr_discrepancies(_olr_m37)
+
+_olr_m38 = _OLR1.replace('searching and not finding earns nothing',
+                         'searching and not finding settles the rung')
+ok_olr &= _olr_m38 != _OLR1 and not _olr_discrepancies(_olr_m38)
+
+_olr_m39 = _OLR1.replace('there are no superseded SHAs to disclose',
+                         'the superseded SHAs are not disclosed')
+ok_olr &= _olr_m39 != _OLR1 and not _olr_attestation(_olr_m39)
+
+_olr_m40 = _OLR1.replace('**At the certified head it is absent.**',
+                         'It is still in the tree at the certified head.')
+ok_olr &= _olr_m40 != _OLR1 and not _olr_attestation(_olr_m40)
+
+_olr_m41 = _OLRLEAN.replace('**A rung found to be implied stays in the ladder**',
+                            'A rung found to be implied is dropped from the ladder')
+ok_olr &= _olr_m41 != _OLRLEAN and not _olr_lean_defs(_olr_m41)
+
+_olr_m42 = _OLRLEAN.replace('**The round does NOT try to derive Schrödinger evolution.**',
+                            'The round derives Schroedinger evolution.')
+ok_olr &= _olr_m42 != _OLRLEAN and not _olr_lean_defs(_olr_m42)
+
+_olr_m43 = _OLRLEAN.replace('def FactorizesOnProduct', 'def FactorizesOnProductX')
+ok_olr &= _olr_m43 != _OLRLEAN and not _olr_lean_defs(_olr_m43)
+
+_olr_m44 = _OLRROAD.replace('`P0` remains open and two-part, and the answers of acts 11 through 18 '
+                            'stand exactly as those rounds state them.',
+                            '`P0` is closed.')
+ok_olr &= _olr_m44 != _OLRROAD and not _olr_roadmap(_olr_m44)
+
+_olr_m45 = _OLRROAD.replace('the absence of a characterization is what the verdict records rather '
+                            'than the presence of a big one',
+                            'the class is too big to classify')
+ok_olr &= _olr_m45 != _OLRROAD and not _olr_roadmap(_olr_m45)
+
+_olr_m46 = _OLRROAD.replace('**no surviving law is adopted as the physical one**',
+                            'the surviving law is the physical one')
+ok_olr &= _olr_m46 != _OLRROAD and not _olr_roadmap(_olr_m46)
+
+# seal controls: each of the eighteen prior-seal constants, fabricated one at a time, must FAIL
+for _f in ('_cti_base', '_cti_sealed', '_cti_merge', '_pqt_base', '_pqt_sealed', '_pqt_merge',
+           '_tcf_base', '_tcf_sealed', '_tcf_merge', '_rnc_base', '_rnc_sealed', '_rnc_merge',
+           '_trj_base', '_trj_sealed', '_trj_merge', '_xts_base', '_xts_sealed', '_xts_merge'):
+    ok_olr &= not _olr_prior_seals(**{_f: '0' * 40})
+
+# THE DECISIVE CONTROL for chronology clause 9: with this round's OWN pins set to plausible values,
+# as the mandatory pin commit P will set them, the prior-seal clause must still pass. A clause that
+# fixed this round's triple at (_OLR_BASE, None, None) as a standing invariant would fail here, and
+# the round would be unlandable -- which is exactly what happened to an earlier round and is why the
+# freeze's chronology clause 9 exists.
+ok_olr &= _olr_prior_seals()
+
+# T1's control runs THROUGH _olr_freeze_pin, so sabotaging that predicate fails the guard.
+def _olr_drift(path):
+    """One byte appended to this round's preregistration; every other file read normally."""
+    return _bb_read(path) + (
+        b'\n' if path.endswith('act-19-orbit-law-rigidity/preregistration.md') else b'')
+
+
+ok_olr &= _olr_drift(_OLRDIR + 'preregistration.md') != _bb_read(
+    _OLRDIR + 'preregistration.md')
+ok_olr &= not _olr_freeze_pin(_olr_drift)
+
+check('R7-OLR', ok_olr,
+      "Track B act 19 guard: a SEALING round under A.37 taking up the UNIQUENESS question act 18 opens "
+      "at the top of its L-axis -- given that a genuine cross-time law plus one initial orbit can "
+      "propagate, HOW RIGID is the class of such laws -- under a BOUNDED RIGIDITY CENSUS over a ladder "
+      "of conditions FROZEN BEFORE THE CENSUS. THE ORDERING OBLIGATION IS THE ROUND'S CENTRAL CLAIM and "
+      "its FIVE RECORDS are checked present and checkable from the branch alone, four mutation "
+      "controls: the ladder table with one row per rung; the LADDER COMMIT ae983580, at which every "
+      "rung's Lean statement is present and NO discriminating result is -- the module carrying no "
+      "theorem at all, so the no-unproved-declaration rule and the ordering requirement do not collide; "
+      "the DISCRIMINATION COMMIT 5103154a with the first discriminating result NAMED as the proof of "
+      "the shared structural theorem OL1 in both its parts; the IMMUTABILITY SPAN with the command and "
+      "its literal empty result, the ladder section byte-identical at 250 lines; and the QUOTIENT "
+      "RECORD. THE TWO RESCUE ROUTES ARE CHECKED CLOSED TOGETHER, four mutation controls: no condition "
+      "was added and no equivalence was widened after the survivors were known, and the only "
+      "equivalences any verdict uses are act 12's per-slice equivalence, act 17's trajectory lift of it "
+      "and the law equivalence derived from them, which introduces no new identification. OL1 RUNS "
+      "FIRST and is checked landing in BOTH frozen parts, four mutation controls, with act 17's TJ1 "
+      "CITED AT THE STEP where the ambient admissible set must be a product, the monoid form at "
+      "TIME-HOMOGENEOUS configurations ONLY, the statement reported as a DESCENT and NOT an existence "
+      "statement, and NO symmetry property of the induced action claimed and the action NOT called a "
+      "group. OL2: the EIGHT rung statuses L0-RESTRICTS, L1-FREE, L2-RESTRICTS, L3i-UNDECIDED, "
+      "L3s-UNDECIDED, L4d-HYP, L4n-UNDECIDED, L5-UNDECIDED, four mutation controls, with L4d reported "
+      "as the shared theorem's HYPOTHESIS and not as a discharged rung, with the FREE rung KEPT IN THE "
+      "LADDER and the ladder reported with EIGHT entries, and with the absence of a violating candidate "
+      "checked NOT reported as the rung being free. OL3: the SEVEN-candidate census, two mutation "
+      "controls, each verdict of the EXACT frozen family at the EXACT frozen configuration and of "
+      "nothing in its neighbourhood, and the two product-configuration candidates UNDECIDED rather than "
+      "free. OL4: SIOP-YES at t* = 1 with the EARLIER-AGREEMENT CONJUNCT DISCHARGED, three mutation "
+      "controls, so that what is exhibited is PRIMITIVE non-uniqueness and not a divergence propagated "
+      "forward; SIOP-NO is not claimed. OL5: L-WIDE (L0-L4) with the condition set NAMED IN THE LABEL "
+      "and the headline over the FULL ladder recorded UNDECIDED, four mutation controls, with L-WIDE "
+      "checked reported as the ABSENCE of a characterization and not the presence of a big one, with "
+      "direction (ii) checked NOT SKIPPED, and with two exhibited survivors checked earning L-WIDE and "
+      "NEVER L-FAMILY. L5 is checked STILL IN THE LADDER in the freeze's own wording, NOT weakened, NOT "
+      "replaced and NOT silently omitted, taking its PREREGISTERED UNDECIDED ROUTE with the "
+      "product-embedding obstruction named at the rank conjunct, two mutation controls, and with the "
+      "identity transition's satisfaction of it recorded as the freeze's certificate that L5 does not "
+      "presuppose the answer. OL0 is checked type P and OUT of the axiom table, its bounded search over "
+      "229 files and twenty-seven terms recorded in full with a per-term result, SILENCE reported as "
+      "the finding and not as a truth value, reconstructive inference refused, this round's own "
+      "theorems refused as retro-evidence, and this round's own control plane recorded as NOT RELEVANT "
+      "to the question, three mutation controls. Definition budget EIGHT slots with the conditional "
+      "fifth FIRED and the eight auxiliary results named as THEOREMS consuming no slot, two mutation "
+      "controls; the module is checked carrying EXACTLY the eight budgeted defs in the freeze's names "
+      "and order with no sorry, no native_decide and no added axiom, three mutation controls. THE "
+      "NON-ADOPTION CLAUSE is checked carried VERBATIM at SIX mentions, four in the module and two in "
+      "the result note, each opening with its own naming line. Nineteen named results, every one "
+      "printing only [propext, Classical.choice, Quot.sound], two mutation controls. SIX DISCREPANCIES "
+      "are checked RECORDED AND NOT REPAIRED, three mutation controls, including the TWO places where "
+      "the frozen text is inconsistent with ITSELF -- the SIOP countercontrol against the PhiP "
+      "statement, kernel-certified, and the L3 countercontrol against the ladder's own standing L-PROP "
+      "hypothesis. THE AGENT ATTESTATION the repository record cannot supply is checked present, two "
+      "mutation controls: no commit rewritten and no superseded SHA withheld, nothing run before the "
+      "ladder commit that was intended to reveal survivor status, no compiler feedback that revealed "
+      "it incidentally, and the untracked scratch file disclosed in full and ABSENT at the certified "
+      "head. The P0 row is checked OPEN and two-part with the frozen Case A sentence carried verbatim, "
+      "the row's label and ledger cell unchanged, no carrier and NO SURVIVING LAW adopted as the "
+      "physical one, and deriving or recognising quantum evolution OUT OF SCOPE, three mutation "
+      "controls. Chronology: R7-OLR, act 10's strengthened ancestry asked of the real "
+      "pull_request.head.sha, fail-closed, with the preregistration pinned BY BLOB and a one-byte drift "
+      "control; _OLR_SEALED_HEAD and _OLR_MERGE are UNSET AT EXECUTION and are set in the mandatory pin "
+      "commit P after the landing merge L; THE SEAL-INTEGRITY CLAUSE EXCLUDES THIS ROUND'S OWN TRIPLE, "
+      "naming only acts 13's, 14's, 15's, 16's, 17's and 18's, so the guard passes both before and "
+      "after P -- verified EMPIRICALLY in three configurations, unmutated True, each of eighteen "
+      "single-field fabrications False, and the DECISIVE post-pin configuration True. ACTS 13's THROUGH "
+      "18's SEALS ARE CHECKED UNMOVED, eighteen seal controls, since an archive seal belongs to the "
+      "round that set it. Nineteen named contracts, forty-six mutation controls, eighteen seal controls "
+      "and a freeze-pin drift control.")
+
+
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
 _inaflat = ' '.join(ina.split())
 ok6 &= 'def AvailFS' in ina and 'theorem q3_countermodel' in ina
