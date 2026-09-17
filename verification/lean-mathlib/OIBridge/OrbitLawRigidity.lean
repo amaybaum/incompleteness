@@ -269,12 +269,17 @@ The conjuncts, in order:
    so that a candidate failing either is reported against the conjunct it fails.
 6. `Reversible` — **`L3i`** and **`L3s`**, of the time-homogeneous transition.
 7. **`L4n`, inline — representative-level gauge-naturality.** The transition lifts to
-   representatives naturally under act 12's two-sided moves: there is a map on dilations inducing
-   the transition on fibre-Gram tuples which commutes with the constant and time-dependent in-fibre
-   left moves of `LeftFibreGroup` and with the right gauges at the anchor — the two merged
-   transformation laws being act 12's `fibreGram_left_mul`, under which the left move is invisible,
-   and act 12's `fibreGram_mul_weak_apply`, under which the right gauge acts by the anchored
-   phases. **`L4n` is a genuine strengthening of `L4d` and is tested as one.** Descent says the
+   representatives naturally under act 12's two-sided moves: there is a map `Ψ` on dilations
+   inducing the transition on fibre-Gram tuples, and it **commutes with the two merged
+   transformation laws on `FibreGram`** — act 12's `fibreGram_left_mul`, under which the constant
+   and time-dependent in-fibre left moves of `LeftFibreGroup` are invisible, and act 12's
+   `fibreGram_mul_weak_apply`, under which a right gauge at the anchor acts by the anchored phases
+   (the strong right gauge being the special case of the weak one in which those phases are
+   trivial). Commuting with them is exactly this: an in-fibre left move on `Ψ`'s input produces an
+   in-fibre left move on its output, and a right gauge at the anchor on its input produces a right
+   gauge at the anchor on its output, so that **the invisible gauge cannot see the transition's
+   action beyond the class**. **`L4n` is a genuine strengthening of `L4d` and is tested as one.**
+   Descent says the
    transition is a function on classes; naturality says it comes from a move on representatives
    that the invisible gauge cannot see. The second does not follow from the first, and act 18 named
    the alternative route explicitly: its generator law discharged descent by writing the candidate
@@ -300,10 +305,11 @@ def LadderConds (a₀ : A) (Γ : ℕ → Matrix V V ℝ)
     ∧ (∃ Ψ : ℕ → Matrix (V × A) (V × A) ℂ → Matrix (V × A) (V × A) ℂ,
         (∀ (t : ℕ) (U : Matrix (V × A) (V × A) ℂ), AdmissibleDilationAt (Γ t) a₀ U →
             Φ t (FibreGram a₀ U) = FibreGram a₀ (Ψ t U))
-          ∧ (∀ (t : ℕ) (L U : Matrix (V × A) (V × A) ℂ),
-              LeftFibreGroup L → Ψ t (L * U) = L * Ψ t U)
-          ∧ ∀ (t : ℕ) (U K : Matrix (V × A) (V × A) ℂ),
-              WeakAnchorStabilizer a₀ K → Ψ t (U * K) = Ψ t U * K)
+          ∧ (∀ (t : ℕ) (L U : Matrix (V × A) (V × A) ℂ), LeftFibreGroup L →
+              ∃ L' : Matrix (V × A) (V × A) ℂ, LeftFibreGroup L' ∧ Ψ t (L * U) = L' * Ψ t U)
+          ∧ ∀ (t : ℕ) (U K : Matrix (V × A) (V × A) ℂ), WeakAnchorStabilizer a₀ K →
+              ∃ K' : Matrix (V × A) (V × A) ℂ,
+                WeakAnchorStabilizer a₀ K' ∧ Ψ t (U * K) = Ψ t U * K')
     ∧ FactorizesOnProduct a₀ Γ Φ
 
 set_option linter.unusedVariables false in
