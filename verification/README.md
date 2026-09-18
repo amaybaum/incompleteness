@@ -2528,5 +2528,42 @@ differed at the mandated base**, each by a sibling landing that added text elsew
 touched no A6 surface; the discrepancies are recorded in the result note and not repaired, and no
 result absent from this round's freeze was consumed.
 
+## Seal infrastructure round SI-1 — the shadow validator and the equivalence census
+
+`verification/seals/` carries one JSON record per round: twenty-two of them, eighteen `kind:
+"sealed"` and four `kind: "base-only"`. They are a **transcription** of the seal constants
+`verification/lean/edge_rigidity_probe.py` already carried, and the guard machinery in that file
+remains **authoritative**. `R7-SI1` runs a generic validator over the records as a SHADOW and
+reports a census of its agreement with the existing per-round checks; the shadow decides nothing.
+Presence is not authority, and `SI1-6` establishes that mechanically: the ninety pre-existing check
+tags return identical verdicts at the round's base and at its head, and no seal constant was
+removed.
+
+The census outcome is **`CENSUS-DIVERGENT`**. Over the twenty-two real records the two
+implementations agree — the eighteen sealed ones on the lifecycle axis, the four base-only ones on
+schema, pinned base and record integrity, having no lifecycle to agree about. Over the twenty-one
+synthetic controls, nine have no old-machinery analogue at all and **four of the twelve comparable
+ones diverge**. Three are points the new model was built to be stronger: a second merge carrying the
+same sealed head, a descendant of an unpinned landing, and a completed non-sealing round the old
+machinery refuses under execution semantics. On the fourth the direction is **reversed** — on a
+stale `base.sha` with the landing sitting on the base branch the old archive path returns `PASS`
+through the base-branch tip while the new model returns `FAIL` with zero candidates, which is the
+same behaviour as the round's first discrepancy, reproduced independently through the census. Both
+verdicts are recorded for every row and **the census adjudicates none of them**: the freeze reserves
+that to the owner, and the decision against `#141` is taken by `SI1-8` under `#141`'s own
+requirement, not by the census. It is an agreement census and **not a proof of correctness**: agreement where it occurs
+is no evidence of correctness, because a shared error survives every case both sides get wrong
+together.
+
+The round records three discrepancies and repairs none. The first is its central finding: the frozen
+derivation rule, scoped to the resolved target alone, **reintroduces the base-age false negative**
+on a pull request opened from a historical base, where a landing sitting on the base branch is
+unreachable from the head. The remedy — deriving over the union of the visibility targets — is
+named and deliberately not applied, and awaits adjudication before `SI-2` moves authority. That
+finding also decides `#141`: the requirement that prior seals be evaluated against the landing
+topology rather than the pull-request head is **`RESTATED-AND-FAILS`**, against the freeze's
+prediction. `#140` is **`RESTATED-ONLY`** — its frozen question needs an independent source for each
+round's mandated base, and this round has none.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.
