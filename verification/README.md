@@ -2539,16 +2539,25 @@ Presence is not authority, and `SI1-6` establishes that mechanically: the ninety
 tags return identical verdicts at the round's base and at its head, and no seal constant was
 removed.
 
-The census is EXACT over all twenty-two records — the eighteen sealed ones compared on the
-lifecycle axis, the four base-only ones on schema, pinned base and record integrity, having no
-lifecycle to agree about. It is an agreement census and **not a proof of correctness**: it would not
-detect an error both implementations share.
+The census outcome is **`CENSUS-DIVERGENT`**. Over the twenty-two real records the two
+implementations agree — the eighteen sealed ones on the lifecycle axis, the four base-only ones on
+schema, pinned base and record integrity, having no lifecycle to agree about. Over the twenty-one
+synthetic controls, nine have no old-machinery analogue at all and **three of the twelve comparable
+ones diverge**, at the three points the new model was built to be stronger: a second merge carrying
+the same sealed head, a descendant of an unpinned landing, and a completed non-sealing round the old
+machinery refuses under execution semantics. Both verdicts are recorded and neither is adjudicated.
+It is an agreement census and **not a proof of correctness**: it would not detect an error both
+implementations share.
 
 The round records three discrepancies and repairs none. The first is its central finding: the frozen
 derivation rule, scoped to the resolved target alone, **reintroduces the base-age false negative**
 on a pull request opened from a historical base, where a landing sitting on the base branch is
 unreachable from the head. The remedy — deriving over the union of the visibility targets — is
-named and deliberately not applied, and awaits adjudication before `SI-2` moves authority.
+named and deliberately not applied, and awaits adjudication before `SI-2` moves authority. That
+finding also decides `#141`: the requirement that prior seals be evaluated against the landing
+topology rather than the pull-request head is **`RESTATED-AND-FAILS`**, against the freeze's
+prediction. `#140` is **`RESTATED-ONLY`** — its frozen question needs an independent source for each
+round's mandated base, and this round has none.
 
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.

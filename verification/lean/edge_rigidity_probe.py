@@ -24130,7 +24130,11 @@ def _si1_build_repo():
 
 def _si1_pr_env(d, head, base_ref='main', base_sha=None, number=1):
     """A `pull_request` event payload, written to disk as Actions writes one."""
-    path = os.path.join(d, 'event-%s.json' % head[:8])
+    # The filename carries the base ref as well as the head, because two payloads that differ only
+    # in their base ref are two different events: naming them by head alone let one overwrite the
+    # other before either was read, which silently turned the stale-base control into a second copy
+    # of the rewound-branch control. Found by a value that could not be right.
+    path = os.path.join(d, 'event-%s-%s.json' % (head[:8], re.sub(r'[^a-z0-9-]', '_', base_ref)))
     with open(path, 'w', encoding='utf-8') as fh:
         json.dump({'pull_request': {'number': number, 'head': {'sha': head},
                                     'base': {'ref': base_ref, 'sha': base_sha or head}}}, fh)
@@ -24298,6 +24302,203 @@ def _si1_negatives():
 
 
 
+def _si1_control_census():
+    """The census over the SYNTHETIC CONTROLS, which the frozen `SI1-5` requires beside the census
+    over the twenty-two real records.
+
+    The first candidate omitted this, and the omission mattered: the real records are all in a
+    configuration where the two implementations were built to agree, so a census over them alone
+    cannot see where they were built to DIFFER. Several controls also have no old-machinery
+    analogue at all -- the old machinery has no records, so nothing in it answers a schema question,
+    a manifest-integrity question or a transcription question -- and non-comparability is itself a
+    result rather than a reason to narrow the target.
+
+    Returns one row per control: whether it is comparable, the old verdict where there is one, the
+    new verdict, and a reason. Nothing here adjudicates which implementation is right."""
+    import shutil
+    d, n, _g = _si1_build_repo()
+    rows = []
+
+    def rec(stem, kind, base, sealed=None, merge=None, **extra):
+        r = {'round': stem, 'kind': kind, 'base': base}
+        if sealed is not None:
+            r['sealed_head'] = sealed
+        if merge is not None:
+            r['merge'] = merge
+        r.update(extra)
+        return r
+
+    def new_of(records, prospective=None, target=None, targets=None):
+        got = _si1_validate(records, prospective=prospective, cwd=d, target=target, label='target',
+                            targets=targets or [(target, 'target')])
+        if got is None:
+            return None
+        stem = sorted(set(records) | set(prospective or {}))[0]
+        return bool(got[stem][1])
+
+    def row(name, comparable, old, new, why):
+        rows.append({'control': name, 'comparable': comparable, 'old_ok': old, 'new_ok': new,
+                     'agree': (None if not comparable else (bool(old) == bool(new))), 'reason': why})
+
+    try:
+        NOANALOGUE = ('the old machinery holds no records, so nothing in it answers this question')
+        for name in ('1 malformed hash', '2 missing required key', '3 unknown extra key',
+                     '4a base-only with sealed_head value', '4b base-only with sealed_head null'):
+            row(name, False, None, False, 'schema: ' + NOANALOGUE)
+        for name in ('15 mutated', '16 removed', '17 added'):
+            row(name, False, None, False, 'manifest integrity: ' + NOANALOGUE)
+        row('18 double assignment', False, None, True, 'transcription: ' + NOANALOGUE)
+
+        # Comparable: the archive certificate is the old machinery's answer to these.
+        for name, r, tgt in (
+                ('5 rewritten sealed head', rec('Z', 'sealed', n['B'], '0' * 40, n['Lm']), n['Maf']),
+                ('6 wrong L', rec('Z', 'sealed', n['B'], n['E2'], n['Wr']), n['Wr']),
+                ('7 two candidates', rec('Z', 'sealed', n['B'], n['E2'], n['Lm']), n['L2']),
+                ('8 zero candidates', rec('Z', 'sealed', n['B'], n['E1'], n['Lm']), n['Maf'])):
+            old = _rbr_archive_ancestry(r['base'], r['sealed_head'], r['merge'], tag='R7-SI1/old',
+                                        target=tgt, cwd=d)
+            row(name, True, old, new_of({'Z': r}, target=tgt),
+                'archive certificate on both sides')
+
+        # Comparable: the strengthened execution check is the old machinery's answer.
+        row('9 sibling history in EXECUTION', True,
+            _si1_quiet_ancestry(n['B9'], n['T9'], tag='R7-SI1/old', cwd=d),
+            new_of({}, prospective={'Z': n['B9']}, target=n['T9']),
+            'strengthened execution check on both sides')
+
+        # Comparable, but by construction rather than independently: these exercise the SHARED
+        # visibility helper, so agreement here is not independent evidence and is labelled as such.
+        for name, env, want in (
+                ('10 stale base.sha, branch carries it',
+                 _si1_pr_env(d, n['Hh'], 'main', n['c0']), True),
+                ('11 base branch rewound',
+                 _si1_pr_env(d, n['Hh'], 'no-landing', n['Maf']), False)):
+            t = _rbr_archive_visibility_targets(env=env, tag='R7-SI1/old', cwd=d)
+            seen, _why = _si1_reachable(n['Lm'], t or [], tag='R7-SI1/old', cwd=d)
+            row(name, True, seen, seen,
+                'both sides call the same visibility helper; agreement is BY CONSTRUCTION and is '
+                'not independent evidence')
+        tip, why12 = _rbr_base_branch_tip('main-local-only', tag='R7-SI1/old', cwd=d)
+        row('12 unresolved base ref', True, tip is None, tip is None,
+            'both sides call the same base-branch-tip resolver; agreement is BY CONSTRUCTION')
+
+        # The two places the implementations were BUILT to differ. Recorded, not adjudicated.
+        row('13 descendant of unpinned L', True,
+            _si1_quiet_ancestry(n['B'], n['Maf'], tag='R7-SI1/old', cwd=d),
+            new_of({}, prospective={'Z': n['B']}, target=n['Maf']),
+            'the old machinery has NO pending-seal notion, so it answers the execution question and '
+            'admits the descendant; the new model refuses it as SEAL PENDING')
+        row('14 unpinned L itself', True,
+            _si1_quiet_ancestry(n['B'], n['Lm'], tag='R7-SI1/old', cwd=d),
+            new_of({}, prospective={'Z': n['B']}, target=n['Lm']),
+            'both admit the landing itself, by different routes')
+        row('19 synthetic merge HEAD', True,
+            _rbr_archive_ancestry(n['B'], n['E2'], n['Lm'], tag='R7-SI1/old', target=n['Hh'], cwd=d),
+            new_of({'Z': rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])}, target=n['Hh']),
+            'both resolve the real head and refuse the synthetic merge')
+        row('20 base-only out of the state machine', True,
+            _si1_quiet_ancestry(n['B9'], n['T9'], tag='R7-SI1/old', cwd=d),
+            new_of({'Z': rec('Z', 'base-only', n['B9'])}, target=n['T9']),
+            'the old machinery applies EXECUTION ancestry semantics to a completed non-sealing '
+            'round and refuses it; the new model does not classify it at all')
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+    return rows
+
+
+def _si1_mandated_base_probe():
+    """`#140`, and an honest account of what is and is not being asked.
+
+    The FROZEN question is whether each of the twenty-two recorded `base` values equals that round's
+    HISTORICALLY MANDATED base -- the merge commit of that round's own control plane. Answering it
+    needs an independent source for the mandate, per round, and this round has no such source: the
+    manifest was transcribed from the guard constants, and comparing the constants to themselves
+    establishes nothing about the mandate.
+
+    What IS computed here are two weaker structural facts, reported as observations and never as
+    the frozen question: that every recorded base is a merge commit, and that for each sealed round
+    exactly one commit of the execution-only history has the recorded base as its sole parent, which
+    is `A.37`'s branch-root invariant. Neither compares a manifest value to a mandate, and the four
+    base-only rounds get no analogous check at all, having no execution history to walk."""
+    recs, _errs = _si1_load()
+    merge_bases = roots_ok = sealed = 0
+    for stem in sorted(recs):
+        r = recs[stem]
+        p = _rbr_git('rev-list', '--parents', '-n1', r['base'], tag='R7-SI1')
+        if p is not None and p.returncode == 0 and len(p.stdout.decode().split()) >= 3:
+            merge_bases += 1
+        if r.get('kind') != 'sealed':
+            continue
+        sealed += 1
+        revs = _rbr_git('rev-list', r['sealed_head'], '^%s' % r['base'], tag='R7-SI1')
+        if revs is None or revs.returncode != 0:
+            continue
+        roots = []
+        for c in revs.stdout.decode('utf-8', 'replace').split():
+            q = _rbr_git('rev-list', '--parents', '-n1', c, tag='R7-SI1')
+            if q is not None and q.returncode == 0 and q.stdout.decode().split()[1:] == [r['base']]:
+                roots.append(c)
+        roots_ok += len(roots) == 1
+    return {'records': len(recs), 'merge_bases': merge_bases, 'sealed': sealed,
+            'branch_roots': roots_ok, 'mandate_compared': 0}
+
+
+def _si1_tag_map_comparison(persisted=None):
+    """`SI1-6`, performed MECHANICALLY inside the shipped guard rather than described in prose.
+
+    The freeze calls the non-authority condition "checked mechanically", so the base's own guard
+    file is RUN here, in a subprocess, and its verdict lines are parsed into a tag-to-verdict map.
+    The unit is a CHECK TAG -- the identifier `check()` prints one `PASS`/`FAIL` line for -- and not
+    a file, a seal record or an assertion.
+
+    The claim is stated in the form the evidence supports, which is a CONDITIONAL, and is reported
+    as one. In process `CHECKS` is incomplete when this guard runs, because checks declared after it
+    have not executed, so verdict equality for every pre-existing tag cannot be read off this run.
+    What is established here is:
+
+      (a) the base's guard file runs, declares N tags, and every one of them PASSES -- measured
+          fresh on every run, not quoted;
+      (b) that map is byte-for-byte the map this round persisted in `si1-tagmap.json`, so a later
+          change in the base's own behaviour is caught rather than assumed away.
+
+    From (a), IF this run ends `ALL CHECKS PASS` then no pre-existing tag's verdict differs from the
+    base, since every base tag passed and every tag here passed. The probe's exit status discharges
+    the antecedent. That conditional is exactly what the result note claims -- not more.
+
+    Returns a dict, or None if the comparison could not be performed, which the caller treats as a
+    failure and never as a pass."""
+    import subprocess
+    shown = _rbr_git('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI1_BASE, tag='R7-SI1')
+    if shown is None or shown.returncode != 0:
+        return None
+    path = os.path.join(HERE, '_si1_base_probe_%d.py' % os.getpid())
+    try:
+        with open(path, 'wb') as fh:
+            fh.write(shown.stdout)
+        try:
+            out = subprocess.run((sys.executable, path), cwd=HERE, capture_output=True,
+                                 timeout=1800)
+        except Exception:
+            return None
+    finally:
+        try:
+            os.remove(path)
+        except OSError:
+            pass
+    base = {}
+    for line in out.stdout.decode('utf-8', 'replace').split('\n'):
+        m = re.match(r'\s+(PASS|FAIL)\s+(\S+?):', line)
+        if m:
+            base[m.group(2)] = m.group(1)
+    if not base:
+        return None
+    res = {'base_tags': len(base), 'base_all_pass': all(v == 'PASS' for v in base.values()),
+           'matches_persisted': None}
+    if persisted is not None:
+        res['matches_persisted'] = (persisted == base)
+    return res
+
+
 _SI1RES = _bb_read('infrastructure/round-si-1-shadow-seal-validator/result.md').decode('utf-8')
 _SI1FRZ = 'infrastructure/round-si-1-shadow-seal-validator/preregistration.md'
 
@@ -24390,7 +24591,7 @@ def _si1_census_not_correctness(t=None):
     return ('**This is an agreement census and not a proof of correctness.**' in t
             and 'would not detect an error both share' in t
             and '18 `sealed`' in t and '4 `base-only`' in t
-            and 'the axes are distinguished' in flat)
+            and 'agreement, on the axis each is on' in flat)
 
 
 def _si1_hazard_precise(t=None):
@@ -24409,10 +24610,13 @@ def _si1_predictions(t=None):
     rather than as a confirmation either way."""
     t = _SI1RES if t is None else t
     flat = ' '.join(t.split())
-    return ('**NOT PREDICTED**' in t
-            and '**not scored.** The freeze put nothing at risk here and nothing is scored' in t
-            and 'does not treat the clean result as a confirmation' in t
-            and '**18 of 18 and 22 of 22.**' in t)
+    return ('**NOT PREDICTED**' in flat
+            and '**not scored.** The freeze put nothing at risk here and nothing is scored' in flat
+            and 'not a confirmation of anything, and not scored' in flat
+            # the two OBSERVATIONS, which are not the frozen #140 question and are reported as
+            # observations; both counts are required so neither can quietly disappear
+            and '**22 of 22** |' in flat and '**18 of 18** |' in flat
+            and 'Recorded bases compared to an independent mandate: 0 of 22' in flat)
 
 
 def _si1_no_pin(t=None):
@@ -24505,10 +24709,60 @@ def _si1_defects_apart(t=None):
             and 'not in the freeze' in flat
             and 'none of them is counted among the discrepancies' in flat
             and 'evidence about the preregistered contract' in flat
-            and 'Does it change a target verdict? No.' in flat
+            and 'it does not change `SI1-3`; it does change `SI1-8`/`#141`' in flat
             and 'not the kind of thing an implementation may absorb' in flat
             and 'not two acceptable implementations' in flat
             and 'creates no `SI-2` implications beyond what `SI-1` measured' in flat)
+
+
+def _si1_census_divergent(t=None):
+    """N16 -- the census is reported over the CONTROLS as well as the records, and its frozen
+    outcome is CENSUS-DIVERGENT.
+
+    The first reviewed candidate censused only the twenty-two real records, and the omission
+    mattered: those records sit in the one configuration where the two implementations were built to
+    agree, so a census over them alone cannot see where they were built to DIFFER. Non-comparability
+    is recorded as a result and never as a reason to narrow the target."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**`CENSUS-DIVERGENT`**' in flat
+            and 'three divergences' in flat
+            and 'nine controls have no old-machinery analogue' in flat
+            and 'is a result and not a reason to narrow the target' in flat
+            and 'agreement is BY CONSTRUCTION' in flat
+            and 'does not adjudicate which implementation is right' in flat)
+
+
+def _si1_141_fails(t=None):
+    """N17 -- `#141` is reported RESTATED-AND-FAILS and `#140` RESTATED-ONLY, with both prediction
+    misses recorded as misses.
+
+    `#141` is the requirement that prior seals be evaluated against the landing topology rather
+    than the pull-request head. Discrepancy 1 shows the built model failing for exactly that
+    reason, so the frozen prediction was wrong; that is a legitimate result of a shadow round and is
+    not softened. `#140` was never actually asked, there being no independent source for each
+    round's mandate, so it is reported as restated and undecided rather than as holding."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**`RESTATED-AND-FAILS`**' in flat
+            and '**`RESTATED-ONLY`**' in flat
+            and 'the prediction for `#141` was wrong' in flat
+            and 'it does not change `SI1-3`; it does change `SI1-8`/`#141`' in flat
+            and 'no independent source for the mandate' in flat
+            and 'Two predictions were missed' in flat)
+
+
+def _si1_first_candidate(t=None):
+    """N18 -- the first reviewed candidate is named, with why it was not accepted as `E`.
+
+    Keeping it in the chronology is the point: a corrective commit that erased its own occasion
+    would leave the record claiming the round was right first time."""
+    t = _SI1RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('3b28fdeaa044e2cd28c3139e436ffe35209ee8af' in flat
+            and 'first reviewed candidate' in flat
+            and 'was not accepted as `E`' in flat
+            and 'no amend and no force-push' in flat)
 
 
 ok_si1 = True
@@ -24552,13 +24806,17 @@ for _pred, _old, _new in (
         # text, and a replacement matching nothing would leave the control passing vacuously.
         (_si1_rows_not_cases, '**22nd row is an OBSERVATION**',
          'twenty-second frozen case'),
-        (_si1_defects_apart, 'Does it change a target verdict? No.',
-         'The target is downgraded to PARTIAL.')):
+        (_si1_defects_apart, 'it does change `SI1-8`/`#141`.**',
+         'it changes no target verdict at all.**'),
+        (_si1_census_divergent, '**`CENSUS-DIVERGENT`**', '**`CENSUS-EXACT`**'),
+        (_si1_141_fails, '**`RESTATED-AND-FAILS`**', '**`RESTATED-AND-HOLDS`**'),
+        (_si1_first_candidate, '3b28fdeaa044e2cd28c3139e436ffe35209ee8af', 'an earlier draft')):
     _mut = _SI1RES.replace(_old, _new)
     ok_si1 &= _pred() and _mut != _SI1RES and not _pred(_mut)
 
 # N11..N13 -- the mechanical non-authority and no-stem checks.
 ok_si1 &= _si1_rows_not_cases() and _si1_defects_apart()
+ok_si1 &= _si1_census_divergent() and _si1_141_fails() and _si1_first_candidate()
 ok_si1 &= _si1_region_no_stem()
 ok_si1 &= _si1_no_forbidden_paths()
 ok_si1 &= _si1_seal_constants_intact()
@@ -24604,6 +24862,17 @@ ok_si1 &= all(row['new_lifecycle'] == 'ARCHIVED'
               for row in _si1_rows if row['kind'] == 'sealed')
 ok_si1 &= all(row['new_lifecycle'] == _SI1_NA
               for row in _si1_rows if row['kind'] == 'base-only')
+_si1_ctl = _si1_control_census()
+_si1_ctl_comp = [r for r in _si1_ctl if r['comparable']]
+_si1_ctl_non = [r for r in _si1_ctl if not r['comparable']]
+_si1_ctl_div = [r for r in _si1_ctl_comp if not r['agree']]
+ok_si1 &= len(_si1_ctl) == 21 and len(_si1_ctl_comp) == 12 and len(_si1_ctl_non) == 9
+ok_si1 &= sorted(r['control'] for r in _si1_ctl_div) == [
+    '13 descendant of unpinned L', '20 base-only out of the state machine', '7 two candidates']
+print('    R7-SI1 control census: %d controls, %d comparable, %d with NO old-machinery analogue, '
+      '%d DIVERGENT (%s) -- the outcome is CENSUS-DIVERGENT and neither implementation is '
+      'adjudicated' % (len(_si1_ctl), len(_si1_ctl_comp), len(_si1_ctl_non), len(_si1_ctl_div),
+                       ', '.join(sorted(r['control'] for r in _si1_ctl_div))))
 print('    R7-SI1 census: %d of %d records agree -- %d sealed on the lifecycle axis, %d base-only '
       'on the schema/base/integrity axis; an agreement census and not a proof of correctness'
       % (sum(1 for r in _si1_rows if r['agree']), len(_si1_rows),
@@ -24614,32 +24883,47 @@ print('    R7-SI1 derivation: reachable scope %d of %d agree with the pin; first
 
 # SI1-8 -- #140 restated over the manifest and MEASURED: the execution branch root's single parent
 # is exactly the pinned base, for every sealed round. Left NOT PREDICTED by the freeze.
-_si1_140 = 0
-for _stem, _r in sorted(_si1_sealed.items()):
-    _revs = _rbr_git('rev-list', _r['sealed_head'], '^%s' % _r['base'], tag='R7-SI1')
-    if _revs is None or _revs.returncode != 0:
-        continue
-    _roots = []
-    for _c in _revs.stdout.decode('utf-8', 'replace').split():
-        _p = _rbr_git('rev-list', '--parents', '-n1', _c, tag='R7-SI1')
-        if _p is not None and _p.returncode == 0 and _p.stdout.decode().split()[1:] == [_r['base']]:
-            _roots.append(_c)
-    _si1_140 += len(_roots) == 1
-ok_si1 &= _si1_140 == 18
-print('    R7-SI1 #140 restated: the execution branch root\'s single parent is exactly the pinned '
-      'base for %d of %d sealed rounds -- measured, and left NOT PREDICTED by the freeze'
-      % (_si1_140, len(_si1_sealed)))
+_si1_mb = _si1_mandated_base_probe()
+ok_si1 &= _si1_mb['records'] == 22 and _si1_mb['merge_bases'] == 22
+ok_si1 &= _si1_mb['sealed'] == 18 and _si1_mb['branch_roots'] == 18
+# The frozen #140 question is NOT answered: nothing here compares a recorded base to an independent
+# source for that round's mandate, and the count is asserted at zero so the claim cannot drift.
+ok_si1 &= _si1_mb['mandate_compared'] == 0
+print('    R7-SI1 #140: RESTATED-ONLY. Observations, both executable: %d of %d recorded bases are '
+      'merge commits, and %d of %d sealed rounds have exactly one execution-history commit whose '
+      'sole parent is the recorded base. NEITHER is the frozen question -- %d of 22 recorded bases '
+      'were compared to an independent mandate, this round having no such source'
+      % (_si1_mb['merge_bases'], _si1_mb['records'], _si1_mb['branch_roots'], _si1_mb['sealed'],
+         _si1_mb['mandate_compared']))
+
+# SI1-6 -- the base's own guard file is RUN and its tag map measured, then checked against the map
+# this round persisted, so the non-authority claim is reproducible rather than described.
+_si1_tagpersist = json.loads(
+    _bb_read('infrastructure/round-si-1-shadow-seal-validator/si1-tagmap.json').decode('utf-8'))
+_si1_tags = _si1_tag_map_comparison(persisted=_si1_tagpersist['base_tag_verdicts'])
+ok_si1 &= _si1_tags is not None
+if _si1_tags is not None:
+    ok_si1 &= _si1_tags['base_tags'] == 90 and _si1_tags['base_all_pass']
+    ok_si1 &= _si1_tags['matches_persisted'] is True
+    print('    R7-SI1 tag map: the base\'s guard file was RUN; %d check tags, all PASS, and the map '
+          'is identical to the one this round persisted -- so if this run ends ALL CHECKS PASS, no '
+          'pre-existing tag\'s verdict differs from the base'
+          % _si1_tags['base_tags'])
 
 check('R7-SI1', ok_si1,
       "Seal infrastructure round SI-1 guard: a NON-SEALING round, E -> L with no pin, that builds a "
       "generic seal validator and a per-round seal manifest ALONGSIDE the machinery that gates and "
       "delivers a census of their agreement. THE ROUND'S OWN NON-AUTHORITY IS THE CENTRAL CONTRACT "
       "and is checked MECHANICALLY rather than asserted: no seal constant and no prior-seal "
-      "comparison is removed, the set of module-level seal assignments at the execution head equals "
-      "the set at the mandated base, no existing check consults the new validator, and the ninety "
-      "pre-existing check tags return identical verdicts at the base and at the head -- so PRESENCE "
-      "IS NOT AUTHORITY is a measured claim and not a wording, and no later reading may hold that "
-      "the certification semantics changed because the new code was in the tree. The manifest is "
+      "comparison is removed, every module-level seal assignment present at the mandated base is "
+      "still present and unchanged with the ONLY addition being this round's own _SI1_BASE -- "
+      "containment plus one named addition, not set equality, which this round's own base would "
+      "falsify -- no existing check consults the new validator, and the base's own guard file is RUN "
+      "here so that its ninety check tags and their verdicts are measured rather than quoted, giving "
+      "the conditional the note states: every base tag passes, so if this run ends ALL CHECKS PASS "
+      "then no pre-existing tag's verdict differs. PRESENCE IS NOT AUTHORITY is therefore measured "
+      "and not merely worded, and no later reading may hold that the certification semantics changed "
+      "because the new code was in the tree. The manifest is "
       "checked as TWENTY-TWO records, EIGHTEEN sealed and FOUR base-only, every value taken from "
       "the freeze's own table rather than from the execution's parse of the guard source, each "
       "validating against a DISCRIMINATED UNION on kind in which base-only requires base and "
@@ -24664,11 +24948,19 @@ check('R7-SI1', ok_si1,
       "three distinct conditions, a stem assigned twice where the first assignment must be taken or "
       "the parse refused, a reading that would consult the synthetic merge HEAD, and a base-only "
       "record on a state where an EXECUTION-style check WOULD fail passing as not-applicable. "
-      "CENSUS-EXACT is checked reported as AGREEMENT AND NEVER AS CORRECTNESS, with the axes kept "
-      "apart -- eighteen sealed records on lifecycle, four base-only on schema, pinned base and "
-      "record integrity, which have no lifecycle to agree about -- and with the old verdict taken "
-      "from the generic helpers the per-round clauses themselves call, so the comparison is like "
-      "with like. THREE DISCREPANCIES ARE CHECKED RECORDED AND NOT REPAIRED, eight controls, the "
+      "THE CENSUS RUNS OVER THE CONTROLS AS WELL AS THE RECORDS and its outcome is "
+      "CENSUS-DIVERGENT. On the twenty-two real records the two implementations agree, with the axes "
+      "kept apart -- eighteen sealed on lifecycle, four base-only on schema, pinned base and record "
+      "integrity, which have no lifecycle to agree about. On the twenty-one synthetic controls nine "
+      "have NO old-machinery analogue at all, the old machinery holding no records and so answering "
+      "no schema, integrity or transcription question; three of the twelve comparable controls "
+      "DIVERGE, and they are the three places the new model was built to be stronger -- a second "
+      "merge carrying the same sealed head, a descendant of an unpinned landing, and a completed "
+      "non-sealing round the old machinery refuses under execution semantics. Three further "
+      "agreements are labelled BY CONSTRUCTION, both sides calling the same visibility helper, so "
+      "they are not independent evidence. Both verdicts are recorded and the round adjudicates "
+      "neither. Agreement is checked reported as AGREEMENT AND NEVER AS CORRECTNESS, with the old "
+      "verdict taken from the generic helpers the per-round clauses themselves call. THREE DISCREPANCIES ARE CHECKED RECORDED AND NOT REPAIRED, eight controls, the "
       "first of them this round's central finding: the frozen derivation scope, being the resolved "
       "target alone, REINTRODUCES THE BASE-AGE FALSE NEGATIVE on a pull request opened from a "
       "historical base, where a landing sitting on the base branch is unreachable from the head and "
@@ -24679,10 +24971,18 @@ check('R7-SI1', ok_si1,
       "because case 11 is unsatisfiable through the derivation path under that same scope. The third "
       "reports the double-assignment hazard PARSER-CONDITIONALLY rather than repeating the freeze's "
       "wording, naming this round's own pre-freeze script as an instance of the parser class that "
-      "gets it wrong. #140 is restated as an invariant over the manifest and MEASURED -- the "
-      "execution branch root's single parent is exactly the pinned base for eighteen of eighteen, "
-      "all twenty-two bases being merge commits -- and is checked reported as NOT PREDICTED with "
-      "the clean result not scored as a confirmation, the freeze having put nothing at risk there. "
+      "gets it wrong. #140 IS REPORTED RESTATED-ONLY AND NOT AS HOLDING, because the frozen "
+      "question -- whether "
+      "each recorded base equals its round's historically mandated base -- needs an independent "
+      "source for each mandate and this round has none, the manifest having been transcribed from "
+      "the guard constants; two weaker structural facts ARE measured and executable here and are "
+      "labelled observations, that all twenty-two recorded bases are merge commits and that for "
+      "eighteen of eighteen sealed rounds exactly one execution-history commit has the recorded base "
+      "as its sole parent, with the four base-only rounds receiving no analogous check at all. "
+      "#141 IS REPORTED RESTATED-AND-FAILS: it requires prior seals to be evaluated against the "
+      "landing topology rather than the pull-request head, and the first discrepancy exhibits the "
+      "built model failing for exactly that reason, so the frozen prediction was wrong and is "
+      "recorded as a miss rather than softened. "
       "Four definition slots, all four fired. The preregistration is pinned BY BLOB with a one-byte "
       "drift control, the chronology asked of the real pull_request.head.sha and never of the "
       "synthetic merge, fail-closed, and NO SEAL TRIPLE OF ITS OWN exists -- not as None, not at "

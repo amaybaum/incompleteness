@@ -1,14 +1,31 @@
 {
   "round": "SI-1",
   "base": "99ab6370470ed9d9e4005551581c6c8c18e54bd2",
-  "note": "An AGREEMENT census and not a proof of correctness: it records that the existing per-round machinery and the generic validator do not differ on the cases presented, and it would not detect an error both share. The eighteen sealed records are compared on the LIFECYCLE axis, state and verdict; the four base-only records on SCHEMA, PINNED-BASE and RECORD-INTEGRITY only, having no lifecycle to agree about.",
-  "totals": {
+  "outcome": "CENSUS-DIVERGENT",
+  "note": "An AGREEMENT census and not a proof of correctness: it would not detect an error both implementations share. The twenty-two real records are compared on the axis each is on -- eighteen sealed on LIFECYCLE, four base-only on SCHEMA/PINNED-BASE/RECORD-INTEGRITY, the latter having no lifecycle to agree about. The twenty-one synthetic controls are censused separately, and that half decides the outcome: nine have no old-machinery analogue at all, and three of the twelve comparable ones DIVERGE. Both verdicts are recorded for every row and the round adjudicates none of them.",
+  "record_totals": {
     "records": 22,
     "agree": 22,
     "lifecycle_axis": 18,
     "schema_axis": 4
   },
-  "rows": [
+  "control_totals": {
+    "controls": 21,
+    "comparable": 12,
+    "no_analogue": 9,
+    "divergent": 3,
+    "divergent_controls": [
+      "13 descendant of unpinned L",
+      "20 base-only out of the state machine",
+      "7 two candidates"
+    ],
+    "agree_by_construction": [
+      "10 stale base.sha, branch carries it",
+      "11 base branch rewound",
+      "12 unresolved base ref"
+    ]
+  },
+  "records": [
     {
       "round": "A12P",
       "kind": "sealed",
@@ -228,6 +245,176 @@
       "new_reason": "pinned == derived 0b893d75cca3; second parent is the sealed head; ancestry and reachability hold",
       "old_ok": true,
       "agree": true
+    }
+  ],
+  "controls": [
+    {
+      "control": "1 malformed hash",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "schema: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "2 missing required key",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "schema: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "3 unknown extra key",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "schema: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "4a base-only with sealed_head value",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "schema: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "4b base-only with sealed_head null",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "schema: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "15 mutated",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "manifest integrity: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "16 removed",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "manifest integrity: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "17 added",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "manifest integrity: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "18 double assignment",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": true,
+      "agree": null,
+      "reason": "transcription: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "5 rewritten sealed head",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "archive certificate on both sides"
+    },
+    {
+      "control": "6 wrong L",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "archive certificate on both sides"
+    },
+    {
+      "control": "7 two candidates",
+      "comparable": true,
+      "old_ok": true,
+      "new_ok": false,
+      "agree": false,
+      "reason": "archive certificate on both sides"
+    },
+    {
+      "control": "8 zero candidates",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "archive certificate on both sides"
+    },
+    {
+      "control": "9 sibling history in EXECUTION",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "strengthened execution check on both sides"
+    },
+    {
+      "control": "10 stale base.sha, branch carries it",
+      "comparable": true,
+      "old_ok": true,
+      "new_ok": true,
+      "agree": true,
+      "reason": "both sides call the same visibility helper; agreement is BY CONSTRUCTION and is not independent evidence"
+    },
+    {
+      "control": "11 base branch rewound",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "both sides call the same visibility helper; agreement is BY CONSTRUCTION and is not independent evidence"
+    },
+    {
+      "control": "12 unresolved base ref",
+      "comparable": true,
+      "old_ok": true,
+      "new_ok": true,
+      "agree": true,
+      "reason": "both sides call the same base-branch-tip resolver; agreement is BY CONSTRUCTION"
+    },
+    {
+      "control": "13 descendant of unpinned L",
+      "comparable": true,
+      "old_ok": true,
+      "new_ok": false,
+      "agree": false,
+      "reason": "the old machinery has NO pending-seal notion, so it answers the execution question and admits the descendant; the new model refuses it as SEAL PENDING"
+    },
+    {
+      "control": "14 unpinned L itself",
+      "comparable": true,
+      "old_ok": true,
+      "new_ok": true,
+      "agree": true,
+      "reason": "both admit the landing itself, by different routes"
+    },
+    {
+      "control": "19 synthetic merge HEAD",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "both resolve the real head and refuse the synthetic merge"
+    },
+    {
+      "control": "20 base-only out of the state machine",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": true,
+      "agree": false,
+      "reason": "the old machinery applies EXECUTION ancestry semantics to a completed non-sealing round and refuses it; the new model does not classify it at all"
     }
   ]
 }

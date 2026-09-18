@@ -10,6 +10,27 @@ compared against it; it decides nothing. **Presence is not authority** — the n
 tree does not make it the instrument, and `SI1-6` establishes that mechanically rather than
 asserting it. The instant this validator decides anything, that is `SI-2`.
 
+## The first reviewed candidate, and why this is not it
+
+The first immutable candidate was **`3b28fdeaa044e2cd28c3139e436ffe35209ee8af`**. It was reviewed
+and **was not accepted as `E`**. It is preserved unchanged — **no amend and no force-push** — and
+this execution continues on the same branch so that the review finding stays in the chronology
+rather than being erased by the commit that answers it.
+
+Four things were wrong with it, all inside the target accounting rather than the ancestry or the
+file scope:
+
+1. **`SI1-5` claimed `CENSUS-EXACT` without earning it.** The census covered the twenty-two real
+   records only. The freeze requires old-versus-new verdicts for every synthetic control as well,
+   and those records sit in the one configuration where the two implementations were built to
+   agree — so a census over them alone cannot see where they were built to differ. Completed here,
+   and the outcome changes.
+2. **`#141` was reported as holding when the round's own finding shows it failing.**
+3. **`#140` was reported as holding when the frozen question had not been asked at all.**
+4. **Two provenance inaccuracies**: the note and the guard narration claimed set *equality* of the
+   seal-assignment sets where the executable check correctly allows exactly one addition, and the
+   commit message said "FOUR FILES" where the verified diff is 26 files.
+
 ## Outcomes
 
 | target | outcome | decided by |
@@ -19,10 +40,10 @@ asserting it. The instant this validator decides anything, that is `SI-2`.
 | `SI1-2` | **`VALIDATOR-BUILT`** | the three states, `base-only` held out of the machine, no stem in the validator region |
 | `SI1-3` | **`DERIVE-EXACT`** | 18 of 18, exactly one candidate each, agreeing with the pin |
 | `SI1-4` | **`NEGATIVES-COMPLETE`** | all **20 frozen negative cases** satisfy their required outcomes, in 21 case rows |
-| `SI1-5` | **`CENSUS-EXACT`** | 22 of 22 records agree, on the axis each is on |
-| `SI1-6` | **`SHADOW-ONLY`** | 90 pre-existing tags, identical verdicts, none removed |
+| `SI1-5` | **`CENSUS-DIVERGENT`** | records agree 22 of 22; **controls diverge in 3 of 12 comparable**, and 9 have no analogue |
+| `SI1-6` | **`SHADOW-ONLY`** | the base's guard file re-run: 90 check tags, all PASS, map identical to the persisted one |
 | `SI1-7` | delivered | the `SI-2` specification below |
-| `SI1-8` | **`RESTATED-AND-HOLDS`** for `#140` and for `#141` | 18 of 18 and 22 of 22, measured |
+| `SI1-8` | **`RESTATED-ONLY`** for `#140`; **`RESTATED-AND-FAILS`** for `#141` | the mandate was never compared; the model fails `#141`'s own requirement |
 
 ## `SI1-1` — the manifest
 
@@ -107,12 +128,22 @@ and it is not the kind of thing an implementation may absorb.**
 > **The derived `L` is the unique merge commit in the resolved target's reachable history whose
 > non-first parent is exactly `E`.**
 
-**Does it change a target verdict? No.** `SI1-3` is `DERIVE-EXACT` and stays `DERIVE-EXACT`: at this
-execution head, on a push, the frozen rule does agree with the pin for 18 of 18 with exactly one
-candidate each, and that measurement is not weakened by the finding. This is a **scope and
-interpretation finding** about a configuration this head does not occupy, and softening a target
-because the validator has a limit elsewhere would misreport what was measured. The target passes and
-the finding stands, separately.
+**Does it change a target verdict? Yes — one, and not the one it looks like.** Precisely: **it does
+not change `SI1-3`; it does change `SI1-8`/`#141`.**
+
+`SI1-3` is `DERIVE-EXACT` and stays so: at this execution head, on a push, the frozen rule does
+agree with the pin for 18 of 18 with exactly one candidate each, and that measurement is not
+weakened by the finding. Softening it because the validator has a limit elsewhere would misreport
+what was measured.
+
+`SI1-8`/`#141` is a different question. `#141` is the requirement that **prior seals be evaluated
+against the landing topology rather than the pull-request head.** Discrepancy 1 exhibits the built
+model failing for exactly that reason: a landing that exists on the live base branch, and is
+therefore present in the landing topology, is refused because it is absent from a historical pull
+request's head. So the frozen `#141` is **`RESTATED-AND-FAILS`**, and **the prediction for `#141` was
+wrong**. That is a legitimate result of a shadow round — it is the kind of thing the round exists to
+find before `SI-2` makes anything authoritative — and it is recorded as a miss rather than
+softened.
 
 The freeze scopes derivation to *the resolved target*. On a push, and on
 a pull request whose base already carries a round's landing, that is exactly right — and it is why
@@ -196,8 +227,9 @@ adjudication settles both.
 
 ## `SI1-5` — the agreement census
 
-`census.json` carries the machine-readable table. **22 of 22 records agree**, and the axes are
-distinguished:
+**Outcome `CENSUS-DIVERGENT`.** `census.json` carries both tables.
+
+### Over the twenty-two real records: agreement, on the axis each is on
 
 | axis | records | new lifecycle | agreement |
 |---|---|---|---|
@@ -208,6 +240,37 @@ The old machinery's verdict was taken from the generic helpers the per-round cla
 call — the archive-mode certificate for a sealed round, the strengthened execution check for a
 non-sealing one — run in the same process and on the same repository state, so the census compares
 like with like rather than comparing the new validator against a paraphrase of the old one.
+
+### Over the twenty-one synthetic controls: three divergences, and nine questions the old machinery cannot answer
+
+This is the half the first candidate omitted, and it is where the outcome is decided.
+
+| | controls | |
+|---|---|---|
+| comparable | **12** | an old-machinery answer exists |
+| no analogue | **9** | **nine controls have no old-machinery analogue**: the old machinery holds no records, so nothing in it answers a schema question (5), a manifest-integrity question (3) or a transcription question (1) |
+| **divergent** | **3** | of the twelve comparable |
+
+The three divergences, both verdicts recorded and **neither adjudicated**:
+
+| control | old | new | what differs |
+|---|---|---|---|
+| 7 two candidate landings for one `E` | PASS | FAIL | the archive certificate checks the pinned merge's second parent and reachability, so it does not notice a **second** merge carrying the same sealed head; the new model refuses it as `multiple candidates` |
+| 13 a descendant of an unpinned `L` | PASS | FAIL | the old machinery has **no pending-seal notion**, so it answers the execution question and admits the descendant; the new model refuses it as `seal pending` |
+| 20 `base-only` on a state where an `EXECUTION`-style check fails | FAIL | PASS | the old machinery applies **execution ancestry semantics to a completed non-sealing round** and refuses it; the new model does not classify it at all |
+
+All three are places the new model was **built** to be stronger, so the divergence is expected in
+direction — and it is still a divergence, and the frozen outcome for a census that is not exact is
+`CENSUS-DIVERGENT`. **Non-comparability is a result and not a reason to narrow the target.**
+
+Three further controls agree, but **agreement is BY CONSTRUCTION** and is not independent evidence:
+cases 10, 11 and 12 exercise the *shared* visibility helper and the *shared* base-branch-tip
+resolver, so both sides are the same code. They are labelled as such in `census.json`.
+
+This round **does not adjudicate which implementation is right** on any of the three. Divergence 13
+is the whole purpose of `LANDED-PENDING-PIN`, and divergence 20 is the corrected reading the freeze
+was amended to require, so on both the new model is the intended one — but *intended* is not
+*adjudicated*, and `SI-2` is where that decision belongs.
 
 **This is an agreement census and not a proof of correctness.** It shows the two implementations do
 not differ on the cases presented, and it would not detect an error both share. Both were written in
@@ -227,18 +290,32 @@ changed.
 
 ## `SI1-6` — non-authority, checked mechanically
 
-- No seal constant and no prior-seal comparison was removed: the set of
-  `_*_(BASE|SEALED_HEAD|MERGE)` assignments at the execution head equals the set at `B`.
+- No seal constant and no prior-seal comparison was removed. Stated exactly: every
+  `_*_(BASE|SEALED_HEAD|MERGE)` assignment present at `B` is **still present and unchanged**, and
+  the **only** addition is this round's own `_SI1_BASE`. That is **containment plus one named
+  addition, not set equality** — the first candidate's note and guard narration both claimed
+  equality, which this round's own base falsifies, and which is also how a round that quietly
+  re-pinned another round's seal would be caught.
 - **90 pre-existing check tags** at `B`, **90** at the execution head, **none removed**, and **no
   pre-existing tag's verdict changed**.
 
   **What was compared, stated so it cannot later be misread.** The unit is a **check tag** — the
   `R7-*`, `R8`, `R9` and numbered identifiers that `check()` prints one `PASS`/`FAIL` line for. Not
-  ninety files, not ninety seal records, not ninety assertions. The guard file was taken from `B`
-  with `git show` and run; the guard file at the execution head was run; every `PASS`/`FAIL` line
-  was parsed into a tag-to-verdict map, and the two maps were compared key by key. Result: 90 keys
-  each side, zero keys removed, zero verdicts changed, and the one key added is `R7-SI1` itself
-  (91 at the head in total). Both runs report `edge_rigidity_probe: ALL CHECKS PASS`.
+  ninety files, not ninety seal records, not ninety assertions.
+
+  **And it is now performed inside the shipped guard, not merely described here.** `R7-SI1` takes
+  the guard file from `B` with `git show`, **runs it**, parses its verdict lines into a
+  tag-to-verdict map, and requires that map to be identical to the one this round persisted in
+  `si1-tagmap.json`. Measured fresh on every run: **90 tags, all `PASS`**, map identical to the
+  persisted one.
+
+  **The claim is a conditional, and is stated as one.** In process, `CHECKS` is incomplete when this
+  guard runs, because checks declared after it have not executed yet — so verdict equality for every
+  pre-existing tag cannot be read off this run directly. What follows from *every base tag passing*
+  is: **if this run ends `ALL CHECKS PASS`, then no pre-existing tag's verdict differs from the
+  base.** The probe's own exit status discharges the antecedent. Both runs do report
+  `edge_rigidity_probe: ALL CHECKS PASS`, and the head declares one further tag, `R7-SI1` — 91 at
+  the head in total.
 - No existing check consults the new validator: every `_si1_` reference lies inside this round's own
   guard section.
 
@@ -273,7 +350,7 @@ here is authority to redesign `SI-2` now, and nothing here is a decision.
 
 ## Execution defects, corrected — held apart from the findings
 
-Four defects were in **this round's own implementation**, not in the freeze. They were execution
+Five defects were in **this round's own implementation**, not in the freeze. They were execution
 errors, they were corrected, and they are recorded here so that the distinction between *a defect
 the implementation may fix* and *evidence about the preregistered rule* is on the record rather than
 left to a reader to infer.
@@ -285,8 +362,10 @@ left to a reader to infer.
 | 3 | four content contracts matched **substrings that crossed line breaks**, so a true claim in the note read as absent | three contracts false against a correct note | matching on collapsed whitespace: the words are the claim, the wrapping is not |
 | 4 | the seal-constant check asserted **set equality** between head and base, which this round's own `_SI1_BASE` necessarily breaks | the check failed while no other round's seal had moved | containment plus an exact allowance for this round's own base — which is also how a round that re-pinned another round's seal is caught |
 
-None of the four is a finding about the freeze, and none of them is counted among the discrepancies
-below. Defects 1 and 4 also improved the checks they were in, which is recorded as what it is and
+| 5 | the synthetic **event payloads were named by head alone**, so two payloads differing only in their base ref overwrote each other before either was read | the stale-base control silently became a second copy of the rewound-branch control, and reported a value that could not be right | naming the payload by head **and** base ref; found because the value was impossible, not because a test failed |
+
+None of the five is a finding about the freeze, and none of them is counted among the discrepancies
+below. Defects 1, 4 and 5 also improved the checks they were in, which is recorded as what it is and
 not as a discovery.
 
 ## Discrepancies, recorded and not repaired
@@ -296,6 +375,7 @@ repaired.
 
 1. **The frozen derivation scope reintroduces the base-age false negative** on a pull request from a
    historical base. Measured. Remedy proposed, not applied. Requires adjudication before `SI-2`.
+   **It changes `SI1-8`/`#141` to `RESTATED-AND-FAILS`** and leaves `SI1-3` at `DERIVE-EXACT`.
 2. **Cases 10, 11 and 12 are exercised on the visibility layer**, case 11 being unsatisfiable
    through the derivation path under the frozen scope. The same adjudication settles it.
 3. **The double-assignment hazard is parser-conditional**, and the freeze's statement of it is true
@@ -313,18 +393,46 @@ a result put to the owner.
 | `SI1-2` | `VALIDATOR-BUILT`, MEDIUM | `VALIDATOR-BUILT` | as predicted |
 | `SI1-3` | `DERIVE-EXACT`, HIGH, on a measurement already taken | `DERIVE-EXACT` | as predicted, and the freeze recorded that this rested on a prior measurement rather than on a forecast |
 | `SI1-4` | `NEGATIVES-COMPLETE`, MEDIUM | `NEGATIVES-COMPLETE` | as predicted |
-| `SI1-5` | `CENSUS-EXACT`, MEDIUM | `CENSUS-EXACT` | as predicted |
+| `SI1-5` | `CENSUS-EXACT`, MEDIUM | **`CENSUS-DIVERGENT`** | **MISSED.** The freeze predicted exact agreement at MEDIUM and the round found three divergences among the controls. Reported as a miss |
 | `SI1-6` | `SHADOW-ONLY`, MEDIUM | `SHADOW-ONLY` | as predicted |
 | `SI1-7` | delivered, HIGH | delivered | as predicted |
-| `SI1-8` `#141` | `RESTATED-AND-HOLDS` | `RESTATED-AND-HOLDS` | as predicted |
-| `SI1-8` `#140` | **NOT PREDICTED** | `RESTATED-AND-HOLDS` | **not scored.** The freeze put nothing at risk here and nothing is scored |
+| `SI1-8` `#141` | `RESTATED-AND-HOLDS` | **`RESTATED-AND-FAILS`** | **MISSED.** The freeze predicted it would hold; the round's own finding shows the model failing `#141`'s requirement. Reported as a miss |
+| `SI1-8` `#140` | **NOT PREDICTED** | `RESTATED-ONLY` | **not scored.** The freeze put nothing at risk here and nothing is scored |
 
-`#140` is restated as a schema and global invariant over the manifest and then **measured**: for
-every one of the eighteen `sealed` rounds, the execution branch root's single parent is exactly the
-pinned base, and all twenty-two pinned bases are merge commits. That is `A.37`'s own invariant asked
-generically of the data rather than of eighteen hand-written constants. **18 of 18 and 22 of 22.**
-The freeze declined to predict this and the round does not treat the clean result as a confirmation
-of anything the freeze said.
+### `#140` — `RESTATED-ONLY`, because the frozen question was never asked
+
+The frozen question is whether **each of the twenty-two recorded `base` values equals that round's
+historically mandated base** — the merge commit of that round's own control plane. Answering it
+needs an **independent source for each mandate**, and this round has **no independent source for the
+mandate**: the manifest was transcribed from the guard constants, so comparing the manifest to those
+constants establishes nothing about the mandate. **Recorded bases compared to an independent
+mandate: 0 of 22**, and the guard asserts that count at zero so the claim cannot drift upward by
+accident.
+
+Two weaker structural facts *are* measured, both executable in the guard, and both labelled
+observations rather than the frozen question:
+
+| observation | result |
+|---|---|
+| every recorded base is a merge commit | **22 of 22** |
+| for each `sealed` round, exactly one execution-history commit has the recorded base as its **sole parent** — `A.37`'s branch-root invariant | **18 of 18** |
+
+Neither compares a manifest value to a mandate, and **the four `base-only` rounds receive no
+analogous check at all**, having no execution history to walk. The first candidate reported these two
+facts as `RESTATED-AND-HOLDS`; that was wrong, and `#140` remains open for the round that can supply
+the mandates.
+
+### `#141` — `RESTATED-AND-FAILS`
+
+Reported under Discrepancy 1. `#141` requires prior seals to be evaluated against the landing
+topology rather than the pull-request head, and the built model fails that requirement in the
+configuration the discrepancy exhibits. **The prediction for `#141` was wrong.**
+
+**Two predictions were missed** — `SI1-5`, which the freeze predicted `CENSUS-EXACT` at MEDIUM,
+and `SI1-8`/`#141`, which the freeze predicted would hold. Both are reported as misses rather than
+reinterpreted, and neither outcome was softened to preserve a forecast. `#140` was the one question
+the freeze declined to predict, and it comes back `RESTATED-ONLY`: not a confirmation of anything,
+and not scored.
 
 ## Chronology
 
