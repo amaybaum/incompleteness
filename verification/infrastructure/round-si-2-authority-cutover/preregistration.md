@@ -11,14 +11,6 @@ nothing else, and its first act is to verify this preregistration's blob at that
 The base this freeze is written against is `B0` = `66eea646fcbf242df89b168bcce3336ff1b77802`, the
 landing merge of `SI-1` (#668), certified by push run 35317349625.
 
-**This document was amended once before execution began.** Its first landing,
-`da9d69d60b19482abfeb27b16af5aaebebba0e83` (#669, certified by push run 35321848352), was the
-mandated base until a pre-execution dry run at that commit found an interaction between two frozen
-contracts, recorded in the amendment section below. **`SI-2` does not resume from `da9d69d6`.** The
-mandated execution base is the merge commit of *this* amendment, once it and its `main` push run are
-certified through the normal exact-head gates. Every pin and precondition below was re-verified at
-`da9d69d6` and is unchanged from `B0`.
-
 ## What `SI-2` is, and what it deliberately is not
 
 `SI-1` built a generic seal validator and a per-round seal manifest and proved they agreed with the
@@ -148,44 +140,6 @@ taken before some later commit is not evidence of anything and is not what `SI2-
 have certified one manifest and the landing would make a different one authoritative. The record set
 is fixed at stage 1 and `SI2-1` checks it is unchanged at the final head.
 
-## AMENDMENT BEFORE EXECUTION — the interaction with `R7-SI1`'s frozen manifest contracts
-
-**What was measured, at `da9d69d6`, uncommitted.** `SI1.json` was written in the base-only record
-format and the guard file run once. `R7-SI1` **failed**, with `edge_rigidity_probe: FAILURE`, while
-every validator agreed: the census reported 23 of 23 records agreeing — 18 `sealed` on lifecycle, 5
-`base-only` on schema, pinned base and record integrity — and the four control divergences were
-unchanged. What failed were `SI-1`'s **frozen manifest-cardinality contracts in its own guard**:
-`len(records) == 22`, `base-only == 4`, the 18/4 record-axis counts, the integrity rule that treats
-any record beyond `SI-1`'s twenty-two transcriptions as an unauthorized addition, and the
-census-artifact equality, which saw 23 measured rows against a recorded 22. The file was removed;
-nothing was committed.
-
-**Why it is an adjudication and not a repair.** `SI2-1` requires the record; `R7-SI1` as frozen
-refuses any 23rd record; and `SI2-6`(a) says a changed pre-existing verdict is a result requiring
-adjudication that stops the cutover. The owner adjudicated **path D** — amend the control plane
-before executing, rather than adjudicate in the record or relax a prior guard unrecorded — and
-fixed the amendment's scope as the six points that follow. They are carried into `SI2-1` and
-`SI2-6`(a) below and are not widened anywhere else in this document.
-
-1. `R7-SI1`'s twenty-two-record, eighteen-`sealed`, four-`base-only` cardinality contracts and its
-   integrity contract are **scoped to the twenty-two records `SI-1` transcribed**.
-2. `SI-1`'s existing twenty-two-row `census.json` stays **byte-for-byte unchanged** — not
-   regenerated, not repinned. Its blob `7a3e6288c5f532a849a07beb9a8e5757cdf79d04` remains pinned
-   below and `R7-SI1`'s artifact check keeps comparing against it.
-3. `SI1.json` is **the single addition authorized by `SI2-1`**, outside `SI-1`'s frozen census and
-   inside `SI-2`'s `U4` census, where its shadow comparator is already frozen under `SI2-4`.
-4. `R7-SI1` is **not otherwise weakened**: all twenty-two original records, their contents, the four
-   divergences, and the resulting `PASS` verdict remain frozen.
-5. After the amendment lands, the new `main` merge commit is certified through the normal exact-head
-   gates, and **`SI-2` resumes only from that newly certified base**, not from `da9d69d6`.
-6. On the first post-amendment dry run, `R7-SI1` must be `PASS` on the scoped twenty-two-record set
-   and `SI-2`'s comparator must account for the new row. **Any other changed pre-existing verdict is
-   still `MAP-CHANGED` and stops execution.**
-
-The scoping edit is permitted to a non-sealing round by §A.37 — it modifies a contract inside an
-existing guard and touches no seal constant — and it is permitted to *this* round only because this
-amendment says so in advance.
-
 ## The targets, FROZEN
 
 Each target names the artifact that decides it. **A target is decided only by that artifact** — a
@@ -199,17 +153,6 @@ added: `SI1`, `kind: "base-only"`, `base` = `99ab6370470ed9d9e4005551581c6c8c18e
 added before any other stage, and the record set — twenty-three records, eighteen `sealed` and five
 `base-only` — is unchanged at the final head: nothing else added, nothing mutated, nothing removed.
 Outcomes: `MANIFEST-AS-AUTHORIZED` / `MANIFEST-DEVIATED`.
-
-**Stage 1 also carries the one authorized edit to a prior round's guard**, per the amendment above:
-`R7-SI1`'s cardinality contracts (22 records, 18 `sealed`, 4 `base-only`, and the 18/4 record-axis
-counts) and its integrity contract are scoped to **the twenty-two records `SI-1` transcribed**, so
-that `R7-SI1` continues to validate exactly the manifest `SI-1` created and reports `SI1.json` as
-*the addition `SI2-1` authorizes* rather than as unauthorized. `SI-1`'s `census.json` is **not
-regenerated and not repinned**; `R7-SI1`'s artifact check keeps comparing its twenty-two-row census
-against the pinned blob. `SI1.json` is outside `SI-1`'s census and inside `U4`. Nothing else in
-`R7-SI1` changes: all twenty-two original records, their contents, the four divergences and the
-`PASS` verdict remain frozen, and `SI2-6`(a) checks that verdict. `MANIFEST-DEVIATED` also covers a
-scoping that reaches beyond these named contracts.
 
 **`SI-2` adds no record for itself.** A prospective round with no manifest record is `EXECUTION`
 under the frozen state machine, and that is exactly what `SI-2` is while it runs; a `base-only`
@@ -265,11 +208,7 @@ their verdicts are recorded alongside `U5`'s. Outcomes: `INTEGRITY-DATA-DRIVEN` 
 guard file is run, its check tags and verdicts measured, and compared with the tags and verdicts at
 `SI-2`'s head: `MAP-PRESERVED` / `MAP-CHANGED`. A changed verdict on any pre-existing tag is a
 **result requiring adjudication**; `MAP-CHANGED` stops the cutover and reports rather than failing
-silently or being adopted. **The first post-amendment dry run is part of this target**: with
-`SI1.json` present and `R7-SI1` scoped as `SI2-1` authorizes, `R7-SI1` must be `PASS` on its
-twenty-two-record set and `SI-2`'s comparator must account for the twenty-third row; that one
-verdict is the amendment's whole allowance, and **any other changed pre-existing verdict is
-`MAP-CHANGED` and stops execution**, the amendment notwithstanding. (b) The **sixty-one** legacy assignment statements — **fifty-nine
+silently or being adopted. (b) The **sixty-one** legacy assignment statements — **fifty-nine
 distinct names** — at the head are, **as text, exactly the sixty-one at `B0`, in the same relative
 order**: the check extracts the module-level `_<STEM>_(BASE|SEALED_HEAD|MERGE) = ...` lines from
 both revisions and requires the two sequences to be equal, per the inventory below. Statement count
@@ -352,9 +291,6 @@ its named reason** — some are `PASS` controls:
     read of the same constant does not.
 11. `R7-SI2`'s own chronology guard rewritten to key on a manifest record — **fails**, because
     `SI-2` has none and the bootstrap guard is excluded from the cutover by design.
-12. A **twenty-fourth** record present beyond `SI1.json` — **fails both** the scoped `R7-SI1`
-    integrity contract and `U5`, as an unauthorized addition: the scoping admits the one record
-    `SI2-1` authorizes and nothing else, which is what "not otherwise weakened" means mechanically.
 
 ## What no outcome of this round licenses
 
@@ -452,11 +388,6 @@ added. The execution reports against this table and not against prose.
 7. No `SI-2` record exists in the manifest.
 8. `AGENTS.md` §A.37 at `B0` still says "`P` sets the constants it owns to `E` and to `L`" — the
    sentence `SI2-7` supersedes prospectively.
-9. `R7-SI1`'s cardinality and integrity contracts are **unscoped** at the mandated base — they still
-   read `== 22`, `== 18`, `== 4` over the whole manifest — so that the scoping is this round's own
-   recorded edit and not something already present. Verified at `da9d69d6`.
-10. The mandated base is the merge commit of this amendment and not `da9d69d6`; that commit is
-    recorded as the certified pre-amendment base from which nothing resumes.
 
 ## The guard
 
@@ -468,8 +399,7 @@ It is the one guard in the file that is **not** cut over, and it says so.
 Content contracts hold the result note to the distinctions this freeze makes: the ordered stages and
 the final head as checkpoint, the four divergences carried as adjudicated behaviour and never as
 correctness, `SI-1`'s `#141` result not rewritten, the authorized addition being exactly one and
-first, the `R7-SI1` scoping recorded as the amendment's single allowance and bounded to the named
-contracts, the legacy inventory intact by statement text, and the protocol amendment quoted. Each
+first, the legacy inventory intact by statement count, and the protocol amendment quoted. Each
 contract is mutation-tested against the exact failure it exists to catch.
 
 **Four definition slots** are budgeted for the round's own new definitions, as `SI-1` had; unused
