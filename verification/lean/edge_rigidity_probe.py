@@ -10092,6 +10092,15 @@ def _rbr_archive_ancestry(base, sealed, merge, tag='R7-RBR', env=None, target=No
     return True
 
 
+# ---- R7-SI2: the mandated execution base of seal infrastructure round SI-2, the bootstrap cutover.
+# The merge commit of Amendment 2 (#672), certified by push run 35351379664, and NOT the
+# preregistration merge da9d69d6 or the Amendment 1 merge 9ca82958, both superseded for
+# execution-base purposes by the amendments. NON-SEALING, E -> L, no pin: there is no
+# _SI2_SEALED_HEAD and no _SI2_MERGE, not as None and not at all. Defined here, ahead of every
+# clause that reads it, and excluded by stem from the legacy inventory SI2-6(b) measures.
+_SI2_BASE = 'df54b99dba99dc043b11752163d8d348c9e54472'
+
+
 def _rbr_archive_regression():
     """Synthetic regression: two sibling execution rounds merged sequentially, both archived
     certifications valid, and the archive check failing closed on a rewritten history.
@@ -23705,6 +23714,27 @@ _SI1SEALS = os.path.join(VERIFICATION, 'seals')
 # The mandated execution base: the merge commit of this round's control-plane PR #667.
 _SI1_BASE = '99ab6370470ed9d9e4005551581c6c8c18e54bd2'
 
+# SI-2 AMENDMENT 1, POINT 1 -- THE SCOPING. This round transcribed twenty-two records, and its
+# cardinality contracts below (twenty-two records, eighteen sealed, four base-only, the 18/4
+# record-axis counts, the twenty-two census rows, the twenty-two-record #140 probe, and the
+# twenty-two stems the no-stem check reads) were written over THE WHOLE MANIFEST. A later round's
+# authorized addition therefore failed them while every validator agreed -- measured at da9d69d6
+# and adjudicated by the owner as path D: the contracts keep their values and are evaluated over
+# exactly the twenty-two records SI-1 transcribed, named here rather than counted. The integrity
+# contract is scoped the same way and admits ONE addition beyond them, SI-2's `SI1` record, which
+# `SI2-1` authorizes; a further record is an unauthorized addition and fails. SI-1's census.json is
+# not regenerated and not repinned; `SI1.json` is outside SI-1's census and inside SI-2's.
+_SI1_TRANSCRIBED = frozenset((
+    'A12P', 'A6D', 'A6I', 'A6P', 'ABR', 'CLG', 'CTI', 'HYA', 'HYB', 'HYE', 'PC4', 'PC4S', 'PQT',
+    'RBR', 'RNC', 'RNT', 'SGT', 'TCF', 'TRJ', 'TSG', 'WTS', 'XTS'))
+_SI1_AUTHORIZED_ADDITIONS = frozenset(('SI1',))
+
+
+def _si1_scoped(records):
+    """The records this round's contracts are evaluated over: the twenty-two it transcribed."""
+    return {k: v for k, v in records.items() if k in _SI1_TRANSCRIBED}
+
+
 _SI1_HEX = re.compile(r'[0-9a-f]{40}')
 
 # ==== SI1-VALIDATOR-BEGIN ====
@@ -24427,7 +24457,7 @@ def _si1_control_census():
     return rows
 
 
-def _si1_mandated_base_probe():
+def _si1_mandated_base_probe(records=None):
     """`#140`, and an honest account of what is and is not being asked.
 
     The FROZEN question is whether each of the twenty-two recorded `base` values equals that round's
@@ -24441,7 +24471,8 @@ def _si1_mandated_base_probe():
     exactly one commit of the execution-only history has the recorded base as its sole parent, which
     is `A.37`'s branch-root invariant. Neither compares a manifest value to a mandate, and the four
     base-only rounds get no analogous check at all, having no execution history to walk."""
-    recs, _errs = _si1_load()
+    # Scoped (SI-2 Amendment 1, point 1): the twenty-two transcribed records when none are given.
+    recs = _si1_scoped(_si1_load()[0]) if records is None else records
     merge_bases = roots_ok = sealed = 0
     for stem in sorted(recs):
         r = recs[stem]
@@ -24672,7 +24703,9 @@ def _si1_region_no_stem():
     if begin not in src or end not in src:
         return False
     region = src.split(begin, 1)[1].split(end, 1)[0]
-    stems = sorted(_si1_load()[0])
+    # Scoped (SI-2 Amendment 1, point 1): the twenty-two transcribed stems. `SI1` is this round's
+    # own prefix and appears in the region by construction, as `R7-SI1` is its own tag.
+    stems = sorted(_si1_scoped(_si1_load()[0]))
     if len(stems) != 22:
         return False
     for stem in stems:
@@ -24701,7 +24734,15 @@ def _si1_seal_constants_intact():
     the round's own base while saying nothing about anyone else's seal. What has to hold is that
     every assignment present at the mandated base is still present and unchanged, and that the only
     addition is this round's own base -- which is also how a round that quietly re-pinned another
-    round's seal would be caught."""
+    round's seal would be caught.
+
+    SI-2 AMENDMENT 2, POINT 1: the allowed-addition set is exactly {_SI1_BASE, _SI2_BASE}. SI-2's
+    freeze requires its guard to carry _SI2_BASE, and this contract as first written admitted one
+    addition and so failed on any head carrying it -- measured at 9ca82958 as the only failing tag
+    with that single line added. Containment stands, _SI2_BASE is checked by R7-SI2 to equal SI-2's
+    mandated base, no _SI2_SEALED_HEAD or _SI2_MERGE may exist, and any third new legacy-style
+    assignment still fails. The retirement round's deletions are NOT admitted here; that round must
+    own and supersede this contract itself."""
     pat = re.compile(r"^_([A-Z0-9]+)_(BASE|SEALED_HEAD|MERGE)\s*=\s*'([0-9a-f]{40})'\s*$", re.M)
     now = set(pat.findall(_bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')))
     r = _rbr_git('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI1_BASE, tag='R7-SI1')
@@ -24710,7 +24751,7 @@ def _si1_seal_constants_intact():
     was = set(pat.findall(r.stdout.decode('utf-8', 'replace')))
     if not was <= now:
         return False
-    return now - was == {('SI1', 'BASE', _SI1_BASE)}
+    return now - was == {('SI1', 'BASE', _SI1_BASE), ('SI2', 'BASE', _SI2_BASE)}
 
 
 def _si1_rows_not_cases(t=None):
@@ -24869,12 +24910,24 @@ ok_si1 &= _si1_seal_constants_intact()
 
 # SI1-1 -- the manifest is twenty-two records, eighteen sealed and four base-only, and every record
 # validates against the schema.
-_si1_recs, _si1_errs = _si1_load()
+_si1_all_recs, _si1_errs = _si1_load()
+# THE SCOPED INTEGRITY CONTRACT (SI-2 Amendment 1, point 1): every record this round transcribed is
+# present, and any record beyond them is the ONE addition SI2-1 authorizes and nothing else. A
+# twenty-fourth record is an unauthorized addition and fails here.
+_si1_unauthorized = sorted(set(_si1_all_recs) - _SI1_TRANSCRIBED - _SI1_AUTHORIZED_ADDITIONS)
+ok_si1 &= not _si1_unauthorized
+ok_si1 &= _SI1_TRANSCRIBED <= set(_si1_all_recs)
+_si1_recs = _si1_scoped(_si1_all_recs)
 ok_si1 &= not _si1_errs and len(_si1_recs) == 22
 ok_si1 &= sum(1 for r in _si1_recs.values() if r.get('kind') == 'sealed') == 18
 ok_si1 &= sum(1 for r in _si1_recs.values() if r.get('kind') == 'base-only') == 4
 for _stem in sorted(_si1_recs):
     ok_si1 &= _si1_schema(_si1_recs[_stem], _stem)[0]
+print('    R7-SI1 scope (SI-2 Amendment 1): contracts evaluated over the %d records SI-1 transcribed; '
+      '%d authorized addition(s) present (%s); %d unauthorized (%s)'
+      % (len(_si1_recs), len(set(_si1_all_recs) & _SI1_AUTHORIZED_ADDITIONS),
+         ', '.join(sorted(set(_si1_all_recs) & _SI1_AUTHORIZED_ADDITIONS)) or 'none',
+         len(_si1_unauthorized), ', '.join(_si1_unauthorized) or 'none'))
 
 # SI1-3 -- both scopes, measured here and not quoted from the note.
 _si1_sealed = {k: v for k, v in _si1_recs.items() if v.get('kind') == 'sealed'}
@@ -25055,7 +25108,7 @@ print('    R7-SI1 derivation: reachable scope %d of %d agree with the pin; first
 
 # SI1-8 -- #140 restated over the manifest and MEASURED: the execution branch root's single parent
 # is exactly the pinned base, for every sealed round. Left NOT PREDICTED by the freeze.
-_si1_mb = _si1_mandated_base_probe()
+_si1_mb = _si1_mandated_base_probe(_si1_recs)
 ok_si1 &= _si1_mb['records'] == 22 and _si1_mb['merge_bases'] == 22
 ok_si1 &= _si1_mb['sealed'] == 18 and _si1_mb['branch_roots'] == 18
 # The frozen #140 question is NOT answered: nothing here compares a recorded base to an independent
@@ -25176,7 +25229,12 @@ check('R7-SI1', ok_si1,
       "drift control, the chronology asked of the real pull_request.head.sha and never of the "
       "synthetic merge, fail-closed, and NO SEAL TRIPLE OF ITS OWN exists -- not as None, not at "
       "all. Thirteen named contracts, eleven mutation controls, and no frozen definition, target, "
-      "negative case or authority rule altered anywhere.")
+      "negative case or authority rule altered anywhere. SCOPED BY SI-2 AMENDMENT 1, POINT 1, AND "
+      "NOT OTHERWISE CHANGED: the manifest-cardinality contracts, the record-axis counts, the "
+      "twenty-two census rows, the #140 probe and the no-stem check are evaluated over exactly "
+      "the twenty-two records this round transcribed, named in the guard; the integrity contract "
+      "admits the ONE addition SI2-1 authorizes, SI1.json, and fails any other; SI-1's census.json "
+      "is not regenerated and not repinned.")
 
 
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
