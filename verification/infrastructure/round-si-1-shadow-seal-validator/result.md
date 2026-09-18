@@ -279,7 +279,10 @@ synthetic event for itself, the derivation does answer first for `O2`, and that 
 
 ## `SI1-5` — the agreement census
 
-**Outcome `CENSUS-DIVERGENT`.** `census.json` carries both tables.
+**Outcome `CENSUS-DIVERGENT`.** `census.json` carries both tables. Its reason strings name **the resolved target** by a fixed
+token rather than by the object a particular run resolved, because that name is the event's — `HEAD`
+on a push, `pull_request.head.sha <sha>` on a pull request — and a recorded census naming either is
+stale under the other on the very same commit. The verdicts are recorded as measured.
 
 ### Over the twenty-two real records: agreement, on the axis each is on
 
@@ -439,7 +442,7 @@ here is authority to redesign `SI-2` now, and nothing here is a decision.
 
 ## Execution defects, corrected — held apart from the findings
 
-Eleven defects were in **this round's own implementation**, not in the freeze. They were execution
+Twelve defects were in **this round's own implementation**, not in the freeze. They were execution
 errors, they were corrected, and they are recorded here so that the distinction between *a defect
 the implementation may fix* and *evidence about the preregistered rule* is on the record rather than
 left to a reader to infer.
@@ -457,9 +460,10 @@ left to a reader to infer.
 | 9 | `O2` passed a **`None` target list onward** when the base-branch-tip resolver had already failed closed, and only the order of the checks after it kept that `None` from being iterated | invisible until control 12 became a real comparison, which is the one case that produces it | returning `None` at the point the resolver refuses, so the refusal is `O2`'s answer rather than a value it carries |
 | 10 | **`SI1-5` adjudicated a divergence**, saying on control 10 that the old machinery was right and the new model wrong, with a `census.json` key and a *required* guard phrase to match | the freeze forbids it twice over: `SI1-5` "stops short of adjudicating which is right", and no outcome licenses "any claim that the new validator is correct, as distinct from in agreement". The measurement was right; the verdict was not mine to give | the measured direction is kept and the correctness claim removed in all four places, with the guard now requiring the direction and the refusal instead |
 | 11 | the artifact check's **mutation control was tautological**: it copied the measured document, altered one total, and asserted the two differed | it tested that Python dictionaries with different values are unequal, and would have passed however the artifact check behaved | the check is now ONE predicate over the recorded bytes, and both controls -- one total altered, and unparseable bytes -- run the mutation through that same predicate |
+| 12 | the census document was **event-dependent**: its reason strings name the resolved target, which is `HEAD` locally and on a push and `pull_request.head.sha <sha>` in pull-request CI, where the sha changes with every commit | the artifact check passed on a `workflow_dispatch` run and **failed on the pull request for the same commit**, with every verdict and every total identical — the check was right and the artifact was wrong | normalizing the resolved target's NAME to a fixed token before the document is built, with a control that the substitution happened; the VERDICTS are not normalized, so a target at which either implementation genuinely answers differently still fails the comparison |
 
-None of the eleven is a finding about the freeze, and none of them is counted among the discrepancies
-below. Defects 1, 4, 5, 6, 7, 8, 9 and 11 also improved the checks they were in, which is recorded as what it is and
+None of the twelve is a finding about the freeze, and none of them is counted among the discrepancies
+below. Defects 1, 4, 5, 6, 7, 8, 9, 11 and 12 also improved the checks they were in, which is recorded as what it is and
 not as a discovery.
 
 ## Discrepancies, recorded and not repaired

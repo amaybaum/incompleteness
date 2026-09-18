@@ -76,7 +76,7 @@
       "axis": "schema+base+integrity",
       "new_lifecycle": "not-applicable",
       "new_ok": true,
-      "new_reason": "historical non-sealing record; pinned base 93c2ca63c6cd reachable from HEAD",
+      "new_reason": "historical non-sealing record; pinned base 93c2ca63c6cd reachable from the resolved target",
       "old_ok": true,
       "agree": true
     },
@@ -86,7 +86,7 @@
       "axis": "schema+base+integrity",
       "new_lifecycle": "not-applicable",
       "new_ok": true,
-      "new_reason": "historical non-sealing record; pinned base 6cff07cc0655 reachable from HEAD",
+      "new_reason": "historical non-sealing record; pinned base 6cff07cc0655 reachable from the resolved target",
       "old_ok": true,
       "agree": true
     },
@@ -166,7 +166,7 @@
       "axis": "schema+base+integrity",
       "new_lifecycle": "not-applicable",
       "new_ok": true,
-      "new_reason": "historical non-sealing record; pinned base 79872cbbb0e2 reachable from HEAD",
+      "new_reason": "historical non-sealing record; pinned base 79872cbbb0e2 reachable from the resolved target",
       "old_ok": true,
       "agree": true
     },
@@ -226,7 +226,7 @@
       "axis": "schema+base+integrity",
       "new_lifecycle": "not-applicable",
       "new_ok": true,
-      "new_reason": "historical non-sealing record; pinned base b821d69ae86f reachable from HEAD",
+      "new_reason": "historical non-sealing record; pinned base b821d69ae86f reachable from the resolved target",
       "old_ok": true,
       "agree": true
     },

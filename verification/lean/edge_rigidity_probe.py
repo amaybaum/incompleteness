@@ -24932,6 +24932,33 @@ print('    R7-SI1 census: %d of %d records agree -- %d sealed on the lifecycle a
 # measured four: a hand-maintained record of a measurement drifts silently, and only a comparison
 # catches it. Set SI1_EMIT_CENSUS=1 to rewrite the file; the default run only checks it, so a CI
 # run never mutates the tree.
+# THE REASON STRINGS NAME THE RESOLVED TARGET, AND THAT NAME IS THE EVENT'S, NOT THE ROUND'S:
+# `HEAD` locally and on a push, `pull_request.head.sha <sha>` in pull-request CI -- where the sha
+# changes with every commit pushed. A recorded document carrying either one is therefore stale under
+# the other, which is exactly what happened: this check passed on a workflow_dispatch run and FAILED
+# on the pull request for the SAME commit, with every verdict and every total identical. The check
+# was right and the artifact was wrong, so the label is normalized to a fixed token here and the
+# document says what the census measured rather than which object this particular run resolved.
+#
+# What is NOT normalized is the verdicts. If a future event resolves a target at which the old
+# machinery or `O2` genuinely answers differently, the totals change, the comparison fails, and a
+# reader has to look -- which is the right outcome and not a defect in this check.
+_SI1_TARGET_TOKEN = 'the resolved target'
+_, _si1_doc_label, _ = _rbr_target_commit(tag='R7-SI1/doc')
+
+
+def _si1_doc_rows(rows, key):
+    """`rows` with the resolved target's NAME replaced by a fixed token in the free-text field."""
+    out = []
+    for _row in rows:
+        _row = dict(_row)
+        _text = _row.get(key)
+        if isinstance(_text, str) and _si1_doc_label:
+            _row[key] = _text.replace(_si1_doc_label, _SI1_TARGET_TOKEN)
+        out.append(_row)
+    return out
+
+
 _si1_census_doc = {
     'round': 'SI-1',
     'base': _SI1_BASE,
@@ -24971,8 +24998,8 @@ _si1_census_doc = {
                                        if r['old_ok'] and not r['new_ok']),
         'reproduces_discrepancy_1': ['10 stale base.sha, branch carries it'],
     },
-    'records': _si1_rows,
-    'controls': _si1_ctl,
+    'records': _si1_doc_rows(_si1_rows, 'new_reason'),
+    'controls': _si1_doc_rows(_si1_ctl, 'reason'),
 }
 _SI1CENSUSREL = 'infrastructure/round-si-1-shadow-seal-validator/census.json'
 if os.environ.get('SI1_EMIT_CENSUS') == '1':
@@ -24995,6 +25022,14 @@ def _si1_census_agrees(raw, measured):
 _si1_census_raw = _bb_read(_SI1CENSUSREL)
 _si1_census_ok = _si1_census_agrees(_si1_census_raw, _si1_census_doc)
 ok_si1 &= _si1_census_ok
+# Control C -- the normalization is checked to have HAPPENED, not assumed: no row of the document
+# may still carry the resolved target's name. Without this the token could silently stop being
+# substituted and the artifact would go back to being event-dependent.
+ok_si1 &= (not _si1_doc_label) or not any(
+    _si1_doc_label in str(_r.get(_k) or '')
+    for _k, _rows in (('new_reason', _si1_census_doc['records']),
+                      ('reason', _si1_census_doc['controls']))
+    for _r in _rows)
 
 # Control A -- the recorded file with ONE total altered must be REJECTED by that same predicate. A
 # file carrying three divergences against a census that measured four is exactly what happened, so
@@ -25108,7 +25143,11 @@ check('R7-SI1', ok_si1,
       "Agreement is checked reported as AGREEMENT AND NEVER AS CORRECTNESS, with the old verdict "
       "taken from the generic helpers the per-round clauses themselves call, and census.json is "
       "REBUILT FROM THE ROWS THIS RUN MEASURED and required to equal the recorded file, so a "
-      "census that has gone stale fails the check rather than being read. THREE DISCREPANCIES ARE CHECKED RECORDED AND NOT REPAIRED, eight controls, the "
+      "census that has gone stale fails the check rather than being read -- with the resolved "
+      "TARGET'S NAME normalized to a fixed token first, because that name is the event's and not "
+      "the round's, and a document carrying HEAD or a pull_request.head.sha is stale under the "
+      "other event on the very same commit; the verdicts are NOT normalized, so a target at which "
+      "either implementation genuinely answers differently still fails the comparison. THREE DISCREPANCIES ARE CHECKED RECORDED AND NOT REPAIRED, eight controls, the "
       "first of them this round's central finding: the frozen derivation scope, being the resolved "
       "target alone, REINTRODUCES THE BASE-AGE FALSE NEGATIVE on a pull request opened from a "
       "historical base, where a landing sitting on the base branch is unreachable from the head and "
@@ -25136,7 +25175,7 @@ check('R7-SI1', ok_si1,
       "Four definition slots, all four fired. The preregistration is pinned BY BLOB with a one-byte "
       "drift control, the chronology asked of the real pull_request.head.sha and never of the "
       "synthetic merge, fail-closed, and NO SEAL TRIPLE OF ITS OWN exists -- not as None, not at "
-      "all. Thirteen named contracts, ten mutation controls, and no frozen definition, target, "
+      "all. Thirteen named contracts, eleven mutation controls, and no frozen definition, target, "
       "negative case or authority rule altered anywhere.")
 
 
