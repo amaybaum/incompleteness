@@ -23826,53 +23826,6 @@ def _si1_transcribe(text):
     return first, {k: v for k, v in seen.items() if v > 1}
 
 
-def _si1_census(records, errors, env=None, cwd=None):
-    """O3 -- the shadow harness.
-
-    Runs O2 over every record in the same process and on the same repository state as the checks
-    above, and records the two verdicts side by side. It gates nothing: nothing in this function's
-    result is consulted by any check that decides anything.
-
-    THE RECORDS ARE NOT COMPARED ON ONE AXIS, and the census says which axis each is on. A `sealed`
-    record exercises LIFECYCLE equivalence -- the state and the verdict. A `base-only` record
-    exercises SCHEMA, PINNED-BASE and RECORD-INTEGRITY equivalence only, because it has no lifecycle
-    to agree about, and a census claiming lifecycle agreement for one would be claiming agreement on
-    a question neither implementation should be answering."""
-    new = _si1_validate(records, env=env, cwd=cwd, errors=errors)
-    rows = []
-    if new is None:
-        return rows
-    target, label, num = _rbr_target_commit(env=env, tag='R7-SI1/old')
-    for stem in sorted(set(records) | set(errors or {})):
-        lifecycle, ok, reason = new.get(stem, (None, False, 'no verdict'))
-        rec = records.get(stem) or {}
-        kind = rec.get('kind')
-        # THE OLD MACHINERY, run on the same repository state and in the same process. For a sealed
-        # round that is the archive-mode certificate the per-round clauses use; for a non-sealing
-        # round it is the strengthened execution check those clauses use. Both are the generic
-        # helpers the per-round clauses call, so the census compares like with like rather than
-        # comparing the new validator against a paraphrase of the old one.
-        old = None
-        if target is not None and not isinstance(kind, type(None)):
-            if kind == 'sealed':
-                old = _rbr_archive_ancestry(rec['base'], rec['sealed_head'], rec['merge'],
-                                            tag='R7-SI1/old', env=env, target=target, cwd=cwd)
-            elif kind == 'base-only':
-                old = _si1_quiet_ancestry(rec['base'], target, tag='R7-SI1/old', cwd=cwd)
-        axis = 'lifecycle' if kind == 'sealed' else 'schema+base+integrity'
-        rows.append({
-            'round': stem,
-            'kind': kind,
-            'axis': axis,
-            'new_lifecycle': lifecycle,
-            'new_ok': bool(ok),
-            'new_reason': reason,
-            'old_ok': None if old is None else bool(old),
-            'agree': None if old is None else (bool(old) == bool(ok)),
-        })
-    return rows
-
-
 def _si1_build_repo():
     """A synthetic repository carrying both historical landing shapes and the topologies the twenty
     negative cases need. Built with `commit-tree` so every parent order is exact: a real `git merge`
@@ -24103,126 +24056,6 @@ def _si1_negatives():
     return results
 
 
-
-
-def _si1_control_census():
-    """The census over the SYNTHETIC CONTROLS, which the frozen `SI1-5` requires beside the census
-    over the twenty-two real records.
-
-    The first candidate omitted this, and the omission mattered: the real records are all in a
-    configuration where the two implementations were built to agree, so a census over them alone
-    cannot see where they were built to DIFFER. Several controls also have no old-machinery
-    analogue at all -- the old machinery has no records, so nothing in it answers a schema question,
-    a manifest-integrity question or a transcription question -- and non-comparability is itself a
-    result rather than a reason to narrow the target.
-
-    Returns one row per control: whether it is comparable, the old verdict where there is one, the
-    new verdict, and a reason. Nothing here adjudicates which implementation is right."""
-    import shutil
-    d, n, _g = _si1_build_repo()
-    rows = []
-
-    def rec(stem, kind, base, sealed=None, merge=None, **extra):
-        r = {'round': stem, 'kind': kind, 'base': base}
-        if sealed is not None:
-            r['sealed_head'] = sealed
-        if merge is not None:
-            r['merge'] = merge
-        r.update(extra)
-        return r
-
-    def new_of(records, prospective=None, target=None, targets=None):
-        got = _si1_validate(records, prospective=prospective, cwd=d, target=target, label='target',
-                            targets=targets or [(target, 'target')])
-        if got is None:
-            return None
-        stem = sorted(set(records) | set(prospective or {}))[0]
-        return bool(got[stem][1])
-
-    def row(name, comparable, old, new, why):
-        # A validator that fails closed returns no verdict; that IS a failure, and it is recorded as
-        # one explicitly rather than left to `bool(None)` to mean the right thing by accident.
-        if new is None:
-            new, why = False, why + '; O2 failed closed and returned no verdict'
-        rows.append({'control': name, 'comparable': comparable, 'old_ok': old, 'new_ok': new,
-                     'agree': (None if not comparable else (bool(old) == bool(new))), 'reason': why})
-
-    try:
-        NOANALOGUE = ('the old machinery holds no records, so nothing in it answers this question')
-        for name in ('1 malformed hash', '2 missing required key', '3 unknown extra key',
-                     '4a base-only with sealed_head value', '4b base-only with sealed_head null'):
-            row(name, False, None, False, 'schema: ' + NOANALOGUE)
-        for name in ('15 mutated', '16 removed', '17 added'):
-            row(name, False, None, False, 'manifest integrity: ' + NOANALOGUE)
-        row('18 double assignment', False, None, True, 'transcription: ' + NOANALOGUE)
-
-        # Comparable: the archive certificate is the old machinery's answer to these.
-        for name, r, tgt in (
-                ('5 rewritten sealed head', rec('Z', 'sealed', n['B'], '0' * 40, n['Lm']), n['Maf']),
-                ('6 wrong L', rec('Z', 'sealed', n['B'], n['E2'], n['Wr']), n['Wr']),
-                ('7 two candidates', rec('Z', 'sealed', n['B'], n['E2'], n['Lm']), n['L2']),
-                ('8 zero candidates', rec('Z', 'sealed', n['B'], n['E1'], n['Lm']), n['Maf'])):
-            old = _rbr_archive_ancestry(r['base'], r['sealed_head'], r['merge'], tag='R7-SI1/old',
-                                        target=tgt, cwd=d)
-            row(name, True, old, new_of({'Z': r}, target=tgt),
-                'archive certificate on both sides')
-
-        # Comparable: the strengthened execution check is the old machinery's answer.
-        row('9 sibling history in EXECUTION', True,
-            _si1_quiet_ancestry(n['B9'], n['T9'], tag='R7-SI1/old', cwd=d),
-            new_of({}, prospective={'Z': n['B9']}, target=n['T9']),
-            'strengthened execution check on both sides')
-
-        # Controls 10 to 12 are compared as the frozen target asks: the ACTUAL old archive path
-        # against the ACTUAL O2 path, under the same synthetic pull-request environment.
-        #
-        # The first two candidates compared the shared visibility helper to ITSELF and stored one
-        # value in both columns, which is not a comparison and cannot diverge. It also gave case 12
-        # the field values old_ok=True/new_ok=True to mean "the resolver correctly refused", the
-        # opposite of what those field names say and of the verdict the frozen case requires.
-        # Discrepancy 2 explains why O4 had to exercise the visibility LAYER separately; it does not
-        # relax SI1-5, and O4's own tests are unchanged.
-        for name, env in (('10 stale base.sha, branch carries it',
-                           _si1_pr_env(d, n['Hh'], 'main', n['c0'])),
-                          ('11 base branch rewound',
-                           _si1_pr_env(d, n['Hh'], 'no-landing', n['Maf'])),
-                          ('12 unresolved base ref',
-                           _si1_pr_env(d, n['Hh'], 'main-local-only', n['Maf']))):
-            # NEITHER side is given an explicit target, because passing one to the old archive
-            # path replaces its candidate list with that single commit -- `cands = [(target, ...)]`
-            # -- which switches OFF the head-or-base-branch-tip resolution these three controls
-            # exist to exercise. Handing it a target was a third harness error of the same family:
-            # it made the old machinery answer a question nobody had asked. Both sides now resolve
-            # the event for themselves, exactly as the per-round clauses do.
-            r = rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])
-            old = _rbr_archive_ancestry(r['base'], r['sealed_head'], r['merge'],
-                                        tag='R7-SI1/old', env=env, cwd=d)
-            new = _si1_validate({'Z': r}, env=env, cwd=d)
-            row(name, True, old, (None if new is None else bool(new['Z'][1])),
-                'the old archive path and O2, each resolving the same event payload for itself')
-
-        # The two places the implementations were BUILT to differ. Recorded, not adjudicated.
-        row('13 descendant of unpinned L', True,
-            _si1_quiet_ancestry(n['B'], n['Maf'], tag='R7-SI1/old', cwd=d),
-            new_of({}, prospective={'Z': n['B']}, target=n['Maf']),
-            'the old machinery has NO pending-seal notion, so it answers the execution question and '
-            'admits the descendant; the new model refuses it as SEAL PENDING')
-        row('14 unpinned L itself', True,
-            _si1_quiet_ancestry(n['B'], n['Lm'], tag='R7-SI1/old', cwd=d),
-            new_of({}, prospective={'Z': n['B']}, target=n['Lm']),
-            'both admit the landing itself, by different routes')
-        row('19 synthetic merge HEAD', True,
-            _rbr_archive_ancestry(n['B'], n['E2'], n['Lm'], tag='R7-SI1/old', target=n['Hh'], cwd=d),
-            new_of({'Z': rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])}, target=n['Hh']),
-            'both resolve the real head and refuse the synthetic merge')
-        row('20 base-only out of the state machine', True,
-            _si1_quiet_ancestry(n['B9'], n['T9'], tag='R7-SI1/old', cwd=d),
-            new_of({'Z': rec('Z', 'base-only', n['B9'])}, target=n['T9']),
-            'the old machinery applies EXECUTION ancestry semantics to a completed non-sealing '
-            'round and refuses it; the new model does not classify it at all')
-    finally:
-        shutil.rmtree(d, ignore_errors=True)
-    return rows
 
 
 def _si1_mandated_base_probe(records=None):
@@ -24690,158 +24523,22 @@ print('    R7-SI1 negatives: all 20 frozen cases satisfy their required outcomes
       'plus %d observation row, which is not a preregistered case'
       % (len(_si1_cases), len(_si1_obs)))
 
-# SI1-5 -- the census: twenty-two rows, agreement on every one, and the axes kept apart.
-_si1_rows = _si1_census(_si1_recs, _si1_errs)
-ok_si1 &= len(_si1_rows) == 22
-ok_si1 &= all(row['agree'] for row in _si1_rows)
-ok_si1 &= sum(1 for row in _si1_rows if row['axis'] == 'lifecycle') == 18
-ok_si1 &= sum(1 for row in _si1_rows if row['axis'] == 'schema+base+integrity') == 4
-ok_si1 &= all(row['new_lifecycle'] == 'ARCHIVED'
-              for row in _si1_rows if row['kind'] == 'sealed')
-ok_si1 &= all(row['new_lifecycle'] == _SI1_NA
-              for row in _si1_rows if row['kind'] == 'base-only')
-_si1_ctl = _si1_control_census()
-_si1_ctl_comp = [r for r in _si1_ctl if r['comparable']]
-_si1_ctl_non = [r for r in _si1_ctl if not r['comparable']]
-_si1_ctl_div = [r for r in _si1_ctl_comp if not r['agree']]
-ok_si1 &= len(_si1_ctl) == 21 and len(_si1_ctl_comp) == 12 and len(_si1_ctl_non) == 9
-ok_si1 &= sorted(r['control'] for r in _si1_ctl_div) == [
-    '10 stale base.sha, branch carries it', '13 descendant of unpinned L',
-    '20 base-only out of the state machine', '7 two candidates']
-print('    R7-SI1 control census: %d controls, %d comparable, %d with NO old-machinery analogue, '
-      '%d DIVERGENT (%s) -- the outcome is CENSUS-DIVERGENT and neither implementation is '
-      'adjudicated' % (len(_si1_ctl), len(_si1_ctl_comp), len(_si1_ctl_non), len(_si1_ctl_div),
-                       ', '.join(sorted(r['control'] for r in _si1_ctl_div))))
-print('    R7-SI1 census: %d of %d records agree -- %d sealed on the lifecycle axis, %d base-only '
-      'on the schema/base/integrity axis; an agreement census and not a proof of correctness'
-      % (sum(1 for r in _si1_rows if r['agree']), len(_si1_rows),
-         sum(1 for r in _si1_rows if r['axis'] == 'lifecycle'),
-         sum(1 for r in _si1_rows if r['axis'] == 'schema+base+integrity')))
-
-# O3 EMITS census.json, as the freeze says it does -- so the recorded artifact is rebuilt here from
-# the rows THIS run measured and required to equal the file on disk. The earlier candidates wrote
-# that file from a side script, which is how it came to carry three divergences after the census had
-# measured four: a hand-maintained record of a measurement drifts silently, and only a comparison
-# catches it. Set SI1_EMIT_CENSUS=1 to rewrite the file; the default run only checks it, so a CI
-# run never mutates the tree.
-# THE REASON STRINGS NAME THE RESOLVED TARGET, AND THAT NAME IS THE EVENT'S, NOT THE ROUND'S:
-# `HEAD` locally and on a push, `pull_request.head.sha <sha>` in pull-request CI -- where the sha
-# changes with every commit pushed. A recorded document carrying either one is therefore stale under
-# the other, which is exactly what happened: this check passed on a workflow_dispatch run and FAILED
-# on the pull request for the SAME commit, with every verdict and every total identical. The check
-# was right and the artifact was wrong, so the label is normalized to a fixed token here and the
-# document says what the census measured rather than which object this particular run resolved.
-#
-# What is NOT normalized is the verdicts. If a future event resolves a target at which the old
-# machinery or `O2` genuinely answers differently, the totals change, the comparison fails, and a
-# reader has to look -- which is the right outcome and not a defect in this check.
-_SI1_TARGET_TOKEN = 'the resolved target'
-_, _si1_doc_label, _ = _rbr_target_commit(tag='R7-SI1/doc')
-
-
-def _si1_doc_rows(rows, key):
-    """`rows` with the resolved target's NAME replaced by a fixed token in the free-text field."""
-    out = []
-    for _row in rows:
-        _row = dict(_row)
-        _text = _row.get(key)
-        if isinstance(_text, str) and _si1_doc_label:
-            _row[key] = _text.replace(_si1_doc_label, _SI1_TARGET_TOKEN)
-        out.append(_row)
-    return out
-
-
-_si1_census_doc = {
-    'round': 'SI-1',
-    'base': '99ab6370470ed9d9e4005551581c6c8c18e54bd2',
-    'outcome': 'CENSUS-DIVERGENT',
-    'note': ('An AGREEMENT census and not a proof of correctness: agreement where it occurs is no '
-             'evidence of correctness, because a shared error survives every case both sides get '
-             'wrong together. The twenty-two real records are compared on the axis each is on -- '
-             'eighteen sealed on LIFECYCLE, four base-only on SCHEMA/PINNED-BASE/RECORD-INTEGRITY, '
-             'the latter having no lifecycle to agree about. The twenty-one synthetic controls are '
-             'censused separately, and that half decides the outcome: nine have no old-machinery '
-             'analogue at all, and FOUR of the twelve comparable ones DIVERGE. On each comparable '
-             'control both sides resolve the same synthetic event payload for themselves -- the old '
-             'archive path with no explicit target, so its head-or-base-branch-tip resolution stays '
-             'live -- because a shared helper compared with itself cannot diverge. Both verdicts are '
-             'recorded for every row and THE CENSUS ADJUDICATES NONE OF THEM: on three divergences '
-             'the new implementation is the stricter one and on one the direction is reversed, which '
-             'is a measurement and not a verdict on which implementation is right. The frozen '
-             'sentence for this outcome: "The two implementations disagreed on the records named '
-             'below. Both verdicts are recorded. This round does not adjudicate which is correct and '
-             'changed neither implementation to remove the disagreement."'),
-    'record_totals': {
-        'records': len(_si1_rows),
-        'agree': sum(1 for r in _si1_rows if r['agree']),
-        'lifecycle_axis': sum(1 for r in _si1_rows if r['axis'] == 'lifecycle'),
-        'schema_axis': sum(1 for r in _si1_rows if r['axis'] == 'schema+base+integrity'),
-    },
-    'control_totals': {
-        'controls': len(_si1_ctl),
-        'comparable': len(_si1_ctl_comp),
-        'no_analogue': len(_si1_ctl_non),
-        'divergent': len(_si1_ctl_div),
-        'divergent_controls': sorted(r['control'] for r in _si1_ctl_div),
-        # Which side is stricter is a DIRECTION and is recorded; which side is right is an
-        # adjudication and is not. The earlier key named an implementation correct, which SI1-5 has
-        # no authority to do.
-        'old_passes_new_fails': sorted(r['control'] for r in _si1_ctl_div
-                                       if r['old_ok'] and not r['new_ok']),
-        'reproduces_discrepancy_1': ['10 stale base.sha, branch carries it'],
-    },
-    'records': _si1_doc_rows(_si1_rows, 'new_reason'),
-    'controls': _si1_doc_rows(_si1_ctl, 'reason'),
-}
+# SI1-5 -- the census. RETIRED AS LIVE RE-MEASUREMENT AND REPLACED BY AN ARTIFACT-INTEGRITY CHECK by
+# SI-3 (SI3-5). The census compared O2 with the legacy machinery over the twenty-two records and
+# twenty-one controls; that machinery, the old side, no longer exists in this file, so the comparison
+# cannot be reproduced and is not. census.json is a CERTIFIED HISTORICAL MEASUREMENT of SI-1's
+# checkpoint under SI-1's rule, pinned by the blob identity it has carried since SI-1 landed, with a
+# one-byte drift control; it is evidence of what SI-1 measured then and is NEVER read as evidence
+# about the current head, and no old/new equivalence is claimed from it after retirement. Every
+# U3-side measurement of this guard keeps running.
 _SI1CENSUSREL = 'infrastructure/round-si-1-shadow-seal-validator/census.json'
-if os.environ.get('SI1_EMIT_CENSUS') == '1':
-    with open(_artifact(_SI1CENSUSREL), 'w', encoding='utf-8') as _fh:
-        _fh.write(json.dumps(_si1_census_doc, indent=2) + '\n')
-def _si1_census_agrees(raw, measured):
-    """The artifact check as ONE predicate over the RECORDED BYTES, so that the mutation controls
-    below exercise the same parse-and-compare path the real file goes through.
-
-    The first form of this check compared two dictionaries and then 'mutation-tested' itself by
-    altering a copy and asserting the two differed -- which tests that Python dictionaries with
-    different values are unequal, not that a stale census.json is rejected. A control that cannot
-    fail is worse than no control, because it is counted."""
-    try:
-        return json.loads(raw.decode('utf-8') if isinstance(raw, bytes) else raw) == measured
-    except (ValueError, UnicodeDecodeError):
-        return False
-
-
-_si1_census_raw = _bb_read(_SI1CENSUSREL)
-_si1_census_ok = _si1_census_agrees(_si1_census_raw, _si1_census_doc)
-ok_si1 &= _si1_census_ok
-# Control C -- the normalization is checked to have HAPPENED, not assumed: no row of the document
-# may still carry the resolved target's name. Without this the token could silently stop being
-# substituted and the artifact would go back to being event-dependent.
-ok_si1 &= (not _si1_doc_label) or not any(
-    _si1_doc_label in str(_r.get(_k) or '')
-    for _k, _rows in (('new_reason', _si1_census_doc['records']),
-                      ('reason', _si1_census_doc['controls']))
-    for _r in _rows)
-
-# Control A -- the recorded file with ONE total altered must be REJECTED by that same predicate. A
-# file carrying three divergences against a census that measured four is exactly what happened, so
-# it is exactly what the control reproduces.
-try:
-    _si1_census_stale = json.loads(_si1_census_raw.decode('utf-8'))
-except (ValueError, UnicodeDecodeError):
-    # The recorded file does not parse, so the check above has already failed on it -- and the
-    # CONTROL still has to run rather than take the probe down with it. It then mutates the measured
-    # document instead of the unreadable one; either way what is tested is the predicate.
-    _si1_census_stale = json.loads(json.dumps(_si1_census_doc))
-_si1_census_stale['control_totals']['divergent'] = len(_si1_ctl_div) - 1
-ok_si1 &= not _si1_census_agrees(json.dumps(_si1_census_stale), _si1_census_doc)
-# Control B -- unparseable bytes are a failure and not an exception, so the check fails closed on a
-# truncated or hand-mangled artifact rather than crashing the probe.
-ok_si1 &= not _si1_census_agrees(_si1_census_raw[:len(_si1_census_raw) // 2], _si1_census_doc)
-print('    R7-SI1 census artifact: census.json is rebuilt from the rows measured in this run and '
-      'compared with the recorded bytes -- %s; the same predicate REJECTS the recorded file with '
-      'one total altered, and rejects unparseable bytes'
-      % ('identical' if _si1_census_ok else 'DIFFERENT, so it is STALE'))
+_SI1_CENSUS_BLOB = '7a3e6288c5f532a849a07beb9a8e5757cdf79d04'
+_si1_census_pinned = _bb_blob(_SI1CENSUSREL) == _SI1_CENSUS_BLOB
+ok_si1 &= _si1_census_pinned
+ok_si1 &= _bb_blob(_SI1CENSUSREL, read=lambda p: _bb_read(p) + (b'\n' if p == _SI1CENSUSREL else b'')) != _SI1_CENSUS_BLOB
+print('    R7-SI1 census artifact: census.json is a certified historical measurement of SI-1\'s checkpoint, '
+      'pinned at blob %s -- %s; its old side was retired by SI-3 and it is not re-measured'
+      % (_SI1_CENSUS_BLOB[:12], 'PINNED' if _si1_census_pinned else 'DRIFTED'))
 print('    R7-SI1 derivation: reachable scope %d of %d agree with the pin; first-parent scope %d, '
       'the retained 6/12 split' % (_si1_reach, len(_si1_sealed), _si1_spine))
 
@@ -25816,139 +25513,6 @@ def _si2_authority_measured(src):
     return res
 
 
-def _si2_census(records, errors, env=None, cwd=None):
-    """U4 -- the census harness with the roles inverted: U3 is the authoritative side and the old
-    machinery is the shadow, over every manifest record. The old side is the legacy machinery as
-    the per-round clauses ran it -- the archive certificate on the round's FIRST-ASSIGNMENT
-    constants for a sealed round, resolving the event for itself; the strengthened execution check
-    against the round's _<STEM>_BASE for a base-only round -- and a row is admitted only if the
-    constants and the record name the same objects, so both sides answer about one thing; otherwise
-    it is `no-analogue`. The twenty-third row, SI1, takes its shadow from R7-SI1's own check
-    against _SI1_BASE exactly as the four other base-only rows take theirs."""
-    new = _si2_validate(records, env=env, cwd=cwd, errors=errors)
-    rows = []
-    if new is None:
-        return rows
-    target, label, num = _rbr_target_commit(env=env, tag='R7-SI2/old')
-    first, _dbl = _si1_transcribe(_bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace'))
-
-    def const(stem, field):
-        v = first.get((stem, field))
-        return v.strip("'\"") if isinstance(v, str) else None
-
-    for stem in sorted(set(records) | set(errors or {})):
-        lifecycle, ok, reason = new.get(stem, (None, False, 'no verdict'))
-        rec = records.get(stem) or {}
-        kind = rec.get('kind')
-        old = None
-        analogue = None
-        if target is not None and kind == 'sealed':
-            cB, cS, cM = const(stem, 'BASE'), const(stem, 'SEALED_HEAD'), const(stem, 'MERGE')
-            if (cB, cS, cM) == (rec.get('base'), rec.get('sealed_head'), rec.get('merge')):
-                old = _rbr_archive_ancestry(cB, cS, cM, tag='R7-SI2/old', env=env, cwd=cwd)
-            else:
-                analogue = 'no-analogue: the legacy constants and the record name different objects'
-        elif target is not None and kind == 'base-only':
-            cB = const(stem, 'BASE')
-            if cB == rec.get('base'):
-                old = _si1_quiet_ancestry(cB, target, tag='R7-SI2/old', cwd=cwd)
-            else:
-                analogue = 'no-analogue: _%s_BASE and the record name different objects' % stem
-        axis = 'lifecycle' if kind == 'sealed' else 'schema+base+integrity'
-        rows.append({
-            'round': stem, 'kind': kind, 'axis': axis,
-            'new_lifecycle': lifecycle, 'new_ok': bool(ok), 'new_reason': reason,
-            'old_ok': None if old is None else bool(old),
-            'agree': None if old is None else (bool(old) == bool(ok)),
-            'analogue': analogue,
-        })
-    return rows
-
-
-def _si2_control_census():
-    """U4 over the synthetic control suite: SI-1's twenty-one controls, the old machinery against
-    U3. Frozen expectation (SI2-4): nine no-analogue; of the twelve comparable exactly 7, 13 and 20
-    diverge, each in U3's direction; 10 agrees with both sides passing; 11 and 12 agree failing."""
-    import shutil
-    d, n, _g = _si1_build_repo()
-    rows = []
-
-    def rec(stem, kind, base, sealed=None, merge=None, **extra):
-        r = {'round': stem, 'kind': kind, 'base': base}
-        if sealed is not None:
-            r['sealed_head'] = sealed
-        if merge is not None:
-            r['merge'] = merge
-        r.update(extra)
-        return r
-
-    def new_of(records, prospective=None, target=None, targets=None, env=None):
-        got = _si2_validate(records, prospective=prospective, cwd=d, target=target, env=env,
-                            targets=(targets if targets is not None else
-                                     ([(target, 'target')] if target is not None else None)))
-        if got is None:
-            return None
-        stem = sorted(set(records) | set(prospective or {}))[0]
-        return bool(got[stem][1])
-
-    def row(name, comparable, old, new, why):
-        if new is None:
-            new, why = False, why + '; U3 failed closed and returned no verdict'
-        rows.append({'control': name, 'comparable': comparable, 'old_ok': old, 'new_ok': new,
-                     'agree': (None if not comparable else (bool(old) == bool(new))), 'reason': why})
-
-    try:
-        NOANALOGUE = 'the old machinery holds no records, so nothing in it answers this question'
-        for name in ('1 malformed hash', '2 missing required key', '3 unknown extra key',
-                     '4a base-only with sealed_head value', '4b base-only with sealed_head null'):
-            row(name, False, None, False, 'schema: ' + NOANALOGUE)
-        for name in ('15 mutated', '16 removed', '17 added'):
-            row(name, False, None, False, 'manifest integrity: ' + NOANALOGUE)
-        row('18 double assignment', False, None, True, 'transcription: ' + NOANALOGUE)
-        for name, r, tgt in (
-                ('5 rewritten sealed head', rec('Z', 'sealed', n['B'], '0' * 40, n['Lm']), n['Maf']),
-                ('6 wrong L', rec('Z', 'sealed', n['B'], n['E2'], n['Wr']), n['Wr']),
-                ('7 two candidates', rec('Z', 'sealed', n['B'], n['E2'], n['Lm']), n['L2']),
-                ('8 zero candidates', rec('Z', 'sealed', n['B'], n['E1'], n['Lm']), n['Maf'])):
-            old = _rbr_archive_ancestry(r['base'], r['sealed_head'], r['merge'], tag='R7-SI2/old',
-                                        target=tgt, cwd=d)
-            row(name, True, old, new_of({'Z': r}, target=tgt), 'archive certificate against U3')
-        row('9 sibling history in EXECUTION', True,
-            _si1_quiet_ancestry(n['B9'], n['T9'], tag='R7-SI2/old', cwd=d),
-            new_of({}, prospective={'Z': n['B9']}, target=n['T9']),
-            'strengthened execution check against U3')
-        for name, env in (('10 stale base.sha, branch carries it', _si1_pr_env(d, n['Hh'], 'main', n['c0'])),
-                          ('11 base branch rewound', _si1_pr_env(d, n['Hh'], 'no-landing', n['Maf'])),
-                          ('12 unresolved base ref', _si1_pr_env(d, n['Hh'], 'main-local-only', n['Maf']))):
-            r = rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])
-            old = _rbr_archive_ancestry(r['base'], r['sealed_head'], r['merge'], tag='R7-SI2/old',
-                                        env=env, cwd=d)
-            row(name, True, old, new_of({'Z': r}, env=env),
-                'the old archive path and U3, each resolving the same event payload for itself -- '
-                'U3 over the UNION of the visibility targets')
-        row('13 descendant of unpinned L', True,
-            _si1_quiet_ancestry(n['B'], n['Maf'], tag='R7-SI2/old', cwd=d),
-            new_of({}, prospective={'Z': n['B']}, target=n['Maf']),
-            'the old machinery has NO pending-seal notion and admits the descendant; U3 refuses it '
-            'as SEAL PENDING -- adjudicated in U3\'s direction')
-        row('14 unpinned L itself', True,
-            _si1_quiet_ancestry(n['B'], n['Lm'], tag='R7-SI2/old', cwd=d),
-            new_of({}, prospective={'Z': n['B']}, target=n['Lm']),
-            'both admit the landing itself, by different routes')
-        row('19 synthetic merge HEAD', True,
-            _rbr_archive_ancestry(n['B'], n['E2'], n['Lm'], tag='R7-SI2/old', target=n['Hh'], cwd=d),
-            new_of({'Z': rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])}, target=n['Hh']),
-            'both resolve the real head and refuse the synthetic merge')
-        row('20 base-only out of the state machine', True,
-            _si1_quiet_ancestry(n['B9'], n['T9'], tag='R7-SI2/old', cwd=d),
-            new_of({'Z': rec('Z', 'base-only', n['B9'])}, target=n['T9']),
-            'the old machinery applies EXECUTION ancestry semantics to a completed non-sealing '
-            'round and refuses it; U3 does not classify it at all -- adjudicated in U3\'s direction')
-    finally:
-        shutil.rmtree(d, ignore_errors=True)
-    return rows
-
-
 def _si2_base_tag_map():
     """SI2-6(a) -- the base's own guard file is RUN, AT THE BASE, in a subprocess, and its verdict
     lines parsed into a tag-to-verdict map. Returns the map or None.
@@ -26243,122 +25807,23 @@ print('    R7-SI2 live ledger: %d clauses, U3 PASS %d, legacy shadow PASS %d, sh
          sum(1 for e in _si2_live.values() if e['shadow_ok'] is True),
          sum(1 for e in _si2_live.values() if e['shadow_ok'] is None)))
 
-# SI2-4 -- the census at the final head.
+# SI2-4 -- the census at the final head. RETIRED AS LIVE RE-MEASUREMENT AND REPLACED BY AN
+# ARTIFACT-INTEGRITY CHECK by SI-3 (SI3-5), on the same terms as SI-1's: the old side U4 compared U3
+# against no longer exists in this file. census.json is a CERTIFIED HISTORICAL MEASUREMENT of SI-2's
+# checkpoint under SI-2's rule -- the adjudicated delta profile it recorded, DELTA-AS-ADJUDICATED --
+# pinned by the blob identity it has carried since SI-2 landed, with a one-byte drift control, never
+# read as evidence about the current head. The scoped record set below still feeds SI2-8.
 _si2_recs_all, _si2_errs_all = _si1_load()
-# SI-3 (SI3-1): SI-2's census and its #140 probe are twenty-three-record contracts, scoped to the
-# records SI-2 manifested; a later round's authorized additions are outside this historical scope.
+# SI-3 (SI3-1): SI-2's #140 probe is a twenty-three-record contract, scoped to the records SI-2
+# manifested; a later round's authorized additions are outside this historical scope.
 _si2_recs_all = {k: v for k, v in _si2_recs_all.items() if k in _SI2_MANIFESTED}
-_si2_rows = _si2_census(_si2_recs_all, _si2_errs_all)
-_si2_ctl = _si2_control_census()
-_si2_ctl_comp = [r for r in _si2_ctl if r['comparable']]
-_si2_ctl_non = [r for r in _si2_ctl if not r['comparable']]
-_si2_ctl_div = sorted(r['control'] for r in _si2_ctl_comp if not r['agree'])
-_si2_ctl_by = {r['control']: r for r in _si2_ctl}
-_si2_records_ok = (len(_si2_rows) == 23 and all(r['agree'] for r in _si2_rows)
-                   and sum(1 for r in _si2_rows if r['axis'] == 'lifecycle') == 18
-                   and sum(1 for r in _si2_rows if r['axis'] == 'schema+base+integrity') == 5
-                   and all(r['new_lifecycle'] == 'ARCHIVED' for r in _si2_rows if r['kind'] == 'sealed')
-                   and all(r['new_lifecycle'] == _SI1_NA for r in _si2_rows if r['kind'] == 'base-only')
-                   and all(r['analogue'] is None for r in _si2_rows))
-_si2_controls_ok = (len(_si2_ctl) == 21 and len(_si2_ctl_comp) == 12 and len(_si2_ctl_non) == 9
-                    and _si2_ctl_div == ['13 descendant of unpinned L', '20 base-only out of the state machine',
-                                         '7 two candidates']
-                    and _si2_ctl_by['7 two candidates']['old_ok'] is True and _si2_ctl_by['7 two candidates']['new_ok'] is False
-                    and _si2_ctl_by['13 descendant of unpinned L']['old_ok'] is True and _si2_ctl_by['13 descendant of unpinned L']['new_ok'] is False
-                    and _si2_ctl_by['20 base-only out of the state machine']['old_ok'] is False and _si2_ctl_by['20 base-only out of the state machine']['new_ok'] is True
-                    and _si2_ctl_by['10 stale base.sha, branch carries it']['old_ok'] is True and _si2_ctl_by['10 stale base.sha, branch carries it']['new_ok'] is True
-                    and _si2_ctl_by['11 base branch rewound']['old_ok'] is False and _si2_ctl_by['11 base branch rewound']['new_ok'] is False
-                    and _si2_ctl_by['12 unresolved base ref']['old_ok'] is False and _si2_ctl_by['12 unresolved base ref']['new_ok'] is False)
-_si2_delta_outcome = ('DELTA-AS-ADJUDICATED' if _si2_records_ok and _si2_controls_ok
-                      else ('DELTA-BROKEN' if not _si2_records_ok else 'DELTA-UNEXPECTED'))
-ok_si2 &= _si2_records_ok and _si2_controls_ok
-print('    R7-SI2 SI2-4: %s -- records %d of %d agree (%d lifecycle, %d schema/base/integrity); controls '
-      '%d, %d comparable, %d no-analogue, divergent %s; control 10 old=%s new=%s'
-      % (_si2_delta_outcome, sum(1 for r in _si2_rows if r['agree']), len(_si2_rows),
-         sum(1 for r in _si2_rows if r['axis'] == 'lifecycle'),
-         sum(1 for r in _si2_rows if r['axis'] == 'schema+base+integrity'),
-         len(_si2_ctl), len(_si2_ctl_comp), len(_si2_ctl_non), _si2_ctl_div,
-         _si2_ctl_by.get('10 stale base.sha, branch carries it', {}).get('old_ok'),
-         _si2_ctl_by.get('10 stale base.sha, branch carries it', {}).get('new_ok')))
-
-# U4 EMITS census.json, with the resolved targets' NAMES normalized to a fixed token (the names are
-# the event's, not the round's); verdicts are not normalized.
-_SI2_TARGET_TOKEN = 'the resolved targets'
-_si2_doc_labels = [lab for _r, lab in (_si2_union_targets(tag='R7-SI2/doc') or [])]
-
-
-def _si2_doc_rows(rows, key):
-    out = []
-    for _row in rows:
-        _row = dict(_row)
-        _text = _row.get(key)
-        if isinstance(_text, str):
-            for lab in sorted(_si2_doc_labels, key=len, reverse=True):
-                if lab:
-                    _text = _text.replace(lab, _SI2_TARGET_TOKEN)
-            _text = _text.replace('the union of %s and %s' % (_SI2_TARGET_TOKEN, _SI2_TARGET_TOKEN),
-                                  _SI2_TARGET_TOKEN)
-            _row[key] = _text
-        out.append(_row)
-    return out
-
-
-_si2_census_doc = {
-    'round': 'SI-2',
-    'base': _seal_field('SI2', 'base'),
-    'outcome': _si2_delta_outcome,
-    'note': ('The census at SI-2\'s final head with the roles INVERTED: U3, the authoritative validator '
-             'deriving over the union of the visibility targets, against the old machinery as the '
-             'shadow. Over the twenty-three manifest records -- eighteen sealed on LIFECYCLE, five '
-             'base-only on SCHEMA/PINNED-BASE/RECORD-INTEGRITY, the twenty-third being the SI1 record '
-             'SI2-1 added, its shadow the strengthened execution check R7-SI1 runs against _SI1_BASE -- '
-             'the two sides agree. Over the twenty-one synthetic controls, nine have no old-machinery '
-             'analogue and exactly three of the twelve comparable ones diverge, 7, 13 and 20, each in '
-             'U3\'s ADJUDICATED direction; control 10, on which SI-1 measured the direction reversed, '
-             'now AGREES with both sides passing, because U3 sees the base-branch tip. This is the '
-             'delta profile the freeze predicted and is an agreement census under an adjudication of '
-             'BEHAVIOUR, not a proof that either implementation is correct.'),
-    'record_totals': {
-        'records': len(_si2_rows),
-        'agree': sum(1 for r in _si2_rows if r['agree']),
-        'lifecycle_axis': sum(1 for r in _si2_rows if r['axis'] == 'lifecycle'),
-        'schema_axis': sum(1 for r in _si2_rows if r['axis'] == 'schema+base+integrity'),
-        'no_analogue': sum(1 for r in _si2_rows if r['analogue']),
-    },
-    'control_totals': {
-        'controls': len(_si2_ctl),
-        'comparable': len(_si2_ctl_comp),
-        'no_analogue': len(_si2_ctl_non),
-        'divergent': len(_si2_ctl_div),
-        'divergent_controls': _si2_ctl_div,
-        'control_10_agrees': bool(_si2_ctl_by.get('10 stale base.sha, branch carries it', {}).get('agree')),
-    },
-    'records': _si2_doc_rows(_si2_rows, 'new_reason'),
-    'controls': _si2_doc_rows(_si2_ctl, 'reason'),
-}
-if os.environ.get('SI2_EMIT_CENSUS') == '1':
-    with open(_artifact(_SI2CENSUSREL), 'w', encoding='utf-8') as _fh:
-        _fh.write(json.dumps(_si2_census_doc, indent=2) + '\n')
-try:
-    _si2_census_raw = _bb_read(_SI2CENSUSREL)
-except Exception:  # noqa: BLE001
-    _si2_census_raw = b''
-_si2_census_ok = _si1_census_agrees(_si2_census_raw, _si2_census_doc)
-ok_si2 &= _si2_census_ok
-ok_si2 &= not any(lab and lab in str(_r.get(_k) or '')
-                  for lab in _si2_doc_labels
-                  for _k, _rows in (('new_reason', _si2_census_doc['records']), ('reason', _si2_census_doc['controls']))
-                  for _r in _rows)
-try:
-    _si2_census_stale = json.loads(_si2_census_raw.decode('utf-8'))
-except (ValueError, UnicodeDecodeError):
-    _si2_census_stale = json.loads(json.dumps(_si2_census_doc))
-_si2_census_stale['control_totals']['divergent'] = len(_si2_ctl_div) + 1
-ok_si2 &= not _si1_census_agrees(json.dumps(_si2_census_stale), _si2_census_doc)
-ok_si2 &= not _si1_census_agrees(_si2_census_raw[:len(_si2_census_raw) // 2], _si2_census_doc)
-print('    R7-SI2 census artifact: census.json rebuilt from this run\'s rows and compared with the recorded '
-      'bytes -- %s; a total altered and unparseable bytes are both rejected'
-      % ('identical' if _si2_census_ok else 'DIFFERENT, so it is STALE'))
+_SI2_CENSUS_BLOB = 'd6b2e505da8bb816179a822258d6672b79670155'
+_si2_census_pinned = _bb_blob(_SI2CENSUSREL) == _SI2_CENSUS_BLOB
+ok_si2 &= _si2_census_pinned
+ok_si2 &= _bb_blob(_SI2CENSUSREL, read=lambda p: _bb_read(p) + (b'\n' if p == _SI2CENSUSREL else b'')) != _SI2_CENSUS_BLOB
+print('    R7-SI2 SI2-4: RETIRED by SI-3 as live re-measurement -- census.json is a certified historical '
+      'measurement of SI-2\'s checkpoint, pinned at blob %s -- %s; SI-2\'s own recorded outcome was '
+      'DELTA-AS-ADJUDICATED' % (_SI2_CENSUS_BLOB[:12], 'PINNED' if _si2_census_pinned else 'DRIFTED'))
 
 # SI2-5 -- integrity data-driven; the comparisons as shadow.
 _si2_int = _si2_integrity()
