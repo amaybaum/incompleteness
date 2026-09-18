@@ -104,10 +104,16 @@ same extraction `SI2-6`(b) used, and that zero is a standing contract from this 
 
 ### The reads to remove or rebind: 228 genuine identifier reads, in three classes
 
-Counted by tokenizing the file and keeping `NAME` tokens equal to one of the sixty names outside
-their own assignment lines. Mentions inside string literals — seventy-eight tokens over twenty-five
-names, all of them quotations of frozen result-note phrases inside content contracts — are **not
-reads**, need no name to exist, and are left exactly as they are.
+Counted by tokenizing the file with Python's `tokenize` module and keeping `NAME` tokens equal to
+one of the sixty names outside their own assignment lines. **That count, 228, and its three-class
+partition are what `SI3-2` and `SI3-4` gate on.** Mentions inside string literals are **not
+reads**, need no name to exist, and are left exactly as they are; for the record, the same
+tokenization counts seventy-eight `(STRING token, name)` pairs — a `STRING` token, docstrings
+included, paired once with each of the sixty names it contains as a whole word, a name repeated
+inside one token counting once — over twenty-five names, all of them quotations of frozen
+result-note phrases inside content contracts. A broader lexical scan counting every occurrence
+gives a larger number. **Neither string count gates anything**: they are explanatory, and the
+execution reports whatever its own tokenization finds without a bound.
 
 | class | where | reads | disposition |
 |---|---|---|---|
@@ -146,8 +152,14 @@ Every rebound read in the table above goes through it, so that "where does this 
 round's sealed head from" has one answer.
 
 **`R2` — the prospective declaration.** A module-level mapping from stem to mandated base,
-**outside both marker-bounded regions**, declared before the first keyed clause runs, and handed to
-`U3` as its `prospective` argument by `_si2_manifest_verdicts`. While `SI-3` executes it holds
+**declared outside both marker-bounded regions**, before the first keyed clause runs, and handed to
+`U3` as its `prospective` argument by `_si2_manifest_verdicts`. That function lives inside
+`SI2-AUTHORITY` and today calls `_si2_validate(_recs, errors=_errs)` with no prospective argument,
+and no hook outside the region reaches it; so **this freeze authorizes, in advance, the minimal
+generic wiring edit inside the region** — `_si2_manifest_verdicts` reads the declaration and passes
+it as `prospective` — as a wiring supersession of `SI-2`'s object and not a new authority. The edit
+names no round stem, so `_si2_region_no_stem` keeps passing; it changes nothing in `U1`, `U2`, `U3`
+or `U5`'s semantics; and it is bounded by negative case 14. While `SI-3` executes the declaration holds
 exactly `{'SI3': <mandated base>}`; `U3` classifies `SI3` as `EXECUTION` and certifies its head by
 act 10's strengthened check, and at `L` as `LANDED-PENDING-PIN`. **`P` removes the entry when it
 writes the record**, so that from `P` on the round is classified from `SI3.json` alone; a stem that
@@ -158,10 +170,14 @@ without writing the representation this round retires. The name is generic and c
 stem, and the mapping is the single place a future sealing round declares its base while it runs.
 
 **`R3` — the round-declared integrity baseline.** `U5` today fixes its record set by reading the
-seals tree at `_SI2_BASE` and adding `SI-2`'s one authorized record. That reads a constant this round
-deletes and hard-codes one round's authorization. `R3` replaces it with a declaration, beside `R2`
-and likewise stem-free in its name, of **the mandated base whose seals tree is the baseline** and
-**the additions the current round's preregistration authorizes**. `U5`'s semantics are unchanged:
+seals tree at `_SI2_BASE` and adding `SI-2`'s one authorized record, in `_si2_manifest_at_stage1`,
+which lives inside `SI2-AUTHORITY`. That reads a constant this round deletes and hard-codes one
+round's authorization. `R3` replaces it with a declaration, beside `R2` and likewise stem-free in
+its name, of **the mandated base whose seals tree is the baseline** and **the additions the current
+round's preregistration authorizes**; and **this freeze authorizes, in advance, the second minimal
+generic wiring edit inside the region** — `U5`'s baseline path consumes `R3` instead of reading
+`_SI2_BASE` and `_SI2_STAGE1_ADDITIONS` — on the same terms as `R2`'s: stem-free, no change to
+`U5`'s semantics, bounded by negative case 14. `U5`'s semantics are unchanged:
 mutated, removed and added are three distinct conditions against that baseline; the only permitted
 change is an authorized addition; the current round's own `sealed` record, written at `P`, is
 authorized **by stem** here and validated **by content** by `U3`, which must classify it `ARCHIVED`
@@ -176,7 +192,7 @@ regression harnesses are not definition slots. Unused slots are recorded as unus
 
 | stage | target | what it does | may not begin until |
 |---|---|---|---|
-| 1 | `SI3-1` | `SI2.json` added, `kind: "base-only"`, `base` = `df54b99dba99dc043b11752163d8d348c9e54472`; `R7-SI2`'s chronology clause becomes a keyed call to `U3` on that record; `R3` declared with that addition; the record set is **fixed** at twenty-four from here until `P` | — |
+| 1 | `SI3-1` | **one commit, atomically:** `SI2.json` added, `kind: "base-only"`, `base` = `df54b99dba99dc043b11752163d8d348c9e54472`; `R3` declared with that addition and `U5`'s baseline path wired to it; `R7-SI1`'s scoped-integrity contract generalized to the closed-round rule and `R7-SI2`'s twenty-three-record contracts scoped to `_SI2_MANIFESTED`, both per the supersession table, because a twenty-fourth record fails each of them as written; `_si2_guard_edits_bounded`'s "exactly one addition" assertion retired in the same commit; `R7-SI2`'s chronology clause becomes a keyed call to `U3` on that record; the record set is **fixed** at twenty-four from here until `P`. The stage's dry run has every pre-existing tag `PASS` | — |
 | 2 | `SI3-2` | `R1` built; every read in the *other* class rebound or retired per the table; `R2` declared with `SI-3`'s base | stage 1 |
 | 3 | `SI3-3` | the twenty-three shadow functions, the five comparators, the shadow-integrity recording and `R7-RNT`'s self-test block deleted; the twenty-three keyed calls lose `shadow=` | stage 2's dry run: every pre-existing tag `PASS` |
 | 4 | `SI3-4` | the sixty-two statements deleted; zero remain | stage 3's dry run: every pre-existing tag `PASS` |
@@ -202,7 +218,15 @@ mandated execution base. The record set is twenty-four at `E` — eighteen `seal
 — and nothing else is added, mutated or removed before `P`. `R7-SI2`'s chronology clause, the one
 clause `SI-2` kept out of the cutover because `SI-2` had no record, is from this stage a keyed call
 to `U3` on `SI2.json`, classified `not-applicable` with the pinned base reachable, exactly as the
-five other `base-only` rounds are. Outcomes: `RECORD-AS-AUTHORIZED` / `RECORD-DEVIATED`.
+five other `base-only` rounds are. **The addition and the scoping it requires land in one commit**:
+as written at `B0`, `R7-SI1` fails any record beyond its twenty-two transcriptions and the one
+addition `SI-2` authorized, and `R7-SI2` requires exactly twenty-three records with an empty `U5`
+delta against `SI-2`'s stage-1 set, so a commit that added the record alone would fail both guards
+by construction and prove nothing. Stage 1 therefore also carries the two scoping supersessions
+named in the table — `R7-SI1`'s scoped-integrity contract generalized to the closed-round rule,
+`R7-SI2`'s record-count contracts scoped to `_SI2_MANIFESTED` — with `_si2_guard_edits_bounded`'s
+"exactly one addition" assertion retired alongside, and `U5` reading `R3`. Outcomes:
+`RECORD-AS-AUTHORIZED` / `RECORD-DEVIATED`.
 
 **`SI3-2` — every remaining read goes through the accessor.** After this stage, no genuine
 identifier read of any of the sixty names exists outside the shadow and comparator functions that
@@ -246,7 +270,8 @@ per-round seal-integrity comparison, and a round that writes any of them fails t
 `R2`, and its removal at `P`; how `U5`'s baseline is declared — `R3`; and that **a closed round's
 manifest-cardinality and integrity contracts are read over the records that round manifested**, so
 that a later round's authorized additions are outside them without a per-round amendment — the rule
-Amendment 1 applied to `SI-1` and this round applies to `SI-2`, stated once for every round after.
+Amendment 1 applied to `SI-1` and stage 1 of this round applies to both `R7-SI1` and `R7-SI2`,
+stated here once for every round after.
 The two halves `SI2-7` wrote about the legacy constants are replaced by the one that now holds: they
 are gone. Outcomes: `PROTOCOL-UPDATED` / `PROTOCOL-PARTIAL` / `PROTOCOL-ABSENT`.
 
@@ -268,7 +293,8 @@ evidence-bearing and are not optimized away. The wall-clock cost is recorded in 
 
 Under §A.37's ownership rule this section is the authorization. Each entry names the frozen contract,
 why the retirement fails it, and what stands in its place. **Nothing outside this table is touched
-in `R7-SI1` or `R7-SI2`**, and a failure outside it is a result requiring adjudication.
+in `R7-SI1`, `R7-SI2` or the `SI2-AUTHORITY` region**, and a failure outside it is a result
+requiring adjudication.
 
 | guard | contract | why the retirement fails it | disposition |
 |---|---|---|---|
@@ -278,9 +304,11 @@ in `R7-SI1` or `R7-SI2`**, and a failure outside it is a result requiring adjudi
 | `R7-SI1` | `SI1-6`'s tag-map comparison and `_si1_no_forbidden_paths`, which name `_SI1_BASE` as a revision | the constant is deleted | rebound to `SI1.json`'s `base` through `R1`; both keep running |
 | `R7-SI1` | the `SI1` record literal built from `_SI1_BASE` | the constant is deleted | the literal `99ab6370470ed9d9e4005551581c6c8c18e54bd2`, which is what the record holds |
 | `R7-SI2` | the bootstrap chronology clause, and negative case 11 which required it to stay out of the cutover "because `SI-2` has none" | `SI2.json` exists from stage 1; `_SI2_BASE` is deleted | a keyed call to `U3` on `SI2.json`; case 11's reason no longer holds and the case is **retired** |
-| `R7-SI2` | `SI2-1`'s `_si2_guard_edits_bounded` — the two-element N13 allowance present once, `_SI2_BASE` assigned once | N13 and `_SI2_BASE` are gone | **retired** with N13 |
+| `R7-SI1` | the scoped-integrity contract (`SI-2` Amendment 1, point 1): `_SI1_AUTHORIZED_ADDITIONS = {'SI1'}`, and `ok_si1 &= not _si1_unauthorized` failing any record beyond the twenty-two transcriptions and that one addition | stage 1 adds `SI2.json`, a twenty-fourth record | **generalized at stage 1** to the closed-round rule `SI3-6` later writes into §A.37: `R7-SI1`'s cardinality and integrity contracts are evaluated over `_si1_scoped(records)`, the twenty-two it transcribed, and a later round's authorized additions are outside that historical scope; the unauthorized-addition check is retired here because `U5` under `R3` is what polices additions from this round on; `_SI1_TRANSCRIBED <= set(records)` keeps running |
+| `R7-SI2` | `SI2-1`'s `_si2_guard_edits_bounded` — `_SI1_AUTHORIZED_ADDITIONS == {'SI1'}`, the two-element N13 allowance present once, `_SI2_BASE` assigned once | the first assertion fails at stage 1; N13 and `_SI2_BASE` are gone by stage 4 | **retired at stage 1** in the same commit as the record addition, not deferred |
 | `R7-SI2` | `SI2-1`'s record-count contracts: twenty-three records, `U5` delta empty against `SI-2`'s stage-1 set | `SI-3` adds `SI2` and then `SI3` | **scoped to the twenty-three records `SI-2` manifested**, `_SI2_MANIFESTED`, exactly as Amendment 1 scoped `SI-1`'s to its twenty-two; `U5` moves to `R3`'s baseline |
-| `R7-SI2` | `SI2-2`'s negative case 13, the N13 mutation control | N13 is gone | **retired** with N13; cases 1–8, 11 and 12 keep running |
+| `R7-SI2` | `SI2-2`'s negative case 13, the N13 mutation control | N13 is gone | **retired** with N13; with case 11 retired above, `SI-2`'s cases 1–8 and 12 keep running |
+| `SI2-AUTHORITY` region | `_si2_manifest_verdicts` calling `_si2_validate` without `prospective`; `_si2_manifest_at_stage1` reading `_SI2_BASE` and `_SI2_STAGE1_ADDITIONS` | no hook outside the region reaches either | **two minimal generic wiring edits authorized**, per `R2` and `R3`: the first passes the declaration as `prospective`, the second reads `R3`'s baseline; no round stem enters the region, `U1`–`U5`'s semantics do not change, and the region's text at the head equals the base's after reverting exactly those two edits (negative case 14) |
 | `R7-SI2` | `SI2-3`'s measurement, `_si2_authority_measured` and `_si2_clause_gates_on_u3`: the `shadow=` form required, shadow-forced controls, the in-vivo rebinding that flips eighteen shadows | there are no shadows | **replaced** by `SI3-3`'s shadowless form, measured statically the same way; the static count of clauses gating on `U3` stays twenty-three and the count gating on a legacy constant stays zero |
 | `R7-SI2` | `SI2-4`'s live census reconstruction, `_si2_census` and `_si2_control_census` | the old side reads the constants | **live re-measurement retired and replaced, not silently deleted**: the clause becomes an artifact-integrity check, `census.json` pinned by its existing blob `d6b2e505…` with a drift control, labelled a certified historical measurement of `SI-2`'s checkpoint |
 | `R7-SI2` | `SI2-5`'s "eight comparator verdicts recorded as shadows" | the comparators are gone | **retired**; `U5` gating with zero live per-round gates keeps running |
@@ -313,8 +341,10 @@ missed a read, and that is the informative outcome. `SI3-4` is HIGH because it i
 
 ## The negative suite
 
-`SI-1`'s twenty cases and `SI-2`'s cases 1–8, 11 and 12 remain in force. These are added, and each
-must satisfy its named outcome for its named reason:
+`SI-1`'s twenty cases and `SI-2`'s cases 1–8 and 12 remain in force; `SI-2`'s cases 11 and 13 are
+retired, per the supersession table, because each asserts a fact this round makes false — that
+`SI-2` has no record, and that N13 exists. These are added, and each must satisfy its named outcome
+for its named reason:
 
 1. One legacy statement of any shape re-added at the final head — **fails `SI3-4`**.
 2. One `_<stem>_legacy_ancestry` function retained, or one keyed call still carrying `shadow=` —
@@ -338,6 +368,10 @@ must satisfy its named outcome for its named reason:
     `SI3-6`**.
 13. `R1` asked for a field of a record that does not exist, or a `base-only` record's
     `sealed_head` — **fails closed**, never returns a default.
+14. The `SI2-AUTHORITY` region at the head differing from the base's by anything other than the
+    two authorized wiring edits — measured as `SI-2` measured its relocation: the region text with
+    exactly those two edits reverted must equal the base's, and must differ before reverting —
+    **fails**; a round stem appearing in the region **fails** `_si2_region_no_stem` as before.
 
 ## What no outcome of this round licenses
 
@@ -374,8 +408,14 @@ it is not repaired by editing the record.
 **H3 — self-certification, the second time.** `SI-2`'s H3 kept `SI-2` from being certified by the
 validator it installed. `SI-3` installs no validator; it is certified by `U3` as `SI-2` left it,
 through the prospective path `SI-1` built. What `SI-3` does touch is the wiring — `R2` handed to
-`U3`, `R3` read by `U5` — and both are outside the marker-bounded regions, whose no-stem and
-relocated-verbatim contracts keep running. An edit inside either region is out of scope.
+`U3`, `R3` read by `U5` — and the two functions that must consume them, `_si2_manifest_verdicts`
+and `_si2_manifest_at_stage1`, live inside `SI2-AUTHORITY`. So the region **is** edited, and the
+hazard is that a wiring edit becomes a semantic one. The edit is bounded three ways: the
+declarations themselves stay outside both regions; the two edits are named in the supersession
+table and are the only ones, which negative case 14 measures by reverting exactly them and
+requiring equality with the base's region; and `_si2_region_no_stem` keeps running, so no round
+stem enters. The `SI1-VALIDATOR` region is not edited at all, and `_si2_region_relocated_verbatim`
+keeps running against it. Any other edit inside either region is out of scope.
 
 **H4 — the nested run.** Eight executions per run. If runtime becomes a CI failure the round stops
 on that actual result.
