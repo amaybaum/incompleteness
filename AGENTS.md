@@ -915,14 +915,16 @@ preregistration of the round that adds it, exactly as `SI2-1` added
 `SI1.json` for `SI-1` and as the retirement round adds `SI2.json` for
 `SI-2`.
 
-**The legacy constants, in two halves, both of which hold.** From `SI-2`'s
-landing the sixty-one legacy seal-constant assignments in the guard file
-**cease to GATE**: no check's verdict depends on them, they are read only as
-shadows of the manifest, and a round that writes a new one has recreated the
-representation `SI-2` retired. And until the retirement round they remain
-**PROTECTED HISTORICAL SEAL STATE**: altering or removing any of them
-constitutes taking ownership of existing seal state under this section, and
-makes the round that does it *sealing*.
+**The legacy constants, in two halves, both of which held until `SI-3`'s
+landing.** From `SI-2`'s landing the sixty-one legacy seal-constant
+assignments in the guard file **cease to GATE**: no check's verdict depends on
+them, they are read only as shadows of the manifest, and a round that writes a
+new one has recreated the representation `SI-2` retired. And until the
+retirement round they remained **PROTECTED HISTORICAL SEAL STATE**: altering
+or removing any of them constitutes taking ownership of existing seal state
+under this section, and makes the round that does it *sealing*. The
+retirement round, `SI-3`, took that ownership prospectively in its freeze and
+removed them; what holds from its landing is stated below.
 
 **The retirement round is sealing.** It follows that the round which deletes
 the fifty-nine names and sixty-one statements against `SI-2`'s frozen
@@ -930,3 +932,53 @@ inventory, and removes the per-round seal-integrity comparisons the
 data-driven rule shadows, is **sealing** under this section, and its `P`
 writes its own `sealed` manifest record under this protocol — `sealed_head` =
 its `E`, `merge` = its `L` — and writes no legacy constant.
+
+### The representation retired, from `SI-3`'s landing
+
+This subsection governs **rounds begun after `SI-3`'s landing merge**. It is
+the protocol `SI3-6` wrote, and it states what the retirement left in force.
+
+**The legacy representation is retired.** From `SI-3`'s landing the guard
+file carries **no legacy seal constant** — no module-level `_<STEM>_BASE`,
+`_<STEM>_SEALED_HEAD` or `_<STEM>_MERGE` — **no shadow** of a manifest
+verdict, and **no per-round seal-integrity comparison**. `SI-3` removed them
+against `SI-2`'s frozen inventory plus `SI-2`'s own base constant: sixty-two
+statements over sixty names, twenty-three shadows, five comparators. A round
+that writes any of them again fails the standing contract `SI-3`'s guard
+keeps — **zero legacy assignment statements in the file** — and has
+recreated the representation that was retired. Every read of a round's seal
+state goes through the **manifest accessor**, one function that returns a
+named field of one round's record and fails closed where the record or the
+field is missing.
+
+**How a sealing round carries its base while it executes.** It writes no
+constant. It declares its mandated execution base, by stem, in the
+**prospective declaration** — a stem-free mapping outside the validator's
+marker-bounded regions, handed to the validator as its prospective input —
+and the validator classifies the round `EXECUTION` against that base through
+act 10's strengthened check, and `LANDED-PENDING-PIN` at its landing merge.
+**`P` removes the entry when it writes the record**, so that from `P` on the
+round is classified from its record alone; a stem that is both declared and
+recorded is a failure.
+
+**How manifest integrity is declared.** The data-driven rule holds the
+manifest against a **declared baseline**: the seals tree at the current
+round's mandated execution base, read from git, plus the additions the
+current round's preregistration authorizes, by stem. An authorized addition
+is admitted by stem here and validated by content by the validator; anything
+else added, and anything mutated or removed, is reported as such and fails.
+Each round declares its own baseline; no round's guard hard-codes another's.
+
+**A closed round's contracts are read over the records it manifested.** A
+landed round's manifest-cardinality and integrity contracts — its record
+count, its authorized-addition set, its census and its probes — are evaluated
+over the records that round manifested, and a later round's authorized
+additions are outside that historical scope. This is the rule `SI-2`'s
+Amendment 1 applied to `SI-1` and `SI-3` applied to both `SI-1` and `SI-2`;
+stated here once, it needs no per-round amendment again.
+
+**The censuses are history.** `SI-1`'s and `SI-2`'s `census.json` are
+certified historical measurements of those rounds' checkpoints under those
+rounds' rules, pinned by their blob identities. Their old side no longer
+exists: they are not re-measured, never read as evidence about a later head,
+and never the ground of an old/new equivalence claim after retirement.
