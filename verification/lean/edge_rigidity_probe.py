@@ -11052,47 +11052,11 @@ check('R7-ARCH', ok_arch,
       'and no base is touched by archive mode; it re-certifies the object that was reviewed.')
 
 
-def _rbr_legacy_ancestry():
-    """B2 -- the EXECUTION HEAD descends from the control plane's merge commit.
-
-    This is the half of the chronology control that a content hash cannot carry, so it is asked of
-    git directly, and in exactly one way: `merge-base --is-ancestor` against the pinned base.
-    **No textual or base-SHA assertion substitutes for it**, because a claim about the shape of the
-    history has to be answered by the history.
-
-    Two things make the question the right one rather than merely answerable. The guard resolves
-    the target commit first -- the real PR head in a PR run, not the synthetic merge `HEAD`, which
-    would make the check vacuous -- and then ensures both that commit and the pinned base are
-    present, recovering history if the checkout is shallow. CI's `fetch-depth: 0` is a convenience
-    that makes the recovery a no-op on the common path; nothing here depends on it.
-
-    FAIL-CLOSED throughout: a missing git, an unresolvable PR head, a failed recovery, a missing
-    object or a non-zero exit all FAIL the check rather than passing or skipping it. An unverifiable
-    ordering claim is exactly what act 7 layer 2's NOT-CERTIFIED D5 control was, and a guard that
-    passed where it could not evaluate -- or evaluated the wrong object -- would reproduce it."""
-    target, label, num = _rbr_target_commit()
-    if target is None:
-        return False
-    if not _rbr_ensure_present(_RBR_BASE):
-        return False
-    if not _rbr_ensure_present(target, pr_number=num):
-        return False
-    r = _rbr_git('merge-base', '--is-ancestor', _RBR_BASE, target)
-    if r is None:
-        return False
-    if r.returncode != 0:
-        print('    R7-RBR/shadow ancestry: %s is present but is NOT an ancestor of %s'
-              % (_RBR_BASE[:12], label))
-        return False
-    print('    R7-RBR/shadow ancestry: certified %s descends from %s' % (label, _RBR_BASE[:12]))
-    return True
-
-
 def _rbr_base_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    RBR.json, and nothing else. The round's original check, `_rbr_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('RBR', tag='R7-RBR', shadow=_rbr_legacy_ancestry)
+    RBR.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('RBR', tag='R7-RBR')
 
 
 def _rbr_outcome(t=None):
@@ -11405,69 +11369,11 @@ def _abr_freeze_pin(read=_bb_read):
         '2e92464dca3809558959d240314dbaf9eaa1c500')
 
 
-def _abr_legacy_ancestry():
-    """C2 -- NO COMMIT REACHABLE FROM THE EXECUTION HEAD LIES OUTSIDE THE FREEZE'S DESCENDANTS.
-
-    Head-only ancestry is too weak for the claim the freeze makes, and act 10's control plane says
-    so in terms. Counterexample it must exclude: an anchor-specific commit E is made BEFORE the
-    control-plane merge B exists, and is later merged together with B into the execution head H.
-    Then B is an ancestor of H and a head-only guard passes, while E is reachable from H and never
-    descended from B -- execution material that entered history before the freeze, certified clean.
-
-    So the check has two parts, and both must hold:
-
-      * B is an ancestor of H; AND
-      * every commit in `git rev-list H ^B` is itself a descendant of B.
-
-    The second part is what excludes pre-freeze side history. H is act 9's hardened target -- the
-    real `pull_request.head.sha` in a PR run, never the synthetic merge commit -- and the history
-    recovery machinery is reused for B, for H and for every enumerated commit alike, since an
-    enumeration run against a truncated graph would reproduce act 9's shallow-clone defect in a new
-    place.
-
-    FAIL-CLOSED throughout: a missing git, an unresolvable head, a failed recovery, a missing object
-    or any non-zero exit FAILS the check rather than passing or skipping it."""
-    target, label, num = _abr_target_commit()
-    if target is None:
-        return False
-    if not _abr_ensure_present(_ABR_BASE):
-        return False
-    if not _abr_ensure_present(target, pr_number=num):
-        return False
-    r = _abr_git('merge-base', '--is-ancestor', _ABR_BASE, target)
-    if r is None:
-        return False
-    if r.returncode != 0:
-        print('    R7-ABR/shadow ancestry: %s is present but is NOT an ancestor of %s'
-              % (_ABR_BASE[:12], label))
-        return False
-    listed = _abr_git('rev-list', '%s' % target, '^%s' % _ABR_BASE)
-    if listed is None:
-        return False
-    if listed.returncode != 0:
-        print('    R7-ABR/shadow ancestry: could not enumerate the execution-only history; failing closed')
-        return False
-    revs = listed.stdout.decode('utf-8', 'replace').split()
-    for rev in revs:
-        if not _abr_ensure_present(rev, pr_number=num):
-            return False
-        step = _abr_git('merge-base', '--is-ancestor', _ABR_BASE, rev)
-        if step is None:
-            return False
-        if step.returncode != 0:
-            print('    R7-ABR/shadow ancestry: %s is reachable from %s but does NOT descend from %s -- '
-                  'pre-freeze side history' % (rev[:12], label, _ABR_BASE[:12]))
-            return False
-    print('    R7-ABR/shadow ancestry: certified %s and all %d commit(s) of the execution-only history '
-          'descend from %s' % (label, len(revs), _ABR_BASE[:12]))
-    return True
-
-
 def _abr_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    ABR.json, and nothing else. The round's original check, `_abr_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('ABR', tag='R7-ABR', shadow=_abr_legacy_ancestry)
+    ABR.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('ABR', tag='R7-ABR')
 
 
 def _abr_availability_first(t=None):
@@ -11852,30 +11758,11 @@ def _hya_freeze_pin(read=_bb_read):
         '934cd6aff1cfb07b823c9b131693ee59bb98c632')
 
 
-def _hya_legacy_ancestry():
-    """Y2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused verbatim through acts 11 and 12's copies: the head-only
-    check is insufficient because a commit made before the freeze and merged in alongside it leaves
-    the head descended from the freeze while itself not being.
-
-    Execution mode (pin unset): the strong check against the run's real target. Archive mode (pin
-    set, as now): the same strong check re-run against the sealed head 6a8675efca5e, with the
-    pinned merge d2314f5edc33 required to carry it and both required reachable from the current
-    target, fail-closed."""
-    if _HYA_SEALED_HEAD is None:
-        target, label, num = _hya_target_commit()
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_HYA_BASE, target, label, num, tag='R7-HYA/shadow')
-    return _rbr_archive_ancestry(_HYA_BASE, _HYA_SEALED_HEAD, _HYA_MERGE, tag='R7-HYA/shadow')
-
-
 def _hya_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    HYA.json, and nothing else. The round's original check, `_hya_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('HYA', tag='R7-HYA', shadow=_hya_legacy_ancestry)
+    HYA.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('HYA', tag='R7-HYA')
 
 
 def _hya_outcome(t=None):
@@ -12312,51 +12199,11 @@ def _clg_freeze_pin(read=_bb_read):
         '0f6d37fafd857d9e54d5dbff6d062cc360ea08e5')
 
 
-def _clg_legacy_ancestry():
-    """E2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
-    commit made before the freeze and merged in alongside it leaves the head descended from the
-    freeze while itself not being."""
-    target, label, num = _clg_target_commit()
-    if target is None:
-        return False
-    if not _clg_ensure_present(_CLG_BASE):
-        return False
-    if not _clg_ensure_present(target, pr_number=num):
-        return False
-    r = _clg_git('merge-base', '--is-ancestor', _CLG_BASE, target)
-    if r is None:
-        return False
-    if r.returncode != 0:
-        print('    R7-CLG/shadow ancestry: %s is present but is NOT an ancestor of %s'
-              % (_CLG_BASE[:12], label))
-        return False
-    listed = _clg_git('rev-list', '%s' % target, '^%s' % _CLG_BASE)
-    if listed is None or listed.returncode != 0:
-        print('    R7-CLG/shadow ancestry: could not enumerate the execution-only history; failing closed')
-        return False
-    revs = listed.stdout.decode('utf-8', 'replace').split()
-    for rev in revs:
-        if not _clg_ensure_present(rev, pr_number=num):
-            return False
-        step = _clg_git('merge-base', '--is-ancestor', _CLG_BASE, rev)
-        if step is None:
-            return False
-        if step.returncode != 0:
-            print('    R7-CLG/shadow ancestry: %s is reachable from %s but does NOT descend from %s -- '
-                  'pre-freeze side history' % (rev[:12], label, _CLG_BASE[:12]))
-            return False
-    print('    R7-CLG/shadow ancestry: certified %s and all %d commit(s) of the execution-only history '
-          'descend from %s' % (label, len(revs), _CLG_BASE[:12]))
-    return True
-
-
 def _clg_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    CLG.json, and nothing else. The round's original check, `_clg_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('CLG', tag='R7-CLG', shadow=_clg_legacy_ancestry)
+    CLG.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('CLG', tag='R7-CLG')
 
 
 def _clg_two_stabilizers(t=None):
@@ -12857,51 +12704,11 @@ def _tsg_freeze_pin(read=_bb_read):
         '5850238f290f0424ff677ff6d5cc2c039b1f58c2')
 
 
-def _tsg_legacy_ancestry():
-    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused verbatim through act 11's copy: the head-only check is
-    insufficient because a commit made before the freeze and merged in alongside it leaves the head
-    descended from the freeze while itself not being."""
-    target, label, num = _tsg_target_commit()
-    if target is None:
-        return False
-    if not _tsg_ensure_present(_TSG_BASE):
-        return False
-    if not _tsg_ensure_present(target, pr_number=num):
-        return False
-    r = _tsg_git('merge-base', '--is-ancestor', _TSG_BASE, target)
-    if r is None:
-        return False
-    if r.returncode != 0:
-        print('    R7-TSG/shadow ancestry: %s is present but is NOT an ancestor of %s'
-              % (_TSG_BASE[:12], label))
-        return False
-    listed = _tsg_git('rev-list', '%s' % target, '^%s' % _TSG_BASE)
-    if listed is None or listed.returncode != 0:
-        print('    R7-TSG/shadow ancestry: could not enumerate the execution-only history; failing closed')
-        return False
-    revs = listed.stdout.decode('utf-8', 'replace').split()
-    for rev in revs:
-        if not _tsg_ensure_present(rev, pr_number=num):
-            return False
-        step = _tsg_git('merge-base', '--is-ancestor', _TSG_BASE, rev)
-        if step is None:
-            return False
-        if step.returncode != 0:
-            print('    R7-TSG/shadow ancestry: %s is reachable from %s but does NOT descend from %s -- '
-                  'pre-freeze side history' % (rev[:12], label, _TSG_BASE[:12]))
-            return False
-    print('    R7-TSG/shadow ancestry: certified %s and all %d commit(s) of the execution-only history '
-          'descend from %s' % (label, len(revs), _TSG_BASE[:12]))
-    return True
-
-
 def _tsg_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    TSG.json, and nothing else. The round's original check, `_tsg_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('TSG', tag='R7-TSG', shadow=_tsg_legacy_ancestry)
+    TSG.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('TSG', tag='R7-TSG')
 
 
 def _tsg_all_landed(t=None):
@@ -13330,30 +13137,11 @@ def _sgt_freeze_pin(read=_bb_read):
         'b8168df9ed1acff21eb89e84487b43470124f845')
 
 
-def _sgt_legacy_ancestry():
-    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
-    commit made before the freeze and merged in alongside it leaves the head descended from the
-    freeze while itself not being.
-
-    Execution mode (pin unset): the strong check against the run's real target. Archive mode (pin
-    set, as now): the same strong check re-run against the sealed head 57103e9ddf43, with the
-    pinned merge 11a8a59d2279 required to carry it and both required reachable from the current
-    target, fail-closed."""
-    if _SGT_SEALED_HEAD is None:
-        target, label, num = _sgt_target_commit()
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_SGT_BASE, target, label, num, tag='R7-SGT/shadow')
-    return _rbr_archive_ancestry(_SGT_BASE, _SGT_SEALED_HEAD, _SGT_MERGE, tag='R7-SGT/shadow')
-
-
 def _sgt_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    SGT.json, and nothing else. The round's original check, `_sgt_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('SGT', tag='R7-SGT', shadow=_sgt_legacy_ancestry)
+    SGT.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('SGT', tag='R7-SGT')
 
 
 def _sgt_outcome(t=None):
@@ -14257,26 +14045,11 @@ def _a12p_freeze_pin(read=_bb_read):
     return _bb_blob(_A12P_PREREG, read) == '1d471eddde3bc0df8b7dbf26ddf642c4af6783b5'
 
 
-def _a12p_legacy_ancestry():
-    """P2 -- act 10's strengthened ancestry predicate against the merge commit of PR #600.
-
-    Execution mode (pin unset): the strong check against the run's real target. Archive mode (pin
-    set, as now): the same strong check re-run against the sealed head 2792a7836d70, with the
-    pinned merge 2706a3aa7b87 required to carry it and both required reachable from the current
-    target, fail-closed."""
-    if _A12P_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-A12P/shadow')
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_A12P_BASE, target, label, num, tag='R7-A12P/shadow')
-    return _rbr_archive_ancestry(_A12P_BASE, _A12P_SEALED_HEAD, _A12P_MERGE, tag='R7-A12P/shadow')
-
-
 def _a12p_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    A12P.json, and nothing else. The round's original check, `_a12p_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('A12P', tag='R7-A12P', shadow=_a12p_legacy_ancestry)
+    A12P.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('A12P', tag='R7-A12P')
 
 
 def _a12p_two_sided(main=None, expl=None, ch01=None):
@@ -14592,30 +14365,11 @@ def _cti_freeze_pin(read=_bb_read):
         '5d8bee2c616d12c53234c54bfa7efae19dc1dcc1')
 
 
-def _cti_legacy_ancestry():
-    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
-    commit made before the freeze and merged in alongside it leaves the head descended from the
-    freeze while itself not being.
-
-    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
-    mode (pins set, after the merge): the same strong check re-run against the sealed head, with
-    the pinned merge required to carry it and both required reachable from the current target,
-    fail-closed."""
-    if _CTI_SEALED_HEAD is None:
-        target, label, num = _cti_target_commit()
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_CTI_BASE, target, label, num, tag='R7-CTI/shadow')
-    return _rbr_archive_ancestry(_CTI_BASE, _CTI_SEALED_HEAD, _CTI_MERGE, tag='R7-CTI/shadow')
-
-
 def _cti_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    CTI.json, and nothing else. The round's original check, `_cti_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('CTI', tag='R7-CTI', shadow=_cti_legacy_ancestry)
+    CTI.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('CTI', tag='R7-CTI')
 
 
 def _cti_outcome(t=None):
@@ -15175,31 +14929,11 @@ def _pqt_freeze_pin(read=_bb_read):
         '1b16008470bb1e2456c57aad58421a5941a55e0c')
 
 
-def _pqt_legacy_ancestry():
-    """U2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused verbatim through acts 12's and 13's copies: the
-    head-only check is insufficient because a commit made before the freeze and merged in alongside
-    it leaves the head descended from the freeze while itself not being.
-
-    Execution mode (pins unset, as now): the strong check against the run's real target, resolved
-    from the real `pull_request.head.sha` and never from the synthetic merge commit. Archive mode
-    (pins set, after the merge): the same strong check re-run against the sealed head, with the
-    pinned merge required to carry it and both required reachable from the current target,
-    fail-closed."""
-    if _PQT_SEALED_HEAD is None:
-        target, label, num = _pqt_target_commit()
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_PQT_BASE, target, label, num, tag='R7-PQT/shadow')
-    return _rbr_archive_ancestry(_PQT_BASE, _PQT_SEALED_HEAD, _PQT_MERGE, tag='R7-PQT/shadow')
-
-
 def _pqt_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    PQT.json, and nothing else. The round's original check, `_pqt_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('PQT', tag='R7-PQT', shadow=_pqt_legacy_ancestry)
+    PQT.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('PQT', tag='R7-PQT')
 
 
 def _pqt_outcome(t=None):
@@ -15943,26 +15677,11 @@ def _hyb_freeze_pin(read=_bb_read):
         '37cc9dae301ee10d55adb73b296aa2fc7d0578e3')
 
 
-def _hyb_legacy_ancestry():
-    """Z2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused verbatim through R7-HYA's copy. Execution mode (pins
-    unset, as now): the strong check against the run's real target. Archive mode (pins set): the
-    same strong check re-run against the sealed head, with the pinned merge required to carry it
-    and both required reachable from the current target, fail-closed."""
-    if _HYB_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-HYB/shadow')
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_HYB_BASE, target, label, num, tag='R7-HYB/shadow')
-    return _rbr_archive_ancestry(_HYB_BASE, _HYB_SEALED_HEAD, _HYB_MERGE, tag='R7-HYB/shadow')
-
-
 def _hyb_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    HYB.json, and nothing else. The round's original check, `_hyb_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('HYB', tag='R7-HYB', shadow=_hyb_legacy_ancestry)
+    HYB.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('HYB', tag='R7-HYB')
 
 
 def _hyb_outcome(t=None):
@@ -16622,25 +16341,11 @@ def _a6p_freeze_pin(read=_bb_read):
     return _bb_blob(_A6P_PREREG, read) == 'e7cb7013747f783135c8e166d290ce6670df0ae9'
 
 
-def _a6p_legacy_ancestry():
-    """P2 -- act 10's strengthened ancestry predicate against the merge commit of PR #604.
-
-    Execution mode (pin unset, as now): the strong check against the run's real target. Archive
-    mode (pin set): the same strong check re-run against the sealed head, with the pinned merge
-    required to carry it and both required reachable from the current target, fail-closed."""
-    if _A6P_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-A6P/shadow')
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_A6P_BASE, target, label, num, tag='R7-A6P/shadow')
-    return _rbr_archive_ancestry(_A6P_BASE, _A6P_SEALED_HEAD, _A6P_MERGE, tag='R7-A6P/shadow')
-
-
 def _a6p_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    A6P.json, and nothing else. The round's original check, `_a6p_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('A6P', tag='R7-A6P', shadow=_a6p_legacy_ancestry)
+    A6P.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('A6P', tag='R7-A6P')
 
 
 def _a6p_round1_pins(read=_bb_read):
@@ -17008,26 +16713,11 @@ def _wts_freeze_pin(read=_bb_read):
         '98cfcfdc0e74ffe0186c502517a842bfeb25d351')
 
 
-def _wts_legacy_ancestry():
-    """W2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused verbatim through `_rbr_strong_ancestry`. Execution
-    mode (pins unset, as now): the strong check against the run's real target -- the real
-    `pull_request.head.sha` in PR CI, `HEAD` otherwise. Archive mode (pins set by the post-merge
-    follow-up): `_rbr_archive_ancestry` against the sealed head and its merge, fail-closed."""
-    if _WTS_SEALED_HEAD is None:
-        target, label, num = _wts_target_commit()
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_WTS_BASE, target, label, num, tag='R7-WTS/shadow')
-    return _rbr_archive_ancestry(_WTS_BASE, _WTS_SEALED_HEAD, _WTS_MERGE, tag='R7-WTS/shadow')
-
-
 def _wts_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    WTS.json, and nothing else. The round's original check, `_wts_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('WTS', tag='R7-WTS', shadow=_wts_legacy_ancestry)
+    WTS.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('WTS', tag='R7-WTS')
 
 
 def _wts_outcome(t=None):
@@ -17577,31 +17267,11 @@ def _pc4_freeze_pin(read=_bb_read):
         'a80334a5d5f19125b69459523acf723b607f97e1')
 
 
-def _pc4_legacy_ancestry():
-    """Z2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, carried forward by name: the head-only check is insufficient
-    because a commit made before the freeze and merged in alongside it leaves the head descended
-    from the freeze while itself not being. The question is asked of the real
-    `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails
-    closed with no fallback.
-
-    Execution mode (pin unset, as now): the strong check against the run's real target. Archive
-    mode (pin set): the same strong check re-run against the sealed head, with the pinned merge
-    required to carry it and both required reachable from the current target, fail-closed."""
-    if _PC4_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-PC4/shadow')
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_PC4_BASE, target, label, num, tag='R7-PC4/shadow')
-    return _rbr_archive_ancestry(_PC4_BASE, _PC4_SEALED_HEAD, _PC4_MERGE, tag='R7-PC4/shadow')
-
-
 def _pc4_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    PC4.json, and nothing else. The round's original check, `_pc4_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('PC4', tag='R7-PC4', shadow=_pc4_legacy_ancestry)
+    PC4.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('PC4', tag='R7-PC4')
 
 
 def _pc4_outcome(t=None):
@@ -17991,30 +17661,11 @@ def _pc4s_freeze_pin(read=_bb_read):
         '16cfd1303e7c279c8d6bab68b7112c3f25a7460e')
 
 
-def _pc4s_legacy_ancestry():
-    """Y2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    The head-only check is insufficient: a commit made before the freeze and merged in alongside it
-    leaves the head descended from the freeze while itself not being. The question is asked of the
-    real `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails
-    closed with no fallback.
-
-    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
-    mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
-    required to carry it and both required reachable from the current target, fail-closed."""
-    if _PC4S_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-PC4S/shadow')
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_PC4S_BASE, target, label, num, tag='R7-PC4S/shadow')
-    return _rbr_archive_ancestry(_PC4S_BASE, _PC4S_SEALED_HEAD, _PC4S_MERGE, tag='R7-PC4S/shadow')
-
-
 def _pc4s_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    PC4S.json, and nothing else. The round's original check, `_pc4s_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('PC4S', tag='R7-PC4S', shadow=_pc4s_legacy_ancestry)
+    PC4S.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('PC4S', tag='R7-PC4S')
 
 
 def _pc4s_outcome(t=None):
@@ -18493,30 +18144,11 @@ def _a6d_freeze_pin(read=_bb_read):
         'afbf1ee0e8ea94cb7fb3e57e690cd08b8d7e0bc3')
 
 
-def _a6d_legacy_ancestry():
-    """A2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused through act 12's copy: the head-only check is
-    insufficient because a commit made before the freeze and merged in alongside it leaves the head
-    descended from the freeze while itself not being.
-
-    Execution mode (pin unset): the strong check against the run's real target. Archive mode (pin
-    set, as now): the same strong check re-run against the sealed head d0b8c6e83c32, with the
-    pinned merge 4fb0a6052d33 required to carry it and both required reachable from the current
-    target, fail-closed."""
-    if _A6D_SEALED_HEAD is None:
-        target, label, num = _a6d_target_commit()
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_A6D_BASE, target, label, num, tag='R7-A6D/shadow')
-    return _rbr_archive_ancestry(_A6D_BASE, _A6D_SEALED_HEAD, _A6D_MERGE, tag='R7-A6D/shadow')
-
-
 def _a6d_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    A6D.json, and nothing else. The round's original check, `_a6d_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('A6D', tag='R7-A6D', shadow=_a6d_legacy_ancestry)
+    A6D.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('A6D', tag='R7-A6D')
 
 
 def _a6d_outcome(t=None):
@@ -19222,32 +18854,11 @@ def _a6i_freeze_pin(read=_bb_read):
         '6f991c1348e0c568261894c41b129b7f942abee6')
 
 
-def _a6i_legacy_ancestry():
-    """I2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused through `_rbr_strong_ancestry`: the head-only check is
-    insufficient because a commit made before the freeze and merged in alongside it leaves the head
-    descended from the freeze while itself not being. The ancestry question is asked of the real
-    `pull_request.head.sha`, NEVER the synthetic merge commit refs/pull/<n>/merge, and an
-    unresolvable head fails closed with no fallback.
-
-    Execution mode (pin unset, as now): the strong check against the run's real target. Archive
-    mode (pins set by the post-merge follow-up): the same strong check re-run against the sealed
-    head, with the pinned merge required to carry it and both required reachable from the current
-    target, fail-closed."""
-    if _A6I_SEALED_HEAD is None:
-        target, label, num = _a6i_target_commit()
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_A6I_BASE, target, label, num, tag='R7-A6I/shadow')
-    return _rbr_archive_ancestry(_A6I_BASE, _A6I_SEALED_HEAD, _A6I_MERGE, tag='R7-A6I/shadow')
-
-
 def _a6i_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    A6I.json, and nothing else. The round's original check, `_a6i_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('A6I', tag='R7-A6I', shadow=_a6i_legacy_ancestry)
+    A6I.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('A6I', tag='R7-A6I')
 
 
 def _a6i_untouched_pins(read=_bb_read):
@@ -19995,30 +19606,11 @@ def _hye_freeze_pin(read=_bb_read):
         '9f3f4ff4115c8d95215462acd257b4f6b32c9926')
 
 
-def _hye_legacy_ancestry():
-    """W2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    The head-only check is insufficient: a commit made before the freeze and merged in alongside it
-    leaves the head descended from the freeze while itself not being. The question is asked of the
-    real `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails
-    closed with no fallback.
-
-    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
-    mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
-    required to carry it and both required reachable from the current target, fail-closed."""
-    if _HYE_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-HYE/shadow')
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_HYE_BASE, target, label, num, tag='R7-HYE/shadow')
-    return _rbr_archive_ancestry(_HYE_BASE, _HYE_SEALED_HEAD, _HYE_MERGE, tag='R7-HYE/shadow')
-
-
 def _hye_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    HYE.json, and nothing else. The round's original check, `_hye_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('HYE', tag='R7-HYE', shadow=_hye_legacy_ancestry)
+    HYE.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('HYE', tag='R7-HYE')
 
 
 def _hye_outcome(t=None):
@@ -20674,31 +20266,11 @@ def _tcf_freeze_pin(read=_bb_read):
         '6428e0acab070ccfd2a84d13c6f55616526206ba')
 
 
-def _tcf_legacy_ancestry():
-    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused through acts 12's, 13's and 14's copies: the head-only
-    check is insufficient because a commit made before the freeze and merged in alongside it leaves
-    the head descended from the freeze while itself not being. The question is asked of the real
-    `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails closed
-    with no fallback.
-
-    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
-    mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
-    required to carry it and both required reachable from the current target, fail-closed."""
-    if _TCF_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-TCF/shadow')
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_TCF_BASE, target, label, num, tag='R7-TCF/shadow')
-    return _rbr_archive_ancestry(_TCF_BASE, _TCF_SEALED_HEAD, _TCF_MERGE, tag='R7-TCF/shadow')
-
-
 def _tcf_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    TCF.json, and nothing else. The round's original check, `_tcf_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('TCF', tag='R7-TCF', shadow=_tcf_legacy_ancestry)
+    TCF.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('TCF', tag='R7-TCF')
 
 
 def _tcf_outcome(t=None):
@@ -20922,18 +20494,6 @@ def _tcf_discrepancies(t=None):
             and 'The anti-contamination invariant is honoured.' in t)
 
 
-def _tcf_prior_seals(_cti_base=None, _cti_sealed=None, _cti_merge=None,
-                     _pqt_base=None, _pqt_sealed=None, _pqt_merge=None):
-    """T16 -- act 13's and act 14's archive seals are exactly the values those rounds set. An
-    archive seal belongs to the round that set it; this round reads them and never writes them."""
-    return ((_cti_base or _CTI_BASE) == 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
-            and (_cti_sealed or _CTI_SEALED_HEAD) == '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
-            and (_cti_merge or _CTI_MERGE) == '292848b3c908d33ac432a5360effe0c259e3ce16'
-            and (_pqt_base or _PQT_BASE) == 'bc76a88dbe300a35715d5ce8196002f31aa62493'
-            and (_pqt_sealed or _PQT_SEALED_HEAD) == '5008a47bf7e67edc502120f9269c4a4661ef7342'
-            and (_pqt_merge or _PQT_MERGE) == 'c50dd22457bfd4812761cb56e7ca1a559af33c5e')
-
-
 def _tcf_lean_defs(t=None):
     """T17 -- exactly the one budgeted definition is a top-level `def` in the module, in the
     freeze's name, with none of the three forbidden strings anywhere, and the docstring carrying the
@@ -20964,7 +20524,6 @@ ok_tcf &= _tcf_budget()
 ok_tcf &= _tcf_axiom_table()
 ok_tcf &= _tcf_chronology()
 ok_tcf &= _tcf_discrepancies()
-_si2_shadow_integrity('R7-TCF', _tcf_prior_seals())  # SI2-5: recorded, gating nothing
 ok_tcf &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_tcf &= _tcf_lean_defs()
 
@@ -21167,12 +20726,6 @@ _tcf_m33 = _TCF1.replace(
     'That round\'s findings are consumed here as inputs')
 ok_tcf &= _tcf_m33 != _TCF1 and not _tcf_discrepancies(_tcf_m33)
 
-# act 13's or act 14's archive seal re-pinned by this round -- A.37's ownership rule
-ok_tcf &= not _tcf_prior_seals(_cti_sealed='0' * 40)
-ok_tcf &= not _tcf_prior_seals(_cti_merge='deadbeef' * 5)
-ok_tcf &= not _tcf_prior_seals(_pqt_sealed='0' * 40)
-ok_tcf &= not _tcf_prior_seals(_pqt_merge='deadbeef' * 5)
-ok_tcf &= not _tcf_prior_seals(_pqt_base='0' * 40)
 
 # T1's control runs THROUGH _tcf_freeze_pin, so sabotaging that predicate fails the guard.
 def _tcf_drift(path):
@@ -21300,32 +20853,11 @@ def _rnc_freeze_pin(read=_bb_read):
         '48099a3b334e8d01f31af706e8738cd49cfca774')
 
 
-def _rnc_legacy_ancestry():
-    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused through acts 12's, 13's, 14's and 15's copies: the
-    head-only check is insufficient because a commit made before the freeze and merged in alongside
-    it leaves the head descended from the freeze while itself not being. The question is asked of the
-    real `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails
-    closed with no fallback.
-
-    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
-    mode (pins set by the mandatory pin commit P): the same strong check re-run against the sealed
-    head, with the pinned merge required to carry it and both required reachable from the current
-    target, fail-closed."""
-    if _RNC_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-RNC/shadow')
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_RNC_BASE, target, label, num, tag='R7-RNC/shadow')
-    return _rbr_archive_ancestry(_RNC_BASE, _RNC_SEALED_HEAD, _RNC_MERGE, tag='R7-RNC/shadow')
-
-
 def _rnc_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    RNC.json, and nothing else. The round's original check, `_rnc_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('RNC', tag='R7-RNC', shadow=_rnc_legacy_ancestry)
+    RNC.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('RNC', tag='R7-RNC')
 
 
 def _rnc_outcome(t=None):
@@ -21531,29 +21063,6 @@ def _rnc_discrepancies(t=None):
             and '**Act 15\'s `CF5` is neither re-proved nor revised**' in t)
 
 
-def _rnc_prior_seals(_cti_base=None, _cti_sealed=None, _cti_merge=None,
-                     _pqt_base=None, _pqt_sealed=None, _pqt_merge=None,
-                     _tcf_base=None, _tcf_sealed=None, _tcf_merge=None):
-    """T16 -- acts 13's, 14's and 15's archive seals are exactly the values those rounds set. An
-    archive seal belongs to the round that set it; this round reads them and never writes them.
-
-    THIS ROUND'S OWN TRIPLE IS EXCLUDED, deliberately and by the freeze's chronology clause 9: no
-    reference to _RNC_BASE, _RNC_SEALED_HEAD or _RNC_MERGE appears here. A clause asserting this
-    round's own triple equal to (_RNC_BASE, None, None) as a standing invariant would contradict
-    clause 7, under which the mandatory pin commit P sets them -- the guard would then pass at no
-    commit once the round landed, which is how an earlier round in this programme was found
-    non-landable after certifying at its own head."""
-    return ((_cti_base or _CTI_BASE) == 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
-            and (_cti_sealed or _CTI_SEALED_HEAD) == '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
-            and (_cti_merge or _CTI_MERGE) == '292848b3c908d33ac432a5360effe0c259e3ce16'
-            and (_pqt_base or _PQT_BASE) == 'bc76a88dbe300a35715d5ce8196002f31aa62493'
-            and (_pqt_sealed or _PQT_SEALED_HEAD) == '5008a47bf7e67edc502120f9269c4a4661ef7342'
-            and (_pqt_merge or _PQT_MERGE) == 'c50dd22457bfd4812761cb56e7ca1a559af33c5e'
-            and (_tcf_base or _TCF_BASE) == 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
-            and (_tcf_sealed or _TCF_SEALED_HEAD) == 'c622461495c6b2db4e09c8084f404bd5ca2c5192'
-            and (_tcf_merge or _TCF_MERGE) == '9e0cc3834538b7bdcb742fcaa046194cfa9526fb')
-
-
 def _rnc_lean_defs(t=None):
     """T17 -- exactly the one budgeted definition is a top-level `def` in the module, in the
     freeze's name, with none of the three forbidden strings anywhere, and the docstring carrying the
@@ -21609,7 +21118,6 @@ ok_rnc &= _rnc_budget()
 ok_rnc &= _rnc_axiom_table()
 ok_rnc &= _rnc_chronology()
 ok_rnc &= _rnc_discrepancies()
-_si2_shadow_integrity('R7-RNC', _rnc_prior_seals())  # SI2-5: recorded, gating nothing
 ok_rnc &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_rnc &= _rnc_lean_defs()
 ok_rnc &= _rnc_roadmap()
@@ -21879,15 +21387,6 @@ _rnc_m48 = _RNCROAD.replace(
     'The answer holds on every carrier')
 ok_rnc &= _rnc_m48 != _RNCROAD and not _rnc_roadmap(road=_rnc_m48)
 
-# acts 13's, 14's or act 15's archive seal re-pinned by this round -- A.37's ownership rule
-ok_rnc &= not _rnc_prior_seals(_cti_sealed='0' * 40)
-ok_rnc &= not _rnc_prior_seals(_cti_merge='deadbeef' * 5)
-ok_rnc &= not _rnc_prior_seals(_pqt_sealed='0' * 40)
-ok_rnc &= not _rnc_prior_seals(_pqt_merge='deadbeef' * 5)
-ok_rnc &= not _rnc_prior_seals(_pqt_base='0' * 40)
-ok_rnc &= not _rnc_prior_seals(_tcf_sealed='0' * 40)
-ok_rnc &= not _rnc_prior_seals(_tcf_merge='deadbeef' * 5)
-ok_rnc &= not _rnc_prior_seals(_tcf_base='0' * 40)
 
 # T1's control runs THROUGH _rnc_freeze_pin, so sabotaging that predicate fails the guard.
 def _rnc_drift(path):
@@ -22034,32 +21533,11 @@ def _trj_freeze_pin(read=_bb_read):
         '3b5570102aa6aacb09788059989a70d8cdd5b70f')
 
 
-def _trj_legacy_ancestry():
-    """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused through acts 12's through 16's copies: the head-only
-    check is insufficient because a commit made before the freeze and merged in alongside it leaves
-    the head descended from the freeze while itself not being. The question is asked of the real
-    `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails closed
-    with no fallback.
-
-    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
-    mode (pins set by the mandatory pin commit P): the same strong check re-run against the sealed
-    head, with the pinned merge required to carry it and both required reachable from the current
-    target, fail-closed."""
-    if _TRJ_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-TRJ/shadow')
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_TRJ_BASE, target, label, num, tag='R7-TRJ/shadow')
-    return _rbr_archive_ancestry(_TRJ_BASE, _TRJ_SEALED_HEAD, _TRJ_MERGE, tag='R7-TRJ/shadow')
-
-
 def _trj_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    TRJ.json, and nothing else. The round's original check, `_trj_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('TRJ', tag='R7-TRJ', shadow=_trj_legacy_ancestry)
+    TRJ.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('TRJ', tag='R7-TRJ')
 
 
 def _trj_tj1(t=None):
@@ -22305,33 +21783,6 @@ def _trj_predictions(t=None):
             and t.count('**as predicted** |') == 19)
 
 
-def _trj_prior_seals(_cti_base=None, _cti_sealed=None, _cti_merge=None,
-                     _pqt_base=None, _pqt_sealed=None, _pqt_merge=None,
-                     _tcf_base=None, _tcf_sealed=None, _tcf_merge=None,
-                     _rnc_base=None, _rnc_sealed=None, _rnc_merge=None):
-    """T16 -- acts 13's, 14's, 15's and 16's archive seals are exactly the values those rounds set.
-    An archive seal belongs to the round that set it; this round reads them and never writes them.
-
-    THIS ROUND'S OWN TRIPLE IS EXCLUDED, deliberately and by the freeze's chronology clause 9: no
-    reference to _TRJ_BASE, _TRJ_SEALED_HEAD or _TRJ_MERGE appears here. A clause asserting this
-    round's own triple equal to (_TRJ_BASE, None, None) as a standing invariant would contradict
-    clause 7, under which the mandatory pin commit P sets them -- the guard would then pass at no
-    commit once the round landed, which is how an earlier round in this programme was found
-    non-landable after certifying at its own head."""
-    return ((_cti_base or _CTI_BASE) == 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
-            and (_cti_sealed or _CTI_SEALED_HEAD) == '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
-            and (_cti_merge or _CTI_MERGE) == '292848b3c908d33ac432a5360effe0c259e3ce16'
-            and (_pqt_base or _PQT_BASE) == 'bc76a88dbe300a35715d5ce8196002f31aa62493'
-            and (_pqt_sealed or _PQT_SEALED_HEAD) == '5008a47bf7e67edc502120f9269c4a4661ef7342'
-            and (_pqt_merge or _PQT_MERGE) == 'c50dd22457bfd4812761cb56e7ca1a559af33c5e'
-            and (_tcf_base or _TCF_BASE) == 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
-            and (_tcf_sealed or _TCF_SEALED_HEAD) == 'c622461495c6b2db4e09c8084f404bd5ca2c5192'
-            and (_tcf_merge or _TCF_MERGE) == '9e0cc3834538b7bdcb742fcaa046194cfa9526fb'
-            and (_rnc_base or _RNC_BASE) == 'd05399020d05d4a7b6f662d2e069062452e7d6b4'
-            and (_rnc_sealed or _RNC_SEALED_HEAD) == '31db7c1082b012c00c43f3fda35ce44c5653e123'
-            and (_rnc_merge or _RNC_MERGE) == 'eb70bbb9b2b3311095945ec3ce2418962f3b741a')
-
-
 def _trj_lean_defs(t=None):
     """T17 -- exactly the two budgeted definitions are top-level `def`s in the module, in the
     freeze's names, with none of the three forbidden strings anywhere, and the docstring carrying the
@@ -22391,7 +21842,6 @@ ok_trj &= _trj_axiom_table()
 ok_trj &= _trj_chronology()
 ok_trj &= _trj_discrepancies()
 ok_trj &= _trj_predictions()
-_si2_shadow_integrity('R7-TRJ', _trj_prior_seals())  # SI2-5: recorded, gating nothing
 ok_trj &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_trj &= _trj_lean_defs()
 ok_trj &= _trj_roadmap()
@@ -22708,19 +22158,6 @@ ok_trj &= _trj_m55 != _TRJROAD and not _trj_roadmap(road=_trj_m55)
 _trj_m56 = _TRJROAD.replace('**Line 3 is ruled out by `TJ1`**', 'Line 3 is undecided')
 ok_trj &= _trj_m56 != _TRJROAD and not _trj_roadmap(road=_trj_m56)
 
-# acts 13's, 14's, 15's or act 16's archive seal re-pinned by this round -- A.37's ownership rule
-ok_trj &= not _trj_prior_seals(_cti_sealed='0' * 40)
-ok_trj &= not _trj_prior_seals(_cti_merge='deadbeef' * 5)
-ok_trj &= not _trj_prior_seals(_cti_base='0' * 40)
-ok_trj &= not _trj_prior_seals(_pqt_sealed='0' * 40)
-ok_trj &= not _trj_prior_seals(_pqt_merge='deadbeef' * 5)
-ok_trj &= not _trj_prior_seals(_pqt_base='0' * 40)
-ok_trj &= not _trj_prior_seals(_tcf_sealed='0' * 40)
-ok_trj &= not _trj_prior_seals(_tcf_merge='deadbeef' * 5)
-ok_trj &= not _trj_prior_seals(_tcf_base='0' * 40)
-ok_trj &= not _trj_prior_seals(_rnc_sealed='0' * 40)
-ok_trj &= not _trj_prior_seals(_rnc_merge='deadbeef' * 5)
-ok_trj &= not _trj_prior_seals(_rnc_base='0' * 40)
 
 # T1's control runs THROUGH _trj_freeze_pin, so sabotaging that predicate fails the guard.
 def _trj_drift(path):
@@ -22851,32 +22288,11 @@ def _xts_freeze_pin(read=_bb_read):
         'fd3fa1359188966cae006deba4944a14aab5f3dd')
 
 
-def _xts_legacy_ancestry():
-    """X2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused through acts 12's through 17's copies: the head-only
-    check is insufficient because a commit made before the freeze and merged in alongside it leaves
-    the head descended from the freeze while itself not being. The question is asked of the real
-    `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails closed
-    with no fallback.
-
-    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
-    mode (pins set by the mandatory pin commit P): the same strong check re-run against the sealed
-    head, with the pinned merge required to carry it and both required reachable from the current
-    target, fail-closed."""
-    if _XTS_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-XTS/shadow')
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_XTS_BASE, target, label, num, tag='R7-XTS/shadow')
-    return _rbr_archive_ancestry(_XTS_BASE, _XTS_SEALED_HEAD, _XTS_MERGE, tag='R7-XTS/shadow')
-
-
 def _xts_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    XTS.json, and nothing else. The round's original check, `_xts_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('XTS', tag='R7-XTS', shadow=_xts_legacy_ancestry)
+    XTS.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('XTS', tag='R7-XTS')
 
 
 def _xts_xs1(t=None):
@@ -23167,38 +22583,6 @@ def _xts_predictions(t=None):
             and t.count('**as predicted** |') == 15)
 
 
-def _xts_prior_seals(_cti_base=None, _cti_sealed=None, _cti_merge=None,
-                     _pqt_base=None, _pqt_sealed=None, _pqt_merge=None,
-                     _tcf_base=None, _tcf_sealed=None, _tcf_merge=None,
-                     _rnc_base=None, _rnc_sealed=None, _rnc_merge=None,
-                     _trj_base=None, _trj_sealed=None, _trj_merge=None):
-    """X16 -- acts 13's, 14's, 15's, 16's and 17's archive seals are exactly the values those rounds
-    set. An archive seal belongs to the round that set it; this round reads them and never writes
-    them.
-
-    THIS ROUND'S OWN TRIPLE IS EXCLUDED, deliberately and by the freeze's chronology clause 9: no
-    reference to _XTS_BASE, _XTS_SEALED_HEAD or _XTS_MERGE appears here. A clause asserting this
-    round's own triple equal to (_XTS_BASE, None, None) as a standing invariant would contradict
-    clause 7, under which the mandatory pin commit P sets them -- the guard would then pass at no
-    commit once the round landed, which is how an earlier round in this programme was found
-    non-landable after certifying at its own head."""
-    return ((_cti_base or _CTI_BASE) == 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
-            and (_cti_sealed or _CTI_SEALED_HEAD) == '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
-            and (_cti_merge or _CTI_MERGE) == '292848b3c908d33ac432a5360effe0c259e3ce16'
-            and (_pqt_base or _PQT_BASE) == 'bc76a88dbe300a35715d5ce8196002f31aa62493'
-            and (_pqt_sealed or _PQT_SEALED_HEAD) == '5008a47bf7e67edc502120f9269c4a4661ef7342'
-            and (_pqt_merge or _PQT_MERGE) == 'c50dd22457bfd4812761cb56e7ca1a559af33c5e'
-            and (_tcf_base or _TCF_BASE) == 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
-            and (_tcf_sealed or _TCF_SEALED_HEAD) == 'c622461495c6b2db4e09c8084f404bd5ca2c5192'
-            and (_tcf_merge or _TCF_MERGE) == '9e0cc3834538b7bdcb742fcaa046194cfa9526fb'
-            and (_rnc_base or _RNC_BASE) == 'd05399020d05d4a7b6f662d2e069062452e7d6b4'
-            and (_rnc_sealed or _RNC_SEALED_HEAD) == '31db7c1082b012c00c43f3fda35ce44c5653e123'
-            and (_rnc_merge or _RNC_MERGE) == 'eb70bbb9b2b3311095945ec3ce2418962f3b741a'
-            and (_trj_base or _TRJ_BASE) == '02cfc9be141a44aaebf847d8e7d9fdd0d0a18f08'
-            and (_trj_sealed or _TRJ_SEALED_HEAD) == '94d41561114b2aee5939dcfa976ce98b8f141093'
-            and (_trj_merge or _TRJ_MERGE) == 'e8b12a433ebc0e5047504d2c95664a85ca65d1e8')
-
-
 def _xts_lean_defs(t=None):
     """X17 -- exactly the four budgeted definitions are top-level `def`s in the module, in the
     freeze's names, with none of the three forbidden strings anywhere, and the docstring carrying
@@ -23269,7 +22653,6 @@ ok_xts &= _xts_axiom_table()
 ok_xts &= _xts_chronology()
 ok_xts &= _xts_discrepancies()
 ok_xts &= _xts_predictions()
-_si2_shadow_integrity('R7-XTS', _xts_prior_seals())  # SI2-5: recorded, gating nothing
 ok_xts &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_xts &= _xts_lean_defs()
 ok_xts &= _xts_roadmap()
@@ -23564,18 +22947,8 @@ _xts_m51 = _XTSROAD.replace(
     '| OI→QM / Track B | **CLOSED**')
 ok_xts &= _xts_m51 != _XTSROAD and not _xts_roadmap(_xts_m51)
 
-# seal controls: each of the fifteen prior-seal constants, fabricated one at a time, must FAIL
-for _f in ('_cti_base', '_cti_sealed', '_cti_merge', '_pqt_base', '_pqt_sealed', '_pqt_merge',
-           '_tcf_base', '_tcf_sealed', '_tcf_merge', '_rnc_base', '_rnc_sealed', '_rnc_merge',
-           '_trj_base', '_trj_sealed', '_trj_merge'):
-    ok_xts &= not _xts_prior_seals(**{_f: '0' * 40})
-
-# THE DECISIVE CONTROL for chronology clause 9: with this round's OWN pins set to plausible values,
-# as the mandatory pin commit P will set them, the prior-seal clause must still pass. A clause that
-# fixed this round's triple at (_XTS_BASE, None, None) as a standing invariant would fail here, and
-# the round would be unlandable -- which is exactly what happened to an earlier round and is why the
-# freeze's chronology clause 9 exists.
-_si2_shadow_integrity('R7-XTS', _xts_prior_seals())  # SI2-5: recorded, gating nothing
+# the prior-seal comparator, its recording as a shadow of U5 and its fabrication controls were
+# retired by SI-3 (SI3-3): U5 gates against the manifest, and this line is what remains of them.
 ok_xts &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 
 # T1's control runs THROUGH _xts_freeze_pin, so sabotaging that predicate fails the guard.
@@ -23697,32 +23070,11 @@ def _rnt_freeze_pin(read=_bb_read):
         '131783f48ac492fdfdc46072aee3f39278973622')
 
 
-def _rnt_legacy_ancestry():
-    """N2 -- no commit reachable from the execution head lies outside the freeze's descendants.
-
-    Act 10's strengthened predicate, reused through acts 12's through 18's copies: the head-only
-    check is insufficient because a commit made before the freeze and merged in alongside it leaves
-    the head descended from the freeze while itself not being. The question is asked of the real
-    `pull_request.head.sha`, never the synthetic merge `HEAD`, and an unresolvable head fails closed
-    with no fallback.
-
-    Execution mode (pins unset, as now): the strong check against the run's real target. Archive
-    mode (pins set by the mandatory pin commit P): the same strong check re-run against the sealed
-    head, with the pinned merge required to carry it and both required reachable from the current
-    target, fail-closed."""
-    if _RNT_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-RNT/shadow')
-        if target is None:
-            return False
-        return _rbr_strong_ancestry(_RNT_BASE, target, label, num, tag='R7-RNT/shadow')
-    return _rbr_archive_ancestry(_RNT_BASE, _RNT_SEALED_HEAD, _RNT_MERGE, tag='R7-RNT/shadow')
-
-
 def _rnt_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    RNT.json, and nothing else. The round's original check, `_rnt_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('RNT', tag='R7-RNT', shadow=_rnt_legacy_ancestry)
+    RNT.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('RNT', tag='R7-RNT')
 
 
 def _rnt_notions(t=None):
@@ -24010,44 +23362,6 @@ def _rnt_predictions(t=None):
             and t.count('| **as predicted** |') == 4)
 
 
-def _rnt_prior_seals(_cti_base=None, _cti_sealed=None, _cti_merge=None,
-                     _pqt_base=None, _pqt_sealed=None, _pqt_merge=None,
-                     _tcf_base=None, _tcf_sealed=None, _tcf_merge=None,
-                     _rnc_base=None, _rnc_sealed=None, _rnc_merge=None,
-                     _trj_base=None, _trj_sealed=None, _trj_merge=None,
-                     _xts_base=None, _xts_sealed=None, _xts_merge=None):
-    """N19 -- acts 13's, 14's, 15's, 16's, 17's and 18's archive seals are exactly the values those
-    rounds set. An archive seal belongs to the round that set it; this round reads them and never
-    writes them.
-
-    THIS ROUND'S OWN TRIPLE IS EXCLUDED, deliberately and by the freeze's chronology clause 9: no
-    reference to _RNT_BASE, _RNT_SEALED_HEAD or _RNT_MERGE appears here. A clause asserting this
-    round's own triple equal to (_RNT_BASE, None, None) as a standing invariant would contradict
-    clause 7, under which the mandatory pin commit P sets them -- the guard would then pass at no
-    commit once the round landed, which is how an earlier round in this programme was found
-    non-landable after certifying at its own head.
-
-    ACT 19 SET NO SEAL TRIPLE, so there is no act 19 triple to read and none is invented here."""
-    return ((_cti_base or _CTI_BASE) == 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
-            and (_cti_sealed or _CTI_SEALED_HEAD) == '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
-            and (_cti_merge or _CTI_MERGE) == '292848b3c908d33ac432a5360effe0c259e3ce16'
-            and (_pqt_base or _PQT_BASE) == 'bc76a88dbe300a35715d5ce8196002f31aa62493'
-            and (_pqt_sealed or _PQT_SEALED_HEAD) == '5008a47bf7e67edc502120f9269c4a4661ef7342'
-            and (_pqt_merge or _PQT_MERGE) == 'c50dd22457bfd4812761cb56e7ca1a559af33c5e'
-            and (_tcf_base or _TCF_BASE) == 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
-            and (_tcf_sealed or _TCF_SEALED_HEAD) == 'c622461495c6b2db4e09c8084f404bd5ca2c5192'
-            and (_tcf_merge or _TCF_MERGE) == '9e0cc3834538b7bdcb742fcaa046194cfa9526fb'
-            and (_rnc_base or _RNC_BASE) == 'd05399020d05d4a7b6f662d2e069062452e7d6b4'
-            and (_rnc_sealed or _RNC_SEALED_HEAD) == '31db7c1082b012c00c43f3fda35ce44c5653e123'
-            and (_rnc_merge or _RNC_MERGE) == 'eb70bbb9b2b3311095945ec3ce2418962f3b741a'
-            and (_trj_base or _TRJ_BASE) == '02cfc9be141a44aaebf847d8e7d9fdd0d0a18f08'
-            and (_trj_sealed or _TRJ_SEALED_HEAD) == '94d41561114b2aee5939dcfa976ce98b8f141093'
-            and (_trj_merge or _TRJ_MERGE) == 'e8b12a433ebc0e5047504d2c95664a85ca65d1e8'
-            and (_xts_base or _XTS_BASE) == 'd7a9931befeb942db8ebc7b07014f9020c6663d0'
-            and (_xts_sealed or _XTS_SEALED_HEAD) == '730a518c173460d7bed525da10a95ee6bd32c7de'
-            and (_xts_merge or _XTS_MERGE) == '0b893d75cca344faeb9a9e434b5b8537f8b45dac')
-
-
 def _rnt_lean_defs(t=None):
     """N20 -- exactly the seven budgeted definitions are top-level `def`s in the module, in the
     freeze's names and in the freeze's order, with none of the three forbidden strings anywhere, and
@@ -24098,7 +23412,6 @@ ok_rnt &= _rnt_chronology()
 ok_rnt &= _rnt_ordering()
 ok_rnt &= _rnt_discrepancies()
 ok_rnt &= _rnt_predictions()
-_si2_shadow_integrity('R7-RNT', _rnt_prior_seals())  # SI2-5: recorded, gating nothing
 ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_rnt &= _rnt_lean_defs()
 
@@ -24428,33 +23741,20 @@ _rnt_m55 = _RNT1.replace('**The freeze predicted nothing about whether the two s
                          'The left result is evidence for the right one')
 ok_rnt &= _rnt_m55 != _RNT1 and not _rnt_predictions(_rnt_m55)
 
-# seal controls: each of the eighteen prior-seal constants, fabricated one at a time, must FAIL
-for _f in ('_cti_base', '_cti_sealed', '_cti_merge', '_pqt_base', '_pqt_sealed', '_pqt_merge',
-           '_tcf_base', '_tcf_sealed', '_tcf_merge', '_rnc_base', '_rnc_sealed', '_rnc_merge',
-           '_trj_base', '_trj_sealed', '_trj_merge', '_xts_base', '_xts_sealed', '_xts_merge'):
-    ok_rnt &= not _rnt_prior_seals(**{_f: '0' * 40})
-
-# THE DECISIVE CONTROL for chronology clause 9: with this round's OWN pins set to plausible values,
-# as the mandatory pin commit P will set them, the prior-seal clause must still pass. A clause that
-# fixed this round's triple at (_RNT_BASE, None, None) as a standing invariant would fail here, and
-# the round would be unlandable -- which is exactly what happened to an earlier round and is why the
-# freeze's chronology clause 9 exists. The check is run against a MODULE-LEVEL rebinding of this
-# round's own pins, so it exercises the post-pin configuration and not a copy of it.
+# THE DECISIVE CONTROL for chronology clause 9, as SI-3's stage 3 (SI3-3) leaves it: the prior-seal
+# comparator this block exercised under a module-level rebinding of this round's two pins is
+# retired, and with it the recording of its verdict as a shadow of U5; the landability it tested is
+# U3's LANDED-PENDING-PIN -> ARCHIVED path, and RNT is ARCHIVED. The rebinding and its restore
+# stay until SI-3's stage 4 deletes every legacy assignment statement, because SI-2's SI2-6(b)
+# holds the sixty-one statements identical as text until that stage retires it.
 _rnt_pin_probe = (_RNT_SEALED_HEAD, _RNT_MERGE)
 _RNT_SEALED_HEAD = 'f' * 40
 _RNT_MERGE = 'e' * 40
-_si2_shadow_integrity('R7-RNT', _rnt_prior_seals())  # SI2-5: recorded, gating nothing
 ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_rnt &= _rnt_execution_ancestry.__doc__ is not None
 _RNT_SEALED_HEAD, _RNT_MERGE = _rnt_pin_probe
-# The restore is checked against the SAVED tuple and not against (None, None). Written the other
-# way -- as it was in the execution -- this line is itself the standing "own pins are unset"
-# assertion the comment above forbids: it passes at E and fails at P, which is the non-landable
-# pattern clause 9 exists to prevent. What has to be true here is that the rebinding above was
-# undone, whatever the pins hold, and that is what is asked.
 ok_rnt &= (_RNT_SEALED_HEAD, _RNT_MERGE) == _rnt_pin_probe
 ok_rnt &= ('f' * 40, 'e' * 40) != _rnt_pin_probe
-_si2_shadow_integrity('R7-RNT', _rnt_prior_seals())  # SI2-5: recorded, gating nothing
 ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 
 # N1's control runs THROUGH _rnt_freeze_pin, so sabotaging that predicate fails the guard.
@@ -25096,23 +24396,11 @@ def _si1_freeze_pin(read=_bb_read):
     return _bb_blob(_SI1FRZ, read=read) == '4a5f183a52b2720e0714049ecf34911c55c1ef61'
 
 
-def _si1_legacy_ancestry():
-    """N2 -- the execution head descends from the control plane's merge commit, and so does every
-    commit of the execution-only history.
-
-    NON-SEALING: there is no seal triple to re-certify, so there is no archive mode here. The check
-    is act 10's strengthened predicate against the mandated base and nothing more."""
-    target, label, num = _rbr_target_commit(tag='R7-SI1/shadow')
-    if target is None:
-        return False
-    return _rbr_strong_ancestry(_SI1_BASE, target, label, num, tag='R7-SI1/shadow')
-
-
 def _si1_execution_ancestry():
     """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
-    SI1.json, and nothing else. The round's original check, `_si1_legacy_ancestry` above, is
-    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
-    return _si2_authority('SI1', tag='R7-SI1', shadow=_si1_legacy_ancestry)
+    SI1.json, and nothing else. The round's original check, once computed alongside as the shadow and
+    gating nothing, was retired by SI-3 (SI3-3) with the legacy constants it read."""
+    return _si2_authority('SI1', tag='R7-SI1')
 
 
 def _si1_non_authority(t=None):
@@ -26551,7 +25839,7 @@ _SI2_CLAUSES = {
 
 def _si2_clause_gates_on_u3(src, stem):
     """A prior-round clause gates on U3 iff its body, docstring and comments aside, is exactly the
-    keyed call with the round's legacy check as the shadow -- so it references no legacy constant."""
+    keyed call -- from SI-3's stage 3 without a shadow -- so it references no legacy constant."""
     body = _si2_wrapper_source(src, _SI2_CLAUSES[stem])
     if body is None:
         return False
@@ -26563,22 +25851,19 @@ def _si2_clause_gates_on_u3(src, stem):
             return False
         code = parts[2]
     lines = [l for l in code.split('\n') if l.strip() and not l.strip().startswith('#')]
-    want = "    return _si2_authority('%s', tag='R7-%s', shadow=_%s_legacy_ancestry)" % (stem, stem, low)
+    want = "    return _si2_authority('%s', tag='R7-%s')" % (stem, stem)  # SI-3 (SI3-3): shadowless
     return lines == [want]
 
 
 def _si2_authority_measured(src):
-    """SI2-3 -- three counts and two dynamic controls.
-
-    (i)  static: every one of the twenty-three manifested rounds' clauses is exactly the keyed call;
-    (ii) dynamic, shadow-forcing: `_si2_authority` returns U3's verdict when the shadow is forced
-         to the opposite value, so the shadow gates nothing;
-    (iii) dynamic, in vivo, for the eighteen sealed rounds: with every _<STEM>_MERGE rebound to the
-         round's sealed head the legacy shadow FAILS at the second-parent check while the clause's
-         verdict is unchanged, so the constants are read only by the shadow;
-    (iv) the count of surviving shadow reads of legacy constants, reported and not bounded."""
-    res = {'gate_on_u3': 0, 'gate_on_legacy': 0, 'shadow_reads': 0, 'shadow_forced_ok': 0,
-           'in_vivo_ok': 0, 'in_vivo_shadow_flipped': 0}
+    """SI2-3, as SI-3 (SI3-3) left it: (i) static, every one of the twenty-three manifested rounds'
+    clauses is exactly the keyed call, shadowless; (ii) dynamic, shadow-forcing: `_si2_authority`
+    returns U3's verdict when a shadow is forced to the opposite value, so no shadow could gate;
+    (iii) the count of shadow reads of legacy constants, zero now that the shadows are gone. The
+    in-vivo rebinding of every sealed MERGE, under which eighteen shadows flipped while the clauses
+    stood, was retired with the shadows and the constants it rebound; SI-2's result note records
+    what it measured."""
+    res = {'gate_on_u3': 0, 'gate_on_legacy': 0, 'shadow_reads': 0, 'shadow_forced_ok': 0}
     for stem in _SI2_MANIFESTED:
         if _si2_clause_gates_on_u3(src, stem):
             res['gate_on_u3'] += 1
@@ -26594,24 +25879,8 @@ def _si2_authority_measured(src):
         if got == u3:
             res['shadow_forced_ok'] += 1
     del _SI2_LEDGER[n0:]
-    g = globals()
-    sealed = [stem for stem in _SI2_MANIFESTED if (_si1_load()[0].get(stem) or {}).get('kind') == 'sealed']
-    saved = {stem: g['_%s_MERGE' % stem] for stem in sealed}
-    try:
-        for stem in sealed:
-            g['_%s_MERGE' % stem] = g['_%s_SEALED_HEAD' % stem]
-            before = len(_SI2_LEDGER)
-            got = g[_SI2_CLAUSES[stem]]()
-            entry = _SI2_LEDGER[before] if len(_SI2_LEDGER) > before else {}
-            if got == bool(verdicts.get(stem, (None, False, ''))[1]):
-                res['in_vivo_ok'] += 1
-            if entry.get('shadow_ok') is False:
-                res['in_vivo_shadow_flipped'] += 1
-            del _SI2_LEDGER[before:]
-    finally:
-        for stem, val in saved.items():
-            g['_%s_MERGE' % stem] = val
-    res['sealed'] = len(sealed)
+    res['sealed'] = sum(1 for stem in _SI2_MANIFESTED
+                        if (_si1_load()[0].get(stem) or {}).get('kind') == 'sealed')
     return res
 
 
@@ -27022,22 +26291,21 @@ _si2_auth = _si2_authority_measured(_si2_src)
 _si2_live = {e['round']: e for e in _SI2_LEDGER if e['round'] in _SI2_MANIFESTED}  # SI-3: scoped
 ok_si2 &= (_si2_auth['gate_on_u3'] == 23 and _si2_auth['gate_on_legacy'] == 0
            and _si2_auth['shadow_forced_ok'] == 23
-           and _si2_auth['in_vivo_ok'] == _si2_auth['sealed'] == 18
-           and _si2_auth['in_vivo_shadow_flipped'] == 18
+           and _si2_auth['shadow_reads'] == 0  # SI-3 (SI3-3): the shadows are gone
+           and _si2_auth['sealed'] == 18
            and sorted(_si2_live) == sorted(_SI2_MANIFESTED)
            and all(e['u3_ok'] for e in _si2_live.values()))
-# negative case 10: a clause still gating on a legacy constant fails; a shadow read does not.
-_si2_mut10 = _si2_src.replace("    return _si2_authority('HYA', tag='R7-HYA', shadow=_hya_legacy_ancestry)",
+# negative case 10: a clause still gating on a legacy constant fails.
+_si2_mut10 = _si2_src.replace("    return _si2_authority('HYA', tag='R7-HYA')",
                               "    return _hya_legacy_ancestry()")
 ok_si2 &= _si2_clause_gates_on_u3(_si2_src, 'HYA') and not _si2_clause_gates_on_u3(_si2_mut10, 'HYA')
 ok_si2 &= _si2_mut10 != _si2_src
 print('    R7-SI2 SI2-3: %s -- %d clauses gate on U3, %d still gate on a legacy constant, %d shadow '
-      'reads survive; shadow-forced controls %d of 23 unchanged; in vivo with every sealed MERGE '
-      'rebound: %d of %d clauses unchanged while %d shadows flipped to FAIL'
+      'reads survive (the shadows retired by SI-3); shadow-forced controls %d of 23 unchanged; the '
+      'in-vivo rebinding retired with the shadows, %d sealed rounds'
       % ('AUTHORITY-MOVED' if _si2_auth['gate_on_u3'] == 23 and _si2_auth['gate_on_legacy'] == 0
          else 'AUTHORITY-PARTIAL', _si2_auth['gate_on_u3'], _si2_auth['gate_on_legacy'],
-         _si2_auth['shadow_reads'], _si2_auth['shadow_forced_ok'], _si2_auth['in_vivo_ok'],
-         _si2_auth['sealed'], _si2_auth['in_vivo_shadow_flipped']))
+         _si2_auth['shadow_reads'], _si2_auth['shadow_forced_ok'], _si2_auth['sealed']))
 print('    R7-SI2 live ledger: %d clauses, U3 PASS %d, legacy shadow PASS %d, shadow no-verdict %d'
       % (len(_si2_live), sum(1 for e in _si2_live.values() if e['u3_ok']),
          sum(1 for e in _si2_live.values() if e['shadow_ok'] is True),
@@ -27164,8 +26432,9 @@ print('    R7-SI2 census artifact: census.json rebuilt from this run\'s rows and
 _si2_int = _si2_integrity()
 _si2_live_gates = re.findall(r'^ok_[a-z0-9]+ &= _[a-z0-9]+_prior_seals\(\)$', _si2_src, re.M)
 ok_si2 &= _si2_integrity_ok() and not _si2_live_gates
-ok_si2 &= len(_SI2_SHADOW_INTEGRITY) == 8 and all(e['shadow_ok'] for e in _SI2_SHADOW_INTEGRITY)
-ok_si2 &= sorted({e['tag'] for e in _SI2_SHADOW_INTEGRITY}) == ['R7-RNC', 'R7-RNT', 'R7-TCF', 'R7-TRJ', 'R7-XTS']
+# The eight comparator verdicts once recorded here as shadows of U5 are RETIRED by SI-3 (SI3-3) with
+# the comparators; the recording function stays in the generic region with no caller.
+ok_si2 &= len(_SI2_SHADOW_INTEGRITY) == 0
 # U5's own controls: mutated, removed and added each reported alone.
 _si2_at1 = _si2_manifest_at_stage1() or {}
 _si2_u5m = json.loads(json.dumps(_si2_at1))
@@ -27175,7 +26444,7 @@ _si2_u5r = {k: v for k, v in _si2_at1.items() if k != 'RNT'}
 ok_si2 &= [k for k, v in _si1_integrity(_si2_at1, _si2_u5r).items() if v] == ['removed']
 ok_si2 &= [k for k, v in _si1_integrity(_si2_at1, dict(_si2_at1, ZZ={'kind': 'base-only', 'base': '1' * 40})).items() if v] == ['added']
 print('    R7-SI2 SI2-5: %s -- U5 over the record set fixed at stage 1: %s; %d live per-round prior-seal '
-      'gates remain; %d comparator verdicts recorded as shadows (%d PASS)'
+      'gates remain; %d comparator verdicts recorded as shadows (%d PASS; the comparators retired by SI-3)'
       % ('INTEGRITY-DATA-DRIVEN' if _si2_integrity_ok() and not _si2_live_gates else 'INTEGRITY-PARTIAL',
          _si2_int, len(_si2_live_gates), len(_SI2_SHADOW_INTEGRITY),
          sum(1 for e in _SI2_SHADOW_INTEGRITY if e['shadow_ok'])))
