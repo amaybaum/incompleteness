@@ -21,7 +21,8 @@ data-driven integrity rule authoritative while keeping the per-round comparisons
 rewrites the process protocol so that future rounds seal through the manifest.
 
 **`SI-2` deletes nothing.** Every one of the sixty-one legacy seal-constant assignment statements at
-`B0` is present and byte-identical at `SI-2`'s head. Their retirement is a **separate follow-up
+`B0` is present at `SI-2`'s head as exactly the same statement text, in the same relative order —
+which `SI2-6`(b) measures as text equality, not as a count. Their retirement is a **separate follow-up
 round**, begun from a world in which the generic validator and the new protocol are already
 authoritative.
 
@@ -109,8 +110,9 @@ multiple, and unequal-to-pin remain three distinct hard failures with three dist
 derivation. After the cutover it is what the **prior-round** clauses call.
 
 **`U4` — the census harness, roles inverted.** `SI-1`'s `O3` with `U3` as the authoritative side and
-the old machinery as the shadow. It runs both over every manifest record and over the synthetic
-control suite at `SI-2`'s **final head**, and emits `census.json` for this round.
+the old machinery as the shadow. It runs both over every manifest record — twenty-three, the
+`SI1` row's shadow comparator being frozen under `SI2-4` — and over the synthetic control suite at
+`SI-2`'s **final head**, and emits `census.json` for this round.
 
 **`U5` — the data-driven integrity rule.** One loop over the manifest reporting mutated, removed and
 added as three distinct conditions against the record set fixed at `SI2-1`. After the cutover it is
@@ -179,7 +181,14 @@ on a legacy constant (required zero), and the count of surviving *shadow* reads 
 `SI-2`'s final head. The frozen expectation, stated so it can fail:
 
 - **records:** all twenty-three agree — eighteen `sealed` on lifecycle, five `base-only` on schema,
-  pinned base and record integrity;
+  pinned base and record integrity. **The twenty-third row is the `SI1` record added at `SI2-1`, and
+  its old-side comparator is frozen here rather than left to the execution:** the shadow verdict is
+  the strengthened execution ancestry check that `R7-SI1` itself runs against `_SI1_BASE`, which is
+  exactly how the four existing `base-only` rows take theirs from their rounds' `_*_BASE` checks; it
+  is compared on the `base-only` axis and on no other; and the row is admitted to the census only if
+  `_SI1_BASE` and `SI1.json`'s `base` are the same commit, so that the two sides are answering about
+  one object. If that transcription check fails, the row is reported as `no-analogue` and `SI2-4`
+  counts twenty-two agreeing records and one unresolved row, which is `DELTA-UNEXPECTED`;
 - **controls:** the nine no-analogue rows remain no-analogue; of the twelve comparable rows,
   **exactly three diverge — 7, 13 and 20 — each in `U3`'s adjudicated direction**, and **control 10
   agrees** with both sides passing; 11 and 12 agree with both sides failing.
@@ -199,19 +208,26 @@ their verdicts are recorded alongside `U5`'s. Outcomes: `INTEGRITY-DATA-DRIVEN` 
 guard file is run, its check tags and verdicts measured, and compared with the tags and verdicts at
 `SI-2`'s head: `MAP-PRESERVED` / `MAP-CHANGED`. A changed verdict on any pre-existing tag is a
 **result requiring adjudication**; `MAP-CHANGED` stops the cutover and reports rather than failing
-silently or being adopted. (b) All **sixty-one** legacy assignment statements — **fifty-nine
-distinct names** — are present at the head with the same names and the same values, per the
-inventory below: `LEGACY-INTACT` / `LEGACY-ALTERED`. `LEGACY-ALTERED` **fails the round**, because a
+silently or being adopted. (b) The **sixty-one** legacy assignment statements — **fifty-nine
+distinct names** — at the head are, **as text, exactly the sixty-one at `B0`, in the same relative
+order**: the check extracts the module-level `_<STEM>_(BASE|SEALED_HEAD|MERGE) = ...` lines from
+both revisions and requires the two sequences to be equal, per the inventory below. Statement count
+alone cannot establish this and is not what is measured. `LEGACY-INTACT` / `LEGACY-ALTERED`. `LEGACY-ALTERED` **fails the round**, because a
 non-sealing round may not alter existing seal constants.
 
 **`SI2-7` — the process protocol is updated for the manifest.** `AGENTS.md` §A.37 is amended,
 prospectively and for rounds begun after the amendment, so that it states: what a sealing round's
 `P` writes — **its round's manifest record**, `sealed_head` = `E` and `merge` = `L`, under
 `verification/seals/`, and **not** a legacy constant; how a new `sealed` record is created and how a
-completed non-sealing round's `base-only` record is created; and **from `SI-2`'s landing, legacy
-constants are no longer seal authority** — they remain in the guard file as shadow data until the
-retirement round removes them, and a round that writes a new legacy constant after `SI-2` has
-recreated the representation this round retired. The amendment is quoted in the result note.
+completed non-sealing round's `base-only` record is created; and the status of the legacy constants
+after this round, stated in two halves that must both appear: **from `SI-2`'s landing they cease to
+GATE** — no check's verdict depends on them, and a round that writes a new one has recreated the
+representation this round retired — **and until the retirement round they remain PROTECTED
+HISTORICAL SEAL STATE**, so altering or removing any of them constitutes taking ownership of existing
+seal state under §A.37 and makes the round that does it *sealing*. It follows, and the amendment
+says so, that **the retirement round is sealing and its `P` writes its own `sealed` manifest record
+under the new protocol** — `sealed_head` = its `E`, `merge` = its `L` — and writes no legacy
+constant. The amendment is quoted in the result note.
 Outcomes: `PROTOCOL-UPDATED` / `PROTOCOL-PARTIAL` / `PROTOCOL-ABSENT`. **Without this target, the
 standing text at `B0` instructs the next sealing round to do exactly what `SI-2` retires.**
 
@@ -267,8 +283,8 @@ its named reason** — some are `PASS` controls:
    **fails on pin-versus-derived disagreement**, the case that proves derivation alone is not enough.
 8. A manifest record added beyond `SI2-1`'s single authorization — **fails** as an unauthorized
    addition under `U5`.
-9. Any one of the sixty-one legacy assignment statements removed, or any one of the fifty-nine
-   names re-valued, at the head — **fails `SI2-6`(b)**. `_RNT_SEALED_HEAD` and `_RNT_MERGE` are each
+9. Any one of the sixty-one legacy assignment statements removed, re-valued, or reordered relative
+   to the others at the head — **fails `SI2-6`(b)**. `_RNT_SEALED_HEAD` and `_RNT_MERGE` are each
    assigned twice; removing **either** of a pair must fail, so the check counts statements and not
    names.
 10. A prior-round clause found still gating on a legacy constant — **fails `SI2-3`**; a *shadow*
@@ -394,8 +410,9 @@ slots are recorded as unused.
 A follow-up round, begun only from a certified `SI-2` landing, adds `SI-2`'s own `base-only`
 record, deletes the fifty-nine names and sixty-one statements against the inventory above, removes
 the per-round seal-integrity comparisons that `U5` shadows, and lands under the protocol `SI2-7`
-wrote. Because it changes existing seal state it is **sealing** under §A.37 as amended, and its
-freeze must say what its `P` writes. Nothing here freezes it; this section exists so the deferral is
+wrote. Because it alters and removes protected historical seal state it is **sealing** under §A.37 as
+amended by `SI2-7`, and its `P` writes its own `sealed` manifest record — `sealed_head` = its `E`,
+`merge` = its `L` — and no legacy constant. Nothing here freezes it; this section exists so the deferral is
 recorded as a plan and not as an omission.
 
 ## Chronology
