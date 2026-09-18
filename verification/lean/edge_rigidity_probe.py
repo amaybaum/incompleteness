@@ -24763,7 +24763,13 @@ def _si1_census_divergent(t=None):
             # Controls 10-12 are no longer a helper compared with itself, so the old
             # 'by construction' caveat is gone and what is required instead is the real comparison.
             and 'resolves the event payload for itself' in flat
-            and 'old machinery is the correct one' in flat
+            # The freeze forbids SI1-5 from adjudicating a divergence, so what the note must carry
+            # for control 10 is the measured DIRECTION and the refusal -- never a verdict on which
+            # implementation is right. The earlier form of this clause required the verdict, which
+            # made the freeze violation mandatory.
+            and 'On **10 the direction is reversed**' in flat
+            and 'declares neither implementation correct' in flat
+            and 'stops short of adjudicating which is right' in flat
             and 'does not adjudicate which implementation is right' in flat)
 
 
@@ -24940,7 +24946,12 @@ _si1_census_doc = {
              'control both sides resolve the same synthetic event payload for themselves -- the old '
              'archive path with no explicit target, so its head-or-base-branch-tip resolution stays '
              'live -- because a shared helper compared with itself cannot diverge. Both verdicts are '
-             'recorded for every row and the round adjudicates none of them.'),
+             'recorded for every row and THE CENSUS ADJUDICATES NONE OF THEM: on three divergences '
+             'the new implementation is the stricter one and on one the direction is reversed, which '
+             'is a measurement and not a verdict on which implementation is right. The frozen '
+             'sentence for this outcome: "The two implementations disagreed on the records named '
+             'below. Both verdicts are recorded. This round does not adjudicate which is correct and '
+             'changed neither implementation to remove the disagreement."'),
     'record_totals': {
         'records': len(_si1_rows),
         'agree': sum(1 for r in _si1_rows if r['agree']),
@@ -24953,7 +24964,12 @@ _si1_census_doc = {
         'no_analogue': len(_si1_ctl_non),
         'divergent': len(_si1_ctl_div),
         'divergent_controls': sorted(r['control'] for r in _si1_ctl_div),
-        'old_machinery_correct_on': ['10 stale base.sha, branch carries it'],
+        # Which side is stricter is a DIRECTION and is recorded; which side is right is an
+        # adjudication and is not. The earlier key named an implementation correct, which SI1-5 has
+        # no authority to do.
+        'old_passes_new_fails': sorted(r['control'] for r in _si1_ctl_div
+                                       if r['old_ok'] and not r['new_ok']),
+        'reproduces_discrepancy_1': ['10 stale base.sha, branch carries it'],
     },
     'records': _si1_rows,
     'controls': _si1_ctl,
@@ -24962,17 +24978,43 @@ _SI1CENSUSREL = 'infrastructure/round-si-1-shadow-seal-validator/census.json'
 if os.environ.get('SI1_EMIT_CENSUS') == '1':
     with open(_artifact(_SI1CENSUSREL), 'w', encoding='utf-8') as _fh:
         _fh.write(json.dumps(_si1_census_doc, indent=2) + '\n')
-_si1_census_on_disk = json.loads(_bb_read(_SI1CENSUSREL).decode('utf-8'))
-ok_si1 &= _si1_census_on_disk == _si1_census_doc
-# The mutation control: the file with ONE total altered must fail the comparison. It was a file
-# carrying three divergences against a census that measured four that made this check necessary, so
-# that is the exact condition the control exercises.
-_si1_census_stale = json.loads(json.dumps(_si1_census_doc))
+def _si1_census_agrees(raw, measured):
+    """The artifact check as ONE predicate over the RECORDED BYTES, so that the mutation controls
+    below exercise the same parse-and-compare path the real file goes through.
+
+    The first form of this check compared two dictionaries and then 'mutation-tested' itself by
+    altering a copy and asserting the two differed -- which tests that Python dictionaries with
+    different values are unequal, not that a stale census.json is rejected. A control that cannot
+    fail is worse than no control, because it is counted."""
+    try:
+        return json.loads(raw.decode('utf-8') if isinstance(raw, bytes) else raw) == measured
+    except (ValueError, UnicodeDecodeError):
+        return False
+
+
+_si1_census_raw = _bb_read(_SI1CENSUSREL)
+_si1_census_ok = _si1_census_agrees(_si1_census_raw, _si1_census_doc)
+ok_si1 &= _si1_census_ok
+
+# Control A -- the recorded file with ONE total altered must be REJECTED by that same predicate. A
+# file carrying three divergences against a census that measured four is exactly what happened, so
+# it is exactly what the control reproduces.
+try:
+    _si1_census_stale = json.loads(_si1_census_raw.decode('utf-8'))
+except (ValueError, UnicodeDecodeError):
+    # The recorded file does not parse, so the check above has already failed on it -- and the
+    # CONTROL still has to run rather than take the probe down with it. It then mutates the measured
+    # document instead of the unreadable one; either way what is tested is the predicate.
+    _si1_census_stale = json.loads(json.dumps(_si1_census_doc))
 _si1_census_stale['control_totals']['divergent'] = len(_si1_ctl_div) - 1
-ok_si1 &= _si1_census_stale != _si1_census_doc
+ok_si1 &= not _si1_census_agrees(json.dumps(_si1_census_stale), _si1_census_doc)
+# Control B -- unparseable bytes are a failure and not an exception, so the check fails closed on a
+# truncated or hand-mangled artifact rather than crashing the probe.
+ok_si1 &= not _si1_census_agrees(_si1_census_raw[:len(_si1_census_raw) // 2], _si1_census_doc)
 print('    R7-SI1 census artifact: census.json is rebuilt from the rows measured in this run and '
-      'compared with the recorded file -- %s'
-      % ('identical' if _si1_census_on_disk == _si1_census_doc else 'DIFFERENT, so it is STALE'))
+      'compared with the recorded bytes -- %s; the same predicate REJECTS the recorded file with '
+      'one total altered, and rejects unparseable bytes'
+      % ('identical' if _si1_census_ok else 'DIFFERENT, so it is STALE'))
 print('    R7-SI1 derivation: reachable scope %d of %d agree with the pin; first-parent scope %d, '
       'the retained 6/12 split' % (_si1_reach, len(_si1_sealed), _si1_spine))
 
@@ -25054,10 +25096,15 @@ check('R7-SI1', ok_si1,
       "shared helper compared with itself cannot diverge and is not a comparison. Three of the "
       "four are places the new model was built to be stronger: a second merge carrying the same "
       "sealed head, a descendant of an unpinned landing, and a completed non-sealing round the old "
-      "machinery refuses under execution semantics. THE FOURTH RUNS THE OTHER WAY -- on a stale "
-      "base.sha with the landing on the base branch the OLD MACHINERY IS THE CORRECT ONE and the "
-      "new model fails with zero candidates, which is the first discrepancy arriving independently "
-      "through the census. Both verdicts are recorded and the round adjudicates none of them. "
+      "machinery refuses under execution semantics. ON THE FOURTH THE DIRECTION IS REVERSED -- on a "
+      "stale base.sha with the landing on the base branch the old archive path returns PASS through "
+      "the base-branch tip and the new model returns FAIL with zero candidates, reproducing the "
+      "behaviour of the first discrepancy independently through the census. THE CENSUS ADJUDICATES "
+      "NONE OF THE FOUR and declares neither implementation correct, which the freeze reserves to "
+      "the owner; the decision against #141 is taken by SI1-8 under #141's own requirement and not "
+      "from the census, and the guard requires the note to carry the measured direction and the "
+      "refusal rather than a verdict -- an earlier form of this clause required the verdict, which "
+      "made the violation mandatory. "
       "Agreement is checked reported as AGREEMENT AND NEVER AS CORRECTNESS, with the old verdict "
       "taken from the generic helpers the per-round clauses themselves call, and census.json is "
       "REBUILT FROM THE ROWS THIS RUN MEASURED and required to equal the recorded file, so a "
@@ -25089,7 +25136,7 @@ check('R7-SI1', ok_si1,
       "Four definition slots, all four fired. The preregistration is pinned BY BLOB with a one-byte "
       "drift control, the chronology asked of the real pull_request.head.sha and never of the "
       "synthetic merge, fail-closed, and NO SEAL TRIPLE OF ITS OWN exists -- not as None, not at "
-      "all. Thirteen named contracts, nine mutation controls, and no frozen definition, target, "
+      "all. Thirteen named contracts, ten mutation controls, and no frozen definition, target, "
       "negative case or authority rule altered anywhere.")
 
 

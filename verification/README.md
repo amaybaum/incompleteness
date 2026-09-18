@@ -2545,11 +2545,13 @@ schema, pinned base and record integrity, having no lifecycle to agree about. Ov
 synthetic controls, nine have no old-machinery analogue at all and **four of the twelve comparable
 ones diverge**. Three are points the new model was built to be stronger: a second merge carrying the
 same sealed head, a descendant of an unpinned landing, and a completed non-sealing round the old
-machinery refuses under execution semantics. The fourth is not — on a stale `base.sha` with the
-landing sitting on the base branch, the **old machinery is the correct one** and the new model fails
-with zero candidates, which is the same target-scope defect as the round's first discrepancy
-arriving independently through the census. Both verdicts are recorded for every row and none is
-adjudicated. It is an agreement census and **not a proof of correctness**: agreement where it occurs
+machinery refuses under execution semantics. On the fourth the direction is **reversed** — on a
+stale `base.sha` with the landing sitting on the base branch the old archive path returns `PASS`
+through the base-branch tip while the new model returns `FAIL` with zero candidates, which is the
+same behaviour as the round's first discrepancy, reproduced independently through the census. Both
+verdicts are recorded for every row and **the census adjudicates none of them**: the freeze reserves
+that to the owner, and the decision against `#141` is taken by `SI1-8` under `#141`'s own
+requirement, not by the census. It is an agreement census and **not a proof of correctness**: agreement where it occurs
 is no evidence of correctness, because a shared error survives every case both sides get wrong
 together.
 
