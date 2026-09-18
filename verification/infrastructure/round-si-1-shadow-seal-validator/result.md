@@ -31,6 +31,30 @@ file scope:
    seal-assignment sets where the executable check correctly allows exactly one addition, and the
    commit message said "FOUR FILES" where the verified diff is 26 files.
 
+## The second reviewed candidate, and why this is not it either
+
+The second immutable candidate was **`b62ee49fa23995947083afdc480b903d20d979ff`**, the corrective
+commit answering those four findings. It was reviewed and **was also not accepted as `E`**, on two
+findings, and it is preserved unchanged for the same reason — **no amend and no force-push** — so
+that three reviews and three answers all stand in the chronology:
+
+1. **`SI1-5` still did not perform the frozen old-versus-`O2` comparison on controls 10, 11 and
+   12.** The rows existed and the totals counted them, but both columns were filled from the *same*
+   shared visibility helper, so the comparison could not diverge; and the old archive path, where it
+   was called, was handed an **explicit target**, which switches off exactly the resolution through the
+   head or the base-branch tip that those three controls exist to exercise. Corrected here, and **the outcome
+   sharpens**: the literal comparison yields **four** divergences, not three, and the new one is
+   control 10.
+2. **Stale `CENSUS-EXACT` prose survived in the note** — the sentence that the two implementations
+   "do not differ on the cases presented", which four divergences falsify. Replaced with the narrow
+   claim the evidence supports.
+
+**The fourth divergence was predicted by the owner before it was measured**, in the review that
+required the literal comparison: that the target-scope defect breaking `#141` should also surface
+independently in the control census as case 10. It did, exactly there. That is the **owner's**
+prediction and not the freeze's, so it is recorded here rather than scored in the predictions table
+— where `SI1-5` remains a **miss**, the freeze having predicted `CENSUS-EXACT`.
+
 ## Outcomes
 
 | target | outcome | decided by |
@@ -40,7 +64,7 @@ file scope:
 | `SI1-2` | **`VALIDATOR-BUILT`** | the three states, `base-only` held out of the machine, no stem in the validator region |
 | `SI1-3` | **`DERIVE-EXACT`** | 18 of 18, exactly one candidate each, agreeing with the pin |
 | `SI1-4` | **`NEGATIVES-COMPLETE`** | all **20 frozen negative cases** satisfy their required outcomes, in 21 case rows |
-| `SI1-5` | **`CENSUS-DIVERGENT`** | records agree 22 of 22; **controls diverge in 3 of 12 comparable**, and 9 have no analogue |
+| `SI1-5` | **`CENSUS-DIVERGENT`** | records agree 22 of 22; **controls diverge in 4 of 12 comparable**, and 9 have no analogue |
 | `SI1-6` | **`SHADOW-ONLY`** | the base's guard file re-run: 90 check tags, all PASS, map identical to the persisted one |
 | `SI1-7` | delivered | the `SI-2` specification below |
 | `SI1-8` | **`RESTATED-ONLY`** for `#140`; **`RESTATED-AND-FAILS`** for `#141` | the mandate was never compared; the model fails `#141`'s own requirement |
@@ -214,16 +238,22 @@ Case 20 is the one the freeze was amended to add before its head was fixed, and 
 regression on the corrected reading: the strong check does fail on that state, and the record passes
 anyway because it is out of the machine.
 
-### DISCREPANCY 2 — cases 10, 11 and 12 are exercised on the visibility layer, and had to be
+### DISCREPANCY 2 — NEGATIVE CASES 10, 11 and 12 are exercised on the visibility layer, and had to be
 
-**Recorded, not repaired.** These three are the retained stale-base / live-base controls. They are
-exercised against the base-branch-tip resolution plus reachability, **not** against `O2`'s
+**Recorded, not repaired.** This entry is about the **`O4` negative cases** numbered 10 to 12, the
+retained stale-base / live-base controls, and **not** about the identically numbered rows of the
+`SI1-5` control census, which do run through both implementations end to end. The three negative
+cases are exercised against the base-branch-tip resolution plus reachability, **not** against `O2`'s
 derivation, because under the frozen scope the derivation answers first: with the landing absent
 from the head, derivation reports zero candidates and the visibility leg never speaks. Case 11 as
 worded — a visibility failure — is therefore **unsatisfiable through the derivation path**, and
 routing it through the layer where the behaviour actually lives is a reading this round took rather
 than a freeze change. It is the same defect as Discrepancy 1 seen from the test side, and the same
 adjudication settles both.
+
+The census rows of the same numbers are the complementary measurement: there each side resolves the
+synthetic event for itself, the derivation does answer first for `O2`, and that is exactly what
+**divergence 10** records.
 
 ## `SI1-5` — the agreement census
 
@@ -241,42 +271,59 @@ call — the archive-mode certificate for a sealed round, the strengthened execu
 non-sealing one — run in the same process and on the same repository state, so the census compares
 like with like rather than comparing the new validator against a paraphrase of the old one.
 
-### Over the twenty-one synthetic controls: three divergences, and nine questions the old machinery cannot answer
+### Over the twenty-one synthetic controls: four divergences, and nine questions the old machinery cannot answer
 
-This is the half the first candidate omitted, and it is where the outcome is decided.
+This is the half the first candidate omitted, and it is where the outcome is decided. Each side
+**resolves the event payload for itself**, exactly as the per-round clauses do: the old archive path
+through `_rbr_archive_ancestry` with the event and no explicit target, `O2` through its own target
+resolution. Handing either side a target, or comparing a shared helper to itself, is not a
+comparison — earlier candidates did both, and both are recorded below as execution defects.
 
 | | controls | |
 |---|---|---|
 | comparable | **12** | an old-machinery answer exists |
 | no analogue | **9** | **nine controls have no old-machinery analogue**: the old machinery holds no records, so nothing in it answers a schema question (5), a manifest-integrity question (3) or a transcription question (1) |
-| **divergent** | **3** | of the twelve comparable |
+| **divergent** | **4** | of the twelve comparable |
 
-The three divergences, both verdicts recorded and **neither adjudicated**:
+The four divergences, both verdicts recorded and **none adjudicated**:
 
 | control | old | new | what differs |
 |---|---|---|---|
+| **10 stale `base.sha`, base branch carrying the landing** | **PASS** | **FAIL** | the old archive path resolves **head or base-branch tip** and finds the landing on the tip; `O2`, under the frozen target-only derivation scope, sees only the historical head, derives **zero candidates**, and fails before the visibility leg can speak. **This is Discrepancy 1 arriving independently, through the census** |
 | 7 two candidate landings for one `E` | PASS | FAIL | the archive certificate checks the pinned merge's second parent and reachability, so it does not notice a **second** merge carrying the same sealed head; the new model refuses it as `multiple candidates` |
 | 13 a descendant of an unpinned `L` | PASS | FAIL | the old machinery has **no pending-seal notion**, so it answers the execution question and admits the descendant; the new model refuses it as `seal pending` |
 | 20 `base-only` on a state where an `EXECUTION`-style check fails | FAIL | PASS | the old machinery applies **execution ancestry semantics to a completed non-sealing round** and refuses it; the new model does not classify it at all |
 
-All three are places the new model was **built** to be stronger, so the divergence is expected in
-direction — and it is still a divergence, and the frozen outcome for a census that is not exact is
-`CENSUS-DIVERGENT`. **Non-comparability is a result and not a reason to narrow the target.**
+**The four are not of one kind, and the difference is the round's most important result.** Three —
+7, 13, 20 — are places the new model was **built** to be stronger, so the divergence is expected in
+direction. **Divergence 10 is not**: there the old machinery is right and the new model is wrong,
+and it is the **same target-scope defect that fails `#141`**, reached by an entirely separate route.
+That the census finds it independently of Discrepancy 1 is the strongest evidence this round
+produces, and it is exactly why the control half of `SI1-5` could not be skipped: had the census
+stopped at the twenty-two real records, the defect would stand once as a reasoned argument instead
+of twice as a measurement.
 
-Three further controls agree, but **agreement is BY CONSTRUCTION** and is not independent evidence:
-cases 10, 11 and 12 exercise the *shared* visibility helper and the *shared* base-branch-tip
-resolver, so both sides are the same code. They are labelled as such in `census.json`.
+Controls 11 and 12 agree, both sides failing, for different reasons — on 11 neither the head nor the
+rewound branch tip carries the landing; on 12 the old path fails when the base ref will not resolve
+while `O2` fails one step earlier on zero candidates. `O2` returning no verdict is recorded as a
+**failure**, explicitly, rather than left to `bool(None)` to mean the right thing by accident.
 
-This round **does not adjudicate which implementation is right** on any of the three. Divergence 13
-is the whole purpose of `LANDED-PENDING-PIN`, and divergence 20 is the corrected reading the freeze
-was amended to require, so on both the new model is the intended one — but *intended* is not
-*adjudicated*, and `SI-2` is where that decision belongs.
+**Non-comparability is a result and not a reason to narrow the target.**
 
-**This is an agreement census and not a proof of correctness.** It shows the two implementations do
-not differ on the cases presented, and it would not detect an error both share. Both were written in
-one round from one specification, which is exactly the circumstance in which a shared misreading is
-possible; the twenty negative cases exist because agreement on the positive cases is the weaker half
-of the evidence.
+This round **does not adjudicate which implementation is right** on any of the four. On 13 and 20
+the new model is the intended one — 13 is the whole purpose of `LANDED-PENDING-PIN`, 20 is the
+corrected reading the freeze was amended to require — but *intended* is not *adjudicated*. On 10 the
+**old machinery is the correct one**, which is precisely what the remedy under Discrepancy 1 would
+restore. `SI-2` is where all four decisions belong.
+
+**This is an agreement census and not a proof of correctness**, and with four divergences on the
+record the point has to be put narrowly: **agreement where it occurs is not evidence of correctness,
+because a shared error survives every case both sides get wrong together.** The stronger sentence
+the first two candidates carried — that the implementations "do not differ on the cases presented" —
+is false here and has been removed: they differ on four controls. Both implementations were written
+in one round from one specification, which is exactly the circumstance in which a shared misreading
+is possible, and the twenty negative cases exist because agreement on agreeing cases is the weaker
+half of the evidence.
 
 ### An observation, recorded and not a divergence
 
@@ -350,7 +397,7 @@ here is authority to redesign `SI-2` now, and nothing here is a decision.
 
 ## Execution defects, corrected — held apart from the findings
 
-Five defects were in **this round's own implementation**, not in the freeze. They were execution
+Nine defects were in **this round's own implementation**, not in the freeze. They were execution
 errors, they were corrected, and they are recorded here so that the distinction between *a defect
 the implementation may fix* and *evidence about the preregistered rule* is on the record rather than
 left to a reader to infer.
@@ -361,11 +408,14 @@ left to a reader to infer.
 | 2 | the record reader was passed **absolute paths**, which `_artifact` resolves relative to `verification/`, yielding a path under `verification/` and a missing file | all 22 records loaded as `unreadable` while the directory listing found them | listing absolutely, reading by relative name |
 | 3 | four content contracts matched **substrings that crossed line breaks**, so a true claim in the note read as absent | three contracts false against a correct note | matching on collapsed whitespace: the words are the claim, the wrapping is not |
 | 4 | the seal-constant check asserted **set equality** between head and base, which this round's own `_SI1_BASE` necessarily breaks | the check failed while no other round's seal had moved | containment plus an exact allowance for this round's own base — which is also how a round that re-pinned another round's seal is caught |
-
 | 5 | the synthetic **event payloads were named by head alone**, so two payloads differing only in their base ref overwrote each other before either was read | the stale-base control silently became a second copy of the rewound-branch control, and reported a value that could not be right | naming the payload by head **and** base ref; found because the value was impossible, not because a test failed |
+| 6 | **census controls 10–12 compared the shared visibility helper to itself**, storing one value in both the `old_ok` and `new_ok` columns | a comparison that cannot diverge; and case 12's fields read `True/True` to mean "the resolver correctly refused", the opposite of what the field names and the frozen verdict say | invoking the actual old archive path and the actual `O2` path under the same synthetic event |
+| 7 | the old archive path was handed an **explicit target**, which replaces its candidate list with that one commit and so **switches off** the head-or-base-branch-tip resolution those controls exist to exercise | case 10 came back agreeing, which could not be right | letting each side resolve the event payload for itself, as the per-round clauses do |
+| 8 | `census.json` was written by a **side script** rather than emitted by `O3`, although the freeze says `O3` emits it | after defects 6 and 7 were corrected the census measured **four** divergences while the recorded file still carried three: a hand-kept record of a measurement drifts silently | `O3` now rebuilds the document from the rows measured in the run and the guard **requires the file on disk to equal it**, so a stale census fails the check instead of being read |
+| 9 | `O2` passed a **`None` target list onward** when the base-branch-tip resolver had already failed closed, and only the order of the checks after it kept that `None` from being iterated | invisible until control 12 became a real comparison, which is the one case that produces it | returning `None` at the point the resolver refuses, so the refusal is `O2`'s answer rather than a value it carries |
 
-None of the five is a finding about the freeze, and none of them is counted among the discrepancies
-below. Defects 1, 4 and 5 also improved the checks they were in, which is recorded as what it is and
+None of the nine is a finding about the freeze, and none of them is counted among the discrepancies
+below. Defects 1, 4, 5, 6, 7, 8 and 9 also improved the checks they were in, which is recorded as what it is and
 not as a discovery.
 
 ## Discrepancies, recorded and not repaired
@@ -375,9 +425,13 @@ repaired.
 
 1. **The frozen derivation scope reintroduces the base-age false negative** on a pull request from a
    historical base. Measured. Remedy proposed, not applied. Requires adjudication before `SI-2`.
-   **It changes `SI1-8`/`#141` to `RESTATED-AND-FAILS`** and leaves `SI1-3` at `DERIVE-EXACT`.
-2. **Cases 10, 11 and 12 are exercised on the visibility layer**, case 11 being unsatisfiable
-   through the derivation path under the frozen scope. The same adjudication settles it.
+   **It changes `SI1-8`/`#141` to `RESTATED-AND-FAILS`** and leaves `SI1-3` at `DERIVE-EXACT`. It is
+   **corroborated independently** by control 10 of the `SI1-5` census, where the old machinery passes
+   through the base-branch tip and `O2` fails with zero candidates.
+2. **Negative cases 10, 11 and 12 are exercised on the visibility layer**, case 11 being
+   unsatisfiable through the derivation path under the frozen scope. This concerns the `O4` cases,
+   not the identically numbered census controls, which do run both paths in full. The same
+   adjudication settles it.
 3. **The double-assignment hazard is parser-conditional**, and the freeze's statement of it is true
    for the parser class that matters. Reported precisely above rather than repeated as written.
 
@@ -393,7 +447,7 @@ a result put to the owner.
 | `SI1-2` | `VALIDATOR-BUILT`, MEDIUM | `VALIDATOR-BUILT` | as predicted |
 | `SI1-3` | `DERIVE-EXACT`, HIGH, on a measurement already taken | `DERIVE-EXACT` | as predicted, and the freeze recorded that this rested on a prior measurement rather than on a forecast |
 | `SI1-4` | `NEGATIVES-COMPLETE`, MEDIUM | `NEGATIVES-COMPLETE` | as predicted |
-| `SI1-5` | `CENSUS-EXACT`, MEDIUM | **`CENSUS-DIVERGENT`** | **MISSED.** The freeze predicted exact agreement at MEDIUM and the round found three divergences among the controls. Reported as a miss |
+| `SI1-5` | `CENSUS-EXACT`, MEDIUM | **`CENSUS-DIVERGENT`** | **MISSED.** The freeze predicted exact agreement at MEDIUM and the round found four divergences among the controls. Reported as a miss |
 | `SI1-6` | `SHADOW-ONLY`, MEDIUM | `SHADOW-ONLY` | as predicted |
 | `SI1-7` | delivered, HIGH | delivered | as predicted |
 | `SI1-8` `#141` | `RESTATED-AND-HOLDS` | **`RESTATED-AND-FAILS`** | **MISSED.** The freeze predicted it would hold; the round's own finding shows the model failing `#141`'s requirement. Reported as a miss |

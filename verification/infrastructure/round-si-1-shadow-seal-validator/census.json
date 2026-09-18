@@ -2,7 +2,7 @@
   "round": "SI-1",
   "base": "99ab6370470ed9d9e4005551581c6c8c18e54bd2",
   "outcome": "CENSUS-DIVERGENT",
-  "note": "An AGREEMENT census and not a proof of correctness: it would not detect an error both implementations share. The twenty-two real records are compared on the axis each is on -- eighteen sealed on LIFECYCLE, four base-only on SCHEMA/PINNED-BASE/RECORD-INTEGRITY, the latter having no lifecycle to agree about. The twenty-one synthetic controls are censused separately, and that half decides the outcome: nine have no old-machinery analogue at all, and three of the twelve comparable ones DIVERGE. Both verdicts are recorded for every row and the round adjudicates none of them.",
+  "note": "An AGREEMENT census and not a proof of correctness: agreement where it occurs is no evidence of correctness, because a shared error survives every case both sides get wrong together. The twenty-two real records are compared on the axis each is on -- eighteen sealed on LIFECYCLE, four base-only on SCHEMA/PINNED-BASE/RECORD-INTEGRITY, the latter having no lifecycle to agree about. The twenty-one synthetic controls are censused separately, and that half decides the outcome: nine have no old-machinery analogue at all, and FOUR of the twelve comparable ones DIVERGE. On each comparable control both sides resolve the same synthetic event payload for themselves -- the old archive path with no explicit target, so its head-or-base-branch-tip resolution stays live -- because a shared helper compared with itself cannot diverge. Both verdicts are recorded for every row and the round adjudicates none of them.",
   "record_totals": {
     "records": 22,
     "agree": 22,
@@ -13,16 +13,15 @@
     "controls": 21,
     "comparable": 12,
     "no_analogue": 9,
-    "divergent": 3,
+    "divergent": 4,
     "divergent_controls": [
+      "10 stale base.sha, branch carries it",
       "13 descendant of unpinned L",
       "20 base-only out of the state machine",
       "7 two candidates"
     ],
-    "agree_by_construction": [
-      "10 stale base.sha, branch carries it",
-      "11 base branch rewound",
-      "12 unresolved base ref"
+    "old_machinery_correct_on": [
+      "10 stale base.sha, branch carries it"
     ]
   },
   "records": [
@@ -364,9 +363,9 @@
       "control": "10 stale base.sha, branch carries it",
       "comparable": true,
       "old_ok": true,
-      "new_ok": true,
-      "agree": true,
-      "reason": "both sides call the same visibility helper; agreement is BY CONSTRUCTION and is not independent evidence"
+      "new_ok": false,
+      "agree": false,
+      "reason": "the old archive path and O2, each resolving the same event payload for itself"
     },
     {
       "control": "11 base branch rewound",
@@ -374,15 +373,15 @@
       "old_ok": false,
       "new_ok": false,
       "agree": true,
-      "reason": "both sides call the same visibility helper; agreement is BY CONSTRUCTION and is not independent evidence"
+      "reason": "the old archive path and O2, each resolving the same event payload for itself"
     },
     {
       "control": "12 unresolved base ref",
       "comparable": true,
-      "old_ok": true,
-      "new_ok": true,
+      "old_ok": false,
+      "new_ok": false,
       "agree": true,
-      "reason": "both sides call the same base-branch-tip resolver; agreement is BY CONSTRUCTION"
+      "reason": "the old archive path and O2, each resolving the same event payload for itself; O2 failed closed and returned no verdict"
     },
     {
       "control": "13 descendant of unpinned L",

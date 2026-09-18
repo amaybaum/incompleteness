@@ -2542,12 +2542,16 @@ removed.
 The census outcome is **`CENSUS-DIVERGENT`**. Over the twenty-two real records the two
 implementations agree — the eighteen sealed ones on the lifecycle axis, the four base-only ones on
 schema, pinned base and record integrity, having no lifecycle to agree about. Over the twenty-one
-synthetic controls, nine have no old-machinery analogue at all and **three of the twelve comparable
-ones diverge**, at the three points the new model was built to be stronger: a second merge carrying
-the same sealed head, a descendant of an unpinned landing, and a completed non-sealing round the old
-machinery refuses under execution semantics. Both verdicts are recorded and neither is adjudicated.
-It is an agreement census and **not a proof of correctness**: it would not detect an error both
-implementations share.
+synthetic controls, nine have no old-machinery analogue at all and **four of the twelve comparable
+ones diverge**. Three are points the new model was built to be stronger: a second merge carrying the
+same sealed head, a descendant of an unpinned landing, and a completed non-sealing round the old
+machinery refuses under execution semantics. The fourth is not — on a stale `base.sha` with the
+landing sitting on the base branch, the **old machinery is the correct one** and the new model fails
+with zero candidates, which is the same target-scope defect as the round's first discrepancy
+arriving independently through the census. Both verdicts are recorded for every row and none is
+adjudicated. It is an agreement census and **not a proof of correctness**: agreement where it occurs
+is no evidence of correctness, because a shared error survives every case both sides get wrong
+together.
 
 The round records three discrepancies and repairs none. The first is its central finding: the frozen
 derivation rule, scoped to the resolved target alone, **reintroduces the base-age false negative**

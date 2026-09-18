@@ -23894,6 +23894,11 @@ def _si1_validate(records, prospective=None, env=None, tag='R7-SI1', cwd=None,
             return None
     if targets is None:
         targets = _rbr_archive_visibility_targets(env=env, tag=tag, cwd=cwd)
+    if targets is None:
+        # The resolver already said why and failed closed. Returning None here keeps that decision
+        # instead of iterating over it: the first candidate passed None onward, where only the order
+        # of the checks kept it from being indexed.
+        return None
     # The target is compared against commit SHAs below, so a symbolic name is resolved once here.
     # `HEAD` is a legitimate target on a push event and an illegitimate one on a pull request; which
     # it is was decided by `_rbr_target_commit` above, and this only turns a name into an object.
@@ -24337,6 +24342,10 @@ def _si1_control_census():
         return bool(got[stem][1])
 
     def row(name, comparable, old, new, why):
+        # A validator that fails closed returns no verdict; that IS a failure, and it is recorded as
+        # one explicitly rather than left to `bool(None)` to mean the right thing by accident.
+        if new is None:
+            new, why = False, why + '; O2 failed closed and returned no verdict'
         rows.append({'control': name, 'comparable': comparable, 'old_ok': old, 'new_ok': new,
                      'agree': (None if not comparable else (bool(old) == bool(new))), 'reason': why})
 
@@ -24366,21 +24375,33 @@ def _si1_control_census():
             new_of({}, prospective={'Z': n['B9']}, target=n['T9']),
             'strengthened execution check on both sides')
 
-        # Comparable, but by construction rather than independently: these exercise the SHARED
-        # visibility helper, so agreement here is not independent evidence and is labelled as such.
-        for name, env, want in (
-                ('10 stale base.sha, branch carries it',
-                 _si1_pr_env(d, n['Hh'], 'main', n['c0']), True),
-                ('11 base branch rewound',
-                 _si1_pr_env(d, n['Hh'], 'no-landing', n['Maf']), False)):
-            t = _rbr_archive_visibility_targets(env=env, tag='R7-SI1/old', cwd=d)
-            seen, _why = _si1_reachable(n['Lm'], t or [], tag='R7-SI1/old', cwd=d)
-            row(name, True, seen, seen,
-                'both sides call the same visibility helper; agreement is BY CONSTRUCTION and is '
-                'not independent evidence')
-        tip, why12 = _rbr_base_branch_tip('main-local-only', tag='R7-SI1/old', cwd=d)
-        row('12 unresolved base ref', True, tip is None, tip is None,
-            'both sides call the same base-branch-tip resolver; agreement is BY CONSTRUCTION')
+        # Controls 10 to 12 are compared as the frozen target asks: the ACTUAL old archive path
+        # against the ACTUAL O2 path, under the same synthetic pull-request environment.
+        #
+        # The first two candidates compared the shared visibility helper to ITSELF and stored one
+        # value in both columns, which is not a comparison and cannot diverge. It also gave case 12
+        # the field values old_ok=True/new_ok=True to mean "the resolver correctly refused", the
+        # opposite of what those field names say and of the verdict the frozen case requires.
+        # Discrepancy 2 explains why O4 had to exercise the visibility LAYER separately; it does not
+        # relax SI1-5, and O4's own tests are unchanged.
+        for name, env in (('10 stale base.sha, branch carries it',
+                           _si1_pr_env(d, n['Hh'], 'main', n['c0'])),
+                          ('11 base branch rewound',
+                           _si1_pr_env(d, n['Hh'], 'no-landing', n['Maf'])),
+                          ('12 unresolved base ref',
+                           _si1_pr_env(d, n['Hh'], 'main-local-only', n['Maf']))):
+            # NEITHER side is given an explicit target, because passing one to the old archive
+            # path replaces its candidate list with that single commit -- `cands = [(target, ...)]`
+            # -- which switches OFF the head-or-base-branch-tip resolution these three controls
+            # exist to exercise. Handing it a target was a third harness error of the same family:
+            # it made the old machinery answer a question nobody had asked. Both sides now resolve
+            # the event for themselves, exactly as the per-round clauses do.
+            r = rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])
+            old = _rbr_archive_ancestry(r['base'], r['sealed_head'], r['merge'],
+                                        tag='R7-SI1/old', env=env, cwd=d)
+            new = _si1_validate({'Z': r}, env=env, cwd=d)
+            row(name, True, old, (None if new is None else bool(new['Z'][1])),
+                'the old archive path and O2, each resolving the same event payload for itself')
 
         # The two places the implementations were BUILT to differ. Recorded, not adjudicated.
         row('13 descendant of unpinned L', True,
@@ -24584,12 +24605,22 @@ def _si1_scope_discrepancy(t=None):
 
 
 def _si1_census_not_correctness(t=None):
-    """N7 -- CENSUS-EXACT is reported as agreement and NEVER as correctness, with the axes kept
-    apart and both counts named."""
+    """N7 -- AGREEMENT WHERE IT OCCURS is reported as agreement and never as correctness, with the
+    axes kept apart and both counts named.
+
+    The docstring said CENSUS-EXACT while the outcome is CENSUS-DIVERGENT, and the note said the two
+    implementations "do not differ on the cases presented" while reporting four controls on which
+    they do. Both were inherited from the shape the round had before its control census existed. The
+    claim that survives is the narrow one: agreement on an agreeing case is not evidence of
+    correctness, because a shared error survives every case both sides get wrong together."""
     t = _SI1RES if t is None else t
     flat = ' '.join(t.split())
-    return ('**This is an agreement census and not a proof of correctness.**' in t
-            and 'would not detect an error both share' in t
+    return ('**This is an agreement census and not a proof of correctness**' in t
+            and 'a shared error survives every case both sides get wrong together' in flat
+            # The withdrawn sentence is QUOTED in the note, so its mere presence proves nothing; what
+            # has to be present is the disavowal. Forbidding the string outright would forbid the
+            # note from saying which claim it retracted.
+            and 'is false here and has been removed' in flat
             and '18 `sealed`' in t and '4 `base-only`' in t
             and 'agreement, on the axis each is on' in flat)
 
@@ -24726,10 +24757,13 @@ def _si1_census_divergent(t=None):
     t = _SI1RES if t is None else t
     flat = ' '.join(t.split())
     return ('**`CENSUS-DIVERGENT`**' in flat
-            and 'three divergences' in flat
+            and 'four divergences' in flat
             and 'nine controls have no old-machinery analogue' in flat
             and 'is a result and not a reason to narrow the target' in flat
-            and 'agreement is BY CONSTRUCTION' in flat
+            # Controls 10-12 are no longer a helper compared with itself, so the old
+            # 'by construction' caveat is gone and what is required instead is the real comparison.
+            and 'resolves the event payload for itself' in flat
+            and 'old machinery is the correct one' in flat
             and 'does not adjudicate which implementation is right' in flat)
 
 
@@ -24762,7 +24796,13 @@ def _si1_first_candidate(t=None):
     return ('3b28fdeaa044e2cd28c3139e436ffe35209ee8af' in flat
             and 'first reviewed candidate' in flat
             and 'was not accepted as `E`' in flat
-            and 'no amend and no force-push' in flat)
+            and 'no amend and no force-push' in flat
+            # The SECOND reviewed candidate is pinned the same way, because it was rejected the same
+            # way: two candidates preserved unchanged, and a note that names only one of them would
+            # read as though the round had been reviewed once.
+            and 'b62ee49fa23995947083afdc480b903d20d979ff' in flat
+            and 'second reviewed candidate' in flat
+            and 'was also not accepted as `E`' in flat)
 
 
 ok_si1 = True
@@ -24793,8 +24833,8 @@ for _pred, _old, _new in (
         (_si1_scope_discrepancy, '**Recorded, not repaired.**',
          'The frozen rule was corrected here.'),
         (_si1_census_not_correctness,
-         '**This is an agreement census and not a proof of correctness.**',
-         'The census proves the new validator correct.'),
+         '**This is an agreement census and not a proof of correctness**',
+         'The census proves the new validator correct'),
         (_si1_hazard_precise, 'conditional on the parser', 'unconditional'),
         (_si1_predictions,
          '**not scored.** The freeze put nothing at risk here and nothing is scored',
@@ -24868,7 +24908,8 @@ _si1_ctl_non = [r for r in _si1_ctl if not r['comparable']]
 _si1_ctl_div = [r for r in _si1_ctl_comp if not r['agree']]
 ok_si1 &= len(_si1_ctl) == 21 and len(_si1_ctl_comp) == 12 and len(_si1_ctl_non) == 9
 ok_si1 &= sorted(r['control'] for r in _si1_ctl_div) == [
-    '13 descendant of unpinned L', '20 base-only out of the state machine', '7 two candidates']
+    '10 stale base.sha, branch carries it', '13 descendant of unpinned L',
+    '20 base-only out of the state machine', '7 two candidates']
 print('    R7-SI1 control census: %d controls, %d comparable, %d with NO old-machinery analogue, '
       '%d DIVERGENT (%s) -- the outcome is CENSUS-DIVERGENT and neither implementation is '
       'adjudicated' % (len(_si1_ctl), len(_si1_ctl_comp), len(_si1_ctl_non), len(_si1_ctl_div),
@@ -24878,6 +24919,60 @@ print('    R7-SI1 census: %d of %d records agree -- %d sealed on the lifecycle a
       % (sum(1 for r in _si1_rows if r['agree']), len(_si1_rows),
          sum(1 for r in _si1_rows if r['axis'] == 'lifecycle'),
          sum(1 for r in _si1_rows if r['axis'] == 'schema+base+integrity')))
+
+# O3 EMITS census.json, as the freeze says it does -- so the recorded artifact is rebuilt here from
+# the rows THIS run measured and required to equal the file on disk. The earlier candidates wrote
+# that file from a side script, which is how it came to carry three divergences after the census had
+# measured four: a hand-maintained record of a measurement drifts silently, and only a comparison
+# catches it. Set SI1_EMIT_CENSUS=1 to rewrite the file; the default run only checks it, so a CI
+# run never mutates the tree.
+_si1_census_doc = {
+    'round': 'SI-1',
+    'base': _SI1_BASE,
+    'outcome': 'CENSUS-DIVERGENT',
+    'note': ('An AGREEMENT census and not a proof of correctness: agreement where it occurs is no '
+             'evidence of correctness, because a shared error survives every case both sides get '
+             'wrong together. The twenty-two real records are compared on the axis each is on -- '
+             'eighteen sealed on LIFECYCLE, four base-only on SCHEMA/PINNED-BASE/RECORD-INTEGRITY, '
+             'the latter having no lifecycle to agree about. The twenty-one synthetic controls are '
+             'censused separately, and that half decides the outcome: nine have no old-machinery '
+             'analogue at all, and FOUR of the twelve comparable ones DIVERGE. On each comparable '
+             'control both sides resolve the same synthetic event payload for themselves -- the old '
+             'archive path with no explicit target, so its head-or-base-branch-tip resolution stays '
+             'live -- because a shared helper compared with itself cannot diverge. Both verdicts are '
+             'recorded for every row and the round adjudicates none of them.'),
+    'record_totals': {
+        'records': len(_si1_rows),
+        'agree': sum(1 for r in _si1_rows if r['agree']),
+        'lifecycle_axis': sum(1 for r in _si1_rows if r['axis'] == 'lifecycle'),
+        'schema_axis': sum(1 for r in _si1_rows if r['axis'] == 'schema+base+integrity'),
+    },
+    'control_totals': {
+        'controls': len(_si1_ctl),
+        'comparable': len(_si1_ctl_comp),
+        'no_analogue': len(_si1_ctl_non),
+        'divergent': len(_si1_ctl_div),
+        'divergent_controls': sorted(r['control'] for r in _si1_ctl_div),
+        'old_machinery_correct_on': ['10 stale base.sha, branch carries it'],
+    },
+    'records': _si1_rows,
+    'controls': _si1_ctl,
+}
+_SI1CENSUSREL = 'infrastructure/round-si-1-shadow-seal-validator/census.json'
+if os.environ.get('SI1_EMIT_CENSUS') == '1':
+    with open(_artifact(_SI1CENSUSREL), 'w', encoding='utf-8') as _fh:
+        _fh.write(json.dumps(_si1_census_doc, indent=2) + '\n')
+_si1_census_on_disk = json.loads(_bb_read(_SI1CENSUSREL).decode('utf-8'))
+ok_si1 &= _si1_census_on_disk == _si1_census_doc
+# The mutation control: the file with ONE total altered must fail the comparison. It was a file
+# carrying three divergences against a census that measured four that made this check necessary, so
+# that is the exact condition the control exercises.
+_si1_census_stale = json.loads(json.dumps(_si1_census_doc))
+_si1_census_stale['control_totals']['divergent'] = len(_si1_ctl_div) - 1
+ok_si1 &= _si1_census_stale != _si1_census_doc
+print('    R7-SI1 census artifact: census.json is rebuilt from the rows measured in this run and '
+      'compared with the recorded file -- %s'
+      % ('identical' if _si1_census_on_disk == _si1_census_doc else 'DIFFERENT, so it is STALE'))
 print('    R7-SI1 derivation: reachable scope %d of %d agree with the pin; first-parent scope %d, '
       'the retained 6/12 split' % (_si1_reach, len(_si1_sealed), _si1_spine))
 
@@ -24953,22 +25048,30 @@ check('R7-SI1', ok_si1,
       "kept apart -- eighteen sealed on lifecycle, four base-only on schema, pinned base and record "
       "integrity, which have no lifecycle to agree about. On the twenty-one synthetic controls nine "
       "have NO old-machinery analogue at all, the old machinery holding no records and so answering "
-      "no schema, integrity or transcription question; three of the twelve comparable controls "
-      "DIVERGE, and they are the three places the new model was built to be stronger -- a second "
-      "merge carrying the same sealed head, a descendant of an unpinned landing, and a completed "
-      "non-sealing round the old machinery refuses under execution semantics. Three further "
-      "agreements are labelled BY CONSTRUCTION, both sides calling the same visibility helper, so "
-      "they are not independent evidence. Both verdicts are recorded and the round adjudicates "
-      "neither. Agreement is checked reported as AGREEMENT AND NEVER AS CORRECTNESS, with the old "
-      "verdict taken from the generic helpers the per-round clauses themselves call. THREE DISCREPANCIES ARE CHECKED RECORDED AND NOT REPAIRED, eight controls, the "
+      "no schema, integrity or transcription question; FOUR of the twelve comparable controls "
+      "DIVERGE, with each side resolving the same synthetic event for itself and the old archive "
+      "path given NO explicit target, so its head-or-base-branch-tip resolution stays live -- a "
+      "shared helper compared with itself cannot diverge and is not a comparison. Three of the "
+      "four are places the new model was built to be stronger: a second merge carrying the same "
+      "sealed head, a descendant of an unpinned landing, and a completed non-sealing round the old "
+      "machinery refuses under execution semantics. THE FOURTH RUNS THE OTHER WAY -- on a stale "
+      "base.sha with the landing on the base branch the OLD MACHINERY IS THE CORRECT ONE and the "
+      "new model fails with zero candidates, which is the first discrepancy arriving independently "
+      "through the census. Both verdicts are recorded and the round adjudicates none of them. "
+      "Agreement is checked reported as AGREEMENT AND NEVER AS CORRECTNESS, with the old verdict "
+      "taken from the generic helpers the per-round clauses themselves call, and census.json is "
+      "REBUILT FROM THE ROWS THIS RUN MEASURED and required to equal the recorded file, so a "
+      "census that has gone stale fails the check rather than being read. THREE DISCREPANCIES ARE CHECKED RECORDED AND NOT REPAIRED, eight controls, the "
       "first of them this round's central finding: the frozen derivation scope, being the resolved "
       "target alone, REINTRODUCES THE BASE-AGE FALSE NEGATIVE on a pull request opened from a "
       "historical base, where a landing sitting on the base branch is unreachable from the head and "
       "the derivation fails closed with zero candidates -- measured, with the remedy named as the "
       "union of the visibility targets and DELIBERATELY NOT APPLIED, put to the owner as a result "
       "requiring adjudication before SI-2 is frozen, since the cutover would make it the gating "
-      "behaviour. The second records that cases 10 to 12 had to be exercised on the visibility layer "
-      "because case 11 is unsatisfiable through the derivation path under that same scope. The third "
+      "behaviour. The second records that NEGATIVE CASES 10 to 12 -- not the identically numbered "
+      "census controls, which run both paths in full -- had to be exercised on the visibility "
+      "layer because case 11 is unsatisfiable through the derivation path under that same scope. "
+      "The third "
       "reports the double-assignment hazard PARSER-CONDITIONALLY rather than repeating the freeze's "
       "wording, naming this round's own pre-freeze script as an instance of the parser class that "
       "gets it wrong. #140 IS REPORTED RESTATED-ONLY AND NOT AS HOLDING, because the frozen "
@@ -24986,7 +25089,7 @@ check('R7-SI1', ok_si1,
       "Four definition slots, all four fired. The preregistration is pinned BY BLOB with a one-byte "
       "drift control, the chronology asked of the real pull_request.head.sha and never of the "
       "synthetic merge, fail-closed, and NO SEAL TRIPLE OF ITS OWN exists -- not as None, not at "
-      "all. Thirteen named contracts, eight mutation controls, and no frozen definition, target, "
+      "all. Thirteen named contracts, nine mutation controls, and no frozen definition, target, "
       "negative case or authority rule altered anywhere.")
 
 
