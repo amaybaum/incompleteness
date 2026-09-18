@@ -2565,5 +2565,39 @@ topology rather than the pull-request head is **`RESTATED-AND-FAILS`**, against 
 prediction. `#140` is **`RESTATED-ONLY`** — its frozen question needs an independent source for each
 round's mandated base, and this round has none.
 
+## Seal infrastructure round SI-2 — the bootstrap cutover
+
+The generic seal validator `SI-1` built as a shadow is now **authoritative**, and the manifest under
+`verification/seals/` is the seal state it validates: twenty-three records, eighteen `sealed` and
+five `base-only`, the twenty-third being the `SI1` record this round added first. The adjudicated
+derivation rule is executable — on a pull request the landing is derived over the **union** of the
+real head's and the live base-branch tip's histories, deduplicated by SHA, never over
+`pull_request.base.sha`, a local branch or the synthetic merge — and every prior-round ancestry
+and archive clause in `verification/lean/edge_rigidity_probe.py` is now a call to that validator
+keyed on the round's record. The old machinery still runs on every one of them, and on the
+per-round seal-integrity comparisons, as a **shadow that gates nothing**: its verdicts are recorded
+beside the validator's, and two dynamic controls show that forcing or flipping them changes no
+verdict. Manifest integrity is data-driven, one rule over the record set fixed at the round's first
+stage. Nothing was deleted: the sixty-one legacy seal-constant assignment statements are at the
+head exactly as at the base, as text and in order, and `AGENTS.md` §A.37 now says in two halves
+that they **cease to gate** from this landing and remain **protected historical seal state** until
+the retirement round, which is sealing and writes its own manifest record.
+
+The census at the final head matches the profile the freeze predicted: all twenty-three records
+agree, and of the twelve comparable synthetic controls exactly three diverge — 7, 13 and 20, each in
+the validator's adjudicated direction — while **control 10 agrees**, the divergence `SI-1` measured
+reversed having disappeared because the validator now sees the base-branch tip. That is an
+agreement census under an adjudication of behaviour, not a proof of correctness. The base's own
+guard file, run on its own tree, gives ninety-one `PASS` verdicts that the head reproduces on every
+tag. `#141` — prior seals evaluated against the landing topology rather than the pull-request
+head — is **`RESTATED-AND-HOLDS`** under the authoritative validator; `SI-1`'s recorded
+`RESTATED-AND-FAILS` is not edited. `#140` remains **`RESTATED-ONLY`**.
+
+The round's control plane was amended twice before execution, in the append-only form under
+`amendments/`: once to scope `R7-SI1`'s manifest-cardinality contracts to the twenty-two records it
+transcribed, once to admit `_SI2_BASE` in its seal-constant containment contract. Both collisions
+were found by uncommitted dry runs and adjudicated by the owner; neither was absorbed by the
+implementation. The round is non-sealing, `E` → `L`, no pin.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.

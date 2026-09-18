@@ -87,10 +87,14 @@ def _artifact(name):
 
 
 CHECKS = []
+# The tags beside the verdicts, so a guard placed after every other check can read the head's
+# tag-to-verdict map in process rather than only from a subprocess's stdout (SI-2, SI2-6(a)).
+CHECK_TAGS = []
 
 
 def check(tag, ok, msg):
     CHECKS.append(bool(ok))
+    CHECK_TAGS.append(tag)
     print(f"  {'PASS' if ok else 'FAIL'}  {tag}: {msg}")
 
 
@@ -10092,6 +10096,652 @@ def _rbr_archive_ancestry(base, sealed, merge, tag='R7-RBR', env=None, target=No
     return True
 
 
+# ---- R7-SI2: the mandated execution base of seal infrastructure round SI-2, the bootstrap cutover.
+# The merge commit of Amendment 2 (#672), certified by push run 35351379664, and NOT the
+# preregistration merge da9d69d6 or the Amendment 1 merge 9ca82958, both superseded for
+# execution-base purposes by the amendments. NON-SEALING, E -> L, no pin: there is no
+# _SI2_SEALED_HEAD and no _SI2_MERGE, not as None and not at all. Defined here, ahead of every
+# clause that reads it, and excluded by stem from the legacy inventory SI2-6(b) measures.
+_SI2_BASE = 'df54b99dba99dc043b11752163d8d348c9e54472'
+# The ONE manifest addition SI2-1 authorizes, named here and not inside the generic region below,
+# which carries no round stem: the record set fixed at stage 1 is the manifest at the mandated base
+# plus exactly this.
+_SI2_STAGE1_ADDITIONS = {'SI1': {'round': 'SI1', 'kind': 'base-only',
+                                 'base': '99ab6370470ed9d9e4005551581c6c8c18e54bd2'}}
+
+# ---- SI-1's record reader and generic validator, RELOCATED VERBATIM by SI-2 (Amendment 2, point 4)
+# from the R7-SI1 section so that the prior-round clauses below can call U3 keyed on their manifest
+# records. The marker-bounded region differs from the one SI-1 landed by exactly the two-line O2
+# derivation hook recorded in `_SI2_HOOK` below, and R7-SI2 measures that.
+# Relative to verification/, because the record reader resolves names through `_artifact`.
+_SI1SEALSREL = 'seals'
+_SI1SEALS = os.path.join(VERIFICATION, 'seals')
+
+_SI1_HEX = re.compile(r'[0-9a-f]{40}')
+
+# ==== SI1-VALIDATOR-BEGIN ====
+# Everything between these markers is the GENERIC validator, and SI1-2 checks mechanically that no
+# round stem appears anywhere in it. A stem here would be the per-round coupling this round exists
+# to remove.
+
+# The discriminated union. Each kind names the fields it REQUIRES and the fields it FORBIDS, and
+# forbids means a hard failure rather than a tolerated null: a base-only record carrying
+# `sealed_head: null` is rejected, because those rounds are not seals waiting for fields -- they are
+# rounds for which no seal exists, and the schema says so structurally.
+_SI1_KINDS = {
+    'base-only': (('base',), ('sealed_head', 'merge')),
+    'sealed': (('base', 'sealed_head', 'merge'), ()),
+}
+_SI1_STATES = ('EXECUTION', 'LANDED-PENDING-PIN', 'ARCHIVED')
+# Not a fourth state. A record with no lifecycle reports this, and no lifecycle value is ever stored.
+_SI1_NA = 'not-applicable'
+
+
+def _si1_schema(rec, stem):
+    """O1 -- the record schema, a discriminated union on `kind`.
+
+    Returns `(True, kind)` or `(False, reason)`. Unknown keys are a failure rather than ignored,
+    every hash is checked as 40 lowercase hex before it is used, and a forbidden field is a failure
+    even when its value is null."""
+    if not isinstance(rec, dict):
+        return False, 'schema: record is not a JSON object'
+    if rec.get('round') != stem:
+        return False, 'schema: round field %r does not match the filename %r' % (rec.get('round'), stem)
+    kind = rec.get('kind')
+    if kind not in _SI1_KINDS:
+        return False, 'schema: kind %r is not one of %s' % (kind, sorted(_SI1_KINDS))
+    required, forbidden = _SI1_KINDS[kind]
+    # FORBIDDEN IS CHECKED BEFORE UNKNOWN, and the order is the point. A forbidden field is also an
+    # unknown one for this kind, so an unknown-key check reached first would report
+    # `base-only` carrying `sealed_head` as a stray key rather than as what it is -- a seal asserted
+    # for a round that has none. The diagnosis is the value of the check, so it is reported first.
+    for field in forbidden:
+        if field in rec:
+            return False, ('schema: kind %r forbids %s, and it is present (value %r) -- a forbidden '
+                           'field is a failure even as null' % (kind, field, rec[field]))
+    allowed = {'round', 'kind'} | set(required)
+    extra = sorted(set(rec) - allowed)
+    if extra:
+        return False, 'schema: unknown key(s) %s' % ', '.join(extra)
+    for field in required:
+        if field not in rec:
+            return False, 'schema: kind %r requires %s and it is missing' % (kind, field)
+        val = rec[field]
+        if not (isinstance(val, str) and _SI1_HEX.fullmatch(val)):
+            return False, 'schema: %s is not 40 lowercase hex (%r)' % (field, val)
+    return True, kind
+
+
+def _si1_load(root=None, read=None):
+    """The LOGICAL manifest, assembled from one record per round.
+
+    Storage is per-record so that two sibling rounds sealing at the same time touch different files;
+    the validator reasons over the SET of records and never over file layout as a source of
+    semantics. Returns `(records, errors)` where a record that will not parse is an error rather
+    than an absence."""
+    root = _SI1SEALSREL if root is None else root
+    read = _bb_read if read is None else read
+    records, errors = {}, {}
+    # `read` goes through `_artifact`, which resolves names RELATIVE to verification/, so the
+    # directory is listed absolutely and each record is read by its relative name. Passing an
+    # absolute path to the reader silently yields a path under verification/ and a missing file.
+    absroot = os.path.join(VERIFICATION, *root.split('/'))
+    if not os.path.isdir(absroot):
+        return records, errors
+    for name in sorted(os.listdir(absroot)):
+        if not name.endswith('.json'):
+            errors[name] = 'schema: not a .json record'
+            continue
+        stem = name[:-len('.json')]
+        try:
+            records[stem] = json.loads(read('%s/%s' % (root, name)).decode('utf-8'))
+        except Exception as exc:
+            errors[stem] = 'schema: unreadable record (%s)' % type(exc).__name__
+    return records, errors
+
+
+def _si1_derive(sealed, target, tag='R7-SI1', cwd=None, first_parent_only=False):
+    """The derivation: the landing merges in `target`'s history whose NON-FIRST parent is exactly
+    `sealed`.
+
+    Scoped to REACHABLE history and not to the first-parent spine, because the spine is wrong for
+    this repository: of the eighteen archived landings, six lie on it and twelve lie one step off
+    it, the second shape arising wherever a round's landing merge and its pin entered main through
+    one pull request. `first_parent_only` exists so the narrower scope stays measurable as a
+    regression rather than becoming reachable by accident.
+
+    Returns the candidate list, or None if git could not answer -- which the caller treats as a
+    failure and never as an empty list."""
+    args = ['log', '--format=%H %P']
+    if first_parent_only:
+        args.append('--first-parent')
+    r = _rbr_git(*(args + [target]), tag=tag, cwd=cwd)
+    if r is None or r.returncode != 0:
+        return None
+    out = []
+    for line in r.stdout.decode('utf-8', 'replace').split('\n'):
+        parts = line.split()
+        if len(parts) > 2 and sealed in parts[2:]:
+            out.append(parts[0])
+    return out
+
+
+def _si1_landing_of_base(base, target, tag='R7-SI1', cwd=None):
+    """The merges in `target`'s history that LOOK like a landing of an execution on `base`: a merge
+    whose non-first parent passes the strengthened ancestry check against `base`.
+
+    This is how a round with no manifest record is classified without knowing its execution head.
+    Returns the candidate list, or None if git could not answer."""
+    r = _rbr_git('log', '--format=%H %P', target, tag=tag, cwd=cwd)
+    if r is None or r.returncode != 0:
+        return None
+    out = []
+    for line in r.stdout.decode('utf-8', 'replace').split('\n'):
+        parts = line.split()
+        if len(parts) > 2:
+            for parent in parts[2:]:
+                if _si1_quiet_ancestry(base, parent, tag=tag, cwd=cwd):
+                    out.append(parts[0])
+                    break
+    return out
+
+
+def _si1_quiet_ancestry(base, target, tag='R7-SI1', cwd=None):
+    """The strengthened predicate without the narration: `base` an ancestor of `target`, and every
+    commit of `git rev-list target ^base` itself a descendant of `base`.
+
+    Used where the answer is a classification step rather than a verdict, so that searching a
+    history does not print a verdict line per candidate. The gating calls go through
+    `_rbr_strong_ancestry`, which is the same predicate and does narrate."""
+    for rev in (base, target):
+        if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
+            return False
+    r = _rbr_git('merge-base', '--is-ancestor', base, target, tag=tag, cwd=cwd)
+    if r is None or r.returncode != 0:
+        return False
+    listed = _rbr_git('rev-list', target, '^%s' % base, tag=tag, cwd=cwd)
+    if listed is None or listed.returncode != 0:
+        return False
+    for rev in listed.stdout.decode('utf-8', 'replace').split():
+        step = _rbr_git('merge-base', '--is-ancestor', base, rev, tag=tag, cwd=cwd)
+        if step is None or step.returncode != 0:
+            return False
+    return True
+
+
+def _si1_reachable(rev, targets, tag='R7-SI1', cwd=None):
+    """Whether `rev` is reachable from any of the visibility targets. Fail-closed: an unresolvable
+    target is not a reason to pass."""
+    for cand, _why in targets:
+        if cand is None:
+            continue
+        if not _rbr_ensure_present(cand, tag=tag, cwd=cwd):
+            continue
+        r = _rbr_git('merge-base', '--is-ancestor', rev, cand, tag=tag, cwd=cwd)
+        if r is not None and r.returncode == 0:
+            return True, _why
+    return False, None
+
+
+def _si1_validate(records, prospective=None, env=None, tag='R7-SI1', cwd=None,
+                  target=None, label=None, num=None, targets=None, errors=None, derive=None):
+    """O2 -- the generic validator.
+
+    Returns, per round, `(lifecycle, ok, reason)`. It returns a verdict for every record and EITHER
+    a lifecycle state OR `_SI1_NA`, because NOT EVERY RECORD HAS A LIFECYCLE: the three states are
+    the lifecycle of a SEAL-PRODUCING round, not of every manifest record.
+
+    A `base-only` record is a completed historical non-sealing round. Its schema, its pinned base
+    and its record integrity are checked, and it is not classified into any of the three states.
+    Classifying it `EXECUTION` -- which the natural reading of "no record, or a record with no
+    sealed_head" does -- would leave four completed rounds permanently executing and would keep
+    applying execution ancestry semantics to them on every future repository state. A round for
+    which no seal exists is not a round whose seal has not arrived yet.
+
+    There is no round-specific branch anywhere below, and SI1-2 checks that mechanically."""
+    out = {}
+    if target is None:
+        target, label, num = _rbr_target_commit(env=env, tag=tag)
+        if target is None:
+            return None
+    if targets is None:
+        targets = _rbr_archive_visibility_targets(env=env, tag=tag, cwd=cwd)
+    if targets is None:
+        # The resolver already said why and failed closed. Returning None here keeps that decision
+        # instead of iterating over it: the first candidate passed None onward, where only the order
+        # of the checks kept it from being indexed.
+        return None
+    # The target is compared against commit SHAs below, so a symbolic name is resolved once here.
+    # `HEAD` is a legitimate target on a push event and an illegitimate one on a pull request; which
+    # it is was decided by `_rbr_target_commit` above, and this only turns a name into an object.
+    _res = _rbr_git('rev-parse', '--verify', '--quiet', target + '^{commit}', tag=tag, cwd=cwd)
+    if _res is None or _res.returncode != 0:
+        return None
+    tsha = _res.stdout.decode('utf-8', 'replace').strip()
+    for stem, reason in sorted((errors or {}).items()):
+        out[stem] = (None, False, reason)
+    for stem in sorted(records):
+        good, info = _si1_schema(records[stem], stem)
+        if not good:
+            out[stem] = (None, False, info)
+            continue
+        rec, kind = records[stem], info
+        if kind == 'base-only':
+            if not _rbr_ensure_present(rec['base'], tag=tag, cwd=cwd):
+                out[stem] = (_SI1_NA, False, 'pinned base %s is absent' % rec['base'][:12])
+                continue
+            seen, why = _si1_reachable(rec['base'], targets, tag=tag, cwd=cwd)
+            out[stem] = (_SI1_NA, seen,
+                         ('historical non-sealing record; pinned base %s reachable from %s'
+                          % (rec['base'][:12], why)) if seen else
+                         'pinned base %s is not reachable; failing closed' % rec['base'][:12])
+            continue
+        base, sealed, pinned = rec['base'], rec['sealed_head'], rec['merge']
+        for rev in (sealed, pinned):
+            if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
+                out[stem] = ('ARCHIVED', False,
+                             'unreachable: %s is absent from this repository' % rev[:12])
+                break
+        else:
+            cands = (_si1_derive(sealed, target, tag=tag, cwd=cwd) if derive is None
+                     else derive(sealed))
+            if cands is None:
+                out[stem] = ('ARCHIVED', False, 'derivation could not be run; failing closed')
+                continue
+            uniq = sorted(set(cands))
+            if not uniq:
+                out[stem] = ('ARCHIVED', False,
+                             'zero candidates: no merge reachable from %s carries %s as a non-first '
+                             'parent' % (label, sealed[:12]))
+                continue
+            if len(uniq) > 1:
+                out[stem] = ('ARCHIVED', False,
+                             'multiple candidates: %s' % ', '.join(c[:12] for c in uniq))
+                continue
+            if uniq[0] != pinned:
+                out[stem] = ('ARCHIVED', False,
+                             'disagreement: pinned %s, derived %s' % (pinned[:12], uniq[0][:12]))
+                continue
+            if not _si1_quiet_ancestry(base, sealed, tag=tag, cwd=cwd):
+                out[stem] = ('ARCHIVED', False,
+                             'the sealed head %s does not pass the strengthened check against %s'
+                             % (sealed[:12], base[:12]))
+                continue
+            ok = True
+            for rev in (pinned, sealed):
+                seen, _why = _si1_reachable(rev, targets, tag=tag, cwd=cwd)
+                if not seen:
+                    out[stem] = ('ARCHIVED', False,
+                                 '%s is not reachable from any visibility target; failing closed'
+                                 % rev[:12])
+                    ok = False
+                    break
+            if ok:
+                out[stem] = ('ARCHIVED', True,
+                             'pinned == derived %s; second parent is the sealed head; ancestry and '
+                             'reachability hold' % pinned[:12])
+    for stem, base in sorted((prospective or {}).items()):
+        if not _rbr_ensure_present(base, tag=tag, cwd=cwd):
+            out[stem] = (None, False, 'pinned base %s is absent' % base[:12])
+            continue
+        landings = _si1_landing_of_base(base, target, tag=tag, cwd=cwd)
+        if landings is None:
+            out[stem] = (None, False, 'landing search could not be run; failing closed')
+            continue
+        if tsha in landings:
+            out[stem] = ('LANDED-PENDING-PIN', True,
+                         'the resolved target IS the landing merge; permitted, and the seal record '
+                         'is still owed')
+            continue
+        if landings:
+            out[stem] = ('LANDED-PENDING-PIN', False,
+                         'seal pending: %s descends from the unpinned landing %s'
+                         % (label, landings[0][:12]))
+            continue
+        good = _rbr_strong_ancestry(base, target, label, num, tag=tag, cwd=cwd)
+        out[stem] = ('EXECUTION', good,
+                     'prospective execution certified against %s' % base[:12] if good else
+                     'prospective execution does not descend from %s' % base[:12])
+    return out
+
+
+def _si1_integrity(at_base, now):
+    """Manifest integrity over the ENTRY SET as well as entry contents.
+
+    Mutated, removed and added are three DISTINCT conditions, reported separately. With one record
+    per round a deletion is as easy as an edit, and a contents-only rule would let one pass
+    invisibly. A change to previously certified seal data requires prospective authorization by the
+    round that intends it; this round authorizes none, so its only permitted change to the set is
+    its own additions."""
+    return {
+        'mutated': sorted(k for k in set(at_base) & set(now) if at_base[k] != now[k]),
+        'removed': sorted(set(at_base) - set(now)),
+        'added': sorted(set(now) - set(at_base)),
+    }
+# ==== SI1-VALIDATOR-END ====
+
+# ==== SI2-AUTHORITY-BEGIN ====
+# Seal infrastructure round SI-2, the bootstrap cutover: the objects that TAKE AUTHORITY. Generic
+# code -- no round stem appears between these markers, and R7-SI2 checks that exactly as SI-1's
+# second target checks the region above. The per-round clauses below reach the validator only through `_si2_authority`,
+# keyed on their manifest record. Four definition slots: U1 the union resolver, U2 the union
+# derivation, U3 the authoritative validator with its keyed entry point, U4 the census harness. U5,
+# the data-driven integrity rule, is SI-1's `_si1_integrity` applied over the record set fixed at
+# stage 1 and fires no slot. The synthetic repository and the negative suite are test code.
+
+# The narrow O2 hook Amendment 2 point 4 permits, recorded here so that R7-SI2 can check that the
+# relocated region above differs from the one SI-1 landed by EXACTLY these two edits: the default
+# route is still the target-only `_si1_derive`, and only U3 passes a derivation in.
+_SI2_HOOK = (
+    ("                  target=None, label=None, num=None, targets=None, errors=None):",
+     "                  target=None, label=None, num=None, targets=None, errors=None, derive=None):"),
+    ("            cands = _si1_derive(sealed, target, tag=tag, cwd=cwd)",
+     "            cands = (_si1_derive(sealed, target, tag=tag, cwd=cwd) if derive is None\n"
+     "                     else derive(sealed))"),
+)
+
+
+def _si2_union_targets(env=None, tag='R7-SI2', cwd=None):
+    """U1 -- the union resolver: the ordered visibility targets of the current event, each with the
+    reason it was selected, or None when a required target does not resolve.
+
+    On a push the single target is HEAD. On a pull request the targets are the real
+    `pull_request.head.sha` AND the live `refs/remotes/origin/<base ref>` -- never
+    `pull_request.base.sha`, never a local branch, never the synthetic merge -- and an unresolvable
+    base ref FAILS CLOSED. This is `_rbr_archive_visibility_targets`'s semantics stated once: both
+    the derivation (U2) and the visibility leg consume this list and nothing else."""
+    return _rbr_archive_visibility_targets(env=env, tag=tag, cwd=cwd)
+
+
+def _si2_derive_union(sealed, targets, tag='R7-SI2', cwd=None):
+    """U2 -- the union derivation, the adjudicated rule made executable: the merges whose NON-FIRST
+    parent is exactly `sealed`, over the SET UNION of the targets' reachable histories, deduplicated
+    by SHA.
+
+    Returns the sorted candidate list, or None when a target is missing or git could not answer --
+    which the caller treats as a failure and never as an empty list. Zero candidates, multiple
+    candidates and a unique candidate unequal to the pin remain three distinct failures in U3,
+    exactly as before; only the set searched is larger. Where the head side and the base side
+    expose two DIFFERENT landings for one sealed head, the union yields multiple candidates and
+    fails rather than choosing one."""
+    if targets is None:
+        return None
+    seen = set()
+    for rev, _lab in targets:
+        if rev is None:
+            return None
+        cands = _si1_derive(sealed, rev, tag=tag, cwd=cwd)
+        if cands is None:
+            return None
+        seen.update(cands)
+    return sorted(seen)
+
+
+def _si2_validate(records, prospective=None, env=None, tag='R7-SI2', cwd=None, target=None,
+                  label=None, num=None, targets=None, errors=None):
+    """U3 -- the authoritative validator: SI-1's O2 with U2 in place of the target-only derivation.
+
+    Literally that: the same `_si1_validate`, handed U1's targets for its visibility leg and U2 as
+    its derivation. Nothing else about O2 changes -- the schema, the three states, base-only held
+    out of the machine, the pin-versus-derived comparison and the fail-closed returns are O2's.
+    After the cutover this is what the prior-round clauses call, through `_si2_authority` below."""
+    if targets is None:
+        targets = _si2_union_targets(env=env, tag=tag, cwd=cwd)
+    if targets is None:
+        return None
+    if target is None:
+        target, label, num = _rbr_target_commit(env=env, tag=tag)
+        if target is None:
+            return None
+    ulabel = (('the union of %s' % ' and '.join(str(lab) for _r, lab in targets))
+              if len(targets) > 1 else str(targets[0][1]))
+    return _si1_validate(records, prospective=prospective, env=env, tag=tag, cwd=cwd, target=target,
+                         label=ulabel, num=num, targets=targets, errors=errors,
+                         derive=lambda sealed: _si2_derive_union(sealed, targets, tag=tag, cwd=cwd))
+
+
+_SI2_VERDICTS = {}
+_SI2_LEDGER = []
+
+
+def _si2_manifest_verdicts():
+    """U3 over the whole manifest for the live event, computed once per process and reused by every
+    per-round clause: the clauses are keyed on their records, and the record set is one object."""
+    if 'live' not in _SI2_VERDICTS:
+        _recs, _errs = _si1_load()
+        _SI2_VERDICTS['live'] = _si2_validate(_recs, errors=_errs)
+    return _SI2_VERDICTS['live']
+
+
+def _si2_authority(stem, tag='R7-SI2', shadow=None):
+    """THE CUTOVER ENTRY POINT. A prior-round ancestry or archive clause is now this call, keyed on
+    the round's manifest record `<stem>.json`: the verdict is U3's for that record and nothing
+    else. The legacy machinery's verdict for the same clause -- `shadow`, the round's original
+    check, still reading its legacy constants -- is computed alongside, RECORDED and printed, and
+    GATES NOTHING: the return value does not depend on it, and an exception in it is recorded as no
+    verdict rather than allowed to take the gate down. A round with no manifest record gets no
+    verdict, which is how R7-SI2's own chronology guard is kept OUT of the cutover by design."""
+    verdicts = _si2_manifest_verdicts()
+    if verdicts is None:
+        life, ok, why = None, False, 'U3 failed closed before answering'
+    elif stem not in verdicts:
+        life, ok, why = None, False, 'no manifest record %s.json; no verdict' % stem
+    else:
+        life, ok, why = verdicts[stem]
+    sh = None
+    if shadow is not None:
+        try:
+            sh = bool(shadow())
+        except Exception as exc:  # noqa: BLE001 -- the shadow gates nothing, so it may not fail the gate either
+            sh = None
+            why = why + ' [shadow raised %s]' % type(exc).__name__
+    _SI2_LEDGER.append({'round': stem, 'tag': tag, 'u3_ok': bool(ok), 'u3_lifecycle': life,
+                        'u3_reason': why, 'shadow_ok': sh})
+    print('    %s authority: U3 keyed on %s.json -> %s (%s; %s); legacy shadow -> %s, gating nothing'
+          % (tag, stem, 'PASS' if ok else 'FAIL', life, why,
+             {True: 'PASS', False: 'FAIL', None: 'no verdict'}[sh]))
+    return bool(ok)
+
+
+def _si2_manifest_at_stage1():
+    """The record set FIXED at stage 1: the twenty-two records at the mandated base, read from git
+    and not from the working tree, plus the one record SI2-1 authorizes. Returns None if git could
+    not answer, which U5 treats as a failure."""
+    r = _rbr_git('ls-tree', '--name-only', '%s:verification/seals' % _SI2_BASE, tag='R7-SI2')
+    if r is None or r.returncode != 0:
+        return None
+    out = {}
+    for name in r.stdout.decode('utf-8', 'replace').split():
+        if not name.endswith('.json'):
+            continue
+        shown = _rbr_git('show', '%s:verification/seals/%s' % (_SI2_BASE, name), tag='R7-SI2')
+        if shown is None or shown.returncode != 0:
+            return None
+        try:
+            out[name[:-5]] = json.loads(shown.stdout.decode('utf-8'))
+        except ValueError:
+            return None
+    out.update(_SI2_STAGE1_ADDITIONS)
+    return out
+
+
+_SI2_INTEGRITY = {}
+_SI2_SHADOW_INTEGRITY = []
+
+
+def _si2_integrity():
+    """U5 -- the data-driven integrity rule: SI-1's `_si1_integrity` over the record set fixed at
+    stage 1 against the manifest now, reporting mutated, removed and added as three distinct
+    conditions. After the cutover this gates; the per-round seal-integrity comparisons keep running
+    as a shadow through `_si2_shadow_integrity` and gate nothing. Computed once per process."""
+    if 'live' not in _SI2_INTEGRITY:
+        at1 = _si2_manifest_at_stage1()
+        now, _errs = _si1_load()
+        _SI2_INTEGRITY['live'] = None if at1 is None else _si1_integrity(at1, now)
+    return _SI2_INTEGRITY['live']
+
+
+def _si2_integrity_ok():
+    """U5's verdict: the record set fixed at stage 1 is present, unmutated, and joined by nothing."""
+    d = _si2_integrity()
+    return d is not None and not any(d.values())
+
+
+def _si2_shadow_integrity(tag, verdict):
+    """A per-round seal-integrity comparison's verdict, RECORDED beside U5's and gating nothing."""
+    _SI2_SHADOW_INTEGRITY.append({'tag': tag, 'shadow_ok': bool(verdict)})
+    print('    %s prior-seal comparison (legacy): %s -- recorded as a SHADOW of U5, gating nothing'
+          % (tag, 'PASS' if verdict else 'FAIL'))
+    return bool(verdict)
+
+
+# ==== SI2-AUTHORITY-END ====
+# Test code from here: the synthetic repository and the negative suite are not definition slots and
+# sit outside the stem-free region, as SI-1's O4 did.
+
+
+def _si2_build_repo():
+    """SI-1's synthetic repository, extended with the topologies the union rule's cases need:
+
+        Lx(Hh, E2)          a landing of E2 on the HEAD side only, unreachable from origin/main
+        Hx(Lx)              a head that reaches Lx and not Lm
+        Hs(Maf)             a head that reaches Lm, as origin/main does
+        refs/heads/main-local-only = Maf   a LOCAL branch carrying the landing, never accepted
+    """
+    d, n, g = _si1_build_repo()
+    tree = g('write-tree').stdout.strip()
+
+    def ct(msg, *parents):
+        args = ['commit-tree', tree, '-m', msg]
+        for p in parents:
+            args += ['-p', p]
+        return g(*args).stdout.strip()
+
+    n['Lx'] = ct('Lx', n['Hh'], n['E2'])
+    n['Hx'] = ct('Hx', n['Lx'])
+    n['Hs'] = ct('Hs', n['Maf'])
+    g('update-ref', 'refs/heads/main-local-only', n['Maf'])
+    return d, n, g
+
+
+def _si2_negatives():
+    """The negative suite SI-2's freeze adds (cases 1 to 8, 11, 12 and 13; 9 and 10 are text and
+    static controls in R7-SI2), each required to satisfy its NAMED outcome for its named reason."""
+    import shutil
+    d, n, _g = _si2_build_repo()
+    R = []
+
+    def rec(stem, kind, base, sealed=None, merge=None):
+        r = {'round': stem, 'kind': kind, 'base': base}
+        if sealed is not None:
+            r['sealed_head'] = sealed
+        if merge is not None:
+            r['merge'] = merge
+        return r
+
+    def u3(records, env=None, target=None, targets=None, prospective=None):
+        got = _si2_validate(records, prospective=prospective, env=env, cwd=d, target=target,
+                            targets=targets)
+        if got is None:
+            return None, False, 'U3 failed closed and returned no verdict'
+        stem = sorted(set(records) | set(prospective or {}))[0]
+        return got[stem]
+
+    good_rec = rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])
+    try:
+        # 1 -- the landing on the live base branch and not reachable from the head: PASSES. This is
+        # SI-1's control 10 and the adjudication made executable.
+        env1 = _si1_pr_env(d, n['Hh'], 'main', n['c0'])
+        t1 = _si2_union_targets(env=env1, tag='R7-SI2', cwd=d)
+        c1 = _si2_derive_union(n['E2'], t1, tag='R7-SI2', cwd=d)
+        life1, ok1, why1 = u3({'Z': good_rec}, env=env1)
+        R.append(('1 landing on the live base branch only', bool(ok1) and c1 == [n['Lm']]
+                  and t1 is not None and [r for r, _l in t1] == [n['Hh'], n['Maf']],
+                  'targets %s; derived %d candidate(s); %s' % (
+                      [l for _r, l in (t1 or [])], len(c1 or []), why1)))
+        # 2 -- the same, with the base branch rewound off the landing: FAILS.
+        env2 = _si1_pr_env(d, n['Hh'], 'no-landing', n['Maf'])
+        life2, ok2, why2 = u3({'Z': good_rec}, env=env2)
+        R.append(('2 base branch rewound', (not ok2) and 'zero candidates' in why2, why2))
+        # 3 -- an unresolvable remote base ref FAILS CLOSED, and pull_request.base.sha is not
+        # accepted in its place even when present, well-formed and carrying the landing; nor is
+        # the LOCAL branch of that name, which does carry it.
+        env3 = _si1_pr_env(d, n['Hh'], 'main-local-only', n['Maf'])
+        t3 = _si2_union_targets(env=env3, tag='R7-SI2', cwd=d)
+        life3, ok3, why3 = u3({'Z': good_rec}, env=env3)
+        R.append(('3 unresolvable base ref, base.sha and local branch refused',
+                  t3 is None and (not ok3) and 'no verdict' in why3, why3))
+        # 4 -- head and base each carrying a DIFFERENT merge with E as non-first parent: FAILS as
+        # multiple candidates, not resolved in favour of either.
+        env4 = _si1_pr_env(d, n['Hx'], 'main', n['c0'])
+        c4 = _si2_derive_union(n['E2'], _si2_union_targets(env=env4, tag='R7-SI2', cwd=d),
+                               tag='R7-SI2', cwd=d)
+        life4, ok4, why4 = u3({'Z': good_rec}, env=env4)
+        R.append(('4 different landings on head and base', (not ok4) and 'multiple candidates' in why4
+                  and sorted(c4 or []) == sorted([n['Lm'], n['Lx']]), why4))
+        # 5 -- head and base carrying the SAME landing: PASSES with exactly one candidate after
+        # deduplication; a validator that reports two has not deduplicated.
+        env5 = _si1_pr_env(d, n['Hs'], 'main', n['c0'])
+        c5 = _si2_derive_union(n['E2'], _si2_union_targets(env=env5, tag='R7-SI2', cwd=d),
+                               tag='R7-SI2', cwd=d)
+        life5, ok5, why5 = u3({'Z': good_rec}, env=env5)
+        R.append(('5 same landing on both sides, deduplicated', bool(ok5) and c5 == [n['Lm']],
+                  '%d candidate(s) after deduplication; %s' % (len(c5 or []), why5)))
+        # 6 -- the synthetic PR merge offered as a target is REFUSED: U1 never returns it, and the
+        # verdict under the real event differs from what the synthetic merge would have given.
+        env6 = _si1_pr_env(d, n['Hh'], 'no-landing', n['Maf'])
+        t6 = _si2_union_targets(env=env6, tag='R7-SI2', cwd=d)
+        life6, ok6, why6 = u3({'Z': good_rec}, env=env6)
+        _l, ok6w, _w = u3({'Z': good_rec}, target=n['Hm'], targets=[(n['Hm'], 'synthetic merge HEAD')])
+        R.append(('6 synthetic merge refused', t6 is not None and n['Hm'] not in [r for r, _ in t6]
+                  and (not ok6) and bool(ok6w), 'resolved event FAILS; the synthetic merge would PASS'))
+        # 7 -- a record whose merge is rewritten to a merge that genuinely exists in the union:
+        # FAILS on pin-versus-derived disagreement, the case that proves derivation alone is not
+        # enough.
+        life7, ok7, why7 = u3({'Z': rec('Z', 'sealed', n['B'], n['E2'], n['Wr'])},
+                              target=n['Wr'], targets=[(n['Wr'], 'target')])
+        R.append(('7 pin rewritten to a real merge in the union', (not ok7) and 'disagreement' in why7,
+                  why7))
+        # 8 -- a record added beyond SI2-1's single authorization: FAILS as an unauthorized addition
+        # under U5, reported as `added` alone.
+        at1 = {'A': {'kind': 'sealed', 'base': n['B']}, 'SI1': {'kind': 'base-only', 'base': n['B9']}}
+        d8 = _si1_integrity(at1, dict(at1, ZZ={'kind': 'base-only', 'base': n['c0']}))
+        R.append(('8 record added beyond SI2-1', [k for k, v in d8.items() if v] == ['added'],
+                  'reported %s' % (d8,)))
+        # 11 -- R7-SI2's own chronology keyed on a manifest record: FAILS, because SI-2 has none.
+        got11 = _si2_validate({}, cwd=d, target=n['Maf'], targets=[(n['Maf'], 'target')])
+        R.append(('11 bootstrap guard keyed on a manifest record', got11 is not None
+                  and 'SI2' not in got11, 'no SI2 record, so no verdict; the bootstrap guard '
+                  'reads _SI2_BASE and runs the strengthened check instead'))
+        # 12 -- a twenty-fourth record: FAILS the scoped R7-SI1 integrity contract AND U5.
+        recs12 = {stem: {} for stem in _SI1_TRANSCRIBED} | {'SI1': {}, 'ZZ': {}}
+        unauthorized12 = sorted(set(recs12) - _SI1_TRANSCRIBED - _SI1_AUTHORIZED_ADDITIONS)
+        d12 = _si1_integrity({k: v for k, v in recs12.items() if k != 'ZZ'}, recs12)
+        R.append(('12 twenty-fourth record', unauthorized12 == ['ZZ'] and d12['added'] == ['ZZ']
+                  and not d12['mutated'] and not d12['removed'],
+                  'scoped R7-SI1 reports %s unauthorized; U5 reports %s' % (unauthorized12, d12)))
+        # 13 -- a THIRD legacy-style assignment fails N13 as amended: the allowance is a set of
+        # exactly two. Run through N13's own parser over the real sources with one line appended.
+        pat13 = re.compile(r"^_([A-Z0-9]+)_(BASE|SEALED_HEAD|MERGE)\s*=\s*'([0-9a-f]{40})'\s*$", re.M)
+        here = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+        was = _rbr_git('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI1_BASE, tag='R7-SI2')
+        if was is None or was.returncode != 0:
+            R.append(('13 third legacy-style assignment', False, 'base source unavailable'))
+        else:
+            wasset = set(pat13.findall(was.stdout.decode('utf-8', 'replace')))
+            allow = {('SI1', 'BASE', _SI1_BASE), ('SI2', 'BASE', _SI2_BASE)}
+            now0 = set(pat13.findall(here))
+            bad = [set(pat13.findall(here + "\n_SI2_SEALED_HEAD = '%s'\n" % ('a' * 40))),
+                   set(pat13.findall(here + "\n_ZZ_BASE = '%s'\n" % ('b' * 40)))]
+            R.append(('13 third legacy-style assignment',
+                      (now0 - wasset == allow) and all((b - wasset) != allow for b in bad),
+                      'head minus base is exactly the two-element allowance; a _SI2_SEALED_HEAD or '
+                      'a _ZZ_BASE appended makes it three and fails'))
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+    return R
+
+
 def _rbr_archive_regression():
     """Synthetic regression: two sibling execution rounds merged sequentially, both archived
     certifications valid, and the archive check failing closed on a rewritten history.
@@ -10370,7 +11020,7 @@ check('R7-ARCH', ok_arch,
       'and no base is touched by archive mode; it re-certifies the object that was reviewed.')
 
 
-def _rbr_base_ancestry():
+def _rbr_legacy_ancestry():
     """B2 -- the EXECUTION HEAD descends from the control plane's merge commit.
 
     This is the half of the chronology control that a content hash cannot carry, so it is asked of
@@ -10399,11 +11049,18 @@ def _rbr_base_ancestry():
     if r is None:
         return False
     if r.returncode != 0:
-        print('    R7-RBR ancestry: %s is present but is NOT an ancestor of %s'
+        print('    R7-RBR/shadow ancestry: %s is present but is NOT an ancestor of %s'
               % (_RBR_BASE[:12], label))
         return False
-    print('    R7-RBR ancestry: certified %s descends from %s' % (label, _RBR_BASE[:12]))
+    print('    R7-RBR/shadow ancestry: certified %s descends from %s' % (label, _RBR_BASE[:12]))
     return True
+
+
+def _rbr_base_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    RBR.json, and nothing else. The round's original check, `_rbr_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('RBR', tag='R7-RBR', shadow=_rbr_legacy_ancestry)
 
 
 def _rbr_outcome(t=None):
@@ -10716,7 +11373,7 @@ def _abr_freeze_pin(read=_bb_read):
         '2e92464dca3809558959d240314dbaf9eaa1c500')
 
 
-def _abr_execution_ancestry():
+def _abr_legacy_ancestry():
     """C2 -- NO COMMIT REACHABLE FROM THE EXECUTION HEAD LIES OUTSIDE THE FREEZE'S DESCENDANTS.
 
     Head-only ancestry is too weak for the claim the freeze makes, and act 10's control plane says
@@ -10749,14 +11406,14 @@ def _abr_execution_ancestry():
     if r is None:
         return False
     if r.returncode != 0:
-        print('    R7-ABR ancestry: %s is present but is NOT an ancestor of %s'
+        print('    R7-ABR/shadow ancestry: %s is present but is NOT an ancestor of %s'
               % (_ABR_BASE[:12], label))
         return False
     listed = _abr_git('rev-list', '%s' % target, '^%s' % _ABR_BASE)
     if listed is None:
         return False
     if listed.returncode != 0:
-        print('    R7-ABR ancestry: could not enumerate the execution-only history; failing closed')
+        print('    R7-ABR/shadow ancestry: could not enumerate the execution-only history; failing closed')
         return False
     revs = listed.stdout.decode('utf-8', 'replace').split()
     for rev in revs:
@@ -10766,12 +11423,19 @@ def _abr_execution_ancestry():
         if step is None:
             return False
         if step.returncode != 0:
-            print('    R7-ABR ancestry: %s is reachable from %s but does NOT descend from %s -- '
+            print('    R7-ABR/shadow ancestry: %s is reachable from %s but does NOT descend from %s -- '
                   'pre-freeze side history' % (rev[:12], label, _ABR_BASE[:12]))
             return False
-    print('    R7-ABR ancestry: certified %s and all %d commit(s) of the execution-only history '
+    print('    R7-ABR/shadow ancestry: certified %s and all %d commit(s) of the execution-only history '
           'descend from %s' % (label, len(revs), _ABR_BASE[:12]))
     return True
+
+
+def _abr_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    ABR.json, and nothing else. The round's original check, `_abr_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('ABR', tag='R7-ABR', shadow=_abr_legacy_ancestry)
 
 
 def _abr_availability_first(t=None):
@@ -11156,7 +11820,7 @@ def _hya_freeze_pin(read=_bb_read):
         '934cd6aff1cfb07b823c9b131693ee59bb98c632')
 
 
-def _hya_execution_ancestry():
+def _hya_legacy_ancestry():
     """Y2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim through acts 11 and 12's copies: the head-only
@@ -11171,8 +11835,15 @@ def _hya_execution_ancestry():
         target, label, num = _hya_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_HYA_BASE, target, label, num, tag='R7-HYA')
-    return _rbr_archive_ancestry(_HYA_BASE, _HYA_SEALED_HEAD, _HYA_MERGE, tag='R7-HYA')
+        return _rbr_strong_ancestry(_HYA_BASE, target, label, num, tag='R7-HYA/shadow')
+    return _rbr_archive_ancestry(_HYA_BASE, _HYA_SEALED_HEAD, _HYA_MERGE, tag='R7-HYA/shadow')
+
+
+def _hya_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    HYA.json, and nothing else. The round's original check, `_hya_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('HYA', tag='R7-HYA', shadow=_hya_legacy_ancestry)
 
 
 def _hya_outcome(t=None):
@@ -11609,7 +12280,7 @@ def _clg_freeze_pin(read=_bb_read):
         '0f6d37fafd857d9e54d5dbff6d062cc360ea08e5')
 
 
-def _clg_execution_ancestry():
+def _clg_legacy_ancestry():
     """E2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
@@ -11626,12 +12297,12 @@ def _clg_execution_ancestry():
     if r is None:
         return False
     if r.returncode != 0:
-        print('    R7-CLG ancestry: %s is present but is NOT an ancestor of %s'
+        print('    R7-CLG/shadow ancestry: %s is present but is NOT an ancestor of %s'
               % (_CLG_BASE[:12], label))
         return False
     listed = _clg_git('rev-list', '%s' % target, '^%s' % _CLG_BASE)
     if listed is None or listed.returncode != 0:
-        print('    R7-CLG ancestry: could not enumerate the execution-only history; failing closed')
+        print('    R7-CLG/shadow ancestry: could not enumerate the execution-only history; failing closed')
         return False
     revs = listed.stdout.decode('utf-8', 'replace').split()
     for rev in revs:
@@ -11641,12 +12312,19 @@ def _clg_execution_ancestry():
         if step is None:
             return False
         if step.returncode != 0:
-            print('    R7-CLG ancestry: %s is reachable from %s but does NOT descend from %s -- '
+            print('    R7-CLG/shadow ancestry: %s is reachable from %s but does NOT descend from %s -- '
                   'pre-freeze side history' % (rev[:12], label, _CLG_BASE[:12]))
             return False
-    print('    R7-CLG ancestry: certified %s and all %d commit(s) of the execution-only history '
+    print('    R7-CLG/shadow ancestry: certified %s and all %d commit(s) of the execution-only history '
           'descend from %s' % (label, len(revs), _CLG_BASE[:12]))
     return True
+
+
+def _clg_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    CLG.json, and nothing else. The round's original check, `_clg_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('CLG', tag='R7-CLG', shadow=_clg_legacy_ancestry)
 
 
 def _clg_two_stabilizers(t=None):
@@ -12147,7 +12825,7 @@ def _tsg_freeze_pin(read=_bb_read):
         '5850238f290f0424ff677ff6d5cc2c039b1f58c2')
 
 
-def _tsg_execution_ancestry():
+def _tsg_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim through act 11's copy: the head-only check is
@@ -12164,12 +12842,12 @@ def _tsg_execution_ancestry():
     if r is None:
         return False
     if r.returncode != 0:
-        print('    R7-TSG ancestry: %s is present but is NOT an ancestor of %s'
+        print('    R7-TSG/shadow ancestry: %s is present but is NOT an ancestor of %s'
               % (_TSG_BASE[:12], label))
         return False
     listed = _tsg_git('rev-list', '%s' % target, '^%s' % _TSG_BASE)
     if listed is None or listed.returncode != 0:
-        print('    R7-TSG ancestry: could not enumerate the execution-only history; failing closed')
+        print('    R7-TSG/shadow ancestry: could not enumerate the execution-only history; failing closed')
         return False
     revs = listed.stdout.decode('utf-8', 'replace').split()
     for rev in revs:
@@ -12179,12 +12857,19 @@ def _tsg_execution_ancestry():
         if step is None:
             return False
         if step.returncode != 0:
-            print('    R7-TSG ancestry: %s is reachable from %s but does NOT descend from %s -- '
+            print('    R7-TSG/shadow ancestry: %s is reachable from %s but does NOT descend from %s -- '
                   'pre-freeze side history' % (rev[:12], label, _TSG_BASE[:12]))
             return False
-    print('    R7-TSG ancestry: certified %s and all %d commit(s) of the execution-only history '
+    print('    R7-TSG/shadow ancestry: certified %s and all %d commit(s) of the execution-only history '
           'descend from %s' % (label, len(revs), _TSG_BASE[:12]))
     return True
+
+
+def _tsg_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    TSG.json, and nothing else. The round's original check, `_tsg_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('TSG', tag='R7-TSG', shadow=_tsg_legacy_ancestry)
 
 
 def _tsg_all_landed(t=None):
@@ -12613,7 +13298,7 @@ def _sgt_freeze_pin(read=_bb_read):
         'b8168df9ed1acff21eb89e84487b43470124f845')
 
 
-def _sgt_execution_ancestry():
+def _sgt_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
@@ -12628,8 +13313,15 @@ def _sgt_execution_ancestry():
         target, label, num = _sgt_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_SGT_BASE, target, label, num, tag='R7-SGT')
-    return _rbr_archive_ancestry(_SGT_BASE, _SGT_SEALED_HEAD, _SGT_MERGE, tag='R7-SGT')
+        return _rbr_strong_ancestry(_SGT_BASE, target, label, num, tag='R7-SGT/shadow')
+    return _rbr_archive_ancestry(_SGT_BASE, _SGT_SEALED_HEAD, _SGT_MERGE, tag='R7-SGT/shadow')
+
+
+def _sgt_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    SGT.json, and nothing else. The round's original check, `_sgt_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('SGT', tag='R7-SGT', shadow=_sgt_legacy_ancestry)
 
 
 def _sgt_outcome(t=None):
@@ -13533,7 +14225,7 @@ def _a12p_freeze_pin(read=_bb_read):
     return _bb_blob(_A12P_PREREG, read) == '1d471eddde3bc0df8b7dbf26ddf642c4af6783b5'
 
 
-def _a12p_execution_ancestry():
+def _a12p_legacy_ancestry():
     """P2 -- act 10's strengthened ancestry predicate against the merge commit of PR #600.
 
     Execution mode (pin unset): the strong check against the run's real target. Archive mode (pin
@@ -13541,11 +14233,18 @@ def _a12p_execution_ancestry():
     pinned merge 2706a3aa7b87 required to carry it and both required reachable from the current
     target, fail-closed."""
     if _A12P_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-A12P')
+        target, label, num = _rbr_target_commit(tag='R7-A12P/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_A12P_BASE, target, label, num, tag='R7-A12P')
-    return _rbr_archive_ancestry(_A12P_BASE, _A12P_SEALED_HEAD, _A12P_MERGE, tag='R7-A12P')
+        return _rbr_strong_ancestry(_A12P_BASE, target, label, num, tag='R7-A12P/shadow')
+    return _rbr_archive_ancestry(_A12P_BASE, _A12P_SEALED_HEAD, _A12P_MERGE, tag='R7-A12P/shadow')
+
+
+def _a12p_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    A12P.json, and nothing else. The round's original check, `_a12p_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('A12P', tag='R7-A12P', shadow=_a12p_legacy_ancestry)
 
 
 def _a12p_two_sided(main=None, expl=None, ch01=None):
@@ -13861,7 +14560,7 @@ def _cti_freeze_pin(read=_bb_read):
         '5d8bee2c616d12c53234c54bfa7efae19dc1dcc1')
 
 
-def _cti_execution_ancestry():
+def _cti_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
@@ -13876,8 +14575,15 @@ def _cti_execution_ancestry():
         target, label, num = _cti_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_CTI_BASE, target, label, num, tag='R7-CTI')
-    return _rbr_archive_ancestry(_CTI_BASE, _CTI_SEALED_HEAD, _CTI_MERGE, tag='R7-CTI')
+        return _rbr_strong_ancestry(_CTI_BASE, target, label, num, tag='R7-CTI/shadow')
+    return _rbr_archive_ancestry(_CTI_BASE, _CTI_SEALED_HEAD, _CTI_MERGE, tag='R7-CTI/shadow')
+
+
+def _cti_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    CTI.json, and nothing else. The round's original check, `_cti_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('CTI', tag='R7-CTI', shadow=_cti_legacy_ancestry)
 
 
 def _cti_outcome(t=None):
@@ -14437,7 +15143,7 @@ def _pqt_freeze_pin(read=_bb_read):
         '1b16008470bb1e2456c57aad58421a5941a55e0c')
 
 
-def _pqt_execution_ancestry():
+def _pqt_legacy_ancestry():
     """U2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim through acts 12's and 13's copies: the
@@ -14453,8 +15159,15 @@ def _pqt_execution_ancestry():
         target, label, num = _pqt_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_PQT_BASE, target, label, num, tag='R7-PQT')
-    return _rbr_archive_ancestry(_PQT_BASE, _PQT_SEALED_HEAD, _PQT_MERGE, tag='R7-PQT')
+        return _rbr_strong_ancestry(_PQT_BASE, target, label, num, tag='R7-PQT/shadow')
+    return _rbr_archive_ancestry(_PQT_BASE, _PQT_SEALED_HEAD, _PQT_MERGE, tag='R7-PQT/shadow')
+
+
+def _pqt_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    PQT.json, and nothing else. The round's original check, `_pqt_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('PQT', tag='R7-PQT', shadow=_pqt_legacy_ancestry)
 
 
 def _pqt_outcome(t=None):
@@ -15198,7 +15911,7 @@ def _hyb_freeze_pin(read=_bb_read):
         '37cc9dae301ee10d55adb73b296aa2fc7d0578e3')
 
 
-def _hyb_execution_ancestry():
+def _hyb_legacy_ancestry():
     """Z2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim through R7-HYA's copy. Execution mode (pins
@@ -15206,11 +15919,18 @@ def _hyb_execution_ancestry():
     same strong check re-run against the sealed head, with the pinned merge required to carry it
     and both required reachable from the current target, fail-closed."""
     if _HYB_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-HYB')
+        target, label, num = _rbr_target_commit(tag='R7-HYB/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_HYB_BASE, target, label, num, tag='R7-HYB')
-    return _rbr_archive_ancestry(_HYB_BASE, _HYB_SEALED_HEAD, _HYB_MERGE, tag='R7-HYB')
+        return _rbr_strong_ancestry(_HYB_BASE, target, label, num, tag='R7-HYB/shadow')
+    return _rbr_archive_ancestry(_HYB_BASE, _HYB_SEALED_HEAD, _HYB_MERGE, tag='R7-HYB/shadow')
+
+
+def _hyb_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    HYB.json, and nothing else. The round's original check, `_hyb_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('HYB', tag='R7-HYB', shadow=_hyb_legacy_ancestry)
 
 
 def _hyb_outcome(t=None):
@@ -15870,18 +16590,25 @@ def _a6p_freeze_pin(read=_bb_read):
     return _bb_blob(_A6P_PREREG, read) == 'e7cb7013747f783135c8e166d290ce6670df0ae9'
 
 
-def _a6p_execution_ancestry():
+def _a6p_legacy_ancestry():
     """P2 -- act 10's strengthened ancestry predicate against the merge commit of PR #604.
 
     Execution mode (pin unset, as now): the strong check against the run's real target. Archive
     mode (pin set): the same strong check re-run against the sealed head, with the pinned merge
     required to carry it and both required reachable from the current target, fail-closed."""
     if _A6P_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-A6P')
+        target, label, num = _rbr_target_commit(tag='R7-A6P/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_A6P_BASE, target, label, num, tag='R7-A6P')
-    return _rbr_archive_ancestry(_A6P_BASE, _A6P_SEALED_HEAD, _A6P_MERGE, tag='R7-A6P')
+        return _rbr_strong_ancestry(_A6P_BASE, target, label, num, tag='R7-A6P/shadow')
+    return _rbr_archive_ancestry(_A6P_BASE, _A6P_SEALED_HEAD, _A6P_MERGE, tag='R7-A6P/shadow')
+
+
+def _a6p_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    A6P.json, and nothing else. The round's original check, `_a6p_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('A6P', tag='R7-A6P', shadow=_a6p_legacy_ancestry)
 
 
 def _a6p_round1_pins(read=_bb_read):
@@ -16249,7 +16976,7 @@ def _wts_freeze_pin(read=_bb_read):
         '98cfcfdc0e74ffe0186c502517a842bfeb25d351')
 
 
-def _wts_execution_ancestry():
+def _wts_legacy_ancestry():
     """W2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim through `_rbr_strong_ancestry`. Execution
@@ -16260,8 +16987,15 @@ def _wts_execution_ancestry():
         target, label, num = _wts_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_WTS_BASE, target, label, num, tag='R7-WTS')
-    return _rbr_archive_ancestry(_WTS_BASE, _WTS_SEALED_HEAD, _WTS_MERGE, tag='R7-WTS')
+        return _rbr_strong_ancestry(_WTS_BASE, target, label, num, tag='R7-WTS/shadow')
+    return _rbr_archive_ancestry(_WTS_BASE, _WTS_SEALED_HEAD, _WTS_MERGE, tag='R7-WTS/shadow')
+
+
+def _wts_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    WTS.json, and nothing else. The round's original check, `_wts_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('WTS', tag='R7-WTS', shadow=_wts_legacy_ancestry)
 
 
 def _wts_outcome(t=None):
@@ -16811,7 +17545,7 @@ def _pc4_freeze_pin(read=_bb_read):
         'a80334a5d5f19125b69459523acf723b607f97e1')
 
 
-def _pc4_execution_ancestry():
+def _pc4_legacy_ancestry():
     """Z2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, carried forward by name: the head-only check is insufficient
@@ -16824,11 +17558,18 @@ def _pc4_execution_ancestry():
     mode (pin set): the same strong check re-run against the sealed head, with the pinned merge
     required to carry it and both required reachable from the current target, fail-closed."""
     if _PC4_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-PC4')
+        target, label, num = _rbr_target_commit(tag='R7-PC4/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_PC4_BASE, target, label, num, tag='R7-PC4')
-    return _rbr_archive_ancestry(_PC4_BASE, _PC4_SEALED_HEAD, _PC4_MERGE, tag='R7-PC4')
+        return _rbr_strong_ancestry(_PC4_BASE, target, label, num, tag='R7-PC4/shadow')
+    return _rbr_archive_ancestry(_PC4_BASE, _PC4_SEALED_HEAD, _PC4_MERGE, tag='R7-PC4/shadow')
+
+
+def _pc4_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    PC4.json, and nothing else. The round's original check, `_pc4_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('PC4', tag='R7-PC4', shadow=_pc4_legacy_ancestry)
 
 
 def _pc4_outcome(t=None):
@@ -17218,7 +17959,7 @@ def _pc4s_freeze_pin(read=_bb_read):
         '16cfd1303e7c279c8d6bab68b7112c3f25a7460e')
 
 
-def _pc4s_execution_ancestry():
+def _pc4s_legacy_ancestry():
     """Y2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     The head-only check is insufficient: a commit made before the freeze and merged in alongside it
@@ -17230,11 +17971,18 @@ def _pc4s_execution_ancestry():
     mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
     required to carry it and both required reachable from the current target, fail-closed."""
     if _PC4S_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-PC4S')
+        target, label, num = _rbr_target_commit(tag='R7-PC4S/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_PC4S_BASE, target, label, num, tag='R7-PC4S')
-    return _rbr_archive_ancestry(_PC4S_BASE, _PC4S_SEALED_HEAD, _PC4S_MERGE, tag='R7-PC4S')
+        return _rbr_strong_ancestry(_PC4S_BASE, target, label, num, tag='R7-PC4S/shadow')
+    return _rbr_archive_ancestry(_PC4S_BASE, _PC4S_SEALED_HEAD, _PC4S_MERGE, tag='R7-PC4S/shadow')
+
+
+def _pc4s_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    PC4S.json, and nothing else. The round's original check, `_pc4s_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('PC4S', tag='R7-PC4S', shadow=_pc4s_legacy_ancestry)
 
 
 def _pc4s_outcome(t=None):
@@ -17713,7 +18461,7 @@ def _a6d_freeze_pin(read=_bb_read):
         'afbf1ee0e8ea94cb7fb3e57e690cd08b8d7e0bc3')
 
 
-def _a6d_execution_ancestry():
+def _a6d_legacy_ancestry():
     """A2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through act 12's copy: the head-only check is
@@ -17728,8 +18476,15 @@ def _a6d_execution_ancestry():
         target, label, num = _a6d_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_A6D_BASE, target, label, num, tag='R7-A6D')
-    return _rbr_archive_ancestry(_A6D_BASE, _A6D_SEALED_HEAD, _A6D_MERGE, tag='R7-A6D')
+        return _rbr_strong_ancestry(_A6D_BASE, target, label, num, tag='R7-A6D/shadow')
+    return _rbr_archive_ancestry(_A6D_BASE, _A6D_SEALED_HEAD, _A6D_MERGE, tag='R7-A6D/shadow')
+
+
+def _a6d_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    A6D.json, and nothing else. The round's original check, `_a6d_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('A6D', tag='R7-A6D', shadow=_a6d_legacy_ancestry)
 
 
 def _a6d_outcome(t=None):
@@ -18435,7 +19190,7 @@ def _a6i_freeze_pin(read=_bb_read):
         '6f991c1348e0c568261894c41b129b7f942abee6')
 
 
-def _a6i_execution_ancestry():
+def _a6i_legacy_ancestry():
     """I2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through `_rbr_strong_ancestry`: the head-only check is
@@ -18452,8 +19207,15 @@ def _a6i_execution_ancestry():
         target, label, num = _a6i_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_A6I_BASE, target, label, num, tag='R7-A6I')
-    return _rbr_archive_ancestry(_A6I_BASE, _A6I_SEALED_HEAD, _A6I_MERGE, tag='R7-A6I')
+        return _rbr_strong_ancestry(_A6I_BASE, target, label, num, tag='R7-A6I/shadow')
+    return _rbr_archive_ancestry(_A6I_BASE, _A6I_SEALED_HEAD, _A6I_MERGE, tag='R7-A6I/shadow')
+
+
+def _a6i_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    A6I.json, and nothing else. The round's original check, `_a6i_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('A6I', tag='R7-A6I', shadow=_a6i_legacy_ancestry)
 
 
 def _a6i_untouched_pins(read=_bb_read):
@@ -19201,7 +19963,7 @@ def _hye_freeze_pin(read=_bb_read):
         '9f3f4ff4115c8d95215462acd257b4f6b32c9926')
 
 
-def _hye_execution_ancestry():
+def _hye_legacy_ancestry():
     """W2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     The head-only check is insufficient: a commit made before the freeze and merged in alongside it
@@ -19213,11 +19975,18 @@ def _hye_execution_ancestry():
     mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
     required to carry it and both required reachable from the current target, fail-closed."""
     if _HYE_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-HYE')
+        target, label, num = _rbr_target_commit(tag='R7-HYE/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_HYE_BASE, target, label, num, tag='R7-HYE')
-    return _rbr_archive_ancestry(_HYE_BASE, _HYE_SEALED_HEAD, _HYE_MERGE, tag='R7-HYE')
+        return _rbr_strong_ancestry(_HYE_BASE, target, label, num, tag='R7-HYE/shadow')
+    return _rbr_archive_ancestry(_HYE_BASE, _HYE_SEALED_HEAD, _HYE_MERGE, tag='R7-HYE/shadow')
+
+
+def _hye_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    HYE.json, and nothing else. The round's original check, `_hye_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('HYE', tag='R7-HYE', shadow=_hye_legacy_ancestry)
 
 
 def _hye_outcome(t=None):
@@ -19873,7 +20642,7 @@ def _tcf_freeze_pin(read=_bb_read):
         '6428e0acab070ccfd2a84d13c6f55616526206ba')
 
 
-def _tcf_execution_ancestry():
+def _tcf_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through acts 12's, 13's and 14's copies: the head-only
@@ -19886,11 +20655,18 @@ def _tcf_execution_ancestry():
     mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
     required to carry it and both required reachable from the current target, fail-closed."""
     if _TCF_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-TCF')
+        target, label, num = _rbr_target_commit(tag='R7-TCF/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_TCF_BASE, target, label, num, tag='R7-TCF')
-    return _rbr_archive_ancestry(_TCF_BASE, _TCF_SEALED_HEAD, _TCF_MERGE, tag='R7-TCF')
+        return _rbr_strong_ancestry(_TCF_BASE, target, label, num, tag='R7-TCF/shadow')
+    return _rbr_archive_ancestry(_TCF_BASE, _TCF_SEALED_HEAD, _TCF_MERGE, tag='R7-TCF/shadow')
+
+
+def _tcf_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    TCF.json, and nothing else. The round's original check, `_tcf_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('TCF', tag='R7-TCF', shadow=_tcf_legacy_ancestry)
 
 
 def _tcf_outcome(t=None):
@@ -20156,7 +20932,8 @@ ok_tcf &= _tcf_budget()
 ok_tcf &= _tcf_axiom_table()
 ok_tcf &= _tcf_chronology()
 ok_tcf &= _tcf_discrepancies()
-ok_tcf &= _tcf_prior_seals()
+_si2_shadow_integrity('R7-TCF', _tcf_prior_seals())  # SI2-5: recorded, gating nothing
+ok_tcf &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_tcf &= _tcf_lean_defs()
 
 # ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
@@ -20491,7 +21268,7 @@ def _rnc_freeze_pin(read=_bb_read):
         '48099a3b334e8d01f31af706e8738cd49cfca774')
 
 
-def _rnc_execution_ancestry():
+def _rnc_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through acts 12's, 13's, 14's and 15's copies: the
@@ -20505,11 +21282,18 @@ def _rnc_execution_ancestry():
     head, with the pinned merge required to carry it and both required reachable from the current
     target, fail-closed."""
     if _RNC_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-RNC')
+        target, label, num = _rbr_target_commit(tag='R7-RNC/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_RNC_BASE, target, label, num, tag='R7-RNC')
-    return _rbr_archive_ancestry(_RNC_BASE, _RNC_SEALED_HEAD, _RNC_MERGE, tag='R7-RNC')
+        return _rbr_strong_ancestry(_RNC_BASE, target, label, num, tag='R7-RNC/shadow')
+    return _rbr_archive_ancestry(_RNC_BASE, _RNC_SEALED_HEAD, _RNC_MERGE, tag='R7-RNC/shadow')
+
+
+def _rnc_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    RNC.json, and nothing else. The round's original check, `_rnc_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('RNC', tag='R7-RNC', shadow=_rnc_legacy_ancestry)
 
 
 def _rnc_outcome(t=None):
@@ -20793,7 +21577,8 @@ ok_rnc &= _rnc_budget()
 ok_rnc &= _rnc_axiom_table()
 ok_rnc &= _rnc_chronology()
 ok_rnc &= _rnc_discrepancies()
-ok_rnc &= _rnc_prior_seals()
+_si2_shadow_integrity('R7-RNC', _rnc_prior_seals())  # SI2-5: recorded, gating nothing
+ok_rnc &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_rnc &= _rnc_lean_defs()
 ok_rnc &= _rnc_roadmap()
 
@@ -21217,7 +22002,7 @@ def _trj_freeze_pin(read=_bb_read):
         '3b5570102aa6aacb09788059989a70d8cdd5b70f')
 
 
-def _trj_execution_ancestry():
+def _trj_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through acts 12's through 16's copies: the head-only
@@ -21231,11 +22016,18 @@ def _trj_execution_ancestry():
     head, with the pinned merge required to carry it and both required reachable from the current
     target, fail-closed."""
     if _TRJ_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-TRJ')
+        target, label, num = _rbr_target_commit(tag='R7-TRJ/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_TRJ_BASE, target, label, num, tag='R7-TRJ')
-    return _rbr_archive_ancestry(_TRJ_BASE, _TRJ_SEALED_HEAD, _TRJ_MERGE, tag='R7-TRJ')
+        return _rbr_strong_ancestry(_TRJ_BASE, target, label, num, tag='R7-TRJ/shadow')
+    return _rbr_archive_ancestry(_TRJ_BASE, _TRJ_SEALED_HEAD, _TRJ_MERGE, tag='R7-TRJ/shadow')
+
+
+def _trj_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    TRJ.json, and nothing else. The round's original check, `_trj_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('TRJ', tag='R7-TRJ', shadow=_trj_legacy_ancestry)
 
 
 def _trj_tj1(t=None):
@@ -21567,7 +22359,8 @@ ok_trj &= _trj_axiom_table()
 ok_trj &= _trj_chronology()
 ok_trj &= _trj_discrepancies()
 ok_trj &= _trj_predictions()
-ok_trj &= _trj_prior_seals()
+_si2_shadow_integrity('R7-TRJ', _trj_prior_seals())  # SI2-5: recorded, gating nothing
+ok_trj &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_trj &= _trj_lean_defs()
 ok_trj &= _trj_roadmap()
 
@@ -22026,7 +22819,7 @@ def _xts_freeze_pin(read=_bb_read):
         'fd3fa1359188966cae006deba4944a14aab5f3dd')
 
 
-def _xts_execution_ancestry():
+def _xts_legacy_ancestry():
     """X2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through acts 12's through 17's copies: the head-only
@@ -22040,11 +22833,18 @@ def _xts_execution_ancestry():
     head, with the pinned merge required to carry it and both required reachable from the current
     target, fail-closed."""
     if _XTS_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-XTS')
+        target, label, num = _rbr_target_commit(tag='R7-XTS/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_XTS_BASE, target, label, num, tag='R7-XTS')
-    return _rbr_archive_ancestry(_XTS_BASE, _XTS_SEALED_HEAD, _XTS_MERGE, tag='R7-XTS')
+        return _rbr_strong_ancestry(_XTS_BASE, target, label, num, tag='R7-XTS/shadow')
+    return _rbr_archive_ancestry(_XTS_BASE, _XTS_SEALED_HEAD, _XTS_MERGE, tag='R7-XTS/shadow')
+
+
+def _xts_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    XTS.json, and nothing else. The round's original check, `_xts_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('XTS', tag='R7-XTS', shadow=_xts_legacy_ancestry)
 
 
 def _xts_xs1(t=None):
@@ -22437,7 +23237,8 @@ ok_xts &= _xts_axiom_table()
 ok_xts &= _xts_chronology()
 ok_xts &= _xts_discrepancies()
 ok_xts &= _xts_predictions()
-ok_xts &= _xts_prior_seals()
+_si2_shadow_integrity('R7-XTS', _xts_prior_seals())  # SI2-5: recorded, gating nothing
+ok_xts &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_xts &= _xts_lean_defs()
 ok_xts &= _xts_roadmap()
 
@@ -22742,7 +23543,8 @@ for _f in ('_cti_base', '_cti_sealed', '_cti_merge', '_pqt_base', '_pqt_sealed',
 # fixed this round's triple at (_XTS_BASE, None, None) as a standing invariant would fail here, and
 # the round would be unlandable -- which is exactly what happened to an earlier round and is why the
 # freeze's chronology clause 9 exists.
-ok_xts &= _xts_prior_seals()
+_si2_shadow_integrity('R7-XTS', _xts_prior_seals())  # SI2-5: recorded, gating nothing
+ok_xts &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 
 # T1's control runs THROUGH _xts_freeze_pin, so sabotaging that predicate fails the guard.
 def _xts_drift(path):
@@ -22863,7 +23665,7 @@ def _rnt_freeze_pin(read=_bb_read):
         '131783f48ac492fdfdc46072aee3f39278973622')
 
 
-def _rnt_execution_ancestry():
+def _rnt_legacy_ancestry():
     """N2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through acts 12's through 18's copies: the head-only
@@ -22877,11 +23679,18 @@ def _rnt_execution_ancestry():
     head, with the pinned merge required to carry it and both required reachable from the current
     target, fail-closed."""
     if _RNT_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-RNT')
+        target, label, num = _rbr_target_commit(tag='R7-RNT/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_RNT_BASE, target, label, num, tag='R7-RNT')
-    return _rbr_archive_ancestry(_RNT_BASE, _RNT_SEALED_HEAD, _RNT_MERGE, tag='R7-RNT')
+        return _rbr_strong_ancestry(_RNT_BASE, target, label, num, tag='R7-RNT/shadow')
+    return _rbr_archive_ancestry(_RNT_BASE, _RNT_SEALED_HEAD, _RNT_MERGE, tag='R7-RNT/shadow')
+
+
+def _rnt_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    RNT.json, and nothing else. The round's original check, `_rnt_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('RNT', tag='R7-RNT', shadow=_rnt_legacy_ancestry)
 
 
 def _rnt_notions(t=None):
@@ -23257,7 +24066,8 @@ ok_rnt &= _rnt_chronology()
 ok_rnt &= _rnt_ordering()
 ok_rnt &= _rnt_discrepancies()
 ok_rnt &= _rnt_predictions()
-ok_rnt &= _rnt_prior_seals()
+_si2_shadow_integrity('R7-RNT', _rnt_prior_seals())  # SI2-5: recorded, gating nothing
+ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_rnt &= _rnt_lean_defs()
 
 # ---- mutation controls: each rewrites the artifact and must FAIL the contract it targets ----
@@ -23601,7 +24411,8 @@ for _f in ('_cti_base', '_cti_sealed', '_cti_merge', '_pqt_base', '_pqt_sealed',
 _rnt_pin_probe = (_RNT_SEALED_HEAD, _RNT_MERGE)
 _RNT_SEALED_HEAD = 'f' * 40
 _RNT_MERGE = 'e' * 40
-ok_rnt &= _rnt_prior_seals()
+_si2_shadow_integrity('R7-RNT', _rnt_prior_seals())  # SI2-5: recorded, gating nothing
+ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_rnt &= _rnt_execution_ancestry.__doc__ is not None
 _RNT_SEALED_HEAD, _RNT_MERGE = _rnt_pin_probe
 # The restore is checked against the SAVED tuple and not against (None, None). Written the other
@@ -23611,7 +24422,8 @@ _RNT_SEALED_HEAD, _RNT_MERGE = _rnt_pin_probe
 # undone, whatever the pins hold, and that is what is asked.
 ok_rnt &= (_RNT_SEALED_HEAD, _RNT_MERGE) == _rnt_pin_probe
 ok_rnt &= ('f' * 40, 'e' * 40) != _rnt_pin_probe
-ok_rnt &= _rnt_prior_seals()
+_si2_shadow_integrity('R7-RNT', _rnt_prior_seals())  # SI2-5: recorded, gating nothing
+ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 
 # N1's control runs THROUGH _rnt_freeze_pin, so sabotaging that predicate fails the guard.
 def _rnt_drift(path):
@@ -23699,313 +24511,35 @@ check('R7-RNT', ok_rnt,
 # code and not a slot.
 
 _SI1DIR = os.path.join(VERIFICATION, 'infrastructure', 'round-si-1-shadow-seal-validator', '')
-# Relative to verification/, because the record reader resolves names through `_artifact`.
-_SI1SEALSREL = 'seals'
-_SI1SEALS = os.path.join(VERIFICATION, 'seals')
+# The record reader's constants and the marker-bounded SI1-VALIDATOR region -- O1, O2, the
+# derivation, the integrity rule -- are defined EARLIER in this file, right after SI-2's base
+# constant: SI-2 relocated them verbatim (Amendment 2, point 4) so that the prior-round clauses,
+# which now call U3 keyed on their manifest records, can reach the validator. R7-SI2 checks that the
+# region differs from the one SI-1 landed by exactly the two-line derivation hook and nothing else.
 # The mandated execution base: the merge commit of this round's control-plane PR #667.
 _SI1_BASE = '99ab6370470ed9d9e4005551581c6c8c18e54bd2'
 
-_SI1_HEX = re.compile(r'[0-9a-f]{40}')
-
-# ==== SI1-VALIDATOR-BEGIN ====
-# Everything between these markers is the GENERIC validator, and SI1-2 checks mechanically that no
-# round stem appears anywhere in it. A stem here would be the per-round coupling this round exists
-# to remove.
-
-# The discriminated union. Each kind names the fields it REQUIRES and the fields it FORBIDS, and
-# forbids means a hard failure rather than a tolerated null: a base-only record carrying
-# `sealed_head: null` is rejected, because those rounds are not seals waiting for fields -- they are
-# rounds for which no seal exists, and the schema says so structurally.
-_SI1_KINDS = {
-    'base-only': (('base',), ('sealed_head', 'merge')),
-    'sealed': (('base', 'sealed_head', 'merge'), ()),
-}
-_SI1_STATES = ('EXECUTION', 'LANDED-PENDING-PIN', 'ARCHIVED')
-# Not a fourth state. A record with no lifecycle reports this, and no lifecycle value is ever stored.
-_SI1_NA = 'not-applicable'
+# SI-2 AMENDMENT 1, POINT 1 -- THE SCOPING. This round transcribed twenty-two records, and its
+# cardinality contracts below (twenty-two records, eighteen sealed, four base-only, the 18/4
+# record-axis counts, the twenty-two census rows, the twenty-two-record #140 probe, and the
+# twenty-two stems the no-stem check reads) were written over THE WHOLE MANIFEST. A later round's
+# authorized addition therefore failed them while every validator agreed -- measured at da9d69d6
+# and adjudicated by the owner as path D: the contracts keep their values and are evaluated over
+# exactly the twenty-two records SI-1 transcribed, named here rather than counted. The integrity
+# contract is scoped the same way and admits ONE addition beyond them, SI-2's `SI1` record, which
+# `SI2-1` authorizes; a further record is an unauthorized addition and fails. SI-1's census.json is
+# not regenerated and not repinned; `SI1.json` is outside SI-1's census and inside SI-2's.
+_SI1_TRANSCRIBED = frozenset((
+    'A12P', 'A6D', 'A6I', 'A6P', 'ABR', 'CLG', 'CTI', 'HYA', 'HYB', 'HYE', 'PC4', 'PC4S', 'PQT',
+    'RBR', 'RNC', 'RNT', 'SGT', 'TCF', 'TRJ', 'TSG', 'WTS', 'XTS'))
+_SI1_AUTHORIZED_ADDITIONS = frozenset(('SI1',))
 
 
-def _si1_schema(rec, stem):
-    """O1 -- the record schema, a discriminated union on `kind`.
-
-    Returns `(True, kind)` or `(False, reason)`. Unknown keys are a failure rather than ignored,
-    every hash is checked as 40 lowercase hex before it is used, and a forbidden field is a failure
-    even when its value is null."""
-    if not isinstance(rec, dict):
-        return False, 'schema: record is not a JSON object'
-    if rec.get('round') != stem:
-        return False, 'schema: round field %r does not match the filename %r' % (rec.get('round'), stem)
-    kind = rec.get('kind')
-    if kind not in _SI1_KINDS:
-        return False, 'schema: kind %r is not one of %s' % (kind, sorted(_SI1_KINDS))
-    required, forbidden = _SI1_KINDS[kind]
-    # FORBIDDEN IS CHECKED BEFORE UNKNOWN, and the order is the point. A forbidden field is also an
-    # unknown one for this kind, so an unknown-key check reached first would report
-    # `base-only` carrying `sealed_head` as a stray key rather than as what it is -- a seal asserted
-    # for a round that has none. The diagnosis is the value of the check, so it is reported first.
-    for field in forbidden:
-        if field in rec:
-            return False, ('schema: kind %r forbids %s, and it is present (value %r) -- a forbidden '
-                           'field is a failure even as null' % (kind, field, rec[field]))
-    allowed = {'round', 'kind'} | set(required)
-    extra = sorted(set(rec) - allowed)
-    if extra:
-        return False, 'schema: unknown key(s) %s' % ', '.join(extra)
-    for field in required:
-        if field not in rec:
-            return False, 'schema: kind %r requires %s and it is missing' % (kind, field)
-        val = rec[field]
-        if not (isinstance(val, str) and _SI1_HEX.fullmatch(val)):
-            return False, 'schema: %s is not 40 lowercase hex (%r)' % (field, val)
-    return True, kind
+def _si1_scoped(records):
+    """The records this round's contracts are evaluated over: the twenty-two it transcribed."""
+    return {k: v for k, v in records.items() if k in _SI1_TRANSCRIBED}
 
 
-def _si1_load(root=None, read=None):
-    """The LOGICAL manifest, assembled from one record per round.
-
-    Storage is per-record so that two sibling rounds sealing at the same time touch different files;
-    the validator reasons over the SET of records and never over file layout as a source of
-    semantics. Returns `(records, errors)` where a record that will not parse is an error rather
-    than an absence."""
-    root = _SI1SEALSREL if root is None else root
-    read = _bb_read if read is None else read
-    records, errors = {}, {}
-    # `read` goes through `_artifact`, which resolves names RELATIVE to verification/, so the
-    # directory is listed absolutely and each record is read by its relative name. Passing an
-    # absolute path to the reader silently yields a path under verification/ and a missing file.
-    absroot = os.path.join(VERIFICATION, *root.split('/'))
-    if not os.path.isdir(absroot):
-        return records, errors
-    for name in sorted(os.listdir(absroot)):
-        if not name.endswith('.json'):
-            errors[name] = 'schema: not a .json record'
-            continue
-        stem = name[:-len('.json')]
-        try:
-            records[stem] = json.loads(read('%s/%s' % (root, name)).decode('utf-8'))
-        except Exception as exc:
-            errors[stem] = 'schema: unreadable record (%s)' % type(exc).__name__
-    return records, errors
-
-
-def _si1_derive(sealed, target, tag='R7-SI1', cwd=None, first_parent_only=False):
-    """The derivation: the landing merges in `target`'s history whose NON-FIRST parent is exactly
-    `sealed`.
-
-    Scoped to REACHABLE history and not to the first-parent spine, because the spine is wrong for
-    this repository: of the eighteen archived landings, six lie on it and twelve lie one step off
-    it, the second shape arising wherever a round's landing merge and its pin entered main through
-    one pull request. `first_parent_only` exists so the narrower scope stays measurable as a
-    regression rather than becoming reachable by accident.
-
-    Returns the candidate list, or None if git could not answer -- which the caller treats as a
-    failure and never as an empty list."""
-    args = ['log', '--format=%H %P']
-    if first_parent_only:
-        args.append('--first-parent')
-    r = _rbr_git(*(args + [target]), tag=tag, cwd=cwd)
-    if r is None or r.returncode != 0:
-        return None
-    out = []
-    for line in r.stdout.decode('utf-8', 'replace').split('\n'):
-        parts = line.split()
-        if len(parts) > 2 and sealed in parts[2:]:
-            out.append(parts[0])
-    return out
-
-
-def _si1_landing_of_base(base, target, tag='R7-SI1', cwd=None):
-    """The merges in `target`'s history that LOOK like a landing of an execution on `base`: a merge
-    whose non-first parent passes the strengthened ancestry check against `base`.
-
-    This is how a round with no manifest record is classified without knowing its execution head.
-    Returns the candidate list, or None if git could not answer."""
-    r = _rbr_git('log', '--format=%H %P', target, tag=tag, cwd=cwd)
-    if r is None or r.returncode != 0:
-        return None
-    out = []
-    for line in r.stdout.decode('utf-8', 'replace').split('\n'):
-        parts = line.split()
-        if len(parts) > 2:
-            for parent in parts[2:]:
-                if _si1_quiet_ancestry(base, parent, tag=tag, cwd=cwd):
-                    out.append(parts[0])
-                    break
-    return out
-
-
-def _si1_quiet_ancestry(base, target, tag='R7-SI1', cwd=None):
-    """The strengthened predicate without the narration: `base` an ancestor of `target`, and every
-    commit of `git rev-list target ^base` itself a descendant of `base`.
-
-    Used where the answer is a classification step rather than a verdict, so that searching a
-    history does not print a verdict line per candidate. The gating calls go through
-    `_rbr_strong_ancestry`, which is the same predicate and does narrate."""
-    for rev in (base, target):
-        if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
-            return False
-    r = _rbr_git('merge-base', '--is-ancestor', base, target, tag=tag, cwd=cwd)
-    if r is None or r.returncode != 0:
-        return False
-    listed = _rbr_git('rev-list', target, '^%s' % base, tag=tag, cwd=cwd)
-    if listed is None or listed.returncode != 0:
-        return False
-    for rev in listed.stdout.decode('utf-8', 'replace').split():
-        step = _rbr_git('merge-base', '--is-ancestor', base, rev, tag=tag, cwd=cwd)
-        if step is None or step.returncode != 0:
-            return False
-    return True
-
-
-def _si1_reachable(rev, targets, tag='R7-SI1', cwd=None):
-    """Whether `rev` is reachable from any of the visibility targets. Fail-closed: an unresolvable
-    target is not a reason to pass."""
-    for cand, _why in targets:
-        if cand is None:
-            continue
-        if not _rbr_ensure_present(cand, tag=tag, cwd=cwd):
-            continue
-        r = _rbr_git('merge-base', '--is-ancestor', rev, cand, tag=tag, cwd=cwd)
-        if r is not None and r.returncode == 0:
-            return True, _why
-    return False, None
-
-
-def _si1_validate(records, prospective=None, env=None, tag='R7-SI1', cwd=None,
-                  target=None, label=None, num=None, targets=None, errors=None):
-    """O2 -- the generic validator.
-
-    Returns, per round, `(lifecycle, ok, reason)`. It returns a verdict for every record and EITHER
-    a lifecycle state OR `_SI1_NA`, because NOT EVERY RECORD HAS A LIFECYCLE: the three states are
-    the lifecycle of a SEAL-PRODUCING round, not of every manifest record.
-
-    A `base-only` record is a completed historical non-sealing round. Its schema, its pinned base
-    and its record integrity are checked, and it is not classified into any of the three states.
-    Classifying it `EXECUTION` -- which the natural reading of "no record, or a record with no
-    sealed_head" does -- would leave four completed rounds permanently executing and would keep
-    applying execution ancestry semantics to them on every future repository state. A round for
-    which no seal exists is not a round whose seal has not arrived yet.
-
-    There is no round-specific branch anywhere below, and SI1-2 checks that mechanically."""
-    out = {}
-    if target is None:
-        target, label, num = _rbr_target_commit(env=env, tag=tag)
-        if target is None:
-            return None
-    if targets is None:
-        targets = _rbr_archive_visibility_targets(env=env, tag=tag, cwd=cwd)
-    if targets is None:
-        # The resolver already said why and failed closed. Returning None here keeps that decision
-        # instead of iterating over it: the first candidate passed None onward, where only the order
-        # of the checks kept it from being indexed.
-        return None
-    # The target is compared against commit SHAs below, so a symbolic name is resolved once here.
-    # `HEAD` is a legitimate target on a push event and an illegitimate one on a pull request; which
-    # it is was decided by `_rbr_target_commit` above, and this only turns a name into an object.
-    _res = _rbr_git('rev-parse', '--verify', '--quiet', target + '^{commit}', tag=tag, cwd=cwd)
-    if _res is None or _res.returncode != 0:
-        return None
-    tsha = _res.stdout.decode('utf-8', 'replace').strip()
-    for stem, reason in sorted((errors or {}).items()):
-        out[stem] = (None, False, reason)
-    for stem in sorted(records):
-        good, info = _si1_schema(records[stem], stem)
-        if not good:
-            out[stem] = (None, False, info)
-            continue
-        rec, kind = records[stem], info
-        if kind == 'base-only':
-            if not _rbr_ensure_present(rec['base'], tag=tag, cwd=cwd):
-                out[stem] = (_SI1_NA, False, 'pinned base %s is absent' % rec['base'][:12])
-                continue
-            seen, why = _si1_reachable(rec['base'], targets, tag=tag, cwd=cwd)
-            out[stem] = (_SI1_NA, seen,
-                         ('historical non-sealing record; pinned base %s reachable from %s'
-                          % (rec['base'][:12], why)) if seen else
-                         'pinned base %s is not reachable; failing closed' % rec['base'][:12])
-            continue
-        base, sealed, pinned = rec['base'], rec['sealed_head'], rec['merge']
-        for rev in (sealed, pinned):
-            if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
-                out[stem] = ('ARCHIVED', False,
-                             'unreachable: %s is absent from this repository' % rev[:12])
-                break
-        else:
-            cands = _si1_derive(sealed, target, tag=tag, cwd=cwd)
-            if cands is None:
-                out[stem] = ('ARCHIVED', False, 'derivation could not be run; failing closed')
-                continue
-            uniq = sorted(set(cands))
-            if not uniq:
-                out[stem] = ('ARCHIVED', False,
-                             'zero candidates: no merge reachable from %s carries %s as a non-first '
-                             'parent' % (label, sealed[:12]))
-                continue
-            if len(uniq) > 1:
-                out[stem] = ('ARCHIVED', False,
-                             'multiple candidates: %s' % ', '.join(c[:12] for c in uniq))
-                continue
-            if uniq[0] != pinned:
-                out[stem] = ('ARCHIVED', False,
-                             'disagreement: pinned %s, derived %s' % (pinned[:12], uniq[0][:12]))
-                continue
-            if not _si1_quiet_ancestry(base, sealed, tag=tag, cwd=cwd):
-                out[stem] = ('ARCHIVED', False,
-                             'the sealed head %s does not pass the strengthened check against %s'
-                             % (sealed[:12], base[:12]))
-                continue
-            ok = True
-            for rev in (pinned, sealed):
-                seen, _why = _si1_reachable(rev, targets, tag=tag, cwd=cwd)
-                if not seen:
-                    out[stem] = ('ARCHIVED', False,
-                                 '%s is not reachable from any visibility target; failing closed'
-                                 % rev[:12])
-                    ok = False
-                    break
-            if ok:
-                out[stem] = ('ARCHIVED', True,
-                             'pinned == derived %s; second parent is the sealed head; ancestry and '
-                             'reachability hold' % pinned[:12])
-    for stem, base in sorted((prospective or {}).items()):
-        if not _rbr_ensure_present(base, tag=tag, cwd=cwd):
-            out[stem] = (None, False, 'pinned base %s is absent' % base[:12])
-            continue
-        landings = _si1_landing_of_base(base, target, tag=tag, cwd=cwd)
-        if landings is None:
-            out[stem] = (None, False, 'landing search could not be run; failing closed')
-            continue
-        if tsha in landings:
-            out[stem] = ('LANDED-PENDING-PIN', True,
-                         'the resolved target IS the landing merge; permitted, and the seal record '
-                         'is still owed')
-            continue
-        if landings:
-            out[stem] = ('LANDED-PENDING-PIN', False,
-                         'seal pending: %s descends from the unpinned landing %s'
-                         % (label, landings[0][:12]))
-            continue
-        good = _rbr_strong_ancestry(base, target, label, num, tag=tag, cwd=cwd)
-        out[stem] = ('EXECUTION', good,
-                     'prospective execution certified against %s' % base[:12] if good else
-                     'prospective execution does not descend from %s' % base[:12])
-    return out
-
-
-def _si1_integrity(at_base, now):
-    """Manifest integrity over the ENTRY SET as well as entry contents.
-
-    Mutated, removed and added are three DISTINCT conditions, reported separately. With one record
-    per round a deletion is as easy as an edit, and a contents-only rule would let one pass
-    invisibly. A change to previously certified seal data requires prospective authorization by the
-    round that intends it; this round authorizes none, so its only permitted change to the set is
-    its own additions."""
-    return {
-        'mutated': sorted(k for k in set(at_base) & set(now) if at_base[k] != now[k]),
-        'removed': sorted(set(at_base) - set(now)),
-        'added': sorted(set(now) - set(at_base)),
-    }
-# ==== SI1-VALIDATOR-END ====
 
 
 def _si1_transcribe(text):
@@ -24427,7 +24961,7 @@ def _si1_control_census():
     return rows
 
 
-def _si1_mandated_base_probe():
+def _si1_mandated_base_probe(records=None):
     """`#140`, and an honest account of what is and is not being asked.
 
     The FROZEN question is whether each of the twenty-two recorded `base` values equals that round's
@@ -24441,7 +24975,8 @@ def _si1_mandated_base_probe():
     exactly one commit of the execution-only history has the recorded base as its sole parent, which
     is `A.37`'s branch-root invariant. Neither compares a manifest value to a mandate, and the four
     base-only rounds get no analogous check at all, having no execution history to walk."""
-    recs, _errs = _si1_load()
+    # Scoped (SI-2 Amendment 1, point 1): the twenty-two transcribed records when none are given.
+    recs = _si1_scoped(_si1_load()[0]) if records is None else records
     merge_bases = roots_ok = sealed = 0
     for stem in sorted(recs):
         r = recs[stem]
@@ -24529,16 +25064,23 @@ def _si1_freeze_pin(read=_bb_read):
     return _bb_blob(_SI1FRZ, read=read) == '4a5f183a52b2720e0714049ecf34911c55c1ef61'
 
 
-def _si1_execution_ancestry():
+def _si1_legacy_ancestry():
     """N2 -- the execution head descends from the control plane's merge commit, and so does every
     commit of the execution-only history.
 
     NON-SEALING: there is no seal triple to re-certify, so there is no archive mode here. The check
     is act 10's strengthened predicate against the mandated base and nothing more."""
-    target, label, num = _rbr_target_commit(tag='R7-SI1')
+    target, label, num = _rbr_target_commit(tag='R7-SI1/shadow')
     if target is None:
         return False
-    return _rbr_strong_ancestry(_SI1_BASE, target, label, num, tag='R7-SI1')
+    return _rbr_strong_ancestry(_SI1_BASE, target, label, num, tag='R7-SI1/shadow')
+
+
+def _si1_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    SI1.json, and nothing else. The round's original check, `_si1_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('SI1', tag='R7-SI1', shadow=_si1_legacy_ancestry)
 
 
 def _si1_non_authority(t=None):
@@ -24672,7 +25214,9 @@ def _si1_region_no_stem():
     if begin not in src or end not in src:
         return False
     region = src.split(begin, 1)[1].split(end, 1)[0]
-    stems = sorted(_si1_load()[0])
+    # Scoped (SI-2 Amendment 1, point 1): the twenty-two transcribed stems. `SI1` is this round's
+    # own prefix and appears in the region by construction, as `R7-SI1` is its own tag.
+    stems = sorted(_si1_scoped(_si1_load()[0]))
     if len(stems) != 22:
         return False
     for stem in stems:
@@ -24701,7 +25245,15 @@ def _si1_seal_constants_intact():
     the round's own base while saying nothing about anyone else's seal. What has to hold is that
     every assignment present at the mandated base is still present and unchanged, and that the only
     addition is this round's own base -- which is also how a round that quietly re-pinned another
-    round's seal would be caught."""
+    round's seal would be caught.
+
+    SI-2 AMENDMENT 2, POINT 1: the allowed-addition set is exactly {_SI1_BASE, _SI2_BASE}. SI-2's
+    freeze requires its guard to carry _SI2_BASE, and this contract as first written admitted one
+    addition and so failed on any head carrying it -- measured at 9ca82958 as the only failing tag
+    with that single line added. Containment stands, _SI2_BASE is checked by R7-SI2 to equal SI-2's
+    mandated base, no _SI2_SEALED_HEAD or _SI2_MERGE may exist, and any third new legacy-style
+    assignment still fails. The retirement round's deletions are NOT admitted here; that round must
+    own and supersede this contract itself."""
     pat = re.compile(r"^_([A-Z0-9]+)_(BASE|SEALED_HEAD|MERGE)\s*=\s*'([0-9a-f]{40})'\s*$", re.M)
     now = set(pat.findall(_bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')))
     r = _rbr_git('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI1_BASE, tag='R7-SI1')
@@ -24710,7 +25262,7 @@ def _si1_seal_constants_intact():
     was = set(pat.findall(r.stdout.decode('utf-8', 'replace')))
     if not was <= now:
         return False
-    return now - was == {('SI1', 'BASE', _SI1_BASE)}
+    return now - was == {('SI1', 'BASE', _SI1_BASE), ('SI2', 'BASE', _SI2_BASE)}
 
 
 def _si1_rows_not_cases(t=None):
@@ -24869,12 +25421,24 @@ ok_si1 &= _si1_seal_constants_intact()
 
 # SI1-1 -- the manifest is twenty-two records, eighteen sealed and four base-only, and every record
 # validates against the schema.
-_si1_recs, _si1_errs = _si1_load()
+_si1_all_recs, _si1_errs = _si1_load()
+# THE SCOPED INTEGRITY CONTRACT (SI-2 Amendment 1, point 1): every record this round transcribed is
+# present, and any record beyond them is the ONE addition SI2-1 authorizes and nothing else. A
+# twenty-fourth record is an unauthorized addition and fails here.
+_si1_unauthorized = sorted(set(_si1_all_recs) - _SI1_TRANSCRIBED - _SI1_AUTHORIZED_ADDITIONS)
+ok_si1 &= not _si1_unauthorized
+ok_si1 &= _SI1_TRANSCRIBED <= set(_si1_all_recs)
+_si1_recs = _si1_scoped(_si1_all_recs)
 ok_si1 &= not _si1_errs and len(_si1_recs) == 22
 ok_si1 &= sum(1 for r in _si1_recs.values() if r.get('kind') == 'sealed') == 18
 ok_si1 &= sum(1 for r in _si1_recs.values() if r.get('kind') == 'base-only') == 4
 for _stem in sorted(_si1_recs):
     ok_si1 &= _si1_schema(_si1_recs[_stem], _stem)[0]
+print('    R7-SI1 scope (SI-2 Amendment 1): contracts evaluated over the %d records SI-1 transcribed; '
+      '%d authorized addition(s) present (%s); %d unauthorized (%s)'
+      % (len(_si1_recs), len(set(_si1_all_recs) & _SI1_AUTHORIZED_ADDITIONS),
+         ', '.join(sorted(set(_si1_all_recs) & _SI1_AUTHORIZED_ADDITIONS)) or 'none',
+         len(_si1_unauthorized), ', '.join(_si1_unauthorized) or 'none'))
 
 # SI1-3 -- both scopes, measured here and not quoted from the note.
 _si1_sealed = {k: v for k, v in _si1_recs.items() if v.get('kind') == 'sealed'}
@@ -25055,7 +25619,7 @@ print('    R7-SI1 derivation: reachable scope %d of %d agree with the pin; first
 
 # SI1-8 -- #140 restated over the manifest and MEASURED: the execution branch root's single parent
 # is exactly the pinned base, for every sealed round. Left NOT PREDICTED by the freeze.
-_si1_mb = _si1_mandated_base_probe()
+_si1_mb = _si1_mandated_base_probe(_si1_recs)
 ok_si1 &= _si1_mb['records'] == 22 and _si1_mb['merge_bases'] == 22
 ok_si1 &= _si1_mb['sealed'] == 18 and _si1_mb['branch_roots'] == 18
 # The frozen #140 question is NOT answered: nothing here compares a recorded base to an independent
@@ -25176,7 +25740,12 @@ check('R7-SI1', ok_si1,
       "drift control, the chronology asked of the real pull_request.head.sha and never of the "
       "synthetic merge, fail-closed, and NO SEAL TRIPLE OF ITS OWN exists -- not as None, not at "
       "all. Thirteen named contracts, eleven mutation controls, and no frozen definition, target, "
-      "negative case or authority rule altered anywhere.")
+      "negative case or authority rule altered anywhere. SCOPED BY SI-2 AMENDMENT 1, POINT 1, AND "
+      "NOT OTHERWISE CHANGED: the manifest-cardinality contracts, the record-axis counts, the "
+      "twenty-two census rows, the #140 probe and the no-stem check are evaluated over exactly "
+      "the twenty-two records this round transcribed, named in the guard; the integrity contract "
+      "admits the ONE addition SI2-1 authorizes, SI1.json, and fails any other; SI-1's census.json "
+      "is not regenerated and not repinned.")
 
 
 ina = open(os.path.join(BRIDGE, 'OIBridge', 'InstrumentAvailability.lean'), encoding='utf-8').read()
@@ -25802,6 +26371,963 @@ check("R9", ok9,
       "amplitude; a degenerate spectrum merges two fibers and the amplitude is their SUM, not "
       "a line -- the distinct-gap hypothesis is load-bearing; and the m = 2 factorization "
       "(q-p)(1-p-q) = 0 characterizes q(1-q) = p(1-p) exactly")
+
+
+# ---- R7-SI2: seal infrastructure round SI-2 -- THE BOOTSTRAP CUTOVER. NON-SEALING, E -> L, no pin:
+# there is no _SI2_SEALED_HEAD and no _SI2_MERGE, not as None and not at all. It carries _SI2_BASE,
+# defined near the top of this file, and act 10's strengthened ancestry check asked of the real
+# pull_request.head.sha and never of the synthetic merge.
+#
+# THIS IS THE ONE GUARD IN THE FILE THAT IS NOT CUT OVER, and it says so: SI-2 has no manifest record
+# by design -- a base-only record written during the round would classify it not-applicable and
+# switch off this very check -- so its chronology is certified in the bootstrap form and not through
+# U3. It is placed after every other check so that the head's whole tag-to-verdict map is in process
+# when SI2-6(a) compares it with the base's.
+
+_SI2DIR = os.path.join(VERIFICATION, 'infrastructure', 'round-si-2-authority-cutover', '')
+_SI2FRZ = 'infrastructure/round-si-2-authority-cutover/preregistration.md'
+_SI2AM1 = 'infrastructure/round-si-2-authority-cutover/amendments/amendment-1.md'
+_SI2AM2 = 'infrastructure/round-si-2-authority-cutover/amendments/amendment-2.md'
+_SI2RESREL = 'infrastructure/round-si-2-authority-cutover/result.md'
+_SI2CENSUSREL = 'infrastructure/round-si-2-authority-cutover/census.json'
+_SI2TAGMAPREL = 'infrastructure/round-si-2-authority-cutover/si2-tagmap.json'
+_SI2_B0 = '66eea646fcbf242df89b168bcce3336ff1b77802'
+# The three frozen control-plane blobs, each pinned independently with its own drift control.
+_SI2_BLOBS = {
+    _SI2FRZ: 'bfcd43831d887c006eab64c9a4b8b5f35ff41c9a',
+    _SI2AM1: '9d05509d8fb84d9007c73b40a062bbdb7b6c36ea',
+    _SI2AM2: 'c57d1dc9a3b370c86a91fcb01f7209ef5da782d5',
+}
+# The start state the freeze pins at B0, and which the mandated base must still carry.
+_SI2_PINS = {
+    'verification/infrastructure/round-si-1-shadow-seal-validator/preregistration.md':
+        '4a5f183a52b2720e0714049ecf34911c55c1ef61',
+    'verification/infrastructure/round-si-1-shadow-seal-validator/result.md':
+        '3e034dfd4b74978adf8b9a8e4bc4339885a4b65d',
+    'verification/infrastructure/round-si-1-shadow-seal-validator/census.json':
+        '7a3e6288c5f532a849a07beb9a8e5757cdf79d04',
+    'verification/infrastructure/round-si-1-shadow-seal-validator/si1-tagmap.json':
+        '057cdf90ed9d9f0e129a076a327dcc6f089f53df',
+    'AGENTS.md': '3e3f00454db033b4fc519fd1123cd3f9b7f7cf24',
+    'verification/seals': '97faa0e6b1eae3079b90ed57d6dda45e6d1e71d6',
+}
+_SI2_MANIFESTED = ('A12P', 'A6D', 'A6I', 'A6P', 'ABR', 'CLG', 'CTI', 'HYA', 'HYB', 'HYE', 'PC4',
+                   'PC4S', 'PQT', 'RBR', 'RNC', 'RNT', 'SGT', 'SI1', 'TCF', 'TRJ', 'TSG', 'WTS',
+                   'XTS')
+_SI2_LEGACY_RE = re.compile(r'^_([A-Z0-9]+)_(BASE|SEALED_HEAD|MERGE)\s*=.*$', re.M)
+# The three literals this guard counts in the file are ASSEMBLED here rather than written out, so
+# that the guard's own source does not carry them verbatim: a count over the whole file would
+# otherwise count these lines too, and the bound could never be met.
+_SI2_N13_TWO = "return now - was == {('SI1', 'BASE', _SI1_BASE), " + "('SI2', 'BASE', _SI2_BASE)}"
+_SI2_N13_ONE = "return now - was == {('SI1', 'BASE', " + "_SI1_BASE)}"
+_SI2_ASSIGN = "_SI2_BASE" + " = '"
+
+
+def _si2_freeze_pin(path, read=_bb_read):
+    """N1 -- one of the three frozen control-plane documents is byte-identical to its blob."""
+    return _bb_blob(path, read=read) == _SI2_BLOBS[path]
+
+
+def _si2_drift(path):
+    """A reader that appends one byte to exactly `path` and reads every other file normally."""
+    def read(p):
+        return _bb_read(p) + (b'\n' if p == path else b'')
+    return read
+
+
+def _si2_execution_ancestry():
+    """N2 -- the bootstrap chronology: act 10's strengthened predicate against _SI2_BASE, asked of
+    the real pull_request.head.sha, fail-closed. NOT a call to U3: this round has no record."""
+    target, label, num = _rbr_target_commit(tag='R7-SI2')
+    if target is None:
+        return False
+    return _rbr_strong_ancestry(_SI2_BASE, target, label, num, tag='R7-SI2')
+
+
+def _si2_git_text(*args):
+    r = _rbr_git(*args, tag='R7-SI2')
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout.decode('utf-8', 'replace')
+
+
+def _si2_base_provenance():
+    """_SI2_BASE is the certified merge of Amendment 2 and nothing else: a merge whose first parent
+    is the Amendment 1 merge, whose second parent carries Amendment 2 at its frozen blob, and whose
+    own tree carries all three frozen blobs."""
+    parents = (_si2_git_text('log', '-1', '--format=%P', _SI2_BASE) or '').split()
+    if len(parents) != 2 or parents[0] != '9ca82958cfaa3ff926d8a80baf2ee22eb468a917':
+        return False
+    for rev in (parents[1], _SI2_BASE):
+        got = (_si2_git_text('rev-parse', '%s:verification/%s' % (rev, _SI2AM2)) or '').strip()
+        if got != _SI2_BLOBS[_SI2AM2]:
+            return False
+    for rel, blob in _SI2_BLOBS.items():
+        if (_si2_git_text('rev-parse', '%s:verification/%s' % (_SI2_BASE, rel)) or '').strip() != blob:
+            return False
+    return True
+
+
+def _si2_locating_controls():
+    """SI2-0 -- the pinned blobs and the twelve preconditions, checked at the MANDATED BASE by
+    reading it from git and not from the working tree. Returns (holds, detail)."""
+    out = {}
+    for path, blob in _SI2_PINS.items():
+        out['pin:' + path] = (_si2_git_text('rev-parse', '%s:%s' % (_SI2_BASE, path)) or '').strip() == blob
+    src = _si2_git_text('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI2_BASE) or ''
+    out['P1 no R7-SI2 at base'] = bool(src) and 'R7-SI2' not in src
+    out['P2 no _SI2 at base'] = bool(src) and '_SI2' not in src
+    names = (_si2_git_text('ls-tree', '--name-only', '%s:verification/seals' % _SI2_BASE) or '').split()
+    kinds = {}
+    for name in names:
+        try:
+            rec = json.loads(_si2_git_text('show', '%s:verification/seals/%s' % (_SI2_BASE, name)) or '')
+            kinds[rec.get('round')] = rec.get('kind')
+        except ValueError:
+            kinds[name] = None
+    out['P3 22 records, 18 sealed, 4 base-only, no SI1'] = (
+        len(names) == 22 and sum(1 for k in kinds.values() if k == 'sealed') == 18
+        and sum(1 for k in kinds.values() if k == 'base-only') == 4 and 'SI1' not in kinds)
+    stmts = _SI2_LEGACY_RE.findall(src)
+    out['P5 61 statements over 59 names'] = (len(stmts) == 61 and len(set(stmts)) == 59)
+    b0 = (_si2_git_text('log', '-1', '--format=%P', _SI2_B0) or '').split()
+    spine = (_si2_git_text('log', '--first-parent', '--format=%H', _SI2_BASE) or '').split()
+    out['P6 B0 provenance'] = (b0 == ['99ab6370470ed9d9e4005551581c6c8c18e54bd2',
+                                       'd75427aece402e1629d56d1ca96fbc8d3c8101e8'] and _SI2_B0 in spine)
+    out['P7 no SI-2 record'] = 'SI2' not in kinds
+    agents = _si2_git_text('show', '%s:AGENTS.md' % _SI2_BASE) or ''
+    out['P8 the superseded sentence at base'] = '`P` sets the constants it owns to `E` and to `L`' in agents
+    out['P9 contracts unscoped at base'] = ('len(_si1_recs) == 22' in src and 'if len(stems) != 22' in src
+                                           and "_si1_mb['records'] == 22" in src)
+    out['P11 N13 unamended at base'] = _SI2_N13_ONE in src
+    out['P4 base guard passes'] = None  # measured by the base run below (SI2-6(a))
+    out['P10/P12 mandated base is the Amendment 2 merge'] = _si2_base_provenance()
+    holds = all(v for v in out.values() if v is not None)
+    return holds, out
+
+
+def _si2_manifest_now():
+    """SI2-1 -- the record set at the head: twenty-three, eighteen sealed, five base-only, the SI1
+    record exactly as authorized, nothing else added, mutated or removed since stage 1."""
+    recs, errs = _si1_load()
+    d = _si2_integrity()
+    ok = (not errs and len(recs) == 23
+          and sum(1 for r in recs.values() if r.get('kind') == 'sealed') == 18
+          and sum(1 for r in recs.values() if r.get('kind') == 'base-only') == 5
+          and recs.get('SI1') == _SI2_STAGE1_ADDITIONS['SI1']
+          and sorted(recs) == sorted(_SI2_MANIFESTED)
+          and d is not None and not any(d.values()))
+    return ok, recs, d
+
+
+def _si2_guard_edits_bounded(src=None):
+    """SI2-1 -- the two authorized edits to R7-SI1 are present and reach no further: the scoping
+    names exactly the twenty-two transcribed stems and one authorized addition, and N13's allowance
+    is exactly the two-element set. No seal triple of this round's own exists."""
+    src = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace') if src is None else src
+    return (len(_SI1_TRANSCRIBED) == 22 and _SI1_AUTHORIZED_ADDITIONS == frozenset(('SI1',))
+            and src.count(_SI2_N13_TWO) == 1
+            and _SI2_N13_ONE not in src
+            and not re.search(r'^_SI2_(SEALED_HEAD|MERGE)\s*=', src, re.M)
+            and src.count(_SI2_ASSIGN) == 1)
+
+
+def _si2_wrapper_source(src, fname):
+    m = re.search(r'^def %s\(\):\n(.*?)(?=^\S)' % re.escape(fname), src, re.M | re.S)
+    return m.group(1) if m else None
+
+
+_SI2_CLAUSES = {
+    'RBR': '_rbr_base_ancestry', 'ABR': '_abr_execution_ancestry', 'HYA': '_hya_execution_ancestry',
+    'CLG': '_clg_execution_ancestry', 'TSG': '_tsg_execution_ancestry', 'SGT': '_sgt_execution_ancestry',
+    'A12P': '_a12p_execution_ancestry', 'CTI': '_cti_execution_ancestry', 'PQT': '_pqt_execution_ancestry',
+    'HYB': '_hyb_execution_ancestry', 'A6P': '_a6p_execution_ancestry', 'WTS': '_wts_execution_ancestry',
+    'PC4': '_pc4_execution_ancestry', 'PC4S': '_pc4s_execution_ancestry', 'A6D': '_a6d_execution_ancestry',
+    'A6I': '_a6i_execution_ancestry', 'HYE': '_hye_execution_ancestry', 'TCF': '_tcf_execution_ancestry',
+    'RNC': '_rnc_execution_ancestry', 'TRJ': '_trj_execution_ancestry', 'XTS': '_xts_execution_ancestry',
+    'RNT': '_rnt_execution_ancestry', 'SI1': '_si1_execution_ancestry',
+}
+
+
+def _si2_clause_gates_on_u3(src, stem):
+    """A prior-round clause gates on U3 iff its body, docstring and comments aside, is exactly the
+    keyed call with the round's legacy check as the shadow -- so it references no legacy constant."""
+    body = _si2_wrapper_source(src, _SI2_CLAUSES[stem])
+    if body is None:
+        return False
+    low = _SI2_CLAUSES[stem].split('_')[1]
+    code = body
+    if code.lstrip().startswith('"""'):
+        parts = code.split('"""', 2)
+        if len(parts) < 3:
+            return False
+        code = parts[2]
+    lines = [l for l in code.split('\n') if l.strip() and not l.strip().startswith('#')]
+    want = "    return _si2_authority('%s', tag='R7-%s', shadow=_%s_legacy_ancestry)" % (stem, stem, low)
+    return lines == [want]
+
+
+def _si2_authority_measured(src):
+    """SI2-3 -- three counts and two dynamic controls.
+
+    (i)  static: every one of the twenty-three manifested rounds' clauses is exactly the keyed call;
+    (ii) dynamic, shadow-forcing: `_si2_authority` returns U3's verdict when the shadow is forced
+         to the opposite value, so the shadow gates nothing;
+    (iii) dynamic, in vivo, for the eighteen sealed rounds: with every _<STEM>_MERGE rebound to the
+         round's sealed head the legacy shadow FAILS at the second-parent check while the clause's
+         verdict is unchanged, so the constants are read only by the shadow;
+    (iv) the count of surviving shadow reads of legacy constants, reported and not bounded."""
+    res = {'gate_on_u3': 0, 'gate_on_legacy': 0, 'shadow_reads': 0, 'shadow_forced_ok': 0,
+           'in_vivo_ok': 0, 'in_vivo_shadow_flipped': 0}
+    for stem in _SI2_MANIFESTED:
+        if _si2_clause_gates_on_u3(src, stem):
+            res['gate_on_u3'] += 1
+        else:
+            res['gate_on_legacy'] += 1
+        legacy = _si2_wrapper_source(src, '_%s_legacy_ancestry' % _SI2_CLAUSES[stem].split('_')[1]) or ''
+        res['shadow_reads'] += len(re.findall(r'_[A-Z0-9]+_(?:BASE|SEALED_HEAD|MERGE)\b', legacy))
+    verdicts = _si2_manifest_verdicts() or {}
+    n0 = len(_SI2_LEDGER)
+    for stem in _SI2_MANIFESTED:
+        u3 = bool(verdicts.get(stem, (None, False, ''))[1])
+        got = _si2_authority(stem, tag='R7-SI2/control', shadow=lambda u3=u3: not u3)
+        if got == u3:
+            res['shadow_forced_ok'] += 1
+    del _SI2_LEDGER[n0:]
+    g = globals()
+    sealed = [stem for stem in _SI2_MANIFESTED if (_si1_load()[0].get(stem) or {}).get('kind') == 'sealed']
+    saved = {stem: g['_%s_MERGE' % stem] for stem in sealed}
+    try:
+        for stem in sealed:
+            g['_%s_MERGE' % stem] = g['_%s_SEALED_HEAD' % stem]
+            before = len(_SI2_LEDGER)
+            got = g[_SI2_CLAUSES[stem]]()
+            entry = _SI2_LEDGER[before] if len(_SI2_LEDGER) > before else {}
+            if got == bool(verdicts.get(stem, (None, False, ''))[1]):
+                res['in_vivo_ok'] += 1
+            if entry.get('shadow_ok') is False:
+                res['in_vivo_shadow_flipped'] += 1
+            del _SI2_LEDGER[before:]
+    finally:
+        for stem, val in saved.items():
+            g['_%s_MERGE' % stem] = val
+    res['sealed'] = len(sealed)
+    return res
+
+
+def _si2_census(records, errors, env=None, cwd=None):
+    """U4 -- the census harness with the roles inverted: U3 is the authoritative side and the old
+    machinery is the shadow, over every manifest record. The old side is the legacy machinery as
+    the per-round clauses ran it -- the archive certificate on the round's FIRST-ASSIGNMENT
+    constants for a sealed round, resolving the event for itself; the strengthened execution check
+    against the round's _<STEM>_BASE for a base-only round -- and a row is admitted only if the
+    constants and the record name the same objects, so both sides answer about one thing; otherwise
+    it is `no-analogue`. The twenty-third row, SI1, takes its shadow from R7-SI1's own check
+    against _SI1_BASE exactly as the four other base-only rows take theirs."""
+    new = _si2_validate(records, env=env, cwd=cwd, errors=errors)
+    rows = []
+    if new is None:
+        return rows
+    target, label, num = _rbr_target_commit(env=env, tag='R7-SI2/old')
+    first, _dbl = _si1_transcribe(_bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace'))
+
+    def const(stem, field):
+        v = first.get((stem, field))
+        return v.strip("'\"") if isinstance(v, str) else None
+
+    for stem in sorted(set(records) | set(errors or {})):
+        lifecycle, ok, reason = new.get(stem, (None, False, 'no verdict'))
+        rec = records.get(stem) or {}
+        kind = rec.get('kind')
+        old = None
+        analogue = None
+        if target is not None and kind == 'sealed':
+            cB, cS, cM = const(stem, 'BASE'), const(stem, 'SEALED_HEAD'), const(stem, 'MERGE')
+            if (cB, cS, cM) == (rec.get('base'), rec.get('sealed_head'), rec.get('merge')):
+                old = _rbr_archive_ancestry(cB, cS, cM, tag='R7-SI2/old', env=env, cwd=cwd)
+            else:
+                analogue = 'no-analogue: the legacy constants and the record name different objects'
+        elif target is not None and kind == 'base-only':
+            cB = const(stem, 'BASE')
+            if cB == rec.get('base'):
+                old = _si1_quiet_ancestry(cB, target, tag='R7-SI2/old', cwd=cwd)
+            else:
+                analogue = 'no-analogue: _%s_BASE and the record name different objects' % stem
+        axis = 'lifecycle' if kind == 'sealed' else 'schema+base+integrity'
+        rows.append({
+            'round': stem, 'kind': kind, 'axis': axis,
+            'new_lifecycle': lifecycle, 'new_ok': bool(ok), 'new_reason': reason,
+            'old_ok': None if old is None else bool(old),
+            'agree': None if old is None else (bool(old) == bool(ok)),
+            'analogue': analogue,
+        })
+    return rows
+
+
+def _si2_control_census():
+    """U4 over the synthetic control suite: SI-1's twenty-one controls, the old machinery against
+    U3. Frozen expectation (SI2-4): nine no-analogue; of the twelve comparable exactly 7, 13 and 20
+    diverge, each in U3's direction; 10 agrees with both sides passing; 11 and 12 agree failing."""
+    import shutil
+    d, n, _g = _si1_build_repo()
+    rows = []
+
+    def rec(stem, kind, base, sealed=None, merge=None, **extra):
+        r = {'round': stem, 'kind': kind, 'base': base}
+        if sealed is not None:
+            r['sealed_head'] = sealed
+        if merge is not None:
+            r['merge'] = merge
+        r.update(extra)
+        return r
+
+    def new_of(records, prospective=None, target=None, targets=None, env=None):
+        got = _si2_validate(records, prospective=prospective, cwd=d, target=target, env=env,
+                            targets=(targets if targets is not None else
+                                     ([(target, 'target')] if target is not None else None)))
+        if got is None:
+            return None
+        stem = sorted(set(records) | set(prospective or {}))[0]
+        return bool(got[stem][1])
+
+    def row(name, comparable, old, new, why):
+        if new is None:
+            new, why = False, why + '; U3 failed closed and returned no verdict'
+        rows.append({'control': name, 'comparable': comparable, 'old_ok': old, 'new_ok': new,
+                     'agree': (None if not comparable else (bool(old) == bool(new))), 'reason': why})
+
+    try:
+        NOANALOGUE = 'the old machinery holds no records, so nothing in it answers this question'
+        for name in ('1 malformed hash', '2 missing required key', '3 unknown extra key',
+                     '4a base-only with sealed_head value', '4b base-only with sealed_head null'):
+            row(name, False, None, False, 'schema: ' + NOANALOGUE)
+        for name in ('15 mutated', '16 removed', '17 added'):
+            row(name, False, None, False, 'manifest integrity: ' + NOANALOGUE)
+        row('18 double assignment', False, None, True, 'transcription: ' + NOANALOGUE)
+        for name, r, tgt in (
+                ('5 rewritten sealed head', rec('Z', 'sealed', n['B'], '0' * 40, n['Lm']), n['Maf']),
+                ('6 wrong L', rec('Z', 'sealed', n['B'], n['E2'], n['Wr']), n['Wr']),
+                ('7 two candidates', rec('Z', 'sealed', n['B'], n['E2'], n['Lm']), n['L2']),
+                ('8 zero candidates', rec('Z', 'sealed', n['B'], n['E1'], n['Lm']), n['Maf'])):
+            old = _rbr_archive_ancestry(r['base'], r['sealed_head'], r['merge'], tag='R7-SI2/old',
+                                        target=tgt, cwd=d)
+            row(name, True, old, new_of({'Z': r}, target=tgt), 'archive certificate against U3')
+        row('9 sibling history in EXECUTION', True,
+            _si1_quiet_ancestry(n['B9'], n['T9'], tag='R7-SI2/old', cwd=d),
+            new_of({}, prospective={'Z': n['B9']}, target=n['T9']),
+            'strengthened execution check against U3')
+        for name, env in (('10 stale base.sha, branch carries it', _si1_pr_env(d, n['Hh'], 'main', n['c0'])),
+                          ('11 base branch rewound', _si1_pr_env(d, n['Hh'], 'no-landing', n['Maf'])),
+                          ('12 unresolved base ref', _si1_pr_env(d, n['Hh'], 'main-local-only', n['Maf']))):
+            r = rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])
+            old = _rbr_archive_ancestry(r['base'], r['sealed_head'], r['merge'], tag='R7-SI2/old',
+                                        env=env, cwd=d)
+            row(name, True, old, new_of({'Z': r}, env=env),
+                'the old archive path and U3, each resolving the same event payload for itself -- '
+                'U3 over the UNION of the visibility targets')
+        row('13 descendant of unpinned L', True,
+            _si1_quiet_ancestry(n['B'], n['Maf'], tag='R7-SI2/old', cwd=d),
+            new_of({}, prospective={'Z': n['B']}, target=n['Maf']),
+            'the old machinery has NO pending-seal notion and admits the descendant; U3 refuses it '
+            'as SEAL PENDING -- adjudicated in U3\'s direction')
+        row('14 unpinned L itself', True,
+            _si1_quiet_ancestry(n['B'], n['Lm'], tag='R7-SI2/old', cwd=d),
+            new_of({}, prospective={'Z': n['B']}, target=n['Lm']),
+            'both admit the landing itself, by different routes')
+        row('19 synthetic merge HEAD', True,
+            _rbr_archive_ancestry(n['B'], n['E2'], n['Lm'], tag='R7-SI2/old', target=n['Hh'], cwd=d),
+            new_of({'Z': rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])}, target=n['Hh']),
+            'both resolve the real head and refuse the synthetic merge')
+        row('20 base-only out of the state machine', True,
+            _si1_quiet_ancestry(n['B9'], n['T9'], tag='R7-SI2/old', cwd=d),
+            new_of({'Z': rec('Z', 'base-only', n['B9'])}, target=n['T9']),
+            'the old machinery applies EXECUTION ancestry semantics to a completed non-sealing '
+            'round and refuses it; U3 does not classify it at all -- adjudicated in U3\'s direction')
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+    return rows
+
+
+def _si2_base_tag_map():
+    """SI2-6(a) -- the base's own guard file is RUN, AT THE BASE, in a subprocess, and its verdict
+    lines parsed into a tag-to-verdict map. Returns the map or None.
+
+    "At the base" means three things, and the first two forms of this measurement each missed one.
+    The base's TREE: the first form ran the base's file against the head's working tree, where the
+    base's unscoped R7-SI1 fails on the twenty-three-record manifest -- the dry run Amendment 1
+    recorded, not a verdict change. The base's HISTORY without an environment leak: the second form
+    exported the tree and pointed the subprocess at this repository's git directory through GIT_DIR,
+    which redirected every git call the base's guard makes in the synthetic repositories its own
+    regressions build, so R7-VIS, R7-ARCH and R7-SI1's negative suite failed for a reason that had
+    nothing to do with the base. And the base's EVENT: the pull-request variables are removed, so
+    the base's guard resolves HEAD, which in a detached worktree at the base IS the base commit.
+
+    So the base is checked out as a detached git worktree in a temporary directory -- registered for
+    the duration of the run and removed after it -- and the base's file is run there. What is
+    compared is the map the base's guard gives at the base with the map the head's guard gives at
+    the head. Evidence-bearing and not optimized away (Amendment 2, point 5): the base's file itself
+    runs its base's file."""
+    import shutil
+    import subprocess
+    import tempfile
+    tmp = tempfile.mkdtemp(prefix='si2-base-')
+    wt = os.path.join(tmp, 'base')
+    out = None
+    try:
+        add = _rbr_git('worktree', 'add', '--detach', wt, _SI2_BASE, tag='R7-SI2', timeout=600)
+        if add is None or add.returncode != 0:
+            return None
+        probe = os.path.join(wt, 'verification', 'lean', 'edge_rigidity_probe.py')
+        if not os.path.exists(probe):
+            return None
+        env = dict(os.environ)
+        # No git environment variable may reach the subprocess: a GIT_DIR there redirects every git
+        # call the base's guard makes -- its synthetic repositories included -- into THIS repository,
+        # which is exactly what the second form of this measurement did.
+        for key in ('SI2_EMIT_CENSUS', 'SI1_EMIT_CENSUS', 'GITHUB_EVENT_NAME', 'GITHUB_EVENT_PATH',
+                    'GITHUB_BASE_REF', 'GIT_DIR', 'GIT_WORK_TREE', 'GIT_INDEX_FILE',
+                    'GIT_COMMON_DIR', 'GIT_OBJECT_DIRECTORY'):
+            env.pop(key, None)
+        try:
+            out = subprocess.run((sys.executable, probe), cwd=os.path.dirname(probe),
+                                 capture_output=True, timeout=3600, env=env)
+        except Exception:
+            out = None
+    finally:
+        _rbr_git('worktree', 'remove', '--force', wt, tag='R7-SI2', timeout=600)
+        _rbr_git('worktree', 'prune', tag='R7-SI2')
+        shutil.rmtree(tmp, ignore_errors=True)
+    if out is None:
+        return None
+    base = {}
+    for line in out.stdout.decode('utf-8', 'replace').split('\n'):
+        m = re.match(r'\s+(PASS|FAIL)\s+(\S+?):', line)
+        if m:
+            base[m.group(2)] = m.group(1)
+    return base or None
+
+
+def _si2_legacy_statements(src):
+    """SI2-6(b) -- the legacy assignment statements AS TEXT, in file order, excluding this round's
+    own base constant by stem."""
+    return [m.group(0) for m in _SI2_LEGACY_RE.finditer(src) if m.group(1) != 'SI2']
+
+
+def _si2_agents_updated(t=None):
+    """SI2-7 -- A.37 states the manifest protocol, both halves of the legacy constants' status, and
+    the retirement round's shape; the superseded bare sentence is gone."""
+    t = open(os.path.join(os.path.dirname(VERIFICATION), 'AGENTS.md'), encoding='utf-8').read() if t is None else t
+    flat = ' '.join(t.split())
+    return ('### Sealing through the manifest, from `SI-2`\'s landing' in t
+            and 'writes **the round\'s own manifest record**' in flat
+            and '`sealed_head` = `E` and `merge` = `L`' in flat
+            and 'It writes **no legacy constant**' in flat
+            and 'How a new `sealed` record is created' in flat
+            and 'How a completed non-sealing round\'s `base-only` record is created' in flat
+            and '**cease to GATE**' in flat
+            and 'has recreated the representation `SI-2` retired' in flat
+            and '**PROTECTED HISTORICAL SEAL STATE**' in flat
+            and 'makes the round that does it *sealing*' in flat
+            and '**The retirement round is sealing.**' in flat
+            and '`sealed_head` = its `E`, `merge` = its `L` — and writes no legacy constant' in flat
+            and 'governs **rounds begun after `SI-2`\'s landing merge**' in flat
+            and '`P` sets the constants it owns to `E` and to `L`' not in flat)
+
+
+# ---- the result note, read with a missing file counted as an empty note rather than a crash.
+try:
+    _SI2RES = _bb_read(_SI2RESREL).decode('utf-8')
+except Exception:  # noqa: BLE001
+    _SI2RES = ''
+
+
+def _si2_c_nonsealing(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('This round is **NON-SEALING**. It lands `E` → `L`.' in t
+            and '`_SI2_SEALED_HEAD` and `_SI2_MERGE` do not exist — not as `None`, not at all.' in flat
+            and 'the one guard in the file that is **not** cut over' in flat)
+
+
+def _si2_c_order(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**The stages were run in the frozen order, and the order was gating**' in flat
+            and '**the final head `E` is the checkpoint**' in flat
+            and 'measured at the same commit that carries the cutover' in flat)
+
+
+def _si2_c_behaviour(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**adjudicated behaviour and not correctness**' in flat
+            and 'no outcome of this round may be read as a holding that either implementation is generally correct' in flat
+            and 'control 10 agrees' in flat and 'in `U3`\'s adjudicated direction' in flat)
+
+
+def _si2_c_141(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**`SI-1`\'s recorded `#141` result is not edited**' in flat
+            and '`RESTATED-AND-FAILS` stands' in flat
+            and '**`RESTATED-AND-HOLDS`**' in flat and '**`RESTATED-ONLY`**' in flat
+            and 'a later verdict is a later verdict' in flat)
+
+
+def _si2_c_addition(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**exactly one record was added, first**' in flat
+            and '`SI-2` adds no record for itself' in flat
+            and 'nothing else added, nothing mutated, nothing removed' in flat)
+
+
+def _si2_c_inventory(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**sixty-one statements over fifty-nine names, identical as text and in the same relative order**' in flat
+            and '`LEGACY-INTACT`' in flat and 'statement count alone' in flat)
+
+
+def _si2_c_protocol(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('cease to GATE' in flat and 'PROTECTED HISTORICAL SEAL STATE' in flat
+            and '**The retirement round is sealing.**' in flat and '`PROTOCOL-UPDATED`' in flat)
+
+
+def _si2_c_scoping(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**the `R7-SI1` scoping is Amendment 1\'s single allowance**' in flat
+            and 'bounded to the named contracts' in flat
+            and '**exactly `{_SI1_BASE, _SI2_BASE}`**' in flat
+            and 'Amendment 2\'s single allowance' in flat)
+
+
+def _si2_c_slots(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**Four definition slots, and four were fired**' in flat
+            and '`U5` fires no slot' in flat)
+
+
+def _si2_c_predictions(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('**`DELTA-AS-ADJUDICATED`**' in flat and '`SI2-4` was the round\'s sharpest claim' in flat
+            and '| `SI2-8` `#141` | `RESTATED-AND-HOLDS`, LOW |' in flat
+            and 'as predicted' in flat)
+
+
+def _si2_c_chronology(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('df54b99dba99dc043b11752163d8d348c9e54472' in flat
+            and '9ca82958cfaa3ff926d8a80baf2ee22eb468a917' in flat
+            and 'da9d69d60b19482abfeb27b16af5aaebebba0e83' in flat
+            and 'from which nothing resumes' in flat
+            and 'three frozen blobs' in flat)
+
+
+def _si2_c_relocation(t=None):
+    t = _SI2RES if t is None else t
+    flat = ' '.join(t.split())
+    return ('relocated verbatim' in flat and 'exactly the two-line' in flat
+            and 'default route is still the target-only' in flat)
+
+
+def _si2_region_no_stem():
+    """The SI2-AUTHORITY region carries no round stem and no other round's guard tag."""
+    src = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+    # The marker strings also occur here, in this check's own source, so the region is taken between
+    # their FIRST occurrences, which are the markers themselves, as SI-1's check does.
+    begin, end = '==== SI2-AUTHORITY-BEGIN ====', '==== SI2-AUTHORITY-END ===='
+    if begin not in src or end not in src:
+        return False
+    region = src.split(begin, 1)[1].split(end, 1)[0]
+    for stem in _SI2_MANIFESTED:
+        if re.search(r'_%s_|\b%s\b' % (stem, stem), region):
+            return False
+    return set(re.findall(r'R7-[A-Z0-9]+', region)) <= {'R7-SI2'}
+
+
+def _si2_region_relocated_verbatim():
+    """The SI1-VALIDATOR region at this head equals the one at the mandated base after reverting
+    exactly the two hook edits, and differs from it before."""
+    src = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+    base = _si2_git_text('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI2_BASE) or ''
+    b, e = '# ==== SI1-VALIDATOR-BEGIN ====', '# ==== SI1-VALIDATOR-END ===='
+    # First occurrences: the markers precede every mention of them in this file.
+    if b not in src or e not in src or b not in base or e not in base:
+        return False
+    rh = src.split(b, 1)[1].split(e, 1)[0]
+    rb = base.split(b, 1)[1].split(e, 1)[0]
+    rev = rh
+    for old, new in _SI2_HOOK:
+        if rev.count(new) != 1:
+            return False
+        rev = rev.replace(new, old, 1)
+    return rev == rb and rh != rb
+
+
+ok_si2 = True
+_si2_src = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+
+# N1 -- the three frozen blobs, each with its own drift control.
+for _p in (_SI2FRZ, _SI2AM1, _SI2AM2):
+    ok_si2 &= _si2_freeze_pin(_p)
+    ok_si2 &= _si2_drift(_p)(_p) != _bb_read(_p)
+    ok_si2 &= not _si2_freeze_pin(_p, _si2_drift(_p))
+    for _q in (_SI2FRZ, _SI2AM1, _SI2AM2):
+        if _q != _p:
+            ok_si2 &= _si2_freeze_pin(_q, _si2_drift(_p))  # a drift in one does not fail the others
+
+# N2 -- the bootstrap chronology, not through U3.
+ok_si2 &= _si2_execution_ancestry()
+ok_si2 &= _si2_base_provenance()
+
+# SI2-0 -- locating controls at the mandated base.
+_si2_hold, _si2_hold_detail = _si2_locating_controls()
+ok_si2 &= _si2_hold
+print('    R7-SI2 SI2-0: %s -- %d of %d locating controls hold at the mandated base %s'
+      % ('HOLD' if _si2_hold else 'DRIFTED',
+         sum(1 for v in _si2_hold_detail.values() if v), sum(1 for v in _si2_hold_detail.values() if v is not None),
+         _SI2_BASE[:12]))
+
+# SI2-1 -- the manifest as authorized, and the two guard edits bounded.
+_si2_m_ok, _si2_recs, _si2_delta = _si2_manifest_now()
+ok_si2 &= _si2_m_ok and _si2_guard_edits_bounded(_si2_src)
+# controls: a scoping reaching beyond the named contracts, and a wider N13 allowance, are DEVIATED
+ok_si2 &= not _si2_guard_edits_bounded(_si2_src.replace(
+    _SI2_N13_TWO, _SI2_N13_TWO.replace(' == {', ' <= {').replace('}', ", ('ZZ', 'BASE', '')}")))
+ok_si2 &= not _si2_guard_edits_bounded(_si2_src + "\n_SI2_SEALED_HEAD = None\n")
+print('    R7-SI2 SI2-1: %s -- %d records, %d sealed, %d base-only; SI1 record %s; U5 delta %s'
+      % ('MANIFEST-AS-AUTHORIZED' if _si2_m_ok else 'MANIFEST-DEVIATED', len(_si2_recs),
+         sum(1 for r in _si2_recs.values() if r.get('kind') == 'sealed'),
+         sum(1 for r in _si2_recs.values() if r.get('kind') == 'base-only'),
+         'as authorized' if _si2_recs.get('SI1') == _SI2_STAGE1_ADDITIONS['SI1'] else 'DEVIATED', _si2_delta))
+
+# SI2-2 -- the union rule is executable: the negative suite.
+_si2_neg = _si2_negatives()
+ok_si2 &= len(_si2_neg) == 11 and all(good for _n, good, _d in _si2_neg)
+print('    R7-SI2 SI2-2: %s -- %d of %d cases satisfy their named outcomes (1-8, 11, 12, 13)'
+      % ('DERIVE-UNION-BUILT' if all(good for _n, good, _d in _si2_neg) else 'DERIVE-UNION-PARTIAL',
+         sum(1 for _n, g, _d in _si2_neg if g), len(_si2_neg)))
+for _n, _g, _d in _si2_neg:
+    if not _g:
+        print('      FAILED case %s -- %s' % (_n, _d[:160]))
+
+# SI2-3 -- authority moved.
+_si2_auth = _si2_authority_measured(_si2_src)
+_si2_live = {e['round']: e for e in _SI2_LEDGER}
+ok_si2 &= (_si2_auth['gate_on_u3'] == 23 and _si2_auth['gate_on_legacy'] == 0
+           and _si2_auth['shadow_forced_ok'] == 23
+           and _si2_auth['in_vivo_ok'] == _si2_auth['sealed'] == 18
+           and _si2_auth['in_vivo_shadow_flipped'] == 18
+           and sorted(_si2_live) == sorted(_SI2_MANIFESTED)
+           and all(e['u3_ok'] for e in _si2_live.values()))
+# negative case 10: a clause still gating on a legacy constant fails; a shadow read does not.
+_si2_mut10 = _si2_src.replace("    return _si2_authority('HYA', tag='R7-HYA', shadow=_hya_legacy_ancestry)",
+                              "    return _hya_legacy_ancestry()")
+ok_si2 &= _si2_clause_gates_on_u3(_si2_src, 'HYA') and not _si2_clause_gates_on_u3(_si2_mut10, 'HYA')
+ok_si2 &= _si2_mut10 != _si2_src
+print('    R7-SI2 SI2-3: %s -- %d clauses gate on U3, %d still gate on a legacy constant, %d shadow '
+      'reads survive; shadow-forced controls %d of 23 unchanged; in vivo with every sealed MERGE '
+      'rebound: %d of %d clauses unchanged while %d shadows flipped to FAIL'
+      % ('AUTHORITY-MOVED' if _si2_auth['gate_on_u3'] == 23 and _si2_auth['gate_on_legacy'] == 0
+         else 'AUTHORITY-PARTIAL', _si2_auth['gate_on_u3'], _si2_auth['gate_on_legacy'],
+         _si2_auth['shadow_reads'], _si2_auth['shadow_forced_ok'], _si2_auth['in_vivo_ok'],
+         _si2_auth['sealed'], _si2_auth['in_vivo_shadow_flipped']))
+print('    R7-SI2 live ledger: %d clauses, U3 PASS %d, legacy shadow PASS %d, shadow no-verdict %d'
+      % (len(_si2_live), sum(1 for e in _si2_live.values() if e['u3_ok']),
+         sum(1 for e in _si2_live.values() if e['shadow_ok'] is True),
+         sum(1 for e in _si2_live.values() if e['shadow_ok'] is None)))
+
+# SI2-4 -- the census at the final head.
+_si2_recs_all, _si2_errs_all = _si1_load()
+_si2_rows = _si2_census(_si2_recs_all, _si2_errs_all)
+_si2_ctl = _si2_control_census()
+_si2_ctl_comp = [r for r in _si2_ctl if r['comparable']]
+_si2_ctl_non = [r for r in _si2_ctl if not r['comparable']]
+_si2_ctl_div = sorted(r['control'] for r in _si2_ctl_comp if not r['agree'])
+_si2_ctl_by = {r['control']: r for r in _si2_ctl}
+_si2_records_ok = (len(_si2_rows) == 23 and all(r['agree'] for r in _si2_rows)
+                   and sum(1 for r in _si2_rows if r['axis'] == 'lifecycle') == 18
+                   and sum(1 for r in _si2_rows if r['axis'] == 'schema+base+integrity') == 5
+                   and all(r['new_lifecycle'] == 'ARCHIVED' for r in _si2_rows if r['kind'] == 'sealed')
+                   and all(r['new_lifecycle'] == _SI1_NA for r in _si2_rows if r['kind'] == 'base-only')
+                   and all(r['analogue'] is None for r in _si2_rows))
+_si2_controls_ok = (len(_si2_ctl) == 21 and len(_si2_ctl_comp) == 12 and len(_si2_ctl_non) == 9
+                    and _si2_ctl_div == ['13 descendant of unpinned L', '20 base-only out of the state machine',
+                                         '7 two candidates']
+                    and _si2_ctl_by['7 two candidates']['old_ok'] is True and _si2_ctl_by['7 two candidates']['new_ok'] is False
+                    and _si2_ctl_by['13 descendant of unpinned L']['old_ok'] is True and _si2_ctl_by['13 descendant of unpinned L']['new_ok'] is False
+                    and _si2_ctl_by['20 base-only out of the state machine']['old_ok'] is False and _si2_ctl_by['20 base-only out of the state machine']['new_ok'] is True
+                    and _si2_ctl_by['10 stale base.sha, branch carries it']['old_ok'] is True and _si2_ctl_by['10 stale base.sha, branch carries it']['new_ok'] is True
+                    and _si2_ctl_by['11 base branch rewound']['old_ok'] is False and _si2_ctl_by['11 base branch rewound']['new_ok'] is False
+                    and _si2_ctl_by['12 unresolved base ref']['old_ok'] is False and _si2_ctl_by['12 unresolved base ref']['new_ok'] is False)
+_si2_delta_outcome = ('DELTA-AS-ADJUDICATED' if _si2_records_ok and _si2_controls_ok
+                      else ('DELTA-BROKEN' if not _si2_records_ok else 'DELTA-UNEXPECTED'))
+ok_si2 &= _si2_records_ok and _si2_controls_ok
+print('    R7-SI2 SI2-4: %s -- records %d of %d agree (%d lifecycle, %d schema/base/integrity); controls '
+      '%d, %d comparable, %d no-analogue, divergent %s; control 10 old=%s new=%s'
+      % (_si2_delta_outcome, sum(1 for r in _si2_rows if r['agree']), len(_si2_rows),
+         sum(1 for r in _si2_rows if r['axis'] == 'lifecycle'),
+         sum(1 for r in _si2_rows if r['axis'] == 'schema+base+integrity'),
+         len(_si2_ctl), len(_si2_ctl_comp), len(_si2_ctl_non), _si2_ctl_div,
+         _si2_ctl_by.get('10 stale base.sha, branch carries it', {}).get('old_ok'),
+         _si2_ctl_by.get('10 stale base.sha, branch carries it', {}).get('new_ok')))
+
+# U4 EMITS census.json, with the resolved targets' NAMES normalized to a fixed token (the names are
+# the event's, not the round's); verdicts are not normalized.
+_SI2_TARGET_TOKEN = 'the resolved targets'
+_si2_doc_labels = [lab for _r, lab in (_si2_union_targets(tag='R7-SI2/doc') or [])]
+
+
+def _si2_doc_rows(rows, key):
+    out = []
+    for _row in rows:
+        _row = dict(_row)
+        _text = _row.get(key)
+        if isinstance(_text, str):
+            for lab in sorted(_si2_doc_labels, key=len, reverse=True):
+                if lab:
+                    _text = _text.replace(lab, _SI2_TARGET_TOKEN)
+            _text = _text.replace('the union of %s and %s' % (_SI2_TARGET_TOKEN, _SI2_TARGET_TOKEN),
+                                  _SI2_TARGET_TOKEN)
+            _row[key] = _text
+        out.append(_row)
+    return out
+
+
+_si2_census_doc = {
+    'round': 'SI-2',
+    'base': _SI2_BASE,
+    'outcome': _si2_delta_outcome,
+    'note': ('The census at SI-2\'s final head with the roles INVERTED: U3, the authoritative validator '
+             'deriving over the union of the visibility targets, against the old machinery as the '
+             'shadow. Over the twenty-three manifest records -- eighteen sealed on LIFECYCLE, five '
+             'base-only on SCHEMA/PINNED-BASE/RECORD-INTEGRITY, the twenty-third being the SI1 record '
+             'SI2-1 added, its shadow the strengthened execution check R7-SI1 runs against _SI1_BASE -- '
+             'the two sides agree. Over the twenty-one synthetic controls, nine have no old-machinery '
+             'analogue and exactly three of the twelve comparable ones diverge, 7, 13 and 20, each in '
+             'U3\'s ADJUDICATED direction; control 10, on which SI-1 measured the direction reversed, '
+             'now AGREES with both sides passing, because U3 sees the base-branch tip. This is the '
+             'delta profile the freeze predicted and is an agreement census under an adjudication of '
+             'BEHAVIOUR, not a proof that either implementation is correct.'),
+    'record_totals': {
+        'records': len(_si2_rows),
+        'agree': sum(1 for r in _si2_rows if r['agree']),
+        'lifecycle_axis': sum(1 for r in _si2_rows if r['axis'] == 'lifecycle'),
+        'schema_axis': sum(1 for r in _si2_rows if r['axis'] == 'schema+base+integrity'),
+        'no_analogue': sum(1 for r in _si2_rows if r['analogue']),
+    },
+    'control_totals': {
+        'controls': len(_si2_ctl),
+        'comparable': len(_si2_ctl_comp),
+        'no_analogue': len(_si2_ctl_non),
+        'divergent': len(_si2_ctl_div),
+        'divergent_controls': _si2_ctl_div,
+        'control_10_agrees': bool(_si2_ctl_by.get('10 stale base.sha, branch carries it', {}).get('agree')),
+    },
+    'records': _si2_doc_rows(_si2_rows, 'new_reason'),
+    'controls': _si2_doc_rows(_si2_ctl, 'reason'),
+}
+if os.environ.get('SI2_EMIT_CENSUS') == '1':
+    with open(_artifact(_SI2CENSUSREL), 'w', encoding='utf-8') as _fh:
+        _fh.write(json.dumps(_si2_census_doc, indent=2) + '\n')
+try:
+    _si2_census_raw = _bb_read(_SI2CENSUSREL)
+except Exception:  # noqa: BLE001
+    _si2_census_raw = b''
+_si2_census_ok = _si1_census_agrees(_si2_census_raw, _si2_census_doc)
+ok_si2 &= _si2_census_ok
+ok_si2 &= not any(lab and lab in str(_r.get(_k) or '')
+                  for lab in _si2_doc_labels
+                  for _k, _rows in (('new_reason', _si2_census_doc['records']), ('reason', _si2_census_doc['controls']))
+                  for _r in _rows)
+try:
+    _si2_census_stale = json.loads(_si2_census_raw.decode('utf-8'))
+except (ValueError, UnicodeDecodeError):
+    _si2_census_stale = json.loads(json.dumps(_si2_census_doc))
+_si2_census_stale['control_totals']['divergent'] = len(_si2_ctl_div) + 1
+ok_si2 &= not _si1_census_agrees(json.dumps(_si2_census_stale), _si2_census_doc)
+ok_si2 &= not _si1_census_agrees(_si2_census_raw[:len(_si2_census_raw) // 2], _si2_census_doc)
+print('    R7-SI2 census artifact: census.json rebuilt from this run\'s rows and compared with the recorded '
+      'bytes -- %s; a total altered and unparseable bytes are both rejected'
+      % ('identical' if _si2_census_ok else 'DIFFERENT, so it is STALE'))
+
+# SI2-5 -- integrity data-driven; the comparisons as shadow.
+_si2_int = _si2_integrity()
+_si2_live_gates = re.findall(r'^ok_[a-z0-9]+ &= _[a-z0-9]+_prior_seals\(\)$', _si2_src, re.M)
+ok_si2 &= _si2_integrity_ok() and not _si2_live_gates
+ok_si2 &= len(_SI2_SHADOW_INTEGRITY) == 8 and all(e['shadow_ok'] for e in _SI2_SHADOW_INTEGRITY)
+ok_si2 &= sorted({e['tag'] for e in _SI2_SHADOW_INTEGRITY}) == ['R7-RNC', 'R7-RNT', 'R7-TCF', 'R7-TRJ', 'R7-XTS']
+# U5's own controls: mutated, removed and added each reported alone.
+_si2_at1 = _si2_manifest_at_stage1() or {}
+_si2_u5m = json.loads(json.dumps(_si2_at1))
+_si2_u5m['HYA']['merge'] = '0' * 40
+ok_si2 &= [k for k, v in _si1_integrity(_si2_at1, _si2_u5m).items() if v] == ['mutated']
+_si2_u5r = {k: v for k, v in _si2_at1.items() if k != 'RNT'}
+ok_si2 &= [k for k, v in _si1_integrity(_si2_at1, _si2_u5r).items() if v] == ['removed']
+ok_si2 &= [k for k, v in _si1_integrity(_si2_at1, dict(_si2_at1, ZZ={'kind': 'base-only', 'base': '1' * 40})).items() if v] == ['added']
+print('    R7-SI2 SI2-5: %s -- U5 over the record set fixed at stage 1: %s; %d live per-round prior-seal '
+      'gates remain; %d comparator verdicts recorded as shadows (%d PASS)'
+      % ('INTEGRITY-DATA-DRIVEN' if _si2_integrity_ok() and not _si2_live_gates else 'INTEGRITY-PARTIAL',
+         _si2_int, len(_si2_live_gates), len(_SI2_SHADOW_INTEGRITY),
+         sum(1 for e in _SI2_SHADOW_INTEGRITY if e['shadow_ok'])))
+
+# SI2-6(a) -- the base's guard file is RUN and its map compared with the head's, in process.
+_si2_base_map = _si2_base_tag_map()
+_si2_head_map = dict(zip(CHECK_TAGS, ('PASS' if v else 'FAIL' for v in CHECKS)))
+_si2_map_preserved = (_si2_base_map is not None and len(_si2_base_map) == 91
+                      and all(v == 'PASS' for v in _si2_base_map.values())
+                      and all(_si2_head_map.get(t) == v for t, v in _si2_base_map.items()))
+ok_si2 &= _si2_map_preserved
+if os.environ.get('SI2_EMIT_CENSUS') == '1' and _si2_base_map is not None:
+    with open(_artifact(_SI2TAGMAPREL), 'w', encoding='utf-8') as _fh:
+        _fh.write(json.dumps({
+            'round': 'SI-2', 'base': _SI2_BASE,
+            'note': ('The tag-to-verdict map of the MANDATED BASE\'s own guard file, measured by running that '
+                     'file. R7-SI2 re-runs the base file on every run, requires the fresh map to equal this '
+                     'one, and compares it in process with the head\'s map over the same tags: MAP-PRESERVED '
+                     'means every pre-existing tag returns the same verdict at the head as at the base.'),
+            'base_tag_count': len(_si2_base_map), 'base_all_pass': all(v == 'PASS' for v in _si2_base_map.values()),
+            'base_tag_verdicts': _si2_base_map}, indent=2) + '\n')
+try:
+    _si2_tagpersist = json.loads(_bb_read(_SI2TAGMAPREL).decode('utf-8'))['base_tag_verdicts']
+except Exception:  # noqa: BLE001
+    _si2_tagpersist = None
+ok_si2 &= _si2_tagpersist is not None and _si2_tagpersist == _si2_base_map
+print('    R7-SI2 SI2-6(a): %s -- the base\'s guard file was RUN: %s tags, %s; head verdicts on those tags '
+      'identical: %s; map identical to the persisted one: %s'
+      % ('MAP-PRESERVED' if _si2_map_preserved else 'MAP-CHANGED',
+         len(_si2_base_map or {}), 'all PASS' if _si2_base_map and all(v == 'PASS' for v in _si2_base_map.values()) else 'NOT all PASS',
+         all(_si2_head_map.get(t) == v for t, v in (_si2_base_map or {}).items()),
+         _si2_tagpersist == _si2_base_map))
+if _si2_base_map and not _si2_map_preserved:
+    for _t, _v in _si2_base_map.items():
+        if _si2_head_map.get(_t) != _v:
+            print('      CHANGED %s: base %s, head %s -- a result requiring adjudication' % (_t, _v, _si2_head_map.get(_t)))
+
+# SI2-6(b) -- the legacy inventory intact as TEXT, in order, against B0.
+_si2_b0_src = _si2_git_text('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI2_B0) or ''
+_si2_leg_head = _si2_legacy_statements(_si2_src)
+_si2_leg_b0 = _si2_legacy_statements(_si2_b0_src)
+_si2_leg_names = {re.match(r'^(_[A-Z0-9]+_(?:BASE|SEALED_HEAD|MERGE))', l).group(1) for l in _si2_leg_head}
+_si2_legacy_intact = (len(_si2_leg_b0) == 61 and _si2_leg_head == _si2_leg_b0 and len(_si2_leg_names) == 59)
+ok_si2 &= _si2_legacy_intact
+# negative case 9: one statement removed, two reordered, one re-valued -- each fails, and the
+# double-assigned RNT pair is counted as statements so removing either half fails.
+_si2_i_rnt = [i for i, l in enumerate(_si2_leg_head) if l.startswith('_RNT_MERGE')]
+ok_si2 &= len(_si2_i_rnt) == 2
+for _drop in _si2_i_rnt:
+    ok_si2 &= (_si2_leg_head[:_drop] + _si2_leg_head[_drop + 1:]) != _si2_leg_b0
+_si2_swapped = list(_si2_leg_head)
+_si2_swapped[0], _si2_swapped[1] = _si2_swapped[1], _si2_swapped[0]
+ok_si2 &= _si2_swapped != _si2_leg_b0
+_si2_revalued = list(_si2_leg_head)
+_si2_revalued[5] = _si2_revalued[5][:-5] + "0000'"
+ok_si2 &= _si2_revalued != _si2_leg_b0
+print('    R7-SI2 SI2-6(b): %s -- %d legacy statements over %d names at the head, identical as text and in the '
+      'same order to the %d at B0; SI-2\'s own _SI2_BASE excluded by stem'
+      % ('LEGACY-INTACT' if _si2_legacy_intact else 'LEGACY-ALTERED', len(_si2_leg_head), len(_si2_leg_names), len(_si2_leg_b0)))
+
+# SI2-7 -- the protocol.
+_si2_agents = open(os.path.join(os.path.dirname(VERIFICATION), 'AGENTS.md'), encoding='utf-8').read()
+ok_si2 &= _si2_agents_updated(_si2_agents)
+ok_si2 &= not _si2_agents_updated(_si2_agents.replace('**cease to GATE**', 'continue to gate'))
+ok_si2 &= not _si2_agents_updated(_si2_agents.replace('**PROTECTED HISTORICAL SEAL STATE**', 'free to edit'))
+ok_si2 &= not _si2_agents_updated(_si2_agents + '\n`P` sets the constants it owns to `E` and to `L`.\n')
+print('    R7-SI2 SI2-7: %s -- A.37 states the manifest protocol, both halves of the legacy constants\' '
+      'status, and the retirement round as sealing; the superseded sentence is gone'
+      % ('PROTOCOL-UPDATED' if _si2_agents_updated(_si2_agents) else 'PROTOCOL-ABSENT'))
+
+# SI2-8 -- #141 and #140 restated under U3.
+_si2_141 = [r for r in _si2_neg if r[0].startswith('1 landing on the live base branch only')]
+_si2_141_holds = bool(_si2_141) and _si2_141[0][1]
+_si2_mb = _si1_mandated_base_probe(_si2_recs_all)
+ok_si2 &= _si2_141_holds
+ok_si2 &= _si2_mb['records'] == 23 and _si2_mb['merge_bases'] == 23 and _si2_mb['sealed'] == 18
+ok_si2 &= _si2_mb['branch_roots'] == 18 and _si2_mb['mandate_compared'] == 0
+print('    R7-SI2 SI2-8: #141 %s -- U3 evaluates a prior seal against the landing topology: a pull request '
+      'from a historical head whose base branch carries the landing PASSES; #140 RESTATED-ONLY -- %d of 23 '
+      'recorded bases compared to an independent mandate, %d of 23 merge commits, %d of 18 branch roots'
+      % ('RESTATED-AND-HOLDS' if _si2_141_holds else 'RESTATED-AND-FAILS', _si2_mb['mandate_compared'],
+         _si2_mb['merge_bases'], _si2_mb['branch_roots']))
+
+# The regions: stem-free, and relocated verbatim.
+ok_si2 &= _si2_region_no_stem()
+ok_si2 &= _si2_region_relocated_verbatim()
+
+# No manuscript, book or Lean file touched.
+_si2_diff = _si2_git_text('diff', '--name-only', _SI2_BASE, 'HEAD') or ''
+ok_si2 &= _si2_diff and not any(p.startswith('papers/') or p.startswith('book/') or p.endswith('.lean')
+                                for p in _si2_diff.split())
+
+# Content contracts on the result note, each with a mutation control that must FAIL the predicate.
+for _pred, _old, _new in (
+        (_si2_c_nonsealing, 'This round is **NON-SEALING**. It lands `E` → `L`.', 'This round is SEALING.'),
+        (_si2_c_order, '**The stages were run in the frozen order, and the order was gating**', 'The stages were run in a convenient order'),
+        (_si2_c_behaviour, '**adjudicated behaviour and not correctness**', '**a proof of correctness**'),
+        (_si2_c_141, '**`SI-1`\'s recorded `#141` result is not edited**', 'SI-1\'s #141 result is corrected here'),
+        (_si2_c_addition, '**exactly one record was added, first**', 'two records were added'),
+        (_si2_c_inventory, '**sixty-one statements over fifty-nine names, identical as text and in the same relative order**', 'sixty-one statements, counted'),
+        (_si2_c_protocol, 'cease to GATE', 'continue to gate'),
+        (_si2_c_scoping, '**exactly `{_SI1_BASE, _SI2_BASE}`**', 'any addition'),
+        (_si2_c_slots, '**Four definition slots, and four were fired**', 'Five definition slots were fired'),
+        (_si2_c_predictions, '**`DELTA-AS-ADJUDICATED`**', '**`DELTA-UNEXPECTED`**'),
+        (_si2_c_chronology, 'from which nothing resumes', 'from which execution may resume'),
+        (_si2_c_relocation, 'relocated verbatim', 'rewritten')):
+    # The mutation is applied to the note with its line breaks collapsed, as the predicates read it:
+    # a phrase the note wraps across a line would otherwise survive the mutation in a second copy.
+    _si2_flat = ' '.join(_SI2RES.split())
+    _mut = _si2_flat.replace(_old, _new)
+    ok_si2 &= _pred() and _mut != _si2_flat and not _pred(_mut)
+
+check('R7-SI2', ok_si2,
+      "Seal infrastructure round SI-2 guard: the BOOTSTRAP CUTOVER, a NON-SEALING round, E -> L with no "
+      "pin and no seal triple of its own, executed from the certified merge of Amendment 2 and verifying "
+      "THREE frozen blobs at that base -- the preregistration, Amendment 1 and Amendment 2 -- each pinned "
+      "independently with its own one-byte drift control. Its chronology is the ONE clause in this file "
+      "that is NOT cut over: act 10's strengthened check against _SI2_BASE, asked of the real "
+      "pull_request.head.sha and never of the synthetic merge, because SI-2 has no manifest record by "
+      "design. THE ADJUDICATED UNION RULE IS EXECUTABLE: U1 resolves the event's visibility targets -- HEAD "
+      "on a push, the real head AND the live base-branch tip on a pull request, never base.sha, never a "
+      "local branch, never the synthetic merge, failing closed -- U2 derives the landing over the SET UNION "
+      "of their histories deduplicated by SHA, and U3 is SI-1's O2 handed U2 through a two-line hook whose "
+      "default route is still the target-only derivation, so SI-1's suite and census reproduce unchanged. "
+      "AUTHORITY MOVED: every ancestry and archive clause of the twenty-three manifested rounds -- SI-1's "
+      "own included, since SI2-1 made it a manifested round -- is exactly a keyed call to U3, measured "
+      "statically, and the legacy verdict is computed alongside as a SHADOW that gates nothing, measured "
+      "dynamically twice: forcing every shadow to the opposite value leaves every verdict unchanged, and "
+      "rebinding every sealed round's MERGE to its sealed head flips eighteen shadows to FAIL while all "
+      "eighteen verdicts stand. INTEGRITY IS DATA-DRIVEN: U5 gates over the record set fixed at stage 1, "
+      "zero live per-round prior-seal gates remain, and the eight comparator verdicts are recorded as "
+      "shadows. THE CENSUS AT THE FINAL HEAD MATCHES THE ADJUDICATED DELTA PROFILE: twenty-three records "
+      "agree -- eighteen sealed on lifecycle, five base-only on schema, pinned base and record integrity, "
+      "the twenty-third the SI1 record with R7-SI1's own check as its shadow -- and of the twenty-one "
+      "controls nine have no analogue, exactly 7, 13 and 20 diverge in U3's adjudicated direction, and "
+      "control 10 AGREES with both sides passing: the divergence SI-1 measured reversed has disappeared "
+      "because U3 sees the base-branch tip. census.json is rebuilt from this run's rows and required to "
+      "equal the recorded bytes, target names normalized to a token, verdicts not. THE VERDICT MAP IS "
+      "PRESERVED: the base's own guard file is RUN, its ninety-one tags all PASS and all return the same "
+      "verdict at this head, read in process. THE LEGACY STATE IS INTACT: the sixty-one legacy assignment "
+      "statements over fifty-nine names at the head are, as TEXT and in the same relative order, exactly "
+      "the sixty-one at B0, this round's own base excluded by stem; removing either half of the "
+      "double-assigned RNT pair, reordering, or re-valuing any statement fails. THE PROTOCOL IS UPDATED: "
+      "AGENTS.md A.37 states what a sealing round's P writes, how sealed and base-only records are "
+      "created, that the legacy constants CEASE TO GATE from this landing and remain PROTECTED HISTORICAL "
+      "SEAL STATE until the retirement round, and that the retirement round is sealing and writes its own "
+      "sealed record. #141 IS RESTATED-AND-HOLDS under U3 and #140 remains RESTATED-ONLY; SI-1's "
+      "recorded #141 result is not edited. The two authorized edits to R7-SI1 are bounded to Amendment 1's "
+      "scoping and Amendment 2's exact two-element N13 allowance, and a wider form of either is "
+      "MANIFEST-DEVIATED. The SI1-VALIDATOR region is relocated VERBATIM, differing from the base's by "
+      "exactly the two hook lines; the SI2-AUTHORITY region carries no round stem. Four definition slots, "
+      "all four fired: U1, U2, U3 with its keyed entry point, U4; U5 fires no slot. Twelve content "
+      "contracts, each mutation-tested; no frozen definition, target, negative case or authority rule "
+      "altered anywhere. Act 21 remains closed.")
 
 
 print()
