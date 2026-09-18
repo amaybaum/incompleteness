@@ -10100,6 +10100,635 @@ def _rbr_archive_ancestry(base, sealed, merge, tag='R7-RBR', env=None, target=No
 # clause that reads it, and excluded by stem from the legacy inventory SI2-6(b) measures.
 _SI2_BASE = 'df54b99dba99dc043b11752163d8d348c9e54472'
 
+# ---- SI-1's record reader and generic validator, RELOCATED VERBATIM by SI-2 (Amendment 2, point 4)
+# from the R7-SI1 section so that the prior-round clauses below can call U3 keyed on their manifest
+# records. The marker-bounded region differs from the one SI-1 landed by exactly the two-line O2
+# derivation hook recorded in `_SI2_HOOK` below, and R7-SI2 measures that.
+# Relative to verification/, because the record reader resolves names through `_artifact`.
+_SI1SEALSREL = 'seals'
+_SI1SEALS = os.path.join(VERIFICATION, 'seals')
+
+_SI1_HEX = re.compile(r'[0-9a-f]{40}')
+
+# ==== SI1-VALIDATOR-BEGIN ====
+# Everything between these markers is the GENERIC validator, and SI1-2 checks mechanically that no
+# round stem appears anywhere in it. A stem here would be the per-round coupling this round exists
+# to remove.
+
+# The discriminated union. Each kind names the fields it REQUIRES and the fields it FORBIDS, and
+# forbids means a hard failure rather than a tolerated null: a base-only record carrying
+# `sealed_head: null` is rejected, because those rounds are not seals waiting for fields -- they are
+# rounds for which no seal exists, and the schema says so structurally.
+_SI1_KINDS = {
+    'base-only': (('base',), ('sealed_head', 'merge')),
+    'sealed': (('base', 'sealed_head', 'merge'), ()),
+}
+_SI1_STATES = ('EXECUTION', 'LANDED-PENDING-PIN', 'ARCHIVED')
+# Not a fourth state. A record with no lifecycle reports this, and no lifecycle value is ever stored.
+_SI1_NA = 'not-applicable'
+
+
+def _si1_schema(rec, stem):
+    """O1 -- the record schema, a discriminated union on `kind`.
+
+    Returns `(True, kind)` or `(False, reason)`. Unknown keys are a failure rather than ignored,
+    every hash is checked as 40 lowercase hex before it is used, and a forbidden field is a failure
+    even when its value is null."""
+    if not isinstance(rec, dict):
+        return False, 'schema: record is not a JSON object'
+    if rec.get('round') != stem:
+        return False, 'schema: round field %r does not match the filename %r' % (rec.get('round'), stem)
+    kind = rec.get('kind')
+    if kind not in _SI1_KINDS:
+        return False, 'schema: kind %r is not one of %s' % (kind, sorted(_SI1_KINDS))
+    required, forbidden = _SI1_KINDS[kind]
+    # FORBIDDEN IS CHECKED BEFORE UNKNOWN, and the order is the point. A forbidden field is also an
+    # unknown one for this kind, so an unknown-key check reached first would report
+    # `base-only` carrying `sealed_head` as a stray key rather than as what it is -- a seal asserted
+    # for a round that has none. The diagnosis is the value of the check, so it is reported first.
+    for field in forbidden:
+        if field in rec:
+            return False, ('schema: kind %r forbids %s, and it is present (value %r) -- a forbidden '
+                           'field is a failure even as null' % (kind, field, rec[field]))
+    allowed = {'round', 'kind'} | set(required)
+    extra = sorted(set(rec) - allowed)
+    if extra:
+        return False, 'schema: unknown key(s) %s' % ', '.join(extra)
+    for field in required:
+        if field not in rec:
+            return False, 'schema: kind %r requires %s and it is missing' % (kind, field)
+        val = rec[field]
+        if not (isinstance(val, str) and _SI1_HEX.fullmatch(val)):
+            return False, 'schema: %s is not 40 lowercase hex (%r)' % (field, val)
+    return True, kind
+
+
+def _si1_load(root=None, read=None):
+    """The LOGICAL manifest, assembled from one record per round.
+
+    Storage is per-record so that two sibling rounds sealing at the same time touch different files;
+    the validator reasons over the SET of records and never over file layout as a source of
+    semantics. Returns `(records, errors)` where a record that will not parse is an error rather
+    than an absence."""
+    root = _SI1SEALSREL if root is None else root
+    read = _bb_read if read is None else read
+    records, errors = {}, {}
+    # `read` goes through `_artifact`, which resolves names RELATIVE to verification/, so the
+    # directory is listed absolutely and each record is read by its relative name. Passing an
+    # absolute path to the reader silently yields a path under verification/ and a missing file.
+    absroot = os.path.join(VERIFICATION, *root.split('/'))
+    if not os.path.isdir(absroot):
+        return records, errors
+    for name in sorted(os.listdir(absroot)):
+        if not name.endswith('.json'):
+            errors[name] = 'schema: not a .json record'
+            continue
+        stem = name[:-len('.json')]
+        try:
+            records[stem] = json.loads(read('%s/%s' % (root, name)).decode('utf-8'))
+        except Exception as exc:
+            errors[stem] = 'schema: unreadable record (%s)' % type(exc).__name__
+    return records, errors
+
+
+def _si1_derive(sealed, target, tag='R7-SI1', cwd=None, first_parent_only=False):
+    """The derivation: the landing merges in `target`'s history whose NON-FIRST parent is exactly
+    `sealed`.
+
+    Scoped to REACHABLE history and not to the first-parent spine, because the spine is wrong for
+    this repository: of the eighteen archived landings, six lie on it and twelve lie one step off
+    it, the second shape arising wherever a round's landing merge and its pin entered main through
+    one pull request. `first_parent_only` exists so the narrower scope stays measurable as a
+    regression rather than becoming reachable by accident.
+
+    Returns the candidate list, or None if git could not answer -- which the caller treats as a
+    failure and never as an empty list."""
+    args = ['log', '--format=%H %P']
+    if first_parent_only:
+        args.append('--first-parent')
+    r = _rbr_git(*(args + [target]), tag=tag, cwd=cwd)
+    if r is None or r.returncode != 0:
+        return None
+    out = []
+    for line in r.stdout.decode('utf-8', 'replace').split('\n'):
+        parts = line.split()
+        if len(parts) > 2 and sealed in parts[2:]:
+            out.append(parts[0])
+    return out
+
+
+def _si1_landing_of_base(base, target, tag='R7-SI1', cwd=None):
+    """The merges in `target`'s history that LOOK like a landing of an execution on `base`: a merge
+    whose non-first parent passes the strengthened ancestry check against `base`.
+
+    This is how a round with no manifest record is classified without knowing its execution head.
+    Returns the candidate list, or None if git could not answer."""
+    r = _rbr_git('log', '--format=%H %P', target, tag=tag, cwd=cwd)
+    if r is None or r.returncode != 0:
+        return None
+    out = []
+    for line in r.stdout.decode('utf-8', 'replace').split('\n'):
+        parts = line.split()
+        if len(parts) > 2:
+            for parent in parts[2:]:
+                if _si1_quiet_ancestry(base, parent, tag=tag, cwd=cwd):
+                    out.append(parts[0])
+                    break
+    return out
+
+
+def _si1_quiet_ancestry(base, target, tag='R7-SI1', cwd=None):
+    """The strengthened predicate without the narration: `base` an ancestor of `target`, and every
+    commit of `git rev-list target ^base` itself a descendant of `base`.
+
+    Used where the answer is a classification step rather than a verdict, so that searching a
+    history does not print a verdict line per candidate. The gating calls go through
+    `_rbr_strong_ancestry`, which is the same predicate and does narrate."""
+    for rev in (base, target):
+        if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
+            return False
+    r = _rbr_git('merge-base', '--is-ancestor', base, target, tag=tag, cwd=cwd)
+    if r is None or r.returncode != 0:
+        return False
+    listed = _rbr_git('rev-list', target, '^%s' % base, tag=tag, cwd=cwd)
+    if listed is None or listed.returncode != 0:
+        return False
+    for rev in listed.stdout.decode('utf-8', 'replace').split():
+        step = _rbr_git('merge-base', '--is-ancestor', base, rev, tag=tag, cwd=cwd)
+        if step is None or step.returncode != 0:
+            return False
+    return True
+
+
+def _si1_reachable(rev, targets, tag='R7-SI1', cwd=None):
+    """Whether `rev` is reachable from any of the visibility targets. Fail-closed: an unresolvable
+    target is not a reason to pass."""
+    for cand, _why in targets:
+        if cand is None:
+            continue
+        if not _rbr_ensure_present(cand, tag=tag, cwd=cwd):
+            continue
+        r = _rbr_git('merge-base', '--is-ancestor', rev, cand, tag=tag, cwd=cwd)
+        if r is not None and r.returncode == 0:
+            return True, _why
+    return False, None
+
+
+def _si1_validate(records, prospective=None, env=None, tag='R7-SI1', cwd=None,
+                  target=None, label=None, num=None, targets=None, errors=None, derive=None):
+    """O2 -- the generic validator.
+
+    Returns, per round, `(lifecycle, ok, reason)`. It returns a verdict for every record and EITHER
+    a lifecycle state OR `_SI1_NA`, because NOT EVERY RECORD HAS A LIFECYCLE: the three states are
+    the lifecycle of a SEAL-PRODUCING round, not of every manifest record.
+
+    A `base-only` record is a completed historical non-sealing round. Its schema, its pinned base
+    and its record integrity are checked, and it is not classified into any of the three states.
+    Classifying it `EXECUTION` -- which the natural reading of "no record, or a record with no
+    sealed_head" does -- would leave four completed rounds permanently executing and would keep
+    applying execution ancestry semantics to them on every future repository state. A round for
+    which no seal exists is not a round whose seal has not arrived yet.
+
+    There is no round-specific branch anywhere below, and SI1-2 checks that mechanically."""
+    out = {}
+    if target is None:
+        target, label, num = _rbr_target_commit(env=env, tag=tag)
+        if target is None:
+            return None
+    if targets is None:
+        targets = _rbr_archive_visibility_targets(env=env, tag=tag, cwd=cwd)
+    if targets is None:
+        # The resolver already said why and failed closed. Returning None here keeps that decision
+        # instead of iterating over it: the first candidate passed None onward, where only the order
+        # of the checks kept it from being indexed.
+        return None
+    # The target is compared against commit SHAs below, so a symbolic name is resolved once here.
+    # `HEAD` is a legitimate target on a push event and an illegitimate one on a pull request; which
+    # it is was decided by `_rbr_target_commit` above, and this only turns a name into an object.
+    _res = _rbr_git('rev-parse', '--verify', '--quiet', target + '^{commit}', tag=tag, cwd=cwd)
+    if _res is None or _res.returncode != 0:
+        return None
+    tsha = _res.stdout.decode('utf-8', 'replace').strip()
+    for stem, reason in sorted((errors or {}).items()):
+        out[stem] = (None, False, reason)
+    for stem in sorted(records):
+        good, info = _si1_schema(records[stem], stem)
+        if not good:
+            out[stem] = (None, False, info)
+            continue
+        rec, kind = records[stem], info
+        if kind == 'base-only':
+            if not _rbr_ensure_present(rec['base'], tag=tag, cwd=cwd):
+                out[stem] = (_SI1_NA, False, 'pinned base %s is absent' % rec['base'][:12])
+                continue
+            seen, why = _si1_reachable(rec['base'], targets, tag=tag, cwd=cwd)
+            out[stem] = (_SI1_NA, seen,
+                         ('historical non-sealing record; pinned base %s reachable from %s'
+                          % (rec['base'][:12], why)) if seen else
+                         'pinned base %s is not reachable; failing closed' % rec['base'][:12])
+            continue
+        base, sealed, pinned = rec['base'], rec['sealed_head'], rec['merge']
+        for rev in (sealed, pinned):
+            if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
+                out[stem] = ('ARCHIVED', False,
+                             'unreachable: %s is absent from this repository' % rev[:12])
+                break
+        else:
+            cands = (_si1_derive(sealed, target, tag=tag, cwd=cwd) if derive is None
+                     else derive(sealed))
+            if cands is None:
+                out[stem] = ('ARCHIVED', False, 'derivation could not be run; failing closed')
+                continue
+            uniq = sorted(set(cands))
+            if not uniq:
+                out[stem] = ('ARCHIVED', False,
+                             'zero candidates: no merge reachable from %s carries %s as a non-first '
+                             'parent' % (label, sealed[:12]))
+                continue
+            if len(uniq) > 1:
+                out[stem] = ('ARCHIVED', False,
+                             'multiple candidates: %s' % ', '.join(c[:12] for c in uniq))
+                continue
+            if uniq[0] != pinned:
+                out[stem] = ('ARCHIVED', False,
+                             'disagreement: pinned %s, derived %s' % (pinned[:12], uniq[0][:12]))
+                continue
+            if not _si1_quiet_ancestry(base, sealed, tag=tag, cwd=cwd):
+                out[stem] = ('ARCHIVED', False,
+                             'the sealed head %s does not pass the strengthened check against %s'
+                             % (sealed[:12], base[:12]))
+                continue
+            ok = True
+            for rev in (pinned, sealed):
+                seen, _why = _si1_reachable(rev, targets, tag=tag, cwd=cwd)
+                if not seen:
+                    out[stem] = ('ARCHIVED', False,
+                                 '%s is not reachable from any visibility target; failing closed'
+                                 % rev[:12])
+                    ok = False
+                    break
+            if ok:
+                out[stem] = ('ARCHIVED', True,
+                             'pinned == derived %s; second parent is the sealed head; ancestry and '
+                             'reachability hold' % pinned[:12])
+    for stem, base in sorted((prospective or {}).items()):
+        if not _rbr_ensure_present(base, tag=tag, cwd=cwd):
+            out[stem] = (None, False, 'pinned base %s is absent' % base[:12])
+            continue
+        landings = _si1_landing_of_base(base, target, tag=tag, cwd=cwd)
+        if landings is None:
+            out[stem] = (None, False, 'landing search could not be run; failing closed')
+            continue
+        if tsha in landings:
+            out[stem] = ('LANDED-PENDING-PIN', True,
+                         'the resolved target IS the landing merge; permitted, and the seal record '
+                         'is still owed')
+            continue
+        if landings:
+            out[stem] = ('LANDED-PENDING-PIN', False,
+                         'seal pending: %s descends from the unpinned landing %s'
+                         % (label, landings[0][:12]))
+            continue
+        good = _rbr_strong_ancestry(base, target, label, num, tag=tag, cwd=cwd)
+        out[stem] = ('EXECUTION', good,
+                     'prospective execution certified against %s' % base[:12] if good else
+                     'prospective execution does not descend from %s' % base[:12])
+    return out
+
+
+def _si1_integrity(at_base, now):
+    """Manifest integrity over the ENTRY SET as well as entry contents.
+
+    Mutated, removed and added are three DISTINCT conditions, reported separately. With one record
+    per round a deletion is as easy as an edit, and a contents-only rule would let one pass
+    invisibly. A change to previously certified seal data requires prospective authorization by the
+    round that intends it; this round authorizes none, so its only permitted change to the set is
+    its own additions."""
+    return {
+        'mutated': sorted(k for k in set(at_base) & set(now) if at_base[k] != now[k]),
+        'removed': sorted(set(at_base) - set(now)),
+        'added': sorted(set(now) - set(at_base)),
+    }
+# ==== SI1-VALIDATOR-END ====
+
+# ==== SI2-AUTHORITY-BEGIN ====
+# Seal infrastructure round SI-2, the bootstrap cutover: the objects that TAKE AUTHORITY. Generic
+# code -- no round stem appears between these markers, and R7-SI2 checks that exactly as SI1-2 checks
+# the region above. The per-round clauses below reach the validator only through `_si2_authority`,
+# keyed on their manifest record. Four definition slots: U1 the union resolver, U2 the union
+# derivation, U3 the authoritative validator with its keyed entry point, U4 the census harness. U5,
+# the data-driven integrity rule, is SI-1's `_si1_integrity` applied over the record set fixed at
+# stage 1 and fires no slot. The synthetic repository and the negative suite are test code.
+
+# The narrow O2 hook Amendment 2 point 4 permits, recorded here so that R7-SI2 can check that the
+# relocated region above differs from the one SI-1 landed by EXACTLY these two edits: the default
+# route is still the target-only `_si1_derive`, and only U3 passes a derivation in.
+_SI2_HOOK = (
+    ("                  target=None, label=None, num=None, targets=None, errors=None):",
+     "                  target=None, label=None, num=None, targets=None, errors=None, derive=None):"),
+    ("            cands = _si1_derive(sealed, target, tag=tag, cwd=cwd)",
+     "            cands = (_si1_derive(sealed, target, tag=tag, cwd=cwd) if derive is None\n"
+     "                     else derive(sealed))"),
+)
+
+
+def _si2_union_targets(env=None, tag='R7-SI2', cwd=None):
+    """U1 -- the union resolver: the ordered visibility targets of the current event, each with the
+    reason it was selected, or None when a required target does not resolve.
+
+    On a push the single target is HEAD. On a pull request the targets are the real
+    `pull_request.head.sha` AND the live `refs/remotes/origin/<base ref>` -- never
+    `pull_request.base.sha`, never a local branch, never the synthetic merge -- and an unresolvable
+    base ref FAILS CLOSED. This is `_rbr_archive_visibility_targets`'s semantics stated once: both
+    the derivation (U2) and the visibility leg consume this list and nothing else."""
+    return _rbr_archive_visibility_targets(env=env, tag=tag, cwd=cwd)
+
+
+def _si2_derive_union(sealed, targets, tag='R7-SI2', cwd=None):
+    """U2 -- the union derivation, the adjudicated rule made executable: the merges whose NON-FIRST
+    parent is exactly `sealed`, over the SET UNION of the targets' reachable histories, deduplicated
+    by SHA.
+
+    Returns the sorted candidate list, or None when a target is missing or git could not answer --
+    which the caller treats as a failure and never as an empty list. Zero candidates, multiple
+    candidates and a unique candidate unequal to the pin remain three distinct failures in U3,
+    exactly as before; only the set searched is larger. Where the head side and the base side
+    expose two DIFFERENT landings for one sealed head, the union yields multiple candidates and
+    fails rather than choosing one."""
+    if targets is None:
+        return None
+    seen = set()
+    for rev, _lab in targets:
+        if rev is None:
+            return None
+        cands = _si1_derive(sealed, rev, tag=tag, cwd=cwd)
+        if cands is None:
+            return None
+        seen.update(cands)
+    return sorted(seen)
+
+
+def _si2_validate(records, prospective=None, env=None, tag='R7-SI2', cwd=None, target=None,
+                  label=None, num=None, targets=None, errors=None):
+    """U3 -- the authoritative validator: SI-1's O2 with U2 in place of the target-only derivation.
+
+    Literally that: the same `_si1_validate`, handed U1's targets for its visibility leg and U2 as
+    its derivation. Nothing else about O2 changes -- the schema, the three states, base-only held
+    out of the machine, the pin-versus-derived comparison and the fail-closed returns are O2's.
+    After the cutover this is what the prior-round clauses call, through `_si2_authority` below."""
+    if targets is None:
+        targets = _si2_union_targets(env=env, tag=tag, cwd=cwd)
+    if targets is None:
+        return None
+    if target is None:
+        target, label, num = _rbr_target_commit(env=env, tag=tag)
+        if target is None:
+            return None
+    ulabel = (('the union of %s' % ' and '.join(str(lab) for _r, lab in targets))
+              if len(targets) > 1 else str(targets[0][1]))
+    return _si1_validate(records, prospective=prospective, env=env, tag=tag, cwd=cwd, target=target,
+                         label=ulabel, num=num, targets=targets, errors=errors,
+                         derive=lambda sealed: _si2_derive_union(sealed, targets, tag=tag, cwd=cwd))
+
+
+_SI2_VERDICTS = {}
+_SI2_LEDGER = []
+
+
+def _si2_manifest_verdicts():
+    """U3 over the whole manifest for the live event, computed once per process and reused by every
+    per-round clause: the clauses are keyed on their records, and the record set is one object."""
+    if 'live' not in _SI2_VERDICTS:
+        _recs, _errs = _si1_load()
+        _SI2_VERDICTS['live'] = _si2_validate(_recs, errors=_errs)
+    return _SI2_VERDICTS['live']
+
+
+def _si2_authority(stem, tag='R7-SI2', shadow=None):
+    """THE CUTOVER ENTRY POINT. A prior-round ancestry or archive clause is now this call, keyed on
+    the round's manifest record `<stem>.json`: the verdict is U3's for that record and nothing
+    else. The legacy machinery's verdict for the same clause -- `shadow`, the round's original
+    check, still reading its legacy constants -- is computed alongside, RECORDED and printed, and
+    GATES NOTHING: the return value does not depend on it, and an exception in it is recorded as no
+    verdict rather than allowed to take the gate down. A round with no manifest record gets no
+    verdict, which is how R7-SI2's own chronology guard is kept OUT of the cutover by design."""
+    verdicts = _si2_manifest_verdicts()
+    if verdicts is None:
+        life, ok, why = None, False, 'U3 failed closed before answering'
+    elif stem not in verdicts:
+        life, ok, why = None, False, 'no manifest record %s.json; no verdict' % stem
+    else:
+        life, ok, why = verdicts[stem]
+    sh = None
+    if shadow is not None:
+        try:
+            sh = bool(shadow())
+        except Exception as exc:  # noqa: BLE001 -- the shadow gates nothing, so it may not fail the gate either
+            sh = None
+            why = why + ' [shadow raised %s]' % type(exc).__name__
+    _SI2_LEDGER.append({'round': stem, 'tag': tag, 'u3_ok': bool(ok), 'u3_lifecycle': life,
+                        'u3_reason': why, 'shadow_ok': sh})
+    print('    %s authority: U3 keyed on %s.json -> %s (%s; %s); legacy shadow -> %s, gating nothing'
+          % (tag, stem, 'PASS' if ok else 'FAIL', life, why,
+             {True: 'PASS', False: 'FAIL', None: 'no verdict'}[sh]))
+    return bool(ok)
+
+
+def _si2_manifest_at_stage1():
+    """The record set FIXED at stage 1: the twenty-two records at the mandated base, read from git
+    and not from the working tree, plus the one record SI2-1 authorizes. Returns None if git could
+    not answer, which U5 treats as a failure."""
+    r = _rbr_git('ls-tree', '--name-only', '%s:verification/seals' % _SI2_BASE, tag='R7-SI2')
+    if r is None or r.returncode != 0:
+        return None
+    out = {}
+    for name in r.stdout.decode('utf-8', 'replace').split():
+        if not name.endswith('.json'):
+            continue
+        shown = _rbr_git('show', '%s:verification/seals/%s' % (_SI2_BASE, name), tag='R7-SI2')
+        if shown is None or shown.returncode != 0:
+            return None
+        try:
+            out[name[:-5]] = json.loads(shown.stdout.decode('utf-8'))
+        except ValueError:
+            return None
+    out['SI1'] = {'round': 'SI1', 'kind': 'base-only',
+                  'base': '99ab6370470ed9d9e4005551581c6c8c18e54bd2'}
+    return out
+
+
+_SI2_INTEGRITY = {}
+_SI2_SHADOW_INTEGRITY = []
+
+
+def _si2_integrity():
+    """U5 -- the data-driven integrity rule: SI-1's `_si1_integrity` over the record set fixed at
+    stage 1 against the manifest now, reporting mutated, removed and added as three distinct
+    conditions. After the cutover this gates; the per-round seal-integrity comparisons keep running
+    as a shadow through `_si2_shadow_integrity` and gate nothing. Computed once per process."""
+    if 'live' not in _SI2_INTEGRITY:
+        at1 = _si2_manifest_at_stage1()
+        now, _errs = _si1_load()
+        _SI2_INTEGRITY['live'] = None if at1 is None else _si1_integrity(at1, now)
+    return _SI2_INTEGRITY['live']
+
+
+def _si2_integrity_ok():
+    """U5's verdict: the record set fixed at stage 1 is present, unmutated, and joined by nothing."""
+    d = _si2_integrity()
+    return d is not None and not any(d.values())
+
+
+def _si2_shadow_integrity(tag, verdict):
+    """A per-round seal-integrity comparison's verdict, RECORDED beside U5's and gating nothing."""
+    _SI2_SHADOW_INTEGRITY.append({'tag': tag, 'shadow_ok': bool(verdict)})
+    print('    %s prior-seal comparison (legacy): %s -- recorded as a SHADOW of U5, gating nothing'
+          % (tag, 'PASS' if verdict else 'FAIL'))
+    return bool(verdict)
+
+
+def _si2_build_repo():
+    """SI-1's synthetic repository, extended with the topologies the union rule's cases need:
+
+        Lx(Hh, E2)          a landing of E2 on the HEAD side only, unreachable from origin/main
+        Hx(Lx)              a head that reaches Lx and not Lm
+        Hs(Maf)             a head that reaches Lm, as origin/main does
+        refs/heads/main-local-only = Maf   a LOCAL branch carrying the landing, never accepted
+    """
+    d, n, g = _si1_build_repo()
+    tree = g('write-tree').stdout.strip()
+
+    def ct(msg, *parents):
+        args = ['commit-tree', tree, '-m', msg]
+        for p in parents:
+            args += ['-p', p]
+        return g(*args).stdout.strip()
+
+    n['Lx'] = ct('Lx', n['Hh'], n['E2'])
+    n['Hx'] = ct('Hx', n['Lx'])
+    n['Hs'] = ct('Hs', n['Maf'])
+    g('update-ref', 'refs/heads/main-local-only', n['Maf'])
+    return d, n, g
+
+
+def _si2_negatives():
+    """The negative suite SI-2's freeze adds (cases 1 to 8, 11, 12 and 13; 9 and 10 are text and
+    static controls in R7-SI2), each required to satisfy its NAMED outcome for its named reason."""
+    import shutil
+    d, n, _g = _si2_build_repo()
+    R = []
+
+    def rec(stem, kind, base, sealed=None, merge=None):
+        r = {'round': stem, 'kind': kind, 'base': base}
+        if sealed is not None:
+            r['sealed_head'] = sealed
+        if merge is not None:
+            r['merge'] = merge
+        return r
+
+    def u3(records, env=None, target=None, targets=None, prospective=None):
+        got = _si2_validate(records, prospective=prospective, env=env, cwd=d, target=target,
+                            targets=targets)
+        if got is None:
+            return None, False, 'U3 failed closed and returned no verdict'
+        stem = sorted(set(records) | set(prospective or {}))[0]
+        return got[stem]
+
+    good_rec = rec('Z', 'sealed', n['B'], n['E2'], n['Lm'])
+    try:
+        # 1 -- the landing on the live base branch and not reachable from the head: PASSES. This is
+        # SI-1's control 10 and the adjudication made executable.
+        env1 = _si1_pr_env(d, n['Hh'], 'main', n['c0'])
+        t1 = _si2_union_targets(env=env1, tag='R7-SI2', cwd=d)
+        c1 = _si2_derive_union(n['E2'], t1, tag='R7-SI2', cwd=d)
+        life1, ok1, why1 = u3({'Z': good_rec}, env=env1)
+        R.append(('1 landing on the live base branch only', bool(ok1) and c1 == [n['Lm']]
+                  and t1 is not None and [r for r, _l in t1] == [n['Hh'], n['Maf']],
+                  'targets %s; derived %d candidate(s); %s' % (
+                      [l for _r, l in (t1 or [])], len(c1 or []), why1)))
+        # 2 -- the same, with the base branch rewound off the landing: FAILS.
+        env2 = _si1_pr_env(d, n['Hh'], 'no-landing', n['Maf'])
+        life2, ok2, why2 = u3({'Z': good_rec}, env=env2)
+        R.append(('2 base branch rewound', (not ok2) and 'zero candidates' in why2, why2))
+        # 3 -- an unresolvable remote base ref FAILS CLOSED, and pull_request.base.sha is not
+        # accepted in its place even when present, well-formed and carrying the landing; nor is
+        # the LOCAL branch of that name, which does carry it.
+        env3 = _si1_pr_env(d, n['Hh'], 'main-local-only', n['Maf'])
+        t3 = _si2_union_targets(env=env3, tag='R7-SI2', cwd=d)
+        life3, ok3, why3 = u3({'Z': good_rec}, env=env3)
+        R.append(('3 unresolvable base ref, base.sha and local branch refused',
+                  t3 is None and (not ok3) and 'no verdict' in why3, why3))
+        # 4 -- head and base each carrying a DIFFERENT merge with E as non-first parent: FAILS as
+        # multiple candidates, not resolved in favour of either.
+        env4 = _si1_pr_env(d, n['Hx'], 'main', n['c0'])
+        c4 = _si2_derive_union(n['E2'], _si2_union_targets(env=env4, tag='R7-SI2', cwd=d),
+                               tag='R7-SI2', cwd=d)
+        life4, ok4, why4 = u3({'Z': good_rec}, env=env4)
+        R.append(('4 different landings on head and base', (not ok4) and 'multiple candidates' in why4
+                  and sorted(c4 or []) == sorted([n['Lm'], n['Lx']]), why4))
+        # 5 -- head and base carrying the SAME landing: PASSES with exactly one candidate after
+        # deduplication; a validator that reports two has not deduplicated.
+        env5 = _si1_pr_env(d, n['Hs'], 'main', n['c0'])
+        c5 = _si2_derive_union(n['E2'], _si2_union_targets(env=env5, tag='R7-SI2', cwd=d),
+                               tag='R7-SI2', cwd=d)
+        life5, ok5, why5 = u3({'Z': good_rec}, env=env5)
+        R.append(('5 same landing on both sides, deduplicated', bool(ok5) and c5 == [n['Lm']],
+                  '%d candidate(s) after deduplication; %s' % (len(c5 or []), why5)))
+        # 6 -- the synthetic PR merge offered as a target is REFUSED: U1 never returns it, and the
+        # verdict under the real event differs from what the synthetic merge would have given.
+        env6 = _si1_pr_env(d, n['Hh'], 'no-landing', n['Maf'])
+        t6 = _si2_union_targets(env=env6, tag='R7-SI2', cwd=d)
+        life6, ok6, why6 = u3({'Z': good_rec}, env=env6)
+        _l, ok6w, _w = u3({'Z': good_rec}, target=n['Hm'], targets=[(n['Hm'], 'synthetic merge HEAD')])
+        R.append(('6 synthetic merge refused', t6 is not None and n['Hm'] not in [r for r, _ in t6]
+                  and (not ok6) and bool(ok6w), 'resolved event FAILS; the synthetic merge would PASS'))
+        # 7 -- a record whose merge is rewritten to a merge that genuinely exists in the union:
+        # FAILS on pin-versus-derived disagreement, the case that proves derivation alone is not
+        # enough.
+        life7, ok7, why7 = u3({'Z': rec('Z', 'sealed', n['B'], n['E2'], n['Wr'])},
+                              target=n['Wr'], targets=[(n['Wr'], 'target')])
+        R.append(('7 pin rewritten to a real merge in the union', (not ok7) and 'disagreement' in why7,
+                  why7))
+        # 8 -- a record added beyond SI2-1's single authorization: FAILS as an unauthorized addition
+        # under U5, reported as `added` alone.
+        at1 = {'A': {'kind': 'sealed', 'base': n['B']}, 'SI1': {'kind': 'base-only', 'base': n['B9']}}
+        d8 = _si1_integrity(at1, dict(at1, ZZ={'kind': 'base-only', 'base': n['c0']}))
+        R.append(('8 record added beyond SI2-1', [k for k, v in d8.items() if v] == ['added'],
+                  'reported %s' % (d8,)))
+        # 11 -- R7-SI2's own chronology keyed on a manifest record: FAILS, because SI-2 has none.
+        got11 = _si2_validate({}, cwd=d, target=n['Maf'], targets=[(n['Maf'], 'target')])
+        R.append(('11 bootstrap guard keyed on a manifest record', got11 is not None
+                  and 'SI2' not in got11, 'no SI2 record, so no verdict; the bootstrap guard '
+                  'reads _SI2_BASE and runs the strengthened check instead'))
+        # 12 -- a twenty-fourth record: FAILS the scoped R7-SI1 integrity contract AND U5.
+        recs12 = {stem: {} for stem in _SI1_TRANSCRIBED} | {'SI1': {}, 'ZZ': {}}
+        unauthorized12 = sorted(set(recs12) - _SI1_TRANSCRIBED - _SI1_AUTHORIZED_ADDITIONS)
+        d12 = _si1_integrity({k: v for k, v in recs12.items() if k != 'ZZ'}, recs12)
+        R.append(('12 twenty-fourth record', unauthorized12 == ['ZZ'] and d12['added'] == ['ZZ']
+                  and not d12['mutated'] and not d12['removed'],
+                  'scoped R7-SI1 reports %s unauthorized; U5 reports %s' % (unauthorized12, d12)))
+        # 13 -- a THIRD legacy-style assignment fails N13 as amended: the allowance is a set of
+        # exactly two. Run through N13's own parser over the real sources with one line appended.
+        pat13 = re.compile(r"^_([A-Z0-9]+)_(BASE|SEALED_HEAD|MERGE)\s*=\s*'([0-9a-f]{40})'\s*$", re.M)
+        here = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+        was = _rbr_git('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI1_BASE, tag='R7-SI2')
+        if was is None or was.returncode != 0:
+            R.append(('13 third legacy-style assignment', False, 'base source unavailable'))
+        else:
+            wasset = set(pat13.findall(was.stdout.decode('utf-8', 'replace')))
+            allow = {('SI1', 'BASE', _SI1_BASE), ('SI2', 'BASE', _SI2_BASE)}
+            now0 = set(pat13.findall(here))
+            bad = [set(pat13.findall(here + "\n_SI2_SEALED_HEAD = '%s'\n" % ('a' * 40))),
+                   set(pat13.findall(here + "\n_ZZ_BASE = '%s'\n" % ('b' * 40)))]
+            R.append(('13 third legacy-style assignment',
+                      (now0 - wasset == allow) and all((b - wasset) != allow for b in bad),
+                      'head minus base is exactly the two-element allowance; a _SI2_SEALED_HEAD or '
+                      'a _ZZ_BASE appended makes it three and fails'))
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+    return R
+# ==== SI2-AUTHORITY-END ====
+
 
 def _rbr_archive_regression():
     """Synthetic regression: two sibling execution rounds merged sequentially, both archived
@@ -23708,9 +24337,11 @@ check('R7-RNT', ok_rnt,
 # code and not a slot.
 
 _SI1DIR = os.path.join(VERIFICATION, 'infrastructure', 'round-si-1-shadow-seal-validator', '')
-# Relative to verification/, because the record reader resolves names through `_artifact`.
-_SI1SEALSREL = 'seals'
-_SI1SEALS = os.path.join(VERIFICATION, 'seals')
+# The record reader's constants and the marker-bounded SI1-VALIDATOR region -- O1, O2, the
+# derivation, the integrity rule -- are defined EARLIER in this file, right after SI-2's base
+# constant: SI-2 relocated them verbatim (Amendment 2, point 4) so that the prior-round clauses,
+# which now call U3 keyed on their manifest records, can reach the validator. R7-SI2 checks that the
+# region differs from the one SI-1 landed by exactly the two-line derivation hook and nothing else.
 # The mandated execution base: the merge commit of this round's control-plane PR #667.
 _SI1_BASE = '99ab6370470ed9d9e4005551581c6c8c18e54bd2'
 
@@ -23735,307 +24366,6 @@ def _si1_scoped(records):
     return {k: v for k, v in records.items() if k in _SI1_TRANSCRIBED}
 
 
-_SI1_HEX = re.compile(r'[0-9a-f]{40}')
-
-# ==== SI1-VALIDATOR-BEGIN ====
-# Everything between these markers is the GENERIC validator, and SI1-2 checks mechanically that no
-# round stem appears anywhere in it. A stem here would be the per-round coupling this round exists
-# to remove.
-
-# The discriminated union. Each kind names the fields it REQUIRES and the fields it FORBIDS, and
-# forbids means a hard failure rather than a tolerated null: a base-only record carrying
-# `sealed_head: null` is rejected, because those rounds are not seals waiting for fields -- they are
-# rounds for which no seal exists, and the schema says so structurally.
-_SI1_KINDS = {
-    'base-only': (('base',), ('sealed_head', 'merge')),
-    'sealed': (('base', 'sealed_head', 'merge'), ()),
-}
-_SI1_STATES = ('EXECUTION', 'LANDED-PENDING-PIN', 'ARCHIVED')
-# Not a fourth state. A record with no lifecycle reports this, and no lifecycle value is ever stored.
-_SI1_NA = 'not-applicable'
-
-
-def _si1_schema(rec, stem):
-    """O1 -- the record schema, a discriminated union on `kind`.
-
-    Returns `(True, kind)` or `(False, reason)`. Unknown keys are a failure rather than ignored,
-    every hash is checked as 40 lowercase hex before it is used, and a forbidden field is a failure
-    even when its value is null."""
-    if not isinstance(rec, dict):
-        return False, 'schema: record is not a JSON object'
-    if rec.get('round') != stem:
-        return False, 'schema: round field %r does not match the filename %r' % (rec.get('round'), stem)
-    kind = rec.get('kind')
-    if kind not in _SI1_KINDS:
-        return False, 'schema: kind %r is not one of %s' % (kind, sorted(_SI1_KINDS))
-    required, forbidden = _SI1_KINDS[kind]
-    # FORBIDDEN IS CHECKED BEFORE UNKNOWN, and the order is the point. A forbidden field is also an
-    # unknown one for this kind, so an unknown-key check reached first would report
-    # `base-only` carrying `sealed_head` as a stray key rather than as what it is -- a seal asserted
-    # for a round that has none. The diagnosis is the value of the check, so it is reported first.
-    for field in forbidden:
-        if field in rec:
-            return False, ('schema: kind %r forbids %s, and it is present (value %r) -- a forbidden '
-                           'field is a failure even as null' % (kind, field, rec[field]))
-    allowed = {'round', 'kind'} | set(required)
-    extra = sorted(set(rec) - allowed)
-    if extra:
-        return False, 'schema: unknown key(s) %s' % ', '.join(extra)
-    for field in required:
-        if field not in rec:
-            return False, 'schema: kind %r requires %s and it is missing' % (kind, field)
-        val = rec[field]
-        if not (isinstance(val, str) and _SI1_HEX.fullmatch(val)):
-            return False, 'schema: %s is not 40 lowercase hex (%r)' % (field, val)
-    return True, kind
-
-
-def _si1_load(root=None, read=None):
-    """The LOGICAL manifest, assembled from one record per round.
-
-    Storage is per-record so that two sibling rounds sealing at the same time touch different files;
-    the validator reasons over the SET of records and never over file layout as a source of
-    semantics. Returns `(records, errors)` where a record that will not parse is an error rather
-    than an absence."""
-    root = _SI1SEALSREL if root is None else root
-    read = _bb_read if read is None else read
-    records, errors = {}, {}
-    # `read` goes through `_artifact`, which resolves names RELATIVE to verification/, so the
-    # directory is listed absolutely and each record is read by its relative name. Passing an
-    # absolute path to the reader silently yields a path under verification/ and a missing file.
-    absroot = os.path.join(VERIFICATION, *root.split('/'))
-    if not os.path.isdir(absroot):
-        return records, errors
-    for name in sorted(os.listdir(absroot)):
-        if not name.endswith('.json'):
-            errors[name] = 'schema: not a .json record'
-            continue
-        stem = name[:-len('.json')]
-        try:
-            records[stem] = json.loads(read('%s/%s' % (root, name)).decode('utf-8'))
-        except Exception as exc:
-            errors[stem] = 'schema: unreadable record (%s)' % type(exc).__name__
-    return records, errors
-
-
-def _si1_derive(sealed, target, tag='R7-SI1', cwd=None, first_parent_only=False):
-    """The derivation: the landing merges in `target`'s history whose NON-FIRST parent is exactly
-    `sealed`.
-
-    Scoped to REACHABLE history and not to the first-parent spine, because the spine is wrong for
-    this repository: of the eighteen archived landings, six lie on it and twelve lie one step off
-    it, the second shape arising wherever a round's landing merge and its pin entered main through
-    one pull request. `first_parent_only` exists so the narrower scope stays measurable as a
-    regression rather than becoming reachable by accident.
-
-    Returns the candidate list, or None if git could not answer -- which the caller treats as a
-    failure and never as an empty list."""
-    args = ['log', '--format=%H %P']
-    if first_parent_only:
-        args.append('--first-parent')
-    r = _rbr_git(*(args + [target]), tag=tag, cwd=cwd)
-    if r is None or r.returncode != 0:
-        return None
-    out = []
-    for line in r.stdout.decode('utf-8', 'replace').split('\n'):
-        parts = line.split()
-        if len(parts) > 2 and sealed in parts[2:]:
-            out.append(parts[0])
-    return out
-
-
-def _si1_landing_of_base(base, target, tag='R7-SI1', cwd=None):
-    """The merges in `target`'s history that LOOK like a landing of an execution on `base`: a merge
-    whose non-first parent passes the strengthened ancestry check against `base`.
-
-    This is how a round with no manifest record is classified without knowing its execution head.
-    Returns the candidate list, or None if git could not answer."""
-    r = _rbr_git('log', '--format=%H %P', target, tag=tag, cwd=cwd)
-    if r is None or r.returncode != 0:
-        return None
-    out = []
-    for line in r.stdout.decode('utf-8', 'replace').split('\n'):
-        parts = line.split()
-        if len(parts) > 2:
-            for parent in parts[2:]:
-                if _si1_quiet_ancestry(base, parent, tag=tag, cwd=cwd):
-                    out.append(parts[0])
-                    break
-    return out
-
-
-def _si1_quiet_ancestry(base, target, tag='R7-SI1', cwd=None):
-    """The strengthened predicate without the narration: `base` an ancestor of `target`, and every
-    commit of `git rev-list target ^base` itself a descendant of `base`.
-
-    Used where the answer is a classification step rather than a verdict, so that searching a
-    history does not print a verdict line per candidate. The gating calls go through
-    `_rbr_strong_ancestry`, which is the same predicate and does narrate."""
-    for rev in (base, target):
-        if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
-            return False
-    r = _rbr_git('merge-base', '--is-ancestor', base, target, tag=tag, cwd=cwd)
-    if r is None or r.returncode != 0:
-        return False
-    listed = _rbr_git('rev-list', target, '^%s' % base, tag=tag, cwd=cwd)
-    if listed is None or listed.returncode != 0:
-        return False
-    for rev in listed.stdout.decode('utf-8', 'replace').split():
-        step = _rbr_git('merge-base', '--is-ancestor', base, rev, tag=tag, cwd=cwd)
-        if step is None or step.returncode != 0:
-            return False
-    return True
-
-
-def _si1_reachable(rev, targets, tag='R7-SI1', cwd=None):
-    """Whether `rev` is reachable from any of the visibility targets. Fail-closed: an unresolvable
-    target is not a reason to pass."""
-    for cand, _why in targets:
-        if cand is None:
-            continue
-        if not _rbr_ensure_present(cand, tag=tag, cwd=cwd):
-            continue
-        r = _rbr_git('merge-base', '--is-ancestor', rev, cand, tag=tag, cwd=cwd)
-        if r is not None and r.returncode == 0:
-            return True, _why
-    return False, None
-
-
-def _si1_validate(records, prospective=None, env=None, tag='R7-SI1', cwd=None,
-                  target=None, label=None, num=None, targets=None, errors=None):
-    """O2 -- the generic validator.
-
-    Returns, per round, `(lifecycle, ok, reason)`. It returns a verdict for every record and EITHER
-    a lifecycle state OR `_SI1_NA`, because NOT EVERY RECORD HAS A LIFECYCLE: the three states are
-    the lifecycle of a SEAL-PRODUCING round, not of every manifest record.
-
-    A `base-only` record is a completed historical non-sealing round. Its schema, its pinned base
-    and its record integrity are checked, and it is not classified into any of the three states.
-    Classifying it `EXECUTION` -- which the natural reading of "no record, or a record with no
-    sealed_head" does -- would leave four completed rounds permanently executing and would keep
-    applying execution ancestry semantics to them on every future repository state. A round for
-    which no seal exists is not a round whose seal has not arrived yet.
-
-    There is no round-specific branch anywhere below, and SI1-2 checks that mechanically."""
-    out = {}
-    if target is None:
-        target, label, num = _rbr_target_commit(env=env, tag=tag)
-        if target is None:
-            return None
-    if targets is None:
-        targets = _rbr_archive_visibility_targets(env=env, tag=tag, cwd=cwd)
-    if targets is None:
-        # The resolver already said why and failed closed. Returning None here keeps that decision
-        # instead of iterating over it: the first candidate passed None onward, where only the order
-        # of the checks kept it from being indexed.
-        return None
-    # The target is compared against commit SHAs below, so a symbolic name is resolved once here.
-    # `HEAD` is a legitimate target on a push event and an illegitimate one on a pull request; which
-    # it is was decided by `_rbr_target_commit` above, and this only turns a name into an object.
-    _res = _rbr_git('rev-parse', '--verify', '--quiet', target + '^{commit}', tag=tag, cwd=cwd)
-    if _res is None or _res.returncode != 0:
-        return None
-    tsha = _res.stdout.decode('utf-8', 'replace').strip()
-    for stem, reason in sorted((errors or {}).items()):
-        out[stem] = (None, False, reason)
-    for stem in sorted(records):
-        good, info = _si1_schema(records[stem], stem)
-        if not good:
-            out[stem] = (None, False, info)
-            continue
-        rec, kind = records[stem], info
-        if kind == 'base-only':
-            if not _rbr_ensure_present(rec['base'], tag=tag, cwd=cwd):
-                out[stem] = (_SI1_NA, False, 'pinned base %s is absent' % rec['base'][:12])
-                continue
-            seen, why = _si1_reachable(rec['base'], targets, tag=tag, cwd=cwd)
-            out[stem] = (_SI1_NA, seen,
-                         ('historical non-sealing record; pinned base %s reachable from %s'
-                          % (rec['base'][:12], why)) if seen else
-                         'pinned base %s is not reachable; failing closed' % rec['base'][:12])
-            continue
-        base, sealed, pinned = rec['base'], rec['sealed_head'], rec['merge']
-        for rev in (sealed, pinned):
-            if not _rbr_ensure_present(rev, tag=tag, cwd=cwd):
-                out[stem] = ('ARCHIVED', False,
-                             'unreachable: %s is absent from this repository' % rev[:12])
-                break
-        else:
-            cands = _si1_derive(sealed, target, tag=tag, cwd=cwd)
-            if cands is None:
-                out[stem] = ('ARCHIVED', False, 'derivation could not be run; failing closed')
-                continue
-            uniq = sorted(set(cands))
-            if not uniq:
-                out[stem] = ('ARCHIVED', False,
-                             'zero candidates: no merge reachable from %s carries %s as a non-first '
-                             'parent' % (label, sealed[:12]))
-                continue
-            if len(uniq) > 1:
-                out[stem] = ('ARCHIVED', False,
-                             'multiple candidates: %s' % ', '.join(c[:12] for c in uniq))
-                continue
-            if uniq[0] != pinned:
-                out[stem] = ('ARCHIVED', False,
-                             'disagreement: pinned %s, derived %s' % (pinned[:12], uniq[0][:12]))
-                continue
-            if not _si1_quiet_ancestry(base, sealed, tag=tag, cwd=cwd):
-                out[stem] = ('ARCHIVED', False,
-                             'the sealed head %s does not pass the strengthened check against %s'
-                             % (sealed[:12], base[:12]))
-                continue
-            ok = True
-            for rev in (pinned, sealed):
-                seen, _why = _si1_reachable(rev, targets, tag=tag, cwd=cwd)
-                if not seen:
-                    out[stem] = ('ARCHIVED', False,
-                                 '%s is not reachable from any visibility target; failing closed'
-                                 % rev[:12])
-                    ok = False
-                    break
-            if ok:
-                out[stem] = ('ARCHIVED', True,
-                             'pinned == derived %s; second parent is the sealed head; ancestry and '
-                             'reachability hold' % pinned[:12])
-    for stem, base in sorted((prospective or {}).items()):
-        if not _rbr_ensure_present(base, tag=tag, cwd=cwd):
-            out[stem] = (None, False, 'pinned base %s is absent' % base[:12])
-            continue
-        landings = _si1_landing_of_base(base, target, tag=tag, cwd=cwd)
-        if landings is None:
-            out[stem] = (None, False, 'landing search could not be run; failing closed')
-            continue
-        if tsha in landings:
-            out[stem] = ('LANDED-PENDING-PIN', True,
-                         'the resolved target IS the landing merge; permitted, and the seal record '
-                         'is still owed')
-            continue
-        if landings:
-            out[stem] = ('LANDED-PENDING-PIN', False,
-                         'seal pending: %s descends from the unpinned landing %s'
-                         % (label, landings[0][:12]))
-            continue
-        good = _rbr_strong_ancestry(base, target, label, num, tag=tag, cwd=cwd)
-        out[stem] = ('EXECUTION', good,
-                     'prospective execution certified against %s' % base[:12] if good else
-                     'prospective execution does not descend from %s' % base[:12])
-    return out
-
-
-def _si1_integrity(at_base, now):
-    """Manifest integrity over the ENTRY SET as well as entry contents.
-
-    Mutated, removed and added are three DISTINCT conditions, reported separately. With one record
-    per round a deletion is as easy as an edit, and a contents-only rule would let one pass
-    invisibly. A change to previously certified seal data requires prospective authorization by the
-    round that intends it; this round authorizes none, so its only permitted change to the set is
-    its own additions."""
-    return {
-        'mutated': sorted(k for k in set(at_base) & set(now) if at_base[k] != now[k]),
-        'removed': sorted(set(at_base) - set(now)),
-        'added': sorted(set(now) - set(at_base)),
-    }
-# ==== SI1-VALIDATOR-END ====
 
 
 def _si1_transcribe(text):
