@@ -11008,7 +11008,7 @@ check('R7-ARCH', ok_arch,
       'and no base is touched by archive mode; it re-certifies the object that was reviewed.')
 
 
-def _rbr_base_ancestry():
+def _rbr_legacy_ancestry():
     """B2 -- the EXECUTION HEAD descends from the control plane's merge commit.
 
     This is the half of the chronology control that a content hash cannot carry, so it is asked of
@@ -11037,11 +11037,18 @@ def _rbr_base_ancestry():
     if r is None:
         return False
     if r.returncode != 0:
-        print('    R7-RBR ancestry: %s is present but is NOT an ancestor of %s'
+        print('    R7-RBR/shadow ancestry: %s is present but is NOT an ancestor of %s'
               % (_RBR_BASE[:12], label))
         return False
-    print('    R7-RBR ancestry: certified %s descends from %s' % (label, _RBR_BASE[:12]))
+    print('    R7-RBR/shadow ancestry: certified %s descends from %s' % (label, _RBR_BASE[:12]))
     return True
+
+
+def _rbr_base_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    RBR.json, and nothing else. The round's original check, `_rbr_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('RBR', tag='R7-RBR', shadow=_rbr_legacy_ancestry)
 
 
 def _rbr_outcome(t=None):
@@ -11354,7 +11361,7 @@ def _abr_freeze_pin(read=_bb_read):
         '2e92464dca3809558959d240314dbaf9eaa1c500')
 
 
-def _abr_execution_ancestry():
+def _abr_legacy_ancestry():
     """C2 -- NO COMMIT REACHABLE FROM THE EXECUTION HEAD LIES OUTSIDE THE FREEZE'S DESCENDANTS.
 
     Head-only ancestry is too weak for the claim the freeze makes, and act 10's control plane says
@@ -11387,14 +11394,14 @@ def _abr_execution_ancestry():
     if r is None:
         return False
     if r.returncode != 0:
-        print('    R7-ABR ancestry: %s is present but is NOT an ancestor of %s'
+        print('    R7-ABR/shadow ancestry: %s is present but is NOT an ancestor of %s'
               % (_ABR_BASE[:12], label))
         return False
     listed = _abr_git('rev-list', '%s' % target, '^%s' % _ABR_BASE)
     if listed is None:
         return False
     if listed.returncode != 0:
-        print('    R7-ABR ancestry: could not enumerate the execution-only history; failing closed')
+        print('    R7-ABR/shadow ancestry: could not enumerate the execution-only history; failing closed')
         return False
     revs = listed.stdout.decode('utf-8', 'replace').split()
     for rev in revs:
@@ -11404,12 +11411,19 @@ def _abr_execution_ancestry():
         if step is None:
             return False
         if step.returncode != 0:
-            print('    R7-ABR ancestry: %s is reachable from %s but does NOT descend from %s -- '
+            print('    R7-ABR/shadow ancestry: %s is reachable from %s but does NOT descend from %s -- '
                   'pre-freeze side history' % (rev[:12], label, _ABR_BASE[:12]))
             return False
-    print('    R7-ABR ancestry: certified %s and all %d commit(s) of the execution-only history '
+    print('    R7-ABR/shadow ancestry: certified %s and all %d commit(s) of the execution-only history '
           'descend from %s' % (label, len(revs), _ABR_BASE[:12]))
     return True
+
+
+def _abr_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    ABR.json, and nothing else. The round's original check, `_abr_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('ABR', tag='R7-ABR', shadow=_abr_legacy_ancestry)
 
 
 def _abr_availability_first(t=None):
@@ -11794,7 +11808,7 @@ def _hya_freeze_pin(read=_bb_read):
         '934cd6aff1cfb07b823c9b131693ee59bb98c632')
 
 
-def _hya_execution_ancestry():
+def _hya_legacy_ancestry():
     """Y2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim through acts 11 and 12's copies: the head-only
@@ -11809,8 +11823,15 @@ def _hya_execution_ancestry():
         target, label, num = _hya_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_HYA_BASE, target, label, num, tag='R7-HYA')
-    return _rbr_archive_ancestry(_HYA_BASE, _HYA_SEALED_HEAD, _HYA_MERGE, tag='R7-HYA')
+        return _rbr_strong_ancestry(_HYA_BASE, target, label, num, tag='R7-HYA/shadow')
+    return _rbr_archive_ancestry(_HYA_BASE, _HYA_SEALED_HEAD, _HYA_MERGE, tag='R7-HYA/shadow')
+
+
+def _hya_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    HYA.json, and nothing else. The round's original check, `_hya_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('HYA', tag='R7-HYA', shadow=_hya_legacy_ancestry)
 
 
 def _hya_outcome(t=None):
@@ -12247,7 +12268,7 @@ def _clg_freeze_pin(read=_bb_read):
         '0f6d37fafd857d9e54d5dbff6d062cc360ea08e5')
 
 
-def _clg_execution_ancestry():
+def _clg_legacy_ancestry():
     """E2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
@@ -12264,12 +12285,12 @@ def _clg_execution_ancestry():
     if r is None:
         return False
     if r.returncode != 0:
-        print('    R7-CLG ancestry: %s is present but is NOT an ancestor of %s'
+        print('    R7-CLG/shadow ancestry: %s is present but is NOT an ancestor of %s'
               % (_CLG_BASE[:12], label))
         return False
     listed = _clg_git('rev-list', '%s' % target, '^%s' % _CLG_BASE)
     if listed is None or listed.returncode != 0:
-        print('    R7-CLG ancestry: could not enumerate the execution-only history; failing closed')
+        print('    R7-CLG/shadow ancestry: could not enumerate the execution-only history; failing closed')
         return False
     revs = listed.stdout.decode('utf-8', 'replace').split()
     for rev in revs:
@@ -12279,12 +12300,19 @@ def _clg_execution_ancestry():
         if step is None:
             return False
         if step.returncode != 0:
-            print('    R7-CLG ancestry: %s is reachable from %s but does NOT descend from %s -- '
+            print('    R7-CLG/shadow ancestry: %s is reachable from %s but does NOT descend from %s -- '
                   'pre-freeze side history' % (rev[:12], label, _CLG_BASE[:12]))
             return False
-    print('    R7-CLG ancestry: certified %s and all %d commit(s) of the execution-only history '
+    print('    R7-CLG/shadow ancestry: certified %s and all %d commit(s) of the execution-only history '
           'descend from %s' % (label, len(revs), _CLG_BASE[:12]))
     return True
+
+
+def _clg_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    CLG.json, and nothing else. The round's original check, `_clg_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('CLG', tag='R7-CLG', shadow=_clg_legacy_ancestry)
 
 
 def _clg_two_stabilizers(t=None):
@@ -12785,7 +12813,7 @@ def _tsg_freeze_pin(read=_bb_read):
         '5850238f290f0424ff677ff6d5cc2c039b1f58c2')
 
 
-def _tsg_execution_ancestry():
+def _tsg_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim through act 11's copy: the head-only check is
@@ -12802,12 +12830,12 @@ def _tsg_execution_ancestry():
     if r is None:
         return False
     if r.returncode != 0:
-        print('    R7-TSG ancestry: %s is present but is NOT an ancestor of %s'
+        print('    R7-TSG/shadow ancestry: %s is present but is NOT an ancestor of %s'
               % (_TSG_BASE[:12], label))
         return False
     listed = _tsg_git('rev-list', '%s' % target, '^%s' % _TSG_BASE)
     if listed is None or listed.returncode != 0:
-        print('    R7-TSG ancestry: could not enumerate the execution-only history; failing closed')
+        print('    R7-TSG/shadow ancestry: could not enumerate the execution-only history; failing closed')
         return False
     revs = listed.stdout.decode('utf-8', 'replace').split()
     for rev in revs:
@@ -12817,12 +12845,19 @@ def _tsg_execution_ancestry():
         if step is None:
             return False
         if step.returncode != 0:
-            print('    R7-TSG ancestry: %s is reachable from %s but does NOT descend from %s -- '
+            print('    R7-TSG/shadow ancestry: %s is reachable from %s but does NOT descend from %s -- '
                   'pre-freeze side history' % (rev[:12], label, _TSG_BASE[:12]))
             return False
-    print('    R7-TSG ancestry: certified %s and all %d commit(s) of the execution-only history '
+    print('    R7-TSG/shadow ancestry: certified %s and all %d commit(s) of the execution-only history '
           'descend from %s' % (label, len(revs), _TSG_BASE[:12]))
     return True
+
+
+def _tsg_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    TSG.json, and nothing else. The round's original check, `_tsg_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('TSG', tag='R7-TSG', shadow=_tsg_legacy_ancestry)
 
 
 def _tsg_all_landed(t=None):
@@ -13251,7 +13286,7 @@ def _sgt_freeze_pin(read=_bb_read):
         'b8168df9ed1acff21eb89e84487b43470124f845')
 
 
-def _sgt_execution_ancestry():
+def _sgt_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
@@ -13266,8 +13301,15 @@ def _sgt_execution_ancestry():
         target, label, num = _sgt_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_SGT_BASE, target, label, num, tag='R7-SGT')
-    return _rbr_archive_ancestry(_SGT_BASE, _SGT_SEALED_HEAD, _SGT_MERGE, tag='R7-SGT')
+        return _rbr_strong_ancestry(_SGT_BASE, target, label, num, tag='R7-SGT/shadow')
+    return _rbr_archive_ancestry(_SGT_BASE, _SGT_SEALED_HEAD, _SGT_MERGE, tag='R7-SGT/shadow')
+
+
+def _sgt_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    SGT.json, and nothing else. The round's original check, `_sgt_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('SGT', tag='R7-SGT', shadow=_sgt_legacy_ancestry)
 
 
 def _sgt_outcome(t=None):
@@ -14171,7 +14213,7 @@ def _a12p_freeze_pin(read=_bb_read):
     return _bb_blob(_A12P_PREREG, read) == '1d471eddde3bc0df8b7dbf26ddf642c4af6783b5'
 
 
-def _a12p_execution_ancestry():
+def _a12p_legacy_ancestry():
     """P2 -- act 10's strengthened ancestry predicate against the merge commit of PR #600.
 
     Execution mode (pin unset): the strong check against the run's real target. Archive mode (pin
@@ -14179,11 +14221,18 @@ def _a12p_execution_ancestry():
     pinned merge 2706a3aa7b87 required to carry it and both required reachable from the current
     target, fail-closed."""
     if _A12P_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-A12P')
+        target, label, num = _rbr_target_commit(tag='R7-A12P/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_A12P_BASE, target, label, num, tag='R7-A12P')
-    return _rbr_archive_ancestry(_A12P_BASE, _A12P_SEALED_HEAD, _A12P_MERGE, tag='R7-A12P')
+        return _rbr_strong_ancestry(_A12P_BASE, target, label, num, tag='R7-A12P/shadow')
+    return _rbr_archive_ancestry(_A12P_BASE, _A12P_SEALED_HEAD, _A12P_MERGE, tag='R7-A12P/shadow')
+
+
+def _a12p_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    A12P.json, and nothing else. The round's original check, `_a12p_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('A12P', tag='R7-A12P', shadow=_a12p_legacy_ancestry)
 
 
 def _a12p_two_sided(main=None, expl=None, ch01=None):
@@ -14499,7 +14548,7 @@ def _cti_freeze_pin(read=_bb_read):
         '5d8bee2c616d12c53234c54bfa7efae19dc1dcc1')
 
 
-def _cti_execution_ancestry():
+def _cti_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim: the head-only check is insufficient because a
@@ -14514,8 +14563,15 @@ def _cti_execution_ancestry():
         target, label, num = _cti_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_CTI_BASE, target, label, num, tag='R7-CTI')
-    return _rbr_archive_ancestry(_CTI_BASE, _CTI_SEALED_HEAD, _CTI_MERGE, tag='R7-CTI')
+        return _rbr_strong_ancestry(_CTI_BASE, target, label, num, tag='R7-CTI/shadow')
+    return _rbr_archive_ancestry(_CTI_BASE, _CTI_SEALED_HEAD, _CTI_MERGE, tag='R7-CTI/shadow')
+
+
+def _cti_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    CTI.json, and nothing else. The round's original check, `_cti_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('CTI', tag='R7-CTI', shadow=_cti_legacy_ancestry)
 
 
 def _cti_outcome(t=None):
@@ -15075,7 +15131,7 @@ def _pqt_freeze_pin(read=_bb_read):
         '1b16008470bb1e2456c57aad58421a5941a55e0c')
 
 
-def _pqt_execution_ancestry():
+def _pqt_legacy_ancestry():
     """U2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim through acts 12's and 13's copies: the
@@ -15091,8 +15147,15 @@ def _pqt_execution_ancestry():
         target, label, num = _pqt_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_PQT_BASE, target, label, num, tag='R7-PQT')
-    return _rbr_archive_ancestry(_PQT_BASE, _PQT_SEALED_HEAD, _PQT_MERGE, tag='R7-PQT')
+        return _rbr_strong_ancestry(_PQT_BASE, target, label, num, tag='R7-PQT/shadow')
+    return _rbr_archive_ancestry(_PQT_BASE, _PQT_SEALED_HEAD, _PQT_MERGE, tag='R7-PQT/shadow')
+
+
+def _pqt_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    PQT.json, and nothing else. The round's original check, `_pqt_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('PQT', tag='R7-PQT', shadow=_pqt_legacy_ancestry)
 
 
 def _pqt_outcome(t=None):
@@ -15836,7 +15899,7 @@ def _hyb_freeze_pin(read=_bb_read):
         '37cc9dae301ee10d55adb73b296aa2fc7d0578e3')
 
 
-def _hyb_execution_ancestry():
+def _hyb_legacy_ancestry():
     """Z2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim through R7-HYA's copy. Execution mode (pins
@@ -15844,11 +15907,18 @@ def _hyb_execution_ancestry():
     same strong check re-run against the sealed head, with the pinned merge required to carry it
     and both required reachable from the current target, fail-closed."""
     if _HYB_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-HYB')
+        target, label, num = _rbr_target_commit(tag='R7-HYB/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_HYB_BASE, target, label, num, tag='R7-HYB')
-    return _rbr_archive_ancestry(_HYB_BASE, _HYB_SEALED_HEAD, _HYB_MERGE, tag='R7-HYB')
+        return _rbr_strong_ancestry(_HYB_BASE, target, label, num, tag='R7-HYB/shadow')
+    return _rbr_archive_ancestry(_HYB_BASE, _HYB_SEALED_HEAD, _HYB_MERGE, tag='R7-HYB/shadow')
+
+
+def _hyb_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    HYB.json, and nothing else. The round's original check, `_hyb_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('HYB', tag='R7-HYB', shadow=_hyb_legacy_ancestry)
 
 
 def _hyb_outcome(t=None):
@@ -16508,18 +16578,25 @@ def _a6p_freeze_pin(read=_bb_read):
     return _bb_blob(_A6P_PREREG, read) == 'e7cb7013747f783135c8e166d290ce6670df0ae9'
 
 
-def _a6p_execution_ancestry():
+def _a6p_legacy_ancestry():
     """P2 -- act 10's strengthened ancestry predicate against the merge commit of PR #604.
 
     Execution mode (pin unset, as now): the strong check against the run's real target. Archive
     mode (pin set): the same strong check re-run against the sealed head, with the pinned merge
     required to carry it and both required reachable from the current target, fail-closed."""
     if _A6P_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-A6P')
+        target, label, num = _rbr_target_commit(tag='R7-A6P/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_A6P_BASE, target, label, num, tag='R7-A6P')
-    return _rbr_archive_ancestry(_A6P_BASE, _A6P_SEALED_HEAD, _A6P_MERGE, tag='R7-A6P')
+        return _rbr_strong_ancestry(_A6P_BASE, target, label, num, tag='R7-A6P/shadow')
+    return _rbr_archive_ancestry(_A6P_BASE, _A6P_SEALED_HEAD, _A6P_MERGE, tag='R7-A6P/shadow')
+
+
+def _a6p_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    A6P.json, and nothing else. The round's original check, `_a6p_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('A6P', tag='R7-A6P', shadow=_a6p_legacy_ancestry)
 
 
 def _a6p_round1_pins(read=_bb_read):
@@ -16887,7 +16964,7 @@ def _wts_freeze_pin(read=_bb_read):
         '98cfcfdc0e74ffe0186c502517a842bfeb25d351')
 
 
-def _wts_execution_ancestry():
+def _wts_legacy_ancestry():
     """W2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused verbatim through `_rbr_strong_ancestry`. Execution
@@ -16898,8 +16975,15 @@ def _wts_execution_ancestry():
         target, label, num = _wts_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_WTS_BASE, target, label, num, tag='R7-WTS')
-    return _rbr_archive_ancestry(_WTS_BASE, _WTS_SEALED_HEAD, _WTS_MERGE, tag='R7-WTS')
+        return _rbr_strong_ancestry(_WTS_BASE, target, label, num, tag='R7-WTS/shadow')
+    return _rbr_archive_ancestry(_WTS_BASE, _WTS_SEALED_HEAD, _WTS_MERGE, tag='R7-WTS/shadow')
+
+
+def _wts_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    WTS.json, and nothing else. The round's original check, `_wts_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('WTS', tag='R7-WTS', shadow=_wts_legacy_ancestry)
 
 
 def _wts_outcome(t=None):
@@ -17449,7 +17533,7 @@ def _pc4_freeze_pin(read=_bb_read):
         'a80334a5d5f19125b69459523acf723b607f97e1')
 
 
-def _pc4_execution_ancestry():
+def _pc4_legacy_ancestry():
     """Z2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, carried forward by name: the head-only check is insufficient
@@ -17462,11 +17546,18 @@ def _pc4_execution_ancestry():
     mode (pin set): the same strong check re-run against the sealed head, with the pinned merge
     required to carry it and both required reachable from the current target, fail-closed."""
     if _PC4_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-PC4')
+        target, label, num = _rbr_target_commit(tag='R7-PC4/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_PC4_BASE, target, label, num, tag='R7-PC4')
-    return _rbr_archive_ancestry(_PC4_BASE, _PC4_SEALED_HEAD, _PC4_MERGE, tag='R7-PC4')
+        return _rbr_strong_ancestry(_PC4_BASE, target, label, num, tag='R7-PC4/shadow')
+    return _rbr_archive_ancestry(_PC4_BASE, _PC4_SEALED_HEAD, _PC4_MERGE, tag='R7-PC4/shadow')
+
+
+def _pc4_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    PC4.json, and nothing else. The round's original check, `_pc4_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('PC4', tag='R7-PC4', shadow=_pc4_legacy_ancestry)
 
 
 def _pc4_outcome(t=None):
@@ -17856,7 +17947,7 @@ def _pc4s_freeze_pin(read=_bb_read):
         '16cfd1303e7c279c8d6bab68b7112c3f25a7460e')
 
 
-def _pc4s_execution_ancestry():
+def _pc4s_legacy_ancestry():
     """Y2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     The head-only check is insufficient: a commit made before the freeze and merged in alongside it
@@ -17868,11 +17959,18 @@ def _pc4s_execution_ancestry():
     mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
     required to carry it and both required reachable from the current target, fail-closed."""
     if _PC4S_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-PC4S')
+        target, label, num = _rbr_target_commit(tag='R7-PC4S/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_PC4S_BASE, target, label, num, tag='R7-PC4S')
-    return _rbr_archive_ancestry(_PC4S_BASE, _PC4S_SEALED_HEAD, _PC4S_MERGE, tag='R7-PC4S')
+        return _rbr_strong_ancestry(_PC4S_BASE, target, label, num, tag='R7-PC4S/shadow')
+    return _rbr_archive_ancestry(_PC4S_BASE, _PC4S_SEALED_HEAD, _PC4S_MERGE, tag='R7-PC4S/shadow')
+
+
+def _pc4s_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    PC4S.json, and nothing else. The round's original check, `_pc4s_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('PC4S', tag='R7-PC4S', shadow=_pc4s_legacy_ancestry)
 
 
 def _pc4s_outcome(t=None):
@@ -18351,7 +18449,7 @@ def _a6d_freeze_pin(read=_bb_read):
         'afbf1ee0e8ea94cb7fb3e57e690cd08b8d7e0bc3')
 
 
-def _a6d_execution_ancestry():
+def _a6d_legacy_ancestry():
     """A2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through act 12's copy: the head-only check is
@@ -18366,8 +18464,15 @@ def _a6d_execution_ancestry():
         target, label, num = _a6d_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_A6D_BASE, target, label, num, tag='R7-A6D')
-    return _rbr_archive_ancestry(_A6D_BASE, _A6D_SEALED_HEAD, _A6D_MERGE, tag='R7-A6D')
+        return _rbr_strong_ancestry(_A6D_BASE, target, label, num, tag='R7-A6D/shadow')
+    return _rbr_archive_ancestry(_A6D_BASE, _A6D_SEALED_HEAD, _A6D_MERGE, tag='R7-A6D/shadow')
+
+
+def _a6d_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    A6D.json, and nothing else. The round's original check, `_a6d_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('A6D', tag='R7-A6D', shadow=_a6d_legacy_ancestry)
 
 
 def _a6d_outcome(t=None):
@@ -19073,7 +19178,7 @@ def _a6i_freeze_pin(read=_bb_read):
         '6f991c1348e0c568261894c41b129b7f942abee6')
 
 
-def _a6i_execution_ancestry():
+def _a6i_legacy_ancestry():
     """I2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through `_rbr_strong_ancestry`: the head-only check is
@@ -19090,8 +19195,15 @@ def _a6i_execution_ancestry():
         target, label, num = _a6i_target_commit()
         if target is None:
             return False
-        return _rbr_strong_ancestry(_A6I_BASE, target, label, num, tag='R7-A6I')
-    return _rbr_archive_ancestry(_A6I_BASE, _A6I_SEALED_HEAD, _A6I_MERGE, tag='R7-A6I')
+        return _rbr_strong_ancestry(_A6I_BASE, target, label, num, tag='R7-A6I/shadow')
+    return _rbr_archive_ancestry(_A6I_BASE, _A6I_SEALED_HEAD, _A6I_MERGE, tag='R7-A6I/shadow')
+
+
+def _a6i_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    A6I.json, and nothing else. The round's original check, `_a6i_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('A6I', tag='R7-A6I', shadow=_a6i_legacy_ancestry)
 
 
 def _a6i_untouched_pins(read=_bb_read):
@@ -19839,7 +19951,7 @@ def _hye_freeze_pin(read=_bb_read):
         '9f3f4ff4115c8d95215462acd257b4f6b32c9926')
 
 
-def _hye_execution_ancestry():
+def _hye_legacy_ancestry():
     """W2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     The head-only check is insufficient: a commit made before the freeze and merged in alongside it
@@ -19851,11 +19963,18 @@ def _hye_execution_ancestry():
     mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
     required to carry it and both required reachable from the current target, fail-closed."""
     if _HYE_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-HYE')
+        target, label, num = _rbr_target_commit(tag='R7-HYE/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_HYE_BASE, target, label, num, tag='R7-HYE')
-    return _rbr_archive_ancestry(_HYE_BASE, _HYE_SEALED_HEAD, _HYE_MERGE, tag='R7-HYE')
+        return _rbr_strong_ancestry(_HYE_BASE, target, label, num, tag='R7-HYE/shadow')
+    return _rbr_archive_ancestry(_HYE_BASE, _HYE_SEALED_HEAD, _HYE_MERGE, tag='R7-HYE/shadow')
+
+
+def _hye_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    HYE.json, and nothing else. The round's original check, `_hye_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('HYE', tag='R7-HYE', shadow=_hye_legacy_ancestry)
 
 
 def _hye_outcome(t=None):
@@ -20511,7 +20630,7 @@ def _tcf_freeze_pin(read=_bb_read):
         '6428e0acab070ccfd2a84d13c6f55616526206ba')
 
 
-def _tcf_execution_ancestry():
+def _tcf_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through acts 12's, 13's and 14's copies: the head-only
@@ -20524,11 +20643,18 @@ def _tcf_execution_ancestry():
     mode (pins set): the same strong check re-run against the sealed head, with the pinned merge
     required to carry it and both required reachable from the current target, fail-closed."""
     if _TCF_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-TCF')
+        target, label, num = _rbr_target_commit(tag='R7-TCF/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_TCF_BASE, target, label, num, tag='R7-TCF')
-    return _rbr_archive_ancestry(_TCF_BASE, _TCF_SEALED_HEAD, _TCF_MERGE, tag='R7-TCF')
+        return _rbr_strong_ancestry(_TCF_BASE, target, label, num, tag='R7-TCF/shadow')
+    return _rbr_archive_ancestry(_TCF_BASE, _TCF_SEALED_HEAD, _TCF_MERGE, tag='R7-TCF/shadow')
+
+
+def _tcf_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    TCF.json, and nothing else. The round's original check, `_tcf_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('TCF', tag='R7-TCF', shadow=_tcf_legacy_ancestry)
 
 
 def _tcf_outcome(t=None):
@@ -21129,7 +21255,7 @@ def _rnc_freeze_pin(read=_bb_read):
         '48099a3b334e8d01f31af706e8738cd49cfca774')
 
 
-def _rnc_execution_ancestry():
+def _rnc_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through acts 12's, 13's, 14's and 15's copies: the
@@ -21143,11 +21269,18 @@ def _rnc_execution_ancestry():
     head, with the pinned merge required to carry it and both required reachable from the current
     target, fail-closed."""
     if _RNC_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-RNC')
+        target, label, num = _rbr_target_commit(tag='R7-RNC/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_RNC_BASE, target, label, num, tag='R7-RNC')
-    return _rbr_archive_ancestry(_RNC_BASE, _RNC_SEALED_HEAD, _RNC_MERGE, tag='R7-RNC')
+        return _rbr_strong_ancestry(_RNC_BASE, target, label, num, tag='R7-RNC/shadow')
+    return _rbr_archive_ancestry(_RNC_BASE, _RNC_SEALED_HEAD, _RNC_MERGE, tag='R7-RNC/shadow')
+
+
+def _rnc_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    RNC.json, and nothing else. The round's original check, `_rnc_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('RNC', tag='R7-RNC', shadow=_rnc_legacy_ancestry)
 
 
 def _rnc_outcome(t=None):
@@ -21855,7 +21988,7 @@ def _trj_freeze_pin(read=_bb_read):
         '3b5570102aa6aacb09788059989a70d8cdd5b70f')
 
 
-def _trj_execution_ancestry():
+def _trj_legacy_ancestry():
     """T2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through acts 12's through 16's copies: the head-only
@@ -21869,11 +22002,18 @@ def _trj_execution_ancestry():
     head, with the pinned merge required to carry it and both required reachable from the current
     target, fail-closed."""
     if _TRJ_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-TRJ')
+        target, label, num = _rbr_target_commit(tag='R7-TRJ/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_TRJ_BASE, target, label, num, tag='R7-TRJ')
-    return _rbr_archive_ancestry(_TRJ_BASE, _TRJ_SEALED_HEAD, _TRJ_MERGE, tag='R7-TRJ')
+        return _rbr_strong_ancestry(_TRJ_BASE, target, label, num, tag='R7-TRJ/shadow')
+    return _rbr_archive_ancestry(_TRJ_BASE, _TRJ_SEALED_HEAD, _TRJ_MERGE, tag='R7-TRJ/shadow')
+
+
+def _trj_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    TRJ.json, and nothing else. The round's original check, `_trj_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('TRJ', tag='R7-TRJ', shadow=_trj_legacy_ancestry)
 
 
 def _trj_tj1(t=None):
@@ -22664,7 +22804,7 @@ def _xts_freeze_pin(read=_bb_read):
         'fd3fa1359188966cae006deba4944a14aab5f3dd')
 
 
-def _xts_execution_ancestry():
+def _xts_legacy_ancestry():
     """X2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through acts 12's through 17's copies: the head-only
@@ -22678,11 +22818,18 @@ def _xts_execution_ancestry():
     head, with the pinned merge required to carry it and both required reachable from the current
     target, fail-closed."""
     if _XTS_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-XTS')
+        target, label, num = _rbr_target_commit(tag='R7-XTS/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_XTS_BASE, target, label, num, tag='R7-XTS')
-    return _rbr_archive_ancestry(_XTS_BASE, _XTS_SEALED_HEAD, _XTS_MERGE, tag='R7-XTS')
+        return _rbr_strong_ancestry(_XTS_BASE, target, label, num, tag='R7-XTS/shadow')
+    return _rbr_archive_ancestry(_XTS_BASE, _XTS_SEALED_HEAD, _XTS_MERGE, tag='R7-XTS/shadow')
+
+
+def _xts_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    XTS.json, and nothing else. The round's original check, `_xts_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('XTS', tag='R7-XTS', shadow=_xts_legacy_ancestry)
 
 
 def _xts_xs1(t=None):
@@ -23501,7 +23648,7 @@ def _rnt_freeze_pin(read=_bb_read):
         '131783f48ac492fdfdc46072aee3f39278973622')
 
 
-def _rnt_execution_ancestry():
+def _rnt_legacy_ancestry():
     """N2 -- no commit reachable from the execution head lies outside the freeze's descendants.
 
     Act 10's strengthened predicate, reused through acts 12's through 18's copies: the head-only
@@ -23515,11 +23662,18 @@ def _rnt_execution_ancestry():
     head, with the pinned merge required to carry it and both required reachable from the current
     target, fail-closed."""
     if _RNT_SEALED_HEAD is None:
-        target, label, num = _rbr_target_commit(tag='R7-RNT')
+        target, label, num = _rbr_target_commit(tag='R7-RNT/shadow')
         if target is None:
             return False
-        return _rbr_strong_ancestry(_RNT_BASE, target, label, num, tag='R7-RNT')
-    return _rbr_archive_ancestry(_RNT_BASE, _RNT_SEALED_HEAD, _RNT_MERGE, tag='R7-RNT')
+        return _rbr_strong_ancestry(_RNT_BASE, target, label, num, tag='R7-RNT/shadow')
+    return _rbr_archive_ancestry(_RNT_BASE, _RNT_SEALED_HEAD, _RNT_MERGE, tag='R7-RNT/shadow')
+
+
+def _rnt_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    RNT.json, and nothing else. The round's original check, `_rnt_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('RNT', tag='R7-RNT', shadow=_rnt_legacy_ancestry)
 
 
 def _rnt_notions(t=None):
@@ -24890,16 +25044,23 @@ def _si1_freeze_pin(read=_bb_read):
     return _bb_blob(_SI1FRZ, read=read) == '4a5f183a52b2720e0714049ecf34911c55c1ef61'
 
 
-def _si1_execution_ancestry():
+def _si1_legacy_ancestry():
     """N2 -- the execution head descends from the control plane's merge commit, and so does every
     commit of the execution-only history.
 
     NON-SEALING: there is no seal triple to re-certify, so there is no archive mode here. The check
     is act 10's strengthened predicate against the mandated base and nothing more."""
-    target, label, num = _rbr_target_commit(tag='R7-SI1')
+    target, label, num = _rbr_target_commit(tag='R7-SI1/shadow')
     if target is None:
         return False
-    return _rbr_strong_ancestry(_SI1_BASE, target, label, num, tag='R7-SI1')
+    return _rbr_strong_ancestry(_SI1_BASE, target, label, num, tag='R7-SI1/shadow')
+
+
+def _si1_execution_ancestry():
+    """CUT OVER BY SI-2 (SI2-3): this round's ancestry verdict is U3's, keyed on its manifest record
+    SI1.json, and nothing else. The round's original check, `_si1_legacy_ancestry` above, is
+    computed alongside as the SHADOW -- still reading its legacy constants -- and gates nothing."""
+    return _si2_authority('SI1', tag='R7-SI1', shadow=_si1_legacy_ancestry)
 
 
 def _si1_non_authority(t=None):
