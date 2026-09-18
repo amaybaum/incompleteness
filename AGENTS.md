@@ -775,7 +775,11 @@ where the reconciliation with everything main gained since the freeze lives.
 1. **A sealing round — a round whose preregistration prospectively owns seal
    state: either it creates new seal and pin state, or it explicitly takes
    ownership of changing existing seal state — takes a pin commit `P`, and `P`
-   is mandatory.** `P` sets the constants it owns to `E` and to `L`. Mandatory
+   is mandatory.** `P` writes the round's own **manifest record** —
+   `sealed_head` = `E` and `merge` = `L`, under `verification/seals/` — and not
+   a legacy constant; see *Sealing through the manifest* at the end of this
+   section. (Before `SI-2`'s landing, `P` set the constants it owns to `E` and
+   to `L`.) Mandatory
    is not a stylistic preference: in execution mode the guard requires every
    commit of `git rev-list HEAD ^base` to descend from the base, and once `L`
    is on the head, that set reaches the sibling rounds merged into main since
@@ -863,3 +867,66 @@ fixed, and pins `E` rather than being pinned by it. And **a needed pin cannot
 be split into its own pull request after the merge**, which would place main,
 between the two merges, in a state the guard rejects. `L` and `P` travelling
 together, in that order, on the branch that already holds `E`, avoids both.
+
+### Sealing through the manifest, from `SI-2`'s landing
+
+This subsection governs **rounds begun after `SI-2`'s landing merge**. It
+amends the landing shape above prospectively: rounds already landed keep the
+chronology their frozen controls state, and nothing here reaches back into
+them. It is the protocol `SI2-7` wrote, and the retirement round named below
+is the first round that lands under it.
+
+**The seal record is data, not code.** A round's seal state lives in one JSON
+record per round under `verification/seals/`, `<STEM>.json`, validated by the
+generic validator `SI-2` made authoritative: the discriminated union `SI-1`
+built, `kind: "sealed"` carrying `base`, `sealed_head` and `merge`, or
+`kind: "base-only"` carrying `base` alone and forbidding the other two, a
+forbidden field being a failure even as null. The guard's clause for a round
+is a call to that validator keyed on the round's record, and nothing else
+gates. Manifest integrity is data-driven: against the record set fixed at a
+round's start, a record mutated, removed or added is reported as such, and a
+round's only permitted change to the set is the addition its own
+preregistration authorizes.
+
+**What a sealing round's `P` writes.** The pin commit `P` writes **the
+round's own manifest record**: `verification/seals/<STEM>.json` with
+`kind: "sealed"`, `base` = the mandated execution base, `sealed_head` = `E`
+and `merge` = `L`. It writes **no legacy constant** — no `_<STEM>_BASE`,
+`_<STEM>_SEALED_HEAD` or `_<STEM>_MERGE` in the guard file.
+
+**How a new `sealed` record is created.** While a sealing round executes it
+has no record: the state machine classifies it `EXECUTION`, and its guard
+certifies chronology against its mandated base through act 10's strengthened
+check, the bootstrap form `R7-SI2` itself keeps. At `L` the round is
+`LANDED-PENDING-PIN`, and a head descending from that unpinned landing fails
+as *seal pending*. `P`, appended on the same pull request after `L`, creates
+the record with all three fields; from then on the validator classifies the
+round `ARCHIVED`, re-derives `L` from `E` on every run over the union of the
+event's visibility targets, and requires the derived landing to equal the
+pinned one.
+
+**How a completed non-sealing round's `base-only` record is created.** A
+non-sealing round lands `E` → `L` with no `P`, and writes **no record during
+its own execution**: a `base-only` record written while the round runs would
+classify it `not-applicable` and switch off its own chronology check. Its
+record — `kind: "base-only"`, `base` = its mandated base — is created
+**afterwards**, as an authorized manifest addition named in the
+preregistration of the round that adds it, exactly as `SI2-1` added
+`SI1.json` for `SI-1` and as the retirement round adds `SI2.json` for
+`SI-2`.
+
+**The legacy constants, in two halves, both of which hold.** From `SI-2`'s
+landing the sixty-one legacy seal-constant assignments in the guard file
+**cease to GATE**: no check's verdict depends on them, they are read only as
+shadows of the manifest, and a round that writes a new one has recreated the
+representation `SI-2` retired. And until the retirement round they remain
+**PROTECTED HISTORICAL SEAL STATE**: altering or removing any of them
+constitutes taking ownership of existing seal state under this section, and
+makes the round that does it *sealing*.
+
+**The retirement round is sealing.** It follows that the round which deletes
+the fifty-nine names and sixty-one statements against `SI-2`'s frozen
+inventory, and removes the per-round seal-integrity comparisons the
+data-driven rule shadows, is **sealing** under this section, and its `P`
+writes its own `sealed` manifest record under this protocol — `sealed_head` =
+its `E`, `merge` = its `L` — and writes no legacy constant.
