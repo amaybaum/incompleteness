@@ -20920,7 +20920,8 @@ ok_tcf &= _tcf_budget()
 ok_tcf &= _tcf_axiom_table()
 ok_tcf &= _tcf_chronology()
 ok_tcf &= _tcf_discrepancies()
-ok_tcf &= _tcf_prior_seals()
+_si2_shadow_integrity('R7-TCF', _tcf_prior_seals())  # SI2-5: recorded, gating nothing
+ok_tcf &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_tcf &= _tcf_lean_defs()
 
 # ---- mutation controls: each contract exercised on the exact failure it exists to catch ----
@@ -21564,7 +21565,8 @@ ok_rnc &= _rnc_budget()
 ok_rnc &= _rnc_axiom_table()
 ok_rnc &= _rnc_chronology()
 ok_rnc &= _rnc_discrepancies()
-ok_rnc &= _rnc_prior_seals()
+_si2_shadow_integrity('R7-RNC', _rnc_prior_seals())  # SI2-5: recorded, gating nothing
+ok_rnc &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_rnc &= _rnc_lean_defs()
 ok_rnc &= _rnc_roadmap()
 
@@ -22345,7 +22347,8 @@ ok_trj &= _trj_axiom_table()
 ok_trj &= _trj_chronology()
 ok_trj &= _trj_discrepancies()
 ok_trj &= _trj_predictions()
-ok_trj &= _trj_prior_seals()
+_si2_shadow_integrity('R7-TRJ', _trj_prior_seals())  # SI2-5: recorded, gating nothing
+ok_trj &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_trj &= _trj_lean_defs()
 ok_trj &= _trj_roadmap()
 
@@ -23222,7 +23225,8 @@ ok_xts &= _xts_axiom_table()
 ok_xts &= _xts_chronology()
 ok_xts &= _xts_discrepancies()
 ok_xts &= _xts_predictions()
-ok_xts &= _xts_prior_seals()
+_si2_shadow_integrity('R7-XTS', _xts_prior_seals())  # SI2-5: recorded, gating nothing
+ok_xts &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_xts &= _xts_lean_defs()
 ok_xts &= _xts_roadmap()
 
@@ -23527,7 +23531,8 @@ for _f in ('_cti_base', '_cti_sealed', '_cti_merge', '_pqt_base', '_pqt_sealed',
 # fixed this round's triple at (_XTS_BASE, None, None) as a standing invariant would fail here, and
 # the round would be unlandable -- which is exactly what happened to an earlier round and is why the
 # freeze's chronology clause 9 exists.
-ok_xts &= _xts_prior_seals()
+_si2_shadow_integrity('R7-XTS', _xts_prior_seals())  # SI2-5: recorded, gating nothing
+ok_xts &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 
 # T1's control runs THROUGH _xts_freeze_pin, so sabotaging that predicate fails the guard.
 def _xts_drift(path):
@@ -24049,7 +24054,8 @@ ok_rnt &= _rnt_chronology()
 ok_rnt &= _rnt_ordering()
 ok_rnt &= _rnt_discrepancies()
 ok_rnt &= _rnt_predictions()
-ok_rnt &= _rnt_prior_seals()
+_si2_shadow_integrity('R7-RNT', _rnt_prior_seals())  # SI2-5: recorded, gating nothing
+ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_rnt &= _rnt_lean_defs()
 
 # ---- mutation controls: each rewrites the artifact and must FAIL the contract it targets ----
@@ -24393,7 +24399,8 @@ for _f in ('_cti_base', '_cti_sealed', '_cti_merge', '_pqt_base', '_pqt_sealed',
 _rnt_pin_probe = (_RNT_SEALED_HEAD, _RNT_MERGE)
 _RNT_SEALED_HEAD = 'f' * 40
 _RNT_MERGE = 'e' * 40
-ok_rnt &= _rnt_prior_seals()
+_si2_shadow_integrity('R7-RNT', _rnt_prior_seals())  # SI2-5: recorded, gating nothing
+ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 ok_rnt &= _rnt_execution_ancestry.__doc__ is not None
 _RNT_SEALED_HEAD, _RNT_MERGE = _rnt_pin_probe
 # The restore is checked against the SAVED tuple and not against (None, None). Written the other
@@ -24403,7 +24410,8 @@ _RNT_SEALED_HEAD, _RNT_MERGE = _rnt_pin_probe
 # undone, whatever the pins hold, and that is what is asked.
 ok_rnt &= (_RNT_SEALED_HEAD, _RNT_MERGE) == _rnt_pin_probe
 ok_rnt &= ('f' * 40, 'e' * 40) != _rnt_pin_probe
-ok_rnt &= _rnt_prior_seals()
+_si2_shadow_integrity('R7-RNT', _rnt_prior_seals())  # SI2-5: recorded, gating nothing
+ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 
 # N1's control runs THROUGH _rnt_freeze_pin, so sabotaging that predicate fails the guard.
 def _rnt_drift(path):
