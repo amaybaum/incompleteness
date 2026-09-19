@@ -10123,7 +10123,7 @@ _MANIFEST_BASELINE = {'base': '10d1041bcc10f25d9f643629d4431acbd0f65a1e',
 # at its landing merge. The pin commit P REMOVES the entry when it writes the record; a stem that is
 # both declared and recorded is a failure. This is how a round carries its base while it runs
 # without writing the legacy representation SI-3 retires. Stem-free in its name, outside both regions.
-_MANIFEST_PROSPECTIVE = {'OLT': '10d1041bcc10f25d9f643629d4431acbd0f65a1e'}
+_MANIFEST_PROSPECTIVE = {}
 
 # A value that is not a commit, not a hash and equal to nothing a record can hold, returned by the
 # accessor below where a record or a field is missing: every comparison and every git call made
