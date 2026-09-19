@@ -480,6 +480,12 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   moved since the base; taking either side wholesale would have silently reverted a label merged
   twenty minutes earlier. Hence §A.37's resolve-by-merits rule and its check that a landing adds
   exactly the execution's own diff.
+- The Act 21 control plane used one name, `B`, for its drafting snapshot and for the execution
+  base its chronology control defined; after the merge two of its mechanical preconditions could
+  not hold at the real base, one naming the drafting SHA as `B` and one requiring a token absent
+  from a tree that now contained the preregistration carrying it. Caught in owner review and
+  corrected by append-only amendment. Hence §A.37's `D` / `B` / `M` vocabulary subsection and
+  the control-plane lint.
 
 ---
 
@@ -698,6 +704,83 @@ The control plane's **merge commit is the mandated execution base**. The
 execution branches from exactly that commit and from nothing else, and its
 first act is to verify that the preregistration at that base has the blob the
 freeze names, before any target is executed.
+
+### Drafting snapshots and mandated execution bases are different objects
+
+Every control plane uses the following commit vocabulary, and no other meaning
+of "base" is permitted where the distinction matters.
+
+- "D" — the drafting snapshot. "D" is the commit against which the control
+  plane was written and its pre-merge measurements were taken:
+  locating-control coordinates, pinned source blobs, inventories, name-freedom
+  checks, simulations and other drafting-time facts. "D" is fixed when those
+  measurements are made. "D" is never the mandated execution base merely
+  because the control plane was drafted from it.
+- "B" — the mandated execution base. "B" is the certified merge commit on
+  "main" of the latest control-plane artifact governing the round: the
+  preregistration itself if there is no later amendment, otherwise the latest
+  execution-affecting append-only amendment. Before that merge exists, "B" has
+  no SHA. A control plane therefore must not assign its drafting snapshot's SHA
+  to "B".
+- "M" — a candidate control-plane merge. Before the control plane lands,
+  continuous integration may construct or inspect a candidate merge solely to
+  test conditions that are intended to hold at "B". "M" is predictive test
+  state only and is never used as execution ancestry, seal state or historical
+  evidence. The actual merge commit must be checked again after landing.
+
+Every mechanical precondition names its evaluation scope explicitly as at "D",
+at "B", or from "D" to "B".
+
+A condition at "D" records a drafting-time fact and is not reinterpreted as a
+condition on "B". In particular, name-freedom checks — that a round tag, stem,
+module name, directory or other reserved identifier did not previously exist —
+are checks at "D".
+
+A condition at "B" describes the repository after the frozen control plane
+itself has entered the tree. It therefore must account for the control-plane
+artifacts and the names they necessarily contain. A "B"-scoped condition must
+not require the absence of the preregistration, its amendments, or names whose
+only occurrence is in those frozen control-plane artifacts. Where the intended
+invariant is that execution has not begun, the check states that directly: no
+execution module, result note, guard clause, prospective declaration, manifest
+record, or other execution-specific object exists.
+
+A condition from "D" to "B" states provenance or preservation explicitly: for
+example that "D" is an ancestor of "B", that the reviewed frozen blobs occur
+unchanged at "B", or that specified drafting-time source blobs remain the blobs
+the round consumes.
+
+Before a control plane may merge, continuous integration evaluates every
+"B"-scoped tree/state precondition against "M". After it merges, the
+"main"-push certification evaluates the same conditions against the actual
+merge commit "B" and verifies every frozen control-plane blob. No execution
+branch may be created until this post-merge base certification is green.
+
+An execution-affecting append-only amendment repeats this lifecycle. Its
+certified merge becomes the new "B"; every earlier control-plane merge becomes
+provenance, and execution never resumes from it.
+
+**Machine-checkable form.** A control plane that wants its preconditions run
+mechanically carries one fenced block whose info string is
+`control-plane-preconditions`. Header lines are `key: value` — `d:` the
+drafting snapshot's SHA, `b:` the mandated base's SHA (only once it exists),
+`merged: true` once the artifact is on `main`, and any number of
+`frozen-blob: <path> <blob-sha>` lines naming blobs that must be found
+unchanged at the evaluated commit. Every other non-comment line is one JSON
+object, one precondition row: `{"id": ..., "scope": "D" | "B" | "D->B",
+"check": "<shell command run at the repository root with $D, $B and $REF
+exported>", "expect": "empty" | "nonempty" | "exit0"}`. `tools/control_plane_base_check.py`
+runs the `B` and `D->B` rows against a candidate merge (`--mode M`) or the
+actual merge commit (`--mode B`) through one code path, checks each `D` row's
+`d:` for ancestry only, and verifies the frozen blobs; it exits non-zero on any
+failed row. `tools/control_plane_lint.py` (release-gate step
+`control-plane-lint`) reads the block and the file around it: a row without a
+scope tag fails the lint, as does a file that gives "D" and "B" one SHA, a
+literal SHA for "B" in an artifact not marked `merged: true`, or a "B"-scoped
+`git grep` for a token that expects nothing while the round's own control-plane
+files already carry the token. Both tools apply only to control-plane files that
+carry the block or are added or modified in the change under check; artifacts
+merged before the block existed are neither rewritten nor linted.
 
 ### The execution, up to certification
 
