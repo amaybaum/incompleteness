@@ -379,6 +379,7 @@ reading is put in front of the owner.
 
 ### `L0` — **`L0-RESTRICTS`**, via `ΦX`
 
+> **The frozen `Li-RESTRICTS` sentence, carried for `L0`.**
 > An exhibited transition family satisfies every earlier rung of this freeze's ladder and fails
 > `Li`, at evidence level 2, with the failing conjunct and the separating class named. **So `Li` is
 > a genuine restriction on the class the shared theorem produces and is not decoration.** This is a
@@ -395,6 +396,7 @@ so it admits no solution at all. Configuration: supply 1 and 3, `|A| = 1`, as th
 
 ### `L1` — **`L1-UNDECIDED`**
 
+> **The frozen `Li-UNDECIDED` sentence, carried for `L1`.**
 > The status of `Li` is undecided in this round, with the obstruction named specifically — the rung,
 > the conjunct, the step at which the proof stopped, and what would settle it. Neither label is
 > claimed, and no sentence of this round treats the absence of a decision as a decision. In
@@ -421,6 +423,7 @@ carries no label here.
 
 ### `L2` — **`L2-RESTRICTS`**, via `ΦT`
 
+> **The frozen `Li-RESTRICTS` sentence, carried for `L2`.**
 > An exhibited transition family satisfies every earlier rung of this freeze's ladder and fails
 > `Li`, at evidence level 2, with the failing conjunct and the separating class named. **So `Li` is
 > a genuine restriction on the class the shared theorem produces and is not decoration.** This is a
@@ -436,6 +439,7 @@ conjunct is the existence of one `Φ₀` with `Φ t = Φ₀` at every `t`**; **t
 
 ### `L3i` — **`L3i-UNDECIDED`**, and `L3s` — **`L3s-UNDECIDED`**
 
+> **The frozen `Li-UNDECIDED` sentence, carried for `L3i` and for `L3s`.**
 > The status of `Li` is undecided in this round, with the obstruction named specifically — the rung,
 > the conjunct, the step at which the proof stopped, and what would settle it. Neither label is
 > claimed, and no sentence of this round treats the absence of a decision as a decision. In
@@ -470,6 +474,7 @@ both labels, and that reading is the owner's to take or refuse.
 
 ### `L4n` — **`L4n-RESTRICTS`**, via `ΦCTRL`
 
+> **The frozen `Li-RESTRICTS` sentence, carried for `L4n`.**
 > An exhibited transition family satisfies every earlier rung of this freeze's ladder and fails
 > `Li`, at evidence level 2, with the failing conjunct and the separating class named. **So `Li` is
 > a genuine restriction on the class the shared theorem produces and is not decoration.** This is a
@@ -514,6 +519,7 @@ the branches.
 
 ### `L5` — **`L5-UNDECIDED`**
 
+> **The frozen `Li-UNDECIDED` sentence, carried for `L5`.**
 > The status of `Li` is undecided in this round, with the obstruction named specifically — the rung,
 > the conjunct, the step at which the proof stopped, and what would settle it. Neither label is
 > claimed, and no sentence of this round treats the absence of a decision as a decision. In
