@@ -9758,7 +9758,6 @@ _RBR = open(_artifact('programmes/oi-qm/track-b/act-09-readback-robustness/resul
 _RBR1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _RBR).split())
 _RBRDIR = 'programmes/oi-qm/track-b/act-09-readback-robustness/'
 # The mandated execution base: the merge commit of act 9's control-plane PR #584.
-_RBR_BASE = '79872cbbb0e26188f619b8c6a99b379bb46b7b0c'
 
 
 def _rbr_freeze_pin(read=_bb_read):
@@ -10102,7 +10101,6 @@ def _rbr_archive_ancestry(base, sealed, merge, tag='R7-RBR', env=None, target=No
 # execution-base purposes by the amendments. NON-SEALING, E -> L, no pin: there is no
 # _SI2_SEALED_HEAD and no _SI2_MERGE, not as None and not at all. Defined here, ahead of every
 # clause that reads it, and excluded by stem from the legacy inventory SI2-6(b) measures.
-_SI2_BASE = 'df54b99dba99dc043b11752163d8d348c9e54472'
 # The ONE manifest addition SI2-1 authorizes, named here and not inside the generic region below,
 # which carries no round stem: the record set fixed at stage 1 is the manifest at the mandated base
 # plus exactly this.
@@ -11327,7 +11325,6 @@ _ABR = open(_artifact('programmes/oi-qm/track-b/act-10-anchor-robustness/result.
 _ABR1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _ABR).split())
 _ABRDIR = 'programmes/oi-qm/track-b/act-10-anchor-robustness/'
 # The mandated execution base: the merge commit of act 10's control-plane PR #586.
-_ABR_BASE = '93c2ca63c6cd7a61388d577b8baf22c3c1fdb41f'
 
 
 # **THE CHRONOLOGY MECHANISM IS ACT 9's, REUSED RATHER THAN RE-DERIVED**, exactly as act 10's freeze
@@ -11722,12 +11719,9 @@ _HYALEAN = ' '.join(open(
                  'HydroSourceAudit.lean'), encoding='utf-8').read().split())
 _HYADIR = 'programmes/hydrodynamics/round-h-a-source-audit/'
 # The mandated execution base: the merge commit of round H-A's control-plane PR #595.
-_HYA_BASE = 'ae81459372887cfbe27b427b30bbdad1b564f2b7'
 # The SEALED execution head reviewed and merged as #597, and the merge commit that carried it. Set,
 # the guard runs in ARCHIVE MODE: the same strong check re-run against this object, plus its
 # reachability from the current target. Unset (None), the guard certifies the run's real target.
-_HYA_SEALED_HEAD = '6a8675efca5e5ceeab0195036af1a658b49ace80'
-_HYA_MERGE = 'd2314f5edc33fbeb4f75642ec87f9d302ee734f4'
 
 
 def _hya_git(*args, **kw):
@@ -12168,7 +12162,6 @@ _CLGLEAN = ' '.join(open(
                  'CoherentLiftGauge.lean'), encoding='utf-8').read().split())
 _CLGDIR = 'programmes/oi-qm/track-b/act-11-coherent-lift-gauge/'
 # The mandated execution base: the merge commit of act 11's control-plane PR #588.
-_CLG_BASE = '6cff07cc0655124f1f29e04b156cc05a3d717a48'
 
 
 def _clg_git(*args, **kw):
@@ -12673,7 +12666,6 @@ _TSGLEAN = ' '.join(open(
                  'TwoSidedGauge.lean'), encoding='utf-8').read().split())
 _TSGDIR = 'programmes/oi-qm/track-b/act-12-two-sided-gauge/'
 # The mandated execution base: the merge commit of act 12's control-plane PR #591.
-_TSG_BASE = 'b821d69ae86f7d76020383735b3161e77c064ccc'
 
 
 def _tsg_git(*args, **kw):
@@ -13101,12 +13093,9 @@ _SGTLEAN = ' '.join(open(
                  'SemigroupTransfer.lean'), encoding='utf-8').read().split())
 _SGTDIR = 'programmes/substratum/lemma-24-1-semigroup-transfer/'
 # The mandated execution base: the merge commit of the control-plane PR #594.
-_SGT_BASE = 'c46e1606d4cafe2720afd69dc06c667eb0f1acff'
 # The SEALED execution head reviewed and merged as #598, and the merge commit that carried it. Set,
 # the guard runs in ARCHIVE MODE: the same strong check re-run against this object, plus its
 # reachability from the current target. Unset (None), the guard certifies the run's real target.
-_SGT_SEALED_HEAD = '57103e9ddf430c538094fed48358c4d1b050ce4d'
-_SGT_MERGE = '11a8a59d22793a10182f853fe3c05edf5415d724'
 
 
 def _sgt_git(*args, **kw):
@@ -14017,12 +14006,9 @@ check('R7-A11P', ok_a11p,
 # absent in the words the freeze fixes and written back as a mutation.
 _A12P_PREREG = _A11P_DIR + 'act12-scope-propagation-audit.md'
 # The mandated execution base: the merge commit of the control-plane PR #600.
-_A12P_BASE = '999f1b5b3c9d6960233a12698d83c1a56a16fe10'
 # The SEALED execution head reviewed and merged as #603, and the merge commit that carried it. Set,
 # the guard runs in ARCHIVE MODE: the same strong check re-run against this object, plus its
 # reachability from the current target. Unset (None), the guard certifies the run's real target.
-_A12P_SEALED_HEAD = '2792a7836d70e10b7f085f4e35fb8a92d77eb133'
-_A12P_MERGE = '2706a3aa7b87e481df17e3ceab88cd3244ce780d'
 _A12P_SURFACES = (_A11P_MAIN, _A11P_EXPL, _A11P_CH01, _A11P_CH19)
 
 
@@ -14328,13 +14314,10 @@ _CTILEAN = ' '.join(open(
                  'CrossTimeInvariants.lean'), encoding='utf-8').read().split())
 _CTIDIR = 'programmes/oi-qm/track-b/act-13-cross-time-invariants/'
 # The mandated execution base: the merge commit of act 13's control-plane PR #602.
-_CTI_BASE = 'd019718696fd12e4719b5ed5b7d8dfab45544a8c'
 # The SEALED execution head and the merge commit that carried it. Unset (None) at execution, the
 # guard certifies the run's real target. Set by the one pin-only change after the merge, the guard
 # runs in ARCHIVE MODE: the same strong check re-run against that object, plus its reachability
 # from the current target.
-_CTI_SEALED_HEAD = '9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7'
-_CTI_MERGE = '292848b3c908d33ac432a5360effe0c259e3ce16'
 
 
 def _cti_git(*args, **kw):
@@ -14892,13 +14875,10 @@ _PQTLEAN = ' '.join(open(
                  'ThreadingObservability.lean'), encoding='utf-8').read().split())
 _PQTDIR = 'programmes/oi-qm/track-b/act-14-threading-observability/'
 # The mandated execution base: the merge commit of act 14's control-plane PR #621.
-_PQT_BASE = 'bc76a88dbe300a35715d5ce8196002f31aa62493'
 # The SEALED execution head and the merge commit that carried it. Unset (None) at execution, the
 # guard certifies the run's real target. Set by the one pin-only change after the merge, the guard
 # runs in ARCHIVE MODE: the same strong check re-run against that object, plus its reachability
 # from the current target.
-_PQT_SEALED_HEAD = '5008a47bf7e67edc502120f9269c4a4661ef7342'
-_PQT_MERGE = 'c50dd22457bfd4812761cb56e7ca1a559af33c5e'
 
 
 def _pqt_git(*args, **kw):
@@ -15655,11 +15635,8 @@ _HYBPROG = ' '.join(open(_artifact('programmes/hydrodynamics/PROGRAMME.md'),
                          encoding='utf-8').read().split())
 _HYBDIR = 'programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/'
 # The mandated execution base: the merge commit of round H-B's control-plane PR #601.
-_HYB_BASE = '8de0478ef31fe4cabcf89fc5787f80f38376a957'
 # The SEALED execution head and the merge commit that carries it, pinned once the execution PR has
 # merged; set, the guard runs in ARCHIVE MODE. Unset (None), the guard certifies the run's real target.
-_HYB_SEALED_HEAD = '54b33c4304bdbda52a09dfe0a06f3e7ff350d832'
-_HYB_MERGE = '2ac870f0b7f04df35f32e80f7717d67667b5df83'
 
 
 def _hyb_freeze_pin(read=_bb_read):
@@ -16134,13 +16111,10 @@ check('R7-HYB', ok_hyb,
 # written back. Each is checked absent in the words the freeze fixes and written back as a mutation.
 _A6P_PREREG = _A11P_DIR + 'a6-covariance-propagation-audit.md'
 # The mandated execution base: the merge commit of the control-plane PR #604.
-_A6P_BASE = '07ab3657c2c78b48e4c11e0c3ceb30c82ac0b484'
 # The SEALED execution head and the merge commit that carried it, to be pinned in a follow-up after
 # exact-head review and merge. Set, the guard runs in ARCHIVE MODE: the same strong check re-run
 # against that object, plus its reachability from the current target. Unset (None), the guard
 # certifies the run's real target.
-_A6P_SEALED_HEAD = '58100aea15eea8f5808b351d64163f55c9fed1bf'
-_A6P_MERGE = '98d0c894c96b81e9138b97d92b4635356751e194'
 _A6P_SUB = _a11p_root('papers/Substratum.md')
 _A6P_SM = _a11p_root('papers/SM.md')
 _A6P_STR = _a11p_root('papers/Structure.md')
@@ -16676,13 +16650,10 @@ _WTSREADME = ' '.join(open(_artifact('README.md'), encoding='utf-8').read().spli
 _WTSCENSUS = open(_artifact('lean-manuscript-census.json'), encoding='utf-8').read()
 _WTSDIR = 'programmes/substratum/lemma-24-1a-word-trace-sufficiency/'
 # The mandated execution base: the merge commit of the control-plane PR #606.
-_WTS_BASE = 'baadea2638019b335d96c892590491a6fb420936'
 # The SEALED execution head and the merge commit that carries it. Unset (None), the guard runs in
 # EXECUTION MODE and certifies the run's real target. Set by the post-merge follow-up under
 # clause 7, the guard runs in ARCHIVE MODE: the same strong check re-run against the sealed head,
 # plus its reachability from the current target.
-_WTS_SEALED_HEAD = 'c31fe45d28d6aa37782902f67aba404ef721a59e'
-_WTS_MERGE = '6a6f206f830f5b44e1b19a6912b823d545207126'
 
 
 def _wts_git(*args, **kw):
@@ -17243,13 +17214,10 @@ _PC4LEAN = ' '.join(open(
                  'PhysicalC4Discharge.lean'), encoding='utf-8').read().split())
 _PC4ROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
 # The mandated execution base: the merge commit of this round's control-plane PR #607.
-_PC4_BASE = 'ebc3951dc581d558373f720a90f1ba7deb2a8ed8'
 # The SEALED execution head and the merge commit that carried it, set once this round's execution
 # PR has merged. Set, the guard runs in ARCHIVE MODE: the same strong check re-run against those
 # objects, plus their reachability from the current target. Unset (None), as now, the guard
 # certifies the run's real target.
-_PC4_SEALED_HEAD = '6c1acdd28f03f614f71a7ce15c6efc141906e080'
-_PC4_MERGE = 'e82755cafdbc0314890ad3809bc48e72e5995311'
 
 
 def _pc4_freeze_pin(read=_bb_read):
@@ -17636,14 +17604,11 @@ _PC4SLEAN = ' '.join(open(
                  'PhysicalC4StorageReadback.lean'), encoding='utf-8').read().split())
 _PC4SROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
 # The mandated execution base: the merge commit of this round's control-plane PR #636.
-_PC4S_BASE = '0ef074104cee3957d3aee9422888859b88fc0ebf'
 # The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
 # the pin commit P after the landing merge L -- pinning them in the execution would make the
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_PC4S_SEALED_HEAD = '81b78484a0abf39ac2a23a6a8e4afcd003b79e23'
-_PC4S_MERGE = '8f4934136bae62a57a0744dbf93d3ee485404198'
 
 
 def _pc4s_freeze_pin(read=_bb_read):
@@ -18108,12 +18073,9 @@ _A6DLEAN = ' '.join(open(
                  'BackgroundIndependence.lean'), encoding='utf-8').read().split())
 _A6DROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
 # The mandated execution base: the merge commit of the A6 control-plane PR #593.
-_A6D_BASE = '8792801beeeccbf0673db137cae83e6663d21fba'
 # The SEALED execution head reviewed and merged as #596, and the merge commit that carried it. Set,
 # the guard runs in ARCHIVE MODE: the same strong check re-run against this object, plus its
 # reachability from the current target. Unset (None), the guard certifies the run's real target.
-_A6D_SEALED_HEAD = 'd0b8c6e83c32a01a586f947c0dfd9618a8b42a91'
-_A6D_MERGE = '4fb0a6052d33193d442dd2a2cb72f64937177291'
 
 
 def _a6d_git(*args, **kw):
@@ -18791,15 +18753,12 @@ _A6IREADME = ' '.join(open(os.path.join(VERIFICATION, 'README.md'), encoding='ut
 _A6I_R1DIR = 'programmes/substratum/a6-background-independence/'
 _A6I_PROP = _A11P_DIR + 'a6-covariance-propagation-audit.md'
 # The mandated execution base: the merge commit of the A6 instantiation control-plane PR #623.
-_A6I_BASE = '3e5d6a8f75166581213b6c5b7c0dbca1671b030e'
 # The SEALED execution head and the merge commit that carries it. Unset (None), as now, the guard
 # runs in EXECUTION MODE and certifies the run's real target. Set by the post-merge follow-up under
 # the freeze's chronology clause 7, the guard runs in ARCHIVE MODE: the same strong check re-run
 # against the sealed head, the pinned merge required to carry it as its second parent, and both
 # required reachable from the current target, each fail-closed. Nothing about the base or the blob
 # pin changes in archive mode.
-_A6I_SEALED_HEAD = '93405f3ff7eb4818a2895b5f5e2861094d9fe757'
-_A6I_MERGE = 'ae0baf8ad5b8ef0daa473f2b772d4217a210f520'
 
 
 def _a6i_git(*args, **kw):
@@ -19581,14 +19540,11 @@ _HYEPROG = ' '.join(open(_artifact('programmes/hydrodynamics/PROGRAMME.md'),
                          encoding='utf-8').read().split())
 _HYEROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
 # The mandated execution base: the merge commit of this round's control-plane PR #633.
-_HYE_BASE = '0975bbab380b26cd2bb06ec65ed68f8bcc23937f'
 # The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
 # the pin commit P after the landing merge L -- pinning them in the execution would make the
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_HYE_SEALED_HEAD = 'fe8060bd934c874356f7ba4778e414108d6fc36a'
-_HYE_MERGE = 'd98d690bdd2634299862282ac5ed3da4c015e7e1'
 
 
 def _hye_freeze_pin(read=_bb_read):
@@ -20241,14 +20197,11 @@ _TCFROAD = ' '.join(_TCFROADRAW.split())
 # compared as prose rather than as quoted lines.
 _TCFROADQ = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _TCFROADRAW).split())
 # The mandated execution base: the merge commit of this round's control-plane PR #634.
-_TCF_BASE = 'e4501bfff4e80533a5440c67d032f1ad401bdbe1'
 # The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
 # the pin commit P after the landing merge L -- pinning them in the execution would make the
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_TCF_SEALED_HEAD = 'c622461495c6b2db4e09c8084f404bd5ca2c5192'
-_TCF_MERGE = '9e0cc3834538b7bdcb742fcaa046194cfa9526fb'
 
 
 def _tcf_freeze_pin(read=_bb_read):
@@ -20812,14 +20765,11 @@ _RNCROAD = ' '.join(_RNCROADRAW.split())
 # compared as prose rather than as quoted lines.
 _RNCROADQ = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _RNCROADRAW).split())
 # The mandated execution base: the merge commit of this round's control-plane PR #646.
-_RNC_BASE = 'd05399020d05d4a7b6f662d2e069062452e7d6b4'
 # The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
 # the pin commit P after the landing merge L -- pinning them in the execution would make the
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_RNC_SEALED_HEAD = '31db7c1082b012c00c43f3fda35ce44c5653e123'
-_RNC_MERGE = 'eb70bbb9b2b3311095945ec3ce2418962f3b741a'
 
 # THE CLAUSE, verbatim -- act 13's CT3 (d) anti-conflation clause, which the freeze carries at every
 # prose mention and which every artifact of this round must carry with it. Compared as prose, with
@@ -21486,14 +21436,11 @@ _TRJROAD = ' '.join(_TRJROADRAW.split())
 # compared as prose rather than as quoted lines.
 _TRJROADQ = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _TRJROADRAW).split())
 # The mandated execution base: the merge commit of this round's control-plane PR #652.
-_TRJ_BASE = '02cfc9be141a44aaebf847d8e7d9fdd0d0a18f08'
 # The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
 # the pin commit P after the landing merge L -- pinning them in the execution would make the
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_TRJ_SEALED_HEAD = '94d41561114b2aee5939dcfa976ce98b8f141093'
-_TRJ_MERGE = 'e8b12a433ebc0e5047504d2c95664a85ca65d1e8'
 
 # THE CLAUSE, verbatim -- the act 16 anti-conflation clause, which the freeze carries at every prose
 # mention of act 16's positive as bearing on trajectory freedom and which every artifact of this
@@ -22246,14 +22193,11 @@ _XTSLEAN = ' '.join(open(
 _XTSROADRAW = open(_artifact('ROADMAP.md'), encoding='utf-8').read()
 _XTSROAD = ' '.join(_XTSROADRAW.split())
 # The mandated execution base: the merge commit of this round's control-plane PR #656.
-_XTS_BASE = 'd7a9931befeb942db8ebc7b07014f9020c6663d0'
 # The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
 # the pin commit P after the landing merge L -- pinning them in the execution would make the
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_XTS_SEALED_HEAD = '730a518c173460d7bed525da10a95ee6bd32c7de'
-_XTS_MERGE = '0b893d75cca344faeb9a9e434b5b8537f8b45dac'
 
 # THE CLAUSE, verbatim -- the non-adoption clause, which the freeze carries at every place where a
 # candidate's survival could be read as its adoption, and which every artifact of this round must
@@ -23029,14 +22973,11 @@ _RNTLEAN = ' '.join(open(
     os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib', 'OIBridge',
                  'RepresentativeNaturality.lean'), encoding='utf-8').read().split())
 # The mandated execution base: the merge commit of this round's control-plane PR #662.
-_RNT_BASE = '84f27b50198ee31c224e31284905ff6c284ea9db'
 # The SEALED execution head and the landing merge that carries it. UNSET at execution, and set in
 # the pin commit P after the landing merge L -- pinning them in the execution would make the
 # execution's own head depend on where it landed. Set, the guard runs in ARCHIVE MODE: the same
 # strong check re-run against those objects, with the pinned merge's second parent required to
 # equal the sealed head and both required reachable from the current target, fail-closed.
-_RNT_SEALED_HEAD = '0f8b4e06a1cc31ab0c01f2edb5011f1efe545e1b'
-_RNT_MERGE = '6a6d62e97518600bf2de51cf1d39146d1adbdff9'
 
 # THE CLAUSE, verbatim -- the non-choice clause, which the freeze carries at every place where a
 # classification could be read as a choice, and which every artifact of this round must carry with
@@ -23736,17 +23677,9 @@ ok_rnt &= _rnt_m55 != _RNT1 and not _rnt_predictions(_rnt_m55)
 # Amendment 1 point 2: the prior-seal comparator this block exercised under a module-level
 # rebinding of this round's two pins is retired, and with it the recording of its verdict as a
 # shadow of U5; the landability it tested is U3's LANDED-PENDING-PIN -> ARCHIVED path, and RNT
-# is ARCHIVED. The enumerated legacy residue below -- the pin probe, the two rebindings, the
-# restore and its checks -- stays until stage 4 (SI3-4) deletes every legacy assignment
-# statement, because SI2-6(b) holds the sixty-one statements identical as text until then.
-_rnt_pin_probe = (_RNT_SEALED_HEAD, _RNT_MERGE)
-_RNT_SEALED_HEAD = 'f' * 40
-_RNT_MERGE = 'e' * 40
-ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
-ok_rnt &= _rnt_execution_ancestry.__doc__ is not None
-_RNT_SEALED_HEAD, _RNT_MERGE = _rnt_pin_probe
-ok_rnt &= (_RNT_SEALED_HEAD, _RNT_MERGE) == _rnt_pin_probe
-ok_rnt &= ('f' * 40, 'e' * 40) != _rnt_pin_probe
+# is ARCHIVED. The enumerated legacy residue that stayed here through stage 3 -- the pin probe, the
+# two rebindings, the restore and its checks -- went at stage 4 (SI3-4) with every legacy
+# assignment statement, its two rebindings among the sixty-two, SI2-6(b) retired in the same stage.
 ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
 
 # N1's control runs THROUGH _rnt_freeze_pin, so sabotaging that predicate fails the guard.
@@ -23841,7 +23774,6 @@ _SI1DIR = os.path.join(VERIFICATION, 'infrastructure', 'round-si-1-shadow-seal-v
 # which now call U3 keyed on their manifest records, can reach the validator. R7-SI2 checks that the
 # region differs from the one SI-1 landed by exactly the two-line derivation hook and nothing else.
 # The mandated execution base: the merge commit of this round's control-plane PR #667.
-_SI1_BASE = '99ab6370470ed9d9e4005551581c6c8c18e54bd2'
 
 # SI-2 AMENDMENT 1, POINT 1 -- THE SCOPING. This round transcribed twenty-two records, and its
 # cardinality contracts below (twenty-two records, eighteen sealed, four base-only, the 18/4
@@ -26474,28 +26406,15 @@ if _si2_base_map and not _si2_map_preserved:
         if _si2_head_map.get(_t) != _v:
             print('      CHANGED %s: base %s, head %s -- a result requiring adjudication' % (_t, _v, _si2_head_map.get(_t)))
 
-# SI2-6(b) -- the legacy inventory intact as TEXT, in order, against B0.
-_si2_b0_src = _si2_git_text('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI2_B0) or ''
+# SI2-6(b), LEGACY-INTACT, is RETIRED by SI-3 (SI3-4): the sixty-one statements it held identical
+# to B0's are the inventory SI-3 deletes, and its successor contract is SI-3's own -- ZERO legacy
+# assignment statements in this file, kept as a standing contract from SI-3's landing on. The
+# extractor `_si2_legacy_statements` is kept as the detector, and P5 at the base still reads the
+# base's own file.
 _si2_leg_head = _si2_legacy_statements(_si2_src)
-_si2_leg_b0 = _si2_legacy_statements(_si2_b0_src)
-_si2_leg_names = {re.match(r'^(_[A-Z0-9]+_(?:BASE|SEALED_HEAD|MERGE))', l).group(1) for l in _si2_leg_head}
-_si2_legacy_intact = (len(_si2_leg_b0) == 61 and _si2_leg_head == _si2_leg_b0 and len(_si2_leg_names) == 59)
-ok_si2 &= _si2_legacy_intact
-# negative case 9: one statement removed, two reordered, one re-valued -- each fails, and the
-# double-assigned RNT pair is counted as statements so removing either half fails.
-_si2_i_rnt = [i for i, l in enumerate(_si2_leg_head) if l.startswith('_RNT_MERGE')]
-ok_si2 &= len(_si2_i_rnt) == 2
-for _drop in _si2_i_rnt:
-    ok_si2 &= (_si2_leg_head[:_drop] + _si2_leg_head[_drop + 1:]) != _si2_leg_b0
-_si2_swapped = list(_si2_leg_head)
-_si2_swapped[0], _si2_swapped[1] = _si2_swapped[1], _si2_swapped[0]
-ok_si2 &= _si2_swapped != _si2_leg_b0
-_si2_revalued = list(_si2_leg_head)
-_si2_revalued[5] = _si2_revalued[5][:-5] + "0000'"
-ok_si2 &= _si2_revalued != _si2_leg_b0
-print('    R7-SI2 SI2-6(b): %s -- %d legacy statements over %d names at the head, identical as text and in the '
-      'same order to the %d at B0; SI-2\'s own _SI2_BASE excluded by stem'
-      % ('LEGACY-INTACT' if _si2_legacy_intact else 'LEGACY-ALTERED', len(_si2_leg_head), len(_si2_leg_names), len(_si2_leg_b0)))
+print('    R7-SI2 SI2-6(b): RETIRED by SI-3 -- %d legacy statements at the head, the inventory SI-2 '
+      'preserved having been retired by design; SI-2\'s own recorded outcome was LEGACY-INTACT'
+      % len(_si2_leg_head))
 
 # SI2-7 -- the protocol.
 _si2_agents = open(os.path.join(os.path.dirname(VERIFICATION), 'AGENTS.md'), encoding='utf-8').read()
