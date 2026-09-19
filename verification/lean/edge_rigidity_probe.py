@@ -23942,8 +23942,9 @@ def _olt_attestation(t=None):
             and '**a disclosure does not cure a contamination**' in t
             and '**The freeze-supplied facts that were in front of the execution**' in t
             and '**No commit on this branch was amended, reset, rebased over, cherry-picked over or force-pushed away. There are no superseded SHAs.**' in t
-            and '**Two execution defects are recorded, and neither is repaired.**' in t
-            and '**provisional pre-review classification**' in t)
+            and '**Three execution defects are recorded, and none is repaired.**' in t
+            and '**provisional pre-review classification**' in t
+            and '**omitted the clause\'s opening sentence**' in t)
 
 
 def _olt_verdicts(t=None):
@@ -23986,9 +23987,13 @@ def _olt_clause(t=None):
     """N10 -- THE CLAUSE, verbatim from the freeze, at every mention, with its count stated and
     matching."""
     t = _OLT1 if t is None else t
-    body = _olt_frozen(1898, 1905)
-    return (t.count(body) == 4 and '**THE CLAUSE is carried four times in this note**' in t
+    body = _olt_frozen(1897, 1905)   # the COMPLETE clause, from "Act 21 classifies" on; line 1896 is the freeze's own naming line
+    heads = ('the census, where a law survives', 'the headline', 'the section that states it',
+             'the list of what no outcome licenses')
+    return (body.startswith('Act 21 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none.')
+            and t.count(body) == 4 and '**THE CLAUSE is carried four times in this note**' in t
             and t.count('**THE CLAUSE, carried at this mention —') == 4
+            and all(t.count('**THE CLAUSE, carried at this mention — %s.** %s' % (h, body)) == 1 for h in heads)
             and '**No law is adopted, endorsed or given physical status by surviving.**' in t)
 
 
@@ -24014,7 +24019,7 @@ def _olt_chronology(t=None):
             and '**The supersession table\'s four edits were made at exactly the places the table names, and reported as measurements.**' in t
             and '**Nothing else in `R7-SI1`, `R7-SI2` or `R7-SI3` was touched**' in t
             and '**`SI-3`\'s standing zero-legacy-statement contract holds at every head**' in t
-            and '**Five items are recorded. None is repaired, and neither frozen document is edited.**' in t
+            and '**Six items are recorded. None is repaired, and neither frozen document is edited.**' in t
             and '**No candidate discovered during execution was executed.** **No configuration was chosen after an outcome was known.** **No alternative witness was substituted for a named one.**' in t
             and '**No start-state discrepancy arose**' in t and '**all eleven pass**' in t
             and '**The claim is scoped to the repository record.**' in t
@@ -24122,12 +24127,17 @@ _olt_m4 = _OLT1.replace('| **Q3 — UNAIDED REASONING** | **YES**, disclosed bel
 ok_olt &= _olt_m4 != _OLT1 and not _olt_attestation(_olt_m4)                    # the disclosure concealed
 _olt_m5 = _OLT1.replace('**THE CLAUSE is carried four times in this note**', '**THE CLAUSE is carried three times in this note**')
 ok_olt &= _olt_m5 != _OLT1 and not _olt_clause(_olt_m5)                         # the count misstated
+_olt_m5b = _OLT1.replace('Act 21 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none. ', '')
+ok_olt &= _olt_m5b != _OLT1 and not _olt_clause(_olt_m5b)                       # the opening sentence dropped from every carriage
+_olt_m5c = _OLT1.replace('**THE CLAUSE, carried at this mention — the headline.** Act 21 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none. ',
+                         '**THE CLAUSE, carried at this mention — the headline.** ', 1)
+ok_olt &= _olt_m5c != _OLT1 and not _olt_clause(_olt_m5c)                       # the opening sentence dropped from one carriage
 _olt_m6 = _OLT1.replace('**Nothing from `claude/act-19-execution` is cited, imported, adapted or counted.**',
                         'Act 19\'s execution branch supplies the ladder proofs this round reuses.')
 ok_olt &= _olt_m6 != _OLT1 and not _olt_l4n_act19(_olt_m6)                     # the act 19 boundary crossed
 _olt_m7 = _OLT1.replace('**`%s`.**' % _OLT_LADDER, '**`%s`.**' % ('0' * 40))
 ok_olt &= _olt_m7 != _OLT1 and not _olt_records(_olt_m7)                        # a fabricated ladder SHA in the note
-_olt_m8 = _OLT1.replace('**Five items are recorded. None is repaired, and neither frozen document is edited.**',
+_olt_m8 = _OLT1.replace('**Six items are recorded. None is repaired, and neither frozen document is edited.**',
                         'The freeze\'s countercontrol table was corrected to check the standing hypothesis.')
 ok_olt &= _olt_m8 != _OLT1 and not _olt_chronology(_olt_m8)                     # the freeze repaired
 _olt_m9 = _OLT1.replace(_olt_frozen(1768, 1779), 'At least two inequivalent laws survive and the class is characterized up to a parameter set.')

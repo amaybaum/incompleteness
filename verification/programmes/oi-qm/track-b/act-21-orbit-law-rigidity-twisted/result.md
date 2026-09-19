@@ -246,14 +246,22 @@ acquired beyond them.
 **No commit on this branch was amended, reset, rebased over, cherry-picked over or force-pushed
 away. There are no superseded SHAs.** Before certification this execution absorbed no later `main`.
 
-**Two execution defects are recorded, and neither is repaired.** First, the packaging commits
+**Three execution defects are recorded, and none is repaired.** First, the packaging commits
 `f6b87a6fc4fe313bfc3512649d1fe1543c155ff3` and `53256f1e84dce979467255b8c952fc24658c62af` carry
 in their messages and in the note they introduced the **provisional pre-review classification**
 `L4n-RESTRICTS` and `L-WIDE (L0–L4)`; owner review at the exact head `53256f1e…` corrected both
 readings — `L4n` is `UNDECIDED` because its row names no countercontrol and the witness rule forbids
 substitution, and the headline is `L-WIDE` over the complete ladder because an `UNDECIDED` rung
 stays in the conjunction — and the correction is appended as its own commit, with the earlier
-messages left as written. Second, the stage-A commit's message says the
+messages left as written. Second, the four carriages of THE CLAUSE in the note as first committed
+at `f6b87a6…`, and as carried through `53256f1e…` and `30c0c50a86feb65c4e549fd3864df761654b8d6b`,
+**omitted the clause's opening sentence** — "Act 21 classifies the cross-time laws a frozen ladder
+of conditions leaves standing, and adopts none." — beginning instead at "A law that survives"; the
+`R7-OLT` clause as first committed pinned the clause from its second sentence, so its four-carriage
+count passed over the truncation, and exact-head continuous integration was green on all three
+heads. Owner review found it; the complete clause is restored in every carriage, the guard now pins
+the clause from its first sentence and carries a mutation control that truncates it, and the
+earlier commits are left as written. Third, the stage-A commit's message says the
 validator classified `OLT` as `EXECUTION` at that commit. At that commit no keyed call
 `_si2_authority('OLT', …)` existed yet — the `R7-OLT` clause is created by the packaging commit — so
 the guard printed nothing about `OLT` there; what the stage-A guard run established is that the
@@ -597,6 +605,7 @@ frozen family against the exact frozen rung and nothing in its neighbourhood. **
 the freeze's closed list and is not a census of all laws.**
 
 > **THE CLAUSE, carried at this mention — the census, where a law survives.**
+> Act 21 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts
 > none. A law that survives every condition this freeze names is a law that survives **those**
 > conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in
 > nature, **not** a finding that the programme requires it, and **not** an adoption of it as the
@@ -684,6 +693,7 @@ collapse only under an equivalence outside the frozen quotient list is a plurali
 noticed. **`L-WIDE` is the absence of a characterization and not the presence of a big one.**
 
 > **THE CLAUSE, carried at this mention — the headline.**
+> Act 21 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts
 > none. A law that survives every condition this freeze names is a law that survives **those**
 > conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in
 > nature, **not** a finding that the programme requires it, and **not** an adoption of it as the
@@ -749,12 +759,14 @@ rule (§7) — carry no label, earn no line and are evidence for no verdict of t
 ## 13. The non-adoption clause, carried verbatim at each mention
 
 **THE CLAUSE is carried four times in this note** — at the census, at the headline, here, and at the
-list of what no outcome licenses — each carriage opening with its own naming line. Where a frozen
+list of what no outcome licenses — each carriage opening with its own naming line and carrying the
+complete frozen clause, from "Act 21 classifies" to "approaches quantum evolution.". Where a frozen
 byte-fixed sentence carries the clause's substance in its own wording — the status rule's sentences
 and the `P0` row's sentence — no quotation is inserted inside the quotation, as the freeze directs.
 **No law is adopted, endorsed or given physical status by surviving.**
 
 > **THE CLAUSE, carried at this mention — the section that states it.**
+> Act 21 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts
 > none. A law that survives every condition this freeze names is a law that survives **those**
 > conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in
 > nature, **not** a finding that the programme requires it, and **not** an adoption of it as the
@@ -780,6 +792,7 @@ this round says that a surviving law is, resembles or points toward quantum evol
 says that the surviving law is the physical one (2), the non-adoption clause governing:
 
 > **THE CLAUSE, carried at this mention — the list of what no outcome licenses.**
+> Act 21 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts
 > none. A law that survives every condition this freeze names is a law that survives **those**
 > conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in
 > nature, **not** a finding that the programme requires it, and **not** an adoption of it as the
@@ -988,7 +1001,7 @@ observation and not as a label or a confirmation.**
 
 ## 21. The discrepancies — recorded and not repaired
 
-**Five items are recorded. None is repaired, and neither frozen document is edited.** The
+**Six items are recorded. None is repaired, and neither frozen document is edited.** The
 preregistration is immutable once merged; an execution that diverges records the discrepancy and
 does not repair the freeze.
 
@@ -1016,6 +1029,12 @@ not amended.
 `L4n-RESTRICTS` and `L-WIDE (L0–L4)` in the messages of `f6b87a6…` and `53256f1e…` and in the note
 as first committed, corrected on exact-head review by an appended commit; the messages are not
 rewritten.
+
+**DF6 — THE CLAUSE's carriages were truncated, and the guard's own pin missed it.** Recorded in
+§4.1: the opening sentence of the frozen clause was absent from all four carriages from `f6b87a6…`
+through `30c0c50a…`, the `R7-OLT` contract pinned the clause from its second sentence, and green
+continuous integration on three heads therefore certified a defective carriage. Restored and
+re-pinned by an appended commit; the earlier commits are not rewritten.
 
 **No start-state discrepancy arose**, in any of the thirty-four pinned blobs or in any of the eleven
 preconditions: **every one matches** and **all eleven pass**. **No candidate discovered during
