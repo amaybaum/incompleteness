@@ -229,5 +229,113 @@ def SameInitialOrbitPair (V A V₁ V₂ A₁ A₂ : Type) [Fintype V] [Decidable
       ∧ (∀ s, s < t → GramPhaseEquiv (𝔾 s) (𝔾' s))
       ∧ ¬ GramPhaseEquiv (𝔾 t) (𝔾' t)
 
+
+/-! ### Section B — `OL1`, the shared structural theorem, which runs first
+
+`OL1` (a) is a **descent** statement: a transition family that respects act 12's `GramPhaseEquiv`
+in its argument (`L4d`) induces, on the admissible orbit state spaces, the composable family of maps
+`Φ̄_t` and the composite `E_t = Φ̄_{t-1} ∘ ⋯ ∘ Φ̄_0`, so that a solution's class at time `t` is a
+function of its initial class alone. The composite is written inline with `Nat.rec`, spending no
+definition slot. `OL1` (b) is the time-homogeneous form: with `L2` the family is one map `Φ₀` and
+`E_t = Φ₀^[t]`, a monoid action of `(ℕ, +)` on the admissible orbit space.
+
+**The `TJ1` dependence is named at the step and not in a footnote**: reading the solution set as a
+composition of maps on per-time state spaces requires the ambient admissible set to be the product
+over time of those spaces, which is act 17's `tj1_trajectory_set` and is consumed as the third
+conjunct of (a). **`OL1` is not an existence statement** — that an `L-PROP` law exists is act 18's
+— and it says nothing about faithfulness, transitivity, freeness or any symmetry of the induced
+action; it realizes `Φ̄` as no operator, unitary, generator or group element. It is proved for every
+transition family with descent, the standing `L-PROP` hypothesis playing no part in it. -/
+
+omit [Fintype V] [DecidableEq V] [Fintype A] [DecidableEq A] in
+/-- Descent transports along the composite: if `G ≈ G'` then `E_t G ≈ E_t G'`. -/
+theorem composite_descends {Φ : ℕ → (V → Matrix V V ℂ) → (V → Matrix V V ℂ)}
+    (hd : ∀ t (G G' : V → Matrix V V ℂ), GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G'))
+    {G G' : V → Matrix V V ℂ} (h : GramPhaseEquiv G G') (t : ℕ) :
+    GramPhaseEquiv (Nat.rec (motive := fun _ => V → Matrix V V ℂ) G (fun s H => Φ s H) t)
+      (Nat.rec (motive := fun _ => V → Matrix V V ℂ) G' (fun s H => Φ s H) t) := by
+  induction t with
+  | zero => exact h
+  | succ n ih => exact hd n _ _ ih
+
+omit [Fintype V] [DecidableEq V] [Fintype A] [DecidableEq A] in
+/-- A solution's slice at time `t` is `∼_D`-equivalent to the composite applied to its initial
+slice: the class at time `t` is a function of the initial class. -/
+theorem solution_eq_composite {Φ : ℕ → (V → Matrix V V ℂ) → (V → Matrix V V ℂ)}
+    (hd : ∀ t (G G' : V → Matrix V V ℂ), GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G'))
+    {𝔾 : ℕ → V → Matrix V V ℂ} (hlaw : ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) (t : ℕ) :
+    GramPhaseEquiv (𝔾 t) (Nat.rec (motive := fun _ => V → Matrix V V ℂ) (𝔾 0) (fun s H => Φ s H) t) := by
+  induction t with
+  | zero => exact gramPhaseEquiv_refl _
+  | succ n ih => exact gramPhaseEquiv_trans (hlaw n) (hd n _ _ ih)
+
+/-- **`OL1` (a), the general form.** A transition family satisfying `L4d` descends to a composition
+of maps on the admissible orbit spaces: (1) every solution's class at time `t` is the composite
+`E_t` of its initial class; (2) two solutions handed `∼_D`-equivalent initial slices have
+`≈_O`-equivalent trajectories — the evolution from the initial orbit is a function of the initial
+class alone; and (3) the ambient set of pointwise realizable trajectories is exactly the set of Gram
+trajectories of coherent lifts, act 17's `TJ1`, cited here at the step where the solution set is
+read as a composition over per-time state spaces. -/
+theorem ol1a_descent (a₀ : A) (Γ : ℕ → Matrix V V ℝ)
+    {Φ : ℕ → (V → Matrix V V ℂ) → (V → Matrix V V ℂ)}
+    (hd : ∀ t (G G' : V → Matrix V V ℂ), GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G')) :
+    (∀ 𝔾 : ℕ → V → Matrix V V ℂ, (∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) → ∀ t,
+        GramPhaseEquiv (𝔾 t)
+          (Nat.rec (motive := fun _ => V → Matrix V V ℂ) (𝔾 0) (fun s H => Φ s H) t))
+      ∧ (∀ 𝔾 𝔾' : ℕ → V → Matrix V V ℂ, (∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) →
+          (∀ t, GramPhaseEquiv (𝔾' (t + 1)) (Φ t (𝔾' t))) →
+          GramPhaseEquiv (𝔾 0) (𝔾' 0) → GramTrajEquiv 𝔾 𝔾')
+      ∧ (∀ 𝔾 : ℕ → V → Matrix V V ℂ,
+          (∃ U : ℕ → Matrix (V × A) (V × A) ℂ, CoherentLift a₀ Γ U ∧ ∀ t, FibreGram a₀ (U t) = 𝔾 t)
+            ↔ ∀ t, RealizableGram A (Γ t) (𝔾 t)) := by
+  refine ⟨fun 𝔾 hlaw t => solution_eq_composite hd hlaw t, fun 𝔾 𝔾' h h' h0 t => ?_,
+    fun 𝔾 => tj1_trajectory_set a₀ 𝔾⟩
+  exact gramPhaseEquiv_trans (solution_eq_composite hd h t)
+    (gramPhaseEquiv_trans (composite_descends hd h0 t)
+      (gramPhaseEquiv_symm (solution_eq_composite hd h' t)))
+
+omit [Fintype V] [DecidableEq V] [Fintype A] [DecidableEq A] in
+/-- Descent transports along iterates of one map. -/
+theorem iterate_descends {Φ₀ : (V → Matrix V V ℂ) → (V → Matrix V V ℂ)}
+    (hd : ∀ G G' : V → Matrix V V ℂ, GramPhaseEquiv G G' → GramPhaseEquiv (Φ₀ G) (Φ₀ G'))
+    {G G' : V → Matrix V V ℂ} (h : GramPhaseEquiv G G') (t : ℕ) :
+    GramPhaseEquiv (Φ₀^[t] G) (Φ₀^[t] G') := by
+  induction t with
+  | zero => exact h
+  | succ n ih => rw [Function.iterate_succ_apply', Function.iterate_succ_apply']; exact hd _ _ ih
+
+/-- **`OL1` (b), the homogeneous form.** At a time-homogeneous visible family and under `L2`, the
+family of induced maps is constant, `Φ̄_t = Φ̄`, every solution's class at time `t` is `Φ̄^t` of its
+initial class, and the iterates compose as a **monoid action of `(ℕ, +)`** on the admissible orbit
+space: `E_0 = id`, `E_{t+s} = E_s ∘ E_t`, each `E_t` descending to classes, and every slice of every
+solution admissible for the one visible slice `Γ 0`. Stated at time-homogeneous configurations
+only: at a general `Γ` there is no single set for a monoid to act on. -/
+theorem ol1b_monoid_action (Γ : ℕ → Matrix V V ℝ) (hΓ : ∀ t, Γ t = Γ 0)
+    {Φ : ℕ → (V → Matrix V V ℂ) → (V → Matrix V V ℂ)}
+    (hd : ∀ t (G G' : V → Matrix V V ℂ), GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G'))
+    {Φ₀ : (V → Matrix V V ℂ) → (V → Matrix V V ℂ)} (h2 : ∀ t, Φ t = Φ₀) :
+    (∀ 𝔾 : ℕ → V → Matrix V V ℂ, (∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) →
+        ∀ t, GramPhaseEquiv (𝔾 t) (Φ₀^[t] (𝔾 0)))
+      ∧ (∀ G : V → Matrix V V ℂ, Φ₀^[0] G = G)
+      ∧ (∀ (t s : ℕ) (G : V → Matrix V V ℂ), Φ₀^[t + s] G = Φ₀^[s] (Φ₀^[t] G))
+      ∧ (∀ (t : ℕ) (G G' : V → Matrix V V ℂ), GramPhaseEquiv G G' →
+          GramPhaseEquiv (Φ₀^[t] G) (Φ₀^[t] G'))
+      ∧ (∀ 𝔾 : ℕ → V → Matrix V V ℂ, (∀ t, RealizableGram A (Γ t) (𝔾 t)) →
+          ∀ t, RealizableGram A (Γ 0) (𝔾 t)) := by
+  have hd0 : ∀ G G' : V → Matrix V V ℂ, GramPhaseEquiv G G' → GramPhaseEquiv (Φ₀ G) (Φ₀ G') := by
+    intro G G' h
+    have := hd 0 G G' h
+    rwa [h2 0] at this
+  refine ⟨fun 𝔾 hlaw t => ?_, fun G => rfl, fun t s G => ?_, fun t G G' h => iterate_descends hd0 h t,
+    fun 𝔾 hG t => by rw [← hΓ t]; exact hG t⟩
+  · induction t with
+    | zero => exact gramPhaseEquiv_refl _
+    | succ n ih =>
+      rw [Function.iterate_succ_apply']
+      have h1 := hlaw n
+      rw [h2 n] at h1
+      exact gramPhaseEquiv_trans h1 (hd0 _ _ ih)
+  · rw [add_comm, Function.iterate_add_apply]
+
 end OrbitLawRigidityTwisted
 end OIBridge
