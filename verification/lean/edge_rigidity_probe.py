@@ -25319,14 +25319,22 @@ def _ogs_theorem_blocks(text):
     return [' '.join(p.split()) for p in parts if p.startswith('theorem ')]
 
 
+_OGS_DBIND_RE = re.compile(r'(?<![A-Za-z0-9_.₀-₉])(d|d₁) = ')
+
+
 def _ogs_geometry_pinned(text):
     """Contract (c), the geometry: every theorem block that binds a distance `d` or `d₁` carries its
-    equation, as the hypothesis `d = fun G H => ...` or the antecedent `d = (fun G H => ...)`."""
+    equation, as the hypothesis `d = fun G H => ...` or the antecedent `d = (fun G H => ...)`, and
+    every equation `d = ...` or `d₁ = ...` anywhere in a theorem block is that equation and no other."""
     for blk in _ogs_theorem_blocks(text):
         for name in ('d', 'd₁'):
             if '(%s : (' % name in blk:
                 if ('%s = %s' % (name, _OGS_GEOM)) not in blk and ('%s = (%s)' % (name, _OGS_GEOM)) not in blk:
                     return False
+        for m in _OGS_DBIND_RE.finditer(blk):
+            rest = blk[m.end():]
+            if not (rest.startswith(_OGS_GEOM) or rest.startswith('(' + _OGS_GEOM + ')')):
+                return False
     return True
 
 
