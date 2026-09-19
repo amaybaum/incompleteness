@@ -973,8 +973,8 @@ label.
 | target or cell | the route this freeze names | configuration |
 | --- | --- | --- |
 | `GEO1` (i), invariance | under `G' = c ⋆ G`, each coordinate of `Ψ G'` is the corresponding coordinate of `Ψ G` times `star (c j₁) c j₂ star (c j₂) c j₃ star (c j₃) c j₁ = 1` | arbitrary finite `V` |
-| `GEO1` (ii), separation under base-star support | given `Ψ G = Ψ H`, equal diagonals and `G j₀ j₀ j ≠ 0` for every `j`: the coordinate `((j₀, j₀, j₀), (j₀, j₀, j))` gives `‖G j₀ j₀ j‖ = ‖H j₀ j₀ j‖`, so `c j := H j₀ j₀ j / G j₀ j₀ j` has modulus one; the coordinate `((j₀, i, j₀), (j₀, j, k))` — the based triangle `j₀ → j → k → j₀` read in fibres `j₀`, `i`, `j₀` — gives `H j₀ j₀ j · H i j k · H j₀ k j₀ = G j₀ j₀ j · G i j k · G j₀ k j₀`, and with `G j₀ k j₀ = star (G j₀ j₀ k)` by hermiticity of each fibre Gram, `H i j k = star (c j) * G i j k * c k` for every `i`, `j`, `k` | arbitrary finite `V`, a base `j₀` |
-| `GEO1` (iii), the full-support instantiation | at each frozen configuration, realizable `G` has, by `sh1_sufficiency` and `fibreGram_apply`, `G i j k = star (U (i,0) (j,0)) * U (i,0) (k,0)` with `‖U (i,0) (j,0)‖ ^ 2 = Γ i j ≠ 0`, so `G 0 0 j ≠ 0` for every `j`; realizable `G`, `H` have equal diagonals `Γ`; (ii) applies | both configurations |
+| `GEO1` (ii), separation under base-star support | given `Ψ G = Ψ H`, Hermitian fibres on both sides, equal diagonals and `G j₀ j₀ j ≠ 0` for every `j`: the coordinate `((j₀, j₀, j₀), (j₀, j₀, j))` gives `‖G j₀ j₀ j‖ = ‖H j₀ j₀ j‖`, so `c j := H j₀ j₀ j / G j₀ j₀ j` has modulus one; the coordinate `((j₀, i, j₀), (j₀, j, k))` — the based triangle `j₀ → j → k → j₀` read in fibres `j₀`, `i`, `j₀` — gives `H j₀ j₀ j · H i j k · H j₀ k j₀ = G j₀ j₀ j · G i j k · G j₀ k j₀`, and with `G j₀ k j₀ = star (G j₀ j₀ k)` and `H j₀ k j₀ = star (H j₀ j₀ k)` by the Hermitian hypothesis, `H i j k = star (c j) * G i j k * c k` for every `i`, `j`, `k` | arbitrary finite `V`, a base `j₀` |
+| `GEO1` (iii), the full-support instantiation | at each frozen configuration, realizable `G` has, by `sh1_sufficiency` and `fibreGram_apply`, `G i j k = star (U (i,0) (j,0)) * U (i,0) (k,0)` with `‖U (i,0) (j,0)‖ ^ 2 = Γ i j ≠ 0`, so `G 0 0 j ≠ 0` for every `j`; realizable `G`, `H` have Hermitian fibres, being positive semidefinite, and equal diagonals `Γ`; (ii) applies | both configurations |
 | `GEO1` (iv)–(vi), the metric | `d` is a Euclidean norm of a difference of vectors in `EuclideanSpace ℂ ((V × V × V) × (V × V × V))`, `EuclideanSpace.norm_eq` rewriting the sum; nonnegativity, `d G G = 0`, symmetry and the triangle inequality are the norm's; class-invariance in both arguments from (i); `d G H = 0 → Ψ G = Ψ H` from the norm's definiteness, and then (iii) on realizable tuples; `GramPhaseEquiv G H → d G H = 0` from (i) | (iv), (v), (vi-b) arbitrary `V`; (vi-a) both configurations |
 | `GEO2` (a) | for `σ : Equiv.Perm V`, `Ψ (RelabelTransition σ G) p = Ψ G (σ⁶ p)` with `σ⁶` the induced permutation of the index set, so the two sums are reindexed by a bijection and agree: `d (σG) (σH) = d G H` | arbitrary finite `V` |
 | `GEO2` (b) | for `L` in `LeftFibreGroup` and `K` a `WeakAnchorStabilizer`, `FibreGram a₀ (L * U * K) i j k = star (c j) * FibreGram a₀ U i j k * c k` by `fibreGram_left_mul` and `fibreGram_mul_weak_apply`, so `GramPhaseEquiv (FibreGram a₀ U) (FibreGram a₀ (L * U * K))` and `d = 0` by `GEO1` (vi-b) | arbitrary finite `V`, `A`, `a₀` |
@@ -1098,8 +1098,8 @@ four questions.
 
 **The statement.** With `Ψ = mixedTriple` and `d` equal to the displayed equation: (i) for every
 finite carrier `V` and all `G H`, `GramPhaseEquiv G H → Ψ G = Ψ H`; (ii) for every finite carrier
-`V`, every `j₀ : V` and all `G H` with `∀ i j, G i j j = H i j j` and `∀ j, G j₀ j₀ j ≠ 0`,
-`Ψ G = Ψ H → GramPhaseEquiv G H`; (iii) at each of the two frozen configurations, for all
+`V`, every `j₀ : V` and all `G H` with `∀ i, (G i).IsHermitian`, `∀ i, (H i).IsHermitian`,
+`∀ i j, G i j j = H i j j` and `∀ j, G j₀ j₀ j ≠ 0`, `Ψ G = Ψ H → GramPhaseEquiv G H`; (iii) at each of the two frozen configurations, for all
 realizable `G H`, `Ψ G = Ψ H → GramPhaseEquiv G H`; (iv) for every finite `V`: `∀ G H, 0 ≤ d G H`,
 `∀ G, d G G = 0`, `∀ G H, d G H = d H G`, `∀ G H K, d G K ≤ d G H + d H K`; (v) for every finite
 `V`, `∀ G G' H H', GramPhaseEquiv G G' → GramPhaseEquiv H H' → d G H = d G' H'`; (vi-a) at each of
@@ -1110,14 +1110,14 @@ for every finite `V`, `∀ G H, GramPhaseEquiv G H → d G H = 0`.
 conjuncts above, with (vi-a) and (vi-b) as **separate conjuncts** — the equivalence is displayed
 nowhere as a single biconditional, each direction having its own witness in the statement, under
 `§A.34` — and (ii) and (iii) as separate conjuncts, (iii) being (ii) instantiated at `j₀ = 0` with
-the support hypothesis discharged from act 12's merged results. **`GEO1-METRIC` is earned only by
+the Hermitian, diagonal and support hypotheses discharged from act 12's merged results. **`GEO1-METRIC` is earned only by
 all of (i)–(vi-b) together**; a `Ψ` proved invariant without (ii), or a `d` proved a pseudometric
 without (vi-a), earns `GEO1-UNDECIDED` with the missing conjunct named as the obstruction.
 
 **The zero-entry case is out.** No conjunct of `GEO1` asserts completeness for tuples with a
 vanishing entry on the base star, at any carrier, and no sentence of this round does either; the
 frame literature cited as provenance shows that triples need not suffice there, and this round
-asserts nothing about it beyond (ii)'s hypothesis.
+asserts nothing about it beyond (ii)'s hypotheses.
 
 **The topology of the induced metric is an observation sub-question, not a conjunct.** Whether the
 set of realizable tuples at each frozen configuration is compact and `Ψ` continuous on it, so that
@@ -1231,7 +1231,7 @@ NOT-EXECUTED is a live preregistered outcome for every gated target and is not a
 - **Outcome `GEO1-METRIC`:**
   > The mixed-triple feature map — every product of three Gram entries around a closed three-step
   > walk of matrix indices, with a fibre label per step — is invariant under act 12's phase action at
-  > every finite carrier, and separates act 12's classes on every pair of tuples with equal diagonals
+  > every finite carrier, and separates act 12's classes on every pair of tuples with Hermitian fibres, equal diagonals
   > and no vanishing entry on one base star, hence on the realizable tuples at both frozen
   > configurations, where no entry vanishes; and the Euclidean distance of feature vectors is a
   > metric on classes: nonnegative, symmetric, subadditive, constant on each class in both
@@ -1543,8 +1543,8 @@ any paraphrase, in a summary line, an abstract, a table cell or a propagation li
 5. **Attributing the completeness theorem, or importing one.** The frame literature's theorem is
    for one Gram matrix and is cited as provenance only; the tuple statement with the shared phase
    is proved here from the based-star gauge fixing, and no result of that literature is consumed.
-6. **Completeness asserted past its hypothesis.** Conjunct (ii) needs `G j₀ j₀ j ≠ 0` for every
-   `j`; a tuple with a vanishing entry on the base star is outside every completeness statement of
+6. **Completeness asserted past its hypotheses.** Conjunct (ii) needs Hermitian fibres, equal
+   diagonals and `G j₀ j₀ j ≠ 0` for every `j`; a tuple with a vanishing entry on the base star is outside every completeness statement of
    this round, and the frame literature's `n`-cycle example is the reason. At the frozen
    configurations the hypothesis is discharged from rank one; nothing is asserted at `|A| > 1`.
 7. **Raw coordinates mistaken for gauge invariants with signs.** The raw coordinates of
