@@ -258,6 +258,452 @@ theorem fourier_entry_monomial (z : ℂ) (hz : star z * z = 1) (i j k : Fin 4) :
       | (left; linear_combination (-1 / 4 : ℂ) * hz2)
       | (right; left; linear_combination (1 / 4 : ℂ) * hz2)
 
+/-! ### Section B — `ISO1`: the normalized space and the family that acts on it
+
+The normalized space is the realizable quotient carried onto its feature image by act 24's
+`geo1_triple_metric`; nothing is defined for it. Each generator is written by its frozen formula.
+The dilation transpose is the relation `∃ U, AdmissibleDilationAt Γ a₀ U ∧ FibreGram a₀ U = G ∧
+GramPhaseEquiv G' (FibreGram a₀ Uᵀ)`; its totality is act 12's `sh1_sufficiency`, and its
+single-valuedness on classes and its descent are proved here. -/
+
+open scoped ComplexOrder in
+/-- **`ISO1` (i) — an independent relabelling preserves realizability at a constant visible
+family**: positive semidefiniteness and rank are invariant under a submatrix by a permutation, the
+relabelled fibres sum to the relabelled identity, and the diagonal is the constant. -/
+theorem relabel2_realizable {A : Type} [Fintype A] (Γ : Matrix V V ℝ)
+    (hΓ : ∀ i j i' j', Γ i j = Γ i' j') (π τ : Equiv.Perm V) (G : V → Matrix V V ℂ)
+    (hG : RealizableGram A Γ G) : RealizableGram A Γ (fun i => (G (π i)).submatrix τ τ) := by
+  refine ⟨fun i => (hG.1 (π i)).submatrix τ, fun i => ?_, ?_, fun i j => ?_⟩
+  · rw [Matrix.rank_submatrix]; exact hG.2.1 (π i)
+  · ext j k
+    have h1 := congrFun (congrFun hG.2.2.1 (τ j)) (τ k)
+    rw [Matrix.sum_apply] at h1
+    rw [Matrix.sum_apply]
+    simp only [Matrix.submatrix_apply]
+    rw [Equiv.sum_comp π (fun i => G i (τ j) (τ k)), h1]
+    simp [Matrix.one_apply, τ.injective.eq_iff]
+  · simp only [Matrix.submatrix_apply]
+    rw [hG.2.2.2 (π i) (τ j), hΓ (π i) (τ j) i j]
+
+omit [Fintype V] [DecidableEq V] in
+/-- **`ISO1` (ii) — an independent relabelling descends to classes**, with the phases `c ∘ τ`. -/
+theorem relabel2_gramPhaseEquiv (π τ : Equiv.Perm V) {G G' : V → Matrix V V ℂ}
+    (h : GramPhaseEquiv G G') :
+    GramPhaseEquiv (fun i => (G (π i)).submatrix τ τ) (fun i => (G' (π i)).submatrix τ τ) := by
+  obtain ⟨c, hc, hG⟩ := h
+  exact ⟨fun j => c (τ j), fun j => hc (τ j), fun i j k => by
+    simp only [Matrix.submatrix_apply]; exact hG (π i) (τ j) (τ k)⟩
+
+omit [DecidableEq V] in
+/-- **`ISO1` (iii) — an independent relabelling is an exact isometry**: the sum is reindexed along
+the bijection `(π, π, π) × (τ, τ, τ)` of the index set. -/
+theorem relabel2_isometry (d : (V → Matrix V V ℂ) → (V → Matrix V V ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (π τ : Equiv.Perm V) (G H : V → Matrix V V ℂ) :
+    d (fun i => (G (π i)).submatrix τ τ) (fun i => (H (π i)).submatrix τ τ) = d G H := by
+  subst hd
+  simp only [mixedTriple_relabel2]
+  congr 1
+  exact Equiv.sum_comp ((π.prodCongr (π.prodCongr π)).prodCongr (τ.prodCongr (τ.prodCongr τ)))
+    (fun q => ‖mixedTriple G q - mixedTriple H q‖ ^ 2)
+
+omit [DecidableEq V] in
+/-- **`ISO1` (iv) — the entrywise conjugation is an exact isometry at every carrier**, from act
+24's coordinatewise conjugation identity. -/
+theorem conj_isometry (d : (V → Matrix V V ℂ) → (V → Matrix V V ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (G H : V → Matrix V V ℂ) :
+    d (fun i => Matrix.of fun j k => star (G i j k)) (fun i => Matrix.of fun j k => star (H i j k))
+      = d G H := by
+  subst hd
+  have key : ∀ p, ‖mixedTriple (fun i => Matrix.of fun j k => star (G i j k)) p
+      - mixedTriple (fun i => Matrix.of fun j k => star (H i j k)) p‖
+      = ‖mixedTriple G p - mixedTriple H p‖ := fun p => by
+    rw [mixedTriple_star, mixedTriple_star, ← star_sub, norm_star]
+  simp only [key]
+
+/-- **The transpose is single-valued on classes**: two admissible dilations of one realizable tuple
+at a one-element ancilla differ row by row by unit phases, so their transposes' fibre-Gram tuples
+are phase-equivalent. -/
+theorem transpose_single_valued {A : Type} [Fintype A] [DecidableEq A] (x : A) (hx : ∀ y : A, y = x)
+    (Γ : Matrix V V ℝ) (hΓ : ∀ i j, Γ i j ≠ 0) (a₀ : A) (U U' : Matrix (V × A) (V × A) ℂ)
+    (hU : AdmissibleDilationAt Γ a₀ U) (_hU' : AdmissibleDilationAt Γ a₀ U')
+    (h : FibreGram a₀ U = FibreGram a₀ U') :
+    GramPhaseEquiv (FibreGram a₀ Uᵀ) (FibreGram a₀ U'ᵀ) := by
+  obtain rfl := hx a₀
+  have hsingle : ∀ f : A → ℝ, ∑ a, f a = f a₀ :=
+    fun f => Finset.sum_eq_single a₀ (fun b _ hb => absurd (hx b) hb)
+      (fun h => absurd (Finset.mem_univ a₀) h)
+  have hne : ∀ i j, U (i, a₀) (j, a₀) ≠ 0 := by
+    intro i j h0
+    have e := hU.2 i j
+    rw [hsingle, h0] at e
+    simp at e
+    exact hΓ i j e
+  have hrow : ∀ i, ∃ e : ℂ, ‖e‖ = 1 ∧ ∀ j, U' (i, a₀) (j, a₀) = e * U (i, a₀) (j, a₀) := by
+    intro i
+    refine rows_phase (fun j => U (i, a₀) (j, a₀)) (fun j => U' (i, a₀) (j, a₀)) (fun j k => ?_)
+      (fun j => hne i j)
+    have e := congrFun (congrFun (congrFun h i) j) k
+    rw [fibreGram_unique a₀ hx, fibreGram_unique a₀ hx] at e
+    exact e
+  choose e he using hrow
+  refine ⟨e, fun j => (he j).1, fun i j k => ?_⟩
+  rw [fibreGram_unique a₀ hx, fibreGram_unique a₀ hx]
+  simp only [Matrix.transpose_apply, (he j).2, (he k).2, star_mul']
+  ring
+
+/-- The transpose of a unitary matrix is unitary. -/
+theorem transpose_unitary {n : Type} [Fintype n] [DecidableEq n] {U : Matrix n n ℂ}
+    (hU : U ∈ Matrix.unitaryGroup n ℂ) : Uᵀ ∈ Matrix.unitaryGroup n ℂ := by
+  rw [Matrix.mem_unitaryGroup_iff, Matrix.star_eq_conjTranspose, Matrix.transpose_conjTranspose,
+    ← Matrix.conjTranspose_transpose, ← Matrix.transpose_mul, ← Matrix.star_eq_conjTranspose,
+    Matrix.mem_unitaryGroup_iff'.mp hU, Matrix.transpose_one]
+
+/-- **The transpose descends to classes**: an admissible dilation of a phase-equivalent tuple is
+the dilation multiplied by the diagonal of the phases, and its transpose has the same fibre-Gram
+tuple as the transposed dilation. -/
+theorem transpose_descends {A : Type} [Fintype A] [DecidableEq A] (x : A) (hx : ∀ y : A, y = x)
+    (Γ : Matrix V V ℝ) (a₀ : A) (U : Matrix (V × A) (V × A) ℂ) (hU : AdmissibleDilationAt Γ a₀ U)
+    (G' : V → Matrix V V ℂ) (h : GramPhaseEquiv (FibreGram a₀ U) G') :
+    ∃ U' : Matrix (V × A) (V × A) ℂ, AdmissibleDilationAt Γ a₀ U' ∧ FibreGram a₀ U' = G'
+      ∧ GramPhaseEquiv (FibreGram a₀ Uᵀ) (FibreGram a₀ U'ᵀ) := by
+  obtain rfl := hx a₀
+  obtain ⟨c, hc, hG'⟩ := h
+  have hcu : ∀ j, c j * star (c j) = 1 := fun j => by
+    rw [mul_comm, star_mul_self_eq_norm_sq, hc, one_pow, Complex.ofReal_one]
+  have hcu' : ∀ j, star (c j) * c j = 1 := fun j => by rw [mul_comm]; exact hcu j
+  refine ⟨U * Matrix.diagonal (fun p : V × A => c p.1), ⟨?_, fun i j => ?_⟩, ?_, ?_⟩
+  · -- unitary: the product of `U` with a diagonal unitary
+    have hD : Matrix.diagonal (fun p : V × A => c p.1) ∈ Matrix.unitaryGroup (V × A) ℂ := by
+      rw [Matrix.mem_unitaryGroup_iff, Matrix.star_eq_conjTranspose, Matrix.diagonal_conjTranspose,
+        Matrix.diagonal_mul_diagonal]
+      ext p q
+      simp only [Matrix.diagonal_apply, Matrix.one_apply, Pi.star_apply]
+      split_ifs with hpq
+      · exact hcu p.1
+      · rfl
+    exact Submonoid.mul_mem _ hU.1 hD
+  · rw [hU.2 i j]
+    congr 1; ext a
+    rw [Matrix.mul_diagonal, norm_mul, hc, mul_one]
+  · funext i; ext j k
+    rw [fibreGram_unique a₀ hx, hG', fibreGram_unique a₀ hx]
+    simp only [Matrix.mul_diagonal, star_mul']
+    ring
+  · have : FibreGram a₀ (U * Matrix.diagonal (fun p : V × A => c p.1))ᵀ = FibreGram a₀ Uᵀ := by
+      funext i; ext j k
+      rw [fibreGram_unique a₀ hx, fibreGram_unique a₀ hx]
+      simp only [Matrix.transpose_apply, Matrix.mul_diagonal, star_mul']
+      linear_combination (star (U (j, a₀) (i, a₀)) * U (k, a₀) (i, a₀)) * hcu' i
+    rw [this]
+    exact gramPhaseEquiv_refl _
+
+omit [DecidableEq V] in
+/-- **`ISO1` (ix) — the transpose is an exact isometry on dilations**: the sum is reindexed along
+the bijection `((i₁, i₂, i₃), (j₁, j₂, j₃)) ↦ ((j₂, j₃, j₁), (i₁, i₂, i₃))` and the conjugation
+preserves every norm. -/
+theorem transpose_isometry {A : Type} [Fintype A] (x : A) (hx : ∀ y : A, y = x) (a₀ : A)
+    (d : (V → Matrix V V ℂ) → (V → Matrix V V ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (U U' : Matrix (V × A) (V × A) ℂ) :
+    d (FibreGram a₀ Uᵀ) (FibreGram a₀ U'ᵀ) = d (FibreGram a₀ U) (FibreGram a₀ U') := by
+  subst hd
+  have key : ∀ p, ‖mixedTriple (FibreGram a₀ Uᵀ) p - mixedTriple (FibreGram a₀ U'ᵀ) p‖
+      = ‖mixedTriple (FibreGram a₀ U) ((p.2.2.1, p.2.2.2, p.2.1), p.1)
+          - mixedTriple (FibreGram a₀ U') ((p.2.2.1, p.2.2.2, p.2.1), p.1)‖ := fun p => by
+    rw [mixedTriple_transpose x hx, mixedTriple_transpose x hx, ← star_sub, norm_star]
+  simp only [key]
+  congr 1
+  exact Equiv.sum_comp
+    { toFun := fun p : (V × V × V) × (V × V × V) => ((p.2.2.1, p.2.2.2, p.2.1), p.1)
+      invFun := fun q => (q.2, (q.1.2.2, q.1.1, q.1.2.1))
+      left_inv := fun p => rfl
+      right_inv := fun q => rfl }
+    (fun q => ‖mixedTriple (FibreGram a₀ U) q - mixedTriple (FibreGram a₀ U') q‖ ^ 2)
+
+/-- **The relabelled dilation**: the submatrix of an admissible dilation by `π` on the rows' carrier
+index and `τ` on the columns' carrier index is admissible at a constant visible family, its
+fibre-Gram tuple is the `(π, τ)`-relabelling, and its transpose's fibre-Gram tuple is the
+`(τ, π)`-relabelling of the transposed dilation's. -/
+theorem relabel2_dilation {A : Type} [Fintype A] [DecidableEq A] (x : A) (hx : ∀ y : A, y = x)
+    (Γ : Matrix V V ℝ) (hΓ : ∀ i j i' j', Γ i j = Γ i' j') (a₀ : A) (π τ : Equiv.Perm V)
+    (U : Matrix (V × A) (V × A) ℂ) (hU : AdmissibleDilationAt Γ a₀ U) :
+    AdmissibleDilationAt Γ a₀ (U.submatrix (Prod.map π id) (Prod.map τ id))
+      ∧ FibreGram a₀ (U.submatrix (Prod.map π id) (Prod.map τ id))
+          = (fun i => (FibreGram a₀ U (π i)).submatrix τ τ)
+      ∧ FibreGram a₀ (U.submatrix (Prod.map π id) (Prod.map τ id))ᵀ
+          = (fun i => (FibreGram a₀ Uᵀ (τ i)).submatrix π π) := by
+  obtain rfl := hx a₀
+  refine ⟨⟨?_, fun i j => ?_⟩, ?_, ?_⟩
+  · have e₁ : (Prod.map π id : V × A → V × A) = (π.prodCongr (Equiv.refl A)) := rfl
+    have e₂ : (Prod.map τ id : V × A → V × A) = (τ.prodCongr (Equiv.refl A)) := rfl
+    rw [Matrix.mem_unitaryGroup_iff, Matrix.star_eq_conjTranspose, Matrix.conjTranspose_submatrix,
+      e₁, e₂, Matrix.submatrix_mul_equiv, ← Matrix.star_eq_conjTranspose,
+      Matrix.mem_unitaryGroup_iff.mp hU.1, Matrix.submatrix_one_equiv]
+  · rw [hΓ i j (π i) (τ j), hU.2 (π i) (τ j)]
+    rfl
+  · funext i; ext j k
+    simp only [Matrix.submatrix_apply, fibreGram_unique a₀ hx, Prod.map_apply, id]
+  · funext i; ext j k
+    simp only [Matrix.submatrix_apply, Matrix.transpose_apply, fibreGram_unique a₀ hx,
+      Prod.map_apply, id]
+
+/-- **The conjugated dilation**: the entrywise conjugate of an admissible dilation is admissible,
+its fibre-Gram tuple is the conjugation of the original's, and its transpose's fibre-Gram tuple is
+the conjugation of the transposed dilation's. -/
+theorem conj_dilation {A : Type} [Fintype A] [DecidableEq A] (x : A) (hx : ∀ y : A, y = x)
+    (Γ : Matrix V V ℝ) (a₀ : A) (U : Matrix (V × A) (V × A) ℂ) (hU : AdmissibleDilationAt Γ a₀ U) :
+    AdmissibleDilationAt Γ a₀ (U.map star)
+      ∧ FibreGram a₀ (U.map star) = (fun i => Matrix.of fun j k => star (FibreGram a₀ U i j k))
+      ∧ FibreGram a₀ (U.map star)ᵀ
+          = (fun i => Matrix.of fun j k => star (FibreGram a₀ Uᵀ i j k)) := by
+  obtain rfl := hx a₀
+  refine ⟨⟨?_, fun i j => ?_⟩, ?_, ?_⟩
+  · -- `U.map star = (star U)ᵀ`, the transpose of the unitary `star U`
+    have h1 : U.map star = (star U)ᵀ := by
+      rw [Matrix.star_eq_conjTranspose]; exact (Matrix.conjTranspose_transpose U).symm
+    rw [h1]
+    exact transpose_unitary (Unitary.star_mem hU.1)
+  · rw [hU.2 i j]
+    congr 1; ext a
+    rw [Matrix.map_apply, norm_star]
+  · funext i; ext j k
+    simp only [Matrix.of_apply, fibreGram_unique a₀ hx, Matrix.map_apply, star_mul', star_star]
+  · funext i; ext j k
+    simp only [Matrix.of_apply, fibreGram_unique a₀ hx, Matrix.map_apply, Matrix.transpose_apply,
+      star_mul', star_star]
+
+omit [Fintype V] [DecidableEq V] in
+/-- **Relation (v) — the conjugation commutes with every independent relabelling**, exactly. -/
+theorem conj_relabel2 (π τ : Equiv.Perm V) (G : V → Matrix V V ℂ) :
+    (fun i => Matrix.of fun j k => star ((fun i => (G (π i)).submatrix τ τ) i j k))
+      = fun i => ((fun i => Matrix.of fun j k => star (G i j k)) (π i)).submatrix τ τ := by
+  funext i; ext j k
+  simp only [Matrix.of_apply, Matrix.submatrix_apply]
+
+omit [Fintype V] [DecidableEq V] in
+/-- **Relation (vi) — two independent relabellings compose to one**, `(π.trans π', τ.trans τ')`,
+exactly. -/
+theorem relabel2_relabel2 (π τ π' τ' : Equiv.Perm V) (G : V → Matrix V V ℂ) :
+    (fun i => ((fun i => (G (π' i)).submatrix τ' τ') (π i)).submatrix τ τ)
+      = fun i => (G ((π.trans π') i)).submatrix (τ.trans τ') (τ.trans τ') := by
+  funext i; ext j k
+  simp only [Matrix.submatrix_apply, Equiv.trans_apply]
+
+/-! #### The assembled verdict theorem of `ISO1` -/
+
+/-- **`ISO1` — the verdict theorem**, the conjuncts (i)–(x) of the freeze at an arbitrary finite
+carrier, a one-element ancilla and a constant symmetric visible family with no vanishing entry:
+(i) the independent relabellings preserve realizability, (ii) descend, (iii) are isometries; (iv)
+the conjugation is an isometry; (v) the transpose of an admissible dilation is admissible; (vi)
+every realizable tuple has an admissible dilation; (vii) two dilations of one tuple have
+phase-equivalent transposed fibre-Gram tuples; (viii) a dilation of a phase-equivalent tuple
+exists whose transposed fibre-Gram tuple is phase-equivalent; (ix) the transpose is an isometry;
+(x) the six relations of the normal form — `T ∘ (π, τ) = (τ, π) ∘ T`, `T ∘ C = C ∘ T`,
+`T ∘ T = id`, `C ∘ C = id`, `C ∘ (π, τ) = (π, τ) ∘ C`, `(π, τ) ∘ (π', τ') = (π.trans π', τ.trans
+τ')` — each on classes, the transpose written by its relation. -/
+theorem iso1_family_acts :
+    (∀ (W : Type) [Fintype W] [DecidableEq W] (A : Type) [Fintype A] (Γ : Matrix W W ℝ),
+        (∀ i j i' j', Γ i j = Γ i' j') → ∀ (π τ : Equiv.Perm W) (G : W → Matrix W W ℂ),
+        RealizableGram A Γ G → RealizableGram A Γ (fun i => (G (π i)).submatrix τ τ))
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (π τ : Equiv.Perm W) (G G' : W → Matrix W W ℂ),
+        GramPhaseEquiv G G' →
+        GramPhaseEquiv (fun i => (G (π i)).submatrix τ τ) (fun i => (G' (π i)).submatrix τ τ))
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W]
+        (d : (W → Matrix W W ℂ) → (W → Matrix W W ℂ) → ℝ),
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ (π τ : Equiv.Perm W) (G H : W → Matrix W W ℂ),
+        d (fun i => (G (π i)).submatrix τ τ) (fun i => (H (π i)).submatrix τ τ) = d G H)
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W]
+        (d : (W → Matrix W W ℂ) → (W → Matrix W W ℂ) → ℝ),
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ G H : W → Matrix W W ℂ,
+        d (fun i => Matrix.of fun j k => star (G i j k))
+          (fun i => Matrix.of fun j k => star (H i j k)) = d G H)
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (A : Type) [Fintype A] [DecidableEq A],
+        Fintype.card A = 1 → ∀ (Γ : Matrix W W ℝ), (∀ i j, Γ i j = Γ j i) →
+        ∀ (a₀ : A) (U : Matrix (W × A) (W × A) ℂ),
+        AdmissibleDilationAt Γ a₀ U → AdmissibleDilationAt Γ a₀ Uᵀ)
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (A : Type) [Fintype A] [DecidableEq A]
+        (Γ : Matrix W W ℝ) (a₀ : A) (G : W → Matrix W W ℂ), RealizableGram A Γ G →
+        ∃ U : Matrix (W × A) (W × A) ℂ, AdmissibleDilationAt Γ a₀ U ∧ FibreGram a₀ U = G)
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (A : Type) [Fintype A] [DecidableEq A],
+        Fintype.card A = 1 → ∀ (Γ : Matrix W W ℝ), (∀ i j, Γ i j ≠ 0) →
+        ∀ (a₀ : A) (U U' : Matrix (W × A) (W × A) ℂ),
+        AdmissibleDilationAt Γ a₀ U → AdmissibleDilationAt Γ a₀ U' →
+        FibreGram a₀ U = FibreGram a₀ U' →
+        GramPhaseEquiv (FibreGram a₀ Uᵀ) (FibreGram a₀ U'ᵀ))
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (A : Type) [Fintype A] [DecidableEq A],
+        Fintype.card A = 1 → ∀ (Γ : Matrix W W ℝ) (a₀ : A) (U : Matrix (W × A) (W × A) ℂ),
+        AdmissibleDilationAt Γ a₀ U → ∀ G' : W → Matrix W W ℂ,
+        GramPhaseEquiv (FibreGram a₀ U) G' →
+        ∃ U' : Matrix (W × A) (W × A) ℂ, AdmissibleDilationAt Γ a₀ U' ∧ FibreGram a₀ U' = G'
+          ∧ GramPhaseEquiv (FibreGram a₀ Uᵀ) (FibreGram a₀ U'ᵀ))
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (A : Type) [Fintype A],
+        Fintype.card A = 1 → ∀ (a₀ : A) (d : (W → Matrix W W ℂ) → (W → Matrix W W ℂ) → ℝ),
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ U U' : Matrix (W × A) (W × A) ℂ,
+        d (FibreGram a₀ Uᵀ) (FibreGram a₀ U'ᵀ) = d (FibreGram a₀ U) (FibreGram a₀ U'))
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (A : Type) [Fintype A] [DecidableEq A],
+        Fintype.card A = 1 → ∀ (Γ : Matrix W W ℝ), (∀ i j i' j', Γ i j = Γ i' j') →
+        (∀ i j, Γ i j ≠ 0) → ∀ (a₀ : A) (π τ : Equiv.Perm W) (U : Matrix (W × A) (W × A) ℂ),
+        AdmissibleDilationAt Γ a₀ U → ∀ U'' : Matrix (W × A) (W × A) ℂ,
+        AdmissibleDilationAt Γ a₀ U'' →
+        FibreGram a₀ U'' = (fun i => (FibreGram a₀ U (π i)).submatrix τ τ) →
+        GramPhaseEquiv (FibreGram a₀ U''ᵀ) (fun i => (FibreGram a₀ Uᵀ (τ i)).submatrix π π))
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (A : Type) [Fintype A] [DecidableEq A],
+        Fintype.card A = 1 → ∀ (Γ : Matrix W W ℝ), (∀ i j, Γ i j ≠ 0) →
+        ∀ (a₀ : A) (U : Matrix (W × A) (W × A) ℂ), AdmissibleDilationAt Γ a₀ U →
+        ∀ U'' : Matrix (W × A) (W × A) ℂ, AdmissibleDilationAt Γ a₀ U'' →
+        FibreGram a₀ U'' = (fun i => Matrix.of fun j k => star (FibreGram a₀ U i j k)) →
+        GramPhaseEquiv (FibreGram a₀ U''ᵀ)
+          (fun i => Matrix.of fun j k => star (FibreGram a₀ Uᵀ i j k)))
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (A : Type) [Fintype A] [DecidableEq A],
+        Fintype.card A = 1 → ∀ (Γ : Matrix W W ℝ), (∀ i j, Γ i j = Γ j i) → (∀ i j, Γ i j ≠ 0) →
+        ∀ (a₀ : A) (U : Matrix (W × A) (W × A) ℂ), AdmissibleDilationAt Γ a₀ U →
+        ∀ U'' : Matrix (W × A) (W × A) ℂ, AdmissibleDilationAt Γ a₀ U'' →
+        FibreGram a₀ U'' = FibreGram a₀ Uᵀ →
+        GramPhaseEquiv (FibreGram a₀ U''ᵀ) (FibreGram a₀ U))
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (G : W → Matrix W W ℂ),
+        (fun i => Matrix.of fun j k =>
+          star ((fun i => Matrix.of fun j k => star (G i j k)) i j k)) = G)
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (π τ : Equiv.Perm W) (G : W → Matrix W W ℂ),
+        (fun i => Matrix.of fun j k => star ((fun i => (G (π i)).submatrix τ τ) i j k))
+          = fun i => ((fun i => Matrix.of fun j k => star (G i j k)) (π i)).submatrix τ τ)
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (π τ π' τ' : Equiv.Perm W)
+        (G : W → Matrix W W ℂ),
+        (fun i => ((fun i => (G (π' i)).submatrix τ' τ') (π i)).submatrix τ τ)
+          = fun i => (G ((π.trans π') i)).submatrix (τ.trans τ') (τ.trans τ')) := by
+  refine ⟨fun W _ _ A _ Γ hΓ π τ G hG => relabel2_realizable Γ hΓ π τ G hG,
+    fun W _ _ π τ G G' h => relabel2_gramPhaseEquiv π τ h,
+    fun W _ _ d hd π τ G H => relabel2_isometry d hd π τ G H,
+    fun W _ _ d hd G H => conj_isometry d hd G H,
+    fun W _ _ A _ _ hA Γ hΓ a₀ U hU => ?_,
+    fun W _ _ A _ _ Γ a₀ G hG => sh1_sufficiency a₀ hG,
+    fun W _ _ A _ _ hA Γ hΓ a₀ U U' hU hU' h => ?_,
+    fun W _ _ A _ _ hA Γ a₀ U hU G' h => ?_,
+    fun W _ _ A _ hA a₀ d hd U U' => ?_,
+    fun W _ _ A _ _ hA Γ hΓ hΓne a₀ π τ U hU U'' hU'' h => ?_,
+    fun W _ _ A _ _ hA Γ hΓne a₀ U hU U'' hU'' h => ?_,
+    fun W _ _ A _ _ hA Γ hΓs hΓne a₀ U hU U'' hU'' h => ?_,
+    fun W _ _ G => conj_conj G,
+    fun W _ _ π τ G => conj_relabel2 π τ G,
+    fun W _ _ π τ π' τ' G => relabel2_relabel2 π τ π' τ' G⟩
+  · obtain ⟨x, hx⟩ := Fintype.card_eq_one_iff.mp hA
+    exact transpose_admissible x hx Γ hΓ a₀ U hU
+  · obtain ⟨x, hx⟩ := Fintype.card_eq_one_iff.mp hA
+    exact transpose_single_valued x hx Γ hΓ a₀ U U' hU hU' h
+  · obtain ⟨x, hx⟩ := Fintype.card_eq_one_iff.mp hA
+    exact transpose_descends x hx Γ a₀ U hU G' h
+  · obtain ⟨x, hx⟩ := Fintype.card_eq_one_iff.mp hA
+    exact transpose_isometry x hx a₀ d hd U U'
+  · obtain ⟨x, hx⟩ := Fintype.card_eq_one_iff.mp hA
+    obtain ⟨hW, hF, hFT⟩ := relabel2_dilation x hx Γ hΓ a₀ π τ U hU
+    rw [← hFT]
+    exact transpose_single_valued x hx Γ hΓne a₀ U'' _ hU'' hW (h.trans hF.symm)
+  · obtain ⟨x, hx⟩ := Fintype.card_eq_one_iff.mp hA
+    obtain ⟨hW, hF, hFT⟩ := conj_dilation x hx Γ a₀ U hU
+    rw [← hFT]
+    exact transpose_single_valued x hx Γ hΓne a₀ U'' _ hU'' hW (h.trans hF.symm)
+  · obtain ⟨x, hx⟩ := Fintype.card_eq_one_iff.mp hA
+    have hT := transpose_admissible x hx Γ hΓs a₀ U hU
+    have := transpose_single_valued x hx Γ hΓne a₀ U'' Uᵀ hU'' hT h
+    rw [Matrix.transpose_transpose] at this
+    exact this
+
+/-- **`ISO1` (xi) at the single-carrier configuration**: the hypotheses of every conjunct of
+`iso1_family_acts` are discharged at `V = Fin 4`, `A = Fin 1`, `Γ₀ ≡ ¼`, and the action facts
+are restated there. -/
+theorem iso1_single_carrier (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+    (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))) :
+    (∀ (π τ : Equiv.Perm (Fin 4)) (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+        RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (fun i => (G (π i)).submatrix τ τ))
+    ∧ (∀ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G →
+        RealizableGram (Fin 1) Γ₀ (fun i => Matrix.of fun j k => star (G i j k)))
+    ∧ (∀ U : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        AdmissibleDilationAt Γ₀ (0 : Fin 1) Uᵀ ∧ RealizableGram (Fin 1) Γ₀ (FibreGram (0 : Fin 1) Uᵀ))
+    ∧ (∀ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G →
+        ∃ U : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ,
+          AdmissibleDilationAt Γ₀ (0 : Fin 1) U ∧ FibreGram (0 : Fin 1) U = G)
+    ∧ (∀ U U' : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ,
+        AdmissibleDilationAt Γ₀ (0 : Fin 1) U → AdmissibleDilationAt Γ₀ (0 : Fin 1) U' →
+        FibreGram (0 : Fin 1) U = FibreGram (0 : Fin 1) U' →
+        GramPhaseEquiv (FibreGram (0 : Fin 1) Uᵀ) (FibreGram (0 : Fin 1) U'ᵀ))
+    ∧ (∀ d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ,
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        (∀ (π τ : Equiv.Perm (Fin 4)) (G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+          d (fun i => (G (π i)).submatrix τ τ) (fun i => (H (π i)).submatrix τ τ) = d G H)
+        ∧ (∀ G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ,
+          d (fun i => Matrix.of fun j k => star (G i j k))
+            (fun i => Matrix.of fun j k => star (H i j k)) = d G H)
+        ∧ (∀ U U' : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ,
+          d (FibreGram (0 : Fin 1) Uᵀ) (FibreGram (0 : Fin 1) U'ᵀ)
+            = d (FibreGram (0 : Fin 1) U) (FibreGram (0 : Fin 1) U'))) := by
+  have hc : ∀ i j i' j', Γ₀ i j = Γ₀ i' j' := fun i j i' j' => by rw [hΓ₀]; rfl
+  have hs : ∀ i j, Γ₀ i j = Γ₀ j i := fun i j => hc i j j i
+  have hne : ∀ i j, Γ₀ i j ≠ 0 := fun i j => by rw [hΓ₀]; simp
+  have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
+  refine ⟨fun π τ G hG => relabel2_realizable Γ₀ hc π τ G hG,
+    fun G hG => realizable_conj Γ₀ G hG, fun U hU => ⟨transpose_admissible 0 hx Γ₀ hs 0 U hU,
+      sh1_necessity (transpose_admissible 0 hx Γ₀ hs 0 U hU)⟩,
+    fun G hG => sh1_sufficiency 0 hG,
+    fun U U' hU hU' h => transpose_single_valued 0 hx Γ₀ hne 0 U U' hU hU' h,
+    fun d hd => ⟨fun π τ G H => relabel2_isometry d hd π τ G H,
+      fun G H => conj_isometry d hd G H, fun U U' => transpose_isometry 0 hx 0 d hd U U'⟩⟩
+
+/-- **`ISO1` (xi) at the product configuration**: the same at `V = Fin 4 × Fin 4`,
+`A = Fin 1 × Fin 1`, `Γ ≡ 1/16 = Γ₀ ⊗ Γ₀`, anchor `(0, 0)`. -/
+theorem iso1_product_carrier (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+    (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)))
+    (Γ : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+    (hΓ : Γ = Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) :
+    (∀ (π τ : Equiv.Perm (Fin 4 × Fin 4)) (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+        RealizableGram (Fin 1 × Fin 1) Γ G →
+        RealizableGram (Fin 1 × Fin 1) Γ (fun i => (G (π i)).submatrix τ τ))
+    ∧ (∀ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+        RealizableGram (Fin 1 × Fin 1) Γ G →
+        RealizableGram (Fin 1 × Fin 1) Γ (fun i => Matrix.of fun j k => star (G i j k)))
+    ∧ (∀ U : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ,
+        AdmissibleDilationAt Γ ((0 : Fin 1), (0 : Fin 1)) U →
+        AdmissibleDilationAt Γ ((0 : Fin 1), (0 : Fin 1)) Uᵀ
+          ∧ RealizableGram (Fin 1 × Fin 1) Γ (FibreGram ((0 : Fin 1), (0 : Fin 1)) Uᵀ))
+    ∧ (∀ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+        RealizableGram (Fin 1 × Fin 1) Γ G →
+        ∃ U : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ,
+          AdmissibleDilationAt Γ ((0 : Fin 1), (0 : Fin 1)) U
+            ∧ FibreGram ((0 : Fin 1), (0 : Fin 1)) U = G)
+    ∧ (∀ U U' : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ,
+        AdmissibleDilationAt Γ ((0 : Fin 1), (0 : Fin 1)) U →
+        AdmissibleDilationAt Γ ((0 : Fin 1), (0 : Fin 1)) U' →
+        FibreGram ((0 : Fin 1), (0 : Fin 1)) U = FibreGram ((0 : Fin 1), (0 : Fin 1)) U' →
+        GramPhaseEquiv (FibreGram ((0 : Fin 1), (0 : Fin 1)) Uᵀ)
+          (FibreGram ((0 : Fin 1), (0 : Fin 1)) U'ᵀ))
+    ∧ (∀ d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+          → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ,
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        (∀ (π τ : Equiv.Perm (Fin 4 × Fin 4))
+          (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+          d (fun i => (G (π i)).submatrix τ τ) (fun i => (H (π i)).submatrix τ τ) = d G H)
+        ∧ (∀ G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+          d (fun i => Matrix.of fun j k => star (G i j k))
+            (fun i => Matrix.of fun j k => star (H i j k)) = d G H)
+        ∧ (∀ U U' : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ,
+          d (FibreGram ((0 : Fin 1), (0 : Fin 1)) Uᵀ) (FibreGram ((0 : Fin 1), (0 : Fin 1)) U'ᵀ)
+            = d (FibreGram ((0 : Fin 1), (0 : Fin 1)) U)
+                (FibreGram ((0 : Fin 1), (0 : Fin 1)) U'))) := by
+  have hc : ∀ i j i' j', Γ i j = Γ i' j' := fun i j i' j' => by rw [hΓ, hΓ₀]; rfl
+  have hs : ∀ i j, Γ i j = Γ j i := fun i j => hc i j j i
+  have hne : ∀ i j, Γ i j ≠ 0 := fun i j => by rw [hΓ, hΓ₀]; simp
+  have hx : ∀ y : Fin 1 × Fin 1, y = ((0 : Fin 1), (0 : Fin 1)) := fun y => Subsingleton.elim _ _
+  refine ⟨fun π τ G hG => relabel2_realizable Γ hc π τ G hG,
+    fun G hG => realizable_conj Γ G hG, fun U hU => ⟨transpose_admissible _ hx Γ hs _ U hU,
+      sh1_necessity (transpose_admissible _ hx Γ hs _ U hU)⟩,
+    fun G hG => sh1_sufficiency _ hG,
+    fun U U' hU hU' h => transpose_single_valued _ hx Γ hne _ U U' hU hU' h,
+    fun d hd => ⟨fun π τ G H => relabel2_isometry d hd π τ G H,
+      fun G H => conj_isometry d hd G H, fun U U' => transpose_isometry _ hx _ d hd U U'⟩⟩
+
 /-! ### The axiom table — one line per named result, printed by the kernel -/
 
 #print axioms mixedTriple_relabel2
@@ -268,6 +714,21 @@ theorem fourier_entry_monomial (z : ℂ) (hz : star z * z = 1) (i j k : Fin 4) :
 #print axioms antipodal
 #print axioms dephase
 #print axioms fourier_entry_monomial
+#print axioms relabel2_realizable
+#print axioms relabel2_gramPhaseEquiv
+#print axioms relabel2_isometry
+#print axioms conj_isometry
+#print axioms transpose_single_valued
+#print axioms transpose_unitary
+#print axioms transpose_descends
+#print axioms transpose_isometry
+#print axioms relabel2_dilation
+#print axioms conj_dilation
+#print axioms conj_relabel2
+#print axioms relabel2_relabel2
+#print axioms iso1_family_acts
+#print axioms iso1_single_carrier
+#print axioms iso1_product_carrier
 
 end OrbitGeometryIsometries
 end OIBridge
