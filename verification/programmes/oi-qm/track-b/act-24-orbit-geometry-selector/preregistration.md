@@ -1,19 +1,20 @@
-# Track B act 24 — the orbit-geometry selector audit: a separating geometry on the per-slice orbit space, its controls, the record's laws against it, and a gated rigidity attempt: CONTROL PLANE
+# Track B act 24 — the orbit-geometry selector audit: complete phase invariants on the per-slice orbit space, the geometry they induce, its controls, the record's laws against it, and a gated rigidity attempt: CONTROL PLANE
 
 Owner-called. This file is the whole of act 24's control plane and is merged **alone**, before any
 execution object exists. It is a **gated round**: four targets frozen together, each with its own
 preregistered proposition, its own verdict rule and its own failure interpretation, executed in a
 fixed order in which **each later target is executed only if the earlier ones reach the label the
-gate names** — a geometry first, its controls second, the record's laws against it third, and a
-rigidity implication last and only then. It re-opens nothing of acts 21, 22 or 23, changes no rung,
-adds no rung to act 21's ladder, widens no equivalence, and adopts nothing: the geometry it freezes is
-a **named object of test**, written from the Gram data alone, and every verdict is about that named
-object at the configurations frozen for it.
+gate names** — a complete family of phase invariants and the geometry it induces first, its
+controls second, the record's laws against it third, and a rigidity implication last and only then.
+It re-opens nothing of acts 21, 22 or 23, changes no rung, adds no rung to act 21's ladder, widens
+no equivalence, and adopts nothing: the invariant family it freezes is a **named object of test**,
+written from the Gram data alone, and every verdict is about that named object at the
+configurations frozen for it.
 
 It is **not** a re-run of any earlier act, **not** a census of act 21's ladder, **not** an attempt to
-characterize the surviving class, **not** a statement about continuity, composition in time or a
-generator, **not** a statement about the threading, and **not** an attempt to derive or to recognise
-quantum evolution, which stays an explicit non-doing.
+characterize the surviving class or the isometries, **not** a statement about continuity,
+composition in time or a generator, **not** a statement about the threading, and **not** an attempt
+to derive or to recognise quantum evolution, which stays an explicit non-doing.
 
 **Blob identity is authoritative.** The execution guard pins this file by content, by path and by
 blob together, so the path below is load-bearing and does not move after this merges.
@@ -76,19 +77,21 @@ The rule the owner set for act 19 and act 21 is carried: a round is sealing **if
 execution creates a new formal object whose chronology matters to the result.
 
 1. **The execution creates new formal objects.** A new Lean module carrying this round's own named
-   results — the geometry's metric and separation properties, the three controls, the twelve
-   per-law isometry verdicts and the rigidity cells.
-2. **Their chronology is load-bearing.** The round's claim is that its geometry, its controls, its
-   closed law list, its gate, its execution order and its proof routes were frozen — here, in this
-   file — before any kernel work, and that no law was added, no equation of the geometry adjusted and
-   no rung restated to reach any verdict; a validator-certified ancestry rooted at this control
-   plane's merge commit is what makes that checkable.
+   results — the one budgeted definition, the invariant family's separation and the induced
+   metric's properties, the three controls, the twelve per-law isometry verdicts and the rigidity
+   cells.
+2. **Their chronology is load-bearing.** The round's claim is that its invariant family, its
+   geometry, its controls, its closed law list, its gate, its execution order and its proof routes
+   were frozen — here, in this file — before any kernel work, and that no law was added, no
+   coordinate of the invariant family adjusted and no rung restated to reach any verdict; a
+   validator-certified ancestry rooted at this control plane's merge commit is what makes that
+   checkable.
 3. **A new module with new named results is new seal state**, which only a sealing round's `P` may
    record.
 
 **Therefore act 24 is SEALING, and it owns no other seal state.**
 
-### The tag, the stem, the module and the round directory are free at `D`
+### The tag, the stem, the module, the definition and the round directory are free at `D`
 
 At `D`:
 
@@ -107,6 +110,8 @@ At `D`:
   for it would not be unambiguous. `OGS` — orbit-geometry selector, the object this round tests —
   matches nothing and was chosen. `OLT`, `OLN` and `OLG` are acts 21's, 22's and 23's, excluded on
   that ground alone.
+- **The one budgeted definition's name is free.** `git grep -l -- 'mixedTriple'`,
+  `git grep -l -- 'MixedTriple'` and `git grep -l -- 'mixed_triple'` each return nothing.
 
 **The round directory and the module name are free at `D` too.** `git grep -l -- 'act-24'`,
 `git grep -l -- 'orbit-geometry-selector'` and `git grep -l -- 'OrbitGeometrySelector'` return
@@ -125,19 +130,21 @@ file the execution **adds** the `R7-OGS` clause and **sets** the two stem-free d
 above — and changes nothing else in the file. **No contract of any closed round is superseded**,
 and the measurement that none needs to be is recorded in the chronology section.
 
-## Provenance — what this freeze carries from acts 12 through 23, and what is its own
+## Provenance — what this freeze carries from acts 12 through 23, from the literature, and what is its own
 
 **The rule.** Act 24 consumes act 12's slice equivalence and realizable set, act 21's ladder and
 configurations, and the transition families of acts 21, 22 and 23 with their verdicts exactly as
-landed, **unchanged**, and adds one geometry, one twelfth transition family, four targets, a gate and
-its own lifecycle. Every rung is the declaration act 21's merged module carries, pinned by blob at
-`B`; **no rung is restated in this round's module**, and a restatement would be a defect of the
-round. The geometry is bound by equation in every theorem that names it, and is **not a definition**.
+landed, **unchanged**, and adds one invariant family with its one definition, one induced geometry,
+one twelfth transition family, four targets, a gate and its own lifecycle. Every rung is the
+declaration act 21's merged module carries, pinned by blob at `B`; **no rung is restated in this
+round's module**, and a restatement would be a defect of the round. The geometry is bound by
+equation in every theorem that names it; the invariant family is the one definition the budget
+admits.
 
 | source (frozen blob, line range) | this file | status |
 | --- | --- | --- |
-| act 12's `GramPhaseEquiv`, `RealizableGram`, `FibreGram`, `TwoSidedGauge.lean` `4bba2040…` lines 95–110 | the quotient the geometry separates; the realizable set every isometry statement quantifies over | **consumed unrestated** |
-| act 12's `gramPhaseEquiv_cross_invariant`, line 870 | the lower bound on the geometry below | **consumed** |
+| act 12's `GramPhaseEquiv`, `RealizableGram`, `FibreGram`, `TwoSidedGauge.lean` `4bba2040…` lines 95–110 | the quotient the invariants separate; the realizable set every isometry statement quantifies over | **consumed unrestated** |
+| act 12's `gramPhaseEquiv_cross_invariant`, line 870, and `sh1_sufficiency`, line 1070 | the cross-invariant, a coordinate of the invariant family up to the diagonal; the full-support fact at the frozen configurations | **consumed** |
 | act 12's two-sided gauge, `LeftFibreGroup` line 78, act 13's `WeakAnchorStabilizer` (`CoherentLiftGauge.lean` `8d171777…` line 114), `fibreGram_left_mul` line 207, `fibreGram_mul_weak_apply` line 242 | the second control | **consumed** |
 | act 17's `GramTrajEquiv` and the three equivalence lemmas, `GramTrajectorySelection.lean` `afc22cfc…` lines 121 and 141–170 | the equivalence-relation facts every invariance statement uses | **consumed** |
 | act 18's `ProperAt`, `PropagatesFrom` (`IntermediateCrossTimeStructure.lean` `cb14c43b…` lines 167–171, 186–193) and `lc2_regularity_law`, line 729 | the standing hypotheses; the pseudometric this round's geometry is measured against and does not reuse | **consumed; the pseudometric not reused** |
@@ -147,11 +154,49 @@ round. The geometry is bound by equation in every theorem that names it, and is 
 | act 21's laws `ΦI`, `ΦP`, `ΦC`, `ΦT`, `ΦPP`, `ΦCTRL` with their verdicts, its result `bb02ef41…` lines 578–584 | tested against the geometry, each pinned to its merged equation; verdicts consumed as landed | **consumed as landed** |
 | act 22's `Φ_swap` with its verdict, `OrbitLawNaturalityFactorization.lean` `d41b157a…` line 179 | likewise | **consumed as landed** |
 | act 23's `Φ_MD`, `Φ_PC`, `Φ_HS`, `Φ_SC` with their verdicts, `OrbitLawGaps.lean` `5ed0dad7…` lines 285, 447, 606, 850 | likewise; act 23's seven shared lemmas consumed | **consumed as landed** |
-| act 23's supply item 7, the Fourier family at a unit parameter and its Pythagorean sequence, its freeze `93c06674…` lines 829–836 | consumed, and extended by one rotated point and one bound frozen here | **carried, extended** |
+| act 23's supply item 7, the Fourier family at a unit parameter and its Pythagorean sequence, its freeze `93c06674…` lines 829–836 | consumed, and extended by one rotated point, one index, two bounds and one norm frozen here | **carried, extended** |
 | the attestation set, act 21's freeze lines 1033–1043 | carried verbatim, asked at **every** boundary of this round | **carried, re-scoped** |
 | THE CLAUSE, act 21's freeze lines 1897–1905 | carried verbatim with "Act 21" → "Act 24" in its first sentence | **carried, one substitution** |
 | act 13's `P0` threading sentence, its result `2c38dbf1…` lines 267–273 | named as what this round does not touch | **untouched** |
 | everything else — the shared theorem, the censuses, `SIOP`, the headlines, the `P0` sentences of acts 21, 22 and 23 | not this round's | **untouched** |
+
+### External provenance — cited for the route, not for any theorem
+
+Three strands of published mathematics are the provenance of this round's route, and are cited
+here **as provenance only**. No theorem of this round is attributed to them, none of their
+theorems is consumed, and every statement below is proved in the kernel for this round's own
+object, which is not the object any of them treats.
+
+1. **Bargmann invariants.** V. Bargmann, *Note on Wigner's theorem on symmetry operations*,
+   J. Math. Phys. 5 (1964): the cyclic products of inner products of a family of vectors are
+   invariant under rephasing each vector. The cross-invariant act 12 merged, and the mixed
+   triples this round freezes, are quantities of that kind on the fibre-Gram tuple.
+2. **Projective unitary equivalence of finite frames.** T.-Y. Chien and S. Waldron, *A
+   characterization of projective unitary equivalence of finite frames and applications*: for one
+   Gram matrix, diagonal phase conjugation is the equivalence, and for a frame whose Gram matrix
+   has no zero entry the triple products of Gram entries determine the equivalence class; when
+   zero entries are present, longer cycle products can be needed, and their `n`-cycle example shows
+   triples do not suffice in general. **This round's object is not one Gram matrix but a tuple of
+   `|V|` Gram matrices with one shared phase action**, equivalently a fibre-labelled multigraph
+   version of their graph. The mechanism generalizes, and **the generalization is this round's
+   and is proved here**, at full support and for this object, not imported. The zero-entry case
+   is out of this round, on exactly their ground.
+3. **The one-parameter `4 × 4` complex-Hadamard family.** Act 23's `H(z)`, at
+   `star z * z = 1`, is the normalized standard one-parameter family `F₄⁽¹⁾(a)` of the
+   complex-Hadamard catalogue (W. Tadej and K. Życzkowski, *A concise guide to complex Hadamard
+   matrices*), with the catalogue's parameter `z = i·e^{ia}`; the `4 × 4` equivalence
+   classification is part of the Haagerup complex-Hadamard literature (U. Haagerup, *Orthogonal
+   maximal abelian ∗-subalgebras of the `n × n` matrices and cyclic `n`-roots*). Act 12's `H(1)`
+   and `H(i)` are the real Hadamard and the Fourier points of that family. **Nothing of that
+   literature is consumed**: the family is act 23's frozen supply item, its admissibility is act
+   23's merged `hadamard_z_admissible`, and its classes are separated here by the record's own
+   invariant. In particular the four-entry Haagerup invariant of that literature is not asserted
+   to be complete for anything, and no equivalence-testing machinery of that literature is used.
+
+The **Wigner-type shape** of the fourth target — a geometry-preserving map on a state space forced
+to be of a named form — is named here as provenance for the *shape of the question* and for nothing
+else: the round has no bridge from its orbit space to any Hilbert space, ray space or transition
+probability, and asserts none.
 
 ## Locating controls — the governing passages at `D`, each with a coordinate
 
@@ -220,8 +265,8 @@ equation itself, `d = (fun G G' => ‖G 0 1 0 * G 1 0 1 - G' 0 1 0 * G' 1 0 1‖
 18's own recorded failure of that pseudometric to separate: the docstring of the same theorem,
 **lines 720–727**, names two `∼_D`-inequivalent classes at distance `0` under it, `[G(H(1))]` and
 its column-swapped partner. **That is the reason this round writes a different geometry and does
-not reuse act 18's**: a pseudometric that vanishes on inequivalent classes cannot be a selector on
-classes.
+not reuse act 18's**: one invariant read at one fibre pair is not a complete invariant, and a
+pseudometric that vanishes on inequivalent classes cannot be a selector on classes.
 
 `verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/result.md`, blob `174e790d…`,
 **line 10**, the state of act 21's ladder after act 23:
@@ -256,10 +301,15 @@ def GramPhaseEquiv (G G' : V → Matrix V V ℂ) : Prop :=
   ∃ c : V → ℂ, (∀ j, ‖c j‖ = 1) ∧ ∀ i j k, G' i j k = star (c j) * G i j k * c k
 ```
 
-**Two features are load-bearing and are named now.** The phases `c` are indexed by the matrix
-index alone and are the same for every fibre `i`; and the relation is an equivalence relation by
-act 17's three lemmas, so the set of tuples equivalent to `G` is the orbit of `G` under the
-pointwise action of the phase torus, and the geometry below is a distance between orbits.
+**Three features are load-bearing and are named now.** The phases `c` are indexed by the matrix
+index alone and are the same for every fibre `i`, so a product of Gram entries around a closed walk
+of matrix indices is invariant whichever fibre each factor is read in; the relation is an
+equivalence relation by act 17's three lemmas; and at `|A| = 1` every realizable tuple has, by
+`sh1_sufficiency` and `fibreGram_apply`, the form `G i j k = star (U (i,0) (j,0)) * U (i,0) (k,0)`
+with `‖U (i,0) (j,0)‖ ^ 2 = Γ i j`, so that **at the frozen configurations every entry of every
+realizable tuple has modulus `Real.sqrt (Γ i j * Γ i k)`, which is `¼` on the single carrier and
+`1/16` on the product carrier, and no entry vanishes.** That full-support fact is what makes the
+triples complete here, and it is proved from act 12's merged results, not assumed.
 
 ### The act 21, act 22 and act 23 declarations consumed
 
@@ -395,20 +445,26 @@ programme as a result:
    18's `LC2` pseudometric, act 12's single cross-invariant read at one fibre pair, is proved there
    to be a pseudometric on classes and to vanish on an inequivalent pair. A quantity that is to do
    any selecting on classes must at least separate them; act 18's does not, by act 18's own record.
-3. **The natural candidate is written from the Gram data alone and needs no new object.** The
-   phase torus acts on tuples by act 12's own equation, every tuple is a finite array of complex
-   numbers, and the distance between two orbits under the pointwise action of a compact group is the
-   infimum of the entrywise distance over the group. Whether that infimum is a metric on classes
-   separating exactly act 12's equivalent pairs, whether the record's legitimate constructions
-   preserve it, whether it tells the record's structurally admissible laws apart, and whether it
-   forces anything, are four questions the record does not answer, and they are what this round
-   freezes.
+3. **The natural repair is a complete family of phase invariants, and at the frozen
+   configurations it needs only triples.** Every product of Gram entries around a closed walk of
+   matrix indices, with a fibre label per step, is invariant under act 12's shared phase action —
+   the cross-invariant is the case of a two-step walk. Whether a fixed finite family of such
+   products separates classes is a question of the kind the frame literature answers for one Gram
+   matrix; for this round's tuple, with a common phase, realizability constraints and a product
+   structure, it is answered here. At the frozen configurations no entry of a realizable tuple
+   vanishes, so the triples through one base vertex fix every phase, and the family of **all mixed
+   triples** — every closed three-step walk with every fibre labelling — is the invariant this
+   round freezes. A separating family embeds the class space in a finite-dimensional space, and
+   the Euclidean distance of the embedded points is then a metric on classes without any further
+   choice; that is the geometry this round tests, and it is induced from the invariants rather than
+   proposed as a formula.
 
 **Each target's proof route is the freeze's reading and not a finding**; whether it closes is for the
 execution to establish, and every target may end `UNDECIDED` with its obstruction named. **What is
 kept out of this round is named now**: composition in time, continuity, generators and any
-one-parameter structure; the threading and the cross-time representative; and any comparison of
-any law with unitary or quantum evolution. Each is a separate question for a separate freeze.
+one-parameter structure; the threading and the cross-time representative; the zero-entry case of
+completeness, on which triples are known not to suffice in general; and any comparison of any law
+with unitary or quantum evolution. Each is a separate question for a separate freeze.
 
 ### What act 24 inherits, and consumes without re-proving
 
@@ -438,15 +494,17 @@ merged statement is not enlarged by being consumed.
 
 ## The questions, FROZEN — four, gated
 
-> **GEO1.** Is the gauge-minimized entrywise distance between two Gram tuples — the infimum over
-> act 12's phase torus of the square root of the summed squared moduli of the entrywise difference —
-> a metric on act 12's classes: nonnegative, symmetric, subadditive, constant on each class in both
-> arguments, and zero exactly on the pairs `GramPhaseEquiv` relates?
+> **GEO1.** Is the mixed-triple feature map — every product of three Gram entries around a closed
+> three-step walk of matrix indices, with a fibre label per step — a complete invariant of act 12's
+> classes on the realizable tuples at the frozen configurations, and is the Euclidean distance of
+> feature vectors a metric on classes: nonnegative, symmetric, subadditive, constant on each class
+> in both arguments, and zero exactly on the pairs `GramPhaseEquiv` relates?
 >
 > **GEO2.** Do the record's legitimate constructions preserve it: is every carrier relabelling an
-> exact isometry of it, does act 12's two-sided gauge act trivially on it, and is the product
-> embedding with a fixed realizable second factor non-expanding in it up to the second factor's
-> norm?
+> exact isometry of it, does act 12's two-sided gauge act trivially on it, and does the feature
+> map turn the product embedding into a tensor product, so that the distance between two products
+> with a common second factor is the factors' distance scaled exactly by the common factor's
+> feature norm?
 >
 > **GEO3.** Which of the record's transition families, and the one family frozen new here, are
 > isometries of it on realizable tuples at their own configurations, and does at least one law
@@ -459,29 +517,31 @@ merged statement is not enlarged by being consumed.
 
 Each is a question about act 12's exact equivalence, act 21's exact declarations and the record's
 exact families at the record's exact configurations. **The round does NOT try to derive Schrödinger
-evolution**, does not characterize the surviving class, does not ask whether the geometry is the
-right geometry, does not ask about continuity or composition in time, and does not ask what any rung
-means beyond the declaration act 21 froze.
+evolution**, does not characterize the surviving class or the isometries, does not ask whether the
+invariant family is the right family, does not ask about continuity or composition in time, and
+does not ask what any rung means beyond the declaration act 21 froze.
 
 ## The strength of the ask, FROZEN
 
-**The ask is one metric verdict, one control verdict, one discrimination verdict over a closed list
-of twelve named families, and one gated rigidity verdict with five recorded implication cells, each
-earned by its own named route or reported undecided, in one fixed order.** It does **not** undertake
-a census of the ladder, a characterization, an independence claim, or the inference of one target's
-status from another's.
+**The ask is one completeness-and-metric verdict, one control verdict, one discrimination verdict
+over a closed list of twelve named families, and one gated rigidity verdict with five recorded
+implication cells, each earned by its own named route or reported undecided, in one fixed order.**
+It does **not** undertake a census of the ladder, a characterization, an independence claim, or the
+inference of one target's status from another's.
 
-**What each verdict would and would not establish, stated in advance.** A metric verdict says that
-the orbit space carries one specific separating geometry written from the Gram data; it says nothing
-about that geometry being canonical, physical or unique. A controls verdict says that three specific
-constructions of the record respect it; it says nothing about constructions not on the list. A
-discrimination verdict says that one specific structurally admissible law of the record moves
-realizable classes by unequal amounts; it says nothing about laws not on the list and does not say
-that isometry is the right condition to impose. A rigidity verdict, in either direction, is a
+**What each verdict would and would not establish, stated in advance.** A completeness verdict
+says that one specific finite family of phase invariants, written from the Gram data, separates the
+realizable classes at the frozen configurations, and that the geometry it induces is a metric on
+them; it says nothing about zero-entry tuples, nothing about that family being minimal, canonical or
+physical, and nothing about the induced metric being canonical. A controls verdict says that three
+specific constructions of the record respect it; it says nothing about constructions not on the
+list. A discrimination verdict says that one specific structurally admissible law of the record
+moves realizable classes by unequal amounts; it says nothing about laws not on the list and does not
+say that isometry is the right condition to impose. A rigidity verdict, in either direction, is a
 statement about the exact hypotheses at the exact configuration; **no outcome of this round says
 that any law is, resembles or approaches quantum evolution.**
 
-## The objects, FROZEN — act 12's and act 21's, consumed, and one geometry
+## The objects, FROZEN — act 12's and act 21's, consumed, one invariant family and one geometry
 
 `V`, `A`, `a₀`, `Γ`, the transition family, the law it generates, the admissible orbit state space
 `Ω(Γ, t)` and the frozen quotient list are act 21's, at its lines 642–733, consumed without
@@ -491,34 +551,60 @@ restatement. In particular:
   representative level; **the law it generates** is `∀ t, GramPhaseEquiv (𝔾 (t+1)) (Φ t (𝔾 t))`.
 - **The frozen quotient list** is act 12's `GramPhaseEquiv`, act 17's `GramTrajEquiv` and act 21's
   `LawEquiv`, and **no other equivalence may be used in any verdict**. This round's verdicts are
-  about a distance whose zero set is act 12's `GramPhaseEquiv`; none is taken modulo anything else.
+  about an invariant whose level sets on realizable tuples are act 12's classes, and about a
+  distance whose zero set there is `GramPhaseEquiv`; none is taken modulo anything else.
+
+### The invariant family, FROZEN — the one definition the budget admits
+
+On a carrier `V` with `[Fintype V] [DecidableEq V]`, for a tuple `G : V → Matrix V V ℂ`:
+
+> **Statement.** The mixed-triple feature map sends `G` to the function on
+> `(V × V × V) × (V × V × V)` — three fibre labels and three matrix indices — whose value at
+> `((i₁, i₂, i₃), (j₁, j₂, j₃))` is `G i₁ j₁ j₂ * G i₂ j₂ j₃ * G i₃ j₃ j₁`.
+
+Written as the one definition the execution's module carries, whose body the guard pins verbatim:
+
+```
+def mixedTriple (G : V → Matrix V V ℂ) : (V × V × V) × (V × V × V) → ℂ :=
+  fun p => G p.1.1 p.2.1 p.2.2.1 * G p.1.2.1 p.2.2.1 p.2.2.2 * G p.1.2.2 p.2.2.2 p.2.1
+```
+
+**Repeated indices are allowed and are load-bearing.** At `(j, j, j)` the value is a product of
+three diagonal entries; at `(j, j, k)` with labels `(i, i, i)` it is `G i j j * G i j k * G i k j`,
+the diagonal times the squared modulus of one entry, which is how the family carries the moduli; at
+`(i₁, i₁, i₀)` with labels `(i₁, i₀, i₁)` it is `G i₁ i₁ i₁ * G i₀ i₁ i₀ * G i₁ i₀ i₁`, the diagonal
+times act 12's cross-invariant at the fibre pair `(i₀, i₁)`, which is how the family carries every
+quantity acts 12 through 23 separated classes with. **No other coordinate is singled out**: the
+family is the whole finite index set, so that a relabelling of the carrier acts on it by permuting
+coordinates.
 
 ### The geometry, FROZEN — bound by equation, never defined
 
-On a carrier `V` with `[Fintype V] [DecidableEq V]`, for tuples `G H : V → Matrix V V ℂ`:
-
-> **Statement.** `d G H` is the infimum, over all `c : V → ℂ` with `∀ j, ‖c j‖ = 1`, of
-> `Real.sqrt (∑ i, ∑ j, ∑ k, ‖H i j k − star (c j) * G i j k * c k‖ ^ 2)`.
+> **Statement.** `d G H` is the Euclidean norm of `mixedTriple G − mixedTriple H`.
 
 Written as the equation every theorem of this round that names `d` carries as a hypothesis, and to
 which the guard pins it:
 
 ```
-d = fun G H => sInf {r : ℝ | ∃ c : V → ℂ, (∀ j, ‖c j‖ = 1) ∧
-      r = Real.sqrt (∑ i, ∑ j, ∑ k, ‖H i j k - star (c j) * G i j k * c k‖ ^ 2)}
+d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)
 ```
 
-**Three things about this object, fixed now.**
+**Three things about these objects, fixed now.**
 
-1. **It is act 12's action minimized over act 12's torus.** The tuple `fun i => Matrix.of fun j k
-   => star (c j) * G i j k * c k` is exactly the right-hand side of `GramPhaseEquiv`'s equation, so
-   `d G H = 0` with the infimum attained is `GramPhaseEquiv G H` read off. No new relation enters.
-2. **The norm is the entrywise one, written as a sum**, and not Mathlib's Frobenius instance, which
-   is scoped; every property below is proved from the sum.
-3. **It is not a definition.** The definition budget below is zero; `d` is a bound variable in every
-   statement, pinned to the displayed equation, exactly as act 18's `lc2_regularity_law` binds its
-   pseudometric and as acts 21 through 23 bind their transition families. **A `def` for it is a
-   defect of the round.**
+1. **Every coordinate is act 12's action read around a loop.** Under `G' i j k = star (c j) * G i j
+   k * c k` each of the three factors picks up `star (c jₐ) … c j_b`, and around the closed walk
+   `j₁ → j₂ → j₃ → j₁` every `c j` meets its own `star`, so `mixedTriple G' = mixedTriple G`. No new
+   relation enters: the induced distance vanishes on `GramPhaseEquiv`-pairs by that computation and
+   nowhere else on the realizable tuples by the separation theorem of `GEO1`.
+2. **The norm is the Euclidean one on a finite-dimensional space, written as a sum**, and not
+   Mathlib's Frobenius instance on matrices, which is scoped; the triangle inequality is
+   `EuclideanSpace.norm_eq` and the norm's own subadditivity, and every other property is proved
+   from the sum.
+3. **`mixedTriple` is the only definition.** The definition budget below is one; `d`, the isometry
+   proposition, every family and every auxiliary object are bound variables pinned by equation in
+   the statements that need them, exactly as act 18's `lc2_regularity_law` binds its pseudometric
+   and as acts 21 through 23 bind their transition families. **A second `def` is a defect of the
+   round.**
 
 **The isometry predicate, likewise bound by equation.** For a configuration `(A, Γ)` and a
 transition family `Φ`, "`Φ` is an isometry" is the proposition
@@ -537,22 +623,28 @@ isometry in this sense, and a map that is an isometry on the reached classes onl
 Act 21's two, and no other:
 
 - **The single-carrier configuration**: `V = Fin 4`, `A = Fin 1`, `a₀ = 0`, `Γ t ≡ ¼` — act 12's,
-  the one `phiI_ladder`, `phiP_ladder`, `phiC_census` and `phiT_l2_restricts` are stated at.
+  the one `phiI_ladder`, `phiP_ladder`, `phiC_census` and `phiT_l2_restricts` are stated at. The
+  feature space has `4⁶ = 4096` coordinates.
 - **The product configuration**: `V = Fin 4 × Fin 4`, `A = Fin 1 × Fin 1`, `a₀ = (0,0)`,
   `Γ ≡ 1/16` as the pointwise product `Γ₀ ⊗ Γ₀` of two copies of `Γ₀ ≡ ¼`, the decomposition
   `e = Equiv.refl (Fin 4 × Fin 4)`, `Γ₁ = Γ₂ = Γ₀` at every `t` — act 21's at its lines 1263–1267,
   the one `phiPP_ladder`, `phiCTRL_census`, `phiSwap_l5_restricts` and act 23's four verdicts are
-  stated at.
+  stated at. The feature space has `16⁶` coordinates, and no statement of this round enumerates it:
+  every product-carrier distance this round bounds is reduced to single-carrier distances by the
+  tensor identity of `GEO2`.
 
-`GEO1` is stated at an arbitrary finite carrier and instantiated at both. `GEO2`'s controls are
-stated at an arbitrary finite carrier where they can be and at the product configuration where the
-product embedding is involved. `GEO3` tests each family **at the configuration its own merged
-verdict is stated at**. `GEO4` is at the product configuration.
+`GEO1`'s invariance and metric properties are stated at an arbitrary finite carrier; its separation
+is stated at an arbitrary finite carrier under a base-star support hypothesis and instantiated at
+both configurations, where the hypothesis is discharged from act 12's merged results. `GEO2`'s
+controls are stated at an arbitrary finite carrier where they can be and at arbitrary factor
+carriers where the product embedding is involved. `GEO3` tests each family **at the configuration
+its own merged verdict is stated at**. `GEO4` is at the product configuration.
 
 **The one-`|A|`-value caveat, carried from acts 18, 21, 22 and 23 and recorded again.**
 `|A₁| = |A₂| = 1` is the strongest case for the per-slice statements and is not degenerate there; it
 is not automatically the right case for a cross-time statement, and every verdict of this round is
-at that cardinality and at no other.
+at that cardinality and at no other. **It is also the case in which the triples are complete**: the
+full-support fact rests on rank one, and nothing here is asserted about `|A| > 1`.
 
 ## The ladder, CONSUMED and not restated, and the prefix the fourth target uses
 
@@ -601,7 +693,7 @@ positive label and never a negative one.**
 ## The gate, FROZEN — the execution order and the three failure rules
 
 **The gate is this round's freeze rule and not an `AGENTS.md` rule.** It exists because the four
-targets are not independent in meaning: a control tested against a non-separating geometry, a
+targets are not independent in meaning: a control tested against a non-separating invariant, a
 discrimination measured in a geometry a relabelling does not preserve, and a rigidity attempted
 with an isometry predicate that discriminates nothing would each be a verdict about the wrong
 object. The gate keeps every verdict about the object the freeze names.
@@ -612,13 +704,13 @@ The targets are executed in the order **`GEO1` → `GEO2` → `GEO3` → `GEO4`*
 
 The execution's commits on the first-parent chain from `B` are, in order: **the stage-A commit**
 (the two declarations set to `B`, in the guard file only); **the module commit** (the module with
-its shared lemmas and **no verdict of any target** — no named result of `GEO1`, `GEO2`, `GEO3` or
-`GEO4`); then **exactly one verdict commit per executed target**, in target order, each carrying that
-target's named results and nothing of a later target's; then the packaging commit. A target the gate
-does not open has **no verdict commit**, and its label is its `NOT-EXECUTED` label with the frozen
-sentence. A verdict commit that carries a later target's result, or a target executed out of order,
-is recorded as a discrepancy and the round's ordering obligation is reported as undischarged for
-that target.
+the one definition, its shared lemmas and **no verdict of any target** — no named result of `GEO1`,
+`GEO2`, `GEO3` or `GEO4`); then **exactly one verdict commit per executed target**, in target order,
+each carrying that target's named results and nothing of a later target's; then the packaging
+commit. A target the gate does not open has **no verdict commit**, and its label is its
+`NOT-EXECUTED` label with the frozen sentence. A verdict commit that carries a later target's
+result, or a target executed out of order, is recorded as a discrepancy and the round's ordering
+obligation is reported as undischarged for that target.
 
 **The attestation set is answered at every boundary.** Act 20's three questions, in act 21's
 wording at its lines 1033–1043 — **Q1 INTENTIONAL**, **Q2 INCIDENTAL**, **Q3 UNAIDED REASONING** —
@@ -644,17 +736,18 @@ never substituted.
 
 | construction or route | `GEO1` | `GEO2` | `GEO3` | `GEO4` |
 | --- | --- | --- | --- | --- |
-| compactness of the torus, attainment, the gauge action as an entrywise isometry | **authorized** | — | — | — |
-| the relabelling reindexing, the two-sided gauge laws, the product factorization of the sum | — | **authorized** | — | — |
+| the loop invariance of every coordinate, the based-triangle gauge fixing, the full-support fact from act 12's sufficiency, the Euclidean norm facts | **authorized** | — | — | — |
+| the permutation of the index set by a relabelling, the two-sided gauge laws, the tensor identity of the feature map on products | — | **authorized** | — | — |
 | the twelve families, each at its own configuration, with the perturbation pairs and the shift argument | — | — | **authorized** | — |
 | `Φ_SC` for `a1`, `Φ_swap` for `a3`, `Φ_conj` for `b₀`, the universal routes for `a0`, `a2`, `a4`, `b` | — | — | — | **authorized** |
 | the shared lemmas of the module commit | consumed | consumed | consumed | consumed |
 
-**Shared lemmas are not verdicts.** The module commit's lemmas — the torus facts, the entrywise
-isometry of the gauge action, the upper and lower bounds on `d`, the product factorization of the
-sum, the entry bound on the Fourier family, the sequence's two distance identities, the entry moduli,
-and the conjugation facts — are consumed by whichever verdict needs them and answer no target by
-themselves.
+**Shared lemmas are not verdicts.** The module commit's lemmas — the invariance of every
+coordinate under the phase action, the coordinate bound `‖mixedTriple G p − mixedTriple H p‖ ≤ d G
+H`, the cross-invariant coordinates and their values on the pinned objects, the entry bound on the
+Fourier family and the coordinate bound it gives, the feature norm of `F(z)` at a unit parameter,
+the sequence's two distance identities, and the conjugation facts — are consumed by whichever
+verdict needs them and answer no target by themselves.
 
 ### Safeguard 3 — the outcome-vector table
 
@@ -695,10 +788,11 @@ observation and not executed. Throughout, `H₁` and `Hᵢ` are act 12's Hadamar
 parameter and `F(z) := FibreGram 0 (H(z))`, so that `G₁ = F(1)` and `Gᵢ = F(i)`;
 `σ := Equiv.swap (2 : Fin 4) 3`; `X ⊠ Y` is the product embedding
 `(X ⊠ Y) i j k = X i.1 j.1 k.1 · Y i.2 j.2 k.2`; `σX` is `RelabelTransition σ X`; `∼` is act 12's
-`GramPhaseEquiv`; and "realizable" means `RealizableGram (Fin 1) Γ₀` on a factor and
-`RealizableGram (Fin 1 × Fin 1) (Γ t)` on the product carrier. `ΦX` of act 21 is **excluded**: act
-21's `phiX_l0_restricts` states it as a law on trajectories and not as a transition family, so the
-isometry proposition is not stated of it, and its exclusion is recorded here and is not a verdict.
+`GramPhaseEquiv`; `Ψ` is `mixedTriple`; and "realizable" means `RealizableGram (Fin 1) Γ₀` on a
+factor and `RealizableGram (Fin 1 × Fin 1) (Γ t)` on the product carrier. `ΦX` of act 21 is
+**excluded**: act 21's `phiX_l0_restricts` states it as a law on trajectories and not as a
+transition family, so the isometry proposition is not stated of it, and its exclusion is recorded
+here and is not a verdict.
 
 **Every family is pinned, in every theorem that names it, to the equation its merged verdict
 carries**, quoted below verbatim from the merged module, and to nothing else.
@@ -709,7 +803,7 @@ carries**, quoted below verbatim from the merged module, and to nothing else.
 | --- | --- | --- | --- |
 | `ΦI` | `fun _ G => G` (`phiI_ladder`) | survives every rung | **isometry** — trivially, `d G H = d G H` |
 | `ΦP` | `fun _ G => RelabelTransition (Equiv.swap (2 : Fin 4) 3) G` (`phiP_ladder`) | survives every rung | **isometry** — by the relabelling control of `GEO2` |
-| `ΦC` | `fun _ _ => FibreGram (0 : Fin 1) H₁` (`phiC_census`) | fails `L3i`, `L3s`; not `L-PROP` | **not an isometry** — the pair `G₁`, `Gᵢ`, both realizable by `sh1_necessity`, both sent to `G₁`: `d G₁ G₁ = 0` while `d G₁ Gᵢ ≠ 0`, since `d G₁ Gᵢ = 0` would give `G₁ ∼ Gᵢ` by `GEO1`'s separation, against `witness_supply`'s `h1i` |
+| `ΦC` | `fun _ _ => FibreGram (0 : Fin 1) H₁` (`phiC_census`) | fails `L3i`, `L3s`; not `L-PROP` | **not an isometry** — the pair `G₁`, `Gᵢ`, both realizable by `sh1_necessity`, both sent to `G₁`: `d G₁ G₁ = 0` while `d G₁ Gᵢ ≥ ‖Ψ G₁ p − Ψ Gᵢ p‖ = ¼ · ‖1/16 − i/16‖ > 0` at the cross-invariant coordinate `p = ((1,0,1),(1,1,0))`, by `hadamard_entries`'s `c1`, `c2` |
 | `ΦT` | `fun t G => if Even t then G else RelabelTransition (Equiv.swap (2 : Fin 4) 3) G` (`phiT_l2_restricts`) | fails `L2` | **isometry** — at each `t` the map is the identity or `σ`, each an isometry |
 
 ### The product families, at act 21's product configuration
@@ -720,7 +814,7 @@ carries**, quoted below verbatim from the merged module, and to nothing else.
 | `ΦCTRL` | `fun _ G => if ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂ ∧ GramPhaseEquiv G (G₁ ⊠ G₂) then RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G else G` (`phiCTRL_census`, its `⊠` written out) | fails `L4n`, `L5`; satisfies the prefix through `L4d` | **not an isometry** — the perturbation pair below |
 | `Φ_swap` | `fun _ G => RelabelTransition (Equiv.prodComm (Fin 4) (Fin 4)) G` (`phiSwap_l5_restricts`) | satisfies the prefix through `L4n`, fails `L5` | **isometry** — a relabelling |
 | `Φ_MD` | act 23's two-time statement (`phiMD_l1_restricts`, module lines 285–300) | fails `L1` | **not an isometry** — at `t = 0` its map is `Φ_PC`'s, and `Φ_PC`'s pair below refutes it at `t = 0` |
-| `Φ_PC` | `fun _ G => if GramPhaseEquiv G (Gᵢ ⊠ G₁) then G₁ ⊠ G₁ else G` (`phiPC_l3i_restricts`, its `⊠` written out) | fails `L3i` | **not an isometry** — the pair `Gᵢ ⊠ G₁`, `G₁ ⊠ G₁`, both realizable by `product_realizable`, both sent to `G₁ ⊠ G₁`: the images are at distance `0` while the inputs are not, by `gap_separations`'s third conjunct and `GEO1`'s separation |
+| `Φ_PC` | `fun _ G => if GramPhaseEquiv G (Gᵢ ⊠ G₁) then G₁ ⊠ G₁ else G` (`phiPC_l3i_restricts`, its `⊠` written out) | fails `L3i` | **not an isometry** — the pair `Gᵢ ⊠ G₁`, `G₁ ⊠ G₁`, both realizable by `product_realizable`, both sent to `G₁ ⊠ G₁`: the images are at distance `0` while the inputs differ at the cross-invariant coordinate of the product pair `((0,0),(1,0))`, values `(1/16)(i/256)` and `(1/16)(1/256)` by `product_cross`, `c1`, `c2` and `d1` |
 | `Φ_HS` | `fun _ G => if h : ∃ n, 1 ≤ n ∧ GramPhaseEquiv G (F n) then F (Nat.find h + 1) else G` with `F n = FibreGram 0 (H (zs n)) ⊠ G₁` and `zs` act 23's sequence (`phiHS_l3s_restricts`) | fails `L3s` | **not an isometry** — the shift argument below |
 | `Φ_SC` | `fun _ G => if ∃ G₂, RealizableGram (Fin 1) Γ₀ G₂ ∧ (GramPhaseEquiv G (Gᵢ ⊠ G₂) ∨ GramPhaseEquiv G (σGᵢ ⊠ G₂)) then RelabelTransition (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (1 : Equiv.Perm (Fin 4))) G else G` (`phiSC_corner`, its `⊠` written out) | satisfies the prefix through `L4d` and `L5`, fails `L4n` | **not an isometry** — the perturbation pair below |
 
@@ -736,7 +830,9 @@ witness is the simplest map that preserves every structural condition and every 
 reversing the orientation of every phase: entrywise complex conjugation. Its role is **the `b₀`
 countercontrol**, and it is also the twelfth family tested in `GEO3`, where its predicted verdict is
 isometry. **It is named for testing and endorsed for nothing**; in particular nothing here calls it
-antiunitary, a symmetry, or a candidate for anything.
+antiunitary, a symmetry, or a candidate for anything. Its visibility as a separate branch is
+deliberate: the complex-Hadamard literature this round cites as provenance treats equivalence to the
+entrywise conjugate as a distinct structural question, and this round keeps it distinct too.
 
 **Its analysis, recorded here as the freeze's reading and not as a finding.**
 
@@ -756,19 +852,20 @@ antiunitary, a symmetry, or a candidate for anything.
   same pair, values `i/256` and `−i/256`. Propagation clause (i) by descent, clause (ii) at `t = 1`.
 - **`L5` holds**, with `Φ₁ = Φ₂ = ` the single-carrier conjugation: `star (X ⊠ Y) = star X ⊠ star Y`
   entrywise, an equality, and the displayed equivalence is `gramPhaseEquiv_refl`.
-- **Isometry.** For every `c` on the torus, `‖star H i j k − star (c j) * star G i j k * c k‖ =
-  ‖H i j k − star (star (c j)) * G i j k * star (c k)‖`, so the value set of the infimum defining
-  `d (Φ_conj t G) (Φ_conj t H)` is the value set defining `d G H` under the bijection `c ↦ star ∘ c`
-  of the torus; the two infima are equal.
-- **`b₀` fails.** Every product cross-invariant of `Gᵢ ⊠ G₁` at any pair of product indices is a
-  product of a cross-invariant of `Gᵢ` and one of `G₁`, each of which — including the diagonal
-  pairs, where the invariant is the squared diagonal entry `1/16` — lies in `{1/16, i/16}` for `Gᵢ`
-  and equals `1/16` for `G₁`; so every invariant of every relabelling `σ (Gᵢ ⊠ G₁)` lies in
-  `{1/256, i/256}`. The invariant of `Φ_conj t (Gᵢ ⊠ G₁) = F(−i) ⊠ G₁` at `((0,1),(0,0))` is `−i/256`.
-  So for no `σ` is `Φ_conj t (Gᵢ ⊠ G₁) ∼ σ (Gᵢ ⊠ G₁)`, by `gramPhaseEquiv_cross_invariant`. **The
-  failing conclusion is the relabelling clause of `b₀`; the separating class is `[Gᵢ ⊠ G₁]`, and the
-  separating quantity is the cross-invariant at `((0,1),(0,0))`.** The sixteen cross-invariants of
-  `Gᵢ` at ordered pairs are computed in the module commit, before any verdict.
+- **Isometry.** `Ψ (star G) p = star (Ψ G p)` at every coordinate, so
+  `‖Ψ (star G) p − Ψ (star H) p‖ = ‖Ψ G p − Ψ H p‖` and the two sums agree termwise.
+- **`b₀` fails.** The argument runs on the **cross-invariant** coordinates and on nothing else,
+  because the raw coordinates of `Ψ (Gᵢ ⊠ G₁)` take every value in `{±1/4096, ±i/4096}` and would
+  not separate. Every cross-invariant of `Gᵢ ⊠ G₁` at any pair of product indices is a product of
+  a cross-invariant of `Gᵢ` and one of `G₁`, each of which — including the diagonal pairs, where the
+  invariant is the squared diagonal entry `1/16` — lies in `{1/16, i/16}` for `Gᵢ` and equals
+  `1/16` for `G₁`; so every cross-invariant of every relabelling `σ (Gᵢ ⊠ G₁)` lies in
+  `{1/256, i/256}`. The cross-invariant of `Φ_conj t (Gᵢ ⊠ G₁) = F(−i) ⊠ G₁` at `((0,1),(0,0))` is
+  `−i/256`. So for no `σ` is `Φ_conj t (Gᵢ ⊠ G₁) ∼ σ (Gᵢ ⊠ G₁)`, by
+  `gramPhaseEquiv_cross_invariant`. **The failing conclusion is the relabelling clause of `b₀`; the
+  separating class is `[Gᵢ ⊠ G₁]`, and the separating quantity is the cross-invariant at
+  `((0,1),(0,0))`.** The sixteen cross-invariants of `Gᵢ` at ordered pairs are computed in the
+  module commit, before any verdict.
 
 ## The witness supply, FROZEN
 
@@ -777,20 +874,23 @@ lemmas** named in the inheritance list, and **extended by three items, frozen no
 
 8. **One rotated parameter and one fixed index.** With `zs` act 23's sequence,
    `zs n = ((n² − 1) + 2n·i)/(n² + 1)`, the point `w n := Complex.I * zs n`, of modulus one, with
-   `w n ≠ i` for every `n ≥ 1` since `zs n ≠ 1`; and the fixed index `N := 4096` at which the
-   perturbation pairs of `GEO3` are read. **This item is used by the `ΦCTRL` and `Φ_SC` pairs and by
-   nothing else.**
+   `w n ≠ i` for every `n ≥ 1` since `zs n ≠ 1`; and the fixed index `N := 32768`, that is `2¹⁵`,
+   at which the perturbation pairs of `GEO3` are read. **This item is used by the `ΦCTRL` and
+   `Φ_SC` pairs and by nothing else.**
 9. **Two distance identities of the sequence.** `‖zs n − 1‖ ^ 2 = 4 / (n² + 1)` and
    `‖zs (n+1) − zs n‖ ^ 2 = 4 / ((n² + 1) · ((n+1)² + 1))`, for every `n`, from
    `zs n = (n + i)/(n − i)`. Proved in the module commit. **Used by the `ΦCTRL`, `Φ_SC` and `Φ_HS`
    arguments.**
-10. **The entry bound on the Fourier family.** For unit `z`, `z'`, every entry of `F(z') − F(z)` has
-    modulus at most `‖z' − z‖ / 4`: each entry of `F(z)` is one of `±¼`, `±z/4`, `±star z/4`, the
-    `z`-dependence cancelling in the entries that pair `z` with `star z`, since `star z * z = 1`. So
-    the summed squared modulus of `F(z') − F(z)` is at most `4 · ‖z' − z‖ ^ 2`, and every entry of
-    `F(z)` has modulus `¼`. Proved in the module commit, by cases over the sixty-four index
-    triples. **Used by the same three arguments**, and it enlarges no merged statement: it is a
-    bound on act 23's family, not an extension of it.
+10. **The entry bound, the coordinate bound and the feature norm of the Fourier family.** For unit
+    `z`, `z'`: every entry of `F(z)` has modulus `¼`; every entry of `F(z') − F(z)` has modulus at
+    most `‖z' − z‖ / 4`, each entry of `F(z)` being one of `±¼`, `±z/4`, `±star z/4`, the
+    `z`-dependence cancelling in the entries that pair `z` with `star z` since `star z * z = 1`;
+    hence every coordinate of `Ψ (F(z')) − Ψ (F(z))` has modulus at most `3 ‖z' − z‖ / 64`, by the
+    three-term product rule with two factors of modulus `¼`, so that, over the `4096` coordinates,
+    `d (F(z)) (F(z')) ≤ 3 ‖z' − z‖`; and every coordinate of `Ψ (F(z))` has modulus `1/64`, so that
+    `Real.sqrt (∑ p, ‖Ψ (F(z)) p‖ ^ 2) = 1`. Proved in the module commit, the entry facts by cases
+    over the sixty-four index triples. **Used by the same three arguments**, and it enlarges no
+    merged statement: it is a bound on act 23's family, not an extension of it.
 
 **Nothing outside this supply may be introduced, at any point, for any reason.** The generic witness
 rule governs every countercontrol: what a cell's named witness is is what is tested, and an
@@ -798,69 +898,89 @@ alternative found during execution is recorded as an observation and never subst
 
 ### The three perturbation arguments, recorded as the freeze's reading
 
-**The two bounds every argument uses**, both shared lemmas of the module commit:
+**The two bounds every argument uses**:
 
-- **Upper.** `d G H ≤ Real.sqrt (∑ i, ∑ j, ∑ k, ‖H i j k − G i j k‖ ^ 2)`, the value at `c = 1`,
-  by `csInf_le` over a set bounded below by `0`; and, on products with a common second factor,
-  `∑ ‖(X' ⊠ Y) − (X ⊠ Y)‖ ^ 2 = (∑ ‖X' − X‖ ^ 2) · (∑ ‖Y‖ ^ 2)`, the sum factorizing. Every entry
-  of `G₁` and of `Gᵢ` has modulus `¼`, so `∑ ‖G₁‖ ^ 2 = ∑ ‖Gᵢ‖ ^ 2 = 64/16 = 4`. Hence for `Y` either
-  of them and unit `z`, `z'`: `d (F(z) ⊠ Y) (F(z') ⊠ Y) ≤ Real.sqrt (4 ‖z' − z‖ ^ 2 · 4) =
-  4 ‖z' − z‖`.
-- **Lower.** If every entry of `G` and of `H` has modulus at most `1`, then at every fibre pair
-  `(i₀, i₁)`, `‖G i₀ i₁ i₀ * G i₁ i₀ i₁ − H i₀ i₁ i₀ * H i₁ i₀ i₁‖ ≤ 2 · d G H`: the
-  cross-invariant is unchanged by the gauge action (`gramPhaseEquiv_cross_invariant`), the gauged
-  tuple has the same entry moduli, `‖ab − a'b'‖ ≤ ‖a‖‖b − b'‖ + ‖b'‖‖a − a'‖ ≤ 2 · max`, and each
-  entry difference is at most the square root of the summed squares; `le_csInf` over the nonempty
-  value set gives the bound on the infimum.
+- **Upper, on products with a common second factor**, consumed from `GEO2`'s control (c):
+  `d (X ⊠ Y) (X' ⊠ Y) = d X X' · Real.sqrt (∑ p, ‖Ψ Y p‖ ^ 2)`, an equality; with `Y` either of
+  `G₁`, `Gᵢ` the feature norm is `1` by item 10, so `d (F(z) ⊠ Y) (F(z') ⊠ Y) = d (F(z)) (F(z')) ≤
+  3 ‖z' − z‖`.
+- **Lower, at one coordinate**, a shared lemma of the module commit: `‖Ψ G p − Ψ H p‖ ≤ d G H` for
+  every `p`, a coordinate of a Euclidean vector being bounded by its norm. At the coordinate
+  `p = ((i₁, i₀, i₁), (i₁, i₁, i₀))` the value is `G i₁ i₁ i₁` times act 12's cross-invariant at
+  the fibre pair `(i₀, i₁)`; on realizable tuples the first factor is `Γ i₁ i₁`, which is `¼` on the
+  single carrier and `1/16` on the product carrier.
 
-**`ΦCTRL`, at `t = 0` and `N = 4096`.** `G := G₁ ⊠ Gᵢ` fires (`G₂ = Gᵢ`, `gramPhaseEquiv_refl`), so
+**`ΦCTRL`, at `t = 0` and `N = 32768`.** `G := G₁ ⊠ Gᵢ` fires (`G₂ = Gᵢ`, `gramPhaseEquiv_refl`), so
 `ΦCTRL 0 G = G₁ ⊠ σGᵢ` by `relabel_product` and `relabel_one`. `H := F(zs N) ⊠ Gᵢ` does not fire:
 `H ∼ G₁ ⊠ G₂` for a realizable `G₂` gives `F(zs N) ∼ G₁` by `gramPhaseEquiv_fst_of_product` at
 `m = 0` (both second factors have diagonal entry `¼` at `(0,0,0)`, `Gᵢ` by `hadamard_entries`'s `d2`
 and `G₂` by realizability), hence `zs N / 16 = 1/16` by `fibreGram_z_entries` and
 `gramPhaseEquiv_cross_invariant`, against `zseq_facts`'s `zs n ≠ 1`. Both `G` and `H` are
 realizable by `product_realizable` from `hadamard_z_admissible` and `sh1_necessity`. **Then**
-`d G H ≤ 4 ‖zs N − 1‖ = 8 / Real.sqrt (N² + 1) < 8/N = 1/512`, while the images are separated at
-the product pair `((0,0),(0,2))`: the invariant of `G₁ ⊠ σGᵢ` there is `(G₁ 0 0 0)² · (σGᵢ
-invariant at (0,2)) = (1/16)(i/16)` by `hadamard_entries`'s `d1` and `r2`, and the invariant of
-`F(zs N) ⊠ Gᵢ` there is `(F(zs N) 0 0 0)² · (Gᵢ invariant at (0,2)) = (1/16)(1/16)` by
-`fibreGram_z_entries` and `c3`; their difference has modulus `‖i − 1‖/256 ≥ 1/256`, so
-`d (ΦCTRL 0 G) (ΦCTRL 0 H) ≥ 1/512 > d G H`. **The failing proposition is isometry at `t = 0` on
-the pair named; the separating quantity is the cross-invariant at `((0,0),(0,2))`.**
+`d G H = d G₁ (F(zs N)) ≤ 3 ‖zs N − 1‖ = 6 / Real.sqrt (N² + 1) < 6/N < 1/4096`, while the images
+are separated at the cross-invariant coordinate of the product pair `((0,0),(0,2))`: the
+cross-invariant of `G₁ ⊠ σGᵢ` there is `(G₁ 0 0 0)² · (σGᵢ invariant at (0,2)) = (1/16)(i/16)` by
+`hadamard_entries`'s `d1` and `r2`, and that of `F(zs N) ⊠ Gᵢ` there is `(F(zs N) 0 0 0)² · (Gᵢ
+invariant at (0,2)) = (1/16)(1/16)` by `fibreGram_z_entries` and `c3`; the coordinate difference is
+`(1/16) · ‖i − 1‖/256 ≥ 1/4096`, so `d (ΦCTRL 0 G) (ΦCTRL 0 H) ≥ 1/4096 > d G H`. **The failing
+proposition is isometry at `t = 0` on the pair named; the separating quantity is the
+cross-invariant coordinate at `((0,0),(0,2))`.**
 
-**`Φ_SC`, at `t = 0` and `N = 4096`.** `G := Gᵢ ⊠ G₁` fires (`G₂ = G₁`, first disjunct), so
+**`Φ_SC`, at `t = 0` and `N = 32768`.** `G := Gᵢ ⊠ G₁` fires (`G₂ = G₁`, first disjunct), so
 `Φ_SC 0 G = σGᵢ ⊠ G₁`. `H := F(w N) ⊠ G₁` does not fire: the first disjunct gives `F(w N) ∼ Gᵢ` by
 the marginal lemma and so `w N / 16 = i/16`, and the second gives `F(w N) ∼ σGᵢ` and so
 `w N / 16 = i/16` by `hadamard_entries`'s `r1`; either gives `w N = i`, against item 8. **Then**
-`d G H ≤ 4 ‖w N − i‖ = 4 ‖zs N − 1‖ < 1/512`, while the images are separated at the product pair
-`((0,2),(0,0))`: the invariant of `σGᵢ ⊠ G₁` there is `(i/16)(1/16)` by `r2` and `d1`, and the
-invariant of `F(w N) ⊠ G₁` there is `(F(w N) 0 2 0 · F(w N) 2 0 2)(1/16) = (1/16)(1/16)`, the
+`d G H = d Gᵢ (F(w N)) ≤ 3 ‖w N − i‖ = 3 ‖zs N − 1‖ < 1/4096`, while the images are separated at
+the cross-invariant coordinate of the product pair `((0,0),(2,0))`: the cross-invariant of
+`σGᵢ ⊠ G₁` there is `(σGᵢ invariant at (0,2)) · (G₁ 0 0 0)² = (i/16)(1/16)` by `r2` and `d1`, and
+that of `F(w N) ⊠ G₁` there is `(F(w N) 0 2 0 · F(w N) 2 0 2)(1/16) = (1/16)(1/16)`, the first
 factor being `z`-free because the rows `0` and `2` of `H(z)` are `z`-free — a shared lemma of the
 module commit extending `fibreGram_z_entries` by the pair `(0,2)`. So `d (Φ_SC 0 G) (Φ_SC 0 H) ≥
-1/512 > d G H`. **The failing proposition is isometry at `t = 0` on the pair named; the separating
-quantity is the cross-invariant at `((0,2),(0,0)).`**
+1/4096 > d G H`. **The failing proposition is isometry at `t = 0` on the pair named; the
+separating quantity is the cross-invariant coordinate at `((0,0),(2,0))`.**
 
 **`Φ_HS`, at every `t`.** For `n ≥ 1`, `Φ_HS t (F n) = F (n + 1)`, since the branch index is unique
 (act 23's proof, consumed through `zseq_facts`'s injectivity and the marginal lemma). If `Φ_HS` were
 an isometry then `d (F (n+1)) (F (n+2)) = d (F n) (F (n+1))` for every `n ≥ 1`, all `F n` being
 realizable, and by induction `d (F n) (F (n+1)) = d (F 1) (F 2)` for every `n ≥ 1`. **But** by the
-upper bound and item 9, `d (F n) (F (n+1)) ≤ 4 ‖zs (n+1) − zs n‖ = 8 / Real.sqrt ((n² + 1)((n+1)² +
-1))`, which at `n = 100` is below `1/1000`; and by the lower bound at the product pair
-`((0,1),(0,0))`, `d (F 1) (F 2) ≥ ‖zs 1 − zs 2‖ / 512 = ‖i − (3 + 4i)/5‖ / 512 = Real.sqrt (2/5) /
-512`, which exceeds `1/1000`. **The failing proposition is isometry on the pair `F 100`, `F 101`
-against `F 1`, `F 2`; the separating quantity is the cross-invariant at `((0,1),(0,0))`.** No limit
-is taken; one explicit index suffices, and the freeze's reading names `n = 100`.
+upper bound and item 9, `d (F n) (F (n+1)) = d (F(zs n)) (F(zs (n+1))) ≤ 3 ‖zs (n+1) − zs n‖ =
+6 / Real.sqrt ((n² + 1)((n+1)² + 1)) < 6 / (n (n+1))`, which at `n = 300` is below `1/15000`; and
+by the lower bound at the cross-invariant coordinate of the product pair `((0,1),(0,0))`,
+`d (F 1) (F 2) ≥ (1/16) · ‖zs 1 − zs 2‖ / 256 = ‖i − (3 + 4i)/5‖ / 4096 = Real.sqrt (2/5) / 4096`,
+which exceeds `1/7000`. **The failing proposition is isometry on the pair `F 300`, `F 301` against
+`F 1`, `F 2`; the separating quantity is the cross-invariant coordinate at `((0,1),(0,0))`.** No
+limit is taken; one explicit index suffices, and the freeze's reading names `n = 300`.
+
+### What the discrimination verdicts do and do not depend on
+
+Two of the mechanisms above are recorded, in advance, with their dependence on the choice of
+geometry stated exactly, so that the result note can carry the sentence and nothing stronger:
+
+> Merge witnesses are metric-independent once separation is proved. Sequence-discontinuity
+> witnesses are invariant across metrics inducing the quotient topology.
+
+`ΦC`, `Φ_PC` and `Φ_MD` send two classes at positive distance to one class; that refutes isometry
+for every metric on classes that separates the two, and the separation is act 12's and act 21's.
+`ΦCTRL`, `Φ_SC` and `Φ_HS` send inputs whose distance goes below any bound to images whose distance
+stays above one; that refutes isometry for every metric inducing the same topology on the
+realizable classes, and for no other. **The isometry verdicts of `GEO3` are verdicts about the
+frozen `d`**, and this paragraph is what may be said beyond them; whether `d` induces the quotient
+topology on the realizable classes is the observation sub-question `GEO1-T` below and enters no
+label.
 
 ## The countercontrols and the positive controls, one per cell
 
 | target or cell | the route this freeze names | configuration |
 | --- | --- | --- |
-| `GEO1` | the torus is closed and bounded in `V → ℂ`, hence compact, and nonempty; the value function is continuous; `IsCompact.exists_isMinOn` attains the infimum; symmetry by the bijection `c ↦ star ∘ c` and the entrywise identity `‖H − c ⋆ G‖ = ‖(star ∘ c) ⋆ H − G‖`; the triangle inequality from two attained minimizers and the entrywise isometry of the gauge action; invariance in each argument from the torus being a group under pointwise product; separation from attainment: a zero infimum is attained at a `c` with `H = c ⋆ G` | arbitrary finite `V`; instantiated at both configurations |
-| `GEO2` (a) | for `σ : Equiv.Perm V`, `∑ ‖σH − c ⋆ σG‖ ^ 2 = ∑ ‖H − (c ∘ σ) ⋆ G‖ ^ 2` by reindexing the three sums along `σ`, and `c ↦ c ∘ σ` is a bijection of the torus; the two value sets coincide, so `d (σG) (σH) = d G H` | arbitrary finite `V` |
-| `GEO2` (b) | for `L` in `LeftFibreGroup` and `K` a `WeakAnchorStabilizer`, `FibreGram a₀ (L * U * K) i j k = star (c j) * FibreGram a₀ U i j k * c k` by `fibreGram_left_mul` and `fibreGram_mul_weak_apply`, so `GramPhaseEquiv (FibreGram a₀ U) (FibreGram a₀ (L * U * K))` and `d = 0` by `GEO1` | arbitrary finite `V`, `A`, `a₀` |
-| `GEO2` (c) | `∑ ‖(X' ⊠ Y) − ((c₁ ∘ Prod.fst) ⋆ (X ⊠ Y))‖ ^ 2 = (∑ ‖X' − c₁ ⋆ X‖ ^ 2)(∑ ‖Y‖ ^ 2)` for every `c₁` on the factor torus, so `d (X ⊠ Y) (X' ⊠ Y) ≤ Real.sqrt (∑ ‖Y‖ ^ 2) · d X X'` by `le_csInf` after dividing by the square root when it is nonzero, and trivially when `Y = 0` | the product carrier, arbitrary factor carriers |
-| `GEO3`, each family | the table above; the perturbation pairs and the shift argument as recorded | each at its own configuration |
-| `GEO4` `a0` | from `GEO1`: `d (Φ t G) (Φ t G') = d G G'`, so `GramPhaseEquiv (Φ t G) (Φ t G')` gives `d G G' = 0` and `GramPhaseEquiv G G'` | the product configuration |
+| `GEO1` (i), invariance | under `G' = c ⋆ G`, each coordinate of `Ψ G'` is the corresponding coordinate of `Ψ G` times `star (c j₁) c j₂ star (c j₂) c j₃ star (c j₃) c j₁ = 1` | arbitrary finite `V` |
+| `GEO1` (ii), separation under base-star support | given `Ψ G = Ψ H`, equal diagonals and `G j₀ j₀ j ≠ 0` for every `j`: the coordinate `((j₀, j₀, j₀), (j₀, j₀, j))` gives `‖G j₀ j₀ j‖ = ‖H j₀ j₀ j‖`, so `c j := H j₀ j₀ j / G j₀ j₀ j` has modulus one; the coordinate `((j₀, i, j₀), (j₀, j, k))` — the based triangle `j₀ → j → k → j₀` read in fibres `j₀`, `i`, `j₀` — gives `H j₀ j₀ j · H i j k · H j₀ k j₀ = G j₀ j₀ j · G i j k · G j₀ k j₀`, and with `G j₀ k j₀ = star (G j₀ j₀ k)` by hermiticity of each fibre Gram, `H i j k = star (c j) * G i j k * c k` for every `i`, `j`, `k` | arbitrary finite `V`, a base `j₀` |
+| `GEO1` (iii), the full-support instantiation | at each frozen configuration, realizable `G` has, by `sh1_sufficiency` and `fibreGram_apply`, `G i j k = star (U (i,0) (j,0)) * U (i,0) (k,0)` with `‖U (i,0) (j,0)‖ ^ 2 = Γ i j ≠ 0`, so `G 0 0 j ≠ 0` for every `j`; realizable `G`, `H` have equal diagonals `Γ`; (ii) applies | both configurations |
+| `GEO1` (iv)–(vi), the metric | `d` is a Euclidean norm of a difference of vectors in `EuclideanSpace ℂ ((V × V × V) × (V × V × V))`, `EuclideanSpace.norm_eq` rewriting the sum; nonnegativity, `d G G = 0`, symmetry and the triangle inequality are the norm's; class-invariance in both arguments from (i); `d G H = 0 → Ψ G = Ψ H` from the norm's definiteness, and then (iii) on realizable tuples; `GramPhaseEquiv G H → d G H = 0` from (i) | (iv), (v), (vi-b) arbitrary `V`; (vi-a) both configurations |
+| `GEO2` (a) | for `σ : Equiv.Perm V`, `Ψ (RelabelTransition σ G) p = Ψ G (σ⁶ p)` with `σ⁶` the induced permutation of the index set, so the two sums are reindexed by a bijection and agree: `d (σG) (σH) = d G H` | arbitrary finite `V` |
+| `GEO2` (b) | for `L` in `LeftFibreGroup` and `K` a `WeakAnchorStabilizer`, `FibreGram a₀ (L * U * K) i j k = star (c j) * FibreGram a₀ U i j k * c k` by `fibreGram_left_mul` and `fibreGram_mul_weak_apply`, so `GramPhaseEquiv (FibreGram a₀ U) (FibreGram a₀ (L * U * K))` and `d = 0` by `GEO1` (vi-b) | arbitrary finite `V`, `A`, `a₀` |
+| `GEO2` (c) | a coordinate of the product carrier's index set is a pair of coordinates of the factors' index sets, and `Ψ (X ⊠ Y) ((a, b)-triples) = Ψ X (a-triples) · Ψ Y (b-triples)` entry by entry, a homogeneous identity of degree three in each factor; hence `∑ ‖Ψ (X' ⊠ Y) − Ψ (X ⊠ Y)‖ ^ 2 = (∑ ‖Ψ X' − Ψ X‖ ^ 2)(∑ ‖Ψ Y‖ ^ 2)` by `Fintype.sum_prod_type` along the index bijection, and `d (X ⊠ Y) (X' ⊠ Y) = d X X' · Real.sqrt (∑ p, ‖Ψ Y p‖ ^ 2)` by `Real.sqrt_mul` | the product carrier, arbitrary factor carriers |
+| `GEO3`, each family | the tables above; the perturbation pairs and the shift argument as recorded | each at its own configuration |
+| `GEO4` `a0` | from `GEO1`: `d (Φ t G) (Φ t G') = d G G'`, so `GramPhaseEquiv (Φ t G) (Φ t G')` gives `d G G' = 0` by (vi-b) and `GramPhaseEquiv G G'` by (vi-a) | the product configuration |
 | `GEO4` `a1` | `Φ_SC`: the prefix through `L4d` and `L5` from `phiSC_corner`, `¬ isometry` from `GEO3` | the product configuration |
 | `GEO4` `a3` | `Φ_swap`: the prefix through `L4d` from `phiSwap_l5_restricts`, its `L5` failure from the same, `isometry` from `GEO3` | the product configuration |
 | `GEO4` `b₀` | `Φ_conj`: the prefix through `L4d`, `L5` and isometry as analysed, and the cross-invariant `−i/256` against the set `{1/256, i/256}` | the product configuration |
@@ -868,8 +988,8 @@ is taken; one explicit index suffices, and the freeze's reading names `n = 100`.
 
 **Evidence that earns any control or countercontrol**: a Lean theorem at evidence level 2 whose
 statement pins the geometry and every family by equation, discharges realizability from merged
-results or from the module commit's lemmas, and certifies the separating quantity at a named index
-through a named invariant. **Searching and not finding earns nothing.**
+results or from the module commit's lemmas, and certifies the separating quantity at a named
+coordinate through a named invariant. **Searching and not finding earns nothing.**
 
 ## What was and was not run before this freeze
 
@@ -894,49 +1014,55 @@ repository.
 
 > **The ordering obligation, act 24.** The rungs are act 21's declarations at blob `860daac4…`, the
 > equivalence is act 12's at blob `4bba2040…`, and nothing else. The execution's module **states no
-> rung, no equivalence, no geometry and no top-level definition of any kind**; the geometry is
-> bound, in every theorem that names it, to the equation this freeze displays, and every family is
-> bound, in every theorem that names it, to the equation its merged verdict carries — `Φ_conj` to
-> the entrywise `star`. From the first commit that adds the module to the certified head `E`, **no
-> commit of the branch adds a definition, restates a rung, alters the geometry's equation, or uses an
-> equivalence outside the frozen quotient list**; the module commit carries no verdict of any
-> target; the verdict commits of the executed targets follow it in the order `GEO1`, `GEO2`, `GEO3`,
-> `GEO4`; and no theorem block in one family's subsection of `GEO3` names another family.
+> rung, no equivalence, and exactly one top-level definition, `mixedTriple`, with the body this
+> freeze displays**; the geometry is bound, in every theorem that names it, to the equation this
+> freeze displays, and every family is bound, in every theorem that names it, to the equation its
+> merged verdict carries — `Φ_conj` to the entrywise `star`. From the first commit that adds the
+> module to the certified head `E`, **no commit of the branch adds a second definition, alters the
+> one definition's body, restates a rung, alters the geometry's equation, or uses an equivalence
+> outside the frozen quotient list**; the module commit carries no verdict of any target; the
+> verdict commits of the executed targets follow it in the order `GEO1`, `GEO2`, `GEO3`, `GEO4`;
+> and no theorem block in one family's subsection of `GEO3` names another family.
 
 ### What the execution must record
 
 1. **The declaration table.** For `GramPhaseEquiv`, `RealizableGram`, `RelabelTransition`, each
    rung the fourth target's prefix names, and each family, the merged declaration consumed with its
-   line range at its blob, and the statement that this round's module carries no declaration of its
-   own — checked mechanically by `R7-OGS`, which requires the module to contain no `def`, `abbrev`,
-   `structure`, `class`, `instance`, `axiom` or `opaque`, and to import `OIBridge.OrbitLawGaps`,
-   `OIBridge.OrbitLawRigidityTwisted` and `OIBridge.OrbitLawNaturalityFactorization`.
+   line range at its blob; and for this round's module the one definition `mixedTriple` with its
+   body, and the statement that it carries no other — checked mechanically by `R7-OGS`, which
+   requires the module to contain exactly one line beginning with `def `, that line opening
+   `def mixedTriple`, no `abbrev`, `structure`, `class`, `instance`, `axiom` or `opaque`, the
+   definition's body equal to the displayed one after whitespace normalization, and the imports
+   `OIBridge.OrbitLawGaps`, `OIBridge.OrbitLawRigidityTwisted` and
+   `OIBridge.OrbitLawNaturalityFactorization`.
 2. **The stage-A commit.** The SHA of the commit that sets the two declarations to `B`, and nothing
    else.
 3. **The module commit.** The SHA of the first commit at which the module is present, with the
-   named results it carries, each of which is a shared lemma and none a verdict.
+   definition and the named results it carries, each of which is a shared lemma and none a verdict.
 4. **The verdict commits**, in order, each with its SHA and its named results; and, for each target
    the gate did not open, the statement that it has none.
 5. **The immutability span.** The statement, with the command that checks it, that between the
-   module commit and `E` no diff introduces a definition:
+   module commit and `E` no diff introduces a definition or touches the one definition:
    `git diff <module commit> <E> -- verification/lean-mathlib/OIBridge/OrbitGeometrySelector.lean`
-   contains no added line beginning with `def `, `abbrev `, `structure `, `class `, `instance `,
-   `axiom ` or `opaque `.
+   contains no added or removed line beginning with `def `, `abbrev `, `structure `, `class `,
+   `instance `, `axiom ` or `opaque `, and no change inside the definition's block.
 6. **The quotient and geometry record.** The only equivalence used in any verdict is act 12's
-   `GramPhaseEquiv`; the geometry's equation is the displayed one at every mention; **no equivalence
-   was introduced or widened and the geometry was not adjusted**.
+   `GramPhaseEquiv`; the definition's body and the geometry's equation are the displayed ones at
+   every mention; **no equivalence was introduced or widened, and neither the invariant family nor
+   the geometry was adjusted**.
 7. **The five attestation answers**, one per span, as safeguard 1 fixes them.
 8. **The gate record.** For each of `GEO2`, `GEO3`, `GEO4`, the label of the target before it as
    earned, and whether the gate opened.
 
 ### The anti-expansion rule, FROZEN
 
-**If execution discovers a thirteenth family, a second geometry, a further equivalence, a further
-rung, a further configuration, a universal implication for a cell whose witness has closed, a
-further control, or a strengthening of a merged theorem, it is recorded as an observation for a
-later round with its own freeze and is not executed here.** The family list is closed at twelve,
-the geometry at one, the quotient list at three, the ladder at act 21's `L0`–`L5`, the cells at
-`a0`–`a4`, `b₀` and `b`, and the configurations at act 12's and act 21's.
+**If execution discovers a thirteenth family, a second invariant family, a second geometry, a
+further equivalence, a further rung, a further configuration, a universal implication for a cell
+whose witness has closed, a further control, a completeness statement for tuples with zero entries,
+or a strengthening of a merged theorem, it is recorded as an observation for a later round with its
+own freeze and is not executed here.** The family list is closed at twelve, the invariant family at
+the mixed triples, the geometry at one, the quotient list at three, the ladder at act 21's
+`L0`–`L5`, the cells at `a0`–`a4`, `b₀` and `b`, and the configurations at act 12's and act 21's.
 
 ## The targets, FROZEN
 
@@ -946,39 +1072,59 @@ evidence counts.
 
 ### `GEO0` — does the merged record already decide any of the four questions?
 
-**The question.** At `B`, does the merged record contain a statement that a distance on Gram
-tuples written from the Gram data separates act 12's classes, or that any transition family of the
-record is or is not an isometry of any such distance, or that isometry of any such distance follows
-from or implies any rung of act 21's ladder?
+**The question.** At `B`, does the merged record contain a statement that a finite family of
+phase-invariant products of Gram entries separates act 12's classes, or that a distance on Gram
+tuples written from the Gram data does, or that any transition family of the record is or is not
+an isometry of any such distance, or that isometry of any such distance follows from or implies any
+rung of act 21's ladder?
 
 **What settles it.** Locating and quoting, under act 21's evidence rule at its lines 1456–1467,
 over a bounded file set: act 12's `result.md` and module, act 18's `result.md` and module, act 21's
 `preregistration.md`, `amendments/amendment-1.md`, `result.md` and module, act 22's
 `preregistration.md`, `result.md` and module, act 23's `preregistration.md`, `result.md` and
 module, and `verification/ROADMAP.md`, with the terms `metric`, `pseudometric`, `distance`,
-`isometr`, `geometr`, `sInf`, `infimum`, `Frobenius`, `separat`, `Wigner`, `conjugat`,
-`antiunitar`, `rigid`.
+`isometr`, `geometr`, `invariant`, `cycle`, `triple`, `Bargmann`, `Hadamard`, `complete`,
+`separat`, `Wigner`, `conjugat`, `antiunitar`, `rigid`.
 
 **This is a type-P target.** No Lean is written for it, no outcome of it is a theorem, and this
 round's own theorems are not retro-evidence about it. **Reconstructive inference is forbidden as a
 finding; where the record is silent, the finding is that it is silent.** This round's own control
 plane is inside the set by construction and its hits are recorded as not relevant to the question.
-Act 18's `LC2` pseudometric is expected to be found, and is recorded as what it is: a pseudometric
-proved not to separate, which decides none of the four questions.
+Act 18's `LC2` pseudometric and act 12's cross-invariant are expected to be found, and are recorded
+as what they are: one invariant read at one pair, proved not to separate, which decides none of the
+four questions.
 
-### `GEO1` — the metric and separation properties of the geometry
+### `GEO1` — completeness of the mixed triples, and the metric they induce
 
-**The statement.** For every finite carrier `V` and every `d` equal to the displayed equation: (i)
-`∀ G H, 0 ≤ d G H`; (ii) `∀ G, d G G = 0`; (iii) `∀ G H, d G H = d H G`; (iv)
-`∀ G H K, d G K ≤ d G H + d H K`; (v) `∀ G G' H H', GramPhaseEquiv G G' → GramPhaseEquiv H H' →
-d G H = d G' H'`; (vi-a) `∀ G H, d G H = 0 → GramPhaseEquiv G H`; (vi-b)
-`∀ G H, GramPhaseEquiv G H → d G H = 0`.
+**The statement.** With `Ψ = mixedTriple` and `d` equal to the displayed equation: (i) for every
+finite carrier `V` and all `G H`, `GramPhaseEquiv G H → Ψ G = Ψ H`; (ii) for every finite carrier
+`V`, every `j₀ : V` and all `G H` with `∀ i j, G i j j = H i j j` and `∀ j, G j₀ j₀ j ≠ 0`,
+`Ψ G = Ψ H → GramPhaseEquiv G H`; (iii) at each of the two frozen configurations, for all
+realizable `G H`, `Ψ G = Ψ H → GramPhaseEquiv G H`; (iv) for every finite `V`: `∀ G H, 0 ≤ d G H`,
+`∀ G, d G G = 0`, `∀ G H, d G H = d H G`, `∀ G H K, d G K ≤ d G H + d H K`; (v) for every finite
+`V`, `∀ G G' H H', GramPhaseEquiv G G' → GramPhaseEquiv H H' → d G H = d G' H'`; (vi-a) at each of
+the two frozen configurations, for all realizable `G H`, `d G H = 0 → GramPhaseEquiv G H`; (vi-b)
+for every finite `V`, `∀ G H, GramPhaseEquiv G H → d G H = 0`.
 
-**What settles it.** One Lean theorem at evidence level 2, `geo1_orbit_metric`, carrying the seven
-conjuncts, with (vi-a) and (vi-b) as **separate conjuncts** — the equivalence is displayed nowhere
-as a single biconditional, each direction having its own witness in the statement, under `§A.34`.
-**`GEO1-METRIC` is earned only by all seven together**; a `d` proved a pseudometric without (vi-a)
-earns `GEO1-UNDECIDED` with (vi-a) named as the obstruction.
+**What settles it.** One Lean theorem at evidence level 2, `geo1_triple_metric`, carrying the
+conjuncts above, with (vi-a) and (vi-b) as **separate conjuncts** — the equivalence is displayed
+nowhere as a single biconditional, each direction having its own witness in the statement, under
+`§A.34` — and (ii) and (iii) as separate conjuncts, (iii) being (ii) instantiated at `j₀ = 0` with
+the support hypothesis discharged from act 12's merged results. **`GEO1-METRIC` is earned only by
+all of (i)–(vi-b) together**; a `Ψ` proved invariant without (ii), or a `d` proved a pseudometric
+without (vi-a), earns `GEO1-UNDECIDED` with the missing conjunct named as the obstruction.
+
+**The zero-entry case is out.** No conjunct of `GEO1` asserts completeness for tuples with a
+vanishing entry on the base star, at any carrier, and no sentence of this round does either; the
+frame literature cited as provenance shows that triples need not suffice there, and this round
+asserts nothing about it beyond (ii)'s hypothesis.
+
+**The topology of the induced metric is an observation sub-question, not a conjunct.** Whether the
+set of realizable tuples at each frozen configuration is compact and `Ψ` continuous on it, so that
+the class space with the metric `d` is compact and `d` induces the quotient topology, is recorded
+as `GEO1-T`, with outcome `GEO1-T-HOLDS` or `GEO1-T-UNDECIDED`, **and it does not enter `GEO1`'s
+label**; the execution attempts it only after (i)–(vi-b) have closed and only within the `GEO1`
+verdict commit.
 
 ### `GEO2` — the three controls
 
@@ -986,20 +1132,17 @@ earns `GEO1-UNDECIDED` with (vi-a) named as the obstruction.
 `d (RelabelTransition σ G) (RelabelTransition σ H) = d G H`. (b) For every finite `V`, `A`, anchor
 `a₀`, every `U`, every `L` with `LeftFibreGroup L` and every `K` with `WeakAnchorStabilizer a₀ K`,
 `d (FibreGram a₀ (L * U * K)) (FibreGram a₀ U) = 0`. (c) For every `X X' : V₁ → Matrix V₁ V₁ ℂ` and
-`Y : V₂ → Matrix V₂ V₂ ℂ`, `d (X ⊠ Y) (X' ⊠ Y) ≤ Real.sqrt (∑ i, ∑ j, ∑ k, ‖Y i j k‖ ^ 2) · d X X'`,
-with `d` on each carrier bound to the displayed equation on that carrier.
+`Y : V₂ → Matrix V₂ V₂ ℂ`: the tensor identity, `∀ a₁ a₂ a₃ b₁ b₂ b₃ j₁ j₂ j₃ k₁ k₂ k₃,
+mixedTriple (X ⊠ Y) (((a₁,b₁),(a₂,b₂),(a₃,b₃)), ((j₁,k₁),(j₂,k₂),(j₃,k₃))) = mixedTriple X
+((a₁,a₂,a₃),(j₁,j₂,j₃)) * mixedTriple Y ((b₁,b₂,b₃),(k₁,k₂,k₃))`, and its consequence
+`d (X ⊠ Y) (X' ⊠ Y) = d X X' · Real.sqrt (∑ p, ‖mixedTriple Y p‖ ^ 2)`, with `d` on each carrier
+bound to the displayed equation on that carrier and `⊠` written out.
 
 **What settles it.** Three Lean theorems at evidence level 2, `geo2_relabel_isometry`,
-`geo2_twoSided_trivial`, `geo2_product_bound`. **`GEO2-CONTROLS-PASS` is earned only by all three
-together.** `GEO2-CONTROL-FAILS` is earned only by an exhibited instance on the frozen objects at
-which one of (a), (b), (c) fails, with the instance named; `GEO2-UNDECIDED` otherwise.
-
-**The reverse of (c) is an observation sub-question, not a control.** Whether
-`Real.sqrt (∑ ‖Y‖ ^ 2) · d X X' ≤ d (X ⊠ Y) (X' ⊠ Y)` for realizable `Y` is recorded as (c′), with
-outcome `(c′)-HOLDS`, `(c′)-FAILS` or `(c′)-UNDECIDED`, **and it does not enter `GEO2`'s label**:
-the freeze's reading is that a general phase on the product carrier need not factor, so the
-direction is open, and the execution attempts it only after (a), (b), (c) have closed and only
-within the `GEO2` verdict commit.
+`geo2_twoSided_trivial`, `geo2_product_tensor`. **`GEO2-CONTROLS-PASS` is earned only by all three
+together**, (c) with both its identity and its consequence. `GEO2-CONTROL-FAILS` is earned only by
+an exhibited instance on the frozen objects at which one of (a), (b), (c) fails, with the instance
+named; `GEO2-UNDECIDED` otherwise.
 
 ### `GEO3` — the twelve families against the geometry
 
@@ -1050,10 +1193,10 @@ is `UNDECIDED`. The cells `a0`–`a4` and `b₀` are sub-verdicts, each with its
 
 | target | prediction (sign) | strength | recorded reason |
 | --- | --- | --- | --- |
-| `GEO0` | **negative** — the record decides none of the four | **high** | Act 18's pseudometric is the only geometry on the orbit space the record carries, and act 18 proves it does not separate; no isometry statement about any law exists on the record. The finding is whatever the bounded search records. |
-| `GEO1` | **`GEO1-METRIC`** | **high** | The torus is compact, the value function continuous, the gauge action an entrywise isometry, and every property is the standard one for an orbit distance under a compact group; the kernel work is the compactness and attainment argument in Mathlib's `Pi` proper space. **UNDECIDED with the obstruction named is an allowed outcome.** |
-| `GEO2` | **`GEO2-CONTROLS-PASS`** | **high** | (a) is a reindexing of finite sums; (b) is two merged laws and `GEO1`; (c) is the factorization of a product sum. **UNDECIDED with the obstruction named is an allowed outcome**; (c′) is predicted `UNDECIDED`. |
-| `GEO3` | **`GEO3-DISCRIMINATES`**, via `ΦCTRL` and `Φ_SC`, with the census as the family tables predict | **medium** | The two perturbation arguments rest on the entry bound, the sequence identities and the marginal lemma, all elementary but new kernel work at a symbolic parameter; the relabelling isometries are `GEO2` (a); the shift argument is an induction plus two explicit bounds. **UNDECIDED with the obstruction named is an allowed outcome.** |
+| `GEO0` | **negative** — the record decides none of the four | **high** | Act 18's pseudometric and act 12's cross-invariant are the only phase-invariant quantities on the orbit space the record carries, and act 18 proves the former does not separate; no completeness statement and no isometry statement about any law exists on the record. The finding is whatever the bounded search records. |
+| `GEO1` | **`GEO1-METRIC`** | **high** | Invariance is a one-line cancellation at every coordinate; separation at full support is a gauge fixing along one star and one triangle per entry, with no graph argument; the full-support fact is act 12's sufficiency read at `|A| = 1`; the metric properties are those of a Euclidean norm. **UNDECIDED with the obstruction named is an allowed outcome**; `GEO1-T` is predicted `HOLDS` at medium strength and enters no label. |
+| `GEO2` | **`GEO2-CONTROLS-PASS`** | **high** | (a) is a reindexing of one finite sum along a bijection of the index set; (b) is two merged laws and `GEO1`; (c) is an entrywise identity of monomials and one product of sums. **UNDECIDED with the obstruction named is an allowed outcome.** |
+| `GEO3` | **`GEO3-DISCRIMINATES`**, via `ΦCTRL` and `Φ_SC`, with the census as the family tables predict | **medium** | The two perturbation arguments rest on the entry bound at a symbolic parameter, the sequence identities and the marginal lemma, all elementary but new kernel work; the relabelling isometries are `GEO2` (a); the shift argument is an induction plus two explicit bounds. **UNDECIDED with the obstruction named is an allowed outcome.** |
 | `GEO4` | **`GEO4-UNDECIDED`**, with `a0` **holds**, `a1` **NOT-IMPLIES**, `a2` **UNDECIDED**, `a3` **NOT-IMPLIES**, `a4` **UNDECIDED**, `b₀` **NOT-RIGID** | **medium** for the cells, **high** for `b` being undecided | `a0` is separation; `a1` and `a3` consume closed verdicts; `b₀`'s witness is an involution whose every conjunct is a computation; `a2`, `a4` and `b` are universal statements about every transition family for which the freeze knows no route. **`GEO4-RIGID` is predicted for no cell and is not expected.** |
 
 **No target has a numerical fallback**, and none is offered for a universal statement. **UNDECIDED
@@ -1070,13 +1213,14 @@ NOT-EXECUTED is a live preregistered outcome for every gated target and is not a
 - **Outcome `GEO0`-silent:**
   > On the search this freeze bounds — act 12's, act 18's, act 21's, act 22's and act 23's control
   > planes, amendments, result notes and modules, and `verification/ROADMAP.md`, against the frozen
-  > term list — the merged record carries one geometry on the per-slice orbit space, act 18's
-  > pseudometric, proved there not to separate act 12's classes, and decides neither whether a
-  > distance written from the Gram data separates them, nor whether any transition family of the
-  > record is an isometry of any such distance, nor whether such isometry follows from or implies any
-  > rung of act 21's ladder. **The finding is that the record is silent on the point.** It is not a
-  > finding that any such statement is false, not a finding that one is unprovable, and not a bound
-  > on what a later round could prove.
+  > term list — the merged record carries one phase-invariant quantity read at one fibre pair, act
+  > 12's cross-invariant, and one geometry built from it, act 18's pseudometric, proved there not to
+  > separate act 12's classes, and decides neither whether a finite family of such quantities
+  > separates them, nor whether a distance written from the Gram data does, nor whether any
+  > transition family of the record is an isometry of any such distance, nor whether such isometry
+  > follows from or implies any rung of act 21's ladder. **The finding is that the record is silent
+  > on the point.** It is not a finding that any such statement is false, not a finding that one is
+  > unprovable, and not a bound on what a later round could prove.
 - **Outcome `GEO0`-found:**
   > The merged record decides at least one of the questions this round asks, quoted verbatim above
   > with its coordinate, and the record says exactly which question it decides and for which
@@ -1085,27 +1229,34 @@ NOT-EXECUTED is a live preregistered outcome for every gated target and is not a
 ### The outcomes of `GEO1`
 
 - **Outcome `GEO1-METRIC`:**
-  > The gauge-minimized entrywise distance, written from the Gram data alone and bound by equation,
-  > is a metric on act 12's classes at every finite carrier: nonnegative, symmetric, subadditive,
-  > constant on each class in both arguments, and zero exactly on the pairs `GramPhaseEquiv`
-  > relates, each direction of the last proved separately, at evidence level 2. **This is a
-  > statement about the exact quantity frozen under this name**: it does not say the quantity is
-  > canonical, unique, physical, or the right geometry to impose, and it adopts nothing.
+  > The mixed-triple feature map — every product of three Gram entries around a closed three-step
+  > walk of matrix indices, with a fibre label per step — is invariant under act 12's phase action at
+  > every finite carrier, and separates act 12's classes on every pair of tuples with equal diagonals
+  > and no vanishing entry on one base star, hence on the realizable tuples at both frozen
+  > configurations, where no entry vanishes; and the Euclidean distance of feature vectors is a
+  > metric on classes: nonnegative, symmetric, subadditive, constant on each class in both
+  > arguments, and zero exactly on the pairs `GramPhaseEquiv` relates on the realizable tuples, each
+  > direction of the last proved separately, at evidence level 2. **This is a statement about the
+  > exact family and the exact quantity frozen under these names**: it does not say the family is
+  > minimal, canonical or physical, does not say the induced metric is canonical or the right
+  > geometry to impose, says nothing about tuples with a vanishing entry, and adopts nothing.
 - **Outcome `GEO1-UNDECIDED`:**
-  > Whether the gauge-minimized entrywise distance is a metric on act 12's classes separating exactly
-  > the pairs `GramPhaseEquiv` relates is undecided in this round, with the obstruction named
-  > specifically — the property, the step at which the proof stopped, and what would settle it.
-  > Neither the metric label nor its negation is claimed, and the later targets of this round were
-  > not executed.
+  > Whether the mixed-triple feature map separates act 12's classes on the realizable tuples at the
+  > frozen configurations, and whether the distance it induces is a metric on classes, is undecided
+  > in this round, with the obstruction named specifically — the conjunct, the step at which the
+  > proof stopped, and what would settle it. Neither the metric label nor its negation is claimed,
+  > and the later targets of this round were not executed.
 
 ### The outcomes of `GEO2`
 
 - **Outcome `GEO2-CONTROLS-PASS`:**
   > Every carrier relabelling is an exact isometry of the geometry, act 12's two-sided gauge acts
-  > trivially on it, and the product embedding with a fixed second factor is non-expanding in it up to
-  > the second factor's norm, at evidence level 2. **This is a statement about three named
-  > constructions of the record and the exact quantity frozen**; it says nothing about constructions
-  > not on the list and does not say the geometry is preserved by anything else.
+  > trivially on it, and the feature map carries the product embedding to the tensor product of the
+  > factors' feature vectors, so that the distance between two products with a common second factor
+  > is the factors' distance scaled exactly by the common factor's feature norm, at evidence level 2.
+  > **This is a statement about three named constructions of the record and the exact quantity
+  > frozen**; it says nothing about constructions not on the list and does not say the geometry is
+  > preserved by anything else.
 - **Outcome `GEO2-CONTROL-FAILS`:**
   > A named control of the record fails to preserve the geometry at an exhibited instance, at
   > evidence level 2, with the control and the instance named. **This settles that the frozen
@@ -1231,14 +1382,14 @@ after act 23's sentence in the same cell, exactly the sentence frozen for the ve
 
 **Case A — `GEO0` silent, row 2 with the cells as predicted.** This is the case the freeze predicts.
 
-> Act 24 tests, in one gated round with four separately frozen targets, whether a geometry on the per-slice orbit space written from the Gram data alone — the entrywise distance minimized over act 12's phase torus — separates act 12's classes, whether the record's legitimate constructions preserve it, whether it tells the record's structurally admissible laws apart, and whether, together with every condition of act 21's ladder before naturality and with factorization, it forces a law to act on classes as a carrier relabelling, at act 12's and act 21's frozen configurations, with a closed list of twelve named laws frozen with it. The distance is a metric on classes: nonnegative, symmetric, subadditive, constant on each class in both arguments, and zero exactly on act 12's equivalent pairs. Every carrier relabelling is an exact isometry of it, act 12's two-sided gauge acts trivially on it, and the product embedding with a fixed second factor is non-expanding in it up to the second factor's norm. The geometry discriminates within the structurally admissible class: a law satisfying every condition before naturality and factorizing, and a law satisfying every condition before naturality and conditioning one factor on the other, each named for that target in advance, are not isometries of it, while every relabelling law of the record is one. Whether every law satisfying the conditions before naturality, factorization and isometry acts on classes as a carrier relabelling or as one composed with entrywise conjugation is recorded undecided, with the obstruction named; the entrywise conjugation, named in advance, satisfies every condition before naturality, factorizes, is an isometry, and sends one admissible class to a class no relabelling reaches, so the relabelling conclusion alone is not forced; isometry implies injectivity on classes; and the conditions before naturality with factorization do not force isometry, nor with isometry force factorization. Each verdict is of the exact frozen proposition at the exact configuration and of nothing in its neighbourhood; no verdict is inferred from another; no condition is adopted; the geometry is a named object of test and is not adopted as the physical one; acts 12 through 23's own verdicts stand exactly as they state them; nothing here introduces continuity, composition in time or a generator; and deriving or recognising quantum evolution is out of scope by this round's own freeze. `P0`'s threading part is untouched, **no carrier is adopted as the physical one**, **no surviving law is adopted as the physical one**, and nothing here names, endorses or excludes a selection principle.
+> Act 24 tests, in one gated round with four separately frozen targets, whether a finite family of phase invariants written from the Gram data alone — every product of three Gram entries around a closed three-step walk of matrix indices, with a fibre label per step — separates act 12's classes on the realizable tuples, whether the record's legitimate constructions preserve the distance it induces, whether that distance tells the record's structurally admissible laws apart, and whether, together with every condition of act 21's ladder before naturality and with factorization, isometry of it forces a law to act on classes as a carrier relabelling, at act 12's and act 21's frozen configurations, with a closed list of twelve named laws frozen with it. The family separates the classes on the realizable tuples at both configurations, where no entry vanishes, and the Euclidean distance of feature vectors is a metric on classes: nonnegative, symmetric, subadditive, constant on each class in both arguments, and zero exactly on act 12's equivalent pairs. Every carrier relabelling is an exact isometry of it, act 12's two-sided gauge acts trivially on it, and the product embedding with a common second factor scales it exactly by the common factor's feature norm. The geometry discriminates within the structurally admissible class: a law satisfying every condition before naturality and factorizing, and a law satisfying every condition before naturality and conditioning one factor on the other, each named for that target in advance, are not isometries of it, while every relabelling law of the record is one. Whether every law satisfying the conditions before naturality, factorization and isometry acts on classes as a carrier relabelling or as one composed with entrywise conjugation is recorded undecided, with the obstruction named; the entrywise conjugation, named in advance, satisfies every condition before naturality, factorizes, is an isometry, and sends one admissible class to a class no relabelling reaches, so the relabelling conclusion alone is not forced; isometry implies injectivity on classes; and the conditions before naturality with factorization do not force isometry, nor with isometry force factorization. Each verdict is of the exact frozen proposition at the exact configuration and of nothing in its neighbourhood; no verdict is inferred from another; no condition is adopted; the invariant family and its geometry are named objects of test and are not adopted as the physical ones; nothing is asserted about tuples with a vanishing entry; acts 12 through 23's own verdicts stand exactly as they state them; nothing here introduces continuity, composition in time or a generator; and deriving or recognising quantum evolution is out of scope by this round's own freeze. `P0`'s threading part is untouched, **no carrier is adopted as the physical one**, **no surviving law is adopted as the physical one**, and nothing here names, endorses or excludes a selection principle.
 
 **Clauses of Case A vary with the outcome, and they vary independently within the gate**, each
 replaced by the sentence its target's other outcomes fix:
 
 | target or cell | clause | replacement |
 | --- | --- | --- |
-| `GEO1`, `UNDECIDED` | the sentence beginning "The distance is a metric" and **every sentence after it up to** "Each verdict is" | "Whether the distance is a metric on classes separating exactly act 12's equivalent pairs is recorded undecided, with the obstruction named, and the later targets were not executed." |
+| `GEO1`, `UNDECIDED` | the sentence beginning "The family separates the classes" and **every sentence after it up to** "Each verdict is" | "Whether the family separates act 12's classes on the realizable tuples at the frozen configurations, and whether the distance it induces is a metric on classes, is recorded undecided, with the obstruction named, and the later targets were not executed." |
 | `GEO2`, `CONTROL-FAILS` | the sentence beginning "Every carrier relabelling" and every sentence after it up to "Each verdict is" | "A named construction of the record does not preserve the distance, at an exhibited instance, and the later targets were not executed." |
 | `GEO2`, `UNDECIDED` | the same span | "Whether the record's named constructions preserve the distance is recorded undecided, with the obstruction named, and the later targets were not executed." |
 | `GEO3`, `NO-DISCRIMINATION` | the sentence beginning "The geometry discriminates" and every sentence after it up to "Each verdict is" | "Both structurally admissible laws of the frozen list predicted not to be isometries are isometries of it, so the geometry does not discriminate within the structurally admissible class on this list, and the rigidity target was not executed." |
@@ -1257,9 +1408,9 @@ composition closes `P0`**, and none reports either of its two parts closed.
 
 ## Naming a law or a geometry is not endorsing it, FROZEN
 
-Act 21's four points at its lines 1868–1879 govern here, read of the geometry as well as of every
-law: naming is for testing; the round endorses none; exclusion is only ever of the precise stated
-form; the lists are closed at this freeze.
+Act 21's four points at its lines 1868–1879 govern here, read of the invariant family and the
+geometry as well as of every law: naming is for testing; the round endorses none; exclusion is only
+ever of the precise stated form; the lists are closed at this freeze.
 
 ### The non-adoption clause, FROZEN VERBATIM
 
@@ -1279,9 +1430,10 @@ clause with "Act 21" read as "Act 24", and nothing else changed.
 > **No law gains physical status by surviving, no carrier and no principle is adopted as the physical
 > one, and nothing here derives, recognises or approaches quantum evolution.**
 
-**Read of the geometry**: a metric verdict, a controls verdict and a discrimination verdict are
-statements about the frozen quantity; none adopts it as a selector, a principle or a piece of
-physics, and "the geometry is preserved by" is never written as "the geometry selects".
+**Read of the geometry**: a completeness verdict, a controls verdict and a discrimination verdict
+are statements about the frozen family and the frozen quantity; none adopts either as a selector, a
+principle or a piece of physics, and "the geometry is preserved by" is never written as "the
+geometry selects".
 
 ## What no outcome licenses
 
@@ -1292,7 +1444,8 @@ any paraphrase, in a summary line, an abstract, a table cell or a propagation li
    antiunitary case", "Wigner's theorem holds on the orbit space", or any statement that a
    surviving or failing law, or the geometry, is, resembles, approximates or points toward quantum
    evolution, unitarity or a quantum symmetry.** `Φ_conj` is named as the entrywise conjugation and
-   as nothing else.
+   as nothing else; the Wigner-type shape is provenance for the question's shape and for nothing
+   else.
 2. **"The surviving law is the physical one", "the geometry is the physical geometry", "the
    geometry selects".** The non-adoption clause governs:
    > **THE CLAUSE, carried at this mention — the list of what no outcome licenses.**
@@ -1309,8 +1462,8 @@ any paraphrase, in a summary line, an abstract, a table cell or a propagation li
    independent", "the square is complete", or any report of independences.** Cells are cells.
 4. **"`GEO3` follows from `GEO2`", "the rigidity follows from discrimination", or any inference of
    one target's verdict from another's**, beyond the consumptions the freeze itself places in cells
-   `a1` and `a3`.
-5. **"The geometry is a metric", "the controls pass", "the geometry discriminates", "the rigidity
+   `a1` and `a3` and in `GEO3`'s upper bound.
+5. **"The family is complete", "the controls pass", "the geometry discriminates", "the rigidity
    holds", from the absence of a counterexample, from a witness that failed to close, or from
    anything but the named route.**
 6. **"The witness for one cell also settles another."** A witness answers the cell the matrix
@@ -1326,28 +1479,39 @@ any paraphrase, in a summary line, an abstract, a table cell or a propagation li
    `b` cell's outcome.
 10. **"`d` is the natural metric", "the canonical metric", "the unique metric", "the Fubini–Study
     metric", "the Bures metric", or any identification of the frozen geometry with a named
-    geometry of any other theory.** No comparison is made and none is licensed.
-11. **Any statement about the threading, the cross-time representative, the relative evolution or
+    geometry of any other theory.** No comparison is made and none is licensed. Citing the
+    Bargmann-invariant, frame-equivalence and complex-Hadamard literature as the provenance of the
+    route, as the external-provenance section does, is not an identification and is permitted in
+    that section's wording only.
+11. **"This is the Chien–Waldron theorem on our object", "the Haagerup invariant is complete",
+    "the triples are complete in general", or any attribution of a theorem of this round to the
+    literature, or any completeness claim beyond the base-star support hypothesis.** The tuple
+    generalization is this round's and is proved here; completeness with zero entries is out.
+12. **Any statement about the threading, the cross-time representative, the relative evolution or
     the relative candidate; about act 16's cancellation cell; about act 14's carriers; about act 18's
     `D`-axis; about act 10's anchor axis; about Track I, Source B or Source C; or about the substratum
     Lemma 24.1 rounds.**
-12. **"`P0` is closed", or "`P0`'s trajectory part is closed."**
-13. **"Act 12's classification is strengthened", "act 18's pseudometric is superseded", "act 21's
+13. **"`P0` is closed", or "`P0`'s trajectory part is closed."**
+14. **"Act 12's classification is strengthened", "act 18's pseudometric is superseded", "act 21's
     ladder is extended by a rung", "act 23's family is extended."** All are consumed at merged
-    strength; the geometry is this round's object of test and no rung; the entry bound and the
-    rotated point are this round's supply items and enlarge no merged statement.
-14. **"The evolution is continuous", "smooth", "generated", "one-parameter", "composes in time"**,
+    strength; the invariant family and the geometry are this round's objects of test and no rung;
+    the entry bound, the coordinate bound, the feature norm and the rotated point are this round's
+    supply items and enlarge no merged statement.
+15. **"The evolution is continuous", "smooth", "generated", "one-parameter", "composes in time"**,
     or any statement resting on structure the index type does not carry; in particular nothing about
     the parameter of the Fourier family being a time, a flow or a generator, and nothing about the
     perturbation index `N` being a limit.
-15. **"OI and QM are inequivalent."**
-16. **"The law list is exhaustive", "the control list is exhaustive", "the geometry list is
-    exhaustive."** Twelve laws, three controls and one geometry are tested; nothing outside them is
-    refuted or endorsed here.
-17. **A single-label headline.** The headline is the vector, selected verbatim from the table.
-18. **"`Φ_conj` is admissible as a law", "`Φ_conj` survives the ladder".** Its conjuncts are
+16. **"OI and QM are inequivalent."**
+17. **"The law list is exhaustive", "the control list is exhaustive", "the invariant family is the
+    only complete one."** Twelve laws, three controls and one family are tested; nothing outside
+    them is refuted or endorsed here.
+18. **A single-label headline.** The headline is the vector, selected verbatim from the table.
+19. **"`Φ_conj` is admissible as a law", "`Φ_conj` survives the ladder".** Its conjuncts are
     discharged for cell `b₀`'s hypotheses and for `GEO3`'s isometry test, and its `L4n` status is
     neither tested nor reported.
+20. **"The discrimination verdicts are metric-independent"**, without the two qualifications the
+    freeze fixes: merge witnesses once separation is proved, sequence-discontinuity witnesses across
+    metrics inducing the quotient topology, and `GEO1-T` entering no label.
 
 ## Named hazards
 
@@ -1365,76 +1529,89 @@ any paraphrase, in a summary line, an abstract, a table cell or a propagation li
    > to add one more condition, or to widen one more equivalence, until a plurality becomes a point.
    > **No law gains physical status by surviving, no carrier and no principle is adopted as the physical
    > one, and nothing here derives, recognises or approaches quantum evolution.**
-2. **Adjusting the geometry.** A different norm, a different group, a `sup` in place of a sum, or a
-   squared distance in place of the square root is a different object; the equation is pinned by
-   the guard in every theorem, and a variant is not `d`.
-3. **A `def` for the geometry.** The budget is zero; `R7-OGS` fails on a definition.
+2. **Adjusting the invariant family or the geometry.** A family of based triples only, a family
+   with a different walk length, a `sup` in place of the Euclidean norm, or a squared distance in
+   place of the square root is a different object; the definition's body and the geometry's
+   equation are pinned by the guard, and a variant is not `Ψ` or `d`. In particular a family of
+   triples through one base vertex is **not** relabelling-equivariant and would fail control (a);
+   the whole index set is what makes (a) a permutation.
+3. **A second definition.** The budget is one; `R7-OGS` fails on a second `def` and on any edit to
+   the one definition's body.
 4. **The Frobenius instance.** Mathlib's `Matrix` Frobenius norm is a scoped instance; a statement
    that reaches for `‖·‖` on a matrix has changed the object. Every norm in every statement is on
-   an entry of `ℂ`, and every sum is written out.
-5. **Attainment assumed.** Separation needs the infimum attained; a proof that argues from
-   `d G H = 0` to a sequence of gauges converging somewhere has not closed (vi-a). The route is
-   compactness in the `Pi` proper space and `IsCompact.exists_isMinOn`.
-6. **The lower bound without the modulus hypothesis.** The Lipschitz constant `2` needs entry
-   moduli at most `1`; on the frozen tuples every entry has modulus `¼` or `1/16`, and the bound is
-   stated with the hypothesis and instantiated, never assumed.
-7. **The `z`-free entries assumed `z`-free.** The entries of `F(z)` in which `z` pairs with
+   an entry of `ℂ` or on a vector of `EuclideanSpace`, and every sum is written out.
+5. **Attributing the completeness theorem, or importing one.** The frame literature's theorem is
+   for one Gram matrix and is cited as provenance only; the tuple statement with the shared phase
+   is proved here from the based-star gauge fixing, and no result of that literature is consumed.
+6. **Completeness asserted past its hypothesis.** Conjunct (ii) needs `G j₀ j₀ j ≠ 0` for every
+   `j`; a tuple with a vanishing entry on the base star is outside every completeness statement of
+   this round, and the frame literature's `n`-cycle example is the reason. At the frozen
+   configurations the hypothesis is discharged from rank one; nothing is asserted at `|A| > 1`.
+7. **Raw coordinates mistaken for gauge invariants with signs.** The raw coordinates of
+   `Ψ (Gᵢ ⊠ G₁)` take every value in `{±1/4096, ±i/4096}`, so a `b₀` argument on raw coordinates
+   would not separate; the argument runs on the cross-invariant coordinates, which are `Γ` times a
+   value in `{1/256, i/256}` on every relabelling, and on nothing else.
+8. **The `z`-free entries assumed `z`-free.** The entries of `F(z)` in which `z` pairs with
    `star z` are constant only because `star z * z = 1`; the entry bound is stated at unit
    parameters and proved by cases, not by inspection.
-8. **Inferring a family's verdict from another's.** Twelve theorems; the relabellings' isometries
+9. **Inferring a family's verdict from another's.** Twelve theorems; the relabellings' isometries
    are instances of `GEO2` (a) and are still stated and proved one by one.
-9. **Sliding a witness.** `Φ_SC` answers `GEO3` and cell `a1`; `Φ_swap` answers `GEO3` and cell
-   `a3`; `Φ_conj` answers `GEO3` and cell `b₀`; none answers anything else, and `Φ_conj`'s `L4n`
-   status is not a verdict.
-10. **A universal proof attempted while a witness is open.** The route order is witness cells
+10. **Sliding a witness.** `Φ_SC` answers `GEO3` and cell `a1`; `Φ_swap` answers `GEO3` and cell
+    `a3`; `Φ_conj` answers `GEO3` and cell `b₀`; none answers anything else, and `Φ_conj`'s `L4n`
+    status is not a verdict.
+11. **A universal proof attempted while a witness is open.** The route order is witness cells
     first; a universal attempt on `a2`, `a4` or `b` before `a1`, `a3` and `b₀` have closed at a
     named step is a discrepancy.
-11. **A verdict revealed before its commit.** The attestation set at every boundary and the
+12. **A verdict revealed before its commit.** The attestation set at every boundary and the
     partial-fact rule exist for it; a shared lemma of the module commit that states a family's
     isometry is a YES at the first boundary.
-12. **A verdict commit carrying two targets.** One per executed target, in order.
-13. **Executing a closed target "for information".** Failure rule 3; a closed target's route is not
+13. **A verdict commit carrying two targets.** One per executed target, in order.
+14. **Executing a closed target "for information".** Failure rule 3; a closed target's route is not
     run, and a partial result on it is a discrepancy and not an observation.
-14. **`GEO3-DISCRIMINATES` earned by a family outside the prefix.** `ΦC`, `Φ_MD`, `Φ_PC` and
+15. **`GEO3-DISCRIMINATES` earned by a family outside the prefix.** `ΦC`, `Φ_MD`, `Φ_PC` and
     `Φ_HS` each fail a rung of the prefix; their non-isometries are census entries and earn the
     label of nothing.
-15. **Reading `b₀`'s witness as a symmetry, an antiunitary or a physical map.** Forbidden sentence
+16. **Reading `b₀`'s witness as a symmetry, an antiunitary or a physical map.** Forbidden sentence
     1; it is the entrywise `star` and nothing else is said of it.
-16. **Choosing a configuration or an index after an outcome is known.** Every family is at its
-    merged configuration; the perturbation index is `N = 4096` and the shift index `n = 100`; a
+17. **Choosing a configuration or an index after an outcome is known.** Every family is at its
+    merged configuration; the perturbation index is `N = 32768` and the shift index `n = 300`; a
     pair that works at a different index is an observation, not a repair — with one stated
     exception: if the kernel's bounds at the frozen indices are weaker than the freeze's reading
     and a larger index closes the same argument, the larger index is a discrepancy of the reading
     recorded and used, since the argument is the same and the index is not a parameter of the law.
-17. **Treating the `|A| = 1` case as automatically the right one for a cross-time statement.**
-    Carried from acts 18, 21, 22 and 23.
-18. **Consuming a sibling round's result because it is present at the mandated base.** The
+18. **Treating the `|A| = 1` case as automatically the right one for a cross-time statement.**
+    Carried from acts 18, 21, 22 and 23; and here it is also the case that makes the triples
+    complete.
+19. **Consuming a sibling round's result because it is present at the mandated base.** The
     anti-contamination invariant governs.
-19. **A landing without `P`**, **a stem both declared and recorded**, **a legacy constant
+20. **A landing without `P`**, **a stem both declared and recorded**, **a legacy constant
     written**, **editing this freeze after an outcome is known**, **a supersession outside the
     table** — each as act 21's hazards 28, 30, 31 and 34 state them, with `OGS` for `OLT`; the
     table here is empty, so any edit to a closed round's guard is a supersession outside it.
-20. **A `B`-scoped precondition that the freeze's own text falsifies.** Every `B`-scoped row below
+21. **A `B`-scoped precondition that the freeze's own text falsifies.** Every `B`-scoped row below
     is evaluated at `M` before the merge and is written so that the presence of this file in the
     tree does not fail it.
-21. **A value in the freeze's reading that the kernel computes differently.** Recorded as a
+22. **A value in the freeze's reading that the kernel computes differently.** Recorded as a
     discrepancy of the reading; the label is earned by what the kernel proves and by nothing stated
     here.
 
 ## Non-doings
 
 The round does not: **derive, recognise, approach or claim progress toward quantum evolution**, in
-any paraphrase; adopt any surviving law as the physical one; adopt the geometry as a selector, a
-principle, or the physical geometry, or identify it with any named geometry of any other theory;
-adopt a carrier as the physical one or define a carrier of its own; endorse any condition, any law
-or the geometry; assert or deny that a cross-time law is required or suffices; **restate, edit, add
-or remove any rung, or change any conjunction**; **introduce or widen an equivalence**, or use one
-outside the frozen quotient list in any verdict; **define the geometry** or any other object; test
-any family outside the frozen twelve, any geometry outside the frozen one, any control outside the
-frozen three, any configuration outside the frozen two, or any decomposition other than
-`e = Equiv.refl`; infer any target's verdict from another's beyond the two consumptions the freeze
-places; report an independence of conditions or a square of independences; characterize the
-isometries of the orbit space; attempt a characterization, a census of the ladder or a
+any paraphrase; adopt any surviving law as the physical one; adopt the invariant family or the
+geometry as a selector, a principle, or the physical geometry, or identify either with any named
+geometry or invariant of any other theory; attribute any theorem of this round to the literature it
+cites as provenance, or consume any theorem of that literature; assert completeness for any tuple
+with a vanishing entry on the base star, or at any `|A| > 1`; adopt a carrier as the physical one
+or define a carrier of its own; endorse any condition, any law, the family or the geometry; assert
+or deny that a cross-time law is required or suffices; **restate, edit, add or remove any rung, or
+change any conjunction**; **introduce or widen an equivalence**, or use one outside the frozen
+quotient list in any verdict; **define anything beyond the one budgeted definition**; test any
+family outside the frozen twelve, any invariant family or geometry outside the frozen one, any
+control outside the frozen three, any configuration outside the frozen two, or any decomposition
+other than `e = Equiv.refl`; infer any target's verdict from another's beyond the consumptions the
+freeze places; report an independence of conditions or a square of independences; characterize
+the isometries of the orbit space; attempt a characterization, a census of the ladder or a
 same-initial-orbit pair; **re-prove or strengthen acts 12, 13, 17, 18, 20, 21, 22 or 23**; revise
 any merged label; rewrite, reinterpret or grade any verdict or witness of any earlier act's note;
 ask the threading question or the cross-time representative question, in either direction; touch
@@ -1452,15 +1629,15 @@ bounded and not attempted; an execution that begins asking whether any law here 
 evolution, or whether the geometry looks like a quantum geometry, has left the round's scope, and
 what it finds is recorded as an observation and not executed. **"Resembles", "is consistent with",
 "is what one would expect from" and "is a step toward" are forbidden sentences.** The word "Wigner"
-appears in this file only in the forbidden list and in `GEO0`'s term list, and appears in no other
-artifact of the round.
+appears in this file only in the external-provenance section, the forbidden list and `GEO0`'s term
+list, and appears in no other artifact of the round.
 
 ### What act 24 does and does not change about `P0`, and about the classification
 
 **`P0` stays OPEN and two-part in every case, and its label does not change.** What act 24 can
-change is the recorded content of one geometry on the per-slice orbit space, the recorded isometry
-status of twelve named laws under it, and the recorded status of seven implication and rigidity
-propositions among act 21's rungs and that geometry.
+change is the recorded content of one invariant family and the geometry it induces on the
+per-slice orbit space, the recorded isometry status of twelve named laws under it, and the recorded
+status of seven implication and rigidity propositions among act 21's rungs and that geometry.
 
 **On the classification act 21 named as the obstruction to `L-FAMILY`, stated once and narrowly.**
 A family proved not an isometry is a law a classification of the isometries at the product
@@ -1478,21 +1655,27 @@ CERTIFIED**.
 
 ## Definition budget
 
-**The execution introduces NO top-level Lean definition.** The budget is **zero**, and it is stated
-as a number so that it cannot drift: no `def`, `abbrev`, `structure`, `class`, `instance`, `axiom`
-or `opaque`. Every rung is act 21's declaration consumed; the geometry, the isometry proposition,
-the twelve families, the Fourier family, the sequence and its rotation, the product tuples, the
-Hadamard objects and the permutations are bound variables pinned by equations in the statements
-that need them, as `lc2_regularity_law` pins its pseudometric and as `phiCTRL_census` pins its
-transition family. The prefix through `L4d` is written out as the first seven conjuncts of
-`LadderConds` wherever a statement needs it, and never abbreviated by a definition. **A definition
-requires its own append-only amendment**, separately frozen and merged before the work it affects.
+**The execution introduces exactly ONE top-level Lean definition, `mixedTriple`, with the body this
+freeze displays.** The budget is **one**, and it is stated as a number so that it cannot drift: one
+`def`, and no `abbrev`, `structure`, `class`, `instance`, `axiom` or `opaque`. The one definition is
+budgeted because the invariant family is the object every verdict of the round is about and every
+coordinate of it is read in every target; its body is pinned verbatim by the guard, so that the
+definition is as immutable as an equation-bound object would be. Everything else — the geometry,
+the isometry proposition, every rung as act 21's declaration consumed, the twelve families, the
+Fourier family, the sequence and its rotation, the product tuples, the Hadamard objects and the
+permutations — is a bound variable pinned by equation in the statements that need it, as
+`lc2_regularity_law` pins its pseudometric and as `phiCTRL_census` pins its transition family. The
+prefix through `L4d` is written out as the first seven conjuncts of `LadderConds` wherever a
+statement needs it, and never abbreviated by a definition. **A second definition requires its own
+append-only amendment**, separately frozen and merged before the work it affects.
 
-Theorems are not budgeted. The execution proves whatever lemmas its verdicts need — the torus
-facts, the entrywise isometry of the gauge action, attainment, the two bounds, the product
-factorization of the sum, the entry bound on the Fourier family and its `(0,2)` invariant, the
-sequence identities, the sixteen cross-invariants of `Gᵢ`, the conjugation facts, the twelve
-verdicts, the cells — as named results, each printed in the axiom table.
+Theorems are not budgeted. The execution proves whatever lemmas its verdicts need — the coordinate
+invariance, the based gauge fixing, the full-support fact at the frozen configurations, the
+Euclidean norm facts, the coordinate bound, the cross-invariant coordinates and their values, the
+entry bound on the Fourier family and its `(0,2)` invariant, the feature norm at a unit parameter,
+the sequence identities, the sixteen cross-invariants of `Gᵢ`, the tensor identity, the
+conjugation facts, the twelve verdicts, the cells — as named results, each printed in the axiom
+table.
 
 ## Evidence level
 
@@ -1501,8 +1684,8 @@ verdicts, the cells — as named results, each printed in the axiom table.
 kernel-bypassing decision procedure** — for `GEO1`, `GEO2`, `GEO3` and `GEO4`, whichever label
 each reaches other than `UNDECIDED` or `NOT-EXECUTED`. `decide` over finite index types is
 permitted; `native_decide` is not, and neither is `sorry`. `Classical.choice` is expected wherever
-`sInf`, `IsCompact.exists_isMinOn`, `sh1_sufficiency`, `product_realizable` or the classical branch
-of `Φ_HS`'s statement is used. **`GEO0` is type P and carries no evidence level.**
+`sh1_sufficiency`, `product_realizable`, `Real.sqrt` or the classical branch of `Φ_HS`'s statement
+is used. **`GEO0` is type P and carries no evidence level.**
 
 ## The chronology control — through the manifest and never a constant
 
@@ -1513,11 +1696,11 @@ the record `verification/seals/OGS.json` from `P`, and **no constant**.
 1. **This preregistration blob is merged into `main`, and its merge commit `B` certified by a fully
    green main-push run including the control-plane base check in mode `B`, before any
    execution-specific act 24 object enters the repository tree** — any Lean statement about the
-   geometry, the isometry proposition, any of the twelve families under it, the entry bound, the
-   rotated point, `Φ_conj` or any cell; any probe clause; any result artifact; any manifest record
-   or declaration for `OGS`. **The single permitted exception is the analysis recorded inside this
-   control-plane blob itself**, merged *as* the freeze, including the proof routes and the
-   chronology simulation.
+   invariant family, the geometry, the isometry proposition, any of the twelve families under it,
+   the entry bound, the rotated point, `Φ_conj` or any cell; the definition `mixedTriple`; any
+   probe clause; any result artifact; any manifest record or declaration for `OGS`. **The single
+   permitted exception is the analysis recorded inside this control-plane blob itself**, merged
+   *as* the freeze, including the proof routes and the chronology simulation.
 2. **The execution pull request's base must be exactly `B`.** The execution's first commit sets
    `_MANIFEST_PROSPECTIVE = {'OGS': B}` and `_MANIFEST_BASELINE = {'base': B, 'authorized':
    ('OGS',)}`, both outside the validator's marker-bounded regions, and nothing else.
@@ -1539,9 +1722,10 @@ the record `verification/seals/OGS.json` from `P`, and **no constant**.
 9. **No `_OGS_BASE`, `_OGS_SEALED_HEAD` or `_OGS_MERGE` exists at any commit of the round**, and
    `SI-3`'s standing contract holds at every head.
 10. **The ordering obligation's records are checked mechanically by `R7-OGS`**, each with a
-    mutation control: (a) the module at every commit from the module commit to `E` contains no
-    top-level definition of any kind, by extraction of every declaration keyword at line start;
-    (b) the module imports `OIBridge.OrbitLawGaps`, `OIBridge.OrbitLawRigidityTwisted` and
+    mutation control: (a) the module at every commit from the module commit to `E` contains
+    exactly one top-level definition, the line `def mixedTriple` with the body this freeze displays
+    after whitespace normalization, and no other declaration keyword at line start; (b) the module
+    imports `OIBridge.OrbitLawGaps`, `OIBridge.OrbitLawRigidityTwisted` and
     `OIBridge.OrbitLawNaturalityFactorization`; (c) the geometry is pinned, in every theorem that
     names `d`, to its frozen equation, each family is pinned, in every theorem that names it, to
     its frozen equation, and no theorem block in one family's subsection of the `GEO3` section
@@ -1550,19 +1734,22 @@ the record `verification/seals/OGS.json` from `P`, and **no constant**.
     before the module commit and present from it on, and the module commit carrying no theorem
     whose name is a verdict name; (e) each verdict theorem first appears at its own verdict commit
     and at no earlier commit; (f) the gate: a verdict commit for `GEO2`, `GEO3` or `GEO4` exists
-    only if the result note carries the opening label for the target before it. A synthetic `def`
-    inserted into the module text, a synthetic edit to the geometry's equation, a synthetic naming
-    of a family in another family's subsection, a verdict theorem inserted into the module commit's
-    text and a fabricated SHA off the chain each **fail** the control.
+    only if the result note carries the opening label for the target before it. A second `def`
+    inserted into the module text, a synthetic edit to the definition's body or to the geometry's
+    equation, a synthetic naming of a family in another family's subsection, a verdict theorem
+    inserted into the module commit's text and a fabricated SHA off the chain each **fail** the
+    control.
 11. **Content contracts hold the result note to this freeze's distinctions**, each mutation-tested:
-    the round's shape as sealing with `E` → `L` → `P`; the declaration table and the eight records;
-    the **five** attestation answers, one per span; the sentence that no rung was restated, no
-    equivalence was widened and the geometry was not adjusted; each target's label carried with its
-    frozen sentence verbatim; the twelve-row census with each family's label and frozen sentence;
-    the seven cells each with its label and frozen sentence; **the outcome vector, equal verbatim to
-    one of the seven rows of the table**; **the gate record**; **the statement that no verdict was
-    inferred from another beyond the two consumptions the freeze places**; **the statement that no
-    independence of conditions is asserted and no characterization of the isometries is made**;
+    the round's shape as sealing with `E` → `L` → `P`; the declaration table with the one
+    definition and the eight records; the **five** attestation answers, one per span; the sentence
+    that no rung was restated, no equivalence was widened, and neither the invariant family nor the
+    geometry was adjusted; each target's label carried with its frozen sentence verbatim; the
+    twelve-row census with each family's label and frozen sentence; the seven cells each with its
+    label and frozen sentence; **the outcome vector, equal verbatim to one of the seven rows of the
+    table**; **the gate record**; **the statement that no verdict was inferred from another beyond
+    the consumptions the freeze places**; **the statement that no independence of conditions is
+    asserted and no characterization of the isometries is made**; **the statement that no theorem
+    is attributed to the literature and no completeness is asserted past the base-star hypothesis**;
     **the statement that every earlier act's historical verdicts stand unchanged**; the
     route-authorization matrix reported as honoured, with no witness reassigned; THE CLAUSE carried
     complete at every mention with its count; and the frozen `P0` sentence for the case reached
@@ -1588,12 +1775,12 @@ request and, after the merge, in mode `B` against the actual merge commit.
 
 | # | scope | precondition | mechanical check |
 | --- | --- | --- | --- |
-| 1 | `D` | The names were free when chosen | `git grep -l -- 'R7-OGS' D`, `git grep -l -- '_OGS' D`, `git grep -l -- 'OGS' D`, `git grep -l -- 'OrbitGeometrySelector' D`, `git grep -l -- 'orbit-geometry-selector' D` and `git grep -l -- 'act-24' D` each return nothing |
+| 1 | `D` | The names were free when chosen | `git grep -l -- 'R7-OGS' D`, `git grep -l -- '_OGS' D`, `git grep -l -- 'OGS' D`, `git grep -l -- 'OrbitGeometrySelector' D`, `git grep -l -- 'orbit-geometry-selector' D`, `git grep -l -- 'act-24' D` and `git grep -l -- 'mixedTriple' D` each return nothing |
 | 2 | `D` | The seals tree at `D` is the pinned one | `git rev-parse D:verification/seals` is `9f762b8d0b5656950e5030c4eb9ca6514362cce0`, twenty-eight records, twenty-two `sealed` and six `base-only` |
 | 3 | `D` | The guard at `D` is green and carries no legacy constant | eighty-seven `R7-*` tags, all `PASS`, on main-push run 35451692651; `_SI2_LEGACY_RE` finds zero assignment statements |
 | 4 | `D → B` | `D` is an ancestor of `B` | `git merge-base --is-ancestor D B` succeeds |
 | 5 | `D → B` | The blobs this round consumes are unchanged | each of the first twenty-three paths of the start-state table has at `B` the blob the table names (the `frozen-blob` lines of the block) |
-| 6 | `B` | No act 24 execution object exists | the guard file at `B` contains no `R7-OGS` and no `_OGS`; no `verification/seals/OGS.json`; no `verification/lean-mathlib/OIBridge/OrbitGeometrySelector.lean`; the round directory holds nothing but `preregistration.md` and, if any, `amendments/amendment-*.md` |
+| 6 | `B` | No act 24 execution object exists | the guard file at `B` contains no `R7-OGS` and no `_OGS`; no `verification/seals/OGS.json`; no `verification/lean-mathlib/OIBridge/OrbitGeometrySelector.lean`; no definition named `mixedTriple` anywhere under `verification/lean-mathlib/`; the round directory holds nothing but `preregistration.md` and, if any, `amendments/amendment-*.md` |
 | 7 | `B` | No round is executing at `B` | the guard file at `B` carries `_MANIFEST_PROSPECTIVE = {}` |
 | 8 | `B` | Acts 21, 22 and 23 are sealed at `B` | `verification/seals/OLT.json` at `B` carries `round` `OLT`, `kind` `sealed`, `base` `10d1041bcc10f25d9f643629d4431acbd0f65a1e`, `sealed_head` `b27f3f1630a25667b6728518d06b55fbdabe0d11`, `merge` `4bd732c54e0804bda3b796fcb93e91b5c4299b87`; `verification/seals/OLN.json` at `B` carries `round` `OLN`, `kind` `sealed`, `base` `ccd5704fd157348903cbdea746d24cf5d5498b78`, `sealed_head` `64b3d28e9b0265eb96eec61899f6de474496a3a3`, `merge` `664de6b63eb1f8b55e88c314d326176c4c97ff70`; `verification/seals/OLG.json` at `B` carries `round` `OLG`, `kind` `sealed`, `base` `64214bfb0ae41b9f0a4fb11159089fff32d4dd85`, `sealed_head` `6b9f2e5e765dff3965512ee31a646a22a08e75d2`, `merge` `61c98efc44146ee3bd3650138d8b5ebcc7e1b8b7`; the guard file at `B` carries the `R7-OLT`, `R7-OLN` and `R7-OLG` checks |
 | 9 | `B` | Acts 21's, 22's and 23's modules are wired | `OIBridge.lean` at `B` imports `OIBridge.OrbitLawRigidityTwisted`, `OIBridge.OrbitLawNaturalityFactorization` and `OIBridge.OrbitLawGaps` |
@@ -1635,14 +1822,16 @@ frozen-blob: verification/seals/OLG.json 8a058df23c07e2b7571672c039a5a7b4f911a33
 {"id": "d1-module-free", "scope": "D", "check": "git grep -l -- 'OrbitGeometrySelector' $D", "expect": "empty"}
 {"id": "d1-dir-free", "scope": "D", "check": "git grep -l -- 'orbit-geometry-selector' $D", "expect": "empty"}
 {"id": "d1-act-free", "scope": "D", "check": "git grep -l -- 'act-24' $D", "expect": "empty"}
+{"id": "d1-def-free", "scope": "D", "check": "git grep -l -- 'mixedTriple' $D", "expect": "empty"}
 # row 2: the seals tree at D
 {"id": "d2-seals-tree", "scope": "D", "check": "test \"$(git rev-parse $D:verification/seals)\" = 9f762b8d0b5656950e5030c4eb9ca6514362cce0", "expect": "exit0"}
 # row 4: provenance
 {"id": "db4-ancestor", "scope": "D->B", "check": "git merge-base --is-ancestor $D $REF", "expect": "exit0"}
-# row 6: no execution object; the names occur in this file, so the guard, the seals and the tree are read directly and never through git grep
+# row 6: no execution object; the names occur in this file, so the guard, the seals, the modules and the tree are read directly and never through git grep
 {"id": "b6-guard-clean", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -e 'R7-OGS' -e '_OGS'", "expect": "empty"}
 {"id": "b6-no-record", "scope": "B", "check": "git ls-tree --name-only $REF verification/seals/ | grep -e 'OGS.json'", "expect": "empty"}
 {"id": "b6-no-module", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/lean-mathlib/ | grep -e 'OrbitGeometrySelector'", "expect": "empty"}
+{"id": "b6-no-def", "scope": "B", "check": "for f in $(git ls-tree -r --name-only $REF verification/lean-mathlib/ | grep -e '[.]lean$'); do git show $REF:$f | grep -e '^def mixedTriple'; done", "expect": "empty"}
 {"id": "b6-dir-control-plane-only", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/ | grep -v -e '/preregistration.md$' -e '/amendments/amendment-[0-9][0-9]*.md$'", "expect": "empty"}
 # row 7: no round executing
 {"id": "b7-no-prospective", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -e '^_MANIFEST_PROSPECTIVE = {}$'", "expect": "nonempty"}
@@ -1672,10 +1861,10 @@ frozen-blob: verification/seals/OLG.json 8a058df23c07e2b7571672c039a5a7b4f911a33
 - **The execution branches from `B` and from nothing else**, only after `B`'s main-push
   certification is fully green, and **its first act is to verify that the preregistration at `B`
   carries the blob this freeze names**, recorded in the result note.
-- **The stage-A commit comes first**, then **the module commit** with shared lemmas and no verdict,
-  then **the verdict commits of the executed targets in the order `GEO1`, `GEO2`, `GEO3`, `GEO4`**,
-  one per executed target, the gate read between each; their SHAs are recorded, and the attestation
-  set is answered for each of the five spans.
+- **The stage-A commit comes first**, then **the module commit** with the one definition, the
+  shared lemmas and no verdict, then **the verdict commits of the executed targets in the order
+  `GEO1`, `GEO2`, `GEO3`, `GEO4`**, one per executed target, the gate read between each; their SHAs
+  are recorded, and the attestation set is answered for each of the five spans.
 - **Then exactly one execution pull request**, based on `B`, carrying the Lean module, the result
   note, the `R7-OGS` guard clause, the two declarations, the `ROADMAP` propagation and the census
   entry. **No manuscript changes. No edit to any closed round's guard.**
@@ -1696,35 +1885,39 @@ frozen-blob: verification/seals/OLG.json 8a058df23c07e2b7571672c039a5a7b4f911a33
    verification recorded;
 2. **the ordering obligation's eight records** and the attestation set's **five** answers, one per
    span, with the freeze-supplied facts listed;
-3. **`GEO0`** — the bounded search, recorded in full, act 18's pseudometric recorded as found and
-   as deciding nothing;
-4. **`GEO1`** — the label with its frozen sentence, the theorem named, the seven conjuncts each
-   reported separately, the two directions of separation reported apart;
-5. **`GEO2`** — the label with its frozen sentence, the three theorems named, (c′) recorded as an
-   observation with its outcome;
+3. **`GEO0`** — the bounded search, recorded in full, act 12's cross-invariant and act 18's
+   pseudometric recorded as found and as deciding nothing;
+4. **`GEO1`** — the label with its frozen sentence, the theorem named, the conjuncts each reported
+   separately, the two directions of separation reported apart, the support hypothesis and its
+   discharge at the frozen configurations reported, `GEO1-T` recorded as an observation with its
+   outcome, and **the statement that nothing is asserted about tuples with a vanishing entry or at
+   `|A| > 1`**;
+5. **`GEO2`** — the label with its frozen sentence, the three theorems named, the tensor identity
+   and its consequence reported apart;
 6. **`GEO3`** — the label with its frozen sentence, the twelve-row census with each family's label,
-   frozen sentence, theorem, and, for each non-isometry, the pair and the separating quantity, and
-   **the statement that the label was earned by `ΦCTRL` or `Φ_SC` and by no family outside the
-   prefix**;
+   frozen sentence, theorem, and, for each non-isometry, the pair and the separating quantity, **the
+   statement that the label was earned by `ΦCTRL` or `Φ_SC` and by no family outside the prefix**,
+   and the metric-dependence sentence in the freeze's two-part wording and no stronger;
 7. **`GEO4`** — the label with its frozen sentence, the seven cells each with its label, frozen
    sentence and theorem, `Φ_conj`'s conjuncts each reported separately, and **the statement that no
    independence of conditions is asserted and no characterization of the isometries is made**;
 8. **the outcome vector**, one of the seven rows verbatim, **the gate record**, and **the statement
-   that no verdict was inferred from another beyond the two consumptions the freeze places**;
+   that no verdict was inferred from another beyond the consumptions the freeze places**;
 9. **the route-authorization matrix as honoured**: each construction used for its own target and
    cells and nothing else, no witness reassigned, no alternative substituted;
 10. **the scope boundary as honoured**: nothing derives, recognises or approaches quantum
-    evolution; no continuity, composition or generator; every earlier act's verdicts untouched; the
-    threading, act 16's cell, act 18's `D`-axis, act 10's anchor axis and act 14's carriers
-    untouched;
+    evolution; no continuity, composition or generator; no theorem attributed to the literature and
+    none of its theorems consumed; every earlier act's verdicts untouched; the threading, act 16's
+    cell, act 18's `D`-axis, act 10's anchor axis and act 14's carriers untouched;
 11. **the non-adoption clause carried verbatim at each mention**, with the count of carriages, and
-    the sentence that the geometry is adopted as nothing;
+    the sentence that the invariant family and the geometry are adopted as nothing;
 12. the frozen `P0` sentence for the case reached, appended after act 23's, the row's label
     unchanged;
 13. what no outcome licenses, in this file's wording, and the status rule as honoured;
 14. the relation to acts 12, 13, 17, 18, 20, 21, 22 and 23 — every merged label consumed, none
     revised;
-15. the definition count against the zero budget;
+15. the definition count against the budget of one, with the one definition's body reported
+    verbatim;
 16. the chronology certification, naming the property certified, the ten preconditions with their
     scopes and the block's rows as the base check reported them at `M` and at `B`, the validator's
     classification of `OGS` at `E`, `L` and `P`, the empty supersession table reported as
@@ -1741,42 +1934,57 @@ Recorded before this freeze merges and becomes immutable under `§A.37`. **Every
 already made**, and the body of this freeze is written to them throughout. **This freeze carries no
 open decision.**
 
-1. **The round is a gated round, the orbit-geometry selector audit**: a separating geometry first,
-   its controls second, the record's laws against it third, a rigidity implication last and only if
-   the earlier targets reach their opening labels; act 12's equivalence and act 21's ladder and
-   configurations consumed unchanged; every earlier act's verdicts consumed as landed and not
-   rewritten.
-2. **The geometry is the gauge-minimized entrywise distance over act 12's torus**, bound by
-   equation in every theorem and defined nowhere; act 18's pseudometric is named as what it is
-   measured against and is not reused.
-3. **Each target has its own proposition, route, verdict rule and failure interpretation**, and the
+1. **The round is a gated round, the orbit-geometry selector audit**: a complete family of phase
+   invariants and the geometry it induces first, its controls second, the record's laws against it
+   third, a rigidity implication last and only if the earlier targets reach their opening labels;
+   act 12's equivalence and act 21's ladder and configurations consumed unchanged; every earlier
+   act's verdicts consumed as landed and not rewritten.
+2. **The invariant family is the mixed-triple feature map, the one budgeted definition, and the
+   geometry is the Euclidean distance of feature vectors, bound by equation**; a metric proposed as
+   a formula is not used, and act 18's pseudometric is named as what the geometry is measured
+   against and is not reused.
+3. **Completeness is frozen at full support and at the frozen configurations only**: the
+   base-star hypothesis is the whole of what conjunct (ii) assumes, the zero-entry case is out on
+   the ground the frame literature gives, and nothing is asserted at `|A| > 1`.
+4. **The frame-equivalence, Bargmann-invariant and complex-Hadamard literature is cited as
+   provenance only**: the tuple generalization is this round's and is proved here; act 23's `H(z)`
+   is recorded as the normalized standard `F₄⁽¹⁾` family in the narrow wording the provenance
+   section fixes; no theorem of that literature is consumed and no invariant of it is asserted to
+   be complete.
+5. **Each target has its own proposition, route, verdict rule and failure interpretation**, and the
    three-way discipline — a universal proof for a positive label, an exhibited witness on the frozen
    list for a negative one, otherwise `UNDECIDED` — governs each.
-4. **The three safeguards and the three failure rules are this round's freeze rules and not
+6. **The three safeguards and the three failure rules are this round's freeze rules and not
    `AGENTS.md` rules**: the fixed order with one verdict commit per executed target and the
    attestation set at every boundary; the route-authorization matrix; the outcome-vector table of
    seven rows from which the headline is selected verbatim; a universal theorem not obtained is
    `UNDECIDED`; a witness failing its hypotheses is recorded and not repaired; the gate closes
    forward and never reopens.
-5. **The family list is closed at twelve**: acts 21's, 22's and 23's eleven transition families,
+7. **The family list is closed at twelve**: acts 21's, 22's and 23's eleven transition families,
    each at its merged configuration and pinned to its merged equation, and the entrywise
-   conjugation, frozen new; act 21's `ΦX` excluded as a law rather than a transition family.
-6. **`GEO3`'s label is earned by `ΦCTRL` or `Φ_SC` and by nothing outside the prefix**; the other
-   ten verdicts are census entries.
-7. **`GEO4`'s label is earned by the conjugation-amended rigidity statement `b` alone**; `a0`–`a4`
+   conjugation, frozen new and kept visible as a distinct branch; act 21's `ΦX` excluded as a law
+   rather than a transition family.
+8. **`GEO3`'s label is earned by `ΦCTRL` or `Φ_SC` and by nothing outside the prefix**; the other
+   ten verdicts are census entries; the product control's tensor identity is an exact equality and
+   is what the perturbation arguments consume.
+9. **`GEO4`'s label is earned by the conjugation-amended rigidity statement `b` alone**; `a0`–`a4`
    and `b₀` are recorded cells; cells `a1` and `a3` consume `GEO3`'s verdicts by the freeze's
    placement, which is not an attestation YES; no `NOT-RIGID` label exists for `b`.
-8. **The reverse product inequality (c′) is an observation sub-question** and enters no label.
-9. **No drafting-time outcome check was run**; the analyses are the freeze's reading; the one
-   simulation run concerns chronology only and found no supersession needed.
-10. **`§A.37`'s `D`/`B`/`M` vocabulary governs**: scoped precondition rows, mode `M` validation of
+10. **The metric-dependence of the discrimination verdicts is stated in two parts and no stronger**:
+    merge witnesses once separation is proved, sequence-discontinuity witnesses across metrics
+    inducing the quotient topology; `GEO1-T` is an observation sub-question and enters no label.
+11. **No drafting-time outcome check was run**; the analyses are the freeze's reading; the one
+    simulation run concerns chronology only and found no supersession needed.
+12. **`§A.37`'s `D`/`B`/`M` vocabulary governs**: scoped precondition rows, mode `M` validation of
     the candidate merge before the merge, `B` reserved for the certified control-plane merge.
-11. **SEALING**, under the manifest protocol: stem `OGS`, tag `R7-OGS`, `E` → `L` → `P` with `P`
+13. **SEALING**, under the manifest protocol: stem `OGS`, tag `R7-OGS`, `E` → `L` → `P` with `P`
     mandatory, the prospective declaration during execution and the record from `P`; no
     supersession; nothing in any closed round's guard touched.
-12. **The definition budget is zero.** Act 12's and act 21's declarations are consumed and none is
-    restated; the geometry, the isometry proposition and every family are bound by equation.
-13. **Acts 12, 13, 17, 18, 20, 21, 22 and 23 are consumed at merged strength**: not re-proved, not
+14. **The definition budget is one.** `mixedTriple` with its displayed body; act 12's and act 21's
+    declarations are consumed and none is restated; the geometry, the isometry proposition and
+    every family are bound by equation.
+15. **Acts 12, 13, 17, 18, 20, 21, 22 and 23 are consumed at merged strength**: not re-proved, not
     strengthened, not redefined.
-14. **Continuity, composition in time, generators, the threading, and any comparison with quantum
-    evolution are out of this round**, each a separate question for a separate freeze.
+16. **Continuity, composition in time, generators, the threading, the zero-entry case, and any
+    comparison with quantum evolution are out of this round**, each a separate question for a
+    separate freeze.
