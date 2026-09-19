@@ -1494,6 +1494,390 @@ theorem geo3_phiHS_not_isometry :
   have := hconst 300 (by norm_num)
   linarith
 
+/-! ### Section E — `GEO4`: the implication cells and the rigidity attempt
+
+The prefix through `L4d` is written out, in every statement, as the first seven conjuncts of act
+21's `LadderConds`; `L5` is `FactorizesOnProduct (Fin 1 × Fin 1) (Fin 1) (Fin 1)
+(Equiv.refl (Fin 4 × Fin 4)) (fun _ => Γ₀) (fun _ => Γ₀) Γ Φ`; isometry is the displayed
+proposition with `d` bound to the frozen equation. The witness cells `a1`, `a3`, `b₀` consume
+act 23's `phiSC_corner`, act 22's `phiSwap_l5_restricts` and the `GEO3` verdicts; the universal
+cell `a0` consumes `GEO1`. The lemmas of this section on the entrywise conjugation are the
+conjuncts of the `b₀` witness, each a computation. -/
+
+omit [Fintype V] [DecidableEq V] in
+/-- On a tuple with Hermitian fibres the entrywise conjugate is the fibrewise transpose. -/
+theorem conj_eq_transpose (G : V → Matrix V V ℂ) (h : ∀ i, (G i).IsHermitian) :
+    (fun i => Matrix.of fun j k => star (G i j k)) = fun i => (G i)ᵀ := by
+  funext i
+  ext j k
+  simp only [Matrix.of_apply, Matrix.transpose_apply]
+  exact (h i).apply k j
+
+open scoped ComplexOrder in
+/-- **`L1` for the conjugation**: the entrywise conjugate of a realizable tuple is realizable —
+the fibres are transposes of positive semidefinite matrices, of the same rank, summing to the
+transpose of the identity, with the same diagonal. -/
+theorem realizable_conj {A : Type} [Fintype A] (Γ : Matrix V V ℝ) (G : V → Matrix V V ℂ)
+    (hG : RealizableGram A Γ G) :
+    RealizableGram A Γ (fun i => Matrix.of fun j k => star (G i j k)) := by
+  rw [conj_eq_transpose G fun i => (hG.1 i).1]
+  refine ⟨fun i => (hG.1 i).transpose, fun i => ?_, ?_, fun i j => ?_⟩
+  · rw [Matrix.rank_transpose]; exact hG.2.1 i
+  · rw [← Matrix.transpose_sum, hG.2.2.1, Matrix.transpose_one]
+  · exact hG.2.2.2 i j
+
+omit [Fintype V] [DecidableEq V] in
+/-- The conjugation is an involution on tuples. -/
+theorem conj_conj (G : V → Matrix V V ℂ) :
+    (fun i => Matrix.of fun j k =>
+      star ((fun i => Matrix.of fun j k => star (G i j k)) i j k)) = G := by
+  funext i; ext j k; simp
+
+omit [Fintype V] [DecidableEq V] in
+/-- **`L4d` for the conjugation**: it respects act 12's equivalence, with the conjugate phases. -/
+theorem conj_gramPhaseEquiv {G G' : V → Matrix V V ℂ} (h : GramPhaseEquiv G G') :
+    GramPhaseEquiv (fun i => Matrix.of fun j k => star (G i j k))
+      (fun i => Matrix.of fun j k => star (G' i j k)) := by
+  obtain ⟨c, hc, hG⟩ := h
+  refine ⟨fun j => star (c j), fun j => by rw [norm_star]; exact hc j, fun i j k => ?_⟩
+  simp only [Matrix.of_apply, star_star]
+  rw [hG, star_mul, star_mul, star_star]
+  ring
+
+omit [Fintype V] [DecidableEq V] in
+/-- The cross-invariant of the conjugate is the conjugate of the cross-invariant. -/
+theorem conj_cross (G : V → Matrix V V ℂ) (i₀ i₁ : V) :
+    (fun i => Matrix.of fun j k => star (G i j k)) i₀ i₁ i₀
+        * (fun i => Matrix.of fun j k => star (G i j k)) i₁ i₀ i₁
+      = star (G i₀ i₁ i₀ * G i₁ i₀ i₁) := by
+  simp only [Matrix.of_apply, star_mul']
+
+/-- The cross-invariant of a relabelled product tuple at a pair of product indices is a product of
+a cross-invariant of each factor, at the relabelled indices. -/
+theorem relabel_product_cross {V₁ V₂ : Type} (σ : Equiv.Perm (V₁ × V₂))
+    (X : V₁ → Matrix V₁ V₁ ℂ) (Y : V₂ → Matrix V₂ V₂ ℂ) (i₀ i₁ : V₁ × V₂) :
+    RelabelTransition σ (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ =>
+          X i.1 j.1 k.1 * Y i.2 j.2 k.2) i₀ i₁ i₀
+        * RelabelTransition σ (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ =>
+          X i.1 j.1 k.1 * Y i.2 j.2 k.2) i₁ i₀ i₁
+      = (X (σ i₀).1 (σ i₁).1 (σ i₀).1 * X (σ i₁).1 (σ i₀).1 (σ i₁).1)
+        * (Y (σ i₀).2 (σ i₁).2 (σ i₀).2 * Y (σ i₁).2 (σ i₀).2 (σ i₁).2) := by
+  simp only [RelabelTransition, Matrix.submatrix_apply, Matrix.of_apply]
+  ring
+
+open scoped ComplexOrder in
+/-- The fibre-Gram tuple of `H₁` has symmetric fibres, so its conjugate is itself. -/
+theorem conj_fibreGram_one (H₁ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ)
+    (hH₁ : H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+      (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)) :
+    (fun i => Matrix.of fun j k => star (FibreGram (0 : Fin 1) H₁ i j k))
+      = FibreGram (0 : Fin 1) H₁ := by
+  rw [conj_eq_transpose _ fun i => (fibreGram_posSemidef (0 : Fin 1) H₁ i).1]
+  subst hH₁
+  funext i; ext j k
+  simp only [Matrix.transpose_apply]
+  fin_cases i <;> fin_cases j <;> fin_cases k <;> simp [fibreGram_apply]
+
+open scoped ComplexOrder in
+/-- The fibre-Gram tuple of the Fourier family at `z = −1` has symmetric fibres, so its conjugate
+is itself. -/
+theorem conj_fibreGram_negOne :
+    (fun i => Matrix.of fun j k => star (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (-1 : ℂ), -1, -(-1 : ℂ); 1, -1, 1, -1;
+          1, -(-1 : ℂ), -1, (-1 : ℂ)] p.1 q.1)) i j k))
+      = FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (-1 : ℂ), -1, -(-1 : ℂ); 1, -1, 1, -1;
+          1, -(-1 : ℂ), -1, (-1 : ℂ)] p.1 q.1)) := by
+  rw [conj_eq_transpose _ fun i => (fibreGram_posSemidef (0 : Fin 1) _ i).1]
+  funext i; ext j k
+  simp only [Matrix.transpose_apply]
+  fin_cases i <;> fin_cases j <;> fin_cases k <;> simp [fibreGram_apply]
+
+omit [Fintype V] [DecidableEq V] in
+/-- The conjugate of a product tuple is the product of the conjugates, exactly. -/
+theorem conj_product {V₁ V₂ : Type} (X : V₁ → Matrix V₁ V₁ ℂ) (Y : V₂ → Matrix V₂ V₂ ℂ) :
+    (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ =>
+        star ((fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ => X i.1 j.1 k.1 * Y i.2 j.2 k.2)
+          i j k))
+      = fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ =>
+          (fun i => Matrix.of fun j k => star (X i j k)) i.1 j.1 k.1
+            * (fun i => Matrix.of fun j k => star (Y i j k)) i.2 j.2 k.2 := by
+  funext i; ext j k
+  simp only [Matrix.of_apply, star_mul']
+
+/-! #### Cell `a0` — isometry implies injectivity on classes, universally -/
+
+/-- **Cell `a0` holds**: at the product configuration, an isometry of the geometry on realizable
+tuples is injective on realizable classes — equivalent images are at distance `0` by `GEO1` (vi-b),
+so the inputs are at distance `0`, hence equivalent by `GEO1` (vi-a). -/
+theorem geo4_a0_isometry_injective :
+    ∃ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+      ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+          (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+          (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+        Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        (∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+          RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+          d (Φ t G) (Φ t H) = d G H) →
+        ∀ t (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+          RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) G' →
+          GramPhaseEquiv (Φ t G) (Φ t G') → GramPhaseEquiv G G' := by
+  refine ⟨_, rfl, fun Γ Φ d hΓ hd hI t G G' hG hG' h => ?_⟩
+  have h0 : d (Φ t G) (Φ t G') = 0 := geo1_zero_of_equiv d hd _ _ h
+  rw [hI t G G' hG hG'] at h0
+  exact geo1_equiv_of_zero_product _ rfl (Γ t) (by rw [hΓ]) d hd G G' hG hG' h0
+
+/-! #### Cell `a1` — the prefix with `L5` does not imply isometry: `Φ_SC` -/
+
+open Classical in
+/-- **Cell `a1`, `NOT-IMPLIES`**: `Φ_SC` satisfies the prefix through `L4d` and `L5` (act 23's
+`phiSC_corner`) and is not an isometry (`GEO3`). -/
+theorem geo4_a1_l5_not_implies_geo :
+    ∃ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+      ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+          (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+        Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ¬ (∀ Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+            ProperAt ((0 : Fin 1), (0 : Fin 1)) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) →
+            PropagatesFrom ((0 : Fin 1), (0 : Fin 1)) Γ
+              (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) →
+            EvolvesTotally (Fin 1 × Fin 1) Γ Φ →
+            PreservesAdmissible (Fin 1 × Fin 1) Γ Φ →
+            (∃ Φ₀ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ), ∀ t, Φ t = Φ₀) →
+            Reversible (Fin 1 × Fin 1) Γ Φ →
+            (∀ t (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+              GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G')) →
+            FactorizesOnProduct (Fin 1 × Fin 1) (Fin 1) (Fin 1) (Equiv.refl (Fin 4 × Fin 4))
+              (fun _ => Γ₀) (fun _ => Γ₀) Γ Φ →
+            ∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+              RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+              d (Φ t G) (Φ t H) = d G H) := by
+  obtain ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, hSC⟩ := phiSC_corner
+  obtain ⟨Γ₀', H₁', Hᵢ', hΓ₀', hH₁', hHᵢ', hnot⟩ := geo3_phiSC_not_isometry
+  subst hΓ₀ hH₁ hHᵢ hΓ₀' hH₁' hHᵢ'
+  refine ⟨_, rfl, fun Γ d hΓ hd hall => ?_⟩
+  obtain ⟨h1, h2, h3, h4, h5, h6, h7, h8, -⟩ := hSC Γ _ hΓ rfl
+  exact hnot Γ _ d hΓ rfl hd (hall _ h1 h2 h3 h4 h5 h6 h7 h8)
+
+/-! #### Cell `a3` — the prefix with isometry does not imply `L5`: `Φ_swap` -/
+
+/-- **Cell `a3`, `NOT-IMPLIES`**: `Φ_swap` satisfies the prefix through `L4d` (act 22's
+`phiSwap_l5_restricts`), is an isometry (`GEO3`), and does not factorize (the same act 22 result). -/
+theorem geo4_a3_geo_not_implies_l5 :
+    ∃ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+      ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+          (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+        Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ¬ (∀ Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+            ProperAt ((0 : Fin 1), (0 : Fin 1)) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) →
+            PropagatesFrom ((0 : Fin 1), (0 : Fin 1)) Γ
+              (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) →
+            EvolvesTotally (Fin 1 × Fin 1) Γ Φ →
+            PreservesAdmissible (Fin 1 × Fin 1) Γ Φ →
+            (∃ Φ₀ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ), ∀ t, Φ t = Φ₀) →
+            Reversible (Fin 1 × Fin 1) Γ Φ →
+            (∀ t (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+              GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G')) →
+            (∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+              RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+              d (Φ t G) (Φ t H) = d G H) →
+            FactorizesOnProduct (Fin 1 × Fin 1) (Fin 1) (Fin 1) (Equiv.refl (Fin 4 × Fin 4))
+              (fun _ => Γ₀) (fun _ => Γ₀) Γ Φ) := by
+  obtain ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, hSW⟩ := phiSwap_l5_restricts
+  obtain ⟨Γ₀', hΓ₀', hiso⟩ := geo3_phiSwap_isometry
+  subst hΓ₀ hH₁ hHᵢ hΓ₀'
+  refine ⟨_, rfl, fun Γ d hΓ hd hall => ?_⟩
+  obtain ⟨h1, h2, h3, h4, h5, h6, h7, -, hnot⟩ := hSW Γ _ hΓ rfl
+  exact hnot (hall _ h1 h2 h3 h4 h5 h6 h7 (hiso Γ _ d hΓ rfl hd))
+
+/-! #### Cell `b₀` — the prefix with `L5` and isometry does not force a relabelling: `Φ_conj` -/
+
+/-- **Cell `b₀`, `NOT-RIGID`**: the entrywise conjugation satisfies the prefix through `L4d`, `L5`
+and isometry, and at `t = 0` sends the realizable class `[G(Hᵢ) ⊠ G(H₁)]` to a class no carrier
+relabelling reaches: every cross-invariant of every relabelling of `G(Hᵢ) ⊠ G(H₁)` lies in
+`{1/256, i/256}`, while the conjugate's cross-invariant at the product pair `((0,0),(1,0))` is
+`−i/256`. -/
+theorem geo4_b0_not_relabel_rigid :
+    ∃ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+      ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+          (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+        Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ¬ (∀ Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+            ProperAt ((0 : Fin 1), (0 : Fin 1)) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) →
+            PropagatesFrom ((0 : Fin 1), (0 : Fin 1)) Γ
+              (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) →
+            EvolvesTotally (Fin 1 × Fin 1) Γ Φ →
+            PreservesAdmissible (Fin 1 × Fin 1) Γ Φ →
+            (∃ Φ₀ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ), ∀ t, Φ t = Φ₀) →
+            Reversible (Fin 1 × Fin 1) Γ Φ →
+            (∀ t (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+              GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G')) →
+            FactorizesOnProduct (Fin 1 × Fin 1) (Fin 1) (Fin 1) (Equiv.refl (Fin 4 × Fin 4))
+              (fun _ => Γ₀) (fun _ => Γ₀) Γ Φ →
+            (∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+              RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+              d (Φ t G) (Φ t H) = d G H) →
+            ∀ t, ∃ σ : Equiv.Perm (Fin 4 × Fin 4),
+              ∀ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+                RealizableGram (Fin 1 × Fin 1) (Γ t) G →
+                GramPhaseEquiv (Φ t G) (RelabelTransition σ G)) := by
+  obtain ⟨Γ₀, H₁, Hᵢ, Hm, hΓ₀, hH₁, hHᵢ, hHm, hadm₁, hadmᵢ, hadmM, h1i, hm1, hmi, hfix, hmove,
+    h1move⟩ := witness_supply
+  obtain ⟨d1, d2, c1, c2, c3, c4, e2, e3, r0, r1, r2⟩ := hadamard_entries H₁ Hᵢ hH₁ hHᵢ
+  have hcrossᵢ := hadamard_i_cross_all Hᵢ hHᵢ
+  have hcross₁ := hadamard_one_cross_all H₁ hH₁
+  obtain ⟨Γ₀', hΓ₀', hiso⟩ := geo3_phiConj_isometry
+  refine ⟨Γ₀, hΓ₀, fun Γ d hΓ hd hall => ?_⟩
+  have hiso' := hiso Γ (fun _ G => fun i => Matrix.of fun j k => star (G i j k)) d
+    (by rw [hΓ, hΓ₀, hΓ₀']) rfl hd
+  subst hΓ
+  -- the conjugation as a map, its involution, its descent and its admissibility preservation
+  obtain ⟨C, hC⟩ : ∃ C : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+      → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      C = fun G => fun i => Matrix.of fun j k => star (G i j k) := ⟨_, rfl⟩
+  have hCC : ∀ G, C (C G) = G := fun G => by rw [hC]; exact conj_conj G
+  have hCd : ∀ {G G'}, GramPhaseEquiv G G' → GramPhaseEquiv (C G) (C G') := fun h => by
+    rw [hC]; exact conj_gramPhaseEquiv h
+  have hCr : ∀ {G}, RealizableGram (Fin 1 × Fin 1)
+      (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) G →
+      RealizableGram (Fin 1 × Fin 1)
+        (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) (C G) := fun h => by
+    rw [hC]; exact realizable_conj _ _ h
+  have hiter : ∀ G₀, RealizableGram (Fin 1 × Fin 1)
+      (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) G₀ →
+      ∀ t, RealizableGram (Fin 1 × Fin 1)
+        (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) (C^[t] G₀) := by
+    intro G₀ hG₀ t
+    induction t with
+    | zero => exact hG₀
+    | succ n ih => rw [Function.iterate_succ_apply']; exact hCr ih
+  have hlawiter : ∀ G₀ t, GramPhaseEquiv (C^[t + 1] G₀) (C (C^[t] G₀)) := by
+    intro G₀ t
+    rw [Function.iterate_succ_apply']
+    exact gramPhaseEquiv_refl _
+  -- the three named tuples: the two real ones, fixed exactly, and the non-solution
+  obtain ⟨G₁, hG₁⟩ : ∃ G₁, G₁ = FibreGram (0 : Fin 1) H₁ := ⟨_, rfl⟩
+  obtain ⟨Gᵢ, hGᵢ⟩ : ∃ Gᵢ, Gᵢ = FibreGram (0 : Fin 1) Hᵢ := ⟨_, rfl⟩
+  obtain ⟨Gm, hGm⟩ : ∃ Gm, Gm = FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+      (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (-1 : ℂ), -1, -(-1 : ℂ); 1, -1, 1, -1;
+        1, -(-1 : ℂ), -1, (-1 : ℂ)] p.1 q.1)) := ⟨_, rfl⟩
+  rw [← hG₁] at d1 c1 hcross₁
+  rw [← hGᵢ] at c2 hcrossᵢ
+  have hadmm : AdmissibleDilationAt Γ₀ (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+      (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (-1 : ℂ), -1, -(-1 : ℂ); 1, -1, 1, -1;
+        1, -(-1 : ℂ), -1, (-1 : ℂ)] p.1 q.1)) := hadamard_z_admissible Γ₀ hΓ₀ (-1) (by simp)
+  have cm : Gm 0 1 0 * Gm 1 0 1 = (-1 : ℂ) / 16 := by rw [hGm]; exact (fibreGram_z_entries (-1)).2
+  have hfix₁ : (fun i => Matrix.of fun j k => star (G₁ i j k)) = G₁ := by
+    rw [hG₁]; exact conj_fibreGram_one H₁ hH₁
+  have hfixm : (fun i => Matrix.of fun j k => star (Gm i j k)) = Gm := by
+    rw [hGm]; exact conj_fibreGram_negOne
+  have hfix₁' : ∀ i j k, star (G₁ i j k) = G₁ i j k := fun i j k => by
+    have := congrFun (congrFun (congrFun hfix₁ i) j) k
+    simpa using this
+  have hfixm' : ∀ i j k, star (Gm i j k) = Gm i j k := fun i j k => by
+    have := congrFun (congrFun (congrFun hfixm i) j) k
+    simpa using this
+  obtain ⟨P₁₁, hP₁₁⟩ : ∃ P : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+      P = fun i => Matrix.of fun j k => G₁ i.1 j.1 k.1 * G₁ i.2 j.2 k.2 := ⟨_, rfl⟩
+  obtain ⟨Pm₁, hPm₁⟩ : ∃ P : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+      P = fun i => Matrix.of fun j k => Gm i.1 j.1 k.1 * G₁ i.2 j.2 k.2 := ⟨_, rfl⟩
+  obtain ⟨Pᵢ₁, hPᵢ₁⟩ : ∃ P : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+      P = fun i => Matrix.of fun j k => Gᵢ i.1 j.1 k.1 * G₁ i.2 j.2 k.2 := ⟨_, rfl⟩
+  have hR₁₁ : RealizableGram (Fin 1 × Fin 1)
+      (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) P₁₁ := by
+    rw [hP₁₁, hG₁]; exact realizable_prod_of_adm Γ₀ hadm₁ hadm₁
+  have hRm₁ : RealizableGram (Fin 1 × Fin 1)
+      (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) Pm₁ := by
+    rw [hPm₁, hGm, hG₁]; exact realizable_prod_of_adm Γ₀ hadmm hadm₁
+  have hRᵢ₁ : RealizableGram (Fin 1 × Fin 1)
+      (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) Pᵢ₁ := by
+    rw [hPᵢ₁, hGᵢ, hG₁]; exact realizable_prod_of_adm Γ₀ hadmᵢ hadm₁
+  have hCprod : ∀ X Y : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ,
+      C (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => X i.1 j.1 k.1 * Y i.2 j.2 k.2)
+        = fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+            (fun i => Matrix.of fun j k => star (X i j k)) i.1 j.1 k.1
+              * (fun i => Matrix.of fun j k => star (Y i j k)) i.2 j.2 k.2 := by
+    intro X Y; rw [hC]; exact conj_product X Y
+  have hfix₁₁ : C P₁₁ = P₁₁ := by
+    rw [hC, hP₁₁]
+    funext i; ext j k
+    simp [star_mul', hfix₁']
+  have hfixm₁ : C Pm₁ = Pm₁ := by
+    rw [hC, hPm₁]
+    funext i; ext j k
+    simp [star_mul', hfix₁', hfixm']
+  -- the separations, through act 12's cross-invariant at ((0,0),(1,0))
+  have s11m1 : ¬ GramPhaseEquiv P₁₁ Pm₁ := by
+    intro h
+    have := gramPhaseEquiv_cross_invariant h ((0 : Fin 4), (0 : Fin 4)) ((1 : Fin 4), (0 : Fin 4))
+    rw [hP₁₁, hPm₁, product_cross, product_cross, cm, d1, c1] at this
+    norm_num at this
+  have si1C : ¬ GramPhaseEquiv Pᵢ₁ (C Pᵢ₁) := by
+    intro h
+    have := gramPhaseEquiv_cross_invariant h ((0 : Fin 4), (0 : Fin 4)) ((1 : Fin 4), (0 : Fin 4))
+    rw [hC] at this
+    rw [conj_cross, hPᵢ₁, product_cross, c2, d1] at this
+    simp [Complex.ext_iff] at this
+    norm_num at this
+  -- the prefix, `L5` and isometry of the conjugation, then the relabelling clause refuted
+  have hall' := hall (fun _ G => C G) ?_ ?_ ?_ ?_ ⟨C, fun _ => rfl⟩ ?_ (fun _ _ _ h => hCd h) ?_
+    (by rw [hC]; exact hiso')
+  · obtain ⟨σ, hσ⟩ := hall' 0
+    have h := hσ Pᵢ₁ hRᵢ₁
+    have hc := gramPhaseEquiv_cross_invariant h ((0 : Fin 4), (0 : Fin 4)) ((1 : Fin 4), (0 : Fin 4))
+    rw [hC] at hc
+    rw [conj_cross, hPᵢ₁, relabel_product_cross, product_cross, c2, d1,
+      hcross₁ (σ ((0 : Fin 4), (0 : Fin 4))).2 (σ ((1 : Fin 4), (0 : Fin 4))).2] at hc
+    rcases hcrossᵢ (σ ((0 : Fin 4), (0 : Fin 4))).1 (σ ((1 : Fin 4), (0 : Fin 4))).1 with hh | hh
+      <;> rw [hh] at hc <;> (simp [Complex.ext_iff] at hc; try norm_num at hc)
+  · -- ProperAt: two constant real solutions, inequivalent, and the constant non-solution
+    refine ⟨fun _ => P₁₁, fun _ => Pm₁, fun _ => Pᵢ₁, fun _ => hR₁₁, fun _ => hRm₁, fun _ => hRᵢ₁,
+      fun _ => by dsimp only; rw [hfix₁₁]; exact gramPhaseEquiv_refl _,
+      fun _ => by dsimp only; rw [hfixm₁]; exact gramPhaseEquiv_refl _,
+      fun h => s11m1 (h 0), fun h => si1C (h 0)⟩
+  · -- PropagatesFrom: clause (i) from descent through act 21's ol1a_descent; clause (ii) at t = 1
+    refine ⟨fun G₁' G₂' _ _ h₁ h₂ h0 =>
+      (ol1a_descent ((0 : Fin 1), (0 : Fin 1))
+        (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2)
+        (fun _ _ _ h => hCd h)).2.1 G₁' G₂' h₁ h₂ h0,
+      1, fun _ => P₁₁, fun _ => Pm₁, le_rfl, fun _ => hR₁₁, fun _ => hRm₁,
+      fun _ => by dsimp only; rw [hfix₁₁]; exact gramPhaseEquiv_refl _,
+      fun _ => by dsimp only; rw [hfixm₁]; exact gramPhaseEquiv_refl _, s11m1⟩
+  · -- L0
+    exact fun G₀ hG₀ => ⟨fun t => C^[t] G₀, hiter G₀ hG₀, hlawiter G₀, gramPhaseEquiv_refl _⟩
+  · -- L1
+    exact fun _ _ hG => hCr hG
+  · -- L3i and L3s
+    refine ⟨fun _ G G' _ _ h => ?_, fun _ G' hG' => ⟨C G', hCr hG', ?_⟩⟩
+    · have := hCd h
+      rw [hCC, hCC] at this
+      exact this
+    · dsimp only
+      rw [hCC]
+      exact gramPhaseEquiv_refl _
+  · -- L5, with both factor maps the single-carrier conjugation
+    refine ⟨by simp, fun t i j => by simp [Matrix.of_apply], ?_⟩
+    refine ⟨fun _ X => fun i => Matrix.of fun j k => star (X i j k),
+      fun _ Y => fun i => Matrix.of fun j k => star (Y i j k), fun t X Y _ _ => ?_⟩
+    simp only [Equiv.refl_apply]
+    rw [hCprod]
+    exact gramPhaseEquiv_refl _
+
 /-! ### The axiom table — one line per named result, printed by the kernel -/
 
 #print axioms mixedTriple_gauge
@@ -1545,6 +1929,19 @@ theorem geo3_phiHS_not_isometry :
 #print axioms geo3_phiCTRL_not_isometry
 #print axioms geo3_phiSC_not_isometry
 #print axioms geo3_phiHS_not_isometry
+#print axioms conj_eq_transpose
+#print axioms realizable_conj
+#print axioms conj_conj
+#print axioms conj_gramPhaseEquiv
+#print axioms conj_cross
+#print axioms relabel_product_cross
+#print axioms conj_fibreGram_one
+#print axioms conj_fibreGram_negOne
+#print axioms conj_product
+#print axioms geo4_a0_isometry_injective
+#print axioms geo4_a1_l5_not_implies_geo
+#print axioms geo4_a3_geo_not_implies_l5
+#print axioms geo4_b0_not_relabel_rigid
 
 end OrbitGeometrySelector
 end OIBridge
