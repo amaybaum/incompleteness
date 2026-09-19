@@ -262,5 +262,171 @@ theorem gap_separations (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) �
     rw [product_cross, product_cross, ci2, d1, r2] at this
     norm_num [Complex.ext_iff] at this
 
+/-! ### Section B — `G1`: the `L1` rung status at the product configuration, via `Φ_MD`
+
+`Φ_MD`, the merge-then-drop transition, pinned by its two-time statement: at `t = 0` it sends
+the class `[G(Hᵢ) ⊠ G(H₁)]` onto `G(H₁) ⊠ G(H₁)` and fixes every other tuple; at every `t ≥ 1` it
+sends that class to the zero tuple and fixes every other tuple. It is time-inhomogeneous by construction,
+which `L1`'s prefix — `ProperAt`, `PropagatesFrom`, `EvolvesTotally` — permits, `L2` being after
+`L1` in `LadderConds` order. -/
+
+open Classical in
+/-- **`G1` — `Φ_MD` at the frozen product configuration: the prefix of `L1` holds and `L1` fails.**
+`ProperAt` with the constant solutions at `G(H₁) ⊠ G(H₁)` and at `G(H₁) ⊠ G(Hᵢ)` — neither in the
+fired class, and inequivalent through the product cross-invariant at `((0,0),(0,1))`, `1/256`
+against `i/256` — and the constant trajectory at `G(Hᵢ) ⊠ G(H₁)` no solution, its image at time
+`0` being `G(H₁) ⊠ G(H₁)`, inequivalent to it at `((0,0),(1,0))`; `PropagatesFrom` with clause (i)
+from `ol1a_descent` under descent and clause (ii) the two constant solutions at `t = 1`;
+`EvolvesTotally` with the trajectory `G₀, G(H₁) ⊠ G(H₁), G(H₁) ⊠ G(H₁), …` on the fired class and
+the constant trajectory elsewhere. **`L1` fails at the transition index `t = 1`** on the realizable
+tuple `G(Hᵢ) ⊠ G(H₁)` — realizable by `product_realizable` from `sh1_necessity` — whose image is
+the zero tuple, which fails the conjunct `∑ i, G i = 1` of `RealizableGram`
+(`zero_not_realizable`); the separating class is `[G(Hᵢ) ⊠ G(H₁)]`. -/
+theorem phiMD_l1_restricts :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+        ∧ H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)
+        ∧ Hᵢ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1;
+              1, -Complex.I, -1, Complex.I] p.1 q.1)
+        ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+            (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)),
+          Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+          Φ = (fun t G =>
+            if t = 0 then
+              (if GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                  FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)
+                then (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                  FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)
+                else G)
+            else
+              (if GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                  FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)
+                then (fun _ : Fin 4 × Fin 4 => (0 : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+                else G)) →
+          ProperAt ((0 : Fin 1), (0 : Fin 1)) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+          ∧ PropagatesFrom ((0 : Fin 1), (0 : Fin 1)) Γ
+              (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+          ∧ EvolvesTotally (Fin 1 × Fin 1) Γ Φ
+          ∧ RealizableGram (Fin 1 × Fin 1) (Γ 1)
+              (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)
+          ∧ Φ 1 (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)
+              = (fun _ : Fin 4 × Fin 4 => (0 : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+          ∧ ¬ (∑ i, Φ 1 (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2) i = 1)
+          ∧ ¬ PreservesAdmissible (Fin 1 × Fin 1) Γ Φ := by
+  classical
+  obtain ⟨Γ₀, H₁, Hᵢ, Hm, hΓ₀, hH₁, hHᵢ, hHm, hadm₁, hadmᵢ, hadmM, h1i, hm1, hmi, hfix, hmove,
+    h1move⟩ := witness_supply
+  obtain ⟨d1, di, c1, ci, ci2, ci3, e2, e3, r0, r1, r2⟩ := hadamard_entries H₁ Hᵢ hH₁ hHᵢ
+  obtain ⟨-, -, sA, sB, -⟩ := gap_separations H₁ Hᵢ hH₁ hHᵢ
+  obtain ⟨U₁₁, hU₁₁, hF₁₁⟩ := product_realizable hadm₁ hadm₁
+  obtain ⟨U₁ᵢ, hU₁ᵢ, hF₁ᵢ⟩ := product_realizable hadm₁ hadmᵢ
+  obtain ⟨Uᵢ₁, hUᵢ₁, hFᵢ₁⟩ := product_realizable hadmᵢ hadm₁
+  refine ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, ?_⟩
+  intro Γ Φ hΓ hΦ
+  subst hΓ
+  set Γp : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ :=
+    Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2 with hΓp
+  set P₁₁ : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ := fun i =>
+    Matrix.of fun j k => FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2
+    with hP₁₁
+  set P₁ᵢ : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ := fun i =>
+    Matrix.of fun j k => FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) Hᵢ i.2 j.2 k.2
+    with hP₁ᵢ
+  set Pᵢ₁ : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ := fun i =>
+    Matrix.of fun j k => FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2
+    with hPᵢ₁
+  have hR₁₁ : RealizableGram (Fin 1 × Fin 1) Γp P₁₁ := by
+    have := sh1_necessity hU₁₁; rwa [hF₁₁] at this
+  have hR₁ᵢ : RealizableGram (Fin 1 × Fin 1) Γp P₁ᵢ := by
+    have := sh1_necessity hU₁ᵢ; rwa [hF₁ᵢ] at this
+  have hRᵢ₁ : RealizableGram (Fin 1 × Fin 1) Γp Pᵢ₁ := by
+    have := sh1_necessity hUᵢ₁; rwa [hFᵢ₁] at this
+  -- the separation the two standing hypotheses read: `[G(H₁) ⊠ G(H₁)] ≠ [G(H₁) ⊠ G(Hᵢ)]`
+  have s11i : ¬ GramPhaseEquiv P₁₁ P₁ᵢ := by
+    intro h
+    have := gramPhaseEquiv_cross_invariant h ((0 : Fin 4), (0 : Fin 4)) ((0 : Fin 4), (1 : Fin 4))
+    rw [hP₁₁, hP₁ᵢ, product_cross, product_cross, c1, ci, d1] at this
+    norm_num [Complex.ext_iff] at this
+  -- the two-time statement, read branch by branch
+  have hΦ0 : ∀ G, Φ 0 G = if GramPhaseEquiv G Pᵢ₁ then P₁₁ else G := by
+    intro G; rw [hΦ]; exact if_pos rfl
+  have hΦs : ∀ t, t ≠ 0 → ∀ G, Φ t G
+      = if GramPhaseEquiv G Pᵢ₁ then (fun _ => (0 : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)) else G := by
+    intro t ht G; rw [hΦ]; simp only [if_neg ht]
+  have hno : ∀ t G, ¬ GramPhaseEquiv G Pᵢ₁ → Φ t G = G := by
+    intro t G h
+    rcases Nat.eq_zero_or_pos t with ht | ht
+    · subst ht; rw [hΦ0, if_neg h]
+    · rw [hΦs t (Nat.pos_iff_ne_zero.mp ht), if_neg h]
+  have hfix11 : ∀ t, Φ t P₁₁ = P₁₁ := fun t => hno t P₁₁ sA
+  have hfix1i : ∀ t, Φ t P₁ᵢ = P₁ᵢ := fun t => hno t P₁ᵢ sB
+  have hΦ1 : Φ 1 Pᵢ₁ = fun _ => (0 : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) := by
+    rw [hΦs 1 one_ne_zero, if_pos (gramPhaseEquiv_refl _)]
+  -- descent
+  have hd : ∀ t (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G') := by
+    intro t G G' h
+    by_cases hc : GramPhaseEquiv G Pᵢ₁
+    · have hc' : GramPhaseEquiv G' Pᵢ₁ := gramPhaseEquiv_trans (gramPhaseEquiv_symm h) hc
+      rcases Nat.eq_zero_or_pos t with ht | ht
+      · subst ht; rw [hΦ0, hΦ0, if_pos hc, if_pos hc']; exact gramPhaseEquiv_refl _
+      · rw [hΦs t (Nat.pos_iff_ne_zero.mp ht), hΦs t (Nat.pos_iff_ne_zero.mp ht), if_pos hc,
+          if_pos hc']
+        exact gramPhaseEquiv_refl _
+    · have hc' : ¬ GramPhaseEquiv G' Pᵢ₁ := fun hc' => hc (gramPhaseEquiv_trans h hc')
+      rw [hno t G hc, hno t G' hc']; exact h
+  refine ⟨?_, ?_, ?_, hRᵢ₁, hΦ1, ?_, ?_⟩
+  · -- proper
+    refine ⟨fun _ => P₁₁, fun _ => P₁ᵢ, fun _ => Pᵢ₁, fun _ => hR₁₁, fun _ => hR₁ᵢ, fun _ => hRᵢ₁,
+      fun t => by rw [hfix11]; exact gramPhaseEquiv_refl _,
+      fun t => by rw [hfix1i]; exact gramPhaseEquiv_refl _,
+      fun h => s11i (h 0), fun h => ?_⟩
+    have := h 0
+    rw [hΦ0, if_pos (gramPhaseEquiv_refl _)] at this
+    exact sA (gramPhaseEquiv_symm this)
+  · -- propagates
+    exact ⟨fun G₁ G₂ _ _ h₁ h₂ h0 =>
+        (ol1a_descent ((0 : Fin 1), (0 : Fin 1)) (fun _ => Γp) hd).2.1 G₁ G₂ h₁ h₂ h0,
+      1, fun _ => P₁₁, fun _ => P₁ᵢ, le_rfl, fun _ => hR₁₁, fun _ => hR₁ᵢ,
+      fun t => by rw [hfix11]; exact gramPhaseEquiv_refl _,
+      fun t => by rw [hfix1i]; exact gramPhaseEquiv_refl _, s11i⟩
+  · -- total
+    intro G₀ hG₀
+    by_cases hc : GramPhaseEquiv G₀ Pᵢ₁
+    · refine ⟨fun t => if t = 0 then G₀ else P₁₁, fun t => ?_, fun t => ?_, ?_⟩
+      · dsimp only
+        split_ifs
+        · exact hG₀
+        · exact hR₁₁
+      · rcases Nat.eq_zero_or_pos t with ht | ht
+        · subst ht
+          simp only [zero_add, one_ne_zero, if_false, if_true]
+          rw [hΦ0, if_pos hc]
+          exact gramPhaseEquiv_refl _
+        · have ht' := Nat.pos_iff_ne_zero.mp ht
+          simp only [Nat.succ_ne_zero, if_false, if_neg ht']
+          rw [hfix11]
+          exact gramPhaseEquiv_refl _
+      · simp only [if_true]
+        exact gramPhaseEquiv_refl _
+    · exact ⟨fun _ => G₀, fun _ => hG₀, fun t => by rw [hno t G₀ hc]; exact gramPhaseEquiv_refl _,
+        gramPhaseEquiv_refl _⟩
+  · -- the failing conjunct: the image's fibres sum to `0`, not to `1`
+    intro h
+    rw [hΦ1] at h
+    simp only [Finset.sum_const_zero] at h
+    exact zero_ne_one h
+  · -- not L1
+    intro hL1
+    have := hL1 1 Pᵢ₁ hRᵢ₁
+    rw [hΦ1] at this
+    exact zero_not_realizable _ this
+
 end OrbitLawGaps
 end OIBridge
