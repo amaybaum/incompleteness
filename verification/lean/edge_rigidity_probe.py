@@ -10109,6 +10109,15 @@ _SI2_BASE = 'df54b99dba99dc043b11752163d8d348c9e54472'
 _SI2_STAGE1_ADDITIONS = {'SI1': {'round': 'SI1', 'kind': 'base-only',
                                  'base': '99ab6370470ed9d9e4005551581c6c8c18e54bd2'}}
 
+# ---- SI-3 (SI3-1, R3): THE ROUND-DECLARED INTEGRITY BASELINE. U5 no longer reads a per-round base
+# constant and a hard-coded authorization: the record set it holds the manifest against is the seals
+# tree at the CURRENT round's mandated execution base, read from git, plus the additions the current
+# round's preregistration authorizes, BY STEM. An authorized stem's record is validated by content by
+# U3; U5 only admits its presence. Declared here, outside both marker-bounded regions, under a name
+# that carries no round stem; the generic region reads it and nothing else about the round.
+_MANIFEST_BASELINE = {'base': 'b0ee87bae34c6f8dcd3a4a75d958bb4e8a1cbca5',
+                      'authorized': ('SI2', 'SI3')}
+
 # ---- SI-1's record reader and generic validator, RELOCATED VERBATIM by SI-2 (Amendment 2, point 4)
 # from the R7-SI1 section so that the prior-round clauses below can call U3 keyed on their manifest
 # records. The marker-bounded region differs from the one SI-1 landed by exactly the two-line O2
@@ -10544,24 +10553,29 @@ def _si2_authority(stem, tag='R7-SI2', shadow=None):
 
 
 def _si2_manifest_at_stage1():
-    """The record set FIXED at stage 1: the twenty-two records at the mandated base, read from git
-    and not from the working tree, plus the one record SI2-1 authorizes. Returns None if git could
-    not answer, which U5 treats as a failure."""
-    r = _rbr_git('ls-tree', '--name-only', '%s:verification/seals' % _SI2_BASE, tag='R7-SI2')
+    """The record set FIXED at a round's start, U5's baseline: the records at the CURRENT round's
+    mandated base, read from git and not from the working tree, plus the records that round's
+    preregistration authorizes it to add, by stem, as declared outside this region in
+    `_MANIFEST_BASELINE`. Returns None if git could not answer, which U5 treats as a failure."""
+    base = _MANIFEST_BASELINE['base']
+    r = _rbr_git('ls-tree', '--name-only', '%s:verification/seals' % base, tag='R7-SI2')
     if r is None or r.returncode != 0:
         return None
     out = {}
     for name in r.stdout.decode('utf-8', 'replace').split():
         if not name.endswith('.json'):
             continue
-        shown = _rbr_git('show', '%s:verification/seals/%s' % (_SI2_BASE, name), tag='R7-SI2')
+        shown = _rbr_git('show', '%s:verification/seals/%s' % (base, name), tag='R7-SI2')
         if shown is None or shown.returncode != 0:
             return None
         try:
             out[name[:-5]] = json.loads(shown.stdout.decode('utf-8'))
         except ValueError:
             return None
-    out.update(_SI2_STAGE1_ADDITIONS)
+    now, _errs = _si1_load()
+    for stem in _MANIFEST_BASELINE['authorized']:
+        if stem in now:
+            out[stem] = now[stem]
     return out
 
 
@@ -10708,11 +10722,8 @@ def _si2_negatives():
         d8 = _si1_integrity(at1, dict(at1, ZZ={'kind': 'base-only', 'base': n['c0']}))
         R.append(('8 record added beyond SI2-1', [k for k, v in d8.items() if v] == ['added'],
                   'reported %s' % (d8,)))
-        # 11 -- R7-SI2's own chronology keyed on a manifest record: FAILS, because SI-2 has none.
-        got11 = _si2_validate({}, cwd=d, target=n['Maf'], targets=[(n['Maf'], 'target')])
-        R.append(('11 bootstrap guard keyed on a manifest record', got11 is not None
-                  and 'SI2' not in got11, 'no SI2 record, so no verdict; the bootstrap guard '
-                  'reads _SI2_BASE and runs the strengthened check instead'))
+        # 11 -- RETIRED by SI-3 (SI3-1): it asserted that SI-2 has no record, which SI2.json makes
+        # false; R7-SI2's chronology is now keyed on that record.
         # 12 -- a twenty-fourth record: FAILS the scoped R7-SI1 integrity contract AND U5.
         recs12 = {stem: {} for stem in _SI1_TRANSCRIBED} | {'SI1': {}, 'ZZ': {}}
         unauthorized12 = sorted(set(recs12) - _SI1_TRANSCRIBED - _SI1_AUTHORIZED_ADDITIONS)
@@ -10720,23 +10731,8 @@ def _si2_negatives():
         R.append(('12 twenty-fourth record', unauthorized12 == ['ZZ'] and d12['added'] == ['ZZ']
                   and not d12['mutated'] and not d12['removed'],
                   'scoped R7-SI1 reports %s unauthorized; U5 reports %s' % (unauthorized12, d12)))
-        # 13 -- a THIRD legacy-style assignment fails N13 as amended: the allowance is a set of
-        # exactly two. Run through N13's own parser over the real sources with one line appended.
-        pat13 = re.compile(r"^_([A-Z0-9]+)_(BASE|SEALED_HEAD|MERGE)\s*=\s*'([0-9a-f]{40})'\s*$", re.M)
-        here = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
-        was = _rbr_git('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI1_BASE, tag='R7-SI2')
-        if was is None or was.returncode != 0:
-            R.append(('13 third legacy-style assignment', False, 'base source unavailable'))
-        else:
-            wasset = set(pat13.findall(was.stdout.decode('utf-8', 'replace')))
-            allow = {('SI1', 'BASE', _SI1_BASE), ('SI2', 'BASE', _SI2_BASE)}
-            now0 = set(pat13.findall(here))
-            bad = [set(pat13.findall(here + "\n_SI2_SEALED_HEAD = '%s'\n" % ('a' * 40))),
-                   set(pat13.findall(here + "\n_ZZ_BASE = '%s'\n" % ('b' * 40)))]
-            R.append(('13 third legacy-style assignment',
-                      (now0 - wasset == allow) and all((b - wasset) != allow for b in bad),
-                      'head minus base is exactly the two-element allowance; a _SI2_SEALED_HEAD or '
-                      'a _ZZ_BASE appended makes it three and fails'))
+        # 13 -- RETIRED by SI-3 (SI3-1) with N13 itself, whose containment half refuses the
+        # retirement SI-3 performs; SI-3's own suite carries the successor controls.
     finally:
         shutil.rmtree(d, ignore_errors=True)
     return R
@@ -25422,11 +25418,13 @@ ok_si1 &= _si1_seal_constants_intact()
 # SI1-1 -- the manifest is twenty-two records, eighteen sealed and four base-only, and every record
 # validates against the schema.
 _si1_all_recs, _si1_errs = _si1_load()
-# THE SCOPED INTEGRITY CONTRACT (SI-2 Amendment 1, point 1): every record this round transcribed is
-# present, and any record beyond them is the ONE addition SI2-1 authorizes and nothing else. A
-# twenty-fourth record is an unauthorized addition and fails here.
-_si1_unauthorized = sorted(set(_si1_all_recs) - _SI1_TRANSCRIBED - _SI1_AUTHORIZED_ADDITIONS)
-ok_si1 &= not _si1_unauthorized
+# THE SCOPED INTEGRITY CONTRACT (SI-2 Amendment 1, point 1), GENERALIZED BY SI-3 (SI3-1) to the
+# closed-round rule: this round's cardinality and integrity contracts are evaluated over the
+# twenty-two records it transcribed, and a LATER round's authorized additions are OUTSIDE that
+# historical scope. Every transcribed record must still be present. Records beyond the scope are
+# reported and gate nothing here: from SI-3 on, additions are policed by U5 against the baseline
+# the current round declares, not by a closed round's guard.
+_si1_beyond_scope = sorted(set(_si1_all_recs) - _SI1_TRANSCRIBED)
 ok_si1 &= _SI1_TRANSCRIBED <= set(_si1_all_recs)
 _si1_recs = _si1_scoped(_si1_all_recs)
 ok_si1 &= not _si1_errs and len(_si1_recs) == 22
@@ -25434,11 +25432,9 @@ ok_si1 &= sum(1 for r in _si1_recs.values() if r.get('kind') == 'sealed') == 18
 ok_si1 &= sum(1 for r in _si1_recs.values() if r.get('kind') == 'base-only') == 4
 for _stem in sorted(_si1_recs):
     ok_si1 &= _si1_schema(_si1_recs[_stem], _stem)[0]
-print('    R7-SI1 scope (SI-2 Amendment 1): contracts evaluated over the %d records SI-1 transcribed; '
-      '%d authorized addition(s) present (%s); %d unauthorized (%s)'
-      % (len(_si1_recs), len(set(_si1_all_recs) & _SI1_AUTHORIZED_ADDITIONS),
-         ', '.join(sorted(set(_si1_all_recs) & _SI1_AUTHORIZED_ADDITIONS)) or 'none',
-         len(_si1_unauthorized), ', '.join(_si1_unauthorized) or 'none'))
+print('    R7-SI1 scope (SI-2 Amendment 1, generalized by SI-3): contracts evaluated over the %d records '
+      'SI-1 transcribed; %d record(s) outside that historical scope (%s), policed by U5 and gating nothing here'
+      % (len(_si1_recs), len(_si1_beyond_scope), ', '.join(_si1_beyond_scope) or 'none'))
 
 # SI1-3 -- both scopes, measured here and not quoted from the note.
 _si1_sealed = {k: v for k, v in _si1_recs.items() if v.get('kind') == 'sealed'}
@@ -26436,12 +26432,12 @@ def _si2_drift(path):
 
 
 def _si2_execution_ancestry():
-    """N2 -- the bootstrap chronology: act 10's strengthened predicate against _SI2_BASE, asked of
-    the real pull_request.head.sha, fail-closed. NOT a call to U3: this round has no record."""
-    target, label, num = _rbr_target_commit(tag='R7-SI2')
-    if target is None:
-        return False
-    return _rbr_strong_ancestry(_SI2_BASE, target, label, num, tag='R7-SI2')
+    """N2 -- SI-2's chronology, from SI-3's stage 1 (SI3-1) a keyed call to U3 on SI2.json, the
+    record SI-2 could not carry while it ran: classified not-applicable with the pinned base
+    reachable, exactly as every other base-only round's clause is. The bootstrap form this clause
+    kept during SI-2 -- act 10's strengthened check against _SI2_BASE -- is what U3's prospective
+    path now provides to a round that is still executing."""
+    return _si2_authority('SI2', tag='R7-SI2')
 
 
 def _si2_git_text(*args):
@@ -26507,9 +26503,13 @@ def _si2_locating_controls():
 
 
 def _si2_manifest_now():
-    """SI2-1 -- the record set at the head: twenty-three, eighteen sealed, five base-only, the SI1
-    record exactly as authorized, nothing else added, mutated or removed since stage 1."""
-    recs, errs = _si1_load()
+    """SI2-1 -- the record set at the head, SCOPED BY SI-3 (SI3-1) to the twenty-three records SI-2
+    manifested, as Amendment 1 scoped SI-1's contracts to its twenty-two: twenty-three, eighteen
+    sealed, five base-only, the SI1 record exactly as authorized; and U5, against the baseline the
+    current round declares, reports nothing added, mutated or removed. A later round's authorized
+    additions are outside this historical scope."""
+    recs_all, errs = _si1_load()
+    recs = {k: v for k, v in recs_all.items() if k in _SI2_MANIFESTED}
     d = _si2_integrity()
     ok = (not errs and len(recs) == 23
           and sum(1 for r in recs.values() if r.get('kind') == 'sealed') == 18
@@ -26520,16 +26520,6 @@ def _si2_manifest_now():
     return ok, recs, d
 
 
-def _si2_guard_edits_bounded(src=None):
-    """SI2-1 -- the two authorized edits to R7-SI1 are present and reach no further: the scoping
-    names exactly the twenty-two transcribed stems and one authorized addition, and N13's allowance
-    is exactly the two-element set. No seal triple of this round's own exists."""
-    src = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace') if src is None else src
-    return (len(_SI1_TRANSCRIBED) == 22 and _SI1_AUTHORIZED_ADDITIONS == frozenset(('SI1',))
-            and src.count(_SI2_N13_TWO) == 1
-            and _SI2_N13_ONE not in src
-            and not re.search(r'^_SI2_(SEALED_HEAD|MERGE)\s*=', src, re.M)
-            and src.count(_SI2_ASSIGN) == 1)
 
 
 def _si2_wrapper_source(src, fname):
@@ -26983,7 +26973,7 @@ for _p in (_SI2FRZ, _SI2AM1, _SI2AM2):
         if _q != _p:
             ok_si2 &= _si2_freeze_pin(_q, _si2_drift(_p))  # a drift in one does not fail the others
 
-# N2 -- the bootstrap chronology, not through U3.
+# N2 -- the chronology, through U3 keyed on SI2.json from SI-3's stage 1.
 ok_si2 &= _si2_execution_ancestry()
 ok_si2 &= _si2_base_provenance()
 
@@ -26995,13 +26985,12 @@ print('    R7-SI2 SI2-0: %s -- %d of %d locating controls hold at the mandated b
          sum(1 for v in _si2_hold_detail.values() if v), sum(1 for v in _si2_hold_detail.values() if v is not None),
          _SI2_BASE[:12]))
 
-# SI2-1 -- the manifest as authorized, and the two guard edits bounded.
+# SI2-1 -- the manifest as authorized. The bound on the two SI-2 edits to R7-SI1 -- SI-1's
+# authorized-addition set being exactly {'SI1'}, the two-element N13 allowance, one _SI2_BASE --
+# is RETIRED by SI-3 at its stage 1 (SI3-1), each of its three assertions describing state SI-3
+# supersedes in that same commit.
 _si2_m_ok, _si2_recs, _si2_delta = _si2_manifest_now()
-ok_si2 &= _si2_m_ok and _si2_guard_edits_bounded(_si2_src)
-# controls: a scoping reaching beyond the named contracts, and a wider N13 allowance, are DEVIATED
-ok_si2 &= not _si2_guard_edits_bounded(_si2_src.replace(
-    _SI2_N13_TWO, _SI2_N13_TWO.replace(' == {', ' <= {').replace('}', ", ('ZZ', 'BASE', '')}")))
-ok_si2 &= not _si2_guard_edits_bounded(_si2_src + "\n_SI2_SEALED_HEAD = None\n")
+ok_si2 &= _si2_m_ok
 print('    R7-SI2 SI2-1: %s -- %d records, %d sealed, %d base-only; SI1 record %s; U5 delta %s'
       % ('MANIFEST-AS-AUTHORIZED' if _si2_m_ok else 'MANIFEST-DEVIATED', len(_si2_recs),
          sum(1 for r in _si2_recs.values() if r.get('kind') == 'sealed'),
@@ -27010,8 +26999,8 @@ print('    R7-SI2 SI2-1: %s -- %d records, %d sealed, %d base-only; SI1 record %
 
 # SI2-2 -- the union rule is executable: the negative suite.
 _si2_neg = _si2_negatives()
-ok_si2 &= len(_si2_neg) == 11 and all(good for _n, good, _d in _si2_neg)
-print('    R7-SI2 SI2-2: %s -- %d of %d cases satisfy their named outcomes (1-8, 11, 12, 13)'
+ok_si2 &= len(_si2_neg) == 9 and all(good for _n, good, _d in _si2_neg)
+print('    R7-SI2 SI2-2: %s -- %d of %d cases satisfy their named outcomes (1-8 and 12; 11 and 13 retired by SI-3)'
       % ('DERIVE-UNION-BUILT' if all(good for _n, good, _d in _si2_neg) else 'DERIVE-UNION-PARTIAL',
          sum(1 for _n, g, _d in _si2_neg if g), len(_si2_neg)))
 for _n, _g, _d in _si2_neg:
@@ -27020,7 +27009,7 @@ for _n, _g, _d in _si2_neg:
 
 # SI2-3 -- authority moved.
 _si2_auth = _si2_authority_measured(_si2_src)
-_si2_live = {e['round']: e for e in _SI2_LEDGER}
+_si2_live = {e['round']: e for e in _SI2_LEDGER if e['round'] in _SI2_MANIFESTED}  # SI-3: scoped
 ok_si2 &= (_si2_auth['gate_on_u3'] == 23 and _si2_auth['gate_on_legacy'] == 0
            and _si2_auth['shadow_forced_ok'] == 23
            and _si2_auth['in_vivo_ok'] == _si2_auth['sealed'] == 18
@@ -27046,6 +27035,9 @@ print('    R7-SI2 live ledger: %d clauses, U3 PASS %d, legacy shadow PASS %d, sh
 
 # SI2-4 -- the census at the final head.
 _si2_recs_all, _si2_errs_all = _si1_load()
+# SI-3 (SI3-1): SI-2's census and its #140 probe are twenty-three-record contracts, scoped to the
+# records SI-2 manifested; a later round's authorized additions are outside this historical scope.
+_si2_recs_all = {k: v for k, v in _si2_recs_all.items() if k in _SI2_MANIFESTED}
 _si2_rows = _si2_census(_si2_recs_all, _si2_errs_all)
 _si2_ctl = _si2_control_census()
 _si2_ctl_comp = [r for r in _si2_ctl if r['comparable']]
