@@ -344,5 +344,58 @@ theorem phiSwap_l5_restricts :
     rw [a2] at a1
     norm_num [Complex.ext_iff] at a1
 
+/-! ### Section D — `OF4`, the non-implication, and `OF3`, the positive control consumed
+
+`OF3` writes no Lean: act 21's `phiPP_ladder` is consumed for the fact that a law of the prefix can
+satisfy `L5` with content at this configuration, so that `OF2` (b) is a fact about `Φ_swap` and not
+about the condition being empty. `OF4` instantiates the universal at `Φ_swap`. -/
+
+/-- **The prefix through `L4n` does not imply `L5` at the frozen product configuration**, for the
+ordered decomposition `e = Equiv.refl`: the universal over every transition family on
+`Fin 4 × Fin 4` — the first eight conjuncts of act 21's `LadderConds` implying `FactorizesOnProduct`
+— is refuted by `Φ_swap`. This is a statement about the exact declarations at the exact
+configuration and about nothing in their neighbourhood: it does not say that any surviving law
+interacts, couples or fails to compose in any other sense, does not say that `L5` fails at any
+other configuration or decomposition, and asserts no independence of the two rungs. -/
+theorem prefix_not_implies_l5 :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ),
+      Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+        ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ),
+          Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+          ¬ ∀ (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)),
+            ProperAt ((0 : Fin 1), (0 : Fin 1)) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+            ∧ PropagatesFrom ((0 : Fin 1), (0 : Fin 1)) Γ
+                (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+            ∧ EvolvesTotally (Fin 1 × Fin 1) Γ Φ
+            ∧ PreservesAdmissible (Fin 1 × Fin 1) Γ Φ
+            ∧ (∃ Φ₀ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+                → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ), ∀ t, Φ t = Φ₀)
+            ∧ Reversible (Fin 1 × Fin 1) Γ Φ
+            ∧ (∀ t (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+                GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G'))
+            ∧ (∀ t, ∃ Ψ αL αR : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ
+                  → Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ,
+                (∀ U, AdmissibleDilationAt (Γ t) ((0 : Fin 1), (0 : Fin 1)) U →
+                  FibreGram ((0 : Fin 1), (0 : Fin 1)) (Ψ U) = Φ t (FibreGram ((0 : Fin 1), (0 : Fin 1)) U))
+                ∧ (∀ U, AdmissibleDilationAt (Γ t) ((0 : Fin 1), (0 : Fin 1)) U →
+                  AdmissibleDilationAt (Γ (t + 1)) ((0 : Fin 1), (0 : Fin 1)) (Ψ U))
+                ∧ TwistedNatural ((0 : Fin 1), (0 : Fin 1)) αL αR Ψ)
+            → FactorizesOnProduct (Fin 1 × Fin 1) (Fin 1) (Fin 1) (Equiv.refl (Fin 4 × Fin 4))
+                (fun _ => Γ₀) (fun _ => Γ₀) Γ Φ := by
+  obtain ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, h⟩ := phiSwap_l5_restricts
+  refine ⟨Γ₀, hΓ₀, fun Γ hΓ hall => ?_⟩
+  obtain ⟨h1, h2, h3, h4, h5, h6, h7, h8, hnot⟩ :=
+    h Γ (fun _ G => RelabelTransition (Equiv.prodComm (Fin 4) (Fin 4)) G) hΓ rfl
+  exact hnot (hall _ ⟨h1, h2, h3, h4, h5, h6, h7, h8⟩)
+
 end OrbitLawNaturalityFactorization
 end OIBridge
+
+/-! ### The axiom table — one line per named result, printed by the kernel -/
+
+#print axioms OIBridge.OrbitLawNaturalityFactorization.relabel_prodComm
+#print axioms OIBridge.OrbitLawNaturalityFactorization.gramPhaseEquiv_diag
+#print axioms OIBridge.OrbitLawNaturalityFactorization.phiCTRL_l4n_restricts
+#print axioms OIBridge.OrbitLawNaturalityFactorization.phiSwap_l5_restricts
+#print axioms OIBridge.OrbitLawNaturalityFactorization.prefix_not_implies_l5
