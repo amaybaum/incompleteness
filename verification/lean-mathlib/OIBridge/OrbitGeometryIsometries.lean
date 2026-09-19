@@ -856,6 +856,257 @@ theorem iso1_product_carrier (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
     fun d hd => ⟨fun π τ G H => relabel2_isometry d hd π τ G H,
       fun G H => conj_isometry d hd G H, fun U U' => transpose_isometry _ hx _ d hd U U'⟩⟩
 
+/-! ### Section C — `ISO2`: the internal description of the realizable classes at the single carrier
+
+Every step is derived from act 12's `sh1_sufficiency`, the dephasing lemma, the antipodal lemma and
+elementary algebra; nothing is imported. The matrix `!![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1;
+1, -z, -1, z]` is the `4 × 4` core of act 23's `H z`, written out at every mention. -/
+
+/-- **The three row forms**: a unit-modulus row `(1, a, b, c)` summing to zero is, for one unit `x`,
+`(1, x, −1, −x)`, `(1, −1, x, −x)` or `(1, x, −x, −1)`. -/
+theorem row_forms (K : Matrix (Fin 4) (Fin 4) ℂ) (i : Fin 4) (h0 : K i 0 = 1)
+    (hu : ∀ j, star (K i j) * K i j = 1) (hsum : ∑ j, K i j = 0) :
+    ∃ x : ℂ, star x * x = 1 ∧
+      ((K i 1 = x ∧ K i 2 = -1 ∧ K i 3 = -x) ∨ (K i 1 = -1 ∧ K i 2 = x ∧ K i 3 = -x)
+        ∨ (K i 1 = x ∧ K i 2 = -x ∧ K i 3 = -1)) := by
+  rw [Fin.sum_univ_four, h0] at hsum
+  rcases antipodal (K i 1) (K i 2) (K i 3) (hu 1) (hu 2) (hu 3) hsum with ⟨hab, hc⟩ | ⟨hbc, ha⟩
+    | ⟨hca, hb⟩
+  · exact ⟨K i 1, hu 1, Or.inr (Or.inr ⟨rfl, by linear_combination hab, hc⟩)⟩
+  · exact ⟨K i 2, hu 2, Or.inr (Or.inl ⟨ha, rfl, by linear_combination hbc⟩)⟩
+  · exact ⟨K i 1, hu 1, Or.inl ⟨rfl, hb, by linear_combination hca⟩⟩
+
+/-- **The row norms of the core matrix**: every row of `!![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1;
+1, -z, -1, z]` at a unit `z` has squared norm `4`. -/
+theorem core_row_norm (z : ℂ) (hz : star z * z = 1) (k : Fin 4) :
+    ∑ j, !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] k j
+      * star (!![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] k j) = 4 := by
+  have hz' : z * (starRingEnd ℂ) z = 1 := by rw [mul_comm]; exact hz
+  fin_cases k <;> simp [Fin.sum_univ_four] <;> first | linear_combination 2 * hz' | norm_num
+
+/-- **A permutation from an injective row-type map**: if every row of `K` is a row of the core
+matrix at `z`, read through an injective map of row indices, then `K` is the core matrix with its
+rows permuted. -/
+theorem perm_of_rows (K : Matrix (Fin 4) (Fin 4) ℂ) (z : ℂ) (t : Fin 4 → Fin 4)
+    (ht : Function.Injective t)
+    (hK : ∀ i j, K i j = !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] (t i) j) :
+    ∃ π : Equiv.Perm (Fin 4),
+      ∀ i j, K i j = !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] (π i) j :=
+  ⟨Equiv.ofBijective t (Finite.injective_iff_bijective.mp ht), fun i j => hK i j⟩
+
+/-- **Injectivity of the row types from orthogonality**: two distinct rows of `K` are orthogonal,
+so they cannot both be the same row of the core matrix, whose rows have squared norm `4`. -/
+theorem rows_injective (K : Matrix (Fin 4) (Fin 4) ℂ) (z : ℂ) (hz : star z * z = 1)
+    (horth : ∀ i i', i ≠ i' → ∑ j, K i j * star (K i' j) = 0) (t : Fin 4 → Fin 4)
+    (hK : ∀ i j, K i j = !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] (t i) j) :
+    Function.Injective t := by
+  intro i i' h
+  by_contra hne
+  have e := horth i i' hne
+  simp only [hK, h] at e
+  rw [core_row_norm z hz] at e
+  norm_num at e
+
+/-- **The normalized case with a non-real row**: if row `1` of the dephased matrix is
+`(1, x, −1, −x)` with `x ≠ ±1`, every other row is `(1, −x, −1, x)` or `(1, −1, 1, −1)`, and `K`
+is the core matrix at `x` with rows permuted. -/
+theorem core_nonreal (K : Matrix (Fin 4) (Fin 4) ℂ) (x : ℂ) (hx : star x * x = 1) (hx1 : x ≠ 1)
+    (hx2 : x ≠ -1) (hi0 : ∀ i, K i 0 = 1) (h0j : ∀ j, K 0 j = 1)
+    (hu : ∀ i j, star (K i j) * K i j = 1)
+    (horth : ∀ i i', i ≠ i' → ∑ j, K i j * star (K i' j) = 0)
+    (hrow1 : K 1 1 = x ∧ K 1 2 = -1 ∧ K 1 3 = -x) :
+    ∃ π : Equiv.Perm (Fin 4),
+      ∀ i j, K i j = !![1, 1, 1, 1; 1, x, -1, -x; 1, -1, 1, -1; 1, -x, -1, x] (π i) j := by
+  have hsum : ∀ i, i ≠ 0 → ∑ j, K i j = 0 := by
+    intro i hi
+    have e := horth i 0 hi
+    simpa [h0j] using e
+  have hsx : star (star x) = x := star_star x
+  -- every row other than `0` and `1` is row `2` or row `3` of the core matrix
+  have hother : ∀ i, i ≠ 0 → i ≠ 1 →
+      (K i 1 = -1 ∧ K i 2 = 1 ∧ K i 3 = -1) ∨ (K i 1 = -x ∧ K i 2 = -1 ∧ K i 3 = x) := by
+    intro i hi0' hi1
+    obtain ⟨y, hy, hform⟩ := row_forms K i (hi0 i) (hu i) (hsum i hi0')
+    have e := horth i 1 hi1
+    rw [Fin.sum_univ_four, hi0 i, hi0 1, hrow1.1, hrow1.2.1, hrow1.2.2] at e
+    rcases hform with ⟨h1, h2, h3⟩ | ⟨h1, h2, h3⟩ | ⟨h1, h2, h3⟩
+    · -- `(1, y, −1, −y)`: `2 + 2 y star x = 0`, so `y = −x`
+      rw [h1, h2, h3] at e
+      simp only [star_one, star_neg, mul_one, mul_neg, neg_neg] at e
+      have hyx : y = -x := by linear_combination (x / 2) * e - y * hx
+      exact Or.inr ⟨by rw [h1, hyx], h2, by rw [h3, hyx, neg_neg]⟩
+    · -- `(1, −1, y, −y)`: `(1 − star x)(1 − y) = 0`
+      rw [h1, h2, h3] at e
+      simp only [star_one, star_neg, mul_one, mul_neg, neg_neg, neg_mul] at e
+      have hf : (1 - star x) * (1 - y) = 0 := by linear_combination e
+      rcases mul_eq_zero.mp hf with hf | hf
+      · exact absurd (by rw [← hsx, sub_eq_zero.mp hf |>.symm]; simp : x = 1) hx1
+      · have hy1 : y = 1 := by linear_combination -hf
+        exact Or.inl ⟨h1, by rw [h2, hy1], by rw [h3, hy1]⟩
+    · -- `(1, y, −y, −1)`: `(1 + y)(1 + star x) = 0`
+      rw [h1, h2, h3] at e
+      simp only [star_one, star_neg, mul_one, mul_neg, neg_neg, neg_mul] at e
+      have hf : (1 + y) * (1 + star x) = 0 := by linear_combination e
+      rcases mul_eq_zero.mp hf with hf | hf
+      · have hy1 : y = -1 := by linear_combination hf
+        exact Or.inl ⟨by rw [h1, hy1], by rw [h2, hy1, neg_neg], h3⟩
+      · exact absurd (by rw [← hsx, (by linear_combination hf : star x = -1)]; simp : x = -1) hx2
+  have hrow : ∀ i, ∃ k : Fin 4,
+      ∀ j, K i j = !![1, 1, 1, 1; 1, x, -1, -x; 1, -1, 1, -1; 1, -x, -1, x] k j := by
+    intro i
+    by_cases hi0' : i = 0
+    · subst hi0'; exact ⟨0, fun j => by fin_cases j <;> simp [h0j]⟩
+    by_cases hi1 : i = 1
+    · subst hi1
+      exact ⟨1, fun j => by fin_cases j <;> simp [hi0, hrow1.1, hrow1.2.1, hrow1.2.2]⟩
+    rcases hother i hi0' hi1 with ⟨h1, h2, h3⟩ | ⟨h1, h2, h3⟩
+    · exact ⟨2, fun j => by fin_cases j <;> simp [hi0, h1, h2, h3]⟩
+    · exact ⟨3, fun j => by fin_cases j <;> simp [hi0, h1, h2, h3]⟩
+  choose t ht using hrow
+  exact perm_of_rows K x t (rows_injective K x hx horth t ht) ht
+
+/-- **The real case**: if every entry of the dephased matrix is `±1`, `K` is the core matrix at
+`z = 1` with rows permuted. -/
+theorem core_real (K : Matrix (Fin 4) (Fin 4) ℂ) (hi0 : ∀ i, K i 0 = 1) (h0j : ∀ j, K 0 j = 1)
+    (hu : ∀ i j, star (K i j) * K i j = 1)
+    (horth : ∀ i i', i ≠ i' → ∑ j, K i j * star (K i' j) = 0)
+    (hreal : ∀ i j, K i j = 1 ∨ K i j = -1) :
+    ∃ π : Equiv.Perm (Fin 4), ∀ i j, K i j
+      = !![1, 1, 1, 1; 1, (1 : ℂ), -1, -(1 : ℂ); 1, -1, 1, -1; 1, -(1 : ℂ), -1, (1 : ℂ)] (π i) j := by
+  have hsum : ∀ i, i ≠ 0 → ∑ j, K i j = 0 := by
+    intro i hi
+    have e := horth i 0 hi
+    simpa [h0j] using e
+  have hrow : ∀ i, ∃ k : Fin 4, ∀ j, K i j
+      = !![1, 1, 1, 1; 1, (1 : ℂ), -1, -(1 : ℂ); 1, -1, 1, -1; 1, -(1 : ℂ), -1, (1 : ℂ)] k j := by
+    intro i
+    by_cases hi0' : i = 0
+    · subst hi0'; exact ⟨0, fun j => by fin_cases j <;> simp [h0j]⟩
+    obtain ⟨y, hy, hform⟩ := row_forms K i (hi0 i) (hu i) (hsum i hi0')
+    rcases hform with ⟨h1, h2, h3⟩ | ⟨h1, h2, h3⟩ | ⟨h1, h2, h3⟩
+    · rcases hreal i 1 with hr | hr <;> rw [h1] at hr <;> subst hr
+      · exact ⟨1, fun j => by fin_cases j <;> simp [hi0, h1, h2, h3]⟩
+      · exact ⟨3, fun j => by fin_cases j <;> simp [hi0, h1, h2, h3]⟩
+    · rcases hreal i 2 with hr | hr <;> rw [h2] at hr <;> subst hr
+      · exact ⟨2, fun j => by fin_cases j <;> simp [hi0, h1, h2, h3]⟩
+      · exact ⟨3, fun j => by fin_cases j <;> simp [hi0, h1, h2, h3]⟩
+    · rcases hreal i 1 with hr | hr <;> rw [h1] at hr <;> subst hr
+      · exact ⟨1, fun j => by fin_cases j <;> simp [hi0, h1, h2, h3]⟩
+      · exact ⟨2, fun j => by fin_cases j <;> simp [hi0, h1, h2, h3]⟩
+  choose t ht using hrow
+  exact perm_of_rows K 1 t (rows_injective K 1 (by simp) horth t ht) ht
+
+/-- **The classification of the dephased matrix**: a `4 × 4` matrix with unit-modulus entries,
+first row and first column `1` and pairwise orthogonal rows is the core matrix at some unit `z`
+with its rows and its columns permuted. -/
+theorem classify_dephased (K : Matrix (Fin 4) (Fin 4) ℂ) (hi0 : ∀ i, K i 0 = 1)
+    (h0j : ∀ j, K 0 j = 1) (hu : ∀ i j, star (K i j) * K i j = 1)
+    (horth : ∀ i i', i ≠ i' → ∑ j, K i j * star (K i' j) = 0) :
+    ∃ (π τ : Equiv.Perm (Fin 4)) (z : ℂ), star z * z = 1 ∧
+      ∀ i j, K i j = !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] (π i) (τ j) := by
+  by_cases hreal : ∀ i j, K i j = 1 ∨ K i j = -1
+  · obtain ⟨π, hπ⟩ := core_real K hi0 h0j hu horth hreal
+    exact ⟨π, 1, 1, by simp, fun i j => by rw [hπ i j]; rfl⟩
+  push Not at hreal
+  obtain ⟨i, j, hj1, hj2⟩ := hreal
+  have hsum : ∀ i, i ≠ 0 → ∑ j, K i j = 0 := by
+    intro i hi
+    have e := horth i 0 hi
+    simpa [h0j] using e
+  have hi0' : i ≠ 0 := by rintro rfl; exact hj1 (h0j j)
+  have hj0 : j ≠ 0 := by rintro rfl; exact hj1 (hi0 i)
+  obtain ⟨x, hx, hform⟩ := row_forms K i (hi0 i) (hu i) (hsum i hi0')
+  -- the entries of row `i` lie in `{1, −1, x, −x}`, so `x ≠ ±1`
+  have hent : ∀ j', K i j' = 1 ∨ K i j' = -1 ∨ K i j' = x ∨ K i j' = -x := by
+    intro j'
+    fin_cases j' <;> rcases hform with ⟨h1, h2, h3⟩ | ⟨h1, h2, h3⟩ | ⟨h1, h2, h3⟩ <;>
+      simp [hi0, h1, h2, h3]
+  have hx1 : x ≠ 1 := by
+    rintro rfl
+    rcases hent j with h | h | h | h
+    · exact hj1 h
+    · exact hj2 h
+    · exact hj1 h
+    · exact hj2 h
+  have hx2 : x ≠ -1 := by
+    rintro rfl
+    rcases hent j with h | h | h | h
+    · exact hj1 h
+    · exact hj2 h
+    · exact hj2 h
+    · exact hj1 (by rw [h, neg_neg])
+  -- the transport: bring row `i` to position `1` and its form to `(1, x, −1, −x)`
+  have key : ∀ τ₀ : Equiv.Perm (Fin 4), τ₀ 0 = 0 →
+      (K i (τ₀ 1) = x ∧ K i (τ₀ 2) = -1 ∧ K i (τ₀ 3) = -x) →
+      ∃ (π τ : Equiv.Perm (Fin 4)),
+        ∀ a b, K a b = !![1, 1, 1, 1; 1, x, -1, -x; 1, -1, 1, -1; 1, -x, -1, x] (π a) (τ b) := by
+    intro τ₀ hτ₀ hr
+    have hσ₀ : (Equiv.swap (1 : Fin 4) i) 0 = 0 :=
+      Equiv.swap_apply_of_ne_of_ne (by decide) (Ne.symm hi0')
+    have hσ₁ : (Equiv.swap (1 : Fin 4) i) 1 = i := Equiv.swap_apply_left 1 i
+    obtain ⟨π', hπ'⟩ := core_nonreal (fun a b => K ((Equiv.swap (1 : Fin 4) i) a) (τ₀ b)) x hx
+      hx1 hx2 (fun a => by simp only [hτ₀]; exact hi0 _) (fun b => by simp only [hσ₀]; exact h0j _)
+      (fun a b => hu _ _)
+      (fun a a' haa' => by
+        have e := horth ((Equiv.swap (1 : Fin 4) i) a) ((Equiv.swap (1 : Fin 4) i) a')
+          (fun h => haa' ((Equiv.swap (1 : Fin 4) i).injective h))
+        rw [← Equiv.sum_comp τ₀] at e
+        exact e)
+      (by simp only [hσ₁]; exact hr)
+    refine ⟨(Equiv.swap (1 : Fin 4) i).symm.trans π', τ₀.symm, fun a b => ?_⟩
+    have := hπ' ((Equiv.swap (1 : Fin 4) i).symm a) (τ₀.symm b)
+    simp only [Equiv.apply_symm_apply] at this
+    rw [this]
+    rfl
+  rcases hform with ⟨h1, h2, h3⟩ | ⟨h1, h2, h3⟩ | ⟨h1, h2, h3⟩
+  · obtain ⟨π, τ, h⟩ := key 1 rfl ⟨h1, h2, h3⟩
+    exact ⟨π, τ, x, hx, h⟩
+  · obtain ⟨π, τ, h⟩ := key (Equiv.swap 1 2) (Equiv.swap_apply_of_ne_of_ne (by decide) (by decide))
+      ⟨by rw [Equiv.swap_apply_left]; exact h2, by rw [Equiv.swap_apply_right]; exact h1,
+        by rw [Equiv.swap_apply_of_ne_of_ne (by decide) (by decide)]; exact h3⟩
+    exact ⟨π, τ, x, hx, h⟩
+  · obtain ⟨π, τ, h⟩ := key (Equiv.swap 2 3) (Equiv.swap_apply_of_ne_of_ne (by decide) (by decide))
+      ⟨by rw [Equiv.swap_apply_of_ne_of_ne (by decide) (by decide)]; exact h1,
+        by rw [Equiv.swap_apply_left]; exact h3, by rw [Equiv.swap_apply_right]; exact h2⟩
+    exact ⟨π, τ, x, hx, h⟩
+
+/-! #### The verdict theorem of `ISO2` -/
+
+/-- **`ISO2` — the verdict theorem**, the two directions as separate conjuncts: (a) every
+realizable tuple at the single-carrier configuration is phase-equivalent to an independent
+relabelling of act 23's Fourier tuple at a unit parameter — through act 12's `sh1_sufficiency`,
+the dephasing, the antipodal lemma and the classification of the dephased matrix; (b) every such
+relabelled Fourier tuple is realizable — through act 23's `hadamard_z_admissible`, act 12's
+`sh1_necessity` and `ISO1` (i). Nothing is imported. -/
+theorem iso2_classes_single (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+    (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))) :
+    (∀ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G →
+        ∃ (π τ : Equiv.Perm (Fin 4)) (z : ℂ), star z * z = 1 ∧
+          GramPhaseEquiv G (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))
+              (π i)).submatrix τ τ))
+    ∧ (∀ (π τ : Equiv.Perm (Fin 4)) (z : ℂ), star z * z = 1 →
+        RealizableGram (Fin 1) Γ₀ (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+          (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))
+            (π i)).submatrix τ τ)) := by
+  have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
+  refine ⟨fun G hG => ?_, fun π τ z hz => ?_⟩
+  · obtain ⟨U, hU, hFU⟩ := sh1_sufficiency (0 : Fin 1) hG
+    obtain ⟨hunit, hK0, h0K, horth, hcn, -, hFib⟩ := dephase Γ₀ hΓ₀ U hU
+      (fun i j => 2 * star (2 * U (i, 0) (0, 0)) * star (4 * star (U (0, 0) (0, 0)) * U (0, 0) (j, 0))
+        * U (i, 0) (j, 0))
+      (fun i => 2 * U (i, 0) (0, 0)) (fun j => 4 * star (U (0, 0) (0, 0)) * U (0, 0) (j, 0)) rfl rfl
+      rfl
+    obtain ⟨π, τ, z, hz, hK⟩ := classify_dephased _ hK0 h0K hunit horth
+    refine ⟨π, τ, z, hz, gramPhaseEquiv_symm ⟨fun j => 4 * star (U (0, 0) (0, 0)) * U (0, 0) (j, 0),
+      hcn, fun i j k => ?_⟩⟩
+    rw [← hFU, hFib i j k]
+    simp only [Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Matrix.of_apply, hK]
+    simp only [star_mul', star_div₀, star_ofNat, star_one]
+    ring
+  · exact relabel2_realizable Γ₀ (fun i j i' j' => by rw [hΓ₀]; rfl) π τ _
+      (sh1_necessity (hadamard_z_admissible Γ₀ hΓ₀ z hz))
+
 /-! ### The axiom table — one line per named result, printed by the kernel -/
 
 #print axioms mixedTriple_relabel2
@@ -882,6 +1133,14 @@ theorem iso1_product_carrier (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
 #print axioms iso1_family_acts
 #print axioms iso1_single_carrier
 #print axioms iso1_product_carrier
+#print axioms row_forms
+#print axioms core_row_norm
+#print axioms perm_of_rows
+#print axioms rows_injective
+#print axioms core_nonreal
+#print axioms core_real
+#print axioms classify_dephased
+#print axioms iso2_classes_single
 
 end OrbitGeometryIsometries
 end OIBridge
