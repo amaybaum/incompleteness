@@ -2599,5 +2599,44 @@ transcribed, once to admit `_SI2_BASE` in its seal-constant containment contract
 were found by uncommitted dry runs and adjudicated by the owner; neither was absorbed by the
 implementation. The round is non-sealing, `E` → `L`, no pin.
 
+## Seal infrastructure round SI-3 — the legacy seal retirement
+
+The representation `SI-2` replaced is gone. `verification/lean/edge_rigidity_probe.py` carries
+**zero** module-level `_<STEM>_BASE`, `_<STEM>_SEALED_HEAD` or `_<STEM>_MERGE` statements — sixty-two
+over sixty names were deleted against `SI-2`'s frozen inventory plus `SI-2`'s own base — no shadow
+of a manifest verdict (the twenty-three `_<stem>_legacy_ancestry` functions), and no per-round
+seal-integrity comparison (the five `_<stem>_prior_seals` comparators, their eight recordings, and
+the recorder itself); every read of a round's seal state goes through one manifest accessor,
+`_seal_field`, and the zero-statement count is a standing contract `R7-SI3` keeps, so a round that
+writes a constant again fails it. The round was **sealing**, `E` → `L` → `P`, the first to seal
+through the manifest under §A.37 as `SI-2` amended it: it carried its base while executing in a
+stem-free prospective declaration handed to the validator, was classified `EXECUTION` and then
+`LANDED-PENDING-PIN` through the validator's prospective path — the first live use of the "delicate
+part" `SI-1` built — and its `P` writes `verification/seals/SI3.json` and removes the declaration.
+From `P` the manifest holds twenty-five records, nineteen `sealed` and six `base-only`, `SI2.json`
+having been added first as `SI-2`'s `base-only` record and the data-driven integrity rule now
+reading a round-declared baseline.
+
+Every frozen `SI-1` and `SI-2` contract the deletions would fail was named in the freeze's
+supersession table with its replacement, and only those were touched: N13 retired as `SI-2`'s
+Amendment 2 assigned; the closed rounds' cardinality contracts read over the records they
+manifested; the two live census re-measurements, whose old side no longer exists, **replaced by
+artifact-integrity checks** — `SI-1`'s and `SI-2`'s `census.json` pinned by their existing blob
+identities, certified historical measurements of those rounds' checkpoints, never read as current
+evidence and never the ground of an old/new equivalence claim after retirement. The verdict map is
+preserved: the base's guard file, run at the mandated base on every run, returns ninety-two `PASS`
+verdicts that the head reproduces on every tag, and no pre-existing verdict moved at any of the six
+stage commits — so nothing was gating on a shadow, as `SI-2` measured. `AGENTS.md` §A.37 now states
+the representation retired, the prospective declaration and its removal at `P`, the round-declared
+baseline, and the closed-round rule, once for every round after.
+
+The round was executed twice. The first attempt, from the preregistration merge, ended green and
+was ruled non-certifying: it had exposed three contradictions inside the freeze — the shadow
+recorder's deletion against the region bound, the clause-9 block's stage against the sixty-one
+statement inventory, and the stage-2 read target against the block's six reads — and resolved
+them implicitly. Amendment 1 resolved them prospectively, in the append-only form, and the round
+was re-executed from the amendment's certified merge on a fresh branch, with the residue bound
+measured from git at every stage commit and no discrepancy. `SI-3` is not Act 21.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.

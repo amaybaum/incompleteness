@@ -25977,6 +25977,758 @@ check('R7-SI2', ok_si2,
       "altered anywhere. Act 21 remains closed.")
 
 
+
+# ---- R7-SI3: seal infrastructure round SI-3 -- THE LEGACY SEAL RETIREMENT. SEALING under A.37 as
+# amended by SI2-7: E -> L -> P, P writing verification/seals/SI3.json and no legacy constant. While
+# the round executes its base is carried by the prospective declaration R2, outside the regions,
+# and its chronology is U3's verdict on stem SI3 through the validator's prospective path: EXECUTION
+# certified by act 10's strengthened check, LANDED-PENDING-PIN permitted at L, ARCHIVED from P, when
+# the declaration is removed and SI3.json exists. There is no _SI3_BASE, _SI3_SEALED_HEAD or
+# _SI3_MERGE, and this guard's standing contract is that no such statement exists for any stem.
+# Placed after every other check so that the head's whole map is in process for SI3-7. Executed under
+# SI-3 Amendment 1, which resolved three contradictions of the freeze prospectively and recorded
+# execution attempt 1 as non-certifying; both frozen blobs are pinned here.
+
+_SI3DIR = os.path.join(VERIFICATION, 'infrastructure', 'round-si-3-legacy-seal-retirement', '')
+_SI3FRZ = 'infrastructure/round-si-3-legacy-seal-retirement/preregistration.md'
+_SI3RESREL = 'infrastructure/round-si-3-legacy-seal-retirement/result.md'
+_SI3TAGMAPREL = 'infrastructure/round-si-3-legacy-seal-retirement/si3-tagmap.json'
+_SI3_FROZEN_BLOB = 'e8e9be66de3a63963418a40189accfbb2c046a92'
+_SI3AMD = 'infrastructure/round-si-3-legacy-seal-retirement/amendments/amendment-1.md'
+_SI3_AMEND_BLOB = '0087dceddc2c8d7f497c38937d659e78de59a1f6'
+_SI3_ATTEMPT1 = '76bf328a19c7354cbb0a120b4a374c16369aa1a1'  # non-certifying; never reachable from this round
+# Amendment 1 point 1: the two dead objects deleted inside SI2-AUTHORITY, as exact text.
+_SI3_REGION_DELETIONS = (
+    "_SI2_SHADOW_INTEGRITY = []\n",
+    '''def _si2_shadow_integrity(tag, verdict):
+    """A per-round seal-integrity comparison's verdict, RECORDED beside U5's and gating nothing."""
+    _SI2_SHADOW_INTEGRITY.append({'tag': tag, 'shadow_ok': bool(verdict)})
+    print('    %s prior-seal comparison (legacy): %s -- recorded as a SHADOW of U5, gating nothing'
+          % (tag, 'PASS' if verdict else 'FAIL'))
+    return bool(verdict)
+
+
+''',
+)
+# Amendment 1 point 2: the enumerated legacy residue of R7-RNT's clause-9 block, which stays through
+# stage 3 and goes at stage 4; its six reads are the whole of the SI3-2 exception (point 3).
+_SI3_RESIDUE = (
+    "_rnt_pin_probe = (_RNT_SEALED_HEAD, _RNT_MERGE)",
+    "_RNT_SEALED_HEAD = 'f' * 40",
+    "_RNT_MERGE = 'e' * 40",
+    "ok_rnt &= _rnt_execution_ancestry.__doc__ is not None",
+    "_RNT_SEALED_HEAD, _RNT_MERGE = _rnt_pin_probe",
+    "ok_rnt &= (_RNT_SEALED_HEAD, _RNT_MERGE) == _rnt_pin_probe",
+    "ok_rnt &= ('f' * 40, 'e' * 40) != _rnt_pin_probe",
+)
+_SI3_B0 = 'd89fff8abb20e2c63a33949b79947650bf47df6a'
+# The start state the freeze pins at B0, which the mandated base must still carry.
+_SI3_PINS = {
+    'verification/infrastructure/round-si-2-authority-cutover/preregistration.md': 'bfcd43831d887c006eab64c9a4b8b5f35ff41c9a',
+    'verification/infrastructure/round-si-2-authority-cutover/amendments/amendment-1.md': '9d05509d8fb84d9007c73b40a062bbdb7b6c36ea',
+    'verification/infrastructure/round-si-2-authority-cutover/amendments/amendment-2.md': 'c57d1dc9a3b370c86a91fcb01f7209ef5da782d5',
+    'verification/infrastructure/round-si-2-authority-cutover/result.md': '9b42ff9b2cfc47b66136e0513eb8bff756566db4',
+    'verification/infrastructure/round-si-2-authority-cutover/census.json': 'd6b2e505da8bb816179a822258d6672b79670155',
+    'verification/infrastructure/round-si-2-authority-cutover/si2-tagmap.json': '2b07e27bc873147239fda8f103ef4ce9407ff52c',
+    'verification/infrastructure/round-si-1-shadow-seal-validator/preregistration.md': '4a5f183a52b2720e0714049ecf34911c55c1ef61',
+    'verification/infrastructure/round-si-1-shadow-seal-validator/result.md': '3e034dfd4b74978adf8b9a8e4bc4339885a4b65d',
+    'verification/infrastructure/round-si-1-shadow-seal-validator/census.json': '7a3e6288c5f532a849a07beb9a8e5757cdf79d04',
+    'verification/infrastructure/round-si-1-shadow-seal-validator/si1-tagmap.json': '057cdf90ed9d9f0e129a076a327dcc6f089f53df',
+    'verification/lean/edge_rigidity_probe.py': '163d3e1b6bd859d5c4eebafcbf37d4eaa9005b46',
+    'AGENTS.md': 'a28449d11371b529bf346e3b0dcb625c54a9f900',
+    'verification/seals/SI1.json': '9cefa2001d2ebb8d7f0e67212f9fa9c5eece6a63',
+    'verification/seals': 'e4fb69dbf6796462b00b075f192e2d85e2e29031',
+}
+_SI3_SI2_RECORD = {'round': 'SI2', 'kind': 'base-only', 'base': 'df54b99dba99dc043b11752163d8d348c9e54472'}
+_SI3_LEGACY_TOKEN = re.compile(r'^_[A-Z0-9]+_(?:BASE|SEALED_HEAD|MERGE)$')
+# The two authorized wiring edits inside SI2-AUTHORITY (R2 and R3), as exact text: the region at the
+# head with exactly these reverted must equal the region at the mandated base (negative case 14).
+_SI3_REGION_EDITS = (
+    ('''    """The record set FIXED at stage 1: the twenty-two records at the mandated base, read from git
+    and not from the working tree, plus the one record SI2-1 authorizes. Returns None if git could
+    not answer, which U5 treats as a failure."""
+    r = _rbr_git('ls-tree', '--name-only', '%s:verification/seals' % _SI2_BASE, tag='R7-SI2')
+    if r is None or r.returncode != 0:
+        return None
+    out = {}
+    for name in r.stdout.decode('utf-8', 'replace').split():
+        if not name.endswith('.json'):
+            continue
+        shown = _rbr_git('show', '%s:verification/seals/%s' % (_SI2_BASE, name), tag='R7-SI2')
+        if shown is None or shown.returncode != 0:
+            return None
+        try:
+            out[name[:-5]] = json.loads(shown.stdout.decode('utf-8'))
+        except ValueError:
+            return None
+    out.update(_SI2_STAGE1_ADDITIONS)
+    return out
+''', '''    """The record set FIXED at a round's start, U5's baseline: the records at the CURRENT round's
+    mandated base, read from git and not from the working tree, plus the records that round's
+    preregistration authorizes it to add, by stem, as declared outside this region in
+    `_MANIFEST_BASELINE`. Returns None if git could not answer, which U5 treats as a failure."""
+    base = _MANIFEST_BASELINE['base']
+    r = _rbr_git('ls-tree', '--name-only', '%s:verification/seals' % base, tag='R7-SI2')
+    if r is None or r.returncode != 0:
+        return None
+    out = {}
+    for name in r.stdout.decode('utf-8', 'replace').split():
+        if not name.endswith('.json'):
+            continue
+        shown = _rbr_git('show', '%s:verification/seals/%s' % (base, name), tag='R7-SI2')
+        if shown is None or shown.returncode != 0:
+            return None
+        try:
+            out[name[:-5]] = json.loads(shown.stdout.decode('utf-8'))
+        except ValueError:
+            return None
+    now, _errs = _si1_load()
+    for stem in _MANIFEST_BASELINE['authorized']:
+        if stem in now:
+            out[stem] = now[stem]
+    return out
+'''),
+    ("        _SI2_VERDICTS['live'] = _si2_validate(_recs, errors=_errs)\n",
+     "        _SI2_VERDICTS['live'] = _si2_validate(_recs, errors=_errs, prospective=_MANIFEST_PROSPECTIVE)\n"),
+)
+
+
+def _si3_git(*args):
+    r = _rbr_git(*args, tag='R7-SI3')
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout.decode('utf-8', 'replace')
+
+
+def _si3_freeze_pin(read=_bb_read):
+    """N1 -- the frozen preregistration is byte-identical to its blob."""
+    return _bb_blob(_SI3FRZ, read=read) == _SI3_FROZEN_BLOB
+
+
+def _si3_amend_pin(read=_bb_read):
+    """N1 -- Amendment 1 is byte-identical to its blob."""
+    return _bb_blob(_SI3AMD, read=read) == _SI3_AMEND_BLOB
+
+
+def _si3_drift(path):
+    def read(p):
+        return _bb_read(p) + (b'\n' if p == path else b'')
+    return read
+
+
+def _si3_base():
+    """SI-3's mandated execution base: the prospective declaration while the round executes, its
+    manifest record from P. Exactly one of the two must hold; both, or neither, is a failure."""
+    recs, _errs = _si1_load()
+    declared, recorded = 'SI3' in _MANIFEST_PROSPECTIVE, 'SI3' in recs
+    if declared == recorded:
+        return None
+    return _MANIFEST_PROSPECTIVE['SI3'] if declared else recs['SI3'].get('base')
+
+
+def _si3_chronology():
+    """N2 -- U3's verdict on stem SI3 through the prospective path while the round executes, and
+    on SI3.json from P. Never a per-round constant."""
+    return _si3_base() is not None and _si2_authority('SI3', tag='R7-SI3')
+
+
+def _si3_locating_controls():
+    """SI3-0 -- the pinned blobs and the nine preconditions at the MANDATED BASE, read from git."""
+    base = _si3_base()
+    out = {}
+    if base is None:
+        return False, {'mandated base': False}
+    for path, blob in _SI3_PINS.items():
+        out['pin:' + path] = (_si3_git('rev-parse', '%s:%s' % (base, path)) or '').strip() == blob
+    out['pin:amendment-1'] = (_si3_git('rev-parse', '%s:verification/%s' % (base, _SI3AMD)) or '').strip() == _SI3_AMEND_BLOB
+    out['pin:preregistration'] = (_si3_git('rev-parse', '%s:verification/%s' % (base, _SI3FRZ)) or '').strip() == _SI3_FROZEN_BLOB
+    src = _si3_git('show', '%s:verification/lean/edge_rigidity_probe.py' % base) or ''
+    out['P1 no R7-SI3 at base'] = bool(src) and 'R7-SI3' not in src
+    out['P2 no _SI3 at base'] = bool(src) and '_SI3' not in src
+    names = (_si3_git('ls-tree', '--name-only', '%s:verification/seals' % base) or '').split()
+    kinds = {}
+    for name in names:
+        try:
+            rec = json.loads(_si3_git('show', '%s:verification/seals/%s' % (base, name)) or '')
+            kinds[rec.get('round')] = rec.get('kind')
+        except ValueError:
+            kinds[name] = None
+    out['P3 23 records, 18 sealed, 5 base-only, no SI2, no SI3'] = (
+        len(names) == 23 and sum(1 for k in kinds.values() if k == 'sealed') == 18
+        and sum(1 for k in kinds.values() if k == 'base-only') == 5 and 'SI2' not in kinds and 'SI3' not in kinds)
+    stmts = _SI2_LEGACY_RE.findall(src)
+    out['P5 62 statements over 60 names'] = (len(stmts) == 62 and len(set(stmts)) == 60)
+    out['P5 23 shadows, 5 comparators, 23 shadow= calls, 8 recordings'] = (
+        len(re.findall(r'^def _[a-z0-9]+_legacy_ancestry\(', src, re.M)) == 23
+        and len(re.findall(r'^def _[a-z0-9]+_prior_seals\(', src, re.M)) == 5
+        and len(re.findall(r", shadow=_[a-z0-9]+_legacy_ancestry\)$", src, re.M)) == 23
+        and len(re.findall(r"^_si2_shadow_integrity\('R7-", src, re.M)) == 8)
+    b0 = (_si3_git('log', '-1', '--format=%P', _SI3_B0) or '').split()
+    spine = (_si3_git('log', '--first-parent', '--format=%H', base) or '').split()
+    out['P6 B0 provenance'] = (b0 == ['df54b99dba99dc043b11752163d8d348c9e54472',
+                                       'df2fab5770085d7e83543c50c00ffc6a3c2a37d0'] and _SI3_B0 in spine)
+    agents = _si3_git('show', '%s:AGENTS.md' % base) or ''
+    out['P7 the superseded sentence at base'] = 'remain **PROTECTED HISTORICAL SEAL STATE**' in ' '.join(agents.split())
+    out['P8 the prospective path at base'] = ('def _si1_validate(records, prospective=None' in src
+                                             and 'prospective=prospective' in src)
+    out['P9 no SI2.json at base; _SI2_BASE is SI-2\'s base'] = (
+        'SI2' not in kinds and "_SI2_BASE = 'df54b99dba99dc043b11752163d8d348c9e54472'" in src)
+    out['P4 base guard passes'] = None  # measured by the base run, SI3-7
+    parents = (_si3_git('log', '-1', '--format=%P', base) or '').split()
+    out['P10 the base is the Amendment 1 merge'] = parents == ['220827b89c038d98dbe643a53c72a8fd00ed8480',
+                                                                '51f9d63ddef08762fa77620e1c50532fee2beb37']
+    region = src.split('# ==== SI2-AUTHORITY-BEGIN ====', 1)[-1].split('# ==== SI2-AUTHORITY-END ====', 1)[0]
+    out['P11 dead objects and residue at base'] = (all(region.count(d) == 1 for d in _SI3_REGION_DELETIONS)
+                                                   and all(src.count('\n' + l + '\n') == 1 for l in _SI3_RESIDUE))
+    out['P12 attempt 1 unreachable'] = _si3_git('merge-base', '--is-ancestor', _SI3_ATTEMPT1, 'HEAD') is None
+    holds = all(v for v in out.values() if v is not None)
+    return holds, out
+
+
+def _si3_manifest_state():
+    """SI3-1 and the landing shape, mode-aware. Returns (ok, mode, detail)."""
+    recs, errs = _si1_load()
+    declared, recorded = 'SI3' in _MANIFEST_PROSPECTIVE, 'SI3' in recs
+    if errs or declared == recorded:
+        return False, 'declared-and-recorded' if declared else 'neither-declared-nor-recorded', len(recs)
+    sealed = sum(1 for r in recs.values() if r.get('kind') == 'sealed')
+    base_only = sum(1 for r in recs.values() if r.get('kind') == 'base-only')
+    si2_ok = recs.get('SI2') == _SI3_SI2_RECORD
+    if declared:
+        ok = (len(recs) == 24 and sealed == 18 and base_only == 6 and si2_ok
+              and _MANIFEST_PROSPECTIVE == {'SI3': _MANIFEST_PROSPECTIVE['SI3']}
+              and _MANIFEST_BASELINE == {'base': _MANIFEST_PROSPECTIVE['SI3'], 'authorized': ('SI2', 'SI3')})
+        return ok, 'executing', len(recs)
+    ok = (len(recs) == 25 and sealed == 19 and base_only == 6 and si2_ok
+          and recs['SI3'].get('kind') == 'sealed' and recs['SI3'].get('base') == _MANIFEST_BASELINE['base']
+          and _MANIFEST_PROSPECTIVE == {})
+    return ok, 'pinned', len(recs)
+
+
+def _si3_genuine_reads(src):
+    """SI3-2 / SI3-4 -- genuine identifier reads of any legacy-shaped name, by tokenization: NAME
+    tokens matching _<STEM>_(BASE|SEALED_HEAD|MERGE) outside their own assignment lines. String
+    literals are not reads. Returns (reads, string_pairs)."""
+    import io
+    import tokenize
+    assign = {i + 1 for i, l in enumerate(src.split('\n')) if _SI2_LEGACY_RE.match(l)}
+    reads, pairs = 0, 0
+    try:
+        for tok in tokenize.generate_tokens(io.StringIO(src).readline):
+            if tok.type == tokenize.NAME and _SI3_LEGACY_TOKEN.match(tok.string) and tok.start[0] not in assign:
+                reads += 1
+            elif tok.type == tokenize.STRING:
+                pairs += len(set(re.findall(r'\b_[A-Z0-9]+_(?:BASE|SEALED_HEAD|MERGE)\b', tok.string)))
+    except (tokenize.TokenError, SyntaxError):
+        return None, None
+    return reads, pairs
+
+
+def _si3_shadows_gone(src):
+    """SI3-3 -- zero shadow functions, zero comparators, zero recordings, zero shadow= arguments,
+    every keyed wrapper shadowless."""
+    if re.search(r'^def _[a-z0-9]+_legacy_ancestry\(', src, re.M):
+        return False
+    if re.search(r'^def _[a-z0-9]+_prior_seals\(', src, re.M):
+        return False
+    if re.search(r"^_si2_shadow_integrity\(", src, re.M) or re.search(r"^def _si2_shadow_integrity\(", src, re.M):
+        return False
+    if re.search(r"shadow=_[a-z0-9]+_legacy_ancestry", src):
+        return False
+    for stem in _SI2_MANIFESTED:
+        if not _si2_clause_gates_on_u3(src, stem):
+            return False
+    body = _si2_wrapper_source(src, '_si2_execution_ancestry') or ''
+    code = body.split('"""', 2)[2] if body.lstrip().startswith('"""') and body.count('"""') >= 2 else body
+    lines = [l for l in code.split('\n') if l.strip() and not l.strip().startswith('#')]
+    return lines == ["    return _si2_authority('SI2', tag='R7-SI2')"]
+
+
+def _si3_statements(src):
+    """SI3-4 -- the legacy assignment statements, by SI2-6(b)'s extractor, this round's own stem
+    excluded by nothing: there is none."""
+    return [m.group(0) for m in _SI2_LEGACY_RE.finditer(src)]
+
+
+def _si3_archives_pinned(read=_bb_read):
+    """SI3-5 -- the two censuses pinned by their existing blobs in the guards that once re-measured
+    them, and the harness that ran the retired side gone."""
+    src = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+    return (_bb_blob(_SI1CENSUSREL, read=read) == '7a3e6288c5f532a849a07beb9a8e5757cdf79d04'
+            and _bb_blob(_SI2CENSUSREL, read=read) == 'd6b2e505da8bb816179a822258d6672b79670155'
+            and "_SI1_CENSUS_BLOB = '7a3e6288c5f532a849a07beb9a8e5757cdf79d04'" in src
+            and "_SI2_CENSUS_BLOB = 'd6b2e505da8bb816179a822258d6672b79670155'" in src
+            and 'ok_si1 &= _si1_census_pinned' in src and 'ok_si2 &= _si2_census_pinned' in src
+            and not re.search(r'^def _si[12]_(?:control_)?census\(', src, re.M))
+
+
+def _si3_agents_updated(t=None):
+    """SI3-6 -- A.37 states the retirement and what holds from it; the sentence that the constants
+    remain protected historical seal state is superseded in place."""
+    t = open(os.path.join(os.path.dirname(VERIFICATION), 'AGENTS.md'), encoding='utf-8').read() if t is None else t
+    flat = ' '.join(t.split())
+    return ('### The representation retired, from `SI-3`\'s landing' in t
+            and '**The legacy representation is retired.**' in flat
+            and '**zero legacy assignment statements in the file**' in flat
+            and 'has recreated the representation that was retired' in flat
+            and '**manifest accessor**' in flat
+            and '**prospective declaration**' in flat
+            and '**`P` removes the entry when it writes the record**' in flat
+            and '**declared baseline**' in flat
+            and '**A closed round\'s contracts are read over the records it manifested.**' in flat
+            and '**The censuses are history.**' in flat
+            and 'never read as evidence about a later head' in flat
+            and 'both of which held until `SI-3`\'s landing' in flat
+            and 'remained **PROTECTED HISTORICAL SEAL STATE**' in flat
+            and 'remain **PROTECTED HISTORICAL SEAL STATE**' not in flat)
+
+
+def _si3_base_tag_map():
+    """SI3-7 -- the base's own guard file is RUN, at the base, in a detached temporary worktree with
+    every git and pull-request environment variable removed, exactly as SI2-6(a) runs its base; its
+    verdict lines are parsed into a tag-to-verdict map. Eight executions per run at this head, the
+    base's file running its own bases' files. Returns the map or None."""
+    import shutil
+    import subprocess
+    import tempfile
+    base = _si3_base()
+    if base is None:
+        return None
+    tmp = tempfile.mkdtemp(prefix='si3-base-')
+    wt = os.path.join(tmp, 'base')
+    out = None
+    try:
+        add = _rbr_git('worktree', 'add', '--detach', wt, base, tag='R7-SI3', timeout=600)
+        if add is None or add.returncode != 0:
+            return None
+        probe = os.path.join(wt, 'verification', 'lean', 'edge_rigidity_probe.py')
+        if not os.path.exists(probe):
+            return None
+        env = dict(os.environ)
+        for key in ('SI3_EMIT_TAGMAP', 'SI2_EMIT_CENSUS', 'SI1_EMIT_CENSUS', 'GITHUB_EVENT_NAME',
+                    'GITHUB_EVENT_PATH', 'GITHUB_BASE_REF', 'GIT_DIR', 'GIT_WORK_TREE',
+                    'GIT_INDEX_FILE', 'GIT_COMMON_DIR', 'GIT_OBJECT_DIRECTORY'):
+            env.pop(key, None)
+        try:
+            out = subprocess.run((sys.executable, probe), cwd=os.path.dirname(probe),
+                                 capture_output=True, timeout=5400, env=env)
+        except Exception:
+            out = None
+    finally:
+        _rbr_git('worktree', 'remove', '--force', wt, tag='R7-SI3', timeout=600)
+        _rbr_git('worktree', 'prune', tag='R7-SI3')
+        shutil.rmtree(tmp, ignore_errors=True)
+    if out is None:
+        return None
+    base_map = {}
+    for line in out.stdout.decode('utf-8', 'replace').split('\n'):
+        m = re.match(r'\s+(PASS|FAIL)\s+(\S+?):', line)
+        if m:
+            base_map[m.group(2)] = m.group(1)
+    return base_map or None
+
+
+def _si3_map_preserved(base_map, head_map):
+    return (base_map is not None and len(base_map) == 92
+            and all(v == 'PASS' for v in base_map.values())
+            and all(head_map.get(t) == v for t, v in base_map.items()))
+
+
+def _si3_region_bounded(src=None):
+    """Negative case 14 -- the SI2-AUTHORITY region at the head equals the base's after reverting
+    exactly the two authorized wiring edits, and differs before; no round stem in the region."""
+    src = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace') if src is None else src
+    base_src = _si3_git('show', '%s:verification/lean/edge_rigidity_probe.py' % _si3_base()) or ''
+    b, e = '# ==== SI2-AUTHORITY-BEGIN ====', '# ==== SI2-AUTHORITY-END ===='
+    if b not in src or e not in src or b not in base_src or e not in base_src:
+        return False
+    rh = src.split(b, 1)[1].split(e, 1)[0]
+    rb = base_src.split(b, 1)[1].split(e, 1)[0]
+    rev = rh
+    for old, new in _SI3_REGION_EDITS:
+        if rev.count(new) != 1:
+            return False
+        rev = rev.replace(new, old, 1)
+    # Amendment 1 point 1: the base's region with exactly the two named dead objects excised.
+    rb_ex = rb
+    for dead in _SI3_REGION_DELETIONS:
+        if rb_ex.count(dead) != 1:
+            return False
+        rb_ex = rb_ex.replace(dead, '', 1)
+    return rev == rb_ex and rh != rb and not re.search(r'_SI3_|\bSI3\b', rh)
+
+
+def _si3_reads_outside(src):
+    """Amendment 1 point 3 -- genuine reads OUTSIDE the shadow and comparator functions, with the
+    text of every line carrying one. None if the source does not tokenize."""
+    import io
+    import tokenize
+    stripped = re.sub(r'^def _[a-z0-9]+_(?:legacy_ancestry|prior_seals)\(.*?(?=^\S|\Z)', '', src, flags=re.M | re.S)
+    lines = stripped.split('\n')
+    assign = {i + 1 for i, l in enumerate(lines) if _SI2_LEGACY_RE.match(l)}
+    count, where = 0, set()
+    try:
+        for tok in tokenize.generate_tokens(io.StringIO(stripped).readline):
+            if tok.type == tokenize.NAME and _SI3_LEGACY_TOKEN.match(tok.string) and tok.start[0] not in assign:
+                count += 1
+                where.add(lines[tok.start[0] - 1].strip())
+    except (tokenize.TokenError, SyntaxError):
+        return None, None
+    return count, where
+
+
+def _si3_stage_commits():
+    """The six stage commits by SHA, from the result note's commit table."""
+    return {int(n): sha for sha, n in re.findall(r'^\| `([0-9a-f]{40})` \| stage ([1-6]) \|', _SI3RES, re.M)}
+
+
+def _si3_residue_bound():
+    """Amendment 1 point 3, measured from git at each stage commit: 62 statements through stage 3;
+    at the stage-2 and stage-3 commits exactly six reads outside the shadow and comparator
+    functions, all on residue lines; from stage 4 zero reads and zero statements. Every stage commit
+    must be reachable from the head."""
+    commits = _si3_stage_commits()
+    if sorted(commits) != [1, 2, 3, 4, 5, 6]:
+        return False, {}
+    detail, ok_all = {}, True
+    for n, sha in sorted(commits.items()):
+        src = _si3_git('show', '%s:verification/lean/edge_rigidity_probe.py' % sha)
+        reach = _si3_git('merge-base', '--is-ancestor', sha, 'HEAD') is not None
+        if src is None:
+            return False, {}
+        cnt, where = _si3_reads_outside(src)
+        stmts = len(_SI2_LEGACY_RE.findall(src))
+        if n == 1:
+            ok = reach and stmts == 62
+        elif n in (2, 3):
+            ok = reach and stmts == 62 and cnt == 6 and (where or set()) <= set(_SI3_RESIDUE)
+        else:
+            ok = reach and stmts == 0 and cnt == 0
+        detail[n] = (cnt, stmts, ok)
+        ok_all &= ok
+    return ok_all, detail
+
+
+# ---- the result note, read with a missing file counted as an empty note rather than a crash.
+try:
+    _SI3RES = _bb_read(_SI3RESREL).decode('utf-8')
+except Exception:  # noqa: BLE001
+    _SI3RES = ''
+
+
+def _si3_flat(t):
+    return ' '.join((_SI3RES if t is None else t).split())
+
+
+def _si3_c_sealing(t=None):
+    f = _si3_flat(t)
+    return ('This round is **SEALING**' in f and '`E` → `L` → `P`' in f
+            and 'writes no legacy constant' in f)
+
+
+def _si3_c_inventory(t=None):
+    f = _si3_flat(t)
+    return ('**62 statements over 60 names**' in f and '**228 genuine identifier reads**' in f
+            and '116 shadow-ancestry' in f and '60 comparator' in f and '52 other' in f)
+
+
+def _si3_c_supersession(t=None):
+    f = _si3_flat(t)
+    return ('**the supersession table is the authorization**' in f and 'N13' in f
+            and 'nothing outside the table was touched' in f)
+
+
+def _si3_c_censuses(t=None):
+    f = _si3_flat(t)
+    return ('**certified historical measurements of their rounds\' checkpoints**' in f
+            and 'never read as current evidence' in f
+            and 'no old/new equivalence is claimed after retirement' in f)
+
+
+def _si3_c_unedited(t=None):
+    f = _si3_flat(t)
+    return '**`SI-1`\'s and `SI-2`\'s recorded outcomes are not edited**' in f
+
+
+def _si3_c_not_act21(t=None):
+    f = _si3_flat(t)
+    return '**`SI-3` is not Act 21**' in f
+
+
+def _si3_c_discrepancy(t=None):
+    f = _si3_flat(t)
+    return ('**no discrepancy**' in f and 'Amendment 1' in f and '`_si2_shadow_integrity`' in f
+            and 'clause-9 block' in f)
+
+
+def _si3_c_attempt1(t=None):
+    f = _si3_flat(t)
+    return ('76bf328a19c7354cbb0a120b4a374c16369aa1a1' in f and '**non-certifying**' in f
+            and 'not result evidence' in f)
+
+
+def _si3_c_residue(t=None):
+    f = _si3_flat(t)
+    return '**exactly six**' in f and 'not counted as rebound' in f
+
+
+def _si3_c_slots(t=None):
+    f = _si3_flat(t)
+    return '**Three definition slots, and three were fired**' in f
+
+
+def _si3_c_order(t=None):
+    f = _si3_flat(t)
+    return '**The stages were run in the frozen order, and the order was gating**' in f
+
+
+def _si3_c_prospective(t=None):
+    f = _si3_flat(t)
+    return ('`LANDED-PENDING-PIN`' in f and '**the prospective path classified this round in vivo**' in f)
+
+
+def _si3_c_predictions(t=None):
+    f = _si3_flat(t)
+    return '**`MAP-PRESERVED`**' in f and '**`SHADOWS-RETIRED`**' in f and '**`RETIRED`**' in f
+
+
+def _si3_c_nested(t=None):
+    f = _si3_flat(t)
+    return '**eight executions of the guard file per run**' in f
+
+
+ok_si3 = True
+_si3_src = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+
+# N1 -- the frozen blob, with its drift control.
+ok_si3 &= _si3_freeze_pin()
+ok_si3 &= _si3_drift(_SI3FRZ)(_SI3FRZ) != _bb_read(_SI3FRZ)
+ok_si3 &= not _si3_freeze_pin(_si3_drift(_SI3FRZ))
+# N1, Amendment 1 -- the second frozen blob, with its own drift control (Amendment 1 point 6).
+ok_si3 &= _si3_amend_pin()
+ok_si3 &= _si3_drift(_SI3AMD)(_SI3AMD) != _bb_read(_SI3AMD)
+ok_si3 &= not _si3_amend_pin(_si3_drift(_SI3AMD))
+
+# N2 -- the chronology, through U3 and never a constant.
+ok_si3 &= _si3_chronology()
+
+# SI3-0 -- locating controls at the mandated base.
+_si3_hold, _si3_hold_detail = _si3_locating_controls()
+ok_si3 &= _si3_hold
+print('    R7-SI3 SI3-0: %s -- %d of %d locating controls hold at the mandated base %s'
+      % ('HOLD' if _si3_hold else 'DRIFTED',
+         sum(1 for v in _si3_hold_detail.values() if v), sum(1 for v in _si3_hold_detail.values() if v is not None),
+         (_si3_base() or '?')[:12]))
+for _k, _v in _si3_hold_detail.items():
+    if _v is False:
+        print('      DRIFTED: %s' % _k)
+
+# SI3-1 -- the record, the declared baseline, U5, and the landing shape.
+_si3_m_ok, _si3_mode, _si3_nrecs = _si3_manifest_state()
+ok_si3 &= _si3_m_ok and _si2_integrity_ok()
+# negative 5: SI2.json absent, or carrying sealed_head even as null
+ok_si3 &= not _si1_schema(dict(_SI3_SI2_RECORD, sealed_head=None), 'SI2')[0]
+# negative 6: a record beyond the authorized additions is reported as added by U5
+_si3_at = _si2_manifest_at_stage1() or {}
+ok_si3 &= bool(_si3_at) and [k for k, v in _si1_integrity(_si3_at, dict(_si3_at, ZZ={'kind': 'base-only', 'base': '1' * 40})).items() if v] == ['added']
+print('    R7-SI3 SI3-1: %s -- %d records, mode %s; SI2 record %s; U5 delta %s'
+      % ('RECORD-AS-AUTHORIZED' if _si3_m_ok else 'RECORD-DEVIATED', _si3_nrecs, _si3_mode,
+         'as authorized' if (_si1_load()[0].get('SI2') == _SI3_SI2_RECORD) else 'DEVIATED', _si2_integrity()))
+
+# SI3-2 -- every remaining read goes through the accessor: zero genuine reads.
+_si3_reads, _si3_pairs = _si3_genuine_reads(_si3_src)
+ok_si3 &= _si3_reads == 0 and '_seal_field' in _si3_src
+# negative 4: a genuine read surviving fails; the same name inside a string literal does not
+ok_si3 &= (_si3_genuine_reads(_si3_src + "\nx = _HYA_BASE\n")[0] or 0) == 1
+ok_si3 &= (_si3_genuine_reads(_si3_src + "\nx = '_HYA_BASE'\n")[0] or 0) == 0
+# negative 13: the accessor fails closed and never returns a default
+ok_si3 &= _seal_field('ZZ', 'base') == _SEAL_UNAVAILABLE and _seal_field('SI1', 'sealed_head') == _SEAL_UNAVAILABLE
+ok_si3 &= _seal_field('SI1', 'base') == '99ab6370470ed9d9e4005551581c6c8c18e54bd2'
+# Amendment 1 point 3: the residue bound at every stage commit, from git; negative 16.
+_si3_rb_ok, _si3_rb = _si3_residue_bound()
+ok_si3 &= _si3_rb_ok
+_si3_residue_text = '\n' + '\n'.join(_SI3_RESIDUE) + '\n'
+ok_si3 &= _si3_reads_outside(_si3_src + _si3_residue_text)[0] == 6
+ok_si3 &= _si3_reads_outside(_si3_src + _si3_residue_text + "\nx = _RNT_BASE\n")[0] == 7  # a seventh read grows it
+ok_si3 &= not _si3_reads_outside(_si3_src + "\nx = _RNT_MERGE\n")[1] <= set(_SI3_RESIDUE)  # off the residue lines
+ok_si3 &= _si3_reads_outside(_si3_src + "\ndef _zz_legacy_ancestry():\n    return _HYA_BASE\n")[0] == 0  # inside machinery
+print('    R7-SI3 SI3-2: %s -- %s genuine identifier reads of a legacy-shaped name at the head; %s string-literal '
+      '(token, name) pairs, reported and not bounded; the accessor fails closed; residue bound per stage commit '
+      '(reads outside the machinery, statements): %s'
+      % ('REBOUND' if _si3_reads == 0 and _si3_rb_ok else 'REBOUND-PARTIAL', _si3_reads, _si3_pairs,
+         ', '.join('%d: %s/%s' % (n, v[0], v[1]) for n, v in sorted(_si3_rb.items())) or 'NO STAGE TABLE'))
+
+# SI3-3 -- the shadows are gone and nothing gated on them.
+_si3_sh = _si3_shadows_gone(_si3_src)
+ok_si3 &= _si3_sh and '_SI2_SHADOW_INTEGRITY' not in globals() and '_si2_shadow_integrity' not in globals()
+# negatives 2 and 3
+ok_si3 &= not _si3_shadows_gone(_si3_src + "\ndef _zz_legacy_ancestry():\n    return True\n")
+ok_si3 &= not _si3_shadows_gone(_si3_src + "\ndef _zz_prior_seals():\n    return True\n")
+ok_si3 &= not _si3_shadows_gone(_si3_src.replace("    return _si2_authority('HYA', tag='R7-HYA')",
+                                                 "    return _si2_authority('HYA', tag='R7-HYA', shadow=_hya"
+                                                 + "_legacy_ancestry)"))  # assembled: the file must not carry the form
+print('    R7-SI3 SI3-3: %s -- zero shadow functions, zero comparators, zero recordings, 24 keyed clauses shadowless'
+      % ('SHADOWS-RETIRED' if _si3_sh else 'SHADOWS-PARTIAL'))
+
+# SI3-4 -- the representation is gone, and stays gone.
+_si3_stmts = _si3_statements(_si3_src)
+ok_si3 &= len(_si3_stmts) == 0
+ok_si3 &= len(_si3_statements(_si3_src + "\n_ZZ_BASE = '%s'\n" % ('0' * 40))) == 1  # negative 1
+print('    R7-SI3 SI3-4: %s -- %d legacy assignment statements in the guard file, a standing contract from this landing'
+      % ('RETIRED' if not _si3_stmts else 'RETIRED-PARTIAL', len(_si3_stmts)))
+
+# SI3-5 -- the archived measurements, pinned, with their drift controls.
+_si3_arch = _si3_archives_pinned()
+ok_si3 &= _si3_arch
+ok_si3 &= not _si3_archives_pinned(_si3_drift(_SI1CENSUSREL))  # negative 11
+ok_si3 &= not _si3_archives_pinned(_si3_drift(_SI2CENSUSREL))
+print('    R7-SI3 SI3-5: %s -- SI-1\'s and SI-2\'s census.json pinned at 7a3e6288 and d6b2e505 as certified '
+      'historical measurements; the harness that ran the retired side is gone'
+      % ('ARCHIVED-AS-PINNED' if _si3_arch else 'ARCHIVE-PARTIAL'))
+
+# SI3-6 -- the protocol.
+_si3_agents = open(os.path.join(os.path.dirname(VERIFICATION), 'AGENTS.md'), encoding='utf-8').read()
+ok_si3 &= _si3_agents_updated(_si3_agents)
+ok_si3 &= not _si3_agents_updated(_si3_agents.replace('remained **PROTECTED HISTORICAL SEAL STATE**',
+                                                      'remain **PROTECTED HISTORICAL SEAL STATE**'))  # negative 12
+ok_si3 &= not _si3_agents_updated(_si3_agents.replace('**The legacy representation is retired.**', ''))
+ok_si3 &= not _si3_agents_updated(_si3_agents.replace('**A closed round\'s contracts are read over the records it manifested.**', ''))
+print('    R7-SI3 SI3-6: %s -- A.37 states the retirement, the prospective declaration and its removal at P, '
+      'the declared baseline, the closed-round rule, and the censuses as history'
+      % ('PROTOCOL-UPDATED' if _si3_agents_updated(_si3_agents) else 'PROTOCOL-ABSENT'))
+
+# The two in-vivo negatives on synthetic history, 8 and 9: the prospective path and the pin.
+_si3_d, _si3_n, _si3_g = _si2_build_repo()
+try:
+    _si3_got_desc = _si2_validate({}, prospective={'QQ': _si3_n['B']}, cwd=_si3_d, target=_si3_n['Maf'],
+                                  label='descendant', targets=[(_si3_n['Maf'], 'descendant')])
+    _si3_got_land = _si2_validate({}, prospective={'QQ': _si3_n['B']}, cwd=_si3_d, target=_si3_n['Lm'],
+                                  label='landing', targets=[(_si3_n['Lm'], 'landing')])
+    _si3_got_exec = _si2_validate({}, prospective={'QQ': _si3_n['B']}, cwd=_si3_d, target=_si3_n['E2'],
+                                  label='execution head', targets=[(_si3_n['E2'], 'execution head')])
+    _si3_neg8 = (_si3_got_desc is not None and _si3_got_desc['QQ'][0] == 'LANDED-PENDING-PIN' and not _si3_got_desc['QQ'][1]
+                 and _si3_got_land is not None and _si3_got_land['QQ'][0] == 'LANDED-PENDING-PIN' and _si3_got_land['QQ'][1]
+                 and _si3_got_exec is not None and _si3_got_exec['QQ'] [0] == 'EXECUTION' and _si3_got_exec['QQ'][1])
+    _si3_rec_ok = {'QQ': {'round': 'QQ', 'kind': 'sealed', 'base': _si3_n['B'], 'sealed_head': _si3_n['E2'], 'merge': _si3_n['Lm']}}
+    _si3_rec_head = {'QQ': dict(_si3_rec_ok['QQ'], sealed_head=_si3_n['E1'])}
+    _si3_rec_merge = {'QQ': dict(_si3_rec_ok['QQ'], merge=_si3_n['L2'])}
+    _si3_v_ok = _si2_validate(_si3_rec_ok, cwd=_si3_d, target=_si3_n['Maf'], label='t', targets=[(_si3_n['Maf'], 't')])
+    _si3_v_head = _si2_validate(_si3_rec_head, cwd=_si3_d, target=_si3_n['Maf'], label='t', targets=[(_si3_n['Maf'], 't')])
+    _si3_v_merge = _si2_validate(_si3_rec_merge, cwd=_si3_d, target=_si3_n['Maf'], label='t', targets=[(_si3_n['Maf'], 't')])
+    _si3_neg9 = (_si3_v_ok is not None and _si3_v_ok['QQ'][1]
+                 and _si3_v_head is not None and not _si3_v_head['QQ'][1]
+                 and _si3_v_merge is not None and not _si3_v_merge['QQ'][1])
+finally:
+    import shutil as _si3_shutil
+    _si3_shutil.rmtree(_si3_d, ignore_errors=True)
+ok_si3 &= _si3_neg8 and _si3_neg9
+# negative 7: declared and recorded at once is a failure -- evaluated on the predicate's own logic
+ok_si3 &= _si3_base() is not None
+print('    R7-SI3 prospective path: a descendant of an unpinned landing FAILS as seal pending, the landing itself is '
+      'PERMITTED, the execution head is EXECUTION; at P a sealed_head that is not the landing\'s second parent and a '
+      'merge that is not the derived landing both FAIL -- %s' % ('as required' if _si3_neg8 and _si3_neg9 else 'NOT as required'))
+
+# The regions: the two authorized wiring edits and nothing else; no round stem.
+ok_si3 &= _si3_region_bounded()
+ok_si3 &= not _si3_region_bounded(_si3_src.replace('# ==== SI2-AUTHORITY-END ====', '_zz = 1\n# ==== SI2-AUTHORITY-END ====', 1))  # negative 14
+ok_si3 &= not _si3_region_bounded(_si3_src.replace('# ==== SI2-AUTHORITY-END ====', _SI3_REGION_DELETIONS[1] + '# ==== SI2-AUTHORITY-END ====', 1))  # negative 15
+ok_si3 &= not _si3_region_bounded(_si3_src.replace('_SI2_INTEGRITY = {}\n', '_SI2_INTEGRITY = {}\n' + _SI3_REGION_DELETIONS[0], 1))  # negative 15
+ok_si3 &= _si2_region_no_stem() and _si2_region_relocated_verbatim()
+
+# No manuscript, book or Lean file touched.
+_si3_diff = _si3_git('diff', '--name-only', _si3_base() or 'HEAD', 'HEAD') or ''
+ok_si3 &= bool(_si3_diff) and not any(p.startswith('papers/') or p.startswith('book/') or p.endswith('.lean')
+                                      for p in _si3_diff.split())
+
+# Three definition slots, three fired.
+ok_si3 &= all(name in globals() for name in ('_seal_field', '_MANIFEST_PROSPECTIVE', '_MANIFEST_BASELINE'))
+
+# SI3-7 -- the verdict map: the base's guard file RUN at the base and compared in process.
+_si3_base_map = _si3_base_tag_map()
+_si3_head_map = dict(zip(CHECK_TAGS, ('PASS' if v else 'FAIL' for v in CHECKS)))
+_si3_preserved = _si3_map_preserved(_si3_base_map, _si3_head_map)
+ok_si3 &= _si3_preserved
+if _si3_base_map:
+    _si3_flip = dict(_si3_head_map)
+    _si3_flip[sorted(_si3_base_map)[0]] = 'FAIL'
+    ok_si3 &= not _si3_map_preserved(_si3_base_map, _si3_flip)  # negative 10
+if os.environ.get('SI3_EMIT_TAGMAP') == '1' and _si3_base_map is not None:
+    with open(_artifact(_SI3TAGMAPREL), 'w', encoding='utf-8') as _fh:
+        _fh.write(json.dumps({
+            'round': 'SI-3', 'base': _si3_base(),
+            'note': ('The tag-to-verdict map of the MANDATED BASE\'s own guard file, measured by running that '
+                     'file at the base. R7-SI3 re-runs the base file on every run, requires the fresh map to '
+                     'equal this one, and compares it in process with the head\'s map over the same tags: '
+                     'MAP-PRESERVED means every one of the base\'s ninety-two tags returns the same verdict at '
+                     'the head as at the base.'),
+            'base_tag_count': len(_si3_base_map), 'base_all_pass': all(v == 'PASS' for v in _si3_base_map.values()),
+            'base_tag_verdicts': _si3_base_map}, indent=2) + '\n')
+try:
+    _si3_tagpersist = json.loads(_bb_read(_SI3TAGMAPREL).decode('utf-8'))['base_tag_verdicts']
+except Exception:  # noqa: BLE001
+    _si3_tagpersist = None
+ok_si3 &= _si3_tagpersist is not None and _si3_tagpersist == _si3_base_map
+print('    R7-SI3 SI3-7: %s -- the base\'s guard file was RUN: %s tags, %s; head verdicts on those tags identical: %s; '
+      'map identical to the persisted one: %s'
+      % ('MAP-PRESERVED' if _si3_preserved else 'MAP-CHANGED', len(_si3_base_map or {}),
+         'all PASS' if _si3_base_map and all(v == 'PASS' for v in _si3_base_map.values()) else 'NOT all PASS',
+         all(_si3_head_map.get(t) == v for t, v in (_si3_base_map or {}).items()),
+         _si3_tagpersist == _si3_base_map))
+if _si3_base_map and not _si3_preserved:
+    for _t, _v in _si3_base_map.items():
+        if _si3_head_map.get(_t) != _v:
+            print('      CHANGED %s: base %s, head %s -- a result requiring adjudication' % (_t, _v, _si3_head_map.get(_t)))
+
+# Content contracts on the result note, each with a mutation control applied to the collapsed text.
+for _pred, _old, _new in (
+        (_si3_c_sealing, 'This round is **SEALING**', 'This round is NON-SEALING'),
+        (_si3_c_inventory, '**62 statements over 60 names**', '**61 statements over 59 names**'),
+        (_si3_c_supersession, '**the supersession table is the authorization**', 'the diff is the authorization'),
+        (_si3_c_censuses, 'never read as current evidence', 'read as current evidence'),
+        (_si3_c_unedited, '**`SI-1`\'s and `SI-2`\'s recorded outcomes are not edited**', 'SI-1\'s and SI-2\'s outcomes are corrected here'),
+        (_si3_c_not_act21, '**`SI-3` is not Act 21**', '**`SI-3` is Act 21**'),
+        (_si3_c_discrepancy, '**no discrepancy**', '**one discrepancy**'),
+        (_si3_c_attempt1, '**non-certifying**', '**certifying**'),
+        (_si3_c_residue, '**exactly six**', '**exactly seven**'),
+        (_si3_c_slots, '**Three definition slots, and three were fired**', 'Four definition slots were fired'),
+        (_si3_c_order, '**The stages were run in the frozen order, and the order was gating**', 'The stages were run in a convenient order'),
+        (_si3_c_prospective, '**the prospective path classified this round in vivo**', 'the prospective path was not exercised'),
+        (_si3_c_predictions, '**`MAP-PRESERVED`**', '**`MAP-CHANGED`**'),
+        (_si3_c_nested, '**eight executions of the guard file per run**', 'one execution of the guard file per run')):
+    _si3_flat_res = ' '.join(_SI3RES.split())
+    _si3_mut = _si3_flat_res.replace(_old, _new)
+    ok_si3 &= _pred() and _si3_mut != _si3_flat_res and not _pred(_si3_mut)
+
+check('R7-SI3', ok_si3,
+      "Seal infrastructure round SI-3 guard: THE LEGACY SEAL RETIREMENT, a SEALING round under A.37 as "
+      "amended by SI2-7, E -> L -> P, its P writing SI3.json and no legacy constant, executed from the "
+      "certified merge of its control plane and verifying the frozen preregistration at that base, pinned "
+      "by blob with a one-byte drift control. ITS CHRONOLOGY IS U3's: while the round executes, its mandated "
+      "base is carried by the stem-free PROSPECTIVE DECLARATION outside the validator's regions and the "
+      "validator's own prospective path classifies it EXECUTION by act 10's strengthened check; at L it is "
+      "LANDED-PENDING-PIN, permitted; from P, when the declaration is removed and the record exists, it is "
+      "ARCHIVED with the derived landing equal to the pinned one. Never a per-round constant. THE LOCATING "
+      "CONTROLS HOLD at the mandated base: fourteen pinned blobs and nine preconditions, read from git. THE "
+      "RECORD IS AS AUTHORIZED: SI2.json base-only at SI-2's mandated base, added first, the record set "
+      "twenty-four while executing and twenty-five from P, U5 reporting nothing against the DECLARED "
+      "BASELINE -- the seals tree at the current round's mandated base plus its authorized additions by stem. "
+      "EVERY REMAINING READ GOES THROUGH THE ACCESSOR: zero genuine identifier reads of a legacy-shaped name "
+      "by tokenization, string literals not being reads, and the accessor fails closed on a missing record or "
+      "field. THE SHADOWS ARE GONE AND NOTHING GATED ON THEM: zero shadow functions, zero comparators, zero "
+      "recordings, twenty-four keyed clauses shadowless, and the verdict map unchanged by their removal. THE "
+      "REPRESENTATION IS GONE: zero legacy assignment statements, a standing contract from this landing. THE "
+      "ARCHIVED MEASUREMENTS: SI-1's and SI-2's censuses pinned by their existing blobs as certified "
+      "historical measurements of those rounds' checkpoints, their retired side no longer reproducible, never "
+      "read as current evidence, no old/new equivalence claimed. THE PROTOCOL IS UPDATED: A.37 states the "
+      "retirement, the prospective declaration and its removal at P, the declared baseline, the closed-round "
+      "rule and the censuses as history, the sentence that the constants remain protected superseded in place. "
+      "THE VERDICT MAP IS PRESERVED: the base's own guard file is RUN at the base, its ninety-two tags all PASS "
+      "and all return the same verdict at this head, eight executions of the guard file per run. The "
+      "SI2-AUTHORITY region differs from the base's by exactly the two authorized wiring edits and carries no "
+      "round stem; the SI1-VALIDATOR region is untouched. Fourteen negative cases; twelve content contracts, "
+      "each mutation-tested; three definition slots, three fired. Act 21, the Track B round act 20 reserved, "
+      "is neither opened nor closed nor affected by any of this.")
+
 print()
 print('     [scope] Settled in Lean: K4-rigidity for all n >= 5 with the n = 4 complement')
 print('     exception sharp (EdgeRigidity), the non-induced => exceptional-relation corollary')
