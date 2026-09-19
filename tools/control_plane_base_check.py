@@ -44,7 +44,16 @@ What runs where:
 
 Control-plane files are discovered in the tree of --ref, not the working copy:
 any `preregistration.md` or `amendments/amendment-*.md` under `verification/`
-whose content carries the block. A tree with no such file is a clean no-op.
+whose content carries the block. Of those, ONLY the artifacts added or changed
+relative to --ref's first parent are evaluated. A.37 evaluates a control plane's
+rows at its candidate merge M and again at its actual merge B; they are
+conditions on the change that brings the artifact in, not perpetual invariants
+over every later descendant -- a B-scoped row saying that execution has not
+begun is true at B and necessarily false once the round it governs executes.
+So a block-bearing artifact that is byte-identical at the first parent is
+historical provenance, reported as SKIP and not re-evaluated; a new
+preregistration, a new amendment, or any change to an existing artifact is
+evaluated in full. A tree with nothing to evaluate is a clean no-op.
 
 Usage:
     python3 tools/control_plane_base_check.py --mode M --ref <candidate merge>
@@ -254,6 +263,27 @@ def evaluate(mode, ref, cwd, d_override=None, out=print):
         out("control_plane_base_check: mode %s at %s: no control-plane file in "
             "this tree carries a %s block; nothing to evaluate" % (mode, sha[:12], FENCE))
         return 0, 0
+    # Only the artifacts this change adds or changes are in scope. On a pull
+    # request HEAD is the synthetic merge and its first parent is the base
+    # branch's tip; on a push the first parent is the previous tip. An artifact
+    # byte-identical at the first parent was certified by the change that
+    # brought it in, at its own M and B, and is historical here.
+    parent = git(["rev-parse", "--verify", "-q", sha + "^1"], cwd, check=False).strip()
+    if parent:
+        in_scope = []
+        for path, text in files:
+            if blob_at(parent, path, cwd) == blob_at(sha, path, cwd):
+                out("  SKIP  %s :: unchanged since the first parent %s; historical "
+                    "control plane, certified by the change that brought it in"
+                    % (path, parent[:12]))
+            else:
+                in_scope.append((path, text))
+        files = in_scope
+    if not files:
+        out("control_plane_base_check: mode %s at %s: no control-plane artifact "
+            "added or changed relative to the first parent; nothing to evaluate"
+            % (mode, sha[:12]))
+        return 0, 0
     out("control_plane_base_check: mode %s, REF=%s, %d control-plane file(s)"
         % (mode, sha, len(files)))
     fails = rows_seen = 0
@@ -411,14 +441,62 @@ def self_test():
             return False, "clean control plane: expected 0 failures over 3 rows, " \
                           "got %d over %d: %s" % (fails, rows, lines)
 
-        # 3. frozen-blob mutation: the pinned source changes, the check FAILS
+        # 3. frozen-blob mutation at the control-plane transition: the pinned
+        #    source drifts, then a changed control plane comes in on top of the
+        #    drift; the artifact is in scope (changed since its first parent)
+        #    and its frozen-blob row FAILS
         _write(tmp, "src/source.txt", "drifted\n")
-        b2 = _commit(tmp, "drift")
+        _commit(tmp, "drift")
+        _write(tmp, FIXTURE_DIR + "/preregistration.md",
+               _control_plane(d, source_blob, with_failing=False)
+               + "\nRe-issued over the drifted source.\n")
+        b2 = _commit(tmp, "control plane, re-issued over drift")
         lines = []
         fails, _ = evaluate("B", b2, tmp, out=lines.append)
         if fails != 1 or not any("frozen-blob" in l and l.strip().startswith("FAIL")
                                  for l in lines):
             return False, "frozen-blob drift was not reported: %s" % lines
+
+        # 3a. regression control: an unchanged historical control plane whose
+        #     B rows would now fail is SKIPPED on a later execution descendant.
+        #     The source is restored and the control plane re-committed clean,
+        #     then an execution object enters; `no-exec-module` would fail if
+        #     the artifact were evaluated, and the artifact is unchanged.
+        _write(tmp, "src/source.txt", "pinned source\n")
+        _write(tmp, FIXTURE_DIR + "/preregistration.md",
+               _control_plane(d, source_blob, with_failing=False))
+        b_clean = _commit(tmp, "control plane, clean again")
+        lines = []
+        fails, rows = evaluate("B", b_clean, tmp, out=lines.append)
+        if fails != 0 or rows != 3:
+            return False, "re-committed clean control plane: expected 0 failures over " \
+                          "3 rows, got %d over %d: %s" % (fails, rows, lines)
+        _write(tmp, "lean/RoundX.lean", "-- execution object\n")
+        e = _commit(tmp, "execution begins")
+        lines = []
+        fails, rows = evaluate("M", e, tmp, out=lines.append)
+        if (fails != 0 or rows != 0
+                or not any(l.strip().startswith("SKIP") and FIXTURE_DIR in l for l in lines)
+                or not any("nothing to evaluate" in l for l in lines)):
+            return False, "unchanged historical control plane was not skipped on the " \
+                          "execution descendant: %s" % lines
+
+        # 3b. regression control: changing the historical artifact itself makes
+        #     it eligible again, and it is then evaluated -- on the execution
+        #     tree its `no-exec-module` row FAILS, which is also the proof that
+        #     3a skipped rows that would have failed
+        _write(tmp, FIXTURE_DIR + "/preregistration.md",
+               _control_plane(d, source_blob, with_failing=False)
+               + "\nEdited after execution began.\n")
+        e2 = _commit(tmp, "historical control plane edited")
+        lines = []
+        fails, rows = evaluate("M", e2, tmp, out=lines.append)
+        if (fails != 1 or rows != 3
+                or any(l.strip().startswith("SKIP") for l in lines)
+                or not any("row no-exec-module" in l and l.strip().startswith("FAIL")
+                           for l in lines)):
+            return False, "edited historical control plane was not re-evaluated, or its " \
+                          "execution-tree row did not fail: %s" % lines
 
         # 4. a D that is not an ancestor: the D row and the D->B row both FAIL
         lines = []
