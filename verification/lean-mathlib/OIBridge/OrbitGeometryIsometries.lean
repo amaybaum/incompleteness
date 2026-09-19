@@ -955,6 +955,120 @@ theorem iso2_classes_single (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
   · exact relabel2_realizable Γ₀ (fun i j i' j' => by rw [hΓ₀]; rfl) π τ _
       (sh1_necessity (hadamard_z_admissible Γ₀ hΓ₀ z hz))
 
+/-! ### Section D — `ISO3`: the classification route, run in the frozen order 1, 3, 2
+
+Step 1, the intrinsic metric of the Fourier circle, closes below: every coordinate of the Fourier
+tuple's feature vector is one monomial `S · z ^ A · (star z) ^ B / 64` with a sign `S` and
+exponents fixed independently of `z`, so the distance between two Fourier tuples at unit
+parameters `z`, `w` is the distance between the tuples at `1` and at `star z * w`. Step 3, the
+optional affine-extension lemma `ISO3-L`, and step 2, the special classes and the finiteness
+argument, are not obtained; the obstruction is recorded in the result note, and no theorem of this
+section states anything about an isometry of the normalized space. -/
+
+set_option linter.unusedSimpArgs false in
+/-- **The entries of the Fourier tuple are uniform monomials**: for each index triple one sign and
+one pair of exponents in `{0, 1}` serve every unit parameter. -/
+theorem fourier_entry_uniform (i j k : Fin 4) :
+    ∃ (s : ℂ) (a b : ℕ), (s = 1 ∨ s = -1) ∧ a ≤ 1 ∧ b ≤ 1 ∧ ∀ z : ℂ, star z * z = 1 →
+      FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) i j k
+        = s * z ^ a * (star z) ^ b / 4 := by
+  fin_cases i <;> fin_cases j <;> fin_cases k <;>
+    first
+      | (refine ⟨1, 0, 0, Or.inl rfl, zero_le_one, zero_le_one, fun z hz => ?_⟩
+         have hz2 : (starRingEnd ℂ) z * z = 1 := hz
+         rw [fibreGram_apply, Fin.sum_univ_one]
+         simp [Complex.star_def, map_mul, map_neg, map_ofNat]
+         first | done | ring1 | linear_combination (1 / 4 : ℂ) * hz2)
+      | (refine ⟨-1, 0, 0, Or.inr rfl, zero_le_one, zero_le_one, fun z hz => ?_⟩
+         have hz2 : (starRingEnd ℂ) z * z = 1 := hz
+         rw [fibreGram_apply, Fin.sum_univ_one]
+         simp [Complex.star_def, map_mul, map_neg, map_ofNat]
+         first | done | ring1 | linear_combination (-1 / 4 : ℂ) * hz2)
+      | (refine ⟨1, 1, 0, Or.inl rfl, le_refl _, zero_le_one, fun z hz => ?_⟩
+         rw [fibreGram_apply, Fin.sum_univ_one]
+         simp [Complex.star_def, map_mul, map_neg, map_ofNat]
+         first | done | ring1)
+      | (refine ⟨-1, 1, 0, Or.inr rfl, le_refl _, zero_le_one, fun z hz => ?_⟩
+         rw [fibreGram_apply, Fin.sum_univ_one]
+         simp [Complex.star_def, map_mul, map_neg, map_ofNat]
+         first | done | ring1)
+      | (refine ⟨1, 0, 1, Or.inl rfl, zero_le_one, le_refl _, fun z hz => ?_⟩
+         rw [fibreGram_apply, Fin.sum_univ_one]
+         simp [Complex.star_def, map_mul, map_neg, map_ofNat]
+         first | done | ring1)
+      | (refine ⟨-1, 0, 1, Or.inr rfl, zero_le_one, le_refl _, fun z hz => ?_⟩
+         rw [fibreGram_apply, Fin.sum_univ_one]
+         simp [Complex.star_def, map_mul, map_neg, map_ofNat]
+         first | done | ring1)
+
+/-- **The coordinates of the Fourier tuple's feature vector are uniform monomials**: for each
+coordinate one sign and one pair of exponents serve every unit parameter. -/
+theorem fourier_coord_uniform (p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) :
+    ∃ (S : ℂ) (A B : ℕ), (S = 1 ∨ S = -1) ∧ ∀ z : ℂ, star z * z = 1 →
+      mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) p
+        = S * z ^ A * (star z) ^ B / 64 := by
+  obtain ⟨⟨i₁, i₂, i₃⟩, ⟨j₁, j₂, j₃⟩⟩ := p
+  obtain ⟨s₁, a₁, b₁, hs₁, -, -, h₁⟩ := fourier_entry_uniform i₁ j₁ j₂
+  obtain ⟨s₂, a₂, b₂, hs₂, -, -, h₂⟩ := fourier_entry_uniform i₂ j₂ j₃
+  obtain ⟨s₃, a₃, b₃, hs₃, -, -, h₃⟩ := fourier_entry_uniform i₃ j₃ j₁
+  refine ⟨s₁ * s₂ * s₃, a₁ + a₂ + a₃, b₁ + b₂ + b₃, ?_, fun z hz => ?_⟩
+  · rcases hs₁ with rfl | rfl <;> rcases hs₂ with rfl | rfl <;> rcases hs₃ with rfl | rfl <;> simp
+  · simp only [mixedTriple]
+    rw [h₁ z hz, h₂ z hz, h₃ z hz]
+    ring
+
+/-- **A coordinate difference at two unit parameters has the norm of the coordinate difference at
+`1` and at `star z * w`**: `z ^ A (star z) ^ B − w ^ A (star w) ^ B` is `z ^ A (star z) ^ B` times
+`1 − (star z * w) ^ A (star (star z * w)) ^ B`, and the first factor has norm one. -/
+theorem fourier_coord_diff_norm (S : ℂ) (A B : ℕ) (z w : ℂ) (hz : star z * z = 1)
+    (hw : star w * w = 1) :
+    ‖S * z ^ A * (star z) ^ B / 64 - S * w ^ A * (star w) ^ B / 64‖
+      = ‖S * (1 : ℂ) ^ A * (star (1 : ℂ)) ^ B / 64
+          - S * (star z * w) ^ A * (star (star z * w)) ^ B / 64‖ := by
+  have hz' : z * star z = 1 := by rw [mul_comm]; exact hz
+  have hzn : ‖z‖ = 1 := by
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
+    exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
+  have hpow : (z * star z) ^ (A + B) = 1 := by rw [hz', one_pow]
+  have hfac : S * z ^ A * (star z) ^ B / 64 - S * w ^ A * (star w) ^ B / 64
+      = (z ^ A * (star z) ^ B)
+        * (S * (1 : ℂ) ^ A * (star (1 : ℂ)) ^ B / 64
+          - S * (star z * w) ^ A * (star (star z * w)) ^ B / 64) := by
+    rw [star_mul, star_star, star_one]
+    linear_combination ((S / 64) * (w ^ A * (star w) ^ B)) * hpow
+  rw [hfac, norm_mul, norm_mul, norm_pow, norm_pow, norm_star, hzn, one_pow, one_pow, one_mul,
+    one_mul]
+
+/-- **Step 1 of the route — the intrinsic metric of the Fourier circle depends on the angle
+difference alone**: `d (F z) (F w) = d (F 1) (F (star z * w))` for unit `z`, `w`, with `d` bound
+to act 24's equation. This is a statement about the Fourier circle and about nothing else; it
+classifies no isometry. -/
+theorem fourier_circle_metric (d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ)
+      → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (z w : ℂ) (hz : star z * z = 1) (hw : star w * w = 1) :
+    d (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+          (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)))
+        (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+          (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)))
+      = d (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+          (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (1 : ℂ), -1, -(1 : ℂ); 1, -1, 1, -1;
+            1, -(1 : ℂ), -1, (1 : ℂ)] p.1 q.1)))
+        (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+          (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, star z * w, -1, -(star z * w); 1, -1, 1, -1;
+            1, -(star z * w), -1, star z * w] p.1 q.1))) := by
+  subst hd
+  have h1 : star (1 : ℂ) * 1 = 1 := by simp
+  have hzw : star (star z * w) * (star z * w) = 1 := by
+    rw [star_mul, star_star]
+    linear_combination (star z * z) * hw + hz
+  refine congrArg Real.sqrt (Finset.sum_congr rfl fun p _ => ?_)
+  obtain ⟨S, A, B, -, hS⟩ := fourier_coord_uniform p
+  rw [hS z hz, hS w hw, hS 1 h1, hS (star z * w) hzw, fourier_coord_diff_norm S A B z w hz hw]
+
 /-! ### The axiom table — one line per named result, printed by the kernel -/
 
 #print axioms mixedTriple_relabel2
@@ -988,6 +1102,10 @@ theorem iso2_classes_single (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
 #print axioms core_real
 #print axioms classify_dephased
 #print axioms iso2_classes_single
+#print axioms fourier_entry_uniform
+#print axioms fourier_coord_uniform
+#print axioms fourier_coord_diff_norm
+#print axioms fourier_circle_metric
 
 end OrbitGeometryIsometries
 end OIBridge
