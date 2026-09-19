@@ -10113,8 +10113,8 @@ _SI2_STAGE1_ADDITIONS = {'SI1': {'round': 'SI1', 'kind': 'base-only',
 # round's preregistration authorizes, BY STEM. An authorized stem's record is validated by content by
 # U3; U5 only admits its presence. Declared here, outside both marker-bounded regions, under a name
 # that carries no round stem; the generic region reads it and nothing else about the round.
-_MANIFEST_BASELINE = {'base': 'b0ee87bae34c6f8dcd3a4a75d958bb4e8a1cbca5',
-                      'authorized': ('SI2', 'SI3')}
+_MANIFEST_BASELINE = {'base': '10d1041bcc10f25d9f643629d4431acbd0f65a1e',
+                      'authorized': ('OLT',)}
 
 
 # ---- SI-3 (SI3-2, R2): THE PROSPECTIVE DECLARATION. A sealing round with no record yet declares
@@ -10123,7 +10123,7 @@ _MANIFEST_BASELINE = {'base': 'b0ee87bae34c6f8dcd3a4a75d958bb4e8a1cbca5',
 # at its landing merge. The pin commit P REMOVES the entry when it writes the record; a stem that is
 # both declared and recorded is a failure. This is how a round carries its base while it runs
 # without writing the legacy representation SI-3 retires. Stem-free in its name, outside both regions.
-_MANIFEST_PROSPECTIVE = {}
+_MANIFEST_PROSPECTIVE = {'OLT': '10d1041bcc10f25d9f643629d4431acbd0f65a1e'}
 
 # A value that is not a commit, not a hash and equal to nothing a record can hold, returned by the
 # accessor below where a record or a field is missing: every comparison and every git call made
@@ -24305,7 +24305,9 @@ def _si1_region_no_stem():
 
 def _si1_no_forbidden_paths():
     """N12 -- the round wrote no manuscript, no book file and no Lean, checked against the base."""
-    r = _rbr_git('diff', '--name-only', _seal_field('SI1', 'base'), 'HEAD', tag='R7-SI1')
+    # Act 21, closed-round rule (AGENTS.md lines 972-978): read over SI-1's own execution, base -> E1,
+    # the second parent of its landing merge 66eea646, and not HEAD, which later rounds move.
+    r = _rbr_git('diff', '--name-only', _seal_field('SI1', 'base'), 'd75427aece402e1629d56d1ca96fbc8d3c8101e8', tag='R7-SI1')
     if r is None or r.returncode != 0:
         return False
     for path in r.stdout.decode('utf-8', 'replace').split():
@@ -25909,7 +25911,8 @@ ok_si2 &= _si2_region_no_stem()
 ok_si2 &= _si2_region_relocated_verbatim()
 
 # No manuscript, book or Lean file touched.
-_si2_diff = _si2_git_text('diff', '--name-only', _seal_field('SI2', 'base'), 'HEAD') or ''
+# Act 21, closed-round rule: SI-2's own execution, base -> E2, the second parent of its landing merge d89fff8a.
+_si2_diff = _si2_git_text('diff', '--name-only', _seal_field('SI2', 'base'), 'df2fab5770085d7e83543c50c00ffc6a3c2a37d0') or ''
 ok_si2 &= _si2_diff and not any(p.startswith('papers/') or p.startswith('book/') or p.endswith('.lean')
                                 for p in _si2_diff.split())
 
@@ -26185,6 +26188,10 @@ def _si3_locating_controls():
     return holds, out
 
 
+_SI3_MANIFESTED = _SI2_MANIFESTED + ('SI2', 'SI3')  # the twenty-five records SI-3 manifested
+_SI3_MANDATED_BASE = 'b0ee87bae34c6f8dcd3a4a75d958bb4e8a1cbca5'  # SI-3's mandated base under its Amendment 1
+
+
 def _si3_manifest_state():
     """SI3-1 and the landing shape, mode-aware. Returns (ok, mode, detail)."""
     recs, errs = _si1_load()
@@ -26199,10 +26206,15 @@ def _si3_manifest_state():
               and _MANIFEST_PROSPECTIVE == {'SI3': _MANIFEST_PROSPECTIVE['SI3']}
               and _MANIFEST_BASELINE == {'base': _MANIFEST_PROSPECTIVE['SI3'], 'authorized': ('SI2', 'SI3')})
         return ok, 'executing', len(recs)
-    ok = (len(recs) == 25 and sealed == 19 and base_only == 6 and si2_ok
-          and recs['SI3'].get('kind') == 'sealed' and recs['SI3'].get('base') == _MANIFEST_BASELINE['base']
-          and _MANIFEST_PROSPECTIVE == {})
-    return ok, 'pinned', len(recs)
+    # Act 21, closed-round rule: the counts over the records SI-3 manifested, SI3's base against its own
+    # mandated base as a literal, and only the SI3 key of the prospective declaration.
+    hist = {k: v for k, v in recs.items() if k in _SI3_MANIFESTED}
+    sealed = sum(1 for r in hist.values() if r.get('kind') == 'sealed')
+    base_only = sum(1 for r in hist.values() if r.get('kind') == 'base-only')
+    ok = (sorted(hist) == sorted(_SI3_MANIFESTED) and len(hist) == 25 and sealed == 19 and base_only == 6 and si2_ok
+          and recs['SI3'].get('kind') == 'sealed' and recs['SI3'].get('base') == _SI3_MANDATED_BASE
+          and 'SI3' not in _MANIFEST_PROSPECTIVE)
+    return ok, 'pinned', len(hist)
 
 
 def _si3_genuine_reads(src):
@@ -26636,7 +26648,9 @@ ok_si3 &= not _si3_region_bounded(_si3_src.replace('_SI2_INTEGRITY = {}\n', '_SI
 ok_si3 &= _si2_region_no_stem() and _si2_region_relocated_verbatim()
 
 # No manuscript, book or Lean file touched.
-_si3_diff = _si3_git('diff', '--name-only', _si3_base() or 'HEAD', 'HEAD') or ''
+# Act 21, closed-round rule: SI-3's own execution once recorded, base -> sealed_head through the accessor.
+_si3_diff = _si3_git('diff', '--name-only', _si3_base() or 'HEAD',
+                     _seal_field('SI3', 'sealed_head') if 'SI3' in _si1_load()[0] else 'HEAD') or ''
 ok_si3 &= bool(_si3_diff) and not any(p.startswith('papers/') or p.startswith('book/') or p.endswith('.lean')
                                       for p in _si3_diff.split())
 
