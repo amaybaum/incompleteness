@@ -7,8 +7,10 @@ naturality rung `L4n`, which act 19's closure found underspecified and which act
 restated as act 20's certified `N-TWIST` notion, exactly at that strength. Everything else in the
 experiment — the question, the ask, the objects, the quotient list, `L0`, `L1`, `L2`, `L3i`, `L3s`,
 `L4d`, `L5`, the shared theorem, the headlines, the discriminating test, the seven candidates, the
-witness supply, the countercontrols, the status rule, the predictions and the `P0` sentences — is
-act 19's, carried by line range from act 19's pinned blob under the provenance rule below. The
+witness supply, the countercontrols, the status rule, the rung and census predictions and the `P0`
+sentences — is act 19's, carried by line range from act 19's pinned blob under the provenance rule
+below; the forecasts on the discriminating test and on the headline are deliberately left unscored,
+for the reason the predictions table states. The
 lifecycle, the chronology and the guard are this round's own, under the manifest protocol `SI-3`
 left in force, and the contamination attestation act 20 built is carried with the span act 20's
 result said it should have.
@@ -160,13 +162,14 @@ the anti-contamination invariant — are among the carried lines.
 | 554–558, 566–571 | act 19's `L4n` and its paragraph | **replaced** — the one mathematical change |
 | 573–651 | `L5`, the `L5` test, the rung labels | carried verbatim |
 | 653–723 | The ordering obligation and its five records | carried; the module path in record 4; the attestation set and the anti-expansion rule appended as new subsections |
-| 725–991 | `OL1`, the headlines, `SIOP`, the seven candidates | carried; one paragraph on act 20's merged `RelabelTransition`/`RelabelLift` added under `ΦP` |
-| 993–1055 | The witness supply and the countercontrols | carried; supply 5's last clause reworded to act 20's notion; supply 6 (act 20's lift) added; the `L4n` row restated |
+| 725–991 | `OL1`, the headlines, `SIOP`, the seven candidates | carried; one paragraph on act 20's merged `RelabelTransition`/`RelabelLift` added under `ΦP`; act 19's expectation of `H(1)` as the `SIOP` initial class restated as historical in the `SIOP` section's `t* = 1` paragraph and in the `ΦP` section, the target itself untouched |
+| 993–1055 | The witness supply and the countercontrols | carried; supply 5's last clause reworded to act 20's notion; supply 6 (act 20's lift) added; the `SIOP` witness rule added after the generic never-substitute rule; the `L4n` row restated; the `SIOP` row restated with no expected initial class |
 | 1057–1187 | The evidence rule and the six targets | carried; one paragraph naming act 19's and act 20's files in the `OL0` file set added |
-| 1189–1224 | The predictions | carried; the `L4n` row's reason restated; the `OL3` row's reason extended by one sentence |
+| 1189–1209 | The predictions table | carried; the `L4n` row's reason restated; the `OL3` row's reason extended by one sentence; the `OL4` and `OL5` rows **replaced** — deliberately unscored, act 19's forecasts recorded as historical |
+| 1211–1224 | The two paragraphs stating act 19's substantive position | **replaced** — the position is act 19's and is not this round's forecast |
 | 1226–1455 | The status rule and the `P0` sentences | carried; "Act 19 asks" → "Act 21 asks"; "acts 11 through 18 stand" → "acts 11 through 20 stand" |
 | 1457–1572 | Naming is not endorsing; THE CLAUSE; what no outcome licenses | carried; "Act 19 classifies" → "Act 21 classifies" in THE CLAUSE; "Acts 11 through 18" → "Acts 11 through 20"; items 25–27 appended |
-| 1574–1671 | Named hazards | carried; hazards 28 and 30 restated for the manifest; 32–34 appended |
+| 1574–1671 | Named hazards | carried; hazard 22 extended by the `SIOP` witness-rule sentence; hazards 28 and 30 restated for the manifest; 32–34 appended |
 | 1673–1727 | Non-doings; out of scope; what the round changes about `P0`; the direct-branch statement | carried; "act 19" → "act 21" (three); the seal-constant non-doing restated; act 19/act 20 boundary non-doings added; `RNT1`–`RNT6` added to the merged-label list; "acts 12, 17 or 18" → "acts 12, 17, 18 or 20" |
 | 1729–1785 | Definition budget; evidence level | carried; the `L4n` inline sentence restated; act 20's definitions added to the reused list |
 | 1787–1875 | Act 19's chronology control and preconditions | **replaced** by this round's, under the manifest protocol |
@@ -178,18 +181,27 @@ the anti-contamination invariant — are among the carried lines.
 **The substitution list is the generator's own record and is reproduced in full at the end of
 this file**, so that "mechanical" is checkable rather than asserted.
 
-**One consequence of the rule is stated so that it is not mistaken for an oversight.** The carried
-predictions are act 19's predictions, including the predicted `SIOP` witness from the initial class
-of `H(1)`. Act 19's closure, at its lines 98–106, records that act 19's **uncertified** execution
-substituted another member of the frozen witness supply for that class, having found in its own
-kernel that the predicted class cannot diverge under the simultaneous relabelling, and rules that
-the substitution was a legitimate outcome of an existential target and not an ordering failure.
-That record is a statement about an uncertified execution and is **not evidence here**; the
-prediction is carried as the owner directed, the target is existential over the initial class and
-the trajectories exactly as act 19 froze it, and an execution that witnesses `SIOP` at another member
-of the frozen supply reports, as act 19's closure says, that the predicted witness failed and the
-existential target was witnessed differently. **No configuration outside the frozen supply may be
-substituted**, and that rule is act 19's too.
+**One place where the rule is deliberately not applied, stated so that it is not mistaken for an
+oversight.** Act 19 forecast `SIOP-YES` at `t* = 1` from the initial class of `H(1)`, and forecast
+`L-WIDE` conditionally on it. Act 19's closure, at its lines 98–106, records that act 19's
+**uncertified** execution replaced that initial class with another member of the frozen witness
+supply because the predicted class could not supply the divergence. That record is a statement about
+an uncertified execution and is **not evidence here** — nothing about `SIOP` is settled by it. But it
+is on the merged record, this freeze pins it as a locating control, and a forecaster who has read it
+is not ignorant of outcome-relevant information about exactly that expectation. **So this round does
+not preregister `H(1)` as its expected `SIOP` witness, and it does not score `OL4` or the `OL5`
+forecast that act 19 made conditional on it.** Act 19's two forecasts are carried in the predictions
+table as **historical predictions for comparison**, labelled as act 19's, and every `SIOP` route and
+every headline line stays fully preregistered at its frozen evidence bar with its frozen sentence.
+**`SIOP` itself is mathematically unchanged**: the same existential target, the same `ΦI` against
+`ΦP`, the same first-divergence conjunct, the same frozen configuration and the same witness supply.
+What is made explicit, in the witness supply section, is that the `SIOP` initial orbit is itself an
+existential witness over the already-frozen supply, so that any member of that supply may
+instantiate it and nothing outside it may be introduced — a rule that leaves the generic
+never-substitute rule governing every fixed countercontrol exactly as act 19 wrote it. The
+methodological consequence is recorded rather than left implicit: a `SIOP-YES` this round proves at
+some frozen-supply initial orbit is confirmatory evidence that shaped no rung, and a `SIOP-NO` is
+equally clean.
 
 ## Locating controls — the governing passages at the base, each with a coordinate
 
@@ -593,6 +605,7 @@ it.
 **The last three rows are this round's subject.** The merged record exhibits one law and is silent on
 the class. Whether that silence is a gap or is the answer is what the round's first target asks of
 the record and what its later targets ask of the kernel.
+
 ## The question, FROZEN
 
 > **Given that a genuine cross-time law plus one initial orbit can propagate (`L-PROP`), how rigid is
@@ -718,6 +731,7 @@ similarity relation on transition families.
 outside this list, the outcome is `L-FAMILY` or `L-WIDE` and not `L-RIGID`.** The candidate new
 equivalence is **recorded as an observation for a later round with its own freeze**, and is never
 applied to this round's verdict.
+
 ## The condition ladder `L0`–`L5`, FROZEN BEFORE ANY CENSUS
 
 **Six conditions, frozen here, in this wording, before any census of surviving laws is run.** Each is
@@ -778,6 +792,7 @@ the two conjuncts are **stated and reported apart**, and a verdict that reaches 
 as reaching the other. Where a candidate's `Ω_t` **is** shown finite in the kernel at the frozen
 configuration, the execution may derive one conjunct from the other and **records that it did so and
 at which configuration**; it may not assume finiteness.
+
 ### `L4` — compatibility with the gauge/orbit quotient, in two parts
 
 > **`L4d` — descent.** `Φ` respects act 12's `GramPhaseEquiv` in its argument:
@@ -929,6 +944,7 @@ nothing" carries.
 **Neither label enlarges or shrinks the ladder.** A rung reported `Li-FREE` **stays in the ladder**
 and stays in the conjunction the headline quantifies over. The ladder is not edited by its own
 verdicts.
+
 ## The ordering obligation — the mechanical teeth of the no-post-hoc rule
 
 **The rule.** If reversibility plus composition plus quotient naturality still leaves many laws, the
@@ -1217,8 +1233,8 @@ of this round.
 **The strongest case is `t* = 1`, and the freeze names it.** At `t* = 1` the earlier-agreement
 conjunct reduces to agreement at time `0`, which is the same-initial-orbit hypothesis itself: the two
 laws are handed the same initial orbit and disagree at the very next step. That is primitive
-non-uniqueness in the plainest available sense, and the countercontrol table names a predicted
-witness at exactly `t* = 1`.
+non-uniqueness in the plainest available sense, and the countercontrol table names its `SIOP` pair at
+exactly `t* = 1`, with the initial class left to the witness rule of the witness supply section.
 
 **What each answer means, frozen.**
 
@@ -1269,7 +1285,7 @@ instance and is **not rebuilt**. **Its role: the baseline survivor**, predicted 
 no lift, which is what act 18's definition of a law datum requires; it is not required to be a
 canonical function of `Γ`, and act 18's `LC1` and `LC2` already take data in that sense. At the frozen
 configuration `Γ ≡ ¼` is constant, so **every** permutation of `V` leaves it invariant. **Its role:
-the second survivor**, and with `ΦI` the predicted `SIOP` witness.
+the second survivor**, and with `ΦI` the pair the `SIOP` countercontrol names.
 
 **Act 20 carried this statement into Lean and it is consumed at merged strength.** `RelabelTransition
 σ` is act 19's `ΦP` statement, `RelabelTransition σ G i j k = G (σ i) (σ j) (σ k)`, and `RelabelLift
@@ -1277,12 +1293,14 @@ the second survivor**, and with `ΦI` the predicted `SIOP` witness.
 `rnt3_law_exact` merged. **This round reuses those declarations and does not restate `ΦP`**; what
 it proves about `ΦP` — its `L-PROP` conjuncts and its rungs — it proves under its own freeze.
 
-**The separating computation the freeze names in advance.** Act 18 already exhibited, for its `LC2`
+**The separating computation act 19 named in advance, recorded here as merged fact and as act 19's
+reason.** Act 18 already exhibited, for its `LC2`
 clause (i) failure, that the class of `H(1)` and the class of `H(1)` **with its last two columns
 interchanged** are `∼_D`-inequivalent, certified through act 12's merged `∼_D`-invariant read at the
 fibre pair `(0,2)`, where the values are `1/16` and `−1/16`. **That is a merged, already-exhibited
-separation** and it is the one the countercontrol table uses. This is written here as the freeze's
-**reason**, and it is **analysis, not a finding**.
+separation**; act 19's countercontrol table named it as the separation its `SIOP` forecast would use,
+and this round records that forecast as historical and names no expected initial class, under the
+witness rule of the witness supply section. It is **analysis, not a finding**.
 
 ### `ΦX` — the restricted-initial transition
 
@@ -1347,12 +1365,26 @@ property is stated of the class — and the execution discharges it explicitly. 
 `ΦCTRL` is reported UNDECIDED with the obstruction named, and `L5`'s rung status falls to
 `L5-UNDECIDED` rather than to `L5-FREE`: **the absence of an exhibited violator is not a proof that
 none exists.**
+
 ## The witness supply, FROZEN
 
 **Every witness of this round is drawn from this supply, and the configuration for each obligation is
 named in the countercontrol table below, in advance.** A configuration chosen after an outcome is
 known is a preregistration failure in miniature, and an alternative witness found during execution is
 **recorded as an observation and never substituted**.
+
+**The `SIOP` initial orbit is the one witness that rule treats differently, and the difference is
+stated here so that the two rules cannot be read against each other.** The generic rule above
+governs every fixed countercontrol witness and configuration: what a rung's countercontrol names is
+what is tested, and nothing found during execution replaces it. For `SIOP`, the initial orbit is
+itself part of an existential witness — the target is `∃ Γ a₀ Φ Φ' 𝔾 𝔾' t*`, and the initial class
+`[𝔾 0]` is a component of it — over the **already-frozen** supply: **any member of that supply may
+instantiate it**, the classes of act 12's `H(1)`, `H(i)` and `H(−1)` and of act 18's fourth dilation,
+at the frozen configuration. **Nothing outside the frozen supply may be introduced**, at any point,
+for any reason. Using one member rather than another is therefore not a post-hoc new configuration;
+it is a different witness of the already-frozen existential, and the result note names which member
+witnessed it. **This round names no expected initial class**, for the reason the predictions table
+gives at `OL4`.
 
 1. **Act 12's Hadamard objects** at `V = Fin 4`, `A = Fin 1`, `a₀ = 0`, `Γ ≡ ¼`, with the frozen
    family `H(z)` and the merged admissibility and inequivalence of `H(1)`, `H(i)` and `H(−1)`. Act
@@ -1403,7 +1435,7 @@ quantity at a named index through a named invariant. **Searching and not finding
 | `L5` | `ΦCTRL`: the two product classes `ω̄₁ ⊠ ω₂` and `ω₁' ⊠ ω₂` force a putative second factor `Φ̂₂` to equal both `Φ_σ` and the identity on `ω₂`, which are `∼_D`-inequivalent by act 12's merged inequivalence | supply 1, 3 and 4, product configuration |
 | `OL1` (a) | discharged by reading act 18's `PropagatesFrom` clause (i) as the well-definedness of `Φ̄_t` on classes, with `TJ1` cited where the ambient set must be a product | any |
 | `OL1` (b) | discharged at a time-homogeneous `Γ`; at a non-homogeneous `Γ` the monoid statement is **not attempted** and the freeze says so in advance | frozen configuration |
-| `SIOP` | `ΦI` against `ΦP` with `σ` the column transposition of supply 2, from the initial class of `H(1)`: at `t* = 1` the `ΦI`-solution is at `[G(H(1))]` and the `ΦP`-solution at the class of supply 2's dilation, `∼_D`-inequivalent through the merged invariant at the fibre pair `(0,2)`, values `1/16` and `−1/16`; the earlier-agreement conjunct is agreement at time `0`, which is the hypothesis | supply 1, 2 and 3, `\|A\| = 1` |
+| `SIOP` | `ΦI` against `ΦP` with `σ` the column transposition of supply 2, from an initial class drawn from the frozen supply under the witness rule — **this round names no expected initial class**: at `t* = 1` the `ΦI`-solution stays at the initial class and the `ΦP`-solution is at its simultaneous relabelling by `σ`, and the witness is earned where the two are `∼_D`-inequivalent through a merged invariant at a named fibre pair; the earlier-agreement conjunct is agreement at time `0`, which is the hypothesis. Act 19's row named the class of `H(1)` and the values `1/16` and `−1/16`; that is historical, for the reason the predictions table gives at `OL4` | supply 1, 2 and 3, `\|A\| = 1` |
 | `L-FAMILY` direction (ii) | **named and expected hard**: the universal statement that every ladder-satisfying transition family is `≈_L` to a named `Φ_p`. The freeze names no construction and rates it accordingly; `L-WIDE` with the obstruction named is an allowed outcome and is **not** a shortfall | frozen configuration |
 
 **One witness family, several consequences — reported as one witness and its consequences.** Act 12's
@@ -1415,6 +1447,7 @@ independent findings.
 existential about its own exhibited dilations, act 12's `SH1` is the per-slice characterization at its
 own strength, act 17's `TJ1` is the product characterization it is, and act 18's `L-PROP` is a verdict
 about `LC3`. None is enlarged, restated or revised by anything here.
+
 ## The evidence rule, FROZEN
 
 `OL0` is settled by **locating and quoting**, not by proving a theorem. Its evidence rule is frozen
@@ -1555,6 +1588,7 @@ above require, over the conditions the kernel actually discharged, with that set
 `L-FAMILY (L0–L5)` or its analogue; where `L5` was reported UNDECIDED it reads `L-WIDE (L0–L4)`, with
 the additional record that the headline over the full ladder is undecided. **This is fixed here,
 before the census, so that it is reporting and not repair.**
+
 ## The preregistered predictions, with their signs, strengths and recorded reasons
 
 | target | prediction (sign) | strength | recorded reason |
@@ -1571,26 +1605,29 @@ before the census, so that it is reporting and not repair.**
 | `L4n` | not predicted | **low** | Both predicted survivors have twisted-natural lifts at act 20's strength — the identity, with `αL = αR = id`, which is act 20's `RNT1` (a) shape; and the carrier relabelling, by act 20's merged `rnt3_law_exact` with `rnt2_lifting_property` and `rnt2_admissible` — so neither witnesses a restriction; the freeze names no transition descending to classes without such a lift; and the analysis under `L4n` records that the intertwining conjuncts alone are satisfied by a constant lift, so any restriction would have to come through the lifting obligation. **UNDECIDED with the obstruction named is an allowed outcome and is the freeze's expectation.** |
 | `L5` | **`L5-RESTRICTS`**, via `ΦCTRL` | **medium** | The two-instance refutation is finite and does not quantify over the orbit space. The medium rating is for the product-embedding construction the rung needs — that the Kronecker product of admissible dilations is admissible for the product family and that its fibre-Gram tuple is the Kronecker product of the factors' — which act 18's `prod_admissible` starts but does not finish. **`L5-UNDECIDED` is an allowed outcome and is not a shortfall.** |
 | `OL3`, the census | **`ΦI` and `ΦP` survive every rung at the frozen configuration; `ΦX`, `ΦC` and `ΦT` each fail the rung they are named for; `ΦPP` satisfies `L5` and `ΦCTRL` fails it** | **medium** | Each is the countercontrol table's own entry. The medium rating is for the `L-PROP` conjuncts of `ΦP`, which the freeze reads as following from `σ² = id` and act 12's merged inequivalences but which no merged result states. `ΦP`'s `L4n` is predicted discharged by act 20's merged lift and exact law at the frozen configuration, where `Γ ≡ ¼` is invariant under every `σ`, and `ΦI`'s by the identity lift with identity induced maps. |
-| `OL4`, the discriminating test | **`SIOP-YES`**, at `t* = 1`, via `ΦI` against `ΦP` | **medium** | Both are predicted survivors; they are handed the same initial class, that of `H(1)`; and at `t = 1` they sit at classes act 18 already exhibited as `∼_D`-inequivalent. The medium rating is for `ΦP`'s ladder conjuncts, not for the separation, which is merged. |
-| `OL5`, the headline | **`L-WIDE (L0–L5)`** | **medium** | Conditional on `SIOP-YES`, which rules out `L-RIGID`, and on direction (ii) of the characterization **not** being reached: the universal quantifier there ranges over every transition family satisfying the ladder, and neither the freeze nor the merged record supplies a handle on that class. **`L-FAMILY` is preregistered as reachable** — at the product configuration the ladder with `L5` plausibly cuts the survivors down to the product permutations, which would be a genuine characterization — and that branch is rated **not predicted, at low-to-medium**. `L-RIGID` is preregistered as reachable and is rated **low**, for the reason the `SIOP` prediction gives. |
+| `OL4`, the discriminating test | **not independently predicted in act 21** | — | **Act 19's historical prediction, for comparison and not this round's:** `SIOP-YES` at `t* = 1`, via `ΦI` against `ΦP` from the initial class of `H(1)`, at medium, with the reason that both are predicted survivors handed the same initial class and sitting at `t = 1` at classes act 18 exhibited as `∼_D`-inequivalent. **Why act 21 does not score it:** the merged act 19 closure, at its lines 98–106, disclosed that act 19's exploratory execution replaced that initial class because it could not supply the divergence. That disclosure is not evidence about `SIOP`, but a forecaster who has read it is not ignorant of outcome-relevant information about exactly this expectation, and re-issuing the forecast as act 21's would misrepresent what the forecaster knew. **All three routes — `SIOP-YES`, `SIOP-NO`, `SIOP-UNDECIDED` — remain fully preregistered**, at the evidence bars and with the frozen sentences the status rule fixes, over the frozen supply under the witness rule. |
+| `OL5`, the headline | **not independently predicted in act 21** | — | **Act 19's historical prediction, for comparison and not this round's:** `L-WIDE (L0–L5)` at medium, explicitly conditional on its `SIOP-YES` forecast and on direction (ii) of the characterization not being reached, with `L-FAMILY` rated not predicted at low-to-medium and `L-RIGID` rated low for the reason its `SIOP` forecast gave. **Why act 21 does not score it:** that forecast rests on the `OL4` forecast this round deliberately leaves unscored, so it is unscored with it. **All four lines — `L-RIGID`, `L-FAMILY`, `L-WIDE`, `L-UNDECIDED` — remain preregistered as reachable at full evidence bar**, with the obligations, the boundary theorem and the frozen sentences unchanged. |
 
 **No target has a numerical fallback**, and none is offered for a universal statement. **UNDECIDED
 remains a permitted label for every target**, reported with the obstruction named specifically.
 
-**What this table's shape says, stated plainly.** The freeze predicts, at medium, that the class of
-propagating cross-time laws is **not rigid** — that two laws satisfying every condition on the frozen
-ladder can be handed the same initial orbit and disagree at the very next step — and that the
-surviving class is **too wide for this round to characterize**. **That is the freeze's substantive
-position**, and it is an uncomfortable one to preregister: it predicts that the round's own ladder,
-assembled in good faith from the conditions one would think to impose, does not pin the law. The round
-is worth running because that position is testable, because `L-RIGID` and `L-FAMILY` are both
-preregistered as reachable at full evidence bar, because `OL1` is a theorem whichever way the headline
-falls, and because the per-rung verdicts say which conditions have content and which are decoration —
-information the record does not currently carry at all.
+**What this table's shape says, stated plainly.** On the rungs and on the census this round forecasts
+what act 19 forecast, with `L4n` re-rated at act 20's strength: `L0`, `L2`, `L3i`, `L3s` and `L5`
+predicted to restrict, `L1` predicted free, `L4d` a hypothesis, `L4n` not predicted, and `ΦI` and `ΦP`
+predicted to survive every rung. **On the discriminating test and on the headline this round
+deliberately forecasts nothing.** Act 19's substantive position — that the class is not rigid and is
+too wide to characterize, rated at medium — is recorded in the two rows above as act 19's, for
+comparison, and is not re-issued here, because the merged record already carries exploratory
+information bearing on the specific witness that position named. The round is worth running whichever
+way those two targets fall: `L-RIGID`, `L-FAMILY` and `L-WIDE` are all preregistered as reachable at
+full evidence bar, `OL1` is a theorem whichever way the headline falls, the per-rung verdicts say
+which conditions have content and which are decoration, and a `SIOP` verdict reached under the
+witness rule — in either direction — is evidence that shaped no rung.
 
-**And the freeze rates its own position at medium and not higher**, because `ΦP`'s ladder conjuncts
-are not merged and because the product-configuration construction `L5` needs is real work that could
-fail.
+**The freeze rates its rung and census forecasts at medium and not higher**, as act 19 did, because
+`ΦP`'s ladder conjuncts are not merged and because the product-embedding construction `L5` needs is
+real work that could fail.
+
 ## The status rule: the outcomes per target, each with its FROZEN post-round sentence
 
 The execution reports each target with exactly the sentence frozen here for the outcome reached. The
@@ -1821,6 +1858,7 @@ outcome.
 
 **The execution composes the sentence from these substitutions and reports no other wording.** **No
 composition closes `P0`**, and none reports either of its two parts closed.
+
 ## Naming a law is not endorsing it, FROZEN
 
 Acts 11 through 20 each carry the non-doing "names, endorses or excludes no selection principle".
@@ -1949,6 +1987,7 @@ round, in any paraphrase, in a summary line, an abstract, a table cell or a prop
 27. **"`L4n` is act 19's `L4n`", or any report of the rung as unchanged from act 19.** The rung is
     restated at act 20's strength and the restatement is this freeze's one mathematical change; the
     result note says so where it reports the rung.
+
 ## Named hazards
 
 1. **A post-hoc rescue condition.** **This is the strongest hazard in the round.** The specific failure
@@ -2021,7 +2060,9 @@ round, in any paraphrase, in a summary line, an abstract, a table cell or a prop
     proof or sentence may rest on continuity, differentiability or a limit.
 22. **Choosing a configuration after an outcome is known.** The countercontrol table names the
     configuration for every rung and every candidate in advance, and an alternative found during
-    execution is recorded as an observation and never substituted.
+    execution is recorded as an observation and never substituted. The one existential the witness
+    rule ranges over the frozen supply is `SIOP`'s initial orbit, and it ranges over that supply and
+    never outside it.
 23. **Treating the `|A| = 1` case as automatically the right one for a cross-time statement.** Carried
     from act 18, which recorded the concrete instance where it collapsed a cross-time distinction.
 24. **A reader supplying a missing theorem from background knowledge the record does not contain.**
@@ -2058,6 +2099,7 @@ round, in any paraphrase, in a summary line, an abstract, a table cell or a prop
 34. **A supersession outside the table.** The execution edits `R7-SI1`, `R7-SI2` and `R7-SI3` at
     exactly the four places the supersession table names, and nowhere else; a failure elsewhere in
     those guards is a result requiring adjudication and not a repair.
+
 ## Non-doings
 
 The round does not: **derive, recognise, approach or claim progress toward quantum evolution**, in any
@@ -2115,6 +2157,7 @@ showing that the ladder is the right ladder or that the law obtains.
 **The direct-branch statement is frozen exactly, and no more:** `D4a` positive on the direct branch;
 `T1` **necessary, not sufficient**; `n = 3` properness at **evidence level 3**; **no claim about what
 fraction of OI lies in the direct sector.** Act 7 layer 2's `D5` control stands **NOT CERTIFIED**.
+
 ## Definition budget
 
 The execution introduces **at most eight** top-level Lean definitions, and these are the eight:
@@ -2175,6 +2218,7 @@ from a per-time choice, and its appearance there is not a defect.
 verbatim quotation with a coordinate, or the recorded statement that the passage sought does not exist
 on the named and bounded search — and by nothing else. **Reconstructive inference is forbidden as a
 finding**, and where the record is silent the finding is that it is silent.
+
 ## The chronology control — act 10's STRENGTHENED mechanism, through the manifest and never a constant
 
 The execution's guard tag is **`R7-OLT`**, reserved here and created by the execution pull request.
@@ -2334,6 +2378,7 @@ round consumes only what this freeze's start-state table names.
   from the prospective declaration, and touches nothing else. Landing conflicts are resolved **in `L`, never in `E`**, and by merits rather than by
   side. Full continuous integration must pass again on `P` before the pull request merges, and the
   resulting `main` build must be green before the next round's landing is constructed.
+
 ## Allowed final report
 
 1. **The round's shape**, restated: sealing under the manifest protocol, `E` → `L` → `P`, with the
@@ -2392,6 +2437,7 @@ round consumes only what this freeze's start-state table names.
     and `L5` were stated in the module in act 19's wording as this file carries it, that `L4n` was
     stated as act 20's `TwistedNatural` with the two lifting obligations and no added conjunct, and
     that the candidate list, the quotient list and the discriminating test are act 19's unchanged.
+
 ## Owner settlements before immutability
 
 Recorded before this freeze merges and becomes immutable under `§A.37`. **Every item below is a call
@@ -2483,10 +2529,17 @@ written to the settlements:
 20. **The anti-expansion rule is frozen**: an eighth candidate, a collapsing equivalence, a further
     rung, a further configuration or a strengthening of a merged theorem discovered during execution
     is recorded as an observation for a later round and is not executed.
-21. **Act 19's predictions are carried unchanged**, including the predicted `SIOP` witness, with
-    `ΦP` now predicted to discharge `L4n` through act 20's merged lift and exact law; the closure's
-    record about act 19's uncertified execution and the predicted witness is noted in the provenance
-    section and is not evidence here.
+21. **Act 19's predictions are carried as historical provenance, and `OL4` and the dependent `OL5`
+    are deliberately unscored in act 21.** The rung and census predictions stay as act 19 wrote them,
+    with `ΦP` now predicted to discharge `L4n` through act 20's merged lift and exact law. Act 19's
+    `SIOP-YES` forecast from the initial class of `H(1)`, and its `L-WIDE` forecast conditional on it,
+    are recorded in the predictions table for comparison and are not act 21's, because the merged act
+    19 closure exposed outcome-relevant exploratory information about exactly that expectation. The
+    `SIOP` initial orbit is an existential witness over the frozen supply: any member of that supply
+    may instantiate it and nothing outside it may be introduced, while the generic never-substitute
+    rule governs every fixed countercontrol unchanged. **This changes no rung, candidate, quotient,
+    target or headline rule**, and every `SIOP` route and every headline line stays fully
+    preregistered.
 22. **The four supersessions in `R7-SI1`, `R7-SI2` and `R7-SI3` are authorized as the table names
     them**, under the closed-round rule, measured in simulation at drafting time, and nothing else in
     those guards is touched.
@@ -2516,10 +2569,17 @@ are listed by their anchor sentence.
 | 368-487 | exactly as acts 11 through 18 ⏎ carry it | exactly as acts 11 through 20 ⏎ carry it | 1 |
 | 368-487 | before act 19 and each traceable | before act 21 and each traceable | 1 |
 | 653-723 | verification/lean-mathlib/OIBridge/OrbitLawRigidity.lean | verification/lean-mathlib/OIBridge/OrbitLawRigidityTwisted.lean | 1 |
-| 725-991 | the second survivor**, and with `ΦI` the predicted `SIOP` witness. ⏎  | the second survivor**, and with `ΦI` the predicted `SIOP` witness. ⏎  ⏎ **Act 20 carried this statement into Lean and it is consumed at m… | 1 |
+| 725-991 | and the countercontrol table names a predicted ⏎ witness at exactly `t* = 1`. | and the countercontrol table names its `SIOP` pair at ⏎ exactly `t* = 1`, with the initial class left to the witness rule of the witness … | 1 |
+| 725-991 | **The separating computation the freeze names in advance.** | **The separating computation act 19 named in advance, recorded here as merged fact and as act 19's ⏎ reason.** | 1 |
+| 725-991 | separation** and it is the one the countercontrol table uses. This is written here as the freeze's ⏎ **reason**, and it is **analysis, no… | separation**; act 19's countercontrol table named it as the separation its `SIOP` forecast would use, ⏎ and this round records that forec… | 1 |
+| 725-991 | the second survivor**, and with `ΦI` the predicted `SIOP` witness. ⏎  | the second survivor**, and with `ΦI` the pair the `SIOP` countercontrol names. ⏎  ⏎ **Act 20 carried this statement into Lean and it is c… | 1 |
+| 993-1055 | **recorded as an observation and never substituted**. ⏎  | **recorded as an observation and never substituted**. ⏎  ⏎ **The `SIOP` initial orbit is the one witness that rule treats differently, an… | 1 |
+| 993-1055 | from the initial class of `H(1)`: at `t* = 1` the `ΦI`-solution is at `[G(H(1))]` and the `ΦP`-solution at the class of supply 2's dilati… | from an initial class drawn from the frozen supply under the witness rule — **this round names no expected initial class**: at `t* = 1` t… | 1 |
 | 993-1055 |    laws on `FibreGram` — which is what `L4n` is stated against. ⏎  |    laws on `FibreGram` — the classes act 20's `TwistedNatural` is stated against, and so what `L4n` ⏎    consumes. ⏎ 6. **Act 20's lift a… | 1 |
 | 993-1055 | \| `L4n` \| **named and expected hard**: a transition descending to classes with no gauge-natural representative-level lift. The freeze n… | \| `L4n` \| **named and expected hard**: a transition descending to classes with no twisted-natural representative-level lift satisfying … | 1 |
 | 1057-1187 | is fixed here and is not moved during execution, exactly as act 18 recorded for its own. ⏎  | is fixed here and is not moved during execution, exactly as act 18 recorded for its own. ⏎  ⏎ **Four more members of the file set at `B` … | 1 |
+| 1189-1209 | \| `OL4`, the discriminating test \| **`SIOP-YES`**, at `t* = 1`, via `ΦI` against `ΦP` \| **medium** \| Both are predicted survivors; th… | \| `OL4`, the discriminating test \| **not independently predicted in act 21** \| — \| **Act 19's historical prediction, for comparison a… | 1 |
+| 1189-1209 | \| `OL5`, the headline \| **`L-WIDE (L0–L5)`** \| **medium** \| Conditional on `SIOP-YES`, which rules out `L-RIGID`, and on direction (i… | \| `OL5`, the headline \| **not independently predicted in act 21** \| — \| **Act 19's historical prediction, for comparison and not this… | 1 |
 | 1189-1224 | \| `L4n` \| not predicted \| **low** \| Both predicted survivors have obvious representative-level lifts — the identity, and the column p… | \| `L4n` \| not predicted \| **low** \| Both predicted survivors have twisted-natural lifts at act 20's strength — the identity, with `αL… | 1 |
 | 1189-1224 | but which no merged result states. \| | but which no merged result states. `ΦP`'s `L4n` is predicted discharged by act 20's merged lift and exact law at the frozen configuration… | 1 |
 | 1226-1455 | Act 19 asks how rigid the class of such laws is | Act 21 asks how rigid the class of such laws is | 1 |
@@ -2527,6 +2587,7 @@ are listed by their anchor sentence.
 | 1457-1572 | Acts 11 through 18 each carry the non-doing | Acts 11 through 20 each carry the non-doing | 1 |
 | 1457-1572 | Act 19 classifies the cross-time laws a frozen ladder | Act 21 classifies the cross-time laws a frozen ladder | 2 |
 | 1574-1671 | Act 19 classifies the cross-time laws a frozen ladder | Act 21 classifies the cross-time laws a frozen ladder | 1 |
+| 1574-1671 |     execution is recorded as an observation and never substituted. ⏎  |     execution is recorded as an observation and never substituted. The one existential the witness ⏎     rule ranges over the frozen supp… | 1 |
 | 1574-1671 | 28. **A landing without `P`.** This is a sealing round. The specific failure guarded against is ⏎     treating `L` as the end of it: in e… | 28. **A landing without `P`.** This is a sealing round. The specific failure guarded against is ⏎     treating `L` as the end of it: at `… | 1 |
 | 1574-1671 | 30. **A chronology guard that fixes this round's own pins at `None` for all time.** See the chronology ⏎     control's clause 9, which ex… | 30. **A stem both declared and recorded, or a legacy constant written.** The specific failure guarded ⏎     against is a `P` that writes … | 1 |
 | 1673-1727 | act 19 | act 21 | 3 |
