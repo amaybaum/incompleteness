@@ -10113,8 +10113,8 @@ _SI2_STAGE1_ADDITIONS = {'SI1': {'round': 'SI1', 'kind': 'base-only',
 # round's preregistration authorizes, BY STEM. An authorized stem's record is validated by content by
 # U3; U5 only admits its presence. Declared here, outside both marker-bounded regions, under a name
 # that carries no round stem; the generic region reads it and nothing else about the round.
-_MANIFEST_BASELINE = {'base': '10d1041bcc10f25d9f643629d4431acbd0f65a1e',
-                      'authorized': ('OLT',)}
+_MANIFEST_BASELINE = {'base': 'ccd5704fd157348903cbdea746d24cf5d5498b78',
+                      'authorized': ('OLN',)}
 
 
 # ---- SI-3 (SI3-2, R2): THE PROSPECTIVE DECLARATION. A sealing round with no record yet declares
@@ -10123,7 +10123,7 @@ _MANIFEST_BASELINE = {'base': '10d1041bcc10f25d9f643629d4431acbd0f65a1e',
 # at its landing merge. The pin commit P REMOVES the entry when it writes the record; a stem that is
 # both declared and recorded is a failure. This is how a round carries its base while it runs
 # without writing the legacy representation SI-3 retires. Stem-free in its name, outside both regions.
-_MANIFEST_PROSPECTIVE = {}
+_MANIFEST_PROSPECTIVE = {'OLN': 'ccd5704fd157348903cbdea746d24cf5d5498b78'}
 
 # A value that is not a commit, not a hash and equal to nothing a record can hold, returned by the
 # accessor below where a record or a field is missing: every comparison and every git call made
@@ -24058,10 +24058,9 @@ def _olt_declarations():
     declared, recorded = 'OLT' in _MANIFEST_PROSPECTIVE, 'OLT' in recs
     if errs or declared == recorded:
         return False
-    if not (_MANIFEST_BASELINE == {'base': _OLT_B, 'authorized': ('OLT',)}):
-        return False
     if declared:
-        return _MANIFEST_PROSPECTIVE['OLT'] == _OLT_B
+        return (_MANIFEST_BASELINE == {'base': _OLT_B, 'authorized': ('OLT',)}
+                and _MANIFEST_PROSPECTIVE['OLT'] == _OLT_B)
     return recs['OLT'].get('kind') == 'sealed' and recs['OLT'].get('base') == _OLT_B
 
 
