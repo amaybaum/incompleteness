@@ -280,7 +280,8 @@ appends its own frozen sentence after act 24's and changes the label of nothing.
 
 and **lines 999–1005**, the observation act 24 left for this round:
 
-> a classification of the isometries of this geometry at the product configuration must **exclude**
+> If a later round freezes the classification act 21 named as the obstruction to `L-FAMILY`: a
+> classification of the isometries of this geometry at the product configuration must **exclude**
 > `ΦCTRL`, `Φ_SC`, `Φ_MD`, `Φ_PC` and `Φ_HS`, each proved not an isometry, modulo the frozen law
 > equivalence, and must **account for** `ΦPP`, `Φ_swap` and `Φ_conj`, each proved an isometry; at the
 > single-carrier configuration it must exclude `ΦC` and account for `ΦI`, `ΦP` and `ΦT`. **These results
