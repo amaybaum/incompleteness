@@ -945,5 +945,652 @@ theorem l1_free_on_shared_class (Γ : ℕ → Matrix V V ℝ) (hΓ : ∀ t, Γ t
   have := realizable_of_gramPhaseEquiv a₀ (hreal 1) h1
   rwa [hΓ 1, ← hΓ (t + 1)] at this
 
+
+/-! ### Section F — the frozen product configuration: the product embedding, `ΦPP` and `ΦCTRL`
+
+`V = Fin 4 × Fin 4`, `A = Fin 1 × Fin 1`, `a₀ = (0, 0)`, `Γ ≡ 1/16`, the pointwise product of two
+copies of `Γ ≡ ¼`. The product embedding `⊠` on fibre-Gram tuples is written inline throughout —
+`(G₁ ⊠ G₂) i j k = G₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2` — and spends no definition slot. The
+**construction work the freeze names** is discharged first: the index-wise product of two
+admissible single-carrier dilations is an admissible dilation for the product family at the product
+anchor, its fibre-Gram tuple is the product of the factors' tuples, and so the product of two
+realizable tuples is realizable — through act 18's merged `prod_mem_unitaryGroup` and
+`prod_admissible` and act 12's `sh1_necessity`. -/
+
+omit [Fintype V] [DecidableEq V] [Fintype A] [DecidableEq A] in
+/-- The cross-invariant of a product tuple is the product of the factors' cross-invariants at the
+factor indices. -/
+theorem product_cross {V₁ V₂ : Type} (X : V₁ → Matrix V₁ V₁ ℂ) (Y : V₂ → Matrix V₂ V₂ ℂ)
+    (a₁ b₁ : V₁) (a₂ b₂ : V₂) :
+    (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ => X i.1 j.1 k.1 * Y i.2 j.2 k.2) (a₁, a₂)
+        (b₁, b₂) (a₁, a₂)
+        * (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ => X i.1 j.1 k.1 * Y i.2 j.2 k.2) (b₁, b₂)
+          (a₁, a₂) (b₁, b₂)
+      = (X a₁ b₁ a₁ * X b₁ a₁ b₁) * (Y a₂ b₂ a₂ * Y b₂ a₂ b₂) := by
+  simp only [Matrix.of_apply]
+  ring
+
+omit [Fintype V] [DecidableEq V] [Fintype A] [DecidableEq A] in
+/-- The product permutation relabels a product tuple factorwise. -/
+theorem relabel_product {V₁ V₂ : Type} (σ₁ : Equiv.Perm V₁) (σ₂ : Equiv.Perm V₂)
+    (X : V₁ → Matrix V₁ V₁ ℂ) (Y : V₂ → Matrix V₂ V₂ ℂ) :
+    RelabelTransition (Equiv.prodCongr σ₁ σ₂)
+        (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ => X i.1 j.1 k.1 * Y i.2 j.2 k.2)
+      = fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ =>
+          RelabelTransition σ₁ X i.1 j.1 k.1 * RelabelTransition σ₂ Y i.2 j.2 k.2 := by
+  funext i
+  ext j k
+  simp [RelabelTransition, Matrix.submatrix_apply]
+
+omit [Fintype V] [DecidableEq V] [Fintype A] [DecidableEq A] in
+theorem relabel_one (G : V → Matrix V V ℂ) : RelabelTransition (1 : Equiv.Perm V) G = G := by
+  funext i
+  ext j k
+  simp [RelabelTransition, Matrix.submatrix_apply]
+
+omit [Fintype A] [DecidableEq A] in
+/-- At `|A| = 1` the visible-carrier block of a unitary on `V × Fin 1` is unitary on `V`. -/
+theorem vpart_unitary {U : Matrix (V × Fin 1) (V × Fin 1) ℂ}
+    (hU : U ∈ Matrix.unitaryGroup (V × Fin 1) ℂ) :
+    (Matrix.of fun i j : V => U (i, 0) (j, 0)) ∈ Matrix.unitaryGroup V ℂ := by
+  rw [Matrix.mem_unitaryGroup_iff', Matrix.star_eq_conjTranspose] at hU ⊢
+  ext i j
+  have h := congrFun (congrFun hU (i, 0)) (j, 0)
+  rw [Matrix.mul_apply, Fintype.sum_prod_type] at h
+  simp only [Fin.sum_univ_one, Matrix.conjTranspose_apply] at h
+  rw [Matrix.mul_apply]
+  simp only [Matrix.conjTranspose_apply, Matrix.of_apply]
+  rw [h]
+  by_cases hij : i = j
+  · subst hij; simp
+  · simp [hij]
+
+omit [Fintype V] [DecidableEq V] [Fintype A] [DecidableEq A] in
+/-- **The product embedding lands in the realizable set** — the construction the freeze names as
+`L5`'s honest cost. The index-wise product of admissible single-carrier dilations `U₁`, `U₂` (at
+`|A₁| = |A₂| = 1`) is an admissible dilation for the pointwise-product family at the product
+anchor, by act 18's merged `prod_mem_unitaryGroup` and `prod_admissible` (the `V`-factor being the
+product of the two visible blocks and the `A`-factor the identity on `Fin 1 × Fin 1`), and its
+fibre-Gram tuple is the product embedding of the factors' tuples. -/
+theorem product_realizable {V₁ V₂ : Type} [Fintype V₁] [DecidableEq V₁] [Fintype V₂] [DecidableEq V₂]
+    {Γ₁ : Matrix V₁ V₁ ℝ} {Γ₂ : Matrix V₂ V₂ ℝ}
+    {U₁ : Matrix (V₁ × Fin 1) (V₁ × Fin 1) ℂ} {U₂ : Matrix (V₂ × Fin 1) (V₂ × Fin 1) ℂ}
+    (h₁ : AdmissibleDilationAt Γ₁ (0 : Fin 1) U₁) (h₂ : AdmissibleDilationAt Γ₂ (0 : Fin 1) U₂) :
+    ∃ U : Matrix ((V₁ × V₂) × (Fin 1 × Fin 1)) ((V₁ × V₂) × (Fin 1 × Fin 1)) ℂ,
+      AdmissibleDilationAt (Matrix.of fun i j : V₁ × V₂ => Γ₁ i.1 j.1 * Γ₂ i.2 j.2)
+          ((0 : Fin 1), (0 : Fin 1)) U
+        ∧ FibreGram ((0 : Fin 1), (0 : Fin 1)) U
+          = fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ =>
+              FibreGram (0 : Fin 1) U₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) U₂ i.2 j.2 k.2 := by
+  classical
+  set P₁ : Matrix V₁ V₁ ℂ := Matrix.of fun i j => U₁ (i, 0) (j, 0) with hP₁
+  set P₂ : Matrix V₂ V₂ ℂ := Matrix.of fun i j => U₂ (i, 0) (j, 0) with hP₂
+  have hP₁u : P₁ᴴ * P₁ = 1 := by
+    have := vpart_unitary h₁.1
+    rwa [Matrix.mem_unitaryGroup_iff', Matrix.star_eq_conjTranspose] at this
+  have hP₂u : P₂ᴴ * P₂ = 1 := by
+    have := vpart_unitary h₂.1
+    rwa [Matrix.mem_unitaryGroup_iff', Matrix.star_eq_conjTranspose] at this
+  set P : Matrix (V₁ × V₂) (V₁ × V₂) ℂ := Matrix.of fun p q => P₁ p.1 q.1 * P₂ p.2 q.2 with hP
+  have hPu : Pᴴ * P = 1 := by
+    have := prod_mem_unitaryGroup P₁ P₂ hP₁u hP₂u
+    rwa [Matrix.mem_unitaryGroup_iff', Matrix.star_eq_conjTranspose] at this
+  have hWu : (1 : Matrix (Fin 1 × Fin 1) (Fin 1 × Fin 1) ℂ)ᴴ
+      * (1 : Matrix (Fin 1 × Fin 1) (Fin 1 × Fin 1) ℂ) = (1 : Matrix (Fin 1 × Fin 1) (Fin 1 × Fin 1) ℂ) := by
+    simp
+  have hΓ : ∀ i j : V₁ × V₂,
+      (Matrix.of fun i j : V₁ × V₂ => Γ₁ i.1 j.1 * Γ₂ i.2 j.2) i j = ‖P i j‖ ^ 2 := by
+    intro i j
+    have e₁ := h₁.2 i.1 j.1
+    have e₂ := h₂.2 i.2 j.2
+    simp only [Fin.sum_univ_one] at e₁ e₂
+    rw [Matrix.of_apply, e₁, e₂, hP, Matrix.of_apply, norm_mul, mul_pow]
+    simp [hP₁, hP₂]
+  refine ⟨Matrix.of fun p q => P p.1 q.1 * (1 : Matrix (Fin 1 × Fin 1) (Fin 1 × Fin 1) ℂ) p.2 q.2,
+    prod_admissible _ P 1 hPu hWu hΓ, ?_⟩
+  funext i
+  ext j k
+  rw [fibreGram_apply, Matrix.of_apply, fibreGram_apply, fibreGram_apply]
+  simp only [Fintype.sum_prod_type, Fin.sum_univ_one, Matrix.of_apply, Matrix.one_apply_eq, mul_one,
+    hP, hP₁, hP₂, star_mul', star_one]
+  ring
+
+/-- **The entries the product-configuration verdicts read**, on the pinned Hadamard objects: the
+diagonal `G^{(0)}_{00} = ¼` of both, the cross-invariant `G^{(0)}_{10} · G^{(1)}_{01}` at `(0,1)` —
+`1/16` on `G(H₁)`, `i/16` on `G(Hᵢ)` — the invariant at `(0,2)` and at `(0,3)` on `G(Hᵢ)`, `1/16`
+and `i/16`, and the two off-diagonal entries `G(Hᵢ)^{(0)}_{02} = G(Hᵢ)^{(0)}_{03} = ¼`. -/
+theorem hadamard_entries (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ)
+    (hH₁ : H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+      (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1))
+    (hHᵢ : Hᵢ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+      (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1;
+        1, -Complex.I, -1, Complex.I] p.1 q.1)) :
+    FibreGram (0 : Fin 1) H₁ 0 0 0 = 1 / 4 ∧ FibreGram (0 : Fin 1) Hᵢ 0 0 0 = 1 / 4
+      ∧ FibreGram (0 : Fin 1) H₁ 0 1 0 * FibreGram (0 : Fin 1) H₁ 1 0 1 = 1 / 16
+      ∧ FibreGram (0 : Fin 1) Hᵢ 0 1 0 * FibreGram (0 : Fin 1) Hᵢ 1 0 1 = Complex.I / 16
+      ∧ FibreGram (0 : Fin 1) Hᵢ 0 2 0 * FibreGram (0 : Fin 1) Hᵢ 2 0 2 = 1 / 16
+      ∧ FibreGram (0 : Fin 1) Hᵢ 0 3 0 * FibreGram (0 : Fin 1) Hᵢ 3 0 3 = Complex.I / 16
+      ∧ FibreGram (0 : Fin 1) Hᵢ 0 0 2 = 1 / 4 ∧ FibreGram (0 : Fin 1) Hᵢ 0 0 3 = 1 / 4
+      ∧ RelabelTransition (Equiv.swap (2 : Fin 4) 3) (FibreGram (0 : Fin 1) Hᵢ) 0 0 0 = 1 / 4
+      ∧ RelabelTransition (Equiv.swap (2 : Fin 4) 3) (FibreGram (0 : Fin 1) Hᵢ) 0 1 0
+          * RelabelTransition (Equiv.swap (2 : Fin 4) 3) (FibreGram (0 : Fin 1) Hᵢ) 1 0 1
+          = Complex.I / 16
+      ∧ RelabelTransition (Equiv.swap (2 : Fin 4) 3) (FibreGram (0 : Fin 1) Hᵢ) 0 2 0
+          * RelabelTransition (Equiv.swap (2 : Fin 4) 3) (FibreGram (0 : Fin 1) Hᵢ) 2 0 2
+          = Complex.I / 16 := by
+  subst hH₁ hHᵢ
+  simp [fibreGram_apply, RelabelTransition, Matrix.submatrix_apply, Equiv.swap_apply_def]
+  norm_num [Complex.ext_iff]
+
+/-- **The product-configuration separations and fixings**, on the products of the pinned classes,
+each certified through act 12's merged cross-invariant read at a named fibre pair of the product
+carrier, through `product_cross`: `[G(H₁) ⊠ G(H₁)] ≠ [G(Hᵢ) ⊠ G(Hᵢ)]` at `((0,0),(1,0))`;
+`Φ_{1×σ}` moves `[G(H₁) ⊠ G(Hᵢ)]`, at `((0,0),(0,2))`; no product class with first factor `[G(H₁)]`
+and a realizable second factor equals `[G(Hᵢ) ⊠ G(Hᵢ)]`, at `((0,0),(1,0))` with the second
+factor's diagonal read from realizability; `Φ_{σ×σ}` moves `[G(Hᵢ) ⊠ G(Hᵢ)]`, at `((0,0),(0,2))`,
+and sends it off `[G(H₁) ⊠ G(H₁)]`, at `((0,0),(1,0))`; and both product permutations fix
+`G(H₁) ⊠ G(H₁)` exactly, since `σ` fixes `G(H₁)`. -/
+theorem product_separations (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+    (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ) (G₁ Gᵢ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ)
+    (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)))
+    (hH₁ : H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+      (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1))
+    (hHᵢ : Hᵢ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+      (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1;
+        1, -Complex.I, -1, Complex.I] p.1 q.1))
+    (hG₁ : G₁ = FibreGram (0 : Fin 1) H₁) (hGᵢ : Gᵢ = FibreGram (0 : Fin 1) Hᵢ)
+    (hfix : RelabelTransition (Equiv.swap (2 : Fin 4) 3) G₁ = G₁) :
+    ¬ GramPhaseEquiv (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => G₁ i.1 j.1 k.1 * G₁ i.2 j.2 k.2)
+        (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => Gᵢ i.1 j.1 k.1 * Gᵢ i.2 j.2 k.2)
+      ∧ ¬ GramPhaseEquiv (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => G₁ i.1 j.1 k.1 * Gᵢ i.2 j.2 k.2)
+          (RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3))
+            (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => G₁ i.1 j.1 k.1 * Gᵢ i.2 j.2 k.2))
+      ∧ (∀ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂ →
+          ¬ GramPhaseEquiv (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => Gᵢ i.1 j.1 k.1 * Gᵢ i.2 j.2 k.2)
+            (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => G₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2))
+      ∧ ¬ GramPhaseEquiv (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => Gᵢ i.1 j.1 k.1 * Gᵢ i.2 j.2 k.2)
+          (RelabelTransition (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3))
+            (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => Gᵢ i.1 j.1 k.1 * Gᵢ i.2 j.2 k.2))
+      ∧ ¬ GramPhaseEquiv (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => G₁ i.1 j.1 k.1 * G₁ i.2 j.2 k.2)
+          (RelabelTransition (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3))
+            (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => Gᵢ i.1 j.1 k.1 * Gᵢ i.2 j.2 k.2))
+      ∧ RelabelTransition (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3))
+          (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => G₁ i.1 j.1 k.1 * G₁ i.2 j.2 k.2)
+          = (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => G₁ i.1 j.1 k.1 * G₁ i.2 j.2 k.2)
+      ∧ RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3))
+          (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => G₁ i.1 j.1 k.1 * G₁ i.2 j.2 k.2)
+          = (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => G₁ i.1 j.1 k.1 * G₁ i.2 j.2 k.2) := by
+  obtain ⟨d1, di, c1, ci, ci2, ci3, e2, e3, r0, r1, r2⟩ := hadamard_entries H₁ Hᵢ hH₁ hHᵢ
+  rw [← hG₁] at d1 c1
+  rw [← hGᵢ] at di ci ci2 ci3 e2 e3 r0 r1 r2
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · intro h
+    have := gramPhaseEquiv_cross_invariant h ((0 : Fin 4), (0 : Fin 4)) ((1 : Fin 4), (0 : Fin 4))
+    rw [product_cross, product_cross, ci, di, c1, d1] at this
+    norm_num [Complex.ext_iff] at this
+  · intro h
+    rw [relabel_product, relabel_one] at h
+    have := gramPhaseEquiv_cross_invariant h ((0 : Fin 4), (0 : Fin 4)) ((0 : Fin 4), (2 : Fin 4))
+    rw [product_cross, product_cross, r2, d1, ci2] at this
+    norm_num [Complex.ext_iff] at this
+  · intro G₂ hG₂ h
+    have hdiag : G₂ 0 0 0 = 1 / 4 := by
+      rw [hG₂.2.2.2 0 0, hΓ₀, Matrix.of_apply]
+      norm_num
+    have := gramPhaseEquiv_cross_invariant h ((0 : Fin 4), (0 : Fin 4)) ((1 : Fin 4), (0 : Fin 4))
+    rw [product_cross, product_cross, c1, hdiag, ci, di] at this
+    norm_num [Complex.ext_iff] at this
+  · intro h
+    rw [relabel_product] at h
+    have := gramPhaseEquiv_cross_invariant h ((0 : Fin 4), (0 : Fin 4)) ((0 : Fin 4), (2 : Fin 4))
+    rw [product_cross, product_cross, r0, r2, di, ci2] at this
+    norm_num [Complex.ext_iff] at this
+  · intro h
+    rw [relabel_product] at h
+    have := gramPhaseEquiv_cross_invariant h ((0 : Fin 4), (0 : Fin 4)) ((1 : Fin 4), (0 : Fin 4))
+    rw [product_cross, product_cross, r1, r0, c1, d1] at this
+    norm_num [Complex.ext_iff] at this
+  · rw [relabel_product, hfix]
+  · rw [relabel_product, relabel_one, hfix]
+
+/-- **`ΦPP` satisfies the frozen ladder at the frozen product configuration**, `L5` included with
+content: the product permutation `σ × σ` (`σ = (2 3)` on each factor) relabels product tuples
+factorwise (`relabel_product`), so `FactorizesOnProduct` holds with `Φ₁ = Φ₂ = Φ_σ` **as an
+equality**, before any equivalence. The remaining rungs are the carrier relabelling's, at the
+product carrier: totality, admissibility preservation and surjectivity from `realizable_relabel`,
+injectivity from `gramPhaseEquiv_of_relabel`, descent from `relabel_gramPhaseEquiv`, the `L-PROP`
+conjuncts from the product separations (`G(H₁) ⊠ G(H₁)` fixed, `G(Hᵢ) ⊠ G(Hᵢ)` moved, the two
+inequivalent, the realizability of both products by the product embedding), and **`L4n` from act
+20's merged lift and exact law at `V = Fin 4 × Fin 4`, `A = Fin 1 × Fin 1`** — `RelabelLift (σ × σ)`
+with `rnt2_lifting_property`, `rnt2_admissible` and `rnt3_law_exact`, consumed at merged strength. -/
+theorem phiPP_ladder :
+    ∃ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ) (Γ₁ : ℕ → Matrix (Fin 4) (Fin 4) ℝ),
+      (∀ t i j, Γ t i j = 1 / 16) ∧ (∀ t i j, Γ₁ t i j = 1 / 4)
+        ∧ LadderConds (Fin 1) (Fin 1) ((0 : Fin 1), (0 : Fin 1)) Γ (Equiv.refl (Fin 4 × Fin 4)) Γ₁ Γ₁
+          (fun _ G => RelabelTransition
+            (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) G) := by
+  classical
+  obtain ⟨Γ₀, H₁, Hᵢ, Hm, hΓ₀, hH₁, hHᵢ, hHm, hadm₁, hadmᵢ, hadmM, h1i, hm1, hmi, hfix, hmove,
+    h1move⟩ := witness_supply
+  obtain ⟨s1, s2, s3, s4, s5, f1, f2⟩ :=
+    product_separations Γ₀ H₁ Hᵢ _ _ hΓ₀ hH₁ hHᵢ rfl rfl hfix
+  set σ : Equiv.Perm (Fin 4) := Equiv.swap (2 : Fin 4) 3 with hσ
+  set τ : Equiv.Perm (Fin 4 × Fin 4) := Equiv.prodCongr σ σ with hτ
+  set Γp : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ :=
+    Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2 with hΓp
+  set a₀ : Fin 1 × Fin 1 := ((0 : Fin 1), (0 : Fin 1)) with ha₀
+  set P₁₁ : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ := fun i =>
+    Matrix.of fun j k => FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2
+    with hP₁₁
+  set Pᵢᵢ : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ := fun i =>
+    Matrix.of fun j k => FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) Hᵢ i.2 j.2 k.2
+    with hPᵢᵢ
+  obtain ⟨U₁₁, hU₁₁, hF₁₁⟩ := product_realizable hadm₁ hadm₁
+  obtain ⟨Uᵢᵢ, hUᵢᵢ, hFᵢᵢ⟩ := product_realizable hadmᵢ hadmᵢ
+  have hR₁₁ : RealizableGram (Fin 1 × Fin 1) Γp P₁₁ := by
+    have := sh1_necessity hU₁₁; rwa [hF₁₁] at this
+  have hRᵢᵢ : RealizableGram (Fin 1 × Fin 1) Γp Pᵢᵢ := by
+    have := sh1_necessity hUᵢᵢ; rwa [hFᵢᵢ] at this
+  have hΓinv : ∀ i j, Γp (τ i) (τ j) = Γp i j := fun i j => by simp [hΓp, hΓ₀]
+  have hΓinv' : ∀ i j, Γp (τ.symm i) (τ.symm j) = Γp i j := fun i j => by simp [hΓp, hΓ₀]
+  have hrel : ∀ {G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ},
+      RealizableGram (Fin 1 × Fin 1) Γp G → RealizableGram (Fin 1 × Fin 1) Γp (RelabelTransition τ G) :=
+    fun hG => realizable_relabel a₀ τ hΓinv hG
+  have hd : ∀ (t : ℕ) (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      GramPhaseEquiv G G' → GramPhaseEquiv (RelabelTransition τ G) (RelabelTransition τ G') :=
+    fun _ _ _ h => relabel_gramPhaseEquiv τ h
+  have hiter : ∀ (G₀ : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      RealizableGram (Fin 1 × Fin 1) Γp G₀ →
+      ∀ t, RealizableGram (Fin 1 × Fin 1) Γp ((RelabelTransition τ)^[t] G₀) := by
+    intro G₀ hG₀ t
+    induction t with
+    | zero => exact hG₀
+    | succ n ih => rw [Function.iterate_succ_apply']; exact hrel ih
+  have hlawiter : ∀ (G₀ : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) t,
+      GramPhaseEquiv ((RelabelTransition τ)^[t + 1] G₀)
+        (RelabelTransition τ ((RelabelTransition τ)^[t] G₀)) := by
+    intro G₀ t
+    rw [Function.iterate_succ_apply']
+    exact gramPhaseEquiv_refl _
+  refine ⟨fun _ => Γp, fun _ => Γ₀, fun t i j => by simp [hΓp, hΓ₀]; norm_num,
+    fun t i j => by rw [hΓ₀]; rfl, ?_, ?_, ?_, ?_, ⟨_, fun _ => rfl⟩, ?_, hd, ?_, ?_⟩
+  · -- ProperAt
+    refine ⟨fun _ => P₁₁, fun t => (RelabelTransition τ)^[t] Pᵢᵢ,
+      fun t => if t = 0 then P₁₁ else Pᵢᵢ, fun _ => hR₁₁, hiter _ hRᵢᵢ,
+      fun t => by dsimp only; split_ifs <;> assumption,
+      fun _ => by dsimp only; rw [f1]; exact gramPhaseEquiv_refl _,
+      hlawiter _, fun h => s1 (h 0), fun h => ?_⟩
+    have := h 0
+    simp only [zero_add, one_ne_zero, if_false, if_true, f1] at this
+    exact s1 (gramPhaseEquiv_symm this)
+  · -- PropagatesFrom
+    refine ⟨fun G₁ G₂ _ _ h₁ h₂ h0 => (ol1a_descent a₀ (fun _ => Γp) hd).2.1 G₁ G₂ h₁ h₂ h0,
+      1, fun _ => P₁₁, fun t => (RelabelTransition τ)^[t] Pᵢᵢ, le_rfl,
+      fun _ => hR₁₁, hiter _ hRᵢᵢ, fun _ => by dsimp only; rw [f1]; exact gramPhaseEquiv_refl _,
+      hlawiter _, ?_⟩
+    simpa using s5
+  · -- L0
+    exact fun G₀ hG₀ => ⟨fun t => (RelabelTransition τ)^[t] G₀, hiter G₀ hG₀, hlawiter G₀,
+      gramPhaseEquiv_refl _⟩
+  · -- L1
+    exact fun _ _ hG => hrel hG
+  · -- L3i and L3s
+    refine ⟨fun _ _ _ _ _ h => gramPhaseEquiv_of_relabel τ h, fun _ G' hG' =>
+      ⟨RelabelTransition τ.symm G', realizable_relabel a₀ τ.symm hΓinv' hG', ?_⟩⟩
+    dsimp only
+    rw [relabel_symm_relabel]
+    exact gramPhaseEquiv_refl _
+  · -- L4n, from act 20's merged lift and exact law at the product carrier
+    intro t
+    exact ⟨RelabelLift τ, RelabelInducedLeft τ, RelabelInducedRight τ,
+      fun U _ => rnt2_lifting_property τ a₀ U, fun U hU => rnt2_admissible hΓinv hU,
+      rnt3_law_exact τ a₀⟩
+  · -- L5, as an equality
+    refine ⟨by simp, fun t i j => by simp [hΓp], fun _ => RelabelTransition σ,
+      fun _ => RelabelTransition σ, fun t G₁ G₂ _ _ => ?_⟩
+    simp only [Equiv.refl_apply]
+    rw [relabel_product]
+    exact gramPhaseEquiv_refl _
+
+open Classical in
+/-- **`ΦCTRL` — the controlled relabelling at the frozen product configuration**, written from the
+configuration's own data — the named class `ω̄₁ = [G(H₁)]` and the permutation `σ = (2 3)` of the
+second factor — and consulting no lift: on a tuple whose class has a product representative
+`G(H₁) ⊠ G₂` with `G₂` realizable, apply `Φ_{1×σ}`; on every other tuple, the identity. **The
+branch condition is stated of the class** (a `GramPhaseEquiv`-invariant property, by
+`gramPhaseEquiv_trans`), which is the well-definedness obligation the freeze names for this
+candidate, discharged by construction; on the two product classes the `L5` refutation reads,
+`[G(H₁) ⊠ G(Hᵢ)]` and `[G(Hᵢ) ⊠ G(Hᵢ)]`, the branch taken is the one the freeze's case split names,
+the second by the certified separation `product_separations` (3).
+
+**Census.** `ΦCTRL` is an `L-PROP` law (proper at the product configuration, with the two constant
+solutions at `[G(H₁) ⊠ G(H₁)]` and `[G(Hᵢ) ⊠ G(Hᵢ)]` and the constant at `[G(H₁) ⊠ G(Hᵢ)]` no
+solution; propagating with both clauses), total, admissibility-preserving, time-homogeneous,
+reversible in both conjuncts (`Φ ∘ Φ = id` exactly, `σ` being an involution) and descending. **It
+fails `L4n`**: no representative-level lift of it is twisted-natural at act 20's strength. The
+obstruction is the **right closure and right intertwining conjuncts read together**: for the weak
+anchored gauge `K` with phase `−1` at `(0,3)` and `1` elsewhere, the induced `αR K` is a weak
+anchored gauge with phases `c'`, and reading the lifting obligation at `U K` and at `U` for an
+admissible `U` in each branch — the product dilations of `G(H₁) ⊠ G(Hᵢ)` and of `G(Hᵢ) ⊠ G(Hᵢ)` —
+forces `conj(c'_{(0,0)}) · c'_{(0,2)}` to equal `−1` on the relabelled branch and `1` on the identity
+branch, at the entry `((0,0), (0,0), (0,2))`, where both Gram tuples are nonzero. **The induced map
+is fixed before the input and cannot see the branch.** **It fails `L5`**, by the freeze's
+two-instance argument made exact: at `G(H₁) ⊠ G(Hᵢ)` the transition relabels the second factor and
+at `G(Hᵢ) ⊠ G(Hᵢ)` it does not, so a factorization `Φ₁ ⊠ Φ₂` would give `Φ₂ G(Hᵢ)` two
+`∼_D`-inequivalent values, certified through act 12's cross-invariant read at `((0,0),(0,2))` and
+`((0,0),(0,0))` on both instances. -/
+theorem phiCTRL_census :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+        ∧ H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)
+        ∧ Hᵢ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1;
+              1, -Complex.I, -1, Complex.I] p.1 q.1)
+        ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+            (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)),
+          Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+          Φ = (fun _ G => if ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂
+                ∧ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                    FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)
+              then RelabelTransition
+                (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G
+              else G) →
+          ProperAt ((0 : Fin 1), (0 : Fin 1)) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+          ∧ PropagatesFrom ((0 : Fin 1), (0 : Fin 1)) Γ
+              (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+          ∧ EvolvesTotally (Fin 1 × Fin 1) Γ Φ
+          ∧ PreservesAdmissible (Fin 1 × Fin 1) Γ Φ
+          ∧ (∃ Φ₀ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ), ∀ t, Φ t = Φ₀)
+          ∧ Reversible (Fin 1 × Fin 1) Γ Φ
+          ∧ (∀ t (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+              GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G'))
+          ∧ (∀ t, ¬ ∃ Ψ αL αR : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ
+                → Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ,
+              (∀ U, AdmissibleDilationAt (Γ t) ((0 : Fin 1), (0 : Fin 1)) U →
+                FibreGram ((0 : Fin 1), (0 : Fin 1)) (Ψ U) = Φ t (FibreGram ((0 : Fin 1), (0 : Fin 1)) U))
+              ∧ (∀ U, AdmissibleDilationAt (Γ t) ((0 : Fin 1), (0 : Fin 1)) U →
+                AdmissibleDilationAt (Γ (t + 1)) ((0 : Fin 1), (0 : Fin 1)) (Ψ U))
+              ∧ TwistedNatural ((0 : Fin 1), (0 : Fin 1)) αL αR Ψ)
+          ∧ ¬ FactorizesOnProduct (Fin 1 × Fin 1) (Fin 1) (Fin 1) (Equiv.refl (Fin 4 × Fin 4))
+              (fun _ => Γ₀) (fun _ => Γ₀) Γ Φ := by
+  classical
+  obtain ⟨Γ₀, H₁, Hᵢ, Hm, hΓ₀, hH₁, hHᵢ, hHm, hadm₁, hadmᵢ, hadmM, h1i, hm1, hmi, hfix, hmove,
+    h1move⟩ := witness_supply
+  obtain ⟨s1, s2, s3, s4, s5, f1, f2⟩ :=
+    product_separations Γ₀ H₁ Hᵢ _ _ hΓ₀ hH₁ hHᵢ rfl rfl hfix
+  obtain ⟨d1, di, c1, ci, ci2, ci3, e2, e3, r0, r1, r2⟩ := hadamard_entries H₁ Hᵢ hH₁ hHᵢ
+  obtain ⟨U₁₁, hU₁₁, hF₁₁⟩ := product_realizable hadm₁ hadm₁
+  obtain ⟨U₁ᵢ, hU₁ᵢ, hF₁ᵢ⟩ := product_realizable hadm₁ hadmᵢ
+  obtain ⟨Uᵢᵢ, hUᵢᵢ, hFᵢᵢ⟩ := product_realizable hadmᵢ hadmᵢ
+  have hG₁r := sh1_necessity hadm₁
+  have hGᵢr := sh1_necessity hadmᵢ
+  refine ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, ?_⟩
+  intro Γ Φ hΓ hΦ
+  subst hΓ
+  have hΦt : ∀ t, Φ t = Φ 0 := fun t => by rw [hΦ]
+  set Γp : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ :=
+    Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2 with hΓp
+  set P₁₁ : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ := fun i =>
+    Matrix.of fun j k => FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2
+    with hP₁₁
+  set P₁ᵢ : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ := fun i =>
+    Matrix.of fun j k => FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) Hᵢ i.2 j.2 k.2
+    with hP₁ᵢ
+  set Pᵢᵢ : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ := fun i =>
+    Matrix.of fun j k => FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) Hᵢ i.2 j.2 k.2
+    with hPᵢᵢ
+  have hR₁₁ : RealizableGram (Fin 1 × Fin 1) Γp P₁₁ := by
+    have := sh1_necessity hU₁₁; rwa [hF₁₁] at this
+  have hR₁ᵢ : RealizableGram (Fin 1 × Fin 1) Γp P₁ᵢ := by
+    have := sh1_necessity hU₁ᵢ; rwa [hF₁ᵢ] at this
+  have hRᵢᵢ : RealizableGram (Fin 1 × Fin 1) Γp Pᵢᵢ := by
+    have := sh1_necessity hUᵢᵢ; rwa [hFᵢᵢ] at this
+  have hΓinv : ∀ i j, Γp (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3) i)
+      (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3) j) = Γp i j :=
+    fun i j => by simp [hΓp, hΓ₀]
+  have hΓinvσ : ∀ i j, Γ₀ (Equiv.swap (2 : Fin 4) 3 i) (Equiv.swap (2 : Fin 4) 3 j) = Γ₀ i j :=
+    fun i j => by rw [hΓ₀]; simp
+  have hτs : (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)).symm
+      = Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3) := by
+    rw [Equiv.prodCongr_symm, Equiv.symm_swap]; rfl
+  have hττ : ∀ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+      RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3))
+        (RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G)
+        = G := by
+    intro G
+    calc RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3))
+          (RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G)
+        = RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)).symm
+          (RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G) := by
+            rw [hτs]
+      _ = G := relabel_relabel_symm _ G
+  -- the two branches
+  have hΦyes : ∀ t (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+      (G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ), RealizableGram (Fin 1) Γ₀ G₂ →
+      GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+        FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2) →
+      Φ t G = RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G := by
+    intro t G G₂ h2 h
+    simp only [hΦ]
+    rw [if_pos ⟨G₂, h2, h⟩]
+  have hno : ∀ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ, GramPhaseEquiv G Pᵢᵢ →
+      ¬ ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂
+        ∧ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+            FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2) := by
+    rintro G h ⟨G₂, h2, h'⟩
+    exact s3 G₂ h2 (gramPhaseEquiv_trans (gramPhaseEquiv_symm h) h')
+  have hΦno : ∀ t (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      GramPhaseEquiv G Pᵢᵢ → Φ t G = G := by
+    intro t G h
+    simp only [hΦ]
+    rw [if_neg (hno G h)]
+  have hΦ11 : ∀ t, Φ t P₁₁ = P₁₁ := fun t => by
+    rw [hΦyes t P₁₁ (FibreGram (0 : Fin 1) H₁) hG₁r (gramPhaseEquiv_refl _), f2]
+  have hΦii : ∀ t, Φ t Pᵢᵢ = Pᵢᵢ := fun t => hΦno t Pᵢᵢ (gramPhaseEquiv_refl _)
+  -- descent, admissibility preservation, involution
+  have hd : ∀ t (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G') := by
+    intro t G G' h
+    simp only [hΦ]
+    by_cases hc : ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂
+        ∧ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+            FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)
+    · obtain ⟨G₂, h2, hh⟩ := hc
+      rw [if_pos ⟨G₂, h2, hh⟩, if_pos ⟨G₂, h2, gramPhaseEquiv_trans (gramPhaseEquiv_symm h) hh⟩]
+      exact relabel_gramPhaseEquiv _ h
+    · rw [if_neg hc, if_neg (fun ⟨G₂, h2, hh⟩ => hc ⟨G₂, h2, gramPhaseEquiv_trans h hh⟩)]
+      exact h
+  have hrel : ∀ t (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      RealizableGram (Fin 1 × Fin 1) Γp G → RealizableGram (Fin 1 × Fin 1) Γp (Φ t G) := by
+    intro t G hG
+    simp only [hΦ]
+    split_ifs
+    · exact realizable_relabel ((0 : Fin 1), (0 : Fin 1)) _ hΓinv hG
+    · exact hG
+  have hinv : ∀ t (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ), Φ t (Φ t G) = G := by
+    intro t G
+    by_cases hc : ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂
+        ∧ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+            FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)
+    · obtain ⟨G₂, h2, hh⟩ := hc
+      have hh' : GramPhaseEquiv
+          (RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G)
+          (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+            FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1
+              * RelabelTransition (Equiv.swap (2 : Fin 4) 3) G₂ i.2 j.2 k.2) := by
+        have := relabel_gramPhaseEquiv
+          (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) hh
+        rwa [relabel_product, relabel_one] at this
+      rw [hΦyes t G G₂ h2 hh, hΦyes t _ _ (realizable_relabel (0 : Fin 1) _ hΓinvσ h2) hh', hττ]
+    · simp only [hΦ]
+      rw [if_neg hc, if_neg hc]
+  refine ⟨?_, ?_, ?_, fun t G hG => hrel t G hG, ⟨Φ 0, hΦt⟩, ?_, hd, ?_, ?_⟩
+  · -- proper
+    refine ⟨fun _ => P₁₁, fun _ => Pᵢᵢ, fun _ => P₁ᵢ, fun _ => hR₁₁, fun _ => hRᵢᵢ, fun _ => hR₁ᵢ,
+      fun t => by rw [hΦ11]; exact gramPhaseEquiv_refl _,
+      fun t => by rw [hΦii]; exact gramPhaseEquiv_refl _,
+      fun h => s1 (h 0), fun h => ?_⟩
+    have := h 0
+    rw [hΦyes 0 P₁ᵢ (FibreGram (0 : Fin 1) Hᵢ) hGᵢr (gramPhaseEquiv_refl _)] at this
+    exact s2 this
+  · -- propagates
+    exact ⟨fun G₁ G₂ _ _ h₁ h₂ h0 =>
+        (ol1a_descent ((0 : Fin 1), (0 : Fin 1)) (fun _ => Γp) hd).2.1 G₁ G₂ h₁ h₂ h0,
+      1, fun _ => P₁₁, fun _ => Pᵢᵢ, le_rfl, fun _ => hR₁₁, fun _ => hRᵢᵢ,
+      fun t => by rw [hΦ11]; exact gramPhaseEquiv_refl _,
+      fun t => by rw [hΦii]; exact gramPhaseEquiv_refl _, s1⟩
+  · -- total
+    intro G₀ hG₀
+    refine ⟨fun t => (Φ 0)^[t] G₀, ?_, ?_, gramPhaseEquiv_refl _⟩
+    · intro t
+      induction t with
+      | zero => exact hG₀
+      | succ n ih =>
+        show RealizableGram (Fin 1 × Fin 1) Γp ((Φ 0)^[n + 1] G₀)
+        rw [Function.iterate_succ_apply']
+        exact hrel 0 _ ih
+    · intro t
+      show GramPhaseEquiv ((Φ 0)^[t + 1] G₀) (Φ t ((Φ 0)^[t] G₀))
+      rw [Function.iterate_succ_apply', hΦt t]
+      exact gramPhaseEquiv_refl _
+  · -- reversible
+    exact ⟨fun t G G' _ _ h => by have := hd t _ _ h; rwa [hinv, hinv] at this,
+      fun t G' hG' => ⟨Φ t G', hrel t G' hG', by rw [hinv]; exact gramPhaseEquiv_refl _⟩⟩
+  · -- not L4n
+    intro t
+    rintro ⟨Ψ, αL, αR, hlift, -, -, hRclos, -, hR⟩
+    obtain ⟨c, hc⟩ : ∃ c : Fin 4 × Fin 4 → ℂ,
+        c = fun j => if j = ((0 : Fin 4), (3 : Fin 4)) then -1 else 1 := ⟨_, rfl⟩
+    have hcval : ∀ j, c j = 1 ∨ c j = -1 := by
+      intro j; rw [hc]; dsimp only; split_ifs <;> simp
+    have hcnorm : ∀ j, ‖c j‖ = 1 := by
+      intro j; rcases hcval j with h | h <;> simp [h]
+    have hcc : ∀ j, c j * star (c j) = 1 := fun j => by
+      rw [mul_comm, star_mul_self_eq_norm_sq, hcnorm, one_pow, Complex.ofReal_one]
+    have hc00 : c ((0 : Fin 4), (0 : Fin 4)) = 1 := by rw [hc]; simp
+    have hc02 : c ((0 : Fin 4), (2 : Fin 4)) = 1 := by rw [hc]; simp
+    have hc03 : c ((0 : Fin 4), (3 : Fin 4)) = -1 := by rw [hc]; simp
+    set K : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ :=
+      Matrix.diagonal (fun p : (Fin 4 × Fin 4) × (Fin 1 × Fin 1) => c p.1) with hK
+    have hKc : ∀ (p : (Fin 4 × Fin 4) × (Fin 1 × Fin 1)) (j : Fin 4 × Fin 4),
+        K p (j, ((0 : Fin 1), (0 : Fin 1))) = if p = (j, ((0 : Fin 1), (0 : Fin 1))) then c j else 0 := by
+      intro p j
+      rw [hK, Matrix.diagonal_apply]
+      by_cases hp : p = (j, ((0 : Fin 1), (0 : Fin 1)))
+      · subst hp; simp
+      · simp [hp]
+    have hKunit : K ∈ Matrix.unitaryGroup ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ := by
+      rw [hK, Matrix.mem_unitaryGroup_iff, Matrix.star_eq_conjTranspose, Matrix.diagonal_conjTranspose,
+        Matrix.diagonal_mul_diagonal]
+      ext p q
+      rw [Matrix.diagonal_apply, Matrix.one_apply]
+      split_ifs with hpq <;> first | rfl | (subst hpq; simp only [Pi.star_apply]; exact hcc p.1)
+    have hKw : WeakAnchorStabilizer ((0 : Fin 1), (0 : Fin 1)) K := ⟨hKunit, c, hKc⟩
+    obtain ⟨-, c', hc'⟩ := hRclos K hKw
+    have hτ00 : Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)
+        ((0 : Fin 4), (0 : Fin 4)) = ((0 : Fin 4), (0 : Fin 4)) := by
+      simp [Equiv.swap_apply_def]
+    have hτ02 : Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)
+        ((0 : Fin 4), (2 : Fin 4)) = ((0 : Fin 4), (3 : Fin 4)) := by
+      simp
+    -- the relabelled branch, read at U₁ᵢ K and at U₁ᵢ
+    have hUyK := weak_preserves_admissible hU₁ᵢ hKw
+    have hFyK : FibreGram ((0 : Fin 1), (0 : Fin 1)) (U₁ᵢ * K)
+        = fun i => Matrix.of fun j k => star (c j) * P₁ᵢ i j k * c k := by
+      funext i; ext j k; rw [fibreGram_mul_weak_apply hKc, hF₁ᵢ]; rfl
+    have hQy : GramPhaseEquiv (fun i => Matrix.of fun j k => star (c j) * P₁ᵢ i j k * c k) P₁ᵢ :=
+      gramPhaseEquiv_symm ⟨c, hcnorm, fun i j k => rfl⟩
+    have E1 := hlift (U₁ᵢ * K) hUyK
+    rw [hR U₁ᵢ K hKw, hFyK, hΦyes t _ (FibreGram (0 : Fin 1) Hᵢ) hGᵢr hQy] at E1
+    have E1' := congrFun (congrFun (congrFun E1 ((0 : Fin 4), (0 : Fin 4))) ((0 : Fin 4), (0 : Fin 4)))
+      ((0 : Fin 4), (2 : Fin 4))
+    rw [fibreGram_mul_weak_apply hc', hlift U₁ᵢ hU₁ᵢ, hF₁ᵢ,
+      hΦyes t P₁ᵢ (FibreGram (0 : Fin 1) Hᵢ) hGᵢr (gramPhaseEquiv_refl _)] at E1'
+    simp only [RelabelTransition, Matrix.submatrix_apply] at E1'
+    rw [hτ00, hτ02] at E1'
+    simp only [hP₁ᵢ, Matrix.of_apply] at E1'
+    rw [d1, e3, hc00, hc03, star_one] at E1'
+    have hE1 : star (c' ((0 : Fin 4), (0 : Fin 4))) * c' ((0 : Fin 4), (2 : Fin 4)) = -1 := by
+      linear_combination 16 * E1'
+    -- the identity branch, read at Uᵢᵢ K and at Uᵢᵢ
+    have hUnK := weak_preserves_admissible hUᵢᵢ hKw
+    have hFnK : FibreGram ((0 : Fin 1), (0 : Fin 1)) (Uᵢᵢ * K)
+        = fun i => Matrix.of fun j k => star (c j) * Pᵢᵢ i j k * c k := by
+      funext i; ext j k; rw [fibreGram_mul_weak_apply hKc, hFᵢᵢ]; rfl
+    have hQn : GramPhaseEquiv (fun i => Matrix.of fun j k => star (c j) * Pᵢᵢ i j k * c k) Pᵢᵢ :=
+      gramPhaseEquiv_symm ⟨c, hcnorm, fun i j k => rfl⟩
+    have E2 := hlift (Uᵢᵢ * K) hUnK
+    rw [hR Uᵢᵢ K hKw, hFnK, hΦno t _ hQn] at E2
+    have E2' := congrFun (congrFun (congrFun E2 ((0 : Fin 4), (0 : Fin 4))) ((0 : Fin 4), (0 : Fin 4)))
+      ((0 : Fin 4), (2 : Fin 4))
+    rw [fibreGram_mul_weak_apply hc', hlift Uᵢᵢ hUᵢᵢ, hFᵢᵢ,
+      hΦno t Pᵢᵢ (gramPhaseEquiv_refl _)] at E2'
+    simp only [hPᵢᵢ, Matrix.of_apply] at E2'
+    rw [di, e2, hc00, hc02, star_one] at E2'
+    have hE2 : star (c' ((0 : Fin 4), (0 : Fin 4))) * c' ((0 : Fin 4), (2 : Fin 4)) = 1 := by
+      linear_combination 16 * E2'
+    rw [hE1] at hE2
+    norm_num at hE2
+  · -- not L5
+    rintro ⟨-, -, Φ₁, Φ₂, hfac⟩
+    have E1 := hfac 0 (FibreGram (0 : Fin 1) H₁) (FibreGram (0 : Fin 1) Hᵢ) hG₁r hGᵢr
+    have E2 := hfac 0 (FibreGram (0 : Fin 1) Hᵢ) (FibreGram (0 : Fin 1) Hᵢ) hGᵢr hGᵢr
+    simp only [Equiv.refl_apply] at E1 E2
+    rw [hΦyes 0 _ (FibreGram (0 : Fin 1) Hᵢ) hGᵢr (gramPhaseEquiv_refl _), relabel_product,
+      relabel_one] at E1
+    rw [← hPᵢᵢ, hΦno 0 Pᵢᵢ (gramPhaseEquiv_refl _)] at E2
+    have a1 := gramPhaseEquiv_cross_invariant E1 ((0 : Fin 4), (0 : Fin 4)) ((0 : Fin 4), (2 : Fin 4))
+    have b1 := gramPhaseEquiv_cross_invariant E1 ((0 : Fin 4), (0 : Fin 4)) ((0 : Fin 4), (0 : Fin 4))
+    have a2 := gramPhaseEquiv_cross_invariant E2 ((0 : Fin 4), (0 : Fin 4)) ((0 : Fin 4), (2 : Fin 4))
+    have b2 := gramPhaseEquiv_cross_invariant E2 ((0 : Fin 4), (0 : Fin 4)) ((0 : Fin 4), (0 : Fin 4))
+    rw [hPᵢᵢ] at a2 b2
+    rw [product_cross, product_cross] at a1 b1 a2 b2
+    rw [r2, d1] at a1
+    rw [r0, d1] at b1
+    rw [ci2, di] at a2
+    rw [di] at b2
+    have hw : Φ₂ 0 (FibreGram (0 : Fin 1) Hᵢ) 0 0 0 * Φ₂ 0 (FibreGram (0 : Fin 1) Hᵢ) 0 0 0 ≠ 0 := by
+      intro h0
+      rw [h0, mul_zero] at b1
+      norm_num at b1
+    have hx := mul_right_cancel₀ hw (b1.trans b2.symm)
+    rw [hx, a2] at a1
+    norm_num [Complex.ext_iff] at a1
+
 end OrbitLawRigidityTwisted
 end OIBridge
+
+/-! ### The axiom table — one line per named result, printed by the kernel -/
+
+#print axioms OIBridge.OrbitLawRigidityTwisted.composite_descends
+#print axioms OIBridge.OrbitLawRigidityTwisted.solution_eq_composite
+#print axioms OIBridge.OrbitLawRigidityTwisted.ol1a_descent
+#print axioms OIBridge.OrbitLawRigidityTwisted.iterate_descends
+#print axioms OIBridge.OrbitLawRigidityTwisted.ol1b_monoid_action
+#print axioms OIBridge.OrbitLawRigidityTwisted.realizable_of_gramPhaseEquiv
+#print axioms OIBridge.OrbitLawRigidityTwisted.realizable_relabel
+#print axioms OIBridge.OrbitLawRigidityTwisted.relabel_gramPhaseEquiv
+#print axioms OIBridge.OrbitLawRigidityTwisted.relabel_relabel_symm
+#print axioms OIBridge.OrbitLawRigidityTwisted.relabel_symm_relabel
+#print axioms OIBridge.OrbitLawRigidityTwisted.gramPhaseEquiv_of_relabel
+#print axioms OIBridge.OrbitLawRigidityTwisted.witness_supply
+#print axioms OIBridge.OrbitLawRigidityTwisted.factorizes_trivial
+#print axioms OIBridge.OrbitLawRigidityTwisted.phiI_ladder
+#print axioms OIBridge.OrbitLawRigidityTwisted.phiP_ladder
+#print axioms OIBridge.OrbitLawRigidityTwisted.siop_yes
+#print axioms OIBridge.OrbitLawRigidityTwisted.phiX_l0_restricts
+#print axioms OIBridge.OrbitLawRigidityTwisted.phiC_census
+#print axioms OIBridge.OrbitLawRigidityTwisted.phiT_l2_restricts
+#print axioms OIBridge.OrbitLawRigidityTwisted.l1_free_on_shared_class
+#print axioms OIBridge.OrbitLawRigidityTwisted.product_cross
+#print axioms OIBridge.OrbitLawRigidityTwisted.relabel_product
+#print axioms OIBridge.OrbitLawRigidityTwisted.relabel_one
+#print axioms OIBridge.OrbitLawRigidityTwisted.vpart_unitary
+#print axioms OIBridge.OrbitLawRigidityTwisted.product_realizable
+#print axioms OIBridge.OrbitLawRigidityTwisted.hadamard_entries
+#print axioms OIBridge.OrbitLawRigidityTwisted.product_separations
+#print axioms OIBridge.OrbitLawRigidityTwisted.phiPP_ladder
+#print axioms OIBridge.OrbitLawRigidityTwisted.phiCTRL_census
