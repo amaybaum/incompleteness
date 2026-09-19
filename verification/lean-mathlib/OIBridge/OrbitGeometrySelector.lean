@@ -574,7 +574,7 @@ theorem geo1_triple_metric :
     fun Γ₀ Γ hΓ₀ hΓ d hd G H hG hH h => geo1_equiv_of_zero_product Γ₀ hΓ₀ Γ hΓ d hd G H hG hH h,
     fun W _ _ d hd G H h => geo1_zero_of_equiv d hd G H h⟩
 
-omit [DecidableEq V] in
+omit [Fintype V] [DecidableEq V] in
 /-- **`GEO1-T`, the continuity half of the observation sub-question**: the feature map is
 continuous, each coordinate being a product of three entries. The compactness half is not
 attempted here. -/
@@ -583,6 +583,137 @@ theorem mixedTriple_continuous : Continuous (fun G : V → Matrix V V ℂ => mix
   intro p
   simp only [mixedTriple]
   fun_prop
+
+/-! ### Section C — `GEO2`: the three controls
+
+(a) every carrier relabelling is an exact isometry of the induced distance, the relabelling acting
+on the feature map by a permutation of the index set; (b) act 12's two-sided gauge acts trivially,
+by `fibreGram_left_mul` and `fibreGram_mul_weak_apply` and `GEO1` (vi-b); (c) the feature map
+carries the product embedding to the tensor product of the factors' feature vectors, entry by
+entry, so that the distance between two products with a common second factor is the factors'
+distance scaled exactly by the common factor's feature norm. -/
+
+omit [Fintype V] [DecidableEq V] in
+/-- A relabelling acts on the feature map by the induced permutation of the index set. -/
+theorem mixedTriple_relabel (σ : Equiv.Perm V) (G : V → Matrix V V ℂ)
+    (p : (V × V × V) × (V × V × V)) :
+    mixedTriple (RelabelTransition σ G) p
+      = mixedTriple G (((σ p.1.1, σ p.1.2.1, σ p.1.2.2), (σ p.2.1, σ p.2.2.1, σ p.2.2.2))) := by
+  obtain ⟨⟨i₁, i₂, i₃⟩, ⟨j₁, j₂, j₃⟩⟩ := p
+  simp only [mixedTriple, RelabelTransition, Matrix.submatrix_apply]
+
+omit [DecidableEq V] in
+/-- **`GEO2` (a) — every carrier relabelling is an exact isometry.** -/
+theorem geo2_relabel_isometry (d : (V → Matrix V V ℂ) → (V → Matrix V V ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (σ : Equiv.Perm V) (G H : V → Matrix V V ℂ) :
+    d (RelabelTransition σ G) (RelabelTransition σ H) = d G H := by
+  subst hd
+  simp only [mixedTriple_relabel]
+  congr 1
+  exact Equiv.sum_comp ((σ.prodCongr (σ.prodCongr σ)).prodCongr (σ.prodCongr (σ.prodCongr σ)))
+    (fun q => ‖mixedTriple G q - mixedTriple H q‖ ^ 2)
+
+/-- **`GEO2` (b) — act 12's two-sided gauge acts trivially**: `L * U * K` for `L` in the left fibre
+group and `K` a weak anchored stabilizer has fibre-Gram tuple phase-equivalent to `U`'s, so the two
+are at distance zero. -/
+theorem geo2_twoSided_trivial {A : Type} [Fintype A] [DecidableEq A] (a₀ : A)
+    (d : (V → Matrix V V ℂ) → (V → Matrix V V ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (U L K : Matrix (V × A) (V × A) ℂ) (hL : LeftFibreGroup L) (hK : WeakAnchorStabilizer a₀ K) :
+    d (FibreGram a₀ (L * U * K)) (FibreGram a₀ U) = 0 := by
+  obtain ⟨hKu, c, hc⟩ := hK
+  have hnorm : ∀ j, ‖c j‖ = 1 := fun j => weak_anchor_coeff_norm_one hKu hc j
+  have hequiv : GramPhaseEquiv (FibreGram a₀ (L * U * K)) (FibreGram a₀ U) := by
+    refine ⟨fun j => star (c j), fun j => by rw [norm_star, hnorm], fun i j k => ?_⟩
+    rw [fibreGram_mul_weak_apply hc, fibreGram_left_mul hL, star_star]
+    have hj : c j * star (c j) = 1 := by
+      rw [mul_comm, star_mul_self_eq_norm_sq, hnorm, one_pow, Complex.ofReal_one]
+    have hk : star (c k) * c k = 1 := by
+      rw [star_mul_self_eq_norm_sq, hnorm, one_pow, Complex.ofReal_one]
+    calc FibreGram a₀ U i j k
+        = FibreGram a₀ U i j k * ((c j * star (c j)) * (star (c k) * c k)) := by
+          rw [hj, hk, one_mul, mul_one]
+      _ = c j * (star (c j) * FibreGram a₀ U i j k * c k) * star (c k) := by ring
+  exact geo1_zero_of_equiv d hd _ _ hequiv
+
+/-- **`GEO2` (c), the identity**: a coordinate of the product carrier's feature map is the product
+of the factors' coordinates, entry by entry. -/
+theorem mixedTriple_product {V₁ V₂ : Type} (X : V₁ → Matrix V₁ V₁ ℂ) (Y : V₂ → Matrix V₂ V₂ ℂ)
+    (a₁ a₂ a₃ j₁ j₂ j₃ : V₁) (b₁ b₂ b₃ k₁ k₂ k₃ : V₂) :
+    mixedTriple (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ => X i.1 j.1 k.1 * Y i.2 j.2 k.2)
+        (((a₁, b₁), (a₂, b₂), (a₃, b₃)), ((j₁, k₁), (j₂, k₂), (j₃, k₃)))
+      = mixedTriple X ((a₁, a₂, a₃), (j₁, j₂, j₃)) * mixedTriple Y ((b₁, b₂, b₃), (k₁, k₂, k₃)) := by
+  simp only [mixedTriple, Matrix.of_apply]
+  ring
+
+/-- **`GEO2` (c), the consequence**: the distance between two products with a common second factor
+is the factors' distance scaled exactly by the common factor's feature norm. -/
+theorem geo2_product_tensor {V₁ V₂ : Type} [Fintype V₁] [DecidableEq V₁] [Fintype V₂] [DecidableEq V₂]
+    (d₁ : (V₁ → Matrix V₁ V₁ ℂ) → (V₁ → Matrix V₁ V₁ ℂ) → ℝ)
+    (hd₁ : d₁ = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (d : (V₁ × V₂ → Matrix (V₁ × V₂) (V₁ × V₂) ℂ) → (V₁ × V₂ → Matrix (V₁ × V₂) (V₁ × V₂) ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (X X' : V₁ → Matrix V₁ V₁ ℂ) (Y : V₂ → Matrix V₂ V₂ ℂ) :
+    d (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ => X i.1 j.1 k.1 * Y i.2 j.2 k.2)
+        (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ => X' i.1 j.1 k.1 * Y i.2 j.2 k.2)
+      = d₁ X X' * Real.sqrt (∑ q, ‖mixedTriple Y q‖ ^ 2) := by
+  subst hd hd₁
+  -- the index bijection between product-carrier coordinates and pairs of factor coordinates
+  let E : ((V₁ × V₂) × (V₁ × V₂) × (V₁ × V₂)) × ((V₁ × V₂) × (V₁ × V₂) × (V₁ × V₂))
+      ≃ ((V₁ × V₁ × V₁) × (V₁ × V₁ × V₁)) × ((V₂ × V₂ × V₂) × (V₂ × V₂ × V₂)) :=
+    { toFun := fun p => (((p.1.1.1, p.1.2.1.1, p.1.2.2.1), (p.2.1.1, p.2.2.1.1, p.2.2.2.1)),
+        ((p.1.1.2, p.1.2.1.2, p.1.2.2.2), (p.2.1.2, p.2.2.1.2, p.2.2.2.2)))
+      invFun := fun q => (((q.1.1.1, q.2.1.1), (q.1.1.2.1, q.2.1.2.1), (q.1.1.2.2, q.2.1.2.2)),
+        ((q.1.2.1, q.2.2.1), (q.1.2.2.1, q.2.2.2.1), (q.1.2.2.2, q.2.2.2.2)))
+      left_inv := fun _ => rfl
+      right_inv := fun _ => rfl }
+  have hsum : (∑ p, ‖mixedTriple (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ =>
+        X i.1 j.1 k.1 * Y i.2 j.2 k.2) p
+        - mixedTriple (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ =>
+        X' i.1 j.1 k.1 * Y i.2 j.2 k.2) p‖ ^ 2)
+      = (∑ q, ‖mixedTriple X q - mixedTriple X' q‖ ^ 2) * ∑ q, ‖mixedTriple Y q‖ ^ 2 := by
+    rw [Finset.sum_mul_sum, ← Fintype.sum_prod_type']
+    refine Fintype.sum_equiv E _ _ (fun p => ?_)
+    obtain ⟨⟨⟨a₁, b₁⟩, ⟨a₂, b₂⟩, ⟨a₃, b₃⟩⟩, ⟨⟨j₁, k₁⟩, ⟨j₂, k₂⟩, ⟨j₃, k₃⟩⟩⟩ := p
+    simp only [E, Equiv.coe_fn_mk]
+    rw [mixedTriple_product, mixedTriple_product, ← sub_mul, norm_mul, mul_pow]
+  beta_reduce
+  rw [hsum, Real.sqrt_mul (Finset.sum_nonneg (fun q _ => sq_nonneg _))]
+
+/-- **`GEO2` — the verdict theorem**: the three controls assembled. -/
+theorem geo2_controls :
+    (∀ (W : Type) [Fintype W] [DecidableEq W]
+        (d : (W → Matrix W W ℂ) → (W → Matrix W W ℂ) → ℝ),
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ (σ : Equiv.Perm W) (G H : W → Matrix W W ℂ),
+          d (RelabelTransition σ G) (RelabelTransition σ H) = d G H)
+    ∧ (∀ (W A : Type) [Fintype W] [DecidableEq W] [Fintype A] [DecidableEq A] (a₀ : A)
+        (d : (W → Matrix W W ℂ) → (W → Matrix W W ℂ) → ℝ),
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ (U L K : Matrix (W × A) (W × A) ℂ), LeftFibreGroup L → WeakAnchorStabilizer a₀ K →
+          d (FibreGram a₀ (L * U * K)) (FibreGram a₀ U) = 0)
+    ∧ (∀ (V₁ V₂ : Type) (X : V₁ → Matrix V₁ V₁ ℂ) (Y : V₂ → Matrix V₂ V₂ ℂ)
+        (a₁ a₂ a₃ j₁ j₂ j₃ : V₁) (b₁ b₂ b₃ k₁ k₂ k₃ : V₂),
+        mixedTriple (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ => X i.1 j.1 k.1 * Y i.2 j.2 k.2)
+            (((a₁, b₁), (a₂, b₂), (a₃, b₃)), ((j₁, k₁), (j₂, k₂), (j₃, k₃)))
+          = mixedTriple X ((a₁, a₂, a₃), (j₁, j₂, j₃))
+            * mixedTriple Y ((b₁, b₂, b₃), (k₁, k₂, k₃)))
+    ∧ (∀ (V₁ V₂ : Type) [Fintype V₁] [DecidableEq V₁] [Fintype V₂] [DecidableEq V₂]
+        (d₁ : (V₁ → Matrix V₁ V₁ ℂ) → (V₁ → Matrix V₁ V₁ ℂ) → ℝ),
+        d₁ = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ d : (V₁ × V₂ → Matrix (V₁ × V₂) (V₁ × V₂) ℂ)
+          → (V₁ × V₂ → Matrix (V₁ × V₂) (V₁ × V₂) ℂ) → ℝ,
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ (X X' : V₁ → Matrix V₁ V₁ ℂ) (Y : V₂ → Matrix V₂ V₂ ℂ),
+          d (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ => X i.1 j.1 k.1 * Y i.2 j.2 k.2)
+              (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ => X' i.1 j.1 k.1 * Y i.2 j.2 k.2)
+            = d₁ X X' * Real.sqrt (∑ q, ‖mixedTriple Y q‖ ^ 2)) :=
+  ⟨fun _ _ _ d hd σ G H => geo2_relabel_isometry d hd σ G H,
+    fun _ _ _ _ _ _ a₀ d hd U L K hL hK => geo2_twoSided_trivial a₀ d hd U L K hL hK,
+    fun _ _ X Y a₁ a₂ a₃ j₁ j₂ j₃ b₁ b₂ b₃ k₁ k₂ k₃ =>
+      mixedTriple_product X Y a₁ a₂ a₃ j₁ j₂ j₃ b₁ b₂ b₃ k₁ k₂ k₃,
+    fun _ _ _ _ _ _ d₁ hd₁ d hd X X' Y => geo2_product_tensor d₁ hd₁ d hd X X' Y⟩
 
 /-! ### The axiom table — one line per named result, printed by the kernel -/
 
@@ -613,6 +744,12 @@ theorem mixedTriple_continuous : Continuous (fun G : V → Matrix V V ℂ => mix
 #print axioms geo1_equiv_of_zero_product
 #print axioms geo1_triple_metric
 #print axioms mixedTriple_continuous
+#print axioms mixedTriple_relabel
+#print axioms geo2_relabel_isometry
+#print axioms geo2_twoSided_trivial
+#print axioms mixedTriple_product
+#print axioms geo2_product_tensor
+#print axioms geo2_controls
 
 end OrbitGeometrySelector
 end OIBridge
