@@ -10113,7 +10113,7 @@ _SI2_STAGE1_ADDITIONS = {'SI1': {'round': 'SI1', 'kind': 'base-only',
 # round's preregistration authorizes, BY STEM. An authorized stem's record is validated by content by
 # U3; U5 only admits its presence. Declared here, outside both marker-bounded regions, under a name
 # that carries no round stem; the generic region reads it and nothing else about the round.
-_MANIFEST_BASELINE = {'base': '64214bfb0ae41b9f0a4fb11159089fff32d4dd85', 'authorized': ('OLG',)}
+_MANIFEST_BASELINE = {'base': 'd0fcdbc03c4b828d630f677253cf0914f451b63d', 'authorized': ('OGS',)}
 
 
 # ---- SI-3 (SI3-2, R2): THE PROSPECTIVE DECLARATION. A sealing round with no record yet declares
@@ -25167,6 +25167,688 @@ check('R7-OLG', ok_olg,
       "ROADMAP after act 22's -- twenty-one mutation controls, the locating controls read from git at "
       "B, and this round's seal state read mode-aware from the prospective declaration or its "
       "record, never from a constant.")
+
+
+
+# ---- R7-OGS: Track B act 24 -- the orbit-geometry selector audit, GATED: the mixed-triple invariants and
+# the metric they induce (GEO1), its three controls (GEO2), the record's twelve families against it (GEO3)
+# and the rigidity cells (GEO4), four targets frozen together with a fixed execution order, one verdict
+# commit per executed target, a gate read between targets, a route-authorization matrix, a mechanically
+# checked outcome vector, act 12's equivalence and act 21's ladder consumed UNCHANGED, and a definition
+# budget of ONE -- `mixedTriple`, whose body the freeze displays and this guard pins verbatim. A SEALING
+# round under A.37 through the MANIFEST PROTOCOL: its chronology verdict is the validator's through ONE
+# KEYED CALL on the stem OGS, its base is the prospective declaration during execution and the record
+# OGS.json from P, and NO CONSTANT. The freeze pins the one control-plane blob with a one-byte drift
+# control. What can go wrong in a gated round is the ORDER OF EVENTS and the READING: a verdict revealed
+# before its commit, a second definition or an altered body slipped into the module, the geometry's
+# equation or a family's equation altered, a family named in another family's subsection, a verdict
+# inferred from another target's, a universal label from a search, an independence read off four cells,
+# a characterization of the isometries, the freeze's reading repaired to the kernel's values. So the
+# guard re-runs the ordering obligation MECHANICALLY from git on every head -- the stage-A commit the
+# oldest on the first-parent chain from B, the module absent there and present from the module commit
+# on, exactly one `def` with the pinned body and no other declaration keyword at any commit from the
+# module commit to the certified object, the three imports at every such commit, the geometry pinned to
+# its equation in every theorem block that binds it, every family pinned to its frozen equation inside
+# its own GEO3 subsection with no other family named there, the four verdict commits in the order GEO1,
+# GEO2, GEO3, GEO4, each verdict theorem first present at its own verdict commit and absent before it --
+# with synthetic negatives; and it holds the result note to the freeze's distinctions: the shape, the
+# eight records with their SHAs, the FIVE attestation answers, every frozen status sentence for the
+# outcome reached, the twelve-row census with its twelve carriages, the seven cells with their six
+# carriages, the outcome vector equal VERBATIM to one row of the frozen table, the gate record, no
+# verdict inferred beyond the placed consumptions, no independence and no characterization, THE CLAUSE
+# at every mention with its count, and the frozen P0 sentence present VERBATIM in the ROADMAP after
+# act 23's.
+_OGSDIR = 'programmes/oi-qm/track-b/act-24-orbit-geometry-selector/'
+_OGS_B = 'd0fcdbc03c4b828d630f677253cf0914f451b63d'   # the mandated execution base, the certified merge of #689
+_OGS_D = '9907d3acefb2bd5e2cc66c007400cc0e194d36ec'   # the drafting snapshot, never the base
+_OGS_STAGEA = '34e70f2ce033a9d92cea05f5a0713ae18f608d18'
+_OGS_MODC = '11c0383a056718ca019f99568aaa95fb16d14c61'
+_OGS_VERDICT_COMMITS = ('774aea83af37da4003f85425d00b3e114235a42d', '5e85dfd3bb86a0fd188c1c35ca01f17a4947ba90',
+                        '37099179aebeea32773eb70a85f670f6108a6601', 'babe01cfb3c7016392896731afa9b47c4d2556b7')
+_OGS_MODULE = 'verification/lean-mathlib/OIBridge/OrbitGeometrySelector.lean'
+_OGS_SHARED = ('mixedTriple_gauge', 'mixedTriple_cross', 'mixedTriple_star', 'coord_le_dist', 'zseq_dist',
+               'hadamard_i_cross_all', 'hadamard_one_cross_all', 'fibreGram_z_cross02', 'norm_one_of_star_mul',
+               'entry_bound_aux', 'fourier_entry_norm', 'fourier_entry_diff', 'fourier_coord_diff',
+               'fourier_feature_norm')
+_OGS_VERDICT_NAMES = (
+    ('geo1_separation_star', 'realizable_entry_ne_zero', 'geo1_separation_single', 'geo1_separation_product',
+     'dist_eq_norm_toLp', 'geo1_metric_props', 'geo1_class_invariant', 'geo1_zero_of_equiv',
+     'features_eq_of_dist_zero', 'geo1_equiv_of_zero_single', 'geo1_equiv_of_zero_product',
+     'geo1_triple_metric', 'mixedTriple_continuous'),
+    ('mixedTriple_relabel', 'geo2_relabel_isometry', 'geo2_twoSided_trivial', 'mixedTriple_product',
+     'geo2_product_tensor', 'geo2_controls'),
+    ('fourier_dist_le', 'realizable_prod_of_adm', 'coord_cross_product', 'one_le_norm_I_sub_one',
+     'geo3_phiI_isometry', 'geo3_phiP_isometry', 'geo3_phiC_not_isometry', 'geo3_phiT_isometry',
+     'geo3_phiPP_isometry', 'geo3_phiSwap_isometry', 'geo3_phiConj_isometry', 'geo3_phiPC_not_isometry',
+     'geo3_phiMD_not_isometry', 'geo3_phiCTRL_not_isometry', 'geo3_phiSC_not_isometry',
+     'geo3_phiHS_not_isometry'),
+    ('conj_eq_transpose', 'realizable_conj', 'conj_conj', 'conj_gramPhaseEquiv', 'conj_cross',
+     'relabel_product_cross', 'conj_fibreGram_one', 'conj_fibreGram_negOne', 'conj_product',
+     'geo4_a0_isometry_injective', 'geo4_a1_l5_not_implies_geo', 'geo4_a3_geo_not_implies_l5',
+     'geo4_b0_not_relabel_rigid'))
+_OGS_RESULTS = _OGS_SHARED + sum(_OGS_VERDICT_NAMES, ())
+# the one definition, whitespace-normalized, exactly as the freeze displays it
+_OGS_DEF = ('def mixedTriple (G : V → Matrix V V ℂ) : (V × V × V) × (V × V × V) → ℂ := '
+            'fun p => G p.1.1 p.2.1 p.2.2.1 * G p.1.2.1 p.2.2.1 p.2.2.2 * G p.1.2.2 p.2.2.2 p.2.1')
+# the geometry's equation, which every theorem that binds a distance `d` or `d₁` must carry
+_OGS_GEOM = 'fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)'
+_OGS_IMPORTS = ('import OIBridge.OrbitLawGaps\nimport OIBridge.OrbitLawRigidityTwisted\n'
+                'import OIBridge.OrbitLawNaturalityFactorization\n')
+# each family: its subsection header token, its display name, its Lean stem, and the frozen equation
+# (whitespace-normalized) its subsection must pin it to; the Φ_HS subsection carries three further pins
+_OGS_PRODHi = 'fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2'
+_OGS_PROD11 = 'fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2'
+_OGS_FAMILIES = (
+    ('ΦI', 'phiI', 'Φ = (fun _ G => G)', ()),
+    ('ΦP', 'phiP', 'Φ = (fun _ G => RelabelTransition (Equiv.swap (2 : Fin 4) 3) G)', ()),
+    ('ΦC', 'phiC', 'Φ = (fun _ _ => FibreGram (0 : Fin 1) H₁)', ()),
+    ('ΦT', 'phiT', 'Φ = (fun t G => if Even t then G else RelabelTransition (Equiv.swap (2 : Fin 4) 3) G)', ()),
+    ('ΦPP', 'phiPP', 'Φ = (fun _ G => RelabelTransition (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) G)', ()),
+    ('Φ_swap', 'phiSwap', 'Φ = (fun _ G => RelabelTransition (Equiv.prodComm (Fin 4) (Fin 4)) G)', ()),
+    ('Φ_conj', 'phiConj', 'Φ = (fun _ G => fun i => Matrix.of fun j k => star (G i j k))', ()),
+    ('Φ_PC', 'phiPC', 'Φ = (fun _ G => if GramPhaseEquiv G (%s) then (%s) else G)' % (_OGS_PRODHi, _OGS_PROD11), ()),
+    ('Φ_MD', 'phiMD', 'Φ = (fun t G => if t = 0 then (if GramPhaseEquiv G (%s) then (%s) else G) else (if GramPhaseEquiv G (%s) then (fun _ : Fin 4 × Fin 4 => (0 : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)) else G))' % (_OGS_PRODHi, _OGS_PROD11, _OGS_PRODHi), ()),
+    ('ΦCTRL', 'phiCTRL', 'Φ = (fun _ G => if ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂ ∧ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2) then RelabelTransition (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G else G)', ()),
+    ('Φ_SC', 'phiSC', 'Φ = (fun _ G => if ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂ ∧ (GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * G₂ i.2 j.2 k.2) ∨ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => RelabelTransition (Equiv.swap (2 : Fin 4) 3) (FibreGram (0 : Fin 1) Hᵢ) i.1 j.1 k.1 * G₂ i.2 j.2 k.2)) then RelabelTransition (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (1 : Equiv.Perm (Fin 4))) G else G)', ()),
+    ('Φ_HS', 'phiHS', 'Φ = (fun _ G => if h : ∃ n, 1 ≤ n ∧ GramPhaseEquiv G (F n) then F (Nat.find h + 1) else G)',
+     ('Hz = (fun z => Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))',
+      'zs = (fun n : ℕ => Complex.mk (((n : ℝ) ^ 2 - 1) / ((n : ℝ) ^ 2 + 1)) (2 * (n : ℝ) / ((n : ℝ) ^ 2 + 1)))',
+      'F = (fun n => fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) (Hz (zs n)) i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)')),
+)
+_OGS = open(_artifact(_OGSDIR + 'result.md'), encoding='utf-8').read()
+_OGS1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _OGS).split()).replace('’', "'")
+_OGSPRE = open(_artifact(_OGSDIR + 'preregistration.md'), encoding='utf-8').read().split('\n')
+_OGSLEAN_RAW = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                                 'OIBridge', 'OrbitGeometrySelector.lean'), encoding='utf-8').read()
+_OGSWIRE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                             'OIBridge.lean'), encoding='utf-8').read()
+_OGSROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+_OGS_SRC = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+
+
+def _ogs_frozen(a, b):
+    """Lines a..b of the frozen preregistration (1-based, inclusive), block-quote markers stripped,
+    whitespace-normalized -- the same normalization the note is read under."""
+    return ' '.join(re.sub(r'(?m)^\s*>\s?', '', '\n'.join(_OGSPRE[a - 1:b])).split()).replace('’', "'")
+
+
+def _ogs_freeze_pin(read=_bb_read):
+    """N1 -- the frozen preregistration is byte-identical to the blob PR #689 merged."""
+    return _bb_blob(_OGSDIR + 'preregistration.md', read) == '3b61d6c90fe3f05bbf5e791f74d7106e9be2f94a'
+
+
+def _ogs_execution_ancestry():
+    """N2 -- the chronology verdict is the validator's, keyed on the stem OGS: EXECUTION against the
+    prospective declaration while the round executes, LANDED-PENDING-PIN at L, ARCHIVED from P."""
+    return _si2_authority('OGS', tag='R7-OGS')
+
+
+def _ogs_git_text(*args):
+    r = _rbr_git(*args, tag='R7-OGS')
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout.decode('utf-8', 'replace')
+
+
+_OGS_OTHER_DECL_RE = re.compile(r'(?m)^(abbrev|structure|class|instance|axiom|opaque)\b')
+_OGS_DEF_LINE_RE = re.compile(r'(?m)^def\b.*$')
+
+
+def _ogs_def_ok(text):
+    """Contract (a): exactly one line begins with `def`, it opens `def mixedTriple`, its block (to the
+    next blank line) is the frozen body after whitespace normalization, and no other declaration
+    keyword opens a line."""
+    if text is None or _OGS_OTHER_DECL_RE.search(text):
+        return False
+    lines = text.split('\n')
+    idx = [i for i, l in enumerate(lines) if l.startswith('def ')]
+    if len(idx) != 1 or not lines[idx[0]].startswith('def mixedTriple'):
+        return False
+    block = []
+    for l in lines[idx[0]:]:
+        if not l.strip():
+            break
+        block.append(l)
+    return ' '.join(' '.join(block).split()) == _OGS_DEF
+
+
+def _ogs_theorem_blocks(text):
+    """Each theorem block, from its `theorem` line to the next `theorem`, section header or axiom
+    table, whitespace-normalized."""
+    parts = re.split(r'(?m)^(?=theorem |/-! ###|#print axioms)', text or '')
+    return [' '.join(p.split()) for p in parts if p.startswith('theorem ')]
+
+
+_OGS_DBIND_RE = re.compile(r'(?<![A-Za-z0-9_.₀-₉])(d|d₁) = ')
+
+
+def _ogs_geometry_pinned(text):
+    """Contract (c), the geometry: every theorem block that binds a distance `d` or `d₁` carries its
+    equation, as the hypothesis `d = fun G H => ...` or the antecedent `d = (fun G H => ...)`, and
+    every equation `d = ...` or `d₁ = ...` anywhere in a theorem block is that equation and no other."""
+    for blk in _ogs_theorem_blocks(text):
+        for name in ('d', 'd₁'):
+            if '(%s : (' % name in blk:
+                if ('%s = %s' % (name, _OGS_GEOM)) not in blk and ('%s = (%s)' % (name, _OGS_GEOM)) not in blk:
+                    return False
+        for m in _OGS_DBIND_RE.finditer(blk):
+            rest = blk[m.end():]
+            if not (rest.startswith(_OGS_GEOM) or rest.startswith('(' + _OGS_GEOM + ')')):
+                return False
+    return True
+
+
+def _ogs_family_re(display, stem):
+    return re.compile(r'(?<![\w])%s(?![\w])|(?<![A-Za-z0-9])%s(?![A-Za-z0-9])' % (re.escape(display), stem))
+
+
+def _ogs_sections(text):
+    """The module's GEO3 subsections keyed by family display name, from each `/-! #### `Φ...`` line
+    to the next `####` or `###` header; and Section A's text under the key 'A'."""
+    out = {}
+    m = re.search(r'(?ms)^/-! ### Section A\b.*?(?=^/-! ### )', text or '')
+    if m:
+        out['A'] = ' '.join(m.group(0).split())
+    d = re.search(r'(?ms)^/-! ### Section D\b.*?(?=^/-! ### )', text or '')
+    if d:
+        for sub in re.finditer(r'(?ms)^/-! #### `([^`]+)`.*?(?=^/-! #### |\Z)', d.group(0)):
+            out[sub.group(1)] = ' '.join(sub.group(0).split())
+    return out
+
+
+def _ogs_families_pinned(text, require_all):
+    """Contract (c), the families: each family present is pinned to its frozen equation inside its
+    own GEO3 subsection; with require_all (the certified head) every one of the twelve subsections is
+    present, no subsection names another family, and Section A names no family at all."""
+    secs = _ogs_sections(text)
+    for disp, stem, eqn, more in _OGS_FAMILIES:
+        s = secs.get(disp)
+        if s is None:
+            if require_all:
+                return False
+            continue
+        if eqn not in s or 'geo3_%s_' % stem not in s or any(p not in s for p in more):
+            return False
+        if require_all and any(od != disp and _ogs_family_re(od, os_).search(s) for od, os_, _, _ in _OGS_FAMILIES):
+            return False
+    a = secs.get('A')
+    if require_all and (a is None or any(_ogs_family_re(od, os_).search(a) for od, os_, _, _ in _OGS_FAMILIES)):
+        return False
+    return True
+
+
+def _ogs_theorems(text):
+    return re.findall(r'(?m)^theorem ([A-Za-z0-9_]+)', text or '')
+
+
+def _ogs_module_ok(text):
+    """The budget of one, the imports and the pins, at one commit: exactly the one definition with the
+    frozen body, the three imports first, no sorry, no native_decide, the geometry pinned in every
+    theorem that binds it, and every family present pinned inside its own subsection."""
+    return (text is not None and _ogs_def_ok(text) and text.startswith(_OGS_IMPORTS)
+            and 'sorry' not in text and 'native_decide' not in text
+            and _ogs_geometry_pinned(text) and _ogs_families_pinned(text, False))
+
+
+def _ogs_ordering_pred(chain, stagea, modc, verdicts, texts):
+    """The ordering obligation, factored over the data so the negatives can drive it. `chain` is the
+    first-parent chain from the target back to (excluding) B, newest first; `texts` maps each commit
+    of the chain to the module's text there (None where absent). The stage-A commit is the oldest
+    commit of the chain and carries no module; the module commit is strictly newer, the first commit
+    at which the module is present, and carries exactly the fourteen shared lemmas and no verdict
+    theorem; the four verdict commits follow it on the chain in the order GEO1, GEO2, GEO3, GEO4,
+    each the first commit at which its own results are present, carrying nothing of a later
+    target's; from the module commit to the head every commit's module satisfies the budget, the
+    imports and the pins; and the head carries every family subsection with its isolation."""
+    if stagea not in chain or modc not in chain or chain[-1] != stagea:
+        return False
+    if any(v not in chain for v in verdicts) or len(set(verdicts)) != len(verdicts):
+        return False
+    im, ia = chain.index(modc), chain.index(stagea)
+    if im >= ia:
+        return False
+    if any(texts.get(c) is not None for c in chain[im + 1:]):
+        return False
+    if not all(_ogs_module_ok(texts.get(c)) for c in chain[:im + 1]):
+        return False
+    if _ogs_theorems(texts.get(modc)) != list(_OGS_SHARED):
+        return False
+    iv = [chain.index(v) for v in verdicts]
+    if not all(iv[k] < iv[k - 1] for k in range(1, len(iv))) or iv[0] >= im:
+        return False
+    for k, v in enumerate(verdicts):
+        older = chain[chain.index(v) + 1:]
+        here = _ogs_theorems(texts.get(v))
+        expected = list(_OGS_SHARED) + [n for ns in _OGS_VERDICT_NAMES[:k + 1] for n in ns]
+        if here != expected:
+            return False
+        if any(n in _ogs_theorems(texts.get(c)) for c in older for n in _OGS_VERDICT_NAMES[k]):
+            return False
+    return _ogs_families_pinned(texts.get(chain[0]), True)
+
+
+def _ogs_ordering():
+    """N3 -- the ordering obligation from git, against the certified object: the sealed head through
+    the manifest accessor once the round is recorded, the real target (pull_request.head.sha in PR
+    CI, HEAD otherwise) while it executes. Fail-closed throughout."""
+    sealed = _seal_field('OGS', 'sealed_head')
+    if sealed is not _SEAL_UNAVAILABLE:
+        target, num = sealed, None
+    else:
+        target, _label, num = _rbr_target_commit(tag='R7-OGS')
+        if target is None:
+            return False
+    if not _rbr_ensure_present(_OGS_B, tag='R7-OGS') or not _rbr_ensure_present(target, pr_number=num, tag='R7-OGS'):
+        return False
+    raw = _ogs_git_text('rev-list', '--first-parent', target, '^' + _OGS_B)
+    if raw is None:
+        return False
+    chain = raw.split()
+    if not chain:
+        return False
+    texts = {c: _ogs_git_text('show', '%s:%s' % (c, _OGS_MODULE))
+             for c in set(chain) | {_OGS_STAGEA, _OGS_MODC} | set(_OGS_VERDICT_COMMITS)}
+    ok = _ogs_ordering_pred(chain, _OGS_STAGEA, _OGS_MODC, _OGS_VERDICT_COMMITS, texts)
+    print('    R7-OGS ordering: stage-A commit %s, module commit %s and verdict commits %s %s on the first-parent chain from %s to %s (%d commit(s)); module %s'
+          % (_OGS_STAGEA[:12], _OGS_MODC[:12], ', '.join(v[:12] for v in _OGS_VERDICT_COMMITS),
+             'in order' if ok else 'NOT as required', _OGS_B[:12], chain[0][:12], len(chain),
+             'carrying the one pinned definition, importing acts 21, 22 and 23, the geometry and every family pinned, each verdict theorem first present at its own verdict commit' if ok else 'NOT certified'))
+    return ok, chain, texts
+
+
+def _ogs_lean(t=None):
+    """N4 -- the budget of one at the head: the one definition with the frozen body and nothing else,
+    no sorry, no native_decide, no added axiom; exactly the sixty-two named results in the freeze's
+    order, each with its axiom line; the three imports; the geometry pinned everywhere it is bound;
+    every family pinned inside its own subsection and named nowhere else in GEO3 or in Section A."""
+    raw = _OGSLEAN_RAW if t is None else t
+    printed = re.findall(r'(?m)^#print axioms ([A-Za-z0-9_]+)', raw)
+    return (_ogs_module_ok(raw) and _ogs_theorems(raw) == list(_OGS_RESULTS) and printed == list(_OGS_RESULTS)
+            and _ogs_families_pinned(raw, True))
+
+
+def _ogs_wired(t=None):
+    """N4 -- the module imported by the library root directly after act 23's."""
+    t = _OGSWIRE if t is None else t
+    return 'import OIBridge.OrbitLawGaps\nimport OIBridge.OrbitGeometrySelector\n' in t
+
+
+def _ogs_shape(t=None):
+    """N5 -- the round's shape: sealing under the manifest, E -> L -> P, the record written by P and by
+    nothing before P, no legacy constant, no closed round's contract edited, the base blob verified
+    as the first act."""
+    t = _OGS1 if t is None else t
+    return ('**This is a SEALING round** under `AGENTS.md` `§A.37`, executed under the manifest protocol' in t
+            and 'it lands **`E` → `L` → `P`, with `P` mandatory**' in t
+            and '**`OGS.json` is absent at execution and is written by `P` and by nothing before `P`.**' in t
+            and 'That is a statement about this execution and stays true as one' in t
+            and '**No legacy seal constant is written**' in t
+            and '**No existing manifest record is altered**' in t
+            and '**No closed round\'s contract is edited**' in t
+            and '**The base-blob verification is recorded.**' in t
+            and 'returns `3b61d6c90fe3f05bbf5e791f74d7106e9be2f94a`' in t
+            and '**No manuscript file is written.**' in t)
+
+
+def _ogs_records(t=None):
+    """N6 -- the eight records: the chain with its six SHAs, the ordering obligation and the
+    anti-contamination invariant in the freeze's wording, the declaration table with the one
+    definition, the module commit's fourteen lemmas, the four verdict commits with their results,
+    the immutability span, the quotient and geometry record, and the gate record."""
+    t = _OGS1 if t is None else t
+    v = _OGS_VERDICT_COMMITS
+    return (_ogs_frozen(1015, 1025) in t and _ogs_frozen(413, 415) in t
+            and '| 1 | `%s` | **stage A**' % _OGS_STAGEA in t
+            and '| 2 | `%s` | **the module commit**' % _OGS_MODC in t
+            and '| 3 | `%s` | `GEO1`: `geo1_triple_metric`' % v[0] in t
+            and '| 4 | `%s` | `GEO2`: `geo2_relabel_isometry`, `geo2_twoSided_trivial`, `geo2_product_tensor`, `geo2_controls`' % v[1] in t
+            and '| 5 | `%s` | `GEO3`: the twelve family theorems' % v[2] in t
+            and '| 6 | `%s` | `GEO4`: `geo4_a0_isometry_injective`, `geo4_a1_l5_not_implies_geo`, `geo4_a3_geo_not_implies_l5`, `geo4_b0_not_relabel_rigid`' % v[3] in t
+            and '### 3.1 The declaration table (record 1)' in t
+            and '**This round\'s module carries exactly one declaration of its own**' in t
+            and _OGS_DEF in t
+            and '**No rung was restated, no equivalence was widened, and neither the invariant family nor the geometry was adjusted.**' in t
+            and '**`%s`.** `git show --stat` lists one file' % _OGS_STAGEA in t
+            and '**`%s`**, the first commit at which the module is present.' % _OGS_MODC in t
+            and all('**`%s`**' % n in t for n in _OGS_SHARED)
+            and 'each a shared lemma and none a verdict' in t
+            and '### 3.4 The four verdict commits (record 4)' in t
+            and all('| `GEO%d` | `%s` |' % (k + 1, v[k]) in t for k in range(4))
+            and 'Each verdict theorem first appears at its own verdict commit and at no earlier commit' in t
+            and '### 3.5 The immutability span (record 5)' in t and '**returns `0`**' in t
+            and '### 3.6 The quotient and geometry record (record 6)' in t
+            and '**The only equivalence used in any verdict is act 12\'s `GramPhaseEquiv`**' in t
+            and '**No equivalence was introduced or widened during execution**' in t
+            and '### 3.8 The gate record (record 8)' in t
+            and '| `GEO2` | `GEO1-METRIC`, by `geo1_triple_metric` at `%s` | **opened** |' % v[0][:12] in t
+            and '| `GEO3` | `GEO2-CONTROLS-PASS`, by `geo2_controls` at `%s` | **opened** |' % v[1][:12] in t
+            and '| `GEO4` | `GEO3-DISCRIMINATES`, by `geo3_phiCTRL_not_isometry` and `geo3_phiSC_not_isometry` at `%s` | **opened** |' % v[2][:12] in t)
+
+
+_OGS_SPANS = ('`B` → module commit', 'module commit → `GEO1`', '`GEO1` → `GEO2`', '`GEO2` → `GEO3`', '`GEO3` → `GEO4`')
+
+
+def _ogs_attestation(t=None):
+    """N7 -- the three answers as a table for each of the FIVE spans, the partial-fact rule, the
+    freeze-supplied-facts list at every span, the history-integrity statement, and the defect line."""
+    t = _OGS1 if t is None else t
+    return ('answered as measurements at five boundaries (record 7)' in t
+            and all('#### The span %s | question | answer for the span %s |' % (s, s) in t for s in _OGS_SPANS)
+            and t.count('| **Q1 — INTENTIONAL** | **NO** |') == 5
+            and t.count('| **Q2 — INCIDENTAL** | **NO** |') == 5
+            and t.count('| **Q3 — UNAIDED REASONING** | **NO** |') == 5
+            and t.count('**What the execution did in this span**') == 5
+            and t.count('**The freeze-supplied facts that were in front of the execution in this span**') == 5
+            and '**A PARTIAL fact counts for all three. There is no threshold below which a fact about the candidates does not count.**' in t
+            and '**No commit on this branch was amended, reset, rebased over, cherry-picked over or force-pushed away. There are no superseded SHAs.**' in t
+            and 'Before certification this execution absorbed no later `main`.' in t
+            and '**No execution defect is recorded; two hygiene items are disclosed.**' in t)
+
+
+_OGS_ISO_FAMILIES = ('ΦI', 'ΦP', 'ΦT', 'ΦPP', 'Φ_swap', 'Φ_conj')
+_OGS_NISO_FAMILIES = ('ΦC', 'ΦCTRL', 'Φ_MD', 'Φ_PC', 'Φ_HS', 'Φ_SC')
+
+
+def _ogs_verdicts(t=None):
+    """N8 -- every frozen status sentence for the outcome reached, carried verbatim with its naming
+    line: GEO0-silent, GEO1-METRIC, GEO2-CONTROLS-PASS, GEO3-DISCRIMINATES and GEO4-UNDECIDED once
+    each; Phi-ISOMETRY six times and Phi-NOT-ISOMETRY six times, once per family with its naming
+    line; the a0, a1, a3 and b0 cell sentences once each and the UNDECIDED cell sentence twice, for
+    a2 and a4; none of the other outcome sentences; the label rules, the separating quantities, the
+    two directions, the support boundary, the metric-dependence wording, no inference beyond the
+    placed consumptions, no independence and no characterization, every earlier verdict unchanged."""
+    t = _OGS1 if t is None else t
+    iso, niso, cellu = _ogs_frozen(1297, 1300), _ogs_frozen(1302, 1305), _ogs_frozen(1354, 1357)
+    return ('**Outcome reached: `GEO0`-silent.**' in t and t.count(_ogs_frozen(1214, 1223)) == 1
+            and '**`GEO0` is a type-P target and carries no evidence level.**' in t
+            and '**A search that finds a decision is a finding, and a search that does not is equally a finding.**' in t
+            and '**Outcome reached: `GEO1-METRIC`.**' in t and t.count(_ogs_frozen(1232, 1242)) == 1
+            and '**The two directions of the zero-distance equivalence are proved separately**' in t
+            and '**Nothing is asserted about tuples with a vanishing entry on the base star, at any carrier, or at `|A| > 1`.**' in t
+            and '**`GEO1-T` enters no label**' in t
+            and '**Outcome reached: `GEO2-CONTROLS-PASS`.**' in t and t.count(_ogs_frozen(1253, 1259)) == 1
+            and '**The identity and its consequence are reported apart**' in t
+            and '**Outcome reached: `GEO3-DISCRIMINATES`, via `ΦCTRL` and `Φ_SC`.**' in t
+            and t.count(_ogs_frozen(1276, 1282)) == 1
+            and '**The label was earned by `ΦCTRL` and `Φ_SC`, and by no family outside the prefix.**' in t
+            and t.count(iso) == 6
+            and all(t.count('**The frozen `Φ`-ISOMETRY sentence, carried for `%s`.** ' % f + iso) == 1 for f in _OGS_ISO_FAMILIES)
+            and t.count(niso) == 6
+            and all(t.count('**The frozen `Φ`-NOT-ISOMETRY sentence, carried for `%s`.** ' % f + niso) == 1 for f in _OGS_NISO_FAMILIES)
+            and 'Merge witnesses are metric-independent once separation is proved. Sequence-discontinuity witnesses are invariant across metrics inducing the quotient topology.' in t
+            and '**The isometry verdicts of `GEO3` are verdicts about the frozen `d`**' in t
+            and '**Outcome reached: `GEO4-UNDECIDED`.**' in t and t.count(_ogs_frozen(1321, 1325)) == 1
+            and '**The label is earned by `b` alone.**' in t
+            and t.count('**The frozen cell sentence, carried for `a0`.** ' + _ogs_frozen(1330, 1331)) == 1
+            and t.count('**The frozen cell sentence, carried for `a1`.** ' + _ogs_frozen(1333, 1336)) == 1
+            and t.count('**The frozen cell sentence, carried for `a3`.** ' + _ogs_frozen(1338, 1341)) == 1
+            and t.count('**The frozen cell sentence, carried for `b₀`.** ' + _ogs_frozen(1343, 1348)) == 1
+            and t.count(cellu) == 2
+            and all(t.count('**The frozen `UNDECIDED` cell sentence, carried for `%s`.** ' % c + cellu) == 1 for c in ('a2', 'a4'))
+            and '**The separating class is `[G(Hᵢ) ⊠ G(H₁)]` and the separating invariant is act 12\'s cross-invariant at the product pair `((0,0),(1,0))`, `−i/256` against the set `{1/256, i/256}`.**' in t
+            and all(_ogs_frozen(a, b) not in t for a, b in ((1244, 1248), (1261, 1264), (1266, 1268), (1270, 1271), (1284, 1287),
+                                                          (1289, 1292), (1294, 1295), (1307, 1308), (1313, 1319), (1327, 1328),
+                                                          (1350, 1352)))
+            and t.count('**No verdict was inferred from another beyond the consumptions the freeze places.**') >= 2
+            and t.count('**No independence of conditions is asserted and no characterization of the isometries is made.**') >= 2
+            and '**No theorem is attributed to the literature and no completeness is asserted past the base-star hypothesis.**' in t
+            and t.count('**Every earlier act\'s historical verdicts stand unchanged**') >= 2
+            and '**No merged label is revised.** **A merged statement is not enlarged by being consumed.**' in t
+            and '**The route-authorization matrix is honoured**' in t
+            and '**The execution order `GEO1` → `GEO2` → `GEO3` → `GEO4` was followed**' in t)
+
+
+def _ogs_vector(t=None):
+    """N8b -- the outcome vector, stated exactly once and equal VERBATIM to one row of the frozen
+    table -- the row the four verdicts compose, row 2 -- and to no paraphrase."""
+    t = _OGS1 if t is None else t
+    rows = [_ogs_frozen(n, n) for n in range(1368, 1375)]
+    cells = [r.split(' | ')[1].rstrip(' |') for r in rows]
+    heads = re.findall(r'\*\*Outcome vector:\*\*[^*]*?(?= \*\*|$)', t)
+    heads = [h.strip() for h in heads]
+    return (len(rows) == 7 and all(c.startswith('**Outcome vector:**') for c in cells)
+            and t.count('**Outcome vector:**') == 1 and len(heads) == 1
+            and heads[0] == cells[1]
+            and cells[1] == '**Outcome vector:** `GEO1-METRIC` · `GEO2-CONTROLS-PASS` · `GEO3-DISCRIMINATES` · `GEO4-UNDECIDED`'
+            and '**The headline is row 2 of the freeze\'s outcome-vector table, verbatim.**' in t)
+
+
+def _ogs_clause(t=None):
+    """N9 -- THE CLAUSE, verbatim from the freeze, at every mention, with its count stated and
+    matching."""
+    t = _OGS1 if t is None else t
+    body = _ogs_frozen(1423, 1431)   # the COMPLETE clause, from "Act 24 classifies" on; line 1422 is the freeze's own naming line
+    heads = ('the headline', 'the census, where a family is or is not an isometry', 'the section that states it')
+    return (body.startswith('Act 24 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none.')
+            and t.count(body) == 3 and '**THE CLAUSE is carried three times in this note**' in t
+            and t.count('**THE CLAUSE, carried at this mention —') == 3
+            and all(t.count('**THE CLAUSE, carried at this mention — %s.** %s' % (h, body)) == 1 for h in heads)
+            and '**No law is adopted, endorsed or given physical status by surviving, and the invariant family and the geometry are adopted as nothing**' in t)
+
+
+def _ogs_p0(t=None, road=None):
+    """N10 -- the frozen P0 sentence for Case A, present VERBATIM in the note and in the ROADMAP's P0
+    row after act 23's sentence, the row's label staying OPEN."""
+    t = _OGS1 if t is None else t
+    road = _OGSROAD if road is None else road
+    p0, p0_olg = _ogs_frozen(1385, 1385), _olg_frozen(1184, 1184)
+    return (p0.startswith('Act 24 tests, in one gated round with four separately frozen targets')
+            and p0 in t and p0 in road and p0_olg in road and road.find(p0_olg) < road.find(p0)
+            and '| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**' in road
+            and '**Case A** — `GEO0` silent, row 2 with the cells as predicted — is the case reached' in t
+            and 'none of the variable clauses replaced' in t)
+
+
+def _ogs_chronology(t=None):
+    """N11 -- the chronology claim names the property certified, the ten preconditions all PASS over
+    twenty-five rows, the empty supersession table honoured, the standing contract, the one
+    discrepancy recorded and not repaired, the budget of one, and the scope sentence."""
+    t = _OGS1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside `B`\'s descendants**' in t
+            and 'through the validator\'s prospective path by the one keyed call `_si2_authority(\'OGS\', tag=\'R7-OGS\')`' in t
+            and t.count('| **PASS** —') == 10
+            and '### The ten preconditions, each at its scope, as the base check reported them at `M` and at `B`' in t
+            and 'twenty-three `frozen-blob` lines and twenty-five rows' in t
+            and '**The supersession table is empty and is honoured as empty**' in t
+            and '**`SI-3`\'s standing zero-legacy-statement contract holds at every head**' in t
+            and '**One item is recorded. It is not repaired, and the frozen document is not edited.**' in t
+            and '**No candidate discovered during execution was executed.** **No configuration was chosen after an outcome was known.** **No alternative witness was substituted for a named one.** **No target was executed out of order, and no verdict commit carries a later target\'s result.**' in t
+            and '**No start-state discrepancy arose**' in t and '**all ten pass**' in t
+            and '**The claim is scoped to the repository record.**' in t
+            and '**One slot was budgeted, and one definition was introduced.**' in t
+            and '**Sixty-two named results.**' in t
+            and t.count('| `[propext, Classical.choice, Quot.sound]` |') == 62)
+
+
+def _ogs_locating():
+    """N12 -- the locating controls and the frozen provenance, read from git and therefore stable at
+    every later head: the control-plane blob at B, acts 21's, 22's and 23's modules and act 23's
+    record and the ROADMAP at their pinned blobs at B, the seals tree at B, B's two parents, D's two
+    parents, and the absence of every legacy form of this round's state from the guard source."""
+    def blob(rev, path):
+        r = _ogs_git_text('rev-parse', '%s:%s' % (rev, path))
+        return (r or '').strip()
+    if not _rbr_ensure_present(_OGS_B, tag='R7-OGS'):
+        return False
+    parents = (_ogs_git_text('rev-list', '--parents', '-n', '1', _OGS_B) or '').split()
+    dparents = (_ogs_git_text('rev-list', '--parents', '-n', '1', _OGS_D) or '').split()
+    return (blob(_OGS_B, 'verification/' + _OGSDIR + 'preregistration.md') == '3b61d6c90fe3f05bbf5e791f74d7106e9be2f94a'
+            and blob(_OGS_B, _OLT_MODULE) == '860daac4eb20dbe92c35c2b3ca7aaa1ed798e7b8'
+            and blob(_OGS_B, _OLN_MODULE) == 'd41b157a3f38d4ebedbe11ad9682a8693836a383'
+            and blob(_OGS_B, _OLG_MODULE) == '5ed0dad78d87314dfd9e1a8ec241f479ded1e3e1'
+            and blob(_OGS_B, 'verification/seals/OLG.json') == '8a058df23c07e2b7571672c039a5a7b4f911a339'
+            and blob(_OGS_B, 'verification/ROADMAP.md') == 'd03aa6602d8536ab8aab29dd09ea7602de4d7e78'
+            and blob(_OGS_B, 'verification/seals') == '9f762b8d0b5656950e5030c4eb9ca6514362cce0'
+            and blob(_OGS_B, _OGS_MODULE) == ''
+            and parents == [_OGS_B, _OGS_D, '98b567578098ff3bf6e3576d94302c7d3a2157b1']
+            and dparents == [_OGS_D, '64214bfb0ae41b9f0a4fb11159089fff32d4dd85', '76edc8b4ecd9e3c7234d1aa5ec24225028d727e5']
+            and not re.search(r'_OGS_(BASE|SEALED_HEAD|MERGE)\b', _OGS_SRC)
+            and "_si2_authority('OGS', tag='R7-OGS')" in _OGS_SRC)
+
+
+def _ogs_declarations():
+    """N13 -- this round's seal state, mode-aware: while executing, the prospective declaration names
+    B and the declared baseline is B with OGS the one authorized addition and no record exists;
+    from P, no declaration and a sealed record whose base is B. A stem both declared and recorded
+    is the validator's own failure and is not re-decided here."""
+    recs, errs = _si1_load()
+    declared, recorded = 'OGS' in _MANIFEST_PROSPECTIVE, 'OGS' in recs
+    if errs or declared == recorded:
+        return False
+    if declared:
+        return (_MANIFEST_BASELINE == {'base': _OGS_B, 'authorized': ('OGS',)}
+                and _MANIFEST_PROSPECTIVE['OGS'] == _OGS_B)
+    return recs['OGS'].get('kind') == 'sealed' and recs['OGS'].get('base') == _OGS_B
+
+
+ok_ogs = True
+ok_ogs &= _ogs_freeze_pin()
+# the drift control: one byte appended to the frozen file, every other file read normally
+def _ogs_drift(path):
+    return _bb_read(path) + (b'\n' if path == _OGSDIR + 'preregistration.md' else b'')
+ok_ogs &= _ogs_drift(_OGSDIR + 'preregistration.md') != _bb_read(_OGSDIR + 'preregistration.md') and not _ogs_freeze_pin(_ogs_drift)
+ok_ogs &= _ogs_execution_ancestry()
+_ogs_ord = _ogs_ordering()
+if _ogs_ord is False:
+    ok_ogs = False
+    _ogs_chain, _ogs_texts = [], {}
+else:
+    _ogs_ok3, _ogs_chain, _ogs_texts = _ogs_ord
+    ok_ogs &= _ogs_ok3
+    _V = _OGS_VERDICT_COMMITS
+    # negative (a): a fabricated SHA off the chain fails, for the stage-A, the module or a verdict commit
+    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, '0' * 40, _OGS_MODC, _V, _ogs_texts)
+    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, '1' * 40, _V, _ogs_texts)
+    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, (_V[0], _V[1], '2' * 40, _V[3]), _ogs_texts)
+    # negative (b): the verdict commits out of order fail
+    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, (_V[1], _V[0], _V[2], _V[3]), _ogs_texts)
+    # negative (c): a second definition at the head fails, on synthetic text
+    _ogs_t2 = dict(_ogs_texts)
+    _ogs_t2[_ogs_chain[0]] = (_ogs_texts.get(_ogs_chain[0]) or '') + '\ndef synthetic : Nat := 0\n'
+    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, _V, _ogs_t2)
+    # negative (c'): the one definition's body altered at the head fails, on synthetic text
+    _ogs_t2b = dict(_ogs_texts)
+    _ogs_t2b[_ogs_chain[0]] = (_ogs_texts.get(_ogs_chain[0]) or '').replace('G p.1.2.2 p.2.2.2 p.2.1', 'G p.1.2.2 p.2.1 p.2.2.2', 1)
+    ok_ogs &= _ogs_t2b[_ogs_chain[0]] != _ogs_texts.get(_ogs_chain[0]) and not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, _V, _ogs_t2b)
+    # negative (c''): the geometry's equation altered in one theorem fails, on synthetic text
+    _ogs_t2c = dict(_ogs_texts)
+    _ogs_t2c[_ogs_chain[0]] = (_ogs_texts.get(_ogs_chain[0]) or '').replace('mixedTriple H p‖ ^ 2)) →', 'mixedTriple H p‖ ^ 3)) →', 1)
+    ok_ogs &= _ogs_t2c[_ogs_chain[0]] != _ogs_texts.get(_ogs_chain[0]) and not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, _V, _ogs_t2c)
+    # negative (d): a family named inside another family's subsection fails, on synthetic text
+    _ogs_t3 = dict(_ogs_texts)
+    _ogs_t3[_ogs_chain[0]] = (_ogs_texts.get(_ogs_chain[0]) or '').replace('**`ΦI` is an isometry.**', '**`ΦI` is an isometry, as `ΦP` is.**', 1)
+    ok_ogs &= _ogs_t3[_ogs_chain[0]] != _ogs_texts.get(_ogs_chain[0]) and not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, _V, _ogs_t3)
+    # negative (e): a verdict theorem inserted into the module commit's text fails, on synthetic text
+    _ogs_t4 = dict(_ogs_texts)
+    _ogs_t4[_OGS_MODC] = (_ogs_texts.get(_OGS_MODC) or '') + '\ntheorem geo1_triple_metric : True := trivial\n'
+    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, _V, _ogs_t4)
+    # negative (f): a family's pinned equation altered at the head fails, on synthetic text
+    _ogs_t5 = dict(_ogs_texts)
+    _ogs_t5[_ogs_chain[0]] = (_ogs_texts.get(_ogs_chain[0]) or '').replace('then F (Nat.find h + 1) else G', 'then F (Nat.find h + 2) else G')
+    ok_ogs &= _ogs_t5[_ogs_chain[0]] != _ogs_texts.get(_ogs_chain[0]) and not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, _V, _ogs_t5)
+ok_ogs &= _ogs_lean()
+ok_ogs &= _ogs_wired()
+ok_ogs &= _ogs_shape()
+ok_ogs &= _ogs_records()
+ok_ogs &= _ogs_attestation()
+ok_ogs &= _ogs_verdicts()
+ok_ogs &= _ogs_vector()
+ok_ogs &= _ogs_clause()
+ok_ogs &= _ogs_p0()
+ok_ogs &= _ogs_chronology()
+ok_ogs &= _ogs_locating()
+ok_ogs &= _ogs_declarations()
+ok_ogs &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+
+# mutation controls on the content contracts -- each the exact failure the contract exists to catch
+_ogs_m1 = _OGS1.replace('**No independence of conditions is asserted and no characterization of the isometries is made.**', 'Isometry and factorization are independent, and the isometries are exactly the relabellings and the conjugation.')
+ok_ogs &= _ogs_m1 != _OGS1 and not _ogs_verdicts(_ogs_m1)                       # an independence or a characterization claimed
+_ogs_m2 = _OGS1.replace('**No verdict was inferred from another beyond the consumptions the freeze places.**', 'The `GEO3` verdict follows from the `GEO2` verdict.')
+ok_ogs &= _ogs_m2 != _OGS1 and not _ogs_verdicts(_ogs_m2)                       # a verdict inferred from another
+_ogs_m3 = _OGS1.replace('**The label is earned by `b` alone.**', 'The rigidity label follows from the cells `a1`, `a3` and `b₀`.')
+ok_ogs &= _ogs_m3 != _OGS1 and not _ogs_verdicts(_ogs_m3)                       # the GEO4 label read off the cells
+_ogs_m4 = _OGS1.replace('**Every earlier act\'s historical verdicts stand unchanged**', 'Act 23\'s `Φ_SC` is now excluded and act 21\'s census is corrected')
+ok_ogs &= _ogs_m4 != _OGS1 and not _ogs_verdicts(_ogs_m4)                       # a merged verdict rewritten
+_ogs_m5 = _OGS1.replace('| **Q3 — UNAIDED REASONING** | **NO** |', '| **Q3 — UNAIDED REASONING** | not applicable |', 1)
+ok_ogs &= _ogs_m5 != _OGS1 and not _ogs_attestation(_ogs_m5)                    # one of the five attestation answers evaded
+_ogs_m5b = _OGS1.replace('#### The span `GEO2` → `GEO3` | question | answer for the span `GEO2` → `GEO3` |', '#### The span `GEO2` → `GEO3` | question | answer |')
+ok_ogs &= _ogs_m5b != _OGS1 and not _ogs_attestation(_ogs_m5b)                  # a span's table detached from its span
+_ogs_m6 = _OGS1.replace('**THE CLAUSE is carried three times in this note**', '**THE CLAUSE is carried four times in this note**')
+ok_ogs &= _ogs_m6 != _OGS1 and not _ogs_clause(_ogs_m6)                         # the count misstated
+_ogs_m6b = _OGS1.replace('Act 24 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none. ', '')
+ok_ogs &= _ogs_m6b != _OGS1 and not _ogs_clause(_ogs_m6b)                       # the opening sentence dropped from every carriage
+_ogs_m7 = _OGS1.replace('**`%s`**, the first commit at which the module is present.' % _OGS_MODC,
+                        '**`%s`**, the first commit at which the module is present.' % ('0' * 40))
+ok_ogs &= _ogs_m7 != _OGS1 and not _ogs_records(_ogs_m7)                        # a fabricated module-commit SHA in the note
+_ogs_m7b = _OGS1.replace('| 4 | `%s` | `GEO2`: `geo2_relabel_isometry`' % _OGS_VERDICT_COMMITS[1],
+                         '| 4 | `%s` | `GEO2`: `geo2_relabel_isometry`' % ('3' * 40))
+ok_ogs &= _ogs_m7b != _OGS1 and not _ogs_records(_ogs_m7b)                      # a fabricated verdict-commit SHA in the note
+_ogs_m7c = _OGS1.replace('| `GEO4` | `GEO3-DISCRIMINATES`, by `geo3_phiCTRL_not_isometry` and `geo3_phiSC_not_isometry` at `%s` | **opened** |' % _OGS_VERDICT_COMMITS[2][:12],
+                         '| `GEO4` | `GEO3-UNDECIDED` | **opened** |')
+ok_ogs &= _ogs_m7c != _OGS1 and not _ogs_records(_ogs_m7c)                      # a target opened on a label that does not open it
+_ogs_m8 = _OGS1.replace('**One item is recorded. It is not repaired, and the frozen document is not edited.**',
+                        'The freeze\'s reading was corrected to the kernel\'s pair.')
+ok_ogs &= _ogs_m8 != _OGS1 and not _ogs_chronology(_ogs_m8)                     # the freeze repaired
+_ogs_m9 = _OGS1.replace(_ogs_frozen(1321, 1325), 'Every law satisfying the conditions before naturality, factorization and isometry acts on classes as a relabelling or a conjugation.')
+ok_ogs &= _ogs_m9 != _OGS1 and not _ogs_verdicts(_ogs_m9)                       # the frozen GEO4 sentence replaced by the rigidity claim
+_ogs_m9b = _OGS1.replace('**The frozen `Φ`-NOT-ISOMETRY sentence, carried for `Φ_SC`.** ', '**The frozen `Φ`-ISOMETRY sentence, carried for `Φ_SC`.** ', 1)
+ok_ogs &= _ogs_m9b != _OGS1 and not _ogs_verdicts(_ogs_m9b)                     # a family's carriage relabelled against its theorem
+_ogs_m9c = _OGS1.replace('**The label was earned by `ΦCTRL` and `Φ_SC`, and by no family outside the prefix.**', 'The label was earned by `ΦC`, `Φ_MD` and `Φ_PC`.')
+ok_ogs &= _ogs_m9c != _OGS1 and not _ogs_verdicts(_ogs_m9c)                     # the GEO3 label earned outside the prefix
+_ogs_m9d = _OGS1.replace('Merge witnesses are metric-independent once separation is proved. Sequence-discontinuity witnesses are invariant across metrics inducing the quotient topology.', 'The discrimination verdicts are metric-independent.')
+ok_ogs &= _ogs_m9d != _OGS1 and not _ogs_verdicts(_ogs_m9d)                     # the metric-dependence sentence strengthened
+_ogs_m10 = _OGS1.replace('`GEO1-METRIC` · `GEO2-CONTROLS-PASS` · `GEO3-DISCRIMINATES` · `GEO4-UNDECIDED`', '`GEO-ALL-PASS`', 1)
+ok_ogs &= _ogs_m10 != _OGS1 and not _ogs_vector(_ogs_m10)                       # a summary label in the headline
+_ogs_m10b = _OGS1 + ' **Outcome vector:** `GEO1-METRIC` · `GEO2-CONTROLS-PASS` · `GEO3-DISCRIMINATES` · `GEO4-UNDECIDED`'
+ok_ogs &= not _ogs_vector(_ogs_m10b)                                            # the headline stated twice
+_ogs_m10c = _OGS1.replace('`GEO1-METRIC` · `GEO2-CONTROLS-PASS` · `GEO3-DISCRIMINATES` · `GEO4-UNDECIDED`', '`GEO1-METRIC` · `GEO2-CONTROLS-PASS` · `GEO3-DISCRIMINATES` · `GEO4-RIGID`', 1)
+ok_ogs &= _ogs_m10c != _OGS1 and not _ogs_vector(_ogs_m10c)                     # a row of the table that the verdicts do not compose
+_ogs_m11 = _OGSROAD.replace(_ogs_frozen(1385, 1385), 'P0 is closed on its trajectory part.')
+ok_ogs &= _ogs_m11 != _OGSROAD and not _ogs_p0(road=_ogs_m11)                   # the P0 sentence absent from the ROADMAP
+_ogs_m12 = _OGSLEAN_RAW + '\ndef PhiConj (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) := G\n'
+ok_ogs &= not _ogs_lean(_ogs_m12)                                               # a second definition in a module budgeted at one
+_ogs_m12b = _OGSLEAN_RAW.replace('G p.1.2.2 p.2.2.2 p.2.1', 'G p.1.2.2 p.2.1 p.2.2.2', 1)
+ok_ogs &= _ogs_m12b != _OGSLEAN_RAW and not _ogs_lean(_ogs_m12b)                # the one definition's body altered
+_ogs_m13 = _OGSLEAN_RAW.replace('then F (Nat.find h + 1) else G', 'then F (Nat.find h + 2) else G')
+ok_ogs &= _ogs_m13 != _OGSLEAN_RAW and not _ogs_lean(_ogs_m13)                  # a family substituted after the fact
+_ogs_m13b = _OGSLEAN_RAW.replace('**`ΦI` is an isometry.**', '**`ΦI` is an isometry, as `Φ_SC` is not.**', 1)
+ok_ogs &= _ogs_m13b != _OGSLEAN_RAW and not _ogs_lean(_ogs_m13b)                # a family named inside another family's subsection
+_ogs_m14 = _OGSWIRE.replace('import OIBridge.OrbitGeometrySelector\n', '', 1)
+ok_ogs &= _ogs_m14 != _OGSWIRE and not _ogs_wired(_ogs_m14)                     # the module not wired
+
+check('R7-OGS', ok_ogs,
+      "Track B act 24 guard: a SEALING round under A.37 through the MANIFEST PROTOCOL, the first GATED "
+      "round -- four targets frozen together (the mixed-triple invariants and the metric they induce, "
+      "its three controls, the record's twelve families against it, and the rigidity cells, at act 12's "
+      "and act 21's frozen configurations), each with its own route, verdict rule and failure "
+      "interpretation, executed in the order GEO1, GEO2, GEO3, GEO4 with one verdict commit per target "
+      "and the gate read between targets, act 12's equivalence and act 21's ladder consumed UNCHANGED "
+      "and a definition budget of ONE. The control-plane blob pinned with a drift control; the "
+      "chronology verdict the validator's through one keyed call on OGS; the ordering obligation RE-RUN "
+      "FROM GIT on every head -- the stage-A commit the oldest on the first-parent chain from B with no "
+      "module, the module commit strictly newer and the first with the module, carrying the one "
+      "definition with the frozen body, exactly the fourteen shared lemmas and no verdict, the four "
+      "verdict commits following in order with each verdict theorem first present at its own commit, "
+      "exactly one `def` and no other declaration keyword at any commit from the module commit to the "
+      "certified object, the three imports at every such commit, the geometry pinned to its equation "
+      "in every theorem that binds it, and each family pinned to its frozen equation inside its own "
+      "GEO3 subsection with no other family named there -- with a fabricated SHA, an out-of-order "
+      "chain, a second definition, an altered body, an altered geometry, a family named in another "
+      "family's subsection, a verdict theorem in the module commit and a substituted family each "
+      "checked to FAIL on synthetic data; exactly the sixty-two named results with their axiom lines "
+      "and the import wired after act 23's; and the note held to the freeze's distinctions -- the "
+      "shape, the eight records with their six SHAs and the gate record, the FIVE attestation answers "
+      "all NO with the freeze-supplied facts at every span, every frozen status sentence for the "
+      "outcome reached (GEO0-silent, GEO1-METRIC, GEO2-CONTROLS-PASS, GEO3-DISCRIMINATES and "
+      "GEO4-UNDECIDED once each, ISOMETRY and NOT-ISOMETRY six times each with their naming lines, the "
+      "a0, a1, a3 and b0 cell sentences once and the UNDECIDED cell sentence twice, no other outcome "
+      "sentence), the outcome vector equal VERBATIM to row 2 of the frozen table and stated once, no "
+      "verdict inferred beyond the placed consumptions, no independence and no characterization, every "
+      "earlier verdict unchanged, the matrix honoured, THE CLAUSE three times, the ten preconditions "
+      "over twenty-five rows, the one discrepancy recorded and not repaired, and the frozen P0 "
+      "sentence VERBATIM in the ROADMAP after act 23's -- twenty-five mutation controls, the locating "
+      "controls read from git at B, and this round's seal state read mode-aware from the prospective "
+      "declaration or its record, never from a constant.")
 
 
 # ---- R7-SI1: seal infrastructure round SI-1 -- the SHADOW seal validator and the equivalence
