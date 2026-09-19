@@ -1239,3 +1239,18 @@ theorem l5_not_implies_l4n :
 
 end OrbitLawGaps
 end OIBridge
+
+/-! ### The axiom table — one line per named result, printed by the kernel -/
+
+#print axioms OIBridge.OrbitLawGaps.gramPhaseEquiv_fst_of_product
+#print axioms OIBridge.OrbitLawGaps.product_gramPhaseEquiv_fst
+#print axioms OIBridge.OrbitLawGaps.zero_not_realizable
+#print axioms OIBridge.OrbitLawGaps.hadamard_z_admissible
+#print axioms OIBridge.OrbitLawGaps.fibreGram_z_entries
+#print axioms OIBridge.OrbitLawGaps.zseq_facts
+#print axioms OIBridge.OrbitLawGaps.gap_separations
+#print axioms OIBridge.OrbitLawGaps.phiMD_l1_restricts
+#print axioms OIBridge.OrbitLawGaps.phiPC_l3i_restricts
+#print axioms OIBridge.OrbitLawGaps.phiHS_l3s_restricts
+#print axioms OIBridge.OrbitLawGaps.phiSC_corner
+#print axioms OIBridge.OrbitLawGaps.l5_not_implies_l4n
