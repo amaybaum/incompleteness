@@ -208,6 +208,7 @@ import OIBridge.GramTrajectorySelection
 import OIBridge.IntermediateCrossTimeStructure
 import OIBridge.RepresentativeNaturality
 import OIBridge.OrbitLawRigidityTwisted
+import OIBridge.OrbitLawNaturalityFactorization
 import OIBridge.SemigroupTransfer
 import OIBridge.WordTraceSufficiency
 import OIBridge.RecurrenceHorizon

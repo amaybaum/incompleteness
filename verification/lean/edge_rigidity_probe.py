@@ -10113,8 +10113,8 @@ _SI2_STAGE1_ADDITIONS = {'SI1': {'round': 'SI1', 'kind': 'base-only',
 # round's preregistration authorizes, BY STEM. An authorized stem's record is validated by content by
 # U3; U5 only admits its presence. Declared here, outside both marker-bounded regions, under a name
 # that carries no round stem; the generic region reads it and nothing else about the round.
-_MANIFEST_BASELINE = {'base': '10d1041bcc10f25d9f643629d4431acbd0f65a1e',
-                      'authorized': ('OLT',)}
+_MANIFEST_BASELINE = {'base': 'ccd5704fd157348903cbdea746d24cf5d5498b78',
+                      'authorized': ('OLN',)}
 
 
 # ---- SI-3 (SI3-2, R2): THE PROSPECTIVE DECLARATION. A sealing round with no record yet declares
@@ -10123,7 +10123,7 @@ _MANIFEST_BASELINE = {'base': '10d1041bcc10f25d9f643629d4431acbd0f65a1e',
 # at its landing merge. The pin commit P REMOVES the entry when it writes the record; a stem that is
 # both declared and recorded is a failure. This is how a round carries its base while it runs
 # without writing the legacy representation SI-3 retires. Stem-free in its name, outside both regions.
-_MANIFEST_PROSPECTIVE = {}
+_MANIFEST_PROSPECTIVE = {'OLN': 'ccd5704fd157348903cbdea746d24cf5d5498b78'}
 
 # A value that is not a commit, not a hash and equal to nothing a record can hold, returned by the
 # accessor below where a record or a field is missing: every comparison and every git call made
@@ -24058,10 +24058,9 @@ def _olt_declarations():
     declared, recorded = 'OLT' in _MANIFEST_PROSPECTIVE, 'OLT' in recs
     if errs or declared == recorded:
         return False
-    if not (_MANIFEST_BASELINE == {'base': _OLT_B, 'authorized': ('OLT',)}):
-        return False
     if declared:
-        return _MANIFEST_PROSPECTIVE['OLT'] == _OLT_B
+        return (_MANIFEST_BASELINE == {'base': _OLT_B, 'authorized': ('OLT',)}
+                and _MANIFEST_PROSPECTIVE['OLT'] == _OLT_B)
     return recs['OLT'].get('kind') == 'sealed' and recs['OLT'].get('base') == _OLT_B
 
 
@@ -24166,6 +24165,450 @@ check('R7-OLT', ok_olt,
       "the locating controls read from git at B, and this round's seal state read mode-aware from the "
       "prospective declaration or its record, never from a constant.")
 
+
+
+# ---- R7-OLN: Track B act 22 -- does the standing prefix through L4n force L5? A narrow successor
+# of act 21: two of its undecided rungs tested against three named laws at act 21's frozen product
+# configuration, with act 21's ladder, quotient list, configuration and non-adoption clause consumed
+# UNCHANGED and a ZERO definition budget. A SEALING round under A.37 through the MANIFEST PROTOCOL:
+# its chronology verdict is the validator's through ONE KEYED CALL on the stem OLN, its base is the
+# prospective declaration during execution and the record OLN.json from P, and NO CONSTANT. The
+# freeze pins the one control-plane blob with a one-byte drift control. What can go wrong in this
+# round is the ORDER OF EVENTS and the READING: a rung restated, a definition slipped into a module
+# budgeted at zero, the candidate swapped for a different relabelling after the outcome was known,
+# the failure of factorization read as interaction or as an independence of rungs, a FREE label
+# claimed from a search, act 21's historical verdicts rewritten. So the guard re-runs the ordering
+# obligation MECHANICALLY from git on every head -- the stage-A commit the oldest on the first-parent
+# chain from B, the module absent there and present from the module commit on, no def, abbrev,
+# structure, class, instance, axiom or opaque at any commit from the module commit to the certified
+# object, the import of act 21's module at every such commit, and the candidate pinned to the
+# exchange in every theorem that names it with no prodCongr in those blocks -- with three synthetic
+# negatives; and it holds the result note to the freeze's distinctions: the shape, the five records
+# with their SHAs, the three attestation answers for the span B -> module commit, the freeze-supplied
+# facts, every frozen status sentence for the outcome reached, the one-directional reading of what
+# the swap separates, THE CLAUSE at every mention with its count, and the frozen P0 sentence present
+# VERBATIM in the ROADMAP after act 21's.
+_OLNDIR = 'programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/'
+_OLN_B = 'ccd5704fd157348903cbdea746d24cf5d5498b78'   # the mandated execution base, the certified merge of #683
+_OLN_D = 'd08b932da492891bdadaa5b867fd337250859b99'   # the drafting snapshot, never the base
+_OLN_STAGEA = '8150ae35c8679b599110944330b07f7afeae7b32'
+_OLN_MODC = 'a2f0d98a027871272d7d58951d3121abe6bcf8fa'
+_OLN_MODULE = 'verification/lean-mathlib/OIBridge/OrbitLawNaturalityFactorization.lean'
+_OLN_SWAP = 'RelabelTransition (Equiv.prodComm (Fin 4) (Fin 4))'
+_OLN_RESULTS = ('relabel_prodComm', 'gramPhaseEquiv_diag', 'phiCTRL_l4n_restricts',
+                'phiSwap_l5_restricts', 'prefix_not_implies_l5')
+_OLN = open(_artifact(_OLNDIR + 'result.md'), encoding='utf-8').read()
+_OLN1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _OLN).split()).replace('’', "'")
+_OLNPRE = open(_artifact(_OLNDIR + 'preregistration.md'), encoding='utf-8').read().split('\n')
+_OLNLEAN_RAW = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                                 'OIBridge', 'OrbitLawNaturalityFactorization.lean'), encoding='utf-8').read()
+_OLNWIRE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                             'OIBridge.lean'), encoding='utf-8').read()
+_OLNROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+_OLN_SRC = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+
+
+def _oln_frozen(a, b):
+    """Lines a..b of the frozen preregistration (1-based, inclusive), block-quote markers stripped,
+    whitespace-normalized -- the same normalization the note is read under."""
+    return ' '.join(re.sub(r'(?m)^\s*>\s?', '', '\n'.join(_OLNPRE[a - 1:b])).split()).replace('’', "'")
+
+
+def _oln_freeze_pin(read=_bb_read):
+    """N1 -- the frozen preregistration is byte-identical to the blob PR #683 merged."""
+    return _bb_blob(_OLNDIR + 'preregistration.md', read) == 'cc83ddb9ecbc2c8e884d160d1d3ffeba2575baea'
+
+
+def _oln_execution_ancestry():
+    """N2 -- the chronology verdict is the validator's, keyed on the stem OLN: EXECUTION against the
+    prospective declaration while the round executes, LANDED-PENDING-PIN at L, ARCHIVED from P."""
+    return _si2_authority('OLN', tag='R7-OLN')
+
+
+def _oln_git_text(*args):
+    r = _rbr_git(*args, tag='R7-OLN')
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout.decode('utf-8', 'replace')
+
+
+_OLN_DEF_RE = re.compile(r'(?m)^(def|abbrev|structure|class|instance|axiom|opaque)\b')
+_OLN_IMPORT = 'import OIBridge.OrbitLawRigidityTwisted\n'
+
+
+def _oln_blocks(text):
+    """The two theorem blocks that name the candidate: each from its `theorem` line to the next
+    theorem or the axiom table. None where a block is absent."""
+    out = {}
+    for n, end in (('phiSwap_l5_restricts', r'^theorem prefix_not_implies_l5\b'),
+                   ('prefix_not_implies_l5', r'^#print axioms')):
+        m = re.search(r'(?ms)^theorem ' + n + r'\b.*?(?=' + end + r'|\Z)', text or '')
+        out[n] = m.group(0) if m else None
+    return out
+
+
+def _oln_swap_pinned(text, require_all):
+    """The candidate is the exchange and nothing else in every theorem that names it: each present
+    block carries the pinned form and no `prodCongr`; with require_all, both blocks are present."""
+    for b in _oln_blocks(text).values():
+        if b is None:
+            if require_all:
+                return False
+            continue
+        if _OLN_SWAP not in b or 'prodCongr' in b:
+            return False
+    return True
+
+
+def _oln_module_ok(text):
+    """The zero budget and the import, at one commit: no top-level definition of any kind, act 21's
+    module imported, no sorry, no native_decide, and the candidate pinned where named."""
+    return (text is not None and not _OLN_DEF_RE.search(text) and text.startswith(_OLN_IMPORT)
+            and 'sorry' not in text and 'native_decide' not in text and _oln_swap_pinned(text, False))
+
+
+def _oln_ordering_pred(chain, stagea, modc, texts):
+    """The ordering obligation, factored over the data so the negatives can drive it. `chain` is
+    the first-parent chain from the target back to (excluding) B, newest first; `texts` maps each
+    commit of the chain to the module's text there (None where absent). The stage-A commit is the
+    oldest commit of the chain and carries no module; the module commit is strictly newer, the first
+    commit at which the module is present; from it to the head every commit's module satisfies the
+    zero budget, the import and the pin; and the head carries both candidate-naming blocks."""
+    if stagea not in chain or modc not in chain or chain[-1] != stagea:
+        return False
+    im, ia = chain.index(modc), chain.index(stagea)
+    if im >= ia:                                            # module commit strictly newer than stage A
+        return False
+    if any(texts.get(c) is not None for c in chain[im + 1:]):   # absent at every older commit
+        return False
+    if not all(_oln_module_ok(texts.get(c)) for c in chain[:im + 1]):   # present and clean from there on
+        return False
+    return _oln_swap_pinned(texts.get(chain[0]), True)
+
+
+def _oln_ordering():
+    """N3 -- the ordering obligation from git, against the certified object: the sealed head through
+    the manifest accessor once the round is recorded, the real target (pull_request.head.sha in PR
+    CI, HEAD otherwise) while it executes. Fail-closed throughout."""
+    sealed = _seal_field('OLN', 'sealed_head')
+    if sealed is not _SEAL_UNAVAILABLE:
+        target, num = sealed, None
+    else:
+        target, _label, num = _rbr_target_commit(tag='R7-OLN')
+        if target is None:
+            return False
+    if not _rbr_ensure_present(_OLN_B, tag='R7-OLN') or not _rbr_ensure_present(target, pr_number=num, tag='R7-OLN'):
+        return False
+    raw = _oln_git_text('rev-list', '--first-parent', target, '^' + _OLN_B)
+    if raw is None:
+        return False
+    chain = raw.split()
+    if not chain:
+        return False
+    texts = {c: _oln_git_text('show', '%s:%s' % (c, _OLN_MODULE)) for c in set(chain) | {_OLN_STAGEA, _OLN_MODC}}
+    ok = _oln_ordering_pred(chain, _OLN_STAGEA, _OLN_MODC, texts)
+    print('    R7-OLN ordering: stage-A commit %s and module commit %s %s on the first-parent chain from %s to %s (%d commit(s)); module %s'
+          % (_OLN_STAGEA[:12], _OLN_MODC[:12], 'in order' if ok else 'NOT as required', _OLN_B[:12], chain[0][:12], len(chain),
+             'definition-free, importing act 21, candidate pinned to the exchange at every commit from the module commit to the target' if ok else 'NOT certified'))
+    return ok, chain, texts
+
+
+def _oln_lean(t=None):
+    """N4 -- the zero budget at the head: no definition of any kind, no sorry, no native_decide, no
+    added axiom; exactly the five named results in the freeze's order, each with its axiom line; act
+    21's module imported; the candidate pinned to the exchange in both theorems that name it."""
+    raw = _OLNLEAN_RAW if t is None else t
+    thms = re.findall(r'(?m)^theorem ([A-Za-z0-9_]+)', raw)
+    printed = re.findall(r'(?m)^#print axioms OIBridge\.OrbitLawNaturalityFactorization\.([A-Za-z0-9_]+)', raw)
+    return (_oln_module_ok(raw) and thms == list(_OLN_RESULTS) and printed == list(_OLN_RESULTS)
+            and _oln_swap_pinned(raw, True)
+            and '`relabel_product` is stated for `Equiv.prodCongr σ₁ σ₂`' in raw)
+
+
+def _oln_wired(t=None):
+    """N4 -- the module imported by the library root directly after act 21's."""
+    t = _OLNWIRE if t is None else t
+    return 'import OIBridge.OrbitLawRigidityTwisted\nimport OIBridge.OrbitLawNaturalityFactorization\n' in t
+
+
+def _oln_shape(t=None):
+    """N5 -- the round's shape: sealing under the manifest, E -> L -> P, the record written by P and by
+    nothing before P, no legacy constant, the base blob verified as the first act."""
+    t = _OLN1 if t is None else t
+    return ('**This is a SEALING round** under `AGENTS.md` `§A.37`, executed under the manifest protocol' in t
+            and 'it lands **`E` → `L` → `P`, with `P` mandatory**' in t
+            and '**`OLN.json` is absent at execution and is written by `P` and by nothing before `P`.**' in t
+            and 'That is a statement about this execution and stays true as one' in t
+            and '**No legacy seal constant is written**' in t
+            and '**No existing manifest record is altered**' in t
+            and '**The base-blob verification is recorded.**' in t
+            and 'returns `cc83ddb9ecbc2c8e884d160d1d3ffeba2575baea`' in t
+            and '**No manuscript file is written.**' in t)
+
+
+def _oln_records(t=None):
+    """N6 -- the five records with their SHAs, the ordering obligation and the anti-contamination
+    invariant in the freeze's wording, the declaration table's closure and the quotient record."""
+    t = _OLN1 if t is None else t
+    return (_oln_frozen(677, 683) in t and _oln_frozen(364, 366) in t
+            and '| 1 | `%s` | **stage A**' % _OLN_STAGEA in t
+            and '| 2 | `%s` | **the module commit**' % _OLN_MODC in t
+            and '| 3 | `8063293a8415a9a3da249578b1a5c9c2310f1f7e` | `OF1`: `phiCTRL_l4n_restricts` |' in t
+            and '| 4 | `e721387fcbb21cab1b86bd6a197b890a2991c5cc` | `OF2`: `phiSwap_l5_restricts` |' in t
+            and '| 5 | `0bf3b048ade194c378407bb7d3d20eb837cc5e61` | `OF4`: `prefix_not_implies_l5` and the axiom table |' in t
+            and '### 3.1 The declaration table (record 1)' in t
+            and '**This round\'s module carries no declaration of its own**' in t
+            and '**No rung was restated and no equivalence was widened.**' in t
+            and '**`%s`.** `git show --stat` lists one file' % _OLN_STAGEA in t
+            and '**`%s`**, the first commit at which the module is present.' % _OLN_MODC in t
+            and '**`relabel_prodComm`** and **`gramPhaseEquiv_diag`**' in t
+            and '### 3.4 The immutability span (record 4)' in t and '**returns `0`**' in t
+            and '### 3.5 The quotient record (record 5)' in t
+            and '**The only equivalence used in any verdict is act 12\'s `GramPhaseEquiv`**' in t
+            and '**No equivalence was introduced or widened during execution**' in t)
+
+
+def _oln_attestation(t=None):
+    """N7 -- the three answers as a table for the span B -> module commit, the partial-fact rule, the
+    freeze-supplied-facts list, the history-integrity statement, and no execution defect."""
+    t = _OLN1 if t is None else t
+    return ('answered as measurements for the span `B` → module commit' in t
+            and '| **Q1 — INTENTIONAL** | **NO** |' in t
+            and '| **Q2 — INCIDENTAL** | **NO** |' in t
+            and '| **Q3 — UNAIDED REASONING** | **NO** |' in t
+            and '**A PARTIAL fact counts for all three. There is no threshold below which a fact about the candidates does not count.**' in t
+            and '**The freeze-supplied facts that were in front of the execution**' in t
+            and '**No commit on this branch was amended, reset, rebased over, cherry-picked over or force-pushed away. There are no superseded SHAs.**' in t
+            and 'Before certification this execution absorbed no later `main`.' in t
+            and '**No execution defect is recorded.**' in t)
+
+
+def _oln_verdicts(t=None):
+    """N8 -- every frozen status sentence for the outcome reached, carried verbatim: OF0-silent,
+    Li-RESTRICTS for L4n and for L5 with their naming lines, Phi-SURVIVES-PREFIX and Phi-FAILS for
+    the swap, PREFIX-NOT-IMPLIES-L5; the outcome line; and the one-directional reading -- what the
+    swap separates, no independence of rungs, no interaction, no FREE label, act 21's verdicts
+    unchanged, and nothing used of the factor maps beyond the two displayed equivalences."""
+    t = _OLN1 if t is None else t
+    return ('**Outcome reached: `L4n-RESTRICTS`, `L5-RESTRICTS` and `PREFIX-NOT-IMPLIES-L5`, over act 21\'s unchanged ladder at act 21\'s frozen product configuration.**' in t
+            and '**Outcome reached: `OF0`-silent.**' in t and t.count(_oln_frozen(819, 825)) == 1
+            and '**`OF0` is a type-P target and carries no evidence level.**' in t
+            and '**Outcome reached: `L4n-RESTRICTS`, via `ΦCTRL`.**' in t
+            and t.count(_oln_frozen(834, 839)) == 2
+            and t.count('**The frozen `Li-RESTRICTS` sentence, carried for `L4n`.** ' + _oln_frozen(834, 839)) == 1
+            and t.count('**The frozen `Li-RESTRICTS` sentence, carried for `L5`.** ' + _oln_frozen(834, 839)) == 1
+            and _oln_frozen(849, 853) not in t
+            and '**obtained from act 21\'s merged `phiCTRL_census` by projection and nothing else**' in t
+            and 'act 21\'s historical verdict `L4n-UNDECIDED` stands as act 21\'s verdict' in t
+            and '**Outcome reached: `OF2` landed in both parts, and `L5-RESTRICTS`, via `Φ_swap`.**' in t
+            and t.count('**The frozen `Φ`-SURVIVES-PREFIX sentence, carried for `Φ_swap`.** ' + _oln_frozen(856, 860)) == 1
+            and t.count('**The frozen `Φ`-FAILS sentence, carried for `Φ_swap` at `L5`.** ' + _oln_frozen(862, 865)) == 1
+            and '**The exchange identity is proved**' in t
+            and '**The failing conjunct is the existence of fixed factor maps `Φ₁`, `Φ₂` for the ordered decomposition `e`; the separating classes are `[G(H₁) ⊠ G(H₁)]` and `[G(Hᵢ) ⊠ G(H₁)]`' in t
+            and '**No property of the factor maps beyond the two displayed equivalences was used.**' in t
+            and '`L5-FREE` was not attempted and is not reportable from anything here.' in t
+            and '**Outcome reached: `PREFIX-NOT-IMPLIES-L5`.**' in t and t.count(_oln_frozen(873, 880)) == 1
+            and t.count('**No independence of rungs is asserted**') >= 2
+            and '**No surviving law is said to interact, couple or fail to compose in any other sense.**' in t
+            and '**Act 21\'s historical verdicts stand unchanged**' in t
+            and '**No merged label is revised.** **A merged statement is not enlarged by being consumed.**' in t
+            and '**A search that finds a decision is a finding, and a search that does not is equally a finding.**' in t)
+
+
+def _oln_clause(t=None):
+    """N9 -- THE CLAUSE, verbatim from the freeze, at every mention, with its count stated and
+    matching."""
+    t = _OLN1 if t is None else t
+    body = _oln_frozen(921, 929)   # the COMPLETE clause, from "Act 22 classifies" on; line 920 is the freeze's own naming line
+    heads = ('the census, where a law survives the prefix or fails a rung', 'the headline', 'the section that states it')
+    return (body.startswith('Act 22 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none.')
+            and t.count(body) == 3 and '**THE CLAUSE is carried three times in this note**' in t
+            and t.count('**THE CLAUSE, carried at this mention —') == 3
+            and all(t.count('**THE CLAUSE, carried at this mention — %s.** %s' % (h, body)) == 1 for h in heads)
+            and '**No law is adopted, endorsed or given physical status by surviving.**' in t)
+
+
+def _oln_p0(t=None, road=None):
+    """N10 -- the frozen P0 sentence for Case A, present VERBATIM in the note and in the ROADMAP's P0
+    row after act 21's sentence, the row's label staying OPEN."""
+    t = _OLN1 if t is None else t
+    road = _OLNROAD if road is None else road
+    p0, p0_olt = _oln_frozen(894, 894), _olt_frozen(1796, 1821)
+    return (p0.startswith('Act 22 tests two of the rungs act 21 left undecided')
+            and p0 in t and p0 in road and p0_olt in road and road.find(p0_olt) < road.find(p0)
+            and '| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**' in road
+            and '**Case A** — `OF0` silent, `L4n-RESTRICTS`, `L5-RESTRICTS` and `PREFIX-NOT-IMPLIES-L5` — is the case reached' in t)
+
+
+def _oln_chronology(t=None):
+    """N11 -- the chronology claim names the property certified, the ten preconditions all PASS, the
+    supersession table's one edit reported as a measurement, the standing contract, the two
+    discrepancies recorded and not repaired, the zero budget, and the scope sentence."""
+    t = _OLN1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside `B`\'s descendants**' in t
+            and 'through the validator\'s prospective path by the one keyed call `_si2_authority(\'OLN\', tag=\'R7-OLN\')`' in t
+            and t.count('| **PASS** —') == 10
+            and '### The ten preconditions, each at its scope, as the base check reported them at `M` and at `B`' in t
+            and '**The supersession table\'s one edit was made at exactly the place the table names, and reported as a measurement.**' in t
+            and '**Nothing else in `R7-OLT` was touched**' in t
+            and '**`SI-3`\'s standing zero-legacy-statement contract holds at every head**' in t
+            and '**Two items are recorded. None is repaired, and the frozen document is not edited.**' in t
+            and '**No candidate discovered during execution was executed.** **No configuration was chosen after an outcome was known.** **No alternative witness was substituted for a named one.**' in t
+            and '**No start-state discrepancy arose**' in t and '**all ten pass**' in t
+            and '**The claim is scoped to the repository record.**' in t
+            and '**Zero slots were budgeted, and zero definitions were introduced.**' in t
+            and '**Five named results.**' in t
+            and t.count('| `[propext, Classical.choice, Quot.sound]` |') == 5)
+
+
+def _oln_locating():
+    """N12 -- the locating controls and the frozen provenance, read from git and therefore stable at
+    every later head: the control-plane blob at B, act 21's module, record and the ROADMAP at their
+    pinned blobs at B, the seals tree at B, B's two parents, D's two parents, and the absence of
+    every legacy form of this round's state from the guard source."""
+    def blob(rev, path):
+        r = _oln_git_text('rev-parse', '%s:%s' % (rev, path))
+        return (r or '').strip()
+    if not _rbr_ensure_present(_OLN_B, tag='R7-OLN'):
+        return False
+    parents = (_oln_git_text('rev-list', '--parents', '-n', '1', _OLN_B) or '').split()
+    dparents = (_oln_git_text('rev-list', '--parents', '-n', '1', _OLN_D) or '').split()
+    return (blob(_OLN_B, 'verification/' + _OLNDIR + 'preregistration.md') == 'cc83ddb9ecbc2c8e884d160d1d3ffeba2575baea'
+            and blob(_OLN_B, _OLT_MODULE) == '860daac4eb20dbe92c35c2b3ca7aaa1ed798e7b8'
+            and blob(_OLN_B, 'verification/seals/OLT.json') == '8ed0ef5391410db3a112cbe845d27536b7c1ab9b'
+            and blob(_OLN_B, 'verification/ROADMAP.md') == 'cc08d5df3d390c34578a97e655ceb8ef0f8077c9'
+            and blob(_OLN_B, 'verification/seals') == '90d5a4ae59c931216d52a8ce9456ae906366085e'
+            and blob(_OLN_B, _OLN_MODULE) == ''
+            and parents == [_OLN_B, _OLN_D, 'c6d94dda513b7918bcaff0e79abc51e2ff81f093']
+            and dparents == [_OLN_D, '9aa19b3a24eb2e865095dd1926968350cb9ffbcf', 'dd11f3e126524803cd919de7e60a4f0a3c17ed28']
+            and not re.search(r'_OLN_(BASE|SEALED_HEAD|MERGE)\b', _OLN_SRC)
+            and "_si2_authority('OLN', tag='R7-OLN')" in _OLN_SRC)
+
+
+def _oln_declarations():
+    """N13 -- this round's seal state, mode-aware: while executing, the prospective declaration names
+    B and the declared baseline is B with OLN the one authorized addition and no record exists;
+    from P, no declaration and a sealed record whose base is B. A stem both declared and recorded
+    is the validator's own failure and is not re-decided here."""
+    recs, errs = _si1_load()
+    declared, recorded = 'OLN' in _MANIFEST_PROSPECTIVE, 'OLN' in recs
+    if errs or declared == recorded:
+        return False
+    if declared:
+        return (_MANIFEST_BASELINE == {'base': _OLN_B, 'authorized': ('OLN',)}
+                and _MANIFEST_PROSPECTIVE['OLN'] == _OLN_B)
+    return recs['OLN'].get('kind') == 'sealed' and recs['OLN'].get('base') == _OLN_B
+
+
+def _oln_supersession():
+    """N14 -- the supersession table's one disposition is in the guard source at its named place:
+    R7-OLT's declared branch requires the baseline equality, and the recorded branch does not."""
+    s = _OLN_SRC
+    # the retired statement is ASSEMBLED here rather than written out, so that this clause's own
+    # source does not carry it verbatim
+    retired = 'if not (' + "_MANIFEST_BASELINE == {'base': _OLT_B"
+    return ("return (_MANIFEST_BASELINE == {'base': _OLT_B, 'authorized': ('OLT',)}" in s
+            and retired not in s)
+
+
+ok_oln = True
+ok_oln &= _oln_freeze_pin()
+# the drift control: one byte appended to the frozen file, every other file read normally
+def _oln_drift(path):
+    return _bb_read(path) + (b'\n' if path == _OLNDIR + 'preregistration.md' else b'')
+ok_oln &= _oln_drift(_OLNDIR + 'preregistration.md') != _bb_read(_OLNDIR + 'preregistration.md') and not _oln_freeze_pin(_oln_drift)
+ok_oln &= _oln_execution_ancestry()
+_oln_ord = _oln_ordering()
+if _oln_ord is False:
+    ok_oln = False
+    _oln_chain, _oln_texts = [], {}
+else:
+    _oln_ok3, _oln_chain, _oln_texts = _oln_ord
+    ok_oln &= _oln_ok3
+    # negative (a): a fabricated SHA off the chain fails, for either commit
+    ok_oln &= not _oln_ordering_pred(_oln_chain, '0' * 40, _OLN_MODC, _oln_texts)
+    ok_oln &= not _oln_ordering_pred(_oln_chain, _OLN_STAGEA, '1' * 40, _oln_texts)
+    # negative (b): a definition at the head fails, on synthetic text
+    _oln_t2 = dict(_oln_texts)
+    _oln_t2[_oln_chain[0]] = (_oln_texts.get(_oln_chain[0]) or '') + '\ndef synthetic : Nat := 0\n'
+    ok_oln &= not _oln_ordering_pred(_oln_chain, _OLN_STAGEA, _OLN_MODC, _oln_t2)
+    # negative (c): the candidate substituted by a different relabelling at the head fails, on synthetic text
+    _oln_t3 = dict(_oln_texts)
+    _oln_t3[_oln_chain[0]] = (_oln_texts.get(_oln_chain[0]) or '').replace(_OLN_SWAP, 'RelabelTransition (Equiv.prodCongr (Fin 4) (Fin 4))')
+    ok_oln &= _oln_t3[_oln_chain[0]] != _oln_texts.get(_oln_chain[0]) and not _oln_ordering_pred(_oln_chain, _OLN_STAGEA, _OLN_MODC, _oln_t3)
+ok_oln &= _oln_lean()
+ok_oln &= _oln_wired()
+ok_oln &= _oln_shape()
+ok_oln &= _oln_records()
+ok_oln &= _oln_attestation()
+ok_oln &= _oln_verdicts()
+ok_oln &= _oln_clause()
+ok_oln &= _oln_p0()
+ok_oln &= _oln_chronology()
+ok_oln &= _oln_locating()
+ok_oln &= _oln_declarations()
+ok_oln &= _oln_supersession()
+ok_oln &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+
+# mutation controls on the content contracts -- each the exact failure the contract exists to catch
+_oln_m1 = _OLN1.replace('**No independence of rungs is asserted**', 'The two rungs are independent')
+ok_oln &= _oln_m1 != _OLN1 and not _oln_verdicts(_oln_m1)                       # the independence square claimed
+_oln_m2 = _OLN1.replace('**No property of the factor maps beyond the two displayed equivalences was used.**',
+                        'The factor maps were taken realizable, which fixes their normalization.')
+ok_oln &= _oln_m2 != _OLN1 and not _oln_verdicts(_oln_m2)                       # an invariant of a factor map read from realizability
+_oln_m3 = _OLN1.replace('`L5-FREE` was not attempted and is not reportable from anything here.', '`L5-FREE` follows for every other law of the prefix.')
+ok_oln &= _oln_m3 != _OLN1 and not _oln_verdicts(_oln_m3)                       # a FREE label from absence
+_oln_m4 = _OLN1.replace('**Act 21\'s historical verdicts stand unchanged**', 'Act 21\'s `L4n-UNDECIDED` and `L5-UNDECIDED` are corrected to `RESTRICTS`')
+ok_oln &= _oln_m4 != _OLN1 and not _oln_verdicts(_oln_m4)                       # a merged verdict rewritten
+_oln_m5 = _OLN1.replace('| **Q3 — UNAIDED REASONING** | **NO** |', '| **Q3 — UNAIDED REASONING** | not applicable |')
+ok_oln &= _oln_m5 != _OLN1 and not _oln_attestation(_oln_m5)                    # an attestation answer evaded
+_oln_m6 = _OLN1.replace('**THE CLAUSE is carried three times in this note**', '**THE CLAUSE is carried four times in this note**')
+ok_oln &= _oln_m6 != _OLN1 and not _oln_clause(_oln_m6)                         # the count misstated
+_oln_m6b = _OLN1.replace('Act 22 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none. ', '')
+ok_oln &= _oln_m6b != _OLN1 and not _oln_clause(_oln_m6b)                       # the opening sentence dropped from every carriage
+_oln_m6c = _OLN1.replace('**THE CLAUSE, carried at this mention — the headline.** Act 22 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none. ',
+                         '**THE CLAUSE, carried at this mention — the headline.** ', 1)
+ok_oln &= _oln_m6c != _OLN1 and not _oln_clause(_oln_m6c)                       # the opening sentence dropped from one carriage
+_oln_m7 = _OLN1.replace('**`%s`**, the first commit at which the module is present.' % _OLN_MODC,
+                        '**`%s`**, the first commit at which the module is present.' % ('0' * 40))
+ok_oln &= _oln_m7 != _OLN1 and not _oln_records(_oln_m7)                        # a fabricated module-commit SHA in the note
+_oln_m8 = _OLN1.replace('**Two items are recorded. None is repaired, and the frozen document is not edited.**',
+                        'The freeze\'s record 3 wording was corrected to admit two first results.')
+ok_oln &= _oln_m8 != _OLN1 and not _oln_chronology(_oln_m8)                     # the freeze repaired
+_oln_m9 = _OLN1.replace(_oln_frozen(873, 880), 'The prefix through `L4n` does not imply `L5`, so the two rungs are independent and the surviving laws interact.')
+ok_oln &= _oln_m9 != _OLN1 and not _oln_verdicts(_oln_m9)                       # the frozen non-implication sentence paraphrased
+_oln_m10 = _OLNROAD.replace(_oln_frozen(894, 894), 'P0 is closed on its trajectory part.')
+ok_oln &= _oln_m10 != _OLNROAD and not _oln_p0(road=_oln_m10)                   # the P0 sentence absent from the ROADMAP
+_oln_m11 = _OLNLEAN_RAW + '\ndef PhiSwap (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) := G\n'
+ok_oln &= not _oln_lean(_oln_m11)                                               # a definition in a module budgeted at zero
+_oln_m12 = _OLNLEAN_RAW.replace(_OLN_SWAP, 'RelabelTransition (Equiv.prodCongr (Fin 4) (Fin 4))')
+ok_oln &= _oln_m12 != _OLNLEAN_RAW and not _oln_lean(_oln_m12)                  # the candidate substituted after the fact
+_oln_m13 = _OLNWIRE.replace('import OIBridge.OrbitLawNaturalityFactorization\n', '', 1)
+ok_oln &= _oln_m13 != _OLNWIRE and not _oln_wired(_oln_m13)                     # the module not wired
+
+check('R7-OLN', ok_oln,
+      "Track B act 22 guard: a SEALING round under A.37 through the MANIFEST PROTOCOL, asking whether "
+      "the standing prefix through L4n forces L5 at act 21's frozen product configuration, against "
+      "three named laws, with act 21's ladder, quotient list and non-adoption clause consumed "
+      "UNCHANGED and a ZERO definition budget. The control-plane blob pinned with a drift control; the "
+      "chronology verdict the validator's through one keyed call on OLN; the ordering obligation RE-RUN "
+      "FROM GIT on every head -- the stage-A commit the oldest on the first-parent chain from B with no "
+      "module, the module commit strictly newer and the first with the module, no def, abbrev, "
+      "structure, class, instance, axiom or opaque at any commit from there to the certified object, "
+      "act 21's module imported at every such commit, and the candidate pinned to the exchange in both "
+      "theorems that name it with no prodCongr in those blocks -- with a fabricated SHA, a synthetic "
+      "definition and a substituted candidate each checked to FAIL on synthetic data; exactly the five "
+      "named results with their axiom lines and the import wired after act 21's; and the note held to "
+      "the freeze's distinctions -- the shape, the five records with their SHAs, the three attestation "
+      "answers for the span B -> module commit all NO, the freeze-supplied facts, every frozen status "
+      "sentence for the outcome reached with the Li-RESTRICTS sentence carried once for each rung, the "
+      "one-directional reading (fixed local maps for the ordered decomposition; no independence of "
+      "rungs, no interaction, no FREE label, act 21's verdicts unchanged, nothing of the factor maps "
+      "used beyond the two displayed equivalences), THE CLAUSE three times, the ten preconditions, the "
+      "two discrepancies recorded and not repaired, and the frozen P0 sentence VERBATIM in the ROADMAP "
+      "after act 21's -- fifteen mutation controls, the locating controls read from git at B, and this "
+      "round's seal state read mode-aware from the prospective declaration or its record, never from a "
+      "constant.")
 
 
 # ---- R7-SI1: seal infrastructure round SI-1 -- the SHADOW seal validator and the equivalence
