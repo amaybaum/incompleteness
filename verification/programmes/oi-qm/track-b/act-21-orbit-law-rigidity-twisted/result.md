@@ -7,14 +7,14 @@ commit of the amendment, which Amendment 1's point 5 fixes as this round's manda
 `B`, and which this execution verified by blob — both control-plane files and every pinned
 start-state blob — as its first act, before any target was executed.
 
-**Outcome reached: `L-WIDE (L0–L4)`**, over the frozen ladder at act 12's configuration, with
-`OL0`-silent, `OL1`-landed in both parts, `SIOP-YES` at `t* = 1`, and the per-rung record
-`L0-RESTRICTS`, `L1-UNDECIDED`, `L2-RESTRICTS`, `L3i-UNDECIDED`, `L3s-UNDECIDED`, `L4d-HYP`,
-`L4n-RESTRICTS`, `L5-UNDECIDED`. **The headline over the full ladder is recorded UNDECIDED**, because
-`L5`'s rung status is undecided, exactly as the freeze's fallback says. Two rungs the freeze
-predicted to restrict came back undecided for a reason the freeze's own countercontrol table did
-not check, and one rung the freeze declined to predict came back a restriction; each is recorded
-below as what it is.
+**Outcome reached: `L-WIDE`, over the complete frozen ladder `L0`–`L5`** at act 12's
+configuration, with `OL0`-silent, `OL1`-landed in both parts, `SIOP-YES` at `t* = 1`, and the
+per-rung record `L0-RESTRICTS`, `L1-UNDECIDED`, `L2-RESTRICTS`, `L3i-UNDECIDED`, `L3s-UNDECIDED`,
+`L4d-HYP`, `L4n-UNDECIDED`, `L5-UNDECIDED`. Two rungs the freeze predicted to restrict came back
+undecided for a reason the freeze's own countercontrol table did not check, and the rung the
+freeze declined to predict came back undecided as the freeze expected, with a proved failure of it
+by the `L5` countercontrol recorded as an observation and not substituted as its witness; each is
+recorded below as what it is.
 
 **`L4n` is act 20's `TwistedNatural` itself, with the two lifting obligations act 20's `RNT2` fixed for a lift, and it is this freeze's one mathematical change from act 19.**
 
@@ -246,7 +246,14 @@ acquired beyond them.
 **No commit on this branch was amended, reset, rebased over, cherry-picked over or force-pushed
 away. There are no superseded SHAs.** Before certification this execution absorbed no later `main`.
 
-**One execution defect is recorded, and it is not repaired.** The stage-A commit's message says the
+**Two execution defects are recorded, and neither is repaired.** First, the packaging commits
+`f6b87a6fc4fe313bfc3512649d1fe1543c155ff3` and `53256f1e84dce979467255b8c952fc24658c62af` carry
+in their messages and in the note they introduced the **provisional pre-review classification**
+`L4n-RESTRICTS` and `L-WIDE (L0–L4)`; owner review at the exact head `53256f1e…` corrected both
+readings — `L4n` is `UNDECIDED` because its row names no countercontrol and the witness rule forbids
+substitution, and the headline is `L-WIDE` over the complete ladder because an `UNDECIDED` rung
+stays in the conjunction — and the correction is appended as its own commit, with the earlier
+messages left as written. Second, the stage-A commit's message says the
 validator classified `OLT` as `EXECUTION` at that commit. At that commit no keyed call
 `_si2_authority('OLT', …)` existed yet — the `R7-OLT` clause is created by the packaging commit — so
 the guard printed nothing about `OLT` there; what the stage-A guard run established is that the
@@ -366,9 +373,9 @@ its proof.
 
 ## 7. `OL2` — the eight rung statuses
 
-Every label below is earned as the freeze's table says it is earned and never assumed. **The three
+Every label below is earned as the freeze's table says it is earned and never assumed. **The two
 rungs reported `RESTRICTS` are reported with the failing conjunct and the separating class named;
-the four rungs reported `UNDECIDED` are reported with the obstruction named — the rung, the
+the five rungs reported `UNDECIDED` are reported with the obstruction named — the rung, the
 conjunct, the step, and what would settle it — and in no case is the absence of a violator read as
 the rung being free or the absence of an implication read as the rung having content.** The
 standing hypothesis of the ladder — that the generated law is an `L-PROP` law in act 18's frozen
@@ -472,23 +479,35 @@ both labels, and that reading is the owner's to take or refuse.
 > it and neither is claimed. The freeze said so before the census, and this report is that statement
 > honoured.
 
-### `L4n` — **`L4n-RESTRICTS`**, via `ΦCTRL`
+### `L4n` — **`L4n-UNDECIDED`**
 
-> **The frozen `Li-RESTRICTS` sentence, carried for `L4n`.**
-> An exhibited transition family satisfies every earlier rung of this freeze's ladder and fails
-> `Li`, at evidence level 2, with the failing conjunct and the separating class named. **So `Li` is
-> a genuine restriction on the class the shared theorem produces and is not decoration.** This is a
-> statement about the exact condition frozen under the label `Li`, at the configuration named, and
-> it does **not** endorse the condition, does **not** say the programme requires it, and does
-> **not** say it is the right condition to impose.
+> **The frozen `Li-UNDECIDED` sentence, carried for `L4n`.**
+> The status of `Li` is undecided in this round, with the obstruction named specifically — the rung,
+> the conjunct, the step at which the proof stopped, and what would settle it. Neither label is
+> claimed, and no sentence of this round treats the absence of a decision as a decision. In
+> particular the absence of a violating candidate is **not** reported as the rung being free, and
+> the absence of an implication proof is **not** reported as the rung having content.
 
-`phiCTRL_census`. **`L4n` is act 20's `TwistedNatural` itself, with the two lifting obligations act 20's `RNT2` fixed for a lift, and it is this freeze's one mathematical change from act 19.** The controlled relabelling `ΦCTRL`, at the frozen product configuration
+**The rung**: representative-level gauge-naturality at act 20's certified strength. **The
+conjunct**: the `RESTRICTS` label's requirement that the exhibited law be the one the rung's
+countercontrol names — and the `L4n` row of the countercontrol table names no construction. **The
+step at which the proof stopped**: the freeze's generic witness rule is decisive — what a rung's
+countercontrol names is what is tested, and an alternative witness found during execution is
+recorded as an observation and never substituted. `ΦCTRL` is frozen, but it is frozen as the `L5`
+countercontrol at the product configuration and not as the `L4n` countercontrol; its proved failure
+of `L4n` is therefore **an observation, recorded here, and it cannot earn `L4n-RESTRICTS`**. No
+universal proof that the earlier rungs imply `L4n` was attempted, so `L4n-FREE` is not earned
+either. **What would settle it**: a later round's freeze naming a transition descending to classes
+with no twisted-natural lift as the `L4n` countercontrol — the observation below is a candidate for
+exactly that — or a universal implication proof.
+
+**The observation, recorded and not applied.** `phiCTRL_census`. **`L4n` is act 20's `TwistedNatural` itself, with the two lifting obligations act 20's `RNT2` fixed for a lift, and it is this freeze's one mathematical change from act 19.** The controlled relabelling `ΦCTRL`, at the frozen product configuration
 `V = Fin 4 × Fin 4`, `A = Fin 1 × Fin 1`, `a₀ = (0,0)`, `Γ ≡ 1/16`, satisfies every earlier condition —
 it is an `L-PROP` law (proper, with both propagation clauses), total, admissibility-preserving,
 time-homogeneous, reversible in both conjuncts (`Φ ∘ Φ = id` exactly) and descending — and **admits
-no representative-level lift that is twisted-natural at act 20's strength**. **The failing conjunct is
-the right closure conjunct and the right intertwining conjunct of `TwistedNatural`, read together
-with the lifting obligation**: for the weak anchored gauge `K` with phase `−1` at `(0,3)` and `1`
+no representative-level lift that is twisted-natural at act 20's strength**, at evidence level 2.
+**The failing conjunct is the right closure conjunct and the right intertwining conjunct of
+`TwistedNatural`, read together with the lifting obligation**: for the weak anchored gauge `K` with phase `−1` at `(0,3)` and `1`
 elsewhere, the induced `αR K` is a weak anchored gauge with some phases `c'`, and the lifting
 obligation read at `U K` and at `U` for an admissible `U` in each branch of the transition — the
 product dilations of `G(H₁) ⊠ G(Hᵢ)` and of `G(Hᵢ) ⊠ G(Hᵢ)` — forces `conj(c'_(0,0)) · c'_(0,2)` to
@@ -497,18 +516,12 @@ where both Gram tuples are nonzero. **The separating classes are `[G(H₁) ⊠ G
 `[G(Hᵢ) ⊠ G(Hᵢ)]`**: the induced map is fixed before the input and cannot see which branch the
 input is in. Configuration: the product configuration, supply 1, 3, 4, 5 and 6, `|A| = 1`.
 
-**Two things are said about this label so that it cannot be misread.** First, the freeze declined to
-predict `L4n`, named no construction for a violator, and named `UNDECIDED` as its expectation; the
-outcome goes past the freeze's expectation and is recorded as that in §20 and §21. Second, the
-witness is a **frozen** candidate at its **frozen** configuration: the countercontrol table names
-`ΦCTRL` for `L5` and names nothing for `L4n`, so no named witness was substituted and no
-configuration was chosen after an outcome was known; the freeze's census target `OL3` requires
-`ΦCTRL`'s status against every rung at its configuration to be measured and reported, and this
-failure is that measurement. Whether a census measurement of a candidate the table did not name for
-this rung earns the rung's label is put in front of the owner with the facts stated; the label is
-reported because the freeze's own table of what earns it — an exhibited law satisfying every earlier
-rung and failing this one, at evidence level 2, with the failing conjunct and the separating class
-named — is met in every term.
+**Why the observation is not the label.** The freeze's census target `OL3` requires `ΦCTRL`'s status
+against every rung at its configuration to be measured and reported, and this failure is that
+measurement; no configuration was chosen after an outcome was known and nothing outside the frozen
+list was introduced. But the label rule and the witness rule are read together: a rung's label is
+earned by the witness its countercontrol names, and `L4n`'s row names none. An observation carries
+no label, earns no line of the headline, and is evidence for no verdict of this round.
 
 **What the freeze's analysis under `L4n` said is confirmed and sharpened.** The intertwining
 conjuncts bind a lift only through the lifting obligation: `ΦC`, a constant transition, satisfies
@@ -625,7 +638,7 @@ disclosed at its lines 98–106 and is a fact this round proves under its own fr
 
 ## 10. `OL5` — the headline
 
-**Outcome reached: `L-WIDE (L0–L4)`.**
+**Outcome reached: `L-WIDE`, over the complete frozen ladder `L0`–`L5`.**
 
 > **At least two inequivalent laws survive the frozen conditions, and the conditions do not narrow
 > the class enough for a characterization this round could reach.** The survivors are exhibited at
@@ -653,12 +666,17 @@ realizable rank-one tuples modulo anchored phases — which the record does not 
 did not attempt. **What would settle it**: that classification, frozen as its own round, with a
 parameter set shown not to be a restatement of the ladder.
 
-**The condition set the label carries, stated exactly.** The survivors satisfy `LadderConds` at act
-12's configuration through the trivial decomposition `V ≃ V × Fin 1`, at which the `L5` conjunct
-holds for every transition family (`factorizes_trivial`); `L5` at the frozen product configuration
-was tested as a rung and is reported `L5-UNDECIDED` in §7; so the headline is computed over
-`L0`–`L4`, the label names that set, and **the headline over the full ladder is undecided**, as the
-freeze's fallback fixes before the census. **This is reporting and not repair.**
+**The condition set the label carries, stated exactly: every rung of the frozen ladder, `L5`
+included.** The survivors satisfy `LadderConds` in full at act 12's configuration — the standing
+`L-PROP` hypotheses, `L0`, `L1`, `L2`, `L3i`, `L3s`, `L4d`, `L4n` and `L5`, the last through the
+decomposition `V ≃ V × Fin 1` at which the ladder's `L5` conjunct is discharged by
+`factorizes_trivial`; `SIOP-YES` proves them inequivalent survivors; and the characterization is
+not reached. **A rung reported `UNDECIDED` stays in the ladder and stays in the conjunction the
+headline quantifies over**: `L4n-UNDECIDED` and `L5-UNDECIDED` say that this round does not know
+whether those rungs are genuine restrictions on the class, and they remove no condition from the
+ladder the survivors were tested against. The product-embedding construction `L5` needs was
+discharged (§11), so the freeze's fallback for an undischarged `L5` is not invoked, and the headline
+is computed over the full ladder.
 
 **No condition was added after the survivors were known, and no equivalence was widened after the
 survivors were known.** The ladder stands as the control plane froze it; a plurality that would
@@ -724,8 +742,9 @@ symmetry property of the induced action — group, faithful, transitive, free �
 
 **No law outside the frozen seven was tested, no rung outside `L0`–`L5` was stated, no
 configuration outside those the countercontrol table names was used, and no equivalence outside the
-frozen three was used in any verdict.** The one observation recorded under the anti-expansion rule
-(§7, `L1`) carries no label, earns no line and is evidence for nothing.
+frozen three was used in any verdict.** The two observations recorded — the unexecuted `L1`
+construction under the anti-expansion rule and `ΦCTRL`'s proved failure of `L4n` under the witness
+rule (§7) — carry no label, earn no line and are evidence for no verdict of this round.
 
 ## 13. The non-adoption clause, carried verbatim at each mention
 
@@ -953,23 +972,23 @@ classical branch of `ΦCTRL`, and its appearance is not a defect.
 | `L3i` | `L3i-RESTRICTS` via `ΦC`, high | `L3i-UNDECIDED` | **not as predicted**; `ΦC` fails `L3i` as forecast but is not `L-PROP` |
 | `L3s` | `L3s-RESTRICTS` via `ΦC`, high | `L3s-UNDECIDED` | **not as predicted**; the same reason |
 | `L4d` | `L4d-HYP` | `L4d-HYP` | **as predicted** |
-| `L4n` | not predicted, UNDECIDED named as the expectation, low | `L4n-RESTRICTS` via `ΦCTRL` | **against the freeze's stated expectation, and recorded as such** |
+| `L4n` | not predicted, UNDECIDED named as the expectation, low | `L4n-UNDECIDED`, with `ΦCTRL`'s failure of it recorded as an observation | **as the freeze expected**; the observation goes past what the freeze anticipated and is recorded as that |
 | `L5` | `L5-RESTRICTS` via `ΦCTRL`, medium, UNDECIDED allowed | `L5-UNDECIDED` | **not as predicted**; `ΦCTRL` fails `L5` as forecast but fails `L4n` too |
 | `OL3` | `ΦI`, `ΦP` survive; `ΦX`, `ΦC`, `ΦT` fail their rungs; `ΦPP` satisfies `L5`; `ΦCTRL` fails it | all as forecast, and `ΦCTRL` additionally fails `L4n` | **as predicted**, with one additional failure recorded |
 | `OL4` | not independently predicted in act 21 | `SIOP-YES` at `t* = 1` | abstention honoured; act 19's historical forecast of `SIOP-YES` at `t* = 1` is matched in outcome and not in its named initial class, and nothing is scored |
-| `OL5` | not independently predicted in act 21 | `L-WIDE (L0–L4)` | abstention honoured; act 19's historical `L-WIDE (L0–L5)` is matched in its line and not in its condition set, and nothing is scored |
+| `OL5` | not independently predicted in act 21 | `L-WIDE` over `L0`–`L5` | abstention honoured; act 19's historical `L-WIDE (L0–L5)` is matched in outcome, and nothing is scored |
 
 **Three predictions of this freeze came out other than predicted, and none is a falsified
 mathematical forecast**: in each case the mathematics the freeze forecast for the named candidate
 is proved — `ΦC` fails `L3i` and `L3s`, `ΦCTRL` fails `L5`, `L1` is implied on the reached classes —
 and what the freeze did not forecast is whether the candidate satisfies the ladder's *other*
-conditions, which is what the label rule requires and what the census measured. **`L4n` is the one
-place the round went past what the freeze expected, and it is recorded as that and not as a
-confirmation.**
+conditions, which is what the label rule requires and what the census measured. **`ΦCTRL`'s failure
+of `L4n` is the one place the round went past what the freeze anticipated, and it is recorded as an
+observation and not as a label or a confirmation.**
 
 ## 21. The discrepancies — recorded and not repaired
 
-**Four items are recorded. None is repaired, and neither frozen document is edited.** The
+**Five items are recorded. None is repaired, and neither frozen document is edited.** The
 preregistration is immutable once merged; an execution that diverges records the discrepancy and
 does not repair the freeze.
 
@@ -984,20 +1003,25 @@ alternative reading is put in front of the owner in §7.
 `L5` test did not ask. The prediction `L5-RESTRICTS` therefore cannot be earned by the named
 candidate, and `L5` is reported `UNDECIDED`. Recorded; the freeze is not edited.
 
-**DF3 — `L4n` landed beyond the freeze's stated expectation.** The freeze named `UNDECIDED` as the
-outcome it expected and predicted nothing. The rung came back `RESTRICTS`, by a candidate the table
-did not name for it. Recorded as a divergence from the forecast and from the table's silence, not
-repaired, not reinterpreted; the label's own earning conditions are met in every term, and the
-adjudication of a label earned by an unnamed witness is the owner's.
+**DF3 — the `L5` countercontrol fails `L4n`, which the freeze did not anticipate.** The freeze named
+`UNDECIDED` as `L4n`'s expected outcome, named no construction for a violator, and named `ΦCTRL`
+for `L5` only. `ΦCTRL`'s proved failure of `L4n` is recorded as an observation under the witness
+rule and is not substituted as `L4n`'s witness; the rung is reported `UNDECIDED` as the freeze
+expected.
 
 **DF4 — the stage-A commit message overstates what was measured.** Recorded in §4.1; the commit is
 not amended.
 
+**DF5 — the packaging commits carry the provisional pre-review classification.** Recorded in §4.1:
+`L4n-RESTRICTS` and `L-WIDE (L0–L4)` in the messages of `f6b87a6…` and `53256f1e…` and in the note
+as first committed, corrected on exact-head review by an appended commit; the messages are not
+rewritten.
+
 **No start-state discrepancy arose**, in any of the thirty-four pinned blobs or in any of the eleven
 preconditions: **every one matches** and **all eleven pass**. **No candidate discovered during
 execution was executed.** **No configuration was chosen after an outcome was known.** **No
-alternative witness was substituted for a named one.** The one observation under the anti-expansion
-rule (§7, `L1`) is recorded as an observation and nothing else.
+alternative witness was substituted for a named one.** The two observations (§7, `L1` and `L4n`)
+are recorded as observations and nothing else.
 
 ## 22. The provenance as honoured
 

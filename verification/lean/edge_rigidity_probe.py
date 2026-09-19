@@ -23942,7 +23942,8 @@ def _olt_attestation(t=None):
             and '**a disclosure does not cure a contamination**' in t
             and '**The freeze-supplied facts that were in front of the execution**' in t
             and '**No commit on this branch was amended, reset, rebased over, cherry-picked over or force-pushed away. There are no superseded SHAs.**' in t
-            and '**One execution defect is recorded, and it is not repaired.**' in t)
+            and '**Two execution defects are recorded, and neither is repaired.**' in t
+            and '**provisional pre-review classification**' in t)
 
 
 def _olt_verdicts(t=None):
@@ -23953,17 +23954,20 @@ def _olt_verdicts(t=None):
     t = _OLT1 if t is None else t
     return ('**Outcome reached: `OL0`-silent.**' in t and _olt_frozen(1641, 1648) in t
             and '**Outcome reached: `OL1`-landed, in both parts.**' in t and _olt_frozen(1659, 1667) in t
-            and t.count(_olt_frozen(1677, 1682)) == 3
-            and t.count(_olt_frozen(1696, 1700)) == 3
+            and t.count(_olt_frozen(1677, 1682)) == 2
+            and t.count(_olt_frozen(1696, 1700)) == 4
             and _olt_frozen(1691, 1694) in t
             and _olt_frozen(1705, 1709) in t and _olt_frozen(1711, 1714) in t
             and '**Outcome reached: `SIOP-YES`, at `t* = 1`, from the initial class of `H(i)`.**' in t
             and _olt_frozen(1722, 1730) in t
-            and '**Outcome reached: `L-WIDE (L0–L4)`.**' in t and _olt_frozen(1768, 1779) in t
-            and '**the headline over the full ladder is undecided**' in t
+            and '**Outcome reached: `L-WIDE`, over the complete frozen ladder `L0`–`L5`.**' in t
+            and _olt_frozen(1768, 1779) in t
+            and '**The condition set the label carries, stated exactly: every rung of the frozen ladder, `L5` included.**' in t
+            and '**A rung reported `UNDECIDED` stays in the ladder and stays in the conjunction the headline quantifies over**' in t
+            and '**an observation, recorded here, and it cannot earn `L4n-RESTRICTS`**' in t
             and _olt_frozen(999, 1002) in t
             and '**No condition was added after the survivors were known, and no equivalence was widened after the survivors were known.**' in t
-            and '`L0-RESTRICTS`, `L1-UNDECIDED`, `L2-RESTRICTS`, `L3i-UNDECIDED`, `L3s-UNDECIDED`, `L4d-HYP`, `L4n-RESTRICTS`, `L5-UNDECIDED`' in t
+            and '`L0-RESTRICTS`, `L1-UNDECIDED`, `L2-RESTRICTS`, `L3i-UNDECIDED`, `L3s-UNDECIDED`, `L4d-HYP`, `L4n-UNDECIDED`, `L5-UNDECIDED`' in t
             and '**Searching and not finding is never a settling outcome**' in t)
 
 
@@ -24010,7 +24014,7 @@ def _olt_chronology(t=None):
             and '**The supersession table\'s four edits were made at exactly the places the table names, and reported as measurements.**' in t
             and '**Nothing else in `R7-SI1`, `R7-SI2` or `R7-SI3` was touched**' in t
             and '**`SI-3`\'s standing zero-legacy-statement contract holds at every head**' in t
-            and '**Four items are recorded. None is repaired, and neither frozen document is edited.**' in t
+            and '**Five items are recorded. None is repaired, and neither frozen document is edited.**' in t
             and '**No candidate discovered during execution was executed.** **No configuration was chosen after an outcome was known.** **No alternative witness was substituted for a named one.**' in t
             and '**No start-state discrepancy arose**' in t and '**all eleven pass**' in t
             and '**The claim is scoped to the repository record.**' in t
@@ -24107,10 +24111,10 @@ ok_olt &= _olt_supersessions()
 ok_olt &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
 
 # mutation controls on the content contracts -- each the exact failure the contract exists to catch
-_olt_m1 = _OLT1.replace('**Outcome reached: `L-WIDE (L0–L4)`.**', '**Outcome reached: `L-WIDE`.**')
-ok_olt &= _olt_m1 != _OLT1 and not _olt_verdicts(_olt_m1)                       # the label without its condition set
-_olt_m2 = _OLT1.replace('**the headline over the full ladder is undecided**', 'the headline over the full ladder is `L-WIDE`')
-ok_olt &= _olt_m2 != _OLT1 and not _olt_verdicts(_olt_m2)                       # the full-ladder record dropped
+_olt_m1 = _OLT1.replace('**Outcome reached: `L-WIDE`, over the complete frozen ladder `L0`–`L5`.**', '**Outcome reached: `L-WIDE (L0–L4)`.**')
+ok_olt &= _olt_m1 != _OLT1 and not _olt_verdicts(_olt_m1)                       # an UNDECIDED rung dropped from the headline's conjunction
+_olt_m2 = _OLT1.replace('**an observation, recorded here, and it cannot earn `L4n-RESTRICTS`**', 'the exhibited witness that earns `L4n-RESTRICTS`')
+ok_olt &= _olt_m2 != _OLT1 and not _olt_verdicts(_olt_m2)                       # an unnamed witness substituted for the rung's countercontrol
 _olt_m3 = _OLT1.replace('**No condition was added after the survivors were known, and no equivalence was widened after the survivors were known.**',
                         'One further physically reasonable condition would narrow the survivors to a point.')
 ok_olt &= _olt_m3 != _OLT1 and not _olt_verdicts(_olt_m3)                       # the post-hoc rescue
@@ -24123,7 +24127,7 @@ _olt_m6 = _OLT1.replace('**Nothing from `claude/act-19-execution` is cited, impo
 ok_olt &= _olt_m6 != _OLT1 and not _olt_l4n_act19(_olt_m6)                     # the act 19 boundary crossed
 _olt_m7 = _OLT1.replace('**`%s`.**' % _OLT_LADDER, '**`%s`.**' % ('0' * 40))
 ok_olt &= _olt_m7 != _OLT1 and not _olt_records(_olt_m7)                        # a fabricated ladder SHA in the note
-_olt_m8 = _OLT1.replace('**Four items are recorded. None is repaired, and neither frozen document is edited.**',
+_olt_m8 = _OLT1.replace('**Five items are recorded. None is repaired, and neither frozen document is edited.**',
                         'The freeze\'s countercontrol table was corrected to check the standing hypothesis.')
 ok_olt &= _olt_m8 != _OLT1 and not _olt_chronology(_olt_m8)                     # the freeze repaired
 _olt_m9 = _OLT1.replace(_olt_frozen(1768, 1779), 'At least two inequivalent laws survive and the class is characterized up to a parameter set.')
