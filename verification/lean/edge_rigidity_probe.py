@@ -23754,6 +23754,406 @@ check('R7-RNT', ok_rnt,
 
 
 
+# ---- R7-OLT: Track B act 21 -- the rigidity of the cross-time laws act 18 opened, re-frozen at
+# act 20's certified naturality. A SEALING round under A.37 through the MANIFEST PROTOCOL: its
+# chronology verdict is the validator's through ONE KEYED CALL on the stem OLT, its base is the
+# prospective declaration during execution and the record OLT.json from P, and NO CONSTANT. The
+# freeze pins BOTH control-plane blobs -- the preregistration and its Amendment 1 -- each with a
+# one-byte drift control. What can go wrong in this round is the ORDER OF EVENTS and the READING:
+# a rung restated after the survivors were known, a condition added or an equivalence widened to
+# turn a plurality into a point, a rung reported free from a failed search, decoration reported as
+# a rung, a divergence reported at the wrong time, a survivor reported as adopted. So the guard
+# re-runs the ordering obligation's records 2-4 MECHANICALLY from git on every head -- the ladder
+# commit and the discrimination commit on the first-parent chain from B, in that order; no
+# theorem, lemma, example or instance at the ladder commit; the discrimination commit the first
+# with one; every rung declaration BYTE-IDENTICAL from the discrimination commit to the certified
+# head -- with three synthetic negatives; and it holds the result note to the freeze's
+# distinctions: the shape, the five records with their SHAs, the three attestation answers for the
+# span B -> ladder commit, the freeze-supplied-facts list, the no-condition sentence, the headline
+# label carrying its condition set, L4n as act 20's TwistedNatural and this freeze's one change,
+# the act 19 boundary, THE CLAUSE at every mention with its count, every frozen status sentence
+# for the outcome reached, and the frozen P0 sentence present VERBATIM in the ROADMAP.
+_OLTDIR = 'programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/'
+_OLT_B = '10d1041bcc10f25d9f643629d4431acbd0f65a1e'   # the mandated execution base, Amendment 1 point 5
+_OLT_D = '63d8ca08cbea2e05e4f9fdc5a9b36006b9f104ed'   # the drafting snapshot, never the base
+_OLT_LADDER = 'fcfaf7974f0669863df197128936b7acb501466e'
+_OLT_DISC = 'cfa6b233cb7afbd4e2ef8f4308a7f3553dda73b8'
+_OLT_MODULE = 'verification/lean-mathlib/OIBridge/OrbitLawRigidityTwisted.lean'
+_OLT_RUNGS = ('TransitionLaw', 'EvolvesTotally', 'PreservesAdmissible', 'Reversible',
+              'FactorizesOnProduct', 'LadderConds', 'LawEquiv', 'SameInitialOrbitPair')
+_OLT = open(_artifact(_OLTDIR + 'result.md'), encoding='utf-8').read()
+_OLT1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _OLT).split()).replace('’', "'")
+_OLTPRE = open(_artifact(_OLTDIR + 'preregistration.md'), encoding='utf-8').read().split('\n')
+_OLTLEAN_RAW = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                                 'OIBridge', 'OrbitLawRigidityTwisted.lean'), encoding='utf-8').read()
+_OLTLEAN = ' '.join(_OLTLEAN_RAW.split())
+_OLTROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+_OLT_SRC = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+
+
+def _olt_frozen(a, b):
+    """Lines a..b of the frozen preregistration (1-based, inclusive), block-quote markers stripped,
+    whitespace-normalized -- the same normalization the note is read under."""
+    return ' '.join(re.sub(r'(?m)^\s*>\s?', '', '\n'.join(_OLTPRE[a - 1:b])).split()).replace('’', "'")
+
+
+def _olt_freeze_pin(read=_bb_read):
+    """N1 -- the frozen preregistration is byte-identical to the blob PR #678 merged."""
+    return _bb_blob(_OLTDIR + 'preregistration.md', read) == '316d635a31f91faebeeebef7688b30002d24b4ca'
+
+
+def _olt_amend_pin(read=_bb_read):
+    """N1 -- Amendment 1 is byte-identical to the blob PR #679 merged."""
+    return _bb_blob(_OLTDIR + 'amendments/amendment-1.md', read) == 'd140978e6f0031063e7aa4b9bbe3e960d9b7f8e1'
+
+
+def _olt_execution_ancestry():
+    """N2 -- the chronology verdict is the validator's, keyed on the stem OLT: EXECUTION against the
+    prospective declaration while the round executes, LANDED-PENDING-PIN at L, ARCHIVED from P."""
+    return _si2_authority('OLT', tag='R7-OLT')
+
+
+def _olt_git_text(*args):
+    r = _rbr_git(*args, tag='R7-OLT')
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout.decode('utf-8', 'replace')
+
+
+def _olt_decls(text):
+    """Each rung declaration's text: the block from its `def` line to the next line that begins in
+    column one. None where a declaration is missing."""
+    out = {}
+    for n in _OLT_RUNGS:
+        m = re.search(r'(?ms)^def ' + re.escape(n) + r'\b.*?(?=^\S|\Z)', text or '')
+        out[n] = m.group(0) if m else None
+    return out
+
+
+_OLT_DECL_RE = re.compile(r'(?m)^(theorem|lemma|example|instance)\b')
+
+
+def _olt_ordering_pred(chain, ladder, disc, texts):
+    """Records 2-4, factored over the data so the negatives can drive it. `chain` is the
+    first-parent chain from the target back to (excluding) B, newest first; `texts` maps each
+    commit of the chain and the target to the module's text there (None where absent)."""
+    if ladder not in chain or disc not in chain:
+        return False
+    if chain.index(ladder) <= chain.index(disc):          # ladder strictly older than discrimination
+        return False
+    lt = texts.get(ladder)
+    if lt is None or _OLT_DECL_RE.search(lt) or any(v is None for v in _olt_decls(lt).values()):
+        return False
+    older = chain[chain.index(disc) + 1:]                 # every commit older than the discrimination commit
+    if any(_OLT_DECL_RE.search(texts.get(c) or '') for c in older):
+        return False
+    if not _OLT_DECL_RE.search(texts.get(disc) or ''):
+        return False
+    head = texts.get(chain[0])
+    if head is None:
+        return False
+    dd, hd = _olt_decls(texts.get(disc)), _olt_decls(head)
+    return all(dd[n] is not None and dd[n] == hd[n] for n in _OLT_RUNGS)
+
+
+def _olt_ordering():
+    """N3 -- the ordering obligation's records 2-4 from git, against the certified object: the
+    sealed head through the manifest accessor once the round is recorded, the real target
+    (pull_request.head.sha in PR CI, HEAD otherwise) while it executes. Fail-closed throughout."""
+    sealed = _seal_field('OLT', 'sealed_head')
+    if sealed is not _SEAL_UNAVAILABLE:
+        target, num = sealed, None
+    else:
+        target, _label, num = _rbr_target_commit(tag='R7-OLT')
+        if target is None:
+            return False
+    if not _rbr_ensure_present(_OLT_B, tag='R7-OLT') or not _rbr_ensure_present(target, pr_number=num, tag='R7-OLT'):
+        return False
+    raw = _olt_git_text('rev-list', '--first-parent', target, '^' + _OLT_B)
+    if raw is None:
+        return False
+    chain = raw.split()
+    if not chain:
+        return False
+    texts = {c: _olt_git_text('show', '%s:%s' % (c, _OLT_MODULE)) for c in set(chain) | {_OLT_LADDER, _OLT_DISC}}
+    ok = _olt_ordering_pred(chain, _OLT_LADDER, _OLT_DISC, texts)
+    print('    R7-OLT ordering: ladder commit %s and discrimination commit %s %s on the first-parent chain from %s to %s (%d commit(s)); rung declarations %s'
+          % (_OLT_LADDER[:12], _OLT_DISC[:12], 'in order' if ok else 'NOT as required', _OLT_B[:12], chain[0][:12], len(chain),
+             'byte-identical from the discrimination commit to the target' if ok else 'NOT certified'))
+    return ok, chain, texts
+
+
+def _olt_lean_defs(t=None):
+    """N4 -- exactly the eight budgeted definitions, in the freeze's order, no sorry, no
+    native_decide, no added axiom, and the axiom table printed for every named result."""
+    raw = _OLTLEAN_RAW if t is None else t
+    defs = re.findall(r'(?m)^def ([A-Za-z0-9_]+)', raw)
+    thms = re.findall(r'(?m)^theorem ([A-Za-z0-9_₀₁₂ₐ]+)', raw)
+    printed = re.findall(r'(?m)^#print axioms OIBridge\.OrbitLawRigidityTwisted\.([A-Za-z0-9_₀₁₂ₐ]+)', raw)
+    return (defs == list(_OLT_RUNGS) and 'sorry' not in raw and 'native_decide' not in raw
+            and not re.search(r'(?m)^axiom ', raw) and len(thms) >= 29 and sorted(thms) == sorted(printed)
+            and '**This is the single declaration the ordering obligation pins.**' in raw
+            and 'The quantifier order is `∃ Ψ αL αR, ∀ L U K` and never' in raw
+            and '**no constraint is placed on the induced maps beyond act 20\'s two closure' in raw)
+
+
+def _olt_shape(t=None):
+    """N5 -- the round's shape: sealing under the manifest, E -> L -> P, the record written by P and by
+    nothing before P, no legacy constant, both base blobs verified as the first act."""
+    t = _OLT1 if t is None else t
+    return ('**This is a SEALING round** under `AGENTS.md` `§A.37`, executed under the manifest protocol' in t
+            and 'it lands **`E` → `L` → `P`, with `P` mandatory**' in t
+            and '**`OLT.json` is absent at execution and is written by `P` and by nothing before `P`.**' in t
+            and 'That is a statement about this execution and stays true as one' in t
+            and '**No legacy seal constant is written**' in t
+            and '**No existing manifest record is altered**' in t
+            and '**The base-blob verification is recorded.**' in t
+            and 'returns `316d635a31f91faebeeebef7688b30002d24b4ca`' in t
+            and 'returns `d140978e6f0031063e7aa4b9bbe3e960d9b7f8e1`' in t
+            and '**No manuscript file is written.**' in t)
+
+
+def _olt_records(t=None):
+    """N6 -- the five records with their SHAs, and the quotient record's closure."""
+    t = _OLT1 if t is None else t
+    return ('### 3.1 The ladder table (record 1)' in t
+            and '**`%s`.**' % _OLT_LADDER in t
+            and '**`%s`**, and the result that first crossed is **the shared structural theorem `OL1`**' % _OLT_DISC in t
+            and 'contains **zero** lines beginning `theorem`, `lemma`, `example` or `instance`' in t
+            and '### 3.4 The immutability span (record 4)' in t
+            and '**restricted to the eight declarations record 1 names it is empty**' in t
+            and '### 3.5 The quotient record (record 5)' in t
+            and '**The only equivalences used in any verdict are the three on the freeze\'s frozen quotient list.**' in t
+            and '**No equivalence was introduced or widened during execution**' in t
+            and '**No condition stated in the module is unfrozen, and no rung of the freeze is without a declaration.**' in t)
+
+
+def _olt_attestation(t=None):
+    """N7 -- the three answers as a table for the span B -> ladder commit, the partial-fact rule, the
+    disclosure of the one YES, the freeze-supplied-facts list, and the history-integrity statement."""
+    t = _OLT1 if t is None else t
+    return ('answered as measurements for the span `B` → ladder commit' in t
+            and '| **Q1 — INTENTIONAL** | **NO** |' in t
+            and '| **Q2 — INCIDENTAL** | **NO** |' in t
+            and '| **Q3 — UNAIDED REASONING** | **YES**, disclosed below |' in t
+            and '**There is no threshold below which a fact about the census does not count.**' in t
+            and '**Q3, YES — disclosed, with what was learned, when, and what changed afterwards.**' in t
+            and '**No rung\'s statement changed after the ladder commit**' in t
+            and '**a disclosure does not cure a contamination**' in t
+            and '**The freeze-supplied facts that were in front of the execution**' in t
+            and '**No commit on this branch was amended, reset, rebased over, cherry-picked over or force-pushed away. There are no superseded SHAs.**' in t
+            and '**One execution defect is recorded, and it is not repaired.**' in t)
+
+
+def _olt_verdicts(t=None):
+    """N8 -- every frozen status sentence for the outcome reached, carried verbatim: OL0-silent,
+    OL1-landed, Li-RESTRICTS (three rungs), Li-UNDECIDED (four rungs), L4d-HYP, the survivor and
+    failure sentences, SIOP-YES, L-WIDE, and the no-condition sentence; and the headline label
+    carrying its condition set with the full-ladder record."""
+    t = _OLT1 if t is None else t
+    return ('**Outcome reached: `OL0`-silent.**' in t and _olt_frozen(1641, 1648) in t
+            and '**Outcome reached: `OL1`-landed, in both parts.**' in t and _olt_frozen(1659, 1667) in t
+            and t.count(_olt_frozen(1677, 1682)) == 3
+            and t.count(_olt_frozen(1696, 1700)) == 3
+            and _olt_frozen(1691, 1694) in t
+            and _olt_frozen(1705, 1709) in t and _olt_frozen(1711, 1714) in t
+            and '**Outcome reached: `SIOP-YES`, at `t* = 1`, from the initial class of `H(i)`.**' in t
+            and _olt_frozen(1722, 1730) in t
+            and '**Outcome reached: `L-WIDE (L0–L4)`.**' in t and _olt_frozen(1768, 1779) in t
+            and '**the headline over the full ladder is undecided**' in t
+            and _olt_frozen(999, 1002) in t
+            and '**No condition was added after the survivors were known, and no equivalence was widened after the survivors were known.**' in t
+            and '`L0-RESTRICTS`, `L1-UNDECIDED`, `L2-RESTRICTS`, `L3i-UNDECIDED`, `L3s-UNDECIDED`, `L4d-HYP`, `L4n-RESTRICTS`, `L5-UNDECIDED`' in t
+            and '**Searching and not finding is never a settling outcome**' in t)
+
+
+def _olt_l4n_act19(t=None):
+    """N9 -- L4n reported as act 20's TwistedNatural itself and as this freeze's one change; the act 19
+    boundary sentence; act 20's classification consumed as a fact and never as a choice."""
+    t = _OLT1 if t is None else t
+    return (t.count('**`L4n` is act 20\'s `TwistedNatural` itself, with the two lifting obligations act 20\'s `RNT2` fixed for a lift, and it is this freeze\'s one mathematical change from act 19.**') >= 2
+            and '**Nothing from `claude/act-19-execution` is cited, imported, adapted or counted.**' in t
+            and '**Nothing act 19\'s closure lists as uncertified is reported as refuted**' in t
+            and 'the classification consumed as a fact and never as a choice' in t
+            and '**A merged statement is not enlarged by being consumed.**' in t)
+
+
+def _olt_clause(t=None):
+    """N10 -- THE CLAUSE, verbatim from the freeze, at every mention, with its count stated and
+    matching."""
+    t = _OLT1 if t is None else t
+    body = _olt_frozen(1898, 1905)
+    return (t.count(body) == 4 and '**THE CLAUSE is carried four times in this note**' in t
+            and t.count('**THE CLAUSE, carried at this mention —') == 4
+            and '**No law is adopted, endorsed or given physical status by surviving.**' in t)
+
+
+def _olt_p0(t=None, road=None):
+    """N11 -- the frozen P0 sentence for Case A, composed from the frozen clauses, present VERBATIM in
+    the note and in the ROADMAP's P0 row, whose label stays OPEN."""
+    t = _OLT1 if t is None else t
+    road = _OLTROAD if road is None else road
+    p0 = _olt_frozen(1796, 1821)
+    return (p0 in t and p0 in road and '| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**' in road
+            and '**Case A** — `OL0` silent, `OL1` landed, `SIOP-YES`, and the headline `L-WIDE` — is the case reached' in t)
+
+
+def _olt_chronology(t=None):
+    """N12 -- the chronology claim names the property certified, the eleven preconditions all PASS as
+    Amendment 1 directs, the supersession table's four edits reported as measurements, the standing
+    contract, the discrepancies recorded and not repaired, and the scope sentence."""
+    t = _OLT1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside `B`\'s descendants**' in t
+            and 'through the validator\'s prospective path by the one keyed call `_si2_authority(\'OLT\', tag=\'R7-OLT\')`' in t
+            and t.count('| **PASS** —') == 11
+            and '### The eleven preconditions checked at `B`, read as Amendment 1 directs' in t
+            and '**The supersession table\'s four edits were made at exactly the places the table names, and reported as measurements.**' in t
+            and '**Nothing else in `R7-SI1`, `R7-SI2` or `R7-SI3` was touched**' in t
+            and '**`SI-3`\'s standing zero-legacy-statement contract holds at every head**' in t
+            and '**Four items are recorded. None is repaired, and neither frozen document is edited.**' in t
+            and '**No candidate discovered during execution was executed.** **No configuration was chosen after an outcome was known.** **No alternative witness was substituted for a named one.**' in t
+            and '**No start-state discrepancy arose**' in t and '**all eleven pass**' in t
+            and '**The claim is scoped to the repository record.**' in t
+            and '**Twenty-nine named results.**' in t)
+
+
+def _olt_locating():
+    """N13 -- the locating controls and the frozen provenance, read from git and therefore stable at
+    every later head: the two control-plane blobs at B, AGENTS.md and the ROADMAP at their pinned
+    blobs at B, B's two parents, D's two parents, the seals tree at B, and the absence of every
+    legacy form of this round's state from the guard source."""
+    def blob(rev, path):
+        r = _olt_git_text('rev-parse', '%s:%s' % (rev, path))
+        return (r or '').strip()
+    if not _rbr_ensure_present(_OLT_B, tag='R7-OLT'):
+        return False
+    parents = (_olt_git_text('rev-list', '--parents', '-n', '1', _OLT_B) or '').split()
+    dparents = (_olt_git_text('rev-list', '--parents', '-n', '1', _OLT_D) or '').split()
+    return (blob(_OLT_B, 'verification/' + _OLTDIR + 'preregistration.md') == '316d635a31f91faebeeebef7688b30002d24b4ca'
+            and blob(_OLT_B, 'verification/' + _OLTDIR + 'amendments/amendment-1.md') == 'd140978e6f0031063e7aa4b9bbe3e960d9b7f8e1'
+            and blob(_OLT_B, 'AGENTS.md') == 'd2c949f09f630f238e964308bbde9a9d8bec6279'
+            and blob(_OLT_B, 'verification/ROADMAP.md') == '4eb3a6502e65b54b77d4f3488fa8e105cdf0e8da'
+            and blob(_OLT_B, 'verification/seals') == '1abe1c988b1cb0a5fd119bbae8bd7108933334a4'
+            and parents == [_OLT_B, 'aeb0b91d20b4e307c293c06afda9db64fe2a3b09', 'a3cdc6fa641a0a277ce0650616560d7f1078fcc9']
+            and dparents == [_OLT_D, 'b0ee87bae34c6f8dcd3a4a75d958bb4e8a1cbca5', 'bae13c9eec30f63e4b0e6644811e6d124ee08a30']
+            and not re.search(r'_OLT_(BASE|SEALED_HEAD|MERGE)\b', _OLT_SRC)
+            and "_si2_authority('OLT', tag='R7-OLT')" in _OLT_SRC)
+
+
+def _olt_declarations():
+    """N14 -- this round's seal state, mode-aware: while executing, the prospective declaration names
+    B and the declared baseline is B with OLT the one authorized addition and no record exists;
+    from P, no declaration and a sealed record whose base is B. A stem both declared and recorded
+    is the validator's own failure and is not re-decided here."""
+    recs, errs = _si1_load()
+    declared, recorded = 'OLT' in _MANIFEST_PROSPECTIVE, 'OLT' in recs
+    if errs or declared == recorded:
+        return False
+    if not (_MANIFEST_BASELINE == {'base': _OLT_B, 'authorized': ('OLT',)}):
+        return False
+    if declared:
+        return _MANIFEST_PROSPECTIVE['OLT'] == _OLT_B
+    return recs['OLT'].get('kind') == 'sealed' and recs['OLT'].get('base') == _OLT_B
+
+
+def _olt_supersessions():
+    """N15 -- the supersession table's four dispositions are in the guard source, at their named
+    places, and nothing of this round's state is a legacy constant."""
+    s = _OLT_SRC
+    return ("d75427aece402e1629d56d1ca96fbc8d3c8101e8" in s
+            and "df2fab5770085d7e83543c50c00ffc6a3c2a37d0" in s
+            and "_seal_field('SI3', 'sealed_head')" in s
+            and "_SI3_MANIFESTED" in s and "_SI3_MANDATED_BASE" in s)
+
+
+ok_olt = True
+ok_olt &= _olt_freeze_pin() and _olt_amend_pin()
+# the two drift controls: one byte appended to one frozen file, every other file read normally
+for _olt_f in (_OLTDIR + 'preregistration.md', _OLTDIR + 'amendments/amendment-1.md'):
+    def _olt_drift(path, _f=_olt_f):
+        return _bb_read(path) + (b'\n' if path == _f else b'')
+    ok_olt &= _olt_drift(_olt_f) != _bb_read(_olt_f) and not (_olt_freeze_pin(_olt_drift) and _olt_amend_pin(_olt_drift))
+ok_olt &= _olt_execution_ancestry()
+_olt_ord = _olt_ordering()
+if _olt_ord is False:
+    ok_olt = False
+    _olt_chain, _olt_texts = [], {}
+else:
+    _olt_ok3, _olt_chain, _olt_texts = _olt_ord
+    ok_olt &= _olt_ok3
+    # negative (a): a fabricated SHA off the chain fails
+    ok_olt &= not _olt_ordering_pred(_olt_chain, '0' * 40, _OLT_DISC, _olt_texts)
+    ok_olt &= not _olt_ordering_pred(_olt_chain, _OLT_LADDER, '1' * 40, _olt_texts)
+    # negative (b): a theorem present at the ladder commit fails, on synthetic text
+    _olt_t2 = dict(_olt_texts)
+    _olt_t2[_OLT_LADDER] = (_olt_texts.get(_OLT_LADDER) or '') + '\ntheorem synthetic : True := trivial\n'
+    ok_olt &= not _olt_ordering_pred(_olt_chain, _OLT_LADDER, _OLT_DISC, _olt_t2)
+    # negative (c): a rung whose text differs between the two commits fails, on synthetic text
+    _olt_t3 = dict(_olt_texts)
+    _olt_t3[_olt_chain[0]] = (_olt_texts.get(_olt_chain[0]) or '').replace('def LadderConds', 'def LadderConds  -- mutated', 1)
+    ok_olt &= _olt_t3[_olt_chain[0]] != _olt_texts.get(_olt_chain[0]) and not _olt_ordering_pred(_olt_chain, _OLT_LADDER, _OLT_DISC, _olt_t3)
+ok_olt &= _olt_lean_defs()
+ok_olt &= _olt_shape()
+ok_olt &= _olt_records()
+ok_olt &= _olt_attestation()
+ok_olt &= _olt_verdicts()
+ok_olt &= _olt_l4n_act19()
+ok_olt &= _olt_clause()
+ok_olt &= _olt_p0()
+ok_olt &= _olt_chronology()
+ok_olt &= _olt_locating()
+ok_olt &= _olt_declarations()
+ok_olt &= _olt_supersessions()
+ok_olt &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+
+# mutation controls on the content contracts -- each the exact failure the contract exists to catch
+_olt_m1 = _OLT1.replace('**Outcome reached: `L-WIDE (L0–L4)`.**', '**Outcome reached: `L-WIDE`.**')
+ok_olt &= _olt_m1 != _OLT1 and not _olt_verdicts(_olt_m1)                       # the label without its condition set
+_olt_m2 = _OLT1.replace('**the headline over the full ladder is undecided**', 'the headline over the full ladder is `L-WIDE`')
+ok_olt &= _olt_m2 != _OLT1 and not _olt_verdicts(_olt_m2)                       # the full-ladder record dropped
+_olt_m3 = _OLT1.replace('**No condition was added after the survivors were known, and no equivalence was widened after the survivors were known.**',
+                        'One further physically reasonable condition would narrow the survivors to a point.')
+ok_olt &= _olt_m3 != _OLT1 and not _olt_verdicts(_olt_m3)                       # the post-hoc rescue
+_olt_m4 = _OLT1.replace('| **Q3 — UNAIDED REASONING** | **YES**, disclosed below |', '| **Q3 — UNAIDED REASONING** | **NO** |')
+ok_olt &= _olt_m4 != _OLT1 and not _olt_attestation(_olt_m4)                    # the disclosure concealed
+_olt_m5 = _OLT1.replace('**THE CLAUSE is carried four times in this note**', '**THE CLAUSE is carried three times in this note**')
+ok_olt &= _olt_m5 != _OLT1 and not _olt_clause(_olt_m5)                         # the count misstated
+_olt_m6 = _OLT1.replace('**Nothing from `claude/act-19-execution` is cited, imported, adapted or counted.**',
+                        'Act 19\'s execution branch supplies the ladder proofs this round reuses.')
+ok_olt &= _olt_m6 != _OLT1 and not _olt_l4n_act19(_olt_m6)                     # the act 19 boundary crossed
+_olt_m7 = _OLT1.replace('**`%s`.**' % _OLT_LADDER, '**`%s`.**' % ('0' * 40))
+ok_olt &= _olt_m7 != _OLT1 and not _olt_records(_olt_m7)                        # a fabricated ladder SHA in the note
+_olt_m8 = _OLT1.replace('**Four items are recorded. None is repaired, and neither frozen document is edited.**',
+                        'The freeze\'s countercontrol table was corrected to check the standing hypothesis.')
+ok_olt &= _olt_m8 != _OLT1 and not _olt_chronology(_olt_m8)                     # the freeze repaired
+_olt_m9 = _OLT1.replace(_olt_frozen(1768, 1779), 'At least two inequivalent laws survive and the class is characterized up to a parameter set.')
+ok_olt &= _olt_m9 != _OLT1 and not _olt_verdicts(_olt_m9)                       # the frozen L-WIDE sentence paraphrased
+_olt_m10 = _OLTROAD.replace(_olt_frozen(1796, 1821), 'P0 is closed on its trajectory part.')
+ok_olt &= _olt_m10 != _OLTROAD and not _olt_p0(road=_olt_m10)                   # the P0 sentence absent from the ROADMAP
+_olt_m11 = _OLTLEAN_RAW.replace('def LawEquiv', 'def LawEquivalence', 1)
+ok_olt &= _olt_m11 != _OLTLEAN_RAW and not _olt_lean_defs(_olt_m11)             # a ninth or renamed definition
+
+check('R7-OLT', ok_olt,
+      "Track B act 21 guard: a SEALING round under A.37 through the MANIFEST PROTOCOL, asking how rigid "
+      "the class of propagating cross-time laws is against a ladder L0-L5 frozen BEFORE any census, a "
+      "closed list of seven laws, and L4n restated at act 20's certified strength. Both control-plane "
+      "blobs pinned with drift controls; the chronology verdict the validator's through one keyed call on "
+      "OLT; the ordering obligation's records 2-4 RE-RUN FROM GIT on every head -- ladder commit and "
+      "discrimination commit in order on the first-parent chain from B, no theorem at the ladder commit, "
+      "the discrimination commit the first with one, every rung declaration BYTE-IDENTICAL from there to "
+      "the certified object -- with a fabricated SHA, a theorem at the ladder commit and a mutated rung "
+      "each checked to FAIL on synthetic data; exactly the eight budgeted definitions and the axiom table "
+      "for every named result; and the note held to the freeze's distinctions -- the shape, the five "
+      "records with their SHAs, the three attestation answers for the span B -> ladder commit with the "
+      "one YES disclosed, the freeze-supplied facts, every frozen status sentence for the outcome reached "
+      "including the no-condition sentence, the headline label CARRYING ITS CONDITION SET with the "
+      "full-ladder record, L4n as act 20's notion and this freeze's one change, the act 19 boundary, THE "
+      "CLAUSE four times, and the frozen P0 sentence VERBATIM in the ROADMAP -- eleven mutation controls, "
+      "the locating controls read from git at B, and this round's seal state read mode-aware from the "
+      "prospective declaration or its record, never from a constant.")
+
+
+
 # ---- R7-SI1: seal infrastructure round SI-1 -- the SHADOW seal validator and the equivalence
 # census. NON-SEALING, E -> L, no pin: there is no _SI1_SEALED_HEAD and no _SI1_MERGE, not as None
 # and not at all.
