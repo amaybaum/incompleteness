@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """release_gate.py - one entry point for every pre-release check.
 
-Twelve checks accumulated over the correction rounds, none of which subsumes
+The checks accumulated over the correction rounds, none of which subsumes
 another. Each exists because a real defect shipped past the others:
 
   toolchain_check      build.sh went missing and the duplicate unicode-fix
@@ -33,6 +33,13 @@ another. Each exists because a real defect shipped past the others:
                        kernel coverage and nothing noticed, because every other
                        check compares artifacts to sources and none of them asks
                        whether a source statement is checked at all.
+  control_plane_lint   a control plane named its drafting snapshot as the
+                       mandated execution base and required, at that base, the
+                       absence of a token its own text carried; two of its
+                       preconditions could not hold at the commit its chronology
+                       control named, and owner review caught it after the
+                       merge. Applies to control planes carrying a preconditions
+                       block or changed in the diff under check.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
@@ -84,6 +91,13 @@ def main():
         # particular layout, so it holds across the migration too.
         ("manifest-drift",
                       [sys.executable, "tools/build_migration_manifest.py", "--check"]),
+        # control-plane-lint: a control plane must not give its drafting
+        # snapshot's SHA to the mandated execution base, and no B-scoped
+        # precondition may ask for the absence of a token the frozen artifact
+        # itself carries. Applies to block-bearing and newly changed control
+        # planes only; merged artifacts without a block are grandfathered.
+        ("control-plane-lint",
+                      [sys.executable, "tools/control_plane_lint.py"]),
         ("claims",    [sys.executable, "tools/claims_check.py"]),
         ("duplicate", [sys.executable, "tools/duplicate_check.py"]),
         ("mirror",    [sys.executable, "papers/oi_lattice_code/mirror_check.py"]),

@@ -6,7 +6,7 @@ name: verify
 # zero imports — so the kernel gate is just a `lean` binary and one command per file.
 # A clean exit is the certificate; see verification/lean/VERIFYING.md.
 
-# NO PATH FILTERS, deliberately. These three jobs are required status checks on main, and a
+# NO PATH FILTERS, deliberately. The three verification jobs are required status checks on main, and a
 # required check that never runs never reports: GitHub leaves it Expected forever and the pull
 # request cannot be merged. A path filter would do exactly that to any pull request touching only
 # papers/*.md. The filters that used to live here also had to name every gated probe individually,
@@ -212,3 +212,45 @@ jobs:
             python3 "${p}.py" || rc=1
           done
           exit $rc
+
+  # A.37 base certification for control planes. A control plane's mechanical preconditions are
+  # scoped at D (the drafting snapshot), at B (the mandated execution base: the certified merge
+  # commit on main) or from D to B. B has no SHA until the merge exists, so on a pull request the
+  # B-scoped rows are evaluated prospectively against M, the candidate merge; on the push to main
+  # the SAME rows run through the SAME code path against the actual merge commit, which is the
+  # certification an execution may branch from.
+  #
+  # This is the one place a job deliberately asks its question of HEAD in a pull_request run:
+  # actions/checkout hands it the synthetic merge of the head into the current base, which is
+  # exactly M. That is the opposite of the ancestry guard in the probes job above, which must never
+  # read that HEAD and resolves pull_request.head.sha instead; M is predictive test state only and
+  # certifies nothing. fetch-depth: 0 is load-bearing for the ancestry rows (D an ancestor of REF).
+  #
+  # A tree with no block-bearing control plane is a clean no-op, so this job is green on every
+  # change that is not a control plane.
+  control-plane-base-check:
+    name: Control-plane base check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Self-test
+        run: |
+          python3 tools/control_plane_base_check.py --self-test
+          python3 tools/control_plane_lint.py --self-test
+
+      # HEAD is the synthetic merge here: the candidate M.
+      - name: Preconditions at M (candidate merge)
+        if: github.event_name != 'push'
+        run: python3 tools/control_plane_base_check.py --mode M --ref HEAD
+
+      # github.sha is the merge commit that landed: the actual B.
+      - name: Preconditions at B (merge commit on main)
+        if: github.event_name == 'push'
+        run: python3 tools/control_plane_base_check.py --mode B --ref ${{ github.sha }}
