@@ -150,7 +150,7 @@ round. The geometry is bound by equation in every theorem that names it, and is 
 | act 23's supply item 7, the Fourier family at a unit parameter and its Pythagorean sequence, its freeze `93c06674…` lines 829–836 | consumed, and extended by one rotated point and one bound frozen here | **carried, extended** |
 | the attestation set, act 21's freeze lines 1033–1043 | carried verbatim, asked at **every** boundary of this round | **carried, re-scoped** |
 | THE CLAUSE, act 21's freeze lines 1897–1905 | carried verbatim with "Act 21" → "Act 24" in its first sentence | **carried, one substitution** |
-| act 13's `P0` threading sentence, its result `2c38dbf1…` lines 265–273 | named as what this round does not touch | **untouched** |
+| act 13's `P0` threading sentence, its result `2c38dbf1…` lines 267–273 | named as what this round does not touch | **untouched** |
 | everything else — the shared theorem, the censuses, `SIOP`, the headlines, the `P0` sentences of acts 21, 22 and 23 | not this round's | **untouched** |
 
 ## Locating controls — the governing passages at `D`, each with a coordinate
@@ -207,7 +207,7 @@ Case A sentences at its end; the row's label is **OPEN** and two-part, and this 
 own frozen sentence after act 23's and changes the label of nothing.
 
 `verification/programmes/oi-qm/track-b/act-18-intermediate-cross-time-structure/result.md`, blob
-`14a2cd8c…`, **lines 407–413**, the pseudometric this round's geometry is measured against:
+`14a2cd8c…`, **lines 408–412**, the pseudometric this round's geometry is measured against:
 
 > **The pseudometric is named explicitly in the statement** and is written from the Gram data alone:
 > `d(G, G') = ‖G⁰₁₀ · G¹₀₁ − G'⁰₁₀ · G'¹₀₁‖`, the modulus of the difference of act 12's merged
@@ -217,10 +217,11 @@ own frozen sentence after act 23's and changes the label of nothing.
 
 and act 18's module, `IntermediateCrossTimeStructure.lean` blob `cb14c43b…`, **line 734**, the
 equation itself, `d = (fun G G' => ‖G 0 1 0 * G 1 0 1 - G' 0 1 0 * G' 1 0 1‖)`, together with act
-18's own recorded failure of that pseudometric to separate: its result note, **lines 722–726**,
-names two `∼_D`-inequivalent classes at distance `0` under it, `[G(H(1))]` and its column-swapped
-partner. **That is the reason this round writes a different geometry and does not reuse act 18's**:
-a pseudometric that vanishes on inequivalent classes cannot be a selector on classes.
+18's own recorded failure of that pseudometric to separate: the docstring of the same theorem,
+**lines 720–727**, names two `∼_D`-inequivalent classes at distance `0` under it, `[G(H(1))]` and
+its column-swapped partner. **That is the reason this round writes a different geometry and does
+not reuse act 18's**: a pseudometric that vanishes on inequivalent classes cannot be a selector on
+classes.
 
 `verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/result.md`, blob `174e790d…`,
 **line 10**, the state of act 21's ladder after act 23:
@@ -232,7 +233,7 @@ and act 21's result, blob `bb02ef41…`, **lines 578–584**, the census every l
 `ΦC` fails `L3i` and `L3s` and is not `L-PROP`, `ΦT` fails `L2`, `ΦCTRL` fails `L4n` and `L5`.
 
 `verification/programmes/oi-qm/track-b/act-13-cross-time-invariants/result.md`, blob `2c38dbf1…`,
-**lines 265–273**, the threading part of `P0`, which this round does not touch:
+**lines 267–273**, the threading part of `P0`, which this round does not touch:
 
 > `P0` remains open and two-part, and the threading part is localized exactly: the fibre cross-Gram
 > trajectory determines the lift up to one constant in-fibre left move and one time-dependent strong
