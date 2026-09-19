@@ -1001,7 +1001,10 @@ theorem geo3_phiPC_not_isometry :
 /-! #### `Φ_MD` — the merge-then-drop transition, at the product configuration -/
 
 open Classical in
-/-- **`Φ_MD` is not an isometry**: at `t = 0` its map is `Φ_PC`'s, and `Φ_PC`'s pair refutes it. -/
+/-- **`Φ_MD` is not an isometry**: at `t = 0` its map collapses `[G(Hᵢ) ⊠ G(H₁)]` onto
+`G(H₁) ⊠ G(H₁)` and fixes every other tuple, so the pair `G(Hᵢ) ⊠ G(H₁)`, `G(H₁) ⊠ G(H₁)` — both
+realizable, both sent to `G(H₁) ⊠ G(H₁)`, inequivalent by act 23's `gap_separations` — refutes it
+at `t = 0` through `GEO1` (vi-a). -/
 theorem geo3_phiMD_not_isometry :
     ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
       Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
