@@ -10118,6 +10118,42 @@ _SI2_STAGE1_ADDITIONS = {'SI1': {'round': 'SI1', 'kind': 'base-only',
 _MANIFEST_BASELINE = {'base': 'b0ee87bae34c6f8dcd3a4a75d958bb4e8a1cbca5',
                       'authorized': ('SI2', 'SI3')}
 
+
+# ---- SI-3 (SI3-2, R2): THE PROSPECTIVE DECLARATION. A sealing round with no record yet declares
+# its mandated execution base here, by stem, and U3's prospective path classifies it EXECUTION --
+# act 10's strengthened check against that base, asked of the real target -- and LANDED-PENDING-PIN
+# at its landing merge. The pin commit P REMOVES the entry when it writes the record; a stem that is
+# both declared and recorded is a failure. This is how a round carries its base while it runs
+# without writing the legacy representation SI-3 retires. Stem-free in its name, outside both regions.
+_MANIFEST_PROSPECTIVE = {'SI3': 'b0ee87bae34c6f8dcd3a4a75d958bb4e8a1cbca5'}
+
+# A value that is not a commit, not a hash and equal to nothing a record can hold, returned by the
+# accessor below where a record or a field is missing: every comparison and every git call made
+# with it FAILS, which is the fail-closed behaviour SI-3's negative case 13 requires, and it is not
+# a default in the sense that case forbids -- nothing downstream can treat it as an answer.
+_SEAL_UNAVAILABLE = '<manifest field unavailable>'
+
+
+def _seal_field(stem, field):
+    """SI-3 (SI3-2, R1): THE MANIFEST ACCESSOR, the one replacement for a legacy seal-constant read
+    anywhere in this file. Returns the named field of one round's manifest record, read through
+    `_si1_load` and nothing else. On a missing record, a record that fails the schema, or a field
+    the record's kind does not carry -- a base-only record's sealed_head, say -- it returns
+    `_SEAL_UNAVAILABLE`, which matches nothing and resolves to nothing, so the contract that asked
+    fails closed rather than proceeding on a default."""
+    recs, errs = _si1_load()
+    if stem in errs or stem not in recs:
+        return _SEAL_UNAVAILABLE
+    good, _kind = _si1_schema(recs[stem], stem)
+    if not good or field not in recs[stem]:
+        return _SEAL_UNAVAILABLE
+    return recs[stem][field]
+
+
+def _seal_triple(stem):
+    """The (base, sealed_head, merge) triple of a sealed round's record, through the accessor."""
+    return (_seal_field(stem, 'base'), _seal_field(stem, 'sealed_head'), _seal_field(stem, 'merge'))
+
 # ---- SI-1's record reader and generic validator, RELOCATED VERBATIM by SI-2 (Amendment 2, point 4)
 # from the R7-SI1 section so that the prior-round clauses below can call U3 keyed on their manifest
 # records. The marker-bounded region differs from the one SI-1 landed by exactly the two-line O2
@@ -10518,7 +10554,7 @@ def _si2_manifest_verdicts():
     per-round clause: the clauses are keyed on their records, and the record set is one object."""
     if 'live' not in _SI2_VERDICTS:
         _recs, _errs = _si1_load()
-        _SI2_VERDICTS['live'] = _si2_validate(_recs, errors=_errs)
+        _SI2_VERDICTS['live'] = _si2_validate(_recs, errors=_errs, prospective=_MANIFEST_PROSPECTIVE)
     return _SI2_VERDICTS['live']
 
 
@@ -18130,9 +18166,9 @@ def _pc4s_round1_untouched(t=None):
 def _pc4s_round1_seal(_base=None, _sealed=None, _merge=None):
     """Y14 -- round 1's seal constants are exactly the values round 1 set. An archive seal belongs
     to the round that set it; this round creates its own and alters none of round 1's."""
-    base = _PC4_BASE if _base is None else _base
-    sealed = _PC4_SEALED_HEAD if _sealed is None else _sealed
-    merge = _PC4_MERGE if _merge is None else _merge
+    base = _seal_field('PC4', 'base') if _base is None else _base
+    sealed = _seal_field('PC4', 'sealed_head') if _sealed is None else _sealed
+    merge = _seal_field('PC4', 'merge') if _merge is None else _merge
     return (base == 'ebc3951dc581d558373f720a90f1ba7deb2a8ed8'
             and sealed == '6c1acdd28f03f614f71a7ce15c6efc141906e080'
             and merge == 'e82755cafdbc0314890ad3809bc48e72e5995311')
@@ -20251,13 +20287,14 @@ def _hye_budget(t=None):
 
 
 def _hye_seal_state():
-    """The seal state of the three hydrodynamics rounds, READ from the constants themselves.
+    """The seal state of the three hydrodynamics rounds, READ from their manifest records through
+    SI-3's accessor (SI3-2), where before SI-3 it was read from the legacy constants themselves.
 
-    Read and never written: this round owns the R7-HYE triple and nothing else, so rounds H-A's and
+    Read and never written: this round owns the HYE record and nothing else, so rounds H-A's and
     H-B's appear here only as values being compared, never as assignments."""
-    return {'HYA': (_HYA_BASE, _HYA_SEALED_HEAD, _HYA_MERGE),
-            'HYB': (_HYB_BASE, _HYB_SEALED_HEAD, _HYB_MERGE),
-            'HYE': (_HYE_BASE, _HYE_SEALED_HEAD, _HYE_MERGE)}
+    return {'HYA': _seal_triple('HYA'),
+            'HYB': _seal_triple('HYB'),
+            'HYE': _seal_triple('HYE')}
 
 
 def _hye_seals_untouched(seals=None):
@@ -20272,8 +20309,7 @@ def _hye_seals_untouched(seals=None):
     # is exactly those values. Pinning (base, None, None) as a permanent invariant would make the
     # mandatory sealing transition E -> L -> P impossible to satisfy, since P is the commit that
     # sets them.
-    expected_hye = ((_HYE_BASE, None, None) if _HYE_SEALED_HEAD is None
-                    else (_HYE_BASE, _HYE_SEALED_HEAD, _HYE_MERGE))
+    expected_hye = _seal_triple('HYE')  # SI-3: the record, sealed, carries all three
     return (seals.get('HYA') == ('ae81459372887cfbe27b427b30bbdad1b564f2b7',
                                  '6a8675efca5e5ceeab0195036af1a658b49ace80',
                                  'd2314f5edc33fbeb4f75642ec87f9d302ee734f4')
@@ -20520,12 +20556,12 @@ ok_hye &= _hye_m25 != _HYE1 and not _hye_budget(_hye_m25)
 
 # an existing seal of a sibling round re-pinned to this round's objects -- hazard 14
 _hye_m26 = dict(_hye_seal_state())
-_hye_m26['HYB'] = (_hye_m26['HYB'][0], _HYE_BASE, _hye_m26['HYB'][2])
+_hye_m26['HYB'] = (_hye_m26['HYB'][0], _seal_field('HYE', 'base'), _hye_m26['HYB'][2])
 ok_hye &= _hye_m26 != _hye_seal_state() and not _hye_seals_untouched(_hye_m26)
 
 # this round's own pins set in the execution commit, which is circular
 _hye_m27 = dict(_hye_seal_state())
-_hye_m27['HYE'] = (_HYE_BASE, '0' * 40, '1' * 40)
+_hye_m27['HYE'] = (_seal_field('HYE', 'base'), '0' * 40, '1' * 40)
 ok_hye &= _hye_m27 != _hye_seal_state() and not _hye_seals_untouched(_hye_m27)
 
 # a start-state discrepancy hidden, or a sibling result consumed
@@ -25020,7 +25056,7 @@ def _si1_tag_map_comparison(persisted=None):
     Returns a dict, or None if the comparison could not be performed, which the caller treats as a
     failure and never as a pass."""
     import subprocess
-    shown = _rbr_git('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI1_BASE, tag='R7-SI1')
+    shown = _rbr_git('show', '%s:verification/lean/edge_rigidity_probe.py' % _seal_field('SI1', 'base'), tag='R7-SI1')
     if shown is None or shown.returncode != 0:
         return None
     path = os.path.join(HERE, '_si1_base_probe_%d.py' % os.getpid())
@@ -25224,7 +25260,7 @@ def _si1_region_no_stem():
 
 def _si1_no_forbidden_paths():
     """N12 -- the round wrote no manuscript, no book file and no Lean, checked against the base."""
-    r = _rbr_git('diff', '--name-only', _SI1_BASE, 'HEAD', tag='R7-SI1')
+    r = _rbr_git('diff', '--name-only', _seal_field('SI1', 'base'), 'HEAD', tag='R7-SI1')
     if r is None or r.returncode != 0:
         return False
     for path in r.stdout.decode('utf-8', 'replace').split():
@@ -25233,32 +25269,6 @@ def _si1_no_forbidden_paths():
     return True
 
 
-def _si1_seal_constants_intact():
-    """N13 -- no PRE-EXISTING seal constant was removed or altered.
-
-    Stated as containment rather than as equality, and the distinction is the round's own: this
-    round legitimately adds one constant of its own, `_SI1_BASE`, so an equality check would fail on
-    the round's own base while saying nothing about anyone else's seal. What has to hold is that
-    every assignment present at the mandated base is still present and unchanged, and that the only
-    addition is this round's own base -- which is also how a round that quietly re-pinned another
-    round's seal would be caught.
-
-    SI-2 AMENDMENT 2, POINT 1: the allowed-addition set is exactly {_SI1_BASE, _SI2_BASE}. SI-2's
-    freeze requires its guard to carry _SI2_BASE, and this contract as first written admitted one
-    addition and so failed on any head carrying it -- measured at 9ca82958 as the only failing tag
-    with that single line added. Containment stands, _SI2_BASE is checked by R7-SI2 to equal SI-2's
-    mandated base, no _SI2_SEALED_HEAD or _SI2_MERGE may exist, and any third new legacy-style
-    assignment still fails. The retirement round's deletions are NOT admitted here; that round must
-    own and supersede this contract itself."""
-    pat = re.compile(r"^_([A-Z0-9]+)_(BASE|SEALED_HEAD|MERGE)\s*=\s*'([0-9a-f]{40})'\s*$", re.M)
-    now = set(pat.findall(_bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')))
-    r = _rbr_git('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI1_BASE, tag='R7-SI1')
-    if r is None or r.returncode != 0:
-        return False
-    was = set(pat.findall(r.stdout.decode('utf-8', 'replace')))
-    if not was <= now:
-        return False
-    return now - was == {('SI1', 'BASE', _SI1_BASE), ('SI2', 'BASE', _SI2_BASE)}
 
 
 def _si1_rows_not_cases(t=None):
@@ -25413,7 +25423,9 @@ ok_si1 &= _si1_rows_not_cases() and _si1_defects_apart()
 ok_si1 &= _si1_census_divergent() and _si1_141_fails() and _si1_first_candidate()
 ok_si1 &= _si1_region_no_stem()
 ok_si1 &= _si1_no_forbidden_paths()
-ok_si1 &= _si1_seal_constants_intact()
+# N13, the seal-constant containment contract, is RETIRED by SI-3 (SI3-2), which owns and
+# supersedes it as SI-2 Amendment 2 required: its subject ceases to exist, and SI-3's own
+# standing contract -- zero legacy assignment statements in this file -- holds from there on.
 
 # SI1-1 -- the manifest is twenty-two records, eighteen sealed and four base-only, and every record
 # validates against the schema.
@@ -25521,7 +25533,7 @@ def _si1_doc_rows(rows, key):
 
 _si1_census_doc = {
     'round': 'SI-1',
-    'base': _SI1_BASE,
+    'base': '99ab6370470ed9d9e4005551581c6c8c18e54bd2',
     'outcome': 'CENSUS-DIVERGENT',
     'note': ('An AGREEMENT census and not a proof of correctness: agreement where it occurs is no '
              'evidence of correctness, because a shared error survives every case both sides get '
@@ -26414,9 +26426,7 @@ _SI2_LEGACY_RE = re.compile(r'^_([A-Z0-9]+)_(BASE|SEALED_HEAD|MERGE)\s*=.*$', re
 # The three literals this guard counts in the file are ASSEMBLED here rather than written out, so
 # that the guard's own source does not carry them verbatim: a count over the whole file would
 # otherwise count these lines too, and the bound could never be met.
-_SI2_N13_TWO = "return now - was == {('SI1', 'BASE', _SI1_BASE), " + "('SI2', 'BASE', _SI2_BASE)}"
 _SI2_N13_ONE = "return now - was == {('SI1', 'BASE', " + "_SI1_BASE)}"
-_SI2_ASSIGN = "_SI2_BASE" + " = '"
 
 
 def _si2_freeze_pin(path, read=_bb_read):
@@ -26451,15 +26461,15 @@ def _si2_base_provenance():
     """_SI2_BASE is the certified merge of Amendment 2 and nothing else: a merge whose first parent
     is the Amendment 1 merge, whose second parent carries Amendment 2 at its frozen blob, and whose
     own tree carries all three frozen blobs."""
-    parents = (_si2_git_text('log', '-1', '--format=%P', _SI2_BASE) or '').split()
+    parents = (_si2_git_text('log', '-1', '--format=%P', _seal_field('SI2', 'base')) or '').split()
     if len(parents) != 2 or parents[0] != '9ca82958cfaa3ff926d8a80baf2ee22eb468a917':
         return False
-    for rev in (parents[1], _SI2_BASE):
+    for rev in (parents[1], _seal_field('SI2', 'base')):
         got = (_si2_git_text('rev-parse', '%s:verification/%s' % (rev, _SI2AM2)) or '').strip()
         if got != _SI2_BLOBS[_SI2AM2]:
             return False
     for rel, blob in _SI2_BLOBS.items():
-        if (_si2_git_text('rev-parse', '%s:verification/%s' % (_SI2_BASE, rel)) or '').strip() != blob:
+        if (_si2_git_text('rev-parse', '%s:verification/%s' % (_seal_field('SI2', 'base'), rel)) or '').strip() != blob:
             return False
     return True
 
@@ -26469,15 +26479,15 @@ def _si2_locating_controls():
     reading it from git and not from the working tree. Returns (holds, detail)."""
     out = {}
     for path, blob in _SI2_PINS.items():
-        out['pin:' + path] = (_si2_git_text('rev-parse', '%s:%s' % (_SI2_BASE, path)) or '').strip() == blob
-    src = _si2_git_text('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI2_BASE) or ''
+        out['pin:' + path] = (_si2_git_text('rev-parse', '%s:%s' % (_seal_field('SI2', 'base'), path)) or '').strip() == blob
+    src = _si2_git_text('show', '%s:verification/lean/edge_rigidity_probe.py' % _seal_field('SI2', 'base')) or ''
     out['P1 no R7-SI2 at base'] = bool(src) and 'R7-SI2' not in src
     out['P2 no _SI2 at base'] = bool(src) and '_SI2' not in src
-    names = (_si2_git_text('ls-tree', '--name-only', '%s:verification/seals' % _SI2_BASE) or '').split()
+    names = (_si2_git_text('ls-tree', '--name-only', '%s:verification/seals' % _seal_field('SI2', 'base')) or '').split()
     kinds = {}
     for name in names:
         try:
-            rec = json.loads(_si2_git_text('show', '%s:verification/seals/%s' % (_SI2_BASE, name)) or '')
+            rec = json.loads(_si2_git_text('show', '%s:verification/seals/%s' % (_seal_field('SI2', 'base'), name)) or '')
             kinds[rec.get('round')] = rec.get('kind')
         except ValueError:
             kinds[name] = None
@@ -26487,11 +26497,11 @@ def _si2_locating_controls():
     stmts = _SI2_LEGACY_RE.findall(src)
     out['P5 61 statements over 59 names'] = (len(stmts) == 61 and len(set(stmts)) == 59)
     b0 = (_si2_git_text('log', '-1', '--format=%P', _SI2_B0) or '').split()
-    spine = (_si2_git_text('log', '--first-parent', '--format=%H', _SI2_BASE) or '').split()
+    spine = (_si2_git_text('log', '--first-parent', '--format=%H', _seal_field('SI2', 'base')) or '').split()
     out['P6 B0 provenance'] = (b0 == ['99ab6370470ed9d9e4005551581c6c8c18e54bd2',
                                        'd75427aece402e1629d56d1ca96fbc8d3c8101e8'] and _SI2_B0 in spine)
     out['P7 no SI-2 record'] = 'SI2' not in kinds
-    agents = _si2_git_text('show', '%s:AGENTS.md' % _SI2_BASE) or ''
+    agents = _si2_git_text('show', '%s:AGENTS.md' % _seal_field('SI2', 'base')) or ''
     out['P8 the superseded sentence at base'] = '`P` sets the constants it owns to `E` and to `L`' in agents
     out['P9 contracts unscoped at base'] = ('len(_si1_recs) == 22' in src and 'if len(stems) != 22' in src
                                            and "_si1_mb['records'] == 22" in src)
@@ -26764,7 +26774,7 @@ def _si2_base_tag_map():
     wt = os.path.join(tmp, 'base')
     out = None
     try:
-        add = _rbr_git('worktree', 'add', '--detach', wt, _SI2_BASE, tag='R7-SI2', timeout=600)
+        add = _rbr_git('worktree', 'add', '--detach', wt, _seal_field('SI2', 'base'), tag='R7-SI2', timeout=600)
         if add is None or add.returncode != 0:
             return None
         probe = os.path.join(wt, 'verification', 'lean', 'edge_rigidity_probe.py')
@@ -26946,7 +26956,7 @@ def _si2_region_relocated_verbatim():
     """The SI1-VALIDATOR region at this head equals the one at the mandated base after reverting
     exactly the two hook edits, and differs from it before."""
     src = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
-    base = _si2_git_text('show', '%s:verification/lean/edge_rigidity_probe.py' % _SI2_BASE) or ''
+    base = _si2_git_text('show', '%s:verification/lean/edge_rigidity_probe.py' % _seal_field('SI2', 'base')) or ''
     b, e = '# ==== SI1-VALIDATOR-BEGIN ====', '# ==== SI1-VALIDATOR-END ===='
     # First occurrences: the markers precede every mention of them in this file.
     if b not in src or e not in src or b not in base or e not in base:
@@ -26983,7 +26993,7 @@ ok_si2 &= _si2_hold
 print('    R7-SI2 SI2-0: %s -- %d of %d locating controls hold at the mandated base %s'
       % ('HOLD' if _si2_hold else 'DRIFTED',
          sum(1 for v in _si2_hold_detail.values() if v), sum(1 for v in _si2_hold_detail.values() if v is not None),
-         _SI2_BASE[:12]))
+         _seal_field('SI2', 'base')[:12]))
 
 # SI2-1 -- the manifest as authorized. The bound on the two SI-2 edits to R7-SI1 -- SI-1's
 # authorized-addition set being exactly {'SI1'}, the two-element N13 allowance, one _SI2_BASE --
@@ -27095,7 +27105,7 @@ def _si2_doc_rows(rows, key):
 
 _si2_census_doc = {
     'round': 'SI-2',
-    'base': _SI2_BASE,
+    'base': _seal_field('SI2', 'base'),
     'outcome': _si2_delta_outcome,
     'note': ('The census at SI-2\'s final head with the roles INVERTED: U3, the authoritative validator '
              'deriving over the union of the visibility targets, against the old machinery as the '
@@ -27180,7 +27190,7 @@ ok_si2 &= _si2_map_preserved
 if os.environ.get('SI2_EMIT_CENSUS') == '1' and _si2_base_map is not None:
     with open(_artifact(_SI2TAGMAPREL), 'w', encoding='utf-8') as _fh:
         _fh.write(json.dumps({
-            'round': 'SI-2', 'base': _SI2_BASE,
+            'round': 'SI-2', 'base': _seal_field('SI2', 'base'),
             'note': ('The tag-to-verdict map of the MANDATED BASE\'s own guard file, measured by running that '
                      'file. R7-SI2 re-runs the base file on every run, requires the fresh map to equal this '
                      'one, and compares it in process with the head\'s map over the same tags: MAP-PRESERVED '
@@ -27254,7 +27264,7 @@ ok_si2 &= _si2_region_no_stem()
 ok_si2 &= _si2_region_relocated_verbatim()
 
 # No manuscript, book or Lean file touched.
-_si2_diff = _si2_git_text('diff', '--name-only', _SI2_BASE, 'HEAD') or ''
+_si2_diff = _si2_git_text('diff', '--name-only', _seal_field('SI2', 'base'), 'HEAD') or ''
 ok_si2 &= _si2_diff and not any(p.startswith('papers/') or p.startswith('book/') or p.endswith('.lean')
                                 for p in _si2_diff.split())
 
