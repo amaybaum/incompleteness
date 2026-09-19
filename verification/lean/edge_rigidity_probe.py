@@ -10113,8 +10113,7 @@ _SI2_STAGE1_ADDITIONS = {'SI1': {'round': 'SI1', 'kind': 'base-only',
 # round's preregistration authorizes, BY STEM. An authorized stem's record is validated by content by
 # U3; U5 only admits its presence. Declared here, outside both marker-bounded regions, under a name
 # that carries no round stem; the generic region reads it and nothing else about the round.
-_MANIFEST_BASELINE = {'base': 'ccd5704fd157348903cbdea746d24cf5d5498b78',
-                      'authorized': ('OLN',)}
+_MANIFEST_BASELINE = {'base': '64214bfb0ae41b9f0a4fb11159089fff32d4dd85', 'authorized': ('OLG',)}
 
 
 # ---- SI-3 (SI3-2, R2): THE PROSPECTIVE DECLARATION. A sealing round with no record yet declares
@@ -10123,7 +10122,7 @@ _MANIFEST_BASELINE = {'base': 'ccd5704fd157348903cbdea746d24cf5d5498b78',
 # at its landing merge. The pin commit P REMOVES the entry when it writes the record; a stem that is
 # both declared and recorded is a failure. This is how a round carries its base while it runs
 # without writing the legacy representation SI-3 retires. Stem-free in its name, outside both regions.
-_MANIFEST_PROSPECTIVE = {}
+_MANIFEST_PROSPECTIVE = {'OLG': '64214bfb0ae41b9f0a4fb11159089fff32d4dd85'}
 
 # A value that is not a commit, not a hash and equal to nothing a record can hold, returned by the
 # accessor below where a record or a field is missing: every comparison and every git call made
@@ -24609,6 +24608,565 @@ check('R7-OLN', ok_oln,
       "after act 21's -- fifteen mutation controls, the locating controls read from git at B, and this "
       "round's seal state read mode-aware from the prospective declaration or its record, never from a "
       "constant.")
+
+
+# ---- R7-OLG: Track B act 23 -- the gaps of act 21's ladder, BUNDLED: L1, L3i, L3s and the fourth
+# corner of L4n/L5 at act 21's product configuration, four targets frozen together with a fixed
+# execution order, one verdict commit per target, a witness-authorization matrix and a mechanically
+# checked outcome vector, act 21's ladder and act 22's verdicts consumed UNCHANGED and a ZERO
+# definition budget. A SEALING round under A.37 through the MANIFEST PROTOCOL: its chronology verdict
+# is the validator's through ONE KEYED CALL on the stem OLG, its base is the prospective declaration
+# during execution and the record OLG.json from P, and NO CONSTANT. The freeze pins the one
+# control-plane blob with a one-byte drift control. What can go wrong in a bundled round is the ORDER
+# OF EVENTS and the READING: a verdict revealed before its commit, a witness slid onto a later rung, a
+# verdict inferred from another target's, a FREE label from a search, an independence of rungs read
+# off four corners, a definition slipped into a module budgeted at zero, act 21's or act 22's verdicts
+# rewritten. So the guard re-runs the ordering obligation MECHANICALLY from git on every head -- the
+# stage-A commit the oldest on the first-parent chain from B, the module absent there and present
+# from the module commit on, no def, abbrev, structure, class, instance, axiom or opaque at any commit
+# from the module commit to the certified object, both imports at every such commit, each witness
+# pinned to its frozen equation inside its own section with no other witness named there, the four
+# verdict commits in the order G1, G2, G3, G4 on that chain, each verdict theorem first present at its
+# own verdict commit and absent before it -- with synthetic negatives; and it holds the result note
+# to the freeze's distinctions: the shape, the seven records with their SHAs, the FIVE attestation
+# answers, every frozen status sentence for the outcome reached, the outcome vector equal VERBATIM to
+# one row of the frozen table, no verdict inferred from another, no independence of rungs, act 21's
+# and act 22's verdicts unchanged, the matrix honoured, THE CLAUSE at every mention with its count,
+# and the frozen P0 sentence present VERBATIM in the ROADMAP after act 22's.
+_OLGDIR = 'programmes/oi-qm/track-b/act-23-orbit-law-gaps/'
+_OLG_B = '64214bfb0ae41b9f0a4fb11159089fff32d4dd85'   # the mandated execution base, the certified merge of #686
+_OLG_D = '59c1b7efe36d7768cf53120997ff201e32c8e458'   # the drafting snapshot, never the base
+_OLG_STAGEA = '7984fcd96f5874897827dae80dbc55a81e6b470d'
+_OLG_MODC = 'bdee3ece8f4af1d4ba663ceb81907d89075f00b1'
+_OLG_VERDICT_COMMITS = ('98d937b0b39c51722b75e24a63f7965dfe078ff5', '997d2b215d3e7cbe02dc332abda81168646aaab1',
+                        'b8c4b7841a3aad81ef7f143aa830e882d09a5634', '96cb6e6f56908fe3fc9c1621dcbfefb9445f618c')
+_OLG_MODULE = 'verification/lean-mathlib/OIBridge/OrbitLawGaps.lean'
+_OLG_SHARED = ('gramPhaseEquiv_fst_of_product', 'product_gramPhaseEquiv_fst', 'zero_not_realizable',
+               'hadamard_z_admissible', 'fibreGram_z_entries', 'zseq_facts', 'gap_separations')
+_OLG_VERDICT_NAMES = (('phiMD_l1_restricts',), ('phiPC_l3i_restricts',), ('phiHS_l3s_restricts',),
+                      ('phiSC_corner', 'l5_not_implies_l4n'))
+_OLG_RESULTS = _OLG_SHARED + sum(_OLG_VERDICT_NAMES, ())
+# each witness: its section header, its two names, the frozen equation it is pinned to (whitespace-
+# normalized), and the further pins its section must carry
+_OLG_WITNESSES = (
+    ('Section B', ('Φ_MD', 'phiMD'),
+     'Φ = (fun t G => if t = 0 then (if GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2) then (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2) else G) else (if GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2) then (fun _ : Fin 4 × Fin 4 => (0 : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)) else G))',
+     ()),
+    ('Section C', ('Φ_PC', 'phiPC'),
+     'Φ = (fun _ G => if GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2) then (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2) else G)',
+     ()),
+    ('Section D', ('Φ_HS', 'phiHS'),
+     'Φ = (fun _ G => if h : ∃ n, 1 ≤ n ∧ GramPhaseEquiv G (F n) then F (Nat.find h + 1) else G)',
+     ('Hz = (fun z => Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))',
+      'zs = (fun n : ℕ => Complex.mk (((n : ℝ) ^ 2 - 1) / ((n : ℝ) ^ 2 + 1)) (2 * (n : ℝ) / ((n : ℝ) ^ 2 + 1)))',
+      'F = (fun n => fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) (Hz (zs n)) i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)')),
+    ('Section E', ('Φ_SC', 'phiSC'),
+     'Φ = (fun _ G => if ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂ ∧ (GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * G₂ i.2 j.2 k.2) ∨ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 => RelabelTransition (Equiv.swap (2 : Fin 4) 3) (FibreGram (0 : Fin 1) Hᵢ) i.1 j.1 k.1 * G₂ i.2 j.2 k.2)) then RelabelTransition (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (1 : Equiv.Perm (Fin 4))) G else G)',
+     ()),
+)
+_OLG = open(_artifact(_OLGDIR + 'result.md'), encoding='utf-8').read()
+_OLG1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _OLG).split()).replace('’', "'")
+_OLGPRE = open(_artifact(_OLGDIR + 'preregistration.md'), encoding='utf-8').read().split('\n')
+_OLGLEAN_RAW = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                                 'OIBridge', 'OrbitLawGaps.lean'), encoding='utf-8').read()
+_OLGWIRE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                             'OIBridge.lean'), encoding='utf-8').read()
+_OLGROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+_OLG_SRC = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+
+
+def _olg_frozen(a, b):
+    """Lines a..b of the frozen preregistration (1-based, inclusive), block-quote markers stripped,
+    whitespace-normalized -- the same normalization the note is read under."""
+    return ' '.join(re.sub(r'(?m)^\s*>\s?', '', '\n'.join(_OLGPRE[a - 1:b])).split()).replace('’', "'")
+
+
+def _olg_freeze_pin(read=_bb_read):
+    """N1 -- the frozen preregistration is byte-identical to the blob PR #686 merged."""
+    return _bb_blob(_OLGDIR + 'preregistration.md', read) == '93c06674792fa3565f6f94e5e954e484dca33cf2'
+
+
+def _olg_execution_ancestry():
+    """N2 -- the chronology verdict is the validator's, keyed on the stem OLG: EXECUTION against the
+    prospective declaration while the round executes, LANDED-PENDING-PIN at L, ARCHIVED from P."""
+    return _si2_authority('OLG', tag='R7-OLG')
+
+
+def _olg_git_text(*args):
+    r = _rbr_git(*args, tag='R7-OLG')
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout.decode('utf-8', 'replace')
+
+
+_OLG_DEF_RE = re.compile(r'(?m)^(def|abbrev|structure|class|instance|axiom|opaque)\b')
+_OLG_IMPORTS = 'import OIBridge.OrbitLawRigidityTwisted\nimport OIBridge.OrbitLawNaturalityFactorization\n'
+
+
+def _olg_sections(text):
+    """The module's sections, keyed by their header's first two words ('Section A' ... 'Section E'),
+    each from its `/-! ### Section` line to the next section header, the axiom table or the end;
+    the section text whitespace-normalized. Empty where the module text is absent."""
+    out = {}
+    for m in re.finditer(r'(?ms)^/-! ### (Section [A-Z])\b.*?(?=^/-! ### |\Z)', text or ''):
+        out[m.group(1)] = ' '.join(m.group(0).split())
+    return out
+
+
+def _olg_witness_pinned(text, require_all):
+    """Each witness is pinned to its frozen equation inside its own section, its section names no
+    other witness, and no section outside its own names it; with require_all every witness section
+    is present and Section A names no witness at all."""
+    secs = _olg_sections(text)
+    names = {n for _, ns, _, _ in _OLG_WITNESSES for n in ns}
+    for hdr, ns, eqn, more in _OLG_WITNESSES:
+        s = secs.get(hdr)
+        if s is None:
+            if require_all:
+                return False
+            continue
+        others = names - set(ns)
+        if eqn not in s or any(n not in s for n in ns) or any(p not in s for p in more) or any(o in s for o in others):
+            return False
+    a = secs.get('Section A')
+    if require_all and (a is None or any(n in a for n in names)):
+        return False
+    return True
+
+
+def _olg_theorems(text):
+    return re.findall(r'(?m)^theorem ([A-Za-z0-9_]+)', text or '')
+
+
+def _olg_module_ok(text):
+    """The zero budget and the imports, at one commit: no top-level definition of any kind, both
+    imports, no sorry, no native_decide, and the witnesses pinned where named."""
+    return (text is not None and not _OLG_DEF_RE.search(text) and text.startswith(_OLG_IMPORTS)
+            and 'sorry' not in text and 'native_decide' not in text and _olg_witness_pinned(text, False))
+
+
+def _olg_ordering_pred(chain, stagea, modc, verdicts, texts):
+    """The ordering obligation, factored over the data so the negatives can drive it. `chain` is
+    the first-parent chain from the target back to (excluding) B, newest first; `texts` maps each
+    commit of the chain to the module's text there (None where absent). The stage-A commit is the
+    oldest commit of the chain and carries no module; the module commit is strictly newer, the
+    first commit at which the module is present, and carries exactly the seven shared lemmas and
+    no verdict theorem; the four verdict commits follow it on the chain in the order G1, G2, G3,
+    G4, each the first commit at which its own verdict theorems are present, carrying nothing of a
+    later target's; from the module commit to the head every commit's module satisfies the zero
+    budget, the imports and the pins; and the head carries every witness section."""
+    if stagea not in chain or modc not in chain or chain[-1] != stagea:
+        return False
+    if any(v not in chain for v in verdicts) or len(set(verdicts)) != len(verdicts):
+        return False
+    im, ia = chain.index(modc), chain.index(stagea)
+    if im >= ia:                                            # module commit strictly newer than stage A
+        return False
+    if any(texts.get(c) is not None for c in chain[im + 1:]):   # absent at every older commit
+        return False
+    if not all(_olg_module_ok(texts.get(c)) for c in chain[:im + 1]):   # present and clean from there on
+        return False
+    if _olg_theorems(texts.get(modc)) != list(_OLG_SHARED):             # the module commit: shared lemmas, no verdict
+        return False
+    iv = [chain.index(v) for v in verdicts]
+    if not all(iv[k] < iv[k - 1] for k in range(1, len(iv))) or iv[0] >= im:   # G1 newer than the module commit, then G2, G3, G4 newer still
+        return False
+    for k, v in enumerate(verdicts):
+        older = chain[chain.index(v) + 1:]                  # every commit older than this verdict commit
+        here = _olg_theorems(texts.get(v))
+        expected = list(_OLG_SHARED) + [n for ns in _OLG_VERDICT_NAMES[:k + 1] for n in ns]
+        if here != expected:                                # exactly its own and the earlier targets' results
+            return False
+        if any(n in _olg_theorems(texts.get(c)) for c in older for n in _OLG_VERDICT_NAMES[k]):
+            return False                                    # first appearance at its own verdict commit
+    return _olg_witness_pinned(texts.get(chain[0]), True)
+
+
+def _olg_ordering():
+    """N3 -- the ordering obligation from git, against the certified object: the sealed head through
+    the manifest accessor once the round is recorded, the real target (pull_request.head.sha in PR
+    CI, HEAD otherwise) while it executes. Fail-closed throughout."""
+    sealed = _seal_field('OLG', 'sealed_head')
+    if sealed is not _SEAL_UNAVAILABLE:
+        target, num = sealed, None
+    else:
+        target, _label, num = _rbr_target_commit(tag='R7-OLG')
+        if target is None:
+            return False
+    if not _rbr_ensure_present(_OLG_B, tag='R7-OLG') or not _rbr_ensure_present(target, pr_number=num, tag='R7-OLG'):
+        return False
+    raw = _olg_git_text('rev-list', '--first-parent', target, '^' + _OLG_B)
+    if raw is None:
+        return False
+    chain = raw.split()
+    if not chain:
+        return False
+    texts = {c: _olg_git_text('show', '%s:%s' % (c, _OLG_MODULE))
+             for c in set(chain) | {_OLG_STAGEA, _OLG_MODC} | set(_OLG_VERDICT_COMMITS)}
+    ok = _olg_ordering_pred(chain, _OLG_STAGEA, _OLG_MODC, _OLG_VERDICT_COMMITS, texts)
+    print('    R7-OLG ordering: stage-A commit %s, module commit %s and verdict commits %s %s on the first-parent chain from %s to %s (%d commit(s)); module %s'
+          % (_OLG_STAGEA[:12], _OLG_MODC[:12], ', '.join(v[:12] for v in _OLG_VERDICT_COMMITS),
+             'in order' if ok else 'NOT as required', _OLG_B[:12], chain[0][:12], len(chain),
+             'definition-free, importing acts 21 and 22, each witness pinned inside its own section, each verdict theorem first present at its own verdict commit' if ok else 'NOT certified'))
+    return ok, chain, texts
+
+
+def _olg_lean(t=None):
+    """N4 -- the zero budget at the head: no definition of any kind, no sorry, no native_decide, no
+    added axiom; exactly the twelve named results in the freeze's order, each with its axiom line;
+    both imports; every witness pinned inside its own section and named nowhere else."""
+    raw = _OLGLEAN_RAW if t is None else t
+    printed = re.findall(r'(?m)^#print axioms OIBridge\.OrbitLawGaps\.([A-Za-z0-9_]+)', raw)
+    return (_olg_module_ok(raw) and _olg_theorems(raw) == list(_OLG_RESULTS) and printed == list(_OLG_RESULTS)
+            and _olg_witness_pinned(raw, True))
+
+
+def _olg_wired(t=None):
+    """N4 -- the module imported by the library root directly after act 22's."""
+    t = _OLGWIRE if t is None else t
+    return 'import OIBridge.OrbitLawNaturalityFactorization\nimport OIBridge.OrbitLawGaps\n' in t
+
+
+def _olg_shape(t=None):
+    """N5 -- the round's shape: sealing under the manifest, E -> L -> P, the record written by P and by
+    nothing before P, no legacy constant, no closed round's contract edited, the base blob verified
+    as the first act."""
+    t = _OLG1 if t is None else t
+    return ('**This is a SEALING round** under `AGENTS.md` `§A.37`, executed under the manifest protocol' in t
+            and 'it lands **`E` → `L` → `P`, with `P` mandatory**' in t
+            and '**`OLG.json` is absent at execution and is written by `P` and by nothing before `P`.**' in t
+            and 'That is a statement about this execution and stays true as one' in t
+            and '**No legacy seal constant is written**' in t
+            and '**No existing manifest record is altered**' in t
+            and '**No closed round\'s contract is edited**' in t
+            and '**The base-blob verification is recorded.**' in t
+            and 'returns `93c06674792fa3565f6f94e5e954e484dca33cf2`' in t
+            and '**No manuscript file is written.**' in t)
+
+
+def _olg_records(t=None):
+    """N6 -- the seven records: the chain with its six SHAs, the ordering obligation and the
+    anti-contamination invariant in the freeze's wording, the declaration table's closure, the
+    module commit's seven lemmas, the four verdict commits with their results, the immutability
+    span and the quotient record."""
+    t = _OLG1 if t is None else t
+    v = _OLG_VERDICT_COMMITS
+    return (_olg_frozen(877, 887) in t and _olg_frozen(370, 372) in t
+            and '| 1 | `%s` | **stage A**' % _OLG_STAGEA in t
+            and '| 2 | `%s` | **the module commit**' % _OLG_MODC in t
+            and '| 3 | `%s` | `G1`: `phiMD_l1_restricts` |' % v[0] in t
+            and '| 4 | `%s` | `G2`: `phiPC_l3i_restricts` |' % v[1] in t
+            and '| 5 | `%s` | `G3`: `phiHS_l3s_restricts` |' % v[2] in t
+            and '| 6 | `%s` | `G4`: `phiSC_corner` and `l5_not_implies_l4n` |' % v[3] in t
+            and '### 3.1 The declaration table (record 1)' in t
+            and '**This round\'s module carries no declaration of its own**' in t
+            and '**No rung was restated and no equivalence was widened.**' in t
+            and '**`%s`.** `git show --stat` lists one file' % _OLG_STAGEA in t
+            and '**`%s`**, the first commit at which the module is present.' % _OLG_MODC in t
+            and all('**`%s`**' % n in t for n in _OLG_SHARED)
+            and 'each a shared lemma and none a verdict' in t
+            and '### 3.4 The four verdict commits (record 4)' in t
+            and all('| `G%d` | `%s` |' % (k + 1, v[k]) in t for k in range(4))
+            and 'Each verdict theorem first appears at its own verdict commit and at no earlier commit' in t
+            and '### 3.5 The immutability span (record 5)' in t and '**returns `0`**' in t
+            and '### 3.6 The quotient record (record 6)' in t
+            and '**The only equivalence used in any verdict is act 12\'s `GramPhaseEquiv`**' in t
+            and '**No equivalence was introduced or widened during execution**' in t)
+
+
+_OLG_SPANS = ('`B` → module commit', 'module commit → `G1`', '`G1` → `G2`', '`G2` → `G3`', '`G3` → `G4`')
+
+
+def _olg_attestation(t=None):
+    """N7 -- the three answers as a table for each of the FIVE spans, the partial-fact rule, the
+    freeze-supplied-facts list at every span, the history-integrity statement, and no execution
+    defect."""
+    t = _OLG1 if t is None else t
+    return ('answered as measurements at five boundaries (record 7)' in t
+            and all('#### The span %s | question | answer for the span %s |' % (s, s) in t for s in _OLG_SPANS)
+            and t.count('| **Q1 — INTENTIONAL** | **NO** |') == 5
+            and t.count('| **Q2 — INCIDENTAL** | **NO** |') == 5
+            and t.count('| **Q3 — UNAIDED REASONING** | **NO** |') == 5
+            and t.count('**What the execution did in this span**') == 5
+            and t.count('**The freeze-supplied facts that were in front of the execution in this span**') == 5
+            and '**A PARTIAL fact counts for all three. There is no threshold below which a fact about the candidates does not count.**' in t
+            and '**No commit on this branch was amended, reset, rebased over, cherry-picked over or force-pushed away. There are no superseded SHAs.**' in t
+            and 'Before certification this execution absorbed no later `main`.' in t
+            and '**No execution defect is recorded.**' in t)
+
+
+def _olg_verdicts(t=None):
+    """N8 -- every frozen status sentence for the outcome reached, carried verbatim with its naming
+    line: G0-silent; Li-RESTRICTS once each for L1, L3i and L3s; Phi-SURVIVES-PREFIX and Phi-FAILS
+    once each for the four witnesses; L5-NOT-IMPLIES-L4n once; none of the FREE, UNDECIDED or
+    IMPLIES sentences; each failing conjunct and separating class; no finiteness claimed; no
+    verdict inferred from another; no independence; acts 21's and 22's verdicts unchanged."""
+    t = _OLG1 if t is None else t
+    restr, surv, fails = _olg_frozen(1027, 1032), _olg_frozen(1047, 1051), _olg_frozen(1053, 1056)
+    return ('**Outcome reached: `G0`-silent.**' in t and t.count(_olg_frozen(1011, 1018)) == 1
+            and '**`G0` is a type-P target and carries no evidence level.**' in t
+            and '**A search that finds a decision is a finding, and a search that does not is equally a finding.**' in t
+            and t.count(restr) == 3
+            and all(t.count('**The frozen `Li-RESTRICTS` sentence, carried for `%s`.** ' % r + restr) == 1 for r in ('L1', 'L3i', 'L3s'))
+            and t.count(surv) == 4
+            and all(t.count('**The frozen `Φ`-SURVIVES-PREFIX sentence, carried for `%s`.** ' % w + surv) == 1 for w in ('Φ_MD', 'Φ_PC', 'Φ_HS', 'Φ_SC'))
+            and t.count(fails) == 4
+            and all(t.count('**The frozen `Φ`-FAILS sentence, carried for `%s` at `%s`.** ' % wr + fails) == 1
+                    for wr in (('Φ_MD', 'L1'), ('Φ_PC', 'L3i'), ('Φ_HS', 'L3s'), ('Φ_SC', 'L4n')))
+            and t.count(_olg_frozen(1064, 1071)) == 1
+            and all(_olg_frozen(a, b) not in t for a, b in ((1034, 1039), (1041, 1045), (1058, 1060), (1073, 1077), (1079, 1084)))
+            and '**Outcome reached: `L1-RESTRICTS`, via `Φ_MD`.**' in t
+            and '**Outcome reached: `L3i-RESTRICTS`, via `Φ_PC`.**' in t
+            and '**Outcome reached: `L3s-RESTRICTS`, via `Φ_HS`.**' in t
+            and '**Outcome reached: `L5-NOT-IMPLIES-L4n`, via `Φ_SC`.**' in t
+            and '**The failing conjunct is `∑ i, G i = 1` of `RealizableGram` at the transition index `t = 1`; the separating class is `[G(Hᵢ) ⊠ G(H₁)]`.**' in t
+            and '**The failing conjunct is injectivity on classes, the first conjunct of `Reversible`; the separating classes are `[G(Hᵢ) ⊠ G(H₁)]` and `[G(H₁) ⊠ G(H₁)]`' in t
+            and '**The failing conjunct is surjectivity onto classes, the second conjunct of `Reversible`; the separating class is `[F_1] = [G(Hᵢ) ⊠ G(H₁)]`, the one the shift never reaches.**' in t
+            and '**The failing conjunct is the right closure and right intertwining conjuncts of `TwistedNatural`, read together with the lifting obligation; the separating classes are `[G(Hᵢ) ⊠ G(H₁)]` and `[G(H₁) ⊠ G(H₁)]`.**' in t
+            and '**No finiteness of the class space was assumed or claimed**' in t
+            and '**`L3s` is not inferred from `L3i`, and `L3i` is not inferred from `L3s`**' in t
+            and all(s in t for s in ('`L1-FREE` was not attempted and is not reportable from anything here.',
+                                     '`L3i-FREE` was not attempted and is not reportable from anything here.',
+                                     '`L3s-FREE` was not attempted and is not reportable from anything here.',
+                                     '`L5-IMPLIES-L4n` was not attempted and is not reportable from anything here.'))
+            and t.count('**No verdict was inferred from another.**') >= 2
+            and t.count('**No independence of rungs is asserted**') >= 2
+            and '**No surviving law is said to interact, couple or fail to compose in any other sense.**' in t
+            and '**Act 21\'s and act 22\'s historical verdicts stand unchanged**' in t
+            and all('**Act 21\'s historical verdict `%s-UNDECIDED` stands as act 21\'s verdict**' % r in t for r in ('L1', 'L3i', 'L3s'))
+            and '**No merged label is revised.** **A merged statement is not enlarged by being consumed.**' in t
+            and '**The witness-authorization matrix is honoured**' in t
+            and '**The execution order `G1` → `G2` → `G3` → `G4` was followed**' in t)
+
+
+def _olg_vector(t=None):
+    """N8b -- the outcome vector, stated exactly once and equal VERBATIM to one row of the frozen
+    table -- the row the four verdicts compose, row 1 -- and to no paraphrase."""
+    t = _OLG1 if t is None else t
+    rows = [_olg_frozen(n, n) for n in range(1094, 1175)]
+    cells = [r.split(' | ')[1].rstrip(' |') for r in rows]
+    heads = re.findall(r'\*\*Outcome vector:\*\*[^*]*?(?= \*\*|$)', t)
+    heads = [h.strip() for h in heads]
+    return (len(rows) == 81 and all(c.startswith('**Outcome vector:**') for c in cells)
+            and t.count('**Outcome vector:**') == 1 and len(heads) == 1
+            and heads[0] == cells[0]
+            and cells[0] == '**Outcome vector:** `L1-RESTRICTS` · `L3i-RESTRICTS` · `L3s-RESTRICTS` · `L5-NOT-IMPLIES-L4n`'
+            and '**The headline is row 1 of the freeze\'s outcome-vector table, verbatim.**' in t)
+
+
+def _olg_clause(t=None):
+    """N9 -- THE CLAUSE, verbatim from the freeze, at every mention, with its count stated and
+    matching."""
+    t = _OLG1 if t is None else t
+    body = _olg_frozen(1212, 1220)   # the COMPLETE clause, from "Act 23 classifies" on; line 1211 is the freeze's own naming line
+    heads = ('the headline', 'the census, where a law survives the prefix or fails a rung', 'the section that states it')
+    return (body.startswith('Act 23 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none.')
+            and t.count(body) == 3 and '**THE CLAUSE is carried three times in this note**' in t
+            and t.count('**THE CLAUSE, carried at this mention —') == 3
+            and all(t.count('**THE CLAUSE, carried at this mention — %s.** %s' % (h, body)) == 1 for h in heads)
+            and '**No law is adopted, endorsed or given physical status by surviving.**' in t)
+
+
+def _olg_p0(t=None, road=None):
+    """N10 -- the frozen P0 sentence for Case A, present VERBATIM in the note and in the ROADMAP's P0
+    row after act 22's sentence, the row's label staying OPEN."""
+    t = _OLG1 if t is None else t
+    road = _OLGROAD if road is None else road
+    p0, p0_oln = _olg_frozen(1184, 1184), _oln_frozen(894, 894)
+    return (p0.startswith('Act 23 tests, in one bundled round with four separately frozen targets')
+            and p0 in t and p0 in road and p0_oln in road and road.find(p0_oln) < road.find(p0)
+            and '| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**' in road
+            and '**Case A** — `G0` silent, `L1-RESTRICTS`, `L3i-RESTRICTS`, `L3s-RESTRICTS` and `L5-NOT-IMPLIES-L4n` — is the case reached' in t
+            and 'none of the four variable clauses replaced' in t)
+
+
+def _olg_chronology(t=None):
+    """N11 -- the chronology claim names the property certified, the ten preconditions all PASS, the
+    empty supersession table honoured, the standing contract, the three discrepancies recorded and
+    not repaired, the zero budget, and the scope sentence."""
+    t = _OLG1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside `B`\'s descendants**' in t
+            and 'through the validator\'s prospective path by the one keyed call `_si2_authority(\'OLG\', tag=\'R7-OLG\')`' in t
+            and t.count('| **PASS** —') == 10
+            and '### The ten preconditions, each at its scope, as the base check reported them at `M` and at `B`' in t
+            and '**The supersession table is empty and is honoured as empty**' in t
+            and '**`SI-3`\'s standing zero-legacy-statement contract holds at every head**' in t
+            and '**Three items are recorded. None is repaired, and the frozen document is not edited.**' in t
+            and '**No candidate discovered during execution was executed.** **No configuration was chosen after an outcome was known.** **No alternative witness was substituted for a named one.** **No target was executed out of order, and no verdict commit carries a later target\'s result.**' in t
+            and '**No start-state discrepancy arose**' in t and '**all ten pass**' in t
+            and '**The claim is scoped to the repository record.**' in t
+            and '**Zero slots were budgeted, and zero definitions were introduced.**' in t
+            and '**Twelve named results.**' in t
+            and t.count('| `[propext, Classical.choice, Quot.sound]` |') == 12)
+
+
+def _olg_locating():
+    """N12 -- the locating controls and the frozen provenance, read from git and therefore stable at
+    every later head: the control-plane blob at B, acts 21's and 22's modules, records and the
+    ROADMAP at their pinned blobs at B, the seals tree at B, B's two parents, D's two parents, and
+    the absence of every legacy form of this round's state from the guard source."""
+    def blob(rev, path):
+        r = _olg_git_text('rev-parse', '%s:%s' % (rev, path))
+        return (r or '').strip()
+    if not _rbr_ensure_present(_OLG_B, tag='R7-OLG'):
+        return False
+    parents = (_olg_git_text('rev-list', '--parents', '-n', '1', _OLG_B) or '').split()
+    dparents = (_olg_git_text('rev-list', '--parents', '-n', '1', _OLG_D) or '').split()
+    return (blob(_OLG_B, 'verification/' + _OLGDIR + 'preregistration.md') == '93c06674792fa3565f6f94e5e954e484dca33cf2'
+            and blob(_OLG_B, _OLT_MODULE) == '860daac4eb20dbe92c35c2b3ca7aaa1ed798e7b8'
+            and blob(_OLG_B, _OLN_MODULE) == 'd41b157a3f38d4ebedbe11ad9682a8693836a383'
+            and blob(_OLG_B, 'verification/seals/OLT.json') == '8ed0ef5391410db3a112cbe845d27536b7c1ab9b'
+            and blob(_OLG_B, 'verification/seals/OLN.json') == '1552065eeae26b5e07ad1cfe1cdb97b76aefa1bb'
+            and blob(_OLG_B, 'verification/ROADMAP.md') == '1379654dd278502ce0b588c6b0dac94b9314f2e7'
+            and blob(_OLG_B, 'verification/seals') == '981a23a164b091ae0093facf81f7bd5ccf12e004'
+            and blob(_OLG_B, _OLG_MODULE) == ''
+            and parents == [_OLG_B, _OLG_D, 'feaa0891170b2e17baed8e2c8abb76f554499f85']
+            and dparents == [_OLG_D, '900e2f5885d746029bb1187f24efc820a1835379', '2d6255e1b72f9f3c2ae8166563318b1ca19a90e2']
+            and not re.search(r'_OLG_(BASE|SEALED_HEAD|MERGE)\b', _OLG_SRC)
+            and "_si2_authority('OLG', tag='R7-OLG')" in _OLG_SRC)
+
+
+def _olg_declarations():
+    """N13 -- this round's seal state, mode-aware: while executing, the prospective declaration names
+    B and the declared baseline is B with OLG the one authorized addition and no record exists;
+    from P, no declaration and a sealed record whose base is B. A stem both declared and recorded
+    is the validator's own failure and is not re-decided here."""
+    recs, errs = _si1_load()
+    declared, recorded = 'OLG' in _MANIFEST_PROSPECTIVE, 'OLG' in recs
+    if errs or declared == recorded:
+        return False
+    if declared:
+        return (_MANIFEST_BASELINE == {'base': _OLG_B, 'authorized': ('OLG',)}
+                and _MANIFEST_PROSPECTIVE['OLG'] == _OLG_B)
+    return recs['OLG'].get('kind') == 'sealed' and recs['OLG'].get('base') == _OLG_B
+
+
+ok_olg = True
+ok_olg &= _olg_freeze_pin()
+# the drift control: one byte appended to the frozen file, every other file read normally
+def _olg_drift(path):
+    return _bb_read(path) + (b'\n' if path == _OLGDIR + 'preregistration.md' else b'')
+ok_olg &= _olg_drift(_OLGDIR + 'preregistration.md') != _bb_read(_OLGDIR + 'preregistration.md') and not _olg_freeze_pin(_olg_drift)
+ok_olg &= _olg_execution_ancestry()
+_olg_ord = _olg_ordering()
+if _olg_ord is False:
+    ok_olg = False
+    _olg_chain, _olg_texts = [], {}
+else:
+    _olg_ok3, _olg_chain, _olg_texts = _olg_ord
+    ok_olg &= _olg_ok3
+    _V = _OLG_VERDICT_COMMITS
+    # negative (a): a fabricated SHA off the chain fails, for the stage-A, the module or a verdict commit
+    ok_olg &= not _olg_ordering_pred(_olg_chain, '0' * 40, _OLG_MODC, _V, _olg_texts)
+    ok_olg &= not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, '1' * 40, _V, _olg_texts)
+    ok_olg &= not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, _OLG_MODC, (_V[0], _V[1], '2' * 40, _V[3]), _olg_texts)
+    # negative (b): the verdict commits out of order fail
+    ok_olg &= not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, _OLG_MODC, (_V[1], _V[0], _V[2], _V[3]), _olg_texts)
+    # negative (c): a definition at the head fails, on synthetic text
+    _olg_t2 = dict(_olg_texts)
+    _olg_t2[_olg_chain[0]] = (_olg_texts.get(_olg_chain[0]) or '') + '\ndef synthetic : Nat := 0\n'
+    ok_olg &= not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, _OLG_MODC, _V, _olg_t2)
+    # negative (d): a witness reassigned -- another target's witness named inside G1's section -- fails, on synthetic text
+    _olg_t3 = dict(_olg_texts)
+    _olg_t3[_olg_chain[0]] = (_olg_texts.get(_olg_chain[0]) or '').replace('via `Φ_MD`', 'via `Φ_MD` and `Φ_PC`', 1)
+    ok_olg &= _olg_t3[_olg_chain[0]] != _olg_texts.get(_olg_chain[0]) and not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, _OLG_MODC, _V, _olg_t3)
+    # negative (e): a verdict theorem inserted into the module commit's text fails, on synthetic text
+    _olg_t4 = dict(_olg_texts)
+    _olg_t4[_OLG_MODC] = (_olg_texts.get(_OLG_MODC) or '') + '\ntheorem phiMD_l1_restricts : True := trivial\n'
+    ok_olg &= not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, _OLG_MODC, _V, _olg_t4)
+    # negative (f): a witness substituted at the head -- the pinned equation altered -- fails, on synthetic text
+    _olg_t5 = dict(_olg_texts)
+    _olg_t5[_olg_chain[0]] = (_olg_texts.get(_olg_chain[0]) or '').replace('then F (Nat.find h + 1) else G', 'then F (Nat.find h + 2) else G')
+    ok_olg &= _olg_t5[_olg_chain[0]] != _olg_texts.get(_olg_chain[0]) and not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, _OLG_MODC, _V, _olg_t5)
+ok_olg &= _olg_lean()
+ok_olg &= _olg_wired()
+ok_olg &= _olg_shape()
+ok_olg &= _olg_records()
+ok_olg &= _olg_attestation()
+ok_olg &= _olg_verdicts()
+ok_olg &= _olg_vector()
+ok_olg &= _olg_clause()
+ok_olg &= _olg_p0()
+ok_olg &= _olg_chronology()
+ok_olg &= _olg_locating()
+ok_olg &= _olg_declarations()
+ok_olg &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+
+# mutation controls on the content contracts -- each the exact failure the contract exists to catch
+_olg_m1 = _OLG1.replace('**No independence of rungs is asserted**', 'The rungs are independent')
+ok_olg &= _olg_m1 != _OLG1 and not _olg_verdicts(_olg_m1)                       # the independence square claimed
+_olg_m2 = _OLG1.replace('**No verdict was inferred from another.**', 'The `L3s` verdict follows from the `L3i` verdict.')
+ok_olg &= _olg_m2 != _OLG1 and not _olg_verdicts(_olg_m2)                       # a verdict inferred from another
+_olg_m3 = _OLG1.replace('`L3s-FREE` was not attempted and is not reportable from anything here.', '`L3s-FREE` follows for every other law of the prefix.')
+ok_olg &= _olg_m3 != _OLG1 and not _olg_verdicts(_olg_m3)                       # a FREE label from absence
+_olg_m4 = _OLG1.replace('**Act 21\'s and act 22\'s historical verdicts stand unchanged**', 'Act 21\'s `L1-UNDECIDED`, `L3i-UNDECIDED` and `L3s-UNDECIDED` are corrected to `RESTRICTS`')
+ok_olg &= _olg_m4 != _OLG1 and not _olg_verdicts(_olg_m4)                       # a merged verdict rewritten
+_olg_m5 = _OLG1.replace('| **Q3 — UNAIDED REASONING** | **NO** |', '| **Q3 — UNAIDED REASONING** | not applicable |', 1)
+ok_olg &= _olg_m5 != _OLG1 and not _olg_attestation(_olg_m5)                    # one of the five attestation answers evaded
+_olg_m5b = _OLG1.replace('#### The span `G2` → `G3` | question | answer for the span `G2` → `G3` |', '#### The span `G2` → `G3` | question | answer |')
+ok_olg &= _olg_m5b != _OLG1 and not _olg_attestation(_olg_m5b)                  # a span's table detached from its span
+_olg_m6 = _OLG1.replace('**THE CLAUSE is carried three times in this note**', '**THE CLAUSE is carried four times in this note**')
+ok_olg &= _olg_m6 != _OLG1 and not _olg_clause(_olg_m6)                         # the count misstated
+_olg_m6b = _OLG1.replace('Act 23 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none. ', '')
+ok_olg &= _olg_m6b != _OLG1 and not _olg_clause(_olg_m6b)                       # the opening sentence dropped from every carriage
+_olg_m7 = _OLG1.replace('**`%s`**, the first commit at which the module is present.' % _OLG_MODC,
+                        '**`%s`**, the first commit at which the module is present.' % ('0' * 40))
+ok_olg &= _olg_m7 != _OLG1 and not _olg_records(_olg_m7)                        # a fabricated module-commit SHA in the note
+_olg_m7b = _OLG1.replace('| 4 | `%s` | `G2`: `phiPC_l3i_restricts` |' % _OLG_VERDICT_COMMITS[1],
+                         '| 4 | `%s` | `G2`: `phiPC_l3i_restricts` |' % ('3' * 40))
+ok_olg &= _olg_m7b != _OLG1 and not _olg_records(_olg_m7b)                      # a fabricated verdict-commit SHA in the note
+_olg_m8 = _OLG1.replace('**Three items are recorded. None is repaired, and the frozen document is not edited.**',
+                        'The freeze\'s reading was corrected to the kernel\'s values.')
+ok_olg &= _olg_m8 != _OLG1 and not _olg_chronology(_olg_m8)                     # the freeze repaired
+_olg_m9 = _OLG1.replace(_olg_frozen(1064, 1071), 'The prefix with `L5` does not imply `L4n`, so the two rungs are independent and the surviving laws interact.')
+ok_olg &= _olg_m9 != _OLG1 and not _olg_verdicts(_olg_m9)                       # the frozen corner sentence paraphrased
+_olg_m9b = _OLG1.replace('**The frozen `Li-RESTRICTS` sentence, carried for `L3s`.** ', '**The frozen `Li-RESTRICTS` sentence, carried for `L3`.** ', 1)
+ok_olg &= _olg_m9b != _OLG1 and not _olg_verdicts(_olg_m9b)                     # a rung's carriage renamed to a rung the freeze does not label
+_olg_m10 = _OLG1.replace('`L1-RESTRICTS` · `L3i-RESTRICTS` · `L3s-RESTRICTS` · `L5-NOT-IMPLIES-L4n`', '`L1-RESTRICTS` · `L3-RESTRICTS` · `L5-NOT-IMPLIES-L4n`', 1)
+ok_olg &= _olg_m10 != _OLG1 and not _olg_vector(_olg_m10)                       # a summary label in the headline
+_olg_m10b = _OLG1 + ' **Outcome vector:** `L1-RESTRICTS` · `L3i-RESTRICTS` · `L3s-RESTRICTS` · `L5-NOT-IMPLIES-L4n`'
+ok_olg &= not _olg_vector(_olg_m10b)                                            # the headline stated twice
+_olg_m10c = _OLG1.replace('`L1-RESTRICTS` · `L3i-RESTRICTS` · `L3s-RESTRICTS` · `L5-NOT-IMPLIES-L4n`', '`L1-RESTRICTS` · `L3i-RESTRICTS` · `L3s-RESTRICTS` · `L5-IMPLIES-L4n`', 1)
+ok_olg &= _olg_m10c != _OLG1 and not _olg_vector(_olg_m10c)                     # a row of the table that the verdicts do not compose
+_olg_m11 = _OLGROAD.replace(_olg_frozen(1184, 1184), 'P0 is closed on its trajectory part.')
+ok_olg &= _olg_m11 != _OLGROAD and not _olg_p0(road=_olg_m11)                   # the P0 sentence absent from the ROADMAP
+_olg_m12 = _OLGLEAN_RAW + '\ndef PhiMD (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) := G\n'
+ok_olg &= not _olg_lean(_olg_m12)                                               # a definition in a module budgeted at zero
+_olg_m13 = _OLGLEAN_RAW.replace('then F (Nat.find h + 1) else G', 'then F (Nat.find h + 2) else G')
+ok_olg &= _olg_m13 != _OLGLEAN_RAW and not _olg_lean(_olg_m13)                  # a witness substituted after the fact
+_olg_m13b = _OLGLEAN_RAW.replace('via `Φ_SC`', 'via `Φ_SC`, consuming `Φ_HS`', 1)
+ok_olg &= _olg_m13b != _OLGLEAN_RAW and not _olg_lean(_olg_m13b)                # a witness named inside another target's section
+_olg_m14 = _OLGWIRE.replace('import OIBridge.OrbitLawGaps\n', '', 1)
+ok_olg &= _olg_m14 != _OLGWIRE and not _olg_wired(_olg_m14)                     # the module not wired
+
+check('R7-OLG', ok_olg,
+      "Track B act 23 guard: a SEALING round under A.37 through the MANIFEST PROTOCOL, the first "
+      "BUNDLED round -- four targets frozen together (L1, L3i, L3s and the L4n/L5 corner at act 21's "
+      "frozen product configuration), each with its own witness, verdict rule and failure "
+      "interpretation, executed in the order G1, G2, G3, G4 with one verdict commit per target, act "
+      "21's ladder and act 22's verdicts consumed UNCHANGED and a ZERO definition budget. The "
+      "control-plane blob pinned with a drift control; the chronology verdict the validator's through "
+      "one keyed call on OLG; the ordering obligation RE-RUN FROM GIT on every head -- the stage-A "
+      "commit the oldest on the first-parent chain from B with no module, the module commit strictly "
+      "newer and the first with the module, carrying exactly the seven shared lemmas and no verdict, "
+      "the four verdict commits following in order with each verdict theorem first present at its "
+      "own commit, no def, abbrev, structure, class, instance, axiom or opaque at any commit from the "
+      "module commit to the certified object, both imports at every such commit, and each witness "
+      "pinned to its frozen equation inside its own section with no other witness named there -- "
+      "with a fabricated SHA, an out-of-order chain, a synthetic definition, a reassigned witness, a "
+      "verdict theorem in the module commit and a substituted witness each checked to FAIL on "
+      "synthetic data; exactly the twelve named results with their axiom lines and the import wired "
+      "after act 22's; and the note held to the freeze's distinctions -- the shape, the seven "
+      "records with their six SHAs, the FIVE attestation answers all NO with the freeze-supplied "
+      "facts at every span, every frozen status sentence for the outcome reached (Li-RESTRICTS once "
+      "per rung, SURVIVES-PREFIX and FAILS once per witness, the corner sentence once, no FREE, "
+      "UNDECIDED or IMPLIES sentence), the outcome vector equal VERBATIM to row 1 of the frozen table "
+      "and stated once, no verdict inferred from another, no independence of rungs, acts 21's and "
+      "22's verdicts unchanged, the matrix honoured, THE CLAUSE three times, the ten preconditions, "
+      "the three discrepancies recorded and not repaired, and the frozen P0 sentence VERBATIM in the "
+      "ROADMAP after act 22's -- twenty-one mutation controls, the locating controls read from git at "
+      "B, and this round's seal state read mode-aware from the prospective declaration or its "
+      "record, never from a constant.")
 
 
 # ---- R7-SI1: seal infrastructure round SI-1 -- the SHADOW seal validator and the equivalence
