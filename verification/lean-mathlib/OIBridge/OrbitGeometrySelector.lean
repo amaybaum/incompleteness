@@ -317,6 +317,273 @@ theorem fourier_feature_norm (z : ℂ) (hz : star z * z = 1) :
     norm_num
   exact ⟨hsum, by rw [hsum, Real.sqrt_one]⟩
 
+/-! ### Section B — `GEO1`: completeness of the mixed triples, and the metric they induce
+
+The conjuncts of the freeze's `GEO1`, each proved separately and assembled in `geo1_triple_metric`:
+(i) invariance at every carrier; (ii) separation at every carrier under Hermitian fibres, equal
+diagonals and a base-star support hypothesis, by the based gauge fixing; (iii) its instantiation on
+the realizable tuples at the two frozen configurations, the support discharged from act 12's
+sufficiency at `|A| = 1`; (iv) the metric properties of the induced distance, which is the
+Euclidean norm of the feature difference; (v) class-invariance in both arguments; (vi-a) and
+(vi-b) the two directions of the zero set, kept apart. The geometry is bound by the frozen
+equation in every statement that names it. -/
+
+omit [Fintype V] [DecidableEq V] in
+/-- **`GEO1` (ii) — the based gauge fixing.** With Hermitian fibres on both sides, equal diagonals
+and no vanishing entry on the base star `G j₀ j₀ ·`, equal feature vectors force a phase
+equivalence: the coordinate `((j₀, j₀, j₀), (j₀, j₀, j))` gives `‖G j₀ j₀ j‖ = ‖H j₀ j₀ j‖`, so
+`c j := H j₀ j₀ j / G j₀ j₀ j` has modulus one, and the based triangle `((j₀, i, j₀), (j₀, j, k))`
+gives `H i j k = star (c j) * G i j k * c k`. -/
+theorem geo1_separation_star (j₀ : V) (G H : V → Matrix V V ℂ)
+    (hG : ∀ i, (G i).IsHermitian) (hH : ∀ i, (H i).IsHermitian)
+    (hdiag : ∀ i j, G i j j = H i j j) (hsupp : ∀ j, G j₀ j₀ j ≠ 0)
+    (hΨ : mixedTriple G = mixedTriple H) : GramPhaseEquiv G H := by
+  have hGs : ∀ j, G j₀ j j₀ = star (G j₀ j₀ j) := fun j => ((hG j₀).apply j j₀).symm
+  have hHs : ∀ j, H j₀ j j₀ = star (H j₀ j₀ j) := fun j => ((hH j₀).apply j j₀).symm
+  -- the modulus step
+  have hsq : ∀ j, star (G j₀ j₀ j) * G j₀ j₀ j = star (H j₀ j₀ j) * H j₀ j₀ j := by
+    intro j
+    have e := congrFun hΨ ((j₀, j₀, j₀), (j₀, j₀, j))
+    simp only [mixedTriple] at e
+    rw [hGs j, hHs j, hdiag j₀ j₀] at e
+    have hδ : H j₀ j₀ j₀ ≠ 0 := by rw [← hdiag]; exact hsupp j₀
+    have e' : H j₀ j₀ j₀ * (star (G j₀ j₀ j) * G j₀ j₀ j)
+        = H j₀ j₀ j₀ * (star (H j₀ j₀ j) * H j₀ j₀ j) := by
+      linear_combination e
+    exact mul_left_cancel₀ hδ e'
+  have hnorm : ∀ j, ‖H j₀ j₀ j‖ = ‖G j₀ j₀ j‖ := by
+    intro j
+    have e := hsq j
+    rw [star_mul_self_eq_norm_sq, star_mul_self_eq_norm_sq] at e
+    have e2 : ‖G j₀ j₀ j‖ ^ 2 = ‖H j₀ j₀ j‖ ^ 2 := by exact_mod_cast e
+    exact ((pow_left_inj₀ (norm_nonneg _) (norm_nonneg _) two_ne_zero).mp e2).symm
+  refine ⟨fun j => H j₀ j₀ j / G j₀ j₀ j, fun j => ?_, fun i j k => ?_⟩
+  · rw [norm_div, hnorm, div_self (norm_ne_zero_iff.mpr (hsupp j))]
+  · have e := congrFun hΨ ((j₀, i, j₀), (j₀, j, k))
+    simp only [mixedTriple] at e
+    rw [hGs, hHs] at e
+    have hgj := hsupp j
+    have hgk := hsupp k
+    have hgk' : star (G j₀ j₀ k) ≠ 0 := star_ne_zero.mpr hgk
+    have hgj' : star (G j₀ j₀ j) ≠ 0 := star_ne_zero.mpr hgj
+    have h0 : (G j₀ j₀ j * star (G j₀ j₀ k))
+        * (star (H j₀ j₀ j) * G i j k * H j₀ j₀ k - H i j k * (star (G j₀ j₀ j) * G j₀ j₀ k))
+        = 0 := by
+      linear_combination (star (H j₀ j₀ j) * H j₀ j₀ k) * e
+        - (H i j k * star (G j₀ j₀ k) * G j₀ j₀ k) * hsq j
+        - (H i j k * star (H j₀ j₀ j) * H j₀ j₀ j) * hsq k
+    rcases mul_eq_zero.mp h0 with h1 | h1
+    · exact absurd h1 (mul_ne_zero hgj hgk')
+    · have h2 : star (H j₀ j₀ j) * G i j k * H j₀ j₀ k
+          = H i j k * (star (G j₀ j₀ j) * G j₀ j₀ k) := sub_eq_zero.mp h1
+      rw [star_div₀, div_mul_eq_mul_div, div_mul_div_comm, eq_div_iff (mul_ne_zero hgj' hgk)]
+      exact h2.symm
+
+/-- **The full-support fact at `|A| = 1`.** For a realizable tuple over a one-element ancilla with
+a nowhere-vanishing visible family, act 12's sufficiency gives `G i j k = star (U (i,a) (j,a₀)) *
+U (i,a) (k,a₀)` with `‖U (i,a) (j,a₀)‖ ^ 2 = Γ i j ≠ 0`, so no entry of `G` vanishes. -/
+theorem realizable_entry_ne_zero {A : Type} [Fintype A] [DecidableEq A]
+    (hA : Fintype.card A = 1) (Γ : Matrix V V ℝ) (hΓ : ∀ i j, Γ i j ≠ 0)
+    (G : V → Matrix V V ℂ) (hG : RealizableGram A Γ G) (i j k : V) : G i j k ≠ 0 := by
+  obtain ⟨x, hx⟩ := Fintype.card_eq_one_iff.mp hA
+  obtain ⟨U, hU, hFU⟩ := sh1_sufficiency x hG
+  have hsingle : ∀ f : A → ℂ, ∑ a, f a = f x :=
+    fun f => Finset.sum_eq_single x (fun b _ hb => absurd (hx b) hb)
+      (fun h => absurd (Finset.mem_univ x) h)
+  have hsingleR : ∀ f : A → ℝ, ∑ a, f a = f x :=
+    fun f => Finset.sum_eq_single x (fun b _ hb => absurd (hx b) hb)
+      (fun h => absurd (Finset.mem_univ x) h)
+  rw [← hFU, fibreGram_apply, hsingle]
+  have h1 := hU.2 i j
+  have h2 := hU.2 i k
+  rw [hsingleR] at h1 h2
+  apply mul_ne_zero
+  · apply star_ne_zero.mpr
+    intro h0
+    apply hΓ i j
+    rw [h1, h0]; simp
+  · intro h0
+    apply hΓ i k
+    rw [h2, h0]; simp
+
+/-- **`GEO1` (iii) at the single-carrier configuration**: realizable tuples at `Γ₀ ≡ ¼`,
+`A = Fin 1` have Hermitian fibres, the diagonal `Γ₀` and no vanishing entry, so (ii) applies at
+`j₀ = 0`. -/
+theorem geo1_separation_single (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+    (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)))
+    (G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ)
+    (hG : RealizableGram (Fin 1) Γ₀ G) (hH : RealizableGram (Fin 1) Γ₀ H)
+    (hΨ : mixedTriple G = mixedTriple H) : GramPhaseEquiv G H := by
+  have hΓ : ∀ i j, Γ₀ i j ≠ 0 := fun i j => by rw [hΓ₀]; simp
+  refine geo1_separation_star 0 G H (fun i => (hG.1 i).1) (fun i => (hH.1 i).1)
+    (fun i j => by rw [hG.2.2.2 i j, hH.2.2.2 i j]) (fun j => ?_) hΨ
+  exact realizable_entry_ne_zero (by simp) Γ₀ hΓ G hG 0 0 j
+
+/-- **`GEO1` (iii) at the product configuration**: realizable tuples at `Γ ≡ 1/16 = Γ₀ ⊗ Γ₀`,
+`A = Fin 1 × Fin 1` have Hermitian fibres, the diagonal `Γ` and no vanishing entry, so (ii)
+applies at `j₀ = (0, 0)`. -/
+theorem geo1_separation_product (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+    (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)))
+    (Γ : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+    (hΓ : Γ = Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2)
+    (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+    (hG : RealizableGram (Fin 1 × Fin 1) Γ G) (hH : RealizableGram (Fin 1 × Fin 1) Γ H)
+    (hΨ : mixedTriple G = mixedTriple H) : GramPhaseEquiv G H := by
+  have hΓne : ∀ i j, Γ i j ≠ 0 := fun i j => by rw [hΓ, hΓ₀]; simp
+  refine geo1_separation_star ((0 : Fin 4), (0 : Fin 4)) G H (fun i => (hG.1 i).1)
+    (fun i => (hH.1 i).1) (fun i j => by rw [hG.2.2.2 i j, hH.2.2.2 i j]) (fun j => ?_) hΨ
+  exact realizable_entry_ne_zero (by simp) Γ hΓne G hG _ _ j
+
+omit [DecidableEq V] in
+/-- **The induced distance is the Euclidean norm of the feature difference.** -/
+theorem dist_eq_norm_toLp (d : (V → Matrix V V ℂ) → (V → Matrix V V ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (G H : V → Matrix V V ℂ) :
+    d G H = ‖(WithLp.toLp 2 (mixedTriple G) : EuclideanSpace ℂ ((V × V × V) × (V × V × V)))
+      - WithLp.toLp 2 (mixedTriple H)‖ := by
+  subst hd
+  rw [EuclideanSpace.norm_eq]
+  rfl
+
+omit [DecidableEq V] in
+/-- **`GEO1` (iv) — the metric properties**: nonnegativity, vanishing on the diagonal, symmetry
+and the triangle inequality, those of a Euclidean norm. -/
+theorem geo1_metric_props (d : (V → Matrix V V ℂ) → (V → Matrix V V ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) :
+    (∀ G H, 0 ≤ d G H) ∧ (∀ G, d G G = 0) ∧ (∀ G H, d G H = d H G)
+      ∧ ∀ G H K, d G K ≤ d G H + d H K := by
+  have e := dist_eq_norm_toLp d hd
+  refine ⟨fun G H => ?_, fun G => ?_, fun G H => ?_, fun G H K => ?_⟩
+  · rw [e]; exact norm_nonneg _
+  · rw [e, sub_self, norm_zero]
+  · rw [e, e, norm_sub_rev]
+  · rw [e, e, e]
+    calc ‖(WithLp.toLp 2 (mixedTriple G) : EuclideanSpace ℂ ((V × V × V) × (V × V × V)))
+          - WithLp.toLp 2 (mixedTriple K)‖
+        = ‖((WithLp.toLp 2 (mixedTriple G) : EuclideanSpace ℂ ((V × V × V) × (V × V × V)))
+            - WithLp.toLp 2 (mixedTriple H))
+          + (WithLp.toLp 2 (mixedTriple H) - WithLp.toLp 2 (mixedTriple K))‖ := by
+          rw [sub_add_sub_cancel]
+      _ ≤ _ := norm_add_le _ _
+
+omit [DecidableEq V] in
+/-- **`GEO1` (v) — class-invariance in both arguments**, from the coordinate invariance. -/
+theorem geo1_class_invariant (d : (V → Matrix V V ℂ) → (V → Matrix V V ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (G G' H H' : V → Matrix V V ℂ) (hG : GramPhaseEquiv G G') (hH : GramPhaseEquiv H H') :
+    d G H = d G' H' := by
+  subst hd
+  simp only [mixedTriple_gauge hG, mixedTriple_gauge hH]
+
+omit [DecidableEq V] in
+/-- **`GEO1` (vi-b) — the distance vanishes on phase-equivalent pairs.** -/
+theorem geo1_zero_of_equiv (d : (V → Matrix V V ℂ) → (V → Matrix V V ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (G H : V → Matrix V V ℂ) (h : GramPhaseEquiv G H) : d G H = 0 := by
+  subst hd
+  simp only [mixedTriple_gauge h, sub_self, norm_zero, ne_eq, OfNat.ofNat_ne_zero,
+    not_false_eq_true, zero_pow, Finset.sum_const_zero, Real.sqrt_zero]
+
+omit [DecidableEq V] in
+/-- A vanishing distance forces equal feature vectors. -/
+theorem features_eq_of_dist_zero (d : (V → Matrix V V ℂ) → (V → Matrix V V ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (G H : V → Matrix V V ℂ) (h : d G H = 0) : mixedTriple G = mixedTriple H := by
+  rw [dist_eq_norm_toLp d hd, norm_eq_zero, sub_eq_zero] at h
+  exact congrArg WithLp.ofLp h
+
+/-- **`GEO1` (vi-a) at the single-carrier configuration**: a vanishing distance between
+realizable tuples forces phase equivalence. -/
+theorem geo1_equiv_of_zero_single (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+    (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)))
+    (d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ)
+    (hG : RealizableGram (Fin 1) Γ₀ G) (hH : RealizableGram (Fin 1) Γ₀ H) (h : d G H = 0) :
+    GramPhaseEquiv G H :=
+  geo1_separation_single Γ₀ hΓ₀ G H hG hH (features_eq_of_dist_zero d hd G H h)
+
+/-- **`GEO1` (vi-a) at the product configuration.** -/
+theorem geo1_equiv_of_zero_product (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+    (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)))
+    (Γ : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+    (hΓ : Γ = Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2)
+    (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+      → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ)
+    (hd : d = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+    (hG : RealizableGram (Fin 1 × Fin 1) Γ G) (hH : RealizableGram (Fin 1 × Fin 1) Γ H)
+    (h : d G H = 0) : GramPhaseEquiv G H :=
+  geo1_separation_product Γ₀ hΓ₀ Γ hΓ G H hG hH (features_eq_of_dist_zero d hd G H h)
+
+/-- **`GEO1` — the verdict theorem**, the conjuncts (i)–(vi-b) of the freeze assembled: (i)
+invariance at every carrier; (ii) separation at every carrier under Hermitian fibres, equal
+diagonals and base-star support; (iii) separation on the realizable tuples at the single-carrier
+and the product configuration; (iv) the metric properties; (v) class-invariance in both arguments;
+(vi-a) a vanishing distance between realizable tuples at either configuration forces phase
+equivalence; (vi-b) phase-equivalent tuples are at distance zero. The two directions of the zero
+set are separate conjuncts. -/
+theorem geo1_triple_metric :
+    (∀ (W : Type) [Fintype W] [DecidableEq W] (G H : W → Matrix W W ℂ),
+        GramPhaseEquiv G H → mixedTriple G = mixedTriple H)
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W] (j₀ : W) (G H : W → Matrix W W ℂ),
+        (∀ i, (G i).IsHermitian) → (∀ i, (H i).IsHermitian) → (∀ i j, G i j j = H i j j)
+          → (∀ j, G j₀ j₀ j ≠ 0) → mixedTriple G = mixedTriple H → GramPhaseEquiv G H)
+    ∧ (∀ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+        ∀ G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G →
+          RealizableGram (Fin 1) Γ₀ H → mixedTriple G = mixedTriple H → GramPhaseEquiv G H)
+    ∧ (∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (Γ : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ),
+        Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+        Γ = (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+        ∀ G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+          RealizableGram (Fin 1 × Fin 1) Γ G → RealizableGram (Fin 1 × Fin 1) Γ H →
+          mixedTriple G = mixedTriple H → GramPhaseEquiv G H)
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W]
+        (d : (W → Matrix W W ℂ) → (W → Matrix W W ℂ) → ℝ),
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        (∀ G H, 0 ≤ d G H) ∧ (∀ G, d G G = 0) ∧ (∀ G H, d G H = d H G)
+          ∧ ∀ G H K, d G K ≤ d G H + d H K)
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W]
+        (d : (W → Matrix W W ℂ) → (W → Matrix W W ℂ) → ℝ),
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ G G' H H', GramPhaseEquiv G G' → GramPhaseEquiv H H' → d G H = d G' H')
+    ∧ (∀ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+        ∀ d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ,
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ G H, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ H →
+          d G H = 0 → GramPhaseEquiv G H)
+    ∧ (∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (Γ : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ),
+        Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+        Γ = (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+        ∀ d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+          → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ,
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ G H, RealizableGram (Fin 1 × Fin 1) Γ G → RealizableGram (Fin 1 × Fin 1) Γ H →
+          d G H = 0 → GramPhaseEquiv G H)
+    ∧ (∀ (W : Type) [Fintype W] [DecidableEq W]
+        (d : (W → Matrix W W ℂ) → (W → Matrix W W ℂ) → ℝ),
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ G H, GramPhaseEquiv G H → d G H = 0) := by
+  refine ⟨fun W _ _ G H h => (mixedTriple_gauge h).symm,
+    fun W _ _ j₀ G H hG hH hdiag hsupp hΨ => geo1_separation_star j₀ G H hG hH hdiag hsupp hΨ,
+    fun Γ₀ hΓ₀ G H hG hH hΨ => geo1_separation_single Γ₀ hΓ₀ G H hG hH hΨ,
+    fun Γ₀ Γ hΓ₀ hΓ G H hG hH hΨ => geo1_separation_product Γ₀ hΓ₀ Γ hΓ G H hG hH hΨ,
+    fun W _ _ d hd => geo1_metric_props d hd,
+    fun W _ _ d hd G G' H H' hG hH => geo1_class_invariant d hd G G' H H' hG hH,
+    fun Γ₀ hΓ₀ d hd G H hG hH h => geo1_equiv_of_zero_single Γ₀ hΓ₀ d hd G H hG hH h,
+    fun Γ₀ Γ hΓ₀ hΓ d hd G H hG hH h => geo1_equiv_of_zero_product Γ₀ hΓ₀ Γ hΓ d hd G H hG hH h,
+    fun W _ _ d hd G H h => geo1_zero_of_equiv d hd G H h⟩
+
+omit [DecidableEq V] in
+/-- **`GEO1-T`, the continuity half of the observation sub-question**: the feature map is
+continuous, each coordinate being a product of three entries. The compactness half is not
+attempted here. -/
+theorem mixedTriple_continuous : Continuous (fun G : V → Matrix V V ℂ => mixedTriple G) := by
+  apply continuous_pi
+  intro p
+  simp only [mixedTriple]
+  fun_prop
+
 /-! ### The axiom table — one line per named result, printed by the kernel -/
 
 #print axioms mixedTriple_gauge
@@ -333,6 +600,19 @@ theorem fourier_feature_norm (z : ℂ) (hz : star z * z = 1) :
 #print axioms fourier_entry_diff
 #print axioms fourier_coord_diff
 #print axioms fourier_feature_norm
+#print axioms geo1_separation_star
+#print axioms realizable_entry_ne_zero
+#print axioms geo1_separation_single
+#print axioms geo1_separation_product
+#print axioms dist_eq_norm_toLp
+#print axioms geo1_metric_props
+#print axioms geo1_class_invariant
+#print axioms geo1_zero_of_equiv
+#print axioms features_eq_of_dist_zero
+#print axioms geo1_equiv_of_zero_single
+#print axioms geo1_equiv_of_zero_product
+#print axioms geo1_triple_metric
+#print axioms mixedTriple_continuous
 
 end OrbitGeometrySelector
 end OIBridge
