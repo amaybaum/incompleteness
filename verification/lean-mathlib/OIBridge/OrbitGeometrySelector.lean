@@ -715,6 +715,785 @@ theorem geo2_controls :
       mixedTriple_product X Y a₁ a₂ a₃ j₁ j₂ j₃ b₁ b₂ b₃ k₁ k₂ k₃,
     fun _ _ _ _ _ _ d₁ hd₁ d hd X X' Y => geo2_product_tensor d₁ hd₁ d hd X X' Y⟩
 
+/-! ### Section D — `GEO3`: the twelve families against the geometry
+
+Each family in its own subsection, pinned to the equation its merged verdict carries, tested at
+its own configuration for the isometry proposition — `∀ t G H, RealizableGram A (Γ t) G →
+RealizableGram A (Γ t) H → d (Φ t G) (Φ t H) = d G H` — with `d` bound to the frozen equation.
+The helpers of this section are consequences of the shared lemmas and of `GEO2`. -/
+
+/-- The induced distance between two members of the Fourier family at unit parameters is at most
+`3 ‖z' − z‖`: every one of the `4096` coordinate differences is at most `3 ‖z' − z‖ / 64`. -/
+theorem fourier_dist_le
+    (d₁ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ)
+    (hd₁ : d₁ = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+    (z z' : ℂ) (hz : star z * z = 1) (hz' : star z' * z' = 1) :
+    d₁ (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)))
+      (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z', -1, -z'; 1, -1, 1, -1; 1, -z', -1, z'] p.1 q.1)))
+      ≤ 3 * ‖z' - z‖ := by
+  subst hd₁
+  have hb : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4),
+      ‖mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) p
+        - mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z', -1, -z'; 1, -1, 1, -1; 1, -z', -1, z'] p.1 q.1))) p‖ ^ 2
+        ≤ (3 * ‖z' - z‖ / 64) ^ 2 := fun p => by
+    rw [norm_sub_rev]
+    exact pow_le_pow_left₀ (norm_nonneg _) (fourier_coord_diff z z' hz hz' p) 2
+  calc Real.sqrt (∑ p, ‖mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) p
+        - mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z', -1, -z'; 1, -1, 1, -1; 1, -z', -1, z'] p.1 q.1))) p‖ ^ 2)
+      ≤ Real.sqrt (∑ _p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4),
+          (3 * ‖z' - z‖ / 64) ^ 2) :=
+        Real.sqrt_le_sqrt (Finset.sum_le_sum fun p _ => hb p)
+    _ = 3 * ‖z' - z‖ := by
+        simp only [Finset.sum_const, Finset.card_univ, Fintype.card_prod, Fintype.card_fin,
+          nsmul_eq_mul]
+        rw [show ((4 * (4 * 4) * (4 * (4 * 4)) : ℕ) : ℝ) * (3 * ‖z' - z‖ / 64) ^ 2
+            = (3 * ‖z' - z‖) ^ 2 by push_cast; ring]
+        exact Real.sqrt_sq (by positivity)
+
+/-- The product embedding of two admissible single-carrier dilations' fibre-Gram tuples is
+realizable at the product configuration, by act 21's `product_realizable` and act 12's
+`sh1_necessity`. -/
+theorem realizable_prod_of_adm (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+    {U₁ U₂ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ}
+    (h₁ : AdmissibleDilationAt Γ₀ (0 : Fin 1) U₁) (h₂ : AdmissibleDilationAt Γ₀ (0 : Fin 1) U₂) :
+    RealizableGram (Fin 1 × Fin 1) (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2)
+      (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+        FibreGram (0 : Fin 1) U₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) U₂ i.2 j.2 k.2) := by
+  obtain ⟨U, hU, hF⟩ := product_realizable h₁ h₂
+  rw [← hF]
+  exact sh1_necessity hU
+
+/-- The cross-invariant coordinate of a product tuple, factorwise. -/
+theorem coord_cross_product {V₁ V₂ : Type} (X : V₁ → Matrix V₁ V₁ ℂ) (Y : V₂ → Matrix V₂ V₂ ℂ)
+    (a₀ a₁ : V₁) (b₀ b₁ : V₂) :
+    mixedTriple (fun i : V₁ × V₂ => Matrix.of fun j k : V₁ × V₂ => X i.1 j.1 k.1 * Y i.2 j.2 k.2)
+        (((a₁, b₁), (a₀, b₀), (a₁, b₁)), ((a₁, b₁), (a₁, b₁), (a₀, b₀)))
+      = (X a₁ a₁ a₁ * Y b₁ b₁ b₁) * ((X a₀ a₁ a₀ * X a₁ a₀ a₁) * (Y b₀ b₁ b₀ * Y b₁ b₀ b₁)) := by
+  simp only [mixedTriple, Matrix.of_apply]
+  ring
+
+/-- `‖i − 1‖ ≥ 1`. -/
+theorem one_le_norm_I_sub_one : (1 : ℝ) ≤ ‖Complex.I - 1‖ := by
+  rw [← Real.sqrt_one, ← Real.sqrt_sq (norm_nonneg (Complex.I - 1))]
+  apply Real.sqrt_le_sqrt
+  rw [Complex.sq_norm, Complex.normSq_apply]
+  simp
+
+/-! #### `ΦI` — the identity, at the single-carrier configuration -/
+
+/-- **`ΦI` is an isometry.** -/
+theorem geo3_phiI_isometry :
+    ∃ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+      ∧ ∀ (Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ)
+          (Φ : ℕ → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+          (d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ),
+        Γ = (fun _ => Γ₀) → Φ = (fun _ G => G) →
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ t (G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ), RealizableGram (Fin 1) (Γ t) G →
+          RealizableGram (Fin 1) (Γ t) H → d (Φ t G) (Φ t H) = d G H := by
+  refine ⟨_, rfl, fun Γ Φ d _ hΦ _ t G H _ _ => ?_⟩
+  subst hΦ
+  rfl
+
+/-! #### `ΦP` — the relabelling by `σ = (2 3)`, at the single-carrier configuration -/
+
+/-- **`ΦP` is an isometry**, by `GEO2` (a). -/
+theorem geo3_phiP_isometry :
+    ∃ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+      ∧ ∀ (Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ)
+          (Φ : ℕ → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+          (d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ),
+        Γ = (fun _ => Γ₀) → Φ = (fun _ G => RelabelTransition (Equiv.swap (2 : Fin 4) 3) G) →
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ t (G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ), RealizableGram (Fin 1) (Γ t) G →
+          RealizableGram (Fin 1) (Γ t) H → d (Φ t G) (Φ t H) = d G H := by
+  refine ⟨_, rfl, fun Γ Φ d _ hΦ hd t G H _ _ => ?_⟩
+  subst hΦ
+  exact geo2_relabel_isometry d hd _ G H
+
+/-! #### `ΦC` — the constant transition to `G(H₁)`, at the single-carrier configuration -/
+
+/-- **`ΦC` is not an isometry**: `G(H₁)` and `G(Hᵢ)` are realizable and both sent to `G(H₁)`,
+so the images are at distance `0` while the inputs differ at the cross-invariant coordinate
+`((1, 0, 1), (1, 1, 0))`, values `1/64` and `i/64`. -/
+theorem geo3_phiC_not_isometry :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+        ∧ H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)
+        ∧ Hᵢ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1;
+              1, -Complex.I, -1, Complex.I] p.1 q.1)
+        ∧ ∀ (Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ)
+            (Φ : ℕ → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+            (d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ),
+          Γ = (fun _ => Γ₀) → Φ = (fun _ _ => FibreGram (0 : Fin 1) H₁) →
+          d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+          ¬ (∀ t (G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ), RealizableGram (Fin 1) (Γ t) G →
+            RealizableGram (Fin 1) (Γ t) H → d (Φ t G) (Φ t H) = d G H) := by
+  obtain ⟨Γ₀, H₁, Hᵢ, Hm, hΓ₀, hH₁, hHᵢ, hHm, hadm₁, hadmᵢ, hadmM, h1i, hm1, hmi, hfix, hmove,
+    h1move⟩ := witness_supply
+  refine ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, fun Γ Φ d hΓ hΦ hd hI => ?_⟩
+  have hG₁ : RealizableGram (Fin 1) (Γ 0) (FibreGram (0 : Fin 1) H₁) := by
+    rw [hΓ]; exact sh1_necessity hadm₁
+  have hGᵢ : RealizableGram (Fin 1) (Γ 0) (FibreGram (0 : Fin 1) Hᵢ) := by
+    rw [hΓ]; exact sh1_necessity hadmᵢ
+  have e := hI 0 _ _ hG₁ hGᵢ
+  rw [hΦ] at e
+  simp only at e
+  rw [(geo1_metric_props d hd).2.1] at e
+  have v1 : mixedTriple (FibreGram (0 : Fin 1) H₁) (((1, 0, 1), (1, 1, 0))) = 1 / 64 := by
+    rw [hH₁]; simp [mixedTriple, fibreGram_apply]; norm_num
+  have v2 : mixedTriple (FibreGram (0 : Fin 1) Hᵢ) (((1, 0, 1), (1, 1, 0))) = Complex.I / 64 := by
+    rw [hHᵢ]; simp [mixedTriple, fibreGram_apply]
+    linear_combination (-Complex.I / 64 : ℂ) * Complex.I_mul_I
+  have hb := coord_le_dist d hd (FibreGram (0 : Fin 1) H₁) (FibreGram (0 : Fin 1) Hᵢ)
+    (((1, 0, 1), (1, 1, 0)))
+  rw [v1, v2, ← e] at hb
+  have hpos : 0 < ‖(1 : ℂ) / 64 - Complex.I / 64‖ := by
+    rw [norm_pos_iff]
+    intro h0
+    have := congrArg Complex.im h0
+    simp at this
+  linarith
+
+/-! #### `ΦT` — the time-dependent relabelling, at the single-carrier configuration -/
+
+/-- **`ΦT` is an isometry**: at each `t` the map is the identity or the relabelling by `σ`. -/
+theorem geo3_phiT_isometry :
+    ∃ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+      ∧ ∀ (Γ : ℕ → Matrix (Fin 4) (Fin 4) ℝ)
+          (Φ : ℕ → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+          (d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ),
+        Γ = (fun _ => Γ₀) →
+        Φ = (fun t G => if Even t then G else RelabelTransition (Equiv.swap (2 : Fin 4) 3) G) →
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ t (G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ), RealizableGram (Fin 1) (Γ t) G →
+          RealizableGram (Fin 1) (Γ t) H → d (Φ t G) (Φ t H) = d G H := by
+  refine ⟨_, rfl, fun Γ Φ d _ hΦ hd t G H _ _ => ?_⟩
+  subst hΦ
+  by_cases h : Even t
+  · simp only [if_pos h]
+  · simp only [if_neg h]
+    exact geo2_relabel_isometry d hd _ G H
+
+/-! #### `ΦPP` — the product relabelling `σ × σ`, at the product configuration -/
+
+/-- **`ΦPP` is an isometry**, by `GEO2` (a). -/
+theorem geo3_phiPP_isometry :
+    ∃ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+      ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+          (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+          (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+        Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+        Φ = (fun _ G => RelabelTransition
+          (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) G) →
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+          RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+          d (Φ t G) (Φ t H) = d G H := by
+  refine ⟨_, rfl, fun Γ Φ d _ hΦ hd t G H _ _ => ?_⟩
+  subst hΦ
+  exact geo2_relabel_isometry d hd _ G H
+
+/-! #### `Φ_swap` — the exchange of the two factors, at the product configuration -/
+
+/-- **`Φ_swap` is an isometry**, by `GEO2` (a). -/
+theorem geo3_phiSwap_isometry :
+    ∃ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+      ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+          (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+          (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+        Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+        Φ = (fun _ G => RelabelTransition (Equiv.prodComm (Fin 4) (Fin 4)) G) →
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+          RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+          d (Φ t G) (Φ t H) = d G H := by
+  refine ⟨_, rfl, fun Γ Φ d _ hΦ hd t G H _ _ => ?_⟩
+  subst hΦ
+  exact geo2_relabel_isometry d hd _ G H
+
+/-! #### `Φ_conj` — the entrywise conjugation, at the product configuration -/
+
+/-- **`Φ_conj` is an isometry**: the feature map of the conjugate is the conjugate of the feature
+map, and conjugation preserves every coordinate norm. -/
+theorem geo3_phiConj_isometry :
+    ∃ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+      ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+          (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+          (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+        Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+        Φ = (fun _ G => fun i => Matrix.of fun j k => star (G i j k)) →
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+        ∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+          RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+          d (Φ t G) (Φ t H) = d G H := by
+  refine ⟨_, rfl, fun Γ Φ d _ hΦ hd t G H _ _ => ?_⟩
+  subst hΦ hd
+  have key : ∀ p, ‖mixedTriple (fun i => Matrix.of fun j k => star (G i j k)) p
+      - mixedTriple (fun i => Matrix.of fun j k => star (H i j k)) p‖
+      = ‖mixedTriple G p - mixedTriple H p‖ := fun p => by
+    rw [mixedTriple_star, mixedTriple_star, ← star_sub, norm_star]
+  simp only [key]
+
+/-! #### `Φ_PC` — the partial collapse, at the product configuration -/
+
+open Classical in
+/-- **`Φ_PC` is not an isometry**: `G(Hᵢ) ⊠ G(H₁)` and `G(H₁) ⊠ G(H₁)` are realizable and both
+sent to `G(H₁) ⊠ G(H₁)`, so the images are at distance `0` while the inputs are inequivalent by
+act 23's `gap_separations` and therefore at positive distance by `GEO1` (vi-a). -/
+theorem geo3_phiPC_not_isometry :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+        ∧ H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)
+        ∧ Hᵢ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1;
+              1, -Complex.I, -1, Complex.I] p.1 q.1)
+        ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+            (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+            (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+          Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+          Φ = (fun _ G =>
+            if GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)
+              then (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)
+              else G) →
+          d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+          ¬ (∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+            RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+            d (Φ t G) (Φ t H) = d G H) := by
+  obtain ⟨Γ₀, H₁, Hᵢ, Hm, hΓ₀, hH₁, hHᵢ, hHm, hadm₁, hadmᵢ, hadmM, h1i, hm1, hmi, hfix, hmove,
+    h1move⟩ := witness_supply
+  refine ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, fun Γ Φ d hΓ hΦ hd hI => ?_⟩
+  obtain ⟨_, _, hsep, _, _⟩ := gap_separations H₁ Hᵢ hH₁ hHᵢ
+  have hG : RealizableGram (Fin 1 × Fin 1) (Γ 0) (fun i : Fin 4 × Fin 4 =>
+      Matrix.of fun j k : Fin 4 × Fin 4 =>
+        FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2) := by
+    rw [hΓ]; exact realizable_prod_of_adm Γ₀ hadmᵢ hadm₁
+  have hH : RealizableGram (Fin 1 × Fin 1) (Γ 0) (fun i : Fin 4 × Fin 4 =>
+      Matrix.of fun j k : Fin 4 × Fin 4 =>
+        FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2) := by
+    rw [hΓ]; exact realizable_prod_of_adm Γ₀ hadm₁ hadm₁
+  have e := hI 0 _ _ hG hH
+  rw [hΦ] at e
+  simp only [if_pos (gramPhaseEquiv_refl _), if_neg hsep] at e
+  rw [(geo1_metric_props d hd).2.1] at e
+  have hequiv := geo1_equiv_of_zero_product Γ₀ hΓ₀ (Γ 0) (by rw [hΓ]) d hd _ _ hG hH e.symm
+  exact hsep (gramPhaseEquiv_symm hequiv)
+
+/-! #### `Φ_MD` — the merge-then-drop transition, at the product configuration -/
+
+open Classical in
+/-- **`Φ_MD` is not an isometry**: at `t = 0` its map is `Φ_PC`'s, and `Φ_PC`'s pair refutes it. -/
+theorem geo3_phiMD_not_isometry :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+        ∧ H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)
+        ∧ Hᵢ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1;
+              1, -Complex.I, -1, Complex.I] p.1 q.1)
+        ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+            (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+            (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+          Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+          Φ = (fun t G =>
+            if t = 0 then
+              (if GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                  FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)
+                then (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                  FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)
+                else G)
+            else
+              (if GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                  FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2)
+                then (fun _ : Fin 4 × Fin 4 => (0 : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+                else G)) →
+          d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+          ¬ (∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+            RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+            d (Φ t G) (Φ t H) = d G H) := by
+  obtain ⟨Γ₀, H₁, Hᵢ, Hm, hΓ₀, hH₁, hHᵢ, hHm, hadm₁, hadmᵢ, hadmM, h1i, hm1, hmi, hfix, hmove,
+    h1move⟩ := witness_supply
+  refine ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, fun Γ Φ d hΓ hΦ hd hI => ?_⟩
+  obtain ⟨_, _, hsep, _, _⟩ := gap_separations H₁ Hᵢ hH₁ hHᵢ
+  have hG : RealizableGram (Fin 1 × Fin 1) (Γ 0) (fun i : Fin 4 × Fin 4 =>
+      Matrix.of fun j k : Fin 4 × Fin 4 =>
+        FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2) := by
+    rw [hΓ]; exact realizable_prod_of_adm Γ₀ hadmᵢ hadm₁
+  have hH : RealizableGram (Fin 1 × Fin 1) (Γ 0) (fun i : Fin 4 × Fin 4 =>
+      Matrix.of fun j k : Fin 4 × Fin 4 =>
+        FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2) := by
+    rw [hΓ]; exact realizable_prod_of_adm Γ₀ hadm₁ hadm₁
+  have e := hI 0 _ _ hG hH
+  rw [hΦ] at e
+  simp only [if_true, if_pos (gramPhaseEquiv_refl _), if_neg hsep] at e
+  rw [(geo1_metric_props d hd).2.1] at e
+  have hequiv := geo1_equiv_of_zero_product Γ₀ hΓ₀ (Γ 0) (by rw [hΓ]) d hd _ _ hG hH e.symm
+  exact hsep (gramPhaseEquiv_symm hequiv)
+
+/-! #### `ΦCTRL` — the class-conditional relabelling of the second factor, at the product
+configuration -/
+
+open Classical in
+/-- **`ΦCTRL` is not an isometry**, by the perturbation pair at `t = 0` and `N = 32768`:
+`G := G(H₁) ⊠ G(Hᵢ)` fires and is sent to `G(H₁) ⊠ σG(Hᵢ)`; `H := F(zs N) ⊠ G(Hᵢ)` does not fire
+(the marginal lemma and `zs N ≠ 1`) and is fixed. The inputs are at distance
+`d (G(H₁)) (F(zs N)) ≤ 3 ‖zs N − 1‖ < 1/4096` by `GEO2` (c), the feature norm and the entry
+bound; the images differ at the cross-invariant coordinate of the product pair `((0,0),(0,2))`
+by `‖i − 1‖/4096 ≥ 1/4096`. -/
+theorem geo3_phiCTRL_not_isometry :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+        ∧ H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)
+        ∧ Hᵢ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1;
+              1, -Complex.I, -1, Complex.I] p.1 q.1)
+        ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+            (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+            (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+          Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+          Φ = (fun _ G => if ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂
+                ∧ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                    FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)
+              then RelabelTransition
+                (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G
+              else G) →
+          d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+          ¬ (∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+            RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+            d (Φ t G) (Φ t H) = d G H) := by
+  obtain ⟨Γ₀, H₁, Hᵢ, Hm, hΓ₀, hH₁, hHᵢ, hHm, hadm₁, hadmᵢ, hadmM, h1i, hm1, hmi, hfix, hmove,
+    h1move⟩ := witness_supply
+  obtain ⟨d1, d2, c1, c2, c3, c4, e2, e3, r0, r1, r2⟩ := hadamard_entries H₁ Hᵢ hH₁ hHᵢ
+  refine ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, fun Γ Φ d hΓ hΦ hd hI => ?_⟩
+  -- the pinned tuples and the single-carrier distance
+  obtain ⟨G₁, hG₁⟩ : ∃ G₁, G₁ = FibreGram (0 : Fin 1) H₁ := ⟨_, rfl⟩
+  obtain ⟨Gᵢ, hGᵢ⟩ : ∃ Gᵢ, Gᵢ = FibreGram (0 : Fin 1) Hᵢ := ⟨_, rfl⟩
+  rw [← hG₁] at hΦ d1 c1
+  rw [← hGᵢ] at d2 c3 r2
+  obtain ⟨d₁, hd₁⟩ : ∃ d₁ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ)
+      → ℝ, d₁ = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2) := ⟨_, rfl⟩
+  -- the sequence, the index `N = 32768`, the perturbed member
+  obtain ⟨zs, hzs⟩ : ∃ zs : ℕ → ℂ, zs = fun n : ℕ => Complex.mk
+      (((n : ℝ) ^ 2 - 1) / ((n : ℝ) ^ 2 + 1)) (2 * (n : ℝ) / ((n : ℝ) ^ 2 + 1)) := ⟨_, rfl⟩
+  obtain ⟨hunit, -, -, hzne1, -⟩ := zseq_facts zs hzs
+  obtain ⟨hdist1, -⟩ := zseq_dist zs hzs
+  obtain ⟨z, hz⟩ : ∃ z, z = zs 32768 := ⟨_, rfl⟩
+  have hzu : star z * z = 1 := by rw [hz]; exact hunit _
+  have hzne : z ≠ 1 := by rw [hz]; exact hzne1 _
+  have hzd : ‖z - 1‖ ^ 2 = 4 / ((32768 : ℝ) ^ 2 + 1) := by
+    rw [hz]; have := hdist1 32768; push_cast at this; exact this
+  obtain ⟨Fz, hFz⟩ : ∃ Fz, Fz = FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+      (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) := ⟨_, rfl⟩
+  have hadmz := hadamard_z_admissible Γ₀ hΓ₀ z hzu
+  have hz000 : Fz 0 0 0 = 1 / 4 := by rw [hFz]; exact (fibreGram_z_entries z).1
+  have hz01 : Fz 0 1 0 * Fz 1 0 1 = z / 16 := by rw [hFz]; exact (fibreGram_z_entries z).2
+  have hIu : star Complex.I * Complex.I = 1 := by
+    rw [Complex.star_def, Complex.conj_I, neg_mul, Complex.I_mul_I, neg_neg]
+  -- the pair
+  obtain ⟨G, hGdef⟩ : ∃ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+      G = fun i => Matrix.of fun j k => G₁ i.1 j.1 k.1 * Gᵢ i.2 j.2 k.2 := ⟨_, rfl⟩
+  obtain ⟨H, hHdef⟩ : ∃ H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+      H = fun i => Matrix.of fun j k => Fz i.1 j.1 k.1 * Gᵢ i.2 j.2 k.2 := ⟨_, rfl⟩
+  have hG : RealizableGram (Fin 1 × Fin 1) (Γ 0) G := by
+    rw [hΓ, hGdef, hG₁, hGᵢ]; exact realizable_prod_of_adm Γ₀ hadm₁ hadmᵢ
+  have hH : RealizableGram (Fin 1 × Fin 1) (Γ 0) H := by
+    rw [hΓ, hHdef, hFz, hGᵢ]; exact realizable_prod_of_adm Γ₀ hadmz hadmᵢ
+  -- `G` fires, `H` does not
+  have hfire : ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂
+      ∧ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+          G₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2) :=
+    ⟨Gᵢ, by rw [hGᵢ]; exact sh1_necessity hadmᵢ, by rw [hGdef]; exact gramPhaseEquiv_refl _⟩
+  have hnofire : ¬ ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂
+      ∧ GramPhaseEquiv H (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+          G₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2) := by
+    rintro ⟨G₂, hG₂, h⟩
+    rw [hHdef] at h
+    have hd0 : Gᵢ 0 0 0 = G₂ 0 0 0 := by
+      have h2 := hG₂.2.2.2 0 0
+      rw [hΓ₀, Matrix.of_apply] at h2
+      push_cast at h2
+      rw [d2, h2]
+    have hm : Gᵢ 0 0 0 ≠ 0 := by rw [d2]; norm_num
+    have hc := gramPhaseEquiv_cross_invariant (gramPhaseEquiv_fst_of_product hd0 hm h) 0 1
+    rw [c1, hz01] at hc
+    exact hzne (by linear_combination (-16 : ℂ) * hc)
+  -- the isometry equation on the pair
+  have e : d (RelabelTransition
+      (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G) H = d G H := by
+    have e := hI 0 G H hG hH
+    rw [hΦ] at e
+    beta_reduce at e
+    split_ifs at e
+    exact e
+  -- the upper bound on the inputs
+  have hup : d G H = d₁ G₁ Fz := by
+    rw [hGdef, hHdef, geo2_product_tensor d₁ hd₁ d hd, hGᵢ, hHᵢ,
+      (fourier_feature_norm Complex.I hIu).2, mul_one]
+  have hdz : d₁ G₁ Fz ≤ 3 * ‖z - 1‖ := by
+    have := fourier_dist_le d₁ hd₁ 1 z (by simp) hzu
+    rw [← hFz, ← hH₁, ← hG₁] at this
+    exact this
+  have hsmall : ‖z - 1‖ < 1 / 12288 := by
+    norm_num at hzd
+    nlinarith [hzd, norm_nonneg (z - 1)]
+  -- the lower bound on the images, at the cross-invariant coordinate of `((0,0),(0,2))`
+  have hσ222 : RelabelTransition (Equiv.swap (2 : Fin 4) 3) Gᵢ 2 2 2 = 1 / 4 := by
+    rw [hGᵢ, hHᵢ]
+    simp [RelabelTransition, fibreGram_apply, Matrix.submatrix_apply]
+    linear_combination (-1 / 4 : ℂ) * Complex.I_mul_I
+  have hi222 : Gᵢ 2 2 2 = 1 / 4 := by
+    have h2 := (sh1_necessity hadmᵢ).2.2.2 2 2
+    rw [hΓ₀, Matrix.of_apply, ← hGᵢ] at h2
+    push_cast at h2
+    exact h2
+  have vG : mixedTriple (RelabelTransition
+      (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G)
+      ((((0 : Fin 4), (2 : Fin 4)), ((0 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (2 : Fin 4))),
+        (((0 : Fin 4), (2 : Fin 4)), ((0 : Fin 4), (2 : Fin 4)), ((0 : Fin 4), (0 : Fin 4))))
+      = Complex.I / 4096 := by
+    rw [hGdef, relabel_product, relabel_one, coord_cross_product, d1, r2, hσ222]
+    ring
+  have vH : mixedTriple H
+      ((((0 : Fin 4), (2 : Fin 4)), ((0 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (2 : Fin 4))),
+        (((0 : Fin 4), (2 : Fin 4)), ((0 : Fin 4), (2 : Fin 4)), ((0 : Fin 4), (0 : Fin 4))))
+      = 1 / 4096 := by
+    rw [hHdef, coord_cross_product, hz000, c3, hi222]
+    ring
+  have hb := coord_le_dist d hd (RelabelTransition
+      (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G) H
+      ((((0 : Fin 4), (2 : Fin 4)), ((0 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (2 : Fin 4))),
+        (((0 : Fin 4), (2 : Fin 4)), ((0 : Fin 4), (2 : Fin 4)), ((0 : Fin 4), (0 : Fin 4))))
+  rw [vG, vH, e, hup] at hb
+  have hbig : 1 / 4096 ≤ ‖Complex.I / 4096 - 1 / 4096‖ := by
+    rw [show Complex.I / 4096 - 1 / 4096 = (Complex.I - 1) / 4096 by ring, norm_div]
+    have h4 : ‖(4096 : ℂ)‖ = 4096 := by simp
+    rw [h4]
+    linarith [one_le_norm_I_sub_one]
+  linarith
+
+/-! #### `Φ_SC` — the class-conditional relabelling of the first factor, at the product
+configuration -/
+
+open Classical in
+/-- **`Φ_SC` is not an isometry**, by the perturbation pair at `t = 0` and `N = 32768`:
+`G := G(Hᵢ) ⊠ G(H₁)` fires (first disjunct) and is sent to `σG(Hᵢ) ⊠ G(H₁)`;
+`H := F(i · zs N) ⊠ G(H₁)` fires on neither disjunct (the marginal lemma, `hadamard_entries`'s
+`r1`, and `zs N ≠ 1`) and is fixed. The inputs are at distance `d (G(Hᵢ)) (F(i · zs N)) ≤
+3 ‖zs N − 1‖ < 1/4096`; the images differ at the cross-invariant coordinate of the product pair
+`((0,0),(2,0))` by `‖i − 1‖/4096 ≥ 1/4096`, the first factor's invariant at `(0,2)` being
+`z`-free. -/
+theorem geo3_phiSC_not_isometry :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+        ∧ H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)
+        ∧ Hᵢ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1;
+              1, -Complex.I, -1, Complex.I] p.1 q.1)
+        ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+            (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+            (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+          Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+          Φ = (fun _ G => if ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂
+                ∧ (GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                      FibreGram (0 : Fin 1) Hᵢ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)
+                  ∨ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                      RelabelTransition (Equiv.swap (2 : Fin 4) 3) (FibreGram (0 : Fin 1) Hᵢ)
+                        i.1 j.1 k.1 * G₂ i.2 j.2 k.2))
+              then RelabelTransition
+                (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (1 : Equiv.Perm (Fin 4))) G
+              else G) →
+          d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+          ¬ (∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+            RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+            d (Φ t G) (Φ t H) = d G H) := by
+  obtain ⟨Γ₀, H₁, Hᵢ, Hm, hΓ₀, hH₁, hHᵢ, hHm, hadm₁, hadmᵢ, hadmM, h1i, hm1, hmi, hfix, hmove,
+    h1move⟩ := witness_supply
+  obtain ⟨d1, d2, c1, c2, c3, c4, e2, e3, r0, r1, r2⟩ := hadamard_entries H₁ Hᵢ hH₁ hHᵢ
+  refine ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, fun Γ Φ d hΓ hΦ hd hI => ?_⟩
+  obtain ⟨G₁, hG₁⟩ : ∃ G₁, G₁ = FibreGram (0 : Fin 1) H₁ := ⟨_, rfl⟩
+  obtain ⟨Gᵢ, hGᵢ⟩ : ∃ Gᵢ, Gᵢ = FibreGram (0 : Fin 1) Hᵢ := ⟨_, rfl⟩
+  rw [← hG₁] at d1
+  rw [← hGᵢ] at hΦ c2 r1 r2
+  obtain ⟨d₁, hd₁⟩ : ∃ d₁ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ)
+      → ℝ, d₁ = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2) := ⟨_, rfl⟩
+  obtain ⟨zs, hzs⟩ : ∃ zs : ℕ → ℂ, zs = fun n : ℕ => Complex.mk
+      (((n : ℝ) ^ 2 - 1) / ((n : ℝ) ^ 2 + 1)) (2 * (n : ℝ) / ((n : ℝ) ^ 2 + 1)) := ⟨_, rfl⟩
+  obtain ⟨hunit, -, -, hzne1, -⟩ := zseq_facts zs hzs
+  obtain ⟨hdist1, -⟩ := zseq_dist zs hzs
+  obtain ⟨z, hz⟩ : ∃ z, z = zs 32768 := ⟨_, rfl⟩
+  have hzu : star z * z = 1 := by rw [hz]; exact hunit _
+  have hzne : z ≠ 1 := by rw [hz]; exact hzne1 _
+  have hzd : ‖z - 1‖ ^ 2 = 4 / ((32768 : ℝ) ^ 2 + 1) := by
+    rw [hz]; have := hdist1 32768; push_cast at this; exact this
+  have hIu : star Complex.I * Complex.I = 1 := by
+    rw [Complex.star_def, Complex.conj_I, neg_mul, Complex.I_mul_I, neg_neg]
+  -- the rotated parameter `w = i · z`
+  obtain ⟨w, hw⟩ : ∃ w, w = Complex.I * z := ⟨_, rfl⟩
+  have hwu : star w * w = 1 := by
+    rw [hw, star_mul', show star Complex.I * star z * (Complex.I * z)
+      = (star Complex.I * Complex.I) * (star z * z) by ring, hIu, hzu, one_mul]
+  have hwne : w ≠ Complex.I := by
+    rw [hw]; intro h
+    apply hzne
+    have h' : Complex.I * z = Complex.I * 1 := by rw [mul_one]; exact h
+    exact mul_left_cancel₀ Complex.I_ne_zero h'
+  have hwd : ‖w - Complex.I‖ = ‖z - 1‖ := by
+    rw [hw, show Complex.I * z - Complex.I = Complex.I * (z - 1) by ring, norm_mul,
+      Complex.norm_I, one_mul]
+  obtain ⟨Fw, hFw⟩ : ∃ Fw, Fw = FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+      (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) := ⟨_, rfl⟩
+  have hadmw := hadamard_z_admissible Γ₀ hΓ₀ w hwu
+  have hw01 : Fw 0 1 0 * Fw 1 0 1 = w / 16 := by rw [hFw]; exact (fibreGram_z_entries w).2
+  have hw02 : Fw 0 2 0 * Fw 2 0 2 = 1 / 16 := by rw [hFw]; exact fibreGram_z_cross02 w
+  have hw222 : Fw 2 2 2 = 1 / 4 := by
+    have h2 := (sh1_necessity hadmw).2.2.2 2 2
+    rw [hΓ₀, Matrix.of_apply, ← hFw] at h2
+    push_cast at h2
+    exact h2
+  -- the pair
+  obtain ⟨G, hGdef⟩ : ∃ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+      G = fun i => Matrix.of fun j k => Gᵢ i.1 j.1 k.1 * G₁ i.2 j.2 k.2 := ⟨_, rfl⟩
+  obtain ⟨H, hHdef⟩ : ∃ H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ,
+      H = fun i => Matrix.of fun j k => Fw i.1 j.1 k.1 * G₁ i.2 j.2 k.2 := ⟨_, rfl⟩
+  have hG : RealizableGram (Fin 1 × Fin 1) (Γ 0) G := by
+    rw [hΓ, hGdef, hG₁, hGᵢ]; exact realizable_prod_of_adm Γ₀ hadmᵢ hadm₁
+  have hH : RealizableGram (Fin 1 × Fin 1) (Γ 0) H := by
+    rw [hΓ, hHdef, hFw, hG₁]; exact realizable_prod_of_adm Γ₀ hadmw hadm₁
+  -- `G` fires on the first disjunct; `H` fires on neither
+  have hfire : ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂
+      ∧ (GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+            Gᵢ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)
+        ∨ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+            RelabelTransition (Equiv.swap (2 : Fin 4) 3) Gᵢ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)) :=
+    ⟨G₁, by rw [hG₁]; exact sh1_necessity hadm₁, Or.inl (by rw [hGdef]; exact gramPhaseEquiv_refl _)⟩
+  have hnofire : ¬ ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂
+      ∧ (GramPhaseEquiv H (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+            Gᵢ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)
+        ∨ GramPhaseEquiv H (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+            RelabelTransition (Equiv.swap (2 : Fin 4) 3) Gᵢ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)) := by
+    rintro ⟨G₂, hG₂, h⟩
+    rw [hHdef] at h
+    have hd0 : G₁ 0 0 0 = G₂ 0 0 0 := by
+      have h2 := hG₂.2.2.2 0 0
+      rw [hΓ₀, Matrix.of_apply] at h2
+      push_cast at h2
+      rw [d1, h2]
+    have hm : G₁ 0 0 0 ≠ 0 := by rw [d1]; norm_num
+    apply hwne
+    rcases h with h | h
+    · have hc := gramPhaseEquiv_cross_invariant (gramPhaseEquiv_fst_of_product hd0 hm h) 0 1
+      rw [c2, hw01] at hc
+      linear_combination (-16 : ℂ) * hc
+    · have hc := gramPhaseEquiv_cross_invariant (gramPhaseEquiv_fst_of_product hd0 hm h) 0 1
+      rw [r1, hw01] at hc
+      linear_combination (-16 : ℂ) * hc
+  -- the isometry equation on the pair
+  have e : d (RelabelTransition
+      (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (1 : Equiv.Perm (Fin 4))) G) H = d G H := by
+    have e := hI 0 G H hG hH
+    rw [hΦ] at e
+    beta_reduce at e
+    split_ifs at e
+    exact e
+  -- the upper bound on the inputs
+  have hup : d G H = d₁ Gᵢ Fw := by
+    rw [hGdef, hHdef, geo2_product_tensor d₁ hd₁ d hd, hG₁, hH₁,
+      (fourier_feature_norm 1 (by simp)).2, mul_one]
+  have hdz : d₁ Gᵢ Fw ≤ 3 * ‖z - 1‖ := by
+    have := fourier_dist_le d₁ hd₁ Complex.I w hIu hwu
+    rw [← hFw, ← hHᵢ, ← hGᵢ, hwd] at this
+    exact this
+  have hsmall : ‖z - 1‖ < 1 / 12288 := by
+    norm_num at hzd
+    nlinarith [hzd, norm_nonneg (z - 1)]
+  -- the lower bound on the images, at the cross-invariant coordinate of `((0,0),(2,0))`
+  have hσ222 : RelabelTransition (Equiv.swap (2 : Fin 4) 3) Gᵢ 2 2 2 = 1 / 4 := by
+    rw [hGᵢ, hHᵢ]
+    simp [RelabelTransition, fibreGram_apply, Matrix.submatrix_apply]
+    linear_combination (-1 / 4 : ℂ) * Complex.I_mul_I
+  have vG : mixedTriple (RelabelTransition
+      (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (1 : Equiv.Perm (Fin 4))) G)
+      ((((2 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (0 : Fin 4)), ((2 : Fin 4), (0 : Fin 4))),
+        (((2 : Fin 4), (0 : Fin 4)), ((2 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (0 : Fin 4))))
+      = Complex.I / 4096 := by
+    rw [hGdef, relabel_product, relabel_one, coord_cross_product, d1, r2, hσ222]
+    ring
+  have vH : mixedTriple H
+      ((((2 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (0 : Fin 4)), ((2 : Fin 4), (0 : Fin 4))),
+        (((2 : Fin 4), (0 : Fin 4)), ((2 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (0 : Fin 4))))
+      = 1 / 4096 := by
+    rw [hHdef, coord_cross_product, hw02, hw222, d1]
+    ring
+  have hb := coord_le_dist d hd (RelabelTransition
+      (Equiv.prodCongr (Equiv.swap (2 : Fin 4) 3) (1 : Equiv.Perm (Fin 4))) G) H
+      ((((2 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (0 : Fin 4)), ((2 : Fin 4), (0 : Fin 4))),
+        (((2 : Fin 4), (0 : Fin 4)), ((2 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (0 : Fin 4))))
+  rw [vG, vH, e, hup] at hb
+  have hbig : 1 / 4096 ≤ ‖Complex.I / 4096 - 1 / 4096‖ := by
+    rw [show Complex.I / 4096 - 1 / 4096 = (Complex.I - 1) / 4096 by ring, norm_div]
+    have h4 : ‖(4096 : ℂ)‖ = 4096 := by simp
+    rw [h4]
+    linarith [one_le_norm_I_sub_one]
+  linarith
+
+/-! #### `Φ_HS` — the Hilbert-hotel shift along the Fourier family, at the product configuration -/
+
+open Classical in
+/-- **`Φ_HS` is not an isometry**, by the shift argument: for `n ≥ 1` the family member `F n` is
+sent to `F (n + 1)`, so an isometry would make `d (F n) (F (n + 1))` constant in `n ≥ 1`; but
+`d (F 300) (F 301) ≤ 3 ‖zs 301 − zs 300‖ < 1/15000` by `GEO2` (c), the feature norm and the entry
+bound, while `d (F 1) (F 2) ≥ ‖zs 2 − zs 1‖ / 4096 > 1/8192` at the cross-invariant coordinate
+of the product pair `((0,0),(1,0))`. -/
+theorem geo3_phiHS_not_isometry :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+        ∧ H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)
+        ∧ Hᵢ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1;
+              1, -Complex.I, -1, Complex.I] p.1 q.1)
+        ∧ ∀ (Hz : ℂ → Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ) (zs : ℕ → ℂ)
+            (F : ℕ → Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+            (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+            (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+            (d : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → ℝ),
+          Hz = (fun z => Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) →
+          zs = (fun n : ℕ => Complex.mk (((n : ℝ) ^ 2 - 1) / ((n : ℝ) ^ 2 + 1))
+            (2 * (n : ℝ) / ((n : ℝ) ^ 2 + 1))) →
+          F = (fun n => fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+            FibreGram (0 : Fin 1) (Hz (zs n)) i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2) →
+          Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+          Φ = (fun _ G => if h : ∃ n, 1 ≤ n ∧ GramPhaseEquiv G (F n) then F (Nat.find h + 1) else G) →
+          d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+          ¬ (∀ t (G H : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+            RealizableGram (Fin 1 × Fin 1) (Γ t) G → RealizableGram (Fin 1 × Fin 1) (Γ t) H →
+            d (Φ t G) (Φ t H) = d G H) := by
+  obtain ⟨Γ₀, H₁, Hᵢ, Hm, hΓ₀, hH₁, hHᵢ, hHm, hadm₁, hadmᵢ, hadmM, h1i, hm1, hmi, hfix, hmove,
+    h1move⟩ := witness_supply
+  obtain ⟨d1, d2, c1, c2, c3, c4, e2, e3, r0, r1, r2⟩ := hadamard_entries H₁ Hᵢ hH₁ hHᵢ
+  refine ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, fun Hz zs F Γ Φ d hHz hzs hF hΓ hΦ hd hI => ?_⟩
+  obtain ⟨hunit, -, hzinj, -, -⟩ := zseq_facts zs hzs
+  obtain ⟨-, hdist2⟩ := zseq_dist zs hzs
+  obtain ⟨d₁, hd₁⟩ : ∃ d₁ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ)
+      → ℝ, d₁ = fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2) := ⟨_, rfl⟩
+  -- the family: admissibility, entries, realizability
+  have hadmz : ∀ z : ℂ, star z * z = 1 → AdmissibleDilationAt Γ₀ (0 : Fin 1) (Hz z) := by
+    intro z hz; rw [hHz]; exact hadamard_z_admissible Γ₀ hΓ₀ z hz
+  have hcz : ∀ z : ℂ, FibreGram (0 : Fin 1) (Hz z) 1 0 1 * FibreGram (0 : Fin 1) (Hz z) 0 1 0
+      = z / 16 := by
+    intro z; rw [mul_comm, hHz]; exact (fibreGram_z_entries z).2
+  have hcz' : ∀ z : ℂ, FibreGram (0 : Fin 1) (Hz z) 0 1 0 * FibreGram (0 : Fin 1) (Hz z) 1 0 1
+      = z / 16 := by
+    intro z; rw [hHz]; exact (fibreGram_z_entries z).2
+  have hdz : ∀ n, FibreGram (0 : Fin 1) (Hz (zs n)) 1 1 1 = 1 / 4 := by
+    intro n
+    have h2 := (sh1_necessity (hadmz _ (hunit n))).2.2.2 1 1
+    rw [hΓ₀, Matrix.of_apply] at h2
+    push_cast at h2
+    exact h2
+  have hFn : ∀ n, F n = fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+      FibreGram (0 : Fin 1) (Hz (zs n)) i.1 j.1 k.1 * FibreGram (0 : Fin 1) H₁ i.2 j.2 k.2 := by
+    intro n; rw [hF]
+  have hRF : ∀ n, RealizableGram (Fin 1 × Fin 1) (Γ 0) (F n) := by
+    intro n
+    rw [hΓ, hFn]
+    exact realizable_prod_of_adm Γ₀ (hadmz _ (hunit n)) hadm₁
+  -- the classes of the family are pairwise distinct
+  have hFinj : ∀ n m, GramPhaseEquiv (F n) (F m) → n = m := by
+    intro n m h
+    have := gramPhaseEquiv_cross_invariant h ((1 : Fin 4), (0 : Fin 4)) ((0 : Fin 4), (0 : Fin 4))
+    rw [hFn, hFn, product_cross, product_cross, hcz, hcz, d1] at this
+    apply hzinj
+    linear_combination (-256 : ℂ) * this
+  -- the shift on the family
+  have hshift : ∀ n, 1 ≤ n → Φ 0 (F n) = F (n + 1) := by
+    intro n hn
+    have hex : ∃ m, 1 ≤ m ∧ GramPhaseEquiv (F n) (F m) := ⟨n, hn, gramPhaseEquiv_refl _⟩
+    rw [hΦ]
+    beta_reduce
+    rw [dif_pos hex]
+    have hspec := Nat.find_spec hex
+    rw [hFinj _ _ (gramPhaseEquiv_symm hspec.2)]
+  -- an isometry makes the consecutive distances constant along the family
+  have hstep : ∀ n, 1 ≤ n → d (F (n + 1)) (F (n + 2)) = d (F n) (F (n + 1)) := by
+    intro n hn
+    have e := hI 0 (F n) (F (n + 1)) (hRF n) (hRF (n + 1))
+    rw [hshift n hn, hshift (n + 1) (by omega)] at e
+    exact e
+  have hconst : ∀ n, 1 ≤ n → d (F n) (F (n + 1)) = d (F 1) (F 2) := by
+    intro n hn
+    induction n, hn using Nat.le_induction with
+    | base => rfl
+    | succ k hk ih => rw [hstep k hk, ih]
+  -- the upper bound at `n = 300`
+  have hup : ∀ n, d (F n) (F (n + 1))
+      = d₁ (FibreGram (0 : Fin 1) (Hz (zs n))) (FibreGram (0 : Fin 1) (Hz (zs (n + 1)))) := by
+    intro n
+    rw [hFn, hFn, geo2_product_tensor d₁ hd₁ d hd, hH₁, (fourier_feature_norm 1 (by simp)).2,
+      mul_one]
+  have hle : ∀ n, d₁ (FibreGram (0 : Fin 1) (Hz (zs n))) (FibreGram (0 : Fin 1) (Hz (zs (n + 1))))
+      ≤ 3 * ‖zs (n + 1) - zs n‖ := by
+    intro n
+    rw [hHz]
+    exact fourier_dist_le d₁ hd₁ (zs n) (zs (n + 1)) (hunit n) (hunit (n + 1))
+  have h300 : d (F 300) (F 301) < 1 / 15000 := by
+    rw [hup]
+    have h1 := hle 300
+    have h2 := hdist2 300
+    push_cast at h2
+    norm_num at h2
+    have h3 : ‖zs 301 - zs 300‖ < 1 / 45000 := by nlinarith [h2, norm_nonneg (zs 301 - zs 300)]
+    linarith
+  -- the lower bound at `n = 1`, at the cross-invariant coordinate of `((0,0),(1,0))`
+  have vF : ∀ n, mixedTriple (F n)
+      ((((1 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (0 : Fin 4)), ((1 : Fin 4), (0 : Fin 4))),
+        (((1 : Fin 4), (0 : Fin 4)), ((1 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (0 : Fin 4))))
+      = zs n / 4096 := by
+    intro n
+    rw [hFn, coord_cross_product, hcz', hdz, d1]
+    ring
+  have hb := coord_le_dist d hd (F 1) (F 2)
+      ((((1 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (0 : Fin 4)), ((1 : Fin 4), (0 : Fin 4))),
+        (((1 : Fin 4), (0 : Fin 4)), ((1 : Fin 4), (0 : Fin 4)), ((0 : Fin 4), (0 : Fin 4))))
+  rw [vF, vF, show zs 1 / 4096 - zs 2 / 4096 = -((zs 2 - zs 1) / 4096) by ring, norm_neg,
+    norm_div, show ‖(4096 : ℂ)‖ = 4096 by simp] at hb
+  have h12 := hdist2 1
+  push_cast at h12
+  norm_num at h12
+  have hlow : 1 / 2 < ‖zs 2 - zs 1‖ := by nlinarith [h12, norm_nonneg (zs 2 - zs 1)]
+  have := hconst 300 (by norm_num)
+  linarith
+
 /-! ### The axiom table — one line per named result, printed by the kernel -/
 
 #print axioms mixedTriple_gauge
@@ -750,6 +1529,22 @@ theorem geo2_controls :
 #print axioms mixedTriple_product
 #print axioms geo2_product_tensor
 #print axioms geo2_controls
+#print axioms fourier_dist_le
+#print axioms realizable_prod_of_adm
+#print axioms coord_cross_product
+#print axioms one_le_norm_I_sub_one
+#print axioms geo3_phiI_isometry
+#print axioms geo3_phiP_isometry
+#print axioms geo3_phiC_not_isometry
+#print axioms geo3_phiT_isometry
+#print axioms geo3_phiPP_isometry
+#print axioms geo3_phiSwap_isometry
+#print axioms geo3_phiConj_isometry
+#print axioms geo3_phiPC_not_isometry
+#print axioms geo3_phiMD_not_isometry
+#print axioms geo3_phiCTRL_not_isometry
+#print axioms geo3_phiSC_not_isometry
+#print axioms geo3_phiHS_not_isometry
 
 end OrbitGeometrySelector
 end OIBridge
