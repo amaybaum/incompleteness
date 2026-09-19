@@ -88,5 +88,63 @@ theorem gramPhaseEquiv_diag {V : Type} {G G' : V → Matrix V V ℂ} (h : GramPh
   calc star (c j) * G i j j * c j = G i j j * (star (c j) * c j) := by ring
     _ = G i j j := by rw [h1, mul_one]
 
+/-! ### Section B — `OF1`, the `L4n` rung status via `ΦCTRL`, by consumption
+
+Act 21's `phiCTRL_census` already carries, for the controlled relabelling at the frozen product
+configuration, the standing `L-PROP` hypotheses, `L0`, `L1`, `L2`, `L3i`, `L3s`, `L4d` and, at every
+`t`, the failure of `L4n` — and act 21 recorded that failure as an observation, because its freeze
+had named no `L4n` countercontrol. This round's freeze names `ΦCTRL` for `L4n` prospectively, and
+the theorem below is the `Li-RESTRICTS` shape for `L4n` obtained from the merged theorem **by
+projection and nothing else**: no rung is restated, nothing is re-proved, and the ninth conjunct of
+`phiCTRL_census` — the failure of `L5` — is not consumed here. -/
+
+open Classical in
+/-- **`ΦCTRL` earns `L4n-RESTRICTS`.** The exhibited family satisfies every earlier rung —
+`ProperAt`, `PropagatesFrom`, `EvolvesTotally`, `PreservesAdmissible`, `L2`, `Reversible`, descent
+— and admits, at every `t`, no lift satisfying the lifting obligation, the admissibility obligation
+and `TwistedNatural`. The failing conjunct is the right closure and right intertwining conjuncts of
+`TwistedNatural` read together with the lifting obligation, and the separating classes are
+`[G(H₁) ⊠ G(Hᵢ)]` and `[G(Hᵢ) ⊠ G(Hᵢ)]`, exactly as act 21's §7 records; both are act 21's and are
+consumed. Act 21's own verdict `L4n-UNDECIDED` stands as act 21's; this label is this round's. -/
+theorem phiCTRL_l4n_restricts :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (H₁ Hᵢ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+        ∧ H₁ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)
+        ∧ Hᵢ = Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1;
+              1, -Complex.I, -1, Complex.I] p.1 q.1)
+        ∧ ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+            (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)),
+          Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+          Φ = (fun _ G => if ∃ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G₂
+                ∧ GramPhaseEquiv G (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                    FibreGram (0 : Fin 1) H₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)
+              then RelabelTransition
+                (Equiv.prodCongr (1 : Equiv.Perm (Fin 4)) (Equiv.swap (2 : Fin 4) 3)) G
+              else G) →
+          ProperAt ((0 : Fin 1), (0 : Fin 1)) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+          ∧ PropagatesFrom ((0 : Fin 1), (0 : Fin 1)) Γ
+              (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+          ∧ EvolvesTotally (Fin 1 × Fin 1) Γ Φ
+          ∧ PreservesAdmissible (Fin 1 × Fin 1) Γ Φ
+          ∧ (∃ Φ₀ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+              → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ), ∀ t, Φ t = Φ₀)
+          ∧ Reversible (Fin 1 × Fin 1) Γ Φ
+          ∧ (∀ t (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+              GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G'))
+          ∧ (∀ t, ¬ ∃ Ψ αL αR : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ
+                → Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ,
+              (∀ U, AdmissibleDilationAt (Γ t) ((0 : Fin 1), (0 : Fin 1)) U →
+                FibreGram ((0 : Fin 1), (0 : Fin 1)) (Ψ U) = Φ t (FibreGram ((0 : Fin 1), (0 : Fin 1)) U))
+              ∧ (∀ U, AdmissibleDilationAt (Γ t) ((0 : Fin 1), (0 : Fin 1)) U →
+                AdmissibleDilationAt (Γ (t + 1)) ((0 : Fin 1), (0 : Fin 1)) (Ψ U))
+              ∧ TwistedNatural ((0 : Fin 1), (0 : Fin 1)) αL αR Ψ) := by
+  obtain ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, h⟩ := phiCTRL_census
+  refine ⟨Γ₀, H₁, Hᵢ, hΓ₀, hH₁, hHᵢ, fun Γ Φ hΓ hΦ => ?_⟩
+  obtain ⟨h1, h2, h3, h4, h5, h6, h7, h8, -⟩ := h Γ Φ hΓ hΦ
+  exact ⟨h1, h2, h3, h4, h5, h6, h7, h8⟩
+
 end OrbitLawNaturalityFactorization
 end OIBridge
