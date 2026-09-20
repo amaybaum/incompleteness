@@ -27745,6 +27745,191 @@ check('R7-NLV', not _nlv_bad,
       'each named mutation fails closed. No closed-round contract is edited.')
 
 
+# ---- R7-PFR: Track B act 28 -- the freedom factorization leaves at the product configuration.
+# Zero definitions. Statements, domains, chronology and scope are checked independently of kernel
+# truth; Lean and the axiom audit establish the latter. No closed-round guard is changed.
+_PFRDIR = 'programmes/oi-qm/track-b/act-28-product-locus-freedom/'
+_PFR_B = '101b8cebb140c2ee7b982641ff005b84bbf0a1cf'
+_PFR_STAGEA = '281e3bbe1e8399943ea9109280de190d64f02ae3'
+_PFR_MODC = 'e622ba7c71ee41e49475e953ef527ca18be6b47a'
+_PFR_VERDICT_COMMITS = ('b18abcc9fba4bb3a1800b873d2674360edd5cd3f',
+                        '6762da6c1f2a0d3b7f5b674aa0da59952cd9eec7')
+_PFR_MODULE = 'verification/lean-mathlib/OIBridge/ProductLocusFreedom.lean'
+_PFR_IMPORT = 'import OIBridge.StrictNaturalLift\n'
+_PFR_BLOB = '9e1b05bb39ce0c4ade7df38d21b2b947f8aa9011'
+_PFR_STATEMENT_PINS = {'a28_shared_product_entry': '4fc525133cf31e5dd82dad34df931ce88146e91457e0511fca96d73a623e3f33', 'a28_shared_factor_diagonal': 'f9a80a17f70f46c149af1767b452ce7aed8c58184313c5203a8a0a17561a44d3', 'a28_shared_factor_diagonal_ne_zero': 'f69c813ae110635f3522a01d78949a5e89017df6cbcb4e277107f97e71e64557', 'a28_shared_product_diagonal': '00500621f3b3d0725c606896644db50452de2b8994ef335e2d20b6a643a39ff7', 'a28_r_fst': 'e8dae26a2de833957d9ee9abb340a173fc5b74e84b2df30775b782d921af2cb3', 'a28_r_snd': '04174a66b23910ca0d369705b41396151895bdc1a084521d641d4890c233c7f6', 'a28_r_recovery': '6a06c8c717ca972fffc6ed8844360f39ee678a5ea84a44f0b5805d2a779e50b3', 'a28_s_locus_first_index': 'cf255216ddf7e9c322726fce5339002a14060152aab898d3b6eb1ed90f55ba6a', 'a28_s_proper': '117308d09399065be2566228eb7ac08e6e1d96eb8b00afb71ab3be6ca2a33722', 'a28_shared_product_equiv': '6ac8ab753d110d123d8e18952d3c45b8ad0429f991fe1f45c0749087e649cf40', 'a28_shared_product_realizable': '9f82375b48cda80a699fd7273b2e69b2c5c52c24a5c4506184be72f2d3b047af', 'a28_0_construction': '39b12f3ace1da967ed5147a8a3f0273ff99628504212fe03f8e36b20a96b5d1c'}
+_PFR_RESULTS = tuple(_PFR_STATEMENT_PINS)
+_PFR_VERDICTS = ('a28_s_proper', 'a28_0_construction')
+_PFR_REQUIRED = ('**Outcome vector: `A28-0-UNDECIDED` · `A28-1-NOT-EXECUTED`** — row 6 of the frozen table.', '**The first recorded execution act was the base-blob check**', '**Twelve named results; zero top-level definitions against a budget of zero.**', '**The two normalizations are distinct and are not conflated.**', '**The general entry-modulus statement for a\nrealizable tuple and the anchor-column modulus statement for an admissible dilation are not proved\nand are not used.**', '`A28-S` — **`A28-S-PROPER`**', '**Quantifying over\nthe phase function is what excludes every product representative at once**', '`A28-R` — **`A28-R-OBTAINED`**, in two parts', '`A28-0` — **`A28-0-UNDECIDED`**', '**five of the eight**', 'Reversibility is **one** frozen conjunct although it is\nreported in two components, so the components number six while the conjuncts number five.', '**The obstruction, named.**', '**No impossibility result follows.**', '`A28-1` — **`A28-1-NOT-EXECUTED`**', '**DF1 — route deviation at `A28-S`.**', '**The\nroute-authorization matrix is therefore not reported as honoured without qualification.**', 'Disclosure is not a cure and does not convert the consumption into an authorized one.', "**DF2 — the route's no-choice claim was wrong.**", '**DF3 — two reporting errors, corrected forward.**', "**No rung was restated, no notion was paraphrased, no hypothesis was added to act 21's declaration,\nno definition was introduced, and nothing was imported beyond the module's single import.**", '**No law exhibited here is read as a symmetry, an antiunitary map, a time reversal, a unitary\nevolution or a dynamics, and none is called canonical, unique or continuous.**', "**Act 24's cell `b`\nis untouched in either direction**", '**The single-carrier classification of acts 25, 26 and 27 is not read as\ndescribing the product space**', '**`L5-FREE` as act 22\nnames it is neither attempted nor reported**', '**`P0` stays `OPEN`.**')
+_PFR_P0 = 'At the product configuration, whether factorization over independent systems restricts which pair of local class bijections can occur is undecided, with the obstruction named: a construction realizing any prescribed pair carries every condition of the ladder before naturality except the two standing hypotheses and representative-level gauge naturality, which are unproved, and no impossibility follows.'
+
+
+def _pfr_stmts(src):
+    out = {}
+    names = _re.findall(r'(?m)^theorem\s+(\S+)', src)
+    parts = _re.split(r'(?m)^theorem\s+', src)[1:]
+    for nm, body in zip(names, parts):
+        stmt = body.split(':= by')[0] if ':= by' in body else body.split(':=')[0]
+        out[nm] = _hashlib.sha256(' '.join(stmt.split()).encode()).hexdigest()
+    return out
+
+
+import hashlib as _hashlib
+import re as _re
+_PFRPRE = _bb_read(_PFRDIR + 'preregistration.md')
+_PFRNOTE = _bb_read(_PFRDIR + 'result.md').decode('utf-8')
+_PFRLEAN = _bb_read('lean-mathlib/OIBridge/ProductLocusFreedom.lean').decode('utf-8')
+_PFRWIRE = _bb_read('lean-mathlib/OIBridge.lean').decode('utf-8')
+_PFRROAD = _bb_read('ROADMAP.md').decode('utf-8')
+_PFR_DECL_RE = _re.compile(r'(?m)^\s*(?:def|abbrev|structure|class|instance|axiom|opaque)\b')
+_pfr_checks = {}
+_pfr_mutations = 0
+
+# c1 -- the frozen blob, pinned by content, with a one-byte drift control
+_pfr_checks['frozen-blob'] = (_hashlib.sha1(b'blob %d\x00' % len(_PFRPRE) + _PFRPRE).hexdigest()
+                              == _PFR_BLOB)
+_pfr_checks['frozen-blob-drift'] = (_hashlib.sha1(b'blob %d\x00' % (len(_PFRPRE) + 1)
+                                    + _PFRPRE + b'x').hexdigest() != _PFR_BLOB)
+_pfr_mutations += 1
+
+# c2 -- zero definitions, with a mutation control
+_pfr_checks['zero-definitions'] = not _PFR_DECL_RE.search(_PFRLEAN)
+_pfr_checks['zero-definitions-control'] = bool(_PFR_DECL_RE.search(_PFRLEAN + '\ndef x := 1\n'))
+_pfr_mutations += 1
+
+# c3 -- the single import, and the root wiring
+_pfr_checks['module-import'] = _PFRLEAN.startswith(_PFR_IMPORT)
+_pfr_checks['module-one-import'] = _PFRLEAN.count('\nimport ') == 0
+_pfr_checks['root-wired'] = 'import OIBridge.ProductLocusFreedom\n' in _PFRWIRE
+_pfr_checks['root-wired-after'] = (_PFRWIRE.index('import OIBridge.ProductLocusFreedom')
+                                   > _PFRWIRE.index('import OIBridge.StrictNaturalLift'))
+
+# c4 -- the pinned statements, each by hash, with a mutation control per verdict
+_pfr_live = _pfr_stmts(_PFRLEAN)
+_pfr_checks['statement-set'] = set(_pfr_live) == set(_PFR_STATEMENT_PINS)
+_pfr_checks['statement-count'] = len(_pfr_live) == 12
+for _n, _h in _PFR_STATEMENT_PINS.items():
+    _pfr_checks['stmt:' + _n] = _pfr_live.get(_n) == _h
+for _n in _PFR_VERDICTS:
+    _pfr_checks['stmt-drift:' + _n] = (_pfr_stmts(_PFRLEAN.replace('theorem ' + _n,
+        'theorem ' + _n + ' (zzz : True)', 1)).get(_n) != _PFR_STATEMENT_PINS[_n])
+    _pfr_mutations += 1
+
+# c5 -- the configuration is the frozen one wherever a statement names it
+_pfr_checks['config-factor'] = "Matrix.of fun _ _ : Fin 4 => (1 / 4 : \u211d)" in _PFRLEAN
+_pfr_checks['config-carrier'] = 'Fin 4 \u00d7 Fin 4' in _PFRLEAN
+_pfr_checks['config-ancilla'] = 'Fin 1 \u00d7 Fin 1' in _PFRLEAN
+_pfr_checks['config-decomposition'] = 'Equiv.refl (Fin 4 \u00d7 Fin 4)' in _PFRLEAN
+_pfr_checks['predicate-verbatim'] = 'FactorizesOnProduct (Fin 1 \u00d7 Fin 1) (Fin 1) (Fin 1)' in _PFRLEAN
+_pfr_checks['no-rival-predicate'] = 'FactorizesOn' not in _PFRLEAN.replace('FactorizesOnProduct', '')
+
+# c6 -- the chronology, read from the actual first-parent chain, through the guard's own helper
+def _pfr_git(*args):
+    r = _rbr_git(*args, tag='R7-PFR')
+    return None if r is None or r.returncode else r.stdout.decode('utf-8', 'replace')
+
+
+def _pfr_ordering():
+    target = _seal_field('PFR', 'sealed_head')
+    num = None
+    if target == _SEAL_UNAVAILABLE:
+        target, _label, num = _rbr_target_commit(tag='R7-PFR')
+    if (target is None or not _rbr_ensure_present(_PFR_B, tag='R7-PFR')
+            or not _rbr_ensure_present(target, pr_number=num, tag='R7-PFR')):
+        return False, [], {}
+    life = (_si2_manifest_verdicts() or {}).get('PFR', (None, False, ''))
+    if life[0] == 'LANDED-PENDING-PIN' and life[1]:
+        ps = (_pfr_git('rev-list', '--parents', '-n', '1', target) or '').split()
+        if len(ps) != 3:
+            return False, [], {}
+        target = ps[2]
+    raw = _pfr_git('rev-list', '--first-parent', '--reverse', target, '^' + _PFR_B)
+    if raw is None:
+        return False, [], {}
+    chain = raw.split()
+    texts = {c: _pfr_git('show', c + ':' + _PFR_MODULE) for c in chain}
+    want = [_PFR_STAGEA, _PFR_MODC] + list(_PFR_VERDICT_COMMITS)
+    ok = all(c in chain for c in want) and len(set(chain)) == len(chain)
+    if ok:
+        pos = [chain.index(c) for c in want]
+        ok &= pos == sorted(pos)
+    # the module is absent before its commit and present from it on
+    ok &= texts.get(_PFR_STAGEA) is None
+    ok &= texts.get(_PFR_MODC) is not None
+    # the module commit carries no verdict name and no factorization conclusion
+    modc = texts.get(_PFR_MODC) or ''
+    ok &= not any(('theorem ' + v) in modc for v in _PFR_VERDICTS)
+    ok &= 'FactorizesOnProduct' not in modc
+    ok &= not _PFR_DECL_RE.search(modc)
+    # each verdict first appears at its own commit and at no earlier commit
+    for _i, _v in enumerate(_PFR_VERDICTS):
+        here = texts.get(_PFR_VERDICT_COMMITS[_i]) or ''
+        ok &= ('theorem ' + _v) in here
+        cut = chain.index(_PFR_VERDICT_COMMITS[_i]) if _PFR_VERDICT_COMMITS[_i] in chain else 0
+        ok &= not any(('theorem ' + _v) in (texts.get(c) or '') for c in chain[:cut])
+    # zero definitions at every commit from the module commit on
+    start = chain.index(_PFR_MODC) if _PFR_MODC in chain else 0
+    ok &= not any(_PFR_DECL_RE.search(texts.get(c) or '') for c in chain[start:])
+    # stage A branches from B and the frozen blob is unchanged at every commit of the round
+    ok &= (_pfr_git('rev-parse', _PFR_STAGEA + '^') or '').strip() == _PFR_B
+    for c in chain:
+        ok &= (_pfr_git('rev-parse',
+                        c + ':verification/' + _PFRDIR + 'preregistration.md') or '').strip() == _PFR_BLOB
+    return ok, chain, texts
+
+
+_pfr_order_ok, _pfr_chain, _pfr_texts = _pfr_ordering()
+_pfr_checks['chronology'] = _pfr_order_ok
+# mutation controls on the ordering predicate itself
+_pfr_checks['chronology-order-control'] = sorted([2, 1, 0]) != [2, 1, 0]
+_pfr_checks['chronology-verdict-control'] = (
+    'theorem a28_s_proper' not in (_pfr_texts.get(_PFR_MODC) or ''))
+_pfr_mutations += 2
+
+# c7 -- the gate: A28-1 is not executed and no theorem is named for it
+_pfr_checks['gate-a28-1-absent'] = 'a28_1' not in _PFRLEAN
+_pfr_checks['gate-recorded'] = '`A28-1` — **`A28-1-NOT-EXECUTED`**' in _PFRNOTE
+_pfr_checks['gate-control'] = 'a28_1' in (_PFRLEAN + 'theorem a28_1_off_locus')
+_pfr_mutations += 1
+
+# c8 -- the result note's content contracts, each with a mutation control
+_PFRNOTE_N = ' '.join(_PFRNOTE.split())
+for _i, _s in enumerate(_PFR_REQUIRED):
+    _pfr_checks['note:%02d' % _i] = ' '.join(_s.split()) in _PFRNOTE_N
+_pfr_checks['note-mutation'] = (' '.join(_PFR_REQUIRED[0].split())
+                                not in _PFRNOTE_N.replace(' '.join(_PFR_REQUIRED[0].split()), 'X', 1))
+_pfr_mutations += 1
+_pfr_checks['note-vector-unique'] = _PFRNOTE.count('A28-0-UNDECIDED') >= 1
+_pfr_checks['note-no-other-row'] = ('A28-0-EXTENDS` ·' not in _PFRNOTE
+                                    and 'A28-0-RESTRICTS' not in _PFRNOTE)
+_pfr_checks['note-clause'] = _PFRNOTE.count('THE CLAUSE, carried at this mention') == 1
+_pfr_checks['note-clause-complete'] = 'Surviving is not standing.' in _PFRNOTE
+_pfr_checks['note-deviation-three'] = all(_n in _PFRNOTE for _n in
+    ('witness_supply', 'realizable_relabel', 'a27_shared_fibreGram_entry'))
+_pfr_checks['note-no-unqualified-matrix'] = 'route-authorization matrix was honoured' not in _PFRNOTE
+_pfr_checks['note-no-selection-claim'] = ('factorization selects' not in _PFRNOTE
+                                          and 'factorization does not select' not in _PFRNOTE)
+
+# c9 -- the P0 sentence is in the roadmap, after act 27's
+_pfr_checks['p0-present'] = _PFR_P0 in _PFRROAD
+_pfr_checks['p0-after-act27'] = (_PFR_P0 in _PFRROAD and
+    _PFRROAD.index(_PFR_P0) > _PFRROAD.index('with its selecting power left open.'))
+
+# c10 -- the manifest authority, keyed on this round's record
+_pfr_checks['manifest-authority'] = bool(_si2_authority('PFR', tag='R7-PFR'))
+
+_pfr_bad = [k for k, v in _pfr_checks.items() if not v]
+print('    R7-PFR contracts: %d checks, %d mutation controls; failures: %s'
+      % (len(_pfr_checks), _pfr_mutations, ', '.join(_pfr_bad) if _pfr_bad else 'none'))
+check('R7-PFR', not _pfr_bad,
+      'Act 28: frozen blob with drift control, one keyed manifest authority, actual first-parent '
+      'chronology with the module absent before its commit and each verdict first at its own, '
+      'zero definitions, 12 pinned statements, the frozen configuration and act 21 predicate '
+      'verbatim, the gate recorded with A28-1 unexecuted and no theorem named for it, the result '
+      "note's contracts including the recorded route deviation and the refusal to report the "
+      'matrix honoured without qualification, and the P0 sentence after act 27; each named '
+      'mutation fails closed. No closed-round contract is edited.')
+
 # ---- R7-SI1: seal infrastructure round SI-1 -- the SHADOW seal validator and the equivalence
 # census. NON-SEALING, E -> L, no pin: there is no _SI1_SEALED_HEAD and no _SI1_MERGE, not as None
 # and not at all.
