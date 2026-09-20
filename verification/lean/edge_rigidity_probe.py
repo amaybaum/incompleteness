@@ -10113,7 +10113,7 @@ _SI2_STAGE1_ADDITIONS = {'SI1': {'round': 'SI1', 'kind': 'base-only',
 # round's preregistration authorizes, BY STEM. An authorized stem's record is validated by content by
 # U3; U5 only admits its presence. Declared here, outside both marker-bounded regions, under a name
 # that carries no round stem; the generic region reads it and nothing else about the round.
-_MANIFEST_BASELINE = {'base': 'e0be0ab6dca7b6661a008a9f5e1f3a29ea736003', 'authorized': ('CGR',)}
+_MANIFEST_BASELINE = {'base': '2f7f31a6dff7ad12aac62204e98e800907fe4a83', 'authorized': ('NLV',)}
 
 
 # ---- SI-3 (SI3-2, R2): THE PROSPECTIVE DECLARATION. A sealing round with no record yet declares
@@ -27433,6 +27433,316 @@ check('R7-CGR', ok_cgr,
       "frozen P0 sentence with its one substitution VERBATIM in the ROADMAP after act 25's -- thirty-six "
       "mutation controls, the locating controls read from git at B, and this round's seal state read "
       "mode-aware from the prospective declaration or its record, never from a constant.")
+
+
+# ---- R7-NLV: Track B act 27 -- the universal strict-natural lift and gated reversible corollary.
+# Zero definitions. The statements, domains, chronology and scope are checked independently of
+# kernel truth; Lean and the axiom audit establish the latter. No closed-round guard is changed.
+_NLVDIR = 'programmes/oi-qm/track-b/act-27-strict-natural-lift/'
+_NLV_B = '2f7f31a6dff7ad12aac62204e98e800907fe4a83'
+_NLV_STAGEA = '24d3ac4df6a31c7770777a5fc640b113429c0f34'
+_NLV_MODC = '9db21536f6f4baa5b402e7e82d1cc64f3f2b88db'
+_NLV_VERDICT_COMMITS = ('f74d66b20d233b2c8088ccb8a3bc1fefa2ca3a9b',
+                        'c1e0dadac711bd4853b95611164f784119d4607f')
+_NLV_MODULE = 'verification/lean-mathlib/OIBridge/StrictNaturalLift.lean'
+_NLV_IMPORT = 'import OIBridge.OrbitGeometryRigidity\n'
+_NLV_STATEMENT_PINS = {'a27_shared_fibreGram_entry': 'b67d3049c46a3081d56d7c815cb8b9cb7263f2186c5266e05e3bc9dcc63b28eb', 'a27_shared_weak_diagonal': '248a5b778bdf40a4dbb4e878537007881d5ed55888b6b8f6673ce4ccefc18248', 'a27_shared_weak_one': '6d77edb0fc7b3484f67875770dda91b28086478ae3d193b95f1a4ae11d523076', 'a27_shared_left_diagonal': '44c6a40decd2a69efaa30fac0ecc74aee609e81500bc616f336cc96b006ee49b', 'a27_shared_weak_shape': 'd5b57d514f0d75b254c92faff34d3ba949eded3188ab8930f605b875259e8753', 'a27_shared_left_shape': '6ff668f7eb71987953554feb3749aff31005b1407ce98142d2c3ef620c811ed0', 'a27_shared_left_mul': 'b7e981ff7753c1d3ff06ff20bc919e88256e7a5796a2e457e3b16bfabc8cc3e9', 'a27_shared_left_star': 'c7edeac9b8220b7295153594ab7736d80948ee4b944bfa422d935ded91765071', 'a27_shared_weak_star': 'aeae568815054bae4119b5997bb1f73b5bb19016568d1c6d1e3f24ba3adce45e', 'a27_shared_left_admissible_iff': 'a99720565d1ceb62b5bc16415c5b492ce8320b74835a2c37d3967e41bfdcbf30', 'a27_shared_right_admissible_iff': '566712bc7d5383b2d22db48365106aaacdf84d11bd704ce5de2ceceb5d70b8c8', 'a27_shared_admissible_shape': '8e4f06fa3194c8bdbd4da294319bb82b3a01313b5c6857ab953787f7671a94ed', 'a27_shared_admissible_entry_ne_zero': 'ee68bc53a682e4d015702be86fa9c0bf0a4bcb59b4e2fa13329fff7afc2dff00', 'a27_shared_same_gram': '57a6485ebd53df8be7fd9a1eaeda40c25561ac52164ef0f3fc3c9c36efd856eb', 'a27_shared_realizable_of_equiv': 'e67b410349be60354fdcaea5d24ca866a085fb55ef88b8d18df3317ed4810a21', 'a27_shared_phase_coeff_eq': 'd680d05c416ac8e8d24fb580774ab9dea9f9dc44184d6bc6cffc21edb8f00009', 'a27_shared_transport_eq': '1d65ad5b68c5240d9e57adbba6858ebbcb789fe6e150ea9af97866a860752c7e', 'a27_shared_torsor': '606ffccc7cbb7027aa39a61de3926aeaa2901d07b9baedcacfa82984d141d9c1', 'a27_0_strict_lift': 'cdac894e8cd9cb554f0ee66f89e149423aec25c2c2c1702dd20c624d6b398c11', 'a27_h_relabel_lift': '879976cb311a2d11f6420eeac1791b68ce999b4b34b9a8fdfd7e2d593c5fdfb6', 'a27_h_conj_lift': 'f234c8d576cd232941e637e9a68103a3bb6f3fc474c4c1ef990d72e13446ebab', 'a27_h_transpose_class': '5511cc7c3a46b2fbd12141aafa1c08b139b47946ee26126a12ea41ab674eee09', 'a27_h_transpose_lift': 'c76a2ceddbab2f22533bb085801f22cf2c8069a3fe29ae2f2b39c97dc3ed5015', 'a27_h_transpose_conj_lift': 'e045f0d3df938503bb350119230fab8533eb867bd6f3f1f578e947d5c9a27a38', 'a27_t_relabel_no_strict_lift': '148e1cde2b4bc72a8c96e3b89ac24542e7cbf0876ca65a84a7e1907cdd48e67e', 'a27_1_reversible_lift': '2b4636aae58151c699f9fea1ae9e07cda977e6312db2f87d96b670df21e1a621'}
+_NLV_RESULTS = tuple(_NLV_STATEMENT_PINS)
+_NLV_SHARED = _NLV_RESULTS[:18]
+_NLV_V0 = _NLV_RESULTS[18:25]
+_NLV_V1 = _NLV_RESULTS[25:]
+_NLV_REQUIRED = ('**This is a SEALING round under the manifest protocol; it lands `E` → `L` → `P`, with `P` mandatory.**', '**`NLV.json` is absent at execution and is written only by `P`.**', '`base` = `B`, `sealed_head` = `E`, and `merge` = `L`', "**No existing manifest record is altered. No closed round's contract is edited. No legacy seal constant is written. No manuscript file is written.**", '**The first recorded execution act was the base-blob check.**', "**This round's module carries no top-level definition.**", '**Stage-A commit: `24d3ac4df6a31c7770777a5fc640b113429c0f34`.**', '**Module commit: `9db21536f6f4baa5b402e7e82d1cc64f3f2b88db`.**', '**Each verdict theorem first appears at its own verdict commit and at no earlier commit.**', "**The only equivalence used in any verdict is act 12's `GramPhaseEquiv`.**", '**No rung was restated, no notion was paraphrased, no hypothesis was added to any class map, no definition was introduced, and nothing was imported.**', "**No hypothesis was added; the predicate is act 20's verbatim.**", "**Act 18's standing hypotheses and `L5` are not asserted.**", '**No verdict was inferred from another beyond the consumptions the freeze places.**', '**The route-authorization matrix was honoured.**', '**No lift is read as a symmetry, an antiunitary map, a time reversal, a unitary evolution or a dynamics, and none is called canonical, unique or continuous.**', "**Act 24's cell `a4` is untouched in either direction, and act 20's verdicts stand.**", "**Every earlier act's historical verdicts stand unchanged.**", '**The supersession table is empty and is honoured as empty.**', '**Twenty-six named results; zero top-level definitions against a budget of zero.**', '**No mathematical route discrepancy was found.**', '**No additional mathematical observation is offered for a later round.**', '**Case A, row 1 with both sub-questions obtained, is the case reached.**', "**The property certified is that no commit reachable from the execution head lies outside `B`'s descendants.**", '**A27-H: all four shapes `OBTAINED`, each entering no label.**', '**A27-T: `OBTAINED`, entering no label.**', '**`(2, 2, 0)`**', 'Factorization, L5 at the product configuration, is named as the next condition to inspect, with its selecting power left open.')
+
+_NLV_REQUIRED += ('### 2.1 Declaration table — record 1', '| `LeftFibreGroup`; `FibreGram`; `GramPhaseEquiv`; `RealizableGram` | `TwoSidedGauge.lean`, `4bba2040c33424fafbc6d31c0d63b86dff33691a` | 78–79; 95–97; 102–103; 108–110 |', '| `WeakAnchorStabilizer` | `CoherentLiftGauge.lean`, `8d17177799327d648bbbd001cf237e1ac37bd3fc` | 114–116 |', '| `AdmissibleDilationAt` | `DilationChoice.lean`, `7e3a8222cedf530f3c109662e7174d72b6358063` | 134–136 |', '| `StrictNatural`; `TwistedNatural`; `OrbitNatural`; `RelabelTransition`; `RelabelLift` | `RepresentativeNaturality.lean`, `4c1137f35600320b9273c857ec62271341b05cd0` | 106–108; 128–135; 150–154; 167–169; 181–184 |', '| `EvolvesTotally`; `PreservesAdmissible`; `Reversible` | `OrbitLawRigidityTwisted.lean`, `860daac4eb20dbe92c35c2b3ca7aaa1ed798e7b8` | 97–101; 109–111; 122–127 |', '| constant-family, descent and twisted-lift conjuncts of `LadderConds` | `OrbitLawRigidityTwisted.lean`, `860daac4eb20dbe92c35c2b3ca7aaa1ed798e7b8` | 187; 189; 190–195 |', '| `ProperAt`; `PropagatesFrom` (named, not asserted) | `IntermediateCrossTimeStructure.lean`, `cb14c43b0becfe1a379ae3615d5553723ede9163` | 167–171; 186–193 |', '| four shapes: relabelling, conjugation, transpose, transpose after conjugation; their realizability and descent | `OrbitGeometryIsometries.lean`, `954fbddaa7511713a26c316b3b2e0f29497e81d2` | 72–488 |', '| `gramPhaseEquiv_refl`; `gramPhaseEquiv_symm`; `gramPhaseEquiv_trans` | `GramTrajectorySelection.lean`, `afc22cfc93b244c80e1c55a273dcfda1ddebb121` | 141–170 |', '| `realizable_entry_ne_zero`; `realizable_conj`; `conj_gramPhaseEquiv` | `OrbitGeometrySelector.lean`, `ce9d1aa05dfdedfb5cac171cfe6379681942195f` | 385; 1523; 1541 |', '### 2.2 Stage A — record 2', '### 2.3 Shared module — record 3', '### 2.4 Verdict commits — record 4', '### 2.5 Immutability — record 5', '### 2.6 Quotient, predicate and configuration — record 6', '### 2.7 Prior knowledge and span attestations — record 7', '### 2.8 Gate — record 8', 'the exact-tuple witness correction, the same-Gram argument, the one-section inverse argument, and the full contrast witness.', 'before its authorized span.', 'No later main was absorbed.', 'no added or removed line beginning with `def `, `abbrev `, `structure `, `class `, `instance `, `axiom ` or `opaque `.', 'then committed those results together.')
+
+
+def _nlv_norm(text):
+    return ' '.join(re.sub(r'(?m)^\s*>\s?', '', text).split())
+
+
+_NLVPRE = _bb_read(_NLVDIR + 'preregistration.md').decode('utf-8')
+_NLVNOTE = _bb_read(_NLVDIR + 'result.md').decode('utf-8')
+_NLVLEAN = _bb_read('lean-mathlib/OIBridge/StrictNaturalLift.lean').decode('utf-8')
+_NLVWIRE = _bb_read('lean-mathlib/OIBridge.lean').decode('utf-8')
+_NLVROAD = _bb_read('ROADMAP.md').decode('utf-8')
+_NLV_DECL_RE = re.compile(r'(?m)^\s*(?:def|abbrev|structure|class|instance|axiom|opaque)\b')
+_NLV_VECTOR = '**Outcome vector:** `A27-0-LIFTS` · `A27-1-REVERSIBLE`'
+_NLV_SPANS = ('`B` → module commit', 'module commit → `A27-0`', '`A27-0` → `A27-1`')
+_NLV_DISCLOSURE = '#### The prior knowledge, disclosed once and before the spans'
+_NLV_CONFINED_WORD = re.search(r'The word "([A-Za-z]+)" appears in this file only', _nlv_norm(_NLVPRE)).group(1)
+
+
+def _nlv_freeze_pin(read=_bb_read):
+    return _bb_blob(_NLVDIR + 'preregistration.md', read) == 'b0ba370435a561262309ec0ebf2e607bb713ca2a'
+
+
+def _nlv_execution_ancestry():
+    return _si2_authority('NLV', tag='R7-NLV')
+
+
+def _nlv_git(*args):
+    r = _rbr_git(*args, tag='R7-NLV')
+    return None if r is None or r.returncode else r.stdout.decode('utf-8', 'replace')
+
+
+def _nlv_statements(text):
+    return [(m.group(1), _nlv_norm(m.group(2))) for m in
+            re.finditer(r'(?ms)^theorem ([A-Za-z0-9_]+)(\s*[(\[{:].*?):=', text or '')]
+
+
+def _nlv_module_ok(text):
+    if (text is None or not text.startswith(_NLV_IMPORT) or _NLV_DECL_RE.search(text)
+            or re.findall(r'(?m)^import (\S+)', text) != ['OIBridge.OrbitGeometryRigidity']
+            or re.search(r'\b(?:sorry|admit|native_decide)\b', text)):
+        return False
+    statements = _nlv_statements(text)
+    names = [n for n, _st in statements]
+    if names not in [list(_NLV_SHARED), list(_NLV_RESULTS[:25]), list(_NLV_RESULTS)]:
+        return False
+    for name, st in statements:
+        if hashlib.sha256(st.encode('utf-8')).hexdigest() != _NLV_STATEMENT_PINS.get(name):
+            return False
+        if 'Γ₀' in st and 'Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))' not in st:
+            return False
+        if re.search(r'(?:StrictNatural|TwistedNatural)\b(?! \(0 : Fin 1\))', st):
+            return False
+        if '(Fin 2)' in st or '(Fin 16)' in st or 'ProperAt' in st or 'FactorizesOnProduct' in st:
+            return False
+    return re.findall(r'(?m)^#print axioms ([A-Za-z0-9_]+)', text) == names
+
+
+def _nlv_gate(note):
+    t = _nlv_norm(note)
+    return ('**Outcome reached: `A27-0-LIFTS`.**' in t
+            and ('**Gate record: `A27-0-LIFTS` at `%s` opened `A27-1`; only then was `A27-1` executed.**'
+                 % _NLV_VERDICT_COMMITS[0]) in t)
+
+
+def _nlv_ordering_pred(chain, stagea, modc, verdicts, texts, gate):
+    # chain is oldest first, excludes B; the four stage commits are adjacent and unique.
+    if len(chain) not in (4, 5) or chain[:4] != [stagea, modc, *verdicts] or len(set(chain)) != len(chain):
+        return False
+    if len(verdicts) != 2 or not gate or texts.get(stagea) is not None:
+        return False
+    if any(not _nlv_module_ok(texts.get(c)) for c in chain[1:]):
+        return False
+    expected = [_NLV_SHARED, _NLV_RESULTS[:25], _NLV_RESULTS]
+    for c, ns in zip(chain[1:4], expected):
+        if tuple(n for n, _st in _nlv_statements(texts.get(c))) != ns:
+            return False
+    if any('StrictNatural' in st for _n, st in _nlv_statements(texts.get(modc))):
+        return False
+    if any(tuple(n for n, _st in _nlv_statements(texts.get(c))) != _NLV_RESULTS for c in chain[4:]):
+        return False
+    # No earlier appearance, including a differently positioned named verdict.
+    for names, verdict in ((_NLV_V0, verdicts[0]), (_NLV_V1, verdicts[1])):
+        if any(any(n in names for n, _st in _nlv_statements(texts.get(c)))
+               for c in chain[:chain.index(verdict)]):
+            return False
+    return True
+
+
+def _nlv_ordering():
+    target = _seal_field('NLV', 'sealed_head')
+    num = None
+    if target == _SEAL_UNAVAILABLE:
+        target, _label, num = _rbr_target_commit(tag='R7-NLV')
+    if (target is None or not _rbr_ensure_present(_NLV_B, tag='R7-NLV')
+            or not _rbr_ensure_present(target, pr_number=num, tag='R7-NLV')):
+        return False, [], {}
+    # At the unpinned landing merge, the validator has already checked the landing shape.
+    # Read its second parent as the execution object; archive mode reads the sealed record.
+    life = (_si2_manifest_verdicts() or {}).get('NLV', (None, False, ''))
+    if life[0] == 'LANDED-PENDING-PIN' and life[1]:
+        ps = (_nlv_git('rev-list', '--parents', '-n', '1', target) or '').split()
+        if len(ps) != 3:
+            return False, [], {}
+        target = ps[2]
+    raw = _nlv_git('rev-list', '--reverse', '--first-parent', target, '^' + _NLV_B)
+    if raw is None:
+        return False, [], {}
+    chain = raw.split()
+    texts = {c: _nlv_git('show', c + ':' + _NLV_MODULE) for c in chain}
+    ok = _nlv_ordering_pred(chain, _NLV_STAGEA, _NLV_MODC, _NLV_VERDICT_COMMITS,
+                            texts, _nlv_gate(_NLVNOTE))
+    # Exact Stage-A shape; definition-only chronology does not substitute for this check.
+    old = _nlv_git('show', _NLV_B + ':verification/lean/edge_rigidity_probe.py')
+    stage = _nlv_git('show', _NLV_STAGEA + ':verification/lean/edge_rigidity_probe.py')
+    expected = old
+    if expected is not None:
+        for key, value in (('_MANIFEST_BASELINE', repr({'base': _NLV_B, 'authorized': ('NLV',)})),
+                           ('_MANIFEST_PROSPECTIVE', repr({'NLV': _NLV_B}))):
+            expected, count = re.subn(r'(?m)^' + key + r' = .*$', key + ' = ' + value, expected)
+            ok &= count == 1
+    ok &= stage is not None and stage == expected
+    for c, allowed in ((_NLV_STAGEA, 'verification/lean/edge_rigidity_probe.py'),
+                       (_NLV_MODC, _NLV_MODULE), *[(c, _NLV_MODULE) for c in _NLV_VERDICT_COMMITS]):
+        ok &= (_nlv_git('diff-tree', '--no-commit-id', '--name-only', '-r', c) or '').strip() == allowed
+    ok &= (_nlv_git('rev-parse', _NLV_STAGEA + '^') or '').strip() == _NLV_B
+    ok &= _nlv_git('show', _NLV_B + ':' + _NLV_MODULE) is None
+    for c in chain:
+        ok &= (_nlv_git('rev-parse', c + ':verification/' + _NLVDIR + 'preregistration.md') or '').strip() == 'b0ba370435a561262309ec0ebf2e607bb713ca2a'
+    print('    R7-NLV ordering: %s; %d commit(s) from B to %s; Stage A, shared module, A27-0, A27-1 in order; statements, first appearances and gate %s'
+          % ('PASS' if ok else 'FAIL', len(chain), target[:12], 'certified' if ok else 'NOT certified'))
+    return bool(ok), chain, texts
+
+
+def _nlv_frozen_outcome(marker):
+    start = _NLVPRE.find(marker)
+    if start < 0:
+        return ''
+    body = []
+    for line in _NLVPRE[start:].split('\n', 1)[1].splitlines():
+        if line.startswith('  >'):
+            body.append(line[2:])
+        elif body:
+            break
+    return _nlv_norm('\n'.join(body))
+
+
+_NLV_OUTCOMES = tuple(_nlv_frozen_outcome(m) for m in (
+    '- **Outcome `A27-0-LIFTS`:**', '- **Outcome `A27-1-REVERSIBLE`:**',
+    '- **`A27-H`, `OBTAINED`', '- **`A27-T`, `OBTAINED`'))
+_NLV_CLAUSE = _nlv_norm(re.search(r'(?m)^> Act 27 classifies.*(?:\n>.*)*', _NLVPRE).group(0))
+_NLV_P0 = next(line[2:] for line in _NLVPRE.splitlines() if line.startswith('> Act 27 tests, in one round'))
+_NLV_ORDERING_TEXT = _nlv_norm('\n'.join(_NLVPRE.splitlines()[937:950]))
+
+
+def _nlv_note_ok(note):
+    t = _nlv_norm(note)
+    if not all(p in t for p in _NLV_REQUIRED) or not _nlv_gate(note):
+        return False
+    if t.count(_NLV_VECTOR) != 1 or t.count('**Outcome vector:**') != 1:
+        return False
+    if not all(s and t.count(s) == 1 for s in _NLV_OUTCOMES):
+        return False
+    if not all(t.count('**Outcome reached: `%s`.**' % label) == 1
+               for label in ('A27-0-LIFTS', 'A27-1-REVERSIBLE')):
+        return False
+    if re.search(r'A27-(?:0-UNDECIDED|1-UNDECIDED|1-NOT-EXECUTED)', t):
+        return False
+    if _NLV_ORDERING_TEXT not in t or _NLV_P0 not in t:
+        return False
+    if t.count(_NLV_DISCLOSURE) != 1 or t.find(_NLV_DISCLOSURE) > t.find('#### The span'):
+        return False
+    if 'only what was newly acquired in that span about a target not yet closed at the span\'s end, beyond the freeze and pinned blobs' not in t:
+        return False
+    if t.count('#### The span ') != 3 or t.count('**What the execution did in this span:**') != 3:
+        return False
+    for i, span in enumerate(_NLV_SPANS):
+        key = '#### The span ' + span
+        if t.count(key) != 1:
+            return False
+        part = t.split(key, 1)[1].split('#### The span ', 1)[0]
+        for q in ('Q1 — INTENTIONAL', 'Q2 — INCIDENTAL', 'Q3 — UNAIDED REASONING'):
+            if part.count('| **%s** | **NO** |' % q) != 1:
+                return False
+    if t.count(_NLV_CLAUSE) != 3 or t.count('**THE CLAUSE, carried at this mention —') != 3:
+        return False
+    if '**THE CLAUSE is carried three times in this note**' not in t:
+        return False
+    for where in ('the headline', 'the class-level conclusion and tuple-level boundary', 'the P0 propagation'):
+        if '**THE CLAUSE, carried at this mention — %s.** %s' % (where, _NLV_CLAUSE) not in t:
+            return False
+    if _NLV_CONFINED_WORD.lower() in t.lower():
+        return False
+    if t.count('| `[propext, Classical.choice, Quot.sound]` |') != 26:
+        return False
+    if not all('`%s`' % n in t for n in _NLV_RESULTS):
+        return False
+    if not all('`%s`' % c in t for c in (_NLV_B, _NLV_STAGEA, _NLV_MODC, *_NLV_VERDICT_COMMITS)):
+        return False
+    return True
+
+
+def _nlv_wired(text):
+    return ('import OIBridge.OrbitGeometryRigidity\nimport OIBridge.StrictNaturalLift\n' in text
+            and text.count('import OIBridge.StrictNaturalLift\n') == 1)
+
+
+def _nlv_p0(road):
+    rows = [line for line in road.splitlines() if line.startswith('| **P0** |')]
+    return (len(rows) == 1 and '**OPEN**' in rows[0] and rows[0].count(_NLV_P0) == 1
+            and 0 <= rows[0].find('Act 26 tests,') < rows[0].find(_NLV_P0))
+
+
+def _nlv_declarations():
+    recs, errs = _si1_load()
+    declared, recorded = 'NLV' in _MANIFEST_PROSPECTIVE, 'NLV' in recs
+    if errs or declared == recorded:
+        return False
+    if declared:
+        return (_MANIFEST_PROSPECTIVE['NLV'] == _NLV_B
+                and _MANIFEST_BASELINE == {'base': _NLV_B, 'authorized': ('NLV',)})
+    return recs['NLV'].get('kind') == 'sealed' and recs['NLV'].get('base') == _NLV_B
+
+
+_nlv_checks = {}
+_nlv_checks['freeze'] = _nlv_freeze_pin()
+_nlv_checks['freeze drift'] = not _nlv_freeze_pin(
+    lambda p: _bb_read(p) + (b'\n' if p == _NLVDIR + 'preregistration.md' else b''))
+_nlv_checks['authority'] = _nlv_execution_ancestry()
+_nlv_order_ok, _nlv_chain, _nlv_texts = _nlv_ordering()
+_nlv_checks['ordering'] = _nlv_order_ok
+_nlv_checks['module'] = _nlv_module_ok(_NLVLEAN) and tuple(n for n, _st in _nlv_statements(_NLVLEAN)) == _NLV_RESULTS
+_nlv_checks['note'] = _nlv_note_ok(_NLVNOTE)
+_nlv_checks['wiring'] = _nlv_wired(_NLVWIRE)
+_nlv_checks['P0'] = _nlv_p0(_NLVROAD)
+_nlv_checks['seal state'] = _nlv_declarations()
+_nlv_mutations = 1
+# Every required content contract has a changed-text countercontrol.
+for _nlv_marker in _NLV_REQUIRED:
+    _nlv_original = _nlv_norm(_NLVNOTE)
+    _nlv_mutant = _nlv_original.replace(_nlv_marker, '[removed contract]')
+    _nlv_checks['content mutation ' + str(_nlv_mutations)] = (
+        _nlv_mutant != _nlv_original and not _nlv_note_ok(_nlv_mutant))
+    _nlv_mutations += 1
+for _nlv_marker in (*_NLV_OUTCOMES, _NLV_CLAUSE, _NLV_P0, _NLV_ORDERING_TEXT,
+                    _NLV_VECTOR, _NLV_DISCLOSURE,
+                    '| **Q1 — INTENTIONAL** | **NO** |', '| **Q2 — INCIDENTAL** | **NO** |',
+                    '| **Q3 — UNAIDED REASONING** | **NO** |'):
+    _nlv_original = _nlv_norm(_NLVNOTE)
+    _nlv_mutant = _nlv_original.replace(_nlv_marker, '[changed contract]', 1)
+    _nlv_checks['record mutation ' + str(_nlv_mutations)] = (
+        _nlv_mutant != _nlv_original and not _nlv_note_ok(_nlv_mutant))
+    _nlv_mutations += 1
+for _nlv_old, _nlv_new in (('Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))',
+                            'Γ₀ = Matrix.of (fun _ _ => (1 / 3 : ℝ))'),
+                           ('StrictNatural (0 : Fin 1)', 'OrbitNatural (0 : Fin 1)'),
+                           ('import OIBridge.OrbitGeometryRigidity', 'import Mathlib'),
+                           ('#print axioms a27_0_strict_lift', '')):
+    _nlv_mutant = _NLVLEAN.replace(_nlv_old, _nlv_new, 1)
+    _nlv_checks['statement mutation ' + str(_nlv_mutations)] = (
+        _nlv_mutant != _NLVLEAN and not _nlv_module_ok(_nlv_mutant))
+    _nlv_mutations += 1
+_nlv_checks['definition mutation'] = not _nlv_module_ok(_NLVLEAN + '\ndef extraPredicate : Prop := True\n')
+_nlv_checks['wiring mutation'] = not _nlv_wired(_NLVWIRE.replace('import OIBridge.StrictNaturalLift\n', ''))
+_nlv_checks['P0 mutation'] = not _nlv_p0(_NLVROAD.replace(_NLV_P0, '[removed P0 sentence]'))
+_nlv_mutations += 3
+if _nlv_order_ok:
+    _nlv_args = (_nlv_chain, _NLV_STAGEA, _NLV_MODC, _NLV_VERDICT_COMMITS)
+    _nlv_checks['off-chain mutation'] = not _nlv_ordering_pred(
+        _nlv_chain, _NLV_STAGEA, '0' * 40, _NLV_VERDICT_COMMITS, _nlv_texts, True)
+    _nlv_checks['order mutation'] = not _nlv_ordering_pred(
+        _nlv_chain, _NLV_STAGEA, _NLV_MODC, _NLV_VERDICT_COMMITS[::-1], _nlv_texts, True)
+    _nlv_checks['gate mutation'] = not _nlv_ordering_pred(*_nlv_args, _nlv_texts, False)
+    _nlv_early = dict(_nlv_texts)
+    _nlv_early[_NLV_MODC] = _nlv_texts[_NLV_VERDICT_COMMITS[0]]
+    _nlv_checks['premature verdict mutation'] = not _nlv_ordering_pred(*_nlv_args, _nlv_early, True)
+    _nlv_early = dict(_nlv_texts)
+    _nlv_early[_NLV_VERDICT_COMMITS[0]] = _nlv_texts[_NLV_VERDICT_COMMITS[1]]
+    _nlv_checks['premature A27-1 mutation'] = not _nlv_ordering_pred(*_nlv_args, _nlv_early, True)
+    _nlv_mutations += 5
+_nlv_bad = [name for name, ok in _nlv_checks.items() if not ok]
+print('    R7-NLV contracts: %d checks, %d mutation controls; failures: %s'
+      % (len(_nlv_checks), _nlv_mutations, ', '.join(_nlv_bad) if _nlv_bad else 'none'))
+check('R7-NLV', not _nlv_bad,
+      'Act 27: frozen blob, one keyed manifest authority, actual first-parent chronology, zero '
+      'definitions, 26 pinned statements and axiom lines, A27-0 before A27-1, all eight records, '
+      'three scoped attestations after one prior-knowledge disclosure, exact outcome vector and '
+      'status sentences, full-domain predicates, strict-versus-twisted boundary, unchanged earlier '
+      'verdicts, THE CLAUSE three times, P0 sentence after act 26, wiring and mode-aware seal state; '
+      'each named mutation fails closed. No closed-round contract is edited.')
 
 
 # ---- R7-SI1: seal infrastructure round SI-1 -- the SHADOW seal validator and the equivalence
