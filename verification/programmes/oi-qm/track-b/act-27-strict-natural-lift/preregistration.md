@@ -296,8 +296,8 @@ that it cannot be argued later.** `a4` is stated at act 24's frozen **product** 
 it asserts `L4n` of a **given** transition family `Φ` — the lifting conjunct reads
 `FibreGram a₀ (Ψ U) = Φ t (FibreGram a₀ U)` with `Φ t` the family the cell quantifies over. This
 round's theorem supplies, for a class map, **some** tuple-level representative with a lift; it does
-not supply a lift of a given representative, and `A27-T` below certifies that a given tuple-level
-formula can have none. So neither a positive `A27-0` nor its instantiations bear on `a4`, and no
+not supply a lift of a given representative. `A27-T` below asks whether the specified formula
+has no **strictly natural** lift; act 20 supplies that formula's twisted-natural lift. So neither a positive `A27-0` nor its instantiations bear on `a4`, and no
 sentence of this round reports `a4` as closed, narrowed, or reversed.
 
 ### The freeze's reading, and its provenance in act 21's own analysis
@@ -544,9 +544,10 @@ nothing about whether naturality is the right condition. A positive `A27-1` says
 bijection of the classes induces a constant family satisfying the named rung conjuncts, so that
 none of those rungs, read of class maps, separates act 25's family from any other bijection here;
 it does not assert act 18's two standing hypotheses of any family and does not assert `L5`. A
-positive `A27-T` says that one given tuple-level formula has no strictly natural lift, so that the
-tuple-level reading of `L4n` is not vacuous; it revises nothing of act 20, whose `STRICT-NO` is
-about a different statement. **No outcome of this round says that any lift is, resembles or
+positive `A27-T` says that one given tuple-level formula has no strictly natural lift, so that
+existence of a lift satisfying `StrictNatural` restricts given tuple formulas. It does not refute
+`L4n` for that formula: act 20 supplies its twisted-natural lift. Act 20's `STRICT-NO`, about
+its particular lift, also stands. **No outcome of this round says that any lift is, resembles or
 approaches a unitary, an antiunitary, a symmetry, a time reversal or quantum evolution.**
 
 ## The objects, FROZEN — act 7's, act 11's, act 12's, act 20's, act 21's and act 25's, consumed; NO definition
@@ -678,7 +679,8 @@ the lifts live inside proofs, through `Classical.choice`, and inside existential
 work it affects. Theorems are not budgeted: the execution proves whatever shared lemmas its verdicts
 need — the shapes of the two gauge classes at one ancilla, the entry formula, the torsor lemma, the
 preservation of admissibility and non-admissibility by both actions, the inverse of a gauge element
-being a gauge element — as named results, each printed in the axiom table.
+being a gauge element, and the same-Gram lemma at one ancilla — as named results, each printed in
+the axiom table.
 
 ## The route, recorded here as the freeze's reading and not as a finding
 
@@ -690,35 +692,47 @@ being a gauge element — as named results, each printed in the axiom table.
    `L * U * K` of the other with `L` in the left class and `K` in the weak class. **Obligation 1 is
    act 12's theorem consumed**, and what the execution adds is the `A = Fin 1` shape of the two
    classes, read above and proved as shared lemmas.
-2. **The section.** For each realizable class choose one admissible base dilation: for realizable
-   `G`, `U_G := Classical.choose` of `sh1_sufficiency`'s existential at `G`; and choose for each
-   image a base dilation `W_G := U_{f G}` over a tuple of the class `f G`, realizable by the first
-   hypothesis on `f`. **The choice is disclosed and is a choice**: nothing about it is canonical,
-   and hazard three governs.
+2. **The class section and the separate tuple witnesses.** Inside the proof, let `ω` range over
+   the realizable tuples modulo act 12's existing `GramPhaseEquiv`. Choose one realizable tuple
+   `R_ω` in each class and one admissible dilation `S_ω` with `FibreGram S_ω = R_ω`, using
+   `sh1_sufficiency`. Descent of `f` defines the induced class map `f̄` by
+   `f̄([G]) = [f G]`. Fix this section once and set `W_ω := S_{f̄ ω}`.
+   **The section `ω ↦ S_ω` depends only on the class.** Separately, for each realizable tuple
+   `G`, choose `U_G := Classical.choose` of `sh1_sufficiency` at that exact tuple, so
+   `FibreGram U_G = G`. This latter choice need not be constant on a phase class; it is used to
+   define the tuple representative, not the orbit transport. The quotient uses the frozen
+   equivalence only, and all these objects are local to proofs or existentially bound; the
+   top-level definition budget stays zero. **Both choices are disclosed choices**: no canonicity
+   is asserted, and hazard three governs.
 3. **The torsor lemma — obligation 2.** For admissible `U₀` and left `D, D'`, weak `K, K'`:
    `D * U₀ * K = D' * U₀ * K'` iff there is a unit `λ` with `D' = λ • D` and `K' = λ⁻¹ • K`. The
    direction that needs the nonvanishing: `D'⁻¹ D U₀ = U₀ K' K⁻¹` reads entrywise
    `a_i · U₀ (i,0) (j,0) = U₀ (i,0) (j,0) · b_j`, so `a_i = b_j` for all `i, j` since every entry is
    nonzero (the admissibility reading, or act 24's `realizable_entry_ne_zero` through the
-   fibre-Gram data), so `a` and `b` are one constant `λ`. **The common stabilizer of the written
+   fibre-Gram data), so `a` and `b` are one constant unit phase `μ`. Taking `λ = μ⁻¹` gives
+   the displayed equations for `D'` and `K'`. **The common stabilizer of the written
    action `U ↦ D U K` is `{(λ I, λ⁻¹ I) : |λ| = 1}`**, and this is the whole of the well-definedness
    argument.
-4. **The lift.** On an admissible `U` with class `ω`, write `U = D * U_ω * K` by step 1 and set
-   `Ψ U := D * W_ω * K`; off the admissible set set `Ψ U := U`. Well defined by step 3, because
-   `λ • W_ω` composed with `λ⁻¹` on the other side is `W_ω`. **The representative** is
-   `Φ₀ G := FibreGram (0 : Fin 1) (Ψ U_G)` for realizable `G` and `Φ₀ G := G` otherwise.
-5. **Lifting, realizability and admissibility.** `FibreGram (Ψ U) = FibreGram (D W_ω K) =
-   K · FibreGram W_ω` by `fibreGram_left_mul` and `fibreGram_mul_weak_apply`, and
-   `Φ₀ (FibreGram U) = Φ₀ (K · G_ω) = FibreGram (Ψ U_{K·G_ω})`, the same tuple because
-   `U_{K · G_ω}` and `U_ω K` lie over phase-equivalent data and differ by a left element and a
-   weak element whose phase part is forced to a global phase by step 3 — the execution proves this
-   as the lemma that `Φ₀` is well defined on tuples with the same class and the same phase data;
-   `Ψ U` is admissible by `left_preserves_admissible` and `weak_preserves_admissible`; `Φ₀ G` is
-   realizable by `sh1_necessity`; `GramPhaseEquiv (Φ₀ G) (f G)` because `W_G` lies over a tuple of
-   the class `f G` and the fibre-Gram data of `D W K` is phase-equivalent to that of `W`
-   (`gramPhaseEquiv_of_twoSided`).
+4. **The lift.** On an admissible `U` with class `ω = [FibreGram U]`, write
+   `U = D * S_ω * K` by step 1 and set `Ψ U := D * S_{f̄ ω} * K`; off the admissible set set
+   `Ψ U := U`. Well defined by step 3, because the reciprocal scalar factors cancel on every
+   chosen target dilation. **The representative** is
+   `Φ₀ G := FibreGram (0 : Fin 1) (Ψ U_G)` for realizable `G` and `Φ₀ G := G` otherwise,
+   using the separate exact-tuple witness `U_G` from step 2.
+5. **Lifting, realizability and admissibility.** First prove the shared same-Gram lemma at one
+   ancilla: two admissible dilations with equal fibre-Gram tuples differ by a left phase element
+   alone. The row entry formula proves this by fixing one nonzero entry in each row; equality of
+   the row Gram matrices fixes every other entry up to that row's unit phase. For
+   `G = FibreGram U`, the separate witness `U_G` therefore equals `L₀ * U` for such an `L₀`.
+   The orbit-transport formula on admissible inputs gives `Ψ (L₀ * U) = L₀ * Ψ U`, by replacing
+   the left factor `D` by `L₀ * D` in the same class. Hence `fibreGram_left_mul` gives
+   `Φ₀ (FibreGram U) = FibreGram (Ψ U_G) = FibreGram (Ψ U)` exactly. Admissibility of `Ψ U`
+   follows from `left_preserves_admissible` and `weak_preserves_admissible`; realizability of
+   `Φ₀ G` follows from `sh1_necessity`. Its class is `f̄([G]) = [f G]`, since the target base
+   dilation is `S_{f̄([G])}` and `gramPhaseEquiv_of_twoSided` removes its two gauge factors.
+   No equality of base dilations chosen independently for phase-equivalent tuples is assumed.
 6. **Strict naturality on the whole domain — obligation 3.** For left `L` and any `U`: if `U` is
-   admissible, `L * U = (L * D) * U_ω * K` is admissible with the left factor `L * D` (the class is
+   admissible, `L * U = (L * D) * S_ω * K` is admissible with the left factor `L * D` (the class is
    closed under products, `mul_mem`), so `Ψ (L * U) = L * D * W_ω * K = L * Ψ U`; if `U` is not
    admissible, neither is `L * U` — because `L⁻¹` is in the left class and would carry it back,
    `left_preserves_admissible` applied to `L⁻¹` — so `Ψ (L * U) = L * U = L * Ψ U`. The right side is
@@ -729,16 +743,18 @@ being a gauge element — as named results, each printed in the axiom table.
 
 **`A27-1`**, for a bijection `f`, gated on `A27-0-LIFTS` — obligation 4.
 
-1. **One section for both directions.** Fix the section `G ↦ U_G` of step 2 once. Build `Ψ` for `f`
-   with `W_G := U_{f G}`, and `Ψ'` for the inverse class map `f⁻¹` — the map on tuples
-   `G ↦ Classical.choose` of the surjectivity hypothesis at `G`, realizable and descending by the
-   two `L3` conjuncts — with `W'_G := U_{f⁻¹ G}`.
-2. **The inverse.** On admissible `U = D U_ω K`: `Ψ U = D U_{f ω} K` and `Ψ' (Ψ U) = D U_{f⁻¹ f ω} K
-   = D U_ω K = U`, because `f⁻¹ f ω = ω` **as classes** and the section is a function of the class;
-   symmetrically `Ψ (Ψ' U) = U`. **The two lifts are built from the same section, which is what
-   makes the composite the identity exactly and not merely up to gauge**; two lifts built from
-   different sections would compose to a gauge move, and the freeze fixes the section for that
-   reason.
+1. **One class section for both directions.** Fix the section `ω ↦ S_ω` of step 2 once. The
+   two `L3` hypotheses make the induced map `f̄` a bijection of classes; choose its inverse
+   `f̄⁻¹` there. Build `Ψ` with target base `S_{f̄ ω}` and `Ψ'` with target base
+   `S_{f̄⁻¹ ω}`, extending each by the identity off the admissible set. Define both tuple
+   representatives through the separate exact-tuple witnesses `U_G` as in `A27-0`.
+2. **The inverse.** On admissible `U = D S_ω K`: `Ψ U = D S_{f̄ ω} K` and
+   `Ψ' (Ψ U) = D S_{f̄⁻¹(f̄ ω)} K = D S_ω K = U`, because
+   `f̄⁻¹(f̄ ω) = ω` is equality in the class quotient and `S` is one fixed function on it;
+   symmetrically `Ψ (Ψ' U) = U`. The exact lifting equations then give exact inverse equations
+   for the tuple representatives on realizable tuples, and therefore the displayed phase
+   equivalences. **One class section serves both directions**; the separate tuple witnesses
+   do not supply or replace that section.
 3. **The rung conjuncts.** `PreservesAdmissible` is `A27-0`'s second conjunct; the `L2` conjunct is
    `rfl`; `Reversible`'s two conjuncts are the two `L3` hypotheses on `f` read through
    `GramPhaseEquiv (Φ₀ G) (f G)` and transitivity; the `L4d` conjunct on realizable tuples is
@@ -753,13 +769,13 @@ being a gauge element — as named results, each printed in the axiom table.
 `fun G => fun i => (G (π i)).submatrix τ τ`, realizability and descent by `relabel2_realizable`
 and `relabel2_gramPhaseEquiv`; the conjugation `fun G => fun i => Matrix.of fun j k => star (G i j
 k)`, by `realizable_conj` and `conj_gramPhaseEquiv`; the transpose as the map
-`G ↦ FibreGram (0 : Fin 1) (U_G)ᵀ` through the section, realizability by `transpose_admissible`
+`G ↦ FibreGram (0 : Fin 1) (U_G)ᵀ` through the exact-tuple witnesses, realizability by `transpose_admissible`
 and descent by `transpose_single_valued` and `transpose_descends`; the fourth shape the composite.
 Each corollary is `A27-0` applied, and its content is that **the class map** of the shape admits a
-strictly natural lift — not that act 25's formula does. For the relabelling this is a different
-map from act 20's `RelabelLift`, which act 20 proved twisted-natural and not strictly natural;
-act 20's note said in terms that it did not rule out another lift, and this corollary supplies one
-at this configuration.
+strictly natural lift — not that act 25's formula does. For the relabelling this supplies a strict lift of a
+possibly different tuple representative of the same class action. Act 20's `RelabelLift` remains
+a twisted-natural lift of the original `RelabelTransition`; `A27-H` does not supply a strict
+lift of that original formula, whose strict-lift existence is the separate question `A27-T`.
 
 **`A27-T`.** Suppose `Ψ` strictly natural with `FibreGram (Ψ U) = RelabelTransition σ (FibreGram U)`
 for every admissible `U`, `σ = Equiv.swap 2 3`. For weak `K` with phases `c`, at `U` admissible,
@@ -840,8 +856,9 @@ before this freeze, and that reasoning is the freeze's content and not a span's 
 | the shared lemmas of the module commit | consumed | consumed | consumed | consumed |
 
 **Shared lemmas are not verdicts.** The module commit's lemmas — the `A = Fin 1` shapes of the two
-gauge classes, the entry formula, the torsor lemma, the gauge-invariance of admissibility and of
-its complement, the inverse of a gauge element, the closure of the realizable set under the phase
+gauge classes, the entry formula, the torsor lemma, the same-Gram lemma used in the exact lifting
+equation, the gauge-invariance of admissibility and of its complement, the inverse of a gauge
+element, the closure of the realizable set under the phase
 action — are consumed by whichever verdict needs them and answer no target by themselves. **A
 lemma of the module commit that exhibits a lift for any class map, or refutes one for any formula,
 is a verdict in the wrong commit and a YES at the first boundary.**
@@ -885,8 +902,10 @@ taking `UNDECIDED` for every shape if `A27-0` is `UNDECIDED`.
 | `A27-T`, the contrast | `U = H(1)`, `c = (1, 1, 1, i)`, coordinate `((2 : Fin 4), 2, 0)` read as `(i, j, k) = (2, 2, 0)` or any coordinate at which the reading's equation `c 2 = c 3` appears; the execution records the coordinate used | single carrier |
 
 **`A27-T` is the round's countercontrol on its own reading**: a positive `A27-0` together with a
-positive `A27-T` certifies that the class-level and tuple-level readings of `L4n` come apart, which
-is the distinction hazard two protects. **Evidence that earns any control or countercontrol**: a
+positive `A27-T` certifies that existence of a **strictly natural** lift can differ between a
+class map with a freely chosen tuple representative and its specified tuple formula. This is a
+contrast for `StrictNatural` only: it does not establish failure of `L4n`, whose predicate is
+`TwistedNatural`, for that formula. **Evidence that earns any control or countercontrol**: a
 Lean theorem at evidence level 2 whose statement names `StrictNatural`, `TwistedNatural`, the
 conjuncts of `LadderConds`, `AdmissibleDilationAt`, `FibreGram`, `GramPhaseEquiv` and
 `RealizableGram` as their modules declare them. **Searching and not finding earns nothing.**
@@ -1016,7 +1035,7 @@ with the step named, recorded in `A27-0`'s verdict commit.
 
 | target | prediction (sign) | strength | recorded reason |
 | --- | --- | --- | --- |
-| `A27-0` | **`A27-0-LIFTS`** | **high** | The construction is explicit, every step is a landed theorem or a one-line reading of a landed definition at one ancilla, and the only new lemma with content is the torsor lemma, whose input is the nonvanishing of admissible entries. The strength is high and not certain because `StrictNatural` quantifies over every matrix and the identity extension has to be checked against the gauge-invariance of non-admissibility, a step the reading takes for granted. **UNDECIDED with the step named is an allowed outcome.** |
+| `A27-0` | **`A27-0-LIFTS`** | **high** | The construction is explicit. Its new obligations include the torsor lemma, the class-indexed section, the same-Gram lemma for exact tuple lifting, and the gauge-invariance needed off the admissible set; the orbit and realizability theorems are consumed from the pinned record. The strength is high and not certain because `StrictNatural` quantifies over every matrix and the identity extension has to be checked against the gauge-invariance of non-admissibility, a step the reading takes for granted. **UNDECIDED with the step named is an allowed outcome.** |
 | `A27-1` | **`A27-1-REVERSIBLE`** | **medium-high** | The inverse composites are exact because one section serves both directions; the six rung conjuncts are readings of `A27-0`'s conjuncts and act 21's declarations, the `L4d` conjunct on non-realizable tuples resting on the closure of the realizable set under the phase action. The rating is below `A27-0`'s because the statement is long and each conjunct is its own kernel obligation. |
 | `A27-H` | **`OBTAINED`** for all four shapes | **high**, following `A27-0` | Each is an instantiation whose hypotheses are acts 24's and 25's theorems consumed. |
 | `A27-T` | **`OBTAINED`** | **medium** | The two evaluations are two rewrites and one coordinate; the rating is medium because the reading's coordinate bookkeeping — which entry carries `c 2 = c 3` — is the freeze's hand reading and the kernel may place it elsewhere, in which case the execution records the coordinate it used. |
@@ -1087,10 +1106,11 @@ NOT-EXECUTED is a live preregistered outcome for `A27-1` and is not a failure.**
 - **`A27-T`, `OBTAINED`:**
   > No strictly natural map on dilations lifts act 20's relabelling transition at the named
   > permutation itself, exactly on every admissible dilation, at evidence level 2, refuted at one
-  > named dilation, one named weak element and one named coordinate. **So the tuple-level reading
-  > of representative-level naturality is not vacuous**: a given tuple-level formula can have no
-  > strictly natural lift while its class map has one. This revises nothing of act 20, whose
-  > verdict is about the lift act 20 built, and it enters no label.
+  > named dilation, one named weak element and one named coordinate. **Existence of a strictly
+  > natural lift restricts given tuple formulas.** If `A27-0-LIFTS` is also obtained, a different
+  > tuple representative of the same class map admits a strictly natural lift. No failure of
+  > `L4n` is inferred: act 20's twisted-natural lift of the original formula stands, as does its
+  > verdict about that particular lift. This sub-question enters no label.
 - **`A27-T`, `UNDECIDED`:**
   > Whether the named relabelling formula has a strictly natural lift is undecided in this round,
   > with the step named; it enters no label.
@@ -1117,7 +1137,7 @@ after act 26's sentence in the same cell, exactly the sentence frozen for the ve
 
 **Case A — row 1 with both sub-questions obtained.** This is the case the freeze predicts.
 
-> Act 27 tests, in one round with one universal target and its gated reversible corollary, whether every map of the realizable classes at the single-carrier configuration admits a tuple-level representative carrying a representative-level lift that is strictly natural in act 20's exact sense with both induced gauge maps the identity, and whether, for bijections of the classes, the construction supplies inverse lifts and the induced constant transition family satisfies the conjuncts of act 21's ladder before factorization other than the standing propagation hypotheses. Every such class map admits such a lift, proved universally at evidence level 2 by an explicit choice of representatives, so representative-level naturality at act 20's strength, read existentially over tuple-level representatives, imposes no restriction on class maps at that configuration; every bijection's induced family satisfies those rung conjuncts with inverse lifts, so none of those rungs, read of class maps, distinguishes act 25's family from any other bijection of the classes there; each of act 25's four shapes, as a class map, admits the lift; and one given tuple-level formula, act 20's relabelling transition at one permutation, admits no strictly natural lift, so the tuple-level reading of the rung is not vacuous and a given family's own lift remains a separate question, act 24's cell `a4` at the product configuration being untouched in either direction. Each verdict is of the exact frozen proposition at the exact configuration and of nothing in its neighbourhood; no verdict is inferred from another beyond the consumptions the freeze places; no condition is adopted; no lift is canonical, unique or continuous, and none is read as a symmetry, an antiunitary map, a time reversal, a unitary evolution or a dynamics; nothing is asserted at the product configuration, at any other ancilla cardinality, or about factorization; acts 12 through 26's own verdicts stand exactly as they state them; nothing here introduces continuity, composition in time or a generator; and deriving or recognising quantum evolution is out of scope by this round's own freeze. `P0`'s threading part is untouched, **no carrier is adopted as the physical one**, **no surviving law is adopted as the physical one**, and nothing here names, endorses or excludes a selection principle; factorization at the product configuration is named as the next condition to inspect, with its selecting power left open.
+> Act 27 tests, in one round with one universal target and its gated reversible corollary, whether every map of the realizable classes at the single-carrier configuration admits a tuple-level representative carrying a representative-level lift that is strictly natural in act 20's exact sense with both induced gauge maps the identity, and whether, for bijections of the classes, the construction supplies inverse lifts and the induced constant transition family satisfies the conjuncts of act 21's ladder before factorization other than the standing propagation hypotheses. Every such class map admits such a lift, proved universally at evidence level 2 by an explicit choice of representatives, so representative-level naturality at act 20's strength, read existentially over tuple-level representatives, imposes no restriction on class maps at that configuration; every bijection's induced family satisfies those rung conjuncts with inverse lifts, so none of those rungs, read of class maps, distinguishes act 25's family from any other bijection of the classes there; each of act 25's four shapes, as a class map, admits the lift; and one given tuple-level formula, act 20's relabelling transition at one permutation, admits no strictly natural lift, so strict-lift existence for a specified tuple formula differs from existence with the representative freely chosen, and the formula's twisted-natural lift from act 20 stands, act 24's cell `a4` at the product configuration being untouched in either direction. Each verdict is of the exact frozen proposition at the exact configuration and of nothing in its neighbourhood; no verdict is inferred from another beyond the consumptions the freeze places; no condition is adopted; no lift is canonical, unique or continuous, and none is read as a symmetry, an antiunitary map, a time reversal, a unitary evolution or a dynamics; nothing is asserted at the product configuration, at any other ancilla cardinality, or about factorization; acts 12 through 26's own verdicts stand exactly as they state them; nothing here introduces continuity, composition in time or a generator; and deriving or recognising quantum evolution is out of scope by this round's own freeze. `P0`'s threading part is untouched, **no carrier is adopted as the physical one**, **no surviving law is adopted as the physical one**, and nothing here names, endorses or excludes a selection principle; factorization at the product configuration is named as the next condition to inspect, with its selecting power left open.
 
 **Clauses of Case A vary with the outcome, and they vary independently within the gate**, each
 replaced by the sentence its target's other outcomes fix:
@@ -1127,7 +1147,7 @@ replaced by the sentence its target's other outcomes fix:
 | `A27-0`, `UNDECIDED` | the sentence beginning "Every such class map admits such a lift" through "left open." | "Whether every such class map admits such a lift is recorded undecided, with the step named; no lift is claimed for any map, the reversible corollary was not executed, and nothing is asserted about what any rung does or does not distinguish. Each verdict is of the exact frozen proposition at the exact configuration and of nothing in its neighbourhood; no condition is adopted; nothing is asserted at the product configuration or at any other ancilla cardinality; acts 12 through 26's own verdicts stand exactly as they state them; and deriving or recognising quantum evolution is out of scope by this round's own freeze. `P0`'s threading part is untouched, **no carrier is adopted as the physical one**, **no surviving law is adopted as the physical one**, and nothing here names, endorses or excludes a selection principle." |
 | `A27-1`, `UNDECIDED` | the clause "every bijection's induced family satisfies those rung conjuncts with inverse lifts, so none of those rungs, read of class maps, distinguishes act 25's family from any other bijection of the classes there" | "whether every bijection's induced family satisfies those rung conjuncts with inverse lifts is recorded undecided, with the conjunct named, and nothing is asserted about what those rungs distinguish" |
 | `A27-H`, any shape `UNDECIDED` | the clause "each of act 25's four shapes, as a class map, admits the lift" | "the shapes of act 25's family obtained as class maps are those named, the others recorded undecided" |
-| `A27-T`, `UNDECIDED` | the clause "one given tuple-level formula, act 20's relabelling transition at one permutation, admits no strictly natural lift, so the tuple-level reading of the rung is not vacuous and a given family's own lift remains a separate question" | "whether a given tuple-level formula can lack a strictly natural lift is recorded undecided, with the step named, and a given family's own lift remains a separate question" |
+| `A27-T`, `UNDECIDED` | the clause "one given tuple-level formula, act 20's relabelling transition at one permutation, admits no strictly natural lift, so strict-lift existence for a specified tuple formula differs from existence with the representative freely chosen, and the formula's twisted-natural lift from act 20 stands" | "whether a given tuple-level formula can lack a strictly natural lift is recorded undecided, with the step named, and a given family's own lift remains a separate question" |
 
 **The execution composes the sentence from these substitutions and reports no other wording. No
 composition closes `P0`**, and none reports either of its two parts closed.
@@ -1188,7 +1208,8 @@ any paraphrase, in a summary line, an abstract, a table cell or a propagation li
 3. **"Every transition family satisfies `L4n`", "`L4n` is vacuous" without the qualification
    "read existentially over tuple-level representatives, at the single-carrier configuration",
    or any statement that a given tuple-level family has a lift from the universal theorem.** The
-   universal theorem supplies a representative; `A27-T` shows a given formula can have none.
+   universal theorem supplies a representative; `A27-T` asks only about failure of a strictly
+   natural lift for its given formula. It supplies no failure of `TwistedNatural` or `L4n`.
 4. **"Act 24's cell `a4` is closed", "is now positive", "is now negative", "is narrowed", or any
    statement bearing on `a4` in either direction.** `a4` is at the product configuration and about
    a given family, and this round touches it by nothing.
@@ -1197,7 +1218,8 @@ any paraphrase, in a summary line, an abstract, a table cell or a propagation li
    asserts existence through a disclosed choice.
 6. **"Act 20's `STRICT-NO` is reversed", "act 20 was wrong", "the relabelling is strictly natural
    after all".** Act 20's verdict is about `RelabelLift`; `A27-H` supplies a different lift of the
-   class map, and `A27-T` shows the formula itself has none; act 20's note stands as earned.
+   class map through a possibly different tuple representative, and `A27-T` asks whether the
+   original formula has no strictly natural lift; its twisted-natural lift from act 20 stands.
 7. **"`L4n` is vacuous at every configuration", "at every `|A|`", "at the product
    configuration".** The reading that the gauge classes are phases is a reading at `A = Fin 1`.
 8. **"The pre-`L5` rungs cannot distinguish `H` from `G`" written of act 26's enumerated group as
