@@ -65,6 +65,8 @@ quantum mechanics.
 | **P1** | A6 — background independence / local gauge covariance | Substratum | **CONDITIONAL** — the adopted meaning is covariance, `A6Cov`, which holds identically on every link-coupled rule of the least interface (`a6cov_all`), so its content is the covariant interface and not a constraint; the `K = 6` link-coupled rule is packaged as a `Substratum` with no field added, the packaged carrier's update map is the interface's link-coupled map, `A1`–`A5` hold of it with `A4Exact` under the translation-invariance hypothesis on the link coupling, and the covariance statement of `[SM §3.1]` is proved at the complex six-component carrier with the manuscripts' site-dependent transformation an instance of the interface's transformation class (`pk1_packaging`, `pk2a_bridge`, `pk3a_A1`–`pk3e_A5`, `cx1_complex_covariance`, `cx2_unitary_gaugeLink`); the named hypothesis is that the manuscripts' physical substratum is that packaged carrier, and that identification is the whole of what this row tracks; separately, and outside `A6Cov` rather than a condition on it, the part of the gauge derivation that consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic decomposition stands outside the interface, as does the complex carrier itself, proved not to satisfy `A1` (`cx3b_complex_not_A1`); `A6-inv` is a separate, stronger fixed-background condition, refuted on the frozen two-site carrier and at the symmetric point `M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` its global specialization (`a6glob_of_a6inv`); `A6-sd` a different principle under a shared name | the complete A1–A6 formal package |
 | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN**, and now EXACT: round C4-1 put the manuscripts' realization clause in the kernel as `RoutedReadback`, bounded what a discharge would need and what it would buy, and made the residual exact **per cut** — at the cosmological cut the finite realization datum itself, which the manuscripts describe and do not supply, and then a routed witness within the window; at the lattice cut `[SM]` Theorem 22's readback genericity lemma in the form `LatticeCutReadback` over admissible regions at the return window | the actual physical realization |
 | **P1** | H-Bell — composite and Bell closure | OI→QM / Bell | **OPEN** | Bell-inclusive completion |
+| **P1** | Stochastic observer interface — source `(Obs, μ)` from the stated architecture | Foundations / physical realization | **OPEN**, with the present architecture bounded negatively: `StochasticInterface` proves the invariant ensemble is not uniquely determined on the wave substratum under its stated hypotheses (`ensemble_underdetermined`, `waveSubstratum_stochastic_interface_gap`), while the observation-map leg is not supplied on `Substratum.Conf`. The remaining obligation is to supply independently motivated structure selecting the physical observation map and ensemble, or prove that the claims consuming an induced stochastic law are invariant under that residual choice. This is distinct from C4: C4 asks whether hidden history is routed back; this row asks which `(Obs, μ)` defines the observed stochastic law in the first place. | a fully sourced physical stochastic law `(φ, Obs, μ)` |
+| **P1** | H-∞ — finite operational theory → continuum / infinite-dimensional completion | OI→QM / continuum | **OPEN** — the exact operational-completion theorems and the Track-B equivalence programme are finite-carrier results. `RegionLimit`, `CoherentContinuumSource` and the quasilocal audits establish selected continuum/local-algebra facts, but no theorem upgrades the full finite OI→QM characterization to arbitrary infinite-dimensional or QFT systems. Infinite-support instruments are a separate, deliberately unprioritized question below and do not close this obligation. | a scope-correct OI→QM statement beyond finite carriers |
 | **P2** | Bekir–Golomb integer classification | Reconstruction | **EXTERNAL** | removes the last reconstruction premise |
 | **P2** | H-link — physical-carrier identification | Standard Model | **CONDITIONAL** | the physical `K = 6` carrier |
 | **P2** | H-state / H-frame / H-slope | Gravity | **CONDITIONAL** | the `ℏ` and `1/4` calibration |
@@ -912,6 +914,41 @@ successor on this track is H-Bell, which this round does not enter.
 [`C4-CAUSAL-READBACK-AUDIT.md`](audits/physical-realization/c4-causal-readback/preregistration.md),
 [`CONCRETE-CUT-AUDIT.md`](audits/physical-realization/concrete-cut/preregistration.md)
 
+### P1 — stochastic observer interface
+
+The observed stochastic law is a function of the triple `(φ, Obs, μ)`, not of the deterministic
+update `φ` alone. The kernel audit `StochasticInterface` closes one possible shortcut negatively:
+for the stated wave substratum, invariance does not select a unique ensemble under the audit's
+hypotheses, and the present `Substratum.Conf` interface does not itself supply the physical
+observation map. This is **not** C4: a system may possess routed history-sensitive readback once an
+observer map is chosen while the architecture still fails to determine which observer map and
+ensemble define the law being read.
+
+The live obligation is therefore positive and interface-level: either add independently motivated
+structure that sources `Obs` and `μ`, or prove the downstream physical claims are invariant under
+the residual choices. The existing no-go is evidence about the present architecture, not a theorem
+that no extension can supply the interface.
+
+→ [stochastic-observer-interface audit](audits/operational/stochastic-observer-interface-audit.md)
+→ [`StochasticInterface.lean`](lean-mathlib/OIBridge/StochasticInterface.lean)
+
+### P1 — H-∞: finite to continuum / infinite-dimensional completion
+
+The strongest exact OI→QM results currently live on finite carriers. The repository has substantial
+continuum and quasilocal infrastructure — including region limits, continuum-source statements and
+state-layer audits — but no theorem promotes the **whole** finite operational characterization,
+including composites and the relevant dynamics/selection statements, to arbitrary
+infinite-dimensional Hilbert spaces or QFT-like systems. This is the continuum/infinite extension
+named in the scope paragraph at the top of this roadmap.
+
+This row is intentionally distinct from **infinite-support instruments**, which remain deliberately
+unprioritized below: allowing infinitely many outcomes is not the same as proving a continuum/QFT
+completion of the theory.
+
+→ [`RegionLimit.lean`](lean-mathlib/OIBridge/RegionLimit.lean)
+→ [`CoherentContinuumSource.lean`](lean-mathlib/OIBridge/CoherentContinuumSource.lean)
+→ [quasilocal-completion audit](audits/operational/quasilocal-completion-audit.md)
+
 ### P1 — H-Bell and composite closure
 
 Full operational quantum mechanics in the sense of entangled composites, local operations and Bell
@@ -946,6 +983,15 @@ What is conditional is identifying that link space with the **complete physical 
 single-copy clause is what turns it into `K = 6`, so every downstream statement consuming `K = 6`,
 `N_f = 6`, or a fixed three-sector count inherits it. H-cust and the named spin/chirality conditions
 are further downstream qualifications.
+
+For completeness, the downstream Standard-Model bridge ledger is **not collapsed into H-link**:
+`H-cust` (condensate/stabilizer reading), `H-blind` (component-blind trace-out outside the
+symmetric-point observer class), `H-spin'` (physical-generation/spin identification), `H-χ'`
+(chirality), and the strong-CP conditions `H-top` / `H-det` remain their own qualifications at
+their manuscript sites. The first-principles derivation of the `C₂`-dependent gauge-threshold
+parameters and the general-graph carrier extension are also open tasks in `SM.md`. They are kept
+subordinate here rather than promoted to six additional top-level priorities, but they are explicit
+Lean-coverage/physical-bridge debts and must not be read as discharged by H-link.
 
 → [`papers/Main.md`](../papers/Main.md), [`papers/SM.md`](../papers/SM.md)
 
@@ -1060,6 +1106,7 @@ re-added to it.**
 | Finding | Status |
 | --- | --- |
 | The source of phases | **INDEPENDENT** |
+| Dense/nonclassical operational control from the presently stated architecture | **INDEPENDENT** |
 | Executable intermediate layer flow | **INDEPENDENT** |
 | The presently stated observer-level lift | **INDEPENDENT** |
 
@@ -1068,13 +1115,22 @@ The kernel result is negative and it is a result: the stated configuration-level
 formulations that actually land in the operational interface repairs that. Under the current
 architecture these are identified independent resources — proofs nobody has neglected to write.
 
+The same accounting applies to dense/nonclassical control. `FrozenSourcing` proves that the
+present configuration-level architecture cannot source `DenseUnitaryControl` (independently of the
+phase ceiling), while `DenseInstrumentBridge` proves that dense unitary control would suffice for
+dense finite quantum instruments. The remaining fixed nonclassical gate/control resource is
+therefore an **independent empirical datum relative to the present architecture**, not an unproved
+lemma. This does not say an extended architecture cannot source it.
+
 → [`PHASE-SOURCE-AUDIT.md`](audits/foundations/phase-source-audit.md),
 [`FLOW-ENDPOINT-AUDIT.md`](audits/foundations/flow-endpoint-audit.md),
-[`LIFT-AUDIT.md`](audits/foundations/lift-audit.md), [`LIFT-SOURCE-AUDIT.md`](audits/foundations/lift-source-audit.md)
+[`LIFT-AUDIT.md`](audits/foundations/lift-audit.md), [`LIFT-SOURCE-AUDIT.md`](audits/foundations/lift-source-audit.md),
+[frozen-sourcing audit](programmes/substratum/frozen-sourcing-audit.md),
+[dense-instrument bridge audit](audits/operational/dense-instrument-bridge-audit.md)
 
 ## Deliberately not prioritized
 
-Three candidates that a reader might expect here, with the reason each is absent:
+Five candidates that a reader might expect here, with the reason each is absent:
 
 - **Infinite-support instruments** — the instrument audits show no live central prediction requires
   them.
@@ -1086,8 +1142,34 @@ Three candidates that a reader might expect here, with the reason each is absent
   `RegionLimit.lean` carries the countermodel showing continuous time is not determined by the
   discrete dynamics.
 
+- **Finite-horizon → exact all-time finite realization** — the finite-horizon realization theorem is
+  established, while a universal exact all-time form on one finite deterministic carrier is ruled
+  out by periodicity. Recurrent-family gluing and pre-recurrence-window approximation remain open in
+  `Main.md`; no currently central prediction depends on closing them, so they are recorded rather
+  than promoted to the active queue.
+
+- **Named double-slit / Born-interference benchmark** — the repository already formalizes the
+  probability, phase, realizability and quotient machinery that such a benchmark would consume, but
+  there is no dedicated kernel theorem packaged as “OI conditions X imply the textbook double-slit
+  interference formula.” This is a publication-facing validation target rather than a dependency
+  gap in the present equivalence chain; it returns to the queue if a central claim begins to depend
+  on that explicit packaging.
+
 Absent means *adjudicated and set aside with a reason*, not overlooked. Any of the three returns to
 the queue if a live prediction starts depending on it.
+
+## Declared inputs and conditional hypotheses — not silently counted as Lean gaps
+
+An exhaustive dependency ledger also has to distinguish **missing proofs** from **adopted inputs**.
+The manuscripts explicitly carry several substantive premises whose current role is to condition a
+claim, not to sit in the proof queue: recurrence; the minimal finite representative/total-state
+finiteness choice where consumed; the empirical unitarity input used in the determinism-recovery
+margin; maximal-entropy invariant-measure selection; hidden-sector/effective mixing hypotheses;
+spatial isotropy; and A5 linearity. Their downstream uses must remain visibly conditional unless a
+future programme elects to derive or replace them. Their absence from the active queue therefore
+means “declared input, not currently targeted,” not “Lean proved.”
+
+This section is accounting only; it changes no theorem status and creates no new axiom.
 
 ## Where new artifacts go
 
