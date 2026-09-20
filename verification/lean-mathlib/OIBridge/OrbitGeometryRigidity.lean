@@ -42,6 +42,12 @@ restated, and the bridge between tuple-level and set-level surjective isometries
 circle**, and none states anything about an affine extension or about any isometry's membership in
 the family. Each verdict enters in its own later commit, in the frozen order.
 
+**The `A26-0` commit carries Section B**: the polarization identity, the linear-isometry extension
+from a set to the whole space, and `a26_0_affine_extension` with the frozen statement's three
+conjuncts — the affine extension of a map preserving distances on a set, uniqueness on the affine
+hull of the set and nowhere else, and the instantiation at the normalized set with the set carried
+onto itself. It decides nothing about the circles, the census or the family.
+
 **THE CLAUSE, carried at this mention — the module docstring.**
 Act 26 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts
 none. A law that survives every condition this freeze names is a law that survives **those**
@@ -64,6 +70,8 @@ namespace OrbitGeometryRigidity
 open Matrix CoherentLiftGauge DilationChoice TwoSidedGauge GramTrajectorySelection
   IntermediateCrossTimeStructure RepresentativeNaturality OrbitLawRigidityTwisted
   OrbitLawNaturalityFactorization OrbitLawGaps OrbitGeometrySelector OrbitGeometryIsometries
+
+open scoped InnerProductSpace
 
 /-! ### The three budgeted definitions, each with its frozen statement -/
 
@@ -254,6 +262,190 @@ theorem tuple_isometry_of_bridge (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
     rw [dist_featureVec d hd, dist_featureVec d hd, (hφ G hG).2, (hφ H hH).2]
     exact hdist _ (featureVec_mem_normalizedSet hG) _ (featureVec_mem_normalizedSet hH)
 
+/-! ### Section B — `A26-0`: the extension layer, then the verdict
+
+The polarization identity on a distance-preserving map, the linear-isometry extension from a set to
+the whole space through a basis of its span, and the three conjuncts of the frozen statement — the
+affine extension, uniqueness on the affine hull only, and the instantiation at the normalized set
+with the set carried onto itself. The hypothesis on the map is distance preservation on the set and
+nothing else. -/
+
+section Extension
+
+variable {E : Type} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+
+/-- **Polarization on a distance-preserving map**: distances between points of `S` fix the real
+inner products of the differences from any base point of `S`. -/
+theorem inner_sub_eq_of_dist_eq {S : Set E} {f : E → E}
+    (hf : ∀ x ∈ S, ∀ y ∈ S, dist (f x) (f y) = dist x y)
+    {p x y : E} (hp : p ∈ S) (hx : x ∈ S) (hy : y ∈ S) :
+    ⟪f x - f p, f y - f p⟫_ℝ = ⟪x - p, y - p⟫_ℝ := by
+  rw [real_inner_eq_norm_mul_self_add_norm_mul_self_sub_norm_sub_mul_self_div_two,
+    real_inner_eq_norm_mul_self_add_norm_mul_self_sub_norm_sub_mul_self_div_two]
+  have h1 : ‖f x - f p‖ = ‖x - p‖ := by
+    rw [← dist_eq_norm, ← dist_eq_norm]; exact hf x hx p hp
+  have h2 : ‖f y - f p‖ = ‖y - p‖ := by
+    rw [← dist_eq_norm, ← dist_eq_norm]; exact hf y hy p hp
+  have h3 : ‖f x - f p - (f y - f p)‖ = ‖x - p - (y - p)‖ := by
+    rw [sub_sub_sub_cancel_right, sub_sub_sub_cancel_right, ← dist_eq_norm, ← dist_eq_norm]
+    exact hf x hx y hy
+  rw [h1, h2, h3]
+
+/-- **The linear-isometry extension**: a map of `E` preserving real inner products between points
+of a set `T` agrees on `T` with a linear isometric automorphism of `E`. No linearity, continuity or
+compactness is assumed; the map is only known on `T`. -/
+theorem exists_linearIsometryEquiv_of_inner_eq [FiniteDimensional ℝ E] (T : Set E) (φ : E → E)
+    (hφ : ∀ u ∈ T, ∀ v ∈ T, ⟪φ u, φ v⟫_ℝ = ⟪u, v⟫_ℝ) :
+    ∃ L : E ≃ₗᵢ[ℝ] E, ∀ u ∈ T, L u = φ u := by
+  obtain ⟨b, hbT, hspan, hli⟩ := exists_linearIndependent ℝ T
+  -- the span of the independent subset, with its basis
+  let W : Submodule ℝ E := Submodule.span ℝ (Set.range (Subtype.val : b → E))
+  have hWb : W = Submodule.span ℝ b := by
+    simp only [W, Subtype.range_val]
+  let B : Module.Basis b ℝ W := Module.Basis.span hli
+  have hB : ∀ i : b, ((B i : W) : E) = (i : E) := fun i =>
+    congrArg Subtype.val (Module.Basis.span_apply hli i)
+  -- the linear map on the span sending each basis vector to its image
+  let L₀ : W →ₗ[ℝ] E := B.constr ℝ (fun i : b => φ (i : E))
+  have hL₀ : ∀ i : b, L₀ (B i) = φ (i : E) := fun i => Module.Basis.constr_basis B ℝ _ i
+  -- inner products are preserved on the span: bilinear in each argument, checked on the basis
+  have hinner : ∀ x y : W, ⟪L₀ x, L₀ y⟫_ℝ = ⟪(x : E), (y : E)⟫_ℝ := by
+    let Bl : W →ₗ[ℝ] W →ₗ[ℝ] ℝ := LinearMap.mk₂ ℝ (fun x y : W => ⟪L₀ x, L₀ y⟫_ℝ)
+      (fun x₁ x₂ y => by rw [map_add, inner_add_left])
+      (fun c x y => by rw [map_smul, real_inner_smul_left, smul_eq_mul])
+      (fun x y₁ y₂ => by rw [map_add, inner_add_right])
+      (fun c x y => by rw [map_smul, real_inner_smul_right, smul_eq_mul])
+    let Bl' : W →ₗ[ℝ] W →ₗ[ℝ] ℝ := LinearMap.mk₂ ℝ (fun x y : W => ⟪(x : E), (y : E)⟫_ℝ)
+      (fun x₁ x₂ y => by rw [Submodule.coe_add, inner_add_left])
+      (fun c x y => by rw [Submodule.coe_smul, real_inner_smul_left, smul_eq_mul])
+      (fun x y₁ y₂ => by rw [Submodule.coe_add, inner_add_right])
+      (fun c x y => by rw [Submodule.coe_smul, real_inner_smul_right, smul_eq_mul])
+    have hBl : Bl = Bl' := by
+      refine LinearMap.ext_basis B B (fun i j => ?_)
+      simp only [Bl, Bl', LinearMap.mk₂_apply, hL₀, hB]
+      exact hφ _ (hbT i.2) _ (hbT j.2)
+    intro x y
+    have := LinearMap.congr_fun₂ hBl x y
+    simpa only [Bl, Bl', LinearMap.mk₂_apply] using this
+  -- the isometry on the span, its extension to `E`, and the automorphism
+  let li : W →ₗᵢ[ℝ] E := LinearMap.isometryOfInner L₀ hinner
+  let lext : E →ₗᵢ[ℝ] E := li.extend
+  let L : E ≃ₗᵢ[ℝ] E := lext.toLinearIsometryEquiv rfl
+  refine ⟨L, fun u hu => ?_⟩
+  -- `u` lies in the span
+  have huW : u ∈ W := by
+    rw [hWb, hspan]; exact Submodule.subset_span hu
+  have hLu : L u = L₀ ⟨u, huW⟩ := by
+    show lext.toLinearIsometryEquiv rfl u = L₀ ⟨u, huW⟩
+    rw [LinearIsometry.coe_toLinearIsometryEquiv]
+    exact li.extend_apply ⟨u, huW⟩
+  rw [hLu]
+  -- `L₀ ⟨u, _⟩ = φ u`: the two vectors have equal inner products against `φ u` and equal norms
+  have hcross : ⟪L₀ ⟨u, huW⟩, φ u⟫_ℝ = ⟪u, u⟫_ℝ := by
+    let ℓ₁ : W →ₗ[ℝ] ℝ := (innerₛₗ ℝ (φ u)).comp L₀
+    let ℓ₂ : W →ₗ[ℝ] ℝ := (innerₛₗ ℝ u).comp W.subtype
+    have hℓ : ℓ₁ = ℓ₂ := by
+      refine Module.Basis.ext B (fun i => ?_)
+      simp only [ℓ₁, ℓ₂, LinearMap.comp_apply, innerₛₗ_apply_apply, Submodule.subtype_apply, hL₀, hB]
+      rw [real_inner_comm, hφ _ (hbT i.2) _ hu, real_inner_comm]
+    have := LinearMap.congr_fun hℓ ⟨u, huW⟩
+    simp only [ℓ₁, ℓ₂, LinearMap.comp_apply, innerₛₗ_apply_apply, Submodule.subtype_apply] at this
+    rw [real_inner_comm]
+    exact this
+  have hnorm : ‖L₀ ⟨u, huW⟩ - φ u‖ ^ 2 = 0 := by
+    rw [norm_sub_sq_real, ← real_inner_self_eq_norm_sq, ← real_inner_self_eq_norm_sq, hinner,
+      hφ u hu u hu, hcross]
+    ring
+  have := pow_eq_zero_iff (n := 2) (by norm_num) |>.1 hnorm
+  exact sub_eq_zero.1 (norm_eq_zero.1 this)
+
+/-- **(i) the affine-isometry extension**: a map of `E` preserving distances between points of a
+set `S` agrees on `S` with an affine isometric automorphism of `E`. The hypothesis on the map is
+distance preservation on `S` and nothing else. -/
+theorem exists_affineIsometryEquiv_of_dist_eq [FiniteDimensional ℝ E] (S : Set E) (f : E → E)
+    (hf : ∀ x ∈ S, ∀ y ∈ S, dist (f x) (f y) = dist x y) :
+    ∃ g : E ≃ᵃⁱ[ℝ] E, ∀ x ∈ S, g x = f x := by
+  rcases S.eq_empty_or_nonempty with hS | ⟨p, hp⟩
+  · exact ⟨AffineIsometryEquiv.refl ℝ E, fun x hx => by rw [hS] at hx; exact absurd hx (Set.notMem_empty x)⟩
+  -- translate `p` to the origin on both sides; the translated map preserves inner products
+  let T : Set E := (fun x => x - p) '' S
+  let φ : E → E := fun v => f (v + p) - f p
+  have hφ : ∀ u ∈ T, ∀ v ∈ T, ⟪φ u, φ v⟫_ℝ = ⟪u, v⟫_ℝ := by
+    rintro _ ⟨x, hx, rfl⟩ _ ⟨y, hy, rfl⟩
+    simp only [φ, sub_add_cancel]
+    exact inner_sub_eq_of_dist_eq hf hp hx hy
+  obtain ⟨L, hL⟩ := exists_linearIsometryEquiv_of_inner_eq T φ hφ
+  -- the rigid motion `x ↦ L (x - p) + f p`
+  let g : E ≃ᵃⁱ[ℝ] E := (AffineIsometryEquiv.constVAdd ℝ E (-p)).trans
+    (L.toAffineIsometryEquiv.trans (AffineIsometryEquiv.constVAdd ℝ E (f p)))
+  refine ⟨g, fun x hx => ?_⟩
+  have hg : g x = f p + L (-p + x) := by
+    simp only [g, AffineIsometryEquiv.coe_trans, Function.comp_apply,
+      AffineIsometryEquiv.coe_constVAdd, LinearIsometryEquiv.coe_toAffineIsometryEquiv, vadd_eq_add]
+  rw [hg, neg_add_eq_sub, hL (x - p) ⟨x, hx, rfl⟩]
+  simp only [φ, sub_add_cancel, add_sub_cancel]
+
+/-- **(ii) uniqueness on the affine hull**: two affine maps agreeing with `f` on `S` agree on
+`affineSpan ℝ S`, and nothing is asserted off it. -/
+theorem eqOn_affineSpan_of_agree (S : Set E) (f : E → E) (g g' : E →ᵃ[ℝ] E)
+    (hg : ∀ x ∈ S, g x = f x) (hg' : ∀ x ∈ S, g' x = f x) :
+    ∀ x ∈ affineSpan ℝ S, g x = g' x :=
+  fun x hx => AffineMap.eqOn_affineSpan (fun y hy => by rw [hg y hy, hg' y hy]) hx
+
+/-- **(iii) the surjective case carries the set onto itself**: a surjective isometry of `S` in the
+sense of (D3) agrees on `S` with an affine isometric automorphism `g` of `E`, and `g '' S = S`. -/
+theorem exists_affineIsometryEquiv_of_isSurjIsometryOn [FiniteDimensional ℝ E] (S : Set E)
+    (f : E → E) (hf : IsSurjIsometryOn S f) :
+    ∃ g : E ≃ᵃⁱ[ℝ] E, (∀ x ∈ S, g x = f x) ∧ g '' S = S := by
+  obtain ⟨hinto, honto, hdist⟩ := hf
+  obtain ⟨g, hg⟩ := exists_affineIsometryEquiv_of_dist_eq S f hdist
+  refine ⟨g, hg, ?_⟩
+  rw [Set.image_congr hg]
+  ext y
+  constructor
+  · rintro ⟨x, hx, rfl⟩
+    exact hinto x hx
+  · intro hy
+    obtain ⟨x, hx, hfx⟩ := honto y hy
+    exact ⟨x, hx, hfx⟩
+
+end Extension
+
+/-! ### `A26-0` — the verdict: the restricted metric and the mandatory affine extension -/
+
+/-- **`A26-0`, the affine-extension theorem, three separate conjuncts.** (i) For every real
+inner-product space `E` with `[FiniteDimensional ℝ E]`, every `S : Set E` and every `f : E → E`
+preserving distances between points of `S`, there is `g : E ≃ᵃⁱ[ℝ] E` with `∀ x ∈ S, g x = f x`.
+(ii) Under the same hypotheses, any two affine maps `g g' : E →ᵃ[ℝ] E` agreeing with `f` on `S`
+agree on `affineSpan ℝ S`; uniqueness is asserted on the affine hull and nowhere else. (iii) The
+instantiation: for every `f` with `IsSurjIsometryOn (normalizedSet Γ₀) f` at `Γ₀ ≡ ¼`, there is
+`g` over the ambient space with its real structure with `∀ x ∈ normalizedSet Γ₀, g x = f x` and
+`g '' normalizedSet Γ₀ = normalizedSet Γ₀`. The hypothesis on `f` in (i) and (ii) is distance
+preservation on `S` and nothing else: no continuity, affinity, linearity, compactness of `S` or
+surjectivity of `f` enters. -/
+theorem a26_0_affine_extension :
+    (∀ (E : Type) [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E]
+        (S : Set E) (f : E → E), (∀ x ∈ S, ∀ y ∈ S, dist (f x) (f y) = dist x y) →
+        ∃ g : E ≃ᵃⁱ[ℝ] E, ∀ x ∈ S, g x = f x)
+    ∧ (∀ (E : Type) [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E]
+        (S : Set E) (f : E → E), (∀ x ∈ S, ∀ y ∈ S, dist (f x) (f y) = dist x y) →
+        ∀ g g' : E →ᵃ[ℝ] E, (∀ x ∈ S, g x = f x) → (∀ x ∈ S, g' x = f x) →
+        ∀ x ∈ affineSpan ℝ S, g x = g' x)
+    ∧ (∀ Γ₀ : Matrix (Fin 4) (Fin 4) ℝ, Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+        ∀ f : EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4))
+            → EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)),
+          IsSurjIsometryOn (normalizedSet Γ₀) f →
+          ∃ g : EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4))
+              ≃ᵃⁱ[ℝ] EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)),
+            (∀ x ∈ normalizedSet Γ₀, g x = f x) ∧ g '' normalizedSet Γ₀ = normalizedSet Γ₀) := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro E _ _ _ S f hf
+    exact exists_affineIsometryEquiv_of_dist_eq S f hf
+  · intro E _ _ _ S f _ g g' hg hg'
+    exact eqOn_affineSpan_of_agree S f g g' hg hg'
+  · intro Γ₀ _ f hf
+    exact exists_affineIsometryEquiv_of_isSurjIsometryOn (normalizedSet Γ₀) f hf
+
 /-! ### The axiom table — one line per named result, printed by the kernel -/
 
 #print axioms featureVec_ofLp
@@ -266,6 +458,12 @@ theorem tuple_isometry_of_bridge (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
 #print axioms featureVec_image_eq
 #print axioms bridge_of_tuple_isometry
 #print axioms tuple_isometry_of_bridge
+#print axioms inner_sub_eq_of_dist_eq
+#print axioms exists_linearIsometryEquiv_of_inner_eq
+#print axioms exists_affineIsometryEquiv_of_dist_eq
+#print axioms eqOn_affineSpan_of_agree
+#print axioms exists_affineIsometryEquiv_of_isSurjIsometryOn
+#print axioms a26_0_affine_extension
 
 end OrbitGeometryRigidity
 end OIBridge
