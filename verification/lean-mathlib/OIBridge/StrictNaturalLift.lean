@@ -309,5 +309,367 @@ theorem a27_shared_torsor
 #print axioms a27_shared_transport_eq
 #print axioms a27_shared_torsor
 
+/-!
+## A27-0
+
+The section below is the universal target, at the frozen configuration. The section indexed by
+classes and the exact-tuple witnesses are both chosen inside the proof.
+
+> **THE CLAUSE, carried at this mention — the A27-0 module section.**
+> Act 27 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts
+> none. A law that survives every condition this freeze names is a law that survives **those**
+> conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in
+> nature, **not** a finding that the programme requires it, and **not** an adoption of it as the
+> physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about
+> the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence
+> to add one more condition, or to widen one more equivalence, until a plurality becomes a point.
+> **No law gains physical status by surviving, no carrier and no principle is adopted as the physical
+> one, and nothing here derives, recognises or approaches quantum evolution.**
+-/
+
+theorem a27_0_strict_lift
+    (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)))
+    (f : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+    (hf : ∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (f G))
+    (hdesc : ∀ G G', RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ G' →
+      GramPhaseEquiv G G' → GramPhaseEquiv (f G) (f G')) :
+    ∃ (Φ₀ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+      (Ψ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ →
+        Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      (∀ G, RealizableGram (Fin 1) Γ₀ G → GramPhaseEquiv (Φ₀ G) (f G)) ∧
+      (∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (Φ₀ G)) ∧
+      (∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        FibreGram (0 : Fin 1) (Ψ U) = Φ₀ (FibreGram (0 : Fin 1) U)) ∧
+      (∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        AdmissibleDilationAt Γ₀ (0 : Fin 1) (Ψ U)) ∧
+      StrictNatural (0 : Fin 1) Ψ := by
+  classical
+  let T := Fin 4 → Matrix (Fin 4) (Fin 4) ℂ
+  let M := Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ
+  let R := {G : T // RealizableGram (Fin 1) Γ₀ G}
+  let s : Setoid R := {
+    r := fun G H => GramPhaseEquiv G.val H.val
+    iseqv := ⟨fun G => gramPhaseEquiv_refl G.val,
+      fun h => gramPhaseEquiv_symm h, fun h h' => gramPhaseEquiv_trans h h'⟩ }
+  let Q := Quotient s
+  choose S hS hSG using fun (ω : Q) =>
+    sh1_sufficiency (0 : Fin 1) (Quotient.out ω).property
+  let fbar : Q → Q := Quotient.lift
+    (fun G : R => Quotient.mk s (⟨f G.val, hf G.val G.property⟩ : R))
+    (fun G H h => Quotient.sound (hdesc G.val H.val G.property H.property h))
+  have hfbar (G : R) : fbar (Quotient.mk s G) =
+      Quotient.mk s (⟨f G.val, hf G.val G.property⟩ : R) := rfl
+  let q (U : M) (hU : AdmissibleDilationAt Γ₀ (0 : Fin 1) U) : Q :=
+    Quotient.mk s (⟨FibreGram (0 : Fin 1) U, sh1_necessity hU⟩ : R)
+  have hqS (ω : Q) : q (S ω) (hS ω) = ω := by
+    calc
+      q (S ω) (hS ω) = Quotient.mk s (Quotient.out ω) :=
+        congrArg (Quotient.mk s) (Subtype.ext (hSG ω))
+      _ = ω := Quotient.out_eq ω
+  have hdecomp (U : M) (hU : AdmissibleDilationAt Γ₀ (0 : Fin 1) U) :
+      ∃ D K : M, LeftFibreGroup D ∧ WeakAnchorStabilizer (0 : Fin 1) K ∧
+        U = D * S (q U hU) * K := by
+    apply (twoSided_slice_iff (hS (q U hU)).1 hU.1).mpr
+    exact Quotient.exact (hqS (q U hU))
+  choose D K hD hK hrepr using hdecomp
+  let Ψ : M → M := fun U => if hU : AdmissibleDilationAt Γ₀ (0 : Fin 1) U then
+    D U hU * S (fbar (q U hU)) * K U hU else U
+  have htransport (U : M) (hU : AdmissibleDilationAt Γ₀ (0 : Fin 1) U)
+      (ω : Q) (D₀ K₀ : M) (hD₀ : LeftFibreGroup D₀)
+      (hK₀ : WeakAnchorStabilizer (0 : Fin 1) K₀)
+      (hq : q U hU = ω) (he : U = D₀ * S ω * K₀) :
+      Ψ U = D₀ * S (fbar ω) * K₀ := by
+    have e := (hrepr U hU).symm.trans he
+    rw [hq] at e
+    dsimp only [Ψ]
+    rw [dif_pos hU, hq]
+    obtain ⟨z, hz, hDz, hKz⟩ :=
+      (a27_shared_torsor Γ₀ hΓ₀ (hS ω) (hD U hU) hD₀ (hK U hU) hK₀).mp e
+    have hn : z ≠ 0 := by intro hzero; simp [hzero] at hz
+    rw [hDz, hKz]
+    simp only [M, Matrix.smul_mul, Matrix.mul_smul, smul_smul, inv_mul_cancel₀ hn, one_smul]
+  have hΨ (U : M) (hU : AdmissibleDilationAt Γ₀ (0 : Fin 1) U) :
+      AdmissibleDilationAt Γ₀ (0 : Fin 1) (Ψ U) := by
+    dsimp only [Ψ]
+    rw [dif_pos hU]
+    exact weak_preserves_admissible
+      (left_preserves_admissible (hD U hU) (hS (fbar (q U hU)))) (hK U hU)
+  have hstrict : StrictNatural (0 : Fin 1) Ψ := by
+    constructor
+    · intro L U hL
+      by_cases hU : AdmissibleDilationAt Γ₀ (0 : Fin 1) U
+      · have hLU := left_preserves_admissible hL hU
+        have hq : q (L * U) hLU = q U hU := by
+          apply Quotient.sound
+          show GramPhaseEquiv (FibreGram (0 : Fin 1) (L * U)) (FibreGram (0 : Fin 1) U)
+          have he : FibreGram (0 : Fin 1) (L * U) = FibreGram (0 : Fin 1) U :=
+            funext fun i => fibreGram_left_mul hL (0 : Fin 1) U i
+          rw [he]
+          exact gramPhaseEquiv_refl _
+        calc
+          Ψ (L * U) = (L * D U hU) * S (fbar (q U hU)) * K U hU :=
+            htransport (L * U) hLU (q U hU) (L * D U hU) (K U hU)
+              (a27_shared_left_mul hL (hD U hU)) (hK U hU) hq
+              (by simpa only [M, Matrix.mul_assoc] using congrArg (fun X => L * X) (hrepr U hU))
+          _ = L * Ψ U := by simp only [Ψ, dif_pos hU, M, Matrix.mul_assoc]
+      · have hLU : ¬ AdmissibleDilationAt Γ₀ (0 : Fin 1) (L * U) :=
+          fun h => hU ((a27_shared_left_admissible_iff Γ₀ hΓ₀ hL U).mp h)
+        simp only [Ψ, dif_neg hU, dif_neg hLU]
+    · intro U K₀ hK₀
+      by_cases hU : AdmissibleDilationAt Γ₀ (0 : Fin 1) U
+      · have hUK := weak_preserves_admissible hU hK₀
+        have hq : q (U * K₀) hUK = q U hU := by
+          apply Quotient.sound
+          show GramPhaseEquiv (FibreGram (0 : Fin 1) (U * K₀)) (FibreGram (0 : Fin 1) U)
+          simpa only [Matrix.one_mul] using gramPhaseEquiv_symm
+            (gramPhaseEquiv_of_twoSided (U := U) one_leftFibreGroup hK₀)
+        calc
+          Ψ (U * K₀) = D U hU * S (fbar (q U hU)) * (K U hU * K₀) :=
+            htransport (U * K₀) hUK (q U hU) (D U hU) (K U hU * K₀)
+              (hD U hU) (weak_mul (hK U hU) hK₀) hq
+              (by simpa only [M, Matrix.mul_assoc] using congrArg (fun X => X * K₀) (hrepr U hU))
+          _ = Ψ U * K₀ := by simp only [Ψ, dif_pos hU, M, Matrix.mul_assoc]
+      · have hUK : ¬ AdmissibleDilationAt Γ₀ (0 : Fin 1) (U * K₀) :=
+          fun h => hU ((a27_shared_right_admissible_iff Γ₀ hΓ₀ hK₀ U).mp h)
+        simp only [Ψ, dif_neg hU, dif_neg hUK]
+  have hqΨ (U : M) (hU : AdmissibleDilationAt Γ₀ (0 : Fin 1) U) :
+      q (Ψ U) (hΨ U hU) = fbar (q U hU) := by
+    calc
+      q (Ψ U) (hΨ U hU) = q (S (fbar (q U hU))) (hS (fbar (q U hU))) := by
+        apply Quotient.sound
+        show GramPhaseEquiv (FibreGram (0 : Fin 1) (Ψ U))
+          (FibreGram (0 : Fin 1) (S (fbar (q U hU))))
+        simpa only [Ψ, dif_pos hU] using gramPhaseEquiv_symm
+          (gramPhaseEquiv_of_twoSided (U := S (fbar (q U hU))) (hD U hU) (hK U hU))
+      _ = fbar (q U hU) := hqS _
+  choose Uₜ hUₜ hGₜ using fun (G : T) (hG : RealizableGram (Fin 1) Γ₀ G) =>
+    sh1_sufficiency (0 : Fin 1) hG
+  let Φ₀ : T → T := fun G => if hG : RealizableGram (Fin 1) Γ₀ G then
+    FibreGram (0 : Fin 1) (Ψ (Uₜ G hG)) else G
+  refine ⟨Φ₀, Ψ, ?_, ?_, ?_, hΨ, hstrict⟩
+  · intro G hG
+    have hqU : q (Uₜ G hG) (hUₜ G hG) = Quotient.mk s (⟨G, hG⟩ : R) :=
+      congrArg (Quotient.mk s) (Subtype.ext (hGₜ G hG))
+    have he := hqΨ (Uₜ G hG) (hUₜ G hG)
+    rw [hqU, hfbar] at he
+    have hp : GramPhaseEquiv (FibreGram (0 : Fin 1) (Ψ (Uₜ G hG))) (f G) :=
+      Quotient.exact he
+    simpa only [Φ₀, dif_pos hG] using hp
+  · intro G hG
+    dsimp only [Φ₀]
+    rw [dif_pos hG]
+    exact sh1_necessity (hΨ (Uₜ G hG) (hUₜ G hG))
+  · intro U hU
+    have hF := sh1_necessity hU
+    obtain ⟨L, hL, he⟩ := a27_shared_same_gram Γ₀ hΓ₀ hU
+      (hUₜ (FibreGram (0 : Fin 1) U) hF) (hGₜ (FibreGram (0 : Fin 1) U) hF).symm
+    dsimp only [Φ₀]
+    rw [dif_pos hF, he, hstrict.1 L U hL]
+    exact (funext fun i => fibreGram_left_mul hL (0 : Fin 1) (Ψ U) i).symm
+
+#print axioms a27_0_strict_lift
+
+
+/-!
+## A27-H: four instantiations as class maps
+
+Each conclusion allows the tuple representative supplied by A27-0. No statement
+here asserts a strict lift of a specified tuple formula.
+
+> **THE CLAUSE, carried at this mention — the A27-H module section.**
+> Act 27 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts
+> none. A law that survives every condition this freeze names is a law that survives **those**
+> conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in
+> nature, **not** a finding that the programme requires it, and **not** an adoption of it as the
+> physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about
+> the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence
+> to add one more condition, or to widen one more equivalence, until a plurality becomes a point.
+> **No law gains physical status by surviving, no carrier and no principle is adopted as the physical
+> one, and nothing here derives, recognises or approaches quantum evolution.**
+-/
+
+theorem a27_h_relabel_lift
+    (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)))
+    (π τ : Equiv.Perm (Fin 4)) :
+    ∃ (Φ₀ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+      (Ψ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ →
+        Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      (∀ G, RealizableGram (Fin 1) Γ₀ G →
+        GramPhaseEquiv (Φ₀ G) (fun i => (G (π i)).submatrix τ τ)) ∧
+      (∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (Φ₀ G)) ∧
+      (∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        FibreGram (0 : Fin 1) (Ψ U) = Φ₀ (FibreGram (0 : Fin 1) U)) ∧
+      (∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        AdmissibleDilationAt Γ₀ (0 : Fin 1) (Ψ U)) ∧
+      StrictNatural (0 : Fin 1) Ψ := by
+  exact a27_0_strict_lift Γ₀ hΓ₀ (fun G i => (G (π i)).submatrix τ τ)
+    (fun G hG => relabel2_realizable Γ₀ (by intros; simp [hΓ₀]) π τ G hG)
+    (fun _ _ _ _ h => relabel2_gramPhaseEquiv π τ h)
+
+theorem a27_h_conj_lift
+    (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))) :
+    ∃ (Φ₀ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+      (Ψ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ →
+        Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      (∀ G, RealizableGram (Fin 1) Γ₀ G →
+        GramPhaseEquiv (Φ₀ G) (fun i => Matrix.of fun j k => star (G i j k))) ∧
+      (∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (Φ₀ G)) ∧
+      (∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        FibreGram (0 : Fin 1) (Ψ U) = Φ₀ (FibreGram (0 : Fin 1) U)) ∧
+      (∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        AdmissibleDilationAt Γ₀ (0 : Fin 1) (Ψ U)) ∧
+      StrictNatural (0 : Fin 1) Ψ := by
+  exact a27_0_strict_lift Γ₀ hΓ₀ (fun G i => Matrix.of fun j k => star (G i j k))
+    (fun G hG => OrbitGeometrySelector.realizable_conj Γ₀ G hG)
+    (fun _ _ _ _ h => OrbitGeometrySelector.conj_gramPhaseEquiv h)
+
+/-- The transpose class is independent of the exact-tuple witness. -/
+theorem a27_h_transpose_class
+    (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)))
+    {U U' : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ}
+    (hU : AdmissibleDilationAt Γ₀ (0 : Fin 1) U)
+    (hU' : AdmissibleDilationAt Γ₀ (0 : Fin 1) U')
+    (h : GramPhaseEquiv (FibreGram (0 : Fin 1) U) (FibreGram (0 : Fin 1) U')) :
+    GramPhaseEquiv (FibreGram (0 : Fin 1) Uᵀ) (FibreGram (0 : Fin 1) U'ᵀ) := by
+  obtain ⟨W, hW, hWG, hUW⟩ := transpose_descends (0 : Fin 1)
+    (fun y => Subsingleton.elim y 0) Γ₀ (0 : Fin 1) U hU (FibreGram (0 : Fin 1) U') h
+  exact gramPhaseEquiv_trans hUW (transpose_single_valued (0 : Fin 1)
+    (fun y => Subsingleton.elim y 0) Γ₀ (by intro i j; norm_num [hΓ₀])
+    (0 : Fin 1) W U' hW hU' hWG)
+
+theorem a27_h_transpose_lift
+    (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))) :
+    ∃ (Φ₀ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+      (Ψ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ →
+        Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      (∀ G (hG : RealizableGram (Fin 1) Γ₀ G), GramPhaseEquiv (Φ₀ G)
+        (FibreGram (0 : Fin 1) (Classical.choose (sh1_sufficiency (0 : Fin 1) hG))ᵀ)) ∧
+      (∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (Φ₀ G)) ∧
+      (∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        FibreGram (0 : Fin 1) (Ψ U) = Φ₀ (FibreGram (0 : Fin 1) U)) ∧
+      (∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        AdmissibleDilationAt Γ₀ (0 : Fin 1) (Ψ U)) ∧
+      StrictNatural (0 : Fin 1) Ψ := by
+  classical
+  let F : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) :=
+    fun G => if hG : RealizableGram (Fin 1) Γ₀ G then
+      FibreGram (0 : Fin 1) (Classical.choose (sh1_sufficiency (0 : Fin 1) hG))ᵀ else G
+  have hreal : ∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (F G) := by
+    intro G hG
+    dsimp only [F]
+    rw [dif_pos hG]
+    exact sh1_necessity (transpose_admissible (0 : Fin 1) (fun y => Subsingleton.elim y 0)
+      Γ₀ (by intro i j; simp [hΓ₀]) (0 : Fin 1) _
+      (Classical.choose_spec (sh1_sufficiency (0 : Fin 1) hG)).1)
+  have hdesc : ∀ G G', RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ G' →
+      GramPhaseEquiv G G' → GramPhaseEquiv (F G) (F G') := by
+    intro G G' hG hG' h
+    dsimp only [F]
+    rw [dif_pos hG, dif_pos hG']
+    apply a27_h_transpose_class Γ₀ hΓ₀
+      (Classical.choose_spec (sh1_sufficiency (0 : Fin 1) hG)).1
+      (Classical.choose_spec (sh1_sufficiency (0 : Fin 1) hG')).1
+    simpa only [(Classical.choose_spec (sh1_sufficiency (0 : Fin 1) hG)).2,
+      (Classical.choose_spec (sh1_sufficiency (0 : Fin 1) hG')).2] using h
+  obtain ⟨Φ₀, Ψ, hclass, hR, hE, hA, hN⟩ := a27_0_strict_lift Γ₀ hΓ₀ F hreal hdesc
+  refine ⟨Φ₀, Ψ, ?_, hR, hE, hA, hN⟩
+  intro G hG
+  simpa only [F, dif_pos hG] using hclass G hG
+
+theorem a27_h_transpose_conj_lift
+    (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))) :
+    ∃ (Φ₀ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+      (Ψ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ →
+        Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+      (∀ G (hG : RealizableGram (Fin 1) Γ₀ G), GramPhaseEquiv (Φ₀ G)
+        (FibreGram (0 : Fin 1) (Classical.choose (sh1_sufficiency (0 : Fin 1)
+          (OrbitGeometrySelector.realizable_conj Γ₀ G hG)))ᵀ)) ∧
+      (∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (Φ₀ G)) ∧
+      (∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        FibreGram (0 : Fin 1) (Ψ U) = Φ₀ (FibreGram (0 : Fin 1) U)) ∧
+      (∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        AdmissibleDilationAt Γ₀ (0 : Fin 1) (Ψ U)) ∧
+      StrictNatural (0 : Fin 1) Ψ := by
+  classical
+  let C : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) :=
+    fun G i => Matrix.of fun j k => star (G i j k)
+  let F : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) :=
+    fun G => if hG : RealizableGram (Fin 1) Γ₀ (C G) then
+      FibreGram (0 : Fin 1) (Classical.choose (sh1_sufficiency (0 : Fin 1) hG))ᵀ else C G
+  have hC (G) (hG : RealizableGram (Fin 1) Γ₀ G) : RealizableGram (Fin 1) Γ₀ (C G) :=
+    OrbitGeometrySelector.realizable_conj Γ₀ G hG
+  have hreal : ∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (F G) := by
+    intro G hG
+    dsimp only [F]
+    rw [dif_pos (hC G hG)]
+    exact sh1_necessity (transpose_admissible (0 : Fin 1) (fun y => Subsingleton.elim y 0)
+      Γ₀ (by intro i j; simp [hΓ₀]) (0 : Fin 1) _
+      (Classical.choose_spec (sh1_sufficiency (0 : Fin 1) (hC G hG))).1)
+  have hdesc : ∀ G G', RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ G' →
+      GramPhaseEquiv G G' → GramPhaseEquiv (F G) (F G') := by
+    intro G G' hG hG' h
+    dsimp only [F]
+    rw [dif_pos (hC G hG), dif_pos (hC G' hG')]
+    apply a27_h_transpose_class Γ₀ hΓ₀
+      (Classical.choose_spec (sh1_sufficiency (0 : Fin 1) (hC G hG))).1
+      (Classical.choose_spec (sh1_sufficiency (0 : Fin 1) (hC G' hG'))).1
+    simpa only [(Classical.choose_spec (sh1_sufficiency (0 : Fin 1) (hC G hG))).2,
+      (Classical.choose_spec (sh1_sufficiency (0 : Fin 1) (hC G' hG'))).2] using
+      OrbitGeometrySelector.conj_gramPhaseEquiv h
+  obtain ⟨Φ₀, Ψ, hclass, hR, hE, hA, hN⟩ := a27_0_strict_lift Γ₀ hΓ₀ F hreal hdesc
+  refine ⟨Φ₀, Ψ, ?_, hR, hE, hA, hN⟩
+  intro G hG
+  simpa only [F, dif_pos (hC G hG)] using hclass G hG
+
+#print axioms a27_h_relabel_lift
+#print axioms a27_h_conj_lift
+#print axioms a27_h_transpose_class
+#print axioms a27_h_transpose_lift
+#print axioms a27_h_transpose_conj_lift
+
+/-!
+## A27-T: the specified relabelling formula
+
+This conclusion concerns `StrictNatural` only. The given formula already has
+act 20's twisted-natural lift; no failure of `TwistedNatural` or L4n is asserted.
+The frozen witnesses are H(1), the phases (1, 1, 1, I), and coordinate (2, 2, 0).
+-/
+
+theorem a27_t_relabel_no_strict_lift
+    (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))) :
+    ¬ ∃ Ψ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ →
+        Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ,
+      StrictNatural (0 : Fin 1) Ψ ∧
+      ∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+        FibreGram (0 : Fin 1) (Ψ U) =
+          RelabelTransition (Equiv.swap (2 : Fin 4) 3) (FibreGram (0 : Fin 1) U) := by
+  classical
+  rintro ⟨Ψ, hN, hLift⟩
+  let U : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ := Matrix.of fun p q =>
+    (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1
+  have hU : AdmissibleDilationAt Γ₀ (0 : Fin 1) U :=
+    OrbitLawGaps.hadamard_z_admissible Γ₀ hΓ₀ (1 : ℂ) (by simp)
+  let c : Fin 4 → ℂ := ![1, 1, 1, Complex.I]
+  have hc : ∀ j, ‖c j‖ = 1 := by intro j; fin_cases j <;> simp [c]
+  let K : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ :=
+    Matrix.diagonal fun p => if p.2 = 0 then c p.1 else 1
+  have hK : WeakAnchorStabilizer (0 : Fin 1) K := (weak_diagonal_phase c hc).1
+  have hKcol : ∀ p j, K p (j, 0) = if p = (j, 0) then c j else 0 :=
+    (weak_diagonal_phase c hc).2
+  have hUK := weak_preserves_admissible hU hK
+  have he := congrArg (fun G => G (2 : Fin 4) 2 0) (hLift (U * K) hUK)
+  rw [hN.2 U K hK, fibreGram_mul_weak_apply hKcol, hLift U hU] at he
+  simp only [RelabelTransition, Matrix.submatrix_apply] at he
+  rw [fibreGram_mul_weak_apply hKcol] at he
+  change star (c 2) * FibreGram (0 : Fin 1) U 3 3 0 * c 0 =
+    star (c 3) * FibreGram (0 : Fin 1) U 3 3 0 * c 0 at he
+  rw [a27_shared_fibreGram_entry] at he
+  change star (1 : ℂ) * (star ((1 / 2 : ℂ) * 1) * ((1 / 2 : ℂ) * 1)) * 1 =
+    star Complex.I * (star ((1 / 2 : ℂ) * 1) * ((1 / 2 : ℂ) * 1)) * 1 at he
+  norm_num [Complex.ext_iff] at he
+
+#print axioms a27_t_relabel_no_strict_lift
+
+
 end StrictNaturalLift
 end OIBridge
