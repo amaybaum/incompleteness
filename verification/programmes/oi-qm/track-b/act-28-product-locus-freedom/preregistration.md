@@ -420,10 +420,10 @@ section above are cited in every case and re-proved in none.
 
 | target | prediction | strength | recorded reason |
 | --- | --- | --- | --- |
-| `A28-0` | `A28-0-UNDECIDED` | **medium** | the factored assignment is available on the literal product set, but three of the eight conjuncts — the two standing hypotheses and injectivity on classes — have no supplier in the record at this configuration, and the transport obligation of route step 2 is unpaid |
+| `A28-0` | `A28-0-UNDECIDED` | **medium** | the factored assignment is available on the literal product set, but three of the eight conjuncts — the two standing hypotheses and injectivity on classes — have no supplier in the record at this configuration, and the representative supply of route step 2 and the transport obligation of route step 3 are both unpaid |
 | `A28-S` | `A28-S-PROPER` | **low** | counting suggests more realizable classes than pairs of factor classes, but no counting argument is in hand, and the class-level statement is strictly stronger than any observation about literal product form |
 | `A28-1` | `A28-1-UNDECIDED` | **medium** | gated twice; and even under both gates the eight prefix conjuncts bind both laws off the locus, so room for disagreement is not implied by properness |
-| `A28-R` | `OBTAINED` | **high** | the diagonal of each factor is fixed by the visible family, so one factor's contribution can be collapsed |
+| `A28-R` | `A28-R-OBTAINED` | **high** | the first part is act 23's theorem, already proved; the second-factor analogue is the same argument with the factors exchanged, and each factor's diagonal is fixed at `1/4` by its own visible family |
 
 **`A28-0-EXTENDS` and `A28-0-RESTRICTS` are both allowed outcomes**, and an `UNDECIDED` prediction
 that is beaten by a decided outcome is recorded as beaten, with the measurement that settled it. A
@@ -483,8 +483,9 @@ prediction that misses is recorded as missed.
 
 ### The sub-questions
 
-`A28-S` is reported with one of its three labels and its statement; `A28-R` with `OBTAINED` or
-`NOT-OBTAINED`. **Neither enters the outcome vector and neither is a headline.**
+`A28-S` is reported with one of its three labels and its statement; `A28-R` with
+`A28-R-OBTAINED` or `A28-R-NOT-OBTAINED`, and in the latter case with which of its two parts
+failed. **Neither enters the outcome vector and neither is a headline.**
 
 ### The outcome-vector table — every admissible headline under the gate
 
