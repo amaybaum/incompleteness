@@ -1155,7 +1155,7 @@ Five candidates that a reader might expect here, with the reason each is absent:
   gap in the present equivalence chain; it returns to the queue if a central claim begins to depend
   on that explicit packaging.
 
-Absent means *adjudicated and set aside with a reason*, not overlooked. Any of the three returns to
+Absent means *adjudicated and set aside with a reason*, not overlooked. Any of the five returns to
 the queue if a live prediction starts depending on it.
 
 ## Declared inputs and conditional hypotheses — not silently counted as Lean gaps
