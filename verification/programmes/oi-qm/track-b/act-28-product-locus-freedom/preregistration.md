@@ -285,28 +285,50 @@ existing theorem supplies it.
 Reported `A28-S-PROPER`, `A28-S-NOT-PROPER` or `A28-S-UNDECIDED`. It enters no headline and gates
 `A28-1`.
 
-### `A28-1` — nonuniqueness off the locus (gated on `A28-0-EXTENDS` and `A28-S-PROPER`)
+### `A28-1` — nonuniqueness off the locus, at one pair FIXED IN ADVANCE (gated on `A28-0-EXTENDS` and `A28-S-PROPER`)
 
-**Existential, for one factor pair, frozen as such.** Not universal over the admitted pairs; a
-universal version is a question for a later round with its own freeze.
+**The pair is frozen here, before execution, and both alternatives of this target are scoped to
+it.** A target that chose its pair during execution could not be negated: uniqueness proved at a
+pair the execution selected would leave nonuniqueness open at every other pair, so the two
+alternatives would not partition anything. Fixing the pair in advance makes them exhaustive.
 
-The statement to be obtained:
+**The frozen pair `(f★₁, f★₂)`:** let `σ = Equiv.swap (2 : Fin 4) (3 : Fin 4)`. Then `f★₁` is the
+bijection of the single-carrier realizable class space induced by `RelabelTransition σ`, which is a
+bijection because `σ` is an involution and `Γ₀` is constant, hence invariant under relabelling; and
+`f★₂` is the identity bijection. This is a **nontrivial** pair, in the family of the positive
+control, and it is not the identity pair.
 
-> There exist a pair `f₁`, `f₂` of bijections as above, and transition families `Φ`, `Φ'` on
-> `Fin 4 × Fin 4`, such that **each** of `Φ` and `Φ'` satisfies all eight conjuncts of the full
-> prefix and factorization with families realizing that same pair `f₁`, `f₂`, and there is a tuple
-> `G` realizable at the product visible family whose class lies **outside** the locus of `A28-S`,
-> with `¬ GramPhaseEquiv (Φ 0 G) (Φ' 0 G)`.
+The statement to be obtained, at that pair and no other:
+
+> There exist transition families `Φ`, `Φ'` on `Fin 4 × Fin 4` such that **each** of `Φ` and `Φ'`
+> satisfies all eight conjuncts of the full prefix and factorization with families realizing the
+> frozen pair `(f★₁, f★₂)`, and there is a tuple `G` realizable at the product visible family whose
+> class lies **outside** the locus of `A28-S`, with `¬ GramPhaseEquiv (Φ 0 G) (Φ' 0 G)`.
+
+Time zero suffices as the witness index because conjunct 5 of the prefix makes both families
+time-homogeneous.
 
 **Properness alone does not establish this.** That a class lies off the locus says only that the
-factorization conjunct is silent there; the other seven conjuncts still bind both laws on it, and
+factorization conjunct is silent there; the eight prefix conjuncts still bind both laws on it, and
 whether they leave room for disagreement is exactly what the target asks.
 
-### `A28-R` — does a product tuple determine its factors? (sub-question, entering no label)
+### `A28-R` — factor recovery, AT THE LEVEL OF CLASSES (sub-question, entering no label)
 
-**If two pairs of tuples realizable at `Γ₀` have the same pointwise product, are the pairs equal?**
-Reported `OBTAINED` or `NOT-OBTAINED`. It enters no headline and gates nothing; it is recorded
-because `A28-0`'s route uses it if it holds.
+Equality of product tuples is **not** what the route needs. The route reads a product tuple up to
+`GramPhaseEquiv`, so what it needs is recovery of each factor's **class** from the product's class.
+Recorded as two parts, one already in the record and one an obligation:
+
+- **First factor — already proved, consumed and not re-derived.** Act 23's
+  `gramPhaseEquiv_fst_of_product`, at `verification/lean-mathlib/OIBridge/OrbitLawGaps.lean` line 76:
+  a phase equivalence of two product tuples whose second factors carry the same nonzero diagonal
+  entry at one index restricts to a phase equivalence of the first factors. At this configuration
+  the second factors' diagonal entry is `Γ₀ m m = 1/4`, which is nonzero, so the hypothesis is met.
+- **Second factor — an obligation of this round.** No analogue for the second factor exists at `D`;
+  the execution must prove it or record that it could not.
+
+Reported `A28-R-OBTAINED` when both parts are in hand, `A28-R-NOT-OBTAINED` otherwise, with which
+part failed. It enters no headline and gates nothing; it is recorded because `A28-0`'s route uses
+it.
 
 ### The correspondence with the owner's direction
 
@@ -318,7 +340,9 @@ because `A28-0`'s route uses it if it holds.
 | the full prefix explicit, including the standing hypotheses and gauge naturality | the prefix section, eight conjuncts, with the note that act 27 established neither standing hypothesis |
 | admission not false through a collapse | the quantifier restricted to bijections, with the reason recorded |
 | properness an obligation, at class level | `A28-S`, with the inadmissible argument named |
-| nonuniqueness existential, both laws carrying the same prefix and the same factor action | `A28-1`, frozen as existential |
+| nonuniqueness existential, both laws carrying the same prefix and the same factor action | `A28-1`, existential in the laws, at one pair fixed in advance so that both alternatives partition |
+| the route's class-level recovery and its representative gap | `A28-R`, in two parts; route steps 1 and 2 |
+| the route-authorization matrix supplied | the matrix following the route |
 | the representative-level distinction preserved | the prefix section, conjunct 8 existential in the lift; and the reconciliation below |
 | established positive and negative controls | the controls section |
 
@@ -358,21 +382,37 @@ Reasoning done **before** the freeze, by hand, with nothing executed. **It is no
 not evidence, and the execution is free to find it wrong and record that.**
 
 1. Setting the two right-hand carrier indices of a product tuple equal collapses one factor's
-   contribution to its diagonal, which the visible family fixes at `1/16`. That is the reading
-   behind `A28-R`: a product tuple may then determine each factor. If it does, the assignment
-   sending a product tuple to the product of the prescribed factor values is well defined on the
-   literal product set with no choice.
-2. The assignment must then be transported along `GramPhaseEquiv` to be defined on the locus of
-   classes, and that transport carries a well-definedness obligation on the stabilizer. This is
-   where the round can fail, and the freeze says so in advance.
-3. Off the locus the seven non-factorization conjuncts bind, and a law must be supplied there too.
-   Conjuncts 1, 2 and 6 are the expensive ones, and nothing in the record supplies them.
-4. If the obligations cannot be discharged, `A28-0` is `A28-0-UNDECIDED` and the round reports the
+   contribution to **that factor's** diagonal, which its own visible family fixes at
+   `Γ₀ m m = 1/4`. The **product's** diagonal is `1/16`, and the two are not the same number. This
+   is the reading behind `A28-R`, whose first part act 23 already supplies.
+2. **Class recovery is not representative supply.** The prescribed bijections `f₁`, `f₂` return
+   **classes**, not tuples. Even with `A28-R` in hand, defining a law requires a tuple in each
+   returned class, so the route still needs either a section of the class space or another means of
+   supplying representatives. **The earlier draft's claim that the assignment needs no choice was
+   wrong, and is withdrawn here rather than carried into execution.**
+3. The assignment must then be transported along `GramPhaseEquiv` to be defined on the locus of
+   classes, and that transport carries a well-definedness obligation on the stabilizer. Together
+   with step 2 this is where the round can fail, and the freeze says so in advance.
+4. Off the locus the eight prefix conjuncts bind, and a law must be supplied there too. Conjuncts
+   1, 2 and 6 are the expensive ones, and nothing in the record supplies them at this
+   configuration.
+5. If the obligations cannot be discharged, `A28-0` is `A28-0-UNDECIDED` and the round reports the
    step at which the proof stopped and what would settle it.
 
-**The route is authorized for `A28-0` only.** `A28-1` may consume `A28-0`'s construction and
-`A28-S`'s witness; `A28-R` may be consumed by both. Nothing else is authorized, and no verdict may
-be inferred from another.
+### The route-authorization matrix, FROZEN
+
+The execution reports this matrix as honoured, and the guard checks that it does. A consumption not
+in the "may consume" column is a deviation, recorded and not repaired.
+
+| target | may consume | may NOT consume | permitted work |
+| --- | --- | --- | --- |
+| `A28-R` | act 23's `gramPhaseEquiv_fst_of_product`; act 12's declarations | any target of this round | prove the second-factor analogue; nothing else |
+| `A28-S` | act 12's declarations; act 21's `product_realizable` and `product_cross`; `A28-R` | `A28-0`'s construction; `A28-1`'s witnesses | exhibit a realizable class and prove no representative of it is a pointwise product, or prove every realizable class has one; nothing else |
+| `A28-0` | `A28-R`; act 27's single-carrier lemmas **of a factor**; act 12's, act 18's, act 20's and act 21's declarations | `A28-S`; `A28-1`'s witnesses; act 22's and act 23's verdicts as premises | construct or refute the extension at the frozen configuration; nothing else |
+| `A28-1` | `A28-0`'s construction; `A28-S`'s witness class; `A28-R` | nothing further | exhibit two laws at the frozen pair and separate them off the locus, or prove they agree up to `GramPhaseEquiv` there; nothing else |
+
+**No verdict may be inferred from another beyond these consumptions**, and the controls of the
+section above are cited in every case and re-proved in none.
 
 ---
 
@@ -382,7 +422,7 @@ be inferred from another.
 | --- | --- | --- | --- |
 | `A28-0` | `A28-0-UNDECIDED` | **medium** | the factored assignment is available on the literal product set, but three of the eight conjuncts — the two standing hypotheses and injectivity on classes — have no supplier in the record at this configuration, and the transport obligation of route step 2 is unpaid |
 | `A28-S` | `A28-S-PROPER` | **low** | counting suggests more realizable classes than pairs of factor classes, but no counting argument is in hand, and the class-level statement is strictly stronger than any observation about literal product form |
-| `A28-1` | `A28-1-UNDECIDED` | **medium** | gated twice; and even under both gates the seven non-factorization conjuncts bind both laws off the locus, so room for disagreement is not implied by properness |
+| `A28-1` | `A28-1-UNDECIDED` | **medium** | gated twice; and even under both gates the eight prefix conjuncts bind both laws off the locus, so room for disagreement is not implied by properness |
 | `A28-R` | `OBTAINED` | **high** | the diagonal of each factor is fixed by the visible family, so one factor's contribution can be collapsed |
 
 **`A28-0-EXTENDS` and `A28-0-RESTRICTS` are both allowed outcomes**, and an `UNDECIDED` prediction
@@ -419,19 +459,22 @@ prediction that misses is recorded as missed.
 
 ### `A28-1-NONUNIQUE`
 
-> At the frozen product configuration, two exhibited transition families each satisfy the eight
-> prefix conjuncts and factorization with factor families realizing the same prescribed pair, and
-> disagree as maps of classes on an exhibited realizable class outside the product locus, at
-> evidence level 2. **This is a nonuniqueness statement about two exhibited laws. It does not say
-> that factorization is empty, has no content, or fails to restrict anything, and it is not the
-> label act 22 leaves unattempted.**
+> At the frozen product configuration, for the pair `(f★₁, f★₂)` frozen in advance, two exhibited
+> transition families each satisfy the eight prefix conjuncts and factorization with factor
+> families realizing that pair, and take `GramPhaseEquiv`-inequivalent values on an exhibited
+> realizable class outside the product locus, at evidence level 2. **This is a nonuniqueness
+> statement about two exhibited laws at that pair. It does not say that factorization is empty, has
+> no content, or fails to restrict anything, and it is not the label act 22 leaves unattempted.**
 
 ### `A28-1-UNIQUE`
 
-> At the frozen product configuration, any two transition families satisfying the eight prefix
-> conjuncts and factorization with factor families realizing the same prescribed pair agree as maps
-> of classes on every realizable class, at evidence level 2, for the pair named. This says nothing
-> about any other pair, any other configuration, and adopts nothing.
+> At the frozen product configuration, for the pair `(f★₁, f★₂)` frozen in advance, any two
+> transition families satisfying the eight prefix conjuncts and factorization with factor families
+> realizing that pair have `GramPhaseEquiv`-equivalent values on every tuple realizable at the
+> product visible family, at evidence level 2. The agreement asserted is agreement **up to
+> `GramPhaseEquiv`**, not equality of families, and it is asserted **for that pair alone**. This
+> says nothing about any other pair, says nothing about any other configuration, and adopts
+> nothing.
 
 ### `A28-1-UNDECIDED` / `A28-1-NOT-EXECUTED`
 
@@ -469,10 +512,12 @@ reached, and nothing else is written to that row.
   the factor families of a law carrying every condition of the ladder before it, so the condition's
   selecting power lies in what it forbids of a given law and not in which local behaviours it
   permits."
-- **Row 1 adds:** "Two such laws can disagree on a class away from the product inputs, so the
-  condition does not determine a law from its product inputs."
-- **Row 2 adds:** "For the pair named, two such laws agree everywhere, so the condition determines
-  the law from its product inputs there."
+- **Row 1 adds:** "For the local pair fixed in advance, two such laws can disagree on a class away
+  from the product inputs, so the condition does not fix a law's action there from its action on
+  product inputs."
+- **Row 2 adds:** "For the local pair fixed in advance, two such laws take equivalent values on
+  every realizable input, so for that pair the condition fixes the law's action up to the gauge
+  equivalence from its action on product inputs."
 - **Row 5:** "At the product configuration, factorization over independent systems restricts which
   pair of local class bijections can occur: an exhibited pair is the class action of the factor
   families of no law carrying every condition of the ladder before it."
@@ -518,7 +563,8 @@ names, endorses or excludes a selection principle."
 This round does not: define anything; restate, weaken or strengthen any rung; read any
 configuration but the one frozen; touch any existing manifest record; edit any closed round's
 guard; write any manuscript file; execute act 24's cell `b`; attempt act 22's `L5-FREE`; ask
-`A28-1` universally over the admitted pairs; or classify the product configuration's classes,
+`A28-1` at any pair but the one frozen in advance, and does not ask it universally over the
+admitted pairs; or classify the product configuration's classes,
 isometries or lifts.
 
 ### Deriving or recognising quantum evolution is EXPLICITLY OUT OF SCOPE
@@ -604,6 +650,11 @@ the record `verification/seals/PFR.json` from `P`, and **no constant**.
     admissible dilation's anchor column**; **the recorded reason for restricting the quantifier to
     bijections**; **the reconciliation with act 23, stating that an existence result leaves that
     verdict intact**; **the statement that properness alone does not establish nonuniqueness**;
+    **the frozen pair `(f★₁, f★₂)` named in both of `A28-1`'s alternatives, and in neither a pair
+    chosen during execution**; **the statement that `A28-1`'s agreement, where it is reported, is
+    agreement up to `GramPhaseEquiv` and not equality of families**; **`A28-R` reported in its two
+    parts, act 23's first-factor theorem cited and the second-factor analogue as this round's
+    obligation**;
     each target's label carried with its frozen sentence verbatim; `A28-S` and `A28-R` each with
     its label and statement; **the outcome vector, equal verbatim to one of the six rows of the
     table**; **the gate record**; **the statement that no verdict was inferred from another beyond
