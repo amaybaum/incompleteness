@@ -10113,7 +10113,7 @@ _SI2_STAGE1_ADDITIONS = {'SI1': {'round': 'SI1', 'kind': 'base-only',
 # round's preregistration authorizes, BY STEM. An authorized stem's record is validated by content by
 # U3; U5 only admits its presence. Declared here, outside both marker-bounded regions, under a name
 # that carries no round stem; the generic region reads it and nothing else about the round.
-_MANIFEST_BASELINE = {'base': 'd0fcdbc03c4b828d630f677253cf0914f451b63d', 'authorized': ('OGS',)}
+_MANIFEST_BASELINE = {'base': 'dd3bd2e726e0fb3bccd96df9c46a532119a9ee97', 'authorized': ('OGC',)}
 
 
 # ---- SI-3 (SI3-2, R2): THE PROSPECTIVE DECLARATION. A sealing round with no record yet declares
@@ -10122,7 +10122,7 @@ _MANIFEST_BASELINE = {'base': 'd0fcdbc03c4b828d630f677253cf0914f451b63d', 'autho
 # at its landing merge. The pin commit P REMOVES the entry when it writes the record; a stem that is
 # both declared and recorded is a failure. This is how a round carries its base while it runs
 # without writing the legacy representation SI-3 retires. Stem-free in its name, outside both regions.
-_MANIFEST_PROSPECTIVE = {}
+_MANIFEST_PROSPECTIVE = {'OGC': 'dd3bd2e726e0fb3bccd96df9c46a532119a9ee97'}
 
 # A value that is not a commit, not a hash and equal to nothing a record can hold, returned by the
 # accessor below where a record or a field is missing: every comparison and every git call made
@@ -25849,6 +25849,746 @@ check('R7-OGS', ok_ogs,
       "sentence VERBATIM in the ROADMAP after act 23's -- twenty-five mutation controls, the locating "
       "controls read from git at B, and this round's seal state read mode-aware from the prospective "
       "declaration or its record, never from a constant.")
+
+
+# ---- R7-OGC: Track B act 25 -- the orbit-geometry isometries, GATED: the normalized realizable quotient
+# and the finite family that acts on it (ISO1), the internal description of the realizable classes at the
+# single carrier (ISO2), the classification of the surjective isometries of the normalized space (ISO3)
+# and the prefix-constrained corollary (ISO4), four targets frozen together with a fixed execution order,
+# one verdict commit per executed target, a gate read between targets -- with the key hazard's form of it:
+# ISO3's route is run only if ISO2 classified internally -- a route-authorization matrix, a mechanically
+# checked outcome vector, act 12's equivalence, act 21's ladder and act 24's invariant family and geometry
+# consumed UNCHANGED, and a definition budget of ZERO: the module carries no declaration of any kind; the ISO1
+# verdict commit carries the universal normal-form theorem for every word in the generators,
+# `iso1_word_normal_form`, after a first execution attempt without it was ruled unlanded and the chronology
+# replayed from B. A SEALING round under A.37 through the MANIFEST PROTOCOL: its chronology verdict is the validator's
+# through ONE KEYED CALL on the stem OGC, its base is the prospective declaration during execution and
+# the record OGC.json from P, and NO CONSTANT. The freeze pins the one control-plane blob with a one-byte
+# drift control. What can go wrong in a gated round is the ORDER OF EVENTS and the READING: a verdict
+# revealed before its commit, a definition slipped into the module, the geometry's equation or a
+# generator's formula altered -- a relabelling with the permutation on one matrix index only, a transpose
+# taken of the tuple's fibres rather than of the dilation, a conjugation not entrywise, a Fourier core not
+# act 23's -- a verdict inferred from another target's, a universal label from a search, a classification
+# imported from the literature, a weaker domain substituted for the realizable quotient, ISO3's route run
+# without ISO2's label, the freeze's reading repaired to the kernel's values. So the guard re-runs the
+# ordering obligation MECHANICALLY from git on every head -- the stage-A commit the oldest on the
+# first-parent chain from B, the module absent there and present from the module commit on, no line
+# beginning with a declaration keyword at any commit from the module commit to the certified object, the
+# one import at every such commit, the geometry pinned to its equation in every statement that binds it,
+# every generator written by its frozen formula in every statement that names it, the transpose only of
+# a dilation, the Fourier core only act 23's, the verdict commits of the executed targets in the order
+# ISO1, ISO2, ISO3, each verdict theorem first present at its own verdict commit and absent before it, no
+# ISO4 theorem anywhere, and ISO3's route theorems present only under ISO2's opening label in the note --
+# with synthetic negatives; and it holds the result note to the freeze's distinctions: the shape, the
+# eight records with their SHAs, the FIVE attestation answers, every frozen status sentence for the
+# outcome reached with its naming line, the outcome vector equal VERBATIM to one row of the frozen table,
+# the gate record with the key hazard's rule reported, no verdict inferred beyond the placed consumptions,
+# no generator read as a symmetry, nothing imported and no domain substituted, THE CLAUSE at every mention
+# with its count, and the frozen P0 sentence present VERBATIM in the ROADMAP after act 24's.
+_OGCDIR = 'programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/'
+_OGC_B = 'dd3bd2e726e0fb3bccd96df9c46a532119a9ee97'   # the mandated execution base, the certified merge of #691
+_OGC_D = '17272da24e8d65a8d0e2417c6a451a1af3461258'   # the drafting snapshot, never the base
+_OGC_STAGEA = 'edbc1e15b887566e6776376e6d776563f0ad593e'
+_OGC_MODC = 'd431e86e914ee3ac2a1dc7831a805fea2e5acb1f'
+# the verdict commits of the EXECUTED targets, ISO1, ISO2, ISO3; ISO4 has none, the gate having closed on ISO3-UNDECIDED
+_OGC_VERDICT_COMMITS = ('c9d7683b301522106a6d3d08974dab3cbe58772c', 'c4ab120bb9a2dd312272012d0661b03e3ce54a3a',
+                        '13fbbd4ba07181033439dcd291965da2b0b29c55')
+_OGC_MODULE = 'verification/lean-mathlib/OIBridge/OrbitGeometryIsometries.lean'
+_OGC_SHARED = ('mixedTriple_relabel2', 'fibreGram_unique', 'mixedTriple_transpose', 'rows_phase',
+               'transpose_admissible', 'antipodal', 'dephase', 'fourier_entry_monomial')
+_OGC_VERDICT_NAMES = (
+    ('relabel2_realizable', 'relabel2_gramPhaseEquiv', 'relabel2_isometry', 'conj_isometry',
+     'transpose_single_valued', 'transpose_unitary', 'transpose_descends', 'transpose_isometry',
+     'relabel2_dilation', 'conj_dilation', 'conj_relabel2', 'relabel2_relabel2', 'iso1_word_normal_form',
+     'iso1_family_acts', 'iso1_single_carrier', 'iso1_product_carrier'),
+    ('row_forms', 'core_row_norm', 'perm_of_rows', 'rows_injective', 'core_nonreal', 'core_real',
+     'classify_dephased', 'iso2_classes_single'),
+    ('fourier_entry_uniform', 'fourier_coord_uniform', 'fourier_coord_diff_norm', 'fourier_circle_metric'))
+_OGC_RESULTS = _OGC_SHARED + sum(_OGC_VERDICT_NAMES, ())
+# the geometry's equation, act 24's, which every statement that binds a distance `d` must carry
+_OGC_GEOM = 'fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)'
+_OGC_IMPORT = 'import OIBridge.OrbitGeometrySelector\n'
+_OGC = open(_artifact(_OGCDIR + 'result.md'), encoding='utf-8').read()
+_OGC1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _OGC).split()).replace('’', "'")
+_OGCPRE = open(_artifact(_OGCDIR + 'preregistration.md'), encoding='utf-8').read().split('\n')
+_OGCLEAN_RAW = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                                 'OIBridge', 'OrbitGeometryIsometries.lean'), encoding='utf-8').read()
+_OGCWIRE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                             'OIBridge.lean'), encoding='utf-8').read()
+_OGCROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+_OGC_SRC = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+
+
+def _ogc_frozen(a, b):
+    """Lines a..b of the frozen preregistration (1-based, inclusive), block-quote markers stripped,
+    whitespace-normalized -- the same normalization the note is read under."""
+    return ' '.join(re.sub(r'(?m)^\s*>\s?', '', '\n'.join(_OGCPRE[a - 1:b])).split()).replace('’', "'")
+
+
+def _ogc_freeze_pin(read=_bb_read):
+    """N1 -- the frozen preregistration is byte-identical to the blob PR #691 merged."""
+    return _bb_blob(_OGCDIR + 'preregistration.md', read) == 'f4892f64e1667244fc262a01fb46b27f9b1ba1ba'
+
+
+def _ogc_execution_ancestry():
+    """N2 -- the chronology verdict is the validator's, keyed on the stem OGC: EXECUTION against the
+    prospective declaration while the round executes, LANDED-PENDING-PIN at L, ARCHIVED from P."""
+    return _si2_authority('OGC', tag='R7-OGC')
+
+
+def _ogc_git_text(*args):
+    r = _rbr_git(*args, tag='R7-OGC')
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout.decode('utf-8', 'replace')
+
+
+_OGC_DECL_RE = re.compile(r'(?m)^(def|abbrev|structure|class|instance|axiom|opaque)\b')
+
+
+def _ogc_statements(text):
+    """Each theorem's statement -- from its `theorem` line to the `:=` that opens its proof --
+    whitespace-normalized, with its name. The pins below read statements and never proofs."""
+    return [(m.group(1), ' '.join(m.group(2).split()))
+            for m in re.finditer(r'(?ms)^theorem ([A-Za-z0-9_]+)\b(.*?):=', text or '')]
+
+
+_OGC_DBIND_RE = re.compile(r'(?<![A-Za-z0-9_.₀-₉])d = ')
+
+
+def _ogc_geometry_pinned(text):
+    """Contract (c), the geometry: every statement that binds a distance `d` carries act 24's
+    equation, as the hypothesis `d = fun G H => ...` or the antecedent `d = (fun G H => ...) →`, and
+    every equation `d = ...` in any statement is that equation and no other."""
+    for _name, st in _ogc_statements(text):
+        if '(d : (' in st and ('d = %s' % _OGC_GEOM) not in st and ('d = (%s)' % _OGC_GEOM) not in st:
+            return False
+        for m in _OGC_DBIND_RE.finditer(st):
+            rest = st[m.end():]
+            if not (rest.startswith(_OGC_GEOM) or rest.startswith('(' + _OGC_GEOM + ')')):
+                return False
+    return True
+
+
+# (R): `fun i => (X (π i)).submatrix τ τ` -- one permutation on the fibre label, one on BOTH matrix
+# indices; the composed forms `(π.trans π')`, `(τ.trans τ')` and the primed pair are the same shape.
+_OGC_PERMS = r"π|τ|π'|τ'|\(π\.trans π'\)|\(τ\.trans τ'\)"
+_OGC_R_RE = re.compile(r"\((?:%s) i\)\)\.submatrix (%s) \1(?![\w'₀-₉])" % (_OGC_PERMS, _OGC_PERMS))
+# the relabelled DILATION, `U.submatrix (Prod.map π id) (Prod.map τ id)`, the one other submatrix a statement may take
+_OGC_DIL_RE = re.compile(r"U\.submatrix \(Prod\.map π id\) \(Prod\.map τ id\)")
+# (T): a transpose is taken of a dilation and of nothing else -- `U`, `U'`, `U''`, the relabelled or the conjugated dilation
+_OGC_T_RE = re.compile(r"(?:(?<![\w'])U'{0,2}|\(U\.submatrix \(Prod\.map π id\) \(Prod\.map τ id\)\)|\(U\.map star\))ᵀ")
+# act 23's Fourier core at a unit parameter, the only `!![` a statement may carry
+_OGC_CORE_RE = re.compile(r"!!\[1, 1, 1, 1; 1, (z|w|x|\(1 : ℂ\)|star z \* w), -1, -\(?\1\)?; 1, -1, 1, -1; 1, -\(?\1\)?, -1, \1\]")
+_OGC_HZ = 'Matrix.of (fun p q : Fin 4 × Fin 1 =>'
+_OGC_HZ_FULL = 'Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !!['
+
+
+# the freeze's second and fourth shapes conjugate a relabelled tuple entry by entry: `star ((X (π i)).submatrix τ τ j k)`
+_OGC_SHAPE_RE = re.compile(r"\(.+ \((?:%s) i\)\)\.submatrix (%s) \1 j k" % (_OGC_PERMS, _OGC_PERMS))
+
+
+def _ogc_conj_pinned(st):
+    """(C): every entrywise conjugation in a statement is `fun i => Matrix.of fun j k => star (X i j k)`
+    -- the `star` applied to the whole entry of the tuple `X`, fibre by fibre."""
+    key = 'Matrix.of fun j k => star ('
+    start = 0
+    while True:
+        i = st.find(key, start)
+        if i < 0:
+            return True
+        if st[max(0, i - 9):i] != 'fun i => ':
+            return False
+        depth, j = 1, i + len(key)
+        while j < len(st) and depth:
+            depth += {'(': 1, ')': -1}.get(st[j], 0)
+            j += 1
+        inner = st[i + len(key):j - 1]
+        if depth or not (inner.endswith(' i j k') or _OGC_SHAPE_RE.fullmatch(inner)):
+            return False
+        start = j
+
+
+def _ogc_generators_pinned(text):
+    """Contract (c), the generators: in every statement, every `.submatrix` is an independent
+    relabelling by its frozen formula or the relabelled dilation, every entrywise conjugation is by
+    its frozen formula, every transpose is of a dilation, and every `!![` is act 23's Fourier core
+    inside act 23's lambda where the lambda appears."""
+    for _name, st in _ogc_statements(text):
+        s = _OGC_DIL_RE.sub('§', _OGC_R_RE.sub('§', st))
+        if '.submatrix' in s or not _ogc_conj_pinned(st):
+            return False
+        if len(_OGC_T_RE.findall(st)) != st.count('ᵀ'):
+            return False
+        if len(_OGC_CORE_RE.findall(st)) != st.count('!![') or st.count(_OGC_HZ) != st.count(_OGC_HZ_FULL):
+            return False
+    return True
+
+
+_OGC_WORD_TOKENS = 'List ((Equiv.Perm V × Equiv.Perm V) ⊕ (Unit ⊕ Unit))'
+_OGC_WORD_STEPS = ('| Sum.inl ⟨π, τ⟩ => c (n + 1) = fun i => (c n (π i)).submatrix τ τ',
+                   '| Sum.inr (Sum.inl _) => c (n + 1) = fun i => Matrix.of fun j k => star (c n i j k)',
+                   '| Sum.inr (Sum.inr _) => ∃ U : Matrix (V × A) (V × A) ℂ, AdmissibleDilationAt Γ a₀ U ∧ FibreGram a₀ U = c n ∧ GramPhaseEquiv (c (n + 1)) (FibreGram a₀ Uᵀ)')
+_OGC_WORD_SHAPES = ('GramPhaseEquiv H (fun i => (G (π i)).submatrix τ τ)',
+                    'GramPhaseEquiv H (fun i => Matrix.of fun j k => star ((G (π i)).submatrix τ τ j k))',
+                    '(∀ U : Matrix (V × A) (V × A) ℂ, AdmissibleDilationAt Γ a₀ U → FibreGram a₀ U = G → GramPhaseEquiv H (fun i => (FibreGram a₀ Uᵀ (π i)).submatrix τ τ))',
+                    '(∀ U : Matrix (V × A) (V × A) ℂ, AdmissibleDilationAt Γ a₀ U → FibreGram a₀ U = G → GramPhaseEquiv H (fun i => Matrix.of fun j k => star ((FibreGram a₀ Uᵀ (π i)).submatrix τ τ j k)))')
+
+
+def _ogc_word_pinned(text):
+    """The universal normal-form theorem: `iso1_word_normal_form` quantifies over every list of
+    generator tokens, its chain realizes each token by its frozen formula, its start is realizable,
+    and its conclusion is the freeze's four-shape conclusion with the reached tuple in the place of
+    the image; and `iso1_family_acts` carries the same clause, over `W`, as a conjunct."""
+    sts = dict(_ogc_statements(text))
+    w, f = sts.get('iso1_word_normal_form'), sts.get('iso1_family_acts')
+    if w is None or f is None:
+        return False
+    ok = (('(w : %s)' % _OGC_WORD_TOKENS) in w and 'RealizableGram A Γ G' in w
+          and 'c 0 = G ∧ c w.length = H' in w and "match w[n]'hn with" in w
+          and all(x in w for x in _OGC_WORD_STEPS) and '∃ π τ : Equiv.Perm V,' in w
+          and all(x in w for x in _OGC_WORD_SHAPES))
+    fw = f.replace('Matrix (W × A) (W × A) ℂ', 'Matrix (V × A) (V × A) ℂ').replace('Equiv.Perm W', 'Equiv.Perm V')
+    return ok and ('(w : %s)' % _OGC_WORD_TOKENS) in fw and all(x in fw for x in _OGC_WORD_STEPS) \
+        and all(x in fw for x in _OGC_WORD_SHAPES)
+
+
+def _ogc_theorems(text):
+    return re.findall(r'(?m)^theorem ([A-Za-z0-9_]+)', text or '')
+
+
+def _ogc_module_ok(text):
+    """The budget of zero, the import and the pins, at one commit: no line beginning with a
+    declaration keyword, the one import first, no sorry, no native_decide, the geometry pinned in
+    every statement that binds it, every generator by its frozen formula."""
+    return (text is not None and not _OGC_DECL_RE.search(text) and text.startswith(_OGC_IMPORT)
+            and 'sorry' not in text and 'native_decide' not in text
+            and _ogc_geometry_pinned(text) and _ogc_generators_pinned(text))
+
+
+def _ogc_gate_from_note(t):
+    """Contract (f): the opening labels the result note carries, read from its gate record. ISO2 is
+    open only under ISO1-FAMILY-ACTS, ISO3's route only under ISO2-CLASSIFIED, ISO4 only under
+    ISO3-RIGID -- and this note records ISO4 closed."""
+    v = _OGC_VERDICT_COMMITS
+    return {2: '| `ISO2` | `ISO1-FAMILY-ACTS`, by `iso1_family_acts` at `%s` | **opened** |' % v[0][:12] in t,
+            3: '| `ISO3` | `ISO2-CLASSIFIED`, by `iso2_classes_single` at `%s` | **opened**: the route was run |' % v[1][:12] in t,
+            4: '| `ISO4` | `ISO3-RIGID`' in t}
+
+
+def _ogc_ordering_pred(chain, stagea, modc, verdicts, texts, gate):
+    """The ordering obligation, factored over the data so the negatives can drive it. `chain` is the
+    first-parent chain from the target back to (excluding) B, newest first; `texts` maps each commit
+    of the chain to the module's text there (None where absent); `gate` says which targets the note
+    opens. The stage-A commit is the oldest commit of the chain and carries no module; the module
+    commit is strictly newer, the first commit at which the module is present, and carries exactly
+    the eight shared lemmas and no verdict theorem; the verdict commits of the executed targets
+    follow it on the chain in the order ISO1, ISO2, ISO3, each the first commit at which its own
+    results are present, carrying nothing of a later target's; from the module commit to the head
+    every commit's module satisfies the budget, the import and the pins; the head carries exactly
+    the results of the executed targets and no ISO4 theorem; and a target's verdict commit, and
+    ISO3's route theorems, exist only under the opening label the note carries."""
+    if stagea not in chain or modc not in chain or chain[-1] != stagea:
+        return False
+    if any(v not in chain for v in verdicts) or len(set(verdicts)) != len(verdicts):
+        return False
+    im, ia = chain.index(modc), chain.index(stagea)
+    if im >= ia:
+        return False
+    if any(texts.get(c) is not None for c in chain[im + 1:]):
+        return False
+    if not all(_ogc_module_ok(texts.get(c)) for c in chain[:im + 1]):
+        return False
+    if _ogc_theorems(texts.get(modc)) != list(_OGC_SHARED):
+        return False
+    iv = [chain.index(v) for v in verdicts]
+    if not all(iv[k] < iv[k - 1] for k in range(1, len(iv))) or iv[0] >= im:
+        return False
+    for k, v in enumerate(verdicts):
+        older = chain[chain.index(v) + 1:]
+        here = _ogc_theorems(texts.get(v))
+        expected = list(_OGC_SHARED) + [n for ns in _OGC_VERDICT_NAMES[:k + 1] for n in ns]
+        if here != expected:
+            return False
+        if any(n in _ogc_theorems(texts.get(c)) for c in older for n in _OGC_VERDICT_NAMES[k]):
+            return False
+    head = _ogc_theorems(texts.get(chain[0]))
+    if head != list(_OGC_RESULTS) or any(n.startswith('iso4_') for n in head):
+        return False
+    if any(not _ogc_word_pinned(texts.get(c)) for c in chain[:chain.index(verdicts[0]) + 1]):
+        return False
+    # the gate: a verdict commit for ISO2 needs ISO1's label; ISO3's verdict commit and any route
+    # theorem need ISO2's label; ISO4 needs ISO3-RIGID, which this round did not reach
+    if len(verdicts) >= 2 and not gate[2]:
+        return False
+    if (len(verdicts) >= 3 or any(n in head for n in _OGC_VERDICT_NAMES[2])) and not gate[3]:
+        return False
+    if len(verdicts) >= 4 and not gate[4]:
+        return False
+    return True
+
+
+def _ogc_ordering():
+    """N3 -- the ordering obligation from git, against the certified object: the sealed head through
+    the manifest accessor once the round is recorded, the real target (pull_request.head.sha in PR
+    CI, HEAD otherwise) while it executes. Fail-closed throughout."""
+    sealed = _seal_field('OGC', 'sealed_head')
+    if sealed is not _SEAL_UNAVAILABLE:
+        target, num = sealed, None
+    else:
+        target, _label, num = _rbr_target_commit(tag='R7-OGC')
+        if target is None:
+            return False
+    if not _rbr_ensure_present(_OGC_B, tag='R7-OGC') or not _rbr_ensure_present(target, pr_number=num, tag='R7-OGC'):
+        return False
+    raw = _ogc_git_text('rev-list', '--first-parent', target, '^' + _OGC_B)
+    if raw is None:
+        return False
+    chain = raw.split()
+    if not chain:
+        return False
+    texts = {c: _ogc_git_text('show', '%s:%s' % (c, _OGC_MODULE))
+             for c in set(chain) | {_OGC_STAGEA, _OGC_MODC} | set(_OGC_VERDICT_COMMITS)}
+    gate = _ogc_gate_from_note(_OGC1)
+    ok = _ogc_ordering_pred(chain, _OGC_STAGEA, _OGC_MODC, _OGC_VERDICT_COMMITS, texts, gate)
+    print('    R7-OGC ordering: stage-A commit %s, module commit %s and verdict commits %s %s on the first-parent chain from %s to %s (%d commit(s)); module %s'
+          % (_OGC_STAGEA[:12], _OGC_MODC[:12], ', '.join(v[:12] for v in _OGC_VERDICT_COMMITS),
+             'in order' if ok else 'NOT as required', _OGC_B[:12], chain[0][:12], len(chain),
+             'carrying no declaration, importing act 24, the geometry and every generator pinned, each verdict theorem first present at its own verdict commit, ISO4 absent, the gate honoured' if ok else 'NOT certified'))
+    return ok, chain, texts, gate
+
+
+def _ogc_lean(t=None):
+    """N4 -- the budget of zero at the head: no declaration keyword, no sorry, no native_decide, no
+    added axiom; exactly the thirty-six named results in the freeze's order, each with its axiom
+    line; the one import; the geometry pinned everywhere it is bound; every generator pinned."""
+    raw = _OGCLEAN_RAW if t is None else t
+    printed = re.findall(r'(?m)^#print axioms ([A-Za-z0-9_]+)', raw)
+    return (_ogc_module_ok(raw) and _ogc_theorems(raw) == list(_OGC_RESULTS) and printed == list(_OGC_RESULTS)
+            and _ogc_word_pinned(raw))
+
+
+def _ogc_wired(t=None):
+    """N4 -- the module imported by the library root directly after act 24's."""
+    t = _OGCWIRE if t is None else t
+    return 'import OIBridge.OrbitGeometrySelector\nimport OIBridge.OrbitGeometryIsometries\n' in t
+
+
+def _ogc_shape(t=None):
+    """N5 -- the round's shape: sealing under the manifest, E -> L -> P, the record written by P and by
+    nothing before P, no legacy constant, no closed round's contract edited, the base blob verified
+    as the first act."""
+    t = _OGC1 if t is None else t
+    return ('**This is a SEALING round** under `AGENTS.md` `§A.37`, executed under the manifest protocol' in t
+            and 'it lands **`E` → `L` → `P`, with `P` mandatory**' in t
+            and '**`OGC.json` is absent at execution and is written by `P` and by nothing before `P`.**' in t
+            and 'That is a statement about this execution and stays true as one' in t
+            and '**No legacy seal constant is written**' in t
+            and '**No existing manifest record is altered**' in t
+            and '**No closed round\'s contract is edited**' in t
+            and '**The base-blob verification is recorded.**' in t
+            and 'returns `f4892f64e1667244fc262a01fb46b27f9b1ba1ba`' in t
+            and '**No manuscript file is written.**' in t)
+
+
+def _ogc_records(t=None):
+    """N6 -- the eight records: the chain with its five SHAs and ISO4's absence, the ordering
+    obligation and the anti-contamination invariant in the freeze's wording, the declaration table
+    with no definition, the module commit's eight lemmas, the three verdict commits with their
+    results, the immutability span, the quotient-geometry-family record, and the gate record with
+    the key hazard's rule."""
+    t = _OGC1 if t is None else t
+    v = _OGC_VERDICT_COMMITS
+    return (_ogc_frozen(1117, 1129) in t and _ogc_frozen(469, 471) in t
+            and '| 1 | `%s` | **stage A**' % _OGC_STAGEA in t
+            and '| 2 | `%s` | **the module commit**' % _OGC_MODC in t
+            and '| 3 | `%s` | `ISO1`: `iso1_family_acts`, `iso1_word_normal_form`' % v[0] in t
+            and '| 4 | `%s` | `ISO2`: `iso2_classes_single`' % v[1] in t
+            and '| 5 | `%s` | `ISO3`: `fourier_circle_metric`' % v[2] in t
+            and '**`ISO4` has no verdict commit**' in t
+            and '### 3.1 The declaration table (record 1)' in t
+            and '**This round\'s module carries no declaration of its own**' in t
+            and '**No rung was restated, no equivalence was widened, no generator was added or removed, no domain was substituted and nothing was imported.**' in t
+            and '**`%s`.** `git show --stat` lists one file' % _OGC_STAGEA in t
+            and '**`%s`**, the first commit at which the module is present.' % _OGC_MODC in t
+            and all('**`%s`**' % n in t for n in _OGC_SHARED)
+            and 'each a shared lemma and none a verdict' in t
+            and '### 3.4 The verdict commits (record 4)' in t
+            and all('| `ISO%d` | `%s` |' % (k + 1, v[k]) in t for k in range(3))
+            and '| `ISO4` | **none** | **none** — the gate did not open it |' in t
+            and 'Each verdict theorem first appears at its own verdict commit and at no earlier commit' in t
+            and '### 3.5 The immutability span (record 5)' in t and '**returns `0`**' in t
+            and '### 3.6 The quotient, geometry and family record (record 6)' in t
+            and '**The only equivalence used in any verdict is act 12\'s `GramPhaseEquiv`**' in t
+            and '**Every generator is written, in every theorem that names it, by its frozen formula**' in t
+            and '**No equivalence was introduced or widened, no generator was added or removed, no domain was substituted for the realizable quotient, and nothing was imported**' in t
+            and '### 3.8 The gate record (record 8)' in t
+            and '| `ISO2` | `ISO1-FAMILY-ACTS`, by `iso1_family_acts` at `%s` | **opened** | — |' % v[0][:12] in t
+            and '| `ISO3` | `ISO2-CLASSIFIED`, by `iso2_classes_single` at `%s` | **opened**: the route was run | **not applied** — `ISO2` classified internally, so the route was run |' % v[1][:12] in t
+            and '| `ISO4` | `ISO3-UNDECIDED`, the route having been run, at `%s` | **closed**: `ISO4-NOT-EXECUTED` | — |' % v[2][:12] in t)
+
+
+_OGC_SPANS = ('`B` → module commit', 'module commit → `ISO1`', '`ISO1` → `ISO2`', '`ISO2` → `ISO3`', '`ISO3` → `ISO4`')
+
+
+def _ogc_attestation(t=None):
+    """N7 -- the three answers as a table for each of the FIVE spans, each measuring what was newly
+    acquired in that span and so NO; the prior attempt's knowledge disclosed ONCE, before the first
+    span, as prior knowledge and not re-counted at any span; the partial-fact rule, the
+    freeze-supplied-facts list at every span, the history-integrity statement, and the defect line."""
+    t = _OGC1 if t is None else t
+    return ('answered as measurements at five boundaries (record 7)' in t
+            and all('#### The span %s | question | answer for the span %s |' % (s, s) in t for s in _OGC_SPANS)
+            and t.count('| **Q1 — INTENTIONAL** | **NO** |') == 5
+            and 'YES — DISCLOSED' not in t
+            and t.count("#### The prior attempt's knowledge, disclosed once and before the spans") == 1
+            and t.find("#### The prior attempt's knowledge, disclosed once and before the spans") < t.find('#### The span `B` → module commit')
+            and t.count("**Before this chain's first commit the executor already knew every target's outcome.**") == 1
+            and '**The span answers below measure what was newly acquired in each span and nothing else**' in t
+            and '**Knowledge acquired before a span is not acquired in it**' in t
+            and 'this disclosure does not cure it' in t
+            and '### 3.7.2 The first execution attempt, ruled unlanded' in t
+            and '**A first execution attempt preceded this chain and was ruled unlanded.**' in t
+            and '**No landing merge and no pin of that attempt was pushed**' in t
+            and t.count('| **Q2 — INCIDENTAL** | **NO** |') == 5
+            and t.count('| **Q3 — UNAIDED REASONING** | **NO** |') == 5
+            and t.count('**What the execution did in this span**') == 5
+            and t.count('**The freeze-supplied facts that were in front of the execution in this span**') == 5
+            and '**A PARTIAL fact counts for all three. There is no threshold below which a fact about the candidates does not count.**' in t
+            and '**No commit on this branch was amended, reset, rebased over, cherry-picked over or force-pushed away. There are no superseded SHAs.**' in t
+            and 'Before certification this execution absorbed no later `main`.' in t
+            and '**No execution defect is recorded on this chain; one hygiene item is disclosed.**' in t)
+
+
+def _ogc_verdicts(t=None):
+    """N8 -- every frozen status sentence for the outcome reached, carried verbatim with its naming
+    line where the freeze shapes one: ISO0-silent, ISO1-FAMILY-ACTS, ISO2-CLASSIFIED, ISO3-UNDECIDED
+    (the route having been run) and ISO4-NOT-EXECUTED once each; ISO1-R-UNDECIDED, ISO2-P UNDECIDED,
+    ISO3-L UNDECIDED, ISO3-P UNDECIDED and ISO4-P NOT-EXECUTED once each with their naming lines;
+    none of the other outcome sentences -- in particular not the key hazard's ISO3 sentence, whose
+    route was run, and not ISO3-RIGID or ISO3-NOT-RIGID; the two directions apart, nothing imported,
+    the three hypotheses, no linearity assumed, no inference beyond the placed consumptions, no
+    generator read as a symmetry, no classification imported, every earlier verdict unchanged."""
+    t = _OGC1 if t is None else t
+    return ('**Outcome reached: `ISO0`-silent.**' in t and t.count(_ogc_frozen(1297, 1307)) == 1
+            and '**`ISO0` is a type-P target and carries no evidence level.**' in t
+            and '**A search that finds a decision is a finding, and a search that does not is equally a finding.**' in t
+            and '**Outcome reached: `ISO1-FAMILY-ACTS`.**' in t and t.count(_ogc_frozen(1316, 1326)) == 1
+            and '**The transpose\'s totality, single-valuedness and descent are reported apart from its isometry**' in t
+            and '**The six relations are reported**' in t
+            and '**Every word in the generators reduces to one of the four shapes, kernel-checked by `iso1_word_normal_form`**' in t
+            and '**The accounting act 24 asked for, reported as a control and earning no label.**' in t
+            and t.count('**The frozen `ISO1-R-UNDECIDED` sentence.** ' + _ogc_frozen(1343, 1344)) == 1
+            and '**`ISO1-R` enters no label**' in t
+            and t.count('**No generator is read as a symmetry, an antiunitary map or a time reversal.**') >= 2
+            and '**Outcome reached: `ISO2-CLASSIFIED`.**' in t and t.count(_ogc_frozen(1349, 1355)) == 1
+            and '**The two directions are reported apart**' in t
+            and '**Every step was derived from the pinned blobs and nothing was imported**' in t
+            and t.count('**The frozen `ISO2-P` `UNDECIDED` sentence.** ' + _ogc_frozen(1367, 1370)) == 1
+            and '**`ISO2-P` enters no label.**' in t
+            and '**Outcome reached: `ISO3-UNDECIDED`, the route having been run.**' in t
+            and t.count(_ogc_frozen(1397, 1401)) == 1
+            and '**The route was run in the frozen order 1, 3, 2, with `ISO2`\'s description consumed**' in t
+            and '**The label is earned by the step not reached and by nothing else**' in t
+            and '**no isometry outside the family is exhibited, and the absence of a proof is not a counterexample**' in t
+            and '**The three hypotheses are the whole of what the classification would have assumed**' in t
+            and '**no linearity, affinity, continuity or compactness was assumed**' in t
+            and t.count('**The frozen `ISO3-L` `UNDECIDED` sentence.** ' + _ogc_frozen(1415, 1417)) == 1
+            and t.count('**The frozen `ISO3-P` `UNDECIDED` sentence.** ' + _ogc_frozen(1419, 1421)) == 1
+            and '**Outcome reached: `ISO4-NOT-EXECUTED`**, by the gate.' in t and t.count(_ogc_frozen(1444, 1445)) == 1
+            and t.count('**The frozen `ISO4-P` `NOT-EXECUTED` sentence.** ' + _ogc_frozen(1447, 1449)) == 1
+            and all(_ogc_frozen(a, b) not in t for a, b in ((1309, 1311), (1328, 1332), (1334, 1336), (1338, 1341),
+                                                          (1357, 1362), (1364, 1365), (1372, 1374), (1379, 1387),
+                                                          (1389, 1395), (1403, 1406), (1408, 1409), (1411, 1413),
+                                                          (1423, 1425), (1430, 1437), (1439, 1442)))
+            and t.count('**No verdict was inferred from another beyond the consumptions the freeze places.**') >= 2
+            and '**No theorem is attributed to the literature, no classification is imported and no weaker domain is substituted.**' in t
+            and t.count('**Every earlier act\'s historical verdicts stand unchanged**') >= 2
+            and '**No merged label is revised.** **A merged statement is not enlarged by being consumed.**' in t
+            and '**The route-authorization matrix is honoured**' in t
+            and '**The execution order `ISO1` → `ISO2` → `ISO3` → `ISO4` was followed**' in t)
+
+
+def _ogc_vector(t=None):
+    """N8b -- the outcome vector, stated exactly once and equal VERBATIM to one row of the frozen
+    table -- the row the verdicts and the gate compose, row 4 -- and to no paraphrase."""
+    t = _OGC1 if t is None else t
+    rows = [_ogc_frozen(n, n) for n in range(1460, 1466)]
+    cells = [r.split(' | ')[1].rstrip(' |') for r in rows]
+    heads = re.findall(r'\*\*Outcome vector:\*\*[^*]*?(?= \*\*|$)', t)
+    heads = [h.strip() for h in heads]
+    return (len(rows) == 6 and all(c.startswith('**Outcome vector:**') for c in cells)
+            and t.count('**Outcome vector:**') == 1 and len(heads) == 1
+            and heads[0] == cells[3]
+            and cells[3] == '**Outcome vector:** `ISO1-FAMILY-ACTS` · `ISO2-CLASSIFIED` · `ISO3-UNDECIDED` · `ISO4-NOT-EXECUTED`'
+            and '**The headline is row 4 of the freeze\'s outcome-vector table, verbatim.**' in t)
+
+
+def _ogc_clause(t=None):
+    """N9 -- THE CLAUSE, verbatim from the freeze, at every mention, with its count stated and
+    matching."""
+    t = _OGC1 if t is None else t
+    body = _ogc_frozen(1509, 1517)   # the COMPLETE clause, from "Act 25 classifies" on; line 1508 is the freeze's own naming line
+    heads = ('the headline', 'the classification, where the family is or is not all of the isometries', 'the section that states it')
+    return (body.startswith('Act 25 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none.')
+            and t.count(body) == 3 and '**THE CLAUSE is carried three times in this note**' in t
+            and t.count('**THE CLAUSE, carried at this mention —') == 3
+            and all(t.count('**THE CLAUSE, carried at this mention — %s.** %s' % (h, body)) == 1 for h in heads)
+            and '**No law is adopted, endorsed or given physical status by surviving, and the family and the normalized space are adopted as nothing**' in t)
+
+
+def _ogc_p0(t=None, road=None):
+    """N10 -- the frozen P0 sentence for Case A, present VERBATIM in the note and in the ROADMAP's P0
+    row after act 24's sentence, the row's label staying OPEN."""
+    t = _OGC1 if t is None else t
+    road = _OGCROAD if road is None else road
+    p0, p0_ogs = _ogc_frozen(1476, 1476), _ogs_frozen(1385, 1385)
+    return (p0.startswith('Act 25 tests, in one gated round with four separately frozen targets')
+            and p0 in t and p0 in road and p0_ogs in road and road.find(p0_ogs) < road.find(p0)
+            and '| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**' in road
+            and '**Case A** — `ISO0` silent, row 4 with the cells as predicted — is the case reached' in t
+            and 'none of the variable clauses replaced' in t)
+
+
+def _ogc_chronology(t=None):
+    """N11 -- the chronology claim names the property certified, the ten preconditions all PASS over
+    twenty-one rows, the empty supersession table honoured, the standing contract, the three
+    discrepancies recorded and not repaired, the budget of zero, and the scope sentence."""
+    t = _OGC1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside `B`\'s descendants**' in t
+            and 'through the validator\'s prospective path by the one keyed call `_si2_authority(\'OGC\', tag=\'R7-OGC\')`' in t
+            and t.count('| **PASS** —') == 10
+            and '### The ten preconditions, each at its scope, as the base check reported them at `M` and at `B`' in t
+            and 'twenty-six `frozen-blob` lines and twenty-one rows' in t
+            and '**The supersession table is empty and is honoured as empty**' in t
+            and '**`SI-3`\'s standing zero-legacy-statement contract holds at every head**' in t
+            and '**Three items are recorded. None is repaired, and the frozen document is not edited.**' in t
+            and '**No candidate discovered during execution was executed.** **No configuration was chosen after an outcome was known.** **No alternative witness was substituted for a named one.** **No target was executed out of order, and no verdict commit carries a later target\'s result.**' in t
+            and '**No start-state discrepancy arose**' in t and '**all ten pass**' in t
+            and '**The claim is scoped to the repository record.**' in t
+            and '**Zero slots were budgeted, and no definition was introduced.**' in t
+            and '**Thirty-six named results.**' in t
+            and t.count('| `[propext, Classical.choice, Quot.sound]` |') == 36)
+
+
+def _ogc_locating():
+    """N12 -- the locating controls and the frozen provenance, read from git and therefore stable at
+    every later head: the control-plane blob at B, act 24's and act 12's modules, act 24's and act
+    23's records and the ROADMAP at their pinned blobs at B, the seals tree at B, B's two parents,
+    D's two parents, the module absent at B, and the absence of every legacy form of this round's
+    state from the guard source."""
+    def blob(rev, path):
+        r = _ogc_git_text('rev-parse', '%s:%s' % (rev, path))
+        return (r or '').strip()
+    if not _rbr_ensure_present(_OGC_B, tag='R7-OGC'):
+        return False
+    parents = (_ogc_git_text('rev-list', '--parents', '-n', '1', _OGC_B) or '').split()
+    dparents = (_ogc_git_text('rev-list', '--parents', '-n', '1', _OGC_D) or '').split()
+    return (blob(_OGC_B, 'verification/' + _OGCDIR + 'preregistration.md') == 'f4892f64e1667244fc262a01fb46b27f9b1ba1ba'
+            and blob(_OGC_B, _OGS_MODULE) == 'ce9d1aa05dfdedfb5cac171cfe6379681942195f'
+            and blob(_OGC_B, 'verification/lean-mathlib/OIBridge/TwoSidedGauge.lean') == '4bba2040c33424fafbc6d31c0d63b86dff33691a'
+            and blob(_OGC_B, _OLG_MODULE) == '5ed0dad78d87314dfd9e1a8ec241f479ded1e3e1'
+            and blob(_OGC_B, 'verification/seals/OGS.json') == '5436e01852e9999483dd4aff9f605e47575b7415'
+            and blob(_OGC_B, 'verification/seals/OLG.json') == '8a058df23c07e2b7571672c039a5a7b4f911a339'
+            and blob(_OGC_B, 'verification/ROADMAP.md') == 'fb5a9df14952d24217d677677c6562c4eac562ed'
+            and blob(_OGC_B, 'verification/seals') == 'ffb92daab9ea2f3d64c47b9c73e4b9c3466b763f'
+            and blob(_OGC_B, _OGC_MODULE) == ''
+            and parents == [_OGC_B, _OGC_D, 'a6cb0c41acbe790b2f566faa56c9149f3d5e107e']
+            and dparents == [_OGC_D, 'd0fcdbc03c4b828d630f677253cf0914f451b63d', 'be18e9eb49384828efeedf4838756ea802cce342']
+            and not re.search(r'_OGC_(BASE|SEALED_HEAD|MERGE)\b', _OGC_SRC)
+            and "_si2_authority('OGC', tag='R7-OGC')" in _OGC_SRC)
+
+
+def _ogc_declarations():
+    """N13 -- this round's seal state, mode-aware: while executing, the prospective declaration names
+    B and the declared baseline is B with OGC the one authorized addition and no record exists;
+    from P, no declaration and a sealed record whose base is B. A stem both declared and recorded
+    is the validator's own failure and is not re-decided here."""
+    recs, errs = _si1_load()
+    declared, recorded = 'OGC' in _MANIFEST_PROSPECTIVE, 'OGC' in recs
+    if errs or declared == recorded:
+        return False
+    if declared:
+        return (_MANIFEST_BASELINE == {'base': _OGC_B, 'authorized': ('OGC',)}
+                and _MANIFEST_PROSPECTIVE['OGC'] == _OGC_B)
+    return recs['OGC'].get('kind') == 'sealed' and recs['OGC'].get('base') == _OGC_B
+
+
+ok_ogc = True
+ok_ogc &= _ogc_freeze_pin()
+# the drift control: one byte appended to the frozen file, every other file read normally
+def _ogc_drift(path):
+    return _bb_read(path) + (b'\n' if path == _OGCDIR + 'preregistration.md' else b'')
+ok_ogc &= _ogc_drift(_OGCDIR + 'preregistration.md') != _bb_read(_OGCDIR + 'preregistration.md') and not _ogc_freeze_pin(_ogc_drift)
+ok_ogc &= _ogc_execution_ancestry()
+_ogc_ord = _ogc_ordering()
+if _ogc_ord is False:
+    ok_ogc = False
+    _ogc_chain, _ogc_texts, _ogc_gate = [], {}, {}
+else:
+    _ogc_ok3, _ogc_chain, _ogc_texts, _ogc_gate = _ogc_ord
+    ok_ogc &= _ogc_ok3
+    _V = _OGC_VERDICT_COMMITS
+    _P = (_ogc_chain, _OGC_STAGEA, _OGC_MODC, _V)
+    # negative (a): a fabricated SHA off the chain fails, for the stage-A, the module or a verdict commit
+    ok_ogc &= not _ogc_ordering_pred(_ogc_chain, '0' * 40, _OGC_MODC, _V, _ogc_texts, _ogc_gate)
+    ok_ogc &= not _ogc_ordering_pred(_ogc_chain, _OGC_STAGEA, '1' * 40, _V, _ogc_texts, _ogc_gate)
+    ok_ogc &= not _ogc_ordering_pred(_ogc_chain, _OGC_STAGEA, _OGC_MODC, (_V[0], '2' * 40, _V[2]), _ogc_texts, _ogc_gate)
+    # negative (b): the verdict commits out of order fail
+    ok_ogc &= not _ogc_ordering_pred(_ogc_chain, _OGC_STAGEA, _OGC_MODC, (_V[1], _V[0], _V[2]), _ogc_texts, _ogc_gate)
+    # negative (c): a definition at the head fails, on synthetic text
+    _ogc_t2 = dict(_ogc_texts)
+    _ogc_t2[_ogc_chain[0]] = (_ogc_texts.get(_ogc_chain[0]) or '') + '\ndef synthetic : Nat := 0\n'
+    ok_ogc &= not _ogc_ordering_pred(*_P, _ogc_t2, _ogc_gate)
+    # negative (c'): the geometry's equation altered in one statement fails, on synthetic text
+    _ogc_t2b = dict(_ogc_texts)
+    _ogc_t2b[_ogc_chain[0]] = (_ogc_texts.get(_ogc_chain[0]) or '').replace('mixedTriple H p‖ ^ 2)) →', 'mixedTriple H p‖ ^ 3)) →', 1)
+    ok_ogc &= _ogc_t2b[_ogc_chain[0]] != _ogc_texts.get(_ogc_chain[0]) and not _ogc_ordering_pred(*_P, _ogc_t2b, _ogc_gate)
+    # negative (c''): a generator's formula altered at the head fails -- the relabelling with the permutation on one matrix index only
+    _ogc_t2c = dict(_ogc_texts)
+    _ogc_t2c[_ogc_chain[0]] = (_ogc_texts.get(_ogc_chain[0]) or '').replace('(H (π i)).submatrix τ τ) = d G H', '(H (π i)).submatrix τ π) = d G H', 1)
+    ok_ogc &= _ogc_t2c[_ogc_chain[0]] != _ogc_texts.get(_ogc_chain[0]) and not _ogc_ordering_pred(*_P, _ogc_t2c, _ogc_gate)
+    # negative (c'''): the transpose taken of the tuple's fibres rather than of the dilation fails
+    _ogc_t2d = dict(_ogc_texts)
+    _ogc_t2d[_ogc_chain[0]] = (_ogc_texts.get(_ogc_chain[0]) or '').replace('GramPhaseEquiv (FibreGram a₀ Uᵀ) (FibreGram a₀ U\'ᵀ) := by', 'GramPhaseEquiv (fun i => (FibreGram a₀ U i)ᵀ) (FibreGram a₀ U\'ᵀ) := by', 1)
+    ok_ogc &= _ogc_t2d[_ogc_chain[0]] != _ogc_texts.get(_ogc_chain[0]) and not _ogc_ordering_pred(*_P, _ogc_t2d, _ogc_gate)
+    # negative (e): a verdict theorem inserted into the module commit's text fails, on synthetic text
+    _ogc_t4 = dict(_ogc_texts)
+    _ogc_t4[_OGC_MODC] = (_ogc_texts.get(_OGC_MODC) or '') + '\ntheorem iso1_family_acts : True := trivial\n'
+    ok_ogc &= not _ogc_ordering_pred(*_P, _ogc_t4, _ogc_gate)
+    # negative (f): ISO3's route theorems present while the note does not carry ISO2's opening label fails
+    ok_ogc &= _ogc_gate.get(3) is True and not _ogc_ordering_pred(*_P, _ogc_texts, {**_ogc_gate, 3: False})
+    # negative (f'): an ISO4 theorem at the head fails, the gate having closed
+    _ogc_t5 = dict(_ogc_texts)
+    _ogc_t5[_ogc_chain[0]] = (_ogc_texts.get(_ogc_chain[0]) or '') + '\ntheorem iso4_prefix_isometry_single : True := trivial\n'
+    ok_ogc &= not _ogc_ordering_pred(*_P, _ogc_t5, _ogc_gate)
+ok_ogc &= _ogc_lean()
+ok_ogc &= _ogc_wired()
+ok_ogc &= _ogc_shape()
+ok_ogc &= _ogc_records()
+ok_ogc &= _ogc_attestation()
+ok_ogc &= _ogc_verdicts()
+ok_ogc &= _ogc_vector()
+ok_ogc &= _ogc_clause()
+ok_ogc &= _ogc_p0()
+ok_ogc &= _ogc_chronology()
+ok_ogc &= _ogc_locating()
+ok_ogc &= _ogc_declarations()
+ok_ogc &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+
+# mutation controls on the content contracts -- each the exact failure the contract exists to catch
+_ogc_m1 = _OGC1.replace('**No generator is read as a symmetry, an antiunitary map or a time reversal.**', 'The conjugation is the antiunitary case and the transpose is time reversal.')
+ok_ogc &= _ogc_m1 != _OGC1 and not _ogc_verdicts(_ogc_m1)                       # a generator read as a symmetry
+_ogc_m2 = _OGC1.replace('**No verdict was inferred from another beyond the consumptions the freeze places.**', 'The `ISO3` verdict follows from the `ISO2` verdict.')
+ok_ogc &= _ogc_m2 != _OGC1 and not _ogc_verdicts(_ogc_m2)                       # a verdict inferred from another
+_ogc_m3 = _OGC1.replace('**The label is earned by the step not reached and by nothing else**', 'The family is complete because no other isometry was found')
+ok_ogc &= _ogc_m3 != _OGC1 and not _ogc_verdicts(_ogc_m3)                       # completeness from a search
+_ogc_m4 = _OGC1.replace('**Every earlier act\'s historical verdicts stand unchanged**', 'Act 24\'s cell `b` is now closed and act 21\'s `L-FAMILY` obstruction is removed')
+ok_ogc &= _ogc_m4 != _OGC1 and not _ogc_verdicts(_ogc_m4)                       # a merged verdict rewritten
+_ogc_m5 = _OGC1.replace('| **Q3 — UNAIDED REASONING** | **NO** |', '| **Q3 — UNAIDED REASONING** | not applicable |', 1)
+ok_ogc &= _ogc_m5 != _OGC1 and not _ogc_attestation(_ogc_m5)                    # one of the five attestation answers evaded
+_ogc_m5c = _OGC1.replace("#### The prior attempt's knowledge, disclosed once and before the spans **Before this chain's first commit the executor already knew every target's outcome.**", '')
+ok_ogc &= _ogc_m5c != _OGC1 and not _ogc_attestation(_ogc_m5c)                  # the prior attempt's knowledge not disclosed
+_ogc_m5e = _OGC1.replace('| **Q1 — INTENTIONAL** | **NO** |', '| **Q1 — INTENTIONAL** | **YES — DISCLOSED** |', 1)
+ok_ogc &= _ogc_m5e != _OGC1 and not _ogc_attestation(_ogc_m5e)                  # prior knowledge re-counted as acquired in a span
+_ogc_m5d = _OGC1.replace('**Every word in the generators reduces to one of the four shapes, kernel-checked by `iso1_word_normal_form`**', 'Every word reduces to one of the four shapes, by the six relations')
+ok_ogc &= _ogc_m5d != _OGC1 and not _ogc_verdicts(_ogc_m5d)                     # the normal form claimed from the relations alone
+_ogc_m5b = _OGC1.replace('#### The span `ISO2` → `ISO3` | question | answer for the span `ISO2` → `ISO3` |', '#### The span `ISO2` → `ISO3` | question | answer |')
+ok_ogc &= _ogc_m5b != _OGC1 and not _ogc_attestation(_ogc_m5b)                  # a span's table detached from its span
+_ogc_m6 = _OGC1.replace('**THE CLAUSE is carried three times in this note**', '**THE CLAUSE is carried four times in this note**')
+ok_ogc &= _ogc_m6 != _OGC1 and not _ogc_clause(_ogc_m6)                         # the count misstated
+_ogc_m6b = _OGC1.replace('Act 25 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none. ', '')
+ok_ogc &= _ogc_m6b != _OGC1 and not _ogc_clause(_ogc_m6b)                       # the opening sentence dropped from every carriage
+_ogc_m7 = _OGC1.replace('**`%s`**, the first commit at which the module is present.' % _OGC_MODC,
+                        '**`%s`**, the first commit at which the module is present.' % ('0' * 40))
+ok_ogc &= _ogc_m7 != _OGC1 and not _ogc_records(_ogc_m7)                        # a fabricated module-commit SHA in the note
+_ogc_m7b = _OGC1.replace('| 4 | `%s` | `ISO2`: `iso2_classes_single`' % _OGC_VERDICT_COMMITS[1],
+                         '| 4 | `%s` | `ISO2`: `iso2_classes_single`' % ('3' * 40))
+ok_ogc &= _ogc_m7b != _OGC1 and not _ogc_records(_ogc_m7b)                      # a fabricated verdict-commit SHA in the note
+_ogc_m7c = _OGC1.replace('| `ISO3` | `ISO2-CLASSIFIED`, by `iso2_classes_single` at `%s` | **opened**: the route was run | **not applied** — `ISO2` classified internally, so the route was run |' % _OGC_VERDICT_COMMITS[1][:12],
+                         '| `ISO3` | `ISO2-UNDECIDED` | **opened**: the route was run | **not applied** |')
+ok_ogc &= _ogc_m7c != _OGC1 and not _ogc_records(_ogc_m7c) and not _ogc_gate_from_note(_ogc_m7c)[3]   # ISO3's route opened on a label that does not open it
+_ogc_m8 = _OGC1.replace('**Three items are recorded. None is repaired, and the frozen document is not edited.**',
+                        'The freeze\'s reading was corrected to the kernel\'s composition order and phases.')
+ok_ogc &= _ogc_m8 != _OGC1 and not _ogc_chronology(_ogc_m8)                     # the freeze repaired
+_ogc_m9 = _OGC1.replace(_ogc_frozen(1397, 1401), 'Every surjective isometry of the normalized space at the single-carrier configuration belongs to the finite family.')
+ok_ogc &= _ogc_m9 != _OGC1 and not _ogc_verdicts(_ogc_m9)                       # the frozen ISO3 sentence replaced by the rigidity claim
+_ogc_m9b = _OGC1.replace(_ogc_frozen(1397, 1401), _ogc_frozen(1403, 1406))
+ok_ogc &= _ogc_m9b != _OGC1 and not _ogc_verdicts(_ogc_m9b)                     # the key hazard's sentence carried for a route that was run
+_ogc_m9c = _OGC1.replace('**The two directions are reported apart**', 'The classification is known, by Haagerup, and is consumed')
+ok_ogc &= _ogc_m9c != _OGC1 and not _ogc_verdicts(_ogc_m9c)                     # the description attributed to the literature
+_ogc_m9d = _OGC1.replace('**Every step was derived from the pinned blobs and nothing was imported**', 'The classification of complex Hadamard matrices of order four is imported as a step')
+ok_ogc &= _ogc_m9d != _OGC1 and not _ogc_verdicts(_ogc_m9d)                     # a step imported
+_ogc_m9e = _OGC1.replace('**no linearity, affinity, continuity or compactness was assumed**', 'every isometry is affine by Mazur–Ulam')
+ok_ogc &= _ogc_m9e != _OGC1 and not _ogc_verdicts(_ogc_m9e)                     # linearity assumed
+_ogc_m10 = _OGC1.replace('`ISO1-FAMILY-ACTS` · `ISO2-CLASSIFIED` · `ISO3-UNDECIDED` · `ISO4-NOT-EXECUTED`', '`ISO-CLASSIFIED`', 1)
+ok_ogc &= _ogc_m10 != _OGC1 and not _ogc_vector(_ogc_m10)                       # a summary label in the headline
+_ogc_m10b = _OGC1 + ' **Outcome vector:** `ISO1-FAMILY-ACTS` · `ISO2-CLASSIFIED` · `ISO3-UNDECIDED` · `ISO4-NOT-EXECUTED`'
+ok_ogc &= not _ogc_vector(_ogc_m10b)                                            # the headline stated twice
+_ogc_m10c = _OGC1.replace('`ISO1-FAMILY-ACTS` · `ISO2-CLASSIFIED` · `ISO3-UNDECIDED` · `ISO4-NOT-EXECUTED`', '`ISO1-FAMILY-ACTS` · `ISO2-CLASSIFIED` · `ISO3-RIGID` · `ISO4-CLASSIFIED`', 1)
+ok_ogc &= _ogc_m10c != _OGC1 and not _ogc_vector(_ogc_m10c)                     # a row of the table that the verdicts do not compose
+_ogc_m11 = _OGCROAD.replace(_ogc_frozen(1476, 1476), 'P0 is closed on its trajectory part.')
+ok_ogc &= _ogc_m11 != _OGCROAD and not _ogc_p0(road=_ogc_m11)                   # the P0 sentence absent from the ROADMAP
+_ogc_m12 = _OGCLEAN_RAW + '\ndef normalizedSpace (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) : Set (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) := {G | RealizableGram (Fin 1) Γ₀ G}\n'
+ok_ogc &= not _ogc_lean(_ogc_m12)                                               # a definition in a module budgeted at zero
+_ogc_m12b = _OGCLEAN_RAW.replace('mixedTriple H p‖ ^ 2)) →', 'mixedTriple H p‖ ^ 3)) →', 1)
+ok_ogc &= _ogc_m12b != _OGCLEAN_RAW and not _ogc_lean(_ogc_m12b)                # the geometry altered
+_ogc_m13 = _OGCLEAN_RAW.replace('(H (π i)).submatrix τ τ) = d G H', '(H (π i)).submatrix τ π) = d G H', 1)
+ok_ogc &= _ogc_m13 != _OGCLEAN_RAW and not _ogc_lean(_ogc_m13)                  # a relabelling with the permutation on one matrix index only
+_ogc_m13b = _OGCLEAN_RAW.replace('GramPhaseEquiv (FibreGram a₀ Uᵀ) (FibreGram a₀ U\'ᵀ) := by', 'GramPhaseEquiv (fun i => (FibreGram a₀ U i)ᵀ) (FibreGram a₀ U\'ᵀ) := by', 1)
+ok_ogc &= _ogc_m13b != _OGCLEAN_RAW and not _ogc_lean(_ogc_m13b)                # the transpose taken of the tuple's fibres
+_ogc_m13c = _OGCLEAN_RAW.replace('star (H i j k))', 'star (H i k j))', 1)
+ok_ogc &= _ogc_m13c != _OGCLEAN_RAW and not _ogc_lean(_ogc_m13c)                # a conjugation that is not the entrywise star
+_ogc_m13d = _OGCLEAN_RAW.replace('!![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))\n              (π i)).submatrix τ τ))', '!![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, z, -1] p.1 q.1))\n              (π i)).submatrix τ τ))', 1)
+ok_ogc &= _ogc_m13d != _OGCLEAN_RAW and not _ogc_lean(_ogc_m13d)                # a Fourier core that is not act 23's
+_ogc_m13e = _OGCLEAN_RAW.replace('∃ π τ : Equiv.Perm V,\n        GramPhaseEquiv H (fun i => (G (π i)).submatrix τ τ)', '∃ π τ : Equiv.Perm V,\n        GramPhaseEquiv H (fun i => (G (π i)).submatrix τ π)', 1)
+ok_ogc &= _ogc_m13e != _OGCLEAN_RAW and not _ogc_lean(_ogc_m13e)                # the word theorem's first shape altered
+_ogc_m13f = _OGCLEAN_RAW.replace("| Sum.inr (Sum.inr _) => ∃ U : Matrix (V × A) (V × A) ℂ, AdmissibleDilationAt Γ a₀ U\n            ∧ FibreGram a₀ U = c n ∧ GramPhaseEquiv (c (n + 1)) (FibreGram a₀ Uᵀ)) :", "| Sum.inr (Sum.inr _) => c (n + 1) = c n) :", 1)
+ok_ogc &= _ogc_m13f != _OGCLEAN_RAW and not _ogc_lean(_ogc_m13f)                # the transpose token read as the identity
+_ogc_m14 = _OGCWIRE.replace('import OIBridge.OrbitGeometryIsometries\n', '', 1)
+ok_ogc &= _ogc_m14 != _OGCWIRE and not _ogc_wired(_ogc_m14)                     # the module not wired
+
+check('R7-OGC', ok_ogc,
+      "Track B act 25 guard: a SEALING round under A.37 through the MANIFEST PROTOCOL, a GATED round "
+      "with the key hazard's form of the gate -- four targets frozen together (the normalized realizable "
+      "quotient and the finite family that acts on it, the internal description of the realizable "
+      "classes at the single carrier, the classification of the surjective isometries, and the "
+      "prefix-constrained corollary, at act 12's and act 21's frozen configurations), each with its own "
+      "route, verdict rule and failure interpretation, executed in the order ISO1, ISO2, ISO3 with one "
+      "verdict commit per executed target, the gate read between targets and ISO4 closed on "
+      "ISO3-UNDECIDED, act 12's equivalence, act 21's ladder and act 24's invariant family and geometry "
+      "consumed UNCHANGED and a definition budget of ZERO. The control-plane blob pinned with a drift "
+      "control; the chronology verdict the validator's through one keyed call on OGC; the ordering "
+      "obligation RE-RUN FROM GIT on every head -- the stage-A commit the oldest on the first-parent "
+      "chain from B with no module, the module commit strictly newer and the first with the module, "
+      "carrying no declaration keyword, exactly the eight shared lemmas and no verdict, the three "
+      "verdict commits following in order with each verdict theorem first present at its own commit, "
+      "no declaration keyword at any commit from the module commit to the certified object, the one "
+      "import at every such commit, the geometry pinned to act 24's equation in every statement that "
+      "binds it, every relabelling written with one permutation on the fibre label and one on both "
+      "matrix indices, every conjugation entrywise, every transpose of a dilation and every Fourier "
+      "core act 23's, no ISO4 theorem, and ISO3's route theorems present only under ISO2's opening "
+      "label in the note -- with a fabricated SHA, an out-of-order chain, a definition, an altered "
+      "geometry, an altered relabelling, a transpose of the tuple's fibres, a verdict theorem in the "
+      "module commit, ISO3's route without ISO2's label and an ISO4 theorem each checked to FAIL on "
+      "synthetic data; exactly the thirty-six named results with their axiom lines, the universal normal-form theorem pinned "
+      "to the frozen token set, step relation and four-shape conclusion, and the import wired "
+      "after act 24's; and the note held to the freeze's distinctions -- the shape, the eight records "
+      "with their five SHAs and ISO4's absence, the gate record with the key hazard's rule reported as "
+      "not applied, the FIVE attestation answers all NO for what each span newly acquired, the prior attempt's knowledge "
+      "disclosed ONCE before the spans and re-counted at none, the freeze-supplied facts at every span, the first "
+      "attempt recorded as ruled unlanded with nothing of it pushed, "
+      "every frozen status sentence for the outcome reached (ISO0-silent, ISO1-FAMILY-ACTS, "
+      "ISO2-CLASSIFIED, ISO3-UNDECIDED with the route run and ISO4-NOT-EXECUTED once each, the five "
+      "cell and sub-question sentences once each with their naming lines, no other outcome sentence and "
+      "in particular not the key hazard's), the outcome vector equal VERBATIM to row 4 of the frozen "
+      "table and stated once, no verdict inferred beyond the placed consumptions, no generator read as a "
+      "symmetry, nothing imported and no domain substituted, every earlier verdict unchanged, the matrix "
+      "honoured, THE CLAUSE three times, the ten preconditions over twenty-one rows, the three "
+      "discrepancies recorded and not repaired, and the frozen P0 sentence VERBATIM in the ROADMAP after "
+      "act 24's -- thirty-four mutation controls, the locating controls read from git at B, and this "
+      "round's seal state read mode-aware from the prospective declaration or its record, never from a "
+      "constant.")
 
 
 # ---- R7-SI1: seal infrastructure round SI-1 -- the SHADOW seal validator and the equivalence
