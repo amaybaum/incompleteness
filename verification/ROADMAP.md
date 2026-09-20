@@ -1098,6 +1098,25 @@ lane and is neither re-opened nor consumed here; and no row of the queue above c
 → [round H-E preregistration](programmes/hydrodynamics/round-h-e-h3-closure-bridge/preregistration.md)
 (the frozen candidate condition, the targets, the predictions, and the eighteen hazards)
 
+
+## Long-range conditional research directions — outside the active queue
+
+### Gauge/QFT extension and the Yang–Mills mass-gap question
+
+**Conditional future programme, not a current OI→QM claim and not evidence of progress on the
+Millennium problem.** If the OI programme succeeds in deriving quantum dynamics and admits a
+rigorous continuum/local-QFT extension, investigate whether the same symmetry and state-space
+geometry principles constrain local gauge dynamics toward Yang–Mills theory. The dependency is:
+
+**OI → QM → continuum/local QFT → gauge-field emergence → Yang–Mills → mass-gap question.**
+
+The first milestone on this branch would **not** be the mass gap. It would be a rigorous derivation
+or classification of local gauge dynamics from the OI/QM structure. Only after a nontrivial
+four-dimensional Yang–Mills theory is constructed at the required mathematical strength would the
+Clay mass-gap question enter scope. Until then this item remains a long-range research direction,
+carries no P0/P1 priority, and must not be cited as progress toward a Millennium Prize.
+
+
 ## Settled negatively — `INDEPENDENT`, and not queue items
 
 **These are findings. They do not belong on the list above and are recorded here so they are not
