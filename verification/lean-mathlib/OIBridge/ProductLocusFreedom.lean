@@ -28,6 +28,7 @@ namespace ProductLocusFreedom
 
 open Matrix DilationChoice CoherentLiftGauge TwoSidedGauge GramTrajectorySelection
   RepresentativeNaturality OrbitLawRigidityTwisted OrbitLawGaps OrbitGeometryIsometries
+  StrictNaturalLift
 
 /-! ### Section A — the shared lemmas, before any verdict -/
 
@@ -145,6 +146,120 @@ theorem a28_r_recovery
         G₁' i.1 j.1 k.1 * G₂' i.2 j.2 k.2)) :
     GramPhaseEquiv G₁ G₁' ∧ GramPhaseEquiv G₂ G₂' :=
   ⟨a28_r_fst h₂ h₂' h, a28_r_snd h₁ h₁' h⟩
+
+/-! ### Section C — `A28-S`, the properness of the product locus at the level of classes
+
+The locus is a set of **classes**: those having a realizable product representative, together with
+every tuple equivalent to such a product. A tuple that is not literally a pointwise product does
+not show that its class lies outside the locus, and no argument of that shape appears here.
+
+What is proved is a necessary condition on membership, and then its failure at an exhibited
+realizable tuple. The necessary condition is that one family of entries does not depend on the
+first carrier index of the fibre, and it holds for every tuple in the class of a product because
+the phase function of act 12's equivalence depends on the matrix indices and not on the fibre
+index. -/
+
+/-- **The necessary condition for lying in the product locus.** If a tuple is equivalent to the
+pointwise product of two tuples realizable at the factor visible matrix, then its entries at
+matrix indices sharing a first coordinate do not depend on the first coordinate of the fibre
+index. The first factor contributes only its diagonal there, which the factor visible matrix fixes
+at `1 / 4`, and act 12's phase function depends on the matrix indices alone. -/
+theorem a28_s_locus_first_index
+    {X Y : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ}
+    (hX : RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) X)
+    {G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ}
+    (h : GramPhaseEquiv
+      (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+        X i.1 j.1 k.1 * Y i.2 j.2 k.2) G)
+    (i₁ i₁' i₂ j₁ j₂ k₂ : Fin 4) :
+    G (i₁, i₂) (j₁, j₂) (j₁, k₂) = G (i₁', i₂) (j₁, j₂) (j₁, k₂) := by
+  obtain ⟨c, _, hG⟩ := h
+  have e := hG (i₁, i₂) (j₁, j₂) (j₁, k₂)
+  have e' := hG (i₁', i₂) (j₁, j₂) (j₁, k₂)
+  simp only [Matrix.of_apply] at e e'
+  rw [e, e', a28_shared_factor_diagonal hX i₁ j₁, a28_shared_factor_diagonal hX i₁' j₁]
+
+/-- **`A28-S` — `A28-S-PROPER`.** At the frozen product configuration there is a tuple realizable
+at the product visible family whose class contains **no** pointwise product of two tuples
+realizable at the factor visible matrix.
+
+The witness is act 21's product tuple `G(H₁) ⊠ G(Hᵢ)` relabelled by the carrier transposition that
+exchanges `(0, 1)` and `(1, 0)`, which is not a product permutation. Realizability is act 21's
+`product_realizable` followed by act 21's `realizable_relabel`, the product visible family being
+constant and so invariant under every carrier permutation. Membership in the locus fails by
+`a28_s_locus_first_index` read at the fibres `(0, 1)` and `(1, 1)` with matrix indices `(2, 0)` and
+`(2, 1)`: the relabelling sends the first fibre to `(1, 0)` and fixes the second, leaving the two
+entries `1 / 16` and `I / 16`, which differ.
+
+This is a statement about that class at that configuration. It does not describe the locus, does
+not count classes, and says nothing about any other configuration. -/
+theorem a28_s_proper :
+    ∃ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+      (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ))
+        ∧ RealizableGram (Fin 1 × Fin 1)
+            (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) G
+        ∧ ∀ X Y : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ,
+            RealizableGram (Fin 1) Γ₀ X → RealizableGram (Fin 1) Γ₀ Y →
+              ¬ GramPhaseEquiv
+                  (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                    X i.1 j.1 k.1 * Y i.2 j.2 k.2) G := by
+  classical
+  obtain ⟨Γ₀, H₁, Hᵢ, _, hΓ₀, hH₁, hHᵢ, _, hadm₁, hadmᵢ, _, _, _, _, _, _, _⟩ := witness_supply
+  set τ : Equiv.Perm (Fin 4 × Fin 4) :=
+    Equiv.swap ((0 : Fin 4), (1 : Fin 4)) ((1 : Fin 4), (0 : Fin 4)) with hτ
+  set X : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ := FibreGram (0 : Fin 1) H₁ with hXdef
+  set Y : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ := FibreGram (0 : Fin 1) Hᵢ with hYdef
+  set P : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ :=
+    fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+      X i.1 j.1 k.1 * Y i.2 j.2 k.2 with hPdef
+  -- the product tuple is realizable at the product visible family
+  obtain ⟨U, hUadm, hUgram⟩ := product_realizable hadm₁ hadmᵢ
+  have hPreal : RealizableGram (Fin 1 × Fin 1)
+      (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) P := by
+    have := sh1_necessity hUadm
+    rwa [hUgram] at this
+  -- the product visible family is constant, so every carrier permutation fixes it
+  have hΓinv : ∀ i j : Fin 4 × Fin 4,
+      (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) (τ i) (τ j)
+        = (Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) i j := by
+    intro i j
+    simp [hΓ₀]
+  refine ⟨Γ₀, RelabelTransition τ P, hΓ₀,
+    realizable_relabel ((0 : Fin 1), (0 : Fin 1)) τ hΓinv hPreal, ?_⟩
+  intro X' Y' hX' _ hequiv
+  rw [hΓ₀] at hX'
+  -- the necessary condition, read at the two fibres
+  have hfix := a28_s_locus_first_index hX' hequiv 0 1 1 2 0 1
+  -- the relabelling moves the first fibre and fixes the second
+  have h01 : τ ((0 : Fin 4), (1 : Fin 4)) = ((1 : Fin 4), (0 : Fin 4)) := by
+    rw [hτ]; exact Equiv.swap_apply_left _ _
+  have h11 : τ ((1 : Fin 4), (1 : Fin 4)) = ((1 : Fin 4), (1 : Fin 4)) := by
+    rw [hτ]
+    refine Equiv.swap_apply_of_ne_of_ne ?_ ?_ <;> simp [Prod.ext_iff]
+  have h20 : τ ((2 : Fin 4), (0 : Fin 4)) = ((2 : Fin 4), (0 : Fin 4)) := by
+    rw [hτ]
+    refine Equiv.swap_apply_of_ne_of_ne ?_ ?_ <;> simp [Prod.ext_iff]
+  have h21 : τ ((2 : Fin 4), (1 : Fin 4)) = ((2 : Fin 4), (1 : Fin 4)) := by
+    rw [hτ]
+    refine Equiv.swap_apply_of_ne_of_ne ?_ ?_ <;> simp [Prod.ext_iff]
+  -- the two entries, computed
+  have hX122 : X 1 2 2 = 1 / 4 := by
+    rw [hXdef, a27_shared_fibreGram_entry, hH₁]
+    norm_num [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
+      Matrix.cons_val_three, Matrix.head_cons, Matrix.tail_cons, Complex.ext_iff]
+  have hY001 : Y 0 0 1 = 1 / 4 := by
+    rw [hYdef, a27_shared_fibreGram_entry, hHᵢ]
+    norm_num [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
+      Matrix.cons_val_three, Matrix.head_cons, Matrix.tail_cons, Complex.ext_iff]
+  have hY101 : Y 1 0 1 = Complex.I / 4 := by
+    rw [hYdef, a27_shared_fibreGram_entry, hHᵢ]
+    norm_num [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
+      Matrix.cons_val_three, Matrix.head_cons, Matrix.tail_cons, Complex.ext_iff]
+  rw [RelabelTransition, RelabelTransition] at hfix
+  simp only [Matrix.submatrix_apply, h01, h11, h20, h21, hPdef, Matrix.of_apply] at hfix
+  rw [hX122, hY001, hY101] at hfix
+  norm_num [Complex.ext_iff] at hfix
 
 end ProductLocusFreedom
 end OIBridge
