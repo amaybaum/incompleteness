@@ -337,19 +337,29 @@ of the prescribed images of its factor classes, and fixes every class without on
 defined because `A28-R` recovers each factor's class from the product's class, and the
 representatives it needs are supplied by choice, as act 27's own construction supplies them.
 
-**This theorem does not settle `A28-0`.** The frozen target requires all eight prefix conjuncts,
-and the two standing hypotheses of act 18 and representative-level gauge naturality at act 20's
-certified strength are not among the conjuncts proved here. -/
+**The count, stated exactly.** Of the eight frozen prefix conjuncts this theorem establishes
+**five**: total evolution, preservation of realizability, time homogeneity, reversibility and
+descent. Reversibility is **one** frozen conjunct although it splits into two reported components,
+so the components number six while the conjuncts number five.
+
+**This theorem does not settle `A28-0`.** The frozen target requires all eight. Act 18's two
+standing hypotheses, `ProperAt` and `PropagatesFrom`, and representative-level gauge naturality at
+act 20's certified strength are not among the conjuncts proved here, and nothing is claimed about
+them in either direction. -/
 theorem a28_0_construction
     (f₁ f₂ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
     (hr₁ : ∀ G, RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G →
       RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) (f₁ G))
     (hr₂ : ∀ G, RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G →
       RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) (f₂ G))
-    (hd₁ : ∀ G G', GramPhaseEquiv G G' → GramPhaseEquiv (f₁ G) (f₁ G'))
-    (hd₂ : ∀ G G', GramPhaseEquiv G G' → GramPhaseEquiv (f₂ G) (f₂ G'))
-    (hi₁ : ∀ G G', GramPhaseEquiv (f₁ G) (f₁ G') → GramPhaseEquiv G G')
-    (hi₂ : ∀ G G', GramPhaseEquiv (f₂ G) (f₂ G') → GramPhaseEquiv G G')
+    (hd₁ : ∀ G G', RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G → RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G' →
+      GramPhaseEquiv G G' → GramPhaseEquiv (f₁ G) (f₁ G'))
+    (hd₂ : ∀ G G', RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G → RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G' →
+      GramPhaseEquiv G G' → GramPhaseEquiv (f₂ G) (f₂ G'))
+    (hi₁ : ∀ G G', RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G → RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G' →
+      GramPhaseEquiv (f₁ G) (f₁ G') → GramPhaseEquiv G G')
+    (hi₂ : ∀ G G', RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G → RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G' →
+      GramPhaseEquiv (f₂ G) (f₂ G') → GramPhaseEquiv G G')
     (hs₁ : ∀ G', RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G' →
       ∃ G, RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G
         ∧ GramPhaseEquiv (f₁ G) G')
@@ -379,7 +389,12 @@ theorem a28_0_construction
                 (Φ t (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
                   G₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2))
                 (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
-                  f₁ G₁ i.1 j.1 k.1 * f₂ G₂ i.2 j.2 k.2)) := by
+                  f₁ G₁ i.1 j.1 k.1 * f₂ G₂ i.2 j.2 k.2))
+        ∧ FactorizesOnProduct (Fin 1 × Fin 1) (Fin 1) (Fin 1)
+            (Equiv.refl (Fin 4 × Fin 4))
+            (fun _ : ℕ => (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ))) (fun _ : ℕ => (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)))
+            (fun _ : ℕ => Matrix.of fun i j : Fin 4 × Fin 4 =>
+              (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.1 j.1 * (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.2 j.2) Φ := by
   classical
   set R : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → Prop :=
     fun G => RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G with hR
@@ -410,8 +425,8 @@ theorem a28_0_construction
     rw [this]
     have hEq : GramPhaseEquiv (prod hL.choose hL.choose_spec.choose) (prod X Y) :=
       gramPhaseEquiv_trans hcG (gramPhaseEquiv_symm hXY)
-    exact a28_shared_product_equiv (hd₁ _ _ (a28_r_fst hcY hY hEq))
-      (hd₂ _ _ (a28_r_snd hcX hX hEq))
+    exact a28_shared_product_equiv (hd₁ _ _ hcX hX (a28_r_fst hcY hY hEq))
+      (hd₂ _ _ hcY hY (a28_r_snd hcX hX hEq))
   -- realizability is preserved
   have hpres : ∀ G, RealizableGram (Fin 1 × Fin 1)
       (Matrix.of fun i j : Fin 4 × Fin 4 =>
@@ -448,8 +463,14 @@ theorem a28_0_construction
       have e : Φ₀ G = G := by rw [hΦ₀]; exact dif_neg hL
       have e' : Φ₀ G' = G' := by rw [hΦ₀]; exact dif_neg hL'
       rw [e, e']; exact hGG'
+  have hfac : ∀ (t : ℕ) (G₁ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ), R G₁ → R G₂ →
+      GramPhaseEquiv (Φ₀ (prod G₁ G₂)) (prod (f₁ G₁) (f₂ G₂)) := by
+    intro t G₁ G₂ h₁ h₂
+    exact hval h₁ h₂ (gramPhaseEquiv_refl (prod G₁ G₂))
   refine ⟨fun _ => Φ₀, fun t G hG => hpres G hG, ⟨Φ₀, fun _ => rfl⟩, ⟨?_, ?_⟩,
-    fun _ G G' h => hdesc G G' h, ?_, ?_⟩
+    fun _ G G' h => hdesc G G' h, ?_, fun t G₁ G₂ h₁ h₂ => hfac t G₁ G₂ h₁ h₂,
+    ⟨by simp, fun t i j => rfl, ⟨fun _ => f₁, fun _ => f₂, fun t G₁ G₂ h₁ h₂ =>
+      hfac t G₁ G₂ h₁ h₂⟩⟩⟩
   · -- L3i, injectivity on classes
     intro t G G' hG hG' hEq
     dsimp only at hEq ⊢
@@ -467,8 +488,8 @@ theorem a28_0_construction
       have hP : GramPhaseEquiv (prod (f₁ hL.choose) (f₂ hL.choose_spec.choose))
           (prod (f₁ hL'.choose) (f₂ hL'.choose_spec.choose)) :=
         gramPhaseEquiv_trans (gramPhaseEquiv_symm h1) (gramPhaseEquiv_trans hEq h2)
-      have hx := hi₁ _ _ (a28_r_fst (hr₂ _ hcY) (hr₂ _ hcY') hP)
-      have hy := hi₂ _ _ (a28_r_snd (hr₁ _ hcX) (hr₁ _ hcX') hP)
+      have hx := hi₁ _ _ hcX hcX' (a28_r_fst (hr₂ _ hcY) (hr₂ _ hcY') hP)
+      have hy := hi₂ _ _ hcY hcY' (a28_r_snd (hr₁ _ hcX) (hr₁ _ hcX') hP)
       exact gramPhaseEquiv_trans (gramPhaseEquiv_symm hcG)
         (gramPhaseEquiv_trans (a28_shared_product_equiv hx hy) hcG')
     · have e : Φ₀ G = G := by rw [hΦ₀]; exact dif_neg hL
@@ -507,9 +528,6 @@ theorem a28_0_construction
     · dsimp only
       rw [Function.iterate_succ_apply']
       exact gramPhaseEquiv_refl _
-  · -- the factor action is the prescribed pair
-    intro t G₁ G₂ h₁ h₂
-    exact hval h₁ h₂ (gramPhaseEquiv_refl (prod G₁ G₂))
 
 end ProductLocusFreedom
 end OIBridge
