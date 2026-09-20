@@ -10113,7 +10113,7 @@ _SI2_STAGE1_ADDITIONS = {'SI1': {'round': 'SI1', 'kind': 'base-only',
 # round's preregistration authorizes, BY STEM. An authorized stem's record is validated by content by
 # U3; U5 only admits its presence. Declared here, outside both marker-bounded regions, under a name
 # that carries no round stem; the generic region reads it and nothing else about the round.
-_MANIFEST_BASELINE = {'base': 'dd3bd2e726e0fb3bccd96df9c46a532119a9ee97', 'authorized': ('OGC',)}
+_MANIFEST_BASELINE = {'base': 'e0be0ab6dca7b6661a008a9f5e1f3a29ea736003', 'authorized': ('CGR',)}
 
 
 # ---- SI-3 (SI3-2, R2): THE PROSPECTIVE DECLARATION. A sealing round with no record yet declares
@@ -26589,6 +26589,850 @@ check('R7-OGC', ok_ogc,
       "act 24's -- thirty-four mutation controls, the locating controls read from git at B, and this "
       "round's seal state read mode-aware from the prospective declaration or its record, never from a "
       "constant.")
+
+
+# ---- R7-CGR: Track B act 26 -- the circle-gluing rigidity of the normalized space, GATED: the restricted
+# ambient Euclidean metric and the MANDATORY affine-extension theorem (A26-0), the census of the 576 relabelled
+# Fourier circles of act 25's description with the count and the affine-hull dimension as sub-questions (A26-1),
+# the classification of the surjective isometries of the normalized space or a kernel-certified isometry outside
+# act 25's family (A26-2), and the prefix-constrained corollary (A26-3), four targets frozen together with a fixed
+# execution order, one verdict commit per executed target, a gate read between targets in two forms -- the
+# extension form (A26-2's positive route only under A26-0-EXTENDS and a census label) and the rigidity form
+# (A26-3 only under A26-2-RIGID) -- a route-authorization matrix, a mechanically checked outcome vector, act 12's
+# equivalence, act 21's configuration, act 24's invariant family, geometry and bridge and act 25's family and
+# description consumed UNCHANGED, and a definition budget of THREE, a list: the module declares featureVec,
+# normalizedSet and IsSurjIsometryOn, each with its frozen statement, and nothing else. A SEALING round under
+# A.37 through the MANIFEST PROTOCOL: its chronology verdict is the validator's through ONE KEYED CALL on the
+# stem CGR, its base is the prospective declaration during execution and the record CGR.json from P, and NO
+# CONSTANT. The freeze pins the one control-plane blob with a one-byte drift control. What can go wrong in a
+# gated round with a budget is the ORDER OF EVENTS and the READING: a verdict revealed before its commit, a
+# coincidence lemma slipped into the module commit, a fourth definition or a frozen body altered, the geometry's
+# equation or featureVec's body or a generator's formula altered -- a relabelling with the permutation on one
+# matrix index only, a Fourier core not act 23's -- a verdict inferred from another target's, a universal
+# label from a search, a count or a dimension asserted from a computation outside the kernel, a classification
+# imported from the literature, a weaker domain or a path metric substituted for the normalized space with the
+# restricted ambient metric, a negative label earned by a parameter rather than by the theorem, the positive
+# route run without the extension, the corollary executed without the rigidity label, the freeze's reading
+# repaired to the execution's values. So the guard re-runs the ordering obligation MECHANICALLY from git on
+# every head -- the stage-A commit the oldest on the first-parent chain from B, the module absent there and
+# present from the module commit on, every declaration-keyword line at every commit from the module commit to
+# the certified object one of the three frozen def lines with its frozen body verbatim, the one import at every
+# such commit, the geometry pinned to its equation in every statement that binds it, every relabelling written
+# with one permutation on the fibre label and the same permutation on both matrix indices, every Fourier core
+# act 23's, the verdict commits of the executed targets in the order A26-0, A26-1, A26-2, each verdict theorem
+# first present at its own verdict commit and absent before it, no coincidence statement in the module commit,
+# no A26-3 theorem and no a26_2_rigid_single anywhere, and the census theorem stating the branch the note
+# carries -- with synthetic negatives; and it holds the result note to the freeze's distinctions: the shape, the
+# eight records with their SHAs, the three definitions carried verbatim, the FIVE attestation answers with the
+# prior-knowledge disclosure once before them and the three disclosed YES answers, every frozen status sentence
+# for the outcome reached with its naming line, the outcome vector equal VERBATIM to one row of the frozen
+# table, the gate record in both forms, no verdict inferred beyond the placed consumptions, no map read as a
+# symmetry, nothing imported, no domain and no metric substituted, THE CLAUSE at every mention with its count,
+# and the frozen P0 sentence for the case reached, with its one substitution, present VERBATIM in the ROADMAP
+# after act 25's.
+_CGRDIR = 'programmes/oi-qm/track-b/act-26-orbit-geometry-rigidity/'
+_CGR_B = 'e0be0ab6dca7b6661a008a9f5e1f3a29ea736003'   # the mandated execution base, the certified merge of #698
+_CGR_D = 'ba8a98afc83f2f19fc4ec1c09846ebc3870bc143'   # the drafting snapshot, never the base
+_CGR_STAGEA = '2ad6788111dac06258f5cac3d84dfa28966715f6'
+_CGR_MODC = '93a96aef82ada94e62f88f94cd31b8548cac7d07'
+# the verdict commits of the EXECUTED targets, A26-0, A26-1, A26-2; A26-3 has none, the gate having closed on A26-2-UNDECIDED
+_CGR_VERDICT_COMMITS = ('913d70cc1eb9979eb9210efe729bc056661f6699', '7cc175bc04eeb3e99e6b36a6fa4ef4de112fb632',
+                        '5282eda2327d945b4b5d7586a8bb260589ecfbdf')
+_CGR_MODULE = 'verification/lean-mathlib/OIBridge/OrbitGeometryRigidity.lean'
+_CGR_SHARED = ('featureVec_ofLp', 'dist_featureVec', 'featureVec_gauge', 'gramPhaseEquiv_of_featureVec_eq',
+               'featureVec_mem_normalizedSet', 'relabelled_fourier_mem_normalizedSet',
+               'normalizedSet_eq_iUnion', 'featureVec_image_eq', 'bridge_of_tuple_isometry',
+               'tuple_isometry_of_bridge',)
+_CGR_VERDICT_NAMES = (
+    ('inner_sub_eq_of_dist_eq', 'exists_linearIsometryEquiv_of_inner_eq',
+     'exists_affineIsometryEquiv_of_dist_eq', 'eqOn_affineSpan_of_agree',
+     'exists_affineIsometryEquiv_of_isSurjIsometryOn', 'a26_0_affine_extension',),
+    ('fourier_coord_002', 'relabelled_coord_002', 'a26_1_circle_census', 'circle_coincide_trans',
+     'stab_row_swap13', 'stab_col_swap13', 'stab_row_double', 'stab_col_double', 'perm_decomp',
+     'core_const_0', 'core_const_1', 'core_const_2', 'core_const_3', 'core_const_4', 'core_const_5',
+     'core_const_6', 'core_const_7', 'core_const_8', 'core_const_9', 'core_const_10',
+     'core_const_11', 'core_const_12', 'core_const_13', 'core_const_14', 'core_const_15',
+     'core_const_16', 'core_const_17', 'core_const_18', 'core_val_0', 'core_val_1', 'core_val_2',
+     'core_val_3', 'core_val_4', 'core_val_5', 'core_val_6', 'core_val_7', 'core_val_8',
+     'core_val_9', 'core_val_10', 'core_val_11', 'core_val_12', 'core_val_13', 'core_val_14',
+     'core_val_15', 'core_val_16', 'core_val_17', 'core_val_18', 'core_val_19', 'core_val_20',
+     'core_val_21', 'core_val_22', 'core_val_23', 'core_val_24', 'core_val_25', 'core_val_26',
+     'core_val_27', 'core_val_28', 'core_val_29', 'core_val_30', 'core_val_31', 'nc_0', 'nc_1',
+     'nc_2', 'nc_3', 'nc_4', 'nc_5', 'nc_6', 'nc_7', 'nc_8', 'nc_9', 'nc_10', 'nc_11', 'nc_12',
+     'nc_13', 'nc_14', 'nc_15', 'nc_16', 'nc_17', 'nc_18', 'nc_19', 'nc_20', 'nc_21', 'nc_22',
+     'nc_23', 'nc_24', 'nc_25', 'nc_26', 'nc_27', 'nc_28', 'nc_29', 'nc_30', 'nc_31', 'nc_32',
+     'nc_33', 'nc_34', 'nc_35', 'nc_36', 'nc_37', 'nc_38', 'nc_39', 'nc_40', 'nc_41', 'nc_42',
+     'nc_43', 'nc_44', 'nc_45', 'nc_46', 'nc_47', 'nc_48', 'nc_49', 'nc_50', 'nc_51', 'nc_52',
+     'nc_53', 'nc_54', 'nc_55', 'nc_56', 'nc_57', 'nc_58', 'nc_59', 'nc_60', 'nc_61', 'nc_62',
+     'nc_63', 'nc_64', 'nc_65', 'nc_66', 'nc_67', 'nc_68', 'nc_69', 'nc_70', 'nc_71',
+     'pred_row_swap13', 'pred_col_swap13', 'pred_row_double', 'pred_col_double', 'pred_one',
+     'pred_row', 'pred_col', 'pred_stab', 'a26_1_circle_count',),
+    ('rigid_motion_of_tuple_isometry',))
+_CGR_RESULTS = _CGR_SHARED + sum(_CGR_VERDICT_NAMES, ())
+# the geometry's equation, act 24's, which every statement that binds a distance `d` must carry
+_CGR_GEOM = 'fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)'
+_CGR_IMPORT = 'import OIBridge.OrbitGeometryIsometries\n'
+# the three budgeted definitions, each with its frozen statement, verbatim (the freeze's objects section)
+_CGR_DEFS = (
+    'def featureVec {V : Type} [Fintype V] [DecidableEq V] (G : V → Matrix V V ℂ) :\n'
+    '    EuclideanSpace ℂ ((V × V × V) × (V × V × V)) :=\n'
+    '  WithLp.toLp 2 (mixedTriple G)\n',
+    'def normalizedSet (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) :\n'
+    '    Set (EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4))) :=\n'
+    '  {x | ∃ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G ∧ featureVec G = x}\n',
+    'def IsSurjIsometryOn {E : Type} [MetricSpace E] (S : Set E) (f : E → E) : Prop :=\n'
+    '  (∀ x ∈ S, f x ∈ S) ∧ (∀ y ∈ S, ∃ x ∈ S, f x = y) ∧ ∀ x ∈ S, ∀ y ∈ S, dist (f x) (f y) = dist x y\n')
+_CGR = open(_artifact(_CGRDIR + 'result.md'), encoding='utf-8').read()
+_CGR1 = ' '.join(re.sub(r'(?m)^\s*>\s?', '', _CGR).split()).replace('’', "'")
+_CGRPRE = open(_artifact(_CGRDIR + 'preregistration.md'), encoding='utf-8').read().split('\n')
+_CGRLEAN_RAW = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                                 'OIBridge', 'OrbitGeometryRigidity.lean'), encoding='utf-8').read()
+_CGRWIRE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
+                             'OIBridge.lean'), encoding='utf-8').read()
+_CGRROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
+_CGR_SRC = _bb_read('lean/edge_rigidity_probe.py').decode('utf-8', 'replace')
+
+
+def _cgr_frozen(a, b):
+    """Lines a..b of the frozen preregistration (1-based, inclusive), block-quote markers stripped,
+    whitespace-normalized -- the same normalization the note is read under."""
+    return ' '.join(re.sub(r'(?m)^\s*>\s?', '', '\n'.join(_CGRPRE[a - 1:b])).split()).replace('’', "'")
+
+
+# the word the freeze confines to itself (its out-of-scope statement names it): read from the freeze,
+# never written here, so that this clause is not itself an artifact carrying it
+_CGR_CONFINED_WORD = re.search(r'The word "([A-Za-z]+)" appears in this file only', _cgr_frozen(1648, 1650)).group(1)
+
+
+def _cgr_freeze_pin(read=_bb_read):
+    """N1 -- the frozen preregistration is byte-identical to the blob PR #698 merged."""
+    return _bb_blob(_CGRDIR + 'preregistration.md', read) == '521b63ccde0056453f42035ba9d7970be66cf6f9'
+
+
+def _cgr_execution_ancestry():
+    """N2 -- the chronology verdict is the validator's, keyed on the stem CGR: EXECUTION against the
+    prospective declaration while the round executes, LANDED-PENDING-PIN at L, ARCHIVED from P."""
+    return _si2_authority('CGR', tag='R7-CGR')
+
+
+def _cgr_git_text(*args):
+    r = _rbr_git(*args, tag='R7-CGR')
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout.decode('utf-8', 'replace')
+
+
+_CGR_DECL_RE = re.compile(r'(?m)^(def|abbrev|structure|class|instance|axiom|opaque)\b.*$')
+# a theorem header: the keyword, the name, then its binders or its colon -- a docstring line that happens
+# to begin with the word "theorem" is not one
+_CGR_THEOREM_RE = re.compile(r'(?m)^theorem ([A-Za-z0-9_]+)\s*[(\[{:]')
+
+
+def _cgr_decls_ok(text):
+    """Contract (a), the budget: every line beginning with a declaration keyword is one of the three
+    frozen `def` lines, each frozen block is present verbatim exactly once, and there are exactly three
+    such lines."""
+    lines = _CGR_DECL_RE.findall(text or '')
+    heads = [d.split('\n')[0] for d in _CGR_DEFS]
+    found = re.findall(r'(?m)^(?:def|abbrev|structure|class|instance|axiom|opaque)\b.*$', text or '')
+    return (len(found) == 3 and sorted(found) == sorted(heads)
+            and all((text or '').count(d) == 1 for d in _CGR_DEFS))
+
+
+def _cgr_statements(text):
+    """Each theorem's statement -- from its `theorem` line to the `:=` that opens its proof --
+    whitespace-normalized, with its name. The pins below read statements and never proofs."""
+    return [(m.group(1), ' '.join(m.group(2).split()))
+            for m in re.finditer(r'(?ms)^theorem ([A-Za-z0-9_]+)(\s*[(\[{:].*?):=', text or '')]
+
+
+_CGR_DBIND_RE = re.compile(r'(?<![A-Za-z0-9_.₀-₉])d = ')
+
+
+def _cgr_geometry_pinned(text):
+    """Contract (c), the geometry: every statement that binds a distance `d` carries act 24's
+    equation as the hypothesis `d = fun G H => ...`, and every equation `d = ...` in any statement is
+    that equation and no other."""
+    for _name, st in _cgr_statements(text):
+        if '(d : (' in st and ('d = %s' % _CGR_GEOM) not in st and ('d = (%s)' % _CGR_GEOM) not in st:
+            return False
+        for m in _CGR_DBIND_RE.finditer(st):
+            rest = st[m.end():]
+            if not (rest.startswith(_CGR_GEOM) or rest.startswith('(' + _CGR_GEOM + ')')):
+                return False
+    return True
+
+
+def _cgr_token(s, i):
+    """the argument token starting at s[i]: a balanced parenthesized group, possibly `⇑`-prefixed, or a
+    run of non-space characters; returns (token, end)."""
+    j = i
+    if j < len(s) and s[j] == '⇑':
+        j += 1
+    if j < len(s) and s[j] == '(':
+        depth, k = 0, j
+        while k < len(s):
+            depth += {'(': 1, ')': -1}.get(s[k], 0)
+            k += 1
+            if depth == 0:
+                break
+        if depth:
+            return None, len(s)
+        return s[i:k], k
+    k = j
+    while k < len(s) and s[k] not in ' )':
+        k += 1
+    return s[i:k], k
+
+
+def _cgr_norm_perm(t):
+    """a permutation term with its type ascriptions and coercion arrow removed: `(Equiv.swap (1 : Fin 4) 3)`
+    and `(Equiv.swap 1 3)` are one term."""
+    t = t.replace('⇑', '')
+    t = re.sub(r'\((\d) : Fin 4\)', r'\1', t)
+    return ' '.join(t.split())
+
+
+def _cgr_relabellings_pinned(st):
+    """(R): every `.submatrix` in a statement takes the SAME permutation on both matrix indices and is
+    applied to a tuple indexed by a permuted fibre label -- the text before it ends in ` i))` -- which is
+    act 25's formula `fun i => (X (π i)).submatrix τ τ` at bound or exhibited permutations."""
+    start = 0
+    while True:
+        i = st.find('.submatrix', start)
+        if i < 0:
+            return True
+        if not st[:i].endswith(' i))'):
+            return False
+        j = i + len('.submatrix')
+        if j >= len(st) or st[j] != ' ':
+            return False
+        a, j = _cgr_token(st, j + 1)
+        if a is None or j >= len(st) or st[j] != ' ':
+            return False
+        b, j = _cgr_token(st, j + 1)
+        if b is None or _cgr_norm_perm(a) != _cgr_norm_perm(b):
+            return False
+        start = j
+
+
+# act 23's Fourier core at a parameter, the only `!![` a statement may carry: the parameter `X` in the four
+# positions `1, X, -1, -X; ...; 1, -X, -1, X`, `X` a bound parameter, its negation, its conjugate, `1` or `I`
+_CGR_CORE_RE = re.compile(r"!!\[1, 1, 1, 1; 1, (z|z'|w|\(1 : ℂ\)|-z|star z|Complex\.I), -1, -\(?\1\)?; 1, -1, 1, -1; 1, -\(?\1\)?, -1, \1\]")
+_CGR_HZ = 'Matrix.of (fun p q : Fin 4 × Fin 1 =>'
+_CGR_HZ_FULL = 'Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !!['
+
+
+def _cgr_generators_pinned(text):
+    """Contract (c), the generators: in every statement, every relabelling is by its frozen formula, no
+    statement takes a transpose or an entrywise conjugation (no four-shape statement exists in this
+    round), and every `!![` is act 23's Fourier core inside act 23's lambda."""
+    for _name, st in _cgr_statements(text):
+        if not _cgr_relabellings_pinned(st):
+            return False
+        if 'ᵀ' in st or 'Matrix.of fun j k => star' in st:
+            return False
+        if len(_CGR_CORE_RE.findall(st)) != st.count('!![') or st.count(_CGR_HZ) != st.count(_CGR_HZ_FULL):
+            return False
+    return True
+
+
+def _cgr_theorems(text):
+    return _CGR_THEOREM_RE.findall(text or '')
+
+
+def _cgr_module_ok(text):
+    """The budget of three, the import and the pins, at one commit: the three frozen definitions and no
+    other declaration, the one import first, no sorry, no native_decide, the geometry pinned in every
+    statement that binds it, every relabelling and every Fourier core by its frozen formula."""
+    return (text is not None and _cgr_decls_ok(text) and text.startswith(_CGR_IMPORT)
+            and 'sorry' not in text and 'native_decide' not in text
+            and _cgr_geometry_pinned(text) and _cgr_generators_pinned(text))
+
+
+def _cgr_no_coincidence(text):
+    """Contract (e), the module commit: no statement compares a relabelled Fourier tuple to a Fourier tuple
+    under the equivalence, states a non-equivalence, or quantifies over a second unit parameter."""
+    for _name, st in _cgr_statements(text):
+        if '¬ GramPhaseEquiv' in st or "star z' * z' = 1" in st or 'GramPhaseEquiv (fun i => (FibreGram' in st:
+            return False
+    return True
+
+
+_CGR_SEVERAL_HEAD = "∃ (π τ : Equiv.Perm (Fin 4)) (z : ℂ), star z * z = 1 ∧ ∀ z' : ℂ, star z' * z' = 1 → ¬ GramPhaseEquiv"
+_CGR_SINGLE_HEAD = "∀ (π τ : Equiv.Perm (Fin 4)) (z : ℂ), star z * z = 1 → ∃ z' : ℂ, star z' * z' = 1 ∧ GramPhaseEquiv"
+
+
+def _cgr_gate_from_note(t):
+    """Contract (f): the labels the result note carries, read from its gate record and its outcome lines.
+    A26-2's positive route is open only under A26-0-EXTENDS with a census label; A26-3 only under
+    A26-2-RIGID -- and this note records A26-3 closed; the census theorem must state the branch the note
+    carries."""
+    v = _CGR_VERDICT_COMMITS
+    return {'extends': '**Outcome reached: `A26-0-EXTENDS`.**' in t and ('by `a26_0_affine_extension` at `%s`' % v[0][:12]) in t,
+            'several': '**Outcome reached: `A26-1-SEVERAL`.**' in t and ('by `a26_1_circle_census` at `%s`' % v[1][:12]) in t,
+            'single': '**Outcome reached: `A26-1-SINGLE`.**' in t,
+            'rigid': '**Outcome reached: `A26-2-RIGID`.**' in t,
+            'undecided2': '**Outcome reached: `A26-2-UNDECIDED`, the positive route having been run.**' in t and ('the positive route having been run, at `%s`' % v[2][:12]) in t}
+
+
+def _cgr_ordering_pred(chain, stagea, modc, verdicts, texts, gate):
+    """The ordering obligation, factored over the data so the negatives can drive it. `chain` is the
+    first-parent chain from the target back to (excluding) B, newest first; `texts` maps each commit
+    of the chain to the module's text there (None where absent); `gate` says which labels the note
+    carries. The stage-A commit is the oldest commit of the chain and carries no module; the module
+    commit is strictly newer, the first commit at which the module is present, and carries exactly
+    the ten shared lemmas, no verdict theorem and no coincidence statement; the verdict commits of the
+    executed targets follow it on the chain in the order A26-0, A26-1, A26-2, each the first commit at
+    which its own results are present, carrying nothing of a later target's; from the module commit to
+    the head every commit's module satisfies the budget, the import and the pins; the head carries
+    exactly the results of the executed targets, no A26-3 theorem and no rigidity theorem; and the
+    gate: the census theorem states the branch the note carries, a26_2_rigid_single exists only under
+    A26-0-EXTENDS and a census label, an A26-3 verdict commit only under A26-2-RIGID."""
+    if stagea not in chain or modc not in chain or chain[-1] != stagea:
+        return False
+    if any(v not in chain for v in verdicts) or len(set(verdicts)) != len(verdicts):
+        return False
+    im, ia = chain.index(modc), chain.index(stagea)
+    if im >= ia:
+        return False
+    if any(texts.get(c) is not None for c in chain[im + 1:]):
+        return False
+    if not all(_cgr_module_ok(texts.get(c)) for c in chain[:im + 1]):
+        return False
+    if _cgr_theorems(texts.get(modc)) != list(_CGR_SHARED) or not _cgr_no_coincidence(texts.get(modc)):
+        return False
+    if any(n.startswith('a26_') for n in _cgr_theorems(texts.get(modc))):
+        return False
+    iv = [chain.index(v) for v in verdicts]
+    if not all(iv[k] < iv[k - 1] for k in range(1, len(iv))) or iv[0] >= im:
+        return False
+    for k, v in enumerate(verdicts):
+        older = chain[chain.index(v) + 1:]
+        here = _cgr_theorems(texts.get(v))
+        expected = list(_CGR_SHARED) + [n for ns in _CGR_VERDICT_NAMES[:k + 1] for n in ns]
+        if here != expected:
+            return False
+        if any(n in _cgr_theorems(texts.get(c)) for c in older for n in _CGR_VERDICT_NAMES[k]):
+            return False
+    head = _cgr_theorems(texts.get(chain[0]))
+    if head != list(_CGR_RESULTS) or any(n.startswith('a26_3_') for n in head):
+        return False
+    # the gate, both forms
+    sts = dict(_cgr_statements(texts.get(chain[0])))
+    census = sts.get('a26_1_circle_census')
+    census = None if census is None else census.lstrip(': ')
+    if census is None:
+        return False
+    if census.startswith(_CGR_SEVERAL_HEAD) != bool(gate.get('several')):
+        return False
+    if census.startswith(_CGR_SINGLE_HEAD) != bool(gate.get('single')):
+        return False
+    if 'a26_2_rigid_single' in head and not (gate.get('extends') and (gate.get('several') or gate.get('single'))):
+        return False
+    if len(verdicts) >= 4 and not gate.get('rigid'):
+        return False
+    if 'a26_2_rigid_single' in head and not gate.get('rigid'):
+        return False
+    return True
+
+
+def _cgr_ordering():
+    """N3 -- the ordering obligation from git, against the certified object: the sealed head through
+    the manifest accessor once the round is recorded, the real target (pull_request.head.sha in PR
+    CI, HEAD otherwise) while it executes. Fail-closed throughout."""
+    sealed = _seal_field('CGR', 'sealed_head')
+    if sealed is not _SEAL_UNAVAILABLE:
+        target, num = sealed, None
+    else:
+        target, _label, num = _rbr_target_commit(tag='R7-CGR')
+        if target is None:
+            return False
+    if not _rbr_ensure_present(_CGR_B, tag='R7-CGR') or not _rbr_ensure_present(target, pr_number=num, tag='R7-CGR'):
+        return False
+    raw = _cgr_git_text('rev-list', '--first-parent', target, '^' + _CGR_B)
+    if raw is None:
+        return False
+    chain = raw.split()
+    if not chain:
+        return False
+    texts = {c: _cgr_git_text('show', '%s:%s' % (c, _CGR_MODULE))
+             for c in set(chain) | {_CGR_STAGEA, _CGR_MODC} | set(_CGR_VERDICT_COMMITS)}
+    gate = _cgr_gate_from_note(_CGR1)
+    ok = _cgr_ordering_pred(chain, _CGR_STAGEA, _CGR_MODC, _CGR_VERDICT_COMMITS, texts, gate)
+    print('    R7-CGR ordering: stage-A commit %s, module commit %s and verdict commits %s %s on the first-parent chain from %s to %s (%d commit(s)); module %s'
+          % (_CGR_STAGEA[:12], _CGR_MODC[:12], ', '.join(v[:12] for v in _CGR_VERDICT_COMMITS),
+             'in order' if ok else 'NOT as required', _CGR_B[:12], chain[0][:12], len(chain),
+             'carrying the three frozen definitions and no other declaration, importing act 25, the geometry and every relabelling pinned, each verdict theorem first present at its own verdict commit, no coincidence in the module commit, A26-3 absent, the gate honoured in both forms' if ok else 'NOT certified'))
+    return ok, chain, texts, gate
+
+
+def _cgr_lean(t=None):
+    """N4 -- the budget of three at the head: the three frozen definitions and no other declaration, no
+    sorry, no native_decide, no added axiom; exactly the one hundred fifty-eight named results in the
+    freeze's order, each with its axiom line; the one import; the geometry pinned everywhere it is
+    bound; every relabelling and every Fourier core pinned."""
+    raw = _CGRLEAN_RAW if t is None else t
+    printed = re.findall(r'(?m)^#print axioms ([A-Za-z0-9_]+)', raw)
+    return (_cgr_module_ok(raw) and _cgr_theorems(raw) == list(_CGR_RESULTS) and printed == list(_CGR_RESULTS))
+
+
+def _cgr_wired(t=None):
+    """N4 -- the module imported by the library root directly after act 25's."""
+    t = _CGRWIRE if t is None else t
+    return 'import OIBridge.OrbitGeometryIsometries\nimport OIBridge.OrbitGeometryRigidity\n' in t
+
+
+def _cgr_shape(t=None):
+    """N5 -- the round's shape: sealing under the manifest, E -> L -> P, the record written by P and by
+    nothing before P, no legacy constant, no closed round's contract edited, the base blob verified
+    as the first act."""
+    t = _CGR1 if t is None else t
+    return ('**This is a SEALING round** under `AGENTS.md` `§A.37`, executed under the manifest protocol' in t
+            and 'it lands **`E` → `L` → `P`, with `P` mandatory**' in t
+            and '**`CGR.json` is absent at execution and is written by `P` and by nothing before `P`.**' in t
+            and 'That is a statement about this execution and stays true as one' in t
+            and '**No legacy seal constant is written**' in t
+            and '**No existing manifest record is altered**' in t
+            and '**No closed round\'s contract is edited**' in t
+            and '**The base-blob verification is recorded.**' in t
+            and 'returns `521b63ccde0056453f42035ba9d7970be66cf6f9`' in t
+            and '**No manuscript file is written.**' in t)
+
+
+def _cgr_records(t=None):
+    """N6 -- the eight records: the chain with its five SHAs and A26-3's absence, the ordering
+    obligation and the anti-contamination invariant in the freeze's wording, the declaration table
+    with the three definitions verbatim, the module commit's ten lemmas, the three verdict commits
+    with their results, the immutability span, the quotient-geometry-family-metric record, and the
+    gate record in both forms."""
+    t = _CGR1 if t is None else t
+    v = _CGR_VERDICT_COMMITS
+    defs = [' '.join(d.split()) for d in _CGR_DEFS]
+    return (_cgr_frozen(1074, 1087) in t and _cgr_frozen(429, 431) in t
+            and '| 1 | `%s` | **stage A**' % _CGR_STAGEA in t
+            and '| 2 | `%s` | **the module commit**' % _CGR_MODC in t
+            and '| 3 | `%s` | `A26-0`: `a26_0_affine_extension`' % v[0] in t
+            and '| 4 | `%s` | `A26-1`: `a26_1_circle_census`, `a26_1_circle_count`' % v[1] in t
+            and '| 5 | `%s` | `A26-2`: `rigid_motion_of_tuple_isometry`' % v[2] in t
+            and '**`A26-3` has no verdict commit**' in t
+            and '### 3.1 The declaration table (record 1)' in t
+            and '**This round\'s module carries exactly the three budgeted definitions, each verbatim**' in t
+            and all(d in t for d in defs) and '**None of the three was omitted.**' in t
+            and '**No rung was restated, no equivalence was widened, no generator was added or removed, no domain and no metric was substituted, no affinity was assumed and nothing was imported.**' in t
+            and '**`%s`.** `git show --stat` lists one file' % _CGR_STAGEA in t
+            and '**`%s`**, the first commit at which the module is present.' % _CGR_MODC in t
+            and all('**`%s`**' % n in t for n in _CGR_SHARED)
+            and 'each a shared lemma and none a verdict' in t
+            and '### 3.4 The verdict commits (record 4)' in t
+            and all('| `A26-%d` | `%s` |' % (k, v[k]) in t for k in range(3))
+            and '| `A26-3` | **none** | **none** — the gate did not open it |' in t
+            and 'Each verdict theorem first appears at its own verdict commit and at no earlier commit' in t
+            and '### 3.5 The immutability span (record 5)' in t and '**returns `0`**' in t
+            and '### 3.6 The quotient, geometry, family and metric record (record 6)' in t
+            and '**The only equivalence used in any verdict is act 12\'s `GramPhaseEquiv`**' in t
+            and '**The metric is the restricted ambient one at every mention**' in t
+            and '**Every generator is written, in every theorem that names it, by its frozen formula**' in t
+            and '**No equivalence was introduced or widened, no generator was added or removed, no domain was substituted for the normalized space, no affinity was assumed, and nothing was imported**' in t
+            and '### 3.8 The gate record (record 8)' in t
+            and '| `A26-1` | `A26-0-EXTENDS`, by `a26_0_affine_extension` at `%s` | **executed whatever `A26-0`\'s label** | the census |' % v[0][:12] in t
+            and '| `A26-2` | `A26-0-EXTENDS` and `A26-1-SEVERAL`, by `a26_1_circle_census` at `%s` | **the extension form: opened** — the positive route run; the negative route available under either branch, with no named candidate | the positive route, to its first step; no witness of the frozen form |' % v[1][:12] in t
+            and '| `A26-3` | `A26-2-UNDECIDED`, the positive route having been run, at `%s` | **the rigidity form: closed**: `A26-3-NOT-EXECUTED` | — |' % v[2][:12] in t)
+
+
+_CGR_SPANS = ('`B` → module commit', 'module commit → `A26-0`', '`A26-0` → `A26-1`', '`A26-1` → `A26-2`', '`A26-2` → `A26-3`')
+
+
+def _cgr_attestation(t=None):
+    """N7 -- the three answers as a table for each of the FIVE spans, each measuring what was newly
+    acquired in that span; the prior knowledge disclosed ONCE before the first span; exactly the three
+    disclosed YES answers the execution recorded -- Q2 and Q3 at the span A26-0 -> A26-1, Q1 at the
+    span A26-1 -> A26-2 -- and NO everywhere else; the partial-fact rule, the freeze-supplied-facts
+    list at every span, the history-integrity statement, and the defect line."""
+    t = _CGR1 if t is None else t
+    disc = '#### The prior knowledge, disclosed once and before the spans'
+    return ('answered as measurements at five boundaries (record 7)' in t
+            and all('#### The span %s | question | answer for the span %s |' % (s, s) in t for s in _CGR_SPANS)
+            and t.count('| **Q1 — INTENTIONAL** | **NO** |') == 4 and t.count('| **Q1 — INTENTIONAL** | **YES — DISCLOSED** |') == 1
+            and t.count('| **Q2 — INCIDENTAL** | **NO** |') == 4 and t.count('| **Q2 — INCIDENTAL** | **YES — DISCLOSED** |') == 1
+            and t.count('| **Q3 — UNAIDED REASONING** | **NO** |') == 4 and t.count('| **Q3 — UNAIDED REASONING** | **YES — DISCLOSED** |') == 1
+            and '#### The span `A26-0` → `A26-1` | question | answer for the span `A26-0` → `A26-1` | | --- | --- | | **Q1 — INTENTIONAL** | **NO** | | **Q2 — INCIDENTAL** | **YES — DISCLOSED** | | **Q3 — UNAIDED REASONING** | **YES — DISCLOSED** |' in t
+            and '#### The span `A26-1` → `A26-2` | question | answer for the span `A26-1` → `A26-2` | | --- | --- | | **Q1 — INTENTIONAL** | **YES — DISCLOSED** | | **Q2 — INCIDENTAL** | **NO** | | **Q3 — UNAIDED REASONING** | **NO** |' in t
+            and '**Q2, YES — DISCLOSED**' in t and '**Q3, YES — DISCLOSED**' in t and '**Q1, YES — DISCLOSED**' in t
+            and t.count(disc) == 1 and t.find(disc) < t.find('#### The span `B` → module commit')
+            and t.count("**Before this chain's first commit the executor held no knowledge of any target's outcome.**") == 1
+            and '**The span answers below measure what was newly acquired in each span and nothing else**' in t
+            and '**Knowledge acquired before a span is not acquired in it**' in t
+            and '**A YES is disclosed and is not cured by its disclosure.**' in t
+            and t.count('**What the execution did in this span**') == 5
+            and t.count('**The freeze-supplied facts that were in front of the execution in this span**') == 5
+            and '**A PARTIAL fact counts for all three. There is no threshold below which a fact about the candidates does not count.**' in t
+            and '**No commit on this branch was amended, reset, rebased over, cherry-picked over or force-pushed away. There are no superseded SHAs.**' in t
+            and 'Before certification this execution absorbed no later `main`.' in t
+            and '**No execution defect is recorded on this chain.**' in t)
+
+
+def _cgr_verdicts(t=None):
+    """N8 -- every frozen status sentence for the outcome reached, carried verbatim with its naming
+    line where the freeze shapes one: A26-0-EXTENDS, A26-1-SEVERAL, A26-2-UNDECIDED (the positive
+    route having been run) and A26-3-NOT-EXECUTED once each; A26-1-N OBTAINED, A26-1-DIM UNDECIDED and
+    A26-2-P UNDECIDED once each with their naming lines; none of the other outcome sentences -- in
+    particular not A26-2-RIGID, not A26-2-NOT-RIGID, not the gate-closed UNDECIDED sentence, not
+    A26-1-SINGLE; the three conjuncts apart, the hypothesis alone, no linearity assumed, the exhibited
+    pair, parameter and coordinate, the count from both sides, the dimension's value asserted nowhere,
+    the label of A26-2 earned by the step not reached, no witness, no inference beyond the placed
+    consumptions, no map read as a symmetry, nothing imported, every earlier verdict unchanged."""
+    t = _CGR1 if t is None else t
+    return ('**Outcome reached: `A26-0-EXTENDS`.**' in t and t.count(_cgr_frozen(1235, 1243)) == 1
+            and '**the hypothesis on the map being distance preservation on the subset and nothing else**' in t
+            and '**uniqueness is asserted on the affine hull and nowhere else**' in t
+            and '**No affinity, linearity, continuity or compactness was assumed of any map anywhere**' in t
+            and '**The real structure was taken by the instance path the freeze reads**' in t
+            and '**Outcome reached: `A26-1-SEVERAL`.**' in t and t.count(_cgr_frozen(1262, 1268)) == 1
+            and '`a26_1_circle_census` **states the `SEVERAL` proposition**' in t
+            and '**The exhibited pair is `(1, Equiv.swap 0 1)`**' in t and '**the exhibited parameter is `z = 1`**' in t
+            and '**the named coordinate is `((0, 0, 2), (0, 0, 2))`**' in t
+            and t.count('**The frozen `A26-1-N` `OBTAINED` sentence.** ' + _cgr_frozen(1274, 1276)) == 1
+            and '`a26_1_circle_count` certifies the count **from both sides**' in t
+            and 'The count is `9 = 576 / 64`' in t
+            and t.count('**The frozen `A26-1-DIM` `UNDECIDED` sentence.** ' + _cgr_frozen(1287, 1289)) == 1
+            and '**the spanning-family half of the freeze\'s route was not certified**' in t
+            and '**the value computed outside the kernel is recorded in §19 as an observation and certifies nothing.**' in t
+            and t.count('**No map is read as a symmetry, an antiunitary map, a time reversal or a dynamics.**') >= 2
+            and '**Outcome reached: `A26-2-UNDECIDED`, the positive route having been run.**' in t
+            and t.count(_cgr_frozen(1314, 1318)) == 1
+            and '**The gate opened the positive route in its extension form**' in t
+            and '**The label is earned by the step not reached and by nothing else**' in t
+            and '**no isometry outside the family is exhibited in the kernel, and the absence of a proof is not a counterexample**' in t
+            and '**The three hypotheses are the whole of what the classification assumed**' in t
+            and '**no linearity, affinity, continuity or compactness was assumed**' in t
+            and '**No exhibited map exists, and so none is named by a formula and none is called a symmetry, an antiunitary map, a time reversal or a dynamics.**' in t
+            and t.count('**The frozen `A26-2-P` `UNDECIDED` sentence.** ' + _cgr_frozen(1326, 1328)) == 1
+            and '`A26-2-P` enters no label.' in t
+            and '**Outcome reached: `A26-3-NOT-EXECUTED`**, by the gate.' in t and t.count(_cgr_frozen(1351, 1352)) == 1
+            and all(_cgr_frozen(a, b) not in t for a, b in ((1246, 1250), (1255, 1260), (1270, 1272), (1278, 1280),
+                                                          (1282, 1285), (1294, 1303), (1305, 1312), (1320, 1324),
+                                                          (1330, 1332), (1337, 1344), (1346, 1349)))
+            and t.count('**No verdict was inferred from another beyond the consumptions the freeze places.**') >= 2
+            and '**No theorem is attributed to the literature, none of its theorems is consumed, and Mazur–Ulam is invoked nowhere' in t
+            and t.count('**Every earlier act\'s historical verdicts stand unchanged**') >= 2
+            and '**No merged label is revised.** **A merged statement is not enlarged by being consumed.**' in t
+            and '**The route-authorization matrix is honoured**' in t
+            and '**The execution order `A26-0` → `A26-1` → `A26-2` → `A26-3` was followed**' in t
+            and _CGR_CONFINED_WORD not in t)
+
+
+def _cgr_vector(t=None):
+    """N8b -- the outcome vector, stated exactly once and equal VERBATIM to one row of the frozen
+    table -- the row the verdicts and the gate compose, row 4 -- and to no paraphrase."""
+    t = _CGR1 if t is None else t
+    rows = [_cgr_frozen(n, n) for n in range(1363, 1377)]
+    cells = [r.split(' | ')[1].rstrip(' |') for r in rows]
+    heads = re.findall(r'\*\*Outcome vector:\*\*[^*]*?(?= \*\*|$)', t)
+    heads = [h.strip() for h in heads]
+    return (len(rows) == 14 and all(c.startswith('**Outcome vector:**') for c in cells)
+            and t.count('**Outcome vector:**') == 1 and len(heads) == 1
+            and heads[0] == cells[3]
+            and cells[3] == '**Outcome vector:** `A26-0-EXTENDS` · `A26-1-SEVERAL` · `A26-2-UNDECIDED` · `A26-3-NOT-EXECUTED`'
+            and '**The headline is row 4 of the freeze\'s outcome-vector table, verbatim.**' in t)
+
+
+def _cgr_clause(t=None):
+    """N9 -- THE CLAUSE, verbatim from the freeze, at every mention, with its count stated and
+    matching."""
+    t = _CGR1 if t is None else t
+    body = _cgr_frozen(1429, 1437)   # the COMPLETE clause, from "Act 26 classifies" on; line 1428 is the freeze's own naming line
+    heads = ('the headline', 'the classification, where the family is or is not all of the isometries', 'the section that states it')
+    return (body.startswith('Act 26 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none.')
+            and t.count(body) == 3 and '**THE CLAUSE is carried three times in this note**' in t
+            and t.count('**THE CLAUSE, carried at this mention —') == 3
+            and all(t.count('**THE CLAUSE, carried at this mention — %s.** %s' % (h, body)) == 1 for h in heads)
+            and '**No law is adopted, endorsed or given physical status by surviving, and the family, the normalized space and every map named are adopted as nothing**' in t)
+
+
+_CGR_P0_OLD = 'their number and the dimension of their affine hull recorded at kernel level'
+_CGR_P0_NEW = 'their number recorded at kernel level and the dimension of their affine hull recorded undecided'
+
+
+def _cgr_p0_sentence():
+    """the frozen Case A sentence with the one substitution the freeze's table fixes for A26-1-DIM UNDECIDED"""
+    p0 = _cgr_frozen(1392, 1392)
+    if p0.count(_CGR_P0_OLD) != 1 or _CGR_P0_NEW not in _cgr_frozen(1402, 1402):
+        return None
+    return p0.replace(_CGR_P0_OLD, _CGR_P0_NEW)
+
+
+def _cgr_p0(t=None, road=None):
+    """N10 -- the frozen P0 sentence for Case A with its one substitution, present VERBATIM in the note
+    and in the ROADMAP's P0 row after act 25's sentence, the row's label staying OPEN."""
+    t = _CGR1 if t is None else t
+    road = _CGRROAD if road is None else road
+    p0, p0_ogc = _cgr_p0_sentence(), _ogc_frozen(1476, 1476)
+    return (p0 is not None and p0.startswith('Act 26 tests, in one gated round with four separately frozen targets')
+            and p0 in t and p0 in road and p0_ogc in road and road.find(p0_ogc) < road.find(p0)
+            and '| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**' in road
+            and '**Case A** — row 4 with the cell as predicted — is the case reached, with **one variable clause replaced**' in t)
+
+
+def _cgr_chronology(t=None):
+    """N11 -- the chronology claim names the property certified, the ten preconditions all PASS over
+    twenty-one rows, the empty supersession table honoured, the standing contract, the four
+    discrepancies recorded and not repaired, the budget of three, the count of named results, and the
+    scope sentence."""
+    t = _CGR1 if t is None else t
+    return ('**The property certified is: no commit reachable from the execution head lies outside `B`\'s descendants**' in t
+            and 'through the validator\'s prospective path by the one keyed call `_si2_authority(\'CGR\', tag=\'R7-CGR\')`' in t
+            and t.count('| **PASS** —') == 10
+            and '### The ten preconditions, each at its scope, as the base check reported them at `M` and at `B`' in t
+            and 'thirty `frozen-blob` lines and twenty-one rows' in t
+            and '**The supersession table is empty and is honoured as empty**' in t
+            and '**`SI-3`\'s standing zero-legacy-statement contract holds at every head**' in t
+            and '**Four items are recorded. None is repaired, and the frozen document is not edited.**' in t
+            and '**No candidate discovered during execution was executed.** **No configuration was chosen after an outcome was known.** **No alternative witness was substituted for a named one.** **No target was executed out of order, and no verdict commit carries a later target\'s result.**' in t
+            and '**No start-state discrepancy arose**' in t and '**all ten pass**' in t
+            and '**The claim is scoped to the repository record.**' in t
+            and '**Three slots were budgeted, and exactly three definitions were introduced, each with its frozen statement**' in t
+            and '**One hundred fifty-eight named results.**' in t
+            and t.count('| `[propext, Classical.choice, Quot.sound]` |') == 158)
+
+
+def _cgr_locating():
+    """N12 -- the locating controls and the frozen provenance, read from git and therefore stable at
+    every later head: the control-plane blob at B, act 25's, act 24's and act 12's modules, acts 24's
+    and 25's records and the ROADMAP at their pinned blobs at B, the seals tree at B, B's two parents,
+    D's two parents, the module absent at B, and the absence of every legacy form of this round's
+    state from the guard source."""
+    def blob(rev, path):
+        r = _cgr_git_text('rev-parse', '%s:%s' % (rev, path))
+        return (r or '').strip()
+    if not _rbr_ensure_present(_CGR_B, tag='R7-CGR'):
+        return False
+    parents = (_cgr_git_text('rev-list', '--parents', '-n', '1', _CGR_B) or '').split()
+    dparents = (_cgr_git_text('rev-list', '--parents', '-n', '1', _CGR_D) or '').split()
+    return (blob(_CGR_B, 'verification/' + _CGRDIR + 'preregistration.md') == '521b63ccde0056453f42035ba9d7970be66cf6f9'
+            and blob(_CGR_B, _OGC_MODULE) == '954fbddaa7511713a26c316b3b2e0f29497e81d2'
+            and blob(_CGR_B, _OGS_MODULE) == 'ce9d1aa05dfdedfb5cac171cfe6379681942195f'
+            and blob(_CGR_B, 'verification/lean-mathlib/OIBridge/TwoSidedGauge.lean') == '4bba2040c33424fafbc6d31c0d63b86dff33691a'
+            and blob(_CGR_B, 'verification/seals/OGC.json') == '6674357ff7a51df416b6ec0d747d5325b9a3756a'
+            and blob(_CGR_B, 'verification/seals/OGS.json') == '5436e01852e9999483dd4aff9f605e47575b7415'
+            and blob(_CGR_B, 'verification/ROADMAP.md') == 'ac77cd2c9c7f6570dbd4e4f9c7301e6a057d6980'
+            and blob(_CGR_B, 'verification/seals') == '08b37f66c35dae909b8cd820ca5705f66f4015b6'
+            and blob(_CGR_B, _CGR_MODULE) == ''
+            and parents == [_CGR_B, _CGR_D, '112f997fa2fbf7d6c6f4ed4db64af3c841749e4e']
+            and dparents == [_CGR_D, '73132a16edf3d797e076c21525062582de4c8a71', '854e538d5e2ae4f3f8e2fdee7271a7d0245981c0']
+            and not re.search(r'_CGR_(BASE|SEALED_HEAD|MERGE)\b', _CGR_SRC)
+            and "_si2_authority('CGR', tag='R7-CGR')" in _CGR_SRC)
+
+
+def _cgr_declarations():
+    """N13 -- this round's seal state, mode-aware: while executing, the prospective declaration names
+    B and the declared baseline is B with CGR the one authorized addition and no record exists;
+    from P, no declaration and a sealed record whose base is B. A stem both declared and recorded
+    is the validator's own failure and is not re-decided here."""
+    recs, errs = _si1_load()
+    declared, recorded = 'CGR' in _MANIFEST_PROSPECTIVE, 'CGR' in recs
+    if errs or declared == recorded:
+        return False
+    if declared:
+        return (_MANIFEST_BASELINE == {'base': _CGR_B, 'authorized': ('CGR',)}
+                and _MANIFEST_PROSPECTIVE['CGR'] == _CGR_B)
+    return recs['CGR'].get('kind') == 'sealed' and recs['CGR'].get('base') == _CGR_B
+
+
+ok_cgr = True
+ok_cgr &= _cgr_freeze_pin()
+# the drift control: one byte appended to the frozen file, every other file read normally
+def _cgr_drift(path):
+    return _bb_read(path) + (b'\n' if path == _CGRDIR + 'preregistration.md' else b'')
+ok_cgr &= _cgr_drift(_CGRDIR + 'preregistration.md') != _bb_read(_CGRDIR + 'preregistration.md') and not _cgr_freeze_pin(_cgr_drift)
+ok_cgr &= _cgr_execution_ancestry()
+_cgr_ord = _cgr_ordering()
+if _cgr_ord is False:
+    ok_cgr = False
+    _cgr_chain, _cgr_texts, _cgr_gate = [], {}, {}
+else:
+    _cgr_ok3, _cgr_chain, _cgr_texts, _cgr_gate = _cgr_ord
+    ok_cgr &= _cgr_ok3
+    _V = _CGR_VERDICT_COMMITS
+    _P = (_cgr_chain, _CGR_STAGEA, _CGR_MODC, _V)
+    # negative (a): a fabricated SHA off the chain fails, for the stage-A, the module or a verdict commit
+    ok_cgr &= not _cgr_ordering_pred(_cgr_chain, '0' * 40, _CGR_MODC, _V, _cgr_texts, _cgr_gate)
+    ok_cgr &= not _cgr_ordering_pred(_cgr_chain, _CGR_STAGEA, '1' * 40, _V, _cgr_texts, _cgr_gate)
+    ok_cgr &= not _cgr_ordering_pred(_cgr_chain, _CGR_STAGEA, _CGR_MODC, (_V[0], '2' * 40, _V[2]), _cgr_texts, _cgr_gate)
+    # negative (b): the verdict commits out of order fail
+    ok_cgr &= not _cgr_ordering_pred(_cgr_chain, _CGR_STAGEA, _CGR_MODC, (_V[1], _V[0], _V[2]), _cgr_texts, _cgr_gate)
+    # negative (c): a fourth definition at the head fails, on synthetic text
+    _cgr_t2 = dict(_cgr_texts)
+    _cgr_t2[_cgr_chain[0]] = (_cgr_texts.get(_cgr_chain[0]) or '') + '\ndef synthetic : Nat := 0\n'
+    ok_cgr &= not _cgr_ordering_pred(*_P, _cgr_t2, _cgr_gate)
+    # negative (c1): a frozen body altered -- featureVec's body -- fails, on synthetic text
+    _cgr_t2a = dict(_cgr_texts)
+    _cgr_t2a[_cgr_chain[0]] = (_cgr_texts.get(_cgr_chain[0]) or '').replace('  WithLp.toLp 2 (mixedTriple G)\n', '  WithLp.toLp 1 (mixedTriple G)\n', 1)
+    ok_cgr &= _cgr_t2a[_cgr_chain[0]] != _cgr_texts.get(_cgr_chain[0]) and not _cgr_ordering_pred(*_P, _cgr_t2a, _cgr_gate)
+    # negative (c2): the geometry's equation altered in one statement fails, on synthetic text
+    _cgr_t2b = dict(_cgr_texts)
+    _cgr_t2b[_cgr_chain[0]] = (_cgr_texts.get(_cgr_chain[0]) or '').replace('mixedTriple H p‖ ^ 2))\n    (G H : V → Matrix V V ℂ)', 'mixedTriple H p‖ ^ 3))\n    (G H : V → Matrix V V ℂ)', 1)
+    ok_cgr &= _cgr_t2b[_cgr_chain[0]] != _cgr_texts.get(_cgr_chain[0]) and not _cgr_ordering_pred(*_P, _cgr_t2b, _cgr_gate)
+    # negative (c3): a relabelling with the permutation on one matrix index only fails
+    _cgr_t2c = dict(_cgr_texts)
+    _cgr_t2c[_cgr_chain[0]] = (_cgr_texts.get(_cgr_chain[0]) or '').replace('(π i)).submatrix τ τ)\n        (FibreGram (0 : Fin 1)', '(π i)).submatrix τ π)\n        (FibreGram (0 : Fin 1)', 1)
+    ok_cgr &= _cgr_t2c[_cgr_chain[0]] != _cgr_texts.get(_cgr_chain[0]) and not _cgr_ordering_pred(*_P, _cgr_t2c, _cgr_gate)
+    # negative (c4): a Fourier core that is not act 23's fails
+    _cgr_t2d = dict(_cgr_texts)
+    _cgr_t2d[_cgr_chain[0]] = (_cgr_texts.get(_cgr_chain[0]) or '').replace("1, z', -1, -z'; 1, -1, 1, -1; 1, -z', -1, z'] p.1 q.1)))", "1, z', -1, -z'; 1, -1, 1, -1; 1, -z', z', -1] p.1 q.1)))", 1)
+    ok_cgr &= _cgr_t2d[_cgr_chain[0]] != _cgr_texts.get(_cgr_chain[0]) and not _cgr_ordering_pred(*_P, _cgr_t2d, _cgr_gate)
+    # negative (e): a verdict theorem inserted into the module commit's text fails, on synthetic text
+    _cgr_t4 = dict(_cgr_texts)
+    _cgr_t4[_CGR_MODC] = (_cgr_texts.get(_CGR_MODC) or '') + '\ntheorem a26_0_affine_extension : True := trivial\n'
+    ok_cgr &= not _cgr_ordering_pred(*_P, _cgr_t4, _cgr_gate)
+    # negative (e1): a coincidence lemma in the module commit fails, on synthetic text
+    _cgr_t4b = dict(_cgr_texts)
+    _cgr_t4b[_CGR_MODC] = (_cgr_texts.get(_CGR_MODC) or '') + "\ntheorem circle_swap01 (z : ℂ) : ∀ z' : ℂ, star z' * z' = 1 → ¬ GramPhaseEquiv (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix (Equiv.swap (0 : Fin 4) 1) (Equiv.swap (0 : Fin 4) 1)) (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z', -1, -z'; 1, -1, 1, -1; 1, -z', -1, z'] p.1 q.1))) := sorry\n"
+    ok_cgr &= not _cgr_ordering_pred(*_P, _cgr_t4b, _cgr_gate)
+    # negative (f): the census theorem stating the other branch while the note carries SEVERAL fails
+    ok_cgr &= _cgr_gate.get('several') is True and not _cgr_ordering_pred(*_P, _cgr_texts, {**_cgr_gate, 'several': False, 'single': True})
+    # negative (f1): a rigidity theorem at the head without A26-2-RIGID in the note fails
+    _cgr_t5 = dict(_cgr_texts)
+    _cgr_t5[_cgr_chain[0]] = (_cgr_texts.get(_cgr_chain[0]) or '') + '\ntheorem a26_2_rigid_single : True := trivial\n'
+    ok_cgr &= not _cgr_ordering_pred(*_P, _cgr_t5, _cgr_gate)
+    # negative (f2): an A26-3 theorem at the head fails, the gate having closed
+    _cgr_t6 = dict(_cgr_texts)
+    _cgr_t6[_cgr_chain[0]] = (_cgr_texts.get(_cgr_chain[0]) or '') + '\ntheorem a26_3_prefix_isometry_single : True := trivial\n'
+    ok_cgr &= not _cgr_ordering_pred(*_P, _cgr_t6, _cgr_gate)
+ok_cgr &= _cgr_lean()
+ok_cgr &= _cgr_wired()
+ok_cgr &= _cgr_shape()
+ok_cgr &= _cgr_records()
+ok_cgr &= _cgr_attestation()
+ok_cgr &= _cgr_verdicts()
+ok_cgr &= _cgr_vector()
+ok_cgr &= _cgr_clause()
+ok_cgr &= _cgr_p0()
+ok_cgr &= _cgr_chronology()
+ok_cgr &= _cgr_locating()
+ok_cgr &= _cgr_declarations()
+ok_cgr &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+
+# mutation controls on the content contracts -- each the exact failure the contract exists to catch
+_cgr_m1 = _CGR1.replace('**No map is read as a symmetry, an antiunitary map, a time reversal or a dynamics.**', 'The reflection of a circle is the antiunitary case.')
+ok_cgr &= _cgr_m1 != _CGR1 and not _cgr_verdicts(_cgr_m1)                       # a map read as a symmetry
+_cgr_m2 = _CGR1.replace('**No verdict was inferred from another beyond the consumptions the freeze places.**', 'The `A26-2` verdict follows from the `A26-1` verdict.')
+ok_cgr &= _cgr_m2 != _CGR1 and not _cgr_verdicts(_cgr_m2)                       # a verdict inferred from another
+_cgr_m3 = _CGR1.replace('**The label is earned by the step not reached and by nothing else**', 'The family is complete because no other isometry was found')
+ok_cgr &= _cgr_m3 != _CGR1 and not _cgr_verdicts(_cgr_m3)                       # completeness from a search
+_cgr_m4 = _CGR1.replace('**Every earlier act\'s historical verdicts stand unchanged**', 'Act 25\'s `ISO3` is now closed and act 24\'s cell `b` is removed')
+ok_cgr &= _cgr_m4 != _CGR1 and not _cgr_verdicts(_cgr_m4)                       # a merged verdict rewritten
+_cgr_m5 = _CGR1.replace('| **Q3 — UNAIDED REASONING** | **NO** |', '| **Q3 — UNAIDED REASONING** | not applicable |', 1)
+ok_cgr &= _cgr_m5 != _CGR1 and not _cgr_attestation(_cgr_m5)                    # one of the five attestation answers evaded
+_cgr_m5b = _CGR1.replace('| **Q1 — INTENTIONAL** | **YES — DISCLOSED** |', '| **Q1 — INTENTIONAL** | **NO** |', 1)
+ok_cgr &= _cgr_m5b != _CGR1 and not _cgr_attestation(_cgr_m5b)                  # the disclosed YES of the classification span hidden
+_cgr_m5c = _CGR1.replace("#### The prior knowledge, disclosed once and before the spans **Before this chain's first commit the executor held no knowledge of any target's outcome.**", '')
+ok_cgr &= _cgr_m5c != _CGR1 and not _cgr_attestation(_cgr_m5c)                  # the prior-knowledge disclosure removed
+_cgr_m5d = _CGR1.replace('| **Q2 — INCIDENTAL** | **YES — DISCLOSED** |', '| **Q2 — INCIDENTAL** | **NO** |', 1)
+ok_cgr &= _cgr_m5d != _CGR1 and not _cgr_attestation(_cgr_m5d)                  # the disclosed incidental YES of the census span hidden
+_cgr_m5e = _CGR1.replace('#### The span `A26-0` → `A26-1` | question | answer for the span `A26-0` → `A26-1` |', '#### The span `A26-0` → `A26-1` | question | answer |')
+ok_cgr &= _cgr_m5e != _CGR1 and not _cgr_attestation(_cgr_m5e)                  # a span's table detached from its span
+_cgr_m6 = _CGR1.replace('**THE CLAUSE is carried three times in this note**', '**THE CLAUSE is carried four times in this note**')
+ok_cgr &= _cgr_m6 != _CGR1 and not _cgr_clause(_cgr_m6)                         # the count misstated
+_cgr_m6b = _CGR1.replace('Act 26 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts none. ', '')
+ok_cgr &= _cgr_m6b != _CGR1 and not _cgr_clause(_cgr_m6b)                       # the opening sentence dropped from every carriage
+_cgr_m7 = _CGR1.replace('**`%s`**, the first commit at which the module is present.' % _CGR_MODC,
+                        '**`%s`**, the first commit at which the module is present.' % ('0' * 40))
+ok_cgr &= _cgr_m7 != _CGR1 and not _cgr_records(_cgr_m7)                        # a fabricated module-commit SHA in the note
+_cgr_m7b = _CGR1.replace('| 4 | `%s` | `A26-1`: `a26_1_circle_census`' % _CGR_VERDICT_COMMITS[1],
+                         '| 4 | `%s` | `A26-1`: `a26_1_circle_census`' % ('3' * 40))
+ok_cgr &= _cgr_m7b != _CGR1 and not _cgr_records(_cgr_m7b)                      # a fabricated verdict-commit SHA in the note
+_cgr_m7c = _CGR1.replace('{x | ∃ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G ∧ featureVec G = x}', '{x | ∃ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, featureVec G = x}')
+ok_cgr &= _cgr_m7c != _CGR1 and not _cgr_records(_cgr_m7c)                      # a definition carried in the note with a body other than its frozen one
+_cgr_m7d = _CGR1.replace('| `A26-3` | `A26-2-UNDECIDED`, the positive route having been run, at `%s` | **the rigidity form: closed**: `A26-3-NOT-EXECUTED` | — |' % _CGR_VERDICT_COMMITS[2][:12],
+                         '| `A26-3` | `A26-2-RIGID` | **the rigidity form: opened** | — |')
+ok_cgr &= _cgr_m7d != _CGR1 and not _cgr_records(_cgr_m7d)                      # the gate record reporting A26-3 opened
+_cgr_m8 = _CGR1.replace('**Four items are recorded. None is repaired, and the frozen document is not edited.**',
+                        'The freeze\'s reading of the marked set was corrected to the execution\'s six points.')
+ok_cgr &= _cgr_m8 != _CGR1 and not _cgr_chronology(_cgr_m8)                     # the freeze repaired
+_cgr_m9 = _CGR1.replace(_cgr_frozen(1314, 1318), 'Every surjective isometry of the normalized space at the single-carrier configuration belongs to the finite family.')
+ok_cgr &= _cgr_m9 != _CGR1 and not _cgr_verdicts(_cgr_m9)                       # the frozen A26-2 sentence replaced by the rigidity claim
+_cgr_m9b = _CGR1.replace(_cgr_frozen(1314, 1318), _cgr_frozen(1305, 1312))
+ok_cgr &= _cgr_m9b != _CGR1 and not _cgr_verdicts(_cgr_m9b)                     # the NOT-RIGID sentence carried without its theorem
+_cgr_m9c = _CGR1.replace(_cgr_frozen(1314, 1318), _cgr_frozen(1320, 1324))
+ok_cgr &= _cgr_m9c != _CGR1 and not _cgr_verdicts(_cgr_m9c)                     # the gate-closed sentence carried for a route that was run
+_cgr_m9d = _CGR1.replace('**the value computed outside the kernel is recorded in §19 as an observation and certifies nothing.**', 'The affine hull has dimension fourteen.')
+ok_cgr &= _cgr_m9d != _CGR1 and not _cgr_verdicts(_cgr_m9d)                     # a dimension asserted from a computation outside the kernel
+_cgr_m9e = _CGR1.replace('**no linearity, affinity, continuity or compactness was assumed**', 'every isometry is affine by Mazur–Ulam')
+ok_cgr &= _cgr_m9e != _CGR1 and not _cgr_verdicts(_cgr_m9e)                     # linearity assumed
+_cgr_m9f = _CGR1.replace('**the hypothesis on the map being distance preservation on the subset and nothing else**', 'the map assumed continuous')
+ok_cgr &= _cgr_m9f != _CGR1 and not _cgr_verdicts(_cgr_m9f)                     # a hypothesis added to the extension
+_cgr_m9g = _CGR1.replace('**uniqueness is asserted on the affine hull and nowhere else**', 'the extension is unique on the whole space')
+ok_cgr &= _cgr_m9g != _CGR1 and not _cgr_verdicts(_cgr_m9g)                     # uniqueness claimed beyond the hull
+_cgr_m9h = _CGR1.replace(_cgr_frozen(1262, 1268), _cgr_frozen(1255, 1260))
+ok_cgr &= _cgr_m9h != _CGR1 and not _cgr_verdicts(_cgr_m9h)                     # the SINGLE sentence carried for the SEVERAL theorem
+_cgr_m10 = _CGR1.replace('`A26-0-EXTENDS` · `A26-1-SEVERAL` · `A26-2-UNDECIDED` · `A26-3-NOT-EXECUTED`', '`A26-UNDECIDED`', 1)
+ok_cgr &= _cgr_m10 != _CGR1 and not _cgr_vector(_cgr_m10)                       # a summary label in the headline
+_cgr_m10b = _CGR1 + ' **Outcome vector:** `A26-0-EXTENDS` · `A26-1-SEVERAL` · `A26-2-UNDECIDED` · `A26-3-NOT-EXECUTED`'
+ok_cgr &= not _cgr_vector(_cgr_m10b)                                            # the headline stated twice
+_cgr_m10c = _CGR1.replace('`A26-0-EXTENDS` · `A26-1-SEVERAL` · `A26-2-UNDECIDED` · `A26-3-NOT-EXECUTED`', '`A26-0-EXTENDS` · `A26-1-SEVERAL` · `A26-2-NOT-RIGID` · `A26-3-NOT-EXECUTED`', 1)
+ok_cgr &= _cgr_m10c != _CGR1 and not _cgr_vector(_cgr_m10c)                     # a row of the table that the verdicts do not compose
+_cgr_m11 = _CGRROAD.replace(_cgr_p0_sentence() or '\0', 'P0 is closed on its trajectory part.')
+ok_cgr &= _cgr_m11 != _CGRROAD and not _cgr_p0(road=_cgr_m11)                   # the P0 sentence absent from the ROADMAP
+_cgr_m11b = _CGR1.replace(_cgr_p0_sentence() or '\0', _cgr_frozen(1392, 1392), 1)  # the sentence without its substitution
+ok_cgr &= _cgr_m11b != _CGR1 and not _cgr_p0(_cgr_m11b)                          # the P0 sentence without its substitution, the dimension claimed at kernel level
+_cgr_m12 = _CGRLEAN_RAW + '\ndef circleSet (π τ : Equiv.Perm (Fin 4)) : Set (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) := ∅\n'
+ok_cgr &= not _cgr_lean(_cgr_m12)                                               # a fourth definition
+_cgr_m12b = _CGRLEAN_RAW.replace('  WithLp.toLp 2 (mixedTriple G)\n', '  WithLp.toLp 1 (mixedTriple G)\n', 1)
+ok_cgr &= _cgr_m12b != _CGRLEAN_RAW and not _cgr_lean(_cgr_m12b)                # a frozen body altered
+_cgr_m12c = _CGRLEAN_RAW.replace('mixedTriple H p‖ ^ 2))\n    (G H : V → Matrix V V ℂ)', 'mixedTriple H p‖ ^ 3))\n    (G H : V → Matrix V V ℂ)', 1)
+ok_cgr &= _cgr_m12c != _CGRLEAN_RAW and not _cgr_lean(_cgr_m12c)                # the geometry altered
+_cgr_m13 = _CGRLEAN_RAW.replace('(π i)).submatrix τ τ)\n        (FibreGram (0 : Fin 1)', '(π i)).submatrix τ π)\n        (FibreGram (0 : Fin 1)', 1)
+ok_cgr &= _cgr_m13 != _CGRLEAN_RAW and not _cgr_lean(_cgr_m13)                  # a relabelling with the permutation on one matrix index only
+_cgr_m13b = _CGRLEAN_RAW.replace("1, z', -1, -z'; 1, -1, 1, -1; 1, -z', -1, z'] p.1 q.1)))", "1, z', -1, -z'; 1, -1, 1, -1; 1, -z', z', -1] p.1 q.1)))", 1)
+ok_cgr &= _cgr_m13b != _CGRLEAN_RAW and not _cgr_lean(_cgr_m13b)                # a Fourier core that is not act 23's
+_cgr_m13c = _CGRLEAN_RAW.replace('#print axioms a26_1_circle_count\n', '', 1)
+ok_cgr &= _cgr_m13c != _CGRLEAN_RAW and not _cgr_lean(_cgr_m13c)                # a named result without its axiom line
+_cgr_m14 = _CGRWIRE.replace('import OIBridge.OrbitGeometryRigidity\n', '', 1)
+ok_cgr &= _cgr_m14 != _CGRWIRE and not _cgr_wired(_cgr_m14)                     # the module not wired
+
+check('R7-CGR', ok_cgr,
+      "Track B act 26 guard: a SEALING round under A.37 through the MANIFEST PROTOCOL, a GATED round with "
+      "a definition budget of THREE -- four targets frozen together (the restricted ambient metric and the "
+      "mandatory affine extension, the census of the relabelled Fourier circles with the count and the "
+      "hull dimension as sub-questions, the classification of the surjective isometries or a "
+      "kernel-certified isometry outside the family, and the prefix-constrained corollary, at act 12's "
+      "single-carrier configuration), each with its own route, verdict rule and failure interpretation, "
+      "executed in the order A26-0, A26-1, A26-2 with one verdict commit per executed target, the gate "
+      "read between targets in its extension form and its rigidity form and A26-3 closed on "
+      "A26-2-UNDECIDED, act 12's equivalence, act 21's configuration, act 24's invariant family, geometry "
+      "and bridge and act 25's family and description consumed UNCHANGED. The control-plane blob pinned "
+      "with a drift control; the chronology verdict the validator's through one keyed call on CGR; the "
+      "ordering obligation RE-RUN FROM GIT on every head -- the stage-A commit the oldest on the "
+      "first-parent chain from B with no module, the module commit strictly newer and the first with the "
+      "module, carrying the three frozen definitions verbatim and no other declaration, exactly the ten "
+      "shared lemmas, no verdict and no coincidence statement, the three verdict commits following in "
+      "order with each verdict theorem first present at its own commit, the three frozen def lines and "
+      "no other declaration keyword at any commit from the module commit to the certified object, the "
+      "one import at every such commit, the geometry pinned to act 24's equation in every statement that "
+      "binds it, every relabelling written with one permutation on the fibre label and the same "
+      "permutation on both matrix indices, no transpose and no conjugation stated, every Fourier core "
+      "act 23's, no A26-3 theorem, no rigidity theorem without A26-2-RIGID, and the census theorem "
+      "stating the branch the note carries -- with a fabricated SHA, an out-of-order chain, a fourth "
+      "definition, an altered frozen body, an altered geometry, an altered relabelling, an altered "
+      "Fourier core, a verdict theorem and a coincidence lemma in the module commit, the census theorem "
+      "of the other branch, a rigidity theorem and an A26-3 theorem each checked to FAIL on synthetic "
+      "data; exactly the one hundred fifty-eight named results with their axiom lines, and the import "
+      "wired after act 25's; and the note held to the freeze's distinctions -- the shape, the eight "
+      "records with their five SHAs, the three definitions verbatim and A26-3's absence, the gate record "
+      "in both forms, the FIVE attestation answers with the prior knowledge disclosed ONCE before the "
+      "spans and exactly the three disclosed YES answers the execution recorded, the freeze-supplied "
+      "facts at every span, every frozen status sentence for the outcome reached (A26-0-EXTENDS, "
+      "A26-1-SEVERAL, A26-2-UNDECIDED with the positive route run and A26-3-NOT-EXECUTED once each, the "
+      "three sub-question and cell sentences once each with their naming lines, no other outcome "
+      "sentence), the outcome vector equal VERBATIM to row 4 of the frozen table and stated once, no "
+      "verdict inferred beyond the placed consumptions, no map read as a symmetry, nothing imported, no "
+      "domain and no metric substituted, no dimension asserted from a computation outside the kernel, "
+      "every earlier verdict unchanged, the matrix honoured, THE CLAUSE three times, the ten "
+      "preconditions over twenty-one rows, the four discrepancies recorded and not repaired, and the "
+      "frozen P0 sentence with its one substitution VERBATIM in the ROADMAP after act 25's -- thirty-six "
+      "mutation controls, the locating controls read from git at B, and this round's seal state read "
+      "mode-aware from the prospective declaration or its record, never from a constant.")
 
 
 # ---- R7-SI1: seal infrastructure round SI-1 -- the SHADOW seal validator and the equivalence
