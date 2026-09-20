@@ -213,6 +213,7 @@ import OIBridge.OrbitLawGaps
 import OIBridge.OrbitGeometrySelector
 import OIBridge.OrbitGeometryIsometries
 import OIBridge.OrbitGeometryRigidity
+import OIBridge.StrictNaturalLift
 import OIBridge.SemigroupTransfer
 import OIBridge.WordTraceSufficiency
 import OIBridge.RecurrenceHorizon
