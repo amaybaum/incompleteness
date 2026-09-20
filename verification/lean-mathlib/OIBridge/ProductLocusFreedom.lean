@@ -272,5 +272,244 @@ theorem a28_s_proper :
   rw [hX122, hY001, hY101] at hfix
   norm_num [Complex.ext_iff] at hfix
 
+/-! ### Section D — `A28-0`, the extension of a prescribed pair of factor-class bijections
+
+The hypotheses are act 27's idiom for a bijection of the realizable class space, stated at the
+tuple level so that no quotient type and no definition is introduced: a map preserving
+realizability, descending to the class equivalence, injective on classes and surjective onto them.
+
+Two helpers first, both proved here rather than consumed, so that the construction stays inside
+`A28-0`'s row of the route-authorization matrix. -/
+
+/-- **A product of class equivalences is an equivalence of products**, with the phase function
+`c (j₁, j₂) := c₁ j₁ * c₂ j₂`. -/
+theorem a28_shared_product_equiv
+    {X X' Y Y' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ}
+    (hX : GramPhaseEquiv X X') (hY : GramPhaseEquiv Y Y') :
+    GramPhaseEquiv
+      (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+        X i.1 j.1 k.1 * Y i.2 j.2 k.2)
+      (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+        X' i.1 j.1 k.1 * Y' i.2 j.2 k.2) := by
+  obtain ⟨c₁, hc₁, hX'⟩ := hX
+  obtain ⟨c₂, hc₂, hY'⟩ := hY
+  refine ⟨fun j => c₁ j.1 * c₂ j.2, fun j => by rw [norm_mul, hc₁, hc₂]; ring, fun i j k => ?_⟩
+  show X' i.1 j.1 k.1 * Y' i.2 j.2 k.2
+    = star (c₁ j.1 * c₂ j.2) * (X i.1 j.1 k.1 * Y i.2 j.2 k.2) * (c₁ k.1 * c₂ k.2)
+  rw [hX' i.1 j.1 k.1, hY' i.2 j.2 k.2, star_mul']
+  ring
+
+/-- **A pointwise product of realizable tuples is realizable**, by act 12's realization of each
+factor followed by act 21's product embedding. -/
+theorem a28_shared_product_realizable
+    {X Y : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ}
+    (hX : RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) X)
+    (hY : RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) Y) :
+    RealizableGram (Fin 1 × Fin 1)
+      (Matrix.of fun i j : Fin 4 × Fin 4 =>
+        (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.1 j.1
+          * (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.2 j.2)
+      (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+        X i.1 j.1 k.1 * Y i.2 j.2 k.2) := by
+  obtain ⟨U₁, hU₁, hG₁⟩ := sh1_sufficiency (0 : Fin 1) hX
+  obtain ⟨U₂, hU₂, hG₂⟩ := sh1_sufficiency (0 : Fin 1) hY
+  obtain ⟨U, hUadm, hUgram⟩ := product_realizable hU₁ hU₂
+  have h := sh1_necessity hUadm
+  rw [hUgram, hG₁, hG₂] at h
+  exact h
+
+/-- **`A28-0`, the construction and the conjuncts it reaches.** Given a prescribed pair of
+bijections of the realizable class space at the factor visible matrix, stated in act 27's idiom,
+there is a transition family at the product configuration that
+
+* preserves realizability (`L1`),
+* is time-homogeneous (`L2`),
+* is reversible in both conjuncts (`L3i`, `L3s`),
+* descends to act 12's equivalence (`L4d`),
+* evolves totally (`L0`), and
+* acts on every product of realizable tuples as the pointwise product of the prescribed maps,
+
+the last conjunct being the factorization of act 21's declaration **with the prescribed pair as its
+factor families**, so the family realizes the pair it was given rather than merely some pair.
+
+The construction is the class map that sends a class with a product representative to the product
+of the prescribed images of its factor classes, and fixes every class without one. It is well
+defined because `A28-R` recovers each factor's class from the product's class, and the
+representatives it needs are supplied by choice, as act 27's own construction supplies them.
+
+**This theorem does not settle `A28-0`.** The frozen target requires all eight prefix conjuncts,
+and the two standing hypotheses of act 18 and representative-level gauge naturality at act 20's
+certified strength are not among the conjuncts proved here. -/
+theorem a28_0_construction
+    (f₁ f₂ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ))
+    (hr₁ : ∀ G, RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G →
+      RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) (f₁ G))
+    (hr₂ : ∀ G, RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G →
+      RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) (f₂ G))
+    (hd₁ : ∀ G G', GramPhaseEquiv G G' → GramPhaseEquiv (f₁ G) (f₁ G'))
+    (hd₂ : ∀ G G', GramPhaseEquiv G G' → GramPhaseEquiv (f₂ G) (f₂ G'))
+    (hi₁ : ∀ G G', GramPhaseEquiv (f₁ G) (f₁ G') → GramPhaseEquiv G G')
+    (hi₂ : ∀ G G', GramPhaseEquiv (f₂ G) (f₂ G') → GramPhaseEquiv G G')
+    (hs₁ : ∀ G', RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G' →
+      ∃ G, RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G
+        ∧ GramPhaseEquiv (f₁ G) G')
+    (hs₂ : ∀ G', RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G' →
+      ∃ G, RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G
+        ∧ GramPhaseEquiv (f₂ G) G') :
+    ∃ Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) →
+        (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      PreservesAdmissible (Fin 1 × Fin 1)
+          (fun _ : ℕ => Matrix.of fun i j : Fin 4 × Fin 4 =>
+            (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.1 j.1
+              * (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.2 j.2) Φ
+        ∧ (∃ Φ₀, ∀ t, Φ t = Φ₀)
+        ∧ Reversible (Fin 1 × Fin 1)
+            (fun _ : ℕ => Matrix.of fun i j : Fin 4 × Fin 4 =>
+              (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.1 j.1
+                * (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.2 j.2) Φ
+        ∧ (∀ t G G', GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G'))
+        ∧ EvolvesTotally (Fin 1 × Fin 1)
+            (fun _ : ℕ => Matrix.of fun i j : Fin 4 × Fin 4 =>
+              (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.1 j.1
+                * (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.2 j.2) Φ
+        ∧ (∀ (t : ℕ) (G₁ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+            RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G₁ →
+            RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G₂ →
+              GramPhaseEquiv
+                (Φ t (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                  G₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2))
+                (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                  f₁ G₁ i.1 j.1 k.1 * f₂ G₂ i.2 j.2 k.2)) := by
+  classical
+  set R : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → Prop :=
+    fun G => RealizableGram (Fin 1) (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) G with hR
+  set prod : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) →
+      (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) :=
+    fun X Y => fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+      X i.1 j.1 k.1 * Y i.2 j.2 k.2 with hprod
+  set Loc : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → Prop :=
+    fun G => ∃ X Y, R X ∧ R Y ∧ GramPhaseEquiv (prod X Y) G with hLoc
+  set Φ₀ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) →
+      (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) :=
+    fun G => if h : Loc G then prod (f₁ h.choose) (f₂ h.choose_spec.choose) else G with hΦ₀
+  -- the chosen factors of a locus tuple are realizable and their product is equivalent to it
+  have hchoose : ∀ {G} (h : Loc G),
+      R h.choose ∧ R h.choose_spec.choose
+        ∧ GramPhaseEquiv (prod h.choose h.choose_spec.choose) G := by
+    intro G h
+    exact ⟨h.choose_spec.choose_spec.1, h.choose_spec.choose_spec.2.1,
+      h.choose_spec.choose_spec.2.2⟩
+  -- the value on a locus tuple is the product of the prescribed images of its factors
+  have hval : ∀ {G X Y}, R X → R Y → GramPhaseEquiv (prod X Y) G →
+      GramPhaseEquiv (Φ₀ G) (prod (f₁ X) (f₂ Y)) := by
+    intro G X Y hX hY hXY
+    have hL : Loc G := ⟨X, Y, hX, hY, hXY⟩
+    obtain ⟨hcX, hcY, hcG⟩ := hchoose hL
+    have : Φ₀ G = prod (f₁ hL.choose) (f₂ hL.choose_spec.choose) := by
+      rw [hΦ₀]; exact dif_pos hL
+    rw [this]
+    have hEq : GramPhaseEquiv (prod hL.choose hL.choose_spec.choose) (prod X Y) :=
+      gramPhaseEquiv_trans hcG (gramPhaseEquiv_symm hXY)
+    exact a28_shared_product_equiv (hd₁ _ _ (a28_r_fst hcY hY hEq))
+      (hd₂ _ _ (a28_r_snd hcX hX hEq))
+  -- realizability is preserved
+  have hpres : ∀ G, RealizableGram (Fin 1 × Fin 1)
+      (Matrix.of fun i j : Fin 4 × Fin 4 =>
+        (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.1 j.1
+          * (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.2 j.2) G →
+      RealizableGram (Fin 1 × Fin 1)
+      (Matrix.of fun i j : Fin 4 × Fin 4 =>
+        (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.1 j.1
+          * (Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)) i.2 j.2) (Φ₀ G) := by
+    intro G hG
+    by_cases hL : Loc G
+    · obtain ⟨hcX, hcY, _⟩ := hchoose hL
+      have : Φ₀ G = prod (f₁ hL.choose) (f₂ hL.choose_spec.choose) := by
+        rw [hΦ₀]; exact dif_pos hL
+      rw [this]
+      exact a28_shared_product_realizable (hr₁ _ hcX) (hr₂ _ hcY)
+    · have : Φ₀ G = G := by rw [hΦ₀]; exact dif_neg hL
+      rw [this]; exact hG
+  -- the locus is a union of classes, so the map descends
+  have hLocEquiv : ∀ {G G'}, GramPhaseEquiv G G' → Loc G → Loc G' := by
+    intro G G' hGG' ⟨X, Y, hX, hY, hXY⟩
+    exact ⟨X, Y, hX, hY, gramPhaseEquiv_trans hXY hGG'⟩
+  have hdesc : ∀ G G', GramPhaseEquiv G G' → GramPhaseEquiv (Φ₀ G) (Φ₀ G') := by
+    intro G G' hGG'
+    by_cases hL : Loc G
+    · obtain ⟨hcX, hcY, hcG⟩ := hchoose hL
+      have hL' : Loc G' := hLocEquiv hGG' hL
+      have h1 : GramPhaseEquiv (Φ₀ G) (prod (f₁ hL.choose) (f₂ hL.choose_spec.choose)) :=
+        hval hcX hcY hcG
+      have h2 : GramPhaseEquiv (Φ₀ G') (prod (f₁ hL.choose) (f₂ hL.choose_spec.choose)) :=
+        hval hcX hcY (gramPhaseEquiv_trans hcG hGG')
+      exact gramPhaseEquiv_trans h1 (gramPhaseEquiv_symm h2)
+    · have hL' : ¬ Loc G' := fun h => hL (hLocEquiv (gramPhaseEquiv_symm hGG') h)
+      have e : Φ₀ G = G := by rw [hΦ₀]; exact dif_neg hL
+      have e' : Φ₀ G' = G' := by rw [hΦ₀]; exact dif_neg hL'
+      rw [e, e']; exact hGG'
+  refine ⟨fun _ => Φ₀, fun t G hG => hpres G hG, ⟨Φ₀, fun _ => rfl⟩, ⟨?_, ?_⟩,
+    fun _ G G' h => hdesc G G' h, ?_, ?_⟩
+  · -- L3i, injectivity on classes
+    intro t G G' hG hG' hEq
+    dsimp only at hEq ⊢
+    by_cases hL : Loc G
+    · obtain ⟨hcX, hcY, hcG⟩ := hchoose hL
+      have hL' : Loc G' := by
+        by_contra hno
+        have e' : Φ₀ G' = G' := by rw [hΦ₀]; exact dif_neg hno
+        refine hno ⟨f₁ hL.choose, f₂ hL.choose_spec.choose, hr₁ _ hcX, hr₂ _ hcY, ?_⟩
+        have := gramPhaseEquiv_trans (gramPhaseEquiv_symm (hval hcX hcY hcG)) hEq
+        rwa [e'] at this
+      obtain ⟨hcX', hcY', hcG'⟩ := hchoose hL'
+      have h1 := hval hcX hcY hcG
+      have h2 := hval hcX' hcY' hcG'
+      have hP : GramPhaseEquiv (prod (f₁ hL.choose) (f₂ hL.choose_spec.choose))
+          (prod (f₁ hL'.choose) (f₂ hL'.choose_spec.choose)) :=
+        gramPhaseEquiv_trans (gramPhaseEquiv_symm h1) (gramPhaseEquiv_trans hEq h2)
+      have hx := hi₁ _ _ (a28_r_fst (hr₂ _ hcY) (hr₂ _ hcY') hP)
+      have hy := hi₂ _ _ (a28_r_snd (hr₁ _ hcX) (hr₁ _ hcX') hP)
+      exact gramPhaseEquiv_trans (gramPhaseEquiv_symm hcG)
+        (gramPhaseEquiv_trans (a28_shared_product_equiv hx hy) hcG')
+    · have e : Φ₀ G = G := by rw [hΦ₀]; exact dif_neg hL
+      rw [e] at hEq
+      have hL' : ¬ Loc G' := by
+        intro hno
+        obtain ⟨hcX', hcY', hcG'⟩ := hchoose hno
+        have him : Loc (Φ₀ G') :=
+          ⟨f₁ hno.choose, f₂ hno.choose_spec.choose, hr₁ _ hcX', hr₂ _ hcY',
+            gramPhaseEquiv_symm (hval hcX' hcY' hcG')⟩
+        exact hL (hLocEquiv (gramPhaseEquiv_symm hEq) him)
+      have e' : Φ₀ G' = G' := by rw [hΦ₀]; exact dif_neg hL'
+      rw [e'] at hEq; exact hEq
+  · -- L3s, surjectivity
+    intro t G' hG'
+    dsimp only
+    by_cases hL : Loc G'
+    · obtain ⟨X', Y', hX', hY', hXY'⟩ := hL
+      obtain ⟨X, hX, hfX⟩ := hs₁ X' hX'
+      obtain ⟨Y, hY, hfY⟩ := hs₂ Y' hY'
+      refine ⟨prod X Y, a28_shared_product_realizable hX hY, ?_⟩
+      have := hval hX hY (gramPhaseEquiv_refl (prod X Y))
+      exact gramPhaseEquiv_trans this
+        (gramPhaseEquiv_trans (a28_shared_product_equiv hfX hfY) hXY')
+    · refine ⟨G', hG', ?_⟩
+      rw [show Φ₀ G' = G' by rw [hΦ₀]; exact dif_neg hL]
+      exact gramPhaseEquiv_refl _
+  · -- L0, total evolution along the iterates
+    intro G₀ hG₀
+    refine ⟨fun t => Φ₀^[t] G₀, ?_, fun t => ?_, gramPhaseEquiv_refl _⟩
+    · intro t
+      dsimp only
+      induction t with
+      | zero => simpa using hG₀
+      | succ n ih => rw [Function.iterate_succ_apply']; exact hpres _ ih
+    · dsimp only
+      rw [Function.iterate_succ_apply']
+      exact gramPhaseEquiv_refl _
+  · -- the factor action is the prescribed pair
+    intro t G₁ G₂ h₁ h₂
+    exact hval h₁ h₂ (gramPhaseEquiv_refl (prod G₁ G₂))
+
 end ProductLocusFreedom
 end OIBridge
