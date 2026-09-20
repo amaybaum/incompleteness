@@ -1342,7 +1342,7 @@ locating control gives: its configuration and its object are not this round's. *
 `CLASS-TWISTED-NOT-STRICT` and `STRICT-NO`, stated once.** Both are about `RelabelLift`, the lift
 act 20 built, and stand as earned; `A27-H`'s relabelling corollary supplies a different lift of the
 class map, and `A27-T` supplies the statement that the formula itself has no strictly natural
-lift, which is consistent with act 20's verdict and is not a revision of it. **On act 21's
+lift, which agrees with act 20's verdict and revises nothing of it. **On act 21's
 `L4n-RESTRICTS`, stated once.** It was earned by `ΦCTRL` at the product configuration against the
 tuple-level reading of the rung, and stands; nothing here is at that configuration or about that
 reading.
