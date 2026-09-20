@@ -17,10 +17,21 @@ sub-question `A28-R` on factor recovery, which is not a verdict of any target
 and enters no label. The targets are executed in their separately ordered
 verdict commits.
 
-The two normalizations are distinct and are never conflated: a tuple realizable
-at the product visible family has every entry of modulus `1 / 16`, while an
-admissible dilation for it has anchor-column entries of modulus `1 / 4`. A
-factor's own diagonal is `1 / 4`.
+The two normalizations are distinct and are never conflated. What this module
+proves about them is the **diagonal values**: a factor's diagonal is `1 / 4` at
+its own visible matrix, and the pointwise product's diagonal is `1 / 16` at the
+product visible family. The general entry-modulus statement for a realizable
+tuple and the anchor-column modulus statement for an admissible dilation are
+**not proved here and are not used**.
+
+**Route deviation, recorded and not repaired.** The proof of `a28_s_proper`
+consumes three results the freeze's route-authorization matrix does not list in
+`A28-S`'s row: act 21's `witness_supply` and `realizable_relabel`, and act 27's
+`a27_shared_fibreGram_entry`. The freeze requires an unlisted consumption to be
+recorded as a deviation rather than cured by editing the freeze, which is
+immutable. The matrix is therefore **not** reported as honoured without
+qualification; the result note carries this deviation with the row it departs
+from.
 -/
 
 namespace OIBridge
