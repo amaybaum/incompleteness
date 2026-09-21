@@ -35,8 +35,8 @@ namespace OIBridge
 namespace ProductAdmission
 
 open Matrix DilationChoice CoherentLiftGauge TwoSidedGauge GramTrajectorySelection
-  RepresentativeNaturality OrbitLawRigidityTwisted OrbitLawGaps OrbitGeometryIsometries
-  StrictNaturalLift ProductLocusFreedom
+  IntermediateCrossTimeStructure RepresentativeNaturality OrbitLawRigidityTwisted OrbitLawGaps
+  OrbitGeometryIsometries StrictNaturalLift ProductLocusFreedom
 
 /-! ### Section A — two separated realizable classes at the product configuration -/
 
@@ -142,12 +142,64 @@ theorem a29_shared_splice {Γ : ℕ → Matrix V V ℝ}
     simp only [Nat.succ_ne_zero, if_false] at h0
     exact hsep (gramPhaseEquiv_trans (hXl 0) (gramPhaseEquiv_symm h0))
 
+/-! ### Section C — `A29-P`, the two standing hypotheses over descending reversible families -/
+
+set_option linter.unusedVariables false in
+/-- **`A29-P`.** At the frozen product configuration, **every** transition family satisfying
+conjuncts 3 to 7 of the full prefix — total evolution, preservation of admissibility, time
+homogeneity, both conjuncts of reversibility, and descent, each written out — generates a law
+satisfying act 18's two standing hypotheses, `ProperAt` and `PropagatesFrom`, at the generated law
+this round's freeze fixes.
+
+**The scope is conjuncts 3 to 7 and nothing else.** There is no `FactorizesOnProduct` hypothesis
+and no prescribed pair, so the universal is inherited by any family a later target exhibits, for
+every pair at once.
+
+`PropagatesFrom` clause (i) is act 21's `ol1a_descent`, whose second component is the implication
+from descent alone. Clause (ii) and `ProperAt`'s inequivalent solution pair are the injectivity
+conjunct of reversibility applied to two separated realizable classes, read at `t = 1`.
+`ProperAt`'s excluded trajectory is the splice of `a29_shared_splice`: it is pointwise realizable
+and fails the law at the first transition, and it requires no family to move a class.
+
+**Conjuncts 4 and 5 are hypotheses of the statement and are not consumed by the proof.** The scope
+of this target is conjuncts 3 to 7, so both stand in the statement; that the argument reaches the
+conclusion from conjuncts 3, 6 and 7 alone is a fact about the proof and is recorded as such, not
+as a narrowing of the statement. -/
+theorem a29_p_hold (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+    (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)))
+    (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+    (Φ : ℕ → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+      → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ))
+    (hΓ : Γ = fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2)
+    (hL0 : EvolvesTotally (Fin 1 × Fin 1) Γ Φ)
+    (hL1 : PreservesAdmissible (Fin 1 × Fin 1) Γ Φ)
+    (hL2 : ∃ Φ₀ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+        → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ), ∀ t, Φ t = Φ₀)
+    (hL3 : Reversible (Fin 1 × Fin 1) Γ Φ)
+    (hL4d : ∀ t (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      GramPhaseEquiv G G' → GramPhaseEquiv (Φ t G) (Φ t G')) :
+    ProperAt ((0 : Fin 1), (0 : Fin 1)) Γ (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t)))
+      ∧ PropagatesFrom ((0 : Fin 1), (0 : Fin 1)) Γ
+          (fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))) := by
+  obtain ⟨G, G', hGr, hG'r, hsep⟩ := a29_shared_product_separated Γ₀ hΓ₀
+  have hΓ0 : Γ 0 = Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2 := by rw [hΓ]
+  have hGr0 : RealizableGram (Fin 1 × Fin 1) (Γ 0) G := by rw [hΓ0]; exact hGr
+  have hG'r0 : RealizableGram (Fin 1 × Fin 1) (Γ 0) G' := by rw [hΓ0]; exact hG'r
+  obtain ⟨X, Y, hXr, hYr, hXl, hYl, h0, h1⟩ :=
+    a29_shared_separated_solutions hL0 hL3.1 hGr0 hG'r0 hsep
+  obtain ⟨hsplr, hsplnl⟩ := a29_shared_splice hXr hYr hXl h1
+  exact ⟨⟨X, Y, _, hXr, hYr, hsplr, hXl, hYl, a29_shared_not_trajEquiv_of_index h1, hsplnl⟩,
+    fun 𝔾 𝔾' _ _ ha hb h =>
+      (ol1a_descent (A := Fin 1 × Fin 1) ((0 : Fin 1), (0 : Fin 1)) Γ hL4d).2.1 𝔾 𝔾' ha hb h,
+    ⟨1, X, Y, le_refl 1, hXr, hYr, hXl, hYl, h1⟩⟩
+
 /-! ### Axiom report — evidence level 2 -/
 
 #print axioms a29_shared_product_separated
 #print axioms a29_shared_not_trajEquiv_of_index
 #print axioms a29_shared_separated_solutions
 #print axioms a29_shared_splice
+#print axioms a29_p_hold
 
 end ProductAdmission
 end OIBridge
