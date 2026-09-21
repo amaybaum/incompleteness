@@ -193,6 +193,135 @@ theorem a29_p_hold (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
       (ol1a_descent (A := Fin 1 × Fin 1) ((0 : Fin 1), (0 : Fin 1)) Γ hL4d).2.1 𝔾 𝔾' ha hb h,
     ⟨1, X, Y, le_refl 1, hXr, hYr, hXl, hYl, h1⟩⟩
 
+/-! ### Section D — `A29-N`: eligible liftable families at the relabelling pairs -/
+
+/-- **An eligible family with a product-carrier twisted-natural lift, at every pair of class
+bijections induced by carrier relabellings.** For permutations `σ₁`, `σ₂` of `Fin 4`, the family
+`RelabelTransition (σ₁ × σ₂)` at the frozen product configuration carries conjuncts 3 to 7 of the
+full prefix, carries `FactorizesOnProduct` at the frozen ordered decomposition with factor families
+`RelabelTransition σ₁` and `RelabelTransition σ₂` — exhibited here as an **equality** of tuples,
+before any equivalence — and carries conjunct 8, act 20's existential twisted-lift form at the
+**product** carrier, with `Ψ = RelabelLift (σ₁ × σ₂)` and act 20's induced maps.
+
+**This is an instance and not the target.** `A29-N` asks for an eligible liftable family at
+**every** pair of bijections of the single-carrier realizable class space; the pairs reached here
+are those induced by carrier relabellings, and the realizable class space at `Γ₀` is not classified
+anywhere in the record. Nothing here reports `A29-N-LIFTS`, and nothing here bears on act 23's
+verdict about its own formula, whose factor family is not a relabelling of the whole class space. -/
+theorem a29_n_relabel_instance (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
+    (hΓ₀ : Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)))
+    (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ)
+    (hΓ : Γ = fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2)
+    (σ₁ σ₂ : Equiv.Perm (Fin 4)) :
+    EvolvesTotally (Fin 1 × Fin 1) Γ (fun _ => RelabelTransition (Equiv.prodCongr σ₁ σ₂))
+      ∧ PreservesAdmissible (Fin 1 × Fin 1) Γ (fun _ => RelabelTransition (Equiv.prodCongr σ₁ σ₂))
+      ∧ (∃ Φ₀ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)
+          → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+          ∀ t : ℕ, (fun _ => RelabelTransition (Equiv.prodCongr σ₁ σ₂)) t = Φ₀)
+      ∧ Reversible (Fin 1 × Fin 1) Γ (fun _ => RelabelTransition (Equiv.prodCongr σ₁ σ₂))
+      ∧ (∀ (_ : ℕ) (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+          GramPhaseEquiv G G' → GramPhaseEquiv (RelabelTransition (Equiv.prodCongr σ₁ σ₂) G)
+            (RelabelTransition (Equiv.prodCongr σ₁ σ₂) G'))
+      ∧ FactorizesOnProduct (Fin 1 × Fin 1) (Fin 1) (Fin 1) (Equiv.refl (Fin 4 × Fin 4))
+          (fun _ => Γ₀) (fun _ => Γ₀) Γ (fun _ => RelabelTransition (Equiv.prodCongr σ₁ σ₂))
+      ∧ (∀ G₁ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ,
+          RelabelTransition (Equiv.prodCongr σ₁ σ₂)
+              (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                G₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)
+            = fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+                RelabelTransition σ₁ G₁ i.1 j.1 k.1 * RelabelTransition σ₂ G₂ i.2 j.2 k.2)
+      ∧ ∀ t : ℕ, ∃ Ψ αL αR : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1))
+            ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ
+          → Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ,
+          (∀ U, AdmissibleDilationAt (Γ t) ((0 : Fin 1), (0 : Fin 1)) U →
+              FibreGram ((0 : Fin 1), (0 : Fin 1)) (Ψ U)
+                = RelabelTransition (Equiv.prodCongr σ₁ σ₂)
+                    (FibreGram ((0 : Fin 1), (0 : Fin 1)) U))
+            ∧ (∀ U, AdmissibleDilationAt (Γ t) ((0 : Fin 1), (0 : Fin 1)) U →
+              AdmissibleDilationAt (Γ (t + 1)) ((0 : Fin 1), (0 : Fin 1)) (Ψ U))
+            ∧ TwistedNatural ((0 : Fin 1), (0 : Fin 1)) αL αR Ψ := by
+  classical
+  set τ : Equiv.Perm (Fin 4 × Fin 4) := Equiv.prodCongr σ₁ σ₂ with hτ
+  -- the relabelling is invertible on tuples, proved here from act 20's declaration
+  have hinv : ∀ (ρ : Equiv.Perm (Fin 4 × Fin 4))
+      (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      RelabelTransition ρ.symm (RelabelTransition ρ G) = G := by
+    intro ρ G
+    funext i
+    ext j k
+    simp [RelabelTransition, Matrix.submatrix_apply]
+  have hinv' : ∀ (ρ : Equiv.Perm (Fin 4 × Fin 4))
+      (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      RelabelTransition ρ (RelabelTransition ρ.symm G) = G := by
+    intro ρ G
+    funext i
+    ext j k
+    simp [RelabelTransition, Matrix.submatrix_apply]
+  have hΓt : ∀ t : ℕ, Γ t = Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2 :=
+    fun t => by rw [hΓ]
+  have hinvΓ : ∀ (t : ℕ) (i j : Fin 4 × Fin 4), Γ t (τ i) (τ j) = Γ t i j := by
+    intro t i j
+    rw [hΓt, hΓ₀]
+    rfl
+  have hinvΓ' : ∀ (t : ℕ) (i j : Fin 4 × Fin 4), Γ t (τ.symm i) (τ.symm j) = Γ t i j := by
+    intro t i j
+    rw [hΓt, hΓ₀]
+    rfl
+  have hrel : ∀ (t : ℕ) (G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+      RealizableGram (Fin 1 × Fin 1) (Γ t) G →
+      RealizableGram (Fin 1 × Fin 1) (Γ t) (RelabelTransition τ G) := by
+    intro t G hG
+    exact realizable_relabel ((0 : Fin 1), (0 : Fin 1)) τ (hinvΓ t) hG
+  have hstep : ∀ t : ℕ, Γ (t + 1) = Γ t := fun t => by rw [hΓt, hΓt]
+  refine ⟨?_, ?_, ⟨_, fun _ => rfl⟩, ⟨?_, ?_⟩, fun _ _ _ h => relabel_gramPhaseEquiv τ h, ?_,
+    fun G₁ G₂ => by rw [hτ, relabel_product], ?_⟩
+  · -- conjunct 3, total evolution along the iterates
+    intro G₀ hG₀
+    refine ⟨fun t => (RelabelTransition τ)^[t] G₀, fun t => ?_, fun t => ?_,
+      gramPhaseEquiv_refl _⟩
+    · dsimp only
+      induction t with
+      | zero => simpa using hG₀
+      | succ n ih =>
+        rw [Function.iterate_succ_apply', hstep n]
+        exact hrel n _ ih
+    · dsimp only
+      rw [Function.iterate_succ_apply']
+      exact gramPhaseEquiv_refl _
+  · -- conjunct 4, preservation of admissibility
+    intro t G hG
+    dsimp only
+    rw [hstep t]
+    exact hrel t G hG
+  · -- conjunct 6, injectivity on classes
+    intro t G G' _ _ h
+    dsimp only at h
+    have := relabel_gramPhaseEquiv τ.symm h
+    rwa [hinv, hinv] at this
+  · -- conjunct 6, surjectivity
+    intro t G' hG'
+    refine ⟨RelabelTransition τ.symm G', ?_, ?_⟩
+    · have := realizable_relabel ((0 : Fin 1), (0 : Fin 1)) τ.symm (hinvΓ' (t + 1)) hG'
+      rwa [hstep t] at this
+    · dsimp only
+      rw [hinv']
+      exact gramPhaseEquiv_refl _
+  · -- factorization at the frozen ordered decomposition
+    refine ⟨by simp, fun t i j => by rw [hΓt, hΓ₀]; rfl,
+      fun _ => RelabelTransition σ₁, fun _ => RelabelTransition σ₂, fun t G₁ G₂ _ _ => ?_⟩
+    rw [hτ]
+    show GramPhaseEquiv (RelabelTransition (Equiv.prodCongr σ₁ σ₂)
+      (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+        G₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2)) _
+    rw [relabel_product]
+    exact gramPhaseEquiv_refl _
+  · -- conjunct 8, at the product carrier
+    intro t
+    refine ⟨RelabelLift τ, RelabelInducedLeft τ, RelabelInducedRight τ,
+      fun U _ => rnt2_lifting_property τ _ U, fun U hU => ?_, rnt3_law_exact τ _⟩
+    rw [hstep t]
+    exact rnt2_admissible (hinvΓ t) hU
+
 /-! ### Axiom report — evidence level 2 -/
 
 #print axioms a29_shared_product_separated
@@ -200,6 +329,7 @@ theorem a29_p_hold (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
 #print axioms a29_shared_separated_solutions
 #print axioms a29_shared_splice
 #print axioms a29_p_hold
+#print axioms a29_n_relabel_instance
 
 end ProductAdmission
 end OIBridge
