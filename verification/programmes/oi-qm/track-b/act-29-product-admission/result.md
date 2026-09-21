@@ -32,10 +32,9 @@ act 21's `phiPP_ladder` is the round's frozen positive control; and that act 28 
 deviation `DF1`. No measurement was taken before the freeze. The reasoning in the freeze's route
 section was hand reasoning, and the freeze says so of itself.
 
-**One reading in that route was found incomplete during execution**, and is recorded in §5 as a
-reading rather than repaired: route step 3 says that act 27's single-carrier lifts do not transport
-to the product carrier by anything in the record, which is true of act 27's lifts and understates
-what the record already contains.
+**One route step is read against the record in §5, as RD1, and is not repaired**: route step 3
+concerns the transport of act 27's single-carrier lifts to act 28's general construction, and a
+particular product-carrier lift that the record already contains lies outside what it addresses.
 
 ---
 
@@ -254,16 +253,19 @@ injectivity conjunct; rather than consume act 21's `gramPhaseEquiv_of_relabel` a
 `relabel_relabel_symm`, which `A29-N`'s row does not list, both directions were proved inline from
 act 20's declaration, so no unlisted consumption arose.
 
-**RD1 — the route's step 3 understates the record, recorded as a reading.** Route step 3 says that
-act 27's single-carrier lifts do not transport to the product carrier by anything in the record.
-That is true of act 27's lifts. It understates what the record contains: act 20's `RelabelLift` and
-its obligations `rnt2_lifting_property`, `rnt2_admissible` and `rnt3_law_exact` are stated for an
-**arbitrary finite carrier**, and act 21's `phiPP_ladder` — this round's frozen positive control —
-already discharges `LadderConds`' eighth conjunct, which is act 20's existential twisted-lift form
-verbatim, at this very carrier, for the pair induced by `σ` on each factor. The freeze is immutable
-and was not edited; the reading is recorded here, against the step it departs from, and the control
-is cited rather than re-proved. `a29_n_relabel_instance` extends the pairs from that one to all
-those induced by relabellings, which is `A29-N`'s permitted work.
+**RD1 — the route's step 3, read against the record.** Route step 3 says that act 27's
+single-carrier lifts do not transport to the product carrier by anything in the record, and that a
+twisted-natural lift for act 28's general construction would have to be built representative-wise.
+Both remain true: nothing in this round transports act 27's lifts, and no lift of act 28's
+construction was built. The record does contain a **particular** product-carrier lift, which the
+step does not mention: act 20's `RelabelLift` and its obligations `rnt2_lifting_property`,
+`rnt2_admissible` and `rnt3_law_exact` are stated for an arbitrary finite carrier, and act 21's
+`phiPP_ladder` — this round's frozen positive control — discharges `LadderConds`' eighth conjunct,
+act 20's existential twisted-lift form verbatim, at this carrier for the pair induced by `σ` on each
+factor. `a29_n_relabel_instance` broadens the positive cases from that pair to every pair induced by
+carrier relabellings. **The pairs not so induced remain unresolved, and no impossibility is
+established for any of them.** The freeze is immutable and was not edited; the control is cited and
+not re-proved, as its row prescribes; and the reading is recorded here against the step it concerns.
 
 **RD2 — act 28's `R7-PFR` ROADMAP contract and this round's contract 11 collide.** Act 28's
 guard predicate for the `P0` cell ends by requiring the standing clause to occur **exactly once in
