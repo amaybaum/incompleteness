@@ -526,8 +526,10 @@ fixtures above. In addition:
 21. The frozen replacement with its adjacency leg weakened to `_pfr_n(_PFR_ROAD_STANDING) in c` —
     accepts `standing-clause-detached` — **fails `GR1-2`**; and with that leg restated as
     `c.count(p0 + ' ' + st) == 1` — rejects `no-whitespace-adjoin` — **fails `GR1-2`**.
-22. The frozen replacement with the final line dropped — accepts `p0-duplicated`, the sentence
-    copied outside the cell with the cell's entry intact — **fails `GR1-2`**.
+22. The frozen replacement with its final line `return n.count(p0) == 1` replaced by `return True`
+    — accepts `p0-duplicated`, the sentence copied outside the cell with the cell's entry intact —
+    **fails `GR1-2`**. (Deleting the line outright is not this mutant: a function that falls off
+    its end returns `None` and rejects the valid baseline too, for the wrong reason.)
 23. In `EXECUTION`, one byte changed anywhere in the guard file outside the two owned regions —
     **fails the placement contract**, whole-file form.
 24. After landing, `_pfr_road_ok`'s live body differing from the frozen text, or the guard at `E`
