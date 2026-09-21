@@ -27763,7 +27763,95 @@ _PFR_IMPORT = 'import OIBridge.StrictNaturalLift\n'
 _PFR_BLOB = '9e1b05bb39ce0c4ade7df38d21b2b947f8aa9011'
 _PFR_STATEMENT_PINS = {'a28_shared_product_entry': '4fc525133cf31e5dd82dad34df931ce88146e91457e0511fca96d73a623e3f33', 'a28_shared_factor_diagonal': 'f9a80a17f70f46c149af1767b452ce7aed8c58184313c5203a8a0a17561a44d3', 'a28_shared_factor_diagonal_ne_zero': 'f69c813ae110635f3522a01d78949a5e89017df6cbcb4e277107f97e71e64557', 'a28_shared_product_diagonal': '00500621f3b3d0725c606896644db50452de2b8994ef335e2d20b6a643a39ff7', 'a28_r_fst': 'e8dae26a2de833957d9ee9abb340a173fc5b74e84b2df30775b782d921af2cb3', 'a28_r_snd': '04174a66b23910ca0d369705b41396151895bdc1a084521d641d4890c233c7f6', 'a28_r_recovery': '6a06c8c717ca972fffc6ed8844360f39ee678a5ea84a44f0b5805d2a779e50b3', 'a28_s_locus_first_index': 'cf255216ddf7e9c322726fce5339002a14060152aab898d3b6eb1ed90f55ba6a', 'a28_s_proper': '117308d09399065be2566228eb7ac08e6e1d96eb8b00afb71ab3be6ca2a33722', 'a28_shared_product_equiv': '6ac8ab753d110d123d8e18952d3c45b8ad0429f991fe1f45c0749087e649cf40', 'a28_shared_product_realizable': '9f82375b48cda80a699fd7273b2e69b2c5c52c24a5c4506184be72f2d3b047af', 'a28_0_construction': '39b12f3ace1da967ed5147a8a3f0273ff99628504212fe03f8e36b20a96b5d1c'}
 _PFR_VERDICTS = ('a28_s_proper', 'a28_0_construction')
-_PFR_REQUIRED = ('**Outcome vector: `A28-0-UNDECIDED` · `A28-1-NOT-EXECUTED`** — row 6 of the frozen table.', '**The first recorded execution act was the\nbase-blob check**', '**Twelve named results; zero top-level definitions against a budget of zero.**', '### 2.1 What the declaration requires, and what this round hypothesizes — kept apart', 'requires of them **no**\nrealizability preservation, **no** descent to classes and **no** bijectivity', '### 2.2 Why the quantifier is restricted to bijections', 'Injectivity on classes — the first conjunct of reversibility — then fails for\na reason that has **nothing to do with factorization**.', '### 2.3 The controls, cited and not re-proved', "act 21's `phiPP_ladder`", "act 22's `phiSwap_l5_restricts`", "act 23's `phiSC_corner`", 'The identity is **not** used as a control', '**The two normalizations are distinct and are not conflated.**', '**The two frozen moduli, stated separately and with their status distinguished from those\nlemmas.**', "**Both are statements of the frozen control plane. Neither is proved in this round's\nmodule, neither is used by any verdict, and neither follows from the two diagonal lemmas above**", '`A28-S` — **`A28-S-PROPER`**', '**Quantifying over\nthe phase function is what excludes every product representative at once**', '`A28-R` — **`A28-R-OBTAINED`**, in two parts', '`A28-0` — **`A28-0-UNDECIDED`**', '> Neither the universal nor a counterexample was obtained. The obstruction is named, with the step\n> at which the proof stopped and what would settle it. The absence of a proof is not a\n> counterexample, and the absence of a counterexample is not a proof.', '**five of the eight**', 'Reversibility is **one** frozen conjunct although it is\nreported in two components, so the components number six while the conjuncts number five.', '**The reconciliation with act 23, which an existence result leaves intact.**', "**An affirmative answer would therefore leave act 23's verdict\nuntouched**", '**The obstruction, named.**', '**No impossibility result follows.**', '`A28-1` — **`A28-1-NOT-EXECUTED`**', '> Not executed: `A28-0` did not reach `A28-0-EXTENDS`, and the gate closed the target.', '**The pair the target was frozen at**', 'Equiv.swap (2 : Fin 4) 3', '**Properness alone does not establish nonuniqueness.**', '**DF1 — route deviation at `A28-S`.**', '**The\nroute-authorization matrix is therefore not reported as honoured without qualification.**', 'Disclosure is not a cure and does not convert the consumption into an authorized one.', '**DF2 — no route discrepancy was found; the record of one is corrected.**', '**The merged freeze had already withdrawn that claim**', '**No mathematical route discrepancy was\nfound.**', '**DF3 — two reporting errors, corrected forward.**', 'Each answer reports only what its own span acquired.', "**No rung was restated, no notion was paraphrased, no hypothesis was added to act 21's declaration,\nno definition was introduced, and nothing was imported beyond the module's single import.**", '**No law exhibited here is read as a symmetry, an antiunitary map, a time reversal, a unitary\nevolution or a dynamics, and none is called canonical, unique or continuous.**', "**Act 24's cell `b`\nis untouched in either direction**", '**The single-carrier classification of acts 25, 26 and 27 is not read as\ndescribing the product space**', '**`L5-FREE` as act 22\nnames it is neither attempted nor reported**', '**`P0` stays `OPEN`.**', '- **Span 1, the shared lemmas and `A28-R`.** Acquired: the two diagonal values and factor recovery\n  in both parts. Nothing else was measured, and no verdict theorem existed at the module commit.', '- **Span 2, `A28-S`.** Acquired: the necessary condition for locus membership and its failure at the\n  exhibited class. The three unlisted consumptions of DF1 were made in this span.', "- **Span 3, `A28-0`.** Acquired: the construction, the five frozen prefix conjuncts it carries and\n  act 21's factorization predicate with the prescribed pair as its factor families. **Nothing\n  about act 18's two standing hypotheses or about a product-carrier twisted-natural lift was\n  measured, attempted or obtained in this span**, and the two helper lemmas it uses were proved in\n  it rather than consumed.")
+# Each frozen requirement below is mapped to its COMPLETE required content -- the whole
+# paragraph, table or blockquote that states it -- so that deleting the record, or changing a
+# value it states, fails the gating predicate. A heading is never the requirement.
+_PFR_REQUIRED = (
+    ('outcome-row',
+     '**Outcome vector: `A28-0-UNDECIDED` · `A28-1-NOT-EXECUTED`** — row 6 of the frozen table.'),
+    ('base-blob-first',
+     'Executed under the frozen control plane at\n`verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/preregistration.md`, blob\n`9e1b05bb39ce0c4ade7df38d21b2b947f8aa9011`, from the mandated execution base\n`B = 101b8cebb140c2ee7b982641ff005b84bbf0a1cf`. **The first recorded execution act was the\nbase-blob check**, which matched before any target was read.'),
+    ('prior-knowledge',
+     "Before the freeze was drafted, the following were known from the record and shaped the design: that\nfactorization has content at this configuration (act 22), that it is not implied by the prefix\nthrough gauge naturality (act 22), that it does not imply that naturality under the earlier prefix\n(act 23), that it neither implies nor is implied by isometry of act 24's feature geometry, and that\nact 22 records `L5-FREE` as unattempted and unreportable. No measurement was taken before the\nfreeze. The construction sketched in the freeze's route section was hand reasoning. **Nothing in\nthat route was found wrong during execution**: the route's own step 2, written before execution\nand merged with the freeze, already withdrew an earlier draft's claim that the assignment would\nneed no choice, and the execution followed the corrected route as merged."),
+    ('declaration-table',
+     '| object | source | used as |\n| --- | --- | --- |\n| `GramPhaseEquiv`, `RealizableGram`, `FibreGram` | act 12 | consumed verbatim |\n| `ProperAt`, `PropagatesFrom` | act 18 | named, **not asserted** |\n| `RelabelTransition`, `TwistedNatural` | act 20 | named, **not asserted** |\n| `FactorizesOnProduct`, `EvolvesTotally`, `PreservesAdmissible`, `Reversible` | act 21 | consumed verbatim |\n| `product_realizable`, `realizable_relabel`, `witness_supply` | act 21 | consumed |\n| `gramPhaseEquiv_fst_of_product` | act 23 | consumed |\n| `sh1_sufficiency`, `sh1_necessity` | act 12 | consumed |\n| `a27_shared_fibreGram_entry` | act 27 | consumed, **of a factor** |'),
+    ('declaration-count',
+     '**Twelve named results; zero top-level definitions against a budget of zero.** Every named result\nreports only `propext`, `Classical.choice`, `Quot.sound`.'),
+    ('decl-vs-hypotheses',
+     "### 2.1 What the declaration requires, and what this round hypothesizes — kept apart\n\n**The declaration's existential factor families are arbitrary tuple-level families**, indexed by\ntime and fixed before the universal quantifiers, and `FactorizesOnProduct` requires of them **no**\nrealizability preservation, **no** descent to classes and **no** bijectivity. Every such\nrequirement appearing in `A28-0`'s statement — realizability preservation, descent on realizable\ntuples, injectivity on realizable tuples, surjectivity — is a **hypothesis of this round's own\ntheorem**, never a change to the declaration. The declaration is consumed verbatim and the\ndefinition budget is zero."),
+    ('bijection-reason',
+     "### 2.2 Why the quantifier is restricted to bijections\n\nA pair whose first component is constant collapses the classes `[G(H₁) ⊠ G(H₁)]` and\n`[G(Hᵢ) ⊠ G(H₁)]`, which act 22 separates by act 12's cross-invariant at `((0,0),(1,0))`, values\n`1/256` and `i/256`. Injectivity on classes — the first conjunct of reversibility — then fails for\na reason that has **nothing to do with factorization**. Restricting the quantifier to bijections\nis what makes the question about the condition rather than about that collapse. The reason was\nrecorded in the freeze before execution and is not a post-hoc narrowing."),
+    ('controls-table',
+     "### 2.3 The controls, cited and not re-proved\n\n| role | object | what it is for |\n| --- | --- | --- |\n| positive | act 21's `phiPP_ladder`, the product permutation | a law of the prefix **can** satisfy factorization with content here |\n| negative | act 22's `phiSwap_l5_restricts`, the factor swap | a law of the prefix **can** fail it, so the condition is not automatic |\n| countercontrol | act 23's `phiSC_corner` | a law can factorize and fail gauge naturality, so no construction producing factorization is read as producing that rung |\n\nThe identity is **not** used as a control; the positive control is a nontrivial factor-wise\nrelabelling."),
+    ('configuration',
+     'Carrier `Fin 4 × Fin 4`, sixteen elements. Ancilla `Fin 1 × Fin 1`, one element. Anchor\n`((0 : Fin 1), (0 : Fin 1))`. Factor visible matrix with entries `1 / 4`; product visible family\nthe pointwise product, entries `1 / 16`. Ordered decomposition `Equiv.refl (Fin 4 × Fin 4)`.'),
+    ('two-normalizations',
+     "**The two normalizations are distinct and are not conflated.** What is proved about them is the\ndiagonal values: a factor's diagonal is `1 / 4` at its own visible matrix\n(`a28_shared_factor_diagonal`), and the pointwise product's diagonal is `1 / 16` at the product\nvisible family (`a28_shared_product_diagonal`)."),
+    ('two-frozen-moduli',
+     "**The two frozen moduli, stated separately and with their status distinguished from those\nlemmas.** The freeze states that a tuple realizable at the product visible family has every entry\nof modulus `1 / 16`, and that an admissible dilation for it has anchor-column entries of modulus\n`1 / 4`. **Both are statements of the frozen control plane. Neither is proved in this round's\nmodule, neither is used by any verdict, and neither follows from the two diagonal lemmas above**,\nwhich are about diagonal entries only. They are recorded here as frozen context, not as results."),
+    ('properness',
+     '### `A28-S` — **`A28-S-PROPER`**\n\n> At the frozen product configuration there is a tuple realizable at the product visible family\n> whose class contains no pointwise product of two tuples realizable at the factor visible matrix,\n> at evidence level 2. This is a statement about that class at that configuration. It does not\n> describe the locus, does not count classes, and says nothing about any other configuration.\n\nThe locus is a set of **classes**. The proof establishes a necessary condition on membership —\nentries at matrix indices sharing a first coordinate do not depend on the first coordinate of the\nfibre index, because the first factor contributes only its diagonal there and act 12\'s phase\nfunction depends on the matrix indices alone — and then exhibits its failure. **Quantifying over\nthe phase function is what excludes every product representative at once**; no argument of the form\n"this tuple is not literally a product" appears. The witness is act 21\'s product tuple relabelled\nby the carrier transposition exchanging `(0, 1)` and `(1, 0)`, which is not a product permutation.'),
+    ('factor-recovery',
+     "### `A28-R` — **`A28-R-OBTAINED`**, in two parts\n\nRecovery is at the level of **classes**, not equality of tuples. First part: act 23's\n`gramPhaseEquiv_fst_of_product`, consumed and not re-derived, its nonzero-diagonal hypothesis\ndischarged by the factor diagonal `1 / 4`. Second part: the analogue with the factors exchanged,\nwhich has no counterpart in the record at `B` and is proved here."),
+    ('undecided-status',
+     '### `A28-0` — **`A28-0-UNDECIDED`**\n\n> Neither the universal nor a counterexample was obtained. The obstruction is named, with the step\n> at which the proof stopped and what would settle it. The absence of a proof is not a\n> counterexample, and the absence of a counterexample is not a proof.'),
+    ('what-was-obtained',
+     "**What was obtained.** A construction that, for **any** prescribed pair of bijections of the\nrealizable class space at the factor visible matrix — stated in act 27's tuple-level idiom, with\ndescent and injectivity hypothesized **only on realizable tuples** — produces a transition family\nat the frozen configuration carrying **five of the eight** frozen prefix conjuncts, namely total\nevolution, preservation of realizability, time homogeneity, reversibility and descent, together\nwith act 21's `FactorizesOnProduct` at the frozen configuration and ordered decomposition, whose\nfactor families are the prescribed pair. Reversibility is **one** frozen conjunct although it is\nreported in two components, so the components number six while the conjuncts number five."),
+    ('obstruction-named',
+     "**The obstruction, named.** Act 18's `ProperAt` and `PropagatesFrom`, and representative-level\ngauge naturality at act 20's certified strength, are **not proved**, and nothing is claimed about\nthem in either direction. **No impossibility result follows.** What would settle the target is\neither a construction of a twisted-natural lift at the **product** carrier for the class map built\nhere, together with the two standing hypotheses for an arbitrary prescribed pair, or an exhibited\npair for which no family carrying all eight conjuncts realizes it."),
+    ('act-23-reconciled',
+     "**The reconciliation with act 23, which an existence result leaves intact.** Act 23 proved of\n**one exact formula**, `Φ_SC`, that it satisfies factorization and admits **no** twisted-natural\nlift. `A28-0`'s naturality conjunct is existential in the lift and existential in the law, at act\n20's certified strength. **An affirmative answer would therefore leave act 23's verdict\nuntouched**, a different law or a different representative carrying a lift saying nothing about\n`Φ_SC` carrying none. The two statements are compatible and neither bears on the other. This round\nreaches no affirmative answer, and the reconciliation is recorded because the frozen statement\ncontract requires it."),
+    ('where-proof-stopped',
+     "**The step at which the proof stopped.** The class map is well defined by `A28-R` and its\nrepresentatives are supplied by choice, as act 27's own construction supplies them, so the\nrepresentative-supply step is paid explicitly. What is not paid is the lift: act 27's single-carrier\nlifting results are **not** read as describing the product carrier, and no product-carrier analogue\nwas constructed."),
+    ('not-executed-frozen',
+     '### `A28-1` — **`A28-1-NOT-EXECUTED`**\n\n> Not executed: `A28-0` did not reach `A28-0-EXTENDS`, or `A28-S` did not reach `A28-S-PROPER`, and\n> the gate closed the target.\n\n**Which of the two disjuncts closed it, stated separately from the frozen sentence.** The frozen\nsentence names two, and exactly one of them holds here. `A28-0` is `A28-0-UNDECIDED` and so did not\nreach `A28-0-EXTENDS`: **that is the disjunct that closed the target.** The second disjunct does\n**not** hold — `A28-S` reached `A28-S-PROPER` — and the target is closed on the first alone.'),
+    ('frozen-pair',
+     '**The pair the target was frozen at**, and to which **both** of its alternatives are scoped: with\n`σ = Equiv.swap (2 : Fin 4) 3`, the first component is the bijection of the single-carrier\nrealizable class space induced by `RelabelTransition σ`, and the second is the identity. Neither\n`A28-1-NONUNIQUE` nor `A28-1-UNIQUE` is reported, at that pair or at any other, and the question is\nneither answered nor approached.'),
+    ('properness-alone',
+     '**Properness alone does not establish nonuniqueness.** `A28-S-PROPER` says only that the\nfactorization conjunct is silent on some class; the eight prefix conjuncts still bind any two laws\nthere, and whether they leave room for disagreement is exactly what `A28-1` asks and what this\nround does not reach.'),
+    ('deviation-df1',
+     "**DF1 — route deviation at `A28-S`.** The proof of `a28_s_proper` consumes three results that\n`A28-S`'s row of the frozen route-authorization matrix does not list: act 21's `witness_supply`,\nact 21's `realizable_relabel`, and act 27's `a27_shared_fibreGram_entry`. The row lists act 12's\ndeclarations, act 21's `product_realizable` and `product_cross`, and `A28-R`. **The\nroute-authorization matrix is therefore not reported as honoured without qualification.** The\nfreeze is immutable and was not edited; the deviation is recorded here, against the row it departs\nfrom. Disclosure is not a cure and does not convert the consumption into an authorized one."),
+    ('deviation-df2',
+     "**DF2 — no route discrepancy was found; the record of one is corrected.** An earlier statement of\nthis note described the route's no-choice claim as an execution discovery. That is wrong, and the\ncorrection is made forward here. **The merged freeze had already withdrawn that claim**, in route\nstep 2, before execution began: prescribed class bijections return classes rather than tuples, so\nrepresentatives must still be supplied, and the route as merged says so. The execution followed\nthe merged route and supplied representatives by choice. **No mathematical route discrepancy was\nfound.**"),
+    ('deviation-df3',
+     '**DF3 — two reporting errors, corrected forward.** A module docstring asserted a general\nentry-modulus statement and an anchor-column modulus statement that the module does not prove; the\nassertions were removed rather than tagged. A commit title said the construction reached six of the\neight prefix conjuncts; the correct count is five, reversibility being one conjunct in two\ncomponents. Both were corrected in later commits without rewriting history.'),
+    ('attestations',
+     "- **Span 1, the shared lemmas and `A28-R`.** Acquired: the two diagonal values and factor recovery\n  in both parts. Nothing else was measured, and no verdict theorem existed at the module commit.\n- **Span 2, `A28-S`.** Acquired: the necessary condition for locus membership and its failure at the\n  exhibited class. The three unlisted consumptions of DF1 were made in this span.\n- **Span 3, `A28-0`.** Acquired: the construction, the five frozen prefix conjuncts it carries and\n  act 21's factorization predicate with the prescribed pair as its factor families. **Nothing\n  about act 18's two standing hypotheses or about a product-carrier twisted-natural lift was\n  measured, attempted or obtained in this span**, and the two helper lemmas it uses were proved in\n  it rather than consumed."),
+    ('span-discipline',
+     "Each answer reports only what its own span acquired. No span reports a result of another, and no\nresult was acquired outside the span that reports it.\n\n**No rung was restated, no notion was paraphrased, no hypothesis was added to act 21's declaration,\nno definition was introduced, and nothing was imported beyond the module's single import.**"),
+    ('route-limited-scope',
+     "**No verdict was inferred from another beyond the consumptions the route authorizes**, subject to\nDF1. **No law exhibited here is read as a symmetry, an antiunitary map, a time reversal, a unitary\nevolution or a dynamics, and none is called canonical, unique or continuous.** **Act 24's cell `b`\nis untouched in either direction**, and act 22's and act 23's verdicts stand exactly as those\nrounds state them. **The single-carrier classification of acts 25, 26 and 27 is not read as\ndescribing the product space**; act 27's results are used only of a factor. **`L5-FREE` as act 22\nnames it is neither attempted nor reported**, and nothing here says the condition is empty, has no\ncontent, or fails to restrict. **`P0` stays `OPEN`.**"),
+    ('gate-record',
+     '`A28-1` was not executed, and no theorem named for it exists at any commit of the round. The gate\ncondition — a verdict commit for `A28-1` only if the result note carries `A28-0-EXTENDS` and\n`A28-S-PROPER` — is satisfied vacuously, the first conjunct being false.'),
+    ('lifecycle-record',
+     "Sealing under `AGENTS.md` `§A.37` through the manifest protocol: `E` → `L` → `P`, with `P` writing\n`verification/seals/PFR.json` and no legacy constant. No existing manifest record is altered, no\nclosed round's contract is edited, and no manuscript file is written."),
+)
+_PFR_CENSUS_REQUIRED = (
+    ('base',
+     'Track B act 28, executed under the frozen control plane programmes/oi-qm/track-b/act-28-product-locus-freedom/preregistration.md, blob 9e1b05bb39ce0c4ade7df38d21b2b947f8aa9011, from certified base 101b8cebb140c2ee7b982641ff005b84bbf0a1cf.'),
+    ('vector',
+     'Outcome vector: A28-0-UNDECIDED · A28-1-NOT-EXECUTED.'),
+    ('proper',
+     'A28-S is A28-S-PROPER: a realizable class at the product configuration has no pointwise-product representative, proved through a necessary condition on locus membership that quantifies over every representative rather than over literal product form.'),
+    ('recovery',
+     "A28-R is obtained in two parts, act 23's first-factor marginal lemma consumed and the second-factor analogue proved here."),
+    ('construction',
+     "A28-0's construction realizes any prescribed pair of factor-class bijections and carries five of the eight frozen prefix conjuncts together with act 21's FactorizesOnProduct at the frozen configuration; act 18's ProperAt and PropagatesFrom and act 20's twisted-natural lift are not proved, which is the named obstruction, and no impossibility follows."),
+    ('gate',
+     'A28-1 is gated on A28-0-EXTENDS and was NOT EXECUTED.'),
+    ('axioms',
+     'Twelve named results, each with only propext, Classical.choice, Quot.sound; zero definitions against a budget of zero.'),
+    ('deviation',
+     "One route deviation is recorded and not repaired: A28-S's proof consumes act 21's witness_supply and realizable_relabel and act 27's a27_shared_fibreGram_entry, none listed in A28-S's row of the frozen route-authorization matrix, so the matrix is not reported as honoured without qualification."),
+    ('scope',
+     "P0 stays OPEN; act 24's cell b and all historical verdicts remain unchanged."),
+    ('shape',
+     'Sealing under the manifest protocol E → L → P.'),
+)
+_PFR_CENSUS_CLAUSE = '> **THE CLAUSE, carried at this mention — the census entry.**\n> Act 28 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts\n> none. A law that survives every condition this freeze names is a law that survives **those**\n> conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in\n> nature, **not** a finding that the programme requires it, and **not** an adoption of it as the\n> physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about\n> the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence\n> to add one more condition, or to widen one more equivalence, until a plurality becomes a point.\n> **No law gains physical status by surviving, no carrier and no principle is adopted as the physical\n> one, and nothing here derives, recognises or approaches quantum evolution.**'
+_PFR_CENSUS_NAME = 'the freedom factorization leaves at the product configuration (act 28, Track B)'
+_PFR_ROAD_STANDING = "`P0`'s threading part is untouched, no carrier is adopted as the physical one, no surviving law is adopted as the physical one, and nothing here names, endorses or excludes a selection principle."
+_PFR_BARE_VECTOR = '`A28-0-UNDECIDED` · `A28-1-NOT-EXECUTED`'
 _PFR_FORBIDDEN = ('route-authorization matrix was honoured', 'matrix was honoured', 'matrix is honoured', 'honoured in full', 'factorization selects', 'factorization does not select', 'A28-0-EXTENDS` ·', 'A28-0-RESTRICTS', 'A28-1-NONUNIQUE` ·', 'A28-1-UNIQUE` ·')
 _PFR_CLAUSE = '> **THE CLAUSE, carried at this mention — the result note.**\n> Act 28 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts\n> none. A law that survives every condition this freeze names is a law that survives **those**\n> conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in\n> nature, **not** a finding that the programme requires it, and **not** an adoption of it as the\n> physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about\n> the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence\n> to add one more condition, or to widen one more equivalence, until a plurality becomes a point.\n> **No law gains physical status by surviving, no carrier and no principle is adopted as the physical\n> one, and nothing here derives, recognises or approaches quantum evolution.**'
 _PFR_VECTOR = '**Outcome vector: `A28-0-UNDECIDED` · `A28-1-NOT-EXECUTED`** — row 6 of the frozen table.'
@@ -27778,17 +27866,72 @@ def _pfr_n(t):
 def _pfr_note_ok(note):
     """THE PREDICATE THAT GATES the result note. Every mutation below is passed through it."""
     n = _pfr_n(note)
-    if not all(_pfr_n(s) in n for s in _PFR_REQUIRED):
+    if not all(_pfr_n(s) in n for _k, s in _PFR_REQUIRED):
         return False
     if any(_pfr_n(f) in n for f in _PFR_FORBIDDEN):
         return False
     if n.count(_pfr_n(_PFR_VECTOR)) != 1:
         return False
+    # The outcome row is counted BY ITS VECTOR, independently of the heading that introduces it:
+    # a second bare vector anywhere in the note is a second outcome row, headed or not.
+    if n.count(_pfr_n(_PFR_BARE_VECTOR)) != 1:
+        return False
     if n.count('THE CLAUSE, carried at this mention') != 1 or _pfr_n(_PFR_CLAUSE) not in n:
         return False
-    if len({_pfr_n(a) for a in _PFR_ATTEST}) != len(_PFR_ATTEST):
+    if not all(_pfr_n(a) in n for a in _PFR_ATTEST):
         return False
     return True
+
+
+def _pfr_census_ok(raw):
+    """THE PREDICATE THAT GATES the census entry, read DECODED. Every mutation passes through it."""
+    try:
+        fams = json.loads(raw)['families']
+    except Exception:
+        return False
+    hit = [f for f in fams if f.get('name') == _PFR_CENSUS_NAME]
+    if len(hit) != 1:
+        return False
+    e = hit[0]
+    if e.get('modules') != ['ProductLocusFreedom'] or e.get('status') != 'kernel-only':
+        return False
+    if e.get('manuscript') != []:
+        return False
+    note = e.get('note') or ''
+    if '\\n' in note or note.count('\n') < 10:
+        return False
+    n = _pfr_n(note)
+    if not all(_pfr_n(t) in n for _k, t in _PFR_CENSUS_REQUIRED):
+        return False
+    if _pfr_n(_PFR_CENSUS_CLAUSE) not in n:
+        return False
+    return True
+
+
+def _pfr_census_mut(raw, fn):
+    d = json.loads(raw)
+    for i, f in enumerate(d['families']):
+        if f.get('name') == _PFR_CENSUS_NAME:
+            r = fn(dict(f))
+            if r is None:
+                d['families'].pop(i)
+            else:
+                d['families'][i] = r
+            break
+    return json.dumps(d, ensure_ascii=False)
+
+
+def _pfr_road_ok(road):
+    """THE PREDICATE THAT GATES the ROADMAP P0 cell. Every mutation below is passed through it."""
+    n = _pfr_n(road)
+    p0 = _pfr_n(_PFR_P0)
+    if n.count(p0) != 1:
+        return False
+    anchor = _pfr_n('with its selecting power left open.')
+    if anchor not in n or n.index(p0) < n.index(anchor):
+        return False
+    # this round's standing clause is not merely present: it follows the frozen sentence it scopes.
+    return n[n.index(p0) + len(p0):].lstrip().startswith(_pfr_n(_PFR_ROAD_STANDING))
 
 
 def _pfr_stmts(src):
@@ -27859,6 +28002,7 @@ _PFRNOTE = _bb_read(_PFRDIR + 'result.md').decode('utf-8')
 _PFRLEAN = _bb_read('lean-mathlib/OIBridge/ProductLocusFreedom.lean').decode('utf-8')
 _PFRWIRE = _bb_read('lean-mathlib/OIBridge.lean').decode('utf-8')
 _PFRROAD = _bb_read('ROADMAP.md').decode('utf-8')
+_PFRCEN = _bb_read('lean-manuscript-census.json').decode('utf-8')
 _pfr_checks = {}
 _pfr_mutations = 0
 
@@ -27894,8 +28038,9 @@ for _k, _v in (('config-factor', 'Matrix.of fun _ _ : Fin 4 => (1 / 4 : ℝ)'),
 _pfr_checks['no-rival-predicate'] = 'FactorizesOn' not in _PFRLEAN.replace('FactorizesOnProduct', '')
 
 _pfr_checks['note'] = _pfr_note_ok(_PFRNOTE)
-for _i, _s in enumerate(_PFR_REQUIRED):
-    _pfr_checks['note-req-mut:%02d' % _i] = not _pfr_note_ok(_PFRNOTE.replace(_s, '', 1))
+for _k, _s in _PFR_REQUIRED:
+    _pfr_checks['note-req:' + _k] = _s in _PFRNOTE
+    _pfr_checks['note-req-mut:' + _k] = not _pfr_note_ok(_PFRNOTE.replace(_s, '', 1))
     _pfr_mutations += 1
 for _i, _f in enumerate(_PFR_FORBIDDEN):
     _pfr_checks['note-forbidden-mut:%02d' % _i] = not _pfr_note_ok(_PFRNOTE + '\n' + _f + '\n')
@@ -27908,6 +28053,18 @@ for _nm, _mut in (
         ('clause-duplicated', lambda t: t.replace(_PFR_CLAUSE, _PFR_CLAUSE + '\n' + _PFR_CLAUSE)),
         ('outcome-row-duplicated',
          lambda t: t.replace(_PFR_VECTOR, _PFR_VECTOR + '\n\n' + _PFR_VECTOR, 1)),
+        ('bare-outcome-row-appended', lambda t: t + '\n' + _PFR_BARE_VECTOR + '\n'),
+        ('modulus-values-changed',
+         lambda t: t.replace('1 / 16', '1 / 8').replace('1 / 4', '1 / 2')),
+        ('frozen-pair-second-component-changed',
+         lambda t: t.replace('and the second is the identity',
+                             'and the second is that bijection too')),
+        ('deviation-helpers-erased',
+         lambda t: t.replace('`witness_supply`', '').replace('`realizable_relabel`', '')
+                    .replace('`a27_shared_fibreGram_entry`', '')),
+        ('second-gate-disjunct-dropped',
+         lambda t: t.replace('or `A28-S` did not reach `A28-S-PROPER`, and\n> the gate',
+                             'and the gate')),
         ('matrix-honoured-claim',
          lambda t: t + '\nThe route-authorization matrix was honoured.\n'),
         ('selection-claim', lambda t: t + '\nSo factorization selects.\n')):
@@ -27943,24 +28100,55 @@ else:
     _pfr_checks['chronology'] = False
 
 _pfr_checks['gate-head'] = 'a28_1' not in _PFRLEAN
-_pfr_checks['p0-verbatim'] = _PFR_P0 in _PFRROAD
-_pfr_checks['p0-after-act27'] = (_PFR_P0 in _PFRROAD and _PFRROAD.index(_PFR_P0)
-                                 > _PFRROAD.index('with its selecting power left open.'))
-_pfr_checks['p0-mut'] = _PFR_P0 not in _PFRROAD.replace(_PFR_P0, 'X', 1)
-_pfr_mutations += 1
+_pfr_checks['census'] = _pfr_census_ok(_PFRCEN)
+for _k, _t in _PFR_CENSUS_REQUIRED:
+    _pfr_checks['census-req-mut:' + _k] = not _pfr_census_ok(_pfr_census_mut(
+        _PFRCEN, lambda f, _t=_t: dict(f, note=f['note'].replace(_t, '', 1))))
+    _pfr_mutations += 1
+for _nm, _fn in (
+        ('clause-truncated',
+         lambda f: dict(f, note=f['note'].replace(_PFR_CENSUS_CLAUSE,
+                                                  _PFR_CENSUS_CLAUSE[:180]))),
+        ('clause-removed', lambda f: dict(f, note=f['note'].replace(_PFR_CENSUS_CLAUSE, ''))),
+        ('newlines-re-escaped', lambda f: dict(f, note=f['note'].replace('\n', '\\n'))),
+        ('entry-removed', lambda f: None),
+        ('modules-changed', lambda f: dict(f, modules=['StrictNaturalLift'])),
+        ('status-promoted', lambda f: dict(f, status='manuscript-cited'))):
+    _pfr_checks['census-mut:' + _nm] = not _pfr_census_ok(_pfr_census_mut(_PFRCEN, _fn))
+    _pfr_mutations += 1
+
+_pfr_checks['roadmap'] = _pfr_road_ok(_PFRROAD)
+for _nm, _fn in (
+        ('p0-deleted', lambda r: r.replace(_PFR_P0, '', 1)),
+        ('p0-duplicated', lambda r: r + '\n' + _PFR_P0 + '\n'),
+        ('standing-clause-removed', lambda r: r.replace(_PFR_ROAD_STANDING, '', 1)),
+        ('standing-clause-detached',
+         lambda r: r.replace(_PFR_P0 + ' ' + _PFR_ROAD_STANDING,
+                             _PFR_P0 + ' Something else entirely. ' + _PFR_ROAD_STANDING, 1)),
+        ('p0-before-act27',
+         lambda r: _PFR_P0 + ' ' + _PFR_ROAD_STANDING + '\n'
+                   + r.replace(_PFR_P0 + ' ' + _PFR_ROAD_STANDING, '', 1))):
+    _pfr_checks['road-mut:' + _nm] = not _pfr_road_ok(_fn(_PFRROAD))
+    _pfr_mutations += 1
 _pfr_checks['manifest-authority'] = bool(_si2_authority('PFR', tag='R7-PFR'))
 
 _pfr_bad = [k for k, v in _pfr_checks.items() if not v]
 print('    R7-PFR contracts: %d checks, %d mutation controls; failures: %s'
       % (len(_pfr_checks), _pfr_mutations, ', '.join(_pfr_bad) if _pfr_bad else 'none'))
 check('R7-PFR', not _pfr_bad,
-      'Act 28: frozen blob with drift control, one keyed manifest authority, the chronology and the '
-      'result note each read through ONE gating predicate that every mutation is passed through -- '
-      'a reordered chain, a missing stage A, a module that disappears or gains a definition or a '
-      'gated name, a verdict appearing early, each frozen contract deleted and each forbidden '
-      'claim added, the clause truncated or duplicated, the outcome row duplicated -- twelve '
-      'pinned statements each mutation-tested, the frozen configuration and act 21 predicate '
-      "verbatim, and the frozen P0 sentence after act 27's. No closed-round contract is edited.")
+      'Act 28: frozen blob with drift control, one keyed manifest authority, and the chronology, '
+      'the result note, the DECODED census entry and the ROADMAP cell each read through ONE gating '
+      'predicate that every mutation is passed through. Each frozen requirement is pinned to its '
+      'COMPLETE content, not a heading: twenty-nine result-note records, ten census records and '
+      'the two clauses in full. Mutations: a reordered chain, a missing stage A, a module that '
+      'disappears or gains a definition or a gated name, a verdict appearing early, each record '
+      'deleted, each forbidden claim added, either clause truncated or duplicated, the outcome row '
+      'duplicated AND a bare vector appended without its heading, both modulus values changed, the '
+      "frozen pair's second component changed, the three deviation helpers erased, the frozen "
+      "not-executed sentence's second disjunct dropped, the census note re-escaped or its entry "
+      'removed, and the ROADMAP standing clause removed or detached. Twelve pinned statements each '
+      'mutation-tested, the frozen configuration and act 21 predicate verbatim. No closed-round '
+      'contract is edited.')
 
 
 # ---- R7-SI1: seal infrastructure round SI-1 -- the SHADOW seal validator and the equivalence

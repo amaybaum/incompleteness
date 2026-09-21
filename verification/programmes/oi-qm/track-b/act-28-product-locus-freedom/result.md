@@ -166,7 +166,13 @@ was constructed.
 
 ### `A28-1` — **`A28-1-NOT-EXECUTED`**
 
-> Not executed: `A28-0` did not reach `A28-0-EXTENDS`, and the gate closed the target.
+> Not executed: `A28-0` did not reach `A28-0-EXTENDS`, or `A28-S` did not reach `A28-S-PROPER`, and
+> the gate closed the target.
+
+**Which of the two disjuncts closed it, stated separately from the frozen sentence.** The frozen
+sentence names two, and exactly one of them holds here. `A28-0` is `A28-0-UNDECIDED` and so did not
+reach `A28-0-EXTENDS`: **that is the disjunct that closed the target.** The second disjunct does
+**not** hold — `A28-S` reached `A28-S-PROPER` — and the target is closed on the first alone.
 
 **The pair the target was frozen at**, and to which **both** of its alternatives are scoped: with
 `σ = Equiv.swap (2 : Fin 4) 3`, the first component is the bijection of the single-carrier
