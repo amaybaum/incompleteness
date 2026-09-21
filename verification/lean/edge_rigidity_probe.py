@@ -27961,7 +27961,13 @@ def _pfr_p0_cell(road):
 
 
 def _pfr_road_ok(road):
-    """THE PREDICATE THAT GATES the ROADMAP P0 cell. Every mutation below is passed through it."""
+    """THE PREDICATE THAT GATES act 28's ROADMAP entry, read as a BOUNDED ENTRY.
+
+    Act 28's entry is its unique frozen sentence, inside the ACTUAL P0 cell, after act 27's anchor,
+    with the complete standing clause following it. The predicate validates that entry and counts
+    nothing beyond it: a successor round's entry, which necessarily reuses the standing clause, is
+    outside the bound and is neither counted nor accepted in its place.
+    """
     cell = _pfr_p0_cell(road)
     if cell is None:
         return False
@@ -27976,7 +27982,7 @@ def _pfr_road_ok(road):
     if not c[c.index(p0) + len(p0):].lstrip().startswith(_pfr_n(_PFR_ROAD_STANDING)):
         return False
     n = _pfr_n(road)
-    return n.count(p0) == 1 and n.count(_pfr_n(_PFR_ROAD_STANDING)) == 1
+    return n.count(p0) == 1
 
 
 def _pfr_stmts(src):
