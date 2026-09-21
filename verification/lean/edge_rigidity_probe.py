@@ -31217,6 +31217,773 @@ check('R7-SI3', ok_si3,
       "each mutation-tested; three definition slots, three fired. Act 21, the Track B round act 20 reserved, "
       "is neither opened nor closed nor affected by any of this.")
 
+# ---- R7-GR1: guard repair round GR-1 -- act 28's ROADMAP contract scoped to act 28's own entry.
+# NON-SEALING, E -> L, no P. The round writes NO manifest record, NO prospective declaration and
+# NO baseline change; its mandated execution base is the literal below and nothing else, and
+# nothing matching _GR1_(BASE|SEALED_HEAD|MERGE) exists at any commit of the round, so SI-3's
+# standing contract holds. The retained act 28 baseline is the narrow exception the freeze owns;
+# what protects every record at B while this round runs is THIS block's whole-seals-tree contract.
+# The base below is the merge of amendment 2, the second amendment to move it: neither attempted
+# execution is ancestry of this one, and both amendments are pinned by blob beside the freeze.
+_GR1_B = '39090ca75860e7e6cbd99fa6f3ad859cee3efaf4'
+_GR1FRZ = 'infrastructure/round-gr-1-roadmap-entry-scoping/preregistration.md'
+_GR1AMD = 'infrastructure/round-gr-1-roadmap-entry-scoping/amendments/amendment-1.md'
+_GR1AMD2 = 'infrastructure/round-gr-1-roadmap-entry-scoping/amendments/amendment-2.md'
+_GR1RESREL = 'infrastructure/round-gr-1-roadmap-entry-scoping/result.md'
+_GR1MAPREL = 'infrastructure/round-gr-1-roadmap-entry-scoping/gr1-tagmap.json'
+_GR1_BLOB = '013ca3d75c65fd884974e7e6350b7c78924bb22b'
+_GR1_AMD_BLOB = '631439af8682eec66a1f9ec3aaacece76d50dfb4'
+_GR1_AMD2_BLOB = 'd7a50c458dea5c35660c9bfc7b7fe47b923396a1'
+_GR1_GUARD_PATH = 'verification/lean/edge_rigidity_probe.py'
+_GR1_ROAD_PATH = 'verification/ROADMAP.md'
+_GR1_SEALS_PATH = 'verification/seals'
+# The start state the freeze pins at D and requires at B, read from git and never from the tree.
+_GR1_PINS = {
+    _GR1_GUARD_PATH: '5e2c36c30c2e231bc726741bd522ec051b657391',
+    _GR1_ROAD_PATH: 'd0658c99b6ef13d984fd533760393c0b4a2e43c7',
+    'verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/preregistration.md':
+        '9e1b05bb39ce0c4ade7df38d21b2b947f8aa9011',
+    'verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/result.md':
+        'c445c5cef9ba01bd5271e90fe988297e0786b097',
+    'verification/seals/PFR.json': 'd09a24ff68958a19f57d4ba07f3c94263820dc83',
+    'verification/programmes/oi-qm/track-b/act-29-product-admission/preregistration.md':
+        '5451a52d87d7d2ab2aac48802bb80898d81f6a16',
+    'verification/lean-mathlib/OIBridge/ProductLocusFreedom.lean':
+        '325c09a180366765ae4d742b752099d3b219d3c9',
+    'AGENTS.md': 'a9687b39c69973d35a2ff81c257687071fd35eca',
+}
+_GR1_SEALS_TREE = '92e0956ad6b187fddf77068f33c66e69a012f074'
+# The superseded predicate, as it stands at the base: extracted from the base's own guard text and
+# pinned by content, so the differential suite's OLD column is the base's code and not a retyping.
+_GR1_OLD_SHA = '882077268e15a62b795f0f182d624769fd5fa726a11ca19c9140ce9df44f6472'
+# The one leg the supersession table retires. Its disappearance is the substantive change.
+_GR1_RETIRED_LEG = "and n.count(_pfr_n(_PFR_ROAD_STANDING)) == 1"
+# The block's own bounds, so the placement contract can remove exactly it and nothing else.
+# Assembled from pieces so that these literals are not themselves occurrences of the
+# markers: a self-matching bound would count twice and the placement contract would refuse
+# to locate the block at all.
+_GR1_MARK_OPEN = '# ---- ' + 'R7-GR1: guard repair round GR-1'
+_GR1_MARK_CLOSE = '# ---- ' + 'R7-GR1 ends.'
+# Act 29's five frozen P0 sentences, one per outcome case, as its control plane fixes them. Each
+# quoted fragment is required below to occur in act 29's preregistration at the base, so these are
+# provenanced to that freeze rather than asserted here.
+_GR1_A29_FRAG = (
+    "At the product configuration, the ladder's conditions through factorization admit every pair "
+    "of local class bijections: each such pair is the class action of the factor families of a "
+    "single law carrying all of them, so those conditions do not select among local behaviours.",
+    "For the local pair fixed in advance, two such laws can disagree on a class away from the "
+    "product inputs, so those conditions do not fix a law's action there from its action on "
+    "product inputs.",
+    "For the local pair fixed in advance, two such laws take equivalent values on every realizable "
+    "input away from the product inputs, so for that pair those conditions fix the law's action "
+    "there up to the gauge equivalence.",
+    "At the product configuration, the ladder's conditions through factorization do not admit "
+    "every pair of local class bijections: for an exhibited pair, no law carrying all of them has "
+    "factor families realizing it, the obstruction being representative-level gauge naturality at "
+    "the product carrier.",
+    "At the product configuration, whether the ladder's conditions through factorization admit "
+    "every pair of local class bijections is undecided, with the conjunct that is missing named.",
+)
+_GR1_A29_SENTENCES = (
+    _GR1_A29_FRAG[0],
+    _GR1_A29_FRAG[0] + ' ' + _GR1_A29_FRAG[1],
+    _GR1_A29_FRAG[0] + ' ' + _GR1_A29_FRAG[2],
+    _GR1_A29_FRAG[3],
+    _GR1_A29_FRAG[4],
+)
+_GR1_GENERIC = "A later round's sentence, of any content, in the same cell."
+# The result note's frozen content contracts. Each is pinned to its COMPLETE statement; a heading
+# is never the requirement. They are evaluated ONLY when the note exists: a missing note is
+# reported by its own artifact contract and is not counted again here.
+_GR1_REQUIRED = (
+    ('shape', '**Non-sealing, `E` → `L`, no `P`.** The round writes no manifest record, no '
+              'prospective declaration and no baseline change.'),
+    ('record-owed', 'The `base-only` record `verification/seals/GR1.json` is owed to a later '
+                    'round, which names it as an authorized manifest addition in its own '
+                    'preregistration.'),
+    ('supersession', 'One leg is retired: the document-wide count of act 28\'s standing clause. '
+                     'Every other leg, the adjacency leg included, is retained verbatim, and '
+                     'nothing is restated.'),
+    ('rd2-history', '`RD2` stands as act 29 recorded it. It is history, neither repaired nor '
+                    'withdrawn, and this round does not make the recorded failure not have '
+                    'happened.'),
+    ('suite', 'The differential suite is twenty-nine rows over the old predicate and the new one, '
+              'and the seven reject-then-accept rows are `RD2` reproduced from the pinned text.'),
+    ('stage2', "Stage 2's dry run was red on exactly two contracts, `artifact-result-note` and "
+               "`artifact-tag-map`, and green on every pre-existing tag."),
+    ('act28-untouched', "Act 28's verdicts, frozen artifacts and seal record are unchanged at the "
+                        'blobs this round pins.'),
+    ('files-untouched', 'No ROADMAP, Lean, census or manuscript file is edited, and no seal '
+                        'record is written.'),
+    ('act29-not-read', "Act 29's verdicts are not read and not reported by this round."),
+    ('slots', 'Three definition slots were budgeted and three were used.'),
+)
+
+
+def _gr1_git(*args, **kw):
+    """git, returning stdout bytes, or None when git could not answer. Fail-closed by returning
+    None: no caller below treats None as a pass."""
+    r = _rbr_git(*args, tag='R7-GR1', **kw)
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout
+
+
+def _gr1_blob_id(data):
+    """The git blob id of these bytes, so a pin is checked against content and not against a path."""
+    return _hashlib.sha1(b'blob %d\x00' % len(data) + data).hexdigest()
+
+
+def _gr1_norm(text):
+    """Per-line trailing-whitespace normalization; the freeze compares the predicate this way."""
+    return '\n'.join(l.rstrip() for l in text.strip('\n').split('\n'))
+
+
+def _gr1_fn(src, name):
+    """The source of one top-level function, from its `def` to the next top-level line."""
+    m = _re.search(r'(?ms)^def %s\(.*?(?=^\S)' % _re.escape(name), src)
+    return (m.group(0).rstrip('\n') + '\n') if m else ''
+
+
+def _gr1_strip_block(src):
+    """The guard text with THIS block removed, bounded by its own markers and by nothing else.
+
+    Returns None when the bounds are not found exactly once, which fails the placement contract
+    rather than silently removing the wrong span."""
+    if src.count(_GR1_MARK_OPEN) != 1 or src.count(_GR1_MARK_CLOSE) != 1:
+        return None
+    i = src.index(_GR1_MARK_OPEN)
+    j = src.index(_GR1_MARK_CLOSE) + len(_GR1_MARK_CLOSE)
+    while j < len(src) and src[j] == '\n':
+        j += 1
+    return src[:i] + src[j:]
+
+
+def _gr1_revert_predicate(src, old_src):
+    """The guard text with `_pfr_road_ok` reverted to the base's own text."""
+    live = _gr1_fn(src, '_pfr_road_ok')
+    if not live or not old_src:
+        return None
+    return src.replace(live, old_src, 1)
+
+
+# ---------------------------------------------------------------------------
+# The freeze, pinned by blob, and the two frozen predicate texts read out of it.
+# ---------------------------------------------------------------------------
+_GR1FRZ_BYTES = _bb_read(_GR1FRZ)
+_GR1AMD_BYTES = _bb_read(_GR1AMD)
+_GR1AMD2_BYTES = _bb_read(_GR1AMD2)
+_GR1FRZ_TEXT = _GR1FRZ_BYTES.decode('utf-8', 'replace')
+_GR1_PY_BLOCKS = _re.findall(r'```python\n(.*?)```', _GR1FRZ_TEXT, _re.S)
+_GR1_FROZEN_OLD = _GR1_PY_BLOCKS[0] if len(_GR1_PY_BLOCKS) > 1 else ''
+_GR1_FROZEN_NEW = _GR1_PY_BLOCKS[1] if len(_GR1_PY_BLOCKS) > 1 else ''
+_GR1_SELF_PATH = os.path.join(VERIFICATION, 'lean', 'edge_rigidity_probe.py')
+try:
+    with open(_GR1_SELF_PATH, encoding='utf-8') as _fh:
+        _GR1_SELF = _fh.read()
+except OSError:
+    _GR1_SELF = ''
+
+_gr1_checks = {}
+_gr1_controls = 0
+
+# GR1-0 -- the locating controls, at the mandated base, read from git.
+_gr1_checks['freeze-blob'] = _gr1_blob_id(_GR1FRZ_BYTES) == _GR1_BLOB
+_gr1_checks['freeze-blob-drift'] = _gr1_blob_id(_GR1FRZ_BYTES + b' ') != _GR1_BLOB
+_gr1_checks['amendment-blob'] = _gr1_blob_id(_GR1AMD_BYTES) == _GR1_AMD_BLOB
+_gr1_checks['amendment-blob-drift'] = _gr1_blob_id(_GR1AMD_BYTES + b' ') != _GR1_AMD_BLOB
+_gr1_checks['amendment-2-blob'] = _gr1_blob_id(_GR1AMD2_BYTES) == _GR1_AMD2_BLOB
+_gr1_checks['amendment-2-blob-drift'] = (
+    _gr1_blob_id(_GR1AMD2_BYTES + b' ') != _GR1_AMD2_BLOB)
+_gr1_controls += 1
+for _p, _b in sorted(_GR1_PINS.items()):
+    _got = _gr1_git('rev-parse', '%s:%s' % (_GR1_B, _p))
+    _gr1_checks['pin:' + _p] = _got is not None and _got.decode().strip() == _b
+_gr1_checks['pin:seals-tree'] = (
+    (_gr1_git('rev-parse', '%s:%s' % (_GR1_B, _GR1_SEALS_PATH)) or b'').decode().strip()
+    == _GR1_SEALS_TREE)
+# Amendment 2's regression control: the landing's pin loop runs only outside EXECUTION, so its
+# name extraction and its check identities are exercised HERE, at every stage, rather than
+# first at a landing. Extraction total over every pinned path, the root path defined, nested
+# paths at their final component, and the six landing identities pairwise distinct.
+_gr1_pin_names = dict((_p, _p.rsplit('/', 1)[-1]) for _p in _GR1_PINS)
+_gr1_pin_keys = [_p for _p in sorted(_GR1_PINS)
+                 if _p != _GR1_GUARD_PATH and _p != _GR1_ROAD_PATH]
+_gr1_checks['landed-pin-names'] = (
+    len(_gr1_pin_names) == len(_GR1_PINS)
+    and _gr1_pin_names.get('AGENTS.md') == 'AGENTS.md'
+    and all(_gr1_pin_names[_p] == _p.split('/')[-1] for _p in _GR1_PINS)
+    and len(set(_gr1_pin_keys)) == len(_gr1_pin_keys))
+_gr1_controls += 1
+_gr1_checks['base-is-a-merge'] = len(
+    ((_gr1_git('rev-list', '--parents', '-n', '1', _GR1_B) or b'').decode().split())) == 3
+# The frozen texts are the freeze's, and the new one really does retire the one leg it names.
+_gr1_checks['frozen-texts-read'] = bool(_GR1_FROZEN_OLD) and bool(_GR1_FROZEN_NEW)
+_gr1_checks['frozen-new-retires-the-leg'] = (
+    _GR1_RETIRED_LEG in _GR1_FROZEN_OLD and _GR1_RETIRED_LEG not in _GR1_FROZEN_NEW)
+_gr1_checks['frozen-new-keeps-adjacency'] = (
+    'startswith(_pfr_n(_PFR_ROAD_STANDING))' in _GR1_FROZEN_NEW
+    and '_pfr_p0_cell(road)' in _GR1_FROZEN_NEW
+    and "with its selecting power left open." in _GR1_FROZEN_NEW)
+
+# ---------------------------------------------------------------------------
+# GR1-1 -- the predicate is the frozen one, and nothing else moved.
+# ---------------------------------------------------------------------------
+_GR1_LIVE_FN = _gr1_fn(_GR1_SELF, '_pfr_road_ok')
+_gr1_checks['predicate-is-frozen'] = (
+    bool(_GR1_LIVE_FN) and _gr1_norm(_GR1_LIVE_FN) == _gr1_norm(_GR1_FROZEN_NEW))
+_gr1_controls += 1
+_gr1_checks['predicate-mut:leg-restored'] = _gr1_norm(
+    _GR1_LIVE_FN.replace('return n.count(p0) == 1',
+                         'return n.count(p0) == 1 ' + _GR1_RETIRED_LEG)) != _gr1_norm(
+    _GR1_FROZEN_NEW)
+# The base's own guard text, from git, is the reference for both placement regimes.
+_GR1_BASE_SRC_BYTES = _gr1_git('show', '%s:%s' % (_GR1_B, _GR1_GUARD_PATH))
+_GR1_BASE_SRC = (_GR1_BASE_SRC_BYTES or b'').decode('utf-8', 'replace')
+_GR1_BASE_FN = _gr1_fn(_GR1_BASE_SRC, '_pfr_road_ok')
+_gr1_checks['base-predicate-extracted'] = (
+    _hashlib.sha256(_GR1_BASE_FN.encode('utf-8')).hexdigest() == _GR1_OLD_SHA)
+_gr1_checks['base-predicate-is-the-frozen-old'] = (
+    bool(_GR1_BASE_FN) and _gr1_norm(_GR1_BASE_FN) == _gr1_norm(_GR1_FROZEN_OLD))
+
+
+def _gr1_budget(src, base_src):
+    """The change budget: this text, with the block removed and the predicate reverted, equals the
+    base's guard text. True only when the round's whole diff is those two regions."""
+    stripped = _gr1_strip_block(src)
+    if stripped is None:
+        return False
+    reverted = _gr1_revert_predicate(stripped, _gr1_fn(base_src, '_pfr_road_ok'))
+    return reverted is not None and reverted == base_src
+
+
+# ---------------------------------------------------------------------------
+# The chronology rule: ANCESTRY and EXECUTION SHAPE are different questions.
+# ---------------------------------------------------------------------------
+def _gr1_shape(base, head, cwd=None):
+    """Execution shape: no merge commit in `rev-list head ^base`, the head included.
+
+    Ancestry does not answer this. A merge of a later `main` whose every commit descends from the
+    base passes the strengthened check and is refused here, which is the whole reason the two are
+    separated."""
+    for rev in (base, head):
+        if not _rbr_ensure_present(rev, tag='R7-GR1', cwd=cwd):
+            return False
+    out = _gr1_git('rev-list', '--merges', head, '^%s' % base, cwd=cwd)
+    return out is not None and not out.decode('utf-8', 'replace').split()
+
+
+def _gr1_has_block(rev, cwd=None):
+    """Whether the guard file at `rev` carries this clause."""
+    src = _gr1_git('show', '%s:%s' % (rev, _GR1_GUARD_PATH), cwd=cwd)
+    return src is not None and b"check('R7-GR1'" in src
+
+
+def _gr1_has_artifacts(rev, cwd=None):
+    """Whether BOTH stage-3 artifacts exist at `rev`. A stage-2 parent carries the clause and not
+    these, and is therefore not a landing."""
+    for rel in (_GR1RESREL, _GR1MAPREL):
+        if _gr1_git('rev-parse', '--verify', '--quiet',
+                    '%s:verification/%s' % (rev, rel), cwd=cwd) is None:
+            return False
+    return True
+
+
+def _gr1_landings(base, targets, has_block=None, has_artifacts=None, cwd=None):
+    """The canonical landings reachable from any visibility target, as (merge, parent) pairs.
+
+    A merge X is a landing iff some NON-FIRST parent p satisfies all four conditions: (a) execution
+    shape, which excludes the enclosing merge GitHub makes at merge time and any parent that
+    absorbed later main; (b) ancestry against the base; (c) the guard at p carries this clause,
+    which excludes a sibling control plane cut from the base; (d) both stage-3 artifacts exist at
+    p, which excludes a merge of an incomplete execution. Returns None when git could not answer,
+    which every caller treats as a failure."""
+    hb = _gr1_has_block if has_block is None else has_block
+    ha = _gr1_has_artifacts if has_artifacts is None else has_artifacts
+    found = []
+    for tgt in targets:
+        if tgt is None or not _rbr_ensure_present(tgt, tag='R7-GR1', cwd=cwd):
+            continue
+        out = _gr1_git('log', '--format=%H %P', tgt, cwd=cwd)
+        if out is None:
+            return None
+        for line in out.decode('utf-8', 'replace').split('\n'):
+            parts = line.split()
+            if len(parts) <= 2:
+                continue
+            for p in parts[2:]:
+                if not _si1_quiet_ancestry(base, p, tag='R7-GR1', cwd=cwd):
+                    continue
+                if not _gr1_shape(base, p, cwd=cwd):
+                    continue
+                if not hb(p, cwd=cwd) or not ha(p, cwd=cwd):
+                    continue
+                found.append((parts[0], p))
+    return sorted(set(found))
+
+
+def _gr1_chronology(base, env=None, cwd=None, has_block=None, has_artifacts=None,
+                    recorded=None, quiet=False):
+    """The three states, in order. Returns (state, ok, reason).
+
+    RECORDED: the round's own manifest record decides, through the keyed call, and nothing else
+    runs. LANDED-UNRECORDED: a canonical landing exists, E is recovered as its non-first parent,
+    and no ancestry question is asked of the head -- which is what lets this clause pass inside a
+    pull request whose head predates the base. EXECUTION: ancestry AND shape of the real head,
+    each answered and reported separately."""
+    recs = _si1_load()[0] if recorded is None else recorded
+    if 'GR1' in (recs or {}):
+        rec = recs['GR1']
+        good, info = _si1_schema(rec, 'GR1')
+        if not good:
+            return 'RECORDED', False, 'malformed record: %s' % info
+        if info != 'base-only':
+            return 'RECORDED', False, 'the record is %r; this round is non-sealing' % info
+        if rec.get('base') != base:
+            return 'RECORDED', False, 'the record pins base %s, not the mandated %s' % (
+                str(rec.get('base'))[:12], base[:12])
+        return 'RECORDED', bool(_si2_authority('GR1', tag='R7-GR1')), 'keyed manifest authority'
+    targets = _rbr_archive_visibility_targets(env=env, tag='R7-GR1', cwd=cwd)
+    if targets is None:
+        return None, False, 'the visibility targets could not be resolved; failing closed'
+    landings = _gr1_landings(base, [t for t, _w in targets], has_block=has_block,
+                             has_artifacts=has_artifacts, cwd=cwd)
+    if landings is None:
+        return None, False, 'the landing search could not be run; failing closed'
+    if landings:
+        if len(landings) > 1:
+            return 'LANDED-UNRECORDED', False, 'multiple candidate landings: %s' % ', '.join(
+                m[:12] for m, _p in landings)
+        merge, parent = landings[0]
+        return 'LANDED-UNRECORDED', True, (
+            'landing %s carries E = %s; the seal record is owed to a later round'
+            % (merge[:12], parent[:12]))
+    target, label, num = _rbr_target_commit(env=env, tag='R7-GR1')
+    if target is None:
+        return None, False, 'the real head could not be resolved; failing closed'
+    anc = (_si1_quiet_ancestry(base, target, tag='R7-GR1', cwd=cwd) if quiet
+           else _rbr_strong_ancestry(base, target, label, num, tag='R7-GR1', cwd=cwd))
+    shp = _gr1_shape(base, target, cwd=cwd)
+    return 'EXECUTION', bool(anc and shp), 'ancestry %s, execution shape %s' % (
+        'PASS' if anc else 'FAIL', 'PASS' if shp else 'FAIL')
+
+
+# ---------------------------------------------------------------------------
+# The history-prefix contract: the chain from the base is a prefix of the three frozen stages.
+# ---------------------------------------------------------------------------
+def _gr1_first_parent_chain(base, head, cwd=None):
+    out = _gr1_git('rev-list', '--first-parent', head, '^%s' % base, cwd=cwd)
+    if out is None:
+        return None
+    return list(reversed(out.decode('utf-8', 'replace').split()))
+
+
+def _gr1_changed(a, b, cwd=None):
+    out = _gr1_git('diff', '--name-only', a, b, cwd=cwd)
+    if out is None:
+        return None
+    return sorted(x for x in out.decode('utf-8', 'replace').split('\n') if x)
+
+
+def _gr1_history_prefix(base, head, cwd=None):
+    """A chain of one, two or three commits matching the frozen sequence passes; anything else
+    fails. The COMPLETE chain is made mandatory not here but by the artifact contracts, which fail
+    on any prefix shorter than three -- so E is certifiable only at the stage-3 commit."""
+    chain = _gr1_first_parent_chain(base, head, cwd=cwd)
+    if chain is None or len(chain) > 3:
+        return False
+    src_at = {}
+    for rev in [base] + chain:
+        b = _gr1_git('show', '%s:%s' % (rev, _GR1_GUARD_PATH), cwd=cwd)
+        if b is None:
+            return False
+        src_at[rev] = b.decode('utf-8', 'replace')
+    prev = base
+    for i, rev in enumerate(chain):
+        changed = _gr1_changed(prev, rev, cwd=cwd)
+        if changed is None:
+            return False
+        if i == 0:
+            if changed != [_GR1_GUARD_PATH]:
+                return False
+            if _gr1_revert_predicate(src_at[rev], _gr1_fn(src_at[prev], '_pfr_road_ok')) != \
+                    src_at[prev]:
+                return False
+        elif i == 1:
+            if changed != [_GR1_GUARD_PATH]:
+                return False
+            if _gr1_strip_block(src_at[rev]) != src_at[prev]:
+                return False
+        else:
+            if changed != sorted(['verification/' + _GR1RESREL, 'verification/' + _GR1MAPREL]):
+                return False
+        prev = rev
+    return True
+
+
+# ---------------------------------------------------------------------------
+# The whole-seals-tree integrity contract. Stronger than U5 under the retained act 28 baseline,
+# which reads the current PFR record into its own expectation and so does not hold its content.
+# ---------------------------------------------------------------------------
+def _gr1_seals_ok(base, cwd=None):
+    out = _gr1_git('ls-tree', '-r', '%s:%s' % (base, _GR1_SEALS_PATH), cwd=cwd)
+    if out is None:
+        return False
+    at_base = {}
+    for line in out.decode('utf-8', 'replace').split('\n'):
+        if not line.strip():
+            continue
+        meta, _, name = line.partition('\t')
+        at_base[name] = meta.split()[2]
+    here = {}
+    d = os.path.join(VERIFICATION, 'seals')
+    try:
+        for name in os.listdir(d):
+            with open(os.path.join(d, name), 'rb') as fh:
+                here[name] = _gr1_blob_id(fh.read())
+    except OSError:
+        return False
+    return here == at_base
+
+
+# ---------------------------------------------------------------------------
+# GR1-2 -- the differential acceptance suite, twenty-nine rows, OLD and NEW.
+# ---------------------------------------------------------------------------
+def _gr1_suite():
+    """Both predicates over the same fixtures. The OLD one is executed from the base's guard text,
+    whose extraction is hashed above; the NEW one is the live function. Returns
+    (rows, unexpected, reject_then_accept)."""
+    ns = {}
+    try:
+        for nm in ('_pfr_n', '_pfr_p0_cell', '_pfr_road_ok'):
+            exec(_gr1_fn(_GR1_BASE_SRC, nm), ns)  # noqa: S102 -- the base's own text, pinned
+        for cst in ('_PFR_P0', '_PFR_ROAD_STANDING'):
+            exec(_re.search(r'(?m)^%s = .*$' % cst, _GR1_BASE_SRC).group(0), ns)  # noqa: S102
+    except Exception:
+        return None, None, None
+    old = ns['_pfr_road_ok']
+    new = _pfr_road_ok
+    p0, st = ns['_PFR_P0'], ns['_PFR_ROAD_STANDING']
+    road_b = _gr1_git('show', '%s:%s' % (_GR1_B, _GR1_ROAD_PATH))
+    if road_b is None:
+        return None, None, None
+    road = road_b.decode('utf-8', 'replace')
+    entry = p0 + ' ' + st
+    if entry not in road or road.count(p0) != 1:
+        return None, None, None
+
+    def succ(r, s):
+        return r.replace(entry, entry + ' ' + s + ' ' + st, 1)
+
+    rows = [('act-28-alone', road, True, True)]
+    for i, s in enumerate(_GR1_A29_SENTENCES, 1):
+        rows.append(('act-29-frozen-sentence-%d' % i, succ(road, s), False, True))
+    rows.append(('generic-successor', succ(road, _GR1_GENERIC), False, True))
+    rows.append(('two-successors', succ(succ(road, _GR1_A29_SENTENCES[4]), _GR1_GENERIC),
+                 False, True))
+    rows.append(('no-whitespace-adjoin', road.replace(entry, p0 + st, 1), True, True))
+    muts = (
+        ('p0-deleted', lambda r: r.replace(p0, '', 1)),
+        ('p0-duplicated', lambda r: r + '\n' + p0 + '\n'),
+        ('standing-clause-removed', lambda r: r.replace(st, '', 1)),
+        ('standing-clause-detached',
+         lambda r: r.replace(entry, p0 + ' Something else entirely. ' + st, 1)),
+        ('p0-before-act27', lambda r: entry + '\n' + r.replace(entry, '', 1)),
+        ('p0-block-moved-out-of-the-cell',
+         lambda r: r.replace(' ' + entry, '', 1) + '\n\n## Appendix\n\n' + entry + '\n'),
+        ('p0-row-removed',
+         lambda r: '\n'.join(l for l in r.split('\n') if not l.strip().startswith('| **P0** |'))),
+        ('p0-duplicated-in-cell', lambda r: r.replace(entry, entry + ' ' + entry, 1)),
+        ('standing-clause-truncated', lambda r: r.replace(entry, p0 + ' ' + st[:120], 1)),
+        ('successor-between-sentence-and-clause',
+         lambda r: r.replace(entry, p0 + ' ' + _GR1_GENERIC + ' ' + st, 1)),
+    )
+    withsucc = succ(road, _GR1_A29_SENTENCES[4])
+    for nm, fn in muts:
+        rows.append(('mut:' + nm, fn(road), False, False))
+        rows.append(('mut-with-successor:' + nm, fn(withsucc), False, False))
+    bad, flips = 0, 0
+    for _nm, fixture, want_old, want_new in rows:
+        got_old, got_new = bool(old(fixture)), bool(new(fixture))
+        if (got_old, got_new) != (want_old, want_new):
+            bad += 1
+        if (got_old, got_new) == (False, True):
+            flips += 1
+    return len(rows), bad, flips
+
+
+_GR1_SUITE_N, _GR1_SUITE_BAD, _GR1_SUITE_FLIPS = _gr1_suite()
+_gr1_checks['suite-ran'] = _GR1_SUITE_N is not None
+_gr1_checks['suite-29-rows'] = _GR1_SUITE_N == 29
+_gr1_checks['suite-as-frozen'] = _GR1_SUITE_BAD == 0
+_gr1_checks['suite-seven-reject-then-accept'] = _GR1_SUITE_FLIPS == 7
+_gr1_controls += 1
+# Provenance: act 29's five fragments are that freeze's, read at the base and not asserted here.
+_GR1_A29_TEXT = (_gr1_git(
+    'show', '%s:verification/programmes/oi-qm/track-b/act-29-product-admission/preregistration.md'
+    % _GR1_B) or b'').decode('utf-8', 'replace')
+_gr1_checks['a29-sentences-provenanced'] = all(
+    _pfr_n(f) in _pfr_n(_GR1_A29_TEXT) for f in _GR1_A29_FRAG)
+
+# ---------------------------------------------------------------------------
+# GR1-3 -- the artifacts and the verdict map.
+# ---------------------------------------------------------------------------
+_GR1_RES_PATH = _artifact(_GR1RESREL)
+_GR1_MAP_PATH = _artifact(_GR1MAPREL)
+_gr1_checks['artifact-result-note'] = os.path.exists(_GR1_RES_PATH)
+_gr1_checks['artifact-tag-map'] = os.path.exists(_GR1_MAP_PATH)
+_GR1_MAP = None
+if _gr1_checks['artifact-tag-map']:
+    try:
+        with open(_GR1_MAP_PATH, encoding='utf-8') as _fh:
+            _GR1_MAP = json.load(_fh)
+    except Exception:
+        _GR1_MAP = None
+    _gr1_checks['tag-map-readable'] = isinstance(_GR1_MAP, dict)
+    _base_col = (_GR1_MAP or {}).get('base') or {}
+    _head_col = (_GR1_MAP or {}).get('head') or {}
+    _live = dict(zip(CHECK_TAGS, ['PASS' if c else 'FAIL' for c in CHECKS]))
+    _gr1_checks['tag-map-92-tags'] = len(_base_col) == 92 and set(_base_col) == set(_head_col)
+    _gr1_checks['tag-map-all-pass'] = (
+        bool(_base_col) and all(v == 'PASS' for v in _base_col.values())
+        and all(v == 'PASS' for v in _head_col.values()))
+    _gr1_checks['tag-map-no-self'] = 'R7-GR1' not in _base_col and 'R7-GR1' not in _head_col
+    _gr1_checks['tag-map-head-is-live'] = bool(_head_col) and all(
+        _live.get(t) == v for t, v in _head_col.items())
+    _gr1_checks['tag-map-covers-the-pre-existing'] = bool(_base_col) and set(_base_col) <= set(
+        CHECK_TAGS)
+if _gr1_checks['artifact-result-note']:
+    try:
+        with open(_GR1_RES_PATH, encoding='utf-8') as _fh:
+            _GR1_RES = _fh.read()
+    except OSError:
+        _GR1_RES = ''
+    _GR1_RESN = _pfr_n(_GR1_RES)
+    for _k, _req in _GR1_REQUIRED:
+        _gr1_checks['note:' + _k] = _pfr_n(_req) in _GR1_RESN
+    _gr1_controls += 1
+    _gr1_shape_req = _pfr_n(_GR1_REQUIRED[0][1])
+    _gr1_note_norm = _pfr_n(_GR1_RES)
+    _gr1_note_dropped = _gr1_note_norm.replace(_gr1_shape_req, '', 1)
+    _gr1_checks['note-mut:shape-dropped'] = (
+        _gr1_note_dropped != _gr1_note_norm and _gr1_shape_req not in _gr1_note_dropped)
+
+# ---------------------------------------------------------------------------
+# Placement, integrity, declarations, history and chronology at the live head.
+# ---------------------------------------------------------------------------
+_GR1_STATE, _GR1_CHRON_OK, _GR1_CHRON_WHY = _gr1_chronology(_GR1_B)
+_gr1_checks['chronology'] = bool(_GR1_CHRON_OK)
+_gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)
+_gr1_checks['seals-integrity-u5'] = bool(_si2_integrity_ok())
+_gr1_checks['prospective-untouched'] = _MANIFEST_PROSPECTIVE == {}
+_gr1_checks['baseline-untouched'] = _MANIFEST_BASELINE == {
+    'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf', 'authorized': ('PFR',)}
+_gr1_checks['no-own-record'] = 'GR1' not in (_si1_load()[0] or {})
+_gr1_checks['no-legacy-shaped-name'] = not _re.search(
+    r'(?m)^_GR1_(BASE|SEALED_HEAD|MERGE)\s*=', _GR1_SELF)
+if _GR1_STATE == 'EXECUTION':
+    _gr1_checks['placement-whole-file'] = _gr1_budget(_GR1_SELF, _GR1_BASE_SRC)
+    _gr1_checks['history-prefix'] = _gr1_history_prefix(
+        _GR1_B, (_rbr_target_commit(tag='R7-GR1')[0] or 'HEAD'))
+else:
+    _GR1_LANDINGS = _gr1_landings(
+        _GR1_B, [t for t, _w in (_rbr_archive_visibility_targets(tag='R7-GR1') or [])])
+    _GR1_E = _GR1_LANDINGS[0][1] if _GR1_LANDINGS else None
+    if _GR1_E is None:
+        _gr1_checks['placement-historical-budget'] = _GR1_STATE == 'RECORDED'
+        _gr1_checks['history-prefix'] = _GR1_STATE == 'RECORDED'
+    else:
+        _e_src = (_gr1_git('show', '%s:%s' % (_GR1_E, _GR1_GUARD_PATH)) or b'').decode(
+            'utf-8', 'replace')
+        _gr1_checks['placement-historical-budget'] = _gr1_budget(_e_src, _GR1_BASE_SRC)
+        _gr1_checks['history-prefix'] = _gr1_history_prefix(_GR1_B, _GR1_E)
+        for _rel in (_GR1FRZ, _GR1RESREL, _GR1MAPREL):
+            _at_e = _gr1_git('rev-parse', '%s:verification/%s' % (_GR1_E, _rel))
+            _here = None
+            try:
+                with open(_artifact(_rel), 'rb') as _fh:
+                    _here = _gr1_blob_id(_fh.read())
+            except OSError:
+                _here = None
+            _gr1_checks['landed-artifact:' + _rel.rsplit('/', 1)[-1]] = (
+                _at_e is not None and _here == _at_e.decode().strip())
+    _gr1_checks['placement-owned-region'] = (
+        bool(_GR1_LIVE_FN) and _gr1_norm(_GR1_LIVE_FN) == _gr1_norm(_GR1_FROZEN_NEW))
+    for _p, _b in sorted(_GR1_PINS.items()):
+        if _p == _GR1_GUARD_PATH or _p == _GR1_ROAD_PATH:
+            continue
+        _gr1_checks['landed-pin:' + _p] = (
+            (_gr1_git('rev-parse', 'HEAD:%s' % _p) or b'').decode().strip() == _b)
+
+# ---------------------------------------------------------------------------
+# The lifecycle fixtures, on synthetic repositories, run on every build.
+# ---------------------------------------------------------------------------
+def _gr1_fixtures():
+    """F1..F13: every state of the chronology rule and every exclusion of the canonical landing,
+    measured rather than asserted. Built with `commit-tree` so parent order is exact."""
+    import shutil
+    import subprocess as _sp
+    import tempfile as _tf
+    d = _tf.mkdtemp(prefix='gr1-')
+    res = []
+    try:
+        def g(*a):
+            return _sp.run(('git',) + a, cwd=d, capture_output=True, text=True)
+
+        g('init', '-q', '-b', 'main')
+        g('config', 'user.email', 'gr1@example.invalid')
+        g('config', 'user.name', 'GR1')
+        with open(os.path.join(d, 'f'), 'w', encoding='utf-8') as fh:
+            fh.write('gr1\n')
+        g('add', 'f')
+        tree = g('write-tree').stdout.strip()
+
+        def ct(msg, *parents):
+            a = ['commit-tree', tree, '-m', msg]
+            for p in parents:
+                a += ['-p', p]
+            return g(*a).stdout.strip()
+
+        n = {}
+        n['c0'] = ct('c0')
+        n['b'] = ct('b', n['c0'])                      # the mandated base
+        n['s1'] = ct('s1', n['b'])                     # stage 1
+        n['s2'] = ct('s2', n['s1'])                    # stage 2: block, no artifacts
+        n['s3'] = ct('s3', n['s2'])                    # stage 3: E
+        n['s4'] = ct('s4', n['s3'])                    # a fourth commit
+        n['pre'] = ct('pre', n['c0'])                  # history predating the base
+        n['main1'] = ct('main1', n['b'])               # later main, descending from the base
+        n['absorb_pre'] = ct('absorb_pre', n['s1'], n['pre'])
+        n['s3p'] = ct('s3p', n['absorb_pre'])
+        n['absorb_main'] = ct('absorb_main', n['s1'], n['main1'])
+        n['s3m'] = ct('s3m', n['absorb_main'])
+        n['m_incomplete'] = ct('m_incomplete', n['main1'], n['s2'])
+        n['l'] = ct('l', n['main1'], n['s3'])          # the canonical landing
+        n['g'] = ct('g', n['main1'], n['l'])           # the enclosing merge
+        n['sib'] = ct('sib', n['b'])                   # a sibling cut from the base
+        n['c_sib'] = ct('c_sib', n['main1'], n['sib'])
+        n['s3b'] = ct('s3b', n['s2'])                  # a second stage-3 head
+        n['l2'] = ct('l2', n['main1'], n['s3b'])       # a second landing
+        n['both'] = ct('both', n['l'], n['l2'])
+        n['pmerge'] = ct('pmerge', n['s3'], n['main1'])  # a parent that is itself a merge
+        n['l_pm'] = ct('l_pm', n['main1'], n['pmerge'])
+        n['h'] = n['pre']                              # an older head, predating the base
+        blocks = {n['s2'], n['s3'], n['s4'], n['s3p'], n['s3m'], n['s3b'], n['pmerge'],
+                  n['m_incomplete'], n['l'], n['g'], n['l2'], n['both'], n['l_pm']}
+        arts = {n['s3'], n['s4'], n['s3p'], n['s3m'], n['s3b'], n['pmerge'], n['l'], n['g'],
+                n['l2'], n['both'], n['l_pm']}
+
+        def hb(rev, cwd=None):
+            return rev in blocks
+
+        def ha(rev, cwd=None):
+            return rev in arts
+
+        def chron(head, targets, recorded=None):
+            env = _si1_pr_env(d, head, base_ref='main', base_sha=targets[-1])
+            g('update-ref', 'refs/remotes/origin/main', targets[-1])
+            return _gr1_chronology(n['b'], env=env, cwd=d, has_block=hb, has_artifacts=ha,
+                                   recorded=recorded if recorded is not None else {}, quiet=True)
+
+        def want(name, head, tip, state, ok, extra=None):
+            st, got, why = chron(head, [head, tip])
+            good = (st == state) and (bool(got) == ok) and (extra is None or extra in why)
+            res.append((name, good, '%s / %s / %s' % (st, 'PASS' if got else 'FAIL', why)))
+
+        want('F1 linear execution', n['s3'], n['b'], 'EXECUTION', True,
+             'ancestry PASS, execution shape PASS')
+        want('F1a two-commit prefix', n['s2'], n['b'], 'EXECUTION', True,
+             'ancestry PASS, execution shape PASS')
+        want('F2 absorbed pre-freeze history', n['s3p'], n['b'], 'EXECUTION', False,
+             'ancestry FAIL')
+        want('F2a absorbed later main', n['s3m'], n['b'], 'EXECUTION', False,
+             'ancestry PASS, execution shape FAIL')
+        want('F3 incomplete execution merged', n['m_incomplete'], n['m_incomplete'],
+             'EXECUTION', False, 'execution shape FAIL')
+        want('F4 the canonical landing', n['l'], n['l'], 'LANDED-UNRECORDED', True, 'landing')
+        want('F5 the enclosing merge', n['g'], n['g'], 'LANDED-UNRECORDED', True, 'landing')
+        want('F6 older head, repaired main', n['h'], n['g'], 'LANDED-UNRECORDED', True, 'landing')
+        want('F7 sibling control plane', n['c_sib'], n['c_sib'], 'EXECUTION', False,
+             'execution shape FAIL')
+        want('F8 two landings', n['both'], n['both'], 'LANDED-UNRECORDED', False, 'multiple')
+        want('F12 landing parent is itself a merge', n['l_pm'], n['l_pm'], 'EXECUTION', False,
+             'execution shape FAIL')
+        # F9/F10: the recorded state, well formed and five malformed shapes.
+        good = {'GR1': {'round': 'GR1', 'kind': 'base-only', 'base': n['b']}}
+        st, got, why = chron(n['g'], [n['g'], n['g']], recorded=good)
+        res.append(('F9 well-formed record',
+                    st == 'RECORDED' and 'keyed manifest authority' in why,
+                    '%s / %s' % (st, why)))
+        for nm, rec in (
+                ('sealed_head null', {'round': 'GR1', 'kind': 'base-only', 'base': n['b'],
+                                      'sealed_head': None}),
+                ('merge present', {'round': 'GR1', 'kind': 'base-only', 'base': n['b'],
+                                   'merge': n['l']}),
+                ('wrong round', {'round': 'GR2', 'kind': 'base-only', 'base': n['b']}),
+                ('wrong base', {'round': 'GR1', 'kind': 'base-only', 'base': n['c0']}),
+                ('sealed kind', {'round': 'GR1', 'kind': 'sealed', 'base': n['b'],
+                                 'sealed_head': n['s3'], 'merge': n['l']})):
+            st, got, why = chron(n['g'], [n['g'], n['g']], recorded={'GR1': rec})
+            res.append(('F10 malformed record: ' + nm, st == 'RECORDED' and not got,
+                        '%s / %s / %s' % (st, 'PASS' if got else 'FAIL', why)))
+        # F11: the seals-tree contract catches a mutated, a removed and an added record.
+        res.append(('F11 seals contract is not vacuous',
+                    _gr1_seals_ok(_GR1_B)
+                    and not _gr1_seals_ok('101b8cebb140c2ee7b982641ff005b84bbf0a1cf')
+                    and not _gr1_seals_ok(n['b'], cwd=d),
+                    'the tree matches its own base, and not act 28 base nor a foreign repository'))
+        # F13: a chain longer than the three frozen stages fails; the empty chain at the base passes.
+        res.append(('F13 history prefix length',
+                    not _gr1_history_prefix(n['c0'], n['s4'], cwd=d)
+                    and _gr1_history_prefix(_GR1_B, _GR1_B),
+                    'a five-commit chain is refused; the base itself is a zero-length prefix'))
+        return res
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+
+_GR1_FIX = _gr1_fixtures()
+for _nm, _good, _why in _GR1_FIX:
+    _gr1_checks['fixture:' + _nm] = _good
+_gr1_controls += len(_GR1_FIX)
+
+_gr1_bad = sorted(k for k, v in _gr1_checks.items() if not v)
+print('    R7-GR1 contracts: %d checks, %d control group(s); chronology %s; failures: %s'
+      % (len(_gr1_checks), _gr1_controls, _GR1_STATE,
+         ', '.join(_gr1_bad) if _gr1_bad else 'none'))
+check('R7-GR1', not _gr1_bad,
+      "Guard repair round GR-1, NON-SEALING, E -> L, no P: the round writes no manifest record, no "
+      "prospective declaration and no baseline change, and its mandated execution base is a "
+      "literal in this block and nothing else. THE ONE CONTRACT IT OWNS: act 28's _pfr_road_ok "
+      "loses the document-wide count of the standing clause -- the leg a successor round's P0 "
+      "entry cannot satisfy -- and keeps every other leg verbatim, the adjacency leg included; the "
+      "installed text equals the frozen replacement read out of the preregistration, which is "
+      "pinned by blob with a drift control, as are amendments 1 and 2, which moved this "
+      "round's mandated base twice. THE LANDING PIN, per amendment 2: its name extraction is "
+      "total over every pinned path including the root one, its check identity is the "
+      "complete pinned path so that none of the six is overwritten, and a control exercises "
+      "both at every stage rather than first at a landing. THE SUITE: twenty-nine rows "
+      "over the OLD predicate, "
+      "executed from the base's own guard text with its extraction hashed, and the NEW one; act 28 "
+      "alone accepted by both, act 29's five frozen sentences and two generic successors rejected "
+      "by the old and accepted by the new, the clause adjoining with no whitespace accepted by "
+      "both, and ten mutations of act 28's entry rejected by both, each also on top of a "
+      "successor. THE BUDGET: this file, with this block removed and the predicate reverted, "
+      "equals the base's guard file -- whole-file while executing, and after landing measured "
+      "historically against the recovered E with only the owned region and the protected artifacts "
+      "checked on the current tree, so a sibling round's changes elsewhere in the file are not "
+      "this round's to answer for. THE CHRONOLOGY: three states, with ANCESTRY and EXECUTION SHAPE "
+      "separated and each reported -- act 10's strengthened check does not refuse a merge whose "
+      "every commit descends from the base, and shape does; a canonical landing is a merge whose "
+      "non-first parent has execution shape, ancestry, this clause and both artifacts, unique or "
+      "fail-closed, and E is that parent. Fifteen lifecycle fixtures on synthetic repositories, "
+      "including the incomplete stage-2 merge, the enclosing merge, an older head with repaired "
+      "main, a sibling control plane, two landings, five malformed records and a parent that is "
+      "itself a merge. THE SEALS TREE is byte-identical to the base's, which is what protects "
+      "every record while this round runs; the retained act 28 baseline is the narrow exception "
+      "the freeze owns and is not credited with that. RD2 stands as act 29 recorded it.")
+# ---- R7-GR1 ends.
+
 print()
 print('     [scope] Settled in Lean: K4-rigidity for all n >= 5 with the n = 4 complement')
 print('     exception sharp (EdgeRigidity), the non-induced => exceptional-relation corollary')
