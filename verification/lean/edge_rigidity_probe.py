@@ -27852,6 +27852,9 @@ _PFR_CENSUS_CLAUSE = '> **THE CLAUSE, carried at this mention — the census ent
 _PFR_CENSUS_NAME = 'the freedom factorization leaves at the product configuration (act 28, Track B)'
 _PFR_ROAD_STANDING = "`P0`'s threading part is untouched, no carrier is adopted as the physical one, no surviving law is adopted as the physical one, and nothing here names, endorses or excludes a selection principle."
 _PFR_BARE_VECTOR = '`A28-0-UNDECIDED` · `A28-1-NOT-EXECUTED`'
+_PFR_MENTION = 'THE CLAUSE, carried at this mention'
+_PFR_DISCLOSURE = dict(_PFR_REQUIRED)['prior-knowledge']
+_PFR_DISCLOSURE_HEADING = '## 1. Prior knowledge, disclosed once, before the first span'
 _PFR_FORBIDDEN = ('route-authorization matrix was honoured', 'matrix was honoured', 'matrix is honoured', 'honoured in full', 'factorization selects', 'factorization does not select', 'A28-0-EXTENDS` ·', 'A28-0-RESTRICTS', 'A28-1-NONUNIQUE` ·', 'A28-1-UNIQUE` ·')
 _PFR_CLAUSE = '> **THE CLAUSE, carried at this mention — the result note.**\n> Act 28 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts\n> none. A law that survives every condition this freeze names is a law that survives **those**\n> conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in\n> nature, **not** a finding that the programme requires it, and **not** an adoption of it as the\n> physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about\n> the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence\n> to add one more condition, or to widen one more equivalence, until a plurality becomes a point.\n> **No law gains physical status by surviving, no carrier and no principle is adopted as the physical\n> one, and nothing here derives, recognises or approaches quantum evolution.**'
 _PFR_VECTOR = '**Outcome vector: `A28-0-UNDECIDED` · `A28-1-NOT-EXECUTED`** — row 6 of the frozen table.'
@@ -27861,6 +27864,23 @@ _PFR_DECL_RE = _re.compile(r'(?m)^\s*(?:def|abbrev|structure|class|instance|axio
 
 def _pfr_n(t):
     return ' '.join(t.split())
+
+
+def _pfr_mentions_complete(n, clause):
+    """Exactly ONE mention of the clause, and that mention is the start of the COMPLETE clause.
+
+    Presence of the clause somewhere is not the contract: a duplicated clause and an appended
+    incomplete second clause both leave a complete one in place. The count is taken over the
+    MENTION, and every occurrence of it is required to open the whole clause.
+    """
+    cl = _pfr_n(clause)
+    if _PFR_MENTION not in cl:
+        return False
+    off = cl.index(_PFR_MENTION)
+    occ = [i for i in range(len(n)) if n.startswith(_PFR_MENTION, i)]
+    if len(occ) != 1:
+        return False
+    return all(i >= off and n.startswith(cl, i - off) for i in occ)
 
 
 def _pfr_note_ok(note):
@@ -27876,9 +27896,17 @@ def _pfr_note_ok(note):
     # a second bare vector anywhere in the note is a second outcome row, headed or not.
     if n.count(_pfr_n(_PFR_BARE_VECTOR)) != 1:
         return False
-    if n.count('THE CLAUSE, carried at this mention') != 1 or _pfr_n(_PFR_CLAUSE) not in n:
+    if not _pfr_mentions_complete(n, _PFR_CLAUSE):
         return False
     if not all(_pfr_n(a) in n for a in _PFR_ATTEST):
+        return False
+    # The disclosure is made ONCE and BEFORE the first span: its frozen contract is three scoped
+    # attestations after one prior-knowledge disclosure, which is a placement, not a presence.
+    disc = _pfr_n(_PFR_DISCLOSURE)
+    if n.count(disc) != 1 or n.count(_pfr_n(_PFR_DISCLOSURE_HEADING)) != 1:
+        return False
+    spans = [n.index(_pfr_n(a)) for a in _PFR_ATTEST]
+    if spans != sorted(spans) or n.index(disc) > spans[0]:
         return False
     return True
 
@@ -27903,9 +27931,7 @@ def _pfr_census_ok(raw):
     n = _pfr_n(note)
     if not all(_pfr_n(t) in n for _k, t in _PFR_CENSUS_REQUIRED):
         return False
-    if _pfr_n(_PFR_CENSUS_CLAUSE) not in n:
-        return False
-    return True
+    return _pfr_mentions_complete(n, _PFR_CENSUS_CLAUSE)
 
 
 def _pfr_census_mut(raw, fn):
@@ -27921,17 +27947,36 @@ def _pfr_census_mut(raw, fn):
     return json.dumps(d, ensure_ascii=False)
 
 
+def _pfr_p0_cell(road):
+    """The ACTUAL P0 status cell -- the fourth field of the one row whose first field is P0.
+
+    Content is checked inside this cell, never against the document, so a frozen sentence moved
+    out of P0 into an appendix is not accepted for sitting somewhere in the file.
+    """
+    rows = [l for l in road.split('\n') if l.strip().startswith('| **P0** |')]
+    if len(rows) != 1:
+        return None
+    cells = rows[0].strip().split('|')[1:-1]
+    return cells[3] if len(cells) == 5 else None
+
+
 def _pfr_road_ok(road):
     """THE PREDICATE THAT GATES the ROADMAP P0 cell. Every mutation below is passed through it."""
-    n = _pfr_n(road)
+    cell = _pfr_p0_cell(road)
+    if cell is None:
+        return False
+    c = _pfr_n(cell)
     p0 = _pfr_n(_PFR_P0)
-    if n.count(p0) != 1:
+    if c.count(p0) != 1:
         return False
     anchor = _pfr_n('with its selecting power left open.')
-    if anchor not in n or n.index(p0) < n.index(anchor):
+    if anchor not in c or c.index(p0) < c.index(anchor):
         return False
     # this round's standing clause is not merely present: it follows the frozen sentence it scopes.
-    return n[n.index(p0) + len(p0):].lstrip().startswith(_pfr_n(_PFR_ROAD_STANDING))
+    if not c[c.index(p0) + len(p0):].lstrip().startswith(_pfr_n(_PFR_ROAD_STANDING)):
+        return False
+    n = _pfr_n(road)
+    return n.count(p0) == 1 and n.count(_pfr_n(_PFR_ROAD_STANDING)) == 1
 
 
 def _pfr_stmts(src):
@@ -28067,7 +28112,17 @@ for _nm, _mut in (
                              'and the gate')),
         ('matrix-honoured-claim',
          lambda t: t + '\nThe route-authorization matrix was honoured.\n'),
-        ('selection-claim', lambda t: t + '\nSo factorization selects.\n')):
+        ('selection-claim', lambda t: t + '\nSo factorization selects.\n'),
+        ('disclosure-moved-after-the-spans',
+         lambda t: t.replace(_PFR_DISCLOSURE, '', 1) + '\n\n' + _PFR_DISCLOSURE + '\n'),
+        ('disclosure-duplicated', lambda t: t + '\n\n' + _PFR_DISCLOSURE + '\n'),
+        ('disclosure-heading-duplicated',
+         lambda t: t + '\n\n' + _PFR_DISCLOSURE_HEADING + '\n'),
+        ('spans-reordered',
+         lambda t: t.replace(_PFR_ATTEST[0], '\x00').replace(_PFR_ATTEST[2], _PFR_ATTEST[0])
+                    .replace('\x00', _PFR_ATTEST[2])),
+        ('clause-second-incomplete-appended',
+         lambda t: t + '\n\n' + _PFR_CLAUSE[:200] + '\n')):
     _pfr_checks['note-mut:' + _nm] = not _pfr_note_ok(_mut(_PFRNOTE))
     _pfr_mutations += 1
 
@@ -28110,6 +28165,10 @@ for _nm, _fn in (
          lambda f: dict(f, note=f['note'].replace(_PFR_CENSUS_CLAUSE,
                                                   _PFR_CENSUS_CLAUSE[:180]))),
         ('clause-removed', lambda f: dict(f, note=f['note'].replace(_PFR_CENSUS_CLAUSE, ''))),
+        ('clause-duplicated',
+         lambda f: dict(f, note=f['note'] + '\n\n' + _PFR_CENSUS_CLAUSE)),
+        ('clause-second-incomplete-appended',
+         lambda f: dict(f, note=f['note'] + '\n\n' + _PFR_CENSUS_CLAUSE[:200])),
         ('newlines-re-escaped', lambda f: dict(f, note=f['note'].replace('\n', '\\n'))),
         ('entry-removed', lambda f: None),
         ('modules-changed', lambda f: dict(f, modules=['StrictNaturalLift'])),
@@ -28127,7 +28186,13 @@ for _nm, _fn in (
                              _PFR_P0 + ' Something else entirely. ' + _PFR_ROAD_STANDING, 1)),
         ('p0-before-act27',
          lambda r: _PFR_P0 + ' ' + _PFR_ROAD_STANDING + '\n'
-                   + r.replace(_PFR_P0 + ' ' + _PFR_ROAD_STANDING, '', 1))):
+                   + r.replace(_PFR_P0 + ' ' + _PFR_ROAD_STANDING, '', 1)),
+        ('p0-block-moved-out-of-the-cell',
+         lambda r: r.replace(' ' + _PFR_P0 + ' ' + _PFR_ROAD_STANDING, '', 1)
+                   + '\n\n## Appendix\n\n' + _PFR_P0 + ' ' + _PFR_ROAD_STANDING + '\n'),
+        ('p0-row-removed',
+         lambda r: '\n'.join(l for l in r.split('\n')
+                             if not l.strip().startswith('| **P0** |')))):
     _pfr_checks['road-mut:' + _nm] = not _pfr_road_ok(_fn(_PFRROAD))
     _pfr_mutations += 1
 _pfr_checks['manifest-authority'] = bool(_si2_authority('PFR', tag='R7-PFR'))
@@ -28146,7 +28211,13 @@ check('R7-PFR', not _pfr_bad,
       'duplicated AND a bare vector appended without its heading, both modulus values changed, the '
       "frozen pair's second component changed, the three deviation helpers erased, the frozen "
       "not-executed sentence's second disjunct dropped, the census note re-escaped or its entry "
-      'removed, and the ROADMAP standing clause removed or detached. Twelve pinned statements each '
+      'removed, and the ROADMAP standing clause removed or detached. PLACEMENT AND COUNT, not only '
+      'presence: exactly one prior-knowledge disclosure before the first span with the three spans '
+      'in order, exactly one mention of each clause with that mention opening the COMPLETE clause, '
+      'and the frozen sentence read out of the ACTUAL P0 cell rather than the document -- with the '
+      'disclosure moved after the spans or duplicated, the spans reordered, either clause '
+      'duplicated or given an incomplete second copy, and the P0 block moved to an appendix or its '
+      'row removed, all failing closed. Twelve pinned statements each '
       'mutation-tested, the frozen configuration and act 21 predicate verbatim. No closed-round '
       'contract is edited.')
 
