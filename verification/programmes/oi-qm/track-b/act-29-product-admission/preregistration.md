@@ -107,9 +107,11 @@ Consumed as frozen declarations and frozen theorems, never re-proved and never p
 
 - **act 12**, `TwoSidedGauge.lean` — `GramPhaseEquiv`, `RealizableGram`, `FibreGram`,
   `sh1_sufficiency`, `sh1_necessity`, and the cross-invariant the separations use;
-- **act 17**, `GramTrajectorySelection.lean` — `GramTrajEquiv` and `tj1_sufficiency`, which is what
-  makes "pointwise realizable" and "is some coherent lift's trajectory" the same thing, and which
-  act 18's properness clause is load-bearing on;
+- **act 17**, `GramTrajectorySelection.lean` — `GramTrajEquiv`, `tj1_sufficiency` and
+  `tj1_trajectory_set`, which make "pointwise realizable" and "is some coherent lift's trajectory"
+  the same thing. Both are stated for an arbitrary finite carrier, so this round **instantiates**
+  them and does not extend them, and neither `ProperAt` nor `PropagatesFrom` carries a
+  coherent-lift conjunct that would make assembling a lift an obligation;
 - **act 18**, `IntermediateCrossTimeStructure.lean` — `ProperAt` and `PropagatesFrom`, the two
   standing hypotheses, consumed verbatim as the conditions `A29-P` is about;
 - **act 20**, `RepresentativeNaturality.lean` — `RelabelTransition`, `TwistedNatural`,
@@ -153,7 +155,9 @@ Its own: everything in the targets below.
 | `product_cross`, `relabel_product`, `product_realizable` | the same file | lines 963, 975, 1015 |
 | `phiPP_ladder` — the positive control | the same file | line 1166 |
 | `phiSwap_l5_restricts` — the negative control, the eight prefix conjuncts written out | `verification/lean-mathlib/OIBridge/OrbitLawNaturalityFactorization.lean` | line 179 |
-| `phiSC_corner` — the countercontrol | `verification/lean-mathlib/OIBridge/OrbitLawGaps.lean` | line 850 |
+| `phiSC_corner` — the countercontrol, and the eligible family with no lift: conjuncts 1 to 7, factorization, and `¬` conjunct 8 at every `t` | `verification/lean-mathlib/OIBridge/OrbitLawGaps.lean` | line 850, docstring from 829 |
+| `phiMD_l1_restricts` — the second instantiation of the generated law's form | the same file | line 849 |
+| `ol1a_descent`, whose `.2.1` is `PropagatesFrom` clause (i) from descent alone | `verification/lean-mathlib/OIBridge/OrbitLawRigidityTwisted.lean` | line 279 |
 | `a28_r_recovery` — factor recovery at class level | `verification/lean-mathlib/OIBridge/ProductLocusFreedom.lean` | line 147 |
 | `a28_s_locus_first_index` — the necessary condition for locus membership | the same file | line 178 |
 | `a28_s_proper` — the established properness result | the same file | line 207 |
@@ -177,6 +181,30 @@ What it did **not** obtain, named there as the obstruction and inherited here as
 question: act 18's `ProperAt` and `PropagatesFrom`, which are conjuncts 1 and 2, and
 representative-level gauge naturality at act 20's certified strength, which is conjunct 8. Nothing
 was claimed about them in either direction, and **no impossibility result follows** from act 28.
+
+### What the record already contains, stated exactly, so that "gap" is not overstated
+
+**Conjuncts 1 and 2 are not unreached at this configuration.** Act 23's `phiSC_corner`, at
+`OrbitLawGaps.lean` line 850, establishes of **one exact formula** `Φ_SC`, at exactly the frozen
+product configuration and the `Equiv.refl` decomposition, all of: `ProperAt`, `PropagatesFrom`,
+`EvolvesTotally`, `PreservesAdmissible`, time homogeneity, `Reversible`, descent and
+`FactorizesOnProduct` — **seven of the eight prefix conjuncts and factorization** — together with
+the failure of conjunct 8 at **every** `t`. Its factor families are the conditional single-carrier
+relabelling by `σ = (2 3)` on classes equivalent to `G(Hᵢ)` or `σ G(Hᵢ)`, identity elsewhere, and
+the identity; that first family is an involution on the realizable class space and so a bijection.
+
+Three things follow, and the freeze records them before execution rather than letting the
+execution discover them:
+
+- **What act 28 left open is not "has anyone ever proved conjuncts 1 and 2 here"** — act 23 did, of
+  one formula. It is whether they hold of **the families act 28's construction produces**, for an
+  arbitrary prescribed pair. `A29-P` asks that as a universal over eligible families, which neither
+  act 23 nor act 28 settles.
+- **The form "every eligible family is liftable" is already false**, and is therefore not a target
+  of this round in any of its shapes. `Φ_SC` is eligible — it carries conjuncts 3 to 7 and
+  factorization, realizing a pair of bijections — and admits no lift at any time.
+- **`Φ_SC`'s own pair is a concrete candidate** for the exhibited pair of a universal negative at
+  conjunct 8, and the freeze names it as a candidate and preregisters **no** answer about it.
 
 Act 28 also established, and this round consumes rather than re-proves, that the product locus is
 **proper at the level of classes**: there is a class realizable at the product visible family none
@@ -229,19 +257,28 @@ at the configuration above, and nothing else:
 
 **Conjuncts 3, 4, 5, 6 and 7 are the five act 28 established** of its construction, for an
 arbitrary prescribed pair under the hypotheses that construction carries. **Conjuncts 1, 2 and 8
-are the three gaps**, and they are this round's first two targets.
+are the three act 28 left open of those families**, and they are this round's first two targets.
+The gap is at the quantifier, not at the configuration: act 23 established conjuncts 1 and 2 of one
+exact formula here, and refuted conjunct 8 of it, as the section above records.
 
 Conjunct 8 is **existential in the lift**, as act 20 certified it. A target that obtains it obtains
 the existence of **some** representative-level lift, and this round freezes no particular formula
 for one.
 
-### The generated law, fixed here
+### The generated law, fixed here — the corpus's form, up to `GramPhaseEquiv`
 
 Where a target speaks of the law generated by a transition family `Φ`, it means act 18's `Law`
-argument instantiated at the predicate that holds of a trajectory `G : ℕ → V → Matrix V V ℂ`
-exactly when `G (t + 1) = Φ t (G t)` at every `t`. That instantiation is fixed **here**, before
-execution, so that `ProperAt` and `PropagatesFrom` are asked of a determinate object and not of
-one the execution chooses.
+argument instantiated at
+
+> `fun 𝔾 => ∀ t, GramPhaseEquiv (𝔾 (t + 1)) (Φ t (𝔾 t))`
+
+and at nothing else. **The recursion is up to `GramPhaseEquiv`, not equality of tuples**, which is
+the form acts 21, 22 and 23 instantiate — `phiSC_corner` at `OrbitLawGaps.lean` line 850 and
+`phiMD_l1_restricts` at line 849 both read `ProperAt` and `PropagatesFrom` at exactly this
+predicate. Fixing the equality form instead would make this round's `ProperAt` and
+`PropagatesFrom` statements about a different object and would break comparability with every
+earlier act. The instantiation is fixed **here**, before execution, so that the two hypotheses are
+asked of a determinate object and not of one the execution chooses.
 
 ---
 
@@ -283,16 +320,22 @@ The statement to be obtained:
 > with factor families realizing `(f₁, f₂)`, and satisfying conjunct 8 at the **product** carrier,
 > written out in act 20's existential twisted-lift form.
 
-**Why existential and not universal.** Act 23 exhibits a law that factorizes and admits no
-twisted-natural lift. This freeze does not assert that that law carries the five, and does not need
-to: it is enough that the universal form is **not** the question act 28 left, which was whether
-*some* law realizing a prescribed pair carries the rung. Asking the universal here would invite
-hazard 2 from the other side.
+**The quantifiers, written out, because the two mistakes here are symmetric.**
 
-Reported `A29-N-LIFTS`, `A29-N-NO-LIFT` or `A29-N-UNDECIDED`. **`A29-N-NO-LIFT` is a universal
-negative** — no family carrying the five and realizing an exhibited pair admits the lift — and
-nothing weaker earns that label. In particular **exhibiting one family without a lift is
-`A29-N-UNDECIDED`, not `A29-N-NO-LIFT`**, and the result note says which family was tried.
+- The **positive** target is `∀ pair, ∃ eligible family, liftable` — every prescribed pair has
+  *some* compatible liftable family. "Eligible" means carrying conjuncts 3 to 7 and factorization
+  with factor families realizing that pair.
+- Its **negation**, and the only thing `A29-N-NO-LIFT` may report, is
+  `∃ pair, ∀ eligible family, not liftable` — one exhibited pair for which **every** eligible
+  family lacks a lift. **A single unliftable family is not that**, and is reported
+  `A29-N-UNDECIDED` with the family named.
+- The form `∀ eligible family, liftable` is **not** a target of this round in any shape, because it
+  is **already false**: act 23's `phiSC_corner` exhibits an eligible family — `Φ_SC`, carrying
+  conjuncts 3 to 7 and factorization and realizing a pair of bijections — with no lift at any `t`.
+  A positive answer here therefore needs a **different** family, and the freeze says so rather than
+  leaving the execution to rediscover it.
+
+Reported `A29-N-LIFTS`, `A29-N-NO-LIFT` or `A29-N-UNDECIDED`.
 
 ### `A29-0` — full admission, in ONE existential
 
@@ -383,18 +426,30 @@ the claimed form rather than test it.
 Reasoning done **before** the freeze, by hand, with nothing executed. **It is not a result, it is
 not evidence, and the execution is free to find it wrong and record that.**
 
-1. **For `ProperAt`.** The clause needs two pointwise-realizable trajectories the law admits whose
-   trajectories are `GramTrajEquiv`-inequivalent, and one pointwise-realizable trajectory the law
-   excludes. Total evolution and preservation of realizability supply orbits from any realizable
-   start; injectivity on classes carries an initial inequivalence forward; act 22's cross-invariant
-   supplies two inequivalent realizable classes at this configuration. For the excluded trajectory,
-   a trajectory whose value at time one is inequivalent to the law's image of its value at time
-   zero is not an orbit. **The conversion from pointwise realizability to act 17's trajectory form
-   is act 17's `tj1_sufficiency`, and it has not been checked at the product carrier**; that is
-   where this step can fail.
-2. **For `PropagatesFrom`.** Clause (i) is descent plus time homogeneity: equal classes at time
-   zero give equal classes at every time, hence equivalent trajectories. Clause (ii) is injectivity
-   on classes plus the same two inequivalent classes, at `t = 1`. Both conjuncts are among the five.
+0. **`TJ1` is available, not a bridge to build.** `tj1_sufficiency`, at
+   `GramTrajectorySelection.lean` line 234, is stated for the section's arbitrary finite carrier,
+   so the product carrier is an **instantiation** of it and not an extension of its scope; no new
+   theorem is needed to reach `Fin 4 × Fin 4`. And `ProperAt` and `PropagatesFrom` quantify over
+   trajectories that are **pointwise realizable**, directly: neither definition carries a
+   coherent-lift conjunct, so assembling a lift is **not** a proof obligation of either. `TJ1` is
+   therefore an explicitly authorized dependency of this round, used where the lift picture is
+   wanted, and **is not a gap**.
+1. **For `PropagatesFrom`.** Clause (i) follows from **descent alone**, through
+   `(ol1a_descent a₀ Γ hd).2.1` at `OrbitLawRigidityTwisted.lean` line 279, whose second component
+   is exactly "two solutions equivalent at time zero have `GramTrajEquiv` trajectories" and whose
+   only hypothesis is `hd`, descent. **Time homogeneity is not needed for that implication**, and
+   the freeze does not claim it is. Clause (ii) is injectivity on classes together with two
+   inequivalent realizable classes at this configuration, which act 22's cross-invariant supplies,
+   read at `t = 1`. Both inputs are among the five conjuncts.
+2. **For `ProperAt`.** Two solutions the law admits, pointwise realizable and
+   `GramTrajEquiv`-inequivalent, come from total evolution, preservation of realizability and the
+   same class separation. The clause then needs one thing more, and it is the step that can fail:
+   **a pointwise realizable trajectory the law EXCLUDES, exhibited, and proved to violate the
+   law.** Two distinct solutions do not supply it. The shape act 23 used for its own formula is a
+   **constant** trajectory at a realizable class the family moves, whose value at time one is then
+   inequivalent to the family's image of its value at time zero; whether that shape is available
+   for an arbitrary eligible family — which requires that every such family move some realizable
+   class — is exactly what this step must establish, and the freeze asserts nothing about it.
 3. **For the lift.** Act 28's family is a class map defined by choice, product-wise on the locus
    and fixed off it. A twisted-natural lift at the product carrier would have to be built
    representative-wise, and **act 27's single-carrier lifts do not transport to the product carrier
@@ -416,9 +471,12 @@ in the "may consume" column is a deviation, recorded and not repaired.
 only role was to supply witnesses of already-authorized declarations were not listed. The columns
 below therefore name every such helper explicitly, and the following are authorized for **every**
 target of this round without further mention: act 12's `sh1_sufficiency` and `sh1_necessity`; act
-17's `tj1_sufficiency`; act 21's `witness_supply`, `realizable_relabel`, `product_realizable`,
-`product_cross` and `relabel_product`; act 27's `a27_shared_fibreGram_entry`; and act 28's shared
-lemmas and `a28_r_recovery`.
+17's `tj1_sufficiency` and `tj1_trajectory_set`; act 21's `ol1a_descent`, `witness_supply`,
+`realizable_relabel`, `product_realizable`, `product_cross`, `relabel_product`,
+`relabel_gramPhaseEquiv` and `hadamard_entries`; act 22's cross-invariant separations; act 23's
+`gramPhaseEquiv_fst_of_product`; act 27's `a27_shared_fibreGram_entry`; and act 28's shared lemmas
+and `a28_r_recovery`. **A helper needed but absent from this list is a deviation, recorded against
+the row it departs from and not repaired**, exactly as act 28 recorded `DF1`.
 
 | target | may consume | may NOT consume | permitted work |
 | --- | --- | --- | --- |
@@ -436,8 +494,8 @@ section above are cited in every case and re-proved in none.
 
 | target | prediction | strength | recorded reason |
 | --- | --- | --- | --- |
-| `A29-P` | `A29-P-HOLD` | **medium** | both clauses reduce to conjuncts already among the five together with two inequivalent realizable classes, which act 22's cross-invariant supplies at this configuration; the unpriced step is act 17's `tj1_sufficiency` at the product carrier, which nothing in the record has exercised there |
-| `A29-N` | `A29-N-UNDECIDED` | **medium** | act 27's lifts are single-carrier and nothing transports them to the product carrier; act 28's family is defined by choice and its lift would have to be built representative-wise, on the locus and off it separately; and act 23 shows the rung is not free for the asking |
+| `A29-P` | `A29-P-HOLD` | **medium** | `PropagatesFrom` clause (i) is `ol1a_descent`'s second component from descent alone, clause (ii) is injectivity with act 22's class separation, and act 23 establishes both hypotheses of one eligible family already; the unpriced step is `ProperAt`'s **excluded trajectory**, which must be exhibited for an **arbitrary** eligible family and needs every such family to move some realizable class — a fact nothing in the record supplies |
+| `A29-N` | `A29-N-UNDECIDED` | **medium** | act 27's lifts are single-carrier and nothing transports them to the product carrier; act 28's family is defined by choice and its lift would have to be built representative-wise, on the locus and off it separately; and act 23 exhibits an eligible family with no lift at any time, so a positive answer needs a different family and the question is not whether eligibility suffices |
 | `A29-0` | `A29-0-UNDECIDED` | **medium** | gated on both, and `A29-N` is predicted undecided; the assembly itself is expected to be cheap once its inputs exist |
 | `A29-1` | `A29-1-NOT-EXECUTED` | **high** | gated on `A29-0-ADMITS`, which is predicted not to be reached |
 
