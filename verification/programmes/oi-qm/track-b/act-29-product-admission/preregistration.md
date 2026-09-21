@@ -198,8 +198,9 @@ execution discover them:
 
 - **What act 28 left open is not "has anyone ever proved conjuncts 1 and 2 here"** — act 23 did, of
   one formula. It is whether they hold of **the families act 28's construction produces**, for an
-  arbitrary prescribed pair. `A29-P` asks that as a universal over eligible families, which neither
-  act 23 nor act 28 settles.
+  arbitrary prescribed pair. `A29-P` asks that as a universal over **descending reversible
+  families** — carrying conjuncts 3 to 7, with no factorization hypothesis and no pair — which
+  neither act 23 nor act 28 settles.
 - **The form "every eligible family is liftable" is already false**, and is therefore not a target
   of this round in any of its shapes. `Φ_SC` is eligible — it carries conjuncts 3 to 7 and
   factorization, realizing a pair of bijections — and admits no lift at any time.
@@ -387,7 +388,8 @@ The statement to be obtained, at that pair and no other:
 
 Time zero suffices as the witness index because conjunct 5 makes both families time-homogeneous.
 
-**The disagreement point is existentially chosen, and act 28's witness is not it.** `a28_s_proper`
+**The disagreement point is existentially chosen, and is not required to be act 28's witness** —
+the existential permits that choice and does not force it. `a28_s_proper`
 is consumed for what it proves — that the off-locus part of the realizable class space is
 **nonempty**, so the quantifier `∃ G off the locus` is not vacuous — and for nothing more.
 Requiring the disagreement to occur at *that* class would be a different and stronger claim, and
@@ -397,9 +399,10 @@ its negation would not be the agreement statement below.
 tuples realizable at the product visible family **whose class lies outside the product locus**:
 `A29-1-NONUNIQUE` asserts disagreement at some such tuple, `A29-1-UNIQUE` agreement at every such
 tuple, and each is the negation of the other over that domain. The domain is the off-locus one
-because both laws carry factorization with the **same** factor families, so their behaviour on the
-locus is what that conjunct already constrains; the freeze states this as the reason for the scope
-and asserts **no** theorem that on-locus agreement follows.
+because both laws carry factorization with **factor families realizing the same prescribed
+class-map pair** — literal equality of the families is **not** required and is nowhere assumed —
+so their behaviour on the locus is what that conjunct already constrains; the freeze states this as
+the reason for the scope and asserts **no** theorem that on-locus agreement follows.
 
 Reported `A29-1-NONUNIQUE`, `A29-1-UNIQUE`, `A29-1-UNDECIDED` or `A29-1-NOT-EXECUTED`.
 
@@ -467,15 +470,19 @@ not evidence, and the execution is free to find it wrong and record that.**
    supplying each factor's realizability and `product_realizable` supplying the products'. The
    separation act 22 uses inside `phiSwap_l5_restricts` is a local `have` and is **not** citable;
    this round consumes the exported theorem instead.
-2. **For `ProperAt`.** Two solutions the law admits, pointwise realizable and
-   `GramTrajEquiv`-inequivalent, come from total evolution, preservation of realizability and the
-   same class separation. The clause then needs one thing more, and it is the step that can fail:
-   **a pointwise realizable trajectory the law EXCLUDES, exhibited, and proved to violate the
-   law.** Two distinct solutions do not supply it. The shape act 23 used for its own formula is a
-   **constant** trajectory at a realizable class the family moves, whose value at time one is then
-   inequivalent to the family's image of its value at time zero; whether that shape is available
-   for an arbitrary eligible family — which requires that every such family move some realizable
-   class — is exactly what this step must establish, and the freeze asserts nothing about it.
+2. **For `ProperAt`, by SPLICING, which needs no family to move any class.** Total evolution and
+   preservation of realizability give solutions `X` and `Y` from the two separated realizable
+   starts; injectivity on classes carries `¬ GramPhaseEquiv (X 0) (Y 0)` to
+   `¬ GramPhaseEquiv (X 1) (Y 1)`, and since `GramTrajEquiv` is pointwise `GramPhaseEquiv` at every
+   time, that single index already gives `¬ GramTrajEquiv X Y`. The excluded trajectory is then the
+   **splice** `H 0 = X 0` and `H t = Y t` for `t ≥ 1`: every slice is realizable because `X 0` and
+   each `Y t` are, and the law fails at the **first** transition, since it would require
+   `GramPhaseEquiv (Y 1) (Φ 0 (X 0))` while `X` being a solution gives
+   `GramPhaseEquiv (X 1) (Φ 0 (X 0))`, and `X 1` and `Y 1` are inequivalent.
+   **No requirement that the family move a realizable class enters anywhere**, and an earlier
+   draft of this route wrongly made one: the identity family carries conjuncts 3 to 7, fixes every
+   class, and still has distinct constant-class solutions and excludes class-changing histories,
+   so the splice supplies `ProperAt` for it too. This is reasoning to formalize, not a result.
 3. **For the lift.** Act 28's family is a class map defined by choice, product-wise on the locus
    and fixed off it. A twisted-natural lift at the product carrier would have to be built
    representative-wise, and **act 27's single-carrier lifts do not transport to the product carrier
@@ -525,7 +532,7 @@ section above are cited in every case and re-proved in none.
 
 | target | prediction | strength | recorded reason |
 | --- | --- | --- | --- |
-| `A29-P` | `A29-P-HOLD` | **medium** | `PropagatesFrom` clause (i) is `ol1a_descent`'s second component from descent alone, clause (ii) is injectivity with `product_separations`'s first conjunct, and act 23 establishes both hypotheses of one descending reversible family already; the outstanding work is the standing-law argument, and within it `ProperAt`'s **excluded trajectory**, which must be exhibited for an **arbitrary** descending reversible family and needs every such family to move some realizable class — a fact nothing in the record supplies |
+| `A29-P` | `A29-P-HOLD` | **high** | every ingredient is a conjunct of the hypothesis or an exported theorem: `PropagatesFrom` clause (i) is `ol1a_descent`'s second component from descent alone, clause (ii) and `ProperAt`'s inequivalent pair are injectivity with `product_separations`'s first conjunct, and `ProperAt`'s excluded trajectory is the splice of route step 2, which needs no family to move any class; act 23 establishes both hypotheses of one descending reversible family already. **The outstanding work is the standing-law argument itself**, formalized at this carrier; no obstruction to it is identified, and the earlier draft's supposed obstruction was disproved by the identity family |
 | `A29-N` | `A29-N-UNDECIDED` | **medium** | act 27's lifts are single-carrier and nothing transports them to the product carrier; act 28's family is defined by choice and its lift would have to be built representative-wise, on the locus and off it separately; and act 23 exhibits an eligible family with no lift at any time, so a positive answer needs a different family and the question is not whether eligibility suffices |
 | `A29-0` | `A29-0-UNDECIDED` | **medium** | gated on both, and `A29-N` is predicted undecided; the assembly itself is expected to be cheap once its inputs exist |
 | `A29-1` | `A29-1-NOT-EXECUTED` | **high** | gated on `A29-0-ADMITS`, which is predicted not to be reached |
@@ -820,11 +827,30 @@ the record `verification/seals/PRA.json` from `P`, and **no constant**.
     `FactorizesOnProduct` applied verbatim, with no other predicate of the same shape declared or
     stated; every naturality conjunct is act 20's existential twisted-lift form applied verbatim;
     `ProperAt` and `PropagatesFrom` are act 18's, applied verbatim, to the generated law this
-    freeze fixes; and the prefix conjuncts appear written out, all eight, in every statement that
-    claims them;
-    (d) **`A29-0`'s conclusion is ONE existential**: a single `∃ Φ` whose body carries the eight
-    conjuncts, factorization and the prescribed pair, with no conjunction of separate existentials
-    over transition families in that conclusion;
+    freeze fixes; and wherever a statement claims the **full prefix**, all eight conjuncts appear
+    written out in it. **These are the common contracts, and they hold of every verdict statement
+    whatever the label**: the configuration, the declarations applied verbatim, and the domains;
+    (d) **the shape contracts, CONDITIONAL ON THE LABEL EARNED**, since the allowed outcomes are
+    not all of one shape. Only the clause for the label the result note carries is required, and
+    each is checked against the theorem named for that label:
+    `A29-P-HOLD` — a universal: `∀ Φ` carrying conjuncts 3 to 7, `ProperAt` and `PropagatesFrom` of
+    the generated law;
+    `A29-P-FAILS` — an exhibited counterexample: a named `Φ` carrying conjuncts 3 to 7 together
+    with the failure of the one of the two the note names;
+    `A29-N-LIFTS` — `∀ pair, ∃ Φ` eligible for it, with conjunct 8;
+    `A29-N-NO-LIFT` — an exhibited pair with `∀ Φ` eligible for it, the negation of conjunct 8;
+    `A29-0-ADMITS` — **ONE existential**: `∀ pair`, a single `∃ Φ` whose body carries the eight
+    conjuncts, factorization and that pair, with no conjunction of separate existentials over
+    transition families in that conclusion;
+    `A29-0-RESTRICTS` — an exhibited pair with `∀ Φ` carrying the eight conjuncts and
+    factorization, the negation of its factor families realizing that pair;
+    `A29-1-NONUNIQUE` — `∃ Φ`, `∃ Φ'`, both carrying the eight conjuncts and factorization with
+    families realizing `(f★₁, f★₂)`, and `∃ G` realizable at the product visible family with its
+    class outside the locus, inequivalent images;
+    `A29-1-UNIQUE` — `∀ Φ`, `∀ Φ'` so carrying, `∀ G` realizable with its class outside the locus,
+    equivalent images.
+    An `UNDECIDED` or `NOT-EXECUTED` label requires **no** theorem of its target and forbids one
+    named for it;
     (e) the stage-A commit, the module commit and the verdict commits of the executed targets are
     on the first-parent chain from `B` to `E`, in that order, the module absent before the module
     commit and present from it on, and the module commit carrying no theorem whose name is a
@@ -838,13 +864,15 @@ the record `verification/seals/PRA.json` from `P`, and **no constant**.
     note carrying `A29-N-NO-LIFT` carries `A29-0-RESTRICTS` and a theorem deriving it from that
     one. A note carrying `A29-0-UNDECIDED` alongside either hypothesis **fails**, since the four
     rows those combinations would form are not in the table;
-    (i) **`A29-P`'s scope, mechanically**: the statement of the `A29-P` theorem carries conjuncts 3
-    to 7 as its hypotheses and **no** `FactorizesOnProduct` hypothesis and no prescribed pair, so
-    that the theorem, the question, the frozen sentences and the prediction's reason are about one
-    claim;
-    (j) **`A29-1`'s domain, mechanically**: the `A29-1` theorem quantifies its disagreement
-    existentially over tuples realizable at the product visible family whose class lies outside the
-    locus, and does not pin the disagreement point to act 28's exhibited class.
+    (i) **`A29-P`'s scope, mechanically, under either decided label**: the `A29-P` theorem — the
+    universal under `A29-P-HOLD`, the exhibited counterexample under `A29-P-FAILS` — carries
+    conjuncts 3 to 7 and **no** `FactorizesOnProduct` hypothesis and no prescribed pair, so that
+    the theorem, the question, the frozen sentences and the prediction's reason are about one
+    claim. The scope is the contract; the quantifier is (d)'s;
+    (j) **`A29-1`'s domain, mechanically, under either decided label**: both the `A29-1-NONUNIQUE`
+    theorem, existentially, and the `A29-1-UNIQUE` theorem, universally, range over tuples
+    realizable at the product visible family whose class lies outside the
+    locus, and neither pins that tuple to act 28's exhibited class.
 11. **Content contracts hold the result note to this freeze's distinctions**, each mutation-tested,
     each pinned to its **complete content** and, where the contract is a placement or a count,
     checked as one: the round's shape as sealing with `E` → `L` → `P`; the declaration table with
