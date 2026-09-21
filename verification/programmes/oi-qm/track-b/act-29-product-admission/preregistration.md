@@ -286,9 +286,19 @@ asked of a determinate object and not of one the execution chooses.
 
 ### `A29-P` — do the two standing hypotheses hold, UNIVERSALLY over the families act 28 reached?
 
-**Of every transition family at the frozen configuration carrying conjuncts 3–7 and factorization
-with factor families realizing a prescribed pair of bijections, do `ProperAt` and `PropagatesFrom`
-hold of the law it generates?**
+**Of every transition family at the frozen configuration carrying conjuncts 3 to 7, do `ProperAt`
+and `PropagatesFrom` hold of the law it generates?**
+
+**The scope is conjuncts 3 to 7 and nothing else.** Factorization is **not** a hypothesis of this
+target, and neither is a prescribed pair. Adding either would narrow the universal, so that a
+counterexample to the displayed statement need not be a counterexample to the reported one — the
+two surfaces would then not be about the same claim. This freeze fixes the wider universal, and
+**every surface of this target says conjuncts 3 to 7, with no factorization clause**: the question
+above, the displayed statement, the three frozen sentences, the prediction's reason and the
+route-authorization row. The vocabulary matters and is kept apart: a family carrying conjuncts 3 to
+7 is called a **descending reversible family**, and the narrower notion carrying factorization and
+a prescribed pair as well — used by `A29-N` and `A29-0`, never here — is called an **eligible
+family for that pair**.
 
 The statement to be obtained:
 
@@ -298,12 +308,13 @@ The statement to be obtained:
 
 **Why the universal form, and why it is the right shape.** A statement proved of one exhibited
 family would have to be re-proved for every replacement the later targets make — the incompatible-
-witness hazard. A universal over families carrying the five is inherited by **any** witness the
+witness hazard. A universal over descending reversible families is inherited by **any** witness the
 later targets produce, including one built with a different choice function or a different class
-section, so hazard 3 is discharged by the statement's shape rather than by an argument about it.
+section, and — because it does not mention factorization — by witnesses for **every** prescribed
+pair at once. Hazard 3 is discharged by the statement's shape rather than by an argument about it.
 
 Reported `A29-P-HOLD`, `A29-P-FAILS` or `A29-P-UNDECIDED`. **`A29-P-FAILS` means the universal is
-refuted by an exhibited family carrying the five and failing one of the two, and it names which**;
+refuted by an exhibited descending reversible family failing one of the two, and it names which**;
 per hazard 2 it does **not** say that no family has them, and it leaves `A29-0` open.
 
 ### `A29-N` — is there a product-carrier twisted-natural lift?
@@ -371,15 +382,24 @@ The statement to be obtained, at that pair and no other:
 
 > There exist transition families `Φ`, `Φ'` on `Fin 4 × Fin 4` such that **each** satisfies all
 > eight conjuncts of the full prefix and factorization with families realizing `(f★₁, f★₂)`, and
-> there is a tuple `G` realizable at the product visible family whose class lies **outside** the
-> product locus — the class act 28's `a28_s_proper` exhibits, consumed and not re-proved — with
-> `¬ GramPhaseEquiv (Φ 0 G) (Φ' 0 G)`.
+> there exists **some** tuple `G` realizable at the product visible family whose class lies
+> **outside** the product locus, with `¬ GramPhaseEquiv (Φ 0 G) (Φ' 0 G)`.
 
 Time zero suffices as the witness index because conjunct 5 makes both families time-homogeneous.
 
-**Properness alone does not establish this.** That a class lies off the locus says only that the
-factorization conjunct is silent there; the eight prefix conjuncts still bind both laws on it, and
-whether they leave room for disagreement is exactly what the target asks.
+**The disagreement point is existentially chosen, and act 28's witness is not it.** `a28_s_proper`
+is consumed for what it proves — that the off-locus part of the realizable class space is
+**nonempty**, so the quantifier `∃ G off the locus` is not vacuous — and for nothing more.
+Requiring the disagreement to occur at *that* class would be a different and stronger claim, and
+its negation would not be the agreement statement below.
+
+**The two alternatives are scoped to one domain, so that they partition.** Both quantify over
+tuples realizable at the product visible family **whose class lies outside the product locus**:
+`A29-1-NONUNIQUE` asserts disagreement at some such tuple, `A29-1-UNIQUE` agreement at every such
+tuple, and each is the negation of the other over that domain. The domain is the off-locus one
+because both laws carry factorization with the **same** factor families, so their behaviour on the
+locus is what that conjunct already constrains; the freeze states this as the reason for the scope
+and asserts **no** theorem that on-locus agreement follows.
 
 Reported `A29-1-NONUNIQUE`, `A29-1-UNIQUE`, `A29-1-UNDECIDED` or `A29-1-NOT-EXECUTED`.
 
@@ -414,7 +434,7 @@ gates below govern **which labels may be reported**, never whether an obtained r
 | positive control | act 21's `phiPP_ladder`, the product permutation `σ × σ` | a law of the prefix **can** satisfy factorization with content here, with factor maps equal before any equivalence | cited, not re-proved |
 | negative control | act 22's `phiSwap_l5_restricts`, the factor swap | a law of the prefix **can** fail factorization, so the condition is not automatic here | cited, not re-proved |
 | countercontrol | act 23's `phiSC_corner` | a law can factorize and fail gauge naturality, so no construction producing factorization is read as producing conjunct 8 | cited, not re-proved |
-| countercontrol | act 22's cross-invariant separation of `[G(H₁) ⊠ G(H₁)]` from `[G(Hᵢ) ⊠ G(H₁)]`, values `1/256` and `i/256` | two inequivalent realizable classes exist at the product configuration, which is what `ProperAt`'s and `PropagatesFrom`'s non-degeneracy clauses need | cited, not re-proved |
+| countercontrol | act 21's `product_separations`, first conjunct: `¬ GramPhaseEquiv (G₁ ⊠ G₁) (Gᵢ ⊠ Gᵢ)` at this configuration, with `witness_supply`, `sh1_necessity` and `product_realizable` | two inequivalent realizable classes exist at the product configuration, which is what `ProperAt`'s and `PropagatesFrom`'s non-degeneracy clauses need. **This is the exported theorem**; the separation inside act 22's `phiSwap_l5_restricts` is a local `have` and supplies no citable premise | cited, not re-proved |
 
 **The identity is not used as a control.** It satisfies factorization trivially and would reproduce
 the claimed form rather than test it.
@@ -439,8 +459,14 @@ not evidence, and the execution is free to find it wrong and record that.**
    is exactly "two solutions equivalent at time zero have `GramTrajEquiv` trajectories" and whose
    only hypothesis is `hd`, descent. **Time homogeneity is not needed for that implication**, and
    the freeze does not claim it is. Clause (ii) is injectivity on classes together with two
-   inequivalent realizable classes at this configuration, which act 22's cross-invariant supplies,
-   read at `t = 1`. Both inputs are among the five conjuncts.
+   inequivalent realizable classes at this configuration, read at `t = 1`.
+   **The separation has a named exported supplier**, and a prose citation would not have served:
+   act 21's `product_separations`, at `OrbitLawRigidityTwisted.lean` line 1093, whose **first
+   conjunct** is `¬ GramPhaseEquiv (G₁ ⊠ G₁) (Gᵢ ⊠ Gᵢ)` at this exact configuration, with
+   `witness_supply` supplying `H₁`, `Hᵢ` and the fixing hypothesis it takes, `sh1_necessity`
+   supplying each factor's realizability and `product_realizable` supplying the products'. The
+   separation act 22 uses inside `phiSwap_l5_restricts` is a local `have` and is **not** citable;
+   this round consumes the exported theorem instead.
 2. **For `ProperAt`.** Two solutions the law admits, pointwise realizable and
    `GramTrajEquiv`-inequivalent, come from total evolution, preservation of realizability and the
    same class separation. The clause then needs one thing more, and it is the step that can fail:
@@ -456,11 +482,16 @@ not evidence, and the execution is free to find it wrong and record that.**
    by anything in the record**. Whether the product of two single-carrier lifts is a lift of the
    product family, and whether the off-locus part admits one at all, are both open. **This is the
    step the freeze expects to stop at.**
-4. **For assembly.** If steps 1–3 succeed, the eight conjuncts hold of one family by construction,
-   because `A29-P` is universal over families carrying the five and `A29-N` exhibits one that
-   carries the five and conjunct 8. If step 3 fails or is undecided, `A29-0` is `A29-0-UNDECIDED`
-   and the round reports the step at which the proof stopped, with `A29-P`'s verdict standing.
-5. **For `A29-1`.** Only under `A29-0-ADMITS`. The witness class is act 28's, consumed.
+4. **For assembly, which is a corollary and not a further construction.** `A29-P` is universal over
+   descending reversible families and carries no factorization hypothesis, so it applies to
+   whatever family `A29-N` exhibits; the eight conjuncts then hold of that one family, for every
+   pair. **The execution proves and reports this as a corollary wherever both hypotheses are
+   reached**, and likewise the second corollary from `A29-N-NO-LIFT` to `A29-0-RESTRICTS`. If
+   `A29-N` is undecided, `A29-0` is `A29-0-UNDECIDED` and the round reports the step at which the
+   proof stopped, with `A29-P`'s verdict standing.
+5. **For `A29-1`.** Only under `A29-0-ADMITS`. Act 28's `a28_s_proper` is consumed to know the
+   off-locus part of the realizable class space is nonempty; the disagreement point, if there is
+   one, is chosen by the execution and is not required to be act 28's witness.
 
 ### The route-authorization matrix, FROZEN
 
@@ -471,19 +502,19 @@ in the "may consume" column is a deviation, recorded and not repaired.
 only role was to supply witnesses of already-authorized declarations were not listed. The columns
 below therefore name every such helper explicitly, and the following are authorized for **every**
 target of this round without further mention: act 12's `sh1_sufficiency` and `sh1_necessity`; act
-17's `tj1_sufficiency` and `tj1_trajectory_set`; act 21's `ol1a_descent`, `witness_supply`,
-`realizable_relabel`, `product_realizable`, `product_cross`, `relabel_product`,
-`relabel_gramPhaseEquiv` and `hadamard_entries`; act 22's cross-invariant separations; act 23's
+17's `tj1_sufficiency` and `tj1_trajectory_set`; act 21's `ol1a_descent`, `product_separations`,
+`witness_supply`, `realizable_relabel`, `product_realizable`, `product_cross`, `relabel_product`,
+`relabel_gramPhaseEquiv` and `hadamard_entries`; act 23's
 `gramPhaseEquiv_fst_of_product`; act 27's `a27_shared_fibreGram_entry`; and act 28's shared lemmas
 and `a28_r_recovery`. **A helper needed but absent from this list is a deviation, recorded against
 the row it departs from and not repaired**, exactly as act 28 recorded `DF1`.
 
 | target | may consume | may NOT consume | permitted work |
 | --- | --- | --- | --- |
-| `A29-P` | the universally authorized helpers; act 18's and act 12's declarations; act 22's cross-invariant separation; act 28's `a28_0_construction` as an instance only | `A29-N`'s witness; `A29-0`'s witness; `A29-1`'s witnesses | prove or refute the universal; nothing else |
-| `A29-N` | the universally authorized helpers; act 20's declarations; act 27's single-carrier lift results **of a factor**; act 28's `a28_0_construction` | `A29-P` as a premise for the lift; `A29-1`'s witnesses | construct a product-carrier lift for a family carrying the five, or prove the universal negative; nothing else |
-| `A29-0` | `A29-P`; `A29-N`; the universally authorized helpers; act 12's, act 18's, act 20's and act 21's declarations | `A29-1`'s witnesses; act 22's and act 23's verdicts as premises | assemble the single existential, or record the conjunct that is missing; nothing else |
-| `A29-1` | `A29-0`'s witness; act 28's `a28_s_proper` and `a28_s_locus_first_index`; the universally authorized helpers | nothing further | exhibit two laws at the frozen pair and separate them off the locus, or prove they agree up to `GramPhaseEquiv` there; nothing else |
+| `A29-P` | the universally authorized helpers — in particular `ol1a_descent` for clause (i) and `product_separations`'s first conjunct with `witness_supply`, `sh1_necessity` and `product_realizable` for the separation; act 18's, act 17's and act 12's declarations; act 23's `phiSC_corner` as an instance only | `A29-N`'s witness; `A29-0`'s witness; `A29-1`'s witnesses | prove or refute the universal over descending reversible families; nothing else |
+| `A29-N` | the universally authorized helpers; act 20's declarations; act 27's single-carrier lift results **of a factor**; act 28's `a28_0_construction`; act 23's `phiSC_corner` for its refutation of the lift | `A29-P` as a premise for the lift; `A29-1`'s witnesses | construct a product-carrier lift for an eligible family, or prove the universal negative at an exhibited pair; nothing else |
+| `A29-0` | `A29-P`; `A29-N`; the universally authorized helpers; act 12's, act 18's, act 20's and act 21's declarations | `A29-1`'s witnesses; act 22's and act 23's verdicts as premises | derive the two assembly corollaries where their hypotheses are reached, assemble the single existential, or record the conjunct that is missing; nothing else |
+| `A29-1` | `A29-0`'s witness; act 28's `a28_s_proper` for off-locus nonemptiness and `a28_s_locus_first_index`; the universally authorized helpers | nothing further | exhibit two laws at the frozen pair and separate them at some off-locus realizable class, or prove they agree up to `GramPhaseEquiv` at every such class; nothing else |
 
 **No verdict may be inferred from another beyond these consumptions**, and the controls of the
 section above are cited in every case and re-proved in none.
@@ -494,7 +525,7 @@ section above are cited in every case and re-proved in none.
 
 | target | prediction | strength | recorded reason |
 | --- | --- | --- | --- |
-| `A29-P` | `A29-P-HOLD` | **medium** | `PropagatesFrom` clause (i) is `ol1a_descent`'s second component from descent alone, clause (ii) is injectivity with act 22's class separation, and act 23 establishes both hypotheses of one eligible family already; the unpriced step is `ProperAt`'s **excluded trajectory**, which must be exhibited for an **arbitrary** eligible family and needs every such family to move some realizable class — a fact nothing in the record supplies |
+| `A29-P` | `A29-P-HOLD` | **medium** | `PropagatesFrom` clause (i) is `ol1a_descent`'s second component from descent alone, clause (ii) is injectivity with `product_separations`'s first conjunct, and act 23 establishes both hypotheses of one descending reversible family already; the outstanding work is the standing-law argument, and within it `ProperAt`'s **excluded trajectory**, which must be exhibited for an **arbitrary** descending reversible family and needs every such family to move some realizable class — a fact nothing in the record supplies |
 | `A29-N` | `A29-N-UNDECIDED` | **medium** | act 27's lifts are single-carrier and nothing transports them to the product carrier; act 28's family is defined by choice and its lift would have to be built representative-wise, on the locus and off it separately; and act 23 exhibits an eligible family with no lift at any time, so a positive answer needs a different family and the question is not whether eligibility suffices |
 | `A29-0` | `A29-0-UNDECIDED` | **medium** | gated on both, and `A29-N` is predicted undecided; the assembly itself is expected to be cheap once its inputs exist |
 | `A29-1` | `A29-1-NOT-EXECUTED` | **high** | gated on `A29-0-ADMITS`, which is predicted not to be reached |
@@ -510,14 +541,14 @@ recorded as missed.
 ### `A29-P-HOLD`
 
 > At the frozen product configuration, every transition family satisfying conjuncts 3 to 7 of the
-> prefix and factorization with factor families realizing a prescribed pair generates a law
-> satisfying act 18's two standing hypotheses, at evidence level 2. This is a statement about the
-> exact declarations at the exact configuration, and it says nothing about any other configuration.
+> prefix generates a law satisfying act 18's two standing hypotheses, at evidence level 2. This is
+> a statement about the exact declarations at the exact configuration, it carries no factorization
+> hypothesis and names no pair, and it says nothing about any other configuration.
 
 ### `A29-P-FAILS`
 
 > At the frozen product configuration, an exhibited transition family satisfying conjuncts 3 to 7
-> and factorization generates a law failing the named one of act 18's two standing hypotheses, at
+> of the prefix generates a law failing the named one of act 18's two standing hypotheses, at
 > evidence level 2. **This refutes the universal and nothing more: it does not say that no family
 > has both hypotheses, and it leaves admission open.**
 
@@ -577,8 +608,9 @@ recorded as missed.
 
 > At the frozen product configuration, for the pair `(f★₁, f★₂)` act 28 froze in advance, two
 > exhibited transition families each satisfy all eight prefix conjuncts and factorization with
-> factor families realizing that pair, and take `GramPhaseEquiv`-inequivalent values on act 28's
-> exhibited realizable class outside the product locus, at evidence level 2. **This is a
+> factor families realizing that pair, and take `GramPhaseEquiv`-inequivalent values on some
+> exhibited tuple realizable at the product visible family whose class lies outside the product
+> locus, at evidence level 2. **This is a
 > nonuniqueness statement about two exhibited laws at that pair. It does not say that factorization
 > is empty, has no content, or fails to restrict anything, and it is not the label act 22 leaves
 > unattempted.**
@@ -588,8 +620,10 @@ recorded as missed.
 > At the frozen product configuration, for the pair `(f★₁, f★₂)` act 28 froze in advance, any two
 > transition families satisfying all eight prefix conjuncts and factorization with factor families
 > realizing that pair have `GramPhaseEquiv`-equivalent values on every tuple realizable at the
-> product visible family, at evidence level 2. The agreement asserted is agreement **up to
-> `GramPhaseEquiv`**, not equality of families, and it is asserted **for that pair alone**.
+> product visible family **whose class lies outside the product locus**, at evidence level 2. The
+> agreement asserted is agreement **up to `GramPhaseEquiv`**, not equality of families; it is
+> asserted **for that pair alone**; and it is asserted **on the off-locus domain alone**, which is
+> exactly the domain `A29-1-NONUNIQUE` quantifies over, so the two are negations of each other.
 
 ### `A29-1-UNDECIDED` / `A29-1-NOT-EXECUTED`
 
@@ -598,31 +632,53 @@ recorded as missed.
 
 ### The outcome-vector table — every admissible headline under the gates
 
+### The two assembly corollaries, REQUIRED, and what they exclude
+
+Once the statements above are read together, two implications hold outright, and the execution
+**must prove and report each as a corollary** wherever its hypothesis is reached. They are not
+optional readings: a row contradicting one could not be truthfully reported.
+
+- **`A29-P-HOLD` and `A29-N-LIFTS` give `A29-0-ADMITS`.** `A29-N-LIFTS` supplies, for every
+  prescribed pair, a family carrying conjuncts 3 to 7, factorization with that pair, and conjunct
+  8. `A29-P-HOLD`, being universal over **all** families carrying conjuncts 3 to 7 and carrying no
+  factorization hypothesis, applies to that very family and gives conjuncts 1 and 2 of it. All
+  eight then hold of one family, under one existential, for every pair — which is `A29-0-ADMITS`.
+  **So `A29-0-UNDECIDED` cannot be reported alongside `A29-P-HOLD` and `A29-N-LIFTS`.**
+- **`A29-N-NO-LIFT` gives `A29-0-RESTRICTS`.** The exhibited pair has, by hypothesis, no eligible
+  family carrying conjunct 8; a family carrying all eight would carry conjuncts 3 to 7 and
+  conjunct 8, so no family carrying all eight has factor families realizing that pair. That is
+  `A29-0-RESTRICTS` at that pair, and it holds whatever `A29-P` reached. **So `A29-0-UNDECIDED`
+  cannot be reported alongside `A29-N-NO-LIFT`.**
+
+### The outcome-vector table — every admissible headline under the gates and the corollaries
+
 The vector is `A29-P` · `A29-N` · `A29-0` · `A29-1`, and the result note carries **exactly one** of
-these rows, verbatim. `A29-0-ADMITS` appears only with `A29-P-HOLD` and `A29-N-LIFTS`, and
-`A29-1` is other than `A29-1-NOT-EXECUTED` only with `A29-0-ADMITS`.
+these rows, verbatim. `A29-0-ADMITS` appears only with `A29-P-HOLD` and `A29-N-LIFTS`; `A29-1` is
+other than `A29-1-NOT-EXECUTED` only with `A29-0-ADMITS`; and the two corollaries above remove the
+four rows that would contradict them.
 
 | row | vector |
 | --- | --- |
 | 1 | `A29-P-HOLD` · `A29-N-LIFTS` · `A29-0-ADMITS` · `A29-1-NONUNIQUE` |
 | 2 | `A29-P-HOLD` · `A29-N-LIFTS` · `A29-0-ADMITS` · `A29-1-UNIQUE` |
 | 3 | `A29-P-HOLD` · `A29-N-LIFTS` · `A29-0-ADMITS` · `A29-1-UNDECIDED` |
-| 4 | `A29-P-HOLD` · `A29-N-LIFTS` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
-| 5 | `A29-P-HOLD` · `A29-N-NO-LIFT` · `A29-0-RESTRICTS` · `A29-1-NOT-EXECUTED` |
-| 6 | `A29-P-HOLD` · `A29-N-NO-LIFT` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
-| 7 | `A29-P-HOLD` · `A29-N-UNDECIDED` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
-| 8 | `A29-P-FAILS` · `A29-N-LIFTS` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
-| 9 | `A29-P-FAILS` · `A29-N-NO-LIFT` · `A29-0-RESTRICTS` · `A29-1-NOT-EXECUTED` |
-| 10 | `A29-P-FAILS` · `A29-N-NO-LIFT` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
-| 11 | `A29-P-FAILS` · `A29-N-UNDECIDED` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
-| 12 | `A29-P-UNDECIDED` · `A29-N-LIFTS` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
-| 13 | `A29-P-UNDECIDED` · `A29-N-NO-LIFT` · `A29-0-RESTRICTS` · `A29-1-NOT-EXECUTED` |
-| 14 | `A29-P-UNDECIDED` · `A29-N-NO-LIFT` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
-| 15 | `A29-P-UNDECIDED` · `A29-N-UNDECIDED` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
+| 4 | `A29-P-HOLD` · `A29-N-NO-LIFT` · `A29-0-RESTRICTS` · `A29-1-NOT-EXECUTED` |
+| 5 | `A29-P-HOLD` · `A29-N-UNDECIDED` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
+| 6 | `A29-P-FAILS` · `A29-N-LIFTS` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
+| 7 | `A29-P-FAILS` · `A29-N-NO-LIFT` · `A29-0-RESTRICTS` · `A29-1-NOT-EXECUTED` |
+| 8 | `A29-P-FAILS` · `A29-N-UNDECIDED` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
+| 9 | `A29-P-UNDECIDED` · `A29-N-LIFTS` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
+| 10 | `A29-P-UNDECIDED` · `A29-N-NO-LIFT` · `A29-0-RESTRICTS` · `A29-1-NOT-EXECUTED` |
+| 11 | `A29-P-UNDECIDED` · `A29-N-UNDECIDED` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED` |
 
-Row 4 is the case where both gaps close and the assembly nevertheless does not go through; the
-result note then names the step that failed. Rows 5, 9 and 13 are the cases where a universal
-negative at conjunct 8 settles `A29-0` in the negative at the exhibited pair.
+Eleven rows. Rows 4, 7 and 10 are the cases where a universal negative at conjunct 8 settles
+`A29-0` in the negative at the exhibited pair, by the second corollary. Rows 6 and 9 are the cases
+where a lifting family exists but the universal at conjuncts 1 and 2 is refuted or unreached, so
+the first corollary does not fire and admission stays open.
+
+**The four rows the corollaries removed**, named so that no later reading supposes they were
+overlooked: `A29-P-HOLD` · `A29-N-LIFTS` · `A29-0-UNDECIDED`, and `A29-0-UNDECIDED` with
+`A29-N-NO-LIFT` under each of `A29-P-HOLD`, `A29-P-FAILS` and `A29-P-UNDECIDED`.
 
 ---
 
@@ -638,15 +694,15 @@ reached, and nothing else is written to that row.
   from the product inputs, so those conditions do not fix a law's action there from its action on
   product inputs."
 - **Row 2 adds:** "For the local pair fixed in advance, two such laws take equivalent values on
-  every realizable input, so for that pair those conditions fix the law's action up to the gauge
-  equivalence from its action on product inputs."
-- **Rows 5, 9 and 13:** "At the product configuration, the ladder's conditions through
+  every realizable input away from the product inputs, so for that pair those conditions fix the
+  law's action there up to the gauge equivalence."
+- **Rows 4, 7 and 10:** "At the product configuration, the ladder's conditions through
   factorization do not admit every pair of local class bijections: for an exhibited pair, no law
   carrying all of them has factor families realizing it, the obstruction being representative-level
   gauge naturality at the product carrier."
-- **Rows 4, 6, 7, 8, 10, 11, 12, 14 and 15:** "At the product configuration, whether the ladder's
-  conditions through factorization admit every pair of local class bijections is undecided, with
-  the conjunct that is missing named."
+- **Rows 5, 6, 8, 9 and 11:** "At the product configuration, whether the ladder's conditions
+  through factorization admit every pair of local class bijections is undecided, with the conjunct
+  that is missing named."
 
 Every case ends with the standing clause: "`P0`'s threading part is untouched, no carrier is
 adopted as the physical one, no surviving law is adopted as the physical one, and nothing here
@@ -776,7 +832,19 @@ the record `verification/seals/PRA.json` from `P`, and **no constant**.
     (f) each verdict theorem first appears at its own verdict commit and at no earlier commit;
     (g) the gates: a verdict theorem for `A29-0` claiming `A29-0-ADMITS` exists only if the result
     note carries `A29-P-HOLD` **and** `A29-N-LIFTS`, and `a29_1_off_locus` exists only if the
-    result note carries `A29-0-ADMITS`.
+    result note carries `A29-0-ADMITS`;
+    (h) **the assembly corollaries, mechanically**: a result note carrying `A29-P-HOLD` **and**
+    `A29-N-LIFTS` carries `A29-0-ADMITS` and a theorem deriving it from those two, and a result
+    note carrying `A29-N-NO-LIFT` carries `A29-0-RESTRICTS` and a theorem deriving it from that
+    one. A note carrying `A29-0-UNDECIDED` alongside either hypothesis **fails**, since the four
+    rows those combinations would form are not in the table;
+    (i) **`A29-P`'s scope, mechanically**: the statement of the `A29-P` theorem carries conjuncts 3
+    to 7 as its hypotheses and **no** `FactorizesOnProduct` hypothesis and no prescribed pair, so
+    that the theorem, the question, the frozen sentences and the prediction's reason are about one
+    claim;
+    (j) **`A29-1`'s domain, mechanically**: the `A29-1` theorem quantifies its disagreement
+    existentially over tuples realizable at the product visible family whose class lies outside the
+    locus, and does not pin the disagreement point to act 28's exhibited class.
 11. **Content contracts hold the result note to this freeze's distinctions**, each mutation-tested,
     each pinned to its **complete content** and, where the contract is a placement or a count,
     checked as one: the round's shape as sealing with `E` → `L` → `P`; the declaration table with
@@ -801,7 +869,12 @@ the record `verification/seals/PRA.json` from `P`, and **no constant**.
     and not equality of families**; **act 28's `A28-S-PROPER` cited as consumed and not
     re-proved**; **the statement that act 28's `DF1` is not repaired here**; each target's label
     carried with its frozen sentence verbatim; **the outcome vector, equal verbatim to one of the
-    fifteen rows of the table, counted by its bare vector independently of any heading**; **the
+    eleven rows of the table, counted by its bare vector independently of any heading**; **the two
+    assembly corollaries, each stated and each reported as derived or as not reached**; **the
+    statement that `A29-P` is scoped to conjuncts 3 to 7 with no factorization hypothesis, in the
+    same words as its theorem**; **the statement that `A29-1`'s two alternatives are scoped to the
+    off-locus domain and are negations of each other there, with act 28's `a28_s_proper` consumed
+    for off-locus nonemptiness and not as the disagreement point**; **the
     gate record**; **the statement that no verdict was inferred from another beyond the
     consumptions the route authorizes**; **the statement that no law is read as a symmetry, an
     antiunitary map, a time reversal, a unitary evolution or a dynamics, and none is called
