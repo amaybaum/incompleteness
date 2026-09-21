@@ -27,20 +27,24 @@ Per `AGENTS.md` `§A.37`, three commit names, and no other meaning of "base" any
 and not a property this round uses: act 29's execution is a separate branch from that commit, and
 nothing here is measured against it.
 
+Two further names, used only for the round's own objects once they exist: **`E`**, the final
+execution head, the non-first parent of the landing; and **`L`**, the landing merge, defined
+exactly under *The chronology rule* below. Neither has a SHA before the execution, and this file
+assigns neither one.
+
 ## What `GR-1` is, and what it deliberately is not
 
 **`GR-1` repairs one contract of one closed guard.** Act 28's guard `R7-PFR` gates the `P0` row of
-`verification/ROADMAP.md` through one predicate, `_pfr_road_ok`. Two of that predicate's legs are
-written over the **whole document** rather than over act 28's entry: the final line requires the
-frozen act 28 sentence to occur exactly once in the file **and the standing clause to occur exactly
-once in the file**, and the adjacency leg requires the text after act 28's sentence to *begin* with
-the standing clause. Act 29's control plane (#704, frozen at `D`) requires act 29's execution to
-append act 29's own frozen `P0` sentence after act 28's, **followed by the same standing clause**.
-A ROADMAP carrying both entries therefore carries the clause twice, the document-wide count fails,
-and `R7-PFR` goes red on any act 29 head — for a reason that has nothing to do with act 28's
-mathematics, act 28's artifacts or act 29's result. Act 29's execution measured exactly this on its
-pull request (#705, head `bf7e96fef8135525e752fb0daba0a082cf10ed44`) and recorded it as its
-discrepancy `RD2`, repairing nothing, as its freeze requires.
+`verification/ROADMAP.md` through one predicate, `_pfr_road_ok`. Its final leg is written over the
+**whole document** rather than over act 28's entry: it requires the frozen act 28 sentence to occur
+exactly once in the file **and the standing clause to occur exactly once in the file**. Act 29's
+control plane (#704, frozen at `D`) requires act 29's execution to append act 29's own frozen `P0`
+sentence after act 28's, **followed by the same standing clause**. A ROADMAP carrying both entries
+therefore carries the clause twice, the document-wide count fails, and `R7-PFR` goes red on any act
+29 head — for a reason that has nothing to do with act 28's mathematics, act 28's artifacts or act
+29's result. Act 29's execution measured exactly this on its pull request (#705, head
+`bf7e96fef8135525e752fb0daba0a082cf10ed44`) and recorded it as its discrepancy `RD2`, repairing
+nothing, as its freeze requires.
 
 The two contracts are jointly unsatisfiable as written, and neither closed round may edit the
 other's. Under `§A.37` a contract is changed only by a round that **owns the change prospectively**.
@@ -51,8 +55,9 @@ after it, once — so that a successor round's entry, which necessarily reuses t
 is outside the bound and neither counted nor accepted in act 28's place.
 
 **`GR-1` is NON-SEALING**, `E` → `L`, no `P`. It creates no seal state and alters none. It writes
-no manifest record, no prospective declaration and no baseline change, for the reason stated in the
-next section.
+no manifest record, no prospective declaration and no baseline change; the last of these is a
+**narrow, explicitly owned exception** to `§A.37`'s baseline rule, stated with its integrity
+guarantees under *The baseline* below.
 
 **What it is not.** It is not a Track B round and it states nothing about act 28's or act 29's
 mathematics: act 28's verdicts, frozen artifacts and seal record stand at the blobs pinned below
@@ -83,48 +88,105 @@ lands (the certification path act 29's review fixed). That candidate merge confl
 touches a line act 29's execution touched, and fails act 29's own integrity rule if `GR-1` adds a
 record to `verification/seals/` before act 29 lands. Act 29's execution sets exactly two lines
 outside the guard blocks — `_MANIFEST_BASELINE` and `_MANIFEST_PROSPECTIVE` — and inserts its
-block between `R7-PFR`'s `check(...)` and the `R7-SI1` banner. So:
+block between `R7-PFR`'s `check(...)` and the `R7-SI1` banner. Avoiding that conflict is the
+**reason** the shape below is chosen; it is not by itself an authorization for anything, and each
+departure from the ordinary protocol is owned in terms in its own subsection.
 
 | object | during execution | at `L` | afterwards |
 | --- | --- | --- | --- |
-| the mandated execution base | carried **inside `R7-GR1`'s own block** as the literal the chronology clause reads; act 10's strengthened check is asked of the real head against it | unchanged | unchanged until the record exists |
+| the mandated execution base | carried **inside `R7-GR1`'s own block** as the literal `_GR1_B`; act 10's strengthened check is asked of the real head against it | unchanged | unchanged until the record exists |
 | `_MANIFEST_PROSPECTIVE` | **untouched**, `{}` at `B` and at every commit of the round | untouched | untouched |
-| `_MANIFEST_BASELINE` | **untouched** | untouched | untouched |
+| `_MANIFEST_BASELINE` | **untouched**, act 28's declaration, under the owned exception below | untouched | untouched |
+| `verification/seals/` | **byte-identical to `B`'s tree**, held by `R7-GR1`'s own integrity contract | equal to the first parent's tree | `B`'s thirty-three records immutable; later authorized additions outside this round's scope |
 | `verification/seals/GR1.json` | absent | **absent** | `{"round": "GR1", "kind": "base-only", "base": <B>}`, created by a later round that names it as an authorized addition, as `SI2-1` created `SI1.json` and `SI-3` created `SI2.json` |
-| `R7-GR1`'s chronology verdict | `EXECUTION`: strengthened check of the real head against the base | `LANDED-UNRECORDED`: the landing named, reachable | `LANDED-UNRECORDED` until the record exists; then the keyed call `_si2_authority('GR1', tag='R7-GR1')`, `not-applicable` with the base reachable |
-
-**The chronology rule `R7-GR1` carries, frozen.** Let the visibility targets be those
-`_rbr_archive_visibility_targets` returns: the real `pull_request.head.sha` and the current tip of
-the base branch as `refs/remotes/origin/<base ref>` on a pull request, `HEAD` otherwise; an
-unresolvable target fails closed. Then, in this order:
-
-1. **Recorded.** If `verification/seals/GR1.json` exists, the verdict is
-   `_si2_authority('GR1', tag='R7-GR1')` and nothing else runs. The rule below is not a shadow of
-   that verdict: the two never run together.
-2. **Landed, unrecorded.** Otherwise, if some merge reachable from some visibility target has a
-   non-first parent `p` such that `p` passes the strengthened check against the base **and** the
-   guard file at `p` carries `check('R7-GR1'`, the round has landed: the verdict is `PASS`, the
-   landing and the base are printed, and no ancestry question is asked of the head. The second
-   conjunct is what keeps a sibling's control-plane branch cut from `B` or later — whose commits
-   also descend from `B` — from being read as this round's landing.
-3. **Execution.** Otherwise the verdict is `_rbr_strong_ancestry(base, real head)`: the base an
-   ancestor of the head and every commit of `rev-list head ^base` a descendant of the base,
-   recovery included, fail-closed, asked of the real `pull_request.head.sha` and never of the
-   synthetic merge.
-
-State 2 is what lets the repaired guard, once on `main`, run inside act 29's candidate merge without
-asking act 29's head to descend from a base it predates: on that build the base branch tip carries
-`L`, so the round is landed, and the clause passes for a foreign head exactly as an `ARCHIVED`
-round's clause does. State 3 is the bootstrap form `§A.37` names for a round with no record. The
-literal that carries the base is named `_GR1_B`, on the pattern of `_PFR_B` and every Track B
-round's `_<STEM>_B`, and matches no legacy shape: nothing matching `_GR1_(BASE|SEALED_HEAD|MERGE)`
-exists at any commit of the round, and `SI-3`'s standing zero holds at every head.
+| `R7-GR1`'s chronology verdict | `EXECUTION`: strengthened check of the real head against `_GR1_B` | `LANDED-UNRECORDED`: the canonical landing found, `E` recovered as its non-first parent | `LANDED-UNRECORDED` until the record exists; then `RECORDED`: the keyed call `_si2_authority('GR1', tag='R7-GR1')`, `not-applicable` with the base reachable |
 
 **This shape is the freeze's reading of `§A.37` for a non-sealing round under the retired
 representation, and it is flagged for owner review as such.** If the owner prefers the prospective
 path with the record written at `L`, that is an amendment before the merge, and the consequences
 for act 29's candidate merge — a two-line conflict and an unauthorized addition under act 29's
 frozen baseline — are the owner's to weigh.
+
+### The chronology rule `R7-GR1` carries, FROZEN
+
+Let the **visibility targets** be those `_rbr_archive_visibility_targets` returns: the real
+`pull_request.head.sha` and the current tip of the base branch as
+`refs/remotes/origin/<base ref>` on a pull request, `HEAD` otherwise; an unresolvable target fails
+closed. Let the **real head** be what `_rbr_target_commit` returns: `pull_request.head.sha` on a
+pull request, `HEAD` otherwise, never the synthetic merge.
+
+**The canonical landing.** A commit `X` is *a landing of this round* iff `X` is a merge commit and
+some non-first parent `p` of `X` satisfies all of:
+
+- (a) `p` is **not a merge commit**;
+- (b) `p` passes the strengthened check against `_GR1_B`: the base an ancestor of `p`, and every
+  commit of `rev-list p ^base` a descendant of the base;
+- (c) the guard file at `p` carries `check('R7-GR1'`;
+- (d) `result.md` and `gr1-tagmap.json` both exist at their paths in this round's directory at
+  `p`.
+
+(a) excludes the merge that GitHub creates when the pull request merges, whose non-first parent is
+`L` itself: that merge is *not* a landing, and `L` is found inside its history. (b) excludes any
+non-first parent that absorbed later `main`. (c) excludes a sibling's control-plane branch cut from
+`B` or later, whose commits also descend from `B`. (d) excludes a merge of an **incomplete**
+execution — a stage-2 parent that carries the block but not the artifacts. The landing `L` of this
+round is the **unique** landing reachable from the union of the visibility targets' histories, and
+`E` is its non-first parent `p`. Two or more landings, or a landing whose `p` is ambiguous, **fail
+closed**, as the validator's derivation fails on multiple candidates.
+
+Then, in this order:
+
+1. **`RECORDED`.** If `verification/seals/GR1.json` exists, the verdict is
+   `_si2_authority('GR1', tag='R7-GR1')` and nothing else in this rule runs. A malformed record —
+   a schema failure, a `sealed_head` or `merge` field even as null, a `round` other than `GR1`, or
+   a `base` other than `_GR1_B` — **fails closed** through the validator's schema check and a
+   base comparison in this clause. The rule below is not a shadow of the keyed verdict: the two
+   never run together.
+2. **`LANDED-UNRECORDED`.** Otherwise, if a canonical landing exists, the verdict is `PASS` with
+   `L` and `E` printed, and no ancestry question is asked of the real head. This is the state on
+   `main` from the landing on, and on every later pull request — a head that predates `B`
+   included — whose base branch tip carries `L`.
+3. **`EXECUTION`.** Otherwise the verdict is `_rbr_strong_ancestry(_GR1_B, real head)`: the
+   strengthened check, recovery included, fail-closed, asked of the real `pull_request.head.sha`
+   and never of the synthetic merge.
+
+State 2 is what lets the repaired guard, once on `main`, run inside act 29's candidate merge without
+asking act 29's head to descend from a base it predates. State 3 is the bootstrap form `§A.37`
+names for a round with no record. The literal that carries the base is named `_GR1_B`, on the
+pattern of `_PFR_B` and every Track B round's `_<STEM>_B`, and matches no legacy shape: nothing
+matching `_GR1_(BASE|SEALED_HEAD|MERGE)` exists at any commit of the round, and `SI-3`'s standing
+zero holds at every head.
+
+### The baseline: a narrow exception, owned here, with its guarantees
+
+`§A.37` says each round declares its own integrity baseline. `GR-1` **does not**: `_MANIFEST_BASELINE`
+stays act 28's declaration, `{'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf', 'authorized':
+('PFR',)}`, at every commit of the round. That line is one of the two lines act 29's execution
+already writes, and a concurrent write to it is the conflict that would make act 29's candidate
+merge unbuildable; but the conflict is the reason, not the licence. The licence is this
+subsection, which owns the departure prospectively and replaces what the ordinary rule would have
+guaranteed with something at least as strong:
+
+- **What act 28's declaration guarantees at `B`, extensionally.** Measured at `D`: the seals tree
+  at `101b8ceb…` holds thirty-two records and no `PFR.json`; the tree at `D`, blob
+  `92e0956a…`, holds exactly those thirty-two plus `PFR.json`. So `U5` under the retained
+  declaration holds the record set at `B` — every record, against mutation, removal and any
+  addition — and its "authorized addition" is a record that already exists at `B`. Precondition
+  row 11 checks this at `B`, so that the retained declaration is equivalent, at `B`, to a
+  declaration of `B`'s whole tree with no authorized addition.
+- **What `R7-GR1` adds, during execution.** Its own integrity contract: the set of
+  `(stem, content)` pairs under `verification/seals/` in the working tree equals the set at
+  `_GR1_B`, read from git, byte for byte — zero additions, zero mutations, zero removals — at every
+  commit of the round up to `E`. This is strictly stronger than `U5`'s authorized-addition form,
+  since nothing is authorized.
+- **At `L`.** The seals tree equals the first parent's tree: `GR-1` adds nothing at `L` either.
+- **After landing, the closed-round rule.** `B`'s thirty-three records remain present and
+  byte-identical on every later tree this guard runs on; additions by later rounds are outside this
+  round's historical scope and are policed by the current round's own `U5`, exactly as `§A.37`
+  reads a closed round's contracts over the records it manifested.
+- **The exception ends with this round.** The next round to declare — the one that adds
+  `GR1.json`, or any later one — declares its own baseline under the ordinary rule, and this
+  subsection authorizes nothing for it.
 
 ### The tag, the stem and the round directory are free at `D`
 
@@ -157,10 +219,10 @@ cleared, or about whether act 29's head certifies.
 Measured at `D` from `verification/lean/edge_rigidity_probe.py`, blob
 `5e2c36c30c2e231bc726741bd522ec051b657391`. The predicate stands at lines 27963–27979; the
 `R7-PFR` road mutation controls at lines 28179–28197; `check('R7-PFR', …)` at lines 28203–28222;
-the `R7-SI1` banner at line 28225; `check('R7-SI3', …)` at line 31184; the closing scope print
-begins at line 31214.
+the `R7-SI1` banner at line 28225; `check('R7-SI3', …)` at lines 31184–31212; line 31213 is blank
+and the closing scope print begins at line 31214.
 
-**The predicate at `D`, the last five lines of which are the superseded legs:**
+**The predicate at `D`, the last line of which is the superseded leg:**
 
 ```python
 def _pfr_road_ok(road):
@@ -211,13 +273,14 @@ def _pfr_road_ok(road):
 ```
 
 What is kept, leg for leg: the actual-cell read through `_pfr_p0_cell`, the unique sentence in the
-cell, the position after act 27's anchor, and the sentence nowhere else in the document. What
-changes: the adjacency leg, which accepted any text *beginning* with the clause, becomes the
-requirement that the sentence **immediately followed by the complete clause** occurs exactly once
-in the cell — stricter on truncation and on in-cell duplication than the leg it replaces — and the
-document-wide count of the **standing clause** is removed, being the leg that a successor entry
-cannot satisfy. Nothing else in the function's text differs from the block above, byte for byte,
-and `GR1-1` measures that.
+cell, the position after act 27's anchor, and the sentence nowhere else in the document. The
+adjacency leg is **restated, not changed**: under `_pfr_n`'s whitespace normalization and with the
+sentence unique in the cell, "the text after the sentence begins with the complete clause" and
+"sentence + one space + complete clause occurs exactly once in the cell" accept and reject the
+same cells; in particular the old leg already rejects a truncated clause, and both predicates do so
+in the replay. The one substantive change is the removal of the document-wide count of the
+**standing clause**, the leg that a successor entry cannot satisfy. Nothing else in the function's
+text differs from the block above, byte for byte, and `GR1-1` measures that.
 
 ## The differential acceptance suite, FROZEN
 
@@ -272,38 +335,58 @@ head, recorded here for the reader and gating nothing.
 
 **`R2` — the guard `R7-GR1`**, one block appended after `check('R7-SI3', …)` and before the
 closing scope print, and nowhere else. It carries: this preregistration pinned by blob at this
-path with a one-byte drift control; the locating controls of `GR1-0`; the byte comparison of
-`GR1-1`; the differential suite of `GR1-2` with both predicates; the verdict-map contract of
-`GR1-3`; the chronology rule above; the placement contract that the head's guard file differs from
-the base's **only** inside `_pfr_road_ok`'s body and by the appended `R7-GR1` block, measured by
-reverting exactly those two regions and requiring byte equality with the pinned blob; and the
-content contracts on the result note listed under *The guard*. No definition, no Lean, no
-manifest record.
+path with a one-byte drift control; the locating controls of `GR1-0`; the byte comparison and the
+**placement contract** of `GR1-1`, in its two regimes below; the differential suite of `GR1-2` with
+both predicates; the verdict-map contract of `GR1-3`; the chronology rule above with its lifecycle
+fixtures; the integrity contract of *The baseline*; and the content contracts on the result note
+listed under *The guard*. No definition, no Lean, no manifest record.
+
+**The placement contract, in two regimes, selected by the chronology state.**
+
+- *In `EXECUTION`*: the head's guard file, with `_pfr_road_ok`'s body reverted to the pinned text
+  and the `R7-GR1` block removed, equals the pinned blob `5e2c36c3…` byte for byte — the
+  whole-file form, which is exact while nothing but this round has touched the file since `B`.
+- *In `LANDED-UNRECORDED` and `RECORDED`*: the whole-file form is **not** applied to the current
+  tree, which by then carries other rounds' changes — act 29's two declaration lines and its
+  `R7-PRA` block among them. Instead the round's **historical change budget** is measured once,
+  from git objects, against its recovered checkpoint: the guard file at `E` (recovered as the
+  canonical landing's non-first parent), with the same two regions reverted, equals the guard file
+  at `_GR1_B`; and on the current tree only the **owned regions and the protected artifacts** are
+  checked — `_pfr_road_ok`'s live body equals the frozen text under per-line whitespace
+  normalization; this preregistration, `result.md` and `gr1-tagmap.json` are at their paths with
+  the blobs they have at `E`; act 28's preregistration, result note and `PFR.json` are at their
+  pinned blobs.
 
 **`R3` — the result note**, `result.md` in this round's directory, and **`gr1-tagmap.json`**
-beside it: the tag-to-verdict map of the base's guard file run at `B` in a detached temporary
-worktree with every git and pull-request environment variable removed, exactly as `SI2-6`(a) and
-`SI3-7` run their bases, paired with the head's map at `E`. The base run is taken **once**, by the
-execution at `E`, and persisted; `R7-GR1` does not re-run the base's file on every build. The
-nested cost `SI-3` accepted is not added to by this round, and the reason is recorded: the
-evidence a base run gives here — that every pre-existing tag returns the same verdict at `E` — is
-a fact about `E`, fixed once `E` is fixed, and the persisted artifact is pinned by blob from `L`
-on, as `SI-1`'s and `SI-2`'s tag maps are.
+beside it. The JSON carries two columns over the **ninety-two pre-existing tags** and no other:
+the *base column*, the tag-to-verdict map of the base's guard file run at `B` in a detached
+temporary worktree with every git and pull-request environment variable removed, exactly as
+`SI2-6`(a) and `SI3-7` run their bases; and the *head column*, the same ninety-two tags' verdicts
+from the stage-2 dry run on the head's guard file — the run at which the block is present and the
+artifacts are not, so that the column does not depend on the file it is written into. `R7-GR1`
+does not re-run the base's file on every build: the base run is taken **once**, by the execution,
+and persisted, and the nested cost `SI-3` accepted is not added to. What `R7-GR1` checks live, on
+every build, is stated under `GR1-3`.
 
-**Three definition slots** are budgeted, one per object; test code and mutation controls are not
-definition slots. Unused slots are recorded as unused.
+**Three definition slots** are budgeted, one per object; test code, the fixtures and mutation
+controls are not definition slots. Unused slots are recorded as unused.
 
-## The order is part of the contract, and the final head is the checkpoint
+## The order is part of the contract, with the checks that apply at each checkpoint
 
-| stage | target | what it does | may not begin until |
+| stage | target | what it does | dry run required before the next commit exists |
 | --- | --- | --- | --- |
-| 1 | `GR1-1` | **one commit:** `_pfr_road_ok`'s body replaced by the frozen text; nothing else in the file changes. The stage's dry run has every tag `PASS`, `R7-PFR` included, on the ROADMAP at `B` | the base-blob check of this file at `B` |
-| 2 | `GR1-2` | **one commit:** the `R7-GR1` block appended, carrying the differential suite, the chronology rule, the pins and the placement contract | stage 1's dry run |
-| 3 | `GR1-3` | the base's guard file run at `B` in a detached worktree; `gr1-tagmap.json` written with both maps; the result note written | stage 2's dry run: every tag `PASS`, `R7-GR1` included |
+| 1 | `GR1-1` | **one commit:** `_pfr_road_ok`'s body replaced by the frozen text; nothing else in the file changes | every one of the ninety-two pre-existing tags `PASS`, `R7-PFR` included, on the ROADMAP at `B`; no `R7-GR1` exists yet |
+| 2 | `GR1-2` | **one commit:** the `R7-GR1` block appended, carrying the differential suite, the chronology rule and its fixtures, the pins, the placement and integrity contracts, and the artifact contracts of `GR1-3` | every pre-existing tag `PASS`; **`R7-GR1` `FAIL` on exactly its two artifact contracts** — `result.md` absent, `gr1-tagmap.json` absent — and on nothing else, its failing-contract names printed; the ninety-two verdicts of this run are the head column |
+| 3 | `GR1-3` | **one commit:** the base's guard file run at `B` in a detached worktree; `gr1-tagmap.json` written with both columns; `result.md` written, recording stage 2's failure set verbatim | **every tag `PASS`, ninety-three, `R7-GR1` included: every contract of this freeze is mandatory here and at every later head** |
 | — | `GR1-0` | the locating controls, measured first and reported last | — |
 
-**Each stage is one commit, in this order.** The final head `E` carries the whole repair, and
-`GR1-3`'s base column is measured at the commit that carries it.
+**Each stage is one commit, in this order, and the stage-3 commit is `E`.** No contract is
+optional at `E`: the staged tolerance is exactly the one named in stage 2's row, it exists only at
+that checkpoint, and it is not encoded in the guard — a build at stage 2 is red, and is expected to
+be. The execution pushes the chain once, at `E`; the stage-1 and stage-2 dry runs are local and
+their outputs are recorded in the result note. `R7-GR1`'s history contract requires the three
+commits on the first-parent chain from `_GR1_B` to `E`, in that order, the predicate body changing
+at the first and never after, the block appearing at the second and the artifacts at the third.
 
 ## The targets, FROZEN
 
@@ -314,10 +397,9 @@ base. Outcomes: `HOLD` / `DRIFTED`. `DRIFTED` stops the round.
 
 **`GR1-1` — the predicate is the frozen one and nothing else moved.** The body of `_pfr_road_ok` at
 the head equals the frozen replacement byte for byte after whitespace normalization of each line;
-the head's guard file with that body reverted to the pinned text and the `R7-GR1` block removed
-equals the pinned blob `5e2c36c3…` byte for byte; `_pfr_checks['roadmap']` and the seven
-`road-mut:` controls are untouched and pass through the new body. Outcomes: `INSTALLED-AS-FROZEN` /
-`INSTALLED-DEVIATED`.
+the placement contract holds in the regime the chronology state selects; `_pfr_checks['roadmap']`
+and the seven `road-mut:` controls are untouched and pass through the new body. Outcomes:
+`INSTALLED-AS-FROZEN` / `INSTALLED-DEVIATED`.
 
 **`GR1-2` — the differential suite.** All twenty-eight rows return the expected pair. Outcomes:
 `SUITE-AS-FROZEN` / `SUITE-DEVIATED`. A deviation on a **reject / reject** row is a finding about
@@ -325,20 +407,24 @@ the replacement's tightness and stops the round; a deviation on an **accept** ro
 predicate is a finding about its tolerance and stops the round; a deviation in the **old**
 column is a finding about the extraction and stops the round. No expectation is edited to fit.
 
-**`GR1-3` — the verdict map is preserved.** Every tag present in the base's map is present in the
-head's map with the same verdict, and every verdict in both columns is `PASS`; the head's map has
-exactly one tag the base's lacks, `R7-GR1`. Outcomes: `MAP-PRESERVED` / `MAP-CHANGED`.
-`MAP-CHANGED` stops the round and reports; a changed verdict is never adopted as an improvement.
+**`GR1-3` — the verdict map is preserved.** Read from `gr1-tagmap.json` and checked live on every
+build: the base column holds exactly the ninety-two tags the base's guard file carries, every
+verdict `PASS`; the head column holds the same ninety-two tags, every verdict `PASS`; **the head
+column equals, tag for tag, the verdicts the current run computed for those tags**; and the
+current run's tag set minus the ninety-two is exactly `{R7-GR1}` at `E` — at later heads, further
+tags added by later rounds are outside this round's scope and the contract on the set is that the
+ninety-two are all present. Outcomes: `MAP-PRESERVED` / `MAP-CHANGED`. `MAP-CHANGED` stops the
+round and reports; a changed verdict is never adopted as an improvement.
 
 ## The contract this round supersedes, named in advance
 
 Under `§A.37`'s ownership rule this table is the authorization. **Nothing outside it is touched in
 any closed round's guard**, and a failure outside it is a result requiring adjudication.
 
-| guard | contract | why it is superseded | disposition |
+| guard | contract | why | disposition |
 | --- | --- | --- | --- |
-| `R7-PFR` | `_pfr_road_ok`'s adjacency leg — the text after act 28's sentence *begins with* the standing clause | it accepts a truncated clause and does not bound the entry | **replaced** by the bounded-entry leg: sentence + complete clause, once, in the cell |
 | `R7-PFR` | `_pfr_road_ok`'s final leg — the standing clause occurs exactly once in the whole document | a successor entry that `§A.37`'s own `P0` convention requires carries the same clause; the leg is unsatisfiable together with act 29's frozen `P0` instruction | **retired**; the document-wide count of act 28's **sentence** is kept |
+| `R7-PFR` | `_pfr_road_ok`'s adjacency leg — the text after act 28's sentence *begins with* the complete standing clause | not superseded: it already rejects a truncated clause and a detached one, and both predicates do so in the replay | **restated** in the bounded form, equivalent under normalization with the sentence unique in the cell; listed here because its text changes |
 
 What this table does **not** do: it does not edit act 28's preregistration, result note or seal
 record; it does not change what act 28 recorded as its outcome; it does not change `R7-PFR`'s
@@ -361,32 +447,65 @@ frozen as text. The informative failure would be `GR1-3`: a tag other than `R7-P
 depends on `_pfr_road_ok`'s document-wide count, which would mean another guard reads the ROADMAP
 through act 28's predicate, and that is reported and not repaired.
 
+## Lifecycle fixtures, FROZEN
+
+The chronology rule is exercised, on every build, against **synthetic repositories** built in a
+temporary directory by `R7-GR1`'s own test code, in the manner of `SI-1`'s suite, so that each state
+and each exclusion is measured and not merely stated. Each fixture builds a base `b`, and the rule
+is evaluated with `_GR1_B` bound to `b`, the visibility targets and the real head as the fixture
+names, and the seals directory of the fixture's tree. The fixture set, with its required verdict:
+
+| # | fixture | targets / real head | required |
+| --- | --- | --- | --- |
+| F1 | linear execution: `b` → `s1` → `s2` → `s3`, block from `s2`, artifacts from `s3` | head `s3`, base tip `b` | `EXECUTION`, `PASS` |
+| F2 | execution that absorbed later main: `b` → `s1` → merge of a commit not descending from `b` → `s3` | head that merge's descendant | `EXECUTION`, `FAIL` — pre-freeze side history |
+| F3 | incomplete execution merged: `m` = merge of `main'` (a descendant of `b`) and `s2` | head `m`, base tip `main'` | **not a landing** (d fails); `EXECUTION` asked of `m`, `FAIL` |
+| F4 | the canonical landing: `l` = merge of `main'` and `s3` | head `l`, base tip `main'` | `LANDED-UNRECORDED`, `PASS`, `E` = `s3` |
+| F5 | the enclosing merge: `g` = merge of `main'` and `l` | head `g` (push) | `LANDED-UNRECORDED`, `PASS`, landing = `l` not `g`, `E` = `s3` |
+| F6 | an older head with repaired main: head `h` a commit predating `b`, base tip `g` | head `h`, base tip `g` | `LANDED-UNRECORDED`, `PASS` — no ancestry asked of `h` |
+| F7 | sibling control plane cut after `b`: `c` = merge of `main'` and a commit descending from `b` with no `R7-GR1` | head `c` | **not a landing** (c fails); `EXECUTION`, `FAIL` |
+| F8 | two landings: `l` and a second merge `l'` of another branch whose non-first parent also satisfies (a)–(d) | head descending from both | `FAIL` — multiple candidates |
+| F9 | a well-formed record: F5's tree plus `GR1.json` `base-only` with `base` = `b` | head `g` | `RECORDED`, keyed verdict `not-applicable`, `PASS` |
+| F10 | malformed records, each a separate fixture on F5's tree: `GR1.json` with `sealed_head` null; with `merge` present; with `round` `GR2`; with `base` ≠ `b`; not valid JSON | head `g` | `RECORDED`, **`FAIL`** in each |
+| F11 | the seals tree mutated during execution: F1 with one existing record's content changed; with one record removed; with a new record added | head `s3` | integrity contract `FAIL` in each |
+| F12 | F4 with the landing's non-first parent itself a merge | head that merge's descendant | **not a landing** (a fails) |
+
+Every fixture is evaluated on every build; a fixture returning other than its required verdict
+fails `R7-GR1`. Fixtures are test code, not definition slots, and touch no real ref.
+
 ## The negative suite
 
 Each case must satisfy its named outcome for its named reason. Cases 1–20 are the twenty
-**reject** rows of the differential suite and are listed there. In addition:
+**reject** rows of the differential suite and are listed there; cases F1–F12 are the lifecycle
+fixtures above. In addition:
 
 21. The frozen replacement with `c.count(p0 + ' ' + st) != 1` weakened to `st not in c` — accepts
     `standing-clause-detached` — **fails `GR1-2`**.
 22. The frozen replacement with the final line dropped — accepts `p0-duplicated`, the sentence
     copied outside the cell with the cell's entry intact — **fails `GR1-2`**.
-23. One byte changed anywhere in the guard file outside the two authorized regions — **fails
-    `GR1-1`'s placement contract**.
-24. `_MANIFEST_PROSPECTIVE` other than `{}` at any commit of the round, or `_MANIFEST_BASELINE`
-    differing from the base's, or any file under `verification/seals/` differing from the base's —
-    **fails `R7-GR1`'s placement contract**, and for the seals tree also `U5`.
-25. A name matching `_GR1_(BASE|SEALED_HEAD|MERGE)` — **fails `SI-3`'s standing contract**.
-26. `R7-GR1`'s chronology asked of the synthetic merge `HEAD` on a pull request — **fails closed**,
+23. In `EXECUTION`, one byte changed anywhere in the guard file outside the two owned regions —
+    **fails the placement contract**, whole-file form.
+24. After landing, `_pfr_road_ok`'s live body differing from the frozen text, or the guard at `E`
+    differing from the guard at `_GR1_B` outside the two owned regions, or `result.md` or
+    `gr1-tagmap.json` on the current tree differing from their blobs at `E` — **fails the placement
+    contract**, landed form; the current tree carrying other rounds' changes elsewhere in the file
+    **does not**.
+25. `_MANIFEST_PROSPECTIVE` other than `{}` at any commit of the round, or `_MANIFEST_BASELINE`
+    differing from the base's — **fails the placement contract**, both forms, these lines being
+    outside the owned regions and inside the historical budget.
+26. A name matching `_GR1_(BASE|SEALED_HEAD|MERGE)` — **fails `SI-3`'s standing contract**.
+27. `R7-GR1`'s chronology asked of the synthetic merge `HEAD` on a pull request — **fails closed**,
     as `_rbr_target_commit` already does.
-27. A merge reachable from a visibility target whose non-first parent descends from the base but
-    carries no `R7-GR1` — a sibling control plane cut after `B` — **does not classify the round as
-    landed**; the execution check still runs.
 28. The old predicate extracted from the working tree instead of the pinned blob — **fails
     `GR1-2`'s extraction control**: the extracted text must hash to the pinned function text.
-29. `gr1-tagmap.json` with a base column carrying any verdict other than `PASS`, or a head column
-    missing a base tag, or more than one head-only tag — **fails `GR1-3`**.
+29. `gr1-tagmap.json` with a base column carrying any verdict other than `PASS`, a head column
+    differing from the live verdicts of the same tags, either column missing a pre-existing tag
+    or carrying `R7-GR1`, or the live tag set at `E` differing from the ninety-two plus `R7-GR1` —
+    **fails `GR1-3`**.
 30. The result note claiming that `RD2` is repaired, withdrawn or no longer recorded — **fails the
     content contract** that names `RD2` as history.
+31. The result note omitting stage 2's recorded failure set, or recording a set other than the two
+    artifact contracts — **fails the content contract** on the checkpoint record.
 
 ## What no outcome of this round licenses
 
@@ -406,8 +525,10 @@ Each case must satisfy its named outcome for its named reason. Cases 1–20 are 
 6. Any writing of a legacy seal constant, a manifest record or a prospective declaration by this
    round.
 7. Any retrofit. Every historical `B`, `E`, `L`, `P` stays exactly where it is.
-8. Any weakening of `R7-PFR` beyond the two legs named: the actual-cell read, the unique sentence,
-   the anchor order and the document-wide sentence count are kept and measured.
+8. Any weakening of `R7-PFR` beyond the one leg retired: the actual-cell read, the unique sentence,
+   the anchor order, the attached complete clause and the document-wide sentence count are kept
+   and measured.
+9. Any reuse of the baseline exception by a later round: it is owned here for this round alone.
 
 ## Hazards
 
@@ -416,16 +537,21 @@ mutation of act 28's entry hidden behind one. The twenty reject rows, ten of the
 successor, are the bound, and rows 21 and 22 of the negative suite show two natural weakenings
 each caught by a named row.
 
-**H2 — the landed state read too early.** A merge whose non-first parent descends from `B` is not
-necessarily this round's landing: any branch cut from `B` or later satisfies the ancestry half.
-The `R7-GR1`-at-the-parent conjunct is the discriminator, and negative case 27 exercises it. If the
-owner judges the discriminator insufficient the amendment is to require, in addition, that the
-parent's tree carry this round's result note at its path.
+**H2 — the landing identified too early or too widely.** A merge whose non-first parent descends
+from `B` is not necessarily this round's landing: a branch cut from `B` satisfies the ancestry
+half, a stage-2 parent carries the block without the artifacts, and the merge GitHub creates on the
+pull request carries `L` itself as a non-first parent. Conditions (a)–(d) and the uniqueness
+requirement are the discriminator, and fixtures F3, F5, F7, F8 and F12 exercise each exclusion. If
+the owner judges the discriminator still insufficient, the amendment is to require in addition
+that `p`'s first-parent chain to `_GR1_B` be exactly three commits.
 
 **H3 — the concurrent execution.** Act 29's head is sealed against change and its pull request
-must build a candidate merge with `main` after `L`. The placement contract exists for this: the
-head's guard file differs from the base's only inside `_pfr_road_ok`'s body (lines 27963–27979 at
-`D`) and by a block appended after line 31213 at `D`, both at a distance of more than twenty
+must build a candidate merge with `main` after `L`. The two-regime placement contract exists for
+this: the whole-file form is exact only while this round alone has touched the guard since `B`,
+and after landing it would reject every tree carrying act 29's lines; so after landing the budget
+is measured historically against `E` and only the owned regions and protected artifacts are
+checked live. The head's guard file differs from the base's only inside `_pfr_road_ok`'s body
+(lines 27963–27979 at `D`) and by a block appended after line 31213 at `D`, both more than twenty
 unchanged lines from every line act 29's execution changed (10116, 10125, and the insertion
 between 28222 and 28225). A textual conflict at act 29's candidate merge would nonetheless be a
 fact about that merge, verified there, and not a claim this freeze makes; what this freeze fixes is
@@ -441,9 +567,15 @@ before it is a finding about anything else, and the round stops on it.
 introduces carries the stem with a leading underscore or a hyphenated prefix, and the whole-word
 check at `D` is the freedom fact.
 
-**H6 — a stage skipped.** Stage 2's block measures a base-versus-head difference; committed on top
-of a stage 1 whose dry run was never taken it cannot say which stage moved `R7-PFR`. The dry run
-named in the table is taken before the next commit exists.
+**H6 — a stage skipped, or a checkpoint misread.** Stage 2's dry run is expected red on exactly two
+named contracts; a stage-2 run red on anything else, or green, is a stage that did not do what the
+table says, and stage 3 does not begin on it. Stage 3's tag map is written from stage 2's run, so a
+stage 3 committed on top of an untaken stage-2 dry run has no head column to write.
+
+**H7 — the baseline exception read as a precedent.** The retained declaration is act 28's, kept
+because writing that line is what a concurrent execution must not collide with. Its guarantee is
+made exact by precondition row 11 and by `R7-GR1`'s whole-tree integrity contract, and the
+subsection *The baseline* ends the exception with this round. Non-licence 9 exists for this.
 
 ## Start state, pinned
 
@@ -458,6 +590,7 @@ named in the table is taken before the next commit exists.
 | `verification/lean-mathlib/OIBridge/ProductLocusFreedom.lean` | `325c09a180366765ae4d742b752099d3b219d3c9` |
 | `AGENTS.md` | `a9687b39c69973d35a2ff81c257687071fd35eca` |
 | `verification/seals/` (tree) | `92e0956ad6b187fddf77068f33c66e69a012f074`, thirty-three records, twenty-seven `sealed` and six `base-only` |
+| `verification/seals/` (tree at `101b8ceb…`, act 28's base) | thirty-two records, no `PFR.json`; the tree at `D` is exactly these plus `PFR.json` |
 
 ### What must have merged before the execution begins, checkable mechanically
 
@@ -472,12 +605,13 @@ request and, after the merge, in mode `B` against the actual merge commit.
 | 2 | `D` | The seals tree at `D` is the pinned one | `git rev-parse D:verification/seals` is `92e0956ad6b187fddf77068f33c66e69a012f074` |
 | 3 | `D` | The guard at `D` is green | ninety-two `R7-*` tags, all `PASS`, on push run 35566401811 of `D` |
 | 4 | `D → B` | `D` is an ancestor of `B` | `git merge-base --is-ancestor D B` succeeds |
-| 5 | `D → B` | The blobs this round consumes are unchanged | each path of the `frozen-blob` lines below has at `B` the blob named; in particular the guard file and the ROADMAP are byte-identical to `D`'s, so the superseded text and the `act-28-alone` fixture are what was measured |
+| 5 | `D → B` | The blobs this round consumes are unchanged | each path of the `frozen-blob` lines below has at `B` the blob named; in particular the guard file and the ROADMAP are byte-identical to `D`'s, so the superseded text and the `act-28-alone` fixture are what was measured; the seals tree at `B` is `D`'s |
 | 6 | `B` | No `GR-1` execution object exists | the guard file at `B` contains no `R7-GR1`, no `_GR1` and no `_gr1_`; no `verification/seals/GR1.json`; the round directory holds nothing but `preregistration.md` and, if any, `amendments/amendment-*.md` |
-| 7 | `B` | No round declares at `B` | the guard file at `B` carries `_MANIFEST_PROSPECTIVE = {}` and `_MANIFEST_BASELINE = {'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf', 'authorized': ('PFR',)}` |
-| 8 | `B` | Act 28 is sealed at `B` and its guard reads the superseded legs | `verification/seals/PFR.json` at `B` is the pinned record; the guard file at `B` carries `check('R7-PFR'` and the superseded final line `return n.count(p0) == 1 and n.count(_pfr_n(_PFR_ROAD_STANDING)) == 1` verbatim |
+| 7 | `B` | No round declares at `B`, and the retained baseline is act 28's | the guard file at `B` carries `_MANIFEST_PROSPECTIVE = {}` and `_MANIFEST_BASELINE = {'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf', 'authorized': ('PFR',)}` |
+| 8 | `B` | Act 28 is sealed at `B` and its guard reads the superseded leg | `verification/seals/PFR.json` at `B` is the pinned record; the guard file at `B` carries `check('R7-PFR'` and the superseded final line `return n.count(p0) == 1 and n.count(_pfr_n(_PFR_ROAD_STANDING)) == 1` verbatim |
 | 9 | `B` | Act 29 has not landed at `B` | the guard file at `B` contains no `R7-PRA` and no `_PRA`; no `verification/seals/PRA.json`; no `verification/lean-mathlib/OIBridge/ProductAdmission.lean`; act 29's round directory holds nothing but its control-plane files — so that the repair lands before act 29 and act 29's candidate merge is the one this freeze reasons about |
 | 10 | `B` | This control plane is in the tree at its path | `verification/infrastructure/round-gr-1-roadmap-entry-scoping/preregistration.md` exists at `B`; its blob is the one the `R7-GR1` clause pins, which the execution's first act verifies by `git hash-object` and the block cannot state of itself |
+| 11 | `B` | The retained baseline is extensionally `B`'s whole seals tree | the record set at `B` equals the record set at `101b8ceb…` plus `PFR.json`, entry for entry with identical blobs: `git diff --name-status` between the two trees is exactly one added line, `PFR.json` |
 
 **No sibling lane's merge is a precondition of this round**, and the execution does not wait for
 one. Act 29's pull request is not an input; its state after `L` is act 29's to measure.
@@ -511,10 +645,10 @@ frozen-blob: AGENTS.md a9687b39c69973d35a2ff81c257687071fd35eca
 {"id": "b6-guard-clean", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -e 'R7-GR1' -e '_GR1' -e '_gr1_'", "expect": "empty"}
 {"id": "b6-no-record", "scope": "B", "check": "git ls-tree --name-only $REF verification/seals/ | grep -e 'GR1.json'", "expect": "empty"}
 {"id": "b6-dir-control-plane-only", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/infrastructure/round-gr-1-roadmap-entry-scoping/ | grep -v -e '/preregistration.md$' -e '/amendments/amendment-[0-9][0-9]*.md$'", "expect": "empty"}
-# row 7: no round declares at B
+# row 7: no round declares at B; the retained baseline is act 28's
 {"id": "b7-no-prospective", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -e '^_MANIFEST_PROSPECTIVE = {}$'", "expect": "nonempty"}
 {"id": "b7-baseline-pfr", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -e \"^_MANIFEST_BASELINE = {'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf', 'authorized': ('PFR',)}$\"", "expect": "nonempty"}
-# row 8: act 28 sealed and its guard carrying the superseded legs
+# row 8: act 28 sealed and its guard carrying the superseded leg
 {"id": "b8-pfr-sealed", "scope": "B", "check": "git show $REF:verification/seals/PFR.json | tr -d ' \\n' | grep -e '\"round\":\"PFR\",\"kind\":\"sealed\",\"base\":\"101b8cebb140c2ee7b982641ff005b84bbf0a1cf\",\"sealed_head\":\"47192f150ed5e94affc7d00e6aca839e3fd461cf\",\"merge\":\"4de9777d3cdd949c798beb4a6487dfbf6da6ae4b\"'", "expect": "nonempty"}
 {"id": "b8-pfr-guard", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -e \"check('R7-PFR'\"", "expect": "nonempty"}
 {"id": "b8-superseded-leg-present", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -F -e '    return n.count(p0) == 1 and n.count(_pfr_n(_PFR_ROAD_STANDING)) == 1'", "expect": "nonempty"}
@@ -525,6 +659,9 @@ frozen-blob: AGENTS.md a9687b39c69973d35a2ff81c257687071fd35eca
 {"id": "b9-act29-dir-control-plane-only", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/programmes/oi-qm/track-b/act-29-product-admission/ | grep -v -e '/preregistration.md$' -e '/amendments/amendment-[0-9][0-9]*.md$'", "expect": "empty"}
 # row 10: this control plane at its path
 {"id": "b10-self-present", "scope": "B", "check": "git cat-file -e $REF:verification/infrastructure/round-gr-1-roadmap-entry-scoping/preregistration.md", "expect": "exit0"}
+# row 11: the retained baseline is extensionally B's whole seals tree: the two listings differ by exactly the PFR.json line
+{"id": "b11-baseline-extensional", "scope": "B", "check": "git diff --name-status 101b8cebb140c2ee7b982641ff005b84bbf0a1cf $REF -- verification/seals/ | grep -v -x -e \"$(printf 'A\\tverification/seals/PFR.json')\"", "expect": "empty"}
+{"id": "b11-pfr-added", "scope": "B", "check": "git diff --name-status 101b8cebb140c2ee7b982641ff005b84bbf0a1cf $REF -- verification/seals/ | grep -x -e \"$(printf 'A\\tverification/seals/PFR.json')\"", "expect": "nonempty"}
 ```
 
 ## The guard
@@ -532,47 +669,54 @@ frozen-blob: AGENTS.md a9687b39c69973d35a2ff81c257687071fd35eca
 Fresh tag **`R7-GR1`**, stem **`_GR1_`** / **`_gr1_`** for its own names and **no legacy-shaped
 name**: nothing matching `_GR1_(BASE|SEALED_HEAD|MERGE)` exists at any commit of the round. It
 carries this preregistration pinned **by blob** at this path with a one-byte drift control; the
-chronology rule stated above, in its three states; the locating controls; `GR1-1`'s byte
-comparison and placement contract; `GR1-2`'s twenty-eight-row differential suite with the old
-predicate extracted from the pinned blob and the extraction hashed; `GR1-3`'s reading of
-`gr1-tagmap.json`, pinned by blob from `L`; and content contracts holding the result note to the
-distinctions this freeze makes, each mutation-tested and each pinned to its complete content:
-the round's shape as **non-sealing, `E` → `L`, no `P`, no record, no declaration, no baseline
-change**; the sentence that `GR1.json` is owed to a later round that names it; the supersession
-table as the authorization, naming the two legs and no other; **`RD2` named as history, in act
-29's record, neither repaired nor withdrawn**; the twenty-eight-row table verbatim with the seven
-reject / accept rows called the defect reproduced; the sentence that act 28's verdicts, artifacts
-and seal record are unchanged at the pinned blobs; the sentence that no ROADMAP, Lean, census or
-manuscript file is edited; the sentence that act 29's verdicts are not read and not reported; the
-three definition slots reported as unused; and the wall-clock of the one base run recorded.
+chronology rule stated above, in its three states, with the canonical-landing definition and the
+twelve lifecycle fixtures; the whole-tree integrity contract of *The baseline* in its execution
+and landed forms; the locating controls; `GR1-1`'s byte comparison and two-regime placement
+contract; `GR1-2`'s twenty-eight-row differential suite with the old predicate extracted from the
+pinned blob and the extraction hashed; `GR1-3`'s reading of `gr1-tagmap.json` with the live
+equality of the head column; the history contract on the three-commit chain; and content
+contracts holding the result note to the distinctions this freeze makes, each mutation-tested and
+each pinned to its complete content: the round's shape as **non-sealing, `E` → `L`, no `P`, no
+record, no declaration, no baseline change under the owned exception**; the sentence that
+`GR1.json` is owed to a later round that names it; the supersession table as the authorization,
+naming one retired leg and one restated leg and no other; **`RD2` named as history, in act 29's
+record, neither repaired nor withdrawn**; the twenty-eight-row table verbatim with the seven
+reject / accept rows called the defect reproduced; the stage-2 checkpoint's failure set recorded
+verbatim as the two artifact contracts; the sentence that act 28's verdicts, artifacts and seal
+record are unchanged at the pinned blobs; the sentence that no ROADMAP, Lean, census or manuscript
+file is edited; the sentence that act 29's verdicts are not read and not reported; the three
+definition slots reported as unused; and the wall-clock of the one base run recorded.
 
 ## The landing shape
 
 `E` → `L`, on the execution pull request, under `§A.37` as amended by `SI3-6`, with no `P`:
 
-- **`E`** is the final head after stage 3, certified by exact-head continuous integration: the
-  ordinary pull-request build, whose guard asks its question of the real `pull_request.head.sha`.
-- **`L`** has current green `main` as its first parent and exactly `E` as its second. It writes
-  nothing: no record, no declaration change, no baseline change. At `L` the guard classifies `GR1`
-  as landed and unrecorded, and every descendant of `L` is classified the same way until
-  `GR1.json` exists.
+- **`E`** is the stage-3 commit, certified by exact-head continuous integration: the ordinary
+  pull-request build, whose guard asks its question of the real `pull_request.head.sha`.
+- **`L`** has current green `main` as its first parent and exactly `E` as its second, and is the
+  canonical landing under conditions (a)–(d). It writes nothing: no record, no declaration change,
+  no baseline change, no seals change. At `L` the guard classifies the round `LANDED-UNRECORDED`
+  with `E` recovered as `L`'s non-first parent, and every later tree is classified the same way
+  until `GR1.json` exists. The merge GitHub creates when the pull request merges is not a landing;
+  `L` is found inside its history.
 - **There is no `P`.** A pin commit on this round would pin nothing.
 - Full continuous integration must pass again on exact `L` before the pull request merges, and the
   resulting `main` push run must be green before any later round's landing — act 29's included —
   is constructed.
 - **The record, afterwards.** The first round whose preregistration is written after `L` names
   `verification/seals/GR1.json`, `{"round": "GR1", "kind": "base-only", "base": <this round's
-  mandated base>}`, as an authorized manifest addition, and its baseline admits the stem. Act 29's
-  frozen control plane predates `L` and does not name it, so act 29's landing adds no such record,
-  and act 29's baseline `{'base': <act 29's base>, 'authorized': ('PRA',)}` holds at act 29's `L`
-  and `P` with the seals tree it expects.
+  mandated base>}`, as an authorized manifest addition, and its baseline admits the stem under the
+  ordinary rule. Act 29's frozen control plane predates `L` and does not name it, so act 29's
+  landing adds no such record, and act 29's baseline `{'base': <act 29's base>, 'authorized':
+  ('PRA',)}` holds at act 29's `L` and `P` with the seals tree it expects.
 
 ## What this round expects of act 29's certification, stated as a reading and not as a target
 
 After `L` is on `main`, act 29's pull request builds its candidate merge from current `main` and
 its unchanged head. That tree carries the repaired `_pfr_road_ok`, so `R7-PFR` reads act 29's
 ROADMAP entry as a tolerated successor and passes; it carries `R7-GR1`, which on that build finds
-`L` on the base branch tip and passes without asking act 29's head to descend from a base it
+`L` on the base branch tip, classifies the round `LANDED-UNRECORDED`, applies the landed form of
+the placement contract, and passes without asking act 29's head to descend from a base it
 predates; and it carries act 29's own `_MANIFEST_BASELINE`, `_MANIFEST_PROSPECTIVE` and `R7-PRA`
 lines unmerged with anything, since this round touched none of them and added no record. Whether
 that build's four jobs pass is measured there, on the real checkout with the real head SHA, by act
@@ -584,8 +728,8 @@ reason it does not.
 The execution branches from the mandated base and from no other commit, and certifies that
 ancestry in act 10's strengthened form — the base an ancestor of the head, and every commit of
 `rev-list HEAD ^base` a descendant of the base, recovery included, fail-closed, asked of the real
-pull-request head — in the bootstrap form, from a literal inside its own guard block, and never
-through the prospective declaration, which stays `{}` at every commit of the round.
+pull-request head — in the bootstrap form, from the literal `_GR1_B` inside its own guard block,
+and never through the prospective declaration, which stays `{}` at every commit of the round.
 
 ## Execution discipline
 
