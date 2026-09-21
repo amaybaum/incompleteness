@@ -156,7 +156,7 @@ Its own: everything in the targets below.
 | `phiPP_ladder` — the positive control | the same file | line 1166 |
 | `phiSwap_l5_restricts` — the negative control, the eight prefix conjuncts written out | `verification/lean-mathlib/OIBridge/OrbitLawNaturalityFactorization.lean` | line 179 |
 | `phiSC_corner` — the countercontrol, and the eligible family with no lift: conjuncts 1 to 7, factorization, and `¬` conjunct 8 at every `t` | `verification/lean-mathlib/OIBridge/OrbitLawGaps.lean` | line 850, docstring from 829 |
-| `phiMD_l1_restricts` — the second instantiation of the generated law's form | the same file | line 849 |
+| `phiMD_l1_restricts` — the second instantiation of the generated law's form | the same file | line 285, docstring from 274 |
 | `ol1a_descent`, whose `.2.1` is `PropagatesFrom` clause (i) from descent alone | `verification/lean-mathlib/OIBridge/OrbitLawRigidityTwisted.lean` | line 279 |
 | `a28_r_recovery` — factor recovery at class level | `verification/lean-mathlib/OIBridge/ProductLocusFreedom.lean` | line 147 |
 | `a28_s_locus_first_index` — the necessary condition for locus membership | the same file | line 178 |
@@ -274,7 +274,7 @@ argument instantiated at
 
 and at nothing else. **The recursion is up to `GramPhaseEquiv`, not equality of tuples**, which is
 the form acts 21, 22 and 23 instantiate — `phiSC_corner` at `OrbitLawGaps.lean` line 850 and
-`phiMD_l1_restricts` at line 849 both read `ProperAt` and `PropagatesFrom` at exactly this
+`phiMD_l1_restricts` at line 285 both read `ProperAt` and `PropagatesFrom` at exactly this
 predicate. Fixing the equality form instead would make this round's `ProperAt` and
 `PropagatesFrom` statements about a different object and would break comparability with every
 earlier act. The instantiation is fixed **here**, before execution, so that the two hypotheses are
