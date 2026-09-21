@@ -28245,9 +28245,23 @@ _PRA_FORBIDDEN_NAMES = ('a29_p_fails', 'a29_n_lifts', 'a29_n_no_lift', 'a29_0_',
 # The eleven admissible outcome vectors of the frozen table, read as BARE vectors.
 _PRA_ROWS = ('`A29-P-HOLD` · `A29-N-LIFTS` · `A29-0-ADMITS` · `A29-1-NONUNIQUE`', '`A29-P-HOLD` · `A29-N-LIFTS` · `A29-0-ADMITS` · `A29-1-UNIQUE`', '`A29-P-HOLD` · `A29-N-LIFTS` · `A29-0-ADMITS` · `A29-1-UNDECIDED`', '`A29-P-HOLD` · `A29-N-NO-LIFT` · `A29-0-RESTRICTS` · `A29-1-NOT-EXECUTED`', '`A29-P-HOLD` · `A29-N-UNDECIDED` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`', '`A29-P-FAILS` · `A29-N-LIFTS` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`', '`A29-P-FAILS` · `A29-N-NO-LIFT` · `A29-0-RESTRICTS` · `A29-1-NOT-EXECUTED`', '`A29-P-FAILS` · `A29-N-UNDECIDED` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`', '`A29-P-UNDECIDED` · `A29-N-LIFTS` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`', '`A29-P-UNDECIDED` · `A29-N-NO-LIFT` · `A29-0-RESTRICTS` · `A29-1-NOT-EXECUTED`', '`A29-P-UNDECIDED` · `A29-N-UNDECIDED` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`')
 _PRA_BARE_VECTOR = '`A29-P-HOLD` · `A29-N-UNDECIDED` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`'
+# Every COMPLETE outcome-vector occurrence, valid or not: four labels from the four alphabets.
+_PRA_VECTOR_RE = _re.compile(r'A29-P-(?:HOLD|FAILS|UNDECIDED) · A29-N-(?:LIFTS|NO-LIFT|UNDECIDED)'
+                            r' · A29-0-(?:ADMITS|RESTRICTS|UNDECIDED)'
+                            r' · A29-1-(?:NONUNIQUE|UNIQUE|UNDECIDED|NOT-EXECUTED)')
+# The four rows the corollaries remove, and one further off-table row, for the mutation controls.
+_PRA_EXCLUDED_ROWS = (
+    '`A29-P-HOLD` · `A29-N-LIFTS` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`',
+    '`A29-P-HOLD` · `A29-N-NO-LIFT` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`',
+    '`A29-P-FAILS` · `A29-N-NO-LIFT` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`',
+    '`A29-P-UNDECIDED` · `A29-N-NO-LIFT` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`',
+    '`A29-P-HOLD` · `A29-N-LIFTS` · `A29-0-ADMITS` · `A29-1-NOT-EXECUTED`')
 _PRA_VECTOR = '**Outcome vector: `A29-P-HOLD` · `A29-N-UNDECIDED` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`** —\nrow 5 of the frozen table.'
 _PRA_CLAUSE = '> **THE CLAUSE, carried at this mention — the result note.**\n> Act 29 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts\n> none. A law that survives every condition this freeze names is a law that survives **those**\n> conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in\n> nature, **not** a finding that the programme requires it, and **not** an adoption of it as the\n> physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about\n> the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence\n> to add one more condition, or to widen one more equivalence, until a plurality becomes a point.\n> **No law gains physical status by surviving, no carrier and no principle is adopted as the physical\n> one, and nothing here derives, recognises or approaches quantum evolution.**'
 _PRA_CENSUS_CLAUSE = '> **THE CLAUSE, carried at this mention — the census entry.**\n> Act 29 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts\n> none. A law that survives every condition this freeze names is a law that survives **those**\n> conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in\n> nature, **not** a finding that the programme requires it, and **not** an adoption of it as the\n> physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about\n> the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence\n> to add one more condition, or to widen one more equivalence, until a plurality becomes a point.\n> **No law gains physical status by surviving, no carrier and no principle is adopted as the physical\n> one, and nothing here derives, recognises or approaches quantum evolution.**'
+# The census note's COMPLETE prose, pinned whole: a fragment list leaves the claims between the
+# fragments mutable, and the substantive claims are exactly what must not move.
+_PRA_CENSUS_PROSE = "Track B act 29, executed under the frozen control plane programmes/oi-qm/track-b/act-29-product-admission/preregistration.md, blob 5451a52d87d7d2ab2aac48802bb80898d81f6a16, from certified base 0bedff07fc1ad2675ecab205c8836e7a90a113d4. Outcome vector: A29-P-HOLD · A29-N-UNDECIDED · A29-0-UNDECIDED · A29-1-NOT-EXECUTED, row 5 of the frozen table. A29-P is A29-P-HOLD: at the frozen product configuration every transition family carrying conjuncts 3 to 7 of the prefix generates a law satisfying act 18's ProperAt and PropagatesFrom, the statement carrying no FactorizesOnProduct hypothesis and naming no pair. PropagatesFrom clause (i) is act 21's ol1a_descent from descent alone; clause (ii) and ProperAt's inequivalent solution pair are injectivity with act 21's product_separations read at t = 1; ProperAt's excluded trajectory is the splice, which requires no family to move a realizable class. A29-N is A29-N-UNDECIDED: for every pair of class bijections induced by carrier relabellings an eligible family carries conjuncts 3 to 7, factorization with the named factor families and conjunct 8 at the PRODUCT carrier, with act 20's RelabelLift; the target quantifies over every pair of bijections of a class space the record does not classify, and no construction reaches a pair that is not so induced. The universal negative is not reached either: factorization pins an eligible family on the product classes only up to GramPhaseEquiv while the lifting obligation is an equality, so act 23's entry-forcing refutation does not transfer as it stands. A29-0 is A29-0-UNDECIDED with conjunct 8 named as the missing conjunct, and neither assembly corollary's hypothesis is reached. A29-1 is gated on A29-0-ADMITS and was NOT EXECUTED. Six named results, each with only propext, Classical.choice, Quot.sound; zero definitions against a budget of zero. The route-authorization matrix is reported as honoured and no deviation is incurred; one reading of the freeze's route is recorded, RD1: route step 3 concerns the transport of act 27's single-carrier lifts to act 28's general construction, and a particular product-carrier lift the record already contains, act 21's phiPP_ladder through act 20's carrier-generic RelabelLift, lies outside what it addresses; the pairs not induced by relabellings remain unresolved and no impossibility is established. Act 28's DF1 is not repaired here. P0 stays OPEN; act 24's cell b and all historical verdicts remain unchanged. Sealing under the manifest protocol E → L → P."
 _PRA_CENSUS_NAME = 'admission at the product configuration: the two standing hypotheses, a product-carrier lift, and full admission (act 29, Track B)'
 _PRA_CENSUS_REQUIRED = (('provenance', 'Track B act 29, executed under the frozen control plane programmes/oi-qm/track-b/act-29-product-admission/preregistration.md, blob 5451a52d87d7d2ab2aac48802bb80898d81f6a16, from certified base 0bedff07fc1ad2675ecab205c8836e7a90a113d4.'), ('vector', 'Outcome vector: A29-P-HOLD · A29-N-UNDECIDED · A29-0-UNDECIDED · A29-1-NOT-EXECUTED, row 5 of the frozen table.'), ('p-scope', 'the statement carrying no FactorizesOnProduct hypothesis and naming no pair'), ('p-splice', "ProperAt's excluded trajectory is the splice, which requires no family to move a realizable class."), ('n-instance', "conjuncts 3 to 7, factorization with the named factor families and conjunct 8 at the PRODUCT carrier, with act 20's RelabelLift"), ('n-negative', 'factorization pins an eligible family on the product classes only up to GramPhaseEquiv while the lifting obligation is an equality'), ('zero-missing', "A29-0 is A29-0-UNDECIDED with conjunct 8 named as the missing conjunct, and neither assembly corollary's hypothesis is reached."), ('one-not-executed', 'A29-1 is gated on A29-0-ADMITS and was NOT EXECUTED.'), ('counts', 'Six named results, each with only propext, Classical.choice, Quot.sound; zero definitions against a budget of zero.'), ('matrix-and-rd1', "The route-authorization matrix is reported as honoured and no deviation is incurred; one reading of the freeze's route is recorded, RD1: route step 3 concerns the transport of act 27's single-carrier lifts to act 28's general construction, and a particular product-carrier lift the record already contains, act 21's phiPP_ladder through act 20's carrier-generic RelabelLift, lies outside what it addresses; the pairs not induced by relabellings remain unresolved and no impossibility is established."), ('df1', "Act 28's DF1 is not repaired here."), ('shape', 'Sealing under the manifest protocol E → L → P.'))
 _PRA_P0 = "At the product configuration, whether the ladder's conditions through factorization admit every pair of local class bijections is undecided, with the conjunct that is missing named."
@@ -28328,7 +28342,7 @@ _PRA_REQUIRED = (
     ('rd1-route-reading',
      "**RD1 — the route's step 3, read against the record.** Route step 3 says that act 27's\nsingle-carrier lifts do not transport to the product carrier by anything in the record, and that a\ntwisted-natural lift for act 28's general construction would have to be built representative-wise.\nBoth remain true: nothing in this round transports act 27's lifts, and no lift of act 28's\nconstruction was built. The record does contain a **particular** product-carrier lift, which the\nstep does not mention: act 20's `RelabelLift` and its obligations `rnt2_lifting_property`,\n`rnt2_admissible` and `rnt3_law_exact` are stated for an arbitrary finite carrier, and act 21's\n`phiPP_ladder` — this round's frozen positive control — discharges `LadderConds`' eighth conjunct,\nact 20's existential twisted-lift form verbatim, at this carrier for the pair induced by `σ` on each\nfactor. `a29_n_relabel_instance` broadens the positive cases from that pair to every pair induced by\ncarrier relabellings. **The pairs not so induced remain unresolved, and no impossibility is\nestablished for any of them.** The freeze is immutable and was not edited; the control is cited and\nnot re-proved, as its row prescribes; and the reading is recorded here against the step it concerns."),
     ('rd2-roadmap-collision',
-     "**RD2 — act 28's `R7-PFR` ROADMAP contract and this round's contract 11 collide.** Act 28's\nguard predicate for the `P0` cell ends by requiring the standing clause to occur **exactly once in\nthe whole of `verification/ROADMAP.md`**, while requiring act 28's own frozen sentence to be\nimmediately followed by it. This round's contract 11 requires this round's frozen sentence to be\npresent in the `P0` cell after act 28's, **with this round's standing clause immediately following\nit** — and the freeze fixes that standing clause as the same words act 28 used. The two are jointly\nunsatisfiable: writing the second copy makes act 28's count two, and withholding it fails contract\n11, while placing this round's sentence between act 28's sentence and the single standing clause\nbreaks act 28's adjacency leg instead.\n\nThe state of the tree is contract 11's: both sentences are in the cell, each followed by the\nstanding clause. **On that tree act 28's `R7-PFR` fails on one leg only** — its ROADMAP count —\nwith its frozen sentence, its adjacency, its cell placement and every other contract of that round\nintact, and with nothing about act 28's verdicts touched. **Neither contract was edited.** Act 28's\nguard is a closed round's contract and this round edits none; the freeze is immutable and was not\namended. **The disposition is the owner's**, and the round is not landed on a red guard."),
+     "**RD2 — act 28's `R7-PFR` ROADMAP contract and this round's contract 11 collide.** Act 28's\nguard predicate for the `P0` cell ends by requiring the standing clause to occur **exactly once in\nthe whole of `verification/ROADMAP.md`**, while requiring act 28's own frozen sentence to be\nimmediately followed by it. This round's contract 11 requires this round's frozen sentence to be\npresent in the `P0` cell after act 28's, **with this round's standing clause immediately following\nit** — and the freeze fixes that standing clause as the same words act 28 used. The two are jointly\nunsatisfiable: writing the second copy makes act 28's count two, and withholding it fails contract\n11, while placing this round's sentence between act 28's sentence and the single standing clause\nbreaks act 28's adjacency leg instead.\n\nThe state of the tree is contract 11's: both sentences are in the cell, each followed by the\nstanding clause. **On that tree act 28's `R7-PFR` fails on one leg only** — its ROADMAP count —\nwith its frozen sentence, its adjacency, its cell placement and every other contract of that round\nintact, and with nothing about act 28's verdicts touched. **Neither contract was edited.** Act 28's\nguard is a closed round's contract and this round edits none; the freeze is immutable and was not\namended. **The disposition is the owner's**, and the round is not landed on a red guard. This\nround's own ROADMAP contract is scoped to this round's bounded entry — its sentence, its placement\nafter act 28's, and the standing clause attached to it — and counts nothing beyond it, so a\nsuccessor's entry is outside what it reads."),
     ('df1-not-repaired',
      "**Act 28's `DF1` is not repaired here**, and nothing in this round converts an unauthorized\nconsumption of that round into an authorized one."),
     ('spans-closing',
@@ -28363,19 +28377,30 @@ def _pra_mentions_complete(n, clause):
     return all(i >= off and n.startswith(cl, i - off) for i in occ)
 
 
+def _pra_vectors(n):
+    """Every COMPLETE outcome-vector occurrence in a normalized text, valid or not, backticks
+    ignored. Counting these -- and not only the correct vector -- is what makes an appended
+    impossible vector, or a duplicated correct one, visible."""
+    return _PRA_VECTOR_RE.findall(n.replace('`', ''))
+
+
 def _pra_gates_ok(n):
     """The gates and the two assembly corollaries, read off the artifact's BARE outcome vector.
 
     The vector must be ONE of the eleven admissible rows, and the two corollaries are applied to
     it: an artifact carrying A29-P-HOLD with A29-N-LIFTS must carry A29-0-ADMITS and nothing else
+    may. EVERY complete vector occurrence is counted first, valid or not, so an impossible vector
+    appended beside the correct one, or the correct one duplicated, is a second occurrence and
+    fails before membership is even asked.
     may, and one carrying A29-N-NO-LIFT must carry A29-0-RESTRICTS. The four rows the corollaries
     remove therefore fail here even when written out in full. Backticks are ignored, so the
     contract reads the same in the note and in the census entry."""
-    plain = n.replace('`', '')
-    rows = [row for row in _PRA_ROWS if _pra_n(row).replace('`', '') in plain]
-    if len(rows) != 1:
+    vs = _pra_vectors(n)
+    if len(vs) != 1:
         return False
-    v = rows[0]
+    v = vs[0]
+    if v not in [_pra_n(row).replace('`', '') for row in _PRA_ROWS]:
+        return False
     if ('A29-P-HOLD' in v and 'A29-N-LIFTS' in v) != ('A29-0-ADMITS' in v):
         return False
     if 'A29-N-NO-LIFT' in v and 'A29-0-RESTRICTS' not in v:
@@ -28402,7 +28427,11 @@ def _pra_note_ok(note):
         return False
     if not _pra_mentions_complete(n, _PRA_CLAUSE):
         return False
-    if not all(_pra_n(a) in n for a in _PRA_ATTEST):
+    # Exactly ONE answer per span: the frozen answer once, and the span marker once, so that a
+    # duplicated answer and a second, different answer for the same span both fail.
+    if not all(n.count(_pra_n(a)) == 1 for a in _PRA_ATTEST):
+        return False
+    if any(n.count('- **Span %d,' % i) != 1 for i in (1, 2, 3)):
         return False
     # The disclosure is made ONCE and BEFORE the first span: a placement, not a presence.
     disc = _pra_n(_PRA_DISCLOSURE)
@@ -28434,6 +28463,8 @@ def _pra_census_ok(raw):
     n = _pra_n(note)
     if not all(_pra_n(t) in n for _k, t in _PRA_CENSUS_REQUIRED):
         return False
+    if n.count(_pra_n(_PRA_CENSUS_PROSE)) != 1:
+        return False
     if not _pra_gates_ok(n):
         return False
     return _pra_mentions_complete(n, _PRA_CENSUS_CLAUSE)
@@ -28453,7 +28484,7 @@ def _pra_census_mut(raw, fn):
 
 
 def _pra_road_ok(road):
-    """THE PREDICATE THAT GATES the ROADMAP P0 cell, read out of the ACTUAL cell."""
+    """THE PREDICATE THAT GATES act 29's ROADMAP entry, read as a BOUNDED ENTRY out of the ACTUAL cell."""
     cell = _pfr_p0_cell(road)
     if cell is None:
         return False
@@ -28464,11 +28495,12 @@ def _pra_road_ok(road):
     anchor = _pra_n(_PRA_ROAD_ANCHOR)
     if anchor not in c or c.index(p0) < c.index(anchor):
         return False
-    # the standing clause is not merely present: it follows the frozen sentence it scopes.
-    if not c[c.index(p0) + len(p0):].lstrip().startswith(_pra_n(_PRA_ROAD_STANDING)):
+    # THE BOUNDED ENTRY: the standing clause attached immediately and complete, once. Nothing
+    # beyond the entry is counted, so a successor's entry -- which reuses the clause -- is
+    # outside what this contract reads, and act 28's document-wide count is not repeated here.
+    if c.count(p0 + ' ' + _pra_n(_PRA_ROAD_STANDING)) != 1:
         return False
-    n = _pra_n(road)
-    return n.count(p0) == 1 and n.count(_pra_n(_PRA_ROAD_STANDING)) == 2
+    return _pra_n(road).count(p0) == 1
 
 
 def _pra_chron_ok(chain, texts):
@@ -28626,6 +28658,9 @@ for _nm, _mut in (
          lambda t: t.replace(_PRA_BARE_VECTOR, '`A29-P-HOLD` · `A29-N-LIFTS` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`')),
         ('corollary-row-contradicted',
          lambda t: t.replace(_PRA_BARE_VECTOR, '`A29-P-HOLD` · `A29-N-NO-LIFT` · `A29-0-UNDECIDED` · `A29-1-NOT-EXECUTED`')),
+        ('span-1-answer-duplicated', lambda t: t + '\n' + _PRA_ATTEST[0] + '\n'),
+        ('span-2-second-answer-added',
+         lambda t: t + '\n- **Span 2, `A29-P`.** Acquired: something else entirely.\n'),
         ('modulus-values-changed',
          lambda t: t.replace('1 / 16', '1 / 8').replace('1 / 4', '1 / 2')),
         ('frozen-pair-second-component-changed',
@@ -28645,6 +28680,10 @@ for _nm, _mut in (
          lambda t: t.replace(_PRA_ATTEST[0], '\x00').replace(_PRA_ATTEST[2], _PRA_ATTEST[0])
                     .replace('\x00', _PRA_ATTEST[2]))):
     _pra_checks['note-mut:' + _nm] = not _pra_note_ok(_mut(_PRANOTE))
+    _pra_mutations += 1
+for _i, _x in enumerate(_PRA_EXCLUDED_ROWS):
+    _pra_checks['note-mut:impossible-vector-appended:%d' % _i] = not _pra_note_ok(
+        _PRANOTE + '\n\n' + _x + '\n')
     _pra_mutations += 1
 
 _pra_chain, _pra_texts = _pra_history()
@@ -28704,10 +28743,26 @@ for _nm, _fn in (
         ('clause-second-incomplete-appended',
          lambda f: dict(f, note=f['note'] + '\n\n' + _PRA_CENSUS_CLAUSE[:200])),
         ('newlines-re-escaped', lambda f: dict(f, note=f['note'].replace('\n', '\\n'))),
+        ('bare-vector-duplicated',
+         lambda f: dict(f, note=f['note'] + '\n\nOutcome vector: '
+                        + _PRA_BARE_VECTOR.replace('`', ''))),
+        ('hypotheses-narrowed-to-3-6',
+         lambda f: dict(f, note=f['note'].replace('conjuncts 3 to 7 of the prefix',
+                                                  'conjuncts 3 to 6 of the prefix', 1))),
+        ('instance-widened-to-every-pair',
+         lambda f: dict(f, note=f['note'].replace(
+             'for every pair of class bijections induced by carrier relabellings',
+             'for every pair of class bijections', 1))),
+        ('prose-sentence-dropped',
+         lambda f: dict(f, note=f['note'].replace("Act 28's DF1 is not repaired here. ", '', 1))),
         ('entry-removed', lambda f: None),
         ('modules-changed', lambda f: dict(f, modules=['ProductLocusFreedom'])),
         ('status-promoted', lambda f: dict(f, status='manuscript-cited'))):
     _pra_checks['census-mut:' + _nm] = not _pra_census_ok(_pra_census_mut(_PRACEN, _fn))
+    _pra_mutations += 1
+for _i, _x in enumerate(_PRA_EXCLUDED_ROWS):
+    _pra_checks['census-mut:impossible-vector-appended:%d' % _i] = not _pra_census_ok(
+        _pra_census_mut(_PRACEN, lambda f, _x=_x: dict(f, note=f['note'] + '\n\n' + _x.replace('`', ''))))
     _pra_mutations += 1
 
 _pra_checks['roadmap'] = _pra_road_ok(_PRAROAD)
@@ -28725,11 +28780,22 @@ for _nm, _fn in (
         ('p0-block-moved-out-of-the-cell',
          lambda r: r.replace(' ' + _PRA_P0 + ' ' + _PRA_ROAD_STANDING, '', 1)
                    + '\n\n## Appendix\n\n' + _PRA_P0 + ' ' + _PRA_ROAD_STANDING + '\n'),
+        ('standing-clause-truncated', lambda r: r.replace(
+            _PRA_P0 + ' ' + _PRA_ROAD_STANDING, _PRA_P0 + ' ' + _PRA_ROAD_STANDING[:60], 1)),
+        ('p0-duplicated-in-cell', lambda r: r.replace(
+            _PRA_P0 + ' ' + _PRA_ROAD_STANDING,
+            _PRA_P0 + ' ' + _PRA_ROAD_STANDING + ' ' + _PRA_P0 + ' ' + _PRA_ROAD_STANDING, 1)),
         ('p0-row-removed',
          lambda r: '\n'.join(l for l in r.split('\n')
                              if not l.strip().startswith('| **P0** |')))):
     _pra_checks['road-mut:' + _nm] = not _pra_road_ok(_fn(_PRAROAD))
     _pra_mutations += 1
+# POSITIVE CONTROL: a successor round's entry after this one, reusing the standing clause, is
+# tolerated -- the defect RD2 records in act 28's contract is not repeated in this one.
+_pra_checks['road-successor-tolerated'] = _pra_road_ok(_PRAROAD.replace(
+    _PRA_P0 + ' ' + _PRA_ROAD_STANDING,
+    _PRA_P0 + ' ' + _PRA_ROAD_STANDING + ' A successor sentence. ' + _PRA_ROAD_STANDING, 1))
+_pra_mutations += 1
 _pra_checks['manifest-authority'] = bool(_si2_authority('PRA', tag='R7-PRA'))
 
 _pra_bad = [k for k, v in _pra_checks.items() if not v]
@@ -28739,6 +28805,12 @@ check('R7-PRA', not _pra_bad,
       'Act 29: frozen blob with drift control, one keyed manifest authority, and the chronology, '
       'the result note, the DECODED census entry and the ROADMAP cell each read through ONE '
       'gating predicate that every mutation is passed through. Each frozen requirement is pinned '
+      'to its COMPLETE content, the census prose pinned WHOLE and not as fragments. EVERY complete '
+      'outcome-vector occurrence is counted, valid or not, before membership and the corollaries '
+      'are asked, so an impossible vector appended beside the correct one, or the correct one '
+      'duplicated, fails in the note and in the census. Each span has EXACTLY ONE attestation. The '
+      'ROADMAP contract reads this round\'s BOUNDED ENTRY and tolerates a successor, with a positive '
+      'control proving it. Each frozen requirement is pinned '
       'to its COMPLETE content, not a heading: forty result-note records and twelve census '
       'records, plus both clauses in full. THE GATES AND THE TWO ASSEMBLY COROLLARIES ARE READ '
       "OFF THE ARTIFACT'S BARE OUTCOME VECTOR: the vector must be one of the eleven admissible "

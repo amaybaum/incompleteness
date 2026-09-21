@@ -282,7 +282,10 @@ standing clause. **On that tree act 28's `R7-PFR` fails on one leg only** — it
 with its frozen sentence, its adjacency, its cell placement and every other contract of that round
 intact, and with nothing about act 28's verdicts touched. **Neither contract was edited.** Act 28's
 guard is a closed round's contract and this round edits none; the freeze is immutable and was not
-amended. **The disposition is the owner's**, and the round is not landed on a red guard.
+amended. **The disposition is the owner's**, and the round is not landed on a red guard. This
+round's own ROADMAP contract is scoped to this round's bounded entry — its sentence, its placement
+after act 28's, and the standing clause attached to it — and counts nothing beyond it, so a
+successor's entry is outside what it reads.
 
 **Act 28's `DF1` is not repaired here**, and nothing in this round converts an unauthorized
 consumption of that round into an authorized one.
