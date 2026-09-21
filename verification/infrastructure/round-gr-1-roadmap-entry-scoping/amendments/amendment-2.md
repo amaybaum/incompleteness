@@ -151,11 +151,24 @@ stages. It does not reuse either attempted execution's commits as ancestry.
 | 2 | the `R7-GR1` block, with both corrections above and the regression control, with `_GR1_B` set to the new `B`, and with **both** amendments pinned by blob beside the preregistration |
 | 3 | a **freshly measured** base column at the new `B`, the head column taken from the retry's own accepted stage-2 checkpoint, and new artifacts |
 
-The retry's stage-3 checkpoint must be **94 of 94 PASS** with `HEAD` fixed at its `E` throughout —
-the ninety-two pre-existing tags, `R7-PFR` among them, plus `R7-GR1`, with the regression control
-among `R7-GR1`'s own checks — and the history contract must see exactly three commits from the new
-`B`. No column, wall clock, artifact or accepted checkpoint of either attempt is reused as the
-retry's evidence.
+**Two cardinalities are involved, and this amendment moves only one of them.** The *emitted tag*
+cardinality is unchanged: the guard emits the ninety-two pre-existing tags, `R7-PFR` among them,
+plus `R7-GR1`, and neither correction nor the regression control creates another `R7-*` tag. What
+increases is the *internal contract* cardinality `R7-GR1` reports on its own diagnostic line — the
+number of `_gr1_checks` entries — by the sixth `landed-pin` verdict the uniqueness correction
+restores and by the entries the regression control defines.
+
+The stage shapes are therefore exactly the ones already frozen, stated here in emitted tags:
+
+| stage | emitted tags |
+| --- | --- |
+| 1 | 92 of 92 PASS, `R7-PFR` included; no `R7-GR1` |
+| 2 | 93 emitted tags: the ninety-two PASS and identical to stage 1's verdicts, `R7-GR1` the sole failure, on exactly `artifact-result-note` and `artifact-tag-map` |
+| 3 = `E` | **93 of 93 PASS**, with `HEAD` fixed at `E` throughout |
+| the landing `L` | **93 of 93 PASS**, with `R7-GR1` in `LANDED-UNRECORDED` |
+
+At stage 3 the history contract must see exactly three commits from the new `B`. No column, wall
+clock, artifact or accepted checkpoint of either attempt is reused as the retry's evidence.
 
 The result note gains one recorded sentence naming this amendment and the second attempt's
 certified head and candidate landing, so that the round's record states why its base moved a second
