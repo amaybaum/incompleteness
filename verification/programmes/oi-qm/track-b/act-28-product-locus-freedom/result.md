@@ -28,8 +28,10 @@ factorization has content at this configuration (act 22), that it is not implied
 through gauge naturality (act 22), that it does not imply that naturality under the earlier prefix
 (act 23), that it neither implies nor is implied by isometry of act 24's feature geometry, and that
 act 22 records `L5-FREE` as unattempted and unreportable. No measurement was taken before the
-freeze. The construction sketched in the freeze's route section was hand reasoning, and one of its
-steps was found wrong during execution and is recorded in §5.
+freeze. The construction sketched in the freeze's route section was hand reasoning. **Nothing in
+that route was found wrong during execution**: the route's own step 2, written before execution
+and merged with the freeze, already withdrew an earlier draft's claim that the assignment would
+need no choice, and the execution followed the corrected route as merged.
 
 ---
 
@@ -49,6 +51,36 @@ steps was found wrong during execution and is recorded in §5.
 **Twelve named results; zero top-level definitions against a budget of zero.** Every named result
 reports only `propext`, `Classical.choice`, `Quot.sound`.
 
+### 2.1 What the declaration requires, and what this round hypothesizes — kept apart
+
+**The declaration's existential factor families are arbitrary tuple-level families**, indexed by
+time and fixed before the universal quantifiers, and `FactorizesOnProduct` requires of them **no**
+realizability preservation, **no** descent to classes and **no** bijectivity. Every such
+requirement appearing in `A28-0`'s statement — realizability preservation, descent on realizable
+tuples, injectivity on realizable tuples, surjectivity — is a **hypothesis of this round's own
+theorem**, never a change to the declaration. The declaration is consumed verbatim and the
+definition budget is zero.
+
+### 2.2 Why the quantifier is restricted to bijections
+
+A pair whose first component is constant collapses the classes `[G(H₁) ⊠ G(H₁)]` and
+`[G(Hᵢ) ⊠ G(H₁)]`, which act 22 separates by act 12's cross-invariant at `((0,0),(1,0))`, values
+`1/256` and `i/256`. Injectivity on classes — the first conjunct of reversibility — then fails for
+a reason that has **nothing to do with factorization**. Restricting the quantifier to bijections
+is what makes the question about the condition rather than about that collapse. The reason was
+recorded in the freeze before execution and is not a post-hoc narrowing.
+
+### 2.3 The controls, cited and not re-proved
+
+| role | object | what it is for |
+| --- | --- | --- |
+| positive | act 21's `phiPP_ladder`, the product permutation | a law of the prefix **can** satisfy factorization with content here |
+| negative | act 22's `phiSwap_l5_restricts`, the factor swap | a law of the prefix **can** fail it, so the condition is not automatic |
+| countercontrol | act 23's `phiSC_corner` | a law can factorize and fail gauge naturality, so no construction producing factorization is read as producing that rung |
+
+The identity is **not** used as a control; the positive control is a nontrivial factor-wise
+relabelling.
+
 ---
 
 ## 3. The configuration, and the two normalizations stated apart
@@ -60,9 +92,14 @@ the pointwise product, entries `1 / 16`. Ordered decomposition `Equiv.refl (Fin 
 **The two normalizations are distinct and are not conflated.** What is proved about them is the
 diagonal values: a factor's diagonal is `1 / 4` at its own visible matrix
 (`a28_shared_factor_diagonal`), and the pointwise product's diagonal is `1 / 16` at the product
-visible family (`a28_shared_product_diagonal`). **The general entry-modulus statement for a
-realizable tuple and the anchor-column modulus statement for an admissible dilation are not proved
-and are not used.**
+visible family (`a28_shared_product_diagonal`).
+
+**The two frozen moduli, stated separately and with their status distinguished from those
+lemmas.** The freeze states that a tuple realizable at the product visible family has every entry
+of modulus `1 / 16`, and that an admissible dilation for it has anchor-column entries of modulus
+`1 / 4`. **Both are statements of the frozen control plane. Neither is proved in this round's
+module, neither is used by any verdict, and neither follows from the two diagonal lemmas above**,
+which are about diagonal entries only. They are recorded here as frozen context, not as results.
 
 ---
 
@@ -112,6 +149,15 @@ either a construction of a twisted-natural lift at the **product** carrier for t
 here, together with the two standing hypotheses for an arbitrary prescribed pair, or an exhibited
 pair for which no family carrying all eight conjuncts realizes it.
 
+**The reconciliation with act 23, which an existence result leaves intact.** Act 23 proved of
+**one exact formula**, `Φ_SC`, that it satisfies factorization and admits **no** twisted-natural
+lift. `A28-0`'s naturality conjunct is existential in the lift and existential in the law, at act
+20's certified strength. **An affirmative answer would therefore leave act 23's verdict
+untouched**, a different law or a different representative carrying a lift saying nothing about
+`Φ_SC` carrying none. The two statements are compatible and neither bears on the other. This round
+reaches no affirmative answer, and the reconciliation is recorded because the frozen statement
+contract requires it.
+
 **The step at which the proof stopped.** The class map is well defined by `A28-R` and its
 representatives are supplied by choice, as act 27's own construction supplies them, so the
 representative-supply step is paid explicitly. What is not paid is the lift: act 27's single-carrier
@@ -120,8 +166,18 @@ was constructed.
 
 ### `A28-1` — **`A28-1-NOT-EXECUTED`**
 
-`A28-0` did not reach `A28-0-EXTENDS`, so the gate closed the target. The nonuniqueness question at
-the pair frozen in advance is neither answered nor approached.
+> Not executed: `A28-0` did not reach `A28-0-EXTENDS`, and the gate closed the target.
+
+**The pair the target was frozen at**, and to which **both** of its alternatives are scoped: with
+`σ = Equiv.swap (2 : Fin 4) 3`, the first component is the bijection of the single-carrier
+realizable class space induced by `RelabelTransition σ`, and the second is the identity. Neither
+`A28-1-NONUNIQUE` nor `A28-1-UNIQUE` is reported, at that pair or at any other, and the question is
+neither answered nor approached.
+
+**Properness alone does not establish nonuniqueness.** `A28-S-PROPER` says only that the
+factorization conjunct is silent on some class; the eight prefix conjuncts still bind any two laws
+there, and whether they leave room for disagreement is exactly what `A28-1` asks and what this
+round does not reach.
 
 ---
 
@@ -135,10 +191,13 @@ route-authorization matrix is therefore not reported as honoured without qualifi
 freeze is immutable and was not edited; the deviation is recorded here, against the row it departs
 from. Disclosure is not a cure and does not convert the consumption into an authorized one.
 
-**DF2 — the route's no-choice claim was wrong.** The freeze's route section asserted that factor
-recovery would make the assignment well defined "with no choice". Prescribed class bijections
-return **classes**, not tuples, so representatives must still be supplied. The claim was withdrawn
-in the module text during execution and choice is used explicitly. The freeze is not edited.
+**DF2 — no route discrepancy was found; the record of one is corrected.** An earlier statement of
+this note described the route's no-choice claim as an execution discovery. That is wrong, and the
+correction is made forward here. **The merged freeze had already withdrawn that claim**, in route
+step 2, before execution began: prescribed class bijections return classes rather than tuples, so
+representatives must still be supplied, and the route as merged says so. The execution followed
+the merged route and supplied representatives by choice. **No mathematical route discrepancy was
+found.**
 
 **DF3 — two reporting errors, corrected forward.** A module docstring asserted a general
 entry-modulus statement and an anchor-column modulus statement that the module does not prove; the
@@ -154,8 +213,14 @@ components. Both were corrected in later commits without rewriting history.
   in both parts. Nothing else was measured, and no verdict theorem existed at the module commit.
 - **Span 2, `A28-S`.** Acquired: the necessary condition for locus membership and its failure at the
   exhibited class. The three unlisted consumptions of DF1 were made in this span.
-- **Span 3, `A28-0`.** Acquired: the construction and the five conjuncts it carries, with the
-  factorization predicate. Nothing about the two standing hypotheses or the lift was measured.
+- **Span 3, `A28-0`.** Acquired: the construction, the five frozen prefix conjuncts it carries and
+  act 21's factorization predicate with the prescribed pair as its factor families. **Nothing
+  about act 18's two standing hypotheses or about a product-carrier twisted-natural lift was
+  measured, attempted or obtained in this span**, and the two helper lemmas it uses were proved in
+  it rather than consumed.
+
+Each answer reports only what its own span acquired. No span reports a result of another, and no
+result was acquired outside the span that reports it.
 
 **No rung was restated, no notion was paraphrased, no hypothesis was added to act 21's declaration,
 no definition was introduced, and nothing was imported beyond the module's single import.**
