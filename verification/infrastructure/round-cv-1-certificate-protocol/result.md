@@ -68,7 +68,8 @@ The controls, measured by `R7-CV1` on every build:
 | 3 | `1f24064a5ed7c49c8ca02598783d95773af0c115` | `FAILURE` on exactly `R7-CV1`, 104 tags; its nine red contracts are the stage-final artifacts and the stage-5 step: `census-committed`, `census-equal-to-committed`, `result-note`, `note:6a-sentence`, `note:6b-sentence`, `note:7-sentence`, `note-mut:6a-sentence-dropped`, `tag-map`, `release-gate-authoritative-step` | as listed |
 | 4 | `92d769978921147b388a778a0f17cbd74fda213d` | `census.json` committed; `R7-CV1` red on exactly the seven that remain: `result-note`, the three `note:` sentences, `note-mut:6a-sentence-dropped`, `tag-map`, `release-gate-authoritative-step` | as listed |
 | 5 | `7c16128682d91023e8b8f71ece61150d27807132` | the release gate's step; `R7-CV1` red on exactly the six artifact contracts: `result-note`, the three `note:` sentences, `note-mut:6a-sentence-dropped`, `tag-map`; the full release gate with the step: `PASS` | as listed |
-| 6 | `the stage-6 commit` (candidate `E`) | `ALL CHECKS PASS`, 104 tags; both censuses recomputed equal to stage 4's | — |
+| 6 | `0157e061d272738bf52f4f2f00e469b78be063fd`, the first candidate `E` | `ALL CHECKS PASS`, 104 tags; both censuses recomputed equal to stage 4's; the full release gate `PASS` locally. **Exact-head CI (run 35714047608) rejected it**: Lean kernel check, Control-plane base check, Numerical probes and the standalone Certificate verifier shadow job succeeded; Mathlib bridge failed on exactly the release gate's authoritative `certificate-verifier` step, `visibility:base-ref-unresolvable` — see the finding below | `certificate-verifier` in CI only |
+| 7 | the stage-7 commit, the forward continuation and candidate `E` | the verifier's recovery of its prescribed remote ref; this note and `CV1.json` updated; `ALL CHECKS PASS`, 104 tags; both censuses recomputed equal to stage 4's; the release gate `PASS`, and the authoritative verifier reproduced green under a depth-1 single-branch checkout with the pull-request event | — |
 
 ## The `V2` objects
 
@@ -173,6 +174,28 @@ manuscript, not `AGENTS.md` and not `ROADMAP.md`.
 6. **`CV1`'s certificate** gained its three stage-final artifacts as evidence at stage 6, the
    round writing its own certificate during its execution; the record `A` will carry the
    certificate's blob at `E`.
+
+7. **The first candidate `E`, `0157e061…`, passed four of the five exact-head CI jobs** — Lean
+   kernel check, Control-plane base check, Numerical probes (the `V1` guard, `R7-CV1` included,
+   green) and the standalone full-history Certificate verifier shadow job — and failed exactly one:
+   Mathlib bridge, on the release gate's authoritative `certificate-verifier` step. The verifier
+   failed closed with `visibility:base-ref-unresolvable`, because that job's `actions/checkout@v4`
+   is a depth-1, single-branch checkout carrying no `refs/remotes/origin/main`; the same SHA, the
+   same store and the same event were verified green by the standalone job, whose checkout has
+   full history. This is an environment finding, not a `V1`/`V2` disagreement: fail-closed did
+   exactly what the freeze specifies when the prescribed visibility target is absent. The
+   correction, inside the verifier the freeze authorizes as a replaceable contribution and
+   touching neither the workflow's checkout nor the control plane: when
+   `refs/remotes/origin/<base ref>` does not resolve, or the checkout is shallow, the verifier
+   fetches exactly `+refs/heads/<base ref>:refs/remotes/origin/<base ref>` from `origin` — with the
+   history it reaches, unshallowing a shallow checkout — and then asks the identical question
+   again; if the ref still does not resolve it fails closed as before. No fallback was added:
+   `pull_request.base.sha`, a local `refs/heads/<ref>` and the synthetic merge remain refused,
+   and the corpus's `visibility-unresolvable-base-ref`, `visibility-base-sha-refused`,
+   `visibility-local-branch-refused` and `visibility-synthetic-merge-refused` vectors still fail
+   as frozen (their synthetic repositories have no `origin`, so the recovery establishes
+   nothing). The first candidate is not rewritten: the stage-7 commit is the forward continuation
+   and the candidate `E`.
 
 ## What no outcome of this round licenses
 

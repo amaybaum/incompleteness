@@ -91,7 +91,8 @@ class Git:
 
     def run(self, *args):
         try:
-            r = subprocess.run(('git',) + args, cwd=self.cwd, capture_output=True, timeout=120)
+            r = subprocess.run(('git',) + args, cwd=self.cwd, capture_output=True,
+                               timeout=900 if args and args[0] == 'fetch' else 120)
         except Exception:  # noqa: BLE001 -- git unusable is a fail-closed None
             return None
         if r.returncode != 0:
@@ -112,6 +113,27 @@ class Git:
     def blob_at(self, rev, path):
         out = self.run('rev-parse', '--verify', '--quiet', '%s:%s' % (rev, path))
         return out.strip() if out else None
+
+    def is_shallow(self):
+        out = self.run('rev-parse', '--is-shallow-repository')
+        return out is not None and out.strip() == 'true'
+
+    def recover(self, base_ref):
+        """Materialize the one prescribed remote-tracking ref, `refs/remotes/origin/<base ref>`,
+        together with the history it reaches: a shallow or single-branch checkout carries neither.
+        Exactly that refspec is fetched from `origin` and nothing else -- no other branch, no
+        `pull_request.base.sha`, no local branch -- and the fetch is additive: it changes no local
+        branch and no worktree file. Failures are not errors here; the caller asks the identical
+        question again afterwards and fails closed on its own."""
+        spec = '+refs/heads/%s:refs/remotes/origin/%s' % (base_ref, base_ref)
+        try:
+            if self.is_shallow():
+                if self.run('fetch', '--unshallow', 'origin', spec) is None:
+                    self.run('fetch', '--deepen=2147483647', 'origin', spec)
+            else:
+                self.run('fetch', 'origin', spec)
+        except Exception:  # noqa: BLE001 -- recovery is best effort; the check decides
+            pass
 
     def parents(self, sha):
         out = self.run('rev-list', '--parents', '-n', '1', sha)
@@ -497,9 +519,17 @@ def visibility_targets(env, git):
             or not re.fullmatch(r'[0-9A-Za-z._][0-9A-Za-z._/-]*', base_ref):
         return None, 'visibility:base-ref-unresolvable'
     tip = git.rev('refs/remotes/origin/%s' % base_ref)
+    if tip is None or git.is_shallow():
+        # The checkout may be shallow or single-branch: a depth-1 clone carries neither the base
+        # branch's remote-tracking ref nor the history the derivations walk. The verifier then
+        # materializes exactly the prescribed ref, `refs/remotes/origin/<base ref>`, with the
+        # history it reaches, and asks the identical question again. Recovery never substitutes
+        # for the check and adds no fallback: a local refs/heads/<ref> is still not accepted, nor
+        # is pull_request.base.sha, nor the synthetic merge, and a base ref that does not resolve
+        # after recovery fails closed exactly as before.
+        git.recover(base_ref)
+        tip = git.rev('refs/remotes/origin/%s' % base_ref)
     if tip is None:
-        # a local refs/heads/<ref> is not accepted in its place, and neither is
-        # pull_request.base.sha: neither is evidence of the live base branch tip
         return None, 'visibility:base-ref-unresolvable'
     if not git.exists(head):
         return None, 'visibility:head-absent'
