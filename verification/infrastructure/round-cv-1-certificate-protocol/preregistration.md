@@ -84,22 +84,27 @@ live-tree assertion. The programme-level success metric is frozen here so it can
 ### Two rounds, and the boundary between them
 
 `CV-1` is the first of **two**. It supersedes `N12`, installs every `V2` object **in shadow**,
-translates every landed round into a certificate, runs the `V2` conformance corpus and the
-`V1`→`V2` differential census while `V1` remains authoritative, and — only after the census at a
-fixed head matches the adjudicated profile frozen below — turns the `V2` verifier's continuous
-integration job from shadow to **gating**. `V1` is not removed and is not made a shadow: from
-that stage on the two gate side by side, which this freeze calls **dual gating** and never calls
-"authority moved". `CV-2`, a separate round begun only from a certified `CV-1` and with act 29
-landed, retires the accumulated `V1` machinery. The boundary is drawn at deletion and nowhere
-else: shadow before gating, gating before deletion, exactly the `SI-1` → `SI-2` → `SI-3` order.
+translates every landed round into a certificate, runs the `V2` conformance corpus and the two
+`V1`→`V2` censuses while `V1` remains authoritative, and — only after both censuses at a fixed
+head match the profiles frozen below — wires `certificate_verifier.py --mode authoritative` into
+`tools/release_gate.py`, the in-repo gate that the required `Mathlib bridge` check already runs.
+From that stage `V2` can **reject a build**, with repository-controlled semantics. `V1` is not
+removed and is not made a shadow: the two gate side by side, which this freeze calls **dual
+gating**. `V2` becomes the **sole** authority only in `CV-2`, a separate round begun only from a
+certified `CV-1` and with act 29 landed, which retires the accumulated `V1` machinery and leaves
+that same authoritative call in place. The boundary is drawn at deletion and nowhere else: shadow
+before veto, veto before deletion, the `SI-1` → `SI-2` → `SI-3` order.
 
 ### What `CV-1` is not
 
 1. **It is not the retirement.** No `R7-*` block, no legacy comparison, no validator region and no
    seal record is deleted or weakened. The diff against the base **adds**, with one exception
    named in terms: the `N12` supersession, one hashed segment.
-2. **It does not move authority off `V1`.** `V1`'s every check gates at `E`, at `L` and at `A`
-   exactly as at `B`. Dual gating is a second gate, not a transfer.
+2. **It does not retire `V1` or make it a shadow.** `V1`'s every check gates at `E`, at `L`
+   and at `A` exactly as at `B`. `V2` gains the power to reject a build in this round — through
+   the release gate, from stage 5 — and becomes the sole authority only in `CV-2`. Dual gating is
+   a second gate, not a transfer. The round therefore **does** contain one small cutover wiring
+   edit, the release-gate step; what it does not contain is any removal of `V1`.
 3. **It does not retrofit.** Every historical `B`, `E`, `L`, `P`, preregistration and result note
    stays exactly as and where it is. Translation records the present; it rewrites nothing.
 4. **It decides no mathematics** and reads no manuscript for content.
@@ -122,12 +127,14 @@ else: shadow before gating, gating before deletion, exactly the `SI-1` → `SI-2
 none. It writes no seal record — not for itself, not for `GR-1`, not for `GR-2` — and no
 prospective declaration.
 
-**The seals manifest is closed by this freeze.** From `CV-1`'s landing, no round writes a new
-`V1` seal record except a round whose control plane merged before this freeze — that is act 29,
-`PRA.json`, and nothing else. `GR1.json` and `GR2.json`, owed under `V1` to "a later round that
-names them", are discharged by `V2` certificates and attestation rows for `GR-1` and `GR-2`, not
-by `V1` records. A `V1` record for a round that has a `V2` certificate would be a second
-representation of the same seal, which is the shape `SI-3` retired.
+**The migration rule for the `V1` manifest, stated exactly.** No new `V1` backfill record is
+created for `GR-1` or `GR-2`: `V2` certificates and translated attestation rows discharge those
+migration debts on the `V2` side, and a `V1` record for a round that has a `V2` certificate would
+be a second representation of the same seal, the shape `SI-3` retired. **The `V1` manifest
+remains open for exactly one already-frozen addition: `PRA.json`, written by act 29's `P`**, which
+act 29's immutable freeze requires and whose baseline authorizes exactly that addition. After act
+29's `P`, no further `V1` seal record may be introduced before `CV-2` retires `V1`. This freeze
+does not say the manifest is closed, because act 29's freeze says otherwise and predates it.
 
 **The declarations: the same narrow exception, owned here for the third time.** `§A.37` says each
 round declares its own integrity baseline. `CV-1` does **not**: `_MANIFEST_BASELINE` stays act
@@ -147,9 +154,13 @@ landing of this round is visible, `LANDED-UNATTESTED` once a canonical landing i
 `ATTESTED` once its attestation row exists — with ancestry and execution shape separate and
 reported, a canonical landing being a merge one of whose non-first parents has execution shape,
 ancestry against `_CV1_B`, this clause in its guard file and both stage-final artifacts, unique or
-fail-closed. `CV-1`'s own certificate carries `protocol: 1` for this reason: it is issued by the
-`V1` guard that certifies the round, so the `V2` verifier never certifies the round that installs
-it.
+fail-closed. `CV-1`'s own certificate carries `protocol: 1` and `origin: bootstrap-v1` for this
+reason: it is issued by the `V1` guard that certifies the round, so the `V2` verifier never
+certifies the round that installs it. **`CV-1` is the unique protocol-1 bootstrap**, and the
+corpus refuses a second certificate claiming that origin. `V2` may run authoritatively on `CV-1`'s
+own later commits once the frozen conformance suite passes — that is stage 5 — but `CV-1` remains
+identified as the bootstrap until its own post-landing attestation row exists, and `CV-2` may
+translate or close that bootstrap state if it needs to.
 
 ***
 
@@ -239,6 +250,7 @@ to the attestation row, `V2`. Fields, all required unless marked:
 | `schema` | the literal `oi-round-certificate` |
 | `protocol` | an integer; `2` for a round executed under this protocol, `1` for a round certified by the `V1` guard — every translated round, and `CV-1` itself |
 | `round` | the stem, matching the filename |
+| `origin` | one of `translated-v1` (a landed round translated by `CV-1` at the migration snapshot), `bootstrap-v1` (`CV-1` alone), `native-v2` (every round executed under this protocol); a discriminant, and the corpus refuses a second `bootstrap-v1` |
 | `shape` | one of `sealing`, `non-sealing`, `content-only`; a discriminant, never inferred from nulls |
 | `directory` | the round's directory under `verification/`, or absent for a `content-only` round with none |
 | `control_plane` | an **ordered** list of `{path, blob, merge, execution_affecting}`: the preregistration and each amendment, the `main` merge that brought each in, and whether the artifact moves the execution base; absent for `content-only` |
@@ -246,7 +258,7 @@ to the attestation row, `V2`. Fields, all required unless marked:
 | `dependencies` | a list of stems whose certificates must be accepted, each of protocol `≤` this certificate's |
 | `evidence` | a list of `{id, path, blob}`: every artifact the round certifies as immutable — its preregistration, amendments, result note, tag map, census, seal record. `id` is `<STEM>/<path relative to the round directory>`, or `seals/<STEM>.json` |
 | `contributions` | a list of `{path}`: files the round changed that later rounds may change — Lean, tools, workflow, manuscript, the guard |
-| `translation` | optional: `{from: "seal-record" \| "guard-block" \| "round-directory", pinned_at: "<D>"}`, present on every certificate `CV-1` writes for a landed round |
+| `translation` | required when `origin` is `translated-v1`, forbidden otherwise: `{from: "seal-record" \| "guard-block" \| "round-directory", migration_snapshot: "<D>"}` |
 
 Unknown keys, malformed hashes and a `content-only` certificate carrying `base` or
 `control_plane` are hard failures.
@@ -258,13 +270,23 @@ line per landed round, written at `A`. Fields:
 
 | field | content |
 |---|---|
-| `round`, `protocol` | as the certificate |
+| `round`, `protocol`, `origin` | as the certificate |
 | `kind` | `landed` or `base-only`; a `base-only` row **forbids** the topology fields, including as `null` |
-| `certificate` | the blob of `<STEM>.json` at `E` |
+| `certificate` | the blob of `<STEM>.json` at `E`; for a translated row, at the migration snapshot |
 | `base` | the mandated base |
 | `sealed_head`, `tree`, `landing` | exact `E`, `tree(E)`, exact `L` — `landed` rows only |
-| `ci` | `{exact_e: {run, head_sha, conclusion}, exact_l: {…}, main_push: {…}}`, or `"not recorded"` on a translated row |
-| `translated` | `true` on rows `CV-1` writes for landed rounds; absent otherwise |
+| `ci` | **native and bootstrap rows only**: `{exact_e: {run, head_sha, conclusion}, exact_l: {…}, main_push: {…}}`; **forbidden on a translated row**, including as `null` |
+| `migration_snapshot` | **translated rows only**: the commit the row's git-derived facts were read at, `D`; forbidden otherwise |
+
+**Two kinds of provenance, and the ledger keeps them apart.** A `translated-v1` row is written
+by `CV-1`, during its execution, at one migration snapshot, for a round that landed under `V1`:
+its `sealed_head`, `tree` and `landing` are read from git, and **no attestation commit ever
+existed for it** — the ledger must not pretend one did, which is why such a row carries no `ci`
+block and no attestation identity. A `native-v2` row is written only at that round's `A`, after
+its `L`'s `main` push is certified, and carries the run identities. `CV-1`'s own row is the
+single `bootstrap-v1` row, written at `A_CV1` with real run identities. One of `V2`'s
+preservation claims is *what actually happened*; a migration that manufactured historical `A`s
+would violate it in the act of installing it.
 
 The row is a **historical fact** durably recorded, not a proof that GitHub issued those verdicts;
 the verifier checks every git-derivable field and never queries an Actions run. A signed
@@ -297,6 +319,9 @@ Families the corpus must contain, each with at least one vector, positive contro
   `E`; a rewritten landing;
 - **ledger** — a row edited; a row removed; two rows for one round; a certificate blob unequal to
   the row's; a `landed` row missing a topology field;
+- **provenance** — a second certificate claiming `origin: bootstrap-v1`; a `translated-v1` row
+  carrying a `ci` block, or lacking `migration_snapshot`; a `native-v2` row lacking `ci`; a
+  `translated-v1` certificate lacking `translation`, or a `native-v2` one carrying it;
 - **live policy** — the declared clause count unequal to the file's; a clause lacking an owner
   round, a protocol, a schema predicate type, an activation point, an expiry condition or its
   evidence;
@@ -350,8 +375,18 @@ non-zero on any failing certificate, row, policy or vector), and `--self-test`. 
 - **`A`** — the row exists, its `certificate` blob equals the certificate at `E`, and every
   git-derivable field agrees with git.
 
-A new continuous-integration job, `Certificate verifier`, with `fetch-depth: 0`, runs `V6` at
-every event. Its mode is a stage of this round, below.
+**Where `V6` runs, and why in two places.** A new continuous-integration job, `Certificate
+verifier`, with `fetch-depth: 0`, runs `V6` in `--mode shadow` at every event, at every stage of
+this round and after it, for visibility: its report is always produced and it never gates. Veto
+power does not come from that job. **Measured against the repository's active ruleset: the
+required status contexts are `Lean kernel check`, `Mathlib bridge` and `Numerical probes`, and
+nothing else** — not even `Control-plane base check`, which is enforced procedurally — so a red
+standalone job would not by itself prevent a merge, and this freeze does not make another
+external ruleset setting load-bearing. Instead, from stage 5, `tools/release_gate.py` — the
+in-repo gate the required `Mathlib bridge` check runs — gains one step,
+`certificate-verifier`, calling `V6` with `--mode authoritative`. That is the cutover wiring edit
+this round contains, it is what gives `V2` the power to reject with repository-controlled
+semantics, and `CV-2` leaves it in place when it removes `V1`.
 
 ***
 
@@ -365,12 +400,16 @@ manifested rounds, two landed-unrecorded rounds, and sixteen content-only rounds
 `§A.37` and carry no topology.
 
 Evidence blobs are pinned **at `D`**. A result note some later round corrected forward is
-certified as it now stands, and the certificate says so with `translation.pinned_at`; this is a
-freezing of the present, not a rewriting of the past, and no artifact is edited to make it
-translate. For the twenty-seven `sealed` rounds and for `GR-1` and `GR-2`, an attestation row is
-written from the record: `base`, `sealed_head`, `landing`, `tree` derived from git, `ci`
-"not recorded", `translated: true`. For the six `base-only` rounds a `base-only` row. For the
-content-only rounds, none.
+certified as it now stands, and the certificate says so with `translation.migration_snapshot`;
+this is a freezing of the present, not a rewriting of the past, and no artifact is edited to make
+it translate. Every translated certificate carries `origin: translated-v1`. For the twenty-seven
+`sealed` rounds and for `GR-1` and `GR-2`, a `landed` attestation row is written **together with
+the certificate, by `CV-1`, at the migration snapshot**: `base`, `sealed_head`, `landing` from
+the record or the recovered history, `tree` derived from git, `origin: translated-v1`,
+`migration_snapshot: D`, and no `ci` block, because no attestation commit existed for any of
+them. For the six `base-only` rounds a `base-only` row. For the content-only rounds, none. The
+translation is one act at one snapshot; it does not simulate an `E → L → A` lifecycle those
+rounds never had.
 
 **Measured at `D`: the derivation rule is exact on every row that has topology.** For all
 twenty-seven `sealed` records, the unique merge in `D`'s reachable history whose non-first parent
@@ -463,15 +502,15 @@ they describe; guard self-reads are retired with the guard. Nothing here decides
 | 1 | `CV1-1`: `S1`, the `N12` supersession, and nothing else. Checkpoint: the guard green at the fixed head, both hashes verified, the emitted tag set equal to the base's | — |
 | 2 | `V1`, `V3`, `V4`, `V5` written; the fifty-one certificates and their attestation rows translated; the corpus written | stage 1 |
 | 3 | `V6` built; the `Certificate verifier` job added to `verify.yml` in **`--mode shadow`**; `R7-CV1` added, with its chronology, its integrity contract, the five `S1` controls, and its artifact contracts | stage 2 |
-| 4 | the shadow census `CV1-6` at this stage's head, **committed as `census.json`** | stage 3, and the corpus exact |
-| 5 | the job's mode set to **`--mode authoritative`** — dual gating | stage 4's census matches the adjudicated profile |
-| 6 | the result note and the tag map; the census **re-measured at this head** and required equal to stage 4's | stage 5 |
+| 4 | the two censuses `CV1-6a` and `CV1-6b` at this stage's head, **committed as `census.json`** | stage 3, and the corpus exact |
+| 5 | one step added to `tools/release_gate.py`: `certificate-verifier`, `V6` in **`--mode authoritative`** — dual gating; the standalone job stays in shadow | stage 4's two censuses match their frozen profiles |
+| 6 | the result note and the tag map; both censuses **re-measured at this head** and required equal to stage 4's | stage 5 |
 | — | this commit is the candidate `E` | everything above |
 
 **Durability.** Because nothing is deleted, `E` is the checkpoint: the census that licenses dual
 gating is measured at the commit that carries it, re-measured at `E`, and `CV-2` begins from a
 world in which both are in the tree. A local measurement taken before some later commit is not
-evidence and is not what `CV1-6` accepts.
+evidence and is not what `CV1-6a` and `CV1-6b` accept.
 
 Each checkpoint is run with `HEAD` fixed for the whole run, the stage committed first, and `HEAD`
 and the dirty-file count logged at the start and the end.
@@ -504,24 +543,44 @@ Each target names the artifact that decides it, and is decided only by that arti
 - **`CV1-5` — the live rules in shadow.** The evidence rule over all fifty-one certificates and
   the empty relocation ledger, and the live policy with `count: 0`, both evaluated and reported by
   the shadow job, gating nothing. Outcomes: `LIVE-RULES-SHADOWED` / `LIVE-RULES-ABSENT`.
-- **`CV1-6` — the differential census, at the stage-4 head and again at `E`.** For each of the
-  fifty-one certificates, the `V1` verdict — the block's own `R7` tag at that head, and for a
-  manifested round the keyed `U3` lifecycle and verdict from the same guard run — beside the `V2`
-  verdict on each axis it has: `evidence` for all fifty-one, `topology` for the twenty-nine
+- **`CV1-6a` — the legacy verdict census, at the stage-4 head and again at `E`.** Its domain is
+  **verdicts of pre-existing `V1` contracts and nothing wider**: for each of the fifty-one
+  certificates, the `V1` verdict — the block's own `R7` tag at that head, and for a manifested
+  round the keyed `U3` verdict from the same guard run — beside the `V2` verdict on the same
+  object where `V2` has one: `evidence` for all fifty-one, `topology` for the twenty-nine
   `landed` rows, `base` for the six `base-only` rows. And for each control: the twenty `SI-1`
   cases and the eleven `SI-2` cases re-executed, each classified `agree`, `no-analogue` (a `V1`
   lifecycle notion `V2` does not have: `LANDED-PENDING-PIN`, `seal pending`, the legacy
   inventory) or `diverge`; the `V2` corpus; and **`C-N12`**: `R7-GR2` as it stood at `B`,
   reconstructed from the base's text and executed at the census head, beside `V2`'s verdict on
   `GR2`'s certificate. The frozen profile, stated so it can fail: **every record row agrees on
-  every axis; every comparable control agrees; `C-N12` diverges — the reconstructed `N12` fails
-  its positive half, `V2` passes — and it is the only divergence.** Outcomes:
-  `CENSUS-AS-ADJUDICATED` / `CENSUS-UNEXPECTED` / `CENSUS-BROKEN`. `CENSUS-UNEXPECTED` is any
-  other divergence, or `C-N12` agreeing; it is reported, not repaired, and **stops the round
-  before stage 5**. `CENSUS-BROKEN` is a record-axis disagreement.
-- **`CV1-7` — dual gating.** The job runs `--mode authoritative` at `E`; the `V1` guard is
-  unchanged in verdict and in every existing tag; both gate. Outcomes: `DUAL-GATING` /
-  `NOT-GATING`.
+  every axis it is compared on; every comparable control agrees; `C-N12` diverges — the
+  reconstructed `N12` fails its positive half, `V2` passes — and it is the only pass/fail
+  divergence in this domain.** Outcomes: `VERDICTS-AS-ADJUDICATED` / `VERDICTS-UNEXPECTED` /
+  `VERDICTS-BROKEN`. `VERDICTS-UNEXPECTED` is any other divergence, or `C-N12` agreeing; it is
+  reported, not repaired, and **stops the round before stage 5**. `VERDICTS-BROKEN` is a
+  record-axis disagreement.
+- **`CV1-6b` — the migration representation census, at the same two heads.** One row per
+  certificate recording **what changes representation without changing its historical facts**,
+  classified in advance and never counted as "agreement":
+
+  | class | rows | what the row records |
+  |---|---|---|
+  | `TRANSCRIBED` | the 27 `sealed` and 6 `base-only` manifested rounds | seal record → certificate and row; `base`, `sealed_head`, `merge` byte-equal between the two representations |
+  | `SAME-FACTS-NEW-REPRESENTATION` | `GR-1`, `GR-2` | `V1` says `LANDED-UNRECORDED` with no record; `V2` says translated certificate plus translated `landed` row; `E`, `tree(E)`, `L` identical to what `V1` recovers, and no attestation commit claimed |
+  | `NO-V1-COMPARATOR` | the 16 content-only rounds | `V2` coverage with no `V1` lifecycle counterpart; their `V1` blocks are content contracts only, and their certificates carry no topology |
+  | `BOOTSTRAP` | `CV-1` | the unique `bootstrap-v1` certificate; no row until `A_CV1` |
+
+  The frozen profile: exactly 33 / 2 / 16 / 1 rows in those classes, every `TRANSCRIBED` value
+  byte-equal, every `SAME-FACTS-NEW-REPRESENTATION` fact equal to `V1`'s recovery. Outcomes:
+  `REPRESENTATION-AS-FROZEN` / `REPRESENTATION-UNEXPECTED`, the latter reported, not repaired,
+  and stopping the round before stage 5. This census exists so that the phrase "sole divergence"
+  in `CV1-6a` stays true once the new model is instantiated: representation differences are
+  recorded here, by name, and are not divergences.
+- **`CV1-7` — dual gating.** The release gate carries the `certificate-verifier` step in
+  `--mode authoritative` at `E`, and the gate fails when `V6` fails, demonstrated by one mutation
+  control; the standalone job is still in `--mode shadow`; the `V1` guard is unchanged in verdict
+  and in every existing tag; both gate. Outcomes: `DUAL-GATING` / `NOT-GATING`.
 - **`CV1-8` — the verdict map and the budget.** (a) The base's own guard file is run; every tag it
   emits returns the same verdict at `E`, and `E` emits exactly one tag the base does not,
   `R7-CV1`: `MAP-PRESERVED` / `MAP-MOVED`. (b) The guard at `E`, with the `R7-CV1` block removed
@@ -532,8 +591,9 @@ Each target names the artifact that decides it, and is decided only by that arti
 - **`CV1-9` — non-deletion, checked mechanically.** The execution's diff against `B` deletes no
   `R7-*` block, no clause, no seal record, no validator region text, and edits no file under
   `verification/seals/`, `verification/programmes/` or `verification/audits/`; the only edits to
-  existing files are `S1`, the `R7-CV1` block, one job in `verify.yml`, and one ledger section in
-  `verification/README.md`. Outcomes: `ADDITIVE` / `NOT-ADDITIVE`, the latter failing the round.
+  existing files are `S1`, the `R7-CV1` block, one job in `verify.yml`, one step in
+  `tools/release_gate.py`, and one ledger section in `verification/README.md`. Outcomes:
+  `ADDITIVE` / `NOT-ADDITIVE`, the latter failing the round.
 
 ***
 
@@ -547,8 +607,9 @@ Each target names the artifact that decides it, and is decided only by that arti
 | `CV1-3` | `CONFORMANCE-EXACT` | MEDIUM | the corpus is the largest object here and the one most likely to be short a family on first pass; the count is not predicted |
 | `CV1-4` | `DERIVE-EXACT` | HIGH | measured at `D`: 27 of 27 sealed, and both landed-unrecorded rounds, exact |
 | `CV1-5` | `LIVE-RULES-SHADOWED` | HIGH | both rules are trivial on a tree nothing has moved on |
-| `CV1-6` | `CENSUS-AS-ADJUDICATED`, `C-N12` the sole divergence | MEDIUM | the record rows should agree because `V2` asks less of each round than `V1` at a fixed head; the controls are where a misreading would show |
-| `CV1-7` | `DUAL-GATING` | HIGH | a job flag |
+| `CV1-6a` | `VERDICTS-AS-ADJUDICATED`, `C-N12` the sole pass/fail divergence in the legacy domain | MEDIUM | the record rows should agree because `V2` asks less of each round than `V1` at a fixed head; the controls are where a misreading would show |
+| `CV1-6b` | `REPRESENTATION-AS-FROZEN`, 33 / 2 / 16 / 1 | HIGH | the classes are read off the translation table above |
+| `CV1-7` | `DUAL-GATING` | HIGH | one gate step and one mutation control |
 | `CV1-8` | `MAP-PRESERVED`, `BUDGET-HELD`; the base emits **103** tags and `E` **104** | HIGH; the count MODERATE | measured at `D` with the stub: 104, one new |
 | `CV1-9` | `ADDITIVE` | HIGH | the diff is enumerated above |
 
@@ -570,31 +631,42 @@ segment. Act 29's certification is act 29's, and this round neither reports nor 
 
 - A target is decided only by the artifact it names: a certificate by its bytes, a verifier
   property by an executed vector, an agreement by the census.
-- `CENSUS-AS-ADJUDICATED` is **not** a claim that `V2` is correct. It is a claim that two
+- `VERDICTS-AS-ADJUDICATED` is **not** a claim that `V2` is correct. It is a claim that two
   implementations agree on the cases presented, with one divergence they were told in advance to
   have. Both could be wrong together; the frozen sentence says so.
-- `CENSUS-UNEXPECTED` **stops the round before stage 5**. The mode is not flipped over a
-  divergence this freeze did not name, whatever the argument for it.
+- `VERDICTS-UNEXPECTED` and `REPRESENTATION-UNEXPECTED` each **stop the round before stage 5**.
+  The gate step is not added over a divergence or a representation change this freeze did not
+  name, whatever the argument for it.
 - `NOT-ADDITIVE` on `CV1-9` **fails the round**: it means the round did the thing it promised
   not to do.
-- No outcome licenses any sentence that `V1` has been superseded, replaced or made a shadow.
+- No outcome licenses any sentence that `V1` has been superseded, replaced, retired or made a
+  shadow, or that `V2` is the sole authority.
 
 ## The frozen post-round sentences
 
-**`CV1-6`, `CENSUS-AS-ADJUDICATED`:** "On every one of the fifty-one certificates, and on every
-comparable control, the `V1` guard and the `V2` verifier returned the same verdict at the same
-head, and they differed on exactly one control, `C-N12`, in the direction this freeze named: the
-superseded `N12`, reconstructed from the base's text, fails its positive half on a tree that
-carries a later edit, and `V2`, which evaluates `GR-2`'s certified subject, passes. This is an
-agreement census with one adjudicated divergence and not a proof of correctness."
+**`CV1-6a`, `VERDICTS-AS-ADJUDICATED`:** "Over the verdicts of every pre-existing `V1` contract
+compared, on every one of the fifty-one certificates and on every comparable control, the `V1`
+guard and the `V2` verifier returned the same verdict at the same head, and they differed on
+exactly one control, `C-N12`, in the direction this freeze named: the superseded `N12`,
+reconstructed from the base's text, fails its positive half on a tree that carries a later edit,
+and `V2`, which evaluates `GR-2`'s certified subject, passes. Representation changes are recorded
+separately and are not counted here. This is an agreement census with one adjudicated divergence
+and not a proof of correctness."
 
-**`CV1-6`, `CENSUS-UNEXPECTED`:** "The two implementations disagreed on the rows named below,
+**`CV1-6a`, `VERDICTS-UNEXPECTED`:** "The two implementations disagreed on the rows named below,
 which this freeze did not name. Both verdicts are recorded. The round stopped before dual gating
 and changed neither implementation to remove the disagreement."
 
-**`CV1-7`, `DUAL-GATING`:** "From this head the `V2` verifier gates every event alongside the `V1`
-guard. `V1` gates exactly as it did at the base, on every tag it carried there. Authority has not
-moved; a second gate has been added, and `CV-2` is where the first is retired."
+**`CV1-6b`, `REPRESENTATION-AS-FROZEN`:** "Thirty-three manifested rounds were transcribed with
+every value byte-equal; `GR-1` and `GR-2` changed representation from `LANDED-UNRECORDED` under
+`V1` to translated certificates and rows under `V2` with the same recovered `E`, `tree(E)` and
+`L` and no attestation commit claimed; sixteen content-only rounds received certificates with no
+`V1` lifecycle counterpart; `CV-1` is the unique bootstrap. No historical fact changed."
+
+**`CV1-7`, `DUAL-GATING`:** "From this head the release gate rejects a build the `V2` verifier
+rejects, alongside the `V1` guard, which gates exactly as it did at the base on every tag it
+carried there. `V2` can veto; `V1` is not retired and not a shadow; `V2` becomes the sole
+authority only in `CV-2`."
 
 ***
 
@@ -676,6 +748,16 @@ block's own names is reported with an empty evidence list, never filled in from 
 **`H12` — the token `CV1`/`CV2` at `D`.** Both are free at `D` as whole words and as every prefix
 form checked below.
 
+**`H13` — manufactured history.** A translation that wrote a `ci` block, an attestation identity
+or an `A` for a round that landed under `V1` would be recording something that did not happen.
+Translated rows are structurally unable to carry those fields, the corpus carries the vectors, and
+`CV1-6b` records the representation change by name.
+
+**`H14` — a gate that does not gate.** A standalone job is not a required status context under
+the repository's ruleset, so "the job is red" is not "the merge is blocked". The authoritative
+call lives in the release gate for that reason, and `CV1-7`'s mutation control demonstrates that
+the gate fails when `V6` fails.
+
 ***
 
 ## Definition budget
@@ -715,7 +797,9 @@ Evidence inventory at `D`: 62 preregistrations, 16 amendments, 53 result notes, 
 
 - `verification/lean/edge_rigidity_probe.py` — `S1`; the `R7-CV1` block appended after
   `# ---- R7-GR2 ends.`; nothing else.
-- `.github/workflows/verify.yml` — one job added.
+- `.github/workflows/verify.yml` — one job added, in shadow.
+- `tools/release_gate.py` — one step added at stage 5, `certificate-verifier`, in authoritative
+  mode; nothing else in the gate changes.
 - `verification/README.md` — one ledger section appended, in the form `SI-1`'s, `SI-2`'s and
   `SI-3`'s take. No live contract pins that file's blob at `D`; three blocks read it for
   sentences, none of which this section touches.
@@ -727,7 +811,7 @@ Evidence inventory at `D`: 62 preregistrations, 16 amendments, 53 result notes, 
 
 ### Files this round reads and MUST NOT write
 
-`AGENTS.md`; `verification/ROADMAP.md`; `tools/release_gate.py`; every file under
+`AGENTS.md`; `verification/ROADMAP.md`; every file under
 `verification/seals/`, `verification/programmes/` and `verification/audits/`; every `.lean` file;
 every file under `papers/` and `book/`; the two declaration lines. The guard checks each
 mechanically against the execution's diff.
@@ -813,7 +897,10 @@ frozen-blob: .github/workflows/verify.yml d0040de87341445b0d5c5928e34002be190212
 7. **Non-deletion**, `CV1-9`, against the execution's diff.
 8. **The verifier is stem-free**: no round stem in `tools/certificate_verifier.py`.
 9. **The corpus is exact**: the executed vector set equals the corpus, at every build.
-10. **The census** is committed and, at `E`, equal to the stage-4 census.
+10. **Both censuses** are committed and, at `E`, equal to the stage-4 censuses.
+14. **Provenance**: exactly one certificate carries `origin: bootstrap-v1` and it is `CV1`'s;
+    every translated row carries `migration_snapshot` and no `ci`; from stage 5 the release gate
+    carries the `certificate-verifier` step and the standalone job is still in shadow.
 11. **The budget and the verdict map**, `CV1-8`, lifecycle-scoped exactly as `GR-2`'s.
 12. **The artifact contracts**, `result.md`, `census.json`, `cv1-tagmap.json`, at their blobs at
     `E` after landing and on the live tree only while executing.
@@ -830,11 +917,12 @@ frozen-blob: .github/workflows/verify.yml d0040de87341445b0d5c5928e34002be190212
   Full continuous integration passes again on exact `L` before the pull request merges, and the
   resulting `main` push run is green before anything else lands.
 - **`A`** is a pull request from certified `main` carrying **one commit whose diff is exactly one
-  appended line** of `attestations.jsonl`: `CV1`'s row, `protocol: 1`, `kind: landed`, with the
-  certificate blob at `E`, `base`, `sealed_head`, `tree`, `landing`, and the three run identities
-  with their conclusions. `V6` in authoritative mode validates the row against git on `A`'s own
-  build; `R7-CV1` moves to `ATTESTED` on it. `A` merges only after that build is green, and
-  nothing else lands between `L` and `A`.
+  appended line** of `attestations.jsonl`: `CV1`'s row, `protocol: 1`, `origin: bootstrap-v1`,
+  `kind: landed`, with the certificate blob at `E`, `base`, `sealed_head`, `tree`, `landing`, and
+  the three run identities with their conclusions — the only `bootstrap-v1` row the ledger will
+  ever carry. `V6`, through the release gate, validates the row against git on `A`'s own build;
+  `R7-CV1` moves to `ATTESTED` on it. `A` merges only after that build is green, and nothing else
+  lands between `L` and `A`.
 
 ***
 
@@ -844,7 +932,7 @@ The execution begins only from the certified merge of this control plane and fro
 and its first act is to verify this file's blob at that base. It absorbs no later `main` before
 `E` is certified. A divergence between this freeze and what the execution measures is **recorded
 in the result note**, never repaired into agreement by editing this file. Stage 5 is not entered
-over a `CENSUS-UNEXPECTED`.
+over a `VERDICTS-UNEXPECTED` or a `REPRESENTATION-UNEXPECTED`.
 
 ## Points at which this freeze chose a reading, recorded rather than resolved
 
@@ -852,13 +940,17 @@ over a `CENSUS-UNEXPECTED`.
    The alternative — three rounds on `SI-1`/`SI-2`/`SI-3`'s exact shape — was rejected because
    `V2` is a separate job and not a replacement call site, so "authority moves" has no cutover
    edit to make; what it has is a mode flag, gated on the census inside one round.
-2. **Dual gating, not shadowing `V1`.** Turning `V1`'s fifty-one blocks into shadows would edit
-   each of them; the retirement deletes them instead. The word "authority" is reserved for `CV-2`.
+2. **Dual gating through the release gate, not shadowing `V1`.** Turning `V1`'s fifty-one
+   blocks into shadows would edit each of them; the retirement deletes them instead. `V2`'s veto
+   is wired into the in-repo gate because the repository's ruleset requires only three status
+   contexts and this freeze declines to make a fourth external setting load-bearing. "Sole
+   authority" is reserved for `CV-2`.
 3. **Evidence pinned at `D`, not at each round's `E`.** Result notes have been corrected forward
    since landing, legitimately; certifying the present state is the honest translation, and the
    certificate records it.
-4. **The seals manifest closed, `GR1.json`/`GR2.json` discharged by certificates.** A `V1` record
-   for a round that has a `V2` certificate would be the double representation `SI-3` retired.
+4. **No `V1` backfill for `GR-1`/`GR-2`; the manifest open for `PRA.json` alone.** A `V1` record
+   for a round that has a `V2` certificate would be the double representation `SI-3` retired;
+   act 29's frozen addition is not this freeze's to close.
 5. **`AGENTS.md` untouched.** The protocol text changes when the protocol changes, in `CV-2`.
 6. **`PRA` outside `V2`.** A round in flight under `V1` is `V1`'s; act 29 lands between the two
    rounds and is translated by the second.
