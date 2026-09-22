@@ -62,8 +62,10 @@ The third was committed by the round that repaired the first two, in the commit 
 negative suite exhaustive; the fourth and fifth were committed by both repair rounds in the same
 contract, and would have turned `main` red at act 29's `P` — the very landing the sequence below
 requires; the sixth is the same fixture-shaped defect as the third, in the other repair round,
-and was found only because the fourth was measured rather than merely repaired. That is the
-evidence that the defect is architectural and not a lapse:
+and was found only because the fourth was measured rather than merely repaired. Six
+manifestations of one abstraction failure — declaration scope, pin scope, `N12`, two seals-tree
+scopes, `F11` — in two rounds whose purpose was to repair it. That is the evidence that the defect
+is architectural and not a lapse:
 the abstraction — a historical round expressed as executable code that runs at every later head —
 invites the defect at every extension point, and a repair written in the same abstraction is
 another extension point. Run 35694203310 is preserved as the falsifier: on the unchanged act 29
@@ -338,6 +340,16 @@ half to the subject the contract itself now uses:
 `_gr1_fixtures()` runs at module level after `R7-GR1`'s lifecycle branch, so `_GR1_E` and
 `_gr1_pin_l` are bound whenever the non-`EXECUTION` arm is evaluated.
 
+**The proposition `S4` preserves, stated in lifecycle terms and not as "fix `F11`".** The
+non-vacuity control tests the **authoritative lifecycle-scoped subject** of the contract it
+guards: the live tree while `GR-1` is `EXECUTION`, and `GR-1`'s own recovered `E` and `L` after
+landing — never an arbitrary later `HEAD`. Its positive fixture is that genuine historical
+subject, and its two mutants — act 28's base tree, and a foreign repository — must still fail.
+A replacement that reached any live path outside `EXECUTION`, under this helper or another, would
+be `N12` again and fails control 2 on the synthetic successor. The same proposition, once, for all
+four supersessions: **a historical contract or control consumes its explicitly resolved
+lifecycle subject; substituting the current tree is the failing case.**
+
 **The controls, mandatory, for each of `S2`, `S3` and `S4`:**
 
 1. **Pinned and unique.** Each superseded line extracted from the base's text, hashed, equal to
@@ -361,7 +373,7 @@ committed locally and the guard run with the git and pull-request environment sc
 | the defect demonstrated | a later round's authorized seal record: `verification/seals/ZZZ.json`, `base-only`, and `'ZZZ'` added to `_MANIFEST_BASELINE['authorized']`; nothing else | `FAILURE`, 103 verdict lines, exactly two red tags: `R7-GR1` on `seals-tree-integrity` **and** `fixture:F11`; `R7-GR2` on `seals-tree-integrity` **and** `N12`. Every `SI` block green: the addition is authorized and `U5` admits it |
 | the repair, first pass | the same, plus `S1`, `S2`, `S3` and a stub `R7-CV1` block | 104 lines, one red tag: `R7-GR2` green, 63 with no failure; `R7-GR1`'s `seals-tree-integrity` green and **`F11` still red** — which is how the sixth manifestation was found |
 | the repair, `S1`–`S4` | the same, plus `S4` | **`ALL CHECKS PASS`**, 104 lines, no failure: `R7-GR1` 86 checks with no failure and `R7-GR2` 63 with no failure, both `LANDED-UNRECORDED`, on a tree carrying a later round's authorized seal record |
-| the trip inventory | plain `D` plus `S1`–`S4` and the stub | **`ALL CHECKS PASS`**, 104 verdict lines, exactly one tag new, `R7-GR1` 86 with no failure, `R7-GR2` 63 with no failure: **no live `V1` contract is tripped by the four supersessions and a new block** |
+| the trip inventory | plain `D` plus **exactly** the mock patch: the four replacements as printed above, and `check('R7-CV1', True, …)` appended after `# ---- R7-GR2 ends.` as a stub block; no seal record, no declaration change | **`ALL CHECKS PASS`**, 104 verdict lines = the 103 tags `D` emits, every verdict unchanged, plus exactly `R7-CV1`; `R7-GR1` 86 with no failure, `R7-GR2` 63 with no failure: **no live `V1` contract is tripped by the four supersessions and a new block** |
 
 The first row is the measured falsifier of manifestations 4 and 5: two contracts that pass on
 every tree today and fail on the first tree any later round adds a record to. The second row is
@@ -475,11 +487,14 @@ Families the corpus must contain, each with at least one vector, positive contro
   evidence;
 - **vacuity** — a verifier that executes fewer vectors than the corpus, or the same count with one
   id substituted;
-- **the historical-subject rule** — a negative control that consumes the live file where its
-  contract consumes a certified historical subject; the correct verifier evaluates the certified
-  subject. This is `N12`'s class, promoted to a vector, and it is the one every future negative
-  control is checked against;
-- **every preregistered `V1`→`V2` divergence**, each as its own vector: `N12`.
+- **the historical-subject rule** — a historical contract or control that consumes the current
+  tree where its contract consumes an explicitly resolved lifecycle subject; the correct
+  verifier evaluates the certified subject, and substituting the current tree fails. **One
+  vector per manifestation, six**: the declaration scope, the pin scope, `N12`, the two
+  seals-tree statements and `F11` — the permanent record, in the corpus, of the abstraction
+  failure this round replaces, and the family every future negative control is checked against;
+- **every preregistered `V1`→`V2` divergence**, each as its own vector: `C-S1`, `C-S2`, `C-S3`,
+  `C-S4`.
 
 The count is **measured, not predicted**; the rule that every family is represented governs.
 
@@ -721,15 +736,30 @@ Each target names the artifact that decides it, and is decided only by that arti
   `landed` rows, `base` for the six `base-only` rows. And for each control: the twenty `SI-1`
   cases and the eleven `SI-2` cases re-executed, each classified `agree`, `no-analogue` (a `V1`
   lifecycle notion `V2` does not have: `LANDED-PENDING-PIN`, `seal pending`, the legacy
-  inventory) or `diverge`; the `V2` corpus; and **`C-N12`**: `R7-GR2` as it stood at `B`,
-  reconstructed from the base's text and executed at the census head, beside `V2`'s verdict on
-  `GR2`'s certificate. The frozen profile, stated so it can fail: **every record row agrees on
-  every axis it is compared on; every comparable control agrees; `C-N12` diverges — the
-  reconstructed `N12` fails its positive half, `V2` passes — and it is the only pass/fail
-  divergence in this domain.** Outcomes: `VERDICTS-AS-ADJUDICATED` / `VERDICTS-UNEXPECTED` /
-  `VERDICTS-BROKEN`. `VERDICTS-UNEXPECTED` is any other divergence, or `C-N12` agreeing; it is
-  reported, not repaired, and **stops the round before stage 5**. `VERDICTS-BROKEN` is a
-  record-axis disagreement.
+  inventory) or `diverge`; the `V2` corpus; and **the four supersession controls**, one per
+  supersession, each executing the superseded segment reconstructed from the base's text beside
+  its replacement and beside `V2`'s verdict on the certificate of the round that owns it:
+
+  | control | subject tree | superseded | replacement | `V2` |
+  |---|---|---|---|---|
+  | `C-S1` | the census head itself, whose guard carries `CV-1`'s edits outside `R7-GR2` | `N12` fails its positive half | passes | `GR2` passes |
+  | `C-S2` | a synthetic successor of the census head carrying a later round's authorized seal record, `GR-1`'s history intact | `R7-GR1` `seals-tree-integrity` fails | passes | `GR1` passes |
+  | `C-S3` | the same, `GR-2`'s history intact | `R7-GR2` `seals-tree-integrity` fails | passes | `GR2` passes |
+  | `C-S4` | the same | `F11` fails its positive half | passes | `GR1` passes |
+
+  On the census head itself `C-S2`, `C-S3` and `C-S4` **agree** — `CV-1` adds no seal record, so
+  the live seals tree still equals both bases' — and that agreement is recorded as such; their
+  divergence is a successor-state behaviour, which is why each is measured on the synthetic
+  successor and preregistered here rather than left to appear later as unexpected. The frozen
+  profile, stated so it can fail: **every record row agrees on every axis it is compared on;
+  every comparable control agrees; the four supersession controls diverge, each in the direction
+  the table names, and they are the only pass/fail divergences in this domain.** This is a
+  successor-behaviour census; the fixed-`D` verdict map, `CV1-8`(a), is the separate statement
+  that no inherited tag changes verdict at `E`, and both are required. Outcomes:
+  `VERDICTS-AS-ADJUDICATED` / `VERDICTS-UNEXPECTED` / `VERDICTS-BROKEN`. `VERDICTS-UNEXPECTED`
+  is any other divergence, or any of the four agreeing on its named subject tree; it is reported,
+  not repaired, and **stops the round before stage 5**. `VERDICTS-BROKEN` is a record-axis
+  disagreement.
 - **`CV1-6b` — the migration representation census, at the same two heads.** One row per
   certificate recording **what changes representation without changing its historical facts**,
   classified in advance and never counted as "agreement":
@@ -745,9 +775,9 @@ Each target names the artifact that decides it, and is decided only by that arti
   The frozen profile: exactly 33 / 2 / 16 / 1 / 1 rows in those classes, every `TRANSCRIBED`
   value byte-equal, every `SAME-FACTS-NEW-REPRESENTATION` fact equal to `V1`'s recovery. Outcomes:
   `REPRESENTATION-AS-FROZEN` / `REPRESENTATION-UNEXPECTED`, the latter reported, not repaired,
-  and stopping the round before stage 5. This census exists so that the phrase "sole divergence"
-  in `CV1-6a` stays true once the new model is instantiated: representation differences are
-  recorded here, by name, and are not divergences.
+  and stopping the round before stage 5. This census exists so that `CV1-6a`'s profile — the four
+  named divergences and no other — stays true once the new model is instantiated:
+  representation differences are recorded here, by name, and are not divergences.
 - **`CV1-7` — dual gating.** The release gate carries the `certificate-verifier` step in
   `--mode authoritative` at `E`, and the gate fails when `V6` fails, demonstrated by one mutation
   control; the standalone job is still in `--mode shadow`; the `V1` guard is unchanged in verdict
@@ -766,6 +796,16 @@ Each target names the artifact that decides it, and is decided only by that arti
   existing files are `S1`, `S2`, `S3`, `S4`, the `R7-CV1` block, one job in `verify.yml`, one step in
   `tools/release_gate.py`, and one ledger section in `verification/README.md`. Outcomes:
   `ADDITIVE` / `NOT-ADDITIVE`, the latter failing the round.
+- **`CV1-10` — the act 29 bridge, simulated.** On one synthetic repository built with
+  `commit-tree`: a `V1`-shaped sealing round in flight under a prospective declaration, with
+  `V7` naming exactly its stem, is driven through its landing merge, then its pin commit adding
+  exactly its seal record and removing the declaration, then a translation that writes its
+  certificate and row and empties `V7`. At each of the five steps the `V2` verifier's report is
+  required to be exactly what the bridge table names on its side — `LEGACY-V1-OWNED` with no
+  validity claim through step 4, a translated certificate and an empty set at step 5 — and to
+  gate nothing about the stem before step 5; and the four supersession replacements, exercised
+  on the same repository at step 4, pass while their superseded segments fail. Outcomes:
+  `BRIDGE-SIMULATED` / `BRIDGE-BROKEN`, the latter naming the step.
 
 ***
 
@@ -779,11 +819,12 @@ Each target names the artifact that decides it, and is decided only by that arti
 | `CV1-3` | `CONFORMANCE-EXACT` | MEDIUM | the corpus is the largest object here and the one most likely to be short a family on first pass; the count is not predicted |
 | `CV1-4` | `DERIVE-EXACT` | HIGH | measured at `D`: 27 of 27 sealed, and both landed-unrecorded rounds, exact |
 | `CV1-5` | `LIVE-RULES-SHADOWED` | HIGH | both rules are trivial on a tree nothing has moved on |
-| `CV1-6a` | `VERDICTS-AS-ADJUDICATED`, `C-N12` the sole pass/fail divergence in the legacy domain | MEDIUM | the record rows should agree because `V2` asks less of each round than `V1` at a fixed head; the controls are where a misreading would show |
+| `CV1-6a` | `VERDICTS-AS-ADJUDICATED`: `C-S1`–`C-S4` diverge as named, nothing else does | MEDIUM | the record rows should agree because `V2` asks less of each round than `V1` at a fixed head; the four controls were each measured at `D` in the direction named; the remaining controls are where a misreading would show |
 | `CV1-6b` | `REPRESENTATION-AS-FROZEN`, 33 / 2 / 16 / 1 / 1 | HIGH | the classes are read off the translation table above and `V7` |
 | `CV1-7` | `DUAL-GATING` | HIGH | one gate step and one mutation control |
 | `CV1-8` | `MAP-PRESERVED`, `BUDGET-HELD`; the base emits **103** tags and `E` **104** | HIGH; the count MODERATE | measured at `D` with the stub: 104, one new |
 | `CV1-9` | `ADDITIVE` | HIGH | the diff is enumerated above |
+| `CV1-10` | `BRIDGE-SIMULATED` | MEDIUM | steps 1–4 are `V7`'s definition and were measured at `D` for the `V1` side; step 5 is the first exercise of a translation that empties the set |
 
 One reading of what the repairs imply, not a target: with `CV-1` landed, a fresh `pull_request`
 build of act 29's **unchanged** head against `main` has `R7-GR2` green in `LANDED-UNRECORDED`,
@@ -819,11 +860,13 @@ segment. Act 29's certification is act 29's, and this round neither reports nor 
 **`CV1-6a`, `VERDICTS-AS-ADJUDICATED`:** "Over the verdicts of every pre-existing `V1` contract
 compared, on every one of the fifty-one certificates and on every comparable control, the `V1`
 guard and the `V2` verifier returned the same verdict at the same head, and they differed on
-exactly one control, `C-N12`, in the direction this freeze named: the superseded `N12`,
-reconstructed from the base's text, fails its positive half on a tree that carries a later edit,
-and `V2`, which evaluates `GR-2`'s certified subject, passes. Representation changes are recorded
-separately and are not counted here. This is an agreement census with one adjudicated divergence
-and not a proof of correctness."
+exactly the four supersession controls, each in the direction this freeze named: each superseded
+segment, reconstructed from the base's text, fails on the successor tree named for it — a later
+edit to the guard for `N12`, a later round's seal record for the two seals-tree statements and
+for `F11` — and its replacement, which reads the round's own recovered history, passes, as does
+`V2`, which evaluates the round's certified subject. Representation changes are recorded
+separately and are not counted here. This is an agreement census with four adjudicated
+divergences and not a proof of correctness."
 
 **`CV1-6a`, `VERDICTS-UNEXPECTED`:** "The two implementations disagreed on the rows named below,
 which this freeze did not name. Both verdicts are recorded. The round stopped before dual gating
@@ -866,12 +909,19 @@ Act 29 is a `V1` sealing round: its frozen landing is `E` → `L` → `P` with `
 `CV-2` has removed the `V1` machinery, and its freeze cannot be reinterpreted to land any other
 way. Therefore, in order:
 
-1. `CV-1` lands and its `main` push run is certified; `A_CV1` is appended and certified.
-2. `#705` is closed and reopened, unchanged; the expectation is the required jobs green with
-   `R7-GR2` green in `LANDED-UNRECORDED`, and `V2` in `--mode authoritative` classifying `PRA` as
-   `LEGACY-V1-OWNED` from `V7`, making no validity claim and gating nothing about it.
-3. Act 29 lands under `V1`: `L`, `P` writing `PRA.json`, certified.
-4. `CV-2`'s control plane is written from that world, translating `PRA` and retiring `V1`.
+**The act 29 bridge, frozen as the acceptance sequence `CV-1` exists to make possible**, with the
+classification each side must report at each step:
+
+| step | event | `V1` reports | `V2` reports |
+|---|---|---|---|
+| 1 | `CV-1` lands; its `main` push run is certified; `A_CV1` is appended and certified | `R7-CV1` `ATTESTED` | `CV1` the unique bootstrap; `PRA` `LEGACY-V1-OWNED` |
+| 2 | `#705` closed and reopened, unchanged at `bf7e96fef8135525e752fb0daba0a082cf10ed44`, against that `main` | every required job green; `R7-GR1` and `R7-GR2` green in `LANDED-UNRECORDED`; `R7-PRA` `EXECUTION` | exactly `LEGACY-V1-OWNED(PRA)`, no validity claim, gating nothing about it |
+| 3 | act 29's `L` | `R7-PRA` `LANDED-PENDING-PIN` | still exactly `LEGACY-V1-OWNED(PRA)` |
+| 4 | act 29's `P`, adding exactly `PRA.json` and removing its prospective declaration | `R7-PRA` `ARCHIVED`; `R7-GR1`, `R7-GR2` green, their seals-tree contracts reading their own `E` and `L` | still exactly `LEGACY-V1-OWNED(PRA)`; no native-`V2` certification claim for `PRA` |
+| 5 | `CV-2` translates `PRA` and reduces the permitted legacy-owned set from `{PRA}` to `{}` | `V1` retired | `PRA` a translated certificate with its row; `V7` empty, `count: 0` |
+
+Steps 2–5 are not outcomes of this round; they are what its objects are for, and `CV1-10` below
+exercises the whole sequence on a synthetic repository before any of it happens on the real one.
 
 `PRA` stays under `V1`'s sole authority throughout `CV-1` and through its own `P`; `V2`
 classifies it `LEGACY-V1-OWNED` from the one data entry in `V7` and gates nothing about it. A
