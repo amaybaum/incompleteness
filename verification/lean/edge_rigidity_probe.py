@@ -31775,9 +31775,89 @@ _GR1_STATE, _GR1_CHRON_OK, _GR1_CHRON_WHY = _gr1_chronology(_GR1_B)
 _gr1_checks['chronology'] = bool(_GR1_CHRON_OK)
 _gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)
 _gr1_checks['seals-integrity-u5'] = bool(_si2_integrity_ok())
-_gr1_checks['prospective-untouched'] = _MANIFEST_PROSPECTIVE == {}
-_gr1_checks['baseline-untouched'] = _MANIFEST_BASELINE == {
-    'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf', 'authorized': ('PFR',)}
+# ---- GR-2 (S1): THE DECLARATION CONTRACT, IN TWO REGIMES. The superseded form compared this
+# module's own _MANIFEST_PROSPECTIVE and _MANIFEST_BASELINE against this round's execution-time
+# values in EVERY lifecycle state, so it asserted of every later tree a condition only this
+# round's own commits can satisfy: A.37 as amended by SI3-6 requires each round to declare its
+# own baseline, and a sealing round to carry its mandated base in the prospective declaration
+# while it executes. This round's freeze scopes the guarantee to its own commits -- "at every
+# commit of the round up to E", "the seals tree equals the first parent's tree" at L, and after
+# landing the closed-round rule -- and the comparison now carries that scope. While this round is
+# EXECUTION the values are read from the live module, exactly as before; in every other state they
+# are read from the guard file at this round's RECOVERED E and L, so a successor's own declaration
+# is not this round's to answer for and a MUTATED HISTORY still fails. Fail-closed throughout: an
+# unrecoverable revision, a source that does not parse, a name assigned twice and a value that is
+# not a literal each fail rather than skip.
+_GR1_DECL_NAMES = ('_MANIFEST_PROSPECTIVE', '_MANIFEST_BASELINE')
+_GR1_DECL_FROZEN = {
+    '_MANIFEST_PROSPECTIVE': {},
+    '_MANIFEST_BASELINE': {'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf',
+                           'authorized': ('PFR',)},
+}
+
+
+def _gr1_decls(rev, cwd=None):
+    """The two declaration values as the guard file at `rev` carries them, read from git and
+    parsed from that historical source -- never from this process's own globals.
+
+    Module-level assignments only, so a quoted occurrence elsewhere in the file is not a
+    declaration. Returns None when git could not answer, when the source does not parse, when
+    either name is assigned twice (refusing rather than choosing an assignment), or when either
+    value is not a literal -- and every caller treats None as a failure."""
+    import ast as _ast
+    src = _gr1_git('show', '%s:%s' % (rev, _GR1_GUARD_PATH), cwd=cwd)
+    if src is None:
+        return None
+    try:
+        mod = _ast.parse(src.decode('utf-8', 'replace'))
+    except (SyntaxError, ValueError):
+        return None
+    out = {}
+    for node in mod.body:
+        if not isinstance(node, _ast.Assign):
+            continue
+        for tgt in node.targets:
+            if not isinstance(tgt, _ast.Name) or tgt.id not in _GR1_DECL_NAMES:
+                continue
+            if tgt.id in out:
+                return None
+            try:
+                out[tgt.id] = _ast.literal_eval(node.value)
+            except (ValueError, SyntaxError):
+                return None
+    return out if len(out) == len(_GR1_DECL_NAMES) else None
+
+
+def _gr1_decl_verdicts(state, e, l, live, cwd=None):
+    """{'prospective-untouched': bool, 'baseline-untouched': bool}, in the two regimes.
+
+    While the round is EXECUTION the values are read from `live`, the running module's own
+    declarations, exactly as the superseded statements did. In every other state they are read
+    from the guard file at the round's recovered `e` and `l` and required to equal the frozen
+    table at BOTH; an unrecoverable `e` or `l`, or a read that fails for any reason, fails
+    closed. A missing name never equals a frozen value, so it fails closed as well."""
+    frozen = _GR1_DECL_FROZEN
+    if state == 'EXECUTION':
+        ok = dict((n, (live or {}).get(n) == frozen[n]) for n in _GR1_DECL_NAMES)
+    else:
+        at = [(None if r is None else _gr1_decls(r, cwd=cwd)) for r in (e, l)]
+        ok = dict((n, all(d is not None and d.get(n) == frozen[n] for d in at))
+                  for n in _GR1_DECL_NAMES)
+    return {'prospective-untouched': ok['_MANIFEST_PROSPECTIVE'],
+            'baseline-untouched': ok['_MANIFEST_BASELINE']}
+
+
+if _GR1_STATE == 'EXECUTION':
+    _gr1_decl_e = _gr1_decl_l = None
+else:
+    _gr1_decl_cands = _gr1_landings(
+        _GR1_B, [t for t, _w in (_rbr_archive_visibility_targets(tag='R7-GR1') or [])]) or []
+    _gr1_decl_l = _gr1_decl_cands[0][0] if _gr1_decl_cands else None
+    _gr1_decl_e = _gr1_decl_cands[0][1] if _gr1_decl_cands else None
+_gr1_checks.update(_gr1_decl_verdicts(
+    _GR1_STATE, _gr1_decl_e, _gr1_decl_l,
+    {'_MANIFEST_PROSPECTIVE': _MANIFEST_PROSPECTIVE,
+     '_MANIFEST_BASELINE': _MANIFEST_BASELINE}))
 _gr1_checks['no-own-record'] = 'GR1' not in (_si1_load()[0] or {})
 _gr1_checks['no-legacy-shaped-name'] = not _re.search(
     r'(?m)^_GR1_(BASE|SEALED_HEAD|MERGE)\s*=', _GR1_SELF)
