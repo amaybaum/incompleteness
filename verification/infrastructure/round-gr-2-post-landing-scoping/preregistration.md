@@ -8,8 +8,10 @@ whatever tree the guard later finds.
 - **`S2`** — the `landed-pin:` family, which asserts six pinned blobs on the current tree in every
   state after landing, three of them outside the live-tree scope `GR-1`'s own freeze fixes.
 
-Both keep their assertions and move them to the history that can satisfy them. Nothing else in
-`R7-GR1` changes: its chronology, its owned-region check, its landed-artifact family, its
+The common question is what remains a **live-tree obligation after the originating round has
+landed**: `S1` corrects the declaration scope imposed on later trees, `S2` corrects which pinned
+artifacts stay live and which become historical-only. Both keep their assertions and move them to
+the history that can satisfy them. Nothing else in `R7-GR1` changes: its chronology, its owned-region check, its landed-artifact family, its
 differential suite, its budget, its seals contract and its check message stand. No manuscript, no
 Lean file, no ROADMAP row, no census entry, no seal record.
 
@@ -321,8 +323,8 @@ measures the composition rather than inferring it.
    `verification/lean/edge_rigidity_probe.py`.
 2. `R7-GR2`, a new guard block, bounded by markers assembled from pieces so that the bounds are
    not themselves occurrences of the markers.
-3. `verification/infrastructure/round-gr-2-declaration-scoping/result.md`.
-4. `verification/infrastructure/round-gr-2-declaration-scoping/gr2-tagmap.json`.
+3. `verification/infrastructure/round-gr-2-post-landing-scoping/result.md`.
+4. `verification/infrastructure/round-gr-2-post-landing-scoping/gr2-tagmap.json`.
 
 Nothing else. No Lean file, no manuscript, no ROADMAP row, no census entry, no seal record, and no
 edit to any of the six pinned paths — including `AGENTS.md`, whose live pin this round retires but
@@ -494,7 +496,7 @@ re-pinned here, since this round leaves those values in force and edits none of 
 
 ### Name freedom, at `D`
 
-`R7-GR2`, `_GR2`, `round-gr-2`, `declaration-scoping`, `gr2_` and `gr2-tagmap` each return nothing
+`R7-GR2`, `_GR2`, `round-gr-2`, `post-landing-scoping`, `gr2_` and `gr2-tagmap` each return nothing
 at `D`. The bare word `GR2` returns exactly two files, as hazard 6 records.
 
 ***
@@ -509,7 +511,7 @@ frozen-blob: verification/lean/edge_rigidity_probe.py 9c3a1b6aea01a691d0f8299672
 {"id": "d1-tag-free", "scope": "D", "check": "git grep -l -- 'R7-GR2' $D", "expect": "empty"}
 {"id": "d1-stem-free", "scope": "D", "check": "git grep -l -- '_GR2' $D", "expect": "empty"}
 {"id": "d1-dir-free", "scope": "D", "check": "git grep -l -- 'round-gr-2' $D", "expect": "empty"}
-{"id": "d1-dir-suffix-free", "scope": "D", "check": "git grep -l -- 'declaration-scoping' $D", "expect": "empty"}
+{"id": "d1-dir-suffix-free", "scope": "D", "check": "git grep -l -- 'post-landing-scoping' $D", "expect": "empty"}
 {"id": "d1-helper-prefix-free", "scope": "D", "check": "git grep -l -- 'gr2_' $D", "expect": "empty"}
 {"id": "d1-tagmap-free", "scope": "D", "check": "git grep -l -- 'gr2-tagmap' $D", "expect": "empty"}
 {"id": "d1-bare-word-known", "scope": "D", "check": "test \"$(git grep -l -w -- 'GR2' $D | sed 's|^[^:]*:||' | sort | tr '\\n' ',')\" = 'verification/infrastructure/round-gr-1-roadmap-entry-scoping/preregistration.md,verification/lean/edge_rigidity_probe.py,'", "expect": "exit0"}
@@ -520,7 +522,7 @@ frozen-blob: verification/lean/edge_rigidity_probe.py 9c3a1b6aea01a691d0f8299672
 {"id": "db3-seals-tree", "scope": "D->B", "check": "test \"$(git rev-parse $REF:verification/seals)\" = 92e0956ad6b187fddf77068f33c66e69a012f074", "expect": "exit0"}
 # row 4: no execution object at B; the names occur in this file, so the guard and the tree are read directly and never through git grep
 {"id": "b4-guard-clean", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -e 'R7-GR2' -e '_GR2' -e '_gr2_'", "expect": "empty"}
-{"id": "b4-dir-control-plane-only", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/infrastructure/round-gr-2-declaration-scoping/ | grep -v -e '/preregistration.md$'", "expect": "empty"}
+{"id": "b4-dir-control-plane-only", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/infrastructure/round-gr-2-post-landing-scoping/ | grep -v -e '/preregistration.md$'", "expect": "empty"}
 {"id": "b4-no-record", "scope": "B", "check": "git ls-tree --name-only $REF verification/seals/ | grep -e 'GR2.json'", "expect": "empty"}
 # row 5: S1's superseded segment is present at B, with its frozen hash, and each key occurs once
 {"id": "b5-segment-hash", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | sed -n '/^_gr1_checks\\['\"'\"'prospective-untouched'\"'\"'\\]/,/authorized.: (.PFR.,)}/p' | sha256sum | cut -d' ' -f1 | grep -x '9c1493dbab4b81f46a685ea71fcef8e52af50c3509cda4139c8e76630e6ee6a7'", "expect": "nonempty"}
@@ -558,7 +560,7 @@ frozen-blob: verification/lean/edge_rigidity_probe.py 9c3a1b6aea01a691d0f8299672
 {"id": "b11-a28-prereg-at-b", "scope": "B", "check": "test \"$(git rev-parse $REF:verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/preregistration.md)\" = 9e1b05bb39ce0c4ade7df38d21b2b947f8aa9011", "expect": "exit0"}
 {"id": "b11-agents-at-b", "scope": "B", "check": "test \"$(git rev-parse $REF:AGENTS.md)\" = a9687b39c69973d35a2ff81c257687071fd35eca", "expect": "exit0"}
 # row 12: this control plane at its path
-{"id": "b12-self-present", "scope": "B", "check": "git ls-tree --name-only $REF verification/infrastructure/round-gr-2-declaration-scoping/preregistration.md", "expect": "nonempty"}
+{"id": "b12-self-present", "scope": "B", "check": "git ls-tree --name-only $REF verification/infrastructure/round-gr-2-post-landing-scoping/preregistration.md", "expect": "nonempty"}
 ```
 
 ***
