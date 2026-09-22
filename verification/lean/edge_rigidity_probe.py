@@ -31646,6 +31646,21 @@ def _gr1_seals_ok(base, cwd=None):
     return here == at_base
 
 
+def _gr1_seals_hist(base, e, l, cwd=None):
+    """The seals contract after landing, read from HISTORY and not from the tree the guard runs
+    on: the seals tree at the recovered `e` equals the base's, and at the recovered `l` equals its
+    first parent's, which is what the freeze states of the round's own commits. An unrecoverable
+    `e` or `l`, or a git that cannot answer, fails rather than skips."""
+    if e is None or l is None:
+        return False
+
+    def tree(rev):
+        out = _gr1_git('rev-parse', '%s:%s' % (rev, _GR1_SEALS_PATH), cwd=cwd)
+        return None if out is None else out.decode('utf-8', 'replace').strip()
+    tb, te, tl, tl1 = tree(base), tree(e), tree(l), tree(l + '^1')
+    return None not in (tb, te, tl, tl1) and te == tb and tl == tl1
+
+
 # ---------------------------------------------------------------------------
 # GR1-2 -- the differential acceptance suite, twenty-nine rows, OLD and NEW.
 # ---------------------------------------------------------------------------
@@ -31773,7 +31788,8 @@ if _gr1_checks['artifact-result-note']:
 # ---------------------------------------------------------------------------
 _GR1_STATE, _GR1_CHRON_OK, _GR1_CHRON_WHY = _gr1_chronology(_GR1_B)
 _gr1_checks['chronology'] = bool(_GR1_CHRON_OK)
-_gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)
+if _GR1_STATE == 'EXECUTION':
+    _gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)
 _gr1_checks['seals-integrity-u5'] = bool(_si2_integrity_ok())
 # ---- GR-2 (S1): THE DECLARATION CONTRACT, IN TWO REGIMES. The superseded form compared this
 # module's own _MANIFEST_PROSPECTIVE and _MANIFEST_BASELINE against this round's execution-time
@@ -31930,6 +31946,7 @@ else:
     _gr1_checks['placement-owned-region'] = (
         bool(_GR1_LIVE_FN) and _gr1_norm(_GR1_LIVE_FN) == _gr1_norm(_GR1_FROZEN_NEW))
     _gr1_pin_l = _GR1_LANDINGS[0][0] if _GR1_LANDINGS else None
+    _gr1_checks['seals-tree-integrity'] = _gr1_seals_hist(_GR1_B, _GR1_E, _gr1_pin_l)
     for _p, _b in sorted(_GR1_PINS.items()):
         if _p == _GR1_GUARD_PATH or _p == _GR1_ROAD_PATH:
             continue
@@ -32046,9 +32063,12 @@ def _gr1_fixtures():
             st, got, why = chron(n['g'], [n['g'], n['g']], recorded={'GR1': rec})
             res.append(('F10 malformed record: ' + nm, st == 'RECORDED' and not got,
                         '%s / %s / %s' % (st, 'PASS' if got else 'FAIL', why)))
-        # F11: the seals-tree contract catches a mutated, a removed and an added record.
+        # F11: the seals-tree contract catches a mutated, a removed and an added record. The
+        # positive half reads the lifecycle-scoped subject the contract itself uses: the live
+        # tree while this round is EXECUTION, its recovered E and L afterwards.
         res.append(('F11 seals contract is not vacuous',
-                    _gr1_seals_ok(_GR1_B)
+                    (_gr1_seals_ok(_GR1_B) if _GR1_STATE == 'EXECUTION'
+                     else _gr1_seals_hist(_GR1_B, _GR1_E, _gr1_pin_l))
                     and not _gr1_seals_ok('101b8cebb140c2ee7b982641ff005b84bbf0a1cf')
                     and not _gr1_seals_ok(n['b'], cwd=d),
                     'the tree matches its own base, and not act 28 base nor a foreign repository'))
@@ -32816,12 +32836,16 @@ def _gr2_negatives():
         len(by_path) == 6 and len(by_base) < 6)
 
     # --- Families 12-13: the budget and the forbidden names. -----------------------------------
-    # N12 -- the budget must not tolerate an unrelated edit elsewhere in the R7-GR1 region.
+    # N12 -- the budget must not tolerate an unrelated edit elsewhere in the R7-GR1 region. The
+    # subject is the lifecycle-scoped one the budget contract itself uses: this file while the
+    # round is EXECUTION, the guard text at the recovered E afterwards; an unrecoverable E fails.
     mark = "    \"\"\"Per-line trailing-whitespace normalization; the freeze compares"
-    tampered = _GR2_SELF.replace(mark, mark + ' it', 1) if mark in _GR2_SELF else None
+    _subj = (_GR2_SELF if _GR2_STATE == 'EXECUTION' else (None if _GR2_E is None else
+             (_gr2_git('show', '%s:%s' % (_GR2_E, _GR1_GUARD_PATH)) or b'').decode('utf-8', 'replace')))
+    tampered = _subj.replace(mark, mark + ' it', 1) if (_subj and mark in _subj) else None
     row('N12 a budget tolerating an unrelated edit in the R7-GR1 region',
-        tampered is not None and tampered != _GR2_SELF
-        and _gr2_budget(_GR2_SELF) is True and _gr2_budget(tampered) is False)
+        tampered is not None and tampered != _subj
+        and _gr2_budget(_subj) is True and _gr2_budget(tampered) is False)
 
     # N13 -- a forbidden legacy-shaped name, which SI-3's standing contract refuses.
     forbidden = "_GR2_BASE = 'c9e6d56379923195382fa8c797c464397bcedaa5'\n"
@@ -32935,7 +32959,8 @@ _GR2_LANDINGS = (None if _GR2_STATE == 'EXECUTION' else _gr1_landings(
 _GR2_E = _GR2_LANDINGS[0][1] if _GR2_LANDINGS else None
 _GR2_L = _GR2_LANDINGS[0][0] if _GR2_LANDINGS else None
 _gr2_checks['chronology'] = bool(_GR2_CHRON_OK)
-_gr2_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR2_B)
+_gr2_checks['seals-tree-integrity'] = (_gr1_seals_ok(_GR2_B) if _GR2_STATE == 'EXECUTION'
+                                       else _gr1_seals_hist(_GR2_B, _GR2_E, _GR2_L))
 _gr2_checks['seals-integrity-u5'] = bool(_si2_integrity_ok())
 _gr2_checks['no-own-record'] = 'GR2' not in (_si1_load()[0] or {})
 _gr2_checks['no-legacy-shaped-name'] = not _re.search(
