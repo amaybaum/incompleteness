@@ -223,13 +223,16 @@ unique `bootstrap-v1` round.
 **The bootstrap, and its bound.** `V1` has no block for `CV-2` and never certifies it. `CV-2` is
 certified by `V6` extended by slot `W1` — the first round certified by a verifier it changed. The
 self-certification is bounded four ways, each a frozen control: (i) `W1`'s derivation and its
-vectors are frozen here, with expected verdicts, before the code exists; (ii) at the dual-gated
-checkpoint `W1`'s verdict on `CV-2`'s own head is compared with `V1`'s strengthened-ancestry
+vectors are frozen here, with expected verdicts, before the code exists; (ii) `W1`'s verdict on
+`CV-2`'s own head is compared with `V1`'s strengthened-ancestry
 predicate (`_rbr_strong_ancestry` / `_si1_quiet_ancestry`) on the same `(B, head)` and on the
-negative vectors' repositories, and must agree; (iii) the verifier at `B`, read from git, run
-against the store and corpus at `E`, returns the same verdict on every pre-existing certificate,
-record and vector, and differs only where this freeze names; (iv) exact-head continuous
-integration on `E` and on `L`, and the `main` push run.
+negative vectors' repositories, and must agree — first at the stage-3 conformance gate and
+again in the stage-4 census; (iii) the verifier at `B`, read from git, run against the store and
+corpus at the stage-5 head and again at the candidate `E`, returns the same verdict on every
+pre-existing certificate, record and vector, and differs only where this freeze names; (iv)
+exact-head continuous integration on `E` and on `L`, and the `main` push run. `V1` never certifies
+`CV-2` itself: (ii) is a comparison of `W1` with `V1`'s ancestry predicate, not a `V1` verdict on
+this round.
 
 **Nothing else lands on `main` between `B` and `L`.** `V1`-shaped rounds cannot land once `V1` is
 retired, and a round landing mid-execution would have to be classified by an authority this round
@@ -547,13 +550,13 @@ except at most one line in the lessons register.
 
 | stage | what it does | may not begin until |
 |---|---|---|
-| 1 | `T1`, and nothing else. Checkpoint: the guard `ALL CHECKS PASS` at the fixed head, 105 tags with the base's verdicts; the three superseded hashes verified | — |
-| 2 | the `PRA` certificate, its record, the empty legacy set; `CV2.json` with the evidence written so far. Checkpoint: the guard `ALL CHECKS PASS`, 105 tags, `R7-PRA` `ARCHIVED`; `V6` authoritative OK: `PRA` `PASS`, its record `PASS`, `legacy-owned 0`, `CV2` `UNATTESTED` | stage 1 |
-| 3 | `W1`, `W2`, `W3` and their vectors. Checkpoint: the corpus exact; `CV2` in `EXECUTION` with its chronology holding; the guard unchanged in verdict; the `B`-verifier cross-check as named under `CV2-4` | stage 2 |
-| 4 | `v1-inventory.json`; clauses `P1`, `P2`, `P5a`, `P5b` and the content clauses; `census.json`, committed. **The dual-gated checkpoint**: both authorities gate every object here | stage 3 |
-| 5 | the deletions of the table above; `P3a`, `P3b`, `P4`; the standalone job to `--mode authoritative`; the release gate's comment naming `V1`. Checkpoint: the guard ends `ALL CHECKS PASS` with the retained tags only; `V6` authoritative OK | stage 4, with `CV2-3`, `CV2-5` and `CV2-6` at their frozen outcomes |
-| 6 | `AGENTS.md`; the `README.md` ledger section; `result.md` and `cv2-tagmap.json`; the `V2` side of the census re-measured at this head | stage 5 |
-| — | this commit is the candidate `E` | everything above |
+| 1 | `T1`, and nothing else. Checkpoint: the guard `ALL CHECKS PASS` at the fixed head, 105 tags with the base's verdicts; the three superseded hashes verified | `CV2-0` `HOLD` |
+| 2 | the `PRA` certificate, its record, the empty legacy set; `CV2.json` with the evidence written so far. Checkpoint: the guard `ALL CHECKS PASS`, 105 tags, `R7-PRA` `ARCHIVED`; `V6` authoritative OK: `PRA` `PASS`, its record `PASS`, `legacy-owned 0`, `CV2` `UNATTESTED` | stage 1, with `CV2-1` `SUPERSEDED-AS-FROZEN` |
+| 3 | `W1`, `W2`, `W3` and their vectors. Checkpoint: the stage-3 conformance gate, `CV2-4`(a); the guard unchanged in verdict | stage 2, with `CV2-2` `TRANSLATED-AS-FROZEN` |
+| 4 | `v1-inventory.json`; clauses `P1`, `P2`, `P5a`, `P5b` and the content clauses; `census.json`, committed. **The dual-gated checkpoint**: every object `V1` certifies is gated here by both authorities; `CV2` itself is certified by `V6` alone, its `W1` chronology compared with `V1`'s ancestry predicate | stage 3, with `CV2-4`(a) `CONFORMANCE-EXACT` |
+| 5 | the deletions of the table above; `P3a`, `P3b`, `P4`; the standalone job to `--mode authoritative`; the release gate's comment naming `V1`. Checkpoint: the guard ends `ALL CHECKS PASS` with the retained tags only; `V6` authoritative OK; then the `B`-verifier cross-check, `CV2-4`(b), on this head | stage 4, with `CV2-3`, `CV2-5` and `CV2-6` at their frozen outcomes |
+| 6 | `AGENTS.md`; the `README.md` ledger section; `result.md` and `cv2-tagmap.json`; the `V2` side of the census re-measured at this head | stage 5, with `CV2-4`(b) `CROSS-CHECK-AS-NAMED` |
+| — | this commit is the candidate `E`, once `CV2-4`(b) is re-run on it and returns the same named divergences | everything above |
 
 **Durability.** The `V1` side of the census exists only while `V1` does. It is measured at the
 stage-4 head, committed there, and that head is an ancestor of `E`; the stage-4 head, not a later
@@ -572,30 +575,41 @@ Each target names the artifact that decides it, and is decided only by that arti
   superseded segments present with their hashes and anchors; nothing between `D` and `B` but this
   file. Outcomes: `HOLD` / `DEVIATED`. `DEVIATED` stops the round.
 - **`CV2-1` — `T1` as frozen**, with its five controls. Outcomes: `SUPERSEDED-AS-FROZEN` /
-  `SUPERSEDED-DEVIATED`.
+  `SUPERSEDED-DEVIATED`, the latter naming the segment or control and **stopping the round
+  before stage 2**.
 - **`CV2-2` — `PRA` translated.** The certificate and record byte-equal to the frozen data under
   the frozen serialization; `V6` `PASS` on both; `legacy-owned 0`; `LEGACY-V1-OWNED` reported for
-  no stem. Outcomes: `TRANSLATED-AS-FROZEN` / `TRANSLATION-DEVIATED`, naming the field.
+  no stem. Outcomes: `TRANSLATED-AS-FROZEN` / `TRANSLATION-DEVIATED`, naming the field
+  and **stopping the round before stage 3**.
 - **`CV2-3` — the dual census, at the stage-4 head.** (a) `PRA`: `V1` `ARCHIVED` with pinned
   equal to derived, and `V2` certificate and record `PASS`, with `base`, `sealed_head` and
   `landing`/`merge` byte-equal between the two representations and `tree` equal to git. (b)
-  `W1` against `V1`'s strengthened-ancestry predicate on `(B_CV2, stage-4 head)` and on the two
-  negative repositories of `native-lifecycle-execution-side-history` and `…-stale-base`: the same
-  verdict each time. (c) Every MIGRATE item: the `V1` contract and its clause both pass, and the
-  mutation the block used fails the clause. (d) Every DISCHARGED item: the named `V2` object
+  `W1` against `V1`'s strengthened-ancestry predicate — a comparison, `V1` certifying nothing
+  about `CV-2` — re-measured on `(B_CV2, stage-4 head)` and on the two negative repositories of
+  `native-lifecycle-execution-side-history` and `…-stale-base`: the same verdict each time.
+  (c) Every MIGRATE item: the `V1` contract and its clause both pass, and the mutation the block
+  used fails the clause. (d) Every DISCHARGED item: the named `V2` object
   passes. (e) The guard's 105 tags all pass. The frozen profile: **every axis agrees, and there is
   no divergence to adjudicate.** Outcomes: `DUAL-AS-ADJUDICATED` / `DUAL-UNEXPECTED` (any
   disagreement, reported, not repaired; **stops the round before stage 5**) / `DUAL-BROKEN` (a
   disagreement on `PRA`'s facts).
-- **`CV2-4` — the verifier and the corpus.** `W1`–`W3` as frozen; every frozen vector with its
-  verdict and reason; the executed set equal to the corpus; every pre-existing vector unchanged.
-  **The `B`-verifier cross-check**: the verifier at `B`, read from git, run on the stage-5 tree,
-  returns the same verdict as the head's verifier on every pre-existing certificate and record,
-  and differs on exactly — `CV2`'s state label; each clause using `tree-pinned`
-  (`live-policy:clause:<id>:predicate-type`); each clause using `normalize` whose raw reading
-  differs; and, run over the head's corpus, the new vectors whose verdict depends on `W1`–`W3` —
-  and on nothing else. Outcomes: `CONFORMANCE-EXACT` / `CONFORMANCE-PARTIAL`, naming each vector,
-  family or divergence. `PARTIAL` stops the round before stage 4.
+- **`CV2-4` — the verifier and the corpus**, decided in two parts at two heads.
+  - **(a) The stage-3 conformance gate, at the stage-3 head.** `W1`–`W3` as frozen; every frozen
+    vector with its verdict and reason; the executed set equal to the corpus; every one of the
+    eighty-nine pre-existing vectors with its id, recipe, verdict and reason unchanged; and `W1`
+    against `V1`'s strengthened-ancestry predicate on `(B_CV2, stage-3 head)` and on the negative
+    repositories of `native-lifecycle-execution-side-history` and `…-stale-base`, the same verdict
+    each time. Outcomes: `CONFORMANCE-EXACT` / `CONFORMANCE-PARTIAL`, naming each vector, family
+    or comparison; `CONFORMANCE-PARTIAL` **stops the round before stage 4**.
+  - **(b) The `B`-verifier cross-check, at the stage-5 head and again at the candidate `E`.** The
+    verifier at `B`, read from git, run on that tree, returns the same verdict as the head's
+    verifier on every pre-existing certificate and record, and differs on exactly — `CV2`'s state
+    label; each clause using `tree-pinned` (`live-policy:clause:<id>:predicate-type`); each clause
+    using `normalize` whose raw reading differs; and, run over the head's corpus, the new vectors
+    whose verdict depends on `W1`–`W3` — and on nothing else. Outcomes: `CROSS-CHECK-AS-NAMED` /
+    `CROSS-CHECK-UNEXPECTED`, naming each divergence; `CROSS-CHECK-UNEXPECTED` at the stage-5 head
+    **stops the round before stage 6**, and at the candidate `E` **stops it before `E` is
+    declared**.
 - **`CV2-5` — the inventory is complete.** Every statement of the guard at the stage-4 head in
   exactly one item, every item in exactly one class with one disposition; `ok6` counted at 759;
   `uncovered` empty. Outcomes: `INVENTORY-COMPLETE` / `INVENTORY-INCOMPLETE`, which **stops the
@@ -638,7 +652,8 @@ Each target names the artifact that decides it, and is decided only by that arti
 | `CV2-1` | `SUPERSEDED-AS-FROZEN` | HIGH | the replacements are the text measured under `F1`: 105 tags, `ALL CHECKS PASS` |
 | `CV2-2` | `TRANSLATED-AS-FROZEN` | HIGH | measured under `F1` and `F7` with the unchanged verifier |
 | `CV2-3` | `DUAL-AS-ADJUDICATED` | MEDIUM | (a) and (e) measured at `D`; (b) and (c) run code that does not yet exist |
-| `CV2-4` | `CONFORMANCE-EXACT` | MEDIUM | `W1` must leave the eighty-nine vectors unchanged; the native schema-positive vectors are the ones it could reach |
+| `CV2-4`(a) | `CONFORMANCE-EXACT` | MEDIUM | `W1` must leave the eighty-nine vectors unchanged; the native schema-positive vectors are the ones it could reach |
+| `CV2-4`(b) | `CROSS-CHECK-AS-NAMED` | MEDIUM | the divergences are named from the slots' definitions; a clause whose raw and normalized readings coincide is where the count could differ from a naive expectation |
 | `CV2-5` | `INVENTORY-COMPLETE` | MEDIUM | `F4`'s interleaving is where a statement is missed |
 | `CV2-6` | `PROTECTION-PRESERVED` | MEDIUM | `F5` is a reading at `D`; the manuscript contracts are where a MIGRATE fails |
 | `CV2-7` | `V1-RETIRED`, **50** tags | HIGH; the count MODERATE | `F3`'s partition |
@@ -652,10 +667,13 @@ Each target names the artifact that decides it, and is decided only by that arti
 ## The STATUS RULE, FROZEN
 
 - A target is decided only by the artifact it names.
-- `CONFORMANCE-PARTIAL` stops the round before stage 4. `DUAL-UNEXPECTED`, `DUAL-BROKEN`,
-  `INVENTORY-INCOMPLETE` and `PROTECTION-LOST` each stop it **before stage 5**: nothing is deleted
-  over a disagreement, a gap or a lost protection this freeze did not name, whatever the argument
-  for it.
+- Every negative outcome of a staged target stops the round at the next stage boundary, and
+  continuation is never implied: `DEVIATED` on `CV2-0` stops it before stage 1;
+  `SUPERSEDED-DEVIATED` before stage 2; `TRANSLATION-DEVIATED` before stage 3;
+  `CONFORMANCE-PARTIAL` before stage 4; `DUAL-UNEXPECTED`, `DUAL-BROKEN`, `INVENTORY-INCOMPLETE`
+  and `PROTECTION-LOST` **before stage 5** — nothing is deleted over a disagreement, a gap or a lost
+  protection this freeze did not name, whatever the argument for it; `CROSS-CHECK-UNEXPECTED`
+  before stage 6, or, at the candidate `E`, before `E` is declared.
 - `NOT-SCOPED` fails the round.
 - `DUAL-AS-ADJUDICATED` is an agreement claim on the objects compared, not a claim that `V2` is
   correct.
@@ -667,10 +685,12 @@ Each target names the artifact that decides it, and is decided only by that arti
 **`CV2-3`, `DUAL-AS-ADJUDICATED`:** "At the dual-gated checkpoint the `V1` guard and the `V2`
 verifier certified act 29 at one head — `V1` as `ARCHIVED` from its seal record, `V2` as a
 translated round from its certificate and record, with the same base, sealed head, landing and
-tree — and agreed on every other object compared: the execution chronology of this round's own
-head, each standing invariant migrated into the live policy together with the mutation that
-exercises it, and every protection discharged to a named `V2` object. This is an agreement census,
-not a proof of correctness."
+tree — and agreed on every other object compared: each invariant migrated into the live policy
+by that checkpoint (clauses `P1`, `P2`, `P5a`, `P5b` and the content clauses) together with the
+mutation that exercises it, and every protection discharged to a named `V2` object; the new
+verifier's execution chronology for this round's own head agreed with `V1`'s strengthened-ancestry
+predicate on the same base and head, `V1` itself certifying nothing about this round. This is an
+agreement census, not a proof of correctness."
 
 **`CV2-7`, `V1-RETIRED`:** "From this head no seal validator, manifest declaration, lifecycle
 clause or round block remains in the guard file; it carries the mathematical probes, the kernel
@@ -883,14 +903,15 @@ frozen-blob: verification/programmes/oi-qm/track-b/act-29-product-admission/prer
 The execution begins only from the certified merge of this control plane, and its first act is to
 verify this file's blob at that base. It absorbs no later `main` before `E` is certified. A
 divergence between this freeze and what the execution measures is recorded in the result note,
-never repaired into agreement by editing this file. Stage 5 is not entered over a
+never repaired into agreement by editing this file. No stage is entered over a negative outcome
+of the target that gates it, as the status rule lists; in particular stage 5 is not entered over a
 `DUAL-UNEXPECTED`, `DUAL-BROKEN`, `INVENTORY-INCOMPLETE` or `PROTECTION-LOST`.
 
 ## Points at which this freeze chose a reading, recorded rather than resolved
 
 1. **One round, with a committed dual-gated checkpoint, rather than two.** `CV-1`'s freeze named
-   one retirement round. The checkpoint at stage 4 is where both authorities gate the same objects;
-   the stop rules make it a gate rather than a milestone.
+   one retirement round. The checkpoint at stage 4 is where both authorities gate every object
+   `V1` certifies; the stop rules make it a gate rather than a milestone.
 2. **`T1` before the translation, rather than deleting `R7-CV1` first.** Deleting it first would
    leave `PRA` certified by neither side for a stage and remove `CV-1`'s controls while `V1` still
    stands. Superseding four reads keeps the checkpoint dual.
