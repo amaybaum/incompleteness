@@ -32104,6 +32104,809 @@ check('R7-GR1', not _gr1_bad,
       "the freeze owns and is not credited with that. RD2 stands as act 29 recorded it.")
 # ---- R7-GR1 ends.
 
+# ---- R7-GR2: guard repair round GR-2 -- post-landing scoping of R7-GR1's two live-tree
+# assertions. NON-SEALING, E -> L, no P. The round writes NO manifest record, NO prospective
+# declaration and NO baseline change: it retains act 28's declaration for the reason GR-1
+# recorded, that the line is one act 29's sealed head already writes, and nothing matching
+# _GR2_(BASE|SEALED_HEAD|MERGE) exists at any commit, so SI-3's standing contract holds.
+#
+# TWO SEPARATELY NAMED SUPERSESSIONS of R7-GR1, both the same defect -- an execution-time
+# assertion left running against whatever tree the guard later finds:
+#   S1  the declaration checks, which compared this module's own _MANIFEST_PROSPECTIVE and
+#       _MANIFEST_BASELINE against GR-1's execution-time values in EVERY state, although A.37 as
+#       amended by SI3-6 requires each round to declare its own baseline;
+#   S2  the landed-pin loop, which asserted six pinned blobs on the CURRENT tree although GR-1's
+#       placement contract fixes the post-landing live-tree scope and names its members.
+# Each superseded text is pinned by sha256, EXTRACTED FROM THE BASE'S OWN GUARD TEXT rather than
+# retyped, and the old side of both suites is that extracted code EXECUTED, not a paraphrase.
+_GR2_B = 'c9e6d56379923195382fa8c797c464397bcedaa5'
+_GR2FRZ = 'infrastructure/round-gr-2-post-landing-scoping/preregistration.md'
+_GR2RESREL = 'infrastructure/round-gr-2-post-landing-scoping/result.md'
+_GR2MAPREL = 'infrastructure/round-gr-2-post-landing-scoping/gr2-tagmap.json'
+_GR2_BLOB = 'f6438114f8b633b70bcc50b6cadd5eb94768e5a3'
+_GR2_S1_SHA = '9c1493dbab4b81f46a685ea71fcef8e52af50c3509cda4139c8e76630e6ee6a7'
+_GR2_S2_SHA = '26c4c7c6a8727e23a2547305205d045ff88090b2bff7d122f80dd46f2cc1369e'
+# The three paths GR-1's placement contract checks on the current tree after landing, taken from
+# that freeze's own sentence and from nothing else. The classification contract below requires
+# _GR1_PIN_LIVE to be exactly these, so it cannot drift by one path in either direction.
+_GR2_PIN_LIVE_FROZEN = (
+    'verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/preregistration.md',
+    'verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/result.md',
+    'verification/seals/PFR.json',
+)
+# The block's own bounds, assembled from pieces so that these literals are not themselves
+# occurrences of the markers; a self-matching bound would be counted twice and the placement
+# contract would refuse to locate the block at all.
+_GR2_MARK_OPEN = '# ---- ' + 'R7-GR2: guard repair round GR-2'
+_GR2_MARK_CLOSE = '# ---- ' + 'R7-GR2 ends.'
+# The two extraction anchors. The anchor text is how the segment is LOCATED; its identity is the
+# sha256 below, so a drifted base fails rather than yielding a different contract.
+_GR2_S1_FROM = "_gr1_checks['prospective-untouched']"
+_GR2_S1_TO = "'authorized': ('PFR',)}"
+_GR2_S2_FROM = '    for _p, _b in sorted(_GR1_PINS.items()):'
+_GR2_S2_TO = '.decode().strip() == _b)'
+
+_gr2_checks = {}
+_gr2_controls = 0
+
+
+def _gr2_git(*args, **kw):
+    r = _rbr_git(*args, tag='R7-GR2', **kw)
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout
+
+
+def _gr2_seg(src, frm, to):
+    """The contiguous segment of `src` from the line carrying `frm` through the end of the first
+    line thereafter carrying `to`. None when either anchor is absent."""
+    i = src.find(frm)
+    if i < 0:
+        return None
+    i = src.rfind('\n', 0, i) + 1
+    j = src.find(to, i)
+    if j < 0:
+        return None
+    j = src.find('\n', j)
+    return src[i:] if j < 0 else src[i:j + 1]
+
+
+def _gr2_sha(text):
+    return _hashlib.sha256(text.encode('utf-8')).hexdigest()
+
+
+# ---------------------------------------------------------------------------
+# GR2-0 -- the locating controls: the freeze by blob with a drift control, and the two superseded
+# segments read out of the base's own guard text and hashed.
+# ---------------------------------------------------------------------------
+_GR2FRZ_BYTES = _bb_read(_GR2FRZ)
+_gr2_checks['freeze-blob'] = _gr1_blob_id(_GR2FRZ_BYTES) == _GR2_BLOB
+_gr2_checks['freeze-blob-drift'] = _gr1_blob_id(_GR2FRZ_BYTES + b' ') != _GR2_BLOB
+_gr2_controls += 1
+
+_GR2_BASE_SRC = (_gr2_git('show', '%s:%s' % (_GR2_B, _GR1_GUARD_PATH)) or b'').decode(
+    'utf-8', 'replace')
+_GR2_S1_SEG = _gr2_seg(_GR2_BASE_SRC, _GR2_S1_FROM, _GR2_S1_TO) or ''
+_GR2_S2_SEG = _gr2_seg(_GR2_BASE_SRC, _GR2_S2_FROM, _GR2_S2_TO) or ''
+_gr2_checks['s1-segment-hash'] = _gr2_sha(_GR2_S1_SEG) == _GR2_S1_SHA
+_gr2_checks['s2-segment-hash'] = _gr2_sha(_GR2_S2_SEG) == _GR2_S2_SHA
+_gr2_checks['s1-segment-hash-drift'] = _gr2_sha(_GR2_S1_SEG + ' ') != _GR2_S1_SHA
+_gr2_checks['s2-segment-hash-drift'] = _gr2_sha(_GR2_S2_SEG + ' ') != _GR2_S2_SHA
+_gr2_checks['segments-once-at-base'] = (
+    bool(_GR2_S1_SEG) and bool(_GR2_S2_SEG)
+    and _GR2_BASE_SRC.count(_GR2_S1_SEG) == 1 and _GR2_BASE_SRC.count(_GR2_S2_SEG) == 1)
+_gr2_controls += 1
+
+
+def _gr2_base_pins():
+    """The base's own pinned table, parsed from the base's source, so the classification contract
+    compares against what the base actually pinned rather than against this file's copy.
+
+    Two of that table's KEYS are names rather than string literals -- the guard path and the
+    ROADMAP path -- so the dict is walked node by node with those two resolved, and a key or value
+    that is neither a literal nor one of them refuses the parse."""
+    import ast as _ast
+    m = _re.search(r'(?ms)^_GR1_PINS = \{.*?^\}', _GR2_BASE_SRC)
+    if not m:
+        return None
+    names = {'_GR1_GUARD_PATH': _GR1_GUARD_PATH, '_GR1_ROAD_PATH': _GR1_ROAD_PATH}
+    try:
+        node = _ast.parse(m.group(0)).body[0].value
+        out = {}
+        for _k, _v in zip(node.keys, node.values):
+            key = names[_k.id] if isinstance(_k, _ast.Name) else _ast.literal_eval(_k)
+            out[key] = _ast.literal_eval(_v)
+        return out
+    except (ValueError, SyntaxError, AttributeError, KeyError, IndexError):
+        return None
+
+
+_GR2_BASE_PINS = _gr2_base_pins()
+_gr2_checks['base-pins-parsed'] = isinstance(_GR2_BASE_PINS, dict) and len(_GR2_BASE_PINS) == 8
+
+# ---------------------------------------------------------------------------
+# The OLD side of both suites: the base's own extracted code, executed in a controlled namespace.
+# Nothing here paraphrases the superseded predicates -- they are compiled from _GR2_S*_SEG, whose
+# identity the hashes above fix.
+# ---------------------------------------------------------------------------
+def _gr2_old_decls(live):
+    """The superseded declaration predicate, as the base wrote it: the live module's two values
+    against GR-1's execution-time literals, with no reference to state or history."""
+    ns = {'_gr1_checks': {},
+          '_MANIFEST_PROSPECTIVE': live.get('_MANIFEST_PROSPECTIVE'),
+          '_MANIFEST_BASELINE': live.get('_MANIFEST_BASELINE')}
+    try:
+        exec(compile(_GR2_S1_SEG, '<gr2-s1-old>', 'exec'), ns)
+    except Exception:
+        return None
+    c = ns['_gr1_checks']
+    return {'prospective-untouched': bool(c.get('prospective-untouched')),
+            'baseline-untouched': bool(c.get('baseline-untouched'))}
+
+
+def _gr2_old_pins(head_tree, pins=None):
+    """The superseded pin loop, as the base wrote it, with git's answers taken from `head_tree`,
+    a path-to-blob map standing for the CURRENT tree -- which is the only thing that loop read.
+
+    `pins` is the pinned table the loop iterates. A row measuring a synthetic repository passes
+    ITS OWN pinned values, so that both sides answer the same question about the same data; the
+    real table is the default, which is what the classification contract reads."""
+    def _git(*a, **kw):
+        if len(a) == 2 and a[0] == 'rev-parse' and a[1].startswith('HEAD:'):
+            got = head_tree.get(a[1][5:])
+            return None if got is None else (got + '\n').encode()
+        return None
+
+    ns = {'_gr1_checks': {}, '_GR1_PINS': dict(pins if pins is not None else _GR1_PINS),
+          '_GR1_GUARD_PATH': _GR1_GUARD_PATH, '_GR1_ROAD_PATH': _GR1_ROAD_PATH,
+          '_gr1_git': _git}
+    try:
+        exec(compile('if True:\n' + _GR2_S2_SEG, '<gr2-s2-old>', 'exec'), ns)
+    except Exception:
+        return None
+    return dict((k.split('landed-pin:', 1)[1], bool(v))
+                for k, v in ns['_gr1_checks'].items() if k.startswith('landed-pin:'))
+
+
+# ---------------------------------------------------------------------------
+# Synthetic repositories. The suites test the DECLARATION and PIN predicates, which read blobs at
+# two named revisions and at HEAD; the landing topology they are handed is R7-GR1's own subject
+# and is covered by its fifteen fixtures, not re-tested here. Each repository is a three-commit
+# line E -> L -> HEAD carrying whatever contents a row specifies.
+# ---------------------------------------------------------------------------
+_GR2_DECL_PRISTINE = ("_MANIFEST_PROSPECTIVE = {}\n"
+                      "_MANIFEST_BASELINE = {'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf',"
+                      " 'authorized': ('PFR',)}\n")
+_GR2_DECL_A29 = ("_MANIFEST_PROSPECTIVE = {'PRA': '0bedff07fc1ad2675ecab205c8836e7a90a113d4'}\n"
+                 "_MANIFEST_BASELINE = {'base': '0bedff07fc1ad2675ecab205c8836e7a90a113d4',"
+                 " 'authorized': ('PRA',)}\n")
+_GR2_DECL_BASE_ONLY = ("_MANIFEST_PROSPECTIVE = {}\n"
+                       "_MANIFEST_BASELINE = {'base': '0bedff07fc1ad2675ecab205c8836e7a90a113d4',"
+                       " 'authorized': ('PRA',)}\n")
+_GR2_DECL_PROSP_ONLY = (
+    "_MANIFEST_PROSPECTIVE = {'PRA': '0bedff07fc1ad2675ecab205c8836e7a90a113d4'}\n"
+    "_MANIFEST_BASELINE = {'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf',"
+    " 'authorized': ('PFR',)}\n")
+_GR2_DECL_TWICE = _GR2_DECL_PRISTINE + "_MANIFEST_BASELINE = {}\n"
+_GR2_DECL_NONLITERAL = ("_MANIFEST_PROSPECTIVE = dict()\n"
+                        "_MANIFEST_BASELINE = {'base': 'x', 'authorized': ('PFR',)}\n")
+_GR2_DECL_UNPARSABLE = "_MANIFEST_PROSPECTIVE = {\n"
+_GR2_LIVE_PRISTINE = {'_MANIFEST_PROSPECTIVE': {},
+                      '_MANIFEST_BASELINE': {'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf',
+                                             'authorized': ('PFR',)}}
+_GR2_LIVE_A29 = {'_MANIFEST_PROSPECTIVE': {'PRA': '0bedff07fc1ad2675ecab205c8836e7a90a113d4'},
+                 '_MANIFEST_BASELINE': {'base': '0bedff07fc1ad2675ecab205c8836e7a90a113d4',
+                                        'authorized': ('PRA',)}}
+_GR2_LIVE_BASE_ONLY = {'_MANIFEST_PROSPECTIVE': {},
+                       '_MANIFEST_BASELINE': {'base': '0bedff07fc1ad2675ecab205c8836e7a90a113d4',
+                                              'authorized': ('PRA',)}}
+_GR2_LIVE_PROSP_ONLY = {
+    '_MANIFEST_PROSPECTIVE': {'PRA': '0bedff07fc1ad2675ecab205c8836e7a90a113d4'},
+    '_MANIFEST_BASELINE': {'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf',
+                           'authorized': ('PFR',)}}
+# The six pinned paths, minus the guard and the ROADMAP, which keep their own contracts.
+_GR2_PIN_PATHS = tuple(sorted(p for p in _GR1_PINS
+                              if p not in (_GR1_GUARD_PATH, _GR1_ROAD_PATH)))
+_GR2_PIN_HIST_ONLY = tuple(p for p in _GR2_PIN_PATHS if p not in _GR2_PIN_LIVE_FROZEN)
+
+
+def _gr2_build(stages):
+    """A synthetic repository. `stages` is an ordered list of (name, {path: content}) applied as
+    successive commits; returns (dir, {name: sha}) or (dir, None) when git could not answer.
+
+    Every stage writes the full content map it is given, so a row states each revision's tree
+    directly rather than by diff."""
+    import subprocess as _sp
+    import tempfile as _tf
+    d = _tf.mkdtemp(prefix='gr2-')
+    revs = {}
+
+    def g(*a):
+        return _sp.run(('git',) + a, cwd=d, capture_output=True, text=True)
+
+    g('init', '-q', '-b', 'main')
+    g('config', 'user.email', 'gr2@example.invalid')
+    g('config', 'user.name', 'GR2')
+    for name, tree in stages:
+        # A per-stage marker, so that two stages carrying the SAME contents are still two
+        # commits: an empty commit fails and would mark the row false for a reason the row is not
+        # about.
+        full_tree = dict(tree)
+        full_tree['.gr2-stage'] = name + '\n'
+        for rel, content in sorted(full_tree.items()):
+            full = os.path.join(d, rel)
+            try:
+                os.makedirs(os.path.dirname(full), exist_ok=True)
+            except OSError:
+                pass
+            with open(full, 'w', encoding='utf-8') as fh:
+                fh.write(content)
+        g('add', '-A')
+        if g('commit', '-q', '-m', name).returncode != 0:
+            return d, None
+        out = g('rev-parse', 'HEAD')
+        if out.returncode != 0:
+            return d, None
+        revs[name] = out.stdout.strip()
+    return d, revs
+
+
+def _gr2_decl_case(at_e, at_l, live, state='LANDED-UNRECORDED'):
+    """One declaration row: build a repository whose guard file carries `at_e` at E and `at_l` at
+    L, then return (old_verdicts, new_verdicts) with the new side taken from the real
+    _gr1_decl_verdicts and the old side from the base's extracted code."""
+    import shutil
+    d, revs = _gr2_build([('E', {_GR1_GUARD_PATH: at_e}),
+                          ('L', {_GR1_GUARD_PATH: at_l})])
+    try:
+        if revs is None:
+            return None, None
+        e, l = revs['E'], revs['L']
+        if state == 'EXECUTION':
+            e = l = None
+        new = _gr1_decl_verdicts(state, e, l, live, cwd=d)
+        return _gr2_old_decls(live), new
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+
+def _gr2_decl_unrecoverable(live):
+    """The fail-closed row: a revision that does not exist in the repository."""
+    import shutil
+    d, revs = _gr2_build([('E', {_GR1_GUARD_PATH: _GR2_DECL_PRISTINE})])
+    try:
+        if revs is None:
+            return None, None
+        absent = '0' * 40
+        new = _gr1_decl_verdicts('LANDED-UNRECORDED', absent, revs['E'], live, cwd=d)
+        return _gr2_old_decls(live), new
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+
+def _gr2_pin_case(changed_live=(), changed_at=None, drop=None):
+    """One pin row. Every pinned path starts at its pristine content, whose blob id is the row's
+    pinned value; `changed_live` names paths altered at HEAD, `changed_at` is ('E'|'L', paths)
+    altered in history, and `drop` replaces a recovered revision with an absent one.
+
+    Returns (pinned, old_verdicts, new_verdicts), each keyed by path."""
+    import shutil
+    pristine = dict((p, 'pristine %s\n' % p) for p in _GR2_PIN_PATHS)
+    pinned = dict((p, _gr1_blob_id(c.encode())) for p, c in pristine.items())
+    hist_stage, hist_paths = (changed_at or (None, ()))
+    tree_e = dict(pristine)
+    tree_l = dict(pristine)
+    for p in hist_paths:
+        mutated = 'mutated in history %s\n' % p
+        if hist_stage == 'E':
+            tree_e[p] = mutated
+        else:
+            tree_l[p] = mutated
+    # HEAD starts from PRISTINE, not from the mutated history: a row about a mutated history is
+    # about history, and letting that mutation leak into the current tree would make the old side
+    # reject for the wrong reason and the row measure nothing.
+    tree_head = dict(pristine)
+    for p in changed_live:
+        tree_head[p] = 'changed on the current tree %s\n' % p
+    d, revs = _gr2_build([('E', tree_e), ('L', tree_l), ('HEAD', tree_head)])
+    try:
+        if revs is None:
+            return pinned, None, None
+        e, l = revs['E'], revs['L']
+        if drop == 'E':
+            e = '0' * 40
+        elif drop == 'L':
+            l = '0' * 40
+        head_tree = dict((p, _gr1_blob_id(c.encode())) for p, c in tree_head.items())
+        new = dict((p, _gr1_pin_ok(p, pinned[p], e, l, cwd=d)) for p in _GR2_PIN_PATHS)
+        return pinned, _gr2_old_pins(head_tree, pins=pinned), new
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+
+# ---------------------------------------------------------------------------
+# GR2-1 -- suite A, the declaration contract: nine rows, each naming the verdict required of the
+# old predicate and of the new one.
+# ---------------------------------------------------------------------------
+def _gr2_suite_a():
+    rows = []
+
+    def row(name, old_new, want_old, want_new):
+        old, new = old_new
+        ok = (old is not None and new is not None
+              and all(old[k] is want_old for k in ('prospective-untouched', 'baseline-untouched'))
+              and all(new[k] is want_new for k in ('prospective-untouched', 'baseline-untouched')))
+        rows.append((name, ok))
+
+    row('A1 EXECUTION, live GR-1',
+        _gr2_decl_case(_GR2_DECL_PRISTINE, _GR2_DECL_PRISTINE, _GR2_LIVE_PRISTINE,
+                       state='EXECUTION'), True, True)
+    row('A2 EXECUTION, live successor',
+        _gr2_decl_case(_GR2_DECL_PRISTINE, _GR2_DECL_PRISTINE, _GR2_LIVE_A29,
+                       state='EXECUTION'), False, False)
+    row('A3 landed, live GR-1, history GR-1',
+        _gr2_decl_case(_GR2_DECL_PRISTINE, _GR2_DECL_PRISTINE, _GR2_LIVE_PRISTINE), True, True)
+    row('A4 landed, live act 29 both lines, history GR-1',
+        _gr2_decl_case(_GR2_DECL_PRISTINE, _GR2_DECL_PRISTINE, _GR2_LIVE_A29), False, True)
+    # A7 and A8 mutate ONE declaration in history, so the row names the key that must fail and
+    # requires the other to stand: a uniform assertion would hide which line the reader caught.
+    for _nm, _e, _l, _key in (
+            ('A7 landed, baseline mutated at E', _GR2_DECL_BASE_ONLY, _GR2_DECL_PRISTINE,
+             'baseline-untouched'),
+            ('A8 landed, prospective mutated at L', _GR2_DECL_PRISTINE, _GR2_DECL_PROSP_ONLY,
+             'prospective-untouched')):
+        _old, _new = _gr2_decl_case(_e, _l, _GR2_LIVE_PRISTINE)
+        _other = ('prospective-untouched' if _key == 'baseline-untouched'
+                  else 'baseline-untouched')
+        rows.append((_nm, _old is not None and _new is not None
+                     and all(_old[_k] is True for _k in ('prospective-untouched',
+                                                         'baseline-untouched'))
+                     and _new[_key] is False and _new[_other] is True))
+    row('A9 landed, E unrecoverable',
+        _gr2_decl_unrecoverable(_GR2_LIVE_PRISTINE), True, False)
+
+    # A5, A6 -- one line at a time; the old predicate rejects on the changed key and the new one
+    # accepts both, so the rows are stated per key rather than uniformly.
+    for name, live, key in (('A5 landed, successor baseline only', _GR2_LIVE_BASE_ONLY,
+                             'baseline-untouched'),
+                            ('A6 landed, successor prospective only', _GR2_LIVE_PROSP_ONLY,
+                             'prospective-untouched')):
+        old, new = _gr2_decl_case(_GR2_DECL_PRISTINE, _GR2_DECL_PRISTINE, live)
+        rows.append((name, old is not None and new is not None
+                     and old[key] is False
+                     and all(new[k] is True for k in ('prospective-untouched',
+                                                      'baseline-untouched'))))
+    return rows
+
+
+# ---------------------------------------------------------------------------
+# GR2-2 -- suite B, the pinned-artifact family: eight rows over the two classes.
+# ---------------------------------------------------------------------------
+def _gr2_suite_b():
+    rows = []
+
+    def check(name, ok):
+        rows.append((name, bool(ok)))
+
+    pinned, old, new = _gr2_pin_case()
+    check('B1 protected and historical-only, all pinned',
+          old is not None and new is not None
+          and all(old[p] for p in _GR2_PIN_PATHS) and all(new[p] for p in _GR2_PIN_PATHS))
+
+    pinned, old, new = _gr2_pin_case(changed_live=_GR2_PIN_LIVE_FROZEN)
+    check('B2 protected three changed live: both sides reject',
+          old is not None and new is not None
+          and all(not old[p] and not new[p] for p in _GR2_PIN_LIVE_FROZEN)
+          and all(old[p] and new[p] for p in _GR2_PIN_HIST_ONLY))
+
+    for i, p in enumerate(_GR2_PIN_HIST_ONLY):
+        pinned, old, new = _gr2_pin_case(changed_live=(p,))
+        check('B%d historical-only changed live: old rejects, new accepts -- %s'
+              % (3 + i, p.rsplit('/', 1)[-1]),
+              old is not None and new is not None and old[p] is False and new[p] is True
+              and all(old[q] and new[q] for q in _GR2_PIN_PATHS if q != p))
+
+    pinned, old, new = _gr2_pin_case(changed_at=('E', _GR2_PIN_LIVE_FROZEN))
+    check('B6 protected three mutated at E: old accepts, new rejects',
+          old is not None and new is not None
+          and all(old[p] is True and new[p] is False for p in _GR2_PIN_LIVE_FROZEN))
+
+    pinned, old, new = _gr2_pin_case(changed_at=('L', _GR2_PIN_HIST_ONLY))
+    check('B7 historical-only mutated at L: old accepts, new rejects',
+          old is not None and new is not None
+          and all(old[p] is True and new[p] is False for p in _GR2_PIN_HIST_ONLY))
+
+    for drop in ('E', 'L'):
+        pinned, old, new = _gr2_pin_case(drop=drop)
+        check('B8 %s unrecoverable: old accepts, new fails closed' % drop,
+              old is not None and new is not None
+              and all(old[p] is True for p in _GR2_PIN_PATHS)
+              and all(new[p] is False for p in _GR2_PIN_PATHS))
+    return rows
+
+
+# ---------------------------------------------------------------------------
+# The composition row: both repairs in ONE repository, so that two repairs which each pass alone
+# are shown to pass together -- a shared recovery, a shared fail-closed path and a state split
+# evaluated twice are what this row exists to catch.
+# ---------------------------------------------------------------------------
+def _gr2_composition():
+    import shutil
+    target = _GR2_PIN_HIST_ONLY[0] if _GR2_PIN_HIST_ONLY else None
+    if target is None:
+        return [('C1 composition', False)]
+    pristine = dict((p, 'pristine %s\n' % p) for p in _GR2_PIN_PATHS)
+    pinned = dict((p, _gr1_blob_id(c.encode())) for p, c in pristine.items())
+    tree_hist = dict(pristine)
+    tree_hist[_GR1_GUARD_PATH] = _GR2_DECL_PRISTINE
+    tree_head = dict(tree_hist)
+    tree_head[_GR1_GUARD_PATH] = _GR2_DECL_A29
+    tree_head[target] = 'changed on the current tree %s\n' % target
+    d, revs = _gr2_build([('E', tree_hist), ('L', tree_hist), ('HEAD', tree_head)])
+    try:
+        if revs is None:
+            return [('C1 composition', False)]
+        e, l = revs['E'], revs['L']
+        new_decl = _gr1_decl_verdicts('LANDED-UNRECORDED', e, l, _GR2_LIVE_A29, cwd=d)
+        new_pins = dict((p, _gr1_pin_ok(p, pinned[p], e, l, cwd=d)) for p in _GR2_PIN_PATHS)
+        old_decl = _gr2_old_decls(_GR2_LIVE_A29)
+        old_pins = _gr2_old_pins(dict((p, _gr1_blob_id(c.encode()))
+                                      for p, c in tree_head.items()), pins=pinned)
+        return [('C1 both declarations changed and one historical-only path changed',
+                 old_decl is not None and old_pins is not None
+                 and all(new_decl[k] for k in ('prospective-untouched', 'baseline-untouched'))
+                 and all(new_pins[p] for p in _GR2_PIN_PATHS)
+                 and not any(old_decl[k] for k in ('prospective-untouched', 'baseline-untouched'))
+                 and old_pins[target] is False)]
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+
+# ---------------------------------------------------------------------------
+# The fixtures. G1-G7 on the declaration contract, P1-P6 on the pins; the rows the suites above
+# already measure are not rebuilt, and the fixtures below add the cases the suites do not state.
+# ---------------------------------------------------------------------------
+def _gr2_fixtures():
+    import shutil
+    res = []
+
+    # G5, G6 -- fail-closed and reads-history-not-the-process.
+    d, revs = _gr2_build([('E', {_GR1_GUARD_PATH: _GR2_DECL_TWICE}),
+                          ('L', {_GR1_GUARD_PATH: _GR2_DECL_PRISTINE}),
+                          ('X', {_GR1_GUARD_PATH: _GR2_DECL_NONLITERAL}),
+                          ('Y', {_GR1_GUARD_PATH: _GR2_DECL_UNPARSABLE})])
+    try:
+        if revs is None:
+            res.append(('G5 fail-closed reader', False))
+            res.append(('G6 reads history and not the process', False))
+        else:
+            twice, fine = revs['E'], revs['L']
+            nonlit, unparsable = revs['X'], revs['Y']
+            res.append(('G5 fail-closed reader: assigned twice, non-literal, unparsable, absent',
+                        _gr1_decls(twice, cwd=d) is None and _gr1_decls(nonlit, cwd=d) is None
+                        and _gr1_decls(unparsable, cwd=d) is None
+                        and _gr1_decls('0' * 40, cwd=d) is None
+                        and _gr1_decls(fine, cwd=d) == _GR2_LIVE_PRISTINE))
+            # The live globals here would pass; the history would not, and the history governs.
+            v = _gr1_decl_verdicts('LANDED-UNRECORDED', nonlit, fine, _GR2_LIVE_PRISTINE, cwd=d)
+            res.append(('G6 reads history and not the process',
+                        not v['prospective-untouched'] and not v['baseline-untouched']))
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+    # G7 -- non-vacuity: the frozen table is not the successor values the rows use.
+    res.append(('G7 frozen table is not the successor values',
+                _GR1_DECL_FROZEN['_MANIFEST_PROSPECTIVE']
+                != _GR2_LIVE_A29['_MANIFEST_PROSPECTIVE']
+                and _GR1_DECL_FROZEN['_MANIFEST_BASELINE']
+                != _GR2_LIVE_A29['_MANIFEST_BASELINE']
+                and _gr1_decls is not None))
+
+    # P5 -- a pinned path absent at E fails rather than skipping.
+    pristine = dict((p, 'pristine %s\n' % p) for p in _GR2_PIN_PATHS)
+    pinned = dict((p, _gr1_blob_id(c.encode())) for p, c in pristine.items())
+    gone = _GR2_PIN_PATHS[0]
+    tree_e = dict((p, c) for p, c in pristine.items() if p != gone)
+    d, revs = _gr2_build([('E', tree_e), ('L', pristine)])
+    try:
+        res.append(('P5 a pinned path absent at E fails closed',
+                    revs is not None
+                    and _gr1_pin_ok(gone, pinned[gone], revs['E'], revs['L'], cwd=d) is False
+                    and _gr1_pin_ok(_GR2_PIN_PATHS[1], pinned[_GR2_PIN_PATHS[1]],
+                                    revs['E'], revs['L'], cwd=d) is True))
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+    # P6 -- the classification itself: _GR1_PIN_LIVE exactly the three protected paths, each a
+    # pinned key; the six emitted key identities exactly the ones the BASE'S OWN LOOP emits, taken
+    # by executing it; no pinned path or value moved from the base's table, parsed from the base's
+    # own source; the guard and the ROADMAP still excluded under their own contracts.
+    _base_keys = set((_gr2_old_pins(dict((p, 'x') for p in _GR1_PINS)) or {}).keys())
+    res.append(('P6 classification, key identities and pinned values',
+                tuple(_GR1_PIN_LIVE) == _GR2_PIN_LIVE_FROZEN
+                and all(p in _GR1_PINS for p in _GR1_PIN_LIVE)
+                and len(_GR2_PIN_PATHS) == 6 and len(_GR2_PIN_LIVE_FROZEN) == 3
+                and _base_keys == set(_GR2_PIN_PATHS)
+                and _GR1_GUARD_PATH not in _GR2_PIN_PATHS
+                and _GR1_ROAD_PATH not in _GR2_PIN_PATHS
+                and _GR2_BASE_PINS is not None and _GR2_BASE_PINS == dict(_GR1_PINS)))
+    return res
+
+
+# ---------------------------------------------------------------------------
+# The negative suite: each case must FAIL, and for its named reason.
+# ---------------------------------------------------------------------------
+def _gr2_negatives():
+    import shutil
+    res = []
+    # N1 -- a replacement that drops the execution regime would read history while executing.
+    d, revs = _gr2_build([('E', {_GR1_GUARD_PATH: _GR2_DECL_A29})])
+    try:
+        res.append(('N1 execution regime is not dropped',
+                    revs is not None
+                    and _gr1_decl_verdicts('EXECUTION', revs['E'], revs['E'],
+                                           _GR2_LIVE_PRISTINE)['baseline-untouched'] is True))
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+    # N2 -- a replacement that read only L would accept a baseline mutated at E.
+    d, revs = _gr2_build([('E', {_GR1_GUARD_PATH: _GR2_DECL_BASE_ONLY}),
+                          ('L', {_GR1_GUARD_PATH: _GR2_DECL_PRISTINE})])
+    try:
+        res.append(('N2 both E and L are read, not L alone',
+                    revs is not None
+                    and _gr1_decl_verdicts('LANDED-UNRECORDED', revs['E'], revs['L'],
+                                           _GR2_LIVE_PRISTINE)['baseline-untouched'] is False))
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+    # N3 -- a None from the reader is never accepted.
+    res.append(('N3 a None from the reader is a failure',
+                _gr1_decl_verdicts('LANDED-UNRECORDED', None, None,
+                                   _GR2_LIVE_PRISTINE) == {'prospective-untouched': False,
+                                                           'baseline-untouched': False}))
+    # N4 -- a live leg for a historical-only path would reject a legitimate successor.
+    res.append(('N4 the live leg does not reach the historical-only three',
+                all(p not in _GR1_PIN_LIVE for p in _GR2_PIN_HIST_ONLY)))
+    # N5 -- a legacy-shaped name is forbidden by SI-3's standing contract.
+    res.append(('N5 no legacy-shaped name',
+                not _re.search(r'(?m)^_GR2_(BASE|SEALED_HEAD|MERGE)\s*=', _GR2_SELF)))
+    return res
+
+
+# ---------------------------------------------------------------------------
+# The budget, the chronology, the seals tree and this round's own declarations.
+# ---------------------------------------------------------------------------
+_GR2_SELF_PATH = os.path.join(VERIFICATION, 'lean', 'edge_rigidity_probe.py')
+try:
+    with open(_GR2_SELF_PATH, encoding='utf-8') as _fh:
+        _GR2_SELF = _fh.read()
+except OSError:
+    _GR2_SELF = ''
+
+
+def _gr2_strip_block(src):
+    """The guard text with THIS block removed, bounded by its own markers and by nothing else."""
+    if src.count(_GR2_MARK_OPEN) != 1 or src.count(_GR2_MARK_CLOSE) != 1:
+        return None
+    i = src.index(_GR2_MARK_OPEN)
+    j = src.index(_GR2_MARK_CLOSE) + len(_GR2_MARK_CLOSE)
+    while j < len(src) and src[j] == '\n':
+        j += 1
+    return src[:i] + src[j:]
+
+
+def _gr2_revert_segments(src):
+    """The guard text with both replacement spans restored to the base's superseded segments.
+
+    Each span is located by its own opening marker and by the end of its own last statement,
+    including the blank separation the inserted block needs; the two frozen superseded segments
+    are then written back in their places. None when either span is not found exactly once."""
+    s1_open = '# ---- ' + 'GR-2 (S1): THE DECLARATION CONTRACT'
+    s1_end = '    return True\n\n\n'
+    s2_open = '    _gr1_pin_l = _GR1_LANDINGS[0][0] if _GR1_LANDINGS else None\n'
+    s2_end = "        _gr1_checks['landed-pin:' + _p] = _gr1_pin_ok(_p, _b, _GR1_E, _gr1_pin_l)\n"
+    if src.count(s1_open) != 1 or src.count(s2_open) != 1 or src.count(s2_end) != 1:
+        return None
+    a = src.index(s1_open)
+    k = src.find('def _gr1_pin_ok', a)
+    if k < 0:
+        return None
+    b = src.find(s1_end, k)
+    if b < 0:
+        return None
+    out = src[:a] + _GR2_S1_SEG + src[b + len(s1_end):]
+    a2 = out.find(s2_open)
+    b2 = out.find(s2_end, a2)
+    if a2 < 0 or b2 < 0:
+        return None
+    return out[:a2] + _GR2_S2_SEG + out[b2 + len(s2_end):]
+
+
+def _gr2_budget(src):
+    """The change budget: this text, with this block removed and both superseded segments
+    restored, equals the base's guard text. True only when the round's whole diff to this file is
+    those two spans and this block."""
+    stripped = _gr2_strip_block(src)
+    if stripped is None or not _GR2_S1_SEG or not _GR2_S2_SEG:
+        return False
+    reverted = _gr2_revert_segments(stripped)
+    return reverted is not None and reverted == _GR2_BASE_SRC
+
+
+def _gr2_has_block(rev, cwd=None):
+    """Whether the guard file at `rev` carries THIS clause -- keyed to this round's own tag, so a
+    sibling round's block is not mistaken for it."""
+    src = _gr2_git('show', '%s:%s' % (rev, _GR1_GUARD_PATH), cwd=cwd)
+    return src is not None and b"check('R7-GR2'" in src
+
+
+def _gr2_has_artifacts(rev, cwd=None):
+    """Whether BOTH of this round's stage-4 artifacts exist at `rev`. A stage-3 parent carries the
+    clause and not these, and is therefore not a landing."""
+    for rel in (_GR2RESREL, _GR2MAPREL):
+        if _gr2_git('rev-parse', '--verify', '--quiet',
+                    '%s:verification/%s' % (rev, rel), cwd=cwd) is None:
+            return False
+    return True
+
+
+def _gr2_chronology(base, env=None, cwd=None):
+    """Three states, with ANCESTRY and EXECUTION SHAPE separated and each reported. Keyed to this
+    round throughout: its own record, its own clause and its own artifacts -- GR-1's chronology
+    keys on GR1.json and on GR-1's clause, and is not reused here."""
+    if 'GR2' in (_si1_load()[0] or {}):
+        return 'RECORDED', bool(_si2_authority('GR2', tag='R7-GR2')), 'keyed manifest authority'
+    targets = _rbr_archive_visibility_targets(env=env, tag='R7-GR2', cwd=cwd)
+    landings = _gr1_landings(base, [t for t, _w in (targets or [])],
+                             has_block=_gr2_has_block, has_artifacts=_gr2_has_artifacts, cwd=cwd)
+    if landings:
+        return 'LANDED-UNRECORDED', True, 'canonical landing, %d candidate(s)' % len(landings)
+    if landings is None:
+        return 'EXECUTION', False, 'git could not answer the landing question'
+    target, label, num = _rbr_target_commit(env=env, tag='R7-GR2')
+    anc = _rbr_strong_ancestry(base, target, label, num, tag='R7-GR2', cwd=cwd) if target else False
+    shape = _gr1_shape(base, target, cwd=cwd) if target else False
+    return 'EXECUTION', bool(anc) and bool(shape), 'ancestry %s, shape %s' % (bool(anc),
+                                                                             bool(shape))
+
+
+_GR2_STATE, _GR2_CHRON_OK, _GR2_CHRON_WHY = _gr2_chronology(_GR2_B)
+_GR2_LANDINGS = (None if _GR2_STATE == 'EXECUTION' else _gr1_landings(
+    _GR2_B, [t for t, _w in (_rbr_archive_visibility_targets(tag='R7-GR2') or [])],
+    has_block=_gr2_has_block, has_artifacts=_gr2_has_artifacts))
+_GR2_E = _GR2_LANDINGS[0][1] if _GR2_LANDINGS else None
+_GR2_L = _GR2_LANDINGS[0][0] if _GR2_LANDINGS else None
+_gr2_checks['chronology'] = bool(_GR2_CHRON_OK)
+_gr2_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR2_B)
+_gr2_checks['seals-integrity-u5'] = bool(_si2_integrity_ok())
+_gr2_checks['no-own-record'] = 'GR2' not in (_si1_load()[0] or {})
+_gr2_checks['no-legacy-shaped-name'] = not _re.search(
+    r'(?m)^_GR2_(BASE|SEALED_HEAD|MERGE)\s*=', _GR2_SELF)
+# THIS ROUND'S OWN DECLARATIONS, in the two regimes S1 installs and against its OWN recovered
+# history: it declares no baseline of its own and writes no prospective entry, so the retained
+# act 28 values must stand at its own commits. A repair that reproduced the defect it repairs
+# would fail here one round later.
+_gr2_checks.update(dict(
+    ('own-' + _k, _v) for _k, _v in _gr1_decl_verdicts(
+        _GR2_STATE, _GR2_E, _GR2_L,
+        {'_MANIFEST_PROSPECTIVE': _MANIFEST_PROSPECTIVE,
+         '_MANIFEST_BASELINE': _MANIFEST_BASELINE}).items()))
+if _GR2_STATE == 'EXECUTION':
+    _gr2_checks['placement-whole-file'] = _gr2_budget(_GR2_SELF)
+elif _GR2_E is None:
+    _gr2_checks['placement-historical-budget'] = _GR2_STATE == 'RECORDED'
+else:
+    _gr2_checks['placement-historical-budget'] = _gr2_budget(
+        (_gr2_git('show', '%s:%s' % (_GR2_E, _GR1_GUARD_PATH)) or b'').decode(
+            'utf-8', 'replace'))
+
+# ---------------------------------------------------------------------------
+# The suites, the fixtures, the composition row and the negatives, all measured on every build.
+# ---------------------------------------------------------------------------
+for _nm, _ok in _gr2_suite_a():
+    _gr2_checks['suite-a:' + _nm] = _ok
+_gr2_controls += 1
+for _nm, _ok in _gr2_suite_b():
+    _gr2_checks['suite-b:' + _nm] = _ok
+_gr2_controls += 1
+for _nm, _ok in _gr2_composition():
+    _gr2_checks['composition:' + _nm] = _ok
+_gr2_controls += 1
+for _nm, _ok in _gr2_fixtures():
+    _gr2_checks['fixture:' + _nm] = _ok
+_gr2_controls += 1
+
+
+def _gr2_row_ok(prefix, which):
+    """Whether every row of one suite whose name opens with `prefix` passed."""
+    ks = [k for k in _gr2_checks if k.startswith('suite-%s:%s ' % (which, prefix))]
+    return bool(ks) and all(_gr2_checks[k] for k in ks)
+
+
+# The frozen fixture list names eight cases the suites above already measure. They are recorded
+# here under the freeze's own names, as ALIASES of those measurements and not as second
+# measurements, so that a reader checking the log against the freeze finds every frozen name
+# without the block claiming to have built the same repository twice.
+for _nm, _which, _prefixes in (
+        ('G1 execution regime preserved (= A1, A2)', 'a', ('A1', 'A2')),
+        ('G2 the successor case (= A4)', 'a', ('A4',)),
+        ('G3 one line at a time (= A5, A6)', 'a', ('A5', 'A6')),
+        ('G4 mutation of history fails (= A7, A8)', 'a', ('A7', 'A8')),
+        ('P1 all pinned, both classes (= B1)', 'b', ('B1',)),
+        ('P2 protected changed live fails (= B2)', 'b', ('B2',)),
+        ('P3 historical-only changed live passes (= B3, B4, B5)', 'b', ('B3', 'B4', 'B5')),
+        ('P4 mutation of history fails for all six (= B6, B7)', 'b', ('B6', 'B7'))):
+    _gr2_checks['fixture:' + _nm] = all(_gr2_row_ok(_p, _which) for _p in _prefixes)
+for _nm, _ok in _gr2_negatives():
+    _gr2_checks['negative:' + _nm] = _ok
+_gr2_controls += 1
+
+# ---------------------------------------------------------------------------
+# The two artifacts, and the verdict map they carry. Absent until GR2-4, which is why this block
+# is the round's sole failure at its own checkpoint and its failure set is exactly these two.
+# ---------------------------------------------------------------------------
+def _gr2_artifact_bytes(rel):
+    """The artifact's bytes, or b'' when it does not exist -- absent is a FAILED contract here and
+    never a crash, which is what makes this block's own checkpoint readable at stage 3."""
+    try:
+        return _bb_read(rel)
+    except OSError:
+        return b''
+
+
+_GR2_RES_BYTES = _gr2_artifact_bytes(_GR2RESREL)
+_GR2_MAP_BYTES = _gr2_artifact_bytes(_GR2MAPREL)
+_gr2_checks['result-note'] = bool(_GR2_RES_BYTES) and b'GR2-4' in _GR2_RES_BYTES
+try:
+    _GR2_MAP = json.loads(_GR2_MAP_BYTES.decode('utf-8')) if _GR2_MAP_BYTES else None
+except ValueError:
+    _GR2_MAP = None
+_gr2_checks['tag-map'] = bool(
+    _GR2_MAP and isinstance(_GR2_MAP.get('base'), dict) and isinstance(_GR2_MAP.get('head'), dict)
+    and all(_v == 'PASS' for _v in _GR2_MAP['base'].values())
+    and set(_GR2_MAP['head']) == set(_GR2_MAP['base'])
+    and all(_GR2_MAP['head'][_k] == _GR2_MAP['base'][_k] for _k in _GR2_MAP['base'])
+    and 'R7-GR2' not in _GR2_MAP['base'] and 'R7-GR1' in _GR2_MAP['base'])
+
+_gr2_bad = sorted(k for k, v in _gr2_checks.items() if not v)
+print('    R7-GR2 contracts: %d checks, %d control group(s); chronology %s; failures: %s'
+      % (len(_gr2_checks), _gr2_controls, _GR2_STATE,
+         ', '.join(_gr2_bad) if _gr2_bad else 'none'))
+check('R7-GR2', not _gr2_bad,
+      "Guard repair round GR-2, NON-SEALING, E -> L, no P: TWO SEPARATELY NAMED SUPERSESSIONS of "
+      "R7-GR1, both the same defect -- an execution-time assertion left running against whatever "
+      "tree the guard later finds. S1: the declaration checks compared this module's own "
+      "_MANIFEST_PROSPECTIVE and _MANIFEST_BASELINE against GR-1's execution-time values in every "
+      "lifecycle state, although A.37 as amended by SI3-6 requires each round to declare its own "
+      "baseline and a sealing round to carry its mandated base in the prospective declaration "
+      "while it executes; the replacement keeps that assertion verbatim while GR-1 is EXECUTION "
+      "and, in every other state, requires the frozen values in the guard file at GR-1's "
+      "RECOVERED E AND L. S2: the landed-pin loop asserted six pinned blobs on the CURRENT tree, "
+      "but GR-1's placement contract fixes the post-landing live-tree scope and names its "
+      "members -- the owned region, GR-1's own three artifacts, and act 28's preregistration, "
+      "result note and PFR.json -- while the same passage anticipates later rounds changing other "
+      "material; the replacement splits by class, requiring the pinned blob at E AND L for ALL "
+      "SIX and at the resolved head for those three alone, so AGENTS.md, act 28's shared Lean "
+      "module and act 29's preregistration are no longer required of a later tree. NEITHER HALF "
+      "IS WEAKENED: a mutated history fails for all six, a changed protected artifact still "
+      "fails, and every fail-closed leg is exercised. Each superseded text is pinned by sha256 "
+      "and EXTRACTED FROM THE BASE'S OWN GUARD TEXT, and the OLD SIDE OF BOTH SUITES IS THAT "
+      "EXTRACTED CODE EXECUTED in a controlled namespace rather than a paraphrase. Suite A's nine "
+      "rows separate old from new on the declarations, including the state act 29's candidate "
+      "merge is in and two rows where a mutated history must still fail; suite B's eight rows do "
+      "the same for the pins, with the three historical-only paths exercised INDIVIDUALLY; C1 "
+      "measures the two repairs COMPOSING in one repository rather than only passing apart. "
+      "Fixtures cover the fail-closed reader, reading history and not the process, non-vacuity, a "
+      "pinned path absent at E, and the classification itself -- _GR1_PIN_LIVE exactly the three "
+      "protected paths, the six landed-pin:<full path> key identities the base's, and no pinned "
+      "value moved. Five negative cases each fail for their named reason. The budget: this file "
+      "with this block removed and both superseded segments restored equals the base's guard "
+      "file, whole-file while executing and measured against the recovered E after landing. The "
+      "round writes no manifest record, no prospective declaration and no baseline change, edits "
+      "none of the six pinned paths including AGENTS.md, and carries no seal triple of its own. "
+      "GR1.json remains owed to a later round that names it.")
+
+# ---- R7-GR2 ends.
+
 print()
 print('     [scope] Settled in Lean: K4-rigidity for all n >= 5 with the n = 4 complement')
 print('     exception sharp (EdgeRigidity), the non-induced => exceptional-relation corollary')
