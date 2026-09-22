@@ -135,6 +135,23 @@ class Git:
         except Exception:  # noqa: BLE001 -- recovery is best effort; the check decides
             pass
 
+    def deepen(self, sha):
+        """Materialize the history of the commit under verification, which a shallow checkout
+        truncates to a single commit. Every derivation this verifier makes -- the base located by
+        blob on the first-parent chain, the ancestry of a sealed head, the landing's parents -- is
+        a question about that history, and a truncated checkout answers all of them absent. Exactly
+        the ancestry of the given commit is fetched from `origin`; no ref is created, no other
+        commit is named, no branch and no worktree file changes, and no question is answered from
+        anywhere but the repository. Failures are not errors here: the caller asks the identical
+        questions afterwards and fails closed on its own."""
+        if not is_hex(sha) or not self.is_shallow():
+            return
+        try:
+            if self.run('fetch', '--unshallow', 'origin', sha) is None:
+                self.run('fetch', '--deepen=2147483647', 'origin', sha)
+        except Exception:  # noqa: BLE001 -- deepening is best effort; the checks decide
+            pass
+
     def parents(self, sha):
         out = self.run('rev-list', '--parents', '-n', '1', sha)
         return out.split()[1:] if out else None
@@ -717,6 +734,8 @@ def evaluate(root, env, subject='certified'):
         res.lines.append('  TARGETS  fail-closed: %s' % code)
         return res
     res.targets = targets
+    for sha, _label in targets:
+        git.deepen(sha)
     res.lines.append('  TARGETS  ' + '; '.join('%s %s' % (lab, sha[:12]) for sha, lab in targets))
     for name in store.stray:
         res.fail('store:stray-file:' + name)
