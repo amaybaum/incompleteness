@@ -54,9 +54,16 @@ execution-time assertion left running against whatever tree the guard later find
 | 1 | `R7-GR1`, the declaration pair | that the file's two manifest declarations still carry `GR-1`'s execution-time values | `GR-2`'s freeze, `S1` |
 | 2 | `R7-GR1`, the `landed-pin:` loop | that six blobs, three of them outside `GR-1`'s own frozen live scope, are unchanged | `GR-2`'s freeze, `S2` |
 | 3 | `R7-GR2`, negative control `N12` | that the whole-file budget holds on the live tree, inside a control whose own freeze scopes the budget to `E` after landing | run 35694203310, the reopened pull request #705 at the unchanged act 29 head `bf7e96fef8135525e752fb0daba0a082cf10ed44` against `D` |
+| 4 | `R7-GR1`, `seals-tree-integrity` | that the working tree's `verification/seals/` equals the tree at `GR-1`'s base, in every state, where the freeze says "byte-identical to `B`'s … at every commit of the round up to `E`" and "at `L`, equal to the first parent's" | reading, while this freeze was drafted, prompted by asking what act 29's `P` — the first seal record any round adds after `GR-1` — would trip |
+| 5 | `R7-GR2`, `seals-tree-integrity` | the same, against `GR-2`'s base, where its freeze says "while the round runs" | the same reading |
+| 6 | `R7-GR1`, fixture `F11` | that `_gr1_seals_ok(_GR1_B)` holds on the live tree, as the positive half of the control that the seals contract is not vacuous — `N12`'s shape, one round earlier | the drafting-time measurement below: on a tree carrying a later round's authorized seal record, `F11` stays red after `S2` alone |
 
 The third was committed by the round that repaired the first two, in the commit that made its
-negative suite exhaustive. That is the evidence that the defect is architectural and not a lapse:
+negative suite exhaustive; the fourth and fifth were committed by both repair rounds in the same
+contract, and would have turned `main` red at act 29's `P` — the very landing the sequence below
+requires; the sixth is the same fixture-shaped defect as the third, in the other repair round,
+and was found only because the fourth was measured rather than merely repaired. That is the
+evidence that the defect is architectural and not a lapse:
 the abstraction — a historical round expressed as executable code that runs at every later head —
 invites the defect at every extension point, and a repair written in the same abstraction is
 another extension point. Run 35694203310 is preserved as the falsifier: on the unchanged act 29
@@ -83,7 +90,8 @@ live-tree assertion. The programme-level success metric is frozen here so it can
 
 ### Two rounds, and the boundary between them
 
-`CV-1` is the first of **two**. It supersedes `N12`, installs every `V2` object **in shadow**,
+`CV-1` is the first of **two**. It supersedes `N12`, the two unscoped seals-tree statements and
+the fixture `F11` that mirrors them, installs every `V2` object **in shadow**,
 translates every landed round into a certificate, runs the `V2` conformance corpus and the two
 `V1`→`V2` censuses while `V1` remains authoritative, and — only after both censuses at a fixed
 head match the profiles frozen below — wires `certificate_verifier.py --mode authoritative` into
@@ -98,8 +106,9 @@ before veto, veto before deletion, the `SI-1` → `SI-2` → `SI-3` order.
 ### What `CV-1` is not
 
 1. **It is not the retirement.** No `R7-*` block, no legacy comparison, no validator region and no
-   seal record is deleted or weakened. The diff against the base **adds**, with one exception
-   named in terms: the `N12` supersession, one hashed segment.
+   seal record is deleted or weakened. The diff against the base **adds**, with four exceptions
+   named in terms: the supersessions `S1`, `S2`, `S3` and `S4`, four hashed segments, each moving
+   an assertion to the history that can satisfy it and none removing one.
 2. **It does not retire `V1` or make it a shadow.** `V1`'s every check gates at `E`, at `L`
    and at `A` exactly as at `B`. `V2` gains the power to reject a build in this round — through
    the release gate, from stage 5 — and becomes the sole authority only in `CV-2`. Dual gating is
@@ -229,8 +238,135 @@ the log already knows is preserved.
 **Measured at `D`, with the replacement and a stub `R7-CV1` block applied in a scratch worktree:**
 the guard ends `ALL CHECKS PASS`, 104 verdict lines, exactly one tag new, `R7-GR2` 63 checks with
 no failure in `LANDED-UNRECORDED`, `R7-GR1` 86 with no failure. **No live `V1` contract other than
-`N12` is tripped by `CV-1`'s planned guard edits.** That measurement is what licenses the budget
-below: the round's diff to the guard file is `S1` and the `R7-CV1` block and nothing else.
+`N12` is tripped by `S1` and a new block.** The measurement with `S2` and `S3` applied as well is
+recorded under `S3` below.
+
+***
+
+## `S2` and `S3` — the two seals-tree supersessions, stated as text and not as prose
+
+**Superseded, `S2`.** One line of `R7-GR1`, at 31776 of the guard file at `D`, occurring once:
+
+```python
+_gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)
+```
+
+`sha256` `914bbad364b9db05d81dd14d355fb271515570169ff48df1285fe0d4cd15b08c`.
+
+**Superseded, `S3`.** One line of `R7-GR2`, at 32938 at `D`, occurring once:
+
+```python
+_gr2_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR2_B)
+```
+
+`sha256` `2ee51af0ddd9a937157d984b523360d6008eb241ea68f1cb486825d722b9b21c`.
+
+**What is wrong with them, in their own freezes' terms.** `_gr1_seals_ok(base)` compares the
+`verification/seals/` directory **of the tree the guard runs on** to the seals tree at `base`.
+Both statements run in every lifecycle state. `GR-1`'s freeze scopes the contract to "every
+commit of the round up to `E`" and, at `L`, "equal to the first parent's tree", with "later
+authorized additions outside this round's scope"; `GR-2`'s says "while the round runs". Neither
+implementation carries that scope. At `D` the seals tree is `92e0956ad6b187fddf77068f33c66e69a012f074`
+at both bases, at `E_GR1`, `L_GR1`, `E_GR2` and `L_GR2`, so both pass today and both fail on the
+first tree that carries a seal record added by any later round. Act 29's `P` writes one.
+
+**The replacements.** One helper, defined once in the `R7-GR1` region directly after
+`_gr1_seals_ok` and used by both rounds:
+
+```python
+def _gr1_seals_hist(base, e, l, cwd=None):
+    """The seals contract after landing, read from HISTORY and not from the tree the guard runs
+    on: the seals tree at the recovered `e` equals the base's, and at the recovered `l` equals its
+    first parent's, which is what the freeze states of the round's own commits. An unrecoverable
+    `e` or `l`, or a git that cannot answer, fails rather than skips."""
+    if e is None or l is None:
+        return False
+
+    def tree(rev):
+        out = _gr1_git('rev-parse', '%s:%s' % (rev, _GR1_SEALS_PATH), cwd=cwd)
+        return None if out is None else out.decode('utf-8', 'replace').strip()
+    tb, te, tl, tl1 = tree(base), tree(e), tree(l), tree(l + '^1')
+    return None not in (tb, te, tl, tl1) and te == tb and tl == tl1
+```
+
+`S2`'s replacement keeps the key identity `seals-tree-integrity` in both regimes. Because `R7-GR1`
+binds its recovered `E` and `L` only inside its post-landing branch, the statement splits by
+state at its original site and is written once more inside that branch, after `_gr1_pin_l`:
+
+```python
+if _GR1_STATE == 'EXECUTION':
+    _gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)
+```
+```python
+    _gr1_pin_l = _GR1_LANDINGS[0][0] if _GR1_LANDINGS else None
+    _gr1_checks['seals-tree-integrity'] = _gr1_seals_hist(_GR1_B, _GR1_E, _gr1_pin_l)
+```
+
+`S3`'s replacement is one line, `R7-GR2` binding `_GR2_E` and `_GR2_L` before its statement:
+
+```python
+_gr2_checks['seals-tree-integrity'] = (_gr1_seals_ok(_GR2_B) if _GR2_STATE == 'EXECUTION'
+                                       else _gr1_seals_hist(_GR2_B, _GR2_E, _GR2_L))
+```
+
+`_gr1_seals_ok` itself is not changed. `R7-CV1`'s own integrity contract is written in the scoped
+form from the start.
+
+**Superseded, `S4`.** The six lines of `R7-GR1`'s fixture `F11`, at 32049–32054 at `D`, from
+the line `        # F11: the seals-tree contract catches a mutated, a removed and an added record.`
+through the line ending `nor a foreign repository'))`, each anchor occurring once, the segment
+occurring once:
+
+`sha256` `bd21c2a6765cf788d8125e99af5f202a9b0302e4b0b11493cbe3b05567e4bbac`.
+
+Its positive half, `_gr1_seals_ok(_GR1_B)`, is the live tree in every state — the same shape as
+`N12`. **The replacement** keeps the row name and both negative halves and rebinds the positive
+half to the subject the contract itself now uses:
+
+```python
+        # F11: the seals-tree contract catches a mutated, a removed and an added record. The
+        # positive half reads the lifecycle-scoped subject the contract itself uses: the live
+        # tree while this round is EXECUTION, its recovered E and L afterwards.
+        res.append(('F11 seals contract is not vacuous',
+                    (_gr1_seals_ok(_GR1_B) if _GR1_STATE == 'EXECUTION'
+                     else _gr1_seals_hist(_GR1_B, _GR1_E, _gr1_pin_l))
+                    and not _gr1_seals_ok('101b8cebb140c2ee7b982641ff005b84bbf0a1cf')
+                    and not _gr1_seals_ok(n['b'], cwd=d),
+                    'the tree matches its own base, and not act 28 base nor a foreign repository'))
+```
+
+`_gr1_fixtures()` runs at module level after `R7-GR1`'s lifecycle branch, so `_GR1_E` and
+`_gr1_pin_l` are bound whenever the non-`EXECUTION` arm is evaluated.
+
+**The controls, mandatory, for each of `S2`, `S3` and `S4`:**
+
+1. **Pinned and unique.** Each superseded line extracted from the base's text, hashed, equal to
+   its frozen hash, occurring once.
+2. **The successor-guard demonstration.** On a synthetic repository in which a later round has
+   added an authorized seal record, with `GR-1`'s and `GR-2`'s histories intact: the superseded
+   statement, compiled from the base's text, fails; the replacement passes.
+3. **`EXECUTION` unchanged.** With the state forced to `EXECUTION`, old and new return the same
+   verdict on the same tree.
+4. **Post-landing reads history, and fails closed.** With the state `LANDED-UNRECORDED`: a
+   mutated seals tree at the round's `E`, and separately at its `L` relative to `L`'s first
+   parent, each fail under the replacement; an unrecoverable `E` or `L` fails rather than skips.
+5. **Every other row identical.** `R7-GR1` reports 86 checks and 24 control groups, `R7-GR2` 63
+   and 7, before and after, and every row but the superseded one returns the same verdict.
+
+**Measured at `D`, in scratch worktrees**, each a detached checkout of `D` with the named edits
+committed locally and the guard run with the git and pull-request environment scrubbed:
+
+| tree | edits | result |
+|---|---|---|
+| the defect demonstrated | a later round's authorized seal record: `verification/seals/ZZZ.json`, `base-only`, and `'ZZZ'` added to `_MANIFEST_BASELINE['authorized']`; nothing else | `FAILURE`, 103 verdict lines, exactly two red tags: `R7-GR1` on `seals-tree-integrity` **and** `fixture:F11`; `R7-GR2` on `seals-tree-integrity` **and** `N12`. Every `SI` block green: the addition is authorized and `U5` admits it |
+| the repair, first pass | the same, plus `S1`, `S2`, `S3` and a stub `R7-CV1` block | 104 lines, one red tag: `R7-GR2` green, 63 with no failure; `R7-GR1`'s `seals-tree-integrity` green and **`F11` still red** — which is how the sixth manifestation was found |
+| the repair, `S1`–`S4` | the same, plus `S4` | **`ALL CHECKS PASS`**, 104 lines, no failure: `R7-GR1` 86 checks with no failure and `R7-GR2` 63 with no failure, both `LANDED-UNRECORDED`, on a tree carrying a later round's authorized seal record |
+| the trip inventory | plain `D` plus `S1`–`S4` and the stub | **`ALL CHECKS PASS`**, 104 verdict lines, exactly one tag new, `R7-GR1` 86 with no failure, `R7-GR2` 63 with no failure: **no live `V1` contract is tripped by the four supersessions and a new block** |
+
+The first row is the measured falsifier of manifestations 4 and 5: two contracts that pass on
+every tree today and fail on the first tree any later round adds a record to. The second row is
+the measured falsifier of the sixth. The last row is what licenses the budget in `CV1-8`: the
+round's diff to the guard file is the four supersessions and the `R7-CV1` block and nothing else.
 
 ***
 
@@ -265,8 +401,16 @@ Unknown keys, malformed hashes and a `content-only` certificate carrying `base` 
 
 ### `V2` — the attestation ledger
 
-`verification/certificates/attestations.jsonl`, **append-only**, one JSON object per line, one
-line per landed round, written at `A`. Fields:
+**One record per round**, `verification/certificates/attestations/<STEM>.json`, the directory
+loaded by the verifier as **one logical, append-only ledger**. The physical store is per-record
+for the reason `SI-1` froze and this repository has exercised: a single shared file is a
+merge-conflict hotspot the moment two sibling rounds attest concurrently, and five rounds have
+landed in one afternoon here. Sibling `A` commits touch different paths and cannot conflict
+merely because both attest. Append-only is **structural**, not conventional: the corpus requires
+that modifying an existing record, deleting one, writing two records for one round, a record whose
+`round` disagrees with its filename, a record whose certificate does not exist, or a record with
+a wrong `sealed_head`, `tree`, `landing` or `protocol` each fail. A native round's `A` commit
+creates exactly its own file and changes nothing else. Fields:
 
 | field | content |
 |---|---|
@@ -322,6 +466,10 @@ Families the corpus must contain, each with at least one vector, positive contro
 - **provenance** — a second certificate claiming `origin: bootstrap-v1`; a `translated-v1` row
   carrying a `ci` block, or lacking `migration_snapshot`; a `native-v2` row lacking `ci`; a
   `translated-v1` certificate lacking `translation`, or a `native-v2` one carrying it;
+- **legacy-owned** — a second entry in `V7`; an entry whose stem also has a certificate; a
+  certificate for a stem in the set; the set's `count` unequal to its length; and the positive
+  control: the one entry present, the verifier reporting `LEGACY-V1-OWNED` and making no
+  validity claim while every other certificate is verified;
 - **live policy** — the declared clause count unequal to the file's; a clause lacking an owner
   round, a protocol, a schema predicate type, an activation point, an expiry condition or its
   evidence;
@@ -337,12 +485,15 @@ The count is **measured, not predicted**; the rule that every family is represen
 
 ### `V4` — the relocation ledger
 
-`verification/certificates/relocations.jsonl`, append-only, rows
-`{evidence_id, from, to, blob, authorizing_round}`. A valid relocation moves the same certified
-blob from the currently resolved location to the new one: no content change, no duplicate active
-location, no missing source, no fork. **The universal live rule:** every evidence id of every
-accepted certificate resolves through the relocation chain to exactly one current path carrying
-its certified blob. `CV-1` writes an empty ledger and no relocation.
+**One record per relocation event**, `verification/certificates/relocations/<n>-<slug>.json`
+with `{seq, evidence_id, from, to, blob, authorizing_round}`, the directory loaded as one logical
+append-only ledger ordered by `seq`, on the same per-record principle as `V2`; an absent
+directory is the empty ledger. A valid relocation moves the same certified blob from the
+currently resolved location to the new one: no content change, no duplicate active location, no
+missing source, no fork, no gap or repeat in `seq`. **The universal live rule:** every evidence
+id of every accepted certificate resolves through the relocation chain to exactly one current
+path carrying its certified blob. `CV-1` performs no relocation and creates no record; the
+corpus exercises the store on synthetic repositories.
 
 ### `V5` — the live policy
 
@@ -352,6 +503,25 @@ data-only with at least `owner_round`, `protocol`, `predicate` from a finite sch
 list's length. **`CV-1` writes `count: 0` and an empty list.** The standing invariants `V1`
 carries as code — `SI-3`'s zero-legacy-statement contract among them — migrate, each with its
 evidence, in `CV-2`, which is where the escape hatch is first exercised and first bounded.
+
+### `V7` — the legacy-owned set, the migration's one compatibility state
+
+`verification/certificates/legacy-v1-owned.json`: `{protocol: 2, count, rounds: [...]}`, data and
+not a branch in verifier code, each entry pinned to a round's identity — `{stem, directory,
+preregistration_blob, base}`. A stem in this set is classified **`LEGACY-V1-OWNED`** by the
+verifier, which then **makes no certificate-validity claim about it, in either direction**:
+it is reported as *not mine yet* and gates nothing, and `V1` remains the authority that
+certifies it through `EXECUTION` → `LANDED-PENDING-PIN` → `ARCHIVED`. **`CV-1` writes exactly
+one entry, act 29**: `PRA`, `programmes/oi-qm/track-b/act-29-product-admission`, preregistration
+blob `5451a52d87d7d2ab2aac48802bb80898d81f6a16`, base `0bedff07fc1ad2675ecab205c8836e7a90a113d4`.
+The permitted set is exactly `{PRA}`; a second entry, an entry whose stem also has a
+certificate, or a certificate for a stem in the set, each fail. The entry **survives act 29's
+`P`** — there is still no `V2` certificate for `PRA` immediately afterward — and **`CV-2` must
+consume it**: translate `PRA` and leave the set empty, with `count: 0`, which is a contract of
+`CV-2`'s freeze. Without this object, stage 5 would install a gate that the very next planned
+object, unchanged act 29, could not pass; with it, dual gating keeps its meaning — `V2` certifies
+everything it owns and says *not mine yet* for the one frozen `V1` round, while `V1` stays
+load-bearing for that object.
 
 ### `V6` — the verifier
 
@@ -499,7 +669,7 @@ they describe; guard self-reads are retired with the guard. Nothing here decides
 
 | stage | what it does | may not begin until |
 |---|---|---|
-| 1 | `CV1-1`: `S1`, the `N12` supersession, and nothing else. Checkpoint: the guard green at the fixed head, both hashes verified, the emitted tag set equal to the base's | — |
+| 1 | `CV1-1`: `S1`, `S2`, `S3` and `S4`, the four supersessions, and nothing else. Checkpoint: the guard green at the fixed head, the four superseded hashes verified, the emitted tag set equal to the base's | — |
 | 2 | `V1`, `V3`, `V4`, `V5` written; the fifty-one certificates and their attestation rows translated; the corpus written | stage 1 |
 | 3 | `V6` built; the `Certificate verifier` job added to `verify.yml` in **`--mode shadow`**; `R7-CV1` added, with its chronology, its integrity contract, the five `S1` controls, and its artifact contracts | stage 2 |
 | 4 | the two censuses `CV1-6a` and `CV1-6b` at this stage's head, **committed as `census.json`** | stage 3, and the corpus exact |
@@ -526,8 +696,8 @@ Each target names the artifact that decides it, and is decided only by that arti
   recoverable and `tree(E_GR2)` as frozen; the seals tree `92e0956ad6b187fddf77068f33c66e69a012f074`;
   no `verification/certificates/`; no `PRA.json`; the declarations act 28's. Outcomes: `HOLD` /
   `DEVIATED`. `DEVIATED` stops the round.
-- **`CV1-1` — `S1` as frozen**, with its five controls. Outcomes: `SUPERSEDED-AS-FROZEN` /
-  `SUPERSEDED-DEVIATED`.
+- **`CV1-1` — `S1`, `S2`, `S3` and `S4` as frozen**, each with its controls. Outcomes:
+  `SUPERSEDED-AS-FROZEN` / `SUPERSEDED-DEVIATED`, the latter naming the supersession.
 - **`CV1-2` — the certificates.** Fifty-one certificates validating against `V1`, each
   translated from the source the table names, evidence pinned at `D`, and the attestation ledger
   carrying twenty-nine `landed` rows and six `base-only` rows. Outcomes:
@@ -570,9 +740,10 @@ Each target names the artifact that decides it, and is decided only by that arti
   | `SAME-FACTS-NEW-REPRESENTATION` | `GR-1`, `GR-2` | `V1` says `LANDED-UNRECORDED` with no record; `V2` says translated certificate plus translated `landed` row; `E`, `tree(E)`, `L` identical to what `V1` recovers, and no attestation commit claimed |
   | `NO-V1-COMPARATOR` | the 16 content-only rounds | `V2` coverage with no `V1` lifecycle counterpart; their `V1` blocks are content contracts only, and their certificates carry no topology |
   | `BOOTSTRAP` | `CV-1` | the unique `bootstrap-v1` certificate; no row until `A_CV1` |
+  | `LEGACY-V1-OWNED` | `PRA` | no certificate, no row; the one `V7` entry; `V1` the authority, `V2` making no claim |
 
-  The frozen profile: exactly 33 / 2 / 16 / 1 rows in those classes, every `TRANSCRIBED` value
-  byte-equal, every `SAME-FACTS-NEW-REPRESENTATION` fact equal to `V1`'s recovery. Outcomes:
+  The frozen profile: exactly 33 / 2 / 16 / 1 / 1 rows in those classes, every `TRANSCRIBED`
+  value byte-equal, every `SAME-FACTS-NEW-REPRESENTATION` fact equal to `V1`'s recovery. Outcomes:
   `REPRESENTATION-AS-FROZEN` / `REPRESENTATION-UNEXPECTED`, the latter reported, not repaired,
   and stopping the round before stage 5. This census exists so that the phrase "sole divergence"
   in `CV1-6a` stays true once the new model is instantiated: representation differences are
@@ -584,14 +755,15 @@ Each target names the artifact that decides it, and is decided only by that arti
 - **`CV1-8` — the verdict map and the budget.** (a) The base's own guard file is run; every tag it
   emits returns the same verdict at `E`, and `E` emits exactly one tag the base does not,
   `R7-CV1`: `MAP-PRESERVED` / `MAP-MOVED`. (b) The guard at `E`, with the `R7-CV1` block removed
-  and `S1` reverted to the base's segment, equals the base's guard file byte for byte —
+  and `S1`, `S2`, `S3` and `S4` reverted to the base's segments, equals the base's guard file
+  byte for byte —
   **whole-file while executing, and after landing measured against the recovered `E`**, as `GR-2`
   froze and as `N12` now respects: `BUDGET-HELD` / `BUDGET-EXCEEDED`. The two rules govern; a
   cardinality differing from the prediction below is recorded, not repaired.
 - **`CV1-9` — non-deletion, checked mechanically.** The execution's diff against `B` deletes no
   `R7-*` block, no clause, no seal record, no validator region text, and edits no file under
   `verification/seals/`, `verification/programmes/` or `verification/audits/`; the only edits to
-  existing files are `S1`, the `R7-CV1` block, one job in `verify.yml`, one step in
+  existing files are `S1`, `S2`, `S3`, `S4`, the `R7-CV1` block, one job in `verify.yml`, one step in
   `tools/release_gate.py`, and one ledger section in `verification/README.md`. Outcomes:
   `ADDITIVE` / `NOT-ADDITIVE`, the latter failing the round.
 
@@ -602,13 +774,13 @@ Each target names the artifact that decides it, and is decided only by that arti
 | target | prediction | strength | recorded reason |
 |---|---|---|---|
 | `CV1-0` | `HOLD` | HIGH | each item measured at `D`; nothing between `D` and `B` but this file |
-| `CV1-1` | `SUPERSEDED-AS-FROZEN` | HIGH | the replacement is written and was measured at `D` on two trees |
+| `CV1-1` | `SUPERSEDED-AS-FROZEN` | HIGH | the four replacements are written and were measured at `D` on the trees named under `S1` and `S4` |
 | `CV1-2` | `CERTIFICATES-TRANSLATED` | MEDIUM | four stems resolve to no directory and are the likely `INCOMPLETE` |
 | `CV1-3` | `CONFORMANCE-EXACT` | MEDIUM | the corpus is the largest object here and the one most likely to be short a family on first pass; the count is not predicted |
 | `CV1-4` | `DERIVE-EXACT` | HIGH | measured at `D`: 27 of 27 sealed, and both landed-unrecorded rounds, exact |
 | `CV1-5` | `LIVE-RULES-SHADOWED` | HIGH | both rules are trivial on a tree nothing has moved on |
 | `CV1-6a` | `VERDICTS-AS-ADJUDICATED`, `C-N12` the sole pass/fail divergence in the legacy domain | MEDIUM | the record rows should agree because `V2` asks less of each round than `V1` at a fixed head; the controls are where a misreading would show |
-| `CV1-6b` | `REPRESENTATION-AS-FROZEN`, 33 / 2 / 16 / 1 | HIGH | the classes are read off the translation table above |
+| `CV1-6b` | `REPRESENTATION-AS-FROZEN`, 33 / 2 / 16 / 1 / 1 | HIGH | the classes are read off the translation table above and `V7` |
 | `CV1-7` | `DUAL-GATING` | HIGH | one gate step and one mutation control |
 | `CV1-8` | `MAP-PRESERVED`, `BUDGET-HELD`; the base emits **103** tags and `E` **104** | HIGH; the count MODERATE | measured at `D` with the stub: 104, one new |
 | `CV1-9` | `ADDITIVE` | HIGH | the diff is enumerated above |
@@ -661,7 +833,8 @@ and changed neither implementation to remove the disagreement."
 every value byte-equal; `GR-1` and `GR-2` changed representation from `LANDED-UNRECORDED` under
 `V1` to translated certificates and rows under `V2` with the same recovered `E`, `tree(E)` and
 `L` and no attestation commit claimed; sixteen content-only rounds received certificates with no
-`V1` lifecycle counterpart; `CV-1` is the unique bootstrap. No historical fact changed."
+`V1` lifecycle counterpart; `CV-1` is the unique bootstrap; act 29 is the one legacy-owned round,
+`V1`'s to certify and `V2`'s to name. No historical fact changed."
 
 **`CV1-7`, `DUAL-GATING`:** "From this head the release gate rejects a build the `V2` verifier
 rejects, alongside the `V1` guard, which gates exactly as it did at the base on every tag it
@@ -694,15 +867,17 @@ Act 29 is a `V1` sealing round: its frozen landing is `E` → `L` → `P` with `
 way. Therefore, in order:
 
 1. `CV-1` lands and its `main` push run is certified; `A_CV1` is appended and certified.
-2. `#705` is closed and reopened, unchanged; the expectation is four green jobs with `R7-GR2`
-   green in `LANDED-UNRECORDED`, and `V2` in `--mode authoritative` reporting `PRA` as absent from
-   the certificate set and gating nothing about it.
+2. `#705` is closed and reopened, unchanged; the expectation is the required jobs green with
+   `R7-GR2` green in `LANDED-UNRECORDED`, and `V2` in `--mode authoritative` classifying `PRA` as
+   `LEGACY-V1-OWNED` from `V7`, making no validity claim and gating nothing about it.
 3. Act 29 lands under `V1`: `L`, `P` writing `PRA.json`, certified.
 4. `CV-2`'s control plane is written from that world, translating `PRA` and retiring `V1`.
 
-`PRA` stays under `V1`'s sole authority throughout `CV-1`; `V2` neither classifies nor gates a
-round in flight under the old protocol. A `V2` verifier that attempted to implement `V1`'s
-prospective state machine for `PRA` would be reimplementing what `CV-2` deletes.
+`PRA` stays under `V1`'s sole authority throughout `CV-1` and through its own `P`; `V2`
+classifies it `LEGACY-V1-OWNED` from the one data entry in `V7` and gates nothing about it. A
+`V2` verifier that attempted to implement `V1`'s prospective state machine for `PRA` would be
+reimplementing what `CV-2` deletes; a verifier with a `PRA` branch in its code would be a
+round-specific branch, which `R7-CV1` forbids.
 
 ***
 
@@ -762,10 +937,11 @@ the gate fails when `V6` fails.
 
 ## Definition budget
 
-**Six** slots — `V1` through `V6` — and the execution may fire no more. The corpus vectors, the
+**Seven** slots — `V1` through `V7` — and the execution may fire no more. The corpus vectors, the
 census harness, the translation script and the `S1` controls are test code and data, not
-definition slots. No slot may introduce a round-specific branch: no stem appears in `V6`'s logic,
-and `R7-CV1` checks that mechanically against the verifier's source.
+definition slots. No slot may introduce a round-specific branch: no stem appears in `V6`'s logic
+— `PRA` included, which is why the legacy-owned set is the data object `V7` and not a condition
+in the verifier — and `R7-CV1` checks that mechanically against the verifier's source.
 
 ## Evidence level
 
@@ -795,8 +971,8 @@ Evidence inventory at `D`: 62 preregistrations, 16 amendments, 53 result notes, 
 
 ### Files this round reads AND writes
 
-- `verification/lean/edge_rigidity_probe.py` — `S1`; the `R7-CV1` block appended after
-  `# ---- R7-GR2 ends.`; nothing else.
+- `verification/lean/edge_rigidity_probe.py` — `S1`, `S2`, `S3`, `S4`; the `R7-CV1` block
+  appended after `# ---- R7-GR2 ends.`; nothing else.
 - `.github/workflows/verify.yml` — one job added, in shadow.
 - `tools/release_gate.py` — one step added at stage 5, `certificate-verifier`, in authoritative
   mode; nothing else in the gate changes.
@@ -804,8 +980,9 @@ Evidence inventory at `D`: 62 preregistrations, 16 amendments, 53 result notes, 
   `SI-3`'s take. No live contract pins that file's blob at `D`; three blocks read it for
   sentences, none of which this section touches.
 - `tools/certificate_verifier.py` — created.
-- `verification/certificates/**` — created: fifty-one certificates, `attestations.jsonl`,
-  `relocations.jsonl`, `live-policy.json`, `conformance/v2/**`.
+- `verification/certificates/**` — created: fifty-one certificates; `attestations/` with
+  thirty-five translated records; `live-policy.json` with zero clauses; `legacy-v1-owned.json`
+  with its one entry; `conformance/v2/**`. No `relocations/` directory, there being no relocation.
 - `verification/infrastructure/round-cv-1-certificate-protocol/{result.md, census.json,
   cv1-tagmap.json}` — created.
 
@@ -819,8 +996,8 @@ mechanically against the execution's diff.
 ### Name freedom, at `D`
 
 `R7-CV1`, `_CV1`, `round-cv-1`, `cv1_`, `cv1-`, `certificate-protocol`, `R7-CV2`, `_CV2`,
-`round-cv-2`, `certificate_verifier`, `attestations.jsonl`, `relocations.jsonl`,
-`live-policy.json`, `conformance/` and `verification/certificates` each return nothing at `D`;
+`round-cv-2`, `certificate_verifier`, `legacy-v1-owned`, `live-policy.json`, `conformance/`,
+`verification/certificates` and `_gr1_seals_hist` each return nothing at `D`;
 `CV1` and `CV2` return nothing as whole words.
 
 ***
@@ -860,6 +1037,17 @@ frozen-blob: .github/workflows/verify.yml d0040de87341445b0d5c5928e34002be190212
 {"id": "b5-n12-open-once", "scope": "B", "check": "test \"$(git show $REF:verification/lean/edge_rigidity_probe.py | grep -c '^    # N12 -- the budget must not tolerate an unrelated edit elsewhere in the R7-GR1 region\\.$')\" = 1", "expect": "exit0"}
 {"id": "b5-n12-close-once", "scope": "B", "check": "test \"$(git show $REF:verification/lean/edge_rigidity_probe.py | grep -c '^        and _gr2_budget(_GR2_SELF) is True and _gr2_budget(tampered) is False)$')\" = 1", "expect": "exit0"}
 {"id": "b5-budget-unchanged", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -x 'def _gr2_budget(src):'", "expect": "nonempty"}
+# row 5b: S2's and S3's superseded lines are present at B, each once, with their frozen hashes; the helper is absent
+{"id": "b5-s2-line-once", "scope": "B", "check": "test \"$(git show $REF:verification/lean/edge_rigidity_probe.py | grep -cF \"_gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)\")\" = 1", "expect": "exit0"}
+{"id": "b5-s2-line-hash", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -F \"_gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)\" | sha256sum | cut -d' ' -f1 | grep -x '914bbad364b9db05d81dd14d355fb271515570169ff48df1285fe0d4cd15b08c'", "expect": "nonempty"}
+{"id": "b5-s3-line-once", "scope": "B", "check": "test \"$(git show $REF:verification/lean/edge_rigidity_probe.py | grep -cF \"_gr2_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR2_B)\")\" = 1", "expect": "exit0"}
+{"id": "b5-s3-line-hash", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -F \"_gr2_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR2_B)\" | sha256sum | cut -d' ' -f1 | grep -x '2ee51af0ddd9a937157d984b523360d6008eb241ea68f1cb486825d722b9b21c'", "expect": "nonempty"}
+{"id": "b5-seals-helper-free", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -e '_gr1_seals_hist'", "expect": "empty"}
+{"id": "b5-seals-ok-unchanged", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -x 'def _gr1_seals_ok(base, cwd=None):'", "expect": "nonempty"}
+# row 5c: S4's superseded segment is present at B, with its frozen hash, and each anchor occurs once
+{"id": "b5-s4-segment-hash", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | sed -n '/^        # F11: the seals-tree contract catches a mutated, a removed and an added record\\.$/,/nor a foreign repository'\"'\"'))$/p' | sha256sum | cut -d' ' -f1 | grep -x 'bd21c2a6765cf788d8125e99af5f202a9b0302e4b0b11493cbe3b05567e4bbac'", "expect": "nonempty"}
+{"id": "b5-s4-open-once", "scope": "B", "check": "test \"$(git show $REF:verification/lean/edge_rigidity_probe.py | grep -c '^        # F11: the seals-tree contract catches a mutated, a removed and an added record\\.$')\" = 1", "expect": "exit0"}
+{"id": "b5-s4-close-once", "scope": "B", "check": "test \"$(git show $REF:verification/lean/edge_rigidity_probe.py | grep -c \"nor a foreign repository'))$\")\" = 1", "expect": "exit0"}
 # row 6: the declarations at B are act 28's, which this round retains
 {"id": "b6-prospective-empty", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -x \"_MANIFEST_PROSPECTIVE = {}\"", "expect": "nonempty"}
 {"id": "b6-baseline-act28", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -x \"_MANIFEST_BASELINE = {'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf', 'authorized': ('PFR',)}\"", "expect": "nonempty"}
@@ -886,7 +1074,8 @@ frozen-blob: .github/workflows/verify.yml d0040de87341445b0d5c5928e34002be190212
 `R7-CV1` carries, each contract mutation-tested:
 
 1. **The frozen blob.** This file at this path, pinned by blob with a one-byte drift control.
-2. **`S1`**: the superseded segment extracted from the base's text and hashed; the five controls.
+2. **`S1`, `S2`, `S3`, `S4`**: each superseded segment extracted from the base's text and
+   hashed; each set of controls.
 3. **The chronology**, as frozen above, ancestry and shape separate and reported, asked of the
    real `pull_request.head.sha` and the live base-branch tip, never the synthetic merge.
 4. **The seals tree** byte-identical to `B`'s at every commit up to `E`; at `L`, equal to the
@@ -917,7 +1106,7 @@ frozen-blob: .github/workflows/verify.yml d0040de87341445b0d5c5928e34002be190212
   Full continuous integration passes again on exact `L` before the pull request merges, and the
   resulting `main` push run is green before anything else lands.
 - **`A`** is a pull request from certified `main` carrying **one commit whose diff is exactly one
-  appended line** of `attestations.jsonl`: `CV1`'s row, `protocol: 1`, `origin: bootstrap-v1`,
+  created file**, `verification/certificates/attestations/CV1.json`: `CV1`'s record, `protocol: 1`, `origin: bootstrap-v1`,
   `kind: landed`, with the certificate blob at `E`, `base`, `sealed_head`, `tree`, `landing`, and
   the three run identities with their conclusions — the only `bootstrap-v1` row the ledger will
   ever carry. `V6`, through the release gate, validates the row against git on `A`'s own build;
