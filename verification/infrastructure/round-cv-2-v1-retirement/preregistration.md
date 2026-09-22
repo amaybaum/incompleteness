@@ -556,7 +556,7 @@ except at most one line in the lessons register.
 | 4 | `v1-inventory.json`; clauses `P1`, `P2`, `P5a`, `P5b` and the content clauses; `census.json`, committed. **The dual-gated checkpoint**: every object `V1` certifies is gated here by both authorities; `CV2` itself is certified by `V6` alone, its `W1` chronology compared with `V1`'s ancestry predicate | stage 3, with `CV2-4`(a) `CONFORMANCE-EXACT` |
 | 5 | the deletions of the table above; `P3a`, `P3b`, `P4`; the standalone job to `--mode authoritative`; the release gate's comment naming `V1`. Checkpoint: the guard ends `ALL CHECKS PASS` with the retained tags only; `V6` authoritative OK; then the `B`-verifier cross-check, `CV2-4`(b), on this head | stage 4, with `CV2-3`, `CV2-5` and `CV2-6` at their frozen outcomes |
 | 6 | `AGENTS.md`; the `README.md` ledger section; `result.md` and `cv2-tagmap.json`; the `V2` side of the census re-measured at this head | stage 5, with `CV2-4`(b) `CROSS-CHECK-AS-NAMED` |
-| — | this commit is the candidate `E`, once `CV2-4`(b) is re-run on it and returns the same named divergences | everything above |
+| — | this commit is the candidate `E`. It is declared `E` only with `CV2-4`(b) `CROSS-CHECK-AS-NAMED` re-run on it, `CV2-7` `V1-RETIRED`, `CV2-8` `HISTORY-PRESERVED`, `CV2-9` `SOLE-AUTHORITY`, `CV2-10` `PROTOCOL-TEXT-AS-FROZEN` and `CV2-11` `SCOPED`, each decided at this commit; any other outcome of those six stops the round before `E` is declared | everything above |
 
 **Durability.** The `V1` side of the census exists only while `V1` does. It is measured at the
 stage-4 head, committed there, and that head is an ancestor of `E`; the stage-4 head, not a later
@@ -623,24 +623,28 @@ Each target names the artifact that decides it, and is decided only by that arti
   validator, accessor, declaration, chronology, seal or pin code; no tag of `C`, `PRA`, `BOOT` or
   `X`; the retained statements of classes 1–3 byte-identical to the base's (after relocation),
   `ok6` at 759; the guard `ALL CHECKS PASS` with exactly the retained tags, each with the base's
-  verdict. Outcomes: `V1-RETIRED` / `V1-RESIDUAL`, naming the residue.
+  verdict. Outcomes: `V1-RETIRED` / `V1-RESIDUAL`, naming the residue, the latter
+  **stopping the round before `E` is declared**.
 - **`CV2-8` — historical meanings preserved.** Every certificate, record and vector present at `B`
   byte-identical at `E`; every one `PASS` at `E` as at `B`; the seals tree `ea7b7161…` at `E`;
   `CV1` `ATTESTED` on its unchanged bootstrap record; `GR1`, `GR2` and every translated round
   `PASS`; no file under `verification/programmes/`, `verification/audits/`, `verification/seals/`
   or another round's `verification/infrastructure/` directory changed; the evidence count at `E`
-  = 157 + `PRA`'s 4 + `CV2`'s own. Outcomes: `HISTORY-PRESERVED` / `HISTORY-MOVED`.
+  = 157 + `PRA`'s 4 + `CV2`'s own. Outcomes: `HISTORY-PRESERVED` / `HISTORY-MOVED`,
+  naming each object, the latter **stopping the round before `E` is declared**.
 - **`CV2-9` — sole authority.** The release gate's `certificate-verifier` step in
   `--mode authoritative`, failing the gate when `V6` fails (one mutation control); the standalone
   job in `--mode authoritative`, exiting non-zero on the same mutation; `legacy-owned 0`; no `V1`
-  tag in any job's output; clauses `P1`–`P5b` holding. Outcomes: `SOLE-AUTHORITY` / `NOT-SOLE`.
+  tag in any job's output; clauses `P1`–`P5b` holding. Outcomes: `SOLE-AUTHORITY` / `NOT-SOLE`,
+  naming the gap, the latter **stopping the round before `E` is declared**.
 - **`CV2-10` — the protocol text.** `§A.37` states the seven propositions and none of the
   retired instructions; nothing else in `AGENTS.md` changes but one optional lessons line; `R7-MSP`
-  returns its base verdict. Outcomes: `PROTOCOL-TEXT-AS-FROZEN` / `PROTOCOL-TEXT-DEVIATED`.
+  returns its base verdict. Outcomes: `PROTOCOL-TEXT-AS-FROZEN` / `PROTOCOL-TEXT-DEVIATED`,
+  naming the proposition or instruction, the latter **stopping the round before `E` is declared**.
 - **`CV2-11` — scoped.** The diff against `B` touches exactly the files named under *Files this
   round reads AND writes*, deletes no file, and edits no manuscript, Lean file, `ROADMAP.md`,
   seal record, historical artifact, existing certificate, record or vector. Outcomes: `SCOPED` /
-  `NOT-SCOPED`, the latter failing the round.
+  `NOT-SCOPED`, the latter failing the round and **stopping the round before `E` is declared**.
 
 ***
 
@@ -674,6 +678,12 @@ Each target names the artifact that decides it, and is decided only by that arti
   and `PROTECTION-LOST` **before stage 5** — nothing is deleted over a disagreement, a gap or a lost
   protection this freeze did not name, whatever the argument for it; `CROSS-CHECK-UNEXPECTED`
   before stage 6, or, at the candidate `E`, before `E` is declared.
+- At the candidate `E`, `CROSS-CHECK-UNEXPECTED`, `V1-RESIDUAL`, `HISTORY-MOVED`, `NOT-SOLE`,
+  `PROTOCOL-TEXT-DEVIATED` or `NOT-SCOPED` stops the round before `E` is declared. `E` is declared
+  only with `CV2-4`(b) `CROSS-CHECK-AS-NAMED`, `CV2-7` `V1-RETIRED`, `CV2-8` `HISTORY-PRESERVED`,
+  `CV2-9` `SOLE-AUTHORITY`, `CV2-10` `PROTOCOL-TEXT-AS-FROZEN` and `CV2-11` `SCOPED`, each decided
+  at that commit. Every negative outcome of every target therefore blocks either the next stage or
+  `E` itself.
 - `NOT-SCOPED` fails the round.
 - `DUAL-AS-ADJUDICATED` is an agreement claim on the objects compared, not a claim that `V2` is
   correct.
@@ -905,7 +915,8 @@ verify this file's blob at that base. It absorbs no later `main` before `E` is c
 divergence between this freeze and what the execution measures is recorded in the result note,
 never repaired into agreement by editing this file. No stage is entered over a negative outcome
 of the target that gates it, as the status rule lists; in particular stage 5 is not entered over a
-`DUAL-UNEXPECTED`, `DUAL-BROKEN`, `INVENTORY-INCOMPLETE` or `PROTECTION-LOST`.
+`DUAL-UNEXPECTED`, `DUAL-BROKEN`, `INVENTORY-INCOMPLETE` or `PROTECTION-LOST`, and no commit is
+declared `E` over a negative outcome of `CV2-4`(b) or `CV2-7` through `CV2-11`.
 
 ## Points at which this freeze chose a reading, recorded rather than resolved
 
