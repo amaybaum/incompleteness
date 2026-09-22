@@ -32637,38 +32637,197 @@ def _gr2_fixtures():
 # The negative suite: each case must FAIL, and for its named reason.
 # ---------------------------------------------------------------------------
 def _gr2_negatives():
+    """The negative suite: each mutation must FAIL, and for its NAMED REASON. Every row builds the
+    mutant the freeze names, runs it on a case the real implementation gets right, and requires
+    the two to disagree -- a mutation that changed no verdict would be a control that controls
+    nothing. The thirteen families the freeze names are covered one row each, with the subcases a
+    family needs."""
     import shutil
     res = []
-    # N1 -- a replacement that drops the execution regime would read history while executing.
-    d, revs = _gr2_build([('E', {_GR1_GUARD_PATH: _GR2_DECL_A29})])
+
+    def row(name, ok):
+        res.append((name, bool(ok)))
+
+    # --- Families 1-5: the declaration contract. -----------------------------------------------
+    d, revs = _gr2_build([('E', {_GR1_GUARD_PATH: _GR2_DECL_A29}),
+                          ('L', {_GR1_GUARD_PATH: _GR2_DECL_A29})])
     try:
-        res.append(('N1 execution regime is not dropped',
-                    revs is not None
-                    and _gr1_decl_verdicts('EXECUTION', revs['E'], revs['E'],
-                                           _GR2_LIVE_PRISTINE)['baseline-untouched'] is True))
+        # N1 -- dropping the EXECUTION regime reads history while the round is still executing.
+        real = _gr1_decl_verdicts('EXECUTION', revs['E'], revs['L'], _GR2_LIVE_PRISTINE, cwd=d)
+        mutant = _gr1_decl_verdicts('LANDED-UNRECORDED', revs['E'], revs['L'],
+                                    _GR2_LIVE_PRISTINE, cwd=d)
+        row('N1 dropping the EXECUTION regime: reads history while executing',
+            revs is not None and real['baseline-untouched'] is True
+            and mutant['baseline-untouched'] is False)
     finally:
         shutil.rmtree(d, ignore_errors=True)
-    # N2 -- a replacement that read only L would accept a baseline mutated at E.
+
     d, revs = _gr2_build([('E', {_GR1_GUARD_PATH: _GR2_DECL_BASE_ONLY}),
                           ('L', {_GR1_GUARD_PATH: _GR2_DECL_PRISTINE})])
     try:
-        res.append(('N2 both E and L are read, not L alone',
-                    revs is not None
-                    and _gr1_decl_verdicts('LANDED-UNRECORDED', revs['E'], revs['L'],
-                                           _GR2_LIVE_PRISTINE)['baseline-untouched'] is False))
+        real = _gr1_decl_verdicts('LANDED-UNRECORDED', revs['E'], revs['L'],
+                                  _GR2_LIVE_PRISTINE, cwd=d)
+        # N2 -- reading L and not E accepts a baseline mutated at E.
+        only_l = _gr1_decls(revs['L'], cwd=d)
+        row('N2 reading L and not E: a baseline mutated at E is accepted',
+            revs is not None and real['baseline-untouched'] is False
+            and only_l is not None
+            and only_l['_MANIFEST_BASELINE'] == _GR1_DECL_FROZEN['_MANIFEST_BASELINE'])
+        # N3 -- treating None from the reader as a pass accepts an unrecoverable revision.
+        absent = _gr1_decls('0' * 40, cwd=d)
+        real_absent = _gr1_decl_verdicts('LANDED-UNRECORDED', '0' * 40, revs['L'],
+                                         _GR2_LIVE_PRISTINE, cwd=d)
+        row('N3 accepting None from either reader: an unrecoverable revision is accepted',
+            absent is None and real_absent['baseline-untouched'] is False
+            and real_absent['prospective-untouched'] is False)
     finally:
         shutil.rmtree(d, ignore_errors=True)
-    # N3 -- a None from the reader is never accepted.
-    res.append(('N3 a None from the reader is a failure',
-                _gr1_decl_verdicts('LANDED-UNRECORDED', None, None,
-                                   _GR2_LIVE_PRISTINE) == {'prospective-untouched': False,
-                                                           'baseline-untouched': False}))
-    # N4 -- a live leg for a historical-only path would reject a legitimate successor.
-    res.append(('N4 the live leg does not reach the historical-only three',
-                all(p not in _GR1_PIN_LIVE for p in _GR2_PIN_HIST_ONLY)))
-    # N5 -- a legacy-shaped name is forbidden by SI-3's standing contract.
-    res.append(('N5 no legacy-shaped name',
-                not _re.search(r'(?m)^_GR2_(BASE|SEALED_HEAD|MERGE)\s*=', _GR2_SELF)))
+
+    # N4 -- taking the FIRST of duplicate assignments rather than refusing. The mutant reads the
+    # first assignment and would pass; the real reader refuses the file outright.
+    d, revs = _gr2_build([('E', {_GR1_GUARD_PATH: _GR2_DECL_TWICE})])
+    try:
+        import ast as _ast
+        src = (_gr2_git('show', '%s:%s' % (revs['E'], _GR1_GUARD_PATH), cwd=d) or b'').decode()
+        first = {}
+        for node in _ast.parse(src).body:
+            if isinstance(node, _ast.Assign):
+                for tgt in node.targets:
+                    if isinstance(tgt, _ast.Name) and tgt.id in _GR1_DECL_NAMES:
+                        first.setdefault(tgt.id, _ast.literal_eval(node.value))
+        row('N4 taking the first of duplicate assignments: a second assignment is not seen',
+            revs is not None and _gr1_decls(revs['E'], cwd=d) is None
+            and first.get('_MANIFEST_BASELINE') == _GR1_DECL_FROZEN['_MANIFEST_BASELINE'])
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+    # N5 -- comparing declaration SOURCE TEXT rather than parsed values. A reformatting that
+    # changes no value would be rejected by the text comparison and is accepted by the reader.
+    reformatted = ("_MANIFEST_PROSPECTIVE = {}\n"
+                   "_MANIFEST_BASELINE = {\n"
+                   "    'base': '101b8cebb140c2ee7b982641ff005b84bbf0a1cf',\n"
+                   "    'authorized': ('PFR',),\n"
+                   "}\n")
+    d, revs = _gr2_build([('E', {_GR1_GUARD_PATH: reformatted}),
+                          ('L', {_GR1_GUARD_PATH: reformatted})])
+    try:
+        real = _gr1_decl_verdicts('LANDED-UNRECORDED', revs['E'], revs['L'],
+                                  _GR2_LIVE_PRISTINE, cwd=d)
+        row('N5 comparing declaration source text: a reformatting with no changed value fails',
+            revs is not None
+            and all(real[k] for k in ('prospective-untouched', 'baseline-untouched'))
+            and reformatted != _GR2_DECL_PRISTINE)
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+    # --- Families 6-11: the pin contract. ------------------------------------------------------
+    pristine = dict((p, 'pristine %s\n' % p) for p in _GR2_PIN_PATHS)
+    pinned = dict((p, _gr1_blob_id(c.encode())) for p, c in pristine.items())
+    protected = _GR2_PIN_LIVE_FROZEN[1] if len(_GR2_PIN_LIVE_FROZEN) > 1 else None
+    hist_only = _GR2_PIN_HIST_ONLY[0] if _GR2_PIN_HIST_ONLY else None
+
+    def pin_mutant(path, blob, e, l, cwd=None, live_set=None, legs=('hist', 'live'), pins=None):
+        """The pin verdict with one ingredient removed or replaced, for the named mutation."""
+        def at(rev):
+            out = _gr1_git('rev-parse', '%s:%s' % (rev, path), cwd=cwd)
+            return None if out is None else out.decode('utf-8', 'replace').strip()
+
+        want = (pins or {}).get(path, blob)
+        if 'hist' in legs:
+            if e is None or l is None:
+                return False
+            for rev in (e, l):
+                if at(rev) != want:
+                    return False
+        if 'live' in legs and path in (_GR1_PIN_LIVE if live_set is None else live_set):
+            if at('HEAD') != want:
+                return False
+        return True
+
+    # N6/N9 -- a live-set omitting a protected path, and dropping the live leg: both accept a
+    # protected artifact changed on the current tree.
+    tree_head = dict(pristine)
+    if protected:
+        tree_head[protected] = 'changed on the current tree\n'
+    d, revs = _gr2_build([('E', pristine), ('L', pristine), ('HEAD', tree_head)])
+    try:
+        e, l = (revs['E'], revs['L']) if revs else (None, None)
+        real = _gr1_pin_ok(protected, pinned[protected], e, l, cwd=d) if protected else None
+        omit = pin_mutant(protected, pinned[protected], e, l, cwd=d,
+                          live_set=tuple(p for p in _GR1_PIN_LIVE if p != protected))
+        no_live = pin_mutant(protected, pinned[protected], e, l, cwd=d, legs=('hist',))
+        row('N6 _GR1_PIN_LIVE omitting a protected path: a changed protected artifact is accepted',
+            revs is not None and real is False and omit is True)
+        row('N9 dropping the live leg for protected pins: the same artifact is accepted',
+            revs is not None and real is False and no_live is True)
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+    # N7 -- a live-set admitting a FOURTH path rejects a legitimate successor's edit.
+    tree_head = dict(pristine)
+    if hist_only:
+        tree_head[hist_only] = 'changed on the current tree\n'
+    d, revs = _gr2_build([('E', pristine), ('L', pristine), ('HEAD', tree_head)])
+    try:
+        e, l = (revs['E'], revs['L']) if revs else (None, None)
+        real = _gr1_pin_ok(hist_only, pinned[hist_only], e, l, cwd=d) if hist_only else None
+        widened = pin_mutant(hist_only, pinned[hist_only], e, l, cwd=d,
+                             live_set=tuple(_GR1_PIN_LIVE) + (hist_only,))
+        row('N7 _GR1_PIN_LIVE admitting a fourth path: a legitimate successor edit is rejected',
+            revs is not None and real is True and widened is False)
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+    # N8 -- dropping the historical leg accepts a protected artifact mutated at E.
+    tree_e = dict(pristine)
+    if protected:
+        tree_e[protected] = 'mutated in history\n'
+    d, revs = _gr2_build([('E', tree_e), ('L', pristine), ('HEAD', pristine)])
+    try:
+        e, l = (revs['E'], revs['L']) if revs else (None, None)
+        real = _gr1_pin_ok(protected, pinned[protected], e, l, cwd=d) if protected else None
+        no_hist = pin_mutant(protected, pinned[protected], e, l, cwd=d, legs=('live',))
+        row('N8 dropping the historical leg for protected pins: a mutated history is accepted',
+            revs is not None and real is False and no_hist is True)
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+    # N10 -- changing a pinned value: the pins are load-bearing, so an altered value must flip a
+    # verdict that the real value passes.
+    d, revs = _gr2_build([('E', pristine), ('L', pristine), ('HEAD', pristine)])
+    try:
+        e, l = (revs['E'], revs['L']) if revs else (None, None)
+        target = _GR2_PIN_PATHS[0]
+        moved = dict(pinned)
+        moved[target] = '0' * 40
+        row('N10 changing a pinned value: a pristine tree is rejected against the moved pin',
+            revs is not None
+            and _gr1_pin_ok(target, pinned[target], e, l, cwd=d) is True
+            and pin_mutant(target, pinned[target], e, l, cwd=d, pins=moved) is False)
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+    # N11 -- changing or dropping a landed-pin key identity. Keying by BASENAME is the defect
+    # GR-1's Amendment 2 repaired: two pinned paths share preregistration.md, so a basename key
+    # collapses six verdicts into five and one is silently overwritten.
+    by_path = set('landed-pin:' + p for p in _GR2_PIN_PATHS)
+    by_base = set('landed-pin:' + p.rsplit('/', 1)[-1] for p in _GR2_PIN_PATHS)
+    row('N11 keying landed-pin by basename: six verdicts collapse to five and one is overwritten',
+        len(by_path) == 6 and len(by_base) < 6)
+
+    # --- Families 12-13: the budget and the forbidden names. -----------------------------------
+    # N12 -- the budget must not tolerate an unrelated edit elsewhere in the R7-GR1 region.
+    mark = "    \"\"\"Per-line trailing-whitespace normalization; the freeze compares"
+    tampered = _GR2_SELF.replace(mark, mark + ' it', 1) if mark in _GR2_SELF else None
+    row('N12 a budget tolerating an unrelated edit in the R7-GR1 region',
+        tampered is not None and tampered != _GR2_SELF
+        and _gr2_budget(_GR2_SELF) is True and _gr2_budget(tampered) is False)
+
+    # N13 -- a forbidden legacy-shaped name, which SI-3's standing contract refuses.
+    forbidden = "_GR2_BASE = 'c9e6d56379923195382fa8c797c464397bcedaa5'\n"
+    row('N13 a legacy-shaped name: _GR2_BASE, _GR2_SEALED_HEAD or _GR2_MERGE is refused',
+        not _re.search(r'(?m)^_GR2_(BASE|SEALED_HEAD|MERGE)\s*=', _GR2_SELF)
+        and bool(_re.search(r'(?m)^_GR2_(BASE|SEALED_HEAD|MERGE)\s*=', _GR2_SELF + forbidden)))
     return res
 
 
