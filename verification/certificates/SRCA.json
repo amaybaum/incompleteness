@@ -1,0 +1,26 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-05-source-a-candidate",
+ "evidence": [
+  {
+   "blob": "d4180a572297f31932aea2de41dff7d1e1fcb789",
+   "id": "SRCA/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-05-source-a-candidate/preregistration.md"
+  },
+  {
+   "blob": "c8cdd11a96f547d10763caf1922f84b2afaae92f",
+   "id": "SRCA/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-05-source-a-candidate/result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "SRCA",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

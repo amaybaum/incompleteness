@@ -1,0 +1,12 @@
+{
+ "base": "d019718696fd12e4719b5ed5b7d8dfab45544a8c",
+ "certificate": "f482cd67ae2f51aa155653dbf9a5a57a70541ebb",
+ "kind": "landed",
+ "landing": "292848b3c908d33ac432a5360effe0c259e3ce16",
+ "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48",
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "CTI",
+ "sealed_head": "9ea94f9ca52f12e8cd4215be7e039d1f86d81fc7",
+ "tree": "7228ecdf5fa441d3f12bf12bacde6fa1715acf02"
+}

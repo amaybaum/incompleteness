@@ -1,0 +1,57 @@
+{
+ "base": "99ab6370470ed9d9e4005551581c6c8c18e54bd2",
+ "contributions": [
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "4a5f183a52b2720e0714049ecf34911c55c1ef61",
+   "execution_affecting": true,
+   "merge": "99ab6370470ed9d9e4005551581c6c8c18e54bd2",
+   "path": "verification/infrastructure/round-si-1-shadow-seal-validator/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "infrastructure/round-si-1-shadow-seal-validator",
+ "evidence": [
+  {
+   "blob": "7a3e6288c5f532a849a07beb9a8e5757cdf79d04",
+   "id": "SI1/census.json",
+   "path": "verification/infrastructure/round-si-1-shadow-seal-validator/census.json"
+  },
+  {
+   "blob": "4a5f183a52b2720e0714049ecf34911c55c1ef61",
+   "id": "SI1/preregistration.md",
+   "path": "verification/infrastructure/round-si-1-shadow-seal-validator/preregistration.md"
+  },
+  {
+   "blob": "3e034dfd4b74978adf8b9a8e4bc4339885a4b65d",
+   "id": "SI1/result.md",
+   "path": "verification/infrastructure/round-si-1-shadow-seal-validator/result.md"
+  },
+  {
+   "blob": "057cdf90ed9d9f0e129a076a327dcc6f089f53df",
+   "id": "SI1/si1-tagmap.json",
+   "path": "verification/infrastructure/round-si-1-shadow-seal-validator/si1-tagmap.json"
+  },
+  {
+   "blob": "9cefa2001d2ebb8d7f0e67212f9fa9c5eece6a63",
+   "id": "seals/SI1.json",
+   "path": "verification/seals/SI1.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "SI1",
+ "schema": "oi-round-certificate",
+ "shape": "non-sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

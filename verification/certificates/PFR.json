@@ -1,0 +1,56 @@
+{
+ "base": "101b8cebb140c2ee7b982641ff005b84bbf0a1cf",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/ProductLocusFreedom.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "9e1b05bb39ce0c4ade7df38d21b2b947f8aa9011",
+   "execution_affecting": true,
+   "merge": "101b8cebb140c2ee7b982641ff005b84bbf0a1cf",
+   "path": "verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-28-product-locus-freedom",
+ "evidence": [
+  {
+   "blob": "9e1b05bb39ce0c4ade7df38d21b2b947f8aa9011",
+   "id": "PFR/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/preregistration.md"
+  },
+  {
+   "blob": "c445c5cef9ba01bd5271e90fe988297e0786b097",
+   "id": "PFR/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/result.md"
+  },
+  {
+   "blob": "d09a24ff68958a19f57d4ba07f3c94263820dc83",
+   "id": "seals/PFR.json",
+   "path": "verification/seals/PFR.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "PFR",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

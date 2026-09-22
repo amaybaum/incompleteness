@@ -1,0 +1,12 @@
+{
+ "count": 1,
+ "protocol": 2,
+ "rounds": [
+  {
+   "base": "0bedff07fc1ad2675ecab205c8836e7a90a113d4",
+   "directory": "programmes/oi-qm/track-b/act-29-product-admission",
+   "preregistration_blob": "5451a52d87d7d2ab2aac48802bb80898d81f6a16",
+   "stem": "PRA"
+  }
+ ]
+}

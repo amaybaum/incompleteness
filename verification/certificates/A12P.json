@@ -1,0 +1,81 @@
+{
+ "base": "999f1b5b3c9d6960233a12698d83c1a56a16fe10",
+ "contributions": [
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.pdf"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.tex"
+  },
+  {
+   "path": "book/ch01-observation.md"
+  },
+  {
+   "path": "book/ch19-open-problems.md"
+  },
+  {
+   "path": "book/glossary.md"
+  },
+  {
+   "path": "papers/Explainer.md"
+  },
+  {
+   "path": "papers/Explainer.pdf"
+  },
+  {
+   "path": "papers/Explainer.tex"
+  },
+  {
+   "path": "papers/Main.md"
+  },
+  {
+   "path": "papers/Main.pdf"
+  },
+  {
+   "path": "papers/Main.tex"
+  },
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "1d471eddde3bc0df8b7dbf26ddf642c4af6783b5",
+   "execution_affecting": true,
+   "merge": "999f1b5b3c9d6960233a12698d83c1a56a16fe10",
+   "path": "verification/audits/foundations/act12-scope-propagation-audit.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "audits/foundations",
+ "evidence": [
+  {
+   "blob": "1d471eddde3bc0df8b7dbf26ddf642c4af6783b5",
+   "id": "A12P/act12-scope-propagation-audit.md",
+   "path": "verification/audits/foundations/act12-scope-propagation-audit.md"
+  },
+  {
+   "blob": "fb46a870866bc1770565c47f6155516f55914c1e",
+   "id": "seals/A12P.json",
+   "path": "verification/seals/A12P.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "A12P",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

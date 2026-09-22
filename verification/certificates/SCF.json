@@ -1,0 +1,26 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-i/recurrence-scaling",
+ "evidence": [
+  {
+   "blob": "0df67b4c4794036d341f4dee10408a40d5946359",
+   "id": "SCF/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-i/recurrence-scaling/preregistration.md"
+  },
+  {
+   "blob": "54fc2243e11727153375e4356b2d5a3e7c5d9fd8",
+   "id": "SCF/result.md",
+   "path": "verification/programmes/oi-qm/track-i/recurrence-scaling/result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "SCF",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

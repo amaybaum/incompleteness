@@ -1,0 +1,59 @@
+{
+ "base": "3e5d6a8f75166581213b6c5b7c0dbca1671b030e",
+ "contributions": [
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/A6Instantiation.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "6f991c1348e0c568261894c41b129b7f942abee6",
+   "execution_affecting": true,
+   "merge": "3e5d6a8f75166581213b6c5b7c0dbca1671b030e",
+   "path": "verification/programmes/substratum/a6-instantiation/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/substratum/a6-instantiation",
+ "evidence": [
+  {
+   "blob": "6f991c1348e0c568261894c41b129b7f942abee6",
+   "id": "A6I/preregistration.md",
+   "path": "verification/programmes/substratum/a6-instantiation/preregistration.md"
+  },
+  {
+   "blob": "3d2b4b9ebc24a3a65172ad9384b8da7d8ca03634",
+   "id": "A6I/result.md",
+   "path": "verification/programmes/substratum/a6-instantiation/result.md"
+  },
+  {
+   "blob": "a57b7eca74b0dc8d8b6436b9a6e01f0f666fe4c7",
+   "id": "seals/A6I.json",
+   "path": "verification/seals/A6I.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "A6I",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

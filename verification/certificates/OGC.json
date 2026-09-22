@@ -1,0 +1,59 @@
+{
+ "base": "dd3bd2e726e0fb3bccd96df9c46a532119a9ee97",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/OrbitGeometryIsometries.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "f4892f64e1667244fc262a01fb46b27f9b1ba1ba",
+   "execution_affecting": true,
+   "merge": "dd3bd2e726e0fb3bccd96df9c46a532119a9ee97",
+   "path": "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/preregistration.md"
+  }
+ ],
+ "dependencies": [
+  "OGS",
+  "OLG"
+ ],
+ "directory": "programmes/oi-qm/track-b/act-25-orbit-geometry-isometries",
+ "evidence": [
+  {
+   "blob": "f4892f64e1667244fc262a01fb46b27f9b1ba1ba",
+   "id": "OGC/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/preregistration.md"
+  },
+  {
+   "blob": "e4441e9a6f121f96089dc2c9e0ca2e2b9a7a33d9",
+   "id": "OGC/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/result.md"
+  },
+  {
+   "blob": "6674357ff7a51df416b6ec0d747d5325b9a3756a",
+   "id": "seals/OGC.json",
+   "path": "verification/seals/OGC.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "OGC",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

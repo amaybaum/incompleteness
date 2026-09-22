@@ -1,0 +1,69 @@
+{
+ "base": "b0ee87bae34c6f8dcd3a4a75d958bb4e8a1cbca5",
+ "contributions": [
+  {
+   "path": "AGENTS.md"
+  },
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "e8e9be66de3a63963418a40189accfbb2c046a92",
+   "execution_affecting": true,
+   "merge": "220827b89c038d98dbe643a53c72a8fd00ed8480",
+   "path": "verification/infrastructure/round-si-3-legacy-seal-retirement/preregistration.md"
+  },
+  {
+   "blob": "0087dceddc2c8d7f497c38937d659e78de59a1f6",
+   "execution_affecting": true,
+   "merge": "b0ee87bae34c6f8dcd3a4a75d958bb4e8a1cbca5",
+   "path": "verification/infrastructure/round-si-3-legacy-seal-retirement/amendments/amendment-1.md"
+  }
+ ],
+ "dependencies": [
+  "SI1",
+  "SI2"
+ ],
+ "directory": "infrastructure/round-si-3-legacy-seal-retirement",
+ "evidence": [
+  {
+   "blob": "0087dceddc2c8d7f497c38937d659e78de59a1f6",
+   "id": "SI3/amendments/amendment-1.md",
+   "path": "verification/infrastructure/round-si-3-legacy-seal-retirement/amendments/amendment-1.md"
+  },
+  {
+   "blob": "e8e9be66de3a63963418a40189accfbb2c046a92",
+   "id": "SI3/preregistration.md",
+   "path": "verification/infrastructure/round-si-3-legacy-seal-retirement/preregistration.md"
+  },
+  {
+   "blob": "c2c8719083b637719031d8e330c9039064fb6d03",
+   "id": "SI3/result.md",
+   "path": "verification/infrastructure/round-si-3-legacy-seal-retirement/result.md"
+  },
+  {
+   "blob": "63487d098772cf0edef5bcf3e1b5e630ee013845",
+   "id": "SI3/si3-tagmap.json",
+   "path": "verification/infrastructure/round-si-3-legacy-seal-retirement/si3-tagmap.json"
+  },
+  {
+   "blob": "7c447c3fff08e47abee5bb653dd705919b550813",
+   "id": "seals/SI3.json",
+   "path": "verification/seals/SI3.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "SI3",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

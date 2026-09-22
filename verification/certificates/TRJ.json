@@ -1,0 +1,56 @@
+{
+ "base": "02cfc9be141a44aaebf847d8e7d9fdd0d0a18f08",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/GramTrajectorySelection.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "3b5570102aa6aacb09788059989a70d8cdd5b70f",
+   "execution_affecting": true,
+   "merge": "02cfc9be141a44aaebf847d8e7d9fdd0d0a18f08",
+   "path": "verification/programmes/oi-qm/track-b/act-17-gram-trajectory-selection/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-17-gram-trajectory-selection",
+ "evidence": [
+  {
+   "blob": "3b5570102aa6aacb09788059989a70d8cdd5b70f",
+   "id": "TRJ/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-17-gram-trajectory-selection/preregistration.md"
+  },
+  {
+   "blob": "a252b885c6f7f5f31d3ac101070e7f6ee1ebf5d6",
+   "id": "TRJ/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-17-gram-trajectory-selection/result.md"
+  },
+  {
+   "blob": "e2f327f03847b50edaa048f15e5e47ab289ee426",
+   "id": "seals/TRJ.json",
+   "path": "verification/seals/TRJ.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "TRJ",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

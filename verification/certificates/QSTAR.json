@@ -1,0 +1,14 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "evidence": [],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "QSTAR",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

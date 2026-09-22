@@ -1,0 +1,26 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-03-candidate-selection",
+ "evidence": [
+  {
+   "blob": "64e07da7f20f362386da01087a260723a2213e68",
+   "id": "CAND/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-03-candidate-selection/preregistration.md"
+  },
+  {
+   "blob": "c32579bd0137cdb8443eb525945f4455c65d3130",
+   "id": "CAND/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-03-candidate-selection/result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "CAND",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

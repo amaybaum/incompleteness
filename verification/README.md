@@ -2640,3 +2640,51 @@ measured from git at every stage commit and no discrepancy. `SI-3` is not Act 21
 
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.
+
+## Certificate infrastructure round CV-1 — the V2 round-certificate protocol: shadow, census and cutover
+
+A landed round is now also **data**: `verification/certificates/` carries one certificate per
+round — fifty-one translated from the guard's blocks and the seal manifest at the migration
+snapshot, and `CV-1`'s own bootstrap certificate, issued by the `V1` guard that certifies the round
+and never by the verifier it installs — and, under `attestations/`, one record per round that has
+topology: twenty-nine `landed` rows naming the exact sealed head, its tree and its landing merge,
+read from git, and six `base-only` rows, every one carrying its migration snapshot and no
+continuous-integration identity, because no attestation commit existed for any of them. One
+generic, standard-library verifier, `tools/certificate_verifier.py`, with no round stem in its
+text, derives every git-derivable fact again — the base from the control plane's last
+execution-affecting artifact, located by blob on `main`'s first-parent chain; the sealed head as
+the landing's non-first parent under the strengthened ancestry check, with the tree required
+separately; the landing as the unique merge over the union of the real pull-request head and the
+live base-branch tip — and holds one universal live rule: every evidence id of every accepted
+certificate resolves, through a relocation ledger, to exactly one current path at its certified
+blob. It is held to a conformance corpus of eighty-nine vectors over thirteen families, executed as
+an **exact set** on every build, six of them the permanent record of one defect: **an
+execution-time assertion left running against whatever tree the guard later finds**, found six
+times in the two repair rounds `GR-1` and `GR-2` — the declaration scope, the pin scope, `N12`, two
+seals-tree statements and the fixture `F11`. The round supersedes the last four, each pinned by
+sha256 and extracted from the base's own guard text, each shown to fail on the successor state its
+contract could not survive while its replacement, reading the round's own recovered history,
+passes.
+
+**Dual gating.** From the round's fifth stage `tools/release_gate.py` — the in-repo gate the
+required `Mathlib bridge` check runs — carries the verifier in authoritative mode, so `V2` can
+reject a build with repository-controlled semantics; the standalone `Certificate verifier` job runs
+it in shadow and gates nothing, the repository's ruleset requiring only three status contexts. `V1`
+is not retired and not a shadow: every `R7` block gates at `E`, at `L` and after as at the base,
+and the base's 103 verdicts are reproduced on every tag. Act 29 is the one round the verifier does
+not own: `legacy-v1-owned.json` names exactly `PRA`, reported `LEGACY-V1-OWNED` with no validity
+claim in either direction while `V1` certifies it through `EXECUTION` → `LANDED-PENDING-PIN` →
+`ARCHIVED`; the bridge is simulated on a shared clone of this repository through its five steps,
+and the retirement round `CV-2` is where the set empties and `V1` is removed.
+
+The two censuses match their frozen profiles at the stage-4 head and again at `E`, recomputed by
+the guard on every build: over the fifty-one certificates and every comparable `SI-1` and `SI-2`
+control the `V1` guard and the `V2` verifier returned the same verdict, and they differed on
+exactly the four supersession controls, each in the adjudicated direction — an agreement census
+with four named divergences and not a proof of correctness; and thirty-three manifested rounds
+were transcribed byte-equal, `GR-1` and `GR-2` changed representation with the same recovered
+`E`, `tree(E)` and `L`, sixteen content-only rounds gained certificates with no `V1` counterpart,
+`CV-1` is the unique bootstrap and act 29 the one legacy-owned round. The round is non-sealing,
+`E` → `L`, no pin; it writes no manifest record, no prospective declaration and no baseline change;
+its attestation `A` — one record, `attestations/CV1.json`, with the run identities — is appended to
+`main` after the landing's push run is certified.

@@ -1,0 +1,12 @@
+{
+ "base": "ae81459372887cfbe27b427b30bbdad1b564f2b7",
+ "certificate": "7a4f7f61a14ff780e52f955b3913e4ec4b3fc7da",
+ "kind": "landed",
+ "landing": "d2314f5edc33fbeb4f75642ec87f9d302ee734f4",
+ "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48",
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "HYA",
+ "sealed_head": "6a8675efca5e5ceeab0195036af1a658b49ace80",
+ "tree": "6d55368647ca312022ae27ccff7371eb80ed5302"
+}

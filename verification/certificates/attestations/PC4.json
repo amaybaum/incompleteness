@@ -1,0 +1,12 @@
+{
+ "base": "ebc3951dc581d558373f720a90f1ba7deb2a8ed8",
+ "certificate": "e1052940b5a8b060cb4d929f3a06a5e134fffd49",
+ "kind": "landed",
+ "landing": "e82755cafdbc0314890ad3809bc48e72e5995311",
+ "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48",
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "PC4",
+ "sealed_head": "6c1acdd28f03f614f71a7ce15c6efc141906e080",
+ "tree": "236f29653b64b8fbef11b69128d37ea3fd4d108f"
+}

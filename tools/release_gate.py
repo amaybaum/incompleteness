@@ -40,6 +40,14 @@ another. Each exists because a real defect shipped past the others:
                        control named, and owner review caught it after the
                        merge. Applies to control planes carrying a preconditions
                        block or changed in the diff under check.
+  certificate_verifier the V2 round-certificate verifier, authoritative: a
+                       historical round is data -- a certificate and an attestation
+                       record -- verified by one generic tool, after six manifestations
+                       of one defect in two repair rounds showed that a historical
+                       round expressed as executable code running at every later head
+                       invites an assertion against the wrong tree at every extension
+                       point. The standalone workflow job runs it in shadow and gates
+                       nothing; this step is where V2 can reject a build.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
@@ -135,6 +143,15 @@ def main():
         # never reaches the papers -- which no other check here can see.
         ("lean-manuscript",
                       [sys.executable, "tools/lean_manuscript_census.py"]),
+        # certificate-verifier: the V2 round-certificate verifier in AUTHORITATIVE mode -- every
+        # certificate, attestation record, relocation, live-policy clause and conformance vector,
+        # the corpus executed as an exact set. This is the cutover wiring edit of certificate
+        # round CV-1: the repository's ruleset requires only three status contexts, none of them
+        # the standalone shadow job, so a red standalone job would not by itself block a merge;
+        # this step, run by the required Mathlib bridge check, is what lets V2 reject a build.
+        # V1's guard gates beside it and is not retired here.
+        ("certificate-verifier",
+                      [sys.executable, "tools/certificate_verifier.py", "--mode", "authoritative"]),
     ]
     # baselines are named in the TRANSFER's docs, not the manuscript tree, so
     # point the label check there when a transfer path is supplied

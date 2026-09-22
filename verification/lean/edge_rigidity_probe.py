@@ -31646,6 +31646,21 @@ def _gr1_seals_ok(base, cwd=None):
     return here == at_base
 
 
+def _gr1_seals_hist(base, e, l, cwd=None):
+    """The seals contract after landing, read from HISTORY and not from the tree the guard runs
+    on: the seals tree at the recovered `e` equals the base's, and at the recovered `l` equals its
+    first parent's, which is what the freeze states of the round's own commits. An unrecoverable
+    `e` or `l`, or a git that cannot answer, fails rather than skips."""
+    if e is None or l is None:
+        return False
+
+    def tree(rev):
+        out = _gr1_git('rev-parse', '%s:%s' % (rev, _GR1_SEALS_PATH), cwd=cwd)
+        return None if out is None else out.decode('utf-8', 'replace').strip()
+    tb, te, tl, tl1 = tree(base), tree(e), tree(l), tree(l + '^1')
+    return None not in (tb, te, tl, tl1) and te == tb and tl == tl1
+
+
 # ---------------------------------------------------------------------------
 # GR1-2 -- the differential acceptance suite, twenty-nine rows, OLD and NEW.
 # ---------------------------------------------------------------------------
@@ -31773,7 +31788,8 @@ if _gr1_checks['artifact-result-note']:
 # ---------------------------------------------------------------------------
 _GR1_STATE, _GR1_CHRON_OK, _GR1_CHRON_WHY = _gr1_chronology(_GR1_B)
 _gr1_checks['chronology'] = bool(_GR1_CHRON_OK)
-_gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)
+if _GR1_STATE == 'EXECUTION':
+    _gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)
 _gr1_checks['seals-integrity-u5'] = bool(_si2_integrity_ok())
 # ---- GR-2 (S1): THE DECLARATION CONTRACT, IN TWO REGIMES. The superseded form compared this
 # module's own _MANIFEST_PROSPECTIVE and _MANIFEST_BASELINE against this round's execution-time
@@ -31930,6 +31946,7 @@ else:
     _gr1_checks['placement-owned-region'] = (
         bool(_GR1_LIVE_FN) and _gr1_norm(_GR1_LIVE_FN) == _gr1_norm(_GR1_FROZEN_NEW))
     _gr1_pin_l = _GR1_LANDINGS[0][0] if _GR1_LANDINGS else None
+    _gr1_checks['seals-tree-integrity'] = _gr1_seals_hist(_GR1_B, _GR1_E, _gr1_pin_l)
     for _p, _b in sorted(_GR1_PINS.items()):
         if _p == _GR1_GUARD_PATH or _p == _GR1_ROAD_PATH:
             continue
@@ -32046,9 +32063,12 @@ def _gr1_fixtures():
             st, got, why = chron(n['g'], [n['g'], n['g']], recorded={'GR1': rec})
             res.append(('F10 malformed record: ' + nm, st == 'RECORDED' and not got,
                         '%s / %s / %s' % (st, 'PASS' if got else 'FAIL', why)))
-        # F11: the seals-tree contract catches a mutated, a removed and an added record.
+        # F11: the seals-tree contract catches a mutated, a removed and an added record. The
+        # positive half reads the lifecycle-scoped subject the contract itself uses: the live
+        # tree while this round is EXECUTION, its recovered E and L afterwards.
         res.append(('F11 seals contract is not vacuous',
-                    _gr1_seals_ok(_GR1_B)
+                    (_gr1_seals_ok(_GR1_B) if _GR1_STATE == 'EXECUTION'
+                     else _gr1_seals_hist(_GR1_B, _GR1_E, _gr1_pin_l))
                     and not _gr1_seals_ok('101b8cebb140c2ee7b982641ff005b84bbf0a1cf')
                     and not _gr1_seals_ok(n['b'], cwd=d),
                     'the tree matches its own base, and not act 28 base nor a foreign repository'))
@@ -32816,12 +32836,16 @@ def _gr2_negatives():
         len(by_path) == 6 and len(by_base) < 6)
 
     # --- Families 12-13: the budget and the forbidden names. -----------------------------------
-    # N12 -- the budget must not tolerate an unrelated edit elsewhere in the R7-GR1 region.
+    # N12 -- the budget must not tolerate an unrelated edit elsewhere in the R7-GR1 region. The
+    # subject is the lifecycle-scoped one the budget contract itself uses: this file while the
+    # round is EXECUTION, the guard text at the recovered E afterwards; an unrecoverable E fails.
     mark = "    \"\"\"Per-line trailing-whitespace normalization; the freeze compares"
-    tampered = _GR2_SELF.replace(mark, mark + ' it', 1) if mark in _GR2_SELF else None
+    _subj = (_GR2_SELF if _GR2_STATE == 'EXECUTION' else (None if _GR2_E is None else
+             (_gr2_git('show', '%s:%s' % (_GR2_E, _GR1_GUARD_PATH)) or b'').decode('utf-8', 'replace')))
+    tampered = _subj.replace(mark, mark + ' it', 1) if (_subj and mark in _subj) else None
     row('N12 a budget tolerating an unrelated edit in the R7-GR1 region',
-        tampered is not None and tampered != _GR2_SELF
-        and _gr2_budget(_GR2_SELF) is True and _gr2_budget(tampered) is False)
+        tampered is not None and tampered != _subj
+        and _gr2_budget(_subj) is True and _gr2_budget(tampered) is False)
 
     # N13 -- a forbidden legacy-shaped name, which SI-3's standing contract refuses.
     forbidden = "_GR2_BASE = 'c9e6d56379923195382fa8c797c464397bcedaa5'\n"
@@ -32935,7 +32959,8 @@ _GR2_LANDINGS = (None if _GR2_STATE == 'EXECUTION' else _gr1_landings(
 _GR2_E = _GR2_LANDINGS[0][1] if _GR2_LANDINGS else None
 _GR2_L = _GR2_LANDINGS[0][0] if _GR2_LANDINGS else None
 _gr2_checks['chronology'] = bool(_GR2_CHRON_OK)
-_gr2_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR2_B)
+_gr2_checks['seals-tree-integrity'] = (_gr1_seals_ok(_GR2_B) if _GR2_STATE == 'EXECUTION'
+                                       else _gr1_seals_hist(_GR2_B, _GR2_E, _GR2_L))
 _gr2_checks['seals-integrity-u5'] = bool(_si2_integrity_ok())
 _gr2_checks['no-own-record'] = 'GR2' not in (_si1_load()[0] or {})
 _gr2_checks['no-legacy-shaped-name'] = not _re.search(
@@ -33065,6 +33090,1255 @@ check('R7-GR2', not _gr2_bad,
       "GR1.json remains owed to a later round that names it.")
 
 # ---- R7-GR2 ends.
+
+# ---- R7-CV1: certificate infrastructure round CV-1 -- the V2 round-certificate protocol: shadow,
+# census and cutover. NON-SEALING, E -> L, no P, then A (the attestation, one record appended after
+# L's main push is certified). The round writes NO manifest record, NO prospective declaration and
+# NO baseline change; its mandated execution base is the literal below and nothing else, and
+# nothing matching _CV1_(BASE|SEALED_HEAD|MERGE) exists at any commit of the round.
+#
+# What this block certifies is the round that INSTALLS the V2 verifier, and it is certified by
+# this V1 clause and by nothing V2 builds: CV1's certificate carries protocol 1 and origin
+# bootstrap-v1 for that reason. Four supersessions of two earlier repair rounds, each pinned by
+# sha256 and EXTRACTED FROM THE BASE'S OWN GUARD TEXT: S1 (R7-GR2's N12), S2 and S3 (the two
+# seals-tree statements) and S4 (R7-GR1's fixture F11) -- each an execution-time assertion left
+# running against whatever tree the guard later finds, and each moved to the lifecycle subject its
+# own contract names. The old side of every control is that extracted code EXECUTED, never a
+# paraphrase. Two censuses -- the legacy verdict census CV1-6a and the migration representation
+# census CV1-6b -- are computed here on every build and, once committed as census.json, required
+# equal to the committed measurement.
+_CV1_B = '395d953faa5a2bd4d33c5b642e063f355453cba0'
+_CV1_D = 'effd5c865dfcc207624712a6711a54b712642f48'
+_CV1FRZ = 'infrastructure/round-cv-1-certificate-protocol/preregistration.md'
+_CV1RESREL = 'infrastructure/round-cv-1-certificate-protocol/result.md'
+_CV1CENREL = 'infrastructure/round-cv-1-certificate-protocol/census.json'
+_CV1MAPREL = 'infrastructure/round-cv-1-certificate-protocol/cv1-tagmap.json'
+_CV1_BLOB = '45509fdf6271687034bc83c4fd86ca44098f58cd'
+_CV1_S1_SHA = '3a47d54d56aa74e939c70d880cb3c773d81437c43137ee3a7ebc9e7f80e104cc'
+_CV1_S2_SHA = '914bbad364b9db05d81dd14d355fb271515570169ff48df1285fe0d4cd15b08c'
+_CV1_S3_SHA = '2ee51af0ddd9a937157d984b523360d6008eb241ea68f1cb486825d722b9b21c'
+_CV1_S4_SHA = 'bd21c2a6765cf788d8125e99af5f202a9b0302e4b0b11493cbe3b05567e4bbac'
+_CV1_SEALS_TREE = '92e0956ad6b187fddf77068f33c66e69a012f074'
+_CV1_MARK_OPEN = '# ---- ' + 'R7-CV1: certificate infrastructure round CV-1'
+_CV1_MARK_CLOSE = '# ---- ' + 'R7-CV1 ends.'
+_CV1_VERIFIER = 'tools/certificate_verifier.py'
+_CV1_CERTS = 'verification/certificates'
+_CV1_CORPUS = 'verification/certificates/conformance/v2'
+_CV1_WORKFLOW = '.github/workflows/verify.yml'
+_CV1_GATE = 'tools/release_gate.py'
+# The four superseded segments' anchors, at the base. Identity is the sha256, not the anchor.
+_CV1_S1_FROM = '    # N12 -- the budget must not tolerate an unrelated edit elsewhere in the R7-GR1 region.\n'
+_CV1_S1_TO = '        and _gr2_budget(_GR2_SELF) is True and _gr2_budget(tampered) is False)\n'
+_CV1_S2_OLD = "_gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)\n"
+_CV1_S3_OLD = "_gr2_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR2_B)\n"
+_CV1_S4_FROM = '        # F11: the seals-tree contract catches a mutated, a removed and an added record.\n'
+_CV1_S4_TO = "nor a foreign repository'))\n"
+# The replacement texts are the freeze's own ```python blocks, read out of the pinned file below in
+# their frozen order: S1, the two superseded lines (printed there for the reader), the helper, S2's
+# site form, S2's post-landing line, S3 and S4.
+_CV1_STEMS = ('SOI', 'C4R', 'RCH', 'SCF', 'RCL', 'QSTAR', 'SOURCE', 'BRIDGE', 'TBRIDGE', 'CAND',
+              'DILMAP', 'SRCA', 'TUPLE', 'DILCH', 'DILL2', 'RBR', 'ABR', 'HYA', 'CLG', 'TSG', 'SGT',
+              'A11P', 'A12P', 'CTI', 'PQT', 'HYB', 'A6P', 'WTS', 'PC4', 'PC4S', 'A6D', 'A6I', 'HYE',
+              'TCF', 'RNC', 'TRJ', 'XTS', 'RNT', 'OLT', 'OLN', 'OLG', 'OGS', 'OGC', 'CGR', 'NLV',
+              'PFR', 'SI1', 'SI2', 'SI3', 'GR1', 'GR2')
+_CV1_CONTENT_ONLY = ('SOI', 'C4R', 'RCH', 'SCF', 'RCL', 'QSTAR', 'SOURCE', 'BRIDGE', 'TBRIDGE',
+                     'CAND', 'DILMAP', 'SRCA', 'TUPLE', 'DILCH', 'DILL2', 'A11P')
+# The frozen post-round sentences, required of the result note for the outcomes the censuses reach.
+_CV1_SENT_6A = (
+    "Over the verdicts of every pre-existing `V1` contract compared, on every one of the fifty-one "
+    "certificates and on every comparable control, the `V1` guard and the `V2` verifier returned "
+    "the same verdict at the same head, and they differed on exactly the four supersession "
+    "controls, each in the direction this freeze named: each superseded segment, reconstructed "
+    "from the base's text, fails on the successor tree named for it — a later edit to the guard "
+    "for `N12`, a later round's seal record for the two seals-tree statements and for `F11` — and "
+    "its replacement, which reads the round's own recovered history, passes, as does `V2`, which "
+    "evaluates the round's certified subject. Representation changes are recorded separately and "
+    "are not counted here. This is an agreement census with four adjudicated divergences and not "
+    "a proof of correctness.")
+_CV1_SENT_6B = (
+    "Thirty-three manifested rounds were transcribed with every value byte-equal; `GR-1` and "
+    "`GR-2` changed representation from `LANDED-UNRECORDED` under `V1` to translated certificates "
+    "and rows under `V2` with the same recovered `E`, `tree(E)` and `L` and no attestation commit "
+    "claimed; sixteen content-only rounds received certificates with no `V1` lifecycle "
+    "counterpart; `CV-1` is the unique bootstrap; act 29 is the one legacy-owned round, `V1`'s to "
+    "certify and `V2`'s to name. No historical fact changed.")
+_CV1_SENT_7 = (
+    "From this head the release gate rejects a build the `V2` verifier rejects, alongside the "
+    "`V1` guard, which gates exactly as it did at the base on every tag it carried there. `V2` "
+    "can veto; `V1` is not retired and not a shadow; `V2` becomes the sole authority only in "
+    "`CV-2`.")
+
+_cv1_checks = {}
+_cv1_controls = 0
+
+
+def _cv1_git(*args, **kw):
+    r = _rbr_git(*args, tag='R7-CV1', **kw)
+    if r is None or r.returncode != 0:
+        return None
+    return r.stdout
+
+
+def _cv1_text(rev, path):
+    out = _cv1_git('show', '%s:%s' % (rev, path))
+    return None if out is None else out.decode('utf-8', 'replace')
+
+
+# ---------------------------------------------------------------------------
+# CV1-0 -- the locating controls: the freeze by blob with a drift control; the four superseded
+# segments read out of the base's own guard text and hashed; the replacements read out of the
+# freeze; the start state at B.
+# ---------------------------------------------------------------------------
+_CV1FRZ_BYTES = _bb_read(_CV1FRZ)
+_CV1FRZ_TEXT = _CV1FRZ_BYTES.decode('utf-8', 'replace')
+_cv1_checks['freeze-blob'] = _gr1_blob_id(_CV1FRZ_BYTES) == _CV1_BLOB
+_cv1_checks['freeze-blob-drift'] = _gr1_blob_id(_CV1FRZ_BYTES + b' ') != _CV1_BLOB
+_cv1_checks['freeze-blob-at-base'] = (
+    (_cv1_git('rev-parse', '%s:verification/%s' % (_CV1_B, _CV1FRZ)) or b'').decode().strip()
+    == _CV1_BLOB)
+_cv1_controls += 1
+_CV1_BASE_SRC = _cv1_text(_CV1_B, _GR1_GUARD_PATH) or ''
+_CV1_S1_SEG = _gr2_seg(_CV1_BASE_SRC, _CV1_S1_FROM, _CV1_S1_TO) or ''
+_CV1_S4_SEG = _gr2_seg(_CV1_BASE_SRC, _CV1_S4_FROM, _CV1_S4_TO) or ''
+for _k, _seg, _sha in (('s1', _CV1_S1_SEG, _CV1_S1_SHA), ('s2', _CV1_S2_OLD, _CV1_S2_SHA),
+                       ('s3', _CV1_S3_OLD, _CV1_S3_SHA), ('s4', _CV1_S4_SEG, _CV1_S4_SHA)):
+    _cv1_checks[_k + '-segment-hash'] = bool(_seg) and _gr2_sha(_seg) == _sha
+    _cv1_checks[_k + '-segment-hash-drift'] = _gr2_sha(_seg + ' ') != _sha
+    _cv1_checks[_k + '-segment-once-at-base'] = bool(_seg) and _CV1_BASE_SRC.count(_seg) == 1
+_cv1_checks['s1-anchors-once-at-base'] = (
+    _CV1_BASE_SRC.count(_CV1_S1_FROM) == 1 and _CV1_BASE_SRC.count(_CV1_S1_TO) == 1)
+_cv1_checks['s4-anchors-once-at-base'] = (
+    _CV1_BASE_SRC.count(_CV1_S4_FROM) == 1 and _CV1_BASE_SRC.count(_CV1_S4_TO) == 1)
+_cv1_controls += 1
+_CV1_PY = _re.findall(r'```python\n(.*?)```', _CV1FRZ_TEXT, _re.S)
+_cv1_checks['freeze-eight-python-blocks'] = len(_CV1_PY) == 8
+if len(_CV1_PY) == 8:
+    (_CV1_S1_NEW, _CV1_S2_PRINTED, _CV1_S3_PRINTED, _CV1_HELPER, _CV1_S2_SITE, _CV1_S2_ELSE,
+     _CV1_S3_NEW, _CV1_S4_NEW) = _CV1_PY
+else:
+    _CV1_S1_NEW = _CV1_S2_PRINTED = _CV1_S3_PRINTED = _CV1_HELPER = ''
+    _CV1_S2_SITE = _CV1_S2_ELSE = _CV1_S3_NEW = _CV1_S4_NEW = ''
+_cv1_checks['freeze-prints-the-superseded-lines'] = (
+    _CV1_S2_PRINTED == _CV1_S2_OLD and _CV1_S3_PRINTED == _CV1_S3_OLD)
+_cv1_checks['base-seals-tree'] = (
+    (_cv1_git('rev-parse', '%s:%s' % (_CV1_B, _GR1_SEALS_PATH)) or b'').decode().strip()
+    == _CV1_SEALS_TREE)
+_cv1_checks['base-is-a-merge'] = len(
+    ((_cv1_git('rev-list', '--parents', '-n', '1', _CV1_B) or b'').decode().split())) == 3
+_cv1_checks['base-has-no-certificates'] = (
+    _cv1_git('rev-parse', '--verify', '--quiet', '%s:%s' % (_CV1_B, _CV1_CERTS)) is None)
+_cv1_checks['base-has-no-verifier'] = (
+    _cv1_git('rev-parse', '--verify', '--quiet', '%s:%s' % (_CV1_B, _CV1_VERIFIER)) is None)
+_cv1_controls += 1
+
+_CV1_SELF_PATH = os.path.join(VERIFICATION, 'lean', 'edge_rigidity_probe.py')
+try:
+    with open(_CV1_SELF_PATH, encoding='utf-8') as _fh:
+        _CV1_SELF = _fh.read()
+except OSError:
+    _CV1_SELF = ''
+
+
+# ---------------------------------------------------------------------------
+# The chronology: three states, ancestry and execution shape separate and reported, asked of the
+# real pull_request.head.sha and the live base-branch tip, never the synthetic merge. A canonical
+# landing is a merge one of whose non-first parents has execution shape, ancestry against _CV1_B,
+# this clause and the three stage-final artifacts, unique or fail-closed.
+# ---------------------------------------------------------------------------
+def _cv1_has_block(rev, cwd=None):
+    src = _cv1_git('show', '%s:%s' % (rev, _GR1_GUARD_PATH), cwd=cwd)
+    return src is not None and b"check('R7-CV1'" in src
+
+
+def _cv1_has_artifacts(rev, cwd=None):
+    for rel in (_CV1RESREL, _CV1CENREL, _CV1MAPREL):
+        if _cv1_git('rev-parse', '--verify', '--quiet',
+                    '%s:verification/%s' % (rev, rel), cwd=cwd) is None:
+            return False
+    return True
+
+
+def _cv1_row_on_tree():
+    """CV1's own attestation record on the current tree, parsed, or None."""
+    try:
+        with open(os.path.join(os.path.dirname(VERIFICATION), _CV1_CERTS, 'attestations',
+                               'CV1.json'), encoding='utf-8') as fh:
+            return json.load(fh)
+    except (OSError, ValueError):
+        return None
+
+
+def _cv1_chronology(base, env=None, cwd=None):
+    targets = _rbr_archive_visibility_targets(env=env, tag='R7-CV1', cwd=cwd)
+    if targets is None:
+        return None, False, 'the visibility targets could not be resolved; failing closed', None
+    landings = _gr1_landings(base, [t for t, _w in targets], has_block=_cv1_has_block,
+                             has_artifacts=_cv1_has_artifacts, cwd=cwd)
+    if landings is None:
+        return None, False, 'the landing search could not be run; failing closed', None
+    row = _cv1_row_on_tree()
+    if row is not None:
+        if len(landings) != 1:
+            return 'ATTESTED', False, 'attested with %d candidate landing(s)' % len(landings), landings
+        merge, parent = landings[0]
+        good = (row.get('sealed_head') == parent and row.get('landing') == merge
+                and row.get('origin') == 'bootstrap-v1' and row.get('protocol') == 1)
+        return 'ATTESTED', good, ('the record names E = %s and L = %s, %s the recovered landing'
+                                  % (str(row.get('sealed_head'))[:12], str(row.get('landing'))[:12],
+                                     'equal to' if good else 'UNEQUAL to')), landings
+    if landings:
+        if len(landings) > 1:
+            return 'LANDED-UNATTESTED', False, 'multiple candidate landings: %s' % ', '.join(
+                m[:12] for m, _p in landings), landings
+        merge, parent = landings[0]
+        return 'LANDED-UNATTESTED', True, ('landing %s carries E = %s; the attestation is owed'
+                                           % (merge[:12], parent[:12])), landings
+    target, label, num = _rbr_target_commit(env=env, tag='R7-CV1')
+    if target is None:
+        return None, False, 'the real head could not be resolved; failing closed', None
+    anc = _rbr_strong_ancestry(base, target, label, num, tag='R7-CV1', cwd=cwd)
+    shp = _gr1_shape(base, target, cwd=cwd)
+    return 'EXECUTION', bool(anc and shp), 'ancestry %s, execution shape %s' % (
+        'PASS' if anc else 'FAIL', 'PASS' if shp else 'FAIL'), None
+
+
+_CV1_STATE, _CV1_CHRON_OK, _CV1_CHRON_WHY, _CV1_LANDINGS = _cv1_chronology(_CV1_B)
+_CV1_E = _CV1_LANDINGS[0][1] if _CV1_LANDINGS else None
+_CV1_L = _CV1_LANDINGS[0][0] if _CV1_LANDINGS else None
+_cv1_checks['chronology'] = bool(_CV1_CHRON_OK)
+_cv1_controls += 1
+# The seals tree, in the scoped form from the start: byte-identical to B's at every commit up to
+# E; at L, equal to the first parent's. The declarations: act 28's, at every commit of this round.
+_cv1_checks['seals-tree-integrity'] = (_gr1_seals_ok(_CV1_B) if _CV1_STATE == 'EXECUTION'
+                                       else _gr1_seals_hist(_CV1_B, _CV1_E, _CV1_L))
+_cv1_checks['seals-integrity-u5'] = bool(_si2_integrity_ok())
+_cv1_checks.update(dict(('own-' + _k, _v) for _k, _v in _gr1_decl_verdicts(
+    _CV1_STATE, _CV1_E, _CV1_L,
+    {'_MANIFEST_PROSPECTIVE': _MANIFEST_PROSPECTIVE, '_MANIFEST_BASELINE': _MANIFEST_BASELINE}
+).items()))
+_cv1_checks['no-v1-record-for-gr1-gr2-cv1'] = not (
+    {'GR1', 'GR2', 'CV1'} & set((_si1_load()[0] or {}).keys()))
+_cv1_checks['no-legacy-shaped-name'] = not _re.search(
+    r'(?m)^_CV1_(BASE|SEALED_HEAD|MERGE)\s*=', _CV1_SELF)
+_cv1_controls += 1
+
+
+# ---------------------------------------------------------------------------
+# The budget and the verdict map, CV1-8, lifecycle-scoped exactly as GR-2's: this file with this
+# block removed and S1, S2, S3 and S4 reverted to the base's segments equals the base's guard file
+# -- whole-file while executing, measured against the recovered E after landing.
+# ---------------------------------------------------------------------------
+def _cv1_strip_block(src):
+    if src.count(_CV1_MARK_OPEN) != 1 or src.count(_CV1_MARK_CLOSE) != 1:
+        return None
+    i = src.index(_CV1_MARK_OPEN)
+    j = src.index(_CV1_MARK_CLOSE) + len(_CV1_MARK_CLOSE)
+    while j < len(src) and src[j] == '\n':
+        j += 1
+    return src[:i] + src[j:]
+
+
+def _cv1_revert(src):
+    """The guard text with the four replacements restored to the base's superseded segments. None
+    when any replacement is not found exactly once."""
+    helper_anchor = '    return here == at_base\n'
+    else_anchor = '    _gr1_pin_l = _GR1_LANDINGS[0][0] if _GR1_LANDINGS else None\n'
+    steps = (
+        (_CV1_S1_NEW, _CV1_S1_SEG),
+        (helper_anchor + '\n\n' + _CV1_HELPER, helper_anchor),
+        (_CV1_S2_SITE, _CV1_S2_OLD),
+        (_CV1_S2_ELSE, else_anchor),
+        (_CV1_S3_NEW, _CV1_S3_OLD),
+        (_CV1_S4_NEW, _CV1_S4_SEG),
+    )
+    out = src
+    for new, old in steps:
+        if not new or not old or out.count(new) != 1:
+            return None
+        out = out.replace(new, old, 1)
+    return out
+
+
+def _cv1_budget(src):
+    stripped = _cv1_strip_block(src)
+    if stripped is None or not _CV1_BASE_SRC:
+        return False
+    reverted = _cv1_revert(stripped)
+    return reverted is not None and reverted == _CV1_BASE_SRC
+
+
+if _CV1_STATE == 'EXECUTION':
+    _cv1_checks['placement-whole-file'] = _cv1_budget(_CV1_SELF)
+elif _CV1_E is None:
+    _cv1_checks['placement-historical-budget'] = False
+else:
+    _cv1_checks['placement-historical-budget'] = _cv1_budget(_cv1_text(_CV1_E, _GR1_GUARD_PATH) or '')
+_cv1_checks['budget-mut:block-kept'] = not (
+    _CV1_BASE_SRC and _cv1_revert(_CV1_SELF) == _CV1_BASE_SRC)
+_cv1_controls += 1
+
+
+# ---------------------------------------------------------------------------
+# The S1 controls: the successor-guard demonstration, EXECUTION unchanged, post-landing reads
+# E_GR2 and fails closed, and the other sixty-two rows identical. The old side is the base's N12
+# segment compiled and executed; the new side is the freeze's replacement compiled and executed;
+# the subject the old side reads is the guard text at E_GR2 carrying an unrelated edit outside the
+# R7-GR2 block, with GR-2's history intact in this repository.
+# ---------------------------------------------------------------------------
+def _cv1_run_n12(segment, self_text, state, e, git_text=None):
+    """Executes one N12 segment -- the superseded one or its replacement -- in a namespace whose
+    reads are the ones the segment makes: _GR2_SELF, _GR2_STATE, _GR2_E, _gr2_git, _gr2_budget.
+    Returns the row's verdict, or None if the segment did not run."""
+    rows = []
+
+    def row(name, ok):
+        rows.append((name, bool(ok)))
+
+    def fake_git(*a, **kw):
+        if git_text is not None and len(a) == 2 and a[0] == 'show':
+            return git_text.encode('utf-8')
+        return _gr2_git(*a, **kw)
+
+    ns = {'row': row, '_GR2_SELF': self_text, '_GR2_STATE': state, '_GR2_E': e,
+          '_gr2_git': fake_git, '_gr2_budget': _gr2_budget, '_GR1_GUARD_PATH': _GR1_GUARD_PATH}
+    try:
+        exec(compile('if True:\n' + segment, '<cv1-n12>', 'exec'), ns)  # noqa: S102 -- pinned text
+    except Exception:
+        return None
+    return rows[0][1] if len(rows) == 1 else None
+
+
+def _cv1_s1_controls():
+    res = []
+    e_text = _cv1_text(_GR2_E, _GR1_GUARD_PATH) if _GR2_E else None
+    ok_pre = bool(e_text) and _gr2_budget(e_text) is True
+    res.append(('S1 subject at E_GR2 recovered and its budget holds', ok_pre))
+    if not ok_pre:
+        return res
+    successor = e_text + "\n# an unrelated later edit outside the R7-GR2 block\n"
+    old_succ = _cv1_run_n12(_CV1_S1_SEG, successor, 'LANDED-UNRECORDED', _GR2_E)
+    new_succ = _cv1_run_n12(_CV1_S1_NEW, successor, 'LANDED-UNRECORDED', _GR2_E)
+    mark = "    \"\"\"Per-line trailing-whitespace normalization; the freeze compares"
+    mutant = _cv1_run_n12(_CV1_S1_NEW, successor, 'LANDED-UNRECORDED', _GR2_E,
+                          git_text=e_text.replace(mark, mark + ' it', 1))
+    res.append(('S1 control 2: on the successor the superseded N12 fails, the replacement passes, '
+                'and the replacement on a tampered subject fails',
+                old_succ is False and new_succ is True and mutant is False))
+    old_exec = _cv1_run_n12(_CV1_S1_SEG, e_text, 'EXECUTION', None)
+    new_exec = _cv1_run_n12(_CV1_S1_NEW, e_text, 'EXECUTION', None)
+    res.append(('S1 control 3: EXECUTION unchanged on a live file whose budget holds',
+                old_exec is True and new_exec is True and old_exec == new_exec))
+    seen = []
+
+    def spy_git(*a, **kw):
+        seen.append(a)
+        return _gr2_git(*a, **kw)
+
+    ns_rows = []
+    ns = {'row': lambda n, ok: ns_rows.append(bool(ok)), '_GR2_SELF': successor,
+          '_GR2_STATE': 'LANDED-UNRECORDED', '_GR2_E': _GR2_E, '_gr2_git': spy_git,
+          '_gr2_budget': _gr2_budget, '_GR1_GUARD_PATH': _GR1_GUARD_PATH}
+    try:
+        exec(compile('if True:\n' + _CV1_S1_NEW, '<cv1-n12-spy>', 'exec'), ns)  # noqa: S102
+        reads_e = any(len(a) == 2 and a[0] == 'show' and a[1].startswith(_GR2_E + ':')
+                      for a in seen)
+    except Exception:
+        reads_e = False
+    none_e = _cv1_run_n12(_CV1_S1_NEW, successor, 'LANDED-UNRECORDED', None)
+    res.append(('S1 control 4: post-landing the replacement reads the guard at E_GR2, and an '
+                'unrecoverable E fails rather than skips',
+                reads_e and ns_rows == [True] and none_e is False))
+    # control 5: R7-GR2 reports 63 checks and 7 groups; every row passes; the twelve rows other
+    # than N12 return the same verdict when the negative suite is re-run on the successor text
+    global _GR2_SELF
+    keep = _GR2_SELF
+    try:
+        _GR2_SELF = successor
+        rerun = dict(_gr2_negatives())
+    except Exception:
+        rerun = None
+    finally:
+        _GR2_SELF = keep
+    live = dict((k.split('negative:', 1)[1], v) for k, v in _gr2_checks.items()
+                if k.startswith('negative:'))
+    same = (rerun is not None and set(rerun) == set(live)
+            and all(rerun[k] == live[k] for k in live if not k.startswith('N12')))
+    res.append(('S1 control 5: R7-GR2 63 checks and 7 control groups, all passing, and every row '
+                'but N12 identical on the successor',
+                len(_gr2_checks) == 63 and _gr2_controls == 7 and all(_gr2_checks.values())
+                and same))
+    return res
+
+
+# ---------------------------------------------------------------------------
+# The S2, S3 and S4 controls. The old side is the base's own statement executed with the base's
+# own _gr1_seals_ok, compiled from the base's text, whose reads are the seals directory of the tree
+# it runs on and git: the synthetic successor supplies exactly those reads -- this tree's seals
+# records plus a later round's authorized record, and this repository's history intact.
+# ---------------------------------------------------------------------------
+def _cv1_old_seals_ok():
+    """The base's _gr1_seals_ok, compiled from the base's guard text, bound to a seals directory
+    given at call time. Returns a function (base, seals_dir, cwd=None) -> verdict, or None."""
+    src = _gr1_fn(_CV1_BASE_SRC, '_gr1_seals_ok')
+    if not src:
+        return None
+
+    def run(base, seals_dir, cwd=None):
+        ns = {'os': os, '_gr1_git': _gr1_git, '_GR1_SEALS_PATH': _GR1_SEALS_PATH,
+              '_gr1_blob_id': _gr1_blob_id, 'VERIFICATION': os.path.dirname(seals_dir)}
+        try:
+            exec(src, ns)  # noqa: S102 -- the base's own text, hashed above by segment
+            return ns['_gr1_seals_ok'](base, cwd=cwd)
+        except Exception:
+            return None
+    return run
+
+
+def _cv1_successor_seals():
+    """A synthetic successor's seals directory: this tree's records plus ZZZ.json, base-only."""
+    import shutil
+    import tempfile as _tf
+    d = _tf.mkdtemp(prefix='cv1-succ-')
+    seals = os.path.join(d, 'seals')
+    shutil.copytree(os.path.join(VERIFICATION, 'seals'), seals)
+    with open(os.path.join(seals, 'ZZZ.json'), 'w', encoding='utf-8') as fh:
+        json.dump({'round': 'ZZZ', 'kind': 'base-only', 'base': _CV1_D}, fh, indent=2)
+        fh.write('\n')
+    return d, seals
+
+
+def _cv1_foreign_repo():
+    """A one-commit foreign repository whose seals tree is not this repository's."""
+    import subprocess as _sp
+    import tempfile as _tf
+    d = _tf.mkdtemp(prefix='cv1-foreign-')
+
+    def g(*a):
+        return _sp.run(('git',) + a, cwd=d, capture_output=True, text=True)
+
+    g('init', '-q', '-b', 'main')
+    g('config', 'user.email', 'cv1@example.invalid')
+    g('config', 'user.name', 'CV1')
+    os.makedirs(os.path.join(d, 'verification', 'seals'))
+    with open(os.path.join(d, 'verification', 'seals', 'F.json'), 'w', encoding='utf-8') as fh:
+        fh.write('{"round": "F", "kind": "base-only", "base": "%s"}\n' % ('0' * 40))
+    g('add', '-A')
+    g('commit', '-q', '-m', 'foreign')
+    return d, g('rev-parse', 'HEAD').stdout.strip()
+
+
+def _cv1_seals_hist_cases():
+    """Control 4 for S2, S3 and S4: post-landing reads history and fails closed. Built with
+    commit-tree so each revision's seals tree is exact: a base with seals T, an E with T or with a
+    mutated T', a main commit with T, and a landing with its first parent's tree or a mutated one."""
+    import shutil
+    import subprocess as _sp
+    import tempfile as _tf
+    d = _tf.mkdtemp(prefix='cv1-hist-')
+    try:
+        def g(*a, **kw):
+            return _sp.run(('git',) + a, cwd=d, capture_output=True, text=True, **kw)
+
+        g('init', '-q', '-b', 'main')
+        g('config', 'user.email', 'cv1@example.invalid')
+        g('config', 'user.name', 'CV1')
+
+        def tree_with(content):
+            idx = os.path.join(d, '.git', 'index-' + _hashlib.sha1(content.encode()).hexdigest()[:8])
+            env = dict(os.environ, GIT_INDEX_FILE=idx)
+            bid = _sp.run(['git', 'hash-object', '-w', '--stdin'], cwd=d, input=content.encode(),
+                          capture_output=True).stdout.decode().strip()
+            g('update-index', '--add', '--cacheinfo', '100644,%s,verification/seals/A.json' % bid,
+              env=env)
+            return g('write-tree', env=env).stdout.strip()
+
+        t, t2 = tree_with('a\n'), tree_with('mutated\n')
+
+        def ct(tree, *parents):
+            a = ['commit-tree', tree, '-m', 'c']
+            for p in parents:
+                a += ['-p', p]
+            return g(*a).stdout.strip()
+
+        base = ct(t)
+        e_ok, e_bad = ct(t, base), ct(t2, base)
+        main1 = ct(t, base)
+        l_ok = ct(t, main1, e_ok)
+        l_bad = ct(t2, main1, e_ok)
+        return [
+            ('positive: E carries the base seals tree and L its first parent\'s',
+             _gr1_seals_hist(base, e_ok, l_ok, cwd=d) is True),
+            ('a mutated seals tree at E fails', _gr1_seals_hist(base, e_bad, l_ok, cwd=d) is False),
+            ('a mutated seals tree at L relative to its first parent fails',
+             _gr1_seals_hist(base, e_ok, l_bad, cwd=d) is False),
+            ('an unrecoverable E fails rather than skips',
+             _gr1_seals_hist(base, None, l_ok, cwd=d) is False
+             and _gr1_seals_hist(base, '0' * 40, l_ok, cwd=d) is False),
+            ('an unrecoverable L fails rather than skips',
+             _gr1_seals_hist(base, e_ok, None, cwd=d) is False
+             and _gr1_seals_hist(base, e_ok, '0' * 40, cwd=d) is False),
+        ]
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+
+def _cv1_seals_controls():
+    import shutil
+    res = []
+    old = _cv1_old_seals_ok()
+    res.append(('S2/S3/S4 the base\'s _gr1_seals_ok compiled from the base\'s text', old is not None))
+    if old is None:
+        return res, {}
+    gr1_e = globals().get('_GR1_E')
+    gr1_l = globals().get('_gr1_pin_l')
+    succ_root, succ_seals = _cv1_successor_seals()
+    live_seals = os.path.join(VERIFICATION, 'seals')
+    foreign_dir, foreign_sha = _cv1_foreign_repo()
+    out = {}
+    try:
+        # control 2: on the successor, each superseded statement fails and its replacement passes
+        old_s2 = old(_GR1_B, succ_seals)
+        new_s2 = _gr1_seals_hist(_GR1_B, gr1_e, gr1_l)
+        old_s3 = old(_GR2_B, succ_seals)
+        new_s3 = _gr1_seals_hist(_GR2_B, _GR2_E, _GR2_L)
+        # F11 on the successor: the superseded positive half is the old predicate on the
+        # successor's seals directory; both negative halves are unchanged and must still fail
+        old_f11 = (old(_GR1_B, succ_seals)
+                   and not old('101b8cebb140c2ee7b982641ff005b84bbf0a1cf', succ_seals)
+                   and not old(foreign_sha, succ_seals, cwd=foreign_dir))
+        new_f11 = (_gr1_seals_hist(_GR1_B, gr1_e, gr1_l)
+                   and not _gr1_seals_ok('101b8cebb140c2ee7b982641ff005b84bbf0a1cf')
+                   and not _gr1_seals_ok(foreign_sha, cwd=foreign_dir))
+        out['C-S2'] = (old_s2, new_s2)
+        out['C-S3'] = (old_s3, new_s3)
+        out['C-S4'] = (bool(old_f11), bool(new_f11))
+        res.append(('S2 control 2: on the successor the superseded statement fails and the '
+                    'replacement passes', old_s2 is False and new_s2 is True))
+        res.append(('S3 control 2: on the successor the superseded statement fails and the '
+                    'replacement passes', old_s3 is False and new_s3 is True))
+        res.append(('S4 control 2: on the successor F11\'s superseded positive half fails and the '
+                    'replacement passes, both negative halves still failing',
+                    old_f11 is False and new_f11 is True))
+        # the successor is not vacuous: the old predicate accepts this tree's own seals directory
+        res.append(('S2/S3/S4 the superseded predicate passes on this tree\'s own seals directory, '
+                    'so the successor\'s rejection is the added record\'s',
+                    old(_GR1_B, live_seals) is True and old(_GR2_B, live_seals) is True))
+        # control 3: EXECUTION unchanged -- old statement and the new EXECUTION arm on the same tree
+        res.append(('S2/S3/S4 control 3: EXECUTION unchanged on the live tree',
+                    old(_GR1_B, live_seals) == _gr1_seals_ok(_GR1_B)
+                    and old(_GR2_B, live_seals) == _gr1_seals_ok(_GR2_B)))
+        # control 4: post-landing reads history and fails closed
+        for nm, ok in _cv1_seals_hist_cases():
+            res.append(('S2/S3/S4 control 4: ' + nm, ok))
+        # control 5: every other row identical -- R7-GR1 86 checks and 24 groups, R7-GR2 63 and 7,
+        # every row passing in both
+        res.append(('S2/S3/S4 control 5: R7-GR1 86 checks and 24 control groups and R7-GR2 63 and '
+                    '7, every row passing',
+                    len(_gr1_checks) == 86 and _gr1_controls == 24 and all(_gr1_checks.values())
+                    and len(_gr2_checks) == 63 and _gr2_controls == 7 and all(_gr2_checks.values())))
+    finally:
+        shutil.rmtree(succ_root, ignore_errors=True)
+        shutil.rmtree(foreign_dir, ignore_errors=True)
+    return res, out
+
+
+_CV1_S1_ROWS = _cv1_s1_controls()
+for _nm, _ok in _CV1_S1_ROWS:
+    _cv1_checks['s1:' + _nm] = _ok
+_cv1_controls += 1
+_CV1_SEALS_ROWS, _CV1_SEALS_DIVERGENCE = _cv1_seals_controls()
+for _nm, _ok in _CV1_SEALS_ROWS:
+    _cv1_checks['s234:' + _nm] = _ok
+_cv1_controls += 1
+_CV1_S1_DIVERGENCE = None
+if _CV1_S1_ROWS and _CV1_S1_ROWS[0][1] and _GR2_E:
+    _cv1_s1_e_text = _cv1_text(_GR2_E, _GR1_GUARD_PATH)
+    _cv1_s1_succ = _cv1_s1_e_text + "\n# an unrelated later edit outside the R7-GR2 block\n"
+    _CV1_S1_DIVERGENCE = (_cv1_run_n12(_CV1_S1_SEG, _cv1_s1_succ, 'LANDED-UNRECORDED', _GR2_E),
+                          _cv1_run_n12(_CV1_S1_NEW, _cv1_s1_succ, 'LANDED-UNRECORDED', _GR2_E))
+
+
+# ---------------------------------------------------------------------------
+# The V2 objects, read as data: the verifier run in shadow mode as a subprocess and parsed; the
+# corpus exact; the verifier stem-free; provenance; the workflow job in shadow; the release gate.
+# ---------------------------------------------------------------------------
+def _cv1_run_verifier(root=None, extra=(), env=None):
+    """One shadow run of the verifier -- over this repository and the checked-in corpus by default,
+    or over another root with the given extra arguments and environment. Returns the parsed
+    report or None."""
+    import subprocess as _sp
+    here = os.path.dirname(VERIFICATION)
+    root = here if root is None else root
+    try:
+        r = _sp.run([sys.executable, os.path.join(here, *_CV1_VERIFIER.split('/')), '--mode',
+                     'shadow', '--root', root] + list(extra), cwd=root, capture_output=True,
+                    text=True, timeout=1500, env=env)
+    except Exception:
+        return None
+    rep = {'certs': {}, 'rows': {}, 'vectors': {}, 'legacy': [], 'exact': False, 'ok': False,
+           'executed': None, 'corpus': None, 'mismatches': None, 'families': {},
+           'evidence': None, 'policies': None, 'summary': ''}
+    for line in r.stdout.split('\n'):
+        t = line.split()
+        if len(t) >= 4 and t[0] == 'CERT':
+            rep['certs'][t[1]] = (t[2], ' '.join(t[3:]))
+        elif len(t) >= 5 and t[0] == 'ROW':
+            rep['rows'][t[1]] = (t[2], t[3], ' '.join(t[4:]))
+        elif len(t) >= 5 and t[0] == 'VECTOR':
+            rep['vectors'][t[1]] = (t[2], t[3], t[-1])
+        elif len(t) >= 2 and t[0] == 'LEGACY-V1-OWNED':
+            rep['legacy'].append(t[1])
+        elif line.strip().startswith('VECTORS executed'):
+            m = _re.search(r'executed (\d+); corpus (\d+); families (.*?); mismatches (\d+); '
+                           r'exact (\w+)', line)
+            if m:
+                rep['executed'], rep['corpus'] = int(m.group(1)), int(m.group(2))
+                rep['families'] = dict((k, int(v)) for k, v in
+                                       (kv.split('=') for kv in m.group(3).split()))
+                rep['mismatches'], rep['exact'] = int(m.group(4)), m.group(5) == 'yes'
+        elif len(t) >= 2 and t[0] == 'EVIDENCE':
+            rep['evidence'] = ' '.join(t[1:])
+        elif len(t) >= 2 and t[0] == 'POLICIES':
+            rep['policies'] = ' '.join(t[1:])
+        elif line.startswith('certificate_verifier: shadow '):
+            rep['summary'] = line.strip()
+            rep['ok'] = ' OK ' in line
+    rep['returncode'] = r.returncode
+    return rep
+
+
+_CV1_REP = _cv1_run_verifier()
+_cv1_checks['verifier-ran'] = _CV1_REP is not None and _CV1_REP['returncode'] == 0
+_cv1_checks['verifier-shadow-ok'] = bool(_CV1_REP and _CV1_REP['ok'])
+try:
+    with open(os.path.join(os.path.dirname(VERIFICATION), _CV1_CORPUS, 'expected.json'),
+              encoding='utf-8') as _fh:
+        _CV1_EXPECTED = json.load(_fh)
+except (OSError, ValueError):
+    _CV1_EXPECTED = None
+_cv1_checks['corpus-exact'] = bool(
+    _CV1_REP and isinstance(_CV1_EXPECTED, dict) and _CV1_REP['exact']
+    and set(_CV1_REP['vectors']) == set(_CV1_EXPECTED) and _CV1_REP['mismatches'] == 0
+    and all(v[2] == 'MATCH' for v in _CV1_REP['vectors'].values())
+    and _CV1_REP['executed'] == len(_CV1_EXPECTED))
+_CV1_FAMILIES = ('schema', 'ambiguity', 'visibility', 'artifact-class', 'dependency', 'topology',
+                 'ledger', 'provenance', 'legacy-owned', 'live-policy', 'vacuity',
+                 'historical-subject', 'divergence')
+_cv1_checks['corpus-every-family'] = bool(
+    _CV1_REP and all(_CV1_REP['families'].get(f, 0) >= 1 for f in _CV1_FAMILIES)
+    and _CV1_REP['families'].get('historical-subject') == 6
+    and _CV1_REP['families'].get('divergence') == 4)
+_cv1_checks['corpus-mut:one-id-substituted'] = bool(
+    _CV1_REP and _CV1_EXPECTED and
+    (set(list(_CV1_REP['vectors'])[:-1] + ['not-a-vector']) != set(_CV1_EXPECTED)))
+_cv1_controls += 1
+try:
+    with open(os.path.join(os.path.dirname(VERIFICATION), *_CV1_VERIFIER.split('/')),
+              encoding='utf-8') as _fh:
+        _CV1_VERIFIER_SRC = _fh.read()
+except OSError:
+    _CV1_VERIFIER_SRC = ''
+_cv1_checks['verifier-stem-free'] = bool(_CV1_VERIFIER_SRC) and not any(
+    _re.search(r'\b%s\b' % _re.escape(s), _CV1_VERIFIER_SRC)
+    for s in _CV1_STEMS + ('CV1', 'CV2', 'PRA'))
+_cv1_checks['verifier-stem-free-mut'] = bool(_CV1_VERIFIER_SRC) and any(
+    _re.search(r'\b%s\b' % _re.escape(s), _CV1_VERIFIER_SRC + '\n# PRA\n')
+    for s in _CV1_STEMS + ('CV1', 'CV2', 'PRA'))
+_cv1_checks['verifier-standard-library-only'] = bool(_CV1_VERIFIER_SRC) and not _re.search(
+    r'(?m)^\s*(import|from)\s+(numpy|scipy|yaml|requests|sympy)\b', _CV1_VERIFIER_SRC)
+_cv1_controls += 1
+
+
+# ---------------------------------------------------------------------------
+# CV1-10 -- the act 29 bridge, simulated. On a shared clone of this repository -- every real
+# landing, both repair rounds' recovered E and L, and the V2 store intact -- a V1-shaped sealing
+# round ZZ is driven through the five frozen steps with commit-tree: its control-plane merge and
+# the V7 entry naming exactly its stem; its execution head under a prospective declaration and the
+# synthetic merge a pull request would build; its landing merge; its pin commit adding exactly its
+# seal record; and a translation writing its certificate and record and emptying V7. At each step
+# the V2 verifier's report is required to be exactly what the bridge table names -- the stem
+# reported LEGACY-V1-OWNED with no validity claim through step 4, a translated certificate and an
+# empty set at step 5 -- and the V1 validator's classification is required on its side; at step 4
+# the four supersession replacements pass on that repository while their superseded segments fail.
+# ---------------------------------------------------------------------------
+def _cv1_bridge():
+    import shutil
+    import subprocess as _sp
+    import tempfile as _tf
+    here = os.path.dirname(VERIFICATION)
+    d = _tf.mkdtemp(prefix='cv1-bridge-')
+    rows = []
+    env = dict((k, v) for k, v in os.environ.items() if not k.startswith('GITHUB_'))
+    env['GITHUB_EVENT_NAME'] = 'push'
+    try:
+        if _sp.run(['git', 'clone', '--shared', '-q', here, d], capture_output=True).returncode != 0:
+            return [('bridge: shared clone of this repository', False)]
+
+        def g(*a, **kw):
+            return _sp.run(('git',) + a, cwd=d, capture_output=True, text=True, **kw)
+
+        g('config', 'user.email', 'cv1@example.invalid')
+        g('config', 'user.name', 'CV1')
+        head = g('rev-parse', 'HEAD').stdout.strip()
+
+        def blob(content):
+            return _gr1_blob_id(content.encode('utf-8'))
+
+        def mk(name, parents, files):
+            """A commit whose tree is the first parent's tree with `files` written over it."""
+            idx = os.path.join(d, '.git', 'index-' + name)
+            e = dict(os.environ, GIT_INDEX_FILE=idx)
+            g('read-tree', parents[0], env=e)
+            for path, content in sorted(files.items()):
+                bid = _sp.run(['git', 'hash-object', '-w', '--stdin'], cwd=d,
+                              input=content.encode('utf-8'), capture_output=True).stdout.decode().strip()
+                g('update-index', '--add', '--cacheinfo', '100644,%s,%s' % (bid, path), env=e)
+            tree = g('write-tree', env=e).stdout.strip()
+            a = ['commit-tree', tree, '-m', name]
+            for p in parents:
+                a += ['-p', p]
+            return g(*a).stdout.strip()
+
+        pre = 'verification/programmes/x/round-zz/preregistration.md'
+        res_note = 'verification/programmes/x/round-zz/result.md'
+        legacy_path = _CV1_CERTS + '/legacy-v1-owned.json'
+        b0 = mk('B0', [head], {pre: 'zz preregistration\n'})
+        legacy_zz = json.dumps({'protocol': 2, 'count': 1, 'rounds': [
+            {'stem': 'ZZ', 'directory': 'programmes/x/round-zz',
+             'preregistration_blob': blob('zz preregistration\n'), 'base': b0}]}, indent=1) + '\n'
+        b_zz = mk('B', [b0], {legacy_path: legacy_zz})
+        e_zz = mk('E', [b0], {res_note: 'zz result\n'})
+        m_zz = mk('M', [b_zz, e_zz], {res_note: 'zz result\n'})
+        l_zz = mk('L', [b_zz, e_zz], {res_note: 'zz result\n'})
+        seal = json.dumps({'round': 'ZZ', 'kind': 'sealed', 'base': b0, 'sealed_head': e_zz,
+                           'merge': l_zz}, indent=2) + '\n'
+        p_zz = mk('P', [l_zz], {'verification/seals/ZZ.json': seal})
+        tree_e = g('rev-parse', e_zz + '^{tree}').stdout.strip()
+        cert = json.dumps({'schema': 'oi-round-certificate', 'protocol': 1, 'round': 'ZZ',
+                           'origin': 'translated-v1', 'shape': 'sealing',
+                           'directory': 'programmes/x/round-zz', 'base': b0,
+                           'control_plane': [{'path': pre, 'blob': blob('zz preregistration\n'),
+                                              'merge': b0, 'execution_affecting': True}],
+                           'dependencies': [], 'evidence': [
+                               {'id': 'ZZ/preregistration.md', 'path': pre,
+                                'blob': blob('zz preregistration\n')},
+                               {'id': 'ZZ/result.md', 'path': res_note, 'blob': blob('zz result\n')},
+                               {'id': 'seals/ZZ.json', 'path': 'verification/seals/ZZ.json',
+                                'blob': blob(seal)}],
+                           'contributions': [],
+                           'translation': {'from': 'seal-record', 'migration_snapshot': p_zz}},
+                          indent=1, sort_keys=True) + '\n'
+        row = json.dumps({'round': 'ZZ', 'protocol': 1, 'origin': 'translated-v1', 'kind': 'landed',
+                          'certificate': blob(cert), 'base': b0, 'sealed_head': e_zz,
+                          'tree': tree_e, 'landing': l_zz, 'migration_snapshot': p_zz},
+                         indent=1, sort_keys=True) + '\n'
+        t_zz = mk('T', [p_zz], {_CV1_CERTS + '/ZZ.json': cert,
+                                _CV1_CERTS + '/attestations/ZZ.json': row,
+                                legacy_path: json.dumps({'protocol': 2, 'count': 0, 'rounds': []},
+                                                        indent=1) + '\n'})
+        g('update-ref', 'refs/remotes/origin/main', b_zz)
+
+        def v2_at(rev, event=None):
+            g('checkout', '-q', '--force', rev)
+            e = dict(env)
+            if event is not None:
+                path = os.path.join(d, '.git', 'event-bridge.json')
+                with open(path, 'w', encoding='utf-8') as fh:
+                    json.dump({'pull_request': {'number': 1, 'head': {'sha': event},
+                                                'base': {'ref': 'main', 'sha': b0}}}, fh)
+                e['GITHUB_EVENT_NAME'] = 'pull_request'
+                e['GITHUB_EVENT_PATH'] = path
+            return _cv1_run_verifier(root=d, extra=('--no-corpus',), env=e)
+
+        def owned_only(rep):
+            return (rep is not None and rep['ok'] and rep['legacy'] == ['ZZ']
+                    and 'ZZ' not in rep['certs'] and 'ZZ' not in rep['rows'])
+
+        push = {'GITHUB_EVENT_NAME': 'push'}
+        # step 1: the round's control plane on main and V7 naming exactly its stem
+        rows.append(('bridge step 1: V2 reports LEGACY-V1-OWNED for the stem, no certificate, '
+                     'gating nothing about it', owned_only(v2_at(b_zz))))
+        # step 2: the execution head under a prospective declaration, checked out as the synthetic
+        # merge a pull request would build, the event naming the real head
+        v1 = _si2_validate({}, prospective={'ZZ': b0}, env=push, cwd=d, target=e_zz, label='head',
+                           targets=[(e_zz, 'head'), (b_zz, 'base tip')])
+        rows.append(('bridge step 2: V1 classifies the head EXECUTION against its base; V2 still '
+                     'reports exactly LEGACY-V1-OWNED',
+                     bool(v1) and v1.get('ZZ', (None, False))[0] == 'EXECUTION' and v1['ZZ'][1]
+                     and owned_only(v2_at(m_zz, event=e_zz))))
+        # step 3: the landing merge
+        v1 = _si2_validate({}, prospective={'ZZ': b0}, env=push, cwd=d, target=l_zz, label='landing',
+                           targets=[(l_zz, 'landing')])
+        rows.append(('bridge step 3: V1 classifies the landing LANDED-PENDING-PIN; V2 still '
+                     'reports exactly LEGACY-V1-OWNED',
+                     bool(v1) and v1.get('ZZ', (None, False))[0] == 'LANDED-PENDING-PIN'
+                     and v1['ZZ'][1] and owned_only(v2_at(l_zz))))
+        # step 4: the pin commit adding exactly the seal record and removing the declaration
+        rec = {'ZZ': {'round': 'ZZ', 'kind': 'sealed', 'base': b0, 'sealed_head': e_zz, 'merge': l_zz}}
+        v1 = _si2_validate(rec, prospective={}, env=push, cwd=d, target=p_zz, label='pin',
+                           targets=[(p_zz, 'pin')])
+        rep4 = v2_at(p_zz)
+        rows.append(('bridge step 4: V1 classifies the record ARCHIVED with pinned == derived; '
+                     'V2 still reports exactly LEGACY-V1-OWNED and no native claim',
+                     bool(v1) and v1.get('ZZ', (None, False))[0] == 'ARCHIVED' and v1['ZZ'][1]
+                     and owned_only(rep4)))
+        added = ((g('diff', '--name-status', l_zz, p_zz).stdout or '').split())
+        rows.append(('bridge step 4: the pin adds exactly the seal record',
+                     added == ['A', 'verification/seals/ZZ.json']))
+        # step 4, the four supersessions on this repository: the checkout carries the added record
+        old = _cv1_old_seals_ok()
+        seals_dir = os.path.join(d, 'verification', 'seals')
+        gr1_e, gr1_l = globals().get('_GR1_E'), globals().get('_gr1_pin_l')
+        if old is not None:
+            rows.append(('bridge step 4, S2: superseded fails on the successor, replacement passes',
+                         old(_GR1_B, seals_dir, cwd=d) is False
+                         and _gr1_seals_hist(_GR1_B, gr1_e, gr1_l, cwd=d) is True))
+            rows.append(('bridge step 4, S3: superseded fails on the successor, replacement passes',
+                         old(_GR2_B, seals_dir, cwd=d) is False
+                         and _gr1_seals_hist(_GR2_B, _GR2_E, _GR2_L, cwd=d) is True))
+            rows.append(('bridge step 4, S4: F11\'s superseded positive half fails on the successor, '
+                         'the replacement passes',
+                         old(_GR1_B, seals_dir, cwd=d) is False
+                         and (_gr1_seals_hist(_GR1_B, gr1_e, gr1_l, cwd=d)
+                              and not old('101b8cebb140c2ee7b982641ff005b84bbf0a1cf', seals_dir, cwd=d))
+                         is True))
+        else:
+            rows.append(('bridge step 4: the base\'s _gr1_seals_ok compiled', False))
+        try:
+            with open(os.path.join(d, *_GR1_GUARD_PATH.split('/')), encoding='utf-8') as fh:
+                guard_at_p = fh.read()
+        except OSError:
+            guard_at_p = ''
+        e_text = g('show', '%s:%s' % (_GR2_E, _GR1_GUARD_PATH)).stdout if _GR2_E else ''
+        rows.append(('bridge step 4, S1: the superseded N12 fails on the successor guard, the '
+                     'replacement passes reading E_GR2 from that repository',
+                     bool(guard_at_p) and bool(e_text)
+                     and _cv1_run_n12(_CV1_S1_SEG, guard_at_p, 'LANDED-UNRECORDED', _GR2_E) is False
+                     and _cv1_run_n12(_CV1_S1_NEW, guard_at_p, 'LANDED-UNRECORDED', _GR2_E,
+                                      git_text=e_text) is True))
+        # step 5: the translation writes the certificate and record and empties V7
+        rep5 = v2_at(t_zz)
+        rows.append(('bridge step 5: V2 accepts the translated certificate and record and reports '
+                     'an empty legacy-owned set',
+                     rep5 is not None and rep5['ok'] and rep5['legacy'] == []
+                     and rep5['certs'].get('ZZ', ('',))[0] == 'PASS'
+                     and rep5['rows'].get('ZZ', ('', ''))[1] == 'PASS'))
+        # the negative half of step 5: a translation that leaves the entry in place is refused
+        stale = mk('T2', [p_zz], {_CV1_CERTS + '/ZZ.json': cert,
+                                  _CV1_CERTS + '/attestations/ZZ.json': row})
+        rep5b = v2_at(stale)
+        rows.append(('bridge step 5, control: a certificate for a stem still in the legacy-owned '
+                     'set is refused',
+                     rep5b is not None and not rep5b['ok']
+                     and rep5b['certs'].get('ZZ', ('',))[0] == 'FAIL'))
+    except Exception as exc:  # noqa: BLE001 -- a bridge that cannot be built is BROKEN, not skipped
+        rows.append(('bridge: built and executed (%s)' % type(exc).__name__, False))
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+    return rows
+
+
+_CV1_BRIDGE_ROWS = _cv1_bridge()
+for _nm, _ok in _CV1_BRIDGE_ROWS:
+    _cv1_checks[_nm] = _ok
+_CV1_10 = 'BRIDGE-SIMULATED' if all(ok for _n, ok in _CV1_BRIDGE_ROWS) else 'BRIDGE-BROKEN'
+_cv1_controls += 1
+
+
+def _cv1_store():
+    """The certificates and records on the current tree, parsed; unparsable files as None."""
+    root = os.path.join(os.path.dirname(VERIFICATION), *_CV1_CERTS.split('/'))
+    certs, rows = {}, {}
+    for sub, out in (('', certs), ('attestations', rows)):
+        d = os.path.join(root, sub) if sub else root
+        if not os.path.isdir(d):
+            continue
+        for name in sorted(os.listdir(d)):
+            if not name.endswith('.json') or name in ('live-policy.json', 'legacy-v1-owned.json'):
+                continue
+            try:
+                with open(os.path.join(d, name), encoding='utf-8') as fh:
+                    out[name[:-5]] = json.load(fh)
+            except (OSError, ValueError):
+                out[name[:-5]] = None
+    return certs, rows
+
+
+_CV1_CERT_OBJS, _CV1_ROW_OBJS = _cv1_store()
+_cv1_boot = [s for s, c in _CV1_CERT_OBJS.items() if isinstance(c, dict)
+             and c.get('origin') == 'bootstrap-v1']
+_cv1_checks['provenance-one-bootstrap-and-it-is-cv1'] = _cv1_boot == ['CV1']
+_cv1_checks['provenance-translated-rows'] = bool(_CV1_ROW_OBJS) and all(
+    isinstance(r, dict) and ('migration_snapshot' in r and 'ci' not in r)
+    for s, r in _CV1_ROW_OBJS.items() if isinstance(r, dict) and r.get('origin') == 'translated-v1')
+_cv1_checks['provenance-fifty-one-translated'] = sorted(
+    s for s, c in _CV1_CERT_OBJS.items() if isinstance(c, dict)
+    and c.get('origin') == 'translated-v1') == sorted(_CV1_STEMS)
+_cv1_checks['provenance-thirty-five-translated-rows'] = (
+    len([r for r in _CV1_ROW_OBJS.values() if isinstance(r, dict)
+         and r.get('origin') == 'translated-v1']) == 35)
+try:
+    with open(os.path.join(os.path.dirname(VERIFICATION), _CV1_CERTS, 'legacy-v1-owned.json'),
+              encoding='utf-8') as _fh:
+        _CV1_LEGACY = json.load(_fh)
+except (OSError, ValueError):
+    _CV1_LEGACY = None
+_cv1_checks['legacy-owned-exactly-pra'] = bool(
+    isinstance(_CV1_LEGACY, dict) and _CV1_LEGACY.get('count') == 1
+    and [e.get('stem') for e in _CV1_LEGACY.get('rounds', [])] == ['PRA']
+    and 'PRA' not in _CV1_CERT_OBJS and 'PRA' not in _CV1_ROW_OBJS)
+try:
+    with open(os.path.join(os.path.dirname(VERIFICATION), _CV1_CERTS, 'live-policy.json'),
+              encoding='utf-8') as _fh:
+        _CV1_POLICY = json.load(_fh)
+except (OSError, ValueError):
+    _CV1_POLICY = None
+_cv1_checks['live-policy-zero-clauses'] = bool(
+    isinstance(_CV1_POLICY, dict) and _CV1_POLICY.get('count') == 0
+    and _CV1_POLICY.get('policies') == [])
+_cv1_checks['no-relocation-record'] = not os.path.isdir(
+    os.path.join(os.path.dirname(VERIFICATION), _CV1_CERTS, 'relocations'))
+_cv1_controls += 1
+# the workflow: the standalone job runs the verifier in shadow mode and never authoritatively
+try:
+    with open(os.path.join(os.path.dirname(VERIFICATION), *_CV1_WORKFLOW.split('/')),
+              encoding='utf-8') as _fh:
+        _CV1_WF = _fh.read()
+except OSError:
+    _CV1_WF = ''
+_cv1_checks['workflow-job-in-shadow'] = (
+    'name: Certificate verifier' in _CV1_WF
+    and 'certificate_verifier.py --mode shadow' in _CV1_WF
+    and 'certificate_verifier.py --mode authoritative' not in _CV1_WF)
+# the release gate: from stage 5 it carries the authoritative step; the gate itself is the
+# artifact that decides CV1-7, and this reads its text
+try:
+    with open(os.path.join(os.path.dirname(VERIFICATION), *_CV1_GATE.split('/')),
+              encoding='utf-8') as _fh:
+        _CV1_GATE_SRC = _fh.read()
+except OSError:
+    _CV1_GATE_SRC = ''
+_CV1_GATE_WIRED = ('"certificate-verifier"' in _CV1_GATE_SRC
+                   and '"--mode", "authoritative"' in _CV1_GATE_SRC)
+_cv1_checks['release-gate-authoritative-step'] = _CV1_GATE_WIRED
+_cv1_controls += 1
+
+
+# ---------------------------------------------------------------------------
+# CV1-9 -- non-deletion, checked mechanically against the execution's diff: the working tree while
+# executing, the recovered E afterwards, each against B.
+# ---------------------------------------------------------------------------
+def _cv1_diff(subject):
+    args = ['diff', '--name-status', _CV1_B] + ([subject] if subject else [])
+    out = _cv1_git(*args)
+    if out is None:
+        return None
+    rows = []
+    for line in out.decode('utf-8', 'replace').split('\n'):
+        if line.strip():
+            parts = line.split('\t')
+            rows.append((parts[0][0], parts[-1]))
+    return rows
+
+
+_CV1_DIFF = _cv1_diff(None if _CV1_STATE == 'EXECUTION' else _CV1_E)
+_CV1_ALLOWED_MODIFIED = {_GR1_GUARD_PATH, _CV1_WORKFLOW, _CV1_GATE, 'verification/README.md'}
+_CV1_FORBIDDEN_PREFIXES = ('verification/seals/', 'verification/programmes/', 'verification/audits/',
+                           'papers/', 'book/', 'verification/lean-mathlib/')
+if _CV1_DIFF is None:
+    _cv1_checks['additive-diff-readable'] = False
+else:
+    _cv1_checks['additive-diff-readable'] = True
+    _cv1_checks['additive-no-deletion'] = not any(s == 'D' for s, _p in _CV1_DIFF)
+    _cv1_checks['additive-modified-only-the-named-files'] = all(
+        p in _CV1_ALLOWED_MODIFIED for s, p in _CV1_DIFF if s == 'M')
+    _cv1_checks['additive-no-forbidden-path'] = not any(
+        p.startswith(_CV1_FORBIDDEN_PREFIXES) or p.endswith('.lean')
+        or p in ('AGENTS.md', 'verification/ROADMAP.md') for _s, p in _CV1_DIFF)
+    _cv1_checks['additive-no-cv2-object'] = not any(
+        p.startswith('verification/infrastructure/round-cv-2') for _s, p in _CV1_DIFF)
+    _cv1_added = set(p for s, p in _CV1_DIFF if s == 'A')
+    _cv1_checks['additive-added-under-the-named-roots'] = all(
+        p.startswith(('verification/certificates/',
+                      'verification/infrastructure/round-cv-1-certificate-protocol/'))
+        or p == _CV1_VERIFIER for p in _cv1_added)
+_cv1_checks['no-r7-block-removed'] = bool(_CV1_BASE_SRC) and all(
+    m in _CV1_SELF for m in _re.findall(r'(?m)^# ---- R7-[A-Z0-9]+: .*$', _CV1_BASE_SRC))
+_cv1_checks['no-check-call-removed'] = bool(_CV1_BASE_SRC) and all(
+    c in _CV1_SELF for c in _re.findall(r"(?m)^check\('R7-[A-Z0-9]+'", _CV1_BASE_SRC))
+# the two marker-bounded validator regions, each opened and closed exactly once at line start (the
+# markers are quoted, indented, by several blocks including this one) and closed after it opens
+_cv1_checks['validator-regions-intact'] = all(
+    len(_re.findall(r'(?m)^%s$' % _re.escape(m), _CV1_SELF)) == 1
+    and len(_re.findall(r'(?m)^%s$' % _re.escape(n), _CV1_SELF)) == 1
+    and _CV1_SELF.find('\n' + m + '\n') < _CV1_SELF.find('\n' + n + '\n')
+    for m, n in (('# ==== SI1-VALIDATOR-BEGIN ====', '# ==== SI1-VALIDATOR-END ===='),
+                 ('# ==== SI2-AUTHORITY-BEGIN ====', '# ==== SI2-AUTHORITY-END ====')))
+_cv1_controls += 1
+
+
+# ---------------------------------------------------------------------------
+# The two censuses, CV1-6a and CV1-6b, computed on every build and required equal to census.json.
+# ---------------------------------------------------------------------------
+# The SI-1 and SI-2 cases beside their V2 analogues, classified in advance: `agree` where V2 has
+# a vector testing the same proposition and both behave, `no-analogue` for the V1 lifecycle
+# notions V2 does not have (LANDED-PENDING-PIN, seal pending, the legacy inventory, the
+# authorized-addition baseline, prospective execution), `retired` for the two SI-2 cases SI-3
+# retired and the observation SI-1 recorded.
+_CV1_SI1_MAP = {
+    '1': 'schema-malformed-hash', '2': 'ledger-landed-row-missing-topology-field',
+    '3': 'schema-unknown-key', '4a': 'schema-base-only-row-topology-value',
+    '4b': 'schema-base-only-row-topology-null', '5': 'topology-rewritten-sealed-head',
+    '6': 'topology-landing-second-parent-not-e', '7': 'ambiguity-landing-multiple-candidates',
+    '8': 'ambiguity-landing-zero-candidates', '9': None, '10': 'visibility-landing-on-base-tip-only',
+    '11': 'visibility-base-sha-refused', '12': 'visibility-unresolvable-base-ref', '13': None,
+    '14': None, '15': 'ledger-row-edited', '16': 'ledger-row-removed', '17': None, '18': None,
+    '19': 'visibility-synthetic-merge-refused', '20': 'ledger-base-only-row-positive',
+    'OBSERVATION': None,
+}
+_CV1_SI1_WHY = {'9': 'prospective execution is a V1 lifecycle notion',
+                '13': 'LANDED-PENDING-PIN is a V1 lifecycle notion',
+                '14': 'seal pending is a V1 lifecycle notion',
+                '17': 'the authorized-addition baseline is a V1 notion',
+                '18': 'the legacy inventory is a V1 notion',
+                'OBSERVATION': 'a recorded observation, not a case'}
+_CV1_SI2_MAP = {
+    '1': 'visibility-landing-on-base-tip-only', '2': 'visibility-base-sha-refused',
+    '3': 'visibility-local-branch-refused', '4': 'visibility-landing-on-both-two-candidates',
+    '5': 'visibility-landing-on-both-one-candidate', '6': 'visibility-synthetic-merge-refused',
+    '7': 'topology-landing-second-parent-not-e', '8': None, '12': None,
+}
+_CV1_SI2_WHY = {'8': 'the authorized-addition baseline is a V1 notion',
+                '12': 'the legacy inventory is a V1 notion',
+                '11': 'retired by SI-3', '13': 'retired by SI-3'}
+
+
+def _cv1_census():
+    """(census, outcome_6a, outcome_6b), the census as a JSON-serializable dict carrying no
+    head-dependent value, so that the stage-4 measurement and the one at E compare equal."""
+    rep = _CV1_REP or {'certs': {}, 'rows': {}, 'vectors': {}, 'legacy': []}
+    live = dict(zip(CHECK_TAGS, ['PASS' if c else 'FAIL' for c in CHECKS]))
+    u3 = _si2_manifest_verdicts() or {}
+    recs = _si1_load()[0] or {}
+    records = {}
+    broken, unexpected = [], []
+    for stem in _CV1_STEMS:
+        tag = 'R7-' + stem
+        v1_tag = live.get(tag)
+        cert = rep['certs'].get(stem, (None, ''))[0]
+        rowv = rep['rows'].get(stem)
+        entry = {'v1_tag': v1_tag, 'v2_certificate': cert}
+        axes = {'evidence': (v1_tag == 'PASS', cert == 'PASS')}
+        if stem in recs:
+            life, ok, _why = u3.get(stem, (None, False, ''))
+            entry['v1_u3'] = 'PASS' if ok else 'FAIL'
+            entry['v1_lifecycle'] = life
+            entry['v2_record'] = rowv[1] if rowv else None
+            axis = 'topology' if recs[stem].get('kind') == 'sealed' else 'base'
+            axes[axis] = (bool(ok), bool(rowv) and rowv[1] == 'PASS')
+        elif stem in ('GR1', 'GR2'):
+            st = _GR1_STATE if stem == 'GR1' else _GR2_STATE
+            okc = _gr1_checks.get('chronology') if stem == 'GR1' else _gr2_checks.get('chronology')
+            entry['v1_lifecycle'] = st
+            entry['v1_chronology'] = 'PASS' if okc else 'FAIL'
+            entry['v2_record'] = rowv[1] if rowv else None
+            axes['topology'] = (bool(okc), bool(rowv) and rowv[1] == 'PASS')
+        entry['axes'] = dict((k, {'v1': a, 'v2': b, 'agree': a == b}) for k, (a, b) in axes.items())
+        if not all(a == b for a, b in axes.values()):
+            broken.append(stem)
+        records[stem] = entry
+    controls = {}
+    for suite, cases, mapping, why in (
+            ('SI-1', _si1_negatives(), _CV1_SI1_MAP, _CV1_SI1_WHY),
+            ('SI-2', _si2_negatives(), _CV1_SI2_MAP, _CV1_SI2_WHY)):
+        for name, good, _w in cases:
+            key = name.split()[0]
+            vid = mapping.get(key)
+            if vid is None:
+                cls = 'no-analogue'
+                v2 = None
+            else:
+                vec = rep['vectors'].get(vid)
+                v2 = vec[2] == 'MATCH' if vec else False
+                cls = 'agree' if (bool(good) and v2) else 'diverge'
+                if cls == 'diverge':
+                    unexpected.append('%s %s' % (suite, name))
+            controls['%s %s' % (suite, name)] = {'v1': bool(good), 'v2_vector': vid,
+                                                 'v2': v2, 'class': cls,
+                                                 'why': why.get(key)}
+    for key in ('11', '13'):
+        controls['SI-2 %s retired' % key] = {'v1': None, 'v2_vector': None, 'v2': None,
+                                             'class': 'retired', 'why': _CV1_SI2_WHY[key]}
+    corpus = {'executed': rep.get('executed'), 'mismatches': rep.get('mismatches'),
+              'exact': rep.get('exact'), 'families': rep.get('families')}
+    sup = {}
+    div = dict(_CV1_SEALS_DIVERGENCE)
+    if _CV1_S1_DIVERGENCE is not None:
+        div['C-S1'] = _CV1_S1_DIVERGENCE
+    for key, owner, subject in (('C-S1', 'GR2', 'the census head, whose guard carries CV-1\'s edits '
+                                                'outside R7-GR2'),
+                                ('C-S2', 'GR1', 'a synthetic successor carrying a later round\'s '
+                                                'authorized seal record'),
+                                ('C-S3', 'GR2', 'the same successor'),
+                                ('C-S4', 'GR1', 'the same successor')):
+        old, new = div.get(key, (None, None))
+        v2 = rep['certs'].get(owner, (None, ''))[0]
+        as_named = old is False and new is True and v2 == 'PASS'
+        sup[key] = {'subject': subject, 'superseded': old, 'replacement': new, 'v2': owner + ' ' + str(v2),
+                    'diverges_as_named': as_named}
+        if not as_named:
+            unexpected.append(key + ' does not diverge as named')
+    # on the census head itself C-S2, C-S3 and C-S4 agree: CV-1 adds no seal record
+    on_head = {'C-S2': _gr1_seals_ok(_GR1_B), 'C-S3': _gr1_seals_ok(_GR2_B),
+               'C-S4': _gr1_seals_ok(_GR1_B)}
+    corpus_ok = bool(rep.get('exact')) and rep.get('mismatches') == 0
+    if not corpus_ok:
+        unexpected.append('the V2 corpus is not exact')
+    outcome_6a = ('VERDICTS-BROKEN' if broken else
+                  'VERDICTS-UNEXPECTED' if unexpected else 'VERDICTS-AS-ADJUDICATED')
+    # CV1-6b
+    rep6b = {}
+    for stem in _CV1_STEMS:
+        cert = _CV1_CERT_OBJS.get(stem)
+        row = _CV1_ROW_OBJS.get(stem)
+        if stem in recs:
+            r = recs[stem]
+            equal = (isinstance(cert, dict) and isinstance(row, dict) and cert.get('base') == r.get('base')
+                     and row.get('base') == r.get('base')
+                     and (r.get('kind') == 'base-only' or (
+                         row.get('sealed_head') == r.get('sealed_head')
+                         and row.get('landing') == r.get('merge'))))
+            rep6b[stem] = {'class': 'TRANSCRIBED', 'byte_equal': bool(equal)}
+        elif stem in ('GR1', 'GR2'):
+            e = globals().get('_GR1_E') if stem == 'GR1' else _GR2_E
+            l = globals().get('_gr1_pin_l') if stem == 'GR1' else _GR2_L
+            tree = (_cv1_git('rev-parse', e + '^{tree}') or b'').decode().strip() if e else None
+            equal = (isinstance(row, dict) and row.get('sealed_head') == e and row.get('landing') == l
+                     and row.get('tree') == tree and 'ci' not in row)
+            rep6b[stem] = {'class': 'SAME-FACTS-NEW-REPRESENTATION', 'facts_equal': bool(equal)}
+        else:
+            rep6b[stem] = {'class': 'NO-V1-COMPARATOR',
+                           'no_topology': isinstance(cert, dict) and 'base' not in cert
+                           and row is None}
+    rep6b['CV1'] = {'class': 'BOOTSTRAP', 'unique': _cv1_boot == ['CV1'],
+                    'no_row_before_a': ('CV1' not in _CV1_ROW_OBJS) or _CV1_STATE == 'ATTESTED'}
+    rep6b['PRA'] = {'class': 'LEGACY-V1-OWNED', 'no_certificate': 'PRA' not in _CV1_CERT_OBJS,
+                    'no_row': 'PRA' not in _CV1_ROW_OBJS, 'v7_entry': rep['legacy'] == ['PRA']}
+    counts = {}
+    for v in rep6b.values():
+        counts[v['class']] = counts.get(v['class'], 0) + 1
+    profile_ok = (counts == {'TRANSCRIBED': 33, 'SAME-FACTS-NEW-REPRESENTATION': 2,
+                             'NO-V1-COMPARATOR': 16, 'BOOTSTRAP': 1, 'LEGACY-V1-OWNED': 1}
+                  and all(v.get('byte_equal', True) and v.get('facts_equal', True)
+                          and v.get('no_topology', True) and v.get('unique', True)
+                          and v.get('no_certificate', True) and v.get('no_row', True)
+                          and v.get('v7_entry', True) for v in rep6b.values()))
+    outcome_6b = 'REPRESENTATION-AS-FROZEN' if profile_ok else 'REPRESENTATION-UNEXPECTED'
+    census = {'6a': {'records': records, 'controls': controls, 'corpus': corpus,
+                     'supersession_controls': sup, 'on_the_census_head': on_head,
+                     'broken': broken, 'unexpected': unexpected, 'outcome': outcome_6a},
+              '6b': {'rows': rep6b, 'counts': counts, 'outcome': outcome_6b}}
+    return census, outcome_6a, outcome_6b
+
+
+_CV1_CENSUS, _CV1_6A, _CV1_6B = _cv1_census()
+_cv1_checks['census-6a-as-adjudicated'] = _CV1_6A == 'VERDICTS-AS-ADJUDICATED'
+_cv1_checks['census-6b-as-frozen'] = _CV1_6B == 'REPRESENTATION-AS-FROZEN'
+_cv1_controls += 1
+print('    R7-CV1 census: ' + json.dumps(_CV1_CENSUS, sort_keys=True))
+
+
+# ---------------------------------------------------------------------------
+# The artifact contracts: census.json equal to the census computed here; the result note carrying
+# the frozen sentences for the outcomes reached; the tag map; each at its blob at E after landing
+# and on the live tree only while executing.
+# ---------------------------------------------------------------------------
+def _cv1_artifact_bytes(rel):
+    try:
+        return _bb_read(rel)
+    except OSError:
+        return b''
+
+
+_CV1_CEN_BYTES = _cv1_artifact_bytes(_CV1CENREL)
+try:
+    _CV1_CEN = json.loads(_CV1_CEN_BYTES.decode('utf-8')) if _CV1_CEN_BYTES else None
+except ValueError:
+    _CV1_CEN = None
+_cv1_checks['census-committed'] = _CV1_CEN is not None
+_cv1_checks['census-equal-to-committed'] = _CV1_CEN is not None and _CV1_CEN == _CV1_CENSUS
+_CV1_RES_BYTES = _cv1_artifact_bytes(_CV1RESREL)
+_CV1_RESN = _pfr_n(_CV1_RES_BYTES.decode('utf-8', 'replace')) if _CV1_RES_BYTES else ''
+_cv1_checks['result-note'] = bool(_CV1_RES_BYTES) and 'CV1-10' in _CV1_RESN
+_cv1_checks['note:6a-sentence'] = (_pfr_n(_CV1_SENT_6A) in _CV1_RESN) == (
+    _CV1_6A == 'VERDICTS-AS-ADJUDICATED') and bool(_CV1_RES_BYTES)
+_cv1_checks['note:6b-sentence'] = (_pfr_n(_CV1_SENT_6B) in _CV1_RESN) == (
+    _CV1_6B == 'REPRESENTATION-AS-FROZEN') and bool(_CV1_RES_BYTES)
+_cv1_checks['note:7-sentence'] = (_pfr_n(_CV1_SENT_7) in _CV1_RESN) == _CV1_GATE_WIRED \
+    and bool(_CV1_RES_BYTES)
+_cv1_checks['note-mut:6a-sentence-dropped'] = bool(_CV1_RESN) and (
+    _CV1_RESN.replace(_pfr_n(_CV1_SENT_6A), '', 1) != _CV1_RESN)
+_CV1_MAP_BYTES = _cv1_artifact_bytes(_CV1MAPREL)
+try:
+    _CV1_MAP = json.loads(_CV1_MAP_BYTES.decode('utf-8')) if _CV1_MAP_BYTES else None
+except ValueError:
+    _CV1_MAP = None
+_cv1_live_map = dict(zip(CHECK_TAGS, ['PASS' if c else 'FAIL' for c in CHECKS]))
+_cv1_checks['tag-map'] = bool(
+    _CV1_MAP and isinstance(_CV1_MAP.get('base'), dict) and isinstance(_CV1_MAP.get('head'), dict)
+    and all(_v == 'PASS' for _v in _CV1_MAP['base'].values())
+    and set(_CV1_MAP['head']) == set(_CV1_MAP['base'])
+    and all(_CV1_MAP['head'][_k] == _CV1_MAP['base'][_k] for _k in _CV1_MAP['base'])
+    and 'R7-CV1' not in _CV1_MAP['base'] and 'R7-GR2' in _CV1_MAP['base']
+    and set(_CV1_MAP['base']) <= set(CHECK_TAGS)
+    and all(_cv1_live_map.get(_t) == _v for _t, _v in _CV1_MAP['head'].items()))
+_cv1_controls += 1
+if _CV1_STATE != 'EXECUTION' and _CV1_E is not None:
+    for _rel in (_CV1FRZ, _CV1RESREL, _CV1CENREL, _CV1MAPREL):
+        _at_e = _cv1_git('rev-parse', '%s:verification/%s' % (_CV1_E, _rel))
+        _here = None
+        try:
+            with open(_artifact(_rel), 'rb') as _fh:
+                _here = _gr1_blob_id(_fh.read())
+        except OSError:
+            _here = None
+        _cv1_checks['landed-artifact:' + _rel.rsplit('/', 1)[-1]] = (
+            _at_e is not None and _here == _at_e.decode().strip())
+    _cv1_checks['no-cv2-object-at-e'] = not any(
+        p.startswith('verification/infrastructure/round-cv-2')
+        for p in (_cv1_git('ls-tree', '-r', '--name-only', _CV1_E, 'verification/infrastructure')
+                  or b'').decode('utf-8', 'replace').split('\n'))
+else:
+    _cv1_checks['no-cv2-object'] = not any(
+        n.startswith('round-cv-2') for n in os.listdir(os.path.join(VERIFICATION, 'infrastructure')))
+
+_cv1_bad = sorted(k for k, v in _cv1_checks.items() if not v)
+print('    R7-CV1 contracts: %d checks, %d control group(s); chronology %s (%s); censuses %s / %s; '
+      'bridge %s; verifier %s; failures: %s'
+      % (len(_cv1_checks), _cv1_controls, _CV1_STATE, _CV1_CHRON_WHY, _CV1_6A, _CV1_6B, _CV1_10,
+         (_CV1_REP or {}).get('summary', 'did not run'),
+         ', '.join(_cv1_bad) if _cv1_bad else 'none'))
+check('R7-CV1', not _cv1_bad,
+      "Certificate infrastructure round CV-1, NON-SEALING, E -> L, no P, then A: the V2 "
+      "round-certificate protocol installed in SHADOW beside V1, every landed round translated "
+      "into a certificate and, where it has topology, an attestation record read from git at the "
+      "migration snapshot with no continuous-integration identity claimed; one generic, "
+      "stem-free, standard-library verifier held to a conformance corpus executed as an exact set "
+      "on every build, every family represented and one vector per manifestation of the "
+      "historical-subject defect; four supersessions of two earlier repair rounds -- R7-GR2's "
+      "N12, the two seals-tree statements and R7-GR1's F11 -- each pinned by sha256 and "
+      "EXTRACTED FROM THE BASE'S OWN GUARD TEXT, the old side of every control that text "
+      "EXECUTED, each shown to fail on the successor state its contract could not survive and "
+      "its replacement, reading the round's own recovered history, to pass; the legacy verdict "
+      "census and the migration representation census computed here on every build and required "
+      "equal to the committed census.json; the release gate's authoritative step, from stage 5, "
+      "the one cutover wiring edit, with the standalone job still in shadow. The round writes no "
+      "manifest record, no prospective declaration and no baseline change; the seals tree is "
+      "byte-identical to the base's at every commit up to E and equal to the first parent's at "
+      "L; the legacy-owned set is exactly act 29; the budget -- this file with this block removed "
+      "and the four segments restored equals the base's guard file -- is whole-file while "
+      "executing and measured against the recovered E after landing; nothing is deleted.")
+# ---- R7-CV1 ends.
 
 print()
 print('     [scope] Settled in Lean: K4-rigidity for all n >= 5 with the n = 4 complement')

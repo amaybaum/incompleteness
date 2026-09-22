@@ -1,0 +1,65 @@
+{
+ "base": "ebc3951dc581d558373f720a90f1ba7deb2a8ed8",
+ "contributions": [
+  {
+   "path": ".github/workflows/verify.yml"
+  },
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  },
+  {
+   "path": "verification/lean/physical_c4_toy_instance_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "a80334a5d5f19125b69459523acf723b607f97e1",
+   "execution_affecting": true,
+   "merge": "ebc3951dc581d558373f720a90f1ba7deb2a8ed8",
+   "path": "verification/programmes/physical-realization/round-c4-1-physical-discharge/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/physical-realization/round-c4-1-physical-discharge",
+ "evidence": [
+  {
+   "blob": "a80334a5d5f19125b69459523acf723b607f97e1",
+   "id": "PC4/preregistration.md",
+   "path": "verification/programmes/physical-realization/round-c4-1-physical-discharge/preregistration.md"
+  },
+  {
+   "blob": "64a610859e834663cf1d5cc73d0ab9a2ab9dd882",
+   "id": "PC4/result.md",
+   "path": "verification/programmes/physical-realization/round-c4-1-physical-discharge/result.md"
+  },
+  {
+   "blob": "d309359cc3a2a78a11ad391f433e226d303397d1",
+   "id": "seals/PC4.json",
+   "path": "verification/seals/PC4.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "PC4",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

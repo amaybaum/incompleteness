@@ -1,0 +1,56 @@
+{
+ "base": "93c2ca63c6cd7a61388d577b8baf22c3c1fdb41f",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/AnchorRobustness.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "2e92464dca3809558959d240314dbaf9eaa1c500",
+   "execution_affecting": true,
+   "merge": "93c2ca63c6cd7a61388d577b8baf22c3c1fdb41f",
+   "path": "verification/programmes/oi-qm/track-b/act-10-anchor-robustness/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-10-anchor-robustness",
+ "evidence": [
+  {
+   "blob": "2e92464dca3809558959d240314dbaf9eaa1c500",
+   "id": "ABR/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-10-anchor-robustness/preregistration.md"
+  },
+  {
+   "blob": "ec9a6e0d8a7019805aca069abc39f90d632b6a2b",
+   "id": "ABR/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-10-anchor-robustness/result.md"
+  },
+  {
+   "blob": "1a6181bd097da048abecc1b477ae517f3f5dd1db",
+   "id": "seals/ABR.json",
+   "path": "verification/seals/ABR.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "ABR",
+ "schema": "oi-round-certificate",
+ "shape": "non-sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

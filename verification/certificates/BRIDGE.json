@@ -1,0 +1,31 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-01-indivisibility",
+ "evidence": [
+  {
+   "blob": "f3f23acf7f30f941b87fa8f113699c5be0c7b87b",
+   "id": "BRIDGE/amendments/amendment-3.md",
+   "path": "verification/programmes/oi-qm/track-b/act-01-indivisibility/amendments/amendment-3.md"
+  },
+  {
+   "blob": "b6727fa8df616e1a3f98e45d69b99b13554cda3e",
+   "id": "BRIDGE/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-01-indivisibility/preregistration.md"
+  },
+  {
+   "blob": "98cafdccad6274e8c2da2e9789a54f86727f6bbc",
+   "id": "BRIDGE/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-01-indivisibility/result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "BRIDGE",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}
