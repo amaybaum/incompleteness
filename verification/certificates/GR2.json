@@ -1,0 +1,46 @@
+{
+ "base": "c9e6d56379923195382fa8c797c464397bcedaa5",
+ "contributions": [
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "f6438114f8b633b70bcc50b6cadd5eb94768e5a3",
+   "execution_affecting": true,
+   "merge": "c9e6d56379923195382fa8c797c464397bcedaa5",
+   "path": "verification/infrastructure/round-gr-2-post-landing-scoping/preregistration.md"
+  }
+ ],
+ "dependencies": [
+  "PFR"
+ ],
+ "directory": "infrastructure/round-gr-2-post-landing-scoping",
+ "evidence": [
+  {
+   "blob": "8a83099c520b6b4864bccbf8a3c84a69e827a5b2",
+   "id": "GR2/gr2-tagmap.json",
+   "path": "verification/infrastructure/round-gr-2-post-landing-scoping/gr2-tagmap.json"
+  },
+  {
+   "blob": "f6438114f8b633b70bcc50b6cadd5eb94768e5a3",
+   "id": "GR2/preregistration.md",
+   "path": "verification/infrastructure/round-gr-2-post-landing-scoping/preregistration.md"
+  },
+  {
+   "blob": "49969adbf1bcb9c2b07d540a58e9d1a426a7f1e5",
+   "id": "GR2/result.md",
+   "path": "verification/infrastructure/round-gr-2-post-landing-scoping/result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "GR2",
+ "schema": "oi-round-certificate",
+ "shape": "non-sealing",
+ "translation": {
+  "from": "guard-block",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

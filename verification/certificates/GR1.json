@@ -1,0 +1,68 @@
+{
+ "base": "39090ca75860e7e6cbd99fa6f3ad859cee3efaf4",
+ "contributions": [
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "013ca3d75c65fd884974e7e6350b7c78924bb22b",
+   "execution_affecting": true,
+   "merge": "4cff6771e808ad78de3392e61190b71ba5055de6",
+   "path": "verification/infrastructure/round-gr-1-roadmap-entry-scoping/preregistration.md"
+  },
+  {
+   "blob": "631439af8682eec66a1f9ec3aaacece76d50dfb4",
+   "execution_affecting": true,
+   "merge": "15d08103a9c214395a0cc7948dfda3bc6858f30e",
+   "path": "verification/infrastructure/round-gr-1-roadmap-entry-scoping/amendments/amendment-1.md"
+  },
+  {
+   "blob": "d7a50c458dea5c35660c9bfc7b7fe47b923396a1",
+   "execution_affecting": true,
+   "merge": "39090ca75860e7e6cbd99fa6f3ad859cee3efaf4",
+   "path": "verification/infrastructure/round-gr-1-roadmap-entry-scoping/amendments/amendment-2.md"
+  }
+ ],
+ "dependencies": [
+  "PFR"
+ ],
+ "directory": "infrastructure/round-gr-1-roadmap-entry-scoping",
+ "evidence": [
+  {
+   "blob": "631439af8682eec66a1f9ec3aaacece76d50dfb4",
+   "id": "GR1/amendments/amendment-1.md",
+   "path": "verification/infrastructure/round-gr-1-roadmap-entry-scoping/amendments/amendment-1.md"
+  },
+  {
+   "blob": "d7a50c458dea5c35660c9bfc7b7fe47b923396a1",
+   "id": "GR1/amendments/amendment-2.md",
+   "path": "verification/infrastructure/round-gr-1-roadmap-entry-scoping/amendments/amendment-2.md"
+  },
+  {
+   "blob": "0ce44d8dfdb68e6d7bb1e0649a48f3d8703a4613",
+   "id": "GR1/gr1-tagmap.json",
+   "path": "verification/infrastructure/round-gr-1-roadmap-entry-scoping/gr1-tagmap.json"
+  },
+  {
+   "blob": "013ca3d75c65fd884974e7e6350b7c78924bb22b",
+   "id": "GR1/preregistration.md",
+   "path": "verification/infrastructure/round-gr-1-roadmap-entry-scoping/preregistration.md"
+  },
+  {
+   "blob": "32ca8829f70e3362e738c583972a9668b75f2113",
+   "id": "GR1/result.md",
+   "path": "verification/infrastructure/round-gr-1-roadmap-entry-scoping/result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "GR1",
+ "schema": "oi-round-certificate",
+ "shape": "non-sealing",
+ "translation": {
+  "from": "guard-block",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "base": "64214bfb0ae41b9f0a4fb11159089fff32d4dd85",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/OrbitLawGaps.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "93c06674792fa3565f6f94e5e954e484dca33cf2",
+   "execution_affecting": true,
+   "merge": "64214bfb0ae41b9f0a4fb11159089fff32d4dd85",
+   "path": "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md"
+  }
+ ],
+ "dependencies": [
+  "OLN",
+  "OLT"
+ ],
+ "directory": "programmes/oi-qm/track-b/act-23-orbit-law-gaps",
+ "evidence": [
+  {
+   "blob": "93c06674792fa3565f6f94e5e954e484dca33cf2",
+   "id": "OLG/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md"
+  },
+  {
+   "blob": "174e790d2cc5c663f9f54ae7daaeca90b51f96e1",
+   "id": "OLG/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/result.md"
+  },
+  {
+   "blob": "8a058df23c07e2b7571672c039a5a7b4f911a339",
+   "id": "seals/OLG.json",
+   "path": "verification/seals/OLG.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "OLG",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

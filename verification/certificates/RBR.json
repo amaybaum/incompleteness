@@ -1,0 +1,59 @@
+{
+ "base": "79872cbbb0e26188f619b8c6a99b379bb46b7b0c",
+ "contributions": [
+  {
+   "path": ".github/workflows/verify.yml"
+  },
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/ReadbackRobustness.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "061fd38343185b4c6f764da0da9602367ad8f370",
+   "execution_affecting": true,
+   "merge": "79872cbbb0e26188f619b8c6a99b379bb46b7b0c",
+   "path": "verification/programmes/oi-qm/track-b/act-09-readback-robustness/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-09-readback-robustness",
+ "evidence": [
+  {
+   "blob": "061fd38343185b4c6f764da0da9602367ad8f370",
+   "id": "RBR/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-09-readback-robustness/preregistration.md"
+  },
+  {
+   "blob": "f918e7b405dec35e01e9d53ca0dd90eb56c34df4",
+   "id": "RBR/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-09-readback-robustness/result.md"
+  },
+  {
+   "blob": "24dc899b845a4e0e42f36be7a196e02dc4e6038a",
+   "id": "seals/RBR.json",
+   "path": "verification/seals/RBR.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "RBR",
+ "schema": "oi-round-certificate",
+ "shape": "non-sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

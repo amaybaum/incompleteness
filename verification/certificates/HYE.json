@@ -1,0 +1,59 @@
+{
+ "base": "0975bbab380b26cd2bb06ec65ed68f8bcc23937f",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/HydroClosureBridge.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  },
+  {
+   "path": "verification/programmes/hydrodynamics/PROGRAMME.md"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "9f3f4ff4115c8d95215462acd257b4f6b32c9926",
+   "execution_affecting": true,
+   "merge": "0975bbab380b26cd2bb06ec65ed68f8bcc23937f",
+   "path": "verification/programmes/hydrodynamics/round-h-e-h3-closure-bridge/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/hydrodynamics/round-h-e-h3-closure-bridge",
+ "evidence": [
+  {
+   "blob": "9f3f4ff4115c8d95215462acd257b4f6b32c9926",
+   "id": "HYE/preregistration.md",
+   "path": "verification/programmes/hydrodynamics/round-h-e-h3-closure-bridge/preregistration.md"
+  },
+  {
+   "blob": "dfc7c0f12ffe7c122193601d9a6bad3f45bcf662",
+   "id": "HYE/result.md",
+   "path": "verification/programmes/hydrodynamics/round-h-e-h3-closure-bridge/result.md"
+  },
+  {
+   "blob": "55b5c811c23a88084069c379bc47a1701a789964",
+   "id": "seals/HYE.json",
+   "path": "verification/seals/HYE.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "HYE",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

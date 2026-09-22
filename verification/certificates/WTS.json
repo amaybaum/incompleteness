@@ -1,0 +1,59 @@
+{
+ "base": "baadea2638019b335d96c892590491a6fb420936",
+ "contributions": [
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/WordTraceSufficiency.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "98cfcfdc0e74ffe0186c502517a842bfeb25d351",
+   "execution_affecting": true,
+   "merge": "baadea2638019b335d96c892590491a6fb420936",
+   "path": "verification/programmes/substratum/lemma-24-1a-word-trace-sufficiency/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/substratum/lemma-24-1a-word-trace-sufficiency",
+ "evidence": [
+  {
+   "blob": "98cfcfdc0e74ffe0186c502517a842bfeb25d351",
+   "id": "WTS/preregistration.md",
+   "path": "verification/programmes/substratum/lemma-24-1a-word-trace-sufficiency/preregistration.md"
+  },
+  {
+   "blob": "124a02c9d2b17c0cf280f15a00ab269f68e33a24",
+   "id": "WTS/result.md",
+   "path": "verification/programmes/substratum/lemma-24-1a-word-trace-sufficiency/result.md"
+  },
+  {
+   "blob": "27104c27c5cade441bc6749cf8c862a2da8b5610",
+   "id": "seals/WTS.json",
+   "path": "verification/seals/WTS.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "WTS",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

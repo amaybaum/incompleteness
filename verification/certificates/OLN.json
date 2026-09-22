@@ -1,0 +1,58 @@
+{
+ "base": "ccd5704fd157348903cbdea746d24cf5d5498b78",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/OrbitLawNaturalityFactorization.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "cc83ddb9ecbc2c8e884d160d1d3ffeba2575baea",
+   "execution_affecting": true,
+   "merge": "ccd5704fd157348903cbdea746d24cf5d5498b78",
+   "path": "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/preregistration.md"
+  }
+ ],
+ "dependencies": [
+  "OLT"
+ ],
+ "directory": "programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization",
+ "evidence": [
+  {
+   "blob": "cc83ddb9ecbc2c8e884d160d1d3ffeba2575baea",
+   "id": "OLN/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/preregistration.md"
+  },
+  {
+   "blob": "b0f9ae48dbb2044de353efe1a0f5a1fab4f88c9e",
+   "id": "OLN/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/result.md"
+  },
+  {
+   "blob": "1552065eeae26b5e07ad1cfe1cdb97b76aefa1bb",
+   "id": "seals/OLN.json",
+   "path": "verification/seals/OLN.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "OLN",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

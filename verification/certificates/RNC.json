@@ -1,0 +1,56 @@
+{
+ "base": "d05399020d05d4a7b6f662d2e069062452e7d6b4",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/ReanchoredChannelScope.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "48099a3b334e8d01f31af706e8738cd49cfca774",
+   "execution_affecting": true,
+   "merge": "d05399020d05d4a7b6f662d2e069062452e7d6b4",
+   "path": "verification/programmes/oi-qm/track-b/act-16-reanchored-channel-cancellation/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-16-reanchored-channel-cancellation",
+ "evidence": [
+  {
+   "blob": "48099a3b334e8d01f31af706e8738cd49cfca774",
+   "id": "RNC/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-16-reanchored-channel-cancellation/preregistration.md"
+  },
+  {
+   "blob": "b13d684cb7454ff414a34ed9b6dca39065c3470f",
+   "id": "RNC/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-16-reanchored-channel-cancellation/result.md"
+  },
+  {
+   "blob": "a3dc61afb72839af1c713b1d01fa2f06ca0e102b",
+   "id": "seals/RNC.json",
+   "path": "verification/seals/RNC.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "RNC",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

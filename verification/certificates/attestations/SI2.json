@@ -1,0 +1,9 @@
+{
+ "base": "df54b99dba99dc043b11752163d8d348c9e54472",
+ "certificate": "5912157e34f73736d3370fa941f790b64c1171a0",
+ "kind": "base-only",
+ "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48",
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "SI2"
+}

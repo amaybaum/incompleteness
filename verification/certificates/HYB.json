@@ -1,0 +1,62 @@
+{
+ "base": "8de0478ef31fe4cabcf89fc5787f80f38376a957",
+ "contributions": [
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/HexLatticeGas.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  },
+  {
+   "path": "verification/programmes/hydrodynamics/PROGRAMME.md"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "37cc9dae301ee10d55adb73b296aa2fc7d0578e3",
+   "execution_affecting": true,
+   "merge": "8de0478ef31fe4cabcf89fc5787f80f38376a957",
+   "path": "verification/programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/hydrodynamics/round-h-b-reversible-fluid-substratum",
+ "evidence": [
+  {
+   "blob": "37cc9dae301ee10d55adb73b296aa2fc7d0578e3",
+   "id": "HYB/preregistration.md",
+   "path": "verification/programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/preregistration.md"
+  },
+  {
+   "blob": "dc03b582ed718d374c471b27403b282a295d5c85",
+   "id": "HYB/result.md",
+   "path": "verification/programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/result.md"
+  },
+  {
+   "blob": "7235e5411677de7e846d59b77973294b958384bf",
+   "id": "seals/HYB.json",
+   "path": "verification/seals/HYB.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "HYB",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-i/recurrence-tightness",
+ "evidence": [
+  {
+   "blob": "512483e2ef03db49be268ea7dcc16cc884660e99",
+   "id": "RCH/amendments/amendment-1.md",
+   "path": "verification/programmes/oi-qm/track-i/recurrence-tightness/amendments/amendment-1.md"
+  },
+  {
+   "blob": "d2da70ce3d2c90268dcd932d2376ef6cdaddd5b3",
+   "id": "RCH/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-i/recurrence-tightness/preregistration.md"
+  },
+  {
+   "blob": "3afddf47c72bf70415876f4b729c3ed47ccb6163",
+   "id": "RCH/result.md",
+   "path": "verification/programmes/oi-qm/track-i/recurrence-tightness/result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "RCH",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

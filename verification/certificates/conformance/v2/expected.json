@@ -1,0 +1,358 @@
+{
+ "ambiguity-base-multiple-candidates": {
+  "reason": "base:multiple-candidates",
+  "verdict": "FAIL"
+ },
+ "ambiguity-base-zero-candidates": {
+  "reason": "base:zero-candidates",
+  "verdict": "FAIL"
+ },
+ "ambiguity-landing-multiple-candidates": {
+  "reason": "landing:multiple-candidates",
+  "verdict": "FAIL"
+ },
+ "ambiguity-landing-zero-candidates": {
+  "reason": "landing:zero-candidates",
+  "verdict": "FAIL"
+ },
+ "ambiguity-sealed-head-multiple-candidates": {
+  "reason": "sealed-head:multiple-candidates",
+  "verdict": "FAIL"
+ },
+ "ambiguity-sealed-head-zero-candidates": {
+  "reason": "sealed-head:zero-candidates",
+  "verdict": "FAIL"
+ },
+ "artifact-contribution-changed-passes": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "artifact-evidence-blob-changed": {
+  "reason": "evidence:blob-mismatch",
+  "verdict": "FAIL"
+ },
+ "artifact-evidence-moved-with-record": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "artifact-evidence-moved-without-record": {
+  "reason": "evidence:missing",
+  "verdict": "FAIL"
+ },
+ "artifact-evidence-removed": {
+  "reason": "evidence:missing",
+  "verdict": "FAIL"
+ },
+ "artifact-relocation-fork": {
+  "reason": "relocation:fork",
+  "verdict": "FAIL"
+ },
+ "artifact-relocation-seq-gap": {
+  "reason": "relocation:seq",
+  "verdict": "FAIL"
+ },
+ "artifact-relocation-two-active-locations": {
+  "reason": "relocation:duplicate-active",
+  "verdict": "FAIL"
+ },
+ "dependency-failed-propagates": {
+  "reason": "dependency:failed:YY",
+  "verdict": "FAIL"
+ },
+ "dependency-missing": {
+  "reason": "dependency:missing:QQ",
+  "verdict": "FAIL"
+ },
+ "dependency-protocol-1-on-2-fails": {
+  "reason": "dependency:protocol-order:YY",
+  "verdict": "FAIL"
+ },
+ "dependency-protocol-2-on-1-passes": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "divergence-C-S1": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "divergence-C-S2": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "divergence-C-S3": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "divergence-C-S4": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "historical-subject-01-declaration-scope": {
+  "reason": "topology:tree-mismatch",
+  "verdict": "FAIL"
+ },
+ "historical-subject-02-pin-scope": {
+  "reason": "topology:tree-mismatch",
+  "verdict": "FAIL"
+ },
+ "historical-subject-03-budget-n12": {
+  "reason": "topology:tree-mismatch",
+  "verdict": "FAIL"
+ },
+ "historical-subject-04-seals-tree-first-repair": {
+  "reason": "topology:tree-mismatch",
+  "verdict": "FAIL"
+ },
+ "historical-subject-05-seals-tree-second-repair": {
+  "reason": "topology:tree-mismatch",
+  "verdict": "FAIL"
+ },
+ "historical-subject-06-fixture-positive-half": {
+  "reason": "topology:tree-mismatch",
+  "verdict": "FAIL"
+ },
+ "ledger-base-only-row-positive": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "ledger-certificate-blob-unequal": {
+  "reason": "row:certificate-mismatch",
+  "verdict": "FAIL"
+ },
+ "ledger-landed-row-missing-topology-field": {
+  "reason": "row:schema:missing:landing",
+  "verdict": "FAIL"
+ },
+ "ledger-row-edited": {
+  "reason": "row:base-mismatch",
+  "verdict": "FAIL"
+ },
+ "ledger-row-removed": {
+  "reason": "ledger:row-missing",
+  "verdict": "FAIL"
+ },
+ "ledger-two-rows-for-one-round": {
+  "reason": "row:schema:round-filename-mismatch",
+  "verdict": "FAIL"
+ },
+ "legacy-owned-certificate-for-owned-stem": {
+  "reason": "legacy-owned:certificate-for-owned-stem",
+  "verdict": "FAIL"
+ },
+ "legacy-owned-count-unequal": {
+  "reason": "legacy-owned:count",
+  "verdict": "FAIL"
+ },
+ "legacy-owned-entry-with-certificate": {
+  "reason": "legacy-owned:has-certificate:ZZ",
+  "verdict": "FAIL"
+ },
+ "legacy-owned-positive": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "legacy-owned-second-entry": {
+  "reason": "legacy-owned:more-than-one",
+  "verdict": "FAIL"
+ },
+ "live-policy-clause-missing-activation": {
+  "reason": "live-policy:clause:p1:missing:activation",
+  "verdict": "FAIL"
+ },
+ "live-policy-clause-missing-evidence": {
+  "reason": "live-policy:clause:p1:missing:evidence",
+  "verdict": "FAIL"
+ },
+ "live-policy-clause-missing-expiry": {
+  "reason": "live-policy:clause:p1:missing:expiry",
+  "verdict": "FAIL"
+ },
+ "live-policy-clause-missing-owner_round": {
+  "reason": "live-policy:clause:p1:missing:owner_round",
+  "verdict": "FAIL"
+ },
+ "live-policy-clause-missing-protocol": {
+  "reason": "live-policy:clause:p1:missing:protocol",
+  "verdict": "FAIL"
+ },
+ "live-policy-clause-predicate-type-unknown": {
+  "reason": "live-policy:clause:p1:predicate-type",
+  "verdict": "FAIL"
+ },
+ "live-policy-clause-violated": {
+  "reason": "live-policy:violated:p1",
+  "verdict": "FAIL"
+ },
+ "live-policy-count-unequal": {
+  "reason": "live-policy:count",
+  "verdict": "FAIL"
+ },
+ "live-policy-positive-one-clause": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "provenance-native-certificate-with-translation": {
+  "reason": "schema:forbidden:translation",
+  "verdict": "FAIL"
+ },
+ "provenance-native-row-without-ci": {
+  "reason": "row:schema:missing:ci",
+  "verdict": "FAIL"
+ },
+ "provenance-second-bootstrap": {
+  "reason": "provenance:second-bootstrap",
+  "verdict": "FAIL"
+ },
+ "provenance-translated-certificate-without-translation": {
+  "reason": "schema:missing:translation",
+  "verdict": "FAIL"
+ },
+ "provenance-translated-row-with-ci": {
+  "reason": "row:schema:ci-forbidden",
+  "verdict": "FAIL"
+ },
+ "provenance-translated-row-without-snapshot": {
+  "reason": "row:schema:missing:migration_snapshot",
+  "verdict": "FAIL"
+ },
+ "schema-00-positive-native": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "schema-00-positive-translated": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "schema-base-only-row-topology-null": {
+  "reason": "row:schema:base-only-topology:sealed_head",
+  "verdict": "FAIL"
+ },
+ "schema-base-only-row-topology-value": {
+  "reason": "row:schema:base-only-topology:landing",
+  "verdict": "FAIL"
+ },
+ "schema-content-only-carrying-topology": {
+  "reason": "schema:content-only-topology:base",
+  "verdict": "FAIL"
+ },
+ "schema-malformed-hash": {
+  "reason": "schema:hash:base",
+  "verdict": "FAIL"
+ },
+ "schema-missing-base": {
+  "reason": "schema:missing:base",
+  "verdict": "FAIL"
+ },
+ "schema-missing-contributions": {
+  "reason": "schema:missing:contributions",
+  "verdict": "FAIL"
+ },
+ "schema-missing-control_plane": {
+  "reason": "schema:missing:control_plane",
+  "verdict": "FAIL"
+ },
+ "schema-missing-dependencies": {
+  "reason": "schema:missing:dependencies",
+  "verdict": "FAIL"
+ },
+ "schema-missing-directory": {
+  "reason": "schema:missing:directory",
+  "verdict": "FAIL"
+ },
+ "schema-missing-evidence": {
+  "reason": "schema:missing:evidence",
+  "verdict": "FAIL"
+ },
+ "schema-missing-origin": {
+  "reason": "schema:missing:origin",
+  "verdict": "FAIL"
+ },
+ "schema-missing-protocol": {
+  "reason": "schema:missing:protocol",
+  "verdict": "FAIL"
+ },
+ "schema-missing-round": {
+  "reason": "schema:missing:round",
+  "verdict": "FAIL"
+ },
+ "schema-missing-schema": {
+  "reason": "schema:missing:schema",
+  "verdict": "FAIL"
+ },
+ "schema-missing-shape": {
+  "reason": "schema:missing:shape",
+  "verdict": "FAIL"
+ },
+ "schema-unknown-key": {
+  "reason": "schema:unknown-key:note",
+  "verdict": "FAIL"
+ },
+ "schema-unknown-protocol": {
+  "reason": "schema:protocol",
+  "verdict": "FAIL"
+ },
+ "topology-landing-second-parent-not-e": {
+  "reason": "landing:disagreement",
+  "verdict": "FAIL"
+ },
+ "topology-recorded-sealed-head-unequal-derived": {
+  "reason": "sealed-head:disagreement",
+  "verdict": "FAIL"
+ },
+ "topology-recorded-tree-unequal": {
+  "reason": "topology:tree-mismatch",
+  "verdict": "FAIL"
+ },
+ "topology-rewritten-landing": {
+  "reason": "landing:unrecoverable",
+  "verdict": "FAIL"
+ },
+ "topology-rewritten-sealed-head": {
+  "reason": "sealed-head:unrecoverable",
+  "verdict": "FAIL"
+ },
+ "topology-tree-identical-different-parents": {
+  "reason": "sealed-head:disagreement",
+  "verdict": "FAIL"
+ },
+ "vacuity-fewer-vectors-than-corpus": {
+  "reason": "vacuity:count",
+  "verdict": "FAIL"
+ },
+ "vacuity-one-id-substituted": {
+  "reason": "vacuity:ids",
+  "verdict": "FAIL"
+ },
+ "visibility-base-sha-refused": {
+  "reason": "landing:zero-candidates",
+  "verdict": "FAIL"
+ },
+ "visibility-landing-on-base-tip-only": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "visibility-landing-on-both-one-candidate": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "visibility-landing-on-both-two-candidates": {
+  "reason": "landing:multiple-candidates",
+  "verdict": "FAIL"
+ },
+ "visibility-landing-on-head-only": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "visibility-local-branch-refused": {
+  "reason": "visibility:base-ref-unresolvable",
+  "verdict": "FAIL"
+ },
+ "visibility-synthetic-merge-refused": {
+  "reason": "landing:zero-candidates",
+  "verdict": "FAIL"
+ },
+ "visibility-unresolvable-base-ref": {
+  "reason": "visibility:base-ref-unresolvable",
+  "verdict": "FAIL"
+ }
+}

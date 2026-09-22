@@ -1,0 +1,56 @@
+{
+ "base": "6cff07cc0655124f1f29e04b156cc05a3d717a48",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/CoherentLiftGauge.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "0f6d37fafd857d9e54d5dbff6d062cc360ea08e5",
+   "execution_affecting": true,
+   "merge": "6cff07cc0655124f1f29e04b156cc05a3d717a48",
+   "path": "verification/programmes/oi-qm/track-b/act-11-coherent-lift-gauge/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-11-coherent-lift-gauge",
+ "evidence": [
+  {
+   "blob": "0f6d37fafd857d9e54d5dbff6d062cc360ea08e5",
+   "id": "CLG/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-11-coherent-lift-gauge/preregistration.md"
+  },
+  {
+   "blob": "7b24353ad626de6f930e41242334cb09945ae303",
+   "id": "CLG/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-11-coherent-lift-gauge/result.md"
+  },
+  {
+   "blob": "686ef7af0d6b14e5fce5c41779eab3de5a0b0bb4",
+   "id": "seals/CLG.json",
+   "path": "verification/seals/CLG.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "CLG",
+ "schema": "oi-round-certificate",
+ "shape": "non-sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

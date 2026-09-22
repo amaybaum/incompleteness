@@ -1,0 +1,59 @@
+{
+ "base": "bc76a88dbe300a35715d5ce8196002f31aa62493",
+ "contributions": [
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/ThreadingObservability.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "1b16008470bb1e2456c57aad58421a5941a55e0c",
+   "execution_affecting": true,
+   "merge": "bc76a88dbe300a35715d5ce8196002f31aa62493",
+   "path": "verification/programmes/oi-qm/track-b/act-14-threading-observability/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-14-threading-observability",
+ "evidence": [
+  {
+   "blob": "1b16008470bb1e2456c57aad58421a5941a55e0c",
+   "id": "PQT/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-14-threading-observability/preregistration.md"
+  },
+  {
+   "blob": "d4815d56b1cea2ed42540a7d6262c3c4201ac9b7",
+   "id": "PQT/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-14-threading-observability/result.md"
+  },
+  {
+   "blob": "8ca866fd80c0df47aae736ccd5a9d08df363f147",
+   "id": "seals/PQT.json",
+   "path": "verification/seals/PQT.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "PQT",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

@@ -1,0 +1,58 @@
+{
+ "base": "d0fcdbc03c4b828d630f677253cf0914f451b63d",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/OrbitGeometrySelector.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "3b61d6c90fe3f05bbf5e791f74d7106e9be2f94a",
+   "execution_affecting": true,
+   "merge": "d0fcdbc03c4b828d630f677253cf0914f451b63d",
+   "path": "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/preregistration.md"
+  }
+ ],
+ "dependencies": [
+  "OLG"
+ ],
+ "directory": "programmes/oi-qm/track-b/act-24-orbit-geometry-selector",
+ "evidence": [
+  {
+   "blob": "3b61d6c90fe3f05bbf5e791f74d7106e9be2f94a",
+   "id": "OGS/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/preregistration.md"
+  },
+  {
+   "blob": "a2719d5f63c4ce517590ec7fbe8e61bafe04c3a7",
+   "id": "OGS/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/result.md"
+  },
+  {
+   "blob": "5436e01852e9999483dd4aff9f605e47575b7415",
+   "id": "seals/OGS.json",
+   "path": "verification/seals/OGS.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "OGS",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

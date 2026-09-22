@@ -1,0 +1,46 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-07-dilation-choice",
+ "evidence": [
+  {
+   "blob": "02f93a1c3ec485b5f46b8e02ff52ca4f73e0ee89",
+   "id": "DILCH/layer-2-result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-07-dilation-choice/layer-2-result.md"
+  },
+  {
+   "blob": "810bb2f11d88a0872f764e1e32e2aa2f1e2c9b19",
+   "id": "DILCH/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-07-dilation-choice/preregistration.md"
+  },
+  {
+   "blob": "0e2c067a90ef9b8e3a4596299ff594bb6ba6807a",
+   "id": "DILCH/readback-amendment.md",
+   "path": "verification/programmes/oi-qm/track-b/act-07-dilation-choice/readback-amendment.md"
+  },
+  {
+   "blob": "107cfa94cfeae8e3b9592697ce1a1581b1fbe12a",
+   "id": "DILCH/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-07-dilation-choice/result.md"
+  },
+  {
+   "blob": "3bb88717267a4adb45125b6277edae4e56c5cf26",
+   "id": "DILCH/resumption-preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-07-dilation-choice/resumption-preregistration.md"
+  },
+  {
+   "blob": "216cb9e65cda9b2f3b9777c2ecfcdf8d8bb58df0",
+   "id": "DILCH/resumption-result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-07-dilation-choice/resumption-result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "DILCH",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

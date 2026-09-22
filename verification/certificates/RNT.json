@@ -1,0 +1,53 @@
+{
+ "base": "84f27b50198ee31c224e31284905ff6c284ea9db",
+ "contributions": [
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/RepresentativeNaturality.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "131783f48ac492fdfdc46072aee3f39278973622",
+   "execution_affecting": true,
+   "merge": "84f27b50198ee31c224e31284905ff6c284ea9db",
+   "path": "verification/programmes/oi-qm/track-b/act-20-representative-naturality/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-20-representative-naturality",
+ "evidence": [
+  {
+   "blob": "131783f48ac492fdfdc46072aee3f39278973622",
+   "id": "RNT/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-20-representative-naturality/preregistration.md"
+  },
+  {
+   "blob": "6f2d2c6a70eda2806e41b88b3b9fe5d4292f46db",
+   "id": "RNT/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-20-representative-naturality/result.md"
+  },
+  {
+   "blob": "546965414aa47fa9b9554448e9c5d13d52f81109",
+   "id": "seals/RNT.json",
+   "path": "verification/seals/RNT.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "RNT",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

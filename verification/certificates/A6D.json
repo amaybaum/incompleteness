@@ -1,0 +1,59 @@
+{
+ "base": "8792801beeeccbf0673db137cae83e6663d21fba",
+ "contributions": [
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/BackgroundIndependence.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "afbf1ee0e8ea94cb7fb3e57e690cd08b8d7e0bc3",
+   "execution_affecting": true,
+   "merge": "8792801beeeccbf0673db137cae83e6663d21fba",
+   "path": "verification/programmes/substratum/a6-background-independence/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/substratum/a6-background-independence",
+ "evidence": [
+  {
+   "blob": "afbf1ee0e8ea94cb7fb3e57e690cd08b8d7e0bc3",
+   "id": "A6D/preregistration.md",
+   "path": "verification/programmes/substratum/a6-background-independence/preregistration.md"
+  },
+  {
+   "blob": "331b1928adde22d5c716a92adb864b523d0c09b8",
+   "id": "A6D/result.md",
+   "path": "verification/programmes/substratum/a6-background-independence/result.md"
+  },
+  {
+   "blob": "3b3f2e1d5491cc9039924d02e22f769427af9bae",
+   "id": "seals/A6D.json",
+   "path": "verification/seals/A6D.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "A6D",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

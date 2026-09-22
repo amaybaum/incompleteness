@@ -1,0 +1,56 @@
+{
+ "base": "e4501bfff4e80533a5440c67d032f1ad401bdbe1",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/CancellationFork.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "6428e0acab070ccfd2a84d13c6f55616526206ba",
+   "execution_affecting": true,
+   "merge": "e4501bfff4e80533a5440c67d032f1ad401bdbe1",
+   "path": "verification/programmes/oi-qm/track-b/act-15-pq3d-cancellation-fork/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-15-pq3d-cancellation-fork",
+ "evidence": [
+  {
+   "blob": "6428e0acab070ccfd2a84d13c6f55616526206ba",
+   "id": "TCF/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-15-pq3d-cancellation-fork/preregistration.md"
+  },
+  {
+   "blob": "fe8df06ffefac22ce87668ecf026f4c9ebc5c13f",
+   "id": "TCF/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-15-pq3d-cancellation-fork/result.md"
+  },
+  {
+   "blob": "635a4f0c3d8fefa32e176aa44f927977fee725da",
+   "id": "seals/TCF.json",
+   "path": "verification/seals/TCF.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "TCF",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

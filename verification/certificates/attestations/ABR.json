@@ -1,0 +1,9 @@
+{
+ "base": "93c2ca63c6cd7a61388d577b8baf22c3c1fdb41f",
+ "certificate": "dd3001a79c2140eb6f57f3ef9fa29bd95363dfb3",
+ "kind": "base-only",
+ "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48",
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "ABR"
+}
