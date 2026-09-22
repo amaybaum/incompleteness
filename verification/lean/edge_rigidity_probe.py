@@ -31858,6 +31858,46 @@ _gr1_checks.update(_gr1_decl_verdicts(
     _GR1_STATE, _gr1_decl_e, _gr1_decl_l,
     {'_MANIFEST_PROSPECTIVE': _MANIFEST_PROSPECTIVE,
      '_MANIFEST_BASELINE': _MANIFEST_BASELINE}))
+
+# ---- GR-2 (S2): THE PINNED-ARTIFACT FAMILY, BY CLASS. _GR1_PINS is this block's start state,
+# "pinned at D and required at B". The superseded loop asserted six of those blobs on the CURRENT
+# tree in every state after landing, but this round's placement contract fixes the post-landing
+# live-tree scope and names its members: the owned region, this round's own three artifacts, and
+# "act 28's preregistration, result note and PFR.json are at their pinned blobs" -- the same
+# passage anticipating later rounds changing other material. The three paths below are that named
+# set, and no other. Every pinned path is still required to carry its pinned blob in THIS ROUND'S
+# OWN HISTORY, at the recovered E and L, so no historical seal is weakened; only the live leg is
+# scoped to the three the freeze protects. The pinned values are untouched and the six
+# landed-pin:<full path> key identities are unchanged.
+_GR1_PIN_LIVE = (
+    'verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/preregistration.md',
+    'verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/result.md',
+    'verification/seals/PFR.json',
+)
+
+
+def _gr1_pin_ok(path, blob, e, l, cwd=None):
+    """The pin contract, by class, for one pinned path.
+
+    EVERY pinned path must carry its pinned blob in this round's own history: at the recovered
+    `e` AND at the recovered `l`. An unrecoverable revision, a path absent there and a git that
+    cannot answer all fail. The three paths in _GR1_PIN_LIVE must carry it at the resolved head
+    as well, which is the live leg the freeze fixes; that leg reads the same revision the
+    superseded loop read, and this round does not change that resolution."""
+    def _at(rev):
+        out = _gr1_git('rev-parse', '%s:%s' % (rev, path), cwd=cwd)
+        return None if out is None else out.decode('utf-8', 'replace').strip()
+
+    if e is None or l is None:
+        return False
+    for _rev in (e, l):
+        if _at(_rev) != blob:
+            return False
+    if path in _GR1_PIN_LIVE and _at('HEAD') != blob:
+        return False
+    return True
+
+
 _gr1_checks['no-own-record'] = 'GR1' not in (_si1_load()[0] or {})
 _gr1_checks['no-legacy-shaped-name'] = not _re.search(
     r'(?m)^_GR1_(BASE|SEALED_HEAD|MERGE)\s*=', _GR1_SELF)
@@ -31889,11 +31929,11 @@ else:
                 _at_e is not None and _here == _at_e.decode().strip())
     _gr1_checks['placement-owned-region'] = (
         bool(_GR1_LIVE_FN) and _gr1_norm(_GR1_LIVE_FN) == _gr1_norm(_GR1_FROZEN_NEW))
+    _gr1_pin_l = _GR1_LANDINGS[0][0] if _GR1_LANDINGS else None
     for _p, _b in sorted(_GR1_PINS.items()):
         if _p == _GR1_GUARD_PATH or _p == _GR1_ROAD_PATH:
             continue
-        _gr1_checks['landed-pin:' + _p] = (
-            (_gr1_git('rev-parse', 'HEAD:%s' % _p) or b'').decode().strip() == _b)
+        _gr1_checks['landed-pin:' + _p] = _gr1_pin_ok(_p, _b, _GR1_E, _gr1_pin_l)
 
 # ---------------------------------------------------------------------------
 # The lifecycle fixtures, on synthetic repositories, run on every build.
