@@ -34104,13 +34104,61 @@ def _cv1_old_seals_ok():
     return run
 
 
+def _cv1_seals_at_head(base, head, cwd=None):
+    """CV-1 Amendment 2's replacement for the live-tree readings: the seals tree at `base` against
+    the seals tree at `head`, BOTH taken from git and neither from the tree the guard runs on, so
+    that a later round's authorized seal addition is not evidence about a historical measurement.
+    An unreadable side fails rather than skips."""
+    if base is None or head is None:
+        return False
+
+    def tree(rev):
+        out = _gr1_git('rev-parse', '%s:%s' % (rev, _GR1_SEALS_PATH), cwd=cwd)
+        return None if out is None else out.decode('utf-8', 'replace').strip()
+    tb, th = tree(base), tree(head)
+    return tb is not None and th is not None and tb == th
+
+
+def _cv1_hist_seals_dir(rev):
+    """CV-1's historical subject as a directory: the seals tree at `rev` extracted from git, so the
+    superseded predicate can be exercised on it exactly as it was exercised on the working tree.
+    Returns (root, seals) or (None, None) where the tree cannot be read."""
+    import tempfile as _tf
+    out = _gr1_git('ls-tree', '-r', '%s:%s' % (rev, _GR1_SEALS_PATH)) if rev else None
+    if out is None:
+        return None, None
+    d = _tf.mkdtemp(prefix='cv1-hist-seals-')
+    seals = os.path.join(d, 'seals')
+    os.makedirs(seals)
+    for line in out.decode('utf-8', 'replace').split('\n'):
+        if not line.strip():
+            continue
+        meta, _, name = line.partition('\t')
+        blob = _gr1_git('cat-file', 'blob', meta.split()[2])
+        if blob is None:
+            return None, None
+        with open(os.path.join(seals, name), 'wb') as fh:
+            fh.write(blob)
+    return d, seals
+
+
 def _cv1_successor_seals():
-    """A synthetic successor's seals directory: this tree's records plus ZZZ.json, base-only."""
+    """A synthetic successor's seals directory: the historical subject's records plus ZZZ.json,
+    base-only. Before CV-1 lands the subject is this tree; after it lands the subject is CV-1's own
+    certified head, so the successor is the one the control was adjudicated against."""
     import shutil
     import tempfile as _tf
+    src = os.path.join(VERIFICATION, 'seals')
+    hist_root = None
+    if _CV1_STATE != 'EXECUTION' and _CV1_E:
+        hist_root, hist_seals = _cv1_hist_seals_dir(_CV1_E)
+        if hist_seals is not None:
+            src = hist_seals
     d = _tf.mkdtemp(prefix='cv1-succ-')
     seals = os.path.join(d, 'seals')
-    shutil.copytree(os.path.join(VERIFICATION, 'seals'), seals)
+    shutil.copytree(src, seals)
+    if hist_root is not None:
+        shutil.rmtree(hist_root, ignore_errors=True)
     with open(os.path.join(seals, 'ZZZ.json'), 'w', encoding='utf-8') as fh:
         json.dump({'round': 'ZZZ', 'kind': 'base-only', 'base': _CV1_D}, fh, indent=2)
         fh.write('\n')
@@ -34192,6 +34240,59 @@ def _cv1_seals_hist_cases():
         shutil.rmtree(d, ignore_errors=True)
 
 
+def _cv1_hist_subject_cases():
+    """Controls for CV-1 Amendment 2's history-scoped comparator, built with commit-tree so each
+    revision's seals tree is exact: a subject whose seals tree equals the base's is accepted, a
+    mutated subject is rejected so the replacement is not vacuously true, and an absent or
+    unreadable side fails closed rather than skipping."""
+    import shutil
+    import subprocess as _sp
+    import tempfile as _tf
+    d = _tf.mkdtemp(prefix='cv1-subj-')
+    try:
+        def g(*a, **kw):
+            return _sp.run(('git',) + a, cwd=d, capture_output=True, text=True, **kw)
+
+        g('init', '-q', '-b', 'main')
+        g('config', 'user.email', 'cv1@example.invalid')
+        g('config', 'user.name', 'CV1')
+
+        def tree_with(content):
+            idx = os.path.join(d, '.git', 'index-' + _hashlib.sha1(content.encode()).hexdigest()[:8])
+            env = dict(os.environ, GIT_INDEX_FILE=idx)
+            bid = _sp.run(['git', 'hash-object', '-w', '--stdin'], cwd=d, input=content.encode(),
+                          capture_output=True).stdout.decode().strip()
+            g('update-index', '--add', '--cacheinfo', '100644,%s,verification/seals/A.json' % bid,
+              env=env)
+            return g('write-tree', env=env).stdout.strip()
+
+        t, t2 = tree_with('a\n'), tree_with('mutated\n')
+
+        def ct(tree, *parents):
+            a = ['commit-tree', tree, '-m', 'c']
+            for pp in parents:
+                a += ['-p', pp]
+            return g(*a).stdout.strip()
+
+        base = ct(t)
+        subj_ok, subj_bad = ct(t, base), ct(t2, base)
+        return [
+            ('positive: a subject whose seals tree equals the base\'s is accepted',
+             _cv1_seals_at_head(base, subj_ok, cwd=d) is True),
+            ('a mutated subject is rejected, so the replacement is not vacuously true',
+             _cv1_seals_at_head(base, subj_bad, cwd=d) is False),
+            ('an absent subject fails closed',
+             _cv1_seals_at_head(base, None, cwd=d) is False),
+            ('an unreadable subject fails closed',
+             _cv1_seals_at_head(base, '0' * 40, cwd=d) is False),
+            ('an absent or unreadable base fails closed',
+             _cv1_seals_at_head(None, subj_ok, cwd=d) is False
+             and _cv1_seals_at_head('0' * 40, subj_ok, cwd=d) is False),
+        ]
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+
 def _cv1_seals_controls():
     import shutil
     res = []
@@ -34203,6 +34304,12 @@ def _cv1_seals_controls():
     gr1_l = globals().get('_gr1_pin_l')
     succ_root, succ_seals = _cv1_successor_seals()
     live_seals = os.path.join(VERIFICATION, 'seals')
+    # CV-1 Amendment 2: after CV-1 has landed the historical subject is its own certified head,
+    # read from git; before that it is this tree, which is the correct execution-mode reading.
+    subj_root, subj_seals = None, live_seals
+    if _CV1_STATE != 'EXECUTION' and _CV1_E:
+        subj_root, _sd = _cv1_hist_seals_dir(_CV1_E)
+        subj_seals = _sd if _sd is not None else live_seals
     foreign_dir, foreign_sha = _cv1_foreign_repo()
     out = {}
     try:
@@ -34229,10 +34336,12 @@ def _cv1_seals_controls():
         res.append(('S4 control 2: on the successor F11\'s superseded positive half fails and the '
                     'replacement passes, both negative halves still failing',
                     old_f11 is False and new_f11 is True))
-        # the successor is not vacuous: the old predicate accepts this tree's own seals directory
-        res.append(('S2/S3/S4 the superseded predicate passes on this tree\'s own seals directory, '
-                    'so the successor\'s rejection is the added record\'s',
-                    old(_GR1_B, live_seals) is True and old(_GR2_B, live_seals) is True))
+        # the successor is not vacuous: the old predicate accepts the historical subject the
+        # successor is built from -- CV-1's own certified head once it has landed -- so the
+        # successor's rejection is the added record's and not a later authorized record's
+        res.append(('S2/S3/S4 the superseded predicate passes on the historical subject the '
+                    'successor is built from, so the successor\'s rejection is the added record\'s',
+                    old(_GR1_B, subj_seals) is True and old(_GR2_B, subj_seals) is True))
         # control 3: EXECUTION unchanged -- old statement and the new EXECUTION arm on the same tree
         res.append(('S2/S3/S4 control 3: EXECUTION unchanged on the live tree',
                     old(_GR1_B, live_seals) == _gr1_seals_ok(_GR1_B)
@@ -34240,6 +34349,9 @@ def _cv1_seals_controls():
         # control 4: post-landing reads history and fails closed
         for nm, ok in _cv1_seals_hist_cases():
             res.append(('S2/S3/S4 control 4: ' + nm, ok))
+        # CV-1 Amendment 2's own controls for the history-scoped comparator
+        for nm, ok in _cv1_hist_subject_cases():
+            res.append(('S2/S3/S4 Amendment 2 control: ' + nm, ok))
         # control 5: every other row identical -- R7-GR1 86 checks and 24 groups, R7-GR2 63 and 7,
         # every row passing in both
         res.append(('S2/S3/S4 control 5: R7-GR1 86 checks and 24 control groups and R7-GR2 63 and '
@@ -34249,6 +34361,8 @@ def _cv1_seals_controls():
     finally:
         shutil.rmtree(succ_root, ignore_errors=True)
         shutil.rmtree(foreign_dir, ignore_errors=True)
+        if subj_root is not None:
+            shutil.rmtree(subj_root, ignore_errors=True)
     return res, out
 
 
@@ -34798,9 +34912,15 @@ def _cv1_census():
                     'diverges_as_named': as_named}
         if not as_named:
             unexpected.append(key + ' does not diverge as named')
-    # on the census head itself C-S2, C-S3 and C-S4 agree: CV-1 adds no seal record
-    on_head = {'C-S2': _gr1_seals_ok(_GR1_B), 'C-S3': _gr1_seals_ok(_GR2_B),
-               'C-S4': _gr1_seals_ok(_GR1_B)}
+    # On the census head itself C-S2, C-S3 and C-S4 agree: CV-1 adds no seal record. That is a
+    # fact about CV-1's own head and is fixed forever, so once CV-1 has landed it is asked of that
+    # head, read from git, and not of whatever tree the guard runs on (CV-1 Amendment 2).
+    _subj = None if _CV1_STATE == 'EXECUTION' else _CV1_E
+    on_head = ({'C-S2': _gr1_seals_ok(_GR1_B), 'C-S3': _gr1_seals_ok(_GR2_B),
+                'C-S4': _gr1_seals_ok(_GR1_B)} if _subj is None else
+               {'C-S2': _cv1_seals_at_head(_GR1_B, _subj),
+                'C-S3': _cv1_seals_at_head(_GR2_B, _subj),
+                'C-S4': _cv1_seals_at_head(_GR1_B, _subj)})
     corpus_ok = bool(rep.get('exact')) and rep.get('mismatches') == 0
     if not corpus_ok:
         unexpected.append('the V2 corpus is not exact')
