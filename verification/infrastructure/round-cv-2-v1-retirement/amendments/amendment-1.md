@@ -40,18 +40,17 @@ cannot fail seven. **The control required at stage 2 a result that `F1` shows oc
 clause is present.** The defect is in the frozen control, not in the implementation, which did
 what `F1` predicts.
 
-## The attempted execution, recorded as evidence
+## The attempted execution, measured
 
-The attempt is kept as history. It is **not** this round's `E`, it is **not** certified, and none
-of its commits is reused as ancestry, as a checkpoint, or as evidence of the retry. Its two commits
-were pushed to `claude/cv2-execution`, which stays at the attempt's head and is not rewritten,
-reset, force-pushed or deleted.
+The first execution from `5608fdc0b5773efd3a98164865c1f26323af2a26` was stopped after its second
+stage. It is **not** this round's `E`, it is **not** certified, and nothing from it is carried
+forward. What it measured:
 
-| object | value |
+| object | measured |
 | --- | --- |
-| base | `5608fdc0b5773efd3a98164865c1f26323af2a26`; preregistration blob `61de8904…` verified before any edit; `CV2-0` `HOLD` |
-| stage 1 | `62fd73aa31795cc7fbd8c3e59eea1108da80b6a7` — `T1` as frozen, the three superseded hashes verified, reverting the replacements reproduces the base guard byte for byte; checkpoint `ALL CHECKS PASS`, 105 tags, verdict map identical to the base's |
-| stage 2 | `b468d5bc7abbfb1e863869972b53158062ccf8e3` — the frozen translation (`PRA.json` `af7844f2…`, record `46349c11…`, empty legacy set `052ff9b0…`) and `CV2.json` `5915aab0…`; checkpoint: `V6` authoritative `PRA` `PASS`, record `PASS`, `legacy-owned 0`, `CV2` `UNATTESTED`; guard `ALL CHECKS PASS`, 105 tags, `R7-PRA` `ARCHIVED` |
+| start | preregistration blob `61de8904…` verified before any edit; `CV2-0` `HOLD` |
+| stage 1 | `T1` as frozen: the three superseded hashes verified, reverting the replacements reproduces the base guard byte for byte; checkpoint `ALL CHECKS PASS`, 105 tags, verdict map identical to the base's |
+| stage 2 | the translation matched the frozen `F7` objects exactly (`PRA.json` `af7844f2…`, record `46349c11…`, empty legacy set `052ff9b0…`); checkpoint: `V6` authoritative `PRA` `PASS`, record `PASS`, `legacy-owned 0`, `CV2` `UNATTESTED`; guard `ALL CHECKS PASS`, 105 tags, `R7-PRA` `ARCHIVED` |
 | T1 control 2 | on the stage-2 tree, the base guard fails exactly `R7-CV1`, on the six contracts listed above, and on no other; `live-policy-zero-clauses` passes; 104 other tags pass. The frozen wording requires seven |
 
 **Outcome of record for the attempt:** `CV2-1` `SUPERSEDED-DEVIATED`, on T1 control 2, by the
@@ -159,8 +158,7 @@ does not reopen a stage already entered.
 - **The `PRA` translation and the empty legacy set are unchanged**: `af7844f2…`, `46349c11…` and
   `052ff9b0…`, the `F7` values. The translation's `migration_snapshot` stays
   `b5cecce3168e84fce86eec54669141ae7c4791eb`, the snapshot its facts were read at.
-- **The retry branches** from `B` onto a fresh branch, `claude/cv2-execution-2`; the attempt's
-  branch is left as it is.
+- **The retry branches** from the new certified `B` and from nothing else.
 
 ## What this amendment does NOT change, named exhaustively
 
@@ -219,12 +217,10 @@ frozen-blob: verification/programmes/oi-qm/track-b/act-29-product-admission/prer
 {"id": "db3-only-this-file", "scope": "D->B", "check": "git diff --name-only $D $REF | grep -v -x -e 'verification/infrastructure/round-cv-2-v1-retirement/amendments/amendment-1.md'", "expect": "empty"}
 {"id": "db3-seals-tree", "scope": "D->B", "check": "test \"$(git rev-parse $REF:verification/seals)\" = ea7b7161fa84d96d8bc5ae03b0c8aa58e1879125", "expect": "exit0"}
 {"id": "db3-certificates-tree", "scope": "D->B", "check": "test \"$(git rev-parse $REF:verification/certificates)\" = 8aa1a8fac388b625653803f7dad7c2fdabb12cc4", "expect": "exit0"}
-# row 4: no execution object at B, and the attempt's commits are not in B's history
+# row 4: no execution object at B
 {"id": "b4-dir-control-plane-only", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/infrastructure/round-cv-2-v1-retirement/ | grep -v -e '/preregistration.md$' -e '/amendments/amendment-1.md$'", "expect": "empty"}
 {"id": "b4-no-cv2-certificate", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/certificates/ | grep -e '/CV2\\.json$'", "expect": "empty"}
 {"id": "b4-no-pra-certificate", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/certificates/ | grep -e '/PRA\\.json$'", "expect": "empty"}
-{"id": "b4-attempt-stage-1-not-ancestor", "scope": "B", "check": "git cat-file -e 62fd73aa31795cc7fbd8c3e59eea1108da80b6a7^{commit} && ! git merge-base --is-ancestor 62fd73aa31795cc7fbd8c3e59eea1108da80b6a7 $REF", "expect": "exit0"}
-{"id": "b4-attempt-stage-2-not-ancestor", "scope": "B", "check": "git cat-file -e b468d5bc7abbfb1e863869972b53158062ccf8e3^{commit} && ! git merge-base --is-ancestor b468d5bc7abbfb1e863869972b53158062ccf8e3 $REF", "expect": "exit0"}
 # row 5: the legacy-owned set is exactly act 29 at B; act 29 pinned under V1; no V1 round declared
 {"id": "b5-legacy-names-pra", "scope": "B", "check": "git show $REF:verification/certificates/legacy-v1-owned.json | grep -e '\"stem\": \"PRA\"'", "expect": "nonempty"}
 {"id": "b5-pra-clause-present", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -e \"check('R7-PRA'\"", "expect": "nonempty"}
@@ -244,8 +240,6 @@ frozen-blob: verification/programmes/oi-qm/track-b/act-29-product-admission/prer
   frozen and merged, and its certified merge becomes the base after this one.
 - The retry never absorbs later `main` before `E` is certified: no merge from `main`, no rebase, no
   amend, no force-push.
-- The attempted execution's two commits are not rewritten, amended, rebased, reset, force-pushed or
-  deleted; they are historical evidence and nothing else.
 - A retry that diverges from the freeze as amended records the discrepancy and does not repair the
   freeze.
 - The landing remains `E` → `L` → `A`, and each merge to `main` happens only on explicit owner
