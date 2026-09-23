@@ -223,8 +223,8 @@ frozen-blob: verification/programmes/oi-qm/track-b/act-29-product-admission/prer
 {"id": "b4-dir-control-plane-only", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/infrastructure/round-cv-2-v1-retirement/ | grep -v -e '/preregistration.md$' -e '/amendments/amendment-1.md$'", "expect": "empty"}
 {"id": "b4-no-cv2-certificate", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/certificates/ | grep -e '/CV2\\.json$'", "expect": "empty"}
 {"id": "b4-no-pra-certificate", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/certificates/ | grep -e '/PRA\\.json$'", "expect": "empty"}
-{"id": "b4-attempt-stage-1-not-ancestor", "scope": "B", "check": "git merge-base --is-ancestor 62fd73aa31795cc7fbd8c3e59eea1108da80b6a7 $REF 2>/dev/null && echo reused", "expect": "empty"}
-{"id": "b4-attempt-stage-2-not-ancestor", "scope": "B", "check": "git merge-base --is-ancestor b468d5bc7abbfb1e863869972b53158062ccf8e3 $REF 2>/dev/null && echo reused", "expect": "empty"}
+{"id": "b4-attempt-stage-1-not-ancestor", "scope": "B", "check": "git cat-file -e 62fd73aa31795cc7fbd8c3e59eea1108da80b6a7^{commit} && ! git merge-base --is-ancestor 62fd73aa31795cc7fbd8c3e59eea1108da80b6a7 $REF", "expect": "exit0"}
+{"id": "b4-attempt-stage-2-not-ancestor", "scope": "B", "check": "git cat-file -e b468d5bc7abbfb1e863869972b53158062ccf8e3^{commit} && ! git merge-base --is-ancestor b468d5bc7abbfb1e863869972b53158062ccf8e3 $REF", "expect": "exit0"}
 # row 5: the legacy-owned set is exactly act 29 at B; act 29 pinned under V1; no V1 round declared
 {"id": "b5-legacy-names-pra", "scope": "B", "check": "git show $REF:verification/certificates/legacy-v1-owned.json | grep -e '\"stem\": \"PRA\"'", "expect": "nonempty"}
 {"id": "b5-pra-clause-present", "scope": "B", "check": "git show $REF:verification/lean/edge_rigidity_probe.py | grep -e \"check('R7-PRA'\"", "expect": "nonempty"}
