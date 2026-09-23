@@ -1,4 +1,4 @@
-# Certificate infrastructure round CV-2 — V1 retired: act 29 translated, standing invariants migrated, V2 the sole authority: RESULT
+# Certificate infrastructure round CV-2 — HALTED at the stage-3 boundary: RESULT
 
 **Halted at the stage-3 boundary by owner ruling. Nothing of the round's execution landed.** `main`
 carries the round's control plane only: the preregistration (blob
@@ -12,7 +12,7 @@ retired, `legacy-v1-owned.json` still names `PRA`, and `PRA` is certified by `V1
 
 | target | outcome | decided by |
 |---|---|---|
-| `CV2-0` | `HOLD` | the amended start state at `B`: every start-state row, the frozen pinned blobs and the two store trees, the three superseded `T1` segments at their frozen hashes with unique anchors, nothing between the preregistration's drafting snapshot and `B` but the two control-plane files |
+| `CV2-0` | `HOLD` | the amended start-state conditions: all `B`-scoped rows and frozen blobs and trees hold at `B`; the `D`-scoped drafting facts remain the recorded `D` measurements; the three superseded `T1` segments have their frozen hashes and unique anchors; only the two control-plane artifacts intervene before `B`. The preregistration's `verification/infrastructure` tree hash is a `D`-scoped measurement, not a `B`-scoped equality; removing this round's own directory at `B` recovers it only as a non-gating observation |
 | `CV2-1` | `SUPERSEDED-AS-FROZEN` | the stage-1 checkpoint and all five `T1` controls, decided there as Amendment 1 requires, with the four cells of the amended control 2 exactly as frozen |
 | `CV2-2` | `TRANSLATED-AS-FROZEN` | the stage-2 checkpoint: the translation at the `F7` blobs, `V6` authoritative OK with `PRA` and its record `PASS`, `legacy-owned 0`, the round's own certificate `UNATTESTED`, 163 evidence ids, the guard `ALL CHECKS PASS` with the base's 105 verdicts |
 | `CV2-3` – `CV2-11` | not reached | the round halted before stage 3 was committed |
