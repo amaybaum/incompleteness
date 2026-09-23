@@ -2643,15 +2643,15 @@ probes as three independent jobs on every change under `verification/`.
 
 ## Certificate infrastructure round CV-1 — the V2 round-certificate protocol: shadow, census and cutover
 
-A landed round is now also **data**: `verification/certificates/` carries one certificate per
-round — fifty-one translated from the guard's blocks and the seal manifest at the migration
-snapshot, and `CV-1`'s own bootstrap certificate, issued by the `V1` guard that certifies the round
-and never by the verifier it installs — and, under `attestations/`, one record per round that has
-topology: twenty-nine `landed` rows naming the exact sealed head, its tree and its landing merge,
-read from git, and six `base-only` rows, every one carrying its migration snapshot and no
-continuous-integration identity, because no attestation commit existed for any of them. One
-generic, standard-library verifier, `tools/certificate_verifier.py`, with no round stem in its
-text, derives every git-derivable fact again — the base from the control plane's last
+`verification/certificates/` carries the `CV-1` migration snapshot: one certificate for each round
+represented in that snapshot, fifty-one translated from the guard's blocks and the seal manifest,
+plus `CV-1`'s own bootstrap certificate, issued by the `V1` guard that certifies the round and
+never by the verifier it installs; and, under `attestations/`, one record for each round in that
+snapshot that has topology: twenty-nine `landed` rows naming the exact sealed head, its tree and
+its landing merge, read from git, and six `base-only` rows, every one carrying its migration
+snapshot and no continuous-integration identity, because no attestation commit existed for any of
+them. One generic, standard-library verifier, `tools/certificate_verifier.py`, with no round stem
+in its text, derives every git-derivable fact again — the base from the control plane's last
 execution-affecting artifact, located by blob on `main`'s first-parent chain; the sealed head as
 the landing's non-first parent under the strengthened ancestry check, with the tree required
 separately; the landing as the unique merge over the union of the real pull-request head and the
