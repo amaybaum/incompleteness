@@ -1,0 +1,373 @@
+{
+  "note": "Proposed destinations for the mechanical migration PR. This file is navigation only: it moves nothing and changes no scientific content.",
+  "base_commit": "e0c0c709620db0d114dbd7061975b6747cb7aabc",
+  "root": "verification/",
+  "count": 91,
+  "flagged": [],
+  "entries": {
+    "BARANDES-BOUNDARY-AUDIT-RESULT.md": {
+      "to": "programmes/oi-qm/track-b/boundary-audit/result.md",
+      "note": ""
+    },
+    "BARANDES-BOUNDARY-AUDIT.md": {
+      "to": "programmes/oi-qm/track-b/boundary-audit/preregistration.md",
+      "note": ""
+    },
+    "BARANDES-CANDIDATE-SELECTION-PREREGISTRATION.md": {
+      "to": "programmes/oi-qm/track-b/act-03-candidate-selection/preregistration.md",
+      "note": ""
+    },
+    "BARANDES-CANDIDATE-SELECTION-RESULT.md": {
+      "to": "programmes/oi-qm/track-b/act-03-candidate-selection/result.md",
+      "note": ""
+    },
+    "BARANDES-DILATION-CHOICE-PREREGISTRATION.md": {
+      "to": "programmes/oi-qm/track-b/act-07-dilation-choice/preregistration.md",
+      "note": ""
+    },
+    "BARANDES-DILATION-CHOICE-RESULT.md": {
+      "to": "programmes/oi-qm/track-b/act-07-dilation-choice/result.md",
+      "note": ""
+    },
+    "BARANDES-DILATION-MAPPING-PREREGISTRATION.md": {
+      "to": "programmes/oi-qm/track-b/act-04-dilation-mapping/preregistration.md",
+      "note": ""
+    },
+    "BARANDES-DILATION-MAPPING-RESULT.md": {
+      "to": "programmes/oi-qm/track-b/act-04-dilation-mapping/result.md",
+      "note": ""
+    },
+    "BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-AMENDMENT-3.md": {
+      "to": "programmes/oi-qm/track-b/act-01-indivisibility/amendments/amendment-3.md",
+      "note": "amendments 1 and 2 are not separate root files; confirm during migration"
+    },
+    "BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-RESULT.md": {
+      "to": "programmes/oi-qm/track-b/act-01-indivisibility/result.md",
+      "note": ""
+    },
+    "BARANDES-INDIVISIBILITY-BRIDGE-AUDIT.md": {
+      "to": "programmes/oi-qm/track-b/act-01-indivisibility/preregistration.md",
+      "note": ""
+    },
+    "BARANDES-REPRESENTATION-FREEDOM-SCOPING.md": {
+      "to": "programmes/oi-qm/track-b/representation-freedom-scoping.md",
+      "note": "a scoping note, not an act"
+    },
+    "BARANDES-SOURCE-A-CANDIDATE-PREREGISTRATION.md": {
+      "to": "programmes/oi-qm/track-b/act-05-source-a-candidate/preregistration.md",
+      "note": ""
+    },
+    "BARANDES-SOURCE-A-CANDIDATE-RESULT.md": {
+      "to": "programmes/oi-qm/track-b/act-05-source-a-candidate/result.md",
+      "note": ""
+    },
+    "BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md": {
+      "to": "programmes/oi-qm/track-b/act-02-transpose-bridge/preregistration.md",
+      "note": ""
+    },
+    "BARANDES-TRANSPOSE-BRIDGE-RESULT.md": {
+      "to": "programmes/oi-qm/track-b/act-02-transpose-bridge/result.md",
+      "note": ""
+    },
+    "BARANDES-TUPLE-INSTANTIATION-PREREGISTRATION.md": {
+      "to": "programmes/oi-qm/track-b/act-06-tuple-instantiation/preregistration.md",
+      "note": ""
+    },
+    "BARANDES-TUPLE-INSTANTIATION-RESULT.md": {
+      "to": "programmes/oi-qm/track-b/act-06-tuple-instantiation/result.md",
+      "note": ""
+    },
+    "C1C4-MINIMALITY-AUDIT.md": {
+      "to": "audits/foundations/C1C4-MINIMALITY-AUDIT.md",
+      "note": "filename carries a term this programme does not use in new prose; the FILENAME is preserved unchanged rather than renamed"
+    },
+    "C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md": {
+      "to": "audits/physical-realization/c4-causal-readback/amendments/amendment-1.md",
+      "note": ""
+    },
+    "C4-CAUSAL-READBACK-AUDIT-AMENDMENT.md": {
+      "to": "audits/physical-realization/c4-causal-readback/amendments/amendment.md",
+      "note": ""
+    },
+    "C4-CAUSAL-READBACK-AUDIT.md": {
+      "to": "audits/physical-realization/c4-causal-readback/preregistration.md",
+      "note": ""
+    },
+    "C5-DISCOVERY-AUDIT.md": {
+      "to": "audits/foundations/c5-discovery-audit.md",
+      "note": ""
+    },
+    "CAUSAL-READBACK-DISCOVERY-AMENDMENT-1.md": {
+      "to": "programmes/oi-qm/track-i/causal-readback-discovery/amendments/amendment-1.md",
+      "note": ""
+    },
+    "CAUSAL-READBACK-DISCOVERY-AUDIT.md": {
+      "to": "programmes/oi-qm/track-i/causal-readback-discovery/preregistration.md",
+      "note": ""
+    },
+    "CAUSAL-READBACK-DISCOVERY-RESULT-AMENDMENT-1.md": {
+      "to": "programmes/oi-qm/track-i/causal-readback-discovery/amendments/result-amendment-1.md",
+      "note": ""
+    },
+    "CAUSAL-READBACK-DISCOVERY-RESULT.md": {
+      "to": "programmes/oi-qm/track-i/causal-readback-discovery/result.md",
+      "note": ""
+    },
+    "CENSUS-oi-compatible-theories.md": {
+      "to": "audits/operational/census-oi-compatible-theories.md",
+      "note": ""
+    },
+    "COHERENT-CONTINUUM-SOURCE-AUDIT.md": {
+      "to": "audits/foundations/coherent-continuum-source-audit.md",
+      "note": ""
+    },
+    "COMPLETION-ASSUMPTION-AUDIT.md": {
+      "to": "audits/operational/completion-assumption-audit.md",
+      "note": ""
+    },
+    "CONCRETE-CUT-AUDIT.md": {
+      "to": "audits/physical-realization/concrete-cut/preregistration.md",
+      "note": ""
+    },
+    "CONCRETE-CUT-FREEZE.md": {
+      "to": "audits/physical-realization/concrete-cut/freeze.md",
+      "note": ""
+    },
+    "CONTINUOUS-TIME-AUDIT.md": {
+      "to": "audits/physical-realization/continuous-time-audit.md",
+      "note": ""
+    },
+    "CT3-R2B-Q2-PERIOD-AND-CYCLES.md": {
+      "to": "audits/physical-realization/ct3-r2b-q2-period-and-cycles.md",
+      "note": ""
+    },
+    "DENSE-INSTRUMENT-BRIDGE-AUDIT.md": {
+      "to": "audits/operational/dense-instrument-bridge-audit.md",
+      "note": ""
+    },
+    "DERIVED-Q3-AUDIT.md": {
+      "to": "audits/foundations/derived-q3-audit.md",
+      "note": ""
+    },
+    "DISCRETE-COMPLETION-AUDIT.md": {
+      "to": "audits/operational/discrete-completion-audit.md",
+      "note": ""
+    },
+    "EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md": {
+      "to": "archive/superseded/EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md",
+      "note": "superseded by COMPLETION-ASSUMPTION-AUDIT.md per its own header; historical filename preserved exactly"
+    },
+    "EXEC-SOURCE-AUDIT.md": {
+      "to": "audits/foundations/exec-source-audit.md",
+      "note": ""
+    },
+    "FLOW-ENDPOINT-AUDIT.md": {
+      "to": "audits/foundations/flow-endpoint-audit.md",
+      "note": ""
+    },
+    "FLOW-EXTENSION-AUDIT.md": {
+      "to": "audits/foundations/flow-extension-audit.md",
+      "note": ""
+    },
+    "FROZEN-SUBSTRATUM-SOURCING-AUDIT.md": {
+      "to": "programmes/substratum/frozen-sourcing-audit.md",
+      "note": ""
+    },
+    "INSTRUMENT-COMPLETION-AUDIT.md": {
+      "to": "audits/operational/instrument-completion-audit.md",
+      "note": ""
+    },
+    "INSTRUMENT-MIGRATION-AUDIT.md": {
+      "to": "audits/operational/instrument-migration-audit.md",
+      "note": ""
+    },
+    "INSTRUMENT-REALIZATION-AUDIT.md": {
+      "to": "audits/operational/instrument-realization-audit.md",
+      "note": ""
+    },
+    "INVERSE-CLAUSE-AUDIT.md": {
+      "to": "audits/foundations/inverse-clause-audit.md",
+      "note": ""
+    },
+    "LEAN-MANUSCRIPT-CENSUS.md": {
+      "to": "audits/manuscript/lean-manuscript-census.md",
+      "note": ""
+    },
+    "LIFT-AUDIT.md": {
+      "to": "audits/foundations/lift-audit.md",
+      "note": ""
+    },
+    "LIFT-SOURCE-AUDIT.md": {
+      "to": "audits/foundations/lift-source-audit.md",
+      "note": ""
+    },
+    "MANUSCRIPT-AXIOM-AUDIT.md": {
+      "to": "programmes/substratum/manuscript-axiom-audit.md",
+      "note": "the A1-A6 audit; the A6 roadmap row points here"
+    },
+    "MILESTONE-finite-quantum-instruments.md": {
+      "to": "audits/operational/milestone-finite-quantum-instruments.md",
+      "note": ""
+    },
+    "MINIMAL-REPERTOIRE-AUDIT.md": {
+      "to": "audits/foundations/MINIMAL-REPERTOIRE-AUDIT.md",
+      "note": "filename carries a term this programme does not use in new prose; the FILENAME is preserved unchanged rather than renamed"
+    },
+    "OI-CORE-FORWARD-REDUNDANCY.md": {
+      "to": "audits/foundations/oi-core-forward-redundancy.md",
+      "note": ""
+    },
+    "OI-HYDRODYNAMICS-SINGULARITY-RESEARCH-PROGRAMME.md": {
+      "to": "programmes/hydrodynamics/PROGRAMME.md",
+      "note": ""
+    },
+    "OI-N-EXPLORATORY.md": {
+      "to": "audits/manuscript/oi-n-exploratory.md",
+      "note": ""
+    },
+    "OI-N-FREEZE.md": {
+      "to": "audits/manuscript/oi-n-freeze.md",
+      "note": ""
+    },
+    "OI-OPERATIONAL-SOURCING-AUDIT-AMENDMENT-1.md": {
+      "to": "programmes/oi-qm/track-i/arc-d-operational-sourcing/amendments/amendment-1.md",
+      "note": ""
+    },
+    "OI-OPERATIONAL-SOURCING-AUDIT.md": {
+      "to": "programmes/oi-qm/track-i/arc-d-operational-sourcing/preregistration.md",
+      "note": ""
+    },
+    "OI-OPERATIONAL-SOURCING-RESULT.md": {
+      "to": "programmes/oi-qm/track-i/arc-d-operational-sourcing/result.md",
+      "note": ""
+    },
+    "OI-QM-RESEARCH-PROGRAMME-AMENDMENT-1.md": {
+      "to": "programmes/oi-qm/amendments/amendment-1.md",
+      "note": ""
+    },
+    "OI-QM-RESEARCH-PROGRAMME-AMENDMENT-2.md": {
+      "to": "programmes/oi-qm/amendments/amendment-2.md",
+      "note": ""
+    },
+    "OI-QM-RESEARCH-PROGRAMME.md": {
+      "to": "programmes/oi-qm/PROGRAMME.md",
+      "note": "the programme spine; a thin README.md index is added beside it"
+    },
+    "OI-QUANTUM-REPRESENTATION-AUDIT-AMENDMENT-1.md": {
+      "to": "programmes/oi-qm/track-i/arc-c-quantum-representation/amendments/amendment-1.md",
+      "note": ""
+    },
+    "OI-QUANTUM-REPRESENTATION-AUDIT.md": {
+      "to": "programmes/oi-qm/track-i/arc-c-quantum-representation/preregistration.md",
+      "note": ""
+    },
+    "OI-QUANTUM-REPRESENTATION-RESULT.md": {
+      "to": "programmes/oi-qm/track-i/arc-c-quantum-representation/result.md",
+      "note": ""
+    },
+    "OI-ROOTED-CLASSIFICATION-AUDIT.md": {
+      "to": "programmes/oi-qm/track-i/arc-b-rooted-classification/preregistration.md",
+      "note": ""
+    },
+    "OI-ROOTED-CLASSIFICATION-RESULT.md": {
+      "to": "programmes/oi-qm/track-i/arc-b-rooted-classification/result.md",
+      "note": ""
+    },
+    "PAIR-FLOW-EQUIVALENCE-AUDIT.md": {
+      "to": "audits/foundations/pair-flow-equivalence-audit.md",
+      "note": ""
+    },
+    "PHASE-PROPAGATION-AUDIT.md": {
+      "to": "audits/foundations/phase-propagation-audit.md",
+      "note": ""
+    },
+    "PHASE-SOURCE-AUDIT.md": {
+      "to": "audits/foundations/phase-source-audit.md",
+      "note": ""
+    },
+    "POLARIZATION-CLOSURE-AUDIT.md": {
+      "to": "audits/foundations/polarization-closure-audit.md",
+      "note": ""
+    },
+    "PRIMITIVE-SOURCE-AUDIT.md": {
+      "to": "programmes/substratum/primitive-source-audit.md",
+      "note": ""
+    },
+    "Q3-PROPAGATION-AUDIT.md": {
+      "to": "audits/foundations/q3-propagation-audit.md",
+      "note": ""
+    },
+    "QUASILOCAL-COMPLETION-AUDIT.md": {
+      "to": "audits/operational/quasilocal-completion-audit.md",
+      "note": ""
+    },
+    "REAL-PAIR-FLOW-AUDIT.md": {
+      "to": "audits/foundations/real-pair-flow-audit.md",
+      "note": ""
+    },
+    "RECURRENCE-SCALING-AUDIT.md": {
+      "to": "programmes/oi-qm/track-i/recurrence-scaling/preregistration.md",
+      "note": ""
+    },
+    "RECURRENCE-SCALING-RESULT.md": {
+      "to": "programmes/oi-qm/track-i/recurrence-scaling/result.md",
+      "note": ""
+    },
+    "RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md": {
+      "to": "programmes/oi-qm/track-i/recurrence-tightness/amendments/amendment-1.md",
+      "note": ""
+    },
+    "RECURRENCE-TIGHTNESS-AUDIT.md": {
+      "to": "programmes/oi-qm/track-i/recurrence-tightness/preregistration.md",
+      "note": ""
+    },
+    "RECURRENCE-TIGHTNESS-RESULT.md": {
+      "to": "programmes/oi-qm/track-i/recurrence-tightness/result.md",
+      "note": ""
+    },
+    "REPRESENTATION-SECTOR-AUDIT.md": {
+      "to": "audits/manuscript/representation-sector-audit.md",
+      "note": ""
+    },
+    "ROOTED-OBSERVER-FAMILY-SOURCING-AUDIT-RESULT.md": {
+      "to": "audits/operational/rooted-observer-family-sourcing/result.md",
+      "note": ""
+    },
+    "ROOTED-OBSERVER-FAMILY-SOURCING-AUDIT.md": {
+      "to": "audits/operational/rooted-observer-family-sourcing/preregistration.md",
+      "note": ""
+    },
+    "ROUTE-B-AUDIT.md": {
+      "to": "programmes/substratum/route-b-audit.md",
+      "note": "Route B of the substratum programme; unrelated to OI-QM Track B"
+    },
+    "SCALAR-CLOSURE-AUDIT.md": {
+      "to": "audits/foundations/scalar-closure-audit.md",
+      "note": ""
+    },
+    "SOURCING-PROPAGATION-AUDIT.md": {
+      "to": "audits/operational/sourcing-propagation-audit.md",
+      "note": ""
+    },
+    "STATE-MIXING-COUPLING-AUDIT.md": {
+      "to": "audits/foundations/state-mixing-coupling-audit.md",
+      "note": ""
+    },
+    "STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md": {
+      "to": "audits/operational/stochastic-observer-interface-audit.md",
+      "note": ""
+    },
+    "SUBSTRATUM-INTERFACE-AUDIT.md": {
+      "to": "programmes/substratum/interface-audit.md",
+      "note": ""
+    },
+    "SUBSTRATUM-SOURCE-AUDIT.md": {
+      "to": "programmes/substratum/source-audit.md",
+      "note": ""
+    },
+    "TYPED-COMPLETION-AUDIT.md": {
+      "to": "audits/operational/typed-completion-audit.md",
+      "note": ""
+    }
+  }
+}

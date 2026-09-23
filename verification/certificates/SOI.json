@@ -1,0 +1,21 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "audits/operational",
+ "evidence": [
+  {
+   "blob": "c9a69d339b4d6d956daa5db14708609b32f45fd5",
+   "id": "SOI/stochastic-observer-interface-audit.md",
+   "path": "verification/audits/operational/stochastic-observer-interface-audit.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "SOI",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

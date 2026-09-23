@@ -1,0 +1,28 @@
+{
+ "base": "395d953faa5a2bd4d33c5b642e063f355453cba0",
+ "certificate": "bede2894e4a11ac4386a7d0098182b34007af945",
+ "ci": {
+  "exact_e": {
+   "conclusion": "success",
+   "head_sha": "9332019aed34e33e83adc5e8740f1ef7c38742da",
+   "run": "35716484185"
+  },
+  "exact_l": {
+   "conclusion": "success",
+   "head_sha": "5fe921ce10e68a2496b9797b0ab2b0b08ae02cdb",
+   "run": "35718385581"
+  },
+  "main_push": {
+   "conclusion": "success",
+   "head_sha": "9e27e53cede71e38f98cccc4af926b56eba6648b",
+   "run": "35726597442"
+  }
+ },
+ "kind": "landed",
+ "landing": "5fe921ce10e68a2496b9797b0ab2b0b08ae02cdb",
+ "origin": "bootstrap-v1",
+ "protocol": 1,
+ "round": "CV1",
+ "sealed_head": "9332019aed34e33e83adc5e8740f1ef7c38742da",
+ "tree": "05b915584230d1dcbb5f272d7c3746db642fcaa6"
+}

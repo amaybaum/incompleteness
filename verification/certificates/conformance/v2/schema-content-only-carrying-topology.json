@@ -1,0 +1,78 @@
+{
+ "expect": {
+  "reason": "schema:content-only-topology:base",
+  "verdict": "FAIL"
+ },
+ "family": "schema",
+ "id": "schema-content-only-carrying-topology",
+ "repo": {
+  "commits": [
+   {
+    "files": {
+     "AGENTS.md": "agents\n",
+     "f": "c0\n",
+     "verification/lean/guard.py": "_MANIFEST_PROSPECTIVE = {}\n_MANIFEST_BASELINE = {'base': 'b', 'authorized': ()}\n# ---- R7-ZZ: the round's own region\ncheck('R7-ZZ', True)\n# ---- R7-ZZ ends.\n"
+    },
+    "name": "c0"
+   },
+   {
+    "files": {
+     "verification/programmes/x/round-z/preregistration.md": "p\n"
+    },
+    "inherit": "c0",
+    "name": "B",
+    "parents": [
+     "c0"
+    ]
+   },
+   {
+    "files": {
+     "verification/programmes/x/round-z/result.md": "r\n"
+    },
+    "inherit": "B",
+    "name": "E",
+    "parents": [
+     "B"
+    ]
+   },
+   {
+    "files": {
+     "m": "main1\n"
+    },
+    "inherit": "B",
+    "name": "main1",
+    "parents": [
+     "B"
+    ]
+   },
+   {
+    "files": {
+     "m": "main1\n"
+    },
+    "inherit": "E",
+    "name": "L",
+    "parents": [
+     "main1",
+     "E"
+    ]
+   },
+   {
+    "delete": [],
+    "files": {
+     "verification/certificates/ZZ.json": "{\n \"base\": \"{{sha:B}}\",\n \"contributions\": [],\n \"dependencies\": [],\n \"directory\": \"programmes/x/round-z\",\n \"evidence\": [\n  {\n   \"blob\": \"{{blob:E:verification/programmes/x/round-z/result.md}}\",\n   \"id\": \"ZZ/result.md\",\n   \"path\": \"verification/programmes/x/round-z/result.md\"\n  }\n ],\n \"origin\": \"translated-v1\",\n \"protocol\": 2,\n \"round\": \"ZZ\",\n \"schema\": \"oi-round-certificate\",\n \"shape\": \"content-only\",\n \"translation\": {\n  \"from\": \"seal-record\",\n  \"migration_snapshot\": \"{{sha:L}}\"\n }\n}\n",
+     "verification/certificates/legacy-v1-owned.json": "{\"protocol\": 2, \"count\": 0, \"rounds\": []}\n",
+     "verification/certificates/live-policy.json": "{\"protocol\": 2, \"count\": 0, \"policies\": []}\n"
+    },
+    "inherit": "L",
+    "name": "H",
+    "parents": [
+     "L"
+    ]
+   }
+  ],
+  "head": "H",
+  "refs": {
+   "refs/remotes/origin/main": "H"
+  }
+ }
+}

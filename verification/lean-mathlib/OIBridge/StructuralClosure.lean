@@ -232,7 +232,7 @@ theorem substratumClass_arch : Architecture substratumClass where
   one := fun _ _ _ => submonomial_monomial submonomial_one
   mul := fun _ _ _ _ _ hK hL =>
     submonomial_monomial (submonomial_mul (monomial_submonomial hK) (monomial_submonomial hL))
-  smul := fun _ _ _ a _ hK => submonomial_monomial (submonomial_smul a (monomial_submonomial hK))
+  smul := fun _ _ _ a _ _ hK => submonomial_monomial (submonomial_smul a (monomial_submonomial hK))
   proj := fun _ _ _ _ _ => monomial_diagonal _
   block := fun _ _ _ _ _ f e hK =>
     submonomial_monomial (submonomial_block (monomial_submonomial hK) f e)
@@ -290,6 +290,15 @@ theorem substratumClass_daggerStable : DaggerStable substratumClass := by
   intro _ _ _ _ hK
   exact submonomial_monomial (submonomial_conjTranspose (monomial_submonomial hK))
 
+/-- The monomial class is unitary-ray saturated: a monomial scaled by a nonzero scalar is
+monomial after rescaling. -/
+theorem substratumClass_unitaryRaySaturated : UnitaryRaySaturated substratumClass := by
+  intro S _ _ c V hc _ h
+  obtain ⟨σ, d, hd⟩ := h
+  refine ⟨σ, c⁻¹ • d, ?_⟩
+  rw [Matrix.diagonal_smul, Matrix.mul_smul, ← hd, smul_smul, inv_mul_cancel₀ hc, one_smul]
+
+
 omit [Fintype S] in
 /-- **A2 SUPPLIES THE REVERSAL OF A BIJECTIVE INTERVENTION**: its adjoint is the inverse
 bijection. -/
@@ -339,7 +348,8 @@ preserves the diagonal and the rotation `rot` does not. -/
 theorem substratumGen_not_control :
     ¬ HasCompositeUnitaryControl (genTheory substratumClass substratumClass_arch (Fin 2)) := by
   intro h
-  obtain ⟨ι, _, K, hK, hadm⟩ := (h 1 rot rot_isometry).1 ()
+  obtain ⟨ι, _, K, hK, hadm⟩ :=
+    realized_of_instAvail substratumClass_arch (h 1 rot rot_isometry) ()
   have hK' : conjChannel rot = ∑ i, conjChannel (K i) := hK
   apply rot_not_preservesDiag
   rw [hK']
@@ -438,6 +448,7 @@ end Endpoint
 #print axioms substratumClass_labelInvariant
 #print axioms submonomial_conjTranspose
 #print axioms substratumClass_daggerStable
+#print axioms substratumClass_unitaryRaySaturated
 #print axioms bijectiveOperator_conjTranspose
 #print axioms phaseOperator_conjTranspose
 #print axioms substratumClass_structurallyClosed

@@ -1,0 +1,40 @@
+{
+ "base": "b821d69ae86f7d76020383735b3161e77c064ccc",
+ "contributions": [],
+ "control_plane": [
+  {
+   "blob": "5850238f290f0424ff677ff6d5cc2c039b1f58c2",
+   "execution_affecting": true,
+   "merge": "b821d69ae86f7d76020383735b3161e77c064ccc",
+   "path": "verification/programmes/oi-qm/track-b/act-12-two-sided-gauge/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-12-two-sided-gauge",
+ "evidence": [
+  {
+   "blob": "5850238f290f0424ff677ff6d5cc2c039b1f58c2",
+   "id": "TSG/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-12-two-sided-gauge/preregistration.md"
+  },
+  {
+   "blob": "467d8be147b6ebd91f2eed12404566af74ac779f",
+   "id": "TSG/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-12-two-sided-gauge/result.md"
+  },
+  {
+   "blob": "55bb13a52bae0a07e3a615148014b03afedbdd56",
+   "id": "seals/TSG.json",
+   "path": "verification/seals/TSG.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "TSG",
+ "schema": "oi-round-certificate",
+ "shape": "non-sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

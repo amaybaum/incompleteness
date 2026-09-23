@@ -1,0 +1,56 @@
+{
+ "base": "d7a9931befeb942db8ebc7b07014f9020c6663d0",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/IntermediateCrossTimeStructure.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "fd3fa1359188966cae006deba4944a14aab5f3dd",
+   "execution_affecting": true,
+   "merge": "d7a9931befeb942db8ebc7b07014f9020c6663d0",
+   "path": "verification/programmes/oi-qm/track-b/act-18-intermediate-cross-time-structure/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-18-intermediate-cross-time-structure",
+ "evidence": [
+  {
+   "blob": "fd3fa1359188966cae006deba4944a14aab5f3dd",
+   "id": "XTS/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-18-intermediate-cross-time-structure/preregistration.md"
+  },
+  {
+   "blob": "14a2cd8c54946bf0078329402e6f853107b31d9d",
+   "id": "XTS/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-18-intermediate-cross-time-structure/result.md"
+  },
+  {
+   "blob": "b481dbbdb8b6f42f271c583b340777f4269e2266",
+   "id": "seals/XTS.json",
+   "path": "verification/seals/XTS.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "XTS",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

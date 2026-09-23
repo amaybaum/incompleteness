@@ -1,0 +1,26 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-06-tuple-instantiation",
+ "evidence": [
+  {
+   "blob": "2a2216b7791e93303598dafb0d035db18ad9d88a",
+   "id": "TUPLE/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-06-tuple-instantiation/preregistration.md"
+  },
+  {
+   "blob": "38b8ecef915d7097674af171f2896a9f233fdd72",
+   "id": "TUPLE/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-06-tuple-instantiation/result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "TUPLE",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

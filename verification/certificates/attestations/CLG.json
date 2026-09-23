@@ -1,0 +1,9 @@
+{
+ "base": "6cff07cc0655124f1f29e04b156cc05a3d717a48",
+ "certificate": "ca063c81df181a513a65f07781d15b78ac87c4dd",
+ "kind": "base-only",
+ "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48",
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "CLG"
+}

@@ -1,0 +1,26 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-04-dilation-mapping",
+ "evidence": [
+  {
+   "blob": "3323fc6fc3bbe579dcf34452b147ca12c78e830d",
+   "id": "DILMAP/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-04-dilation-mapping/preregistration.md"
+  },
+  {
+   "blob": "a615e9d42c7e1e4744a02aabb837f40d4dee0c2b",
+   "id": "DILMAP/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-04-dilation-mapping/result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "DILMAP",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

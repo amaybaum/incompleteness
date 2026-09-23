@@ -1,0 +1,67 @@
+{
+ "base": "10d1041bcc10f25d9f643629d4431acbd0f65a1e",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/OrbitLawRigidityTwisted.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "316d635a31f91faebeeebef7688b30002d24b4ca",
+   "execution_affecting": true,
+   "merge": "aeb0b91d20b4e307c293c06afda9db64fe2a3b09",
+   "path": "verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/preregistration.md"
+  },
+  {
+   "blob": "d140978e6f0031063e7aa4b9bbe3e960d9b7f8e1",
+   "execution_affecting": true,
+   "merge": "10d1041bcc10f25d9f643629d4431acbd0f65a1e",
+   "path": "verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/amendments/amendment-1.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted",
+ "evidence": [
+  {
+   "blob": "d140978e6f0031063e7aa4b9bbe3e960d9b7f8e1",
+   "id": "OLT/amendments/amendment-1.md",
+   "path": "verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/amendments/amendment-1.md"
+  },
+  {
+   "blob": "316d635a31f91faebeeebef7688b30002d24b4ca",
+   "id": "OLT/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/preregistration.md"
+  },
+  {
+   "blob": "bb02ef41eb221696ffa45c9281b69553c8279cbb",
+   "id": "OLT/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-21-orbit-law-rigidity-twisted/result.md"
+  },
+  {
+   "blob": "8ed0ef5391410db3a112cbe845d27536b7c1ab9b",
+   "id": "seals/OLT.json",
+   "path": "verification/seals/OLT.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "OLT",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

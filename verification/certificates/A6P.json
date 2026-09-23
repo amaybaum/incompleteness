@@ -1,0 +1,99 @@
+{
+ "base": "07ab3657c2c78b48e4c11e0c3ceb30c82ac0b484",
+ "contributions": [
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.pdf"
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.tex"
+  },
+  {
+   "path": "book/appendix-b-derivations.md"
+  },
+  {
+   "path": "book/ch02-substratum.md"
+  },
+  {
+   "path": "book/ch05-gauge-structure.md"
+  },
+  {
+   "path": "book/ch09-universality.md"
+  },
+  {
+   "path": "book/glossary.md"
+  },
+  {
+   "path": "papers/SM.md"
+  },
+  {
+   "path": "papers/SM.pdf"
+  },
+  {
+   "path": "papers/SM.tex"
+  },
+  {
+   "path": "papers/Structure.md"
+  },
+  {
+   "path": "papers/Structure.pdf"
+  },
+  {
+   "path": "papers/Structure.tex"
+  },
+  {
+   "path": "papers/Substratum.md"
+  },
+  {
+   "path": "papers/Substratum.pdf"
+  },
+  {
+   "path": "papers/Substratum.tex"
+  },
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "e7cb7013747f783135c8e166d290ce6670df0ae9",
+   "execution_affecting": true,
+   "merge": "07ab3657c2c78b48e4c11e0c3ceb30c82ac0b484",
+   "path": "verification/audits/foundations/a6-covariance-propagation-audit.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "audits/foundations",
+ "evidence": [
+  {
+   "blob": "e7cb7013747f783135c8e166d290ce6670df0ae9",
+   "id": "A6P/a6-covariance-propagation-audit.md",
+   "path": "verification/audits/foundations/a6-covariance-propagation-audit.md"
+  },
+  {
+   "blob": "0f42d74c71b57a8bb919e3b8dc6f1dd2e7a5284b",
+   "id": "seals/A6P.json",
+   "path": "verification/seals/A6P.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "A6P",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

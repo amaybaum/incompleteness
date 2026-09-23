@@ -8,8 +8,8 @@ layers:
   and `papers/GR.md`, with **numerical probes** (Python 3) that instantiate every hypothesis and
   conclusion on the concrete operators, exactly in integer or rational arithmetic wherever the
   statements are integer identities.
-- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 114 modules and,
-  at this commit, 2,401 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
+- **`lean-mathlib/`** — `OIBridge`, the Mathlib-based formal verification programme: 145 modules and,
+  at this commit, 3,135 named results, each printing its axiom dependencies (`propext`, `Classical.choice`,
   `Quot.sound` and nothing else; no `sorry`, no `axiom`, no `native_decide`). It carries the
   reconstruction theorems of `papers/GR.md` §3.3 and the OI → finite-QM completion classification,
   and it is the project's main theorem-verification layer.
@@ -21,6 +21,42 @@ layers:
 The two kernel verdicts are always reported separately: the zero-import files and the Mathlib
 project have their own toolchains and their own CI jobs, so a breakage in either can never be
 mistaken for a verdict on the other.
+
+## Start here
+
+| If you want | Go to |
+| --- | --- |
+| **What is being worked on, and what is still owed** | [`ROADMAP.md`](ROADMAP.md) — the live obligation queue, ranked, with a status for each |
+| The flagship result and the layer contents | the sections below, in this file |
+| Where an artifact named below actually lives | [`MIGRATION-RECORD.md`](MIGRATION-RECORD.md) — the name → path table |
+| The mapping the migration was planned from | [`MIGRATION-MANIFEST.md`](MIGRATION-MANIFEST.md) |
+| Where a **new** artifact goes | the programme/audit hierarchy — see [Where new artifacts go](#where-new-artifacts-go) below |
+| A specific round's freeze and its outcome | the round's own directory once migrated; until then, the root artifact named in the manifest |
+| How to run the checks | [Running the checks](#running-the-checks), at the end of this file |
+
+**`ROADMAP.md` and this file answer different questions, and the split is deliberate.** This file
+describes the verification *machinery* — the layers, what each certifies, how to run it. The roadmap
+tracks *obligations*: what is load-bearing in the manuscripts, what has a formal result behind it,
+what has only a named hypothesis, and what has been settled negatively. The census keeps registered
+claims synchronized with the strongest applicable formal result; it does not rank what is missing,
+and the roadmap does.
+
+### Where new artifacts go
+
+New audits, preregistrations and results go under a **programme** or **audit** directory, never at
+this root, placed with the round or audit family they belong to (AGENTS.md §A.36). A round whose
+category is genuinely new adds a directory.
+
+`MIGRATION-MANIFEST.md` governs something narrower: where each artifact **already at this root** is
+headed. It is not the authority on where a future artifact belongs, since a new round has no entry
+in a mapping built from the old root set. `tools/artifact_placement_check.py` uses it as a
+grandfather list and fails any new root-level artifact that is not in it.
+
+**How an artifact is cited, and how to find it.** Throughout this file and across the corpus an
+artifact is cited by its **name** — `LIFT-AUDIT.md`, `SUBSTRATUM-INTERFACE-AUDIT.md` — and the R7
+guards pin those names, so a name is an identifier rather than a path. Since the artifacts moved out
+of this root, [`MIGRATION-RECORD.md`](MIGRATION-RECORD.md) resolves any name to its current
+location.
 
 ## The flagship result
 
@@ -85,13 +121,14 @@ all (`countermodel_not_implementationGenerated`), so its failure is implementabi
 locality, reversible richness and embedded observation are equivalent to finite operational QM on
 every nonempty finite carrier (`carrier_general_oiPlusLocal`). Reversible richness splits into inverse
 accessibility and Lie-rank richness (`MicroscopicReversibility.reversibleRichness_iff`); the inverse
-clause is derived from a dagger-stable implementation class through the rank-one ray lemma
-(`inverseAccessibility_of_generated_daggerStable`), so reversible implementation locality, Lie-rank
-richness and embedded observation are equivalent to finite operational QM on every nonempty finite
-carrier (`carrier_general_oiPlusMicro`). Lie-rank richness gives full control unconditionally
-(`PositiveReachability.control_of_lieRank`), and on a well-formed theory full control yields inverse
-accessibility (`PositiveReachability.inverseAccessibility_of_lieRank`), so dagger stability is not
-needed as a hypothesis of the characterization. The Lie-rank clause is derived from elementary
+clause is derived from a dagger-stable, unitary-ray saturated implementation architecture through
+the rank-one ray lemma (`inverseAccessibility_of_generated_daggerStable`), and, with no condition on
+the class, from Lie-rank richness on the well-formed theory, so reversible implementation locality,
+Lie-rank richness and embedded observation are equivalent to finite operational QM on every nonempty
+finite carrier (`carrier_general_oiPlusMicro`). Lie-rank richness gives full control unconditionally
+(`MicroReversibility.control_of_lieRank`, on the positive-reachability core), and on a well-formed
+theory full control yields inverse accessibility (`MicroReversibility.inverseAccessibility_of_lieRank`),
+so dagger stability is not needed as a hypothesis of the characterization. The Lie-rank clause is derived from elementary
 transition richness (`LieRankSource.lieRank_of_elementary`): one continuously driven transition, one
 quarter phase and the state exchanges generate `su(D)` at every level, and full control supplies
 them (`elementary_of_control`), so reversible implementation locality, elementary transition
@@ -196,7 +233,7 @@ modules, in the order the development grew:
   reversible richness and observer recursion, and that hierarchy carried to every nonempty
   finite carrier.
 
-`verification/MILESTONE-finite-quantum-instruments.md` records an earlier checkpoint of this
+`verification/audits/operational/milestone-finite-quantum-instruments.md` records an earlier checkpoint of this
 programme as a status artifact.
 
 ## The external boundary
@@ -801,12 +838,15 @@ phases that is a neighbourhood of `1` is everything, since a symmetric neighbour
 clopen subgroup of the connected unitary group and the subgroup it generates is the submonoid it
 generates (`eq_top_of_nhds_one`, `posReach_eq_top`). `universalReachability_of_lieRank_positive`
 is the round-fifty conclusion with the `hstar` hypothesis deleted. At the theory level,
-`control_of_lieRank` gives `LieRankRichness T → HasCompositeUnitaryControl T`,
-`inverseAccessibility_of_lieRank` derives the inverse clause on a well-formed theory, and
-`OIPlusPos` — implementation locality, elementary transition richness, embedded observation, with
-no dagger stability — is equivalent to exact finite endomorphic operational QM on every nonempty
-finite carrier (`oiPlusPos_iff_qm`, `oiPlusPos_iff_oiPlusElem`, `carrier_general_oiPlusPos`).
-Twenty-four named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not
+`control_of_lieRank` gives `LieRankRichness T → HasCompositeUnitaryControl T` and
+`inverseAccessibility_of_lieRank` derives the inverse clause on a well-formed theory, both stated
+in `MicroscopicReversibility` on the positive-reachability core, which imports nothing of the
+implementation-locality stack; and `OIPlusPos` — implementation locality, elementary transition
+richness, embedded observation, with no dagger stability — is equivalent to exact finite
+endomorphic operational QM on every nonempty finite carrier (`oiPlusPos_iff_qm`,
+`oiPlusPos_iff_oiPlusElem`, `carrier_general_oiPlusPos`, in `PositivePackage`, namespace
+`PositiveReachability`). Twenty-four named results across the three modules, each printing only
+`propext`, `Classical.choice`, `Quot.sound`. Not
 claimed: that `HControl` is necessary for positive reachability; the minimal elementary
 repertoire; the converse from inverse accessibility to dagger stability; anything about
 non-compact groups. Guard `R7-INV`.
@@ -850,6 +890,1052 @@ only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that one driven t
 minimal in any stronger sense; that the driven pair can be replaced by a discrete resource; that
 the OI substratum supplies it. Guard `R7-MIN`.
 
+`ROUTE-B-AUDIT.md` and `OIBridge/RouteB.lean` carry Route B — whether the continuously driven
+transition is independent of everything the kernel derives from the substratum — through its
+specification, milestone B0, and its model, milestone B1. `DerivedOI` is the conjunction of the
+theory-level predicates the kernel proves both for a theory generated by the substratum class and
+for exact quantum mechanics: reversible implementation locality, embedded observation, and the
+availability at every level of the exchanges, the phases and the read-write operators;
+`DerivedOICore` adds the sealed OI core on the two-state carrier. The falsifier is the rotation
+`rot`, whose availability phase-free richness forces through the closure embedded observation
+supplies (`falsifier_available_of_phaseFree`), so a theory with embedded observation in which
+`rot` is unavailable fails phase-free richness (`not_phaseFree_of_falsifier_unavailable`). Quantum
+mechanics satisfies the closure (`derivedOI_of_qm`, `derivedOICore_of_qm`), so the closure is
+consistent. The target, `RouteBTarget`, a two-state theory satisfying `DerivedOICore` with `rot`
+unavailable, is proved (`routeB_target`, through `target_of_substratum_core`) with the substratum
+theory, generated by the monomial class, as the witness: it satisfies the closure on every carrier (`substratumTheory_derivedOI`),
+lacks the falsifier on the two-state carrier (`substratumTheory_falsifierUnavailable`), and
+realizes the sealed OI core (`substratumTheory_realizesSealedOICore`), each of the four
+preregistered clauses closing by its positive outcome, the two transported permutation channels
+from monomial generation alone (`substratumTheory_relabel`), the visible readout as the generated
+theory's native readout and its coarse-graining, and the comb as an identity. So on the two-state
+carrier the closure with the core does not entail phase-free richness
+(`derivedOICore_not_phaseFree`), the witness is not quantum mechanics (`target_not_qm`), and
+under the closure quantum mechanics is exactly phase-free richness (`derivedOI_qm_iff_phaseFree`).
+Thirty-one named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not
+claimed: that the drive is independent of observation incompleteness in the manuscripts' sense,
+whose A1–A6 are not `DerivedOI`; that `DerivedOI` exhausts what bare OI entails; that the
+substratum theory is a physical theory beyond the finite operational formalism; that any
+manuscript statement changes, which is a propagation round of its own. Guards `R7-RB0` and
+`R7-RB1`.
+
+`MANUSCRIPT-AXIOM-AUDIT.md` and `OIBridge/ManuscriptAxioms.lean` test the Route B witness against
+the manuscripts' own structural assumptions A1–A6 of the Substratum paper, each quoted verbatim
+and given a representability verdict before any proof, with a scope repair recorded at review.
+Every one of the six is a condition on a substratum `(S, φ)`, and a finite operational theory has
+no distinguished underlying substratum: what it carries is the realized sealed core, which
+nothing in the interface identifies with the manuscripts' `S` and `φ`. So no manuscript-level
+A1–A6 conjunct is presently a faithful predicate of the bare theory. A1 and A2 have exact
+realized-core images (`A1Realized`: the core has eight states and every level is finite;
+`A2Realized`: the core's dynamics and its inverse are one-outcome transported permutation
+channels), and both images hold for the witness (`substratumTheory_A1`, `substratumTheory_A2`)
+and for quantum mechanics (`a1_every_theory`, `a2_of_control`), so neither image separates the
+two; at the substratum level A1 and A2 are formalization gaps, absent a sourcing or
+identification map. A3–A6, bounded coupling degree, center independence, linearity of the wave
+equation and background independence, additionally require the spatial and algebraic form of
+the substratum; each is recorded as a formalization gap with the missing interface named, a
+substratum structure with sites, a uniformly bounded coupling graph, translations, an additive
+alphabet and internal indices, a derived sourcing map, and the observer-level lift, and no
+weakened predicate is defined. The configuration-level sourcing bound is a theorem about the
+theories generated by implementation classes: for any architecture all of whose operators are
+monomial (`ConfigurationLevel`, of which the substratum class is the largest), the generated
+theory is contained in the witness (`configurationLevel_availExt_le`), lacks the falsifier
+(`configurationLevel_falsifierUnavailable`), and when label-invariant fails phase-free richness
+and is not quantum mechanics (`configurationLevel_not_phaseFree`, `configurationLevel_not_qm`).
+So phase-free richness requires some non-configuration-level sourcing; the observer-level lift
+the SM paper records as open is the manuscripts' specifically named open candidate, not shown
+to be the only one, and what such a sourcing must make executable is a continuous one-parameter
+mixing family at the relevant levels, as phase-free richness asks, not a single non-monomial
+gate. Eleven named results, each printing only `propext`, `Classical.choice`,
+`Quot.sound`. Not claimed: the pass asserts nothing about whether the witness satisfies any of
+A1–A6 in the manuscript sense, nothing about the strongest OI ⇒ QM claim in either direction,
+nothing about whether the lift is derivable or unique; no manuscript changes. Guard `R7-MAX`.
+
+`LIFT-AUDIT.md` and `OIBridge/LiftAudit.lean` test the first candidate for a derived
+non-configuration-level sourcing, the substratum's own CT2 layer flows, through three questions
+preregistered before any proof, each with its own outcome and none inferred from its neighbour:
+executability is not read off the continuous path, the CT2 flows are candidates and not
+operations, and one non-monomial gate is not a result. The object is a single layer involution
+`σ` of a region's configuration space, never the composite drive, and its gate flow
+`gateFlow σ t = unit (permMat σ) t` read at level `n` with the ancilla a spectator. Q1, realization,
+is positive: the gate flow is a unitary one-parameter group from the identity to the gate, its
+conjugation preserves the trace, and on a region it is the stage image of the quasilocal gate
+unitary (`gateFlow_unitary`, `gateFlow_group`, `gateFlow_one`, `gateFlow_trace`, `gateFlow_stage`).
+Q2, derived executability, is negative: `LayerFlowExecutable T σ`, availability of the conjugation
+by the gate flow at every level and time, fails in the substratum theory and in the theory of
+every configuration-level class as soon as `σ` moves a configuration, because at time one half
+the gate flow does not preserve the diagonal (`gateFlow_half_not_preservesDiag`,
+`substratumTheory_not_layerFlowExecutable`); it holds in every theory with composite unitary
+control (`layerFlowExecutable_of_control`), so it is consistent. The preregistered Q3, phase-free
+richness from `DerivedOI` and executability, is open, not established by this pass; a
+strengthened Q3′ is positive: in a theory carrying the substratum's availability
+(`SubstratumAvail`), executability of one layer flow with a moved configuration gives
+`PhaseFreeRichness` as literally stated, every transition flow between the moved configuration
+and its image at every level, by isolating that flow from the gate flow with two conjugations by
+a sign diagonal and one phase diagonal, the closed form of the transition flow's matrix
+exponential proved on the way (`exp_smul_idempotent`, `flow_transition_closedForm`,
+`gateFlow_isolation`, `phaseFree_of_layerFlowExecutable`). The preregistered Q4, under `DerivedOI`
+alone, is not established as stated; the strengthened Q4′ is proved: under `DerivedOI` and the
+substratum's availability, exact finite operational quantum mechanics is equivalent to that
+executability (`derivedOI_qm_iff_layerFlowExecutable`), instantiated on the swap layer of the
+second-order form (`derivedOI_qm_iff_layerFlowExecutable_swap`). The note records where the
+proved hypothesis is stronger than the preregistered one: the sign and phase diagonals are what
+the substratum's phase structure supplies, and `DerivedOI`'s quarter phases do not generate
+them. So `LayerFlowExecutable`, the executability of the substratum's own layer at intermediate
+times, is necessary and sufficient for quantum mechanics relative to the baseline `DerivedOI`
+with the substratum's availability; the pass does not show that the substratum's availability
+follows from `DerivedOI`, nor that this baseline is minimal, and Route A's frontier is whether
+the substratum and observer architecture derive that executability. Fifty-six named results,
+each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that the
+preregistered Q3 or Q4 holds as stated, that the executability is derived, that the
+observer-level lift is derivable or is not, that Route A is closed in either direction, that the
+carrier identification is anything but a modelling choice; no manuscript changes. Guard
+`R7-LIFT`.
+
+`SUBSTRATUM-INTERFACE-AUDIT.md` and `OIBridge/SubstratumInterfaceAudit.lean` supply the interface
+the manuscript-axiom pass recorded as missing and the lift audit's baseline needed audited: one
+arrow from a substratum carrying the manuscript substrate data to the finite operational theory
+an embedded observer obtains from it, under four distinctions frozen before any proof. Substrate
+facts are not operational availability; `substratumTheory` is the current kernel model and not
+automatically the faithful image; `SubstratumAvail` is audited primitive by primitive, the
+diagonal phases in particular; and no executability question is asked, the module naming neither
+`LayerFlowExecutable` nor any intermediate-time unitary. Q1: `Substratum` is built from the
+second-order rule, its phase-space map and lattice translations; A1, A2 and A5 are stated
+outright, A3 with the degree as a parameter and in family form, A4 with the gauge as a parameter;
+A6 is a gap and has no predicate, the alphabet carrying no internal index and the manuscript
+statement admitting two readings the round does not adjudicate; the manuscripts' discrete wave
+rule on a finite cubic torus is an instance and satisfies A1–A5 as stated (`waveSubstratum_A1`
+to `waveSubstratum_A5`). Q2: the observer's write access, the read-write families at every level,
+generates the least architecture containing the exchanges, identified as `permClass`, the scaled
+partial permutation matrices, canonical in both directions (`permClass_arch`,
+`permClass_le_of_exchanges`); the observer theory `obsTheory 𝒮 = permTheory (Conf 𝒮)` carries
+the substratum's update and its inverse, the two layers at time one, the read-write operators,
+the exchanges, embedded observation and reversible implementation locality, each an explicit
+sourcing theorem; and it carries no quarter phase, no sign diagonal and no non-scalar diagonal
+unitary, because every operation realized by a bijection-level class preserves matrices with
+nonnegative real entries (`PreservesNonneg`, `bijectionLevel_not_phasesAvailable`,
+`obs_diagonal_avail_only_scalar`). Q3, the baseline comparison, reaches the third preregistered
+outcome: the sourced theory satisfies `SourcedOI`, the conjuncts of `DerivedOI` other than the
+phases, and is strictly weaker than `DerivedOI` with the exact missing conjunct
+`PhasesAvailable` (`derivedOI_iff_sourcedOI_phases`, `obs_not_derivedOI`); it also fails
+`SubstratumAvail`, the phases already witnessing that failure
+(`substratumAvail_phasesAvailable`, `obs_not_substratumAvail`), while the full gap to
+`SubstratumAvail` is not characterized by the pass; under `SourcedOI` quantum mechanics is still
+exactly phase-free richness (`sourcedOI_qm_iff_phaseFree`); on the two-state carrier the sourced
+theory realizes the sealed OI core with no phase and lacks the falsifier
+(`permTheory_realizesSealedOICore`, `permTheory_twoState`); and the observer theory is determined
+by the configuration space alone (`obsTheory_rule_independent`), so configuration-level sourcing
+consumes nothing of A3–A6. The phases are thereby located: `DerivedOI`'s quarter phases and
+`SubstratumAvail`'s diagonal unitaries enter the kernel through the round-62 stipulation of
+"phase interventions", not through the observer access the manuscripts state, and the
+manuscripts' substratum-source sentences that list the phase structure narrate that stipulation;
+whether they are to be requalified is an owner decision for a propagation round. Eighty-two
+named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that
+`SourcedOI` is the manuscripts' OI, that the phase structure is absent under a wider reading of
+the access, that A6 holds or fails for any substratum, that `LayerFlowExecutable` is derived from
+the sourced baseline or is not, that the observer-level lift is derivable or is not; no
+manuscript changes. Guard `R7-SUB`.
+
+`SCALAR-CLOSURE-AUDIT.md` and `OIBridge/ScalarClosure.lean` implement an owner decision the
+flow-extension diagnostic forced (`FLOW-EXTENSION-AUDIT.md`, the deferral): `Architecture.smul`,
+stated in round fifty-nine for every complex scalar, is restricted to scalars of modulus at most
+one. Its only operational use is attenuation, the `√(1/m)` on each Kraus operator of a discard,
+and an unrestricted scalar lets an ancilla block of a word containing a readout projector, a
+post-selected contraction `c · U`, be promoted to the unitary `U` by `1/c`, which turns a
+probabilistic branch into a deterministic operation. The census before the change found every
+consumer: `realized_smul_nonneg` and `realized_discard` (now with the bound `c ≤ 1`, satisfied by
+`1/m`), the four architecture instances (`fullClass`, `diagClass`, `substratumClass`, `permClass`),
+and the canonicity proof `permClass_le_of_exchanges`, the one consumer of an arbitrary scalar. The
+generated theory of every class is unchanged by definition, its availability being instrument
+realization by the class (`genTheory_availExt_eq`); `permClass` migrates to contractively scaled
+partial permutations with every theorem of the substratum-interface audit reproved under its name;
+the regression theorem `realized_scalarHull_iff` shows that a class closed under contractive
+scalars branch-realizes exactly what its scalar hull branch-realizes, a conjugation by `a • K` with
+`|a| > 1` being `⌊|a|²⌋` conjugations by `K` and one contractive remainder; and the unrestricted
+and the migrated sourced classes generate the same availability (`scalarHull_permClass_iff`,
+`permTheory_hull_availExt_iff`: an isometry in the hull of the sourced class is in the class and
+the readout projectors are, so instrument realization by the hull is instrument realization by the
+class, `instAvail_scalarHull_permClass`). Nothing weakens. The restriction is correct on its own
+terms and is not sufficient for the flow endpoint: `Realized` admits replication of a contractive
+branch with no common-instrument provenance, which the instrument-realization audit removes.
+Twelve named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed:
+anything about the flow endpoint; no manuscript changes, none narrating the scalar closure.
+Guard `R7-SCAL`.
+
+`OIBridge/InstrumentRealization.lean` is the preregistered instrument-realization audit
+(`INSTRUMENT-REALIZATION-AUDIT.md`), the round on realization provenance that the flow-extension
+deferral and the scalar-closure audit both named. `Realized` takes the branches of an operation
+from the class one at a time and so admits the replication of a post-selected contraction `c · U`
+into the unitary conjugation by `U`. The replacement `InstAvail`, an inductive predicate with
+exactly five constructors and no sum — an admissible isometric step, the native Lüders readout of a
+register with admissible projectors, coarse-graining, sequential composition with outcome-dependent
+continuation, and the discard of a uniformly attached ancilla of positive size, the uniformly
+weighted preparation label summed inside the discard and never an outcome — is the implementation
+semantics of the kernel, in `ImplementationLocality`. Soundness holds (`instAvail_trace`,
+`realized_of_instAvail`): every instrument-realized family is a branch-wise instrument, so the
+generated theory of an architecture lies inside its branch-wise theory (`IsGenInstrument`,
+`branchTheory`, `genTheory_le_branchTheory`, the comparison object this module keeps). The converse
+of soundness fails: the invariant `OnesNormal` of complete instruments, a Kraus decomposition of the
+whole family whose operators sum against the all-ones vector to the all-ones vector, is preserved
+by every constructor including the feed-forward, so in a class whose admissible unitaries fix the
+all-ones vector every instrument-realized unitary conjugation fixes it
+(`instAvail_unitary_fixes_ones`); the closed-form class of contractive compressions of
+ones-fixing unitaries is an architecture, context-stable, label-invariant, dagger-stable and
+ones-fixing (`isometry_fixes_ones`) and contains a contractive multiple of the transition flow
+(`gadget_block`), so on a carrier with a third point the transition flow's conjugation is
+branch-realized with the trace preserved and is not instrument-realized
+(`flow_realized_not_instrumentRealized`): provenance removes the replication. Sixty-nine named
+results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: the flow
+endpoint, neither asserted nor refuted; the least class of one layer involution, which is not
+defined. Guard `R7-INST`.
+
+`INSTRUMENT-MIGRATION-AUDIT.md` executes the survival record of that audit as the owner decided at
+its review: provenance-aware realization is the canonical implementation semantics, in place.
+`ImplementationGenerated T 𝓘` is `T.availExt N O F ↔ InstAvail 𝓘 (A × Fin N) O F`, the
+normalization half of validity a theorem of the primitive (`instAvail_trace`) rather than a clause;
+`genTheory` is the instrument theory of an architecture, and `Architecture`, the branch-wise
+closure, soundness and the relabelling and spectator closures sit in `ImplementationLocality`
+upstream of the generation clause. Every theorem consuming the migrated definitions keeps its name
+and its statement, except the three fixed in advance: inverse accessibility from dagger stability
+(`inverseAccessibility_of_generated_daggerStable`) carries `Architecture 𝓘` and
+`UnitaryRaySaturated 𝓘` — a class containing a nonzero scalar multiple of a unitary contains the
+unitary, a statement about admissible operators and not about the phase resource of a theory, which
+the four classes of the kernel satisfy and which occurs in no package and in no equivalence with
+quantum mechanics — its per-class corollary carries the same, and `genTheory_availExt_eq` has the
+new predicate on its right. The compressed sets keep their statements, the inverse clause taken
+from Lie-rank control on the well-formed theory (`inverseAccessibility_of_lieRank`), which with
+`control_of_lieRank` is stated in `MicroscopicReversibility` on the positive-reachability core, the
+package `OIPlusPos` in `PositivePackage`. The parallel instrument names of the previous round are
+removed, each to the canonical name it duplicated; the scalar-hull regression for the sourced
+theory is re-proved (`instAvail_scalarHull_permClass`); the four frozen notes carry a migration
+section each. Not claimed: the flow endpoint, neither asserted nor refuted, the round to be
+re-preregistered on the migrated semantics; that inverse accessibility holds for every
+dagger-stable architecture without saturation; any manuscript change, the GR §3.3 sentences on the
+normalization clause being recorded as an owner decision for a propagation round. Guard `R7-MIG`.
+
+`FLOW-ENDPOINT-AUDIT.md` and `OIBridge/FlowEndpoint.lean` decide, on the migrated semantics, the
+arrow the flow-extension audit deferred: `SourcedOI ∧ LayerFlowExecutable ⇏ PhaseFreeRichness`.
+The test theory is `onesTheory A := genTheory onesClass onesClass_arch A`, the theory generated
+by the closed-form ones-fixing class of the instrument-realization audit, a countermodel candidate
+and not a minimal one. It satisfies the sourced closure on every finite carrier, every conjunct a
+single admissible step (`onesTheory_sourcedOI`), and executes the gate flow of every layer
+involution at every level and time (`onesTheory_layerFlowExecutable`); and it drives no pair
+through a quarter turn on any carrier with a third point, since every available unitary
+conjugation fixes the all-ones vector up to a scalar and the transition flow moves it
+(`onesTheory_no_quarter_flow`). The negative was preregistered at level two, where a carrier with
+two states has four, and it is proved there and not elsewhere (`onesTheory_not_phaseFree_general`,
+`onesTheory_not_phaseFree`); on the two-state carrier at level one the transition flow of the one
+pair fixes the ray and no negative is claimed. So on `Fin 2`, with the exchange as the layer, a
+theory with the sourced closure and the executable layer flow and without phase-free richness
+exists (`flow_endpoint_refuted`), and on every carrier with at least two states for every
+involution (`flow_endpoint_refuted_general`). The witness carries no quarter phase, fails
+`PhasesAvailable`, `DerivedOI` and `SubstratumAvail`, and is not quantum mechanics
+(`onesTheory_not_phasesAvailable`, `onesTheory_not_derivedOI`, `onesTheory_not_substratumAvail`,
+`onesTheory_not_qm`): the absence of phases witnesses the failure of the substratum's
+availability, the full gap to it not characterized; the lift audit's Q3′ is sharp in its
+hypothesis; the ones-ray invariant isolates relative phase structure as an obstruction the witness
+lacks, with no claim that it is the unique or minimal missing resource; and the lift audit's
+preregistered Q3, from `DerivedOI`, is untouched and stays open. Fifteen named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Not claimed: anything about the arrow from `DerivedOI`; the
+least class of one layer involution, which is not defined; the minimality of the witness; whether
+the observer-level lift is derivable; Route A in either direction; no manuscript changes, none
+narrating the endpoint. Guard `R7-FLOW`.
+
+`PHASE-SOURCE-AUDIT.md` and `OIBridge/PhaseSource.lean` ask, before the lift audit's Q3 from
+`DerivedOI` is attacked, whether the stated substratum and observer access derive
+`PhasesAvailable`, the one conjunct by which `DerivedOI` exceeds `SourcedOI`
+(`derivedOI_iff_sourcedOI_phases`), rather than assume it. Four distinctions are frozen at the
+outset: gauge is not an intervention, a representation fact is not availability, a global phase is
+not the resource, and availability is instrument realization. A census of every purported source
+in the corpus and the kernel is taken before the pass, nine entries, and the criteria for the three
+outcomes, positive, negative and underdetermined, are fixed in advance. The kernel: no architecture
+whose admissible isometries fix the all-ones ray sources a quarter phase at any level with two or
+more states (`onesFixing_not_phasesAvailable`); the sourced class is ones-fixing
+(`permClass_onesFixing`), so its theory carries no quarter phase by the same invariant that decides
+the flow endpoint (`permTheory_not_phasesAvailable_onesFixing`), and the bijective interventions,
+the read-write operators and the layer gate flows fix the all-ones vector; the quarter phase is not
+a scalar, its conjugation is not the identity, and every diagonal unitary fixes it under
+conjugation, so a rephasing of the representation neither creates nor removes it
+(`phaseGate_not_scalar`, `conjChannel_phaseGate_ne_id`, `diagonal_conj_phaseGate`); and the
+quarter phase moves the all-ones ray, so the monomial class of the round-62 interface is not
+ones-fixing through its declared phase intervention alone (`phaseGate_moves_ones`,
+`substratumClass_not_onesFixing`). The verdict for the stated access is negative: every operation
+the manuscripts state the observer performs is ones-fixing, the observer architecture's own
+operations preserve the invariant, and the kernel's `PhasesAvailable` on the substratum side rests
+on the round-62 phase intervention, a stipulation, and on nothing else; current OI sourcing stops
+at `SourcedOI`, and an executable relative-phase intervention is an additional physical assumption
+on the route to quantum mechanics. The phrase "the phase structure" of the substratum-source form
+is underdetermined, and what it would have to supply is stated in two parts under a scope
+amendment at review: the necessary condition, an admissible operator selectable at every level
+that moves the all-ones ray, which no ones-fixing class supplies, and the sufficient access tested,
+the quarter-phase intervention itself, moving the ray alone being no guarantee of a quarter phase
+(`substratumTheory_derivedOI`, the positive control). Ten named
+results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that
+relative phase is the unique or minimal resource; that moving the all-ones ray suffices to source
+the phases; anything about the arrow from `DerivedOI`;
+anything about a richer substratum ontology than the one the manuscripts state; no manuscript
+changes, the requalification of the substratum-source sentence being recorded for the propagation
+round. Guard `R7-PHASE`.
+
+The phase-source propagation round (`PHASE-PROPAGATION-AUDIT.md`, preregistration commit
+`76e1a3a`, written from `main` at `05e290b`) is publication-only and owner-called: it makes the
+manuscripts state the sourced boundary in three items and nothing else. Implementation locality in
+GR §3.3 is stated as realization by one protocol built from admissible implementation operators,
+with probability normalization in aggregate a consequence of that realization (`instAvail_trace`)
+and the sentence after the boxed equivalence following; the file attributions moved by the
+migration are corrected at four sentences of GR §3.3 and Main §3.4, `control_of_lieRank` and
+`inverseAccessibility_of_lieRank`, the latter on the well-formed theory, to
+`MicroscopicReversibility`, `carrier_general_oiPlusPos` and
+`oiPlusPos_iff_qm` to `PositivePackage`; and the substratum-source sentence states the phase
+intervention as an assumption on the substratum class, in the two parts of the phase-source scope
+amendment: an operator carrying the all-ones vector off its ray is necessary to any access that
+supplies the phases and is not shown sufficient, and the sufficient access assumed is the
+quarter-phase intervention itself, a stated member of the class (`permClass_onesFixing`,
+`onesFixing_not_phasesAvailable`, `substratumClass_not_onesFixing`, `phase_monomial`). The five
+mirrors of the substratum-source summary in Main §3.4, the Explainer and the book qualify the
+phases the same way, and the sentence after the substratum endpoint reads the left side of the box
+as the class with the phase intervention stated. No theorem is added or changed; nothing about the
+lift audit's Q3 enters a manuscript; the registry carries the phase-source family as current with
+anchors in GR and Main; the `.tex` and `.pdf` of GR, Main, the Explainer and the book are rebuilt.
+Guard `R7-PROP`.
+
+The Q3 round (`DERIVED-Q3-AUDIT.md`, preregistration commit `f206058`, written from `main` at
+`f80688e`) decides the lift audit's preregistered Q3 at its own hypothesis, with `PhasesAvailable`
+an explicit hypothesis of the closure and not a consequence of the stated substratum: under
+`DerivedOI`, the executability of one layer flow of an involution with a moved configuration gives
+phase-free richness (`phaseFree_of_derivedOI_layerFlowExecutable`, from
+`phaseFree_of_phases_layerFlowExecutable`, which uses of the closure only the phases and the
+exchanges), so under `DerivedOI` alone exact finite endomorphic operational quantum mechanics is
+exactly that executability (`derivedOI_qm_iff_layerFlowExecutable'`,
+`qm_of_derivedOI_layerFlowExecutable`, the swap-layer instances). The mechanism is the sign-flip
+identity `gateFlow_isolation_flip`: the gate flow times the time-reversed gate flow conjugated by
+the sign flip at the image of the chosen configuration is the transition flow on the chosen pair
+at angle `πt`, time reversal replacing the continuous phase diagonal of the lift audit's isolation
+identity, which the quarter phases do not supply; the sign flip is the square of one quarter phase
+(`phaseGate_mul_self`, `flip_avail`), the step at which the phase hypothesis is consumed, as the
+flow-endpoint refutation from `SourcedOI` requires. The moved-configuration hypothesis is
+necessary: the gate flow of the identity is the identity at every time, and the substratum theory
+on two states satisfies `DerivedOI`, executes it and fails phase-free richness
+(`gateFlow_one_eq_one`, `substratumTheory_layerFlowExecutable_one`,
+`derivedOI_layerFlowExecutable_one_not_phaseFree`); quantum mechanics satisfies both hypotheses
+(`derivedOI_layerFlowExecutable_of_qm`). Seventeen named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Relative to the baseline `DerivedOI` the frontier of Route A is
+two named assumptions, the phase intervention and the executability; `SubstratumAvail` is neither
+needed for the endpoint nor derived from the closure. Not claimed: that the phases are sourced;
+uniqueness or minimality of either resource; anything about the lift, Route A or a manuscript, the
+narration being an owner decision for a propagation round. Guard `R7-Q3`.
+
+The Q3 propagation round (`Q3-PROPAGATION-AUDIT.md`, preregistration commit `6eb213b`, written
+from `main` at `be31589`) is publication-only and owner-called. GR §3.3 gains the layer-flow form,
+one paragraph after the substratum-source form, stating in physical language that within the
+structural architecture the substratum supplies with the phase intervention stated, exact finite
+endomorphic operational quantum mechanics holds exactly when one continuous layer flow of an
+involution moving some configuration is available at every level and intermediate time, with the
+witness of each direction named beside the display (`layerFlowExecutable_of_control` for
+necessity; `qm_of_derivedOI_layerFlowExecutable` through `gateFlow_isolation_flip` and
+`phaseGate_mul_self` for sufficiency; packaged as `derivedOI_qm_iff_layerFlowExecutable'`), the
+swap layer named as an instance, and the two sourcing qualifications part of the statement: the
+phase intervention an assumption on the substratum class, and the executability not derived by
+configuration-level generation (`substratumTheory_not_layerFlowExecutable`), with no uniqueness or
+minimality claimed for the pair; the substratum-source box stands beside it. The summaries of
+Main §3.4, the Explainer and the book chapters carry one sentence each with both qualifications.
+The registry carries the Q3 family and the lift-audit family as current with anchors, and two
+supersession entries record that Q3′ and Q4′, relative to the baseline with the substratum's
+availability, are superseded by the endpoint under the closure alone, every prior entry preserved.
+No theorem is added or changed; the `.tex` and `.pdf` of GR, Main, the Explainer and the book are
+rebuilt. Guard `R7-Q3P`.
+
+The executability-source audit (`EXEC-SOURCE-AUDIT.md`, preregistration commit `3b36661`, written
+from `main` at `087d023`) asks whether the substratum's own dynamics with the observer's stated
+access, acting through the observer architecture, makes the continuous layer flow of one
+involution with a moved configuration available at every level and intermediate time, without an
+availability axiom, without a non-monomial operator placed in the class and without reading
+availability off the CT2 path. The kernel module `OIBridge/ExecSource.lean` decides it for the
+stated access, negatively: a theory generated by an architecture that executes such a flow has a
+non-monomial admissible operator at level one, so the architecture is not configuration-level
+(`exists_nonMonomial_of_layerFlowExecutable`, `not_configurationLevel_of_layerFlowExecutable`);
+the observer theory of every substratum executes no such flow, its own shear and swap layers
+included, and the wave substratum's swap layer moves a configuration for every nontrivial
+alphabet, so its observer theory does not execute its own swap-layer flow
+(`obs_not_layerFlowExecutable`, `obs_not_layerFlowExecutable_shear`,
+`obs_not_layerFlowExecutable_swap`, `waveSubstratum_swap_moves`,
+`waveSubstratum_not_layerFlowExecutable_swap`); no bijection-level class, the classes the
+read-write families generate included, derives it (`bijectionLevel_not_layerFlowExecutable`); and
+in the theory of every configuration-level class the gate flow is unavailable at level one and
+time one half, the stage image of the CT2 gate unitary at that time
+(`configurationLevel_not_avail_gateFlow_half`, `substratumTheory_not_avail_gateFlow_half`). The
+countercontrols: the gate flow at time one half is not monomial and the ones-fixing class, which
+contains it, is not configuration-level, so the necessary condition is not vacuous
+(`gateFlow_half_not_monomial`, `onesClass_not_configurationLevel`); quantum mechanics executes
+every layer flow and a class containing the gate flows executes them, cited. The census of the
+corpus finds every stated operation configuration-level, every stated continuous object a
+representation or a mathematical path, and one entry open, the observer-level lift `φ → L_obs`
+that `[SM §4.1]` records as not proved. Verdict: negative for the stated access; the
+executability of one layer flow is an additional physical assumption on the route to quantum
+mechanics, as the phase intervention is, stated in two parts: the necessary condition, a
+non-monomial admissible operator at level one, which no configuration-level class supplies, and
+the sufficient access tested, the gate flow of one layer of the substratum's own update at every
+level and time, the stipulation itself, a non-monomial operator alone being no guarantee of the
+gate flow of a layer; underdetermined for the observer-level lift. Twelve named results, each
+printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that the lift is or is
+not derivable; that a richer observer architecture, in particular a non-bijective-valued
+coupling, does not source the flow; anything about the phase; no manuscript changes, the
+narration being an owner decision for a propagation round. Guard `R7-EXEC`.
+
+The lift-source audit (`LIFT-SOURCE-AUDIT.md`, `OIBridge/LiftSource.lean`) takes the one entry the
+executability-source audit left underdetermined on its own terms: whether the observer-level lift
+can be formulated so that it supplies an actual admissible intervention rather than a representation
+of the observed dynamics, with two targets tested in order, a non-monomial admissible operator at
+level one and then the executable flow of one actual layer, and the discipline that no inference
+runs from the existence of an observer-level Hamiltonian or wave operator to the observer executing
+its exponential. The diagonal criterion: a theory every one of whose available families preserves
+diagonal states executes no layer flow of an involution with a moved configuration
+(`not_layerFlowExecutable_of_preservesDiag`). The coherent completion, the one formulation that names
+a channel on the configuration carrier: the reversible coherent lift of a permutation is monomial
+(`coherentLift_isMonomial`), the reversible coherent extension is conjugation by a monomial isometry
+(`reversibleExtension_conj_monomial`), every member of the correlation family preserves diagonal
+states (`correlationExtension_preservesDiag`), and the class of the substratum's operators with every
+reversible coherent lift of every permutation is configuration-level and is the substratum class
+itself, generating the substratum theory and executing no layer flow, the wave substratum's own
+swap-layer flow included (`coherentLiftClass_configurationLevel`, `coherentLiftClass_eq_substratumClass`,
+`coherentLiftTheory_eq_substratumTheory`, `coherentLiftClass_not_layerFlowExecutable`,
+`obs_availExt_le_coherentLift`, `waveSubstratum_coherentLift_not_layerFlowExecutable_swap`). The
+projected observer operator on visible distributions: a scaled matrix unit is monomial, the explicit
+Kraus form of a classical stochastic map has monomial Kraus operators and the channel preserves diagonal
+states, and a theory generated by a class of such operators over the stated access executes no layer flow (`single_isMonomial`,
+`stochasticChannel_kraus_monomial`, `stochasticChannel_preservesDiag`, `stochastic_not_layerFlowExecutable`).
+The generator reading: the substratum theory, and the observer theory of every substratum at its own
+swap layer, has the gate at time one available at every level and executes the flow at no level
+(`avail_one_not_layerFlowExecutable`, `obs_swap_avail_one_not_layerFlowExecutable`). The countercontrol:
+the lift-extended class contains the lifts it is named for (`coherentLiftClass_contains_lift`). Verdict:
+no formulation that lands in the operational interface derives either target, the coherent completion,
+the projected observer operator and the generator reading representational, with the stronger
+statements attached only where the kernel proves them, the reversible coherent members monomial, every
+coherent completion diagonal-preserving and the explicit Kraus realization of the stochastic channel
+configuration-level, no exclusion of other realizations of those channels claimed; underdetermined for the wave-operator lift on the amplitude space,
+which acts on `ℂ^{sites}` with no map to the configuration carrier stated in the corpus, what such a
+map would have to supply being recorded, an image in a class that fails to preserve diagonal states at
+some time. The verdict of the executability-source audit stands unchanged. Eighteen named results,
+each printing only `propext`, `Classical.choice`, `Quot.sound`. Not claimed: that the lift is or is
+not derivable; that a map from the wave operator to the carrier cannot exist; that every realization
+of a nonreversible coherent completion or of the stochastic channel is configuration-level; that a
+non-monomial operator suffices for the gate flow of a layer; anything about the phase; no manuscript
+changes, the narration being an owner decision for a propagation round. Guard `R7-LSRC`.
+
+The sourcing propagation round (`SOURCING-PROPAGATION-AUDIT.md`), publication-only, carries the
+combined verdict of the executability-source and lift-source audits into the manuscripts. GR §3.3's
+layer-flow form gains the sourcing statement after its second qualification: the executability is
+not sourced by the substratum's own dynamics with the observer's stated access, the layers being
+available at time one and not at intermediate times and any access that executes a layer flow
+supplying a non-monomial admissible operator (`obs_not_layerFlowExecutable`,
+`waveSubstratum_not_layerFlowExecutable_swap`, `exists_nonMonomial_of_layerFlowExecutable`); the
+observer-level lift, in every formulation stated that lands in the operational interface, derives
+neither such an operator nor the layer flow, the four proved facts named with their witnesses
+(`reversibleExtension_conj_monomial`, `correlationExtension_preservesDiag`,
+`coherentLiftClass_eq_substratumClass`, `stochasticChannel_kraus_monomial`,
+`avail_one_not_layerFlowExecutable`), whether every realization of those channels is
+configuration-level not decided, the site-space wave-operator formulation unresolved rather than
+excluded; a second display, in the words of the first, states that the stated substratum dynamics
+with observer access does not make one nontrivial layer flow executable, the equivalence exact and
+the sourcing of this one hypothesis not. The summary sentence at Main §3.4, the Explainer and the
+book chapters is followed by one sentence saying the same, six occurrences. The executability-source
+and lift-source families are current with anchors in GR and Main. No theorem is added or changed;
+the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed.
+Guard `R7-SRCP`.
+
+The C5 discovery audit (`C5-DISCOVERY-AUDIT.md`, `OIBridge/C5Discovery.lean`) asks whether a
+realization-level condition of the same logical type as C1–C4, on the visible–hidden partition,
+sources the coherent resource that distinguishes the quantum completion, the resource being two
+obligations tested separately, the quarter phase at every level and one executable layer flow. The
+obligations are independent, the substratum theory having the phase without the flow and the
+ones-fixing theory the flow without the phase (`obligations_independent`); the kill battery of the
+three named non-quantum theories is one predicate, none of them quantum and any theory with both
+obligations outside it (`KillBattery`, `killBattery_not_qm`, `obligations_outside_battery`).
+Candidate 1, tunable coupling, is the negative control: every bijection-level class fails both
+obligations (`bijectionLevel_fails_obligations`), and the corpus states no condition forcing a
+coupling that is not bijection-valued on configurations. Candidate 2, the symplectic structure of the
+leapfrog update, is inert at update level (`updateLevel_symplectic_inert`) and is tested in its
+partition-induced form, the polarization map on the two-valued alphabet, stated explicitly: the shear
+to the quarter phase, the swap to the Hadamard matrix, which is not monomial and does not preserve
+diagonal states (`hadamard_not_monomial`, `hadamard_not_preservesDiag`, `siteSwapImage_not_monomial`);
+the polarized class is not configuration-level (`polGen_not_configurationLevel`), the quarter phase is
+available at level one (`polarizedTheory_phase_level_one`), and the swap-layer flow at time one half is
+exactly the Hadamard-conjugated quarter phase and is available at level one (`gateFlow_half_eq_hsh`,
+`polarizedTheory_swap_half_level_one`). Beyond level one the candidate is underdetermined for the
+full generated theory: the controlled quarter phase a composite level needs and the flow at a
+non-Clifford time lie outside the bare Weil subgroup, whose finiteness identifies the candidate
+obstruction to both obligations, and whether the instrument closure synthesizes either is not
+decided, the missing step, a conjugation invariant stable under that closure, named. Verdict: C,
+underdetermined, read under the round's scope amendment: the corpus states neither a
+non-bijection-valued coupling nor the polarization map; the one stated map sources a
+non-configuration-level coherent closure whose level-one content is kernel-proved and whose
+content beyond that is undecided; what a surviving candidate would need, if the obstruction
+survives closure, is a continuous canonical structure on the partition, which the corpus does not
+state. Seventeen named results, each printing only `propext`, `Classical.choice`,
+`Quot.sound`. Nothing is named C5 or adopted; the polarization map is a candidate, not derived from
+the stated access; no manuscript changes. Guard `R7-C5D`.
+
+The polarization closure audit (`POLARIZATION-CLOSURE-AUDIT.md`, `OIBridge/PolarizationClosure.lean`)
+asks whether the full closure generated by the polarization candidate reaches the two obligations
+left underdetermined by the discovery audit, the quarter phase on every configuration at every
+level and one executable layer flow, with a frozen scope rule: nothing is inferred from the
+finiteness of the bare Clifford or Weil subgroup, every negative passes through the full generated
+class and the unitary-channel Kraus bridge, every positive is an explicit construction. The class
+decided is `PolC`, the closure of the discovery audit's `PolGen` under relabelling along carrier
+bijections, the physically faithful class since configuration relabelling is gauge throughout the
+kernel, with `PolGen ⊆ PolC` at every carrier (`polGen_le_polC`); the type-index hazard that makes
+negatives about `PolGen` provable only through `PolC` is recorded in the note. O2 fails by counting:
+the gate flow of a moved involution takes pairwise non-proportional values at distinct times in
+`[0, 2)` (`gateFlow_not_proportional`), a class whose operators at level one are, up to scalar,
+drawn from a countable set generates no theory executing that flow
+(`countable_not_layerFlowExecutable`), `PolC` and `PolGen` are countable up to scalar at every
+carrier (`polC_countable_upToScalar`, `polGen_countable_upToScalar`), and neither polarized theory
+executes any layer flow (`polarizedTheoryC_not_layerFlowExecutable`,
+`polarizedTheory_not_layerFlowExecutable`). The theorem-level necessary condition for any candidate
+is that a class whose theory executes a layer flow has uncountably many pairwise non-proportional
+admissible operators at level one (`uncountable_of_layerFlowExecutable`): O2 requires an uncountable
+projective image, and no finitely or countably projectively generated implementation structure
+sources an executable nontrivial layer flow; the reading of that image as a continuous parameter is
+interpretation, continuity not being formalized. O1 holds for `PolC` by construction: the quarter
+phase on one configuration at level `n` is the first-fiber block of the site phase at level `2n`
+along an explicit relabelling (`phaseRelabel`, `phaseRelabel_block`, `polC_phaseGate`), so the
+label-invariant polarized theory has the phases (`polarizedTheoryC_phasesAvailable`); the mechanism
+is a site–ancilla mixing relabelling with one site phase through an ancilla block. `PolC` is an
+architecture, label-invariant, dagger-stable and context-stable (`polC_arch`, `polC_labelInvariant`,
+`polC_daggerStable`, `polC_contextStable`), its theory satisfies the whole closure and is not
+quantum mechanics (`polarizedTheoryC_derivedOI`, `polarizedTheoryC_not_qm`), and the kill battery
+is extended by it (`KillBattery'`, `killBattery'_not_qm`). At level three an explicit word in the
+site Hadamard and one exchange has, along a relabelled ancilla structure, a fiber block proportional
+to a real non-Clifford reflection that lies in `PolC` at level one (`levelThree_word_block`,
+`levelThree_block_not_clifford`, `polC_levelThree_block`), the block contractive and the unitary
+direction's availability not claimed; the Clifford structure of the two smallest levels is an
+artifact of those levels, and the obstruction to O2 is countability of the primitive family, not
+discrete canonical structure. Verdict: split, O1 positive for `PolC` at every level, O2 negative
+for `PolC` and `PolGen`; the positive does not transfer to `PolGen` in the type-indexed formulation.
+The label-invariant polarized theory is a candidate theory constructed by the round, not sourced by
+the corpus, and test 8 of the discovery audit is unchanged. Twenty-six named results, each printing
+only `propext`, `Classical.choice`, `Quot.sound`. Nothing is named C5 or adopted; no manuscript
+changes. Guard `R7-PCL`.
+
+The coherent-continuum source audit (`COHERENT-CONTINUUM-SOURCE-AUDIT.md`,
+`OIBridge/CoherentContinuumSource.lean`) asks whether any realization-level mechanism stated in the
+corpus sources, at the operational carrier, an uncountable family of pairwise non-proportional
+non-monomial admissible operators, the resource an executable layer flow requires and the one the
+closure audit's cardinality condition does not yet isolate, since the monomial substratum class can
+have uncountable projective content without coherent mixing. The strengthened necessary condition
+is proved: every intermediate-time point of the layer flow of a moved involution on `(0, 1)` is
+non-monomial (`gateFlow_not_monomial`), so a class whose generated theory executes the flow has
+uncountably many pairwise non-proportional non-monomial rays at level one
+(`NonMonomialCountablyCovered`, `UncountableNonMonomialRays`, `gateFlow_not_countablyCovered`,
+`uncountableNonMonomialRays_of_layerFlowExecutable`,
+`not_layerFlowExecutable_of_nonMonomialCountablyCovered`), the closure audit's condition a
+consequence (`nonMonomialCountablyCovered_of_countable`) and not superseded, and quantum mechanics
+the consistency control (`uncountableNonMonomialRays_of_qm`). The condition is necessary only. The
+two known failures are orthogonal: every operator of the substratum class is monomial while the
+class is not countably covered up to scalar, its real diagonal weights already a continuum
+(`substratumClass_monomial`, `weightGate_not_proportional`, `substratumClass_not_countablyCovered`);
+the polarized class has non-monomial operators and is countably covered
+(`polC_nonMonomialCountablyCovered`, `known_failures_orthogonal`): continuum without coherent mixing,
+coherent mixing without a continuum. The real-valued read-write knob has finite operational image,
+no continuity assumed (`readWriteOperator_range_finite`,
+`readWrite_parameter_uncountable_image_finite`): an uncountable parameter domain is not an
+uncountable operational image. The canonical gate path has the coherent continuum mathematically
+and is not sourced, the substratum theory executing no layer flow of it and no configuration-level
+class making its half-time point available (`gateFlow_path_coherent_continuum`,
+`coherent_continuum_not_sourced`); the inference from the mathematical continuum to executability
+is rejected. The effective-Hamiltonian and wave-lift routes state no carrier map and are not tested.
+The continuously tunable non-bijection-valued coupling is traced to its sites, Main §3.4 with five
+mirrors and GR §3.3, where the manuscripts name it an empirical controllability resource added to
+the theory, and the verification notes an irreducible empirical addition; it is defined nowhere as
+an operation of the current theory. Verdict: outcome 2, no current source, the empirical extension
+remaining; the three obligations any later extension would have to meet are recorded and the second
+alone is not sufficient. Seventeen named results, each printing only `propext`, `Classical.choice`,
+`Quot.sound`. Nothing is named C5 or adopted; no coupling is defined; no definition changes; no
+manuscript changes. Guard `R7-CCS`.
+
+The state-mixing coupling construction audit (`STATE-MIXING-COUPLING-AUDIT.md`,
+`OIBridge/StateMixingCoupling.lean`) constructs what the manuscripts' added empirical
+controllability resource, the continuously tunable state-mixing operation, can mean as a sourced
+structure, and asks whether one such coupling with the stated access gives the exact finite
+completion. The datum is a real mixing angle on one site pair, sourced to the real rotation of the
+two values and transported to every level with the ancilla a spectator (`rot`, `mixImage`), its
+definition naming no flow, transition, polarization image or quantum-control predicate; the class
+is the stated access, the scaled partial permutations and the quarter phase on any configuration,
+with the datum at the angles of a set, closed under the architecture operations and relabelling
+(`MixR`, `MixC` at every angle, `mixTheory`). The datum is a postulate: nothing derives it from the
+substratum, from C1–C4 or from the stated access, and the manuscript status of the resource is
+unchanged. From the datum alone the class has uncountably many non-monomial rays at level one
+(`mixImage_not_monomial`, `mixImage_not_proportional`, `mixC_uncountableNonMonomialRays`). The
+bridge is an identity and a composition: the lifted site exchange's gate flow is a unit scalar
+times the site shear, the datum at `−πt/2` and the adjoint site shear (`gateFlow_eq_shear_mix`);
+the product of the stated phase gates over any set of configurations is in the class
+(`phaseIndicator_mem`, `siteShear_mem`); so the theory executes the layer flow
+(`layerFlowExecutable_of_mixSourced`, `mixTheory_layerFlowExecutable`), is dagger- and
+context-stable (`mixC_daggerStable`, `mixC_contextStable`), satisfies the closure
+(`derivedOI_of_stated`, `mixTheory_derivedOI`), and by the cited closure theorem is exact finite
+operational quantum mechanics (`mixTheory_phaseFree`, `mixTheory_qm`, `mixTheory_endpoint`), with
+the class-level form read under the round's scope amendment, `permClass`, the phase gates and the
+datum all in the class (`qm_of_mixSourced`). The countercontrols: with the datum at countably many
+angles the class is countable up to scalar and its theory executes no layer flow and is not quantum
+mechanics (`mixR_countable_upToScalar`, `mixTheoryR_not_layerFlowExecutable`, `mixTheoryR_not_qm`);
+with the datum removed, the bijection-valued replacement, the same (`mixTheory_empty_not_qm`); the
+polarization closure is the cited second witness (`comparison`). Verdict: outcome 1, sufficient;
+one pair coupling with a continuum of angles suffices and the two named weaker replacements fail,
+a comparison and not a global minimality or uniqueness theorem. Twenty-five named results, each
+printing only `propext`, `Classical.choice`, `Quot.sound`. Nothing is named C5 or adopted; no
+definition changes; no manuscript changes. Guard `R7-SMC`.
+
+The real pair-flow reduction audit (`REAL-PAIR-FLOW-AUDIT.md`, `OIBridge/RealPairFlow.lean`) asks
+whether the construction audit's mixing datum follows from a weaker realization-level principle
+with an independent physical meaning, a nontrivial continuous one-parameter real orthogonal action
+on one distinguishable pair, stated as a structure with identity, group law, continuity, real
+orthogonality and nontriviality and without the rotation form (`PairFlow`, `transport`), and
+whether any stated structure of the corpus supplies that principle. The reduction is proved under
+the five hypotheses with none added: the determinant is one everywhere by the intermediate value
+theorem (`PairFlow.pairFlow_det_one`), every value is a rotation of the plane
+(`PairFlow.pairFlow_form`), the local angle is additive on an interval around zero
+(`PairFlow.pairFlow_ang_add`, through `rotR_inj_small`), linear on a closed sub-interval by
+continuity and density (`PairFlow.pairFlow_ang_linear`), and the all-time rotation form at a
+nonzero rate follows by subdividing time through the group law (`PairFlow.pairFlow_rate`); after
+reparameterizing time the flow supplies the datum at every angle
+(`PairFlow.pairFlow_supplies_mixImage`). The composition with the construction audit gives the
+class-level endpoint for a sourced pair flow under the stated-access containment
+(`qm_of_pairFlowSourced`), the pair-flow class equals the construction audit's class
+(`flowR_eq_mixC`), and the pair-flow theory satisfies the closure and is exact finite operational
+quantum mechanics (`pairFlowTheory_endpoint`, `pairFlowTheory_qm`). The countercontrols: the shear
+and the boost satisfy every hypothesis but orthogonality, with determinant one, and contain no datum
+at any angle with nonzero sine, so measure preservation alone and continuity with reversibility
+alone are insufficient (`shearFlow_all_but_orth`, `shearFlow_ne_rotR`, `boostFlow_all_but_orth`,
+`boostFlow_ne_rotR`); the constant identity satisfies every hypothesis but nontriviality and
+transports to the identity (`constFlow_all_but_nontrivial`, `constFlow_transport`). The sourcing
+audit, narrow by preregistration, finds no stated structure establishing the hypotheses on the
+operational carrier: Main §2.3's continuous-time extension states an induced stochastic transition
+family with continuity and departure from the permutation class but no orthogonal action on the
+pair, Liouville preservation never read as norm preservation; recurrence is a return, not an action;
+the wave lift has no stated carrier map; and no quadratic invariant on the operational pair is
+stated, the amendment's basis qualification unmet. Verdict: outcome 2, reduction succeeds, sourcing
+fails; the frontier is the question what physical principle gives a nontrivial continuous
+orthogonal action on one distinguishable pair. Nothing says continuity or the principle is
+necessary. Twenty named results, each printing only `propext`, `Classical.choice`, `Quot.sound`.
+Nothing is named C5 or adopted; no definition changes; no manuscript changes. Guard `R7-RPF`.
+
+The operational pair-flow equivalence audit (`PAIR-FLOW-EQUIVALENCE-AUDIT.md`,
+`OIBridge/PairFlowEquivalence.lean`) asks whether, on the two-valued carrier, exact finite
+endomorphic operational quantum mechanics is exactly the consequence closure `DerivedOI` together
+with one sourced real pair flow, the pair flow stated as a predicate on a finite operational theory:
+the availability of the conjugation channels of the transports of one `PairFlow` at every level and
+time (`PairFlowSourced`), the theory-level analogue of `LayerFlowExecutable`, on availability and
+not on class membership. The rate-one real rotation is a pair flow (`rotFlow`, `rotFlow_A`,
+`rotR_orth`, `rotR_continuous`, `rotR_pi_ne_one`). The forward direction is canonical: quantum
+mechanics has composite unitary control and the transported rotation is the unitary datum, so the
+closure and a sourced pair flow hold (`pairFlowSourced_of_qm`, `derivedOI_pairFlowSourced_of_qm`).
+The backward direction stays within the theory's availability, with no reach back through any
+implementation class: the datum's conjugation is available at every angle by the reduction audit's
+supply (`mixAvail_of_pairFlowSourced`); the identity is available at every level from the witness
+flow at time zero (`identity_avail_of_pairFlowSourced`), the scope amendment's base case; the
+phase products and the site shear are available by finite composition (`phaseIndicator_avail`,
+`siteShear_avail`); a unit scalar leaves a conjugation channel unchanged (`conjChannel_unit_smul`);
+the lifted site exchange's layer flow is executable through the construction audit's identity
+(`layerFlowExecutable_of_derivedOI_pairFlowSourced`); and the existing Q3 gives quantum mechanics
+(`qm_of_derivedOI_pairFlowSourced`). The central theorem is the biconditional
+(`qm_iff_derivedOI_pairFlowSourced`). The countercontrols: the polarization closure satisfies the
+closure and carries no sourced pair flow (`polarizedTheoryC_not_pairFlowSourced`); a theory whose
+available unit conjugations at level one are countable up to scalar carries none
+(`countable_not_pairFlowSourced`), the theory-level form of the coherent-continuum necessity and a
+necessary condition only. Verdict: outcome 1, both directions close, with no hypothesis added on
+either side; principally a repackaging of the construction audit's bridge and the reduction audit's
+supply into the theory-level biconditional the kernel did not have, plus a canonical forward
+direction, and not new physics. Fifteen named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Nothing is named C5 or adopted; nothing is generalized beyond
+`Fin 2`; the reverse reconstruction's generation semantics is deferred; no definition changes; no
+manuscript changes. Guard `R7-PFE`.
+
+The discrete completion audit (`DISCRETE-COMPLETION-AUDIT.md`, `OIBridge/DiscreteCompletion.lean`)
+asks whether the consequence closure together with one fixed discrete mixing gate, `mixImage n α` at
+every level at one fixed angle and no continuous parameter (`FixedGateSourced`), generates a theory
+dense in finite quantum mechanics, continuity allowed only in the topological completion. The
+targets are stated as frozen: dense unitary control up to a unit scalar in the operator norm
+(`DenseUnitaryControl`), the channel metric as a quantitative predicate (`ChanWithin`) with the
+bridge at constant two (`conj_within`), the density half of dense finite quantum mechanics
+separated from soundness (`KrausDense`, `DenseFiniteQM`), and the closure of availability
+(`ClosureAvail`). Dense unitary control is proved at every level for every angle with `α/π`
+irrational (`denseUnitaryControl_of_fixedGate`): the angles are dense by the dense-or-cyclic
+dichotomy (`dense_angles`); a block repertoire approximates every addressed rotation and every
+addressed special unitary through the Euler decomposition (`euler_of_su2`, `euler_of_unitary`,
+`BlockRepertoire.dense_block_su2`) with the C*-identity bound `‖blockOf (rot δ) − 1‖ ≤ |δ|`
+(`blockOnly_rot_sub_one_norm_le`); level one follows (`levelOne_dense`); at every level the sign
+echo isolates the parallel gate to one block at the doubled angle (`echo_identity`,
+`isolated_mem_availSet`), permutations relocate it to every pair (`relocated_dense`), the Givens
+decomposition writes every special unitary as a product of two-level special unitaries
+(`det_twoLevel` by Sylvester's identity, `su_mem_closure_twoLevel`), and the errors add under
+closure induction (`closure_approx`, `su_dense`). The finite countercontrols hold uniformly: the
+level-one group at every multiple of `π/4` is finite up to scalar, by the Pauli-normalizer
+argument (`Gen2.pauli_conj`, `proportional_of_same_conj`, `gen2_multiple_finite_upToScalar`). The
+canonical fixed-gate theory satisfies the closure, sources the gate, is Kraus-sound, has dense
+unitary control and is not exact quantum mechanics (`fixedGateTheory_derivedOI`,
+`fixedGateTheory_fixedGateSourced`, `fixedGateTheory_krausSoundExt`,
+`fixedGateTheory_denseUnitaryControl`, `fixedGateTheory_not_qm`), the angle one radian a concrete
+witness (`fixedGateTheory_one_denseUnitaryControl`). Verdict: outcome 2, unitary density succeeds,
+instrument density stalls: the exact Stinespring and Kraus chain consumes exact composite control
+in the shifted theory and in the circuit availability, and the Lipschitz bound for the circuit
+branch map, the shifted theory under identity availability and inert-spectator compositionality are
+named as the missing lemmas; `KrausDense` is not claimed; the closure's two obligations are named
+and not proved. The classification beyond the multiples of `π/4` and the irrational angles is not
+proved, the classifications of finite and closed subgroups of `SO(3)` named as the missing
+ingredients, and `π/8` stays a prediction. Fifty-one named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Nothing is named C5 or adopted; no continuous pair flow enters
+any constructive route; no irrationality condition is a physical principle; no definition changes;
+no manuscript changes. Guard `R7-DCA`.
+
+The quantitative dense-instrument bridge audit (`DENSE-INSTRUMENT-BRIDGE-AUDIT.md`,
+`OIBridge/DenseInstrumentBridge.lean`) asks whether the instrument stall of the discrete completion
+audit was a formal continuity gap or a physical condition: whether the canonical fixed-gate theory
+approximates every finite endomorphic Kraus instrument, outcome by outcome in the channel metric, at
+every angle with `α/π` irrational. Read under its scope amendment as a Barandes and Stinespring
+closure audit, the correspondence cited as motivation only and the kernel proof self-contained. The
+branch map of the Stinespring circuit is Lipschitz in the unitary with the constant `2 (r + 1)`
+depending only on the carrier (`branch_within`): the pure attachment is isometric
+(`esf_gram`, `norm_pureAttach_le`), the conjugation is within twice the unitary distance
+(`conj_within`), the local Lüders selector is a contraction (`norm_localLuders_le`), and the partial
+trace is the sum of the isometric compressions onto the ancilla basis, bounded by the ancilla
+dimension (`ptraceAnc_eq_sum`, `norm_ptraceAnc_le`). The shifted theory is rebuilt from identity
+availability beside the untouched `shift` (`shiftId`), since control enters `shift` only through
+the identity; every exact consumption of the circuit is discharged from the closure: the identity
+(`id_avail_of_derivedOI`), the ancilla swaps as permutation matrices on the packed carrier
+(`reindex_permMatrix`, `shiftId_swap_avail`), the readout and the discard as the existing fields,
+and the unitary actually run (`circuit_available_of_avail`); dense control descends to the shifted
+theory, reindexing being conjugation by the rectangular isometry of the bijection
+(`reindex_eq_eqvMatrix_conj`, `norm_reindex_le`, `shiftId_approx`). Inert-spectator
+compositionality is a consequence of the closure on every nonempty carrier, by citation
+(`inert_of_derivedOI`, through `DerivedOI.implementationLocality`,
+`observationalIndependence_of_implementationLocality` and `observationalIndependence_iff_inert`).
+The approximate Stinespring assembly gives `KrausDense` from the closure and dense unitary control
+with no spectator hypothesis (`krausDense_of_denseControl`), soundness kept as its own conjunct
+(`denseFiniteQM_of_denseControl`), and the fixed-gate form (`krausDense_of_fixedGate`); the
+canonical fixed-gate theory is dense finite quantum mechanics at every angle with `α/π` irrational
+(`fixedGateTheory_krausDense`, `fixedGateTheory_denseFiniteQM`), the angle one radian a concrete
+witness (`fixedGateTheory_one_denseFiniteQM`), and it is still not exact quantum mechanics
+(`fixedGateTheory_not_qm`). Verdict: outcome 1, full dense-instrument success; the stall was a
+formal gap; the sole remaining physical sourcing question in the thread is the fixed nonclassical
+gate itself, a stated datum. D3 and its two debts are untouched; `π/8` stays a prediction.
+Thirty-two named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Nothing
+is named C5 or adopted; no continuous pair flow enters any constructive route; no definition
+changes; no manuscript changes. Guard `R7-DIB`.
+
+The frozen substratum nonclassical-resource sourcing audit (`FROZEN-SUBSTRATUM-SOURCING-AUDIT.md`,
+`OIBridge/FrozenSourcing.lean`) asks the sourcing question below the consequence closure, since the
+sourced and observer theories both fail it at the phases: does the presently stated substratum and
+observer architecture source any operational resource from which both `PhasesAvailable` and
+`DenseUnitaryControl` follow? The architecture is frozen exactly as it stands, A6 a gap with no
+predicate and not filled, and no axiom, operation, carrier map, coupling or class enrichment is
+added or reported as sourced. The round works with one predicate of a theory's availability,
+`NonnegBounded`, every available composite one-outcome operation preserving nonnegative entries,
+reached through the implementation class and the realization theorem
+(`nonnegBounded_of_bijectionLevel`) and carried by the sourced theory and by the observer theory of
+every substratum (`permTheory_nonnegBounded`, `obsTheory_nonnegBounded`). The census puts the
+configuration bijections, the read-write operators and the substrate's own update inside the class
+(`permMatrix_preservesNonneg`, `readWrite_preservesNonneg`, `obs_dynamics_preservesNonneg`) and the
+phase operator outside it, represented and not sourced (`phaseOperator_outside_ceiling`). The phase
+ceiling is stated of the invariant (`nonnegBounded_not_phasesAvailable`,
+`nonnegBounded_not_derivedOI`, `permTheory_phase_ceiling`). The dense-control ceiling is audited
+independently: the invariant passes to limits (`norm_entry_le_l2_opNorm`,
+`preservesNonneg_of_approx`), so dense control would make every unitary's conjugation preserve
+nonnegative entries (`nonnegBounded_not_denseUnitaryControl`, `permTheory_dense_ceiling`), and the
+ceiling is proved a second time from a witness carrying no phase, the pair rotation at a quarter
+turn (`mixImage_not_preservesNonneg`, `nonnegBounded_not_denseUnitaryControl_rot`), so neither
+obligation is derived from the other. Both ceilings are independent of the rule
+(`sourcing_rule_independent`, `phase_ceiling_rule_independent`), since two substrata on the same
+sites and alphabet have the same observer theory. Verdict: outcome 3, the no-go
+(`frozen_sourcing_verdict`, `nonnegBounded_verdict`); the quantum-enabling nonclassical resource is
+an independent empirical datum relative to the presently stated architecture, for both obligations
+at once, and choosing a different microscopic rule does not move either ceiling. The density side
+is downstream and untouched: the canonical fixed-gate theory has dense unitary control and so sits
+outside the class (`fixedGateTheory_outside_ceiling`). No claim of refutation, of a limit on what an
+extension could source, of a count of independent additions, or of a predicate for A6. Twenty-three named results, each printing only `propext`, `Classical.choice`,
+`Quot.sound`. Nothing is named C5 or adopted; no continuous pair flow enters any route; no
+definition changes; no manuscript changes. Guard `R7-FSS`.
+
+The stochastic observer-interface determination audit (`STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md`,
+`OIBridge/StochasticInterface.lean`) asks the question that stands before any stochastic reading of
+the architecture: the observed law is a function of the triple `(φ, Obs, μ)`, the dynamics, the
+observation map and the initial ensemble, so does the stated architecture fix `Obs` and `μ` without
+adding structure? The architecture is frozen, A6 a gap with no predicate and not filled, no
+correspondence theorem is stated or cited, nothing is named C5, and the census core's `vis` is not
+carried to `Substratum.Conf`. Determination is tested by one predicate of the dynamics,
+`EnsembleDetermined φ`, exactly one invariant probability law, invariance being the only ensemble
+constraint the architecture states. The positive route the round's scope amendment admits is stated
+first: a transitive dynamics determines its ensemble, the orbit-uniform law, by the kernel's
+single-orbit uniqueness (`ensembleDetermined_of_transitive`). It is then closed by the
+architecture's own axiom. A5, additivity, gives `F 0 = 0`, so the phase-space step fixes the
+all-zero configuration (`phi_fixes_zero`, `waveSubstratum_phi_fixes_zero`); the singleton `{0}` and
+the orbit of any other configuration are disjoint nonempty invariant sets, which is exactly the
+hypothesis of `invariance_does_not_select`; so invariance leaves the law undetermined
+(`not_ensembleDetermined_of_disjoint`, `not_ensembleDetermined_of_fixedPoint`,
+`ensemble_underdetermined`) and the same fixed point rules out transitivity
+(`not_transitive_of_fixedPoint`). The manuscripts' own wave rule is covered on every torus whose
+alphabet has more than one letter (`waveSubstratum_ensemble_underdetermined`,
+`waveSubstratum_stochastic_interface_gap`, `stochastic_interface_gap`). The observation-map leg is
+recorded by census rather than by a nonexistence claim: the read-write structure privileges no
+locus, a family existing at every pair (`readWriteFamily_exists`, `readWriteFamily_exists_two`); the
+operational readout selects an ancilla index of a matrix over the carrier and induces no function on
+configurations; and `vis` lives on the census core. Verdict: outcome A, the interface gap, on both
+legs, the ensemble leg by theorem; stage 2 is not entered, so the induced process is not defined and
+no divisibility predicate exists in the kernel. No claim of refutation, of a limit on what an
+extension could supply, of anything about divisibility or Markovianity, or of a predicate for A6;
+the ensemble result is conditional on A5 and on a configuration space carrying more than the zero
+configuration, and both hypotheses are stated. Twelve named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Guard `R7-SOI`.
+
+The C4 causal-readback audit (`C4-CAUSAL-READBACK-AUDIT.md`, its amendment, and
+`OIBridge/CausalReadback.lean`) asks whether a causal, visible-originating readback condition
+forbids stochastic divisibility where the manuscript's history-level condition does not — the
+manuscript itself records that its condition permits a pre-sampled response table and so does not
+require a write-then-read cycle. Two candidate forms are frozen on rooted one-time visible
+marginals: `C4e`, two distinct rooted preparations whose marginals collide at one time and separate
+later, and `C4r`, strictly increasing total-variation distinguishability. The composition convention
+is frozen before proof as `Γ t = Γ s * Λ`, right multiplication on the outcome index; the opposite
+orientation mixes over the root index and breaks the argument. The chain
+`C4e ⇒ C4r ⇒ P-indivisibility` is proved by two independent routes (`causal_readback_verdict`): the
+contraction route from the data-processing bound for row-stochastic propagators (`tv_mul_le`,
+`c4r_implies_pIndivisible`), new because the kernel's existing `tv_marg_le` covers deterministic
+channels only, and the exact route from the row obstruction (`rows_eq_of_factor`,
+`c4e_implies_pIndivisible`), which uses neither stochasticity nor the realization layer. Sections
+beyond the construction are layer-independent; only `RootedRealization`, `rootedMap` and
+`rootedMap_isRowStochastic` use the finite reversible visible/hidden datum. The frozen controls
+separate the notions: the exclusive-or family is P-divisible at every horizon and exhibits neither
+candidate (`pdFamily_pDivisible`, `pdFamily_not_c4e_not_c4r`), the delayed-revival family exhibits
+exact readback and is P-indivisible (`peFamily_c4e`, `peFamily_pIndivisible`, `control_separation`).
+The kernel proves the divisibility half; that the first control's history-level memory is maximal at
+one bit, and both controls' horizon realizations on the frozen layer, are the exact probes'
+(`review4_probes.py`). Those horizon realizations are exactly that: for every requested finite
+horizon `K`, `build(K)` constructs a `K`-dependent realization, carrying a length-`K` saturating
+ledger, that agrees through that horizon. That is `∀K ∃R_K ∀t <= K`, which does not give
+`∃R ∀t`: a family of per-horizon realizations is not a single realization agreeing at every time. As complete families
+both are nonperiodic and therefore lie outside the inherited class, which is now a kernel result of
+the Arc B classification: `pdFamily_not_periodicFamily`, `peFamily_not_periodicFamily`,
+`pdFamily_not_finiteRootedRealizable`, `peFamily_not_finiteRootedRealizable`. Verdict: M-A on the mathematics, S-B on the sourcing, reported separately —
+the manuscript's condition does not imply either candidate, the converse is open with its
+positive-support hypothesis named and no ordering forced, so neither candidate is called a
+strengthening; and the architecture does not source the rooted family, #537 remaining binding. No
+claim that either candidate is necessary for P-indivisibility, that marginal revival alone exhibits
+a causal hidden write-then-read mechanism, that reversibility is used by the no-go theorems, or that
+a fifth condition exists. Twenty-one named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Guard `R7-C4R`.
+
+`OIBridge/RootedClassification.lean`, `OIBridge/RootedClassificationT2.lean` and
+`OIBridge/RootedClassificationAllTime.lean` carry the finite-visible intrinsic classification of
+`OI-ROOTED-CLASSIFICATION-AUDIT.md`. The capstone is one theorem, not two directions left to a
+reader: for every finite visible carrier, a complete rooted family is realizable by some finite
+hidden carrier, one reversible update and one prior shared by every visible root, agreeing at every
+time, exactly when `Gamma_0 = I`, every `Gamma_t` is row-stochastic, and the family has a positive
+finite visible period (`finiteRootedRealizable_iff_pper`). The semantic class is its own named
+predicate (`FiniteRootedRealizable`), kept apart from the visible one so the identification is a
+theorem rather than an inference across two statements; its hidden carrier is quantified in the
+visible carrier's universe, and that costs nothing, since a realization on a finite carrier in any
+universe yields membership (`finiteRootedRealizable_of_realization`) rather than that being assumed.
+Necessity is `rootedMap_mem_PPer`, resting on finiteness of the microscopic carrier and
+reversibility; sufficiency is `pper_has_responseRealization`, constructive, putting the categorical
+marginals of every root and nonzero phase on one common product prior over response tables and
+carrying them by reversible cycles embedded in `V` crossed with tables and padding, with phase zero
+represented by the root itself rather than stored. **The result is finite-visible only.** Finiteness
+of the visible carrier is what makes the update a permutation of a finite set and so forces the
+period; the inherited interface requires finiteness of the hidden carrier alone, and nothing here
+classifies the arbitrary-visible case. Zero prior mass is used by the construction and is not
+incidental: a family in the visible class is exhibited that admits no full-support realization at
+any finite hidden carrier, by a counting argument carried in the round's result note and probe
+rather than in the kernel. Under that classification the two standing readback controls are not
+periodic as complete families and so are not realizable at this interface
+(`pdFamily_not_finiteRootedRealizable`, `peFamily_not_finiteRootedRealizable`), which
+`C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md` reconciles against the horizon constructions that display
+their behaviour. Forty named results, each printing only `propext`, `Classical.choice`,
+`Quot.sound`. Guard `R7-RCL`. The round's determination, its scope, its two supporting results and
+its instrument findings are in `OI-ROOTED-CLASSIFICATION-RESULT.md`.
+
+`OIBridge/QuantumRepresentation.lean` carries the translation layer of Arc C, executed under the
+frozen `OI-QUANTUM-REPRESENTATION-AUDIT.md` as amended by
+`OI-QUANTUM-REPRESENTATION-AUDIT-AMENDMENT-1.md`. It is target T1 and **decides neither inclusion**:
+whether the representation class sits inside the OI-realizable one, or the reverse, is untouched
+here and nothing in the module is evidence for either. `QfbData` is the merged fixed-basis Born
+datum with the vestigial horizon index dropped, no field of `QfbReal` having mentioned the horizon.
+The rooted object is obtained by conditioning **one** datum on the visible root fibre
+`read (B_0) = a`, with the existential block standing outside the root, time and outcome
+quantifiers, and with positive root mass carried as a support condition rather than a formality.
+The finite-horizon compatibility theorem is the strong one — the witnessing representation reuses
+the same basis, unitary and readout with only the initial law re-conditioned
+(`QfbData.condReal_law`), and the per-horizon existential is derived from it rather than standing in
+for it. The seam between the class and that theorem is closed by `QfbData.rootTraj_marginal`, which
+identifies the final-coordinate visible marginal of the root-conditioned trajectory law with the
+class entry, so the two are one translation rather than parallel definitions. Fifteen named results, each printing only `propext`, `Classical.choice`, `Quot.sound`.
+
+`OIBridge/QuantumRepresentationT2.lean` carries target T2 and **refutes it**: the Hadamard datum
+with an injective readout is a member of the representation class whose induced rooted family is
+exactly the merged N1 control `pdFamily`, already proved nonperiodic, so the representation class is
+not contained in the OI-realizable one (`qStar_not_subset_finiteRootedRealizable`). What is forced
+is only that the witness use non-permutation Born dynamics, since a permutation datum has finite
+order and is therefore realizable and periodic by the Arc B characterization; the Hadamard
+amplitudes are not forced, a two-state rotation being non-permutation over an interval of angles
+including rational ones. Hadamard is chosen because its Born matrix is exactly fully mixing, which
+makes the identification with `pdFamily` immediate. Seventeen named results.
+
+`OIBridge/QuantumRepresentationT3.lean` carries target T3 and proves it **carrierwise exactly**:
+the inclusion holds on a finite visible carrier if and only if that carrier is inhabited
+(`qStar_inclusion_iff_nonempty`). The construction reads the Arc B realization as a quantum system —
+its reversible step is already a permutation of the product, hence unitary by the merged
+`permMatrix_mem_unitaryGroup`, with the shared hidden prior spread over the product and the visible
+coordinate uniform; conditioning on the visible fibre removes that uniform factor and returns
+`rootedMap`. The empty carrier is a genuine failure rather than an oversight: there the realizable
+class is inhabited while the representation class is empty, since a normalised initial law forces a
+nonempty basis and no map runs from a nonempty basis into an empty carrier. Thirteen named results.
+So for nonempty finite `V` the realizable class is contained in the representation class, and the
+containment is strict at `Fin 2` by the T2 witness; strictness at every carrier is not claimed.
+Guard `R7-QSTAR`. The round's determination, its carrierwise refinement and its instrument findings
+are in `OI-QUANTUM-REPRESENTATION-RESULT.md`.
+
+`OIBridge/OperationalSourcing.lean` carries Arc D round 1, executed under the frozen
+`OI-OPERATIONAL-SOURCING-AUDIT.md` as amended by
+`OI-OPERATIONAL-SOURCING-AUDIT-AMENDMENT-1.md`. It carries all four frozen targets. **S1**, the
+padding theorem, is quantified over an arbitrary finite ancilla: for every finite ancilla, every
+unitary on it and every probability weight, the padded datum represents exactly the family the
+original datum represents, at every root, outcome and time (`padData_rooted`). Its three
+consequences instantiate it at one witness each and are controls rather than the theorem —
+non-monomiality is free (`consequence_nonMonomial`), relative-phase content is free
+(`consequence_phaseContent`), and every unitary on every nonempty finite carrier occurs as a
+representation unitary up to relabelling (`consequence_augmentedAll`). That last is narrowed to
+nonempty carriers by the amendment, because the frozen universal form is false at the empty carrier:
+a normalised initial law forces a nonempty basis (`nonempty_bas_of_isLaw`), so no padding
+construction can place the unique matrix on the empty type there. The relabelling step the freeze
+singles out is proved (`reindex_padUnit`), which is why the consequence is reported as proved.
+**S2** proves the Arc C inclusion witness control-inert: its unitary is a permutation matrix and
+therefore lies in the stated access (`permData_U_permClass`), which is the load-bearing new theorem.
+`arcCWitness_not_phasesAvailable` is then the already-merged negative for the full stated
+`permTheory` access, applied in a context where the witness has just been proved to lie inside it;
+no implementation class or generated theory built from the one witness operator is defined here.
+That negative is bounded at the access and carries no conclusion about the deferred coherent-control
+or continuous-evolution questions. **S3a** constructs the augmented class rather than assuming it:
+`archGen` is the inductive closure of a base class under exactly the six `Architecture` fields, so
+`archGen_arch` is a theorem and `archGen_le` proves it the smallest such closure. The augmented
+access then contains every unitary on every finite carrier by the amendment's split — nonempty
+carriers from consequence 3, the empty carrier from the stated access alone
+(`archGen_of_isEmpty`) with no appeal to representation — hence it is not ones-fixing
+(`repAugmented_not_onesFixing`) and its theory has every phase and every unitary conjugation
+(`repAugmented_phasesAvailable`, `repAugmented_everyUnitaryAvailable`). What is reported is the
+disqualification and not the availability: a criterion returning *Sourced* for every resource has no
+discriminating power. **S3b** proves stability at the access semantics and nowhere else: availability
+is a function of the admissible class alone (`instAvail_congr`), so the whole Arc C layer — `Q*`
+membership, a representing datum with its law and positive root mass, and the hypothesis linking
+that datum to that family — can be carried and left unused (`availExt_stable_under_arcC`,
+`availExt_unavailable_stable_under_arcC`, `phasesUnavailable_stable_under_arcC`,
+`permClass_unchanged_by_arcC`). The relative-phase *Additional* disposition those stabilise is
+**inherited** from PR #521 and PR #515 and is not this round's adjudication. Fifty-three named
+results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Guard `R7-SOURCE`. The
+round's headline outcome RD1, its use-by-use record of every representation-level fact, its deferred
+list and its corpus-consistency findings are in `OI-OPERATIONAL-SOURCING-RESULT.md`.
+
+`BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-RESULT.md` carries Track B act 1 under the two-track
+programme of `OI-QM-RESEARCH-PROGRAMME-AMENDMENT-2.md`: a **definition-level** audit of Barandes's
+accepted objects against the merged `PDivisible` / `PIndivisibleWithin`, executed against the
+preregistration frozen at blob `b6727fa8df616e1a3f98e45d69b99b13554cda3e` as amended by
+`BARANDES-INDIVISIBILITY-BRIDGE-AUDIT-AMENDMENT-3.md`, frozen at blob
+`f3f23acf7f30f941b87fa8f113699c5be0c7b87b`. Evidence is primary-source text at pinpoint locations in
+arXiv:2302.10778v3, arXiv:2507.21192v1 and arXiv:2309.03085v2 only. The verdict is the ordered pair
+**(BD3, BR3)**: his *indivisible stochastic process* is the **tuple class** of
+arXiv:2309.03085v2 §3.1 eq (24), membership in which contains Markov chains outright (§3.3 eq (54)),
+so it is not the failure predicate `PIndivisibleWithin` and no stated transposition identifies them;
+and **failure of divisibility is not among the hypotheses the proof of arXiv:2309.03085v2 eq (69)
+uses** — a negative claim about divisibility specifically, not a claim that the proof consumes only
+two inputs, since it also uses trivialization at eq (75) and the tuple's `p` and `A` downstream —
+though it does load-bearing work elsewhere, where arXiv:2302.10778v3 §3.5 eq (43) derives
+interference from it. Recorded **separately**, as Amendment 3 requires: after transposing his
+column-stochastic left action to our row-stochastic right action, his eq (6) factorization is our
+`PDivisible` body **exactly**, with exactly two differences against that equation — horizon, and the
+endpoint of the intermediate range. Direction is not one of them: eq (6) restricts to `t > t′ > t₀`,
+the same forward orientation as our `s < t`. arXiv:2507.21192v1 p. 10 separately broadens the
+target-time convention at framework level ("no assumption is made that `t > t₀`"), which widens
+where his `Γ` is defined rather than differing from the factorization equation. An exact equation
+match beside a definitional mismatch is the
+situation Amendment 3 was written to keep legible, and it is the round's central result. The freeze
+predicted `BR2`; the outcome is `BR3`, recorded as a label miss on a confirmed proposition. No Lean
+was written, no theorem proved, no manuscript edited, and nothing here is a sourcing claim. Guard
+`R7-BRIDGE`, which pins both control-plane blobs by computed git blob identity rather than by prose.
+
+`OIBridge/TransposeBridge.lean` carries Track B act 2, step 5 of the Amendment 2 sequence, executed
+against `BARANDES-TRANSPOSE-BRIDGE-PREREGISTRATION.md` frozen at blob
+`4cb6b71832c033f61ac6052c0d2ba11763150d62` (PR #561). Outcome **RT1 — kernel-closed**, matching the
+prediction the freeze recorded beforehand. The round is a **check on act 1**, not bookkeeping: act 1
+answered its Q4 with a prose transposition, which sits at level 3 of act 1's own evidence hierarchy,
+and that hierarchy rates a Lean equivalence above it at level 2. Had a direction been refused, the
+outcome would have been `RT3` and act 1's Q4 would have taken an appended correction; it was not.
+**T1** proves the duality in both directions (`isRowStochastic_iff_transpose_isColStochastic`,
+`isColStochastic_iff_transpose_isRowStochastic`), and both are load-bearing rather than symmetric
+decoration: T3's forward leg consumes one and its backward leg the other. **T2**
+(`factor_transpose_iff`) discharges the orientation hazard the act 1 freeze named — that
+row-stochastic-on-the-right and column-stochastic-on-the-left might not be the same content — rather
+than assuming it. **T3** (`pDivisible_iff_pDivisibleCol_transpose`, with
+`pIndivisibleWithin_iff_pIndivisibleColWithin_transpose`) lifts that from one factorization instance
+to the predicate. **T4** (`root_factor_of_trivial`) turns act 1's "the extra `s = 0` case is vacuous"
+from an assertion into a lemma, on the **exact frozen signature**: the identity notation's decidable
+equality comes from a scoped classical instance rather than an added binder, since an added
+hypothesis is a target change under control 4. Two results are declared in the result note as
+additions beyond the four frozen targets rather than folded into T4 — `rootedMap_zero`, proving the
+trivialization fact, and `rootedMap_root_factor`, which is needed because T4's identity and
+`rootedMap`'s carry different decidable-equality instances, so the endpoint conclusion at a concrete
+family is proved rather than inferred by bare instantiation. The **horizon** difference is untouched and is reported as a
+difference of quantifier domain, not a defect. `PDivisibleCol` is this programme's own `PDivisible`
+in the opposite orientation: nothing here identifies `PIndivisibleWithin` with any external
+predicate, act 1's `BD3`/`BR3` are neither reopened nor re-derived, and a transposition identity
+sources nothing. Eight named results, each printing only `propext`, `Classical.choice`, `Quot.sound`.
+Guard `R7-TBRIDGE`, which compares the three introduced definitions **and the frozen theorem
+signatures** verbatim against the preregistration's own text, so a definition or signature reshaped
+to fit a proof fails the check. The outcome,
+the axiom table and what remains open are in `BARANDES-TRANSPOSE-BRIDGE-RESULT.md`.
+
+`OIBridge/RecurrenceHorizon.lean` carries Targets 1 and 2 of
+`RECURRENCE-TIGHTNESS-AUDIT.md`, read under `RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md`, which
+controls the horizon symbol. The frozen route is that a rooted family whose map returns to the
+identity at a time `n`, together with a strictly earlier time `s` at which two distinct rooted rows
+overlap, exhibits a `C4r n` witness on the pair `(s, n)`
+(`c4r_of_identity_return_of_overlap`), after which the already-merged `c4r_implies_pIndivisible`
+supplies `PIndivisibleWithin n` (`pIndivisible_of_identity_return_of_overlap`); the second arrow is
+reused rather than reproved, and no stochastic-inverse rigidity lemma is introduced. Total variation
+is the kernel's existing `HiddenMemory.tv`: the identity `tv p q = 1 - ∑ min` is an addition to that
+notion and not a redefinition (`tv_eq_one_sub_sum_min`), and it carries both endpoints, since two
+distinct identity rows share no overlap mass and stand at distance exactly one (`tv_one_rows`) while
+two probability rows sharing positive mass at one visible value stand strictly below one
+(`tv_le_one_sub_min`, `tv_lt_one_of_overlap`). The dependency is the round's own reportable result:
+the horizon route consumes only the store clause's consequence, a visible value carrying positive
+probability under both rooted preparations, so the write clause and both read legs of the frozen
+readback parent play no part and the recurrence-scale obstruction does not require that parent as a
+whole; no realization-level readback predicate is defined here. Section A is layer-independent,
+every result there a fact about a family of matrices using neither reversibility, nor a hidden
+carrier, nor a prior; Section B instantiates the same statements on the existing
+`RootedRealization` and `rootedMap`, drawing on the realization solely for the row-stochasticity
+Section A takes as a hypothesis (`c4r_of_rooted_identity_return_of_overlap`,
+`pIndivisible_of_rooted_identity_return_of_overlap`). The recorded pair is `horizon_verdict`.
+Nothing is claimed for any horizon below `n`: whether all shorter horizons can remain divisible is
+the audit's separate tightness question, neither answered nor prejudged here, and no accessibility
+claim is made for the horizon itself. No manuscript condition is renamed and no manuscript is
+edited. Nine named results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Guard
+`R7-RCH`.
+
+`OIBridge/ScalingFamily.lean` carries the abstract half of target S1 of
+`RECURRENCE-SCALING-AUDIT.md`, executed under that frozen preregistration. Every statement is
+quantified over the horizon and over the retention sequence; none is a check at a particular
+horizon. A symmetric binary channel has rows `(p, 1-p)` and `(1-p, p)`; the family is closed under
+composition, `B p * B q = B (2pq - p - q + 1)` (`Bmat_mul`), and the rooted-row total-variation
+distance is exactly `|2p - 1|` (`tv_Bmat`). From those two facts, a retention sequence that is
+antitone and strictly above `1/2` below the horizon and returns to `1` at it gives a family
+P-divisible on every strictly shorter horizon and P-indivisible at the horizon (`tight_at`). The
+divisibility side is constructive rather than existential: the propagator
+`(p_t + p_s - 1) / (2 p_s - 1)` is exhibited and proved stochastic exactly under `1/2 <= p_t <= p_s`
+(`Bmat_factor`), the inequalities that make it so. The indivisibility side is not reproved — it is
+the merged `c4r_implies_pIndivisible` applied to a revival witness at the pair immediately before
+the return (`c4r_at_return`, `pIndivisible_at_return`). The module constructs no realization,
+defines no readback parent and fixes no horizon symbol; it supplies the family-level content that a
+realization-layer construction must exhibit, and it is not itself the round's construction target.
+No claim is made that such a construction exists, none about the physical accessibility of any
+horizon, and no manuscript is edited. Eleven named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`. Guard `R7-SCF`.
+
 `LEAN-MANUSCRIPT-CENSUS.md`, `tools/lean_manuscript_census.py` and
 `verification/lean-manuscript-census.json` synchronize the manuscripts with the whole kernel rather
 than with the latest round. The check, run by the release gate as `lean-manuscript`, resolves every
@@ -869,12 +1955,61 @@ package-level corollary from the dagger-stable package, for which
 `OIBridge/TypedPositive.lean` supplies `typed_determined_of_oiPlusPos`, one result printing only
 `propext`, `Classical.choice`, `Quot.sound`. All three are repaired; the five-condition
 characterization and the OI⁺ layered form are stated as such beside the strongest statement; the
-elementary repertoire and the substratum endpoint are unchanged; CT2 and OI-N are recorded as
-proved and not narrated, with no manuscript sentence contradicting either. Guard `R7-MSP` pins the
-propagated statement in sources and generated forms and the presence of the census in the gate.
-The minimal repertoire is classified kernel-only until its propagation round, which enters the
-supersession of `carrier_general_oiPlusPos` by `carrier_general_oiPlusMin` into the registry with
-the manuscript edits, per §A.35.
+substratum endpoint is unchanged; OI-N is narrated in one paragraph of Main §3.4 and one of the
+Explainer, outside the assumptions and arrows of the characterization, with the N4 anti-conflation
+in the same paragraph (theory-insensitive, no evidence of a hidden ontology, no statement that QM
+rests on OI); guard `R7-OINN`. The SM counting layer and the Main §3.4 equivalence chain carry
+kernel pointers at the proof or list paragraphs that follow their principal statements, the
+statement lines and the coverage ledger untouched (`theorem_7`, `finrank_intertwiners`,
+`ohInvariant_iff`, `theorem_8`, `theorem_16`, `theorem_19`; `finite_horizon_equivalence`,
+`S_imp_D`, `permMatrix_mem_unitaryGroup`, `isDiag_Phi`, `c3_necessity`,
+`unavoidable_hidden_predictive_memory`, `entanglementBreaking_twirl`), both families current, pointers only and no restatement; guard
+`R7-PTR`. CT2 is narrated in GR §3.3's continuous-time paragraph, Main §2.3 and the
+quasilocal summaries: the depth-two factorization, the two layer groups, and the norm-continuous
+path of local `*`-automorphisms from the identity to the update's Heisenberg action
+(`driveQ_isContinuousPath`, `driveQ_one_eq_heisQ`), stated as a path, with no one-parameter-group
+law for the composite established, no generator exhibited and CT3 open; guard `R7-CTN`. The minimal repertoire is propagated
+under §A.35: GR §3.3
+states phase-free richness as the second primitive-source principle with the elementary repertoire
+as its stronger form and `OIPlusMin` boxed, Main §3.4, the Explainer and the book chapters carry the
+summary, the registry records the supersessions of `carrier_general_oiPlusPos`, `oiPlusPos_iff_qm`,
+`hControl_star` and `typed_determined_of_oiPlusPos` by their phase-free successors, and
+`OIBridge/TypedPositive.lean` supplies `typed_determined_of_oiPlusMin`, one result printing only
+`propext`, `Classical.choice`, `Quot.sound`. The cycle claim in the manuscripts is stated at its
+evidence, the even-carrier countercontrol cited and no minimality of the driven transition asserted.
+Guard `R7-MSP` pins the propagated statements in sources and generated forms and the presence of
+the census in the gate.
+
+Hydrodynamics round H-A (`programmes/hydrodynamics/round-h-a-source-audit/`, preregistration blob
+`934cd6a`, merged by PR #595 as `ae81459`, the mandated execution base) is the source audit of the
+concrete wave representative `waveSubstratum d L q α`, executed at evidence level 2 in
+`OIBridge/HydroSourceAudit.lean`. `H0`: for every additive coarse map the coarse two-time evolution
+is additive (`coarse_evolution_additive`, from `waveSubstratum_A5`), and a coarse rule that closes
+(`CoarseCloses`) is additive on the range of `(C, C)` and degree-one homogeneous there
+(`coarseCloses_additive_on_range`, `coarseCloses_nsmul`) — the advection obligation is HI
+conditional on `ZMod q`-linear coarse variables, with real-valued or nonlinear coarse variables HO.
+`H1`: on the torus `Σ_i F(x)(i) = 2dα Σ_i x(i)` (`totalSum_waveF`), the first difference of the
+total sum is conserved on every trajectory iff `2dα − 2 = 0` in `ZMod q` (`deltaS_conserved_iff`),
+`a S_t + b S_{t−1}` is conserved iff `b = −a` and `a (2dα − 2) = 0` (`combination_conserved_iff`),
+and the manuscript instance `d = 3`, `α = 1` is conserved iff `q ∣ 4`, i.e. for `q ≥ 2` iff
+`q ∈ {2, 4}` (`deltaS_conserved_iff_dvd_four`, `deltaS_conserved_iff_two_or_four`) — so this
+candidate field, under this rule, is not `q`-gauge invariant; this is not a universal no-go for
+other hydrodynamic variables, and no `q` is chosen to rescue it. `H2a`: the fully symmetric
+`O_h`-invariant rank-4 tensors on `ℝ³` are exactly `x·D + y·P` for a unique `(x, y)`
+(`symInvariantQuartic_iff`), `D` the tensor of `Σ k_i⁴` and `P` three times that of `(Σ k_i²)²`,
+and the rotation-invariant ones are exactly the multiples of `P` (`symInvariant_isotropic_iff`) —
+2 versus 1, reached at kernel level with the level-3 fallback unused. `H2b`: the axis stencil's
+fourth moment is `2·[a = b = c = e]` (`axisMoment4_eq`), `O_h`-invariant and not
+rotation-invariant (`axisMoment4_form_not_isotropic`, consuming `quartic_not_isotropic`) — exact
+stencil anisotropy proved; conditional HI if H5's stress closure consumes this tensor; otherwise
+H2 remains HO. `H3a`: the block variable at `d = 1`, `L = 6`, `b = 3` does not close for every
+`q ≥ 2` (`h3a_block_state_not_closed`, `h3a_no_closure`) and the `L = 4`, `b = 2` control closes
+(`h3a_control_L4_closes`) — H3 HO, no timescale asserted. `H4a` records the scaling skeleton as a
+list of unfixed choices — HO, no PDE. Round H-B is entirely alive. Forty-four named results, no
+`sorry`, no `axiom`, no `native_decide`, every axiom line within `propext`, `Classical.choice`,
+`Quot.sound`; six of seven definition slots fired; no manuscript edit. Guard `R7-HYA` pins the
+preregistration blob by content and certifies the strengthened execution ancestry, and checks each
+frozen status and reading in terms with twenty-four mutation controls.
 
 `audit-census.json` and `verification/lean/audit_census_probe.py` make the negative findings of an
 audit reproducible: every vocabulary searched, its pattern, the files and counts it hits, its
@@ -904,5 +2039,654 @@ Lie-rank condition is necessary for exact reachability.
     python3 tools/release_gate.py       # toolchain, staleness, voice, claims, mirror,
                                         # citation, architecture, coverage, lean-axioms, ...
 
+The substratum A6 round 1 (`programmes/substratum/a6-background-independence/`, preregistration
+blob `afbf1ee`, merged alone by PR #593 as `8792801`, which the freeze fixes as the execution base)
+is a definition round, not a proof round, and is owner-called: the `ROADMAP` carries A6 as a `GAP`
+because the manuscript wording admits an invariant and a covariant reading that must not be
+silently identified. `BackgroundIndependence.lean` states four readings on three interfaces —
+`A6Inv`, `A6Glob`, `A6Cov` on the least interface (site-dependent transformations `ι → AddAut V`, a
+site coupling `V →+ V`, a link coupling and its transport), with `A6-sd` frozen as a reading and
+not formalized — and closes the preregistered targets at level 2: `A6-inv ⟹ A6-glob`; `A6-cov` an
+identity on link-coupled rules; a link-coupled rule failing `A6-inv` on the frozen two-site
+carrier, the distinction one-directional; single-edge rigidity of `A6-inv` on the constant-coupling
+rule with its symmetric-point consequence at `M = μ I_6`; and on `waveSubstratum` a degenerate
+`A6-inv` failing at `q = 3` with `A6-glob` holding, labelled as facts about the degenerate form and
+not as the axiom. The type-P determination reads `Substratum.md:102` as `A6-inv` with `A6-glob` as
+its stated consequence, the three use-sites as UNDECIDED, and `SM.md:100` as `A6-sd`. No reading is
+adopted, the `ROADMAP` label is unchanged, and no manuscript is edited. Guard `R7-A6D` pins the
+blob by content, certifies the execution ancestry in act 10's strong form, and checks the readings
+never identified, no reading adopted, `D1` type-P with the use-sites UNDECIDED, the degenerate form
+not the axiom, `D3` one-directional, the row's label unchanged, no manuscript edit, and exactly the
+seven budgeted definitions with no `sorry`, `axiom` or `native_decide`, each contract with a
+mutation control.
+
+The act 11 scope propagation round (`audits/foundations/act11-scope-propagation-audit.md`,
+preregistration blob `cc6d5ad`, committed alone as `a2c2310`, written from `main` at `e4e04eb`) is
+publication-only and owner-called. It carries act 11's `GL2` conclusion into the corpus and nothing
+more: Main gains a scope remark stating that the finite observable-law correspondence is a
+representability theorem and not a selection theorem for the evolution relating two times, that
+ordinary coherent lifting therefore does not make that evolution unique, that a constant deformation
+cancels from every relating object so the nonuniqueness is carried by time dependence, and that the
+selection condition the uniqueness claim would need is left unnamed. `Explainer` and
+`book/ch01-observation.md` carry the same bounded statement at their own level, mirrored in the
+full-book source.
+
+`GI2` is propagated as a **lift-space result only**. Each of the three surfaces records that two
+lifts of one visible family can fail to be related by any uniformly invisible deformation and still
+agree on every relating evolution, so the lift-space result is never used as a relative-evolution
+no-go, and the stronger combined target — outside the uniformly invisible class *and* different in
+relating evolution — is stated **open**. No manuscript says the missing structure exceeds a gauge
+fixing or that a connection cannot suffice.
+
+The round also fixes the memory vocabulary corpus-wide. Main gains a remark separating three
+notions that travel under nearby names, with no unconditional implication among them: accessible
+finite-horizon memory, the framework's own visible-law notion and the one its shorthand abbreviates;
+stochastic P-indivisibility, which rests on recurrence together with a non-permutation rooted map
+rather than on C1/C3/C4 alone; and the generic open-system quantum memory notion, whose content
+depends on which quantum divisibility or backflow criterion is adopted. The first summary surface of
+each other maintained document gains the local definition, and the glossary carries the three-way
+entry. The application-level slide from P-indivisibility into the generic open-system vocabulary is
+narrowed in `book/ch15-quantum-engineering.md` and `papers/Complexity.md`. The pre-existing bridge
+controls — the diagonal-preserving hypothesis, the Hadamard countercontrol, and system-only backflow
+as sufficient but never necessary — are consumed unchanged. No theorem, probe result, roadmap
+status, `D3` or `D5` state changes, and the kernel count is unchanged. Guard `R7-A11P`.
+
+An append-only scope amendment (`audits/foundations/act11-scope-propagation-open-frontier-amendment.md`,
+blob `50f74a0`, committed alone as `995d143`) extends the same round to the open-frontier surfaces,
+leaving the original freeze unchanged and authoritative for its own. `book/ch19-open-problems.md`
+gains §19.3.9, a framework-specific entry recording that the finite-law bridge is solved at the level
+of representability, that exact finite operational quantum mechanics is already characterized
+conditionally by the explicit completion principles, and that the still-open question is whether and
+by what one relative evolution is selected from the coherent lifts of a single visible family —
+with ordinary coherence proved insufficient, the known outside-the-class witness noted to agree on
+every relating evolution, and no mechanism endorsed or excluded. §19.2.12 is cross-linked so the
+operational residue and the selection frontier are not read as one, and the standard open-problem
+tally is unchanged. Main, `Explainer`, `GR` and `Methodology` carry the same three statuses:
+representability established, operational completion characterized conditionally, bare-OI relative
+selection open. A re-grep found no stale bridge claim in `Substratum`, `Structure`, `Complexity` or
+the applied papers, so none was edited. `R7-A11P` grows to eighteen contracts and twenty mutation
+controls.
+
+Track B act 12 (`programmes/oi-qm/track-b/act-12-two-sided-gauge/`, preregistration blob
+`5850238`, merged by PR #591 as `b821d69`, the mandated execution base) is the classification
+round that follows act 11's no-go. `OIBridge/TwoSidedGauge.lean` supplies the **left** factor act 11
+did not classify — `LeftFibreGroup`, the fibre-block unitaries, invisible universally and maximal
+among uniform left actions considered alone with no hypothesis beyond unitarity
+(`left_preserves_admissible`, `left_of_preserves_every_admissible`) — and classifies the quotient by
+the two-sided uniform gauge the two separately maximal factors generate: two dilations are related
+by it exactly when their fibre-Gram data `FibreGram` agree up to anchored phases
+(`twoSided_slice_iff`, with the Gram-isometry lemma `exists_unitary_of_gram_eq` stated for arbitrary
+families), the realizable Gram tuples are exactly the positive semidefinite, rank-at-most-`|A|`,
+identity-summing, `Γ`-diagonal families (`sh1_shape`, sufficiency reached at kernel level), and the
+quotient is nontrivial on a single law and dynamically distinct at `|A| = 1` through the Hadamard
+witness with its cross-ratio computed in the kernel (`hadamard_slices_not_twoSided`,
+`hadamard_lifts_not_twoSided`, `hadamard_cross_ratio`). Act 11's open target is closed positively as
+right-only insufficiency carried by left moves (`ro1_right_only_insufficient`), read exactly as
+"quotienting by the maximal uniform right weak gauge is insufficient" and not as a statement about
+every gauge or connection description; `GI2`'s pair is a constant left move inside one two-sided
+orbit, explained and not revised. `SH1-C1` (a vanishing visible entry zeroes its Gram row and column,
+one-way, from positivity alone) and `SH1-C2` (a deterministic slice has at most one Gram tuple, and
+with the `TG2` converse a unique two-sided orbit) are corollaries. Joint maximality of the two-sided
+action is neither asserted nor excluded; the Gram data is a coordinate on the lift space and not a
+physical quantity; overlap is not memory; nothing is cross-time; no selection principle is named;
+`P0` is not closed and is two-part: selection of the Gram/orbit trajectory across time, and the
+cross-time threading within selected orbits, which act 11's `GL2` shows is not fixed even by the full
+Gram trajectory. Forty-three named
+results, each printing only `propext`, `Classical.choice`, `Quot.sound`; five of six definition slots
+fired; no manuscript edit. Guard `R7-TSG` pins the preregistration blob by content and certifies the
+strengthened execution ancestry, and checks each frozen reading in terms with twenty-seven mutation
+controls.
+
+The reconstruction programme's Substratum Lemma 24.1 round
+(`programmes/substratum/lemma-24-1-semigroup-transfer/`, preregistration blob `b8168df`, merged by
+PR #594 as `c46e160`, the mandated execution base) tests the lemma's semigroup-transfer step —
+that equality of the uniform-prior channel family `Φ_t(ρ) = Tr_H[U^t (ρ ⊗ 𝟙/m) U^{-t}]` at every `t`
+fixes the dilating unitary up to a hidden conjugation. `OIBridge/SemigroupTransfer.lean` places the
+family in the merged single-map idiom (`familyAt_single`, the block-trace form;
+`familyAt_eq_stinespringChannel`, the purification with the maximally entangled reference) and
+proves GNS cyclicity of the reference subspace equivalent to a trivial hidden commutant in both
+directions (`ST0c_cyclic_iff`, through the orthogonal-projection lemma `starProjection_comm`).
+Reading A follows from the merged inputs per time and no more (`readingA_perTime`: a Kraus-mixing
+unitary at each `t`, the existential inside the `∀ t`), hidden conjugation preserves the family
+(`familyAt_hiddenConjugate`), and then the three negatives, each a trace certificate in the kernel:
+`ST2_pairA` (the literal reading fails on a two-qubit pair that generator (i)'s visible part
+absorbs), `ST3_pairC` (the GNS-cyclic reading fails on a six-element pair with both hidden
+commutants trivial, equal families at every time and non-trivial visible statistics, since
+`Tr φ̂ = 2 ≠ 0 = Tr φ̂'` excludes every unitary conjugation), and `ST4_pairC` (the same pair escapes
+`P_σ ⊗ W` after any decoupled enlargement by unitaries on any finite non-empty `D`, by a balanced
+block word under both visible relabellings, with the enlargement lemma `trace_wordEval_enlarge`
+and the relabelling lemma `trace_wordEval_conj`). `ST5` lands at its frozen fallback: hidden
+conjugation preserves every word trace (`trace_wordEval_hiddenConjugate`), and sufficiency of
+full word-trace equality is UNDECIDED, the unitary implementation of a trace-preserving
+`*`-isomorphism being outside Mathlib and the corpus. The central result: the visible channel
+family does not determine the underlying dilation up to a single time-independent hidden
+conjugation, so the present semigroup-transfer proof route does not establish completeness of
+`𝒢_sub`, and the P1 obligation remains OPEN with stronger multi-time information or a different
+proof route required. Lemma 24.1 is not called false without qualification, `ST5` is not a repair,
+and the four generators are not called incomplete — nothing is said about (ii)/(iv). Sixty-one
+named results, each printing only `propext`, `Classical.choice`, `Quot.sound`; six of six
+definition slots fired; no manuscript edit. Guard `R7-SGT` pins the preregistration blob by
+content and certifies the strengthened execution ancestry, and checks the central sentence, the
+three boundaries and each frozen reading in terms with thirty-one mutation controls.
+
+The act 12 scope propagation round (`audits/foundations/act12-scope-propagation-audit.md`,
+preregistration blob `1d471ed`, committed alone as `0970a3e` from `main` at `aa4ac3a`, merged by
+PR #600 as `999f1b5`, the mandated execution base) is publication-only and owner-called. It carries
+act 12's classification into the corpus and nothing more. Main's scope remark, the `Explainer` and
+`book/ch01-observation.md` boundary paragraphs, `book/ch19-open-problems.md` §19.3.9 with its
+summary-table row, and a glossary entry **Fibre-Gram data** now state, in manuscript voice: that
+the uniformly invisible deformations of a lift are two-sided — the right action by the anchored
+class and a left action within each visible output's hidden fibre — each maximal among uniform
+actions of its kind, with joint maximality neither asserted nor excluded; that act 11's combined
+target is met by a left in-fibre move, read exactly as "quotienting by the right class alone does
+not determine the relating evolution" and not as a statement about every gauge or connection
+description; that at a single time the residue after the two-sided action is classified exactly by
+the fibre-Gram data up to anchored phases, with the visible law its diagonal and realizability as
+in the shape theorem, so what the visible law leaves free at one time is exactly the off-diagonal
+fibre-Gram data modulo phases, neither empty nor inert; and that the cross-time question is
+two-part and open in both parts — what selects the trajectory of fibre-Gram data, and what fixes
+the relating evolution within a trajectory, the latter not fixed even by the complete trajectory.
+The fibre-Gram data is stated a coordinate on the space of lifts and not a physical quantity; no
+selection principle is named or excluded; nothing escalates into inequivalence; the three statuses
+of the bridge are unchanged, with `GR` and `Methodology` re-pinned as they stand. The act 12 census
+family moves from `kernel-only` to `current` with the sentences this round wrote as its anchors.
+No theorem, probe result or roadmap status changes and the kernel count is unchanged. Guard
+`R7-A12P` pins the preregistration by blob, certifies the strengthened execution ancestry with
+archive mode after the merge, and checks every frozen sentence with thirteen mutation controls;
+`R7-A11P`'s contracts E4, E5 and E18 — the three whose pinned sentences this round supersedes —
+are re-pinned in the same commit, with both of its blob pins and every other contract untouched.
+
+Track B act 13 (`programmes/oi-qm/track-b/act-13-cross-time-invariants/`, preregistration blob
+`5d8bee2`, merged by PR #602 as `d019718`, the mandated execution base) is the bounding round that
+follows act 12's classification: it freezes one family of cross-time data — the two-time Gram data
+of the dilation columns at three resolutions — and proves which quotient of the lift each member
+computes. `OIBridge/CrossTimeInvariants.lean` fixes the structural point first: the two-sided action
+of act 12 does not act on relative evolutions, and the relative evolution is exactly the lift modulo
+a constant right unitary (`ct1_relative_iff_constRight`, the backward direction act 11's `GL3`
+consumed). The column cross-Gram `CrossGram` determines the lift up to one constant left unitary in
+both directions (`ct2a_crossGram_iff_constLeft`), hence the relative evolution up to conjugation by
+one constant unitary (`ct2a_relative_conj`); the fibre cross-Gram `FibreCrossGram`, whose `t = s`
+diagonal is act 12's `FibreGram` definitionally, determines the lift up to one constant in-fibre
+left move and one time-dependent strong right gauge in both directions
+(`ct2b_fibreCrossGram_iff`), the forward direction through a Gram-isometry lemma stated for an
+arbitrary index type (`exists_unitary_of_inner_eq`) and act 11's orbit theorem, so the frozen
+fallback was not used. The family is bounded from below by a universal theorem — levels 0, 1 and 2
+are invariant under every strong-right family (`ct3g_fibreCrossGram_strong_right`) — and from above
+by an explicit pair: two coherent lifts of the identity family at `|A| = 2`, related by a constant
+in-fibre swap in `LeftFibreGroup`, with equal column cross-Grams at every pair of times and
+relative candidates `1` against `0` (`ct4_constant_left_obstruction`,
+`cl1_constant_left_moves_relative_candidate`). `GL2`'s pair is separated by level 3 at the
+off-anchor entry `((0,1),(1,1))` (`ct3a_gl2_pair_separated_by_crossGram`); act 12's Hadamard pair,
+whose per-time Gram data are already inequivalent, is the trajectory-type control
+(`ct3b_hadamard_trajectory_control`); the constant-lift variant of `GL2` agrees on every anchored
+column of the cross-Gram and is separated only at an off-anchor × off-anchor entry, with relative
+candidates `0` against `1/4` (`ct3c_constant_lift_variant`); whether level 3 separates every
+`GL2`-type pair is UNDECIDED. Level 0 raw equality is kept apart from level 0 modulo anchored
+phases (`fibreCrossGram_mul_weak_apply`): the raw datum does not itself compute act 12's per-slice
+quotient. `P0` stays OPEN and two-part with its threading part localized exactly; no selection
+principle is named, no connection or gauge fixing asserted, `GL2`, `GL3`, `GI2`, `TG2`, `TG3` and
+`RO1` consumed and none revised. Thirty-five named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`; four of six definition slots fired; no manuscript edit. Guard
+`R7-CTI` pins the preregistration blob by content and certifies the strengthened execution
+ancestry with the archive-mode scaffolding carried and its pins unset at execution, and checks each
+frozen reading in terms with thirty-one mutation controls.
+
+Track B act 14 (`programmes/oi-qm/track-b/act-14-threading-observability/`, preregistration blob
+`1b16008`, merged by PR #621 as `bc76a88`, the mandated execution base) is the adjudication round
+that asks what act 13's residual threading freedom **means**. Its central work is definitional and
+was frozen before any target: a **carrier of observables** is a map from coherent lifts to values
+together with a recorded reason for treating its values as observations, a freedom is *redundancy
+relative to `𝒪`* when every pair it relates has equal `𝒪`-value and *physical relative to `𝒪`* when
+some pair does not, and **four** carriers are frozen on two axes — the visible carrier `𝒪₀`, the
+anchored-channel carrier `𝒪₁`, the relative-candidate carrier `𝒪₂` and the re-anchored-channel
+carrier `𝒪₃`. **None is adopted**, and every verdict below names its carrier.
+`OIBridge/ThreadingObservability.lean` fixes the split first: the freedom is a **pair of parts**, the
+strong right factor changing no anchored column at any time and the constant left factor changing
+every anchored column by one constant in-fibre unitary. `AnchoredChannel` and `CrossFibreGram` are
+tied to merged objects rather than invented — act 7's readback is the diagonal action of the channel
+(`pq0a_readback_is_diagonal_action`), the diagonal is the visible law, and the channel is
+trace-preserving on a unitary (`pq0d_anchoredChannel_trace_preserving`), which earns the word
+*channel* and is not a claim that it is observable. The constant in-fibre left move is redundancy
+relative to `𝒪₀` (`pq1a_constant_left_redundant_visible`), physical relative to `𝒪₁` on two coherent
+lifts of the identity family whose visible reduced states differ **in modulus** at the coherence
+`(0,1)`, `1/2` against `0`, with both diagonals equal
+(`pq1b_constant_left_physical_anchoredChannel`), and physical relative to `𝒪₂` by act 13's `CT4` and
+`CL1` consumed; among constant in-fibre moves the exact `𝒪₁` stabilizer is the **uniform** ancilla
+relabellings, uniform ones redundant for every matrix
+(`pq1d_plus_uniform_left_redundant_anchoredChannel`) and every non-uniform one separated on a
+permutation lift over arbitrary finite `V` and `A`
+(`pq1d_minus_nonuniform_left_physical_anchoredChannel`), so the frozen medium-strength fallback was
+not used. The strong right gauge leaves the anchored column family **identical**
+(`pq2b_anchored_column_identity`), hence is redundancy relative to `𝒪₀`, to `𝒪₁` and to **every**
+carrier definable from single-time anchored data, named or not
+(`pq2b_every_single_time_anchored_carrier`), and is not redundancy relative to `𝒪₂`, where act 11's
+`GL2` separates it under act 7's readback convention — both true, neither the other. Relative to
+`𝒪₁` the pair acts exactly as its left part, as an iff
+(`pq3b_no_cancellation_on_anchoredChannel`), so no cancellation lives there; relative to `𝒪₂` the
+pair is separated with both parts nontrivial on a **deliberately cheap** witness
+(`pq3c_pair_physical_relative_candidate`), and whether the two parts can cancel on `𝒪₂` is
+**UNDECIDED** with its obstruction named — it is not act 13's fork `CT3` (d). `PQ4` states the two
+reductions in the one direction each has, both converses refused and no datum and no principle
+named. `P0` stays OPEN and two-part; no carrier is adopted as the physical one and none is asserted
+not to be; every `𝒪₂` and `𝒪₃` verdict carries act 7's boundary with `D4b` negative; `GL2`, `GL3`,
+`GI2`, `LG1`, `RO1`, `TG2`, `TG3`, `SH1` and `CT1`–`CT4` with `CL1` are consumed and none revised.
+Thirty-nine named results, each printing only `propext`, `Classical.choice`, `Quot.sound`; four of
+six definition slots fired; no manuscript edit. Guard `R7-PQT` pins the preregistration blob by
+content, certifies the strengthened execution ancestry with the archive-mode scaffolding carried and
+its pins unset at execution, checks each frozen reading in terms with fifty mutation controls, and
+checks structurally that the two carrier-free verdicts appear nowhere in the round's artifacts.
+
+Hydrodynamics round H-B (`programmes/hydrodynamics/round-h-b-reversible-fluid-substratum/`,
+preregistration blob `37cc9da`, merged by PR #601 as `8de0478`, the mandated execution base)
+executes one frozen candidate at evidence level 2 in `OIBridge/HexLatticeGas.lean`: a
+streaming-and-collision lattice gas on `Fin 2 → ZMod L` with alphabet `Fin 6 → ZMod 2` — six
+directions `hexDir`, the chiral on-site collision `hexCollide` moving the five head-on and
+three-body states, streaming `hexStream`, the gas `hexGas`, and the kernel's `Substratum`
+consumed unmodified as `hexSubstratum L` with rule `F c = Φ c + Φ⁻¹ c`. `HB0`: A1, A2, A3 with
+degree 6 and `A4Exact` hold (`hexSubstratum_A1` … `hexSubstratum_A4Exact`) and A5 fails on the
+recorded witness (`hexSubstratum_A5_witness`, `hexSubstratum_not_A5`); the graph sector
+`prevOf x = Φ⁻¹ (curOf x)` is invariant and carries the gas (`hexSubstratum_sector`) and mass is
+not conserved off it (`hexSubstratum_mass_not_conserved_off_sector`) — the advection obligation
+is HO for the candidate. `HB1`: streaming preserves every channel-weighted total
+(`hexSum_hexStream`); the collision preserves the total with weight `w` iff `w₀ + w₃ = w₁ + w₄`,
+`w₁ + w₄ = w₂ + w₅`, `w₀ + w₂ + w₄ = w₁ + w₃ + w₅` (`hexCollide_conserved_iff`,
+`hexSum_collide_iff`) iff `w ∈ span_ℤ {1, d₁, d₂}` (`hexCollide_conditions_iff_span`); so mass
+and momentum are exactly conserved by the gas on every configuration for every `L` and along
+every trajectory in the sector (`hexSum_hexGas`, `hexSum_leap_sector`), and are the only such
+totals (`hexSum_hexGas_iff_span`); they are translation-invariant (`hexSum_shiftBy`) and the gas
+commutes with the `60°` rotation `hexRot` (`hexGas_hexRot`, `hexRot_charges`) — HD for mass and
+momentum, for the candidate, on the sector, HO outside the class, with no `q`-gauge analogue
+because the alphabet carries no free parameter. `HB2`: the second moment of the embedded stencil
+is `3 δ` (`hexMoment2_eq`), the fourth is `(3/4)(δδ + δδ + δδ)` with quartic form
+`(9/4)|k|⁴` (`hexMoment4_eq`, `hexMoment4_quartic`, `hexMoment4_isotropic`), H-A's
+`axisMoment4 2` fails on two equal-length vectors where the hexagonal form agrees
+(`axisMoment4_two_not_isotropic`), and the sixth moment is not isotropic, ratio `11` against `5`
+(`hexMoment6_not_isotropic`) — HD for the stencil tensor, HC for the stress conditional on H5
+consuming it, otherwise HO, and no claim about higher orders. `HB3`: the block-charge two-time
+state at `L = 4`, `b = 2` does not close (`hb3a_block_state_not_closed`, `hb3a_no_closure`) and
+the charge sectors are invariant (`hexGas_bijOn_sector`) — H3 HO, no timescale asserted. **Round
+H-B is not reported closed**: the execution establishes a reversible fluid witness in the
+A1–A4, ¬A5 class, and whether that class is admissible as OI physics is recorded as open.
+Seventy-one named results, no `sorry`, no `axiom`, no `native_decide`, every axiom line within
+`propext`, `Classical.choice`, `Quot.sound`; all eight definition slots fired; no manuscript
+edit. Guard `R7-HYB` pins the preregistration blob by content, certifies the strengthened
+execution ancestry with archive mode prepared, and checks the status rule and each frozen
+reading in terms with mutation controls.
+
+The substratum A6 covariance propagation (`audits/foundations/a6-covariance-propagation-audit.md`,
+preregistration blob `e7cb701`, committed alone as `d24dc3c`, written from `main` at `999f1b5`) is
+publication-only and owner-called. It adopts `A6-cov` as the publication meaning of the sixth
+structural assumption — local internal-index transformations act covariantly provided the link
+coupling is transformed with them — and rewrites the manuscripts' definition around it:
+`Substratum.md`'s definition of the sixth assumption states the covariant interface and that the
+local transformation law imposes no further condition on the rule once the coupling is link-valued
+data; names the stronger fixed-background invariance as a separate condition the assumption does not
+assert, with its rigidity across every coupled pair of sites and its failure at the symmetric point;
+names the global commutant symmetry as the specialization the local gauge reading proceeds from; and
+names the state-dependent coupling graph of `SM.md` §3.1 as a different principle under a shared
+name, which `SM.md` §3.1 says in place. `SM.md` §3.1's transformation law is written as the content
+of the assumption and its invariance as the covariance identity, with no claim that the complex-lift
+statement is kernel-checked: `a6cov_all` is on the finite-alphabet link-coupled interface and the
+complex lift is outside it. Chapter 2, Chapter 5 §5.5, Chapter 9, Appendix B and the glossary carry
+the same meaning at their level, mirrored in the full-book source, and `Structure.md` §6.6 states
+the assumption as covariance. The `ROADMAP` row `P1 — A6` carries `CONDITIONAL` in place of `GAP`:
+the predicate `A6Cov` exists and holds identically on link-coupled rules, and the named undischarged
+hypothesis is that the manuscripts' substratum — the `K = 6` link-coupled rule, not packaged as a
+`Substratum`, and its complex lift, outside the interface — instantiates that interface; not
+`DERIVED`, because nothing is proved of the manuscripts' object. The historical round records that
+describe the gap as it stood — the substratum-interface round, the frozen-sourcing and
+stochastic-interface rounds, the interface audit's Q1 table and round 1's own record — are
+untouched. The census family moves to `current` with the anchors the round creates. `R7-A6D`'s row
+contract is re-pinned to the new row and its label mutation to a `DERIVED` overclaim, and nothing
+else in it changes. Nothing about the Standard-Model gauge-group derivation, Track B, `P0` or
+hydrodynamics; no kernel change. Guard `R7-A6P`. Discrepancies recorded and not repaired: the
+control plane's line coordinates and blobs for `ROADMAP.md`, this README, the guard file, the
+census, the glossary, the full-book source, `Main.md` and `Explainer.md` refer to `main` at
+`999f1b5`, whereas the mandated base `07ab365` also carries the act 12 propagation execution (#603),
+its archive pins (#605) and the `ROADMAP` interpretation-boundary section (#608); every frozen
+passage was located by content and found verbatim at the base, and the A6 row and section were
+byte-identical to the control plane's quotation. Every other surface the control plane pins was at
+its recorded blob.
+
+The reconstruction programme's Lemma 24.1A round
+(`programmes/substratum/lemma-24-1a-word-trace-sufficiency/`, preregistration blob `98cfcfd`,
+merged by PR #606 as `baadea2`, the mandated execution base) continues the Lemma 24.1 round at its
+one open target, `ST5` sufficiency: does equality of all block-word traces force a single hidden
+conjugation? `OIBridge/WordTraceSufficiency.lean` proves the trace-form kernel step in full
+(`WT1_transfer`: under word-trace equality the map `w(U) ↦ w(U')` extends to the named induced
+map `transferMap` on the word span, well defined because equal word traces make the two Gram forms
+`Tr[w₁(·)ᴴ w₂(·)]` agree and `Tr[Aᴴ A] = 0` forces `A = 0`, and it is injective, unital,
+multiplicative, `*`-preserving and trace-preserving with range the other word span, under no
+unitarity hypothesis), and on the spanning class — both word spans all of `M_m(ℂ)` — implements it
+by a hidden unitary through the matrix-unit construction (`exists_unitary_of_starMul`:
+`e_{ij} = φ(E_{ij})` are matrix units, `W` has columns `e_{jo} ξ` for a nonzero column `ξ` of the
+projection `e_{oo}`, `Wᴴ W = 1` and `W E_{ij} Wᴴ = e_{ij}`), giving `WT2gen_hiddenConjugate`
+two-sided as frozen and `WT2gen_oneSided` as the permitted strengthening. `WT3_spanning_iff` is
+the biconditional on that class — hidden conjugation iff equal word traces — with the merged
+necessity as its reverse; `WT4_finite_spanning_family` gives a finite spanning family of words
+with no length bound claimed; the controls exclude the `ST3` pair from the hypothesis by the
+merged word certificate and exhibit the hidden transposition of `ℤ₃` as a positive control with
+its `W` pinned. `WT2`, the general case, is UNDECIDED at its frozen fallback: the spatial
+structure theory of `*`-subalgebras of `M_m(ℂ)` is carried by neither Mathlib at the pin nor the
+corpus. So sufficiency on general pairs is UNDECIDED, the frozen spanning-class sentence is
+asserted and no higher, and the P1 obligation remains OPEN: Lemma 24.1 is not repaired, the four
+generators are neither called complete nor called incomplete, the manuscripts' route is not
+restored, and round 24.1B — whether the reconstruction framework supplies the block-word trace
+data — is named and not begun. Forty named results, each printing only `propext`,
+`Classical.choice`, `Quot.sound`; five of six definition slots fired; no manuscript edit. Guard
+`R7-WTS` pins the preregistration blob by content and certifies the strengthened execution
+ancestry with the archive-mode pins carried as `None` until the post-merge follow-up, and checks
+the outcome, the frozen sentence, each target's reading and the kernel statements in terms with
+thirty-one mutation controls.
+
+The physical-realization programme's first executed round, **Physical C4 discharge round 1**
+(`programmes/physical-realization/round-c4-1-physical-discharge/`, preregistration blob
+`a80334a5d5f19125b69459523acf723b607f97e1`, merged by PR #607 as `ebc3951`, the mandated execution
+base), is a discharge audit with kernel bounding and not a proof of a physical fact. It states in
+`OIBridge/PhysicalC4Discharge.lean` the realization-level predicate the manuscripts' own realization
+clause describes — a visible-history record written into hidden boundary degrees routed back into
+future visible conditionals within the accessible window — as `RoutedReadback`, transcribed clause
+for clause from Track I's frozen write/store/read parent, so that "discharged" has a formal
+referent; it is not a new condition, nothing is numbered beyond C4, and it is not called a
+strengthening of the manuscript's condition. Three carriers bound what a discharge would need: the
+uncoupled product has no write at any window, so recurrence — even an exact return of the rooted map
+to the identity at `12` — is not readback; the tape-and-ledger coin has a write, a store and
+history-level memory and yet no routed readback within the window `3`, the visible law being
+P-divisible there, with the routed form and P-indivisibility both appearing at the return `4`; and
+the sealed C1–C4 core carries no routed witness at any window under the frozen spelling, a
+preregistered prediction falsified with its obstruction located by a computed certificate and
+recorded rather than repaired. What a discharge would buy is bounded in the other direction: a
+routed witness forces P-indivisibility at the **return horizon and nothing below it**, the scope
+remark of `[Main]` §2.3 travelling with the statement. The lattice cut's realization datum is built
+on the kernel's wave substratum as `cutRealization`, and `[SM]` Theorem 22's readback genericity
+lemma is named as `LatticeCutReadback` over admissible regions at the return window; one toy
+instance at four sites is certified by exact probe at evidence level 3 under the control plane's
+frozen fallback, which shows the predicate is not vacuous on the manuscripts' dynamics and shows
+nothing else. A type-P pass classified every C4 coordinate in the papers, the book chapters and the
+parallel book source by quotation, confirming both predicted inference residues and finding no
+mechanism claimed at any physical cut. **Nothing here says C4 holds, or fails, at either physical
+cut**, no horizon is called accessible, no manuscript was edited, and the `P1` row stays **OPEN**
+with its residual now exact per cut: at the cosmological cut the finite realization datum itself,
+then a routed witness within the window; at the lattice cut the genericity lemma in the named form.
+Guard `R7-PC4` pins the preregistration by blob, certifies the strengthened execution ancestry with
+archive mode after the merge, and holds the status rule, every target's frozen reading, the `RS`
+labels, the definition list and the axiom table against fifteen mutation controls.
+
+That programme's second executed round, **Physical C4 round 2, the storage-time reading**
+(`programmes/physical-realization/round-c4-2-storage-readback/`, preregistration blob
+`16cfd1303e7c279c8d6bab68b7112c3f25a7460e`, merged by PR #636 as `0ef0741`, the mandated execution
+base), states in `OIBridge/PhysicalC4StorageReadback.lean` the reading of the discovery round's
+store clause and its causal read leg on the random variable that clause names — the hidden state at
+the storage time, `Law(H_s | X_s = x, X_0 = a)`, rather than the initial hidden seed — as a second
+kernel predicate, `RoutedReadbackAtStorage`, and re-runs on it every carrier round 1 ran. It is the
+manuscripts' same realization clause on the merged rooted interface: not a new condition, not
+called a strengthening, nothing numbered beyond C4. Round 1's predicate keeps its name and its
+statement and every theorem about it stands as merged; the two coexist under distinct names and
+every statement says which one it is about. The read leg is proved to be the conditional visible
+law `Law(X_t | X_s = x, X_0 = a)` from the step's bijectivity alone. Under the storage-time reading
+the sealed C1–C4 core carries a routed witness at window `2` on round 1's own frozen tuple, with the
+contrast at the storage surface certified — the two roots' storage-time hidden laws are the point
+masses at their own visible bits while round 1's seed weights coincide — and both controls survive:
+the uncoupled product has no write at any window, and the tape-and-ledger coin has no routed witness
+within `3` and one at the return `4`, on round 1's own recorded scratch tuple. The return-horizon
+consequence transfers with its scope remark verbatim. **The two readings are incomparable as
+predicates**, by two exhibited carriers with exact certificates and never by a failed search: the
+sealed core satisfies the storage-time reading at a window where round 1's holds at none, and a
+second exhibited carrier satisfies round 1's reading at window `2` while the storage-time reading
+fires at no admissible tuple there — a direction the round preregistered as positive at low
+strength and which landed the other way, reported against prediction with the freeze left unedited.
+**Nothing here says C4 holds, or fails, at either physical cut**, neither reading is called stronger
+than the other or called the correct reading of C4, the manuscripts are found **silent** on the
+distinction on a named and bounded search, no manuscript was edited, and the `P1` row stays
+**OPEN** with its residual exactly as round 1 made it. One toy instance at four sites is certified
+by exact probe at evidence level 3 **by design**, the obstruction to a kernel claim being on round
+1's record. Guard `R7-PC4S` pins this round's preregistration by blob, certifies the strengthened
+execution ancestry with archive mode after the merge, and holds the status rule, every target's
+frozen reading, the incomparability and its two certificates, the definition budget and the axiom
+table against its mutation controls; round 1's `R7-PC4` block and its seal constants are untouched.
+
+The substratum A6 instantiation round 2
+(`programmes/substratum/a6-instantiation/`, preregistration blob `6f991c1`, merged alone by PR #623
+as `3e5d6a8`, the mandated execution base) discharges what it can of the named hypothesis the
+`P1 — A6` row carries, in the two halves that row states and never merged. **The organizing caveat
+comes first and governs every positive**: `a6cov_all` makes the adopted meaning hold identically on
+every link-coupled rule of the interface, so an instantiation positive says exactly that the
+manuscripts' rule is of that form and says nothing about a condition having been tested and
+survived. `OIBridge/A6Instantiation.lean` packages the manuscripts' six-fold link-coupled rule as a
+`Substratum` of the kernel's own structure with **no field added** — the cubic torus, the
+six-component alphabet over `ℤ/qℤ`, the axis neighbourhood, the link-valued coupling as a parameter
+and the second-order term carried by the leap — and proves the bridge equation identifying the
+packaged carrier's update map with the interface's link-coupled map, `A1`–`A5` on that carrier
+(`A4Exact` **under the translation-invariance hypothesis on the link coupling**, which is part of
+the statement and travels with it), a non-scalar additive automorphism of the six-component
+alphabet removing the singleton-index degeneracy for this carrier, and the separate stronger
+fixed-background condition failing at the symmetric point `M = μ I_6` while the global commutant
+specialization holds there — that failure being the recorded reason it is not the adopted meaning,
+and not a defect of the manuscripts' rule. On the lift half the round splits "inside the interface"
+in two, and the split is the load-bearing result: the **covariance statement** comes inside —
+`A6Cov` at `V = Fin 6 → ℂ` with no new definition and no structure added, with the manuscripts'
+site-dependent transformation proved to be an instance of the interface's transformation class both
+in `ℂ`-linear and in matrix-unitary form — while the **carrier** does not, the complex carrier being
+proved **not** to be a `Substratum` satisfying `A1`, since `A1` is finiteness. `A1` is not weakened,
+no second substratum structure is introduced, and no unitary group, inner product, condensate, state
+or cubic action enters the interface. The covariant form reaches the second-order dynamics at both
+alphabets. Twenty-five named results, no `sorry`, no `axiom`, no `native_decide`, every axiom line
+within `propext`, `Classical.choice`, `Quot.sound`; two of the five definition slots fired and the
+three conditional slots are recorded unused; no target fell to UNDECIDED and the one preregistered
+negative landed as a computed certificate. **The `ROADMAP` row `P1 — A6` keeps `CONDITIONAL`, its
+label cell and its reasons byte-identical**, so status rule clause 2's permitted re-pin of
+`R7-A6D`'s row clause was not performed, its condition being unmet; the section gains one paragraph
+and two links. What stays outside is named exactly: that the manuscripts' **physical** substratum is
+the packaged carrier is a premise no round discharges, and the part of `[SM §3.1]`'s derivation that
+consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)`
+or the cubic decomposition is neither consumed nor judged. Nothing about the Standard-Model
+gauge-group derivation, and no label recommendation: the stronger-label decision is named as open
+and the owner's. No manuscript is edited; round 1's two artifacts and the propagation's control
+plane are pinned by blob so that this is a checked fact. Guard `R7-A6I` pins the preregistration by
+content with a drift control, certifies the strengthened execution ancestry against the real
+`pull_request.head.sha` with archive-mode scaffolding present and its pins unset, and holds the
+status rule, each target's frozen reading, the definition budget and the axiom table against
+mutation controls. **No discrepancy against the freeze's start-state table**: every pinned blob was
+byte-identical at the mandated base and every quoted passage was found verbatim at its recorded
+coordinate.
+
+The substratum A6 status adjudication (`programmes/substratum/a6-status-adjudication/`,
+preregistration blob `0f98c6a`, merged alone by PR #637 as `c4ae9bf`, the mandated execution base)
+decides which entry of the queue's own status vocabulary the merged record supports for the
+`P1 — A6` row, and writes it. It is a **type-P** round throughout: no Lean, no definition, no
+kernel object and no axiom table, every determination carried by a verbatim quotation from a pinned
+blob with its coordinate, and reconstructive inference forbidden as a finding. **The organizing
+caveat comes first and governs every positive**: `a6cov_all` makes the adopted meaning hold
+identically on every link-coupled rule of the interface, so a positive says exactly that the
+manuscripts' rule is of that form and says nothing about a condition having been tested and
+survived. All seven vocabulary entries were run against the row. The row **keeps `CONDITIONAL`**
+and its reasons are written to the text the freeze fixes character-for-character: the hypothesis
+the covariance propagation named is discharged in its packaging half at evidence level 2 and
+discharged **for the covariance statement only** in its lift half, while what the row tracks is the
+substratum identification — that the manuscripts' physical substratum is the packaged carrier —
+which the merged record carries as a premise no round discharges and as one of the reasons the
+label stands. The stronger label is gated and the gate does not open on either half: the record
+states in terms that the covariance of `SM.md:112–114` on the complex lift is not kernel-checked as
+the manuscripts conduct it, on the carrier they conduct it on, so what the propagation's own words
+for that half name is not established to be what the instantiation round proved. **Separately, and
+outside `A6Cov` rather than as a condition on it**, the part of `[SM §3.1]`'s derivation that
+consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)`
+or the cubic decomposition stands outside the interface, as does the complex carrier; neither is a
+component of the condition the label carries, and neither entered the gate. The row stays in the
+queue in its order, no other row, section or research status is touched, and no manuscript is
+edited. Nothing here strengthens or weakens what the three landed A6 rounds established, nothing
+here says the sixth assumption holds of the physical substratum or fails of it, and nothing here is
+a derivation of the gauge group. The round is **non-sealing** under `§A.37`: it owns the guard
+contracts asserting the live row and the live label cell and owns no seal state, so
+`_A6P_SEALED_HEAD`, `_A6D_SEALED_HEAD`, `_A6I_SEALED_HEAD` and every `_*_MERGE` and `_*_BASE`
+constant are read and never written, and the landing is `E` → `L` with no archive-pin commit.
+`_A6P_ROW`, `_A6P_ROAD_HYP` and `R7-A6D`'s inline row string take the adjudicated text, and the
+propagation guard's complex-lift control is re-pointed at an overclaim of the qualified sentence
+rather than deleted or relaxed; the three label-overclaim controls `_a6p_m6`, `_a6d_m25` and
+`_a6i_m10` stand unmodified, the label cell they rewrite being unchanged. **Four start-state blobs
+differed at the mandated base**, each by a sibling landing that added text elsewhere in the file and
+touched no A6 surface; the discrepancies are recorded in the result note and not repaired, and no
+result absent from this round's freeze was consumed.
+
+## Seal infrastructure round SI-1 — the shadow validator and the equivalence census
+
+`verification/seals/` carries one JSON record per round: twenty-two of them, eighteen `kind:
+"sealed"` and four `kind: "base-only"`. They are a **transcription** of the seal constants
+`verification/lean/edge_rigidity_probe.py` already carried, and the guard machinery in that file
+remains **authoritative**. `R7-SI1` runs a generic validator over the records as a SHADOW and
+reports a census of its agreement with the existing per-round checks; the shadow decides nothing.
+Presence is not authority, and `SI1-6` establishes that mechanically: the ninety pre-existing check
+tags return identical verdicts at the round's base and at its head, and no seal constant was
+removed.
+
+The census outcome is **`CENSUS-DIVERGENT`**. Over the twenty-two real records the two
+implementations agree — the eighteen sealed ones on the lifecycle axis, the four base-only ones on
+schema, pinned base and record integrity, having no lifecycle to agree about. Over the twenty-one
+synthetic controls, nine have no old-machinery analogue at all and **four of the twelve comparable
+ones diverge**. Three are points the new model was built to be stronger: a second merge carrying the
+same sealed head, a descendant of an unpinned landing, and a completed non-sealing round the old
+machinery refuses under execution semantics. On the fourth the direction is **reversed** — on a
+stale `base.sha` with the landing sitting on the base branch the old archive path returns `PASS`
+through the base-branch tip while the new model returns `FAIL` with zero candidates, which is the
+same behaviour as the round's first discrepancy, reproduced independently through the census. Both
+verdicts are recorded for every row and **the census adjudicates none of them**: the freeze reserves
+that to the owner, and the decision against `#141` is taken by `SI1-8` under `#141`'s own
+requirement, not by the census. It is an agreement census and **not a proof of correctness**: agreement where it occurs
+is no evidence of correctness, because a shared error survives every case both sides get wrong
+together.
+
+The round records three discrepancies and repairs none. The first is its central finding: the frozen
+derivation rule, scoped to the resolved target alone, **reintroduces the base-age false negative**
+on a pull request opened from a historical base, where a landing sitting on the base branch is
+unreachable from the head. The remedy — deriving over the union of the visibility targets — is
+named and deliberately not applied, and awaits adjudication before `SI-2` moves authority. That
+finding also decides `#141`: the requirement that prior seals be evaluated against the landing
+topology rather than the pull-request head is **`RESTATED-AND-FAILS`**, against the freeze's
+prediction. `#140` is **`RESTATED-ONLY`** — its frozen question needs an independent source for each
+round's mandated base, and this round has none.
+
+## Seal infrastructure round SI-2 — the bootstrap cutover
+
+The generic seal validator `SI-1` built as a shadow is now **authoritative**, and the manifest under
+`verification/seals/` is the seal state it validates: twenty-three records, eighteen `sealed` and
+five `base-only`, the twenty-third being the `SI1` record this round added first. The adjudicated
+derivation rule is executable — on a pull request the landing is derived over the **union** of the
+real head's and the live base-branch tip's histories, deduplicated by SHA, never over
+`pull_request.base.sha`, a local branch or the synthetic merge — and every prior-round ancestry
+and archive clause in `verification/lean/edge_rigidity_probe.py` is now a call to that validator
+keyed on the round's record. The old machinery still runs on every one of them, and on the
+per-round seal-integrity comparisons, as a **shadow that gates nothing**: its verdicts are recorded
+beside the validator's, and two dynamic controls show that forcing or flipping them changes no
+verdict. Manifest integrity is data-driven, one rule over the record set fixed at the round's first
+stage. Nothing was deleted: the sixty-one legacy seal-constant assignment statements are at the
+head exactly as at the base, as text and in order, and `AGENTS.md` §A.37 now says in two halves
+that they **cease to gate** from this landing and remain **protected historical seal state** until
+the retirement round, which is sealing and writes its own manifest record.
+
+The census at the final head matches the profile the freeze predicted: all twenty-three records
+agree, and of the twelve comparable synthetic controls exactly three diverge — 7, 13 and 20, each in
+the validator's adjudicated direction — while **control 10 agrees**, the divergence `SI-1` measured
+reversed having disappeared because the validator now sees the base-branch tip. That is an
+agreement census under an adjudication of behaviour, not a proof of correctness. The base's own
+guard file, run on its own tree, gives ninety-one `PASS` verdicts that the head reproduces on every
+tag. `#141` — prior seals evaluated against the landing topology rather than the pull-request
+head — is **`RESTATED-AND-HOLDS`** under the authoritative validator; `SI-1`'s recorded
+`RESTATED-AND-FAILS` is not edited. `#140` remains **`RESTATED-ONLY`**.
+
+The round's control plane was amended twice before execution, in the append-only form under
+`amendments/`: once to scope `R7-SI1`'s manifest-cardinality contracts to the twenty-two records it
+transcribed, once to admit `_SI2_BASE` in its seal-constant containment contract. Both collisions
+were found by uncommitted dry runs and adjudicated by the owner; neither was absorbed by the
+implementation. The round is non-sealing, `E` → `L`, no pin.
+
+## Seal infrastructure round SI-3 — the legacy seal retirement
+
+The representation `SI-2` replaced is gone. `verification/lean/edge_rigidity_probe.py` carries
+**zero** module-level `_<STEM>_BASE`, `_<STEM>_SEALED_HEAD` or `_<STEM>_MERGE` statements — sixty-two
+over sixty names were deleted against `SI-2`'s frozen inventory plus `SI-2`'s own base — no shadow
+of a manifest verdict (the twenty-three `_<stem>_legacy_ancestry` functions), and no per-round
+seal-integrity comparison (the five `_<stem>_prior_seals` comparators, their eight recordings, and
+the recorder itself); every read of a round's seal state goes through one manifest accessor,
+`_seal_field`, and the zero-statement count is a standing contract `R7-SI3` keeps, so a round that
+writes a constant again fails it. The round was **sealing**, `E` → `L` → `P`, the first to seal
+through the manifest under §A.37 as `SI-2` amended it: it carried its base while executing in a
+stem-free prospective declaration handed to the validator, was classified `EXECUTION` and then
+`LANDED-PENDING-PIN` through the validator's prospective path — the first live use of the "delicate
+part" `SI-1` built — and its `P` writes `verification/seals/SI3.json` and removes the declaration.
+From `P` the manifest holds twenty-five records, nineteen `sealed` and six `base-only`, `SI2.json`
+having been added first as `SI-2`'s `base-only` record and the data-driven integrity rule now
+reading a round-declared baseline.
+
+Every frozen `SI-1` and `SI-2` contract the deletions would fail was named in the freeze's
+supersession table with its replacement, and only those were touched: N13 retired as `SI-2`'s
+Amendment 2 assigned; the closed rounds' cardinality contracts read over the records they
+manifested; the two live census re-measurements, whose old side no longer exists, **replaced by
+artifact-integrity checks** — `SI-1`'s and `SI-2`'s `census.json` pinned by their existing blob
+identities, certified historical measurements of those rounds' checkpoints, never read as current
+evidence and never the ground of an old/new equivalence claim after retirement. The verdict map is
+preserved: the base's guard file, run at the mandated base on every run, returns ninety-two `PASS`
+verdicts that the head reproduces on every tag, and no pre-existing verdict moved at any of the six
+stage commits — so nothing was gating on a shadow, as `SI-2` measured. `AGENTS.md` §A.37 now states
+the representation retired, the prospective declaration and its removal at `P`, the round-declared
+baseline, and the closed-round rule, once for every round after.
+
+The round was executed twice. The first attempt, from the preregistration merge, ended green and
+was ruled non-certifying: it had exposed three contradictions inside the freeze — the shadow
+recorder's deletion against the region bound, the clause-9 block's stage against the sixty-one
+statement inventory, and the stage-2 read target against the block's six reads — and resolved
+them implicitly. Amendment 1 resolved them prospectively, in the append-only form, and the round
+was re-executed from the amendment's certified merge on a fresh branch, with the residue bound
+measured from git at every stage commit and no discrepancy. `SI-3` is not Act 21.
+
 `.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
 probes as three independent jobs on every change under `verification/`.
+
+## Certificate infrastructure round CV-1 — the V2 round-certificate protocol: shadow, census and cutover
+
+A landed round is now also **data**: `verification/certificates/` carries one certificate per
+round — fifty-one translated from the guard's blocks and the seal manifest at the migration
+snapshot, and `CV-1`'s own bootstrap certificate, issued by the `V1` guard that certifies the round
+and never by the verifier it installs — and, under `attestations/`, one record per round that has
+topology: twenty-nine `landed` rows naming the exact sealed head, its tree and its landing merge,
+read from git, and six `base-only` rows, every one carrying its migration snapshot and no
+continuous-integration identity, because no attestation commit existed for any of them. One
+generic, standard-library verifier, `tools/certificate_verifier.py`, with no round stem in its
+text, derives every git-derivable fact again — the base from the control plane's last
+execution-affecting artifact, located by blob on `main`'s first-parent chain; the sealed head as
+the landing's non-first parent under the strengthened ancestry check, with the tree required
+separately; the landing as the unique merge over the union of the real pull-request head and the
+live base-branch tip — and holds one universal live rule: every evidence id of every accepted
+certificate resolves, through a relocation ledger, to exactly one current path at its certified
+blob. It is held to a conformance corpus of eighty-nine vectors over thirteen families, executed as
+an **exact set** on every build, six of them the permanent record of one defect: **an
+execution-time assertion left running against whatever tree the guard later finds**, found six
+times in the two repair rounds `GR-1` and `GR-2` — the declaration scope, the pin scope, `N12`, two
+seals-tree statements and the fixture `F11`. The round supersedes the last four, each pinned by
+sha256 and extracted from the base's own guard text, each shown to fail on the successor state its
+contract could not survive while its replacement, reading the round's own recovered history,
+passes.
+
+**Dual gating.** From the round's fifth stage `tools/release_gate.py` — the in-repo gate the
+required `Mathlib bridge` check runs — carries the verifier in authoritative mode, so `V2` can
+reject a build with repository-controlled semantics; the standalone `Certificate verifier` job runs
+it in shadow and gates nothing, the repository's ruleset requiring only three status contexts. `V1`
+is not retired and not a shadow: every `R7` block gates at `E`, at `L` and after as at the base,
+and the base's 103 verdicts are reproduced on every tag. Act 29 is the one round the verifier does
+not own: `legacy-v1-owned.json` names exactly `PRA`, reported `LEGACY-V1-OWNED` with no validity
+claim in either direction while `V1` certifies it through `EXECUTION` → `LANDED-PENDING-PIN` →
+`ARCHIVED`; the bridge is simulated on a shared clone of this repository through its five steps.
+The retirement round `CV-2` halted before any of its execution landed
+(`infrastructure/round-cv-2-v1-retirement/result.md`): the set still names `PRA`, `V1` is not
+removed, and both are migration requirements of the next verifier architecture.
+
+The two censuses match their frozen profiles at the stage-4 head and again at `E`, recomputed by
+the guard on every build: over the fifty-one certificates and every comparable `SI-1` and `SI-2`
+control the `V1` guard and the `V2` verifier returned the same verdict, and they differed on
+exactly the four supersession controls, each in the adjudicated direction — an agreement census
+with four named divergences and not a proof of correctness; and thirty-three manifested rounds
+were transcribed byte-equal, `GR-1` and `GR-2` changed representation with the same recovered
+`E`, `tree(E)` and `L`, sixteen content-only rounds gained certificates with no `V1` counterpart,
+`CV-1` is the unique bootstrap and act 29 the one legacy-owned round. The round is non-sealing,
+`E` → `L`, no pin; it writes no manifest record, no prospective declaration and no baseline change;
+its attestation `A` — one record, `attestations/CV1.json`, with the run identities — is appended to
+`main` after the landing's push run is certified.

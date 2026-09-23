@@ -1,0 +1,31 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-i/arc-d-operational-sourcing",
+ "evidence": [
+  {
+   "blob": "dbbf05536e146c7704fb3217dac0c0e6cfa00f17",
+   "id": "SOURCE/amendments/amendment-1.md",
+   "path": "verification/programmes/oi-qm/track-i/arc-d-operational-sourcing/amendments/amendment-1.md"
+  },
+  {
+   "blob": "e9ca45351b58354564552471aa8fe81537a8e557",
+   "id": "SOURCE/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-i/arc-d-operational-sourcing/preregistration.md"
+  },
+  {
+   "blob": "ac55ce40ceaa569d6421141154a26d9025372c74",
+   "id": "SOURCE/result.md",
+   "path": "verification/programmes/oi-qm/track-i/arc-d-operational-sourcing/result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "SOURCE",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

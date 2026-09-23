@@ -6,7 +6,7 @@ name: verify
 # zero imports — so the kernel gate is just a `lean` binary and one command per file.
 # A clean exit is the certificate; see verification/lean/VERIFYING.md.
 
-# NO PATH FILTERS, deliberately. These three jobs are required status checks on main, and a
+# NO PATH FILTERS, deliberately. The three verification jobs are required status checks on main, and a
 # required check that never runs never reports: GitHub leaves it Expected forever and the pull
 # request cannot be merged. A path filter would do exactly that to any pull request touching only
 # papers/*.md. The filters that used to live here also had to name every gated probe individually,
@@ -76,18 +76,96 @@ jobs:
           sh elan-init.sh -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
+      # Mathlib's own oleans come from `lake exe cache get` below and are NOT cached here:
+      # that tree is 4.5 GB and has no business in the Actions cache. What is cached is the
+      # 536 MB this package builds itself -- 170 OIBridge modules -- which is thrown away on
+      # every fresh runner and rebuilt from nothing. Three consecutive runs measured 20m34s,
+      # 20m02s and 20m56s of Build, two of them on a tree whose Lean source was byte-identical
+      # to its base, so the cost is paid whether or not any Lean changed.
+      #
+      # The key pins the toolchain, the resolved dependency manifest and the lakefile, so a
+      # Mathlib or toolchain bump can never restore artifacts built against the old one, and
+      # then the Lean sources. The restore prefix drops only the source hash, so a changed
+      # module restores the last build of the same dependency set and recompiles from there.
+      # Both globs name this package's own sources; neither can reach into .lake/, so the key
+      # never depends on downloaded dependency source.
+      - name: Restore the OIBridge build cache
+        uses: actions/cache@v4
+        with:
+          path: verification/lean-mathlib/.lake/build
+          # Both keys are single physical lines on purpose: restore-keys is a
+          # newline-separated LIST, so a key broken across lines would parse as
+          # several malformed keys rather than one.
+          key: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-${{ hashFiles('verification/lean-mathlib/OIBridge.lean', 'verification/lean-mathlib/OIBridge/**/*.lean') }}
+          restore-keys: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-
+
+      # `--rehash` is what makes a restored cache safe to trust: it hashes the files for traces
+      # rather than believing the restored `.hash` files, so the cache supplies candidate
+      # artifacts and the checked-out source still decides which of them may be reused.
+      #
+      # NOT `--old`. Lake's own help says it "only rebuild modified modules (ignore transitive
+      # deps)" -- it would skip dependents of a changed module, which is precisely the assurance
+      # this gate exists to provide. `--rehash` keeps ordinary dependency semantics intact.
+      #
+      # The two phases are timed separately because they have different remedies: time in
+      # `cache get` is Mathlib download and decompression, which the step above deliberately
+      # does not address, and time in the build is this package's own compilation, which it does.
       - name: Build
         working-directory: verification/lean-mathlib
         run: |
           lean --version
+
+          t0=$(date +%s)
           lake exe cache get
-          lake build
+          t1=$(date +%s)
+
+          lake --rehash build
+          t2=$(date +%s)
+
+          echo "TIMING lake-exe-cache-get $((t1 - t0))s"
+          echo "TIMING lake-rehash-build $((t2 - t1))s"
+          {
+            echo "| build phase | seconds |"
+            echo "|---|---|"
+            echo "| \`lake exe cache get\` | $((t1 - t0)) |"
+            echo "| \`lake --rehash build\` | $((t2 - t1)) |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The release gate runs HERE, after the build, because this job already has
+      # elan, lake and the Mathlib cache, and several gate checks read the built
+      # tree. It is the real `tools/release_gate.py`, not a CI approximation of it:
+      # a second partial implementation would drift from the gate it stands in for,
+      # and drift is exactly the failure this step exists to prevent.
+      #
+      # Before this step existed, "all checks green" said nothing about voice,
+      # claims, coverage, staleness, the manuscript census, or any other gate
+      # check — only about Lean and the probes. A voice_check scope defect reached
+      # main under three green checks that way.
+      - name: Release gate
+        run: python3 tools/release_gate.py
 
   probes:
     name: Numerical probes
     runs-on: ubuntu-latest
     steps:
+      # Full history rather than the default depth-1 clone, and LOAD-BEARING. For commits it is
+      # only a convenience -- `edge_rigidity_probe.py`'s R7-RBR guard recovers whatever commits it
+      # needs itself, and fails closed if it cannot, so cloning deep merely makes that recovery a
+      # no-op instead of a network round-trip. But `fetch-depth: 0` is also what fetches
+      # `+refs/heads/*:refs/remotes/origin/*`, and the guard's ARCHIVE mode resolves the pull
+      # request's base BRANCH by name against `refs/remotes/origin/<base ref>` and nothing else. A
+      # shallow or single-branch checkout leaves that ref absent and archive mode fails closed, by
+      # design: neither `pull_request.base.sha` -- which is no reliable source of the live tip, PR
+      # #644 having carried base b78eac870ba3 across three later landings -- nor a local
+      # `refs/heads/<base ref>` is accepted in its place.
+      #
+      # Note that the guard does NOT ask its question of HEAD in a pull_request run -- HEAD is the
+      # synthetic merge commit, which has BOTH the base and the head as parents, so the ancestry
+      # check would be vacuous; execution mode resolves pull_request.head.sha instead, and archive
+      # mode the real head SHA or the base branch tip, never that HEAD.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -108,7 +186,10 @@ jobs:
                    weyl_twirl weyl_lift separability boundary_rank reciprocity \
                    gauge_dimension bohr_frequency taste_branching gap_correspondence \
                    static_generator spectral_logarithm centralizer_basis \
-                   wave_period partition_coupling audit_census repertoire_lie edge_rigidity; do
+                   wave_period partition_coupling audit_census repertoire_lie edge_rigidity \
+                   causal_readback_discovery causal_readback_bridge causal_readback_t1_scope \
+                   recurrence_tightness recurrence_tightness_guard scaling_family \
+                   rooted_classification_t3 physical_c4_toy_instance; do
             echo "=== ${p}_probe.py ==="
             python3 "${p}_probe.py"
           done
@@ -131,3 +212,69 @@ jobs:
             python3 "${p}.py" || rc=1
           done
           exit $rc
+
+  # A.37 base certification for control planes. A control plane's mechanical preconditions are
+  # scoped at D (the drafting snapshot), at B (the mandated execution base: the certified merge
+  # commit on main) or from D to B. B has no SHA until the merge exists, so on a pull request the
+  # B-scoped rows are evaluated prospectively against M, the candidate merge; on the push to main
+  # the SAME rows run through the SAME code path against the actual merge commit, which is the
+  # certification an execution may branch from.
+  #
+  # This is the one place a job deliberately asks its question of HEAD in a pull_request run:
+  # actions/checkout hands it the synthetic merge of the head into the current base, which is
+  # exactly M. That is the opposite of the ancestry guard in the probes job above, which must never
+  # read that HEAD and resolves pull_request.head.sha instead; M is predictive test state only and
+  # certifies nothing. fetch-depth: 0 is load-bearing for the ancestry rows (D an ancestor of REF).
+  #
+  # A tree with no block-bearing control plane is a clean no-op, so this job is green on every
+  # change that is not a control plane.
+  control-plane-base-check:
+    name: Control-plane base check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Self-test
+        run: |
+          python3 tools/control_plane_base_check.py --self-test
+          python3 tools/control_plane_lint.py --self-test
+
+      # HEAD is the synthetic merge here: the candidate M.
+      - name: Preconditions at M (candidate merge)
+        if: github.event_name != 'push'
+        run: python3 tools/control_plane_base_check.py --mode M --ref HEAD
+
+      # github.sha is the merge commit that landed: the actual B.
+      - name: Preconditions at B (merge commit on main)
+        if: github.event_name == 'push'
+        run: python3 tools/control_plane_base_check.py --mode B --ref ${{ github.sha }}
+
+  # CV-1: the V2 round-certificate verifier, in SHADOW MODE, for visibility at every event. Its
+  # report is always produced and this job never gates: the repository's ruleset requires only the
+  # three checks above, so veto power does not come from here. The authoritative call lives in
+  # tools/release_gate.py, which the required Mathlib bridge check runs, from CV-1's stage 5.
+  # fetch-depth: 0 is load-bearing: the derivations read the union of the pull request's real head
+  # and refs/remotes/origin/<base ref>, never the synthetic merge.
+  certificate-verifier:
+    name: Certificate verifier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Self-test
+        run: python3 tools/certificate_verifier.py --self-test
+
+      - name: Verify (shadow)
+        run: python3 tools/certificate_verifier.py --mode shadow

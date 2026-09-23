@@ -1,0 +1,59 @@
+{
+ "base": "c46e1606d4cafe2720afd69dc06c667eb0f1acff",
+ "contributions": [
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/SemigroupTransfer.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "b8168df9ed1acff21eb89e84487b43470124f845",
+   "execution_affecting": true,
+   "merge": "c46e1606d4cafe2720afd69dc06c667eb0f1acff",
+   "path": "verification/programmes/substratum/lemma-24-1-semigroup-transfer/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/substratum/lemma-24-1-semigroup-transfer",
+ "evidence": [
+  {
+   "blob": "b8168df9ed1acff21eb89e84487b43470124f845",
+   "id": "SGT/preregistration.md",
+   "path": "verification/programmes/substratum/lemma-24-1-semigroup-transfer/preregistration.md"
+  },
+  {
+   "blob": "b5822febb2626af48c29f6198fd6d74637ef9896",
+   "id": "SGT/result.md",
+   "path": "verification/programmes/substratum/lemma-24-1-semigroup-transfer/result.md"
+  },
+  {
+   "blob": "2ff4f68bd5e4283cb67ca53b20b745a998486252",
+   "id": "seals/SGT.json",
+   "path": "verification/seals/SGT.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "SGT",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

@@ -261,12 +261,15 @@ metric/Ollivier--Ricci continuum limit needed by the gravitational
 reconstruction (H-Bell, {[}Substratum §3.3{]}). Accordingly, the exact
 equivalence claim is at the finite observable-law level; universal
 Hilbert-space representability is not promoted into a uniqueness theorem
-for operational quantum mechanics entire. The specific nearest-neighbor
-cubic representative used for the Standard-Model sector is not by itself
-a Bell-violating completion under measurement independence;
-compatibility of preparation-indexed Bell adjacency with the
-continuum-curvature limit is the separate H-Bell hypothesis of
-{[}Substratum §3.3{]}.
+for operational quantum mechanics entire. In particular one visible
+family can admit distinct coherent unitary lifts whose relating
+evolutions differ, so representability together with ordinary coherence
+does not by itself select the unitary evolution relating two times (§3.4
+Remark). The specific nearest-neighbor cubic representative used for the
+Standard-Model sector is not by itself a Bell-violating completion under
+measurement independence; compatibility of preparation-indexed Bell
+adjacency with the continuum-curvature limit is the separate H-Bell
+hypothesis of {[}Substratum §3.3{]}.
 
 \hypertarget{introduction}{%
 \subsection{1. INTRODUCTION}\label{introduction}}
@@ -1546,15 +1549,22 @@ basis, hence is unitary. \(\square\)
 A finite permutation does not by itself generate a continuous flow: on a
 finite discrete configuration space the dynamics is the discrete group
 \(\{U_\varphi^k\}\), and any continuous one-parameter interpolation is
-\emph{additional structure}, chosen rather than derived. When such an
-interpolation is introduced --- a strongly continuous one-parameter
-unitary group \(U_t\) with \(U_1 = U_\varphi\), which always exists but
-is not unique (any branch of \(\log U_\varphi\), differing by \(2\pi\)
-shifts of eigenphases, defines one) --- the exponential
-\(U_t = e^{-i\hat{H}t}\) then supplies the continuous unitary
-interpolation for Hermitian \(\hat{H}\); the framework's continuous-time
-statements are conditional on that choice, with the branch ambiguity
-part of the phase-retrieval gauge catalogued below.
+\emph{additional structure}, chosen rather than derived. The depth-two
+structure of the substratum update supplies something weaker and
+derived: an exact norm-continuous path of local \(*\)-automorphisms of
+the quasilocal algebra from the identity to the update's Heisenberg
+action, for which no one-parameter-group law is established and no
+generator is exhibited ({[}GR §3.3{]}; kernel:
+\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_one\_eq\_heisQ} in
+\texttt{OIBridge/SecondOrderDrive.lean}). When such an interpolation is
+introduced --- a strongly continuous one-parameter unitary group \(U_t\)
+with \(U_1 = U_\varphi\), which always exists but is not unique (any
+branch of \(\log U_\varphi\), differing by \(2\pi\) shifts of
+eigenphases, defines one) --- the exponential \(U_t = e^{-i\hat{H}t}\)
+then supplies the continuous unitary interpolation for Hermitian
+\(\hat{H}\); the framework's continuous-time statements are conditional
+on that choice, with the branch ambiguity part of the phase-retrieval
+gauge catalogued below.
 
 \textbf{Lemma (Reverse direction, scoped).} \emph{Any single one-step
 doubly stochastic matrix on a finite configuration space
@@ -1752,7 +1762,12 @@ the joint Choi state survives the partial trace onto any single factor
 pair, so one entangled factor Choi rules out separability of the whole;
 the identity on a non-trivial factor is not entanglement-breaking. Since
 conjugation by a unitary preserves the property, \(\Phi_G\) is
-entanglement-breaking precisely when \(s - t = 0\). \(\square\)
+entanglement-breaking precisely when \(s - t = 0\). \(\square\) (kernel:
+\texttt{entanglementBreaking\_twirl},
+\texttt{not\_entanglementBreaking\_twirl},
+\texttt{exists\_lagrangian\_tuple} in \texttt{OIBridge/WeylLift.lean};
+\texttt{isotropic\_iff\_commute} in \texttt{OIBridge/WeylTwirl.lean};
+\texttt{separable\_imp\_ppt} in \texttt{OIBridge/Separability.lean})
 
 \textbf{Corollary 1.} \emph{For one step of the displayed update on
 \(\mathbb{F}_2\) --- \(u'_x = \sum_{z \sim x} u_z + v_x\),
@@ -1888,6 +1903,25 @@ here: a family can be P-indivisible while total-variation distance is
 non-increasing for every pair of visible distributions
 (\texttt{translation\_probes.py}, §2.3). Backflow in the system alone is
 therefore sufficient evidence of indivisibility, never necessary.
+
+\emph{Remark (three notions, kept apart).} Three distinct things travel
+under nearby names, and this paper uses them in fixed senses. (1)
+\textbf{Accessible finite-horizon memory}, equivalently information
+backflow in the visible law: this is the framework's own notion, what
+the characterization theorem is about, what \(M_t > 0\) measures, and
+what (C1), (C3) and (C4) diagnose on a finite horizon. Where this paper
+writes ``accessible non-Markovianity'' it means exactly this and says
+nothing about a quantum channel. (2) \textbf{Stochastic
+P-indivisibility}: failure of stochastic divisibility of the visible
+population law, which on one fixed finite reversible representative is
+what the recurrence-scale theorem delivers --- resting on recurrence
+together with a non-permutation rooted map, not on (C1), (C3) and (C4)
+alone. (3) \textbf{Generic quantum non-Markovianity}: an open-system
+notion whose content depends on which quantum divisibility or backflow
+criterion is adopted. No unconditional implication among the three is
+asserted here. The two preceding remarks give the exact conditions under
+which (2) constrains a quantum intermediate map, and the Hadamard family
+shows that outside the diagonal-preserving class (2) and (3) come apart.
 
 \textbf{Approximate unitarity.} On observable timescales
 \(t \ll \tau_B\), the hidden-sector state is approximately frozen
@@ -2649,7 +2683,10 @@ of §3.2 are certified by the deterministic probes in
 below, the one-way-coupling counterexample, and the
 diagonal-preservation lemma are certified in
 \texttt{process\_dilation\_probes.py} and
-\texttt{c1\_cp\_scope\_probes.py} in the same directory.}
+\texttt{c1\_cp\_scope\_probes.py} in the same directory.} (kernel:
+\texttt{c3\_necessity}, \texttt{card\_hidden\_ge\_two\_pow\_Istar},
+\texttt{c3\_necessity\_and\_capacity} in
+\texttt{OIBridge/C3Necessity.lean})
 
 \textbf{Theorem (finite-horizon process dilation).} \emph{Let
 \(\mathcal{S}\) be a stochastic process on \(\mathcal{C}_V\)
@@ -2714,7 +2751,8 @@ per-process bound above. Certified exactly on P-indivisible targets ---
 including the §3.2 revival family and a non-Markovian kernel set with
 \(T^{(2)} \neq (T^{(1)})^2\) --- by
 \texttt{process\_dilation\_probes.py} (full-joint equality in exact
-rational arithmetic; permutation control silent). \(\square\)
+rational arithmetic; permutation control silent). \(\square\) (kernel:
+\texttt{S\_imp\_D} in \texttt{OIBridge/Equivalence.lean})
 
 \emph{Remark (prior structure).} The realization uses a structured prior
 --- uniform on the initialized ledger/clock sector times the tape. The
@@ -2885,7 +2923,11 @@ observable law \(P(x_0, \ldots, x_K)\) coincide:}
 of finite reversible deterministic systems under incomplete
 observation;} \emph{(\(Q_{\mathrm{fb}}\)) the laws realizable by
 finite-dimensional unitary systems with Born-rule readout in a fixed
-basis --- the fixed-basis unitary Born representations.}
+basis --- the fixed-basis unitary Born representations.} (kernel:
+\texttt{finite\_horizon\_equivalence}, \texttt{S\_imp\_D} in
+\texttt{OIBridge/Equivalence.lean}; the permutation-unitarity and
+diagonal-preservation lemmas \texttt{permMatrix\_mem\_unitaryGroup},
+\texttt{isDiag\_Phi} in \texttt{OIBridge/EquivalenceChain.lean})
 
 \emph{Proof.} (S \(\Rightarrow\) D) is the response-table construction
 of §3.4, which reproduces the whole multi-time law, not merely the
@@ -3325,25 +3367,30 @@ full statement and scope (kernel: \texttt{carrier\_general\_oiPlus} in
 \texttt{oiPlus\_independence} in \texttt{OIBridge/CompletedOI.lean}). A
 primitive-source refinement restates the three added principles at the
 level of physical implementations and embedded observers ---
-implementation locality, elementary transition richness, and embedded
-observation, with no closure of the implementations under the adjoint
-and no inverse accessibility assumed --- equivalent to the same
-operational quantum mechanics on every nonempty finite carrier, inverse
-accessibility following on any well-formed theory (kernel:
-\texttt{carrier\_general\_oiPlusPos},
+implementation locality, phase-free richness --- one continuously driven
+transition and the exchanges of distinguishable states, with no phase
+operation --- and embedded observation, with no closure of the
+implementations under the adjoint and no inverse accessibility assumed
+--- equivalent to the same operational quantum mechanics on every
+nonempty finite carrier, inverse accessibility following on any
+well-formed theory (kernel: \texttt{carrier\_general\_oiPlusMin},
+\texttt{oiPlusMin\_iff\_qm} in \texttt{OIBridge/MinimalRepertoire.lean};
+\texttt{carrier\_general\_oiPlusPos} in
+\texttt{OIBridge/PositivePackage.lean},
 \texttt{inverseAccessibility\_of\_lieRank} in
-\texttt{OIBridge/PositiveReachability.lean}). A substratum-source form
-completes that refinement: the concrete OI substratum supplies the
+\texttt{OIBridge/MicroscopicReversibility.lean}). A substratum-source
+form completes that refinement: the concrete OI substratum supplies the
 structural architecture --- closure under composition and
 coarse-graining, stability under an uncoupled spectator, relabelling
-invariance, reversibility, the exchanges of distinguishable states, and
-the phases --- but, under finite bijective read-write dynamics, not the
-continuously tunable state-mixing operation; with that one operation
-added as an empirical controllability resource it is equivalent to the
-same operational quantum mechanics on every nonempty finite carrier,
-while finite reversible read-write dynamics, even with genuine
-hidden-memory and readback behavior, does not itself generate quantum
-state mixing ({[}GR §3.3{]}; kernel:
+invariance, reversibility, the exchanges of distinguishable states, and,
+as a stated intervention principle rather than a consequence of its
+finite states and bijective dynamics, the phases --- but, under finite
+bijective read-write dynamics, not the continuously tunable state-mixing
+operation; with that one operation added as an empirical controllability
+resource it is equivalent to the same operational quantum mechanics on
+every nonempty finite carrier, while finite reversible read-write
+dynamics, even with genuine hidden-memory and readback behavior, does
+not itself generate quantum state mixing ({[}GR §3.3{]}; kernel:
 \texttt{substratum\_plus\_control\_qm} in
 \texttt{OIBridge/StructuralClosure.lean},
 \texttt{readWriteSourced\_not\_qm} in
@@ -3356,7 +3403,9 @@ with exact finite-dimensional typed operational quantum mechanics,
 operations between any two nonempty finite carriers included, so the
 remaining qualifier is finite-dimensional rather than endomorphic ({[}GR
 §3.3{]}; kernel: \texttt{typed\_determined\_iff} in
-\texttt{OIBridge/TypedCompletion.lean}). The finite theory admits a
+\texttt{OIBridge/TypedCompletion.lean},
+\texttt{typed\_determined\_of\_oiPlusMin} in
+\texttt{OIBridge/TypedPositive.lean}). The finite theory admits a
 canonical infinite-region completion without a continuum limit: the
 finite regions of the fixed-spacing lattice carry full matrix algebras
 joined by compatible injective unital embeddings with observables of
@@ -3374,12 +3423,85 @@ Hilbert-space representation and no superselection sector is selected at
 the level of the laws, the restriction to the substratum-induced
 dynamics is a theorem rather than a convention --- a phase automorphism
 at one site preserves locality without arising from any reversible
-finite-range bijection --- and a continuous-time Hamiltonian law remains
+finite-range bijection --- and, while the update is joined to the
+identity by an exact norm-continuous path of local \(*\)-automorphisms
+of that algebra, with no one-parameter-group law established and no
+generator exhibited, a continuous-time Hamiltonian law remains
 additional structure ({[}GR §3.3{]}; kernel:
 \texttt{closure\_iUnion\_stage}, \texttt{quasiState\_unique} in
 \texttt{OIBridge/QuasilocalAlgebra.lean}, \texttt{canonEquiv},
 \texttt{phaseQ\_ne\_heisQ} in
-\texttt{OIBridge/QuasilocalCharacterization.lean}).
+\texttt{OIBridge/QuasilocalCharacterization.lean};
+\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_one\_eq\_heisQ} in
+\texttt{OIBridge/SecondOrderDrive.lean}). Within the structural
+architecture the substratum supplies, with the phase intervention
+stated, exact finite endomorphic operational quantum mechanics holds
+exactly when one continuous layer flow of an involution of the
+configuration space moving some configuration is an available operation
+at every level and every intermediate time, the executability of that
+flow being an assumption not derived by configuration-level generation,
+as the phase intervention is an assumption on the substratum class and
+not a consequence of the finite states with the bijective dynamics
+({[}GR §3.3{]}; kernel:
+\texttt{derivedOI\_qm\_iff\_layerFlowExecutable\textquotesingle{}} in
+\texttt{OIBridge/DerivedQ3.lean},
+\texttt{substratumTheory\_not\_layerFlowExecutable} in
+\texttt{OIBridge/LiftAudit.lean}). The stated substratum dynamics with
+the observer's read and write access do not source that executability,
+the layers being available at time one and not at intermediate times,
+and the observer-level lift, in every formulation stated that lands in
+the operational interface, derives neither a non-monomial admissible
+operator nor the layer flow, the site-space wave-operator formulation
+being unresolved rather than excluded ({[}GR §3.3{]}; kernel:
+\texttt{obs\_not\_layerFlowExecutable} in
+\texttt{OIBridge/ExecSource.lean},
+\texttt{coherentLiftClass\_eq\_substratumClass} in
+\texttt{OIBridge/LiftSource.lean}).
+
+\textbf{Passive observation, kept apart from the characterization.} Four
+statements about passive observation stand beside the equivalence above
+and enter none of its hypotheses or conclusions. Complete passive
+observation of a finite-dimensional observable algebra in block-diagonal
+form --- observation by a passive instrument, one whose branches leave
+the block projectors fixed --- is possible exactly when the algebra is
+commutative: some passive instrument separates its states exactly when
+the algebra is commutative, and every passive instrument induces a
+classical stochastic observation of the algebra's center (kernel:
+\texttt{complete\_passive\_iff\_commutative},
+\texttt{central\_classification} in
+\texttt{OIBridge/CentralObservation.lean};
+\texttt{no\_complete\_passive\_observation} in
+\texttt{OIBridge/PassiveObservation.lean}). Quantum noncommutativity
+cannot coexist with complete passive observation. This is
+theory-insensitive: passive incompleteness holds in every finite
+operational theory on a carrier with two or more states, so it carries
+no information about whether the OI core is realized; the implication
+from the core to passive incompleteness holds vacuously, and its
+converse fails, witnessed by a theory that is passively incomplete and
+lacks the core (kernel: \texttt{passivelyIncomplete\_of\_card},
+\texttt{oiCore\_to\_passive\_vacuous},
+\texttt{passivelyIncomplete\_without\_oiCore},
+\texttt{passive\_nondiscriminating} in
+\texttt{OIBridge/PassiveIndependence.lean}). Passive incompleteness is
+therefore not evidence for a hidden ontology, and nothing here says that
+quantum mechanics rests on observation incompleteness: the containment
+in the other direction, that exact finite quantum mechanics realizes the
+sealed core, is a consequence of full control and nothing more (kernel:
+\texttt{qm\_implies\_oiCore} in \texttt{OIBridge/CompletedOI.lean},
+through \texttt{realizesSealedOICore\_of\_control} in
+\texttt{OIBridge/OIRealization.lean}). A passive internal observer,
+whose outcome is a function of a register read on block-diagonal states,
+can only read an existing record: each of its branches is the record
+projection \(\rho \mapsto P_o \rho P_o\), with outcome law
+\(\mathrm{tr}(P_o \rho P_o)\) (kernel:
+\texttt{internal\_branch\_eq\_blockPart},
+\texttt{internal\_outcome\_law} in
+\texttt{OIBridge/InternalObserver.lean}), and creating a genuinely new
+record changes the joint system, the recorder that writes the register
+being not passive on the record-block algebra (kernel:
+\texttt{recordInstr\_writes}, \texttt{recordInstr\_not\_passive},
+\texttt{no\_full\_passive\_self\_record}). All four statements are
+finite-dimensional, and none bears on the equivalence.
 
 \emph{Lemma (adaptive diamond telescoping).} \emph{Let \(\pi\) be an
 adaptive protocol of horizon \(K\) and \(\pi'\) the protocol with each
@@ -3487,6 +3609,9 @@ sharing the endpoint \(x\), the observed gap obeys
 
 \emph{(c) \textbf{Capacity floor.}
 \(M_t := I(X_{<t}; X_{t+1} \mid X_t) \leq I(X_{<t}; H_t \mid X_t) \leq \log_2 |\mathcal{C}_H|\).}
+(kernel: \texttt{unavoidable\_hidden\_predictive\_memory},
+\texttt{distinguishability\_floor}, \texttt{capacity\_floor} in
+\texttt{OIBridge/HiddenMemory.lean})
 
 \emph{Proof.} (a) Determinism makes \(X_{t+1}\) a function of
 \((X_t, H_t)\), so conditioning on \(p\) and pushing \(\mu_p\) through
@@ -3782,6 +3907,63 @@ operational completion conditions hold ({[}GR §3.3{]}; Remark below),
 none of them supplied by the fixed-basis layer, and cross-horizon
 representation consistency is bounded by the classical-dimension
 obstruction.
+
+\emph{Remark (scope: representability, not selection of the relating
+evolution).} The equivalence \(S \iff D \iff Q_{\mathrm{fb}}\) is a
+representability theorem at the finite observable-law layer: it fixes
+which laws admit a fixed-basis unitary Born representation, not which
+unitary evolution relating two times is the physical one. For dilated
+processes that distinction has content. One visible family can admit
+distinct coherent unitary lifts --- each reproducing the visible law at
+every time, each composing exactly across times --- whose relating
+evolutions differ, because a lift may be deformed by a time-dependent
+right action that preserves everything the visible law sees. Ordinary
+coherence therefore does not by itself make the relating evolution
+unique. A deformation constant in time cancels from every relating
+evolution, so the nonuniqueness is carried by time dependence
+specifically. Uniqueness needs a selection condition beyond visible-law
+representability and ordinary coherence; this paper neither supplies one
+nor says what form one must take. The uniformly invisible deformations
+of a lift are two-sided: the time-dependent right action just described,
+by the anchored class, and a left action by unitaries acting within each
+visible output's hidden fibre; each is maximal among uniform actions of
+its kind, and neither is seen by the visible law. Invisibility does not
+exhaust the freedom: two lifts of one visible family can fail to be
+related by any uniformly invisible right deformation and still agree on
+every relating evolution, so lift freedom and freedom in the relating
+evolution are not the same freedom; and a pair outside that right class
+can differ in its relating evolution while being related by a left
+in-fibre move, so quotienting by the right class alone does not
+determine the relating evolution. At a single time the residue after the
+two-sided action is classified exactly: two lifts are related by it
+exactly when, for each visible output, the Gram matrix of the hidden
+states into which they send the visible inputs --- the fibre-Gram data
+--- agrees up to the anchored phases; the visible law is exactly the
+diagonal of that data, and every positive semidefinite, rank-bounded,
+identity-summing family with the prescribed diagonal is realized. So
+what the visible law leaves free at one time is exactly the off-diagonal
+fibre-Gram data modulo phases, and that freedom is neither empty nor
+inert: on a single visible law two lifts can lie in different two-sided
+classes and differ in their relating evolution. Across time the question
+is two-part, and both parts are open: what selects or constrains the
+trajectory of fibre-Gram data through time, and what fixes the relating
+evolution within a given trajectory --- the second not fixed even by the
+complete trajectory, since a time-dependent invisible right deformation
+preserves every fibre-Gram matrix at every time and changes the relating
+evolution. The fibre-Gram data is a coordinate on the space of lifts,
+not a physical quantity, and nothing here says what selects it. None of
+this alters \(S \iff D \iff Q_{\mathrm{fb}}\) as the exact finite
+observable-law correspondence, and none of it makes embedded observation
+and quantum mechanics inequivalent: the statement is that the visible
+law does not by itself fix the relating evolution. \textbf{This is an
+open frontier of the correspondence, not a local technical caveat.}
+Three statuses should be kept apart: finite observable-law
+representability is \emph{established}; exact finite operational quantum
+mechanics is \emph{characterized conditionally}, under the explicit
+completion principles of {[}GR §3.3{]}, none of which bare embedded
+observation supplies; and selection of a unique relating evolution from
+the coherent lifts of one visible family is \emph{open}. This paper
+neither closes the third nor claims it cannot be closed.
 
 \textbf{Remark (scope of the equivalence).} The characterization theorem
 establishes the Hilbert space, unitary dynamics, and Born-rule
@@ -4915,4 +5097,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: e8af7c5c0cbb60884926429093da9637de3d061ad11ed8225a7b6974a6df451c
+% source-sha256: fab8f794ed55d66143c50f9461d11f1b4f5e53079ac13f4f0f7345bd94204991

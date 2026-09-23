@@ -1,0 +1,59 @@
+{
+ "base": "d019718696fd12e4719b5ed5b7d8dfab45544a8c",
+ "contributions": [
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/CrossTimeInvariants.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "5d8bee2c616d12c53234c54bfa7efae19dc1dcc1",
+   "execution_affecting": true,
+   "merge": "d019718696fd12e4719b5ed5b7d8dfab45544a8c",
+   "path": "verification/programmes/oi-qm/track-b/act-13-cross-time-invariants/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-13-cross-time-invariants",
+ "evidence": [
+  {
+   "blob": "5d8bee2c616d12c53234c54bfa7efae19dc1dcc1",
+   "id": "CTI/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-13-cross-time-invariants/preregistration.md"
+  },
+  {
+   "blob": "2c38dbf1c79a0aa3eb654a40d6cb527e99349b4a",
+   "id": "CTI/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-13-cross-time-invariants/result.md"
+  },
+  {
+   "blob": "100ba4994deae405ef9097510159f234115b8abb",
+   "id": "seals/CTI.json",
+   "path": "verification/seals/CTI.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "CTI",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

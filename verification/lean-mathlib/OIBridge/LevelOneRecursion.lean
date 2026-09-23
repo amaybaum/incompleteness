@@ -3,7 +3,7 @@ import OIBridge.EmbeddedObservation
 /-!
 # The level-one seam is not supplied by observer recursion
 
-The completion-assumption ledger (`verification/EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md`,
+The completion-assumption ledger (`verification/archive/superseded/EQUIVALENCE-STRENGTHENING-ROADMAP-2026-09-05.md`,
 row `SystemToLevelOne`) asks whether the system-to-level-one seam can be derived from embedded
 observation or from observer recursion. The first is a theorem of round fifty-six
 (`PrimitiveSource.systemToLevelOne_of_embeddedObservation`). This file records the second half
@@ -24,7 +24,7 @@ availability along `A ≃ A × Fin 1`, observer recursion relates level `n` of `
 a shifted theory and never touches `T`'s own system families.
 
 **Not claimed.** Nothing about the other rows of the ledger; they are recorded in
-`verification/COMPLETION-ASSUMPTION-AUDIT.md` with their existing kernel witnesses.
+`verification/audits/operational/completion-assumption-audit.md` with their existing kernel witnesses.
 -/
 
 namespace OIBridge

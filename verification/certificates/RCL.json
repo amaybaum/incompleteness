@@ -1,0 +1,21 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "audits/physical-realization/c4-causal-readback",
+ "evidence": [
+  {
+   "blob": "7dc3458b45287f1f3cd914d379fcdc36b396b564",
+   "id": "RCL/amendments/amendment-1.md",
+   "path": "verification/audits/physical-realization/c4-causal-readback/amendments/amendment-1.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "RCL",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

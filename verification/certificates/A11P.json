@@ -1,0 +1,26 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "audits/foundations",
+ "evidence": [
+  {
+   "blob": "cc6d5adb5682cd560d9342496fbaeeb957b760b9",
+   "id": "A11P/act11-scope-propagation-audit.md",
+   "path": "verification/audits/foundations/act11-scope-propagation-audit.md"
+  },
+  {
+   "blob": "50f74a0869789dd7188f850cf5ceee125596fb9b",
+   "id": "A11P/act11-scope-propagation-open-frontier-amendment.md",
+   "path": "verification/audits/foundations/act11-scope-propagation-open-frontier-amendment.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "A11P",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

@@ -1054,7 +1054,12 @@ logical chain:
 \item
   Section 2.3 proved: a non-permutation coupling ⟹ P-indivisibility at
   the recurrence scale, and C4's readback ⟹ accessible non-Markovianity,
-  quantitatively (sufficiency)
+  quantitatively (sufficiency). The two conclusions are different
+  notions and neither is generic quantum non-Markovianity: accessible
+  non-Markovianity is finite-horizon memory/backflow in the visible law,
+  while P-indivisibility is failure of divisibility of the visible
+  population law and needs the recurrence and non-permutation
+  hypotheses, not C1/C3/C4 alone
 \item
   Section 3.3 proves: P-indivisibility ⟹ C1, C3, C4 (necessity,
   unconditional); C2's slow form within the mixing class (the
@@ -1142,6 +1147,50 @@ likewise part of the operational lift. The memory-bearing sector
 (\(M_t>0\)), and on a fixed finite representative the associated global
 indivisibility, carries the specifically OI content.
 
+\textbf{And it does not fix which unitary relates two times.} The
+equivalence says which visible laws have a fixed-basis unitary
+representation. It does not pick out the evolution carrying one time to
+the next. For a dilated process, one visible family can admit several
+coherent unitary lifts --- each reproducing the visible law at every
+time, each composing exactly across times --- whose relating evolutions
+differ, because a lift can be deformed by a time-dependent right action
+that preserves everything the visible law sees. A deformation that is
+constant in time cancels from every relating evolution, so the
+nonuniqueness is specifically a time-dependence phenomenon. Uniqueness
+therefore needs a selection condition beyond visible-law
+representability and ordinary coherence, and none is claimed or named
+here. The invisible freedom itself has two sides --- a right action by
+the anchored class and a left action within each visible output's hidden
+fibre, each maximal among uniform actions of its kind --- and it does
+not exhaust the freedom: two lifts can fail to be related by any
+uniformly invisible right deformation and still agree on every relating
+evolution, and a pair outside that right class can differ in relating
+evolution while being related by a left in-fibre move. At one time, what
+the visible law leaves free after both actions is known exactly: it is
+the off-diagonal part of the fibre-Gram data --- for each visible
+output, the overlaps among the hidden states into which the lift sends
+the visible inputs --- modulo phases, with the visible law as its
+diagonal; and that residue is not inert, since two lifts of one visible
+law can differ in it and differ in relating evolution. What remains open
+is two-part: what selects the trajectory of that data through time, and
+what fixes the relating evolution within a trajectory --- the latter not
+fixed even by the complete trajectory. No selection principle is named
+or excluded. This leaves \(S \iff D \iff Q_{\mathrm{fb}}\) exactly as
+stated and does not make embedded observation and quantum mechanics
+inequivalent.
+
+\textbf{The bridge therefore has three statuses, and they are worth
+stating together.} Finite observable-law representability is
+\textbf{settled}: every finite-horizon law has the fixed-basis
+unitary/Born representation, and the three descriptions are equivalent.
+Exact finite operational quantum mechanics is \textbf{characterized
+conditionally}: it holds exactly when the five completion conditions
+hold, none of them supplied by embedded observation alone. And selecting
+one relative quantum evolution from the coherent lifts compatible with a
+single visible family is \textbf{open} --- the remaining bare-OI
+question, on which ordinary coherence has been shown insufficient and
+nothing further is claimed.
+
 \emph{A note on what is proved versus imported, to keep the claim
 honest.} The exact finite-law representation is internal: every finite
 stochastic law has a reversible deterministic realization and an exact
@@ -1169,34 +1218,38 @@ equivalent on every nonempty finite carrier to exact finite endomorphic
 operational quantum mechanics, with no claim that bare OI entails the
 added principles (GR §3.3). A primitive-source refinement restates those
 principles at the level of physical implementations and embedded
-observers --- implementation locality, elementary transition richness,
-and embedded observation, with no closure of the implementations under
-the adjoint and no inverse accessibility assumed --- equivalent to the
-same operational quantum mechanics on every nonempty finite carrier (GR
-§3.3). A substratum-source form completes that refinement: the concrete
-OI substratum supplies the structural architecture --- closure under
+observers --- implementation locality, phase-free richness --- one
+continuously driven transition and the exchanges of distinguishable
+states, with no phase operation --- and embedded observation, with no
+closure of the implementations under the adjoint and no inverse
+accessibility assumed --- equivalent to the same operational quantum
+mechanics on every nonempty finite carrier (GR §3.3). A
+substratum-source form completes that refinement: the concrete OI
+substratum supplies the structural architecture --- closure under
 composition and coarse-graining, stability under an uncoupled spectator,
 relabelling invariance, reversibility, the exchanges of distinguishable
-states, and the phases --- but, under finite bijective read-write
-dynamics, not the continuously tunable state-mixing operation; with that
-one operation added as an empirical controllability resource it is
-equivalent to the same operational quantum mechanics on every nonempty
-finite carrier, while finite reversible read-write dynamics, even with
-genuine hidden-memory and readback behavior, does not itself generate
-quantum state mixing (GR §3.3). Its typed form removes the endomorphic
-qualifier: under the carrier-general typed operational interface ---
-identity, composition, coarse-graining, relabelling, uniform finite
-attachment, discard, and factor readout, an interface that itself
-carries no quantum content --- the same equivalence holds with exact
-finite-dimensional typed operational quantum mechanics, operations
-between any two nonempty finite carriers included, so the remaining
-qualifier is finite-dimensional rather than endomorphic (GR §3.3). The
-finite theory admits a canonical infinite-region completion without a
-continuum limit: the finite regions of the fixed-spacing lattice carry
-full matrix algebras joined by compatible injective unital embeddings
-with observables of disjoint regions commuting, the norm completion of
-their union is a quasilocal \(C^{*}\)-algebra on which every consistent
-family of finite-region density matrices is a state and the reversible
+states, and, as a stated intervention principle rather than a
+consequence of its finite states and bijective dynamics, the phases ---
+but, under finite bijective read-write dynamics, not the continuously
+tunable state-mixing operation; with that one operation added as an
+empirical controllability resource it is equivalent to the same
+operational quantum mechanics on every nonempty finite carrier, while
+finite reversible read-write dynamics, even with genuine hidden-memory
+and readback behavior, does not itself generate quantum state mixing (GR
+§3.3). Its typed form removes the endomorphic qualifier: under the
+carrier-general typed operational interface --- identity, composition,
+coarse-graining, relabelling, uniform finite attachment, discard, and
+factor readout, an interface that itself carries no quantum content ---
+the same equivalence holds with exact finite-dimensional typed
+operational quantum mechanics, operations between any two nonempty
+finite carriers included, so the remaining qualifier is
+finite-dimensional rather than endomorphic (GR §3.3). The finite theory
+admits a canonical infinite-region completion without a continuum limit:
+the finite regions of the fixed-spacing lattice carry full matrix
+algebras joined by compatible injective unital embeddings with
+observables of disjoint regions commuting, the norm completion of their
+union is a quasilocal \(C^{*}\)-algebra on which every consistent family
+of finite-region density matrices is a state and the reversible
 finite-range substratum update is an isometric \(*\)-automorphism, and
 any system carrying the same local stages is canonically and uniquely
 \(*\)-isomorphic to it, intertwining the dynamics; this removes the
@@ -1208,17 +1261,52 @@ Hilbert-space representation and no superselection sector is selected at
 the level of the laws, the restriction to the substratum-induced
 dynamics is a theorem rather than a convention --- a phase automorphism
 at one site preserves locality without arising from any reversible
-finite-range bijection --- and a continuous-time Hamiltonian law remains
-additional structure (GR §3.3). Bell is kept separate from that
-operational-lift residue: the response-complete deterministic layer
-retains measurement independence and requires ontic parameter dependence
-for quantum Bell violation, while the stochastic causal-local Tsirelson
-result remains a weaker-description statement. Thus the accurate
-headline is strong but layered: the finite observable
-stochastic/reversible/quantum descriptions are exactly equivalent;
-readback identifies the memory-bearing indivisible OI sector; the common
-coherent local operational lift is stated separately rather than
-silently folded into the equivalence theorem.
+finite-range bijection --- and, while the update is joined to the
+identity by an exact norm-continuous path of local \(*\)-automorphisms
+of that algebra, with no one-parameter-group law established and no
+generator exhibited, a continuous-time Hamiltonian law remains
+additional structure (GR §3.3). Within the structural architecture the
+substratum supplies, with the phase intervention stated, exact finite
+endomorphic operational quantum mechanics holds exactly when one
+continuous layer flow of an involution of the configuration space moving
+some configuration is an available operation at every level and every
+intermediate time, the executability of that flow being an assumption
+not derived by configuration-level generation, as the phase intervention
+is an assumption on the substratum class and not a consequence of the
+finite states with the bijective dynamics (GR §3.3). The stated
+substratum dynamics with the observer's read and write access do not
+source that executability, the layers being available at time one and
+not at intermediate times, and the observer-level lift, in every
+formulation stated that lands in the operational interface, derives
+neither a non-monomial admissible operator nor the layer flow, the
+site-space wave-operator formulation being unresolved rather than
+excluded (GR §3.3). Bell is kept separate from that operational-lift
+residue: the response-complete deterministic layer retains measurement
+independence and requires ontic parameter dependence for quantum Bell
+violation, while the stochastic causal-local Tsirelson result remains a
+weaker-description statement. Thus the accurate headline is strong but
+layered: the finite observable stochastic/reversible/quantum
+descriptions are exactly equivalent; readback identifies the
+memory-bearing indivisible OI sector; the common coherent local
+operational lift is stated separately rather than silently folded into
+the equivalence theorem.
+
+\emph{Passive observation, kept apart.} Four finite-dimensional
+statements about passive observation stand beside that classification
+and enter none of its conditions (Main §3.4). Complete passive
+observation of an observable algebra in block-diagonal form is possible
+exactly when the algebra is commutative --- some passive instrument
+separates its states exactly then --- and every passive instrument
+induces a classical stochastic observation of the center: quantum
+noncommutativity cannot coexist with complete passive observation. The
+fact is theory-insensitive --- passive incompleteness holds in every
+finite operational theory on two or more states, so it carries no
+information about whether the OI core is realized; the implication from
+the core holds vacuously and its converse fails --- and it is therefore
+not evidence for a hidden ontology, nor a statement that quantum
+mechanics rests on observation incompleteness. A passive internal
+observer can only read an existing record, and creating a genuinely new
+record changes the joint system.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3760,4 +3848,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: e04d1df0e64cc92b8010744836e087bba943f1ca29f35628ebada9cbdda2bb70
+% source-sha256: e938bb6f49b39cf73c550ea178dca9d7dd7b8e2369276367210766b6d532154e

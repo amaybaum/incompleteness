@@ -1,0 +1,59 @@
+{
+ "base": "e0be0ab6dca7b6661a008a9f5e1f3a29ea736003",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/OrbitGeometryRigidity.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "521b63ccde0056453f42035ba9d7970be66cf6f9",
+   "execution_affecting": true,
+   "merge": "e0be0ab6dca7b6661a008a9f5e1f3a29ea736003",
+   "path": "verification/programmes/oi-qm/track-b/act-26-orbit-geometry-rigidity/preregistration.md"
+  }
+ ],
+ "dependencies": [
+  "OGC",
+  "OGS"
+ ],
+ "directory": "programmes/oi-qm/track-b/act-26-orbit-geometry-rigidity",
+ "evidence": [
+  {
+   "blob": "521b63ccde0056453f42035ba9d7970be66cf6f9",
+   "id": "CGR/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-26-orbit-geometry-rigidity/preregistration.md"
+  },
+  {
+   "blob": "76ebf0ffa512ce2e53868e529d42fbf9895a39d8",
+   "id": "CGR/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-26-orbit-geometry-rigidity/result.md"
+  },
+  {
+   "blob": "5a1c18831a6c215c182c30952f7f9d3fc3b16c95",
+   "id": "seals/CGR.json",
+   "path": "verification/seals/CGR.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "CGR",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

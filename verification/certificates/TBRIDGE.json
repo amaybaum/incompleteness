@@ -1,0 +1,26 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-02-transpose-bridge",
+ "evidence": [
+  {
+   "blob": "4cb6b71832c033f61ac6052c0d2ba11763150d62",
+   "id": "TBRIDGE/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-02-transpose-bridge/preregistration.md"
+  },
+  {
+   "blob": "45f354b084411c66a74bc8df7abcd73f8bff77e8",
+   "id": "TBRIDGE/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-02-transpose-bridge/result.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "TBRIDGE",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

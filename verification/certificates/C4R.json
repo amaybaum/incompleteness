@@ -1,0 +1,26 @@
+{
+ "contributions": [],
+ "dependencies": [],
+ "directory": "audits/physical-realization/c4-causal-readback",
+ "evidence": [
+  {
+   "blob": "62204a099b81841e2eb5c71e460a676b0d0960e9",
+   "id": "C4R/preregistration.md",
+   "path": "verification/audits/physical-realization/c4-causal-readback/preregistration.md"
+  },
+  {
+   "blob": "5806c74a088a00d1c227d6ebffd5018fcf3c149e",
+   "id": "C4R/amendments/amendment.md",
+   "path": "verification/audits/physical-realization/c4-causal-readback/amendments/amendment.md"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "C4R",
+ "schema": "oi-round-certificate",
+ "shape": "content-only",
+ "translation": {
+  "from": "round-directory",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

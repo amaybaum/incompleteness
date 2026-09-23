@@ -1,0 +1,56 @@
+{
+ "base": "2f7f31a6dff7ad12aac62204e98e800907fe4a83",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/StrictNaturalLift.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "b0ba370435a561262309ec0ebf2e607bb713ca2a",
+   "execution_affecting": true,
+   "merge": "2f7f31a6dff7ad12aac62204e98e800907fe4a83",
+   "path": "verification/programmes/oi-qm/track-b/act-27-strict-natural-lift/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/oi-qm/track-b/act-27-strict-natural-lift",
+ "evidence": [
+  {
+   "blob": "b0ba370435a561262309ec0ebf2e607bb713ca2a",
+   "id": "NLV/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-27-strict-natural-lift/preregistration.md"
+  },
+  {
+   "blob": "eab2919ac31862a0c24a5441839807d3170ac1f3",
+   "id": "NLV/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-27-strict-natural-lift/result.md"
+  },
+  {
+   "blob": "752f88a91e6c455be23184282c00f636dce619a9",
+   "id": "seals/NLV.json",
+   "path": "verification/seals/NLV.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "NLV",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

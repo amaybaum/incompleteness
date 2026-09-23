@@ -1,4 +1,4 @@
-import OIBridge.PositiveReachability
+import OIBridge.PositivePackage
 
 /-!
 # The minimal repertoire: one driven transition and the exchanges select quantum mechanics

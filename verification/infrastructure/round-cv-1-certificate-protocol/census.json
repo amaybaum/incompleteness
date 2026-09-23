@@ -1,0 +1,1365 @@
+{
+ "6a": {
+  "broken": [],
+  "controls": {
+   "SI-1 1 malformed hash": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "schema-malformed-hash",
+    "why": null
+   },
+   "SI-1 10 stale base.sha, branch carries it": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "visibility-landing-on-base-tip-only",
+    "why": null
+   },
+   "SI-1 11 base branch rewound": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "visibility-base-sha-refused",
+    "why": null
+   },
+   "SI-1 12 unresolved base ref": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "visibility-unresolvable-base-ref",
+    "why": null
+   },
+   "SI-1 13 descendant of unpinned L": {
+    "class": "no-analogue",
+    "v1": true,
+    "v2": null,
+    "v2_vector": null,
+    "why": "LANDED-PENDING-PIN is a V1 lifecycle notion"
+   },
+   "SI-1 14 unpinned L itself": {
+    "class": "no-analogue",
+    "v1": true,
+    "v2": null,
+    "v2_vector": null,
+    "why": "seal pending is a V1 lifecycle notion"
+   },
+   "SI-1 15 mutated": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "ledger-row-edited",
+    "why": null
+   },
+   "SI-1 16 removed": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "ledger-row-removed",
+    "why": null
+   },
+   "SI-1 17 added": {
+    "class": "no-analogue",
+    "v1": true,
+    "v2": null,
+    "v2_vector": null,
+    "why": "the authorized-addition baseline is a V1 notion"
+   },
+   "SI-1 18 double assignment": {
+    "class": "no-analogue",
+    "v1": true,
+    "v2": null,
+    "v2_vector": null,
+    "why": "the legacy inventory is a V1 notion"
+   },
+   "SI-1 19 synthetic merge HEAD": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "visibility-synthetic-merge-refused",
+    "why": null
+   },
+   "SI-1 2 missing required key": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "ledger-landed-row-missing-topology-field",
+    "why": null
+   },
+   "SI-1 20 base-only out of the state machine": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "ledger-base-only-row-positive",
+    "why": null
+   },
+   "SI-1 3 unknown extra key": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "schema-unknown-key",
+    "why": null
+   },
+   "SI-1 4a base-only with sealed_head value": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "schema-base-only-row-topology-value",
+    "why": null
+   },
+   "SI-1 4b base-only with sealed_head null": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "schema-base-only-row-topology-null",
+    "why": null
+   },
+   "SI-1 5 rewritten sealed head": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "topology-rewritten-sealed-head",
+    "why": null
+   },
+   "SI-1 6 wrong L": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "topology-landing-second-parent-not-e",
+    "why": null
+   },
+   "SI-1 7 two candidates": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "ambiguity-landing-multiple-candidates",
+    "why": null
+   },
+   "SI-1 8 zero candidates": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "ambiguity-landing-zero-candidates",
+    "why": null
+   },
+   "SI-1 9 sibling history in EXECUTION": {
+    "class": "no-analogue",
+    "v1": true,
+    "v2": null,
+    "v2_vector": null,
+    "why": "prospective execution is a V1 lifecycle notion"
+   },
+   "SI-1 OBSERVATION derivation scope": {
+    "class": "no-analogue",
+    "v1": true,
+    "v2": null,
+    "v2_vector": null,
+    "why": "a recorded observation, not a case"
+   },
+   "SI-2 1 landing on the live base branch only": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "visibility-landing-on-base-tip-only",
+    "why": null
+   },
+   "SI-2 11 retired": {
+    "class": "retired",
+    "v1": null,
+    "v2": null,
+    "v2_vector": null,
+    "why": "retired by SI-3"
+   },
+   "SI-2 12 twenty-fourth record": {
+    "class": "no-analogue",
+    "v1": true,
+    "v2": null,
+    "v2_vector": null,
+    "why": "the legacy inventory is a V1 notion"
+   },
+   "SI-2 13 retired": {
+    "class": "retired",
+    "v1": null,
+    "v2": null,
+    "v2_vector": null,
+    "why": "retired by SI-3"
+   },
+   "SI-2 2 base branch rewound": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "visibility-base-sha-refused",
+    "why": null
+   },
+   "SI-2 3 unresolvable base ref, base.sha and local branch refused": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "visibility-local-branch-refused",
+    "why": null
+   },
+   "SI-2 4 different landings on head and base": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "visibility-landing-on-both-two-candidates",
+    "why": null
+   },
+   "SI-2 5 same landing on both sides, deduplicated": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "visibility-landing-on-both-one-candidate",
+    "why": null
+   },
+   "SI-2 6 synthetic merge refused": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "visibility-synthetic-merge-refused",
+    "why": null
+   },
+   "SI-2 7 pin rewritten to a real merge in the union": {
+    "class": "agree",
+    "v1": true,
+    "v2": true,
+    "v2_vector": "topology-landing-second-parent-not-e",
+    "why": null
+   },
+   "SI-2 8 record added beyond SI2-1": {
+    "class": "no-analogue",
+    "v1": true,
+    "v2": null,
+    "v2_vector": null,
+    "why": "the authorized-addition baseline is a V1 notion"
+   }
+  },
+  "corpus": {
+   "exact": true,
+   "executed": 89,
+   "families": {
+    "ambiguity": 6,
+    "artifact-class": 8,
+    "dependency": 4,
+    "divergence": 4,
+    "historical-subject": 6,
+    "ledger": 6,
+    "legacy-owned": 5,
+    "live-policy": 9,
+    "provenance": 6,
+    "schema": 19,
+    "topology": 6,
+    "vacuity": 2,
+    "visibility": 8
+   },
+   "mismatches": 0
+  },
+  "on_the_census_head": {
+   "C-S2": true,
+   "C-S3": true,
+   "C-S4": true
+  },
+  "outcome": "VERDICTS-AS-ADJUDICATED",
+  "records": {
+   "A11P": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "A12P": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "A6D": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "A6I": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "A6P": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "ABR": {
+    "axes": {
+     "base": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "not-applicable",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "BRIDGE": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "C4R": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "CAND": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "CGR": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "CLG": {
+    "axes": {
+     "base": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "not-applicable",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "CTI": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "DILCH": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "DILL2": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "DILMAP": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "GR1": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_chronology": "PASS",
+    "v1_lifecycle": "LANDED-UNRECORDED",
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "GR2": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_chronology": "PASS",
+    "v1_lifecycle": "LANDED-UNRECORDED",
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "HYA": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "HYB": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "HYE": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "NLV": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "OGC": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "OGS": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "OLG": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "OLN": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "OLT": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "PC4": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "PC4S": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "PFR": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "PQT": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "QSTAR": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "RBR": {
+    "axes": {
+     "base": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "not-applicable",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "RCH": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "RCL": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "RNC": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "RNT": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "SCF": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "SGT": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "SI1": {
+    "axes": {
+     "base": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "not-applicable",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "SI2": {
+    "axes": {
+     "base": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "not-applicable",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "SI3": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "SOI": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "SOURCE": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "SRCA": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "TBRIDGE": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "TCF": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "TRJ": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "TSG": {
+    "axes": {
+     "base": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "not-applicable",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "TUPLE": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_tag": "PASS",
+    "v2_certificate": "PASS"
+   },
+   "WTS": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   },
+   "XTS": {
+    "axes": {
+     "evidence": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     },
+     "topology": {
+      "agree": true,
+      "v1": true,
+      "v2": true
+     }
+    },
+    "v1_lifecycle": "ARCHIVED",
+    "v1_tag": "PASS",
+    "v1_u3": "PASS",
+    "v2_certificate": "PASS",
+    "v2_record": "PASS"
+   }
+  },
+  "supersession_controls": {
+   "C-S1": {
+    "diverges_as_named": true,
+    "replacement": true,
+    "subject": "the census head, whose guard carries CV-1's edits outside R7-GR2",
+    "superseded": false,
+    "v2": "GR2 PASS"
+   },
+   "C-S2": {
+    "diverges_as_named": true,
+    "replacement": true,
+    "subject": "a synthetic successor carrying a later round's authorized seal record",
+    "superseded": false,
+    "v2": "GR1 PASS"
+   },
+   "C-S3": {
+    "diverges_as_named": true,
+    "replacement": true,
+    "subject": "the same successor",
+    "superseded": false,
+    "v2": "GR2 PASS"
+   },
+   "C-S4": {
+    "diverges_as_named": true,
+    "replacement": true,
+    "subject": "the same successor",
+    "superseded": false,
+    "v2": "GR1 PASS"
+   }
+  },
+  "unexpected": []
+ },
+ "6b": {
+  "counts": {
+   "BOOTSTRAP": 1,
+   "LEGACY-V1-OWNED": 1,
+   "NO-V1-COMPARATOR": 16,
+   "SAME-FACTS-NEW-REPRESENTATION": 2,
+   "TRANSCRIBED": 33
+  },
+  "outcome": "REPRESENTATION-AS-FROZEN",
+  "rows": {
+   "A11P": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "A12P": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "A6D": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "A6I": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "A6P": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "ABR": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "BRIDGE": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "C4R": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "CAND": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "CGR": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "CLG": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "CTI": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "CV1": {
+    "class": "BOOTSTRAP",
+    "no_row_before_a": true,
+    "unique": true
+   },
+   "DILCH": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "DILL2": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "DILMAP": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "GR1": {
+    "class": "SAME-FACTS-NEW-REPRESENTATION",
+    "facts_equal": true
+   },
+   "GR2": {
+    "class": "SAME-FACTS-NEW-REPRESENTATION",
+    "facts_equal": true
+   },
+   "HYA": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "HYB": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "HYE": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "NLV": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "OGC": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "OGS": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "OLG": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "OLN": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "OLT": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "PC4": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "PC4S": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "PFR": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "PQT": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "PRA": {
+    "class": "LEGACY-V1-OWNED",
+    "no_certificate": true,
+    "no_row": true,
+    "v7_entry": true
+   },
+   "QSTAR": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "RBR": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "RCH": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "RCL": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "RNC": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "RNT": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "SCF": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "SGT": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "SI1": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "SI2": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "SI3": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "SOI": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "SOURCE": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "SRCA": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "TBRIDGE": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "TCF": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "TRJ": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "TSG": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "TUPLE": {
+    "class": "NO-V1-COMPARATOR",
+    "no_topology": true
+   },
+   "WTS": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   },
+   "XTS": {
+    "byte_equal": true,
+    "class": "TRANSCRIBED"
+   }
+  }
+ }
+}

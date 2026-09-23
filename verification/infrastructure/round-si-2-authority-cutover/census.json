@@ -1,0 +1,450 @@
+{
+  "round": "SI-2",
+  "base": "df54b99dba99dc043b11752163d8d348c9e54472",
+  "outcome": "DELTA-AS-ADJUDICATED",
+  "note": "The census at SI-2's final head with the roles INVERTED: U3, the authoritative validator deriving over the union of the visibility targets, against the old machinery as the shadow. Over the twenty-three manifest records -- eighteen sealed on LIFECYCLE, five base-only on SCHEMA/PINNED-BASE/RECORD-INTEGRITY, the twenty-third being the SI1 record SI2-1 added, its shadow the strengthened execution check R7-SI1 runs against _SI1_BASE -- the two sides agree. Over the twenty-one synthetic controls, nine have no old-machinery analogue and exactly three of the twelve comparable ones diverge, 7, 13 and 20, each in U3's ADJUDICATED direction; control 10, on which SI-1 measured the direction reversed, now AGREES with both sides passing, because U3 sees the base-branch tip. This is the delta profile the freeze predicted and is an agreement census under an adjudication of BEHAVIOUR, not a proof that either implementation is correct.",
+  "record_totals": {
+    "records": 23,
+    "agree": 23,
+    "lifecycle_axis": 18,
+    "schema_axis": 5,
+    "no_analogue": 0
+  },
+  "control_totals": {
+    "controls": 21,
+    "comparable": 12,
+    "no_analogue": 9,
+    "divergent": 3,
+    "divergent_controls": [
+      "13 descendant of unpinned L",
+      "20 base-only out of the state machine",
+      "7 two candidates"
+    ],
+    "control_10_agrees": true
+  },
+  "records": [
+    {
+      "round": "A12P",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 2706a3aa7b87; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "A6D",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 4fb0a6052d33; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "A6I",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived ae0baf8ad5b8; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "A6P",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 98d0c894c96b; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "ABR",
+      "kind": "base-only",
+      "axis": "schema+base+integrity",
+      "new_lifecycle": "not-applicable",
+      "new_ok": true,
+      "new_reason": "historical non-sealing record; pinned base 93c2ca63c6cd reachable from the resolved targets",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "CLG",
+      "kind": "base-only",
+      "axis": "schema+base+integrity",
+      "new_lifecycle": "not-applicable",
+      "new_ok": true,
+      "new_reason": "historical non-sealing record; pinned base 6cff07cc0655 reachable from the resolved targets",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "CTI",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 292848b3c908; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "HYA",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived d2314f5edc33; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "HYB",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 2ac870f0b7f0; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "HYE",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived d98d690bdd26; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "PC4",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived e82755cafdbc; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "PC4S",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 8f4934136bae; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "PQT",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived c50dd22457bf; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "RBR",
+      "kind": "base-only",
+      "axis": "schema+base+integrity",
+      "new_lifecycle": "not-applicable",
+      "new_ok": true,
+      "new_reason": "historical non-sealing record; pinned base 79872cbbb0e2 reachable from the resolved targets",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "RNC",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived eb70bbb9b2b3; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "RNT",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 6a6d62e97518; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "SGT",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 11a8a59d2279; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "SI1",
+      "kind": "base-only",
+      "axis": "schema+base+integrity",
+      "new_lifecycle": "not-applicable",
+      "new_ok": true,
+      "new_reason": "historical non-sealing record; pinned base 99ab6370470e reachable from the resolved targets",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "TCF",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 9e0cc3834538; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "TRJ",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived e8b12a433ebc; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "TSG",
+      "kind": "base-only",
+      "axis": "schema+base+integrity",
+      "new_lifecycle": "not-applicable",
+      "new_ok": true,
+      "new_reason": "historical non-sealing record; pinned base b821d69ae86f reachable from the resolved targets",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "WTS",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 6a6f206f830f; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    },
+    {
+      "round": "XTS",
+      "kind": "sealed",
+      "axis": "lifecycle",
+      "new_lifecycle": "ARCHIVED",
+      "new_ok": true,
+      "new_reason": "pinned == derived 0b893d75cca3; second parent is the sealed head; ancestry and reachability hold",
+      "old_ok": true,
+      "agree": true,
+      "analogue": null
+    }
+  ],
+  "controls": [
+    {
+      "control": "1 malformed hash",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "schema: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "2 missing required key",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "schema: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "3 unknown extra key",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "schema: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "4a base-only with sealed_head value",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "schema: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "4b base-only with sealed_head null",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "schema: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "15 mutated",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "manifest integrity: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "16 removed",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "manifest integrity: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "17 added",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": false,
+      "agree": null,
+      "reason": "manifest integrity: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "18 double assignment",
+      "comparable": false,
+      "old_ok": null,
+      "new_ok": true,
+      "agree": null,
+      "reason": "transcription: the old machinery holds no records, so nothing in it answers this question"
+    },
+    {
+      "control": "5 rewritten sealed head",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "archive certificate against U3"
+    },
+    {
+      "control": "6 wrong L",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "archive certificate against U3"
+    },
+    {
+      "control": "7 two candidates",
+      "comparable": true,
+      "old_ok": true,
+      "new_ok": false,
+      "agree": false,
+      "reason": "archive certificate against U3"
+    },
+    {
+      "control": "8 zero candidates",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "archive certificate against U3"
+    },
+    {
+      "control": "9 sibling history in EXECUTION",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "strengthened execution check against U3"
+    },
+    {
+      "control": "10 stale base.sha, branch carries it",
+      "comparable": true,
+      "old_ok": true,
+      "new_ok": true,
+      "agree": true,
+      "reason": "the old archive path and U3, each resolving the same event payload for itself -- U3 over the UNION of the visibility targets"
+    },
+    {
+      "control": "11 base branch rewound",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "the old archive path and U3, each resolving the same event payload for itself -- U3 over the UNION of the visibility targets"
+    },
+    {
+      "control": "12 unresolved base ref",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "the old archive path and U3, each resolving the same event payload for itself -- U3 over the UNION of the visibility targets; U3 failed closed and returned no verdict"
+    },
+    {
+      "control": "13 descendant of unpinned L",
+      "comparable": true,
+      "old_ok": true,
+      "new_ok": false,
+      "agree": false,
+      "reason": "the old machinery has NO pending-seal notion and admits the descendant; U3 refuses it as SEAL PENDING -- adjudicated in U3's direction"
+    },
+    {
+      "control": "14 unpinned L itself",
+      "comparable": true,
+      "old_ok": true,
+      "new_ok": true,
+      "agree": true,
+      "reason": "both admit the landing itself, by different routes"
+    },
+    {
+      "control": "19 synthetic merge HEAD",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": false,
+      "agree": true,
+      "reason": "both resolve the real head and refuse the synthetic merge"
+    },
+    {
+      "control": "20 base-only out of the state machine",
+      "comparable": true,
+      "old_ok": false,
+      "new_ok": true,
+      "agree": false,
+      "reason": "the old machinery applies EXECUTION ancestry semantics to a completed non-sealing round and refuses it; U3 does not classify it at all -- adjudicated in U3's direction"
+    }
+  ]
+}

@@ -267,14 +267,16 @@ that is --- in the memory-bearing sector those conditions characterize
 fixed-basis quantum representation --- the representation universal over
 finite laws (\(S \iff D \iff Q_{\mathrm{fb}}\)), the necessity holding
 in the memory currency, with C1--C4 necessary as well as sufficient for
-accessible non-Markovianity (conditional on the eigenstate
-thermalization hypothesis for the C2 \(\Leftarrow\) direction), and full
-operational quantum theory approached at every finite test with its
-unique selection open; (ii) the emergent description is uniquely
-determined by the partition, with any parameters of the emergent theory
-depending only on the partition boundary's geometric and thermodynamic
-properties (partition-relativity); (iii) the emergent transition
-probabilities \(T_{ij}(t)\) determine the emergent Hamiltonian up to a
+accessible non-Markovianity --- the framework's finite-horizon
+visible-law memory/backflow notion, not generic quantum non-Markovianity
+--- (conditional on the eigenstate thermalization hypothesis for the C2
+\(\Leftarrow\) direction), and full operational quantum theory
+approached at every finite test with its unique selection open; (ii) the
+emergent description is uniquely determined by the partition, with any
+parameters of the emergent theory depending only on the partition
+boundary's geometric and thermodynamic properties
+(partition-relativity); (iii) the emergent transition probabilities
+\(T_{ij}(t)\) determine the emergent Hamiltonian up to a
 diagonal-unitary D-gauge, an energy origin, and one global antiunitary
 conjugation --- the two-branch form proved in §3.3 --- via the
 phase-locking lemma applied to continuous-time sampling. The technical
@@ -1485,7 +1487,8 @@ role, \texttt{OIHierarchy.OIPlus}, and the two definitions agree there,
   \texttt{control\_of\_reversibleRichness}; converse
   \texttt{reversibleRichness\_of\_control}), and the Lie-rank clause
   alone already does so, with no inverse of a control consumed (kernel:
-  \texttt{control\_of\_lieRank}, from
+  \texttt{control\_of\_lieRank} in
+  \texttt{OIBridge/MicroscopicReversibility.lean}, from
   \texttt{universalReachability\_of\_lieRank\_positive} in
   \texttt{OIBridge/PositiveReachability.lean}). Thus this is a
   certificate of sufficient reversible richness, rather than a direct
@@ -1513,68 +1516,103 @@ richness to sufficient composite unitary control, and observer recursion
 to iterated composition.
 
 This equivalence is an axiomatic completion theorem, not a derivation of
-the additional principles from bare OI. None of observational
-independence, reversible richness, or observer recursion follows from
-the OI core: each can fail while the core, well-formedness, and the
-other two remain satisfied (kernel: \texttt{oiPlus\_independence}). Nor
-is it claimed that these are the unique natural principles from which
-quantum mechanics may be selected. Indeed, because sufficient reversible
-control already realizes the sealed OI core, the OI-core conjunct is
-logically redundant once the full OI⁺ conditions hold (kernel:
-\texttt{completedOI\_iff\_physical}). Its role in the definition is
-conceptual and genealogical: OI⁺ identifies a quantum-complete extension
-of the original OI framework while preserving the distinction between
-what observation incompleteness itself entails and what additional
-physical structure selects the quantum sector. The five-condition
-characterization above and the OI⁺ equivalence hold at the same scope,
-every nonempty finite system. The sealed OI core itself is a qubit
-process, so on a general carrier OI⁺ consists of well-formedness and the
-three principles, and by the redundancy just noted nothing is lost by
-omitting the core conjunct there.
+the additional principles from bare OI. It also does not prove that bare
+OI selects a unique relative quantum evolution: it characterizes the
+completed theory, while which unitary evolution relates two times, given
+a visible family admitting several coherent lifts, is a separate
+question that the completion principles do not address and that remains
+open ({[}Main §3.4{]}). None of observational independence, reversible
+richness, or observer recursion follows from the OI core: each can fail
+while the core, well-formedness, and the other two remain satisfied
+(kernel: \texttt{oiPlus\_independence}). Nor is it claimed that these
+are the unique natural principles from which quantum mechanics may be
+selected. Indeed, because sufficient reversible control already realizes
+the sealed OI core, the OI-core conjunct is logically redundant once the
+full OI⁺ conditions hold (kernel: \texttt{completedOI\_iff\_physical}).
+Its role in the definition is conceptual and genealogical: OI⁺
+identifies a quantum-complete extension of the original OI framework
+while preserving the distinction between what observation incompleteness
+itself entails and what additional physical structure selects the
+quantum sector. The five-condition characterization above and the OI⁺
+equivalence hold at the same scope, every nonempty finite system. The
+sealed OI core itself is a qubit process, so on a general carrier OI⁺
+consists of well-formedness and the three principles, and by the
+redundancy just noted nothing is lost by omitting the core conjunct
+there.
 
 \textbf{Primitive-source form of OI⁺.} The three physical principles of
 OI⁺ admit a formulation one level deeper, in terms of physical
 implementations and embedded observers rather than of the available
 operations directly. On every nonempty finite carrier, exact finite
 endomorphic operational quantum mechanics is equivalent to three such
-principles (kernel: \texttt{carrier\_general\_oiPlusPos},
-\texttt{oiPlusPos\_iff\_qm} in
-\texttt{OIBridge/PositiveReachability.lean}):
+principles (kernel: \texttt{carrier\_general\_oiPlusMin},
+\texttt{oiPlusMin\_iff\_qm} in \texttt{OIBridge/MinimalRepertoire.lean};
+with the elementary repertoire in place of the second principle,
+\texttt{carrier\_general\_oiPlusPos}, \texttt{oiPlusPos\_iff\_qm} in
+\texttt{OIBridge/PositivePackage.lean}):
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \emph{Implementation locality.} Operational interventions are
-  generated by finite families of admissible implementation operators
-  with aggregate probability normalization; admissibility is invariant
-  under relabelling and under adjoining an uncoupled spectator. This
-  structure supplies complete positivity and observational independence
-  (kernel:
+  \emph{Implementation locality.} Operational interventions are those
+  realized by one protocol built from admissible implementation
+  operators: an admissible isometric step, the readout of a register of
+  the carrier whose projectors are admissible, classical coarse-graining
+  of the outcome, sequential composition with outcome-dependent
+  continuation, and the discard of a uniformly attached ancilla; the
+  branches of an intervention arise together as the outcomes of one
+  protocol, and admissibility is invariant under relabelling and under
+  adjoining an uncoupled spectator. Probability normalization in
+  aggregate is a consequence of that realization rather than a clause of
+  it, and the structure supplies complete positivity and observational
+  independence (kernel: \texttt{instAvail\_trace},
   \texttt{observationalIndependence\_of\_implementationLocality},
   \texttt{validity\_of\_implementationLocality} in
   \texttt{OIBridge/ImplementationLocality.lean}). No closure of the
   implementations under the adjoint is assumed, and no inverse of a
   control is assumed available: the Lie-rank condition supplied by the
   second principle gives full composite unitary control on its own,
-  every unitary being a positive word in the flows, the controls, and
-  the phases (kernel: \texttt{control\_of\_lieRank},
+  every unitary being, up to a global scalar phase that acts trivially
+  on its conjugation channel, a positive word in the flows and the
+  controls (kernel: \texttt{control\_of\_lieRank} in
+  \texttt{OIBridge/MicroscopicReversibility.lean},
   \texttt{universalReachability\_of\_lieRank\_positive} in
-  \texttt{OIBridge/PositiveReachability.lean}), and on a well-formed
-  theory full control yields operational inverse accessibility (kernel:
+  \texttt{OIBridge/PositiveReachability.lean}; the scalar phases are
+  factors of the positive monoid there, not an operation of the
+  repertoire), and on a well-formed theory full control yields
+  operational inverse accessibility (kernel:
   \texttt{inverseAccessibility\_of\_lieRank}).
 \item
-  \emph{Elementary transition richness.} At every finite composite
-  level, real transitions between distinguishable states are
-  continuously drivable, exchanges of distinguishable states are
-  available, and quarter-phase operations are available. These
-  elementary operations generate the full special-unitary Lie algebra
-  --- permutation conjugation transports one transition between state
-  pairs, a quarter phase supplies its imaginary partner, and their
-  commutator supplies the traceless diagonal directions --- and thereby
-  yield the Lie-rank condition and hence exact finite unitary
-  reachability (kernel: \texttt{lieRank\_of\_elementary},
-  \texttt{hControl\_star}, \texttt{bracket\_XY};
-  \texttt{control\_of\_lieRank}).
+  \emph{Phase-free richness.} At every finite composite level with two
+  or more states, some pair of distinguishable states is continuously
+  drivable, and every exchange of two distinguishable states is
+  available. No phase operation enters. On three or more states one
+  driven transition and the permutations generate the full
+  special-unitary Lie algebra --- permutation conjugation transports the
+  drive to every pair, two drives sharing a state bracket to the
+  imaginary transition on the third pair, and the real and imaginary
+  transitions on a pair bracket to the population difference (kernel:
+  \texttt{bracket\_XX}, \texttt{hControl\_perm} in
+  \texttt{OIBridge/MinimalRepertoire.lean}) --- and thereby yield the
+  Lie-rank condition and hence exact finite unitary reachability at that
+  level (kernel: \texttt{control\_at\_level}, through
+  \texttt{control\_of\_lieRank}). On a two-state carrier the drive and
+  the exchange commute and the generated algebra reaches no population
+  difference (kernel: \texttt{not\_hControl\_two}); the levels with two
+  or fewer states inherit control instead from the level with three
+  times as many states, through the ancilla attachment and discard that
+  embedded observation supplies (kernel: \texttt{descend},
+  \texttt{control\_of\_phaseFree}). The exchanges themselves are
+  generated by one full cycle and one adjacent exchange (kernel:
+  \texttt{phaseFree\_of\_cyclic}). Elementary transition richness ---
+  every pair of distinguishable states continuously drivable, every
+  exchange available, and a quarter phase on every state, the quarter
+  phase supplying the imaginary partner of a transition directly --- is
+  a stronger form of the same principle (kernel:
+  \texttt{phaseFree\_of\_elementary}; \texttt{lieRank\_of\_elementary},
+  \texttt{hControl\_star}, \texttt{bracket\_XY}), and the two forms
+  characterize the same theory (kernel:
+  \texttt{oiPlusMin\_iff\_oiPlusPos}).
 \item
   \emph{Embedded observation.} One relabelling- and regrouping-invariant
   family of finite operational theories on all finite carriers has the
@@ -1587,25 +1625,38 @@ principles (kernel: \texttt{carrier\_general\_oiPlusPos},
 
 The equivalence
 
-\[\boxed{\begin{aligned}&\text{implementation locality} + \text{elementary transition richness}\\ &\qquad + \text{embedded observation} \;\iff\; \text{exact finite endomorphic operational QM}\end{aligned}}\]
+\[\boxed{\begin{aligned}&\text{implementation locality} + \text{phase-free richness}\\ &\qquad + \text{embedded observation} \;\iff\; \text{exact finite endomorphic operational QM}\end{aligned}}\]
 
 holds on every nonempty finite carrier. It refines the OI⁺
 characterization, and it is not a claim that bare observation
 incompleteness entails these principles: the normalization half of
-operational validity is explicit in implementation generation, and
-neither principle is supplied by the others (kernel:
-\texttt{redundancy\_fails}, \texttt{lieRank\_not\_redundant}). The
-elementary repertoire is stated uniformly, while the reachability proof
-consumes only one continuously driven transition, the exchanges, and one
-quarter phase; whether the phase or other parts of the repertoire can be
-eliminated remains open. Inverse accessibility is not a hypothesis of
-the equivalence: Lie-rank richness gives full composite unitary control
-unconditionally, and on a well-formed theory full control yields inverse
-accessibility, well-formedness being supplied by implementation locality
-with embedded observation (kernel:
-\texttt{inverseAccessibility\_of\_lieRank}). An implementation class
-closed under the adjoint remains a property of exact quantum mechanics
-(kernel: \texttt{reversibleImplementationLocality\_of\_qm} in
+operational validity is a consequence of implementation generation, an
+intervention realized by one protocol preserving probability in
+aggregate, and neither principle is supplied by the others, the
+witnesses being stated for the Lie-rank condition that phase-free
+richness supplies (kernel: \texttt{redundancy\_fails},
+\texttt{lieRank\_not\_redundant}). The nonclassical repertoire the
+equivalence consumes is one continuously driven transition together with
+the exchanges of distinguishable states; the quarter phase is
+dispensable at every level. The exchange clause is not reducible to the
+powers of a single cyclic permutation: on an even carrier one driven
+transition with one full cycle generates a conjugate of the real
+antisymmetric matrices, which reaches no population difference (kernel:
+\texttt{not\_hControl\_evenCycle}), so one full cycle together with one
+adjacent exchange is the two-element discrete form the kernel
+formalizes, sufficient for every exchange (kernel:
+\texttt{phaseFree\_of\_cyclic}), with no claim that a smaller discrete
+resource is excluded, and no stronger minimality of the one driven
+transition is claimed. Whether that driven transition can be supplied by
+a discrete resource is the question of the substratum-source form below.
+Inverse accessibility is not a hypothesis of the equivalence: Lie-rank
+richness gives full composite unitary control unconditionally, and on a
+well-formed theory full control yields inverse accessibility,
+well-formedness being supplied by implementation locality with embedded
+observation (kernel: \texttt{inverseAccessibility\_of\_lieRank}). An
+implementation class closed under the adjoint remains a property of
+exact quantum mechanics (kernel:
+\texttt{reversibleImplementationLocality\_of\_qm} in
 \texttt{OIBridge/MicroscopicReversibility.lean}), and, with the other
 two principles, the class with that closure and the class without it
 characterize the same theory (kernel:
@@ -1623,11 +1674,28 @@ is generated by one (kernel:
 \texttt{genTheory\_qm\_of\_quantumArchitecture},
 \texttt{qm\_generated\_by\_quantumArchitecture} in
 \texttt{OIBridge/SubstratumSource.lean}). The concrete OI substratum ---
-finite states, bijective microscopic dynamics (Axiom 2), and the phase
-structure --- supplies the structural part in full. Its interventions
-have monomial observable operators, a permutation of a diagonal (kernel:
-\texttt{bijectiveOperator\_monomial}, \texttt{phaseOperator\_monomial}
-in \texttt{OIBridge/SubstratumInterface.lean}), and that class, with
+finite states and bijective microscopic dynamics (Axiom 2) --- together
+with one further intervention principle, that a relative phase on a
+single state is a selectable intervention at every level, supplies the
+structural part in full. The phase intervention enters as an assumption
+on the substratum class, not as a consequence of the finite states with
+the bijective read-write dynamics: every isometry that dynamics and the
+stated observer access supply carries the all-ones vector to a multiple
+of itself, no class whose isometries do so realizes a quarter phase at
+any level with two or more states, and the quarter phase carries that
+vector off its ray (kernel: \texttt{permClass\_onesFixing},
+\texttt{onesFixing\_not\_phasesAvailable},
+\texttt{substratumClass\_not\_onesFixing} in
+\texttt{OIBridge/PhaseSource.lean}). An operator carrying the all-ones
+vector off its ray is therefore necessary to any access that supplies
+the phases, and is not shown sufficient; the access assumed is the
+quarter-phase intervention itself, a member of the class as stated
+(kernel: \texttt{phase\_monomial} in
+\texttt{OIBridge/SubstratumInterface.lean}). The interventions of the
+substratum so stated have monomial observable operators, a permutation
+of a diagonal (kernel: \texttt{bijectiveOperator\_monomial},
+\texttt{phaseOperator\_monomial} in
+\texttt{OIBridge/SubstratumInterface.lean}), and that class, with
 nothing added, is closed under composition, coarse-graining, and ancilla
 blocks, stable under an uncoupled spectator, invariant under
 relabelling, and closed under the adjoint --- the reversal of a
@@ -1670,13 +1738,99 @@ on every nonempty finite carrier. This is not a derivation of quantum
 mechanics from bare observation incompleteness. The controllability
 resource is not entailed by A1--A6; it is an empirical extension of the
 current substratum, entering as a hypothesis on the extended
-architecture. The scope is finite and endomorphic, on nonempty finite
-carriers, and the elementary control repertoire that enters is the one
-stated above, with no claim that it is mathematically minimal.
-Observation incompleteness alone admits many theories; the concrete
-substratum supplies every structural requirement of quantum mechanics
-but not continuous state-mixing controllability, and quantum mechanics
-is obtained exactly when that one physical resource is added.
+architecture, and the phase intervention enters as an assumption on the
+substratum class itself, the left side of the box being that class with
+the phase intervention stated. The scope is finite and endomorphic, on
+nonempty finite carriers, and the elementary control repertoire that
+enters is the one stated above, with no claim that it is mathematically
+minimal. Observation incompleteness alone admits many theories; the
+concrete substratum supplies every structural requirement of quantum
+mechanics but not continuous state-mixing controllability, and quantum
+mechanics is obtained exactly when that one physical resource is added.
+
+\textbf{Layer-flow form.} The controllability resource of the
+substratum-source form can be taken smaller. Grant the structural
+architecture the substratum supplies with the phase intervention stated:
+an implementation class closed under the adjoint generating the
+interventions, embedded observation, and at every level the exchanges of
+distinguishable states, the quarter phases and the read-write operators.
+Within that closure, exact finite endomorphic operational quantum
+mechanics holds exactly when the continuous layer flow of one involution
+of the configuration space that moves some configuration, the ancilla a
+spectator, is an available operation at every level and every
+intermediate time:
+
+\[\boxed{\begin{aligned}&\text{within the substratum's closure with the phase intervention stated,}\\ &\qquad \text{exact finite endomorphic operational QM} \;\iff\; \text{one nontrivial layer flow executable}\end{aligned}}\]
+
+for each such involution (kernel:
+\texttt{derivedOI\_qm\_iff\_layerFlowExecutable\textquotesingle{}} in
+\texttt{OIBridge/DerivedQ3.lean}). The executability is necessary
+because full unitary control makes every unitary available, the layer
+flow included (kernel: \texttt{layerFlowExecutable\_of\_control} in
+\texttt{OIBridge/LiftAudit.lean}). It is sufficient because the square
+of the quarter phase on the image of a moved configuration is a sign
+flip, and the layer flow, times its time reversal conjugated by that
+sign flip, is the continuous transition flow on the moved pair at every
+angle; with the exchanges, that is phase-free richness, and phase-free
+richness within the closure is quantum mechanics (kernel:
+\texttt{phaseGate\_mul\_self}, \texttt{gateFlow\_isolation\_flip},
+\texttt{phaseFree\_of\_derivedOI\_layerFlowExecutable},
+\texttt{qm\_of\_derivedOI\_layerFlowExecutable}). For the concrete
+substratum factorization, the swap-layer flow on a nonempty region with
+a nontrivial alphabet is the one-parameter unitary group of one of its
+gates and is an instance of this equivalence (kernel:
+\texttt{derivedOI\_qm\_iff\_layerFlowExecutable\_swap\textquotesingle{}});
+the equivalence itself is stated for each involution with a moved
+configuration, whether or not it is a gate of that factorization. The
+layer flow reaches the driven elementary transitions of the
+substratum-source form through the closure, so the two boxes have the
+same right side and the resource named here is the smaller one. Two
+qualifications are part of the statement. The phase intervention is an
+assumption on the substratum class, as stated above, and not a
+consequence of the finite states with the bijective read-write dynamics.
+The executability of the layer flow at intermediate times is likewise
+not derived: the theory generated by any class of monomial operators,
+the substratum's included, makes no layer flow of an involution with a
+moved configuration available at time one half, where the flow does not
+preserve diagonal states (kernel:
+\texttt{gateFlow\_half\_not\_preservesDiag},
+\texttt{configurationLevel\_not\_layerFlowExecutable},
+\texttt{substratumTheory\_not\_layerFlowExecutable} in
+\texttt{OIBridge/LiftAudit.lean}). Nor is that executability sourced by
+the substratum's own dynamics with the observer's stated access: the
+theory the read and write access generates on the configuration space
+executes no layer flow of an involution with a moved configuration, its
+own shear and swap layers included, the layers being available at time
+one and not at intermediate times, and any access that does execute one
+supplies a non-monomial admissible operator at level one (kernel:
+\texttt{obs\_not\_layerFlowExecutable},
+\texttt{waveSubstratum\_not\_layerFlowExecutable\_swap},
+\texttt{exists\_nonMonomial\_of\_layerFlowExecutable} in
+\texttt{OIBridge/ExecSource.lean}). The observer-level lift of {[}SM
+§4.1{]}, in every formulation stated that lands in the operational
+interface, derives neither such an operator nor the layer flow: the
+reversible coherent lift of a permutation is monomial, every coherent
+completion, reversible or not, preserves diagonal states, the explicit
+Kraus realization of the projected observer operator is
+configuration-level, and a generator whose time-one exponential is
+available does not make the exponential available at intermediate times
+(kernel: \texttt{reversibleExtension\_conj\_monomial},
+\texttt{correlationExtension\_preservesDiag},
+\texttt{coherentLiftClass\_eq\_substratumClass},
+\texttt{stochasticChannel\_kraus\_monomial},
+\texttt{avail\_one\_not\_layerFlowExecutable} in
+\texttt{OIBridge/LiftSource.lean}); whether every realization of those
+channels is configuration-level is not decided, and the site-space
+wave-operator formulation is unresolved rather than excluded, no
+operational map from it to the configuration carrier being stated.
+Fractional-time access to one layer flow is therefore an additional
+physical intervention assumption, as the phase intervention is:
+
+\[\boxed{\text{stated substratum dynamics with observer access} \;\not\Rightarrow\; \text{one nontrivial layer flow executable}}\]
+
+The equivalence displayed above is exact; the physical sourcing of this
+one of its hypotheses is not. No uniqueness or minimality is claimed for
+the pair of assumptions; a different pair could be sufficient as well.
 
 \textbf{Typed form.} The statements above are endomorphic: every
 operation acts from a finite carrier back to the same carrier, the
@@ -1703,6 +1857,7 @@ between any two nonempty finite carriers, an outcome family is
 typed-available precisely if it is a finite typed Kraus instrument,
 rectangular Kraus operators normalized on the input carrier (kernel:
 \texttt{typed\_determined\_iff},
+\texttt{typed\_determined\_of\_oiPlusMin},
 \texttt{typed\_determined\_of\_oiPlusPos} in
 \texttt{OIBridge/TypedPositive.lean}). Soundness wraps a typed operation
 into the register formed by the input and output carriers and compresses
@@ -1796,9 +1951,33 @@ Continuous time is separate. The discrete substratum dynamics does not
 determine a continuous one-parameter interpolation: two Hermitian
 generators give flows agreeing at every integer time and differing at
 \(t = 1/2\) (kernel: \texttt{continuous\_extension\_not\_unique} in
-\texttt{OIBridge/RegionLimit.lean}). A continuous-time Hamiltonian law
-is additional structure where that formulation is wanted, and the
-equivalence above does not use it.
+\texttt{OIBridge/RegionLimit.lean}). What the substratum does determine
+is a path. The second-order update, in its phase-space form on the pair
+of the previous and current slices, factors exactly as a depth-two local
+circuit, a shear layer followed by a swap layer, each a product of
+commuting involutive gates, one per site, its reversibility a
+consequence of the factorization (kernel:
+\texttt{leap\_eq\_swap\_shear}, \texttt{gate\_comm},
+\texttt{depth\_two\_circuit}, \texttt{leap\_leap\_symm} in
+\texttt{OIBridge/SecondOrderCircuit.lean}). Each layer is the time-one
+map of a strongly continuous one-parameter group of isometric
+\(*\)-automorphisms of the quasilocal algebra, driven gate by gate
+(kernel: \texttt{layerQ\_add\_time} in
+\texttt{OIBridge/SecondOrderLayer.lean}, \texttt{swapQ\_add\_time} in
+\texttt{OIBridge/SwapLayer.lean}, \texttt{layerQ\_one\_eq\_heisQ},
+\texttt{swapQ\_one\_eq\_heisQ} in
+\texttt{OIBridge/SecondOrderDrive.lean}), and the two flows, run in the
+order the Heisenberg picture forces, the swap first, give a
+norm-continuous path of isometric \(*\)-automorphisms from the identity
+to the update's own Heisenberg action (kernel: \texttt{heisQ\_of\_comp},
+\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_one\_eq\_heisQ} in
+\texttt{OIBridge/SecondOrderDrive.lean}). For the composite path no
+one-parameter-group law is established and no generator is exhibited:
+whether the path satisfies a one-parameter-group law, and whether one
+time-independent finite-range interaction has the update as its
+unit-time map, are open, and nothing here decides either. A
+continuous-time Hamiltonian law is additional structure where that
+formulation is wanted, and the equivalence above does not use it.
 
 The lattice spacing stays fundamental. Nothing above asserts a spatial
 continuum limit or a refinement of the spacing; the continuum
@@ -4751,4 +4930,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: 8d947a4cd9a4ca6b773850663d6370007ad40bf4aeb1ef39d707dce1a0e9a481
+% source-sha256: fbd2c410adadc09c125b7c72dc36557bffbaf197ac635333d8436eb8907a7a69

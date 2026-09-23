@@ -308,7 +308,7 @@ If $N$ is analogous to $q$, then the $N$-dependence of matrix-model dynamics dir
 
 ### 6.6 A6 (background independence)
 
-**Status.** Holds in spirit, conditional on the matrix-spatial bridge. BFSS has manifest $U(N)$ gauge invariance under local matrix transformations $X^i \to U X^i U^{-1}$, which is the precursor of the spacetime gauge theory in the long-distance limit. OI's A6 requires invariance under local *spatial* transformations, but BFSS has no spatial structure beyond the matrix index; the BFSS analog is matrix-internal $U(N)$ gauge invariance. Whether matrix-internal gauge invariance plays the role A6 requires depends on the matrix-spatial bridge, established only in specific limits (e.g., the diagonal-matrix limit where eigenvalues correspond to D0-brane positions).
+**Status.** Holds in spirit, conditional on the matrix-spatial bridge. BFSS has manifest $U(N)$ gauge invariance under local matrix transformations $X^i \to U X^i U^{-1}$, which is the precursor of the spacetime gauge theory in the long-distance limit. OI's A6 requires covariance under spatially varying internal-index transformations, with the link coupling transformed alongside, but BFSS has no spatial structure beyond the matrix index; the BFSS analog is matrix-internal $U(N)$ gauge invariance. Whether matrix-internal gauge invariance plays the role A6 requires depends on the matrix-spatial bridge, established only in specific limits (e.g., the diagonal-matrix limit where eigenvalues correspond to D0-brane positions).
 
 ### 6.7 Summary of A1–A6 status
 

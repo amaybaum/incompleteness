@@ -1,0 +1,62 @@
+{
+ "base": "0ef074104cee3957d3aee9422888859b88fc0ebf",
+ "contributions": [
+  {
+   "path": "verification/README.md"
+  },
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/PhysicalC4StorageReadback.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  },
+  {
+   "path": "verification/lean/physical_c4_storage_readback_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "16cfd1303e7c279c8d6bab68b7112c3f25a7460e",
+   "execution_affecting": true,
+   "merge": "0ef074104cee3957d3aee9422888859b88fc0ebf",
+   "path": "verification/programmes/physical-realization/round-c4-2-storage-readback/preregistration.md"
+  }
+ ],
+ "dependencies": [],
+ "directory": "programmes/physical-realization/round-c4-2-storage-readback",
+ "evidence": [
+  {
+   "blob": "16cfd1303e7c279c8d6bab68b7112c3f25a7460e",
+   "id": "PC4S/preregistration.md",
+   "path": "verification/programmes/physical-realization/round-c4-2-storage-readback/preregistration.md"
+  },
+  {
+   "blob": "db94942843bd806df3c5e6ba80b77b9445488d4e",
+   "id": "PC4S/result.md",
+   "path": "verification/programmes/physical-realization/round-c4-2-storage-readback/result.md"
+  },
+  {
+   "blob": "acd4aa0eb07c5063b5eb58f6b8199fe739f0c334",
+   "id": "seals/PC4S.json",
+   "path": "verification/seals/PC4S.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "PC4S",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "effd5c865dfcc207624712a6711a54b712642f48"
+ }
+}

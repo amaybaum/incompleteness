@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """release_gate.py - one entry point for every pre-release check.
 
-Twelve checks accumulated over the correction rounds, none of which subsumes
+The checks accumulated over the correction rounds, none of which subsumes
 another. Each exists because a real defect shipped past the others:
 
   toolchain_check      build.sh went missing and the duplicate unicode-fix
@@ -33,6 +33,21 @@ another. Each exists because a real defect shipped past the others:
                        kernel coverage and nothing noticed, because every other
                        check compares artifacts to sources and none of them asks
                        whether a source statement is checked at all.
+  control_plane_lint   a control plane named its drafting snapshot as the
+                       mandated execution base and required, at that base, the
+                       absence of a token its own text carried; two of its
+                       preconditions could not hold at the commit its chronology
+                       control named, and owner review caught it after the
+                       merge. Applies to control planes carrying a preconditions
+                       block or changed in the diff under check.
+  certificate_verifier the V2 round-certificate verifier, authoritative: a
+                       historical round is data -- a certificate and an attestation
+                       record -- verified by one generic tool, after six manifestations
+                       of one defect in two repair rounds showed that a historical
+                       round expressed as executable code running at every later head
+                       invites an assertion against the wrong tree at every extension
+                       point. The standalone workflow job runs it in shadow and gates
+                       nothing; this step is where V2 can reject a build.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
@@ -67,6 +82,30 @@ def main():
         ("toolchain", [sys.executable, "tools/toolchain_check.py"]),
         ("staleness", [sys.executable, "tools/staleness_check.py"]),
         ("voice",     [sys.executable, "tools/voice_check.py"]),
+        # Controls on the gate itself. voice-scope keeps voice_check pointed at
+        # the manuscript and only the manuscript; ci-gate-presence keeps this
+        # gate wired into CI. Both are mutation-tested: each fails if the thing
+        # it guards is removed.
+        ("voice-scope", [sys.executable, "tools/voice_scope_test.py"]),
+        ("ci-gate-presence", [sys.executable, "tools/ci_gate_presence_test.py"]),
+        # artifact-placement: new audits and preregistrations stay out of the
+        # verification/ root. One-directional against the migration manifest as
+        # a grandfather list, so it survives the mechanical migration unchanged.
+        ("artifact-placement",
+                      [sys.executable, "tools/artifact_placement_check.py"]),
+        # manifest-drift: the two forms of the migration manifest are rendered
+        # from one mapping, and --check re-renders and compares rather than
+        # trusting that nobody hand-edited a generated file. Needs no
+        # particular layout, so it holds across the migration too.
+        ("manifest-drift",
+                      [sys.executable, "tools/build_migration_manifest.py", "--check"]),
+        # control-plane-lint: a control plane must not give its drafting
+        # snapshot's SHA to the mandated execution base, and no B-scoped
+        # precondition may ask for the absence of a token the frozen artifact
+        # itself carries. Applies to block-bearing and newly changed control
+        # planes only; merged artifacts without a block are grandfathered.
+        ("control-plane-lint",
+                      [sys.executable, "tools/control_plane_lint.py"]),
         ("claims",    [sys.executable, "tools/claims_check.py"]),
         ("duplicate", [sys.executable, "tools/duplicate_check.py"]),
         ("mirror",    [sys.executable, "papers/oi_lattice_code/mirror_check.py"]),
@@ -104,6 +143,15 @@ def main():
         # never reaches the papers -- which no other check here can see.
         ("lean-manuscript",
                       [sys.executable, "tools/lean_manuscript_census.py"]),
+        # certificate-verifier: the V2 round-certificate verifier in AUTHORITATIVE mode -- every
+        # certificate, attestation record, relocation, live-policy clause and conformance vector,
+        # the corpus executed as an exact set. This is the cutover wiring edit of certificate
+        # round CV-1: the repository's ruleset requires only three status contexts, none of them
+        # the standalone shadow job, so a red standalone job would not by itself block a merge;
+        # this step, run by the required Mathlib bridge check, is what lets V2 reject a build.
+        # V1's guard gates beside it and is not retired here.
+        ("certificate-verifier",
+                      [sys.executable, "tools/certificate_verifier.py", "--mode", "authoritative"]),
     ]
     # baselines are named in the TRANSFER's docs, not the manuscript tree, so
     # point the label check there when a transfer path is supplied

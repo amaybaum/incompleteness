@@ -24,7 +24,7 @@ with S the spatial shift; over F_2 the sign in [[0, I], [-I, A]] is immaterial. 
 polynomial factors as x^2 + (S + S^{-1}) x + 1 = (x + S)(x + S^{-1}), which is the algebraic form of
 the two traveling-wave directions and is what drives every result below.
 
-WHAT IS PROVED HERE (the proofs are recorded in verification/CT3-R2B-Q2-PERIOD-AND-CYCLES.md;
+WHAT IS PROVED HERE (the proofs are recorded in verification/audits/physical-realization/ct3-r2b-q2-period-and-cycles.md;
 this file is the exact verification, and every check is exact integer arithmetic).
 
   1. PERIOD.        m_L = ord(F_L over F_2) = L for L even, 2L for L odd.
