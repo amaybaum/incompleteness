@@ -2674,8 +2674,10 @@ is not retired and not a shadow: every `R7` block gates at `E`, at `L` and after
 and the base's 103 verdicts are reproduced on every tag. Act 29 is the one round the verifier does
 not own: `legacy-v1-owned.json` names exactly `PRA`, reported `LEGACY-V1-OWNED` with no validity
 claim in either direction while `V1` certifies it through `EXECUTION` → `LANDED-PENDING-PIN` →
-`ARCHIVED`; the bridge is simulated on a shared clone of this repository through its five steps,
-and the retirement round `CV-2` is where the set empties and `V1` is removed.
+`ARCHIVED`; the bridge is simulated on a shared clone of this repository through its five steps.
+The retirement round `CV-2` halted before any of its execution landed
+(`infrastructure/round-cv-2-v1-retirement/result.md`): the set still names `PRA`, `V1` is not
+removed, and both are migration requirements of the next verifier architecture.
 
 The two censuses match their frozen profiles at the stage-4 head and again at `E`, recomputed by
 the guard on every build: over the fifty-one certificates and every comparable `SI-1` and `SI-2`
