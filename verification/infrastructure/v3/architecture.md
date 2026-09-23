@@ -217,7 +217,7 @@ A path **must not** be empty, contain CR, LF or TAB, start with `/`, contain `//
 `..` segment, and no path may appear twice across both classes. A block that violates any of these,
 a control plane with no such block, or one with two, is invalid.
 
-### Canonical bytes
+### Canonical bytes of a governed-path set
 
 The canonical bytes are the fields `v3-governed-paths` and `v1`, then, for each entry in ascending
 order of the UTF-8 bytes of `<path>`, the fields `<class>`, `<ops>` and `<path>`. Every field is its
@@ -248,7 +248,7 @@ in which no path is quoted or escaped. Each record is the bytes
 `:<old_mode> <new_mode> <old_oid> <new_oid> <status>`, one NUL byte, the path bytes, and one NUL
 byte. No configuration of the repository changes this output.
 
-### Canonical bytes
+### Canonical bytes of a delta
 
 The canonical bytes are the fields `v3-delta`, `v1` and the object format name (`sha1` or
 `sha256`), then, for each record in ascending order of its path bytes, the fields `<status>`,
