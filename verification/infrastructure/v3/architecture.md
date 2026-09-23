@@ -399,6 +399,152 @@ its receipt names. Whether `Q` is the tip of `main` is not part of the answer.
 
 ***
 
+## Worked examples
+
+Every digest below was derived twice and the derivations agreed byte for byte: once by parsing
+`git diff-tree -r --raw --no-renames --no-abbrev -z` as `S8` prescribes, and once independently
+from `git ls-tree -r -z` of the two trees, comparing entries. Canonical bytes are shown as lowercase
+hexadecimal, wrapped at 64 digits; the lines concatenate.
+
+### `S8` — three deltas between commits of this repository
+
+| from | to | statuses | records | digest |
+|---|---|---|---|---|
+| `2c6a4373e7a6b5c6faa0b3981f0a8813bc5a5701` | `56b253976e116a7fe547b806f66a12ff6ae76daa` | `A` | 1 | `1a89deb9f260da4bbf53a91b959acbb4ab8bbc99740a7d949c6133c55e815f4e` |
+| `f9a99fdf4b3bfeb2d3e830c8d6980ced74d52d23` | `14b9d991c3253d741e6faceea0a81adbfc2ef968` | `A`, `M` | 2 | `6b3b05a0bba80ccb325e7a9fd875ecb9392d2ad3642edb538c2eab34b8f7b2be` |
+| `d3212b0ea09ba6b29a060a314ce487d27b3f26da` | `50938dffc32075d9ce3f58ba9c5712716b5c843c` | `D` | 1 | `54e4a5f90e6eb789f88be9f4d8ccb6c8d6de6ebc5946dcde5f12b1e0351b0eee` |
+
+`delta(2c6a4373e7a6, 56b253976e11)`:
+
+```
+76332d64656c74610076310073686131004100766572696669636174696f6e2f
+696e6672617374727563747572652f726f756e642d67682d312d7265662d6879
+6769656e652f726573756c742e6d640030303030303000303030303030303030
+3030303030303030303030303030303030303030303030303030303030303000
+3130303634340033626365326232623438613532616365326438373364616635
+33613435396533316337343633386600
+```
+
+`delta(f9a99fdf4b3b, 14b9d991c325)`:
+
+```
+76332d64656c74610076310073686131004d00766572696669636174696f6e2f
+524541444d452e6d640031303036343400346435636265653832626661633661
+3165613739363365633762376233353738306464616431353100313030363434
+0062353835643932316562383562383461666230313438323636383438626334
+663064663433323730004100766572696669636174696f6e2f696e6672617374
+727563747572652f726f756e642d63762d322d76312d7265746972656d656e74
+2f726573756c742e6d6400303030303030003030303030303030303030303030
+3030303030303030303030303030303030303030303030303030003130303634
+3400356333333137306535393064643036383437666139343033666361626534
+3661323535333934343300
+```
+
+`delta(d3212b0ea09b, 50938dffc320)`:
+
+```
+76332d64656c746100763100736861310044002e6769746875622f776f726b66
+6c6f77732f636f6465782d676174652e796d6c00313030363434006636643735
+6337313339653962323733343136376231626362616166633163366631633339
+6565390030303030303000303030303030303030303030303030303030303030
+3030303030303030303030303030303030303000
+```
+
+### `S8` — a path carrying a newline and non-ASCII bytes
+
+In a scratch repository: a first commit holding `base.txt` with the content `a` and a newline; a
+second commit changing `base.txt` to `b` and a newline and adding a file whose path is the bytes
+`dir/new`, LF, `line-`, `c3 a9` (UTF-8 `é`), `.txt`, with the one-byte content `x`. The delta between
+the two commits has statuses `M` and `A`; its canonical bytes are identical under `core.quotePath` true
+and false, and by both derivations. Its digest depends only on the file contents and modes:
+
+`61e4a51182e953b8cd90fe5b95031af5f531744fa5c7a75e865d460da87c36cd`
+
+```
+76332d64656c74610076310073686131004d00626173652e7478740031303036
+3434003738393831393232363133623261666236303235303432666636626438
+3738616331393934653835003130303634340036313738303739383232386431
+3761663264333466636534636662646633353535363833323437320041006469
+722f6e65770a6c696e652dc3a92e747874003030303030300030303030303030
+3030303030303030303030303030303030303030303030303030303030303030
+3000313030363434006331623037333065303133333434376261646366643437
+666431343465323534383037623036653100
+```
+
+### `S7` — governed-path sets
+
+Set G1, given in two orders; both declarations have one digest.
+
+```
+record AM verification/infrastructure/round-ex-1/
+record AM verification/receipts/EX-1.json
+execution AMD tools/ex/
+execution M verification/README.md
+```
+
+```
+# the same set, another order
+execution M verification/README.md
+execution AMD tools/ex/
+record AM verification/receipts/EX-1.json
+record AM verification/infrastructure/round-ex-1/
+```
+
+Digest of G1: `e8bbfdef7908f026af80b86520349aa377d6963d98a995799aaf83d36251e946`. Canonical bytes:
+
+```
+76332d676f7665726e65642d706174687300763100657865637574696f6e0041
+4d4400746f6f6c732f65782f00657865637574696f6e004d0076657269666963
+6174696f6e2f524541444d452e6d64007265636f726400414d00766572696669
+636174696f6e2f696e6672617374727563747572652f726f756e642d65782d31
+2f007265636f726400414d00766572696669636174696f6e2f72656365697074
+732f45582d312e6a736f6e00
+```
+
+Set G2, a sealing round with nested directory entries:
+
+```
+record AM verification/infrastructure/round-ex-2/
+record AM verification/receipts/EX-2.json
+record A verification/seals/EX2.json
+execution AM verification/lean-mathlib/OIBridge/
+execution M verification/lean-mathlib/OIBridge.lean
+execution AMD verification/lean-mathlib/OIBridge/Scratch/
+```
+
+Digest of G2: `9781ab0207e9d09d8f5f6f5bee3acd117f6743b568f25f619987ef6fae79489d`. Under G2, a change to a path is governed as follows:
+
+| path | governing entry | ops |
+|---|---|---|
+| `verification/lean-mathlib/OIBridge/Scratch/X.lean` | `verification/lean-mathlib/OIBridge/Scratch/` | `AMD` |
+| `verification/lean-mathlib/OIBridge/Y.lean` | `verification/lean-mathlib/OIBridge/` | `AM` |
+| `verification/lean-mathlib/OIBridge.lean` | `verification/lean-mathlib/OIBridge.lean` | `M` |
+| `verification/README.md` | none: unauthorized | — |
+
+Each of these blocks is invalid, and the rule it breaks:
+
+| block content | rule broken |
+|---|---|
+| `record verification/receipts/X.json` | a line of two fields |
+| `recorded AM a/` | an unknown class |
+| `record MA a/` | `<ops>` not written in the order `A`, `M`, `D` |
+| `record  a/` (two spaces) | empty `<ops>` |
+| `record AM ` (trailing space) | an empty path |
+| a path ending in CR | a path containing CR |
+| `record AM a/b<TAB>c` | a path containing TAB |
+| `record AM /a/` | a path starting with `/` |
+| `record AM a//b` | a path containing `//` |
+| `record AM a/./b` | a `.` segment |
+| `record AM a/../b` | a `..` segment |
+| `record AM a/` and `execution M a/` | a path appearing twice across classes |
+| no `v3-governed-paths` block | exactly one block required |
+| two such blocks | exactly one block required |
+
+A valid block whose `record` class omits the round's record directory or its receipt path is also
+invalid; that rule is checked against the round, at `F`.
+
+***
+
 ## Canonical example receipts
 
 The object ids below are illustrative: each role uses a repeated pattern so that the examples cannot
