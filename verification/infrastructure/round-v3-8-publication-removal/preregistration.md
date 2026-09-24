@@ -96,10 +96,10 @@ identical to the tool at `D`. The own-rule and shadow-report measurements are `C
 
 ## The specification, FROZEN as text
 
-At stage 1 the execution applies these twenty edits to `architecture.md` as it stands at `B`, in
-order. Each located block occurs exactly once in the file at the time it is applied and is replaced
-by its replacement. A block is the text between its fences without the final newline; `N18`'s
-located block begins with an empty line. Nothing else in the file changes.
+At stage 1 the execution applies these twenty-one edits to `architecture.md` as it stands at `B`,
+in order. Each located block occurs exactly once in the file at the time it is applied and is
+replaced by its replacement. A block is the text between its fences without the final newline;
+`N19`'s located block begins with an empty line. Nothing else in the file changes.
 
 #### `N1` — the reconciliations in the objects table
 
@@ -251,7 +251,7 @@ reconciliation's first parent lies behind an earlier one's is invalid, even when
 reconciliation's first parent lies ahead of both.
 ```
 
-#### `N10` — `S10`, through `K4`'s first sentence
+#### `N10` — `S10`
 
 The located block:
 
@@ -279,10 +279,6 @@ and `main` is untouched. The round then:
 
 A `main` that reaches the round's commits through any commit other than `Q` itself — a merge
 created on the host, a squash or a rebase — is not a publication of the round.
-
-### `K4` — every receipt commit
-
-`S10`'s rule for `Q` binds every receipt commit of the round (`G11`), superseded or final.
 ```
 
 Its replacement:
@@ -306,13 +302,23 @@ fast-forward to `Q`, a merge, or any other operation the host's own protections 
 host operation, and no V3 predicate reads it. Whether `Q` is an ancestor of a given commit is a
 repository fact, which a verifier may report as a diagnostic; it is never part of a verdict, and a
 `Q` that is not an ancestor of a given commit is not thereby invalid.
+```
 
-### `K4` — every receipt commit
+#### `N11` — `K4`'s first sentence
 
+The located block:
+
+```text
+`S10`'s rule for `Q` binds every receipt commit of the round (`G11`), superseded or final.
+```
+
+Its replacement:
+
+```text
 The rule for `Q` binds every receipt commit of the round (`G11`), superseded or final.
 ```
 
-#### `N11` — `S11`
+#### `N12` — `S11`
 
 The located block:
 
@@ -328,7 +334,7 @@ receipt carries `seal`, and `Q` carries the seal state it owns, which is its one
 (`G12`); a non-sealing receipt carries no `seal`, and `Q` carries none.
 ```
 
-#### `N12` — `S12`, the halted round
+#### `N13` — `S12`, the halted round
 
 The located block:
 
@@ -342,7 +348,7 @@ Its replacement:
 A halted round records its receipt and its result through the same pull request, and never
 ```
 
-#### `N13` — `S12`, reconciliation and receipt
+#### `N14` — `S12`, reconciliation and receipt
 
 The located block:
 
@@ -358,7 +364,7 @@ Reconciliation (`S9`, with `W` in place of `E`) and the receipt commit (`S10`) t
 a complete round.
 ```
 
-#### `N14` — `S12`, the landed tree
+#### `N15` — `S12`, the landed tree
 
 The located block:
 
@@ -372,7 +378,7 @@ Its replacement:
 - **The halted execution's effects do not survive in the landed tree.** No `execution` path
 ```
 
-#### `N15` — `S12`, the execution commits
+#### `N16` — `S12`, the execution commits
 
 The located block:
 
@@ -386,7 +392,7 @@ Its replacement:
 - **The execution commits do remain reachable from `Q`**, through `W`, as historical evidence.
 ```
 
-#### `N16` — `G5`
+#### `N17` — `G5`
 
 The located block:
 
@@ -400,7 +406,7 @@ Its replacement:
 outside the governed paths, and what of the halted execution reaches the landed tree is decided
 ```
 
-#### `N17` — the lifecycle states
+#### `N18` — the lifecycle states
 
 The located block:
 
@@ -415,7 +421,7 @@ Its replacement:
 | `RECEIPTED` | T7 |
 ```
 
-#### `N18` — the lifecycle transitions
+#### `N19` — the lifecycle transitions
 
 The located block:
 
@@ -430,7 +436,7 @@ Its replacement:
 
 ```
 
-#### `N19` — the lifecycle's closing sentence
+#### `N20` — the lifecycle's closing sentence
 
 The located block:
 
@@ -447,7 +453,7 @@ from `Q` and the commits its receipt names; where `Q` lies, and whether any bran
 not part of the answer.
 ```
 
-#### `N20` — the worked example
+#### `N21` — the worked example
 
 The located block:
 
@@ -737,7 +743,7 @@ stops.
 | target | passing outcome | stop outcome |
 |---|---|---|
 | `V38-0` | `BASE-HOLDS` — the execution branch starts at `B`; this file's blob at `B` is the frozen one; every `B` and `D->B` row and frozen blob holds at `B` | `BASE-BROKEN` |
-| `V38-1` | `PUBLICATION-REMOVED` — stage 1 applies the twenty frozen edits and changes nothing else; `C1`, `C6`, `C7` hold | `SPECIFICATION-UNCHANGED` |
+| `V38-1` | `PUBLICATION-REMOVED` — stage 1 applies the twenty-one frozen edits and changes nothing else; `C1`, `C6`, `C7` hold | `SPECIFICATION-UNCHANGED` |
 | `V38-2` | `DIAGNOSTIC-INSTALLED` — stage 2 changes the tool at its sites and the corpus as frozen; `C1`, `C2`, `C6` hold | `DIAGNOSTIC-WRONG` |
 | `V38-3` | `SELF-DESCRIPTION-CURRENT` — stage 3 changes only the tool's text and the README paragraph; `C1`, `C6` hold | `SELF-DESCRIPTION-STALE` |
 | `V38-4` | `CONTROLS-HOLD` — `C3`, `C4` and `C5` hold at `E` | `CONTROL-VOID` |
@@ -764,7 +770,7 @@ the first stop outcome, and the targets not reached are recorded as such.
 | stage | targets | commit | checkpoint |
 |---|---|---|---|
 | 0 | `V38-0` | none | branch from `B`; blob check; rows at `B` |
-| 1 | `V38-1` | one: the twenty edits to `architecture.md` | `C1`, `C6`, `C7` |
+| 1 | `V38-1` | one: the twenty-one edits to `architecture.md` | `C1`, `C6`, `C7` |
 | 2 | `V38-2` | one: the stage-2 sites and the corpus changes | `C1`, `C2`, `C6` |
 | 3 | `V38-3` | one: the stage-3 sites and the README paragraph | `C1`, `C6` |
 | 4 | `V38-4` to `V38-6` | one: the result note; its commit is `E` | `C3`, `C4`, `C5`, the closing checks, then the exact-head run |
