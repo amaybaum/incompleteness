@@ -474,12 +474,14 @@ the owner finds inconsistent is a stop outcome for its stage's target.
 ### Stage 2 — the diagnostic replaces `--publication`
 
 **Semantics.** `reachable(repo, C, Q)` answers `true` when `Q` is an ancestor of `C`, a commit being
-its own ancestor; `false` when it is not; and `undecidable` with the repository's code when the
-repository cannot say — an object it does not contain, a malformed id, or a shallow history. It
-never returns a verdict and never calls `verify_round`. The entry point `--reachable <C> <Q>`
-refuses a commit argument as every entry point does, prints one line, `REACHABLE true`,
-`REACHABLE false` or `REACHABLE undecidable:<code>`, and exits 0 in each case. `--publication` and
-the function `publication` no longer exist. A repository vector's step
+its own ancestor; `false` when it is not; and `undecidable`, with the repository's full undecidable
+code, when repository evaluation cannot determine ancestry — an absent object, a malformed object id
+passed internally, or a shallow history. It never returns a verdict and never calls
+`verify_round`. The entry point `--reachable <C> <Q>` first applies `check_oid` to both arguments,
+so a malformed argument is refused before any repository read, exactly as for the other entry
+points. Otherwise it prints one line — `REACHABLE true`, `REACHABLE false`, or `REACHABLE` followed
+by the full code, such as `REACHABLE undecidable:shallow-repository` — and exits 0 in each case.
+`--publication` and the function `publication` no longer exist. A repository vector's step
 `{"check": "reachable", "args": [C, Q], "expect": {"reachable": …}}` compares the state, and the
 code when `expect` names one.
 
@@ -881,9 +883,10 @@ no guard clause, manifest record or round certificate.
 - **`R3` — `S9`'s base is chosen.** A reconciliation's first parent is a later base on whose
   first-parent chain `D` lies, advancing as `K3` requires; that it is normally the tip of `main` is
   stated as operation, not validity.
-- **`R4` — the diagnostic is ancestry only.** `--reachable` prints `REACHABLE true`, `false` or
-  `undecidable:<code>` and always exits 0. It does not compare trees or verify the round; a
-  diagnostic that did would reintroduce a publication predicate.
+- **`R4` — the diagnostic is ancestry only.** `--reachable` prints `REACHABLE true`,
+  `REACHABLE false`, or `REACHABLE` followed by a full undecidable code, and exits 0 for every
+  argument pair `check_oid` admits. It does not compare trees or verify the round; a diagnostic
+  that did would reintroduce a publication predicate.
 - **`R5` — no durability guarantee from host refs.** Refs under `refs/pull/` are host
   implementation details and are not made a V3 guarantee. If `Q` is an ancestor of a durable commit,
   ancestry is the provenance; if not, `--reachable` says so and `Q` is not thereby invalid.
