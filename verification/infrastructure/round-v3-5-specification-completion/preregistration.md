@@ -50,9 +50,10 @@ It is not:
 2. **A promotion.** No act of `V3-2`'s promotion boundary is performed. No V3 verdict gates
    anything, and the continuous-integration authority of every job is unchanged.
 3. **A migration.** No historical round is translated, classified or touched, no `V1` or `V2` state
-   is created, changed or removed, and no file under `verification/seals/` is written. `G12` fixes
-   where a V3 seal record lies; how the existing records there relate to it is the migration
-   census's question.
+   is created, changed or removed, and no file under `verification/seals/` is written. `G12` gives
+   V3 seal records their own namespace, `verification/v3-seals/`, and leaves
+   `verification/seals/` to protocol 2; how the facts in protocol 2's records map into V3 receipts
+   is the migration census's question.
 4. **A bootstrap round.** How the first V3-governed round is certified and published is not
    addressed.
 
@@ -60,9 +61,10 @@ It is not:
 
 ### `F1` — name freedom
 
-`V3-5`, `v3-5`, `round-v3-5`, `V35-`, `specification-completion` and `v3-owned-refs` occur nowhere
-in the tree at `D`. Neither `verification/infrastructure/v3/conformance-pending/` nor
-`verification/receipts/` exists at `D`; the first was removed by `V3-4`.
+`V3-5`, `v3-5`, `round-v3-5`, `V35-`, `specification-completion`, `v3-owned-refs` and `v3-seals`
+occur nowhere in the tree at `D`. None of `verification/infrastructure/v3/conformance-pending/`,
+`verification/receipts/` and `verification/v3-seals/` exists at `D`; the first was removed by
+`V3-4`.
 
 ### `F2` — the objects the round reads or writes, at `D`
 
@@ -79,8 +81,9 @@ exact set: every top-level `*.json` file of the directory, each named for its `i
 
 A throwaway generator that reuses the recipe helpers of `V3-2`, `V3-3` and `V3-4` regenerates the
 105 vectors at `D` byte for byte. Run again with one change — each sealing round's seal record at
-`verification/seals/<round>.json` rather than at the round id with its hyphen removed, and the
-example receipts and set G2 read from `architecture.md` as the frozen edits leave it — it changes
+`verification/v3-seals/<round>.json` rather than at `verification/seals/` under the round id with
+its hyphen removed, and the example receipts and set G2 read from `architecture.md` as the frozen
+edits leave it — it changes
 exactly nine vectors and no others (`G12`, below). Under the settlement patch, the nine at `D`
 behave as follows: four run not as expected (`k4-admit-sealing-superseded-receipt-commit`,
 `mc7-counter-seal-record-missing-from-q`, `mc7-pass-sealing` and `s4-canonical-ex-2`, each failing
@@ -97,15 +100,15 @@ Every vector the tables below freeze was built at `D` in scratch. No expected ve
 from any implementation's output.
 
 - **On the unchanged shadow** (blob `883122c4`): the 116 vectors of the corpus at `E` — the 105 with
-  the nine modified, and the eleven additions — ran as expected; each of the fifteen pending
+  the nine modified, and the eleven additions — ran as expected; each of the seventeen pending
   vectors ran **not** as expected, each returning `HOLDS`.
 - **On a settlement patch** — a scratch copy of the shadow changed only where the `G10` and `G12`
   settlements depart from it, never tracked, with SHA-256
-  `990b2c3259e8d49662ccde8c99be6bdca5313f161b01fd90e0408873fa435b0f`:
-  all 116 corpus vectors and all fifteen pending vectors ran as expected.
+  `b63e12d86036e643c3ac250cb8ad0e443fb43e6448ed558baaa06082be40c534`:
+  all 116 corpus vectors and all seventeen pending vectors ran as expected.
 - **Own rule.** The patch is five rules. With each taken out, exactly the pending vectors it owns
   ran not as expected, and every other pending vector ran as expected.
-- **Rejected alternatives.** For each of the eleven rejected alternatives the tables below name
+- **Rejected alternatives.** For each of the twelve rejected alternatives the tables below name
   with a vector, a scratch copy implementing it turned each of its distinguishing vectors from as
   expected to not as expected.
 
@@ -115,11 +118,12 @@ from any implementation's output.
   backticks, an indented fence, an opener with further text or a CR, each carrying governed-path
   entries or a round declaration, renders as a declaration and changes nothing the shadow reads.
 - **A sealing round's seal entry may name any single file.** The shadow admits a seal entry at a
-  path unrelated to the round, at another round's receipt path, or with `M`, and a sealing round
-  with no seal entry at all.
+  path unrelated to the round, in protocol 2's `verification/seals/`, at another round's receipt
+  path, or with `M`, and a sealing round with no seal entry at all.
 - **A round may change another round's durable state.** An `execution` entry covering
-  `verification/receipts/` or `verification/seals/` lets the execution add or change another
-  round's receipt or seal record, and the shadow returns `HOLDS`.
+  `verification/receipts/`, `verification/seals/` or `verification/v3-seals/` lets the execution
+  add or change another round's receipt or seal record, or protocol 2's seal state, and the shadow
+  returns `HOLDS`.
 - **A receipt commit may modify an existing file.** A sealing round whose seal record path is
   already occupied publishes its "seal record" by modifying that file, and the shadow returns
   `HOLDS`.
@@ -241,33 +245,42 @@ from each alternative; and whether the shadow at `D` conforms, as measured.
   directory, another round's receipt path included; nothing says where seal records lie, how many
   a round has, or what they hold.
 - **Alternatives.** (a) `V3-3`'s text: any single file outside the record directory. (b) A seal
-  directory per round, `verification/seals/<round>/`, holding any files. (c) No seal record: a
+  directory per round, `verification/v3-seals/<round>/`, holding any files. (c) No seal record: a
   sealing round publishes its receipt only. (d) The fixed seal record, and further seal records
   within the record directory. (e) The fixed path, with the content validated as a `V2` manifest
   record. (f) The fixed path, with the round free to modify a file already there. (g) Exactly one
-  seal record per sealing round, at `verification/seals/<round>.json`, declared `record A`, its
-  content opaque to V3; and no round changes another round's receipt or seal state.
+  seal record per sealing round, at `verification/v3-seals/<round>.json`, declared `record A`, its
+  content opaque to V3; no V3 round changes another round's receipt or seal record, or any file
+  under `verification/seals/`. (h) (g) with the seal record in protocol 2's namespace, at
+  `verification/seals/<round>.json`.
 - **Settlement.** (g). Frozen text: edits `N3`, `N11`, `N12`, `N14`, `N15`, `N18`, `N19`, `N20`,
   `N21`, `N22`, `N23`, `N24`, `N25`.
 - **Why.** Under (a) a sealing round may declare, and publish as its own seal state, another round's
   receipt or seal record. A path fixed by the round id makes the seal record the round's own by
-  construction, keeps the repository's seal namespace and gives the migration census one place to
-  look. `record A` makes the file the round's creation: a round cannot take over a file already at
-  its path — a `V2` record whose stem equals the round id, say — because that change is a
-  modification, which is unauthorized. (b) and (d) give a round many seal files, which no consumer
-  needs and which widen what a receipt pins. (c) drops what a seal record gives that the receipt
-  does not: a durable file at a fixed path that a consumer reads without parsing receipts. (e)
-  duplicates receipt fields and binds V3 to the schema of a protocol that is to be retired. (f) lets
-  a round rewrite state it did not create. The rule on other rounds' receipts and seal records
+  construction and gives the migration census one place to look. `record A` makes the file the
+  round's creation: a round cannot take over a file already at its path, because that change is a
+  modification, which is unauthorized. The namespace is V3's own because `verification/seals/`
+  already belongs to protocol 2: `AGENTS.md` §A.37 has every sealing round write its manifest record
+  there, and `V2`'s manifest integrity rule reads every record the directory holds. Under (h) a V3
+  seal record would enter the directory `V2` governs, a V3 round id could collide with a `V2` stem,
+  and the migration census would have to tell two schemas apart in one directory. With (g) the two
+  protocols' seal state never shares a directory, protocol 2's records stay what they are — legacy
+  state whose facts the migration census maps into V3 receipts, not V3 seal records to be renamed or
+  reinterpreted — and no V3 round can change them. (b) and (d) give a round many seal files, which
+  no consumer needs and which widen what a receipt pins. (c) drops what a seal record gives that the
+  receipt does not: a durable file at a fixed path that a consumer reads without parsing receipts.
+  (e) duplicates receipt fields and binds V3 to the schema of a protocol that is to be retired. (f)
+  lets a round rewrite state it did not create. The rule on other rounds' receipts and seal records
   states for every entry what the seal entry states for itself: no declaration reaches another
   round's durable state.
-- **Vectors.** (a): the nine pending `g12-reject-*` vectors. (b), (c) and (e): the modified
+- **Vectors.** (a): the eleven pending `g12-reject-*` vectors. (b), (c) and (e): the modified
   `mc7-pass-sealing`. (d): `g12-reject-receipt-names-second-seal-record`. (f):
-  `g12-reject-seal-record-path-already-present`. Nine landed vectors are modified to the fixed
-  path (`F3`).
+  `g12-reject-seal-record-path-already-present`. (h): `g12-reject-seal-entry-in-legacy-namespace`.
+  Nine landed vectors are modified to the fixed path (`F3`).
 - **Shadow at `D`.** Does not conform: it admits any single-file seal entry outside the record
-  directory, a seal entry with `M`, a sealing round without one, any number of seal records, a
-  modification at the seal record path, and changes to other rounds' receipts and seal paths.
+  directory, one in `verification/seals/` included, a seal entry with `M`, a sealing round without
+  one, any number of seal records, a modification at the seal record path, and changes to other
+  rounds' receipts and seal records and to `verification/seals/`.
 
 ### Summary
 
@@ -277,9 +290,9 @@ from each alternative; and whether the shadow at `D` conforms, as measured.
 | `G9` | (b) | yes | 3 | — | — |
 | `G10` | (c) | no | 4 | — | 6 |
 | `G11` | (b) | yes | 3 | — | — |
-| `G12` | (g) | no | — | 9 | 9 |
+| `G12` | (g) | no | — | 9 | 11 |
 
-The departures of `G10` and `G12` make one later implementation round necessary: fifteen pending
+The departures of `G10` and `G12` make one later implementation round necessary: seventeen pending
 vectors fail on the shadow at `D`, and the settlement patch shows they can be met without breaking
 any other vector.
 
@@ -613,11 +626,11 @@ The inserted block:
 ### `G12` — the seal record
 
 A sealing round has exactly one seal record, at its **seal record path**
-`verification/seals/<round>.json`, where `<round>` is its round id (`K1`). Its block at `F` carries
-`record A` of that path (`G6`), so the round may add the file and may never modify or delete it: if
-a file already lies at the path, the round's change to it is not an addition, and is unauthorized.
-The receipt of a complete sealing round names exactly that path and the object id of its file at
-`Q` (`S4`); a non-sealing receipt and a halted receipt name none.
+`verification/v3-seals/<round>.json`, where `<round>` is its round id (`K1`). Its block at `F`
+carries `record A` of that path (`G6`), so the round may add the file and may never modify or
+delete it: if a file already lies at the path, the round's change to it is not an addition, and is
+unauthorized. The receipt of a complete sealing round names exactly that path and the object id of
+its file at `Q` (`S4`); a non-sealing receipt and a halted receipt name none.
 
 V3 assigns the seal record no field and no format. Its protocol meaning is exactly this: the
 durable blob the round owns at its fixed seal record path, whose object id the final receipt pins.
@@ -625,9 +638,10 @@ The `.json` extension is conventional. No V3 predicate parses the file or derive
 its content; a consumer of a round's seal record may impose its own format on it, and the V3
 verifier does not.
 
-No round changes another round's receipt or seal state. A change to a path under
-`verification/receipts/` other than the round's receipt path, or under `verification/seals/` other
-than its seal record path, is unauthorized, whichever entry governs it.
+No round changes another round's receipt or seal state. A change is unauthorized, whichever entry
+governs it, when it is to a path under `verification/receipts/` other than the round's receipt
+path, to a path under `verification/v3-seals/` other than its seal record path, or to any path
+under `verification/seals/`, which holds the seal state of protocol 2 and is no V3 round's.
 ```
 
 #### `N16` — replace, `K3` over the round's reconciliations (`G11`)
@@ -785,7 +799,7 @@ record A verification/seals/EX2.json
 Its replacement:
 
 ```text
-record A verification/seals/EX-2.json
+record A verification/v3-seals/EX-2.json
 ```
 
 #### `N24` — replace, the digest of set G2 (`G12`)
@@ -799,7 +813,7 @@ Digest of G2: `9781ab0207e9d09d8f5f6f5bee3acd117f6743b568f25f619987ef6fae79489d`
 Its replacement:
 
 ```text
-Digest of G2: `4ed648a09b549963ed02d3c281ae709fdf29f7096bec16f6fe880528fcc56836`. Under G2, a change to a path is governed as follows:
+Digest of G2: `0053d9c8bb76392786d52bd9f0da71dcd44455e51833bde01ec15b1ab2942d85`. Under G2, a change to a path is governed as follows:
 ```
 
 #### `N25` — replace, the seal record of the sealing example receipt (`G12`)
@@ -813,7 +827,7 @@ The located block:
 Its replacement:
 
 ```text
-      {"path": "verification/seals/EX-2.json", "blob": "5555555555555555555555555555555555555555"}
+      {"path": "verification/v3-seals/EX-2.json", "blob": "5555555555555555555555555555555555555555"}
 ```
 
 ## The README paragraph, FROZEN
@@ -864,23 +878,23 @@ its `id`. The recipes below use `V3-2`'s synthetic rounds: `D` holding `README.m
 `tools/ex/keep.txt` and `verification/README.md`; a preregistration at `F` with the standard
 declaration and the governed paths `record AM` of the record directory and of the receipt path,
 `execution AMD tools/ex/` and `execution M verification/README.md` (plus, for a sealing round,
-`record A verification/seals/<round>.json`); two execution commits; `R1` with first parent `D`; `Q`
-carrying the receipt. Only the differences are stated.
+`record A verification/v3-seals/<round>.json`); two execution commits; `R1` with first parent `D`;
+`Q` carrying the receipt. Only the differences are stated.
 
 ### Modified in `verification/infrastructure/v3/conformance/`
 
 Each keeps its `id`, `settlements`, recipe and expected verdict; the only change is that each seal
-record path is the round's fixed one, `verification/seals/<round>.json`, and that the two copies of
-the specification's examples follow the frozen edits.
+record path is the round's fixed one, `verification/v3-seals/<round>.json`, and that the two copies
+of the specification's examples follow the frozen edits.
 
 | id | change |
 |---|---|
-| `g6-reject-halted-landing-publishes-unnamed-seal-record` | `EX3.json` → `EX-3.json` |
-| `g6-reject-halted-record-commit-writes-unnamed-seal-record` | `EX4.json` → `EX-4.json` |
-| `k1-reject-receipt-kind-disagrees-with-declaration` | the declared seal entry `EX2.json` → `EX-2.json` |
-| `k4-admit-sealing-superseded-receipt-commit` | `EX2.json` → `EX-2.json` |
-| `mc7-counter-seal-record-missing-from-q` | `EX2.json` → `EX-2.json` |
-| `mc7-pass-sealing` | `EX2.json` → `EX-2.json` |
+| `g6-reject-halted-landing-publishes-unnamed-seal-record` | `seals/EX3.json` → `v3-seals/EX-3.json` |
+| `g6-reject-halted-record-commit-writes-unnamed-seal-record` | `seals/EX4.json` → `v3-seals/EX-4.json` |
+| `k1-reject-receipt-kind-disagrees-with-declaration` | the declared seal entry `seals/EX2.json` → `v3-seals/EX-2.json` |
+| `k4-admit-sealing-superseded-receipt-commit` | `seals/EX2.json` → `v3-seals/EX-2.json` |
+| `mc7-counter-seal-record-missing-from-q` | `seals/EX2.json` → `v3-seals/EX-2.json` |
+| `mc7-pass-sealing` | `seals/EX2.json` → `v3-seals/EX-2.json` |
 | `s4-canonical-ex-2` | the example receipt as edit `N25` leaves it |
 | `s4-seal-in-non-sealing` | the `seal` field of example `EX-2` as edit `N25` leaves it |
 | `s7-g2-nested` | set G2 and its digest as edits `N23` and `N24` leave them |
@@ -914,21 +928,23 @@ The shadow does not run this directory. Each vector below states the settled ver
 | `g10-reject-opener-with-trailing-text` | `G10`, `K2` | an opener for `v3-governed-paths` followed by ` extra`, with an entry and a closer | FAILS `t1:` |
 | `g10-reject-opener-with-cr` | `G10`, `K2` | an opener for `v3-governed-paths`, its entry and its closer, each line ending in CR LF | FAILS `t1:` |
 | `g10-reject-near-miss-in-amendment` | `G10`, `K2` | an amendment before `F` carrying a tilde fence with info string `v3-round` | FAILS `t1:` |
-| `g12-reject-seal-entry-not-at-fixed-path` | `G12`, `G6`, `S7` | halted sealing `EX-4` without execution commits, whose block declares `record A verification/seals/EX4.json` | FAILS `t1:` |
-| `g12-reject-seal-entry-not-add-only` | `G12`, `G6`, `S7` | as above, declaring `record AM verification/seals/EX-4.json` | FAILS `t1:` |
+| `g12-reject-seal-entry-not-at-fixed-path` | `G12`, `G6`, `S7` | halted sealing `EX-4` without execution commits, whose block declares `record A verification/v3-seals/EX4.json` | FAILS `t1:` |
+| `g12-reject-seal-entry-in-legacy-namespace` | `G12`, `G6`, `S7` | as above, declaring `record A verification/seals/EX-4.json` | FAILS `t1:` |
+| `g12-reject-seal-entry-not-add-only` | `G12`, `G6`, `S7` | as above, declaring `record AM verification/v3-seals/EX-4.json` | FAILS `t1:` |
 | `g12-reject-seal-entry-names-another-rounds-receipt` | `G12`, `G6`, `S7` | as above, declaring `record A verification/receipts/EX-9.json` | FAILS `t1:` |
 | `g12-reject-sealing-round-without-seal-entry` | `G12`, `G6`, `S7` | as above, with no seal entry | FAILS `t1:` |
-| `g12-reject-receipt-seal-path-not-fixed` | `G12`, `S4` | example receipt `EX-2` with its seal record at `verification/seals/EX2.json` | FAILS `s4:` |
+| `g12-reject-receipt-seal-path-not-fixed` | `G12`, `S4` | example receipt `EX-2` with its seal record at `verification/seals/EX-2.json` | FAILS `s4:` |
 | `g12-reject-receipt-names-second-seal-record` | `G12`, `S4`, `S11` | complete sealing `EX-2` whose `Q` adds and whose receipt names the fixed seal record and `seal-extra.json` in the record directory | FAILS `s4:` |
-| `g12-reject-seal-record-path-already-present` | `G12`, `S10`, `K4` | complete sealing `EX-2` with a file at `verification/seals/EX-2.json` at `D`, which `Q` modifies | FAILS `s10:` |
+| `g12-reject-seal-record-path-already-present` | `G12`, `S10`, `K4` | complete sealing `EX-2` with a file at `verification/v3-seals/EX-2.json` at `D`, which `Q` modifies | FAILS `s10:` |
 | `g12-reject-execution-changes-another-rounds-receipt` | `G12`, `S7`, `S3` | the block also declares `execution AMD verification/receipts/`; the execution adds `verification/receipts/EX-9.json` | FAILS `s3:` |
-| `g12-reject-execution-changes-seal-namespace` | `G12`, `S7`, `S3` | the block also declares `execution AMD verification/seals/`; the execution adds `verification/seals/OTHER.json` | FAILS `s3:` |
+| `g12-reject-execution-changes-legacy-seal-namespace` | `G12`, `S7`, `S3` | the block also declares `execution AMD verification/seals/`; the execution adds `verification/seals/OTHER.json` | FAILS `s3:` |
+| `g12-reject-execution-changes-another-rounds-seal-record` | `G12`, `S7`, `S3` | the block also declares `execution AMD verification/v3-seals/`; the execution adds `verification/v3-seals/EX-9.json` | FAILS `s3:` |
 
 The drafting-time digests, SHA-256 of each set's files concatenated in path order, are:
 
-- the nine modified vectors: `d1b51abca743249b16170f509d199889670059de9bf8807f5f6753b141f9e947`;
+- the nine modified vectors: `2a0cc7d8a883c6b1d806721c1fd531ff71f3f937e087c831630f72de1aaf6303`;
 - the eleven corpus additions: `b0f3db227e5c02370aa83c3f2a7fd5a77d563f6494f145d9fdaa93a62e65c3c6`;
-- the fifteen pending vectors: `9dd103df3edc24974d47e0200032c9f3a1c8c8d2743d3a26c7000a108b185fa5`.
+- the seventeen pending vectors: `8d2209b69b5f516d4d1a6ce12d633ece91e18cc4a91fd25dfb3f7ed90a994069`.
 
 They are predictions, not pins: a vector that differs
 from its drafting-time bytes while matching its frozen row is recorded as a discrepancy.
@@ -940,7 +956,7 @@ Each control runs at the execution's stage-2 checkpoint and again at `E`.
 - **`C1` — the corpus on the unchanged shadow.** `tools/v3_verifier.py --corpus` at `E` runs the 116
   vectors of `conformance/` as an exact set, every one as expected, exit 0.
 - **`C2` — the pending set on the unchanged shadow.** `tools/v3_verifier.py --corpus` on
-  `conformance-pending/` runs its fifteen vectors, and every one of them runs **not** as expected,
+  `conformance-pending/` runs its seventeen vectors, and every one of them runs **not** as expected,
   returning `HOLDS`.
 - **`C3` — satisfiability.** A scratch copy of the shadow, changed only where the `G10` and `G12`
   settlements depart from it and never tracked, runs `conformance/` and `conformance-pending/` at
@@ -962,7 +978,7 @@ Each control runs at the execution's stage-2 checkpoint and again at `E`.
   copy implementing it runs each of its distinguishing vectors not as expected, while the copy it
   was made from runs them as expected. The copies are of the unchanged shadow for `G8` (c), `G9`
   (a) and (c), `G10` (b) and `G11` (a), and of the settlement patch for `G10` (d) and `G12` (b),
-  (c), (d), (e) and (f). There are eleven.
+  (c), (d), (e), (f) and (h). There are twelve.
 - **`C6` — the normative text.** Applying the frozen edits to `architecture.md`'s blob at `B`
   yields its blob at `E` exactly.
 - **`C7` — the README paragraph.** Applying the frozen replacement to `verification/README.md`'s
@@ -979,7 +995,7 @@ target stops.
 | `V35-1` | `SPECIFICATION-SETTLED` — `C6` holds | `SPECIFICATION-DIVERGED` |
 | `V35-2` | `STATUS-CURRENT` — `C7` holds | `STATUS-DIVERGED` |
 | `V35-3` | `CORPUS-CONFORMING` — `conformance/` at `E` is `conformance/` at `B` with the nine vectors modified and the eleven added, each matching its frozen row; `C1` holds | `CORPUS-FAILED` |
-| `V35-4` | `DEPARTURES-DEMONSTRATED` — `conformance-pending/` at `E` holds exactly the fifteen pending vectors, each matching its frozen row; `C2` holds | `PENDING-VACUOUS` — a pending vector the unchanged shadow already meets |
+| `V35-4` | `DEPARTURES-DEMONSTRATED` — `conformance-pending/` at `E` holds exactly the seventeen pending vectors, each matching its frozen row; `C2` holds | `PENDING-VACUOUS` — a pending vector the unchanged shadow already meets |
 | `V35-5` | `SETTLEMENTS-SATISFIABLE` — `C3` and `C4` hold | `SPEC-CONTRADICTORY` — no patch meets the corpus and the pending set together; or `CONTROL-VOID` |
 | `V35-6` | `ALTERNATIVES-EXCLUDED` — `C5` holds for every alternative the settlement tables name with a vector | `CONTROL-VOID` |
 | `V35-7` | `SHADOW-UNCHANGED` — `tools/v3_verifier.py`, `.github/workflows/verify.yml`, `tools/release_gate.py`, `tools/certificate_verifier.py`, the guard and `AGENTS.md` have their `B` blobs at `E`; the guard at `E` gives 105 PASS and 0 FAIL with `D`'s verdict map; `V2` is authoritative OK; the release gate passes 19 of 19; the shadow's self-test passes; no act of `V3-2`'s promotion boundary is present | `AUTHORITY-LEAKED` — fails the round |
@@ -993,12 +1009,12 @@ exact-head continuous-integration run on `E`, not run locally.
 | target | predicted outcome | strength | reason |
 |---|---|---|---|
 | `V35-0` | `BASE-HOLDS` | strong | only this file lies between `D` and `B` |
-| `V35-1` | `SPECIFICATION-SETTLED`; `architecture.md`'s blob at `E` `d1ce3e4f083cdc1a162dce7bd23acae6dcc14e50` | strong | the edits are frozen, each located block occurs once at `D`, and applying them to the blob at `D` gives that blob |
+| `V35-1` | `SPECIFICATION-SETTLED`; `architecture.md`'s blob at `E` `12cff3f2c9b2cb7803ed1572c98bccba7590c707` | strong | the edits are frozen, each located block occurs once at `D`, and applying them to the blob at `D` gives that blob |
 | `V35-2` | `STATUS-CURRENT`; `verification/README.md`'s blob at `E` `50c390168966980c4ebf590a78c4269089af68c2` | strong | the same, for the one replacement |
-| `V35-3` | `CORPUS-CONFORMING`; the digests `d1b51abc` (modified) and `b0f3db22` (added) | strong | measured at `D` (`F4`) |
-| `V35-4` | `DEPARTURES-DEMONSTRATED`; the pending digest `9dd103df` | strong | measured at `D` (`F4`) |
-| `V35-5` | `SETTLEMENTS-SATISFIABLE` | strong | measured at `D` with the patch `990b2c32` |
-| `V35-6` | `ALTERNATIVES-EXCLUDED` | strong | measured at `D`: eleven alternatives, each excluded |
+| `V35-3` | `CORPUS-CONFORMING`; the digests `2a0cc7d8` (modified) and `b0f3db22` (added) | strong | measured at `D` (`F4`) |
+| `V35-4` | `DEPARTURES-DEMONSTRATED`; the pending digest `8d2209b6` | strong | measured at `D` (`F4`) |
+| `V35-5` | `SETTLEMENTS-SATISFIABLE` | strong | measured at `D` with the patch `b63e12d8` |
+| `V35-6` | `ALTERNATIVES-EXCLUDED` | strong | measured at `D`: twelve alternatives, each excluded |
 | `V35-7` | `SHADOW-UNCHANGED` | strong | the budget writes no tool, workflow or gate |
 | `V35-8` | `SCOPE-HELD` | strong | the budget is fixed here |
 
@@ -1025,15 +1041,15 @@ round.
 - **Modified:** `verification/infrastructure/v3/architecture.md` (the twenty-five frozen edits);
   `verification/README.md` (the one frozen replacement); the nine vectors of
   `verification/infrastructure/v3/conformance/` listed above.
-- **Added:** the eleven vectors of `verification/infrastructure/v3/conformance/` above; the fifteen
-  vectors of `verification/infrastructure/v3/conformance-pending/`;
+- **Added:** the eleven vectors of `verification/infrastructure/v3/conformance/` above; the
+  seventeen vectors of `verification/infrastructure/v3/conformance-pending/`;
   `verification/infrastructure/round-v3-5-specification-completion/result.md`.
 - **Deleted:** nothing.
 - **Never written:** `tools/v3_verifier.py` and every other file under `tools/`, `.github/`,
   `AGENTS.md`, the guard and everything under `verification/lean/` and `verification/lean-mathlib/`,
   `verification/seals/`, `verification/certificates/`, `verification/programmes/`,
   `verification/audits/`, `verification/ROADMAP.md`, any other round's directory, `papers/` and
-  `book/`. No `verification/receipts/` directory is created.
+  `book/`. Neither `verification/receipts/` nor `verification/v3-seals/` is created.
 
 ## The result note
 
@@ -1047,8 +1063,8 @@ its settlement and whether the shadow conforms, as measured at `E`; and every di
 1. Any sentence that V3 is operative, or that the shadow implements `G10` or `G12`.
 2. Any change to `tools/v3_verifier.py` in this round, or any claim that the pending vectors are
    met.
-3. Any claim about the validity of a historical round under any protocol, or about how the
-   existing files under `verification/seals/` relate to V3 seal records.
+3. Any claim about the validity of a historical round under any protocol, or about how the facts
+   in protocol 2's records under `verification/seals/` map into V3 receipts.
 4. Any change to `V1` or `V2` state, or to any required check.
 5. Reading `SETTLEMENTS-SATISFIABLE` or `ALTERNATIVES-EXCLUDED` as proof that the settlements are
    correct.
@@ -1068,11 +1084,11 @@ its settlement and whether the shadow conforms, as measured at `E`; and every di
   raw text shows it, and review reads the raw text; `g10-reject-quoted-example-block-counts` fixes
   the consequence for a quoted example. A V3 control plane cannot quote a declaration block
   verbatim.
-- **`H4` — `G12` and the existing seal namespace.** `verification/seals/` holds `V2` manifest
-  records named by stem. A V3 round whose id equals such a stem cannot create its seal record,
-  because the path is taken; the settlement fails that case closed and does not resolve it. `V2`'s
-  manifest integrity rule would also read a V3 seal record added there; both are the migration
-  round's questions.
+- **`H4` — `G12` and protocol 2's seal state.** `verification/seals/` holds `V2` manifest records,
+  and under `G12` no V3 round may change them. A V3 round that must also satisfy protocol 2 while
+  protocol 2 is authoritative — writing its `V2` manifest record there under §A.37 — cannot do so
+  as a V3 round; the rounds that run under both protocols are the migration round's question, as
+  is how protocol 2's recorded facts enter V3 receipts.
 - **`H5` — pending vectors are not run by continuous integration.** Their failure on the shadow is
   this round's measurement. The implementation round that meets them moves them into the corpus.
 - **`H6` — frozen blobs.** If `main` moves before `B` and changes a file this freeze pins, the
@@ -1084,13 +1100,14 @@ its settlement and whether the shadow conforms, as measured at `E`; and every di
 
 `verification/infrastructure/v3/architecture.md` (the frozen edits); `verification/README.md` (the
 frozen replacement); `verification/infrastructure/v3/conformance/` (nine modified, eleven added);
-`verification/infrastructure/v3/conformance-pending/` (created, fifteen added).
+`verification/infrastructure/v3/conformance-pending/` (created, seventeen added).
 
 ### Files this round reads and MUST NOT write
 
 `tools/v3_verifier.py`, `tools/certificate_verifier.py`, `tools/release_gate.py`,
 `tools/control_plane_base_check.py`, `tools/control_plane_lint.py`, `.github/workflows/verify.yml`,
-the guard, `AGENTS.md`, `verification/seals/`, and the round directories of `V3-1` to `V3-4`.
+the guard, `AGENTS.md`, `verification/seals/`, and the round directories of `V3-1` to `V3-4`; and
+`verification/v3-seals/`, which is not created.
 
 ## Preconditions
 
@@ -1104,9 +1121,10 @@ frozen-blob: verification/infrastructure/v3/architecture.md 3326bf309d6392e4e5d6
 frozen-blob: tools/v3_verifier.py 883122c4070408ee3957d969e095324b62e21a87
 frozen-blob: verification/README.md 690f841ec02dbafbed972667a426cf41fc4ca741
 # row 1: name freedom and absences, drafting-time facts
-{"id": "d1-round-free", "scope": "D", "check": "git grep -l -F -e 'V3-5' -e 'v3-5' -e 'round-v3-5' -e 'V35-' -e 'specification-completion' -e 'v3-owned-refs' $D", "expect": "empty"}
+{"id": "d1-round-free", "scope": "D", "check": "git grep -l -F -e 'V3-5' -e 'v3-5' -e 'round-v3-5' -e 'V35-' -e 'specification-completion' -e 'v3-owned-refs' -e 'v3-seals' $D", "expect": "empty"}
 {"id": "d1-no-pending-dir", "scope": "D", "check": "git ls-tree -d --name-only $D verification/infrastructure/v3/conformance-pending", "expect": "empty"}
 {"id": "d1-receipts-absent", "scope": "D", "check": "git ls-tree -d --name-only $D verification/receipts", "expect": "empty"}
+{"id": "d1-v3-seals-absent", "scope": "D", "check": "git ls-tree -d --name-only $D verification/v3-seals", "expect": "empty"}
 # row 2: the corpus at D
 {"id": "d2-corpus-105", "scope": "D", "check": "test $(git ls-tree --name-only $D verification/infrastructure/v3/conformance/ | wc -l) -eq 105", "expect": "exit0"}
 # row 3: provenance, D to B
@@ -1117,6 +1135,7 @@ frozen-blob: verification/README.md 690f841ec02dbafbed972667a426cf41fc4ca741
 {"id": "b4-round-dir-control-plane-only", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/infrastructure/round-v3-5-specification-completion | grep -v -x -F 'verification/infrastructure/round-v3-5-specification-completion/preregistration.md'", "expect": "empty"}
 {"id": "b4-no-pending-dir", "scope": "B", "check": "git ls-tree -d --name-only $REF verification/infrastructure/v3/conformance-pending", "expect": "empty"}
 {"id": "b4-no-receipts", "scope": "B", "check": "git ls-tree -d --name-only $REF verification/receipts", "expect": "empty"}
+{"id": "b4-no-v3-seals", "scope": "B", "check": "git ls-tree -d --name-only $REF verification/v3-seals", "expect": "empty"}
 # row 5: this control plane at its path
 {"id": "b5-present", "scope": "B", "check": "git cat-file -e $REF:verification/infrastructure/round-v3-5-specification-completion/preregistration.md", "expect": "exit0"}
 ```
