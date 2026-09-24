@@ -2697,9 +2697,13 @@ its attestation `A` — one record, `attestations/CV1.json`, with the run identi
 fixed (`infrastructure/round-v3-3-specification-resolution/`) and round `V3-4` implemented
 (`infrastructure/round-v3-4-implementation-conformance/`), and the settlements of `G8`–`G12` that
 round `V3-5` fixed (`infrastructure/round-v3-5-specification-completion/`) and round `V3-6`
-implemented (`infrastructure/round-v3-6-final-conformance/`). It gates nothing: it has no
-authoritative mode, no verdict it prints changes an exit status, the release gate does not invoke
-it, and its workflow job, `V3 shadow verifier`, is not a required check. `V1` and `V2` remain
-authoritative. Its conformance corpus is `infrastructure/v3/conformance/`, executed as an exact
-set; its comparison with `V2` over the attestation rows is `V3-2`'s `census.json`.
+implemented (`infrastructure/round-v3-6-final-conformance/`). It verifies repository facts and
+provenance: whether a round holds is decided from its final receipt commit and the commits the
+receipt names, and how a round's commits reach `main` is outside it
+(`infrastructure/round-v3-8-publication-removal/`); `--reachable` reports whether a receipt commit
+is an ancestor of a given commit, as a diagnostic that no verdict reads. It gates nothing: it has
+no authoritative mode, no verdict it prints changes an exit status, the release gate does not
+invoke it, and its workflow job, `V3 shadow verifier`, is not a required check. `V1` and `V2`
+remain authoritative. Its conformance corpus is `infrastructure/v3/conformance/`, executed as an
+exact set; its comparison with `V2` over the attestation rows is `V3-2`'s `census.json`.
 as an exact set; its comparison with `V2` over the attestation rows is `V3-2`'s `census.json`.
