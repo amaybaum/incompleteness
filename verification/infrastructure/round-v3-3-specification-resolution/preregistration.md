@@ -159,7 +159,7 @@ content of a superseded receipt, by contrast, is not the round's state and is no
   given.
 - **Settlement.** (a), stated with two precisions: the record directory is the directory holding
   the preregistration that carries the block, and neither the round id nor the kind is derived from
-  a path. Where the block lies is `K2`'s.
+  a path. Where the block lies is `K2`'s. Frozen text: edits `A2`, `A3`, `A13`, `A16`.
 - **Why.** (b) gives the governed-path block a second grammar and either changes `S7`'s canonical
   bytes, and with them its worked examples, or excludes lines from them. (c) makes the id depend on
   a naming convention the repository's round directories do not follow (`round-v3-2-shadow-verifier`
@@ -184,7 +184,7 @@ content of a superseded receipt, by contrast, is not the round's state and is no
 - **Alternatives.** (a) `V3-2`'s reading. (b) Both blocks in the preregistration, none in any
   amendment. (c) Several blocks, the last in path order superseding the others. (d) Several
   blocks, their entries united.
-- **Settlement.** (b).
+- **Settlement.** (b). Frozen text: edits `A7`, `A13`.
 - **Why.** Under (a) a block may leave the preregistration for an amendment, which gives the scope
   of a round no fixed place and contradicts `V3-2`'s own `K1` reading ("the preregistration at `F`
   carries" the `v3-round` block). (a) and (b) give the same power to change a declaration before
@@ -209,6 +209,7 @@ content of a superseded receipt, by contrast, is not the round's state and is no
   each first parent's chain, in no order. (d) Every first parent on `LB`'s chain, in no order.
   (e) (a) with strictly advancing first parents.
 - **Settlement.** (a), non-strict: two consecutive reconciliations may share a first parent.
+  Frozen text: edits `A9`, `A15`.
 - **Why.** `S9` defines each reconciliation's first parent as the tip of `main` when it is built,
   and `main`'s first-parent chain only extends. The commit-local content of that definition is
   exactly (a): the first parents lie, in order, on one first-parent chain beginning after `D`. It
@@ -235,7 +236,8 @@ content of a superseded receipt, by contrast, is not the round's state and is no
   (b) No rule for superseded receipt commits. (c) A single parent only. (d) (a) with the superseded
   receipt also required to be a valid receipt. (e) The receipt path only. (f) `S10`'s rule for `Q`,
   with the seal records the round's final receipt names.
-- **Settlement.** (f). The content of a superseded receipt is not read.
+- **Settlement.** (f). The content of a superseded receipt is not read. Frozen text: edits `A10`,
+  `A15`, `A16`.
 - **Why.** (a) lets an unvalidated object define what its own commit may change (`F4`): the measured
   cases are an arbitrary path and the round's own preregistration. (f) takes the permitted paths
   from the final receipt, which is the round's durable state and is validated, and it reads no
@@ -266,7 +268,7 @@ content of a superseded receipt, by contrast, is not the round's state and is no
 - **Alternatives.** (a) `V3-2`'s reading. (b) No constraint on a halted execution's topology.
   (c) (a) with `delta(F, last)` also required to be authorized under `S7`.
 - **Settlement.** (a), with the explicit statement that a halted execution's delta is not required
-  to be authorized.
+  to be authorized. Frozen text: edits `A12`, `A14`.
 - **Why.** An executor does not know, when it commits, whether the round will halt; a rule that
   bound the execution only if it were later certified could be escaped by halting. A candidate that
   absorbed later `main` would carry measurements of a tree the round did not make. Without
@@ -292,7 +294,8 @@ content of a superseded receipt, by contrast, is not the round's state and is no
   path `P`, no `execution` entry within `R`, and no other `record` entry outside `R` except, in a
   sealing round, a single file declaring a seal record path; and a record path is a path within
   `R`, `P`, or a seal record the round's final receipt names. `S12`'s record commit and halted
-  landing admit record paths in that sense only.
+  landing admit record paths in that sense only. Frozen text: edits `A6`, `A7`, `A8`, `A11`, `A13`,
+  `A14`, `A15`.
 - **Why.** `S7`'s own definition is exclusive: a `record` entry covering paths that are not the
   round's own record contradicts it. The class exists so that `W` can undo the execution without
   erasing the record (`V3-1`'s reading `R4`); under (a) and (b) a declaration can move any path out
@@ -327,7 +330,7 @@ content of a superseded receipt, by contrast, is not the round's state and is no
   file may be added after `F`. (c) `S9` prevails: a listed control-plane file may change in a
   reconciliation.
 - **Settlement.** (a): at every commit of the round after `F`, the control-plane files are exactly
-  those at `F`, each with its state at `F`.
+  those at `F`, each with its state at `F`. Frozen text: edits `A5`, `A14`, `A15`, `A16`.
 - **Why.** A freeze that can be amended after it is frozen is not a freeze, and the receipt's
   `control_plane_blobs` records the state at `F`; a published record directory carrying a different
   preregistration or an added amendment would contradict the receipt that publishes it. `main` has
