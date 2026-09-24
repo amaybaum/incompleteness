@@ -1,8 +1,9 @@
 # Verifier round V3-2 — the V3 shadow verifier: scope, comparison, failure semantics and the promotion boundary: PREREGISTRATION
 
 **Status: control plane.** This file is the round's preregistration and nothing else. No shadow
-verifier, conformance vector, census, workflow job or result exists at the time it is written; each
-is an execution object and is created only after the certified merge of this file.
+verifier, conformance vector, census, workflow job or result exists at the time it is written. Each
+is an execution object, created only after the owner has designated `F`, the commit carrying this
+file's final text.
 
 > **Presence is not authority.** The V3 shadow verifier runs, reports and is compared. It decides
 > nothing. `V1` and `V2` remain the only mechanisms whose verdicts can accept or reject a build, a
@@ -14,24 +15,35 @@ changed merely because the shadow code is in the tree is excluded here, before t
 
 ## The commit vocabulary this freeze uses, fixed first
 
-`V3-2` is run under `AGENTS.md` §A.37 as it stands at `D`: two pull requests, this control plane and
-then one execution pull request that carries its landing. V3 is not operative, and this round does
-not make it operative.
+`V3-2` is run as **one pull request**, #727, under the owner-directed exception to `AGENTS.md` §A.37
+stated in "The round's lifecycle" below. V3 is not operative, and this round does not make it
+operative.
 
 - `D` — the drafting snapshot: `9c480626ba0b3d6242bb99783356afefaf4f4bcf`, the certified head of
   `main` after `V3-1`'s landing (push run 35929458646, all five jobs green). Every measurement in
   this file was taken at `D` unless it says otherwise.
-- `B` — the mandated execution base: the certified merge commit on `main` of this file. It has no
-  SHA until that merge exists and its push run is green.
-- `M` — a candidate merge of this file into `main`, used only to evaluate `B`-scoped rows before
-  the merge.
-- `E` — the sealed execution commit, the last commit of the execution branch that branches from
-  `B`.
-- `L` — the landing merge: first parent current green `main`, second parent exactly `E`.
+- The **drafting commits** — `8a40cfd62178ec1e9b1ea195dd94d1668cd312f0`, which created this file,
+  and `022e670d125bfa4b4c232613b41d3e48a2ab6339`, its first revision. Both are superseded drafts. The
+  green exact-head run on `022e670d` (run 35951729916) certifies that draft and nothing else.
+- `F` — the **freeze anchor**: the single commit whose parent is `022e670d` and which changes only
+  this file, carrying its final text. `F` cannot name its own object id. It becomes the anchor by the
+  owner's explicit designation in #727's record, after its exact-head CI is green and its text has
+  been reviewed, and the result note records the same `F`. From `F` on, this file is immutable.
+- `E` — the sealed execution commit: the last commit of the linear execution appended to `F` on #727,
+  certified on the pull request.
+- `L` — the landing merge, appended to `E` on #727: first parent current green `main`, second parent
+  exactly `E`.
+- `M` — a candidate merge of #727's head into `main`, which continuous integration builds at every
+  push.
 
-The letters `F`, `W`, `Λ`, `LB` and `Q` keep the meanings `verification/infrastructure/v3/architecture.md`
-gives them. They name objects of the synthetic V3 rounds the conformance corpus builds, and never
-an object of this round.
+In this file's preconditions block the scope tag `B` does not name an execution base, because this
+round has none on `main`. It names the commit the base check evaluates: each candidate merge `M`
+during #727's life, and the merge commit that lands #727 on `main`. Every `B`-scoped and
+`D->B`-scoped row is written to hold at all of these, whatever execution commits the head carries.
+
+The letters `W`, `Λ`, `LB` and `Q`, and `F` wherever it is used inside a synthetic V3 round, keep the
+meanings `verification/infrastructure/v3/architecture.md` gives them. They name objects of the
+synthetic V3 rounds the conformance corpus builds, never an object of this round.
 
 **Protocol numbering.** Protocol 1 is the guard (`V1`), protocol 2 the round certificate (`V2`,
 installed by `CV-1`), protocol 3 the architecture `V3-1` specified (`V3`). `V3-2` is the second round
@@ -58,6 +70,51 @@ It is not:
    written. A gap or inconsistency the implementation finds in it is recorded (`V32-7`), and the
    shadow carries a named reading; the specification is not amended here.
 4. **A retirement.** `CV-2`'s unfinished retirement of `V1` stays as it is.
+
+## The round's lifecycle: one pull request, an owner-directed exception
+
+§A.37 runs a round as two pull requests: a control plane that lands on `main` first and becomes the
+mandated execution base, then an execution whose pull request carries its landing. **For `V3-2` alone, and by the
+owner's explicit direction, the round is run as one pull request instead.** The reason is specific to
+this round. `V3-2` is a shadow experiment with no authority, and it has a real chance of stopping on
+a specification or implementation finding. A control plane landed first would leave on `main` a
+preregistration whose experiment never landed. Running the round in one pull request means the
+experiment reaches `main` whole, or not at all.
+
+This is an exception, not a change to the protocol:
+
+- §A.37 is not amended, `AGENTS.md` is not written, and no later round may cite this one as precedent
+  for landing its control plane with its execution. A round for which the independent landing of
+  its control plane matters keeps §A.37's two pull requests.
+- It is not V3's lifecycle. There is no receipt, no withdrawal commit, no reconciliation in V3's
+  sense and no fast-forward publication. No V3 verdict decides anything about this round. Running
+  `V3-2` this way is therefore not promotion act 6 below.
+
+The lifecycle, in order:
+
+1. **Drafting.** This file is drafted on #727's branch from `D`. The drafting commits are `8a40cfd6`
+   and `022e670d`.
+2. **The freeze revision.** One commit, whose parent is `022e670d` and which changes only this file,
+   carries the final text. No other commit ever changes this file.
+3. **Designation.** When the revision's exact-head CI is green and its text has been reviewed, the
+   owner designates that exact commit as `F` in #727's record. No execution object exists before the
+   designation.
+4. **Execution.** Every execution commit is appended to `F` on #727. Each has exactly one parent,
+   the first has `F` as its parent, and none changes this file. The branch never absorbs later
+   `main` before `E`, and there is no rebase, amend or force-push.
+5. **Certification.** `E` is the last execution commit. It is certified on #727 by the closing
+   checks and full CI on exactly `E`, and designated by the owner.
+6. **Landing.** The landing merge `L` is appended to `E` on #727, with current green `main` as first
+   parent and exactly `E` as second. Full CI passes on `L`. #727 then merges on the owner's direction
+   naming `L`, and `main` receives the preregistration, the drafting and freeze commits, the
+   implementation, the census and the result together. The push run on `main` is green before any
+   later round's landing is built.
+7. **Stop.** Any stop outcome ends the round. Its result note records the outcomes reached and is
+   committed on #727's branch as a single-parent child of the last commit, touching no other file.
+   #727 is then **closed unmerged**. No `V3-2` material reaches `main`, and the failed experiment
+   remains auditable in #727 and its branch history.
+
+Promotion is not part of this pull request, and remains a separate, later round.
 
 ## Measurements at `D` that shape the round
 
@@ -224,7 +281,8 @@ is a corpus failure.
 ### Axes
 
 The projection compares the shadow and `V2` only on questions both answer. It reads the rows from
-the named subject commit, never from the working tree.
+the named subject commit, never from the working tree. In the census the subject is **`F`**. `F`
+differs from `D` only in this file, so its 36 rows are exactly `F2`'s.
 
 | axis | rows | `V2`'s question (codes) | the shadow's question, commit-local | same predicate? |
 |---|---|---|---|---|
@@ -344,9 +402,9 @@ verdict blocks anything, because the job is not required and nothing that is req
 status and the round's stop outcomes are separate. Each target's outcome is decided at its stage's
 checkpoint from the artifact the target names: `census.json` for `V32-5` and `V32-6`, the corpus
 run's per-vector record for `V32-3`, and so on. In particular, **an `IMPLEMENTATION` cell stops the
-round**. It makes `V32-5` `CENSUS-IMPLEMENTATION-DIVERGENT` at stage 3's checkpoint, no later stage
-runs, no `E` is designated, and nothing of the execution lands except a halt record stating the
-outcomes reached. Meanwhile the shadow executable and its CI job exit exactly as the table above
+round**. It makes `V32-5` `CENSUS-IMPLEMENTATION-DIVERGENT` at stage 3's checkpoint. No later stage
+runs and no `E` is designated. The halt record is committed on #727's branch (lifecycle step 7), and
+#727 is closed unmerged, so nothing of the round reaches `main`. Meanwhile the shadow executable and its CI job exit exactly as the table above
 says: an `IMPLEMENTATION` cell never makes either one fail. Conversely, a green job or a zero exit
 status is never evidence that a target was reached.
 
@@ -425,7 +483,7 @@ round may cite.
 
 | target | passing outcome | stop outcome |
 |---|---|---|
-| `V32-0` | `BASE-HOLDS` — the execution branch starts at `B`; this file's blob at `B` is the frozen one; every `B` and `D->B` row and frozen blob holds at `B` | `BASE-BROKEN` |
+| `V32-0` | `BASE-HOLDS` — `F` is the commit the owner designated; its parent is `022e670d` and it changes only this file; the first execution commit is a single-parent child of `F`; this file's blob at `F` is the one the designation records; every `D`, `B` and `D->B` row of the preconditions block holds at `F` | `BASE-BROKEN` |
 | `V32-1` | `IMPLEMENTED` — `tools/v3_verifier.py` exists, imports only the standard library, has exactly the entry points above and no authoritative mode, refuses non-object-id commit arguments, and names no round stem of the `V2` corpus in its logic | `IMPLEMENTATION-INCOMPLETE` |
 | `V32-2` | `COMMIT-LOCAL` — a static scan of the shadow's source finds no match for any of the patterns `GITHUB_`, `refs/remotes`, `refs/pull`, `\borigin\b`, `\bfetch\b`, `ls-remote`, `for-each-ref`, `symbolic-ref`, `show-ref`, and `^\s*(import\|from)\s+(urllib\|http\|socket\|time\|datetime)\b`; the source reads the process environment in exactly one place, for `PATH`, and every git subprocess receives an explicit environment built from that value and fixed literals; and the report of `--mode shadow` is byte-identical under `P0`–`P3` and with a hostile environment (`GITHUB_EVENT_NAME`, `GITHUB_EVENT_PATH`, `GITHUB_SHA`, `GITHUB_REF`, `GIT_DIR` and `GIT_CONFIG_GLOBAL` set to misleading values) | `INPUT-LEAK` |
 | `V32-3` | `CONFORMANCE-EXACT` — the corpus meets the minimum coverage, every vector gives its expected verdict in its expected family, and the set is exact | `CONFORMANCE-FAILED` |
@@ -433,14 +491,14 @@ round may cite.
 | `V32-5` | `CENSUS-AGREES` — every `P0` cell `AGREE`, and every cell of `P1`–`P3` `AGREE` or `INPUT`; or `CENSUS-CLASSIFIED` — no `IMPLEMENTATION` cell in any state, and at least one `PREDICATE` cell | `CENSUS-IMPLEMENTATION-DIVERGENT` — any `IMPLEMENTATION` cell in any state |
 | `V32-6` | `PERTURBATION-INVARIANT` — one SHA-256 for the shadow's report under `P0`–`P3`; `V2`'s verdicts recorded and classified | `PERTURBATION-SENSITIVE` |
 | `V32-7` | `SPEC-SUFFICIENT` — no gap beyond `K1`–`K4`; or `SPEC-GAPS-RECORDED` — each further gap recorded with the shadow's reading and at least one vector exercising that reading | `SPEC-CONTRADICTORY` — two settlements the shadow cannot satisfy together on some vector; recorded, and the specification is not repaired here |
-| `V32-8` | `SHADOW-ONLY` — `tools/release_gate.py`, `tools/certificate_verifier.py`, the guard, `AGENTS.md` and `architecture.md` have their `B` blobs at `E`; the workflow's diff `B`..`E` only adds lines, all inside the one new job; the guard at `E` gives `ALL CHECKS PASS` with 105 PASS and 0 FAIL and `D`'s verdict map; `V2` is authoritative OK at `E`; the release gate passes 19 of 19 steps at `E`; no promotion act of the list above is present | `AUTHORITY-LEAKED` — fails the round |
-| `V32-9` | `SCOPE-HELD` — `git diff --name-status B E` is exactly the mutation budget below | `SCOPE-EXCEEDED` |
+| `V32-8` | `SHADOW-ONLY` — `tools/release_gate.py`, `tools/certificate_verifier.py`, the guard, `AGENTS.md` and `architecture.md` have their `F` blobs at `E`; the workflow's diff `F`..`E` only adds lines, all inside the one new job; the guard at `E` gives `ALL CHECKS PASS` with 105 PASS and 0 FAIL and `D`'s verdict map; `V2` is authoritative OK at `E`; the release gate passes 19 of 19 steps at `E`; no promotion act of the list above is present | `AUTHORITY-LEAKED` — fails the round |
+| `V32-9` | `SCOPE-HELD` — `git diff --name-status F E` is exactly the mutation budget below | `SCOPE-EXCEEDED` |
 
 ## Predictions, with strength
 
 | target | predicted outcome | strength | reason |
 |---|---|---|---|
-| `V32-0` | `BASE-HOLDS` | strong | only this file lies between `D` and `B` |
+| `V32-0` | `BASE-HOLDS` | strong | only this file lies between `D` and `F` |
 | `V32-1` | `IMPLEMENTED` | strong | the entry points are fixed here |
 | `V32-2` | `COMMIT-LOCAL` | strong | the refusal of non-object-id arguments and the absence of network code make it structural |
 | `V32-3` | `CONFORMANCE-EXACT` | moderate | the corpus is large, and rows 6 and 7 build synthetic rounds whose every cell `V3-1`'s model decided, but the shadow is new code |
@@ -460,12 +518,12 @@ an error. The result note says so in those words.
 
 | stage | targets | commit | checkpoint |
 |---|---|---|---|
-| 0 | `V32-0` | none | branch from `B`; blob check; rows at `B` |
+| 0 | `V32-0` | none | start at `F`; blob check; rows at `F` |
 | 1 | `V32-1`, `V32-2` | one: `tools/v3_verifier.py` with its self-test | self-test; the static scan; argument refusal |
 | 2 | `V32-3`, `V32-4`, `V32-7` | one: the conformance corpus | the corpus exact; the mutation controls in scratch; gaps recorded |
 | 3 | `V32-5`, `V32-6` | one: `census.json` | the census and the perturbation control |
 | 4 | — | one: the workflow job and the README paragraph | the workflow diff is additive and inside the new job |
-| 5 | `V32-8`, `V32-9` | one: the result note; its commit is `E` | the closing checks at `E`, then the exact-head pull request |
+| 5 | `V32-8`, `V32-9` | one: the result note; its commit is `E` | the closing checks at `E`, then full CI on exactly `E` on #727 and the owner's designation of `E` |
 
 **Changes to the shadow after stage 1.** Any change to `tools/v3_verifier.py` after its stage-1
 commit must, in the same commit, add a conformance vector that fails on the previous blob of the
@@ -498,6 +556,8 @@ forbidden.
 3. Any change to `V1` or `V2` state.
 4. Reading `CENSUS-AGREES` as a proof that either implementation is correct.
 5. Re-opening `GH-1`, `CV-2` or `V3-1`.
+6. Reading this round's single-pull-request arrangement as precedent for any other round, or as
+   a change to §A.37.
 
 ## Hazards
 
@@ -537,15 +597,22 @@ forbidden.
 
 ## Preconditions
 
+Every row below holds at each candidate merge of #727 and at the merge commit that lands it, whatever
+execution commits the head carries. No row asserts that an execution object is absent, and no row
+pins the blob of a file another round could change on `main`. What this round must never write is
+checked on the execution's own delta at `E` (`V32-8`, `V32-9`), not on the tree of whatever commit
+is evaluated.
+
+Row `db3-path-history` is the mechanical form of the freeze. Walking from `D`, this file's path
+history must be exactly three commits, oldest first: the two drafting commits, and one revision
+commit whose only parent is `022e670d` and which changes only this file. That third commit is `F`. It
+is identified by that relation, not by an object id written here. Any later commit that changes this
+file adds a fourth entry and fails the row at every subsequent push. Row `b4-round-dir` admits in
+the round's directory only this file and the two execution objects the budget names there, and
+admits no `amendments/` directory: after `F` this control plane cannot be amended.
+
 ```control-plane-preconditions
 d: 9c480626ba0b3d6242bb99783356afefaf4f4bcf
-frozen-blob: verification/infrastructure/v3/architecture.md 6c80e584021f973c529625b1da89469e7b136dfe
-frozen-blob: AGENTS.md a9687b39c69973d35a2ff81c257687071fd35eca
-frozen-blob: .github/workflows/verify.yml 3ed93ea20bb42f986850d008d5a5edc93a4b7e34
-frozen-blob: tools/release_gate.py ca851befa24028655ecbbee85e53482bc186eb82
-frozen-blob: tools/certificate_verifier.py a475408874b850f34c31eca5e1cb4ab549601f38
-frozen-blob: verification/lean/edge_rigidity_probe.py 2eab600fb8cd078b3dd0f3867a6e7420cfc2b79f
-frozen-blob: verification/README.md cda16e5d1464615ba51986f869e2f065c19bc920
 # row 1: name freedom and absences, drafting-time facts
 {"id": "d1-round-free", "scope": "D", "check": "git grep -l -F -e 'V3-2' -e 'v3-2' -e 'round-v3-2' -e 'V32-' $D", "expect": "empty"}
 {"id": "d1-tool-free", "scope": "D", "check": "git grep -l -F -e 'v3_verifier' -e 'V3 shadow' -e 'v3-shadow' -e 'verification/infrastructure/v3/conformance' $D", "expect": "empty"}
@@ -554,38 +621,37 @@ frozen-blob: verification/README.md cda16e5d1464615ba51986f869e2f065c19bc920
 # row 2: the V2 rows the comparison reads, at D
 {"id": "d2-rows-36", "scope": "D", "check": "test $(git ls-tree --name-only $D verification/certificates/attestations/ | wc -l) -eq 36", "expect": "exit0"}
 {"id": "d2-base-only-6", "scope": "D", "check": "test $(for f in $(git ls-tree --name-only $D verification/certificates/attestations/); do git show $D:$f; done | grep -c -F '\"kind\": \"base-only\"') -eq 6", "expect": "exit0"}
-# row 3: provenance, D to B: D an ancestor, and nothing but this file between them
+# row 3: provenance, commit-local, holding at every head of #727 and at its landing
 {"id": "db3-ancestor", "scope": "D->B", "check": "git merge-base --is-ancestor $D $REF", "expect": "exit0"}
-{"id": "db3-only-this-file", "scope": "D->B", "check": "git diff --name-only $D $REF | grep -v -x -F 'verification/infrastructure/round-v3-2-shadow-verifier/preregistration.md'", "expect": "empty"}
-# row 4: no execution object at B; files are read directly, never through git grep
-{"id": "b4-no-tool", "scope": "B", "check": "git ls-tree --name-only $REF tools/v3_verifier.py", "expect": "empty"}
-{"id": "b4-no-corpus", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/infrastructure/v3/conformance", "expect": "empty"}
-{"id": "b4-round-dir-control-plane-only", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/infrastructure/round-v3-2-shadow-verifier | grep -v -x -F 'verification/infrastructure/round-v3-2-shadow-verifier/preregistration.md'", "expect": "empty"}
-{"id": "b4-no-receipts", "scope": "B", "check": "git ls-tree -d --name-only $REF verification/receipts", "expect": "empty"}
-{"id": "b4-rows-36", "scope": "B", "check": "test $(git ls-tree --name-only $REF verification/certificates/attestations/ | wc -l) -eq 36", "expect": "exit0"}
+{"id": "db3-drafts-ancestor", "scope": "D->B", "check": "git merge-base --is-ancestor 022e670d125bfa4b4c232613b41d3e48a2ab6339 $REF", "expect": "exit0"}
+{"id": "db3-path-history", "scope": "D->B", "check": "set -- $(git rev-list --reverse $D..$REF -- verification/infrastructure/round-v3-2-shadow-verifier/preregistration.md); test $# -eq 3 && test \"$1\" = 8a40cfd62178ec1e9b1ea195dd94d1668cd312f0 && test \"$2\" = 022e670d125bfa4b4c232613b41d3e48a2ab6339 && test \"$(git rev-list --parents -n 1 $3)\" = \"$3 022e670d125bfa4b4c232613b41d3e48a2ab6339\" && test \"$(git diff-tree --no-commit-id --name-only -r $3)\" = verification/infrastructure/round-v3-2-shadow-verifier/preregistration.md", "expect": "exit0"}
+# row 4: the round's directory holds only this file and the budget's execution objects, and no amendments
+{"id": "b4-round-dir", "scope": "B", "check": "git ls-tree -r --name-only $REF verification/infrastructure/round-v3-2-shadow-verifier | grep -v -x -F -e 'verification/infrastructure/round-v3-2-shadow-verifier/preregistration.md' -e 'verification/infrastructure/round-v3-2-shadow-verifier/census.json' -e 'verification/infrastructure/round-v3-2-shadow-verifier/result.md'", "expect": "empty"}
 # row 5: this control plane at its path
 {"id": "b5-present", "scope": "B", "check": "git cat-file -e $REF:verification/infrastructure/round-v3-2-shadow-verifier/preregistration.md", "expect": "exit0"}
 ```
 
 ## The landing shape
 
-Non-sealing under §A.37: `E` → `L` on the execution pull request, no `P`. `L`'s first parent is
-current green `main` and its second parent is exactly `E`. Conflicts, if any, are resolved in `L` by
-merits. Full continuous integration passes on `L` before it merges, and the push run on `main` is
-green before any later round's landing is built.
+The round is non-sealing, with no `P`. `L` is appended to `E` on #727. Its first parent is current
+green `main` and its second parent is exactly `E`; conflicts, if any, are resolved in `L` by merits.
+Full continuous integration passes on `L`. #727 merges only on the owner's direction naming `L`, and
+the push run on `main` is green before any later round's landing is built. A stop closes #727
+unmerged instead (lifecycle step 7).
 
 ## Execution discipline
 
-The execution branch is created from `B` and nothing else, after `B`'s push run is green including
-the control-plane base check in mode `B`. Its first act is the blob check of this file at `B`. It
-never absorbs later `main` before `E`; there is no rebase, amend or force-push. Each commit-bearing
-stage commits before its checkpoint. A stop outcome halts the round. The halt is recorded in a result
-note with the outcomes reached, and nothing else of the execution lands.
+Execution starts at `F` and nothing else, and only after the owner's designation of `F`. Its first act
+is the check that the checkout is exactly `F`, that `F`'s parent is `022e670d`, that `F` changes only
+this file, and that this file's blob at `F` is the one the designation records. It never absorbs
+later `main` before `E`, and there is no rebase, amend or force-push. Each commit-bearing stage
+commits before its checkpoint. A stop outcome halts the round as lifecycle step 7 prescribes.
 
-The round's chronology is the executor's check at `E` that every commit of `git rev-list E ^B`
-descends from `B`, is a single-parent commit, and that the branch absorbed no later `main`. The
-check is recorded in the result and followed by exact-head review. `V3-2` carries no guard clause,
-manifest record or round certificate (reading `R1`).
+The round's chronology is checked by the executor at `E`: every commit of `git rev-list E ^F` has
+exactly one parent, the oldest has `F` as its parent, none changes this file, and the branch absorbed
+no later `main`. The check is recorded in the result and followed by exact-head review. The
+preconditions block checks the file's immutability mechanically at every push. `V3-2` carries no
+guard clause, manifest record or round certificate (reading `R1`).
 
 ## Points at which this freeze chose a reading, recorded rather than resolved
 
@@ -614,3 +680,13 @@ manifest record or round certificate (reading `R1`).
   directory. It is the specification's executable companion and outlives this round, as `V3-1`'s
   `R6` placed the specification. The round's directory holds only its preregistration, census and
   result, per §A.36.
+- **`R6` — one pull request, by owner direction.** `V3-2` lands its control plane together with its
+  execution, as the exception stated in "The round's lifecycle", and does not land the control plane
+  first as §A.37 prescribes. What that gives up: `F` is never independently certified as a landed
+  state of `main` before execution. What stands in its place: the owner's designation of the exact
+  commit `F` after its exact-head CI is green, and the result note recording that same `F`. The
+  preconditions row `db3-path-history` checks at every push that this file's history is exactly the
+  drafting commits plus `F`. The executor checks at `E` that the execution descends linearly from
+  `F`. What it gains: a stopped experiment contributes nothing to `main`. The declined option is
+  §A.37's two pull requests, under which a stop would leave the landed preregistration of an
+  experiment that never landed.
