@@ -12,7 +12,7 @@ Entry points, exactly:
     --corpus [DIR]                 the conformance corpus as an exact set; exit 1 on any vector not
                                    as expected (default: verification/infrastructure/v3/conformance)
     --verify-round <Q>             lifecycle T1, T3 or T5, T6 and T7 from the receipt commit Q
-    --publication <T> <Q>          S10: whether T is Q itself, and whether Q verifies
+    --reachable <C> <Q>            a diagnostic, never a verdict: whether Q is an ancestor of C
     --project <subject>            the projection of the V2 attestation rows read at <subject>
     --mode shadow --subject <C>    the corpus and the projection, reported; always exits 0
 
@@ -31,6 +31,11 @@ does not contain or a shallow repository. UNDECIDABLE is never promoted to HOLDS
 
 It implements the settled specification: the settlements of K1-K4 and G5-G7 that round V3-3 fixed
 and of G8-G12 that round V3-5 fixed. The settled rules are printed at every shadow run.
+
+It verifies repository facts and provenance. Whether a round holds is decided from its final receipt
+commit Q and the commits the receipt names; how a round's commits reach main is outside it (round
+V3-8). --reachable reports whether Q is an ancestor of a commit, as a diagnostic that no verdict
+reads.
 
 Standard library only.
 """
@@ -990,17 +995,14 @@ def _verify_round(repo, q):
     return ('FAILS' if codes else 'HOLDS'), codes, att
 
 
-def publication(repo, t, q):
-    """S10: a publication of the round is Q itself, and nothing else."""
+def reachable(repo, c, q):
+    """A diagnostic, never a verdict (S10): 'true' when Q is an ancestor of C, a commit being its
+    own ancestor; 'false' when it is not; 'undecidable' with a code when the repository cannot
+    say. No predicate reads it, and it never changes a verdict."""
     try:
-        repo.need(t)
-        repo.need(q)
+        return ('true' if repo.is_ancestor(q, c) else 'false'), None
     except Undecidable as u:
-        return 'UNDECIDABLE', [u.code]
-    if t != q:
-        return 'FAILS', ['s10:not-q-itself']
-    v, codes, _ = verify_round(repo, q)
-    return v, codes
+        return 'undecidable', u.code
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1221,8 +1223,9 @@ def run_repo_vector(vec, workdir):
             if step['check'] == 'verify-round':
                 verdict, codes, _ = verify_round(Repo(workdir), args[0])
                 got = (verdict, codes)
-            elif step['check'] == 'publication':
-                got = publication(Repo(workdir), args[0], args[1])
+            elif step['check'] == 'reachable':
+                state, code = reachable(Repo(workdir), args[0], args[1])
+                got = (state, [code] if code else [])
             elif step['check'] == 'delta':
                 r = Repo(workdir)
                 got = ('HOLDS', [delta_digest(r.delta(args[0], args[1]), r.fmt())])
@@ -1233,7 +1236,10 @@ def run_repo_vector(vec, workdir):
             if 'same_as' in step and saved.get(step['same_as']) != got:
                 return False, 'output differs from %s' % step['same_as']
             exp = step['expect']
-            if 'digest' in exp:
+            if 'reachable' in exp:
+                if got[0] != exp['reachable'] or ('code' in exp and got[1] != [exp['code']]):
+                    return False, 'REACHABLE %s' % (got[1][0] if got[1] else got[0])
+            elif 'digest' in exp:
                 if got[1] != [exp['digest']]:
                     return False, 'digest %s' % (got[1][:1],)
             elif not expect_ok(exp, got[0], got[1]):
@@ -1385,7 +1391,7 @@ def self_test():
 # main
 # ---------------------------------------------------------------------------------------------
 USAGE = ('usage: v3_verifier.py --self-test | --corpus [DIR] | --verify-round <Q> | '
-         '--publication <T> <Q> | --project <subject> | --mode shadow --subject <commit>')
+         '--reachable <C> <Q> | --project <subject> | --mode shadow --subject <commit>')
 
 
 def main(argv):
@@ -1403,10 +1409,10 @@ def main(argv):
             print('\n'.join(att))
             print('VERDICT  %s%s' % (verdict, '  ' + ', '.join(codes) if codes else ''))
             return 0
-        if argv[:1] == ['--publication'] and len(argv) == 3:
-            t, q = check_oid(argv[1]), check_oid(argv[2])
-            verdict, codes = publication(Repo(cwd), t, q)
-            print('VERDICT  %s%s' % (verdict, '  ' + ', '.join(codes) if codes else ''))
+        if argv[:1] == ['--reachable'] and len(argv) == 3:
+            c, q = check_oid(argv[1]), check_oid(argv[2])
+            state, code = reachable(Repo(cwd), c, q)
+            print('REACHABLE %s' % (code if code else state))
             return 0
         if argv[:1] == ['--project'] and len(argv) == 2:
             s = check_oid(argv[1])
