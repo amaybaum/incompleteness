@@ -531,17 +531,21 @@ def validate_receipt(r):
 def control_plane(repo, d, f):
     """(record_dir, round, kind, entries, {path bytes: blob}, codes)."""
     codes = []
-    delta = repo.delta(d, f)
-    dirs = set()
-    for st, path, *_ in delta:
-        m = re.fullmatch(rb'(.+/)(preregistration\.md|amendments/.+)', path)
-        if not m:
-            codes.append('t1:non-control-plane-change')
+    cp_paths = []
+    for st, path, *_ in repo.delta(d, f):
+        if re.fullmatch(rb'.+/(preregistration\.md|amendments/.+)', path):
+            cp_paths.append(path)
         else:
-            dirs.add(m.group(1))
-    if len(dirs) != 1:
+            codes.append('t1:non-control-plane-change')
+    # K1: the record directory is the one directory R such that every control-plane path of
+    # delta(D, F) is R's preregistration.md or lies under R's amendments/.
+    fits = sorted(r for r in {p[:-len(b'preregistration.md')] for p in cp_paths
+                              if p.endswith(b'/preregistration.md')}
+                  if all(p == r + b'preregistration.md' or p.startswith(r + b'amendments/')
+                         for p in cp_paths))
+    if len(fits) != 1:
         return None, None, None, None, {}, codes + ['t1:record-directory']
-    (rdir,) = dirs
+    (rdir,) = fits
     files = {}
     for path, (mode, obj) in repo.entries(f).items():
         if path == rdir + b'preregistration.md' or path.startswith(rdir + b'amendments/'):
