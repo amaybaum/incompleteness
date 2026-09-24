@@ -88,7 +88,9 @@ Each of the 30 landed rows was evaluated at `D` by a throwaway script, commit-lo
 predicates: `tree(sealed_head)` equals the recorded tree; the landing has exactly two parents and
 the second is `sealed_head`; every commit of `rev-list sealed_head ^base` descends from `base` (the
 strengthened ancestry `V2` asks); `rev-list sealed_head ^base` is linear from `base`; and `base` lies
-on the first-parent chain of the landing's first parent. **All 30 rows hold all five.**
+on the first-parent chain of the landing's first parent. **All 30 rows hold all five.** Each of the 6
+base-only rows was evaluated on the one question a base-only row supports: its `base` exists and is
+an ancestor of `D`. **All 6 hold it.**
 
 `V2` was run in shadow mode in a scratch clone of `D` whose `origin` points at a path that does not
 exist, so that no recovery can fetch, under four states of the surrounding repository and host
@@ -240,30 +242,74 @@ The shadow also reports, for each landed row, three **V3-only** facts: whether
 `rev-list sealed_head ^base` is linear from `base` (`S3`'s form); whether `base` lies on the
 first-parent chain of the landing's first parent (`S9`'s form); and the digest of
 `delta(base, sealed_head)` (`S8`). They are information. They are never compared, and a row that
-fails one is not thereby a divergence or an invalid round.
+fails one is not thereby a divergence or an invalid round. Base-only rows have no V3-only facts.
+
+### The cell population
+
+The axes a row is compared on are fixed by the row's `kind`, as read from the row at the subject,
+and by nothing else:
+
+| `kind` | axes compared | axes not compared |
+|---|---|---|
+| `landed` | `X1`, `X2`, `X3`, `X4` | `X0` |
+| `base-only` | `X0` | `X1`, `X2`, `X3`, `X4` |
+
+A (row, axis) pair in the right-hand column is **not a cell**. It is not evaluated by either side,
+not classified, not counted, and not reported as agreement. It is not a "not-applicable" verdict
+either. `census.json` lists, per row, the axes compared, so the population is visible rather than
+implied. At the subject the population is therefore 30 × 4 + 6 × 1 = **126 cells per perturbation
+state**, **504 in all**. A row whose `kind` is neither value, or that lacks a field its kind's axes
+read, is recorded as a row-level `IMPLEMENTATION` finding and is not silently dropped; `F2` found
+none at `D`.
+
+### Each side's verdict on a cell
+
+**The shadow's verdict** is `HOLDS`, `FAILS` or `UNDECIDABLE`, per the failure semantics below, from
+the axis's commit-local question.
+
+**`V2`'s verdict** is read mechanically from its report in that state:
+
+- if the report fails closed before any `ROW` line (a `TARGETS  fail-closed` line), every cell's
+  `V2` verdict in that state is `NOT-EVALUATED`, with that code;
+- otherwise, for the row's `ROW` line: if its codes include `base:unreachable`,
+  `sealed-head:unrecoverable` or `landing:unrecoverable` on a landed row, every cell of that row is
+  `NOT-EVALUATED`, with that code; if they include `landing:git`, the `X4` cell is `NOT-EVALUATED`;
+- otherwise the cell is `FAILS` if the row's codes include a code of the axis's family — `X0`
+  `base:unreachable`; `X1` `topology:tree-mismatch`; `X2` `topology:ancestry`; `X3` any
+  `sealed-head:` code; `X4` any `landing:` code — and `HOLDS` if they do not.
+
+Codes outside these families do not enter any cell.
 
 ### Adjudication classes
 
-Every (row, axis, perturbation) cell of the census is assigned exactly one class, by these rules
-applied in order:
+Every cell in every state is assigned exactly one class. The rules are applied in order, and each
+compares verdicts only:
 
-1. **`AGREE`** — the two verdicts are the same.
-2. **`INPUT`** — they differ, and `V2`'s verdict on the same row and axis under `P0` equals the
-   shadow's. The difference comes from an input `S1` excludes (the event payload, a remote-tracking
-   ref, a recovery). It is not a defect of either implementation.
-3. **`PREDICATE`** — they differ, rule 2 does not apply, and the axis is marked **no** above, and the
-   difference is exactly the one named there (a landing with more than two parents for `X3`; a
-   second merge carrying `sealed_head` as a non-first parent, or a landing absent from the visibility
-   targets, for `X4`). The difference is by specification. It is not a defect.
-4. **`IMPLEMENTATION`** — any other difference: the same question on the same inputs answered
-   differently, or a shadow verdict of `UNDECIDABLE` where `V2` decided. It is a defect in at least
-   one implementation.
+1. **`AGREE`** — `V2`'s verdict in the cell's state equals the shadow's verdict.
+2. **`INPUT`** — `V2`'s verdict in the cell's state differs from the shadow's, and `V2`'s verdict on
+   the same row and axis in `P0` equals the shadow's. Since a `P0` cell that satisfied this would
+   already be `AGREE`, no `P0` cell is ever `INPUT`. The class is a mechanical outcome of that
+   comparison. It is not a diagnosis of why `V2`'s verdict moved.
+3. **`PREDICATE`** — rules 1 and 2 do not apply; the axis is marked **no** above; and the recorded
+   repository objects show exactly the difference named there: for `X3`, `landing` has more than two
+   parents; for `X4`, a second merge exists whose non-first parent is `sealed_head`, or `landing` is
+   not reachable from the state's visibility targets. The difference is by specification. It is not
+   a defect.
+4. **`IMPLEMENTATION`** — every other cell, including a shadow `UNDECIDABLE` where `V2`'s verdict is
+   `HOLDS` or `FAILS`. It is a defect in at least one implementation.
 
-The classes are assigned by the census code from the verdicts, not by the executor. An
-`IMPLEMENTATION` cell is recorded with both verdicts and a minimal reproduction. **This round does
-not decide which implementation is wrong, and changes neither to remove the difference**. `V2` is
-never changed here in any case, and the shadow is changed only under the discipline in "The order
-is part of the contract". Adjudication belongs to the owner.
+The shadow's verdict on a cell does not depend on the state (`V32-6`), so each rule compares one
+shadow verdict with `V2`'s verdicts.
+
+**Who assigns the classes.** A census driver, run in scratch and never landed, runs both sides,
+extracts the verdicts as above and applies the rules. It is not the executor, and it is not the
+shadow, which reads no host context. `census.json` records `V2`'s raw `TARGETS` and `ROW` lines per
+state, the shadow's per-cell verdicts and the repository facts rule 3 consults. Every class can
+therefore be recomputed from `census.json` alone by the rules above, and the result note records the
+driver's SHA-256. An `IMPLEMENTATION` cell is recorded with both verdicts and a minimal reproduction.
+**This round does not decide which implementation is wrong, and changes neither to remove the
+difference.** `V2` is never changed here in any case. The shadow is changed only under the
+discipline in "The order is part of the contract". Adjudication belongs to the owner.
 
 ### The perturbation control
 
@@ -294,6 +340,16 @@ A non-zero `--self-test` or `--corpus` is a defect of the shadow, and the job go
 about a round or a row never changes any exit status. Neither a red shadow job nor a `FAILS`
 verdict blocks anything, because the job is not required and nothing that is required reads it.
 
+**Round outcomes are decided from recorded evidence, never from an exit status.** Process exit
+status and the round's stop outcomes are separate. Each target's outcome is decided at its stage's
+checkpoint from the artifact the target names: `census.json` for `V32-5` and `V32-6`, the corpus
+run's per-vector record for `V32-3`, and so on. In particular, **an `IMPLEMENTATION` cell stops the
+round**. It makes `V32-5` `CENSUS-IMPLEMENTATION-DIVERGENT` at stage 3's checkpoint, no later stage
+runs, no `E` is designated, and nothing of the execution lands except a halt record stating the
+outcomes reached. Meanwhile the shadow executable and its CI job exit exactly as the table above
+says: an `IMPLEMENTATION` cell never makes either one fail. Conversely, a green job or a zero exit
+status is never evidence that a target was reached.
+
 **Failures of the round.** A stop outcome of any target halts the round (status rule, below).
 `AUTHORITY-LEAKED` on `V32-8` is not a discrepancy to record: it means the round did what it promised
 not to do, and it fails the round.
@@ -303,8 +359,11 @@ not to do, and it fails the round.
 `census.json` records, and the result note summarizes:
 
 - the subject, the shadow's blob and `V2`'s blob at the subject, and the Python and git versions;
-- for every row: its kind, each axis's shadow verdict and `V2` verdict under each of `P0`–`P3`,
-  each cell's class, and for landed rows the three V3-only facts;
+- for every row: its kind and the axes compared; for each cell, the shadow's verdict and `V2`'s
+  verdict under each of `P0`–`P3`, with its class; and, for landed rows, the three V3-only facts;
+- `V2`'s raw `TARGETS` and `ROW` lines under each state, and the repository facts rule 3 of the
+  adjudication consults;
+- the total cell count per state, which must be 126 at the subject;
 - the SHA-256 of the shadow's report under each of `P0`–`P3`, which must be one value;
 - `V2`'s top-level result under each state;
 - the counts per class.
@@ -386,8 +445,8 @@ round may cite.
 | `V32-2` | `COMMIT-LOCAL` | strong | the refusal of non-object-id arguments and the absence of network code make it structural |
 | `V32-3` | `CONFORMANCE-EXACT` | moderate | the corpus is large, and rows 6 and 7 build synthetic rounds whose every cell `V3-1`'s model decided, but the shadow is new code |
 | `V32-4` | `CONTROLS-FIRE` | moderate | nine mutations, each needing a countercase that reaches exactly one check |
-| `V32-5` | `CENSUS-AGREES` | strong | rests on `F3`: all 30 landed rows hold `X1`–`X4`'s commit-local forms at `D`, and `V2` passes all 36 rows under `P0`. A measurement, not a forecast |
-| `V32-6` | `PERTURBATION-INVARIANT`; `V2` as `F3` measured, so every `P2` cell `INPUT` and the six `P3` `landing:zero-candidates` cells `INPUT` | strong | the shadow reads no input the perturbations change; `V2`'s side rests on `F3` |
+| `V32-5` | `CENSUS-AGREES` | strong | rests on `F3`: all 30 landed rows hold `X1`–`X4`'s commit-local forms at `D`, all 6 base-only rows hold `X0`'s, and `V2` passes all 36 rows under `P0`. A measurement, not a forecast |
+| `V32-6` | `PERTURBATION-INVARIANT`; `V2` as `F3` measured, so `P0` and `P1` 126 `AGREE` each; `P2` 126 `INPUT` (`V2` `NOT-EVALUATED` before any row); `P3` 120 `AGREE` and 6 `INPUT`, the `X4` cells of `CGR`, `CV1`, `GR1`, `GR2`, `NLV` and `PFR` | strong | the shadow reads no input the perturbations change; `V2`'s side rests on `F3` |
 | `V32-7` | `SPEC-GAPS-RECORDED` | weak | `F4` found four gaps on reading alone; implementation usually finds more, but none is known |
 | `V32-8` | `SHADOW-ONLY` | strong | the budget writes no gating file |
 | `V32-9` | `SCOPE-HELD` | strong | the budget is fixed here |
