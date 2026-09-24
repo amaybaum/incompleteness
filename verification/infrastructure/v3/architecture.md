@@ -7,8 +7,12 @@ This document specifies protocol 3 of the repository's round verification. Proto
 (`V1`) and protocol 2 the round certificate (`V2`). This specification was produced by round `V3-1`
 under the frozen preregistration
 `verification/infrastructure/round-v3-1-architecture/preregistration.md`, whose settlements `S1` to
-`S13` it states as normative text. It is not operative: until a later round activates it, every
-round is governed by `AGENTS.md` §A.37, and no `V1` or `V2` state is changed or migrated by it.
+`S13` it states as normative text. Round `V3-3`, under the frozen preregistration
+`verification/infrastructure/round-v3-3-specification-resolution/preregistration.md`, settled the
+seven gaps round `V3-2` recorded, `K1` to `K4` and `G5` to `G7`, and each settlement is normative
+text under its identifier. The specification is not operative: until a later round activates it,
+every round is governed by `AGENTS.md` §A.37, and no `V1` or `V2` state is changed or migrated by
+it.
 
 The words **must**, **must not** and **may** are normative. Anything this document leaves
 undefined is invalid, not permitted.
@@ -30,13 +34,31 @@ undefined is invalid, not permitted.
 
 Every other object named below is defined where it is named.
 
-**The round's record directory** is one repository directory the control plane names. It holds the
-round's **control-plane files**, `preregistration.md` and the files under `amendments/`, and its
-result note `result.md`. **The receipt path** is `verification/receipts/<round id>.json`, where the
-round id matches `[A-Z0-9]+(-[A-Z0-9]+)*`.
+**The round's record directory** is one repository directory the round declaration names (`K1`).
+It holds the round's **control-plane files**, `preregistration.md` and the files under
+`amendments/`, and its result note `result.md`. **The receipt path** is
+`verification/receipts/<round id>.json`, where the round id matches `[A-Z0-9]+(-[A-Z0-9]+)*`.
 
 **A path's state at a commit** is either the pair (mode, object id) of the path's entry in that
 commit's tree, or its absence from that tree.
+
+### `K1` — the round declaration
+
+The preregistration declares the round in one fenced block with info string `v3-round`; `K2` fixes
+where the block lies. Each line of the block that is not blank and does not start with `#` is
+`<key> <value>`, the two separated by one space. `<key>` is `round`, `kind` or `record-directory`,
+and each of the three appears exactly once, in any order:
+
+- `round` is the round id, matching `[A-Z0-9]+(-[A-Z0-9]+)*`;
+- `kind` is `sealing` or `non-sealing`;
+- `record-directory` is a path `S7` accepts, ending in `/`: the directory that holds the
+  preregistration carrying the block.
+
+A block that breaks any of these rules is invalid, and so is a control plane without one. The
+receipt's `round` and `kind`, whose subject is `F`, are re-derived from the declaration at `F` and
+must equal it. The declaration names the round's record directory, whose control-plane files are
+the only paths `delta(D, F)` may touch (`S2`), and it fixes the receipt path,
+`verification/receipts/<round>.json`. Neither the round id nor the kind is derived from a path.
 
 ***
 
@@ -57,6 +79,13 @@ commit's tree, or its absence from that tree.
 | `S11` | sealing is receipt state | `S11`; the receipt's `seal` field |
 | `S12` | halted rounds are first-class | `S12`; lifecycle transition T5; the halted example receipts |
 | `S13` | no migration | `S13` |
+| `K1` | the round declaration | `K1`, under the objects; lifecycle transitions T1 and T7 |
+| `K2` | the declarations lie in the preregistration | `K2`, under `S7`; lifecycle transition T1 |
+| `K3` | the first parent of every reconciliation | `K3`, under `S9`; lifecycle transition T6 |
+| `K4` | every receipt commit | `K4`, under `S10`; lifecycle transitions T6 and T7 |
+| `G5` | the halted execution is linear | `G5`, under `S12`; lifecycle transition T5 |
+| `G6` | the record class is the round's own record | `G6`, under `S7`; lifecycle transitions T1, T5 and T6 |
+| `G7` | no commit after `F` changes the control plane | `G7`, under `S2`; lifecycle transitions T3, T5, T6 and T7 |
 
 ***
 
@@ -96,6 +125,14 @@ required checks have passed on exactly `F` and the owner has designated `F`.
 
 `F`, and not a merge commit on `main`, is the execution's ancestry anchor. `delta(D, F)` touches only
 control-plane files of the round's record directory.
+
+### `G7` — no commit after `F` changes the control plane
+
+The rule that no commit after `F` changes a control-plane file binds every commit of the round after
+`F`: each execution commit, `W` or the commit that takes its place (`S12`), each reconciliation, and
+each receipt commit, superseded or final. At each of them the round's control-plane files are
+exactly those at `F`, each with its state at `F`: none is changed, removed or added. A control-plane
+file listed in `landing.resolved_paths` is no exception.
 
 ## `S3` — `E` is immutable
 
@@ -207,8 +244,8 @@ string `v3-governed-paths`. Each line of the block that is not blank and does no
 
 - `<class>` is `execution` or `record`. **Record paths** carry the round's own record: its record
   directory, its receipt path and, for a sealing round, the seal records its receipt names.
-  **Execution paths** are everything else the round may change. The `record` class **must** contain
-  the round's record directory and its receipt path.
+  **Execution paths** are everything else the round may change. The `record` class is exactly the
+  round's own record (`G6`).
 - `<ops>` is a non-empty subset of `A`, `M`, `D`, written in that order (`A`, `M`, `D`, `AM`, `AD`,
   `MD`, `AMD`).
 - `<path>` is a repository-relative path, or a directory prefix ending in `/`.
@@ -233,6 +270,30 @@ this includes every path the text block cannot express.
 
 The set in force is the set at `F`, re-derived from `F` by the verifier; no later policy redefines
 it.
+
+### `K2` — the declarations lie in the preregistration
+
+At `F`, the preregistration carries exactly one `v3-governed-paths` block and exactly one
+`v3-round` block (`K1`), which are the declarations in force, and no amendment carries a fenced
+block with either info string. A fenced block with either info string that is not closed, in any
+control-plane file at `F`, makes the control plane invalid. This fixes where the declarations lie at
+`F`, and nothing about how control-plane files may change before it.
+
+### `G6` — the record class is the round's own record
+
+With `R` the record directory and `P` the receipt path that the round declaration fixes (`K1`), the
+block at `F` is valid for the round only if:
+
+1. it has a `record` entry whose `<path>` is `R` and a `record` entry whose `<path>` is `P`;
+2. no `execution` entry's `<path>` lies within `R`, that is, equals `R` or begins with it;
+3. every other `record` entry's `<path>` lies within `R` or, in a sealing round only, is a single
+   file outside `R`, not a directory prefix, declaring a seal record path.
+
+These conditions are checked against the round, at `F`. A **record path** of the round is a path
+that lies within `R`, the path `P`, or a seal record that the round's final receipt names; a path is
+not a record path merely because a `record` entry governs it. A halted receipt names no seal record
+(`S4`), so the record paths of a halted round are `P` and the paths within `R`. `S12`'s record
+commit and halted landing admit record paths in this sense and no others.
 
 ## `S8` — deltas are canonical
 
@@ -301,6 +362,16 @@ With `Δ = delta(LB, Λ)`, the landing is authorized when:
 For a halted round `S12` replaces conditions 2 and 3. No branch name and no live ref enters these
 conditions.
 
+### `K3` — the first parent of every reconciliation
+
+The requirement that `D` lie on `LB`'s first-parent chain binds every reconciliation, not only the
+last. `D` lies on the first-parent chain of `R₁`'s first parent, and for each `i > 1` the first
+parent of `Rᵢ₋₁` lies on the first-parent chain of `Rᵢ`'s first parent. The first parents of the
+reconciliations therefore lie, in order, on one first-parent chain, which is `LB`'s. Two consecutive
+reconciliations may have the same first parent, when `main` has not moved between them. A round in
+which one reconciliation's first parent lies behind an earlier one's is invalid, even when a later
+reconciliation's first parent lies ahead of both.
+
 ## `S10` — publication is a fast-forward to `Q`, and nothing else
 
 `Q` is a single-parent child of `Λ`, and `delta(Λ, Q)` is exactly the receipt path, plus the seal
@@ -325,6 +396,14 @@ history as the second parent of the next reconciliation.
 A `main` that reaches the round's commits through any commit other than `Q` itself — a merge
 created on the host, a squash or a rebase — is not a publication of the round.
 
+### `K4` — every receipt commit
+
+`S10`'s rule for `Q` binds every receipt commit of the round, superseded or final. Each receipt
+commit `Qᵢ` is a single-parent child of the reconciliation `Rᵢ` before it, and `delta(Rᵢ, Qᵢ)` is
+exactly the receipt path plus the seal records that the round's final receipt names. The content of
+a superseded receipt is not read: the final receipt is the round's durable state (`S4`), and it
+alone fixes which seal records any receipt commit carries.
+
 ## `S11` — sealing is receipt state, not topology
 
 Sealing and non-sealing rounds use the same lifecycle, commits and receipt position. A sealing
@@ -347,10 +426,10 @@ round's `result.md` **must** be present at `W` and at `Λ`.
 
 Reconciliation (`S9`, with `W` in place of `E`) and publication (`S10`) then proceed as for a
 complete round. When no execution commits exist, the round appends to `F` a single-parent commit
-that changes only `record` paths and carries the result note, and that commit takes the place of
-`W`.
-The halted landing is authorized when every path of `delta(LB, Λ)` is a `record` path and its change
-is authorized.
+that changes only record paths (`G6`) and carries the result note, and that commit takes the place
+of `W`.
+The halted landing is authorized when every path of `delta(LB, Λ)` is a record path (`G6`) and its
+change is authorized.
 
 The semantics, stated exactly:
 
@@ -358,6 +437,15 @@ The semantics, stated exactly:
   differs between `LB` and `Λ`.
 - **The execution commits do remain reachable from `main`**, through `W`, as historical evidence.
 - **The receipt names them only as `candidates`**, never as `E`.
+
+### `G5` — the halted execution
+
+The execution commits of a halted round are the commits of `rev-list W ^F` other than `W`. `S3`'s
+form binds each of them as it binds the commits of `F..E`: each has exactly one parent, which is `F`
+or another of them, so that none absorbs later `main`; and, by `G7`, none changes a control-plane
+file. Their delta from `F` is not required to be authorized under `S7`: a halt may follow a change
+outside the governed paths, and what of the halted execution reaches the published tree is decided
+by the withdrawal invariant and the halted landing.
 
 ## `S13` — no migration
 
@@ -385,13 +473,13 @@ transitions but are never predicate inputs.
 
 | transition | predicate | inputs |
 |---|---|---|
-| T1: `DRAFTING` → `FROZEN` | every commit of `rev-list F ^D` has one parent and changes only control-plane files; the governed-path block at `F` is valid (`S7`) | `D`, `F`, the commits between them, their trees |
+| T1: `DRAFTING` → `FROZEN` | every commit of `rev-list F ^D` has one parent and changes only control-plane files; the round declaration and the governed-path block at `F` are valid and lie in the preregistration (`K1`, `S7`, `K2`); the record class is the round's own record (`G6`) | `D`, `F`, the commits between them, their trees |
 | T2: `FROZEN` → `EXECUTING` | the first execution commit is a single-parent child of `F` | `F`, that commit |
 | T3: `EXECUTING` → `CERTIFIED` | `S3`: `rev-list E ^F` linear from `F`; `delta(F, E)` authorized; no control-plane file changed after `F` | `F`, `E`, the commits between them, their trees, the block at `F` |
 | T4: `CERTIFIED` fixes `E` | nothing that follows changes `F..E`; every later commit descends from `E` | `E` and the later commits |
-| T5: → `HALTED` | when execution commits exist: `W` is a single-parent child of the last, listed in `candidates`, and satisfies the withdrawal invariant; the result note is present at `W` (`S12`) | `F`, `W`, the commits between them, their trees, the block at `F` |
-| T6: → `RECONCILED` | `S9`: each reconciliation's parents as specified; `D` on `LB`'s first-parent chain; the landing authorized (`S9` or `S12`) | `D`, `E` or `W`, each reconciliation and receipt commit, `LB`, `Λ`, their trees, the block at `F` |
-| T7: `RECONCILED` → `RECEIPTED` | `Q` a single-parent child of `Λ`; `delta(Λ, Q)` exactly the receipt path and the seal records; the receipt at `Q` valid under `S4` and consistent with every subject it records | `Q`, `Λ`, the receipt at `Q`, every commit it names |
+| T5: → `HALTED` | when execution commits exist: they are linear from `F` (`G5`); `W` is a single-parent child of the last, listed in `candidates`, and satisfies the withdrawal invariant; the result note is present at `W` (`S12`); when none exist, the commit that takes `W`'s place changes only record paths (`G6`); no control-plane file changes after `F` (`G7`) | `F`, `W` or the commit in its place, the commits between them, their trees, the block at `F` |
+| T6: → `RECONCILED` | `S9`: each reconciliation's parents as specified, and its first parent as `K3` requires; each superseded receipt commit as `K4` requires; no control-plane file changes at any of them (`G7`); the landing authorized (`S9`, or `S12` with `G6`'s record paths) | `D`, `E` or `W`, each reconciliation and receipt commit, `LB`, `Λ`, their trees, the block at `F`, the seal records the final receipt names |
+| T7: `RECONCILED` → `RECEIPTED` | `Q` a single-parent child of `Λ`; `delta(Λ, Q)` exactly the receipt path and the seal records (`K4`); no control-plane file changed at `Q` (`G7`); the receipt at `Q` valid under `S4` and consistent with every subject it records, its `round` and `kind` those of the declaration at `F` (`K1`) | `Q`, `Λ`, the receipt at `Q`, every commit it names |
 | T8: `RECEIPTED` → `PUBLISHED` | none: publication is the non-force update of `main` to `Q` (`S10`), which the host performs or refuses | — |
 
 A verifier asked whether a round holds evaluates T1, T3 (or T5), T6 and T7 from `Q` and the commits
@@ -540,8 +628,8 @@ Each of these blocks is invalid, and the rule it breaks:
 | no `v3-governed-paths` block | exactly one block required |
 | two such blocks | exactly one block required |
 
-A valid block whose `record` class omits the round's record directory or its receipt path is also
-invalid; that rule is checked against the round, at `F`.
+A valid block that breaks one of `G6`'s three conditions for its round is also invalid; those
+conditions are checked against the round, at `F`.
 
 ***
 
