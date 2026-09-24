@@ -875,10 +875,7 @@ def _verify_round(repo, q):
             prev_q = nxt[1] if len(nxt) == 2 else None
             if prev_q is None:
                 continue
-            prev_r = read_receipt_at(repo, prev_q, receipt_path)
-            prev_seal = [x['path'].encode() for x in (prev_r or {}).get('seal', {}).get(
-                'records', [])] if isinstance(prev_r, dict) else []
-            if prev_r is None or not receipt_delta_ok(repo, rc, prev_q, receipt_path, prev_seal):
+            if not receipt_delta_ok(repo, rc, prev_q, receipt_path, seal_paths):
                 codes.append('s10:superseded-receipt-commit')
     codes += check_first_parent_chains(repo, d, recs)
     codes += check_control_plane_frozen(repo, f, recs, rdir, 's9')
