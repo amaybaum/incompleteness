@@ -146,7 +146,7 @@ commit of a halted round, are objects the round owns and its receipt reaches; a 
 admitted them unchecked would certify objects the specification's own definitions exclude. The
 content of a superseded receipt, by contrast, is not the round's state and is not read.
 
-### `K1` — the round declaration
+### Item `K1` — the round declaration
 
 - **Ambiguity.** `S4` gives the receipt's `round` and `kind` the subject `F`, and the record
   directory is "one repository directory the control plane names", but no form of declaration at
@@ -175,7 +175,7 @@ content of a superseded receipt, by contrast, is not the round's state and is no
   found by reading only: the shadow derives the record directory from `delta(D, F)` with a pattern
   that misreads an amendment whose file name is `preregistration.md`. No vector carries it.
 
-### `K2` — where the declarations lie
+### Item `K2` — where the declarations lie
 
 - **Ambiguity.** `S7` requires "exactly one fenced block" of "the control plane", which may be
   several files.
@@ -199,7 +199,7 @@ content of a superseded receipt, by contrast, is not the round's state and is no
   (new). The landed `k2-admit-blocks-only-in-preregistration` remains.
 - **Shadow at `D`.** Does not conform: it admits either block when it lies only in an amendment.
 
-### `K3` — the first parent of every reconciliation
+### Item `K3` — the first parent of every reconciliation
 
 - **Ambiguity.** `S9` requires `D` on `LB`'s first-parent chain and says nothing of the first
   parents of earlier reconciliations.
@@ -226,7 +226,7 @@ content of a superseded receipt, by contrast, is not the round's state and is no
   The landed `k3-admit-two-reconciliations` remains.
 - **Shadow at `D`.** Conforms.
 
-### `K4` — every receipt commit
+### Item `K4` — every receipt commit
 
 - **Ambiguity.** The receipt commits between reconciliations, superseded after a failed
   publication, have no delta rule of their own.
@@ -259,7 +259,7 @@ content of a superseded receipt, by contrast, is not the round's state and is no
   takes the permitted seal records from it, and raises an uncaught exception when its `seal` field
   is not an object (`F3`).
 
-### `G5` — the halted execution
+### Item `G5` — the halted execution
 
 - **Ambiguity.** `T5` requires `W` to be a single-parent child of "the last" execution commit;
   `S3`'s linearity is stated for `F..E` alone, and a halted round has no `E`.
@@ -281,7 +281,7 @@ content of a superseded receipt, by contrast, is not the round's state and is no
   `mc6-pass-halted-with-withdrawal` remains.
 - **Shadow at `D`.** Conforms.
 
-### `G6` — the record class
+### Item `G6` — the record class
 
 - **Ambiguity.** `S7`: the `record` class "must contain" the record directory and the receipt path,
   while the same bullet defines record paths as the round's own record and execution paths as
@@ -318,7 +318,7 @@ content of a superseded receipt, by contrast, is not the round's state and is no
 - **Shadow at `D`.** Does not conform: it checks coverage by longest match only, and classes paths
   in the halted landing and the record commit by the declared class.
 
-### `G7` — no commit after `F` changes the control plane
+### Item `G7` — no commit after `F` changes the control plane
 
 - **Ambiguity.** `S2` forbids a change to a control-plane file after `F`, while `S9` admits in a
   reconciliation any governed path listed in `landing.resolved_paths`, a control-plane file under a
