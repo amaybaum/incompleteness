@@ -29,10 +29,10 @@ undefined is invalid, not permitted.
 | `F` | the freeze anchor: the exact control-plane commit the owner designates |
 | `E` | the certified execution head: the last execution commit, fixed by certification |
 | `W` | the withdrawal commit a halted round appends after its last execution commit |
-| `R₁ … Rₖ` | the reconciliation commits of the round (`G11`), merges whose first parent is the tip of `main` when each is built |
+| `R₁ … Rₖ` | the reconciliation commits of the round (`G11`), merges whose first parents advance along one first-parent chain (`K3`) |
 | `Λ` | the landing object: the last reconciliation, `Rₖ` |
 | `LB` | the landing base: `Λ`'s first parent |
-| `Q` | the final receipt commit: a single-parent child of `Λ`, which publication makes the tip of `main` |
+| `Q` | the final receipt commit: a single-parent child of `Λ`, which carries the round's receipt and ends its lifecycle |
 
 Every other object named below is defined where it is named.
 
@@ -77,7 +77,7 @@ the only paths `delta(D, F)` may touch (`S2`), and it fixes the receipt path,
 | `S7` | governed paths, in two classes, canonical and hashed | `S7`; worked examples |
 | `S8` | canonical deltas | `S8`; worked examples |
 | `S9` | reconciliation on the pull request, after `E` | `S9`; lifecycle transition T6 |
-| `S10` | publication is a fast-forward to `Q` | `S10`; lifecycle transitions T7 and T8 |
+| `S10` | the receipt commit ends the round; publication is outside it | `S10`; lifecycle transition T7 |
 | `S11` | sealing is receipt state | `S11`; the receipt's `seal` field |
 | `S12` | halted rounds are first-class | `S12`; lifecycle transition T5; the halted example receipts |
 | `S13` | no migration | `S13` |
@@ -115,8 +115,8 @@ declares (`G8`).
 
 Locating a commit is not a predicate. A verifier **may** be handed `E` or `Q` by any means — an
 argument, a ref, a search of history — but whether the round holds is decided from the commits
-alone. The one operation that reads the live tip of `main` is publication (`S10`), which either
-succeeds atomically or leaves `main` untouched; it is never an input to the round's validity.
+alone. Whether and how the round's commits reach `main` is not a predicate input and not part of
+the round's validity (`S10`).
 
 ### `G8` — mutable state is never a predicate input
 
@@ -126,8 +126,8 @@ branch or a host setting changes no predicate by doing so. Host facts enter a ro
 only. An owner's designation and a check run's conclusion are attestations (`S5`), recorded and
 never read by a predicate. Anything else the executor observes on the host — the state of a branch,
 a deletion it performs, a setting it changes — is the executor's evidence, recorded in the round's
-result note and read by no predicate. Publication (`S10`) inspects the live tip of `main` as an
-operation, and the outcome of that operation is not an input to the round's validity.
+result note and read by no predicate. How the round's commits reach `main` is host operation,
+outside the specification (`S10`).
 
 ## `S2` — one pull request per round, anchored at `F`
 
@@ -181,7 +181,7 @@ in order, and nothing else. A reconciliation or receipt commit that `Q` does not
 chain is not an object of the round, whether or not it exists in the repository or was once the
 head of the pull request, and no predicate reads it.
 
-Before publication a round may therefore abandon a reconciliation or receipt commit and build again
+A round may therefore abandon a reconciliation or receipt commit and build again
 from `E`, from `W` or the commit in its place, or from a receipt commit it keeps. `F`, `E` and the
 commits of `F..E` are never replaced. The result note may record abandoned objects as provenance;
 they are not predicate inputs.
@@ -425,18 +425,20 @@ a commit and the current tip of `main`.
 
 ## `S9` — reconciliation happens on the pull request, after `E`
 
-Later `main` enters the round only through reconciliation commits appended to the pull request's
-branch after `E`, or after `W` (`S12`). Each reconciliation `Rᵢ` is a merge with exactly two parents:
+Later history enters the round only through reconciliation commits appended to the round's branch
+after `E`, or after `W` (`S12`). Each reconciliation `Rᵢ` is a merge with exactly two parents:
 
-- the **first parent** is the tip of `main` when `Rᵢ` is built;
+- the **first parent** is the later base the round chooses, a commit on whose first-parent chain
+  `D` lies, advancing as `K3` requires;
 - the **second parent** is the round's branch head before it: `E` (or `W`) for `R₁`, and the
   previous receipt commit for each later reconciliation.
 
-The first reconciliation is always built, with `--no-ff` when `main` has not moved since `D`, so that
-`Λ` is always a reconciliation and `LB` is always its first parent. `E` and every earlier commit are
+The first reconciliation is always built, with `--no-ff` when its base is `D` itself, so that `Λ` is
+always a reconciliation and `LB` is always its first parent. `E` and every earlier commit are
 unchanged by reconciliation. `Λ` is the last reconciliation and `LB` is its first parent. `D` lies on
 `LB`'s first-parent chain; this, and not the tip of any branch, is how a verifier knows `LB` is later
-`main` than `D`.
+than `D`. In operation the base chosen is normally the current tip of `main`; that choice is not
+part of the round's validity.
 
 With `Δ = delta(LB, Λ)`, the landing is authorized when:
 
@@ -455,37 +457,32 @@ The requirement that `D` lie on `LB`'s first-parent chain binds every reconcilia
 (`G11`), not only the last. `D` lies on the first-parent chain of `R₁`'s first parent, and for each
 `i > 1` the first parent of `Rᵢ₋₁` lies on the first-parent chain of `Rᵢ`'s first parent. The first
 parents of the reconciliations therefore lie, in order, on one first-parent chain, which is `LB`'s.
-Two consecutive reconciliations may have the same first parent, when `main` has not moved between
-them. A round in which one reconciliation's first parent lies behind an earlier one's is invalid,
-even when a later reconciliation's first parent lies ahead of both.
+Two consecutive reconciliations may have the same first parent. A round in which one
+reconciliation's first parent lies behind an earlier one's is invalid, even when a later
+reconciliation's first parent lies ahead of both.
 
-## `S10` — publication is a fast-forward to `Q`, and nothing else
+## `S10` — the receipt commit ends the round; publication is outside it
 
 `Q` is a single-parent child of `Λ`, and `delta(Λ, Q)` is exactly the receipt path, plus the seal
-records a sealing receipt names. The required checks pass on exactly `Q`. Publication is a non-force
-update of `main` from `LB` to `Q`: a fast-forward, because `Q` descends from `LB` through `Λ`'s first
-parent. After publication the tip of `main` is `Q`; there is no publication commit distinct from
-`Q`.
+records a sealing receipt names. The round's lifecycle ends when `Q` is receipted (T7). Whether the
+round holds is decided from `Q` and the commits its receipt names, wherever `Q` lies.
 
-If `main` has moved past `LB` when publication is attempted, the non-force update fails atomically
-and `main` is untouched. The round then:
+A round that builds again after its first receipt commit — because its chosen base has advanced, or
+for any other reason — builds a further reconciliation whose second parent is either the receipt
+commit it keeps, which then remains in the round as a superseded receipt commit, or an object from
+which the round builds again (`G11`), and a new final receipt commit on it, whose receipt names the
+new `LB` and `Λ` and lists every reconciliation of the chain the new `Q` reaches. `F`, `E` and the
+commits of `F..E` stay as they are.
 
-1. builds a further reconciliation, whose first parent is the new tip of `main` and whose second
-   parent is either `Q`, which then remains in the round as a superseded receipt commit, or an
-   object from which the round builds again (`G11`);
-2. builds a new final receipt commit on it, whose receipt names the new `LB` and `Λ` and lists
-   every reconciliation of the chain the new `Q` reaches;
-3. reruns the required checks on the new `Q`;
-4. retries publication.
-
-`F`, `E` and the commits of `F..E` stay as they are.
-
-A `main` that reaches the round's commits through any commit other than `Q` itself — a merge
-created on the host, a squash or a rebase — is not a publication of the round.
+**Publication is not part of this specification.** How a round's work reaches `main` — a
+fast-forward to `Q`, a merge, or any other operation the host's own protections admit — is
+host operation, and no V3 predicate reads it. Whether `Q` is an ancestor of a given commit is a
+repository fact, which a verifier may report as a diagnostic; it is never part of a verdict, and a
+`Q` that is not an ancestor of a given commit is not thereby invalid.
 
 ### `K4` — every receipt commit
 
-`S10`'s rule for `Q` binds every receipt commit of the round (`G11`), superseded or final. Each
+The rule for `Q` binds every receipt commit of the round (`G11`), superseded or final. Each
 receipt commit `Qᵢ` is a single-parent child of the reconciliation `Rᵢ` before it, and
 `delta(Rᵢ, Qᵢ)` is exactly the receipt path plus the seal record that the round's final receipt
 names, each change authorized (`G12`). The content of a superseded receipt is not read: the final
@@ -495,13 +492,13 @@ commit carries.
 ## `S11` — sealing is receipt state, not topology
 
 Sealing and non-sealing rounds use the same lifecycle, commits and receipt position. A sealing
-receipt carries `seal`, and `Q` publishes the seal state it owns, which is its one seal record
-(`G12`); a non-sealing receipt carries no `seal`, and `Q` publishes none. The V3 lifecycle has no
+receipt carries `seal`, and `Q` carries the seal state it owns, which is its one seal record
+(`G12`); a non-sealing receipt carries no `seal`, and `Q` carries none. The V3 lifecycle has no
 separate pin commit.
 
 ## `S12` — halted rounds are first-class
 
-A halted round publishes its receipt and its result through the same pull request, and never
+A halted round records its receipt and its result through the same pull request, and never
 manufactures an `E`. The receipt says `status: halted`; `e`, `tree_e` and `execution_delta_digest`
 are absent with their reason; and every head that was measured but not certified is listed in
 `candidates` and nowhere else.
@@ -513,8 +510,8 @@ identical mode and object id; if it is absent at `F`, it is absent at `W`, so a 
 execution is removed by `W`. `record` paths keep their content, so the result note survives: the
 round's `result.md` **must** be present at `W` and at `Λ`.
 
-Reconciliation (`S9`, with `W` in place of `E`) and publication (`S10`) then proceed as for a
-complete round. When no execution commits exist, the round appends to `F` a single-parent commit
+Reconciliation (`S9`, with `W` in place of `E`) and the receipt commit (`S10`) then follow as for
+a complete round. When no execution commits exist, the round appends to `F` a single-parent commit
 that changes only record paths (`G6`) and carries the result note, and that commit takes the place
 of `W`.
 The halted landing is authorized when every path of `delta(LB, Λ)` is a record path (`G6`) and its
@@ -522,9 +519,9 @@ change is authorized.
 
 The semantics, stated exactly:
 
-- **The halted execution's effects do not survive in the published tree.** No `execution` path
+- **The halted execution's effects do not survive in the landed tree.** No `execution` path
   differs between `LB` and `Λ`.
-- **The execution commits do remain reachable from `main`**, through `W`, as historical evidence.
+- **The execution commits do remain reachable from `Q`**, through `W`, as historical evidence.
 - **The receipt names them only as `candidates`**, never as `E`.
 
 ### `G5` — the halted execution
@@ -533,7 +530,7 @@ The execution commits of a halted round are the commits of `rev-list W ^F` other
 form binds each of them as it binds the commits of `F..E`: each has exactly one parent, which is `F`
 or another of them, so that none absorbs later `main`; and, by `G7`, none changes a control-plane
 file. Their delta from `F` is not required to be authorized under `S7`: a halt may follow a change
-outside the governed paths, and what of the halted execution reaches the published tree is decided
+outside the governed paths, and what of the halted execution reaches the landed tree is decided
 by the withdrawal invariant and the halted landing.
 
 ## `S13` — no migration
@@ -558,7 +555,6 @@ transitions but are never predicate inputs.
 | `HALTED` | T5 (from `FROZEN` or `EXECUTING`) |
 | `RECONCILED` | T6 (from `CERTIFIED` or `HALTED`) |
 | `RECEIPTED` | T7 |
-| `PUBLISHED` | T8 |
 
 | transition | predicate | inputs |
 |---|---|---|
@@ -569,10 +565,10 @@ transitions but are never predicate inputs.
 | T5: → `HALTED` | when execution commits exist: they are linear from `F` (`G5`); `W` is a single-parent child of the last, listed in `candidates`, and satisfies the withdrawal invariant; the result note is present at `W` (`S12`); when none exist, the commit that takes `W`'s place changes only record paths (`G6`); no control-plane file changes after `F` (`G7`) | `F`, `W` or the commit in its place, the commits between them, their trees, the block at `F` |
 | T6: → `RECONCILED` | `S9`: each reconciliation of the chain `Q` reaches (`G11`) with its parents as specified, and its first parent as `K3` requires; each superseded receipt commit of that chain as `K4` requires; no control-plane file changes at any of them (`G7`); the landing authorized (`S9`, or `S12` with `G6`'s record paths) | `D`, `E` or `W`, each reconciliation and receipt commit of that chain, `LB`, `Λ`, their trees, the block at `F`, the seal record the final receipt names |
 | T7: `RECONCILED` → `RECEIPTED` | `Q` a single-parent child of `Λ`; `delta(Λ, Q)` exactly the receipt path and the seal record, each change authorized (`K4`, `G12`); no control-plane file changed at `Q` (`G7`); the receipt at `Q` valid under `S4` and consistent with every subject it records, its `round` and `kind` those of the declaration at `F` (`K1`), and its seal record the round's own (`G12`) | `Q`, `Λ`, the receipt at `Q`, every commit it names |
-| T8: `RECEIPTED` → `PUBLISHED` | none: publication is the non-force update of `main` to `Q` (`S10`), which the host performs or refuses | — |
 
-A verifier asked whether a round holds evaluates T1, T3 (or T5), T6 and T7 from `Q` and the commits
-its receipt names. Whether `Q` is the tip of `main` is not part of the answer.
+The lifecycle ends at T7. A verifier asked whether a round holds evaluates T1, T3 (or T5), T6 and T7
+from `Q` and the commits its receipt names; where `Q` lies, and whether any branch reaches it, is
+not part of the answer.
 
 ***
 
@@ -765,7 +761,7 @@ be mistaken for real objects. Everything else is as a verifier would require it.
 
 ### Complete, sealing, after one base movement
 
-`main` moved once after the first receipt commit was built, so the landing lists two
+The chosen base advanced once after the first receipt commit was built, so the landing lists two
 reconciliations; the first receipt commit is the second parent of the second reconciliation.
 
 ```json
