@@ -274,6 +274,20 @@ def fenced_blocks(text, info):
     return out
 
 
+# G10: a line with an opener's shape for a reserved info string that is not an opener.
+NEAR_MISS = re.compile(r'[ \t]*(?:`{3,}|~{3,})[ \t]*(v3-round|v3-governed-paths)(?:[ \t\r].*)?',
+                       re.S)
+
+
+def has_near_miss(text):
+    """G10: whether a line of `text` is a near miss for a reserved info string."""
+    for line in text.split('\n'):
+        m = NEAR_MISS.fullmatch(line)
+        if m and line != '```' + m.group(1):
+            return True
+    return False
+
+
 def path_ok(p):
     if p == '' or '\r' in p or '\n' in p or '\t' in p or p.startswith('/') or '//' in p:
         return False
@@ -557,6 +571,8 @@ def control_plane(repo, d, f):
     gov_blocks, round_blocks = [], []
     for p in sorted(files):
         t = repo.blob(files[p]).decode('utf-8', 'replace')
+        if has_near_miss(t):
+            return None, None, None, None, files, codes + ['t1:near-miss']
         g = fenced_blocks(t, 'v3-governed-paths')
         rb = fenced_blocks(t, 'v3-round')
         if g is None or rb is None:
