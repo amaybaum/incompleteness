@@ -2692,10 +2692,13 @@ its attestation `A` — one record, `attestations/CV1.json`, with the run identi
 `main` after the landing's push run is certified.
 
 `tools/v3_verifier.py` is the V3 shadow verifier, installed by round `V3-2`
-(`infrastructure/round-v3-2-shadow-verifier/`). It implements the protocol-3 specification
-(`infrastructure/v3/architecture.md`) with the provisional readings `V3-2`'s preregistration froze,
-and it gates nothing: it has no authoritative mode, no verdict it prints changes an exit status,
-the release gate does not invoke it, and its workflow job, `V3 shadow verifier`, is not a required
-check. `V1` and `V2` remain authoritative. Its conformance corpus is
-`infrastructure/v3/conformance/`, executed as an exact set; its comparison with `V2` over the
-attestation rows is `V3-2`'s `census.json`.
+(`infrastructure/round-v3-2-shadow-verifier/`). It is the V3 shadow implementation of the
+currently settled protocol-3 rules (`infrastructure/v3/architecture.md`), including the
+settlements of `K1`–`K4` and `G5`–`G7` that round `V3-3` fixed
+(`infrastructure/round-v3-3-specification-resolution/`) and round `V3-4` implemented
+(`infrastructure/round-v3-4-implementation-conformance/`). The gaps `G8`–`G12` that `V3-3`
+recorded remain unsettled, and the shadow implements no settlement of them. It gates nothing: it
+has no authoritative mode, no verdict it prints changes an exit status, the release gate does not
+invoke it, and its workflow job, `V3 shadow verifier`, is not a required check. `V1` and `V2`
+remain authoritative. Its conformance corpus is `infrastructure/v3/conformance/`, executed as an
+exact set; its comparison with `V2` over the attestation rows is `V3-2`'s `census.json`.
