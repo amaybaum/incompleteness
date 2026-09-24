@@ -1,0 +1,3174 @@
+{
+ "round": "V3-2",
+ "subject": "e15dc06b697eefdf37f2c8b23f81d32201956dd4",
+ "shadow_blob": "2c34d4d7f1adadc4bdecbad94ff8eadb7b30f974",
+ "v2_blob": "a475408874b850f34c31eca5e1cb4ab549601f38",
+ "python": "3.11.15",
+ "git": "git version 2.43.0",
+ "driver_sha256": "4bb982e95103a28688837582aa6ddb610ba95f4f4200a423d34240a510e05a37",
+ "states": {
+  "P0": {
+   "description": "push mode, HEAD detached at F",
+   "shadow_exit": 0,
+   "shadow_report_sha256": "36319c337377b71ed22c834539a27b76ce6b029a495d1a826cc427b3a5e4a557",
+   "v2_top": "certificate_verifier: shadow OK (0 failure(s))",
+   "v2_raw": [
+    "  TARGETS  HEAD e15dc06b697e",
+    "  ROW   A12P     landed     PASS  ok",
+    "  ROW   A6D      landed     PASS  ok",
+    "  ROW   A6I      landed     PASS  ok",
+    "  ROW   A6P      landed     PASS  ok",
+    "  ROW   ABR      base-only  PASS  ok",
+    "  ROW   CGR      landed     PASS  ok",
+    "  ROW   CLG      base-only  PASS  ok",
+    "  ROW   CTI      landed     PASS  ok",
+    "  ROW   CV1      landed     PASS  ok",
+    "  ROW   GR1      landed     PASS  ok",
+    "  ROW   GR2      landed     PASS  ok",
+    "  ROW   HYA      landed     PASS  ok",
+    "  ROW   HYB      landed     PASS  ok",
+    "  ROW   HYE      landed     PASS  ok",
+    "  ROW   NLV      landed     PASS  ok",
+    "  ROW   OGC      landed     PASS  ok",
+    "  ROW   OGS      landed     PASS  ok",
+    "  ROW   OLG      landed     PASS  ok",
+    "  ROW   OLN      landed     PASS  ok",
+    "  ROW   OLT      landed     PASS  ok",
+    "  ROW   PC4      landed     PASS  ok",
+    "  ROW   PC4S     landed     PASS  ok",
+    "  ROW   PFR      landed     PASS  ok",
+    "  ROW   PQT      landed     PASS  ok",
+    "  ROW   RBR      base-only  PASS  ok",
+    "  ROW   RNC      landed     PASS  ok",
+    "  ROW   RNT      landed     PASS  ok",
+    "  ROW   SGT      landed     PASS  ok",
+    "  ROW   SI1      base-only  PASS  ok",
+    "  ROW   SI2      base-only  PASS  ok",
+    "  ROW   SI3      landed     PASS  ok",
+    "  ROW   TCF      landed     PASS  ok",
+    "  ROW   TRJ      landed     PASS  ok",
+    "  ROW   TSG      base-only  PASS  ok",
+    "  ROW   WTS      landed     PASS  ok",
+    "  ROW   XTS      landed     PASS  ok"
+   ]
+  },
+  "P1": {
+   "description": "as P0 after deleting every ref under refs/heads and refs/remotes; dev and junk created",
+   "shadow_exit": 0,
+   "shadow_report_sha256": "36319c337377b71ed22c834539a27b76ce6b029a495d1a826cc427b3a5e4a557",
+   "v2_top": "certificate_verifier: shadow OK (0 failure(s))",
+   "v2_raw": [
+    "  TARGETS  HEAD e15dc06b697e",
+    "  ROW   A12P     landed     PASS  ok",
+    "  ROW   A6D      landed     PASS  ok",
+    "  ROW   A6I      landed     PASS  ok",
+    "  ROW   A6P      landed     PASS  ok",
+    "  ROW   ABR      base-only  PASS  ok",
+    "  ROW   CGR      landed     PASS  ok",
+    "  ROW   CLG      base-only  PASS  ok",
+    "  ROW   CTI      landed     PASS  ok",
+    "  ROW   CV1      landed     PASS  ok",
+    "  ROW   GR1      landed     PASS  ok",
+    "  ROW   GR2      landed     PASS  ok",
+    "  ROW   HYA      landed     PASS  ok",
+    "  ROW   HYB      landed     PASS  ok",
+    "  ROW   HYE      landed     PASS  ok",
+    "  ROW   NLV      landed     PASS  ok",
+    "  ROW   OGC      landed     PASS  ok",
+    "  ROW   OGS      landed     PASS  ok",
+    "  ROW   OLG      landed     PASS  ok",
+    "  ROW   OLN      landed     PASS  ok",
+    "  ROW   OLT      landed     PASS  ok",
+    "  ROW   PC4      landed     PASS  ok",
+    "  ROW   PC4S     landed     PASS  ok",
+    "  ROW   PFR      landed     PASS  ok",
+    "  ROW   PQT      landed     PASS  ok",
+    "  ROW   RBR      base-only  PASS  ok",
+    "  ROW   RNC      landed     PASS  ok",
+    "  ROW   RNT      landed     PASS  ok",
+    "  ROW   SGT      landed     PASS  ok",
+    "  ROW   SI1      base-only  PASS  ok",
+    "  ROW   SI2      base-only  PASS  ok",
+    "  ROW   SI3      landed     PASS  ok",
+    "  ROW   TCF      landed     PASS  ok",
+    "  ROW   TRJ      landed     PASS  ok",
+    "  ROW   TSG      base-only  PASS  ok",
+    "  ROW   WTS      landed     PASS  ok",
+    "  ROW   XTS      landed     PASS  ok"
+   ]
+  },
+  "P2": {
+   "description": "pull-request event, head.sha = F, base ref main, no refs/remotes/origin/main",
+   "shadow_exit": 0,
+   "shadow_report_sha256": "36319c337377b71ed22c834539a27b76ce6b029a495d1a826cc427b3a5e4a557",
+   "v2_top": "certificate_verifier: shadow FAIL (1 failure(s))",
+   "v2_raw": [
+    "  TARGETS  fail-closed: visibility:base-ref-unresolvable"
+   ]
+  },
+  "P3": {
+   "description": "pull-request event, head.sha = X and refs/remotes/origin/main = X (X = first parent of CGR landing)",
+   "shadow_exit": 0,
+   "shadow_report_sha256": "36319c337377b71ed22c834539a27b76ce6b029a495d1a826cc427b3a5e4a557",
+   "v2_top": "certificate_verifier: shadow FAIL (17 failure(s))",
+   "v2_raw": [
+    "  TARGETS  pull_request.head.sha e0be0ab6dca7; refs/remotes/origin/main e0be0ab6dca7",
+    "  ROW   A12P     landed     PASS  ok",
+    "  ROW   A6D      landed     PASS  ok",
+    "  ROW   A6I      landed     PASS  ok",
+    "  ROW   A6P      landed     PASS  ok",
+    "  ROW   ABR      base-only  PASS  ok",
+    "  ROW   CGR      landed     FAIL  landing:zero-candidates",
+    "  ROW   CLG      base-only  PASS  ok",
+    "  ROW   CTI      landed     PASS  ok",
+    "  ROW   CV1      landed     FAIL  landing:zero-candidates",
+    "  ROW   GR1      landed     FAIL  landing:zero-candidates",
+    "  ROW   GR2      landed     FAIL  landing:zero-candidates",
+    "  ROW   HYA      landed     PASS  ok",
+    "  ROW   HYB      landed     PASS  ok",
+    "  ROW   HYE      landed     PASS  ok",
+    "  ROW   NLV      landed     FAIL  landing:zero-candidates",
+    "  ROW   OGC      landed     PASS  ok",
+    "  ROW   OGS      landed     PASS  ok",
+    "  ROW   OLG      landed     PASS  ok",
+    "  ROW   OLN      landed     PASS  ok",
+    "  ROW   OLT      landed     PASS  ok",
+    "  ROW   PC4      landed     PASS  ok",
+    "  ROW   PC4S     landed     PASS  ok",
+    "  ROW   PFR      landed     FAIL  landing:zero-candidates",
+    "  ROW   PQT      landed     PASS  ok",
+    "  ROW   RBR      base-only  PASS  ok",
+    "  ROW   RNC      landed     PASS  ok",
+    "  ROW   RNT      landed     PASS  ok",
+    "  ROW   SGT      landed     PASS  ok",
+    "  ROW   SI1      base-only  PASS  ok",
+    "  ROW   SI2      base-only  PASS  ok",
+    "  ROW   SI3      landed     PASS  ok",
+    "  ROW   TCF      landed     PASS  ok",
+    "  ROW   TRJ      landed     PASS  ok",
+    "  ROW   TSG      base-only  PASS  ok",
+    "  ROW   WTS      landed     PASS  ok",
+    "  ROW   XTS      landed     PASS  ok"
+   ]
+  }
+ },
+ "hostile_environment": {
+  "shadow_exit": 0,
+  "shadow_report_sha256": "36319c337377b71ed22c834539a27b76ce6b029a495d1a826cc427b3a5e4a557"
+ },
+ "cell_count_per_state": {
+  "P0": 126,
+  "P1": 126,
+  "P2": 126,
+  "P3": 126
+ },
+ "counts": {
+  "P0": {
+   "AGREE": 126
+  },
+  "P1": {
+   "AGREE": 126
+  },
+  "P2": {
+   "INPUT": 126
+  },
+  "P3": {
+   "AGREE": 120,
+   "INPUT": 6
+  }
+ },
+ "rows": [
+  {
+   "stem": "A12P",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=4f7e44f96c0216c1e76bae23513b3a1bf19840d2da9d141abfc14d30adef71c8",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "A6D",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=ee76b2cb997ce95127ca2f498c010311dd4f714123aff2ab94d73f9ef1bccc6e",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "A6I",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=891762f756e1e66d767caeb4953a784db6d53b22df3ecc846577f90207cb2d4b",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "A6P",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=4eaba3f643e700011423829de9697a10cdbf3fa831de3eb6f7cd303a3645a50d",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "ABR",
+   "kind": "base-only",
+   "axes_compared": [
+    "X0"
+   ],
+   "cells": {
+    "X0": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   }
+  },
+  {
+   "stem": "CGR",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "FAILS",
+      "class": "INPUT"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=b5a32f824a6affb248547f64e1d2960fd3e35d5b4e34c5cec00e09243f7172b7",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": false
+   }
+  },
+  {
+   "stem": "CLG",
+   "kind": "base-only",
+   "axes_compared": [
+    "X0"
+   ],
+   "cells": {
+    "X0": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   }
+  },
+  {
+   "stem": "CTI",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=e24260e04dcdb3f972b5f75e20d327113bc67f6952b602e7c825b850eb195984",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "CV1",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "FAILS",
+      "class": "INPUT"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=93d1f048c57dd0fe477568a77561778824c768f953ce413ca3068d9078db4c40",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": false
+   }
+  },
+  {
+   "stem": "GR1",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "FAILS",
+      "class": "INPUT"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=60c5fe2d793d4e0b29ed04f5ef3809f04a26830270c6c575f6cac3927d7edad3",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": false
+   }
+  },
+  {
+   "stem": "GR2",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "FAILS",
+      "class": "INPUT"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=2264d34d77b551b58d0e84fcdd01ba285eb50bece57e81ca5a57af24c35fa212",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": false
+   }
+  },
+  {
+   "stem": "HYA",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=27bb6ef6fa34092581f48e44b7e98528b452a0e7c3d16f39277767d0d515e8b0",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "HYB",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=fbf5fa1db9bfe2eadd80461ee84da10d079fb1d891675fa55f73240b76862c2a",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "HYE",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=eae0343e599177764c611ae228a44e4159c9c63759fd4fa7a0ab952ec4479d30",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "NLV",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "FAILS",
+      "class": "INPUT"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=b4cb4268669de80aa71f7bb9fb67962b53196f8544969dbcbd4a46d0abf025c6",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": false
+   }
+  },
+  {
+   "stem": "OGC",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=f00b9951400f777a0e31d96045e7477ddc899cd845cc858bed4dffb8e946f532",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "OGS",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=25d86adeeb4dbb18711430bb51b0e0dcfc7b4d24981fea0a63e497df08bf2248",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "OLG",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=9dc683d612a971544053bd73221a230b4bd157114d4599f35eee9ffd7e587b3d",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "OLN",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=3afed22d8313192ca1ae0b56e013db35c7838040549d5089c01c3146e32dd02c",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "OLT",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=37b192d9f1b4f7337b21938d68d268f09e86d332e9583ae033cf5bb0b3a6364b",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "PC4",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=c704452295b834b7e8d653861881874199a3a472db30691a2e9900e4ed0d8ff2",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "PC4S",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=3358c9d49148a40d22281e27406520071f558e36a1ef20a1805375e144c9460a",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "PFR",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "FAILS",
+      "class": "INPUT"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=9f0d8399a8866e4bb0f739321e08a46a401397f0d8bacee4157eb9e26aca3c38",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": false
+   }
+  },
+  {
+   "stem": "PQT",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=86a0f1f4e1ae9c4246a04434096720b7452bc05e16950187c50ca5c68999460d",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "RBR",
+   "kind": "base-only",
+   "axes_compared": [
+    "X0"
+   ],
+   "cells": {
+    "X0": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   }
+  },
+  {
+   "stem": "RNC",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=c0afe3172e2c0630825440cd2fdad56a7970b47eaaf8ee6f3fc2e1c10cc5dd12",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "RNT",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=fa155afac0ec7e6a5e89c4132ef82a271a62b9f31e5d309cfa0718269153aff9",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "SGT",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=a9f4fa632f1566e2a069c6d0c3fc35348558b109b26e0f78a9e922f004112878",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "SI1",
+   "kind": "base-only",
+   "axes_compared": [
+    "X0"
+   ],
+   "cells": {
+    "X0": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   }
+  },
+  {
+   "stem": "SI2",
+   "kind": "base-only",
+   "axes_compared": [
+    "X0"
+   ],
+   "cells": {
+    "X0": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   }
+  },
+  {
+   "stem": "SI3",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=8fc91d817b59579f0ba3b19a8e30c0153b519cbeb5cb9dcb8efc46c297b79c6b",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "TCF",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=bf15b40b6f5c363d83d2e22e684199126de068473dcfd4066a519485cabeaab5",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "TRJ",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=ac166e075021647820c910227871d3641dcbc415f5f991feee60d9de8258d043",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "TSG",
+   "kind": "base-only",
+   "axes_compared": [
+    "X0"
+   ],
+   "cells": {
+    "X0": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   }
+  },
+  {
+   "stem": "WTS",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=da8808ede849478ee8ec741b475a6311334957ac6a164f89128fc38e631c8765",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  },
+  {
+   "stem": "XTS",
+   "kind": "landed",
+   "axes_compared": [
+    "X1",
+    "X2",
+    "X3",
+    "X4"
+   ],
+   "cells": {
+    "X1": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X2": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X3": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    },
+    "X4": {
+     "shadow": "HOLDS",
+     "P0": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P1": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     },
+     "P2": {
+      "v2": "NOT-EVALUATED visibility:base-ref-unresolvable",
+      "class": "INPUT"
+     },
+     "P3": {
+      "v2": "HOLDS",
+      "class": "AGREE"
+     }
+    }
+   },
+   "v3_only": "linear base-on-first-parent-chain delta=114990c72c9bf5aba0d21fb85c809a5f77d4ab8f6e9d614307e725f8253c73e6",
+   "facts": {
+    "landing_parent_count": 2,
+    "merges_with_sealed_head_as_non_first_parent_from_F": 1,
+    "landing_reachable_from_X": true
+   }
+  }
+ ],
+ "outcomes": {
+  "V32-5": "CENSUS-AGREES",
+  "V32-6": "PERTURBATION-INVARIANT"
+ }
+}
