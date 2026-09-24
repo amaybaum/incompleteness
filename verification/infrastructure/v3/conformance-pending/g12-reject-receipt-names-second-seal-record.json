@@ -1,8 +1,9 @@
 {
- "id": "k1-reject-receipt-kind-disagrees-with-declaration",
+ "id": "g12-reject-receipt-names-second-seal-record",
  "settlements": [
-  "K1",
-  "S4"
+  "G12",
+  "S4",
+  "S11"
  ],
  "kind": "repo",
  "steps": [
@@ -63,7 +64,7 @@
       "version": 1,
       "round": "EX-2",
       "status": "complete",
-      "kind": "non-sealing",
+      "kind": "sealing",
       "object_format": "sha1",
       "d": "{{sha:D}}",
       "f": "{{sha:F}}",
@@ -112,9 +113,23 @@
         "commit": "{{sha:E}}",
         "record": "run on E"
        }
-      ]
+      ],
+      "seal": {
+       "records": [
+        {
+         "path": "verification/infrastructure/round-ex-2/seal-extra.json",
+         "blob": "{{textblob:seal record\n}}"
+        },
+        {
+         "path": "verification/v3-seals/EX-2.json",
+         "blob": "{{textblob:seal record\n}}"
+        }
+       ]
+      }
      }
-    }
+    },
+    "verification/v3-seals/EX-2.json": "seal record\n",
+    "verification/infrastructure/round-ex-2/seal-extra.json": "seal record\n"
    }
   },
   {

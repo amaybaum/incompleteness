@@ -4,10 +4,10 @@
   "S7"
  ],
  "kind": "s7",
- "text": "```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-2/\nrecord AM verification/receipts/EX-2.json\nrecord A verification/seals/EX2.json\nexecution AM verification/lean-mathlib/OIBridge/\nexecution M verification/lean-mathlib/OIBridge.lean\nexecution AMD verification/lean-mathlib/OIBridge/Scratch/\n```\n",
+ "text": "```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-2/\nrecord AM verification/receipts/EX-2.json\nrecord A verification/v3-seals/EX-2.json\nexecution AM verification/lean-mathlib/OIBridge/\nexecution M verification/lean-mathlib/OIBridge.lean\nexecution AMD verification/lean-mathlib/OIBridge/Scratch/\n```\n",
  "expect": {
   "verdict": "HOLDS",
-  "digest": "9781ab0207e9d09d8f5f6f5bee3acd117f6743b568f25f619987ef6fae79489d"
+  "digest": "0053d9c8bb76392786d52bd9f0da71dcd44455e51833bde01ec15b1ab2942d85"
  },
  "governs": [
   [

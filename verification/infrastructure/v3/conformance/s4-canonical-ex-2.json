@@ -43,7 +43,7 @@
   "seal": {
    "records": [
     {
-     "path": "verification/seals/EX2.json",
+     "path": "verification/v3-seals/EX-2.json",
      "blob": "5555555555555555555555555555555555555555"
     }
    ]
