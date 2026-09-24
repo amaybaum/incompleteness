@@ -12,7 +12,7 @@ Entry points, exactly:
     --corpus [DIR]                 the conformance corpus as an exact set; exit 1 on any vector not
                                    as expected (default: verification/infrastructure/v3/conformance)
     --verify-round <Q>             lifecycle T1, T3 or T5, T6 and T7 from the receipt commit Q
-    --publication <T> <Q>          S10: whether T is Q itself, and whether Q verifies
+    --reachable <C> <Q>            a diagnostic, never a verdict: whether Q is an ancestor of C
     --project <subject>            the projection of the V2 attestation rows read at <subject>
     --mode shadow --subject <C>    the corpus and the projection, reported; always exits 0
 
@@ -31,6 +31,11 @@ does not contain or a shallow repository. UNDECIDABLE is never promoted to HOLDS
 
 It implements the settled specification: the settlements of K1-K4 and G5-G7 that round V3-3 fixed
 and of G8-G12 that round V3-5 fixed. The settled rules are printed at every shadow run.
+
+It verifies repository facts and provenance. Whether a round holds is decided from its final receipt
+commit Q and the commits the receipt names; how a round's commits reach main is outside it (round
+V3-8). --reachable reports whether Q is an ancestor of a commit, as a diagnostic that no verdict
+reads.
 
 Standard library only.
 """
