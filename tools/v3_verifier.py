@@ -29,8 +29,8 @@ Verdicts: HOLDS; FAILS with reason codes, whose prefix is the family of the sett
 (t1: s3: s4: s7: s8: s9: s10: s12: input:); UNDECIDABLE with one code, for an object the repository
 does not contain or a shallow repository. UNDECIDABLE is never promoted to HOLDS.
 
-The provisional readings K1-K4 of the V3-2 preregistration bind this tool and nothing else; they are
-printed at every shadow run.
+It implements the settlements of K1-K4 and G5-G7 that round V3-3 fixed in the specification; the
+rules K1-K4 are printed at every shadow run.
 
 Standard library only.
 """
@@ -67,15 +67,17 @@ DEFAULT_CORPUS = os.path.join(os.path.dirname(HERE), 'verification', 'infrastruc
                               'conformance')
 ATTESTATION_DIR = 'verification/certificates/attestations/'
 
-READINGS = (
+SETTLED = (
     'K1  the preregistration at F carries one `v3-round` block: round <id>, kind '
-    '<sealing|non-sealing>, record-directory <path>/; the receipt must agree with it',
-    'K2  over all control-plane files at F together: exactly one `v3-governed-paths` block and '
-    'exactly one `v3-round` block',
+    '<sealing|non-sealing>, record-directory <path>/, the one directory holding every '
+    'control-plane path of delta(D, F); the receipt must agree with it',
+    'K2  at F the preregistration carries exactly one `v3-governed-paths` block and exactly one '
+    '`v3-round` block, and no amendment carries either',
     'K3  for every reconciliation, D lies on the first-parent chain of its first parent; for i>1, '
     'the previous first parent lies on the first-parent chain of this one',
     'K4  every receipt commit, superseded or final, is a single-parent child of the reconciliation '
-    'before it, changing exactly the receipt path plus the seal records it names',
+    'before it, changing exactly the receipt path plus the seal records the final receipt names; '
+    'a superseded receipt is not read',
 )
 
 HEX = {'sha1': 40, 'sha256': 64}
@@ -526,7 +528,7 @@ def validate_receipt(r):
 
 
 # ---------------------------------------------------------------------------------------------
-# the control plane at F (T1, with the K1 and K2 readings)
+# the control plane at F (T1, with K1 and K2)
 # ---------------------------------------------------------------------------------------------
 def control_plane(repo, d, f):
     """(record_dir, round, kind, entries, {path bytes: blob}, codes)."""
@@ -664,8 +666,8 @@ def cp_state(repo, oid, rdir):
 
 
 def check_control_plane_frozen(repo, f, oids, rdir, family):
-    """S2, read as covering every commit of the round after F (gap G7): the control-plane files
-    have at each named commit exactly their states at F."""
+    """S2 and G7: at every commit of the round after F, the control-plane files have exactly
+    their states at F."""
     want = cp_state(repo, f, rdir)
     for oid in oids:
         if oid is not None and cp_state(repo, oid, rdir) != want:
@@ -674,7 +676,7 @@ def check_control_plane_frozen(repo, f, oids, rdir, family):
 
 
 def check_halted_execution(repo, f, last, rdir):
-    """S3's form, read as binding every execution commit, certified or not (gap G5)."""
+    """S3's form and G5: it binds every execution commit, certified or not."""
     codes = check_linear(repo, f, last, 's12')
     if codes:
         return codes
@@ -1353,9 +1355,8 @@ def main(argv):
                 return 0
             print('v3_verifier shadow report -- SHADOW ONLY: this report gates nothing; V1 and V2 '
                   'remain authoritative')
-            print('provisional readings (bind this tool only; to be settled by a specification '
-                  'round before any promotion):')
-            for k in READINGS:
+            print('settled rules (verification/infrastructure/v3/architecture.md):')
+            for k in SETTLED:
                 print('  ' + k)
             ok, lines = run_corpus(DEFAULT_CORPUS, cwd)
             print('\n'.join(lines))
