@@ -1,0 +1,14 @@
+{
+ "id": "input-refuses-head",
+ "settlements": [
+  "S1"
+ ],
+ "kind": "input",
+ "argv": [
+  "HEAD"
+ ],
+ "expect": {
+  "verdict": "REFUSED",
+  "family": "input"
+ }
+}

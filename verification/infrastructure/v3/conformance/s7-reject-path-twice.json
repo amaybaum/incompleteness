@@ -1,0 +1,12 @@
+{
+ "id": "s7-reject-path-twice",
+ "settlements": [
+  "S7"
+ ],
+ "kind": "s7",
+ "text": "```v3-governed-paths\nrecord AM a/\nexecution M a/\n```\n",
+ "expect": {
+  "verdict": "FAILS",
+  "family": "s7"
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "id": "g6-reject-receipt-shadowed-by-execution-entry",
+ "settlements": [
+  "S7",
+  "G6"
+ ],
+ "kind": "s7",
+ "text": "```v3-governed-paths\nrecord AM verification/\nexecution AM verification/receipts/\n```\n",
+ "round": {
+  "record_directory": "verification/infrastructure/round-ex-1/",
+  "receipt_path": "verification/receipts/EX-1.json"
+ },
+ "expect": {
+  "verdict": "FAILS",
+  "family": "s7"
+ }
+}

@@ -1,0 +1,15 @@
+{
+ "id": "s8-landed-d3212b0e-50938dff",
+ "settlements": [
+  "S8"
+ ],
+ "kind": "s8-repo",
+ "from": "d3212b0ea09ba6b29a060a314ce487d27b3f26da",
+ "to": "50938dffc32075d9ce3f58ba9c5712716b5c843c",
+ "expect": {
+  "digest": "54e4a5f90e6eb789f88be9f4d8ccb6c8d6de6ebc5946dcde5f12b1e0351b0eee",
+  "statuses": [
+   "D"
+  ]
+ }
+}

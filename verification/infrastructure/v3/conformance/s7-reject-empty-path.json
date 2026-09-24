@@ -1,0 +1,12 @@
+{
+ "id": "s7-reject-empty-path",
+ "settlements": [
+  "S7"
+ ],
+ "kind": "s7",
+ "text": "```v3-governed-paths\nrecord AM \n```\n",
+ "expect": {
+  "verdict": "FAILS",
+  "family": "s7"
+ }
+}

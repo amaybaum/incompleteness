@@ -1,0 +1,14 @@
+{
+ "id": "input-refuses-abbreviated-id",
+ "settlements": [
+  "S1"
+ ],
+ "kind": "input",
+ "argv": [
+  "9c48062"
+ ],
+ "expect": {
+  "verdict": "REFUSED",
+  "family": "input"
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "id": "s4-duplicate-key",
+ "settlements": [
+  "S4"
+ ],
+ "kind": "s4",
+ "receipt_text": "{\n \"schema\": \"v3-receipt\",\n \"version\": 1,\n \"round\": \"EX-1\",\n \"round\": \"EX-1\",\n \"status\": \"complete\",\n \"kind\": \"non-sealing\",\n \"object_format\": \"sha1\",\n \"d\": \"dddddddddddddddddddddddddddddddddddddddd\",\n \"f\": \"ffffffffffffffffffffffffffffffffffffffff\",\n \"control_plane_blobs\": [\n  {\n   \"path\": \"verification/infrastructure/round-ex-1/preregistration.md\",\n   \"blob\": \"0101010101010101010101010101010101010101\"\n  }\n ],\n \"governed_paths_digest\": \"9999999999999999999999999999999999999999999999999999999999999999\",\n \"e\": \"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n \"tree_e\": \"e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0\",\n \"execution_delta_digest\": \"8888888888888888888888888888888888888888888888888888888888888888\",\n \"candidates\": [],\n \"landing\": {\n  \"base\": \"babababababababababababababababababababa\",\n  \"object\": \"c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1\",\n  \"reconciliations\": [\n   \"c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1\"\n  ],\n  \"resolved_paths\": [],\n  \"delta_digest\": \"7777777777777777777777777777777777777777777777777777777777777777\"\n },\n \"attestations\": [\n  {\n   \"kind\": \"owner-designation\",\n   \"subject\": \"F\",\n   \"commit\": \"ffffffffffffffffffffffffffffffffffffffff\",\n   \"record\": \"pull request review designating F\"\n  },\n  {\n   \"kind\": \"check-run\",\n   \"subject\": \"F\",\n   \"commit\": \"ffffffffffffffffffffffffffffffffffffffff\",\n   \"record\": \"workflow run on F\"\n  },\n  {\n   \"kind\": \"owner-designation\",\n   \"subject\": \"E\",\n   \"commit\": \"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n   \"record\": \"pull request comment designating E\"\n  },\n  {\n   \"kind\": \"check-run\",\n   \"subject\": \"E\",\n   \"commit\": \"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\n   \"record\": \"workflow run on E\"\n  }\n ]\n}",
+ "expect": {
+  "verdict": "FAILS",
+  "family": "s4"
+ }
+}

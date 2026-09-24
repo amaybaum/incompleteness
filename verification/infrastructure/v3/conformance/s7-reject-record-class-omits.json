@@ -1,0 +1,16 @@
+{
+ "id": "s7-reject-record-class-omits",
+ "settlements": [
+  "S7"
+ ],
+ "kind": "s7",
+ "text": "```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-1/\nexecution AMD tools/ex/\n```\n",
+ "round": {
+  "record_directory": "verification/infrastructure/round-ex-1/",
+  "receipt_path": "verification/receipts/EX-1.json"
+ },
+ "expect": {
+  "verdict": "FAILS",
+  "family": "s7"
+ }
+}

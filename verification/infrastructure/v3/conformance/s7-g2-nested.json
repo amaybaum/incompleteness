@@ -1,0 +1,34 @@
+{
+ "id": "s7-g2-nested",
+ "settlements": [
+  "S7"
+ ],
+ "kind": "s7",
+ "text": "```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-2/\nrecord AM verification/receipts/EX-2.json\nrecord A verification/seals/EX2.json\nexecution AM verification/lean-mathlib/OIBridge/\nexecution M verification/lean-mathlib/OIBridge.lean\nexecution AMD verification/lean-mathlib/OIBridge/Scratch/\n```\n",
+ "expect": {
+  "verdict": "HOLDS",
+  "digest": "9781ab0207e9d09d8f5f6f5bee3acd117f6743b568f25f619987ef6fae79489d"
+ },
+ "governs": [
+  [
+   "verification/lean-mathlib/OIBridge/Scratch/X.lean",
+   "verification/lean-mathlib/OIBridge/Scratch/",
+   "AMD"
+  ],
+  [
+   "verification/lean-mathlib/OIBridge/Y.lean",
+   "verification/lean-mathlib/OIBridge/",
+   "AM"
+  ],
+  [
+   "verification/lean-mathlib/OIBridge.lean",
+   "verification/lean-mathlib/OIBridge.lean",
+   "M"
+  ],
+  [
+   "verification/README.md",
+   null,
+   null
+  ]
+ ]
+}
