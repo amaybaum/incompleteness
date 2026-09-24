@@ -29,8 +29,8 @@ Verdicts: HOLDS; FAILS with reason codes, whose prefix is the family of the sett
 (t1: s3: s4: s7: s8: s9: s10: s12: input:); UNDECIDABLE with one code, for an object the repository
 does not contain or a shallow repository. UNDECIDABLE is never promoted to HOLDS.
 
-It implements the settlements of K1-K4 and G5-G7 that round V3-3 fixed in the specification; the
-rules K1-K4 are printed at every shadow run.
+It implements the settled specification: the settlements of K1-K4 and G5-G7 that round V3-3 fixed
+and of G8-G12 that round V3-5 fixed. The settled rules are printed at every shadow run.
 
 Standard library only.
 """
@@ -78,6 +78,25 @@ SETTLED = (
     'K4  every receipt commit, superseded or final, is a single-parent child of the reconciliation '
     'before it, changing exactly the receipt path plus the seal records the final receipt names; '
     'a superseded receipt is not read',
+    'G5  the execution commits of a halted round are linear from F and change no control-plane '
+    'file; their delta from F need not be authorized',
+    'G6  the governed-path block at F has literal record entries for the record directory and the '
+    'receipt path, no execution entry within the record directory, and no other record entry '
+    'outside it but a sealing round\'s `record A` of its seal record path',
+    'G7  at every commit of the round after F, superseded or final, the control-plane files are '
+    'exactly those at F, each with its state at F',
+    'G8  no ref, branch or host state is a predicate input; a control plane that names one changes '
+    'no predicate',
+    'G9  before F the control plane is a draft: its commits may add, modify or delete '
+    'control-plane files, and only the declarations at F are read',
+    'G10 declaration blocks are recognized by exact lines: an opener is three backticks and the '
+    'info string, a closer three backticks; a near miss of a reserved info string in any '
+    'control-plane file at F makes the control plane invalid',
+    'G11 the reconciliations and receipt commits of the round are exactly the chain Q reaches; an '
+    'abandoned attempt is not an object of the round',
+    'G12 a sealing round has one seal record, verification/v3-seals/<round>.json, declared '
+    '`record A` and named alone by its receipt; no round changes another round\'s receipt or V3 '
+    'seal record, or any path under verification/seals/',
 )
 
 HEX = {'sha1': 40, 'sha256': 64}
