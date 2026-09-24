@@ -1,8 +1,7 @@
 {
- "id": "mc2-counter-host-merge",
+ "id": "reach-undecidable-shallow-history",
  "settlements": [
-  "S10",
-  "MC2"
+  "S10"
  ],
  "kind": "repo",
  "steps": [
@@ -118,34 +117,18 @@
    }
   },
   {
-   "commit": "M2",
-   "parents": [
-    "D"
-   ],
-   "set": {
-    "README.md": "r2\n"
-   }
+   "write": ".git/shallow",
+   "text": "ffffffffffffffffffffffffffffffffffffffff\n"
   },
   {
-   "commit": "H",
-   "parents": [
-    "M2",
-    "Q"
-   ],
-   "from": "Q",
-   "set": {
-    "README.md": "r2\n"
-   }
-  },
-  {
-   "check": "publication",
+   "check": "reachable",
    "args": [
-    "H",
+    "Q",
     "Q"
    ],
    "expect": {
-    "verdict": "FAILS",
-    "family": "s10"
+    "reachable": "undecidable",
+    "code": "undecidable:shallow-repository"
    }
   }
  ]

@@ -990,17 +990,14 @@ def _verify_round(repo, q):
     return ('FAILS' if codes else 'HOLDS'), codes, att
 
 
-def publication(repo, t, q):
-    """S10: a publication of the round is Q itself, and nothing else."""
+def reachable(repo, c, q):
+    """A diagnostic, never a verdict (S10): 'true' when Q is an ancestor of C, a commit being its
+    own ancestor; 'false' when it is not; 'undecidable' with a code when the repository cannot
+    say. No predicate reads it, and it never changes a verdict."""
     try:
-        repo.need(t)
-        repo.need(q)
+        return ('true' if repo.is_ancestor(q, c) else 'false'), None
     except Undecidable as u:
-        return 'UNDECIDABLE', [u.code]
-    if t != q:
-        return 'FAILS', ['s10:not-q-itself']
-    v, codes, _ = verify_round(repo, q)
-    return v, codes
+        return 'undecidable', u.code
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1221,8 +1218,9 @@ def run_repo_vector(vec, workdir):
             if step['check'] == 'verify-round':
                 verdict, codes, _ = verify_round(Repo(workdir), args[0])
                 got = (verdict, codes)
-            elif step['check'] == 'publication':
-                got = publication(Repo(workdir), args[0], args[1])
+            elif step['check'] == 'reachable':
+                state, code = reachable(Repo(workdir), args[0], args[1])
+                got = (state, [code] if code else [])
             elif step['check'] == 'delta':
                 r = Repo(workdir)
                 got = ('HOLDS', [delta_digest(r.delta(args[0], args[1]), r.fmt())])
@@ -1233,7 +1231,10 @@ def run_repo_vector(vec, workdir):
             if 'same_as' in step and saved.get(step['same_as']) != got:
                 return False, 'output differs from %s' % step['same_as']
             exp = step['expect']
-            if 'digest' in exp:
+            if 'reachable' in exp:
+                if got[0] != exp['reachable'] or ('code' in exp and got[1] != [exp['code']]):
+                    return False, 'REACHABLE %s' % (got[1][0] if got[1] else got[0])
+            elif 'digest' in exp:
                 if got[1] != [exp['digest']]:
                     return False, 'digest %s' % (got[1][:1],)
             elif not expect_ok(exp, got[0], got[1]):
@@ -1385,7 +1386,7 @@ def self_test():
 # main
 # ---------------------------------------------------------------------------------------------
 USAGE = ('usage: v3_verifier.py --self-test | --corpus [DIR] | --verify-round <Q> | '
-         '--publication <T> <Q> | --project <subject> | --mode shadow --subject <commit>')
+         '--reachable <C> <Q> | --project <subject> | --mode shadow --subject <commit>')
 
 
 def main(argv):
@@ -1403,10 +1404,10 @@ def main(argv):
             print('\n'.join(att))
             print('VERDICT  %s%s' % (verdict, '  ' + ', '.join(codes) if codes else ''))
             return 0
-        if argv[:1] == ['--publication'] and len(argv) == 3:
-            t, q = check_oid(argv[1]), check_oid(argv[2])
-            verdict, codes = publication(Repo(cwd), t, q)
-            print('VERDICT  %s%s' % (verdict, '  ' + ', '.join(codes) if codes else ''))
+        if argv[:1] == ['--reachable'] and len(argv) == 3:
+            c, q = check_oid(argv[1]), check_oid(argv[2])
+            state, code = reachable(Repo(cwd), c, q)
+            print('REACHABLE %s' % (code if code else state))
             return 0
         if argv[:1] == ['--project'] and len(argv) == 2:
             s = check_oid(argv[1])
