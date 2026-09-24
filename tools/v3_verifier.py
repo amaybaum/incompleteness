@@ -585,11 +585,24 @@ def control_plane(repo, d, f):
     if decl['record-directory'].encode() != rdir:
         return None, None, None, None, files, ['t1:record-directory-mismatch']
     receipt_path = 'verification/receipts/%s.json' % decl['round']
-    for p in (decl['record-directory'], receipt_path):
-        e = governing(entries, p)
-        if e is None or e[0] != 'record':
-            codes.append('t1:record-class-omits:' + p)
+    codes += record_class_codes(entries, decl['record-directory'], receipt_path, decl['kind'], 't1')
     return rdir, decl['round'], decl['kind'], entries, files, codes
+
+
+def record_class_codes(entries, rd, rp, kind, fam):
+    """G6: the record class is exactly the round's own record."""
+    codes = []
+    literal = {e[2] for e in entries if e[0] == 'record'}
+    for p in (rd, rp):
+        if p not in literal:
+            codes.append(fam + ':record-class-omits:' + p)
+    for cls, ops, p in entries:
+        if cls == 'execution' and p.startswith(rd):
+            codes.append(fam + ':execution-entry-within-record-directory')
+        if cls == 'record' and p not in (rd, rp) and not p.startswith(rd):
+            if p.endswith('/') or kind == 'non-sealing':
+                codes.append(fam + ':record-entry-outside-own-record')
+    return codes
 
 
 def check_t1(repo, d, f, cp_files):
@@ -727,13 +740,12 @@ def check_landing_complete(repo, d, e, lb, lam, entries, resolved, receipt_path)
     return codes, delta
 
 
-def check_landing_halted(repo, lb, lam, entries, rdir):
+def check_landing_halted(repo, lb, lam, entries, rdir, receipt_path):
     codes = []
     delta = repo.delta(lb, lam)
     for st, path, *_ in delta:
-        g = governing(entries, path)
-        if g is None or g[0] != 'record':
-            codes.append('s12:landing-publishes-execution-path')
+        if not (path.startswith(rdir) or path == receipt_path):
+            codes.append('s12:landing-publishes-non-record-path')
             break
         if not authorized(entries, st, path):
             codes.append('s12:landing-unauthorized')
@@ -851,9 +863,8 @@ def _verify_round(repo, q):
             codes.append('s12:record-commit-not-child-of-f')
         else:
             for st_, path, *_ in repo.delta(f, c):
-                g = governing(entries, path)
-                if g is None or g[0] != 'record':
-                    codes.append('s12:record-commit-changes-execution-path')
+                if not (path.startswith(rdir) or path == receipt_path):
+                    codes.append('s12:record-commit-changes-non-record-path')
                     break
             if rdir + b'result.md' not in repo.entries(c):
                 codes.append('s12:result-note-absent')
@@ -890,7 +901,7 @@ def _verify_round(repo, q):
         if delta_digest(ldelta, repo.fmt()) != lan['delta_digest']:
             codes.append('s4:landing-delta-digest')
     else:
-        lcodes, ldelta = check_landing_halted(repo, lb, lam, entries, rdir)
+        lcodes, ldelta = check_landing_halted(repo, lb, lam, entries, rdir, receipt_path)
         codes += lcodes
         if delta_digest(ldelta, repo.fmt()) != lan['delta_digest']:
             codes.append('s4:landing-delta-digest')
@@ -1172,10 +1183,8 @@ def run_vector(vec, cwd):
             codes = []
             rnd = vec.get('round')
             if rnd:
-                for p in (rnd['record_directory'], rnd['receipt_path']):
-                    e = governing(res, p)
-                    if e is None or e[0] != 'record':
-                        codes.append('s7:record-class-omits')
+                codes += record_class_codes(res, rnd['record_directory'], rnd['receipt_path'],
+                                            None, 's7')
             if codes:
                 return expect_ok(exp, 'FAILS', codes), ','.join(codes)
             if exp['verdict'] != 'HOLDS':
