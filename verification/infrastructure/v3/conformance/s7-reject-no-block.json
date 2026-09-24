@@ -1,0 +1,12 @@
+{
+ "id": "s7-reject-no-block",
+ "settlements": [
+  "S7"
+ ],
+ "kind": "s7",
+ "text": "no block here\n",
+ "expect": {
+  "verdict": "FAILS",
+  "family": "s7"
+ }
+}

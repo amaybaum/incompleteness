@@ -1,0 +1,12 @@
+{
+ "id": "s7-g1-order-b",
+ "settlements": [
+  "S7"
+ ],
+ "kind": "s7",
+ "text": "```v3-governed-paths\n# the same set, another order\nexecution M verification/README.md\nexecution AMD tools/ex/\nrecord AM verification/receipts/EX-1.json\nrecord AM verification/infrastructure/round-ex-1/\n```\n",
+ "expect": {
+  "verdict": "HOLDS",
+  "digest": "e8bbfdef7908f026af80b86520349aa377d6963d98a995799aaf83d36251e946"
+ }
+}

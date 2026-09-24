@@ -1,0 +1,65 @@
+{
+ "id": "s4-delta-digest-without-e",
+ "settlements": [
+  "S4"
+ ],
+ "kind": "s4",
+ "receipt": {
+  "schema": "v3-receipt",
+  "version": 1,
+  "round": "EX-3",
+  "status": "halted",
+  "kind": "non-sealing",
+  "object_format": "sha1",
+  "d": "dddddddddddddddddddddddddddddddddddddddd",
+  "f": "ffffffffffffffffffffffffffffffffffffffff",
+  "control_plane_blobs": [
+   {
+    "path": "verification/infrastructure/round-ex-3/preregistration.md",
+    "blob": "0101010101010101010101010101010101010101"
+   }
+  ],
+  "governed_paths_digest": "9999999999999999999999999999999999999999999999999999999999999999",
+  "withdrawal": "a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0",
+  "candidates": [
+   {
+    "commit": "cacacacacacacacacacacacacacacacacacacaca",
+    "tree": "cbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcb",
+    "measured": "the closing checks; one frozen predicate false"
+   }
+  ],
+  "landing": {
+   "base": "babababababababababababababababababababa",
+   "object": "c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1",
+   "reconciliations": [
+    "c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1"
+   ],
+   "resolved_paths": [],
+   "delta_digest": "7777777777777777777777777777777777777777777777777777777777777777"
+  },
+  "attestations": [
+   {
+    "kind": "owner-designation",
+    "subject": "F",
+    "commit": "ffffffffffffffffffffffffffffffffffffffff",
+    "record": "pull request review designating F"
+   },
+   {
+    "kind": "check-run",
+    "subject": "F",
+    "commit": "ffffffffffffffffffffffffffffffffffffffff",
+    "record": "workflow run on F"
+   }
+  ],
+  "absent": {
+   "e": "halted-before-certification",
+   "tree_e": "halted-before-certification",
+   "execution_delta_digest": "halted-before-certification"
+  },
+  "execution_delta_digest": "8888888888888888888888888888888888888888888888888888888888888888"
+ },
+ "expect": {
+  "verdict": "FAILS",
+  "family": "s4"
+ }
+}
