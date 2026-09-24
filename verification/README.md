@@ -2690,3 +2690,12 @@ were transcribed byte-equal, `GR-1` and `GR-2` changed representation with the s
 `E` → `L`, no pin; it writes no manifest record, no prospective declaration and no baseline change;
 its attestation `A` — one record, `attestations/CV1.json`, with the run identities — is appended to
 `main` after the landing's push run is certified.
+
+`tools/v3_verifier.py` is the V3 shadow verifier, installed by round `V3-2`
+(`infrastructure/round-v3-2-shadow-verifier/`). It implements the protocol-3 specification
+(`infrastructure/v3/architecture.md`) with the provisional readings `V3-2`'s preregistration froze,
+and it gates nothing: it has no authoritative mode, no verdict it prints changes an exit status,
+the release gate does not invoke it, and its workflow job, `V3 shadow verifier`, is not a required
+check. `V1` and `V2` remain authoritative. Its conformance corpus is
+`infrastructure/v3/conformance/`, executed as an exact set; its comparison with `V2` over the
+attestation rows is `V3-2`'s `census.json`.

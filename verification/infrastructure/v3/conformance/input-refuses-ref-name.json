@@ -1,0 +1,14 @@
+{
+ "id": "input-refuses-ref-name",
+ "settlements": [
+  "S1"
+ ],
+ "kind": "input",
+ "argv": [
+  "refs/heads/main"
+ ],
+ "expect": {
+  "verdict": "REFUSED",
+  "family": "input"
+ }
+}

@@ -1,0 +1,134 @@
+{
+ "id": "mc3-counter-ungoverned-path",
+ "settlements": [
+  "S9",
+  "MC3"
+ ],
+ "kind": "repo",
+ "steps": [
+  {
+   "commit": "D",
+   "parents": [],
+   "from": null,
+   "set": {
+    "README.md": "r\n",
+    "tools/ex/keep.txt": "k\n",
+    "verification/README.md": "v\n"
+   }
+  },
+  {
+   "commit": "F",
+   "parents": [
+    "D"
+   ],
+   "set": {
+    "verification/infrastructure/round-ex-1/preregistration.md": "# EX-1 preregistration\n\n```v3-round\nround EX-1\nkind non-sealing\nrecord-directory verification/infrastructure/round-ex-1/\n```\n\n```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-1/\nrecord AM verification/receipts/EX-1.json\nexecution AMD tools/ex/\nexecution M verification/README.md\n```\n"
+   }
+  },
+  {
+   "commit": "E1",
+   "parents": [
+    "F"
+   ],
+   "set": {
+    "tools/ex/a.txt": "a\n"
+   }
+  },
+  {
+   "commit": "E",
+   "parents": [
+    "E1"
+   ],
+   "set": {
+    "verification/README.md": "v2\n"
+   }
+  },
+  {
+   "commit": "R1",
+   "parents": [
+    "D",
+    "E"
+   ],
+   "from": "E",
+   "set": {
+    "other.txt": "o\n"
+   }
+  },
+  {
+   "commit": "Q",
+   "parents": [
+    "R1"
+   ],
+   "set": {
+    "verification/receipts/EX-1.json": {
+     "json": {
+      "schema": "v3-receipt",
+      "version": 1,
+      "round": "EX-1",
+      "status": "complete",
+      "kind": "non-sealing",
+      "object_format": "sha1",
+      "d": "{{sha:D}}",
+      "f": "{{sha:F}}",
+      "control_plane_blobs": [
+       {
+        "path": "verification/infrastructure/round-ex-1/preregistration.md",
+        "blob": "{{blob:F|verification/infrastructure/round-ex-1/preregistration.md}}"
+       }
+      ],
+      "governed_paths_digest": "{{gpd:F|verification/infrastructure/round-ex-1/preregistration.md}}",
+      "e": "{{sha:E}}",
+      "tree_e": "{{tree:E}}",
+      "execution_delta_digest": "{{delta:F|E}}",
+      "candidates": [],
+      "landing": {
+       "base": "{{sha:D}}",
+       "object": "{{sha:R1}}",
+       "reconciliations": [
+        "{{sha:R1}}"
+       ],
+       "resolved_paths": [],
+       "delta_digest": "{{delta:D|R1}}"
+      },
+      "attestations": [
+       {
+        "kind": "owner-designation",
+        "subject": "F",
+        "commit": "{{sha:F}}",
+        "record": "designation of F"
+       },
+       {
+        "kind": "check-run",
+        "subject": "F",
+        "commit": "{{sha:F}}",
+        "record": "run on F"
+       },
+       {
+        "kind": "owner-designation",
+        "subject": "E",
+        "commit": "{{sha:E}}",
+        "record": "designation of E"
+       },
+       {
+        "kind": "check-run",
+        "subject": "E",
+        "commit": "{{sha:E}}",
+        "record": "run on E"
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "check": "verify-round",
+   "args": [
+    "Q"
+   ],
+   "expect": {
+    "verdict": "FAILS",
+    "family": "s9"
+   }
+  }
+ ]
+}

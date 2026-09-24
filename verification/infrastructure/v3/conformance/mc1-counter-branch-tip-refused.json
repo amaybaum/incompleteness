@@ -1,0 +1,15 @@
+{
+ "id": "mc1-counter-branch-tip-refused",
+ "settlements": [
+  "S1",
+  "MC1"
+ ],
+ "kind": "input",
+ "argv": [
+  "refs/heads/main"
+ ],
+ "expect": {
+  "verdict": "REFUSED",
+  "family": "input"
+ }
+}

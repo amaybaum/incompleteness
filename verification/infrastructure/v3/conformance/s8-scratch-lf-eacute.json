@@ -1,0 +1,61 @@
+{
+ "id": "s8-scratch-lf-eacute",
+ "settlements": [
+  "S8"
+ ],
+ "kind": "repo",
+ "steps": [
+  {
+   "commit": "a",
+   "parents": [],
+   "from": null,
+   "set": {
+    "base.txt": "a\n"
+   }
+  },
+  {
+   "commit": "b",
+   "parents": [
+    "a"
+   ],
+   "set": {
+    "base.txt": "b\n",
+    "dir/new\nline-é.txt": "x"
+   }
+  },
+  {
+   "config": [
+    "core.quotePath",
+    "true"
+   ]
+  },
+  {
+   "check": "delta",
+   "args": [
+    "a",
+    "b"
+   ],
+   "expect": {
+    "digest": "61e4a51182e953b8cd90fe5b95031af5f531744fa5c7a75e865d460da87c36cd"
+   },
+   "as": "qp-true"
+  },
+  {
+   "config": [
+    "core.quotePath",
+    "false"
+   ]
+  },
+  {
+   "check": "delta",
+   "args": [
+    "a",
+    "b"
+   ],
+   "expect": {
+    "digest": "61e4a51182e953b8cd90fe5b95031af5f531744fa5c7a75e865d460da87c36cd"
+   },
+   "same_as": "qp-true"
+  }
+ ]
+}
