@@ -9,10 +9,12 @@ under the frozen preregistration
 `verification/infrastructure/round-v3-1-architecture/preregistration.md`, whose settlements `S1` to
 `S13` it states as normative text. Round `V3-3`, under the frozen preregistration
 `verification/infrastructure/round-v3-3-specification-resolution/preregistration.md`, settled the
-seven gaps round `V3-2` recorded, `K1` to `K4` and `G5` to `G7`, and each settlement is normative
-text under its identifier. The specification is not operative: until a later round activates it,
-every round is governed by `AGENTS.md` §A.37, and no `V1` or `V2` state is changed or migrated by
-it.
+seven gaps round `V3-2` recorded, `K1` to `K4` and `G5` to `G7`. Round `V3-5`, under the frozen
+preregistration
+`verification/infrastructure/round-v3-5-specification-completion/preregistration.md`, settled the
+five gaps round `V3-3` recorded, `G8` to `G12`. Each settlement is normative text under its
+identifier. The specification is not operative: until a later round activates it, every round is
+governed by `AGENTS.md` §A.37, and no `V1` or `V2` state is changed or migrated by it.
 
 The words **must**, **must not** and **may** are normative. Anything this document leaves
 undefined is invalid, not permitted.
@@ -27,7 +29,7 @@ undefined is invalid, not permitted.
 | `F` | the freeze anchor: the exact control-plane commit the owner designates |
 | `E` | the certified execution head: the last execution commit, fixed by certification |
 | `W` | the withdrawal commit a halted round appends after its last execution commit |
-| `R₁ … Rₖ` | the reconciliation commits, merges whose first parent is the tip of `main` when each is built |
+| `R₁ … Rₖ` | the reconciliation commits of the round (`G11`), merges whose first parent is the tip of `main` when each is built |
 | `Λ` | the landing object: the last reconciliation, `Rₖ` |
 | `LB` | the landing base: `Λ`'s first parent |
 | `Q` | the final receipt commit: a single-parent child of `Λ`, which publication makes the tip of `main` |
@@ -86,6 +88,11 @@ the only paths `delta(D, F)` may touch (`S2`), and it fixes the receipt path,
 | `G5` | the halted execution is linear | `G5`, under `S12`; lifecycle transition T5 |
 | `G6` | the record class is the round's own record | `G6`, under `S7`; lifecycle transitions T1, T5 and T6 |
 | `G7` | no commit after `F` changes the control plane | `G7`, under `S2`; lifecycle transitions T3, T5, T6 and T7 |
+| `G8` | mutable state is never a predicate input | `G8`, under `S1`; every predicate of the lifecycle |
+| `G9` | before `F` the control plane is a draft | `G9`, under `S2`; lifecycle transition T1 |
+| `G10` | declaration blocks are recognized by exact lines | `G10`, under `S7`; lifecycle transition T1 |
+| `G11` | the round's later objects are those its final receipt commit reaches | `G11`, under `S3`; lifecycle transitions T6 and T7 |
+| `G12` | the seal record | `G12`, under `S7`; lifecycle transitions T1, T3, T6 and T7 |
 
 ***
 
@@ -103,46 +110,81 @@ other); any remote-tracking ref; any ref under `refs/pull/`; a synthetic merge c
 constructs; any field of a host event payload; the working tree; the result of a network fetch; or
 the time.
 
-A mutable ref or host state **may** enter a predicate only when the round's control plane at `F`
-declares, prospectively and by name, that the round owns it. Such a predicate is evaluated only
-inside the round's execution window, between the designation of `F` and publication; no historical
-verdict on the round depends on it afterwards.
+A mutable ref or host state **must not** enter a V3 predicate, whatever the round's control plane
+declares (`G8`).
 
 Locating a commit is not a predicate. A verifier **may** be handed `E` or `Q` by any means — an
 argument, a ref, a search of history — but whether the round holds is decided from the commits
 alone. The one operation that reads the live tip of `main` is publication (`S10`), which either
 succeeds atomically or leaves `main` untouched; it is never an input to the round's validity.
 
+### `G8` — mutable state is never a predicate input
+
+No control-plane declaration makes a mutable ref or host state an input to a predicate. The
+specification defines no form for such a declaration, and a control plane that names a ref, a
+branch or a host setting changes no predicate by doing so. Host facts enter a round in two ways
+only. An owner's designation and a check run's conclusion are attestations (`S5`), recorded and
+never read by a predicate. Anything else the executor observes on the host — the state of a branch,
+a deletion it performs, a setting it changes — is the executor's evidence, recorded in the round's
+result note and read by no predicate. Publication (`S10`) inspects the live tip of `main` as an
+operation, and the outcome of that operation is not an input to the round's validity.
+
 ## `S2` — one pull request per round, anchored at `F`
 
-A V3 round is one pull request. It begins from `D` with control-plane-only commits: the
-preregistration and, before `F` exists, append-only amendments. Each of these commits has exactly
-one parent and changes only control-plane files of the round's record directory.
+A V3 round is one pull request. It begins from `D` with control-plane-only commits, which create
+the preregistration and may add amendments. Each of these commits has exactly one parent and
+changes only control-plane files of the round's record directory.
 
-`F` is the exact commit the owner approves and designates. Before `F` is designated, amendments are
-appended; after it, no commit **may** change a control-plane file. Execution begins only after the
-required checks have passed on exactly `F` and the owner has designated `F`.
+`F` is the exact commit the owner approves and designates. Before `F` is designated, the control
+plane is a draft, which a commit may revise (`G9`); after it, no commit **may** change a
+control-plane file. Execution begins only after the required checks have passed on exactly `F` and
+the owner has designated `F`.
 
 `F`, and not a merge commit on `main`, is the execution's ancestry anchor. `delta(D, F)` touches only
 control-plane files of the round's record directory.
 
+### `G9` — before `F` the control plane is a draft
+
+The commits of `rev-list F ^D` may add, modify and delete the round's control-plane files: the
+preregistration may be rewritten, and an amendment revised or removed. Nothing before `F` is
+append-only. The constraints on those commits are T1's: each has exactly one parent, `D` is an
+ancestor of `F`, and each changes only control-plane files of the round's record directory. The
+declarations in force are those `K2` reads at `F`, and no predicate reads the content of a
+control-plane file at a commit before `F`. Every earlier state stays in `F`'s history.
+
 ### `G7` — no commit after `F` changes the control plane
 
 The rule that no commit after `F` changes a control-plane file binds every commit of the round after
-`F`: each execution commit, `W` or the commit that takes its place (`S12`), each reconciliation, and
-each receipt commit, superseded or final. At each of them the round's control-plane files are
-exactly those at `F`, each with its state at `F`: none is changed, removed or added. A control-plane
-file listed in `landing.resolved_paths` is no exception.
+`F`: each execution commit, `W` or the commit that takes its place (`S12`), and each reconciliation
+and receipt commit of the round (`G11`), superseded or final. At each of them the round's
+control-plane files are exactly those at `F`, each with its state at `F`: none is changed, removed
+or added. A control-plane file listed in `landing.resolved_paths` is no exception.
 
 ## `S3` — `E` is immutable
 
 Execution starts from `F` and nothing else. Every commit of `rev-list E ^F` has exactly one parent,
 and that parent is `F` or another commit of `rev-list E ^F`: no merge and no rebase absorbs later
 `main` before certification. Certification fixes `E`: the required checks pass on exactly `E`, and
-the owner designates `E`. Nothing after certification rewrites `F..E`; later objects only append.
+the owner designates `E`. Nothing after certification rewrites `F..E`, and every later object of
+the round descends from `E` (`G11`).
 
 `delta(F, E)` **must** be authorized under `S7`, and no commit of `F..E` changes a control-plane
 file.
+
+### `G11` — the round's later objects are those its final receipt commit reaches
+
+The reconciliations and receipt commits of the round are exactly those of one chain, which `Q`
+fixes. `Λ`, `Q`'s parent, is the last reconciliation. Each reconciliation's second parent is either
+a receipt commit, whose parent is the reconciliation before it in the chain, or, for `R₁`, `E`, `W`
+or the commit in `W`'s place (`S12`). `landing.reconciliations` lists the chain's reconciliations,
+in order, and nothing else. A reconciliation or receipt commit that `Q` does not reach through that
+chain is not an object of the round, whether or not it exists in the repository or was once the
+head of the pull request, and no predicate reads it.
+
+Before publication a round may therefore abandon a reconciliation or receipt commit and build again
+from `E`, from `W` or the commit in its place, or from a receipt commit it keeps. `F`, `E` and the
+commits of `F..E` are never replaced. The result note may record abandoned objects as provenance;
+they are not predicate inputs.
 
 ## `S4` — every round has one receipt
 
@@ -182,7 +224,7 @@ status columns, `R` is required, `—` is forbidden, and `A` is absent with a re
 | `withdrawal` | object id of `W` | `W` | `—` | `R` | `A` |
 | `candidates` | array of `{"commit", "tree", "measured"}`, `measured` a string stating what was measured on it | each commit | `R`, possibly empty | `R`, non-empty | `R`, empty |
 | `landing` | object `{"base", "object", "reconciliations", "resolved_paths", "delta_digest"}`: `base` the object id of `LB`; `object` that of `Λ`; `reconciliations` the object ids of every reconciliation of the round in order, at least one, the last equal to `object`; `resolved_paths` an array of paths sorted by bytes; `delta_digest` `S8`'s digest of `delta(LB, Λ)` | `Λ`, `LB`, each reconciliation | `R` | `R` | `R` |
-| `seal` | object `{"records"}`: `records` an array of `{"path", "blob"}`, the seal records `Q` publishes, sorted by path bytes, non-empty | `Q` | `R` if `kind` is `"sealing"`, `—` otherwise | `—` | `—` |
+| `seal` | object `{"records"}`: `records` an array of exactly one `{"path", "blob"}`, the round's seal record path and the object id of its file at `Q` (`G12`) | `Q` | `R` if `kind` is `"sealing"`, `—` otherwise | `—` | `—` |
 | `attestations` | array of attestation objects (below) | — | `R` | `R` | `R` |
 | `absent` | object mapping each `A` field's name to one reason code | — | `—` | `R` | `R` |
 
@@ -266,7 +308,8 @@ of those bytes, written as 64 lowercase hexadecimal digits.
 A changed path is **governed** by the entry of greatest length whose `<path>` equals it or is a
 directory prefix of it. The change is **authorized** when the delta record's status letter is in
 that entry's `<ops>`, with the status `T` counting as `M`. A path no entry governs is unauthorized;
-this includes every path the text block cannot express.
+this includes every path the text block cannot express. A change `G12` excludes is unauthorized,
+whichever entry governs it.
 
 The set in force is the set at `F`, re-derived from `F` by the verifier; no later policy redefines
 it.
@@ -274,10 +317,34 @@ it.
 ### `K2` — the declarations lie in the preregistration
 
 At `F`, the preregistration carries exactly one `v3-governed-paths` block and exactly one
-`v3-round` block (`K1`), which are the declarations in force, and no amendment carries a fenced
-block with either info string. A fenced block with either info string that is not closed, in any
-control-plane file at `F`, makes the control plane invalid. This fixes where the declarations lie at
-`F`, and nothing about how control-plane files may change before it.
+`v3-round` block (`K1`), which are the declarations in force, and no amendment carries a block with
+either info string. Blocks are recognized as `G10` states. An opener that is not closed, or a near
+miss, in any control-plane file at `F`, makes the control plane invalid. This fixes where the
+declarations lie at `F`; how control-plane files may change before it is `G9`'s.
+
+### `G10` — declaration blocks are recognized by exact lines
+
+The declaration blocks are recognized in the bytes of each control-plane file, line by line and
+without Markdown semantics. A line is the bytes between two LF bytes (0x0A), or between the start
+or the end of the file and an LF; every other byte, a CR (0x0D) included, belongs to the line. With
+`I` either reserved info string, `v3-round` or `v3-governed-paths`:
+
+1. An **opener** for `I` is a line that is exactly three backticks (0x60) followed by `I`.
+2. A **closer** is a line that is exactly three backticks.
+3. A block for `I` begins at an opener for `I`. Its body is the lines after the opener up to, and
+   not including, the first closer after it, where the block ends. An opener after which no closer
+   occurs is **not closed**.
+4. A **near miss** for `I` is a line that is not an opener and that consists of, in order: zero or
+   more spaces (0x20) and TABs (0x09); a run of three or more backticks, or of three or more
+   tildes (0x7E); zero or more spaces and TABs; `I`; and then either nothing, or a space, a TAB or
+   a CR followed by any bytes.
+
+Nesting has no meaning. An opener is an opener wherever it lies, inside another fenced block, an
+HTML comment or any other Markdown construct, and every line of the file, the lines of a block's
+body included, is examined for a near miss. A tilde fence, a fence of four or more backticks, an
+indented fence and an opener followed by further text are near misses, never declarations. A line
+whose info string only begins with `I`, such as `v3-roundtrip`, is neither an opener nor a near
+miss. A fenced block with any other info string is not a declaration and is not read.
 
 ### `G6` — the record class is the round's own record
 
@@ -286,14 +353,34 @@ block at `F` is valid for the round only if:
 
 1. it has a `record` entry whose `<path>` is `R` and a `record` entry whose `<path>` is `P`;
 2. no `execution` entry's `<path>` lies within `R`, that is, equals `R` or begins with it;
-3. every other `record` entry's `<path>` lies within `R` or, in a sealing round only, is a single
-   file outside `R`, not a directory prefix, declaring a seal record path.
+3. every other `record` entry's `<path>` lies within `R`, except one: the block of a sealing round
+   has the entry `record A S`, where `S` is the round's seal record path (`G12`).
 
 These conditions are checked against the round, at `F`. A **record path** of the round is a path
 that lies within `R`, the path `P`, or a seal record that the round's final receipt names; a path is
 not a record path merely because a `record` entry governs it. A halted receipt names no seal record
 (`S4`), so the record paths of a halted round are `P` and the paths within `R`. `S12`'s record
 commit and halted landing admit record paths in this sense and no others.
+
+### `G12` — the seal record
+
+A sealing round has exactly one seal record, at its **seal record path**
+`verification/v3-seals/<round>.json`, where `<round>` is its round id (`K1`). Its block at `F`
+carries `record A` of that path (`G6`), so the round may add the file and may never modify or
+delete it: if a file already lies at the path, the round's change to it is not an addition, and is
+unauthorized. The receipt of a complete sealing round names exactly that path and the object id of
+its file at `Q` (`S4`); a non-sealing receipt and a halted receipt name none.
+
+V3 assigns the seal record no field and no format. Its protocol meaning is exactly this: the
+durable blob the round owns at its fixed seal record path, whose object id the final receipt pins.
+The `.json` extension is conventional. No V3 predicate parses the file or derives any validity from
+its content; a consumer of a round's seal record may impose its own format on it, and the V3
+verifier does not.
+
+No round changes another round's receipt or seal state. A change is unauthorized, whichever entry
+governs it, when it is to a path under `verification/receipts/` other than the round's receipt
+path, to a path under `verification/v3-seals/` other than its seal record path, or to any path
+under `verification/seals/`, which holds the seal state of protocol 2 and is no V3 round's.
 
 ## `S8` — deltas are canonical
 
@@ -364,13 +451,13 @@ conditions.
 
 ### `K3` — the first parent of every reconciliation
 
-The requirement that `D` lie on `LB`'s first-parent chain binds every reconciliation, not only the
-last. `D` lies on the first-parent chain of `R₁`'s first parent, and for each `i > 1` the first
-parent of `Rᵢ₋₁` lies on the first-parent chain of `Rᵢ`'s first parent. The first parents of the
-reconciliations therefore lie, in order, on one first-parent chain, which is `LB`'s. Two consecutive
-reconciliations may have the same first parent, when `main` has not moved between them. A round in
-which one reconciliation's first parent lies behind an earlier one's is invalid, even when a later
-reconciliation's first parent lies ahead of both.
+The requirement that `D` lie on `LB`'s first-parent chain binds every reconciliation of the round
+(`G11`), not only the last. `D` lies on the first-parent chain of `R₁`'s first parent, and for each
+`i > 1` the first parent of `Rᵢ₋₁` lies on the first-parent chain of `Rᵢ`'s first parent. The first
+parents of the reconciliations therefore lie, in order, on one first-parent chain, which is `LB`'s.
+Two consecutive reconciliations may have the same first parent, when `main` has not moved between
+them. A round in which one reconciliation's first parent lies behind an earlier one's is invalid,
+even when a later reconciliation's first parent lies ahead of both.
 
 ## `S10` — publication is a fast-forward to `Q`, and nothing else
 
@@ -383,32 +470,34 @@ parent. After publication the tip of `main` is `Q`; there is no publication comm
 If `main` has moved past `LB` when publication is attempted, the non-force update fails atomically
 and `main` is untouched. The round then:
 
-1. appends a further reconciliation, whose first parent is the new tip of `main` and whose second
-   parent is `Q`;
-2. appends a new final receipt commit on it, whose receipt names the new `LB` and `Λ` and lists every
-   reconciliation;
+1. builds a further reconciliation, whose first parent is the new tip of `main` and whose second
+   parent is either `Q`, which then remains in the round as a superseded receipt commit, or an
+   object from which the round builds again (`G11`);
+2. builds a new final receipt commit on it, whose receipt names the new `LB` and `Λ` and lists
+   every reconciliation of the chain the new `Q` reaches;
 3. reruns the required checks on the new `Q`;
 4. retries publication.
 
-`F`, `E` and every earlier commit stay as they are. A superseded receipt commit remains in the
-history as the second parent of the next reconciliation.
+`F`, `E` and the commits of `F..E` stay as they are.
 
 A `main` that reaches the round's commits through any commit other than `Q` itself — a merge
 created on the host, a squash or a rebase — is not a publication of the round.
 
 ### `K4` — every receipt commit
 
-`S10`'s rule for `Q` binds every receipt commit of the round, superseded or final. Each receipt
-commit `Qᵢ` is a single-parent child of the reconciliation `Rᵢ` before it, and `delta(Rᵢ, Qᵢ)` is
-exactly the receipt path plus the seal records that the round's final receipt names. The content of
-a superseded receipt is not read: the final receipt is the round's durable state (`S4`), and it
-alone fixes which seal records any receipt commit carries.
+`S10`'s rule for `Q` binds every receipt commit of the round (`G11`), superseded or final. Each
+receipt commit `Qᵢ` is a single-parent child of the reconciliation `Rᵢ` before it, and
+`delta(Rᵢ, Qᵢ)` is exactly the receipt path plus the seal record that the round's final receipt
+names, each change authorized (`G12`). The content of a superseded receipt is not read: the final
+receipt is the round's durable state (`S4`), and it alone fixes which seal record any receipt
+commit carries.
 
 ## `S11` — sealing is receipt state, not topology
 
 Sealing and non-sealing rounds use the same lifecycle, commits and receipt position. A sealing
-receipt carries `seal`, and `Q` publishes the seal state it owns; a non-sealing receipt carries no
-`seal`, and `Q` publishes none. The V3 lifecycle has no separate pin commit.
+receipt carries `seal`, and `Q` publishes the seal state it owns, which is its one seal record
+(`G12`); a non-sealing receipt carries no `seal`, and `Q` publishes none. The V3 lifecycle has no
+separate pin commit.
 
 ## `S12` — halted rounds are first-class
 
@@ -473,13 +562,13 @@ transitions but are never predicate inputs.
 
 | transition | predicate | inputs |
 |---|---|---|
-| T1: `DRAFTING` → `FROZEN` | every commit of `rev-list F ^D` has one parent and changes only control-plane files; the round declaration and the governed-path block at `F` are valid and lie in the preregistration (`K1`, `S7`, `K2`); the record class is the round's own record (`G6`) | `D`, `F`, the commits between them, their trees |
+| T1: `DRAFTING` → `FROZEN` | every commit of `rev-list F ^D` has one parent and changes only control-plane files, which it may add, modify or delete (`G9`); the round declaration and the governed-path block at `F` are valid, recognized by exact lines with no near miss (`G10`), and lie in the preregistration (`K1`, `S7`, `K2`); the record class is the round's own record, with a sealing round's seal record path (`G6`, `G12`) | `D`, `F`, the commits between them, their trees |
 | T2: `FROZEN` → `EXECUTING` | the first execution commit is a single-parent child of `F` | `F`, that commit |
 | T3: `EXECUTING` → `CERTIFIED` | `S3`: `rev-list E ^F` linear from `F`; `delta(F, E)` authorized; no control-plane file changed after `F` | `F`, `E`, the commits between them, their trees, the block at `F` |
 | T4: `CERTIFIED` fixes `E` | nothing that follows changes `F..E`; every later commit descends from `E` | `E` and the later commits |
 | T5: → `HALTED` | when execution commits exist: they are linear from `F` (`G5`); `W` is a single-parent child of the last, listed in `candidates`, and satisfies the withdrawal invariant; the result note is present at `W` (`S12`); when none exist, the commit that takes `W`'s place changes only record paths (`G6`); no control-plane file changes after `F` (`G7`) | `F`, `W` or the commit in its place, the commits between them, their trees, the block at `F` |
-| T6: → `RECONCILED` | `S9`: each reconciliation's parents as specified, and its first parent as `K3` requires; each superseded receipt commit as `K4` requires; no control-plane file changes at any of them (`G7`); the landing authorized (`S9`, or `S12` with `G6`'s record paths) | `D`, `E` or `W`, each reconciliation and receipt commit, `LB`, `Λ`, their trees, the block at `F`, the seal records the final receipt names |
-| T7: `RECONCILED` → `RECEIPTED` | `Q` a single-parent child of `Λ`; `delta(Λ, Q)` exactly the receipt path and the seal records (`K4`); no control-plane file changed at `Q` (`G7`); the receipt at `Q` valid under `S4` and consistent with every subject it records, its `round` and `kind` those of the declaration at `F` (`K1`) | `Q`, `Λ`, the receipt at `Q`, every commit it names |
+| T6: → `RECONCILED` | `S9`: each reconciliation of the chain `Q` reaches (`G11`) with its parents as specified, and its first parent as `K3` requires; each superseded receipt commit of that chain as `K4` requires; no control-plane file changes at any of them (`G7`); the landing authorized (`S9`, or `S12` with `G6`'s record paths) | `D`, `E` or `W`, each reconciliation and receipt commit of that chain, `LB`, `Λ`, their trees, the block at `F`, the seal record the final receipt names |
+| T7: `RECONCILED` → `RECEIPTED` | `Q` a single-parent child of `Λ`; `delta(Λ, Q)` exactly the receipt path and the seal record, each change authorized (`K4`, `G12`); no control-plane file changed at `Q` (`G7`); the receipt at `Q` valid under `S4` and consistent with every subject it records, its `round` and `kind` those of the declaration at `F` (`K1`), and its seal record the round's own (`G12`) | `Q`, `Λ`, the receipt at `Q`, every commit it names |
 | T8: `RECEIPTED` → `PUBLISHED` | none: publication is the non-force update of `main` to `Q` (`S10`), which the host performs or refuses | — |
 
 A verifier asked whether a round holds evaluates T1, T3 (or T5), T6 and T7 from `Q` and the commits
@@ -594,13 +683,13 @@ Set G2, a sealing round with nested directory entries:
 ```
 record AM verification/infrastructure/round-ex-2/
 record AM verification/receipts/EX-2.json
-record A verification/seals/EX2.json
+record A verification/v3-seals/EX-2.json
 execution AM verification/lean-mathlib/OIBridge/
 execution M verification/lean-mathlib/OIBridge.lean
 execution AMD verification/lean-mathlib/OIBridge/Scratch/
 ```
 
-Digest of G2: `9781ab0207e9d09d8f5f6f5bee3acd117f6743b568f25f619987ef6fae79489d`. Under G2, a change to a path is governed as follows:
+Digest of G2: `0053d9c8bb76392786d52bd9f0da71dcd44455e51833bde01ec15b1ab2942d85`. Under G2, a change to a path is governed as follows:
 
 | path | governing entry | ops |
 |---|---|---|
@@ -710,7 +799,7 @@ reconciliations; the first receipt commit is the second parent of the second rec
   },
   "seal": {
     "records": [
-      {"path": "verification/seals/EX2.json", "blob": "5555555555555555555555555555555555555555"}
+      {"path": "verification/v3-seals/EX-2.json", "blob": "5555555555555555555555555555555555555555"}
     ]
   },
   "attestations": [

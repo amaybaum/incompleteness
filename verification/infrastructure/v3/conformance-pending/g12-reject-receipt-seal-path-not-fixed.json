@@ -1,22 +1,26 @@
 {
- "id": "s4-seal-in-non-sealing",
+ "id": "g12-reject-receipt-seal-path-not-fixed",
  "settlements": [
-  "S4",
-  "S11"
+  "G12",
+  "S4"
  ],
  "kind": "s4",
  "receipt": {
   "schema": "v3-receipt",
   "version": 1,
-  "round": "EX-1",
+  "round": "EX-2",
   "status": "complete",
-  "kind": "non-sealing",
+  "kind": "sealing",
   "object_format": "sha1",
   "d": "dddddddddddddddddddddddddddddddddddddddd",
   "f": "ffffffffffffffffffffffffffffffffffffffff",
   "control_plane_blobs": [
    {
-    "path": "verification/infrastructure/round-ex-1/preregistration.md",
+    "path": "verification/infrastructure/round-ex-2/amendments/amendment-1.md",
+    "blob": "0202020202020202020202020202020202020202"
+   },
+   {
+    "path": "verification/infrastructure/round-ex-2/preregistration.md",
     "blob": "0101010101010101010101010101010101010101"
    }
   ],
@@ -26,13 +30,24 @@
   "execution_delta_digest": "8888888888888888888888888888888888888888888888888888888888888888",
   "candidates": [],
   "landing": {
-   "base": "babababababababababababababababababababa",
-   "object": "c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1",
+   "base": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+   "object": "c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2",
    "reconciliations": [
-    "c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1"
+    "c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1c1",
+    "c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2c2"
    ],
-   "resolved_paths": [],
+   "resolved_paths": [
+    "verification/ROADMAP.md"
+   ],
    "delta_digest": "7777777777777777777777777777777777777777777777777777777777777777"
+  },
+  "seal": {
+   "records": [
+    {
+     "path": "verification/seals/EX-2.json",
+     "blob": "5555555555555555555555555555555555555555"
+    }
+   ]
   },
   "attestations": [
    {
@@ -59,15 +74,7 @@
     "commit": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
     "record": "workflow run on E"
    }
-  ],
-  "seal": {
-   "records": [
-    {
-     "path": "verification/v3-seals/EX-2.json",
-     "blob": "5555555555555555555555555555555555555555"
-    }
-   ]
-  }
+  ]
  },
  "expect": {
   "verdict": "FAILS",
