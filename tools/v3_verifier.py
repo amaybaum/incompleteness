@@ -29,8 +29,8 @@ Verdicts: HOLDS; FAILS with reason codes, whose prefix is the family of the sett
 (t1: s3: s4: s7: s8: s9: s10: s12: input:); UNDECIDABLE with one code, for an object the repository
 does not contain or a shallow repository. UNDECIDABLE is never promoted to HOLDS.
 
-It implements the settlements of K1-K4 and G5-G7 that round V3-3 fixed in the specification; the
-rules K1-K4 are printed at every shadow run.
+It implements the settled specification: the settlements of K1-K4 and G5-G7 that round V3-3 fixed
+and of G8-G12 that round V3-5 fixed. The settled rules are printed at every shadow run.
 
 Standard library only.
 """
@@ -78,6 +78,25 @@ SETTLED = (
     'K4  every receipt commit, superseded or final, is a single-parent child of the reconciliation '
     'before it, changing exactly the receipt path plus the seal records the final receipt names; '
     'a superseded receipt is not read',
+    'G5  the execution commits of a halted round are linear from F and change no control-plane '
+    'file; their delta from F need not be authorized',
+    'G6  the governed-path block at F has literal record entries for the record directory and the '
+    'receipt path, no execution entry within the record directory, and no other record entry '
+    'outside it but a sealing round\'s `record A` of its seal record path',
+    'G7  at every commit of the round after F, superseded or final, the control-plane files are '
+    'exactly those at F, each with its state at F',
+    'G8  no ref, branch or host state is a predicate input; a control plane that names one changes '
+    'no predicate',
+    'G9  before F the control plane is a draft: its commits may add, modify or delete '
+    'control-plane files, and only the declarations at F are read',
+    'G10 declaration blocks are recognized by exact lines: an opener is three backticks and the '
+    'info string, a closer three backticks; a near miss of a reserved info string in any '
+    'control-plane file at F makes the control plane invalid',
+    'G11 the reconciliations and receipt commits of the round are exactly the chain Q reaches; an '
+    'abandoned attempt is not an object of the round',
+    'G12 a sealing round has one seal record, verification/v3-seals/<round>.json, declared '
+    '`record A` and named alone by its receipt; no round changes another round\'s receipt or V3 '
+    'seal record, or any path under verification/seals/',
 )
 
 HEX = {'sha1': 40, 'sha256': 64}
@@ -274,6 +293,20 @@ def fenced_blocks(text, info):
     return out
 
 
+# G10: a line with an opener's shape for a reserved info string that is not an opener.
+NEAR_MISS = re.compile(r'[ \t]*(?:`{3,}|~{3,})[ \t]*(v3-round|v3-governed-paths)(?:[ \t\r].*)?',
+                       re.S)
+
+
+def has_near_miss(text):
+    """G10: whether a line of `text` is a near miss for a reserved info string."""
+    for line in text.split('\n'):
+        m = NEAR_MISS.fullmatch(line)
+        if m and line != '```' + m.group(1):
+            return True
+    return False
+
+
 def path_ok(p):
     if p == '' or '\r' in p or '\n' in p or '\t' in p or p.startswith('/') or '//' in p:
         return False
@@ -340,7 +373,24 @@ def governing(entries, path):
     return best
 
 
-def authorized(entries, status, path):
+def seal_record_path(round_id):
+    """G12: a sealing round's one seal record path."""
+    return 'verification/v3-seals/%s.json' % round_id
+
+
+def foreign(own, path):
+    """G12: whether `path` is receipt or seal state that is not the round's own, where `own` is
+    the round's (receipt path, seal record path or None)."""
+    if isinstance(path, bytes):
+        path = path.decode('utf-8', 'replace')
+    return (path.startswith('verification/receipts/') and path != own[0]) \
+        or path.startswith('verification/seals/') \
+        or (path.startswith('verification/v3-seals/') and path != own[1])
+
+
+def authorized(entries, status, path, own):
+    if foreign(own, path):
+        return False
     e = governing(entries, path)
     if e is None:
         return False
@@ -501,6 +551,8 @@ def validate_receipt(r):
         if ok:
             ps = [x['path'].encode() for x in seal['records']]
             ok = ps == sorted(set(ps))
+        if ok and isinstance(r.get('round'), str):
+            ok = ps == [seal_record_path(r['round']).encode()]
         if not ok:
             codes.append('s4:seal')
     att = r.get('attestations')
@@ -557,6 +609,8 @@ def control_plane(repo, d, f):
     gov_blocks, round_blocks = [], []
     for p in sorted(files):
         t = repo.blob(files[p]).decode('utf-8', 'replace')
+        if has_near_miss(t):
+            return None, None, None, None, files, codes + ['t1:near-miss']
         g = fenced_blocks(t, 'v3-governed-paths')
         rb = fenced_blocks(t, 'v3-round')
         if g is None or rb is None:
@@ -598,6 +652,7 @@ def control_plane(repo, d, f):
 def record_class_codes(entries, rd, rp, kind, fam):
     """G6: the record class is exactly the round's own record."""
     codes = []
+    seal = seal_record_path(rp[len('verification/receipts/'):-len('.json')])
     literal = {e[2] for e in entries if e[0] == 'record'}
     for p in (rd, rp):
         if p not in literal:
@@ -606,8 +661,11 @@ def record_class_codes(entries, rd, rp, kind, fam):
         if cls == 'execution' and p.startswith(rd):
             codes.append(fam + ':execution-entry-within-record-directory')
         if cls == 'record' and p not in (rd, rp) and not p.startswith(rd):
-            if p.endswith('/') or kind == 'non-sealing':
-                codes.append(fam + ':record-entry-outside-own-record')
+            if kind != 'non-sealing' and p == seal and ops == 'A':
+                continue
+            codes.append(fam + ':record-entry-outside-own-record')
+    if kind == 'sealing' and ('record', 'A', seal) not in entries:
+        codes.append(fam + ':seal-record-entry')
     return codes
 
 
@@ -644,7 +702,7 @@ def check_linear(repo, base, head, family):
     return []
 
 
-def check_execution(repo, f, e, rdir, entries):
+def check_execution(repo, f, e, rdir, entries, own):
     """S3: linear from F, authorized under S7, no control-plane file changed after F."""
     codes = check_linear(repo, f, e, 's3')
     if codes:
@@ -655,7 +713,7 @@ def check_execution(repo, f, e, rdir, entries):
             codes.append('s3:control-plane-changed-after-f')
             break
     for st, path, *_ in repo.delta(f, e):
-        if not authorized(entries, st, path):
+        if not authorized(entries, st, path, own):
             codes.append('s3:unauthorized')
             break
     return codes
@@ -715,12 +773,12 @@ def check_first_parent_chains(repo, d, recs):
     return codes
 
 
-def check_landing_complete(repo, d, e, lb, lam, entries, resolved, receipt_path):
+def check_landing_complete(repo, d, e, lb, lam, entries, resolved, receipt_path, own):
     """S9 conditions 1 to 3."""
     codes = []
     delta = repo.delta(lb, lam)
     for st, path, *_ in delta:
-        if not authorized(entries, st, path):
+        if not authorized(entries, st, path, own):
             codes.append('s9:landing-unauthorized')
             break
     res = {p.encode() for p in resolved}
@@ -746,14 +804,14 @@ def check_landing_complete(repo, d, e, lb, lam, entries, resolved, receipt_path)
     return codes, delta
 
 
-def check_landing_halted(repo, lb, lam, entries, rdir, receipt_path):
+def check_landing_halted(repo, lb, lam, entries, rdir, receipt_path, own):
     codes = []
     delta = repo.delta(lb, lam)
     for st, path, *_ in delta:
         if not (path.startswith(rdir) or path == receipt_path):
             codes.append('s12:landing-publishes-non-record-path')
             break
-        if not authorized(entries, st, path):
+        if not authorized(entries, st, path, own):
             codes.append('s12:landing-unauthorized')
             break
     if rdir + b'result.md' not in repo.entries(lam):
@@ -823,6 +881,8 @@ def _verify_round(repo, q):
     if entries is None:
         return 'FAILS', codes, att
     codes += check_t1(repo, d, f, cp_files)
+    own = ('verification/receipts/%s.json' % rid,
+           seal_record_path(rid) if kind == 'sealing' else None)
     if r['round'] != rid:
         codes.append('s4:round-disagrees-with-f')
     if r['kind'] != kind:
@@ -845,7 +905,7 @@ def _verify_round(repo, q):
         e = repo.need(r['e'])
         if repo.tree(e) != r['tree_e']:
             codes.append('s4:tree-e')
-        codes += check_execution(repo, f, e, rdir, entries)
+        codes += check_execution(repo, f, e, rdir, entries, own)
         if not any(x for x in codes if x.startswith('s3:')):
             if delta_digest(repo.delta(f, e), repo.fmt()) != r['execution_delta_digest']:
                 codes.append('s4:execution-delta-digest')
@@ -894,6 +954,8 @@ def _verify_round(repo, q):
                 continue
             if not receipt_delta_ok(repo, rc, prev_q, receipt_path, seal_paths):
                 codes.append('s10:superseded-receipt-commit')
+            elif not all(authorized(entries, x[0], x[1], own) for x in repo.delta(rc, prev_q)):
+                codes.append('s10:receipt-commit-unauthorized')
     codes += check_first_parent_chains(repo, d, recs)
     codes += check_control_plane_frozen(repo, f, recs, rdir, 's9')
     codes += check_control_plane_frozen(repo, f, [q], rdir, 's10')
@@ -902,18 +964,21 @@ def _verify_round(repo, q):
         codes.append('s9:landing-base')
     elif col == 'complete':
         lcodes, ldelta = check_landing_complete(repo, d, head_before, lb, lam, entries,
-                                                lan['resolved_paths'], receipt_path)
+                                                lan['resolved_paths'], receipt_path, own)
         codes += lcodes
         if delta_digest(ldelta, repo.fmt()) != lan['delta_digest']:
             codes.append('s4:landing-delta-digest')
     else:
-        lcodes, ldelta = check_landing_halted(repo, lb, lam, entries, rdir, receipt_path)
+        lcodes, ldelta = check_landing_halted(repo, lb, lam, entries, rdir, receipt_path,
+                                              own)
         codes += lcodes
         if delta_digest(ldelta, repo.fmt()) != lan['delta_digest']:
             codes.append('s4:landing-delta-digest')
     # T7: Q
     if not receipt_delta_ok(repo, lam, q, receipt_path, seal_paths):
         codes.append('s10:receipt-commit-delta')
+    elif not all(authorized(entries, x[0], x[1], own) for x in repo.delta(lam, q)):
+        codes.append('s10:receipt-commit-unauthorized')
     for x in r.get('seal', {}).get('records', []):
         stq = repo.state(q, x['path'].encode())
         if stq is None or stq[1] != x['blob']:
