@@ -29,8 +29,8 @@ Verdicts: HOLDS; FAILS with reason codes, whose prefix is the family of the sett
 (t1: s3: s4: s7: s8: s9: s10: s12: input:); UNDECIDABLE with one code, for an object the repository
 does not contain or a shallow repository. UNDECIDABLE is never promoted to HOLDS.
 
-The provisional readings K1-K4 of the V3-2 preregistration bind this tool and nothing else; they are
-printed at every shadow run.
+It implements the settlements of K1-K4 and G5-G7 that round V3-3 fixed in the specification; the
+rules K1-K4 are printed at every shadow run.
 
 Standard library only.
 """
@@ -67,15 +67,17 @@ DEFAULT_CORPUS = os.path.join(os.path.dirname(HERE), 'verification', 'infrastruc
                               'conformance')
 ATTESTATION_DIR = 'verification/certificates/attestations/'
 
-READINGS = (
+SETTLED = (
     'K1  the preregistration at F carries one `v3-round` block: round <id>, kind '
-    '<sealing|non-sealing>, record-directory <path>/; the receipt must agree with it',
-    'K2  over all control-plane files at F together: exactly one `v3-governed-paths` block and '
-    'exactly one `v3-round` block',
+    '<sealing|non-sealing>, record-directory <path>/, the one directory holding every '
+    'control-plane path of delta(D, F); the receipt must agree with it',
+    'K2  at F the preregistration carries exactly one `v3-governed-paths` block and exactly one '
+    '`v3-round` block, and no amendment carries either',
     'K3  for every reconciliation, D lies on the first-parent chain of its first parent; for i>1, '
     'the previous first parent lies on the first-parent chain of this one',
     'K4  every receipt commit, superseded or final, is a single-parent child of the reconciliation '
-    'before it, changing exactly the receipt path plus the seal records it names',
+    'before it, changing exactly the receipt path plus the seal records the final receipt names; '
+    'a superseded receipt is not read',
 )
 
 HEX = {'sha1': 40, 'sha256': 64}
@@ -526,37 +528,44 @@ def validate_receipt(r):
 
 
 # ---------------------------------------------------------------------------------------------
-# the control plane at F (T1, with the K1 and K2 readings)
+# the control plane at F (T1, with K1 and K2)
 # ---------------------------------------------------------------------------------------------
 def control_plane(repo, d, f):
     """(record_dir, round, kind, entries, {path bytes: blob}, codes)."""
     codes = []
-    delta = repo.delta(d, f)
-    dirs = set()
-    for st, path, *_ in delta:
-        m = re.fullmatch(rb'(.+/)(preregistration\.md|amendments/.+)', path)
-        if not m:
-            codes.append('t1:non-control-plane-change')
+    cp_paths = []
+    for st, path, *_ in repo.delta(d, f):
+        if re.fullmatch(rb'.+/(preregistration\.md|amendments/.+)', path):
+            cp_paths.append(path)
         else:
-            dirs.add(m.group(1))
-    if len(dirs) != 1:
+            codes.append('t1:non-control-plane-change')
+    # K1: the record directory is the one directory R such that every control-plane path of
+    # delta(D, F) is R's preregistration.md or lies under R's amendments/.
+    fits = sorted(r for r in {p[:-len(b'preregistration.md')] for p in cp_paths
+                              if p.endswith(b'/preregistration.md')}
+                  if all(p == r + b'preregistration.md' or p.startswith(r + b'amendments/')
+                         for p in cp_paths))
+    if len(fits) != 1:
         return None, None, None, None, {}, codes + ['t1:record-directory']
-    (rdir,) = dirs
+    (rdir,) = fits
     files = {}
     for path, (mode, obj) in repo.entries(f).items():
         if path == rdir + b'preregistration.md' or path.startswith(rdir + b'amendments/'):
             files[path] = obj
     if rdir + b'preregistration.md' not in files:
         return None, None, None, None, files, codes + ['t1:no-preregistration']
-    texts = [repo.blob(files[p]).decode('utf-8', 'replace') for p in sorted(files)]
     gov_blocks, round_blocks = [], []
-    for t in texts:
+    for p in sorted(files):
+        t = repo.blob(files[p]).decode('utf-8', 'replace')
         g = fenced_blocks(t, 'v3-governed-paths')
         rb = fenced_blocks(t, 'v3-round')
         if g is None or rb is None:
             return None, None, None, None, files, codes + ['t1:unclosed-block']
-        gov_blocks += g
-        round_blocks += rb
+        if p == rdir + b'preregistration.md':
+            gov_blocks += g
+            round_blocks += rb
+        elif g or rb:
+            codes.append('t1:block-in-amendment')
     if len(gov_blocks) != 1:
         codes.append('t1:governed-block-count')
     if len(round_blocks) != 1:
@@ -582,11 +591,24 @@ def control_plane(repo, d, f):
     if decl['record-directory'].encode() != rdir:
         return None, None, None, None, files, ['t1:record-directory-mismatch']
     receipt_path = 'verification/receipts/%s.json' % decl['round']
-    for p in (decl['record-directory'], receipt_path):
-        e = governing(entries, p)
-        if e is None or e[0] != 'record':
-            codes.append('t1:record-class-omits:' + p)
+    codes += record_class_codes(entries, decl['record-directory'], receipt_path, decl['kind'], 't1')
     return rdir, decl['round'], decl['kind'], entries, files, codes
+
+
+def record_class_codes(entries, rd, rp, kind, fam):
+    """G6: the record class is exactly the round's own record."""
+    codes = []
+    literal = {e[2] for e in entries if e[0] == 'record'}
+    for p in (rd, rp):
+        if p not in literal:
+            codes.append(fam + ':record-class-omits:' + p)
+    for cls, ops, p in entries:
+        if cls == 'execution' and p.startswith(rd):
+            codes.append(fam + ':execution-entry-within-record-directory')
+        if cls == 'record' and p not in (rd, rp) and not p.startswith(rd):
+            if p.endswith('/') or kind == 'non-sealing':
+                codes.append(fam + ':record-entry-outside-own-record')
+    return codes
 
 
 def check_t1(repo, d, f, cp_files):
@@ -644,8 +666,8 @@ def cp_state(repo, oid, rdir):
 
 
 def check_control_plane_frozen(repo, f, oids, rdir, family):
-    """S2, read as covering every commit of the round after F (gap G7): the control-plane files
-    have at each named commit exactly their states at F."""
+    """S2 and G7: at every commit of the round after F, the control-plane files have exactly
+    their states at F."""
     want = cp_state(repo, f, rdir)
     for oid in oids:
         if oid is not None and cp_state(repo, oid, rdir) != want:
@@ -654,7 +676,7 @@ def check_control_plane_frozen(repo, f, oids, rdir, family):
 
 
 def check_halted_execution(repo, f, last, rdir):
-    """S3's form, read as binding every execution commit, certified or not (gap G5)."""
+    """S3's form and G5: it binds every execution commit, certified or not."""
     codes = check_linear(repo, f, last, 's12')
     if codes:
         return codes
@@ -724,13 +746,12 @@ def check_landing_complete(repo, d, e, lb, lam, entries, resolved, receipt_path)
     return codes, delta
 
 
-def check_landing_halted(repo, lb, lam, entries, rdir):
+def check_landing_halted(repo, lb, lam, entries, rdir, receipt_path):
     codes = []
     delta = repo.delta(lb, lam)
     for st, path, *_ in delta:
-        g = governing(entries, path)
-        if g is None or g[0] != 'record':
-            codes.append('s12:landing-publishes-execution-path')
+        if not (path.startswith(rdir) or path == receipt_path):
+            codes.append('s12:landing-publishes-non-record-path')
             break
         if not authorized(entries, st, path):
             codes.append('s12:landing-unauthorized')
@@ -848,9 +869,8 @@ def _verify_round(repo, q):
             codes.append('s12:record-commit-not-child-of-f')
         else:
             for st_, path, *_ in repo.delta(f, c):
-                g = governing(entries, path)
-                if g is None or g[0] != 'record':
-                    codes.append('s12:record-commit-changes-execution-path')
+                if not (path.startswith(rdir) or path == receipt_path):
+                    codes.append('s12:record-commit-changes-non-record-path')
                     break
             if rdir + b'result.md' not in repo.entries(c):
                 codes.append('s12:result-note-absent')
@@ -872,10 +892,7 @@ def _verify_round(repo, q):
             prev_q = nxt[1] if len(nxt) == 2 else None
             if prev_q is None:
                 continue
-            prev_r = read_receipt_at(repo, prev_q, receipt_path)
-            prev_seal = [x['path'].encode() for x in (prev_r or {}).get('seal', {}).get(
-                'records', [])] if isinstance(prev_r, dict) else []
-            if prev_r is None or not receipt_delta_ok(repo, rc, prev_q, receipt_path, prev_seal):
+            if not receipt_delta_ok(repo, rc, prev_q, receipt_path, seal_paths):
                 codes.append('s10:superseded-receipt-commit')
     codes += check_first_parent_chains(repo, d, recs)
     codes += check_control_plane_frozen(repo, f, recs, rdir, 's9')
@@ -890,7 +907,7 @@ def _verify_round(repo, q):
         if delta_digest(ldelta, repo.fmt()) != lan['delta_digest']:
             codes.append('s4:landing-delta-digest')
     else:
-        lcodes, ldelta = check_landing_halted(repo, lb, lam, entries, rdir)
+        lcodes, ldelta = check_landing_halted(repo, lb, lam, entries, rdir, receipt_path)
         codes += lcodes
         if delta_digest(ldelta, repo.fmt()) != lan['delta_digest']:
             codes.append('s4:landing-delta-digest')
@@ -1172,10 +1189,8 @@ def run_vector(vec, cwd):
             codes = []
             rnd = vec.get('round')
             if rnd:
-                for p in (rnd['record_directory'], rnd['receipt_path']):
-                    e = governing(res, p)
-                    if e is None or e[0] != 'record':
-                        codes.append('s7:record-class-omits')
+                codes += record_class_codes(res, rnd['record_directory'], rnd['receipt_path'],
+                                            None, 's7')
             if codes:
                 return expect_ok(exp, 'FAILS', codes), ','.join(codes)
             if exp['verdict'] != 'HOLDS':
@@ -1340,9 +1355,8 @@ def main(argv):
                 return 0
             print('v3_verifier shadow report -- SHADOW ONLY: this report gates nothing; V1 and V2 '
                   'remain authoritative')
-            print('provisional readings (bind this tool only; to be settled by a specification '
-                  'round before any promotion):')
-            for k in READINGS:
+            print('settled rules (verification/infrastructure/v3/architecture.md):')
+            for k in SETTLED:
                 print('  ' + k)
             ok, lines = run_corpus(DEFAULT_CORPUS, cwd)
             print('\n'.join(lines))
