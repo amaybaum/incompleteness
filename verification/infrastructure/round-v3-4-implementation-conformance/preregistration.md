@@ -120,9 +120,12 @@ a block of the tool at the stage it is changed in, which must occur there exactl
 **semantics** is the rule the changed code must implement, stated in the words of `architecture.md`.
 The replacement text shown for each site is the drafting-time implementation: it is a prediction,
 as are the blobs it yields (below). The execution derives its edit against the tool at `B`, and the
-frozen vectors, not the predicted text, decide whether an edit implements its semantics. An edit
-whose text differs from the prediction while every frozen vector runs as its row says is recorded
-as a discrepancy, not a failure.
+frozen vectors decide whether an edit behaves as its semantics require on the cases they encode.
+Because a finite set of vectors does not exhaust the semantics, an edit whose text differs from the
+prediction is also recorded as a divergence, with its diff against the prediction, and before `E` is
+designated the owner reviews every divergence for consistency with the frozen semantics. Textual
+divergence alone is not a stop; a divergence the owner finds inconsistent with its semantics is a
+stop outcome for that stage's target even when every frozen vector runs as its row says.
 
 ### Stage 1 — `K2`: the declarations lie in the preregistration at `F`
 
@@ -513,15 +516,16 @@ The paragraph at `E`:
 
 ```text
 `tools/v3_verifier.py` is the V3 shadow verifier, installed by round `V3-2`
-(`infrastructure/round-v3-2-shadow-verifier/`). It implements the protocol-3 specification
-(`infrastructure/v3/architecture.md`), including the settlements of `K1`–`K4` and `G5`–`G7` that
-round `V3-3` fixed (`infrastructure/round-v3-3-specification-resolution/`) and round `V3-4`
-implemented (`infrastructure/round-v3-4-implementation-conformance/`); the gaps `G8`–`G12` that
-`V3-3` recorded are not settled. It gates nothing: it has no authoritative mode, no verdict it
-prints changes an exit status, the release gate does not invoke it, and its workflow job,
-`V3 shadow verifier`, is not a required check. `V1` and `V2` remain authoritative. Its conformance
-corpus is `infrastructure/v3/conformance/`, executed as an exact set; its comparison with `V2` over
-the attestation rows is `V3-2`'s `census.json`.
+(`infrastructure/round-v3-2-shadow-verifier/`). It is the V3 shadow implementation of the
+currently settled protocol-3 rules (`infrastructure/v3/architecture.md`), including the
+settlements of `K1`–`K4` and `G5`–`G7` that round `V3-3` fixed
+(`infrastructure/round-v3-3-specification-resolution/`) and round `V3-4` implemented
+(`infrastructure/round-v3-4-implementation-conformance/`). The gaps `G8`–`G12` that `V3-3`
+recorded remain unsettled, and the shadow implements no settlement of them. It gates nothing: it
+has no authoritative mode, no verdict it prints changes an exit status, the release gate does not
+invoke it, and its workflow job, `V3 shadow verifier`, is not a required check. `V1` and `V2`
+remain authoritative. Its conformance corpus is `infrastructure/v3/conformance/`, executed as an
+exact set; its comparison with `V2` over the attestation rows is `V3-2`'s `census.json`.
 ```
 
 ## The vectors, FROZEN
@@ -589,13 +593,15 @@ stops.
 | `V34-2` | `K4-CONFORMS`; tool blob `14768bfc36fbb108ae4980c9041e34ab2b2d4175` | strong | measured at `D` (`F3`) |
 | `V34-3` | `G6-CONFORMS`; tool blob `42b2d61c178af3b1a80104215a48bbea305ee714` | strong | measured at `D` (`F3`); equals `V3-3`'s settlement patch |
 | `V34-4` | `K1-REPAIRED`; tool blob `2fbbf9ba0b3b55fa49b02f593d0ce9131ee90bef` | strong | measured at `D` (`F3`, `F4`) |
-| `V34-5` | `SELF-DESCRIPTION-CURRENT`; tool blob `883122c4070408ee3957d969e095324b62e21a87`, README blob `61c495efcada7b87a8e86ecab28140e47500fb3e` | strong | the frozen text, applied at `D` |
+| `V34-5` | `SELF-DESCRIPTION-CURRENT`; tool blob `883122c4070408ee3957d969e095324b62e21a87`, README blob `690f841ec02dbafbed972667a426cf41fc4ca741` | strong | the frozen text, applied at `D` |
 | `V34-6` | `CONTROLS-HOLD` | strong | measured at `D` (`F3`, `F5`) |
 | `V34-7` | `SHADOW-ONLY` | strong | the budget writes no workflow, gate, guard or authority file |
 | `V34-8` | `SCOPE-HELD` | strong | the budget is fixed here |
 
 The predicted blobs are predictions, not pins: a stage whose blob differs while its vectors run as
-their rows say reaches its passing outcome and records the difference.
+their rows say reaches its passing outcome provisionally, records the divergence, and keeps it only
+if the owner's review before `E`'s designation finds the divergence consistent with the stage's
+semantics.
 
 **Status rule.** The round is COMPLETE iff every target reaches its passing outcome. It is HALTED at
 the first stop outcome, and the targets not reached are recorded as such.
@@ -636,8 +642,10 @@ Scope is accounted with rename detection off: each moved vector is one deletion 
 ## The result note
 
 `result.md` records: each target's outcome against its prediction; the chronology from `B` to `E`;
-each stage's tool blob against its prediction; the outputs of `C1` to `C6`, with the SHA-256 of each
-scratch script, none of which is landed; the corpus count; and every discrepancy. The exact-head run
+each stage's tool blob against its prediction, with the diff of every divergence from the
+predicted text; the outputs of `C1` to `C6`, with the SHA-256 of each scratch script, none of which
+is landed; the corpus count; and every discrepancy. The `E` certification record lists the
+divergences for the owner's review. The exact-head run
 on `E` is identified by the `E` certification record on the execution pull request, since the note
 is part of `E`.
 
@@ -657,9 +665,10 @@ is part of `E`.
 - **`H2` — each stage is a CI build.** The shadow job runs the corpus at every push; a stage that
   moved a vector before its change would turn the job red. `F3` shows each stage's corpus runs as
   expected.
-- **`H3` — the prediction text.** The frozen sites and semantics bind; the predicted replacement
-  text does not. An implementation that departs from the prediction is judged by the vectors, and a
-  departure the vectors do not cover is recorded for owner review.
+- **`H3` — the finite-vector gap.** The frozen sites and semantics bind; the predicted replacement
+  text does not. The vectors cover finitely many cases of each semantics, so an implementation that
+  departs from the prediction passes its vectors without thereby being shown to implement its
+  semantics; the owner's review of every divergence before `E`'s designation closes that gap.
 - **`H4` — frozen blobs.** If `main` moves before `B` and changes a file this freeze pins, the
   preconditions fail at `M` and the freeze is redrafted from a new `D`.
 
@@ -731,8 +740,10 @@ record or round certificate.
 ## Points at which this freeze chose a reading, recorded rather than resolved
 
 - **`R1` — sites and semantics frozen, text predicted.** The owner's direction freezes the sites
-  and their semantics, not the scratch patch. The declined option freezes the replacement text,
-  which would turn a correct implementation with different wording into a stop.
+  and their semantics, not the scratch patch, and requires the owner's review of any divergence from
+  the predicted text before `E`'s designation. The declined options are freezing the replacement
+  text, which would make any rewording a stop, and accepting any edit that passes the vectors,
+  which would make the semantics no stronger than the vectors.
 - **`R2` — one stage per settlement.** Each stage's vectors are decided by its own edits alone
   (`F3`), so each commit is a self-contained step from a failing vector to a passing one. The
   declined option lands all edits in one commit, which loses that audit trail.
