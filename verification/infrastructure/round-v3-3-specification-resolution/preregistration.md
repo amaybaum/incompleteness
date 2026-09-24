@@ -1,8 +1,8 @@
 # Verifier round V3-3 — V3 specification resolution: the gaps K1–K4 and G5–G7: PREREGISTRATION
 
 **Status: control plane.** This file is the round's preregistration and nothing else. The amended
-specification, the conformance vectors, the propagated status sentence and the result note are
-execution objects, created only after the certified merge of this file.
+specification, the conformance vectors and the result note are execution objects, created only
+after the certified merge of this file.
 
 > **The specification is settled on its merits, and the shadow is then measured against it.** A
 > settlement is never chosen because the shadow already implements it, and never rejected because
@@ -40,8 +40,7 @@ rounds the conformance vectors build, never an object of this round.
 `verification/infrastructure/v3/architecture.md`, the seven places `V3-2` found the specification
 silent or ambiguous: `K1` to `K4`, which `V3-2`'s preregistration froze as provisional readings
 binding only the shadow, and `G5` to `G7`, which `V3-2`'s result recorded. It adds conformance
-vectors only where a vector is needed to separate a settlement from a reading it rejects, and it
-corrects the one status sentence the settlements make stale.
+vectors only where a vector is needed to separate a settlement from a reading it rejects.
 
 It is not:
 
@@ -54,6 +53,9 @@ It is not:
    no `V1` or `V2` state is created, changed or removed.
 4. **A bootstrap round.** How the first V3-governed round is certified and published (`V3-2`'s
    promotion prerequisites, `V3-1`'s hazard `H1`) is not addressed.
+5. **A status round for the shadow.** `verification/README.md` is not written. Its paragraph on the
+   shadow is left to the implementation round that brings the shadow into conformance (reading
+   `R4`, hazard `H3`).
 
 ## Measurements at `D` that shape the round
 
@@ -63,13 +65,12 @@ It is not:
 nowhere in the tree at `D`. Neither `verification/infrastructure/v3/conformance-pending/` nor
 `verification/receipts/` exists at `D`.
 
-### `F2` — the objects the round reads and writes, at `D`
+### `F2` — the objects the round reads or writes, at `D`
 
 | path | blob at `D` |
 |---|---|
 | `verification/infrastructure/v3/architecture.md` | `6c80e584021f973c529625b1da89469e7b136dfe` |
 | `tools/v3_verifier.py` | `2c34d4d7f1adadc4bdecbad94ff8eadb7b30f974` |
-| `verification/README.md` | `052dfa270479c12470173ee90f340c4f805dac37` |
 
 `verification/infrastructure/v3/conformance/` holds 84 vectors at `D`, the set `V3-2` landed. The
 shadow runs them as an exact set: every top-level `*.json` file of the directory, each named for
@@ -184,15 +185,16 @@ content of a superseded receipt, by contrast, is not the round's state and is no
 - **Alternatives.** (a) `V3-2`'s reading. (b) Both blocks in the preregistration, none in any
   amendment. (c) Several blocks, the last in path order superseding the others. (d) Several
   blocks, their entries united.
-- **Settlement.** (b). Frozen text: edits `A7`, `A13`.
-- **Why.** Under (a) a block may leave the preregistration for an amendment, which gives the scope
-  of a round no fixed place and contradicts `V3-2`'s own `K1` reading ("the preregistration at `F`
-  carries" the `v3-round` block). (a) and (b) give the same power to change a declaration before
-  `F`: under both, an amendment cannot add a second block, so a declaration is changed where it
-  lies. (c) makes the set in force depend on file-name order and hides it across files. (d) makes a
-  round's scope the union of text in several files, with conflict rules `S7` does not have. The
-  settlement relies on `T1` admitting a revision of the preregistration before `F`, which its
-  predicate does (gap `G9`).
+- **Settlement.** (b), a rule about `F` only. Frozen text: edits `A7`, `A13`.
+- **Why.** Under (a) a declaration may lie in an amendment rather than the preregistration, which
+  gives the scope of a round no fixed place and contradicts `V3-2`'s own `K1` reading ("the
+  preregistration at `F` carries" the `v3-round` block). (c) makes the set in force depend on
+  file-name order and hides it across files. (d) makes a round's scope the union of text in several
+  files, with conflict rules `S7` does not have. The settlement decides where the declarations lie
+  at `F` and nothing about how control-plane files may change before `F`, so it is agnostic about
+  `G9`: if a later settlement of `G9` admits revising the preregistration before `F`, the
+  declarations may be revised there; if it forbids revision, they must be correct when the
+  preregistration is created. Either way, at `F` they lie in the preregistration and nowhere else.
 - **Vectors.** (a): `k2-reject-governed-block-only-in-amendment` and
   `k2-reject-round-block-only-in-amendment` (pending). (c): the landed
   `k2-reject-amendment-repeats-governed-block`. (d): `k2-reject-amendment-adds-governed-entries`
@@ -522,10 +524,11 @@ The inserted block:
 ```text
 ### `K2` — the declarations lie in the preregistration
 
-The preregistration carries exactly one `v3-governed-paths` block and exactly one `v3-round` block
-(`K1`), and these are the declarations in force at `F`. No amendment carries a fenced block with
-either info string. A fenced block with either info string that is not closed, in any control-plane
-file, makes the control plane invalid.
+At `F`, the preregistration carries exactly one `v3-governed-paths` block and exactly one
+`v3-round` block (`K1`), which are the declarations in force, and no amendment carries a fenced
+block with either info string. A fenced block with either info string that is not closed, in any
+control-plane file at `F`, makes the control plane invalid. This fixes where the declarations lie at
+`F`, and nothing about how control-plane files may change before it.
 
 ### `G6` — the record class is the round's own record
 
@@ -703,42 +706,6 @@ Its replacement:
 | T7: `RECONCILED` → `RECEIPTED` | `Q` a single-parent child of `Λ`; `delta(Λ, Q)` exactly the receipt path and the seal records (`K4`); no control-plane file changed at `Q` (`G7`); the receipt at `Q` valid under `S4` and consistent with every subject it records, its `round` and `kind` those of the declaration at `F` (`K1`) | `Q`, `Λ`, the receipt at `Q`, every commit it names |
 ```
 
-## The status correction, FROZEN as text
-
-`verification/README.md`'s paragraph on the V3 shadow verifier says that the shadow implements the
-specification with the provisional readings; after this round the specification settles them, in
-places differently. At `E`, the paragraph below, which occurs exactly once in the file at `B`, is
-replaced by the second, and nothing else in the file changes.
-
-The paragraph at `B`:
-
-```text
-`tools/v3_verifier.py` is the V3 shadow verifier, installed by round `V3-2`
-(`infrastructure/round-v3-2-shadow-verifier/`). It implements the protocol-3 specification
-(`infrastructure/v3/architecture.md`) with the provisional readings `V3-2`'s preregistration froze,
-and it gates nothing: it has no authoritative mode, no verdict it prints changes an exit status,
-the release gate does not invoke it, and its workflow job, `V3 shadow verifier`, is not a required
-check. `V1` and `V2` remain authoritative. Its conformance corpus is
-`infrastructure/v3/conformance/`, executed as an exact set; its comparison with `V2` over the
-attestation rows is `V3-2`'s `census.json`.
-```
-
-The paragraph at `E`:
-
-```text
-`tools/v3_verifier.py` is the V3 shadow verifier, installed by round `V3-2`
-(`infrastructure/round-v3-2-shadow-verifier/`). It implements the protocol-3 specification
-(`infrastructure/v3/architecture.md`) as `V3-2` read it, with the provisional readings `V3-2`'s
-preregistration froze. Round `V3-3` (`infrastructure/round-v3-3-specification-resolution/`)
-settled those readings, and the three further gaps `V3-2` found, in the specification; the vectors
-on which the settled specification and the shadow differ are in
-`infrastructure/v3/conformance-pending/`, which the shadow does not run. The shadow gates nothing:
-it has no authoritative mode, no verdict it prints changes an exit status, the release gate does not
-invoke it, and its workflow job, `V3 shadow verifier`, is not a required check. `V1` and `V2` remain
-authoritative. Its conformance corpus is `infrastructure/v3/conformance/`, executed as an exact
-set; its comparison with `V2` over the attestation rows is `V3-2`'s `census.json`.
-```
-
 ## The conformance vectors, FROZEN
 
 Every vector has the format `V3-2`'s corpus uses (`id`, `settlements`, `kind`, recipe, expected
@@ -818,8 +785,6 @@ Each control runs at the execution's stage-2 checkpoint and again at `E`.
   runs it as expected. There are eighteen.
 - **`C6` — the normative text.** Applying the frozen edits to `architecture.md`'s blob at `B`
   yields its blob at `E` exactly.
-- **`C7` — the status correction.** Substituting the frozen paragraph in `verification/README.md`'s
-  blob at `B` yields its blob at `E` exactly.
 
 A control whose scratch copy fails for a reason other than the rule it tests is void, and its
 target stops.
@@ -834,23 +799,21 @@ target stops.
 | `V33-3` | `DEPARTURES-DEMONSTRATED` — `conformance-pending/` at `E` holds exactly the eleven pending vectors, each matching its frozen row; `C2` holds | `PENDING-VACUOUS` — a pending vector the unchanged shadow already meets |
 | `V33-4` | `SETTLEMENTS-SATISFIABLE` — `C3` and `C4` hold | `SPEC-CONTRADICTORY` — no patch meets the corpus and the pending set together; or `CONTROL-VOID` |
 | `V33-5` | `ALTERNATIVES-EXCLUDED` — `C5` holds for every alternative the settlement tables name with a vector | `CONTROL-VOID` |
-| `V33-6` | `PROPAGATED` — `C7` holds; and at `E`, of the files under `verification/` outside the round directories and the two vector directories, the phrase "provisional reading" occurs only in `verification/README.md`, and there only in the paragraph `C7` fixes | `STALE-SURFACE` |
-| `V33-7` | `SHADOW-UNCHANGED` — `tools/v3_verifier.py`, `.github/workflows/verify.yml`, `tools/release_gate.py`, `tools/certificate_verifier.py`, the guard and `AGENTS.md` have their `B` blobs at `E`; the guard at `E` gives 105 PASS and 0 FAIL with `D`'s verdict map; `V2` is authoritative OK; the release gate passes 19 of 19; the shadow's self-test passes; no act of `V3-2`'s promotion boundary is present | `AUTHORITY-LEAKED` — fails the round |
-| `V33-8` | `SCOPE-HELD` — `git diff --name-status B E` is exactly the mutation budget | `SCOPE-EXCEEDED` |
+| `V33-6` | `SHADOW-UNCHANGED` — `tools/v3_verifier.py`, `.github/workflows/verify.yml`, `tools/release_gate.py`, `tools/certificate_verifier.py`, the guard and `AGENTS.md` have their `B` blobs at `E`; the guard at `E` gives 105 PASS and 0 FAIL with `D`'s verdict map; `V2` is authoritative OK; the release gate passes 19 of 19; the shadow's self-test passes; no act of `V3-2`'s promotion boundary is present | `AUTHORITY-LEAKED` — fails the round |
+| `V33-7` | `SCOPE-HELD` — `git diff --name-status B E` is exactly the mutation budget | `SCOPE-EXCEEDED` |
 
 ## Predictions, with strength
 
 | target | predicted outcome | strength | reason |
 |---|---|---|---|
 | `V33-0` | `BASE-HOLDS` | strong | only this file lies between `D` and `B` |
-| `V33-1` | `SPECIFICATION-SETTLED`; `architecture.md`'s blob at `E` `841bb5d51c5b554555a19cf28b526c9ea7a1dd16` | strong | the edits are frozen, each located block occurs once at `D`, and applying them to the blob at `D` gives that blob |
+| `V33-1` | `SPECIFICATION-SETTLED`; `architecture.md`'s blob at `E` `3326bf309d6392e4e5d69a9e7ab6d812dba035af` | strong | the edits are frozen, each located block occurs once at `D`, and applying them to the blob at `D` gives that blob |
 | `V33-2` | `CORPUS-CONFORMING`; the additions' digest `187c8301b1fb32b19089d14a8ad3c96462d841bf619fe24081a2d752a635d15b` | strong | measured at `D` (`F3`) |
 | `V33-3` | `DEPARTURES-DEMONSTRATED`; the pending digest `605f9328fa4751fb766362a743e043883249784c4899fe088038f01baa5d96bc` | strong | measured at `D` (`F3`) |
 | `V33-4` | `SETTLEMENTS-SATISFIABLE` | strong | measured at `D` with the patch `481cf746` |
 | `V33-5` | `ALTERNATIVES-EXCLUDED` | strong | measured at `D`: eighteen alternatives, each excluded |
-| `V33-6` | `PROPAGATED`; `verification/README.md`'s blob at `E` `9500e26c39574ad75ffbc8e6f034d8e05d563eb9` | strong | at `D` the phrase occurs, outside round directories and vectors, only in that README paragraph and in the shadow's own source, which is not a status surface (hazard `H3`) |
-| `V33-7` | `SHADOW-UNCHANGED` | strong | the budget writes no tool, workflow or gate |
-| `V33-8` | `SCOPE-HELD` | strong | the budget is fixed here |
+| `V33-6` | `SHADOW-UNCHANGED` | strong | the budget writes no tool, workflow or gate |
+| `V33-7` | `SCOPE-HELD` | strong | the budget is fixed here |
 
 **Status rule.** The round is COMPLETE iff every target reaches its passing outcome. It is HALTED at
 the first stop outcome, and the targets not reached are recorded as such. `SETTLEMENTS-SATISFIABLE`
@@ -864,8 +827,7 @@ with code by the author of the settlements; they are not evidence that the settl
 | 0 | `V33-0` | none | branch from `B`; blob check; rows at `B` |
 | 1 | `V33-1` | one: `architecture.md` | `C6` |
 | 2 | `V33-2`, `V33-3`, `V33-4`, `V33-5` | one: the corpus additions and removal, and `conformance-pending/` | `C1` to `C5` |
-| 3 | `V33-6` | one: the README paragraph | `C7`, the surface check |
-| 4 | `V33-7`, `V33-8` | one: the result note; its commit is `E` | the closing checks at `E`, then the exact-head pull request |
+| 3 | `V33-6`, `V33-7` | one: the result note; its commit is `E` | the closing checks at `E`, then the exact-head pull request |
 
 A stage-2 finding that a frozen vector does not decide what its row says is a stop outcome for the
 target it bears on. It is recorded, and neither the vector nor the settlement is repaired in this
@@ -873,23 +835,22 @@ round.
 
 ## The mutation budget
 
-- **Modified:** `verification/infrastructure/v3/architecture.md` (the sixteen frozen edits);
-  `verification/README.md` (the one frozen paragraph).
+- **Modified:** `verification/infrastructure/v3/architecture.md` (the sixteen frozen edits).
 - **Added:** the ten vectors of `verification/infrastructure/v3/conformance/` above; the eleven
   vectors of `verification/infrastructure/v3/conformance-pending/`;
   `verification/infrastructure/round-v3-3-specification-resolution/result.md`.
 - **Deleted:**
   `verification/infrastructure/v3/conformance/g6-admit-record-class-by-broader-entry.json`.
 - **Never written:** `tools/v3_verifier.py` and every other file under `tools/`, `.github/`,
-  `AGENTS.md`, the guard and everything under `verification/lean/` and `verification/lean-mathlib/`,
-  `verification/seals/`, `verification/certificates/`, `verification/programmes/`,
-  `verification/audits/`, `verification/ROADMAP.md`, any other round's directory, `papers/` and
-  `book/`. No `verification/receipts/` directory is created.
+  `AGENTS.md`, `verification/README.md`, the guard and everything under `verification/lean/` and
+  `verification/lean-mathlib/`, `verification/seals/`, `verification/certificates/`,
+  `verification/programmes/`, `verification/audits/`, `verification/ROADMAP.md`, any other round's
+  directory, `papers/` and `book/`. No `verification/receipts/` directory is created.
 
 ## The result note
 
 `result.md` records: each target's outcome against its prediction; the chronology from `B` to `E`;
-the outputs of `C1` to `C7`, with the SHA-256 of the settlement patch and of each scratch script,
+the outputs of `C1` to `C6`, with the SHA-256 of the settlement patch and of each scratch script,
 none of which is landed; the vectors' digests against the predictions; for each of the seven items,
 its settlement and whether the shadow conforms, as measured at `E`; the gaps recorded below, as
 recorded; and every discrepancy.
@@ -931,10 +892,13 @@ recorded here, numbered after `V3-2`'s, for a later specification round.
   after `E` fatal to the round unless such a commit may be replaced before publication, which is
   `G11`. The settlements accept that cost rather than certify an object the specification's
   definitions exclude.
-- **`H3` — the shadow's printed readings.** The shadow prints `K1`–`K4` at every run as provisional
-  readings awaiting a specification round. After this round that text is stale, and it stays so
-  until an implementation round changes the tool; the report is not a status artifact, and the
-  README paragraph states the position.
+- **`H3` — the shadow's descriptions of itself.** The shadow prints `K1`–`K4` at every run as
+  provisional readings awaiting a specification round, and `verification/README.md`'s paragraph says
+  that it implements the specification in `architecture.md` with the provisional readings `V3-2`'s
+  preregistration froze. After this round `architecture.md` carries the settlements, and where they
+  depart from the shadow's readings (`K2`, `K4`, `G6`) the shadow implements its readings, not the
+  settled text. Both descriptions stay as they are until the implementation round changes the tool
+  and the paragraph together (reading `R4`); the printed report is not a status artifact.
 - **`H4` — pending vectors are not run by continuous integration.** Their failure on the shadow is
   this round's measurement. An implementation round that meets a pending vector moves it into the
   corpus with the change that meets it.
@@ -945,8 +909,8 @@ recorded here, numbered after `V3-2`'s, for a later specification round.
 
 ### Files this round reads AND writes
 
-`verification/infrastructure/v3/architecture.md` (the frozen edits); `verification/README.md` (the
-one frozen paragraph); `verification/infrastructure/v3/conformance/` (ten added, one removed);
+`verification/infrastructure/v3/architecture.md` (the frozen edits);
+`verification/infrastructure/v3/conformance/` (ten added, one removed);
 `verification/infrastructure/v3/conformance-pending/` (created, eleven added).
 
 ### Files this round reads and MUST NOT write
@@ -965,7 +929,6 @@ execution object exists at `B`, reading the tree directly.
 d: 347113a234ef5eea6986b663ea0971687591b33b
 frozen-blob: verification/infrastructure/v3/architecture.md 6c80e584021f973c529625b1da89469e7b136dfe
 frozen-blob: tools/v3_verifier.py 2c34d4d7f1adadc4bdecbad94ff8eadb7b30f974
-frozen-blob: verification/README.md 052dfa270479c12470173ee90f340c4f805dac37
 # row 1: name freedom and absences, drafting-time facts
 {"id": "d1-round-free", "scope": "D", "check": "git grep -l -F -e 'V3-3' -e 'v3-3' -e 'round-v3-3' -e 'V33-' -e 'specification-resolution' $D", "expect": "empty"}
 {"id": "d1-pending-free", "scope": "D", "check": "git grep -l -F -e 'conformance-pending' $D", "expect": "empty"}
@@ -1023,9 +986,11 @@ record or round certificate (reading `R5`).
   unless the settled specification demonstrably requires an implementation round. The eleven
   pending vectors, failing on the shadow and met by the settlement patch, are that demonstration.
   This round does not make the change.
-- **`R4` — the status correction.** `verification/README.md`'s paragraph is corrected here because
-  §A.25 requires a status change to reach every surface that states it, and this is the one surface
-  at `D` that does. The declined option leaves the paragraph for the implementation round.
+- **`R4` — no status propagation.** `verification/README.md` is not written, by owner direction.
+  Its paragraph on the shadow describes what the shadow implements, which this round does not
+  change; its wording is settled by the implementation round that brings the shadow into
+  conformance, which changes what the paragraph describes. The declined option rewrites the
+  paragraph here, ahead of the change it would describe.
 - **`R5` — no guard clause, certificate or attestation**, as for `V3-1` and `V3-2`.
 - **`R6` — §A.37's two pull requests.** `V3-2`'s single-pull-request arrangement was an exception
   for that round and is not precedent; nothing in this round turns on it.
