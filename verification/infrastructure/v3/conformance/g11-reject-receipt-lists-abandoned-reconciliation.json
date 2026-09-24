@@ -1,9 +1,9 @@
 {
- "id": "k4-admit-sealing-superseded-receipt-commit",
+ "id": "g11-reject-receipt-lists-abandoned-reconciliation",
  "settlements": [
-  "K4",
-  "S10",
-  "S11"
+  "G11",
+  "S9",
+  "S4"
  ],
  "kind": "repo",
  "steps": [
@@ -23,7 +23,7 @@
     "D"
    ],
    "set": {
-    "verification/infrastructure/round-ex-2/preregistration.md": "# EX-2 preregistration\n\n```v3-round\nround EX-2\nkind sealing\nrecord-directory verification/infrastructure/round-ex-2/\n```\n\n```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-2/\nrecord AM verification/receipts/EX-2.json\nrecord A verification/v3-seals/EX-2.json\nexecution AMD tools/ex/\nexecution M verification/README.md\n```\n"
+    "verification/infrastructure/round-ex-1/preregistration.md": "# EX-1 preregistration\n\n```v3-round\nround EX-1\nkind non-sealing\nrecord-directory verification/infrastructure/round-ex-1/\n```\n\n```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-1/\nrecord AM verification/receipts/EX-1.json\nexecution AMD tools/ex/\nexecution M verification/README.md\n```\n"
    }
   },
   {
@@ -45,7 +45,7 @@
    }
   },
   {
-   "commit": "R1",
+   "commit": "R1a",
    "parents": [
     "D",
     "E"
@@ -53,40 +53,40 @@
    "from": "E"
   },
   {
-   "commit": "Q",
+   "commit": "Q1a",
    "parents": [
-    "R1"
+    "R1a"
    ],
    "set": {
-    "verification/receipts/EX-2.json": {
+    "verification/receipts/EX-1.json": {
      "json": {
       "schema": "v3-receipt",
       "version": 1,
-      "round": "EX-2",
+      "round": "EX-1",
       "status": "complete",
-      "kind": "sealing",
+      "kind": "non-sealing",
       "object_format": "sha1",
       "d": "{{sha:D}}",
       "f": "{{sha:F}}",
       "control_plane_blobs": [
        {
-        "path": "verification/infrastructure/round-ex-2/preregistration.md",
-        "blob": "{{blob:F|verification/infrastructure/round-ex-2/preregistration.md}}"
+        "path": "verification/infrastructure/round-ex-1/preregistration.md",
+        "blob": "{{blob:F|verification/infrastructure/round-ex-1/preregistration.md}}"
        }
       ],
-      "governed_paths_digest": "{{gpd:F|verification/infrastructure/round-ex-2/preregistration.md}}",
+      "governed_paths_digest": "{{gpd:F|verification/infrastructure/round-ex-1/preregistration.md}}",
       "e": "{{sha:E}}",
       "tree_e": "{{tree:E}}",
       "execution_delta_digest": "{{delta:F|E}}",
       "candidates": [],
       "landing": {
        "base": "{{sha:D}}",
-       "object": "{{sha:R1}}",
+       "object": "{{sha:R1a}}",
        "reconciliations": [
-        "{{sha:R1}}"
+        "{{sha:R1a}}"
        ],
        "resolved_paths": [],
-       "delta_digest": "{{delta:D|R1}}"
+       "delta_digest": "{{delta:D|R1a}}"
       },
       "attestations": [
        {
@@ -113,18 +113,9 @@
         "commit": "{{sha:E}}",
         "record": "run on E"
        }
-      ],
-      "seal": {
-       "records": [
-        {
-         "path": "verification/v3-seals/EX-2.json",
-         "blob": "{{textblob:seal record\n}}"
-        }
-       ]
-      }
+      ]
      }
-    },
-    "verification/v3-seals/EX-2.json": "seal record\n"
+    }
    }
   },
   {
@@ -137,55 +128,52 @@
    }
   },
   {
-   "commit": "R2",
+   "commit": "R1",
    "parents": [
     "M2",
-    "Q"
+    "E"
    ],
-   "from": "Q",
+   "from": "E",
    "set": {
     "README.md": "r2\n"
-   },
-   "del": [
-    "verification/v3-seals/EX-2.json"
-   ]
+   }
   },
   {
-   "commit": "Q2",
+   "commit": "Q",
    "parents": [
-    "R2"
+    "R1"
    ],
    "set": {
-    "verification/receipts/EX-2.json": {
+    "verification/receipts/EX-1.json": {
      "json": {
       "schema": "v3-receipt",
       "version": 1,
-      "round": "EX-2",
+      "round": "EX-1",
       "status": "complete",
-      "kind": "sealing",
+      "kind": "non-sealing",
       "object_format": "sha1",
       "d": "{{sha:D}}",
       "f": "{{sha:F}}",
       "control_plane_blobs": [
        {
-        "path": "verification/infrastructure/round-ex-2/preregistration.md",
-        "blob": "{{blob:F|verification/infrastructure/round-ex-2/preregistration.md}}"
+        "path": "verification/infrastructure/round-ex-1/preregistration.md",
+        "blob": "{{blob:F|verification/infrastructure/round-ex-1/preregistration.md}}"
        }
       ],
-      "governed_paths_digest": "{{gpd:F|verification/infrastructure/round-ex-2/preregistration.md}}",
+      "governed_paths_digest": "{{gpd:F|verification/infrastructure/round-ex-1/preregistration.md}}",
       "e": "{{sha:E}}",
       "tree_e": "{{tree:E}}",
       "execution_delta_digest": "{{delta:F|E}}",
       "candidates": [],
       "landing": {
        "base": "{{sha:M2}}",
-       "object": "{{sha:R2}}",
+       "object": "{{sha:R1}}",
        "reconciliations": [
-        "{{sha:R1}}",
-        "{{sha:R2}}"
+        "{{sha:R1a}}",
+        "{{sha:R1}}"
        ],
        "resolved_paths": [],
-       "delta_digest": "{{delta:M2|R2}}"
+       "delta_digest": "{{delta:M2|R1}}"
       },
       "attestations": [
        {
@@ -212,27 +200,19 @@
         "commit": "{{sha:E}}",
         "record": "run on E"
        }
-      ],
-      "seal": {
-       "records": [
-        {
-         "path": "verification/v3-seals/EX-2.json",
-         "blob": "{{textblob:seal record\n}}"
-        }
-       ]
-      }
+      ]
      }
-    },
-    "verification/v3-seals/EX-2.json": "seal record\n"
+    }
    }
   },
   {
    "check": "verify-round",
    "args": [
-    "Q2"
+    "Q"
    ],
    "expect": {
-    "verdict": "HOLDS"
+    "verdict": "FAILS",
+    "family": "s10"
    }
   }
  ]

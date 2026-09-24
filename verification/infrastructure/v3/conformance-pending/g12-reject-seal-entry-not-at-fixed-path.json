@@ -1,9 +1,9 @@
 {
- "id": "g6-reject-halted-record-commit-writes-unnamed-seal-record",
+ "id": "g12-reject-seal-entry-not-at-fixed-path",
  "settlements": [
-  "S12",
-  "S11",
-  "G6"
+  "G12",
+  "G6",
+  "S7"
  ],
  "kind": "repo",
  "steps": [
@@ -23,7 +23,7 @@
     "D"
    ],
    "set": {
-    "verification/infrastructure/round-ex-4/preregistration.md": "# EX-4 preregistration\n\n```v3-round\nround EX-4\nkind sealing\nrecord-directory verification/infrastructure/round-ex-4/\n```\n\n```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-4/\nrecord AM verification/receipts/EX-4.json\nexecution AMD tools/ex/\nexecution M verification/README.md\nrecord A verification/v3-seals/EX-4.json\n```\n"
+    "verification/infrastructure/round-ex-4/preregistration.md": "# EX-4 preregistration\n\n```v3-round\nround EX-4\nkind sealing\nrecord-directory verification/infrastructure/round-ex-4/\n```\n\n```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-4/\nrecord AM verification/receipts/EX-4.json\nexecution AMD tools/ex/\nexecution M verification/README.md\nrecord A verification/v3-seals/EX4.json\n```\n"
    }
   },
   {
@@ -32,8 +32,7 @@
     "F"
    ],
    "set": {
-    "verification/infrastructure/round-ex-4/result.md": "halted before execution\n",
-    "verification/v3-seals/EX-4.json": "seal written by the record commit\n"
+    "verification/infrastructure/round-ex-4/result.md": "halted before execution\n"
    }
   },
   {
@@ -42,10 +41,7 @@
     "D",
     "C"
    ],
-   "from": "C",
-   "del": [
-    "verification/v3-seals/EX-4.json"
-   ]
+   "from": "C"
   },
   {
    "commit": "Q",
@@ -111,7 +107,7 @@
    ],
    "expect": {
     "verdict": "FAILS",
-    "family": "s12"
+    "family": "t1"
    }
   }
  ]

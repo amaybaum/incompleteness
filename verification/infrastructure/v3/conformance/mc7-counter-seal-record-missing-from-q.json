@@ -23,7 +23,7 @@
     "D"
    ],
    "set": {
-    "verification/infrastructure/round-ex-2/preregistration.md": "# EX-2 preregistration\n\n```v3-round\nround EX-2\nkind sealing\nrecord-directory verification/infrastructure/round-ex-2/\n```\n\n```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-2/\nrecord AM verification/receipts/EX-2.json\nrecord A verification/seals/EX2.json\nexecution AMD tools/ex/\nexecution M verification/README.md\n```\n"
+    "verification/infrastructure/round-ex-2/preregistration.md": "# EX-2 preregistration\n\n```v3-round\nround EX-2\nkind sealing\nrecord-directory verification/infrastructure/round-ex-2/\n```\n\n```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-2/\nrecord AM verification/receipts/EX-2.json\nrecord A verification/v3-seals/EX-2.json\nexecution AMD tools/ex/\nexecution M verification/README.md\n```\n"
    }
   },
   {
@@ -117,7 +117,7 @@
       "seal": {
        "records": [
         {
-         "path": "verification/seals/EX2.json",
+         "path": "verification/v3-seals/EX-2.json",
          "blob": "{{textblob:seal record\n}}"
         }
        ]

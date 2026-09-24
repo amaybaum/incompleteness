@@ -1,8 +1,9 @@
 {
- "id": "k1-reject-receipt-kind-disagrees-with-declaration",
+ "id": "g12-reject-seal-record-path-already-present",
  "settlements": [
-  "K1",
-  "S4"
+  "G12",
+  "S10",
+  "K4"
  ],
  "kind": "repo",
  "steps": [
@@ -13,7 +14,8 @@
    "set": {
     "README.md": "r\n",
     "tools/ex/keep.txt": "k\n",
-    "verification/README.md": "v\n"
+    "verification/README.md": "v\n",
+    "verification/v3-seals/EX-2.json": "a file already at the seal record path\n"
    }
   },
   {
@@ -63,7 +65,7 @@
       "version": 1,
       "round": "EX-2",
       "status": "complete",
-      "kind": "non-sealing",
+      "kind": "sealing",
       "object_format": "sha1",
       "d": "{{sha:D}}",
       "f": "{{sha:F}}",
@@ -112,9 +114,18 @@
         "commit": "{{sha:E}}",
         "record": "run on E"
        }
-      ]
+      ],
+      "seal": {
+       "records": [
+        {
+         "path": "verification/v3-seals/EX-2.json",
+         "blob": "{{textblob:seal record\n}}"
+        }
+       ]
+      }
      }
-    }
+    },
+    "verification/v3-seals/EX-2.json": "seal record\n"
    }
   },
   {
@@ -124,7 +135,7 @@
    ],
    "expect": {
     "verdict": "FAILS",
-    "family": "s4"
+    "family": "s10"
    }
   }
  ]
