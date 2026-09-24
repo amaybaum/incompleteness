@@ -1,5 +1,5 @@
 {
- "id": "g6-admit-record-class-by-broader-entry",
+ "id": "g6-reject-record-class-by-broader-entry",
  "settlements": [
   "S7",
   "G6"
@@ -11,6 +11,7 @@
   "receipt_path": "verification/receipts/EX-1.json"
  },
  "expect": {
-  "verdict": "HOLDS"
+  "verdict": "FAILS",
+  "family": "s7"
  }
 }

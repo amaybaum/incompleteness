@@ -1,0 +1,17 @@
+{
+ "id": "g6-reject-record-entry-outside-own-record",
+ "settlements": [
+  "S7",
+  "G6"
+ ],
+ "kind": "s7",
+ "text": "```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-1/\nrecord AM verification/receipts/EX-1.json\nexecution AMD tools/ex/\nexecution M verification/README.md\nrecord AM verification/seals/\n```\n",
+ "round": {
+  "record_directory": "verification/infrastructure/round-ex-1/",
+  "receipt_path": "verification/receipts/EX-1.json"
+ },
+ "expect": {
+  "verdict": "FAILS",
+  "family": "s7"
+ }
+}

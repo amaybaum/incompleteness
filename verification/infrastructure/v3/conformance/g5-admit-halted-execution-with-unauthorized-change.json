@@ -1,0 +1,132 @@
+{
+ "id": "g5-admit-halted-execution-with-unauthorized-change",
+ "settlements": [
+  "G5",
+  "S12"
+ ],
+ "kind": "repo",
+ "steps": [
+  {
+   "commit": "D",
+   "parents": [],
+   "from": null,
+   "set": {
+    "README.md": "r\n",
+    "tools/ex/keep.txt": "k\n",
+    "verification/README.md": "v\n"
+   }
+  },
+  {
+   "commit": "F",
+   "parents": [
+    "D"
+   ],
+   "set": {
+    "verification/infrastructure/round-ex-3/preregistration.md": "# EX-3 preregistration\n\n```v3-round\nround EX-3\nkind non-sealing\nrecord-directory verification/infrastructure/round-ex-3/\n```\n\n```v3-governed-paths\nrecord AM verification/infrastructure/round-ex-3/\nrecord AM verification/receipts/EX-3.json\nexecution AMD tools/ex/\nexecution M verification/README.md\n```\n"
+   }
+  },
+  {
+   "commit": "E1",
+   "parents": [
+    "F"
+   ],
+   "set": {
+    "tools/ex/a.txt": "a\n",
+    "other/unauthorized.txt": "u\n"
+   }
+  },
+  {
+   "commit": "W",
+   "parents": [
+    "E1"
+   ],
+   "del": [
+    "tools/ex/a.txt",
+    "other/unauthorized.txt"
+   ],
+   "set": {
+    "verification/infrastructure/round-ex-3/result.md": "halted: an unauthorized change\n"
+   }
+  },
+  {
+   "commit": "R1",
+   "parents": [
+    "D",
+    "W"
+   ],
+   "from": "W"
+  },
+  {
+   "commit": "Q",
+   "parents": [
+    "R1"
+   ],
+   "set": {
+    "verification/receipts/EX-3.json": {
+     "json": {
+      "schema": "v3-receipt",
+      "version": 1,
+      "round": "EX-3",
+      "status": "halted",
+      "kind": "non-sealing",
+      "object_format": "sha1",
+      "d": "{{sha:D}}",
+      "f": "{{sha:F}}",
+      "control_plane_blobs": [
+       {
+        "path": "verification/infrastructure/round-ex-3/preregistration.md",
+        "blob": "{{blob:F|verification/infrastructure/round-ex-3/preregistration.md}}"
+       }
+      ],
+      "governed_paths_digest": "{{gpd:F|verification/infrastructure/round-ex-3/preregistration.md}}",
+      "candidates": [
+       {
+        "commit": "{{sha:E1}}",
+        "tree": "{{tree:E1}}",
+        "measured": "the closing checks"
+       }
+      ],
+      "landing": {
+       "base": "{{sha:D}}",
+       "object": "{{sha:R1}}",
+       "reconciliations": [
+        "{{sha:R1}}"
+       ],
+       "resolved_paths": [],
+       "delta_digest": "{{delta:D|R1}}"
+      },
+      "attestations": [
+       {
+        "kind": "owner-designation",
+        "subject": "F",
+        "commit": "{{sha:F}}",
+        "record": "designation of F"
+       },
+       {
+        "kind": "check-run",
+        "subject": "F",
+        "commit": "{{sha:F}}",
+        "record": "run on F"
+       }
+      ],
+      "absent": {
+       "e": "halted-before-certification",
+       "tree_e": "halted-before-certification",
+       "execution_delta_digest": "halted-before-certification"
+      },
+      "withdrawal": "{{sha:W}}"
+     }
+    }
+   }
+  },
+  {
+   "check": "verify-round",
+   "args": [
+    "Q"
+   ],
+   "expect": {
+    "verdict": "HOLDS"
+   }
+  }
+ ]
+}
