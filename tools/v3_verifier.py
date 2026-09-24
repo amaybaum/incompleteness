@@ -548,15 +548,18 @@ def control_plane(repo, d, f):
             files[path] = obj
     if rdir + b'preregistration.md' not in files:
         return None, None, None, None, files, codes + ['t1:no-preregistration']
-    texts = [repo.blob(files[p]).decode('utf-8', 'replace') for p in sorted(files)]
     gov_blocks, round_blocks = [], []
-    for t in texts:
+    for p in sorted(files):
+        t = repo.blob(files[p]).decode('utf-8', 'replace')
         g = fenced_blocks(t, 'v3-governed-paths')
         rb = fenced_blocks(t, 'v3-round')
         if g is None or rb is None:
             return None, None, None, None, files, codes + ['t1:unclosed-block']
-        gov_blocks += g
-        round_blocks += rb
+        if p == rdir + b'preregistration.md':
+            gov_blocks += g
+            round_blocks += rb
+        elif g or rb:
+            codes.append('t1:block-in-amendment')
     if len(gov_blocks) != 1:
         codes.append('t1:governed-block-count')
     if len(round_blocks) != 1:
