@@ -1065,3 +1065,49 @@ certified historical measurements of those rounds' checkpoints under those
 rounds' rules, pinned by their blob identities. Their old side no longer
 exists: they are not re-measured, never read as evidence about a later head,
 and never the ground of an old/new equivalence claim after retirement.
+
+---
+
+## §A.39 Provisional native V3 rounds
+
+§A.37 remains the default lifecycle for every round, and it governs the round that adopted this
+rule, `V3-9`. A round whose preregistration the owner authorizes as a **provisional V3 pilot** runs
+instead under the native lifecycle of `verification/infrastructure/v3/architecture.md`, which is
+operative for such rounds and no others:
+
+1. **One pull request from `D`.** The round's control plane — its preregistration, carrying one
+   `v3-round` block and one `v3-governed-paths` block, and any amendments — is drafted on a single
+   pull request from the drafting snapshot `D`. Drafting ends when the owner designates the exact
+   commit `F`. No commit after `F` changes the control plane.
+2. **Linear execution to `E`.** The execution commits follow `F` linearly. The owner designates the
+   certified execution head `E`.
+3. **Reconciliation, if needed.** Later history enters the round only through reconciliation
+   merges after `E`: first parent a later base on whose first-parent chain `D` lies, second parent
+   `E` or the previous receipt commit. The last reconciliation is `Λ`.
+4. **The receipt.** `tools/v3_receipt.py` builds the receipt from the round's exact object ids and
+   the attestation records the host holds. `Q` is a single-parent child of `Λ` that adds only the
+   receipt and, for a sealing round, its seal record. `tools/v3_verifier.py --verify-round Q` must
+   print `VERDICT  HOLDS` before the pull request lands.
+5. **Landing.** The pull request lands through ordinary review and merge. How it lands is not part
+   of the round's validity.
+
+**The check runs at `F` and `E`.** A `check-run` attestation names the commit it was run on. Before
+`F` is designated, the pilot's branch is held at exactly `F` and the workflow is dispatched on it
+(`workflow_dispatch`); the run whose `head_sha` is `F`, with every job green, is `F`'s `check-run`
+attestation, and only then is `F` designated and the branch moved on. `E` is attested the same way
+before it is designated. A pull-request run tests a synthetic merge, not `F` or `E`, and is not
+recorded as their attestation. These are host attestations, which the receipt records and no
+predicate of `tools/v3_verifier.py` reads.
+
+**A halted pilot.** A pilot that halts after `F` instead of reaching a designated `E` follows the
+specification's `S12`: it appends the withdrawal commit `W` when execution commits exist, or,
+when none exist, the single-parent child of `F` that changes only record paths and carries the
+result note; it reconciles as `S9` requires; it builds a halted receipt with
+`tools/v3_receipt.py`, which carries `F`'s owner-designation and `check-run` attestations and none
+for `E`; `--verify-round Q` must hold; and it lands through the same ordinary pull request.
+
+A provisional pilot carries no guard clause, seal manifest record, round certificate or
+`control-plane-preconditions` block: its receipt, `verification/receipts/<round>.json`, is its
+protocol record. It leaves `V1` and `V2` authority unchanged. The guard and the release gate run on
+its pull request as on any other, and they remain the repository's authoritative checks until a
+later round makes V3 the default.
