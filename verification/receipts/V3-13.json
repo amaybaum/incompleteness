@@ -1,0 +1,53 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "V3-13",
+ "status": "halted",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "f9a9acaa44e4982d7814200c46bf1da222b4cbfc",
+ "f": "d6fa4c6371f56575b6a55c61029a2d073a158478",
+ "control_plane_blobs": [
+  {
+   "path": "verification/infrastructure/round-v3-13-retirement/preregistration.md",
+   "blob": "11e4302066bad73eb770f60f5ed13ee488c5e530"
+  }
+ ],
+ "governed_paths_digest": "c2e8a6ead7c0a7fe70929f8f58d8146fa674fa1b254ad583477a4af762dc2cf1",
+ "withdrawal": "13bb3485710b20ecf6ee1e95ed55e59075b5712f",
+ "candidates": [
+  {
+   "commit": "d4143df7a68af8f29f0137e811bc4f4b289fefa4",
+   "tree": "83e5e1703232d0720c6b5c79fbb749a2a6216f80",
+   "measured": "workflow_dispatch run 36168400287 at this commit: Lean kernel check success; Mathlib bridge success, release gate 21 of 21; Numerical probes failure, the guard stops after R3 with a TypeError in rank (line 229), five retained control-flow-only statements having been deleted by the frozen transformation; C8 failed"
+  }
+ ],
+ "landing": {
+  "base": "f9a9acaa44e4982d7814200c46bf1da222b4cbfc",
+  "object": "adc5449da68eaeac69b61d844be75ab6a42be6cd",
+  "reconciliations": [
+   "adc5449da68eaeac69b61d844be75ab6a42be6cd"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "ff5115d8d1dfdadb3e7c56eeb33e9f42b3c35c107719f09c9ec2c5ef2a1f4d04"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "d6fa4c6371f56575b6a55c61029a2d073a158478",
+   "record": "https://github.com/amaybaum/incompleteness/pull/744#issuecomment-5836716920"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "d6fa4c6371f56575b6a55c61029a2d073a158478",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36164944152"
+  }
+ ],
+ "absent": {
+  "e": "halted-before-certification",
+  "tree_e": "halted-before-certification",
+  "execution_delta_digest": "halted-before-certification"
+ }
+}
