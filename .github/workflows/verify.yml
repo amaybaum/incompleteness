@@ -62,12 +62,16 @@ jobs:
 
   # The Mathlib bridge is a separate lake project with a pinned toolchain, and a separate
   # job: it is slower and has its own failure surface, and a breakage there must not be
-  # able to obscure the state of the zero-import core gate above.
+  # able to obscure the state of the zero-import core gate above. fetch-depth: 0 is load-bearing
+  # for the release gate's v3-receipts step, which verifies each receipt from the commit that last
+  # wrote it and fails on a shallow repository (round V3-11).
   bridge:
     name: Mathlib bridge
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install elan
         run: |
@@ -279,12 +283,13 @@ jobs:
       - name: Verify (shadow)
         run: python3 tools/certificate_verifier.py --mode shadow
 
-  # V3-2: the V3 shadow verifier, SHADOW ONLY. Not a required check, not invoked by the release
-  # gate, and no other job depends on it; V1 and V2 remain authoritative. Self-test and corpus go
-  # red only on a defect of the shadow itself; the shadow report always exits 0. fetch-depth: 0
-  # gives the corpus's repository vectors and the projection the history they read.
+  # V3-2: the V3 verifier's diagnostics. Not a required check, and no other job depends on it: the
+  # V3 verdict is the release gate's v3-receipts step, which the required Mathlib bridge check runs
+  # (round V3-11). Self-test and corpus go red only on a defect of the verifier itself; the shadow
+  # report, the projection over the V2 attestation rows, always exits 0. fetch-depth: 0 gives the
+  # corpus's repository vectors and the projection the history they read.
   v3-shadow-verifier:
-    name: V3 shadow verifier
+    name: V3 verifier diagnostics
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
