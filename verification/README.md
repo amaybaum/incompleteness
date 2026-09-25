@@ -2519,7 +2519,7 @@ here says the sixth assumption holds of the physical substratum or fails of it, 
 a derivation of the gauge group. The round is **non-sealing** under `§A.37`: it owns the guard
 contracts asserting the live row and the live label cell and owns no seal state, so
 `_A6P_SEALED_HEAD`, `_A6D_SEALED_HEAD`, `_A6I_SEALED_HEAD` and every `_*_MERGE` and `_*_BASE`
-constant are read and never written, and the landing is `E` → `L` with no archive-pin commit.
+constant were read and never written, and the landing is `E` → `L` with no archive-pin commit.
 `_A6P_ROW`, `_A6P_ROAD_HYP` and `R7-A6D`'s inline row string take the adjudicated text, and the
 propagation guard's complex-lift control is re-pointed at an overclaim of the qualified sentence
 rather than deleted or relaxed; the three label-overclaim controls `_a6p_m6`, `_a6d_m25` and
@@ -2530,11 +2530,11 @@ result absent from this round's freeze was consumed.
 
 ## Seal infrastructure round SI-1 — the shadow validator and the equivalence census
 
-`verification/seals/` carries one JSON record per round: twenty-two of them, eighteen `kind:
-"sealed"` and four `kind: "base-only"`. They are a **transcription** of the seal constants
-`verification/lean/edge_rigidity_probe.py` already carried, and the guard machinery in that file
-remains **authoritative**. `R7-SI1` runs a generic validator over the records as a SHADOW and
-reports a census of its agreement with the existing per-round checks; the shadow decides nothing.
+`verification/seals/` carries one JSON record per round. `SI-1` wrote twenty-two of them,
+eighteen `kind: "sealed"` and four `kind: "base-only"`, as a **transcription** of the seal
+constants `verification/lean/edge_rigidity_probe.py` then carried, and the guard machinery in that
+file remained **authoritative**. `R7-SI1` ran a generic validator over the records as a SHADOW and
+reported a census of its agreement with the existing per-round checks; the shadow decided nothing.
 Presence is not authority, and `SI1-6` establishes that mechanically: the ninety pre-existing check
 tags return identical verdicts at the round's base and at its head, and no seal constant was
 removed.
@@ -2567,21 +2567,21 @@ round's mandated base, and this round has none.
 
 ## Seal infrastructure round SI-2 — the bootstrap cutover
 
-The generic seal validator `SI-1` built as a shadow is now **authoritative**, and the manifest under
-`verification/seals/` is the seal state it validates: twenty-three records, eighteen `sealed` and
+The generic seal validator `SI-1` built as a shadow became **authoritative**, and the manifest under
+`verification/seals/` the seal state it validated: twenty-three records, eighteen `sealed` and
 five `base-only`, the twenty-third being the `SI1` record this round added first. The adjudicated
 derivation rule is executable — on a pull request the landing is derived over the **union** of the
 real head's and the live base-branch tip's histories, deduplicated by SHA, never over
 `pull_request.base.sha`, a local branch or the synthetic merge — and every prior-round ancestry
-and archive clause in `verification/lean/edge_rigidity_probe.py` is now a call to that validator
-keyed on the round's record. The old machinery still runs on every one of them, and on the
-per-round seal-integrity comparisons, as a **shadow that gates nothing**: its verdicts are recorded
-beside the validator's, and two dynamic controls show that forcing or flipping them changes no
-verdict. Manifest integrity is data-driven, one rule over the record set fixed at the round's first
-stage. Nothing was deleted: the sixty-one legacy seal-constant assignment statements are at the
-head exactly as at the base, as text and in order, and `AGENTS.md` §A.37 now says in two halves
-that they **cease to gate** from this landing and remain **protected historical seal state** until
-the retirement round, which is sealing and writes its own manifest record.
+and archive clause in `verification/lean/edge_rigidity_probe.py` became a call to that validator
+keyed on the round's record. The old machinery kept running on every one of them, and on the
+per-round seal-integrity comparisons, as a **shadow that gated nothing**: its verdicts were recorded
+beside the validator's, and two dynamic controls showed that forcing or flipping them changed no
+verdict. Manifest integrity was data-driven, one rule over the record set fixed at the round's first
+stage. Nothing was deleted: the sixty-one legacy seal-constant assignment statements were at the
+head exactly as at the base, as text and in order, and `AGENTS.md` §A.37 said in two halves that
+they **ceased to gate** from this landing and remained **protected historical seal state** until
+the retirement round, which was sealing and wrote its own manifest record.
 
 The census at the final head matches the profile the freeze predicted: all twenty-three records
 agree, and of the twelve comparable synthetic controls exactly three diverge — 7, 13 and 20, each in
@@ -2607,8 +2607,7 @@ over sixty names were deleted against `SI-2`'s frozen inventory plus `SI-2`'s ow
 of a manifest verdict (the twenty-three `_<stem>_legacy_ancestry` functions), and no per-round
 seal-integrity comparison (the five `_<stem>_prior_seals` comparators, their eight recordings, and
 the recorder itself); every read of a round's seal state goes through one manifest accessor,
-`_seal_field`, and the zero-statement count is a standing contract `R7-SI3` keeps, so a round that
-writes a constant again fails it. The round was **sealing**, `E` → `L` → `P`, the first to seal
+`_seal_field`. The round was **sealing**, `E` → `L` → `P`, the first to seal
 through the manifest under §A.37 as `SI-2` amended it: it carried its base while executing in a
 stem-free prospective declaration handed to the validator, was classified `EXECUTION` and then
 `LANDED-PENDING-PIN` through the validator's prospective path — the first live use of the "delicate
@@ -2626,9 +2625,7 @@ identities, certified historical measurements of those rounds' checkpoints, neve
 evidence and never the ground of an old/new equivalence claim after retirement. The verdict map is
 preserved: the base's guard file, run at the mandated base on every run, returns ninety-two `PASS`
 verdicts that the head reproduces on every tag, and no pre-existing verdict moved at any of the six
-stage commits — so nothing was gating on a shadow, as `SI-2` measured. `AGENTS.md` §A.37 now states
-the representation retired, the prospective declaration and its removal at `P`, the round-declared
-baseline, and the closed-round rule, once for every round after.
+stage commits — so nothing was gating on a shadow, as `SI-2` measured.
 
 The round was executed twice. The first attempt, from the preregistration merge, ended green and
 was ruled non-certifying: it had exposed three contradictions inside the freeze — the shadow
@@ -2638,8 +2635,9 @@ them implicitly. Amendment 1 resolved them prospectively, in the append-only for
 was re-executed from the amendment's certified merge on a fresh branch, with the residue bound
 measured from git at every stage commit and no discrepancy. `SI-3` is not Act 21.
 
-`.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the
-probes as three independent jobs on every change under `verification/`.
+`.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build with the
+release gate, and the probes as three independent jobs, on every pull request and every push to
+`main`.
 
 ## Certificate infrastructure round CV-1 — the V2 round-certificate protocol: shadow, census and cutover
 
@@ -2651,14 +2649,14 @@ snapshot that has topology: twenty-nine `landed` rows naming the exact sealed he
 its landing merge, read from git, and six `base-only` rows, every one carrying its migration
 snapshot and no continuous-integration identity, because no attestation commit existed for any of
 them. One generic, standard-library verifier, `tools/certificate_verifier.py`, with no round stem
-in its text, derives every git-derivable fact again — the base from the control plane's last
+in its text, derived every git-derivable fact again — the base from the control plane's last
 execution-affecting artifact, located by blob on `main`'s first-parent chain; the sealed head as
 the landing's non-first parent under the strengthened ancestry check, with the tree required
 separately; the landing as the unique merge over the union of the real pull-request head and the
-live base-branch tip — and holds one universal live rule: every evidence id of every accepted
+live base-branch tip — and held one universal live rule: every evidence id of every accepted
 certificate resolves, through a relocation ledger, to exactly one current path at its certified
-blob. It is held to a conformance corpus of eighty-nine vectors over thirteen families, executed as
-an **exact set** on every build, six of them the permanent record of one defect: **an
+blob. It was held to a conformance corpus of eighty-nine vectors over thirteen families, executed as
+an **exact set** on every build, six of them recording one defect: **an
 execution-time assertion left running against whatever tree the guard later finds**, found six
 times in the two repair rounds `GR-1` and `GR-2` — the declaration scope, the pin scope, `N12`, two
 seals-tree statements and the fixture `F11`. The round supersedes the last four, each pinned by
@@ -2667,10 +2665,10 @@ contract could not survive while its replacement, reading the round's own recove
 passes.
 
 **Dual gating.** From the round's fifth stage `tools/release_gate.py` — the in-repo gate the
-required `Mathlib bridge` check runs — carries the verifier in authoritative mode, so `V2` can
-reject a build with repository-controlled semantics; the standalone `Certificate verifier` job runs
-it in shadow and gates nothing, the repository's ruleset requiring only three status contexts. `V1`
-is not retired and not a shadow: every `R7` block gates at `E`, at `L` and after as at the base,
+required `Mathlib bridge` check runs — carried the verifier in authoritative mode, so `V2` could
+reject a build with repository-controlled semantics; the standalone `Certificate verifier` job ran
+it in shadow and gated nothing, the repository's ruleset requiring only three status contexts. `V1`
+was not retired and not a shadow: every `R7` block gated at `E`, at `L` and after as at the base,
 and the base's 103 verdicts are reproduced on every tag. Act 29 is the one round the verifier does
 not own: `legacy-v1-owned.json` names exactly `PRA`, reported `LEGACY-V1-OWNED` with no validity
 claim in either direction while `V1` certifies it through `EXECUTION` → `LANDED-PENDING-PIN` →
@@ -2704,11 +2702,23 @@ receipt names, and how a round's commits reach `main` is outside it
 is an ancestor of a given commit, as a diagnostic that no verdict reads. Its `--receipts` mode is
 the V3 verdict: the release gate's `v3-receipts` step runs it at the commit under check and fails
 on any receipt in `receipts/` that does not hold from the commit that last wrote it
-(`infrastructure/round-v3-11-authority-cutover/`). Its projection over the `V2` attestation rows
-gates nothing, and its workflow job, `V3 verifier diagnostics`, is not a required check. `V1` and
-`V2` keep running and can still fail the release gate; they do not decide whether a native round is
-protocol-valid. Its conformance corpus is `infrastructure/v3/conformance/`, executed as an
-exact set; its comparison with `V2` over the attestation rows is `V3-2`'s `census.json`.
+(`infrastructure/round-v3-11-authority-cutover/`), and, for each receipt that holds, requires the
+round's record directory and seal record to be unchanged since that commit (`G13`,
+`infrastructure/round-v3-13-retirement/`). Its conformance corpus is
+`infrastructure/v3/conformance/`, executed as an exact set; the release gate runs the corpus and
+the verifier's self-test as the steps `v3-corpus` and `v3-self-test`. Its comparison with `V2` over
+the attestation rows is `V3-2`'s `census.json`.
+
+Round `V3-13` (`infrastructure/round-v3-13-retirement/`) retired the checks that re-derived the
+chronology of the rounds landed before V3 at every later head: 1,616 predicates of the guard, the
+1,610 `V3-12`'s census (`infrastructure/round-v3-12-retirement-census/`) retires and six the
+round's amendment to it adds, and fourteen of its checks; the `V2` verifier with its gate step,
+workflow job and conformance corpus, the control-plane base check and lint, and the verifier's
+projection over the `V2` rows. The records of those rounds are kept instead by the release gate's
+`legacy-records` step, `tools/legacy_records_check.py`: every record listed in
+`infrastructure/legacy-records.json` keeps its blob, no file is added under a closed namespace, and
+the manifest changes only as the governed work of a native round whose receipt holds. The guard's
+2,486 retained predicates, in 91 checks, check content and read no repository history.
 
 `tools/v3_receipt.py` builds a V3 receipt from a round's exact object ids and the attestation
 records the host holds, deriving every repository fact with the verifier's own functions; it is a
