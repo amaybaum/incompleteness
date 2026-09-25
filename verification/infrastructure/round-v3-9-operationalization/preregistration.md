@@ -45,7 +45,9 @@ one is legible, and nothing in this file binds them. `V3-9` adds:
 2. **`§A.39` in `AGENTS.md`**: a round the owner authorizes as a provisional V3 pilot runs the
    native lifecycle — one pull request from `D`, `F` designated, linear execution to a designated
    `E`, reconciliation if needed, the receipt commit `Q` built with the builder, `--verify-round Q`
-   holding before the pull request lands through ordinary review and merge.
+   holding before the pull request lands through ordinary review and merge. `F`'s and `E`'s
+   `check-run` attestations are dispatched runs on exactly those commits, and a pilot that halts
+   after `F` closes through `S12`'s halted receipt.
 3. **One preamble sentence** of the specification, which says V3 is operative only for such pilots.
 
 It is not:
@@ -111,7 +113,7 @@ are the predictions below:
 | measurement | stage 1 | stage 2 |
 |---|---|---|
 | `tools/v3_receipt.py` blob | `e08d15f6e301bec4d32f9dab34b5c7b40fb48d1f` | the same |
-| `AGENTS.md` blob | `a9687b39` | `041f559cafe177cb7b11347bd2d3a75dcd9a29d6` |
+| `AGENTS.md` blob | `a9687b39` | `864494c1a9696a3b08330da64cf9d265d6d8b92f` |
 | `architecture.md` blob | `db36dbd1` | `f699471b34d4f332c557f6b5452c952db49a0306` |
 | `tools/v3_verifier.py` blob | `ccfbe813` | the same |
 | verifier corpus, exact and as expected | 135 | 135 |
@@ -569,10 +571,9 @@ operative for such rounds and no others:
 1. **One pull request from `D`.** The round's control plane — its preregistration, carrying one
    `v3-round` block and one `v3-governed-paths` block, and any amendments — is drafted on a single
    pull request from the drafting snapshot `D`. Drafting ends when the owner designates the exact
-   commit `F` after the required checks have passed on it. No commit after `F` changes the control
-   plane.
+   commit `F`. No commit after `F` changes the control plane.
 2. **Linear execution to `E`.** The execution commits follow `F` linearly. The owner designates the
-   certified execution head `E` after the required checks have passed on it.
+   certified execution head `E`.
 3. **Reconciliation, if needed.** Later history enters the round only through reconciliation
    merges after `E`: first parent a later base on whose first-parent chain `D` lies, second parent
    `E` or the previous receipt commit. The last reconciliation is `Λ`.
@@ -582,6 +583,21 @@ operative for such rounds and no others:
    print `VERDICT  HOLDS` before the pull request lands.
 5. **Landing.** The pull request lands through ordinary review and merge. How it lands is not part
    of the round's validity.
+
+**The check runs at `F` and `E`.** A `check-run` attestation names the commit it was run on. Before
+`F` is designated, the pilot's branch is held at exactly `F` and the workflow is dispatched on it
+(`workflow_dispatch`); the run whose `head_sha` is `F`, with every job green, is `F`'s `check-run`
+attestation, and only then is `F` designated and the branch moved on. `E` is attested the same way
+before it is designated. A pull-request run tests a synthetic merge, not `F` or `E`, and is not
+recorded as their attestation. These are host attestations, which the receipt records and no
+predicate of `tools/v3_verifier.py` reads.
+
+**A halted pilot.** A pilot that halts after `F` instead of reaching a designated `E` follows the
+specification's `S12`: it appends the withdrawal commit `W` when execution commits exist, or,
+when none exist, the single-parent child of `F` that changes only record paths and carries the
+result note; it reconciles as `S9` requires; it builds a halted receipt with
+`tools/v3_receipt.py`, which carries `F`'s owner-designation and `check-run` attestations and none
+for `E`; `--verify-round Q` must hold; and it lands through the same ordinary pull request.
 
 A provisional pilot carries no guard clause, seal manifest record, round certificate or
 `control-plane-preconditions` block: its receipt, `verification/receipts/<round>.json`, is its
@@ -648,7 +664,7 @@ stops.
 |---|---|---|---|
 | `V39-0` | `BASE-HOLDS` | strong | only this file lies between `D` and `B` |
 | `V39-1` | `BUILDER-INSTALLED`; builder blob `e08d15f6e301bec4d32f9dab34b5c7b40fb48d1f` | strong | measured at `D` (`F5`) |
-| `V39-2` | `PILOT-RULE-INSTALLED`; `AGENTS.md` blob `041f559cafe177cb7b11347bd2d3a75dcd9a29d6`, `architecture.md` blob `f699471b34d4f332c557f6b5452c952db49a0306` | strong | measured at `D` (`F5`) |
+| `V39-2` | `PILOT-RULE-INSTALLED`; `AGENTS.md` blob `864494c1a9696a3b08330da64cf9d265d6d8b92f`, `architecture.md` blob `f699471b34d4f332c557f6b5452c952db49a0306` | strong | measured at `D` (`F5`) |
 | `V39-3` | `AUTHORITY-UNCHANGED` | strong | no job, gate, guard, verifier or corpus file is written, and the guard's reads of `AGENTS.md` are untouched (`F4`) |
 | `V39-4` | `SCOPE-HELD` | strong | the budget is fixed here |
 
@@ -791,3 +807,11 @@ no guard clause, manifest record or round certificate.
 - **`R7` — no `V2` artifact for a pilot** (`F4`). A pilot's receipt is its protocol record; the
   guard and the release gate remain the safety net without a parallel certificate.
 - **`R8` — no guard clause, certificate or attestation**, as for `V3-1` to `V3-8`.
+- **`R9` — attestations name their subject.** A pull-request run tests a synthetic merge, so
+  `§A.39` makes each `check-run` attestation a `workflow_dispatch` run whose `head_sha` is exactly
+  `F` or `E`, taken while the branch is held there. This is host practice that keeps the
+  attestation's description of its subject true; no verifier predicate reads it.
+- **`R10` — the halt path.** `§A.39` closes a pilot that stops after `F` through `S12`: `W`, or
+  the record commit when no execution commits exist, reconciliation, a halted receipt with `F`'s
+  attestations alone, and `--verify-round Q` holding. The builder and the verifier already carry
+  both halted shapes, so nothing but the rule's text is added for it.
