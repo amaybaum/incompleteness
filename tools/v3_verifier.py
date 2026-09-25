@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""v3_verifier.py -- the V3 shadow verifier (round V3-2).
+"""v3_verifier.py -- the V3 verifier (round V3-2; the V3 verdict from round V3-11).
 
-SHADOW ONLY. This tool implements the protocol-3 specification
-(verification/infrastructure/v3/architecture.md) and reports. It decides nothing: no verdict it
-prints changes any exit status, nothing required invokes it, and V1 and V2 remain the only
-mechanisms that accept or reject a build, a pull request or a round. It has no authoritative mode.
+This tool implements the protocol-3 specification (verification/infrastructure/v3/architecture.md).
+Its --receipts mode is the V3 verdict the release gate runs: it verifies every receipt in a
+commit's tree from the commit that last wrote it and exits 1 on any receipt that does not hold. The
+projection over the V2 attestation rows, and the shadow report that prints it, gate nothing. V1 and
+V2 keep running beside it; they do not decide whether a native round is protocol-valid.
 
 Entry points, exactly:
 
@@ -13,6 +14,8 @@ Entry points, exactly:
                                    as expected (default: verification/infrastructure/v3/conformance)
     --verify-round <Q>             lifecycle T1, T3 or T5, T6 and T7 from the receipt commit Q
     --reachable <C> <Q>            a diagnostic, never a verdict: whether Q is an ancestor of C
+    --receipts <C>                 every receipt in C's tree, verified from the commit reachable
+                                   from C that last wrote it; exit 1 on any that does not hold
     --project <subject>            the projection of the V2 attestation rows read at <subject>
     --mode shadow --subject <C>    the corpus and the projection, reported; always exits 0
 
@@ -1005,6 +1008,41 @@ def reachable(repo, c, q):
         return 'undecidable', u.code
 
 
+RECEIPT_DIR = b'verification/receipts/'
+RECEIPT_PATH = re.compile(rb'verification/receipts/[A-Z0-9]+(-[A-Z0-9]+)*\.json')
+
+
+def receipts(repo, c):
+    """(all hold, lines): every receipt in C's tree, each verified from its receipt commit, the
+    commit reachable from C that last wrote it. A path under verification/receipts/ that is not a
+    receipt path fails, and so does a receipt whose receipt commit does not hold. UNDECIDABLE, a
+    shallow repository included, is never promoted to HOLDS."""
+    try:
+        repo.need(c)
+        paths = sorted(p for p in repo.entries(c) if p.startswith(RECEIPT_DIR))
+    except Undecidable as u:
+        return False, ['RECEIPTS  UNDECIDABLE  %s' % u.code]
+    lines, ok = [], True
+    for p in paths:
+        name = p.decode('utf-8', 'replace')
+        if not RECEIPT_PATH.fullmatch(p):
+            lines.append('RECEIPT  %s  FAILS  s10:receipt-path' % name)
+            ok = False
+            continue
+        out = repo.run(['rev-list', '-n', '1', c, '--', name])
+        q = out.decode().strip() if out else ''
+        if not q:
+            lines.append('RECEIPT  %s  UNDECIDABLE  undecidable:receipt-commit' % name)
+            ok = False
+            continue
+        verdict, codes, _att = verify_round(repo, q)
+        lines.append('RECEIPT  %s  Q %s  %s%s' % (name, q, verdict,
+                                                   '  ' + ', '.join(codes) if codes else ''))
+        ok = ok and verdict == 'HOLDS'
+    lines.append('RECEIPTS  %d receipt(s), %s' % (len(paths), 'all hold' if ok else 'NOT ALL HOLD'))
+    return ok, lines
+
+
 # ---------------------------------------------------------------------------------------------
 # the projection: V2 attestation rows, commit-locally
 # ---------------------------------------------------------------------------------------------
@@ -1391,7 +1429,8 @@ def self_test():
 # main
 # ---------------------------------------------------------------------------------------------
 USAGE = ('usage: v3_verifier.py --self-test | --corpus [DIR] | --verify-round <Q> | '
-         '--reachable <C> <Q> | --project <subject> | --mode shadow --subject <commit>')
+         '--reachable <C> <Q> | --receipts <C> | --project <subject> | '
+         '--mode shadow --subject <commit>')
 
 
 def main(argv):
@@ -1414,6 +1453,11 @@ def main(argv):
             state, code = reachable(Repo(cwd), c, q)
             print('REACHABLE %s' % (code if code else state))
             return 0
+        if argv[:1] == ['--receipts'] and len(argv) == 2:
+            c = check_oid(argv[1])
+            ok, lines = receipts(Repo(cwd), c)
+            print('\n'.join(lines))
+            return 0 if ok else 1
         if argv[:1] == ['--project'] and len(argv) == 2:
             s = check_oid(argv[1])
             print('\n'.join(project(Repo(cwd), s)))
@@ -1424,8 +1468,8 @@ def main(argv):
             except Refused as rf:
                 print('v3_verifier shadow report: subject refused (%s)' % rf.code)
                 return 0
-            print('v3_verifier shadow report -- SHADOW ONLY: this report gates nothing; V1 and V2 '
-                  'remain authoritative')
+            print('v3_verifier shadow report -- DIAGNOSTIC: this report gates nothing; the V3 '
+                  'verdict is --receipts, run by the release gate')
             print('settled rules (verification/infrastructure/v3/architecture.md):')
             for k in SETTLED:
                 print('  ' + k)
