@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "V3-12",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "81150851f84c8aa1df71dc69013a6ca6f6d71b51",
+ "f": "4b506738d80125d5083032ede21088a13e28aca4",
+ "control_plane_blobs": [
+  {
+   "path": "verification/infrastructure/round-v3-12-retirement-census/preregistration.md",
+   "blob": "2fe79e4b1ac42222bd2da50f619507cad7f65cea"
+  }
+ ],
+ "governed_paths_digest": "0a59860d4aa6aa1b1f6883f82c6556aa8de520b29d619eded8b9addb32c99ec8",
+ "e": "437b74b91db495daee97595bc7c97019916a8b08",
+ "tree_e": "845a8239205e4c0708784cd342fa5bcf70b1887e",
+ "execution_delta_digest": "157732f9c6703bbe718caf677820f0080d056c5ffe2c29652ae3d9d6f264275a",
+ "candidates": [],
+ "landing": {
+  "base": "81150851f84c8aa1df71dc69013a6ca6f6d71b51",
+  "object": "e9555b22df2e9624300735edaff74b6647c89c6a",
+  "reconciliations": [
+   "e9555b22df2e9624300735edaff74b6647c89c6a"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "e6c8fa8aa297dfe07b3c3f5ba9b0bdb641a120780abb6448496f244b545bfc0e"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "4b506738d80125d5083032ede21088a13e28aca4",
+   "record": "https://github.com/amaybaum/incompleteness/pull/743#issuecomment-5833297294"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "4b506738d80125d5083032ede21088a13e28aca4",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36135049153"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "437b74b91db495daee97595bc7c97019916a8b08",
+   "record": "https://github.com/amaybaum/incompleteness/pull/743#issuecomment-5833767913"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "437b74b91db495daee97595bc7c97019916a8b08",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36142178196"
+  }
+ ]
+}
