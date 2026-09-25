@@ -13,9 +13,10 @@ seven gaps round `V3-2` recorded, `K1` to `K4` and `G5` to `G7`. Round `V3-5`, u
 preregistration
 `verification/infrastructure/round-v3-5-specification-completion/preregistration.md`, settled the
 five gaps round `V3-3` recorded, `G8` to `G12`. Each settlement is normative text under its
-identifier. The specification is operative only for a round the owner authorizes as a provisional
-V3 pilot under `AGENTS.md` §A.39. Every other round is governed by `AGENTS.md` §A.37 until a later
-round makes V3 the default, and no `V1` or `V2` state is changed or migrated by it.
+identifier. The specification is operative for every round begun after round `V3-11`'s landing that the
+owner does not designate a compatibility round under `AGENTS.md` §A.37, and for the provisional
+pilots `V3-10` and `V3-11` under `AGENTS.md` §A.39. A round begun earlier keeps the protocol under
+which it landed, and no `V1` or `V2` state is changed or migrated by the specification.
 
 The words **must**, **must not** and **may** are normative. Anything this document leaves
 undefined is invalid, not permitted.
