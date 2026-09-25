@@ -674,6 +674,11 @@ the only two-pull-request freeze written between the two wordings — states its
 shape explicitly as no guard, no pin, `E` → `L`, so its meaning is unchanged. A
 preregistration is not amended to track later vocabulary, and none needs to be.
 
+From `V3-11`'s landing this rule is the compatibility lifecycle, not the default. It governs the
+rounds begun before that landing, which keep the protocol under which they landed, and a later round
+only when the owner designates its preregistration a §A.37 compatibility round. Every other round
+runs under §A.39.
+
 ### The invariant
 
 > The **sealed execution commit never changes.** Before certification the
@@ -1068,12 +1073,12 @@ and never the ground of an old/new equivalence claim after retirement.
 
 ---
 
-## §A.39 Provisional native V3 rounds
+## §A.39 Native V3 rounds
 
-§A.37 remains the default lifecycle for every round, and it governs the round that adopted this
-rule, `V3-9`. A round whose preregistration the owner authorizes as a **provisional V3 pilot** runs
-instead under the native lifecycle of `verification/infrastructure/v3/architecture.md`, which is
-operative for such rounds and no others:
+From `V3-11`'s landing every new round runs under the native lifecycle of
+`verification/infrastructure/v3/architecture.md`, unless the owner designates its preregistration a
+§A.37 compatibility round. `V3-9`, which adopted this section, ran under §A.37; `V3-10` and `V3-11`
+ran under it as provisional pilots. Each round keeps the protocol under which it landed:
 
 1. **One pull request from `D`.** The round's control plane — its preregistration, carrying one
    `v3-round` block and one `v3-governed-paths` block, and any amendments — is drafted on a single
@@ -1092,22 +1097,30 @@ operative for such rounds and no others:
    of the round's validity.
 
 **The check runs at `F` and `E`.** A `check-run` attestation names the commit it was run on. Before
-`F` is designated, the pilot's branch is held at exactly `F` and the workflow is dispatched on it
+`F` is designated, the round's branch is held at exactly `F` and the workflow is dispatched on it
 (`workflow_dispatch`); the run whose `head_sha` is `F`, with every job green, is `F`'s `check-run`
 attestation, and only then is `F` designated and the branch moved on. `E` is attested the same way
 before it is designated. A pull-request run tests a synthetic merge, not `F` or `E`, and is not
 recorded as their attestation. These are host attestations, which the receipt records and no
 predicate of `tools/v3_verifier.py` reads.
 
-**A halted pilot.** A pilot that halts after `F` instead of reaching a designated `E` follows the
+**A halted round.** A round that halts after `F` instead of reaching a designated `E` follows the
 specification's `S12`: it appends the withdrawal commit `W` when execution commits exist, or,
 when none exist, the single-parent child of `F` that changes only record paths and carries the
 result note; it reconciles as `S9` requires; it builds a halted receipt with
 `tools/v3_receipt.py`, which carries `F`'s owner-designation and `check-run` attestations and none
 for `E`; `--verify-round Q` must hold; and it lands through the same ordinary pull request.
 
-A provisional pilot carries no guard clause, seal manifest record, round certificate or
+**Authority.** A native round is protocol-valid exactly when `tools/v3_verifier.py --verify-round Q`
+prints `VERDICT  HOLDS` on its receipt commit `Q`. The release gate's `v3-receipts` step runs
+`tools/v3_verifier.py --receipts` at the commit under check: it verifies every receipt in the tree
+from the commit that last wrote it and fails on any that does not hold, so the required
+`Mathlib bridge` check carries the V3 verdict. The host attestations a receipt records, the owner's
+designations and the check runs, are outside the verifier's semantics: no predicate reads them.
+
+A native round carries no guard clause, seal manifest record, round certificate or
 `control-plane-preconditions` block: its receipt, `verification/receipts/<round>.json`, is its
-protocol record. It leaves `V1` and `V2` authority unchanged. The guard and the release gate run on
-its pull request as on any other, and they remain the repository's authoritative checks until a
-later round makes V3 the default.
+protocol record. The guard (`V1`) and the round-certificate verifier (`V2`) keep running on its pull
+request as on any other, and a failure of either still fails the release gate: until a later round
+decides which of their checks survive, they are compatibility and repository-integrity gates. They
+do not decide whether a native round is protocol-valid.

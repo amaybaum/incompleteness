@@ -2691,7 +2691,7 @@ were transcribed byte-equal, `GR-1` and `GR-2` changed representation with the s
 its attestation `A` — one record, `attestations/CV1.json`, with the run identities — is appended to
 `main` after the landing's push run is certified.
 
-`tools/v3_verifier.py` is the V3 shadow verifier, installed by round `V3-2`
+`tools/v3_verifier.py` is the V3 verifier, installed by round `V3-2` as a shadow
 (`infrastructure/round-v3-2-shadow-verifier/`). It implements the settled protocol-3 rules of
 `infrastructure/v3/architecture.md`: the settlements of `K1`–`K4` and `G5`–`G7` that round `V3-3`
 fixed (`infrastructure/round-v3-3-specification-resolution/`) and round `V3-4` implemented
@@ -2701,15 +2701,18 @@ implemented (`infrastructure/round-v3-6-final-conformance/`). It verifies reposi
 provenance: whether a round holds is decided from its final receipt commit and the commits the
 receipt names, and how a round's commits reach `main` is outside it
 (`infrastructure/round-v3-8-publication-removal/`); `--reachable` reports whether a receipt commit
-is an ancestor of a given commit, as a diagnostic that no verdict reads. It gates nothing: it has
-no authoritative mode, no verdict it prints changes an exit status, the release gate does not
-invoke it, and its workflow job, `V3 shadow verifier`, is not a required check. `V1` and `V2`
-remain authoritative. Its conformance corpus is `infrastructure/v3/conformance/`, executed as an
+is an ancestor of a given commit, as a diagnostic that no verdict reads. Its `--receipts` mode is
+the V3 verdict: the release gate's `v3-receipts` step runs it at the commit under check and fails
+on any receipt in `receipts/` that does not hold from the commit that last wrote it
+(`infrastructure/round-v3-11-authority-cutover/`). Its projection over the `V2` attestation rows
+gates nothing, and its workflow job, `V3 verifier diagnostics`, is not a required check. `V1` and
+`V2` keep running and can still fail the release gate; they do not decide whether a native round is
+protocol-valid. Its conformance corpus is `infrastructure/v3/conformance/`, executed as an
 exact set; its comparison with `V2` over the attestation rows is `V3-2`'s `census.json`.
 
 `tools/v3_receipt.py` builds a V3 receipt from a round's exact object ids and the attestation
 records the host holds, deriving every repository fact with the verifier's own functions; it is a
-builder, not a verifier (`infrastructure/round-v3-9-operationalization/`). A round the owner
-authorizes as a provisional V3 pilot under `AGENTS.md` §A.39 runs in one pull request, its receipt
-`receipts/<round>.json` is its protocol record, and `tools/v3_verifier.py --verify-round` must hold
-on its receipt commit before the pull request lands.
+builder, not a verifier (`infrastructure/round-v3-9-operationalization/`). A native round under
+`AGENTS.md` §A.39 runs in one pull request, its receipt `receipts/<round>.json` is its protocol
+record, and `tools/v3_verifier.py --verify-round` must hold on its receipt commit before the pull
+request lands.

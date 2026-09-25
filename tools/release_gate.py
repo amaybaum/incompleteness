@@ -48,6 +48,13 @@ another. Each exists because a real defect shipped past the others:
                        invites an assertion against the wrong tree at every extension
                        point. The standalone workflow job runs it in shadow and gates
                        nothing; this step is where V2 can reject a build.
+  v3-receipts          the V3 verdict, from round V3-11: every receipt in the
+                       tree, verified by tools/v3_verifier.py --receipts from
+                       the commit that last wrote it. A receipt is data no other
+                       check reads, so this step is where a native round whose
+                       receipt does not hold can reject a build. V1 and V2 keep
+                       running beside it and can still fail the gate; they do
+                       not decide whether a native round is protocol-valid.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
@@ -75,6 +82,10 @@ def main():
     label = None
     if '--label' in sys.argv:
         label = sys.argv[sys.argv.index('--label') + 1]
+    # the commit under check, located here because tools/v3_verifier.py reads no ref: the gate
+    # names the commit, and a failed lookup leaves an empty argument, which the verifier refuses
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True,
+                          text=True).stdout.strip()
     checks = [
         # toolchain FIRST: every other check compares artifacts to sources, so
         # they all pass on a tree that has lost its build entry point and can
@@ -152,6 +163,12 @@ def main():
         # V1's guard gates beside it and is not retired here.
         ("certificate-verifier",
                       [sys.executable, "tools/certificate_verifier.py", "--mode", "authoritative"]),
+        # v3-receipts: the V3 verdict (round V3-11). Every receipt under verification/receipts/,
+        # verified from the commit that last wrote it; a receipt that does not hold, or a
+        # repository too shallow to decide, fails the gate. It needs full history, so the
+        # workflow's Mathlib bridge job checks out with fetch-depth: 0.
+        ("v3-receipts",
+                      [sys.executable, "tools/v3_verifier.py", "--receipts", head]),
     ]
     # baselines are named in the TRANSFER's docs, not the manuscript tree, so
     # point the label check there when a transfer path is supplied
