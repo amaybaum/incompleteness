@@ -64,8 +64,7 @@ jobs:
   # job: it is slower and has its own failure surface, and a breakage there must not be
   # able to obscure the state of the zero-import core gate above. fetch-depth: 0 is load-bearing
   # for the release gate's v3-receipts step, which verifies each receipt from the commit that last
-  # wrote it and fails on a shallow repository (round V3-11), and for its legacy-records step,
-  # which reads a changed manifest's governing round from history (round V3-13).
+  # wrote it and fails on a shallow repository (round V3-11).
   bridge:
     name: Mathlib bridge
     runs-on: ubuntu-latest
@@ -153,9 +152,24 @@ jobs:
     name: Numerical probes
     runs-on: ubuntu-latest
     steps:
-      # The default depth-1 checkout: no probe and no guard predicate reads repository history
-      # (round V3-13).
+      # Full history rather than the default depth-1 clone, and LOAD-BEARING. For commits it is
+      # only a convenience -- `edge_rigidity_probe.py`'s R7-RBR guard recovers whatever commits it
+      # needs itself, and fails closed if it cannot, so cloning deep merely makes that recovery a
+      # no-op instead of a network round-trip. But `fetch-depth: 0` is also what fetches
+      # `+refs/heads/*:refs/remotes/origin/*`, and the guard's ARCHIVE mode resolves the pull
+      # request's base BRANCH by name against `refs/remotes/origin/<base ref>` and nothing else. A
+      # shallow or single-branch checkout leaves that ref absent and archive mode fails closed, by
+      # design: neither `pull_request.base.sha` -- which is no reliable source of the live tip, PR
+      # #644 having carried base b78eac870ba3 across three later landings -- nor a local
+      # `refs/heads/<base ref>` is accepted in its place.
+      #
+      # Note that the guard does NOT ask its question of HEAD in a pull_request run -- HEAD is the
+      # synthetic merge commit, which has BOTH the base and the head as parents, so the ancestry
+      # check would be vacuous; execution mode resolves pull_request.head.sha instead, and archive
+      # mode the real head SHA or the base branch tip, never that HEAD.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -202,3 +216,95 @@ jobs:
             python3 "${p}.py" || rc=1
           done
           exit $rc
+
+  # A.37 base certification for control planes. A control plane's mechanical preconditions are
+  # scoped at D (the drafting snapshot), at B (the mandated execution base: the certified merge
+  # commit on main) or from D to B. B has no SHA until the merge exists, so on a pull request the
+  # B-scoped rows are evaluated prospectively against M, the candidate merge; on the push to main
+  # the SAME rows run through the SAME code path against the actual merge commit, which is the
+  # certification an execution may branch from.
+  #
+  # This is the one place a job deliberately asks its question of HEAD in a pull_request run:
+  # actions/checkout hands it the synthetic merge of the head into the current base, which is
+  # exactly M. That is the opposite of the ancestry guard in the probes job above, which must never
+  # read that HEAD and resolves pull_request.head.sha instead; M is predictive test state only and
+  # certifies nothing. fetch-depth: 0 is load-bearing for the ancestry rows (D an ancestor of REF).
+  #
+  # A tree with no block-bearing control plane is a clean no-op, so this job is green on every
+  # change that is not a control plane.
+  control-plane-base-check:
+    name: Control-plane base check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Self-test
+        run: |
+          python3 tools/control_plane_base_check.py --self-test
+          python3 tools/control_plane_lint.py --self-test
+
+      # HEAD is the synthetic merge here: the candidate M.
+      - name: Preconditions at M (candidate merge)
+        if: github.event_name != 'push'
+        run: python3 tools/control_plane_base_check.py --mode M --ref HEAD
+
+      # github.sha is the merge commit that landed: the actual B.
+      - name: Preconditions at B (merge commit on main)
+        if: github.event_name == 'push'
+        run: python3 tools/control_plane_base_check.py --mode B --ref ${{ github.sha }}
+
+  # CV-1: the V2 round-certificate verifier, in SHADOW MODE, for visibility at every event. Its
+  # report is always produced and this job never gates: the repository's ruleset requires only the
+  # three checks above, so veto power does not come from here. The authoritative call lives in
+  # tools/release_gate.py, which the required Mathlib bridge check runs, from CV-1's stage 5.
+  # fetch-depth: 0 is load-bearing: the derivations read the union of the pull request's real head
+  # and refs/remotes/origin/<base ref>, never the synthetic merge.
+  certificate-verifier:
+    name: Certificate verifier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Self-test
+        run: python3 tools/certificate_verifier.py --self-test
+
+      - name: Verify (shadow)
+        run: python3 tools/certificate_verifier.py --mode shadow
+
+  # V3-2: the V3 verifier's diagnostics. Not a required check, and no other job depends on it: the
+  # V3 verdict is the release gate's v3-receipts step, which the required Mathlib bridge check runs
+  # (round V3-11). Self-test and corpus go red only on a defect of the verifier itself; the shadow
+  # report, the projection over the V2 attestation rows, always exits 0. fetch-depth: 0 gives the
+  # corpus's repository vectors and the projection the history they read.
+  v3-shadow-verifier:
+    name: V3 verifier diagnostics
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Self-test
+        run: python3 tools/v3_verifier.py --self-test
+
+      - name: Corpus
+        run: python3 tools/v3_verifier.py --corpus
+
+      - name: Report (shadow)
+        run: python3 tools/v3_verifier.py --mode shadow --subject "$(git rev-parse HEAD)"

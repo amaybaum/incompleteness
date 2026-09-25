@@ -1,0 +1,79 @@
+{
+ "expect": {
+  "reason": "ok",
+  "verdict": "PASS"
+ },
+ "family": "schema",
+ "id": "schema-00-positive-native",
+ "repo": {
+  "commits": [
+   {
+    "files": {
+     "AGENTS.md": "agents\n",
+     "f": "c0\n",
+     "verification/lean/guard.py": "_MANIFEST_PROSPECTIVE = {}\n_MANIFEST_BASELINE = {'base': 'b', 'authorized': ()}\n# ---- R7-ZZ: the round's own region\ncheck('R7-ZZ', True)\n# ---- R7-ZZ ends.\n"
+    },
+    "name": "c0"
+   },
+   {
+    "files": {
+     "verification/programmes/x/round-z/preregistration.md": "p\n"
+    },
+    "inherit": "c0",
+    "name": "B",
+    "parents": [
+     "c0"
+    ]
+   },
+   {
+    "files": {
+     "verification/certificates/ZZ.json": "{\n \"base\": \"{{sha:B}}\",\n \"contributions\": [],\n \"control_plane\": [\n  {\n   \"blob\": \"{{blob:B:verification/programmes/x/round-z/preregistration.md}}\",\n   \"execution_affecting\": true,\n   \"merge\": \"{{sha:B}}\",\n   \"path\": \"verification/programmes/x/round-z/preregistration.md\"\n  }\n ],\n \"dependencies\": [],\n \"directory\": \"programmes/x/round-z\",\n \"evidence\": [\n  {\n   \"blob\": \"{{blob:self:verification/programmes/x/round-z/result.md}}\",\n   \"id\": \"ZZ/result.md\",\n   \"path\": \"verification/programmes/x/round-z/result.md\"\n  }\n ],\n \"origin\": \"native-v2\",\n \"protocol\": 2,\n \"round\": \"ZZ\",\n \"schema\": \"oi-round-certificate\",\n \"shape\": \"non-sealing\"\n}\n",
+     "verification/programmes/x/round-z/result.md": "r\n"
+    },
+    "inherit": "B",
+    "name": "E",
+    "parents": [
+     "B"
+    ]
+   },
+   {
+    "files": {
+     "m": "main1\n"
+    },
+    "inherit": "B",
+    "name": "main1",
+    "parents": [
+     "B"
+    ]
+   },
+   {
+    "files": {
+     "m": "main1\n"
+    },
+    "inherit": "E",
+    "name": "L",
+    "parents": [
+     "main1",
+     "E"
+    ]
+   },
+   {
+    "delete": [],
+    "files": {
+     "verification/certificates/attestations/ZZ.json": "{\n \"base\": \"{{sha:B}}\",\n \"certificate\": \"{{blob:E:verification/certificates/ZZ.json}}\",\n \"ci\": {\n  \"exact_e\": {\n   \"conclusion\": \"success\",\n   \"head_sha\": \"{{sha:E}}\",\n   \"run\": 1\n  },\n  \"exact_l\": {\n   \"conclusion\": \"success\",\n   \"head_sha\": \"{{sha:E}}\",\n   \"run\": 1\n  },\n  \"main_push\": {\n   \"conclusion\": \"success\",\n   \"head_sha\": \"{{sha:E}}\",\n   \"run\": 1\n  }\n },\n \"kind\": \"landed\",\n \"landing\": \"{{sha:L}}\",\n \"origin\": \"native-v2\",\n \"protocol\": 2,\n \"round\": \"ZZ\",\n \"sealed_head\": \"{{sha:E}}\",\n \"tree\": \"{{tree:E}}\"\n}\n",
+     "verification/certificates/legacy-v1-owned.json": "{\"protocol\": 2, \"count\": 0, \"rounds\": []}\n",
+     "verification/certificates/live-policy.json": "{\"protocol\": 2, \"count\": 0, \"policies\": []}\n"
+    },
+    "inherit": "L",
+    "name": "H",
+    "parents": [
+     "L"
+    ]
+   }
+  ],
+  "head": "H",
+  "refs": {
+   "refs/remotes/origin/main": "H"
+  }
+ }
+}
