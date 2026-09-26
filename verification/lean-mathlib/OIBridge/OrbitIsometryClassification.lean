@@ -491,7 +491,7 @@ theorem a32_shared_conj_D :
 #print axioms a32_shared_conj_D
 
 theorem a32_shared_fix_1 :
-    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) ((1 : Equiv.Perm (Fin 4)) i))).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3).submatrix ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2)) ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3) := by
+    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) ((1 : Equiv.Perm (Fin 4)) i))).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)).submatrix ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2)) ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) := by
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
@@ -508,7 +508,7 @@ theorem a32_shared_fix_1 :
 #print axioms a32_shared_fix_1
 
 theorem a32_shared_fix_2 :
-    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) ((1 : Equiv.Perm (Fin 4)) i))).submatrix Equiv.swap (1 : Fin 4) 2 Equiv.swap (1 : Fin 4) 2).submatrix ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3)) ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix Equiv.swap (1 : Fin 4) 2 Equiv.swap (1 : Fin 4) 2) := by
+    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) ((1 : Equiv.Perm (Fin 4)) i))).submatrix (Equiv.swap (1 : Fin 4) 2) (Equiv.swap (1 : Fin 4) 2)).submatrix ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3)) ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix (Equiv.swap (1 : Fin 4) 2) (Equiv.swap (1 : Fin 4) 2)) := by
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
@@ -525,7 +525,7 @@ theorem a32_shared_fix_2 :
 #print axioms a32_shared_fix_2
 
 theorem a32_shared_fix_3 :
-    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 (((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2)) i))).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 i)).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) := by
+    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) (((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2)) i))).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) := by
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
@@ -542,7 +542,7 @@ theorem a32_shared_fix_3 :
 #print axioms a32_shared_fix_3
 
 theorem a32_shared_fix_4 :
-    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 ((1 : Equiv.Perm (Fin 4)) i))).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3).submatrix ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2)) ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 i)).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3) := by
+    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) ((1 : Equiv.Perm (Fin 4)) i))).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)).submatrix ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2)) ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) := by
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
@@ -559,7 +559,7 @@ theorem a32_shared_fix_4 :
 #print axioms a32_shared_fix_4
 
 theorem a32_shared_fix_5 :
-    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 ((1 : Equiv.Perm (Fin 4)) i))).submatrix Equiv.swap (1 : Fin 4) 2 Equiv.swap (1 : Fin 4) 2).submatrix ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3)) ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 i)).submatrix Equiv.swap (1 : Fin 4) 2 Equiv.swap (1 : Fin 4) 2) := by
+    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) ((1 : Equiv.Perm (Fin 4)) i))).submatrix (Equiv.swap (1 : Fin 4) 2) (Equiv.swap (1 : Fin 4) 2)).submatrix ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3)) ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (1 : Fin 4) 2) (Equiv.swap (1 : Fin 4) 2)) := by
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
@@ -576,7 +576,7 @@ theorem a32_shared_fix_5 :
 #print axioms a32_shared_fix_5
 
 theorem a32_shared_fix_6 :
-    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (1 : Fin 4) 2 (((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3)) i))).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (1 : Fin 4) 2 i)).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) := by
+    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (1 : Fin 4) 2) (((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3)) i))).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (1 : Fin 4) 2) i)).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) := by
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
@@ -593,7 +593,7 @@ theorem a32_shared_fix_6 :
 #print axioms a32_shared_fix_6
 
 theorem a32_shared_fix_7 :
-    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (1 : Fin 4) 2 ((1 : Equiv.Perm (Fin 4)) i))).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3).submatrix ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2)) ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (1 : Fin 4) 2 i)).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3) := by
+    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (1 : Fin 4) 2) ((1 : Equiv.Perm (Fin 4)) i))).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)).submatrix ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2)) ((Equiv.swap (0 : Fin 4) 3).trans (Equiv.swap (1 : Fin 4) 2))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (1 : Fin 4) 2) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) := by
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
@@ -610,7 +610,7 @@ theorem a32_shared_fix_7 :
 #print axioms a32_shared_fix_7
 
 theorem a32_shared_fix_8 :
-    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (1 : Fin 4) 2 ((1 : Equiv.Perm (Fin 4)) i))).submatrix Equiv.swap (1 : Fin 4) 2 Equiv.swap (1 : Fin 4) 2).submatrix ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3)) ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (Equiv.swap (1 : Fin 4) 2 i)).submatrix Equiv.swap (1 : Fin 4) 2 Equiv.swap (1 : Fin 4) 2) := by
+    ∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ((FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (1 : Fin 4) 2) ((1 : Equiv.Perm (Fin 4)) i))).submatrix (Equiv.swap (1 : Fin 4) 2) (Equiv.swap (1 : Fin 4) 2)).submatrix ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3)) ((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap (2 : Fin 4) 3))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (1 : Fin 4) 2) i)).submatrix (Equiv.swap (1 : Fin 4) 2) (Equiv.swap (1 : Fin 4) 2)) := by
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
@@ -683,12 +683,24 @@ theorem a32_control_overlap :
   intro r hr z w hz hw h
   simp only [List.mem_cons, List.mem_nil_iff, or_false] at hr
   rcases hr with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
-  · have hc := congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 2))
-    norm_num [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] at hc
-  · have hc := congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 1))
-    norm_num [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] at hc
-  · have hc := congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 2))
-    norm_num [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] at hc
+  · have hL : mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) ((0, 0, 2), (0, 0, 2)) = 1 / 64 := by
+      simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
+    have hR : mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) ((0, 0, 2), (0, 0, 2)) = -1 / 64 := by
+      simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
+    have e : (1 / 64 : ℂ) = -1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 2))).trans hR)
+    norm_num at e
+  · have hL : mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) ((0, 0, 2), (0, 0, 1)) = -1 / 64 := by
+      simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
+    have hR : mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix (Equiv.swap (1 : Fin 4) 2) (Equiv.swap (1 : Fin 4) 2)) ((0, 0, 2), (0, 0, 1)) = 1 / 64 := by
+      simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
+    have e : (-1 / 64 : ℂ) = 1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 1))).trans hR)
+    norm_num at e
+  · have hL : mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) ((0, 0, 2), (0, 0, 2)) = 1 / 64 := by
+      simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
+    have hR : mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) ((0, 0, 2), (0, 0, 2)) = -1 / 64 := by
+      simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
+    have e : (1 / 64 : ℂ) = -1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 2))).trans hR)
+    norm_num at e
   · have hc := congrFun (mixedTriple_gauge h) ((0, 0, 1), (3, 0, 0))
     norm_num [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] at hc
     have him : z.im = 0 := by
@@ -707,8 +719,12 @@ theorem a32_control_overlap :
     have hs : star z = z := Complex.conj_eq_iff_im.mpr him
     rw [hs]
     exact gramPhaseEquiv_refl _
-  · have hc := congrFun (mixedTriple_gauge h) ((0, 0, 1), (0, 0, 2))
-    norm_num [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] at hc
+  · have hL : mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) ((0, 0, 1), (0, 0, 2)) = -1 / 64 := by
+      simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
+    have hR : mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((Equiv.swap (1 : Fin 4) 2) i)).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) ((0, 0, 1), (0, 0, 2)) = 1 / 64 := by
+      simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
+    have e : (-1 / 64 : ℂ) = 1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 1), (0, 0, 2))).trans hR)
+    norm_num at e
   · have hc := congrFun (mixedTriple_gauge h) ((0, 0, 1), (1, 0, 0))
     norm_num [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] at hc
     have him : z.im = 0 := by
@@ -971,26 +987,32 @@ theorem a32_control_quarter :
     have h1 : star (1 : ℂ) * 1 = 1 := by simp
     have hw₀ : star (⟨89999 / 90001, 600 / 90001⟩ : ℂ) * (⟨89999 / 90001, 600 / 90001⟩ : ℂ) = 1 := by
       apply Complex.ext <;> simp [Complex.mul_re, Complex.mul_im, Complex.star_def] <;> norm_num
-    have hGr : RealizableGram (Fin 1) Γ₀ (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 i)).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3) := (iso2_classes_single Γ₀ hΓ₀).2 _ _ 1 h1
-    have hHr : RealizableGram (Fin 1) Γ₀ (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ); 1, -1, 1, -1; 1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ)] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 i)).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3) := (iso2_classes_single Γ₀ hΓ₀).2 _ _ _ hw₀
-    have hG1 : GramPhaseEquiv (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 i)).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3) (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1))) := ⟨fun _ => 1, fun _ => by simp, fun i j k => by
+    have hGr : RealizableGram (Fin 1) Γ₀ (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) := (iso2_classes_single Γ₀ hΓ₀).2 _ _ 1 h1
+    have hHr : RealizableGram (Fin 1) Γ₀ (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ); 1, -1, 1, -1; 1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ)] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) := (iso2_classes_single Γ₀ hΓ₀).2 _ _ _ hw₀
+    have hG1 : GramPhaseEquiv (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1))) := ⟨fun _ => 1, fun _ => by simp, fun i j k => by
       fin_cases i <;> fin_cases j <;> fin_cases k <;>
         simp [Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def]⟩
     have hφG := hQ1 _ hGr 1 h1 hG1
     rw [mul_one] at hφG
-    have hoff : ∀ z : ℂ, star z * z = 1 → ¬ GramPhaseEquiv (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ); 1, -1, 1, -1; 1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ)] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 i)).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3) (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) := by
+    have hoff : ∀ z : ℂ, star z * z = 1 → ¬ GramPhaseEquiv (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ); 1, -1, 1, -1; 1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ)] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) := by
       intro z _ h
-      have hc := congrFun (mixedTriple_gauge h) ((0, 0, 1), (2, 0, 0))
-      norm_num [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def,
-        Complex.ext_iff] at hc
+      have hA : ∀ w : ℂ, mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) ((0, 0, 1), (2, 0, 0)) = -w / 64 := by
+        intro w
+        simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> ring
+      have hB : mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) ((0, 0, 1), (2, 0, 0)) = -1 / 64 := by
+        simp [mixedTriple, fibreGram_unique (0 : Fin 1) hx] <;> norm_num
+      have e : -(⟨89999 / 90001, 600 / 90001⟩ : ℂ) / 64 = -1 / 64 := (hA _).symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 1), (2, 0, 0))).trans hB)
+      have e2 : (⟨89999 / 90001, 600 / 90001⟩ : ℂ) = 1 := by linear_combination -64 * e
+      have e3 := congrArg Complex.im e2
+      norm_num at e3
     have hφH := hQ2 _ hHr hoff
     have heq := h3 _ _ hGr hHr
     rw [geo1_class_invariant d hd _ _ _ _ hφG hφH, relabel2_isometry d hd _ _ _ _] at heq
-    have hlow := coord_le_dist d hd (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1; 1, -Complex.I, -1, Complex.I] p.1 q.1))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ); 1, -1, 1, -1; 1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ)] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 i)).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3) ((0, 0, 1), (3, 0, 0))
+    have hlow := coord_le_dist d hd (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1; 1, -Complex.I, -1, Complex.I] p.1 q.1))) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ); 1, -1, 1, -1; 1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ)] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) ((0, 0, 1), (3, 0, 0))
     have hup := fourier_dist_le d hd 1 (⟨89999 / 90001, 600 / 90001⟩ : ℂ) h1 hw₀
     have eA : mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, Complex.I, -1, -Complex.I; 1, -1, 1, -1; 1, -Complex.I, -1, Complex.I] p.1 q.1))) ((0, 0, 1), (3, 0, 0)) = -Complex.I / 64 := by
       simp [mixedTriple, fibreGram_unique (0 : Fin 1) hx] <;> ring
-    have eB : mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ); 1, -1, 1, -1; 1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ)] p.1 q.1)) (Equiv.swap (2 : Fin 4) 3 i)).submatrix Equiv.swap (2 : Fin 4) 3 Equiv.swap (2 : Fin 4) 3) ((0, 0, 1), (3, 0, 0)) = -1 / 64 := by
+    have eB : mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ); 1, -1, 1, -1; 1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ)] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) ((0, 0, 1), (3, 0, 0)) = -1 / 64 := by
       simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
     rw [eA, eB, heq] at hlow
     have ha : ‖-Complex.I / 64 - -1 / 64‖ ^ 2 = 2 / 4096 := by
