@@ -1,9 +1,0 @@
-{
- "evaluate": "vacuity:substituted",
- "expect": {
-  "reason": "vacuity:ids",
-  "verdict": "FAIL"
- },
- "family": "vacuity",
- "id": "vacuity-one-id-substituted"
-}
