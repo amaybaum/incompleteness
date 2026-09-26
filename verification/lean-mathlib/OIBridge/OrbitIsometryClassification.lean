@@ -394,6 +394,25 @@ theorem a32_shared_separation :
 
 #print axioms a32_shared_separation
 
+theorem a32_shared_star_mul_self :
+    ∀ z : ℂ, star z * z = ((‖z‖ ^ 2 : ℝ) : ℂ) := by
+  intro z
+  rw [mul_comm, RCLike.star_def, Complex.mul_conj]
+  norm_cast
+  exact Complex.normSq_eq_norm_sq _
+
+#print axioms a32_shared_star_mul_self
+
+theorem a32_shared_relabel :
+    ∀ (π τ : Equiv.Perm (Fin 4)) (G G' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ), GramPhaseEquiv G G' →
+      GramPhaseEquiv (fun i => (G (π i)).submatrix τ τ) (fun i => (G' (π i)).submatrix τ τ) := by
+  intro π τ G G' h
+  obtain ⟨c, hc, hG⟩ := h
+  exact ⟨fun j => c (τ j), fun j => hc (τ j), fun i j k => by
+    simp only [Matrix.submatrix_apply]; exact hG (π i) (τ j) (τ k)⟩
+
+#print axioms a32_shared_relabel
+
 theorem a32_shared_fourier_star :
     ∀ z : ℂ, FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, star z, -1, -star z; 1, -1, 1, -1; 1, -star z, -1, star z] p.1 q.1)) = fun i => Matrix.of fun j k => star (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) i j k) := by
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
@@ -427,7 +446,7 @@ theorem a32_shared_conj_A :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -444,7 +463,7 @@ theorem a32_shared_conj_B :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -461,7 +480,7 @@ theorem a32_shared_conj_C :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -478,7 +497,7 @@ theorem a32_shared_conj_D :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -495,7 +514,7 @@ theorem a32_shared_fix_1 :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -512,7 +531,7 @@ theorem a32_shared_fix_2 :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -529,7 +548,7 @@ theorem a32_shared_fix_3 :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -546,7 +565,7 @@ theorem a32_shared_fix_4 :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -563,7 +582,7 @@ theorem a32_shared_fix_5 :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -580,7 +599,7 @@ theorem a32_shared_fix_6 :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -597,7 +616,7 @@ theorem a32_shared_fix_7 :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -614,7 +633,7 @@ theorem a32_shared_fix_8 :
   intro z hz
   have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
   have hzn : ‖z‖ = 1 := by
-    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← star_mul_self_eq_norm_sq, hz]
+    have h1 : ((‖z‖ ^ 2 : ℝ) : ℂ) = 1 := by rw [← a32_shared_star_mul_self, hz]
     have h2 : ‖z‖ ^ 2 = 1 := by exact_mod_cast h1
     exact (pow_eq_one_iff_of_nonneg (norm_nonneg z) two_ne_zero).mp h2
   have hz0 : z ≠ 0 := by rintro rfl; simp at hz
@@ -687,19 +706,19 @@ theorem a32_control_overlap :
       simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
     have hR : mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) ((0, 0, 2), (0, 0, 2)) = -1 / 64 := by
       simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
-    have e : (1 / 64 : ℂ) = -1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 2))).trans hR)
+    have e : (1 / 64 : ℂ) = -1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 2))).symm.trans hR)
     norm_num at e
   · have hL : mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) ((0, 0, 2), (0, 0, 1)) = -1 / 64 := by
       simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
     have hR : mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix (Equiv.swap (1 : Fin 4) 2) (Equiv.swap (1 : Fin 4) 2)) ((0, 0, 2), (0, 0, 1)) = 1 / 64 := by
       simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
-    have e : (-1 / 64 : ℂ) = 1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 1))).trans hR)
+    have e : (-1 / 64 : ℂ) = 1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 1))).symm.trans hR)
     norm_num at e
   · have hL : mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) ((0, 0, 2), (0, 0, 2)) = 1 / 64 := by
       simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
     have hR : mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) ((0, 0, 2), (0, 0, 2)) = -1 / 64 := by
       simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
-    have e : (1 / 64 : ℂ) = -1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 2))).trans hR)
+    have e : (1 / 64 : ℂ) = -1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 2), (0, 0, 2))).symm.trans hR)
     norm_num at e
   · have hc := congrFun (mixedTriple_gauge h) ((0, 0, 1), (3, 0, 0))
     norm_num [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] at hc
@@ -723,7 +742,7 @@ theorem a32_control_overlap :
       simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
     have hR : mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((Equiv.swap (1 : Fin 4) 2) i)).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) ((0, 0, 1), (0, 0, 2)) = 1 / 64 := by
       simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> norm_num
-    have e : (-1 / 64 : ℂ) = 1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 1), (0, 0, 2))).trans hR)
+    have e : (-1 / 64 : ℂ) = 1 / 64 := hL.symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 1), (0, 0, 2))).symm.trans hR)
     norm_num at e
   · have hc := congrFun (mixedTriple_gauge h) ((0, 0, 1), (1, 0, 0))
     norm_num [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] at hc
@@ -834,7 +853,7 @@ theorem a32_shared_isometry :
       exact conj_isometry d hd _ _
     · obtain ⟨σ, ρ, ha, hb⟩ := a32_shared_pair s hs
       have hHH : GramPhaseEquiv (fun i => (H (σ i)).submatrix ρ ρ) H :=
-        gramPhaseEquiv_trans (relabel2_gramPhaseEquiv σ ρ hHw)
+        gramPhaseEquiv_trans (a32_shared_relabel σ ρ _ _ hHw)
           (gramPhaseEquiv_trans (hb w hw) (gramPhaseEquiv_symm hHw))
       calc d (φ G) (φ H) = d (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, star z, -1, -star z; 1, -1, 1, -1; 1, -star z, -1, star z] p.1 q.1))) H := geo1_class_invariant d hd _ _ _ _ hφG hφH
         _ = d (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) (σ i)).submatrix ρ ρ) (fun i => (H (σ i)).submatrix ρ ρ) :=
@@ -843,7 +862,7 @@ theorem a32_shared_isometry :
         _ = d G H := geo1_class_invariant d hd _ _ _ _ (gramPhaseEquiv_symm hGz) (gramPhaseEquiv_refl H)
     · obtain ⟨σ, ρ, ha, hb⟩ := a32_shared_pair r hr
       have hGG : GramPhaseEquiv (fun i => (G (σ i)).submatrix ρ ρ) G :=
-        gramPhaseEquiv_trans (relabel2_gramPhaseEquiv σ ρ hGz)
+        gramPhaseEquiv_trans (a32_shared_relabel σ ρ _ _ hGz)
           (gramPhaseEquiv_trans (hb z hz) (gramPhaseEquiv_symm hGz))
       calc d (φ G) (φ H) = d G (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, star w, -1, -star w; 1, -1, 1, -1; 1, -star w, -1, star w] p.1 q.1))) := geo1_class_invariant d hd _ _ _ _ hφG hφH
         _ = d (fun i => (G (σ i)).submatrix ρ ρ) (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) (σ i)).submatrix ρ ρ) :=
@@ -986,7 +1005,7 @@ theorem a32_control_quarter :
     obtain ⟨hQ1, hQ2⟩ := hQ
     have h1 : star (1 : ℂ) * 1 = 1 := by simp
     have hw₀ : star (⟨89999 / 90001, 600 / 90001⟩ : ℂ) * (⟨89999 / 90001, 600 / 90001⟩ : ℂ) = 1 := by
-      apply Complex.ext <;> simp [Complex.mul_re, Complex.mul_im, Complex.star_def] <;> norm_num
+      apply Complex.ext <;> simp [Complex.mul_re, Complex.mul_im] <;> norm_num
     have hGr : RealizableGram (Fin 1) Γ₀ (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) := (iso2_classes_single Γ₀ hΓ₀).2 _ _ 1 h1
     have hHr : RealizableGram (Fin 1) Γ₀ (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ); 1, -1, 1, -1; 1, -(⟨89999 / 90001, 600 / 90001⟩ : ℂ), -1, (⟨89999 / 90001, 600 / 90001⟩ : ℂ)] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) := (iso2_classes_single Γ₀ hΓ₀).2 _ _ _ hw₀
     have hG1 : GramPhaseEquiv (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, 1, -1, -1; 1, -1, 1, -1; 1, -1, -1, 1] p.1 q.1))) := ⟨fun _ => 1, fun _ => by simp, fun i j k => by
@@ -1001,7 +1020,7 @@ theorem a32_control_quarter :
         simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def] <;> ring
       have hB : mixedTriple (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))) ((0, 0, 1), (2, 0, 0)) = -1 / 64 := by
         simp [mixedTriple, fibreGram_unique (0 : Fin 1) hx] <;> norm_num
-      have e : -(⟨89999 / 90001, 600 / 90001⟩ : ℂ) / 64 = -1 / 64 := (hA _).symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 1), (2, 0, 0))).trans hB)
+      have e : -(⟨89999 / 90001, 600 / 90001⟩ : ℂ) / 64 = -1 / 64 := (hA _).symm.trans ((congrFun (mixedTriple_gauge h) ((0, 0, 1), (2, 0, 0))).symm.trans hB)
       have e2 : (⟨89999 / 90001, 600 / 90001⟩ : ℂ) = 1 := by linear_combination -64 * e
       have e3 := congrArg Complex.im e2
       norm_num at e3
