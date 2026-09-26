@@ -4,7 +4,7 @@
   "path": "verification/lean/edge_rigidity_probe.py"
  },
  "output": {
-  "blob": "f4fee29505b572161a22eccee3ae8b35aa48ab61"
+  "blob": "8dad60d0aac870fced7deeec44c0dbdfcb3d45de"
  },
  "schema": "v3-14-splice-ledger",
  "splices": [
@@ -2054,17 +2054,6 @@
    ]
   },
   {
-   "d_end": 14252,
-   "d_start": 14250,
-   "new": [],
-   "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "old_sha256": "5166ea932c62d934b62033b2bf9dd82d73e51a58fd747cfe898cb6eeccb59ee9",
-   "reasons": [
-    "dead-code",
-    "emptied-block"
-   ]
-  },
-  {
    "d_end": 14257,
    "d_start": 14255,
    "new": [],
@@ -2901,17 +2890,6 @@
    "old_sha256": "a44bdce943aa24bd668c30c31425187ace85b82254e3fa1a00ee96396cc0d3e2",
    "reasons": [
     "census"
-   ]
-  },
-  {
-   "d_end": 16551,
-   "d_start": 16548,
-   "new": [],
-   "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "old_sha256": "423fc67cca4d5042abe18915fbf1ce405c71d732060f7b07e3cb8731d56149a5",
-   "reasons": [
-    "dead-code",
-    "emptied-block"
    ]
   },
   {
@@ -4267,17 +4245,6 @@
     "census",
     "comment",
     "dead-code"
-   ]
-  },
-  {
-   "d_end": 19404,
-   "d_start": 19401,
-   "new": [],
-   "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "old_sha256": "ce7fad0f69ccd7160c08bd09e79e29a83ef912648b42780b50234e7da817b317",
-   "reasons": [
-    "dead-code",
-    "emptied-block"
    ]
   },
   {

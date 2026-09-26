@@ -9096,6 +9096,9 @@ ok_a12p &= _a12p_m12 != _A11P_FULL and not _a12p_mirrored(full=_a12p_m12)
 
 # the census family's status flipped back, or its anchors dropped
 _a12p_m13 = json.loads(json.dumps(_a12p_reg()))
+for _f in _a12p_m13['families']:
+    if _f['name'] == 'the two-sided invisible gauge and the fibre-Gram classification (act 12, Track B)':
+        _f['status'] = 'kernel-only'
 ok_a12p &= not _a12p_census(_a12p_m13)
 
 
@@ -9995,6 +9998,10 @@ ok_a6p &= _a6p_m7 != _A6P_README and not _a6p_non_licences(readme=_a6p_m7)
 
 # m8: a census anchor placed on SM.md's complex-lift sentences
 _a6p_m8 = json.loads(json.dumps(_a6p_reg()))
+for _f in _a6p_m8['families']:
+    if _f['name'] == _A6P_FAMILY:
+        _f['manuscript'].append({'file': 'papers/SM.md',
+                                 'anchor': 'this is the covariance that (A6) asserts'})
 ok_a6p &= not _a6p_census(_a6p_m8)
 
 # m9: the glossary entry removed
@@ -11170,6 +11177,10 @@ ok_a6i &= _a6i_m11 != _A6I1 and not _a6i_label_unmoved(t=_a6i_m11)
 
 # m15: the census family given a manuscript anchor although no manuscript was propagated
 _a6i_m15 = json.loads(json.dumps(_a6i_reg()))
+for _f in _a6i_m15['families']:
+    if _f['modules'] == ['A6Instantiation']:
+        _f['manuscript'].append({'file': 'papers/SM.md',
+                                 'anchor': 'this is the covariance that (A6) asserts'})
 ok_a6i &= not _a6i_census(_a6i_m15)
 
 # m16: the axiom table losing a line, so a named result ships unreported

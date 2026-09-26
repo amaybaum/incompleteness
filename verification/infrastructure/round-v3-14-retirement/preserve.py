@@ -22,18 +22,27 @@ transformed guard must be, and checks the transformed guard against that:
       splice has its governing block wholly in splices -- for `continue` and `break` the nearest
       enclosing loop, for the others the nearest enclosing function or, at module level, the
       top-level statement holding it;
-  S4  regression: the seven statements V3-13's transformation deleted from code it retained are in
+  S4  regression: the ten statements V3-13's transformation deleted from code it retained are in
       no splice;
   S5  surviving blocks: inside every module-level `for`, `while`, `if`, `with` or `try` whose first
       line lies in no splice, every statement that lies wholly in splices, with its enclosing
       statement not, is a predicate the census retires, one of the amendment's, a counter
       increment (`x += <int>`), or a block holding at least one such predicate and nothing but
       such predicates, counter increments and control flow. Dead code is never removed from a
-      block that survives.
+      block that survives;
+  S6  mutations: every module-level statement that lies wholly in splices, is not a predicate the
+      census retires, and changes an object in place -- a subscript or attribute store, a `del`, a
+      mutating method call, or an expression statement's call on a receiver or with name
+      arguments -- changes nothing a surviving statement reads. The changed object is followed back
+      through the definitions of its name: a loop's iterable and a subscript one level down, a
+      plain name at the same level, a shallow copy one level up (and not at all from the top
+      level), a deep copy not at all, anything else at the same level. No name reached may be read
+      by a surviving module-level statement after the change and before it is next bound, or by a
+      surviving function.
 
 --self-test runs the checks on the real inputs, then on mutations of them, each of which must fail
 the check named: for each regression site the statement deleted through a consistent splice (S2,
-S3 or S5, and S4); one byte of the guard after changed (L2); a splice's old hash changed (L1); a retained
+S3, S5 or S6, and S4); one byte of the guard after changed (L2); a splice's old hash changed (L1); a retained
 predicate deleted through a consistent splice (S1); a retired predicate restored (S1); and a
 condition inside a retained function rewritten through a consistent splice (S2)."""
 import ast
@@ -46,7 +55,7 @@ RETIRE = {'redundant', 'retire-history', 'retire-machinery', 'retire-whole'}
 AMENDMENT = {('R7-PC4S', 17854, '1459be91d4a5bcbb'), ('R7-PC4S', 17999, 'cfaf77fc616d9bc3'),
              ('R7-PC4S', 18000, '2e5e128c60b1684a'), ('R7-PC4S', 18001, '3a685893e4885af0'),
              ('R7-OLT', 24113, '27f4b1d56c51ac71'), ('R7-OLN', 24549, '2175b51bb131cb5f')}
-# the seven statements V3-13's transformation deleted from code it retained: D line, exact text
+# the ten statements V3-13's transformation deleted from code it retained: D line, exact text
 REGRESSION = (
     ((180, '        if induced_by(n, perm, E) is not None:'), (181, '            continue')),
     ((193, '                break'),),
@@ -55,7 +64,24 @@ REGRESSION = (
     ((304, '        if len(clique) + len(cand) - i <= best:'), (305, '            break')),
     ((25309, '        if not l.strip():'), (25310, '            break')),
     ((26777, '            if depth == 0:'), (26778, '                break')),
+    ((14250, "for _f in _a12p_m13['families']:"),
+     (14251, "    if _f['name'] == 'the two-sided invisible gauge and the fibre-Gram classification (act 12, "
+             "Track B)':"),
+     (14252, "        _f['status'] = 'kernel-only'")),
+    ((16548, "for _f in _a6p_m8['families']:"),
+     (16549, "    if _f['name'] == _A6P_FAMILY:"),
+     (16550, "        _f['manuscript'].append({'file': 'papers/SM.md',"),
+     (16551, "                                 'anchor': 'this is the covariance that (A6) asserts'})")),
+    ((19401, "for _f in _a6i_m15['families']:"),
+     (19402, "    if _f['modules'] == ['A6Instantiation']:"),
+     (19403, "        _f['manuscript'].append({'file': 'papers/SM.md',"),
+     (19404, "                                 'anchor': 'this is the covariance that (A6) asserts'})")),
 )
+MUTATING = {'append', 'extend', 'insert', 'update', 'pop', 'popitem', 'remove', 'clear', 'setdefault',
+            'add', 'discard', 'sort', 'reverse', 'write', 'writelines', 'difference_update',
+            'intersection_update', 'symmetric_difference_update', 'appendleft', 'extendleft'}
+SHALLOW = {'dict', 'list', 'set', 'tuple', 'frozenset', 'sorted', 'copy.copy'}
+DEEP = {'json.loads', 'copy.deepcopy'}
 
 
 def blob(text):
@@ -234,6 +260,140 @@ def check(d_text, census, ledger, after):
                 bad.append('%s at %d' % (type(n).__name__, n.lineno))
     res.append(('S5', not bad, '%d surviving module-level block(s), no dead code removed from '
                 'them%s' % (blocks, ('; ' + ', '.join(bad[:4])) if bad else '')))
+    # S6
+    infunc = set()
+    for f in ast.walk(tree):
+        if isinstance(f, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda)):
+            infunc |= {id(x) for x in ast.walk(f) if x is not f}
+
+    def base(e):
+        k = 0
+        while isinstance(e, (ast.Attribute, ast.Subscript, ast.Starred)):
+            e, k = e.value, k + 1
+        return (e.id, k) if isinstance(e, ast.Name) else None
+
+    def fname(c):
+        f = c.func
+        if isinstance(f, ast.Name):
+            return f.id
+        if isinstance(f, ast.Attribute) and isinstance(f.value, ast.Name):
+            return f.value.id + '.' + f.attr
+        return None
+
+    def names(e):
+        skip, bound = set(), set()
+        for c in ast.walk(e):
+            if isinstance(c, ast.Call):
+                skip |= {id(x) for x in ast.walk(c.func)}
+            elif isinstance(c, ast.comprehension):
+                bound |= {x.id for x in ast.walk(c.target) if isinstance(x, ast.Name)}
+            elif isinstance(c, ast.Lambda):
+                bound |= {a.arg for a in ast.walk(c.args) if isinstance(a, ast.arg)}
+        return {x.id for x in ast.walk(e) if isinstance(x, ast.Name) and isinstance(x.ctx, ast.Load)
+                and id(x) not in skip and x.id not in bound}
+
+    def changed(s):
+        """(name, level) pairs a statement changes in place."""
+        out = set()
+        if isinstance(s, ast.Expr) and isinstance(s.value, ast.Call) and fname(s.value) != 'print':
+            c = s.value
+            if isinstance(c.func, ast.Attribute) and base(c.func.value):
+                out.add(base(c.func.value))
+            out |= {(a.id, 0) for a in list(c.args) + [k.value for k in c.keywords]
+                    if isinstance(a, ast.Name)}
+        if isinstance(s, (ast.Assign, ast.AugAssign, ast.AnnAssign, ast.Delete)):
+            for t in (s.targets if isinstance(s, (ast.Assign, ast.Delete)) else [s.target]):
+                if isinstance(t, (ast.Subscript, ast.Attribute)) and base(t.value):
+                    out.add(base(t.value))
+        for c in ast.walk(s):
+            if isinstance(c, ast.Call) and c is not getattr(s, 'value', None) and \
+                    isinstance(c.func, ast.Attribute) and c.func.attr in MUTATING and base(c.func.value):
+                out.add(base(c.func.value))
+        return out
+    defs = []
+    for n in ast.walk(tree):
+        if id(n) in infunc:
+            continue
+        if isinstance(n, ast.For):
+            defs.append((n.lineno, {x.id for x in ast.walk(n.target) if isinstance(x, ast.Name)},
+                         ('elem', n.iter)))
+        elif isinstance(n, (ast.Assign, ast.AnnAssign)) and n.value is not None:
+            tg = n.targets if isinstance(n, ast.Assign) else [n.target]
+            defs.append((n.lineno, {x.id for t in tg if isinstance(t, (ast.Name, ast.Tuple, ast.List))
+                                    for x in ast.walk(t) if isinstance(x, ast.Name)},
+                         ('value', n.value)))
+        elif isinstance(n, ast.With):
+            for i in n.items:
+                if i.optional_vars is not None:
+                    defs.append((n.lineno, {x.id for x in ast.walk(i.optional_vars)
+                                            if isinstance(x, ast.Name)}, ('value', i.context_expr)))
+        elif isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Import,
+                            ast.ImportFrom)):
+            nm = {n.name} if hasattr(n, 'name') else {(a.asname or a.name).split('.')[0]
+                                                        for a in n.names}
+            defs.append((n.lineno, nm, ('opaque', None)))
+
+    def last_def(x, line):
+        c = [d for d in defs if x in d[1] and d[0] <= line]
+        return max(c, key=lambda d: d[0]) if c else None
+
+    def reached(x, k, line):
+        out, todo = {(x, line)}, [(x, k, line)]
+        seen = {(x, k)}
+        while todo:
+            a, k, line = todo.pop()
+            d = last_def(a, line)
+            if d is None:
+                continue
+            kind, e = d[2]
+            if kind == 'opaque':
+                continue
+            if kind == 'elem':
+                nxt = {(y, k + 1) for y in names(e)}
+            elif isinstance(e, ast.Name):
+                nxt = {(e.id, k)}
+            elif isinstance(e, (ast.Subscript, ast.Attribute)) and base(e):
+                nxt = {(base(e)[0], k + 1)}
+            elif isinstance(e, ast.Call) and fname(e) in DEEP:
+                nxt = set()
+            elif isinstance(e, ast.Call) and fname(e) in SHALLOW:
+                nxt = {(y, k - 1) for y in names(e)} if k >= 1 else set()
+            else:
+                nxt = {(y, k) for y in names(e)}
+            for y, k2 in nxt:
+                if (y, k2) not in seen:
+                    seen.add((y, k2))
+                    out.add((y, d[0]))
+                    todo.append((y, k2, d[0]))
+        return out
+    reads = [(n.lineno, n.id, id(n) in infunc) for n in ast.walk(tree)
+             if isinstance(n, ast.Name) and isinstance(n.ctx, ast.Load) and n.lineno not in gone]
+    bad, total = [], 0
+    for s in ast.walk(tree):
+        if not isinstance(s, ast.stmt) or id(s) in infunc or isinstance(
+                s, (ast.For, ast.While, ast.If, ast.With, ast.Try, ast.FunctionDef,
+                    ast.AsyncFunctionDef, ast.ClassDef)) or not whole(s) or s.lineno in retired:
+            continue
+        ch = changed(s)
+        if not ch:
+            continue
+        total += 1
+        objs = set()
+        for x, k in ch:
+            objs |= reached(x, k, s.lineno)
+        hit = False
+        for x, since in objs:
+            d0 = last_def(x, s.lineno)
+            for l, y, f in reads:
+                if y == x and (f or (l > s.lineno and last_def(x, l) == d0)):
+                    hit = True
+                    break
+            if hit:
+                break
+        if hit:
+            bad.append('%s at %d' % (type(s).__name__, s.lineno))
+    res.append(('S6', not bad, '%d removed in-place change(s), none to an object a survivor reads%s'
+                % (total, ('; ' + ', '.join(bad[:4])) if bad else '')))
     return res
 
 
@@ -290,12 +450,14 @@ def self_test(d_text, census, ledger, after):
     for site in REGRESSION:
         lo, hi = site[0][0], site[-1][0]
         led, aft = mutate(ledger, d_text, lo, hi, [], 'mutant')
-        inside = any(lo in range(f.lineno, f.end_lineno + 1) for f in ast.walk(ast.parse(d_text))
+        t = ast.parse(d_text)
+        inside = any(lo in range(f.lineno, f.end_lineno + 1) for f in ast.walk(t)
                      if isinstance(f, ast.FunctionDef))
-        flow = any(isinstance(x, (ast.Continue, ast.Break)) for x in ast.walk(ast.parse(d_text))
+        flow = any(isinstance(x, (ast.Continue, ast.Break)) for x in ast.walk(t)
                    if isinstance(x, ast.stmt) and lo <= x.lineno <= hi)
+        top = any(x.lineno == lo for x in t.body)
         expect('regression site %d deleted' % lo, led, aft,
-               ['S4'] + (['S2'] if inside else ['S5']) + (['S3'] if flow else []))
+               ['S4'] + (['S2'] if inside else ['S6'] if top else ['S5']) + (['S3'] if flow else []))
     k = after.index('ok_')
     expect('one byte of the guard after changed', ledger, after[:k] + 'X' + after[k + 1:], ['L2'])
     led = json.loads(json.dumps(ledger))

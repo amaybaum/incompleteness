@@ -23,8 +23,12 @@ writes the guard with:
    names, an assignment or in-place mutation of a name no remaining code reads (a plain assignment
    earlier in the same statement list rebinding the name for what follows), an expression statement
    that reads a name nothing defines any longer, an import nothing uses, a counter increment that
-   counted only removed predicates, and a loop left binding only such names. Control flow is never
-   dead code, and nothing is removed as dead code from inside a module-level block that survives;
+   counted only removed predicates, and a loop left binding only such names. An in-place mutation
+   of a name also mutates what that name's definition takes its value from -- a loop's iterable, an
+   assigned name or subscript -- followed by depth through shallow copies and stopped by deep ones,
+   so a mutation reaching through an alias lives if the aliased object is read. Control flow is
+   never dead code, and nothing is removed as dead code from inside a module-level block that
+   survives;
 5. the comments whose code is gone: a comment block all of whose following code is removed, a
    comment-only paragraph all of whose code up to the next such paragraph or section header is
    removed, a paragraph left comment-only by the removals, the header and end marker of every check
@@ -342,6 +346,35 @@ def header_binds(src, n):
     return out
 
 
+SHALLOW_COPIES = {'dict', 'list', 'set', 'tuple', 'frozenset', 'sorted', 'copy.copy'}
+DEEP_COPIES = {'json.loads', 'copy.deepcopy'}
+
+
+def call_name(c):
+    """`f` or `mod.f` for a call, else None."""
+    f = c.func
+    if isinstance(f, ast.Name):
+        return f.id
+    if isinstance(f, ast.Attribute) and isinstance(f.value, ast.Name):
+        return f.value.id + '.' + f.attr
+    return None
+
+
+def plain_names(e):
+    """The names an expression's value can share objects with: those it loads, less callees and
+    names bound by its own comprehensions and lambdas."""
+    skip, bound = set(), set()
+    for c in ast.walk(e):
+        if isinstance(c, ast.Call):
+            skip |= {id(x) for x in ast.walk(c.func)}
+        elif isinstance(c, ast.comprehension):
+            bound |= {x.id for x in ast.walk(c.target) if isinstance(x, ast.Name)}
+        elif isinstance(c, ast.Lambda):
+            bound |= {a.arg for a in ast.walk(c.args) if isinstance(a, ast.arg)}
+    return {x.id for x in ast.walk(e) if isinstance(x, ast.Name) and isinstance(x.ctx, ast.Load)
+            and id(x) not in skip and x.id not in bound}
+
+
 def mark_sweep(src, removed, roots):
     """Everything no root needs: the module-level simple statements and top-level functions that
     no live statement reaches. A module-level statement needs the definitions of each name it reads
@@ -392,6 +425,62 @@ def mark_sweep(src, removed, roots):
         start = min((d.lineno for d in out), default=0)
         out += [m for m in mutators.get(nm, []) if start <= m.lineno < line]
         return out
+
+    # a mutation reaches through aliases: in `for _f in X['families']: _f['manuscript'].append(...)`
+    # the append mutates X, and after `y = x[k]` a mutation of y mutates x. So a mutator of a name
+    # is also a mutator of the names its reaching definition takes its value from, transitively --
+    # the loop's iterable, the assigned value, the with-item, callees aside -- with the depth of the
+    # mutation followed: an element of the value is one level down, a shallow copy (`dict(x)`,
+    # `list(x)`, `sorted(x)`, ...) shares only what lies below its top level, and a deep copy
+    # (`json.loads(...)`, `copy.deepcopy(...)`) shares nothing (the rehearsal of V3-14's first draft:
+    # three mutation controls lost their mutation this way).
+    def depth_of(s):
+        if isinstance(s, ast.Expr):
+            t = s.value.func.value
+        else:
+            tg = s.targets if isinstance(s, ast.Assign) else [s.target]
+            t = [x for x in tg if isinstance(x, (ast.Subscript, ast.Attribute))][0].value
+        d = 0
+        while isinstance(t, (ast.Subscript, ast.Attribute, ast.Starred)):
+            t, d = t.value, d + 1
+        return d
+
+    def value_sources(d, nm, depth):
+        """(name, depth) pairs a mutation of nm at `depth`, reached through definition d, is also."""
+        if isinstance(d, ast.For):
+            return {(x, depth + 1) for x in plain_names(d.iter)} - {(nm, depth + 1)}
+        if isinstance(d, ast.With):
+            return {(x, depth) for i in d.items for x in plain_names(i.context_expr)} - {(nm, depth)}
+        if not (isinstance(d, (ast.Assign, ast.AnnAssign)) and d.value is not None):
+            return set()
+        v = d.value
+        if isinstance(v, ast.Name):
+            out = {(v.id, depth)}
+        elif isinstance(v, (ast.Subscript, ast.Attribute)) and root_name(v):
+            out = {(root_name(v), depth + 1)}
+        elif isinstance(v, ast.Call) and call_name(v) in DEEP_COPIES:
+            out = set()
+        elif isinstance(v, ast.Call) and call_name(v) in SHALLOW_COPIES:
+            out = {(x, depth - 1) for x in plain_names(v)} if depth >= 1 else set()
+        else:
+            out = {(x, depth) for x in plain_names(v)}
+        return {(x, k) for x, k in out if x != nm}
+    for nm in list(mutators):
+        for m in list(mutators[nm]):
+            seen, todo = {(nm, depth_of(m))}, [(nm, depth_of(m), m.lineno)]
+            while todo:
+                a, k, line = todo.pop()
+                for d in reaching(a, line):
+                    if d in mutators.get(a, []):
+                        continue
+                    for s, k2 in value_sources(d, a, k):
+                        if (s, k2) not in seen:
+                            seen.add((s, k2))
+                            todo.append((s, k2, d.lineno))
+                            if m not in mutators[s]:
+                                mutators[s].append(m)
+    for k in mutators:
+        mutators[k].sort(key=lambda d: d.lineno)
     live, todo = set(), []
     for r in roots:
         if r not in live:

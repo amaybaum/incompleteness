@@ -41,8 +41,8 @@ vacuity   The two self-satisfying predicates of the amendment, R7-OLT's _olt_sup
 
 v313      The countercontrol for the preservation checker: V3-13's transformed guard, read at its
           stage 2 commit, with a ledger derived from it by a line diff against the guard at <D>, is
-          checked by preserve.py against the census at <D>. It passes when S2, S3, S4 and S5 fail
-          and S4 names all seven sites V3-13 damaged. The diff-derived ledger serves this
+          checked by preserve.py against the census at <D>. It passes when S2, S3, S4, S5 and S6
+          fail and S4 names all ten sites V3-13 damaged. The diff-derived ledger serves this
           countercontrol only; it is not the round's ledger.
 
 All read git objects and nothing else, so a commit gives the same report on any checkout."""
@@ -442,7 +442,8 @@ def vacuity(repo, commit, d):
     return ok, lines
 
 
-V313_SITES = [180, 181, 193, 232, 233, 292, 304, 305, 25309, 25310, 26777, 26778]
+V313_SITES = [180, 181, 193, 232, 233, 292, 304, 305, 14250, 14251, 14252, 16548, 16549, 16550,
+              16551, 19401, 19402, 19403, 19404, 25309, 25310, 26777, 26778]
 
 
 def v313(repo, stage2, d):
@@ -469,9 +470,9 @@ def v313(repo, stage2, d):
     got = {c: ok for c, ok, _d in res}
     s4 = next(det for c, _ok, det in res if c == 'S4')
     named = sorted(int(x) for x in re.findall(r'\d+', s4.split('lines')[-1])) if 'lines' in s4 else []
-    ok = got['L1'] and got['L2'] and got['S1'] and not any(got[c] for c in ('S2', 'S3', 'S4', 'S5')) \
+    ok = got['L1'] and got['L2'] and got['S1'] and not any(got[c] for c in ('S2', 'S3', 'S4', 'S5', 'S6')) \
         and named == V313_SITES
-    lines.append('v313: %s' % ('the checker rejects V3-13\'s guard, naming all seven sites' if ok
+    lines.append('v313: %s' % ('the checker rejects V3-13\'s guard, naming all ten sites' if ok
                                else 'FAILED'))
     return ok, lines
 
