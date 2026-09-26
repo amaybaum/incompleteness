@@ -215,6 +215,7 @@ import OIBridge.OrbitGeometryIsometries
 import OIBridge.OrbitGeometryRigidity
 import OIBridge.StrictNaturalLift
 import OIBridge.OrbitIsometryClassification
+import OIBridge.OrbitIsometryGroup
 import OIBridge.ProductLocusFreedom
 import OIBridge.ProductAdmission
 import OIBridge.ProductStrictLift
