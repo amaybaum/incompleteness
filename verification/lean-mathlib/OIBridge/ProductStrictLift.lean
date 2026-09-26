@@ -474,5 +474,87 @@ theorem a30_s_strictify :
 
 #print axioms a30_s_strictify
 
+/-! ### Section C — `A30-T` -/
+
+theorem a30_t_transfer :
+    ∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+      ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ),
+        Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+      ∀ (f₁ f₂ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ)),
+        (∀ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (f₁ G)) →
+        (∀ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (f₂ G)) →
+        (∀ G G' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ G' →
+          GramPhaseEquiv G G' → GramPhaseEquiv (f₁ G) (f₁ G')) →
+        (∀ G G' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ G' →
+          GramPhaseEquiv G G' → GramPhaseEquiv (f₂ G) (f₂ G')) →
+        (∀ G G' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ G' →
+          GramPhaseEquiv (f₁ G) (f₁ G') → GramPhaseEquiv G G') →
+        (∀ G G' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ G' →
+          GramPhaseEquiv (f₂ G) (f₂ G') → GramPhaseEquiv G G') →
+        (∀ G' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G' →
+          ∃ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G ∧ GramPhaseEquiv (f₁ G) G') →
+        (∀ G' : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G' →
+          ∃ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G ∧ GramPhaseEquiv (f₂ G) G') →
+      ∀ (Φ₀ Φ₁ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)),
+        (∀ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ, RealizableGram (Fin 1 × Fin 1) (Γ 0) G → GramPhaseEquiv (Φ₁ G) (Φ₀ G)) →
+        (∀ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ, ¬ RealizableGram (Fin 1 × Fin 1) (Γ 0) G → Φ₁ G = Φ₀ G) →
+        (EvolvesTotally (Fin 1 × Fin 1) Γ (fun _ : ℕ => Φ₀)
+          ∧ PreservesAdmissible (Fin 1 × Fin 1) Γ (fun _ : ℕ => Φ₀)
+          ∧ (∃ Φh : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ), ∀ t : ℕ, (fun _ : ℕ => Φ₀) t = Φh)
+          ∧ Reversible (Fin 1 × Fin 1) Γ (fun _ : ℕ => Φ₀)
+          ∧ (∀ (t : ℕ) (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+              GramPhaseEquiv G G' → GramPhaseEquiv ((fun _ : ℕ => Φ₀) t G) ((fun _ : ℕ => Φ₀) t G'))
+          ∧ FactorizesOnProduct (Fin 1 × Fin 1) (Fin 1) (Fin 1) (Equiv.refl (Fin 4 × Fin 4))
+              (fun _ => Γ₀) (fun _ => Γ₀) Γ (fun _ : ℕ => Φ₀)
+          ∧ (∀ (t : ℕ) (G₁ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ), RealizableGram (Fin 1) Γ₀ G₁ → RealizableGram (Fin 1) Γ₀ G₂ →
+              GramPhaseEquiv ((fun _ : ℕ => Φ₀) t (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+              G₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2))
+                (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+              f₁ G₁ i.1 j.1 k.1 * f₂ G₂ i.2 j.2 k.2))) →
+        (EvolvesTotally (Fin 1 × Fin 1) Γ (fun _ : ℕ => Φ₁)
+          ∧ PreservesAdmissible (Fin 1 × Fin 1) Γ (fun _ : ℕ => Φ₁)
+          ∧ (∃ Φh : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ), ∀ t : ℕ, (fun _ : ℕ => Φ₁) t = Φh)
+          ∧ Reversible (Fin 1 × Fin 1) Γ (fun _ : ℕ => Φ₁)
+          ∧ (∀ (t : ℕ) (G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ),
+              GramPhaseEquiv G G' → GramPhaseEquiv ((fun _ : ℕ => Φ₁) t G) ((fun _ : ℕ => Φ₁) t G'))
+          ∧ FactorizesOnProduct (Fin 1 × Fin 1) (Fin 1) (Fin 1) (Equiv.refl (Fin 4 × Fin 4))
+              (fun _ => Γ₀) (fun _ => Γ₀) Γ (fun _ : ℕ => Φ₁)
+          ∧ (∀ (t : ℕ) (G₁ G₂ : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ), RealizableGram (Fin 1) Γ₀ G₁ → RealizableGram (Fin 1) Γ₀ G₂ →
+              GramPhaseEquiv ((fun _ : ℕ => Φ₁) t (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+              G₁ i.1 j.1 k.1 * G₂ i.2 j.2 k.2))
+                (fun i : Fin 4 × Fin 4 => Matrix.of fun j k : Fin 4 × Fin 4 =>
+              f₁ G₁ i.1 j.1 k.1 * f₂ G₂ i.2 j.2 k.2))) := by
+  intro _ _ Γ _ _ _ _ _ _ _ _ _ _ _ Φ₀ Φ₁ heq hoff h
+  obtain ⟨hev, hpres, _, hrev, hdesc, hfac, hpair⟩ := h
+  have hall : ∀ G, GramPhaseEquiv (Φ₁ G) (Φ₀ G) := by
+    intro G
+    by_cases hG : RealizableGram (Fin 1 × Fin 1) (Γ 0) G
+    · exact heq G hG
+    · rw [hoff G hG]
+      exact gramPhaseEquiv_refl _
+  obtain ⟨hcard, hΓf, Φa, Φb, hf⟩ := hfac
+  refine ⟨?_, ?_, ⟨Φ₁, fun _ => rfl⟩, ⟨?_, ?_⟩, ?_, ⟨hcard, hΓf, Φa, Φb, ?_⟩, ?_⟩
+  · intro G₀ hG₀
+    obtain ⟨𝔾, hr, hl, h0⟩ := hev G₀ hG₀
+    exact ⟨𝔾, hr, fun t => gramPhaseEquiv_trans (hl t) (gramPhaseEquiv_symm (hall _)), h0⟩
+  · intro t G hG
+    exact realizable_of_gramPhaseEquiv ((0 : Fin 1), (0 : Fin 1)) (hpres t G hG)
+      (gramPhaseEquiv_symm (hall G))
+  · intro t G G' hG hG' h
+    exact hrev.1 t G G' hG hG' (gramPhaseEquiv_trans (gramPhaseEquiv_symm (hall G))
+      (gramPhaseEquiv_trans h (hall G')))
+  · intro t G' hG'
+    obtain ⟨G, hG, h⟩ := hrev.2 t G' hG'
+    exact ⟨G, hG, gramPhaseEquiv_trans (hall G) h⟩
+  · intro t G G' h
+    exact gramPhaseEquiv_trans (hall G) (gramPhaseEquiv_trans (hdesc t G G' h)
+      (gramPhaseEquiv_symm (hall G')))
+  · intro t G₁ G₂ h₁ h₂
+    exact gramPhaseEquiv_trans (hall _) (hf t G₁ G₂ h₁ h₂)
+  · intro t G₁ G₂ h₁ h₂
+    exact gramPhaseEquiv_trans (hall _) (hpair t G₁ G₂ h₁ h₂)
+
+#print axioms a30_t_transfer
+
 end ProductStrictLift
 end OIBridge
