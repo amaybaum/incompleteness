@@ -467,5 +467,107 @@ theorem a33_shared_inc_2_m_7_p :
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_2_m_7_p
 
+theorem a33_shared_sgz_unit :
+    ∀ (a b : Equiv.Perm (Fin 4)) (p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.1))) : ℤ) = 1 ∨ (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.1))) : ℤ) = -1 := by
+  intro a b p
+  simp only []
+  split_ifs <;> norm_num
+#print axioms a33_shared_sgz_unit
+
+theorem a33_shared_coord_Z :
+    ∀ (r : Fin 9) (z : ℂ), star z * z = 1 → ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4),
+      let R : Fin 9 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4) := ![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), Equiv.swap (2 : Fin 4) 3), ((1 : Equiv.Perm (Fin 4)), Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3, (1 : Equiv.Perm (Fin 4))), (Equiv.swap (2 : Fin 4) 3, Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3, Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2, (1 : Equiv.Perm (Fin 4))), (Equiv.swap (1 : Fin 4) 2, Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2, Equiv.swap (1 : Fin 4) 2)]
+      mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((R r).1 i)).submatrix (R r).2 (R r).2) p
+        = (1 / 64 : ℂ) * ((((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1))) : ℤ) : ℂ)
+          * (fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z) z (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1)) - ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2))) := by
+  intro r z hz p R
+  have hf := a33_shared_coord_form z hz (R r).1 (R r).2 p
+  rcases a33_shared_exp_range r p with h | h | h
+  · rw [hf.2.2 h]
+    simp only [h]
+    norm_num
+  · rw [hf.2.1 h]
+    simp only [h]
+    norm_num
+  · rw [hf.1 h]
+    simp only [h]
+    norm_num
+#print axioms a33_shared_coord_Z
+
+theorem a33_shared_term :
+    ∀ (σ σ' : ℤ) (Z Z' : ℂ), (σ = 1 ∨ σ = -1) → (σ' = 1 ∨ σ' = -1) → star Z * Z = 1 → star Z' * Z' = 1 →
+      ‖(1 / 64 : ℂ) * (σ : ℂ) * Z - (1 / 64 : ℂ) * (σ' : ℂ) * Z'‖ ^ 2 = 2 / 4096 - 2 / 4096 * ((σ * σ' : ℤ) : ℝ) * (((starRingEnd ℂ) Z * Z').re) := by
+  intro σ σ' Z Z' hσ hσ' hZ hZ'
+  have h1 : Z.re ^ 2 + Z.im ^ 2 = 1 := by
+    have := congrArg Complex.re hZ
+    simp [Complex.star_def, Complex.mul_re, Complex.conj_re, Complex.conj_im] at this
+    linarith
+  have h2 : Z'.re ^ 2 + Z'.im ^ 2 = 1 := by
+    have := congrArg Complex.re hZ'
+    simp [Complex.star_def, Complex.mul_re, Complex.conj_re, Complex.conj_im] at this
+    linarith
+  rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
+  rcases hσ with rfl | rfl <;> rcases hσ' with rfl | rfl <;>
+    simp [Complex.mul_re, Complex.mul_im, Complex.sub_re, Complex.sub_im, Complex.conj_re, Complex.conj_im] <;>
+    nlinarith [h1, h2]
+#print axioms a33_shared_term
+
+theorem a33_shared_Z_unit :
+    ∀ (z : ℂ) (k : ℤ), star z * z = 1 → star ((fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z) z k) * (fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z) z k = 1 := by
+  intro z k hz
+  simp only []
+  split_ifs <;> simp [hz, star_star, mul_comm]
+#print axioms a33_shared_Z_unit
+
+theorem a33_shared_cross :
+    ∀ (r s : Fin 9) (z w : ℂ), star z * z = 1 → star w * w = 1 →
+      let R : Fin 9 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4) := ![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), Equiv.swap (2 : Fin 4) 3), ((1 : Equiv.Perm (Fin 4)), Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3, (1 : Equiv.Perm (Fin 4))), (Equiv.swap (2 : Fin 4) 3, Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3, Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2, (1 : Equiv.Perm (Fin 4))), (Equiv.swap (1 : Fin 4) 2, Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2, Equiv.swap (1 : Fin 4) 2)]
+      dist (featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((R r).1 i)).submatrix (R r).2 (R r).2))
+           (featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((R s).1 i)).submatrix (R s).2 (R s).2)) ^ 2
+        = 2 - 2 / 4096 * ∑ kl ∈ ({(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1, 1)} : Finset (ℤ × ℤ)), ((((Finset.univ.filter (fun p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4) => (((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1)) : ℤ) - ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2))), ((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.1) ((R s).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.1) ((R s).2 p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.2) ((R s).2 p.2.1)) : ℤ) - ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.1) ((R s).2 p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.1) ((R s).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.2) ((R s).2 p.2.2.2)))) = kl)).sum (fun p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4) => ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1))) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.1) ((R s).2 p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.1) ((R s).2 p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.2.1) ((R s).2 p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.2.1) ((R s).2 p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.2.2) ((R s).2 p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.2.2) ((R s).2 p.2.1)))) : ℤ) : ℝ) * (((starRingEnd ℂ) ((fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z) z kl.1) * (fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z) w kl.2).re)) := by
+  intro r s z w hz hw R
+  rw [a33_shared_dist_sq]
+  have hterm : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4),
+      ‖mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((R r).1 i)).submatrix (R r).2 (R r).2) p
+        - mixedTriple (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((R s).1 i)).submatrix (R s).2 (R s).2) p‖ ^ 2
+      = 2 / 4096 - 2 / 4096 * ((((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1))) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.1) ((R s).2 p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.1) ((R s).2 p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.2.1) ((R s).2 p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.2.1) ((R s).2 p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.2.2) ((R s).2 p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((R s).1 p.1.2.2) ((R s).2 p.2.1))) : ℤ) : ℝ)
+          * (((starRingEnd ℂ) ((fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z) z (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1)) - ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2)))) * (fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z) w (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.1) ((R s).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.1) ((R s).2 p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.2) ((R s).2 p.2.1)) - ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.1) ((R s).2 p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.1) ((R s).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.2) ((R s).2 p.2.2.2)))).re) := by
+    intro p
+    rw [a33_shared_coord_Z r z hz p, a33_shared_coord_Z s w hw p]
+    exact a33_shared_term _ _ _ _ (a33_shared_sgz_unit _ _ p) (a33_shared_sgz_unit _ _ p) (a33_shared_Z_unit z _ hz) (a33_shared_Z_unit w _ hw)
+  simp only [hterm]
+  rw [Finset.sum_sub_distrib, Finset.sum_const, Finset.card_univ]
+  simp only [Fintype.card_prod, Fintype.card_fin, nsmul_eq_mul, ← Finset.mul_sum]
+  congr 1
+  · norm_num
+  congr 1
+  rw [← Finset.sum_fiberwise_of_maps_to (s := Finset.univ) (t := ({(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1, 1)} : Finset (ℤ × ℤ)))
+    (g := fun p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4) => ((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1)) : ℤ) - ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2)), (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.1) ((R s).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.1) ((R s).2 p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.2) ((R s).2 p.2.1)) : ℤ) - ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.1) ((R s).2 p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.1) ((R s).2 p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((R s).1 p.1.2.2) ((R s).2 p.2.2.2))))]
+  · refine Finset.sum_congr rfl (fun kl _ => ?_)
+    rw [Finset.sum_mul]
+    push_cast
+    refine Finset.sum_congr rfl (fun p hp => ?_)
+    rw [Finset.mem_filter] at hp
+    obtain ⟨h1, h2⟩ := Prod.ext_iff.1 hp.2
+    simp only at h1 h2
+    rw [h1, h2]
+    ring
+  · intro p _
+    rcases a33_shared_exp_range r p with h | h | h <;> rcases a33_shared_exp_range s p with h' | h' | h' <;>
+      simp [h, h']
+#print axioms a33_shared_cross
+
 end OrbitIsometryGroup
 end OIBridge
