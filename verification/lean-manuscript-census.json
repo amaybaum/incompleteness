@@ -1171,6 +1171,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Track B act 31, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/track-b/act-31-off-locus-uniqueness/preregistration.md, blob f6064e59cad2f076d8a99cd95f628973987084f5, from D d61c6c5409db201e3c25abbf3ec0ecce1f530684, designated F f5bf75e1b454ed2786fce0f689e93845f35637f6. Outcome: A31-1-NONUNIQUE. At the frozen product configuration, for act 28's pair of local class bijections, two transition families each satisfying all eight prefix conjuncts, factorization and the pair clause take GramPhaseEquiv-inequivalent values at time zero on an exhibited realizable tuple whose class lies off the product locus: act 29's relabelling family of (2 3) × 1, and that family precomposed by the transposition of two off-locus classes, strictified by a30_s_strictify and carried by a30_t_transfer. The required shared statements a31_shared_witnesses, a31_shared_transposition and a31_shared_precompose are proved; the corollary a31_c_exclusive excludes the other verdict. Five named results, each with only propext, Classical.choice, Quot.sound; zero definitions against a budget of zero. P0 stays OPEN; no law, carrier or principle is adopted. Non-sealing."
+    },
+    {
+      "name": "the surjective isometries of the normalized single-carrier space and the four-shape family (act 32, Track B)",
+      "modules": [
+        "OrbitIsometryClassification"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Track B act 32, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/track-b/act-32-orbit-isometry-classification/preregistration.md, blob bef375ff9ff1570b2566dbc451fb645cc35f35fd, from D d61c6c5409db201e3c25abbf3ec0ecce1f530684, designated F 11aabc9f3912833e20e45d8b7980b0f883fc255c. Outcome: A32-NOT-RIGID. At the frozen single-carrier configuration, a map that conjugates the Fourier parameter on the Fourier circle and fixes the class of every point of the other eight relabelled Fourier circles preserves realizability, is surjective on classes and preserves act 24's distance on realizable tuples, and for no pair of relabellings satisfies any of act 25's four shapes; the positive classification proposition posed as act 25's ISO3 is false there. The required statements a32_shared_exists, a32_shared_isometry and a32_shared_separation and the five controls a32_control_overlap, a32_control_moves, a32_control_global, a32_control_identity and a32_control_quarter are proved; the corollary a32_c_exclusive excludes the other verdict. The separation reads each of the four shapes at a test class through one coordinate, a power of i over 64, and the four exponent tables over all 576 pairs of relabellings are decided by the kernel. Fifty-six named results, each within propext, Classical.choice and Quot.sound; zero definitions against a budget of zero. Act 25's and act 26's recorded verdicts stand as recorded. P0 stays OPEN; no isometry is adopted as a physical symmetry, principle or law. Non-sealing."
     }
   ]
 }
