@@ -143,6 +143,7 @@ jobs:
         if: always()
         run: |
           echo "=== ERRORS ==="; grep -n "^error: " /tmp/oibridge-build.log | cut -c1-240 || true
+          echo "=== ERROR CONTEXTS ==="; grep -n -A45 "^error: OIBridge/OrbitIsometryGroup" /tmp/oibridge-build.log | grep -v "^[0-9]*-$" | cut -c1-180 || true
           echo "=== SORRY ==="; grep "depends on axioms" /tmp/oibridge-build.log | grep sorryAx | cut -c1-200 || true
           echo "=== AXIOM LINES ==="; grep -c "depends on axioms" /tmp/oibridge-build.log || true
           echo "=== NONSTANDARD AXIOMS ==="; grep "depends on axioms" /tmp/oibridge-build.log | grep -v "\[propext, Classical.choice, Quot.sound\]" | cut -c1-200 || true
