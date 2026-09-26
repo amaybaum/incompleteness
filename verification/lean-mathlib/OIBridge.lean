@@ -217,6 +217,7 @@ import OIBridge.StrictNaturalLift
 import OIBridge.ProductLocusFreedom
 import OIBridge.ProductAdmission
 import OIBridge.ProductStrictLift
+import OIBridge.ProductOffLocusUniqueness
 import OIBridge.SemigroupTransfer
 import OIBridge.WordTraceSufficiency
 import OIBridge.RecurrenceHorizon
