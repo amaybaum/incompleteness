@@ -1,4 +1,5 @@
 import OIBridge.OrbitGeometryRigidity
+import Mathlib.GroupTheory.SemidirectProduct
 
 /-! Act 33 — elaboration of the candidate frozen propositions. Design evidence before any freeze:
 every `#check` below must elaborate; nothing is proved and nothing is defined. -/
@@ -135,7 +136,7 @@ open scoped InnerProductSpace
       ∨ (∀ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G → ∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
           FibreGram (0 : Fin 1) U = G → f' (featureVec G) = featureVec (fun i => Matrix.of fun j k =>
             star ((FibreGram (0 : Fin 1) Uᵀ (π i)).submatrix τ τ j k)))) ↔
-      ∀ v w : Fin 6, ((Finset.univ.filter (fun r : Fin 9 => (v₁ r = v ∨ v₂ r = v) ∧ (fun r => decide (ε r = ε r)) r = false)).card % 2) = ((Finset.univ.filter (fun r : Fin 9 => (v₁ r = w ∨ v₂ r = w) ∧ (fun r => decide (ε r = ε r)) r = false)).card % 2))
+      ∀ v w : Fin 6, ((Finset.univ.filter (fun r : Fin 9 => (v₁ r = v ∨ v₂ r = v) ∧ (fun r => decide (ε r = ε' r)) r = false)).card % 2) = ((Finset.univ.filter (fun r : Fin 9 => (v₁ r = w ∨ v₂ r = w) ∧ (fun r => decide (ε r = ε' r)) r = false)).card % 2))
   : Prop)
 
 -- PAR_ONTO
