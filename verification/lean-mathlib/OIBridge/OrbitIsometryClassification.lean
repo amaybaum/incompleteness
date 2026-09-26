@@ -16,7 +16,7 @@ open Matrix CoherentLiftGauge DilationChoice TwoSidedGauge GramTrajectorySelecti
   OrbitLawNaturalityFactorization OrbitLawGaps OrbitGeometrySelector OrbitGeometryIsometries
   OrbitGeometryRigidity
 
--- P_R
+-- P_R, COUNTERCONTROL: the first shape relabels rows only; this must not elaborate
 #check (∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
     ∀ (d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ),
       d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
@@ -26,7 +26,7 @@ open Matrix CoherentLiftGauge DilationChoice TwoSidedGauge GramTrajectorySelecti
         ∧ (∀ G H, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ H → d (φ G) (φ H) = d G H)) →
       (∃ π τ : Equiv.Perm (Fin 4),
             (∀ G, RealizableGram (Fin 1) Γ₀ G →
-                GramPhaseEquiv (φ G) (fun i => (G (π i)).submatrix τ τ))
+                GramPhaseEquiv (φ G) (fun i => (G (π i)).submatrix τ))
           ∨ (∀ G, RealizableGram (Fin 1) Γ₀ G →
                 GramPhaseEquiv (φ G) (fun i => Matrix.of fun j k => star ((G (π i)).submatrix τ τ j k)))
           ∨ (∀ G, RealizableGram (Fin 1) Γ₀ G → ∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
