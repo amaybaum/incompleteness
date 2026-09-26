@@ -5162,10 +5162,12 @@ theorem a33_shared_c0 :
       · rw [if_pos (decide_eq_true h0)]
         split_ifs with h
         · obtain ⟨hw, heq⟩ := Classical.choose_spec h
-          rw [heq]
-          rcases a33_shared_census 0 r (Ne.symm h0) _ z hw hz heq.symm with h1 | h1
-          · rw [h1, star_one]
-          · rw [h1, star_neg, star_one]
+          have hc : star (Classical.choose h) = Classical.choose h := by
+            rcases a33_shared_census 0 r (Ne.symm h0) _ z hw hz heq.symm with h1 | h1
+            · rw [h1, star_one]
+            · rw [h1, star_neg, star_one]
+          rw [hc]
+          exact heq.symm
         · rfl
     · intro r s h1 h2 z hz
       simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
