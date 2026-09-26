@@ -4843,6 +4843,12 @@ theorem a33_shared_foldr_comp :
   | cons a l ih => simp only [List.foldr_cons, Function.comp_apply, ih]
 #print axioms a33_shared_foldr_comp
 
+theorem a33_shared_wordf_append :
+    ∀ (FG : Fin 8 → (EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) → EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)))) (u v : List (Fin 8)) (x : EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4))), ((u ++ v).map FG).foldr (· ∘ ·) id x = (u.map FG).foldr (· ∘ ·) id ((v.map FG).foldr (· ∘ ·) id x) := by
+  intro FG u v x
+  rw [List.map_append, List.foldr_append, a33_shared_foldr_comp]
+#print axioms a33_shared_wordf_append
+
 theorem a33_shared_word8 :
     ∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ (FG : Fin 8 → (EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) → EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)))),
       (∀ g : Fin 8, IsSurjIsometryOn (normalizedSet Γ₀) (FG g) ∧ ((∀ r : Fin 9, ∃ s : Fin 9, ((((![(Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (2 : Fin 6) 3), (Equiv.swap (3 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (3 : Fin 6) 4), (Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (2 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (3 : Fin 6) 4), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5), (1 : Equiv.Perm (Fin 6))] : Fin 8 → Equiv.Perm (Fin 6)) g) ((![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) r) = (![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) s ∧ ((![(Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (2 : Fin 6) 3), (Equiv.swap (3 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (3 : Fin 6) 4), (Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (2 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (3 : Fin 6) 4), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5), (1 : Equiv.Perm (Fin 6))] : Fin 8 → Equiv.Perm (Fin 6)) g) ((![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) r) = (![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) s) ∨ (((![(Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (2 : Fin 6) 3), (Equiv.swap (3 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (3 : Fin 6) 4), (Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (2 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (3 : Fin 6) 4), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5), (1 : Equiv.Perm (Fin 6))] : Fin 8 → Equiv.Perm (Fin 6)) g) ((![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) r) = (![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) s ∧ ((![(Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (2 : Fin 6) 3), (Equiv.swap (3 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (3 : Fin 6) 4), (Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (2 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (3 : Fin 6) 4), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5), (1 : Equiv.Perm (Fin 6))] : Fin 8 → Equiv.Perm (Fin 6)) g) ((![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) r) = (![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) s)))
@@ -5207,6 +5213,7 @@ theorem a33_shared_conj_real :
       intro w hw
       simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_1, a33_shared_R2_1]
       rw [hgG _ ((iso2_classes_single Γ₀ hΓ₀).2 _ _ w hw)]
+      try (congr 1; funext i; simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id])
     refine ⟨g ∘ c ∘ g, a33_shared_iso_comp _ _ _ hg (a33_shared_iso_comp _ _ _ hc hg), fun t => ⟨t, Or.inl ⟨rfl, rfl⟩⟩, ?_, ?_⟩
     · intro t s h1 h2 z hz
       simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
@@ -5245,6 +5252,7 @@ theorem a33_shared_conj_real :
       intro w hw
       simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_2, a33_shared_R2_2]
       rw [hgG _ ((iso2_classes_single Γ₀ hΓ₀).2 _ _ w hw)]
+      try (congr 1; funext i; simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id])
     refine ⟨g ∘ c ∘ g, a33_shared_iso_comp _ _ _ hg (a33_shared_iso_comp _ _ _ hc hg), fun t => ⟨t, Or.inl ⟨rfl, rfl⟩⟩, ?_, ?_⟩
     · intro t s h1 h2 z hz
       simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
@@ -5283,6 +5291,7 @@ theorem a33_shared_conj_real :
       intro w hw
       simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_3, a33_shared_R2_3]
       rw [hgG _ ((iso2_classes_single Γ₀ hΓ₀).2 _ _ w hw)]
+      try (congr 1; funext i; simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id])
     refine ⟨g ∘ c ∘ g, a33_shared_iso_comp _ _ _ hg (a33_shared_iso_comp _ _ _ hc hg), fun t => ⟨t, Or.inl ⟨rfl, rfl⟩⟩, ?_, ?_⟩
     · intro t s h1 h2 z hz
       simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
@@ -5321,6 +5330,7 @@ theorem a33_shared_conj_real :
       intro w hw
       simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_4, a33_shared_R2_4]
       rw [hgG _ ((iso2_classes_single Γ₀ hΓ₀).2 _ _ w hw)]
+      try (congr 1; funext i; simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id])
     refine ⟨g ∘ c ∘ g, a33_shared_iso_comp _ _ _ hg (a33_shared_iso_comp _ _ _ hc hg), fun t => ⟨t, Or.inl ⟨rfl, rfl⟩⟩, ?_, ?_⟩
     · intro t s h1 h2 z hz
       simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
@@ -5359,6 +5369,7 @@ theorem a33_shared_conj_real :
       intro w hw
       simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_5, a33_shared_R2_5]
       rw [hgG _ ((iso2_classes_single Γ₀ hΓ₀).2 _ _ w hw)]
+      try (congr 1; funext i; simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id])
     refine ⟨g ∘ c ∘ g, a33_shared_iso_comp _ _ _ hg (a33_shared_iso_comp _ _ _ hc hg), fun t => ⟨t, Or.inl ⟨rfl, rfl⟩⟩, ?_, ?_⟩
     · intro t s h1 h2 z hz
       simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
@@ -5397,6 +5408,7 @@ theorem a33_shared_conj_real :
       intro w hw
       simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_6, a33_shared_R2_6]
       rw [hgG _ ((iso2_classes_single Γ₀ hΓ₀).2 _ _ w hw)]
+      try (congr 1; funext i; simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id])
     refine ⟨g ∘ c ∘ g, a33_shared_iso_comp _ _ _ hg (a33_shared_iso_comp _ _ _ hc hg), fun t => ⟨t, Or.inl ⟨rfl, rfl⟩⟩, ?_, ?_⟩
     · intro t s h1 h2 z hz
       simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
@@ -5435,6 +5447,7 @@ theorem a33_shared_conj_real :
       intro w hw
       simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_7, a33_shared_R2_7]
       rw [hgG _ ((iso2_classes_single Γ₀ hΓ₀).2 _ _ w hw)]
+      try (congr 1; funext i; simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id])
     refine ⟨g ∘ c ∘ g, a33_shared_iso_comp _ _ _ hg (a33_shared_iso_comp _ _ _ hc hg), fun t => ⟨t, Or.inl ⟨rfl, rfl⟩⟩, ?_, ?_⟩
     · intro t s h1 h2 z hz
       simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
@@ -5473,6 +5486,7 @@ theorem a33_shared_conj_real :
       intro w hw
       simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_8, a33_shared_R2_8]
       rw [hgG _ ((iso2_classes_single Γ₀ hΓ₀).2 _ _ w hw)]
+      try (congr 1; funext i; simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id])
     refine ⟨g ∘ c ∘ g, a33_shared_iso_comp _ _ _ hg (a33_shared_iso_comp _ _ _ hc hg), fun t => ⟨t, Or.inl ⟨rfl, rfl⟩⟩, ?_, ?_⟩
     · intro t s h1 h2 z hz
       simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
@@ -5709,142 +5723,142 @@ theorem a33_shared_vertex :
   · exact absurd h (a33_shared_apart_0_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_0_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_4_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_0_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_5_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_0_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_0_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_7_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_0_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_8_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_1_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_1_2 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_1_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_3_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_1_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_1_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_5_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_1_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_6_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_1_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_1_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_8_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_2_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_2_1 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_2_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_3_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_2_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_4_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_2_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_2_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_6_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_2_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_7_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_2_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_3_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_3_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_1_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_3_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_2_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_3_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_3_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_3_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_3_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_7_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_3_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_8_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_4_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_0_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_4_1 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_4_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_2_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_4_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_4_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_4_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_6_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_4_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_4_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_8_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_5_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_0_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_5_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_1_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_5_2 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_5_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_5_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_5_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_6_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_5_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_7_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_5_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_6_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_6_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_1_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_6_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_2_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_6_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_6_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_4_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_6_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_5_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_6_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_6_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_7_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_0_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_7_1 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_7_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_2_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_7_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_3_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_7_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_7_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_5_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_7_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_7_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_8_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_0_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_8_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_1_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_8_2 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · have hz := a33_shared_meet_8_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_3_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · have hz := a33_shared_meet_8_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
     have hw := a33_shared_meet_4_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-    cases x <;> cases y <;> first | exact absurd hz (by norm_num) | exact absurd hw (by norm_num) | decide
+    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide
   · exact absurd h (a33_shared_apart_8_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_8_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
   · exact absurd h (a33_shared_apart_8_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
@@ -6206,7 +6220,7 @@ theorem a33_c_exclusive :
 #print axioms a33_c_exclusive
 
 theorem a33_shared_nf_congr :
-    ∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), ∀ (f g : EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) → EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4))) (ν : Equiv.Perm (Fin 6)) (ε : Fin 9 → Bool), ((∀ r : Fin 9, ∃ s : Fin 9, ((ν ((![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) r) = (![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) s ∧ ν ((![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) r) = (![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) s) ∨ (ν ((![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) r) = (![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) s ∧ ν ((![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) r) = (![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) s)))
+    ∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ (f g : EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) → EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4))) (ν : Equiv.Perm (Fin 6)) (ε : Fin 9 → Bool), ((∀ r : Fin 9, ∃ s : Fin 9, ((ν ((![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) r) = (![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) s ∧ ν ((![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) r) = (![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) s) ∨ (ν ((![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) r) = (![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) s ∧ ν ((![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) r) = (![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) s)))
       ∧ (∀ r s : Fin 9, ν ((![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) r) = (![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6) s → ν ((![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) r) = (![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6) s → ∀ z : ℂ, star z * z = 1 →
           g (featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2)) = featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
@@ -6224,11 +6238,11 @@ theorem a33_shared_nf_congr :
           f (featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2)) = featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (-(if ε r then z else star z)), -1, -(-(if ε r then z else star z)); 1, -1, 1, -1; 1, -(-(if ε r then z else star z)), -1, (-(if ε r then z else star z))] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).2))) := by
-  intro Γ₀ f g ν ε ⟨hA, hP, hM⟩ hfg
+  intro Γ₀ hΓ₀ f g ν ε ⟨hA, hP, hM⟩ hfg
   refine ⟨hA, fun r s h1 h2 z hz => ?_, fun r s h1 h2 z hz => ?_⟩
-  · rw [hfg _ (relabelled_fourier_mem_normalizedSet _ rfl _ _ z hz)]
+  · rw [hfg _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz)]
     exact hP r s h1 h2 z hz
-  · rw [hfg _ (relabelled_fourier_mem_normalizedSet _ rfl _ _ z hz)]
+  · rw [hfg _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz)]
     exact hM r s h1 h2 z hz
 #print axioms a33_shared_nf_congr
 
@@ -6253,7 +6267,7 @@ theorem a33_shared_nf_agree :
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, (-(if ε r then z else star z)), -1, -(-(if ε r then z else star z)); 1, -1, 1, -1; 1, -(-(if ε r then z else star z)), -1, (-(if ε r then z else star z))] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).2))) → ∀ x ∈ normalizedSet Γ₀, f x = g x := by
   intro Γ₀ hΓ₀ f g ν ε ⟨hA, hP, hM⟩ ⟨-, hP', hM'⟩ x hx
   obtain ⟨r, z, hz, rfl⟩ := (a33_shared_mem Γ₀ hΓ₀ x).1 hx
-  obtain ⟨s, ⟨h1, h2⟩ | ⟨h1, h2⟩⟩ := hA r
+  obtain ⟨s, (⟨h1, h2⟩ | ⟨h1, h2⟩)⟩ := hA r
   · rw [hP r s h1 h2 z hz, hP' r s h1 h2 z hz]
   · rw [hM r s h1 h2 z hz, hM' r s h1 h2 z hz]
 #print axioms a33_shared_nf_agree
@@ -6501,9 +6515,7 @@ theorem a33_shared_rel_R1 :
   intro Γ₀ hΓ₀ FG FR hFG hFR x hx
   obtain ⟨G, hG, rfl⟩ := hx
   rw [(hFR (1, 1)).2 G hG]
-  congr 1
-  funext i
-  simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id]
+  try (congr 1; funext i; simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id])
 #print axioms a33_shared_rel_R1
 
 theorem a33_shared_rel_G :
@@ -6550,12 +6562,12 @@ theorem a33_shared_word_shape :
   have hS : ∀ (π τ : Equiv.Perm (Fin 4)) (t : Bool), ∀ x ∈ normalizedSet Γ₀, FR (π, τ) (if t then FG 2 x else x) ∈ normalizedSet Γ₀ := by
     intro π τ t x hx
     cases t
-    · exact (hFR _).1 x hx
-    · exact (hFR _).1 _ ((hFG 2).1 x hx)
+    · exact (hFR _).1.1 x hx
+    · exact (hFR _).1.1 _ ((hFG 2).1.1 x hx)
   induction w with
   | nil =>
     refine ⟨1, 1, false, false, fun x hx => ?_⟩
-    simp only [List.map_nil, List.foldr_nil, id_eq, Bool.false_eq_true, ↓reduceIte]
+    simp only [List.map_nil, List.foldr_nil, id_eq, Bool.false_eq_true, ↓reduceIte, ite_false]
     exact (a33_shared_rel_R1 Γ₀ hΓ₀ FG FR hFG hFR x hx).symm
   | cons g w ih =>
     obtain ⟨π, τ, c, t, hw⟩ := ih
@@ -6567,24 +6579,24 @@ theorem a33_shared_word_shape :
       rw [hw x hx]
       cases c
       · rfl
-      · simp only [↓reduceIte, Bool.not_true, Bool.false_eq_true]
+      · simp only [↓reduceIte, Bool.not_true, Bool.false_eq_true, eq_self_iff_true, ite_true, ite_false]
         exact hCC _ (hS π τ t x hx)
     by_cases h2 : g = 2
     · subst h2
       refine ⟨τ, π, c, !t, fun x hx => ?_⟩
       show FG 2 (((w.map FG).foldr (· ∘ ·) id) x) = _
       rw [hw x hx]
-      cases c <;> cases t <;> simp only [↓reduceIte, Bool.not_true, Bool.not_false, Bool.false_eq_true]
+      cases c <;> cases t <;> simp only [↓reduceIte, Bool.not_true, Bool.not_false, Bool.false_eq_true, eq_self_iff_true, ite_true, ite_false]
       · exact hTR π τ x hx
-      · rw [hTR π τ _ ((hFG 2).1 x hx), hTT x hx]
-      · rw [hTC _ (hS π τ false x hx), hTR π τ x hx]
-      · rw [hTC _ (hS π τ true x hx), hTR π τ _ ((hFG 2).1 x hx), hTT x hx]
+      · rw [hTR π τ _ ((hFG 2).1.1 x hx), hTT x hx]
+      · rw [hTC _ ((hFR _).1.1 x hx), hTR π τ x hx]
+      · rw [hTC _ ((hFR _).1.1 _ ((hFG 2).1.1 x hx)), hTR π τ _ ((hFG 2).1.1 x hx), hTT x hx]
     · refine ⟨((![((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (0 : Fin 4) 1), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (0 : Fin 4) 1)), ((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4)))] : Fin 8 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4)) g).1.trans π, ((![((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (0 : Fin 4) 1), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (0 : Fin 4) 1)), ((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4)))] : Fin 8 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4)) g).2.trans τ, c, t, fun x hx => ?_⟩
       show FG g (((w.map FG).foldr (· ∘ ·) id) x) = _
-      rw [hw x hx, hRG g h2 h7 _ (by cases c <;> [exact hS π τ t x hx; exact (hFG 7).1 _ (hS π τ t x hx)])]
-      cases c <;> simp only [↓reduceIte, Bool.false_eq_true]
-      · exact hRR _ _ π τ _ (by cases t <;> [exact hx; exact (hFG 2).1 x hx])
-      · rw [hCR _ _ _ (hS π τ t x hx), hRR _ _ π τ _ (by cases t <;> [exact hx; exact (hFG 2).1 x hx])]
+      rw [hw x hx, hRG g h2 h7 _ (by cases c <;> [exact hS π τ t x hx; exact (hFG 7).1.1 _ (hS π τ t x hx)])]
+      cases c <;> simp only [↓reduceIte, Bool.false_eq_true, eq_self_iff_true, ite_true, ite_false]
+      · exact hRR _ _ π τ _ (by cases t <;> [exact hx; exact (hFG 2).1.1 x hx])
+      · rw [hCR _ _ _ (hS π τ t x hx), hRR _ _ π τ _ (by cases t <;> [exact hx; exact (hFG 2).1.1 x hx])]
 #print axioms a33_shared_word_shape
 
 theorem a33_shared_rowcol_word :
@@ -6614,11 +6626,11 @@ theorem a33_shared_rowcol_word :
       exact (hR1 x hx).symm
     | cons g w ih =>
       intro x hx
-      have hg := hcw g (List.mem_cons_self _ _)
-      have ih' := ih (fun g' hg' => hcw g' (List.mem_cons_of_mem _ hg'))
+      have hg := hcw g (List.mem_cons.2 (Or.inl rfl))
+      have ih' := ih (fun g' hg' => hcw g' (List.mem_cons.2 (Or.inr hg')))
       simp only [List.map_cons, List.foldr_cons]
       show FG g (((w.map FG).foldr (· ∘ ·) id) x) = _
-      rw [ih' x hx, hRG g (by rcases hg with rfl | rfl | rfl <;> decide) (by rcases hg with rfl | rfl | rfl <;> decide) _ ((hFR _).1 x hx),
+      rw [ih' x hx, hRG g (by rcases hg with rfl | rfl | rfl <;> decide) (by rcases hg with rfl | rfl | rfl <;> decide) _ ((hFR _).1.1 x hx),
         hRR _ _ _ _ x hx]
       rcases hg with rfl | rfl | rfl <;> rfl
   have hrow : ∀ x ∈ normalizedSet Γ₀, ((rw.map FG).foldr (· ∘ ·) id) x = FR ((rw.foldr (fun g acc => ((![((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (0 : Fin 4) 1), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (0 : Fin 4) 1)), ((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4)))] : Fin 8 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4)) g).1.trans acc) (1 : Equiv.Perm (Fin 4))), (1 : Equiv.Perm (Fin 4))) x := by
@@ -6629,17 +6641,15 @@ theorem a33_shared_rowcol_word :
       exact (hR1 x hx).symm
     | cons g w ih =>
       intro x hx
-      have hg := hrw g (List.mem_cons_self _ _)
-      have ih' := ih (fun g' hg' => hrw g' (List.mem_cons_of_mem _ hg'))
+      have hg := hrw g (List.mem_cons.2 (Or.inl rfl))
+      have ih' := ih (fun g' hg' => hrw g' (List.mem_cons.2 (Or.inr hg')))
       simp only [List.map_cons, List.foldr_cons]
       show FG g (((w.map FG).foldr (· ∘ ·) id) x) = _
-      rw [ih' x hx, hRG g (by rcases hg with rfl | rfl | rfl <;> decide) (by rcases hg with rfl | rfl | rfl <;> decide) _ ((hFR _).1 x hx),
+      rw [ih' x hx, hRG g (by rcases hg with rfl | rfl | rfl <;> decide) (by rcases hg with rfl | rfl | rfl <;> decide) _ ((hFR _).1.1 x hx),
         hRR _ _ _ _ x hx]
       rcases hg with rfl | rfl | rfl <;> rfl
   intro x hx
-  rw [List.map_append, List.foldr_append]
-  show ((rw.map FG).foldr (· ∘ ·) id) (((cw.map FG).foldr (· ∘ ·) id) x) = _
-  rw [hcol x hx, hrow _ ((hFR _).1 x hx), hRR _ _ _ _ x hx]
+  rw [a33_shared_wordf_append, hcol x hx, hrow _ ((hFR _).1.1 x hx), hRR _ _ _ _ x hx]
   rfl
 #print axioms a33_shared_rowcol_word
 
@@ -6671,24 +6681,12 @@ theorem a33_shared_shape_word :
   intro Γ₀ hΓ₀ FG FR hFG hFR q hrw hcw x hx
   obtain ⟨c, rw, cw, t⟩ := q
   have hmid := a33_shared_rowcol_word Γ₀ hΓ₀ FG FR hFG hFR rw cw hrw hcw
-  simp only [List.map_append, List.foldr_append]
-  cases c <;> cases t <;> simp only [↓reduceIte, Bool.false_eq_true, List.map_nil, List.foldr_nil, List.map_cons, List.foldr_cons]
-  · show ((rw.map FG).foldr (· ∘ ·) id) (((cw.map FG).foldr (· ∘ ·) id) x) = _
-    have := hmid x hx
-    simp only [List.map_append, List.foldr_append] at this
-    exact this
-  · show ((rw.map FG).foldr (· ∘ ·) id) (((cw.map FG).foldr (· ∘ ·) id) (FG 2 x)) = _
-    have := hmid _ ((hFG 2).1 x hx)
-    simp only [List.map_append, List.foldr_append] at this
-    exact this
-  · show FG 7 (((rw.map FG).foldr (· ∘ ·) id) (((cw.map FG).foldr (· ∘ ·) id) x)) = _
-    have := hmid x hx
-    simp only [List.map_append, List.foldr_append] at this
-    rw [this]
-  · show FG 7 (((rw.map FG).foldr (· ∘ ·) id) (((cw.map FG).foldr (· ∘ ·) id) (FG 2 x))) = _
-    have := hmid _ ((hFG 2).1 x hx)
-    simp only [List.map_append, List.foldr_append] at this
-    rw [this]
+  simp only [a33_shared_wordf_append] at hmid
+  cases c <;> cases t <;> simp only [a33_shared_wordf_append, List.map_nil, List.foldr_nil, List.map_cons, List.foldr_cons, Function.comp_apply, id_eq, ↓reduceIte, Bool.false_eq_true, eq_self_iff_true, ite_true, ite_false]
+  · rw [hmid x hx]
+  · rw [hmid _ ((hFG 2).1.1 x hx)]
+  · rw [hmid x hx]
+  · rw [hmid _ ((hFG 2).1.1 x hx)]
 #print axioms a33_shared_shape_word
 
 theorem a33_shared_shape_parity :
@@ -6837,7 +6835,7 @@ theorem a33_shared_word_parity :
   obtain ⟨cw, hcw, hcwg, hτ⟩ := a33_shared_col_words τ
   have hsw := a33_shared_shape_word Γ₀ hΓ₀ FG FR hFG hFR (c, rw, cw, t) hrwg hcwg
   obtain ⟨-, hnfw⟩ := hW ((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else []))
-  have hnf' := a33_shared_nf_congr Γ₀ _ _ _ _ hnf (fun x hx => by rw [hsw x hx, hsh x hx, ← hπ, ← hτ])
+  have hnf' := a33_shared_nf_congr Γ₀ hΓ₀ _ _ _ _ hnf (fun x hx => by rw [hsw x hx, hsh x hx, ← hπ, ← hτ])
   obtain ⟨h1, h2⟩ := a33_shared_nf_unique Γ₀ hΓ₀ _ _ _ _ _ hnfw hnf'
   have := a33_shared_shape_parity rw hrw cw hcw c t h1
   rw [h2] at this
@@ -6921,7 +6919,7 @@ theorem a33_shared_family_kernel :
     obtain ⟨rw, hrw, hrwg, hπ⟩ := a33_shared_row_words π
     obtain ⟨cw, hcw, hcwg, hτ⟩ := a33_shared_col_words τ
     have hsw := a33_shared_shape_word Γ₀ hΓ₀ FG FR hFG hFR (c, rw, cw, t) hrwg hcwg
-    have hnf' := a33_shared_nf_congr Γ₀ _ f _ _ hnf (fun x hx => by rw [hsw x hx, hsh x hx, ← hπ, ← hτ])
+    have hnf' := a33_shared_nf_congr Γ₀ hΓ₀ _ f _ _ hnf (fun x hx => by rw [hsw x hx, hsh x hx, ← hπ, ← hτ])
     exact a33_shared_word_parity Γ₀ hΓ₀ FG FR hFG hFR hWp _ ε hnf'
   · intro hpar
     obtain ⟨q, -, hrwg, hcwg, h1, h2⟩ := a33_shared_kernel_shapes ε hpar
@@ -7025,7 +7023,7 @@ theorem a33_shared_family_coset :
   have hsw := a33_shared_shape_word Γ₀ hΓ₀ FG FR hFG hFR (c, rw, cw, t) hrwg hcwg
   have hfw : ∀ x ∈ normalizedSet Γ₀, f x = ((((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else [])).map FG).foldr (· ∘ ·) id) x := fun x hx => by rw [hsw x hx, hsh x hx, ← hπ, ← hτ]
   obtain ⟨hwiso, hwnf, -, hwinv⟩ := hW ((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else []))
-  have hnfw := a33_shared_nf_congr Γ₀ _ f _ _ hnf (fun x hx => (hfw x hx).symm)
+  have hnfw := a33_shared_nf_congr Γ₀ hΓ₀ _ f _ _ hnf (fun x hx => (hfw x hx).symm)
   constructor
   · intro hfam'
     obtain ⟨π', τ', c', t', hsh'⟩ := a33_shared_family_shape Γ₀ hΓ₀ FG FR hFG hFR f' hfam'
@@ -7033,7 +7031,7 @@ theorem a33_shared_family_coset :
     obtain ⟨cw', hcw', hcwg', hτ'⟩ := a33_shared_col_words τ'
     have hsw' := a33_shared_shape_word Γ₀ hΓ₀ FG FR hFG hFR (c', rw', cw', t') hrwg' hcwg'
     have hfw' : ∀ x ∈ normalizedSet Γ₀, f' x = ((((if (c', rw', cw', t').1 then [(7 : Fin 8)] else []) ++ (c', rw', cw', t').2.1 ++ (c', rw', cw', t').2.2.1 ++ (if (c', rw', cw', t').2.2.2 then [(2 : Fin 8)] else [])).map FG).foldr (· ∘ ·) id) x := fun x hx => by rw [hsw' x hx, hsh' x hx, ← hπ', ← hτ']
-    have hnfw' := a33_shared_nf_congr Γ₀ _ f' _ _ hnf' (fun x hx => (hfw' x hx).symm)
+    have hnfw' := a33_shared_nf_congr Γ₀ hΓ₀ _ f' _ _ hnf' (fun x hx => (hfw' x hx).symm)
     -- the kernel word k := reverse of the word of f, then the word of f'
     obtain ⟨hkiso, hknf, hkcond, -⟩ := hW (((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else [])).reverse ++ ((if (c', rw', cw', t').1 then [(7 : Fin 8)] else []) ++ (c', rw', cw', t').2.1 ++ (c', rw', cw', t').2.2.1 ++ (if (c', rw', cw', t').2.2.2 then [(2 : Fin 8)] else [])))
     have hkw : ∀ x ∈ normalizedSet Γ₀, (((((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else [])).reverse ++ ((if (c', rw', cw', t').1 then [(7 : Fin 8)] else []) ++ (c', rw', cw', t').2.1 ++ (c', rw', cw', t').2.2.1 ++ (if (c', rw', cw', t').2.2.2 then [(2 : Fin 8)] else []))).map FG).foldr (· ∘ ·) id) x
@@ -7059,7 +7057,7 @@ theorem a33_shared_family_coset :
       intro x hx
       show ((((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else [])).map FG).foldr (· ∘ ·) id) ((((((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else [])).reverse ++ ((if (c', rw', cw', t').1 then [(7 : Fin 8)] else []) ++ (c', rw', cw', t').2.1 ++ (c', rw', cw', t').2.2.1 ++ (if (c', rw', cw', t').2.2.2 then [(2 : Fin 8)] else []))).map FG).foldr (· ∘ ·) id) x) = _
       rw [hkw x hx, hwinv _ ((hW _).1.1 x hx)]
-    have hnf2 := a33_shared_nf_congr Γ₀ _ _ _ _ hnfw' hagree
+    have hnf2 := a33_shared_nf_congr Γ₀ hΓ₀ _ _ _ _ hnfw' hagree
     obtain ⟨h1, h2⟩ := a33_shared_nf_unique Γ₀ hΓ₀ _ _ _ _ _ hnf2 hcomp
     have hk1 : ((((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else [])).reverse ++ ((if (c', rw', cw', t').1 then [(7 : Fin 8)] else []) ++ (c', rw', cw', t').2.1 ++ (c', rw', cw', t').2.2.1 ++ (if (c', rw', cw', t').2.2.2 then [(2 : Fin 8)] else []))).foldr (fun g (acc : Equiv.Perm (Fin 6) × (Fin 9 → Fin 9) × (Fin 9 → Bool)) =>
         ((![(Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (2 : Fin 6) 3), (Equiv.swap (3 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (3 : Fin 6) 4), (Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (2 : Fin 6) 5), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (3 : Fin 6) 4), (Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5), (1 : Equiv.Perm (Fin 6))] : Fin 8 → Equiv.Perm (Fin 6)) g * acc.1, (![![1, 0, 2, 4, 3, 5, 7, 6, 8], ![2, 1, 0, 5, 4, 3, 8, 7, 6], ![0, 3, 6, 1, 4, 7, 2, 5, 8], ![3, 4, 5, 0, 1, 2, 6, 7, 8], ![6, 7, 8, 3, 4, 5, 0, 1, 2], ![3, 4, 5, 0, 1, 2, 6, 7, 8], ![1, 0, 2, 4, 3, 5, 7, 6, 8], ![0, 1, 2, 3, 4, 5, 6, 7, 8]] : Fin 8 → Fin 9 → Fin 9) g ∘ acc.2.1, fun r => decide (acc.2.2 r = (![![true, true, true, true, true, true, true, true, true], ![true, true, true, true, true, true, true, true, true], ![true, true, true, true, true, true, true, true, true], ![true, true, true, true, true, true, true, true, true], ![true, true, true, true, true, true, true, true, true], ![false, false, false, false, false, false, true, true, true], ![false, false, true, false, false, true, false, false, true], ![false, false, false, false, false, false, false, false, false]] : Fin 8 → Fin 9 → Bool) g (acc.2.1 r))))
