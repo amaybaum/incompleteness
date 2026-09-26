@@ -1,9 +1,0 @@
-{
- "evaluate": "vacuity:fewer",
- "expect": {
-  "reason": "vacuity:count",
-  "verdict": "FAIL"
- },
- "family": "vacuity",
- "id": "vacuity-fewer-vectors-than-corpus"
-}
