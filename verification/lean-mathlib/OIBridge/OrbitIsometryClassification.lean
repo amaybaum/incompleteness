@@ -1046,5 +1046,76 @@ theorem a32_control_quarter :
 
 #print axioms a32_control_quarter
 
+theorem a32_not_rigid :
+    ∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+      ∀ (d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ),
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+      ∃ φ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+        ((∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (φ G))
+          ∧ (∀ H, RealizableGram (Fin 1) Γ₀ H → ∃ G, RealizableGram (Fin 1) Γ₀ G ∧ GramPhaseEquiv (φ G) H)
+          ∧ (∀ G H, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ H → d (φ G) (φ H) = d G H))
+        ∧ ¬ (∃ π τ : Equiv.Perm (Fin 4),
+              (∀ G, RealizableGram (Fin 1) Γ₀ G →
+                  GramPhaseEquiv (φ G) (fun i => (G (π i)).submatrix τ τ))
+            ∨ (∀ G, RealizableGram (Fin 1) Γ₀ G →
+                  GramPhaseEquiv (φ G) (fun i => Matrix.of fun j k => star ((G (π i)).submatrix τ τ j k)))
+            ∨ (∀ G, RealizableGram (Fin 1) Γ₀ G → ∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+                  FibreGram (0 : Fin 1) U = G →
+                  GramPhaseEquiv (φ G) (fun i => (FibreGram (0 : Fin 1) Uᵀ (π i)).submatrix τ τ))
+            ∨ (∀ G, RealizableGram (Fin 1) Γ₀ G → ∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+                  FibreGram (0 : Fin 1) U = G →
+                  GramPhaseEquiv (φ G) (fun i => Matrix.of fun j k =>
+                    star ((FibreGram (0 : Fin 1) Uᵀ (π i)).submatrix τ τ j k)))) := by
+  intro Γ₀ hΓ₀ d hd
+  obtain ⟨φ, hW⟩ := a32_shared_exists Γ₀ hΓ₀ d hd
+  exact ⟨φ, a32_shared_isometry Γ₀ hΓ₀ d hd φ hW, a32_shared_separation Γ₀ hΓ₀ d hd φ hW⟩
+
+#print axioms a32_not_rigid
+
+theorem a32_c_exclusive :
+    (∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+      ∀ (d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ),
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+      ∃ φ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+        ((∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (φ G))
+          ∧ (∀ H, RealizableGram (Fin 1) Γ₀ H → ∃ G, RealizableGram (Fin 1) Γ₀ G ∧ GramPhaseEquiv (φ G) H)
+          ∧ (∀ G H, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ H → d (φ G) (φ H) = d G H))
+        ∧ ¬ (∃ π τ : Equiv.Perm (Fin 4),
+              (∀ G, RealizableGram (Fin 1) Γ₀ G →
+                  GramPhaseEquiv (φ G) (fun i => (G (π i)).submatrix τ τ))
+            ∨ (∀ G, RealizableGram (Fin 1) Γ₀ G →
+                  GramPhaseEquiv (φ G) (fun i => Matrix.of fun j k => star ((G (π i)).submatrix τ τ j k)))
+            ∨ (∀ G, RealizableGram (Fin 1) Γ₀ G → ∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+                  FibreGram (0 : Fin 1) U = G →
+                  GramPhaseEquiv (φ G) (fun i => (FibreGram (0 : Fin 1) Uᵀ (π i)).submatrix τ τ))
+            ∨ (∀ G, RealizableGram (Fin 1) Γ₀ G → ∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+                  FibreGram (0 : Fin 1) U = G →
+                  GramPhaseEquiv (φ G) (fun i => Matrix.of fun j k =>
+                    star ((FibreGram (0 : Fin 1) Uᵀ (π i)).submatrix τ τ j k))))) →
+    ¬ (∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+      ∀ (d : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → ℝ),
+        d = (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) →
+      ∀ φ : (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) → (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+        ((∀ G, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (φ G))
+          ∧ (∀ H, RealizableGram (Fin 1) Γ₀ H → ∃ G, RealizableGram (Fin 1) Γ₀ G ∧ GramPhaseEquiv (φ G) H)
+          ∧ (∀ G H, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ H → d (φ G) (φ H) = d G H)) →
+        (∃ π τ : Equiv.Perm (Fin 4),
+              (∀ G, RealizableGram (Fin 1) Γ₀ G →
+                  GramPhaseEquiv (φ G) (fun i => (G (π i)).submatrix τ τ))
+            ∨ (∀ G, RealizableGram (Fin 1) Γ₀ G →
+                  GramPhaseEquiv (φ G) (fun i => Matrix.of fun j k => star ((G (π i)).submatrix τ τ j k)))
+            ∨ (∀ G, RealizableGram (Fin 1) Γ₀ G → ∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+                  FibreGram (0 : Fin 1) U = G →
+                  GramPhaseEquiv (φ G) (fun i => (FibreGram (0 : Fin 1) Uᵀ (π i)).submatrix τ τ))
+            ∨ (∀ G, RealizableGram (Fin 1) Γ₀ G → ∀ U, AdmissibleDilationAt Γ₀ (0 : Fin 1) U →
+                  FibreGram (0 : Fin 1) U = G →
+                  GramPhaseEquiv (φ G) (fun i => Matrix.of fun j k =>
+                    star ((FibreGram (0 : Fin 1) Uᵀ (π i)).submatrix τ τ j k))))) := by
+  intro hN hR
+  obtain ⟨φ, hH, hF⟩ := hN _ rfl _ rfl
+  exact hF (hR _ rfl _ rfl φ hH)
+
+#print axioms a32_c_exclusive
+
 end OrbitIsometryClassification
 end OIBridge
