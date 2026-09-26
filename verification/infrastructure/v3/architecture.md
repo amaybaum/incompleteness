@@ -12,11 +12,12 @@ under the frozen preregistration
 seven gaps round `V3-2` recorded, `K1` to `K4` and `G5` to `G7`. Round `V3-5`, under the frozen
 preregistration
 `verification/infrastructure/round-v3-5-specification-completion/preregistration.md`, settled the
-five gaps round `V3-3` recorded, `G8` to `G12`. Each settlement is normative text under its
-identifier. The specification is operative for every round begun after round `V3-11`'s landing that the
-owner does not designate a compatibility round under `AGENTS.md` §A.37, and for the provisional
-pilots `V3-10` and `V3-11` under `AGENTS.md` §A.39. A round begun earlier keeps the protocol under
-which it landed, and no `V1` or `V2` state is changed or migrated by the specification.
+five gaps round `V3-3` recorded, `G8` to `G12`. Round `V3-14`, under the frozen preregistration
+`verification/infrastructure/round-v3-14-retirement/preregistration.md`, restated `G12` and settled
+`G13`. Each settlement is normative text under its identifier. The specification governs every
+round begun after round `V3-11`'s landing, and the provisional pilots `V3-10` and `V3-11`, under
+`AGENTS.md` §A.39. A round begun earlier keeps the protocol under which it landed, and no `V1` or
+`V2` state is changed or migrated by the specification.
 
 The words **must**, **must not** and **may** are normative. Anything this document leaves
 undefined is invalid, not permitted.
@@ -95,6 +96,7 @@ the only paths `delta(D, F)` may touch (`S2`), and it fixes the receipt path,
 | `G10` | declaration blocks are recognized by exact lines | `G10`, under `S7`; lifecycle transition T1 |
 | `G11` | the round's later objects are those its final receipt commit reaches | `G11`, under `S3`; lifecycle transitions T6 and T7 |
 | `G12` | the seal record | `G12`, under `S7`; lifecycle transitions T1, T3, T6 and T7 |
+| `G13` | a held round's records are unchanged after its receipt commit | `G13`, under `S10` |
 
 ***
 
@@ -379,10 +381,11 @@ The `.json` extension is conventional. No V3 predicate parses the file or derive
 its content; a consumer of a round's seal record may impose its own format on it, and the V3
 verifier does not.
 
-No round changes another round's receipt or seal state. A change is unauthorized, whichever entry
+No round changes another round's receipt or seal record. A change is unauthorized, whichever entry
 governs it, when it is to a path under `verification/receipts/` other than the round's receipt
-path, to a path under `verification/v3-seals/` other than its seal record path, or to any path
-under `verification/seals/`, which holds the seal state of protocol 2 and is no V3 round's.
+path, or to a path under `verification/v3-seals/` other than its seal record path. The records of
+the rounds landed before V3, `verification/seals/` among them, are no V3 round's state and no V3
+predicate reads them; the release gate's `legacy-records` step keeps them unchanged.
 
 ## `S8` — deltas are canonical
 
@@ -490,6 +493,20 @@ receipt commit `Qᵢ` is a single-parent child of the reconciliation `Rᵢ` befo
 names, each change authorized (`G12`). The content of a superseded receipt is not read: the final
 receipt is the round's durable state (`S4`), and it alone fixes which seal record any receipt
 commit carries.
+
+### `G13` — a held round's records are unchanged after its receipt commit
+
+Whether a round holds is decided from `Q` (T7), and nothing later changes that answer. Whether a
+later commit `C` still carries the round's records is a separate question, asked of `C`'s tree by
+the verifier's check of every receipt in it. For a receipt at the receipt path `P` in `C`'s tree,
+let `Qc` be the commit reachable from `C` that last wrote `P`. When the round holds at `Qc`:
+
+1. the files under the round's record directory at `C` are exactly those at `Qc`: the same paths,
+   each with the same mode and object id, none added and none removed;
+2. every seal record the receipt at `Qc` names has, at `C`, the object id the receipt records.
+
+A receipt for which either fails does not hold at `C`. A correction to a held round's records is
+made by a later round in its own record, never by changing the earlier round's.
 
 ## `S11` — sealing is receipt state, not topology
 

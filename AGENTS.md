@@ -74,17 +74,11 @@ confers no protection, and "the framework needs this to be true" is never an arg
   do not rewrite historical commits or status records merely to make the history
   agree with the latest result.
 
-- Frozen control-plane blob after head movement. When a control-plane
-  preregistration is frozen by exact commit SHA and blob SHA, the blob identity is
-  authoritative. If the PR head changes after freeze approval, re-read the frozen
-  file at the new head and verify its blob SHA. If the approved blob is unchanged,
-  the freeze remains valid; record the new head and the unchanged blob without
-  requiring a full repeat review. If the blob changes at all, the freeze approval
-  lapses and a fresh exact-head/blob freeze review is required before merge or
-  execution. A branch sync, merge-from-base, or unrelated commit therefore does not
-  invalidate a freeze merely by moving the head; it invalidates it only if it
-  changes the frozen blob. This exception applies to the freeze itself, not to
-  ordinary final exact-head review of execution/result PRs.
+- Freeze and head movement. A round's freeze is the exact commit `F` the owner
+  designates, and the verifier rejects any change to its control-plane files after
+  `F` (§A.39). A head that moves after `E` moves by reconciliation: review what
+  the reconciliation brings in, and check that the landing adds exactly the
+  execution's own changes, each conflict resolved by merits (§A.39).
 
 - Keep verification layers distinct: Lean/kernel certification, exact algebra,
   exhaustive finite computation, numerical evidence, and prose/status checks do
@@ -449,6 +443,16 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   not omitting. Before committing a file: it must be needed by a reader of the manuscripts or the
   code, be maintained, and not leak process. Process artifacts are cheap to add and expensive to
   retire.
+- **§A.40 Where verification runs.** Cheap deterministic checks run locally before a push: a
+  tool's self-test, the V3 verifier's self-test and corpus, `legacy_records_check.py`, a round's
+  own scripts, compilation and static checks of changed Python. The Lean kernel, the Mathlib
+  bridge, the release gate and the full probe suite run in CI. The exact-head host runs, dispatched
+  on exactly `F` and `E`, are the source of certification (§A.39); a local run is evidence for the
+  executor and is never recorded as a `check-run` attestation.
+- **§A.41 Every stated invariant is measured.** A preregistration carries an invariant→checkpoint
+  table: every property it asserts of its execution names the checkpoint that measures it, and an
+  invariant with no checkpoint is either given one or not asserted. A named hazard whose mitigation
+  is cheap carries the mitigation as a frozen precondition or checkpoint; naming it is not enough.
 
 ---
 
@@ -474,18 +478,24 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
 - Two sealed executions had their pull-request builds go red for one reason only: an archive
   clause had entered main after their base was cut, so the synthetic merge ran a newer guard
   against an older head. One was first reported as a stale watcher, and the job log said
-  otherwise. Hence §A.37's diagnostic rule — check the exact-head certification before calling a
-  red badge a research failure, and never cure it by merging main into a sealed execution.
+  otherwise. Hence §A.39's exact-head rule — a pull-request run tests a synthetic merge, so check
+  the exact-head run before calling a red badge a research failure, and never cure it by merging
+  main into a certified execution.
 - A landing's obligation table collided on four rows at once, three of which a sibling round had
   moved since the base; taking either side wholesale would have silently reverted a label merged
-  twenty minutes earlier. Hence §A.37's resolve-by-merits rule and its check that a landing adds
+  twenty minutes earlier. Hence §A.39's resolve-by-merits rule and its check that a landing adds
   exactly the execution's own diff.
 - The Act 21 control plane used one name, `B`, for its drafting snapshot and for the execution
   base its chronology control defined; after the merge two of its mechanical preconditions could
   not hold at the real base, one naming the drafting SHA as `B` and one requiring a token absent
   from a tree that now contained the preregistration carrying it. Caught in owner review and
-  corrected by append-only amendment. Hence §A.37's `D` / `B` / `M` vocabulary subsection and
-  the control-plane lint.
+  corrected by append-only amendment. Hence the `D` / `B` / `M` vocabulary §A.37 records; a
+  native round has no mandated base, its execution anchored at the designated commit `F`.
+- A retirement round's transformation reproduced its frozen output byte for byte and passed every
+  local check, while deleting seven statements of the code it retained — six of them control flow,
+  one a flag set late in a loop and read by the loop's condition; only the run of the output in CI
+  exposed it. Reproducing a frozen blob shows the plan was executed faithfully, not that the plan
+  was valid. Hence §A.39's rule for destructive transformations and §A.41.
 
 ---
 
@@ -650,435 +660,78 @@ opt-in for that reason.
 
 ---
 
-## §A.37 Round lifecycle: control plane, then execution and landing
+## §A.37 Round lifecycle before V3 (record)
 
-A round is run in **two pull requests**. The **control plane** carries the
-preregistration alone. The **execution pull request** carries the round's work,
-and after that work is certified the same pull request carries the landing that
-brings it into main.
+This section is a record. It governs no new round and provides for none: every round begun after
+`V3-11`'s landing runs under §A.39. It keeps what is needed to read the records of the rounds that
+landed before V3, each of which keeps the protocol under which it landed. The full text of this
+section as it governed those rounds is `AGENTS.md` at `f9a9acaa44e4982d7814200c46bf1da222b4cbfc`,
+and each round's own frozen chronology control states its shape in terms; a preregistration is not
+reinterpreted after its outcome is known.
 
-### What this rule governs
+### How those rounds ran
 
-This rule governs **rounds begun after it was written**. Rounds already
-complete were run under a three-pull-request arrangement in which the landing
-was a third, separate pull request, and they stay governed by that
-arrangement — their frozen chronology controls say so in terms, and a
-preregistration is not reinterpreted after its outcome is known. Nothing below
-reaches back into a merged round, and no merged artifact changes because of it.
+The earliest rounds ran in three pull requests: a control plane carrying the preregistration
+alone, an execution, and a separate landing. From this section's adoption they ran in two: the
+control plane, then one execution pull request that, once its head was certified, carried the
+landing as well. The control plane was reviewed, amended before its merge and only then, and
+merged before any execution object existed; merged, it was immutable, and an execution that
+diverged from it recorded the discrepancy rather than repairing the freeze. Its merge commit was
+the mandated execution base, from which the execution branched and from nothing else.
 
-The vocabulary has since changed too. Freezes written before this wording say
-**guarded** and **unguarded** where this rule now says *sealing* and
-*non-sealing*. Earlier freezes retain the meaning fixed by their own chronology
-controls; the later vocabulary does not reinterpret them. In particular #631 —
-the only two-pull-request freeze written between the two wordings — states its
-shape explicitly as no guard, no pin, `E` → `L`, so its meaning is unchanged. A
-preregistration is not amended to track later vocabulary, and none needs to be.
+Before certification an execution never absorbed later main: no merge from main, no rebase, no
+amend, no force-push. Certification fixed the sealed execution commit, which never changed. The
+landing merge took current green main as first parent and exactly that commit as second, with
+conflicts resolved in the landing and never in the sealed commit. A **sealing** round, one whose
+preregistration prospectively owned seal state, then took a pin commit that recorded its sealed
+head and landing merge; a **non-sealing** round took the landing alone. Freezes written before
+that wording say **guarded** and **unguarded** for the same distinction, and keep the meaning
+their own chronology controls fix.
 
-From `V3-11`'s landing this rule is the compatibility lifecycle, not the default. It governs the
-rounds begun before that landing, which keep the protocol under which they landed, and a later round
-only when the owner designates its preregistration a §A.37 compatibility round. Every other round
-runs under §A.39.
+### The vocabulary of their records
 
-### The invariant
+- `D` — the drafting snapshot: the commit against which a control plane was written and its
+  drafting-time measurements taken. Never the mandated execution base merely because the control
+  plane was drafted from it.
+- `B` — the mandated execution base: the certified merge commit on `main` of the latest
+  control-plane artifact governing the round, the preregistration or its latest
+  execution-affecting append-only amendment.
+- `M` — a candidate control-plane merge, built by continuous integration to test `B`-scoped
+  conditions before `B` existed; predictive test state only.
+- `E` — the sealed execution commit, certified at its exact head.
+- `L` — the landing merge, first parent main and second parent `E`.
+- `P` — a sealing round's pin commit, after `L`.
+- **execution mode** and **archive mode** — the guard's two ancestry checks for a sealing round:
+  against its base while it executed, and, once pinned, against the sealed object, whose pinned
+  merge's second parent had to equal the sealed head.
+- **seal records** — from `SI-2`'s landing, one JSON record per round under
+  `verification/seals/`: `kind: "sealed"` with `base`, `sealed_head` and `merge`, or
+  `kind: "base-only"` with `base` alone. Before `SI-2` the same state was legacy constants in the
+  guard file, which `SI-3` removed.
+- **`control-plane-preconditions` blocks** — rows scoped at `D`, at `B` or from `D` to `B`,
+  which a control plane could carry for mechanical checking.
 
-> The **sealed execution commit never changes.** Before certification the
-> execution branch never absorbs later main. After exact-head certification the
-> branch may advance **only** through the canonical landing merge whose second
-> parent is that sealed commit, followed by the archive pin where the round has
-> one.
+### Their records now
 
-The invariant is attached to the **sealed execution object, not permanently to
-the branch name**. That is the whole reason the third pull request can be
-dropped without weakening chronology or auditability: what the guard certifies,
-what review approved, and what the record must be able to identify forever is a
-commit — `E` — and `E` remains exactly identifiable as the landing merge's
-second parent no matter where the branch pointer has since moved.
+The records of those rounds — their preregistrations, amendments, result notes, seal records under
+`verification/seals/` and `V2` certificates under `verification/certificates/` — are listed with
+their blobs in `verification/infrastructure/legacy-records.json`, and the release gate's
+`legacy-records` step keeps every one unchanged and admits no new file under a closed namespace
+(§A.39). The mechanisms that checked their chronology at every later head — the guard's ancestry
+and seal clauses, the control-plane base check and lint, and the `V2` certificate verifier — were
+retired by round `V3-14`, whose preregistration lists what each checked and what now protects it.
 
-### The control plane
-
-The preregistration alone — targets, predictions with their signs and
-strengths, recorded reasons, the status rule, the hazards, the definition
-budget and the chronology control. It is reviewed, amended as the owner
-directs, and merged **before any execution object exists**. Amendment happens
-before the merge and only then: once merged the preregistration is
-**immutable**, and an execution that diverges from it **records the
-discrepancy** rather than repairing the freeze. A freeze that can be edited
-after the outcome is known is not a freeze.
-
-The control plane's **merge commit is the mandated execution base**. The
-execution branches from exactly that commit and from nothing else, and its
-first act is to verify that the preregistration at that base has the blob the
-freeze names, before any target is executed.
-
-### Drafting snapshots and mandated execution bases are different objects
-
-Every control plane uses the following commit vocabulary, and no other meaning
-of "base" is permitted where the distinction matters.
-
-- "D" — the drafting snapshot. "D" is the commit against which the control
-  plane was written and its pre-merge measurements were taken:
-  locating-control coordinates, pinned source blobs, inventories, name-freedom
-  checks, simulations and other drafting-time facts. "D" is fixed when those
-  measurements are made. "D" is never the mandated execution base merely
-  because the control plane was drafted from it.
-- "B" — the mandated execution base. "B" is the certified merge commit on
-  "main" of the latest control-plane artifact governing the round: the
-  preregistration itself if there is no later amendment, otherwise the latest
-  execution-affecting append-only amendment. Before that merge exists, "B" has
-  no SHA. A control plane therefore must not assign its drafting snapshot's SHA
-  to "B".
-- "M" — a candidate control-plane merge. Before the control plane lands,
-  continuous integration may construct or inspect a candidate merge solely to
-  test conditions that are intended to hold at "B". "M" is predictive test
-  state only and is never used as execution ancestry, seal state or historical
-  evidence. The actual merge commit must be checked again after landing.
-
-Every mechanical precondition names its evaluation scope explicitly as at "D",
-at "B", or from "D" to "B".
-
-A condition at "D" records a drafting-time fact and is not reinterpreted as a
-condition on "B". In particular, name-freedom checks — that a round tag, stem,
-module name, directory or other reserved identifier did not previously exist —
-are checks at "D".
-
-A condition at "B" describes the repository after the frozen control plane
-itself has entered the tree. It therefore must account for the control-plane
-artifacts and the names they necessarily contain. A "B"-scoped condition must
-not require the absence of the preregistration, its amendments, or names whose
-only occurrence is in those frozen control-plane artifacts. Where the intended
-invariant is that execution has not begun, the check states that directly: no
-execution module, result note, guard clause, prospective declaration, manifest
-record, or other execution-specific object exists.
-
-A condition from "D" to "B" states provenance or preservation explicitly: for
-example that "D" is an ancestor of "B", that the reviewed frozen blobs occur
-unchanged at "B", or that specified drafting-time source blobs remain the blobs
-the round consumes.
-
-Before a control plane may merge, continuous integration evaluates every
-"B"-scoped tree/state precondition against "M". After it merges, the
-"main"-push certification evaluates the same conditions against the actual
-merge commit "B" and verifies every frozen control-plane blob. No execution
-branch may be created until this post-merge base certification is green.
-
-An execution-affecting append-only amendment repeats this lifecycle. Its
-certified merge becomes the new "B"; every earlier control-plane merge becomes
-provenance, and execution never resumes from it.
-
-**Machine-checkable form.** A control plane that wants its preconditions run
-mechanically carries one fenced block whose info string is
-`control-plane-preconditions`. Header lines are `key: value` — `d:` the
-drafting snapshot's SHA, `b:` the mandated base's SHA (only once it exists),
-`merged: true` once the artifact is on `main`, and any number of
-`frozen-blob: <path> <blob-sha>` lines naming blobs that must be found
-unchanged at the evaluated commit. Every other non-comment line is one JSON
-object, one precondition row: `{"id": ..., "scope": "D" | "B" | "D->B",
-"check": "<shell command run at the repository root with $D, $B and $REF
-exported>", "expect": "empty" | "nonempty" | "exit0"}`. `tools/control_plane_base_check.py`
-runs the `B` and `D->B` rows against a candidate merge (`--mode M`) or the
-actual merge commit (`--mode B`) through one code path, checks each `D` row's
-`d:` for ancestry only, and verifies the frozen blobs; it exits non-zero on any
-failed row. `tools/control_plane_lint.py` (release-gate step
-`control-plane-lint`) reads the block and the file around it: a row without a
-scope tag fails the lint, as does a file that gives "D" and "B" one SHA, a
-literal SHA for "B" in an artifact not marked `merged: true`, or a "B"-scoped
-`git grep` for a token that expects nothing while the round's own control-plane
-files already carry the token. Both tools apply only to control-plane files that
-carry the block or are added or modified in the change under check; artifacts
-merged before the block existed are neither rewritten nor linted.
-
-### The execution, up to certification
-
-**Before certification an execution never absorbs later main.** No merge from
-main, no rebase, no amend, no force-push. Its head is the object the guard
-certifies, and changing it destroys the ancestry the chronology control exists
-to establish. The branch will show as behind, and often as conflicted, for as
-long as it sits there. That is the protocol working, not a defect to repair.
-
-Certification fixes the sealed commit `E`. From that point `E` can never
-change, and **the certification of record is the run whose `head_sha` is `E`** —
-identified by that SHA, not by which run happens to be latest on the branch,
-because the branch advances past `E` at landing.
-
-### Certifying the exact head
-
-The guard asks its ancestry question of the real `pull_request.head.sha`, never
-of the synthetic merge commit that continuous integration builds. The two can
-disagree, and there is one situation where they reliably do.
-
-Continuous integration builds a pull request as its head merged into the
-**current** base. When an archive clause enters main **after** an execution's
-base was cut, that build runs main's newer guard file against the older head,
-and the clause demands a sealed head the execution cannot reach. It fails
-closed, correctly. On the exact head the guard file is the base's own, which
-carries no such clause, and the check passes.
-
-So: **a red badge on a pull request sitting at its sealed head is not by itself
-a research failure.** Ask first whether the execution's own exact-head
-certification is green, and whether the red comes solely from an archive clause
-that entered main after the base. If both, the execution stands certified and
-is left untouched.
-
-**Dispatch is the fallback, not the routine.** The ordinary pull-request build
-certifies the exact head whenever the guard-bearing job succeeds, because the
-guard asks its question of the real `pull_request.head.sha` — of `E` — even
-though the job runs on the synthetic merge. That is the common case: it holds
-whenever no archive clause has entered main since the base, and the round needs
-nothing further. **`workflow_dispatch` on the branch is for the other case**,
-where the synthetic merge imports later archive state and the build fails for
-chronology alone; dispatching builds the branch itself, with no synthetic
-merge, and certifies `E` directly. Reach for it only then.
-
-This transient red remains possible under the two-pull-request lifecycle, for
-the same reason and for as long as the pull request sits at `E`. **It does not
-invalidate an exact-SHA certification**, and it is not cured by merging main
-into the execution.
-
-When it clears is worth stating exactly, because the two halves come apart.
-Putting `L` on makes the **sibling rounds' sealed heads reachable**, so their
-archive clauses stop failing. But a sealing round's **own** ancestry check is
-still in execution mode at that point, and execution mode rejects the sibling
-history `L` has just brought in. So for a sealing round the synthetic-archive
-red may clear at `L` while the round is **not final-certifiable until `P`**;
-only the pin moves its own check to archive mode. For a non-sealing round,
-which has no check of its own to switch, `L` is the end of it.
-
-A **control plane** carries no mandated historical base, so the opposite rule
-applies to it: when a newly landed archive clause reddens its build, merging
-current main into the branch is the correct cure. Confirm afterwards that the
-frozen blob is unchanged, so what freezes is what was reviewed.
-
-### The landing phase, on the same pull request
-
-Once `E` is certified, the execution pull request transitions into landing mode
-by **appending** to it. Nothing is rewritten.
-
-**The landing merge `L`** goes on first, always. Its first parent is **current
-green main**; its second parent is **exactly `E`**. Conflicts are resolved
-**in `L`, never in `E`** — the sealed commit stays byte-identical, and `L` is
-where the reconciliation with everything main gained since the freeze lives.
-
-**Then the shape splits on what the round owns — not on what it touches:**
-
-1. **A sealing round — a round whose preregistration prospectively owns seal
-   state: either it creates new seal and pin state, or it explicitly takes
-   ownership of changing existing seal state — takes a pin commit `P`, and `P`
-   is mandatory.** `P` writes the round's own **manifest record** —
-   `sealed_head` = `E` and `merge` = `L`, under `verification/seals/` — and not
-   a legacy constant; see *Sealing through the manifest* at the end of this
-   section. (Before `SI-2`'s landing, `P` set the constants it owns to `E` and
-   to `L`.) Mandatory
-   is not a stylistic preference: in execution mode the guard requires every
-   commit of `git rev-list HEAD ^base` to descend from the base, and once `L`
-   is on the head, that set reaches the sibling rounds merged into main since
-   the freeze, which do not descend from it. Without `P` the guard fails closed
-   on the landing and the round cannot land at all. `P` is what moves the guard
-   to archive mode, where the landing is certifiable.
-2. **A non-sealing round — a round that owns no seal state — takes `L`
-   alone.** It **may** modify other contracts inside an existing guard; it
-   **may not** alter existing seal constants. It has nothing to pin, and a pin
-   commit added there would pin nothing.
-
-That **may** / **may not** pair is worth stating in terms, because the older
-guarded/unguarded wording got it wrong by implication:
-
-> **An archive seal belongs to the round that set it, and stays immutable
-> afterwards.** A later round does not re-pin it, and does not acquire a pin
-> commit merely by touching the guard file that carries it. An existing seal
-> constant changes only in a round whose own preregistration says in advance
-> that it changes it — and such a round is *sealing*, because it has taken
-> ownership of that state prospectively rather than as a side effect of its
-> diff.
-
-So the freeze names the shape, and the diff does not. Read the freeze before
-building a landing rather than inferring a shape from which files moved.
-
-In **archive mode** the strong ancestry check is re-run against the sealed
-object rather than against the current target, the pinned merge's second parent
-is required to equal the sealed head, and the pinned merge is required to still
-be visible. Visibility asks after the **merge alone**: the second-parent check
-has already established that the sealed head is carried by it, so a second
-reachability test on the sealed head would be a second escape hatch rather than
-a second check, and the sealed head's own reachability is printed as a
-diagnostic only. On a push the merge must be reachable from `HEAD`; on a pull
-request, from the real `pull_request.head.sha` **or from the current tip of the
-base branch**, resolved by name as `refs/remotes/origin/<base ref>`.
-
-The base side is that remote-tracking ref and **nothing else**. It is not
-`pull_request.base.sha`, which is no reliable source of the live tip: #644 still
-carried base `b78eac870ba3` after the base branch had advanced through three
-later landings, with its head pushed to in between. It is also not a local
-`refs/heads/<base ref>`, which is whatever an earlier operation left behind
-rather than evidence of the remote branch. Under `A.37` an execution branches
-from its own control plane's merge and from nothing else, so without the live
-base tip every long-lived pull request eventually fails this leg on rounds it
-does not touch — a false negative, the leg existing only to catch a landing that
-has been rewritten or has vanished. Fail-closed throughout, including when the
-remote-tracking ref does not resolve: a shallow or single-branch checkout is a
-reason to fetch properly, not to substitute a local branch or the snapshot. A
-result note recording that the pins were unset at execution stays true, being a
-statement about the execution.
-
-Landing conflicts are resolved **by merits, not by side**. Where an obligation
-table or a section collides, take each row or block from whichever branch
-actually owns that content: the execution owns the round's own row, and main
-owns every row a sibling round has moved since the base. Taking either side
-wholesale silently reverts someone else's landing. Verify the resolution
-against main afterwards: the landing should add **exactly the execution's own
-diff against its own base**, and nothing else. A clean automatic merge is not
-evidence of a correct one where both sides touched the same files — compare the
-two diffs and account for every difference.
-
-**Full continuous integration must pass again on the final head** — `P` for a
-sealing round, `L` for a non-sealing one — before that pull request merges, and
-the resulting main build must be green before the next round's landing is
-constructed. **One landing at a time, with green main between rounds.**
-
-### Why the execution and the landing share one pull request
-
-What must never change is the sealed commit, and appending to a branch does not
-change a commit. `E` stays byte-identical, stays the second parent of `L`,
-stays the object the guard re-certifies in archive mode, and stays the
-`head_sha` of the certification of record. Every property the chronology
-control exists to establish is a property of `E`, and every one of them
-survives.
-
-What a separate landing pull request bought was the branch pointer never
-moving, which nothing depends on. What it cost was a third review surface, a
-second subscription, and an execution pull request left to be auto-closed by
-reachability.
-
-Two things still cannot be done. **A pin cannot be folded into the execution
-proper**, before certification: it would make the execution's own head depend
-on where it landed, which is circular — hence the pin goes on *after* `E` is
-fixed, and pins `E` rather than being pinned by it. And **a needed pin cannot
-be split into its own pull request after the merge**, which would place main,
-between the two merges, in a state the guard rejects. `L` and `P` travelling
-together, in that order, on the branch that already holds `E`, avoids both.
-
-### Sealing through the manifest, from `SI-2`'s landing
-
-This subsection governs **rounds begun after `SI-2`'s landing merge**. It
-amends the landing shape above prospectively: rounds already landed keep the
-chronology their frozen controls state, and nothing here reaches back into
-them. It is the protocol `SI2-7` wrote, and the retirement round named below
-is the first round that lands under it.
-
-**The seal record is data, not code.** A round's seal state lives in one JSON
-record per round under `verification/seals/`, `<STEM>.json`, validated by the
-generic validator `SI-2` made authoritative: the discriminated union `SI-1`
-built, `kind: "sealed"` carrying `base`, `sealed_head` and `merge`, or
-`kind: "base-only"` carrying `base` alone and forbidding the other two, a
-forbidden field being a failure even as null. The guard's clause for a round
-is a call to that validator keyed on the round's record, and nothing else
-gates. Manifest integrity is data-driven: against the record set fixed at a
-round's start, a record mutated, removed or added is reported as such, and a
-round's only permitted change to the set is the addition its own
-preregistration authorizes.
-
-**What a sealing round's `P` writes.** The pin commit `P` writes **the
-round's own manifest record**: `verification/seals/<STEM>.json` with
-`kind: "sealed"`, `base` = the mandated execution base, `sealed_head` = `E`
-and `merge` = `L`. It writes **no legacy constant** — no `_<STEM>_BASE`,
-`_<STEM>_SEALED_HEAD` or `_<STEM>_MERGE` in the guard file.
-
-**How a new `sealed` record is created.** While a sealing round executes it
-has no record: the state machine classifies it `EXECUTION`, and its guard
-certifies chronology against its mandated base through act 10's strengthened
-check, the bootstrap form `R7-SI2` itself keeps. At `L` the round is
-`LANDED-PENDING-PIN`, and a head descending from that unpinned landing fails
-as *seal pending*. `P`, appended on the same pull request after `L`, creates
-the record with all three fields; from then on the validator classifies the
-round `ARCHIVED`, re-derives `L` from `E` on every run over the union of the
-event's visibility targets, and requires the derived landing to equal the
-pinned one.
-
-**How a completed non-sealing round's `base-only` record is created.** A
-non-sealing round lands `E` → `L` with no `P`, and writes **no record during
-its own execution**: a `base-only` record written while the round runs would
-classify it `not-applicable` and switch off its own chronology check. Its
-record — `kind: "base-only"`, `base` = its mandated base — is created
-**afterwards**, as an authorized manifest addition named in the
-preregistration of the round that adds it, exactly as `SI2-1` added
-`SI1.json` for `SI-1` and as the retirement round adds `SI2.json` for
-`SI-2`.
-
-**The legacy constants, in two halves, both of which held until `SI-3`'s
-landing.** From `SI-2`'s landing the sixty-one legacy seal-constant
-assignments in the guard file **cease to GATE**: no check's verdict depends on
-them, they are read only as shadows of the manifest, and a round that writes a
-new one has recreated the representation `SI-2` retired. And until the
-retirement round they remained **PROTECTED HISTORICAL SEAL STATE**: altering
-or removing any of them constitutes taking ownership of existing seal state
-under this section, and makes the round that does it *sealing*. The
-retirement round, `SI-3`, took that ownership prospectively in its freeze and
-removed them; what holds from its landing is stated below.
-
-**The retirement round is sealing.** It follows that the round which deletes
-the fifty-nine names and sixty-one statements against `SI-2`'s frozen
-inventory, and removes the per-round seal-integrity comparisons the
-data-driven rule shadows, is **sealing** under this section, and its `P`
-writes its own `sealed` manifest record under this protocol — `sealed_head` =
-its `E`, `merge` = its `L` — and writes no legacy constant.
-
-### The representation retired, from `SI-3`'s landing
-
-This subsection governs **rounds begun after `SI-3`'s landing merge**. It is
-the protocol `SI3-6` wrote, and it states what the retirement left in force.
-
-**The legacy representation is retired.** From `SI-3`'s landing the guard
-file carries **no legacy seal constant** — no module-level `_<STEM>_BASE`,
-`_<STEM>_SEALED_HEAD` or `_<STEM>_MERGE` — **no shadow** of a manifest
-verdict, and **no per-round seal-integrity comparison**. `SI-3` removed them
-against `SI-2`'s frozen inventory plus `SI-2`'s own base constant: sixty-two
-statements over sixty names, twenty-three shadows, five comparators. A round
-that writes any of them again fails the standing contract `SI-3`'s guard
-keeps — **zero legacy assignment statements in the file** — and has
-recreated the representation that was retired. Every read of a round's seal
-state goes through the **manifest accessor**, one function that returns a
-named field of one round's record and fails closed where the record or the
-field is missing.
-
-**How a sealing round carries its base while it executes.** It writes no
-constant. It declares its mandated execution base, by stem, in the
-**prospective declaration** — a stem-free mapping outside the validator's
-marker-bounded regions, handed to the validator as its prospective input —
-and the validator classifies the round `EXECUTION` against that base through
-act 10's strengthened check, and `LANDED-PENDING-PIN` at its landing merge.
-**`P` removes the entry when it writes the record**, so that from `P` on the
-round is classified from its record alone; a stem that is both declared and
-recorded is a failure.
-
-**How manifest integrity is declared.** The data-driven rule holds the
-manifest against a **declared baseline**: the seals tree at the current
-round's mandated execution base, read from git, plus the additions the
-current round's preregistration authorizes, by stem. An authorized addition
-is admitted by stem here and validated by content by the validator; anything
-else added, and anything mutated or removed, is reported as such and fails.
-Each round declares its own baseline; no round's guard hard-codes another's.
-
-**A closed round's contracts are read over the records it manifested.** A
-landed round's manifest-cardinality and integrity contracts — its record
-count, its authorized-addition set, its census and its probes — are evaluated
-over the records that round manifested, and a later round's authorized
-additions are outside that historical scope. This is the rule `SI-2`'s
-Amendment 1 applied to `SI-1` and `SI-3` applied to both `SI-1` and `SI-2`;
-stated here once, it needs no per-round amendment again.
-
-**The censuses are history.** `SI-1`'s and `SI-2`'s `census.json` are
-certified historical measurements of those rounds' checkpoints under those
-rounds' rules, pinned by their blob identities. Their old side no longer
-exists: they are not re-measured, never read as evidence about a later head,
-and never the ground of an old/new equivalence claim after retirement.
+A question one of those rounds left open, or froze and never executed, is taken up by a new native
+round, which cites the old freeze as provenance and leaves the old record as it stands.
 
 ---
 
 ## §A.39 Native V3 rounds
 
 From `V3-11`'s landing every new round runs under the native lifecycle of
-`verification/infrastructure/v3/architecture.md`, unless the owner designates its preregistration a
-§A.37 compatibility round. `V3-9`, which adopted this section, ran under §A.37; `V3-10` and `V3-11`
-ran under it as provisional pilots. Each round keeps the protocol under which it landed:
+`verification/infrastructure/v3/architecture.md`. `V3-9`, which adopted this section, ran under
+§A.37; `V3-10` and `V3-11` ran under it as provisional pilots. Each round keeps the protocol under
+which it landed:
 
 1. **One pull request from `D`.** The round's control plane — its preregistration, carrying one
    `v3-round` block and one `v3-governed-paths` block, and any amendments — is drafted on a single
@@ -1088,7 +741,11 @@ ran under it as provisional pilots. Each round keeps the protocol under which it
    certified execution head `E`.
 3. **Reconciliation, if needed.** Later history enters the round only through reconciliation
    merges after `E`: first parent a later base on whose first-parent chain `D` lies, second parent
-   `E` or the previous receipt commit. The last reconciliation is `Λ`.
+   `E` or the previous receipt commit. The last reconciliation is `Λ`. Conflicts are resolved in the
+   reconciliation, never in `E`, and **by merits, not by side**: each row or block is taken from
+   the branch that owns it, the round's own from `E` and every row a later round has moved from
+   the base. A clean automatic merge is not evidence of a correct one where both sides touched the
+   same files; compare the landing with the execution's own diff and account for every difference.
 4. **The receipt.** `tools/v3_receipt.py` builds the receipt from the round's exact object ids and
    the attestation records the host holds. `Q` is a single-parent child of `Λ` that adds only the
    receipt and, for a sealing round, its seal record. `tools/v3_verifier.py --verify-round Q` must
@@ -1102,7 +759,9 @@ ran under it as provisional pilots. Each round keeps the protocol under which it
 attestation, and only then is `F` designated and the branch moved on. `E` is attested the same way
 before it is designated. A pull-request run tests a synthetic merge, not `F` or `E`, and is not
 recorded as their attestation. These are host attestations, which the receipt records and no
-predicate of `tools/v3_verifier.py` reads.
+predicate of `tools/v3_verifier.py` reads. So a red pull-request badge on a round held at `F` or `E`
+is diagnosed against the exact-head run first; it is never cured by merging main into the round
+before `E`.
 
 **A halted round.** A round that halts after `F` instead of reaching a designated `E` follows the
 specification's `S12`: it appends the withdrawal commit `W` when execution commits exist, or,
@@ -1120,7 +779,38 @@ designations and the check runs, are outside the verifier's semantics: no predic
 
 A native round carries no guard clause, seal manifest record, round certificate or
 `control-plane-preconditions` block: its receipt, `verification/receipts/<round>.json`, is its
-protocol record. The guard (`V1`) and the round-certificate verifier (`V2`) keep running on its pull
-request as on any other, and a failure of either still fails the release gate: until a later round
-decides which of their checks survive, they are compatibility and repository-integrity gates. They
-do not decide whether a native round is protocol-valid.
+protocol record. The guard (`V1`) keeps running on its pull request as on any other and still
+fails the release gate on a failed check, but it checks content — kernel modules, manuscripts and
+notes — and never a round's chronology; it does not decide whether a native round is
+protocol-valid.
+
+**Two immutabilities, kept apart.** They protect different populations by different mechanisms, and
+neither stands in for the other:
+
+- **Native rounds' records** — each round's record directory and seal record — are kept by
+  `tools/v3_verifier.py --receipts` (the specification's `G13`): once a round's receipt holds, its
+  record directory and seal record at every later commit must be exactly those at its receipt
+  commit. A correction is made by a new native round in its own record.
+- **The records of the rounds landed before V3** are kept by the release gate's `legacy-records`
+  step, `tools/legacy_records_check.py`: every record listed in
+  `verification/infrastructure/legacy-records.json` keeps its blob, and no file is added under a
+  closed namespace. The manifest changes only as the governed work of a native round whose receipt
+  holds and whose governed paths name the manifest: a migration, a repair or a change to the
+  population is a native round, and a commit that changes a record and the manifest together
+  fails.
+
+**Destructive transformations.** A round whose execution mechanically removes or rewrites existing
+content freezes three things before `F`, beside the transformation itself:
+
+- **the edit ledger** — every change as a splice of the base: its span, the hash of the old text,
+  the new text and its hash, and the reason for it. The ledger is the authorization; nothing
+  outside it may change;
+- **a preservation checker independent of the transformation** — it imports nothing from it,
+  rebuilds the expected output from the base and the ledger alone and compares bytes, and checks
+  what is retained structurally: retained functions untouched, control flow removed only with its
+  governing block, nothing removed from a surviving block but what the round retires. It is
+  mutation-tested in both directions: deleting or rewriting retained code must fail it, and so must
+  restoring retired code;
+- **the execution evidence** — the workflow run, on a disposable branch, on exactly the predicted
+  execution tree less the result note, and in every event mode used to certify `E`. The runs are
+  design evidence recorded in the preregistration, not `check-run` attestations.
