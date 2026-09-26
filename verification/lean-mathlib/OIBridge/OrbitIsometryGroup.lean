@@ -7039,8 +7039,7 @@ theorem a33_shared_family_coset :
     have hkw : ∀ x ∈ normalizedSet Γ₀, (((((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else [])).reverse ++ ((if (c', rw', cw', t').1 then [(7 : Fin 8)] else []) ++ (c', rw', cw', t').2.1 ++ (c', rw', cw', t').2.2.1 ++ (if (c', rw', cw', t').2.2.2 then [(2 : Fin 8)] else []))).map FG).foldr (· ∘ ·) id) x
         = (((((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else [])).reverse).map FG).foldr (· ∘ ·) id) (((((if (c', rw', cw', t').1 then [(7 : Fin 8)] else []) ++ (c', rw', cw', t').2.1 ++ (c', rw', cw', t').2.2.1 ++ (if (c', rw', cw', t').2.2.2 then [(2 : Fin 8)] else [])).map FG).foldr (· ∘ ·) id) x) := by
       intro x hx
-      rw [List.map_append, List.foldr_append]
-      rfl
+      exact a33_shared_wordf_append FG _ _ x
     -- f ∘ k agrees with f' on the set
     have hcomp := hc _ _ _ _ _ _ hwiso hkiso hwnf hknf
       (fun r => decide (((((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else [])).reverse ++ ((if (c', rw', cw', t').1 then [(7 : Fin 8)] else []) ++ (c', rw', cw', t').2.1 ++ (c', rw', cw', t').2.2.1 ++ (if (c', rw', cw', t').2.2.2 then [(2 : Fin 8)] else []))).foldr (fun g (acc : Equiv.Perm (Fin 6) × (Fin 9 → Fin 9) × (Fin 9 → Bool)) =>
