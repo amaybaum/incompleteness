@@ -5316,7 +5316,7 @@ theorem a33_shared_kernel_real :
         refine ⟨f ∘ c, a33_shared_iso_comp _ _ _ hf hc', ?_⟩
         have hε' : ε ⟨k, by omega⟩ = false := by simpa using hε
         have := hc _ _ _ _ f c hf hc' hnf hnc (fun r : Fin 9 => if r.val < k + 1 then ε r else true) (fun r s hrs => by
-          obtain rfl := a33_shared_edge_unique 1 r s r hrs (Or.inl ⟨rfl, rfl⟩)
+          obtain rfl := a33_shared_edge_unique 1 r r s (Or.inl ⟨rfl, rfl⟩) hrs
           by_cases h2 : r = ⟨k, by omega⟩
           · subst h2
             simp [hε']
@@ -5349,7 +5349,7 @@ theorem a33_shared_real :
   have hc := a33_shared_composition Γ₀ hΓ₀
   dsimp only at hc
   have := hc _ _ _ _ f₁ f₂ hf₁ hf₂ hnf₁ hnf₂ ε (fun r s hrs => by
-    obtain rfl := a33_shared_edge_unique 1 r s r hrs (Or.inl ⟨rfl, rfl⟩)
+    obtain rfl := a33_shared_edge_unique 1 r r s (Or.inl ⟨rfl, rfl⟩) hrs
     exact (a33_shared_bool_xnor (ε r) (ε₁ r)).symm)
   exact ⟨f₁ ∘ f₂, a33_shared_iso_comp _ _ _ hf₁ hf₂, by simpa only [mul_one] using this⟩
 #print axioms a33_shared_real
@@ -5385,8 +5385,8 @@ theorem a33_shared_if_I_inj :
     ∀ b b' : Bool, (if b then Complex.I else star Complex.I) = (if b' then Complex.I else star Complex.I) → b = b' := by
   intro b b' h
   cases b <;> cases b' <;> simp [Complex.star_def, Complex.conj_I] at h ⊢
-  · exact absurd (congrArg Complex.im h) (by simp)
-  · exact absurd (congrArg Complex.im h) (by simp)
+  · exact absurd (congrArg Complex.im h) (by norm_num)
+  · exact absurd (congrArg Complex.im h) (by norm_num)
 #print axioms a33_shared_if_I_inj
 
 theorem a33_shared_pmI_not_pm1 :
@@ -5481,150 +5481,150 @@ theorem a33_shared_vertex :
   intro a b hab x y h
   rcases a33_shared_fin9 a with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> rcases a33_shared_fin9 b with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> (try exact absurd rfl hab) <;>
     simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_1, a33_shared_R2_1, a33_shared_R1_2, a33_shared_R2_2, a33_shared_R1_3, a33_shared_R2_3, a33_shared_R1_4, a33_shared_R2_4, a33_shared_R1_5, a33_shared_R2_5, a33_shared_R1_6, a33_shared_R2_6, a33_shared_R1_7, a33_shared_R2_7, a33_shared_R1_8, a33_shared_R2_8] at h
-    · exact absurd h (a33_shared_apart_0_1 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_0_2 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_0_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_0_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_4_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_0_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_5_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_0_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_0_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_7_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_0_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_8_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_1_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_1_2 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_1_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_3_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_1_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_1_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_5_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_1_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_6_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_1_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_1_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_8_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_2_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_2_1 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_2_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_3_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_2_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_4_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_2_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_2_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_6_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_2_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_7_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_2_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_3_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_3_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_1_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_3_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_2_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_3_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_3_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_3_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_3_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_7_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_3_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_8_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_4_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_0_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_4_1 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_4_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_2_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_4_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_4_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_4_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_6_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_4_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_4_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_8_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_5_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_0_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_5_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_1_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_5_2 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_5_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_5_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_5_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_6_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_5_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_7_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_5_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_6_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_6_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_1_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_6_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_2_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_6_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_6_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_4_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_6_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_5_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_6_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_6_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_7_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_0_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_7_1 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_7_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_2_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_7_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_3_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_7_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_7_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_5_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_7_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_7_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_8_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_0_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_8_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_1_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_8_2 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · have hz := a33_shared_meet_8_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_3_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · have hz := a33_shared_meet_8_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
-      have hw := a33_shared_meet_4_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
-      cases x <;> cases y <;> norm_num at hz hw ⊢
-    · exact absurd h (a33_shared_apart_8_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_8_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
-    · exact absurd h (a33_shared_apart_8_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_0_1 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_0_2 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_0_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_0_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_4_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_0_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_5_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_0_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_0_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_7_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_0_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_8_0 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_1_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_1_2 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_1_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_3_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_1_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_1_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_5_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_1_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_6_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_1_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_1_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_8_1 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_2_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_2_1 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_2_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_3_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_2_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_4_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_2_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_2_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_6_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_2_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_7_2 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_2_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_3_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_3_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_1_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_3_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_2_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_3_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_3_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_3_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_3_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_7_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_3_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_8_3 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_4_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_0_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_4_1 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_4_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_2_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_4_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_4_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_4_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_6_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_4_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_4_8 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_8_4 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_5_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_0_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_5_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_1_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_5_2 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_5_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_5_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_5_6 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_6_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_5_7 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_7_5 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_5_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_6_0 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_6_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_1_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_6_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_2_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_6_3 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_6_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_4_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_6_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_5_6 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_6_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_6_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_7_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_0_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_7_1 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_7_2 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_2_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_7_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_3_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_7_4 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_7_5 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_5_7 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_7_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_7_8 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_8_0 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_0_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_8_1 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_1_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_8_2 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · have hz := a33_shared_meet_8_3 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_3_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · have hz := a33_shared_meet_8_4 _ _ (by cases x <;> simp) (by cases y <;> simp) h
+    have hw := a33_shared_meet_4_8 _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm
+    cases x <;> cases y <;> norm_num at hz hw ⊢ <;> decide
+  · exact absurd h (a33_shared_apart_8_5 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_8_6 _ _ (by cases x <;> simp) (by cases y <;> simp))
+  · exact absurd h (a33_shared_apart_8_7 _ _ (by cases x <;> simp) (by cases y <;> simp))
 #print axioms a33_shared_vertex
 
 theorem a33_shared_sigma_inj :
@@ -5861,20 +5861,32 @@ theorem a33_shared_exists_nf :
   refine ⟨Equiv.ofBijective ν₀ ⟨Finite.injective_iff_surjective.2 hsurj, hsurj⟩, ε, fun r => ⟨σ r, ?_⟩, ?_, ?_⟩
   · cases hb : decide (l r = 1)
     · right
-      simp [Equiv.ofBijective_apply, (hcons r).1, (hcons r).2, hb]
+      refine ⟨?_, ?_⟩
+      · show ν₀ _ = _
+        simp [(hcons r).1, hb]
+      · show ν₀ _ = _
+        simp [(hcons r).2, hb]
     · left
-      simp [Equiv.ofBijective_apply, (hcons r).1, (hcons r).2, hb]
+      refine ⟨?_, ?_⟩
+      · show ν₀ _ = _
+        simp [(hcons r).1, hb]
+      · show ν₀ _ = _
+        simp [(hcons r).2, hb]
   · intro r s h1 h2 z hz
-    rw [Equiv.ofBijective_apply, (hcons r).1] at h1
-    rw [Equiv.ofBijective_apply, (hcons r).2] at h2
+    change ν₀ _ = _ at h1
+    change ν₀ _ = _ at h2
+    rw [(hcons r).1] at h1
+    rw [(hcons r).2] at h2
     cases hb : decide (l r = 1) <;> rw [hb] at h1 h2 <;>
       simp only [Bool.not_false, Bool.not_true, Bool.false_eq_true, eq_self_iff_true, ↓reduceIte] at h1 h2
     · exact absurd ⟨h2, h1⟩ (a33_shared_edge_rev (σ r) s)
     · obtain rfl := a33_shared_edge_inj _ _ h1 h2
       rw [hform r z hz, (decide_eq_true_iff.1 hb : l r = 1), one_mul]
   · intro r s h1 h2 z hz
-    rw [Equiv.ofBijective_apply, (hcons r).1] at h1
-    rw [Equiv.ofBijective_apply, (hcons r).2] at h2
+    change ν₀ _ = _ at h1
+    change ν₀ _ = _ at h2
+    rw [(hcons r).1] at h1
+    rw [(hcons r).2] at h2
     cases hb : decide (l r = 1) <;> rw [hb] at h1 h2 <;>
       simp only [Bool.not_false, Bool.not_true, Bool.false_eq_true, eq_self_iff_true, ↓reduceIte] at h1 h2
     · obtain rfl := a33_shared_edge_inj _ _ h2 h1
