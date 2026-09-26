@@ -1,4 +1,4 @@
-# Track B act 32 — the classification of the single-carrier surjective isometries, decided: PREREGISTRATION
+# Track B act 32 — classification of the single-carrier surjective isometries: PREREGISTRATION
 
 **Status: control plane of a native round.** This round runs under `AGENTS.md` §A.39:
 - one pull request from `D`, with the control plane drafted on it;
@@ -7,15 +7,14 @@
   print `VERDICT  HOLDS`.
 
 > **THE CLAUSE, carried at this mention — the control plane.**
-> Act 32 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts
-> none. A law that survives every condition this freeze names is a law that survives **those**
-> conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in
-> nature, **not** a finding that the programme requires it, and **not** an adoption of it as the
-> physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about
-> the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence
-> to add one more condition, or to widen one more equivalence, until a plurality becomes a point.
-> **No law gains physical status by surviving, no carrier and no principle is adopted as the physical
-> one, and nothing here derives, recognises or approaches quantum evolution.**
+> Act 32 classifies the surjective isometries of the frozen normalized single-carrier space relative
+> to the frozen four-shape family, and adopts none. A map satisfying the frozen isometry hypotheses
+> is a mathematical isometry of that quotient space; it is not thereby a physical symmetry, a
+> transformation law, a dynamics, a time reversal, an antiunitary operation or a principle of nature.
+> A `RIGID` verdict classifies that frozen isometry problem, and a `NOT-RIGID` verdict exhibits a
+> mathematical isometry outside the frozen family. Neither verdict selects a physical law or closes
+> `P0`. No isometry, carrier, family or principle gains physical status by appearing in this
+> classification, and nothing here derives, recognises or approaches quantum evolution.
 
 ## The declarations
 
@@ -582,6 +581,11 @@ kernel, in a time the build tolerates.
 | 36244774129 | `55c72286ab31641a4a5908c7946794318cbb8e03` | the elaboration file, the retired guard (blob `d28e9b3cf2093984a1c453892204b9932a685b2e`) and the `A32-NOT-RIGID` cell (`ROADMAP.md` blob `2496ee6fad349e6d07a7dcb2fd335a8701fc0723`) | all three jobs green. The guard reports 91 PASS and 0 FAIL, its verdict map `D`'s tag for tag and in order. The release gate passes all 21 steps |
 | 36244775311 | `120e6de20271ed67cf12b90cf0ab3e55124078a7` | the same, with the `A32-RIGID` cell (`ROADMAP.md` blob `4d64cdde5987016541390e9beac29affd5050942`) | all three jobs green. The guard reports 91 PASS and 0 FAIL, its verdict map `D`'s tag for tag and in order. The release gate passes all 21 steps |
 
+Those two heads carry the cells as drafted before the final wording of this round's standing clause
+(`ROADMAP.md` blobs `2496ee6fad349e6d07a7dcb2fd335a8701fc0723` and `4d64cdde5987016541390e9beac29affd5050942`). The frozen cells differ from them only in that
+clause, and have blobs `ebe80f84eadb7c48e0e566f8501887e291b0ca9f` and `30f7f80f7c155752242a7d09eb9f3bbd64268ece`. The guard reads none of the text
+this round appends. The local guard matrix below is run against the frozen cells.
+
 **The native lifecycle, rehearsed locally.** Three executions were built in scratch worktrees and
 never pushed, one per row. Each is a `D → F → E → Λ → Q` chain:
 - `F` is this file.
@@ -608,7 +612,7 @@ The scripts that produced this evidence, none of which is landed:
 | `gen_elab32.py` | `1d64011593a4f67f5d9a3654802b6d01c54b99c0e3026feb262d8b79a1c90127` |
 | `gen_sep32.py` | `53eb5bdd81be2bcfc4ed3ca85b562b7607ded8e1a8cf7398e1b74e130fe6f523` |
 | `build_retire32.py` | `8bcb3941f2a91a244d49c5f3004ce3a2f82464a460e170124ad2be0234de87e8` |
-| `p0_32.py` | `a06bba656abf61700cbdd27c7059d0c90b43fd8ae9b75b3ff78cb29145bf9ba6` |
+| `p0_32.py` | `ad9a31edde7b96cf0086dcc2834676d350c1ad5e60bfffdc826ab3675b864b03` |
 | `ctlcheck.py` | `973f36355f80552c826a6539d201cd84c9e3fc1e7a7649146f7f3614b9a86226` |
 | `sepenc.py` | `223ed53fb3e45edb5f5e18d57bb06a65e535ce4201b238ac4e3ea019c679e4d8` |
 | `sim_a32.py` | `be916b0087c6e38878e06a4d5c141776e15c0ce9a10c9e534ec4bec633097f05` |
@@ -753,18 +757,18 @@ The cell ends with act 30's sentence and its standing clause:
 standing clause, followed by its standing clause:
 - **`A32-NOT-RIGID`:**
 
-  > At the single-carrier configuration, the positive classification proposition posed as act 25's `ISO3` is false: the map that conjugates the Fourier parameter on the Fourier circle and fixes the class of every point of the other eight relabelled Fourier circles preserves realizability, is surjective on classes and preserves the distance, and for no pair of relabellings does it satisfy any of the four shapes of act 25's family. `P0`'s threading part is untouched, no isometry of the normalized space is adopted as physical, and nothing here names, endorses or excludes a selection principle.
+  > At the single-carrier configuration, the positive classification proposition posed as act 25's `ISO3` is false: the map that conjugates the Fourier parameter on the Fourier circle and fixes the class of every point of the other eight relabelled Fourier circles preserves realizability, is surjective on classes and preserves the distance, and for no pair of relabellings does it satisfy any of the four shapes of act 25's family. `P0`'s threading part is untouched, no isometry of the normalized space is adopted as a physical symmetry, principle or law, and nothing here names, endorses or excludes a selection principle.
 
 - **`A32-RIGID`:**
 
-  > At the single-carrier configuration, every surjective isometry of the normalized space belongs, on realizable classes, to act 25's finite family. `P0`'s threading part is untouched, no isometry of the normalized space is adopted as physical, and nothing here names, endorses or excludes a selection principle.
+  > At the single-carrier configuration, every surjective isometry of the normalized space belongs, on realizable classes, to act 25's finite family. `P0`'s threading part is untouched, no isometry of the normalized space is adopted as a physical symmetry, principle or law, and nothing here names, endorses or excludes a selection principle.
 
 **On `A32-UNDECIDED`** the cell is not touched.
 
 The expected `ROADMAP.md` at `E` is `D`'s with that correction, or `D`'s unchanged, byte for byte.
 Rehearsed at `D`, the two decided cells give these blobs:
-- `2496ee6fad349e6d07a7dcb2fd335a8701fc0723` (`A32-NOT-RIGID`);
-- `4d64cdde5987016541390e9beac29affd5050942` (`A32-RIGID`).
+- `ebe80f84eadb7c48e0e566f8501887e291b0ca9f` (`A32-NOT-RIGID`);
+- `30f7f80f7c155752242a7d09eb9f3bbd64268ece` (`A32-RIGID`).
 
 ## Acts 25 and 26 cease to own the current wording of that clause — the frozen retirement, on a decided `A32` only
 
@@ -864,7 +868,7 @@ This round does not do any of the following:
 ## `controls.py` — the round's own contracts, FROZEN
 
 `verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/controls.py`, blob
-**`5b63d59abf62988a95401ba9f8ed32584acef54e`**, is written before `F` and added by the execution with exactly this blob.
+**`43ba5c18bf2d0ca44fb97f074edeaf0c713a7074`**, is written before `F` and added by the execution with exactly this blob.
 - It imports nothing from the repository and changes nothing.
 - It reads `D` and the commit under check through `git`.
 - It embeds every frozen text it compares against, and the retirement ledger in full.
