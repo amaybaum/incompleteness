@@ -1162,6 +1162,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Track B act 30, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/track-b/act-30-product-strict-lift/preregistration.md, blob c637999c884328cb085cb9dbbf27a39bb44e6643, from D 48450428f528fe489d454458e21c9394aef6a02f, designated F 3f337a95df6009102948690533d877ee1e4bf90d. Outcome vector: A30-S-HOLD · A30-T-HOLD · A30-N-LIFTS · A30-0-ADMITS, row 1 of the frozen table. A30-S is A30-S-HOLD: at the frozen product configuration every map preserving realizability and descending on realizable tuples is pointwise GramPhaseEquiv-equivalent, and equal off realizable tuples, to a map with a StrictNatural lift, by act 27's quotient-and-dilation construction carried out as a carrier-generic shared lemma. A30-T is A30-T-HOLD: such a replacement keeps every conjunct of eligibility for the same prescribed pair. A30-N is A30-N-LIFTS, act 29's A29-N at act 20's twisted strength: for every prescribed pair, act 28's construction strictified carries conjunct 8 with the identities as induced maps, through rnt1_strict_imp_twisted. A30-0 is A30-0-ADMITS, act 29's A29-0 as one existential, through act 29's a29_p_hold; a30_c_admit and a30_c_restrict make the two equivalent. Twenty-six named results, each with only propext, Classical.choice, Quot.sound; zero definitions against a budget of zero. The route-authorization matrix is honoured and no deviation is incurred. A29-1 is not a target and is not reported. P0 stays OPEN; no law, carrier or principle is adopted. Non-sealing.\n\n> **THE CLAUSE, carried at this mention — the census entry.**\n> Act 30 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts\n> none. A law that survives every condition this freeze names is a law that survives **those**\n> conditions, at the configuration frozen for it, and it is **not** a finding that it obtains in\n> nature, **not** a finding that the programme requires it, and **not** an adoption of it as the\n> physical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about\n> the frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence\n> to add one more condition, or to widen one more equivalence, until a plurality becomes a point.\n> **No law gains physical status by surviving, no carrier and no principle is adopted as the physical\n> one, and nothing here derives, recognises or approaches quantum evolution.**"
+    },
+    {
+      "name": "Act 32 pre-freeze elaboration (disposable, never landed)",
+      "modules": [
+        "OrbitIsometryClassification"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Disposable design-evidence branch: #check elaboration of act 32's frozen propositions only; no theorem, proof or verdict."
     }
   ]
 }
