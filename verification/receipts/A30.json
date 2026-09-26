@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A30",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "48450428f528fe489d454458e21c9394aef6a02f",
+ "f": "3f337a95df6009102948690533d877ee1e4bf90d",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-30-product-strict-lift/preregistration.md",
+   "blob": "c637999c884328cb085cb9dbbf27a39bb44e6643"
+  }
+ ],
+ "governed_paths_digest": "5a0ca42a4352d6b9ee051e276eae3caeee5ec28bc3be46c42740ab37ba7d28b8",
+ "e": "fbe4ff7a47268489d8e5aa5e5532c2874855e839",
+ "tree_e": "5b090c490605f863c9254e2402a24d17aa0d2a07",
+ "execution_delta_digest": "2a1546f07f1e78ad27e2b536d077b63ee518ba4d703589d0c2c746f11480c227",
+ "candidates": [],
+ "landing": {
+  "base": "48450428f528fe489d454458e21c9394aef6a02f",
+  "object": "3de05135f1dc37aaba133a08bf230abafb32c05b",
+  "reconciliations": [
+   "3de05135f1dc37aaba133a08bf230abafb32c05b"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "4f9ca08b354091e65c2387139df41fdf66b6f09ad10be33fe6d3ece0069955b7"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "3f337a95df6009102948690533d877ee1e4bf90d",
+   "record": "https://github.com/amaybaum/incompleteness/pull/747#issuecomment-5844220223"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "3f337a95df6009102948690533d877ee1e4bf90d",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36225958085"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "fbe4ff7a47268489d8e5aa5e5532c2874855e839",
+   "record": "https://github.com/amaybaum/incompleteness/pull/747#issuecomment-5844531766"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "fbe4ff7a47268489d8e5aa5e5532c2874855e839",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36228429141"
+  }
+ ]
+}
