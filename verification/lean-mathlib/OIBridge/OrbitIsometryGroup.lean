@@ -244,11 +244,13 @@ theorem a33_shared_fibre :
       = ∑ kl ∈ K, ((((Finset.univ.filter (fun p => key p = kl)).sum sg : ℤ) : ℝ) * ρ kl) := by
     rw [← Finset.sum_fiberwise_of_maps_to (fun p _ => hK p)]
     refine Finset.sum_congr rfl (fun kl _ => ?_)
+    rw [Finset.sum_filter, Finset.sum_filter]
     push_cast
     rw [Finset.sum_mul]
-    refine Finset.sum_congr rfl (fun p hp => ?_)
-    rw [Finset.mem_filter] at hp
-    rw [hp.2]
+    refine Finset.sum_congr rfl (fun p _ => ?_)
+    split_ifs with h
+    · rw [h]
+    · simp
   have hL : ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), 2 / 4096 * ((sg p : ℤ) : ℝ) * ρ (key p)
       = 2 / 4096 * ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), ((sg p : ℤ) : ℝ) * ρ (key p) := by
     rw [Finset.mul_sum]
@@ -2333,6 +2335,9 @@ theorem a33_control_phase :
   rw [Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),
     Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),
     Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_singleton] at hsq
+  rw [Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),
+    Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),
+    Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_singleton] at hsq
   rw [a33_shared_N_0_4_m_m, a33_shared_N_0_4_m_0, a33_shared_N_0_4_m_1, a33_shared_N_0_4_0_m, a33_shared_N_0_4_0_0, a33_shared_N_0_4_0_1, a33_shared_N_0_4_1_m, a33_shared_N_0_4_1_0, a33_shared_N_0_4_1_1] at hsq
   simp [Complex.star_def, Complex.conj_I, Complex.I_mul_I] at hsq
   norm_num at hsq
@@ -2458,13 +2463,19 @@ theorem a33_shared_readq :
   · exact ⟨((0, 0, 2), (2, 0, 0)), by decide⟩
 #print axioms a33_shared_readq
 
+theorem a33_shared_fin9 :
+    ∀ r : Fin 9, r = 0 ∨ r = 1 ∨ r = 2 ∨ r = 3 ∨ r = 4 ∨ r = 5 ∨ r = 6 ∨ r = 7 ∨ r = 8 := by
+  decide
+#print axioms a33_shared_fin9
+
 theorem a33_shared_census :
     ∀ r s : Fin 9, r ≠ s → ∀ z w : ℂ, star z * z = 1 → star w * w = 1 → featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2) = featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).2) → z = 1 ∨ z = -1 := by
   intro r s hrs z w hz hw h
-  simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_1, a33_shared_R2_1, a33_shared_R1_2, a33_shared_R2_2, a33_shared_R1_3, a33_shared_R2_3, a33_shared_R1_4, a33_shared_R2_4, a33_shared_R1_5, a33_shared_R2_5, a33_shared_R1_6, a33_shared_R2_6, a33_shared_R1_7, a33_shared_R2_7, a33_shared_R1_8, a33_shared_R2_8] at h
-  fin_cases r <;> fin_cases s <;> (try exact absurd rfl hrs)
+  rcases a33_shared_fin9 r with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>
+    rcases a33_shared_fin9 s with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> (try exact absurd rfl hrs) <;>
+    simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_1, a33_shared_R2_1, a33_shared_R1_2, a33_shared_R2_2, a33_shared_R1_3, a33_shared_R2_3, a33_shared_R1_4, a33_shared_R2_4, a33_shared_R1_5, a33_shared_R2_5, a33_shared_R1_6, a33_shared_R2_6, a33_shared_R1_7, a33_shared_R2_7, a33_shared_R1_8, a33_shared_R2_8] at h
   · exact absurd h (a33_shared_apart_0_1 z w hz hw)
   · exact absurd h (a33_shared_apart_0_2 z w hz hw)
   · exact absurd h (a33_shared_apart_0_3 z w hz hw)
@@ -2539,6 +2550,12 @@ theorem a33_shared_census :
   · exact absurd h (a33_shared_apart_8_7 z w hz hw)
 #print axioms a33_shared_census
 
+theorem a33_shared_conj_eq :
+    ∀ z : ℂ, (starRingEnd ℂ) z = (z.re : ℂ) - (z.im : ℂ) * Complex.I := by
+  intro z
+  apply Complex.ext <;> simp
+#print axioms a33_shared_conj_eq
+
 theorem a33_shared_affine_coord :
     ∀ (g : EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) ≃ᵃⁱ[ℝ] EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4))) (a b : Equiv.Perm (Fin 4)), ∃ α β γ : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4) → ℂ,
       ∀ z : ℂ, star z * z = 1 → ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (g (featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
@@ -2556,9 +2573,17 @@ theorem a33_shared_affine_coord :
     ext p
     rw [featureVec_ofLp, a33_shared_coord_Z z hz a b p]
     simp only [vadd_eq_add, PiLp.add_apply, PiLp.smul_apply, X₀, X₁, X₂, WithLp.ofLp_toLp, Complex.real_smul]
-    rcases a33_shared_exp_range a b p with h | h | h <;> simp only [h] <;> norm_num
-    · rw [Complex.ext_iff]; simp
-    · rw [Complex.ext_iff]; simp
+    have hr := a33_shared_exp_range a b p
+    generalize (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.1))) : ℤ) = σ
+    generalize ((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.1)) : ℕ) : ℤ) - ((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.2.2)) : ℕ) : ℤ) = e at hr ⊢
+    rcases hr with rfl | rfl | rfl
+    · norm_num
+      try simp only [Complex.star_def]
+      linear_combination (1 / 64 * (σ : ℂ)) * a33_shared_conj_eq z
+    · norm_num
+    · norm_num
+      linear_combination (-(1 / 64) * (σ : ℂ)) * Complex.re_add_im z
   refine ⟨fun p => (g X₀).ofLp p, fun p => (g.linearIsometryEquiv X₁).ofLp p, fun p => (g.linearIsometryEquiv X₂).ofLp p, ?_⟩
   intro z hz p
   rw [hpt z hz, AffineIsometryEquiv.map_vadd, map_add, map_smul, map_smul]
@@ -2577,26 +2602,29 @@ theorem a33_shared_vanish :
     rw [← hw, Complex.star_def]
     have := Complex.add_conj z
     rw [this]; push_cast; ring
-  have him : ∀ z : ℂ, star z * z = 1 → (z.im : ℂ) = (z - z⁻¹) / (2 * Complex.I) := by
+  have him : ∀ z : ℂ, star z * z = 1 → (z.im : ℂ) = -(Complex.I * (z - z⁻¹)) / 2 := by
     intro z hz
     have hw : star z = z⁻¹ := eq_inv_of_mul_eq_one_left hz
     rw [← hw, Complex.star_def]
     have := Complex.sub_conj z
     rw [this]
-    field_simp [Complex.I_ne_zero]
-    ring
+    push_cast
+    linear_combination (z.im : ℂ) * Complex.I_sq
   let P : Polynomial ℂ := Polynomial.C A * Polynomial.X ^ 2 + Polynomial.C (B / 2) * (Polynomial.X ^ 3 + Polynomial.X)
-    + Polynomial.C (C / (2 * Complex.I)) * (Polynomial.X ^ 3 - Polynomial.X) + Polynomial.C (D / 4) * (Polynomial.X ^ 4 + 2 * Polynomial.X ^ 2 + 1)
-    + Polynomial.C (E / (4 * Complex.I)) * (Polynomial.X ^ 4 - 1) - Polynomial.C (F / 4) * (Polynomial.X ^ 4 - 2 * Polynomial.X ^ 2 + 1)
+    + Polynomial.C (-(C * Complex.I) / 2) * (Polynomial.X ^ 3 - Polynomial.X) + Polynomial.C (D / 4) * (Polynomial.X ^ 4 + 2 * Polynomial.X ^ 2 + 1)
+    + Polynomial.C (-(E * Complex.I) / 4) * (Polynomial.X ^ 4 - 1) - Polynomial.C (F / 4) * (Polynomial.X ^ 4 - 2 * Polynomial.X ^ 2 + 1)
   have hev : ∀ z : ℂ, star z * z = 1 → P.eval z = z ^ 2 * (A + B * (z.re : ℂ) + C * (z.im : ℂ) + D * (z.re : ℂ) ^ 2
       + E * ((z.re : ℂ) * (z.im : ℂ)) + F * (z.im : ℂ) ^ 2) := by
     intro z hz
     have hz0 : z ≠ 0 := by rintro rfl; simp at hz
+    have hzw : z * z⁻¹ = 1 := mul_inv_cancel₀ hz0
     rw [hre z hz, him z hz]
     simp only [P, Polynomial.eval_add, Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_C, Polynomial.eval_pow,
       Polynomial.eval_X, Polynomial.eval_one, Polynomial.eval_ofNat]
-    field_simp [Complex.I_ne_zero]
-    ring
+    generalize z⁻¹ = w at hzw ⊢
+    linear_combination (-(B / 2) * z - (C * Complex.I / 2) * z - (D / 4) * (z * w + 1 + 2 * z ^ 2)
+      - (E * Complex.I / 4) * (z * w + 1) - (F / 4) * (2 * z ^ 2 - z * w - 1)) * hzw
+      - (F / 4) * z ^ 2 * (z - w) ^ 2 * Complex.I_sq
   have hdeg : P.natDegree ≤ 4 := by
     simp only [P]
     compute_degree!
@@ -2638,19 +2666,40 @@ theorem a33_shared_into :
       rw [← hg]; exact ⟨_, relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz, rfl⟩
     exact (a33_shared_mem Γ₀ hΓ₀ _).1 this
   obtain ⟨α, β, γ, hαβγ⟩ := a33_shared_affine_coord g (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).1 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2
-  have hζ := Complex.isPrimitiveRoot_exp 37 (by norm_num)
-  have hζu : ∀ k : ℕ, star (Complex.exp (2 * Real.pi * Complex.I / 37) ^ k) * Complex.exp (2 * Real.pi * Complex.I / 37) ^ k = 1 := by
-    intro k
-    have h37 := hζ.pow_eq_one
-    have hn : ‖Complex.exp (2 * Real.pi * Complex.I / 37)‖ = 1 := by
-      have := congrArg norm h37
-      rw [norm_pow, norm_one] at this
-      exact (pow_eq_one_iff_of_nonneg (norm_nonneg _) (by norm_num)).1 this
-    rw [a32_shared_star_mul_self, norm_pow, hn, one_pow]; simp
   classical
   choose s w hw using hmem
-  obtain ⟨t, ht⟩ := Fintype.exists_lt_card_fiber_of_mul_lt_card (fun k : Fin 37 => s _ (hζu (k : ℕ)))
-    (by simp : Fintype.card (Fin 9) * 4 < Fintype.card (Fin 37))
+  have hUinf : {z : ℂ | star z * z = 1}.Infinite := by
+    refine Set.infinite_of_injective_forall_mem
+      (f := fun n : ℕ => ((((n : ℝ) ^ 2 - 1) / ((n : ℝ) ^ 2 + 1) : ℝ) : ℂ) + ((2 * (n : ℝ) / ((n : ℝ) ^ 2 + 1) : ℝ) : ℂ) * Complex.I) ?_ ?_
+    · intro n m hnm
+      have h := congrArg Complex.re hnm
+      simp only [Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.I_re, Complex.I_im, Complex.ofReal_im,
+        mul_zero, sub_zero, add_zero] at h
+      have hn : (0 : ℝ) < (n : ℝ) ^ 2 + 1 := by positivity
+      have hm : (0 : ℝ) < (m : ℝ) ^ 2 + 1 := by positivity
+      rw [div_eq_div_iff hn.ne' hm.ne'] at h
+      have h2 : (n : ℝ) ^ 2 = (m : ℝ) ^ 2 := by linarith
+      exact_mod_cast (pow_left_inj₀ (Nat.cast_nonneg n) (Nat.cast_nonneg m) two_ne_zero).1 h2
+    · intro n
+      have hn : (0 : ℝ) < (n : ℝ) ^ 2 + 1 := by positivity
+      show star _ * _ = 1
+      apply Complex.ext
+      · simp [Complex.star_def, Complex.mul_re]
+        field_simp
+        ring
+      · simp [Complex.star_def, Complex.mul_im]
+        ring
+  have hfib : ∃ t : Fin 9, {z : ℂ | ∃ hz : star z * z = 1, s z hz = t}.Infinite := by
+    by_contra hall
+    have hfin : ∀ t : Fin 9, {z : ℂ | ∃ hz : star z * z = 1, s z hz = t}.Finite :=
+      fun t => Set.not_infinite.1 (fun h => hall ⟨t, h⟩)
+    apply hUinf
+    refine (Set.finite_iUnion hfin).subset ?_
+    intro z hz
+    exact Set.mem_iUnion.2 ⟨s z hz, hz, rfl⟩
+  obtain ⟨t, ht⟩ := hfib
+  obtain ⟨Zs, hZsub, hZcard⟩ := ht.exists_subset_card_eq 5
+  have hZcard5 : 5 ≤ Zs.card := hZcard.symm.le
   refine ⟨t, ?_⟩
   obtain ⟨q, hq⟩ := a33_shared_readq t
   have hsq : ((((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.2))
@@ -2681,28 +2730,18 @@ theorem a33_shared_into :
     simp only [show ((1 : ℤ) = 1) = True from eq_self_iff_true 1, if_true]
     linear_combination (w' : ℂ) * hsq
   -- the five points of the fibre
-  set Fb := Finset.univ.filter (fun k : Fin 37 => s _ (hζu (k : ℕ)) = t) with hFb
-  set Zs := Fb.image (fun k : Fin 37 => Complex.exp (2 * Real.pi * Complex.I / 37) ^ (k : ℕ)) with hZs
-  have hZcard : 5 ≤ Zs.card := by
-    rw [hZs, Finset.card_image_of_injOn]
-    · omega
-    · intro k _ l _ hkl
-      exact Fin.ext (hζ.pow_inj k.2 l.2 hkl)
   have hZunit : ∀ z ∈ Zs, star z * z = 1 := by
     intro z hz
-    rw [hZs, Finset.mem_image] at hz
-    obtain ⟨k, -, rfl⟩ := hz
-    exact hζu k
+    obtain ⟨hz', -⟩ := hZsub (Finset.mem_coe.2 hz)
+    exact hz'
   have hZread : ∀ z ∈ Zs, ∃ w' : ℂ, star w' * w' = 1 ∧ g (featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2)) = featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w', -1, -w'; 1, -1, 1, -1; 1, -w', -1, w'] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2) := by
     intro z hz
-    rw [hZs, Finset.mem_image] at hz
-    obtain ⟨k, hk, rfl⟩ := hz
-    rw [hFb, Finset.mem_filter] at hk
-    refine ⟨w _ (hζu (k : ℕ)), (hw _ (hζu (k : ℕ))).1, ?_⟩
-    have := (hw _ (hζu (k : ℕ))).2
-    rw [hk.2] at this
+    obtain ⟨hz', hst⟩ := hZsub (Finset.mem_coe.2 hz)
+    refine ⟨w z hz', (hw z hz').1, ?_⟩
+    have := (hw z hz').2
+    rw [hst] at this
     exact this
   -- the unit identity for W holds on Zs, hence everywhere
   have hWunit : ∀ z : ℂ, star z * z = 1 → star (W z) * W z = 1 := by
@@ -2733,7 +2772,7 @@ theorem a33_shared_into :
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.2) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.2) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.1))) : ℤ) : ℂ) * β q))
       ((starRingEnd ℂ) (64 * ((((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.2) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.2) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.1))) : ℤ) : ℂ) * γ q) * (64 * ((((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.2))
-      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.2) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.2) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.1))) : ℤ) : ℂ) * γ q)) Zs hZcard hZunit
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.2) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.2) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.1))) : ℤ) : ℂ) * γ q)) Zs hZcard5 hZunit
     have hform : ∀ z : ℂ, star (W z) * W z - 1 =
         ((starRingEnd ℂ) (64 * ((((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.2) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.2) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.1))) : ℤ) : ℂ) * α q) * (64 * ((((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 q.1.2.1) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 q.2.2.2))
@@ -2798,7 +2837,7 @@ theorem a33_shared_into :
         norm_num
         ring
       intro z hz
-      have key := a33_shared_vanish _ _ _ _ _ _ Zs hZcard hZunit (fun z hz => by
+      have key := a33_shared_vanish _ _ _ _ _ _ Zs hZcard5 hZunit (fun z hz => by
         obtain ⟨w', hw', hgw⟩ := hZread z hz
         rw [← hform z (hZunit z hz), (hread z (hZunit z hz) w' hw' hgw).1, (hread z (hZunit z hz) w' hw' hgw).2 p, sub_self]) z hz
       rw [← hform z hz] at key
@@ -2815,7 +2854,7 @@ theorem a33_shared_into :
         norm_num
         ring
       intro z hz
-      have key := a33_shared_vanish _ _ _ _ _ _ Zs hZcard hZunit (fun z hz => by
+      have key := a33_shared_vanish _ _ _ _ _ _ Zs hZcard5 hZunit (fun z hz => by
         obtain ⟨w', hw', hgw⟩ := hZread z hz
         rw [← hform z (hZunit z hz), (hread z (hZunit z hz) w' hw' hgw).1, (hread z (hZunit z hz) w' hw' hgw).2 p, sub_self]) z hz
       rw [← hform z hz] at key
@@ -2840,7 +2879,7 @@ theorem a33_shared_into :
         norm_num
         ring
       intro z hz
-      have key := a33_shared_vanish _ _ _ _ _ _ Zs hZcard hZunit (fun z hz => by
+      have key := a33_shared_vanish _ _ _ _ _ _ Zs hZcard5 hZunit (fun z hz => by
         obtain ⟨w', hw', hgw⟩ := hZread z hz
         rw [← hform z (hZunit z hz), (hread z (hZunit z hz) w' hw' hgw).1, (hread z (hZunit z hz) w' hw' hgw).2 p, sub_self]) z hz
       rw [← hform z hz] at key
@@ -2882,7 +2921,7 @@ theorem a33_shared_circle_eq :
     exact ⟨w, hw, h.symm⟩
   · rintro ⟨w, hw, rfl⟩
     obtain ⟨z, hz, h⟩ := hs' w hw
-    exact ⟨_, ⟨z, hz, rfl⟩, by rw [← h, g.apply_symm_apply]⟩
+    exact ⟨_, ⟨z, hz, rfl⟩, by beta_reduce; rw [← h, g.apply_symm_apply]⟩
 #print axioms a33_shared_circle_eq
 
 theorem a33_shared_circles :
@@ -2906,6 +2945,261 @@ theorem a33_shared_circles :
   rintro x ⟨z, hz, rfl⟩
   exact (hgf _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz)).symm
 #print axioms a33_shared_circles
+
+theorem a33_shared_unit_mul :
+    ∀ a b : ℂ, star a * a = 1 → star b * b = 1 → star (a * b) * (a * b) = 1 := by
+  intro a b ha hb
+  rw [star_mul]
+  linear_combination (star b * b) * ha + hb
+#print axioms a33_shared_unit_mul
+
+theorem a33_shared_unit_if :
+    ∀ (b : Bool) (z : ℂ), star z * z = 1 → star (if b then z else star z) * (if b then z else star z) = 1 := by
+  intro b z hz
+  cases b
+  · simp only [Bool.false_eq_true, if_false, star_star]
+    rw [mul_comm]; exact hz
+  · simpa using hz
+#print axioms a33_shared_unit_if
+
+theorem a33_shared_if_pm :
+    ∀ (b : Bool) (c : ℂ), star c = c → (if b then c else star c) = c := by
+  intro b c h
+  cases b <;> simp [h]
+#print axioms a33_shared_if_pm
+
+theorem a33_shared_circle_map :
+    ∀ (w : (z : ℂ) → star z * z = 1 → ℂ), (∀ z hz, star (w z hz) * w z hz = 1) →
+      (∀ z z' hz hz', ‖w z hz - w z' hz'‖ ^ 2 = ‖z - z'‖ ^ 2) →
+      ∃ (l : ℂ) (ε : Bool), star l * l = 1 ∧ ∀ z hz, w z hz = l * (if ε then z else star z) := by
+  intro w hu hc
+  have h1 : star (1 : ℂ) * 1 = 1 := by simp
+  have hI : star Complex.I * Complex.I = 1 := by rw [Complex.star_def, Complex.conj_I]; simp
+  have hre : ∀ z : ℂ, star z * z = 1 → z.re ^ 2 + z.im ^ 2 = 1 := by
+    intro z hz
+    have := congrArg Complex.re hz
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  have hn : ∀ x y : ℂ, ‖x - y‖ ^ 2 = (x.re - y.re) ^ 2 + (x.im - y.im) ^ 2 := by
+    intro x y
+    rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply, Complex.sub_re, Complex.sub_im]
+    ring
+  set l := w 1 h1 with hldef
+  set m := w Complex.I hI with hmdef
+  have hl := hre _ (hu 1 h1)
+  have hm := hre _ (hu Complex.I hI)
+  have hml := hc Complex.I 1 hI h1
+  rw [hn, hn] at hml
+  simp only [Complex.I_re, Complex.I_im, Complex.one_re, Complex.one_im] at hml
+  have hP : l.re * m.re + l.im * m.im = 0 := by
+    linear_combination (-1 / 2 : ℝ) * hml + (1 / 2 : ℝ) * hm + (1 / 2 : ℝ) * hl
+  set s := l.re * m.im - l.im * m.re with hsdef
+  have hs : s * s = 1 := by
+    linear_combination (m.re ^ 2 + m.im ^ 2) * hl + hm - (l.re * m.re + l.im * m.im) * hP
+  refine ⟨l, decide (0 < s), hu 1 h1, ?_⟩
+  intro z hz
+  have hz1 := hre z hz
+  have hwz := hre _ (hu z hz)
+  have hzl := hc z 1 hz h1
+  have hzm := hc z Complex.I hz hI
+  rw [hn, hn] at hzl hzm
+  simp only [Complex.I_re, Complex.I_im, Complex.one_re, Complex.one_im] at hzl hzm
+  have hA : l.re * (w z hz).re + l.im * (w z hz).im = z.re := by
+    linear_combination (-1 / 2 : ℝ) * hzl + (1 / 2 : ℝ) * hwz + (1 / 2 : ℝ) * hl - (1 / 2 : ℝ) * hz1
+  have hC : (w z hz).re * m.re + (w z hz).im * m.im = z.im := by
+    linear_combination (-1 / 2 : ℝ) * hzm + (1 / 2 : ℝ) * hwz + (1 / 2 : ℝ) * hm - (1 / 2 : ℝ) * hz1
+  have hBs : (l.re * (w z hz).im - l.im * (w z hz).re) * s = z.im := by
+    linear_combination ((w z hz).re * m.re + (w z hz).im * m.im) * hl + hC
+      - (l.re * (w z hz).re + l.im * (w z hz).im) * hP
+  rcases mul_self_eq_one_iff.1 hs with hs1 | hs1
+  · have hB : l.re * (w z hz).im - l.im * (w z hz).re = z.im := by rw [hs1] at hBs; linear_combination hBs
+    rw [if_pos (decide_eq_true (by rw [hs1]; norm_num : (0 : ℝ) < s))]
+    apply Complex.ext
+    · simp only [Complex.mul_re]
+      linear_combination l.re * hA - l.im * hB - (w z hz).re * hl
+    · simp only [Complex.mul_im]
+      linear_combination l.re * hB + l.im * hA - (w z hz).im * hl
+  · have hB : l.re * (w z hz).im - l.im * (w z hz).re = -z.im := by rw [hs1] at hBs; linear_combination -hBs
+    rw [if_neg (by rw [decide_eq_true_iff, hs1]; norm_num)]
+    apply Complex.ext
+    · simp only [Complex.mul_re, Complex.star_def, Complex.conj_re, Complex.conj_im]
+      linear_combination l.re * hA - l.im * hB - (w z hz).re * hl
+    · simp only [Complex.mul_im, Complex.star_def, Complex.conj_re, Complex.conj_im]
+      linear_combination l.re * hB + l.im * hA - (w z hz).im * hl
+#print axioms a33_shared_circle_map
+
+theorem a33_shared_form :
+    ∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+      let R : Fin 9 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4) := ![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), Equiv.swap (2 : Fin 4) 3), ((1 : Equiv.Perm (Fin 4)), Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3, (1 : Equiv.Perm (Fin 4))), (Equiv.swap (2 : Fin 4) 3, Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3, Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2, (1 : Equiv.Perm (Fin 4))), (Equiv.swap (1 : Fin 4) 2, Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2, Equiv.swap (1 : Fin 4) 2)]
+      let pt : Fin 9 → ℂ → EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) := fun r z => featureVec (fun i =>
+        (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((R r).1 i)).submatrix (R r).2 (R r).2)
+      let v₁ : Fin 9 → Fin 6 := ![0, 2, 4, 2, 0, 3, 4, 5, 0]
+      let v₂ : Fin 9 → Fin 6 := ![1, 3, 5, 5, 4, 1, 3, 1, 2]
+      ∀ f : EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) → EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)), IsSurjIsometryOn (normalizedSet Γ₀) f → ∀ r s : Fin 9, f '' (pt r '' {z : ℂ | star z * z = 1}) = pt s '' {z : ℂ | star z * z = 1} →
+        ∃ (l : ℂ) (ε : Bool), star l * l = 1 ∧ ∀ z : ℂ, star z * z = 1 → f (pt r z) = pt s (l * (if ε then z else star z)) := by
+  intro Γ₀ hΓ₀
+  dsimp only
+  intro f hf r s hrs
+  have hw : ∀ z : ℂ, star z * z = 1 → ∃ w : ℂ, star w * w = 1 ∧ f (featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2)) = featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] s).2) := by
+    intro z hz
+    have hx : f (featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2)) ∈ f '' ((fun z : ℂ => featureVec (fun i => (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+        (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).1 i)).submatrix (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2)) '' {z : ℂ | star z * z = 1}) := ⟨_, ⟨z, hz, rfl⟩, rfl⟩
+    rw [hrs] at hx
+    obtain ⟨w, hw, hfw⟩ := hx
+    exact ⟨w, hw, hfw.symm⟩
+  choose w hw using hw
+  have hchord : ∀ (z z' : ℂ) (hz : star z * z = 1) (hz' : star z' * z' = 1), ‖w z hz - w z' hz'‖ ^ 2 = ‖z - z'‖ ^ 2 := by
+    intro z z' hz hz'
+    have hd := hf.2.2 _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).1 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2 z hz)
+      _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).1 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] r).2 z' hz')
+    rw [(hw z hz).2, (hw z' hz').2] at hd
+    have c1 := a33_shared_chord s (w z hz) (w z' hz') (hw z hz).1 (hw z' hz').1
+    have c2 := a33_shared_chord r z z' hz hz'
+    dsimp only at c1 c2
+    have hsq := congrArg (fun x : ℝ => x ^ 2) hd
+    try simp only [] at hsq
+    rw [c1, c2] at hsq
+    linarith
+  obtain ⟨l, ε, hl, hform⟩ := a33_shared_circle_map w (fun z hz => (hw z hz).1) hchord
+  exact ⟨l, ε, hl, fun z hz => by rw [(hw z hz).2, hform z hz]⟩
+#print axioms a33_shared_form
+
+theorem a33_shared_signs :
+    ∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+      let R : Fin 9 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4) := ![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), Equiv.swap (2 : Fin 4) 3), ((1 : Equiv.Perm (Fin 4)), Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3, (1 : Equiv.Perm (Fin 4))), (Equiv.swap (2 : Fin 4) 3, Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3, Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2, (1 : Equiv.Perm (Fin 4))), (Equiv.swap (1 : Fin 4) 2, Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2, Equiv.swap (1 : Fin 4) 2)]
+      let pt : Fin 9 → ℂ → EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) := fun r z => featureVec (fun i =>
+        (FibreGram (0 : Fin 1) (Matrix.of (fun p q : Fin 4 × Fin 1 =>
+            (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((R r).1 i)).submatrix (R r).2 (R r).2)
+      let v₁ : Fin 9 → Fin 6 := ![0, 2, 4, 2, 0, 3, 4, 5, 0]
+      let v₂ : Fin 9 → Fin 6 := ![1, 3, 5, 5, 4, 1, 3, 1, 2]
+      ∀ f : EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) → EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)), IsSurjIsometryOn (normalizedSet Γ₀) f → ∀ (σ : Fin 9 → Fin 9) (l : Fin 9 → ℂ) (ε : Fin 9 → Bool),
+        (∀ r, star (l r) * l r = 1) → (∀ r, ∀ z : ℂ, star z * z = 1 → f (pt r z) = pt (σ r) (l r * (if ε r then z else star z))) →
+        ∀ r, l r = 1 ∨ l r = -1 := by
+  intro Γ₀ hΓ₀
+  dsimp only
+  intro f hf σ l ε hl hform
+  have hI : star Complex.I * Complex.I = 1 := by rw [Complex.star_def, Complex.conj_I]; simp
+  have h1u : star (1 : ℂ) * 1 = 1 := by simp
+  have hm1 : star (-1 : ℂ) * (-1) = 1 := by simp
+  have hsm1 : star (-1 : ℂ) = -1 := by simp
+  have hinj : Function.Injective σ := by
+    rw [Finite.injective_iff_surjective]
+    intro t
+    by_contra ht
+    obtain ⟨x, hx, hfx⟩ := hf.2.1 _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).1 (![((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (2 : Fin 4) 3)), ((1 : Equiv.Perm (Fin 4)), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (2 : Fin 4) 3), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (2 : Fin 4) 3), (Equiv.swap (1 : Fin 4) 2)), ((Equiv.swap (1 : Fin 4) 2), (1 : Equiv.Perm (Fin 4))), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (2 : Fin 4) 3)), ((Equiv.swap (1 : Fin 4) 2), (Equiv.swap (1 : Fin 4) 2))] t).2 Complex.I hI)
+    obtain ⟨r', z, hz, rfl⟩ := (a33_shared_mem Γ₀ hΓ₀ x).1 hx
+    rw [hform r' z hz] at hfx
+    have hne : t ≠ σ r' := fun h => ht ⟨r', h.symm⟩
+    have hu := a33_shared_unit_mul (l r') _ (hl r') (a33_shared_unit_if (ε r') z hz)
+    rcases a33_shared_census t (σ r') hne Complex.I _ hI hu hfx.symm with h | h
+    · have := congrArg Complex.im h; norm_num at this
+    · have := congrArg Complex.im h; norm_num at this
+  intro r
+  rcases a33_shared_fin9 r with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+  · have e1 := hform 0 1 h1u
+    have e2 := hform 4 1 h1u
+    simp only [a33_shared_R1_0, a33_shared_R2_0] at e1
+    simp only [a33_shared_R1_4, a33_shared_R2_4] at e2
+    rw [a33_shared_inc_0_p_4_p] at e1
+    have e := e1.symm.trans e2
+    have hu1 := a33_shared_unit_mul (l 0) _ (hl 0) (a33_shared_unit_if (ε 0) 1 h1u)
+    have hu2 := a33_shared_unit_mul (l 4) _ (hl 4) (a33_shared_unit_if (ε 4) 1 h1u)
+    have hc := a33_shared_census (σ 0) (σ 4) (hinj.ne (by decide)) _ _ hu1 hu2 e
+    rw [a33_shared_if_pm (ε 0) 1 (star_one ℂ)] at hc
+    rcases hc with hc | hc <;> first | exact Or.inl (by linear_combination hc) | exact Or.inr (by linear_combination hc) | exact Or.inl (by linear_combination -hc) | exact Or.inr (by linear_combination -hc)
+  · have e1 := hform 1 1 h1u
+    have e2 := hform 3 1 h1u
+    simp only [a33_shared_R1_1, a33_shared_R2_1] at e1
+    simp only [a33_shared_R1_3, a33_shared_R2_3] at e2
+    rw [a33_shared_inc_1_p_3_p] at e1
+    have e := e1.symm.trans e2
+    have hu1 := a33_shared_unit_mul (l 1) _ (hl 1) (a33_shared_unit_if (ε 1) 1 h1u)
+    have hu2 := a33_shared_unit_mul (l 3) _ (hl 3) (a33_shared_unit_if (ε 3) 1 h1u)
+    have hc := a33_shared_census (σ 1) (σ 3) (hinj.ne (by decide)) _ _ hu1 hu2 e
+    rw [a33_shared_if_pm (ε 1) 1 (star_one ℂ)] at hc
+    rcases hc with hc | hc <;> first | exact Or.inl (by linear_combination hc) | exact Or.inr (by linear_combination hc) | exact Or.inl (by linear_combination -hc) | exact Or.inr (by linear_combination -hc)
+  · have e1 := hform 2 1 h1u
+    have e2 := hform 4 (-1) hm1
+    simp only [a33_shared_R1_2, a33_shared_R2_2] at e1
+    simp only [a33_shared_R1_4, a33_shared_R2_4] at e2
+    rw [a33_shared_inc_2_p_4_m] at e1
+    have e := e1.symm.trans e2
+    have hu1 := a33_shared_unit_mul (l 2) _ (hl 2) (a33_shared_unit_if (ε 2) 1 h1u)
+    have hu2 := a33_shared_unit_mul (l 4) _ (hl 4) (a33_shared_unit_if (ε 4) (-1) hm1)
+    have hc := a33_shared_census (σ 2) (σ 4) (hinj.ne (by decide)) _ _ hu1 hu2 e
+    rw [a33_shared_if_pm (ε 2) 1 (star_one ℂ)] at hc
+    rcases hc with hc | hc <;> first | exact Or.inl (by linear_combination hc) | exact Or.inr (by linear_combination hc) | exact Or.inl (by linear_combination -hc) | exact Or.inr (by linear_combination -hc)
+  · have e1 := hform 3 1 h1u
+    have e2 := hform 1 1 h1u
+    simp only [a33_shared_R1_3, a33_shared_R2_3] at e1
+    simp only [a33_shared_R1_1, a33_shared_R2_1] at e2
+    rw [← a33_shared_inc_1_p_3_p] at e1
+    have e := e1.symm.trans e2
+    have hu1 := a33_shared_unit_mul (l 3) _ (hl 3) (a33_shared_unit_if (ε 3) 1 h1u)
+    have hu2 := a33_shared_unit_mul (l 1) _ (hl 1) (a33_shared_unit_if (ε 1) 1 h1u)
+    have hc := a33_shared_census (σ 3) (σ 1) (hinj.ne (by decide)) _ _ hu1 hu2 e
+    rw [a33_shared_if_pm (ε 3) 1 (star_one ℂ)] at hc
+    rcases hc with hc | hc <;> first | exact Or.inl (by linear_combination hc) | exact Or.inr (by linear_combination hc) | exact Or.inl (by linear_combination -hc) | exact Or.inr (by linear_combination -hc)
+  · have e1 := hform 4 1 h1u
+    have e2 := hform 0 1 h1u
+    simp only [a33_shared_R1_4, a33_shared_R2_4] at e1
+    simp only [a33_shared_R1_0, a33_shared_R2_0] at e2
+    rw [← a33_shared_inc_0_p_4_p] at e1
+    have e := e1.symm.trans e2
+    have hu1 := a33_shared_unit_mul (l 4) _ (hl 4) (a33_shared_unit_if (ε 4) 1 h1u)
+    have hu2 := a33_shared_unit_mul (l 0) _ (hl 0) (a33_shared_unit_if (ε 0) 1 h1u)
+    have hc := a33_shared_census (σ 4) (σ 0) (hinj.ne (by decide)) _ _ hu1 hu2 e
+    rw [a33_shared_if_pm (ε 4) 1 (star_one ℂ)] at hc
+    rcases hc with hc | hc <;> first | exact Or.inl (by linear_combination hc) | exact Or.inr (by linear_combination hc) | exact Or.inl (by linear_combination -hc) | exact Or.inr (by linear_combination -hc)
+  · have e1 := hform 5 (-1) hm1
+    have e2 := hform 0 (-1) hm1
+    simp only [a33_shared_R1_5, a33_shared_R2_5] at e1
+    simp only [a33_shared_R1_0, a33_shared_R2_0] at e2
+    rw [← a33_shared_inc_0_m_5_m] at e1
+    have e := e1.symm.trans e2
+    have hu1 := a33_shared_unit_mul (l 5) _ (hl 5) (a33_shared_unit_if (ε 5) (-1) hm1)
+    have hu2 := a33_shared_unit_mul (l 0) _ (hl 0) (a33_shared_unit_if (ε 0) (-1) hm1)
+    have hc := a33_shared_census (σ 5) (σ 0) (hinj.ne (by decide)) _ _ hu1 hu2 e
+    rw [a33_shared_if_pm (ε 5) (-1) (hsm1)] at hc
+    rcases hc with hc | hc <;> first | exact Or.inl (by linear_combination hc) | exact Or.inr (by linear_combination hc) | exact Or.inl (by linear_combination -hc) | exact Or.inr (by linear_combination -hc)
+  · have e1 := hform 6 (-1) hm1
+    have e2 := hform 1 (-1) hm1
+    simp only [a33_shared_R1_6, a33_shared_R2_6] at e1
+    simp only [a33_shared_R1_1, a33_shared_R2_1] at e2
+    rw [← a33_shared_inc_1_m_6_m] at e1
+    have e := e1.symm.trans e2
+    have hu1 := a33_shared_unit_mul (l 6) _ (hl 6) (a33_shared_unit_if (ε 6) (-1) hm1)
+    have hu2 := a33_shared_unit_mul (l 1) _ (hl 1) (a33_shared_unit_if (ε 1) (-1) hm1)
+    have hc := a33_shared_census (σ 6) (σ 1) (hinj.ne (by decide)) _ _ hu1 hu2 e
+    rw [a33_shared_if_pm (ε 6) (-1) (hsm1)] at hc
+    rcases hc with hc | hc <;> first | exact Or.inl (by linear_combination hc) | exact Or.inr (by linear_combination hc) | exact Or.inl (by linear_combination -hc) | exact Or.inr (by linear_combination -hc)
+  · have e1 := hform 7 (-1) hm1
+    have e2 := hform 0 (-1) hm1
+    simp only [a33_shared_R1_7, a33_shared_R2_7] at e1
+    simp only [a33_shared_R1_0, a33_shared_R2_0] at e2
+    rw [← a33_shared_inc_0_m_7_m] at e1
+    have e := e1.symm.trans e2
+    have hu1 := a33_shared_unit_mul (l 7) _ (hl 7) (a33_shared_unit_if (ε 7) (-1) hm1)
+    have hu2 := a33_shared_unit_mul (l 0) _ (hl 0) (a33_shared_unit_if (ε 0) (-1) hm1)
+    have hc := a33_shared_census (σ 7) (σ 0) (hinj.ne (by decide)) _ _ hu1 hu2 e
+    rw [a33_shared_if_pm (ε 7) (-1) (hsm1)] at hc
+    rcases hc with hc | hc <;> first | exact Or.inl (by linear_combination hc) | exact Or.inr (by linear_combination hc) | exact Or.inl (by linear_combination -hc) | exact Or.inr (by linear_combination -hc)
+  · have e1 := hform 8 1 h1u
+    have e2 := hform 0 1 h1u
+    simp only [a33_shared_R1_8, a33_shared_R2_8] at e1
+    simp only [a33_shared_R1_0, a33_shared_R2_0] at e2
+    rw [← a33_shared_inc_0_p_8_p] at e1
+    have e := e1.symm.trans e2
+    have hu1 := a33_shared_unit_mul (l 8) _ (hl 8) (a33_shared_unit_if (ε 8) 1 h1u)
+    have hu2 := a33_shared_unit_mul (l 0) _ (hl 0) (a33_shared_unit_if (ε 0) 1 h1u)
+    have hc := a33_shared_census (σ 8) (σ 0) (hinj.ne (by decide)) _ _ hu1 hu2 e
+    rw [a33_shared_if_pm (ε 8) 1 (star_one ℂ)] at hc
+    rcases hc with hc | hc <;> first | exact Or.inl (by linear_combination hc) | exact Or.inr (by linear_combination hc) | exact Or.inl (by linear_combination -hc) | exact Or.inr (by linear_combination -hc)
+#print axioms a33_shared_signs
 
 end OrbitIsometryGroup
 end OIBridge
