@@ -38,11 +38,18 @@ transformed guard must be, and checks the transformed guard against that:
       plain name at the same level, a shallow copy one level up (and not at all from the top
       level), a deep copy not at all, anything else at the same level. No name reached may be read
       by a surviving module-level statement after the change and before it is next bound, or by a
-      surviving function.
+      surviving function;
+  S7  bindings: every module-level statement or top-level function that lies wholly in splices and
+      is not a predicate the census retires binds no name that surviving code still resolves to --
+      no surviving module-level read after it with no surviving binding in between, and no read in
+      a surviving function (its own locals aside) of a name left with no surviving binding. A
+      counter increment is not a binding. With S2, S3, S5 and S6 this justifies each deletion on
+      its own: nothing is removed merely because a sweep inferred it unreachable.
 
 --self-test runs the checks on the real inputs, then on mutations of them, each of which must fail
 the check named: for each regression site the statement deleted through a consistent splice (S2,
-S3, S5 or S6, and S4); one byte of the guard after changed (L2); a splice's old hash changed (L1); a retained
+S3, S5 or S6, and S4); a module-level binding surviving code reads deleted (S7); one byte of
+the guard after changed (L2); a splice's old hash changed (L1); a retained
 predicate deleted through a consistent splice (S1); a retired predicate restored (S1); and a
 condition inside a retained function rewritten through a consistent splice (S2)."""
 import ast
@@ -394,6 +401,73 @@ def check(d_text, census, ledger, after):
             bad.append('%s at %d' % (type(s).__name__, s.lineno))
     res.append(('S6', not bad, '%d removed in-place change(s), none to an object a survivor reads%s'
                 % (total, ('; ' + ', '.join(bad[:4])) if bad else '')))
+    # S7
+    def binds(n):
+        if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            return {n.name}
+        if isinstance(n, (ast.Import, ast.ImportFrom)):
+            return {(a.asname or a.name).split('.')[0] for a in n.names}
+        if isinstance(n, (ast.Assign, ast.AnnAssign)):
+            tg = n.targets if isinstance(n, ast.Assign) else [n.target]
+            return {x.id for t in tg if isinstance(t, (ast.Name, ast.Tuple, ast.List, ast.Starred))
+                    for x in ast.walk(t) if isinstance(x, ast.Name)}
+        if isinstance(n, ast.For):
+            return {x.id for x in ast.walk(n.target) if isinstance(x, ast.Name)}
+        if isinstance(n, ast.With):
+            return {x.id for i in n.items if i.optional_vars is not None
+                    for x in ast.walk(i.optional_vars) if isinstance(x, ast.Name)}
+        return set()
+    top = set()
+    for f in ast.walk(tree):
+        if isinstance(f, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda, ast.ClassDef)):
+            top |= {id(x) for x in ast.walk(f) if x is not f}
+    local = {}
+    for f in ast.walk(tree):
+        if isinstance(f, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda)):
+            loc = {a.arg for a in ast.walk(f.args) if isinstance(a, ast.arg)}
+            for b in (f.body if isinstance(f.body, list) else [f.body]):
+                for x in ast.walk(b):
+                    if isinstance(x, ast.Name) and isinstance(x.ctx, (ast.Store, ast.Del)):
+                        loc.add(x.id)
+                    elif isinstance(x, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                        loc.add(x.name)
+                    elif isinstance(x, (ast.Global, ast.Nonlocal)):
+                        loc -= set(x.names)
+            for x in ast.walk(f):
+                if isinstance(x, ast.Name):
+                    local.setdefault(id(x), set()).update(loc)
+    mod = [n for n in ast.walk(tree) if isinstance(n, ast.stmt) and id(n) not in top]
+    kept_defs = {}
+    for n in mod:
+        if not whole(n):
+            for x in binds(n):
+                kept_defs.setdefault(x, []).append(n.lineno)
+    uses = {}
+    for n in ast.walk(tree):
+        if isinstance(n, ast.Name) and isinstance(n.ctx, ast.Load) and n.lineno not in gone and \
+                n.id not in local.get(id(n), set()):
+            uses.setdefault(n.id, []).append((n.lineno, id(n) in top))
+    bad, total = [], 0
+    for n in mod:
+        if not whole(n) or n.lineno in retired or not binds(n):
+            continue
+        total += 1
+        for x in binds(n):
+            kd = kept_defs.get(x, [])
+            hit = False
+            for l, in_f in uses.get(x, []):
+                if in_f and not kd:
+                    hit = True
+                elif not in_f and l > n.lineno and not [k for k in kd if n.lineno < k <= l] and \
+                        not [k for k in kd if k <= l and k > n.lineno]:
+                    hit = not [k for k in kd if k <= l] or max(k for k in kd if k <= l) < n.lineno
+                if hit:
+                    break
+            if hit:
+                bad.append('%s %s at %d' % (type(n).__name__, x, n.lineno))
+                break
+    res.append(('S7', not bad, '%d removed binding(s), none still resolved by surviving code%s'
+                % (total, ('; ' + ', '.join(bad[:4])) if bad else '')))
     return res
 
 
@@ -458,6 +532,9 @@ def self_test(d_text, census, ledger, after):
         top = any(x.lineno == lo for x in t.body)
         expect('regression site %d deleted' % lo, led, aft,
                ['S4'] + (['S2'] if inside else ['S6'] if top else ['S5']) + (['S3'] if flow else []))
+    assert lines[91] == 'CHECK_TAGS = []'
+    led, aft = mutate(ledger, d_text, 92, 92, [], 'mutant')
+    expect('a module-level binding surviving code reads deleted', led, aft, ['S7'])
     k = after.index('ok_')
     expect('one byte of the guard after changed', ledger, after[:k] + 'X' + after[k + 1:], ['L2'])
     led = json.loads(json.dumps(ledger))

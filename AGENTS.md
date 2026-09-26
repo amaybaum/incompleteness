@@ -802,16 +802,20 @@ neither stands in for the other:
   fails.
 
 **Destructive transformations.** A round whose execution mechanically removes or rewrites existing
-content freezes three things before `F`, beside the transformation itself:
+content states in its freeze which of authority, reachability and physical presence it retires,
+and freezes three things before `F`, beside the transformation itself:
 
 - **the edit ledger** — every change as a splice of the base: its span, the hash of the old text,
   the new text and its hash, and the reason for it. The ledger is the authorization; nothing
-  outside it may change;
+  outside it may change. An algorithm may propose deletions, dead code among them, but nothing is
+  deleted because an algorithm inferred it unreachable: each deletion is its own entry in the
+  frozen ledger;
 - **a preservation checker independent of the transformation** — it imports nothing from it,
   rebuilds the expected output from the base and the ledger alone and compares bytes, and checks
   what is retained structurally: retained functions untouched, control flow removed only with its
-  governing block, nothing removed from a surviving block but what the round retires, and no
-  in-place change removed from an object, or an alias of one, that surviving code reads. It is
+  governing block, nothing removed from a surviving block but what the round retires, no
+  in-place change removed from an object, or an alias of one, that surviving code reads, and no
+  binding removed that surviving code still resolves to. It is
   mutation-tested in both directions: deleting or rewriting retained code must fail it, and so must
   restoring retired code;
 - **the execution evidence** — the workflow run, on a disposable branch, on exactly the predicted
