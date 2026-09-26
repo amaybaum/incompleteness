@@ -3,9 +3,9 @@
 
 This tool implements the protocol-3 specification (verification/infrastructure/v3/architecture.md).
 Its --receipts mode is the V3 verdict the release gate runs: it verifies every receipt in a
-commit's tree from the commit that last wrote it and exits 1 on any receipt that does not hold. The
-projection over the V2 attestation rows, and the shadow report that prints it, gate nothing. V1 and
-V2 keep running beside it; they do not decide whether a native round is protocol-valid.
+commit's tree from the commit that last wrote it, requires the round's record directory and seal
+record to be unchanged since that commit (G13), and exits 1 on any receipt that does not hold. The
+release gate also runs --self-test and --corpus, as regression evidence for this implementation.
 
 Entry points, exactly:
 
@@ -15,9 +15,8 @@ Entry points, exactly:
     --verify-round <Q>             lifecycle T1, T3 or T5, T6 and T7 from the receipt commit Q
     --reachable <C> <Q>            a diagnostic, never a verdict: whether Q is an ancestor of C
     --receipts <C>                 every receipt in C's tree, verified from the commit reachable
-                                   from C that last wrote it; exit 1 on any that does not hold
-    --project <subject>            the projection of the V2 attestation rows read at <subject>
-    --mode shadow --subject <C>    the corpus and the projection, reported; always exits 0
+                                   from C that last wrote it, with the round's records unchanged
+                                   at C since then (G13); exit 1 on any that does not hold
 
 Every commit argument must be a full-length lowercase hexadecimal object id. A ref name, HEAD or
 an abbreviated id is refused before any repository read: locating a commit is the caller's
@@ -32,8 +31,8 @@ Verdicts: HOLDS; FAILS with reason codes, whose prefix is the family of the sett
 (t1: s3: s4: s7: s8: s9: s10: s12: input:); UNDECIDABLE with one code, for an object the repository
 does not contain or a shallow repository. UNDECIDABLE is never promoted to HOLDS.
 
-It implements the settled specification: the settlements of K1-K4 and G5-G7 that round V3-3 fixed
-and of G8-G12 that round V3-5 fixed. The settled rules are printed at every shadow run.
+It implements the settled specification: the settlements of K1-K4 and G5-G7 that round V3-3 fixed,
+of G8-G12 that round V3-5 fixed, and of G13 that round V3-14 fixed, with G12 as V3-14 restated it.
 
 It verifies repository facts and provenance. Whether a round holds is decided from its final receipt
 commit Q and the commits the receipt names; how a round's commits reach main is outside it (round
@@ -73,39 +72,6 @@ COMMIT_ENV = dict(GIT_ENV, **{
 HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_CORPUS = os.path.join(os.path.dirname(HERE), 'verification', 'infrastructure', 'v3',
                               'conformance')
-ATTESTATION_DIR = 'verification/certificates/attestations/'
-
-SETTLED = (
-    'K1  the preregistration at F carries one `v3-round` block: round <id>, kind '
-    '<sealing|non-sealing>, record-directory <path>/, the one directory holding every '
-    'control-plane path of delta(D, F); the receipt must agree with it',
-    'K2  at F the preregistration carries exactly one `v3-governed-paths` block and exactly one '
-    '`v3-round` block, and no amendment carries either',
-    'K3  for every reconciliation, D lies on the first-parent chain of its first parent; for i>1, '
-    'the previous first parent lies on the first-parent chain of this one',
-    'K4  every receipt commit, superseded or final, is a single-parent child of the reconciliation '
-    'before it, changing exactly the receipt path plus the seal records the final receipt names; '
-    'a superseded receipt is not read',
-    'G5  the execution commits of a halted round are linear from F and change no control-plane '
-    'file; their delta from F need not be authorized',
-    'G6  the governed-path block at F has literal record entries for the record directory and the '
-    'receipt path, no execution entry within the record directory, and no other record entry '
-    'outside it but a sealing round\'s `record A` of its seal record path',
-    'G7  at every commit of the round after F, superseded or final, the control-plane files are '
-    'exactly those at F, each with its state at F',
-    'G8  no ref, branch or host state is a predicate input; a control plane that names one changes '
-    'no predicate',
-    'G9  before F the control plane is a draft: its commits may add, modify or delete '
-    'control-plane files, and only the declarations at F are read',
-    'G10 declaration blocks are recognized by exact lines: an opener is three backticks and the '
-    'info string, a closer three backticks; a near miss of a reserved info string in any '
-    'control-plane file at F makes the control plane invalid',
-    'G11 the reconciliations and receipt commits of the round are exactly the chain Q reaches; an '
-    'abandoned attempt is not an object of the round',
-    'G12 a sealing round has one seal record, verification/v3-seals/<round>.json, declared '
-    '`record A` and named alone by its receipt; no round changes another round\'s receipt or V3 '
-    'seal record, or any path under verification/seals/',
-)
 
 HEX = {'sha1': 40, 'sha256': 64}
 ROUND_ID = re.compile(r'^[A-Z0-9]+(-[A-Z0-9]+)*$')
@@ -388,11 +354,11 @@ def seal_record_path(round_id):
 
 def foreign(own, path):
     """G12: whether `path` is receipt or seal state that is not the round's own, where `own` is
-    the round's (receipt path, seal record path or None)."""
+    the round's (receipt path, seal record path or None). Pre-V3 state is no V3 rule's: the release
+    gate's legacy-records step keeps it immutable."""
     if isinstance(path, bytes):
         path = path.decode('utf-8', 'replace')
     return (path.startswith('verification/receipts/') and path != own[0]) \
-        or path.startswith('verification/seals/') \
         or (path.startswith('verification/v3-seals/') and path != own[1])
 
 
@@ -1012,11 +978,35 @@ RECEIPT_DIR = b'verification/receipts/'
 RECEIPT_PATH = re.compile(rb'verification/receipts/[A-Z0-9]+(-[A-Z0-9]+)*\.json')
 
 
+def records_unchanged(repo, c, q, receipt_path):
+    """G13 codes for one held receipt: the files under the round's record directory at C are
+    exactly those at its receipt commit Q, path for path and blob for blob, and so is the seal
+    record the receipt names."""
+    r = read_receipt_at(repo, q, receipt_path)
+    if r is None:
+        return ['g13:receipt-unreadable']
+    pre = [b['path'] for b in r['control_plane_blobs'] if b['path'].endswith('/preregistration.md')]
+    if len(pre) != 1:
+        return ['g13:record-directory']
+    rdir = pre[0][:-len('preregistration.md')].encode('utf-8')
+    at_q = {p: s for p, s in repo.entries(q).items() if p.startswith(rdir)}
+    at_c = {p: s for p, s in repo.entries(c).items() if p.startswith(rdir)}
+    codes = []
+    if at_c != at_q:
+        codes.append('g13:record-directory-changed')
+    for rec in (r.get('seal') or {}).get('records', []):
+        st = repo.state(c, rec['path'].encode('utf-8'))
+        if st is None or st[1] != rec['blob']:
+            codes.append('g13:seal-record-changed')
+    return codes
+
+
 def receipts(repo, c):
     """(all hold, lines): every receipt in C's tree, each verified from its receipt commit, the
-    commit reachable from C that last wrote it. A path under verification/receipts/ that is not a
-    receipt path fails, and so does a receipt whose receipt commit does not hold. UNDECIDABLE, a
-    shallow repository included, is never promoted to HOLDS."""
+    commit reachable from C that last wrote it, and its round's records unchanged at C since that
+    commit (G13). A path under verification/receipts/ that is not a receipt path fails, and so does
+    a receipt whose receipt commit does not hold. UNDECIDABLE, a shallow repository included, is
+    never promoted to HOLDS."""
     try:
         repo.need(c)
         paths = sorted(p for p in repo.entries(c) if p.startswith(RECEIPT_DIR))
@@ -1036,91 +1026,18 @@ def receipts(repo, c):
             ok = False
             continue
         verdict, codes, _att = verify_round(repo, q)
+        if verdict == 'HOLDS':
+            try:
+                codes = records_unchanged(repo, c, q, p)
+            except Undecidable as u:
+                verdict, codes = 'UNDECIDABLE', [u.code]
+            if codes and verdict == 'HOLDS':
+                verdict = 'FAILS'
         lines.append('RECEIPT  %s  Q %s  %s%s' % (name, q, verdict,
                                                    '  ' + ', '.join(codes) if codes else ''))
         ok = ok and verdict == 'HOLDS'
     lines.append('RECEIPTS  %d receipt(s), %s' % (len(paths), 'all hold' if ok else 'NOT ALL HOLD'))
     return ok, lines
-
-
-# ---------------------------------------------------------------------------------------------
-# the projection: V2 attestation rows, commit-locally
-# ---------------------------------------------------------------------------------------------
-AXES = {'landed': ('X1', 'X2', 'X3', 'X4'), 'base-only': ('X0',)}
-
-
-def _strong(repo, base, head):
-    if not repo.is_ancestor(base, head):
-        return False
-    return all(repo.is_ancestor(base, c) for c in repo.rev_list(head, base))
-
-
-def project(repo, subject):
-    """Lines of the projection report, in a fixed order."""
-    lines = []
-    try:
-        repo.need(subject)
-        out = repo.run(['ls-tree', '-z', '--name-only', subject, ATTESTATION_DIR])
-    except Undecidable as u:
-        return ['PROJECTION  UNDECIDABLE %s' % u.code]
-    names = sorted(n for n in out.split(b'\0') if n.endswith(b'.json'))
-    lines.append('PROJECTION  subject %s  rows %d' % (subject, len(names)))
-    cells = 0
-    for n in names:
-        stem = n.rsplit(b'/', 1)[1][:-5].decode()
-        blob = repo.state(subject, n)
-        try:
-            row = json.loads(repo.blob(blob[1]).decode('utf-8'))
-        except (ValueError, Undecidable):
-            lines.append('ROWFINDING  %s  row-unreadable' % stem)
-            continue
-        kind = row.get('kind') if isinstance(row, dict) else None
-        need = {'landed': ('base', 'sealed_head', 'tree', 'landing'),
-                'base-only': ('base',)}.get(kind)
-        if need is None or any(not isinstance(row.get(k), str) for k in need):
-            lines.append('ROWFINDING  %s  row-kind-or-field' % stem)
-            continue
-        verdicts = {}
-        for axis in AXES[kind]:
-            cells += 1
-            try:
-                verdicts[axis] = _axis(repo, subject, kind, axis, row)
-            except Undecidable as u:
-                verdicts[axis] = 'UNDECIDABLE ' + u.code
-        lines.append('ROW  %-6s %-9s %s' % (stem, kind, '  '.join(
-            '%s=%s' % (a, verdicts[a]) for a in AXES[kind])))
-        if kind == 'landed':
-            lines.append('V3ONLY  %-6s %s' % (stem, _v3only(repo, row)))
-    lines.append('PROJECTION  cells %d' % cells)
-    return lines
-
-
-def _axis(repo, subject, kind, axis, row):
-    if axis == 'X0':
-        b = repo.need(row['base'])
-        return 'HOLDS' if repo.is_ancestor(b, subject) else 'FAILS'
-    base, sealed, landing = (repo.need(row[k]) for k in ('base', 'sealed_head', 'landing'))
-    if axis == 'X1':
-        return 'HOLDS' if repo.tree(sealed) == row['tree'] else 'FAILS'
-    if axis == 'X2':
-        return 'HOLDS' if _strong(repo, base, sealed) else 'FAILS'
-    ps = repo.parents(landing)
-    if axis == 'X3':
-        return 'HOLDS' if len(ps) == 2 and ps[1] == sealed else 'FAILS'
-    return 'HOLDS' if len(ps) >= 2 and ps[1] == sealed else 'FAILS'
-
-
-def _v3only(repo, row):
-    try:
-        base, sealed, landing = (repo.need(row[k]) for k in ('base', 'sealed_head', 'landing'))
-        lin = 'linear' if not check_linear(repo, base, sealed, 'x') else 'not-linear'
-        p1 = repo.parents(landing)[0]
-        fp = 'base-on-first-parent-chain' if base in repo.first_parent_chain(p1) \
-            else 'base-off-first-parent-chain'
-        dg = delta_digest(repo.delta(base, sealed), repo.fmt())
-        return '%s %s delta=%s' % (lin, fp, dg)
-    except (Undecidable, DeltaInvalid) as exc:
-        return 'UNDECIDABLE ' + str(exc)
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1267,6 +1184,11 @@ def run_repo_vector(vec, workdir):
             elif step['check'] == 'delta':
                 r = Repo(workdir)
                 got = ('HOLDS', [delta_digest(r.delta(args[0], args[1]), r.fmt())])
+            elif step['check'] == 'receipts':
+                ok_r, lines = receipts(Repo(workdir), args[0])
+                got = ('HOLDS' if ok_r else 'FAILS',
+                       sorted({c for ln in lines if ln.startswith('RECEIPT  ')
+                               for c in ln.split('  ')[-1].split(', ') if ':' in c}))
             else:
                 return False, 'unknown check'
             if 'as' in step:
@@ -1429,8 +1351,7 @@ def self_test():
 # main
 # ---------------------------------------------------------------------------------------------
 USAGE = ('usage: v3_verifier.py --self-test | --corpus [DIR] | --verify-round <Q> | '
-         '--reachable <C> <Q> | --receipts <C> | --project <subject> | '
-         '--mode shadow --subject <commit>')
+         '--reachable <C> <Q> | --receipts <C>')
 
 
 def main(argv):
@@ -1458,27 +1379,6 @@ def main(argv):
             ok, lines = receipts(Repo(cwd), c)
             print('\n'.join(lines))
             return 0 if ok else 1
-        if argv[:1] == ['--project'] and len(argv) == 2:
-            s = check_oid(argv[1])
-            print('\n'.join(project(Repo(cwd), s)))
-            return 0
-        if argv[:2] == ['--mode', 'shadow'] and len(argv) == 4 and argv[2] == '--subject':
-            try:
-                s = check_oid(argv[3])
-            except Refused as rf:
-                print('v3_verifier shadow report: subject refused (%s)' % rf.code)
-                return 0
-            print('v3_verifier shadow report -- DIAGNOSTIC: this report gates nothing; the V3 '
-                  'verdict is --receipts, run by the release gate')
-            print('settled rules (verification/infrastructure/v3/architecture.md):')
-            for k in SETTLED:
-                print('  ' + k)
-            ok, lines = run_corpus(DEFAULT_CORPUS, cwd)
-            print('\n'.join(lines))
-            print('\n'.join(project(Repo(cwd), s)))
-            print('v3_verifier: shadow report complete (%s)' % (
-                'corpus as expected' if ok else 'SHADOW DEFECT: corpus not as expected'))
-            return 0
     except Refused as rf:
         print('v3_verifier: refused (%s)' % rf.code)
         return 2
