@@ -26,7 +26,7 @@ open scoped InnerProductSpace
       ∃! νε : Equiv.Perm (Fin 6) × (Fin 9 → Bool),
     (∀ r : Fin 9, ∃ s : Fin 9, (νε.1 (v₁ r) = v₁ s ∧ νε.1 (v₂ r) = v₂ s) ∨ (νε.1 (v₁ r) = v₂ s ∧ νε.1 (v₂ r) = v₁ s))
     ∧ (∀ r s : Fin 9, νε.1 (v₁ r) = v₁ s → νε.1 (v₂ r) = v₂ s → ∀ z : ℂ, star z * z = 1 →
-        f (pt r z) = pt s (if νε.2 r then z else star z))
+        f (pt r z) = pt s (if νε.2 r then z else star z) z)
     ∧ (∀ r s : Fin 9, νε.1 (v₁ r) = v₂ s → νε.1 (v₂ r) = v₁ s → ∀ z : ℂ, star z * z = 1 →
         f (pt r z) = pt s (-(if νε.2 r then z else star z))))
   ∧ (∀ (ν : Equiv.Perm (Fin 6)) (ε : Fin 9 → Bool),
