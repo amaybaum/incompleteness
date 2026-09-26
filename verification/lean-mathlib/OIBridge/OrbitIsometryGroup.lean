@@ -7084,8 +7084,7 @@ theorem a33_shared_family_coset :
     have hag := a33_shared_nf_agree Γ₀ hΓ₀ f' _ _ _ hnf' hcomp
     have hword : ∀ x ∈ normalizedSet Γ₀, (((((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else [])).map FG).foldr (· ∘ ·) id) ∘ ((((if q.1 then [(7 : Fin 8)] else []) ++ q.2.1 ++ q.2.2.1 ++ (if q.2.2.2 then [(2 : Fin 8)] else [])).map FG).foldr (· ∘ ·) id)) x = (((((if (c, rw, cw, t).1 then [(7 : Fin 8)] else []) ++ (c, rw, cw, t).2.1 ++ (c, rw, cw, t).2.2.1 ++ (if (c, rw, cw, t).2.2.2 then [(2 : Fin 8)] else [])) ++ ((if q.1 then [(7 : Fin 8)] else []) ++ q.2.1 ++ q.2.2.1 ++ (if q.2.2.2 then [(2 : Fin 8)] else []))).map FG).foldr (· ∘ ·) id) x := by
       intro x hx
-      rw [List.map_append, List.foldr_append]
-      rfl
+      exact (a33_shared_wordf_append FG _ _ x).symm
     exact a33_shared_family_congr Γ₀ f' _ hag (a33_shared_family_congr Γ₀ _ _ hword (a33_shared_word_family Γ₀ hΓ₀ FG FR hFG hFR _))
 #print axioms a33_shared_family_coset
 
