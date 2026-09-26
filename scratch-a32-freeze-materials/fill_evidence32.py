@@ -8,7 +8,8 @@ scripts = ['gen_props32.py', 'gen_elab32.py', 'gen_sep32.py', 'build_retire32.py
 rows = '\n'.join('| `%s` | `%s` |' % (s, hashlib.sha256(open(S + s, 'rb').read()).hexdigest()) for s in scripts)
 rep = {'@@ELAB_BLOB@@': cfg['elab_blob'], '@@RUN_NR@@': cfg['run_nr'], '@@OUT_NR@@': cfg['out_nr'],
        '@@RUN_R@@': cfg['run_r'], '@@OUT_R@@': cfg['out_r'], '@@GUARD_BLOB_RETIRED@@': blob(S + 'guard-retired32.py'),
-       '@@ROAD_NR@@': blob(S + 'road-notrigid.md'), '@@ROAD_R@@': blob(S + 'road-rigid.md'),
+       '@@ROAD_NR@@': blob(S + 'road-notrigid.v1.md'), '@@ROAD_R@@': blob(S + 'road-rigid.v1.md'),
+       '@@ROAD_NR_FROZEN@@': blob(S + 'road-notrigid.md'), '@@ROAD_R_FROZEN@@': blob(S + 'road-rigid.md'),
        '@@SIMS@@': open(S + 'sims.md', encoding='utf-8').read().rstrip('\n'), '@@SCRIPTS@@': rows}
 for k, v in rep.items():
     assert t.count(k) >= 1, k

@@ -8,8 +8,8 @@ STANDING = ("`P0`'s threading part is untouched, no carrier is adopted as the ph
 ADMITS = ("At the product configuration, the ladder's conditions through factorization admit every pair of "
           "local class bijections: each such pair is the class action of the factor families of a single law "
           "carrying all of them, so those conditions do not select among local behaviours.")
-STAND32 = ("`P0`'s threading part is untouched, no isometry of the normalized space is adopted as physical, "
-           "and nothing here names, endorses or excludes a selection principle.")
+STAND32 = ("`P0`'s threading part is untouched, no isometry of the normalized space is adopted as a physical "
+           "symmetry, principle or law, and nothing here names, endorses or excludes a selection principle.")
 CASE = {
     'A32-NOT-RIGID': ("At the single-carrier configuration, the positive classification proposition posed as act "
                       "25's `ISO3` is false: the map that conjugates the Fourier parameter on the Fourier circle "

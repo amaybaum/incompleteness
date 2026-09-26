@@ -91,7 +91,7 @@ SENTENCES = {
  "A32-UNDECIDED": "Neither the classification nor its negation was obtained. The step at which the proof stopped is named, with what would settle it."
 }
 # the clause's body; its heading names the artifact carrying it
-CLAUSE = "Act 32 classifies the cross-time laws a frozen ladder of conditions leaves standing, and adopts\nnone. A law that survives every condition this freeze names is a law that survives **those**\nconditions, at the configuration frozen for it, and it is **not** a finding that it obtains in\nnature, **not** a finding that the programme requires it, and **not** an adoption of it as the\nphysical law of evolution. **Surviving is not standing.** A rigidity verdict is a statement about\nthe frozen ladder and about the frozen quotient list, and a family or wide verdict is not a licence\nto add one more condition, or to widen one more equivalence, until a plurality becomes a point.\n**No law gains physical status by surviving, no carrier and no principle is adopted as the physical\none, and nothing here derives, recognises or approaches quantum evolution.**"
+CLAUSE = "Act 32 classifies the surjective isometries of the frozen normalized single-carrier space relative\nto the frozen four-shape family, and adopts none. A map satisfying the frozen isometry hypotheses\nis a mathematical isometry of that quotient space; it is not thereby a physical symmetry, a\ntransformation law, a dynamics, a time reversal, an antiunitary operation or a principle of nature.\nA `RIGID` verdict classifies that frozen isometry problem, and a `NOT-RIGID` verdict exhibits a\nmathematical isometry outside the frozen family. Neither verdict selects a physical law or closes\n`P0`. No isometry, carrier, family or principle gains physical status by appearing in this\nclassification, and nothing here derives, recognises or approaches quantum evolution."
 MENTION = 'THE CLAUSE, carried at this mention'
 
 # ---- the P0 cell: the clause of acts 25 and 26 that a decided outcome makes stale, act 30's closing
@@ -103,7 +103,7 @@ P0_CASE = {
  "A32-NOT-RIGID": "At the single-carrier configuration, the positive classification proposition posed as act 25's `ISO3` is false: the map that conjugates the Fourier parameter on the Fourier circle and fixes the class of every point of the other eight relabelled Fourier circles preserves realizability, is surjective on classes and preserves the distance, and for no pair of relabellings does it satisfy any of the four shapes of act 25's family.",
  "A32-RIGID": "At the single-carrier configuration, every surjective isometry of the normalized space belongs, on realizable classes, to act 25's finite family."
 }
-P0_STANDING_32 = "`P0`'s threading part is untouched, no isometry of the normalized space is adopted as physical, and nothing here names, endorses or excludes a selection principle."
+P0_STANDING_32 = "`P0`'s threading part is untouched, no isometry of the normalized space is adopted as a physical symmetry, principle or law, and nothing here names, endorses or excludes a selection principle."
 
 # ---- the guard-retirement ledger: each entry an exact splice of the guard at D
 LEDGER = [
