@@ -124,7 +124,8 @@ jobs:
           lake exe cache get
           t1=$(date +%s)
 
-          lake --rehash build
+          set -o pipefail
+          lake --rehash build 2>&1 | tee /tmp/oibridge-build.log
           t2=$(date +%s)
 
           echo "TIMING lake-exe-cache-get $((t1 - t0))s"
@@ -135,6 +136,16 @@ jobs:
             echo "| \`lake exe cache get\` | $((t1 - t0)) |"
             echo "| \`lake --rehash build\` | $((t2 - t1)) |"
           } >> "$GITHUB_STEP_SUMMARY"
+
+      # Disposable-branch diagnostics: the errors and sorry-dependent axiom lines, compactly, at the
+      # end of the job log (the full Lean output is too long to fetch through the API).
+      - name: Compact diagnostics
+        if: always()
+        run: |
+          echo "=== ERRORS ==="; grep -n "^error: " /tmp/oibridge-build.log | cut -c1-240 || true
+          echo "=== SORRY ==="; grep "depends on axioms" /tmp/oibridge-build.log | grep sorryAx | cut -c1-200 || true
+          echo "=== AXIOM LINES ==="; grep -c "depends on axioms" /tmp/oibridge-build.log || true
+          echo "=== NONSTANDARD AXIOMS ==="; grep "depends on axioms" /tmp/oibridge-build.log | grep -v "\[propext, Classical.choice, Quot.sound\]" | cut -c1-200 || true
 
       # The release gate runs HERE, after the build, because this job already has
       # elan, lake and the Mathlib cache, and several gate checks read the built
