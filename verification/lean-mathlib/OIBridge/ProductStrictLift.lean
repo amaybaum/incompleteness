@@ -444,5 +444,35 @@ theorem a30_shared_strictify {V A : Type} [Fintype V] [DecidableEq V] [Fintype A
 #print axioms a30_shared_transport_eq
 #print axioms a30_shared_strictify
 
+/-! ### Section B — `A30-S` -/
+
+theorem a30_s_strictify :
+    ∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →
+      ∀ (Γ : ℕ → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℝ),
+        Γ = (fun _ => Matrix.of fun i j : Fin 4 × Fin 4 => Γ₀ i.1 j.1 * Γ₀ i.2 j.2) →
+      ∀ (Φ₀ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)),
+        (∀ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ, RealizableGram (Fin 1 × Fin 1) (Γ 0) G → RealizableGram (Fin 1 × Fin 1) (Γ 0) (Φ₀ G)) →
+        (∀ G G' : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ, RealizableGram (Fin 1 × Fin 1) (Γ 0) G → RealizableGram (Fin 1 × Fin 1) (Γ 0) G' →
+          GramPhaseEquiv G G' → GramPhaseEquiv (Φ₀ G) (Φ₀ G')) →
+        ∃ (Φ₁ : (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ) → (Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ)) (Ψ : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ → Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ),
+          (∀ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ, RealizableGram (Fin 1 × Fin 1) (Γ 0) G → GramPhaseEquiv (Φ₁ G) (Φ₀ G))
+          ∧ (∀ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ, ¬ RealizableGram (Fin 1 × Fin 1) (Γ 0) G → Φ₁ G = Φ₀ G)
+          ∧ (∀ G : Fin 4 × Fin 4 → Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ, RealizableGram (Fin 1 × Fin 1) (Γ 0) G → RealizableGram (Fin 1 × Fin 1) (Γ 0) (Φ₁ G))
+          ∧ (∀ U : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ, AdmissibleDilationAt (Γ 0) ((0 : Fin 1), (0 : Fin 1)) U →
+              FibreGram ((0 : Fin 1), (0 : Fin 1)) (Ψ U) = Φ₁ (FibreGram ((0 : Fin 1), (0 : Fin 1)) U))
+          ∧ (∀ U : Matrix ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ((Fin 4 × Fin 4) × (Fin 1 × Fin 1)) ℂ, AdmissibleDilationAt (Γ 0) ((0 : Fin 1), (0 : Fin 1)) U →
+              AdmissibleDilationAt (Γ 0) ((0 : Fin 1), (0 : Fin 1)) (Ψ U))
+          ∧ StrictNatural ((0 : Fin 1), (0 : Fin 1)) Ψ := by
+  intro Γ₀ hΓ₀ Γ hΓ Φ₀ hr hd
+  have hΓ0 : ∀ i j, Γ 0 i j ≠ 0 := by
+    intro i j
+    rw [hΓ, hΓ₀]
+    norm_num [Matrix.of_apply]
+  exact a30_shared_strictify ((0 : Fin 1), (0 : Fin 1))
+    (fun y => Prod.ext (Subsingleton.elim _ _) (Subsingleton.elim _ _))
+    ((0 : Fin 4), (0 : Fin 4)) (Γ 0) hΓ0 Φ₀ hr hd
+
+#print axioms a30_s_strictify
+
 end ProductStrictLift
 end OIBridge
