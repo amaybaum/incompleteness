@@ -1,0 +1,60 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A32",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "d61c6c5409db201e3c25abbf3ec0ecce1f530684",
+ "f": "11aabc9f3912833e20e45d8b7980b0f883fc255c",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/preregistration.md",
+   "blob": "bef375ff9ff1570b2566dbc451fb645cc35f35fd"
+  }
+ ],
+ "governed_paths_digest": "8baafff816a923a43e7ed59220567c9702e66aa27cc00ae1f5db0e7d7ddf0849",
+ "e": "77614cd2b0a9f9f6a366957e1d282cb32aa8289c",
+ "tree_e": "1f6aca4be65bd38f38e2fcbfaf687693a7e41ebd",
+ "execution_delta_digest": "aac7af12e9d30893ed9c3ca2f1672d92b41db79fda0fc828aae7b56067a7ad86",
+ "candidates": [],
+ "landing": {
+  "base": "379e92f8f5f7ead462a653ec6fc1f90252d0d0d7",
+  "object": "06dbf44336cbbe23d2107156a399b80607dcc1fc",
+  "reconciliations": [
+   "06dbf44336cbbe23d2107156a399b80607dcc1fc"
+  ],
+  "resolved_paths": [
+   "verification/ROADMAP.md",
+   "verification/lean-manuscript-census.json",
+   "verification/lean-mathlib/OIBridge.lean"
+  ],
+  "delta_digest": "9c9bd2af784b84931c2827c8759a3a29c0fa6cfc071af813967133e6b6da5f48"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "11aabc9f3912833e20e45d8b7980b0f883fc255c",
+   "record": "https://github.com/amaybaum/incompleteness/pull/751#issuecomment-5846759847"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "11aabc9f3912833e20e45d8b7980b0f883fc255c",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36245656078"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "77614cd2b0a9f9f6a366957e1d282cb32aa8289c",
+   "record": "https://github.com/amaybaum/incompleteness/pull/751#issuecomment-5847135246"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "77614cd2b0a9f9f6a366957e1d282cb32aa8289c",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36248667202"
+  }
+ ]
+}
