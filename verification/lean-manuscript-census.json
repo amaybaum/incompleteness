@@ -1180,6 +1180,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Track B act 32, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/track-b/act-32-orbit-isometry-classification/preregistration.md, blob bef375ff9ff1570b2566dbc451fb645cc35f35fd, from D d61c6c5409db201e3c25abbf3ec0ecce1f530684, designated F 11aabc9f3912833e20e45d8b7980b0f883fc255c. Outcome: A32-NOT-RIGID. At the frozen single-carrier configuration, a map that conjugates the Fourier parameter on the Fourier circle and fixes the class of every point of the other eight relabelled Fourier circles preserves realizability, is surjective on classes and preserves act 24's distance on realizable tuples, and for no pair of relabellings satisfies any of act 25's four shapes; the positive classification proposition posed as act 25's ISO3 is false there. The required statements a32_shared_exists, a32_shared_isometry and a32_shared_separation and the five controls a32_control_overlap, a32_control_moves, a32_control_global, a32_control_identity and a32_control_quarter are proved; the corollary a32_c_exclusive excludes the other verdict. The separation reads each of the four shapes at a test class through one coordinate, a power of i over 64, and the four exponent tables over all 576 pairs of relabellings are decided by the kernel. Fifty-six named results, each within propext, Classical.choice and Quot.sound; zero definitions against a budget of zero. Act 25's and act 26's recorded verdicts stand as recorded. P0 stays OPEN; no isometry is adopted as a physical symmetry, principle or law. Non-sealing."
+    },
+    {
+      "name": "Act 33 elaboration (disposable, never landed)",
+      "modules": [
+        "OrbitIsometryGroup"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Disposable elaboration branch for act 33; not an execution commit."
     }
   ]
 }
