@@ -193,7 +193,10 @@ theorem a33_shared_Z_unit :
     ∀ (z : ℂ) (k : ℤ), star z * z = 1 → star ((fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z) z k) * (fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z) z k = 1 := by
   intro z k hz
   simp only []
-  split_ifs <;> simp [hz, star_star, mul_comm]
+  split_ifs
+  · exact hz
+  · simp
+  · rw [star_star, mul_comm]; exact hz
 #print axioms a33_shared_Z_unit
 
 theorem a33_shared_term :
@@ -208,9 +211,11 @@ theorem a33_shared_term :
     have := congrArg Complex.re hZ'
     simp [Complex.star_def, Complex.mul_re] at this
     linarith
-  rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
+  have e : (1 / 64 : ℂ) * (σ : ℂ) * Z - (1 / 64 : ℂ) * (σ' : ℂ) * Z' = ((1 / 64 : ℝ) : ℂ) * ((σ : ℂ) * Z - (σ' : ℂ) * Z') := by
+    push_cast; ring
+  rw [e, norm_mul, Complex.norm_real, mul_pow, ← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
   rcases hσ with rfl | rfl <;> rcases hσ' with rfl | rfl <;>
-    simp [Complex.mul_re, Complex.mul_im] <;> nlinarith [h1, h2]
+    simp [Complex.mul_re, Complex.mul_im, Real.norm_eq_abs] <;> nlinarith [h1, h2]
 #print axioms a33_shared_term
 
 theorem a33_shared_re_bound :
@@ -249,26 +254,31 @@ theorem a33_shared_cross :
     intro p
     rw [a33_shared_coord_Z z hz a b p, a33_shared_coord_Z w hw a' b' p]
     exact a33_shared_term _ _ _ _ (a33_shared_sgz_unit a b p) (a33_shared_sgz_unit a' b' p) (a33_shared_Z_unit z _ hz) (a33_shared_Z_unit w _ hw)
-  simp only [hterm]
-  rw [Finset.sum_sub_distrib, Finset.sum_const, Finset.card_univ]
-  simp only [Fintype.card_prod, Fintype.card_fin, nsmul_eq_mul, ← Finset.mul_sum]
-  congr 1
-  · norm_num
-  congr 1
-  rw [← Finset.sum_fiberwise_of_maps_to (s := Finset.univ) (t := ({(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1, 1)} : Finset (ℤ × ℤ)))
-    (g := fun p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4) => (((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.1)) : ℕ) : ℤ) - ((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.2.2)) : ℕ) : ℤ), ((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.1) (b' p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.2.1) (b' p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.2.2) (b' p.2.1)) : ℕ) : ℤ) - ((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.1) (b' p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.2.1) (b' p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.2.2) (b' p.2.2.2)) : ℕ) : ℤ)))]
-  · refine Finset.sum_congr rfl (fun kl _ => ?_)
-    rw [Finset.sum_mul]
+  rw [Finset.sum_congr rfl (fun p _ => hterm p)]
+  set key : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4) → ℤ × ℤ := fun p => (((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.1)) : ℕ) : ℤ) - ((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.2.2)) : ℕ) : ℤ), ((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.1) (b' p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.2.1) (b' p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.2.2) (b' p.2.1)) : ℕ) : ℤ) - ((((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.1) (b' p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.2.1) (b' p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a' p.1.2.2) (b' p.2.2.2)) : ℕ) : ℤ)) with hkey
+  set sg : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4) → ℤ := fun p => ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.1))) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a' p.1.1) (b' p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a' p.1.1) (b' p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a' p.1.2.1) (b' p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a' p.1.2.1) (b' p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a' p.1.2.2) (b' p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a' p.1.2.2) (b' p.2.1))) with hsg
+  set re : ℤ × ℤ → ℝ := fun kl => (((starRingEnd ℂ) ((fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z) z kl.1) * (fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z) w kl.2).re) with hre
+  have hmaps : ∀ p ∈ (Finset.univ : Finset ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4))), key p ∈ ({(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1, 1)} : Finset (ℤ × ℤ)) := by
+    intro p _
+    rcases a33_shared_exp_range a b p with h | h | h <;> rcases a33_shared_exp_range a' b' p with h' | h' | h' <;>
+      simp [hkey, h, h']
+  have hfib : ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), ((sg p : ℤ) : ℝ) * re (key p) = ∑ kl ∈ ({(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1, 1)} : Finset (ℤ × ℤ)), (((Finset.univ.filter (fun p => key p = kl)).sum sg : ℤ) : ℝ) * re kl := by
+    rw [← Finset.sum_fiberwise_of_maps_to hmaps]
+    refine Finset.sum_congr rfl (fun kl _ => ?_)
     push_cast
+    rw [Finset.sum_mul]
     refine Finset.sum_congr rfl (fun p hp => ?_)
     rw [Finset.mem_filter] at hp
-    obtain ⟨h1, h2⟩ := Prod.ext_iff.1 hp.2
-    simp only at h1 h2
-    rw [h1, h2]
-    ring
-  · intro p _
-    rcases a33_shared_exp_range a b p with h | h | h <;> rcases a33_shared_exp_range a' b' p with h' | h' | h' <;>
-      simp [h, h']
+    rw [hp.2]
+  rw [Finset.sum_sub_distrib, Finset.sum_const, Finset.card_univ, Fintype.card_prod, Fintype.card_prod, Fintype.card_prod,
+    Fintype.card_prod, Fintype.card_prod, Fintype.card_fin, nsmul_eq_mul]
+  have hL : ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), 2 / 4096 * ((sg p : ℤ) : ℝ) * re (key p) = 2 / 4096 * ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), ((sg p : ℤ) : ℝ) * re (key p) := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun p _ => by ring)
+  rw [hL, hfib]
+  norm_num
 #print axioms a33_shared_cross
 
 theorem a33_shared_R1_0 :
