@@ -1101,6 +1101,39 @@ lane and is neither re-opened nor consumed here; and no row of the queue above c
 
 ## Long-range conditional research directions — outside the active queue
 
+
+### The 3×3 / K₃,₃ geometry as a structural invariant
+
+**Conditional structural direction, not a physical identification.** Act 33 is intended to classify
+the isometries of the frozen normalized single-carrier space whose nine relabelled Fourier circles
+meet in six shared points with incidence graph `K₃,₃`. If that classification lands as frozen, the
+geometry should be followed beyond the single-carrier calculation rather than treated as an isolated
+counting fact.
+
+The specific question is whether the derived `3 × 3` organization — two triplets whose pairings are
+the nine circles, with one binary conjugation/orientation degree of freedom on each edge and
+vertex-level parity constraints distinguishing the old four-shape family — is a stable structural
+feature of the programme. The next tests are:
+
+- whether the same `3 × 3` / `K₃,₃` organization survives the product/composition layer used to
+  compare the remaining dynamical freedom;
+- whether it persists, changes functorially, or disappears for more general carriers rather than only
+  the frozen single-carrier/Fourier configuration;
+- whether the edge-variable / vertex-compatibility pattern has a representation-independent
+  formulation, so that it is intrinsic geometry rather than an artifact of the chosen coordinates;
+- only if those tests succeed, whether a richer continuous symmetry sits behind the finite
+  `(S₃ × S₃) ⋊ C₂` incidence symmetry.
+
+No particle assignment, quark interpretation, color `SU(3)`, gauge symmetry, physical symmetry,
+time-reversal interpretation, or physical degree of freedom is asserted by the appearance of nine
+circles or two triplets. Any such interpretation requires a separate theorem connecting the
+mathematical geometry to the physical/operational structure. The research signal being preserved
+here is narrower: a continuous normalized state geometry unexpectedly organizes itself as a
+`3 × 3` bipartite relational system, with binary edge freedom and vertex-level compatibility, and
+the programme should test whether that organization survives the steps required for the OI→QM
+equivalence.
+
+
 ### Gauge/QFT extension and the Yang–Mills mass-gap question
 
 **Conditional future programme, not a current OI→QM claim and not evidence of progress on the
