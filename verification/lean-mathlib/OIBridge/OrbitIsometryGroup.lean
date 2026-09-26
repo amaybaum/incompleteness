@@ -99,8 +99,7 @@ theorem a33_shared_coord1_0 :
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) ((0, 0, 1), (1, 0, 0)) = (1 : ℂ) * z / 64 := by
   intro z
   rw [a33_shared_coord]
-  norm_num [Equiv.swap_apply_def]
-  ring
+  simp [Equiv.swap_apply_def, Fin.ext_iff] <;> ring
 #print axioms a33_shared_coord1_0
 
 theorem a33_shared_coord1_1 :
@@ -108,8 +107,7 @@ theorem a33_shared_coord1_1 :
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) ((0, 0, 1), (1, 0, 0)) = (1 : ℂ) * z / 64 := by
   intro z
   rw [a33_shared_coord]
-  norm_num [Equiv.swap_apply_def]
-  ring
+  simp [Equiv.swap_apply_def, Fin.ext_iff] <;> ring
 #print axioms a33_shared_coord1_1
 
 theorem a33_shared_coord1_2 :
@@ -117,8 +115,7 @@ theorem a33_shared_coord1_2 :
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((1 : Equiv.Perm (Fin 4)) i)).submatrix (Equiv.swap (1 : Fin 4) 2) (Equiv.swap (1 : Fin 4) 2)) ((0, 0, 1), (2, 0, 0)) = (1 : ℂ) * z / 64 := by
   intro z
   rw [a33_shared_coord]
-  norm_num [Equiv.swap_apply_def]
-  ring
+  simp [Equiv.swap_apply_def, Fin.ext_iff] <;> ring
 #print axioms a33_shared_coord1_2
 
 theorem a33_shared_coord1_3 :
@@ -126,8 +123,7 @@ theorem a33_shared_coord1_3 :
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) ((0, 0, 1), (1, 0, 0)) = (1 : ℂ) * z / 64 := by
   intro z
   rw [a33_shared_coord]
-  norm_num [Equiv.swap_apply_def]
-  ring
+  simp [Equiv.swap_apply_def, Fin.ext_iff] <;> ring
 #print axioms a33_shared_coord1_3
 
 theorem a33_shared_coord1_4 :
@@ -135,8 +131,7 @@ theorem a33_shared_coord1_4 :
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) ((0, 0, 1), (1, 0, 0)) = (1 : ℂ) * z / 64 := by
   intro z
   rw [a33_shared_coord]
-  norm_num [Equiv.swap_apply_def]
-  ring
+  simp [Equiv.swap_apply_def, Fin.ext_iff] <;> ring
 #print axioms a33_shared_coord1_4
 
 theorem a33_shared_coord1_5 :
@@ -144,8 +139,7 @@ theorem a33_shared_coord1_5 :
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (2 : Fin 4) 3) i)).submatrix (Equiv.swap (1 : Fin 4) 2) (Equiv.swap (1 : Fin 4) 2)) ((0, 0, 1), (2, 0, 0)) = (1 : ℂ) * z / 64 := by
   intro z
   rw [a33_shared_coord]
-  norm_num [Equiv.swap_apply_def]
-  ring
+  simp [Equiv.swap_apply_def, Fin.ext_iff] <;> ring
 #print axioms a33_shared_coord1_5
 
 theorem a33_shared_coord1_6 :
@@ -153,8 +147,7 @@ theorem a33_shared_coord1_6 :
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (1 : Fin 4) 2) i)).submatrix (1 : Equiv.Perm (Fin 4)) (1 : Equiv.Perm (Fin 4))) ((0, 0, 2), (1, 0, 0)) = (1 : ℂ) * z / 64 := by
   intro z
   rw [a33_shared_coord]
-  norm_num [Equiv.swap_apply_def]
-  ring
+  simp [Equiv.swap_apply_def, Fin.ext_iff] <;> ring
 #print axioms a33_shared_coord1_6
 
 theorem a33_shared_coord1_7 :
@@ -162,8 +155,7 @@ theorem a33_shared_coord1_7 :
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (1 : Fin 4) 2) i)).submatrix (Equiv.swap (2 : Fin 4) 3) (Equiv.swap (2 : Fin 4) 3)) ((0, 0, 2), (1, 0, 0)) = (1 : ℂ) * z / 64 := by
   intro z
   rw [a33_shared_coord]
-  norm_num [Equiv.swap_apply_def]
-  ring
+  simp [Equiv.swap_apply_def, Fin.ext_iff] <;> ring
 #print axioms a33_shared_coord1_7
 
 theorem a33_shared_coord1_8 :
@@ -171,8 +163,7 @@ theorem a33_shared_coord1_8 :
         (1 / 2 : ℂ) * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)) ((Equiv.swap (1 : Fin 4) 2) i)).submatrix (Equiv.swap (1 : Fin 4) 2) (Equiv.swap (1 : Fin 4) 2)) ((0, 0, 2), (2, 0, 0)) = (1 : ℂ) * z / 64 := by
   intro z
   rw [a33_shared_coord]
-  norm_num [Equiv.swap_apply_def]
-  ring
+  simp [Equiv.swap_apply_def, Fin.ext_iff] <;> ring
 #print axioms a33_shared_coord1_8
 
 theorem a33_shared_pt_inj :
@@ -192,8 +183,8 @@ theorem a33_shared_pt_inj :
 theorem a33_shared_dist_sq :
     ∀ G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, dist (featureVec G) (featureVec H) ^ 2 = ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), ‖mixedTriple G p - mixedTriple H p‖ ^ 2 := by
   intro G H
-  rw [← dist_featureVec _ rfl G H]
-  rw [Real.sq_sqrt (Finset.sum_nonneg (fun p _ => by positivity))]
+  rw [← dist_featureVec (fun G H => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) rfl G H]
+  exact Real.sq_sqrt (Finset.sum_nonneg (fun p _ => by positivity))
 #print axioms a33_shared_dist_sq
 
 theorem a33_shared_unit_pow :
@@ -246,16 +237,18 @@ theorem a33_shared_coord_form :
   set m := ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.2.2)) with hm
   set n := ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.1)) with hn
   refine ⟨fun h => ?_, fun h => ?_, fun h => ?_⟩
-  · have : n = m + 1 := by omega
-    rw [this, pow_succ, ← mul_assoc, mul_assoc _ (star z ^ m), a33_shared_unit_pow z hz m]
-    ring
-  · have : n = m := by omega
-    rw [this, mul_assoc, a33_shared_unit_pow z hz m]
-    ring
-  · have : m = n + 1 := by omega
-    rw [this, pow_succ, mul_assoc, mul_assoc, mul_comm (z ^ n), ← mul_assoc (star z), mul_comm (star z) (star z ^ n),
-      mul_assoc (star z ^ n), a33_shared_unit_pow z hz n]
-    ring
+  · have hnm : n = m + 1 := by omega
+    rw [hnm]
+    linear_combination ((1 / 64 : ℂ) * ((((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.1))) : ℤ) : ℂ) * z) * a33_shared_unit_pow z hz m
+  · have hnm : n = m := by omega
+    rw [hnm]
+    linear_combination ((1 / 64 : ℂ) * ((((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.1))) : ℤ) : ℂ)) * a33_shared_unit_pow z hz m
+  · have hnm : m = n + 1 := by omega
+    rw [hnm]
+    linear_combination ((1 / 64 : ℂ) * ((((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.1) (b p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.1) (b p.2.2.2))
+      * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) (a p.1.2.2) (b p.2.1))) : ℤ) : ℂ) * star z) * a33_shared_unit_pow z hz n
 #print axioms a33_shared_coord_form
 
 theorem a33_shared_inc_0_p_4_p :
@@ -265,16 +258,14 @@ theorem a33_shared_inc_0_p_4_p :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) ^ (0) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) ^ (0) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_0_p_4_p
 
@@ -285,16 +276,14 @@ theorem a33_shared_inc_0_p_8_p :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) ^ (0) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) ^ (0) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_0_p_8_p
 
@@ -305,16 +294,14 @@ theorem a33_shared_inc_0_m_5_m :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) ^ (1) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) ^ (1) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_0_m_5_m
 
@@ -325,16 +312,14 @@ theorem a33_shared_inc_0_m_7_m :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) ^ (1) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) ^ (1) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_0_m_7_m
 
@@ -345,16 +330,14 @@ theorem a33_shared_inc_1_p_3_p :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) ^ (0) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) ^ (0) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_1_p_3_p
 
@@ -365,16 +348,14 @@ theorem a33_shared_inc_1_p_8_m :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) ^ (0) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) ^ (1) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_1_p_8_m
 
@@ -385,16 +366,14 @@ theorem a33_shared_inc_1_m_5_p :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) ^ (1) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) ^ (0) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_1_m_5_p
 
@@ -405,16 +384,14 @@ theorem a33_shared_inc_1_m_6_m :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) ^ (1) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) ^ (1) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_1_m_6_m
 
@@ -425,16 +402,14 @@ theorem a33_shared_inc_2_p_4_m :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) ^ (0) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) ^ (1) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_2_p_4_m
 
@@ -445,16 +420,14 @@ theorem a33_shared_inc_2_p_6_p :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) ^ (0) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) ^ (0) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_2_p_6_p
 
@@ -465,16 +438,14 @@ theorem a33_shared_inc_2_m_3_m :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) ^ (1) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.1) ((1 : Equiv.Perm (Fin 4)) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (2 : Fin 4) 3) p.1.2.2) ((1 : Equiv.Perm (Fin 4)) p.2.1))) ^ (1) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_2_m_3_m
 
@@ -485,16 +456,14 @@ theorem a33_shared_inc_2_m_7_p :
   rw [a33_shared_feature_ext]
   intro p
   rw [a33_shared_coord_int, a33_shared_coord_int]
-  have key : ∀ q : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
+  have key : ∀ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.1) ((Equiv.swap (1 : Fin 4) 2) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((1 : Equiv.Perm (Fin 4)) p.1.2.2) ((Equiv.swap (1 : Fin 4) 2) p.2.1))) ^ (1) =
       (((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2))
       * ((fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) * (fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) : ℤ) * (-1) ^ (((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2)) + ((fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.1) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.1) ((Equiv.swap (2 : Fin 4) 3) p.2.2.2) + (fun x y : Fin 4 => if x.val % 2 = 1 ∧ y.val % 2 = 1 then 1 else 0) ((Equiv.swap (1 : Fin 4) 2) p.1.2.2) ((Equiv.swap (2 : Fin 4) 3) p.2.1))) ^ (0) := by
     decide +kernel
   have hk := key p
-  push_cast at hk
-  simp only [star_one, star_neg, one_pow, ← pow_add] at *
-  rw [show ((-1 : ℂ)) = ((-1 : ℤ) : ℂ) from rfl] at *
-  push_cast
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
   linear_combination (1 / 64 : ℂ) * hk
 #print axioms a33_shared_inc_2_m_7_p
 
