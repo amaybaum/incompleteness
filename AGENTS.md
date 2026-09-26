@@ -801,23 +801,24 @@ neither stands in for the other:
   population is a native round, and a commit that changes a record and the manifest together
   fails.
 
-**Destructive transformations.** A round whose execution mechanically removes or rewrites existing
-content states in its freeze which of authority, reachability and physical presence it retires,
-and freezes three things before `F`, beside the transformation itself:
+**Destructive transformations.** A mechanically destructive round states separately whether it
+retires authority, reachability and physical presence. Every physical edit is frozen explicitly;
+no deletion is authorized solely because an algorithm inferred the deleted code to be dead.
+Preservation is checked independently, mutation-tested in both directions, and the exact generated
+executable tree is exercised in CI before freeze. Beside the transformation, the freeze therefore
+carries:
 
 - **the edit ledger** — every change as a splice of the base: its span, the hash of the old text,
   the new text and its hash, and the reason for it. The ledger is the authorization; nothing
-  outside it may change. An algorithm may propose deletions, dead code among them, but nothing is
-  deleted because an algorithm inferred it unreachable: each deletion is its own entry in the
-  frozen ledger;
+  outside it may change. An algorithm that finds dead code is a discovery mechanism: a deletion it
+  proposes exists only as its own entry in the frozen ledger;
 - **a preservation checker independent of the transformation** — it imports nothing from it,
   rebuilds the expected output from the base and the ledger alone and compares bytes, and checks
   what is retained structurally: retained functions untouched, control flow removed only with its
-  governing block, nothing removed from a surviving block but what the round retires, no
-  in-place change removed from an object, or an alias of one, that surviving code reads, and no
-  binding removed that surviving code still resolves to. It is
-  mutation-tested in both directions: deleting or rewriting retained code must fail it, and so must
-  restoring retired code;
+  governing block, nothing removed from a surviving block but what the round retires, no in-place
+  change removed from an object, or an alias of one, that surviving code reads, and no binding
+  removed that surviving code still resolves to. Deleting or rewriting retained code must fail it,
+  and so must restoring retired code;
 - **the execution evidence** — the workflow run, on a disposable branch, on exactly the predicted
   execution tree less the result note, and in every event mode used to certify `E`. The runs are
   design evidence recorded in the preregistration, not `check-run` attestations.
