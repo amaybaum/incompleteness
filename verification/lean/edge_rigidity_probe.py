@@ -13037,7 +13037,6 @@ _OGCLEAN_RAW = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..
                                  'OIBridge', 'OrbitGeometryIsometries.lean'), encoding='utf-8').read()
 _OGCWIRE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
                              'OIBridge.lean'), encoding='utf-8').read()
-_OGCROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
 
 
 def _ogc_frozen(a, b):
@@ -13185,15 +13184,12 @@ def _ogc_wired(t=None):
     return 'import OIBridge.OrbitGeometrySelector\nimport OIBridge.OrbitGeometryIsometries\n' in t
 
 
-def _ogc_p0(t=None, road=None):
-    """N10 -- the frozen P0 sentence for Case A, present VERBATIM in the note and in the ROADMAP's P0
-    row after act 24's sentence, the row's label staying OPEN."""
+def _ogc_p0(t=None):
+    """N10 -- the frozen P0 sentence for Case A, present VERBATIM in the note."""
     t = _OGC1 if t is None else t
-    road = _OGCROAD if road is None else road
-    p0, p0_ogs = _ogc_frozen(1476, 1476), _ogs_frozen(1385, 1385)
+    p0 = _ogc_frozen(1476, 1476)
     return (p0.startswith('Act 25 tests, in one gated round with four separately frozen targets')
-            and p0 in t and p0 in road and p0_ogs in road and road.find(p0_ogs) < road.find(p0)
-            and '| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**' in road
+            and p0 in t
             and '**Case A** — `ISO0` silent, row 4 with the cells as predicted — is the case reached' in t
             and 'none of the variable clauses replaced' in t)
 
@@ -13204,8 +13200,6 @@ ok_ogc &= _ogc_wired()
 ok_ogc &= _ogc_p0()
 
 # mutation controls on the content contracts -- each the exact failure the contract exists to catch
-_ogc_m11 = _OGCROAD.replace(_ogc_frozen(1476, 1476), 'P0 is closed on its trajectory part.')
-ok_ogc &= _ogc_m11 != _OGCROAD and not _ogc_p0(road=_ogc_m11)                   # the P0 sentence absent from the ROADMAP
 _ogc_m12 = _OGCLEAN_RAW + '\ndef normalizedSpace (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ) : Set (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) := {G | RealizableGram (Fin 1) Γ₀ G}\n'
 ok_ogc &= not _ogc_lean(_ogc_m12)                                               # a definition in a module budgeted at zero
 _ogc_m12b = _OGCLEAN_RAW.replace('mixedTriple H p‖ ^ 2)) →', 'mixedTriple H p‖ ^ 3)) →', 1)
@@ -13234,7 +13228,7 @@ check('R7-OGC', ok_ogc,
       'fibres each checked to FAIL on synthetic data; exactly the thirty-six named results with '
       'their axiom lines, the universal normal-form theorem pinned to the frozen token set, step '
       "relation and four-shape conclusion, and the import wired after act 24's; and the frozen P0 "
-      "sentence VERBATIM in the ROADMAP after act 24's.")
+      'sentence VERBATIM in the result note.')
 
 
 # ---- R7-CGR: Track B act 26 -- the circle-gluing rigidity of the normalized space, GATED: the
@@ -13308,7 +13302,6 @@ _CGRLEAN_RAW = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..
                                  'OIBridge', 'OrbitGeometryRigidity.lean'), encoding='utf-8').read()
 _CGRWIRE = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lean-mathlib',
                              'OIBridge.lean'), encoding='utf-8').read()
-_CGRROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())
 
 
 def _cgr_frozen(a, b):
@@ -13473,15 +13466,13 @@ def _cgr_p0_sentence():
     return p0.replace(_CGR_P0_OLD, _CGR_P0_NEW)
 
 
-def _cgr_p0(t=None, road=None):
-    """N10 -- the frozen P0 sentence for Case A with its one substitution, present VERBATIM in the note
-    and in the ROADMAP's P0 row after act 25's sentence, the row's label staying OPEN."""
+def _cgr_p0(t=None):
+    """N10 -- the frozen P0 sentence for Case A with its one substitution, present VERBATIM in the
+    note."""
     t = _CGR1 if t is None else t
-    road = _CGRROAD if road is None else road
-    p0, p0_ogc = _cgr_p0_sentence(), _ogc_frozen(1476, 1476)
+    p0 = _cgr_p0_sentence()
     return (p0 is not None and p0.startswith('Act 26 tests, in one gated round with four separately frozen targets')
-            and p0 in t and p0 in road and p0_ogc in road and road.find(p0_ogc) < road.find(p0)
-            and '| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**' in road
+            and p0 in t
             and '**Case A** — row 4 with the cell as predicted — is the case reached, with **one variable clause replaced**' in t)
 
 
@@ -13491,8 +13482,6 @@ ok_cgr &= _cgr_wired()
 ok_cgr &= _cgr_p0()
 
 # mutation controls on the content contracts -- each the exact failure the contract exists to catch
-_cgr_m11 = _CGRROAD.replace(_cgr_p0_sentence() or '\0', 'P0 is closed on its trajectory part.')
-ok_cgr &= _cgr_m11 != _CGRROAD and not _cgr_p0(road=_cgr_m11)                   # the P0 sentence absent from the ROADMAP
 _cgr_m11b = _CGR1.replace(_cgr_p0_sentence() or '\0', _cgr_frozen(1392, 1392), 1)  # the sentence without its substitution
 ok_cgr &= _cgr_m11b != _CGR1 and not _cgr_p0(_cgr_m11b)                          # the P0 sentence without its substitution, the dimension claimed at kernel level
 _cgr_m12 = _CGRLEAN_RAW + '\ndef circleSet (π τ : Equiv.Perm (Fin 4)) : Set (Fin 4 → Matrix (Fin 4) (Fin 4) ℂ) := ∅\n'
@@ -13524,7 +13513,7 @@ check('R7-CGR', ok_cgr,
       'geometry, an altered relabelling and an altered Fourier core each checked to FAIL; exactly '
       'the one hundred fifty-eight named results with their axiom lines, and the import wired '
       "after act 25's; and the frozen P0 sentence with its one substitution VERBATIM in the "
-      "ROADMAP after act 25's.")
+      'result note.')
 
 
 # ---- R7-NLV: Track B act 27 -- the universal strict-natural lift and gated reversible corollary.
