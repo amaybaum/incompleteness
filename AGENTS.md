@@ -492,10 +492,12 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   corrected by append-only amendment. Hence the `D` / `B` / `M` vocabulary §A.37 records; a
   native round has no mandated base, its execution anchored at the designated commit `F`.
 - A retirement round's transformation reproduced its frozen output byte for byte and passed every
-  local check, while deleting seven statements of the code it retained — six of them control flow,
-  one a flag set late in a loop and read by the loop's condition; only the run of the output in CI
-  exposed it. Reproducing a frozen blob shows the plan was executed faithfully, not that the plan
-  was valid. Hence §A.39's rule for destructive transformations and §A.41.
+  local check, while deleting ten statements of the code it retained: six of them control flow,
+  one a flag set late in a loop and read by the loop's condition, and three loops that changed a
+  copied registry through their loop variable. Only running the output in CI exposed them, the last
+  three in the successor round's run before its freeze. Reproducing a frozen blob shows the plan
+  was executed faithfully, not that the plan was valid. Hence §A.39's rule for destructive
+  transformations and §A.41.
 
 ---
 
@@ -808,7 +810,8 @@ content freezes three things before `F`, beside the transformation itself:
 - **a preservation checker independent of the transformation** — it imports nothing from it,
   rebuilds the expected output from the base and the ledger alone and compares bytes, and checks
   what is retained structurally: retained functions untouched, control flow removed only with its
-  governing block, nothing removed from a surviving block but what the round retires. It is
+  governing block, nothing removed from a surviving block but what the round retires, and no
+  in-place change removed from an object, or an alias of one, that surviving code reads. It is
   mutation-tested in both directions: deleting or rewriting retained code must fail it, and so must
   restoring retired code;
 - **the execution evidence** — the workflow run, on a disposable branch, on exactly the predicted
