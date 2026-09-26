@@ -7068,7 +7068,8 @@ theorem a33_shared_family_coset :
       funext r
       have h2r := congrFun h2 r
       simp only at h2r
-      obtain rfl := a33_shared_edge_unique 1 r r _ (Or.inl ⟨rfl, rfl⟩) (hk1 ▸ hkcond r)
+      have hσ := a33_shared_edge_unique 1 r r _ (Or.inl ⟨rfl, rfl⟩) (hk1 ▸ hkcond r)
+      rw [← hσ] at h2r
       rw [h2r]
       exact (a33_shared_bool_swap2 (ε r) _).symm
     rw [hk1, hkε] at hknf
