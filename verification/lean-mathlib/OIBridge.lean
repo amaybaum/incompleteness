@@ -213,8 +213,8 @@ import OIBridge.OrbitLawGaps
 import OIBridge.OrbitGeometrySelector
 import OIBridge.OrbitGeometryIsometries
 import OIBridge.OrbitGeometryRigidity
-import OIBridge.OrbitIsometryClassification
 import OIBridge.StrictNaturalLift
+import OIBridge.OrbitIsometryClassification
 import OIBridge.ProductLocusFreedom
 import OIBridge.ProductAdmission
 import OIBridge.ProductStrictLift
