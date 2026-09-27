@@ -1,0 +1,60 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A35",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "100bb1e86931fa769a200e9b117f4f9fb0a745b9",
+ "f": "a58d39ae569e6117ae0095aad464c2a3a7f625eb",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-35-dita-hull/amendments/amendment-1.md",
+   "blob": "f0ced0ab64a85c4636ad29be6b47a6e7dd408e53"
+  },
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-35-dita-hull/preregistration.md",
+   "blob": "ca6c531bd28c0485f25a433ac3c344ae9cb973db"
+  }
+ ],
+ "governed_paths_digest": "7d90eb0fee6c2f7985a722b96af2fea3076f5af26fc3ab17af89d25260694eb4",
+ "e": "6d2dd52ef29e0b791727ebd3aa6f6e9c9a8f1774",
+ "tree_e": "5a639cbdfa09715326bc6e768772a3fb00dd3510",
+ "execution_delta_digest": "f36701f300b72684fc421fe3e3452c5e9dd26be9db69c3719ad51563c6ddeded",
+ "candidates": [],
+ "landing": {
+  "base": "100bb1e86931fa769a200e9b117f4f9fb0a745b9",
+  "object": "2434cfb86b3801d5a42808062ad5b993861c6fd7",
+  "reconciliations": [
+   "2434cfb86b3801d5a42808062ad5b993861c6fd7"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "2919a46ad5dd081852e20daeca4863a6e04cf2eefa5b35039990f5f473988d5e"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "a58d39ae569e6117ae0095aad464c2a3a7f625eb",
+   "record": "https://github.com/amaybaum/incompleteness/pull/755#issuecomment-5855240090"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "a58d39ae569e6117ae0095aad464c2a3a7f625eb",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36313785069"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "6d2dd52ef29e0b791727ebd3aa6f6e9c9a8f1774",
+   "record": "https://github.com/amaybaum/incompleteness/pull/755#issuecomment-5855315891"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "6d2dd52ef29e0b791727ebd3aa6f6e9c9a8f1774",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36314474613"
+  }
+ ]
+}
