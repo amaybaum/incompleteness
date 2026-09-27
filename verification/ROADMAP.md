@@ -1104,34 +1104,45 @@ lane and is neither re-opened nor consumed here; and no row of the queue above c
 
 ### The 3×3 / K₃,₃ geometry as a structural invariant
 
-**Conditional structural direction, not a physical identification.** Act 33 is intended to classify
-the isometries of the frozen normalized single-carrier space whose nine relabelled Fourier circles
-meet in six shared points with incidence graph `K₃,₃`. If that classification lands as frozen, the
-geometry should be followed beyond the single-carrier calculation rather than treated as an isolated
-counting fact.
+**Conditional structural direction, not a physical identification.** Act 33 classified the
+surjective isometries of the frozen normalized single-carrier space, whose nine relabelled Fourier
+circles meet in six shared points with incidence graph `K₃,₃`: every such map permutes the nine
+circles by an automorphism of `K₃,₃` and conjugates the parameter on an arbitrary subset of the
+circles, 36864 in all, and act 25's four-shape family is a subgroup of index 16, meeting the kernel
+of the incidence action in the conjugation patterns whose degree parities at the six shared points
+are uniform (`a33_classified`; receipt `verification/receipts/A33.json`). The geometry is followed
+beyond the single-carrier calculation rather than treated as an isolated counting fact.
 
-The specific question is whether the derived `3 × 3` organization — two triplets whose pairings are
-the nine circles, with one binary conjugation/orientation degree of freedom on each edge and
+The specific question is whether the `3 × 3` organization the classification exposed — two triplets
+whose pairings are the nine circles, one binary conjugation degree of freedom on each edge, and
 vertex-level parity constraints distinguishing the old four-shape family — is a stable structural
-feature of the programme. The next tests are:
+feature of the programme. The tests, in order:
 
 - whether the same `3 × 3` / `K₃,₃` organization survives the product/composition layer used to
-  compare the remaining dynamical freedom;
+  compare the remaining dynamical freedom: a natural analogue of the nine circles, transport of the
+  six shared points and their incidence, an edge-variable reading of the nine conjugation bits with
+  vertex compatibility, and a natural embedding or factorization of act 33's group action rather
+  than its breaking apart;
 - whether it persists, changes functorially, or disappears for more general carriers rather than only
   the frozen single-carrier/Fourier configuration;
-- whether the edge-variable / vertex-compatibility pattern has a representation-independent
-  formulation, so that it is intrinsic geometry rather than an artifact of the chosen coordinates;
+- whether the edge-variable / vertex-compatibility pattern has a coordinate-free formulation, so
+  that it is an intrinsic invariant of the OI quotient rather than an artifact of the Fourier
+  coordinates;
 - only if those tests succeed, whether a richer continuous symmetry sits behind the finite
   `(S₃ × S₃) ⋊ C₂` incidence symmetry.
+
+The direction is subordinate to `P0`. Act 33 classified the isometries of the normalized space and
+connected that group neither to the dynamics nor to the selection of a quantum history; each test
+above is posed as a question about whether the geometry constrains the dynamical-selection problem,
+not as classification for its own sake.
 
 No particle assignment, quark interpretation, color `SU(3)`, gauge symmetry, physical symmetry,
 time-reversal interpretation, or physical degree of freedom is asserted by the appearance of nine
 circles or two triplets. Any such interpretation requires a separate theorem connecting the
-mathematical geometry to the physical/operational structure. The research signal being preserved
-here is narrower: a continuous normalized state geometry unexpectedly organizes itself as a
-`3 × 3` bipartite relational system, with binary edge freedom and vertex-level compatibility, and
-the programme should test whether that organization survives the steps required for the OI→QM
-equivalence.
+mathematical geometry to the physical/operational structure. The research signal preserved here is
+narrower: a continuous normalized state geometry organizes itself as a `3 × 3` bipartite relational
+system, with binary edge freedom and vertex-level compatibility, and the programme tests whether
+that organization survives the steps required for the OI→QM equivalence.
 
 
 ### Gauge/QFT extension and the Yang–Mills mass-gap question
