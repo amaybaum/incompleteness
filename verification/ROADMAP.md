@@ -1145,6 +1145,45 @@ system, with binary edge freedom and vertex-level compatibility, and the program
 that organization survives the steps required for the OI→QM equivalence.
 
 
+### The residual deformation space at the product stratum
+
+**Future deformation and obstruction analysis, not an A35 result.** Act 35 (`A35-DITA-STRATIFIED`;
+receipt `verification/receipts/A35.json`) placed act 34's product-embedded stratum inside two
+explicit families of realizable classes, the column and row Diţă hulls at the fixed pairing, and
+measured, by exact arithmetic at the certified rational stratum point, the defect — the dimension
+of the solution space of the linearized unitarity constraints modulo phases, an upper bound on the
+dimension of any family of realizable classes through the point — as 49, against a tangent span of
+rank 26 for the two fixed-pairing hulls. A residual quotient of dimension 23 is left at first order.
+Whether every realizable class near the stratum lies in some relabelled Diţă hull is recorded open;
+no relabelled orientation has been analysed, and nothing is asserted about which of the 23
+directions integrate.
+
+Before any global classification is attempted, the next measurement is of this residual space:
+compute the second-order obstruction map on the residual quotient at the certified point and
+decompose it under the stabilizer of the point in the extendable group of product relabellings,
+factor exchange, conjugation and transpose (order 8192 at `F₄ ⊗ F₄`, by act 35's probe). Determine
+which residual directions are obstructed at second order, which extend to higher order, which
+couple to one another, and whether any integrate into deformation families the two fixed-pairing
+Diţă hulls do not capture, including the hulls at other pairings and relabellings.
+
+In coordinates `a_i` on the residual space, the quadratic interaction tensor of the obstruction map,
+
+`O_i(a) = Σ_{j,k} C_{ijk} a_j a_k + …`,
+
+is to be inspected for non-generic structure: selection rules, symmetry sectors under the
+stabilizer, triadic interactions, conservation-like identities, convolution patterns, Lie-algebra
+structure, or another organizing principle. A structural analogy is available with nonlinear mode
+coupling in equations such as Navier–Stokes, where linear modes interact through quadratic terms;
+no connection to Navier–Stokes is asserted, and the analogy carries mathematical content only if
+the residual obstruction tensor exhibits a corresponding structured coupling law.
+
+The direction is subordinate to `P0` and to the open modulus act 35 recorded. The immediate step
+is a pre-freeze measurement of the residual deformation and obstruction structure, run before any
+new classification theorem is frozen: if residual directions integrate, the next round freezes an
+exact deformation-family statement; if they are obstructed, an obstruction statement; if a
+structured quadratic coupling law appears, that law is the candidate object of the round after.
+
+
 ### Gauge/QFT extension and the Yang–Mills mass-gap question
 
 **Conditional future programme, not a current OI→QM claim and not evidence of progress on the
