@@ -496,7 +496,15 @@ Rr_, piv_ = rref(basis, 256); PIV = piv_[:80]
 Msub = [[Fr(basis[j][p]) for j in range(80)] for p in PIV]
 aug = [Msub[i] + [Fr(1) if k == i else Fr(0) for k in range(80)] for i in range(80)]
 Ri, pv_ = rref(aug, 160); INV = [r[80:] for r in Ri]
-def coords(v): return [sum(INV[j][i] * v[PIV[i]] for i in range(80)) for j in range(80)]
+INV_DEN = 1
+for row in INV:
+    for x in row: INV_DEN = INV_DEN * x.denominator // gcd(INV_DEN, x.denominator)
+INV_INT = [[int(x * INV_DEN) for x in row] for row in INV]
+def coords(v):
+    """the coordinates of v in the adapted basis, exact: the inverse scaled to the integer matrix INV_INT by its common
+    denominator INV_DEN, the projection taken in Python integers, and the division back done once per coordinate"""
+    w = [v[p] for p in PIV]
+    return [Fr(sum(a * b for a, b in zip(row, w)), INV_DEN) for row in INV_INT]
 _v = apply(elems[1], basis[40]); _x = coords(_v)
 check('exact coordinate solver reconstructs a transported basis vector (control)', all(sum(_x[j] * basis[j][m_] for j in range(80)) == _v[m_] for m_ in range(256)), True)
 tinv = all(all(coords(apply(cl[0], v))[k] == 0 for k in range(57, 80)) for cl in classes for v in Tb)
