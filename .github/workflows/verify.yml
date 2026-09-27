@@ -216,10 +216,12 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install dependencies
+        run: pip install numpy scipy
+
       # papers/oi_lattice_code/ has sat outside this gate; these are the first of its probes
       # brought in. Named individually rather than by directory glob: several of the others
-      # (intervention_probes at K=2 builds 124k states) are far too slow for CI. All twelve of these
-      # use the standard library alone.
+      # (intervention_probes at K=2 builds 124k states) are far too slow for CI.
       - name: Foundations probes
         working-directory: papers/oi_lattice_code/foundations
         run: |
