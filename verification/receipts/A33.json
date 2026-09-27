@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A33",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "db82376dfc0e2ae561ec541fd0d3a915f082beda",
+ "f": "d5126a3d61f78ab38e3cca0ee7f744ce645d7196",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md",
+   "blob": "c36574d20c6d0b6397b0f25bf7479b95ff6fbae1"
+  }
+ ],
+ "governed_paths_digest": "2d18e68a916e59e34ee704bf29000ec38783688a33a804e0d44b4bfc889a385f",
+ "e": "ea0632781d587cdab182f003cfc1546c37db5c8f",
+ "tree_e": "33a19f3bb65c18678ee205cfca742c4e6d0e60fa",
+ "execution_delta_digest": "84b9e4f0e00837394646169d84824bcccb1d0992766891c8bbfb8ce5e1b5bf67",
+ "candidates": [],
+ "landing": {
+  "base": "db82376dfc0e2ae561ec541fd0d3a915f082beda",
+  "object": "65a309d644046a970898ae2dc606883c2227a872",
+  "reconciliations": [
+   "65a309d644046a970898ae2dc606883c2227a872"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "0be106e23188e36239d151464b38869b611441cb8d111061624e27733875a736"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "d5126a3d61f78ab38e3cca0ee7f744ce645d7196",
+   "record": "https://github.com/amaybaum/incompleteness/pull/752#issuecomment-5848329732"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "d5126a3d61f78ab38e3cca0ee7f744ce645d7196",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36258860788"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "ea0632781d587cdab182f003cfc1546c37db5c8f",
+   "record": "https://github.com/amaybaum/incompleteness/pull/752#issuecomment-5852280719"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "ea0632781d587cdab182f003cfc1546c37db5c8f",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36276045844"
+  }
+ ]
+}
