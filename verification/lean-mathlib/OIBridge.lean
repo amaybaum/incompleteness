@@ -217,6 +217,7 @@ import OIBridge.StrictNaturalLift
 import OIBridge.OrbitIsometryClassification
 import OIBridge.OrbitIsometryGroup
 import OIBridge.ProductStratum
+import OIBridge.DitaHull
 import OIBridge.ProductLocusFreedom
 import OIBridge.ProductAdmission
 import OIBridge.ProductStrictLift
