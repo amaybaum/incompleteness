@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A34",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "a2f3d8209dba3133424f2609b2763a49a73c2174",
+ "f": "f307515877a19ad137920824b7d19e74026fb738",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-34-product-stratum/preregistration.md",
+   "blob": "c388649116167055427f015ea2e6603a10b6d4a4"
+  }
+ ],
+ "governed_paths_digest": "cf6bc7644b6314f18eb737945c29f63baadbbe7ccf0cc894bcbfe57b7d5d7383",
+ "e": "f2e838f4edfa5e0a9b19679876b47c8a1f04900c",
+ "tree_e": "378c4ef2b93b56c2e0a8fa093415634583980253",
+ "execution_delta_digest": "cdad8d7699b6df956d76b03b95c7a1e01f5df13a4fdc2fc04eb9e943a502f038",
+ "candidates": [],
+ "landing": {
+  "base": "a2f3d8209dba3133424f2609b2763a49a73c2174",
+  "object": "38e3bae6d4374d0cc717506996dac53b10d48cf6",
+  "reconciliations": [
+   "38e3bae6d4374d0cc717506996dac53b10d48cf6"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "b3e7c740e5982a0385af472144dc2e874e24532c08c149eec24dc9cd39f97457"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "f307515877a19ad137920824b7d19e74026fb738",
+   "record": "https://github.com/amaybaum/incompleteness/pull/754#issuecomment-5853089525"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "f307515877a19ad137920824b7d19e74026fb738",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36297607823"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "f2e838f4edfa5e0a9b19679876b47c8a1f04900c",
+   "record": "https://github.com/amaybaum/incompleteness/pull/754#issuecomment-5853736845"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "f2e838f4edfa5e0a9b19679876b47c8a1f04900c",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36301534797"
+  }
+ ]
+}
