@@ -183,7 +183,10 @@ def rref(rows, ncols):
         if r == len(M): break
     return M[:r], piv
 def rank(rows, ncols=None):
+    """exact rank: rows of integers go through the fraction-free elimination rank_int (integer cross-multiplication
+    with gcd normalization, no rational arithmetic), any other rows through the rational rref"""
     if not rows: return 0
+    if (ncols is None or ncols == len(rows[0])) and all(type(x) is int for r in rows for x in r): return rank_int(rows)
     return len(rref(rows, ncols or len(rows[0]))[0])
 def intvec(v):
     den = 1
@@ -368,7 +371,26 @@ def reduce_mod_gauge(d):
     if nz is None: return None
     if nz < 0: v = [-x for x in v]
     return tuple(v)
+CIRCLES = {}
 def circle_directions(X):
+    """memoized on the entries of X: the same factor recurs across the factorizations, and the search over the
+    576 relabellings of each candidate Fourier matrix is a function of X alone"""
+    kk = key(X)
+    if kk not in CIRCLES: CIRCLES[kk] = circle_directions_(X)
+    return CIRCLES[kk]
+RELABELLINGS = {}
+def relabellings(ak):
+    """for the unit a: the dephased key of every relabelling (pi, tau) of F4(a), grouped by key in the order of
+    S4 × S4; computed once per unit, since the same units recur across the factors"""
+    if ak not in RELABELLINGS:
+        Fa = F4(G(Fr(ak[0]), Fr(ak[1]))); by_key = {}
+        for pi in S4:
+            for tau in S4:
+                M = [[Fa[pi[i]][tau[j]] for j in range(4)] for i in range(4)]
+                by_key.setdefault(key(deph(M)), []).append((pi, tau))
+        RELABELLINGS[ak] = by_key
+    return RELABELLINGS[ak]
+def circle_directions_(X):
     kX = key(deph(X)); dirs = {}; cands = set()
     for i in range(4):
         for j in range(4):
@@ -377,14 +399,10 @@ def circle_directions(X):
     for ak in cands:
         a = G(Fr(ak[0]), Fr(ak[1]))
         if a.norm2() != 1: continue
-        Fa = F4(a)
-        for pi in S4:
-            for tau in S4:
-                M = [[Fa[pi[i]][tau[j]] for j in range(4)] for i in range(4)]
-                if key(deph(M)) == kX:
-                    d = tuple(1 if (pi[i] % 2 == 1 and tau[j] % 2 == 1) else 0 for i in range(4) for j in range(4))
-                    r = reduce_mod_gauge(d)
-                    if r is not None and r not in dirs: dirs[r] = d
+        for pi, tau in relabellings(ak).get(kX, ()):
+            d = tuple(1 if (pi[i] % 2 == 1 and tau[j] % 2 == 1) else 0 for i in range(4) for j in range(4))
+            r = reduce_mod_gauge(d)
+            if r is not None and r not in dirs: dirs[r] = d
     return list(dirs.values())
 hulls = []
 for kind, H in (('column', SIG), ('row', SIGT)):
@@ -425,10 +443,25 @@ def Q(v, u):
         out.append(re); out.append(im)
     return out
 z240 = [0] * 240
+IN_KER = {}
+def in_ker_df(v):
+    """v in ker DF, exact; memoized on the vector, since the hulls share most of their tangent vectors"""
+    t = tuple(v)
+    if t not in IN_KER:
+        nz = [i for i, x in enumerate(v) if x]
+        IN_KER[t] = all(sum(r[i] * v[i] for i in nz) == 0 for r in DF)
+    return IN_KER[t]
+Q_ZERO = {}
+def q_zero(u, v):
+    """Q(u, v) == 0, exact; Q is symmetric, so memoized on the unordered pair"""
+    a, b = tuple(u), tuple(v)
+    k = (a, b) if a <= b else (b, a)
+    if k not in Q_ZERO: Q_ZERO[k] = Q(u, v) == z240
+    return Q_ZERO[k]
 bad = 0
 for kind, cp, vecs in hulls:
-    if not all(dot(r, v) == 0 for r in DF for v in vecs): bad += 1
-    elif not all(Q(u, v) == z240 for u in vecs for v in vecs): bad += 1
+    if not all(in_ker_df(v) for v in vecs): bad += 1
+    elif not all(q_zero(u, v) for u in vecs for v in vecs): bad += 1
 check('every hull tangent in ker DF and D²F vanishing exactly on every hull (failures)', bad, 0)
 check('every hull tangent has dimension 14 mod gauge', sorted(set(rank(GAUGE + v) - 31 for _, _, v in hulls)), [14])
 allv = [v for _, _, vecs in hulls for v in vecs]
