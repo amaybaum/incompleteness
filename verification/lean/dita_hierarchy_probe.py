@@ -183,7 +183,10 @@ def rref(rows, ncols):
         if r == len(M): break
     return M[:r], piv
 def rank(rows, ncols=None):
+    """exact rank: rows of integers go through the fraction-free elimination rank_int (integer cross-multiplication
+    with gcd normalization, no rational arithmetic), any other rows through the rational rref"""
     if not rows: return 0
+    if (ncols is None or ncols == len(rows[0])) and all(type(x) is int for r in rows for x in r): return rank_int(rows)
     return len(rref(rows, ncols or len(rows[0]))[0])
 def intvec(v):
     den = 1
