@@ -138,3 +138,23 @@ orbit 27 m 41 d=4 g0 [(4, 4), (8, 2), (4, 4), (2, 8)] cand 54 ne(s/r/sorted) 52/
    relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
    sorted  ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1'] | sorted-relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
    line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  35s
+orbit 28 m406 d=4 g0 [(8, 2), (2, 8), (2, 8), (4, 4)] cand 76 ne(s/r/sorted) 62/73/38
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = 1', 'u4 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  37s
+orbit 29 m 13 d=4 g0 [(8, 2), (2, 8), (4, 4), (2, 8)] cand 76 ne(s/r/sorted) 62/73/36
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  48s
+orbit 30 m116 d=4 g0 [(8, 2), (4, 4), (2, 8), (4, 4)] cand 54 ne(s/r/sorted) 52/52/32
+   strict  ['u1 = -1', 'u1 = 1', 'u3 = -1', 'u3 = 1', 'u4 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u3 = -1', 'u3 = 1', 'u4 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u3 = -1', 'u3 = 1', 'u4 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u3 = -1', 'u3 = 1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  54s
+orbit 31 m 21 d=4 g0 [(8, 2), (4, 4), (2, 8), (2, 8)] cand 76 ne(s/r/sorted) 62/73/38
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  59s

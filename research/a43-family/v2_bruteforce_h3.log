@@ -18,3 +18,5 @@
 17 column (4, 4) alignments  13824  strict ['u1 = -1 z^-2, u2 = 1, u3 = -1', 'u1 = -1, u2 = 1, u3 = -1', 'u1 = 1 z^-2, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = -1']  relaxed ['u1 = -1 z^-2, u2 = 1, u3 = -1', 'u1 = -1, u2 = 1, u3 = -1', 'u1 = 1 z^-2, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = -1']  1080s
 18 column (8, 2) alignments  40320  strict ['u1 = -1, u2 = 1, u3 = 1', 'u1 = 1, u2 = 1, u3 = 1']  relaxed ['u1 = -1, u2 = 1, u3 = 1', 'u1 = 1, u2 = 1, u3 = 1']  1281s
 19 column (8, 2) alignments  40320  strict ['u1 = -1, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = -1']  relaxed ['u1 = -1, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = -1']  1447s
+20 column (8, 2) alignments  40320  strict ['u1 = -1, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = -1']  relaxed ['u1 = -1, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = -1']  1594s
+21 column (8, 2) alignments  40320  strict ['u1 = -1, u2 = 1, u3 = 1', 'u1 = 1, u2 = 1, u3 = 1']  relaxed ['u1 = -1, u2 = 1, u3 = 1', 'u1 = 1, u2 = 1, u3 = 1']  1753s

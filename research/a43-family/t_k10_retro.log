@@ -1,0 +1,27 @@
+orbit  0 d=3 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  2s
+orbit  1 d=3 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  4s
+orbit  2 d=3 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  6s
+orbit  3 d=3 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  8s
+orbit  4 d=3 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  10s
+orbit  5 d=3 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  12s
+orbit  6 d=3 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  14s
+orbit  7 d=3 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  16s
+orbit  8 d=3 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  17s
+orbit  9 d=3 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  20s
+orbit 10 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  23s
+orbit 11 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  27s
+orbit 12 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  31s
+orbit 13 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']  35s
+orbit 14 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = 1', 'u4 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']  39s
+orbit 15 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  43s
+orbit 16 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']  46s
+orbit 17 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']  50s
+orbit 18 d=4 K10'-strict True K10'-relaxed True | computed strict ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1'] relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']  52s
+orbit 19 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  56s
+orbit 20 d=4 K10'-strict True K10'-relaxed True | computed strict ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1'] relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']  58s
+orbit 21 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']  62s
+orbit 22 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  66s
+orbit 23 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']  71s
+orbit 24 d=4 K10'-strict True K10'-relaxed True | computed strict ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1'] relaxed ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']  75s
+orbit 25 d=4 K10'-strict True K10'-relaxed True | computed strict ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1'] relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']  77s
+K10' holds: strict 26 of 26, relaxed 26 of 26

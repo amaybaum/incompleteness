@@ -61,3 +61,15 @@ components, strict != relaxed, non-coordinate points inside individual loci).
   transported by the permutation, span a lattice lying identically in one of SIG's twenty (alignment-free) Dita structures.
   Then the RELAXED union of the loci equals the union of the predicted T(S, s) (compared as sets of maximal flats). Where strict
   and relaxed differ, the strict union is a subset; no prediction for which part.
+
+## K10 retro outcome and K10', stated before the hold-out (orbits 26-52)
+
+K10 as stated (relaxed union) holds retro on 22/26; it fails exactly on orbits 4, 8, 10, 14, where strict != relaxed: the relaxed
+union has an extra -1 face. The permutation predictor equals the STRICT union on 26/26 (post hoc).
+Contamination note: an unguarded import of t_k8 printed aggregate tallies over orbits 0-28 (K9 29/29, SR 24/29, SORT 29/29); no
+per-orbit locus of 26-52 was read.
+
+- **K10' (two-notion predictor).** Strict union = union of T(S, s) with SIG o prod s_k^{P_k} an index permutation (row or column)
+  of SIG and the transported remaining atoms identically STRICT-Dita in one of SIG's twenty structures. Relaxed union = the same
+  with "index permutation" widened to "index permutation times diagonal phases on the same side" (monomial equivalence, rows or
+  columns) and identical RELAXED membership. Hold-out: orbits 26-52.

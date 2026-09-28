@@ -2,7 +2,6 @@
 import pickle, sys, itertools
 from align import *
 from splitters import cells_to_mat
-L = pickle.load(open(os.path.join(HERE, 'loci_af.pkl'), 'rb'))
 S0 = [[SIGE[i][j] for j in range(16)] for i in range(16)]
 OR0 = orientations_d([], S0)
 C0, _ = enumerate_candidates_d(OR0, 0)
@@ -44,35 +43,37 @@ def faces_of(Bs, d):
             (k, s), = F.coord_dict().items(); faces.add((k, s))
         else: rest.append(F.show())
     return faces, rest
-tot = {'K1': [0, 0], 'K2': [0, 0], 'K3': [0, 0], 'K4': [0, 0], 'K5': [0, 0], 'K7': [0, 0], 'K8': [0, 0], 'K9': [0, 0], 'SR': [0, 0], 'SORT': [0, 0]}
-def tally(k, ok): tot[k][0] += bool(ok); tot[k][1] += 1
-for t in sorted(L):
-    r = L[t]; Ms = [cells_to_mat(a) for a in r['atoms']]; d = len(Ms)
-    faces, rest = faces_of(r['U_strict'], d); facesR, restR = faces_of(r['U_relaxed'], d)
-    fS, _ = faces_of(r['U_sorted'], d)
-    pred = set(); detail = []
-    for k in range(d):
-        others = [M for j, M in enumerate(Ms) if j != k]
-        plus = identically_Dita(others) is not None
-        if plus: pred.add((k, 1))
-        fp = flip_perm(Ms[k])
-        minus = False
-        if fp is not None:
-            minus = identically_Dita([transport(M, fp) for M in others]) is not None
-        if minus: pred.add((k, -1))
-        detail.append('%s%s%s%s' % ('%dx%d' % r['shapes'][k], '+' if (k, 1) in faces else '.', '-' if (k, -1) in faces else '.', ('P' + fp[0][0]) if fp else ''))
-    tally('K2', set(x for x in pred if x[1] == 1) == set(x for x in faces if x[1] == 1))
-    tally('K8', set(x for x in pred if x[1] == -1) == set(x for x in faces if x[1] == -1))
-    tally('K9', all(FlatD.of(d, B).is_coordinate() for B in r['U_strict'] + r['U_relaxed']))
-    tally('K1', not rest and r['U_strict'] == r['U_relaxed'] and all(all(FlatD.of(d, B).is_coordinate() for B in v[0]) for v in r['loci'].values()))
-    tally('K3', all((k, 1) in faces for k in range(d)))
-    tally('K4', all(((k, -1) in faces) == ((k, 1) in faces and sorted(r['shapes'][k]) == [2, 8]) for k in range(d)))
-    tally('K5', all((k, 1) in faces for (k, s) in faces if s == -1))
-    tally('K7', (set(r['line']['show_strict']) == ({'u1 = 1', 'u1 = -1'} if any(s == -1 for k, s in faces) else {'u1 = 1'})))
-    tally('SR', r['U_strict'] == r['U_relaxed'])
-    tally('SORT', r['U_sorted'] == r['U_strict'])
-    print('orbit %2d d=%d atoms %s | faces %s | other comps %s | pred(+/-) %s | K8 %s | strict=relaxed %s | sorted=af %s | line %s' % (
-        t, d, ' '.join(detail), sorted(faces), rest, sorted(pred), set(x for x in pred if x[1] == -1) == set(x for x in faces if x[1] == -1),
-        r['U_strict'] == r['U_relaxed'], r['U_sorted'] == r['U_strict'], r['line']['show_strict']), flush=True)
-print()
-for k, (a, n) in tot.items(): print('%-5s holds on %d of %d orbits' % (k, a, n))
+if __name__ == '__main__':
+    L = pickle.load(open(os.path.join(HERE, sys.argv[1] if len(sys.argv) > 1 else 'loci_af.pkl'), 'rb'))
+    tot = {'K1': [0, 0], 'K2': [0, 0], 'K3': [0, 0], 'K4': [0, 0], 'K5': [0, 0], 'K7': [0, 0], 'K8': [0, 0], 'K9': [0, 0], 'SR': [0, 0], 'SORT': [0, 0]}
+    def tally(k, ok): tot[k][0] += bool(ok); tot[k][1] += 1
+    for t in sorted(L):
+        r = L[t]; Ms = [cells_to_mat(a) for a in r['atoms']]; d = len(Ms)
+        faces, rest = faces_of(r['U_strict'], d); facesR, restR = faces_of(r['U_relaxed'], d)
+        fS, _ = faces_of(r['U_sorted'], d)
+        pred = set(); detail = []
+        for k in range(d):
+            others = [M for j, M in enumerate(Ms) if j != k]
+            plus = identically_Dita(others) is not None
+            if plus: pred.add((k, 1))
+            fp = flip_perm(Ms[k])
+            minus = False
+            if fp is not None:
+                minus = identically_Dita([transport(M, fp) for M in others]) is not None
+            if minus: pred.add((k, -1))
+            detail.append('%s%s%s%s' % ('%dx%d' % r['shapes'][k], '+' if (k, 1) in faces else '.', '-' if (k, -1) in faces else '.', ('P' + fp[0][0]) if fp else ''))
+        tally('K2', set(x for x in pred if x[1] == 1) == set(x for x in faces if x[1] == 1))
+        tally('K8', set(x for x in pred if x[1] == -1) == set(x for x in faces if x[1] == -1))
+        tally('K9', all(FlatD.of(d, B).is_coordinate() for B in r['U_strict'] + r['U_relaxed']))
+        tally('K1', not rest and r['U_strict'] == r['U_relaxed'] and all(all(FlatD.of(d, B).is_coordinate() for B in v[0]) for v in r['loci'].values()))
+        tally('K3', all((k, 1) in faces for k in range(d)))
+        tally('K4', all(((k, -1) in faces) == ((k, 1) in faces and sorted(r['shapes'][k]) == [2, 8]) for k in range(d)))
+        tally('K5', all((k, 1) in faces for (k, s) in faces if s == -1))
+        tally('K7', (set(r['line']['show_strict']) == ({'u1 = 1', 'u1 = -1'} if any(s == -1 for k, s in faces) else {'u1 = 1'})))
+        tally('SR', r['U_strict'] == r['U_relaxed'])
+        tally('SORT', r['U_sorted'] == r['U_strict'])
+        print('orbit %2d d=%d atoms %s | faces %s | other comps %s | pred(+/-) %s | K8 %s | strict=relaxed %s | sorted=af %s | line %s' % (
+            t, d, ' '.join(detail), sorted(faces), rest, sorted(pred), set(x for x in pred if x[1] == -1) == set(x for x in faces if x[1] == -1),
+            r['U_strict'] == r['U_relaxed'], r['U_sorted'] == r['U_strict'], r['line']['show_strict']), flush=True)
+    print()
+    for k, (a, n) in tot.items(): print('%-5s holds on %d of %d orbits' % (k, a, n))
