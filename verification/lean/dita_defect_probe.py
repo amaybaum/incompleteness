@@ -113,11 +113,38 @@ def haagerup(H):
         for j, l in itertools.combinations(range(16), 2):
             s.add((H[i][j] * H[k][l] * (H[i][l] * H[k][j]).conj()).key())
     return frozenset(s)
+def fourth_root_exponents(H):
+    """the exponent matrix E with H = i^E entrywise, or None when some entry is not a fourth root of unity"""
+    E = []
+    for row in H:
+        r = []
+        for x in row:
+            if x not in ROOTS: return None
+            r.append(ROOTS.index(x))
+        E.append(r)
+    return E
+def profile_of_exponents(E):
+    """the four-row profile of H = i^E: each term H_pk conj(H_qk) H_rk conj(H_tk) is i^(E_pk - E_qk + E_rk - E_tk), so the
+    sum over k is (n0 - n2) + (n1 - n3) i with n_j the number of k at residue j, and its squared modulus is the integer
+    (n0 - n2)^2 + (n1 - n3)^2; returned as the same Fraction values the Gaussian-rational path produces"""
+    vals = []
+    for a, b, c, d in itertools.combinations(range(16), 4):
+        trip = []
+        for (p, q, r, t) in ((a, b, c, d), (a, c, b, d), (a, b, d, c)):
+            n = [0, 0, 0, 0]
+            for k in range(16): n[(E[p][k] - E[q][k] + E[r][k] - E[t][k]) & 3] += 1
+            trip.append(Fr((n[0] - n[2]) ** 2 + (n[1] - n[3]) ** 2))
+        vals.append(tuple(sorted(trip)))
+    return tuple(sorted(vals))
 def profile(H):
     """the four-row profile: for each 4-subset of rows the sorted triple of |sum_k H_ak conj(H_bk) H_ck conj(H_dk)|^2
     over the three ways of choosing which two rows are conjugated, as a multiset over the subsets
     (entries scaled by 4). Invariant under row and column permutations, phases and conjugation;
-    the transpose gives the column profile, so the census invariant carries both."""
+    the transpose gives the column profile, so the census invariant carries both.
+    A matrix of fourth roots of unity takes the integer exponent-count path; any other matrix the
+    Gaussian-rational path below."""
+    E = fourth_root_exponents(H)
+    if E is not None: return profile_of_exponents(E)
     vals = []
     for a, b, c, d in itertools.combinations(range(16), 4):
         trip = []
