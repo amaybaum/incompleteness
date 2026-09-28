@@ -222,6 +222,7 @@ import OIBridge.DitaHierarchy
 import OIBridge.DitaArcExclusivity
 import OIBridge.DitaLocalEscape
 import OIBridge.DitaTorus
+import OIBridge.DitaTorusLocus
 import OIBridge.ProductLocusFreedom
 import OIBridge.ProductAdmission
 import OIBridge.ProductStrictLift
