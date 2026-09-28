@@ -1,0 +1,2 @@
+DONE mode full branches [0,1327) sol 171552256 gauge 30594431 hrep 1298084 orbits 664888 strict 141775872 relaxonly 10817024 non 18959360 nodes 74529032 ctrl_relax_mismatch 0 ctrl_canon_not_idemp 0/664888 2542s
+COMPLETE 1 structures 20 strict18 141775872 non18 18959360 relaxonly18 10817024 ctrl_relax_mismatch18 0 ctrl_relax_popc_mismatch 0

@@ -1,0 +1,38 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+header complete run {'magic': 1094930004, 'next_branch': 1327, 'b_end': 1327, 'n_orbits': 664888, 'sol': 171552256, 'gauge': 30594431, 'hrep': 1298084, 'strict': 141775872, 'relaxonly_sol': 10817024, 'non_sol': 18959360, 'ctrl_relax_mismatch': 0, 'ctrl_canon_not_idemp': 0, 'ctrl_canon_checked': 664888, 'nodes': 74529032, 'complete': 1, 'nstruct': 20, 'strict18': 141775872, 'non18_sol': 18959360, 'relaxonly18_sol': 10817024, 'ctrl_relax_popc_mismatch': 0, 'ctrl_relax_mismatch18': 0, 'sizeof_rec': 184, 'x': 0, 'y': 0}
+  PASS  complete run finished, 20 structures                                     (1327, 1, 20)
+  PASS  complete run: D-solutions, gauge classes, H_dom reps, orbits             (171552256, 30594431, 1298084, 664888)
+  PASS  replay: identical orbit keys                                             True
+  PASS  replay: identical per-orbit first                                        True
+  PASS  replay: identical per-orbit n_sol                                        True
+  PASS  replay: identical per-orbit n_gauge                                      True
+  PASS  replay: identical per-orbit n_hrep                                       True
+  PASS  replay: identical per-orbit min_dsupp                                    True
+  PASS  replay: identical per-orbit canon_nnz                                    True
+  PASS  replay: identical per-orbit min_gn_nnz                                   True
+  PASS  replay: identical per-orbit orbit_gauge                                  True
+  PASS  built-in (complete): relaxed any-20 / any-18 / popcount mismatches       (0, 0, 0)
+  PASS  built-in (complete): canonical-form idempotence failures                 (0, 664888)
+  sorted18 (act-38 test)   orbits {'DITA': 580560, 'NON-DITA': 84328} | D-solutions by orbit class {'DITA': 152592896, 'RELAXED-ONLY': 0, 'NON-DITA': 18959360}
+  complete18               orbits {'DITA': 580560, 'NON-DITA': 84328} | D-solutions by orbit class {'DITA': 152592896, 'RELAXED-ONLY': 0, 'NON-DITA': 18959360}
+  complete20               orbits {'DITA': 580560, 'NON-DITA': 84328} | D-solutions by orbit class {'DITA': 152592896, 'RELAXED-ONLY': 0, 'NON-DITA': 18959360}
+  per-solution {'sorted18': {'strict': 141772416, 'relaxed_not_strict': 10820480, 'outside_relaxed': 18959360}, 'complete20': {'strict': 141775872, 'relaxed_not_strict': 10817024, 'outside_relaxed': 18959360}, 'complete18': {'strict': 141775872, 'relaxed_not_strict': 10817024, 'outside_relaxed': 18959360}}
+  PASS  sum over orbits of n_sol by class = total                                171552256
+  orbits reclassified: sorted18 -> complete18: 0 ; complete18 -> complete20: 0
+  object A {'sorted18 (act-38 test)': 'DITA', 'complete18': 'DITA', 'complete20': 'DITA', 'n_sol': 116740, 'min_dsupp': 16, 'canon_nnz': 112, 'min_gn_nnz': 16, 'orbit_gauge': 32}
+  object B {'sorted18 (act-38 test)': 'DITA', 'complete18': 'DITA', 'complete20': 'DITA', 'n_sol': 98432, 'min_dsupp': 16, 'canon_nnz': 144, 'min_gn_nnz': 16, 'orbit_gauge': 64}
+  object C {'sorted18 (act-38 test)': 'DITA', 'complete18': 'DITA', 'complete20': 'DITA', 'n_sol': 116740, 'min_dsupp': 16, 'canon_nnz': 112, 'min_gn_nnz': 16, 'orbit_gauge': 32}
+  object A+B {'sorted18 (act-38 test)': 'DITA', 'complete18': 'DITA', 'complete20': 'DITA', 'n_sol': 42528, 'min_dsupp': 32, 'canon_nnz': 148, 'min_gn_nnz': 32, 'orbit_gauge': 256}
+  object A+C {'sorted18 (act-38 test)': 'DITA', 'complete18': 'DITA', 'complete20': 'DITA', 'n_sol': 1536, 'min_dsupp': 32, 'canon_nnz': 160, 'min_gn_nnz': 28, 'orbit_gauge': 128}
+  object B+C {'sorted18 (act-38 test)': 'DITA', 'complete18': 'DITA', 'complete20': 'DITA', 'n_sol': 42528, 'min_dsupp': 32, 'canon_nnz': 136, 'min_gn_nnz': 32, 'orbit_gauge': 256}
+  object A+B+C {'sorted18 (act-38 test)': 'NON-DITA', 'complete18': 'NON-DITA', 'complete20': 'NON-DITA', 'n_sol': 1024, 'min_dsupp': 48, 'canon_nnz': 156, 'min_gn_nnz': 44, 'orbit_gauge': 512}
+  object zero {'sorted18 (act-38 test)': 'DITA', 'complete18': 'DITA', 'complete20': 'DITA', 'n_sol': 32768, 'min_dsupp': 0, 'canon_nnz': 0, 'min_gn_nnz': 0, 'orbit_gauge': 1}
+  PASS  C1: witness orbit NON-DITA under all three tests                         ['NON-DITA', 'NON-DITA', 'NON-DITA']
+  PASS  C3: zero orbit DITA under all three tests                                ['DITA', 'DITA', 'DITA']
+  PASS  C2: A, B, C, A+B, A+C, B+C orbits DITA under all three tests             True
+  DITA min_dsupp histogram (first 12): [(0, 1), (16, 7), (32, 177), (48, 2453), (64, 22649), (80, 110118), (96, 263264), (112, 181891)]
+  RELAXED-ONLY min_dsupp histogram (first 12): []
+  NON-DITA min_dsupp histogram (first 12): [(48, 48), (64, 1368), (80, 12492), (96, 40632), (112, 29788)]
+ALL GREEN [] 58s
