@@ -1,0 +1,140 @@
+orbit  0 m386 d=3 g0 [(8, 2), (2, 8), (4, 4)] cand 54 ne(s/r/sorted) 52/52/32
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  39s
+orbit  1 m 56 d=3 g0 [(8, 2), (4, 4), (2, 8)] cand 46 ne(s/r/sorted) 43/43/33
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  40s
+orbit  2 m 57 d=3 g0 [(8, 2), (4, 4), (2, 8)] cand 54 ne(s/r/sorted) 52/52/32
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  40s
+orbit  3 m390 d=3 g0 [(8, 2), (2, 8), (4, 4)] cand 46 ne(s/r/sorted) 43/43/30
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  58s
+orbit  4 m388 d=3 g0 [(8, 2), (2, 8), (4, 4)] cand 54 ne(s/r/sorted) 42/52/30
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  70s
+orbit  5 m 16 d=3 g0 [(8, 2), (4, 4), (2, 8)] cand 46 ne(s/r/sorted) 43/43/33
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  68s
+orbit  6 m 17 d=3 g0 [(8, 2), (4, 4), (2, 8)] cand 54 ne(s/r/sorted) 52/52/32
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  73s
+orbit  7 m400 d=3 g0 [(8, 2), (2, 8), (4, 4)] cand 54 ne(s/r/sorted) 52/52/32
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  83s
+orbit  8 m384 d=3 g0 [(8, 2), (2, 8), (4, 4)] cand 46 ne(s/r/sorted) 37/43/28
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  74s
+orbit  9 m 28 d=3 g0 [(8, 2), (2, 8), (4, 4)] cand 46 ne(s/r/sorted) 43/43/30
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  66s
+orbit 10 m396 d=4 g0 [(8, 2), (2, 8), (4, 4), (2, 8)] cand 76 ne(s/r/sorted) 58/73/40
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  70s
+orbit 11 m394 d=4 g0 [(8, 2), (2, 8), (4, 4), (2, 8)] cand 76 ne(s/r/sorted) 73/73/43
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  47s
+orbit 12 m403 d=4 g0 [(8, 2), (2, 8), (4, 4), (2, 8)] cand 76 ne(s/r/sorted) 73/73/43
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  61s
+orbit 13 m408 d=4 g0 [(8, 2), (2, 8), (2, 8), (4, 4)] cand 94 ne(s/r/sorted) 92/92/48
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  69s
+orbit 14 m410 d=4 g0 [(8, 2), (2, 8), (2, 8), (4, 4)] cand 94 ne(s/r/sorted) 72/92/42
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = 1', 'u4 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  56s
+orbit 15 m402 d=4 g0 [(8, 2), (2, 8), (4, 4), (2, 8)] cand 76 ne(s/r/sorted) 62/73/36
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  55s
+orbit 16 m 60 d=4 g0 [(8, 2), (4, 4), (2, 8), (2, 8)] cand 60 ne(s/r/sorted) 48/55/36
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  51s
+orbit 17 m 64 d=4 g0 [(8, 2), (4, 4), (2, 8), (2, 8)] cand 60 ne(s/r/sorted) 55/55/39
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  50s
+orbit 18 m 80 d=4 g0 [(4, 4), (8, 2), (4, 4), (2, 8)] cand 46 ne(s/r/sorted) 43/43/33
+   strict  ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   sorted  ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1'] | sorted-relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  51s
+orbit 19 m 61 d=4 g0 [(8, 2), (4, 4), (2, 8), (2, 8)] cand 76 ne(s/r/sorted) 62/73/38
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  50s
+orbit 20 m 81 d=4 g0 [(4, 4), (8, 2), (4, 4), (2, 8)] cand 54 ne(s/r/sorted) 52/52/32
+   strict  ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   sorted  ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1'] | sorted-relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  51s
+orbit 21 m 65 d=4 g0 [(8, 2), (4, 4), (2, 8), (2, 8)] cand 76 ne(s/r/sorted) 73/73/41
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  52s
+orbit 22 m398 d=4 g0 [(8, 2), (2, 8), (4, 4), (2, 8)] cand 60 ne(s/r/sorted) 55/55/41
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  57s
+orbit 23 m412 d=4 g0 [(8, 2), (2, 8), (2, 8), (4, 4)] cand 76 ne(s/r/sorted) 73/73/41
+   strict  ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = 1, u3 = 1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  55s
+orbit 24 m152 d=4 g0 [(8, 2), (2, 8), (4, 4), (2, 8)] cand 60 ne(s/r/sorted) 55/55/39
+   strict  ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  46s
+orbit 25 m 40 d=4 g0 [(4, 4), (8, 2), (4, 4), (2, 8)] cand 46 ne(s/r/sorted) 43/43/33
+   strict  ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   sorted  ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1'] | sorted-relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  41s
+orbit 26 m153 d=4 g0 [(8, 2), (2, 8), (4, 4), (2, 8)] cand 76 ne(s/r/sorted) 73/73/41
+   strict  ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   relaxed ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   sorted  ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1'] | sorted-relaxed ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  34s
+orbit 27 m 41 d=4 g0 [(4, 4), (8, 2), (4, 4), (2, 8)] cand 54 ne(s/r/sorted) 52/52/32
+   strict  ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   sorted  ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1'] | sorted-relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']
+   line strict ['u1 = -1', 'u1 = 1'] relaxed ['u1 = -1', 'u1 = 1'] sorted ['u1 = -1', 'u1 = 1']  35s

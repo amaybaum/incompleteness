@@ -1,0 +1,13 @@
+  PASS  CC1 joint realizability of (A, B, C, row-5 gauge atom)                                               0
+  PASS  CC1 relaxed union = five faces x free u4                                                             ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+  CC1 strict union: ['u1 = -1, u4 = 1', 'u1 = 1, u4 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']   (sorted notion strict: ['u1 = -1, u4 = 1', 'u1 = 1, u4 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'])
+  PASS  CC1 strict union differs from relaxed                                                                True
+  (21s)
+  CC2 perturbed family joint realizability (level sets, failing): (275, 30)
+  CC2 candidates 30; alignment-free strict union ['u3 = 1']; sorted-notion union ['u3 = 1']
+  PASS  CC2 sorted-notion union reproduces the frozen countercontrol (the one face u3 = 1), candidates 30    (30, ['u3 = 1'])
+  PASS  CC3 hull family (B, C): union is the whole torus (strict and relaxed)                                (['T^2'], ['T^2'])
+  (56s)
+  PASS  CC4 at 120 exact points: u1 -> -u1 is rows 7<->15, u3 -> -u3 is columns 2<->8; u2 -> -u2 is neither a row nor a column permutation (120, 120, 0)
+  (61s)
+cc: OK

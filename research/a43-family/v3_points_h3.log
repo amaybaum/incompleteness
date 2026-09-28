@@ -1,0 +1,24 @@
+generic                  structures (any alignment)  0   sorted alignment  0   frozen section-7 count 0   28s
+generic                  structures (any alignment)  0   sorted alignment  0   frozen section-7 count 0   28s
+u1 = 1                   structures (any alignment)  1   sorted alignment  1   frozen section-7 count 1   42s
+u1 = -1                  structures (any alignment)  1   sorted alignment  1   frozen section-7 count 1   60s
+u2 = 1                   structures (any alignment)  2   sorted alignment  2   frozen section-7 count 2   115s
+u2 = -1, absent          structures (any alignment)  0   sorted alignment  0   frozen section-7 count 0   115s
+u3 = 1                   structures (any alignment)  1   sorted alignment  1   frozen section-7 count 1   138s
+u3 = -1                  structures (any alignment)  1   sorted alignment  1   frozen section-7 count 1   158s
+u1 = i, absent           structures (any alignment)  0   sorted alignment  0   frozen section-7 count 0   158s
+(1, u, -1)               structures (any alignment)  4   sorted alignment  3   frozen section-7 count 3   213s
+(u, 1, 1)                structures (any alignment)  8   sorted alignment  7   frozen section-7 count 7   326s
+(-1, 1, u)               structures (any alignment)  5   sorted alignment  4   frozen section-7 count 4   414s
+(1, 1, 1)                structures (any alignment) 20   sorted alignment 18   frozen section-7 count 18   555s
+(-1, -1, -1)             structures (any alignment)  4   sorted alignment  2   frozen section-7 count 2   585s
+(-1, 1, 1)               structures (any alignment) 20   sorted alignment 12   frozen section-7 count 12   726s
+(1, 1, -1)               structures (any alignment) 20   sorted alignment 12   frozen section-7 count 12   847s
+(1, -1, 1)               structures (any alignment)  4   sorted alignment  4   frozen section-7 count 4   881s
+(z^-2, 1, 1)             structures (any alignment) 10   sorted alignment  7   frozen section-7 count None   953s
+(-z^-2, 1, 1)            structures (any alignment) 10   sorted alignment  7   frozen section-7 count None   1025s
+(z^-2, 1, -1)            structures (any alignment) 10   sorted alignment  4   frozen section-7 count None   1100s
+(z^2, 1, 1) control      structures (any alignment)  8   sorted alignment  7   frozen section-7 count None   1173s
+(z^-1, 1, 1) control     structures (any alignment)  8   sorted alignment  7   frozen section-7 count None   1249s
+sorted-alignment counts equal the frozen section-7 counts: True
+points off the five faces with a structure (any alignment): []

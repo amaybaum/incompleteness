@@ -40,3 +40,24 @@ sorted-notion face lists of orbits 0-13 (s4, killed) had been seen; the alignmen
   atom) has no -1 face.
 - **K9 (union = faces, alignment-free).** Under the alignment-free notion, the union of the loci is still a union of coordinate
   subtori {u_S = s} (s in {+-1}^S), even when individual loci contain non-coordinate points.
+
+## Prediction before v3 (explicit point check) completes
+
+- **K8-sym (theorem-shaped).** If SIG o (-1)^{P_k} = Pi_r SIG Pi_c for index permutations fixing every atom, then
+  F(..., -u_k, ...) = Pi_r F(..., u_k, ...) Pi_c for all u, so the alignment-free locus is invariant under u_k -> -u_k. For H3: A's flip
+  is rows 7<->15, C's flip is columns 2<->8, both fixing A, B, C. Predicted alignment-free structure counts: count(-1,1,1) =
+  count(1,1,1) = 20, count(1,1,-1) = 20, count(-1,-1,-1) = count(1,-1,1), count(-z^-2,1,1) = count(z^-2,1,1),
+  count(-1,1,u) = count(1,1,u).
+
+## K10, stated after seeing orbits 0-25 (alignment-free), before any result for orbits 26-52 was read
+
+Outcome so far (orbits 0-25, t_k8_snap): K8 26/26, K5 26/26, K7 26/26, K9 26/26, K2 26/26 (control); K4 FALSIFIED (orbits 4, 8,
+10: a 2x8 atom with a +1 face and no -1 face; its flip is not an index permutation); K3 fails 16/26; K1 fails 19/26 (codim-2
+components, strict != relaxed, non-coordinate points inside individual loci).
+
+- **K10 (the general statement; hold-out test on orbits 26-52).** For S a subset of the atoms and s in {+-1}^S, let
+  T(S, s) = {u : u_k = s_k for k in S}. Predict T(S, s) inside the locus iff (i) SIG o prod_{k in S} s_k^{P_k} = Pi_r SIG Pi_c for
+  index permutations (row permutation or column permutation; s = all +1 gives the identity), and (ii) the remaining atoms,
+  transported by the permutation, span a lattice lying identically in one of SIG's twenty (alignment-free) Dita structures.
+  Then the RELAXED union of the loci equals the union of the predicted T(S, s) (compared as sets of maximal flats). Where strict
+  and relaxed differ, the strict union is a subset; no prediction for which part.
