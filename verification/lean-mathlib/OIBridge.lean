@@ -219,6 +219,7 @@ import OIBridge.OrbitIsometryGroup
 import OIBridge.ProductStratum
 import OIBridge.DitaHull
 import OIBridge.DitaHierarchy
+import OIBridge.DitaArcExclusivity
 import OIBridge.ProductLocusFreedom
 import OIBridge.ProductAdmission
 import OIBridge.ProductStrictLift

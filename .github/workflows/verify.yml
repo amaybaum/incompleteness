@@ -228,6 +228,8 @@ jobs:
         run: |
           echo "=== dita_hierarchy_probe.py ==="
           python3 dita_hierarchy_probe.py
+          echo "=== dita_arc_exclusivity_probe.py ==="
+          python3 dita_arc_exclusivity_probe.py
 
   probes_foundations:
     name: Numerical probes / foundations
