@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A38",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "5949740297034d0ddc522aff9577bd1fa36fe42f",
+ "f": "47f1694fd8455ef58d735044d603360e3e02321d",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-38-local-escape/preregistration.md",
+   "blob": "9c385e8363ee8d4ea4796fa71b15c66ef540ec15"
+  }
+ ],
+ "governed_paths_digest": "c7bcd4a129d982d8d663733daa7d5853de299b98effb1e3ccef7e98e8130ce8e",
+ "e": "9f508bcfbc46f5d4062430f9ef124e8964aeeebe",
+ "tree_e": "faa34315d3da55791cc96ea4692c2c219acf758d",
+ "execution_delta_digest": "6c2ac70d5bb9cf60ed973ad3381251ed24b3feff1d17904df00bfabdedaca90e",
+ "candidates": [],
+ "landing": {
+  "base": "5949740297034d0ddc522aff9577bd1fa36fe42f",
+  "object": "27373386f2d8a4cce333c6adc465a7a892bba07c",
+  "reconciliations": [
+   "27373386f2d8a4cce333c6adc465a7a892bba07c"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "517272c57acd61328ab7708de9c4ee6f078dbebf0334de9652b50a606880bad8"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "47f1694fd8455ef58d735044d603360e3e02321d",
+   "record": "https://github.com/amaybaum/incompleteness/pull/765#issuecomment-5866714226"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "47f1694fd8455ef58d735044d603360e3e02321d",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36399875682"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "9f508bcfbc46f5d4062430f9ef124e8964aeeebe",
+   "record": "https://github.com/amaybaum/incompleteness/pull/765#issuecomment-5867652394"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "9f508bcfbc46f5d4062430f9ef124e8964aeeebe",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36404006784"
+  }
+ ]
+}
