@@ -249,6 +249,8 @@ jobs:
         run: |
           echo "=== dita_local_escape_probe.py ==="
           python3 dita_local_escape_probe.py
+          echo "=== dita_torus_probe.py ==="
+          python3 dita_torus_probe.py
 
   probes_foundations:
     name: Numerical probes / foundations
