@@ -1,0 +1,30 @@
+column (4, 4) census        align-free True sorted True explicit-verified True  
+column (4, 4) census        align-free True sorted True explicit-verified True  
+column (4, 4) census        align-free True sorted True explicit-verified True  
+column (4, 4) census        align-free True sorted True explicit-verified True  
+column (4, 4) NOT IN CENSUS align-free True sorted False explicit-verified True  blocks ((0, 6, 8, 14), (1, 7, 9, 15), (2, 4, 10, 12), (3, 5, 11, 13)) classes ((0, 2, 9, 11), (1, 3, 8, 10), (4, 6, 13, 15), (5, 7, 12, 14))
+column (8, 2) census        align-free True sorted True explicit-verified True  
+column (8, 2) census        align-free True sorted True explicit-verified True  
+column (8, 2) NOT IN CENSUS align-free False sorted False explicit-verified False  blocks ((0, 10), (1, 11), (2, 8), (3, 9), (4, 14), (5, 15), (6, 12), (7, 13)) classes ((0, 2, 5, 7, 8, 10, 13, 15), (1, 3, 4, 6, 9, 11, 12, 14))
+column (2, 8) census        align-free True sorted True explicit-verified True  
+column (2, 8) census        align-free True sorted True explicit-verified True  
+column (2, 8) census        align-free True sorted True explicit-verified True  
+row    (4, 4) census        align-free True sorted True explicit-verified True  
+row    (4, 4) census        align-free True sorted True explicit-verified True  
+row    (4, 4) census        align-free True sorted True explicit-verified True  
+row    (4, 4) census        align-free True sorted True explicit-verified True  
+row    (4, 4) NOT IN CENSUS align-free True sorted False explicit-verified True  blocks ((0, 6, 8, 14), (1, 7, 9, 15), (2, 4, 10, 12), (3, 5, 11, 13)) classes ((0, 2, 9, 11), (1, 3, 8, 10), (4, 6, 13, 15), (5, 7, 12, 14))
+row    (8, 2) census        align-free True sorted True explicit-verified True  
+row    (8, 2) census        align-free True sorted True explicit-verified True  
+row    (8, 2) NOT IN CENSUS align-free False sorted False explicit-verified False  blocks ((0, 10), (1, 11), (2, 8), (3, 9), (4, 14), (5, 15), (6, 12), (7, 13)) classes ((0, 2, 5, 7, 8, 10, 13, 15), (1, 3, 4, 6, 9, 11, 12, 14))
+row    (2, 8) census        align-free True sorted True explicit-verified True  
+row    (2, 8) census        align-free True sorted True explicit-verified True  
+row    (2, 8) census        align-free True sorted True explicit-verified True  
+structures of SIG outside act 37 census with an explicit exact factorization: 2
+   column (4, 4) blocks ((0, 6, 8, 14), (1, 7, 9, 15), (2, 4, 10, 12), (3, 5, 11, 13)) 
+      classes ((0, 2, 9, 11), (1, 3, 8, 10), (4, 6, 13, 15), (5, 7, 12, 14)) 
+      alignment [(0, 2, 9, 11), (8, 10, 1, 3), (4, 6, 13, 15), (12, 14, 5, 7)]
+   row (4, 4) blocks ((0, 6, 8, 14), (1, 7, 9, 15), (2, 4, 10, 12), (3, 5, 11, 13)) 
+      classes ((0, 2, 9, 11), (1, 3, 8, 10), (4, 6, 13, 15), (5, 7, 12, 14)) 
+      alignment [(0, 2, 9, 11), (8, 10, 1, 3), (4, 6, 13, 15), (12, 14, 5, 7)]
+97s

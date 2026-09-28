@@ -1,0 +1,12 @@
+orbit  1 member  56 d=3 (gauge 0) shapes [(8, 2), (4, 4), (2, 8)] cand 46 nonempty 33 s=r True coord True faces ['u3 = 1', 'u3 = -1', 'u2 = 1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  29s
+orbit  2 member  57 d=3 (gauge 0) shapes [(8, 2), (4, 4), (2, 8)] cand 54 nonempty 32 s=r True coord True faces ['u3 = 1', 'u3 = -1', 'u2 = 1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  45s
+orbit  4 member 388 d=3 (gauge 0) shapes [(8, 2), (2, 8), (4, 4)] cand 54 nonempty 30 s=r False coord True faces ['u3 = 1', 'u2 = 1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  42s
+orbit  5 member  16 d=3 (gauge 0) shapes [(8, 2), (4, 4), (2, 8)] cand 46 nonempty 33 s=r True coord True faces ['u3 = 1', 'u3 = -1', 'u2 = 1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  39s
+orbit  6 member  17 d=3 (gauge 0) shapes [(8, 2), (4, 4), (2, 8)] cand 54 nonempty 32 s=r True coord True faces ['u3 = 1', 'u3 = -1', 'u2 = 1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  39s
+orbit  7 member 400 d=3 (gauge 0) shapes [(8, 2), (2, 8), (4, 4)] cand 54 nonempty 32 s=r True coord True faces ['u3 = 1', 'u2 = 1', 'u2 = -1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  35s
+orbit  8 member 384 d=3 (gauge 0) shapes [(8, 2), (2, 8), (4, 4)] cand 46 nonempty 28 s=r False coord True faces ['u3 = 1', 'u2 = 1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  37s
+orbit  9 member  28 d=3 (gauge 0) shapes [(8, 2), (2, 8), (4, 4)] cand 46 nonempty 30 s=r True coord True faces ['u3 = 1', 'u2 = 1', 'u2 = -1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  40s
+orbit 10 member 396 d=4 (gauge 0) shapes [(8, 2), (2, 8), (4, 4), (2, 8)] cand 76 nonempty 40 s=r False coord True faces ['u3 = 1', 'u2 = 1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  36s
+orbit 11 member 394 d=4 (gauge 0) shapes [(8, 2), (2, 8), (4, 4), (2, 8)] cand 76 nonempty 43 s=r True coord True faces ['u3 = 1', 'u2 = 1', 'u2 = -1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  52s
+orbit 12 member 403 d=4 (gauge 0) shapes [(8, 2), (2, 8), (4, 4), (2, 8)] cand 76 nonempty 43 s=r True coord True faces ['u3 = 1', 'u2 = 1', 'u2 = -1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  47s
+orbit 13 member 408 d=4 (gauge 0) shapes [(8, 2), (2, 8), (2, 8), (4, 4)] cand 94 nonempty 48 s=r True coord False faces ['u4 = 1', 'u2 = 1, u3 = 1', 'u2 = 1, u3 = -1', 'u2 = -1, u3 = 1', 'u2 = -1, u3 = -1', 'u1 = 1', 'u1 = -1'] | line ['u1 = 1', 'u1 = -1']  34s

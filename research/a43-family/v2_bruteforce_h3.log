@@ -1,0 +1,5 @@
+ 0 column (2, 8) alignments    128  strict ['u2 = 1']  relaxed ['u2 = 1']  17s
+ 1 column (2, 8) alignments    128  strict ['u1 = 1']  relaxed ['u1 = 1']  17s
+ 2 column (2, 8) alignments    128  strict ['u1 = -1']  relaxed ['u1 = -1']  18s
+ 3 column (2, 8) alignments    128  strict ['u1 = -1, u2 = 1']  relaxed ['u1 = -1, u2 = 1']  18s
+ 4 column (2, 8) alignments    128  strict ['u1 = 1, u2 = 1']  relaxed ['u1 = 1, u2 = 1']  18s

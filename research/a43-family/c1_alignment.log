@@ -1,0 +1,37 @@
+  FAIL  SIG: (candidates, alignment-free strict, relaxed, sorted strict)                           (20, 20, 18) (expected (18, 18, 18))
+  FAIL  SIG rows 7<->15: alignment-free strict and relaxed 18; sorted 12                           (20, 20, 12) (expected (18, 18, 12))
+  (25s)
+  PASS  H3: candidates                                                                             46
+  PASS  H3: sorted-alignment union (frozen notion) = five faces                                    ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+  H3 alignment-free strict union : ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+  H3 alignment-free relaxed union: ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+  nonempty: alignment-free strict 43, relaxed 43, sorted 30
+  candidates whose alignment-free strict locus differs from the sorted one: 26
+     column (4, 4) free: ['u1 = 1 z^-2, u2 = 1, u3 = 1', 'u1 = -1, u2 = 1, u3 = 1', 'u1 = 1, u2 = 1, u3 = 1', 'u1 = -1 z^-2, u2 = 1, u3 = 1']  sorted: u1 = 1, u2 = 1, u3 = 1
+     column (4, 4) free: ['u1 = 1, u2 = 1, u3 = -1', 'u1 = 1 z^-2, u2 = 1, u3 = -1', 'u1 = -1 z^-2, u2 = 1, u3 = -1', 'u1 = -1, u2 = 1, u3 = -1']  sorted: u1 = 1, u2 = 1, u3 = -1
+     column (4, 4) free: ['u1 = -1, u3 = -1']  sorted: None
+     column (4, 4) free: ['u1 = -1, u3 = 1']  sorted: None
+     column (4, 4) free: ['u1 = -1, u2 = 1, u3 = -1']  sorted: None
+     column (4, 4) free: ['u1 = -1, u2 = 1, u3 = 1']  sorted: None
+     column (4, 4) free: ['u1 = 1, u2 = 1, u3 = -1']  sorted: None
+     column (4, 4) free: ['u1 = 1, u2 = 1, u3 = 1']  sorted: None
+     column (4, 4) free: ['u1 = -1, u2 = 1', 'u1 = 1, u2 = 1']  sorted: u1 = 1, u2 = 1
+     column (4, 4) free: ['u1 = 1 z^-2, u2 = 1, u3 = 1', 'u1 = -1, u2 = 1, u3 = 1', 'u1 = 1, u2 = 1, u3 = 1', 'u1 = -1 z^-2, u2 = 1, u3 = 1']  sorted: u1 = 1, u2 = 1, u3 = 1
+     column (4, 4) free: ['u1 = 1, u2 = 1, u3 = -1', 'u1 = 1 z^-2, u2 = 1, u3 = -1', 'u1 = -1 z^-2, u2 = 1, u3 = -1', 'u1 = -1, u2 = 1, u3 = -1']  sorted: u1 = 1, u2 = 1, u3 = -1
+     column (8, 2) free: ['u1 = 1, u2 = 1, u3 = -1', 'u1 = -1, u2 = 1, u3 = -1']  sorted: u1 = 1, u2 = 1, u3 = -1
+     column (8, 2) free: ['u1 = -1, u2 = 1, u3 = 1', 'u1 = 1, u2 = 1, u3 = 1']  sorted: u1 = 1, u2 = 1, u3 = 1
+     column (8, 2) free: ['u1 = -1, u2 = 1, u3 = 1', 'u1 = 1, u2 = 1, u3 = 1']  sorted: u1 = 1, u2 = 1, u3 = 1
+     column (8, 2) free: ['u1 = 1, u2 = 1, u3 = -1', 'u1 = -1, u2 = 1, u3 = -1']  sorted: u1 = 1, u2 = 1, u3 = -1
+     row (4, 4) free: ['u1 = 1, u3 = -1']  sorted: None
+     row (4, 4) free: ['u1 = -1, u3 = -1']  sorted: None
+     row (4, 4) free: ['u2 = 1, u3 = -1', 'u2 = 1, u3 = 1']  sorted: u2 = 1, u3 = 1
+     row (4, 4) free: ['u1 = -1, u2 = 1, u3 = -1']  sorted: None
+     row (4, 4) free: ['u1 = 1, u2 = 1, u3 = -1']  sorted: None
+     row (4, 4) free: ['u2 = 1, u3 = -1']  sorted: None
+     row (4, 4) free: ['u2 = 1, u3 = 1']  sorted: None
+     row (4, 4) free: ['u2 = 1, u3 = -1']  sorted: None
+     row (8, 2) free: ['u1 = 1, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = 1']  sorted: u1 = 1, u2 = 1, u3 = 1
+     row (8, 2) free: ['u1 = -1, u2 = 1, u3 = 1', 'u1 = -1, u2 = 1, u3 = -1']  sorted: u1 = -1, u2 = 1, u3 = 1
+     row (8, 2) free: ['u2 = 1, u3 = -1', 'u2 = 1, u3 = 1']  sorted: u2 = 1, u3 = 1
+  (47s)
+c1: FAILED ['SIG: (candidates, alignment-free strict, relaxed, sorted strict)', 'SIG rows 7<->15: alignment-free strict and relaxed 18; sorted 12']

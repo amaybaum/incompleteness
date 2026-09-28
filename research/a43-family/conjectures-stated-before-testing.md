@@ -25,3 +25,18 @@ F_E(u) = SIG o prod_k u_k^{P_k}. Essential atoms = atoms that are not gauge-triv
 
 Countercontrols planned: perturbed atom families (one cell moved), families with a gauge atom (strict vs relaxed expected to
 differ), and non-witness sums.
+
+## Added after the alignment finding (before running its test)
+
+Context: the frozen pipeline fixes the within-class member alignment by sorted order (see NOTE); from here the primary notion is
+the alignment-free one (every index map), with the sorted notion computed alongside. Honesty flag: when K8 was written, the
+sorted-notion face lists of orbits 0-13 (s4, killed) had been seen; the alignment-free loci of no orbit other than H3 had.
+
+- **K8 (flip = index permutation).** Rows (or columns) of SIG = F4(z) (x) F4(w) have a +-1 ratio vector only for index shifts by 2
+  in a or in b (or both). So the sign flip SIG o (-1)^{P_k} of a 16-cell rectangle atom is an index transposition pi exactly for
+  special 2x8 / 8x2 atoms. Prediction (alignment-free notion): the face u_k = -1 lies in the locus iff the flip of atom k is an index
+  permutation pi of SIG and the other atoms transported by pi span a lattice lying identically in one Dita structure of SIG
+  (equivalently: the +1 face of the transported family exists). Every other atom (every 4x4 atom, every non-permutation 2x8/8x2
+  atom) has no -1 face.
+- **K9 (union = faces, alignment-free).** Under the alignment-free notion, the union of the loci is still a union of coordinate
+  subtori {u_S = s} (s in {+-1}^S), even when individual loci contain non-coordinate points.
