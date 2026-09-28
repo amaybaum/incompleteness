@@ -1,0 +1,16 @@
+A = -1: structures of SIG o (-1)^A: 12 [('column', (2, 8)), ('column', (2, 8)), ('column', (2, 8)), ('row', (4, 4)), ('row', (4, 4)), ('row', (4, 4)), ('row', (4, 4)), ('row', (8, 2)), ('row', (8, 2)), ('row', (2, 8)), ('row', (2, 8)), ('row', (2, 8))] ; containing span of the other two identically: [('column', (2, 8))] 10s
+    single B in [('column', (2, 8)), ('row', (4, 4)), ('row', (2, 8))]
+    single C in [('column', (2, 8)), ('column', (2, 8)), ('column', (2, 8)), ('row', (2, 8))]
+B = -1: structures of SIG o (-1)^B: 4 [('column', (4, 4)), ('column', (2, 8)), ('row', (4, 4)), ('row', (2, 8))] ; containing span of the other two identically: [] 21s
+    single A in [('row', (2, 8))]
+    single C in [('column', (2, 8))]
+C = -1: structures of SIG o (-1)^C: 12 [('column', (4, 4)), ('column', (4, 4)), ('column', (4, 4)), ('column', (4, 4)), ('column', (8, 2)), ('column', (8, 2)), ('column', (2, 8)), ('column', (2, 8)), ('column', (2, 8)), ('row', (2, 8)), ('row', (2, 8)), ('row', (2, 8))] ; containing span of the other two identically: [('row', (2, 8))] 32s
+    single A in [('column', (2, 8)), ('row', (2, 8)), ('row', (2, 8)), ('row', (2, 8))]
+    single B in [('column', (4, 4)), ('column', (2, 8)), ('row', (2, 8))]
+(1, 1, -1) structures 12 [('column', (4, 4)), ('column', (4, 4)), ('column', (4, 4)), ('column', (4, 4)), ('column', (8, 2)), ('column', (8, 2)), ('column', (2, 8)), ('column', (2, 8)), ('column', (2, 8)), ('row', (2, 8)), ('row', (2, 8)), ('row', (2, 8))]
+(1, -1, 1) structures 4 [('column', (4, 4)), ('column', (2, 8)), ('row', (4, 4)), ('row', (2, 8))]
+(1, -1, -1) structures 3 [('column', (4, 4)), ('column', (2, 8)), ('row', (2, 8))]
+(-1, 1, 1) structures 12 [('column', (2, 8)), ('column', (2, 8)), ('column', (2, 8)), ('row', (4, 4)), ('row', (4, 4)), ('row', (4, 4)), ('row', (4, 4)), ('row', (8, 2)), ('row', (8, 2)), ('row', (2, 8)), ('row', (2, 8)), ('row', (2, 8))]
+(-1, 1, -1) structures 6 [('column', (2, 8)), ('column', (2, 8)), ('column', (2, 8)), ('row', (2, 8)), ('row', (2, 8)), ('row', (2, 8))]
+(-1, -1, 1) structures 3 [('column', (2, 8)), ('row', (4, 4)), ('row', (2, 8))]
+(-1, -1, -1) structures 2 [('column', (2, 8)), ('row', (2, 8))]

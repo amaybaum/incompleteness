@@ -1,0 +1,14 @@
+  PASS  H3 candidates                                                                    46
+  PASS  H3 nonempty strict loci                                                          30
+  PASS  strict == relaxed per candidate                                                  True
+  PASS  all loci coordinate                                                              True
+  PASS  maximal loci                                                                     ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+  PASS  covered                                                                          True
+  (18s)
+  PASS  frozen classifier: same candidate keys                                           True
+  PASS  frozen classifier: same strict and relaxed loci (canonical bases)                True
+  PASS  joint realizability of (A, B, C): level sets over unordered pairs, bad           0
+  PASS  census hulls of A, B, C, A+B, A+C, B+C, A+B+C (spans)                            [[('k2', 'row'), ('k4', 'row'), ('e2', 'row'), ('t1', 'column'), ('t1', 'row'), ('t2', 'row'), ('t3', 'row')], [('k1', 'row'), ('k4', 'column'), ('t1', 'row'), ('t2', 'column')], [('k2', 'column'), ('t1', 'column'), ('t2', 'column'), ('t3', 'column'), ('t3', 'row')], [('t1', 'row')], [('t1', 'column'), ('t3', 'row')], [('t2', 'column')], []]
+  PASS  d = 0 classifier at SIG: 18 structures                                           18
+  (47s)
+c0: OK
