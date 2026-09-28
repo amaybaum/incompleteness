@@ -262,16 +262,20 @@ def is_unitary_s(M, s):
             for l in range(k): t = t + M[i][l] * M[j][l].conj()
             if t != (G(s) if i == j else ZERO): return False
     return True
-def prop_partition(H, S):
+def ratio_table(H):
+    """RT[i][s0][s] = the key of H[i][s] · conj(H[i][s0]): the 4096 products every subset's proportionality keys are
+    drawn from, computed once per matrix instead of once per subset"""
+    return [[[(H[i][s] * H[i][s0].conj()).key() for s in range(16)] for s0 in range(16)] for i in range(16)]
+def prop_partition(RT, S):
     keys = {}
     for i in range(16):
-        base = H[i][S[0]]
-        keys.setdefault(tuple((H[i][s] * base.conj()).key() for s in S), []).append(i)
+        r = RT[i][S[0]]
+        keys.setdefault(tuple(r[s] for s in S), []).append(i)
     return sorted(tuple(v) for v in keys.values())
 def dita_orientations(H, m, n):
-    good = {}
+    good = {}; RT = ratio_table(H)
     for S in itertools.combinations(range(16), n):
-        Pp = prop_partition(H, S)
+        Pp = prop_partition(RT, S)
         if all(len(cl) == m for cl in Pp): good[S] = Pp
     parts = []
     def rec(rem, chosen):
