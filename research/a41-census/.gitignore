@@ -1,0 +1,5 @@
+census41
+data41.bin
+state_*/
+__pycache__/
+*.bin

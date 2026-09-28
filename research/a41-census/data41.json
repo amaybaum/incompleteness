@@ -1,0 +1,24 @@
+{
+ "structures": [
+  "k1-column",
+  "k1-row",
+  "k2-column",
+  "k2-row",
+  "k3-column",
+  "k3-row",
+  "k4-column",
+  "k4-row",
+  "e1-column",
+  "e1-row",
+  "e2-column",
+  "e2-row",
+  "t1-column",
+  "t1-row",
+  "t2-column",
+  "t2-row",
+  "t3-column",
+  "t3-row"
+ ],
+ "sha256": "5399ef64fee2a3d088f9fbb6774697ec836b7575c825c0e03088c26cbf1cf562",
+ "bytes": 9133048
+}
