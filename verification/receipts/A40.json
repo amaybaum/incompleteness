@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A40",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "b271b1dfe5a145d360c7c9433c81bfdf24ba0743",
+ "f": "db91869ee4e606c123013ab105e765d0719f46e1",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-40-dita-locus/preregistration.md",
+   "blob": "0c8a95112ca45958bf697d90b2011b878a033d8c"
+  }
+ ],
+ "governed_paths_digest": "5d2d4872a470d6176e61ec4ff89cc86ca0ce915ee407e421baa67c31c98ea4aa",
+ "e": "f576e445820979ff35fb370dfe17a93d4c2506ea",
+ "tree_e": "f0069bc529eae91970b7d99fa65a4dd9ab561682",
+ "execution_delta_digest": "5f72cdbb8bb85b29891a6905e1e8b269b0720040aa13584442eb65b497c3d8b3",
+ "candidates": [],
+ "landing": {
+  "base": "b271b1dfe5a145d360c7c9433c81bfdf24ba0743",
+  "object": "a2deb18e1ae3451c545de6e289273e2b981abca3",
+  "reconciliations": [
+   "a2deb18e1ae3451c545de6e289273e2b981abca3"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "63572db3a1dd1867477ca882cbf7f6f8b2b4f013a79652e95dd0925da9acfec8"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "db91869ee4e606c123013ab105e765d0719f46e1",
+   "record": "https://github.com/amaybaum/incompleteness/pull/768#issuecomment-5877013377"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "db91869ee4e606c123013ab105e765d0719f46e1",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36472063346"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "f576e445820979ff35fb370dfe17a93d4c2506ea",
+   "record": "https://github.com/amaybaum/incompleteness/pull/768#issuecomment-5878218469"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "f576e445820979ff35fb370dfe17a93d4c2506ea",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36480574662"
+  }
+ ]
+}
