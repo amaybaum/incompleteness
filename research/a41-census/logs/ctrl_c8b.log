@@ -1,0 +1,10 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+  PASS  every stabilizer element maps each of the 20 index structures to one of the 20 True
+  classes: [['k1-column', 'k1-row'], ['k2-column', 'k2-row'], ['k3-column', 'k3-row'], ['k4-column', 'k4-row'], ['e1-column', 'e1-row'], ['e2-column', 'e2-row'], ['t1-column', 't1-row'], ['t2-column', 't2-row'], ['t3-column', 't3-row'], ['k5-column', 'k5-row']]
+  PASS  classes modulo the stabilizer: 10 of size 2 (column/row pairs)         [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+  PASS  C11: matchlib sorted-only conditions == lib41 struct_eqs (300 solutions, strict and relaxed) 0
+  PASS  C8b: complete relaxed membership transported by the group (24000 checks) 0
+  sorted-matching relaxed test: transport violations 0 (the mechanism of the red C8)
+ALL GREEN []

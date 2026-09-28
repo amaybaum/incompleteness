@@ -1,0 +1,6 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+candidate sizes after fixing {1: 7, 2: 70, 4: 36, 6: 36, 7: 12, 8: 70, 9: 2, 10: 70, 11: 7, 12: 36, 13: 1, 14: 36, 15: 12}
+python solutions 16992 distinct 16992 | census41 dump 16992 | sets equal True 17s
+direct exact Laurent identity failures 0 1410s

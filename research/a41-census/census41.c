@@ -38,6 +38,32 @@ static int HDOM[64], NHDOM = 0;
 typedef struct { int n; int idx[8]; int coef[8]; } Eq;
 static Eq *EQS[2][18]; static int NEQ[2][18];
 
+/* complete membership (all valid label matchings; 20 structures), from data41c.bin */
+typedef struct { int n; Eq *e; } EqList;
+typedef struct { EqList prop; int ng; int nvalid[16]; EqList *lam[16]; } CStruct;
+static CStruct CS[2][32]; static int NCS = 0; static int COMPLETE = 0;
+static void read_eqlist(FILE *f, EqList *L) {
+    int32_t n; if (fread(&n, 4, 1, f) != 1) exit(30);
+    L->n = n; L->e = calloc(n ? n : 1, sizeof(Eq));
+    for (int e = 0; e < n; e++) {
+        int32_t k; if (fread(&k, 4, 1, f) != 1 || k > 8) exit(31);
+        L->e[e].n = k;
+        for (int q = 0; q < k; q++) { int32_t a[2]; if (fread(a, 4, 2, f) != 2) exit(32); L->e[e].idx[q] = a[0]; L->e[e].coef[q] = a[1]; }
+    }
+}
+static void load_complete(const char *path) {
+    FILE *f = fopen(path, "rb"); if (!f) { perror(path); exit(33); }
+    int32_t ns; if (fread(&ns, 4, 1, f) != 1 || ns > 32) exit(34); NCS = ns;
+    for (int rel = 0; rel < 2; rel++) for (int s = 0; s < NCS; s++) {
+        CStruct *c = &CS[rel][s]; read_eqlist(f, &c->prop);
+        int32_t ng; if (fread(&ng, 4, 1, f) != 1) exit(35); c->ng = ng;
+        for (int b = 0; b < ng; b++) {
+            int32_t nv; if (fread(&nv, 4, 1, f) != 1) exit(36); c->nvalid[b] = nv; c->lam[b] = calloc(nv ? nv : 1, sizeof(EqList));
+            for (int v = 0; v < nv; v++) read_eqlist(f, &c->lam[b][v]);
+        }
+    }
+    fclose(f);
+}
 static double now(void) { struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t); return t.tv_sec + 1e-9 * t.tv_nsec; }
 static double T0;
 
@@ -72,7 +98,7 @@ static void load(const char *path) {
 }
 static inline int van(int i, int i2, int m) { return i < i2 ? VAN[i][i2][m] : VAN[i2][i][m]; }
 
-static int ALLROWS = 0;
+static int ALLROWS = 0, STATIC = 0;   /* STATIC: rows in index order instead of MRV (independent search tree) */
 static int FIXMASK[16];                    /* -1 = free */
 static void build_tables(void) {
     for (int i = 1; i < 16; i++) {
@@ -150,12 +176,30 @@ static int member(const int8_t *E, int rel, int s) {
     }
     return 1;
 }
-static int member_mask(const int8_t *E, int rel) { int m = 0; for (int s = 0; s < 18; s++) if (member(E, rel, s)) m |= 1 << s; return m; }
+static inline int eqs_ok(const int8_t *E, const EqList *L) {
+    for (int e = 0; e < L->n; e++) { const Eq *q = &L->e[e]; int acc = 0; for (int k = 0; k < q->n; k++) acc += q->coef[k] * E[q->idx[k]]; if (acc) return 0; }
+    return 1;
+}
+static int member_complete(const int8_t *E, int rel, int s) {
+    const CStruct *c = &CS[rel][s];
+    if (!eqs_ok(E, &c->prop)) return 0;
+    for (int b = 0; b < c->ng; b++) {
+        int any = 0; for (int v = 0; v < c->nvalid[b] && !any; v++) any = eqs_ok(E, &c->lam[b][v]);
+        if (!any) return 0;
+    }
+    return 1;
+}
+static int member_mask(const int8_t *E, int rel) {
+    int m = 0;
+    if (COMPLETE) { for (int s = 0; s < NCS; s++) if (member_complete(E, rel, s)) m |= 1 << s; }
+    else for (int s = 0; s < 18; s++) if (member(E, rel, s)) m |= 1 << s;
+    return m;
+}
 
 /* ---------------- orbit table ---------------- */
 typedef struct {
     Key key; uint16_t first[16];           /* first-found D-solution (row masks) */
-    uint64_t n_sol, n_gauge, n_strict, n_hrep;
+    uint64_t n_sol, n_gauge, n_strict, n_hrep, n_strict18;
     uint32_t relmask_canon, strictmask_union;
     uint16_t min_dsupp, canon_nnz, min_gn_nnz, orbit_gauge; uint8_t used, pad[7];
 } Rec;
@@ -176,8 +220,10 @@ static Rec *tab_find(const Key *k, int *isnew) {
 
 /* ---------------- statistics ---------------- */
 static u64 CNT_SOL = 0, CNT_GAUGE = 0, CNT_HREP = 0, CNT_STRICT = 0, CNT_RELAX_NONSTRICT_SOL = 0, CNT_NON_SOL = 0;
+static u64 CNT_STRICT18 = 0, CNT_NON18_SOL = 0, CNT_RELAXONLY18_SOL = 0, CTRL_RELAX_POPC_MISMATCH = 0, CTRL_RELAX_MISMATCH18 = 0;
 static u64 CTRL_RELAX_MISMATCH = 0, CTRL_CANON_NOT_IDEMP = 0, CTRL_CANON_CHECKED = 0;
-static int MODE = 0; /* 0 count, 1 full, 3 dump */
+static int MODE = 0; /* 0 count, 1 full, 2 knuth, 3 dump, 4 classify */
+static u64 LIMIT = ~0ULL;
 
 static int cmp_key(const void *a, const void *b) { return memcmp(a, b, 256); }
 
@@ -186,6 +232,18 @@ static void process_leaf(const uint16_t *rows) {
     for (int i = 1; i < 16; i++) if (rows[i] == 0 || rows[i] == 0xFFFF) z++;
     if (MODE == 0) { CNT_GAUGE++; CNT_SOL += ALLROWS ? 1 : (1ULL << z); return; }
     if (MODE == 3) { for (int i = 1; i < 16; i++) printf("%d%c", rows[i], i == 15 ? '\n' : ' '); CNT_SOL++; return; }
+    if (MODE == 4) {   /* per-solution classification in enumeration order (act 38 dfs2 comparison) */
+        int8_t E[256]; for (int j = 0; j < 16; j++) E[j] = 0;
+        for (int i = 1; i < 16; i++) for (int j = 0; j < 16; j++) E[i * 16 + j] = (int8_t)((rows[i] >> j) & 1);
+        int sm = member_mask(E, 0), rm = member_mask(E, 1);
+        CNT_SOL++; if (!sm && rm) CNT_RELAX_NONSTRICT_SOL++; if (!sm && !rm) CNT_NON_SOL++; if (sm) CNT_STRICT++;
+        if (CNT_SOL == LIMIT) {
+            printf("CLASSIFY first %llu solutions: strict %llu strictly-outside-but-relaxed %llu outside-every-relaxed %llu\n", (unsigned long long)CNT_SOL,
+                   (unsigned long long)CNT_STRICT, (unsigned long long)CNT_RELAX_NONSTRICT_SOL, (unsigned long long)CNT_NON_SOL);
+            exit(0);
+        }
+        return;
+    }
     CNT_GAUGE++;
     int8_t N[256];
     for (int j = 0; j < 16; j++) N[j] = 0;
@@ -206,8 +264,8 @@ static void process_leaf(const uint16_t *rows) {
         if (!dup) memcpy(imgs[nimg++], M, 256);
     }
     if (nimg * ties != 64) { fprintf(stderr, "orbit-stabilizer mismatch %d * %d\n", nimg, ties); exit(11); }
-    u64 nsol = 0, nstrict = 0; uint32_t smask_union = 0; int mind = 999;
-    int relN = member_mask(N, 1) != 0;
+    u64 nsol = 0, nstrict = 0, nstrict18 = 0; uint32_t smask_union = 0; int mind = 999;
+    int rmN = member_mask(N, 1); int relN = rmN != 0, rel18N = (rmN & 0x3FFFF) != 0;
     for (int x = 0; x < nimg; x++) {
         int8_t E[256]; int zr[16], nz = 0, supp = 0;
         for (int i = 0; i < 16; i++) {
@@ -218,16 +276,18 @@ static void process_leaf(const uint16_t *rows) {
             if (i > 0 && lo == 0 && hi == 0) zr[nz++] = i;
         }
         if (supp < mind) mind = supp;
-        if ((member_mask(E, 1) != 0) != relN) CTRL_RELAX_MISMATCH++;
+        { int rm = member_mask(E, 1); if ((rm != 0) != relN) CTRL_RELAX_MISMATCH++; if (((rm & 0x3FFFF) != 0) != rel18N) CTRL_RELAX_MISMATCH18++;
+          if (__builtin_popcount(rm) != __builtin_popcount(rmN)) CTRL_RELAX_POPC_MISMATCH++; }
         for (u64 F = 0; F < (1ULL << nz); F++) {
             for (int q = 0; q < nz; q++) { int v = (F >> q) & 1; for (int j = 0; j < 16; j++) E[zr[q] * 16 + j] = (int8_t)v; }
             int sm = member_mask(E, 0);
-            nsol++; if (sm) { nstrict++; smask_union |= sm; }
+            nsol++; if (sm) { nstrict++; smask_union |= sm; } if (sm & 0x3FFFF) nstrict18++;
         }
         for (int q = 0; q < nz; q++) for (int j = 0; j < 16; j++) E[zr[q] * 16 + j] = 0;
     }
     CNT_SOL += nsol; CNT_STRICT += nstrict;
     if (!relN) CNT_NON_SOL += nsol; else CNT_RELAX_NONSTRICT_SOL += nsol - nstrict;
+    CNT_STRICT18 += nstrict18; if (!rel18N) CNT_NON18_SOL += nsol; else CNT_RELAXONLY18_SOL += nsol - nstrict18;
     /* full canonical form */
     int8_t C[256]; canon(N, C);
     Key k; pack(C, &k); int isnew;
@@ -236,6 +296,8 @@ static void process_leaf(const uint16_t *rows) {
         memcpy(r->first, rows, 32); r->first[0] = 0;
         r->relmask_canon = member_mask(C, 1);
         if ((r->relmask_canon != 0) != relN) CTRL_RELAX_MISMATCH++;
+        if (((r->relmask_canon & 0x3FFFF) != 0) != rel18N) CTRL_RELAX_MISMATCH18++;
+        if (__builtin_popcount(r->relmask_canon) != __builtin_popcount(rmN)) CTRL_RELAX_POPC_MISMATCH++;
         int nnz = 0; for (int t = 0; t < 256; t++) nnz += C[t] != 0; r->canon_nnz = nnz;
         /* all 2048 gauge normal images: distinct count, min nonzeros, idempotence of the canonical form */
         static int8_t all[2048][256]; int mn = 999;
@@ -251,7 +313,7 @@ static void process_leaf(const uint16_t *rows) {
         CTRL_CANON_CHECKED++;
         r->min_dsupp = 999;
     }
-    r->n_sol += nsol; r->n_gauge += nimg; r->n_strict += nstrict; r->n_hrep++; r->strictmask_union |= smask_union;
+    r->n_sol += nsol; r->n_gauge += nimg; r->n_strict += nstrict; r->n_strict18 += nstrict18; r->n_hrep++; r->strictmask_union |= smask_union;
     if (mind < r->min_dsupp) r->min_dsupp = mind;
 }
 
@@ -265,7 +327,7 @@ static int popc(const u64 *b, int w) { int c = 0; for (int x = 0; x < w; x++) c 
 static void rec(int depth) {
     NODES++;
     int best = -1, bc = 1 << 30, nfree = 0;
-    for (int r = 1; r < 16; r++) if (!CHOSEN[r]) { nfree++; int c = popc(dombuf[depth][r], WORDS[r]); if (c < bc) { bc = c; best = r; } }
+    for (int r = 1; r < 16; r++) if (!CHOSEN[r]) { nfree++; int c = STATIC ? r : popc(dombuf[depth][r], WORDS[r]); if (c < bc) { bc = c; best = r; } }
     int i = best; u64 *di = dombuf[depth][i];
     if (nfree == 1) {
         for (int w = 0; w < WORDS[i]; w++) { u64 x = di[w]; while (x) { int b = __builtin_ctzll(x); x &= x - 1; CUR[i] = ADM[i][w * 64 + b]; process_leaf(CUR); } }
@@ -334,15 +396,17 @@ static void save_state(int next_branch, int b_end) {
     char tmp[600], fin[600];
     snprintf(tmp, sizeof tmp, "%s/state.tmp", STATE); snprintf(fin, sizeof fin, "%s/state.bin", STATE);
     FILE *f = fopen(tmp, "wb"); if (!f) { perror(tmp); exit(20); }
-    u64 hdr[16] = { 0x41434e53, (u64)next_branch, (u64)b_end, TN, CNT_SOL, CNT_GAUGE, CNT_HREP, CNT_STRICT, CNT_RELAX_NONSTRICT_SOL, CNT_NON_SOL, CTRL_RELAX_MISMATCH, CTRL_CANON_NOT_IDEMP, CTRL_CANON_CHECKED, NODES, 0, 0 };
-    fwrite(hdr, 8, 16, f);
+    u64 hdr[24] = { 0x41434e54, (u64)next_branch, (u64)b_end, TN, CNT_SOL, CNT_GAUGE, CNT_HREP, CNT_STRICT, CNT_RELAX_NONSTRICT_SOL, CNT_NON_SOL, CTRL_RELAX_MISMATCH, CTRL_CANON_NOT_IDEMP, CTRL_CANON_CHECKED, NODES, (u64)COMPLETE, (u64)NCS,
+                    CNT_STRICT18, CNT_NON18_SOL, CNT_RELAXONLY18_SOL, CTRL_RELAX_POPC_MISMATCH, CTRL_RELAX_MISMATCH18, sizeof(Rec), 0, 0 };
+    fwrite(hdr, 8, 24, f);
     for (size_t x = 0; x < TCAP; x++) if (TAB[x].used) fwrite(&TAB[x], sizeof(Rec), 1, f);
     fflush(f); fsync(fileno(f)); fclose(f); rename(tmp, fin);
 }
 static int load_state(int *next_branch) {
     char fin[600]; snprintf(fin, sizeof fin, "%s/state.bin", STATE);
     FILE *f = fopen(fin, "rb"); if (!f) return 0;
-    u64 hdr[16]; if (fread(hdr, 8, 16, f) != 16 || hdr[0] != 0x41434e53) { fprintf(stderr, "bad state\n"); exit(21); }
+    u64 hdr[24]; if (fread(hdr, 8, 24, f) != 24 || hdr[0] != 0x41434e54 || hdr[14] != (u64)COMPLETE) { fprintf(stderr, "bad state\n"); exit(21); }
+    CNT_STRICT18 = hdr[16]; CNT_NON18_SOL = hdr[17]; CNT_RELAXONLY18_SOL = hdr[18]; CTRL_RELAX_POPC_MISMATCH = hdr[19]; CTRL_RELAX_MISMATCH18 = hdr[20];
     *next_branch = (int)hdr[1]; CNT_SOL = hdr[4]; CNT_GAUGE = hdr[5]; CNT_HREP = hdr[6]; CNT_STRICT = hdr[7]; CNT_RELAX_NONSTRICT_SOL = hdr[8]; CNT_NON_SOL = hdr[9];
     CTRL_RELAX_MISMATCH = hdr[10]; CTRL_CANON_NOT_IDEMP = hdr[11]; CTRL_CANON_CHECKED = hdr[12]; NODES = hdr[13];
     u64 n = hdr[3]; Rec r;
@@ -362,10 +426,15 @@ int main(int argc, char **argv) {
         else if (!strcmp(argv[a], "--fix")) { int r, m; sscanf(argv[++a], "%d:%d", &r, &m); FIXMASK[r] = m; }
         else if (!strcmp(argv[a], "--seed")) seed = strtoull(argv[++a], 0, 10);
         else if (!strcmp(argv[a], "--probes")) probes = strtol(argv[++a], 0, 10);
+        else if (!strcmp(argv[a], "--complete")) COMPLETE = 1;
+        else if (!strcmp(argv[a], "--static")) STATIC = 1;
+        else if (!strcmp(argv[a], "--limit")) LIMIT = strtoull(argv[++a], 0, 10);
     }
-    MODE = !strcmp(mode, "count") ? 0 : !strcmp(mode, "full") ? 1 : !strcmp(mode, "knuth") ? 2 : 3;
+    MODE = !strcmp(mode, "count") ? 0 : !strcmp(mode, "full") ? 1 : !strcmp(mode, "knuth") ? 2 : !strcmp(mode, "dump") ? 3 : !strcmp(mode, "classify") ? 4 : -1;
+    if (MODE < 0) { fprintf(stderr, "unknown mode\n"); return 1; }
     if (MODE == 1 && ALLROWS) { fprintf(stderr, "full mode enumerates gauge classes (no --allrows)\n"); return 1; }
     load(argc > 0 ? "data41.bin" : "");
+    if (COMPLETE) { load_complete("data41c.bin"); fprintf(stderr, "complete membership: %d structures\n", NCS); }
     build_tables();
     for (int r = 1; r < 16; r++) { memset(dombuf[0][r], 0, 8 * WORDS[r]); for (int n = 0; n < NADM[r]; n++) dombuf[0][r][n >> 6] |= 1ULL << (n & 63); }
     if (MODE == 2) {
@@ -377,7 +446,7 @@ int main(int argc, char **argv) {
     }
     /* top level: the MRV row at the root; branches are its candidates in order */
     int i0 = -1, bc = 1 << 30;
-    for (int r = 1; r < 16; r++) { int c = NADM[r]; if (c < bc) { bc = c; i0 = r; } }
+    for (int r = 1; r < 16; r++) { int c = STATIC ? r : NADM[r]; if (c < bc) { bc = c; i0 = r; } }
     int nb = NADM[i0]; if (b_hi > nb) b_hi = nb;
     int start = b_lo;
     if (MODE == 1 && STATE[0]) { int nbr; if (load_state(&nbr)) { start = nbr; fprintf(stderr, "resumed at branch %d, orbits %zu\n", start, TN); } }
@@ -402,6 +471,8 @@ int main(int argc, char **argv) {
            mode, b_lo, b_hi, (unsigned long long)CNT_SOL, (unsigned long long)CNT_GAUGE, (unsigned long long)CNT_HREP, TN,
            (unsigned long long)CNT_STRICT, (unsigned long long)CNT_RELAX_NONSTRICT_SOL, (unsigned long long)CNT_NON_SOL, (unsigned long long)NODES,
            (unsigned long long)CTRL_RELAX_MISMATCH, (unsigned long long)CTRL_CANON_NOT_IDEMP, (unsigned long long)CTRL_CANON_CHECKED, now() - T0);
+    printf("COMPLETE %d structures %d strict18 %llu non18 %llu relaxonly18 %llu ctrl_relax_mismatch18 %llu ctrl_relax_popc_mismatch %llu\n", COMPLETE, COMPLETE ? NCS : 18,
+           (unsigned long long)CNT_STRICT18, (unsigned long long)CNT_NON18_SOL, (unsigned long long)CNT_RELAXONLY18_SOL, (unsigned long long)CTRL_RELAX_MISMATCH18, (unsigned long long)CTRL_RELAX_POPC_MISMATCH);
     if (MODE == 1 && STATE[0]) save_state(b_hi, b_hi);
     return 0;
 }

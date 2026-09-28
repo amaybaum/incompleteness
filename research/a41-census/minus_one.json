@@ -1,0 +1,88 @@
+[
+ {
+  "form": "column",
+  "valid_per_group": [
+   2,
+   2,
+   2
+  ],
+  "identity_valid": [
+   true,
+   false,
+   true
+  ],
+  "matching": [
+   [
+    0,
+    1,
+    2,
+    3
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ],
+   [
+    1,
+    2,
+    3,
+    0
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "recon": true,
+  "X_unitary": true,
+  "Y_unitary": true,
+  "H(-1) unitary": true
+ },
+ {
+  "form": "row",
+  "valid_per_group": [
+   2,
+   2,
+   2
+  ],
+  "identity_valid": [
+   false,
+   false,
+   false
+  ],
+  "matching": [
+   [
+    0,
+    1,
+    2,
+    3
+   ],
+   [
+    0,
+    2,
+    1,
+    3
+   ],
+   [
+    0,
+    2,
+    1,
+    3
+   ],
+   [
+    1,
+    2,
+    0,
+    3
+   ]
+  ],
+  "recon": true,
+  "X_unitary": true,
+  "Y_unitary": true,
+  "H(-1) unitary": true
+ }
+]

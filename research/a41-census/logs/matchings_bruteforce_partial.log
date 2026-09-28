@@ -1,0 +1,11 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+k1         column matchings total  13824  valid strict    8  valid relaxed    8  sorted valid True
+k1         row    matchings total  13824  valid strict    8  valid relaxed    8  sorted valid True
+k2         column matchings total  13824  valid strict   64  valid relaxed   64  sorted valid True
+k2         row    matchings total  13824  valid strict   64  valid relaxed   64  sorted valid True
+k3         column matchings total  13824  valid strict    8  valid relaxed    8  sorted valid True
+k3         row    matchings total  13824  valid strict    8  valid relaxed    8  sorted valid True
+k4         column matchings total  13824  valid strict    8  valid relaxed    8  sorted valid True
+k4         row    matchings total  13824  valid strict    8  valid relaxed    8  sorted valid True

@@ -1,0 +1,22 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+k1-column  per-group valid strict [2, 2, 2] ->     8 matchings; relaxed [2, 2, 2] ->     8; identity valid True
+k1-row     per-group valid strict [2, 2, 2] ->     8 matchings; relaxed [2, 2, 2] ->     8; identity valid True
+k2-column  per-group valid strict [4, 4, 4] ->    64 matchings; relaxed [4, 4, 4] ->    64; identity valid True
+k2-row     per-group valid strict [4, 4, 4] ->    64 matchings; relaxed [4, 4, 4] ->    64; identity valid True
+k3-column  per-group valid strict [2, 2, 2] ->     8 matchings; relaxed [2, 2, 2] ->     8; identity valid True
+k3-row     per-group valid strict [2, 2, 2] ->     8 matchings; relaxed [2, 2, 2] ->     8; identity valid True
+k4-column  per-group valid strict [2, 2, 2] ->     8 matchings; relaxed [2, 2, 2] ->     8; identity valid True
+k4-row     per-group valid strict [2, 2, 2] ->     8 matchings; relaxed [2, 2, 2] ->     8; identity valid True
+e1-column  per-group valid strict [4] ->     4 matchings; relaxed [4] ->     4; identity valid True
+e1-row     per-group valid strict [4] ->     4 matchings; relaxed [4] ->     4; identity valid True
+e2-column  per-group valid strict [4] ->     4 matchings; relaxed [4] ->     4; identity valid True
+e2-row     per-group valid strict [4] ->     4 matchings; relaxed [4] ->     4; identity valid True
+t1-column  per-group valid strict [2, 2, 2, 2, 2, 2, 2] ->   128 matchings; relaxed [2, 2, 2, 2, 2, 2, 2] ->   128; identity valid True
+t1-row     per-group valid strict [2, 2, 2, 2, 2, 2, 2] ->   128 matchings; relaxed [2, 2, 2, 2, 2, 2, 2] ->   128; identity valid True
+t2-column  per-group valid strict [2, 2, 2, 2, 2, 2, 2] ->   128 matchings; relaxed [2, 2, 2, 2, 2, 2, 2] ->   128; identity valid True
+t2-row     per-group valid strict [2, 2, 2, 2, 2, 2, 2] ->   128 matchings; relaxed [2, 2, 2, 2, 2, 2, 2] ->   128; identity valid True
+t3-column  per-group valid strict [2, 2, 2, 2, 2, 2, 2] ->   128 matchings; relaxed [2, 2, 2, 2, 2, 2, 2] ->   128; identity valid True
+t3-row     per-group valid strict [2, 2, 2, 2, 2, 2, 2] ->   128 matchings; relaxed [2, 2, 2, 2, 2, 2, 2] ->   128; identity valid True
+written matchings.json

@@ -1,0 +1,153 @@
+{
+ "header": {
+  "magic": 1094930003,
+  "next_branch": 1327,
+  "b_end": 1327,
+  "n_orbits": 664888,
+  "sol": 171552256,
+  "gauge": 30594431,
+  "hrep": 1298084,
+  "strict": 141772416,
+  "relaxonly_sol": 10820480,
+  "non_sol": 18959360,
+  "ctrl_relax_mismatch": 0,
+  "ctrl_canon_not_idemp": 0,
+  "ctrl_canon_checked": 664888,
+  "nodes": 74529032,
+  "x": 0,
+  "y": 0
+ },
+ "controls": {
+  "run complete (next branch = end)": {
+   "ok": true,
+   "got": "True",
+   "want": "True"
+  },
+  "C6c: sum of n_sol over orbits = D-solutions (count mode)": {
+   "ok": true,
+   "got": "171552256",
+   "want": "171552256"
+  },
+  "sum of n_gauge over orbits = gauge classes (count mode)": {
+   "ok": true,
+   "got": "30594431",
+   "want": "30594431"
+  },
+  "sum of n_hrep over orbits = H_dom representatives": {
+   "ok": true,
+   "got": "1298084",
+   "want": "1298084"
+  },
+  "built-in: relaxed-membership mismatches": {
+   "ok": true,
+   "got": "0",
+   "want": "0"
+  },
+  "built-in: canonical-form idempotence failures (2 per orbit)": {
+   "ok": true,
+   "got": "(0, 664888)",
+   "want": "(0, 664888)"
+  },
+  "decoded keys distinct": {
+   "ok": true,
+   "got": "664888",
+   "want": "664888"
+  },
+  "C10: every canonical representative is a straight line": {
+   "ok": true,
+   "got": "0",
+   "want": "0"
+  },
+  "C10: every first-found solution is a straight line": {
+   "ok": true,
+   "got": "0",
+   "want": "0"
+  },
+  "C10: first-found solutions are in the domain (row 0 = 0, no all-ones row)": {
+   "ok": true,
+   "got": "True",
+   "want": "True"
+  },
+  "C10 countercontrol: a single-entry matrix is rejected": {
+   "ok": true,
+   "got": "False",
+   "want": "False"
+  },
+  "C7: numpy canonical form of the first-found solution = C key (3992 orbits)": {
+   "ok": true,
+   "got": "0",
+   "want": "0"
+  },
+  "C7: canonical form invariant under a random group element and gauge (500 orbits)": {
+   "ok": true,
+   "got": "0",
+   "want": "0"
+  },
+  "C1-C3: orbit of A is in the table": {
+   "ok": true,
+   "got": "True",
+   "want": "True"
+  },
+  "C1-C3: orbit of B is in the table": {
+   "ok": true,
+   "got": "True",
+   "want": "True"
+  },
+  "C1-C3: orbit of C is in the table": {
+   "ok": true,
+   "got": "True",
+   "want": "True"
+  },
+  "C1-C3: orbit of A+B is in the table": {
+   "ok": true,
+   "got": "True",
+   "want": "True"
+  },
+  "C1-C3: orbit of A+C is in the table": {
+   "ok": true,
+   "got": "True",
+   "want": "True"
+  },
+  "C1-C3: orbit of B+C is in the table": {
+   "ok": true,
+   "got": "True",
+   "want": "True"
+  },
+  "C1-C3: orbit of A+B+C is in the table": {
+   "ok": true,
+   "got": "True",
+   "want": "True"
+  },
+  "C1-C3: orbit of zero is in the table": {
+   "ok": true,
+   "got": "True",
+   "want": "True"
+  },
+  "C1: witness orbit: sorted-matching relaxed mask of canon rep": {
+   "ok": true,
+   "got": "0",
+   "want": "0"
+  },
+  "C1: witness orbit: strictly-member D-solutions (sorted matching)": {
+   "ok": true,
+   "got": "0",
+   "want": "0"
+  },
+  "C1: witness orbit: distinct gauge-normal images": {
+   "ok": true,
+   "got": "512",
+   "want": "512"
+  }
+ },
+ "failed": [],
+ "object_orbits": {
+  "A": 118522,
+  "B": 96590,
+  "C": 631839,
+  "A+B": 207707,
+  "A+C": 335041,
+  "B+C": 363008,
+  "A+B+C": 220898,
+  "zero": 345706
+ }
+}

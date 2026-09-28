@@ -110,3 +110,43 @@ GROUP = [(p, s) for p, s in elems] + [(p, -s) for p, s in elems]
 def canon_ref(E):
     """lexicographic minimum (row-major, 256 entries) of the gauge normal forms of the 2048 images eps.g.E"""
     return min(tuple(x for r in gnorm(act(g, E)) for x in r) for g in GROUP)
+
+# ---- numpy canonical form (independent of the C early-exit implementation: full images, lexsort) ------------
+PERM_ARR = np.array([p for p, s in GROUP], dtype=np.int64)
+SIGN_ARR = np.array([s for p, s in GROUP], dtype=np.int64)
+INV_ARR = np.argsort(PERM_ARR, axis=1)          # image[t] = s * E[INV[t]]
+def images_gn(E):
+    flat = np.asarray(E, dtype=np.int64).reshape(256)
+    imgs = (flat[INV_ARR] * SIGN_ARR[:, None]).reshape(-1, 16, 16)
+    imgs = imgs - imgs[:, :, :1] - imgs[:, :1, :] + imgs[:, :1, :1]
+    return imgs.reshape(-1, 256)
+def canon_np(E):
+    fl = images_gn(E)
+    order = np.lexsort(fl.T[::-1])
+    return tuple(int(x) for x in fl[order[0]])
+
+# ---- the orbit table written by census41 (state.bin) ----------------------------------------------------------
+REC_DTYPE = np.dtype([('key', '<u8', 11), ('first', '<u2', 16), ('n_sol', '<u8'), ('n_gauge', '<u8'), ('n_strict', '<u8'),
+                      ('n_hrep', '<u8'), ('relmask_canon', '<u4'), ('strictmask_union', '<u4'), ('min_dsupp', '<u2'),
+                      ('canon_nnz', '<u2'), ('min_gn_nnz', '<u2'), ('orbit_gauge', '<u2'), ('used', 'u1'), ('pad', 'u1', 7)])
+assert REC_DTYPE.itemsize == 176
+HDR_NAMES = ['magic', 'next_branch', 'b_end', 'n_orbits', 'sol', 'gauge', 'hrep', 'strict', 'relaxonly_sol', 'non_sol',
+             'ctrl_relax_mismatch', 'ctrl_canon_not_idemp', 'ctrl_canon_checked', 'nodes', 'x', 'y']
+def load_table(path):
+    raw = open(path, 'rb').read()
+    hdr = dict(zip(HDR_NAMES, np.frombuffer(raw[:128], dtype='<u8').tolist()))
+    recs = np.frombuffer(raw[128:], dtype=REC_DTYPE)
+    assert len(recs) == hdr['n_orbits']
+    return hdr, recs
+def decode_keys(keys):
+    """(n, 11) uint64 -> (n, 16, 16) int8 canonical gauge normal forms"""
+    n = len(keys); out = np.zeros((n, 16, 16), dtype=np.int8)
+    k = keys.astype(np.uint64)
+    for p in range(225):
+        b = 3 * p; w, o = b >> 6, b & 63
+        v = (k[:, w] >> np.uint64(o)) & np.uint64(7)
+        if o > 61: v = v | ((k[:, w + 1] << np.uint64(64 - o)) & np.uint64(7))
+        out[:, 1 + p // 15, 1 + p % 15] = v.astype(np.int8) - 2
+    return out
+def first_matrix(first):
+    return [[(int(first[i]) >> j) & 1 if i > 0 else 0 for j in range(16)] for i in range(16)]

@@ -1,0 +1,21 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+SIG                              4x4 candidates  5 sorted-exact  4 | exact under some matching: strict  5 relaxed  5
+SIG                              8x2 candidates  3 sorted-exact  2 | exact under some matching: strict  2 relaxed  2
+SIG                              2x8 candidates  3 sorted-exact  3 | exact under some matching: strict  3 relaxed  3
+SIG^T                            4x4 candidates  5 sorted-exact  4 | exact under some matching: strict  5 relaxed  5
+SIG^T                            8x2 candidates  3 sorted-exact  2 | exact under some matching: strict  2 relaxed  2
+SIG^T                            2x8 candidates  3 sorted-exact  3 | exact under some matching: strict  3 relaxed  3
+W-arc generic                    4x4 candidates  1 sorted-exact  0 | exact under some matching: strict  0 relaxed  0
+W-arc generic                    8x2 candidates  1 sorted-exact  0 | exact under some matching: strict  0 relaxed  0
+W-arc generic                    2x8 candidates  1 sorted-exact  1 | exact under some matching: strict  1 relaxed  1
+W-arc generic, transpose         4x4 candidates  1 sorted-exact  0 | exact under some matching: strict  0 relaxed  0
+W-arc generic, transpose         8x2 candidates  1 sorted-exact  0 | exact under some matching: strict  0 relaxed  0
+W-arc generic, transpose         2x8 candidates  1 sorted-exact  1 | exact under some matching: strict  1 relaxed  1
+A38 witness generic              4x4 candidates  0 sorted-exact  0 | exact under some matching: strict  0 relaxed  0
+A38 witness generic              8x2 candidates  0 sorted-exact  0 | exact under some matching: strict  0 relaxed  0
+A38 witness generic              2x8 candidates  0 sorted-exact  0 | exact under some matching: strict  0 relaxed  0
+A38 witness generic, transpose   4x4 candidates  0 sorted-exact  0 | exact under some matching: strict  0 relaxed  0
+A38 witness generic, transpose   8x2 candidates  0 sorted-exact  0 | exact under some matching: strict  0 relaxed  0
+A38 witness generic, transpose   2x8 candidates  0 sorted-exact  0 | exact under some matching: strict  0 relaxed  0

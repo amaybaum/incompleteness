@@ -1,0 +1,5 @@
+KNUTH seed 1 probes 40000 mean 2.74241e+07 stderr 1.34e+06 max 2.41e+10 89s
+KNUTH seed 2 probes 40000 mean 2.83897e+07 stderr 1.62e+06 max 4.51e+10 83s
+KNUTH seed 3 probes 40000 mean 3.40679e+07 stderr 5.01e+06 max 1.89e+11 69s
+KNUTH seed 4 probes 40000 mean 4.68778e+07 stderr 1.44e+07 max 5.59e+11 74s
+KNUTH seed 5 probes 40000 mean 2.732e+07 stderr 1.42e+06 max 3.24e+10 87s

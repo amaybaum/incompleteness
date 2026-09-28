@@ -1,0 +1,131 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+  PASS  A+B+C equals the landed EE                                   [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1], [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0], [0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0], [0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1]]
+  PASS  A in the domain ({0,1}, row 0 = 0)                           True
+  PASS  A straight line (direct exact Laurent identity)              True
+  PASS  A strict memberships (discovery-note table)                  {('k4', 'row'), ('t2', 'row'), ('t3', 'row'), ('t1', 'column'), ('t1', 'row'), ('e2', 'row'), ('k2', 'row')}
+  PASS  A relaxed memberships = strict (discovery-note table)        {('k4', 'row'), ('t2', 'row'), ('t3', 'row'), ('t1', 'column'), ('t1', 'row'), ('e2', 'row'), ('k2', 'row')}
+  PASS  B in the domain ({0,1}, row 0 = 0)                           True
+  PASS  B straight line (direct exact Laurent identity)              True
+  PASS  B strict memberships (discovery-note table)                  {('k1', 'row'), ('t2', 'column'), ('t1', 'row'), ('k4', 'column')}
+  PASS  B relaxed memberships = strict (discovery-note table)        {('k1', 'row'), ('t2', 'column'), ('t1', 'row'), ('k4', 'column')}
+  PASS  C in the domain ({0,1}, row 0 = 0)                           True
+  PASS  C straight line (direct exact Laurent identity)              True
+  PASS  C strict memberships (discovery-note table)                  {('t3', 'column'), ('t1', 'column'), ('t3', 'row'), ('k2', 'column'), ('t2', 'column')}
+  PASS  C relaxed memberships = strict (discovery-note table)        {('t3', 'column'), ('t1', 'column'), ('t3', 'row'), ('k2', 'column'), ('t2', 'column')}
+  PASS  A+B in the domain ({0,1}, row 0 = 0)                         True
+  PASS  A+B straight line (direct exact Laurent identity)            True
+  PASS  A+B strict memberships (discovery-note table)                {('t1', 'row')}
+  PASS  A+B relaxed memberships = strict (discovery-note table)      {('t1', 'row')}
+  PASS  A+C in the domain ({0,1}, row 0 = 0)                         True
+  PASS  A+C straight line (direct exact Laurent identity)            True
+  PASS  A+C strict memberships (discovery-note table)                {('t3', 'row'), ('t1', 'column')}
+  PASS  A+C relaxed memberships = strict (discovery-note table)      {('t3', 'row'), ('t1', 'column')}
+  PASS  B+C in the domain ({0,1}, row 0 = 0)                         True
+  PASS  B+C straight line (direct exact Laurent identity)            True
+  PASS  B+C strict memberships (discovery-note table)                {('t2', 'column')}
+  PASS  B+C relaxed memberships = strict (discovery-note table)      {('t2', 'column')}
+  PASS  A+B+C in the domain ({0,1}, row 0 = 0)                       True
+  PASS  A+B+C straight line (direct exact Laurent identity)          True
+  PASS  A+B+C strict memberships (discovery-note table)              set()
+  PASS  A+B+C relaxed memberships = strict (discovery-note table)    set()
+  PASS  zero in the domain ({0,1}, row 0 = 0)                        True
+  PASS  zero straight line (direct exact Laurent identity)           True
+  PASS  zero strict memberships (discovery-note table)               {('k4', 'row'), ('k1', 'column'), ('k3', 'row'), ('k1', 'row'), ('t2', 'row'), ('t3', 'row'), ('t3', 'column'), ('e2', 'row'), ('t2', 'column'), ('e2', 'column'), ('t1', 'column'), ('k4', 'column'), ('t1', 'row'), ('k2', 'column'), ('e1', 'column'), ('k3', 'column'), ('k2', 'row'), ('e1', 'row')}
+  PASS  zero relaxed memberships = strict (discovery-note table)     {('k4', 'row'), ('k1', 'column'), ('k3', 'row'), ('k1', 'row'), ('t2', 'row'), ('t3', 'row'), ('t3', 'column'), ('e2', 'row'), ('t2', 'column'), ('e2', 'column'), ('t1', 'column'), ('k4', 'column'), ('t1', 'row'), ('k2', 'column'), ('e1', 'column'), ('k3', 'column'), ('k2', 'row'), ('e1', 'row')}
+  PASS  support of A+B+C                                             48
+  PASS  A+B+C: distinct gauge-normal images under the 2048 elements  512
+  FAIL  A+B+C: minimum gauge-normal support over the orbit           44 (expected 48)
+  PASS  gauge-trivial matrix: relaxed members                        18
+  PASS  gauge-trivial matrix: strict members                         0
+  PASS  2048 distinct elements                                       2048
+  PASS  identity in the set                                          True
+  PASS  group generated by 6 elements has order                      2048
+  relaxed subspace dimensions {('k1', 'column'): 85, ('k1', 'row'): 85, ('k2', 'column'): 85, ('k2', 'row'): 85, ('k3', 'column'): 85, ('k3', 'row'): 85, ('k4', 'column'): 85, ('k4', 'row'): 85, ('e1', 'column'): 95, ('e1', 'row'): 95, ('e2', 'column'): 95, ('e2', 'row'): 95, ('t1', 'column'): 137, ('t1', 'row'): 137, ('t2', 'column'): 137, ('t2', 'row'): 137, ('t3', 'column'): 137, ('t3', 'row'): 137}
+   no target for 781 ('k2', 'column')
+   no target for 781 ('k2', 'row')
+   no target for 781 ('e1', 'column')
+   no target for 781 ('e1', 'row')
+   no target for 781 ('t2', 'column')
+   no target for 781 ('t2', 'row')
+   no target for 479 ('k2', 'column')
+   no target for 479 ('k2', 'row')
+   no target for 479 ('e2', 'column')
+   no target for 479 ('e2', 'row')
+   no target for 479 ('t1', 'column')
+   no target for 479 ('t1', 'row')
+   no target for 479 ('t3', 'column')
+   no target for 479 ('t3', 'row')
+   no target for 389 ('k2', 'column')
+   no target for 389 ('k2', 'row')
+   no target for 389 ('e2', 'column')
+   no target for 389 ('e2', 'row')
+   no target for 389 ('t1', 'column')
+   no target for 389 ('t1', 'row')
+   no target for 389 ('t3', 'column')
+   no target for 389 ('t3', 'row')
+   no target for 1578 ('k2', 'column')
+   no target for 1578 ('k2', 'row')
+   no target for 1578 ('e2', 'column')
+   no target for 1578 ('e2', 'row')
+   no target for 1578 ('t1', 'column')
+   no target for 1578 ('t1', 'row')
+   no target for 1578 ('t3', 'column')
+   no target for 1578 ('t3', 'row')
+   no target for 1161 ('k2', 'column')
+   no target for 1161 ('k2', 'row')
+   no target for 1161 ('e1', 'column')
+   no target for 1161 ('e1', 'row')
+   no target for 1161 ('e2', 'column')
+   no target for 1161 ('e2', 'row')
+   no target for 1161 ('t1', 'column')
+   no target for 1161 ('t1', 'row')
+   no target for 1161 ('t2', 'column')
+   no target for 1161 ('t2', 'row')
+   no target for 1161 ('t3', 'column')
+   no target for 1161 ('t3', 'row')
+   no target for 1133 ('k2', 'column')
+   no target for 1133 ('k2', 'row')
+   no target for 1133 ('e1', 'column')
+   no target for 1133 ('e1', 'row')
+   no target for 1133 ('e2', 'column')
+   no target for 1133 ('e2', 'row')
+   no target for 1133 ('t1', 'column')
+   no target for 1133 ('t1', 'row')
+   no target for 1133 ('t2', 'column')
+   no target for 1133 ('t2', 'row')
+   no target for 1133 ('t3', 'column')
+   no target for 1133 ('t3', 'row')
+   no target for 1570 ('k2', 'column')
+   no target for 1570 ('k2', 'row')
+   no target for 1570 ('e1', 'column')
+   no target for 1570 ('e1', 'row')
+   no target for 1570 ('e2', 'column')
+   no target for 1570 ('e2', 'row')
+   no target for 1570 ('t1', 'column')
+   no target for 1570 ('t1', 'row')
+   no target for 1570 ('t2', 'column')
+   no target for 1570 ('t2', 'row')
+   no target for 1570 ('t3', 'column')
+   no target for 1570 ('t3', 'row')
+   no target for 38 ('k2', 'column')
+   no target for 38 ('k2', 'row')
+   no target for 38 ('e1', 'column')
+   no target for 38 ('e1', 'row')
+   no target for 38 ('e2', 'column')
+   no target for 38 ('e2', 'row')
+   no target for 38 ('t1', 'column')
+   no target for 38 ('t1', 'row')
+   no target for 38 ('t2', 'column')
+   no target for 38 ('t2', 'row')
+   no target for 38 ('t3', 'column')
+   no target for 38 ('t3', 'row')
+   no target for 1020 ('k2', 'column')
+   no target for 1020 ('k2', 'row')
+   no target for 1020 ('e1', 'column')
+   no target for 1020 ('e1', 'row')
+   no target for 1020 ('t2', 'column')
+   no target for 1020 ('t2', 'row')
+  FAIL  generators (and 6 random elements) map each relaxed subspace onto a relaxed subspace False (expected True)
+FAILED ['A+B+C: minimum gauge-normal support over the orbit', 'generators (and 6 random elements) map each relaxed subspace onto a relaxed subspace']

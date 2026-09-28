@@ -1,5 +1,11 @@
 census41
+census41b
+census41c
+census41d
 data41.bin
+data41c.bin
 state_*/
 __pycache__/
 *.bin
+*.npy
+logs/dump_*.txt

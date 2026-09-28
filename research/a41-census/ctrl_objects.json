@@ -1,0 +1,204 @@
+{
+ "controls": {
+  "A+B+C equals the landed EE": {
+   "ok": true,
+   "got": "[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1], [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0], [0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0], [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0], [0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1]]"
+  },
+  "A in the domain ({0,1}, row 0 = 0)": {
+   "ok": true,
+   "got": "True"
+  },
+  "A straight line (direct exact Laurent identity)": {
+   "ok": true,
+   "got": "True"
+  },
+  "A strict memberships (discovery-note table)": {
+   "ok": true,
+   "got": "{('k4', 'row'), ('t2', 'row'), ('t3', 'row'), ('t1', 'column'), ('t1', 'row'), ('e2', 'row'), ('k2', 'row')}"
+  },
+  "A relaxed memberships = strict (discovery-note table)": {
+   "ok": true,
+   "got": "{('k4', 'row'), ('t2', 'row'), ('t3', 'row'), ('t1', 'column'), ('t1', 'row'), ('e2', 'row'), ('k2', 'row')}"
+  },
+  "B in the domain ({0,1}, row 0 = 0)": {
+   "ok": true,
+   "got": "True"
+  },
+  "B straight line (direct exact Laurent identity)": {
+   "ok": true,
+   "got": "True"
+  },
+  "B strict memberships (discovery-note table)": {
+   "ok": true,
+   "got": "{('k1', 'row'), ('t2', 'column'), ('t1', 'row'), ('k4', 'column')}"
+  },
+  "B relaxed memberships = strict (discovery-note table)": {
+   "ok": true,
+   "got": "{('k1', 'row'), ('t2', 'column'), ('t1', 'row'), ('k4', 'column')}"
+  },
+  "C in the domain ({0,1}, row 0 = 0)": {
+   "ok": true,
+   "got": "True"
+  },
+  "C straight line (direct exact Laurent identity)": {
+   "ok": true,
+   "got": "True"
+  },
+  "C strict memberships (discovery-note table)": {
+   "ok": true,
+   "got": "{('t3', 'column'), ('t1', 'column'), ('t3', 'row'), ('k2', 'column'), ('t2', 'column')}"
+  },
+  "C relaxed memberships = strict (discovery-note table)": {
+   "ok": true,
+   "got": "{('t3', 'column'), ('t1', 'column'), ('t3', 'row'), ('k2', 'column'), ('t2', 'column')}"
+  },
+  "A+B in the domain ({0,1}, row 0 = 0)": {
+   "ok": true,
+   "got": "True"
+  },
+  "A+B straight line (direct exact Laurent identity)": {
+   "ok": true,
+   "got": "True"
+  },
+  "A+B strict memberships (discovery-note table)": {
+   "ok": true,
+   "got": "{('t1', 'row')}"
+  },
+  "A+B relaxed memberships = strict (discovery-note table)": {
+   "ok": true,
+   "got": "{('t1', 'row')}"
+  },
+  "A+C in the domain ({0,1}, row 0 = 0)": {
+   "ok": true,
+   "got": "True"
+  },
+  "A+C straight line (direct exact Laurent identity)": {
+   "ok": true,
+   "got": "True"
+  },
+  "A+C strict memberships (discovery-note table)": {
+   "ok": true,
+   "got": "{('t3', 'row'), ('t1', 'column')}"
+  },
+  "A+C relaxed memberships = strict (discovery-note table)": {
+   "ok": true,
+   "got": "{('t3', 'row'), ('t1', 'column')}"
+  },
+  "B+C in the domain ({0,1}, row 0 = 0)": {
+   "ok": true,
+   "got": "True"
+  },
+  "B+C straight line (direct exact Laurent identity)": {
+   "ok": true,
+   "got": "True"
+  },
+  "B+C strict memberships (discovery-note table)": {
+   "ok": true,
+   "got": "{('t2', 'column')}"
+  },
+  "B+C relaxed memberships = strict (discovery-note table)": {
+   "ok": true,
+   "got": "{('t2', 'column')}"
+  },
+  "A+B+C in the domain ({0,1}, row 0 = 0)": {
+   "ok": true,
+   "got": "True"
+  },
+  "A+B+C straight line (direct exact Laurent identity)": {
+   "ok": true,
+   "got": "True"
+  },
+  "A+B+C strict memberships (discovery-note table)": {
+   "ok": true,
+   "got": "set()"
+  },
+  "A+B+C relaxed memberships = strict (discovery-note table)": {
+   "ok": true,
+   "got": "set()"
+  },
+  "zero in the domain ({0,1}, row 0 = 0)": {
+   "ok": true,
+   "got": "True"
+  },
+  "zero straight line (direct exact Laurent identity)": {
+   "ok": true,
+   "got": "True"
+  },
+  "zero strict memberships (discovery-note table)": {
+   "ok": true,
+   "got": "{('k4', 'row'), ('k1', 'column'), ('k3', 'row'), ('k1', 'row'), ('t2', 'row'), ('t3', 'row'), ('t3', 'column'), ('e2', 'row'), ('t2', 'column'), ('e2', 'column'), ('t1', 'column'), ('k4', 'column'), ('t1', 'row'), ('k2', 'column'), ('e1', 'column'), ('k3', 'column'), ('k2', 'row'), ('e1', 'row')}"
+  },
+  "zero relaxed memberships = strict (discovery-note table)": {
+   "ok": true,
+   "got": "{('k4', 'row'), ('k1', 'column'), ('k3', 'row'), ('k1', 'row'), ('t2', 'row'), ('t3', 'row'), ('t3', 'column'), ('e2', 'row'), ('t2', 'column'), ('e2', 'column'), ('t1', 'column'), ('k4', 'column'), ('t1', 'row'), ('k2', 'column'), ('e1', 'column'), ('k3', 'column'), ('k2', 'row'), ('e1', 'row')}"
+  },
+  "support of A+B+C": {
+   "ok": true,
+   "got": "48"
+  },
+  "A+B+C: distinct gauge-normal images under the 2048 elements": {
+   "ok": true,
+   "got": "512"
+  },
+  "A+B+C: minimum gauge-normal support over the orbit": {
+   "ok": false,
+   "got": "44"
+  },
+  "gauge-trivial matrix: relaxed members": {
+   "ok": true,
+   "got": "18"
+  },
+  "gauge-trivial matrix: strict members": {
+   "ok": true,
+   "got": "0"
+  },
+  "2048 distinct elements": {
+   "ok": true,
+   "got": "2048"
+  },
+  "identity in the set": {
+   "ok": true,
+   "got": "True"
+  },
+  "group generated by 6 elements has order": {
+   "ok": true,
+   "got": "2048"
+  },
+  "generators (and 6 random elements) map each relaxed subspace onto a relaxed subspace": {
+   "ok": false,
+   "got": "False"
+  }
+ },
+ "failed": [
+  "A+B+C: minimum gauge-normal support over the orbit",
+  "generators (and 6 random elements) map each relaxed subspace onto a relaxed subspace"
+ ],
+ "generators": [
+  781,
+  682,
+  479,
+  389,
+  1045,
+  1578
+ ],
+ "relaxed_dims": {
+  "k1-column": 85,
+  "k1-row": 85,
+  "k2-column": 85,
+  "k2-row": 85,
+  "k3-column": 85,
+  "k3-row": 85,
+  "k4-column": 85,
+  "k4-row": 85,
+  "e1-column": 95,
+  "e1-row": 95,
+  "e2-column": 95,
+  "e2-row": 95,
+  "t1-column": 137,
+  "t1-row": 137,
+  "t2-column": 137,
+  "t2-row": 137,
+  "t3-column": 137,
+  "t3-row": 137
+ }
+}

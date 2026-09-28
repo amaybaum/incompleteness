@@ -1,0 +1,30 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+header {'magic': 1094930003, 'next_branch': 1327, 'b_end': 1327, 'n_orbits': 664888, 'sol': 171552256, 'gauge': 30594431, 'hrep': 1298084, 'strict': 141772416, 'relaxonly_sol': 10820480, 'non_sol': 18959360, 'ctrl_relax_mismatch': 0, 'ctrl_canon_not_idemp': 0, 'ctrl_canon_checked': 664888, 'nodes': 74529032, 'x': 0, 'y': 0}
+  PASS  run complete (next branch = end)                                   True
+  PASS  C6c: sum of n_sol over orbits = D-solutions (count mode)           171552256
+  PASS  sum of n_gauge over orbits = gauge classes (count mode)            30594431
+  PASS  sum of n_hrep over orbits = H_dom representatives                  1298084
+  PASS  built-in: relaxed-membership mismatches                            0
+  PASS  built-in: canonical-form idempotence failures (2 per orbit)        (0, 664888)
+  PASS  decoded keys distinct                                              664888
+  PASS  C10: every canonical representative is a straight line             0
+  PASS  C10: every first-found solution is a straight line                 0
+  PASS  C10: first-found solutions are in the domain (row 0 = 0, no all-ones row) True
+  PASS  C10 countercontrol: a single-entry matrix is rejected              False
+  PASS  C7: numpy canonical form of the first-found solution = C key (3992 orbits) 0
+  PASS  C7: canonical form invariant under a random group element and gauge (500 orbits) 0
+  PASS  C1-C3: orbit of A is in the table                                  True
+  PASS  C1-C3: orbit of B is in the table                                  True
+  PASS  C1-C3: orbit of C is in the table                                  True
+  PASS  C1-C3: orbit of A+B is in the table                                True
+  PASS  C1-C3: orbit of A+C is in the table                                True
+  PASS  C1-C3: orbit of B+C is in the table                                True
+  PASS  C1-C3: orbit of A+B+C is in the table                              True
+  PASS  C1-C3: orbit of zero is in the table                               True
+  PASS  C1: witness orbit: sorted-matching relaxed mask of canon rep       0
+  PASS  C1: witness orbit: strictly-member D-solutions (sorted matching)   0
+  PASS  C1: witness orbit: distinct gauge-normal images                    512
+  witness orbit record: n_sol 1024 n_gauge 128 min_dsupp 48 canon_nnz 156 min_gn_nnz 44
+ALL GREEN [] 655s
