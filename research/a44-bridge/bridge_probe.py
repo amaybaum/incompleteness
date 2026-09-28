@@ -1,7 +1,7 @@
 """A44 bridge diagnostic -- exact separation tests of defined carriers against act 40's Dita locus.
 
 Research thread, not a frozen probe. Everything asserted is exact arithmetic (Gaussian rationals in
-Python fractions, integer exponent lattices). Sections marked HEURISTIC use floats and assert nothing.
+Python fractions, integer exponent lattices); no floating-point value decides anything.
 
 Objects are rebuilt from act 38/39's frozen probe definitions (verification/lean/dita_torus_probe.py):
   SIG = F4(z) (x) F4(w), z = (3+4i)/5, w = (5+12i)/13, index (a,b) -> 4a+b, scaled by 4 (unimodular entries)
