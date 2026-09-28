@@ -152,8 +152,10 @@ jobs:
   # Probe shards run independently so the required Numerical probes check is bounded by
   # the slowest shard rather than by their sum. The final `probes` job below keeps the
   # historical required-check name and fails unless every shard succeeded.
-  probes_core:
-    name: Numerical probes / core
+  # The core probes are split into two shards of about equal measured wall time; every core
+  # probe is listed exactly once across the two, and their union is the former single list.
+  probes_core_a:
+    name: Numerical probes / core A
     runs-on: ubuntu-latest
     steps:
       # The default depth-1 checkout: no probe and no guard predicate reads repository history
@@ -167,7 +169,28 @@ jobs:
       - name: Install dependencies
         run: pip install numpy scipy
 
-      - name: Core probes
+      - name: Core probes A
+        working-directory: verification/lean
+        run: |
+          for p in bohr_frequency static_generator centralizer_basis; do
+            echo "=== ${p}_probe.py ==="
+            python3 "${p}_probe.py"
+          done
+
+  probes_core_b:
+    name: Numerical probes / core B
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy scipy
+
+      - name: Core probes B
         working-directory: verification/lean
         run: |
           for p in gauge_certificates structural_core staggered_relations \
@@ -177,8 +200,8 @@ jobs:
                    idempotent_trace link_decomposition stinespring_scope \
                    factor_uniqueness kraus_uniqueness stinespring_uniqueness \
                    weyl_twirl weyl_lift separability boundary_rank reciprocity \
-                   gauge_dimension bohr_frequency taste_branching gap_correspondence \
-                   static_generator spectral_logarithm centralizer_basis \
+                   gauge_dimension taste_branching gap_correspondence \
+                   spectral_logarithm \
                    wave_period partition_coupling audit_census repertoire_lie edge_rigidity \
                    causal_readback_discovery causal_readback_bridge causal_readback_t1_scope \
                    recurrence_tightness recurrence_tightness_guard scaling_family \
@@ -239,19 +262,22 @@ jobs:
 
   probes:
     name: Numerical probes
-    needs: [probes_core, probes_a36, probes_foundations]
+    needs: [probes_core_a, probes_core_b, probes_a36, probes_foundations]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Require every probe shard
         env:
-          CORE_RESULT: ${{ needs.probes_core.result }}
+          CORE_A_RESULT: ${{ needs.probes_core_a.result }}
+          CORE_B_RESULT: ${{ needs.probes_core_b.result }}
           A36_RESULT: ${{ needs.probes_a36.result }}
           FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}
         run: |
-          echo "core=${CORE_RESULT}"
+          echo "core_a=${CORE_A_RESULT}"
+          echo "core_b=${CORE_B_RESULT}"
           echo "a36=${A36_RESULT}"
           echo "foundations=${FOUNDATIONS_RESULT}"
-          test "${CORE_RESULT}" = success
+          test "${CORE_A_RESULT}" = success
+          test "${CORE_B_RESULT}" = success
           test "${A36_RESULT}" = success
           test "${FOUNDATIONS_RESULT}" = success
