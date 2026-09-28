@@ -231,6 +231,25 @@ jobs:
           echo "=== dita_arc_exclusivity_probe.py ==="
           python3 dita_arc_exclusivity_probe.py
 
+  probes_a38:
+    name: Numerical probes / A38 escape
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy scipy
+
+      - name: A38 local-escape probe
+        working-directory: verification/lean
+        run: |
+          echo "=== dita_local_escape_probe.py ==="
+          python3 dita_local_escape_probe.py
+
   probes_foundations:
     name: Numerical probes / foundations
     runs-on: ubuntu-latest
@@ -264,7 +283,7 @@ jobs:
 
   probes:
     name: Numerical probes
-    needs: [probes_core_a, probes_core_b, probes_a36, probes_foundations]
+    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_foundations]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
@@ -273,13 +292,16 @@ jobs:
           CORE_A_RESULT: ${{ needs.probes_core_a.result }}
           CORE_B_RESULT: ${{ needs.probes_core_b.result }}
           A36_RESULT: ${{ needs.probes_a36.result }}
+          A38_RESULT: ${{ needs.probes_a38.result }}
           FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}
         run: |
           echo "core_a=${CORE_A_RESULT}"
           echo "core_b=${CORE_B_RESULT}"
           echo "a36=${A36_RESULT}"
+          echo "a38=${A38_RESULT}"
           echo "foundations=${FOUNDATIONS_RESULT}"
           test "${CORE_A_RESULT}" = success
           test "${CORE_B_RESULT}" = success
           test "${A36_RESULT}" = success
+          test "${A38_RESULT}" = success
           test "${FOUNDATIONS_RESULT}" = success
