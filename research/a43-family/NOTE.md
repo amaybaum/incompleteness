@@ -6,6 +6,14 @@ with values in `G = <i, z, w> = Z/4 x Z^2`); floats are used nowhere. Mode: gem-
 before their tests: `conjectures-stated-before-testing.md`, commits `f926fb83` (K1–K7), `bb491954` (K8, K9), `8433c54b` (K10),
 `b677d943` (K10′, before the hold-out).
 
+**Notion used.** Unless marked "sorted", every locus, count and union below is computed over **all labellings** (every
+within-class matching of rows, the index-map datum act 36–40's searches fix to the sorted order; see §2), strict and relaxed
+separately; the sorted-labelling result is computed alongside and reported as such. For both strict and relaxed forms the matching
+of each class `b ≥ 1` to class 0 is chosen independently per class (the strict condition for class `b` involves only `σ_0` and
+`σ_b`; `σ_0` is fixed by the free global relabelling of `a`), which keeps the union exact and tractable. Act 40's five faces are
+used as a control only in the sorted notion (§0); the all-labellings H3 computation in §2 is a byproduct of this thread's
+diagnosis, not the coordinator's audit of act 40, and is reported for that audit to compare against, not in place of it.
+
 ## 0. Controls first
 
 | control | result | log |
@@ -50,6 +58,9 @@ per candidate.
 
 `align.py` computes the alignment-free locus exactly: `L = Prop ∩ ⋂_b ⋃_{σ_b} L_b(σ_b)` (a finite union of flats; DFS over `σ_b`).
 
+The parallel census thread found the same gap and the same fifth 4×4 structure independently (coordinator message; code in
+`wt-a41-census-research/research/a41-census/`: `fifth.py`, `matchings.py`, `matchlib.py`); the two findings were reached separately.
+
 Findings, each confirmed by an **independent** method (`v1_explicit.py`: exact Gaussian search over all permutations, then an
 explicit build of `X`, `D`, `Y_c` and an entrywise check of all 256 entries plus flat unitarity; no flat calculus):
 
@@ -86,7 +97,8 @@ explicit build of `X`, `D`, `Y_c` and an entrywise check of all 256 entries plus
 monomial identity). Likewise `C` flips to the column swap `σ_{2,8}`: `H3(u1, u2, −u3) = H3(u1, u2, u3) · σ_{2,8}`. Diţă-ness
 (general index maps, strict and relaxed) is invariant under index permutations, so the locus is invariant under `u1 ↦ −u1` and
 `u3 ↦ −u3`. Consequences, all verified: the faces `u1 = −1`, `u3 = −1` are the images of `u1 = +1`, `u3 = +1`; **`M_COL =
-τ_{7,15}(t2 column)` and `M_ROW = σ_{2,8}(t1 row)`** (act 38's exceptional maps are transports of census maps); the points
+τ_{7,15}(t2 column)` and `M_ROW = σ_{2,8}(t1 row)`** (act 38's exceptional maps are transports of census maps; index sets checked,
+`c3_transport_mcol.log`); the points
 `u1 = ±z⁻²` come in a pair; predicted count equalities `count(−1,1,1) = count(1,1,1) = count(1,1,−1) = 20`,
 `count(−1,−1,−1) = count(1,−1,1) = 4`, `count(−z⁻²,1,1) = count(z⁻²,1,1)` — stated before `v3` finished and confirmed there.
 
@@ -110,14 +122,17 @@ or row permutations with row phases (26) (`d_flips.py`). The last kind is what s
 | K8 | strict −1 faces = flips that are index permutations with the transported rest Diţă | 53/53 | POSITIVE |
 | K9 | alignment-free union is a union of coordinate subtori `{u_S = s}` | 53/53 | POSITIVE |
 | K10 | relaxed union = permutation predictor | 22/26 retro — **false** (fails exactly where strict ≠ relaxed) | falsified |
-| **K10′** | strict union = ⋃ `T(S,s)` over sign points whose flip `SIG ∘ ∏ s_k^{P_k}` is an index permutation with the transported remaining atoms identically strict-Diţă in one of SIG's 20 structures; relaxed union = the same with "permutation times one-sided diagonal phases" and relaxed membership | retro 26/26 (fitted); **hold-out orbits 26–52: 27/27 strict and 27/27 relaxed**; random library families: see §5 | POSITIVE (best candidate) |
+| **K10′** | strict union = ⋃ `T(S,s)` over sign points whose flip `SIG ∘ ∏ s_k^{P_k}` is an index permutation with the transported remaining atoms identically strict-Diţă in one of SIG's 20 structures; relaxed union = the same with "permutation times one-sided diagonal phases" and relaxed membership | retro 26/26 (fitted); **hold-out orbits 26–52: 27/27 strict and 27/27 relaxed**; random library families: 24/24 (weak) and 16/16 witnesses (§5) | POSITIVE (best candidate) |
 
 ## 5. Out-of-collection test (random library families)
 
 `s6_random_families.py`: families of 2–4 straight library atoms, randomly transported by stabilizer elements, jointly realizable.
 Batch 1 (seed 4343, 24 families): K10′ strict and relaxed 24/24, but 23 are hull families (union = whole torus) — a weak test;
 the one witness (d = 3) has strict union `u1 = 1, u2 = 1, u3 = 1` and relaxed union with `u1 = −1`, `u3 = −1` added, both predicted.
-Batch 2 (seed 4344, witnesses only, d = 3–5): PENDING-FILL.
+Batch 2 (seed 4344, witnesses only — sum in none of SIG's 20 structures, relaxed — d = 3–5, 16 families from 1359 draws, three
+with overlapping supports): **K10′ strict 16/16, relaxed 16/16**; six of them have strict ≠ relaxed unions, all predicted
+(`s6b_random_witnesses.log`). A relaxed-only face was also checked explicitly: at a generic Gaussian-rational point of orbit 4's
+face `u2 = −1`, 0 strict structures and 1 up to diagonal equivalence (`v4_relaxed_explicit.log`).
 
 ## 6. The best candidate general statement
 
@@ -127,7 +142,8 @@ Batch 2 (seed 4344, witnesses only, d = 3–5): PENDING-FILL.
 > `SIG ∘ ∏_{k∈S} s_k^{P_k}` is an index permutation of `SIG` (up to diagonal phases on the permuted side, for the relaxed notion)
 > and the remaining atoms, transported by that permutation, lie identically in one of `SIG`'s twenty Diţă structures.
 
-Evidence level: exact computation on 53 witness orbits (27 of them a committed hold-out) plus random families; not proved. The
+Evidence level: exact computation (all labellings) on 53 witness orbits (27 of them a committed hold-out) plus 40 random library
+families (16 of them witnesses, 3 with overlapping supports); not proved. The
 "if" half is a theorem (transport + permutation invariance of the Diţă property). The "only if" half — no Diţă point off such
 subtori, in particular none at non-sign values and none at sign points whose flip is not monomial — is the empirical content.
 Counter-examples: none found for K10′. Individual candidate loci are **not** coordinate (non-coordinate points exist); only the
@@ -161,4 +177,4 @@ union is.
 ## Files
 
 `lib43.py` (library; loads the frozen probe copy), `splitters.py`, `align.py`, stages `s1`–`s6`, verifications `v1`–`v4`,
-controls `c0`–`c2`, `cc_controls.py`, tests `t_k8.py`, `t_k10.py`, diagnostic `d_flips.py`; logs `*.log`; data `*.pkl`.
+controls `c0`–`c3`, `cc_controls.py`, tests `t_k8.py`, `t_k10.py`, diagnostic `d_flips.py`; logs `*.log`; data `*.pkl`.

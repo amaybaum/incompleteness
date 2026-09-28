@@ -1,2 +1,18 @@
 families 16 from 1359 draws
  0 d=3 overlap=False witness=True  strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  K10'-strict True relaxed True  108s
+ 1 d=3 overlap=False witness=True  strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  K10'-strict True relaxed True  139s
+ 2 d=4 overlap=False witness=True  strict ['u2 = -1', 'u2 = 1', 'u3 = -1', 'u3 = 1', 'u4 = 1']  relaxed ['u2 = -1', 'u2 = 1', 'u3 = -1', 'u3 = 1', 'u4 = 1']  K10'-strict True relaxed True  180s
+ 3 d=3 overlap=False witness=True  strict ['u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  relaxed ['u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  K10'-strict True relaxed True  210s
+ 4 d=3 overlap=False witness=True  strict ['u1 = 1', 'u2 = 1', 'u3 = 1']  relaxed ['u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  K10'-strict True relaxed True  246s
+ 5 d=3 overlap=False witness=True  strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  K10'-strict True relaxed True  275s
+ 6 d=5 overlap=True witness=True  strict ['u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  relaxed ['u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  K10'-strict True relaxed True  327s
+ 7 d=3 overlap=False witness=True  strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  K10'-strict True relaxed True  353s
+ 8 d=4 overlap=False witness=True  strict ['u1 = -1', 'u1 = 1', 'u3 = -1', 'u3 = 1', 'u4 = 1']  relaxed ['u1 = -1', 'u1 = 1', 'u3 = -1', 'u3 = 1', 'u4 = 1']  K10'-strict True relaxed True  383s
+ 9 d=4 overlap=False witness=True  strict ['u2 = -1', 'u2 = 1', 'u3 = -1', 'u3 = 1', 'u4 = 1']  relaxed ['u2 = -1', 'u2 = 1', 'u3 = -1', 'u3 = 1', 'u4 = 1']  K10'-strict True relaxed True  409s
+10 d=4 overlap=False witness=True  strict ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = 1']  relaxed ['u1 = -1', 'u1 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']  K10'-strict True relaxed True  441s
+11 d=4 overlap=False witness=True  strict ['u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']  relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']  K10'-strict True relaxed True  479s
+12 d=4 overlap=False witness=True  strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  K10'-strict True relaxed True  509s
+13 d=4 overlap=True witness=True  strict ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = 1']  relaxed ['u2 = -1', 'u2 = 1', 'u3 = 1', 'u4 = -1', 'u4 = 1']  K10'-strict True relaxed True  537s
+14 d=3 overlap=False witness=True  strict ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  K10'-strict True relaxed True  560s
+15 d=4 overlap=True witness=True  strict ['u1 = 1', 'u2 = 1', 'u4 = -1', 'u4 = 1']  relaxed ['u1 = 1', 'u2 = -1', 'u2 = 1', 'u4 = -1', 'u4 = 1']  K10'-strict True relaxed True  588s
+K10' on random library families: strict 16 of 16, relaxed 16 of 16
