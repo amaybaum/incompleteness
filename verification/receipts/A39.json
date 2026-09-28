@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A39",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "08a7707dfe282f85c14e598f93cc27113ad00157",
+ "f": "7deb404e9c772ce3f7ae65c89509d9dd3965f16e",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-39-realizable-torus/preregistration.md",
+   "blob": "e09afe2f95df04e62c1aa76085cfc294f9bb182b"
+  }
+ ],
+ "governed_paths_digest": "ef771e27a214841a7e01e0dac6cfabf3f71b5bf905de83fd181b4701f6a62fcf",
+ "e": "ec528f882ee048e52c5db61aa94fdae76e8e9c12",
+ "tree_e": "2c896d5a755246babf3a5e27c8be0ab5b29b12a1",
+ "execution_delta_digest": "bd01589acfebf34d10b8ca3fc390f4d413748917d7df5e06cb97562c2acc6688",
+ "candidates": [],
+ "landing": {
+  "base": "08a7707dfe282f85c14e598f93cc27113ad00157",
+  "object": "09bd774a438d21f48ecede72b44257b0e3cdf1df",
+  "reconciliations": [
+   "09bd774a438d21f48ecede72b44257b0e3cdf1df"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "db6be1f6101503d0affd644e7467479443af7ffc2ff478126dd519418a4f5d45"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "7deb404e9c772ce3f7ae65c89509d9dd3965f16e",
+   "record": "https://github.com/amaybaum/incompleteness/pull/767#issuecomment-5869013084"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "7deb404e9c772ce3f7ae65c89509d9dd3965f16e",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36415055421"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "ec528f882ee048e52c5db61aa94fdae76e8e9c12",
+   "record": "https://github.com/amaybaum/incompleteness/pull/767#issuecomment-5869585862"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "ec528f882ee048e52c5db61aa94fdae76e8e9c12",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36419265546"
+  }
+ ]
+}
