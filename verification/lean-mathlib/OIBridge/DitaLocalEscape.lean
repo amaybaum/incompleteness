@@ -34,14 +34,14 @@ theorem a38_shared_conj_half :
   | norm_num [Complex.ext_iff, Complex.star_def]
 #print axioms a38_shared_conj_half
 
-theorem a38_shared_conj_half' :
+theorem a38_shared_conj_half_ring :
     (starRingEnd ℂ) (1 / 2 : ℂ) = 1 / 2 := by
   first
   | exact a38_shared_conj_half
   | (simp [Complex.ext_iff]; norm_num)
   | simp [Complex.ext_iff]
   | norm_num [Complex.ext_iff]
-#print axioms a38_shared_conj_half'
+#print axioms a38_shared_conj_half_ring
 
 theorem a38_shared_conj_two :
     star (2 : ℂ) = 2 := by
@@ -51,14 +51,14 @@ theorem a38_shared_conj_two :
   | norm_num [Complex.ext_iff, Complex.star_def]
 #print axioms a38_shared_conj_two
 
-theorem a38_shared_conj_two' :
+theorem a38_shared_conj_two_ring :
     (starRingEnd ℂ) (2 : ℂ) = 2 := by
   first
   | exact a38_shared_conj_two
   | (simp [Complex.ext_iff]; norm_num)
   | simp [Complex.ext_iff]
   | norm_num [Complex.ext_iff]
-#print axioms a38_shared_conj_two'
+#print axioms a38_shared_conj_two_ring
 
 theorem a38_shared_inv_of_unit :
     ∀ x : ℂ, star x * x = 1 → star x = x⁻¹ := by
@@ -85,7 +85,7 @@ theorem a38_shared_row_core_00_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_00_0
 
 theorem a38_shared_row_core_00_1 :
@@ -100,7 +100,7 @@ theorem a38_shared_row_core_00_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_00_1
 
 theorem a38_shared_row_core_00_2 :
@@ -115,7 +115,7 @@ theorem a38_shared_row_core_00_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_00_2
 
 theorem a38_shared_row_core_00_3 :
@@ -130,7 +130,7 @@ theorem a38_shared_row_core_00_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_00_3
 
 theorem a38_shared_row_core_00 :
@@ -156,7 +156,7 @@ theorem a38_shared_row_core_01_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_01_0
 
 theorem a38_shared_row_core_01_1 :
@@ -171,7 +171,7 @@ theorem a38_shared_row_core_01_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_01_1
 
 theorem a38_shared_row_core_01_2 :
@@ -186,7 +186,7 @@ theorem a38_shared_row_core_01_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_01_2
 
 theorem a38_shared_row_core_01_3 :
@@ -201,7 +201,7 @@ theorem a38_shared_row_core_01_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_01_3
 
 theorem a38_shared_row_core_01 :
@@ -227,7 +227,7 @@ theorem a38_shared_row_core_02_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_02_0
 
 theorem a38_shared_row_core_02_1 :
@@ -242,7 +242,7 @@ theorem a38_shared_row_core_02_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_02_1
 
 theorem a38_shared_row_core_02_2 :
@@ -257,7 +257,7 @@ theorem a38_shared_row_core_02_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_02_2
 
 theorem a38_shared_row_core_02_3 :
@@ -272,7 +272,7 @@ theorem a38_shared_row_core_02_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_02_3
 
 theorem a38_shared_row_core_02 :
@@ -298,7 +298,7 @@ theorem a38_shared_row_core_03_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_03_0
 
 theorem a38_shared_row_core_03_1 :
@@ -313,7 +313,7 @@ theorem a38_shared_row_core_03_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_03_1
 
 theorem a38_shared_row_core_03_2 :
@@ -328,7 +328,7 @@ theorem a38_shared_row_core_03_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_03_2
 
 theorem a38_shared_row_core_03_3 :
@@ -343,7 +343,7 @@ theorem a38_shared_row_core_03_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_03_3
 
 theorem a38_shared_row_core_03 :
@@ -369,7 +369,7 @@ theorem a38_shared_row_core_10_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_10_0
 
 theorem a38_shared_row_core_10_1 :
@@ -384,7 +384,7 @@ theorem a38_shared_row_core_10_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_10_1
 
 theorem a38_shared_row_core_10_2 :
@@ -399,7 +399,7 @@ theorem a38_shared_row_core_10_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_10_2
 
 theorem a38_shared_row_core_10_3 :
@@ -414,7 +414,7 @@ theorem a38_shared_row_core_10_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_10_3
 
 theorem a38_shared_row_core_10 :
@@ -440,7 +440,7 @@ theorem a38_shared_row_core_11_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_11_0
 
 theorem a38_shared_row_core_11_1 :
@@ -455,7 +455,7 @@ theorem a38_shared_row_core_11_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_11_1
 
 theorem a38_shared_row_core_11_2 :
@@ -470,7 +470,7 @@ theorem a38_shared_row_core_11_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_11_2
 
 theorem a38_shared_row_core_11_3 :
@@ -485,7 +485,7 @@ theorem a38_shared_row_core_11_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_11_3
 
 theorem a38_shared_row_core_11 :
@@ -511,7 +511,7 @@ theorem a38_shared_row_core_12_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_12_0
 
 theorem a38_shared_row_core_12_1 :
@@ -526,7 +526,7 @@ theorem a38_shared_row_core_12_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_12_1
 
 theorem a38_shared_row_core_12_2 :
@@ -541,7 +541,7 @@ theorem a38_shared_row_core_12_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_12_2
 
 theorem a38_shared_row_core_12_3 :
@@ -556,7 +556,7 @@ theorem a38_shared_row_core_12_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_12_3
 
 theorem a38_shared_row_core_12 :
@@ -582,7 +582,7 @@ theorem a38_shared_row_core_13_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_13_0
 
 theorem a38_shared_row_core_13_1 :
@@ -597,7 +597,7 @@ theorem a38_shared_row_core_13_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_13_1
 
 theorem a38_shared_row_core_13_2 :
@@ -612,7 +612,7 @@ theorem a38_shared_row_core_13_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_13_2
 
 theorem a38_shared_row_core_13_3 :
@@ -627,7 +627,7 @@ theorem a38_shared_row_core_13_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_13_3
 
 theorem a38_shared_row_core_13 :
@@ -653,7 +653,7 @@ theorem a38_shared_row_core_20_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_20_0
 
 theorem a38_shared_row_core_20_1 :
@@ -668,7 +668,7 @@ theorem a38_shared_row_core_20_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_20_1
 
 theorem a38_shared_row_core_20_2 :
@@ -683,7 +683,7 @@ theorem a38_shared_row_core_20_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_20_2
 
 theorem a38_shared_row_core_20_3 :
@@ -698,7 +698,7 @@ theorem a38_shared_row_core_20_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_20_3
 
 theorem a38_shared_row_core_20 :
@@ -724,7 +724,7 @@ theorem a38_shared_row_core_21_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_21_0
 
 theorem a38_shared_row_core_21_1 :
@@ -739,7 +739,7 @@ theorem a38_shared_row_core_21_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_21_1
 
 theorem a38_shared_row_core_21_2 :
@@ -754,7 +754,7 @@ theorem a38_shared_row_core_21_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_21_2
 
 theorem a38_shared_row_core_21_3 :
@@ -769,7 +769,7 @@ theorem a38_shared_row_core_21_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_21_3
 
 theorem a38_shared_row_core_21 :
@@ -795,7 +795,7 @@ theorem a38_shared_row_core_22_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_22_0
 
 theorem a38_shared_row_core_22_1 :
@@ -810,7 +810,7 @@ theorem a38_shared_row_core_22_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_22_1
 
 theorem a38_shared_row_core_22_2 :
@@ -825,7 +825,7 @@ theorem a38_shared_row_core_22_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_22_2
 
 theorem a38_shared_row_core_22_3 :
@@ -840,7 +840,7 @@ theorem a38_shared_row_core_22_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_22_3
 
 theorem a38_shared_row_core_22 :
@@ -866,7 +866,7 @@ theorem a38_shared_row_core_23_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_23_0
 
 theorem a38_shared_row_core_23_1 :
@@ -881,7 +881,7 @@ theorem a38_shared_row_core_23_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_23_1
 
 theorem a38_shared_row_core_23_2 :
@@ -896,7 +896,7 @@ theorem a38_shared_row_core_23_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_23_2
 
 theorem a38_shared_row_core_23_3 :
@@ -911,7 +911,7 @@ theorem a38_shared_row_core_23_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_23_3
 
 theorem a38_shared_row_core_23 :
@@ -937,7 +937,7 @@ theorem a38_shared_row_core_30_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_30_0
 
 theorem a38_shared_row_core_30_1 :
@@ -952,7 +952,7 @@ theorem a38_shared_row_core_30_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_30_1
 
 theorem a38_shared_row_core_30_2 :
@@ -967,7 +967,7 @@ theorem a38_shared_row_core_30_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_30_2
 
 theorem a38_shared_row_core_30_3 :
@@ -982,7 +982,7 @@ theorem a38_shared_row_core_30_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_30_3
 
 theorem a38_shared_row_core_30 :
@@ -1008,7 +1008,7 @@ theorem a38_shared_row_core_31_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_31_0
 
 theorem a38_shared_row_core_31_1 :
@@ -1023,7 +1023,7 @@ theorem a38_shared_row_core_31_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_31_1
 
 theorem a38_shared_row_core_31_2 :
@@ -1038,7 +1038,7 @@ theorem a38_shared_row_core_31_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_31_2
 
 theorem a38_shared_row_core_31_3 :
@@ -1053,7 +1053,7 @@ theorem a38_shared_row_core_31_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_31_3
 
 theorem a38_shared_row_core_31 :
@@ -1079,7 +1079,7 @@ theorem a38_shared_row_core_32_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_32_0
 
 theorem a38_shared_row_core_32_1 :
@@ -1094,7 +1094,7 @@ theorem a38_shared_row_core_32_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_32_1
 
 theorem a38_shared_row_core_32_2 :
@@ -1109,7 +1109,7 @@ theorem a38_shared_row_core_32_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_32_2
 
 theorem a38_shared_row_core_32_3 :
@@ -1124,7 +1124,7 @@ theorem a38_shared_row_core_32_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_32_3
 
 theorem a38_shared_row_core_32 :
@@ -1150,7 +1150,7 @@ theorem a38_shared_row_core_33_0 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_33_0
 
 theorem a38_shared_row_core_33_1 :
@@ -1165,7 +1165,7 @@ theorem a38_shared_row_core_33_1 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_33_1
 
 theorem a38_shared_row_core_33_2 :
@@ -1180,7 +1180,7 @@ theorem a38_shared_row_core_33_2 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_33_2
 
 theorem a38_shared_row_core_33_3 :
@@ -1195,7 +1195,7 @@ theorem a38_shared_row_core_33_3 :
   have hz0 : z ≠ 0 := a38_shared_ne_zero_of_unit z hz
   have hw0 : w ≠ 0 := a38_shared_ne_zero_of_unit w hw
   have hu0 : u ≠ 0 := a38_shared_ne_zero_of_unit u hu
-  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half', a38_shared_conj_two, a38_shared_conj_two', map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two']) <;> (try field_simp) <;> ring
+  fin_cases d <;> simp (config := { decide := true }) [Fintype.sum_prod_type, Fin.sum_univ_four, Matrix.of_apply, hsz, hsw, hsu, hsz', hsw', hsu', a38_shared_conj_half, a38_shared_conj_half_ring, a38_shared_conj_two, a38_shared_conj_two_ring, map_ofNat] <;> (try simp only [a38_shared_conj_two, a38_shared_conj_two_ring]) <;> (try field_simp) <;> ring
 #print axioms a38_shared_row_core_33_3
 
 theorem a38_shared_row_core_33 :
