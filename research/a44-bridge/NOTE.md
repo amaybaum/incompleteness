@@ -64,3 +64,32 @@ redundant relative to the tested carriers. "A carrier separates" means a formal 
 OI-defined quantity to Diţă status, never a physical identification, unless the repository already
 supplies that map. Every carrier keeps the status the repository records for it; none is declared
 the physical observable here.
+
+### Amendment 1 (2026-09-28, owner refinement, received before any result was recorded)
+
+The rule above is kept as written; where it differs, this amendment governs.
+
+1. **Two properties, reported separately for every applicable carrier.**
+   - *Separates a cross-boundary pair*: some point of `L` and some point off `L` get different
+     values. Evidence of sensitivity only; it never earns DETECTOR.
+   - *Determines locus membership*: whenever two `H3` points have the same value, both are in `L`
+     or both are off it — Diţă status factors through the carrier. Only this earns DETECTOR, and it
+     needs a global argument or an exhaustive exact check over the whole torus, never selected
+     examples.
+2. **BLIND** requires an **exhibited** pair of `H3` points with exactly equal values (exact
+   arithmetic) and opposite `L`-status. Cross-boundary collisions are searched for first. A
+   collision proved to exist but not exhibited is recorded as such and does not by itself earn
+   BLIND.
+3. **NOT APPLICABLE is strict.** A carrier defined on trajectories, time-indexed lifts, instruments,
+   causal readbacks or any other object type, for which the repository has no already-certified map
+   from a static `H3` realization into its domain, is NOT APPLICABLE. No such map is constructed in
+   this thread; the absence is recorded as a finding. (This withdraws the rule's allowance for
+   embeddings named by the note.)
+4. **Pipeline form**, for every carrier: carrier → applicable? → invariant under which established
+   equivalence, with proof → cross-boundary collision found? (the exact pair) → separates a
+   cross-boundary pair? → global membership determinacy? → evidence level.
+5. **Controls, adapted.** The indicator `1_L` must come out DETECTOR; a toy that varies with `u`
+   but is not a function of locus membership — the coordinate `u₁` — must come out "separates a
+   pair" and not DETECTOR (it is BLIND by an exhibited collision); a gauge-invariant constant must
+   come out BLIND by an exhibited collision. `C+2`, `C−2`, `C−3` and the A40 consistency control are
+   kept.
