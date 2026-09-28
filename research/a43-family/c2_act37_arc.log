@@ -1,0 +1,36 @@
+candidates 38
+column (2, 8) strict ['T^1'] relaxed ['T^1'] sorted T^1
+column (2, 8) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+column (2, 8) strict [] relaxed ['u1 = -1'] sorted None
+column (2, 8) strict [] relaxed ['u1 = -1'] sorted None
+column (2, 8) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+column (4, 4) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+column (4, 4) strict [] relaxed ['u1 = -1'] sorted None
+column (4, 4) strict [] relaxed ['u1 = -1'] sorted None
+column (4, 4) strict ['u1 = 1'] relaxed ['u1 = 1', 'u1 = -1'] sorted u1 = 1
+column (4, 4) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+column (4, 4) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+column (4, 4) strict [] relaxed ['u1 = -1'] sorted None
+column (4, 4) strict [] relaxed ['u1 = -1'] sorted None
+column (4, 4) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted None
+column (8, 2) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+column (8, 2) strict [] relaxed ['u1 = -1'] sorted None
+column (8, 2) strict ['u1 = 1'] relaxed ['u1 = 1', 'u1 = -1'] sorted u1 = 1
+row (2, 8) strict ['T^1'] relaxed ['T^1'] sorted T^1
+row (2, 8) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+row (2, 8) strict [] relaxed ['u1 = -1'] sorted None
+row (2, 8) strict [] relaxed ['u1 = -1'] sorted None
+row (2, 8) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+row (4, 4) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+row (4, 4) strict [] relaxed ['u1 = -1'] sorted None
+row (4, 4) strict [] relaxed ['u1 = -1'] sorted None
+row (4, 4) strict ['u1 = 1'] relaxed ['u1 = 1', 'u1 = -1'] sorted u1 = 1
+row (4, 4) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+row (4, 4) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+row (4, 4) strict [] relaxed ['u1 = -1'] sorted None
+row (4, 4) strict [] relaxed ['u1 = -1'] sorted None
+row (4, 4) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted None
+row (8, 2) strict ['u1 = 1'] relaxed ['u1 = 1'] sorted u1 = 1
+row (8, 2) strict [] relaxed ['u1 = -1'] sorted None
+row (8, 2) strict ['u1 = 1'] relaxed ['u1 = 1', 'u1 = -1'] sorted u1 = 1
+union strict ['T^1'] relaxed ['T^1'] sorted ['T^1']

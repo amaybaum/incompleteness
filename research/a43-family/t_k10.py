@@ -6,8 +6,6 @@ from t_k8 import SIG_STRUCTS, S0, identically_Dita, faces_of
 from align import *
 from splitters import cells_to_mat
 t0 = time.time()
-L = pickle.load(open(os.path.join(HERE, sys.argv[1]), 'rb'))
-which = [int(x) for x in sys.argv[2:]] if len(sys.argv) > 2 else sorted(L)
 ROWS0 = {tuple(S0[i]): i for i in range(16)}
 COLS0 = {tuple(S0[i][j] for i in range(16)): j for j in range(16)}
 def flip_perm_multi(pieces, signs):
@@ -51,12 +49,15 @@ def predict(Ms, relaxed=False):
                 if not rem or identically_Dita([transport(M, fp) for M in rem], relaxed=relaxed) is not None:
                     pred.append(F)
     return minimal_union(pred)
-n = okS = okR = 0
-for t in which:
-    r = L[t]; Ms = [cells_to_mat(a) for a in r['atoms']]; d = len(Ms)
-    PS = sorted(F.B for F in predict(Ms, False)); PR = sorted(F.B for F in predict(Ms, True))
-    gs, gr = sorted(r['U_strict']) == PS, sorted(r['U_relaxed']) == PR
-    n += 1; okS += gs; okR += gr
-    print("orbit %2d d=%d K10'-strict %s K10'-relaxed %s | computed strict %s relaxed %s%s  %.0fs" % (t, d, gs, gr, r['show_strict'], r['show_relaxed'],
-          '' if gs and gr else '  PREDICTED strict %s relaxed %s' % (sorted(FlatD.of(d, B).show() for B in PS), sorted(FlatD.of(d, B).show() for B in PR)), time.time() - t0), flush=True)
-print("K10' holds: strict %d of %d, relaxed %d of %d" % (okS, n, okR, n))
+if __name__ == '__main__':
+    L = pickle.load(open(os.path.join(HERE, sys.argv[1]), 'rb'))
+    which = [int(x) for x in sys.argv[2:]] if len(sys.argv) > 2 else sorted(L)
+    n = okS = okR = 0
+    for t in which:
+        r = L[t]; Ms = [cells_to_mat(a) for a in r['atoms']]; d = len(Ms)
+        PS = sorted(F.B for F in predict(Ms, False)); PR = sorted(F.B for F in predict(Ms, True))
+        gs, gr = sorted(r['U_strict']) == PS, sorted(r['U_relaxed']) == PR
+        n += 1; okS += gs; okR += gr
+        print("orbit %2d d=%d K10'-strict %s K10'-relaxed %s | computed strict %s relaxed %s%s  %.0fs" % (t, d, gs, gr, r['show_strict'], r['show_relaxed'],
+              '' if gs and gr else '  PREDICTED strict %s relaxed %s' % (sorted(FlatD.of(d, B).show() for B in PS), sorted(FlatD.of(d, B).show() for B in PR)), time.time() - t0), flush=True)
+    print("K10' holds: strict %d of %d, relaxed %d of %d" % (okS, n, okR, n))

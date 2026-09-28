@@ -1,0 +1,2 @@
+families 16 from 1359 draws
+ 0 d=3 overlap=False witness=True  strict ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  relaxed ['u1 = -1', 'u1 = 1', 'u2 = -1', 'u2 = 1', 'u3 = 1']  K10'-strict True relaxed True  108s

@@ -20,3 +20,32 @@
 19 column (8, 2) alignments  40320  strict ['u1 = -1, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = -1']  relaxed ['u1 = -1, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = -1']  1447s
 20 column (8, 2) alignments  40320  strict ['u1 = -1, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = -1']  relaxed ['u1 = -1, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = -1']  1594s
 21 column (8, 2) alignments  40320  strict ['u1 = -1, u2 = 1, u3 = 1', 'u1 = 1, u2 = 1, u3 = 1']  relaxed ['u1 = -1, u2 = 1, u3 = 1', 'u1 = 1, u2 = 1, u3 = 1']  1753s
+22 column (8, 2) alignments  40320  strict []  relaxed []  1944s
+23 row    (2, 8) alignments    128  strict ['u3 = -1']  relaxed ['u3 = -1']  1944s
+24 row    (2, 8) alignments    128  strict ['u3 = 1']  relaxed ['u3 = 1']  1945s
+25 row    (2, 8) alignments    128  strict ['u2 = 1, u3 = 1']  relaxed ['u2 = 1, u3 = 1']  1945s
+26 row    (2, 8) alignments    128  strict ['u2 = 1, u3 = -1']  relaxed ['u2 = 1, u3 = -1']  1946s
+27 row    (2, 8) alignments    128  strict ['u2 = 1']  relaxed ['u2 = 1']  1946s
+28 row    (4, 4) alignments  13824  strict ['u1 = 1, u3 = -1']  relaxed ['u1 = 1, u3 = -1']  2017s
+29 row    (4, 4) alignments  13824  strict ['u1 = 1, u3 = 1']  relaxed ['u1 = 1, u3 = 1']  2087s
+30 row    (4, 4) alignments  13824  strict ['u1 = -1, u3 = -1']  relaxed ['u1 = -1, u3 = -1']  2164s
+31 row    (4, 4) alignments  13824  strict ['u1 = -1, u3 = 1']  relaxed ['u1 = -1, u3 = 1']  2238s
+32 row    (4, 4) alignments  13824  strict ['u2 = 1, u3 = -1', 'u2 = 1, u3 = 1']  relaxed ['u2 = 1, u3 = -1', 'u2 = 1, u3 = 1']  2302s
+33 row    (4, 4) alignments  13824  strict ['u1 = -1, u2 = 1, u3 = -1']  relaxed ['u1 = -1, u2 = 1, u3 = -1']  2407s
+34 row    (4, 4) alignments  13824  strict ['u1 = -1, u2 = 1, u3 = 1']  relaxed ['u1 = -1, u2 = 1, u3 = 1']  2529s
+35 row    (4, 4) alignments  13824  strict ['u1 = 1, u2 = 1, u3 = -1']  relaxed ['u1 = 1, u2 = 1, u3 = -1']  2642s
+36 row    (4, 4) alignments  13824  strict ['u1 = 1, u2 = 1, u3 = 1']  relaxed ['u1 = 1, u2 = 1, u3 = 1']  2751s
+37 row    (4, 4) alignments  13824  strict ['u2 = 1, u3 = 1']  relaxed ['u2 = 1, u3 = 1']  2849s
+38 row    (4, 4) alignments  13824  strict ['u2 = 1, u3 = -1']  relaxed ['u2 = 1, u3 = -1']  2949s
+39 row    (4, 4) alignments  13824  strict ['u2 = 1, u3 = 1']  relaxed ['u2 = 1, u3 = 1']  3050s
+40 row    (4, 4) alignments  13824  strict ['u2 = 1, u3 = -1']  relaxed ['u2 = 1, u3 = -1']  3151s
+41 row    (8, 2) alignments  40320  strict ['u1 = 1, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = 1']  relaxed ['u1 = 1, u2 = 1, u3 = -1', 'u1 = 1, u2 = 1, u3 = 1']  3408s
+42 row    (8, 2) alignments  40320  strict ['u1 = -1, u2 = 1, u3 = -1', 'u1 = -1, u2 = 1, u3 = 1']  relaxed ['u1 = -1, u2 = 1, u3 = -1', 'u1 = -1, u2 = 1, u3 = 1']  3695s
+43 row    (8, 2) alignments  40320  strict ['u2 = 1, u3 = -1', 'u2 = 1, u3 = 1']  relaxed ['u2 = 1, u3 = -1', 'u2 = 1, u3 = 1']  3981s
+44 row    (8, 2) alignments  40320  strict []  relaxed []  4260s
+45 row    (8, 2) alignments  40320  strict []  relaxed []  4508s
+union strict  (maximal): ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+union relaxed (maximal): ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+nonempty candidates strict 43 relaxed 43
+non-coordinate flats among all per-alignment loci: ['u1 = -1 z^-2, u2 = 1, u3 = -1', 'u1 = -1 z^-2, u2 = 1, u3 = 1', 'u1 = 1 z^-2, u2 = 1, u3 = -1', 'u1 = 1 z^-2, u2 = 1, u3 = 1']
+4508s

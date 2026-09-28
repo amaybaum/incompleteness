@@ -1,0 +1,26 @@
+families 24 from 51 draws
+ 0 d=3 overlap=False witness=True  strict ['u1 = 1', 'u2 = 1', 'u3 = 1']  relaxed ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']  K10'-strict True relaxed True  47s
+ 1 d=3 overlap=False witness=False  strict ['T^3']  relaxed ['T^3']  K10'-strict True relaxed True  83s
+ 2 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  114s
+ 3 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  145s
+ 4 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  172s
+ 5 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  198s
+ 6 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  222s
+ 7 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  250s
+ 8 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  278s
+ 9 d=4 overlap=False witness=False  strict ['T^4']  relaxed ['T^4']  K10'-strict True relaxed True  319s
+10 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  347s
+11 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  371s
+12 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  400s
+13 d=3 overlap=False witness=False  strict ['T^3']  relaxed ['T^3']  K10'-strict True relaxed True  432s
+14 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  458s
+15 d=3 overlap=False witness=False  strict ['T^3']  relaxed ['T^3']  K10'-strict True relaxed True  488s
+16 d=3 overlap=False witness=False  strict ['T^3']  relaxed ['T^3']  K10'-strict True relaxed True  518s
+17 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  539s
+18 d=3 overlap=False witness=False  strict ['T^3']  relaxed ['T^3']  K10'-strict True relaxed True  561s
+19 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  582s
+20 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  606s
+21 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  629s
+22 d=3 overlap=False witness=False  strict ['T^3']  relaxed ['T^3']  K10'-strict True relaxed True  667s
+23 d=2 overlap=False witness=False  strict ['T^2']  relaxed ['T^2']  K10'-strict True relaxed True  693s
+K10' on random library families: strict 24 of 24, relaxed 24 of 24

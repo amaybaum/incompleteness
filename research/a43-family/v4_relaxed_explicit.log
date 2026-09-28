@@ -1,0 +1,3 @@
+act 37 arc at u = -1                          explicit structures: strict 2, up to diagonal equivalence 20   862s
+act 37 arc at u = 1                           explicit structures: strict 20, up to diagonal equivalence 20   1816s
+act 37 arc at u = (3+4i)/5                    explicit structures: strict 2, up to diagonal equivalence 2   2515s
