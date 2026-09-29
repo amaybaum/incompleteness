@@ -20,3 +20,5 @@ db5f09a0702a2ba227234e74b8d66119e244b6714b338b1eed0f1d75f8ae8395  17099476  2026
 0dde0638f579aad4b580b8ea6e1f50ed00112dab603e1dcdecb8593ae2d5b1a2  4274869  2026-09-28T23:42:51Z  t2.pkl.partial  regression-test side file
 8b0efb4b9b7df9e407e845cbf96e359e199f4959e06914acefee9f639231c85f  8549738  2026-09-29T00:18:27Z  t3.pkl.partial  regression-test side file
 9566b1821e9bb163aad610d717bdd05c4ae0f3e621079fd3d7f48db261a1488c  358  2026-09-28T21:41:58Z  test.log  first 100-R tool test (pre-NS pruning)
+d18fedb24d5cec01c792fb85b909cdf909323c85272613aec314aef04e1899f9  20  2026-09-29T01:32:11Z  sat_m1_39.log  monolithic no-zero-line SAT, stopped by hand after 3.2 h (superseded by the cube split sat_cubes39, same case)
+065ddcbdda1faf7d1ba6c1da3dcf1878cbce95b6fbedd2890eb1cc4790447977  23  2026-09-29T01:59:34Z  sat_nd39.log  all-cases non-Dita SAT cross-check at budget 39, stopped by hand after ~3.9 h without a verdict (not used)

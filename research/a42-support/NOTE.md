@@ -11,10 +11,14 @@ Read-only, disposable research thread (Track B, OI→QM). Branch `claude/a42-sup
 representatives are written down and verified. That 40 and 44 are the orbit minima of those two classes rests on a
 HiGHS integer-programme optimality certificate, which is floating point.
 
-Whether 40 is the global minimum is settled only inside a stated domain. The **minimum is exactly 40 among classes
-whose minimal-support representative has entries in {−1, 0, 1}**. That rests on the exhaustive exact searches below,
-subject to the one open row (NOZERO_STATUS). For arbitrary integer entries the exclusion is proved only for s ≤ 19,
-and for s ≤ 23 when the minimal representative has a zero line.
+Whether 40 is the global minimum is settled only inside a stated domain.
+
+- **No class whose minimal-support representative has entries in {−1, 0, 1} (domain D1) is non-Diţă with s ≤ 39.**
+  This is exact and exhaustive. The zero-line case is covered by a numpy DFS; the remaining cases by SAT (UNSAT).
+- E40 is a {−1, 0, 1} matrix of support 40, so the D1 minimum is **40**. That E40's class has s = 40 exactly, and so
+  lies in D1, rests on HiGHS.
+- For arbitrary integer entries the exclusion is proved only for s ≤ 19, and for s ≤ 23 when the minimal
+  representative has a zero line.
 
 ### Per-support table (s = orbit-minimal support, defined below)
 
@@ -23,10 +27,10 @@ and for s ≤ 23 when the minimal representative has a zero line.
 | 1–15 | **excluded** (no straight line at all apart from gauge) | all integer E | proof (Lemma U) + exact table cross-check |
 | 16–19 | **excluded** (every straight line is Diţă) | all integer E | Lemmas CV, RS, M, M1 + exhaustive exact R-span check |
 | 20–23 | **excluded** if the min representative has a zero row or column; open otherwise | all integer E | Lemma RS (every row set with LB ≤ 23 is dead) |
-| 16–39 | **excluded** | D1: min representative in {−1,0,1} | exhaustive exact DFS (zero-line case) + SAT (other cases), N18 test |
-| 16–47, s ∉ 16Z | no {0,1} representative exists | D01: {0,1} representatives | Lemma P |
+| 16–39 | **excluded** | D1: min representative in {−1,0,1} | exhaustive exact DFS (zero line, r ≤ 13) + SAT UNSAT (zero line with r ≥ 14; no zero line), N18 test |
+| 16–47, s ∉ 16Z | no {0,1} representative of support s exists | D01: {0,1} representatives | Lemma P |
 | 16, 32 | **excluded** | D01 | exhaustive enumeration (12 808 leaves, all N18-Diţă) |
-| **40** | **found**: E40 below (and 2 048+ further D1 leaves in 192 orbit classes) | D1 | exact straightness; generic search 0 candidates in every shape and form; outside all 20 structures under all labellings |
+| **40** | **found**: E40 below (and 8 192 D1 leaves in 192 orbit classes from four row sets, all s = 40) | D1 | exact straightness; generic search 0 candidates in every shape and form; outside all 20 structures under all labellings |
 | 41–43, 45–47 | not determined (not needed for the verdict) | — | — |
 | **44** | **found**: act 38's witness class (min representative has entries −2..1) | general integers | exact representative of support 44; minimality by HiGHS |
 
@@ -54,7 +58,9 @@ rows {9, 11} × columns {4, 12}, where they cancel, so |supp E40| = 48 − 8 = 4
 - **Orbit-minimal support:** 40 (HiGHS optimal, dual bound 216 zeros).
 
 The budget-47 zero-row runs, now quarantined, found N18-non-member leaves only at support 40. The rerun for the row sets 0x1f1f, 0x555f, 0x5a5f and 0x5b5b (`found1.pkl`) gives
-8 192 leaves in 192 orbit classes. FOUND_CLASS_SUMMARY
+8 192 leaves in 192 orbit classes. All 192 classes measure the same (`found1.json`): straight (exact), Ngeneric 0 candidates everywhere, outside all
+20 structures under all labellings, outside the 34-member stabilizer closure, ΣE ≡ 0 (mod 16), and orbit-minimal
+support 40 (HiGHS optimal for every class).
 
 ### The act-38 witness at support 44
 
@@ -81,7 +87,9 @@ has 44 nonzero entries with values −2..1 (`minsupp_milp.py`, HiGHS optimal). T
 
 The two three-parameter families, act 38's xA + yB + zC and this thread's −xP + yQ − zT, were scanned over
 |x|, |y|, |z| ≤ 2 with all coefficients nonzero and the member outside every complete structure
-(`family_scan.py`). Their orbit-minimal supports measured so far are only 40 and 44. FAMILY_SUMMARY
+(`family_scan.py`). All 128 members (64 per family) are straight and outside all 20 structures, and their orbit-minimal supports are 40
+(16 members per family) or 44 (48 per family); no other value occurs. For example −2A − 2B + 2C has orbit-minimal support 40, so
+act 38's own family already reaches 40 (`family_scan.json`: Ngeneric 0 candidates on the representatives).
 
 ### Why act 38 saw nothing below 48
 
@@ -195,14 +203,14 @@ LB(R) = Σ_{i∈R} msize(i, Z).
   form applied to Eᵀ), so straightness, N18, Ncomplete and support are transpose-invariant; a min representative with a
   zero column but no zero row is handled as its transpose.
 
-## Searches (all exact; floats nowhere in a verdict)
+## Searches (all exact; no floating point in any exclusion)
 
 | run | case | space | result |
 |---|---|---|---|
 | `m0all_b39_first13` + `m0all_b39_part2` (`dfsR2.py`) | min rep has a zero row, r ≤ 13 nonzero rows | D1; every row set R (no symmetry) with r ≥ 2 and LB(R) ≤ 39 and r ≤ 13: 2 814 + 2 680 = 5 494 row sets; mode-0; Lemmas CV, LB, NS | 2.33 M nodes, 228 374 subtrees pruned by NS; **0 leaves outside N18** |
 | `sat_hr39` (`sat_hr.py`) | zero row, r ≥ 14 (the 104 remaining row sets) | D1; row 0 zero (WLOG), ≥ 14 nonzero rows and columns (WLOG by transposition), mode-0, s ≤ 39 | **UNSAT**: no straight line at all |
-| `sat_m1_39` / `sat_cubes39` | no zero row and no zero column (m ≥ 1) | D1; row 0 a minimum line, of support ≤ 2 (WLOG); every line nonzero; mode-0; s ≤ 39 | NOZERO_RESULT |
-| `sat_nd39` (`sat_nondita.py`) | all cases at once, as a cross-check | D1; straight + mode-0 + s ≤ 39 + outside all 18 subspaces; no symmetry | SATND39_RESULT |
+| `sat_cubes39` (`sat_cubes.py`) | no zero row and no zero column (m ≥ 1) | D1; row 0 a minimum line, of support ≤ 2 (WLOG); every line nonzero; mode-0; s ≤ 39 | all 26 cubes **UNSAT** (m = 1: 2 cubes; m = 2: 24 cubes; row-0 orbit representatives under the 32-element row-0 stabilizer and sign) |
+| `sat_nd39` (`sat_nondita.py`) | all cases at once, as a cross-check | D1; straight + mode-0 + s ≤ 39 + outside all 18 subspaces; no symmetry | **not completed**: stopped after about 3.9 h without a verdict and quarantined. The same encoding at budget 40 returned a support-40 non-N18 line after 26 min (control C1). |
 | `dfs01` zero / two | D01 | {0,1} representatives with s ≤ 47 and a zero row; all rows of support ≥ 2 with s ≤ 32; support-1 rows by Lemma G1 | 12 520 + 288 leaves, all in N18; supports 16 and 32 only (Lemma P on every leaf) |
 | `spanAll_77` (`spanAll.py`) | general integers, zero row | every row set with r ≥ 2 and LB ≤ 77 (65 390) | 13 922 dead; every row set with LB < 24 is dead |
 
@@ -212,7 +220,7 @@ Case split for D1 at s ≤ 39. Let m be the least support of a line (row or colu
 - m = 0: there is a zero line, and by transposition a zero row. This case is covered by the DFS for r ≤ 13 and by
   `sat_hr39` for r ≥ 14. A min representative with more zero columns than zero rows is transposed first; its transpose
   has r ≤ 13 and is covered by the all-row-set DFS.
-- m ∈ {1, 2}: covered by `sat_m1_39` / `sat_cubes39`.
+- m ∈ {1, 2}: covered by `sat_cubes39`. The monolithic `sat_m1_39` was stopped after 3.2 h and quarantined.
 
 Transposition preserves straightness, D1 and N18, because SIG is symmetric and the census contains both forms of
 each structure.
@@ -238,6 +246,19 @@ each structure.
 - **Lemma checks** (`lemmas42.py`, all PASS): L1 (minimal vanishing sizes {2, 6}), L2 (msize ≥ ⌈16/r⌉ on all
   16·2¹⁵ pairs), L3 (stabilizer), L4 (Lemma P on 12 812 matrices).
 
+## Deviations from PREREG.md
+
+- The preregistered budget was 47. Once the budget-47 zero-row runs exposed support-40 non-members, the question
+  became whether anything below 40 exists, and the decisive runs were redone at budget 39. The budget-47 runs are
+  quarantined and are not used for any verdict.
+- `sat_m1_47` was replaced by `sat_cubes39`. The cube split covers the same case, adds the valid constraint that every
+  line has support ≥ m, and fixes row 0 to orbit representatives.
+- The preregistration named N18. The coordinator then required the complete notion. Exclusions stay N18 exclusions,
+  which is the stronger form: N18 ⊂ Ncomplete, checked by the complete test agreeing with N18 on A, B, C and the
+  witnesses. The witnesses are additionally checked under Ncomplete and Ngeneric.
+- The decision rule is otherwise unchanged. The found witness was verified exactly, its minimal support computed
+  (HiGHS), and each support labelled exact / found / not reached.
+
 ## Provenance and quarantine
 
 Processes that were stopped by hand, crashed or were superseded are listed with hash, size and mtime in
@@ -247,7 +268,9 @@ stopped as too slow, and so were the exact branch-and-bound min support and the 
 whose killed log a verdict would otherwise have relied on (m0all_b39 indices 0–2 818) was **rerun** as
 `m0all_b39_first13`. On the reported container restart: in this container the four live processes at that point
 (`m0all_b39_part2`, `sat_m1_39`, `sat_nondita 39`, `classify_found`) were still running with continuous logs. Their
-PIDs and elapsed times were unchanged, so none of them was restarted.
+PIDs and elapsed times were unchanged, so none of them was restarted. `m0all_b39_part2` and `classify_found` finished
+normally. `sat_m1_39` was superseded by the cube split and `sat_nondita 39` was stopped without a verdict; both logs
+are quarantined.
 
 ## What a native round could freeze
 
