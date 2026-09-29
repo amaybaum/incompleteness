@@ -1,0 +1,177 @@
+{
+ "support": 40,
+ "straight_exact": true,
+ "straight_tables": true,
+ "generic_candidates_exact": {
+  "col 4x4": [
+   0,
+   0
+  ],
+  "col 8x2": [
+   0,
+   0
+  ],
+  "col 2x8": [
+   0,
+   0
+  ],
+  "row 4x4": [
+   0,
+   0
+  ],
+  "row 8x2": [
+   0,
+   0
+  ],
+  "row 2x8": [
+   0,
+   0
+  ]
+ },
+ "complete_members": [],
+ "N18_members": [],
+ "min_support_over_gauge": 40,
+ "milp_status": "HighsModelStatus.kOptimal",
+ "milp_dual_bound_zeros": -216.0,
+ "sum_mod16": 0,
+ "pieces": {
+  "P": {
+   "support": 16,
+   "straight": true,
+   "complete_members": [
+    [
+     "k1",
+     "col"
+    ],
+    [
+     "k4",
+     "row"
+    ],
+    [
+     "t1",
+     "col"
+    ],
+    [
+     "t2",
+     "row"
+    ]
+   ]
+  },
+  "Q": {
+   "support": 16,
+   "straight": true,
+   "complete_members": [
+    [
+     "k1",
+     "row"
+    ],
+    [
+     "k2",
+     "row"
+    ],
+    [
+     "k3",
+     "row"
+    ],
+    [
+     "e1",
+     "row"
+    ],
+    [
+     "t1",
+     "row"
+    ],
+    [
+     "t2",
+     "col"
+    ],
+    [
+     "t2",
+     "row"
+    ],
+    [
+     "t3",
+     "row"
+    ]
+   ]
+  },
+  "T": {
+   "support": 16,
+   "straight": true,
+   "complete_members": [
+    [
+     "k2",
+     "col"
+    ],
+    [
+     "k4",
+     "col"
+    ],
+    [
+     "e2",
+     "col"
+    ],
+    [
+     "t1",
+     "col"
+    ],
+    [
+     "t1",
+     "row"
+    ],
+    [
+     "t2",
+     "col"
+    ],
+    [
+     "t3",
+     "col"
+    ],
+    [
+     "k5",
+     "col"
+    ]
+   ]
+  },
+  "-P+Q": {
+   "support": 32,
+   "straight": true,
+   "complete_members": [
+    [
+     "t2",
+     "row"
+    ]
+   ]
+  },
+  "-P-T": {
+   "support": 32,
+   "straight": true,
+   "complete_members": [
+    [
+     "t1",
+     "col"
+    ]
+   ]
+  },
+  "Q-T": {
+   "support": 24,
+   "straight": true,
+   "complete_members": [
+    [
+     "t1",
+     "row"
+    ],
+    [
+     "t2",
+     "col"
+    ]
+   ]
+  },
+  "-P+Q-T": {
+   "support": 40,
+   "straight": true,
+   "complete_members": []
+  }
+ },
+ "all xP+yQ+zT straight for |x|,|y|,|z|<=2": true
+}

@@ -7,7 +7,7 @@ both forms) which does not depend on the within-class matching."""
 import sys, pickle, time, collections, json
 import numpy as np
 from lib42 import *
-from minsupp import min_support
+from minsupp_milp import min_support_milp
 from complete42 import complete_members
 t0 = time.time()
 X = np.concatenate([np.array([x for R, x in pickle.load(open(f, 'rb'))['nond']]).reshape(-1, 256) for f in sys.argv[2:]])
@@ -39,15 +39,14 @@ for c, ks in classes.items():
     k = min(ks, key=lambda k: (int((X[k] != 0).sum()), tuple(X[k])))
     E = X[k].reshape(16, 16).tolist(); ET = [list(r) for r in zip(*E)]
     sup = support(E)
-    ms, pot = min_support(E, start=sup + 1)
-    minsup = sup if pot is None else ms
+    minsup, Estar, mst, mdb, mob = min_support_milp(E)
     gen = {('col',) + mn: tuple(len(x) for x in search_generic(E, *mn)) for mn in SHAPES}
     gen.update({('row',) + mn: tuple(len(x) for x in search_generic(ET, *mn)) for mn in SHAPES})
     v = X[k]
     inclo = any(not (M @ v).any() for _, _, M in clo)
     infall = None if fall is None else any(not (M @ v).any() for *_, M in fall)
     cm = complete_members(v)
-    rec = {'members': len(ks), 'complete_members': cm, 'support_stored': sup, 'min_support_over_gauge': minsup, 'straight_exact': straight_direct(E),
+    rec = {'members': len(ks), 'complete_members': cm, 'support_stored': sup, 'min_support_over_gauge': minsup, 'milp_status': mst, 'milp_dual_bound_zeros': mdb, 'straight_exact': straight_direct(E),
            'sum_mod16': int(v.sum()) % 16, 'in_closure34': inclo,
            'generic_candidates_all_zero': all(x == (0, 0) for x in gen.values()), 'generic': {'%s %dx%d' % kk: vv for kk, vv in gen.items()},
            'representative': E}
