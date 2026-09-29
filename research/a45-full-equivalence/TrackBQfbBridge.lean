@@ -93,10 +93,10 @@ theorem bornPow_congr {U U' : Matrix V V ℂ} (h : ∀ i j, ‖U i j‖ ^ 2 = �
   | zero => intro b b'; rfl
   | succ t ih =>
     intro b b'
-    show ∑ c, (realData U).bornPow t b c * (realData U).born c b'
-      = ∑ c, (realData U').bornPow t b c * (realData U').born c b'
+    show ∑ c : V, (realData U).bornPow t b c * ‖U b' c‖ ^ 2
+      = ∑ c : V, (realData U').bornPow t b c * ‖U' b' c‖ ^ 2
     refine Finset.sum_congr rfl fun c _ => ?_
-    rw [ih b c, realData_born, realData_born, h b' c]
+    rw [ih b c, h b' c]
 #print axioms bornPow_congr
 
 theorem rooted_congr {U U' : Matrix V V ℂ} (h : ∀ i j, ‖U i j‖ ^ 2 = ‖U' i j‖ ^ 2)
@@ -136,7 +136,9 @@ theorem visible_congr {G : Matrix V V ℝ} {U U' : Matrix V V ℂ}
       ∀ t a j, (realData U).rooted t a j = (realData U').rooted t a j := by
   have h : ∀ i j, ‖U i j‖ ^ 2 = ‖U' i j‖ ^ 2 := fun i j => by
     rw [← slice_of_admissible hU, ← slice_of_admissible hU']
-  exact ⟨fun b b' => by rw [realData_born, realData_born, h b' b], rooted_congr h⟩
+  refine ⟨fun b b' => ?_, rooted_congr h⟩
+  show ‖U b' b‖ ^ 2 = ‖U' b' b‖ ^ 2
+  exact h b' b
 #print axioms visible_congr
 
 /-! ### Licensed-intervention congruence -/
