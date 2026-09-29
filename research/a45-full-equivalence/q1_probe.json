@@ -1,0 +1,80 @@
+{
+ "carriers": {
+  "FibreGram tuple (raw)": {
+   "all_equal": false,
+   "class": "LIFT-DEPENDENT, REPRESENTATIVE-LEVEL",
+   "exhibited_pair": [
+    "R0 SIG",
+    "R1 D1.SIG.D2"
+   ],
+   "relabel_invariant_R0R2": false,
+   "separates_Dita_R3_from_nonDita_R4": true,
+   "two_sided_invariant_R0R1": false
+  },
+  "O0 visible slice (readback of |pad H|^2)": {
+   "all_equal": true,
+   "class": "VISIBLE-CANDIDATE (equal on all pairs; needs a factorization proof)",
+   "exhibited_pair": null,
+   "relabel_invariant_R0R2": true,
+   "separates_Dita_R3_from_nonDita_R4": false,
+   "two_sided_invariant_R0R1": true
+  },
+  "O1 AnchoredChannel on rho = E_01": {
+   "all_equal": false,
+   "class": "LIFT-DEPENDENT, REPRESENTATIVE-LEVEL",
+   "exhibited_pair": [
+    "R0 SIG",
+    "R1 D1.SIG.D2"
+   ],
+   "relabel_invariant_R0R2": false,
+   "separates_Dita_R3_from_nonDita_R4": true,
+   "two_sided_invariant_R0R1": false
+  },
+  "Q_fb rooted family t<=3 [named embedding]": {
+   "all_equal": true,
+   "class": "VISIBLE-CANDIDATE (equal on all pairs; needs a factorization proof)",
+   "exhibited_pair": null,
+   "relabel_invariant_R0R2": true,
+   "separates_Dita_R3_from_nonDita_R4": false,
+   "two_sided_invariant_R0R1": true
+  },
+  "featureVec (3000 mixedTriple coordinates)": {
+   "all_equal": false,
+   "class": "LIFT-DEPENDENT, CLASS-LEVEL",
+   "exhibited_pair": [
+    "R0 SIG",
+    "R2 relabelled SIG"
+   ],
+   "relabel_invariant_R0R2": false,
+   "separates_Dita_R3_from_nonDita_R4": true,
+   "two_sided_invariant_R0R1": true
+  },
+  "toy: entry H[0][1]": {
+   "all_equal": false,
+   "class": "LIFT-DEPENDENT, REPRESENTATIVE-LEVEL",
+   "exhibited_pair": [
+    "R0 SIG",
+    "R1 D1.SIG.D2"
+   ],
+   "relabel_invariant_R0R2": false,
+   "separates_Dita_R3_from_nonDita_R4": true,
+   "two_sided_invariant_R0R1": false
+  }
+ },
+ "controls": {
+  "FibreGram comes out lift-dependent": true,
+  "O0 comes out visible (all equal)": true,
+  "O1 comes out lift-dependent with an exhibited pair (not visible)": true,
+  "all five realizations share the visible slice": true,
+  "featureVec comes out lift-dependent with an exhibited pair (not visible)": true,
+  "toy entry is representative-level, not class-level and not visible": true
+ },
+ "flat_unitary": {
+  "R0 SIG": true,
+  "R1 D1.SIG.D2": true,
+  "R2 relabelled SIG": true,
+  "R3 H3(1,v2,v3) Dita": true,
+  "R4 SIG o v^E40 non-Dita": true
+ },
+ "same_visible_slice": true
+}
