@@ -353,3 +353,82 @@ right-diagonal pair (R0, R6) and the Diţă / non-Diţă pair (R3, R4), and iden
 resolves `R_ph`, a relation finer than every class-level relation, and is not stable under the class structure.
 Together with B3 (and Q2's S2, where `K` separates R0/R1), class-level distinctions define neither the stable relation
 under monomial access (B1, B2: nothing is separated) nor under coherent access (everything down to `R_ph` is).
+
+## 9. Kernel additions after Q3: converse, trajectory laws, the landed equivalence
+
+Two more design-evidence builds on `claude/a45-bridge-dev`: `a77a7dfd` (run 36598896118, job 109510848797) and
+`8863c9c9` (run 36599732472, job 109513725393). Each built with no `sorry`; `lean-axioms` reports 5274 and then 5277
+named results. Every theorem of the module depends on `[propext, Classical.choice, Quot.sound]` only, and
+`lean-manuscript` is again the only red gate step.
+
+- **Converse at the realization level.** `realData_rooted_one`: with identity readout and uniform initial law,
+  `rooted 1 a j = ‖U j a‖²`. Hence `slice_eq_of_rooted_eq` (equal rooted families ⇒ equal Born weights), and
+  `rooted_eq_iff_slice_eq`: for trivial-ancilla admissible dilations of `G` and `G'`, the instantiated rooted families
+  agree iff `G = G'`. The forward direction's witness is `slice_eq_of_rooted_eq` and the backward one's is
+  `visible_congr` (§A.34). On these realizations the relation induced by the instantiated data is exactly `R₀`.
+- **Trajectory laws.** `rootTraj_congr` and `bridge_traj`: the root-conditioned trajectory laws `rootTraj K a`, the
+  objects `finite_horizon_equivalence` is stated for, agree at every horizon under the hypotheses of `bridge`.
+- **Track-B → `Q_fb` → `S`.** `realData_traj_stochastic`: for unitary `U`, each `rootTraj K a` of `realData U` is
+  `QfbRealizable` (the landed `qfbRealizable_rootTraj`) and `Stochastic` (the landed `Qfb_imp_S`). No new
+  construction enters; the realization's laws enter the landed `S ↔ D ↔ Q_fb` equivalence
+  (`finite_horizon_equivalence`, `Equivalence.lean:459`).
+
+**What the converse settles, and what it does not.** Class-level injectivity (same `Q_fb` data ⇒ same Track-B class) is
+false, not merely unproved. R3 (Diţă) and R4 (non-Diţă) are admissible flat realizations of one slice. So by
+`rooted_eq_iff_slice_eq` they have equal instantiated data (Q3 B1 exhibits it exactly), while their A41 classes
+differ. The representational equivalence `S ↔ D ↔ Q_fb` does not need that injectivity: it relates laws, and its
+`S → D → Q_fb` direction builds its own datum (`D_imp_Qfb`'s permutation unitary), not a Track-B realization.
+
+## 10. Ancilla probe
+
+`q4_ancilla.py` (output `q4_ancilla.json`), exact rational arithmetic. Every verdict cell was fixed in `EXPECT` before
+evaluation. Visible `V` has 4 values, the ancilla `{a₀, a₁}`, the slice `G = J/4`. The dilations have fixed
+`(·, a₀)` columns (a real Hadamard `F` split across the ancilla at angles `φ_i`) and a completion `(·, a₁)` equal to
+`W` applied to the orthonormal complement.
+
+| cell | expected | measured |
+| --- | --- | --- |
+| all five dilations unitary and admissible for `G` | yes | yes |
+| CARRIED (basis `V × A`, evolution `U`, `init (i, a₀) = 1/4`, `read = fst`): `t = 1` rooted family `= G` | yes | yes |
+| CARRIED `t = 2` differs, D1 (`φ` varying, `W = 1`) vs D2 (`φ` varying, `W = Fᵀ/2`) | yes | yes: first row uniform `1/4` vs `(17187, 6371, 23271, 20771)/67600` |
+| CARRIED `t = 2` equal, D3 vs D4 (`φ` constant) | yes | yes |
+| REFRESHED (ancilla reset to `a₀` each step; kernel `G`) equal on all five | yes | yes (by construction: a control, not a finding) |
+
+A descriptive check was added after the verdict cells: D1 and D2 share every `(·, a₀)` column and differ only in the
+completion. The `t = 2` separation therefore depends on data that no quantity built from the `(·, a₀)` columns sees:
+not the slice, and not the fibre Gram at `a₀`. The corpus's own ancilla construction, `padData` (a product `Q.U ⊗ W`),
+is proved invisible to the rooted family (`OperationalSourcing.lean`, S1); the separation needs a non-product
+dilation with the ancilla carried between steps.
+
+## 11. Closure assessment
+
+**Proved (kernel, design evidence; trivial-ancilla admissible realizations; `realData`).** Same visible slice ⇒ equal
+Born weights, rooted families and trajectory laws, before and after any `permClass` interventions on either side
+(`bridge`, `bridge_traj`). Conversely, equal rooted families ⇒ same slice (`rooted_eq_iff_slice_eq`). The laws are
+`Q_fb`-realizable and stochastic via the landed `qfbRealizable_rootTraj` and `Qfb_imp_S`, and so enter the landed
+`S ↔ D ↔ Q_fb`. On this domain the relation the adopted operational data induce on Track-B realizations is exactly
+`R₀`.
+
+**The two scope questions that remain.**
+
+1. **Instantiation.** No landed theorem names a map from Track-B realizations to `Q_fb`, so `realData` is this
+   thread's definition. It adds no field and takes `init`/`read` from `hadData`. What the congruence proofs use from
+   it is the evolution `U` and the fact that the two data share `init` and `read`. A version quantified over arbitrary
+   shared `init`/`read` is a mechanical generalization, not yet in the kernel. Closing this is a decision to freeze
+   the definition "the `Q_fb` evolution of a trivial-ancilla realization is its unitary", not a theorem to find.
+2. **Ancilla.** At `|A| > 1` the outcome depends on the semantics, as §10 shows. With the ancilla carried as hidden
+   basis states, which is what `Q_fb`'s non-injective `read` allows, the `t ≥ 2` law is not slice-determined.
+   Exhibited: equal slice, equal `(·, a₀)` columns, different `t = 2` law. With the ancilla refreshed each step, the
+   law is `G^t` and visible. So either the theorem is stated for trivial-ancilla realizations, or a `|A| > 1`
+   realization's `Q_fb` semantics is fixed as the refreshed one. The carried semantics is a multi-time structure (a
+   coherent ancilla history), the territory of the unadopted `𝒪₂`/`𝒪₃`.
+
+**Not needed, and false at class level.** A converse from `Q_fb` data to the Track-B class does not hold (§9). No
+reconstruction programme follows from it.
+
+**Two-layer result, as it now stands.**
+- *Current theory* (adopted objects, stated access, trivial ancilla, `realData`): the relation Track-B realizations
+  induce through the adopted operational data is `R₀`, and it is stable under every licensed intervention.
+- *Extensions:* a coherent (row-non-monomial) intervention, a lift-level carrier declared observable, or a carried
+  ancilla each refine it: to `R_rd`/`R_ph` (P3), to the carrier's own relation (Q1), or to completion-sensitive data
+  (§10). Each needs an additional, currently unadopted principle. None lands on A41's class geometry (P4).

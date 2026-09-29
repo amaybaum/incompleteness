@@ -13,8 +13,15 @@
      a lawful datum with positive root mass, hence a member of `Q*` (`realData_qstar`).
   4. Visible congruence.  Two trivial-ancilla admissible dilations of one slice `G` have equal Born
      weights, hence equal rooted families (`visible_congr`).
+  4a. Converse.  With identity readout and uniform initial law the one-step rooted family is the Born matrix, so
+     equal rooted families force equal slices (`slice_eq_of_rooted_eq`); with item 4 this is
+     `rooted_eq_iff_slice_eq`, one witness per direction.
   5. Licensed-intervention congruence.  For `M`, `N` in the stated access class `permClass`,
      `‖(M U N) i j‖² = ‖(M U' N) i j‖²`, hence equal rooted families (`bridge`).
+
+  6. Trajectory laws.  The root-conditioned trajectory laws `rootTraj` inherit the congruence (`rootTraj_congr`,
+     `bridge_traj`), and each is `Q_fb`-realizable and stochastic by the landed `qfbRealizable_rootTraj` and
+     `Qfb_imp_S` (`realData_traj_stochastic`).
 
   Scope.  The realizations are trivial-ancilla (flat) dilations; the licensed operations are the
   `permClass` interventions on either side.  Nothing here concerns an intervention outside
@@ -32,7 +39,7 @@ namespace OIBridge
 namespace TrackBQfbBridge
 
 open Finset Matrix OIBridge.QuantumRepresentation OIBridge.DilationChoice
-open OIBridge.StructuralClosure OIBridge.SubstratumInterfaceAudit OIBridge.DitaHull
+open OIBridge.StructuralClosure OIBridge.SubstratumInterfaceAudit OIBridge.DitaHull OIBridge.FiniteEntropy
 
 set_option linter.unusedSectionVars false
 
@@ -141,6 +148,58 @@ theorem visible_congr {G : Matrix V V ℝ} {U U' : Matrix V V ℂ}
   exact h b' b
 #print axioms visible_congr
 
+/-! ### The converse: the rooted family recovers the slice
+
+With the identity readout and the uniform initial law, the one-step rooted family is the Born matrix itself.  So equal
+rooted families force equal Born weights, and on trivial-ancilla admissible dilations the relation induced by the
+instantiated data is exactly equality of the visible slice.  Each direction has its own witness:
+`slice_eq_of_rooted_eq` (rooted ⇒ slice) and `visible_congr` (slice ⇒ rooted). -/
+
+theorem realData_bornPow_one (U : Matrix V V ℂ) (b b' : V) :
+    (realData U).bornPow 1 b b' = ‖U b' b‖ ^ 2 := by
+  show ∑ c : V, (if b = c then (1 : ℝ) else 0) * ‖U b' c‖ ^ 2 = ‖U b' b‖ ^ 2
+  simp [ite_mul]
+#print axioms realData_bornPow_one
+
+theorem realData_rooted_one (U : Matrix V V ℂ) (a j : V) :
+    (realData U).rooted 1 a j = ‖U j a‖ ^ 2 := by
+  have hc : (Fintype.card V : ℝ) ≠ 0 := by
+    exact_mod_cast (Fintype.card_pos_iff.2 ⟨a⟩).ne'
+  have hj : (realData U).jointMass 1 a j = 1 / (Fintype.card V : ℝ) * ‖U j a‖ ^ 2 := by
+    show ∑ b ∈ univ.filter (fun b : V => id b = a), ∑ b' ∈ univ.filter (fun b' : V => id b' = j),
+        (1 / (Fintype.card V : ℝ)) * (realData U).bornPow 1 b b' = _
+    rw [show (univ.filter (fun b : V => id b = a)) = {a} by ext b; simp,
+      show (univ.filter (fun b' : V => id b' = j)) = {j} by ext b'; simp]
+    simp only [Finset.sum_singleton]
+    rw [realData_bornPow_one]
+  show (realData U).jointMass 1 a j / (realData U).rootMass a = _
+  rw [realData_rootMass, hj, mul_comm, mul_div_assoc, div_self (one_div_ne_zero hc), mul_one]
+#print axioms realData_rooted_one
+
+/-- **Rooted ⇒ slice.**  Equal instantiated rooted families force equal Born weights. -/
+theorem slice_eq_of_rooted_eq {U U' : Matrix V V ℂ}
+    (h : ∀ t a j, (realData U).rooted t a j = (realData U').rooted t a j) (i j : V) :
+    ‖U i j‖ ^ 2 = ‖U' i j‖ ^ 2 := by
+  have h1 := h 1 j i
+  rwa [realData_rooted_one, realData_rooted_one] at h1
+#print axioms slice_eq_of_rooted_eq
+
+/-- **The induced relation is visible equality.**  For trivial-ancilla admissible dilations of slices `G` and `G'`,
+the instantiated rooted families agree iff `G = G'`.  Forward: `slice_eq_of_rooted_eq`; backward: `visible_congr`. -/
+theorem rooted_eq_iff_slice_eq {G G' : Matrix V V ℝ} {U U' : Matrix V V ℂ}
+    (hU : AdmissibleDilationAt G ((0 : Fin 1), (0 : Fin 1)) (pad U))
+    (hU' : AdmissibleDilationAt G' ((0 : Fin 1), (0 : Fin 1)) (pad U')) :
+    (∀ t a j, (realData U).rooted t a j = (realData U').rooted t a j) ↔ G = G' := by
+  constructor
+  · intro h
+    ext i j
+    rw [slice_of_admissible hU, slice_of_admissible hU']
+    exact slice_eq_of_rooted_eq h i j
+  · intro hG
+    subst hG
+    exact (visible_congr hU hU').2
+#print axioms rooted_eq_iff_slice_eq
+
 /-! ### Licensed-intervention congruence -/
 
 theorem exists_row_single {M : Matrix V V ℂ} (hM : IsSubmonomial M) (i : V) :
@@ -207,6 +266,39 @@ theorem bridge {G : Matrix V V ℝ} {U U' : Matrix V V ℂ}
     (show IsScaledPartialPerm N from hN).1 h
   exact ⟨hMN, rooted_congr hMN⟩
 #print axioms bridge
+
+/-! ### Full trajectory laws, and the landed equivalence
+
+`finite_horizon_equivalence` is stated for finite-horizon trajectory laws.  The root-conditioned trajectory law
+`rootTraj` is built from `chainW`, i.e. from `init` and products of `born`, so it inherits the congruence. -/
+
+theorem rootTraj_congr {U U' : Matrix V V ℂ} (h : ∀ i j, ‖U i j‖ ^ 2 = ‖U' i j‖ ^ 2) (K : ℕ) (a : V) :
+    (realData U).rootTraj K a = (realData U').rootTraj K a := by
+  funext τ
+  unfold QfbData.rootTraj marg QfbData.chainW QfbData.born QfbData.rootMass realData
+  dsimp only
+  simp only [h]
+#print axioms rootTraj_congr
+
+/-- **The bridge, for trajectory laws.**  Under the hypotheses of `bridge`, the root-conditioned trajectory laws of
+every horizon agree. -/
+theorem bridge_traj {G : Matrix V V ℝ} {U U' : Matrix V V ℂ}
+    (hU : AdmissibleDilationAt G ((0 : Fin 1), (0 : Fin 1)) (pad U))
+    (hU' : AdmissibleDilationAt G ((0 : Fin 1), (0 : Fin 1)) (pad U'))
+    {M N : Matrix V V ℂ} (hM : permClass V M) (hN : permClass V N) (K : ℕ) (a : V) :
+    (realData (M * U * N)).rootTraj K a = (realData (M * U' * N)).rootTraj K a :=
+  rootTraj_congr (bridge hU hU' hM hN).1 K a
+#print axioms bridge_traj
+
+/-- **Track-B → `Q_fb` → `S`.**  Every root-conditioned trajectory law of a unitary realization is
+`Q_fb`-realizable (`qfbRealizable_rootTraj`) and therefore stochastic (`Qfb_imp_S`); no new construction enters. -/
+theorem realData_traj_stochastic [Nonempty V] {U : Matrix V V ℂ} (hU : U ∈ Matrix.unitaryGroup V ℂ)
+    (K : ℕ) (a : V) :
+    OIBridge.Equivalence.QfbRealizable ((realData U).rootTraj K a) ∧
+      OIBridge.Equivalence.Stochastic ((realData U).rootTraj K a) := by
+  have hq := qfbRealizable_rootTraj (realData U) (realData_isLaw hU) (realData_positiveRootMass U) a K
+  exact ⟨hq, OIBridge.Equivalence.Qfb_imp_S _ hq⟩
+#print axioms realData_traj_stochastic
 
 /-! ### The flat 16 × 16 realization -/
 
