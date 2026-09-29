@@ -360,6 +360,39 @@ theorem flat_bridge (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ)
     fun hM hN => bridge (UH_admissible Γ₀ hΓ₀ hH) (UH_admissible Γ₀ hΓ₀ hH') hM hN⟩
 #print axioms flat_bridge
 
+/-! ### The verdict -/
+
+/-- **`P_R`, the round's verdict.**  The trajectory-law bridge under `permClass` interventions, the
+converse at the level of rooted families, the chain into `S`, and the flat 16 × 16 instance. -/
+theorem a45_bridge_kernel :
+    (∀ (W : Type) [Fintype W] [DecidableEq W] (G : Matrix W W ℝ) (U U' : Matrix W W ℂ),
+      AdmissibleDilationAt G ((0 : Fin 1), (0 : Fin 1)) (pad U) →
+      AdmissibleDilationAt G ((0 : Fin 1), (0 : Fin 1)) (pad U') →
+      ∀ (M N : Matrix W W ℂ), permClass W M → permClass W N → ∀ (K : ℕ) (a : W),
+        (realData (M * U * N)).rootTraj K a = (realData (M * U' * N)).rootTraj K a) ∧
+    (∀ (W : Type) [Fintype W] [DecidableEq W] (G G' : Matrix W W ℝ) (U U' : Matrix W W ℂ),
+      AdmissibleDilationAt G ((0 : Fin 1), (0 : Fin 1)) (pad U) →
+      AdmissibleDilationAt G' ((0 : Fin 1), (0 : Fin 1)) (pad U') →
+      ((∀ t a j, (realData U).rooted t a j = (realData U').rooted t a j) ↔ G = G')) ∧
+    (∀ (W : Type) [Fintype W] [DecidableEq W] [Nonempty W] (U : Matrix W W ℂ),
+      U ∈ Matrix.unitaryGroup W ℂ → ∀ (K : ℕ) (a : W),
+        OIBridge.Equivalence.QfbRealizable ((realData U).rootTraj K a) ∧
+          OIBridge.Equivalence.Stochastic ((realData U).rootTraj K a)) ∧
+    (∀ H : Matrix (Fin 4 × Fin 4) (Fin 4 × Fin 4) ℂ, IsFlatHadamard H →
+      UH H ∈ Matrix.unitaryGroup (Fin 4 × Fin 4) ℂ ∧
+        ∀ b b' : Fin 4 × Fin 4, (realData (UH H)).born b b' = 1 / 16) := by
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · intro W _ _ G U U' hU hU' M N hM hN K a
+    exact bridge_traj hU hU' hM hN K a
+  · intro W _ _ G G' U U' hU hU'
+    exact rooted_eq_iff_slice_eq hU hU'
+  · intro W _ _ _ U hU K a
+    exact realData_traj_stochastic hU K a
+  · intro H hH
+    exact ⟨UH_unitary hH, fun b b' =>
+      (UH_born_eq_slice (Matrix.of fun _ _ => (1 / 4 : ℝ)) rfl hH b b').1⟩
+#print axioms a45_bridge_kernel
+
 end TrackBQfbBridge
 
 end OIBridge
