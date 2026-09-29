@@ -1,3 +1,5 @@
 *.pkl
 *.npy
+*.partial
 __pycache__/
+struct20_cache.pkl

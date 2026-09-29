@@ -1,0 +1,6 @@
+R#0 0x1 r=1 nodes 0 leaves 0 | total leaves 0 nonDita 0  0s
+R#20 0x141 r=3 nodes 1 leaves 0 | total leaves 24 nonDita 0  0s
+R#40 0x154 r=4 nodes 45 leaves 64 | total leaves 636 nonDita 0  1s
+R#60 0x57 r=5 nodes 1 leaves 0 | total leaves 2412 nonDita 0  5s
+R#80 0x319 r=5 nodes 1 leaves 0 | total leaves 2412 nonDita 0  5s
+DONE total leaves 2412 nonDita 0 5s

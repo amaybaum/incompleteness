@@ -1,0 +1,5 @@
+R#0 0x1f1f r=10 nodes 32893 pruned 4488 leaves 2048 (16.1s) | total leaves 2048 nonDita 2048  16s
+R#1 0x555f r=10 nodes 33149 pruned 3976 leaves 2048 (15.9s) | total leaves 4096 nonDita 4096  32s
+R#2 0x5a5f r=10 nodes 32125 pruned 4104 leaves 2048 (16.0s) | total leaves 6144 nonDita 6144  48s
+R#3 0x5b5b r=10 nodes 31613 pruned 4616 leaves 2048 (15.0s) | total leaves 8192 nonDita 8192  63s
+DONE total leaves 8192 nonDita 8192 63s

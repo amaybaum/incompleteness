@@ -1,0 +1,11 @@
+18 distinct: 18 2s
+0 family size 18 3s
+128 family size 34 117s
+256 family size 34 224s
+384 family size 34 337s
+512 family size 34 445s
+640 family size 34 552s
+768 family size 34 660s
+896 family size 34 792s
+closure size 34
+Counter({('k2', False): 4, ('k2', True): 4, ('e1', False): 2, ('e1', True): 2, ('e2', False): 2, ('e2', True): 2, ('t1', False): 2, ('t1', True): 2, ('t2', False): 2, ('t2', True): 2, ('t3', False): 2, ('t3', True): 2, ('k1', False): 1, ('k1', True): 1, ('k3', False): 1, ('k3', True): 1, ('k4', False): 1, ('k4', True): 1})

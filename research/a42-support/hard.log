@@ -1,0 +1,8 @@
+R#0 0x78f r=8 nodes 1 pruned 0 leaves 0 (0.8s) | total leaves 0 nonDita 0  1s
+R#1 0x797 r=8 nodes 5 pruned 0 leaves 0 (0.3s) | total leaves 0 nonDita 0  1s
+R#2 0x7a7 r=8 nodes 33 pruned 20 leaves 0 (0.4s) | total leaves 0 nonDita 0  2s
+R#3 0x7ad r=8 nodes 33 pruned 32 leaves 0 (0.5s) | total leaves 0 nonDita 0  2s
+R#4 0xf0f r=8 nodes 1 pruned 1 leaves 0 (16.3s) | total leaves 0 nonDita 0  18s
+R#5 0x113f r=8 nodes 0 pruned 0 leaves 0 (0.1s) | total leaves 0 nonDita 0  18s
+R#6 0x115f r=8 nodes 33 pruned 0 leaves 0 (0.4s) | total leaves 0 nonDita 0  19s
+DONE total leaves 0 nonDita 0 19s

@@ -1,0 +1,16 @@
+R#0 0x1 r=1 nodes 0 leaves 0 | total leaves 0 nonDita 0  0s
+R#20 0x141 r=3 nodes 1 leaves 0 | total leaves 24 nonDita 0  0s
+R#40 0x154 r=4 nodes 45 leaves 64 | total leaves 636 nonDita 0  1s
+R#60 0x57 r=5 nodes 1 leaves 0 | total leaves 2412 nonDita 0  5s
+R#80 0x319 r=5 nodes 1 leaves 0 | total leaves 2412 nonDita 0  5s
+R#100 0x1245 r=5 nodes 1 leaves 0 | total leaves 2412 nonDita 0  6s
+R#120 0x555 r=6 nodes 249 leaves 256 | total leaves 4140 nonDita 0  10s
+R#140 0x1525 r=6 nodes 1 leaves 0 | total leaves 6764 nonDita 0  16s
+R#160 0x575 r=7 nodes 121 leaves 0 | total leaves 7916 nonDita 0  19s
+R#180 0x131b r=7 nodes 1 leaves 0 | total leaves 7916 nonDita 0  20s
+R#200 0x155a r=7 nodes 1 leaves 0 | total leaves 7916 nonDita 0  20s
+R#220 0xff r=8 nodes 1105 leaves 256 | total leaves 8172 nonDita 0  21s
+R#239 0xf0f r=8 nodes 362369 leaves 48648 | total leaves 57588 nonDita 0  197s
+R#240 0x113f r=8 nodes 0 leaves 0 | total leaves 57588 nonDita 0  197s
+R#260 0x15e5 r=8 nodes 33 leaves 0 | total leaves 57588 nonDita 0  198s
+R#280 0x1aab r=8 nodes 1 leaves 0 | total leaves 57588 nonDita 0  200s

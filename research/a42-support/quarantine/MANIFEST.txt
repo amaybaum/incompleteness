@@ -1,0 +1,22 @@
+# Quarantine manifest (A42 research): logs/side files of stopped, crashed or superseded processes.
+# Content untouched; not used for any verdict. sha256  size  mtime(UTC)  file  reason
+
+675b5bc0f2219faa60c411c1a4113ca25e27bda081bebd99ba76974f02347c69  1104  2026-09-28T21:45:39Z  m0_b47.log  first m=0 enumeration, stopped by hand (exploratory, superseded by dfsR2 runs)
+d42f7ae2b0056db4614afdd79f24d7e3ae3220b37a5bd3a3e80cd3ff71e06f90  56  2026-09-28T21:43:14Z  m1_b47.log  m=1 DFS, stopped by hand (superseded by SAT)
+ad31a8b3fd61ed737b80dd580ef8b7596447ec4efc7656f6ea735b31b1a0847d  207  2026-09-28T22:01:50Z  probeM.log  failed start (file missing)
+8da41fcf2ddea5cfeda4ea665b4aae8849b64fcf6f28e76e7724eb820f4a65f4  403988  2026-09-28T23:22:03Z  m0all_b47_part1.log  crashed (MemoryError) at R#4596; superseded by budget-39 runs
+3a231cd42f63ca98ef4dc029b22ca3f5d6e08d8d32418da9dcf338fd5ede0e82  263345  2026-09-29T00:13:32Z  m0all_b47_part2.log  killed by hand at R#2983 of the resumed list; superseded
+205e13333d9c9a9006f19b605cf6d7290b8957d61a593add1e605a65dd051a1b  38473821  2026-09-29T00:12:49Z  m0all_b47_part2.pkl.partial  appended by the killed m0all_b47_part2 process
+5fc54521cd30c3481fd325c5a867bde982e593761cbe44240aede584f72061b5  55296  2026-09-28T23:31:20Z  m0reps_b47_part1.log  crashed (MemoryError) at R#611; superseded
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  0  2026-09-28T23:42:54Z  m0reps_b47_part2.log  killed by hand before first line; superseded
+f020dec59bab02a035a57aa60b27f50352d9894eaf3e0c4d206247eaf51364c7  22936  2026-09-29T01:14:27Z  m0reps_b39.log  killed by hand at R#279 (r>=14 sets slow); r>=14 covered by sat_hr39, r<=13 covered by m0all_b39 runs
+5ffd30a29de8221a9836ca4f1a3fb24b33719d2fc34ef5f2f6e0da3d371f44c6  235217  2026-09-29T01:13:53Z  m0all_b39_part1.log  killed by hand at R#2818 to restrict to r<=13; its range is rerun (m0all_b39_first13)
+c91db882a35944047e44b9722c3dd2c42bf6c06b54a3305326b98b3cbb44721b  20  2026-09-28T22:07:21Z  sat_m1_47_killed.log  killed by hand (budget 47 too slow); replaced by sat_m1_39
+0efe53cc1c808f3d2b557db7962ef933755128022c24013d602f9ebe2e98a2b8  32  2026-09-29T00:06:18Z  sat_cubes47_killed.log  killed by hand; replaced by sat_m1_39
+fe823ab6cfb4e345e556ef4ff01f67937270bb1daec09b7906c8529dec44e826  93  2026-09-28T23:11:54Z  minsupp.log  exact B&B min support killed by hand (too slow); replaced by minsupp_milp
+e926e9b1aa7f696ca82ca6abe7796f8563ead0b8b937b8527f33412c191e5a12  15879  2026-09-29T00:21:43Z  found1_class_partial.log  first classification run of found1, superseded by the rerun found1_class.log
+db5f09a0702a2ba227234e74b8d66119e244b6714b338b1eed0f1d75f8ae8395  17099476  2026-09-28T23:32:46Z  found1.pkl.partial  side file of found1 run (the complete found1.pkl exists)
+1d0debec0420321a531873119bbee625e66014df3eb6bb631f64ad073713d259  68396209  2026-09-29T02:06:37Z  ctrl_wit44_k2.pkl.partial  side file; ctrl_wit44_k2.pkl complete
+0dde0638f579aad4b580b8ea6e1f50ed00112dab603e1dcdecb8593ae2d5b1a2  4274869  2026-09-28T23:42:51Z  t2.pkl.partial  regression-test side file
+8b0efb4b9b7df9e407e845cbf96e359e199f4959e06914acefee9f639231c85f  8549738  2026-09-29T00:18:27Z  t3.pkl.partial  regression-test side file
+9566b1821e9bb163aad610d717bdd05c4ae0f3e621079fd3d7f48db261a1488c  358  2026-09-28T21:41:58Z  test.log  first 100-R tool test (pre-NS pruning)
