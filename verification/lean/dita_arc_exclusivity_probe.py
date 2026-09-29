@@ -5,7 +5,9 @@ searches, and an exact monomial calculus for the symbolic ones, in which every e
 i^p z^q w^r u^k and every point of the unit circle that the analysis singles out is named canonically as
 zeta z^s w^t. The probe asserts the preregistered values and exits 1 on any mismatch; it certifies nothing on its
 own beyond the arithmetic it replays. Its first part is act 36's probe head, verbatim, for the shared objects and
-act 36's exhaustive structure search.
+act 36's structure search, exhaustive over column blocks and row classes and testing each partition structure at the
+sorted alignment (the rows of each row class in sorted order). The censuses over every index map are act 41's probes
+verification/lean/dita_index_map_probe.py and verification/lean/dita_index_map_independent.py.
 
 Objects (acts 24-36, numbers as in the landed Lean):
   F4(z)      (1/2) [[1,1,1,1],[1,z,-1,-z],[1,-1,1,-1],[1,-z,-1,z]]           (scaled by 2 here)
@@ -244,7 +246,8 @@ def action(op, g1, g2):
 elems = [action(op, g1, g2) for op, (A, B) in ops.items() for g1 in A for g2 in B]
 # ---- A37: the exact monomial calculus on the arc ---------------------------------------------
 # Every entry of SIG is i^p z^q w^r, so every entry of H(u) = SIG o u^W is i^p z^q w^r u^k with k = W(i, j). A Dita
-# structure (column blocks, row classes) is admitted at u iff finitely many monomial equations hold: the row
+# structure (column blocks, row classes, and an alignment of the rows within row classes) is admitted at
+# u iff finitely many monomial equations hold: the row
 # proportionality on every block and the rank-one condition on the block ratios. Each equation u^k = i^p z^q w^r has,
 # for k != 0, exactly |k| unit solutions u = zeta z^(-q/k) w^(-r/k), zeta a root of unity; z = (2+i)/(2-i) and
 # w = (3+2i)/(3-2i) are multiplicatively independent modulo roots of unity (distinct Gaussian primes), so the triple
@@ -291,7 +294,8 @@ def gaussian_value(pt):
     return v
 
 def structures(ent, div, mul, is_one, m, n, ratio):
-    """the exhaustive Dita structure search (act 36's, section 2) on a matrix of monomials: ent(i, j) the entry, ratio[i][s0][s]
+    """the Dita structure search (act 36's, section 2), exhaustive over column blocks and row classes and testing the
+    rank-one condition at the sorted alignment, on a matrix of monomials: ent(i, j) the entry, ratio[i][s0][s]
     = ent(i, s) / ent(i, s0) precomputed, div/mul/is_one the monomial operations; returns (candidates, exact) as lists of
     (column blocks, row classes); unitarity of the factors is not tested here (it follows from that of H(u)) and is
     checked separately by the numeric control"""
@@ -340,7 +344,7 @@ def exact_set(res):
     return set((mn, cp, tuple(rows)) for mn, (cands, exact) in res.items() for cp, rows in exact)
 FROZEN_ONLY = {((2, 8), FROZEN_BLOCKS, FROZEN_CLASSES)}
 
-print('== 1. the census: every Diţă structure of the stratum point, and its classes modulo the stabilizer ==')
+print('== 1. the census at the sorted alignment: the Diţă partition structures of the stratum point with the rows of each row class in sorted order, and their partition orbits under the stabilizer ==')
 check('symbolic SIG equals the numeric SIG entrywise (i^p z^q w^r)', all(val(*SIGE[i][j]) == SIG[i][j] for i in range(16) for j in range(16)), True)
 check('SIG is symmetric; W is symmetric', (SIG == [list(c) for c in zip(*SIG)], WE == [list(c) for c in zip(*WE)]), (True, True))
 SIGT = [list(c) for c in zip(*SIG)]
@@ -359,9 +363,9 @@ for (m, n) in SHAPES:
             if not ok: continue
             D, dok = twist(H, cp, rows, X, Y, m, n)
             facts.append((kind, (m, n), tuple(cp), tuple(rows), dok, all(x == ONE for r in D for x in r)))
-check('exact structures of SIG by shape and form: 4x4, 8x2, 2x8, each column and row', tuple(sum(1 for f in facts if f[1] == mn and f[0] == k) for mn in SHAPES for k in ('column', 'row')), (4, 4, 2, 2, 3, 3))
-check('every structure reconstructs SIG exactly from its factors, with trivial twist', all(f[4] and f[5] for f in facts), True)
-check('the column-form and row-form structures coincide as index sets (SIG symmetric)', sorted((mn, cp, rows) for k, mn, cp, rows, _, _ in facts if k == 'column') == sorted((mn, cp, rows) for k, mn, cp, rows, _, _ in facts if k == 'row'), True)
+check('exact partition structures of SIG at the sorted alignment by shape and form: 4x4, 8x2, 2x8, each column and row', tuple(sum(1 for f in facts if f[1] == mn and f[0] == k) for mn in SHAPES for k in ('column', 'row')), (4, 4, 2, 2, 3, 3))
+check('every sorted-alignment partition structure reconstructs SIG exactly from its factors, with trivial twist', all(f[4] and f[5] for f in facts), True)
+check('the column-form and row-form sorted-alignment partition structures coincide as index sets (SIG symmetric)', sorted((mn, cp, rows) for k, mn, cp, rows, _, _ in facts if k == 'column') == sorted((mn, cp, rows) for k, mn, cp, rows, _, _ in facts if k == 'row'), True)
 def perm_pair(e):
     p, s_ = e
     rp = [p[i * 16] // 16 for i in range(16)]; cq = [p[j] % 16 for j in range(16)]
@@ -387,12 +391,12 @@ orbits = []; seen = set()
 for idx, (k, mn, cp, rows, _, _) in enumerate(facts):
     if idx in seen: continue
     orb = set(keyset[transport(k, mn, cp, rows, e)] for e in elems); seen |= orb; orbits.append(sorted(orb))
-check('the stabilizer (order 1024, with transposition) permutes the 18 structures; orbit count and sizes', (len(orbits), sorted(len(o) for o in orbits)), (9, [2] * 9))
-check('each orbit pairs a structure with its own transpose and identifies nothing else', all(len(set(facts[i][1:4] for i in o)) == 1 and set(facts[i][0] for i in o) == {'column', 'row'} for o in orbits), True)
+check('the stabilizer (order 1024, with transposition) permutes the 18 partition structures admitted at the sorted alignment; partition-orbit count and sizes', (len(orbits), sorted(len(o) for o in orbits)), (9, [2] * 9))
+check('each partition orbit of the sorted-alignment restriction pairs a partition structure with its own transpose and identifies nothing else', all(len(set(facts[i][1:4] for i in o)) == 1 and set(facts[i][0] for i in o) == {'column', 'row'} for o in orbits), True)
 fro = [i for i, f in enumerate(facts) if f[1] == (2, 8) and f[2] == FROZEN_BLOCKS and f[3] == FROZEN_CLASSES]
 check('the frozen 2x8 class is one orbit: column and row forms of the frozen blocks and classes', sorted(fro) in orbits, True)
 OTHERS = sorted(set((f[1], f[2], f[3]) for f in facts if f[0] == 'column' and not (f[1] == (2, 8) and f[2] == FROZEN_BLOCKS)), key=lambda x: (SHAPES.index(x[0]), x[1]))
-check('the other classes: four 4x4, two 8x2, two 2x8', [mn for mn, _, _ in OTHERS], [(4, 4)] * 4 + [(8, 2)] * 2 + [(2, 8)] * 2)
+check('the other partition orbits of the sorted-alignment restriction: four 4x4, two 8x2, two 2x8', [mn for mn, _, _ in OTHERS], [(4, 4)] * 4 + [(8, 2)] * 2 + [(2, 8)] * 2)
 print('  (%.0fs)' % (time.time() - t0))
 
 print('== 2. the arc: symmetric, and the frozen class persistent; the named point and the second point ==')
@@ -403,14 +407,14 @@ check('Pu(1) = SIG; P = Pu(u60); both P and Pu(u5) unitary and symmetric', (Pu(O
 def numeric_exact(H):
     return {mn: [(tuple(cp), tuple(rows)) for cp, rows, ok, X, Y in dita_orientations(H, *mn) if ok] for mn in SHAPES}
 NE_P, NE_P5 = numeric_exact(P), numeric_exact(P5)
-check('P admits exactly the frozen class (column form; the row form is the same by symmetry)', NE_P, {(4, 4): [], (8, 2): [], (2, 8): [(FROZEN_BLOCKS, FROZEN_CLASSES)]})
-check('Pu(u5) admits exactly the frozen class', NE_P5, {(4, 4): [], (8, 2): [], (2, 8): [(FROZEN_BLOCKS, FROZEN_CLASSES)]})
+check('at the sorted alignment P admits exactly the frozen 2x8 partition structure (column form; the row form is the same by symmetry)', NE_P, {(4, 4): [], (8, 2): [], (2, 8): [(FROZEN_BLOCKS, FROZEN_CLASSES)]})
+check('at the sorted alignment Pu(u5) admits exactly the frozen 2x8 partition structure', NE_P5, {(4, 4): [], (8, 2): [], (2, 8): [(FROZEN_BLOCKS, FROZEN_CLASSES)]})
 print('  (%.0fs)' % (time.time() - t0))
 
-print('== 3. the generic arc point, and the obstruction monomial of each other class ==')
+print('== 3. the generic arc point, and the obstruction monomial of each other named index map of the sorted-alignment census ==')
 gen = {mn: gen_search(*mn) for mn in SHAPES}
-check('structures at a generic u (u a free symbol): (candidates, exact) by shape', tuple((len(c), len(e)) for c, e in gen.values()), ((1, 0), (1, 0), (1, 1)))
-check('the one exact generic structure is the frozen 2x8 class', exact_set(gen), FROZEN_ONLY)
+check('partition structures at a generic u (u a free symbol): (candidates, exact at the sorted alignment) by shape', tuple((len(c), len(e)) for c, e in gen.values()), ((1, 0), (1, 0), (1, 1)))
+check('the one exact generic partition structure at the sorted alignment is the frozen 2x8 partition structure', exact_set(gen), FROZEN_ONLY)
 def conditions(m, n, cp, rows):
     """every monomial condition the structure imposes: (kind, positions, monomial); 'prop' rows (a,b),(0,b) on columns
     (c,d),(c,0); 'rank1' the rank-one identity at (a, b, c)"""
@@ -432,7 +436,7 @@ obs = []
 for mn, cp, rows in OTHERS:
     nonid = [x for x in conditions(mn[0], mn[1], cp, rows) if x[2] != GEN_ONE]
     obs.append((len(nonid), sorted(set(x[2][0] for x in nonid)), sorted(set(x[2][1:] for x in nonid))))
-check('each other class imposes non-identity conditions, all of the form u^k = 1 with k in {-1, 1}', all(nn > 0 and set(ks) <= {-1, 1} and cs == [(0, 0, 0)] for nn, ks, cs in obs), True)
+check('each of the eight other named index maps of the sorted-alignment census imposes non-identity conditions, all of the form u^k = 1 with k in {-1, 1}', all(nn > 0 and set(ks) <= {-1, 1} and cs == [(0, 0, 0)] for nn, ks, cs in obs), True)
 check('their counts of non-identity conditions', [nn for nn, _, _ in obs], [20, 4, 36, 24, 40, 8, 20, 20])
 check('the frozen class imposes no non-identity condition (persistence, replayed)', sum(1 for x in conditions(2, 8, FROZEN_BLOCKS, FROZEN_CLASSES) if x[2] != GEN_ONE), 0)
 # the kernel's witness identities: four positions with H p1 H p2 = H p3 H p4 forced by the Dita form, all four SIG
@@ -452,10 +456,10 @@ def witness_ok(mn, cp, rows, wit):
     sgn = lambda i, j: 1 if SIGE[i][j][0] == 0 else -1
     e1 = WE[p1[0]][p1[1]] + WE[p2[0]][p2[1]]; e2 = WE[p3[0]][p3[1]] + WE[p4[0]][p4[1]]
     return forced and rational and sgn(*p1) * sgn(*p2) == sgn(*p3) * sgn(*p4) and {e1, e2} == {0, 1} and [e1, e2] == wit['e']
-check('the kernel witness identity of each other class is forced by its Diţă form, has rational entries and exponent sums {0, 1}', all(witness_ok(mn, cp, rows, WIT[nm]) for (mn, cp, rows), nm in zip(OTHERS, ('k1', 'k2', 'k3', 'k4', 'e1', 'e2', 't2', 't3'))), True)
+check('the kernel witness identity of each of the eight other named index maps is forced by its Diţă form, has rational entries and exponent sums {0, 1}', all(witness_ok(mn, cp, rows, WIT[nm]) for (mn, cp, rows), nm in zip(OTHERS, ('k1', 'k2', 'k3', 'k4', 'e1', 'e2', 't2', 't3'))), True)
 print('  (%.0fs)' % (time.time() - t0))
 
-print('== 4. the candidate exceptional set: every point where an extra proportionality or the rank-one condition of a generic candidate appears ==')
+print('== 4. the candidate exceptional set: every point where an extra proportionality, or the sorted-alignment rank-one condition of a generic candidate, appears ==')
 def cond(i, i2, j, j0): return gen_div(gen_div(gen_entry(i, j), gen_entry(i2, j)), gen_div(gen_entry(i, j0), gen_entry(i2, j0)))
 E_cand = {}
 for n in (4, 2, 8):
@@ -488,21 +492,21 @@ for mn, (cands, exact) in gen.items():
         pts = rank1_points(mn[0], mn[1], cp, rows)
         E_rank |= set(pts)
 E_all = sorted(set(E_cand) | E_rank, key=lambda p: (p[1], p[2], p[0]))
-check('the generic 4x4 and 8x2 candidates satisfy the rank-one condition at u = 1 only', E_rank, {PT_ONE})
+check('the generic 4x4 and 8x2 candidates satisfy the rank-one condition at the sorted alignment at u = 1 only', E_rank, {PT_ONE})
 EXPECTED_E = ["zeta(0) z^-1 w^-1", "zeta(1/2) z^-1 w^-1", "zeta(0) z^-1 w^0", "zeta(1/2) z^-1 w^0", "zeta(0) z^-1 w^1", "zeta(1/2) z^-1 w^1", "zeta(0) z^-1/2 w^-1/2", "zeta(1/4) z^-1/2 w^-1/2", "zeta(1/2) z^-1/2 w^-1/2", "zeta(3/4) z^-1/2 w^-1/2", "zeta(0) z^-1/2 w^0", "zeta(1/4) z^-1/2 w^0", "zeta(1/2) z^-1/2 w^0", "zeta(3/4) z^-1/2 w^0", "zeta(0) z^0 w^-1", "zeta(1/2) z^0 w^-1", "zeta(0) z^0 w^0", "zeta(1/2) z^0 w^0", "zeta(0) z^0 w^1", "zeta(1/2) z^0 w^1"]
-check('the candidate exceptional set, exactly (twenty points)', [show_pt(p) for p in E_all], EXPECTED_E)
+check('the candidate exceptional set of the sorted-alignment calculus, exactly (twenty points)', [show_pt(p) for p in E_all], EXPECTED_E)
 check('twelve of the candidates are Gaussian rational, eight are square roots outside Q(i)', sum(1 for p in E_all if gaussian_value(p) is not None), 12)
 print('  (%.0fs)' % (time.time() - t0))
 
-print('== 5. the exhaustive search at every candidate point: the exact exceptional set ==')
+print('== 5. the search at the sorted alignment at every candidate point: the exceptional set at the sorted alignment ==')
 sym = {}
 for pt in E_all:
     sym[pt] = {mn: point_search(pt, *mn) for mn in SHAPES}
 exact_E = [pt for pt in E_all if exact_set(sym[pt]) != FROZEN_ONLY]
-check('at u = 1 the search returns the eighteen structures: (candidates, exact) by shape', tuple((len(c), len(e)) for c, e in sym[PT_ONE].values()), ((5, 4), (3, 2), (3, 3)))
-check('at u = -1 the proportionality candidates are those of u = 1, but only the frozen class is exact', (tuple((len(c), len(e)) for c, e in sym[(Fr(1, 2), Fr(0), Fr(0))].values()), exact_set(sym[(Fr(1, 2), Fr(0), Fr(0))]) == FROZEN_ONLY), (((5, 0), (3, 0), (3, 1)), True))
-check('at every candidate point other than u = 1, exactly the frozen class is admitted', [show_pt(p) for p in exact_E], ['zeta(0) z^0 w^0'])
-check('THE EXACT EXCEPTIONAL SET IS {1}: outside the candidates the structure is the generic one, at the candidates the search decides', exact_E, [PT_ONE])
+check('at u = 1 the search at the sorted alignment returns eighteen partition structures: (candidates, exact) by shape', tuple((len(c), len(e)) for c, e in sym[PT_ONE].values()), ((5, 4), (3, 2), (3, 3)))
+check('at u = -1 the proportionality candidates are those of u = 1, but at the sorted alignment only the frozen 2x8 partition structure is exact', (tuple((len(c), len(e)) for c, e in sym[(Fr(1, 2), Fr(0), Fr(0))].values()), exact_set(sym[(Fr(1, 2), Fr(0), Fr(0))]) == FROZEN_ONLY), (((5, 0), (3, 0), (3, 1)), True))
+check('at every candidate point other than u = 1, exactly the frozen 2x8 partition structure is admitted at the sorted alignment', [show_pt(p) for p in exact_E], ['zeta(0) z^0 w^0'])
+check('the exceptional set at the sorted alignment is {1}: outside the candidates the partition structure is the generic one, at the candidates the search decides', exact_E, [PT_ONE])
 print('  (%.0fs)' % (time.time() - t0))
 
 print('== 6. controls ==')
@@ -514,8 +518,8 @@ for pt in E_all:
     if not is_unitary16(Hu): agree.append((show_pt(pt), 'not unitary')); continue
     num = {mn: (len(o), sum(1 for x in o if x[2])) for mn in SHAPES for o in [dita_orientations(Hu, *mn)]}
     if any(num[mn] != (len(sym[pt][mn][0]), len(sym[pt][mn][1])) for mn in SHAPES): agree.append((show_pt(pt), num))
-check('the numeric exhaustive search (with factor unitarity) agrees with the symbolic one at all twelve Gaussian-rational candidates', agree, [])
-# genuine deformations: each other class, with one twist phase moved off 1, is a point of that class's hull off SIG
+check('the numeric search (with factor unitarity) agrees with the symbolic one at all twelve Gaussian-rational candidates, both at the sorted alignment', agree, [])
+# genuine deformations: each of the eight other named index maps, with one twist phase moved off 1, gives a point of its hull off SIG
 def hull_point(mn, cp, rows, phase):
     m, n = mn
     for f in facts:
@@ -535,7 +539,7 @@ for mn, cp, rows in OTHERS:
     H = hull_point(mn, cp, rows, U5)
     found = [(tuple(cp_), tuple(rows_)) for cp_, rows_, ok, X, Y in dita_orientations(H, *mn) if ok]
     deform.append((is_unitary16(H), H != SIG, (cp, rows) in found))
-check('a genuine deformation inside each other class (one twist phase u5): unitary, off SIG, and found by the search in its own class', deform, [(True, True, True)] * 8)
+check('a genuine deformation at each of the eight other named index maps (one twist phase u5): unitary, off SIG, and found by the search at the sorted alignment at its own partition structure', deform, [(True, True, True)] * 8)
 check('the row-form search on P^T = P returns the column-form result (transpose invariance)', numeric_exact([list(c) for c in zip(*P)]) == NE_P, True)
 # equivalence invariance: transport P by three stabilizer elements and compare the search with the transported structure
 def apply_matrix(e, H):
@@ -552,7 +556,7 @@ for e in picks:
     got = set(canon('column', mn, cp, rows) for mn, lst in found.items() for cp, rows in lst)
     # a transposed element sends the column form to the row form of the image, whose column-form search sees the same index sets
     equiv.append((len(got), canon('column', want[1], want[2], want[3]) in got))
-check('the membership classifier commutes with three stabilizer elements (product, transposed, conjugating): the transported frozen class is the one structure found', equiv, [(1, True)] * 3)
+check('the membership classifier commutes with three stabilizer elements (product, transposed, conjugating): the transported frozen 2x8 partition structure is the one found at the sorted alignment', equiv, [(1, True)] * 3)
 # a deliberately perturbed index map: the frozen blocks with one column moved between blocks are not admitted at generic u nor at P
 pb = ((0, 1, 2, 3, 8, 9, 10, 12), (4, 5, 6, 7, 11, 13, 14, 15))
 def admitted_generic(m, n, cp, rows): return all(x[2] == GEN_ONE for x in conditions(m, n, cp, rows))
@@ -563,4 +567,4 @@ print('  (%.0fs)' % (time.time() - t0))
 print()
 if fails:
     print('dita_arc_exclusivity_probe: FAILED (%d): %s' % (len(fails), fails)); sys.exit(1)
-print('dita_arc_exclusivity_probe: OK -- at the certified stratum point SIG the eighteen Diţă structures form nine classes modulo the stabilizer with transposition; along the symmetric arc Pu(u) = SIG∘u^W the frozen 2x8 class persists identically, each of the eight other classes is admitted only where u = 1, the candidate exceptional set of the monomial calculus has twenty points, and the exhaustive search at each of them finds only the frozen class away from u = 1: the exact exceptional set is {1}')
+print('dita_arc_exclusivity_probe: OK -- at the certified stratum point SIG, with the rows of each row class in sorted order, the eighteen Diţă partition structures found form nine partition orbits under the stabilizer with transposition; along the symmetric arc Pu(u) = SIG∘u^W the frozen 2x8 partition structure persists identically, each of the eight other named index maps is admitted only where u = 1, the candidate exceptional set of the sorted-alignment monomial calculus has twenty points, and the search at the sorted alignment at each of them finds only the frozen 2x8 partition structure away from u = 1: the exceptional set at the sorted alignment is {1}')

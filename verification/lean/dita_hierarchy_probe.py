@@ -5,6 +5,10 @@ elimination, factorizations by exact proportionality and unitarity tests, the se
 functionals. numpy appears only in the numerical eigenvalue guess that the exact eigenspace computation then verifies.
 The probe asserts the preregistered values and exits 1 on any mismatch; it certifies nothing on its own beyond the
 arithmetic it replays. Its first part is act 35's probe head, verbatim, for the shared objects.
+Its Diţă searches test each partition structure at the sorted alignment (the rows of each row class in sorted
+order); the censuses over every index map are act 41's probes verification/lean/dita_index_map_probe.py,
+verification/lean/dita_index_map_independent.py and
+verification/lean/dita_index_map_hulls.py.
 
 Objects (acts 24-35, numbers as in the landed Lean):
   F4(z)      (1/2) [[1,1,1,1],[1,z,-1,-z],[1,-1,1,-1],[1,-z,-1,z]]           (scaled by 2 here)
@@ -253,7 +257,7 @@ check('cross-ratio violations of P over ordered (b,b\'),(c,c\') (identity value 
 check('the value at (a,b,b\',c,c\',d) = (0,0,1,0,1,0) is u60 (scaled; u60/256 in the frozen normalization)', gram(P, 0, 0, 4) * gram(P, 1, 4, 0) == U60, True)
 print('  (%.0fs)' % (time.time() - t0))
 
-print('== 2. Diţă factorizations by exhaustive search over block structures ==')
+print('== 2. Diţă factorizations by exhaustive search over block structures, the rows of each row class in sorted order ==')
 def is_unitary_s(M, s):
     k = len(M)
     for i in range(k):
@@ -311,12 +315,12 @@ for (m, n), want_P, want_S in (((4, 4), (1, 0), (5, 4)), ((8, 2), (1, 0), (3, 2)
     for kind, HP, HP5, HS in (('column', P, P5, SIG), ('row', PT, P5T, SIGT)):
         for pname, HX in (('P', HP), ('Pu(u5)', HP5)):
             oP = dita_orientations(HX, m, n)
-            check('%s-Diţă %dx%d at %s: (candidates, exact factorizations)' % (kind, m, n, pname), (len(oP), sum(1 for o in oP if o[2])), want_P)
+            check('%s-Diţă %dx%d at %s: (candidates, exact at the sorted alignment)' % (kind, m, n, pname), (len(oP), sum(1 for o in oP if o[2])), want_P)
             if (m, n) == (2, 8):
                 ex = [o for o in oP if o[2]]
                 check('%s-Diţă 2x8 at %s: the frozen blocks and row classes' % (kind, pname), (ex[0][0], ex[0][1]) if ex else None, (FROZEN_28_BLOCKS, FROZEN_28_CLASSES))
         oS = dita_orientations(HS, m, n)
-        check('%s-Diţă %dx%d at SIG = Pu(1): (candidates, exact factorizations) (control)' % (kind, m, n), (len(oS), sum(1 for o in oS if o[2])), want_S)
+        check('%s-Diţă %dx%d at SIG = Pu(1): (candidates, exact at the sorted alignment) (control)' % (kind, m, n), (len(oS), sum(1 for o in oS if o[2])), want_S)
 print('  (%.0fs)' % (time.time() - t0))
 
 print('== 3. the first-order census at SIG: gauge, the fixed-pairing hulls, the residual, the cokernel ==')
@@ -350,7 +354,7 @@ LN = nullspace(transpose(DF), 240)
 check('coker DF: dim', len(LN), 64)
 print('  (%.0fs)' % (time.time() - t0))
 
-print('== 4. every 4x4 Diţă hull through SIG: orientations, factor circles, exact integrability, the span ==')
+print('== 4. the 4x4 Diţă hulls through SIG at the sorted alignment: orientations, factor circles, exact integrability, the span ==')
 S4 = list(itertools.permutations(range(4)))
 def deph(M):
     n = len(M); M = [[M[i][j] * M[i][0].conj() for j in range(n)] for i in range(n)]
@@ -436,7 +440,7 @@ for kind, H in (('column', SIG), ('row', SIGT)):
                     vecs.append(v)
             if kind == 'row': vecs = [[v[(mm % 16) * 16 + mm // 16] for mm in range(256)] for v in vecs]
             hulls.append((kind, cp[:2], vecs))
-check('4x4 Diţă hulls through SIG (orientations × circle choices)', len(hulls), 492)
+check('4x4 Diţă hull parametrizations through SIG at the sorted alignment (orientations × circle choices)', len(hulls), 492)
 def Q(v, u):
     out = []
     for (i, j) in PAIRS:
@@ -466,10 +470,10 @@ bad = 0
 for kind, cp, vecs in hulls:
     if not all(in_ker_df(v) for v in vecs): bad += 1
     elif not all(q_zero(u, v) for u in vecs for v in vecs): bad += 1
-check('every hull tangent in ker DF and D²F vanishing exactly on every hull (failures)', bad, 0)
-check('every hull tangent has dimension 14 mod gauge', sorted(set(rank(GAUGE + v) - 31 for _, _, v in hulls)), [14])
+check('every sorted-alignment hull tangent in ker DF and D²F vanishing exactly on every sorted-alignment hull (failures)', bad, 0)
+check('every sorted-alignment hull tangent has dimension 14 mod gauge', sorted(set(rank(GAUGE + v) - 31 for _, _, v in hulls)), [14])
 allv = [v for _, _, vecs in hulls for v in vecs]
-check('the span of all 4x4 hull tangents mod gauge equals the defect', rank(GAUGE + allv) - 31, 49)
+check('the span of the sorted-alignment 4x4 hull tangents mod gauge equals the defect', rank(GAUGE + allv) - 31, 49)
 print('  (%.0fs)' % (time.time() - t0))
 
 print('== 5. the stabilizer of SIG in G_ext and the residual sectors ==')
@@ -643,4 +647,4 @@ print('  (%.0fs)' % (time.time() - t0))
 print()
 if fails:
     print('dita_hierarchy_probe: FAILED (%d): %s' % (len(fails), fails)); sys.exit(1)
-print('dita_hierarchy_probe: OK -- P = SIG∘u60^W and Pu(u5), both of defect 37, admit no 4x4 and no 8x2 Diţă factorization of either orientation at any block structure and exactly one 2x8 per orientation, while SIG = Pu(1) has its 4x4 factorizations; W is an exact straight line at SIG; the 492 4x4 hulls through SIG span the 49-dimensional defect space; the stabilizer of order 1024 splits the 23-dimensional residual into sectors 8+8+4+2+1, the two 8s quadratically obstructed at seeded generic directions and the 4, 2 and 1 extended by row-hull corrections')
+print('dita_hierarchy_probe: OK -- with the rows of each row class in sorted order, P = SIG∘u60^W and Pu(u5), both of defect 37, admit no 4x4 and no 8x2 Diţă factorization of either orientation at any block structure and exactly one 2x8 per orientation, while SIG = Pu(1) has four exact 4x4 factorizations of five candidates per orientation; W is an exact straight line at SIG; the 492 sorted-alignment 4x4 hull parametrizations through SIG span the 49-dimensional defect space; the stabilizer of order 1024 splits the 23-dimensional residual into sectors 8+8+4+2+1, the two 8s quadratically obstructed at seeded generic directions and the 4, 2 and 1 extended by row-hull corrections')

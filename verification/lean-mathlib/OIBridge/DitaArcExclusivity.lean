@@ -8,11 +8,10 @@ certified rational stratum point `SIG = F₄(z) ⊗ F₄(w)`, `z = (3+4i)/5`, `w
 a `2 × 8` column Diţă matrix at the frozen index maps, and its named point admitted no other
 factorization. This module states the arc symmetric, so that its column and row Diţă forms coincide
 entry for entry; the frozen `2 × 8` factorization persistent along the whole arc in both orientations;
-and, for each of the eight other factorization classes of `SIG` — four `4 × 4`, two `8 × 2` and two
-`2 × 8`, the complete census of the stratum point's Diţă structures modulo its stabilizer — that a
-Diţă form of `Pu u` at that class's index maps, in either orientation, forces `u = 1`. The
-exact-computation layer carries the exhaustive complement: at every unit `u ≠ 1`, no index maps
-whatever admit a Diţă form of `Pu u` but the frozen class's.
+and, for each of eight other named factorization classes of `SIG` — four `4 × 4`, two `8 × 2` and two
+`2 × 8` — that a Diţă form of `Pu u` at its named index maps, in either orientation, forces `u = 1`. Exact
+computation over every index map (act 41) carries the exhaustive complement: at every unit `u ≠ 1`, no
+index maps whatever admit a Diţă form of `Pu u` but those of the frozen `2 × 8` partition structure.
 
 The module carries no definition. Every theorem prints its axioms.
 -/

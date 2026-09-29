@@ -3,8 +3,11 @@
 Everything asserted is exact arithmetic: Gaussian rationals in Python integers and fractions, an exact monomial calculus for the
 entries of H3(u1, u2, u3) = SIG o u1^A u2^B u3^C, and an exact calculus of flats in the three-torus (solution sets of character
 equations u^k = i^p z^q w^r, stored in canonical Hermite normal form), embedded below and self-tested. Its first part is act 38's
-probe head, verbatim: act 36's objects, exhaustive structure search and stabilizer, act 37's monomial calculus and act 38's
-pieces. It asserts the preregistered values and exits 1 on any mismatch; it certifies nothing beyond the arithmetic it replays.
+probe head, verbatim: act 36's objects, structure search
+(exhaustive over column blocks and row classes, each partition structure tested at the sorted alignment) and
+stabilizer, act 37's monomial calculus and act 38's pieces. It asserts the preregistered values and exits 1 on any
+mismatch; it certifies nothing beyond the arithmetic it replays. The loci over every index map are act 41's probes
+verification/lean/dita_index_map_probe.py and verification/lean/dita_index_map_independent.py.
 """
 import itertools, json, sys, time
 from fractions import Fraction as Fr
@@ -237,7 +240,8 @@ def action(op, g1, g2):
 elems = [action(op, g1, g2) for op, (A, B) in ops.items() for g1 in A for g2 in B]
 # ---- A37: the exact monomial calculus on the arc ---------------------------------------------
 # Every entry of SIG is i^p z^q w^r, so every entry of H(u) = SIG o u^W is i^p z^q w^r u^k with k = W(i, j). A Dita
-# structure (column blocks, row classes) is admitted at u iff finitely many monomial equations hold: the row
+# structure (column blocks, row classes, and an alignment of the rows within row classes) is admitted at
+# u iff finitely many monomial equations hold: the row
 # proportionality on every block and the rank-one condition on the block ratios. Each equation u^k = i^p z^q w^r has,
 # for k != 0, exactly |k| unit solutions u = zeta z^(-q/k) w^(-r/k), zeta a root of unity; z = (2+i)/(2-i) and
 # w = (3+2i)/(3-2i) are multiplicatively independent modulo roots of unity (distinct Gaussian primes), so the triple
@@ -284,7 +288,8 @@ def gaussian_value(pt):
     return v
 
 def structures(ent, div, mul, is_one, m, n, ratio):
-    """the exhaustive Dita structure search (act 36's, section 2) on a matrix of monomials: ent(i, j) the entry, ratio[i][s0][s]
+    """the Dita structure search (act 36's, section 2), exhaustive over column blocks and row classes and testing the
+    rank-one condition at the sorted alignment, on a matrix of monomials: ent(i, j) the entry, ratio[i][s0][s]
     = ent(i, s) / ent(i, s0) precomputed, div/mul/is_one the monomial operations; returns (candidates, exact) as lists of
     (column blocks, row classes); unitarity of the factors is not tested here (it follows from that of H(u)) and is
     checked separately by the numeric control"""
@@ -520,7 +525,8 @@ for _ in range(3000):
 check('explicit points reconstructed on the unit-pivot flats among 3000 random systems satisfy every original equation exactly, and moving u1 off the flat is detected whenever the flat constrains u1', (tested > 100, recon == tested, rejected == tested), (True, True, True))
 print('  (%.0fs)' % (time.time() - t0))
 
-# ---- act 37's census of SIG's Dita structures and act 38's two exceptional index maps, verbatim from act 38's probe
+# ---- act 37's sorted-alignment census of SIG's Dita partition structures and act 38's two 2x8 exceptional index maps,
+# verbatim from act 38's probe
 CLASSES = [(nm, m, n, tuple(tuple(b) for b in cp), tuple(tuple(r) for r in rows)) for nm, m, n, cp, rows in [["k1", 4, 4, [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]], [[0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15]]], ["k2", 4, 4, [[0, 2, 8, 10], [1, 3, 9, 11], [4, 6, 12, 14], [5, 7, 13, 15]], [[0, 2, 8, 10], [1, 3, 9, 11], [4, 6, 12, 14], [5, 7, 13, 15]]], ["k3", 4, 4, [[0, 2, 9, 11], [1, 3, 8, 10], [4, 6, 13, 15], [5, 7, 12, 14]], [[0, 6, 8, 14], [1, 7, 9, 15], [2, 4, 10, 12], [3, 5, 11, 13]]], ["k4", 4, 4, [[0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15]], [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]], ["e1", 8, 2, [[0, 2], [1, 3], [4, 6], [5, 7], [8, 10], [9, 11], [12, 14], [13, 15]], [[0, 2, 4, 6, 8, 10, 12, 14], [1, 3, 5, 7, 9, 11, 13, 15]]], ["e2", 8, 2, [[0, 8], [1, 9], [2, 10], [3, 11], [4, 12], [5, 13], [6, 14], [7, 15]], [[0, 1, 2, 3, 8, 9, 10, 11], [4, 5, 6, 7, 12, 13, 14, 15]]], ["t1", 2, 8, [[0, 1, 2, 3, 8, 9, 10, 11], [4, 5, 6, 7, 12, 13, 14, 15]], [[0, 8], [1, 9], [2, 10], [3, 11], [4, 12], [5, 13], [6, 14], [7, 15]]], ["t2", 2, 8, [[0, 2, 4, 6, 8, 10, 12, 14], [1, 3, 5, 7, 9, 11, 13, 15]], [[0, 2], [1, 3], [4, 6], [5, 7], [8, 10], [9, 11], [12, 14], [13, 15]]], ["t3", 2, 8, [[0, 2, 5, 7, 8, 10, 13, 15], [1, 3, 4, 6, 9, 11, 12, 14]], [[0, 10], [1, 11], [2, 8], [3, 9], [4, 14], [5, 15], [6, 12], [7, 13]]]]]
 M_COL = (((0, 2, 4, 6, 8, 10, 12, 14), (1, 3, 5, 7, 9, 11, 13, 15)), ((0, 2), (1, 3), (4, 6), (5, 15), (7, 13), (8, 10), (9, 11), (12, 14)))
 M_ROW = (((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), ((0, 2), (1, 9), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15), (8, 10)))
@@ -639,14 +645,14 @@ check('candidate structures (a common point of the proportionality loci on every
 check('in all', len(CANDS), 46)
 print('  (%.0fs)' % (time.time() - t0))
 
-print('== 3. locus exactness: each candidate strictly and up to diagonal equivalence ==')
+print('== 3. locus exactness: each candidate at the sorted alignment, strictly and up to diagonal equivalence ==')
 strict = {k: v[0] for k, v in LOCI.items()}; relax = {k: v[1] for k, v in LOCI.items()}
-check('the relaxed locus equals the strict locus for every candidate', all(strict[k] == relax[k] for k in LOCI), True)
-check('empty and nonempty strict loci', (sum(1 for v in strict.values() if v is None), sum(1 for v in strict.values() if v is not None)), (16, 30))
-check('every nonempty locus is cut out by coordinate characters u_k = +-1 alone', all(all(sorted(map(abs, k)) == [0, 0, 1] and v in (V0, (2, 0, 0)) for k, v in F.B) for F in strict.values() if F is not None), True)
+check('the relaxed locus equals the strict locus for every candidate at the sorted alignment', all(strict[k] == relax[k] for k in LOCI), True)
+check('empty and nonempty strict loci at the sorted alignment', (sum(1 for v in strict.values() if v is None), sum(1 for v in strict.values() if v is not None)), (16, 30))
+check('every nonempty sorted-alignment locus is cut out by coordinate characters u_k = +-1 alone', all(all(sorted(map(abs, k)) == [0, 0, 1] and v in (V0, (2, 0, 0)) for k, v in F.B) for F in strict.values() if F is not None), True)
 print('  (%.0fs)' % (time.time() - t0))
 
-print('== 4. union reduction: the union of the loci is five coordinate 2-subtori ==')
+print('== 4. union reduction: the union of the sorted-alignment loci is five coordinate 2-subtori ==')
 FACES = union_faces(strict)
 check('the maximal loci', sorted(F.show() for F in FACES[0]), ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1'])
 check('every nonempty locus lies in one of them, and each of them is itself a locus', (FACES[1], all(any(strict[k] == F for k in strict) for F in FACES[0])), (True, True))
@@ -660,8 +666,8 @@ def at(u): return sorted(k for k, F in strict.items() if on_flat(F, u))
 P1 = (ONE, ONE, ONE); PM = (G(-1), G(-1), G(-1))
 i0c = CLASSES
 census = set((f, mn, tuple(sorted(tuple(b) for b in cp)), tuple(sorted(tuple(r) for r in rows))) for nm, m, n, cp, rows in i0c for f, mn in (('column', (m, n)), ('row', (m, n))))
-check('at (1, 1, 1): eighteen structures, exactly act 37 census in both orientations', (len(at(P1)), set((k[0], k[1], tuple(sorted(k[2])), tuple(sorted(k[3]))) for k in at(P1)) == census), (18, True))
-check('at (-1, -1, -1): one 2 x 8 structure per orientation, act 38 M_COL and M_ROW', [(k[0], k[1], tuple(sorted(k[2])), tuple(sorted(k[3]))) for k in at(PM)], [('column', (2, 8), M_COL[0], tuple(sorted(M_COL[1]))), ('row', (2, 8), M_ROW[0], tuple(sorted(M_ROW[1])))])
+check('at (1, 1, 1) at the sorted alignment: eighteen partition structures, exactly act 37 census in both orientations', (len(at(P1)), set((k[0], k[1], tuple(sorted(k[2])), tuple(sorted(k[3]))) for k in at(P1)) == census), (18, True))
+check('at (-1, -1, -1) at the sorted alignment: one 2 x 8 partition structure per orientation, act 38 M_COL and M_ROW', [(k[0], k[1], tuple(sorted(k[2])), tuple(sorted(k[3]))) for k in at(PM)], [('column', (2, 8), M_COL[0], tuple(sorted(M_COL[1]))), ('row', (2, 8), M_ROW[0], tuple(sorted(M_ROW[1])))])
 NEG = Flat([((0, 1, 0), (2, 0, 0))])
 check('the absent face u2 = -1 (negative control): contained in no locus, and its intersection with the union is the union of its intersections with the other four faces, of dimension 1', (any(F.contains(NEG) for F in strict.values() if F is not None), sorted(G_.dim() for G_ in (meet_or_none(F, NEG) for F in FACES[0]) if G_ is not None)), (False, [1, 1, 1, 1]))
 def joint_gate(mats):
@@ -701,7 +707,7 @@ for nm, f, mn, cp, rows in NAMED:
     coordflat = solve(cw) if cw else None
     key = next(k for k in strict if k[0] == f and k[1] == mn and set(map(frozenset, k[2])) == set(map(frozenset, cp)) and set(map(frozenset, k[3])) == set(map(frozenset, rows)))
     wit_ok.append(prop is not None and coordflat == prop and prop.contains(strict[key]) and all(v in (V0, (2, 0, 0)) for k, v in prop.B))
-check('for each of the twenty named structures (the census in both orientations, M_COL, M_ROW), single four-position witnesses with coordinate characters generate its proportionality locus exactly, which contains its strict locus', (len(wit_ok), all(wit_ok)), (20, True))
+check('for each of the twenty named index maps (the sorted-alignment census of act 37 in both orientations, M_COL, M_ROW), single four-position witnesses with coordinate characters generate its proportionality locus exactly, which contains its strict locus', (len(wit_ok), all(wit_ok)), (20, True))
 # whole-face factorizations: X = (1+i)/2 [[1, 1], [1, -1]], D = 2/(1+i)^2 = -i, Y_c = (1+i)/4 (class representatives of 4 H3 on block c)
 def H3(u1, u2, u3): return [[SIG[i][j] * gp(u1, PA[i][j]) * gp(u2, PB[i][j]) * gp(u3, PC[i][j]) for j in range(16)] for i in range(16)]
 def gp(u, k):
@@ -728,7 +734,7 @@ check('the whole-face factorizations: at three Gaussian-rational points of each 
 check('and the factor identities: (1+i)/2 * (1+i)/4 * 2/(1+i)^2 = 1/4, |(1+i)/2|^2 = 1/2, |(1+i)/4|^2 = 1/8, 2/(1+i)^2 = -i', (K2 * K8 * DD == G(Fr(1, 4)), K2.norm2(), K8.norm2(), DD * G(1, 1) * G(1, 1) == G(2)), (True, Fr(1, 2), Fr(1, 8), True))
 print('  (%.0fs)' % (time.time() - t0))
 
-print('== 7. an independent control: act 36\'s exhaustive structure search, with factor unitarity, at exact points ==')
+print('== 7. a control: act 36\'s structure search at the sorted alignment, with factor unitarity, at exact points ==')
 PTS = [('generic', (TESTU[0], TESTU[1], TESTU[2])), ('generic', (TESTU[4], I_, TESTU[0])), ('u1 = 1', (ONE, TESTU[0], TESTU[1])),
        ('u1 = -1', (G(-1), TESTU[0], TESTU[1])), ('u2 = 1', (TESTU[0], ONE, TESTU[1])), ('u2 = -1, absent', (TESTU[0], G(-1), TESTU[1])),
        ('u3 = 1', (TESTU[0], TESTU[1], ONE)), ('u3 = -1', (TESTU[0], TESTU[1], G(-1))), ('u1 = i, absent', (I_, TESTU[0], TESTU[1])),
@@ -745,21 +751,21 @@ for nm_, u in PTS:
                 if ok: got.add((f, mn, frozenset(map(frozenset, cp)), frozenset(map(frozenset, rows))))
     pred = set((k[0], k[1], frozenset(map(frozenset, k[2])), frozenset(map(frozenset, k[3]))) for k in at(u))
     agree.append(got == pred); counts.append(len(got))
-check('at seventeen exact points (two generic, the five faces, two absent directions, three lines, five special points) the search finds exactly the predicted structures', (all(agree), counts), (True, [0, 0, 1, 1, 2, 0, 1, 1, 0, 3, 7, 4, 18, 2, 12, 12, 4]))
+check('at seventeen exact points (two generic, the five faces, two absent directions, three lines, five special points) the search at the sorted alignment finds exactly the predicted sorted-alignment partition structures', (all(agree), counts), (True, [0, 0, 1, 1, 2, 0, 1, 1, 0, 3, 7, 4, 18, 2, 12, 12, 4]))
 print('  (%.0fs)' % (time.time() - t0))
 
 print('== 8. a countercontrol: one entry of C cleared ==')
 Cp = [r[:] for r in PC]; Cp[1][2] = 0
 _, CANDS2, _, LOCI2 = classify(PA, PB, Cp)
 F2 = union_faces({k: v[0] for k, v in LOCI2.items()})
-check('the classifier applied to the perturbed pieces: candidates, nonempty loci and the union, which collapses to the one face where C drops out', (len(CANDS2), sum(1 for v in LOCI2.values() if v[0] is not None), sorted(F.show() for F in F2[0]), F2[1]), (30, 23, ['u3 = 1'], True))
+check('the classifier at the sorted alignment applied to the perturbed pieces: candidates, nonempty loci and the union, which collapses to the one face where C drops out', (len(CANDS2), sum(1 for v in LOCI2.values() if v[0] is not None), sorted(F.show() for F in F2[0]), F2[1]), (30, 23, ['u3 = 1'], True))
 print('  (%.0fs)' % (time.time() - t0))
 
 print()
 if fails:
     print('dita_torus_locus_probe: FAILED (%d): %s' % (len(fails), fails)); sys.exit(1)
 print('dita_torus_locus_probe: OK -- for H3(u1, u2, u3) = SIG o u1^A u2^B u3^C on the three-torus: every Dita structure admitted '
-      'anywhere is among 46 enumerated candidates; their strict and relaxed loci are computed exactly and agree; the union of the '
-      '30 nonempty loci is exactly the five coordinate 2-subtori u1 = 1, u1 = -1, u2 = 1, u3 = 1, u3 = -1; so H3 admits a Dita '
-      'structure of some shape, index map and orientation, including up to diagonal equivalence, exactly when u1 = +-1 or u2 = 1 '
-      'or u3 = +-1')
+      'anywhere is among 46 enumerated candidates; their strict and relaxed loci at the sorted alignment are computed exactly and '
+      'agree; the union of the 30 nonempty sorted-alignment loci is exactly the five coordinate 2-subtori u1 = 1, u1 = -1, u2 = 1, '
+      'u3 = 1, u3 = -1; so at the sorted alignment H3 admits a Dita structure of some shape and orientation, including up to '
+      'diagonal equivalence, exactly when u1 = +-1 or u2 = 1 or u3 = +-1')

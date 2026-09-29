@@ -3,7 +3,8 @@
 Everything asserted is exact arithmetic: Gaussian rationals in Python integers and fractions, and, for the symbolic form of the
 identity, integer counts of the monomials z^q w^r. The probe asserts the preregistered values and exits 1 on any mismatch; it
 certifies nothing on its own beyond the arithmetic it replays. Its first part is act 38's probe head, verbatim: act 36's
-objects and exhaustive structure search, act 36's stabilizer, act 37's monomial calculus, and act 38's pieces A, B, C and E.
+objects and structure search (exhaustive over column blocks and row classes, each partition structure tested at the
+sorted alignment), act 36's stabilizer, act 37's monomial calculus, and act 38's pieces A, B, C and E.
 
 Objects (acts 24-39, numbers as in the landed Lean):
   SIG        F4(z) ⊗ F4(w), z = (3+4i)/5, w = (5+12i)/13, index (a,b) -> 4a+b (scaled by 4: unimodular entries)
@@ -241,7 +242,8 @@ def action(op, g1, g2):
 elems = [action(op, g1, g2) for op, (A, B) in ops.items() for g1 in A for g2 in B]
 # ---- A37: the exact monomial calculus on the arc ---------------------------------------------
 # Every entry of SIG is i^p z^q w^r, so every entry of H(u) = SIG o u^W is i^p z^q w^r u^k with k = W(i, j). A Dita
-# structure (column blocks, row classes) is admitted at u iff finitely many monomial equations hold: the row
+# structure (column blocks, row classes, and an alignment of the rows within row classes) is admitted at
+# u iff finitely many monomial equations hold: the row
 # proportionality on every block and the rank-one condition on the block ratios. Each equation u^k = i^p z^q w^r has,
 # for k != 0, exactly |k| unit solutions u = zeta z^(-q/k) w^(-r/k), zeta a root of unity; z = (2+i)/(2-i) and
 # w = (3+2i)/(3-2i) are multiplicatively independent modulo roots of unity (distinct Gaussian primes), so the triple
@@ -288,7 +290,8 @@ def gaussian_value(pt):
     return v
 
 def structures(ent, div, mul, is_one, m, n, ratio):
-    """the exhaustive Dita structure search (act 36's, section 2) on a matrix of monomials: ent(i, j) the entry, ratio[i][s0][s]
+    """the Dita structure search (act 36's, section 2), exhaustive over column blocks and row classes and testing the
+    rank-one condition at the sorted alignment, on a matrix of monomials: ent(i, j) the entry, ratio[i][s0][s]
     = ent(i, s) / ent(i, s0) precomputed, div/mul/is_one the monomial operations; returns (candidates, exact) as lists of
     (column blocks, row classes); unitarity of the factors is not tested here (it follows from that of H(u)) and is
     checked separately by the numeric control"""
