@@ -1,15 +1,11 @@
-"""Track B act 39 -- the exact-computation probe of the three-parameter realizability round (frozen with the control plane).
+"""Track B act 41 -- the independent computation of the index-map round (frozen with the control plane).
 
-Everything asserted is exact arithmetic: Gaussian rationals in Python integers and fractions, and, for the symbolic form of the
-identity, integer counts of the monomials z^q w^r. The probe asserts the preregistered values and exits 1 on any mismatch; it
-certifies nothing on its own beyond the arithmetic it replays. Its first part is act 38's probe head, verbatim: act 36's
-objects and structure search (exhaustive over column blocks and row classes, each partition structure tested at the
-sorted alignment), act 36's stabilizer, act 37's monomial calculus, and act 38's pieces A, B, C and E.
-
-Objects (acts 24-39, numbers as in the landed Lean):
-  SIG        F4(z) ⊗ F4(w), z = (3+4i)/5, w = (5+12i)/13, index (a,b) -> 4a+b (scaled by 4: unimodular entries)
-  A, B, C    [a odd][b = 3][c odd], [a = 2][d = 1], [a+b odd][(c,d) in {(0,2),(2,0)}] on the entry ((a,b),(c,d))
-  H3         SIG o u1^A u2^B u3^C, the three-parameter family; its diagonal is act 38's arc SIG o u^(A+B+C)
+At each of the round's forty-two named test cases: act 36's exhaustive partition search on the exact matrix, then every
+alignment of every partition structure counted by a matching search of its own, strictly with factor unitarity and up
+to diagonal equivalence. It uses neither act 40's flat calculus nor its candidate enumeration, and imports nothing from
+the round's production probe. Its first part is act 38's probe head, verbatim, as act 40 carried it, with act 40's
+family and exact points. It prints its measurements as one canonical JSON object and replays them against the round's
+measurements.json when that file is present; the measured values are not pass conditions.
 """
 import itertools, json, sys, time
 from fractions import Fraction as Fr
@@ -242,8 +238,7 @@ def action(op, g1, g2):
 elems = [action(op, g1, g2) for op, (A, B) in ops.items() for g1 in A for g2 in B]
 # ---- A37: the exact monomial calculus on the arc ---------------------------------------------
 # Every entry of SIG is i^p z^q w^r, so every entry of H(u) = SIG o u^W is i^p z^q w^r u^k with k = W(i, j). A Dita
-# structure (column blocks, row classes, and an alignment of the rows within row classes) is admitted at
-# u iff finitely many monomial equations hold: the row
+# structure (column blocks, row classes) is admitted at u iff finitely many monomial equations hold: the row
 # proportionality on every block and the rank-one condition on the block ratios. Each equation u^k = i^p z^q w^r has,
 # for k != 0, exactly |k| unit solutions u = zeta z^(-q/k) w^(-r/k), zeta a root of unity; z = (2+i)/(2-i) and
 # w = (3+2i)/(3-2i) are multiplicatively independent modulo roots of unity (distinct Gaussian primes), so the triple
@@ -290,8 +285,7 @@ def gaussian_value(pt):
     return v
 
 def structures(ent, div, mul, is_one, m, n, ratio):
-    """the Dita structure search (act 36's, section 2), exhaustive over column blocks and row classes and testing the
-    rank-one condition at the sorted alignment, on a matrix of monomials: ent(i, j) the entry, ratio[i][s0][s]
+    """the exhaustive Dita structure search (act 36's, section 2) on a matrix of monomials: ent(i, j) the entry, ratio[i][s0][s]
     = ent(i, s) / ent(i, s0) precomputed, div/mul/is_one the monomial operations; returns (candidates, exact) as lists of
     (column blocks, row classes); unitarity of the factors is not tested here (it follows from that of H(u)) and is
     checked separately by the numeric control"""
@@ -378,91 +372,130 @@ def level_sets(v):
     return out
 
 
-# ---- A39: the three-parameter family H3(u1, u2, u3) = SIG o u1^A u2^B u3^C ------------------------------------------
-# A, B, C are act 38's three pieces (EA, EB, EC above); H3 is a flat unitary on the whole torus iff, for every ordered row
-# pair (r, s), the columns grouped by the joint difference triple (A_rj - A_sj, B_rj - B_sj, C_rj - C_sj) have pair sums
-# sum SIG_rj conj(SIG_sj) equal to 16 [r = s] on the zero triple and 0 on every other triple.
+
 PA = [[EA(i, j) for j in range(16)] for i in range(16)]
 PB = [[EB(i, j) for j in range(16)] for i in range(16)]
 PC = [[EC(i, j) for j in range(16)] for i in range(16)]
-def madd(*Ms): return [[sum(M[i][j] for M in Ms) for j in range(16)] for i in range(16)]
+def H3(u1, u2, u3): return [[SIG[i][j] * gp(u1, PA[i][j]) * gp(u2, PB[i][j]) * gp(u3, PC[i][j]) for j in range(16)] for i in range(16)]
 def gp(u, k):
     out = ONE
     for _ in range(k): out = out * u
     return out
-def H3(u1, u2, u3): return [[SIG[i][j] * gp(u1, PA[i][j]) * gp(u2, PB[i][j]) * gp(u3, PC[i][j]) for j in range(16)] for i in range(16)]
-def Hu(u): return [[SIG[i][j] * gp(u, EE[i][j]) for j in range(16)] for i in range(16)]
-def joint_gate(mats, symbolic):
-    """(joint level sets checked, failures) for the multivariate identity of SIG o prod u_k^{M_k}"""
-    n = 0; bad = []
-    for r in range(16):
-        for s in range(16):
-            groups = {}
-            for j in range(16):
-                groups.setdefault(tuple(M[r][j] - M[s][j] for M in mats), []).append(j)
-            for t, js in groups.items():
-                n += 1
-                zero = r == s and not any(t)
-                if symbolic:
-                    cnt = {}
-                    for j in js:
-                        a1, q1, r1 = SIGE[r][j]; a2, q2, r2 = SIGE[s][j]
-                        cnt[(q1 - q2, r1 - r2)] = cnt.get((q1 - q2, r1 - r2), 0) + (1 if (a1 - a2) % 4 == 0 else -1)
-                    got = {k: v for k, v in cnt.items() if v}
-                    if got != ({(0, 0): 16} if zero else {}): bad.append((r, s, t))
-                else:
-                    tot = ZERO
-                    for j in js: tot = tot + SIG[r][j] * SIG[s][j].conj()
-                    if tot != (G(16) if zero else ZERO): bad.append((r, s, t))
-    return n, bad
+TESTU = [G(Fr(3, 5), Fr(4, 5)), G(Fr(8, 17), Fr(15, 17)), G(Fr(20, 29), Fr(21, 29)), I_, G(Fr(7, 25), Fr(24, 25))]
+PTS = [('generic', (TESTU[0], TESTU[1], TESTU[2])), ('generic', (TESTU[4], I_, TESTU[0])), ('u1 = 1', (ONE, TESTU[0], TESTU[1])),
+       ('u1 = -1', (G(-1), TESTU[0], TESTU[1])), ('u2 = 1', (TESTU[0], ONE, TESTU[1])), ('u2 = -1, absent', (TESTU[0], G(-1), TESTU[1])),
+       ('u3 = 1', (TESTU[0], TESTU[1], ONE)), ('u3 = -1', (TESTU[0], TESTU[1], G(-1))), ('u1 = i, absent', (I_, TESTU[0], TESTU[1])),
+       ('(1, u, -1)', (ONE, TESTU[2], G(-1))), ('(u, 1, 1)', (TESTU[2], ONE, ONE)), ('(-1, 1, u)', (G(-1), ONE, TESTU[4])),
+       ('(1, 1, 1)', (ONE, ONE, ONE)), ('(-1, -1, -1)', (G(-1), G(-1), G(-1))), ('(-1, 1, 1)', (G(-1), ONE, ONE)),
+       ('(1, 1, -1)', (ONE, ONE, G(-1))), ('(1, -1, 1)', (ONE, G(-1), ONE))]
 
-print('== 1. the three pieces ==')
-check("A + B + C is act 38's exponent matrix E; the pieces take values in {0, 1} and are disjoint", (madd(PA, PB, PC) == EE, all(PA[i][j] + PB[i][j] + PC[i][j] <= 1 and min(PA[i][j], PB[i][j], PC[i][j]) >= 0 for i in range(16) for j in range(16))), (True, True))
-supp = lambda M: (sorted(i for i in range(16) if any(M[i])), sorted(j for j in range(16) if any(M[i][j] for i in range(16))), sum(map(sum, M)))
-check('rows, columns and support of A, B and C', (supp(PA), supp(PB), supp(PC)), (([7, 15], [4, 5, 6, 7, 12, 13, 14, 15], 16), ([8, 9, 10, 11], [1, 5, 9, 13], 16), ([1, 3, 4, 6, 9, 11, 12, 14], [2, 8], 16)))
-TRIPLES = sorted(set(tuple(M[r][j] - M[s][j] for M in (PA, PB, PC)) for r in range(16) for s in range(16) for j in range(16)))
-check('the joint difference triples occurring over all ordered row pairs', TRIPLES, [(-1, 0, 0), (-1, 1, 0), (0, -1, 0), (0, 0, -1), (0, 0, 0), (0, 0, 1), (0, 1, 0), (1, -1, 0), (1, 0, 0)])
+# ---- A41: the forty-two named test cases (role, matrix); the definition of H is shared, nothing else --------------
+import hashlib, os
+A41_RECORD = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'programmes', 'oi-qm', 'track-b', 'act-41-index-map-semantics', 'measurements.json')
+def a41_Pu(u): return [[SIG[i][j] * gpow(u, W[i * 16 + j]) for j in range(16)] for i in range(16)]
+def a41_gval_pt(ang, s, t):
+    v = ONE
+    for _ in range(int(ang * 4) % 4): v = v * I_
+    for _ in range(abs(s)): v = v * (z if s > 0 else z.conj())
+    for _ in range(abs(t)): v = v * (w if t > 0 else w.conj())
+    return v
+A41_U60 = G(Fr(3599, 3601), Fr(120, 3601)); A41_U5 = G(Fr(3, 5), Fr(4, 5))
+A41_ACT38_PTS = [(Fr(0), -1, -1), (Fr(1, 2), -1, -1), (Fr(0), -1, 0), (Fr(1, 2), -1, 0), (Fr(0), -1, 1), (Fr(1, 2), -1, 1), (Fr(0), 0, -1),
+                 (Fr(1, 2), 0, -1), (Fr(0), 0, 0), (Fr(1, 4), 0, 0), (Fr(1, 2), 0, 0), (Fr(3, 4), 0, 0), (Fr(0), 0, 1), (Fr(1, 2), 0, 1),
+                 (Fr(0), 1, -1), (Fr(1, 2), 1, -1), (Fr(0), 1, 0), (Fr(1, 2), 1, 0), (Fr(0), 1, 1), (Fr(1, 2), 1, 1)]
+# each case: (role, family, parameter); family 'H3' (u1, u2, u3), 'Pu' (act 36's arc, u), 'Hu' (act 38's arc, u)
+A41_CASES = [('SIG', 'H3', (ONE, ONE, ONE)), ('Pu(-1)', 'Pu', G(-1)), ('P = Pu(u60)', 'Pu', A41_U60), ('Pu(u5)', 'Pu', A41_U5), ('Hu(-1)', 'Hu', G(-1))]
+A41_CASES += [('act40 %02d %s' % (i, nm), 'H3', u) for i, (nm, u) in enumerate(PTS)]
+A41_CASES += [('act38 zeta(%s) z^%d w^%d' % (a, s, t), 'Hu', a41_gval_pt(a, s, t)) for a, s, t in A41_ACT38_PTS]
+def a41_matrix(fam, par):
+    if fam == 'H3': return H3(*par)
+    if fam == 'Pu': return a41_Pu(par)
+    return H3(par, par, par)
+def a41_key(H): return tuple(x.key() for r in H for x in r)
+print('== A41-I1. the named test cases, and their coincidences ==')
+A41_MATS = [(role, a41_matrix(fam, par)) for role, fam, par in A41_CASES]
+a41_groups = {}
+for role, H in A41_MATS: a41_groups.setdefault(a41_key(H), []).append(role)
+A41_COINCIDE = sorted(sorted(v) for v in a41_groups.values() if len(v) > 1)
+print('  %d named test cases, %d distinct matrices' % (len(A41_MATS), len(a41_groups)))
+
+print('== A41-I2. the independent computation: act 36\'s partition search, then every alignment by matching ==')
+def a41_matchings(allowed):
+    m = len(allowed); cnt = 0
+    def rec(a, used):
+        nonlocal cnt
+        if a == m: cnt += 1; return
+        for r in allowed[a]:
+            if r not in used: used.add(r); rec(a + 1, used); used.discard(r)
+    rec(0, set()); return cnt
+def a41_valid_alignments(H, m, n, cp, rows, relaxed):
+    col0 = [cp[c][0] for c in range(m)]
+    lam0 = [[H[rows[0][a]][col0[c]] * H[rows[0][0]][col0[c]].conj() for c in range(m)] for a in range(m)]
+    if not relaxed and not is_unitary_s(lam0, m): return 0
+    per_b = []
+    for b in range(1, n):
+        d = {}
+        for r0 in rows[b]:
+            allowed = [[r0]]
+            for a in range(1, m):
+                ok = []
+                for r in rows[b]:
+                    lb = [H[r][col0[c]] * H[r0][col0[c]].conj() for c in range(m)]
+                    good = all(lb[c] == lam0[a][c] for c in range(m)) if not relaxed else all(lb[c] * lam0[a][0] == lam0[a][c] * lb[0] for c in range(1, m))
+                    if good: ok.append(r)
+                allowed.append(ok)
+            k = a41_matchings(allowed)
+            if k: d[r0] = k
+        per_b.append(d)
+    if any(not d for d in per_b): return 0
+    total = 0
+    for combo in itertools.product(*[sorted(d) for d in per_b]):
+        refs = [rows[0][0]] + list(combo)
+        if not relaxed and not all(is_unitary_s([[H[r][cp[c][dd]] for dd in range(n)] for r in refs], n) for c in range(m)): continue
+        k = 1
+        for b, r0 in enumerate(combo): k *= per_b[b][r0]
+        total += k
+    return total
+def a41_census(H):
+    out = {}; HT = [list(c) for c in zip(*H)]
+    for relaxed in (False, True):
+        res = []
+        for form, M in (('column', H), ('row', HT)):
+            for (m, n) in ((4, 4), (8, 2), (2, 8)):
+                for cp, rws, ok, _, _ in dita_orientations(M, m, n):
+                    k = a41_valid_alignments(M, m, n, cp, rws, relaxed)
+                    if k: res.append([form, [m, n], sorted(map(sorted, cp)), sorted(map(sorted, rws)), k])
+        out['relaxed' if relaxed else 'strict'] = sorted(res)
+    return out
+A41_RES = {}; a41_done = {}
+for role, H in A41_MATS:
+    k = a41_key(H)
+    if k not in a41_done: a41_done[k] = a41_census(H)
+    A41_RES[role] = a41_done[k]
+    r = A41_RES[role]
+    print('  %-34s strict %2d (alignments %4d)  relaxed %2d (alignments %4d)' % (role, len(r['strict']), sum(x[4] for x in r['strict']), len(r['relaxed']), sum(x[4] for x in r['relaxed'])))
+# control: the census at a coinciding case computed afresh equals the shared one
+a41_recheck = all(a41_census(dict(A41_MATS)[g[1]]) == A41_RES[g[0]] for g in A41_COINCIDE)
+check('control: at every coincidence of named test cases, a fresh computation at the second role equals the first', a41_recheck, True)
+# control: at the sorted alignment alone this path reproduces act 40's sorted counts at its seventeen points
+a41_sorted17 = []
+for i, (nm, u) in enumerate(PTS):
+    H = H3(*u); HT = [list(c) for c in zip(*H)]; n_ = 0
+    for form, M in (('column', H), ('row', HT)):
+        for mn in ((4, 4), (8, 2), (2, 8)): n_ += sum(1 for o in dita_orientations(M, *mn) if o[2])
+    a41_sorted17.append(n_)
+check('the sorted control: act 36\'s search at the sorted alignment reproduces act 40\'s seventeen recorded counts', a41_sorted17, [0, 0, 1, 1, 2, 0, 1, 1, 0, 3, 7, 4, 18, 2, 12, 12, 4])
 print('  (%.0fs)' % (time.time() - t0))
-
-print('== 2. realizability on the three-torus: the joint level-set identity ==')
-n3, b3 = joint_gate([PA, PB, PC], False)
-check('exact Gaussian rationals: joint level sets over the 256 ordered row pairs, and failures', (n3, len(b3)), (552, 0))
-n3s, b3s = joint_gate([PA, PB, PC], True)
-check('monomial by monomial in z and w, symbolic units (the form of the kernel proof): joint level sets, and failures', (n3s, len(b3s)), (552, 0))
-print('  (%.0fs)' % (time.time() - t0))
-
-print('== 3. controls ==')
-check('the family passes through the stratum point: H3(1, 1, 1) = SIG', H3(ONE, ONE, ONE) == SIG, True)
-U5 = G(Fr(3, 5), Fr(4, 5)); U17 = G(Fr(8, 17), Fr(15, 17)); MINUS = G(-1)
-check("its diagonal is act 38's arc: H3(u, u, u) = SIG o u^E at u = u5, u60, -1 and i", [H3(u, u, u) == Hu(u) for u in (U5, U60, MINUS, I_)], [True] * 4)
-TRIPS = [(U5, w, U17), (I_, MINUS, U60), (z, w.conj(), z.conj()), (U17, U5, I_)]
-check('H3 is exactly unitary at four Gaussian-rational points of the torus off the diagonal', [is_unitary16(H3(*t)) for t in TRIPS], [True] * 4)
-check('and is not unitary at a non-unit parameter (u1 = 2): the unit hypothesis is used', is_unitary16(H3(G(2), ONE, ONE)), False)
-subs = [('E, one variable', [EE]), ('A', [PA]), ('B', [PB]), ('C', [PC]), ('(A, B)', [PA, PB]), ('(A, C)', [PA, PC]), ('(B, C)', [PB, PC]), ('(A + B, C)', [madd(PA, PB), PC])]
-res = [(nm,) + joint_gate(ms, False)[:1] + (len(joint_gate(ms, False)[1]),) for nm, ms in subs]
-check('the subfamilies, each in its own variables: joint level sets and failures', [(nm, k, f) for nm, k, f in res], [('E, one variable', 512, 0), ('A', 312, 0), ('B', 352, 0), ('C', 384, 0), ('(A, B)', 424, 0), ('(A, C)', 440, 0), ('(B, C)', 480, 0), ('(A + B, C)', 536, 0)])
-Cp = [r[:] for r in PC]; Cp[1][2] = 1 - Cp[1][2]
-check('a countercontrol: one entry of C flipped, the joint identity fails (failures) and H3 is not unitary at (u5, w, (8+15i)/17)', (len(joint_gate([PA, PB, Cp], False)[1]), is_unitary16([[SIG[i][j] * gp(U5, PA[i][j]) * gp(w, PB[i][j]) * gp(U17, Cp[i][j]) for j in range(16)] for i in range(16)])), (60, False))
-# the joint test is strictly stronger than the line tests: on the diagonal x = y = z the triples (1, -1, 0) and (0, 0, 0)
-# project to the same integer, so the one-variable identity alone does not see their separate cancellation
-merged = sorted(set(t for t in TRIPLES if sum(t) == 0 and any(t)))
-check('the joint triples the diagonal projection merges with the zero triple (a line test cannot separate them)', merged, [(-1, 1, 0), (1, -1, 0)])
-mset = []
-for r in range(16):
-    for s_ in range(16):
-        for t in merged:
-            js = [j for j in range(16) if (PA[r][j] - PA[s_][j], PB[r][j] - PB[s_][j], PC[r][j] - PC[s_][j]) == t]
-            if js:
-                tot = ZERO
-                for j in js: tot = tot + SIG[r][j] * SIG[s_][j].conj()
-                mset.append((r, s_, t, len(js), tot == ZERO))
-check('each merged joint level set cancels on its own: their number, their column counts, and whether every one sums to zero', (len(mset), sorted(set(x[3] for x in mset)), all(x[4] for x in mset)), (16, [2], True))
-print('  (%.0fs)' % (time.time() - t0))
-
+A41_OBJ = {'cases': A41_RES, 'coincidences': A41_COINCIDE, 'distinct_matrices': len(a41_groups), 'n_cases': len(A41_MATS)}
+A41_JSON = json.dumps(A41_OBJ, sort_keys=True, separators=(',', ':'))
+print('A41-MEASUREMENTS independent ' + A41_JSON)
+print('A41-SHA256 independent ' + hashlib.sha256(A41_JSON.encode()).hexdigest())
+a41_mode = 'MEASURED'
+if os.path.exists(A41_RECORD):
+    rec = json.load(open(A41_RECORD, encoding='utf-8'))
+    check('replay: the measurement equals the committed measurements.json, elementwise', json.loads(A41_JSON) == rec.get('independent'), True)
+    a41_mode = 'REPLAYED'
 print()
 if fails:
-    print('dita_torus_probe: FAILED (%d): %s' % (len(fails), fails)); sys.exit(1)
-print('dita_torus_probe: OK -- the three-parameter family SIG o u1^A u2^B u3^C through the certified stratum point, A, B, C '
-      "act 38's three pieces: every joint level set of every ordered row pair cancels exactly, 552 of them, and monomial by monomial "
-      'in z and w, so the family is a complex Hadamard matrix on the whole three-torus; it passes through SIG at (1, 1, 1) and its '
-      "diagonal is act 38's arc")
+    print('dita_index_map_independent: FAILED (%d): %s' % (len(fails), fails)); sys.exit(1)
+print('dita_index_map_independent: OK -- %s: %d named test cases, %d distinct matrices' % (a41_mode, len(A41_MATS), len(a41_groups)))

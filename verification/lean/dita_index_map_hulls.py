@@ -1,21 +1,10 @@
-"""Track B act 36 -- the exact-computation probe of the factorization-hierarchy round (frozen with the control plane).
+"""Track B act 41 -- the hull census of the index-map round (frozen with the control plane).
 
-Everything asserted is exact arithmetic over the Gaussian rationals in Python integers and fractions: ranks by exact
-elimination, factorizations by exact proportionality and unitarity tests, the second-order form by exact cokernel
-functionals. numpy appears only in the numerical eigenvalue guess that the exact eigenspace computation then verifies.
-The probe asserts the preregistered values and exits 1 on any mismatch; it certifies nothing on its own beyond the
-arithmetic it replays. Its first part is act 35's probe head, verbatim, for the shared objects.
-Its Diţă searches test each partition structure at the sorted alignment (the rows of each row class in sorted
-order); the censuses over every index map are act 41's probes verification/lean/dita_index_map_probe.py,
-verification/lean/dita_index_map_independent.py and
-verification/lean/dita_index_map_hulls.py.
-
-Objects (acts 24-35, numbers as in the landed Lean):
-  F4(z)      (1/2) [[1,1,1,1],[1,z,-1,-z],[1,-1,1,-1],[1,-z,-1,z]]           (scaled by 2 here)
-  SIG        F4(z) ⊗ F4(w), z = (3+4i)/5, w = (5+12i)/13, index (a,b) -> 4a+b (scaled by 4: unimodular entries)
-  W          [a even][c even]·([b = 1] + [d = 1]) on the entry ((a,b),(c,d))
-  P          SIG ∘ u^W with u = (60+i)/(60-i) = (3599+120i)/3601
-  DF         the linearized unitarity constraints in the phase perturbations θ ∈ R^256 at SIG; defect = 256 − rank − 31
+Act 36's 4x4 Dita hulls through the certified stratum point SIG, counted over every valid alignment of every 4x4
+partition structure rather than at the sorted alignment alone. Everything is exact arithmetic in Python integers and
+fractions. Its first part is act 36's probe head, verbatim, with act 36's second-order form; the census follows. It
+prints its measurements as one canonical JSON object and replays them against the round's measurements.json when that
+file is present. Its controls are the sorted-alignment regression values; the measured values are not pass conditions.
 """
 import itertools, json, sys, time
 from fractions import Fraction as Fr
@@ -257,7 +246,7 @@ check('cross-ratio violations of P over ordered (b,b\'),(c,c\') (identity value 
 check('the value at (a,b,b\',c,c\',d) = (0,0,1,0,1,0) is u60 (scaled; u60/256 in the frozen normalization)', gram(P, 0, 0, 4) * gram(P, 1, 4, 0) == U60, True)
 print('  (%.0fs)' % (time.time() - t0))
 
-print('== 2. Diţă factorizations by exhaustive search over block structures, the rows of each row class in sorted order ==')
+print('== 2. Diţă factorizations by exhaustive search over block structures ==')
 def is_unitary_s(M, s):
     k = len(M)
     for i in range(k):
@@ -315,12 +304,12 @@ for (m, n), want_P, want_S in (((4, 4), (1, 0), (5, 4)), ((8, 2), (1, 0), (3, 2)
     for kind, HP, HP5, HS in (('column', P, P5, SIG), ('row', PT, P5T, SIGT)):
         for pname, HX in (('P', HP), ('Pu(u5)', HP5)):
             oP = dita_orientations(HX, m, n)
-            check('%s-Diţă %dx%d at %s: (candidates, exact at the sorted alignment)' % (kind, m, n, pname), (len(oP), sum(1 for o in oP if o[2])), want_P)
+            check('%s-Diţă %dx%d at %s: (candidates, exact factorizations)' % (kind, m, n, pname), (len(oP), sum(1 for o in oP if o[2])), want_P)
             if (m, n) == (2, 8):
                 ex = [o for o in oP if o[2]]
                 check('%s-Diţă 2x8 at %s: the frozen blocks and row classes' % (kind, pname), (ex[0][0], ex[0][1]) if ex else None, (FROZEN_28_BLOCKS, FROZEN_28_CLASSES))
         oS = dita_orientations(HS, m, n)
-        check('%s-Diţă %dx%d at SIG = Pu(1): (candidates, exact at the sorted alignment) (control)' % (kind, m, n), (len(oS), sum(1 for o in oS if o[2])), want_S)
+        check('%s-Diţă %dx%d at SIG = Pu(1): (candidates, exact factorizations) (control)' % (kind, m, n), (len(oS), sum(1 for o in oS if o[2])), want_S)
 print('  (%.0fs)' % (time.time() - t0))
 
 print('== 3. the first-order census at SIG: gauge, the fixed-pairing hulls, the residual, the cokernel ==')
@@ -354,7 +343,7 @@ LN = nullspace(transpose(DF), 240)
 check('coker DF: dim', len(LN), 64)
 print('  (%.0fs)' % (time.time() - t0))
 
-print('== 4. the 4x4 Diţă hulls through SIG at the sorted alignment: orientations, factor circles, exact integrability, the span ==')
+print('== 4. every 4x4 Diţă hull through SIG: orientations, factor circles, exact integrability, the span ==')
 S4 = list(itertools.permutations(range(4)))
 def deph(M):
     n = len(M); M = [[M[i][j] * M[i][0].conj() for j in range(n)] for i in range(n)]
@@ -412,35 +401,6 @@ def circle_directions_(X):
             r = reduce_mod_gauge(d)
             if r is not None and r not in dirs: dirs[r] = d
     return list(dirs.values())
-hulls = []
-for kind, H in (('column', SIG), ('row', SIGT)):
-    for cp, rws, ok, X, Y in dita_orientations(H, 4, 4):
-        if not ok: continue
-        col = {(c, d): cp[c][d] for c in range(4) for d in range(4)}; row = {(a, b): rws[b][a] for a in range(4) for b in range(4)}
-        dX = circle_directions(X); dY = [circle_directions(Yc) for Yc in Y]
-        for choice in itertools.product(dX, *dY):
-            xi = choice[0]; etas = choice[1:]; vecs = []
-            v = [0] * 256
-            for a in range(4):
-                for b in range(4):
-                    for c in range(4):
-                        for d in range(4): v[row[(a, b)] * 16 + col[(c, d)]] = xi[a * 4 + c]
-            vecs.append(v)
-            for c in range(4):
-                v = [0] * 256
-                for a in range(4):
-                    for b in range(4):
-                        for d in range(4): v[row[(a, b)] * 16 + col[(c, d)]] = etas[c][b * 4 + d]
-                vecs.append(v)
-            for c in range(4):
-                for b in range(4):
-                    v = [0] * 256
-                    for a in range(4):
-                        for d in range(4): v[row[(a, b)] * 16 + col[(c, d)]] = 1
-                    vecs.append(v)
-            if kind == 'row': vecs = [[v[(mm % 16) * 16 + mm // 16] for mm in range(256)] for v in vecs]
-            hulls.append((kind, cp[:2], vecs))
-check('4x4 Diţă hull parametrizations through SIG at the sorted alignment (orientations × circle choices)', len(hulls), 492)
 def Q(v, u):
     out = []
     for (i, j) in PAIRS:
@@ -466,185 +426,135 @@ def q_zero(u, v):
     k = (a, b) if a <= b else (b, a)
     if k not in Q_ZERO: Q_ZERO[k] = Q(u, v) == z240
     return Q_ZERO[k]
-bad = 0
-for kind, cp, vecs in hulls:
-    if not all(in_ker_df(v) for v in vecs): bad += 1
-    elif not all(q_zero(u, v) for u in vecs for v in vecs): bad += 1
-check('every sorted-alignment hull tangent in ker DF and D²F vanishing exactly on every sorted-alignment hull (failures)', bad, 0)
-check('every sorted-alignment hull tangent has dimension 14 mod gauge', sorted(set(rank(GAUGE + v) - 31 for _, _, v in hulls)), [14])
-allv = [v for _, _, vecs in hulls for v in vecs]
-check('the span of the sorted-alignment 4x4 hull tangents mod gauge equals the defect', rank(GAUGE + allv) - 31, 49)
+
+# ---- A41: the 4x4 hull census through SIG under every alignment ---------------------------------------------------
+# A 4x4 hull at a realizing index map and a choice of Fourier circle through X and through each Y_c is the family
+# SIG o prod_k t_k^{v_k} over its twenty-one generating exponent vectors; as a set of matrices it is determined by the
+# rational span of the v_k, and modulo the gauge by that span plus the gauge. Hulls are compared by those spans, exactly.
+import hashlib, os
+A41_RECORD = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'programmes', 'oi-qm', 'track-b', 'act-41-index-map-semantics', 'measurements.json')
+print('== A41-H1. every valid alignment of every 4x4 partition structure of SIG, in both orientations ==')
+def a41_exact_at(H, cp, rows, m, n):
+    col = {(c, d): cp[c][d] for c in range(m) for d in range(n)}; row = {(a, b): rows[b][a] for a in range(m) for b in range(n)}
+    lam = {}; Y = []
+    for c in range(m):
+        Yc = []
+        for b in range(n):
+            i0 = row[(0, b)]; base = [H[i0][col[(c, d)]] for d in range(n)]; Yc.append(base)
+            for a in range(m): lam[(a, b, c)] = H[row[(a, b)]][col[(c, 0)]] * base[0].conj()
+        Y.append(Yc)
+    if not all(lam[(a, b, c)] == lam[(a, 0, c)] * lam[(0, b, c)] for a in range(m) for b in range(n) for c in range(m)): return None
+    X = [[lam[(a, 0, c)] for c in range(m)] for a in range(m)]
+    if not (is_unitary_s(X, m) and all(is_unitary_s(Yc, n) for Yc in Y)): return None
+    return X, Y, row, col
+def a41_hull_vectors(kind, row, col, xi, etas):
+    vecs = []
+    v = [0] * 256
+    for a in range(4):
+        for b in range(4):
+            for c in range(4):
+                for d in range(4): v[row[(a, b)] * 16 + col[(c, d)]] = xi[a * 4 + c]
+    vecs.append(v)
+    for c in range(4):
+        v = [0] * 256
+        for a in range(4):
+            for b in range(4):
+                for d in range(4): v[row[(a, b)] * 16 + col[(c, d)]] = etas[c][b * 4 + d]
+        vecs.append(v)
+    for c in range(4):
+        for b in range(4):
+            v = [0] * 256
+            for a in range(4):
+                for d in range(4): v[row[(a, b)] * 16 + col[(c, d)]] = 1
+            vecs.append(v)
+    if kind == 'row': vecs = [[v[(mm % 16) * 16 + mm // 16] for mm in range(256)] for v in vecs]
+    return vecs
+A41_SORTED = tuple(range(4))
+a41_sorted_agree = True
+a41_params = 0; a41_sorted_params = 0; a41_gensets = {}; a41_per = []
+for kind, H in (('column', SIG), ('row', SIGT)):
+    for cp, rws, ok, _, _ in dita_orientations(H, 4, 4):
+        nal = 0; npar = 0; sorted_valid = False
+        for s in itertools.product(itertools.permutations(range(4)), repeat=3):
+            rows = [rws[0]] + [tuple(rws[b + 1][s[b][a]] for a in range(4)) for b in range(3)]
+            r = a41_exact_at(H, cp, rows, 4, 4)
+            if r is None: continue
+            nal += 1; is_sorted = all(x == A41_SORTED for x in s); sorted_valid = sorted_valid or is_sorted
+            X, Y, row, col = r
+            dX = circle_directions(X); dY = [circle_directions(Yc) for Yc in Y]
+            for choice in itertools.product(dX, *dY):
+                vecs = a41_hull_vectors(kind, row, col, choice[0], choice[1:])
+                a41_params += 1; npar += 1; a41_sorted_params += is_sorted
+                k = frozenset(tuple(v) for v in vecs)
+                if k not in a41_gensets: a41_gensets[k] = [vecs, False]
+                if is_sorted: a41_gensets[k][1] = True
+        a41_per.append([kind, sorted(map(sorted, cp)), sorted(map(sorted, rws)), nal, npar])
+        a41_sorted_agree = a41_sorted_agree and (sorted_valid == bool(ok))
+check('control: for every 4x4 partition candidate of SIG, the sorted alignment is valid here exactly when act 36\'s search reports it exact', a41_sorted_agree, True)
 print('  (%.0fs)' % (time.time() - t0))
 
-print('== 5. the stabilizer of SIG in G_ext and the residual sectors ==')
-X4, Y4 = F4(z), F4(w)
-def relabel(M, pi, tau): return [[M[pi[i]][tau[j]] for j in range(4)] for i in range(4)]
-def conj4(M): return [[x.conj() for x in r] for r in M]
-def tr4(M): return [list(c) for c in zip(*M)]
-kX, kY = key(deph(X4)), key(deph(Y4))
-def stab_pairs(A, target): return [(pi, tau) for pi in S4 for tau in S4 if key(deph(relabel(A, pi, tau))) == target]
-ops = {}
-for sw in (0, 1):
-    for cj in (0, 1):
-        for tr in (0, 1):
-            A, B = (Y4, X4) if sw else (X4, Y4)
-            if cj: A, B = conj4(A), conj4(B)
-            if tr: A, B = tr4(A), tr4(B)
-            ops[(sw, cj, tr)] = (stab_pairs(A, kX), stab_pairs(B, kY))
-check('factor stabilizer products without factor exchange and with it', ([len(a) * len(b) for k, (a, b) in ops.items() if k[0] == 0], [len(a) * len(b) for k, (a, b) in ops.items() if k[0] == 1]), ([256] * 4, [0] * 4))
-order = sum(len(a) * len(b) for a, b in ops.values())
-check('stabilizer order', order, 1024)
-def action(op, g1, g2):
-    sw, cj, tr = op; (p1, t1), (p2, t2) = g1, g2
-    perm = [0] * 256; sign = -1 if cj else 1
-    for i in range(16):
-        for j in range(16):
-            a, b, c, d = i // 4, i % 4, j // 4, j % 4
-            if sw: a, b, c, d = b, a, d, c
-            if tr: a, b, c, d = c, d, a, b
-            i2 = 4 * p1.index(a) + p2.index(b); j2 = 4 * t1.index(c) + t2.index(d)
-            perm[i * 16 + j] = i2 * 16 + j2
-    return (tuple(perm), sign)
-elems = [action(op, g1, g2) for op, (A, B) in ops.items() for g1 in A for g2 in B]
-def apply(e, v):
-    p, s = e; out = [0] * 256
-    for m_, x in enumerate(v): out[p[m_]] = s * x
-    return out
-def compose(e, f):
-    p, s = e; q, t = f
-    return (tuple(p[q[m_]] for m_ in range(256)), s * t)
-inv = {}
-for e in elems:
-    p, s = e; q = [0] * 256
-    for m_ in range(256): q[p[m_]] = m_
-    inv[e] = (tuple(q), s)
-classes = []; seen = set()
-for e in elems:
-    if e in seen: continue
-    cl = set(compose(compose(g, e), inv[g]) for g in elems); seen |= cl; classes.append(sorted(cl))
-check('conjugacy classes of the stabilizer', len(classes), 112)
-def extend(basis, cands, target):
-    cur = list(basis); r = rank(cur) if cur else 0; chosen = []
-    for c in cands:
-        if r >= target: break
-        r2 = rank(cur + [c])
-        if r2 > r: cur.append(c); chosen.append(c); r = r2
-    assert r == target
-    return chosen
-Gb = extend([], GAUGE, 31); Tb = extend(Gb, Tvec, 57); Rb = extend(Gb + Tb, K, 80)
-basis = Gb + Tb + Rb
-Rr_, piv_ = rref(basis, 256); PIV = piv_[:80]
-Msub = [[Fr(basis[j][p]) for j in range(80)] for p in PIV]
-aug = [Msub[i] + [Fr(1) if k == i else Fr(0) for k in range(80)] for i in range(80)]
-Ri, pv_ = rref(aug, 160); INV = [r[80:] for r in Ri]
-INV_DEN = 1
-for row in INV:
-    for x in row: INV_DEN = INV_DEN * x.denominator // gcd(INV_DEN, x.denominator)
-INV_INT = [[int(x * INV_DEN) for x in row] for row in INV]
-def coords(v):
-    """the coordinates of v in the adapted basis, exact: the inverse scaled to the integer matrix INV_INT by its common
-    denominator INV_DEN, the projection taken in Python integers, and the division back done once per coordinate"""
-    w = [v[p] for p in PIV]
-    return [Fr(sum(a * b for a, b in zip(row, w)), INV_DEN) for row in INV_INT]
-_v = apply(elems[1], basis[40]); _x = coords(_v)
-check('exact coordinate solver reconstructs a transported basis vector (control)', all(sum(_x[j] * basis[j][m_] for j in range(80)) == _v[m_] for m_ in range(256)), True)
-tinv = all(all(coords(apply(cl[0], v))[k] == 0 for k in range(57, 80)) for cl in classes for v in Tb)
-check('gauge + T is stabilizer-invariant (class representatives)', tinv, True)
-csums = []
-for cl in classes:
-    S_ = []
-    for v in Rb:
-        acc = [0] * 256
-        for e in cl:
-            gv = apply(e, v)
-            for m_ in range(256): acc[m_] += gv[m_]
-        S_.append(coords(acc)[57:])
-    csums.append([[S_[j][i] for j in range(23)] for i in range(23)])
-def eigen_split(spaces, S_):
-    out = []
-    n = 23
-    for V in spaces:
-        Vn = np.array([[float(x) for x in v] for v in V]); Sn = np.array([[float(x) for x in r] for r in S_])
-        SV = Vn @ Sn.T
-        coef = np.linalg.lstsq(Vn.T, SV.T, rcond=None)[0].T
-        ev = np.linalg.eigvals(coef)
-        lams = sorted(set(int(round(x.real)) for x in ev if abs(x.imag) < 1e-6 and abs(x.real - round(x.real)) < 1e-6))
-        if len(lams) <= 1: out.append(V); continue
-        for lam in lams:
-            Mv = [[sum(S_[r][c] * v[c] for c in range(n)) - lam * v[r] for v in V] for r in range(n)]
-            ker = nullspace(Mv, len(V))
-            if ker: out.append([[sum(Fr(a[i]) * V[i][c] for i in range(len(V))) for c in range(n)] for a in ker])
-    return out
-spaces = [[[Fr(1) if i == j else Fr(0) for j in range(23)] for i in range(23)]]
-for S_ in csums: spaces = eigen_split(spaces, S_)
-spaces.sort(key=lambda V: -len(V))
-check('isotypic sectors of R under the stabilizer (dims; exact common eigenspaces of the class sums)', [len(V) for V in spaces], [8, 8, 4, 2, 1])
-check('the sectors are invariant under every class sum (exact)', all(rank([list(v) for v in V] + [[sum(S_[r][c] * v[c] for c in range(23)) for r in range(23)] for v in V], 23) == len(V) for V in spaces for S_ in csums), True)
+print('== A41-H2. distinct hulls, exactly: as matrix families and modulo the gauge ==')
+def a41_canon(rows_):
+    R_, P_ = rref([list(r) for r in rows_], 256)
+    return tuple(tuple(r) for r in R_ if any(r))
+a41_reps = list(a41_gensets.values())
+a41_kmat = [a41_canon(v) for v, s in a41_reps]
+a41_kcls = [a41_canon(GAUGE + v) for v, s in a41_reps]
+a41_mat = {}; a41_cls = {}
+for i, (km, kc) in enumerate(zip(a41_kmat, a41_kcls)):
+    a41_mat.setdefault(km, i); a41_cls.setdefault(kc, i)
+a41_map = {}
+for km, kc in zip(a41_kmat, a41_kcls): a41_map.setdefault(km, set()).add(kc)
+a41_bij = all(len(v) == 1 for v in a41_map.values()) and len({next(iter(v)) for v in a41_map.values()}) == len(a41_map) == len(a41_cls)
+a41_sorted_mat = len({a41_kmat[i] for i, (v, s) in enumerate(a41_reps) if s}); a41_sorted_cls = len({a41_kcls[i] for i, (v, s) in enumerate(a41_reps) if s})
 print('  (%.0fs)' % (time.time() - t0))
-
-print('== 6. the second-order form and the obstruction census ==')
-def Bc(v, u):
-    q = Q(v, u); return tuple(dot(l, q) for l in LN)
-Def = Tb + Rb
-zero = tuple([0] * 64)
-check('B(gauge, ker DF) = 0 in the cokernel (31 x 80 pairs)', all(Bc(g, v) == zero for g in Gb for v in basis), True)
-check('D²F(T_c, T_c) = 0 and D²F(T_r, T_r) = 0 exactly (each fixed-pairing hull integrates)', all(Q(u, v) == z240 for u in Tc for v in Tc) and all(Q(u, v) == z240 for u in Tr for v in Tr), True)
-BB = {}
-for i in range(49):
-    for j in range(i, 49): BB[(i, j)] = Bc(Def[i], Def[j])
-check('rank of B on Sym²(Def)', rank([list(BB[(i, j)]) for i in range(49) for j in range(i, 49)], 64), 47)
-def Bidx(i, j): return list(BB[(min(i, j), max(i, j))])
-def Bvec(x, y):
-    out = [Fr(0)] * 64
-    for i in range(49):
-        if x[i] == 0: continue
-        for j in range(49):
-            if y[j] == 0: continue
-            b = Bidx(i, j); c = x[i] * y[j]
-            for l in range(64): out[l] += c * b[l]
-    return out
-Tco = [[Fr(1) if k == i else Fr(0) for k in range(49)] for i in range(26)]
-BTT = [[Bvec(Tco[i], Tco[j]) for j in range(26)] for i in range(26)]
-Cr = [coords(v)[31:] for v in Tr]
-zf = [Fr(0)] * 64
-def certificate(v):
-    """the obstruction certificate: B(v,v) outside the linear span of B(v,T) and B(T,T) in the cokernel, so no
-    correction t in T makes B(v+t, v+t) vanish"""
-    Bvv = Bvec(v, v); BvT = [Bvec(v, t) for t in Tco]
-    span_rows = [list(r) for r in BvT] + [list(BTT[i][j]) for i in range(26) for j in range(i, 26)]
-    return rank(span_rows + [list(Bvv)], 64) > rank(span_rows, 64)
-def extension(v):
-    """an explicit correction t in T_r with B(v+t, v+t) = 0, found by the linear solve 2B(v,t) = -B(v,v); None when the
-    linear system is inconsistent"""
-    Bvv = Bvec(v, v); cols = [Bvec(v, y) for y in Cr]
-    M = [[2 * cols[k][l] for k in range(len(Cr))] + [-Bvv[l]] for l in range(64)]
-    Rm, pv2 = rref(M, len(Cr) + 1)
-    if len(Cr) in pv2: return None
-    x = [Fr(0)] * len(Cr)
-    for i_, p_ in enumerate(pv2): x[p_] = Rm[i_][len(Cr)]
-    tr_ = [sum(x[k] * Cr[k][i] for k in range(len(Cr))) for i in range(49)]
-    wv = [v[i] + tr_[i] for i in range(49)]
-    return Bvec(wv, wv) == zf
-random.seed(363)
-fates = []; basis_fail = []
-for si, V in enumerate(spaces):
-    vs = [[Fr(0)] * 26 + [Fr(a) for a in row] for row in V]
-    iso = all(Bvec(x, y) == zf for x in vs for y in vs)
-    trials = []
-    for tr in range(3):
-        v = [Fr(0)] * 49
-        while all(c == 0 for c in v):
-            v = [sum(random.randint(-3, 3) * x[i] for x in vs) for i in range(49)]
-        ob = certificate(v)
-        trials.append((ob, None if ob else extension(v)))
-    basis_fail.append(sum(1 for x in vs if not certificate(x)))
-    fates.append((len(V), iso, trials))
-check('sector fates (dim, isotropic, at three seeded pseudo-random directions each: (obstructed by certificate, extended by an explicit row-hull correction))', fates,
-      [(8, False, [(True, None)] * 3), (8, False, [(True, None)] * 3), (4, True, [(False, True)] * 3), (2, True, [(False, True)] * 3), (1, True, [(False, True)] * 3)])
-check('the certificate is direction-dependent: it fails at every structured basis vector of the two 8-dimensional sectors (of 8 each)', basis_fail[:2], [8, 8])
+print('== A41-H3. a second equality test: buckets by a reduction modulo a prime, equality within buckets by exact joint rank ==')
+A41_P = (1 << 61) - 1
+def a41_rref_p(rows_):
+    R_ = [[x % A41_P for x in r] for r in rows_]; out = []; col = 0; nr = len(R_)
+    piv_rows = []
+    for c in range(256):
+        pr = next((i for i in range(len(piv_rows), nr) if R_[i][c]), None)
+        if pr is None: continue
+        k = len(piv_rows); R_[k], R_[pr] = R_[pr], R_[k]
+        inv = pow(R_[k][c], A41_P - 2, A41_P); R_[k] = [(x * inv) % A41_P for x in R_[k]]
+        for i in range(nr):
+            if i != k and R_[i][c]:
+                f = R_[i][c]; R_[i] = [(x - f * y) % A41_P for x, y in zip(R_[i], R_[k])]
+        piv_rows.append(c)
+    return tuple(tuple(r) for r in R_[:len(piv_rows)])
+def a41_second_count(with_gauge):
+    buckets = {}
+    for i, (v, s) in enumerate(a41_reps): buckets.setdefault(a41_rref_p((GAUGE if with_gauge else []) + v), []).append(i)
+    n = 0
+    for idx in buckets.values():
+        reps = []
+        for i in idx:
+            base = (GAUGE if with_gauge else []) + a41_reps[i][0]; r_i = rank(base)
+            if not any(rank(base + a41_reps[j][0]) == r_i == rank((GAUGE if with_gauge else []) + a41_reps[j][0]) for j in reps): reps.append(i)
+        n += len(reps)
+    return n
+a41_second = (a41_second_count(False), a41_second_count(True))
 print('  (%.0fs)' % (time.time() - t0))
-
+print('== A41-H4. every distinct hull: tangent dimension, ker DF, the second-order form; the combined span; W ==')
+a41_dims = sorted(set(len(k) - 31 for k in a41_cls))
+a41_dF = all(all(in_ker_df(v) for v in a41_reps[i][0]) and all(q_zero(u, w) for u in a41_reps[i][0] for w in a41_reps[i][0]) for i in a41_mat.values())
+a41_span = rank(GAUGE + [v for i in a41_cls.values() for v in a41_reps[i][0]]) - 31
+a41_W = sum(1 for i in a41_cls.values() if rank(GAUGE + a41_reps[i][0] + [list(W)]) == rank(GAUGE + a41_reps[i][0]))
+check('the sorted control: the parametrizations at the sorted alignments are act 36\'s 492', a41_sorted_params, 492)
+print('  (%.0fs)' % (time.time() - t0))
+A41_OBJ = {'params': a41_params, 'sorted_params': a41_sorted_params, 'gensets': len(a41_reps), 'distinct_mat': len(a41_mat),
+           'distinct_gauge': len(a41_cls), 'bijection': a41_bij, 'sorted_distinct_mat': a41_sorted_mat, 'sorted_distinct_gauge': a41_sorted_cls,
+           'dims': a41_dims, 'dF_ok': a41_dF, 'span': a41_span, 'W_in': a41_W, 'second_test': list(a41_second), 'per_structure': a41_per}
+A41_JSON = json.dumps(A41_OBJ, sort_keys=True, separators=(',', ':'))
+print('A41-MEASUREMENTS hulls ' + A41_JSON)
+print('A41-SHA256 hulls ' + hashlib.sha256(A41_JSON.encode()).hexdigest())
+a41_mode = 'MEASURED'
+if os.path.exists(A41_RECORD):
+    rec = json.load(open(A41_RECORD, encoding='utf-8'))
+    check('replay: the measurement equals the committed measurements.json, elementwise', json.loads(A41_JSON) == rec.get('hulls'), True)
+    a41_mode = 'REPLAYED'
 print()
 if fails:
-    print('dita_hierarchy_probe: FAILED (%d): %s' % (len(fails), fails)); sys.exit(1)
-print('dita_hierarchy_probe: OK -- with the rows of each row class in sorted order, P = SIG∘u60^W and Pu(u5), both of defect 37, admit no 4x4 and no 8x2 Diţă factorization of either orientation at any block structure and exactly one 2x8 per orientation, while SIG = Pu(1) has four exact 4x4 factorizations of five candidates per orientation; W is an exact straight line at SIG; the 492 sorted-alignment 4x4 hull parametrizations through SIG span the 49-dimensional defect space; the stabilizer of order 1024 splits the 23-dimensional residual into sectors 8+8+4+2+1, the two 8s quadratically obstructed at seeded generic directions and the 4, 2 and 1 extended by row-hull corrections')
+    print('dita_index_map_hulls: FAILED (%d): %s' % (len(fails), fails)); sys.exit(1)
+print('dita_index_map_hulls: OK -- %s: %d parametrizations, %d distinct hulls as matrix families, %d modulo the gauge' % (a41_mode, a41_params, len(a41_mat), len(a41_cls)))
