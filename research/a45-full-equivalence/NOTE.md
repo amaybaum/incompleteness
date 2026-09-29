@@ -294,3 +294,62 @@ Under monomial access it is strictly finer than the stable `R₀` (T6, T3). Unde
 Diţă / non-Diţă, relabelled), each through the six tests. Expected, from Q1–Q2: `𝒪₀` applicable and identical;
 `𝒪₁` applicable (computable on `pad H`), separating at `R_ph`, presuppositional; `𝒪₂`, `𝒪₃` not applicable to a single
 slice (no certified static instantiation), and trivial on the constant lift (`U_t U_sᴴ = 1`).
+
+## 7. The bridge lemma (kernel)
+
+`TrackBQfbBridge.lean` (this directory). It was built as `verification/lean-mathlib/OIBridge/TrackBQfbBridge.lean` on the
+disposable branch `claude/a45-bridge-dev` @ `68cf4596` (never landed), in run 36596287670, Mathlib bridge job 109501934929.
+That run is design evidence, not an attestation. Build OK; `lean-axioms` OK with 5270 named results (5251 at L41, plus
+19) and no `sorry`; every theorem of the module depends on `[propext, Classical.choice, Quot.sound]` only. The gate's
+only red step is `lean-manuscript`, because the new module has no census disposition; that is expected on a dev branch.
+The first build (run 36595682134, `fa26d6a3`) failed on two rewrites of `born` across the dependent field `Bas`. The
+repair states those two steps on the visible carrier; no statement changed.
+
+| owner item | theorem | statement |
+| --- | --- | --- |
+| 1 unitary construction | `UH_unitary` | `IsFlatHadamard H` (unimodular entries, `H Hᴴ = 16`) ⇒ `U_H := H/4 ∈ U(16)`; `UH_norm`: `‖U_H i j‖ = 1/4` |
+| 2 Born identification | `UH_born_eq_slice`, `UH_admissible` | `born(U_H) b b' = 1/16 = (Γ₀ ⊗ Γ₀)`; `pad U_H` is an admissible dilation of `Γ₀ ⊗ Γ₀` (via `a35_shared_pad_unitary`) |
+| 3 constructor | `realData`, `realData_isLaw`, `realData_positiveRootMass`, `realData_qstar` | `QfbData` with `U`, and `hadData`'s `init` (uniform) and `read` (`id`); no new field. Unitary `U` ⇒ lawful, positive root mass, a member of `Q*` |
+| 4 visible congruence | `slice_of_admissible`, `visible_congr` | two trivial-ancilla admissible dilations of one slice `G` ⇒ equal `born`, equal `rooted` for all `t a j` |
+| 5 licensed-intervention congruence | `normSq_mul_mul_congr`, `bridge`, `flat_bridge` | `M, N ∈ permClass` ⇒ `‖(M U N) i j‖² = ‖(M U' N) i j‖²` and equal `rooted` of `realData (M U N)` |
+
+**The target theorem, as proved** (`bridge`, general finite `V`; `flat_bridge` at `Fin 4 × Fin 4` for flat Hadamards):
+if `pad U` and `pad U'` are admissible dilations of the same visible slice `G`, then for all `M, N ∈ permClass` the
+instantiated data `realData (M U N)` and `realData (M U' N)` have equal Born weights and equal rooted families. Only
+this direction is proved; nothing here asserts a converse.
+
+**Scope, and what is not proved.**
+- The realizations are trivial-ancilla (`Fin 1 × Fin 1`) dilations (AW-|A|=1 stands).
+- "Licensed" means `permClass`, the stated access. A row-non-monomial intervention is outside the hypotheses, and Q2's
+  P2 shows the conclusion fails there.
+- `realData` is a constructor this thread supplies. It reuses the corpus datum and adds no field, but no landed theorem
+  names it as the map from Track-B realizations to `Q_fb`; AW-static therefore persists as "the instantiation is
+  `realData`". The congruence holds for any `init` and `read` shared by the two data: the proof uses only `born`.
+- In the flat case the Born weights are constant, so `flat_bridge` is immediate once items 1–2 hold. The content that
+  generalizes is `bridge`, for an arbitrary slice `G`.
+
+## 8. Q3 — regression / countercontrol suite
+
+`q3_suite.py` (output `q3_suite.json`); exact Gaussian-rational arithmetic, run locally after the bridge built (18 s).
+Every expected cell was fixed in the script's `EXPECT` table before any carrier was evaluated. Realizations: Q1's R0–R4,
+plus `R5 = i·SIG` (an `R_ph` pair with R0) and `R6 = SIG·D` (in `R_rd`, not in `R_ph`); 21 pairs. Off-slice
+countercontrol `X = F4(1)/2 ⊗ I4`.
+
+| cell | expected | measured |
+| --- | --- | --- |
+| `𝒪₀` equal on every pair | 21/21 | 21/21 |
+| `𝒪₀` separates off-slice `X` | yes | yes |
+| `𝒪₁` (`H E_kl Hᴴ` for all `k, l`) equal exactly on the `R_ph` pair (R0, R5) | 1/21 | 1/21, on (R0, R5) |
+| `𝒪₂`, `𝒪₃` applicable to a single slice | no | no (by definition: both take a time pair) |
+| constant lift: `U_t U_sᴴ = 1` on every realization | yes | yes |
+| B1 `rooted` (bridge instantiation, `t ≤ 3`) equal on every pair | 21/21 | 21/21 |
+| B2 `rooted` after three monomial `(M, N)`, perm×diag and scaled partial perm | 21/21 | 21/21 |
+| B3 row-non-monomial `K = F4(i) ⊗ I4` separates some pair | yes | yes |
+| all realizations flat unitary; `X` unitary, off slice | yes | yes |
+
+**Verdict: all cells match.** The `𝒪₂`/`𝒪₃` applicability cell is definitional, not measured. The constant-lift cell is
+the only computed content for those carriers. `𝒪₁` separates the two-sided-equivalent pair (R0, R1), the
+right-diagonal pair (R0, R6) and the Diţă / non-Diţă pair (R3, R4), and identifies only the global phase. It therefore
+resolves `R_ph`, a relation finer than every class-level relation, and is not stable under the class structure.
+Together with B3 (and Q2's S2, where `K` separates R0/R1), class-level distinctions define neither the stable relation
+under monomial access (B1, B2: nothing is separated) nor under coherent access (everything down to `R_ph` is).
