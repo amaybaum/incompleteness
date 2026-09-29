@@ -7,13 +7,15 @@ Acts 36 and 37 ran an exact arc of realizable classes through the certified rati
 `SIG = F₄(z) ⊗ F₄(w)`, `z = (3+4i)/5`, `w = (5+12i)/13`, and found it exclusive to its frozen `2 × 8` Diţă
 class: an arc that lies in one Diţă hull at every parameter. This module states, for one explicit
 exponent matrix `E = A + B + C` in `{0, 1}` and the arc `Hu u = SIG ∘ u^E`: that `Hu u` is a flat unitary
-— a complex Hadamard matrix, realizable — at every unit `u`; that for each of the nine Diţă factorization
-classes of `SIG` — four `4 × 4`, two `8 × 2` and three `2 × 8`, the complete census of the stratum point's
-Diţă structures modulo its stabilizer — a Diţă form of `Hu u` at that class's index maps, in either
-orientation, forces `u = 1`; and, as the corollary, that every neighbourhood of `SIG` contains a
-realizable matrix admitting none of the eighteen forms. The exact-computation layer carries the
-exhaustive complement: at every unit `u ∉ {1, −1}`, no index maps whatever admit a Diţă form of `Hu u`,
-and at `u = −1` exactly one `2 × 8` structure per orientation does.
+— a complex Hadamard matrix, realizable — at every unit `u`; that for each of nine named Diţă factorization
+classes of `SIG` — four `4 × 4`, two `8 × 2` and three `2 × 8` — a Diţă form of `Hu u` at its named index
+maps, in either orientation, forces `u = 1`; and, as the corollary, that every neighbourhood of `SIG`
+contains a realizable matrix admitting none of their eighteen forms.
+Exact computation over every index map (act 41) carries the exhaustive complement: at every unit
+`u ∉ {1, −1}`, no index maps whatever admit a Diţă form of `Hu u`,
+and at `u = −1` exactly four partition structures do, the two orientations together, among them in each
+orientation a `4 × 4` partition structure, the image of the partition structure of act 37's `k4` under the row
+exchange `7 ↔ 15` and the column exchange `2 ↔ 8`.
 
 The module carries no definition. Every theorem prints its axioms.
 -/

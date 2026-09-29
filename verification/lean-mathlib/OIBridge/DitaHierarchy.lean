@@ -11,8 +11,8 @@ columns — realizable for flat unitary factors and unit twists; its `2 × 8` an
 an exact one-parameter family through the certified rational stratum point `F₄(z) ⊗ F₄(w)`,
 `z = (3+4i)/5`, `w = (5+12i)/13`, whose every member is a `2 × 8` Diţă matrix; and the named point
 `P = SIG ∘ u^W`, `u = (60+i)/(60−i)`, realizable, off the stratum by an exact cross-ratio value
-`u/256`. The exact-computation layer shows that `P` admits no `4 × 4` Diţă factorization of either
-orientation under any relabelling: the `4 × 4` hierarchy is locally insufficient at the stratum,
+`u/256`. Exact computation over every index map (act 41) shows that `P` admits no `4 × 4` Diţă
+factorization of either orientation: the `4 × 4` hierarchy is locally insufficient at the stratum,
 and the first escaping family belongs to the `2 × 8` construction.
 
 The module carries no definition. Every theorem prints its axioms.

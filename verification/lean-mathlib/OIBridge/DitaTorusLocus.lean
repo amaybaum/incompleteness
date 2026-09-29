@@ -8,11 +8,13 @@ Act 39 proved the family `H3 u₁ u₂ u₃ = SIG ∘ u₁^A u₂^B u₃^C` thro
 module states the kernel layer of act 40's classification of the points of the torus at which `H3` admits a
 Diţă structure. On each of the five coordinate faces `u₁ = 1`, `u₁ = −1`, `u₂ = 1`, `u₃ = 1`, `u₃ = −1`, and at
 every point of the face, `H3` (or its transpose) is an explicit strict Diţă product `dita X Y D` of a named shape
-and index map, with `X` and every `Y c` flat unitary and `‖D c b‖ = 1`. For each of twenty named index maps — act
-37's nine classes in both orientations and act 38's two maps `M_COL` and `M_ROW` — a strict Diţă form of `H3` at
+and index map, with `X` and every `Y c` flat unitary and `‖D c b‖ = 1`. For each of twenty named index maps — the nine
+named index maps of act 37's sorted-alignment census, in both orientations, and act 38's two
+maps `M_COL` and `M_ROW` — a strict Diţă form of `H3` at
 that map forces the named coordinate equations. The module does not state that the five faces exhaust the
 points admitting a Diţă structure: that converse, over every shape, index map and orientation and up to
-diagonal equivalence, is certified by the round's exact-computation probe, not by the kernel.
+diagonal equivalence, is certified by exact computation over every index map (acts 40 and 41), not by the
+kernel.
 
 The module carries no definition. Every theorem prints its axioms.
 -/
