@@ -1171,13 +1171,25 @@ the off-diagonal part of the fibre-Gram data --- for each visible
 output, the overlaps among the hidden states into which the lift sends
 the visible inputs --- modulo phases, with the visible law as its
 diagonal; and that residue is not inert, since two lifts of one visible
-law can differ in it and differ in relating evolution. What remains open
-is two-part: what selects the trajectory of that data through time, and
-what fixes the relating evolution within a trajectory --- the latter not
-fixed even by the complete trajectory. No selection principle is named
-or excluded. This leaves \(S \iff D \iff Q_{\mathrm{fb}}\) exactly as
-stated and does not make embedded observation and quantum mechanics
-inequivalent.
+law can differ in it and differ in relating evolution. That residue does
+not reach the fixed-basis layer. With a trivial ancilla, the fixed-basis
+datum built from a lift's unitary at one time, with uniform initial law
+and identity readout, has finite-horizon trajectory laws fixed by the
+visible law alone, also after contractively scaled partial permutations
+on either side, and two such data have equal laws exactly when their
+visible laws are equal (kernel: \texttt{bridge\_traj},
+\texttt{rooted\_eq\_iff\_slice\_eq}); the fixed-basis correspondence
+acts on the quotient by visible equality. The trivial ancilla is part of
+that statement: an ancilla attached as a tensor factor with its own
+unitary leaves the rooted family unchanged, while an ancilla carried
+between steps as hidden basis states can separate two lifts that share
+every column entering the visible law, already in the two-step law. What
+remains open is two-part: what selects the trajectory of that data
+through time, and what fixes the relating evolution within a trajectory
+--- the latter not fixed even by the complete trajectory. No selection
+principle is named or excluded. This leaves
+\(S \iff D \iff Q_{\mathrm{fb}}\) exactly as stated and does not make
+embedded observation and quantum mechanics inequivalent.
 
 \textbf{The bridge therefore has three statuses, and they are worth
 stating together.} Finite observable-law representability is
@@ -3848,4 +3860,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: e938bb6f49b39cf73c550ea178dca9d7dd7b8e2369276367210766b6d532154e
+% source-sha256: 7ff34ef2863995322517acb1b386ce199bcf2457da42519b3eed7e77bb55a841
