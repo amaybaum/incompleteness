@@ -432,3 +432,19 @@ reconstruction programme follows from it.
 - *Extensions:* a coherent (row-non-monomial) intervention, a lift-level carrier declared observable, or a carried
   ancilla each refine it: to `R_rd`/`R_ph` (P3), to the carrier's own relation (Q1), or to completion-sensitive data
   (§10). Each needs an additional, currently unadopted principle. None lands on A41's class geometry (P4).
+
+## 12. Scope for a freeze (owner decisions after §11; no `F` yet)
+
+1. **Instantiation:** `realData` as built — trivial ancilla, uniform initial law, identity readout. The generalization
+   to arbitrary shared `init`/`read` is not added before `F`; it would enlarge the claim surface without strengthening
+   the conclusion, and can be a later corollary.
+2. **Level of the claim:** trajectory laws — `bridge_traj`, `realData_traj_stochastic`, and the landed
+   `finite_horizon_equivalence` (`S ↔ D ↔ Q_fb`). No separate reconstruction of `S` from Track-B is claimed or needed.
+3. **No class reconstruction.** `rooted_eq_iff_slice_eq` identifies the induced relation with `R₀`; R3/R4 witness that
+   A41's classes are not recovered. The collision states which quotient the equivalence lives on.
+4. **Larger ancillas, a scope note only:** product padding (`padData`) is invisible (landed); a refreshed ancilla gives
+   `G^t` (compatible; a possible later generalization); a carried ancilla is excluded by §10's exact counterexample and
+   belongs to the unadopted higher-history semantics.
+
+Landing the module would also require its census disposition in `verification/lean-manuscript-census.json`
+(`lean-manuscript`, §A.35), which is the only red gate step on the dev builds.
