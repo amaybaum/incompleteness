@@ -184,3 +184,113 @@ inventoried in §3 (every carrier, readback, law, representation and theory obje
 realizations at the product configuration. Evidence: K (definitions and theorems cited), P (status sentences, verbatim),
 X (the probe). Not established: that no future carrier could be adopted that escapes the dichotomy — that is the
 content of the open relation choice, not a gap in the inventory.
+
+***
+
+## 5. Q2 — what any justified relation must satisfy (framework)
+
+Q2 does not choose the physically correct relation. It fixes necessary criteria, places the candidate relations
+against them, and derives the consequences conditionally. The six tests are the owner's, stated before any Q2
+computation; the exact probe `q2_probe.py` (output `q2_probe.json`) ran before this section was written.
+
+**Tests.** (T1) *sourcing* — every datum the relation uses is produced by a landed map from the operational theory or
+from a Track-B realization, and no relation distinguishes objects by a coordinate the theory never exposes;
+(T2) *representation independence* — transformations already treated as representational redundancy are identified;
+(T3) *operational extensionality* — agreement on every adopted experiment and intervention forces equivalence unless an
+explicit additional principle is named; (T4) *composition/intervention stability* — equivalence survives every licensed
+composite and intervention; (T5) *non-circularity* — a lift-sensitive carrier is not made physical by the distinctions
+under investigation; (T6) *minimality* — prefer the coarsest relation preserving all adopted structure.
+
+**The licensed interventions.** The corpus's stated access is `permClass`, i.e. `IsScaledPartialPerm`
+(`OperationalSourcing.lean:160`), and relative-phase control carries the settled *Additional* verdict, stable against
+the whole Arc C layer (`PROGRAMME.md` §3.12). Every licensed intervention is therefore monomial.
+
+**Candidate relations** on admissible static realizations `H` (flat unitaries at the product configuration, trivial
+ancilla), ordered from coarsest to finest:
+
+- `R₀` visible: `H ~ H'` iff equal visible slice (and hence equal Born moduli). On Track-B realizations of one slice,
+  everything is identified.
+- `R_cls` class-level: equal two-sided class (`GramPhaseEquiv`; `featureVec`; Diţă status and A41's classes are functions
+  of it).
+- `R_rd` right-diagonal: `H' = H D`, `D` diagonal unitary.
+- `R_ph` global phase: `H' = c H`. At the trivial ancilla this is exactly the relation of `𝒪₁` (A44's I5: `𝒪₁(pad H)`
+  determines `H` up to one phase).
+
+`R₀ ⊋ R_cls ⊋ R_rd ⊋ R_ph` (each strictly finer; probe pairs and the definitions).
+
+## 6. Q2 — results
+
+**P1 (monomial interventions preserve `R₀`).** If every row of `M` and every column of `N` has at most one nonzero
+entry, then `|M H N|²` is a function of `|H|²`: each entry of `M H N` is a single product `m·h·n`. So `R₀` is stable
+under the whole stated access. **P** (one line) and **X** (S1: permutation×diagonal and scaled partial permutations,
+slices equal on all five realizations).
+
+**P2 (the dividing line for a left intervention `K`).** If every row of `K` has at most one nonzero entry, `R₀` is
+`K`-stable (P1). If some row `i` of `K` has two nonzero entries, then for every flat `H` there is a diagonal unitary `D`
+with `|K D H|² ≠ |K H|²`. *Proof.* Fix a column `j`; `(K D H)_{ij} = Σ_c k_{ic} d_c H_{cj}` has at least two nonzero terms
+since every `H_{cj} ≠ 0`. Write it as `α d_a + β` with `α = k_{ia} H_{aj} ≠ 0`; choose the other `d_c` so that `β ≠ 0`
+(one nonzero term, or generic phases when there are several); then `|α d_a + β|²` is non-constant on the unit circle. ∎
+**P**, and **X** (S2: `K = F4(i) ⊗ I₄` and `K = SIGᴴ` separate all ten pairs, including the two-sided-equivalent pair
+`SIG` / `D₁ SIG D₂` and the Diţă / non-Diţă pair). The right-hand analogue holds with columns and right diagonals.
+
+**P3 (what coherent interventions generate).** If `|K H|² = |K H'|²` for every unitary `K`, then `H' = H D`: taking `K`
+with first row `x̄` shows `|⟨x, h_j⟩| = |⟨x, h'_j⟩|` for every unit `x`, so each column `h'_j` lies on the ray of `h_j`.
+The converse is immediate. So all left coherent interventions generate exactly `R_rd`, and interventions on both sides
+generate `R_ph`. **P**, **X** (S3: right-diagonal moves invisible under `K`, left-diagonal moves separated).
+
+**P4 (the class-level relations are never the stable relation).** `R_cls` — and with it Diţă status, A41's
+factorization classes and partition orbits, and `featureVec` — is not the coarsest relation stable under either regime.
+Under monomial access it is strictly finer than the stable `R₀` (T6, T3). Under any access containing a row-non-monomial
+`K` it is not stable (P2 with `H' = D H` two-sided-equivalent to `H`). **P** from P1–P3; **X** (S2).
+
+### The six tests, per relation
+
+| test | `R₀` visible | `R_cls` class-level | `R_rd` / `R_ph` (coherent completion `R_T`) |
+| --- | --- | --- | --- |
+| T1 sourcing | passes: `𝒪₀` via `a35_shared_gram_realizable`; `Γ` licensed | sourced from the realization (`FibreGram`, `featureVec`), exposed by no adopted operational object — fails the second clause | needs the realization composed with a non-monomial intervention; no landed map makes a static realization a composable operation — **missing bridge** |
+| T2 representation independence | passes for every candidate redundancy (invariant under everything preserving the slice) | passes for global phase and the two-sided gauge | separates left- (and right-) diagonal moves: passes only if those are not redundancy — **undecided** in the corpus (act 14 uses no gauge verdict) |
+| T3 extensionality | passes: the adopted experiments are visible (F1) | fails without a named additional principle | passes only as an explicit extension (it adds experiments) |
+| T4 stability, stated access | passes (P1) | passes (finer relations are trivially stable) | passes |
+| T4 stability, with a row-non-monomial intervention | **fails** (P2) | **fails** (P2, P4) | `R_rd` passes for left interventions, `R_ph` for both (P3) |
+| T5 non-circularity | passes (the framework's own admissibility condition) | fails: its objects were introduced to classify the lift geometry under test | independent motivation exists (standard coherent control; `𝒪₁`'s presupposition is the reduced density operator), as an additional principle |
+| T6 minimality | passes: coarsest relation preserving the adopted structure | fails | fails under current adoption; passes relative to an adopted completion |
+
+### Conditional theorems
+
+- **Q2-A (visible factorization).** If a relation `R` factors through the visible data (slice, Born moduli, `init`,
+  `read`), all admissible static realizations of one visible slice are `R`-equivalent, and remain so after any
+  intervention in the stated access. **P** (definitions + P1), **X** (S1, S4).
+- **Q2-B (lift retention).** If `R` refines any certified lift separator (`FibreGram`, the Gram class and invariants,
+  `featureVec`, Diţă status, `𝒪₁`), full Track-B equivalence fails, with exhibited pairs (Q1 probe; A44). **X**, **K**.
+- **Q2-C (intervention dichotomy).** For a licensed left intervention `K`: `R₀` is `K`-stable iff every row of `K` has at
+  most one nonzero entry (on flat realizations). **P** (P1, P2), **X**.
+- **Q2-D (no class-level stable relation).** No relation between `R₀` and `R_rd` that retains the two-sided class is the
+  coarsest relation stable under an access containing a row-non-monomial intervention; and under monomial access `R₀`
+  is. **P** (P1–P4).
+
+### What follows, and its scope
+
+1. **The strongest outcome the owner asked for holds, relative to the Q1 inventory.** Any relation finer than visible
+   equivalence on Track-B static realizations requires at least one unadopted assumption: *either* a lift carrier is
+   declared observable (failing T1's second clause, T3, T5 and T6 under current adoption), *or* a completion principle
+   licenses a row-non-monomial intervention (currently *Additional*) **together with** a bridge that makes a static
+   realization a composable operation (not in the corpus). The adopted layer is visible (F1) and the stated access is
+   monomial, so by Q2-C no adopted intervention can refine `R₀`.
+2. **Closure, in the wording the constructor's absence requires.** *Conditional on instantiating the established
+   visible operational correspondence for a Track-B realization, its result — and its result after any intervention in
+   the stated access — is independent of the static realization within one visible slice.* The instantiation is a
+   small bridge: `ι(H) := QfbData` with `U := H/4` (or `pad H`), any `init`, `read`; `IsLaw` holds for a unitary `U`,
+   and `rooted (ι H)` is a function of `|H|`, `init`, `read`. Kernel-feasible: a congruence lemma for `born` plus the
+   flatness `|H_{ij}| = 1/4`.
+3. **Failure of equivalence occurs only in explicitly stronger extensions**, and P3–P4 fix what those extensions
+   distinguish: a coherent-completion extension does not land on the static geometry the Track-B rounds studied. It
+   lands on `R_rd` or `R_ph`, which separate even two-sided-equivalent realizations; the Diţă / A41 distinctions are
+   neither needed (monomial access) nor stable (coherent access).
+4. **Scope.** Static realizations at the product configuration with trivial ancilla (assumption-watch **AW-|A|=1**:
+   at `|A| > 1` the left group is `∏ U(A)` and P2–P3 need restating); the corpus at L41; "licensed" means the stated
+   access. Nothing here adopts a relation, a carrier or a principle.
+
+**Q3, as it now stands.** A small run: act 14's four carriers on selected A41 pairs (two-sided-equivalent,
+Diţă / non-Diţă, relabelled), each through the six tests. Expected, from Q1–Q2: `𝒪₀` applicable and identical;
+`𝒪₁` applicable (computable on `pad H`), separating at `R_ph`, presuppositional; `𝒪₂`, `𝒪₃` not applicable to a single
+slice (no certified static instantiation), and trivial on the constant lift (`U_t U_sᴴ = 1`).

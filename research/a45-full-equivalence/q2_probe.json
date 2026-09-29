@@ -1,0 +1,75 @@
+{
+ "S1_monomial_preserves_R0": [
+  {
+   "all_equal": true,
+   "kind": "perm x diag",
+   "monomial": true
+  },
+  {
+   "all_equal": true,
+   "kind": "perm x diag",
+   "monomial": true
+  },
+  {
+   "all_equal": true,
+   "kind": "perm x diag",
+   "monomial": true
+  },
+  {
+   "all_equal": true,
+   "kind": "scaled partial perm",
+   "monomial": true
+  },
+  {
+   "all_equal": true,
+   "kind": "scaled partial perm",
+   "monomial": true
+  },
+  {
+   "all_equal": true,
+   "kind": "scaled partial perm",
+   "monomial": true
+  }
+ ],
+ "S2_nonmonomial_separates": {
+  "F4(i) (x) I4": {
+   "n_pairs": 10,
+   "n_separated": 10,
+   "non_monomial": true,
+   "separated_pairs": [
+    "R0 SIG | R1 D1.SIG.D2",
+    "R0 SIG | R2 relabelled SIG",
+    "R0 SIG | R3 H3(1,v2,v3) Dita",
+    "R0 SIG | R4 SIG o v^E40 non-Dita",
+    "R1 D1.SIG.D2 | R2 relabelled SIG",
+    "R1 D1.SIG.D2 | R3 H3(1,v2,v3) Dita",
+    "R1 D1.SIG.D2 | R4 SIG o v^E40 non-Dita",
+    "R2 relabelled SIG | R3 H3(1,v2,v3) Dita",
+    "R2 relabelled SIG | R4 SIG o v^E40 non-Dita",
+    "R3 H3(1,v2,v3) Dita | R4 SIG o v^E40 non-Dita"
+   ]
+  },
+  "SIG^H": {
+   "n_pairs": 10,
+   "n_separated": 10,
+   "non_monomial": true,
+   "separated_pairs": [
+    "R0 SIG | R1 D1.SIG.D2",
+    "R0 SIG | R2 relabelled SIG",
+    "R0 SIG | R3 H3(1,v2,v3) Dita",
+    "R0 SIG | R4 SIG o v^E40 non-Dita",
+    "R1 D1.SIG.D2 | R2 relabelled SIG",
+    "R1 D1.SIG.D2 | R3 H3(1,v2,v3) Dita",
+    "R1 D1.SIG.D2 | R4 SIG o v^E40 non-Dita",
+    "R2 relabelled SIG | R3 H3(1,v2,v3) Dita",
+    "R2 relabelled SIG | R4 SIG o v^E40 non-Dita",
+    "R3 H3(1,v2,v3) Dita | R4 SIG o v^E40 non-Dita"
+   ]
+  }
+ },
+ "S3": {
+  "left_diagonal_separated": true,
+  "right_diagonal_invisible_under_left_interventions": true
+ },
+ "S4_qfb_under_monomial": true
+}
