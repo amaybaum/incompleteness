@@ -3944,26 +3944,46 @@ identity-summing family with the prescribed diagonal is realized. So
 what the visible law leaves free at one time is exactly the off-diagonal
 fibre-Gram data modulo phases, and that freedom is neither empty nor
 inert: on a single visible law two lifts can lie in different two-sided
-classes and differ in their relating evolution. Across time the question
-is two-part, and both parts are open: what selects or constrains the
-trajectory of fibre-Gram data through time, and what fixes the relating
-evolution within a given trajectory --- the second not fixed even by the
-complete trajectory, since a time-dependent invisible right deformation
-preserves every fibre-Gram matrix at every time and changes the relating
-evolution. The fibre-Gram data is a coordinate on the space of lifts,
-not a physical quantity, and nothing here says what selects it. None of
-this alters \(S \iff D \iff Q_{\mathrm{fb}}\) as the exact finite
-observable-law correspondence, and none of it makes embedded observation
-and quantum mechanics inequivalent: the statement is that the visible
-law does not by itself fix the relating evolution. \textbf{This is an
-open frontier of the correspondence, not a local technical caveat.}
-Three statuses should be kept apart: finite observable-law
-representability is \emph{established}; exact finite operational quantum
-mechanics is \emph{characterized conditionally}, under the explicit
-completion principles of {[}GR §3.3{]}, none of which bare embedded
-observation supplies; and selection of a unique relating evolution from
-the coherent lifts of one visible family is \emph{open}. This paper
-neither closes the third nor claims it cannot be closed.
+classes and differ in their relating evolution. At one time that residue
+is not seen by the fixed-basis layer. Take a lift with trivial ancilla
+at one time and form the fixed-basis datum whose evolution is the lift's
+unitary, with uniform initial law and identity readout: its
+finite-horizon trajectory laws are determined by the visible law alone,
+and remain so after the unitary is composed on either side with
+contractively scaled partial permutations; two such data have equal
+trajectory laws exactly when their visible laws are equal; and each such
+law is fixed-basis realizable and stochastic, hence inside
+\(S \iff D \iff Q_{\mathrm{fb}}\) (kernel: \texttt{bridge\_traj},
+\texttt{rooted\_eq\_iff\_slice\_eq},
+\texttt{realData\_traj\_stochastic}). The fixed-basis correspondence
+therefore acts on the quotient by visible equality, and two lifts of one
+visible law in different two-sided classes are not separated by it. The
+trivial ancilla is part of the statement: an ancilla attached as a
+tensor factor with its own unitary leaves the rooted family unchanged
+(kernel: \texttt{padData\_rooted}), whereas an ancilla carried between
+steps as hidden basis states, in a lift that is not a tensor product,
+can separate two lifts of one visible law that share every column
+entering the visible law, already in the two-step law (exact
+computation). Across time the question is two-part, and both parts are
+open: what selects or constrains the trajectory of fibre-Gram data
+through time, and what fixes the relating evolution within a given
+trajectory --- the second not fixed even by the complete trajectory,
+since a time-dependent invisible right deformation preserves every
+fibre-Gram matrix at every time and changes the relating evolution. The
+fibre-Gram data is a coordinate on the space of lifts, not a physical
+quantity, and nothing here says what selects it. None of this alters
+\(S \iff D \iff Q_{\mathrm{fb}}\) as the exact finite observable-law
+correspondence, and none of it makes embedded observation and quantum
+mechanics inequivalent: the statement is that the visible law does not
+by itself fix the relating evolution. \textbf{This is an open frontier
+of the correspondence, not a local technical caveat.} Three statuses
+should be kept apart: finite observable-law representability is
+\emph{established}; exact finite operational quantum mechanics is
+\emph{characterized conditionally}, under the explicit completion
+principles of {[}GR §3.3{]}, none of which bare embedded observation
+supplies; and selection of a unique relating evolution from the coherent
+lifts of one visible family is \emph{open}. This paper neither closes
+the third nor claims it cannot be closed.
 
 \textbf{Remark (scope of the equivalence).} The characterization theorem
 establishes the Hilbert space, unitary dynamics, and Born-rule
@@ -5097,4 +5117,4 @@ for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
 \end{document}
-% source-sha256: fab8f794ed55d66143c50f9461d11f1b4f5e53079ac13f4f0f7345bd94204991
+% source-sha256: 755795e1821c81d5b3a3071c82db8f4eeef6219e53a86d36bcf9091e7ec28ba5

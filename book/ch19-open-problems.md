@@ -282,7 +282,13 @@ one time the residue after both is classified exactly: two lifts are related by 
 exactly when their fibre-Gram data agree up to phases, the visible law is the diagonal of that data,
 and every positive semidefinite, rank-bounded, identity-summing family with the prescribed diagonal
 occurs. So the freedom the visible law leaves at one time is exactly the off-diagonal fibre-Gram
-data modulo phases.
+data modulo phases. At one time that freedom does not reach the fixed-basis layer. With a trivial
+ancilla, the fixed-basis datum built from a lift's unitary, with uniform initial law and identity
+readout, has finite-horizon trajectory laws fixed by the visible law alone, also after contractively
+scaled partial permutations on either side, and two such data have equal laws exactly when their
+visible laws are equal ([Main §3.4]). The trivial ancilla is part of the statement: an ancilla
+carried between steps as hidden basis states can separate two lifts of one visible law already in
+the two-step law, while an ancilla attached as a tensor factor with its own unitary cannot.
 
 **What is sharper, and what it does not settle.** A pair of lifts of one visible family outside the
 maximal uniform right class and differing in relating evolution exists; every such pair exhibited is
