@@ -97,7 +97,7 @@ theorem states_convex : Convex ℝ S.states :=
 theorem states_unit : ∀ v ∈ S.states, v S.unit = 1 := by
   have hconv : Convex ℝ {v : S.E → ℝ | v S.unit = 1} := by
     intro v hv w hw a b _ _ hab
-    simp only [Set.mem_setOf_eq, Pi.add_apply, Pi.smul_apply, smul_eq_mul] at hv hw ⊢
+    simp only [Set.mem_ofPred_eq, Pi.add_apply, Pi.smul_apply, smul_eq_mul] at hv hw ⊢
     rw [hv, hw]; linarith
   have hsub : Set.range S.vec ⊆ {v : S.E → ℝ | v S.unit = 1} := by
     rintro _ ⟨x, rfl⟩
@@ -162,9 +162,12 @@ theorem affine_reflect (e : V →ᵃ[ℝ] ℝ) (c x : V) :
 /-- The sublevel set of an affine functional is convex. -/
 theorem convex_affine_le (e : V →ᵃ[ℝ] ℝ) (m : ℝ) : Convex ℝ {y : V | e y ≤ m} := by
   intro x hx y hy a b ha hb hab
-  simp only [Set.mem_setOf_eq] at hx hy ⊢
+  simp only [Set.mem_ofPred_eq] at hx hy ⊢
   rw [affine_combo e x y a b hab]
-  nlinarith
+  have h1 : 0 ≤ a * (m - e x) := mul_nonneg ha (sub_nonneg.mpr hx)
+  have h2 : 0 ≤ b * (m - e y) := mul_nonneg hb (sub_nonneg.mpr hy)
+  have h3 : a * m + b * m = m := by rw [← add_mul, hab, one_mul]
+  nlinarith [h1, h2, h3]
 
 /-! ### §C — elementary drivability and copy naturality -/
 
@@ -310,7 +313,7 @@ theorem exists_vertex_of_certain {ι : Type} [Fintype ι] (v : ι → V) (e : V 
     (he : ∀ y ∈ convexHull ℝ (Set.range v), e y ≤ 1) (x : V)
     (hx : x ∈ convexHull ℝ (Set.range v)) (hone : e x = 1) : ∃ k, e (v k) = 1 := by
   by_contra hno
-  push_neg at hno
+  have hno' : ∀ k, e (v k) ≠ 1 := fun k hk => hno ⟨k, hk⟩
   have hne : (Finset.univ : Finset ι).Nonempty := by
     rcases isEmpty_or_nonempty ι with h | h
     · exfalso
@@ -322,12 +325,12 @@ theorem exists_vertex_of_certain {ι : Type} [Fintype ι] (v : ι → V) (e : V 
   have hlt : m < 1 := by
     rw [hm, Finset.sup'_lt_iff]
     intro k _
-    exact lt_of_le_of_ne (he (v k) (subset_convexHull ℝ _ ⟨k, rfl⟩)) (hno k)
+    exact lt_of_le_of_ne (he (v k) (subset_convexHull ℝ _ ⟨k, rfl⟩)) (hno' k)
   have hsub : Set.range v ⊆ {y : V | e y ≤ m} := by
     rintro _ ⟨k, rfl⟩
     exact Finset.le_sup' (fun k => e (v k)) (Finset.mem_univ k)
   have := convexHull_min hsub (convex_affine_le e m) hx
-  simp only [Set.mem_setOf_eq] at this
+  simp only [Set.mem_ofPred_eq] at this
   linarith
 
 /-- **The finite-exposure bound, pointwise.** A point of a finite stage's body exposed by an
@@ -423,8 +426,8 @@ theorem exists_zero_of_classicallyExposed {Ω : Set (Fin N → ℝ)} (hΩ : Ω �
   obtain ⟨c, hc, hface⟩ := hx
   have hxΩ : x ∈ {p ∈ Ω | ∑ i, c i * p i = 1} := by rw [hface]; exact Set.mem_singleton x
   by_contra hno
-  push_neg at hno
-  have hpos : ∀ i, 0 < x i := fun i => lt_of_le_of_ne ((hΩ hxΩ.1).1 i) (Ne.symm (hno i))
+  have hno' : ∀ i, x i ≠ 0 := fun i hi => hno ⟨i, hi⟩
+  have hpos : ∀ i, 0 < x i := fun i => lt_of_le_of_ne ((hΩ hxΩ.1).1 i) (Ne.symm (hno' i))
   have hc1 : ∀ i, c i = 1 := fun i => response_eq_one_forces hΩ hc hxΩ.1 hxΩ.2 i (hpos i)
   apply hnt
   intro p hp q hq
@@ -458,13 +461,12 @@ theorem classical_exposed_ncard_le {Ω : Set (Fin N → ℝ)} (hΩ : Ω ⊆ simp
         _ ≤ N := hN
   · obtain ⟨p, hp, q, hq, hpq⟩ : ∃ p ∈ Ω, ∃ q ∈ Ω, p ≠ q := by
       by_contra h
-      push_neg at h
-      exact hnt (fun p hp q hq => h p hp q hq)
+      exact hnt (fun p hp q hq => Classical.byContradiction (fun hne => h ⟨p, hp, q, hq, hne⟩))
     have hN : N ≠ 0 := by
       rintro rfl
       have := (hΩ hp).2
       simp at this
-    haveI : NeZero N := ⟨hN⟩
+    have : NeZero N := ⟨hN⟩
     classical
     let f : (Fin N → ℝ) → Fin N := fun x =>
       if h : ∃ i, x i = 0 then Classical.choose h else 0
@@ -485,6 +487,7 @@ end Classical
 /-! ### §F — the qubit certain face, a theorem of the imported matrix kinematics -/
 
 open Matrix in
+open scoped ComplexOrder in
 /-- For the qubit kinematics, a density matrix certain for the effect `ρ ↦ ρ 0 0` is `|0⟩⟨0|`:
 the certain face of that effect is a single point. This is a statement about complex `2 × 2`
 matrices, imported kinematics and not a field-neutral result. -/
