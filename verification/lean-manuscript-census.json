@@ -1300,6 +1300,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Round NB-1, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/reconstruction/round-nb-1-native-gate-ball/preregistration.md. The kernel layer of the finite native-gate ball theorem: the steps whose reasoning does not depend on d, averaging_bound and vanish_of_bound (S3), lorentz_of_effects, blocks_vanish and p_le_one (S4), parity (S5), isometry_of_contractions (the last step of S1) and dim_of_bounds. The controlled form, the block structure and the S4 value identity are proved by hand for every d, and checked in exact arithmetic by native_gate_ball_probe.py (S1 and S2 for d = 2..7, the value identity for d = 5, 7); they are not kernel statements, and the theorem for general d is not a kernel theorem. Carried by no manuscript. Its reading for OI is conditional on identical-copy covariance of the local NOT, which the corpus does not derive."
+    },
+    {
+      "name": "the field-neutral vocabulary of the pre-quantum operational completion and its elementary lemmas: finite stages, effects, supporting-effect completeness, singleton faces, elementary drivability, copy naturality, Lemmas B, C and D, the finite-exposure bounds, the qubit certain face, and hypothesis K-infinity-1 as a definition (round KINF-1, reconstruction)",
+      "modules": [
+        "KInfFoundations"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Round KINF-1, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/reconstruction/round-kinf-1-foundations/preregistration.md. Definitions over a real normed space, with no field, matrix carrier or substratum object: FiniteStage with its state body, IsEffectOn, certainFace, SupportingEffectComplete, SingletonFaces, fullEffects, PerfectlyDistinguishable, CentrallySymmetric, ElementaryDrivability, CopyNatural, and KInf1, the statement of hypothesis K-infinity-1, proved for nothing. Theorems: states_isCompact and states_unit; Lemma C strictConvex_of_supporting_singleton; Lemma D card_le_two_of_centrallySymmetric; Lemma B eq_closedBall_of_frontier_subset_sphere; the finite-preparation bound exposed_ncard_le; Theorem F2 classical_exposed_ncard_le; qubit_certain_face, a theorem of the imported qubit matrix kinematics; verdict kinf1_kernel_core. The module sources none of its premises from any OI construction and contains no reconstruction theorem. The SIC, Caratheodory, torus, Stiefel and 3-ball instances are the round's probe kinf_foundations_probe.py, exact arithmetic and not the kernel. Carried by no manuscript."
     }
   ]
 }
