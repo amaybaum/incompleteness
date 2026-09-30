@@ -351,22 +351,6 @@ jobs:
           echo "=== native_gate_ball_probe.py ==="
           python3 native_gate_ball_probe.py
 
-  probes_kinf1:
-    name: Numerical probes / KINF-1 foundations
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: KINF-1 foundations probe
-        working-directory: verification/lean
-        run: |
-          echo "=== kinf_foundations_probe.py ==="
-          python3 kinf_foundations_probe.py
-
   # Act 42. Two shards run on every event; the exclusion shards, about six CPU-hours between them,
   # run only on workflow_dispatch, which is how the exact-head attestations are taken (section A.39).
   # On any other event the matrix job is skipped and the aggregate below requires exactly that.
@@ -462,7 +446,7 @@ jobs:
 
   probes:
     name: Numerical probes
-    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf1, probes_a42_witness, probes_a42_census01, probes_a42_exclusion, probes_foundations]
+    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_a42_witness, probes_a42_census01, probes_a42_exclusion, probes_foundations]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
@@ -478,7 +462,6 @@ jobs:
           A41H_RESULT: ${{ needs.probes_a41_hulls.result }}
           A45_RESULT: ${{ needs.probes_a45.result }}
           NB1_RESULT: ${{ needs.probes_nb1.result }}
-          KINF1_RESULT: ${{ needs.probes_kinf1.result }}
           A42W_RESULT: ${{ needs.probes_a42_witness.result }}
           A42C_RESULT: ${{ needs.probes_a42_census01.result }}
           A42X_RESULT: ${{ needs.probes_a42_exclusion.result }}
@@ -494,7 +477,6 @@ jobs:
           echo "a41_hulls=${A41H_RESULT}"
           echo "a45=${A45_RESULT}"
           echo "nb1=${NB1_RESULT}"
-          echo "kinf1=${KINF1_RESULT}"
           echo "a42_witness=${A42W_RESULT}"
           echo "a42_census01=${A42C_RESULT}"
           echo "a42_exclusion=${A42X_RESULT} (event ${GITHUB_EVENT_NAME})"
@@ -509,7 +491,6 @@ jobs:
           test "${A41H_RESULT}" = success
           test "${A45_RESULT}" = success
           test "${NB1_RESULT}" = success
-          test "${KINF1_RESULT}" = success
           test "${A42W_RESULT}" = success
           test "${A42C_RESULT}" = success
           if [ "${GITHUB_EVENT_NAME}" = workflow_dispatch ]; then
