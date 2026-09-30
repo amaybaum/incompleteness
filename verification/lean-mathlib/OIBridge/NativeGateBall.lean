@@ -249,6 +249,31 @@ theorem dim_of_bounds (p q d : ℕ) (hp : p ≤ 1) (hpq : p = q) (hd : p + q + 1
     d = 1 ∨ d = 3 := by
   omega
 
+/-! ### The verdict -/
+
+/-- The kernel layer's verdict: `p_le_one`, `parity` and `dim_of_bounds` together. -/
+theorem nb1_kernel_core :
+    (∀ (p m : ℕ) (A : Fin p → Matrix (Fin m) (Fin m) ℝ)
+      (B : Fin p → Fin p → Matrix (Fin m) (Fin m) ℝ),
+      (∀ r s, B r s = - B s r) →
+      (∀ k l : Fin m, ∀ i : Fin p, ∀ s : ℝ, (s = 1 ∨ s = -1) →
+        ∀ b : Fin p → ℝ, (∑ j, b j ^ 2) = 1 →
+          0 ≤ (1 + s * A i k l)
+            + ∑ j, b j * (A j k l + s * ((if j = i then (1:ℝ) else 0) + B j i k l))) →
+      (∃ r k l, A r k l ≠ 0) → p ≤ 1) ∧
+    (∀ (V : Type) [AddCommGroup V] [Module ℝ V] [FiniteDimensional ℝ V] (P L : V →ₗ[ℝ] V),
+      Function.Injective L → (∀ v, L (P v) = - P (L v)) →
+      Module.finrank ℝ (LinearMap.ker (P - LinearMap.id))
+        = Module.finrank ℝ (LinearMap.ker (P + LinearMap.id))) ∧
+    (∀ p q d : ℕ, p ≤ 1 → p = q → p + q + 1 = d → d = 1 ∨ d = 3) := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro p m A B hB hpos hne
+    exact p_le_one p m A B hB hpos hne
+  · intro V _ _ _ P L hL hanti
+    exact parity P L hL hanti
+  · intro p q d hp hpq hd
+    exact dim_of_bounds p q d hp hpq hd
+
 end NativeGateBall
 end OIBridge
 
@@ -261,3 +286,4 @@ end OIBridge
 #print axioms OIBridge.NativeGateBall.parity
 #print axioms OIBridge.NativeGateBall.isometry_of_contractions
 #print axioms OIBridge.NativeGateBall.dim_of_bounds
+#print axioms OIBridge.NativeGateBall.nb1_kernel_core
