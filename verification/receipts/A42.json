@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A42",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "0e87c4a129d91276c10f0438d03c1bcca3a0a3b8",
+ "f": "42845052f7ecf62ceb2a9787b9b3eb9c0bb4411a",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-42-support-minimality/preregistration.md",
+   "blob": "9bb9856b67488b1dab121b133cd53373611a81a2"
+  }
+ ],
+ "governed_paths_digest": "05014f7114eae2d1def6f1980d015554ccad1d89af5984be379d65f3d055664b",
+ "e": "e27a858f9015e93631b592145336689d889c8fc6",
+ "tree_e": "61d48f1ca040a39ad1c6eb29bbeafdd7ed13241d",
+ "execution_delta_digest": "7727ae6d7c4f17c458b53d6a33253c28e9a482efbe342727826a75d174924d9b",
+ "candidates": [],
+ "landing": {
+  "base": "0e87c4a129d91276c10f0438d03c1bcca3a0a3b8",
+  "object": "571f64b323bf0787409d1a1b4bfea64991c8db6d",
+  "reconciliations": [
+   "571f64b323bf0787409d1a1b4bfea64991c8db6d"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "8c004e50892dc21ba597831f945168d921b41bc74dce0af52f578c105cfb31c0"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "42845052f7ecf62ceb2a9787b9b3eb9c0bb4411a",
+   "record": "https://github.com/amaybaum/incompleteness/pull/771#issuecomment-5903383814"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "42845052f7ecf62ceb2a9787b9b3eb9c0bb4411a",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36662954968"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "e27a858f9015e93631b592145336689d889c8fc6",
+   "record": "https://github.com/amaybaum/incompleteness/pull/771#issuecomment-5904117905"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "e27a858f9015e93631b592145336689d889c8fc6",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36666970373"
+  }
+ ]
+}

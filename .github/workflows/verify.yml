@@ -335,6 +335,68 @@ jobs:
           echo "=== fixed_basis_ancilla_probe.py ==="
           python3 fixed_basis_ancilla_probe.py
 
+  # Act 42. Two shards run on every event; the exclusion shards, about six CPU-hours between them,
+  # run only on workflow_dispatch, which is how the exact-head attestations are taken (section A.39).
+  # On any other event the matrix job is skipped and the aggregate below requires exactly that.
+  probes_a42_witness:
+    name: Numerical probes / A42 witness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy==2.4.6 python-sat==1.9.dev15
+
+      - name: A42 witness, class supports, controls, lemmas and case-split ingredients
+        working-directory: verification/lean
+        run: |
+          python3 dita_support_minimality_probe.py --part witness
+          python3 dita_support_minimality_probe.py --part wlog
+
+  probes_a42_census01:
+    name: Numerical probes / A42 census01
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy==2.4.6 python-sat==1.9.dev15
+
+      - name: A42 {0,1} census and the zero-row span lemma
+        working-directory: verification/lean
+        run: python3 dita_support_minimality_probe.py --part d01span
+
+  probes_a42_exclusion:
+    name: Numerical probes / A42 exclusion (${{ matrix.part }})
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        part: ['paths', 'r5', 'n18:0', 'n18:1', 'n18:2', 'dfs:0', 'dfs:1', 'dfs:2', 'dfs:3', 'dfs:4', 'dfs:5',
+               'sathr', 'cubes:0', 'cubes:1', 'cubes:2']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy==2.4.6 python-sat==1.9.dev15
+
+      - name: A42 exclusion shard
+        working-directory: verification/lean
+        run: python3 dita_support_minimality_probe.py --part '${{ matrix.part }}'
+
   probes_foundations:
     name: Numerical probes / foundations
     runs-on: ubuntu-latest
@@ -368,7 +430,7 @@ jobs:
 
   probes:
     name: Numerical probes
-    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_foundations]
+    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_a42_witness, probes_a42_census01, probes_a42_exclusion, probes_foundations]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
@@ -383,6 +445,9 @@ jobs:
           A41I_RESULT: ${{ needs.probes_a41_independent.result }}
           A41H_RESULT: ${{ needs.probes_a41_hulls.result }}
           A45_RESULT: ${{ needs.probes_a45.result }}
+          A42W_RESULT: ${{ needs.probes_a42_witness.result }}
+          A42C_RESULT: ${{ needs.probes_a42_census01.result }}
+          A42X_RESULT: ${{ needs.probes_a42_exclusion.result }}
           FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}
         run: |
           echo "core_a=${CORE_A_RESULT}"
@@ -394,6 +459,9 @@ jobs:
           echo "a41_independent=${A41I_RESULT}"
           echo "a41_hulls=${A41H_RESULT}"
           echo "a45=${A45_RESULT}"
+          echo "a42_witness=${A42W_RESULT}"
+          echo "a42_census01=${A42C_RESULT}"
+          echo "a42_exclusion=${A42X_RESULT} (event ${GITHUB_EVENT_NAME})"
           echo "foundations=${FOUNDATIONS_RESULT}"
           test "${CORE_A_RESULT}" = success
           test "${CORE_B_RESULT}" = success
@@ -404,4 +472,11 @@ jobs:
           test "${A41I_RESULT}" = success
           test "${A41H_RESULT}" = success
           test "${A45_RESULT}" = success
+          test "${A42W_RESULT}" = success
+          test "${A42C_RESULT}" = success
+          if [ "${GITHUB_EVENT_NAME}" = workflow_dispatch ]; then
+            test "${A42X_RESULT}" = success
+          else
+            test "${A42X_RESULT}" = skipped
+          fi
           test "${FOUNDATIONS_RESULT}" = success
