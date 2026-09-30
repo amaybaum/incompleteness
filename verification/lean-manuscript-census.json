@@ -1291,6 +1291,15 @@
         }
       ],
       "note": "Track B act 45, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md. For a trivial-ancilla admissible dilation, realData takes the unitary as the evolution of a QfbData with uniform initial law and identity readout. bridge and bridge_traj: two dilations of one visible slice give equal Born weights, rooted families and root-conditioned trajectory laws after any permClass interventions on either side; rooted_eq_iff_slice_eq: equal rooted families exactly when the slices are equal (forward slice_eq_of_rooted_eq, backward visible_congr); realData_traj_stochastic: each trajectory law is QfbRealizable and Stochastic through the landed qfbRealizable_rootTraj and Qfb_imp_S. Flat 16 x 16 instance: UH_unitary, UH_born_eq_slice, UH_admissible, flat_bridge. Verdict a45_bridge_kernel. The carried- and tensor-factor-ancilla computations are the round's probe fixed_basis_ancilla_probe.py, not the kernel."
+    },
+    {
+      "name": "the dimension-free core of the finite native-gate ball no-go: the averaging bound, the Lorentz test, the vanishing of the E+ block for p >= 2, parity, and the count d in {1, 3} (round NB-1, reconstruction)",
+      "modules": [
+        "NativeGateBall"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Round NB-1, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/reconstruction/round-nb-1-native-gate-ball/preregistration.md. The kernel layer of the finite native-gate ball theorem: the steps whose reasoning does not depend on d, averaging_bound and vanish_of_bound (S3), lorentz_of_effects, blocks_vanish and p_le_one (S4), parity (S5), isometry_of_contractions (the last step of S1) and dim_of_bounds. The controlled form, the block structure and the S4 value identity are proved by hand for every d, and checked in exact arithmetic by native_gate_ball_probe.py (S1 and S2 for d = 2..7, the value identity for d = 5, 7); they are not kernel statements, and the theorem for general d is not a kernel theorem. Carried by no manuscript. Its reading for OI is conditional on identical-copy covariance of the local NOT, which the corpus does not derive."
     }
   ]
 }

@@ -242,6 +242,7 @@ import OIBridge.OperationalSourcing
 import OIBridge.PhysicalC4Discharge
 import OIBridge.PhysicalC4StorageReadback
 import OIBridge.HydroClosureBridge
+import OIBridge.NativeGateBall
 
 namespace OIBridge
 
