@@ -219,40 +219,71 @@ def part_r5():
 
 def part_n18(k):
     sys.path.insert(0, TOOLS)
-    from fractions import Fraction as Fr
+    from math import gcd
     import lib42 as L
     import triples as T
 
+    # Exact rank over Q by fraction-free elimination on Python integers. Every coefficient enters through int():
+    # lib42's matrices are numpy int64, and int64 arithmetic wraps modulo 2**64, which can silently drop a rank.
+    class Echelon:
+        def __init__(self):
+            self.rows = []                  # (pivot column, primitive row); each row is zero at every earlier pivot
+
+        def reduce(self, v):
+            for c, r in self.rows:
+                if v[c]:
+                    a, b = r[c], v[c]
+                    v = [a * x - b * y for x, y in zip(v, r)]
+                    g = 0
+                    for x in v: g = gcd(g, x)
+                    if g > 1: v = [x // g for x in v]
+            return v
+
+        def add(self, v):
+            v = self.reduce(v)
+            if any(v):
+                self.rows.append((next(i for i, x in enumerate(v) if x), v))
+                return True
+            return False
+
+    def as_int(rows):
+        return [[int(x) for x in r] for r in rows]
+
     def rank(rows):
-        M = [[Fr(x) for x in r] for r in rows if any(r)]; r = 0; ncol = len(M[0]) if M else 0
-        for c in range(ncol):
-            p = next((i for i in range(r, len(M)) if M[i][c] != 0), None)
-            if p is None: continue
-            M[r], M[p] = M[p], M[r]; pv = M[r][c]
-            for i in range(len(M)):
-                if i != r and M[i][c] != 0:
-                    f = M[i][c] / pv; M[i] = [a - f * b for a, b in zip(M[i], M[r])]
-            r += 1
-        return r
+        E = Echelon()
+        return sum(E.add(r) for r in as_int(rows) if any(r))
 
     def vec(eq):
         v = [0] * 256
         for kk, (i, j) in eq: v[i * 16 + j] += kk
         return v
+
+    def canon(groups):
+        return tuple(sorted(tuple(sorted(g)) for g in groups))
+
     CEN = T.census()
+    index = {}                              # the census by (form, shape, blocks, classes), each up to order
+    for key, ths in CEN.items():
+        form, mn2, blocks, classes = key
+        index.setdefault((form, mn2, canon(blocks), canon(classes)), []).append((key, ths))
+    eqs = {}                                # the identity vectors of each (triple, alignment), computed once
     mine = L.STRUCTS[k::3]
     check('n18:%d covers %d of the 18 subspaces' % (k, len(mine)), len(L.STRUCTS) == 18 and len(mine) == 6)
     for nm, tr, s in mine:
         mn, cp, rows = s
-        old = [list(r) for r in L.SMAT[(nm, tr, True)]]
-        ro = rank(old); matches = []
-        for key, ths in CEN.items():
-            form, mn2, blocks, classes = key
-            if form != ('row' if tr else 'column') or mn2 != mn: continue
-            if sorted(map(sorted, blocks)) != sorted(map(sorted, cp)) or sorted(map(sorted, classes)) != sorted(map(sorted, rows)): continue
+        old = as_int(L.SMAT[(nm, tr, True)])
+        EO = Echelon()
+        ro = sum(EO.add(r) for r in old if any(r))
+        matches = []
+        for key, ths in index.get(('row' if tr else 'column', mn, canon(cp), canon(rows)), []):
             for th in ths:
-                new = [vec(e) for e in T.identity_eqs(key, th)]
-                if rank(new) == ro and rank(old + new) == ro: matches.append(th)
+                mk = (key, tuple(map(tuple, th)))
+                if mk not in eqs:
+                    eqs[mk] = [vec(e) for e in T.identity_eqs(key, th)]
+                new = eqs[mk]
+                # rank(new) = ro and rank(old + new) = ro, i.e. every row of new lies in the span of old and the
+                # two spans have the same dimension
+                if all(not any(EO.reduce(v)) for v in new if any(v)) and rank(new) == ro: matches.append(th)
         sorted_th = tuple(tuple([sorted(cl)[a] for cl in sorted(map(tuple, map(sorted, rows)))]) for a in range(mn[0]))
         at_sorted = any(sorted(map(tuple, th)) == sorted(sorted_th) for th in matches)
         check('N18 %s %s: rank %d, equal to exactly one realizing triple, at its sorted alignment'
