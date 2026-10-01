@@ -540,6 +540,7 @@ def self_test():
     write(WORKFLOW, SYN_WORKFLOW)
     write(TOOL, open(os.path.abspath(__file__)).read())
     write('papers/Other.md', 'unrelated\n')
+    write('.gitignore', '__pycache__/\n')
     c0 = commit('source')
     env = {'python': '3.11.16', 'implementation': 'cpython', 'machine': 'x86_64', 'system': 'Linux',
            'image_os': 'ubuntu24', 'distributions': ['numpy==2.4.6', 'python-sat==1.9.dev15']}
