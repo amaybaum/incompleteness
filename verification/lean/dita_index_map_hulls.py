@@ -495,8 +495,40 @@ print('  (%.0fs)' % (time.time() - t0))
 
 print('== A41-H2. distinct hulls, exactly: as matrix families and modulo the gauge ==')
 def a41_canon(rows_):
-    R_, P_ = rref([list(r) for r in rows_], 256)
-    return tuple(tuple(r) for r in R_ if any(r))
+    """the reduced row echelon form of the row space, each row scaled to a primitive integer vector with a positive
+    pivot: canonical for the row space. Computed by integer Gauss-Jordan elimination (cross-multiplication with gcd
+    normalization above and below each pivot), which shares no routine with H3's modular buckets or joint rank"""
+    M = []
+    for r_ in rows_:
+        if any(r_):
+            if any(type(x) is not int for x in r_): raise TypeError('a41_canon takes integer rows')
+            M.append(list(r_))
+    piv_cols = []; nr = 0
+    for c in range(256):
+        p_ = next((i for i in range(nr, len(M)) if M[i][c]), None)
+        if p_ is None: continue
+        M[nr], M[p_] = M[p_], M[nr]
+        pr = M[nr]; a_ = pr[c]
+        for i in range(len(M)):
+            if i != nr and M[i][c]:
+                b_ = M[i][c]
+                row_ = [a_ * x - b_ * y for x, y in zip(M[i], pr)]
+                g_ = 0
+                for x in row_:
+                    if x: g_ = gcd(g_, x)
+                if g_ > 1: row_ = [x // g_ for x in row_]
+                M[i] = row_
+        piv_cols.append(c); nr += 1
+        if nr == len(M): break
+    out = []
+    for row_, c in zip(M[:nr], piv_cols):
+        g_ = 0
+        for x in row_:
+            if x: g_ = gcd(g_, x)
+        row_ = [x // g_ for x in row_]
+        if row_[c] < 0: row_ = [-x for x in row_]
+        out.append(tuple(row_))
+    return tuple(out)
 a41_reps = list(a41_gensets.values())
 a41_kmat = [a41_canon(v) for v, s in a41_reps]
 a41_kcls = [a41_canon(GAUGE + v) for v, s in a41_reps]
