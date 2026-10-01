@@ -1,0 +1,53 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "KINF-1",
+ "status": "halted",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "98f5f08bad2d02aba00b9cfce51538c5e890cc18",
+ "f": "0f6092505e3071f4f903042d2bb20f67f659aaaf",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-kinf-1-foundations/preregistration.md",
+   "blob": "5630f1f595679673784b1d433dbf59e33d9b0140"
+  }
+ ],
+ "governed_paths_digest": "bd0c948fdb3114996aaf82ab47fed3a117198952d69779c5b38fcfdc2e847e42",
+ "withdrawal": "3907a20fba04be461644c7c5b22ccaf18b53303e",
+ "candidates": [
+  {
+   "commit": "c6081c10cbec9dad69208e32dee86c005c1cc0dd",
+   "tree": "825ebfe7559aa27704c363d03453f1405350d2cb",
+   "measured": "workflow_dispatch run 36777659398 at this commit: all 32 jobs success, none cancelled (Mathlib bridge, Lean kernel check, the KINF-1 foundations probe shard and the aggregate Numerical probes job among them); not certified: the round halted under S12 on a semantic freeze failure in the frozen definitions, found in owner review after F and before stage 2 (fullEffects contains the unit effect, so SupportingEffectComplete is trivial and SingletonFaces impossible on any body with two states); stage 2 was never created"
+  }
+ ],
+ "landing": {
+  "base": "98f5f08bad2d02aba00b9cfce51538c5e890cc18",
+  "object": "5c58844e2c4219f29f4e553a69dd6aa84a31fed3",
+  "reconciliations": [
+   "5c58844e2c4219f29f4e553a69dd6aa84a31fed3"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "969acd39f5107d8338eacbe1efb66e3443532da05c9dc63d89e1ad734bd70adc"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "0f6092505e3071f4f903042d2bb20f67f659aaaf",
+   "record": "https://github.com/amaybaum/incompleteness/pull/773#issuecomment-5919730077"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "0f6092505e3071f4f903042d2bb20f67f659aaaf",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36772881017"
+  }
+ ],
+ "absent": {
+  "e": "halted-before-certification",
+  "tree_e": "halted-before-certification",
+  "execution_delta_digest": "halted-before-certification"
+ }
+}
