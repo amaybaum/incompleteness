@@ -379,7 +379,7 @@ theorem singletonFaces_closedBall [StrictConvexSpace ℝ V] (x : V) (r : ℝ)
     (relStrictConvex_of_strictConvex (strictConvex_closedBall ℝ x r))
 
 /-- The affine functional `t ↦ a + b t` on `ℝ`. -/
-def affR (a b : ℝ) : ℝ →ᵃ[ℝ] ℝ :=
+noncomputable def affR (a b : ℝ) : ℝ →ᵃ[ℝ] ℝ :=
   AffineMap.const ℝ ℝ a + (b • LinearMap.id : ℝ →ₗ[ℝ] ℝ).toAffineMap
 
 theorem affR_apply (a b t : ℝ) : affR a b t = a + b * t := by
@@ -404,7 +404,7 @@ theorem not_supportingEffectComplete_unit :
 /-- **Positive control for (SEC).** With its full effects, the segment `[-1, 1]` has
 supporting-effect completeness. -/
 theorem supportingEffectComplete_Icc :
-    SupportingEffectComplete (Set.Icc (-1 : ℝ) 1) (fullEffects _) := by
+    SupportingEffectComplete (Set.Icc (-1 : ℝ) 1) (fullEffects (Set.Icc (-1 : ℝ) 1)) := by
   rintro x ⟨⟨hx1, hx2⟩, y, ⟨hy1, hy2⟩, hout⟩
   rcases eq_or_lt_of_le hx2 with h1 | h1
   · refine ⟨affR (1 / 2) (1 / 2), ?_, ⟨-1, ⟨le_rfl, by norm_num⟩, ?_⟩, ?_⟩
@@ -429,7 +429,7 @@ theorem supportingEffectComplete_Icc :
   constructor <;> nlinarith
 
 /-- The effect `v ↦ (1 + v 0)/2` on the plane. -/
-def squareEdgeEffect : (Fin 2 → ℝ) →ᵃ[ℝ] ℝ :=
+noncomputable def squareEdgeEffect : (Fin 2 → ℝ) →ᵃ[ℝ] ℝ :=
   AffineMap.const ℝ (Fin 2 → ℝ) (1 / 2 : ℝ) +
     ((1 / 2 : ℝ) • (LinearMap.proj 0 : (Fin 2 → ℝ) →ₗ[ℝ] ℝ)).toAffineMap
 
@@ -741,7 +741,7 @@ theorem kinf2_kernel_core :
     (∀ (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) (u : V →ᵃ[ℝ] ℝ), ¬ IsProperOn Ω u →
       (SupportingEffectComplete Ω (insert u avail) ↔ SupportingEffectComplete Ω avail) ∧
       (SingletonFaces Ω (insert u avail) ↔ SingletonFaces Ω avail)) ∧
-    SupportingEffectComplete (Set.Icc (-1 : ℝ) 1) (fullEffects _) ∧
+    SupportingEffectComplete (Set.Icc (-1 : ℝ) 1) (fullEffects (Set.Icc (-1 : ℝ) 1)) ∧
     ¬ SupportingEffectComplete (Set.Icc (-1 : ℝ) 1) {AffineMap.const ℝ ℝ (1 : ℝ)} ∧
     ¬ SingletonFaces (Metric.closedBall (0 : Fin 2 → ℝ) 1)
       (fullEffects (Metric.closedBall (0 : Fin 2 → ℝ) 1)) ∧
@@ -774,10 +774,10 @@ theorem kinf2_kernel_core :
 end KInfFoundations
 end OIBridge
 
-#print axioms OIBridge.KInfFoundations.states_isCompact
-#print axioms OIBridge.KInfFoundations.states_isClosed
-#print axioms OIBridge.KInfFoundations.states_convex
-#print axioms OIBridge.KInfFoundations.states_unit
+#print axioms OIBridge.KInfFoundations.FiniteStage.states_isCompact
+#print axioms OIBridge.KInfFoundations.FiniteStage.states_isClosed
+#print axioms OIBridge.KInfFoundations.FiniteStage.states_convex
+#print axioms OIBridge.KInfFoundations.FiniteStage.states_unit
 #print axioms OIBridge.KInfFoundations.affine_combo
 #print axioms OIBridge.KInfFoundations.affine_reflect
 #print axioms OIBridge.KInfFoundations.convex_affine_le
