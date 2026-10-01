@@ -824,7 +824,18 @@ job by job, what finished and how.
 | --- | --- | --- | --- |
 | 36832326177 | `70d14ad9` on `claude/kinf2-dev` | the first draft of the corrected module; a placeholder census family | **overall conclusion `failure`**. `Mathlib bridge` (job 110271549259) failed at `Build`: `fullEffects _` left a placeholder the elaborator could not fill, at two sites; `squareEdgeEffect` and `affR` lacked `noncomputable`; four `#print axioms` lines lacked the `FiniteStage.` prefix. Every other theorem reported axioms within `[propext, Classical.choice, Quot.sound]`. Failed design run; the next head is its repair |
 | 36832691716 | `293e12c3` on `claude/kinf2-dev` | the repaired draft | **overall conclusion `failure`**. `Mathlib bridge` (job 110272707373) failed at `Build` in one proof, `supportingEffectComplete_Icc`, whose anonymous constructor omitted the membership component, so it and the verdict reported `sorryAx`; every other theorem reported axioms within `[propext, Classical.choice, Quot.sound]`. Failed design run; the next head is its repair, with the drivability and K∞-1 controls added |
-| (iteration 3 row pending) | | | |
+| 36834204549 | `110e4437` on `claude/kinf2-dev` | the repaired draft with the drivability and K∞-1 controls, sixty-six theorems | **overall conclusion `success`**, all 31 jobs. `Mathlib bridge` (job 110277576191) built the module, every axiom line within `[propext, Classical.choice, Quot.sound]`; the release gate passed all 21 steps, `lean-axioms` at 5354 named results and no sorry. The probe and its shard were not yet on this head |
+| 36834982921 | `95036c66` on `claude/kinf2-dev` | the previous head with `not_relStrictConvex_square`, the probe, its shard with the pinned dependency, and the census family; the module differs from the reference implementation below in one docstring line only | **overall conclusion `success`**, all 32 jobs. `Mathlib bridge` (job 110280131988): release gate 21 of 21, `lean-axioms` at 5355 named results and no sorry, `lean-manuscript` green with the family; `Numerical probes / KINF-2 foundations` (job 110280132237) and the aggregate `Numerical probes` job (job 110297900726) succeeded |
+| 36835228403 | `45482916` on `claude/kinf2-predicted`, tree `93fb41b189bff5257e948946c78c76d03d8913a2` | **the predicted execution tree less the result note**, as two linear commits from `D` — the first `7364dac0`, `D` plus this file's draft `d898cfe9dad571e4d714e5105739f8e99d7d766e` alone — carrying the reference implementation `3b8290838f1ee7006996db53a2f1d1a228249a08`, the probe `3634e3d3b86405f90f7eecc7674d45442b235e7e`, `controls.py` `e0f6bb3c0106bef39697749fa3b5b4661b848b68`, `D`'s workflow, `OIBridge.lean` and census with the frozen edits | **overall conclusion `success`**, all 32 jobs. `Mathlib bridge` (job 110280927087) built the module, each of its sixty-seven axiom lines within `[propext, Classical.choice, Quot.sound]`; the release gate passed all 21 steps, `lean-manuscript` among them, `lean-axioms` at 5355 named results and no sorry, twenty-one receipts holding and the 303 legacy records intact; `Numerical probes / KINF-2 foundations` (job 110280927089) printed `kinf2_foundations_probe: OK -- 192 checks`; `Lean kernel check`, every probe shard, act 42's fifteen dispatch-only exclusion shards included, and the aggregate `Numerical probes` job (job 110300377541) succeeded. Design evidence, not an exact-head attestation |
+
+The run 36835228403 is evidence for the blobs it names and nothing else: it did not test this file's final text, which
+differs from the draft it carried in three places only: this section's last three rows, where the draft carried one
+placeholder row; the recorded output and mutation count of `controls.py --self-test`, which the draft left unfilled;
+and this paragraph. On that branch, with a temporary result note carrying the `KINF-2-FOUNDATIONS-PROVED` sentence,
+the clause, the probe's line and the reference blob, `controls.py check HEAD --freeze 7364dac0` printed
+`controls: check OK`, and the same check at the execution commit without the note failed with `note:absent`; the
+note was not kept. At the same tree, locally: `controls.py --self-test` OK, `legacy_records_check.py` 303 records
+intact, `v3_verifier.py --receipts` twenty-one receipts holding, and the census and placement checks green.
 
 ***
 
@@ -1023,14 +1034,17 @@ against.
 
 `controls.py --self-test` checks its constants against this file (the sentences, the clause, the header, every frozen
 declaration, the workflow job, the census family, both blobs and the probe's line); builds a synthetic execution for
-each of the two rows and requires both to hold; and applies N mutation controls, each of which must fail with
+each of the two rows and requires both to hold; and applies 49 mutation controls, each of which must fail with
 its named code. Among them, each of KINF-1's defects reintroduced into the corrected definitions — syntactic
 properness, the boundary read in `V`, (SEC) or (SF) without properness, drivability without the group law, with `J`
 mapping into the body only, or with the off-axis clause compared on `V`, and K∞-1 without compactness — fails with
 the code of the definition it changes. Run at `D` beside this file, it prints:
 
 ```text
-controls: (pending)
+controls: the frozen constants match the preregistration beside this file
+controls: 2 rows hold as frozen
+controls: 49 mutation controls fail as required
+controls: self-test OK
 ```
 
 ***
