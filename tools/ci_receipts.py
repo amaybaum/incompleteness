@@ -25,7 +25,7 @@ DECIDE_JOB, SHARD_JOB = 'a42_receipts', 'probes_a42_exclusion'
 PARTS = ('paths', 'r5', 'n18:0', 'n18:1', 'n18:2', 'dfs:0', 'dfs:1', 'dfs:2', 'dfs:3', 'dfs:4', 'dfs:5', 'sathr',
          'cubes:0', 'cubes:1', 'cubes:2')
 JOB_NAME = 'Numerical probes / A42 exclusion (%s)'
-CLOSURE_DIRS = ('verification/lean/a42/',)
+CLOSURE_DIRS = ('verification/lean/a42/',)   # its .py files are closure, every other file data
 CLOSURE = (TOOL, 'verification/lean/dita_arc_exclusivity_probe.py', 'verification/lean/dita_index_map_probe.py',
            'verification/lean/dita_index_map_independent.py')
 DATA = ('verification/programmes/oi-qm/track-b/act-41-index-map-semantics/measurements.json',)
@@ -100,13 +100,14 @@ def repo_manifest(rev, part, root=ROOT):
     wf = show(rev, WORKFLOW, root) or ''
     shard = job_fragment(wf, SHARD_JOB)
     closure = {p: blobs.get(p) for p in CLOSURE}
+    data = {p: blobs.get(p) for p in DATA}
     for p, b in blobs.items():
         if any(p.startswith(d) for d in CLOSURE_DIRS):
-            closure[p] = b
+            (closure if p.endswith('.py') else data)[p] = b
     return {
         'probe': {'path': PROBE, 'blob': blobs.get(PROBE), 'part': part},
         'closure': dict(sorted(closure.items())),
-        'data': {p: blobs.get(p) for p in sorted(DATA)},
+        'data': dict(sorted(data.items())),
         'pins': pins_of(shard),
         'workflow': {'header': workflow_header(wf), DECIDE_JOB: job_fragment(wf, DECIDE_JOB), SHARD_JOB: shard},
     }
@@ -632,6 +633,7 @@ def self_test():
     mutation('probe source', PROBE, SYN_PROBE + '# edit\n', 'probe')
     mutation('imported helper', 'verification/lean/a42/helper.py', 'VALUE = 1  # edit\n', 'closure')
     mutation('new helper', 'verification/lean/a42/helper2.py', 'X = 2\n', 'closure')
+    mutation('data file under a42/', 'verification/lean/a42/Rle13_39.txt', '1 2 3 4\n', 'data')
     mutation('dependency pin', WORKFLOW, SYN_WORKFLOW.replace('numpy==2.4.6', 'numpy==2.4.7'), 'pins, workflow')
     mutation('workflow config', WORKFLOW, SYN_WORKFLOW.replace("'3.11'", "'3.12'"), 'workflow')
     mutation('decision job', WORKFLOW, SYN_WORKFLOW.replace('ci_receipts.py decide', 'ci_receipts.py decide '),
