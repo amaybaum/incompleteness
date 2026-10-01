@@ -11,25 +11,32 @@
   The corrections to the vocabulary of round KINF-1, which halted:
     * an effect is *proper* on `Ω` when some state gives it a value below one, tested on `Ω`;
       supporting-effect completeness and singleton faces quantify over proper effects only, so the
-      unit effect may stay available and changes neither (§B, `…_insert_iff`);
+      unit effect may stay available and changes neither (§B′, `…_insert_iff`);
     * the boundary is read in `Ω` alone (`IsBoundaryState`), not in the topology of `V`, so a body
-      that is not full-dimensional in `V` is not excluded for a reason of dimension;
+      that is not full-dimensional in `V` is not excluded for a reason of dimension; an open body
+      has no boundary state, so K∞-1 is stated for compact convex bodies;
     * elementary drivability is a group flow of automorphisms of `Ω`, with `J` an automorphism of
       `Ω` and the off-axis clause compared on `Ω` (§C).
 
   Proved here.
     §A  the state body of a finite observer stage is compact and lies on the unit hyperplane;
     §B′ L1–L3: non-proper effects, and the boundary states certain effects pick out;
+    §C′ the semantic controls for drivability: the unit ball of `ℝ³` is drivable (rotations about
+        one axis, the half-turn, the cyclic permutation of the axes); the classical bit `[-1, 1]`
+        and a one-point body are not;
     §D  Lemma C, `relStrictConvex_of_supporting_singleton`, and its converse,
         `singletonFaces_of_relStrictConvex`: given (SEC), singleton faces are equivalent to
         relative strict convexity of the body, each direction proved separately;
         `relStrictConvex_of_strictConvex`; Lemma D;
-    §D′ the semantic controls: singleton faces hold on every closed ball of a strictly convex
-        space with any effect family, and fail on the sup-norm square with its full effects;
-        (SEC) holds on the segment `[-1, 1]` with its full effects and fails with the unit alone;
+    §D′ the semantic controls for (SF) and (SEC): singleton faces hold on every closed ball of a
+        strictly convex space with any effect family, and fail on the sup-norm square with its
+        full effects; (SEC) holds on the segment `[-1, 1]` with its full effects and fails with
+        the unit alone;
     §E  Lemma B and the finite-preparation bound; §E′ Theorem F2;
     §F  the qubit certain face, a theorem of the imported matrix kinematics;
-    §G  `KInf1`, hypothesis K∞-1, stated as a definition and proved for nothing.
+    §G  `KInf1`, hypothesis K∞-1, stated as a definition; it holds for the ball with its full
+        effects and fails for the ball with the unit effect alone, so it is a proposition about
+        the effect family. It is proved for no physical family.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
@@ -38,6 +45,7 @@ import Mathlib.Analysis.Convex.Strict
 import Mathlib.Analysis.Convex.StrictConvexSpace
 import Mathlib.Analysis.Convex.Topology
 import Mathlib.Analysis.Normed.Module.Basic
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Data.Set.Card
 import Mathlib.LinearAlgebra.Matrix.PosDef
 import Mathlib.LinearAlgebra.Matrix.Trace
@@ -297,6 +305,269 @@ theorem copyNatural_iff_apply (N_A N_B : V ≃ᵃ[ℝ] V) (e : V ≃ᵃ[ℝ] V) 
     exact this
 
 
+/-! ### §C′ — drivability holds on the ball and fails on the bit -/
+
+/-- The Euclidean unit ball of `ℝ³`, cut out by its quadratic form. -/
+def ball3 : Set (Fin 3 → ℝ) := {v | v 0 ^ 2 + v 1 ^ 2 + v 2 ^ 2 ≤ 1}
+
+theorem mem_ball3 (v : Fin 3 → ℝ) : v ∈ ball3 ↔ v 0 ^ 2 + v 1 ^ 2 + v 2 ^ 2 ≤ 1 := Iff.rfl
+
+theorem vec3_ext {v w : Fin 3 → ℝ} (h0 : v 0 = w 0) (h1 : v 1 = w 1) (h2 : v 2 = w 2) :
+    v = w := by
+  funext i
+  fin_cases i
+  exacts [h0, h1, h2]
+
+/-- The ball is convex. -/
+theorem ball3_convex : Convex ℝ ball3 := by
+  intro x hx y hy a b ha hb hab
+  rw [mem_ball3] at hx hy ⊢
+  simp only [Pi.add_apply, Pi.smul_apply, smul_eq_mul]
+  obtain rfl : b = 1 - a := by linarith
+  nlinarith [mul_nonneg (mul_nonneg ha hb) (sq_nonneg (x 0 - y 0)),
+    mul_nonneg (mul_nonneg ha hb) (sq_nonneg (x 1 - y 1)),
+    mul_nonneg (mul_nonneg ha hb) (sq_nonneg (x 2 - y 2)),
+    mul_le_mul_of_nonneg_left hx ha, mul_le_mul_of_nonneg_left hy hb]
+
+/-- The ball is compact. -/
+theorem ball3_isCompact : IsCompact ball3 := by
+  have hcl : IsClosed ball3 :=
+    isClosed_le (f := fun v : Fin 3 → ℝ => v 0 ^ 2 + v 1 ^ 2 + v 2 ^ 2) (g := fun _ => (1 : ℝ))
+      (by fun_prop) continuous_const
+  have hsub : ball3 ⊆ Metric.closedBall (0 : Fin 3 → ℝ) 1 := by
+    intro v hv
+    rw [mem_ball3] at hv
+    rw [Metric.mem_closedBall, dist_zero_right, pi_norm_le_iff_of_nonneg zero_le_one]
+    intro i
+    have h1 : v i ^ 2 ≤ ∑ j, v j ^ 2 :=
+      Finset.single_le_sum (f := fun j => v j ^ 2) (fun j _ => sq_nonneg (v j))
+        (Finset.mem_univ i)
+    simp only [Fin.sum_univ_three] at h1
+    rw [Real.norm_eq_abs, abs_le]
+    constructor <;> nlinarith
+  exact Metric.isCompact_of_isClosed_isBounded hcl (Metric.isBounded_closedBall.subset hsub)
+
+/-- The rotation of `ℝ³` by the angle `t` about the third axis. -/
+noncomputable def rotFun (t : ℝ) (v : Fin 3 → ℝ) : Fin 3 → ℝ :=
+  ![Real.cos t * v 0 - Real.sin t * v 1, Real.sin t * v 0 + Real.cos t * v 1, v 2]
+
+theorem rotFun_apply (t : ℝ) (v : Fin 3 → ℝ) :
+    rotFun t v 0 = Real.cos t * v 0 - Real.sin t * v 1 ∧
+      rotFun t v 1 = Real.sin t * v 0 + Real.cos t * v 1 ∧ rotFun t v 2 = v 2 :=
+  ⟨rfl, rfl, rfl⟩
+
+theorem rotFun_zero (v : Fin 3 → ℝ) : rotFun 0 v = v := by
+  obtain ⟨a0, a1, a2⟩ := rotFun_apply 0 v
+  apply vec3_ext
+  · rw [a0, Real.cos_zero, Real.sin_zero]; ring
+  · rw [a1, Real.cos_zero, Real.sin_zero]; ring
+  · exact a2
+
+theorem rotFun_add (s t : ℝ) (v : Fin 3 → ℝ) : rotFun s (rotFun t v) = rotFun (s + t) v := by
+  obtain ⟨a0, a1, a2⟩ := rotFun_apply s (rotFun t v)
+  obtain ⟨b0, b1, b2⟩ := rotFun_apply t v
+  obtain ⟨c0, c1, c2⟩ := rotFun_apply (s + t) v
+  apply vec3_ext
+  · rw [a0, b0, b1, c0, Real.cos_add, Real.sin_add]; ring
+  · rw [a1, b0, b1, c1, Real.cos_add, Real.sin_add]; ring
+  · rw [a2, b2, c2]
+
+/-- A rotation preserves the ball. -/
+theorem rotFun_mem_ball3 (t : ℝ) {v : Fin 3 → ℝ} (hv : v ∈ ball3) : rotFun t v ∈ ball3 := by
+  obtain ⟨a0, a1, a2⟩ := rotFun_apply t v
+  rw [mem_ball3, a0, a1, a2]
+  have key : (Real.cos t * v 0 - Real.sin t * v 1) ^ 2 +
+      (Real.sin t * v 0 + Real.cos t * v 1) ^ 2 + v 2 ^ 2 = v 0 ^ 2 + v 1 ^ 2 + v 2 ^ 2 := by
+    linear_combination (v 0 ^ 2 + v 1 ^ 2) * Real.sin_sq_add_cos_sq t
+  rw [key]
+  exact hv
+
+/-- The rotation by `t`, as a linear map. -/
+noncomputable def rotLin (t : ℝ) : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ) where
+  toFun := rotFun t
+  map_add' v w := by
+    obtain ⟨a0, a1, a2⟩ := rotFun_apply t (v + w)
+    obtain ⟨b0, b1, b2⟩ := rotFun_apply t v
+    obtain ⟨c0, c1, c2⟩ := rotFun_apply t w
+    apply vec3_ext <;> simp only [Pi.add_apply, a0, a1, a2, b0, b1, b2, c0, c1, c2] <;> ring
+  map_smul' r v := by
+    obtain ⟨a0, a1, a2⟩ := rotFun_apply t (r • v)
+    obtain ⟨b0, b1, b2⟩ := rotFun_apply t v
+    apply vec3_ext <;>
+      simp only [Pi.smul_apply, smul_eq_mul, RingHom.id_apply, a0, a1, a2, b0, b1, b2] <;> ring
+
+/-- The rotation by `t`, as a linear equivalence with inverse the rotation by `-t`. -/
+noncomputable def rotEquiv (t : ℝ) : (Fin 3 → ℝ) ≃ₗ[ℝ] (Fin 3 → ℝ) :=
+  { rotLin t with
+    invFun := rotFun (-t)
+    left_inv := fun v => by
+      show rotFun (-t) (rotFun t v) = v
+      rw [rotFun_add, neg_add_cancel, rotFun_zero]
+    right_inv := fun v => by
+      show rotFun t (rotFun (-t) v) = v
+      rw [rotFun_add, add_neg_cancel, rotFun_zero] }
+
+/-- The rotation by `t`, as an affine automorphism of `ℝ³`. -/
+noncomputable def rot3 (t : ℝ) : (Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ) := (rotEquiv t).toAffineEquiv
+
+theorem rot3_apply (t : ℝ) (v : Fin 3 → ℝ) : rot3 t v = rotFun t v := rfl
+
+/-- The cyclic permutation of the coordinates, `(x, y, z) ↦ (z, x, y)`. -/
+noncomputable def cycEquiv : (Fin 3 → ℝ) ≃ₗ[ℝ] (Fin 3 → ℝ) where
+  toFun v := ![v 2, v 0, v 1]
+  invFun v := ![v 1, v 2, v 0]
+  map_add' v w := by apply vec3_ext <;> rfl
+  map_smul' r v := by apply vec3_ext <;> rfl
+  left_inv v := by apply vec3_ext <;> rfl
+  right_inv v := by apply vec3_ext <;> rfl
+
+/-- The cyclic permutation, as an affine automorphism of `ℝ³`. -/
+noncomputable def cyc3 : (Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ) := cycEquiv.toAffineEquiv
+
+theorem cyc3_apply (v : Fin 3 → ℝ) : cyc3 v 0 = v 2 ∧ cyc3 v 1 = v 0 ∧ cyc3 v 2 = v 1 :=
+  ⟨rfl, rfl, rfl⟩
+
+theorem cyc3_symm_apply (v : Fin 3 → ℝ) :
+    cyc3.symm v 0 = v 1 ∧ cyc3.symm v 1 = v 2 ∧ cyc3.symm v 2 = v 0 :=
+  ⟨rfl, rfl, rfl⟩
+
+theorem cyc3_mem_ball3 {v : Fin 3 → ℝ} (hv : v ∈ ball3) : cyc3 v ∈ ball3 := by
+  obtain ⟨c0, c1, c2⟩ := cyc3_apply v
+  rw [mem_ball3, c0, c1, c2]
+  rw [mem_ball3] at hv
+  linarith
+
+theorem cyc3_symm_mem_ball3 {v : Fin 3 → ℝ} (hv : v ∈ ball3) : cyc3.symm v ∈ ball3 := by
+  obtain ⟨c0, c1, c2⟩ := cyc3_symm_apply v
+  rw [mem_ball3, c0, c1, c2]
+  rw [mem_ball3] at hv
+  linarith
+
+/-- **Positive control for drivability.** The ball is drivable: the rotations about the third
+axis form the flow, the half-turn is the NOT, and the cyclic permutation of the axes carries the
+flow off itself on the ball. -/
+noncomputable def ball3Drive : ElementaryDrivability ball3 where
+  flow := rot3
+  flow_zero := AffineEquiv.ext fun v => by rw [rot3_apply, rotFun_zero, AffineEquiv.refl_apply]
+  flow_add s t := AffineEquiv.ext fun v => by
+    simp only [AffineEquiv.trans_apply, rot3_apply, rotFun_add]
+  flow_continuous := by
+    refine continuous_pi fun i => ?_
+    fin_cases i
+    · show Continuous fun q : ℝ × (Fin 3 → ℝ) => Real.cos q.1 * q.2 0 - Real.sin q.1 * q.2 1
+      fun_prop
+    · show Continuous fun q : ℝ × (Fin 3 → ℝ) => Real.sin q.1 * q.2 0 + Real.cos q.1 * q.2 1
+      fun_prop
+    · show Continuous fun q : ℝ × (Fin 3 → ℝ) => q.2 2
+      fun_prop
+  flow_preserves t _ hv := rotFun_mem_ball3 t hv
+  t₀ := Real.pi
+  N_involutive x _ := by
+    simp only [rot3_apply]
+    obtain ⟨a0, a1, a2⟩ := rotFun_apply Real.pi (rotFun Real.pi x)
+    obtain ⟨b0, b1, b2⟩ := rotFun_apply Real.pi x
+    apply vec3_ext
+    · rw [a0, b0, b1, Real.cos_pi, Real.sin_pi]; ring
+    · rw [a1, b0, b1, Real.cos_pi, Real.sin_pi]; ring
+    · rw [a2, b2]
+  N_moves := ⟨![1, 0, 0], by show (1 : ℝ) ^ 2 + 0 ^ 2 + 0 ^ 2 ≤ 1; norm_num, fun h => by
+    have h0 : rot3 Real.pi ![1, 0, 0] 0 = (![1, 0, 0] : Fin 3 → ℝ) 0 := congrFun h 0
+    change Real.cos Real.pi * 1 - Real.sin Real.pi * 0 = 1 at h0
+    rw [Real.cos_pi, Real.sin_pi] at h0
+    norm_num at h0⟩
+  J := cyc3
+  J_preserves _ hv := cyc3_mem_ball3 hv
+  J_symm_preserves _ hv := cyc3_symm_mem_ball3 hv
+  J_off_axis := ⟨Real.pi, fun s => ⟨![0, 0, 1],
+    by show (0 : ℝ) ^ 2 + 0 ^ 2 + 1 ^ 2 ≤ 1; norm_num, fun h => by
+      have h2 : cyc3 (rot3 Real.pi (cyc3.symm ![0, 0, 1])) 2 = rot3 s ![0, 0, 1] 2 :=
+        congrFun h 2
+      change Real.sin Real.pi * 0 + Real.cos Real.pi * 1 = 1 at h2
+      rw [Real.sin_pi, Real.cos_pi] at h2
+      norm_num at h2⟩⟩
+
+/-- The ball is drivable. -/
+theorem ball3_drivable : Nonempty (ElementaryDrivability ball3) := ⟨ball3Drive⟩
+
+/-- An affine automorphism of the line is `x ↦ g 0 + g.linear 1 * x`. -/
+theorem affineEquiv_real_apply (g : ℝ ≃ᵃ[ℝ] ℝ) (x : ℝ) : g x = g 0 + g.linear 1 * x := by
+  have h := g.map_vadd 0 x
+  simp only [vadd_eq_add, add_zero] at h
+  have hl : g.linear x = g.linear 1 * x := by
+    have := map_smul g.linear x (1 : ℝ)
+    simp only [smul_eq_mul, mul_one] at this
+    rw [this, mul_comm]
+  rw [h, hl, add_comm]
+
+/-- Two mutually inverse affine maps of the line that both preserve `[-1, 1]` are `±` the
+identity. -/
+theorem bit_aux {a b c d : ℝ} (h1 : -1 ≤ a + b * 1 ∧ a + b * 1 ≤ 1)
+    (h2 : -1 ≤ a + b * -1 ∧ a + b * -1 ≤ 1) (h3 : -1 ≤ c + d * 1 ∧ c + d * 1 ≤ 1)
+    (h4 : -1 ≤ c + d * -1 ∧ c + d * -1 ≤ 1) (h5 : a + b * (c + d * 0) = 0)
+    (h6 : a + b * (c + d * 1) = 1) : a = 0 ∧ b * b = 1 := by
+  obtain ⟨h1l, h1u⟩ := h1
+  obtain ⟨h2l, h2u⟩ := h2
+  obtain ⟨h3l, h3u⟩ := h3
+  obtain ⟨h4l, h4u⟩ := h4
+  have hbd : b * d = 1 := by linear_combination h6 - h5
+  have hab : a ^ 2 + b ^ 2 ≤ 1 := by
+    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - (a + b)) (by linarith : (0 : ℝ) ≤ 1 + (a + b)),
+      mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - (a - b)) (by linarith : (0 : ℝ) ≤ 1 + (a - b))]
+  have hcd : c ^ 2 + d ^ 2 ≤ 1 := by
+    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - (c + d)) (by linarith : (0 : ℝ) ≤ 1 + (c + d)),
+      mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - (c - d)) (by linarith : (0 : ℝ) ≤ 1 + (c - d))]
+  have hbd2 : b ^ 2 * d ^ 2 = 1 := by rw [← mul_pow, hbd]; norm_num
+  have hb : 1 ≤ b ^ 2 := by
+    nlinarith [mul_nonneg (sq_nonneg b) (by nlinarith [sq_nonneg c] : (0 : ℝ) ≤ 1 - d ^ 2)]
+  have ha2 : a ^ 2 ≤ 0 := by linarith
+  have ha : a = 0 := (pow_eq_zero_iff two_ne_zero).mp (le_antisymm ha2 (sq_nonneg a))
+  exact ⟨ha, by nlinarith [sq_nonneg a]⟩
+
+/-- **Negative control for drivability.** The classical bit `[-1, 1]` is not drivable: the flow
+member at half the NOT's parameter is `±` the identity on the line, so the NOT, its square, is
+the identity and moves nothing. -/
+theorem not_drivable_Icc : IsEmpty (ElementaryDrivability (Set.Icc (-1 : ℝ) 1)) := by
+  refine ⟨fun D => ?_⟩
+  obtain ⟨x, -, hmove⟩ := D.N_moves
+  have hinv : ∀ y, D.flow (D.t₀ / 2) (D.flow (-(D.t₀ / 2)) y) = y := by
+    intro y
+    have h1 := congrArg (fun f : ℝ ≃ᵃ[ℝ] ℝ => f y) (D.flow_add (D.t₀ / 2) (-(D.t₀ / 2)))
+    simp only [AffineEquiv.trans_apply, add_neg_cancel, D.flow_zero,
+      AffineEquiv.refl_apply] at h1
+    exact h1.symm
+  have hsq : D.flow D.t₀ x = D.flow (D.t₀ / 2) (D.flow (D.t₀ / 2) x) := by
+    have h1 := congrArg (fun f : ℝ ≃ᵃ[ℝ] ℝ => f x) (D.flow_add (D.t₀ / 2) (D.t₀ / 2))
+    simp only [AffineEquiv.trans_apply, add_halves] at h1
+    exact h1
+  have hp : (1 : ℝ) ∈ Set.Icc (-1 : ℝ) 1 := ⟨by norm_num, le_rfl⟩
+  have hm : (-1 : ℝ) ∈ Set.Icc (-1 : ℝ) 1 := ⟨le_rfl, by norm_num⟩
+  have hh := affineEquiv_real_apply (D.flow (D.t₀ / 2))
+  have hk := affineEquiv_real_apply (D.flow (-(D.t₀ / 2)))
+  have e1 := D.flow_preserves (D.t₀ / 2) 1 hp
+  have e2 := D.flow_preserves (D.t₀ / 2) (-1) hm
+  have e3 := D.flow_preserves (-(D.t₀ / 2)) 1 hp
+  have e4 := D.flow_preserves (-(D.t₀ / 2)) (-1) hm
+  have i0 := hinv 0
+  have i1 := hinv 1
+  rw [hh 1, Set.mem_Icc] at e1
+  rw [hh (-1), Set.mem_Icc] at e2
+  rw [hk 1, Set.mem_Icc] at e3
+  rw [hk (-1), Set.mem_Icc] at e4
+  rw [hk 0, hh] at i0
+  rw [hk 1, hh] at i1
+  obtain ⟨ha, hb⟩ := bit_aux e1 e2 e3 e4 i0 i1
+  apply hmove
+  rw [hsq, hh (D.flow (D.t₀ / 2) x), hh x, ha]
+  linear_combination x * hb
+
+/-- A one-point body is not drivable: nothing on it can move. -/
+theorem not_drivable_singleton (x : V) : IsEmpty (ElementaryDrivability ({x} : Set V)) := by
+  refine ⟨fun D => ?_⟩
+  obtain ⟨y, hy, hmove⟩ := D.N_moves
+  rw [Set.mem_singleton_iff] at hy
+  subst hy
+  exact hmove (D.flow_preserves D.t₀ y (Set.mem_singleton y))
+
 /-! ### §D — Lemma C, its converse, and Lemma D -/
 
 /-- **Lemma C (L4).** A convex body with supporting-effect completeness and singleton faces is
@@ -326,17 +597,14 @@ theorem singletonFaces_of_relStrictConvex {Ω : Set V} (avail : Set (V →ᵃ[�
     norm_num
   exact not_isProperOn_of_eq_one (eq_one_of_certain_of_not_boundary heff hz.1 hz.2 hzone) hprop
 
-/-- **L7.** A strictly convex body, in the topology of `V`, is relatively strictly convex. -/
-theorem relStrictConvex_of_strictConvex {Ω : Set V} (h : StrictConvex ℝ Ω) :
-    RelStrictConvex Ω := by
-  intro x hx y hy hxy a b ha hb hab
-  have hint := h hx hy hxy ha hb hab
-  refine ⟨interior_subset hint, fun hbd => ?_⟩
-  obtain ⟨_, w, _, hout⟩ := hbd
-  have hnhds : Ω ∈ nhds (a • x + b • y) := mem_interior_iff_mem_nhds.mp hint
-  have hcont : Continuous fun ε : ℝ => (a • x + b • y) + ε • ((a • x + b • y) - w) :=
+/-- A point of the interior of `Ω`, in the topology of `V`, is not a boundary state. -/
+theorem not_isBoundaryState_of_mem_interior {Ω : Set V} {z : V} (hint : z ∈ interior Ω) :
+    ¬ IsBoundaryState Ω z := by
+  rintro ⟨_, w, _, hout⟩
+  have hnhds : Ω ∈ nhds z := mem_interior_iff_mem_nhds.mp hint
+  have hcont : Continuous fun ε : ℝ => z + ε • (z - w) :=
     continuous_const.add (continuous_id.smul continuous_const)
-  have hev : ∀ᶠ ε in nhds (0 : ℝ), (a • x + b • y) + ε • ((a • x + b • y) - w) ∈ Ω := by
+  have hev : ∀ᶠ ε in nhds (0 : ℝ), z + ε • (z - w) ∈ Ω := by
     have ht := hcont.tendsto 0
     simp only [zero_smul, add_zero] at ht
     exact ht hnhds
@@ -344,6 +612,20 @@ theorem relStrictConvex_of_strictConvex {Ω : Set V} (h : StrictConvex ℝ Ω) :
   refine hout (δ / 2) (by linarith) (hball ?_)
   rw [Real.dist_eq, sub_zero, abs_of_pos (by linarith)]
   linarith
+
+/-- **L7.** A strictly convex body, in the topology of `V`, is relatively strictly convex. -/
+theorem relStrictConvex_of_strictConvex {Ω : Set V} (h : StrictConvex ℝ Ω) :
+    RelStrictConvex Ω := by
+  intro x hx y hy hxy a b ha hb hab
+  have hint := h hx hy hxy ha hb hab
+  exact ⟨interior_subset hint, not_isBoundaryState_of_mem_interior hint⟩
+
+/-- An open body has no boundary state, so (SEC) holds on it for every family. This is why the
+premises of K∞-1 carry compactness. -/
+theorem supportingEffectComplete_of_isOpen {Ω : Set V} (hΩ : IsOpen Ω)
+    (avail : Set (V →ᵃ[ℝ] ℝ)) : SupportingEffectComplete Ω avail := by
+  intro x hx
+  exact absurd hx (not_isBoundaryState_of_mem_interior (by rw [hΩ.interior_eq]; exact hx.1))
 
 /-- **Lemma D.** A centrally symmetric body admits at most two perfectly distinguishable
 states, for any family of effects. -/
@@ -407,17 +689,19 @@ theorem supportingEffectComplete_Icc :
     SupportingEffectComplete (Set.Icc (-1 : ℝ) 1) (fullEffects (Set.Icc (-1 : ℝ) 1)) := by
   rintro x ⟨⟨hx1, hx2⟩, y, ⟨hy1, hy2⟩, hout⟩
   rcases eq_or_lt_of_le hx2 with h1 | h1
-  · refine ⟨affR (1 / 2) (1 / 2), ?_, ⟨-1, ⟨le_rfl, by norm_num⟩, ?_⟩, ?_⟩
-    · intro t ht
+  · have heff : IsEffectOn (Set.Icc (-1 : ℝ) 1) (affR (1 / 2) (1 / 2)) := by
+      intro t ht
       rw [affR_apply]
       constructor <;> linarith [ht.1, ht.2]
+    refine ⟨affR (1 / 2) (1 / 2), heff, heff, ⟨-1, ⟨le_rfl, by norm_num⟩, ?_⟩, ?_⟩
     · rw [affR_apply]; norm_num
     · rw [affR_apply, h1]; norm_num
   rcases eq_or_lt_of_le hx1 with h2 | h2
-  · refine ⟨affR (1 / 2) (-1 / 2), ?_, ⟨1, ⟨by norm_num, le_rfl⟩, ?_⟩, ?_⟩
-    · intro t ht
+  · have heff : IsEffectOn (Set.Icc (-1 : ℝ) 1) (affR (1 / 2) (-1 / 2)) := by
+      intro t ht
       rw [affR_apply]
       constructor <;> linarith [ht.1, ht.2]
+    refine ⟨affR (1 / 2) (-1 / 2), heff, heff, ⟨1, ⟨by norm_num, le_rfl⟩, ?_⟩, ?_⟩
     · rw [affR_apply]; norm_num
     · rw [affR_apply, ← h2]; norm_num
   exfalso
@@ -714,26 +998,101 @@ theorem qubit_certain_face (ρ : Matrix (Fin 2) (Fin 2) ℂ) (hρ : ρ.PosSemide
   fin_cases i <;> fin_cases j <;> simp [h00, h11, h10.1, h10.2]
 
 
-/-! ### §G — hypothesis K∞-1, as a statement -/
+/-! ### §G — hypothesis K∞-1, as a statement, and its controls -/
 
-/-- **Hypothesis K∞-1**, stated and not proved: a body admitting an elementary drive has
-supporting-effect completeness relative to the available effects. This is the field-neutral
-Naimark step. The module proves it for nothing; it is an open target. -/
+/-- **Hypothesis K∞-1**, stated and not proved: a compact convex body admitting an elementary
+drive has supporting-effect completeness relative to the available effects. This is the
+field-neutral Naimark step. Compactness enters because an open body has no boundary state
+(`supportingEffectComplete_of_isOpen`). The module proves K∞-1 for no physical family; it is an
+open target. -/
 def KInf1 (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) : Prop :=
-  Nonempty (ElementaryDrivability Ω) → SupportingEffectComplete Ω avail
+  IsCompact Ω → Convex ℝ Ω → Nonempty (ElementaryDrivability Ω) →
+    SupportingEffectComplete Ω avail
 
-/-- What K∞-1 buys when it holds: with singleton faces, a convex drivable body is relatively
-strictly convex. -/
+/-- What K∞-1 buys when it holds: with singleton faces, a compact convex drivable body is
+relatively strictly convex. -/
 theorem relStrictConvex_of_kInf1 {Ω : Set V} {avail : Set (V →ᵃ[ℝ] ℝ)}
-    (hconv : Convex ℝ Ω) (hK : KInf1 Ω avail)
+    (hcomp : IsCompact Ω) (hconv : Convex ℝ Ω) (hK : KInf1 Ω avail)
     (hD : Nonempty (ElementaryDrivability Ω)) (hSF : SingletonFaces Ω avail) :
     RelStrictConvex Ω :=
-  relStrictConvex_of_supporting_singleton hconv (hK hD) hSF
+  relStrictConvex_of_supporting_singleton hconv (hK hcomp hconv hD) hSF
+
+/-- The effect `v ↦ (1 + u · v)/2` on `ℝ³`. -/
+noncomputable def ballEffect (u : Fin 3 → ℝ) : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ :=
+  AffineMap.const ℝ (Fin 3 → ℝ) (1 / 2 : ℝ) +
+    ((1 / 2 : ℝ) • (u 0 • LinearMap.proj 0 + u 1 • LinearMap.proj 1 + u 2 • LinearMap.proj 2 :
+      (Fin 3 → ℝ) →ₗ[ℝ] ℝ)).toAffineMap
+
+theorem ballEffect_apply (u v : Fin 3 → ℝ) :
+    ballEffect u v = 1 / 2 + (u 0 * v 0 + u 1 * v 1 + u 2 * v 2) / 2 := by
+  simp [ballEffect] <;> ring
+
+/-- A step from a state of the ball off its sphere, by a sixteenth of the gap, stays in it. -/
+theorem ball3_extend {x0 x1 x2 y0 y1 y2 ε : ℝ} (hx : x0 ^ 2 + x1 ^ 2 + x2 ^ 2 ≤ 1)
+    (hy : y0 ^ 2 + y1 ^ 2 + y2 ^ 2 ≤ 1) (hε : 0 < ε)
+    (hε' : 16 * ε = 1 - (x0 ^ 2 + x1 ^ 2 + x2 ^ 2)) :
+    (x0 + ε * (x0 - y0)) ^ 2 + (x1 + ε * (x1 - y1)) ^ 2 + (x2 + ε * (x2 - y2)) ^ 2 ≤ 1 := by
+  have hT : (x0 - y0) ^ 2 + (x1 - y1) ^ 2 + (x2 - y2) ^ 2 ≤ 4 := by
+    nlinarith [sq_nonneg (x0 + y0), sq_nonneg (x1 + y1), sq_nonneg (x2 + y2)]
+  have hS : x0 * (x0 - y0) + x1 * (x1 - y1) + x2 * (x2 - y2) ≤ 2 := by
+    nlinarith [sq_nonneg (x0 + y0), sq_nonneg (x1 + y1), sq_nonneg (x2 + y2)]
+  have hε1 : ε ≤ 1 / 16 := by nlinarith [sq_nonneg x0, sq_nonneg x1, sq_nonneg x2]
+  have h1 := mul_le_mul_of_nonneg_left hS hε.le
+  have h2 := mul_le_mul_of_nonneg_left hT (mul_nonneg hε.le hε.le)
+  have h3 := mul_le_mul_of_nonneg_left hε1 hε.le
+  nlinarith [h1, h2, h3]
+
+/-- **Positive control for (SEC) on a drivable body.** The ball has supporting-effect
+completeness with its full effects: a boundary state lies on the unit sphere, and the effect
+`v ↦ (1 + x · v)/2` is a proper effect certain there. -/
+theorem supportingEffectComplete_ball3 : SupportingEffectComplete ball3 (fullEffects ball3) := by
+  rintro x ⟨hx, y, hy, hout⟩
+  rw [mem_ball3] at hx hy
+  have hsph : x 0 ^ 2 + x 1 ^ 2 + x 2 ^ 2 = 1 := by
+    by_contra hne
+    have hlt := lt_of_le_of_ne hx hne
+    apply hout ((1 - (x 0 ^ 2 + x 1 ^ 2 + x 2 ^ 2)) / 16) (by linarith)
+    rw [mem_ball3]
+    simp only [Pi.add_apply, Pi.smul_apply, Pi.sub_apply, smul_eq_mul]
+    exact ball3_extend hx hy (by linarith) (by ring)
+  have heff : IsEffectOn ball3 (ballEffect x) := by
+    intro v hv
+    rw [mem_ball3] at hv
+    rw [ballEffect_apply]
+    constructor <;> nlinarith [sq_nonneg (x 0 - v 0), sq_nonneg (x 1 - v 1),
+      sq_nonneg (x 2 - v 2), sq_nonneg (x 0 + v 0), sq_nonneg (x 1 + v 1), sq_nonneg (x 2 + v 2)]
+  refine ⟨ballEffect x, heff, heff, ⟨0, ?_, ?_⟩, ?_⟩
+  · rw [mem_ball3]; norm_num
+  · rw [ballEffect_apply]; norm_num
+  · rw [ballEffect_apply]; linear_combination hsph / 2
+
+/-- **K∞-1 holds non-vacuously** for the ball with its full effects: the ball is compact, convex
+and drivable, and has supporting-effect completeness. -/
+theorem kInf1_ball3_full : KInf1 ball3 (fullEffects ball3) :=
+  fun _ _ _ => supportingEffectComplete_ball3
+
+/-- The state `(1, 0, 0)` of the ball is a boundary state. -/
+theorem isBoundaryState_ball3 : IsBoundaryState ball3 ![1, 0, 0] := by
+  refine ⟨by show (1 : ℝ) ^ 2 + 0 ^ 2 + 0 ^ 2 ≤ 1; norm_num, ![-1, 0, 0],
+    by show (-1 : ℝ) ^ 2 + 0 ^ 2 + 0 ^ 2 ≤ 1; norm_num, fun ε hε h => ?_⟩
+  change (1 + ε * (1 - -1)) ^ 2 + (0 + ε * (0 - 0)) ^ 2 + (0 + ε * (0 - 0)) ^ 2 ≤ 1 at h
+  nlinarith
+
+/-- **K∞-1 fails** for the ball with the unit effect alone: the ball is compact, convex and
+drivable, and its boundary state `(1, 0, 0)` is certain for no proper available effect. So K∞-1
+is a proposition about the effect family, not a consequence of the body. -/
+theorem not_kInf1_ball3_unit : ¬ KInf1 ball3 {AffineMap.const ℝ (Fin 3 → ℝ) (1 : ℝ)} := by
+  intro hK
+  obtain ⟨e, he, -, hp, -⟩ := hK ball3_isCompact ball3_convex ball3_drivable _ isBoundaryState_ball3
+  rw [Set.mem_singleton_iff] at he
+  subst he
+  exact not_isProperOn_const_one _ hp
 
 /-! ### The verdict -/
 
 /-- The round's verdict: Lemma C and its converse, the inertness of non-proper effects, the
-semantic controls, Lemma D, Lemma B, the finite-preparation bound and Theorem F2, together. -/
+semantic controls for (SEC), (SF), drivability and K∞-1, Lemma D, Lemma B, the
+finite-preparation bound and Theorem F2, together. -/
 theorem kinf2_kernel_core :
     (∀ (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)), Convex ℝ Ω →
       SupportingEffectComplete Ω avail → SingletonFaces Ω avail → RelStrictConvex Ω) ∧
@@ -745,6 +1104,10 @@ theorem kinf2_kernel_core :
     ¬ SupportingEffectComplete (Set.Icc (-1 : ℝ) 1) {AffineMap.const ℝ ℝ (1 : ℝ)} ∧
     ¬ SingletonFaces (Metric.closedBall (0 : Fin 2 → ℝ) 1)
       (fullEffects (Metric.closedBall (0 : Fin 2 → ℝ) 1)) ∧
+    Nonempty (ElementaryDrivability ball3) ∧
+    IsEmpty (ElementaryDrivability (Set.Icc (-1 : ℝ) 1)) ∧
+    KInf1 ball3 (fullEffects ball3) ∧
+    ¬ KInf1 ball3 {AffineMap.const ℝ (Fin 3 → ℝ) (1 : ℝ)} ∧
     (∀ (Ω : Set V) (c : V), CentrallySymmetric Ω c → c ∈ Ω →
       ∀ (ι : Type) [Fintype ι] (x : ι → V) (e : ι → V →ᵃ[ℝ] ℝ),
         PerfectlyDistinguishable Ω x e → Fintype.card ι ≤ 2) ∧
@@ -755,7 +1118,8 @@ theorem kinf2_kernel_core :
     (∀ (N : ℕ) (Ω : Set (Fin N → ℝ)), Ω ⊆ simplex N →
       (∀ i, (Ω ∩ {p | p i = 0}).Subsingleton) → {x | ClassicallyExposed Ω x}.ncard ≤ N) := by
   refine ⟨?_, ?_, ?_, supportingEffectComplete_Icc, not_supportingEffectComplete_unit,
-    not_singletonFaces_square, ?_, ?_, ?_, ?_⟩
+    not_singletonFaces_square, ball3_drivable, not_drivable_Icc, kInf1_ball3_full,
+    not_kInf1_ball3_unit, ?_, ?_, ?_, ?_⟩
   · intro Ω avail hconv hSEC hSF
     exact relStrictConvex_of_supporting_singleton hconv hSEC hSF
   · intro Ω avail h
@@ -790,9 +1154,29 @@ end OIBridge
 #print axioms OIBridge.KInfFoundations.singletonFaces_insert_iff
 #print axioms OIBridge.KInfFoundations.copyNatural_refl_iff
 #print axioms OIBridge.KInfFoundations.copyNatural_iff_apply
+#print axioms OIBridge.KInfFoundations.mem_ball3
+#print axioms OIBridge.KInfFoundations.vec3_ext
+#print axioms OIBridge.KInfFoundations.ball3_convex
+#print axioms OIBridge.KInfFoundations.ball3_isCompact
+#print axioms OIBridge.KInfFoundations.rotFun_apply
+#print axioms OIBridge.KInfFoundations.rotFun_zero
+#print axioms OIBridge.KInfFoundations.rotFun_add
+#print axioms OIBridge.KInfFoundations.rotFun_mem_ball3
+#print axioms OIBridge.KInfFoundations.rot3_apply
+#print axioms OIBridge.KInfFoundations.cyc3_apply
+#print axioms OIBridge.KInfFoundations.cyc3_symm_apply
+#print axioms OIBridge.KInfFoundations.cyc3_mem_ball3
+#print axioms OIBridge.KInfFoundations.cyc3_symm_mem_ball3
+#print axioms OIBridge.KInfFoundations.ball3_drivable
+#print axioms OIBridge.KInfFoundations.affineEquiv_real_apply
+#print axioms OIBridge.KInfFoundations.bit_aux
+#print axioms OIBridge.KInfFoundations.not_drivable_Icc
+#print axioms OIBridge.KInfFoundations.not_drivable_singleton
 #print axioms OIBridge.KInfFoundations.relStrictConvex_of_supporting_singleton
 #print axioms OIBridge.KInfFoundations.singletonFaces_of_relStrictConvex
+#print axioms OIBridge.KInfFoundations.not_isBoundaryState_of_mem_interior
 #print axioms OIBridge.KInfFoundations.relStrictConvex_of_strictConvex
+#print axioms OIBridge.KInfFoundations.supportingEffectComplete_of_isOpen
 #print axioms OIBridge.KInfFoundations.card_le_two_of_centrallySymmetric
 #print axioms OIBridge.KInfFoundations.card_le_two_of_centrallySymmetric_full
 #print axioms OIBridge.KInfFoundations.singletonFaces_closedBall
@@ -813,4 +1197,10 @@ end OIBridge
 #print axioms OIBridge.KInfFoundations.classical_exposed_ncard_le
 #print axioms OIBridge.KInfFoundations.qubit_certain_face
 #print axioms OIBridge.KInfFoundations.relStrictConvex_of_kInf1
+#print axioms OIBridge.KInfFoundations.ballEffect_apply
+#print axioms OIBridge.KInfFoundations.ball3_extend
+#print axioms OIBridge.KInfFoundations.supportingEffectComplete_ball3
+#print axioms OIBridge.KInfFoundations.kInf1_ball3_full
+#print axioms OIBridge.KInfFoundations.isBoundaryState_ball3
+#print axioms OIBridge.KInfFoundations.not_kInf1_ball3_unit
 #print axioms OIBridge.KInfFoundations.kinf2_kernel_core
