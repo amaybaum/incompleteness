@@ -1003,6 +1003,11 @@ minimal premises from which it follows. It has four parts, each with its own sta
     the planned exact probe confirms it, the obligation becomes type covariance of native
     inversion.
 
+  The geometric obligation is not committed uniquely to singleton faces: a successor foundations
+  round may express the needed geometric input through corrected sharp-face structure or through a
+  stronger independently sourced alternative such as self-duality. No such alternative is
+  presently sourced.
+
   At the matrix level, drivability already yields sharp effects, through the K3 chain above, so
   sharp effects are not an independent premise there. Whether a field-neutral analogue of that
   implication holds is open. The region limit does not refine a fixed subsystem's effects: region
