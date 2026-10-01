@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "KINF-2",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "d6b6458010a6d2812bd3215a8bb6f8a1bab37f00",
+ "f": "aa43e2d24d72634b8f3dd2e1e5ce4461d98eee08",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-kinf-2-foundations/preregistration.md",
+   "blob": "d4620610aa5131ba6a289d2049a6fe570c05fe43"
+  }
+ ],
+ "governed_paths_digest": "c719d6f1dc6e96163bebc5d2a569186411fc10a1c5d6125ba2c65804ee859fc5",
+ "e": "cff7b24390f5c4094928561bfe6a041911ea515e",
+ "tree_e": "07a0d437fdd07db0c7d64bcb9df6de032a722a74",
+ "execution_delta_digest": "9bd013bb02258459978efb04afa772c44dbea85bc609bace5e438baa2e475bff",
+ "candidates": [],
+ "landing": {
+  "base": "d6b6458010a6d2812bd3215a8bb6f8a1bab37f00",
+  "object": "f6ff610ecd09bb5fe960293f04e194a42a11cae7",
+  "reconciliations": [
+   "f6ff610ecd09bb5fe960293f04e194a42a11cae7"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "2dd1caa55d1a132afbae6e7d13706e9ae2c5a17354082601906807ca280c806f"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "aa43e2d24d72634b8f3dd2e1e5ce4461d98eee08",
+   "record": "https://github.com/amaybaum/incompleteness/pull/777#issuecomment-5931592981"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "aa43e2d24d72634b8f3dd2e1e5ce4461d98eee08",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36841329495"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "cff7b24390f5c4094928561bfe6a041911ea515e",
+   "record": "https://github.com/amaybaum/incompleteness/pull/777#issuecomment-5932247164"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "cff7b24390f5c4094928561bfe6a041911ea515e",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36862525395"
+  }
+ ]
+}
