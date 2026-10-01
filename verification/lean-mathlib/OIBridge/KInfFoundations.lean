@@ -1093,6 +1093,53 @@ theorem not_kInf1_ball3_unit : ¬ KInf1 ball3 {AffineMap.const ℝ (Fin 3 → �
   subst he
   exact not_isProperOn_const_one _ hp
 
+/-! ### The verdict -/
+
+/-- The round's verdict: Lemma C and its converse, the inertness of non-proper effects, the
+semantic controls for (SEC), (SF), drivability and K∞-1, Lemma D, Lemma B, the
+finite-preparation bound and Theorem F2, together. -/
+theorem kinf2_kernel_core :
+    (∀ (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)), Convex ℝ Ω →
+      SupportingEffectComplete Ω avail → SingletonFaces Ω avail → RelStrictConvex Ω) ∧
+    (∀ (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)), RelStrictConvex Ω → SingletonFaces Ω avail) ∧
+    (∀ (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) (u : V →ᵃ[ℝ] ℝ), ¬ IsProperOn Ω u →
+      (SupportingEffectComplete Ω (insert u avail) ↔ SupportingEffectComplete Ω avail) ∧
+      (SingletonFaces Ω (insert u avail) ↔ SingletonFaces Ω avail)) ∧
+    SupportingEffectComplete (Set.Icc (-1 : ℝ) 1) (fullEffects (Set.Icc (-1 : ℝ) 1)) ∧
+    ¬ SupportingEffectComplete (Set.Icc (-1 : ℝ) 1) {AffineMap.const ℝ ℝ (1 : ℝ)} ∧
+    ¬ SingletonFaces (Metric.closedBall (0 : Fin 2 → ℝ) 1)
+      (fullEffects (Metric.closedBall (0 : Fin 2 → ℝ) 1)) ∧
+    Nonempty (ElementaryDrivability ball3) ∧
+    IsEmpty (ElementaryDrivability (Set.Icc (-1 : ℝ) 1)) ∧
+    KInf1 ball3 (fullEffects ball3) ∧
+    ¬ KInf1 ball3 {AffineMap.const ℝ (Fin 3 → ℝ) (1 : ℝ)} ∧
+    (∀ (Ω : Set V) (c : V), CentrallySymmetric Ω c → c ∈ Ω →
+      ∀ (ι : Type) [Fintype ι] (x : ι → V) (e : ι → V →ᵃ[ℝ] ℝ),
+        PerfectlyDistinguishable Ω x e → Fintype.card ι ≤ 2) ∧
+    (∀ Ω : Set V, Convex ℝ Ω → IsCompact Ω → (0 : V) ∈ interior Ω →
+      frontier Ω ⊆ Metric.sphere (0 : V) 1 → Ω = Metric.closedBall (0 : V) 1) ∧
+    (∀ (ι : Type) [Fintype ι] (v : ι → V) (avail : Set (V →ᵃ[ℝ] ℝ)),
+      (exposedPoints (convexHull ℝ (Set.range v)) avail).ncard ≤ Fintype.card ι) ∧
+    (∀ (N : ℕ) (Ω : Set (Fin N → ℝ)), Ω ⊆ simplex N →
+      (∀ i, (Ω ∩ {p | p i = 0}).Subsingleton) → {x | ClassicallyExposed Ω x}.ncard ≤ N) := by
+  refine ⟨?_, ?_, ?_, supportingEffectComplete_Icc, not_supportingEffectComplete_unit,
+    not_singletonFaces_square, ball3_drivable, not_drivable_Icc, kInf1_ball3_full,
+    not_kInf1_ball3_unit, ?_, ?_, ?_, ?_⟩
+  · intro Ω avail hconv hSEC hSF
+    exact relStrictConvex_of_supporting_singleton hconv hSEC hSF
+  · intro Ω avail h
+    exact singletonFaces_of_relStrictConvex avail h
+  · intro Ω avail u hu
+    exact ⟨supportingEffectComplete_insert_iff hu, singletonFaces_insert_iff hu⟩
+  · intro Ω c hΩ hc ι _ x e hpd
+    exact card_le_two_of_centrallySymmetric hΩ hc x e hpd
+  · intro Ω hconv hcomp h0 hfr
+    exact eq_closedBall_of_frontier_subset_sphere hconv hcomp h0 hfr
+  · intro ι _ v avail
+    exact exposed_ncard_le v avail
+  · intro N Ω hΩ hfacet
+    exact classical_exposed_ncard_le hΩ hfacet
+
 end KInfFoundations
 end OIBridge
 
@@ -1162,3 +1209,4 @@ end OIBridge
 #print axioms OIBridge.KInfFoundations.kInf1_ball3_full
 #print axioms OIBridge.KInfFoundations.isBoundaryState_ball3
 #print axioms OIBridge.KInfFoundations.not_kInf1_ball3_unit
+#print axioms OIBridge.KInfFoundations.kinf2_kernel_core
