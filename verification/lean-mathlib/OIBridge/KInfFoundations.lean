@@ -758,6 +758,11 @@ theorem not_singletonFaces_square :
   have := congrFun hne 1
   norm_num at this
 
+/-- The square is not relatively strictly convex: L5 with `not_singletonFaces_square`. -/
+theorem not_relStrictConvex_square :
+    ¬ RelStrictConvex (Metric.closedBall (0 : Fin 2 → ℝ) 1) := fun h =>
+  not_singletonFaces_square (singletonFaces_of_relStrictConvex _ h)
+
 /-! ### §E — Lemma B and the finite-exposure bound -/
 
 /-- **Lemma B.** A compact convex body with `0` in its interior whose frontier lies on the
@@ -1186,6 +1191,7 @@ end OIBridge
 #print axioms OIBridge.KInfFoundations.supportingEffectComplete_Icc
 #print axioms OIBridge.KInfFoundations.squareEdgeEffect_apply
 #print axioms OIBridge.KInfFoundations.not_singletonFaces_square
+#print axioms OIBridge.KInfFoundations.not_relStrictConvex_square
 #print axioms OIBridge.KInfFoundations.eq_closedBall_of_frontier_subset_sphere
 #print axioms OIBridge.KInfFoundations.exists_vertex_of_certain
 #print axioms OIBridge.KInfFoundations.exposed_mem_range
