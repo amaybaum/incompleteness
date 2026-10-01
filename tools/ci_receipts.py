@@ -26,8 +26,9 @@ PARTS = ('paths', 'r5', 'n18:0', 'n18:1', 'n18:2', 'dfs:0', 'dfs:1', 'dfs:2', 'd
          'cubes:0', 'cubes:1', 'cubes:2')
 JOB_NAME = 'Numerical probes / A42 exclusion (%s)'
 CLOSURE_DIRS = ('verification/lean/a42/',)
-CLOSURE = (TOOL,)
-DATA = ()
+CLOSURE = (TOOL, 'verification/lean/dita_arc_exclusivity_probe.py', 'verification/lean/dita_index_map_probe.py',
+           'verification/lean/dita_index_map_independent.py')
+DATA = ('verification/programmes/oi-qm/track-b/act-41-index-map-semantics/measurements.json',)
 REPO_CATEGORIES = ('probe', 'closure', 'data', 'pins', 'workflow')
 CATEGORIES = REPO_CATEGORIES + ('environment',)
 SCHEMA, VERSION = 'ci-receipt', 1
