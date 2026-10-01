@@ -23,6 +23,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      a42_reuse_run:
+        description: 'Run id whose A42 exclusion receipts to validate. Only at intermediate execution commits a preregistration names; never at F, E or Q. Empty recomputes.'
+        required: false
+        default: ''
+        type: string
 
 jobs:
   kernel:
@@ -372,7 +378,12 @@ jobs:
 
   # Act 42. Two shards run on every event; the exclusion shards, about six CPU-hours between them,
   # run only on workflow_dispatch, which is how the exact-head attestations are taken (section A.39).
-  # On any other event the matrix job is skipped and the aggregate below requires exactly that.
+  # On any other event the matrix job and its receipt decision are skipped and the aggregate below
+  # requires exactly that. A computing exclusion shard runs under tools/ci_receipts.py, which audits
+  # the files it opens against the shard's manifest and uploads a receipt. A dispatch with the input
+  # a42_reuse_run validates every shard against that run's receipts instead (round CI-RECEIPTS-1):
+  # either all fifteen hold and the family is receipt-validated, or all fifteen are recomputed.
+  # F, E and Q are dispatched without the input and always recompute.
   probes_a42_witness:
     name: Numerical probes / A42 witness
     runs-on: ubuntu-latest
@@ -409,10 +420,44 @@ jobs:
         working-directory: verification/lean
         run: python3 dita_support_minimality_probe.py --part d01span
 
-  probes_a42_exclusion:
-    name: Numerical probes / A42 exclusion (${{ matrix.part }})
+  a42_receipts:
+    name: Numerical probes / A42 receipts
     if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      mode: ${{ steps.decide.outputs.mode }}
+      source: ${{ steps.decide.outputs.source }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy==2.4.6 python-sat==1.9.dev15
+
+      - name: Receipt tool self-test
+        run: python3 tools/ci_receipts.py --self-test
+
+      - name: Decide (one decision for all fifteen shards)
+        id: decide
+        env:
+          GH_TOKEN: ${{ github.token }}
+          A42_REUSE_RUN: ${{ inputs.a42_reuse_run }}
+        run: python3 tools/ci_receipts.py decide --run "${A42_REUSE_RUN}"
+
+  probes_a42_exclusion:
+    name: Numerical probes / A42 exclusion (${{ matrix.part }})
+    needs: [a42_receipts]
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
     strategy:
       fail-fast: false
       matrix:
@@ -428,9 +473,35 @@ jobs:
       - name: Install dependencies
         run: pip install numpy==2.4.6 python-sat==1.9.dev15
 
+      - name: Mode
+        env:
+          MODE: ${{ needs.a42_receipts.outputs.mode }}
+        run: |
+          echo "mode=${MODE}"
+          test "${MODE}" = compute || test "${MODE}" = reuse
+
       - name: A42 exclusion shard
-        working-directory: verification/lean
-        run: python3 dita_support_minimality_probe.py --part '${{ matrix.part }}'
+        id: shard
+        if: ${{ needs.a42_receipts.outputs.mode == 'compute' }}
+        run: >-
+          python3 tools/ci_receipts.py run --probe verification/lean/dita_support_minimality_probe.py
+          --part '${{ matrix.part }}' --receipt-dir "${RUNNER_TEMP}/receipt"
+
+      - name: Upload receipt
+        if: ${{ needs.a42_receipts.outputs.mode == 'compute' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.shard.outputs.artifact }}
+          path: ${{ runner.temp }}/receipt/receipt.json
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: A42 exclusion shard, receipt-validated
+        if: ${{ needs.a42_receipts.outputs.mode == 'reuse' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE: ${{ needs.a42_receipts.outputs.source }}
+        run: python3 tools/ci_receipts.py validate --part '${{ matrix.part }}' --run "${SOURCE}"
 
   probes_foundations:
     name: Numerical probes / foundations
@@ -465,7 +536,7 @@ jobs:
 
   probes:
     name: Numerical probes
-    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_a42_witness, probes_a42_census01, probes_a42_exclusion, probes_foundations]
+    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_a42_witness, probes_a42_census01, a42_receipts, probes_a42_exclusion, probes_foundations]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
@@ -484,6 +555,9 @@ jobs:
           KINF2_RESULT: ${{ needs.probes_kinf2.result }}
           A42W_RESULT: ${{ needs.probes_a42_witness.result }}
           A42C_RESULT: ${{ needs.probes_a42_census01.result }}
+          A42R_RESULT: ${{ needs.a42_receipts.result }}
+          A42R_MODE: ${{ needs.a42_receipts.outputs.mode }}
+          A42R_SOURCE: ${{ needs.a42_receipts.outputs.source }}
           A42X_RESULT: ${{ needs.probes_a42_exclusion.result }}
           FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}
         run: |
@@ -500,6 +574,7 @@ jobs:
           echo "kinf2=${KINF2_RESULT}"
           echo "a42_witness=${A42W_RESULT}"
           echo "a42_census01=${A42C_RESULT}"
+          echo "a42_receipts=${A42R_RESULT} mode=${A42R_MODE} source=${A42R_SOURCE}"
           echo "a42_exclusion=${A42X_RESULT} (event ${GITHUB_EVENT_NAME})"
           echo "foundations=${FOUNDATIONS_RESULT}"
           test "${CORE_A_RESULT}" = success
@@ -516,8 +591,17 @@ jobs:
           test "${A42W_RESULT}" = success
           test "${A42C_RESULT}" = success
           if [ "${GITHUB_EVENT_NAME}" = workflow_dispatch ]; then
+            test "${A42R_RESULT}" = success
             test "${A42X_RESULT}" = success
+            if [ "${A42R_MODE}" = compute ]; then
+              echo "A42 exclusion: success, computed (15 shards)"
+            elif [ "${A42R_MODE}" = reuse ] && [ -n "${A42R_SOURCE}" ]; then
+              echo "A42 exclusion: success, receipt-validated from run ${A42R_SOURCE} (15 shards; not an F, E or Q attestation)"
+            else
+              echo "A42 exclusion: no receipt decision"; exit 1
+            fi
           else
+            test "${A42R_RESULT}" = skipped
             test "${A42X_RESULT}" = skipped
           fi
           test "${FOUNDATIONS_RESULT}" = success
