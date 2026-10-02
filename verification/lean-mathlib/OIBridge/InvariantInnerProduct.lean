@@ -23,8 +23,8 @@
         `OrbitNormalization` §D: the restricted body is compact with nonempty interior, and the
         restriction of every affine automorphism of the body fixes the restricted centroid and
         preserves the restricted inner product (`invariant_inner_product_span`);
-    §F  control: without interior the second moment can vanish identically
-        (`momentMatrix_singleton`, `not_pos_moment_singleton`).
+    §F  control: without interior the second moment can vanish identically — on the origin in
+        dimension at least one (`momentMatrix_origin`, `not_pos_moment_origin`).
 
   No ellipsoid, no transitivity and no dimension is claimed.
 
@@ -32,6 +32,8 @@
 -/
 import OIBridge.OrbitNormalization
 import Mathlib.MeasureTheory.Function.Jacobian
+import Mathlib.Analysis.Calculus.FDeriv.Linear
+import Mathlib.Analysis.Calculus.FDeriv.Add
 import Mathlib.MeasureTheory.Measure.Lebesgue.EqHaar
 import Mathlib.Analysis.Normed.Affine.AddTorsorBases
 import Mathlib.LinearAlgebra.Matrix.ToLinearEquiv
@@ -48,6 +50,9 @@ variable {n : ℕ}
 /-- The matrix of the linear part of an affine automorphism of the coordinate space. -/
 noncomputable def linMatrix (g : (Fin n → ℝ) ≃ᵃ[ℝ] (Fin n → ℝ)) : Matrix (Fin n) (Fin n) ℝ :=
   LinearMap.toMatrix' g.toAffineMap.linear
+
+theorem mulVec_apply_eq (M : Matrix (Fin n) (Fin n) ℝ) (v : Fin n → ℝ) (i : Fin n) :
+    (M *ᵥ v) i = ∑ k, M i k * v k := rfl
 
 theorem affine_apply_eq (g : (Fin n → ℝ) ≃ᵃ[ℝ] (Fin n → ℝ)) (x : Fin n → ℝ) :
     g x = linMatrix g *ᵥ x + g 0 := by
@@ -124,20 +129,21 @@ theorem integrableOn_coord {Ω : Set (Fin n → ℝ)} (hc : IsCompact Ω) (i : F
 
 theorem setIntegral_mulVec_coord {Ω : Set (Fin n → ℝ)} (hc : IsCompact Ω)
     (M : Matrix (Fin n) (Fin n) ℝ) (b : Fin n → ℝ) (i : Fin n) :
-    ∫ x in Ω, (M *ᵥ x + b) i = ∑ k, M i k * ∫ x in Ω, x k + volume.real Ω * b i := by
-  have hsum : ∀ x : Fin n → ℝ, (M *ᵥ x + b) i = ∑ k, M i k * x k + b i := by
+    ∫ x in Ω, (M *ᵥ x + b) i = (∑ k, M i k * ∫ x in Ω, x k) + volume.real Ω * b i := by
+  have hsum : ∀ x : Fin n → ℝ, (M *ᵥ x + b) i = (∑ k, M i k * x k) + b i := by
     intro x
-    simp [Matrix.mulVec, dotProduct]
+    rw [Pi.add_apply, mulVec_apply_eq]
   have hcs : IntegrableOn (fun x : Fin n → ℝ => ∑ k, M i k * x k) Ω :=
-    (continuous_finset_sum _ fun k _ =>
+    (continuous_finsetSum _ fun k _ =>
       continuous_const.mul (continuous_apply k)).continuousOn.integrableOn_compact hc
   have hcb : IntegrableOn (fun _ : Fin n → ℝ => b i) Ω :=
     continuous_const.continuousOn.integrableOn_compact hc
   simp_rw [hsum]
   rw [integral_add hcs hcb,
-    integral_finset_sum _ fun k _ => (integrableOn_coord hc k).const_mul (M i k),
+    integral_finsetSum _ fun k _ => (integrableOn_coord hc k).const_mul (M i k),
     setIntegral_const, smul_eq_mul]
-  simp_rw [integral_const_mul]
+  congr 1
+  exact Finset.sum_congr rfl fun k _ => integral_const_mul _ _
 
 /-- **The centroid is fixed** by every affine automorphism preserving a compact body of positive
 volume. -/
@@ -146,18 +152,17 @@ theorem centroid_fixed {Ω : Set (Fin n → ℝ)} (hc : IsCompact Ω) (hpos : 0 
     g (centroid Ω) = centroid Ω := by
   have hm := hc.measurableSet
   funext i
-  have hint : ∫ x in Ω, x i = ∑ k, linMatrix g i k * ∫ x in Ω, x k + volume.real Ω * g 0 i := by
+  have hint : ∫ x in Ω, x i = (∑ k, linMatrix g i k * ∫ x in Ω, x k) + volume.real Ω * g 0 i := by
     have h1 : ∫ x in Ω, g x i = ∫ x in Ω, x i := setIntegral_comp_eq hm hpos g hg (fun x => x i)
     have h2 : (fun x => g x i) = fun x => (linMatrix g *ᵥ x + g 0) i :=
       funext fun x => by rw [affine_apply_eq g x]
     rw [← h1, h2]
     exact setIntegral_mulVec_coord hc (linMatrix g) (g 0) i
-  rw [affine_apply_eq g (centroid Ω)]
-  simp only [Pi.add_apply, Matrix.mulVec, dotProduct, centroid]
-  rw [hint, mul_add, Finset.mul_sum]
   have hv : (volume.real Ω)⁻¹ * (volume.real Ω * g 0 i) = g 0 i := by
     rw [← mul_assoc, inv_mul_cancel₀ hpos.ne', one_mul]
-  rw [hv]
+  rw [affine_apply_eq g (centroid Ω), Pi.add_apply, mulVec_apply_eq]
+  simp only [centroid]
+  rw [hint, mul_add, Finset.mul_sum, hv]
   congr 1
   refine Finset.sum_congr rfl fun k _ => ?_
   ring
@@ -179,7 +184,7 @@ theorem moment_symm (Ω : Set (Fin n → ℝ)) (u v : Fin n → ℝ) : moment Ω
 theorem continuous_dot_sub (c u : Fin n → ℝ) :
     Continuous fun x : Fin n → ℝ => (x - c) ⬝ᵥ u := by
   simp only [dotProduct]
-  exact continuous_finset_sum _ fun i _ =>
+  exact continuous_finsetSum _ fun i _ =>
     ((continuous_apply i).sub continuous_const).mul continuous_const
 
 theorem integrableOn_moment {Ω : Set (Fin n → ℝ)} (hc : IsCompact Ω) (c u v : Fin n → ℝ) :
@@ -204,11 +209,11 @@ theorem moment_eq_dotProduct {Ω : Set (Fin n → ℝ)} (hc : IsCompact Ω) (u v
     ring
   unfold moment
   simp_rw [hexp]
-  rw [integral_finset_sum _ fun i _ =>
-    integrable_finset_sum _ fun j _ => (integrableOn_moment hc _ _ _).const_mul _]
+  rw [integral_finsetSum _ fun i _ =>
+    integrable_finsetSum _ fun j _ => (integrableOn_moment hc _ _ _).const_mul _]
   rw [dot_mulVec_eq_sum_sum, Finset.sum_comm]
   refine Finset.sum_congr rfl fun i _ => ?_
-  rw [integral_finset_sum _ fun j _ => (integrableOn_moment hc _ _ _).const_mul _]
+  rw [integral_finsetSum _ fun j _ => (integrableOn_moment hc _ _ _).const_mul _]
   refine Finset.sum_congr rfl fun j _ => ?_
   rw [integral_const_mul]
   simp only [momentMatrix, moment]
@@ -231,7 +236,7 @@ theorem moment_pos {Ω : Set (Fin n → ℝ)} (hc : IsCompact Ω) (hi : (interio
   obtain ⟨p, hp⟩ := hi
   obtain ⟨k, hk⟩ : ∃ k, u k ≠ 0 := by
     by_contra h
-    push_neg at h
+    push Not at h
     exact hu (funext h)
   have hq : ∃ q ∈ interior Ω, f q ≠ 0 := by
     by_cases h0 : (p - c) ⬝ᵥ u = 0
@@ -464,23 +469,29 @@ theorem invariant_inner_product_span [FiniteDimensional ℝ V] {d : ℕ}
 
 /-! ### §F — control: interior is needed -/
 
+/-- In dimension at least one the origin is a null set. -/
+theorem volume_origin (hn : 0 < n) : volume ({0} : Set (Fin n → ℝ)) = 0 := by
+  haveI : Nonempty (Fin n) := ⟨⟨0, hn⟩⟩
+  have h := Measure.addHaar_submodule volume (⊥ : Submodule ℝ (Fin n → ℝ)) bot_ne_top
+  rwa [Submodule.bot_coe] at h
+
 /-- The second moment of a single point vanishes. -/
-theorem momentMatrix_singleton (p : Fin n → ℝ) : momentMatrix ({p} : Set (Fin n → ℝ)) = 0 := by
+theorem momentMatrix_origin (hn : 0 < n) : momentMatrix ({0} : Set (Fin n → ℝ)) = 0 := by
   ext i j
-  show moment {p} (Pi.single i 1) (Pi.single j 1) = 0
+  show moment {0} (Pi.single i 1) (Pi.single j 1) = 0
   unfold moment
-  exact setIntegral_measure_zero _ (measure_singleton p)
+  exact setIntegral_measure_zero _ (volume_origin hn)
 
 /-- Without interior the second moment is not positive definite: on a point in dimension at least
 one, it vanishes on a nonzero vector. -/
-theorem not_pos_moment_singleton (hn : 0 < n) (p : Fin n → ℝ) :
-    ∃ u : Fin n → ℝ, u ≠ 0 ∧ moment ({p} : Set (Fin n → ℝ)) u u = 0 := by
+theorem not_pos_moment_origin (hn : 0 < n) :
+    ∃ u : Fin n → ℝ, u ≠ 0 ∧ moment ({0} : Set (Fin n → ℝ)) u u = 0 := by
   refine ⟨Pi.single ⟨0, hn⟩ 1, ?_, ?_⟩
   · intro h
     have := congrFun h ⟨0, hn⟩
     simp at this
   · unfold moment
-    exact setIntegral_measure_zero _ (measure_singleton p)
+    exact setIntegral_measure_zero _ (volume_origin hn)
 
 /-! ### §G — the verdict -/
 
@@ -495,10 +506,10 @@ theorem iip1_core :
             u ⬝ᵥ (invMatrix Ω *ᵥ v)) ∧
     (∀ (Ω : Set (Fin n → ℝ)), IsCompact Ω → (interior Ω).Nonempty →
       (invMatrix Ω)ᵀ = invMatrix Ω ∧ ∀ u, u ≠ 0 → 0 < u ⬝ᵥ (invMatrix Ω *ᵥ u)) ∧
-    (0 < n → ∀ p : Fin n → ℝ, ∃ u : Fin n → ℝ, u ≠ 0 ∧ moment ({p} : Set (Fin n → ℝ)) u u = 0) :=
+    (0 < n → ∃ u : Fin n → ℝ, u ≠ 0 ∧ moment ({0} : Set (Fin n → ℝ)) u u = 0) :=
   ⟨fun _ hc hi g hg => (invariant_inner_product hc hi).2.2 g hg,
     fun _ hc hi => ⟨(invariant_inner_product hc hi).1, (invariant_inner_product hc hi).2.1⟩,
-    fun hn p => not_pos_moment_singleton hn p⟩
+    fun hn => not_pos_moment_origin hn⟩
 
 end InvariantInnerProduct
 end OIBridge
@@ -519,6 +530,7 @@ end OIBridge
 #print axioms OIBridge.InvariantInnerProduct.isCompact_bodyR
 #print axioms OIBridge.InvariantInnerProduct.image_bodyR_eq
 #print axioms OIBridge.InvariantInnerProduct.invariant_inner_product_span
-#print axioms OIBridge.InvariantInnerProduct.momentMatrix_singleton
-#print axioms OIBridge.InvariantInnerProduct.not_pos_moment_singleton
+#print axioms OIBridge.InvariantInnerProduct.volume_origin
+#print axioms OIBridge.InvariantInnerProduct.momentMatrix_origin
+#print axioms OIBridge.InvariantInnerProduct.not_pos_moment_origin
 #print axioms OIBridge.InvariantInnerProduct.iip1_core
