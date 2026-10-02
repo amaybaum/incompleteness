@@ -208,6 +208,26 @@ These runs are design evidence, not attestations. For each I read the Mathlib br
   `CompletionChart` and every substantive statement are unchanged. Repair 1 changed the two countermodel definitions;
   repairs 2 and 3 only added helper definitions and lemmas.
 
+### The predicted execution tree
+
+- **`ca2daeeb61efe6e2d87d000dc493109777d8d65b`** (`claude/opact1-predicted`, a single-parent child of `D`) is the
+  execution tree less the result note. Its files and blobs:
+  - this preregistration in its frozen revision `07266ae7`, blob `611547b3`;
+  - `controls.py`, blob `7a622a8b`;
+  - `CompletionAction.lean`, blob `8bcab4a5`;
+  - `OIBridge.lean`, blob `5b4b669d`;
+  - the census, blob `f9de143e`.
+- `delta(D, ca2daeeb)` is exactly those five paths: the record directory's two files and the three execution paths.
+  It adds no drive, flow or effect-generation module, and no file other than these.
+- At that commit `controls.py check ca2daeeb`, run from the tree's own frozen `controls.py`, passes all 14 checks.
+- **Run 37018873171** (`workflow_dispatch` on `ca2daeeb`) completed with conclusion success; every one of its 32 jobs
+  succeeded. The Mathlib bridge (job 110876494408) built `OIBridge.CompletionAction` with each of the 16 frozen
+  `#print axioms` lines reporting exactly `[propext, Classical.choice, Quot.sound]`, and its release gate passed every
+  step (`lean-axioms` 5491 named results, no `sorryAx`; `lean-manuscript` OK; 303 legacy records intact; 25 receipts
+  hold).
+
+These runs are design evidence, not attestations.
+
 ## Stages
 
 1. **C1** adds `controls.py`, blob `7a622a8b`, to the record directory. Acceptance: the blob is the frozen blob.
