@@ -1,9 +1,9 @@
 # Reconstruction round OG-1 — conditional orbit-generation infrastructure: PREREGISTRATION
 
-**Status: drafting.** This file is the control plane of a native round under `AGENTS.md` §A.39. It is drafted on its
-pull request from `D` and is final only at the commit `F` the owner designates; no commit after `F` changes it.
-The frozen surface, the controls and the evidence ledger below are fixed; the outcome of the second design run is
-recorded before `F`.
+**Status: candidate freeze.** This file is the control plane of a native round under `AGENTS.md` §A.39. It is drafted
+on its pull request from `D` and is final only at the commit `F` the owner designates; no commit after `F` changes it.
+The frozen surface, the controls and the evidence ledger below are fixed, and the design runs and the predicted
+execution tree are recorded below.
 
 ```v3-round
 round OG-1
@@ -30,7 +30,11 @@ change under any outcome.**
 - **`D`** = `6d0abf6ba5467e0b0c1f5437a03ae6bd22f9c28a`, the head of `main` after `CI-PERF-1` landed (push run
   36896981080, every job green; the act 42 exclusion matrix skipped on push). The owner designated it as this round's
   `D`.
-- **`F`** — the commit carrying this file, which the owner designates; `delta(D, F)` is this file.
+- **`F`** — the commit carrying this file, which the owner designates; `delta(D, F)` is this file. The drafting
+  lineage is linear on the first-parent chain: `D` → `84f2a938` (initial draft) → `99c917ee` (the frozen surface,
+  the controls blob and the B6 resolution, committed before the outcome of design run 36961561241 was read) → `F`
+  (this revision, which adds the design-run record and the predicted execution tree). Every commit of the lineage
+  changes only this file. `F`'s own identity is recorded outside this file, at its exact-head run.
 - **`E`** — the certified execution head, which the owner designates.
 - **`Λ`**, **`Q`** — the reconciliation and the receipt commit, as §A.39 defines them.
 
@@ -50,8 +54,8 @@ reconstructs an elementary system.
 1. **`OrbitGeneration`** — the module validated in design (branch `claude/l-orbitgen-design`, commit `40025649`, run
    36945912933: built, 64 theorems with `[propext, Classical.choice, Quot.sound]` only), landed at exactly its
    design-validated theorem interface. The green design run is design evidence, not this round's attestation. Its
-   named hypotheses stay hypotheses: P1 `SharpSeed`, V4′ `SeedOrbitAvailable`, K∞-R `BoundaryTransitive`, and the body
-   premise `PreservesBody` (G-AUT).
+   named hypotheses stay hypotheses: P1 `SharpSeed`, V4′ `SeedOrbitAvailable`, K∞-R `BoundaryTransitive`, and the
+   body premise `PreservesBody` (G-AUT).
 2. **G-AUT under words** — generator preservation of the body extends to every word the generators generate. No new
    premise.
 3. **Normalization / transport** — restriction to the affine span and affine coordinates ellipsoid → `ball3`, with
@@ -164,6 +168,10 @@ does not select dimension three. No theorem in either module derives the affine 
 Each row is discharged at `E` by the exact-head run at `E` and by `controls.py check E --freeze F`. The levels are
 kept apart: the kernel build, the axiom report and the controls' text checks do not substitute for one another.
 
+The exact-head run on `F` attests the frozen control plane and this preregistration only. `F`'s tree is `D`'s with
+this file added; it contains none of the round's modules, imports, census entry or controls. No row below is
+discharged at `F`, and no result of the round's mathematical payload is attributed to `F`'s run.
+
 | Row | Kernel identifiers | Evidence required at `E` | Control |
 |---|---|---|---|
 | L continuity | `OrbitGeneration` whole; principal `seedOrbit_ball3_eq`, `lorentz_of_available`, `orbit_generation_core` | blob `0673321f`; suffix SHA-256 `843c68c1…` equal to the module built green at `40025649`; built at `E` with every printed axiom set within `[propext, Classical.choice, Quot.sound]` | L |
@@ -180,17 +188,48 @@ kept apart: the kernel build, the axiom report and the controls' text checks do 
 
 - **Run 36945912933** (`claude/l-orbitgen-design`, `40025649`): `OrbitGeneration` built green, with 64 theorems
   reporting only the three standard axioms. Its import suffix is the frozen suffix.
-- **Run 36961561241** (`claude/og1-dev`, `052afbef`): the tree is `D` plus the two modules (the reference blob
-  `bf627dfe`), the import lines and the census family, without this record directory. Its outcome is recorded in a
-  later revision of this file. This revision, with the frozen `controls.py` blob, was committed before that outcome
-  was read.
+- **Run 36961561241** (`claude/og1-dev`, `052afbef`): the tree is `D` plus the two modules (`OrbitNormalization` at the
+  reference blob `bf627dfe`), the import lines and the census family, without this record directory. The outcome was
+  read after `controls.py` and the frozen surface were committed (`99c917ee`). `OrbitGeneration` built.
+  `OrbitNormalization` failed with one error: the identifier `le_or_lt`, absent from this Mathlib, at line 646 in the
+  proof of `exists_euler_angles`. Through it, `sorryAx` reached `exists_euler_angles`, `boundaryTransitive_ball3Drive`,
+  `seedOrbit_ball3Drive` and `og1_infrastructure_core`. Every other printed axiom set was the three standard axioms.
+- **Repair 1** replaces `le_or_lt` with `le_or_gt` in that proof, and nothing else. The repaired module is blob
+  `ea397e69bbc8af512cbd1474b2fa0b83063d55fa`. The module checks of `controls.py` (L, N1–N3, S1–S5) pass on it, so
+  the frozen statement surface is unchanged.
+- **Run 36962242718** (`claude/og1-dev`, `a133b06d`, the repaired module): Mathlib bridge job green. That job built
+  both modules with every printed axiom set within `[propext, Classical.choice, Quot.sound]`, all twenty frozen prints
+  of `OrbitNormalization` included, and its release-gate step passed every check (`lean-axioms` 5439 named results,
+  no `sorryAx`; `lean-manuscript` OK; 22 receipts hold). The run's other jobs are not recorded here.
+
+The repaired blob `ea397e69` is execution-design evidence only. The frozen surface — the preamble, the declaration
+list, the theorem statements and the definitions embedded in `controls.py` `6a700bd7` — is the one committed in
+`99c917ee` before the outcome of run 36961561241 was read; repair 1 changes no part of it. Stage S1 lands
+`OrbitNormalization` as the repaired blob `ea397e69`.
+
+### The predicted execution tree
+
+- **`dc340fb59dd35d0fe02ad6a4b9ac153c571838bb`** (`claude/og1-predicted`, single-parent child of `D`) is the
+  execution tree less the result note:
+  - this preregistration, in its revision before this record was added (blob `ce5fec9f`);
+  - `controls.py` blob `6a700bd7`;
+  - `OrbitGeneration` blob `0673321f`, `OrbitNormalization` blob `ea397e69`;
+  - `OIBridge.lean` blob `fa6d2ba2`, census blob `53e7e33f`.
+- At that commit `controls.py check dc340fb5`, run from the tree's own `controls.py` (the frozen blob `6a700bd7`),
+  passes all 16 checks (P, L, N1–N3, S1–S5, I, C).
+- **Run 36962546092** (`workflow_dispatch` on `dc340fb5`) completed with conclusion success. Every one of its 32 jobs
+  succeeded: the Lean kernel check, the Mathlib bridge, the 29 numerical-probe shards and the probe aggregate. The
+  bridge built both modules with every printed axiom set within `[propext, Classical.choice, Quot.sound]`, and its
+  release gate passed every step (`lean-axioms` 5439 named results, no `sorryAx`; `lean-manuscript` OK; 303 legacy
+  records intact; 22 receipts hold).
 
 These runs are design evidence, not attestations.
 
 ## Stages
 
 1. **C1** adds `controls.py`, blob `6a700bd7`, to the record directory. Acceptance: the blob is the frozen blob.
-2. **S1** adds both modules, the two import lines and the census family in one commit. Acceptance:
+2. **S1** adds both modules (`OrbitGeneration` blob `0673321f`, `OrbitNormalization` blob `ea397e69`), the two import
+   lines and the census family in one commit. Acceptance:
    - `controls.py check S1 --freeze F` passes;
    - the exact-head run at S1 has every job green: the Mathlib bridge builds both modules, the axiom check passes with
      no `sorryAx`, and the release gate passes, `lean-manuscript` included.
