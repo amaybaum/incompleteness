@@ -23,8 +23,10 @@
         `OrbitNormalization` §D: the restricted body is compact with nonempty interior, and the
         restriction of every affine automorphism of the body fixes the restricted centroid and
         preserves the restricted inner product (`invariant_inner_product_span`);
-    §F  control: without interior the second moment can vanish identically — on the origin in
-        dimension at least one (`momentMatrix_origin`, `not_pos_moment_origin`).
+    §F  controls: a body contained in a proper affine subspace of the ambient space has a vanishing
+        ambient second moment (`momentMatrix_eq_zero_of_subset`), as the segment on the first axis
+        of the plane shows (`segment2_moment`); the positive-definite form exists only on the
+        translation space of the affine span, where the body has interior.
 
   No ellipsoid, no transitivity and no dimension is claimed.
 
@@ -467,37 +469,56 @@ theorem invariant_inner_product_span [FiniteDimensional ℝ V] {d : ℕ}
   obtain ⟨h1, h2, h3⟩ := invariant_inner_product hc hi
   exact ⟨hc, hi, h1, h2, fun g hg g' hgg => h3 g' (image_bodyR_eq hg hgg)⟩
 
-/-! ### §F — control: interior is needed -/
+/-! ### §F — controls: interior in the affine span is needed -/
 
-/-- In dimension at least one the origin is a null set. -/
-theorem volume_origin (hn : 0 < n) : volume ({0} : Set (Fin n → ℝ)) = 0 := by
-  haveI : Nonempty (Fin n) := ⟨⟨0, hn⟩⟩
-  have h := Measure.addHaar_submodule volume (⊥ : Submodule ℝ (Fin n → ℝ)) bot_ne_top
-  rwa [Submodule.bot_coe] at h
-
-/-- The second moment of a single point vanishes. -/
-theorem momentMatrix_origin (hn : 0 < n) : momentMatrix ({0} : Set (Fin n → ℝ)) = 0 := by
+/-- A null body has a vanishing second moment. -/
+theorem momentMatrix_eq_zero_of_null {Ω : Set (Fin n → ℝ)} (h0 : volume Ω = 0) :
+    momentMatrix Ω = 0 := by
   ext i j
-  show moment {0} (Pi.single i 1) (Pi.single j 1) = 0
+  show moment Ω (Pi.single i 1) (Pi.single j 1) = 0
   unfold moment
-  exact setIntegral_measure_zero _ (volume_origin hn)
+  exact setIntegral_measure_zero _ h0
 
-/-- Without interior the second moment is not positive definite: on a point in dimension at least
-one, it vanishes on a nonzero vector. -/
-theorem not_pos_moment_origin (hn : 0 < n) :
-    ∃ u : Fin n → ℝ, u ≠ 0 ∧ moment ({0} : Set (Fin n → ℝ)) u u = 0 := by
-  refine ⟨Pi.single ⟨0, hn⟩ 1, ?_, ?_⟩
+/-- **Control: a lower-dimensional body.** A body contained in a proper affine subspace of the
+ambient coordinate space has a vanishing ambient second moment, so no positive-definite ambient
+inner product comes from it; the positive-definite form exists on the translation space of its
+affine span (`invariant_inner_product_span`). -/
+theorem momentMatrix_eq_zero_of_subset {Ω : Set (Fin n → ℝ)} {s : AffineSubspace ℝ (Fin n → ℝ)}
+    (hs : s ≠ ⊤) (hΩ : Ω ⊆ (s : Set (Fin n → ℝ))) : momentMatrix Ω = 0 :=
+  momentMatrix_eq_zero_of_null (measure_mono_null hΩ (Measure.addHaar_affineSubspace volume s hs))
+
+/-- A segment on the first axis of the plane. -/
+def segment2 : Set (Fin 2 → ℝ) := {x | x 1 = 0 ∧ 0 ≤ x 0 ∧ x 0 ≤ 1}
+
+theorem volume_segment2 : volume segment2 = 0 := by
+  have hK : LinearMap.ker (LinearMap.proj 1 : (Fin 2 → ℝ) →ₗ[ℝ] ℝ) ≠ ⊤ := by
+    intro h
+    have : (Pi.single 1 1 : Fin 2 → ℝ) ∈ LinearMap.ker (LinearMap.proj 1 : (Fin 2 → ℝ) →ₗ[ℝ] ℝ) := by
+      rw [h]; exact Submodule.mem_top
+    rw [LinearMap.mem_ker, LinearMap.proj_apply] at this
+    simp at this
+  refine measure_mono_null (fun x hx => ?_) (Measure.addHaar_submodule volume _ hK)
+  show x ∈ LinearMap.ker (LinearMap.proj 1 : (Fin 2 → ℝ) →ₗ[ℝ] ℝ)
+  rw [LinearMap.mem_ker, LinearMap.proj_apply]
+  exact hx.1
+
+/-- **The segment in the plane**: its ambient second moment vanishes, and in particular the
+direction off the segment's line has zero second moment. -/
+theorem segment2_moment :
+    momentMatrix segment2 = 0 ∧ (Pi.single 1 1 : Fin 2 → ℝ) ≠ 0 ∧
+      moment segment2 (Pi.single 1 1) (Pi.single 1 1) = 0 := by
+  refine ⟨momentMatrix_eq_zero_of_null volume_segment2, ?_, ?_⟩
   · intro h
-    have := congrFun h ⟨0, hn⟩
+    have := congrFun h 1
     simp at this
   · unfold moment
-    exact setIntegral_measure_zero _ (volume_origin hn)
+    exact setIntegral_measure_zero _ volume_segment2
 
 /-! ### §G — the verdict -/
 
 /-- **Round IIP-1.** The common fixed point and the invariant inner product of the affine
-automorphisms of a compact convex body, on the translation space of its affine span, and the
-control that interior is needed. -/
+automorphisms of a body with interior, and the control that a lower-dimensional body has a
+vanishing ambient second moment, so the positive-definite form lives on its affine span. -/
 theorem iip1_core :
     (∀ (Ω : Set (Fin n → ℝ)), IsCompact Ω → (interior Ω).Nonempty →
       ∀ g : (Fin n → ℝ) ≃ᵃ[ℝ] (Fin n → ℝ), g '' Ω = Ω →
@@ -506,10 +527,12 @@ theorem iip1_core :
             u ⬝ᵥ (invMatrix Ω *ᵥ v)) ∧
     (∀ (Ω : Set (Fin n → ℝ)), IsCompact Ω → (interior Ω).Nonempty →
       (invMatrix Ω)ᵀ = invMatrix Ω ∧ ∀ u, u ≠ 0 → 0 < u ⬝ᵥ (invMatrix Ω *ᵥ u)) ∧
-    (0 < n → ∃ u : Fin n → ℝ, u ≠ 0 ∧ moment ({0} : Set (Fin n → ℝ)) u u = 0) :=
+    (∀ (Ω : Set (Fin n → ℝ)) (s : AffineSubspace ℝ (Fin n → ℝ)), s ≠ ⊤ →
+      Ω ⊆ (s : Set (Fin n → ℝ)) → momentMatrix Ω = 0) ∧
+    momentMatrix segment2 = 0 :=
   ⟨fun _ hc hi g hg => (invariant_inner_product hc hi).2.2 g hg,
     fun _ hc hi => ⟨(invariant_inner_product hc hi).1, (invariant_inner_product hc hi).2.1⟩,
-    fun hn => not_pos_moment_origin hn⟩
+    fun _ _ hs hΩ => momentMatrix_eq_zero_of_subset hs hΩ, segment2_moment.1⟩
 
 end InvariantInnerProduct
 end OIBridge
@@ -530,7 +553,8 @@ end OIBridge
 #print axioms OIBridge.InvariantInnerProduct.isCompact_bodyR
 #print axioms OIBridge.InvariantInnerProduct.image_bodyR_eq
 #print axioms OIBridge.InvariantInnerProduct.invariant_inner_product_span
-#print axioms OIBridge.InvariantInnerProduct.volume_origin
-#print axioms OIBridge.InvariantInnerProduct.momentMatrix_origin
-#print axioms OIBridge.InvariantInnerProduct.not_pos_moment_origin
+#print axioms OIBridge.InvariantInnerProduct.momentMatrix_eq_zero_of_null
+#print axioms OIBridge.InvariantInnerProduct.momentMatrix_eq_zero_of_subset
+#print axioms OIBridge.InvariantInnerProduct.volume_segment2
+#print axioms OIBridge.InvariantInnerProduct.segment2_moment
 #print axioms OIBridge.InvariantInnerProduct.iip1_core
