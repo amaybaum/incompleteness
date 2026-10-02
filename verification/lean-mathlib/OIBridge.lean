@@ -246,6 +246,7 @@ import OIBridge.NativeGateBall
 import OIBridge.KInfFoundations
 import OIBridge.OrbitGeneration
 import OIBridge.OrbitNormalization
+import OIBridge.InvariantInnerProduct
 
 namespace OIBridge
 
