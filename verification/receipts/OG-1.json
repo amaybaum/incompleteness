@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "OG-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "6d0abf6ba5467e0b0c1f5437a03ae6bd22f9c28a",
+ "f": "0ae3e44ea096b567c4e0339fa642de73ec9d3a80",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-og-1-orbit-generation/preregistration.md",
+   "blob": "5daa80844f941749c53217f645fac7a8aa9e6fd1"
+  }
+ ],
+ "governed_paths_digest": "ea4314ee4bfddb625b9c68d4794847d3ffb7e32826c1f251c611029bccff903f",
+ "e": "42be618122bfe4565df0dcec48dbcc38d6a5291e",
+ "tree_e": "1038298b79112b26aef5c8b895ace9114d34c02a",
+ "execution_delta_digest": "4166efb456e43817f93d743f6089a3e36d00f70269eced2c45d86ddb804299b5",
+ "candidates": [],
+ "landing": {
+  "base": "6d0abf6ba5467e0b0c1f5437a03ae6bd22f9c28a",
+  "object": "c6f8796b24071986a67e39abc7ec5aede3126887",
+  "reconciliations": [
+   "c6f8796b24071986a67e39abc7ec5aede3126887"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "f583d975209804bb8ad1e6d9271a090e8e49ffb421ed5828273ba0e666c50277"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "0ae3e44ea096b567c4e0339fa642de73ec9d3a80",
+   "record": "https://github.com/amaybaum/incompleteness/pull/780#issuecomment-5946342269"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "0ae3e44ea096b567c4e0339fa642de73ec9d3a80",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36964248550"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "42be618122bfe4565df0dcec48dbcc38d6a5291e",
+   "record": "https://github.com/amaybaum/incompleteness/pull/780#issuecomment-5946342541"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "42be618122bfe4565df0dcec48dbcc38d6a5291e",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36967960295"
+  }
+ ]
+}
