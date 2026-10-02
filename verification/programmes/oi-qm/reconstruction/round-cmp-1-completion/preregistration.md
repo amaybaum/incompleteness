@@ -1,7 +1,7 @@
 # Reconstruction round CMP-1 — the stage completion, SC∞ and the binary visible scope: PREREGISTRATION
 
-**Status: drafting.** This file is the control plane of a native round under `AGENTS.md` §A.39. It is drafted on its
-pull request from `D` and is final only at the commit `F` the owner designates; no commit after `F` changes it.
+**Status: candidate freeze.** This file is the control plane of a native round under `AGENTS.md` §A.39. It is drafted
+on its pull request from `D` and is final only at the commit `F` the owner designates; no commit after `F` changes it.
 The frozen surface, the controls, the evidence ledger, the stages and the outcomes below are fixed; the predicted
 execution tree is recorded before `F`.
 
@@ -29,7 +29,11 @@ change under any outcome.**
 - **`D`** = `f7f5c3b0c621cc3e4b57e3709d11d9d580c81149`, the head of `main` after `OG-1` landed (push run
   36973928206, every job green; the act 42 exclusion matrix skipped on push). The owner designated it as the common
   base of this wave.
-- **`F`** — the commit carrying this file, which the owner designates; `delta(D, F)` is this file.
+- **`F`** — the commit carrying this file, which the owner designates; `delta(D, F)` is this file. The drafting
+  lineage is linear on the first-parent chain: `D` → `0ee9e531` (initial draft) → `69c960bc` (the frozen
+  surface, controls and evidence ledger, committed before any outcome of the predicted execution tree was read) → `F`
+  (this revision, which adds the predicted execution tree). Every commit of the lineage changes only this file.
+  `F`'s own identity is recorded outside this file, at its exact-head run.
 - **`E`** — the certified execution head, which the owner designates.
 - **`Λ`**, **`Q`** — the reconciliation and the receipt commit, as §A.39 defines them. A sibling round of this wave
   (`IIP-1`, pull request #781) is drafted from the same `D`; whichever lands second reconciles against the `main` the
@@ -193,6 +197,20 @@ These runs are design evidence, not attestations. For each I read the Mathlib br
   `BinaryVisible`, with the necessary-not-sufficient statement and the ELEM reservation. Its log shows each of the 15
   `#print axioms` lines reporting exactly `[propext, Classical.choice, Quot.sound]`, `lean-axioms` 5454 named results
   with no `sorryAx`, and the release gate passing. This module is the reference blob `4df7bc6d`.
+
+### The predicted execution tree
+
+- **`e2c4fe608fa39deec05281d9fd7098f925a8ba35`** (`claude/cmp1-predicted`, a single-parent child of `D`) is the
+  execution tree less the result note: this preregistration in its frozen revision `69c960bc`, `controls.py` blob
+  `b5b27f1a`, the module blob `4df7bc6d`, `OIBridge.lean` blob `699baa41` and the census family. It contains nothing
+  of the sibling round's module (`InvariantInnerProduct`), import or census family.
+- At that commit `controls.py check e2c4fe60`, run from the tree's own frozen `controls.py`, passes all 14 checks.
+- **Run 36980774530** (`workflow_dispatch` on `e2c4fe60`) completed with conclusion success; every one of its 32 jobs
+  succeeded. The Mathlib bridge (job 110754562826) built `OIBridge.StageCompletion` with each of the 15 frozen `#print
+  axioms` lines reporting exactly `[propext, Classical.choice, Quot.sound]`, and its release gate passed every step
+  (`lean-axioms` 5454 named results, no `sorryAx`; `lean-manuscript` OK; 303 legacy records intact; 23 receipts hold).
+
+These runs are design evidence, not attestations.
 
 ## Stages
 
