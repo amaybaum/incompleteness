@@ -643,7 +643,7 @@ theorem exists_euler_angles {b : Fin 3 → ℝ} (hb : b 0 ^ 2 + b 1 ^ 2 + b 2 ^ 
     have hsinα : Real.sin (Real.arccos c) = |b 0 / s| := by
       rw [Real.sin_arccos, hsq, Real.sqrt_sq_eq_abs]
     have hcosα : Real.cos (Real.arccos c) = c := Real.cos_arccos hcabs.1 hcabs.2
-    rcases le_or_lt 0 (b 0) with hb0 | hb0
+    rcases le_or_gt 0 (b 0) with hb0 | hb0
     · refine ⟨Real.arccos c, Real.arccos (b 2), ?_, ?_, hθc⟩
       · rw [hsinα, hθs, abs_of_nonneg (div_nonneg hb0 hs0), div_mul_cancel₀ _ hspos.ne']
       · rw [hcosα, hθs, hc, div_mul_cancel₀ _ hspos.ne']
