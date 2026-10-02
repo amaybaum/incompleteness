@@ -427,16 +427,19 @@ theorem sum_smul_apply {D : DirectedStages} (s : Finset (Prep D)) (c : Prep D �
   refine Finset.sum_congr rfl fun x _ => ?_
   rw [lp.coeFn_smul, Pi.smul_apply, smul_eq_mul]
 
+/-- The index of a preparation of the midpoint system. -/
+def midIdx (x : Prep midD) : Fin 3 := x.2
+
 /-- The datum respects states: distinct preparations have distinct preparation vectors. -/
 theorem midOp_stateRespect : StateRespect midOp := by
   intro x y hxy
-  have hrow : (((x.2 : Fin 3) : ℕ) : ℝ) / 2 = (((y.2 : Fin 3) : ℕ) : ℝ) / 2 :=
+  have hrow : ((midIdx x : ℕ) : ℝ) / 2 = ((midIdx y : ℕ) : ℝ) / 2 :=
     congrArg (fun f : CSpace midD => f ⟨true, false⟩) hxy
   rw [div_left_inj' two_ne_zero] at hrow
-  have h2 : (x.2 : Fin 3) = y.2 := Fin.ext (by exact_mod_cast hrow)
+  have h2 : midIdx x = midIdx y := Fin.ext (by exact_mod_cast hrow)
   apply lp.ext
   funext a
-  show midStage.p a.2 (midSwap x.2) = midStage.p a.2 (midSwap y.2)
+  show midStage.p a.2 (midSwap (midIdx x)) = midStage.p a.2 (midSwap (midIdx y))
   rw [h2]
 
 /-- The preparation of index `k` at the stage `false`. -/
