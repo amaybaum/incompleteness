@@ -102,9 +102,20 @@ theorem exists_affine_of_relations (v : ι → E) (u : ι → F)
   have hker : LinearMap.ker A ≤ LinearMap.ker B := by
     intro l hl
     rw [LinearMap.mem_ker] at hl ⊢
-    simp only [hA, hB, LinearMap.prod_apply, Prod.mk_eq_zero, Finsupp.linearCombination_apply,
-      Finsupp.sum, smul_eq_mul, mul_one] at hl ⊢
-    exact ⟨hl.1, h l.support l hl.1 hl.2⟩
+    have h1 : Finsupp.linearCombination ℝ (fun _ => (1 : ℝ)) l = 0 := congrArg Prod.fst hl
+    have h2 : Finsupp.linearCombination ℝ v l = 0 := congrArg Prod.snd hl
+    have s1 : ∑ i ∈ l.support, l i = 0 := by
+      have h1' := h1
+      rw [Finsupp.linearCombination_apply, Finsupp.sum] at h1'
+      simpa using h1'
+    have s2 : ∑ i ∈ l.support, l i • v i = 0 := by
+      have h2' := h2
+      rw [Finsupp.linearCombination_apply, Finsupp.sum] at h2'
+      exact h2'
+    have h4 : Finsupp.linearCombination ℝ u l = 0 := by
+      rw [Finsupp.linearCombination_apply, Finsupp.sum]
+      exact h l.support l s1 s2
+    exact Prod.ext h1 h4
   obtain ⟨g, hg⟩ := LinearMap.exists_extend
     (((LinearMap.ker A).liftQ B hker).comp A.quotKerEquivRange.symm.toLinearMap)
   have hgA : ∀ l, g (A l) = B l := by
@@ -121,8 +132,7 @@ theorem exists_affine_of_relations (v : ι → E) (u : ι → F)
   have h1 : g ((1 : ℝ), v i) = ((1 : ℝ), u i) := by
     have := hgA (Finsupp.single i 1)
     rwa [hAs i, hBs i] at this
-  simp only [AffineMap.add_apply, LinearMap.coe_toAffineMap, LinearMap.comp_apply,
-    LinearMap.inr_apply, LinearMap.snd_apply, AffineMap.const_apply]
+  show (g ((0 : ℝ), v i)).2 + (g ((1 : ℝ), (0 : E))).2 = u i
   rw [← Prod.snd_add, ← map_add, Prod.mk_add_mk, zero_add, add_zero, h1]
 
 end Generic
@@ -358,15 +368,37 @@ theorem isEffectOn_pullback {T : OpDatum D} (hT : AffineRespect T) (a : Label D)
 
 /-! ### §E — `StateRespect` does not give `AffineRespect` -/
 
-/-- A stage with three preparations, the third reading as the midpoint of the first two. -/
+/-- A stage with three preparations reading `0`, `1/2` and `1` on its one non-unit effect: the
+second is the midpoint of the first and the third. -/
 noncomputable def midStage : FiniteStage where
   P := Fin 3
   E := Bool
-  p e x := if e then 1 else (![0, 1, 1 / 2] : Fin 3 → ℝ) x
+  p e x := if e then 1 else ((x : ℕ) : ℝ) / 2
   unit := true
-  nonneg e x := by split_ifs <;> fin_cases x <;> norm_num
-  le_one e x := by split_ifs <;> fin_cases x <;> norm_num
+  nonneg e x := by
+    split_ifs
+    · norm_num
+    · positivity
+  le_one e x := by
+    split_ifs
+    · norm_num
+    · have hx : (x : ℕ) ≤ 2 := Nat.lt_succ_iff.mp x.isLt
+      have hx' : ((x : ℕ) : ℝ) ≤ 2 := by exact_mod_cast hx
+      linarith
   unit_eq _ := rfl
+
+theorem midStage_true (k : Fin 3) : midStage.p true k = 1 := rfl
+
+theorem midStage_false (k : Fin 3) : midStage.p false k = ((k : ℕ) : ℝ) / 2 := rfl
+
+theorem midStage_false0 : midStage.p false (0 : Fin 3) = 0 := by
+  rw [midStage_false]; norm_num
+
+theorem midStage_false1 : midStage.p false (1 : Fin 3) = 1 / 2 := by
+  rw [midStage_false]; norm_num
+
+theorem midStage_false2 : midStage.p false (2 : Fin 3) = 1 := by
+  rw [midStage_false]; norm_num
 
 /-- The constant directed system of the midpoint stage. -/
 noncomputable def midD : DirectedStages where
@@ -381,7 +413,7 @@ theorem prepVec_midD_apply (x : Prep midD) (a : Label midD) :
     prepVec midD x a = midStage.p a.2 x.2 := rfl
 
 /-- The exchange of the first preparation and the midpoint. -/
-def midSwap : Fin 3 → Fin 3 := ![2, 1, 0]
+def midSwap : Fin 3 → Fin 3 := ![1, 0, 2]
 
 /-- The datum carrying each preparation to the preparation vector of its exchange. -/
 noncomputable def midOp : OpDatum midD where
@@ -398,39 +430,46 @@ theorem sum_smul_apply {D : DirectedStages} (s : Finset (Prep D)) (c : Prep D �
 /-- The datum respects states: distinct preparations have distinct preparation vectors. -/
 theorem midOp_stateRespect : StateRespect midOp := by
   intro x y hxy
-  have hk : ∀ k l : Fin 3, midStage.p false k = midStage.p false l → k = l := by
-    intro k l
-    fin_cases k <;> fin_cases l <;> norm_num [midStage]
   have hrow : midStage.p false x.2 = midStage.p false y.2 :=
     congrArg (fun f : CSpace midD => f ⟨true, false⟩) hxy
-  have h2 : (x.2 : Fin 3) = y.2 := hk x.2 y.2 hrow
+  rw [midStage_false, midStage_false, div_left_inj' two_ne_zero] at hrow
+  have h2 : (x.2 : Fin 3) = y.2 := Fin.ext (by exact_mod_cast hrow)
   apply lp.ext
   funext a
   show midStage.p a.2 (midSwap x.2) = midStage.p a.2 (midSwap y.2)
   rw [h2]
 
-/-- The datum does not respect the midpoint relation. -/
+/-- The preparation of index `k` at the stage `false`. -/
+def midPrep (k : Fin 3) : Prep midD := ⟨false, k⟩
+
+theorem midPrep_injective : Function.Injective midPrep := fun a b hab =>
+  eq_of_heq (Sigma.mk.inj hab).2
+
+/-- The datum does not respect the midpoint relation `x₀ - 2 x_m + x₂ = 0`. -/
 theorem midOp_not_affineRespect : ¬ AffineRespect midOp := by
   intro h
-  let emb : Fin 3 ↪ Prep midD := ⟨fun k => ⟨false, k⟩, fun a b hab => by simpa using hab⟩
-  let c : Prep midD → ℝ := fun x => (![1, 1, -2] : Fin 3 → ℝ) x.2
-  have hc : ∑ x ∈ Finset.univ.map emb, c x = 0 := by
+  let c : Prep midD → ℝ := fun x => (![1, -2, 1] : Fin 3 → ℝ) x.2
+  have hc : ∑ x ∈ Finset.univ.map ⟨midPrep, midPrep_injective⟩, c x = 0 := by
     rw [Finset.sum_map, Fin.sum_univ_three]
-    norm_num [c, emb]
-  have key : ∀ e : Bool, (![1, 1, -2] : Fin 3 → ℝ) 0 * midStage.p e (0 : Fin 3) +
-      (![1, 1, -2] : Fin 3 → ℝ) 1 * midStage.p e (1 : Fin 3) +
-      (![1, 1, -2] : Fin 3 → ℝ) 2 * midStage.p e (2 : Fin 3) = 0 := by
+    show (![1, -2, 1] : Fin 3 → ℝ) 0 + (![1, -2, 1] : Fin 3 → ℝ) 1 +
+      (![1, -2, 1] : Fin 3 → ℝ) 2 = 0
+    norm_num
+  have key : ∀ e : Bool, (![1, -2, 1] : Fin 3 → ℝ) 0 * midStage.p e (0 : Fin 3) +
+      (![1, -2, 1] : Fin 3 → ℝ) 1 * midStage.p e (1 : Fin 3) +
+      (![1, -2, 1] : Fin 3 → ℝ) 2 * midStage.p e (2 : Fin 3) = 0 := by
     intro e
-    cases e <;> norm_num [midStage]
-  have hv : ∑ x ∈ Finset.univ.map emb, c x • prepVec midD x = 0 := by
+    cases e
+    · rw [midStage_false0, midStage_false1, midStage_false2]; norm_num
+    · rw [midStage_true, midStage_true, midStage_true]; norm_num
+  have hv : ∑ x ∈ Finset.univ.map ⟨midPrep, midPrep_injective⟩, c x • prepVec midD x = 0 := by
     apply lp.ext
     funext a
     rw [sum_smul_apply, Finset.sum_map, Fin.sum_univ_three, lp.coeFn_zero, Pi.zero_apply]
     exact key a.2
-  have key2 : (![1, 1, -2] : Fin 3 → ℝ) 0 * midStage.p false (midSwap 0) +
-      (![1, 1, -2] : Fin 3 → ℝ) 1 * midStage.p false (midSwap 1) +
-      (![1, 1, -2] : Fin 3 → ℝ) 2 * midStage.p false (midSwap 2) ≠ 0 := by
-    norm_num [midStage, midSwap]
+  have key2 : (![1, -2, 1] : Fin 3 → ℝ) 0 * midStage.p false (1 : Fin 3) +
+      (![1, -2, 1] : Fin 3 → ℝ) 1 * midStage.p false (0 : Fin 3) +
+      (![1, -2, 1] : Fin 3 → ℝ) 2 * midStage.p false (2 : Fin 3) ≠ 0 := by
+    rw [midStage_false0, midStage_false1, midStage_false2]; norm_num
   have hs := h _ c hc hv
   have h3 := congrArg (fun f : CSpace midD => f ⟨false, false⟩) hs
   simp only at h3
