@@ -248,6 +248,7 @@ import OIBridge.OrbitGeneration
 import OIBridge.OrbitNormalization
 import OIBridge.InvariantInnerProduct
 import OIBridge.StageCompletion
+import OIBridge.CompletionAction
 
 namespace OIBridge
 
