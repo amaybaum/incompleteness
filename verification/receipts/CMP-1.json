@@ -1,0 +1,59 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "CMP-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "f7f5c3b0c621cc3e4b57e3709d11d9d580c81149",
+ "f": "f81050617142bc1c9bc26c4e78e96cafbe00b7df",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-cmp-1-completion/preregistration.md",
+   "blob": "6c0ec8e203ce069e63c5a54fac1679852488310a"
+  }
+ ],
+ "governed_paths_digest": "3f893a082108ca0ee6c1c93291f1f0dcc72dca69df32592c40342fd42bc8aeff",
+ "e": "0e515cf4ea0fab72c4d57814b7518c870c986870",
+ "tree_e": "48d39b69ee48d51ed545f87d2d1e8c8cca4e48f6",
+ "execution_delta_digest": "e0faa5407eb5d517e760ff7331edbb7f9433f106bbfdffcc2be84ab5e5122be1",
+ "candidates": [],
+ "landing": {
+  "base": "8b540d74eb3bc101fea999bd72f9e17b25cc2f0c",
+  "object": "6c4e867b13aa71da9932dbff615e016d78a4c970",
+  "reconciliations": [
+   "6c4e867b13aa71da9932dbff615e016d78a4c970"
+  ],
+  "resolved_paths": [
+   "verification/lean-manuscript-census.json",
+   "verification/lean-mathlib/OIBridge.lean"
+  ],
+  "delta_digest": "250f5e1f22a31a922e3c74053e861d9c5bea3dd955679ad5bb6b76135749d96f"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "f81050617142bc1c9bc26c4e78e96cafbe00b7df",
+   "record": "https://github.com/amaybaum/incompleteness/pull/782#issuecomment-5951238919"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "f81050617142bc1c9bc26c4e78e96cafbe00b7df",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36983545819"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "0e515cf4ea0fab72c4d57814b7518c870c986870",
+   "record": "https://github.com/amaybaum/incompleteness/pull/782#issuecomment-5951239651"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "0e515cf4ea0fab72c4d57814b7518c870c986870",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36990219147"
+  }
+ ]
+}
