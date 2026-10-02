@@ -244,6 +244,8 @@ import OIBridge.PhysicalC4StorageReadback
 import OIBridge.HydroClosureBridge
 import OIBridge.NativeGateBall
 import OIBridge.KInfFoundations
+import OIBridge.OrbitGeneration
+import OIBridge.OrbitNormalization
 
 namespace OIBridge
 
