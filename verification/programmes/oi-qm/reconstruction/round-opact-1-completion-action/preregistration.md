@@ -1,6 +1,6 @@
 # Reconstruction round OPACT-1 — completion-valued operation data and the action they induce on the completed body: PREREGISTRATION
 
-**Status: drafting.** This file is the control plane of a native round under `AGENTS.md` §A.39. It is drafted
+**Status: candidate freeze.** This file is the control plane of a native round under `AGENTS.md` §A.39. It is drafted
 on its pull request from `D` and is final only at the commit `F` the owner designates; no commit after `F` changes it.
 The frozen surface, the controls, the evidence ledger, the stages and the outcomes below are fixed; the predicted
 execution tree is recorded before `F`.
@@ -117,7 +117,118 @@ design branch, written before the round existed, is not the frozen one.
 
 The verdict bundles seven rows; COMP, EFF, EXT and SPAN are frozen surface with axiom prints outside the verdict.
 
+### Semantic guards (in `controls.py`)
+
+- **S1, premise strength.** Every load-bearing theorem and construction of the action (`gen_relation`,
+  `exists_induced`, `existsUnique_induced`, `induced`, `induced_gen`, `induced_mem`, `after`, `comp_gen`,
+  `affineRespect_after`, `induced_after`, `Undoes`, `comp_eq_id`, `inducedEquiv`, `inducedEquiv_apply`,
+  `inducedEquiv_symm_apply`, `preservesBody_inducedEquiv`, `isEffectOn_pullback`) carries `AffineRespect` among its
+  hypotheses and never `StateRespect`. `exists_affine_of_relations` carries its affine-relation hypothesis.
+  `StateRespect` occurs only in its definition, in `stateRespect_of_affineRespect`, in `midOp_stateRespect` and twice
+  in the verdict.
+- **S2, separation.** `midOp_stateRespect : StateRespect midOp` and `midOp_not_affineRespect : ¬ AffineRespect midOp`
+  are stated exactly and printed; the verdict carries `StateRespect midOp ∧ ¬ AffineRespect midOp` and
+  `AffineRespect T → StateRespect T`.
+- **S3, structure.** `inducedEquiv`, `inducedEquiv_symm_apply` and `preservesBody_inducedEquiv` carry both
+  `(hST : Undoes C S T hS)` and `(hTS : Undoes C T S hT)`; no theorem concludes `PreservesBody` without them.
+  `exists_completionChart` carries `(hne : (body D).Nonempty)` and `(hfr : FiniteRank (body D))`; the verdict carries
+  the chart clause under both, and each of its four chart-level clauses quantifies a `CompletionChart`.
+- **S4, downstream neutrality.** No declaration name, conclusion or line of code mentions a drive, a flow or a
+  one-parameter group of operations, transitivity, an invariant inner product, a dimension, a ball or an ellipsoid,
+  SC∞, countability, a concrete gate or phase, or `stageEffects`; the only concrete `OpDatum` is the countermodel
+  `midOp`.
+- **S5, header.** The header carries "Nothing here supplies an operation datum, a flow, transitivity, an invariant
+  inner product, a dimension or a ball, and nothing uses SC∞."
+
+`controls.py`:
+- is blob `7a622a8b10a2349ab92d62557b5e4591e7920935` (SHA-256
+  `0af3c86b16e3b760326a8863a0eb01936289d3f8cb85645e0c6d5c28e17850d6`, 706 lines), held on the disposable branch
+  `claude/opact1-controls` at `d5cfa1d2`;
+- was frozen, and this revision committed, before any outcome of the predicted execution tree was read;
+- `--self-test` passes 27 checks. Its 15 mutation controls each fail with their named code:
+  - a removed declaration (N1), a changed binder context (N2), a `sorry` (N3);
+  - `AffineRespect` replaced by `StateRespect` in body preservation, the affine-relation hypothesis removed from the
+    extension theorem, and a load-bearing theorem stated under `StateRespect` (S1, three times);
+  - the separation witness weakened to `¬ StateRespect midOp` (S2);
+  - inverse availability dropped from `PreservesBody`, and `FiniteRank` removed from the chart theorem (S3, twice);
+  - a one-parameter group of operations, a `stageEffects` closure claim, and a concrete operation datum (S4, three
+    times);
+  - the disclaimer dropped (S5);
+  - a dropped import line; a changed census status.
+- `controls.py check <commit> --freeze F` runs P, N1–N3, S1–S5, I, C and F.
+
+## Downstream design constraints
+
+Recorded for the rounds that will consume this bridge (DRIVE and the effect-generation round P2). They are
+constraints on those rounds' freezes, not claims of this round, and nothing in this round's surface states them.
+
+1. A continuous downstream drive acts on the completed body. It is not required to map completed states back to stage
+   preparations, or completed effects back to `stageEffects`.
+2. The available-effect family of P2 is a family of completed effects; closure of `stageEffects` under a continuous
+   group is not a premise any later freeze may preregister.
+3. Operations sourced later are delivered with `AffineRespect` (or a premise from which it follows), not with
+   `StateRespect` alone.
+4. Continuity of a flow is stated in the chart of a body of finite rank.
+
+## Evidence ledger
+
+Each row is discharged at `E` by the exact-head run at `E` and by `controls.py check E --freeze F`. The kernel build,
+the axiom report and the controls' text checks do not substitute for one another. The exact-head run on `F` attests
+the frozen control plane and this preregistration only; no row is discharged at `F`.
+
+| Row | Kernel identifiers | Evidence required at `E` | Control |
+|---|---|---|---|
+| respect conditions | `stateRespect_of_affineRespect`, `midOp_stateRespect`, `midOp_not_affineRespect` | built at `E`; printed axioms within `[propext, Classical.choice, Quot.sound]` | N2, S1, S2 |
+| affine extension | `sum_smul_affine`, `exists_affine_of_relations` | as above | N2, S1 |
+| chart | `exists_completionChart`, `chartBody_subset`, `affineSpan_gen` | as above | N2, S3 |
+| induced action | `existsUnique_induced`, `affineRespect_of_induced`, `induced_mem` | as above | N2, S1 |
+| composition | `induced_after`, `comp_eq_id` | as above | N2, S1 |
+| reversibility | `preservesBody_inducedEquiv` | as above | N2, S1, S3 |
+| effect pullback | `isEffectOn_pullback` | as above | N2, S1, S4 |
+| verdict | `opact1_core` | as above | S1–S5 |
+
+## Design evidence
+
+These runs are design evidence, not attestations. For each I read the Mathlib bridge job.
+
+- **Run 37011255825** (`claude/opact1-dev`, `7cbb923a`): the bridge failed with seven errors — a conjunction expected
+  where `simp` left an equation, an unknown lemma name for applying a sum of affine maps, and five evaluation failures
+  in the countermodel. The run completed with the bridge job failed.
+- **Run 37011853989** (`601ff5c5`, repair 1): 13 of the 16 printed axiom sets standard; the two countermodel theorems
+  and the verdict failed. Repair 1 proved the kernel inclusion by components, applied the affine map definitionally,
+  and re-indexed the countermodel to the readings `0`, `1/2`, `1` (the definitions `midStage` and `midSwap`).
+- **Run 37012251866** (`213f00cb`, repair 2): 14 of 16 standard; one type ascription failed in
+  `midOp_stateRespect`. Repair 2 named the relation coefficients.
+- **Run 37013353037** (`4781824c`, repair 3): completed with conclusion success; every one of its 32 jobs succeeded.
+  The Mathlib bridge (job 110858169641) built `OIBridge.CompletionAction` with each of the 16 `#print axioms` lines
+  reporting exactly `[propext, Classical.choice, Quot.sound]`, and its release gate passed every step (`lean-axioms`
+  5491 named results, no `sorryAx`; 303 legacy records intact; 25 receipts hold). This module is the reference blob
+  `8bcab4a5`.
+- Across the four commits no theorem statement changed; `OpDatum`, `StateRespect`, `AffineRespect`,
+  `CompletionChart` and every substantive statement are unchanged. Repair 1 changed the two countermodel definitions;
+  repairs 2 and 3 only added helper definitions and lemmas.
+
+## Stages
+
+1. **C1** adds `controls.py`, blob `7a622a8b`, to the record directory. Acceptance: the blob is the frozen blob.
+2. **S1** adds the module, the import line and the census family in one commit. Acceptance:
+   - `controls.py check S1 --freeze F` passes;
+   - the exact-head run at S1 has every job green, the Mathlib bridge building the module with every printed axiom set
+     within `[propext, Classical.choice, Quot.sound]` and the release gate passing.
+3. **Repairs**, if the build at S1 fails, change proofs only; each passes `controls.py check` at its commit. A failure
+   that a proof-only repair cannot fix halts the round.
+4. **S2** adds the result note `result.md`; this is candidate `E`. Acceptance: `controls.py check E --freeze F` passes
+   and the exact-head run at `E` has every job green.
 
 ## Outcomes
 
-To be fixed in the freeze revision.
+- **`OPACT-1-COMPLETION-ACTION-PROVED`** — `controls.py check E --freeze F` prints `controls: OK`, and the exact-head
+  run at `E` is green on every job, the Mathlib bridge building `CompletionAction` with every frozen `#print axioms`
+  reporting a subset of `[propext, Classical.choice, Quot.sound]` and the release gate passing. The result note
+  states that the round proves the completion action of an operation datum under `AffineRespect` and does not source
+  any operation, and that `StateRespect` is strictly weaker.
+- **`OPACT-1-HALTED`** — anything else; the round halts under the specification's `S12`, and the result note names the
+  failing check or job.
+
+No outcome sources an operation, a flow, transitivity, an invariant inner product, a dimension or a ball, or claims
+closure of `stageEffects` under any operation.
