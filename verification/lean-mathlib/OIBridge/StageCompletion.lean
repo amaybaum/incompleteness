@@ -79,10 +79,10 @@ def SCInf (D : DirectedStages) : Prop :=
 variable (D : DirectedStages)
 
 /-- The effect labels of all stages. -/
-def Label : Type := Σ i : D.ι, (D.stage i).E
+abbrev Label : Type := Σ i : D.ι, (D.stage i).E
 
 /-- The preparations of all stages. -/
-def Prep : Type := Σ i : D.ι, (D.stage i).P
+abbrev Prep : Type := Σ i : D.ι, (D.stage i).P
 
 /-- A chosen common upper stage. -/
 noncomputable def ub (i j : D.ι) : D.ι := Classical.choose (D.directed i j)
@@ -179,7 +179,7 @@ theorem coord_isEffectOn (a : Label D) : IsEffectOn (body D) (coord D a) := by
   have hc : Convex ℝ {f : CSpace D | 0 ≤ coord D a f ∧ coord D a f ≤ 1} := by
     intro f hf g hg s t hs ht hst
     simp only [Set.mem_setOf_eq] at hf hg ⊢
-    rw [Convex.combo_affine_apply hst]
+    rw [Convex.combo_affine_apply hst, smul_eq_mul, smul_eq_mul]
     constructor
     · nlinarith [hf.1, hg.1]
     · nlinarith [hf.2, hg.2]
@@ -203,7 +203,7 @@ theorem coord_unit_eq_one (i : D.ι) : ∀ f ∈ body D, coord D ⟨i, (D.stage 
   have hc : Convex ℝ {f : CSpace D | coord D ⟨i, (D.stage i).unit⟩ f = 1} := by
     intro f hf g hg s t hs ht hst
     simp only [Set.mem_setOf_eq] at hf hg ⊢
-    rw [Convex.combo_affine_apply hst, hf, hg, mul_one, mul_one, hst]
+    rw [Convex.combo_affine_apply hst, hf, hg, smul_eq_mul, smul_eq_mul, mul_one, mul_one, hst]
   have hcl : IsClosed {f : CSpace D | coord D ⟨i, (D.stage i).unit⟩ f = 1} :=
     isClosed_eq (continuous_coord D _) continuous_const
   exact fun f hf => body_subset D hc hcl (fun x => val_unit D i x) hf
@@ -259,6 +259,7 @@ theorem visible_test_completion (E : ElemBinary D) (i : D.ι) :
     intro f hf g hg s t hs ht hst
     simp only [Set.mem_setOf_eq] at hf hg ⊢
     rw [Convex.combo_affine_apply hst, Convex.combo_affine_apply hst]
+    simp only [smul_eq_mul]
     linear_combination s * hf + t * hg + hst
   have hcl : IsClosed {f : CSpace D | coord D ⟨i, E.v0 i⟩ f + coord D ⟨i, E.v1 i⟩ f = 1} :=
     isClosed_eq ((continuous_coord D _).add (continuous_coord D _)) continuous_const
@@ -299,13 +300,13 @@ coordinates whose range is its affine span. -/
 theorem exists_chart_of_finiteRank {Ω : Set V} (hne : Ω.Nonempty) (hfr : FiniteRank Ω) :
     ∃ (d : ℕ) (L : (Fin d → ℝ) →ₗ[ℝ] V) (p0 : V), LinearMap.ker L = ⊥ ∧
       ∀ x, x ∈ affineSpan ℝ Ω ↔ x ∈ Set.range (chart L p0) := by
-  haveI := hfr
+  haveI : FiniteDimensional ℝ (affineSpan ℝ Ω).direction := hfr
   obtain ⟨p0, hp0⟩ := hne
-  set dir := (affineSpan ℝ Ω).direction
-  let b := Module.finBasis ℝ dir
-  let L : (Fin (Module.finrank ℝ dir) → ℝ) →ₗ[ℝ] V := dir.subtype ∘ₗ b.equivFun.symm.toLinearMap
+  let b := Module.finBasis ℝ (affineSpan ℝ Ω).direction
+  let L : (Fin (Module.finrank ℝ (affineSpan ℝ Ω).direction) → ℝ) →ₗ[ℝ] V :=
+    (affineSpan ℝ Ω).direction.subtype ∘ₗ b.equivFun.symm.toLinearMap
   have hp0s : p0 ∈ affineSpan ℝ Ω := subset_affineSpan ℝ Ω hp0
-  refine ⟨Module.finrank ℝ dir, L, p0, ?_, fun x => ?_⟩
+  refine ⟨Module.finrank ℝ (affineSpan ℝ Ω).direction, L, p0, ?_, fun x => ?_⟩
   · rw [LinearMap.ker_eq_bot]
     exact Subtype.val_injective.comp b.equivFun.symm.injective
   · rw [← AffineSubspace.vsub_right_mem_direction_iff_mem hp0s x, vsub_eq_sub]
@@ -344,7 +345,7 @@ noncomputable def badD : DirectedStages where
 
 theorem not_scInf_bad : ¬ SCInf badD := by
   intro h
-  have := h false true (by decide) false ()
+  have := h false true (Bool.false_le true) false ()
   change (if false then (1 : ℝ) else if true then 1 / 2 else 1) =
     (if false then (1 : ℝ) else if false then 1 / 2 else 1) at this
   norm_num at this
@@ -355,8 +356,8 @@ theorem not_scInf_bad : ¬ SCInf badD := by
 theorem bad_values_differ :
     (badD.stage false).p ((badD.map (le_refl false)).onE false)
         ((badD.map (le_refl false)).onP ()) = 1 ∧
-      (badD.stage true).p ((badD.map (show false ≤ true by decide)).onE false)
-        ((badD.map (show false ≤ true by decide)).onP ()) = 1 / 2 := by
+      (badD.stage true).p ((badD.map (Bool.false_le true)).onE false)
+        ((badD.map (Bool.false_le true)).onP ()) = 1 / 2 := by
   constructor
   · show (if false then (1 : ℝ) else if false then 1 / 2 else 1) = 1
     norm_num
@@ -372,9 +373,17 @@ noncomputable def bitStage : FiniteStage where
     | none => 1
     | some b => if b = x then 1 else 0
   unit := none
-  nonneg e x := by cases e <;> simp only <;> split_ifs <;> norm_num
-  le_one e x := by cases e <;> simp only <;> split_ifs <;> norm_num
+  nonneg e x := by cases e <;> simp only <;> (try split_ifs) <;> norm_num
+  le_one e x := by cases e <;> simp only <;> (try split_ifs) <;> norm_num
   unit_eq _ := rfl
+
+theorem bitStage_test (x : Bool) :
+    bitStage.p (some false) x + bitStage.p (some true) x = 1 := by
+  cases x <;> simp [bitStage]
+
+theorem bitStage_one : bitStage.p (some false) false = 1 := by simp [bitStage]
+
+theorem bitStage_zero : bitStage.p (some false) true = 0 := by simp [bitStage]
 
 /-- The constant classical-bit tower. -/
 noncomputable def bitTower : DirectedStages where
@@ -391,19 +400,16 @@ theorem bitTower_scInf : SCInf bitTower := fun _ _ _ _ _ => rfl
 noncomputable def bitTower_elem : ElemBinary bitTower where
   v0 _ := some false
   v1 _ := some true
-  test _ x := by
-    show (if false = x then (1 : ℝ) else 0) + (if true = x then 1 else 0) = 1
-    cases x <;> norm_num
+  test _ x := bitStage_test x
   carried0 _ := rfl
   carried1 _ := rfl
 
 /-- On the bit tower every premise holds and the visible outcome is a sharp seed on the
 completion body. -/
 theorem bitTower_sharpSeed :
-    SharpSeed (body bitTower) (coord bitTower ⟨0, some false⟩) :=
-  sharpSeed_completion bitTower bitTower_scInf (i := 0) (e := some false) (x1 := false)
-    (x0 := true) (by show (if false = false then (1 : ℝ) else 0) = 1; norm_num)
-    (by show (if false = true then (1 : ℝ) else 0) = 0; norm_num)
+    SharpSeed (body bitTower) (coord bitTower ⟨(0 : ℕ), some false⟩) :=
+  sharpSeed_completion bitTower bitTower_scInf (i := (0 : ℕ)) (e := some false) (x1 := false)
+    (x0 := true) bitStage_one bitStage_zero
 
 /-! ### §G — the verdict -/
 
@@ -422,7 +428,7 @@ theorem cmp1_core :
       ∃ (d : ℕ) (L : (Fin d → ℝ) →ₗ[ℝ] V) (p0 : V), LinearMap.ker L = ⊥ ∧
         ∀ x, x ∈ affineSpan ℝ Ω ↔ x ∈ Set.range (chart L p0)) ∧
     ¬ SCInf badD ∧
-    (SCInf bitTower ∧ SharpSeed (body bitTower) (coord bitTower ⟨0, some false⟩)) :=
+    (SCInf bitTower ∧ SharpSeed (body bitTower) (coord bitTower ⟨(0 : ℕ), some false⟩)) :=
   ⟨fun D => stageEffects_isEffectOn D,
     fun D hSC _ _ _ _ h1 h0 => sharpSeed_completion D hSC h1 h0,
     fun _ E i => visible_test_completion E i,
