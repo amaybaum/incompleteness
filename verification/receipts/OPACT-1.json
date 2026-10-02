@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "OPACT-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "254ad0a7f19b3cf6f6ce28e1a7b955f18e4337e4",
+ "f": "149b2b2864acc762a61d82f9bd161361d9465447",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-opact-1-completion-action/preregistration.md",
+   "blob": "ac0b671930a3b530eb58764767a40eca887a2c03"
+  }
+ ],
+ "governed_paths_digest": "bc454d5d95ff26919448c5cb12ba315d29859d23a8db20e320394c147389b1a9",
+ "e": "c9846cac684ff7a56e4a564e4902fe9e9285b1bd",
+ "tree_e": "9ef8919fff5ecd3c7094824537652ebfbd51441a",
+ "execution_delta_digest": "3330c196539e0398c74695508cada4894bc89ebc282677cb9e80d31fe3efe1e7",
+ "candidates": [],
+ "landing": {
+  "base": "254ad0a7f19b3cf6f6ce28e1a7b955f18e4337e4",
+  "object": "9ac87209ce6ac2026ca93b7c58b2f73e76f7156c",
+  "reconciliations": [
+   "9ac87209ce6ac2026ca93b7c58b2f73e76f7156c"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "8d6d88460ee74916591ee94456b7b55d564a8d382abcdf78f0f28eb0a44a529e"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "149b2b2864acc762a61d82f9bd161361d9465447",
+   "record": "https://github.com/amaybaum/incompleteness/pull/783#issuecomment-5955168404"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "149b2b2864acc762a61d82f9bd161361d9465447",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37021207087"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "c9846cac684ff7a56e4a564e4902fe9e9285b1bd",
+   "record": "https://github.com/amaybaum/incompleteness/pull/783#issuecomment-5956195872"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "c9846cac684ff7a56e4a564e4902fe9e9285b1bd",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37026174796"
+  }
+ ]
+}
