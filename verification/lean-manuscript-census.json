@@ -1319,6 +1319,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Round OG-1, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/reconstruction/round-og-1-orbit-generation/preregistration.md. The kernel layer is conditional: given a sharp seed (P1), seed-orbit availability (V4′), boundary transitivity (K∞-R) and that the automorphisms preserve the body, the transports of the seed on the 3-ball are exactly the directional effects (1 + b·x)/2 and reach NativeGateBall.lorentz_of_effects at p = 3 (seedOrbit_ball3_eq, lorentz_of_available); the hypotheses move unchanged along affine coordinate changes and affine charts of the body's affine span (hypotheses_tr, hypotheses_restrict); body preservation extends from generators to words (preservesBody_words); the words of the control drive ball3Drive are boundary-transitive (boundaryTransitive_ball3Drive); the unit ball of a four-dimensional Euclidean space is boundary-transitive under its isometries (boundaryTransitive_ball4). Carried by no manuscript. None of the hypotheses is sourced: no OI construction supplies the seed, the drive, dimension three, or seed-orbit availability, and nothing here is a reconstruction theorem."
+    },
+    {
+      "name": "the common fixed point and invariant inner product of the affine automorphisms of a compact convex body, on the translation space of its affine span — centroid and second-moment form (round IIP-1, reconstruction)",
+      "modules": [
+        "InvariantInnerProduct"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Round IIP-1, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/reconstruction/round-iip-1-invariant-inner-product/preregistration.md. The kernel layer is premise-free: for a compact body with nonempty interior in coordinates Fin n → ℝ, every affine automorphism g with g '' Ω = Ω has |det| = 1 and fixes the centroid (centroid_fixed); the second-moment matrix S is symmetric and positive definite and satisfies A S Aᵀ = S for the linear part A (momentMatrix_conj); the inverse S⁻¹ is symmetric, positive definite and invariant under A (invariant_inner_product); through an injective affine chart of the affine span of a compact convex body the same holds on the translation space, where the body has nonempty interior, for every restriction of every automorphism of the body (invariant_inner_product_span). A body contained in a proper affine subspace has a vanishing ambient second moment (momentMatrix_eq_zero_of_subset, segment2_moment). No group, compactness of a group or Haar measure is used. Carried by no manuscript. Nothing here claims an ellipsoid, transitivity or a dimension, and nothing sources a drive."
     }
   ]
 }
