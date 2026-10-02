@@ -247,6 +247,7 @@ import OIBridge.KInfFoundations
 import OIBridge.OrbitGeneration
 import OIBridge.OrbitNormalization
 import OIBridge.InvariantInnerProduct
+import OIBridge.StageCompletion
 
 namespace OIBridge
 
