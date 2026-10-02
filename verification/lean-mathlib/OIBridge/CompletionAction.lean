@@ -430,9 +430,9 @@ theorem sum_smul_apply {D : DirectedStages} (s : Finset (Prep D)) (c : Prep D �
 /-- The datum respects states: distinct preparations have distinct preparation vectors. -/
 theorem midOp_stateRespect : StateRespect midOp := by
   intro x y hxy
-  have hrow : midStage.p false x.2 = midStage.p false y.2 :=
+  have hrow : (((x.2 : Fin 3) : ℕ) : ℝ) / 2 = (((y.2 : Fin 3) : ℕ) : ℝ) / 2 :=
     congrArg (fun f : CSpace midD => f ⟨true, false⟩) hxy
-  rw [midStage_false, midStage_false, div_left_inj' two_ne_zero] at hrow
+  rw [div_left_inj' two_ne_zero] at hrow
   have h2 : (x.2 : Fin 3) = y.2 := Fin.ext (by exact_mod_cast hrow)
   apply lp.ext
   funext a
@@ -445,19 +445,28 @@ def midPrep (k : Fin 3) : Prep midD := ⟨false, k⟩
 theorem midPrep_injective : Function.Injective midPrep := fun a b hab =>
   eq_of_heq (Sigma.mk.inj hab).2
 
+/-- The coefficients of the midpoint relation. -/
+def midCoef : Fin 3 → ℝ := ![1, -2, 1]
+
+theorem midCoef0 : midCoef 0 = 1 := rfl
+
+theorem midCoef1 : midCoef 1 = -2 := rfl
+
+theorem midCoef2 : midCoef 2 = 1 := rfl
+
 /-- The datum does not respect the midpoint relation `x₀ - 2 x_m + x₂ = 0`. -/
 theorem midOp_not_affineRespect : ¬ AffineRespect midOp := by
   intro h
-  let c : Prep midD → ℝ := fun x => (![1, -2, 1] : Fin 3 → ℝ) x.2
+  let c : Prep midD → ℝ := fun x => midCoef x.2
   have hc : ∑ x ∈ Finset.univ.map ⟨midPrep, midPrep_injective⟩, c x = 0 := by
     rw [Finset.sum_map, Fin.sum_univ_three]
-    show (![1, -2, 1] : Fin 3 → ℝ) 0 + (![1, -2, 1] : Fin 3 → ℝ) 1 +
-      (![1, -2, 1] : Fin 3 → ℝ) 2 = 0
+    show midCoef 0 + midCoef 1 + midCoef 2 = 0
+    rw [midCoef0, midCoef1, midCoef2]
     norm_num
-  have key : ∀ e : Bool, (![1, -2, 1] : Fin 3 → ℝ) 0 * midStage.p e (0 : Fin 3) +
-      (![1, -2, 1] : Fin 3 → ℝ) 1 * midStage.p e (1 : Fin 3) +
-      (![1, -2, 1] : Fin 3 → ℝ) 2 * midStage.p e (2 : Fin 3) = 0 := by
+  have key : ∀ e : Bool, midCoef 0 * midStage.p e (0 : Fin 3) +
+      midCoef 1 * midStage.p e (1 : Fin 3) + midCoef 2 * midStage.p e (2 : Fin 3) = 0 := by
     intro e
+    rw [midCoef0, midCoef1, midCoef2]
     cases e
     · rw [midStage_false0, midStage_false1, midStage_false2]; norm_num
     · rw [midStage_true, midStage_true, midStage_true]; norm_num
@@ -466,10 +475,10 @@ theorem midOp_not_affineRespect : ¬ AffineRespect midOp := by
     funext a
     rw [sum_smul_apply, Finset.sum_map, Fin.sum_univ_three, lp.coeFn_zero, Pi.zero_apply]
     exact key a.2
-  have key2 : (![1, -2, 1] : Fin 3 → ℝ) 0 * midStage.p false (1 : Fin 3) +
-      (![1, -2, 1] : Fin 3 → ℝ) 1 * midStage.p false (0 : Fin 3) +
-      (![1, -2, 1] : Fin 3 → ℝ) 2 * midStage.p false (2 : Fin 3) ≠ 0 := by
-    rw [midStage_false0, midStage_false1, midStage_false2]; norm_num
+  have key2 : midCoef 0 * midStage.p false (1 : Fin 3) +
+      midCoef 1 * midStage.p false (0 : Fin 3) + midCoef 2 * midStage.p false (2 : Fin 3) ≠ 0 := by
+    rw [midCoef0, midCoef1, midCoef2, midStage_false0, midStage_false1, midStage_false2]
+    norm_num
   have hs := h _ c hc hv
   have h3 := congrArg (fun f : CSpace midD => f ⟨false, false⟩) hs
   simp only at h3
