@@ -1,15 +1,17 @@
 /-
   OIBridge/StageCompletion.lean — round CMP-1: directed finite stages, stage consistency (SC∞),
-  the completion body and its effect-family interface, the binary visible scope (ELEM-bin), and
-  the affine-span chart of a body of finite rank.
+  the completion body and its effect-family interface, the binary-visible condition
+  (`BinaryVisible`, ELEM-bin), and the affine-span chart of a body of finite rank.
 
   Named hypotheses, stated as propositions and proved for no OI construction:
     * SC∞, `SCInf D`: every forward map of the directed system carries the probability table;
-    * ELEM-bin, `ElemBinary D`: every stage carries a binary visible test, and the forward maps
+    * ELEM-bin, `BinaryVisible D`: every stage carries a binary visible test, and the forward maps
       carry the visible outcomes to the visible outcomes;
     * finite rank, `FiniteRank Ω`: the affine span of the body is finite-dimensional.
-  The visible-factor clause of the elementary scope (no ancilla or hidden readout) needs available
-  transformations and is not defined here.
+  `BinaryVisible` is the binary-visible part of the elementary-system scope: necessary, not
+  sufficient. The visible-factor requirement (the body read on the visible factor alone, with no
+  ancilla or hidden readout) is an operational requirement that this vocabulary cannot state, and is
+  not formalized here; the name ELEM is reserved for a later formalization of the full scope.
 
   Proved here.
     §A  directed stages; the completion value of a stage effect at a stage preparation, read at a
@@ -22,17 +24,17 @@
     §C  under SC∞, a stage effect certain at one stage preparation and zero at another is a sharp
         seed on the completion body (`sharpSeed_completion`), and its certain state is a boundary
         state (`boundary_completion`);
-    §D  under ELEM-bin, the visible test is a test on the whole completion body
+    §D  under `BinaryVisible`, the visible test is a test on the whole completion body
         (`visible_test_completion`); with SC∞ a sharp visible pair is perfectly distinguishable by
         the two visible coordinates (`perfectlyDistinguishable_visible`);
     §E  a nonempty body of finite rank admits an injective affine chart whose range is its affine
         span (`exists_chart_of_finiteRank`), the input of `OrbitNormalization.hypotheses_restrict`;
     §F  controls: without SC∞ two common upper stages give different values (`bad_values_differ`);
         the hypotheses are jointly satisfiable on the constant classical-bit tower
-        (`bitTower_scInf`, `bitTower_elem`, `bitTower_sharpSeed`).
+        (`bitTower_scInf`, `bitTower_binaryVisible`, `bitTower_sharpSeed`).
 
-  Nothing here derives SC∞, ELEM-bin or finite rank from an OI construction, and nothing claims
-  a ball, a dimension, a drive or V4′.
+  Nothing here derives SC∞, `BinaryVisible` or finite rank from an OI construction, nothing
+  defines the full elementary-system scope, and nothing claims a ball, a dimension, a drive or V4′.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
@@ -233,11 +235,13 @@ theorem boundary_completion (hSC : SCInf D) {i : D.ι} {e : (D.stage i).E}
   sharpSeed_certain_isBoundaryState (sharpSeed_completion D hSC h1 h0) (prepVec_mem_body D _)
     (by rw [coord_prepVec, val_same_stage D hSC, h1])
 
-/-! ### §D — the binary visible scope, ELEM-bin -/
+/-! ### §D — the binary-visible condition (ELEM-bin) -/
 
-/-- **ELEM-bin**: every stage carries a binary visible test, and the forward maps carry the
-visible outcomes to the visible outcomes. -/
-structure ElemBinary where
+/-- **ELEM-bin, the binary-visible condition**: every stage carries a binary visible test, and the
+forward maps carry the visible outcomes to the visible outcomes. It is the binary-visible part of
+the elementary-system scope — necessary, not sufficient; it says nothing about reading the body on
+the visible factor alone. -/
+structure BinaryVisible where
   v0 : ∀ i, (D.stage i).E
   v1 : ∀ i, (D.stage i).E
   test : ∀ i x, (D.stage i).p (v0 i) x + (D.stage i).p (v1 i) x = 1
@@ -246,14 +250,14 @@ structure ElemBinary where
 
 variable {D}
 
-theorem val_visible_sum (E : ElemBinary D) (i : D.ι) (x : Prep D) :
+theorem val_visible_sum (E : BinaryVisible D) (i : D.ι) (x : Prep D) :
     val D ⟨i, E.v0 i⟩ x + val D ⟨i, E.v1 i⟩ x = 1 := by
   unfold val
   rw [E.carried0, E.carried1]
   exact E.test _ _
 
-/-- **The visible test is a test on the whole completion body** under ELEM-bin. No SC∞. -/
-theorem visible_test_completion (E : ElemBinary D) (i : D.ι) :
+/-- **The visible test is a test on the whole completion body** under `BinaryVisible`. No SC∞. -/
+theorem visible_test_completion (E : BinaryVisible D) (i : D.ι) :
     ∀ f ∈ body D, coord D ⟨i, E.v0 i⟩ f + coord D ⟨i, E.v1 i⟩ f = 1 := by
   have hc : Convex ℝ {f : CSpace D | coord D ⟨i, E.v0 i⟩ f + coord D ⟨i, E.v1 i⟩ f = 1} := by
     intro f hf g hg s t hs ht hst
@@ -265,9 +269,9 @@ theorem visible_test_completion (E : ElemBinary D) (i : D.ι) :
     isClosed_eq ((continuous_coord D _).add (continuous_coord D _)) continuous_const
   exact fun f hf => body_subset D hc hcl (fun x => val_visible_sum E i x) hf
 
-/-- With SC∞ and ELEM-bin, a sharp visible pair at some stage is perfectly distinguishable on the
-completion body by the two visible coordinates. -/
-theorem perfectlyDistinguishable_visible (hSC : SCInf D) (E : ElemBinary D) {i : D.ι}
+/-- With SC∞ and `BinaryVisible`, a sharp visible pair at some stage is perfectly
+distinguishable on the completion body by the two visible coordinates. -/
+theorem perfectlyDistinguishable_visible (hSC : SCInf D) (E : BinaryVisible D) {i : D.ι}
     {x0 x1 : (D.stage i).P} (h0 : (D.stage i).p (E.v0 i) x0 = 1)
     (h1 : (D.stage i).p (E.v1 i) x1 = 1) :
     PerfectlyDistinguishable (body D) ![prepVec D ⟨i, x0⟩, prepVec D ⟨i, x1⟩]
@@ -397,7 +401,7 @@ noncomputable def bitTower : DirectedStages where
 theorem bitTower_scInf : SCInf bitTower := fun _ _ _ _ _ => rfl
 
 /-- The visible test of the bit tower. -/
-noncomputable def bitTower_elem : ElemBinary bitTower where
+noncomputable def bitTower_binaryVisible : BinaryVisible bitTower where
   v0 _ := some false
   v1 _ := some true
   test _ x := bitStage_test x
@@ -415,14 +419,14 @@ theorem bitTower_sharpSeed :
 
 /-- **Round CMP-1.** The completion interface: every stage effect is an effect on the completion
 body with no premise; under SC∞ a sharp stage pair is a sharp seed on the completion; under
-ELEM-bin the visible test is a test on the completion; a body of finite rank has an affine chart of
-its span; without SC∞ the completion value is not well defined; and the premises are jointly
+`BinaryVisible` the visible test is a test on the completion; a body of finite rank has an affine
+chart of its span; without SC∞ the completion value is not well defined; and the premises are jointly
 satisfiable. -/
 theorem cmp1_core :
     (∀ D : DirectedStages, ∀ e ∈ stageEffects D, IsEffectOn (body D) e) ∧
     (∀ D : DirectedStages, SCInf D → ∀ (i : D.ι) (e : (D.stage i).E) (x1 x0 : (D.stage i).P),
       (D.stage i).p e x1 = 1 → (D.stage i).p e x0 = 0 → SharpSeed (body D) (coord D ⟨i, e⟩)) ∧
-    (∀ (D : DirectedStages) (E : ElemBinary D) (i : D.ι),
+    (∀ (D : DirectedStages) (E : BinaryVisible D) (i : D.ι),
       ∀ f ∈ body D, coord D ⟨i, E.v0 i⟩ f + coord D ⟨i, E.v1 i⟩ f = 1) ∧
     (∀ (Ω : Set V), Ω.Nonempty → FiniteRank Ω →
       ∃ (d : ℕ) (L : (Fin d → ℝ) →ₗ[ℝ] V) (p0 : V), LinearMap.ker L = ⊥ ∧
