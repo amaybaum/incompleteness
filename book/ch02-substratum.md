@@ -51,13 +51,13 @@ Chapter 1 took a substratum $(S, \varphi)$ as input and developed the emergent q
 
 The theorem takes two kinds of input. The first is *empirical*: structural facts about the observed universe. The second is *structural*: assumptions about the class of candidate substrates the reconstruction is permitted to consider. Both are necessary, and both must be stated explicitly. A reconstruction theorem that did not specify its structural assumptions would either claim too much (uniqueness without restriction) or claim too little (uniqueness only within an undefined class).
 
-**Empirical inputs.** The reconstruction draws on seven structural facts about observed physics, each well-established by experiment:
+**Empirical inputs.** The reconstruction draws on seven structural inputs about observed physics, six established by experiment and one (E3) a theoretical bound:
 
 *(E1) Unitary quantum mechanics.* The observed microscopic physics is described by states in a complex Hilbert space evolving unitarily, with observables as self-adjoint operators and measurement outcomes following the Born rule. This is Chapter 1's framework input.
 
 *(E2) Bell violations.* Observed correlations between spatially separated measurements violate Bell-type inequalities, ruling out local hidden-variable theories satisfying factorizability. Confirmed experimentally since Aspect's 1982 measurements and refined in loophole-free tests since 2015.
 
-*(E3) Finite boundary entropy.* The entropy of any bounded region of spacetime is finite and scales as the boundary area rather than the volume. This is the holographic bound, supported by black-hole thermodynamics and the cosmological horizon's finite entropy.
+*(E3) Finite boundary entropy.* The entropy of any bounded region of spacetime is finite and scales as the boundary area rather than the volume. This is the holographic bound — a theoretical bound rather than a direct observation — supported by black-hole thermodynamics and applied to the cosmological horizon.
 
 *(E4) Spatial isotropy.* Observed physics is rotationally invariant; no spatial direction is preferred. Confirmed across observations from the CMB to laboratory tests of fundamental constants.
 
@@ -65,7 +65,7 @@ The theorem takes two kinds of input. The first is *empirical*: structural facts
 
 *(E6) Stable matter.* Atoms, planets, and bound states exist on observed timescales. This requires both gravitational and atomic-scale stability against the dynamics.
 
-*(E7) Boundary-entropy concordance.* The observed cosmological structure has spatial flatness near the critical density: $\rho_s / \rho_{\text{crit}} \approx 1$. The framework's general-$d$ form of this ratio is $\rho_s / \rho_{\text{crit}} = 2/(d-1)$, which equals unity only at $d = 3$.
+*(E7) Boundary-entropy concordance.* The cosmological parameter inferred from observation under the standard cosmological model is spatial flatness near the critical density: $\rho_s / \rho_{\text{crit}} \approx 1$. The framework's general-$d$ form of this ratio is $\rho_s / \rho_{\text{crit}} = 2/(d-1)$, which equals unity only at $d = 3$.
 
 The inputs E5, E6, E7 each provide an independent dimensional constraint. Propagating gravity (E5) requires $d \geq 3$, since the Weyl tensor governing gravitational-wave propagation vanishes in $d \leq 2$. Stable matter (E6) requires $d \leq 3$, since the Coulomb potential gives unstable atoms in $d \geq 4$ (Ehrenfest's theorem) and gravitational orbits are unstable in $d \geq 4$ (Tangherlini's result). Boundary-entropy concordance (E7) gives $d = 3$ exactly. Without stable matter no embedded observers exist; without propagating gravity no observable GR exists; without concordance the spatial-flatness data is unexplained. The three filters converge on $d = 3$ by independent routes, making the spatial dimension a forced consequence rather than an input to the reconstruction.
 
@@ -73,15 +73,15 @@ The convergence has an external echo. A literature independent of this framework
 
 **Structural assumptions.** The reconstruction restricts attention to candidate substrates satisfying six properties:
 
-*(A1) Finiteness.* The configuration space $S$ is finite. This is the input from Lemma 1 of Chapter 1, supported empirically by E3 (the holographic bound implies a finite Hilbert-space dimension cutoff).
+*(A1) Finiteness.* The configuration space $S$ is finite. Lemma 1 of Chapter 1 delivers finiteness of the observer's distinguishable states; the extension to all of $S$ is a posit, read as the choice of the minimal finite representative and supported by E3 (the holographic bound read as a dimension cutoff).
 
-*(A2) Determinism.* The dynamics $\varphi: S \to S$ is a bijection — deterministic and reversible. This is the input from Lemma 3 of Chapter 1.
+*(A2) Determinism.* The dynamics $\varphi: S \to S$ is a bijection — deterministic and reversible. Its status is two-part (Chapter 1, Lemma 3): the bijective substratum is a representation choice — the minimal recurrent bijective representative of the hidden dynamics — and injectivity is anchored by a dilemma argument with one structural prong (finiteness and recurrence) and one empirical prong (the observed statistics).
 
 *(A3) Bounded coupling degree.* Each site of the substratum is coupled to a bounded number of neighbors through $\varphi$. This is required for the emergence of a coupling graph with well-defined dimensional structure and underlies locality in the emergent description.
 
-*(A4) Center independence.* The dynamics does not depend on a choice of preferred site or origin; $\varphi$ commutes with lattice translations up to gauge. This is required to derive the wave equation in Stage 2 below.
+*(A4) Center independence.* The dynamics does not depend on a choice of preferred site or origin: $\varphi$ commutes with lattice translations up to gauge, and the update at a site contains no explicit copy of that site's present value. The second property is what the derivation of the wave equation in Stage 2 below uses.
 
-*(A5) Linearity.* The wave equation governing $\varphi$ is linear. Nonlinear alternatives are not ruled out as theoretical possibilities but would require a separate derivation chain not developed here.
+*(A5) Linearity.* The wave equation governing $\varphi$ is linear. This is a sharpened stipulation: it is equivalent to amplitude-scale gauge — the unobservability of the absolute field scale — which is an adjoined operational input rather than a theorem; nonlinear alternatives are excluded exactly to the extent that input is assumed, and would otherwise require a separate derivation.
 
 *(A6) Background independence.* The dynamics is covariant under spatially varying internal-index transformations: a site-dependent transformation of the internal index is a symmetry provided the coupling data carried on the links are transformed with it. The content of the assumption is this covariant interface — the coupling is link-valued data on which the transformations act — and once it is in place the local transformation law imposes no further condition on the rule. It is not the stronger fixed-background condition that the same transformations leave the dynamics invariant with the coupling held fixed, which for an invertible constant coupling forces the transformation to agree across every coupled pair of sites and fails at the symmetric point of the coupling matrix for every transformation that differs across a coupled pair; the global commutant symmetry — the transformations constant across the lattice that leave the coupling unchanged — is the specialization from which the local gauge reading of Chapter 5 proceeds. The state-dependent coupling graph, under which the graph itself evolves with the state, is a separate principle that shares the name.
 
@@ -95,7 +95,7 @@ At Stage 1, the Stinespring theorem controls only the **finite channel/dilation 
 
 The dimension argument follows the three-filter convergence described above. By Gromov's theorem combined with statistical isotropy (E4), the coupling graph is quasi-isometric to $\mathbb{Z}^d$ for some integer $d$. The three filters from E5, E6, E7 then force $d = 3$.
 
-The wave equation follows from center independence (A4), isotropy (E4), and linearity (A5), together with the nearest-neighbor restriction (an assumption beyond A3's bounded coupling degree). The unique second-order reversible nearest-neighbor dynamics compatible with these constraints has the form $f = \alpha(x_1 + x_2 + \cdots + x_{2d}) \bmod q$, propagating with speed $v = \alpha$. The coupling constant $\alpha$ is fixed by relativistic causality with maximum signal speed $c$ realized at the lattice cutoff.
+The wave equation follows from center independence (A4), isotropy (E4), and linearity (A5), together with the nearest-neighbor restriction (an assumption beyond A3's bounded coupling degree). The unique second-order reversible nearest-neighbor dynamics compatible with these constraints has the form $f = \alpha(x_1 + x_2 + \cdots + x_{2d}) \bmod q$, with coupling coefficient $\alpha$. The coefficient is not the propagation speed: causal support travels at most one lattice edge per update whatever its value, and on the observer-level normalized branch it equals $1/d$.
 
 The number of internal components per lattice site follows from the link count under H-link: $K = 2dm$, with $m=1$ giving $K = 6$ (coupling-degree minimization does not establish it). This locks the candidate-sector count at three — read as three physical generations only under H-spin' (SM §4.7) — since three spin-$1/2$ staggered tastes emerge from the $K = 6$ minimum (Chapter 6 develops this).
 

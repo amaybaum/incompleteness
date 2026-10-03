@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "CC-2",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "6d335d0ad7a19092b6a10098afcea162a632a402",
+ "f": "d914af838f709f42cdd973cef3322872901a282e",
+ "control_plane_blobs": [
+  {
+   "path": "verification/audits/manuscript/round-cc-2-corpus-correction/preregistration.md",
+   "blob": "2e08e0d6f0e3267b308a0f0b2c2f52d61deefb08"
+  }
+ ],
+ "governed_paths_digest": "29aae15a282c75676116348b2be28a5587a637c968f736aa5ef90c17e0a47f1d",
+ "e": "36b12c4c4942c85129ad17843440dbe4981b89e7",
+ "tree_e": "373b55257beee80941c0cc72971c4fcd3e049558",
+ "execution_delta_digest": "ddbb402313d4cebd9a4ba8e98c52c0f25987089a54af8321cad63cd54ff56491",
+ "candidates": [],
+ "landing": {
+  "base": "6d335d0ad7a19092b6a10098afcea162a632a402",
+  "object": "da7169ec1f1190dc5cd16739f26a7ce939fd5721",
+  "reconciliations": [
+   "da7169ec1f1190dc5cd16739f26a7ce939fd5721"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "f146e809681d80ab50923815cdefd48b7a7aa067ba6ffa6e5fd3841ac0bdc08b"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "d914af838f709f42cdd973cef3322872901a282e",
+   "record": "https://github.com/amaybaum/incompleteness/pull/785#issuecomment-5972886667"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "d914af838f709f42cdd973cef3322872901a282e",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37148141531"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "36b12c4c4942c85129ad17843440dbe4981b89e7",
+   "record": "https://github.com/amaybaum/incompleteness/pull/785#issuecomment-5973222861"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "36b12c4c4942c85129ad17843440dbe4981b89e7",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37149798654"
+  }
+ ]
+}
