@@ -94,8 +94,9 @@ stating anything from the out-of-scope list, the item is halted at execution and
 
 §3 is the authorization: the file at `E` equals the file at `D` with exactly the substitutions listed, each `old`
 occurring exactly once at `D` (verified before this freeze, all 60 instances, 59 distinct old literals), and nothing else changes.
-Mirrors are listed as their own substitutions. The machine-readable form of this table is embedded in
-`controls.py` (stage C1) and must be byte-equal to it.
+Mirrors are listed as their own instances; a `FULL.md` instance whose old and new are byte-identical to its
+chapter instance is stated by reference to it. The machine-readable form of this table — every instance literal —
+is embedded in `controls.py` (stage C1), and `controls.py` must agree with this table instance by instance.
 
 ### T-A1-1 — CORRECT-IN-PLACE
 
@@ -345,19 +346,7 @@ new:
 The *area-law bound* — that the information shared across a region's boundary is at most proportional to the boundary rather than the volume — follows from the spatial Markov property on any graph with range-1 dynamics.
 ```
 
-**T-A3-1.7** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A3 §T-A3-1; FULL mirror of ch05:37
-
-old:
-
-```text
-The *area law* — that entanglement entropy of a region scales as its boundary rather than its volume — follows from the spatial Markov property on any graph with range-1 dynamics.
-```
-
-new:
-
-```text
-The *area-law bound* — that the information shared across a region's boundary is at most proportional to the boundary rather than the volume — follows from the spatial Markov property on any graph with range-1 dynamics.
-```
+**T-A3-1.7** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A3 §T-A3-1; FULL mirror of ch05:37; old and new byte-identical to T-A3-1.6, applied to this file.
 
 ### T-A3-2 — CORRECT-IN-PLACE
 
@@ -389,19 +378,7 @@ new:
 The *graph boundary* $|\partial V|$ of a region $V \subset S$ — the quantity the area-law bound is stated in — is the number of edges crossing from $V$ to its complement.
 ```
 
-**T-A3-2.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A3 §T-A3-2; FULL mirror of ch05:37; guardrail 3
-
-old:
-
-```text
-The *area* of a region $V \subset S$ is the number of edges crossing from $V$ to its complement.
-```
-
-new:
-
-```text
-The *graph boundary* $|\partial V|$ of a region $V \subset S$ — the quantity the area-law bound is stated in — is the number of edges crossing from $V$ to its complement.
-```
+**T-A3-2.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A3 §T-A3-2; FULL mirror of ch05:37; guardrail 3; old and new byte-identical to T-A3-2.2, applied to this file.
 
 ### T-A4-1 — CORRECT-IN-PLACE
 
@@ -461,19 +438,7 @@ new:
 *(A4) Center independence.* The dynamics does not depend on a choice of preferred site or origin: $\varphi$ commutes with lattice translations up to gauge, and the update at a site contains no explicit copy of that site's present value. The second property is what the derivation of the wave equation in Stage 2 below uses.
 ```
 
-**T-A4-1.5** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A4 §T-A4-1; FULL mirror of ch02:82
-
-old:
-
-```text
-*(A4) Center independence.* The dynamics does not depend on a choice of preferred site or origin; $\varphi$ commutes with lattice translations up to gauge. This is required to derive the wave equation in Stage 2 below.
-```
-
-new:
-
-```text
-*(A4) Center independence.* The dynamics does not depend on a choice of preferred site or origin: $\varphi$ commutes with lattice translations up to gauge, and the update at a site contains no explicit copy of that site's present value. The second property is what the derivation of the wave equation in Stage 2 below uses.
-```
+**T-A4-1.5** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A4 §T-A4-1; FULL mirror of ch02:82; old and new byte-identical to T-A4-1.4, applied to this file.
 
 ### T-A6-1 — REMOVE/QUALIFY ASSERTION
 
@@ -505,19 +470,7 @@ new:
 The framework's derivation of local $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge invariance, on the H-link/H-cust branch, is therefore complete at the level of the symmetry. The gauge group is fixed by the cubic decomposition of the six link directions; the amplitude-scale-invariance argument reduces $\mathrm{U}(n)$ to $\mathrm{SU}(n)$ for $n \geq 2$; background independence promotes the global commutant to a local gauge symmetry; the gauge-invariant plaquette functional from which the Wilson action is built follows, with the link variables $M(\mathbf{n}, \hat{e}_j)$ as the gauge connections. What is derived is the gauge symmetry; that the link dynamics is the Wilson action is not derived.
 ```
 
-**T-A6-1.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A6 §T-A6-1; FULL mirror of ch05:147
-
-old:
-
-```text
-The framework's derivation of local $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge invariance is therefore complete. The gauge group is fixed by the cubic decomposition of the six link directions; the amplitude-scale-invariance argument reduces $\mathrm{U}(n)$ to $\mathrm{SU}(n)$ for $n \geq 2$; background independence promotes the global commutant to a local gauge symmetry; the resulting structure is the Wilson plaquette action, with the link variables $M(\mathbf{n}, \hat{e}_j)$ as the gauge connections. The Standard Model gauge theory is derived rather than postulated, with each step a theorem in the framework's chain.
-```
-
-new:
-
-```text
-The framework's derivation of local $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge invariance, on the H-link/H-cust branch, is therefore complete at the level of the symmetry. The gauge group is fixed by the cubic decomposition of the six link directions; the amplitude-scale-invariance argument reduces $\mathrm{U}(n)$ to $\mathrm{SU}(n)$ for $n \geq 2$; background independence promotes the global commutant to a local gauge symmetry; the gauge-invariant plaquette functional from which the Wilson action is built follows, with the link variables $M(\mathbf{n}, \hat{e}_j)$ as the gauge connections. What is derived is the gauge symmetry; that the link dynamics is the Wilson action is not derived.
-```
+**T-A6-1.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A6 §T-A6-1; FULL mirror of ch05:147; old and new byte-identical to T-A6-1.2, applied to this file.
 
 ### T-A6-2 — REMOVE/QUALIFY ASSERTION
 
@@ -593,19 +546,7 @@ new:
 with coupling coefficient $\alpha$. The coefficient is not the propagation speed: causal support travels at most one lattice edge per update whatever its value, and on the observer-level normalized branch it equals $1/d$.
 ```
 
-**R1.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A5 drift R1; FULL mirror of ch02:98
-
-old:
-
-```text
-propagating with speed $v = \alpha$. The coupling constant $\alpha$ is fixed by relativistic causality with maximum signal speed $c$ realized at the lattice cutoff.
-```
-
-new:
-
-```text
-with coupling coefficient $\alpha$. The coefficient is not the propagation speed: causal support travels at most one lattice edge per update whatever its value, and on the observer-level normalized branch it equals $1/d$.
-```
+**R1.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A5 drift R1; FULL mirror of ch02:98; old and new byte-identical to R1.2, applied to this file.
 
 ### R2 — CORRECT-IN-PLACE
 
@@ -639,19 +580,7 @@ new:
 *(A5) Linearity.* The wave equation governing $\varphi$ is linear. This is a sharpened stipulation: it is equivalent to amplitude-scale gauge — the unobservability of the absolute field scale — which is an adjoined operational input rather than a theorem; nonlinear alternatives are excluded exactly to the extent that input is assumed, and would otherwise require a separate derivation.
 ```
 
-**R4.2** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A5 drift R4; FULL mirror of ch02:84
-
-old:
-
-```text
-*(A5) Linearity.* The wave equation governing $\varphi$ is linear. Nonlinear alternatives are not ruled out as theoretical possibilities but would require a separate derivation chain not developed here.
-```
-
-new:
-
-```text
-*(A5) Linearity.* The wave equation governing $\varphi$ is linear. This is a sharpened stipulation: it is equivalent to amplitude-scale gauge — the unobservability of the absolute field scale — which is an adjoined operational input rather than a theorem; nonlinear alternatives are excluded exactly to the extent that input is assumed, and would otherwise require a separate derivation.
-```
+**R4.2** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A5 drift R4; FULL mirror of ch02:84; old and new byte-identical to R4.1, applied to this file.
 
 ### R5 — CORRECT-IN-PLACE
 
@@ -683,19 +612,7 @@ new:
 The matrix $M$ is the sole free parameter of this branch at this level.
 ```
 
-**R5.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A5 drift R5; FULL mirror of ch05:101
-
-old:
-
-```text
-The matrix $M$ is the substratum's sole free parameter at this level.
-```
-
-new:
-
-```text
-The matrix $M$ is the sole free parameter of this branch at this level.
-```
+**R5.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A5 drift R5; FULL mirror of ch05:101; old and new byte-identical to R5.2, applied to this file.
 
 ### R6 — CORRECT-IN-PLACE
 
@@ -713,19 +630,7 @@ new:
 *(A2) Determinism.* The dynamics $\varphi: S \to S$ is a bijection — deterministic and reversible. Its status is two-part (Chapter 1, Lemma 3): the bijective substratum is a representation choice — the minimal recurrent bijective representative of the hidden dynamics — and injectivity is anchored by a dilemma argument with one structural prong (finiteness and recurrence) and one empirical prong (the observed statistics).
 ```
 
-**R6.2** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A2 drift R6; FULL mirror of ch02:78
-
-old:
-
-```text
-*(A2) Determinism.* The dynamics $\varphi: S \to S$ is a bijection — deterministic and reversible. This is the input from Lemma 3 of Chapter 1.
-```
-
-new:
-
-```text
-*(A2) Determinism.* The dynamics $\varphi: S \to S$ is a bijection — deterministic and reversible. Its status is two-part (Chapter 1, Lemma 3): the bijective substratum is a representation choice — the minimal recurrent bijective representative of the hidden dynamics — and injectivity is anchored by a dilemma argument with one structural prong (finiteness and recurrence) and one empirical prong (the observed statistics).
-```
+**R6.2** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A2 drift R6; FULL mirror of ch02:78; old and new byte-identical to R6.1, applied to this file.
 
 ### R7 — CORRECT-IN-PLACE
 
@@ -743,19 +648,7 @@ new:
 *(A1) Finiteness.* The configuration space $S$ is finite. Lemma 1 of Chapter 1 delivers finiteness of the observer's distinguishable states; the extension to all of $S$ is a posit, read as the choice of the minimal finite representative and supported by E3 (the holographic bound read as a dimension cutoff).
 ```
 
-**R7.2** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A1 drift R7; FULL mirror of ch02:76
-
-old:
-
-```text
-*(A1) Finiteness.* The configuration space $S$ is finite. This is the input from Lemma 1 of Chapter 1, supported empirically by E3 (the holographic bound implies a finite Hilbert-space dimension cutoff).
-```
-
-new:
-
-```text
-*(A1) Finiteness.* The configuration space $S$ is finite. Lemma 1 of Chapter 1 delivers finiteness of the observer's distinguishable states; the extension to all of $S$ is a posit, read as the choice of the minimal finite representative and supported by E3 (the holographic bound read as a dimension cutoff).
-```
+**R7.2** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A1 drift R7; FULL mirror of ch02:76; old and new byte-identical to R7.1, applied to this file.
 
 ### R8 — CORRECT-IN-PLACE
 
@@ -773,19 +666,7 @@ new:
 *A1 (finiteness).* The framework's representative has finite $|S|$. Matrix models with $N \to \infty$ limits violate this strictly, but for any finite $N$ the bridge is consistent. Since the extension of finiteness beyond the observer's distinguishable states is a choice of representative rather than a further fact (Chapter 2), the bridge requires a finite-$N$ representative — the matrix model not taken to its continuum limit — without asserting that $N$ is physically finite. This distinguishes the framework's bridge from standard matrix-model interpretations.
 ```
 
-**R8.2** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A1 drift R8; FULL mirror of ch09:197
-
-old:
-
-```text
-*A1 (finiteness).* The framework requires finite $|S|$. Matrix models with $N \to \infty$ limits violate this strictly, but for any finite $N$ the bridge is consistent. The bridge would require $N$ to be physically finite — meaning the matrix model is not taken to its continuum limit but is treated as itself the fundamental description. This is a substantive interpretive choice that distinguishes the framework's bridge from standard matrix-model interpretations.
-```
-
-new:
-
-```text
-*A1 (finiteness).* The framework's representative has finite $|S|$. Matrix models with $N \to \infty$ limits violate this strictly, but for any finite $N$ the bridge is consistent. Since the extension of finiteness beyond the observer's distinguishable states is a choice of representative rather than a further fact (Chapter 2), the bridge requires a finite-$N$ representative — the matrix model not taken to its continuum limit — without asserting that $N$ is physically finite. This distinguishes the framework's bridge from standard matrix-model interpretations.
-```
+**R8.2** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-A1 drift R8; FULL mirror of ch09:197; old and new byte-identical to R8.1, applied to this file.
 
 ### R11 — CORRECT-IN-PLACE
 
@@ -895,19 +776,7 @@ new:
 This is the holographic bound — a theoretical bound rather than a direct observation — supported by black-hole thermodynamics and applied to the cosmological horizon.
 ```
 
-**T-E-2.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-E T-E-2; FULL mirror of ch02:60
-
-old:
-
-```text
-This is the holographic bound, supported by black-hole thermodynamics and the cosmological horizon's finite entropy.
-```
-
-new:
-
-```text
-This is the holographic bound — a theoretical bound rather than a direct observation — supported by black-hole thermodynamics and applied to the cosmological horizon.
-```
+**T-E-2.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-E T-E-2; FULL mirror of ch02:60; old and new byte-identical to T-E-2.2, applied to this file.
 
 **T-E-2.4** `book/ch02-substratum.md` — source: L-E T-E-2; book ch02:54 (count phrase)
 
@@ -923,19 +792,7 @@ new:
 The reconstruction draws on seven structural inputs about observed physics, six established by experiment and one (E3) a theoretical bound:
 ```
 
-**T-E-2.5** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-E T-E-2; FULL mirror of ch02:54
-
-old:
-
-```text
-The reconstruction draws on seven structural facts about observed physics, each well-established by experiment:
-```
-
-new:
-
-```text
-The reconstruction draws on seven structural inputs about observed physics, six established by experiment and one (E3) a theoretical bound:
-```
+**T-E-2.5** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-E T-E-2; FULL mirror of ch02:54; old and new byte-identical to T-E-2.4, applied to this file.
 
 ### T-E-4 — CORRECT-IN-PLACE
 
@@ -967,19 +824,7 @@ new:
 The cosmological parameter inferred from observation under the standard cosmological model is spatial flatness near the critical density: $\rho_s / \rho_{\text{crit}} \approx 1$.
 ```
 
-**T-E-4.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-E T-E-4; FULL mirror of ch02:68
-
-old:
-
-```text
-The observed cosmological structure has spatial flatness near the critical density: $\rho_s / \rho_{\text{crit}} \approx 1$.
-```
-
-new:
-
-```text
-The cosmological parameter inferred from observation under the standard cosmological model is spatial flatness near the critical density: $\rho_s / \rho_{\text{crit}} \approx 1$.
-```
+**T-E-4.3** `book/The-Incompleteness-of-Observation-FULL.md` — source: L-E T-E-4; FULL mirror of ch02:68; old and new byte-identical to T-E-4.2, applied to this file.
 
 ### Deferred (no textual change)
 
