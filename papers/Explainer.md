@@ -879,7 +879,7 @@ The framework now covers the three pillars of modern physics and their consequen
 | **Quantum mechanics** | Emerges from embedded observation | Main |
 | **General relativity** | Emerges from lattice dynamics passing 7 checks | GR + Substratum |
 | **Standard Model structure** | SU(3) × SU(2) × U(1), 3 generations, Higgs, chiral coupling | SM |
-| **Structural foundations** | $d = 3$, coupling graph ontology, $q$-gauge, background independence (state-dependent geometry) | Substratum |
+| **Structural foundations** | $d = 3$, coupling graph ontology, $q$-gauge, background independence | Substratum |
 | **Chemistry → life** | Orbitals, periodic table, carbon, water, chirality, autocatalysis, origin of life, evolution | Complexity |
 
 The starting point for all of it: a finite set, a bijection, and a partition.

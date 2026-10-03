@@ -1,6 +1,11 @@
-# Corpus correction round CC-1 — the premise ledger's 27 drift and tension items: RESULT
+# Corpus correction round CC-1 — the premise ledger's 27 drift and tension items: RESULT (halted)
 
-Run under `AGENTS.md` §A.39 as a native round, in one pull request, #784.
+Run under `AGENTS.md` §A.39 as a native round, in one pull request, #784. **The round halted under the
+specification's `S12`** at its candidate `E`: the exact-head run of that candidate failed two verification
+checks that pin files outside the round's governed paths, and the preregistration (section 9) makes any
+failure at `E` a halt, not an in-round repair. No `E` was designated. The withdrawal commit `W` restores
+every execution path to its state at `F`; this note is part of `W`. The owner directed the halt in
+pull-request comment 5972395961.
 
 - **`D`** — `0f2687b7b87925b53c6e3d8c6d1a233f36624dea`, the head of `main` after `OPACT-1` landed (push run
   37035333423), identical to the premise ledger's audited base.
@@ -12,22 +17,57 @@ Run under `AGENTS.md` §A.39 as a native round, in one pull request, #784.
   5972019225). The first drafting commit's exact-head run 37140734308 failed the release gate's `duplicate` step on
   the preregistration's own chapter/`FULL.md` mirror blocks, corrected in `F` by stating those instances by
   reference; no other step was red.
-- **Shape** — non-sealing; stages C1 and S1 and this note (S2).
+- **Shape** — non-sealing, halted with three execution commits.
 
-**Outcome:** `CC-1-CORRECTED`
+**Outcome:** `CC-1-HALTED`. Neither `CC-1-CORRECTED` nor `CC-1-PARTIAL` applies: every substitution of
+section 3 applied and the closure steps were green on the candidate, but the candidate is not certified.
+Bands unchanged.
 
-## The execution
+## The execution and the halt
 
 | Commit | Content |
 |---|---|
 | `babad11ad7186609cb6106ffa2623b8883782bc4` | C1: `controls.py`, blob `e14474e7827e4d12891a096522a537878d5cdd7e` (sha256 `d51e6bde4c4f29950662f8b2b296bd9754eb2e0ae0f39a0e79d5217069ebb493`); self-test OK; `--check D` OK at `F` |
 | `93bbeb1581c8eba048abc22e11b9332e3df37150` | S1: the 60 substitutions applied verbatim to the eleven sources; seven papers and the book rebuilt; `--check E` OK |
-| this commit | S2: this note; candidate `E` |
+| `342fb68f0196a77c9085ac981f01266fd86eb869` | S2: the result note as first written, outcome `CC-1-CORRECTED`; candidate `E`, measured and not certified |
+| `W` (this commit) | every execution path restored to its `F` blob; `controls.py` kept; this note |
 
-Every item of section 3 applied; none halted; the five deferred sites are byte-identical to `D` (checked by
-`controls.py`). Bands unchanged.
+The candidate's exact-head `workflow_dispatch` run 37143464345 concluded `failure`: 29 of 32 jobs succeeded;
+`Mathlib bridge` failed, `Numerical probes / core B` failed, and the aggregate `Numerical probes` job failed
+with it. The two failures:
 
-## The closure steps (preregistration section 5)
+1. **Release-gate step `coverage`** (`tools/coverage_check.py`): `STALE entry
+   SUBSTRATUM:C-effective-finiteness-gauge-class-transfer: the manuscript statement has changed
+   (9330e1f409e986c0 -> f7e912991de09137)`. The entry in `verification/coverage/LEDGER.json` carries a
+   fingerprint of the corollary at `papers/Substratum.md` line 262, which the T-A1-1 substitution rewrote.
+   Every other gate step passed, `v3-receipts` with 26 receipts holding.
+2. **`verification/lean/edge_rigidity_probe.py`, guard `R7-A6P`**, sub-check P5 on `papers/SM.md` section 3.1. The
+   guard delimits the section's gauge passage by the sentinel string `now derived rather than postulated.` and
+   requires the delimited passage to be non-empty and kernel-free. The T-A6-1 substitution removed exactly that
+   phrase, so the delimited passage is empty. Every passage the guard pins — the Substratum A6 definition, the six
+   section-3.1 sentences, the Structure clause, chapters 2, 5 and 9, appendix B, the glossary entry and the
+   `FULL.md` mirrors — was checked present at the candidate; only the delimiter fails.
+
+Both checks read files the governed-path block does not name (`verification/coverage/LEDGER.json`,
+`verification/lean/edge_rigidity_probe.py`), and the control plane cannot change after `F`. The failures
+are not failed substitutions: the 60 `old` strings were found and replaced exactly once each, and the five
+deferred sites are byte-identical to `D` (`controls.py --check E` at the candidate). The preregistration's
+hazard list (section 9) named the gate steps that read the manuscripts and did not name `coverage` or the
+numerical probes; that is the design gap the halt records.
+
+## What a follow-up round carries
+
+A new native round whose governed paths name the same 27 manuscript paths together with
+`verification/coverage/LEDGER.json` and `verification/lean/edge_rigidity_probe.py`; it re-applies the same 60
+frozen substitutions, re-affirms the coverage entry's mapping on the rewritten corollary (its `kernel` is `GAP`
+and its `delta` `not formalized`; the corollary's claim narrows and the mapping stands), and re-anchors guard
+`R7-A6P`'s delimiter on a sentence that survives the T-A6-1 correction. Its hazard list names every gate step
+and probe that pins manuscript text, measured at its `D`.
+
+## Measurements at the candidate (not certified)
+
+The closure steps of preregistration section 5, as measured at S1 and S2. They are evidence for the follow-up
+round's design, not results of this one.
 
 1. **Frozen disposition table** — preregistration section 3 at `F`; `controls.py` embeds every instance literally
    and the two agree instance by instance (its `--check D` at `F` found each `old` exactly once in its file).
@@ -36,8 +76,9 @@ Every item of section 3 applied; none halted; the five deferred sites are byte-i
 4. **Mirrors in the same commit** — S1 is one commit; the `FULL.md` instances are byte-identical to their chapter
    instances; `mirror_check`: 0 chapter lines absent from `FULL.md`.
 5. **Regeneration** — `sh ./build.sh Substratum Main GR SM Structure Explainer Methodology` and `sh ./build.sh --book`
-   in S1, no dropped glyph; `staleness_check`: 13 matched, 0 unstamped. Page counts: Substratum     ok  50 pages; Main           ok  87 pages; GR             ok  82 pages; SM             ok  145 pages; Structure      ok  98 pages; Explainer      ok  67 pages; Methodology    ok  54 pages; book           ok  540 pages.
-   (`D`: 50 / 87 / 82 / 144 / 98 / 67 / 54 / 540; SM gains one page from the longer lemma statement.)
+   in S1, no dropped glyph; `staleness_check`: 13 matched, 0 unstamped. Page counts: Substratum 50; Main 87; GR 82;
+   SM 145; Structure 98; Explainer 67; Methodology 54; book 540 (`D`: 50 / 87 / 82 / 144 / 98 / 67 / 54 / 540; SM
+   gains one page from the longer lemma statement).
 6. **Re-grep counts** — measured at `D` and at S1, corpus-wide (`papers/*.md`, `book/*.md`):
 
 | phrase | D | S1 | predicted |
@@ -78,11 +119,12 @@ Every item of section 3 applied; none halted; the five deferred sites are byte-i
 8. **Claim-surface sweep** — the out-of-scope term list over the 60 `new` texts: 0 hits.
 
 Gate steps that read the manuscripts, run locally at S1: `duplicate_check` OK; `voice_check` OK (40 files);
-`claims_check` OK; `citation_check` 112 citations, 0 broken; `dependency_label_check` OK.
+`claims_check` OK; `citation_check` 112 citations, 0 broken; `dependency_label_check` OK. The exact-head run
+confirmed these and failed the two checks above.
 
 ## Census
 
-At `F` (= `D` for every governed execution path):
+At `F` (= `D` for every governed execution path), and again at `W` by the withdrawal invariant:
 
 ```text
 33c1f14476ba9a3e999debd79ed01c6af8a2bde792f4e013f7a79a3186e6965b  papers/Substratum.md
@@ -114,7 +156,7 @@ dbeb4dd8be5641d0f2dedf9fce18bb10bfcf3685323a43b2a430d28456e8355f  book/The-Incom
 c36178581e327f8c8accf2042ebd166de99edc8666df2ccfa03e704fd08f3a42  book/The-Incompleteness-of-Observation-FULL.pdf
 ```
 
-At S1:
+At S1 (the withdrawn execution tree, reachable through `W` as historical evidence):
 
 ```text
 2099e31ce0d23751d299eec73cc41cef255a9316b4bfb7cb65c05d21a8ea2cd8  papers/Substratum.md
@@ -148,5 +190,6 @@ c060e35ce2a45f58b2ca4952fa2226e1dd4abdf527a66299723c03518e5e5a68  book/The-Incom
 
 ## What stays open
 
-The five deferred items (R3, R9, R10, T-HT1-1, T-E-3) are untouched, for the reasons the preregistration gives; they
-belong to the round after 3B. No ledger replacement obligation is discharged by this round.
+All 27 items stay as the premise ledger records them; no manuscript text is changed by this round's landing. The
+five deferred items (R3, R9, R10, T-HT1-1, T-E-3) belong to the round after 3B. No ledger replacement obligation
+is discharged.

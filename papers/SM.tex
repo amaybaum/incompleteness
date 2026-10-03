@@ -582,16 +582,13 @@ carrier theorem would require a separate construction.
 structure}\label{space-as-coupling-structure}}
 
 Every ``spatial'' property used in the derivation chain is a property of
-G\_φ. The \emph{graph boundary} \(|\partial V|\) of a region V --- the
-quantity the area-law bound below is stated in --- is the number of
-edges crossing from V to its complement. The \emph{dimension} is
-extracted from the causal partial order via the Myrheim-Meyer estimator
-{[}2{]}. The \emph{area-law bound} --- mutual information across a
-region's boundary at most proportional to the boundary --- follows from
-the spatial Markov property on any graph with range-1 dynamics. The
-\emph{dispersion relation} requires translation invariance. The regular
-cubic lattice is one graph with these properties; it is not the only
-one.
+G\_φ. The \emph{area} of a region V is the number of edges crossing from
+V to its complement. The \emph{dimension} is extracted from the causal
+partial order via the Myrheim-Meyer estimator {[}2{]}. The \emph{area
+law} follows from the spatial Markov property on any graph with range-1
+dynamics. The \emph{dispersion relation} requires translation
+invariance. The regular cubic lattice is one graph with these
+properties; it is not the only one.
 
 \hypertarget{the-dissolution-of-the-container-problem}{%
 \subsubsection{2.6 The dissolution of the container
@@ -659,10 +656,9 @@ an additional principle, is an identified open structural question.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{background-independence-as-state-dependent-geometry-and-the-selection-of-d-3}{%
-\subsection{3. Background Independence as State-Dependent Geometry, and
-the Selection of d =
-3}\label{background-independence-as-state-dependent-geometry-and-the-selection-of-d-3}}
+\hypertarget{background-independence-and-the-selection-of-d-3}{%
+\subsection{3. Background Independence and the Selection of d =
+3}\label{background-independence-and-the-selection-of-d-3}}
 
 \hypertarget{background-independence}{%
 \subsubsection{3.1 Background
@@ -698,8 +694,8 @@ preserving center independence. (iii) \emph{Statistical isotropy:}
 \(G(x)\) is statistically isotropic on large scales for typical
 reference configurations.
 
-Under these constraints, the uniform-class Markov area-law bound holds,
-center independence is preserved, the gap equation is unchanged, and the
+Under these constraints, the uniform-class Markov area law holds, center
+independence is preserved, the gap equation is unchanged, and the
 dynamics selection theorem applies at each step. Prepared states may
 carry additional bounded-degree, preparation-indexed edges. Those edges
 are compatible with the graph-level area statement because
@@ -743,21 +739,18 @@ plaquette product
 \(P(\mathbf{n}, j, k) = M(\mathbf{n}, \hat{e}_j)\,M(\mathbf{n}+\hat{e}_j, \hat{e}_k)\,M(\mathbf{n}+\hat{e}_k, \hat{e}_j)^{-1}\,M(\mathbf{n}, \hat{e}_k)^{-1}\)
 transforms in the adjoint
 (\(P \to G(\mathbf{n})\,P\,G(\mathbf{n})^{-1}\)), so
-\(\mathrm{Re\,Tr}(P)\) is gauge-invariant: the gauge-invariant
-functional from which the Wilson plaquette action {[}4{]} is built. That
-the link dynamics is governed by this functional is not derived here.
+\(\mathrm{Re\,Tr}(P)\) is gauge-invariant --- it is the Wilson plaquette
+action {[}4{]}, now derived rather than postulated.
 
 \textbf{Einstein's equations as self-consistency.} The Jacobson
 thermodynamic argument {[}5{]}, applied to local causal horizons on the
 state-dependent graph, requires three inputs --- each proved here for
 the wave equation.
 
-\textbf{Lemma} (Area law). \emph{For the linear wave equation over
-\(\mathbb{R}\), the entanglement entropy of a spatial region V scales as
-\(S(V) = \eta\,|\partial V|\) {[}3{]}. For the mod-q wave equation over
-\(\mathbb{Z}/q\mathbb{Z}\), in the uniform state class, the mutual
-information between V and its complement is bounded by the boundary:
-\(I(V;\,V^c) \le |\partial V| \log_2 q\).}
+\textbf{Lemma} (Area law). \emph{The entanglement entropy of a spatial
+region V in the wave equation scales as \(S(V) = \eta\,|\partial V|\).
+This holds for both the linear wave equation over \(\mathbb{R}\) and the
+mod-q wave equation over \(\mathbb{Z}/q\mathbb{Z}\).}
 
 \emph{Proof.} Over \(\mathbb{R}\): the wave equation is a system of
 coupled harmonic oscillators with a quadratic Hamiltonian determined by
@@ -1200,10 +1193,9 @@ preceding lemma). Thermality of the Unruh effect is robust against UV
 modifications of the dispersion relation, with corrections scaling as
 \(O(\varepsilon^2\kappa^2/c^2)\). \(\square\)
 
-\textbf{Discrete Einstein equation} (conditional; see step (iv) of the
-proof). \emph{For the state-dependent wave equation on a bounded-degree
-graph G(x) satisfying constraints (i)--(iii), the Jacobson thermodynamic
-argument, where its curvature step holds, produces:}
+\textbf{Theorem} (Discrete Einstein equation). \emph{For the
+state-dependent wave equation on a bounded-degree graph G(x) satisfying
+constraints (i)--(iii), the Jacobson thermodynamic argument produces:}
 
 \[\kappa_{OR}(i, j;\, G(x)) = \alpha \cdot \mathcal{T}_{ij}(x,\, G(x))\]
 
@@ -1212,10 +1204,9 @@ argument, where its curvature step holds, produces:}
 \(\alpha = 8\pi G/(c^4 \eta)\).}
 
 \emph{Proof.} (i) \emph{Area law.} In the reference state class used by
-the mod-\(q\) proof, the entropy measure is bounded by the graph
-boundary, \(I(V;\,V^c)\le|\partial V|\log_2 q\) (area-law lemma above);
-the proportional form \(S(V)=\eta\,|\partial V|\) is the real Gaussian
-statement, with its own ground-state/regularity hypotheses. The graph
+the mod-\(q\) proof, the entropy measure scales as
+\(S(V)=\eta\,|\partial V|\) (area-law lemma above); the real Gaussian
+statement has its own ground-state/regularity hypotheses. The graph
 boundary is evaluated in the state-dependent \(G(x)\), so
 preparation-indexed edges contribute to \(|\partial V|\) rather than
 invalidating the graph-level form by definition. (ii) \emph{Unruh
@@ -1258,7 +1249,7 @@ bound, while this reference graph has degree exactly \(6\) for every
 \(N\), which is precisely the ultrasparse regime {[}8{]} excludes.
 \textbf{A future extension of {[}8{]} from \(D=2\) to \(D=3\) would
 therefore not rescue this step.} The hop-metric Ollivier route therefore
-fails at its reference instantiation, and the discrete Einstein equation
+fails at its reference instantiation, and the discrete Einstein theorem
 above is not established by the cited chain. \textbf{Where the geometry
 actually lives, and the three routes.} The failure is confined to the
 combinatorial metric; it is not a failure of the emergent geometry. This
@@ -1330,18 +1321,17 @@ still (S, F, V).
 invokes continuum results in the final step (Jacobson). Decomposing
 Jacobson's argument into its four inputs and checking each
 independently: (i) \(\delta S = \eta\,\delta A/\varepsilon^2\) (area-law
-entropy) --- proved for Gaussian systems over \(\mathbb{R}\) {[}3{]};
-for nearest-neighbor dynamics over \(\mathbb{Z}/q\mathbb{Z}\) the
-spatial Markov property gives the boundary bound of the area-law lemma
-above, not the proportional form. No Lorentz invariance enters.
-\textbf{Exact on the lattice.} (ii) \(T = \hbar\kappa/(2\pi c k_B)\)
-(Unruh temperature) --- requires the Bisognano-Wichmann theorem. On the
-lattice, the BW form is proved analytically for coupled harmonic
-oscillator systems {[}6{]} and shown robust against UV modifications of
-the dispersion relation with corrections at
-\(O(\varepsilon^2\kappa^2/c^2)\). \textbf{Approximate.} (iii)
-\(\delta Q = \int T_{\mu\nu} k^\mu d\Sigma^\nu\) (energy flux) --- a
-definition on the emergent manifold. No Lorentz invariance required.
+entropy) --- proved for Gaussian systems over \(\mathbb{R}\) {[}3{]} and
+for any nearest-neighbor dynamics over \(\mathbb{Z}/q\mathbb{Z}\) via
+the spatial Markov property (area-law lemma above). No Lorentz
+invariance enters. \textbf{Exact on the lattice.} (ii)
+\(T = \hbar\kappa/(2\pi c k_B)\) (Unruh temperature) --- requires the
+Bisognano-Wichmann theorem. On the lattice, the BW form is proved
+analytically for coupled harmonic oscillator systems {[}6{]} and shown
+robust against UV modifications of the dispersion relation with
+corrections at \(O(\varepsilon^2\kappa^2/c^2)\). \textbf{Approximate.}
+(iii) \(\delta Q = \int T_{\mu\nu} k^\mu d\Sigma^\nu\) (energy flux) ---
+a definition on the emergent manifold. No Lorentz invariance required.
 \textbf{Exact.} (iv) The Raychaudhuri equation --- kinematic: it holds
 on any pseudo-Riemannian manifold as a consequence of the definition of
 curvature. \textbf{Exact.} Since inputs (i), (iii), and (iv) are
@@ -1998,11 +1988,9 @@ therefore unavailable.
 \subsubsection{4.4 Multi-component dynamics and gauge
 structure}\label{multi-component-dynamics-and-gauge-structure}}
 
-Each site carries a K-component vector
-\(\boldsymbol{\phi}(\mathbf{n}, t)\); the update below is stated on the
-observer-level branch of Corollary 1b, so its components are
-observer-level field values, not the \(\mathbb{Z}/q\mathbb{Z}\) alphabet
-of the substratum. The general second-order linear update is
+Each site now carries a K-component vector
+\(\boldsymbol{\phi}(\mathbf{n}, t) \in (\mathbb{Z}/q\mathbb{Z})^K\). The
+general second-order linear update is
 \(\boldsymbol{\phi}(\mathbf{n}, t+1) = C\,\boldsymbol{\phi}(\mathbf{n}, t) + \sum_j M^{(j)}[\boldsymbol{\phi}(\mathbf{n}+\hat{e}_j, t) + \boldsymbol{\phi}(\mathbf{n}-\hat{e}_j, t)] + D\,\boldsymbol{\phi}(\mathbf{n}, t-1)\),
 where \(C, D, M^{(j)} \in \mathrm{Mat}(K)\). Reversibility requires
 \(D = -I_K\); center independence requires \(C = 0\); spatial isotropy
@@ -7209,8 +7197,8 @@ explicit additional hypotheses, the partition realizes the full C1--C4
 memory architecture.}
 
 \emph{Proof.} C1: \(G_\varphi\) is connected and V is a proper subgraph,
-so ∂V ≠ ∅; every edge of \(G_\varphi\) is a dynamical coupling of φ, so
-any edge in ∂V produces non-trivial dynamical coupling.
+so ∂V ≠ ∅. The wave equation couples nearest neighbors; any edge in ∂V
+produces non-trivial dynamical coupling.
 
 C2 is \emph{not} established by energy conservation. Reversibility and
 phase-space-volume preservation exclude fundamental information loss,
@@ -8773,4 +8761,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: d0d7fe770fcc8366b76c79b3412827860fd7763f2745aacfa689ff8159d00545
+% source-sha256: 6346c2d0f634a3b5a4d178397fad45d91f34bc59acb1638ac7c024fb7c0ff43e

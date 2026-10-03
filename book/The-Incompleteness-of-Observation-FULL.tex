@@ -3054,8 +3054,7 @@ specify its structural assumptions would either claim too much
 within an undefined class).
 
 \textbf{Empirical inputs.} The reconstruction draws on seven structural
-inputs about observed physics, six established by experiment and one
-(E3) a theoretical bound:
+facts about observed physics, each well-established by experiment:
 
 \emph{(E1) Unitary quantum mechanics.} The observed microscopic physics
 is described by states in a complex Hilbert space evolving unitarily,
@@ -3070,9 +3069,8 @@ loophole-free tests since 2015.
 
 \emph{(E3) Finite boundary entropy.} The entropy of any bounded region
 of spacetime is finite and scales as the boundary area rather than the
-volume. This is the holographic bound --- a theoretical bound rather
-than a direct observation --- supported by black-hole thermodynamics and
-applied to the cosmological horizon.
+volume. This is the holographic bound, supported by black-hole
+thermodynamics and the cosmological horizon's finite entropy.
 
 \emph{(E4) Spatial isotropy.} Observed physics is rotationally
 invariant; no spatial direction is preferred. Confirmed across
@@ -3086,9 +3084,8 @@ polarization states, directly detected since LIGO 2015.
 observed timescales. This requires both gravitational and atomic-scale
 stability against the dynamics.
 
-\emph{(E7) Boundary-entropy concordance.} The cosmological parameter
-inferred from observation under the standard cosmological model is
-spatial flatness near the critical density:
+\emph{(E7) Boundary-entropy concordance.} The observed cosmological
+structure has spatial flatness near the critical density:
 \(\rho_s / \rho_{\text{crit}} \approx 1\). The framework's general-\(d\)
 form of this ratio is \(\rho_s / \rho_{\text{crit}} = 2/(d-1)\), which
 equals unity only at \(d = 3\).
@@ -3125,19 +3122,13 @@ observer-admitting family, land on the same integer.
 \textbf{Structural assumptions.} The reconstruction restricts attention
 to candidate substrates satisfying six properties:
 
-\emph{(A1) Finiteness.} The configuration space \(S\) is finite. Lemma 1
-of Chapter 1 delivers finiteness of the observer's distinguishable
-states; the extension to all of \(S\) is a posit, read as the choice of
-the minimal finite representative and supported by E3 (the holographic
-bound read as a dimension cutoff).
+\emph{(A1) Finiteness.} The configuration space \(S\) is finite. This is
+the input from Lemma 1 of Chapter 1, supported empirically by E3 (the
+holographic bound implies a finite Hilbert-space dimension cutoff).
 
 \emph{(A2) Determinism.} The dynamics \(\varphi: S \to S\) is a
-bijection --- deterministic and reversible. Its status is two-part
-(Chapter 1, Lemma 3): the bijective substratum is a representation
-choice --- the minimal recurrent bijective representative of the hidden
-dynamics --- and injectivity is anchored by a dilemma argument with one
-structural prong (finiteness and recurrence) and one empirical prong
-(the observed statistics).
+bijection --- deterministic and reversible. This is the input from Lemma
+3 of Chapter 1.
 
 \emph{(A3) Bounded coupling degree.} Each site of the substratum is
 coupled to a bounded number of neighbors through \(\varphi\). This is
@@ -3146,17 +3137,14 @@ dimensional structure and underlies locality in the emergent
 description.
 
 \emph{(A4) Center independence.} The dynamics does not depend on a
-choice of preferred site or origin: \(\varphi\) commutes with lattice
-translations up to gauge, and the update at a site contains no explicit
-copy of that site's present value. The second property is what the
-derivation of the wave equation in Stage 2 below uses.
+choice of preferred site or origin; \(\varphi\) commutes with lattice
+translations up to gauge. This is required to derive the wave equation
+in Stage 2 below.
 
 \emph{(A5) Linearity.} The wave equation governing \(\varphi\) is
-linear. This is a sharpened stipulation: it is equivalent to
-amplitude-scale gauge --- the unobservability of the absolute field
-scale --- which is an adjoined operational input rather than a theorem;
-nonlinear alternatives are excluded exactly to the extent that input is
-assumed, and would otherwise require a separate derivation.
+linear. Nonlinear alternatives are not ruled out as theoretical
+possibilities but would require a separate derivation chain not
+developed here.
 
 \emph{(A6) Background independence.} The dynamics is covariant under
 spatially varying internal-index transformations: a site-dependent
@@ -3235,11 +3223,10 @@ The wave equation follows from center independence (A4), isotropy (E4),
 and linearity (A5), together with the nearest-neighbor restriction (an
 assumption beyond A3's bounded coupling degree). The unique second-order
 reversible nearest-neighbor dynamics compatible with these constraints
-has the form \(f = \alpha(x_1 + x_2 + \cdots + x_{2d}) \bmod q\), with
-coupling coefficient \(\alpha\). The coefficient is not the propagation
-speed: causal support travels at most one lattice edge per update
-whatever its value, and on the observer-level normalized branch it
-equals \(1/d\).
+has the form \(f = \alpha(x_1 + x_2 + \cdots + x_{2d}) \bmod q\),
+propagating with speed \(v = \alpha\). The coupling constant \(\alpha\)
+is fixed by relativistic causality with maximum signal speed \(c\)
+realized at the lattice cutoff.
 
 The number of internal components per lattice site follows from the link
 count under H-link: \(K = 2dm\), with \(m=1\) giving \(K = 6\)
@@ -6760,17 +6747,16 @@ simple-cubic-branch statements.
 
 \textbf{Space as coupling structure.} Every ``spatial'' property used in
 the derivation chain is a property of the coupling graph \(G_\varphi\).
-The \emph{graph boundary} \(|\partial V|\) of a region \(V \subset S\)
---- the quantity the area-law bound is stated in --- is the number of
-edges crossing from \(V\) to its complement. The \emph{dimension} is
-extracted from the causal partial order via the Myrheim-Meyer estimator.
-The \emph{area-law bound} --- that the information shared across a
-region's boundary is at most proportional to the boundary rather than
-the volume --- follows from the spatial Markov property on any graph
-with range-1 dynamics. The \emph{dispersion relation} describing how
-perturbations propagate requires translation invariance of the
-underlying dynamics. The regular cubic lattice \(\mathbb{Z}^3\) is one
-graph with all these properties; it is not the only one.
+The \emph{area} of a region \(V \subset S\) is the number of edges
+crossing from \(V\) to its complement. The \emph{dimension} is extracted
+from the causal partial order via the Myrheim-Meyer estimator. The
+\emph{area law} --- that entanglement entropy of a region scales as its
+boundary rather than its volume --- follows from the spatial Markov
+property on any graph with range-1 dynamics. The \emph{dispersion
+relation} describing how perturbations propagate requires translation
+invariance of the underlying dynamics. The regular cubic lattice
+\(\mathbb{Z}^3\) is one graph with all these properties; it is not the
+only one.
 
 The framework's account of space dissolves the container problem that
 has been a recurring objection to discrete models of spacetime. The
@@ -7047,8 +7033,7 @@ where \(M\) is a \(K \times K\) coupling matrix. Spatial isotropy forces
 \(M\) to be the same matrix for all \(d\) link directions; reversibility
 forces the previous-step coefficient to be \(-I_K\); center independence
 forces the absence of a \(C\,\boldsymbol{\phi}(\mathbf{n}, t)\) term.
-The matrix \(M\) is the sole free parameter of this branch at this
-level.
+The matrix \(M\) is the substratum's sole free parameter at this level.
 
 Each eigenvalue \(\mu_a\) of \(M\) produces a dispersion relation
 \(\cos\omega_a = \mu_a \cos k\), giving the mass spectrum of the
@@ -7262,16 +7247,14 @@ plaquette action of lattice gauge theory.
 
 The framework's derivation of local
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) gauge
-invariance, on the H-link/H-cust branch, is therefore complete at the
-level of the symmetry. The gauge group is fixed by the cubic
+invariance is therefore complete. The gauge group is fixed by the cubic
 decomposition of the six link directions; the amplitude-scale-invariance
 argument reduces \(\mathrm{U}(n)\) to \(\mathrm{SU}(n)\) for
 \(n \geq 2\); background independence promotes the global commutant to a
-local gauge symmetry; the gauge-invariant plaquette functional from
-which the Wilson action is built follows, with the link variables
-\(M(\mathbf{n}, \hat{e}_j)\) as the gauge connections. What is derived
-is the gauge symmetry; that the link dynamics is the Wilson action is
-not derived.
+local gauge symmetry; the resulting structure is the Wilson plaquette
+action, with the link variables \(M(\mathbf{n}, \hat{e}_j)\) as the
+gauge connections. The Standard Model gauge theory is derived rather
+than postulated, with each step a theorem in the framework's chain.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -12602,15 +12585,13 @@ with a specific matrix model whose continuum limit produces a
 string-theoretic spacetime. Six structural axioms must be checked for
 compatibility under such a bridge.
 
-\emph{A1 (finiteness).} The framework's representative has finite
-\(|S|\). Matrix models with \(N \to \infty\) limits violate this
-strictly, but for any finite \(N\) the bridge is consistent. Since the
-extension of finiteness beyond the observer's distinguishable states is
-a choice of representative rather than a further fact (Chapter 2), the
-bridge requires a finite-\(N\) representative --- the matrix model not
-taken to its continuum limit --- without asserting that \(N\) is
-physically finite. This distinguishes the framework's bridge from
-standard matrix-model interpretations.
+\emph{A1 (finiteness).} The framework requires finite \(|S|\). Matrix
+models with \(N \to \infty\) limits violate this strictly, but for any
+finite \(N\) the bridge is consistent. The bridge would require \(N\) to
+be physically finite --- meaning the matrix model is not taken to its
+continuum limit but is treated as itself the fundamental description.
+This is a substantive interpretive choice that distinguishes the
+framework's bridge from standard matrix-model interpretations.
 
 \emph{A2 (determinism / bijection).} The framework requires
 deterministic bijection dynamics. Matrix models with deterministic
@@ -29793,4 +29774,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 771696067e4566eab267d1d653d69055913a91e88db7363301b896ce6c6df10e
+% source-sha256: dbeb4dd8be5641d0f2dedf9fce18bb10bfcf3685323a43b2a430d28456e8355f
