@@ -9791,13 +9791,13 @@ def _a6p_sm(sm=None):
     """P5 -- SM.md section 3.1: the state-dependent principle disambiguated in place with its equation
     preserved, :110's premise and :114's covariance identity in the frozen words, the transformation
     law of :112 verbatim, the conditional carrier's closing sentence preserved, and no kernel claim:
-    the word is absent from the gauge passage (the heading through the Wilson action "now derived
-    rather than postulated"), and no proof-kernel language appears anywhere in the section. The
+    the word is absent from the gauge passage (the heading through the plaquette functional, up to
+    its closing sentence), and no proof-kernel language appears anywhere in the section. The
     section's own physics uses further down -- the smearing kernel and the kernel width of the
     emergent-Lorentz scope paragraphs, untouched by the round -- are not kernel claims."""
     _m = _A6P_SM if sm is None else sm
     _31 = _a6p_sm31(_m)
-    _end = _31.find('now derived rather than postulated.')
+    _end = _31.find('That the link dynamics is governed by this functional is not derived here.')
     _gauge = _31[:_end] if _end >= 0 else ''
     return (_A6P_SM_100 in _31 and _A6P_SM_SD_EQ in _31 and _A6P_SM_110 in _31
             and _A6P_SM_110_CLOSE in _31 and _A6P_SM_112 in _31 and _A6P_SM_114 in _31
