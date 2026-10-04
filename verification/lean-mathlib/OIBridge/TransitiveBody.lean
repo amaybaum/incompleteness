@@ -97,7 +97,7 @@ theorem chartBody_isBounded : Bornology.IsBounded (chartBody C) := by
   have h2 : ‖C.L w‖ ≤ 1 + ‖C.p0‖ := by
     have hEq : C.L w = chart C.L C.p0 w - C.p0 := by rw [chart_apply]; abel
     rw [hEq]
-    exact (norm_sub_le _ _).trans (add_le_add_right h1 _)
+    exact (norm_sub_le _ _).trans (add_le_add h1 le_rfl)
   calc ‖w‖ = dist w 0 := (dist_zero_right w).symm
     _ ≤ (K : ℝ) * dist (C.L w) (C.L 0) := hK.le_mul_dist w 0
     _ = (K : ℝ) * ‖C.L w‖ := by rw [map_zero, dist_zero_right]
@@ -142,6 +142,7 @@ theorem isBoundaryState_of_frontier {Ω : Set V} (hconv : Convex ℝ Ω) (hi : (
   have key : x ∈ openSegment ℝ y (x + ε • (x - y)) := by
     refine ⟨ε / (1 + ε), 1 / (1 + ε), div_pos hε h1, div_pos one_pos h1, ?_, ?_⟩
     · field_simp
+      ring
     · match_scalars <;> field_simp <;> ring
   exact hconv.openSegment_interior_self_subset_interior hy hmem key
 
@@ -188,7 +189,7 @@ theorem exists_boundary_ray {Ω : Set V} (hc : IsCompact Ω) (hconv : Convex ℝ
       refine (hmemS _).mpr ⟨by positivity, hball ?_⟩
       rw [Metric.mem_ball, dist_eq_norm, add_sub_cancel_left, norm_smul,
         Real.norm_of_nonneg (by positivity)]
-      have hhalf : ε / (2 * ‖u‖) * ‖u‖ = ε / 2 := by field_simp; ring
+      have hhalf : ε / (2 * ‖u‖) * ‖u‖ = ε / 2 := by field_simp
       rw [hhalf]
       linarith
     exact lt_of_lt_of_le (by positivity) (le_csSup hbdd ht₀)
@@ -249,12 +250,13 @@ variable {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
 /-- An affine automorphism of `Ω` carries extreme points to extreme points. -/
 theorem extreme_image {Ω : Set V} {g : V ≃ᵃ[ℝ] V} (hg : ∀ x ∈ Ω, g x ∈ Ω ∧ g.symm x ∈ Ω) {x : V}
     (hx : x ∈ Ω.extremePoints ℝ) : g x ∈ Ω.extremePoints ℝ := by
-  refine ⟨(hg x hx.1).1, fun y₁ hy₁ y₂ hy₂ hseg => ?_⟩
-  have himg := g.symm.toAffineMap.image_openSegment y₁ y₂
+  refine ⟨(hg x hx.1).1, ?_⟩
+  intro y₁ hy₁ y₂ hy₂ hseg
+  have himg := image_openSegment g.symm.toAffineMap y₁ y₂
   rw [AffineEquiv.coe_toAffineMap] at himg
   have hmem : g.symm (g x) ∈ (⇑g.symm) '' openSegment ℝ y₁ y₂ := Set.mem_image_of_mem _ hseg
   rw [himg, AffineEquiv.symm_apply_apply] at hmem
-  obtain ⟨h1, h2⟩ := hx.2 (g.symm y₁) (hg y₁ hy₁).2 (g.symm y₂) (hg y₂ hy₂).2 hmem
+  obtain ⟨h1, h2⟩ := hx.2 (hg y₁ hy₁).2 (hg y₂ hy₂).2 hmem
   constructor
   · rw [← h1, AffineEquiv.apply_symm_apply]
   · rw [← h2, AffineEquiv.apply_symm_apply]
@@ -270,7 +272,6 @@ theorem not_mem_interior_of_extreme [Nontrivial V] {Ω : Set V} {x : V}
   have hvn : ‖v‖ = ε / 2 := by
     rw [hv, norm_smul, Real.norm_of_nonneg (by positivity)]
     field_simp
-    ring
   have hv0 : v ≠ 0 := by
     intro h0
     rw [h0, norm_zero] at hvn
@@ -281,7 +282,7 @@ theorem not_mem_interior_of_extreme [Nontrivial V] {Ω : Set V} {x : V}
     rw [Metric.mem_ball, dist_eq_norm, add_sub_cancel_left, hvn]; linarith)
   have hseg : x ∈ openSegment ℝ (x - v) (x + v) :=
     ⟨1 / 2, 1 / 2, by norm_num, by norm_num, by norm_num, by module⟩
-  obtain ⟨h1, -⟩ := hx.2 (x - v) hmem₁ (x + v) hmem₂ hseg
+  obtain ⟨h1, -⟩ := hx.2 hmem₁ hmem₂ hseg
   apply hv0
   have : x - v = x - 0 := by rw [sub_zero]; exact h1
   exact sub_right_injective this
@@ -406,7 +407,7 @@ theorem centroid_mem {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω) (hconv : Con
     simpa [ha, smul_eq_mul] using this
   have hint : ∫ x in Ω, f x = ∑ i, (∫ x in Ω, x i) * a i := by
     simp_rw [hf]
-    rw [integral_finset_sum]
+    rw [integral_finsetSum]
     · exact Finset.sum_congr rfl fun i _ => integral_mul_const (a i) _
     · intro i _
       exact (integrableOn_coord hc i).mul_const (a i)
@@ -485,7 +486,7 @@ theorem eq_qBall_of_boundaryTransitive (hd : 0 < d) {Ω : Set (Fin d → ℝ)} (
     have : 0 < R ^ 2 := by rw [← hQ]; exact mul_pos (by positivity) (qnorm_pos hc hi hu)
     exact lt_of_le_of_ne hR0 fun h0 => by rw [← h0] at this; simp at this
   refine ⟨R, hRpos, Set.ext fun x => ?_⟩
-  rw [mem_qBall]
+  rw [mem_qBall, ← hcdef]
   by_cases hxc : x = c
   · subst hxc
     simp only [sub_self, qnorm_zero]
@@ -525,24 +526,34 @@ def eball (d : ℕ) : Set (Fin d → ℝ) := {x | ∑ j, x j ^ 2 ≤ 1}
 
 theorem mem_eball {x : Fin d → ℝ} : x ∈ eball d ↔ ∑ j, x j ^ 2 ≤ 1 := Iff.rfl
 
+/-- The Finsupp double sum of `Matrix.PosDef` equals the dot-product form. -/
+theorem finsuppSum_eq_dot (M : Matrix (Fin d) (Fin d) ℝ) (x : Fin d →₀ ℝ) :
+    (x.sum fun i xi => x.sum fun j xj => star xi * M i j * xj) = (⇑x) ⬝ᵥ (M *ᵥ ⇑x) := by
+  simp only [star_trivial]
+  rw [Finsupp.sum_fintype _ _ (fun i => by simp)]
+  simp_rw [Finsupp.sum_fintype _ _ (fun j => by simp)]
+  simp only [dotProduct, Matrix.mulVec, Finset.mul_sum, mul_assoc]
+
 /-- The invariant form's matrix is positive definite. -/
 theorem invMatrix_posDef {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω) (hi : (interior Ω).Nonempty) :
     (invMatrix Ω).PosDef := by
   refine ⟨?_, fun x hx => ?_⟩
   · rw [Matrix.IsHermitian, Matrix.conjTranspose_eq_transpose_of_trivial, invMatrix_transpose]
-  · simpa [star_trivial] using invMatrix_pos hc hi hx
+  · rw [finsuppSum_eq_dot]
+    exact invMatrix_pos hc hi fun h0 => hx (Finsupp.coe_eq_zero.mp h0)
 
 /-- **Normalization adapter, matrix form.** `invMatrix Ω` has a symmetric invertible square root. -/
 theorem exists_sqrt_invMatrix {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω) (hi : (interior Ω).Nonempty) :
     ∃ P : Matrix (Fin d) (Fin d) ℝ, Pᵀ = P ∧ P * P = invMatrix Ω ∧ IsUnit P.det := by
   have hpd := invMatrix_posDef hc hi
-  refine ⟨hpd.posSemidef.sqrt, ?_, hpd.posSemidef.sqrt_mul_self, ?_⟩
-  · have h := hpd.posSemidef.posSemidef_sqrt.isHermitian
+  have hps := Matrix.PosDef.posSemidef hpd
+  refine ⟨Matrix.PosSemidef.sqrt hps, ?_, Matrix.PosSemidef.sqrt_mul_self hps, ?_⟩
+  · have h := Matrix.PosSemidef.isHermitian (Matrix.PosSemidef.posSemidef_sqrt hps)
     rwa [Matrix.IsHermitian, Matrix.conjTranspose_eq_transpose_of_trivial] at h
   · refine isUnit_iff_ne_zero.mpr fun h0 => ?_
     have : (invMatrix Ω).det = 0 := by
-      rw [← hpd.posSemidef.sqrt_mul_self, Matrix.det_mul, h0, zero_mul]
-    exact hpd.det_pos.ne' this
+      rw [← Matrix.PosSemidef.sqrt_mul_self hps, Matrix.det_mul, h0, zero_mul]
+    exact (Matrix.PosDef.det_pos hpd).ne' this
 
 /-- **Normalization adapter.** In suitable linear coordinates the invariant form is the sum of
 squares: a linear automorphism `T` of the chart coordinates with `Q(v) = ∑ j, (T v) j ^ 2`. -/
@@ -642,9 +653,9 @@ theorem isBodyGroup_fullAut3 : IsBodyGroup ball3 fullAut3 where
     refine ⟨?_, ?_⟩
     · rw [AffineEquiv.trans_apply]
       exact (hh _ (hg x hx).1).1
-    · rw [AffineEquiv.symm_trans_apply]
+    · show g.symm (h.symm x) ∈ ball3
       exact (hg _ (hh x hx).2).2
-  inv_mem g hg x hx := ⟨(hg x hx).2, by rw [AffineEquiv.symm_symm]; exact (hg x hx).1⟩
+  inv_mem g hg x hx := ⟨(hg x hx).2, show g x ∈ ball3 from (hg x hx).1⟩
   preserves g hg x hx := (hg x hx).1
 
 /-- **Control (TRANS, ORD∞) = (holds, holds).** -/
@@ -666,13 +677,12 @@ theorem iterate_rot3_one (m : ℕ) (v : Fin 3 → ℝ) : (⇑(rot3 1))^[m] v = r
 `m ≥ 1`, since `π` is irrational. -/
 theorem infiniteOrderOn_rot3_one : InfiniteOrderOn ball3 (rot3 1) := by
   intro m hm
-  refine ⟨![1, 0, 0], by rw [mem_ball3]; norm_num, fun h => ?_⟩
+  refine ⟨![1, 0, 0], by show (1 : ℝ) ^ 2 + 0 ^ 2 + 0 ^ 2 ≤ 1; norm_num, fun h => ?_⟩
   rw [iterate_rot3_one] at h
   have h0 := congrFun h 0
   obtain ⟨a0, -, -⟩ := rotFun_apply (m : ℝ) ![1, 0, 0]
   rw [a0] at h0
-  simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons, mul_one, mul_zero,
-    sub_zero] at h0
+  simp only [Matrix.cons_val_zero, Matrix.cons_val_one, mul_one, mul_zero, sub_zero] at h0
   obtain ⟨n, hn⟩ := (Real.cos_eq_one_iff _).mp h0
   have hmpos : (0 : ℝ) < m := by exact_mod_cast hm
   have hn0 : (n : ℝ) ≠ 0 := by
@@ -741,8 +751,8 @@ theorem not_ordInf_refls3 : ¬ OrdInf ball3 refls3 := by
   show g (g x) = x
   exact refls3_involutive g hg x
 
-/-- The reflection family is not a body group under composition closure is **not** claimed; the
-cell records only that a boundary-transitive *set* need carry no infinite order. -/
+-- Composition closure of the reflection family is not claimed; the cell records only that a
+-- boundary-transitive *set* need carry no infinite order.
 
 /-- The square: the kernel's `Metric.closedBall (0 : Fin 2 → ℝ) 1` in the sup norm. -/
 def square2 : Set (Fin 2 → ℝ) := Metric.closedBall (0 : Fin 2 → ℝ) 1
@@ -774,7 +784,7 @@ theorem edgeMid_not_extreme_square2 : (![1, 0] : Fin 2 → ℝ) ∉ square2.extr
     refine ⟨1 / 2, 1 / 2, by norm_num, by norm_num, by norm_num, ?_⟩
     funext i
     fin_cases i <;> simp <;> norm_num
-  obtain ⟨h, -⟩ := hx.2 _ h1 _ h2 hseg
+  obtain ⟨h, -⟩ := hx.2 h1 h2 hseg
   have := congrFun h 1
   simp at this
 
@@ -795,9 +805,9 @@ theorem oct3_convex : Convex ℝ oct3 := by
   intro x hx y hy a b ha hb hab
   rw [mem_oct3] at hx hy ⊢
   simp only [Pi.add_apply, Pi.smul_apply, smul_eq_mul]
-  have e0 := abs_add (a * x 0) (b * y 0)
-  have e1 := abs_add (a * x 1) (b * y 1)
-  have e2 := abs_add (a * x 2) (b * y 2)
+  have e0 := abs_add_le (a * x 0) (b * y 0)
+  have e1 := abs_add_le (a * x 1) (b * y 1)
+  have e2 := abs_add_le (a * x 2) (b * y 2)
   rw [abs_mul, abs_mul, abs_of_nonneg ha, abs_of_nonneg hb] at e0 e1 e2
   nlinarith [abs_nonneg (x 0), abs_nonneg (x 1), abs_nonneg (x 2), abs_nonneg (y 0),
     abs_nonneg (y 1), abs_nonneg (y 2)]
@@ -829,28 +839,41 @@ theorem zero_mem_interior_oct3 : (0 : Fin 3 → ℝ) ∈ interior oct3 := by
   linarith
 
 theorem edgeMid_mem_oct3 : (![1 / 2, 1 / 2, 0] : Fin 3 → ℝ) ∈ oct3 := by
-  norm_num [mem_oct3]
+  show |(1 / 2 : ℝ)| + |(1 / 2 : ℝ)| + |(0 : ℝ)| ≤ 1
+  norm_num
 
 /-- The midpoint of an edge of the octahedron is a boundary state. -/
 theorem isBoundaryState_oct3_edgeMid : IsBoundaryState oct3 ![1 / 2, 1 / 2, 0] := by
-  refine ⟨edgeMid_mem_oct3, 0, by norm_num [mem_oct3], fun ε hε h => ?_⟩
+  refine ⟨edgeMid_mem_oct3, 0, by show |(0 : ℝ)| + |(0 : ℝ)| + |(0 : ℝ)| ≤ 1; norm_num,
+    fun ε hε h => ?_⟩
   rw [mem_oct3] at h
-  simp only [sub_zero, Pi.add_apply, Pi.smul_apply, Matrix.cons_val_zero, Matrix.cons_val_one,
-    Matrix.head_cons, Matrix.cons_val_two, Matrix.tail_cons, smul_eq_mul, mul_zero, add_zero,
-    abs_zero] at h
-  rw [abs_of_pos (by linarith), abs_of_pos (by linarith)] at h
+  have e0 : (![1 / 2, 1 / 2, 0] + ε • (![1 / 2, 1 / 2, 0] - 0) : Fin 3 → ℝ) 0 =
+      1 / 2 + ε * (1 / 2) := by
+    show (1 / 2 : ℝ) + ε * (1 / 2 - 0) = 1 / 2 + ε * (1 / 2)
+    ring
+  have e1 : (![1 / 2, 1 / 2, 0] + ε • (![1 / 2, 1 / 2, 0] - 0) : Fin 3 → ℝ) 1 =
+      1 / 2 + ε * (1 / 2) := by
+    show (1 / 2 : ℝ) + ε * (1 / 2 - 0) = 1 / 2 + ε * (1 / 2)
+    ring
+  have e2 : (![1 / 2, 1 / 2, 0] + ε • (![1 / 2, 1 / 2, 0] - 0) : Fin 3 → ℝ) 2 = 0 := by
+    show (0 : ℝ) + ε * (0 - 0) = 0
+    ring
+  rw [e0, e1, e2, abs_zero, abs_of_pos (by linarith)] at h
   linarith
 
 /-- The midpoint of an edge of the octahedron is not an extreme point. -/
 theorem edgeMid_not_extreme_oct3 : (![1 / 2, 1 / 2, 0] : Fin 3 → ℝ) ∉ oct3.extremePoints ℝ := by
   intro hx
-  have h1 : (![1, 0, 0] : Fin 3 → ℝ) ∈ oct3 := by norm_num [mem_oct3]
-  have h2 : (![0, 1, 0] : Fin 3 → ℝ) ∈ oct3 := by norm_num [mem_oct3]
+  have h1 : (![1, 0, 0] : Fin 3 → ℝ) ∈ oct3 := by
+    show |(1 : ℝ)| + |(0 : ℝ)| + |(0 : ℝ)| ≤ 1; norm_num
+  have h2 : (![0, 1, 0] : Fin 3 → ℝ) ∈ oct3 := by
+    show |(0 : ℝ)| + |(1 : ℝ)| + |(0 : ℝ)| ≤ 1; norm_num
   have hseg : (![1 / 2, 1 / 2, 0] : Fin 3 → ℝ) ∈ openSegment ℝ ![1, 0, 0] ![0, 1, 0] := by
     refine ⟨1 / 2, 1 / 2, by norm_num, by norm_num, by norm_num, ?_⟩
-    funext i
-    fin_cases i <;> simp <;> norm_num
-  obtain ⟨h, -⟩ := hx.2 _ h1 _ h2 hseg
+    exact vec3_ext (show (1 / 2 : ℝ) * 1 + 1 / 2 * 0 = 1 / 2 by norm_num)
+      (show (1 / 2 : ℝ) * 0 + 1 / 2 * 1 = 1 / 2 by norm_num)
+      (show (1 / 2 : ℝ) * 0 + 1 / 2 * 0 = 0 by norm_num)
+  obtain ⟨h, -⟩ := hx.2 h1 h2 hseg
   have := congrFun h 1
   norm_num at this
 
