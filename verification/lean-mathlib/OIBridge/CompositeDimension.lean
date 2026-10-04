@@ -7,7 +7,8 @@
   `(I⊗N) G (I⊗N) = G`, the control relation `(N⊗I) G (N⊗I) = (I⊗N) G`, and two-sided positivity on the
   maximal cone. Local tomography, the common NOT, the reversible CNOT-frame action, two-sided
   positivity and the entangling clause are named premises; no complex structure, no
-  nonlocal-correlation inequality, no drive, no flow and no order statement is used or claimed.
+  nonlocal-correlation inequality, no drive, no one-parameter motion and no order statement is used
+  or claimed.
 
   Proved here:
     §A  the carrier: homogenization, the homogenized action of a map on one copy, product states,
@@ -439,7 +440,7 @@ theorem actC_actC {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x,
     actC N (actC N ω) = ω := by
   funext μ ν
   have : (fun κ => actC N ω κ ν) = homMap N (fun κ => ω κ ν) := rfl
-  simp only [actC]
+  show homMap N (fun κ => actC N ω κ ν) μ = ω μ ν
   rw [this, homMap_homMap hN]
 
 /-! ### §G — the gate in operator form -/
@@ -474,7 +475,7 @@ theorem opGate_homMap_comp {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] 
 /-! ### §H — the projection onto the `−1` eigenspace -/
 
 /-- The projection `v ↦ (v − N v)/2` onto the `−1` eigenspace. -/
-def projMinus {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) :
+noncomputable def projMinus {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) :
     HVec d →ₗ[ℝ] minusSpace N :=
   LinearMap.codRestrict (minusSpace N) ((1 / 2 : ℝ) • (LinearMap.id - homMap N)) fun v => by
     rw [mem_minusSpace]
@@ -511,7 +512,8 @@ theorem Pop_apply (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (f : OpSpace
 
 /-- The gate read on operators from the `−1` eigenspace: extend by the projection, apply the gate,
 restrict to the eigenspace. -/
-def Lop (G : W d ≃ₗ[ℝ] W d) {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) :
+noncomputable def Lop (G : W d ≃ₗ[ℝ] W d) {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+    (hN : ∀ x, N (N x) = x) :
     OpSpace N →ₗ[ℝ] OpSpace N :=
   LinearMap.lcomp ℝ (HVec d) (minusSpace N).subtype ∘ₗ opGate G ∘ₗ
     LinearMap.lcomp ℝ (HVec d) (projMinus hN)
@@ -557,7 +559,7 @@ theorem Lop_eq_zero {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d 
     have hdecomp : v = (1 / 2 : ℝ) • (v + homMap N v) + (1 / 2 : ℝ) • (v - homMap N v) := by
       module
     have hp : (1 / 2 : ℝ) • (v + homMap N v) ∈ plusSpace N := by
-      rw [mem_plusSpace, map_smul, map_add, homMap_homMap hN.invol, add_comm]
+      rw [mem_plusSpace, map_smul, map_add, homMap_homMap hN.invol, add_comm (homMap N v) v]
     have hm : (1 / 2 : ℝ) • (v - homMap N v) ∈ minusSpace N := (projMinus hN.invol v).2
     rw [LinearMap.zero_apply, hdecomp, map_add, hplus _ hp, hminus _ hm, add_zero]
   have hGF : G (fromOp F) = 0 := by
@@ -604,7 +606,7 @@ theorem finrank_ker_eq_of_pointwise {M E : Type*} [AddCommGroup M] [Module ℝ M
   calc Module.finrank ℝ (LinearMap.ker T) = Module.finrank ℝ (M →ₗ[ℝ] S) :=
         le_antisymm (LinearMap.finrank_le_finrank_of_injective hA)
           (LinearMap.finrank_le_finrank_of_injective hB)
-    _ = Module.finrank ℝ M * Module.finrank ℝ S := Module.finrank_linearMap
+    _ = Module.finrank ℝ M * Module.finrank ℝ S := Module.finrank_linearMap ℝ ℝ M S
 
 theorem finrank_ker_Pop_sub (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) :
     Module.finrank ℝ (LinearMap.ker (Pop N - LinearMap.id))
