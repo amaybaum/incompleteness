@@ -77,7 +77,7 @@ theorem coe_affPow (Φ : V →ᵃ[ℝ] V) (m : ℕ) : ⇑(affPow Φ m) = (⇑Φ)
 theorem finiteOrderOn_of_not_infiniteOrderOn {Ω : Set V} {g : V ≃ᵃ[ℝ] V}
     (h : ¬ InfiniteOrderOn Ω g) : FiniteOrderOn Ω g := by
   unfold InfiniteOrderOn at h
-  push_neg at h
+  push Not at h
   exact h
 
 /-- Finite order is the negation of infinite order, the other direction. -/
@@ -121,11 +121,11 @@ theorem not_ordInf_of_finite_of_mulClosed {Ω : Set V} {G : Set (V ≃ᵃ[ℝ] V
   have hcoe : ∀ n, ⇑(gpow n) = (⇑g)^[n + 1] := by
     intro n
     induction n with
-    | zero => rw [h0]; exact (Function.iterate_one (⇑g)).symm
+    | zero => rw [h0]; exact (Function.iterate_one (f := ⇑g)).symm
     | succ k ih =>
       rw [hsucc, AffineEquiv.coe_trans, ih]
       exact (Function.iterate_succ' (⇑g) (k + 1)).symm
-  haveI : _root_.Finite ↥G := hG.to_subtype
+  have : _root_.Finite ↥G := hG.to_subtype
   obtain ⟨a, b, hab, heq⟩ :=
     _root_.Finite.exists_ne_map_eq_of_infinite (fun n : ℕ => (⟨gpow n, hmem n⟩ : ↥G))
   have heq' : (⇑g)^[a + 1] = (⇑g)^[b + 1] := by
@@ -225,7 +225,7 @@ end Generic
 variable {D : DirectedStages}
 
 /-- The identity datum: every preparation to its own preparation vector. -/
-def idDatum (D : DirectedStages) : OpDatum D where
+noncomputable def idDatum (D : DirectedStages) : OpDatum D where
   τ := prepVec D
   mem_body := prepVec_mem_body D
 
@@ -300,7 +300,7 @@ theorem exists_moved_of_infiniteOrderOn {S T : OpDatum D} (hS : AffineRespect S)
   intro m hm
   refine ⟨affineRespect_iterAfter C hT m, ?_⟩
   by_contra hcon
-  push_neg at hcon
+  push Not at hcon
   obtain ⟨w, -, hw⟩ := h m hm
   apply hw
   rw [coe_inducedEquiv]
