@@ -226,9 +226,24 @@ norm) is not used; QB is proved by the ray argument (RAY) and `boundary_qnorm_co
 
 ### The predicted execution tree
 
-⟨filled in the freeze revision: the commit on `claude/trb1-predicted`, a single-parent child of `D`, carrying this
-preregistration in its previous revision, `controls.py`, the module, the import and the census family; its
-`workflow_dispatch` run and the controls check at that commit⟩
+- **`9e9a00fde9019fb2a2bc5a2db0df48ba475bfa14`** (`claude/trb1-predicted`, a single-parent child of `D`) is the
+  execution tree less the result note. Its files and blobs:
+  - this preregistration in its drafting revision `2980b90e`, blob `6182ddd9`;
+  - `controls.py`, blob `0451651b`;
+  - `TransitiveBody.lean`, blob `31f63583`;
+  - `OIBridge.lean`, blob `e5394fe8`;
+  - the census, blob `2b709fcb`.
+- `delta(D, 9e9a00fd)` is exactly those five paths: the record directory's two files and the three execution paths.
+  It adds no order, flow or drive module, and no file other than these.
+- At that commit `controls.py check 9e9a00fd`, run from the tree's own frozen `controls.py`, passes all 18 checks.
+- **Run 37223640106** (`workflow_dispatch` on `9e9a00fd`) completed with conclusion success; every one of its 32 jobs
+  succeeded. The Mathlib bridge (job 111498763237) built `OIBridge.TransitiveBody` with each of the 26 frozen
+  `#print axioms` lines reporting exactly `[propext, Classical.choice, Quot.sound]`, and its release gate passed every
+  step (`lean-axioms` 5517 named results, no `sorryAx`; `lean-manuscript` OK; 303 legacy records intact; 29 receipts
+  hold). Design run 6 (37223131863, the same module less two header sentences) likewise completed with all 32 jobs
+  green.
+
+These runs are design evidence, not attestations.
 
 ## Stages
 
