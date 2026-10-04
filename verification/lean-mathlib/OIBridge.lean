@@ -249,6 +249,7 @@ import OIBridge.OrbitNormalization
 import OIBridge.InvariantInnerProduct
 import OIBridge.StageCompletion
 import OIBridge.CompletionAction
+import OIBridge.TransitiveBody
 
 namespace OIBridge
 
