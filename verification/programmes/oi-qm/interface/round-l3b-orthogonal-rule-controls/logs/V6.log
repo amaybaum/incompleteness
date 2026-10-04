@@ -1,0 +1,11 @@
+sealed 3A Stage-A artifact fast3_stageA_linear.json sha256 9b88a7cc497bbfc2199a06955d69806d83ba88069770175532f3f15e51c656e0
+V6 ((0, 1), (0, 1)) ADVANCE(dims [2, 3, 4]) rank 4 dims [2, 3, 4] MATCH
+V6 ((0, 2), (2, 1)) NOT-INVASIVE(rank 1) rank 1 dims [1, 1, 1] MATCH
+V6 ((1, 0), (0, 2)) ADVANCE(dims [2, 3, 4]) rank 4 dims [2, 3, 4] MATCH
+V6 ((1, 2), (2, 1)) NOT-INVASIVE(rank 1) rank 1 dims [1, 1, 1] MATCH
+V6 ((2, 0), (0, 2)) NOT-INVASIVE(rank 1) rank 1 dims [1, 1, 1] MATCH
+V6 ((2, 1), (2, 1)) NOT-INVASIVE(rank 1) rank 1 dims [1, 1, 1] MATCH
+V6 ((3, 0), (0, 2)) NOT-INVASIVE(rank 1) rank 1 dims [1, 1, 1] MATCH
+V6 ((3, 1), (2, 1)) NOT-INVASIVE(rank 1) rank 1 dims [1, 1, 1] MATCH
+V6 ((3, 2), (3, 2)) ADVANCE(dims [2, 3, 4]) rank 4 dims [2, 3, 4] MATCH
+V6 9 jobs; GATE V6 OK

@@ -1,0 +1,15 @@
+[2026-10-04 02:50:26] DRIVER V7: 6 jobs, 0 checkpointed, 6 to run, 3 procs
+[02:50:32] 1/6 ('nonlinear', ((0, 1), (0, 1))) 6s OVER-RANK(dims [2, 4, 8])
+[02:50:32] 2/6 ('nonlinear', ((3, 2), (3, 2))) 6s OVER-RANK(dims [2, 4, 7])
+[02:50:32] 3/6 ('nonlinear', ((2, 0), (0, 1))) 6s OVER-RANK(dims [2, 4, 8])
+[02:50:39] 4/6 ('majority', ((0, 1), (0, 1))) 7s OVER-RANK(dims [2, 5, 10])
+[02:50:39] 5/6 ('majority', ((2, 0), (0, 1))) 7s OVER-RANK(dims [2, 5, 14])
+[02:50:39] 6/6 ('majority', ((3, 2), (3, 2))) 7s OVER-RANK(dims [2, 5, 10])
+ARTIFACT controls_RNS.json: 6 records; sha256 2ecdaddcb64dd6189b1174209a42f73cecf268a2eaec5987ade76fca5c3f883f
+CONTROL nonlinear ((0, 1), (0, 1)): rank 8 certified True dims [2, 4, 8] OVER-RANK
+CONTROL nonlinear ((2, 0), (0, 1)): rank 13 certified True dims [2, 4, 8] OVER-RANK
+CONTROL nonlinear ((3, 2), (3, 2)): rank 7 certified True dims [2, 4, 7] OVER-RANK
+CONTROL majority ((0, 1), (0, 1)): rank 13 certified True dims [2, 5, 10] OVER-RANK
+CONTROL majority ((2, 0), (0, 1)): rank 20 certified True dims [2, 5, 14] OVER-RANK
+CONTROL majority ((3, 2), (3, 2)): rank 13 certified True dims [2, 5, 10] OVER-RANK
+GATE V7 OK
