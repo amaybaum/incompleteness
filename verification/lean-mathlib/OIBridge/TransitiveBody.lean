@@ -1,7 +1,8 @@
 /-
   OIBridge/TransitiveBody.lean — round TRB-1 (architectural round 2): the completed-chart adapter, the
   boundary-state bridge, boundary purity, and the invariant-inner-product ball of a boundary-transitive
-  body; TRANS and ORD∞ as separate predicates.
+  body. TRANS alone: no order predicate of any kind is defined or used here (the order side, ORD∞, is
+  round ORD-1's), so the module carries no edge from transitivity to order.
 
   Everything here is stated for a compact convex body `Ω` with nonempty interior in coordinates
   `Fin d → ℝ`, or for the chart body of a completion chart (`CompletionAction.chartBody`), which §A
@@ -16,10 +17,8 @@
         (`frontier_of_isBoundaryState`), and a point of a convex set with interior that is not interior
         is a boundary state (`isBoundaryState_of_frontier`); the ray from an interior point meets the
         boundary in a boundary state (`exists_boundary_ray`);
-    §C  TRANS and ORD∞: `IsBodyGroup` (identity, composition, inverses, body preservation), `TransBody`
-        (a body group acting transitively on every boundary state), `InfiniteOrderOn`, `OrdInf`; no
-        theorem of this file has `TransBody` or `BoundaryTransitive` among its hypotheses and `OrdInf` in its
-        conclusion, and none has `OrdInf` among its hypotheses;
+    §C  TRANS: `IsBodyGroup` (identity, composition, inverses, body preservation) and `TransBody` (a body
+        group acting transitively on every boundary state); nothing about the order of any member;
     §D  boundary purity: under a body-preserving boundary-transitive family every boundary state is an
         extreme point; a body with a non-extreme boundary state is boundary transitive for no
         body-preserving family (`not_boundaryTransitive_of_nonextreme_boundary`);
@@ -31,10 +30,13 @@
         (`exists_factor_invMatrix`), the invariant form is a sum of squares in linear coordinates
         (`qnorm_eq_sum_sq`), and the body is an affine image of the coordinate Euclidean ball of its
         dimension (`exists_affine_image_eq_eball`); the chart-body and `TransBody` forms are corollaries;
-    §G  controls: the four cells of the separation table on `ball3` (all automorphisms; the Householder
-        reflections, boundary transitive and all involutions; the rotation flow, of infinite order and
-        not transitive), and the square and the octahedron, boundary transitive for no body-preserving
+    §G  controls, the transitivity side only: on `ball3`, all automorphisms form a transitive body group;
+        the Householder reflections are boundary transitive as a set; the rotation flow is not
+        transitive; and the square and the octahedron are boundary transitive for no body-preserving
         family.
+
+  The ball theorem (§E) is proved in the invariant quadratic form by the ray argument of §B; the
+  ambient-norm lemma `KInfFoundations.eq_closedBall_of_frontier_subset_sphere` is not used.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
@@ -45,7 +47,6 @@ import Mathlib.Analysis.Convex.Topology
 import Mathlib.Analysis.Normed.Module.FiniteDimension
 import Mathlib.LinearAlgebra.Matrix.PosDef
 import Mathlib.Analysis.Matrix.LDL
-import Mathlib.Analysis.Real.Pi.Irrational
 
 namespace OIBridge
 namespace TransitiveBody
@@ -211,7 +212,7 @@ theorem exists_boundary_ray {Ω : Set V} (hc : IsCompact Ω) (hconv : Convex ℝ
 
 end Bridge
 
-/-! ### §C — TRANS and ORD∞, defined apart -/
+/-! ### §C — TRANS -/
 
 section Predicates
 
@@ -232,13 +233,6 @@ theorem IsBodyGroup.preservesBody {Ω : Set V} {G : Set (V ≃ᵃ[ℝ] V)} (h : 
 
 /-- **TRANS.** A body group acting transitively on every boundary state of `Ω`. -/
 def TransBody (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop := IsBodyGroup Ω G ∧ BoundaryTransitive Ω G
-
-/-- Infinite order on the body: every positive power moves some state. -/
-def InfiniteOrderOn (Ω : Set V) (g : V ≃ᵃ[ℝ] V) : Prop :=
-  ∀ m : ℕ, 1 ≤ m → ∃ x ∈ Ω, (⇑g)^[m] x ≠ x
-
-/-- **ORD∞.** `G` has a member of infinite order on `Ω`. Stated apart from `TransBody`. -/
-def OrdInf (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop := ∃ g ∈ G, InfiniteOrderOn Ω g
 
 end Predicates
 
@@ -696,49 +690,11 @@ theorem isBodyGroup_fullAut3 : IsBodyGroup ball3 fullAut3 where
   inv_mem g hg x hx := ⟨(hg x hx).2, show g x ∈ ball3 from (hg x hx).1⟩
   preserves g hg x hx := (hg x hx).1
 
-/-- **Control (TRANS, ORD∞) = (holds, holds).** -/
+/-- **Control (TRANS holds): the ball with all its affine automorphisms.** -/
 theorem transBody_fullAut3 : TransBody ball3 fullAut3 := ⟨isBodyGroup_fullAut3, boundaryTransitive_fullAut3⟩
 
-theorem rot3_mem_fullAut3 (t : ℝ) : rot3 t ∈ fullAut3 := fun x hx =>
-  preservesBody_flow (rot3 t) ⟨t, rfl⟩ x hx
-
-theorem iterate_rot3_one (m : ℕ) (v : Fin 3 → ℝ) : (⇑(rot3 1))^[m] v = rotFun (m : ℝ) v := by
-  induction m with
-  | zero => simp [rotFun_zero]
-  | succ k ih =>
-    rw [Function.iterate_succ_apply', ih, rot3_apply, rotFun_add]
-    congr 1
-    push_cast
-    ring
-
-/-- The rotation by one radian has infinite order on the ball: `cos m ≠ 1` for every integer
-`m ≥ 1`, since `π` is irrational. -/
-theorem infiniteOrderOn_rot3_one : InfiniteOrderOn ball3 (rot3 1) := by
-  intro m hm
-  refine ⟨![1, 0, 0], by show (1 : ℝ) ^ 2 + 0 ^ 2 + 0 ^ 2 ≤ 1; norm_num, fun h => ?_⟩
-  rw [iterate_rot3_one] at h
-  have h0 := congrFun h 0
-  obtain ⟨a0, -, -⟩ := rotFun_apply (m : ℝ) ![1, 0, 0]
-  rw [a0] at h0
-  simp only [Matrix.cons_val_zero, Matrix.cons_val_one, mul_one, mul_zero, sub_zero] at h0
-  obtain ⟨n, hn⟩ := (Real.cos_eq_one_iff _).mp h0
-  have hmpos : (0 : ℝ) < m := by exact_mod_cast hm
-  have hn0 : (n : ℝ) ≠ 0 := by
-    intro hz
-    rw [hz, zero_mul] at hn
-    linarith
-  apply irrational_pi.ne_rat ((m : ℚ) / (2 * n))
-  push_cast
-  field_simp
-  linear_combination hn
-
-/-- **Control (TRANS, ORD∞) = (holds, holds), the order half.** -/
-theorem ordInf_fullAut3 : OrdInf ball3 fullAut3 := ⟨rot3 1, rot3_mem_fullAut3 1, infiniteOrderOn_rot3_one⟩
-
-/-- **Control (TRANS, ORD∞) = (fails, holds): the rotation flow alone.** -/
+/-- **Control (TRANS fails): the rotation flow alone is not boundary transitive.** -/
 theorem not_transBody_flow : ¬ TransBody ball3 (Set.range rot3) := fun h => not_boundaryTransitive_flow h.2
-
-theorem ordInf_flow : OrdInf ball3 (Set.range rot3) := ⟨rot3 1, ⟨1, rfl⟩, infiniteOrderOn_rot3_one⟩
 
 /-- The Householder reflections of the ball, with the identity. -/
 def refls3 : Set ((Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ)) :=
@@ -750,8 +706,8 @@ theorem preservesBody_refls3 : PreservesBody ball3 refls3 := by
   · exact hh3_mem_fullAut3 dv k hk
   · exact refl_mem_fullAut3
 
-/-- **Control (TRANS as a set property, ORD∞) = (holds, fails), the transitivity half.** The
-reflections alone carry any boundary state to any other. -/
+/-- **Control (boundary transitivity as a set property).** The reflections alone carry any boundary
+state to any other; no group structure of the family is claimed. -/
 theorem boundaryTransitive_refls3 : BoundaryTransitive ball3 refls3 := by
   intro u w hu hw
   have hu1 := sphere_of_isBoundaryState_ball3 hu
@@ -774,23 +730,8 @@ theorem boundaryTransitive_refls3 : BoundaryTransitive ball3 refls3 := by
     rw [hh3_apply]
     exact hhFun_swap u w k hu1 hw1 hk
 
-/-- Every member of the reflection family is an involution. -/
-theorem refls3_involutive : ∀ g ∈ refls3, ∀ x, g (g x) = x := by
-  rintro g (⟨dv, k, hk, rfl⟩ | rfl) x
-  · rw [hh3_apply, hh3_apply]
-    exact hhFun_hhFun dv k hk x
-  · rfl
-
-/-- **Control (TRANS as a set property, ORD∞) = (holds, fails), the order half.** -/
-theorem not_ordInf_refls3 : ¬ OrdInf ball3 refls3 := by
-  rintro ⟨g, hg, h⟩
-  obtain ⟨x, -, hne⟩ := h 2 (by norm_num)
-  apply hne
-  show g (g x) = x
-  exact refls3_involutive g hg x
-
--- Composition closure of the reflection family is not claimed; the cell records only that a
--- boundary-transitive *set* need carry no infinite order.
+-- Composition closure of the reflection family is not claimed; the control records only that
+-- boundary transitivity is a property a family can have without being a body group.
 
 /-- The square: the kernel's `Metric.closedBall (0 : Fin 2 → ℝ) 1` in the sup norm. -/
 def square2 : Set (Fin 2 → ℝ) := Metric.closedBall (0 : Fin 2 → ℝ) 1
@@ -941,9 +882,7 @@ theorem trb1_core :
     (∀ (d : ℕ), 0 < d → ∀ (Ω : Set (Fin d → ℝ)), IsCompact Ω → Convex ℝ Ω → (interior Ω).Nonempty →
       ∀ G : Set ((Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ)), PreservesBody Ω G → BoundaryTransitive Ω G →
         ∃ A : (Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ), A '' Ω = eball d) ∧
-    TransBody ball3 fullAut3 ∧ OrdInf ball3 fullAut3 ∧
-    BoundaryTransitive ball3 refls3 ∧ ¬ OrdInf ball3 refls3 ∧
-    ¬ TransBody ball3 (Set.range rot3) ∧ OrdInf ball3 (Set.range rot3) ∧
+    TransBody ball3 fullAut3 ∧ BoundaryTransitive ball3 refls3 ∧ ¬ TransBody ball3 (Set.range rot3) ∧
     (∀ G, PreservesBody square2 G → ¬ BoundaryTransitive square2 G) ∧
     (∀ G, PreservesBody oct3 G → ¬ BoundaryTransitive oct3 G) :=
   ⟨fun _ C => ⟨chartBody_isCompact C, chartBody_convex C, chartBody_interior_nonempty C⟩,
@@ -951,8 +890,8 @@ theorem trb1_core :
     fun _ _ hconv hi _ hxΩ hx => isBoundaryState_of_frontier hconv hi hxΩ hx,
     fun _ hd _ hc hconv hi _ hG hT => eq_qBall_of_boundaryTransitive hd hc hconv hi hG hT,
     fun _ hd _ hc hconv hi _ hG hT => exists_affine_image_eq_eball hd hc hconv hi hG hT,
-    transBody_fullAut3, ordInf_fullAut3, boundaryTransitive_refls3, not_ordInf_refls3,
-    not_transBody_flow, ordInf_flow, not_boundaryTransitive_square2, not_boundaryTransitive_oct3⟩
+    transBody_fullAut3, boundaryTransitive_refls3, not_transBody_flow,
+    not_boundaryTransitive_square2, not_boundaryTransitive_oct3⟩
 
 end TransitiveBody
 end OIBridge
@@ -978,11 +917,8 @@ end OIBridge
 #print axioms OIBridge.TransitiveBody.exists_affine_image_eq_eball_of_transBody
 #print axioms OIBridge.TransitiveBody.eball_three
 #print axioms OIBridge.TransitiveBody.transBody_fullAut3
-#print axioms OIBridge.TransitiveBody.ordInf_fullAut3
 #print axioms OIBridge.TransitiveBody.boundaryTransitive_refls3
-#print axioms OIBridge.TransitiveBody.not_ordInf_refls3
 #print axioms OIBridge.TransitiveBody.not_transBody_flow
-#print axioms OIBridge.TransitiveBody.ordInf_flow
 #print axioms OIBridge.TransitiveBody.not_boundaryTransitive_square2
 #print axioms OIBridge.TransitiveBody.not_boundaryTransitive_oct3
 #print axioms OIBridge.TransitiveBody.trb1_core
