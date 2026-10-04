@@ -250,6 +250,7 @@ import OIBridge.InvariantInnerProduct
 import OIBridge.StageCompletion
 import OIBridge.CompletionAction
 import OIBridge.TransitiveBody
+import OIBridge.CompositeDimension
 
 namespace OIBridge
 
