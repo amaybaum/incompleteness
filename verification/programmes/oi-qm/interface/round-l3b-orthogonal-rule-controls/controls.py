@@ -70,17 +70,20 @@ def check_V1(code=CODE):
     return errs
 
 
-def gate_ok(name, logs=LOGS, allow_skip=False):
-    """The log(s) of a gate end with 'GATE <name> OK' (every log whose name starts with the gate's)."""
+def gate_ok(name, logs=LOGS, allow_skip=False, gate=None):
+    """The log(s) of a gate carry a line 'GATE <gate> ... OK' (every log whose name starts with `name`; the gate
+    name defaults to `name`). The gate text may sit anywhere in its line: the V6, V8 and V9 drivers print it after
+    a summary ('REPLAY-A R_5 10 jobs, mismatches 0; GATE V8 OK')."""
+    gate = gate or name
     files = sorted(f for f in os.listdir(logs) if f == f'{name}.log' or f.startswith(f'{name}_')) if os.path.isdir(logs) else []
     if not files:
         return [f'{name}: no log']
     errs = []
     for f in files:
         txt = open(os.path.join(logs, f), encoding='utf-8').read()
-        if re.search(rf'^GATE {re.escape(name)}\b.*\bOK\s*$', txt, re.M):
+        if re.search(rf'\bGATE {re.escape(gate)}\b.*\bOK\s*$', txt, re.M):
             continue
-        if allow_skip and re.search(rf'^.*GATE {re.escape(name)} SKIPPED', txt, re.M):
+        if allow_skip and re.search(rf'\bGATE {re.escape(gate)} SKIPPED', txt, re.M):
             continue
         errs.append(f'{name}: {f} carries no OK line')
     return errs
@@ -100,7 +103,7 @@ def artifact_records(path, n_expected, labels, errs, tag):
     R = load(path)
     if n_expected is not None and len(R) != n_expected:
         errs.append(f'{tag}: {len(R)} records != {n_expected}')
-    bad = [r['verdict'] for r in R if head(r['verdict']) not in labels]
+    bad = [r['verdict'] for r in R if head(r['verdict']) not in labels] if labels else []   # no label set: not verdict records
     if bad:
         errs.append(f'{tag}: labels outside the frozen set: {sorted(set(bad))[:5]}')
     return R
@@ -166,7 +169,7 @@ def check_E(code=CODE, results=RESULTS, logs=LOGS, out=print):
         B = artifact_records(pB, len(adv), BLOCK1_B, errs, f'stageB_{cell}') or []
         if B and [kk(r) for r in B] != adv:
             errs.append(f'stageB_{cell}: job list != advance rule on Stage A')
-        errs += gate_ok(f'V9_{cell}', logs, allow_skip=not adv) if os.path.isdir(logs) else [f'V9_{cell}: no log']
+        errs += gate_ok(f'V9_{cell}', logs, allow_skip=not adv, gate='V9') if os.path.isdir(logs) else [f'V9_{cell}: no log']
         sel = stage_c_selection(B) if B else []
         pC = os.path.join(results, f'stageC_{cell}.json')
         if sel or os.path.exists(pC):
