@@ -715,6 +715,133 @@ theorem ne_seven_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[�
   intro h
   rcases dim_of_nativeGate hN hG hB with h1 | h2 <;> omega
 
+/-! ### §K — survival: the `d = 3` gate -/
+
+/-- The sign of the `d = 3` gate on the homogenized index pair: `−1` at `(1, 3)` and `(2, 2)`. -/
+def sgn (μ ν : Fin 4) : ℝ := if (μ = 1 ∧ ν = 3) ∨ (μ = 2 ∧ ν = 2) then -1 else 1
+
+/-- The control index read by the `d = 3` gate at an index pair. -/
+def pc : Fin 4 → Fin 4 → Fin 4
+  | 0, 0 => 0 | 0, 1 => 0 | 0, 2 => 3 | 0, 3 => 3
+  | 1, 0 => 1 | 1, 1 => 1 | 1, 2 => 2 | 1, 3 => 2
+  | 2, 0 => 2 | 2, 1 => 2 | 2, 2 => 1 | 2, 3 => 1
+  | 3, 0 => 3 | 3, 1 => 3 | 3, 2 => 0 | 3, 3 => 0
+
+/-- The target index read by the `d = 3` gate at an index pair. -/
+def pt : Fin 4 → Fin 4 → Fin 4
+  | 0, 0 => 0 | 0, 1 => 1 | 0, 2 => 2 | 0, 3 => 3
+  | 1, 0 => 1 | 1, 1 => 0 | 1, 2 => 3 | 1, 3 => 2
+  | 2, 0 => 1 | 2, 1 => 0 | 2, 2 => 3 | 2, 3 => 2
+  | 3, 0 => 0 | 3, 1 => 1 | 3, 2 => 2 | 3, 3 => 3
+
+/-- The `d = 3` gate as a function: a signed permutation of the sixteen entries. -/
+def cnotFun (ω : W 3) : W 3 := fun μ ν => sgn μ ν * ω (pc μ ν) (pt μ ν)
+
+theorem cnotFun_apply (ω : W 3) (μ ν : Fin 4) : cnotFun ω μ ν = sgn μ ν * ω (pc μ ν) (pt μ ν) := rfl
+
+theorem pc_pc : ∀ μ ν : Fin 4, pc (pc μ ν) (pt μ ν) = μ := by decide
+
+theorem pt_pt : ∀ μ ν : Fin 4, pt (pc μ ν) (pt μ ν) = ν := by decide
+
+theorem sgn_mul_sgn : ∀ μ ν : Fin 4, sgn μ ν * sgn (pc μ ν) (pt μ ν) = 1 := by
+  intro μ ν
+  fin_cases μ <;> fin_cases ν <;> simp +decide [sgn, pc, pt]
+
+theorem cnotFun_cnotFun (ω : W 3) : cnotFun (cnotFun ω) = ω := by
+  funext μ ν
+  rw [cnotFun_apply, cnotFun_apply, pc_pc, pt_pt, ← mul_assoc, sgn_mul_sgn, one_mul]
+
+/-- The `d = 3` gate as a linear equivalence of the joint carrier. -/
+def cnot : W 3 ≃ₗ[ℝ] W 3 where
+  toFun := cnotFun
+  invFun := cnotFun
+  map_add' ω₁ ω₂ := by
+    funext μ ν
+    simp only [cnotFun_apply, Pi.add_apply, mul_add]
+  map_smul' c ω := by
+    funext μ ν
+    simp only [cnotFun_apply, Pi.smul_apply, smul_eq_mul, RingHom.id_apply]
+    ring
+  left_inv := cnotFun_cnotFun
+  right_inv := cnotFun_cnotFun
+
+theorem cnot_apply (ω : W 3) : cnot ω = cnotFun ω := rfl
+
+theorem cnot_symm_apply (ω : W 3) : cnot.symm ω = cnotFun ω := rfl
+
+/-- The corner axis of the `d = 3` witness. -/
+def z3 : Fin 3 → ℝ := ![0, 0, 1]
+
+/-- The common NOT of the `d = 3` witness: the reflection fixing the first coordinate and
+inverting the other two. -/
+def nflip : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ) where
+  toFun x := fun i => (![1, -1, -1] : Fin 3 → ℝ) i * x i
+  map_add' x y := by funext i; simp only [Pi.add_apply, mul_add]
+  map_smul' c x := by funext i; simp only [Pi.smul_apply, smul_eq_mul, RingHom.id_apply]; ring
+
+theorem nflip_apply (x : Fin 3 → ℝ) (i : Fin 3) : nflip x i = (![1, -1, -1] : Fin 3 → ℝ) i * x i :=
+  rfl
+
+@[simp] theorem nflip_zero' (x : Fin 3 → ℝ) : nflip x 0 = x 0 := by show 1 * x 0 = x 0; ring
+@[simp] theorem nflip_one (x : Fin 3 → ℝ) : nflip x 1 = -x 1 := by show -1 * x 1 = -x 1; ring
+@[simp] theorem nflip_two (x : Fin 3 → ℝ) : nflip x 2 = -x 2 := by show -1 * x 2 = -x 2; ring
+
+@[simp] theorem homMap_nflip_zero (v : HVec 3) : homMap nflip v 0 = v 0 := rfl
+@[simp] theorem homMap_nflip_one (v : HVec 3) : homMap nflip v 1 = v 1 := by
+  show 1 * v 1 = v 1; ring
+@[simp] theorem homMap_nflip_two (v : HVec 3) : homMap nflip v 2 = -v 2 := by
+  show -1 * v 2 = -v 2; ring
+@[simp] theorem homMap_nflip_three (v : HVec 3) : homMap nflip v 3 = -v 3 := by
+  show -1 * v 3 = -v 3; ring
+
+@[simp] theorem hom_one' (x : Fin 3 → ℝ) : hom x 1 = x 0 := rfl
+@[simp] theorem hom_two' (x : Fin 3 → ℝ) : hom x 2 = x 1 := rfl
+@[simp] theorem hom_three' (x : Fin 3 → ℝ) : hom x 3 = x 2 := rfl
+
+@[simp] theorem z3_zero : z3 0 = 0 := rfl
+@[simp] theorem z3_one : z3 1 = 0 := rfl
+@[simp] theorem z3_two : z3 2 = 1 := rfl
+
+theorem corner_zero (z : Fin 3 → ℝ) : corner z 0 = z := rfl
+theorem corner_one (z : Fin 3 → ℝ) : corner z 1 = -z := rfl
+
+theorem actT_apply (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (ω : W d) (μ ν : Fin (d + 1)) :
+    actT N ω μ ν = homMap N (ω μ) ν := rfl
+
+theorem actC_apply (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (ω : W d) (μ ν : Fin (d + 1)) :
+    actC N ω μ ν = homMap N (fun κ => ω κ ν) μ := rfl
+
+theorem prodState_apply (x y : Fin d → ℝ) (μ ν : Fin (d + 1)) :
+    prodState x y μ ν = hom x μ * hom y ν := rfl
+
+/-- `nflip` is a NOT of the ball with axis `z3`. -/
+theorem isNot_nflip : IsNot (eball 3) z3 nflip where
+  unit := by simp [Fin.sum_univ_three]
+  invol x := by funext i; fin_cases i <;> simp
+  preserves x hx := by
+    rw [mem_eball, Fin.sum_univ_three] at hx ⊢
+    simp only [nflip_zero', nflip_one, nflip_two, neg_sq]
+    exact hx
+  flips := by funext i; fin_cases i <;> simp
+
+/-- The frame condition of the `d = 3` gate. -/
+theorem cnot_frame (a b : Fin 2) :
+    cnot (prodState (corner z3 a) (corner z3 b)) = prodState (corner z3 a) (corner z3 (a + b)) := by
+  fin_cases a <;> fin_cases b <;> funext μ ν <;> fin_cases μ <;> fin_cases ν <;>
+    simp +decide [cnot_apply, cnotFun_apply, sgn, pc, pt, prodState_apply, corner_zero, corner_one]
+
+/-- The target relation of the `d = 3` gate. -/
+theorem cnot_relT (ω : W 3) : actT nflip (cnot (actT nflip ω)) = cnot ω := by
+  funext μ ν
+  fin_cases μ <;> fin_cases ν <;>
+    simp +decide [actT_apply, cnot_apply, cnotFun_apply, sgn, pc, pt]
+
+/-- The control relation of the `d = 3` gate. -/
+theorem cnot_relC (ω : W 3) : actC nflip (cnot (actC nflip ω)) = actT nflip (cnot ω) := by
+  funext μ ν
+  fin_cases μ <;> fin_cases ν <;>
+    simp +decide [actC_apply, actT_apply, cnot_apply, cnotFun_apply, sgn, pc, pt]
+
 end CompositeDimension
 end OIBridge
 
