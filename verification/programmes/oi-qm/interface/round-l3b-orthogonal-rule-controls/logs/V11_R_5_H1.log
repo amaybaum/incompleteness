@@ -1,0 +1,4 @@
+REPLAY-H R_5 H1 ((0, 1), (0, 1)): trie-vs-single mismatches 0/40404; brute mismatches 0/40; H0 record MATCH
+REPLAY-H R_5 H1 ((2, 0), (0, 1)): trie-vs-single mismatches 0/40404; brute mismatches 0/40; H0 record MATCH
+REPLAY-H R_5 H1 ((3, 2), (3, 2)): trie-vs-single mismatches 0/40404; brute mismatches 0/40; H0 record MATCH
+GATE V11 (R_5, H1) OK

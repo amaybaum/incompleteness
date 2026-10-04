@@ -1,0 +1,8 @@
+V4 hsim3b(H0) == record3_sim on random protocols: 150, mismatches 0
+V4 full Stage-A set linear ((0, 1), (0, 1)): 40404 protocols, window 5s, enumerator 24s, mismatches 0
+V4 full Stage-A set linear ((1, 3), (0, 2)): 40404 protocols, window 5s, enumerator 23s, mismatches 0
+V4 full Stage-A set linear ((2, 0), (3, 1)): 40404 protocols, window 7s, enumerator 24s, mismatches 0
+V4 full Stage-A set R5 ((0, 1), (0, 1)): 40404 protocols, window 6s, enumerator 24s, mismatches 0
+V4 full Stage-A set R5 ((1, 3), (0, 2)): 40404 protocols, window 6s, enumerator 25s, mismatches 0
+V4 full Stage-A set R5 ((2, 0), (3, 1)): 40404 protocols, window 6s, enumerator 26s, mismatches 0
+GATE V4 OK

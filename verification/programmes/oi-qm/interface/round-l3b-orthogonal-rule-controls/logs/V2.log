@@ -1,0 +1,8 @@
+V2 linear     affine True  uses-centre False permutive-in ['l', 'r']
+V2 LS         affine True  uses-centre True  permutive-in ['c', 'l', 'r']
+V2 nonlinear  affine False uses-centre True  permutive-in ['c']
+V2 majority   affine False uses-centre True  permutive-in []
+V2 NL         affine False uses-centre False permutive-in []
+V2 R5         affine False uses-centre True  permutive-in ['l']
+V2 two-variable functions permutive in some argument: 6, all affine
+GATE V2 OK
