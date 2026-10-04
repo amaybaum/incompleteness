@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "L3B",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "b7af4852b79fa3bfa90e9b5c2eca3aca6890395a",
+ "f": "d04ab62799afc882c1bf5fb730427495c73c97b9",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/interface/round-l3b-orthogonal-rule-controls/preregistration.md",
+   "blob": "588404e93867d0556600a5fe4160e4f6bcba9354"
+  }
+ ],
+ "governed_paths_digest": "fc14a41f24cd74ae8745a4226c9dd70abaf06cbd64bca08025a02a4ebd13b6a8",
+ "e": "9834de7c3b914cec9e8b9280d797de3fffccaeed",
+ "tree_e": "6e1027017c18658c0f1e92a971832e01d629fa52",
+ "execution_delta_digest": "ef68a47a61b76c003306b5ceefb420b5e0bedf5dc236cd97351e5d1df2611d6b",
+ "candidates": [],
+ "landing": {
+  "base": "b7af4852b79fa3bfa90e9b5c2eca3aca6890395a",
+  "object": "5126774a42099215b4daeae9482f4a62afb261b7",
+  "reconciliations": [
+   "5126774a42099215b4daeae9482f4a62afb261b7"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "4957a454a80314af983c93c0506d49109d7e33f919a446c4983882789482bd84"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "d04ab62799afc882c1bf5fb730427495c73c97b9",
+   "record": "https://github.com/amaybaum/incompleteness/pull/786#issuecomment-5981807472"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "d04ab62799afc882c1bf5fb730427495c73c97b9",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37165488993"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "9834de7c3b914cec9e8b9280d797de3fffccaeed",
+   "record": "https://github.com/amaybaum/incompleteness/pull/786#issuecomment-5981807773"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "9834de7c3b914cec9e8b9280d797de3fffccaeed",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37209971891"
+  }
+ ]
+}
