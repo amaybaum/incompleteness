@@ -197,9 +197,24 @@ with standard axioms, and were moved here by the owner's scope cut; TRB-1 landed
 
 ### The predicted execution tree
 
-⟨filled in the freeze revision: the commit on `claude/ord1-predicted`, a single-parent child of `D`, carrying this
-preregistration in its previous revision, `controls.py`, the module, the import and the census family; its
-`workflow_dispatch` run and the controls check at that commit⟩
+- **`eada246ce824f4c0e1884978435709d5823109ce`** (`claude/ord1-predicted`, a single-parent child of `D`) is the
+  execution tree less the result note. Its files and blobs:
+  - this preregistration in its drafting revision `931142a4`, blob `6f50d612`;
+  - `controls.py`, blob `6cb4471b`;
+  - `CompositionOrder.lean`, blob `d8e04d32`;
+  - `OIBridge.lean`, blob `6f94ffa3`;
+  - the census, blob `d975aa8d`.
+- `delta(D, eada246c)` is exactly those five paths: the record directory's two files and the three execution paths.
+  It adds no transitivity, ball, drive or flow module, and no file other than these.
+- At that commit `controls.py check eada246c`, run from the tree's own frozen `controls.py`, passes all 16 checks.
+- **Run 37232501743** (`workflow_dispatch` on `eada246c`) completed with conclusion success; every one of its 32 jobs
+  succeeded. The Mathlib bridge (job 111524992095) built `OIBridge.CompositionOrder` with each of the 35 frozen
+  `#print axioms` lines reporting exactly `[propext, Classical.choice, Quot.sound]`, and its release gate passed every
+  step (`lean-axioms` 5552 named results, no `sorryAx`; `lean-manuscript` OK; 303 legacy records intact; 30 receipts
+  hold). Design run 3 (37232152756, the same three execution blobs on `claude/ord1-dev2`) likewise completed with all
+  32 jobs green.
+
+These runs are design evidence, not attestations.
 
 ## Stages
 
