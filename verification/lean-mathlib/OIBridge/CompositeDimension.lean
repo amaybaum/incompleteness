@@ -76,8 +76,9 @@ def homMap (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) : HVec d →ₗ[ℝ
     homMap N v 0 = v 0 := rfl
 
 @[simp] theorem homMap_succ (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (v : HVec d) (j : Fin d) :
-    homMap N v j.succ = N (Matrix.vecTail v) j :=
-  Matrix.cons_val_succ _ _ _
+    homMap N v j.succ = N (Matrix.vecTail v) j := by
+  show Matrix.vecCons (v 0) (N (Matrix.vecTail v)) j.succ = N (Matrix.vecTail v) j
+  exact Matrix.cons_val_succ (v 0) (N (Matrix.vecTail v)) j
 
 theorem vecTail_homMap (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (v : HVec d) :
     Matrix.vecTail (homMap N v) = N (Matrix.vecTail v) :=
@@ -241,7 +242,7 @@ theorem lift_corner_mem_minusSpace {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ
 
 theorem one_le_finrank_plusSpace (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) :
     1 ≤ Module.finrank ℝ (plusSpace N) := by
-  have hne : plusSpace N ≠ ⊥ := Submodule.ne_bot_iff.mpr
+  have hne : plusSpace N ≠ ⊥ := (Submodule.ne_bot_iff _).mpr
     ⟨hom 0, hom_zero_mem_plusSpace N, fun h0 => by
       have := congrFun h0 0
       simp at this⟩
@@ -255,7 +256,7 @@ theorem one_le_finrank_minusSpace {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ}
     intro h0
     have := hN.unit
     simp [h0] at this
-  have hne : minusSpace N ≠ ⊥ := Submodule.ne_bot_iff.mpr
+  have hne : minusSpace N ≠ ⊥ := (Submodule.ne_bot_iff _).mpr
     ⟨Matrix.vecCons 0 z, lift_corner_mem_minusSpace hN, fun h0 => hz (by
       funext j
       have := congrFun h0 j.succ
@@ -272,7 +273,7 @@ theorem not_even_of_balanced {a b : ℕ} (hsum : a + b = d + 1) (hbal : a = b) :
 
 /-- The count in the form of `NativeGateBall.dim_of_bounds`: with `p + 1` and `q + 1` the two
 eigenspace dimensions, `p = q` and `p + q + 1 = d`. -/
-theorem split_of_balanced {a b : ℕ} (hsum : a + b = d + 1) (hbal : a = b) (ha : 1 ≤ a) :
+theorem split_of_balanced {a b : ℕ} (hsum : a + b = d + 1) (hbal : a = b) :
     (a - 1) = (b - 1) ∧ (a - 1) + (b - 1) + 1 = d := by
   omega
 
