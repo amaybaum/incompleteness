@@ -27,8 +27,8 @@
         interior; every boundary state lies on one `Q`-sphere about the centroid (`boundary_qnorm_const`),
         and the body is the closed `Q`-ball (`eq_qBall_of_boundaryTransitive`); only body preservation,
         all-boundary transitivity and the invariant inner product are used — no composition closure;
-    §F  the normalization adapter, frozen as statements: `invMatrix Ω` has a symmetric invertible square
-        root (`exists_sqrt_invMatrix`), the invariant form is a sum of squares in linear coordinates
+    §F  the normalization adapter, frozen as statements: `invMatrix Ω` factors as `Bᵀ * B`
+        (`exists_factor_invMatrix`), the invariant form is a sum of squares in linear coordinates
         (`qnorm_eq_sum_sq`), and the body is an affine image of the coordinate Euclidean ball of its
         dimension (`exists_affine_image_eq_eball`); the chart-body and `TransBody` forms are corollaries;
     §G  controls: the four cells of the separation table on `ball3` (all automorphisms; the Householder
@@ -252,14 +252,14 @@ theorem extreme_image {Ω : Set V} {g : V ≃ᵃ[ℝ] V} (hg : ∀ x ∈ Ω, g x
     (hx : x ∈ Ω.extremePoints ℝ) : g x ∈ Ω.extremePoints ℝ := by
   refine ⟨(hg x hx.1).1, ?_⟩
   intro y₁ hy₁ y₂ hy₂ hseg
-  have himg := image_openSegment g.symm.toAffineMap y₁ y₂
+  have himg := image_openSegment ℝ g.symm.toAffineMap y₁ y₂
   rw [AffineEquiv.coe_toAffineMap] at himg
   have hmem : g.symm (g x) ∈ (⇑g.symm) '' openSegment ℝ y₁ y₂ := Set.mem_image_of_mem _ hseg
   rw [himg, AffineEquiv.symm_apply_apply] at hmem
-  obtain ⟨h1, h2⟩ := hx.2 (hg y₁ hy₁).2 (hg y₂ hy₂).2 hmem
+  have hh := hx.2 (hg y₁ hy₁).2 (hg y₂ hy₂).2 hmem
   constructor
-  · rw [← h1, AffineEquiv.apply_symm_apply]
-  · rw [← h2, AffineEquiv.apply_symm_apply]
+  · rw [← hh.1, AffineEquiv.apply_symm_apply]
+  · rw [← hh.2, AffineEquiv.apply_symm_apply]
 
 /-- An extreme point is not an interior point. -/
 theorem not_mem_interior_of_extreme [Nontrivial V] {Ω : Set V} {x : V}
@@ -282,7 +282,7 @@ theorem not_mem_interior_of_extreme [Nontrivial V] {Ω : Set V} {x : V}
     rw [Metric.mem_ball, dist_eq_norm, add_sub_cancel_left, hvn]; linarith)
   have hseg : x ∈ openSegment ℝ (x - v) (x + v) :=
     ⟨1 / 2, 1 / 2, by norm_num, by norm_num, by norm_num, by module⟩
-  obtain ⟨h1, -⟩ := hx.2 hmem₁ hmem₂ hseg
+  have h1 := (hx.2 hmem₁ hmem₂ hseg).1
   apply hv0
   have : x - v = x - 0 := by rw [sub_zero]; exact h1
   exact sub_right_injective this
@@ -529,10 +529,12 @@ theorem mem_eball {x : Fin d → ℝ} : x ∈ eball d ↔ ∑ j, x j ^ 2 ≤ 1 :
 /-- The Finsupp double sum of `Matrix.PosDef` equals the dot-product form. -/
 theorem finsuppSum_eq_dot (M : Matrix (Fin d) (Fin d) ℝ) (x : Fin d →₀ ℝ) :
     (x.sum fun i xi => x.sum fun j xj => star xi * M i j * xj) = (⇑x) ⬝ᵥ (M *ᵥ ⇑x) := by
-  simp only [star_trivial]
-  rw [Finsupp.sum_fintype _ _ (fun i => by simp)]
-  simp_rw [Finsupp.sum_fintype _ _ (fun j => by simp)]
-  simp only [dotProduct, Matrix.mulVec, Finset.mul_sum, mul_assoc]
+  rw [Finsupp.sum_fintype _ _ (fun i => by simp), dotProduct]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [Finsupp.sum_fintype _ _ (fun j => by simp), mulVec_apply_eq, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun j _ => ?_
+  rw [star_trivial]
+  ring
 
 /-- The invariant form's matrix is positive definite. -/
 theorem invMatrix_posDef {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω) (hi : (interior Ω).Nonempty) :
@@ -542,28 +544,33 @@ theorem invMatrix_posDef {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω) (hi : (i
   · rw [finsuppSum_eq_dot]
     exact invMatrix_pos hc hi fun h0 => hx (Finsupp.coe_eq_zero.mp h0)
 
-/-- **Normalization adapter, matrix form.** `invMatrix Ω` has a symmetric invertible square root. -/
-theorem exists_sqrt_invMatrix {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω) (hi : (interior Ω).Nonempty) :
-    ∃ P : Matrix (Fin d) (Fin d) ℝ, Pᵀ = P ∧ P * P = invMatrix Ω ∧ IsUnit P.det := by
-  have hpd := invMatrix_posDef hc hi
-  have hps := Matrix.PosDef.posSemidef hpd
-  refine ⟨Matrix.PosSemidef.sqrt hps, ?_, Matrix.PosSemidef.sqrt_mul_self hps, ?_⟩
-  · have h := Matrix.PosSemidef.isHermitian (Matrix.PosSemidef.posSemidef_sqrt hps)
-    rwa [Matrix.IsHermitian, Matrix.conjTranspose_eq_transpose_of_trivial] at h
-  · refine isUnit_iff_ne_zero.mpr fun h0 => ?_
-    have : (invMatrix Ω).det = 0 := by
-      rw [← Matrix.PosSemidef.sqrt_mul_self hps, Matrix.det_mul, h0, zero_mul]
-    exact (Matrix.PosDef.det_pos hpd).ne' this
+/-- **Normalization adapter, matrix form.** `invMatrix Ω` factors as `Bᵀ * B`. -/
+theorem exists_factor_invMatrix {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω)
+    (hi : (interior Ω).Nonempty) : ∃ B : Matrix (Fin d) (Fin d) ℝ, Bᵀ * B = invMatrix Ω := by
+  obtain ⟨B, hB⟩ := Matrix.posSemidef_iff_eq_conjTranspose_mul_self.mp
+    (Matrix.PosDef.posSemidef (invMatrix_posDef hc hi))
+  exact ⟨B, by rw [hB, Matrix.conjTranspose_eq_transpose_of_trivial]⟩
 
 /-- **Normalization adapter.** In suitable linear coordinates the invariant form is the sum of
 squares: a linear automorphism `T` of the chart coordinates with `Q(v) = ∑ j, (T v) j ^ 2`. -/
 theorem qnorm_eq_sum_sq {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω) (hi : (interior Ω).Nonempty) :
     ∃ T : (Fin d → ℝ) ≃ₗ[ℝ] (Fin d → ℝ), ∀ v, qnorm Ω v = ∑ j, (T v) j ^ 2 := by
-  obtain ⟨P, hPt, hPP, hdet⟩ := exists_sqrt_invMatrix hc hi
-  refine ⟨Matrix.toLinearEquiv' P (Matrix.invertibleOfIsUnitDet P hdet), fun v => ?_⟩
-  change v ⬝ᵥ (invMatrix Ω *ᵥ v) = ∑ j, (P *ᵥ v) j ^ 2
-  rw [← hPP, ← Matrix.mulVec_mulVec, Matrix.dotProduct_mulVec, ← Matrix.mulVec_transpose, hPt]
-  simp only [dotProduct, pow_two]
+  obtain ⟨B, hB⟩ := exists_factor_invMatrix hc hi
+  have hq : ∀ v, qnorm Ω v = ∑ j, (B *ᵥ v) j ^ 2 := fun v => by
+    unfold qnorm
+    rw [← hB, ← Matrix.mulVec_mulVec, Matrix.dotProduct_mulVec, ← Matrix.mulVec_transpose,
+      Matrix.transpose_transpose]
+    simp only [dotProduct, pow_two]
+  have hinj : Function.Injective (Matrix.toLin' B) := by
+    intro v w hvw
+    rw [Matrix.toLin'_apply, Matrix.toLin'_apply] at hvw
+    by_contra hne
+    have hpos := qnorm_pos hc hi (sub_ne_zero.mpr hne)
+    rw [hq, Matrix.mulVec_sub, hvw, sub_self] at hpos
+    simp at hpos
+  refine ⟨LinearEquiv.ofInjectiveEndo (Matrix.toLin' B) hinj, fun v => ?_⟩
+  rw [hq]
+  rfl
 
 /-- **The coordinate Euclidean ball.** A compact convex body with interior that is boundary transitive
 under a body-preserving family is an affine image of the coordinate Euclidean ball of its dimension. -/
@@ -784,7 +791,7 @@ theorem edgeMid_not_extreme_square2 : (![1, 0] : Fin 2 → ℝ) ∉ square2.extr
     refine ⟨1 / 2, 1 / 2, by norm_num, by norm_num, by norm_num, ?_⟩
     funext i
     fin_cases i <;> simp <;> norm_num
-  obtain ⟨h, -⟩ := hx.2 h1 h2 hseg
+  have h := (hx.2 h1 h2 hseg).1
   have := congrFun h 1
   simp at this
 
@@ -873,7 +880,7 @@ theorem edgeMid_not_extreme_oct3 : (![1 / 2, 1 / 2, 0] : Fin 3 → ℝ) ∉ oct3
     exact vec3_ext (show (1 / 2 : ℝ) * 1 + 1 / 2 * 0 = 1 / 2 by norm_num)
       (show (1 / 2 : ℝ) * 0 + 1 / 2 * 1 = 1 / 2 by norm_num)
       (show (1 / 2 : ℝ) * 0 + 1 / 2 * 0 = 0 by norm_num)
-  obtain ⟨h, -⟩ := hx.2 h1 h2 hseg
+  have h := (hx.2 h1 h2 hseg).1
   have := congrFun h 1
   norm_num at this
 
@@ -930,7 +937,7 @@ end OIBridge
 #print axioms OIBridge.TransitiveBody.centroid_mem
 #print axioms OIBridge.TransitiveBody.centroid_mem_interior
 #print axioms OIBridge.TransitiveBody.eq_qBall_of_boundaryTransitive
-#print axioms OIBridge.TransitiveBody.exists_sqrt_invMatrix
+#print axioms OIBridge.TransitiveBody.exists_factor_invMatrix
 #print axioms OIBridge.TransitiveBody.qnorm_eq_sum_sq
 #print axioms OIBridge.TransitiveBody.exists_affine_image_eq_eball
 #print axioms OIBridge.TransitiveBody.chartBody_eq_qBall
