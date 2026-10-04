@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "TRB-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "7c821261e2537a97b85ab78ae50c6998600bc019",
+ "f": "30fb26f89c24f72f189f97401fc6ca3d08fa7105",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-trb-1-transitive-body/preregistration.md",
+   "blob": "70c3c34447b5e3caf6bea97682bd840631e732ff"
+  }
+ ],
+ "governed_paths_digest": "6959bee8faaca138fdf34ab218b8ed9fece99cc69b3af8af2977c13effac4b42",
+ "e": "62cd9245a2cb3cf024dbbf8d360377a710493dfa",
+ "tree_e": "ab608776d208ccec54dae92e38ab3dc949943feb",
+ "execution_delta_digest": "45d3b512174220c6d91a2ef9bf09f1c71fe1c230dcb8d7eb39cdfd6d3452e4c8",
+ "candidates": [],
+ "landing": {
+  "base": "7c821261e2537a97b85ab78ae50c6998600bc019",
+  "object": "0078d42eeb00542298104257fa7782d46df37acc",
+  "reconciliations": [
+   "0078d42eeb00542298104257fa7782d46df37acc"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "238a0af0ffc6239cd7899769932657669bb6e805658ed9eb657b771b54d90a54"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "30fb26f89c24f72f189f97401fc6ca3d08fa7105",
+   "record": "https://github.com/amaybaum/incompleteness/pull/787#issuecomment-5983275605"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "30fb26f89c24f72f189f97401fc6ca3d08fa7105",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37224683945"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "62cd9245a2cb3cf024dbbf8d360377a710493dfa",
+   "record": "https://github.com/amaybaum/incompleteness/pull/787#issuecomment-5983766056"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "62cd9245a2cb3cf024dbbf8d360377a710493dfa",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37228318632"
+  }
+ ]
+}
