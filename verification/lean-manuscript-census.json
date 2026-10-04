@@ -1346,6 +1346,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Round OPACT-1, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/reconstruction/round-opact-1-completion-action/preregistration.md. The kernel layer defines a completion-valued operation datum, which carries each stage preparation to a point of the completed body, and the two respect conditions StateRespect and AffineRespect; AffineRespect implies StateRespect and not conversely (midOp_stateRespect, midOp_not_affineRespect). Under AffineRespect a datum induces exactly one affine map of the chart of a nonempty completed body of finite rank (existsUnique_induced), an affine extension forces AffineRespect (affineRespect_of_induced), the induced map preserves the completed body (induced_mem) and composes (induced_after), a datum with an inverse datum induces an affine equivalence that preserves the body (preservesBody_inducedEquiv), and stage effects read after the induced map are effects (isEffectOn_pullback). Carried by no manuscript. Nothing here supplies an operation, a flow, transitivity, an invariant inner product, a dimension or a ball, and nothing uses SC∞."
+    },
+    {
+      "name": "iterated operation data and finite/infinite order on the completed body (round ORD-1, reconstruction)",
+      "modules": [
+        "CompositionOrder"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Round ORD-1, a native round under AGENTS.md §A.39. The kernel layer composes a completion-valued operation datum that respects affine relations with itself through the composition law of CompletionAction and names finite and infinite order of an affine automorphism on a set of states, with ORD∞ as the predicate that a set of automorphisms has a member of infinite order and MulClosed as composition closure. It proves that the map induced by the m-fold composite is the m-fold composite of the induced map (induced_iterAfter), that a reversible datum whose induced automorphism has infinite order on the chart body has every positive power nontrivial on the preparations (exists_moved_of_infiniteOrderOn), that a reversible datum carrying each stage's preparations to preparation vectors of the same stage induces an automorphism of finite order on the chart body (finiteOrderOn_of_stagePreserving), through a finite affinely spanning subset of the chart generators (exists_finset_affineSpan_eq_top), and that a finite composition-closed set of automorphisms has no member of infinite order (not_ordInf_of_finite_of_mulClosed); controls show the rotation by one radian of infinite order on the ball (infiniteOrderOn_rot3_one), the Householder reflections without a member of infinite order (not_ordInf_householder3), and the singleton of the rotation, finite and not composition-closed, with one (ordInf_singleton_rot3). Carried by no manuscript. Nothing here claims transitivity, a ball theorem, a dimension, a drive or a flow, and TRANS ⇒ ORD∞ is not stated; nothing supplies an operation datum, finite rank, a completion chart or stage preservation from an OI construction."
     }
   ]
 }
