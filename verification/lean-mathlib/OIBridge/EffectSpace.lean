@@ -41,6 +41,7 @@
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
 import OIBridge.TransitiveBody
+import Mathlib.Analysis.Real.Cardinality
 
 namespace OIBridge
 namespace EffectSpace
@@ -225,7 +226,8 @@ theorem fullEffects_subset_unitSpan : fullEffects ball3 ⊆ unitSpan directional
     have z1 : a1 = 0 := (pow_eq_zero_iff two_ne_zero).mp (by linarith)
     have z2 : a2 = 0 := (pow_eq_zero_iff two_ne_zero).mp (by linarith)
     refine ⟨ballEffect ![0, 0, 1], ⟨_, ez_sphere, rfl⟩, c, 0, h0, le_rfl, by linarith, ?_⟩
-    ext v
+    apply AffineMap.ext
+    intro v
     rw [mix_apply, unitEffect_apply, hr v, z0, z1, z2]
     ring
   · set s := Real.sqrt A with hs
@@ -244,7 +246,8 @@ theorem fullEffects_subset_unitSpan : fullEffects ball3 ⊆ unitSpan directional
     have hsc' : s ≤ 1 - c := by nlinarith
     refine ⟨ballEffect ![a0 * k, a1 * k, a2 * k], ⟨_, hb, rfl⟩, c - s, 2 * s, by linarith,
       by linarith, by linarith, ?_⟩
-    ext v
+    apply AffineMap.ext
+    intro v
     rw [mix_apply, unitEffect_apply, ballEffect_apply, hr v]
     show c + v 0 * a0 + v 1 * a1 + v 2 * a2 =
       (c - s) * 1 + 2 * s * (1 / 2 + (a0 * k * v 0 + a1 * k * v 1 + a2 * k * v 2) / 2)
@@ -274,7 +277,8 @@ theorem unbiasedFamily_convexClosed : ConvexClosed unbiasedFamily := by
   have hm : α • b + β • b' ∈ ball3 :=
     ball3_convex ((mem_ball3 b).mpr hb) ((mem_ball3 b').mpr hb') hα hβ hαβ
   refine ⟨α • b + β • b', (mem_ball3 _).mp hm, ?_⟩
-  ext v
+  apply AffineMap.ext
+  intro v
   rw [mix_apply]
   simp only [ballEffect_apply, Pi.add_apply, Pi.smul_apply, smul_eq_mul]
   linear_combination (1 / 2 : ℝ) * hαβ
@@ -310,7 +314,8 @@ theorem unbiasedFamily_subset_convexHull : unbiasedFamily ⊆ convexHull ℝ dir
       subset_convexHull ℝ _ ⟨_, nez_sphere, rfl⟩
     have heq : ballEffect b =
         (1 / 2 : ℝ) • ballEffect ![0, 0, 1] + (1 / 2 : ℝ) • ballEffect ![0, 0, -1] := by
-      ext v
+      apply AffineMap.ext
+      intro v
       rw [mix_apply, ballEffect_apply, ballEffect_apply, ballEffect_apply, z0, z1, z2]
       show (1 : ℝ) / 2 + (0 * v 0 + 0 * v 1 + 0 * v 2) / 2 =
         1 / 2 * (1 / 2 + (0 * v 0 + 0 * v 1 + 1 * v 2) / 2) +
@@ -345,7 +350,8 @@ theorem unbiasedFamily_subset_convexHull : unbiasedFamily ⊆ convexHull ℝ dir
       subset_convexHull ℝ _ ⟨_, hnu, rfl⟩
     have heq : ballEffect b = ((1 + s) / 2) • ballEffect ![b 0 * k, b 1 * k, b 2 * k] +
         ((1 - s) / 2) • ballEffect ![-(b 0 * k), -(b 1 * k), -(b 2 * k)] := by
-      ext v
+      apply AffineMap.ext
+      intro v
       rw [mix_apply, ballEffect_apply, ballEffect_apply, ballEffect_apply]
       show (1 : ℝ) / 2 + (b 0 * v 0 + b 1 * v 1 + b 2 * v 2) / 2 =
         (1 + s) / 2 * (1 / 2 + (b 0 * k * v 0 + b 1 * k * v 1 + b 2 * k * v 2) / 2) +
@@ -380,7 +386,8 @@ theorem mem_unbiased_of_half {e : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ} (he : IsEffec
   refine ⟨![2 * a0, 2 * a1, 2 * a2], ?_, ?_⟩
   · show (2 * a0) ^ 2 + (2 * a1) ^ 2 + (2 * a2) ^ 2 ≤ 1
     nlinarith [h2]
-  · ext v
+  · apply AffineMap.ext
+    intro v
     rw [hr v, ballEffect_apply, hc]
     show 1 / 2 + v 0 * a0 + v 1 * a1 + v 2 * a2 =
       1 / 2 + (2 * a0 * v 0 + 2 * a1 * v 1 + 2 * a2 * v 2) / 2
@@ -469,7 +476,7 @@ theorem avail_fullEffects_control :
 conclusion restated: the content is the upper bound. -/
 theorem unitEffect_mem_unitSpan : unitEffect ∈ unitSpan directionalFamily :=
   ⟨ballEffect ![0, 0, 1], ⟨_, ez_sphere, rfl⟩, 1, 0, zero_le_one, le_rfl, by norm_num,
-    by ext v; rw [mix_apply]; ring⟩
+    by apply AffineMap.ext; intro v; rw [mix_apply]; ring⟩
 
 theorem mixingClosed_unitSpan_directional : MixingClosed (unitSpan directionalFamily) := by
   rw [← fullEffects_eq_unitSpan]
@@ -487,7 +494,8 @@ theorem not_mixingClosed_discrete :
     Set.mem_union_right _ ⟨_, ez_sphere, rfl⟩
   have h := hM _ hU _ hZ (1 / 2) (1 / 2) (by norm_num) (by norm_num) (by norm_num)
   have heq : (1 / 2 : ℝ) • unitEffect + (1 / 2 : ℝ) • ballEffect ![0, 0, 1] = unsharpSeed := by
-    ext v
+    apply AffineMap.ext
+    intro v
     rw [mix_apply, unitEffect_apply, ballEffect_apply, unsharpSeed_apply]
     show (1 : ℝ) / 2 * 1 + 1 / 2 * (1 / 2 + (0 * v 0 + 0 * v 1 + 1 * v 2) / 2) = 3 / 4 + v 2 / 4
     ring
@@ -593,7 +601,7 @@ theorem seedOrbitAvailable_refl :
   subst hg
   rw [seedTransport_refl]
   exact ⟨_, Set.mem_singleton _, 0, 1, le_rfl, zero_le_one, by norm_num,
-    by ext v; rw [mix_apply]; ring⟩
+    by apply AffineMap.ext; intro v; rw [mix_apply]; ring⟩
 
 theorem ballEffect_ex_not_mem_unitSpan_ez :
     ballEffect ![1, 0, 0] ∉ unitSpan {ballEffect ![0, 0, 1]} := by
@@ -601,9 +609,11 @@ theorem ballEffect_ex_not_mem_unitSpan_ez :
   rw [Set.mem_singleton_iff] at hf
   subst hf
   have h1 : ballEffect ![1, 0, 0] ![1, 0, 0] =
-      (α • unitEffect + β • ballEffect ![0, 0, 1]) ![1, 0, 0] := by rw [← h]
+      (α • unitEffect + β • ballEffect ![0, 0, 1] : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ) ![1, 0, 0] := by
+    rw [← h]
   have h2 : ballEffect ![1, 0, 0] (-![1, 0, 0]) =
-      (α • unitEffect + β • ballEffect ![0, 0, 1]) (-![1, 0, 0]) := by rw [← h]
+      (α • unitEffect + β • ballEffect ![0, 0, 1] : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ) (-![1, 0, 0]) := by
+    rw [← h]
   rw [ballEffect_self ex_sphere, mix_apply, unitEffect_apply, ballEffect_apply] at h1
   rw [ballEffect_neg_self ex_sphere, mix_apply, unitEffect_apply, ballEffect_apply] at h2
   change (1 : ℝ) = α * 1 + β * (1 / 2 + (0 * 1 + 0 * 0 + 1 * 0) / 2) at h1
