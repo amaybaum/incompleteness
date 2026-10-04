@@ -656,8 +656,12 @@ theorem not_boundaryTransitive_of_countable {G : Set ((Fin 3 → ℝ) ≃ᵃ[ℝ
     intro s _ t _ hst
     exact congrFun hst 0
   have hc : (Set.Icc (-1 : ℝ) 1).Countable := hmaps.countable_of_injOn hinj hsph
-  have h := Real.Icc_countable_iff.mp hc
-  norm_num at h
+  have h : Cardinal.mk (Set.Icc (-1 : ℝ) 1) ≤ Cardinal.aleph0 :=
+    Cardinal.le_aleph0_iff_set_countable.mpr hc
+  have hI : Cardinal.mk (Set.Icc (-1 : ℝ) 1) = Cardinal.continuum :=
+    Cardinal.mk_Icc_real (by norm_num)
+  rw [hI] at h
+  exact absurd h (not_le.mpr Cardinal.aleph0_lt_continuum)
 
 end Controls
 
