@@ -1,0 +1,1 @@
+C1 memory measurement (2026-10-04): revised hsim3b.py (bits extracted on demand), 216 six-leap Stage-A protocols of kappa ((0,1),(0,1)) under H1: 23.8 s; peak RSS 1.38 GB (prototype before C1: 4.55 GB). Per preregistration section 11, Block 2 runs with at most 3 workers.
