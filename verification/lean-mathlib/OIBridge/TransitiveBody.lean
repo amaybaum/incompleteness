@@ -44,6 +44,7 @@ import Mathlib.Analysis.Convex.KreinMilman
 import Mathlib.Analysis.Convex.Topology
 import Mathlib.Analysis.Normed.Module.FiniteDimension
 import Mathlib.LinearAlgebra.Matrix.PosDef
+import Mathlib.Analysis.Matrix.LDL
 import Mathlib.Analysis.Real.Pi.Irrational
 
 namespace OIBridge
@@ -257,9 +258,7 @@ theorem extreme_image {Ω : Set V} {g : V ≃ᵃ[ℝ] V} (hg : ∀ x ∈ Ω, g x
   have hmem : g.symm (g x) ∈ (⇑g.symm) '' openSegment ℝ y₁ y₂ := Set.mem_image_of_mem _ hseg
   rw [himg, AffineEquiv.symm_apply_apply] at hmem
   have hh := hx.2 (hg y₁ hy₁).2 (hg y₂ hy₂).2 hmem
-  constructor
-  · rw [← hh.1, AffineEquiv.apply_symm_apply]
-  · rw [← hh.2, AffineEquiv.apply_symm_apply]
+  rw [← hh, AffineEquiv.apply_symm_apply]
 
 /-- An extreme point is not an interior point. -/
 theorem not_mem_interior_of_extreme [Nontrivial V] {Ω : Set V} {x : V}
@@ -282,7 +281,7 @@ theorem not_mem_interior_of_extreme [Nontrivial V] {Ω : Set V} {x : V}
     rw [Metric.mem_ball, dist_eq_norm, add_sub_cancel_left, hvn]; linarith)
   have hseg : x ∈ openSegment ℝ (x - v) (x + v) :=
     ⟨1 / 2, 1 / 2, by norm_num, by norm_num, by norm_num, by module⟩
-  have h1 := (hx.2 hmem₁ hmem₂ hseg).1
+  have h1 := hx.2 hmem₁ hmem₂ hseg
   apply hv0
   have : x - v = x - 0 := by rw [sub_zero]; exact h1
   exact sub_right_injective this
@@ -547,9 +546,41 @@ theorem invMatrix_posDef {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω) (hi : (i
 /-- **Normalization adapter, matrix form.** `invMatrix Ω` factors as `Bᵀ * B`. -/
 theorem exists_factor_invMatrix {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω)
     (hi : (interior Ω).Nonempty) : ∃ B : Matrix (Fin d) (Fin d) ℝ, Bᵀ * B = invMatrix Ω := by
-  obtain ⟨B, hB⟩ := Matrix.posSemidef_iff_eq_conjTranspose_mul_self.mp
-    (Matrix.PosDef.posSemidef (invMatrix_posDef hc hi))
-  exact ⟨B, by rw [hB, Matrix.conjTranspose_eq_transpose_of_trivial]⟩
+  have hS : (invMatrix Ω).PosDef := invMatrix_posDef hc hi
+  -- The LDL decomposition `S = L * diagonal D * Lᴴ`; its diagonal entries are positive.
+  have hpos : ∀ i, 0 < Matrix.LDL.diagEntries hS i := by
+    intro i
+    have hrow : Matrix.LDL.lowerInv hS i ≠ 0 := by
+      intro h0
+      have hdet : (Matrix.LDL.lowerInv hS).det = 0 :=
+        Matrix.det_eq_zero_of_row_eq_zero i fun j => congrFun h0 j
+      exact (Matrix.isUnit_det_of_invertible (Matrix.LDL.lowerInv hS)).ne_zero hdet
+    have hx : star (Matrix.LDL.lowerInv hS i) ≠ 0 := by rwa [star_trivial]
+    have h := hS.dotProduct_mulVec_pos hx
+    rw [star_trivial, star_trivial] at h
+    unfold Matrix.LDL.diagEntries
+    rw [EuclideanSpace.inner_toLp_toLp, star_trivial, star_trivial, dotProduct_comm]
+    exact h
+  set L := Matrix.LDL.lower hS with hL
+  set D := Matrix.LDL.diagEntries hS with hD
+  have hLDL : L * Matrix.diagonal D * Lᴴ = invMatrix Ω := by
+    have := Matrix.LDL.lower_conj_diag hS
+    rwa [Matrix.LDL.diag] at this
+  set s : Fin d → ℝ := fun i => Real.sqrt (D i) with hs
+  have hsq : Matrix.diagonal s * Matrix.diagonal s = Matrix.diagonal D := by
+    rw [Matrix.diagonal_mul_diagonal]
+    congr 1
+    funext i
+    exact Real.mul_self_sqrt (hpos i).le
+  have hLt : (Lᴴ)ᵀ = L := by
+    rw [Matrix.conjTranspose_eq_transpose_of_trivial, Matrix.transpose_transpose]
+  refine ⟨Matrix.diagonal s * Lᴴ, ?_⟩
+  calc (Matrix.diagonal s * Lᴴ)ᵀ * (Matrix.diagonal s * Lᴴ)
+      = L * (Matrix.diagonal s * Matrix.diagonal s) * Lᴴ := by
+        rw [Matrix.transpose_mul, Matrix.diagonal_transpose, hLt]
+        simp only [Matrix.mul_assoc]
+    _ = L * Matrix.diagonal D * Lᴴ := by rw [hsq]
+    _ = invMatrix Ω := hLDL
 
 /-- **Normalization adapter.** In suitable linear coordinates the invariant form is the sum of
 squares: a linear automorphism `T` of the chart coordinates with `Q(v) = ∑ j, (T v) j ^ 2`. -/
@@ -791,9 +822,9 @@ theorem edgeMid_not_extreme_square2 : (![1, 0] : Fin 2 → ℝ) ∉ square2.extr
     refine ⟨1 / 2, 1 / 2, by norm_num, by norm_num, by norm_num, ?_⟩
     funext i
     fin_cases i <;> simp <;> norm_num
-  have h := (hx.2 h1 h2 hseg).1
+  have h := hx.2 h1 h2 hseg
   have := congrFun h 1
-  simp at this
+  exact absurd (this : (1 : ℝ) = 0) one_ne_zero
 
 /-- **Polytope control (the square).** No body-preserving family is boundary transitive on the
 square: the edge midpoint is a boundary state that is not extreme. -/
@@ -880,9 +911,10 @@ theorem edgeMid_not_extreme_oct3 : (![1 / 2, 1 / 2, 0] : Fin 3 → ℝ) ∉ oct3
     exact vec3_ext (show (1 / 2 : ℝ) * 1 + 1 / 2 * 0 = 1 / 2 by norm_num)
       (show (1 / 2 : ℝ) * 0 + 1 / 2 * 1 = 1 / 2 by norm_num)
       (show (1 / 2 : ℝ) * 0 + 1 / 2 * 0 = 0 by norm_num)
-  have h := (hx.2 h1 h2 hseg).1
+  have h := hx.2 h1 h2 hseg
   have := congrFun h 1
-  norm_num at this
+  have h' : (0 : ℝ) = 1 / 2 := this
+  norm_num at h'
 
 /-- **Polytope control (the octahedron of Level 3A).** No body-preserving family is boundary
 transitive on the octahedron: vertex transitivity is not all-boundary transitivity. -/
